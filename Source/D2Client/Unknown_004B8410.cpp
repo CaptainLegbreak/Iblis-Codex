@@ -119,7 +119,7 @@ struct D2SoundNodeStrc
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 extern int gbSoundReady_007C545C; // 0x007C545C
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-unsigned int __cdecl sub_00481820(); // 0x00481820
+int __cdecl sub_00481820(); // 0x00481820
 D2SoundsTxtStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920

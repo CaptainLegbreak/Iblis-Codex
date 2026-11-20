@@ -67,7 +67,7 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 int __fastcall sub_00479B80_GetRecordValue(D2StoredUnitRecordStrc* pEntry); // 0x00479B80
 int __cdecl sub_0047A980_IsNumberDisplayEnabled(); // 0x0047A980
@@ -75,17 +75,17 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 void __cdecl sub_0044D3E0_DrawOverlayA(); // 0x0044D3E0
 void __cdecl sub_0044E5A0_DrawOverlayB(); // 0x0044E5A0
-int __fastcall sub_0044D390_GetTextX(int nStringId, int nX); // 0x0044D390
-void __fastcall sub_004684C0(); // 0x004684C0
+int __fastcall sub_0044D390_GetTextX(unsigned short nStringIndex, int nCenterX); // 0x0044D390
+void __cdecl sub_004684C0(); // 0x004684C0
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 D2CellFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nType); // 0x004788B0
-void __stdcall sub_004FB500(const char* szPalette, const char* szPl2); // 0x004FB500
+int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename); // 0x004FB500
 void __fastcall sub_004547B0(); // 0x004547B0
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_00478130_SetScale(int nValue, int nDivisor); // 0x00478130
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
@@ -165,7 +165,7 @@ void __fastcall sub_0044BA20(int); // 0x0044BA20
 void __cdecl sub_0044C890_ReleaseGameState(); // 0x0044C890
 unsigned long __stdcall sub_0044CF20(void*); // 0x0044CF20
 int __stdcall sub_0044D100_ShowBetaScreens(int); // 0x0044D100
-void __cdecl sub_0044DCE0_MouseExtTables(); // 0x0044DCE0
+extern "C" void __cdecl sub_0044DCE0_MouseExtTables_451E10(); // 0x0044DCE0
 int __fastcall sub_0044E040_TimerRunning(D2LoadingTimerStrc*); // 0x0044E040
 void __cdecl sub_0044E200_InitGameState(); // 0x0044E200
 int __stdcall sub_0044E400_LoadingTimerCallback(int); // 0x0044E400
@@ -264,7 +264,7 @@ int __stdcall sub_0044E770_DrawEndGameScreen(int nUnused)
                 s_pEndGameCell_007A0700 = sub_004788B0_LoadCellFile(szPath, 0);
                 sprintf(szPalette, "%s\\Palette\\%s\\pal.dat", szDataGlobal_006D4118, szName);
                 sprintf(szPl2, "%s\\Palette\\%s\\pal.pl2", szDataGlobal_006D4118, szName);
-                sub_004FB500(szPalette, szPl2);
+                D2Win_10028(szPalette, szPl2);
             }
 
             if (!s_pEndGameOkCell_007A06FC)
@@ -464,7 +464,7 @@ void __cdecl sub_00454740_LoadLoadingPalette()
     char szPalette[0x104];
     sprintf(szPalette, "%s\\Palette\\Loading\\pal.dat", szDataGlobal_006D4118);
     sprintf(szPl2, "%s\\Palette\\Loading\\pal.pl2", szDataGlobal_006D4118);
-    sub_004FB500(szPalette, szPl2);
+    D2Win_10028(szPalette, szPl2);
 }
 
 // 0x00455510
@@ -568,6 +568,8 @@ void __cdecl sub_00456550_LoadLoadingScreen()
 }
 
 #include "gen/data/Source/D2Client/GAME/Game_0044DB60.inc"
+struct D2ActiveRoomStrc;
+struct D2StoredUnitRecordStrc;
 
 static __forceinline int TimerExpired(D2LoadingTimerStrc* pTimer)
 {
@@ -653,7 +655,7 @@ int __cdecl sub_0044F360_RunGameSession()
     {
         sub_00482EF0_PlayCinematic(5);
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-        sub_0044DCE0_MouseExtTables();
+        sub_0044DCE0_MouseExtTables_451E10();
         sub_0044BA20(0);
         sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
         sub_00451BB0_MessageLoop(sub_0044E770_DrawEndGameScreen);
@@ -683,7 +685,7 @@ int __cdecl sub_0044F360_RunGameSession()
         if(bEndGame)
         {
             sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-            sub_0044DCE0_MouseExtTables();
+            sub_0044DCE0_MouseExtTables_451E10();
             sub_0044BA20(2);
             sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
             sub_00451BB0_MessageLoop(sub_0044E770_DrawEndGameScreen);
@@ -713,7 +715,7 @@ int __cdecl sub_0044F360_RunGameSession()
     else
     {
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
-        sub_0044DCE0_MouseExtTables();
+        sub_0044DCE0_MouseExtTables_451E10();
     }
     if(gnMode_007A0610==2 || gnMode_007A0610==6 || gnMode_007A0610==3 || gnMode_007A0610==7)
         if(gpComInterface_007A05F4)gpComInterface_007A05F4->Close();

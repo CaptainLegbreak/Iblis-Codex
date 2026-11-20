@@ -88,7 +88,7 @@ void __cdecl sub_00435330_ShowLoginScreen(); // 0x00435330
 void __cdecl sub_00436CF0(); // 0x00436CF0
 void __cdecl sub_00436EB0_UpdateOkButton(); // 0x00436EB0
 void __fastcall sub_0043C540(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
-void __fastcall sub_0043C6B0(char* szName); // 0x0043C6B0
+int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName); // 0x0043C6B0
 void __cdecl sub_00435E10(); // 0x00435E10
 extern int gnLaunchMode_007795EC; // 0x007795EC
 void __cdecl sub_0042F6C0_SetDone(); // 0x0042F6C0
@@ -335,7 +335,7 @@ int __stdcall sub_00436360_SubmitCharacter(int nArg)
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
         sub_0043C540(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0(gpLaunchRecord_007795D4->szCharName);
+        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord_007795D4->szCharName);
         gpLaunchRecord_007795D4->nByte35E = 4;
         gnLaunchState_007795E8 = 3;
         *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
@@ -347,7 +347,7 @@ int __stdcall sub_00436360_SubmitCharacter(int nArg)
     if (gnLaunchMode_007795EC == 0)
     {
         sub_0043C540(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0(gpLaunchRecord_007795D4->szCharName);
+        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord_007795D4->szCharName);
         gpLaunchRecord_007795D4->nByte35E = 1;
         *(int*)gpLaunchRecord_007795D4->aState19 = 0;
         *(int*)gpLaunchRecord_007795D4->aState209 = 4;
@@ -363,7 +363,7 @@ int __stdcall sub_00436360_SubmitCharacter(int nArg)
     {
         sub_0043C6A0(0);
         sub_0043C540(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0(gpLaunchRecord_007795D4->szCharName);
+        sub_0043C6B0_WriteSaveHeader(gpLaunchRecord_007795D4->szCharName);
         gpLaunchRecord_007795D4->nByte35E = 3;
         gnLaunchState_007795E8 = 1;
         *(int*)gpLaunchRecord_007795D4->aState209 = 4;

@@ -49,7 +49,7 @@ extern "C" int __stdcall bind(unsigned int s, const D2SockAddrInStrc* name, int 
 extern "C" int __stdcall listen(unsigned int s, int backlog);                                               // 0x006C9B70
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...);                                                             // 0x00410610
 int __fastcall sub_0040D880(unsigned int s);                                                                // 0x0040D880
-void __fastcall sub_00407F80_ThreadHookNop2(unsigned long nThreadId, void* hThread);                        // 0x00407F80
+void __fastcall sub_00407F80_ThreadHookNop2(unsigned int nId, void* hThread); // 0x00407F80
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 unsigned long __stdcall sub_006C2860_WorkerThread(void* pArg);                                              // 0x006C2860
 unsigned long __stdcall sub_006C3030_WorkerThread2(void* pArg);                                             // 0x006C3030

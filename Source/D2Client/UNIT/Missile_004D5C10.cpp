@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+struct D2UnitStrc;
 
 
 
@@ -30,7 +31,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                   // 0x0045C390
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile);                                            // 0x004CD390
-void __fastcall sub_004CDC30_CreateClientMissile(D2UnitStrc* pMissile, int nMissileId, int a3, int a4, int nX, int nY, int nSkillId, int nSkillLevel, int nParam); // 0x004CDC30
+D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile);                                             // 0x004D30C0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile);                                                       // 0x0064A210
@@ -109,7 +110,7 @@ void __fastcall sub_004D5C10_CltDo_Volcano(D2UnitStrc* pMissile)
         nX += CLIENTS_GetUnitX(pMissile);
         const int nY = CLIENTS_GetUnitY(pMissile) + SEED_RollLimitedRandomNumber(pSeed, 2 * nAuraRange + 1) - nAuraRange;
         MISSILE_SetTargetX(pMissile, SEED_GetLowSeed(pSeed));
-        sub_004CDC30_CreateClientMissile(pMissile, pMissilesTxtRecord->wSubMissile[0], 0, 0, nX, nY, MISSILE_GetSkill(pMissile), nLevel, pMissilesTxtRecord->dwParam[4]);
+        sub_004CDC30(pMissile, pMissilesTxtRecord->wSubMissile[0], 0, 0, nX, nY, MISSILE_GetSkill(pMissile), nLevel, pMissilesTxtRecord->dwParam[4]);
     }
 
     sub_004D30C0_CltDoCommon(pMissile);

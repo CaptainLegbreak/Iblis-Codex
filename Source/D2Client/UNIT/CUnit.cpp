@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+struct D2DynamicPathStrc;
+struct D2UnitTargetStrc;
 
 #define PLRMODE_NEUTRAL 1
 #define PLRMODE_TOWNNEUTRAL 5
@@ -133,7 +135,7 @@ extern D2UnitStrc* gpUnitHashTable_007A5270[6 * UNIT_HASH_BUCKETS]; // 0x007A527
 extern D2UnitStrc* gpUnitHashTable_007A5E70[6 * UNIT_HASH_BUCKETS]; // 0x007A5E70
 void __fastcall sub_00480810_OnUnitA(D2UnitStrc* pUnit); // 0x00480810
 void __fastcall sub_0046D780(D2UnitStrc* pUnit); // 0x0046D780
-void __fastcall sub_004BDEE0(D2UnitStrc* pUnit); // 0x004BDEE0
+char __fastcall sub_004BDEE0(D2UnitStrc* pUnit); // 0x004BDEE0
 int __fastcall sub_0046F1F0_GetGfx34(D2GfxDataStrc* pGfxData); // 0x0046F1F0
 int __fastcall sub_0046F250_GetGfx38(D2GfxDataStrc* pGfxData); // 0x0046F250
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
@@ -154,7 +156,7 @@ int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseT
 int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int nArg); // 0x004BC5E0
 void __fastcall sub_00480420_RefreshPathTarget(D2UnitStrc* pUnit); // 0x00480420
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-short __fastcall sub_00479C00(D2UnitStrc* pUnit); // 0x00479C00
+unsigned short __fastcall sub_00479C00_LookupPartyNumber(D2UnitStrc* pUnit); // 0x00479C00
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
@@ -174,7 +176,7 @@ struct D2CoordStrc
     int nX;
     int nY;
 };
-void __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, void* pTarget, int nArg); // 0x00461250
+int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 void __cdecl sub_00466FE0(); // 0x00466FE0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
@@ -184,7 +186,7 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DATATBLS_GetNoPerFromLevelsTxt(int nLevelId); // 0x0061DBE0
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
-int __stdcall D2Common_10231(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650C20
+int __stdcall D2Common_10231(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit_unused, D2ActiveRoomStrc* pRooms, unsigned short nX, unsigned short nY); // 0x00650C20
 void __cdecl sub_00459140_Refresh(); // 0x00459140
 void __fastcall sub_00472C20_PlayerMoved(int nArg); // 0x00472C20
 int __stdcall sub_00645630_IsSelectableSoftCorpse(D2UnitStrc* pUnit); // 0x00645630
@@ -231,8 +233,8 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn); /
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
 void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
-void __stdcall sub_00416710_Unlock(void* pHandle); // 0x00416710
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS]; // 0x007A6F90
 extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 extern int gdwGlobal_007BCBF0; // 0x007BCBF0
@@ -304,7 +306,7 @@ struct D2DrlgCoordsStrc
     int nTileHeight;
 };
 
-void __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
+D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
@@ -1042,7 +1044,7 @@ short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
-        return sub_00479C00(pUnit);
+        return sub_00479C00_LookupPartyNumber(pUnit);
     }
     return -1;
 }
@@ -1412,13 +1414,13 @@ void __cdecl sub_005239C0_UnlockCDKeys()
 {
     if (gpCDKeyHandle_00882744)
     {
-        sub_00416710_Unlock(gpCDKeyHandle_00882744);
+        SFileUnloadFile(gpCDKeyHandle_00882744);
         gpCDKeyHandle_00882744 = 0;
     }
 
     if (gpCDKeyHandle_00882750)
     {
-        sub_00416710_Unlock(gpCDKeyHandle_00882750);
+        SFileUnloadFile(gpCDKeyHandle_00882750);
         gpCDKeyHandle_00882750 = 0;
     }
 }

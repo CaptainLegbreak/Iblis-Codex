@@ -1,4 +1,5 @@
 #include "D2Client.h"
+struct D2StoredUnitRecordStrc;
 
 struct Unicode;
 struct D2RosterUnitStrc;
@@ -90,7 +91,7 @@ struct D2SevenIntStrc
 void __cdecl sub_K04_EmitUse(D2SevenIntStrc* pRecord);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall sub_00479B90(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
 int __fastcall sub_00479BA0(D2StoredUnitRecordStrc* pEntry); // 0x00479BA0
 int __fastcall sub_00479C20(D2StoredUnitRecordStrc* pEntry); // 0x00479C20
@@ -107,7 +108,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0

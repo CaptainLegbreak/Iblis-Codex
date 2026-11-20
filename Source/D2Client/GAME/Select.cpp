@@ -2,6 +2,9 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+struct D2ActiveRoomStrc;
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 
 
@@ -99,9 +102,9 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);        
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
 int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
 int __cdecl sub_0044BF30();                                                                                 // 0x0044BF30
-unsigned int __cdecl sub_0044DAA0();                                                                        // 0x0044DAA0
-unsigned int __cdecl sub_0044DAC0();                                                                        // 0x0044DAC0
-void __fastcall sub_0044DAD0(unsigned int nValue);                                                          // 0x0044DAD0
+int __cdecl sub_0044DAA0(); // 0x0044DAA0
+int __cdecl sub_0044DAC0(); // 0x0044DAC0
+void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
 extern "C" int __cdecl sub_0045AFC0();                                                          // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset();                                                      // 0x0045AFD0
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
@@ -116,7 +119,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);              // 0x00643CE0
 int __stdcall ITEMS_IsMetalItem(int nItemId);                                                               // 0x00629CC0
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom();                                                  // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, D2UnitFindCallback pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
 int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg);                                    // 0x00467470
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
@@ -126,7 +129,7 @@ D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY);                     // 0x004C51E0
-int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                       // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 void __stdcall sub_00643260(int* pX, int* pY);                                                   // 0x00643260
 
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -602,7 +605,7 @@ skip:
         return pUnit;
     }
 
-    if (sub_004D9FC0_GetSkillUseState(pPlayer, pSkill))
+    if (sub_004D9FC0(pPlayer, pSkill))
     {
         return pUnit;
     }

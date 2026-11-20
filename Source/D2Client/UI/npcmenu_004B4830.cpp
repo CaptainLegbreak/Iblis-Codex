@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+struct D2ClientDialogStrc;
+struct D2UnitStrc;
 
 struct Unicode { unsigned short wChar; Unicode(unsigned short ch=0):wChar(ch){} };
 struct UnicodeChar:Unicode
@@ -26,29 +28,29 @@ extern int gnGlobal_007C0D2D; // 0x007C0D2D
 int gnGlobal_007C0DD0;        // 0x007C0DD0
 extern unsigned int gnHirelingName_00725494; // 0x00725494
 extern D2NpcIndexStrc gaNpcIndex_00726C48[]; // 0x00726C48
-D2UnitStrc* __fastcall sub_00463990(int,int); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
-void __fastcall sub_00455F20(int,int,int); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc*); // 0x00464A60
 void __stdcall UNITS_GetClientCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620900
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc*,int*,int*,int*,int*); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc*,int*,int*); // 0x004760C0
-void __fastcall sub_004786D0_SendPacket38(unsigned char,int,int,int); // 0x004786D0
+void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 void __cdecl sub_00487990_ResetHover(); // 0x00487990
 void __fastcall sub_004B3C20(int); // 0x004B3C20
 int __cdecl sub_004B45D0_NpcMenuCancel(); // 0x004B45D0
 int __cdecl sub_004B4620_NpcMenuCancelB(); // 0x004B4620
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int,int,D2MenuHandler,D2MenuHandler,int,int,int,int,int,int,int); // 0x004B7EB0
 void __fastcall sub_004B8370(void*,int); // 0x004B8370
-void __fastcall sub_004B85F0_AddTextLine(void*,const Unicode*,int,int,int,int,D2MenuHandler,int); // 0x004B85F0
+void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode*,const Unicode*); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode*,const Unicode*); // 0x00526700
 int __fastcall sub_00526800(const Unicode*); // 0x00526800
 void __cdecl sub_005269D0(int,Unicode*,const Unicode*,...); // 0x005269D0
 void __fastcall sub_00526F20_ToUnicode(Unicode*,const char*,int); // 0x00526F20
-int __stdcall UNITS_GetHealingCost(D2UnitStrc*); // 0x00622DE0
+unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit); // 0x00622DE0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
 int __stdcall ITEMS_GetNoOfUnidItems(D2UnitStrc*); // 0x0062A530
@@ -101,7 +103,7 @@ void __cdecl sub_004B4830_Rebuild()
     if(gnGlobal_007C0D2D==252 || gnGlobal_007C0D2D==198 || gnGlobal_007C0D2D==515 || gnGlobal_007C0D2D==150)
     {
         D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
-        sub_004786D0_SendPacket38(0x38,3,gnGlobal_007C0D25,!pPlayer?-1:pPlayer->dwUnitId);
+        sub_004786D0_SendDwords3(0x38,3,gnGlobal_007C0D25,!pPlayer?-1:pPlayer->dwUnitId);
     }
     D2CoordStrc tCoords;
     tCoords.nX=0;

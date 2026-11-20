@@ -46,7 +46,7 @@ struct D2ComObject006B5550Strc
 extern int gbCoreUp_00970E48; // 0x00970E48
 extern int gn_007C9140; // 0x007C9140
 extern D2ComObject006B5550Strc* gpObject_00970E60; // 0x00970E60
-void __cdecl sub_006B9B00_FreeGlobal(); // 0x006B9B00
+extern "C" void __cdecl sub_006B9B00_FreeGlobal(); // 0x006B9B00
 void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
 extern D2CriticalSectionStrc* gpCriticalSection_007C9134; // 0x007C9134
 extern int gnPaused_007C9144; // 0x007C9144

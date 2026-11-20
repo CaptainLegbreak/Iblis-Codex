@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+struct T00508FE0;
 struct D2GlideTexInfoStrc;
 struct D2GlideTexSlotStrc;
 struct D2GlideTexCacheEntryStrc;
@@ -75,7 +76,7 @@ void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
 void __fastcall sub_00509500_GlideSetCombine(int nMode); // 0x00509500
 void __fastcall sub_005095D0_GlideSetDepth(int nMode); // 0x005095D0
 int __cdecl sub_0050BF40_GlideGetBlendedShadows(); // 0x0050BF40
-void __fastcall sub_0050DC30_GlideSetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
+void __fastcall sub_0050DC30_GlideSetVertexColor(T00508FE0* pVertex, unsigned int dwColor); // 0x0050DC30
 int __cdecl sub_0050DD30_GlideIsPerspective(); // 0x0050DD30
 void __fastcall sub_0050DD60_ProjectToScreen(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
 void __fastcall sub_0050EBE0_TexCacheTouch(D2GlideTexCacheStrc* pCache, int nId); // 0x0050EBE0

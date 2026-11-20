@@ -1,4 +1,5 @@
 #include "D2Game.h"
+struct D2GameStrc;
 
 struct D2AiParamStrc;
 struct D2MonsterDataStrc { char unknown[0x2C]; D2AiParamStrc* ai; };
@@ -7,7 +8,7 @@ struct D2UnitStrc { int type; char unknown04[0x10]; D2MonsterDataStrc* monster; 
 int __stdcall PATH_GetXPosition(D2PathRecordStrc* path); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2PathRecordStrc* path); // 0x00648900
 void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* ai,int a,int velocity,unsigned char flags); // 0x005A6260
-int __fastcall AITACTICS_MoveToTarget(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* target,int mode,int x,int y,unsigned char step,int flags); // 0x005DEB60
+int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags); // 0x005DEB60
 // build: context GetX
 static __forceinline unsigned int GetX(D2UnitStrc* unit) {
  switch(unit->type) {case 2:case 4:case 5:return unit->staticPath->x;}

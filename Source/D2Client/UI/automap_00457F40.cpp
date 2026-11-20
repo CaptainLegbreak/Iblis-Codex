@@ -81,7 +81,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
-void __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
+int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
@@ -95,7 +95,7 @@ struct Unicode
     unsigned short wChar;
 };
 
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
@@ -103,7 +103,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
+const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 const char* __cdecl sub_0044B7C0_GetRecordText1F(); // 0x0044B7C0
 const char* __cdecl sub_0044B820_GetRecordText37(); // 0x0044B820
 const char* __cdecl sub_0044B7F0_GetRecordText245(); // 0x0044B7F0
@@ -134,7 +134,7 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit); // 0x00465400
-int __fastcall sub_00478D90_GetUnitAlignment(unsigned int nUnitId); // 0x00478D90
+int __fastcall sub_00478D90_GetPetRelation(int nUnitId); // 0x00478D90
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
@@ -150,7 +150,7 @@ int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); //
 int __fastcall sub_0047A1E0(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY); // 0x0047A1B0
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
 
 char gszAccountFolder_007A0500[32]; // 0x007A0500
@@ -550,7 +550,7 @@ void __cdecl sub_0045A120_DrawLocalIpLine()
     Unicode wszText[300];
     for (int i = 0; i < 300; ++i)
         wszText[i].wChar = 0;
-    sub_00526320_ToUnicode(wszText, sub_0040DF60_GetLocalIp(), 300);
+    sub_00526320_ToUnicode(wszText, FOG_GetHostIPAddress(), 300);
     sub_00502320(wszText, gnAutomapWidth_007A5220 - sub_00501820(wszText) - 0x10, gnAutomapTextY_007A51BC, 4, 0);
     gnAutomapTextY_007A51BC += 0x10;
 }
@@ -748,7 +748,7 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
             return 1;
         }
 
-        switch (sub_00478D90_GetUnitAlignment(pUnit ? pUnit->dwUnitId : -1))
+        switch (sub_00478D90_GetPetRelation(pUnit ? pUnit->dwUnitId : -1))
         {
         case 0:
         case 3:
@@ -1015,3 +1015,4 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
 }
 
 #include "gen/data/Source/D2Client/UI/automap_00457F40.inc"
+struct D2StoredUnitRecordStrc;

@@ -289,7 +289,7 @@ struct Obj00553970 {
     unsigned int dwValueDC;
 };
 
-short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
+unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* ptGame, D2UnitStrc* pUnit); // 0x00540710
 
 struct Obj00554100 {
     unsigned int dwUnknown00;
@@ -396,7 +396,7 @@ struct D2AiTableStrc
     void* pAiParamFn;
     void* unk0x0C;
 };
-void __fastcall sub_6FCBB190(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x00554670
+void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 int __stdcall D2Common_10226(D2UnitStrc* pUnit, int nFlag); // 0x00650840
 void __fastcall sub_00555580_DetachUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int bKeepInRoom); // 0x00555580
 void __fastcall QUESTS_FreeChainRecord(D2GameStrc* pGame, D2QuestChainStrc* pChain); // 0x00543590
@@ -1583,7 +1583,7 @@ int __fastcall sub_6FCBC930(D2GameStrc* ptGame, D2UnitStrc* pMissile)
     const int v4 = D2Common_10226(pMissile, 1024) ? 1 : 2;
     if (UNITS_IsCurrentRoomInvalid(pMissile))
     {
-        sub_6FCBB190(ptGame, pMissile, 0);
+        sub_00554670_UpdateClientsOnRoomChange(ptGame, pMissile, 0);
     }
 
     return v4;

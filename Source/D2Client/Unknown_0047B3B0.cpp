@@ -102,8 +102,8 @@ void __fastcall sub_004776C0(void* pArg);
 int __cdecl sub_004F5140();
 int __cdecl sub_004DF940(); // 0x004DF940
 int __cdecl sub_004DF960(); // 0x004DF960
-void __cdecl sub_004E00D0(); // 0x004E00D0
-void __cdecl sub_004E0140(); // 0x004E0140
+int __cdecl sub_004E00D0_ToggleSoundMode01(); // 0x004E00D0
+int __cdecl sub_004E0140_ToggleSoundMode12(); // 0x004E0140
 
 struct D2OptionEntryStrc
 {
@@ -127,13 +127,13 @@ void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows); // 0x004F5200
 void __fastcall sub_0044BA20(int nResolution); // 0x0044BA20
 void __fastcall sub_0045A720_SetAutomapMode(int nMode); // 0x0045A720
-void __fastcall sub_004576F0(int nFade); // 0x004576F0
+int __fastcall sub_004576F0(int nFade); // 0x004576F0
 int __cdecl sub_00457740(); // 0x00457740
 int __fastcall sub_00457750_SaveAutomapCenters(int nValue); // 0x00457750
 int __cdecl sub_004577B0(); // 0x004577B0
 int __cdecl sub_004577E0(); // 0x004577E0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern D2ViewStrc* gpView_007A0640; // 0x007A0640
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 extern int gnAutomapWidth_007A5220; // 0x007A5220
@@ -161,8 +161,8 @@ extern "C" const char szBlendedShadows_006D73B8[];
 extern "C" const char szPerspective_006D73C8[];
 extern "C" const char gszAutoMapMode_006D73E8[];
 
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern D2EscMenuUIStateStrc gaEscMenuUIState_00713058[38]; // 0x00713058
 
 struct D2CelContextStrc
@@ -186,7 +186,7 @@ void __cdecl sub_K04_EmitUse(int nValue);
 int __cdecl sub_0044DB30(); // 0x0044DB30
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
-void __fastcall sub_00456300(int nArg1, int nArg2); // 0x00456300
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __cdecl sub_00453AC0(); // 0x00453AC0
 void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
 void __cdecl sub_00453AD0(); // 0x00453AD0
@@ -570,7 +570,7 @@ int __fastcall sub_0047CE30_Is3DSoundEnabled()
 // 0x0047CE40
 void __fastcall sub_0047CE40_3DSoundSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004E00D0();
+    sub_004E00D0_ToggleSoundMode01();
 }
 
 // 0x0047CE60
@@ -588,7 +588,7 @@ int __fastcall sub_0047CEB0_IsEAXEnabled()
 // 0x0047CEC0
 void __fastcall sub_0047CEC0_EAXSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004E0140();
+    sub_004E0140_ToggleSoundMode12();
 }
 
 static int gnOptionSelected_007BC938; // 0x007BC938
@@ -751,7 +751,7 @@ void __stdcall sub_0047D9A0_OptionKeyLeft(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x0047DA90
@@ -789,7 +789,7 @@ void __stdcall sub_0047DA90_OptionKeyRight(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x0047D120
@@ -1008,7 +1008,7 @@ static void sub_0047EC50_DoSlotAction(int nButton)
         sub_004A3FE0(0);
         break;
     case 7:
-        sub_00456300(0, 0);
+        sub_00456300_CloseUIVars(0, 0);
         sub_00453AC0();
         sub_0047E090(1, 0);
         sub_00453AD0();
@@ -1075,7 +1075,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
             sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
         pMsg->bReturn = 0;

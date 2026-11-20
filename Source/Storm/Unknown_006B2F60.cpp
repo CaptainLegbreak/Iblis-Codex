@@ -143,7 +143,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 extern int gbVideoUp_00970E40; // 0x00970E40
 extern int gnVideoState_00970E44; // 0x00970E44
 extern D2ComObject006B3420Strc* gpDirectDraw_00970E60; // 0x00970E60
@@ -236,7 +236,7 @@ int __cdecl sub_006B3420_InitializeCutsceneMode()
     {
         szError = "Failed to create primary surface for cutscenes";
 fail:
-        sub_006B20E0_ReportError(szError, hResult);
+        sub_006B20E0_DDrawLogError(szError, hResult);
         sub_00410610_WriteLogLine("Opening Direct3D window for cutscenes failed!");
         return 0;
     }

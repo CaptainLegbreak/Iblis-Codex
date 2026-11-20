@@ -41,7 +41,7 @@ struct D2WinButtonStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 int __stdcall CONTROL_AppendToList(D2WinButtonStrc* pControl);                                              // 0x004F9210
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton);                                                       // 0x00500DB0
 int __stdcall BUTTON_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg);                                             // 0x00501090

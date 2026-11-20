@@ -72,8 +72,8 @@ void __fastcall sub_006BFEA0_RecordAddress(D2ServerStrc*,const char*,unsigned in
 D2SocketNodeStrc* __fastcall sub_006BFB70_AddSocket(D2ServerStrc*,int,unsigned int); // 0x006BFB70
 void __fastcall sub_006C0420_CloseClient(D2ServerStrc*,int,const char*,int); // 0x006C0420
 void __fastcall sub_006C08A0_ProcessReceived(D2ServerStrc*,D2SocketNodeStrc*); // 0x006C08A0
-void __fastcall sub_0040D880_CloseSocket(int); // 0x0040D880
-void __fastcall sub_00407F90_ThreadHookNop1(int); // 0x00407F90
+int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+void __fastcall sub_00407F90_ThreadHookNop1(unsigned int nId); // 0x00407F90
 int __stdcall sub_006B0186_Select(int,D2SocketSetStrc*,void*,D2SocketSetStrc*,D2TimevalStrc*); // 0x006B0186
 int __stdcall sub_006B0180_IsSocketSet(int,D2SocketSetStrc*); // 0x006B0180
 int __stdcall sub_006B0174_Receive(int,char*,int,int); // 0x006B0174
@@ -215,15 +215,15 @@ void __cdecl sub_006C3470_ServerThread(D2ServerStrc* server)
                         LeaveCriticalSection(&server->lock);
                         continue;
                     }
-                    if(server->sub_006BE980_Refresh(buffers.address.address)) sub_0040D880_CloseSocket(accepted);
+                    if(server->sub_006BE980_Refresh(buffers.address.address)) sub_0040D880(accepted);
                     else if(sub_006BE9F0_CheckRecordThreshold(server,&buffers.address.address)) {
                         sub_006C0800_BanByAddress(server,&buffers.address.address,gszSource_006FCB1C,0x138);
-                        sub_0040D880_CloseSocket(accepted);
+                        sub_0040D880(accepted);
                     }
                     else if(!sub_006BFFA0_CheckAddress(server,&buffers.address.address)) {
                         sub_00410660_LogWritePrefixed(gszHack_006FC4A8,gszReconnect_006FCB6C);
                         sub_006BFEA0_RecordAddress(server,gszSource_006FCB1C,buffers.address.address,0x142);
-                        sub_0040D880_CloseSocket(accepted);
+                        sub_0040D880(accepted);
                     }
                     else {
                         node=sub_006BFB70_AddSocket(server,accepted,buffers.address.address);

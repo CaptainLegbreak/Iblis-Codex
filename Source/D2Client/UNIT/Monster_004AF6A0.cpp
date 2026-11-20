@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 
 typedef unsigned int DWORD;
 
@@ -60,17 +61,17 @@ int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);         
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, int nFlag);                                   // 0x00463720
+int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
-void __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode);         // 0x00466730
+D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 void __fastcall sub_004ADE60(D2UnitStrc* pUnit);                                                            // 0x004ADE60
 void __stdcall sub_004AF1B0(D2UnitStrc* pUnit, int nMissile, int nX, int nY);                               // 0x004AF1B0
-void __fastcall sub_004C68F0(D2UnitStrc* pUnit);                                                            // 0x004C68F0
+int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 void __fastcall sub_004C72F0(D2UnitStrc* pUnit);                                                            // 0x004C72F0
 void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                           // 0x004CD540
@@ -327,7 +328,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
             nFlags |= 2;
             SKILLS_SetFlags(pSkill, nFlags);
         }
-        sub_004C68F0(pUnit);
+        sub_004C68F0_DoUsedSkill(pUnit);
         bCheckFrame = 0;
     }
 
@@ -345,7 +346,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
                     return;
                 }
 
-                sub_004C68F0(pUnit);
+                sub_004C68F0_DoUsedSkill(pUnit);
                 if ((pUnit->nSeqCurrentFramePrecise >> 8) > pMonStats2Txt->nInfernoAnim)
                 {
                     pUnit->nSeqCurrentFramePrecise = pMonStats2Txt->nInfernoRollback << 8;
@@ -353,7 +354,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
                 return;
 
             case 0x7E:
-                sub_004C68F0(pUnit);
+                sub_004C68F0_DoUsedSkill(pUnit);
                 if ((pUnit->nSeqCurrentFramePrecise & ~0xFF) >= 0xC00)
                 {
                     pUnit->nSeqCurrentFramePrecise = 0x800;
@@ -371,7 +372,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
                 const int nFrame = pUnit->nSeqCurrentFramePrecise >> 8;
                 if (nFrame >= pMonStats2Txt->nInfernoAnim)
                 {
-                    sub_004C68F0(pUnit);
+                    sub_004C68F0_DoUsedSkill(pUnit);
                 }
 
                 if (nFrame >= pMonStats2Txt->nInfernoRollback)
@@ -385,7 +386,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
         }
     }
 
-    sub_004C68F0(pUnit);
+    sub_004C68F0_DoUsedSkill(pUnit);
 }
 
 // 0x004AF6A0

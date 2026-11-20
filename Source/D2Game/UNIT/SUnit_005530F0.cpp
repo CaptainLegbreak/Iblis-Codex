@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_SEQUENCE 0x12
@@ -117,7 +118,7 @@ typedef int (__fastcall* EventTimerCallback)(D2GameStrc* pGame, D2UnitStrc* pUni
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
-void __fastcall sub_00541800(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pfCallBack, int nSkillId, int nSkillLevel); // 0x00541800
+void __fastcall sub_00541800_DirectDatedCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pCallback, int nCustomId, int nCustomParam); // 0x00541800
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 int __fastcall sub_6FCBDF90(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3, int a4, int a5); // 0x00554570
 void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
@@ -496,7 +497,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomSt
             pPlayerData->unk0xA0 = 0;
         }
 
-        sub_00541800(pGame, hUnit, 14, pGame->dwGameFrame + 50, sub_6FCBDF90, 0, 0);
+        sub_00541800_DirectDatedCallback(pGame, hUnit, 14, pGame->dwGameFrame + 50, sub_6FCBDF90, 0, 0);
         sub_6FC7E310(pGame, hUnit, tCoords.nX, tCoords.nY);
     }
     else

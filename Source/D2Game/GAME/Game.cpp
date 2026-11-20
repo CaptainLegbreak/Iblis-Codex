@@ -440,7 +440,7 @@ struct D2GameDataTableStrc
 };
 
 void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame); // 0x0052C7F0
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerUnion* pCount); // 0x006CC25C
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void); // 0x006CC544
@@ -467,7 +467,7 @@ struct D2StormHashTable0052E650Strc
     char* sub_0052E650_Ptr(unsigned int nHashVal, int nKey);
 };
 
-int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc*, D2UnitStrc*, const char*, unsigned long); // 0x00532400
+int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
 int __fastcall CLIENTS_GetFlags(D2ClientStrc*); // 0x00538640
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc*, unsigned char*, unsigned char*, unsigned char*); // 0x00539190
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0

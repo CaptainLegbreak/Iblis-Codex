@@ -22,7 +22,7 @@ struct D2MonsterRegionStrc
     unsigned int dwMonKillCount;
 };
 
-void __fastcall MONSTERREGION_InitializeAll(void* pMemoryPool, D2MonsterRegionStrc** ppMonsterRegion, D2SeedStrc* pSeed, int nSeed, unsigned char nDifficulty, int bExpansion); // 0x005479C0
+void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** regions,D2SeedStrc* seed,unsigned int lowSeed,unsigned char difficulty,int expansion); // 0x005479C0
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

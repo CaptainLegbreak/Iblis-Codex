@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2SelectionRectStrc;
+struct Unicode;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct UIWidget;
@@ -132,9 +134,9 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern int gnGlobal_007C5474; // 0x007C5474
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
-void __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
+int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 int __stdcall sub_00489060_ClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00489060
 
 struct D2HotspotStrc
@@ -183,10 +185,10 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 int __cdecl sub_004B1670(); // 0x004B1670
 int __cdecl sub_004F59A0(); // 0x004F59A0
-void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-void __fastcall sub_00467430(void* pRect); // 0x00467430
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 void __fastcall sub_0044C860_SetValue(int nValue); // 0x0044C860
 void __cdecl sub_0044D520(); // 0x0044D520
@@ -297,7 +299,7 @@ int ListBoxImplementation::sub_004BE860_WheelMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
     return 1;
 }
 
@@ -308,7 +310,7 @@ int ListBoxImplementation::sub_004BEBC0_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         if (*(unsigned int*)nState < 2)
         {
             return 0;
@@ -398,7 +400,7 @@ int ListBoxWrapper::sub_004BEE20_ForwardSlot08(int nArg)
 // 0x004BFA30
 void __stdcall sub_004BFA30_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00502280_SetPopUpText(0, -1, -1, 0, 0);
+    D2Win_10129_DrawFramedText(0, -1, -1, 0, 0);
     sub_00498DC0_MouseMoveMsg(pMsg);
     if (gnGlobal_007C5474 == 1)
     {
@@ -411,7 +413,7 @@ void __stdcall sub_004BFDB0_BreakMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 void* gpCelFile_007C5494; // 0x007C5494

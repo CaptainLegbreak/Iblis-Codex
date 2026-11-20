@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -81,14 +82,14 @@ struct D2ClientSkillCmdStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
-void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3); // 0x004786D0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 int __fastcall sub_004C6EB0_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillCmdStrc* pArgs); // 0x004C6EB0
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, int nId); // 0x004CB9C0
-int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
+void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
@@ -110,15 +111,15 @@ void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-void __fastcall sub_00467A70(int nArg); // 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 int __fastcall sub_0047A4F0_TestFlag1(int nUnitId1, int nUnitId2); // 0x0047A4F0
 void __fastcall sub_00480B40_SendPacket(int nHeader, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00480B40
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
-int __stdcall sub_00622B50_TestInteractCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask); // 0x00622B50
+int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit); // 0x00622DC0
 int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
@@ -329,7 +330,7 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
             {
                 if (pUnit->dwAnimMode == 0)
                 {
-                    sub_004786A0_SendIntInt(0x13, nType, nUnitId);
+                    sub_004786A0_SendDwords2(0x13, nType, nUnitId);
                     return;
                 }
 
@@ -371,11 +372,11 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
         break;
 
     case 4:
-        sub_004786D0_SendPacket(0x16, 4, nUnitId, (unsigned char)sub_004538D0(1));
+        sub_004786D0_SendDwords3(0x16, 4, nUnitId, (unsigned char)sub_004538D0(1));
         return;
     }
 
-    sub_004786A0_SendIntInt(0x13, nType, nUnitId);
+    sub_004786A0_SendDwords2(0x13, nType, nUnitId);
 }
 
 static __forceinline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
@@ -502,7 +503,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
 
     if (pUnit && pUnit->dwUnitType == 2)
     {
-        if (sub_00623660_IsInObjectInteractRange(pPlayer, pUnit) && !sub_00622B50_TestInteractCollision(pPlayer, pUnit, 0x804))
+        if (sub_00623660_IsInObjectInteractRange(pPlayer, pUnit) && !sub_00622B50_IsRayFreeBetweenUnits(pPlayer, pUnit, 0x804))
         {
             return 0;
         }
@@ -643,7 +644,7 @@ static void __stdcall sub_004812E0_QueueAction(int nAction, int nType, int nId, 
         args[1] = nId;
         if (sub_00480C10_UnitEvent(0x18, pPlayer, args, 0))
         {
-            sub_004786A0_SendIntInt(4, nType, nId);
+            sub_004786A0_SendDwords2(4, nType, nId);
         }
     }
     else
@@ -659,7 +660,7 @@ static void __stdcall sub_004812E0_QueueAction(int nAction, int nType, int nId, 
         args[1] = nId;
         if (sub_00480C10_UnitEvent(0, pPlayer, args, 0))
         {
-            sub_004786A0_SendIntInt(2, nType, nId);
+            sub_004786A0_SendDwords2(2, nType, nId);
         }
     }
 
@@ -677,13 +678,13 @@ static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D
             sub_00481030_DoUnitAction(nAction, pPlayer, nType, nId, 0);
             return 0;
         }
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         return 0;
     }
 
     if (!UMODE_IsTargetable(pUnit))
     {
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -736,13 +737,13 @@ static int __stdcall sub_004814A0_ActOnMonster(int nAction, int nType, int nId, 
                 goto LABEL_OK;
             }
         }
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         return 0;
     }
 
     if (!UMODE_IsTargetable(pUnit))
     {
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -760,7 +761,7 @@ static int __stdcall sub_004815A0_ActOnObject(D2UnitStrc* pPlayer, int nType, in
 {
     if (!UMODE_IsTargetable(pUnit))
     {
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -824,7 +825,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
     default:
         if (!sub_00451F30_TestUnitFlag(pUnit, 2))
         {
-            sub_00467A70(0);
+            sub_00467A70_RefreshHoverUnit(0);
             return;
         }
         break;

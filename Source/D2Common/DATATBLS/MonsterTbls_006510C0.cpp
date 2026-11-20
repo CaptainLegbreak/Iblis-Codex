@@ -49,7 +49,7 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 void __fastcall DATATBLS_LoadMonLvlTxt(void* hArchive); // 0x00659500
 void __stdcall sub_0065A390(void* hArchive); // 0x0065A390
-void __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive); // 0x006571A0
+D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive); // 0x006571A0
 void __fastcall DATATBLS_LoadMonPropTxt(void* hArchive); // 0x00658720
 void __fastcall DATATBLS_LoadMonSoundsTxt(void* hArchive); // 0x00656930
 void __fastcall DATATBLS_LoadMonSeqTxt(void* hArchive); // 0x00659C60
@@ -92,7 +92,7 @@ void __stdcall sub_006BD500_LinkerInsertKey(D2TxtLinkStrc* pLinker, const char* 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, const char* szKey, int bLogError); // 0x006BD3C0
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
-int __fastcall sub_006117B0(const char* szKey); // 0x006117B0
+unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 void __cdecl DATATBLS_CreateItemTypeTreasureClasses(); // 0x006541C0
 void __stdcall sub_006547D0(void* hArchive); // 0x006547D0
 
@@ -258,7 +258,7 @@ void __fastcall sub_00653DB0(void* hArchive, const char* szName, unsigned int nI
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "Name", 22, 0, 0, sub_006117B0 },
+        { "Name", 22, 0, 0, DATATBLS_GetStringIdFromReferenceString },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
@@ -352,6 +352,7 @@ void __fastcall DATATBLS_LoadTreasureClassExTxt(void* hArchive)
 }
 
 #include "gen/data/Source/D2Common/DATATBLS/MonsterTbls_006510C0.inc"
+struct D2MonStats2Txt;
 
 // 0x00659990
 void __fastcall DATATBLS_MonPresetPlaceLinker(char* pSrc, D2MonPresetTxt* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)

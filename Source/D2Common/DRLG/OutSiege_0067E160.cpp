@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Path.h"
+struct D2LvlPrestTxt;
 struct D2DrlgGridStrc
 {
     int* pCellsFlags;
@@ -121,9 +122,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                     // 0x0067C570
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation);       // 0x0067C4F0
 void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY);    // 0x0067D280
-D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId);                                      // 0x0061F0B0
+D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nId); // 0x0061F0B0
 void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6);
-int __fastcall sub_00674730(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5);          // 0x00674730
+int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 void __fastcall sub_00675770(D2DrlgLevelStrc* pLevel);
 void __fastcall sub_00670750(D2DrlgOutPlaceCtxStrc* pCtx);
 int __fastcall sub_006741E0(D2DrlgLevelStrc* pLevel, int nX, int nY);
@@ -224,7 +225,7 @@ void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
             int bPlaced = 0;
             for (int j = 0; j < gAct5LevelPresets[i].nCount; ++j)
             {
-                bPlaced = sub_00674730(pLevel, nPresetId, nArg, 0, 15);
+                bPlaced = DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nPresetId, nArg, 0, 15);
             }
 
             if (!(bPlaced || !gAct5LevelPresets[i].bRequired))

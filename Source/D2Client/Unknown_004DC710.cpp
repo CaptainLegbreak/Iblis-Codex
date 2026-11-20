@@ -34,14 +34,14 @@ extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
-int __fastcall sub_00471EC0(D2UnitStrc* pUnit, int nArg, int nX, int nY, int bPlayer, int nFlags); // 0x00471EC0
+int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 void __fastcall sub_004D85B0_SkillSeqDo1Thunk(D2UnitStrc* pUnit, int nArg); // 0x004D85B0
 void __fastcall sub_004D8650(D2UnitStrc* pUnit, int nArg); // 0x004D8650
 void __fastcall sub_004D8520_SkillSeqDo1(D2UnitStrc* pUnit, int nArg); // 0x004D8520
 void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg); // 0x004D85C0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern "C" int __cdecl sub_004817F0_GetFirstTokenCount(); // 0x004817F0
-extern "C" int __cdecl sub_00481800_GetSecondTokenCount(); // 0x00481800
+int __cdecl sub_004817F0(); // 0x004817F0
+int __cdecl sub_00481800(); // 0x00481800
 extern "C" void* __cdecl sub_00481810_GetTokenData(); // 0x00481810
 extern "C" char* gpGlobal_007A0438; // 0x007A0438
 extern "C" int gnGlobal_007C89D0; // 0x007C89D0
@@ -154,7 +154,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     {
     case 0:
         sub_004D8520_SkillSeqDo1(pUnit, nColor);
-        if (sub_00471EC0(pUnit, nColor, nX, nY, 0, 1) && pUnit)
+        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nY, 0, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         sub_004D85C0_SkillSeqDo0(pUnit, nColor);
         break;
@@ -162,7 +162,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         if (sub_004AE340(pUnit))
             bSpecial = 1;
         sub_004D85B0_SkillSeqDo1Thunk(pUnit, nColor);
-        if (sub_00471EC0(pUnit, nColor, nX, nY, bSpecial, 1) && pUnit)
+        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nY, bSpecial, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         sub_004D8650(pUnit, nColor);
         break;
@@ -171,12 +171,12 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         D2MissilesTxt* pMisTxt = sub_0046ACE0(!pUnit ? -1 : pUnit->dwClassId);
         if (!pMisTxt)
             break;
-        if (sub_00471EC0(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->wYoffset, 0, 1) && pUnit)
+        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->wYoffset, 0, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         break;
     }
     default:
-        if (sub_00471EC0(pUnit, nColor, nX, nY, bSpecial, 1) && pUnit)
+        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nY, bSpecial, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         break;
     }
@@ -201,7 +201,7 @@ void __cdecl sub_004DCA30_ResetTokenCache()
     void* pTokenData = sub_00481810_GetTokenData();
     if (pTokenData)
     {
-        memset(pTokenData, 0, (1 - sub_004817F0_GetFirstTokenCount() + sub_00481800_GetSecondTokenCount()) * 4);
+        memset(pTokenData, 0, (1 - sub_004817F0() + sub_00481800()) * 4);
     }
 }
 

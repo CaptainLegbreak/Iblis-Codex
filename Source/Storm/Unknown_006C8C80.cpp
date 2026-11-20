@@ -17,7 +17,7 @@ struct D2RectStrc
     int nBottom;
 };
 void __fastcall sub_006C90E0_GdiUtilFilledRect(tagRECT* pRect, unsigned char nColor); // 0x006C90E0
-void __stdcall sub_006C9220_Apply(int enabled); // 0x006C9220
+void __stdcall sub_006C9220_ClearBuffer(int bPartial); // 0x006C9220
 
 int gnScreenHeight_007C913C; // 0x007C913C
 
@@ -191,11 +191,11 @@ void __stdcall sub_006C9220_ClearBuffer(int bPartial)
 // 0x006C9270
 void __fastcall sub_006C9270_Apply(int enabled)
 {
-    sub_006C9220_Apply(enabled);
+    sub_006C9220_ClearBuffer(enabled);
 }
 
 // 0x006C9280
 void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB)
 {
-    sub_006C9220_Apply(enabled);
+    sub_006C9220_ClearBuffer(enabled);
 }

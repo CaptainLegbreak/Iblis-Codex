@@ -32,20 +32,20 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 void __stdcall sub_00403040_ConstructArray(void* pArray, unsigned int nSize, int nCount, void (UnicodeChar::*pfnConstruct)()); // 0x00403040
 int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-void* __cdecl sub_00454600_GetBuySellButtonCells();                                                         // 0x00454600
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+D2CellFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                           // 0x00463DD0
 int __cdecl sub_00463DF0();                                                                    // 0x00463DF0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3);               // 0x00478600
 void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
-const char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit);                                         // 0x0047A210
+char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
 void __cdecl sub_004835B0_LoadUiRecords();                                                                  // 0x004835B0
 void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pPlayer);                                             // 0x00483FF0
 void __cdecl sub_004845A0_DrawEquippedItems();                                                                                // 0x004845A0
-int __stdcall sub_00486AE0_GetPanelX();                                                                     // 0x00486AE0
+int __cdecl sub_00486AE0_GetPanelX(); // 0x00486AE0
 int __stdcall sub_00486B00_GetPanelY();                                                                     // 0x00486B00
 void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab);                                          // 0x00487A10
 void __fastcall sub_00488100(int nArg);                                                                     // 0x00488100
@@ -647,3 +647,4 @@ timer_done:
 }
 
 #include "gen/data/Source/D2Client/Unknown_0048EDF0.inc"
+struct D2UnitStrc;

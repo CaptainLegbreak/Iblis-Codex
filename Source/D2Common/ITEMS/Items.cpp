@@ -251,7 +251,7 @@ struct D2RunesTxt
 
 extern D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
-void __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bSaveItemInv, int bGamble); // 0x006312B0
+int __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bSaveItemInv, int bGamble); // 0x006312B0
 int __stdcall sub_00625B70_CheckStatFlag(D2UnitStrc* pUnit, int nState); // 0x00625B70
 
 struct Data00627DF0 { unsigned char bUnknown00[0x10]; unsigned int dwValue10; };

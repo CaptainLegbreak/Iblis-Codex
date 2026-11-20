@@ -10,9 +10,9 @@ void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor,
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall sub_00469DE0_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
-int __cdecl D2GFX_GetResolutionMode();                                                                      // 0x004F5160
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 void __cdecl sub_004943B0_DrawFrameCels();                                                                  // 0x004943B0
 void __cdecl sub_004944F0_DrawFrameCels();                                                                  // 0x004944F0
 void __cdecl sub_00494620_DrawColumn();                                                                     // 0x00494620

@@ -39,7 +39,7 @@ extern D2WanderingRange gWanderingRanges_00731B30[]; // 0x00731B30
 extern int gWanderingIds_00731B2C[]; // 0x00731B2C
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 int __fastcall sub_0054DC40_FindSpawnPosition(D2GameStrc*, D2ActiveRoomStrc*, D2UnitStrc*, int, int*, int*, int); // 0x0054DC40
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc*, D2ActiveRoomStrc*, int, int, int, int, int, int); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 void __fastcall sub_6FC40280(D2GameStrc*, D2UnitStrc*, int, int); // 0x005B1990
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc**, int); // 0x00547BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
@@ -103,3 +103,4 @@ void __fastcall MONSTERREGION_TrySpawnWanderingMonster(D2GameStrc* pGame, D2Acti
 }
 
 #include "gen/data/Source/D2Game/Unknown_0054EF50.inc"
+struct D2UnitStrc;

@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 enum D2C_SkillsTxtFlagIndices
 {
@@ -41,7 +43,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);               // 0x00643CE0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                                                         // 0x006446A0
-int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                       // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
 void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* pSkillsTxt, int nOwner, int nCharges, int nState, int nX, int nY, int bLeft); // 0x004A9870
 void __fastcall sub_004A8D50_UpdateButton(D2SkillsTxt* pSkillsTxt, int nState, int nLevel, int nCharges, int nX, int nY); // 0x004A8D50
@@ -133,7 +135,7 @@ void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int 
             else if (!bItem)
                 continue;
             int nState;
-            const int nUse = sub_004D9FC0_GetSkillUseState(pUnit, pSkill);
+            const int nUse = sub_004D9FC0(pUnit, pSkill);
             if (nUse)
                 nState = nUse == 6 ? 4 : 1;
             else

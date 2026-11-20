@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+struct D2RoomCoordListStrc;
+struct D2UnitStrc;
 
 struct D2GameStrc
 {
@@ -45,7 +47,7 @@ struct D2ObjInitFnStrc
     int nX;
     int nY;
 };
-D2UnitStrc* __fastcall sub_005A43E0_QUESTS_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int a3, int nMonsterId, int a5, int a6, int a7, int a8); // 0x005A43E0
+D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
 D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(void* pAct, int a2, int a3);                              // 0x00619DA0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                 // 0x00543640
@@ -55,7 +57,7 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);               
 static __declspec(noinline) void sub_005B9930_QUESTS_SpawnQuestMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2QuestExStrc* pQuestDataEx)
 {
     pQuestDataEx->bSpawning = 1;
-    D2UnitStrc* pMonster = sub_005A43E0_QUESTS_SpawnMonster(pGame, pRoom, 0, 0x197, 1, 0, 0, 1);
+    D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueGroup(pGame, pRoom, 0, 0x197, 1, 0, 0, 1);
     if (pMonster)
     {
         pQuestDataEx->f_3 = 0;

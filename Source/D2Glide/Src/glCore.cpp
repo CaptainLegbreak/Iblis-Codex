@@ -142,7 +142,7 @@ struct D2GlideTexCacheStrc
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
 extern int gbGlideInit_0087EFCC; // 0x0087EFCC
-void __cdecl sub_00509FD0_GlideAtExit(); // 0x00509FD0
+void __cdecl sub_00509FD0_GlideCloseAtExit(); // 0x00509FD0
 void __cdecl sub_0050C760_GlideInitVertices(); // 0x0050C760
 void __cdecl sub_0050D540_GlideInitD(); // 0x0050D540
 void __cdecl sub_0050DB20_AllocBlendTable(); // 0x0050DB20
@@ -889,7 +889,7 @@ int __fastcall sub_0050A010_GlideInit(D2GfxSettingsStrc* pSettings, D2TileDrawFu
     gpfGlideFn_0087EB04();
     gbGlideInit_0087EFCC = 1;
     gpfGlideFn_0087EB3C(0);
-    atexit(sub_00509FD0_GlideAtExit);
+    atexit(sub_00509FD0_GlideCloseAtExit);
     sub_0050DB70_BuildMulTable();
     sub_0050DCD0_FillPerspectiveTable();
     sub_0050C760_GlideInitVertices();

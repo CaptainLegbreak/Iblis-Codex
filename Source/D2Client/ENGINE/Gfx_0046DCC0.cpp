@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2GfxListNodeStrc;
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HashedFileEntryStrc;
@@ -92,7 +94,7 @@ extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void* __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
-void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
+D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 int __stdcall sub_004DA0B0_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
@@ -458,7 +460,7 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
         pInventory = pUnit->pInventory;
 
     nWeaponClass = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassId, nMode, 0);
-    if (!sub_0046E5A0_FindGfxNode(pUnit, nWeaponClass, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nWeaponClass, -1))
+    if (!sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClass, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nWeaponClass, -1))
         return 0;
 
     pGfx = sub_0046E570_GetNodeValue(pUnit, nMode);

@@ -88,10 +88,10 @@ void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x004
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __stdcall sub_004D97F0_UpdateStateColor(D2UnitStrc* pUnit); // 0x004D97F0
-void __fastcall sub_004D9920(D2UnitStrc* pUnit, int nState); // 0x004D9920
+void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState); // 0x004D9920
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
-void __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit); // 0x00624390
+int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
 int __stdcall STATLIST_GetState(D2StatListStrc* pStatList); // 0x006252F0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
@@ -111,7 +111,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-D2SkillStrc* __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
+void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 int __stdcall sub_K06_EmitGettier1(int nValue);
 void __stdcall sub_K06_EmitPuttier1(int nValue, int nOther);
 int __stdcall sub_K06_EmitGettier2(int nValue);
@@ -200,7 +200,7 @@ struct D2ItemStatCostTxt
     char unk0x08[0x13C];
 };
 
-void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, int nNewMode); // 0x00463C00
+void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, unsigned char nNewMode); // 0x00463C00
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
@@ -1132,7 +1132,7 @@ void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState)
     {
         sub_004D97F0_UpdateStateColor(pUnit);
     }
-    sub_004D9920(pUnit, nState);
+    sub_004D9920_StartStateOverlays(pUnit, nState);
     if (sub_00464820_IsDeadOrDying(pUnit) && STATES_CheckStateMaskHideOnUnit(pUnit))
     {
         pUnit->dwFlagEx |= 0x40000;

@@ -23,8 +23,8 @@ int __stdcall sub_006018C0_CelGetWidth(D2CellFileStrc* pCelFile); // 0x006018C0
 int __stdcall sub_006018F0_CelGetHeight(D2CellFileStrc* pCelFile); // 0x006018F0
 int __stdcall sub_00601920_CelGetOffsetX(D2CellFileStrc* pCelFile); // 0x00601920
 int __stdcall sub_00601950_CelGetOffsetY(D2CellFileStrc* pCelFile); // 0x00601950
-const char* __fastcall sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char* szExpression, const char* szFile, int nLine); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern const char gszAssertExpr_006CC837[]; // 0x006CC837
 extern int gnValue_007C9154; // 0x007C9154
 extern int gnValue_007C913C; // 0x007C913C

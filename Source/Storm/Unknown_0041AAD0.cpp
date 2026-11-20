@@ -21,8 +21,8 @@ void* __stdcall SMemAlloc(unsigned int,const char*,int,unsigned int); // 0x00413
 int __stdcall SMemFree(void*,const char*,int,unsigned int); // 0x00412650
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __stdcall sub_0041C340_SetLastError(unsigned long); // 0x0041C340
-void __stdcall SErrDisplayError(unsigned int,const char*,int,int,int,int); // 0x0041CAF0
-void __fastcall sub_0041D810_Crc32(const void*,unsigned int,unsigned int*,int); // 0x0041D810
+int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nLine,const char* szDescription,int bRecoverable,unsigned int nExitCode); // 0x0041CAF0
+void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
 unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileRecStrc*,unsigned int,unsigned char*,unsigned int); // 0x00416AD0
 void __cdecl sub_0041A880_StartThread(); // 0x0041A880
 extern const char gszDelete_006CC824[]; // 0x006CC824

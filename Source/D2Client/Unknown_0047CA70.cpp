@@ -1,4 +1,5 @@
 #include "D2Client.h"
+struct D2StoredUnitRecordStrc;
 
 struct Unicode
 {
@@ -74,7 +75,7 @@ extern "C" int __cdecl atoi(const char* szString);                              
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);                        // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify();                                                       // 0x0044B7B0
 void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
 void __cdecl sub_00477C00_ToggleCacheStats();                                                               // 0x00477C00
@@ -82,7 +83,7 @@ int __cdecl sub_0044DB30();                                                     
 void __cdecl sub_004BABC0_ToggleHints();                                                                    // 0x004BABC0
 bool __fastcall sub_0047BD00_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
 int __stdcall sub_0047BAD0_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
@@ -90,8 +91,8 @@ int __fastcall sub_00526800(const Unicode* pString);                            
 void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);                                       // 0x004787B0
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry);                           // 0x004795C0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0

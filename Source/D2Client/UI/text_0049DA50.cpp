@@ -68,8 +68,8 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __cdecl sub_00453AE0(); // 0x00453AE0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __stdcall sub_0049D410_FreeTextBox(D2ClientTextBoxStrc* pTextBox); // 0x0049D410
 void __stdcall sub_0049D4D0_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
@@ -268,6 +268,7 @@ int __cdecl sub_004A08C0_CloseText()
 }
 
 #include "gen/data/Source/D2Client/UI/text_0049DA50.inc"
+struct D2UnitStrc;
 
 D2TextListStrc gtTextList_007BF1F0; // 0x007BF1F0
 

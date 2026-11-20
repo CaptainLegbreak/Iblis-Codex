@@ -1,11 +1,12 @@
 #include "D2Game.h"
+struct D2GameStrc;
 
 struct D2StaticPathStrc { char unknown[12]; int x; int y; };
 struct D2UnitStrc { int type; char unknown[40]; union { D2PathRecordStrc* path; D2StaticPathStrc* staticPath; }; };
 int __stdcall PATH_GetXPosition(D2PathRecordStrc* path); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2PathRecordStrc* path); // 0x00648900
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* unit,int mode,int velocity,unsigned char flags); // 0x005DE190
-int __fastcall AITACTICS_MoveToTarget(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* target,int mode,int x,int y,unsigned char step,int flags); // 0x005DEB60
+int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags); // 0x005DEB60
 // build: context GetX
 static __forceinline int GetX(D2UnitStrc* unit)
 {

@@ -118,7 +118,7 @@ struct D2AreaScanFindStrc
     int nOut;
 };
 
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* pItem); // 0x004C2180
 int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit); // 0x004C54F0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
@@ -170,7 +170,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
-void __fastcall sub_00471EC0(D2UnitStrc* pUnit, int nArg, int nX, int nY, int bPlayer, int nFlags); // 0x00471EC0
+int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
@@ -266,9 +266,9 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nAr
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, int nArg); // 0x004CA4C0
+int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
 unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA500
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, int nId); // 0x004CB9C0
+void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
@@ -339,7 +339,7 @@ int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-unsigned short __stdcall sub_0064D800(D2ActiveRoomStrc* pRoom, int nX, int nY, int nWidth, int nHeight, int nMask); // 0x0064D800
+unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
@@ -800,7 +800,7 @@ void __fastcall sub_004C9060_DrawRotated(D2UnitStrc* pUnit, int nArg, int bForwa
     }
 
     const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
-    sub_00471EC0(pUnit, nArg, nX, nY, nUnitType == 0, 0);
+    sub_00471EC0_DrawUnit(pUnit, nArg, nX, nY, nUnitType == 0, 0);
     sub_006488A0_SetDirection(pPath, nDirection);
 }
 
@@ -1551,7 +1551,7 @@ int __fastcall sub_004C7B20(D2UnitStrc* pUnit, int nMissile)
         return 0;
     }
 
-    return !sub_0064D800(pRoom, nTargetX, nTargetY, pMissilesTxtRecord->nSize, pMissilesTxtRecord->nSize, 5);
+    return !COLLISION_CheckMaskWithSizeXY(pRoom, nTargetX, nTargetY, pMissilesTxtRecord->nSize, pMissilesTxtRecord->nSize, 5);
 }
 
 // 0x004C8670
@@ -1728,6 +1728,8 @@ void __fastcall sub_004DA5B0_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFr
 }
 
 #include "gen/data/Source/D2Client/SKILLS/Skills.inc"
+struct D2ActiveRoomStrc;
+struct D2UnitStrc;
 
 static __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {

@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+struct D2PlayerDataStrc;
+struct D2UnitStrc;
 
 
 
@@ -39,7 +41,7 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage);        
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x00648900
 
-static void __stdcall sub_00567020_StartTrade(D2UnitStrc*, D2UnitStrc*, D2PlayerDataStrc*, D2PlayerDataStrc*); // 0x00567020
+void __fastcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, int nUnused, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData); // 0x00567020
 static void __stdcall sub_00567350_AddItemTrade(D2GameStrc*, int, int, D2UnitStrc*); // 0x00567350
 static char __stdcall sub_005673C0_FindItemTrade(int*, int, D2UnitStrc*); // 0x005673C0
 

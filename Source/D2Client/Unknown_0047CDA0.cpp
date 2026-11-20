@@ -59,7 +59,7 @@ int __cdecl sub_004DF880(); // 0x004DF880
 int __cdecl sub_004DF980_IsSoundMode1Or2(); // 0x004DF980
 int __cdecl sub_004DF9B0_IsSoundMode2(); // 0x004DF9B0
 void __fastcall sub_004E0690_SetSoundTableFlag(int nValue); // 0x004E0690
-void __fastcall sub_0049D570_SetTextDisplayBeta(int nValue); // 0x0049D570
+void __fastcall sub_0049D570_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 void __fastcall sub_004CCF20_SetValue(int nValue); // 0x004CCF20
 void __fastcall sub_004776C0(void* pArg); // 0x004776C0
@@ -107,7 +107,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __cdecl sub_0044DA40(); // 0x0044DA40
 int __cdecl sub_00468730(); // 0x00468730
@@ -130,7 +130,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __cdecl sub_004979E0(); // 0x004979E0
 int __cdecl sub_004979F0(); // 0x004979F0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0044DB30(); // 0x0044DB30
 extern int gdwGlobal_007BC978; // 0x007BC978
 extern int gdwGlobal_007BC970; // 0x007BC970
@@ -207,15 +207,15 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
     {
     case 0:
         sub_004E0690_SetSoundTableFlag(1);
-        sub_0049D570_SetTextDisplayBeta(0);
+        sub_0049D570_SaveTextDisplaySetting(0);
         break;
     case 1:
         sub_004E0690_SetSoundTableFlag(0);
-        sub_0049D570_SetTextDisplayBeta(1);
+        sub_0049D570_SaveTextDisplaySetting(1);
         break;
     case 2:
         sub_004E0690_SetSoundTableFlag(1);
-        sub_0049D570_SetTextDisplayBeta(1);
+        sub_0049D570_SaveTextDisplaySetting(1);
         break;
     }
 }
@@ -434,7 +434,7 @@ void __stdcall sub_0047D7F0_OptionMouseDown(SMSGHANDLER_PARAMS* pMsg)
     gbOptionPressed_007BC948 = 1;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
@@ -449,7 +449,7 @@ void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
     gbOptionDragging_007BC94C = 0;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 void __stdcall sub_0047DB80_OptionActivate(SMSGHANDLER_PARAMS* pMsg)
@@ -457,7 +457,7 @@ void __stdcall sub_0047DB80_OptionActivate(SMSGHANDLER_PARAMS* pMsg)
     sub_0047D5C0_ActivateOption(pMsg);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 void __cdecl sub_0047E3D0_DrawOptions()
@@ -661,7 +661,7 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
             gbSlotClicked_007BC97C = 1;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
     }

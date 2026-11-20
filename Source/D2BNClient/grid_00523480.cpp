@@ -1,6 +1,6 @@
-int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned int* pSize, int nExtraBytes, void* pOverlapped); // 0x0041B650
+int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, void* pOverlapped); // 0x0041B650
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
-void __fastcall sub_00522BC0_FillRandomBytes(void* pBuffer, int nSize); // 0x00522BC0
+void __fastcall sub_00522BC0_FillRandomBytes(char* szBuffer, int nSize); // 0x00522BC0
 unsigned int __fastcall sub_00522E10(char* pBuffer, unsigned int nSize, const void* pKey); // 0x00522E10
 
 static __declspec(noinline) int sub_005232B0_Validate(char* pBuffer, unsigned int nSize);

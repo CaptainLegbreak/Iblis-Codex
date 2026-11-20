@@ -65,7 +65,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
-void __fastcall sub_004E2ED0_VolleyCallback(D2UnitStrc* pMissile); // 0x004E2ED0
+void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset); // 0x004E2ED0
 int __stdcall sub_006488C0_PathGetX(D2PathRecordStrc* pPath); // 0x006488C0
 int __stdcall sub_00648900_PathGetY(D2PathRecordStrc* pPath); // 0x00648900
 void __stdcall sub_00649030_SetPathFlag40(D2PathRecordStrc* pPath, int bClear); // 0x00649030
@@ -305,7 +305,7 @@ int __fastcall sub_004F16F0_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, i
     tRequest.nArg3 = nArg3;
     tRequest.nArg4 = nArg4;
     tRequest.nArg0 = nArg0;
-    tRequest.pfCallback = sub_004E2ED0_VolleyCallback;
+    tRequest.pfCallback = sub_004E2ED0_InitCappedChargedPath;
     if (bClearPathFlag)
     {
         tRequest.nType |= 0x2000;

@@ -35,7 +35,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __fastcall sub_004898D0(int nState); // 0x004898D0
@@ -76,7 +76,7 @@ void __cdecl sub_004B7B50()
     while (pDialog)
     {
         D2ClientDialogStrc* pNext = pDialog->pNext;
-        sub_0040B3C0(pDialog, ".\\UI\\dialog.cpp", 0x333, 0);
+        FOG_Free(pDialog, ".\\UI\\dialog.cpp", 0x333, 0);
         pDialog = pNext;
     }
 
@@ -110,7 +110,7 @@ void __fastcall sub_004B8020(void* pRes)
         while (pNode)
         {
             D2DialogWidgetNodeStrc* pNext = pNode->pNext;
-            sub_0040B3C0(pNode, ".\\UI\\dialog.cpp", 0x425, 0);
+            FOG_Free(pNode, ".\\UI\\dialog.cpp", 0x425, 0);
             pNode = pNext;
         }
 
@@ -120,7 +120,7 @@ void __fastcall sub_004B8020(void* pRes)
         }
 
         D2ClientDialogStrc* pNext = pDialog->pNext;
-        sub_0040B3C0(pDialog, ".\\UI\\dialog.cpp", 0x430, 0);
+        FOG_Free(pDialog, ".\\UI\\dialog.cpp", 0x430, 0);
         gpGlobal_007C0E54 = pNext;
     }
     else

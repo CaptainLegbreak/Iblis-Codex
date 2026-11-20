@@ -11,7 +11,7 @@ struct D2CharSelCacheStrc;
 class BNGatewayAccess;
 
 void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
-void __cdecl sub_00439210_Redraw(); // 0x00439210
+int __cdecl sub_00439210_Redraw(); // 0x00439210
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 void __cdecl sub_0043A800(); // 0x0043A800
 extern int gnSelected_0070CC00; // 0x0070CC00
@@ -122,7 +122,7 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-void __cdecl sub_0043A730(); // 0x0043A730
+void __cdecl sub_0043A730_UpdateButtons(); // 0x0043A730
 int __cdecl sub_0042FA30(); // 0x0042FA30
 void __cdecl sub_0042F990_UpdateProgress(); // 0x0042F990
 int __cdecl sub_0042F6D0(); // 0x0042F6D0
@@ -134,10 +134,10 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
-void __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
+int __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
-int __fastcall sub_004FC620_GetValue(D2WinControlStrc* pControl); // 0x004FC620
-void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
+int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData); // 0x004FC620
+int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep); // 0x004FC660
 extern D2WinControlStrc* gpControl_007795E0; // 0x007795E0
 extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
 extern void** gppSlots_00779988; // 0x00779988
@@ -399,7 +399,7 @@ int __stdcall sub_0043B490_OnName(SMSGHANDLER_PARAMS* pMsg)
     if (gnLaunchMode_007795EC == 1)
     {
         sub_0042F3F0_DestroyControls();
-        sub_0043A730();
+        sub_0043A730_UpdateButtons();
     }
     gbFlag_00779C6C = 0;
     return 1;

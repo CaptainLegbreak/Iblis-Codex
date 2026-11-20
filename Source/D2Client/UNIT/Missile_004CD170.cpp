@@ -104,7 +104,7 @@ int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-int __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
+void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __fastcall sub_004CC790_RollRange(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004CC790
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -121,7 +121,7 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
-void __fastcall sub_004D01D0_FireForward(D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nMissile, int nSkill, int nSkillLevel, int nCount); // 0x004D01D0
+int __fastcall sub_004D01D0_CreateMissileFan(D2UnitStrc* pOwner, D2UnitStrc* pOrigin, int nMissile, int nSkill, int nSkillLevel, int nStep); // 0x004D01D0
 extern const int gaRingOffsetY_006DB140[64]; // 0x006DB140
 extern const int gaRingOffsetX_006DB240[64]; // 0x006DB240
 extern const int gaRingOffsetY_006DB340[64]; // 0x006DB340
@@ -539,7 +539,7 @@ int __fastcall sub_004D02E0_HitForward(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
             nCount = 1;
         }
 
-        sub_004D01D0_FireForward(pOwner, pUnit, pMissilesTxtRecord->wCltHitSubMissile[0], MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), nCount);
+        sub_004D01D0_CreateMissileFan(pOwner, pUnit, pMissilesTxtRecord->wCltHitSubMissile[0], MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), nCount);
         return 1;
     }
 
@@ -711,6 +711,7 @@ void __fastcall sub_004D55C0_CltDoOwnerSkill(D2UnitStrc* pMissile)
 }
 
 #include "gen/data/Source/D2Client/UNIT/Missile_004CD170.inc"
+struct D2UnitStrc;
 
 // 0x004D07E0
 int __fastcall sub_004D07E0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUnit)

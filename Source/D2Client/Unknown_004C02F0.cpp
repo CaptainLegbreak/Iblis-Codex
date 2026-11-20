@@ -28,11 +28,11 @@ struct D2MsgHandlerEntryStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern unsigned long gdwTick_007C5488; // 0x007C5488
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00727950[]; // 0x00727950
-void __fastcall sub_00456300(int nArg1, int nArg2); // 0x00456300
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 void __cdecl sub_00487B80(); // 0x00487B80
-int __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
@@ -63,7 +63,7 @@ int __cdecl sub_004C02F0_ClosePanel()
 // 0x004C0380
 void __cdecl sub_004C0380_OpenPanel()
 {
-    sub_00456300(0, 0);
+    sub_00456300_CloseUIVars(0, 0);
     gnGlobal_007C5474 = 1;
     gdwTick_007C5488 = GetTickCount();
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_00727950, 8);

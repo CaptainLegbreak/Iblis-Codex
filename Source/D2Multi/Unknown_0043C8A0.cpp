@@ -12,7 +12,7 @@ extern "C" int __cdecl fclose(FILE* pFile); // 0x00681FDC
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 #pragma intrinsic(memcpy)
 
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void __stdcall sub_006BBF40_PutPackedWord(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
 
 extern const char gszDefaultSaveName_0070CCC8[]; // 0x0070CCC8

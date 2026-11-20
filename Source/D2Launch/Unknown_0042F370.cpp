@@ -10,7 +10,7 @@ int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* sz
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
-const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
+const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 void __cdecl sub_0042F6C0_SetDone(); // 0x0042F6C0
 void __cdecl sub_00437B90_FreeCache(); // 0x00437B90
 void __cdecl sub_00438EA0_FreeCharList(); // 0x00438EA0
@@ -18,7 +18,7 @@ int __stdcall BACKGROUND_SetCellFile(D2CellFileStrc* pCellFile); // 0x004F9140
 D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
 void __stdcall D2Win_10029(int a1); // 0x004FA410
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern D2LaunchControlTemplateStrc gtControlTemplates_00708D10[]; // 0x00708D10
 extern int gdwGlobal_0077932C; // 0x0077932C
 extern D2WinControlStrc* gapControlsB_00779350[0x40]; // 0x00779350
@@ -181,7 +181,7 @@ void __fastcall sub_0042FF10_SetValue(int nValue)
 // 0x0042FF20
 void __cdecl sub_0042FF20_ShowLocalAddress()
 {
-    const char* szAddress = sub_0040DF60_GetLocalIp();
+    const char* szAddress = FOG_GetHostIPAddress();
     sub_004FB6A0_ClearText(gpControl_00779588);
     if (!strcmp(szAddress, "127.0.0.1"))
     {

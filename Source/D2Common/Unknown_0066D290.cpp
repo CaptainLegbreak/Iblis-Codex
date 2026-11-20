@@ -1,4 +1,5 @@
 #include "D2Common.h"
+struct D2TileLibraryEntryStrc;
 
 struct D2DrlgCoordStrc;
 struct D2DrlgRoomTilesStrc;
@@ -64,7 +65,7 @@ struct D2DrlgRoomStrc
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 int __stdcall TileLibraryGetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
-unsigned int __stdcall sub_00604BC0(D2TileLibraryEntryStrc* pTileEntry); // 0x00604BC0
+int __stdcall TileGetFlags(D2TileLibraryEntryStrc* hTile); // 0x00604BC0
 
 struct D2DrlgTileDataStrc
 {
@@ -115,7 +116,7 @@ void __fastcall DRLGANIM_TestLoadAnimatedRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2
                 }
 
                 const int nTiles = TileLibraryGetTiles(&pDrlgRoom->pTiles, nType, nStyle, nSequence, ppTileEntries, 40);
-                if (nTiles && sub_00604BC0(ppTileEntries[0]) & 0x100)
+                if (nTiles && TileGetFlags(ppTileEntries[0]) & 0x100)
                 {
                     if (nTileInfo & 2)
                     {

@@ -11,7 +11,7 @@ struct D2UnitStrc
 
 extern int gdwGlobal_007A6A94; // 0x007A6A94
 extern int gdwGlobal_007A6A98; // 0x007A6A98
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 enum D2C_W04CursorConstants
 {

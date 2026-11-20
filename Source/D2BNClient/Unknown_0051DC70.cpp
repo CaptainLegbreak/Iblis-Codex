@@ -61,12 +61,12 @@ struct D2AuthCheck1Strc
 };
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-unsigned int __cdecl sub_0051A550_GetServerToken(); // 0x0051A550
+int __cdecl sub_0051A550(); // 0x0051A550
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength); // 0x0051DC80
 int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2); // 0x0051DDD0
-unsigned int __cdecl sub_00523A00_GetExeHash(); // 0x00523A00
+int __cdecl sub_00523A00(); // 0x00523A00
 const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern unsigned int gdwClientToken_00881C48; // 0x00881C48
@@ -302,15 +302,15 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
     const char* szExeInfo = sub_00523AA0_GetExeInfo();
     const char* szKey0 = sub_00523AB0_GetCDKey(0);
     const char* szKey1 = sub_00523AB0_GetCDKey(1);
-    const unsigned int dwExeHash = sub_00523A00_GetExeHash();
+    const unsigned int dwExeHash = sub_00523A00();
     gdwClientToken_00881C48 += _time32(0);
     gdwClientToken_00881C48 += GetTickCount();
     if (sub_0051BEC0_IsExpansion())
     {
         D2AuthCheck2Strc tPacket;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, sub_0051A550_GetServerToken()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, sub_0051A550()))
             return 0;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken_00881C48, sub_0051A550_GetServerToken()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken_00881C48, sub_0051A550()))
             return 0;
 
         tPacket.f_0 = gdwClientToken_00881C48;
@@ -325,7 +325,7 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
         tPacket.f_0 = gdwClientToken_00881C48;
         tPacket.nKeys = 1;
         tPacket.f_8 = dwExeHash;
-        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, sub_0051A550_GetServerToken()))
+        if (!sub_0051DFC0_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken_00881C48, sub_0051A550()))
             return 0;
 
         if (sub_0051C5C0_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_30, szExeInfo, 0x100) + 0x31) < 0)
@@ -338,7 +338,7 @@ int __stdcall sub_0051E0B0_SendAuthCheck()
 // 0x0051E340
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot)
 {
-    return sub_0051DFC0_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, sub_0051A550_GetServerToken());
+    return sub_0051DFC0_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, sub_0051A550());
 }
 
 // 0x0051E240

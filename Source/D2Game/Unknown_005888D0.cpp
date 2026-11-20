@@ -3,6 +3,9 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+struct D2CoordStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
 
 struct D2ActiveRoomStrc { char unk00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
@@ -13,9 +16,9 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,
 void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*,int); // 0x00543640
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc*,int,D2UnitStrc*,QUESTUNITITERATE,bool); // 0x00544300
-void __fastcall sub_00545340_FindFreePosition(D2ActiveRoomStrc*,D2CoordStrc*,int,int,D2ActiveRoomStrc**,int,int); // 0x00545340
+void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,QUESTUNITITERATE); // 0x005537D0
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int,int,int,int,D2GameStrc*,D2ActiveRoomStrc*,int,int,int); // 0x00555230
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
 int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc*,D2UnitStrc*,void*); // 0x005879D0
 int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc*,D2UnitStrc*,void*); // 0x00587F60
 int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc*,D2UnitStrc*); // 0x00587FC0
@@ -78,7 +81,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
       if(!pPortal && pRoom)
       {
        D2ActiveRoomStrc* pFreeRoom=pRoom;
-       sub_00545340_FindFreePosition(pRoom,&tCoords,2,0x8000,&pFreeRoom,17,100);
+       QUESTS_GetFreePosition(pRoom,&tCoords,2,0x8000,&pFreeRoom,17,100);
        if(pFreeRoom)
         pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX,tCoords.nY,pQuestData->pGame,pFreeRoom,1,1,0);
        else

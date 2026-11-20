@@ -17,8 +17,8 @@ struct D2ClipRectStrc { int left, right, top, bottom; };
 
 struct D2ClipResultStrc { int left, right, skipRows, rowCount; };
 extern const char gszEmptyAssertText; // 0x006CC837
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
 struct D2CelContextStrc
@@ -88,7 +88,7 @@ struct D2GfxSettingsStrc
 };
 
 extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
-void __fastcall sub_006C8A60_Draw(int nArg1, int nArg2, int a, int b, int c, int nLevel); // 0x006C8A60
+void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nLevel); // 0x006C8A60
 
 // 0x006C8250
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)

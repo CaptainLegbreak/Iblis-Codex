@@ -112,7 +112,7 @@ struct T006BE350
 };
 
 extern const char gszQServerSource[]; // 0x006FC460
-void* __fastcall FOG_Alloc(unsigned int size,const char* file,int line,int flags); // 0x0040B380
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount();
@@ -149,7 +149,7 @@ struct D2QClientStrc
 struct D2AddressRefStrc { unsigned int address,count; D2AddressRefStrc* next; };
 
 extern const char gszQServerPrefix[]; // 0x006FC47C
-unsigned int __cdecl sub_00410A80_GetTick(); // 0x00410A80
+long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 const char* __stdcall sub_006B013E_InetNtoa(unsigned int address); // 0x006B013E
 void __cdecl sub_006BE300_Log(const char* prefix,const char* format,...); // 0x006BE300
 extern "C" void* __cdecl memset(void*,int,unsigned int);
@@ -326,7 +326,7 @@ D2QClientStrc* __fastcall QSrvAddClient(T006BE350* server,unsigned int socket,un
  client->address=address;
  client->pending=0;client->queued=0;client->unknown74=0;
  client->enabled=1;client->state=2;
- unsigned int tick=sub_00410A80_GetTick();
+ unsigned int tick=sub_00410A80_GetTimeSeconds();
  client->tick1=tick;client->tick2=tick;client->tick3=tick;client->tick4=tick;
  InitializeCriticalSection(&client->lock);
  unsigned int bucket=id&server->mask;

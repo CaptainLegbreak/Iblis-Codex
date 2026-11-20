@@ -64,7 +64,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue); // 0x00517ABB
+int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
 extern void* gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
 
@@ -88,7 +88,7 @@ struct D2SpriteCacheStrc
 };
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
-int __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, int nArg, int bForce); // 0x005FF4A0
+D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 void __fastcall sub_0040AB00_FreeAsyncData(T00481720* pAsync); // 0x0040AB00
 
 struct D2CelStrc
@@ -369,7 +369,7 @@ void __fastcall sub_005FFBE0_FreeTileCache(D2SpriteCacheStrc* pCache)
 // 0x00600C90
 int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections)
 {
-    return gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
+    return gaDirectionIndex64_006E45A0[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
 }
 
 // 0x00600D30

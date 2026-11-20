@@ -106,7 +106,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 void __fastcall sub_006B38A0_Copy(D2DDrawSurfaceStrc* pDst, D2DDrawSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
 void __fastcall sub_006BACB0_TouchCacheNode(D2CacheListStrc* pList, int nSlot); // 0x006BACB0
 int __fastcall sub_006BAF00_AllocateCacheNode(D2CacheListStrc* pList); // 0x006BAF00
@@ -184,7 +184,7 @@ void __fastcall sub_006BBA00_BindTileTexture(D2CacheBindingStrc* pTile)
         long hResult = gpMemorySurface_00989C00->lpVtbl->Lock(gpMemorySurface_00989C00, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
-            sub_006B20E0_ReportError(gszFailedToLockMemorySurface_006FC2A4, hResult);
+            sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface_006FC2A4, hResult);
         }
 
         D2_ASSERT(tDesc.dwFlags & 8, 0x20B);
@@ -194,7 +194,7 @@ void __fastcall sub_006BBA00_BindTileTexture(D2CacheBindingStrc* pTile)
         hResult = gpMemorySurface_00989C00->lpVtbl->Unlock(gpMemorySurface_00989C00, 0);
         if (hResult)
         {
-            sub_006B20E0_ReportError(gszFailedToUnlockMemorySurface_006FC284, hResult);
+            sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface_006FC284, hResult);
         }
 
         if (gnRenderFlags_0096F3A8 & gnRenderFlag_006CE290)

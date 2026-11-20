@@ -5,6 +5,9 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+struct D2GameStrc;
+struct D2QuestDataStrc;
+struct D2UnitStrc;
 struct D2PlayerDataStrc;
 struct D2Act4Quest2Strc;
 struct D2ModeChangeStrc;
@@ -115,14 +118,14 @@ bool __fastcall ACT4Q2_SpawnDiablo(D2GameStrc* pGame, D2QuestDataStrc* pQuestDat
 typedef int(__fastcall* UNITITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount();
-void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuestData, int nPacket, D2UnitStrc* pUnit, UNITITERATEFN pfnCallback, int bCheck); // 0x00544300
+void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300
 void __fastcall sub_00545990(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nUnitType, D2UnitStrc* pUnit, UNITITERATEFN pfnCallback); // 0x005537D0
 int __fastcall ACT4Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B4970
 int __fastcall ACT4Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B49C0
 int __fastcall ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B4DF0
 int __fastcall ACT4Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B4E40
-int __fastcall sub_005B5140(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B5140
+int __fastcall ACT4Q2_UnitIterate_UpdatePlayerState(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B5140
 
 struct D2QuestSpawnStrc { char unk0x00[0x24]; D2CoordStrc tSpawnCoords[3]; };
 
@@ -336,7 +339,7 @@ void __fastcall ACT4Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     pQuestDataEx->nPlayerCount = 0;
     QUESTS_UnitIterate(pQuestData, 13, 0, ACT4Q2_UnitIterate_StatusCyclerEx, 1);
-    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, sub_005B5140);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT4Q2_UnitIterate_UpdatePlayerState);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT4Q2_UnitIterate_SetCompletionFlag);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT4Q2_UnitIterate_AttachCompletionSound);

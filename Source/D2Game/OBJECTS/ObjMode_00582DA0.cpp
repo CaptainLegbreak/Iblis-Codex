@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+struct D2UnitStrc;
 
 struct D2SfxStrc { D2GameStrc* pGame; D2UnitStrc* pObject; D2UnitStrc* pOwner; };
 struct D2SfxArgStrc { int unk, nDamagePct, nRadius; };
@@ -50,9 +51,9 @@ int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, int nLayer); // 0x00625480
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x006272B0
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pFind, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, void* pfnTest, D2UnitFindArgStrc* pArg); // 0x0065A950
-void __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pFind); // 0x0065AC70
+int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
 void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pFind); // 0x0065AA00
-int __fastcall sub_00582710_TestUnit(D2UnitStrc* pUnit, D2UnitFindArgStrc* pArg); // 0x00582710
+int __fastcall sub_00582710_IsLivingUnit(D2UnitStrc* unit, void* unused); // 0x00582710
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissile); // 0x0059FA30
 __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
@@ -91,7 +92,7 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
     arg.nY = nY;
     arg.nSize = pArgs->nRadius;
     D2UnitFindDataStrc data;
-    UNITFINDS_InitializeUnitFindData(pSfx->pGame->pMemoryPool, &data, pRoom, nX, nY, pArgs->nRadius, (void*)sub_00582710_TestUnit, &arg);
+    UNITFINDS_InitializeUnitFindData(pSfx->pGame->pMemoryPool, &data, pRoom, nX, nY, pArgs->nRadius, (void*)sub_00582710_IsLivingUnit, &arg);
     UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(&data);
     for (int i = 0; i < data.nIndex; ++i)
     {

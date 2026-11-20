@@ -140,7 +140,7 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
-void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
+D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void __fastcall sub_0046EC80_FreeGfxNodes(D2UnitStrc* pUnit); // 0x0046EC80
 void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
 int __fastcall sub_004DB180_IsGfxUnitType(D2UnitStrc* pUnit); // 0x004DB180
@@ -151,7 +151,7 @@ int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); //
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
-void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* pUnit, char* szPath, int* pWeaponClassCode, int a4, int a5, void* pInventory, int a7); // 0x0064FA00
+void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -722,19 +722,19 @@ void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId,
     if (nUnitType == 1)
     {
         sub_0046F9E0_LoadMonsterModeGfx(pUnit, nIndex);
-        return sub_0046E5A0_FindGfxNode(pUnit, nWeaponClassId, nIndex);
+        return sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClassId, nIndex);
     }
 
     if (nUnitType == UNIT_PLAYER)
     {
         sub_0046EA50_LoadGfxNodeSetByte(pUnit, nIndex);
-        return sub_0046E5A0_FindGfxNode(pUnit, nWeaponClassId, -1);
+        return sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClassId, -1);
     }
 
     if (nUnitType == 2)
     {
         sub_0046E980_LoadObjectGfx(pUnit, nIndex);
-        return sub_0046E5A0_FindGfxNode(pUnit, nWeaponClassId, -1);
+        return sub_0046E5A0_FindGfxListNode(pUnit, nWeaponClassId, -1);
     }
 
     return 0;
@@ -825,6 +825,8 @@ void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nIndex)
 }
 
 #include "gen/data/Source/D2Client/ENGINE/Gfx_0046DB90.inc"
+struct D2InventoryStrc;
+struct D2UnitStrc;
 
 static D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
 
@@ -870,7 +872,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     }
     int nWeaponClass;
     const int nToken = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClass, nMode, 0);
-    void* pGfxNode = sub_0046E5A0_FindGfxNode(pUnit, nToken, nMode);
+    void* pGfxNode = sub_0046E5A0_FindGfxListNode(pUnit, nToken, nMode);
     if (!pGfxNode)
     {
         pGfxNode = sub_0046FA80_LoadGfxNode(pUnit, nToken, nMode);

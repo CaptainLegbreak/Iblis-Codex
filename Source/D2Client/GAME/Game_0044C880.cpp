@@ -60,7 +60,7 @@ extern "C" __declspec(dllimport) void* __stdcall LoadAcceleratorsA(void* hInstan
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem);                                        // 0x00409C80
-void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize);   // 0x00409DD0
+int __cdecl sub_00409DD0_InitPoolSystem(D2PoolSystemStrc** ppPoolSystem, const char* szName, int nSize, int nUnused); // 0x00409DD0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0);                        // 0x0040B3C0
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
@@ -77,7 +77,7 @@ void __fastcall sub_00457300_InitGfxCaches(void* pMemPool, int bCelPool);       
 void __fastcall sub_00457420_FreeCaches(int nArg);                                                                     // 0x00457420
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode);                                                      // 0x0045AEA0
 void __cdecl sub_00463C70();                                                                                // 0x00463C70
-void __fastcall sub_00463D90(int nArg);                                                                     // 0x00463D90
+void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 void __cdecl sub_004659C0_FreeAllUnits();                                                                                // 0x004659C0
 void __cdecl sub_00466FE0();                                                                                // 0x00466FE0
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
@@ -107,7 +107,7 @@ int __fastcall sub_00501820(const Unicode* wszText);                            
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
 D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
 int __fastcall sub_0051740B_ErrorBox(const char* szText);                                                   // 0x0051740B
-void __fastcall sub_005177B2_SetLoadStringFn(D2LoadStringFn pfnLoadString);                                 // 0x005177B2
+void __fastcall sub_005177B2_SetLoadStringFn(void* pfnLoadString); // 0x005177B2
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __cdecl sub_005FE070();                                                                                // 0x005FE070
@@ -391,7 +391,7 @@ void __cdecl sub_0044E200_InitGameState()
     gdwGlobal_007A0664 = 0;
     memset(gaClientState_007A0480, 0, sizeof(gaClientState_007A0480));
     sub_00409DD0_InitPoolSystem(&gpMemPool_007A0488, "Client Pool System", 0x40000, 0x1000);
-    sub_00463D90(0);
+    sub_00463D90_SetPlayerUnit(0);
     sub_0044DBE0_ReadColorFlag();
     if (!gpView_007A0640)
         gpView_007A0640 = sub_00476B10();
@@ -592,3 +592,4 @@ int __fastcall sub_004538D0(unsigned int nUIVar)
 }
 
 #include "gen/data/Source/D2Client/GAME/Game_0044C880.inc"
+struct D2UnitStrc;

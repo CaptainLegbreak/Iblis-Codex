@@ -2,6 +2,10 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+struct D2ActiveRoomStrc;
+struct D2CoordStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
 
 struct D2MonsterDataStrc { int unk00[12]; void* interact; };
 struct D2QuestExStrc {
@@ -16,11 +20,11 @@ struct D2QuestDataStrc {
 };
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 int __fastcall MONSTERAI_HasInteractUnit(void*); // 0x00572DC0
-void __fastcall sub_00573180(D2GameStrc*,D2UnitStrc*,void*,int); // 0x00573180
+void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fastcall* pCallback)(D2UnitStrc*), char bClientSide); // 0x00573180
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*,int); // 0x00543640
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
-void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc*,D2CoordStrc*,unsigned int,unsigned int,D2ActiveRoomStrc**,int,int); // 0x00545340
-D2UnitStrc* __fastcall sub_005B2F20(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
+void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
     if (unit && unit->dwUnitType==1 && unit->pMonsterData) return unit->pMonsterData->interact;
     return 0;
@@ -50,8 +54,8 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* co
     coords->nY-=3;
     D2ActiveRoomStrc* found=sub_00463740_FindRoomAtPoint(room,coords->nX,coords->nY);
     QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
-    D2UnitStrc* npc=sub_005B2F20(quest->game,found,coords->nX,coords->nY,201,1,-1,0);
-    if (!npc) npc=sub_005B2F20(quest->game,found,coords->nX,coords->nY,201,1,2,0);
+    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,201,1,-1,0);
+    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,201,1,2,0);
     if (npc) {
         npc->dwFlags|=0x03000000;
         ex=quest->ex;

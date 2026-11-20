@@ -69,16 +69,16 @@ extern int ganSkillState_007C0A38[];                                            
 
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);                                            // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_0044DA70();                                                                                // 0x0044DA70
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467F20
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467FA0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);                                // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);                                         // 0x00498DC0
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);                                         // 0x004A89D0
@@ -93,7 +93,7 @@ void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int n
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                 // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);               // 0x006439B0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
@@ -214,7 +214,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         sub_0044DA70();
         pMsg->bUseResult = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 
@@ -241,7 +241,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                         const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
                         if (nMouseX > nX && nMouseX < nX + 0x30 && !ganSkillState_007C0A38[i] && !BITARRAY_CHECK(pSkillsTxt->nFlags, 4))
                         {
-                            sub_004786A0_SendIntInt(0x3C, pSkillsTxt->nSkillId, -1);
+                            sub_004786A0_SendDwords2(0x3C, pSkillsTxt->nSkillId, -1);
                             sub_00455F20(4, 1, 0);
                             continue;
                         }
@@ -250,12 +250,12 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
                 pMsg->bUseResult = 1;
                 pMsg->lResult = 0;
-                sub_00420290_HandleMsg(pMsg);
+                sub_00420290_BreakHandlerChain(pMsg);
             }
 
             pMsg->bUseResult = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
         }
     }
 
@@ -276,7 +276,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
         pMsg->bUseResult = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 
     if (gnTabSelection_00724CE0 == 1)
@@ -335,19 +335,19 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 pMsg->bUseResult = 1;
                 pMsg->lResult = 0;
                 sub_004B9A00(5, 0, 0, 0, 0);
-                sub_00420290_HandleMsg(pMsg);
+                sub_00420290_BreakHandlerChain(pMsg);
                 return;
             }
 
             pMsg->bUseResult = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
 
         pMsg->bUseResult = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 
@@ -373,7 +373,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_0044DA70();
         pMsg->bUseResult = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 
@@ -398,7 +398,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 
         pMsg->bUseResult = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 
@@ -455,7 +455,7 @@ LDone:
                             ganSkillMode_007C0838[i] = 0;
                             pMsg->bUseResult = 1;
                             pMsg->lResult = 0;
-                            sub_00420290_HandleMsg(pMsg);
+                            sub_00420290_BreakHandlerChain(pMsg);
                             return;
                         }
                     }
@@ -472,7 +472,7 @@ LDone:
         sub_0044DA70();
         pMsg->bUseResult = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 

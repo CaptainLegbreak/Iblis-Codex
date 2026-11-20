@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 struct D2ActiveRoomUnitsStrc;
 struct D2Act5Quest2Strc;
@@ -60,7 +62,7 @@ struct D2QuestArgStrc
 
 typedef int (__fastcall* QUESTUNITITERATEFN)(D2GameStrc*, D2UnitStrc*, void*);
 
-void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuestData, int nStatus, D2UnitStrc* pUnit, QUESTUNITITERATEFN pfIterate, int bValue); // 0x00544300
+void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nUnitType, D2UnitStrc* pUnit, QUESTUNITITERATEFN pfIterate); // 0x005537D0
 int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005879D0
 int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00587F60
@@ -81,7 +83,7 @@ struct D2ObjInitFnStrc
 };
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, short a8); // 0x005B2F20
-void __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nQuestId); // 0x005436B0
+int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuest); // 0x005436B0
 
 // 0x00587FC0
 int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)

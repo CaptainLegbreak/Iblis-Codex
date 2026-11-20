@@ -3,6 +3,10 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2GameStrc;
+struct D2SkillStrc;
+struct D2StatListStrc;
+struct D2UnitStrc;
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -104,7 +108,7 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x00621E40
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, unsigned int nUnitGUID); // 0x006251F0
+D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall STATLIST_SetExpireFrame(D2StatListStrc* pStatList, int nExpireFrame); // 0x00625310
 int __stdcall STATLIST_GetExpireFrame(D2StatListStrc* pStatList); // 0x00625330
@@ -139,10 +143,10 @@ void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc*,int); // 0x00535D10
 void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc*,int); // 0x00535E20
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc*); // 0x006259B0
 int __stdcall MONSTERS_IsDemon(D2UnitStrc*); // 0x0063E940
-int __fastcall sub_0057B420_RollPhysicalDamage(D2UnitStrc*,int,int,int,int,int,int,unsigned char); // 0x0057B420
-int __stdcall sub_00645830_GetCriticalStrikeChance(D2UnitStrc*,D2UnitStrc*,int,int); // 0x00645830
+int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam); // 0x0057B420
+int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
 int __fastcall sub_00472280(D2SeedStrc*,int,int); // 0x00472280
-int __fastcall SUNITEVENT_Trigger(D2GameStrc*,int,D2UnitStrc*,D2UnitStrc*,void*); // 0x005C0C30
+int __fastcall SUNITEVENT_Trigger(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage); // 0x005C0C30
 void __fastcall D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70(D2UnitStrc*,D2UnitStrc*,D2DamageStrc*); // 0x005A5560
 
 struct Unit
@@ -275,7 +279,7 @@ void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile,
 int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, void* pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
 void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); // 0x0065AA00
-void __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
+int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
 
 static __forceinline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
 {
@@ -1133,13 +1137,13 @@ void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame,D2UnitStrc* pAttacke
     }
     if(!(pDamage->dwHitFlags&1))
     {
-        pDamage->dwPhysDamage=sub_0057B420_RollPhysicalDamage(pAttacker,1,0,0,0,pDamage->dwEnDmgPct,pDamage->dwPhysDamage,nSrcDam);
+        pDamage->dwPhysDamage=SUNITDMG_ApplyDamageBonuses(pAttacker,1,0,0,0,pDamage->dwEnDmgPct,pDamage->dwPhysDamage,nSrcDam);
         if(!nWeapon)
         {
             D2UnitStrc* pWeapon=sub_6FC7C7B0(pAttacker);
             if(pWeapon)
             {
-                int nChance=sub_00645830_GetCriticalStrikeChance(pAttacker,pWeapon,0,2);
+                int nChance=SKILLS_GetWeaponMasteryBonus(pAttacker,pWeapon,0,2);
                 if(nChance>0 && sub_00472280(&pAttacker->pSeed,0,100)<nChance) goto critical;
             }
         }

@@ -349,7 +349,7 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_004BDF30(D2PacketRecord7Strc* pPacket); // 0x004BDF30
 void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket); // 0x0049CF90
 void __fastcall sub_004B9010(D2PacketRecord21Strc* pPacket); // 0x004B9010
-void __fastcall sub_00478BB0(int nArg08, int nArg04, unsigned char nByte01, unsigned short nWord02, D2Packet81ArgsStrc* pArgs); // 0x00478BB0
+void __fastcall sub_00478BB0(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs); // 0x00478BB0
 void __fastcall sub_004C51B0(D2PacketRecord6Strc* pPacket); // 0x004C51B0
 void __fastcall sub_004B3380(D2PacketRecord6Strc* pPacket); // 0x004B3380
 void __cdecl sub_0044DA70(); // 0x0044DA70

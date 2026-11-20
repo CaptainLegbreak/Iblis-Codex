@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+struct D2UnitStrc;
 struct D2AiParamStrc;
 union D2SeedStrc;
 struct D2AiCmdStrc;
@@ -76,7 +77,7 @@ void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int nFlags, int nVelocity, unsigned char nUnused); // 0x005A6260
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTarget); // 0x005DDF90
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nFlags, int nVelocity, unsigned char nUnused); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DED20
 int __fastcall AITACTICS_RunToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005DEDE0
 int __fastcall sub_6FCE5520(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick); // 0x005E5B70
@@ -279,7 +280,7 @@ void __fastcall sub_005E5C50_HomeGuardThink(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
     if (nRoll < pMonStats->wAiParam[0][nDifficulty])
     {
-        AITACTICS_SetVelocity(pUnit, 0, 100, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
         AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
         return;
     }

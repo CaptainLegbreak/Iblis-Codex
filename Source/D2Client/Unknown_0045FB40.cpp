@@ -10,7 +10,7 @@ void __stdcall sub_0045FBC0_DrawCelPair(int bFirst); // 0x0045FBC0
 void __cdecl sub_0045FC60_DrawLoadingTexts(); // 0x0045FC60
 void __stdcall sub_0045FD20_DrawPanelCel(int nFrame); // 0x0045FD20
 void __cdecl sub_0045FD80_DrawCenteredString(); // 0x0045FD80
-void __fastcall sub_004684C0(); // 0x004684C0
+void __cdecl sub_004684C0(); // 0x004684C0
 extern int gnGlobal_007A524C; // 0x007A524C
 
 // 0x0045FB40

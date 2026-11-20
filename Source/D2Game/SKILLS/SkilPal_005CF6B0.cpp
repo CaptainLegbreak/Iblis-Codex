@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2CharStatsTxt;
 
 struct D2ModeChangeStrc {
     int nMode; D2UnitStrc* pUnit; D2UnitStrc* pTargetUnit;
@@ -12,7 +13,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId); // 0x00463900
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId); // 0x004833E0
+extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 int __fastcall sub_004C9460_GetSkillParam1(int nSkillId); // 0x004C9460
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
 void __fastcall SUNIT_SetCombatMode(D2GameStrc*, D2UnitStrc*, int); // 0x00553570

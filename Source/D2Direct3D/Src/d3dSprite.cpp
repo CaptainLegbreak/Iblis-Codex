@@ -68,7 +68,7 @@ struct D2ComObjectStrc
     D2ComVtblStrc* lpVtbl;
 };
 
-void __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern D2ComObjectStrc* gpSpriteTextures_00970F1C[3]; // 0x00970F1C
 extern D2ComObjectStrc* gpSpriteSurfaces_00970F28[3]; // 0x00970F28
 extern D2ComObjectStrc* gpSpriteObject_00970F3C; // 0x00970F3C

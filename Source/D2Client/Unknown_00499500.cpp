@@ -80,11 +80,11 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern "C" const char gszBorderFramePath_006DA034[]; // 0x006DA034
 extern "C" const char gszParticleSourceFile_006DB95C[]; // 0x006DB95C
@@ -234,7 +234,7 @@ void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
         {
             if (gnHotkeySkill_007C06C8[nHotkey] != -1)
             {
-                sub_004786A0_SendIntInt(0x51, (nHotkey << 16) + 0xFFFF, -1);
+                sub_004786A0_SendDwords2(0x51, (nHotkey << 16) + 0xFFFF, -1);
             }
 
             gnHotkeySkill_007C06C8[nHotkey] = gtHotkeySlots_007C0300.nSkill[i];
@@ -247,7 +247,7 @@ void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
                 gbHotkeyLeft_007C07B8[nHotkey] = 1;
             }
             gnHotkeyOwner_007C0768[nHotkey] = gtHotkeySlots_007C0300.f_2D0[i];
-            sub_004786A0_SendIntInt(0x51, (nHotkey << 16) + (gbHotkeyLeft_007C07B8[nHotkey] ? 0x8000 : 0) + gnHotkeySkill_007C06C8[nHotkey], gnHotkeyOwner_007C0768[nHotkey]);
+            sub_004786A0_SendDwords2(0x51, (nHotkey << 16) + (gbHotkeyLeft_007C07B8[nHotkey] ? 0x8000 : 0) + gnHotkeySkill_007C06C8[nHotkey], gnHotkeyOwner_007C0768[nHotkey]);
 
             for (int j = 0; j < 16; ++j)
             {
@@ -256,7 +256,7 @@ void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
                     gnHotkeySkill_007C06C8[j] = -1;
                     gbHotkeyLeft_007C07B8[j] = -1;
                     gnHotkeyOwner_007C0768[j] = -1;
-                    sub_004786A0_SendIntInt(0x51, (j << 16) + 0xFFFF, -1);
+                    sub_004786A0_SendDwords2(0x51, (j << 16) + 0xFFFF, -1);
                 }
             }
         }

@@ -31,7 +31,7 @@ struct D2StatesTxt
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
-D2StatesTxt* __fastcall DATATBLS_GetStatesTxtRecord(int nStateId); // 0x00452040
+extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
 int __stdcall sub_00625350(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
@@ -322,7 +322,7 @@ void __stdcall sub_00625A70_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
 
             pStatListEx->StatFlags[(nState >> 5) + (sgptDataTables->nStatesTxtRecordCount + 31) / 32] |= gdwBitMasks[nState & 31];
 
-            D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord(nState);
+            D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
             if (pStatesTxtRecord)
             {
                 if (bSet)

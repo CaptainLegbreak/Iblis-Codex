@@ -41,7 +41,7 @@ extern "C" __declspec(dllimport) HWND __stdcall CreateWindowExA(unsigned long dw
 extern "C" HRESULT __stdcall DirectDrawEnumerateA(LPDDENUMCALLBACKA pCallback, void* pContext);             // 0x006C9B82
 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...) throw();                                                  // 0x00410610
-void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError);                                               // 0x0051793E
+void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
 void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice);                                     // 0x006B2F60
 int __stdcall sub_006B42F0_DDrawEnumCallback(void* pGuid, char* szDescription, char* szName, void* pContext); // 0x006B42F0
@@ -54,10 +54,10 @@ extern int gnDeviceStatus2_0096F83C;                                            
 extern int gnDeviceStatus3_0096F95C;                                                                        // 0x0096F95C
 
 struct T004013C0 { int unk00; int mode; };
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-int __stdcall SRegLoadString(const char*,const char*,unsigned int,char*,unsigned int); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char*,const char*,unsigned int,unsigned long*); // 0x00414F10
 int __stdcall SRegLoadData(const char*,const char*,unsigned int,void*,unsigned int,unsigned int*); // 0x00414DE0
 #pragma pack(push,1)

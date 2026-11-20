@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+struct D2ActiveRoomStrc;
+struct D2GameStrc;
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -59,7 +61,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID);              // 0x0061A270
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                                     // 0x00555600
-void __fastcall sub_00539760(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
+int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
 void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
 
 inline int M08_UNITS_GetXPositionInline(D2UnitStrc* pUnit)
@@ -251,7 +253,7 @@ void __fastcall sub_0053A2F0_ResetClientInAct(D2ClientStrc* pClient, int nAct)
     const int nY = M08_UNITS_GetYPositionInline(pPlayer);
     D2GameStrc* pGame = pClient->pGame;
     sub_M08_RemoveUnitFromRoom(pGame, pPlayer);
-    sub_00539760(pClient, pGame, 0, pRoom, nX, nY);
+    ClientAddPlayerToGame(pClient, pGame, 0, pRoom, nX, nY);
     sub_005394A0(pClient, pClient->pPlayer, pGame, pRoom, nX, nY);
     pClient->dwFlags &= ~CLIENTFLAGEX_PLAYER_UNIT_ALIVE;
     if (pRoom != pClient->hRoom)

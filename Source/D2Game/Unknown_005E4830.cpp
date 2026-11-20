@@ -1,6 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2ActiveRoomStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
 
 struct D2PlayerDataStrc;
 struct D2AiCmdStrc;
@@ -36,9 +39,9 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, 
 D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*, int); // 0x005DDE50
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc*, D2UnitStrc*, int, D2UnitStrc*); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*, D2UnitStrc*, int); // 0x005DE080
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc*, int, int, unsigned char); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall sub_6FCD0410(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DED40
-void __fastcall sub_005DF400_FollowOwner(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x005DF400
+int __fastcall AITACTICS_WanderToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance); // 0x005DF400
 int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int, int, int); // 0x005E3EA0
 int __fastcall sub_005E45D0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2UnitStrc*, int, D2AiTickParamStrc*, int, int); // 0x005E45D0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc*); // 0x0061AB00
@@ -63,7 +66,7 @@ int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
 int __stdcall sub_00648A20_GetTargetX(D2DynamicPathStrc*); // 0x00648A20
 int __stdcall sub_00648A30_GetTargetY(D2DynamicPathStrc*); // 0x00648A30
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc*); // 0x00649180
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc*, int, int, int, int); // 0x0064D910
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
 static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 {
@@ -151,12 +154,12 @@ void __fastcall sub_005E4830(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
         return;
     if (pTarget && DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
     {
-        sub_005DF400_FollowOwner(pGame, pUnit, pOwner, 4);
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
         return;
     }
     if (!pTarget)
     {
-        sub_005DF400_FollowOwner(pGame, pUnit, pOwner, 4);
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
         return;
     }
     if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
@@ -171,7 +174,7 @@ void __fastcall sub_005E4830(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
             return;
         }
-        AITACTICS_SetVelocity(pUnit, 0, 0, 12);
+        sub_005DE190_SetAiParam(pUnit, 0, 0, 12);
         sub_6FCD0410(pGame, pUnit, pTarget, 7);
         return;
     }
@@ -185,11 +188,11 @@ static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwn
     UNITS_GetPlayerData(pOwner);
     int nX = sub_00648A20_GetTargetX(pPath);
     int nY = sub_00648A30_GetTargetY(pPath);
-    AITACTICS_SetVelocity(pUnit, 7, 0, 0);
+    sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
     if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, nSteps)) return;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     if (sub_005DEFE0_Escape(pGame, pUnit, pOwner, nSteps, 1)) return;
-    AITACTICS_SetVelocity(pUnit, 0, 0, 40);
+    sub_005DE190_SetAiParam(pUnit, 0, 0, 40);
     AITACTICS_WalkToTargetCoordinates(pGame, pUnit, nX, nY);
 }
 

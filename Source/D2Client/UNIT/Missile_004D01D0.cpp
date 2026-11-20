@@ -146,7 +146,7 @@ void __fastcall sub_004DA5B0_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFr
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
 D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(void* pAct, int nX, int nY); // 0x00619DA0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-void __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit); // 0x00624390
+int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
@@ -182,7 +182,7 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
 int __stdcall MISSILE_GetSkill(D2UnitStrc*); // 0x0064A280
 int __stdcall MISSILE_GetLevel(D2UnitStrc*); // 0x0064A210
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,int,int,int); // 0x00646CA0
-int __stdcall PATH_GetDirection(D2DynamicPathStrc*); // 0x006487F0
+unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath); // 0x006487F0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
@@ -645,6 +645,7 @@ int __fastcall sub_004D01D0_CreateMissileFan(D2UnitStrc* pOwner, D2UnitStrc* pOr
 }
 
 #include "gen/data/Source/D2Client/UNIT/Missile_004D01D0.inc"
+struct D2DynamicPathStrc;
 
 static __forceinline D2MissilesTxt* GetMissileRecord(int id) {
  if(id>=0 && id<sgptDataTables->nMissilesTxtRecordCount)

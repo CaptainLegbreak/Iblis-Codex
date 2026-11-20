@@ -320,7 +320,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __fastcall sub_004113C0(char* szText, int nLength); // 0x004113C0
 extern "C" const char gszExcelCppFile[]; // 0x006FC448
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-int __stdcall FOG_GetRowFromTxt(D2TxtLinkStrc* pLinker, const char* szText, int nColumn); // 0x006BD3C0
+int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError); // 0x006BD3C0
 static __declspec(noinline) void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew);
 
 struct D2BinFileStrc
@@ -660,7 +660,7 @@ int __fastcall sub_006BD5A0_AddTxtLink(D2TxtLinkStrc* pLinker, const char* szTex
     D2_ASSERT(pLinker, 0x4CC);
     D2_ASSERT(!pLinker->pTbl, 0x4D0);
 
-    const int nRow = FOG_GetRowFromTxt(pLinker, szText, 0);
+    const int nRow = FOG_GetLinkIndex(pLinker, szText, 0);
     if (nRow >= 0)
     {
         return nRow;

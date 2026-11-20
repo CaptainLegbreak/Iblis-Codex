@@ -1,11 +1,11 @@
 // calling-convention shim (not game code)
 int __stdcall sub_004192F0_OpenArchiveFile(void*, const char*, unsigned int, void**); // 0x004192F0
-unsigned int __stdcall sub_00416370_GetFileSize(void*, unsigned int*); // 0x00416370
+int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
 void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int); // 0x00413020
 int __stdcall SMemFree(void*, const char*, int, unsigned int); // 0x00412650
-int __stdcall SFileReadFile(void*, void*, unsigned int, unsigned int*, void*); // 0x0041B050
+int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 int __stdcall sub_004198D0(void*); // 0x004198D0
-void* __fastcall sub_00406960_CreateFile(const char*, unsigned int, unsigned int, void*, unsigned int, unsigned int, void*); // 0x00406960
+void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 int __fastcall sub_004069A0_CloseFile(void*); // 0x004069A0
 int __fastcall sub_004069D0_WriteFile(void*, const void*, unsigned int, unsigned int*, void*); // 0x004069D0
 extern const char gszBnDownloadFile_006DF338[]; // 0x006DF338
@@ -17,7 +17,7 @@ static void __fastcall sub_0051E920_ExtractFile(const char* member, void* archiv
     void* output;
     void* source;
     if (!sub_004192F0_OpenArchiveFile(archive, member, 0, &source)) return;
-    unsigned int size = sub_00416370_GetFileSize(source, 0);
+    unsigned int size = sub_00416370_StormGetFileSize(source, 0);
     void* data = sub_00413020_Alloc(size, gszBnDownloadFile_006DF338, 0x583, 0);
     if (SFileReadFile(source, data, size, 0, 0)) {
         output = sub_00406960_CreateFile(destination, 0x40000000, 3, 0, 2, 0x80, 0);

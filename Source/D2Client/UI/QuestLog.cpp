@@ -42,11 +42,11 @@ struct D2QuestTableStrc
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-void* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nFlags);                                 // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl sub_004B32D0();                                                           // 0x004B32D0
 int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 const unsigned short* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                       // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 unsigned short* __fastcall sub_00526700(unsigned short* pDest, const Unicode* pSource);                   // 0x00526700
 unsigned short* __fastcall sub_00526790(unsigned short* pDest, const unsigned short* pSource, int nCount); // 0x00526790
 unsigned short* __fastcall sub_005267E0(unsigned short* pDest, const unsigned short* pSource);            // 0x005267E0
@@ -413,7 +413,7 @@ void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset)
         if (!gapCelFiles_007BF2E1[i])
         {
             sprintf(szPath, "%s\\ui\\menu\\%s", gszDataGlobal_006D4118, gaszQuestCelNames_006DA2C8[i]);
-            gapCelFiles_007BF2E1[i] = sub_004788B0_LoadCellFile(szPath, 0);
+            gapCelFiles_007BF2E1[i] = sub_004788B0(szPath, 0);
         }
     }
 
@@ -552,8 +552,8 @@ struct T0044CB60
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __cdecl sub_00463DF0();                                                                                 // 0x00463DF0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
@@ -908,3 +908,4 @@ void __cdecl sub_004A34F0_DrawQuestPage()
 }
 
 #include "gen/data/Source/D2Client/UI/QuestLog.inc"
+struct D2CelFileStrc;

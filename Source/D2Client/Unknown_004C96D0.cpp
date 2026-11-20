@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2ByteRecordStrc;
+struct D2UnitStrc;
 
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
@@ -64,7 +66,7 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
-void __fastcall sub_00474390_SetRecordBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
+void __fastcall sub_00474390_SetRecordBytes(D2ByteRecordStrc* pRecord, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
 void __fastcall sub_00480420_RefreshPathTarget(D2UnitStrc* pUnit); // 0x00480420
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 void __fastcall sub_004C70D0_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
@@ -86,7 +88,7 @@ void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
 void __stdcall sub_0064A760(D2UnitStrc*,int); // 0x0064A760
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
-void __fastcall sub_00471EC0(D2UnitStrc* pUnit, int nArg, int nX, int nY, int bPlayer, int nFlags); // 0x00471EC0
+int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
@@ -256,7 +258,7 @@ void __fastcall sub_004C9990_DrawMotionTrail(D2UnitStrc* pUnit, int nArg, int bR
             nY -= (i + 1) * nStepY;
         }
 
-        sub_00471EC0(pUnit, nArg, nX, nY, 1, 0);
+        sub_00471EC0_DrawUnit(pUnit, nArg, nX, nY, 1, 0);
     }
 
     pUnit->nSeqCurrentFramePrecise = nStartFrame << 8;

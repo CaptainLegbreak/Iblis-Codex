@@ -38,10 +38,10 @@ void __fastcall sub_00473C90_SetGlobal(int nValue);                             
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
 int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY);                           // 0x004804A0
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
-int __fastcall sub_004807C0(D2UnitStrc* pUnit);                                                             // 0x004807C0
+extern "C" int __fastcall sub_004807C0_UpdateUnitPath(D2UnitStrc* unit); // 0x004807C0
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 void __fastcall sub_004B3E10_RefreshNpcEntries(D2UnitStrc* pUnit);                                                            // 0x004B3E10
-void __fastcall sub_004C68F0(D2UnitStrc* pUnit);                                                            // 0x004C68F0
+int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 void __fastcall sub_004C72F0(D2UnitStrc* pUnit);                                                            // 0x004C72F0
 void __fastcall sub_004CAF60_UpdateFootsteps(D2UnitStrc* pUnit);                                                            // 0x004CAF60
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
@@ -71,7 +71,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pPath);                                        // 0x00648A00
 int __stdcall sub_00648A10_GetPathTargetY(D2DynamicPathStrc* pPath);                                        // 0x00648A10
 D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath);                              // 0x00648AA0
-int __stdcall sub_00648BF0_GetPathFlag(D2DynamicPathStrc* pPath);                                           // 0x00648BF0
+D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pPath);                                                      // 0x00648DC0
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);                                              // 0x00649180
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D870
@@ -231,7 +231,7 @@ static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit
     if (nFlags & 1)
     {
         SKILLS_SetFlags(pSkill, nFlags | 2);
-        sub_004C68F0(pUnit);
+        sub_004C68F0_DoUsedSkill(pUnit);
         return;
     }
 
@@ -240,7 +240,7 @@ static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit
 
     const int bFlag = pUnit ? (pUnit->dwFlags >> 6) & 1 : 0;
     if (!bFlag)
-        sub_004C68F0(pUnit);
+        sub_004C68F0_DoUsedSkill(pUnit);
 }
 
 inline int UNITS_GetUnitTypeInline(D2UnitStrc* unit)
@@ -264,7 +264,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
     D2DynamicPathStrc* path = unit->pDynamicPath;
     int args[7] = {};
     D2UnitStrc* target = sub_004648F0_GetPathTargetUnit(unit);
-    if (sub_00648BF0_GetPathFlag(path))
+    if (PATH_GetTargetUnit(path))
     {
         args[0] = UNITS_GetUnitTypeInline(target);
         args[1] = UNITS_GetUnitIdInline(target);
@@ -528,7 +528,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
     int bPathDone = 0;
     if (gaPlayerModeInfo_00711E00[pUnit->dwAnimMode].nType == 1)
     {
-        bPathDone = sub_004807C0(pUnit);
+        bPathDone = sub_004807C0_UpdateUnitPath(pUnit);
         if (pUnit == sub_00463DD0_GetPlayerUnit())
             sub_00460DE0_UpdateRoomPosition(pUnit);
         sub_004CAF60_UpdateFootsteps(pUnit);
@@ -543,10 +543,10 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
             int bRelease = 1;
             if (nFlags & 1)
             {
-                if (sub_004807C0(pUnit))
+                if (sub_004807C0_UpdateUnitPath(pUnit))
                 {
                     SKILLS_SetFlags(pSkill, nFlags | 2);
-                    sub_004C68F0(pUnit);
+                    sub_004C68F0_DoUsedSkill(pUnit);
                     *(unsigned int*)&bRelease = 0;
                 }
                 if (pUnit == sub_00463DD0_GetPlayerUnit())
@@ -557,7 +557,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
             if (bRelease && !PLAYER_UnitHasFlag(pUnit, 0x40))
             {
                 if (nActionFrame == 1 || nActionFrame == 2 || nActionFrame == 3)
-                    sub_004C68F0(pUnit);
+                    sub_004C68F0_DoUsedSkill(pUnit);
             }
         }
     }
@@ -643,3 +643,4 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
 }
 
 #include "gen/data/Source/D2Client/Unknown_00463390.inc"
+struct D2UnitStrc;

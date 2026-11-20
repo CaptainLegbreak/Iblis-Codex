@@ -8,11 +8,11 @@ struct D2WaypointEntryStrc { int nLevelId; unsigned char bEnabled; };
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 void __cdecl sub_0049C580_LoadPanelCels(); // 0x0049C580
 int __cdecl sub_00463DF0(); // 0x00463DF0
-void __fastcall sub_00455F20(int,int,int); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-void __fastcall sub_004786A0_SendPacket9(unsigned char,int,int); // 0x004786A0
-void __fastcall sub_00502EF0(int); // 0x00502EF0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+int __fastcall sub_00502EF0(int nFontSize); // 0x00502EF0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
@@ -21,11 +21,11 @@ D2BitBufferStrc* __cdecl sub_004B32D0_GetQuestFlags(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 void* __cdecl sub_00454600_GetCloseButtonCell(); // 0x00454600
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
-const Unicode* __fastcall sub_00453E70_GetLevelName(int); // 0x00453E70
+const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId); // 0x00453E70
 void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 int __fastcall sub_00501820(const Unicode*); // 0x00501820
-void __stdcall sub_004F6300(int,int,int,int,int,int); // 0x004F6300
+void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 extern int gnScreenHeight_00711470; // 0x00711470
 extern int gnOffsetX_007A2858; // 0x007A2858
 extern int gnOffsetY_007A285C; // 0x007A285C
@@ -41,7 +41,7 @@ extern unsigned char gbSent_007BF085; // 0x007BF085
 extern int gnCurrentAct_007BF086; // 0x007BF086
 extern int gnWaypointCount_007BF08A; // 0x007BF08A
 extern int gnPanelMode_007BF08E; // 0x007BF08E
-void __stdcall sub_004F6480(D2GfxDataStrc*,int,int,int,int,int); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 static __forceinline int GetWaypointPanelBottom() { return gnScreenHeight_00711470+gnOffsetY_007A285C; }
 
@@ -54,7 +54,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
         sub_00455F20(20,1,0);
         if(!gbSent_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
         {
-            sub_004786A0_SendPacket9(0x49,gnWaypointId_007BF07D,0);
+            sub_004786A0_SendDwords2(0x49,gnWaypointId_007BF07D,0);
             gbSent_007BF085=1;
         }
     }
@@ -64,13 +64,13 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
     tGfx.pCellFile=gpBackground_007BF071;
     tGfx.nDirection=0;
     tGfx.nFrame=0;
-    sub_004F6480(&tGfx,gnOffsetX_007A2858,GetWaypointPanelBottom()-224,-1,5,0);
+    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858,GetWaypointPanelBottom()-224,-1,5,0);
     tGfx.nFrame=1;
-    sub_004F6480(&tGfx,gnOffsetX_007A2858+256,GetWaypointPanelBottom()-224,-1,5,0);
+    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+256,GetWaypointPanelBottom()-224,-1,5,0);
     tGfx.nFrame=2;
-    sub_004F6480(&tGfx,gnOffsetX_007A2858,(gnScreenHeight_00711470+gnOffsetY_007A285C)-48,-1,5,0);
+    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858,(gnScreenHeight_00711470+gnOffsetY_007A285C)-48,-1,5,0);
     tGfx.nFrame=3;
-    sub_004F6480(&tGfx,gnOffsetX_007A2858+256,(gnScreenHeight_00711470+gnOffsetY_007A285C)-48,-1,5,0);
+    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+256,(gnScreenHeight_00711470+gnOffsetY_007A285C)-48,-1,5,0);
     int nMouseX=sub_00468730();
     int nMouseY=sub_00468740();
     nMouseX-=gnOffsetX_007A2858;
@@ -122,11 +122,11 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
             if(!bAllowed)continue;
             tGfx.nFrame=nAct*2+1;
         }
-        sub_004F6480(&tGfx,nActPositions[nAct]+gnOffsetX_007A2858,nYOffset-gnOffsetY_007A285C+33,-1,5,0);
+        TEXTURE_CelDraw(&tGfx,nActPositions[nAct]+gnOffsetX_007A2858,nYOffset-gnOffsetY_007A285C+33,-1,5,0);
     }
     tGfx.pCellFile=sub_00454600_GetCloseButtonCell();
     tGfx.nFrame=10+(gbClosePressed_007BF06C!=0);
-    sub_004F6480(&tGfx,gnOffsetX_007A2858+273,417-gnOffsetY_007A285C,-1,5,0);
+    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+273,417-gnOffsetY_007A285C,-1,5,0);
     int nLevelId=DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
     tGfx.pCellFile=gpWaypointCell_007BF079;
     for(int nRow=0;nRow<gnWaypointCount_007BF08A;++nRow)
@@ -138,7 +138,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
                 tGfx.nFrame=gnSelected_007BF06D==nRow;
             else
                 tGfx.nFrame=3+(gnSelected_007BF06D==nRow);
-            sub_004F6480(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
+            TEXTURE_CelDraw(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
             nColor=0;
         }
         else nColor=5;
@@ -147,7 +147,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
         {
             nColor=3;
             tGfx.nFrame=0;
-            sub_004F6480(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
+            TEXTURE_CelDraw(&tGfx,gaLayouts_007224E8[nRow].nCellX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nCellY-gnOffsetY_007A285C,-1,5,0);
         }
         sub_00502320(sub_00453E70_GetLevelName(gaWaypoints_007BF03C[nRow].nLevelId),gaLayouts_007224E8[nRow].nTextX+gnOffsetX_007A2858,gaLayouts_007224E8[nRow].nTextY-gnOffsetY_007A285C,nColor,0);
     }
@@ -155,7 +155,7 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
     {
         const Unicode* wszText=D2LANG_GetStringFromTblIndex(0x1022);
         int nWidth=sub_00501820(wszText);
-        sub_004F6300(gnOffsetX_007A2858-nWidth/2+287,370-gnOffsetY_007A285C,nWidth/2+gnOffsetX_007A2858+294,387-gnOffsetY_007A285C,0,2);
+        D2GFX_DrawBox(gnOffsetX_007A2858-nWidth/2+287,370-gnOffsetY_007A285C,nWidth/2+gnOffsetX_007A2858+294,387-gnOffsetY_007A285C,0,2);
         sub_00502320(wszText,gnOffsetX_007A2858-nWidth/2+292,385-gnOffsetY_007A285C,0,0);
     }
     if(!gnPanelMode_007BF08E)

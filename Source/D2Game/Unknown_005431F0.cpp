@@ -204,7 +204,7 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                   // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                   // 0x00648900
 int __fastcall AITHINK_GetSpecialStateFromAiControl(D2AiControlStrc* pAiControl);                            // 0x005B0D60
-int __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit);                                                 // 0x005A0140
+unsigned short __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit); // 0x005A0140
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag);                                 // 0x005A0180
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit);                                              // 0x005A01E0
 void __fastcall QUESTS_SetGoldenBirdSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit);                             // 0x00544F20
@@ -237,7 +237,7 @@ int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit);                                
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent);                       // 0x005415A0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 int __stdcall DRLG_GetSaveMonstersFromLevelId(int nLevelId);                                                // 0x00642820
-int __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit);                                      // 0x005540D0
+unsigned char __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit); // 0x005540D0
 int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit);                                          // 0x0063A770
 void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3);                           // 0x005543B0
 void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit);                         // 0x005B1A90

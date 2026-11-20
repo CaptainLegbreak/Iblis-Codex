@@ -6,7 +6,7 @@ struct Unicode
 };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
-void __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2);                         // 0x0042F2E0
+int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);                                           // 0x0042F430
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
 void __cdecl sub_0042FF20_ShowLocalAddress();                                                                                // 0x0042FF20
@@ -20,7 +20,7 @@ void __cdecl sub_0043EA20_Wait();                                               
 void __cdecl sub_00443220_DestroyControls();                                                                                // 0x00443220
 int __cdecl sub_00444E20();                                                                                 // 0x00444E20
 int __stdcall sub_004F91C0(void* pEditBox);                                                                  // 0x004F91C0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern D2WinControlStrc* gpControl_00779338;                                                                // 0x00779338
 extern D2WinControlStrc* gpControl_00779344;                                                                // 0x00779344

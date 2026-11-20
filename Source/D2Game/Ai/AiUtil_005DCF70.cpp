@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 #define ROOM_HAS_CLIENTS(pRoom) ((pRoom)->nNumClients & (pRoom)->nNumClients)
 struct D2UnkAiTableStrc;
@@ -85,7 +87,7 @@ void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pPath); // 0x00648780
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfFallbackCallback, int nCallbackId); // 0x005DD0B0
 int __fastcall MONSTERAI_GetTargetOverrideType(D2UnitStrc* pUnit); // 0x005730E0
 int __fastcall MONSTERAI_GetTargetOverrideGUID(D2UnitStrc* pUnit); // 0x00573100
 void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit); // 0x00573120
@@ -312,7 +314,7 @@ static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, in
     arg.pTarget = 0;
     arg.nDistance = 0x7FFFFFFF;
     arg.pIgnoredTarget = pCurrentTarget;
-    sub_6FCF1E80(SUNIT_GetGameFromUnit(pUnit), pUnit, &arg, 0, 7);
+    AIUTIL_FindTargetWithCallback(SUNIT_GetGameFromUnit(pUnit), pUnit, &arg, 0, 7);
 
     if (!arg.pTarget || arg.nDistance >= 20)
     {
@@ -444,7 +446,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
             arg.tSearch.unk0x10 = nUnk;
             arg.tSearch.pAlternativeTarget = 0;
             arg.tSearch.nAlternativeDistance = 0x7FFFFFFF;
-            sub_6FCF1E80(pGame, pUnit, &arg, 0, 5);
+            AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 5);
         }
         else
         {
@@ -452,7 +454,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
             arg.nDistance = 0x7FFFFFFF;
             arg.tEligible.pAlternativeTarget = 0;
             arg.tEligible.nAlternativeDistance = 0x7FFFFFFF;
-            sub_6FCF1E80(pGame, pUnit, &arg, 0, 6);
+            AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 6);
         }
 
         pTarget = arg.pTarget;
@@ -490,7 +492,7 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame
         arg.nDistance = 0x7FFFFFFF;
         arg.tEligible.pAlternativeTarget = 0;
         arg.tEligible.nAlternativeDistance = 0x7FFFFFFF;
-        sub_6FCF1E80(pGame, pUnit, &arg, 0, 6);
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 6);
 
         if (AIUTIL_ShouldUseAlternativeTarget(&arg.pTarget, &arg.nDistance, arg.tEligible.pAlternativeTarget, arg.tEligible.nAlternativeDistance, pUnit))
         {

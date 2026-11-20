@@ -67,7 +67,7 @@ extern "C" void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x0041061
 void __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
 extern "C" HRESULT __stdcall sub_006B1350_DirectDrawCreate(GUID*,IDirectDraw**,void*); // 0x006B1350
 void __fastcall sub_006B20E0_DDrawLogError(const char*,HRESULT) throw(); // 0x006B20E0
-void __fastcall sub_006B39B0(const char*,HRESULT) throw(); // 0x006B39B0
+void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result); // 0x006B39B0
 int __stdcall sub_006B3FD0(DDSURFACEDESC2*,void*); // 0x006B3FD0
 int __stdcall sub_006B1B60_EnumTextureFormat(void*,void*); // 0x006B1B60
 extern IDirectDraw4* gpDirectDraw4; // 0x00970E60
@@ -213,7 +213,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   D3DDEVICEDESC hardware,software;
   hardware.size=sizeof(hardware);software.size=sizeof(software);
   hr=device->vtbl->GetCaps(device,&hardware,&software);
-  if(hr) { sub_006B39B0(gsz_006FBBF4,hr); goto Cleanup; }
+  if(hr) { sub_006B39B0_ShowD3DError(gsz_006FBBF4,hr); goto Cleanup; }
   if(!(hardware.devCaps&0x200)) { sub_00410610_WriteLogLine(gsz_006FBBC8); goto Cleanup; }
   if(hardware.textureCaps&0x100) sub_00410610_WriteLogLine(gsz_006FBBA0);
   if(hardware.flags&0x40) {
@@ -239,7 +239,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
    else sub_00410610_WriteLogLine(gsz_006FB9F4,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
   } else sub_00410610_WriteLogLine(gsz_006FB9C4);
   hr=device->vtbl->EnumTextureFormats(device,sub_006B1B60_EnumTextureFormat,display);
-  if(hr) { sub_006B39B0(gsz_006FB9A8,hr); goto Cleanup; }
+  if(hr) { sub_006B39B0_ShowD3DError(gsz_006FB9A8,hr); goto Cleanup; }
 
   int textures=0;
   if(display->flags&gFlag_006CE28C) { sub_00410610_WriteLogLine(gsz_006FB98C); textures=1; }

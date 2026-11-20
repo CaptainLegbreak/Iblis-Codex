@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+struct D2ClientStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ItemsTxt;
@@ -74,12 +75,12 @@ struct D2PlayerModeChartStrc
 extern D2PlayerModeChartStrc gsPlayerModeChart_006E1740[]; // 0x006E1740
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
-void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* pClient, void* pArg); // 0x00538260
+void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* ptClient, const int* pDeathInfo); // 0x00538260
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0057F700
 void __fastcall sub_00575BC0(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575BC0
 void __fastcall CLIENTS_ToggleFlag(D2ClientStrc* pClient, unsigned short nFlag, int bSet); // 0x00538650
-int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, int nFlag); // 0x00538670
+int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); // 0x00538670
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0

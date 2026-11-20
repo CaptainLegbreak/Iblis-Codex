@@ -1,6 +1,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 struct D2InventoryStrc;
 
 
@@ -38,7 +39,7 @@ extern "C" int __stdcall sub_004DA0B0_GetGfxOffsetX(D2UnitStrc* pUnit);         
 int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit);                                          // 0x004DA0D0
 int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 int __fastcall sub_004DB180_IsGfxUnitType(D2UnitStrc* pUnit);                                               // 0x004DB180
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, int nArg7, int nArg8); // 0x004DBB50
+int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex);                                              // 0x004FB0C0
@@ -248,7 +249,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc*); // 0x00463E10
 int __fastcall sub_00464370_IsSelectedUnit(D2UnitStrc*); // 0x00464370
-void* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc*, int, int); // 0x0046E5A0
+D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc*, int, int); // 0x0046FA80
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc*, int, int, int, int); // 0x004709A0
 unsigned char* __fastcall sub_00477530_GetPalShift(D2UnitStrc*); // 0x00477530
@@ -260,7 +261,7 @@ int __fastcall sub_004DB140_GetCofLayerNewTransLvl(void*, int); // 0x004DB140
 void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc*, int, int, int, int*, int*, int*, int, int); // 0x004DB2E0
 int __fastcall sub_004DB360_GetCompTransparency(D2UnitStrc*, int, int*, int); // 0x004DB360
 unsigned char* __fastcall sub_004DB570_GetBodyLocItemShift(D2UnitStrc*, int, unsigned char*); // 0x004DB570
-void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc*, unsigned int, int); // 0x004DC7B0
+void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int bForce); // 0x004DC7B0
 int __cdecl sub_004F5170(); // 0x004F5170
 void __stdcall sub_004F5190_SetTownMode(int); // 0x004F5190
 void __stdcall sub_004F6450_DrawPerspective(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450

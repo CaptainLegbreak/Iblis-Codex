@@ -79,7 +79,7 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId);                // 0x00633640
 D2MonPresetTxt* __stdcall DATATBLS_GetMonPresetTxtActSection(int nAct, int* pnRecords);                     // 0x00659B40
-int __cdecl DATATBLS_GetSuperUniquesTxtRecordCount();                                                       // 0x00655710
+int __fastcall DATATBLS_GetSuperUniquesTxtRecordCount(); // 0x00655710
 int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId);                                              // 0x004E6C50
 D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(void* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY); // 0x0066BF30
 int __fastcall DRLGPRESET_MapTileType(int nId);                                                             // 0x0066D7F0

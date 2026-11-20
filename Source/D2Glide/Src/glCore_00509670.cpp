@@ -25,14 +25,14 @@ struct D2GlideFloorCacheStrc
 {
 	int unk0x00;
 };
-int __fastcall sub_0050B860_InitSpriteMemory(unsigned int nAddress, unsigned int nAlign); // 0x0050B860
-int __fastcall sub_0050DFE0_GlideSetSmackTexAddresses(unsigned int nAddress, unsigned int nAlign); // 0x0050DFE0
+int __fastcall sub_0050B860_GlideDownloadDebugFont(int nStartAddress, int nAlignment); // 0x0050B860
+int __fastcall sub_0050DFE0_GlideSetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
 int __fastcall sub_0050E890_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050E890
 int __fastcall sub_0050ED90_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050ED90
 int __fastcall sub_0050F320_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050F320
 void __cdecl sub_0050B7B0_GlideInitSprites(); // 0x0050B7B0
 void __stdcall sub_0050FCB0_GlideReleaseTileCache(); // 0x0050FCB0
-void __stdcall sub_00604A30_StoreTileFreeHandler(void (__stdcall* pfnHandler)()); // 0x00604A30
+void __stdcall sub_00604A30_StoreTileFreeHandler(void* pfnCallback); // 0x00604A30
 extern unsigned int (__stdcall* gpfnGrTexMinAddress_0087EB24)(int nTmu); // 0x0087EB24
 extern unsigned int (__stdcall* gpfnGrTexMaxAddress_0087EB44)(int nTmu); // 0x0087EB44
 extern unsigned int gdwTmuMinAddress_0087EAA4[]; // 0x0087EAA4
@@ -131,7 +131,7 @@ int __cdecl sub_00509670_InitTextureMemory()
 			nAlign32K = (nMask2 | 0x8000) + 1;
 		}
 
-		nAddress += sub_0050B860_InitSpriteMemory(nAddress, gnTexAlign_0087EFBC);
+		nAddress += sub_0050B860_GlideDownloadDebugFont(nAddress, gnTexAlign_0087EFBC);
 		unsigned int nFree = gdwTmuMaxAddress_0087EAE4[0] - nAddress;
 		unsigned int nEnd;
 		if (gnTmuCount_0087EFB4 > 1)

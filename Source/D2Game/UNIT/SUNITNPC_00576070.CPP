@@ -1,8 +1,9 @@
 #include "D2Game.h"
 #include "D2Txt.h"
+struct D2ClientStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define SEND_GOLD(code,line,guid,kind) D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pPlayer,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(pPlayer,14,0),guid,kind)
+#define SEND_GOLD(code,line,guid,kind) sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(pPlayer,14,0),guid,kind)
 
 struct D2SeedStrc;
 struct D2RoomStrc;
@@ -60,9 +61,9 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2SeedStrc* __fastcall sub_00536B40_GetGameSeed(D2GameStrc* pGame); // 0x00536B40
-D2HirelingTxt* __stdcall sub_006564D0_GetHirelingTxtRecord(int nGameType, int nId, int nDifficulty, int a4); // 0x006564D0
+D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(int bExpansion, int nVendorId, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x006564D0
 
 struct D2UnitStrc
 {
@@ -110,8 +111,8 @@ struct D2PlayerDataStrc {char unk00[0x10];D2BitBufferStrc* pQuestData[3];char un
 extern int gnSpecialItem1; // 0x00883E9C
 extern int gnSpecialItem2; // 0x00883EA0
 D2InventoryStrc* __fastcall SUNITPROXY_GetGambleInventory(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00536C50
-void __fastcall sub_0053D130_SendItemStat(D2ClientStrc*,D2UnitStrc*,int,int,int,int); // 0x0053D130
-void __fastcall D2GAME_SendPacket0x2A_6FC3F3B0(D2ClientStrc*,unsigned char,int,int,int,int); // 0x0053D740
+void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
+void __fastcall sub_0053D740_SendPacket0x2A(D2ClientStrc* pClient, char nHeader, char nResult, int nGold, int nUnitGUID, char nTransactionType); // 0x0053D740
 void __fastcall PLRTRADE_AddGold(D2UnitStrc*,int,int); // 0x0053FF00
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc*,D2UnitStrc*); // 0x00543520
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
@@ -123,7 +124,7 @@ D2UnitStrc* __fastcall ITEMMODE_FindMatchingBookWithSpace(D2GameStrc*,D2UnitStrc
 void __fastcall sub_0055F6E0_AddItemQuantity(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055F6E0
 int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00562E00
 int __fastcall sub_00576D90_SpendGold(D2GameStrc*,D2UnitStrc*,int); // 0x00576D90
-unsigned char __fastcall sub_00576ED0_CanMultibuy(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00576ED0
+bool __fastcall sub_00576ED0(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem); // 0x00576ED0
 void __fastcall sub_6FCC7E20(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00576F50
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
@@ -131,11 +132,11 @@ void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc*,int,int,int); // 0x006272B0
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc*,int,int); // 0x006280D0
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc*); // 0x006289F0
+void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_CheckIfAutoBeltable(D2InventoryStrc*,D2UnitStrc*); // 0x00628BA0
 int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
-int __stdcall ITEMS_GetAutoStack(D2UnitStrc*); // 0x0062E790
+unsigned int __stdcall ITEMS_GetAutoStack(D2UnitStrc* pItem); // 0x0062E790
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
@@ -155,10 +156,10 @@ D2RoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* unit); // 0x00620BB0
 void __stdcall sub_0061A270_RemoveRoomUnit(D2RoomStrc* room,int type,int id); // 0x0061A270
 void __fastcall sub_00555600_RemoveUnit(D2GameStrc* game,D2UnitStrc* unit); // 0x00555600
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* unit); // 0x00625D10
-void __fastcall sub_00574AB0_AttachPet(D2GameStrc* game,D2UnitStrc* player,D2UnitStrc* pet); // 0x00574AB0
+int __fastcall sub_00574AB0_RevivePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet); // 0x00574AB0
 void __fastcall sub_005B1900_InitAi(D2GameStrc* game,D2UnitStrc* pet,int flag,int owner); // 0x005B1900
 void __stdcall STATES_ToggleState(D2UnitStrc* unit,int state,int set); // 0x00639DB0
-void __fastcall sub_00577470_RefreshPet(D2UnitStrc* pet); // 0x00577470
+int __fastcall sub_00577470_RelinkItemStatLists(D2UnitStrc* pUnit); // 0x00577470
 int __stdcall PATH_GetXPosition(D2PathRecordStrc* path); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2PathRecordStrc* path); // 0x00648900
 void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* game,D2UnitStrc* player,int x,int y); // 0x005754B0
@@ -175,7 +176,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 // 0x00575FF0
 int __fastcall sub_00575FF0(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass)
 {
-    D2HirelingTxt* pHirelingTxtRecord = sub_006564D0_GetHirelingTxtRecord(pGame->nGameType, nHirelingId, 0, 0);
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->nGameType, nHirelingId, 0, 0);
     if (!pHirelingTxtRecord)
     {
         *pNameFirst = 0;
@@ -467,7 +468,7 @@ int __fastcall sub_00577830_BuyItem(D2GameStrc* ptGame,D2UnitStrc* pPlayer,D2Uni
     if(nCost>(nGold+nStashGold)){SEND_GOLD(12,2085,-1,0);return 0;}
     D2InventoryStrc* pInventory=pPlayer->pInventory;
     if(INVENTORY_GetCursorItem(pInventory)){SEND_GOLD(7,2129,-1,0);return 1;}
-    if(!sub_00576ED0_CanMultibuy(ptGame,pNpc,pItem))bMultibuy=0;
+    if(!sub_00576ED0(ptGame,pNpc,pItem))bMultibuy=0;
     if(ITEMSIsA(pItem,22))
     {
         int nFree;
@@ -504,7 +505,7 @@ int __fastcall sub_00577830_BuyItem(D2GameStrc* ptGame,D2UnitStrc* pPlayer,D2Uni
             if(!sub_00576D90_SpendGold(ptGame,pPlayer,nCount*nCost)){SEND_GOLD(12,2207,-1,0);return 0;}
             sub_6FCC7E20(ptGame,pNpc,pItem,pPlayer,nTransaction);
             STATLIST_AddUnitStat(pStack,70,nCount,0);
-            sub_0053D130_SendItemStat(UnitGetClient(pPlayer,gszNpcSourceFile,2214),pStack,1,70,STATLIST_UnitGetStatValue(pStack,70,0),0);
+            D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pPlayer,gszNpcSourceFile,2214),pStack,1,70,STATLIST_UnitGetStatValue(pStack,70,0),0);
             int nGuid=pStack->dwUnitId;
             SEND_GOLD(0,2216,nGuid,5);return 0;
         }
@@ -617,14 +618,14 @@ void __fastcall sub_00579AA0_ReplacePet(D2GameStrc* game,D2UnitStrc* player,D2Un
  RemoveExistingPet(game,player);
  UNITS_ChangeAnimMode(pet,1);
  STATLIST_SetUnitStat(pet,6,STATLIST_GetMaxLifeFromUnit(pet),0);
- sub_00574AB0_AttachPet(game,player,pet);
+ sub_00574AB0_RevivePet(game,player,pet);
  sub_005B1900_InitAi(game,pet,0,player->owner);
  STATES_ToggleState(pet,1,0);
  STATES_ToggleState(pet,107,0);
  STATES_ToggleState(pet,154,0);
  pet->flags|=0x402000E;
  pet->flagsEx&=~0x40000;
- sub_00577470_RefreshPet(pet);
+ sub_00577470_RelinkItemStatLists(pet);
  PLAYERPETS_UpdatePetsForOwnerMove(game,player,GetX(player),GetY(player));
  MONSTERAI_SendMercStats(game,player,0);
 }

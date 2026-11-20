@@ -39,7 +39,7 @@ void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                         
 void __fastcall AIGENERAL_UpdateMinionList(D2UnitStrc* pUnit);                                               // 0x0058F6C0
 void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit);                          // 0x005B1A90
 void __stdcall D2Common_10469(D2UnitStrc* pUnit);                                                            // 0x00627540
-int __stdcall MONSTERS_IsBoss(void* pMonStatsTxtRecord, D2UnitStrc* pMonster);                               // 0x0063E9F0
+int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
 void __stdcall STATES_UpdateStayDeathFlags(D2UnitStrc* pUnit, int bIsBoss);                                  // 0x00639FB0
 int __stdcall STATES_CheckStateMaskHideOnUnit(D2UnitStrc* pUnit);                                            // 0x0063A320
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                   // 0x004638A0
@@ -124,7 +124,7 @@ void __fastcall sub_00547E50_RemoveMonster(void*, D2UnitStrc*); // 0x00547E50
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 void __stdcall sub_0061AFA0_RemoveRoomUnit(D2ActiveRoomStrc*, int); // 0x0061AFA0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc*, D2UnitStrc*); // 0x006416D0
-int __stdcall sub_00622B50_CheckCollision(D2UnitStrc*, D2UnitStrc*, int); // 0x00622B50
+int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
 void __fastcall sub_0057C1E0_CalculateDamage(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2DamageStrc*); // 0x0057C1E0
@@ -148,7 +148,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
     while (pTarget)
     {
-        if (pTarget->dwUnitType == 0 && pTarget->dwAnimMode != 17 && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_CheckCollision(pTarget, pUnit, 0x3C01))
+        if (pTarget->dwUnitType == 0 && pTarget->dwAnimMode != 17 && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));

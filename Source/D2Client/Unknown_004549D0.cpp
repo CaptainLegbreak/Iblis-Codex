@@ -37,7 +37,7 @@ void __cdecl sub_0049CF50_SendWaypointClose(); // 0x0049CF50
 void __cdecl sub_0049FF00(); // 0x0049FF00
 void __cdecl sub_004A01A0_CloseListBoxDialog(); // 0x004A01A0
 void __cdecl sub_004A28D0_ResetButton(); // 0x004A28D0
-void __cdecl sub_004A3000(); // 0x004A3000
+extern "C" void __cdecl sub_004A3000_ResetFlag(); // 0x004A3000
 void __fastcall sub_004A5200(int nArg); // 0x004A5200
 void __cdecl sub_004ABF10_ClearSkillStates(); // 0x004ABF10
 void __cdecl sub_004B3F10_CloseByState(); // 0x004B3F10
@@ -92,7 +92,7 @@ extern int gnGlobal_0071146C; // 0x0071146C
 int __cdecl sub_0044DB30(); // 0x0044DB30
 void __cdecl sub_0044CD70_TickTimer(); // 0x0044CD70
 void __cdecl sub_00456550_LoadLoadingScreen(); // 0x00456550
-void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
+void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __cdecl sub_00478150(); // 0x00478150
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __stdcall CelFileGetCelsPerDirection(D2CellFileStrc* pCelFile); // 0x006019F0
@@ -114,7 +114,7 @@ int __cdecl sub_0044DCC0(); // 0x0044DCC0
 int __cdecl sub_004A0000(); // 0x004A0000
 int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
 void __fastcall sub_004B3C20(int nValue); // 0x004B3C20
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __cdecl sub_00468730(); // 0x00468730
@@ -123,12 +123,12 @@ extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_007A285C; // 0x007A285C
 extern unsigned short gwszText_007A2D30[]; // 0x007A2D30
 extern unsigned short gwszText_007A2A78[]; // 0x007A2A78
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 int __cdecl sub_0045AE90(); // 0x0045AE90
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit); // 0x00454F30
-void __fastcall sub_00456300(int nArg1, int nArg2); // 0x00456300
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __fastcall sub_004B8100(void* pObj); // 0x004B8100
 void __fastcall sub_004A0E70_UpdateTexts(D2ViewStrc* pView); // 0x004A0E70
 void __fastcall sub_00453330_DrawPartyMemberText(D2UnitStrc* pUnit); // 0x00453330
@@ -143,7 +143,7 @@ void __cdecl sub_00455510_DrawLevelLoadingScreen(); // 0x00455510
 void __cdecl sub_00493340_UpdateHirelingPanel(); // 0x00493340
 void __cdecl sub_00494020_DrawPetIcons(); // 0x00494020
 void __cdecl sub_004929F0_DrawMercPanel(); // 0x004929F0
-void __cdecl sub_0048BC10(); // 0x0048BC10
+void __stdcall sub_0048BC10(); // 0x0048BC10
 void __cdecl sub_004A34F0_DrawQuestPage(); // 0x004A34F0
 void __cdecl sub_0048EDF0_DrawInventoryPanel(); // 0x0048EDF0
 void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
@@ -173,7 +173,7 @@ void __cdecl sub_004C0810_DrawUnitNames(); // 0x004C0810
 void __cdecl sub_004B4380_UpdateNpcInteract(); // 0x004B4380
 void __cdecl sub_004C01E0_DrawPanelUnit(); // 0x004C01E0
 void __cdecl sub_00496B10(); // 0x00496B10
-void __cdecl sub_00503000(); // 0x00503000
+void __stdcall D2Win_10124(); // 0x00503000
 void __cdecl sub_00454A70_DrawHoverText(); // 0x00454A70
 void __cdecl sub_00453060(); // 0x00453060
 void __cdecl sub_004554B0_DrawHoverName(); // 0x004554B0
@@ -265,7 +265,7 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
         return;
     case 0x11:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D615C, 0x4);
-        sub_004A3000();
+        sub_004A3000_ResetFlag();
         return;
     case 0x10:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D61B0, 0x2);
@@ -583,7 +583,7 @@ void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView)
         sub_0047B720_DrawChatPanel();
     if (gaUIVarStates_007A27C0[33])
     {
-        sub_00456300(0, 0);
+        sub_00456300_CloseUIVars(0, 0);
         const int bWasOn = gaUIVarStates_007A27C0[33];
         if (sub_00408F20_HasExpansionMpq())
             sub_0044DCC0();
@@ -658,7 +658,7 @@ done:
         sub_004C01E0_DrawPanelUnit();
     sub_00496B10();
     sub_004A0E70_UpdateTexts(pView);
-    sub_00503000();
+    D2Win_10124();
     sub_00454A70_DrawHoverText();
     sub_00453060();
     sub_004554B0_DrawHoverName();

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 
 struct D2AiParamStrc;
 struct D2MonsterDataStrc { char pad00[0x2C]; D2AiParamStrc* pAiParam; };
@@ -20,7 +21,7 @@ void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int nFlag
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTarget); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nFlags, int nVelocity, unsigned char nUnused); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DED20
 int __fastcall AITACTICS_RunToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005DEDE0
 int __fastcall sub_6FCE5520(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick); // 0x005E5B70
@@ -76,12 +77,12 @@ void __fastcall sub_005E6320_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
         if (nDistance > 45) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 5); return; }
         if (nHomeDistance >= 50 || (unsigned int)AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2]) > 50) {
             pAi->dwAiParam[2] = 1;
-            AITACTICS_SetVelocity(pUnit, 7, 100, 0);
+            sub_005DE190_SetAiParam(pUnit, 7, 100, 0);
             if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
         }
         if (pAi->dwAiParam[2] && (unsigned int)AIUTIL_GetDistanceToCoordinates_HalfUnitSize(pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2]) > 5) {
-            AITACTICS_SetVelocity(pUnit, 7, 100, 0);
+            sub_005DE190_SetAiParam(pUnit, 7, 100, 0);
             if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
         }
@@ -90,7 +91,7 @@ void __fastcall sub_005E6320_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
     if (nDistance > 20 && nHomeDistance < 50) {
         nDistance >>= 1;
         if (nDistance < 12) nDistance = 12;
-        AITACTICS_SetVelocity(pUnit, 7, 100, 0);
+        sub_005DE190_SetAiParam(pUnit, 7, 100, 0);
         if (AITACTICS_RunCloseToTargetUnit(pGame, pUnit, pTarget, nDistance)) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
@@ -112,7 +113,7 @@ void __fastcall sub_005E6320_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
     }
     if (nDistance > 5) {
         if ((int)(Roll(pSeed) % 100) < 5 && nHomeDistance < 50) {
-            AITACTICS_SetVelocity(pUnit, 7, 100, 0);
+            sub_005DE190_SetAiParam(pUnit, 7, 100, 0);
             AITACTICS_RunCloseToTargetUnit(pGame, pUnit, pTarget, 12);
             return;
         }
@@ -127,11 +128,11 @@ void __fastcall sub_005E6320_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pNewTarget);
             return;
         }
-        AITACTICS_SetVelocity(pUnit, 0, 50, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
         if (sub_005DF7D0(pGame, pUnit, pTarget, 4, 1)) return;
     }
     if ((int)(Roll(pSeed) % 100) < 30 && nDistance < 12) {
-        AITACTICS_SetVelocity(pUnit, 7, 100, 0);
+        sub_005DE190_SetAiParam(pUnit, 7, 100, 0);
         if (sub_005DF140_Escape(pGame, pUnit, pTarget, 12 - nDistance, 0)) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }

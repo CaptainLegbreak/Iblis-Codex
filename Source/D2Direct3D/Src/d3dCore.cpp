@@ -1,6 +1,6 @@
 #include "D2Direct3D.h"
 
-#define DD_CHECK(expr,message) { error=(expr); if(error) { sub_006B20E0_LogDrawError(message,error); goto Fail; } }
+#define DD_CHECK(expr,message) { error=(expr); if(error) { sub_006B20E0_DDrawLogError(message,error); goto Fail; } }
 #define D3D_CHECK(expr,message) { error=(expr); if(error) { msg=message; goto D3DFail; } }
 
 struct Draw;
@@ -216,10 +216,10 @@ extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 extern "C" __declspec(dllimport) int __stdcall MoveWindow(void*,int,int,int,int,int); // 0x006CC444
-void __fastcall sub_006B20E0_LogDrawError(const char*,long); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
 void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
-void __cdecl sub_006B3800(); // 0x006B3800
+void __cdecl sub_006B3800_Flush(); // 0x006B3800
 void __cdecl sub_006B3080(); // 0x006B3080
 void __cdecl sub_006BB5E0_CreateSurfaces(); // 0x006BB5E0
 void __cdecl sub_006B8F10(); // 0x006B8F10
@@ -332,7 +332,7 @@ struct D2Direct3DDevice006B57D0Strc
 };
 
 extern D2Direct3DDevice006B57D0Strc* gpDevice_00970E78; // 0x00970E78
-void __cdecl sub_006B5550_ShutdownCore(); // 0x006B5550
+int __cdecl sub_006B5550_ShutdownCore(); // 0x006B5550
 
 // 0x006B4FD0
 static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
@@ -345,7 +345,7 @@ static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
     switch(mode) { case 0: case 2: gnModeFlag=1; break; default: gnModeFlag=0; break; }
     DD_CHECK(gpDraw->SetCooperativeLevel(window,0x411),gCoopError);
     error=gpDraw->SetDisplayMode(gnWidth,gnHeight,32,0,0);
-    if(error) { sub_006B20E0_LogDrawError(gDisplayError,error); return 0; }
+    if(error) { sub_006B20E0_DDrawLogError(gDisplayError,error); return 0; }
     MoveWindow(window,0,0,gnWidth,gnHeight,1);
     gnInitialized=1; gnState=0;
     SurfaceDesc desc;
@@ -375,15 +375,15 @@ static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
     D3D_CHECK(gpDevice->SetCurrentViewport(gpView),gCurrentViewError);
     memset(&caps,0,sizeof(caps)); caps.flags=0x5000;
     error=gpDraw->GetAvailableMemory(&caps,&gnTextureTotal,&gnTextureFree);
-    if(error) sub_006B20E0_LogDrawError(gTextureError,error);
+    if(error) sub_006B20E0_DDrawLogError(gTextureError,error);
     memset(&caps,0,sizeof(caps)); caps.flags=0x10005000;
     error=gpDraw->GetAvailableMemory(&caps,&gnLocalTotal,&gnLocalFree);
-    if(error) sub_006B20E0_LogDrawError(gLocalError,error);
+    if(error) sub_006B20E0_DDrawLogError(gLocalError,error);
     if(gnFlags & gdwAgpMask)
     {
         memset(&caps,0,sizeof(caps)); caps.flags=0x20005000;
         error=gpDraw->GetAvailableMemory(&caps,&gnAgpTotal,&gnAgpFree);
-        if(error) sub_006B20E0_LogDrawError(gAgpError,error);
+        if(error) sub_006B20E0_DDrawLogError(gAgpError,error);
     }
     gpDevice->SetRenderState(29,0);
     gpDevice->SetRenderState(22,1);
@@ -416,7 +416,7 @@ int __fastcall sub_006B55E0_InitWindow(void* window,int mode)
     if (!sub_006B4FD0_InitializeFullscreen(window, mode))
         return 0;
 
-    sub_006B3800();
+    sub_006B3800_Flush();
     if (gpOptions->flag)
         gpPrimary->Flip(0, 1);
     else
@@ -470,7 +470,7 @@ int __fastcall sub_006B5830_ResizeWindow(void* window,int mode)
     if (!sub_006B4FD0_InitializeFullscreen(window, mode))
         return 0;
 
-    sub_006B3800();
+    sub_006B3800_Flush();
     if (gpOptions->flag)
         gpPrimary->Flip(0, 1);
     else

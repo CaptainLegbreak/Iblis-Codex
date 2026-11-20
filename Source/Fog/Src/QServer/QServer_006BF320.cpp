@@ -11,7 +11,7 @@ struct D2QIpCountStrc;
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION* lpCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION* lpCriticalSection);
-void __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 struct sub_006BF320_Node
 {
@@ -36,7 +36,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __cdecl sub_006BE2F0_Nop(const char* szTag, const char* szFormat, ...); // 0x006BE2F0
 void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...); // 0x006BE300
 const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x006B013E
-unsigned int __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
+long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 
 struct D2QLockStrc
 {

@@ -20,7 +20,7 @@ extern "C" const char gszTxtField_equiv1[];                                     
 extern "C" const char gszTxtField_equiv2[];                                                                 // 0x006DCD0C
 extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
 extern D2TxtLinkStrc* gTxtLink_0096C868;                                                                    // 0x0096C868
-void __fastcall sub_006117B0();                                                                 // 0x006117B0
+unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 extern D2MonTypeTxt* gpMonTypeTxt;                                                                          // 0x0096C86C
 extern int gnMonTypeTxtRecordCount;                                                                         // 0x0096C870
 extern unsigned int* gpMonTypeNest;                                                                         // 0x0096C874
@@ -89,8 +89,8 @@ void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive)
         { gszTxtField_equiv1, 20, 0, 2, &gTxtLink_0096C868 },
         { gszTxtField_equiv2, 20, 0, 4, &gTxtLink_0096C868 },
         { "equiv3", 20, 0, 6, &gTxtLink_0096C868 },
-        { "strsing", 22, 0, 8, (void*)sub_006117B0 },
-        { "strplur", 22, 0, 10, (void*)sub_006117B0 },
+        { "strsing", 22, 0, 8, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "strplur", 22, 0, 10, (void*)DATATBLS_GetStringIdFromReferenceString },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 union D2SeedStrc;
@@ -47,7 +48,7 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005B0D00
 D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall sub_6FCD0410(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED40
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
 
@@ -117,7 +118,7 @@ void __fastcall sub_005F22B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
 
     if (!bCombat && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
     {
-        AITACTICS_SetVelocity(pUnit, 0, 75, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 75, 0);
         sub_6FCD0410(pGame, pUnit, pTarget, 7);
         return;
     }
@@ -130,7 +131,7 @@ void __fastcall sub_005F22B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     D2UnitStrc* pPanther = arg.pTarget;
     if (pPanther && arg.nDistance > AI_PARAM(pGame, pMonStatsTxt, 2) * AI_PARAM(pGame, pMonStatsTxt, 2))
     {
-        AITACTICS_SetVelocity(pUnit, 0, 75, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 75, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pPanther, 7);
         return;
     }
@@ -176,7 +177,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             {
                 pAi->dwAiParam[0] = 0;
                 pAi->dwAiParam[1] = 0;
-                AITACTICS_SetVelocity(pUnit, 13, 50, 0);
+                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
                 AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCommandTarget, 0);
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
                 return;
@@ -189,7 +190,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             {
                 pAi->dwAiParam[0] = 0;
                 pAi->dwAiParam[1] = 0;
-                AITACTICS_SetVelocity(pUnit, 13, 50, 0);
+                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
                 AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCommandTarget, 0);
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
                 return;
@@ -215,7 +216,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
                 AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
             return;
         }
-        AITACTICS_SetVelocity(pUnit, 2, 50, 0);
+        sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
         if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1))
             return;
         pAi->dwAiParam[0] = 0;
@@ -227,7 +228,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         {
             pAi->dwAiParam[0] = 2;
             pAi->dwAiParam[1] = 0;
-            AITACTICS_SetVelocity(pUnit, 2, 50, 0);
+            sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
             sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1);
             return;
         }
@@ -239,7 +240,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
                 AITACTICS_IdleInNeutralMode(pGame, pUnit, pRecord->wAiParam[1][pGame->nDifficulty]);
             return;
         }
-        AITACTICS_SetVelocity(pUnit, 13, 50, 0);
+        sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
         return;
     case 0:
@@ -258,7 +259,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
                 return;
             }
         }
-        AITACTICS_SetVelocity(pUnit, 13, 50, 0);
+        sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
         return;
     }

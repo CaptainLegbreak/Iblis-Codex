@@ -43,12 +43,12 @@ extern const char gszPlrTradeCpp[]; // 0x006E11D8
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 void __fastcall SUNIT_RemoveUnit(D2GameStrc*,D2UnitStrc*); // 0x00555600
-void __fastcall sub_00557AB0_InitItemStats(D2GameStrc*,D2UnitStrc**,int,int); // 0x00557AB0
+int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int bQuestItem); // 0x00557AB0
 void __fastcall ITEMS_DestroyRunewordStatList(D2GameStrc*,D2UnitStrc*); // 0x00558C50
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc*,D2ItemDropStrc*,int); // 0x00558D90
 D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055A2A0
 void __fastcall sub_0055F900_EquipItemRefresh(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F900
-void __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055FE80
+int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FE80
 unsigned short __fastcall sub_00565930_RollClass(D2GameStrc*,int,int); // 0x00565930
 void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc*,D2UnitStrc*); // 0x0059E5C0
 void __fastcall ACT3Q2_UpdateKhalimItemCounts(D2GameStrc*,D2UnitStrc*); // 0x005B86E0
@@ -70,7 +70,7 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc*); // 0x00628250
 void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
 void __stdcall ITEMS_SetItemCell(D2UnitStrc*,int); // 0x00628320
 void __stdcall ITEMS_SetOrRemoveFlag(int*,int,int); // 0x006287B0
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc*); // 0x006289F0
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc*); // 0x006295B0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0
 unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
@@ -170,7 +170,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
    else if(out->nType==252) id=out->wBaseItemId;
    else if(out->nType==253) id=sub_00565930_RollClass(game,level,out->wBaseItemId);
    if(item) item->dwClassId=id;
-   sub_00557AB0_InitItemStats(game,&item,0,0);outputs[index]=item;
+   D2GAME_InitItemStats_6FC4E520(game,&item,0,0);outputs[index]=item;
    UNITS_ChangeAnimMode(item,4);ITEMS_SetInvPage(original,3);
   } else if(out->nType==254) {
    D2UnitStrc* original=inputs[index].pItem;
@@ -298,6 +298,8 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
 }
 
 #include "gen/data/Source/D2Game/PLAYER/PlrTrade_00565AB0.inc"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 // 0x00566E20
 static int sub_00566E20_HasItemsInCube(D2UnitStrc* pPlayer)

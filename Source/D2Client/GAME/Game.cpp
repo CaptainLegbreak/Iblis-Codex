@@ -240,7 +240,7 @@ struct D2ClientNotifyStrc
 };
 
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
-int __stdcall sub_0052EFF0(int nArg); // 0x0052EFF0
+int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId); // 0x0052EFF0
 void* __stdcall sub_0052FC20(int nArg); // 0x0052FC20
 extern unsigned short gwMcpRequestId_00798F8C; // 0x00798F8C
 extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
@@ -302,10 +302,10 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 extern "C" int __cdecl abs(int nValue);
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
-int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned char nFlags, const char* szString); // 0x00415070
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_00466FF0(); // 0x00466FF0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_004693B0(int nSteps); // 0x004693B0
@@ -315,7 +315,7 @@ void __cdecl sub_004692B0(); // 0x004692B0
 void __cdecl sub_00469330(); // 0x00469330
 void __cdecl sub_004692F0(); // 0x004692F0
 void __cdecl sub_00469370_CallBoundCommand(); // 0x00469370
-int __cdecl sub_004F5A30(); // 0x004F5A30
+int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 void __cdecl sub_00453DE0(); // 0x00453DE0
 void __cdecl sub_00467A00(); // 0x00467A00
 extern unsigned char gnBetaScreenIndex_007A060D; // 0x007A060D
@@ -341,7 +341,7 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __fastcall sub_00457640(int bForce); // 0x00457640
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -1610,6 +1610,7 @@ int __cdecl sub_00449E60()
 }
 
 #include "gen/data/Source/D2Client/GAME/Game.inc"
+struct D2ActiveRoomStrc;
 
 D2McpInfoStrc gMcpInfo_0079910C; // 0x0079910C
 
@@ -1800,7 +1801,7 @@ void __stdcall sub_0044BF40_ClickMapMsg(SMSGHANDLER_PARAMS* pMsg)
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1853,7 +1854,7 @@ void __stdcall sub_0044C370_ClickMapMsgMode5(SMSGHANDLER_PARAMS* pMsg)
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1870,7 +1871,7 @@ void __stdcall sub_0044C400_WheelMsg(SMSGHANDLER_PARAMS* pMsg)
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1882,7 +1883,7 @@ void __stdcall sub_0044C470_Call469270Msg(SMSGHANDLER_PARAMS* pMsg)
         sub_00469270();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1894,7 +1895,7 @@ void __stdcall sub_0044C4A0_Call469230Msg(SMSGHANDLER_PARAMS* pMsg)
         sub_00469230();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1910,7 +1911,7 @@ void __stdcall sub_0044C4D0_HiWordDispatchMsgA(SMSGHANDLER_PARAMS* pMsg)
             sub_00469330();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1926,7 +1927,7 @@ void __stdcall sub_0044C520_HiWordDispatchMsgB(SMSGHANDLER_PARAMS* pMsg)
             sub_00469370_CallBoundCommand();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1934,11 +1935,11 @@ void __stdcall sub_0044C520_HiWordDispatchMsgB(SMSGHANDLER_PARAMS* pMsg)
 void __stdcall sub_0044C570_SysCommandMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     unsigned short nCommand = pMsg->nWParamLo & 0xFFF0;
-    if (nCommand == 0xF130 || nCommand == 0xF100 || (nCommand == 0xF010 && sub_004F5A30()))
+    if (nCommand == 0xF130 || nCommand == 0xF100 || (nCommand == 0xF010 && WINDOW_IsFullScreen()))
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -1947,7 +1948,7 @@ void __stdcall sub_0044C5C0_DefaultMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x0044C6A0
@@ -2050,7 +2051,7 @@ unsigned long __stdcall sub_0044CF20(void* pArg)
             D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
             if (pNotify)
             {
-                const int nLevel = sub_0052EFF0(1);
+                const int nLevel = GAME_GetPlayerUnitsCount(1);
                 if (nLevel != nLast)
                 {
                     if (nLast < gnQServerThreshold_0070F560)
@@ -2098,7 +2099,7 @@ void __stdcall sub_0044D0A0_IncCounterMsg(SMSGHANDLER_PARAMS* pMsg)
     gnBetaScreenIndex_007A060D += 1;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x0044D0D0
@@ -2108,7 +2109,7 @@ void __stdcall sub_0044D0D0_IncCounterNoRepeatMsg(SMSGHANDLER_PARAMS* pMsg)
         gnBetaScreenIndex_007A060D += 1;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 int __fastcall sub_M118_Emit_0044C100(int nX, int nY)

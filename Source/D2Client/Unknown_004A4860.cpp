@@ -44,7 +44,7 @@ extern int gnDragMouseY_007C02A8;
 extern unsigned long gdwLastTick_007C02C0;
 extern int gnThumbY_007C02CC; // 0x007C02CC
 void __cdecl sub_00469D40_SaveAndBindHotkeys(); // 0x00469D40
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
 
@@ -63,7 +63,7 @@ struct Unicode
 };
 
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -105,7 +105,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 int __fastcall sub_004A6580_IsInPanelButton(int nMode, int nX, int nY); // 0x004A6580
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __fastcall sub_004A6630_IsInRightPanelButton(int nMode, int nX, int nY); // 0x004A6630
 int __cdecl sub_004A6690_IsMouseOnRightButton(); // 0x004A6690
 
@@ -120,8 +120,8 @@ struct D2CelContextStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-bool __stdcall sub_004A6A00_IsUiBusy(int nType); // 0x004A6A00
-bool __stdcall sub_004A6D50_IsUiBusy2(int nType); // 0x004A6D50
+bool __stdcall sub_004A6A00_CheckUiVars(int nArg); // 0x004A6A00
+bool __stdcall sub_004A6D50_CheckUiVars(int nArg); // 0x004A6D50
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
@@ -784,7 +784,7 @@ bool __stdcall sub_004A6D50_CheckUiVars(int nArg)
 void __cdecl sub_004A6B30_DrawLeftPanelButtons()
 {
     const int nBorder = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2 && sub_004A6A00_IsUiBusy(nBorder))
+    if (D2GFX_GetResolutionMode() != 2 && sub_004A6A00_CheckUiVars(nBorder))
     {
         gnGlobal_007C02E4 = 0;
         return;
@@ -843,7 +843,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
 void __cdecl sub_004A6E60_DrawRightPanelButtons()
 {
     const int nBorder = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2 && sub_004A6D50_IsUiBusy2(nBorder))
+    if (D2GFX_GetResolutionMode() != 2 && sub_004A6D50_CheckUiVars(nBorder))
     {
         gnGlobal_007C02E8 = 0;
         return;

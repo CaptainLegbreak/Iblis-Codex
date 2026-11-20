@@ -29,7 +29,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern D2CriticalSectionStrc* gpLock_007C9134; // 0x007C9134
 extern int gnValue_007C9144; // 0x007C9144
-void __fastcall sub_006C9280_Send(int n1, char nKey, int a, int b); // 0x006C9280
+void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
 struct D2RectStrc { long nLeft; long nTop; long nRight; long nBottom; };
 
@@ -104,7 +104,7 @@ int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b)
     EnterCriticalSection(gpLock_007C9134);
     if (pObject)
     {
-        sub_006C9280_Send(1, nKey, a, b);
+        sub_006C9280_Apply(1, nKey, a, b);
     }
     return 1;
 }

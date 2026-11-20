@@ -60,7 +60,7 @@ struct D2RosterCorpseStrc
 };
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-void __fastcall sub_00478780_SendPartyCommand(int nCommand, int nUnitId); // 0x00478780
+void __fastcall sub_00478780_SendPartyCommand(unsigned char nCommand, int nUnitId); // 0x00478780
 D2StoredUnitRecordStrc* __stdcall sub_004795F0_SortRosterByName(D2StoredUnitRecordStrc* pList); // 0x004795F0
 void __cdecl sub_004797C0_FreeRosterGroups(); // 0x004797C0
 void __cdecl sub_00479860_SortRosterGroups(); // 0x00479860

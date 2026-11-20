@@ -10,7 +10,7 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc*,int); // 0x0063C7F0
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc*); // 0x0062BAD0
 int __fastcall sub_004C2240(D2UnitStrc*); // 0x004C2240
-void __fastcall sub_004786A0_SendIntInt(char,int,int); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_00478680_SendPacket5(char,int); // 0x00478680
 void __fastcall sub_004C21F0_SetState36(D2UnitStrc*); // 0x004C21F0
 int __fastcall sub_004C1D60(D2UnitStrc*); // 0x004C1D60
@@ -21,12 +21,12 @@ int __cdecl sub_00463DF0(); // 0x00463DF0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __cdecl sub_00453EC0(); // 0x00453EC0
 int __fastcall sub_004538D0(unsigned int); // 0x004538D0
-void __fastcall sub_00455F20_SetUiVar(int,int,int); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __fastcall sub_004A8CE0_SetValue(int); // 0x004A8CE0
 int __cdecl sub_0044BE90(); // 0x0044BE90
 void __fastcall sub_0044BE80(int); // 0x0044BE80
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS*); // 0x00498DC0
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS*); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gnUiRecordRow_007A5218; // 0x007A5218
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
@@ -81,13 +81,13 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
         {
             if (!bBusy)
             {
-                sub_004786A0_SendIntInt(0x25, pCursorItem->dwUnitId, pBeltItem->dwUnitId);
+                sub_004786A0_SendDwords2(0x25, pCursorItem->dwUnitId, pBeltItem->dwUnitId);
                 sub_004C21F0_SetState36(pCursorItem);
             }
         }
         else if (!bBusy)
         {
-            sub_004786A0_SendIntInt(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
+            sub_004786A0_SendDwords2(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
             sub_004C21F0_SetState36(pCursorItem);
         }
         sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
@@ -125,18 +125,18 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
                 sub_00498870_ClickBeltBox(pPlayer->pInventory,x,y);
                 pMsg->bUseResult=1;
                 pMsg->lResult=0;
-                sub_00420290_HandleMsg(pMsg);
+                sub_00420290_BreakHandlerChain(pMsg);
             }
             else if(x>=gnGlobal_0071146C/2-8 && x<=gnGlobal_0071146C/2+5 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-13) {
-                if(sub_004538D0(21)) sub_00455F20_SetUiVar(21,1,0);
-                else sub_00455F20_SetUiVar(21,2,0);
+                if(sub_004538D0(21)) sub_00455F20(21,1,0);
+                else sub_00455F20(21,2,0);
             }
             else if(x>=117 && x<=165 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
-                sub_00455F20_SetUiVar(3,2,0);
+                sub_00455F20(3,2,0);
                 sub_004A8CE0_SetValue(1);
             }
             else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
-                sub_00455F20_SetUiVar(3,2,0);
+                sub_00455F20(3,2,0);
                 sub_004A8CE0_SetValue(0);
             }
             else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
@@ -151,29 +151,29 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
             }
             else if(x>=117 && x<=165 && y<=gnGlobal_00711470) {
                 CancelCursorMode();
-                if(sub_004538D0(3)) sub_00455F20_SetUiVar(3,1,0);
-                else sub_00455F20_SetUiVar(3,0,0);
+                if(sub_004538D0(3)) sub_00455F20(3,1,0);
+                else sub_00455F20(3,0,0);
                 sub_004A8CE0_SetValue(1);
             }
             else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y<=gnGlobal_00711470) {
                 CancelCursorMode();
-                if(sub_004538D0(3)) sub_00455F20_SetUiVar(3,1,0);
-                else sub_00455F20_SetUiVar(3,0,0);
+                if(sub_004538D0(3)) sub_00455F20(3,1,0);
+                else sub_00455F20(3,0,0);
                 sub_004A8CE0_SetValue(0);
             }
             else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
                 sub_0044BE80(!sub_0044BE90());
             }
             else if(x>=gnGlobal_0071146C/2-8 && x<=gnGlobal_0071146C/2+5 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-13) {
-                if(sub_004538D0(21)) sub_00455F20_SetUiVar(21,1,0);
-                else sub_00455F20_SetUiVar(21,2,0);
+                if(sub_004538D0(21)) sub_00455F20(21,1,0);
+                else sub_00455F20(21,2,0);
                 if(gnGlobal_007BEFD0) gnGlobal_007BEFD4=!gnGlobal_007BEFD4;
             }
             gnGlobal_007BEFA4=0;
             gnGlobal_00722358=0;
             pMsg->bUseResult=1;
             pMsg->lResult=0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
         }
         else {
             pMsg->bUseResult=0;
@@ -182,7 +182,7 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
     else {
         if((x>=117 && x<=165 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) ||
            (x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470)) {
-            if(sub_004538D0(3)) sub_00455F20_SetUiVar(3,1,0);
+            if(sub_004538D0(3)) sub_00455F20(3,1,0);
         }
         gnGlobal_007BEFA4=0;
         pMsg->bUseResult=0;

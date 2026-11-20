@@ -16,7 +16,7 @@ struct D2QuestDataStrc { int nQuestNo; D2GameStrc* pGame; char f_8[0x10]; D2Act4
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc*); // 0x005438B0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc*, D2UnitStrc*, int, int*, void*, int, int); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
 void __fastcall EVENT_SetEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int); // 0x005417D0
 extern unsigned int gnHellforgeRunesNormal_0073E114[]; // 0x0073E114
 extern unsigned int gnHellforgeRunesNightmare_0073E514[]; // 0x0073E514
@@ -90,6 +90,8 @@ void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2
 }
 
 #include "gen/data/Source/D2Game/Unknown_005B6710.inc"
+struct D2ItemDropStrc;
+struct D2UnitStrc;
 
 // 0x005B6C60
 void __fastcall sub_005B6C60_UpdateQuest(void* pUnused, D2QuestArgStrc* pArgs)

@@ -78,9 +78,9 @@ extern void* gpGlobal_007A0634;                                                 
 unsigned char __stdcall sub_0061C0E0(void* pAct);                                                           // 0x0061C0E0
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB);           // 0x0061C0B0
 void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
-int __stdcall sub_00477730();                                                                               // 0x00477730
+int __cdecl sub_00477730(); // 0x00477730
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
-int __stdcall sub_004F5210();                                                                               // 0x004F5210
+int __cdecl sub_004F5210(); // 0x004F5210
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
 void __stdcall D2GFX_FloorTileDraw(D2GridInfoStrc* pInfo, D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nAlpha, int nMode, int nArg); // 0x004F68E0
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070

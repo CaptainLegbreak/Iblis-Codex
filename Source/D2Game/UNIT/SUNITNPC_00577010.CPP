@@ -43,7 +43,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" const char gszNpcSourceFile[]; // 0x006E15F0
-D2HirelingTxt* __stdcall sub_006564D0_GetHirelingTxtRecord(int, int, int, int); // 0x006564D0
+D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(int bExpansion, int nVendorId, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x006564D0
 void __fastcall FOG_FreeServerMemory(void*, void*, const char*, int, int); // 0x0040B480
 void __fastcall sub_00576070_InitGamble(D2GameStrc*, int, D2NpcRecordStrc*); // 0x00576070
 
@@ -70,9 +70,9 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 D2SeedStrc* __fastcall SUNITPROXY_GetSeedFromNpcControl(D2GameStrc*); // 0x00536B40
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*,int); // 0x0045C3E0
 D2UnitStrc* __fastcall D2GAME_CreateItemUnit_6FC501A0(D2UnitStrc*,int,D2GameStrc*,int,int,int,int,int,int,int,int); // 0x00559CE0
-void __stdcall sub_00628280(D2UnitStrc*,int); // 0x00628280
-void __fastcall sub_005761C0_UpdateItem(D2GameStrc*,D2UnitStrc*,int); // 0x005761C0
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc*,int,int); // 0x006280D0
+void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
+void __fastcall D2GAME_NPC_RepairItem_6FCC6970(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer); // 0x005761C0
+void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 int __stdcall PATH_GetX(D2PathRecordStrc*); // 0x006488C0
 int __stdcall PATH_GetY(D2PathRecordStrc*); // 0x00648900
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc*,D2UnitStrc*); // 0x00557FD0
@@ -80,7 +80,7 @@ extern const char gszSUnitNpc[]; // 0x006E15F0
 
 static __forceinline int sub_00575FF0(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass)
 {
-    D2HirelingTxt* pRecord = sub_006564D0_GetHirelingTxtRecord(pGame->nGameType, nHirelingId, 0, 0);
+    D2HirelingTxt* pRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->nGameType, nHirelingId, 0, 0);
     if (!pRecord) { *pNameFirst = 0; *pNameLast = 0; *pClass = 0; return -1; }
     *pNameFirst = pRecord->wNameFirst;
     *pNameLast = pRecord->wNameLast;
@@ -237,8 +237,8 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* 
   D2UnitStrc* pItem = D2GAME_CreateItemUnit_6FC501A0(pNpc,nItemId,pGame,4,nQuality,0,1,nItemLevel,0,0,0);
   if(!pItem) continue;
   {
-   sub_00628280(pItem,0);
-   sub_005761C0_UpdateItem(pGame,pItem,0);
+   ITEMS_SetInvPage(pItem,0);
+   D2GAME_NPC_RepairItem_6FCC6970(pGame,pItem,0);
    ITEMS_SetItemFlag(pItem,16,0);
    const int nY = UnitY(pItem);
    const int nX = UnitX(pItem);

@@ -131,15 +131,15 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int bAddToGame); // 0x0055A2A0
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, int a5); // 0x00555DA0
+D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
 void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00558AA0
-int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
+unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
-int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, unsigned int nValue); // 0x00535510
+int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, int nValue); // 0x00535510
 D2CorpseStrc* __stdcall INVENTORY_GetFirstCorpse(D2InventoryStrc* pInventory); // 0x0063D570
 D2CorpseStrc* __stdcall INVENTORY_GetNextCorpse(D2CorpseStrc* pCorpse); // 0x0063D610
 int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
-void __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, int nUnitId, int bFree); // 0x0063D4E0
+int __stdcall INVENTORY_FreeCorpse(D2InventoryStrc* pInventory, unsigned int nUnitId, unsigned int a3); // 0x0063D4E0
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -163,8 +163,8 @@ struct D2UnkPlrModeStrc2
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 int __stdcall INVENTORY_CompareWithItemsParentInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD50
 int __fastcall sub_6FC42F20(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int* pBodyLoc, int a4); // 0x0055D710
-void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, int nWeaponGUID); // 0x006233A0
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, D2UnitStrc* hWeapon); // 0x006233A0
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
@@ -194,7 +194,7 @@ void __fastcall sub_6FCC5F20(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005
 void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
 void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571740
 void __fastcall sub_6FCC6540(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571CD0
-void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00597890
+void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventoryArg); // 0x00597890
 void __stdcall D2Common_10512(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nStatId, STATLIST_UpdateFn pfCallback); // 0x00625870
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
@@ -231,16 +231,16 @@ unsigned int __stdcall INVENTORY_GetCorpseCount(D2InventoryStrc*); // 0x0063D5F0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int,int,int,int,D2GameStrc*,D2ActiveRoomStrc*,char,int,unsigned int); // 0x00555230
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc*,D2ClientStrc*); // 0x00553180
-const char* __fastcall CLIENTS_GetName(D2ClientStrc*); // 0x00538830
-void __stdcall sub_006220F0(D2UnitStrc*,const char*); // 0x006220F0
-void __fastcall SUNIT_InitSeed(D2UnitStrc*,D2SeedStrc*); // 0x00552DF0
+char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
+unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName); // 0x006220F0
+void __fastcall SUNIT_InitSeed(D2UnitStrc* ptUnit, D2SeedStrc* pSeed); // 0x00552DF0
 void __stdcall STATES_ToggleState(D2UnitStrc*,int,int); // 0x00639DB0
 int __fastcall CLIENTS_GetExperienceLoss(D2ClientStrc*); // 0x00539210
 void __fastcall CLIENTS_SetExperienceLoss(D2ClientStrc*,int); // 0x005391E0
 void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc*,int,int,int); // 0x0063D470
 void __stdcall INVENTORY_SetOwnerId(D2InventoryStrc*,int); // 0x0063D430
 void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
-int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc*,unsigned char,int); // 0x00621050
+int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* hUnit, int nInvPage, int bLoD); // 0x00621050
 int __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc*,D2UnitStrc*,int,int,unsigned char,const char*,int); // 0x0063B950
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc*,D2UnitStrc*,int); // 0x0063B210
 void __fastcall QUESTS_ItemPickedUp(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00543D80
@@ -715,7 +715,7 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
  D2ClientStrc* pClient=UnitGetClient(pUnit,gszPlrModesSourceFile_006E17E0,0x306);
  pCorpse->dwFlags&=~4;
  SUNIT_InitClientInPlayerData(pCorpse,pClient);
- sub_006220F0(pCorpse,CLIENTS_GetName(pClient));
+ UNITS_SetNameInPlayerData(pCorpse,CLIENTS_GetName(pClient));
  SUNIT_InitSeed(pCorpse,&pGame->pGameSeed);
  UNITS_ChangeAnimMode(pCorpse,17);
  STATES_ToggleState(pCorpse,7,1);

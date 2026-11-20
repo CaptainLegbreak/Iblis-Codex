@@ -54,7 +54,7 @@ typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState,
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
-int __stdcall MONSTERS_IsBoss(void* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
+int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
@@ -86,8 +86,8 @@ struct D2ServerCallbacks { char unk_00[44]; LevelCallback levelUp; };
 extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
-int __stdcall DATATBLS_GetCurrentLevelFromExp(int, int); // 0x00611860
-int __stdcall DATATBLS_GetLevelThreshold(int, int); // 0x00611800
+unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int dwExperience); // 0x00611860
+unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc*, int, int, int); // 0x006272B0
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
@@ -117,9 +117,9 @@ struct D2GSPacketSrvAA { unsigned char nHeader; unsigned char nUnitType; int nUn
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern const unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc*, unsigned char*, unsigned int); // 0x00410E40
+void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
-void __stdcall BITMANIP_Write(D2BitBufferStrc*, unsigned int, int); // 0x00410EB0
+void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
 unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
@@ -222,6 +222,7 @@ void __fastcall sub_K11_Emit005706A0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsig
 }
 
 #include "gen/data/Source/D2Game/Unknown_00570420.inc"
+struct D2MonStatsTxt;
 
 // 0x00570870
 static __forceinline void sub_00570870_ForwardToLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)

@@ -65,13 +65,13 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __cdecl sub_00454980();                                                                                // 0x00454980
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
 int __fastcall sub_00469C20_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
 const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                          // 0x0046A530
 void __stdcall sub_004A5D70_RegisterMsgHandlers(int bReset);                                                // 0x004A5D70
-int __cdecl D2GFX_GetResolutionMode();                                                                      // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820

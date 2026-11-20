@@ -81,11 +81,11 @@ extern "C" const char gszDrlgAnimSourceFile[];                                  
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 int __stdcall TileLibraryGetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
-unsigned int __stdcall TileGetRarity(D2TileLibraryEntryStrc* pTile);                                       // 0x00604C20
+int __stdcall TileGetRarity(D2TileLibraryEntryStrc* hTile); // 0x00604C20
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry, int nTileType); // 0x0066DC50
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitFloorTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DEF0
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitShadowTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DF40
-unsigned int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY);                       // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
 static __declspec(noinline) void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom, int nAnimationSpeed, D2DrlgTileDataStrc* pTiles, int nTiles, D2DrlgGridStrc* pDrlgGrid, int nUnused);
 static inline int GetMapTileLayer(unsigned int nMapTileFlags) { return int((nMapTileFlags & 0x1C000) >> 14) - 1; }
@@ -114,7 +114,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
         if (pCurrentTileData.pTile && (D2CMP_10079_GetTileFlags(pCurrentTileData.pTile) & 0x100))
         {
             const int nGridIdx = GetMapTileLayer(pCurrentTileData.dwFlags);
-            const unsigned int nPackedTileInformation = sub_0067C570(&pDrlgGrid[nGridIdx], pCurrentTileData.nPosX, pCurrentTileData.nPosY);
+            const unsigned int nPackedTileInformation = DRLGGRID_GetGridEntry(&pDrlgGrid[nGridIdx], pCurrentTileData.nPosX, pCurrentTileData.nPosY);
             unsigned char nStyle;
             unsigned char nSeq;
             if (nPackedTileInformation)
@@ -204,3 +204,4 @@ void __fastcall DRLGANIM_AllocAnimationTileGrids(D2DrlgRoomStrc* pRoom, int nAni
 }
 
 #include "gen/data/Source/D2Common/DRLG/DrlgAnim.inc"
+struct D2TileLibraryEntryStrc;

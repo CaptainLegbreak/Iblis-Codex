@@ -8,8 +8,8 @@ struct D2IdeaUserKeyStrc;
 struct D2IdeaKeyScheduleStrc;
 
 extern int gnLastStatus_0072FFA8; // 0x0072FFA8
-void __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
-void __fastcall sub_005204D0_SetErrorText(int nError, const char* szText); // 0x005204D0
+int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
+int __fastcall sub_005204D0_SetErrorText(int nError, const char* szText); // 0x005204D0
 
 struct D2BnReply00520DC0Strc
 {

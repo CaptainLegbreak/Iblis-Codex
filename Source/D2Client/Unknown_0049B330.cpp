@@ -1,4 +1,5 @@
 #include "D2Client.h"
+struct D2StoredUnitRecordStrc;
 
 struct Unicode
 {
@@ -31,8 +32,8 @@ int __cdecl sub_00468730();                                                     
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);               // 0x004795A0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);                       // 0x00479BC0
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry);                           // 0x004795C0
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);              // 0x005269D0
 int __fastcall sub_0047A5E0(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A5E0
 int __fastcall sub_0047A640(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A640

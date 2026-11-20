@@ -69,9 +69,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 void __cdecl sub_0044DA70();                                                                                // 0x0044DA70
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar);                                                  // 0x00453A90
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
 int __cdecl sub_00468730();                                                                                 // 0x00468730
@@ -446,3 +446,4 @@ int __fastcall sub_00498A20_CheckState(int nUnused, D2ClientStateStrc* pState, i
 }
 
 #include "gen/data/Source/D2Client/UI/inv_00480780.inc"
+struct D2UnitStrc;

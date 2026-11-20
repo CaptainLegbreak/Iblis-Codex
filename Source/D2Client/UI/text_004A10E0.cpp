@@ -7,20 +7,20 @@ struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; i
 #pragma pack(pop)
 struct Unicode { unsigned short wChar; };
 
-void __fastcall FOG_Free(void* pMemory, const char* pFile, int nLine, int nZero); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_0044DA40(); // 0x0044DA40
 D2SoundStrc* __fastcall sub_004B9610(int nSound); // 0x004B9610
 void __fastcall sub_004B9EF0_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
 D2UnitStrc* __fastcall sub_00463990(unsigned int nId, int nType); // 0x00463990
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
-void __fastcall sub_004B3830_ClearNpcInventoryAndSound(unsigned int nUnitId); // 0x004B3830
+extern "C" void __fastcall sub_004B3830_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall sub_00467430_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
 void __cdecl sub_00466FE0(); // 0x00466FE0
 int __fastcall sub_00502EF0(int nFont); // 0x00502EF0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2TextBlockStrc* __fastcall sub_004A05E0_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char* pText, const char* pSource, int nLine); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004E0650_GetStringSound(unsigned short nString); // 0x004E0650
 void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit); // 0x004CB190

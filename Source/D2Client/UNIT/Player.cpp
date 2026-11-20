@@ -5,6 +5,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
@@ -162,12 +164,12 @@ struct D2PlayerCmdStrc
 extern int gnStringCount_00711EF0; // 0x00711EF0
 extern D2StringRefStrc gaStringRefs_00711DDC[]; // 0x00711DDC
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
-int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 void __cdecl sub_00453EC0(); // 0x00453EC0
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __fastcall sub_00467880_FindSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
 int __cdecl sub_00468830(); // 0x00468830
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
@@ -551,7 +553,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(D2SkillStrc** ppSkill, int* pUse
     if (!ppSkill || !*ppSkill)
         return 0;
 
-    int nUseState = sub_004D9FC0_GetSkillUseState(pUnit, *ppSkill);
+    int nUseState = sub_004D9FC0(pUnit, *ppSkill);
     if (pUseState)
         *pUseState = nUseState;
 
@@ -563,7 +565,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(D2SkillStrc** ppSkill, int* pUse
         && (pSkillsTxt->nFlags[3] & gdwBitMasks[4]))
     {
         *ppSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0);
-        nUseState = sub_004D9FC0_GetSkillUseState(pUnit, *ppSkill);
+        nUseState = sub_004D9FC0(pUnit, *ppSkill);
     }
 
     if (nUseState == 5 || nUseState == 0)

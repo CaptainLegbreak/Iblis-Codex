@@ -2,6 +2,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2ClientStrc;
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
@@ -51,7 +54,7 @@ extern "C" int __cdecl fclose(_iobuf* pFile);                                   
 void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUnit);                        // 0x005378E0
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient);                     // 0x00553180
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient);                                                    // 0x00538830
-void __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* pUnit, char* szName);                                  // 0x006220F0
+unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName); // 0x006220F0
 void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed);                                              // 0x00552DF0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
@@ -61,10 +64,10 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient);                                           // 0x005382B0
 void __fastcall PLAYERSTATS_SetStatsForStartingAct(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char nAct); // 0x005706D0
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
-void* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);                 // 0x006439F0
+D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
 void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3);                     // 0x00546270
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize);                                          // 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 int __fastcall sub_00534330(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHeaderStrc* pSave, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00534330
 D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient);                                  // 0x00538E00
 int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* pClient);                                            // 0x00538E30
@@ -296,7 +299,7 @@ void __fastcall sub_00539140_SetGuildTag(D2ClientStrc*,char*); // 0x00539140
 void __fastcall sub_00539170_SetGuildName(D2ClientStrc*,char*); // 0x00539170
 void __fastcall sub_005391C0_SetGuildColors(D2ClientStrc*,unsigned char,int,int); // 0x005391C0
 void __fastcall sub_00539230_SetFlag(D2ClientStrc*,unsigned char); // 0x00539230
-void __fastcall sub_005390A0(D2ClientStrc*,int,int,int,int); // 0x005390A0
+void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID); // 0x005390A0
 static __forceinline int PLRSAVE_ConvertLegacySkill(unsigned char nSkill)
 {
  int nId=nSkill;
@@ -377,7 +380,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  if(header.nSkills!=sgptDataTables->nSkillsTxtRecordCount) *pSkills=header.nSkills;
  unsigned char* pHotkey;
  int i;
- for(i=0,pHotkey=&header.hotkeys[0][1];i<8;++i,pHotkey+=2) sub_005390A0(pClient,i,PLRSAVE_ConvertLegacySkill(pHotkey[-1]),*pHotkey,-1);
+ for(i=0,pHotkey=&header.hotkeys[0][1];i<8;++i,pHotkey+=2) CLIENTS_SetSkillHotKey(pClient,i,PLRSAVE_ConvertLegacySkill(pHotkey[-1]),*pHotkey,-1);
  *pLeft=PLRSAVE_ConvertLegacySkill(header.nLeftSkill);
  *pRight=PLRSAVE_ConvertLegacySkill(header.nRightSkill);
  *pHeaderSize=header.nHeaderSize;

@@ -4,6 +4,9 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+struct D2ClientStrc;
+struct D2StatListStrc;
+struct D2StatStrc;
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 struct D2StatListExStrc;
@@ -57,7 +60,7 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
-int __stdcall STATLIST_GetBaseStatsData(D2StatListExStrc* pStatListEx, D2StatStrc* pStatBuffer, int nBufferSize); // 0x00625C90
+int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* pOutStatBuffer, int nBufferSize); // 0x00625C90
 
 
 #pragma pack(push, 1)
@@ -72,10 +75,10 @@ struct D2SaveHeaderStrc
 
 #pragma pack(pop)
 
-unsigned int __stdcall FOG_ComputeChecksum(const unsigned char*, unsigned int); // 0x00411130
+int __stdcall FOG_ComputeChecksum(unsigned char* pData, int nSize); // 0x00411130
 void __fastcall CLIENTS_SetFlags(D2ClientStrc*, unsigned short); // 0x00538630
 void __fastcall CLIENTS_SetClassId(D2ClientStrc*, int); // 0x00538620
-const char* __fastcall CLIENTS_GetName(D2ClientStrc*); // 0x00538830
+char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 extern "C" int __cdecl _stricmp(const char*, const char*); // 0x006841E9
 int __fastcall sub_00569D80(D2GameStrc*, unsigned short, D2ClientStrc*); // 0x00569D80
 void __fastcall CLIENTS_SetCreateTime(D2ClientStrc*, unsigned int); // 0x00538760
@@ -86,7 +89,7 @@ D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 void __fastcall sub_00571F90(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00571F90
 
 __declspec(noinline) void __fastcall sub_00569EC0_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount);
-void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc*, int, int, int, int); // 0x005390A0
+void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID); // 0x005390A0
 void __fastcall sub_005391C0_SetClientBytes(D2ClientStrc*, unsigned char, unsigned char, unsigned char); // 0x005391C0
 
 // 0x00569320

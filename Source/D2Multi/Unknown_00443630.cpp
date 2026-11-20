@@ -1,4 +1,7 @@
 #include "D2Multi.h"
+struct D2WinControl004FBB30Strc;
+struct D2WinEditBoxStrc;
+struct D2WinTextBoxStrc;
 
 struct Unicode
 {
@@ -77,15 +80,15 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 char* __fastcall sub_0040E080_AddressToString(int nAddress);                                                // 0x0040E080
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength);               // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);                     // 0x00526F70
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
-int __cdecl sub_005269D0_Sprintf(int nCount, Unicode* pDest, const Unicode* pFormat, ...);                 // 0x005269D0
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);                             // 0x004FDD90
-const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl);                                 // 0x004FBB30
-int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl);                                         // 0x004FBD20
-void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText);                 // 0x004FF5A0
+void* __fastcall sub_004FBB30_GetSelectedData(D2WinControl004FBB30Strc* pControl); // 0x004FBB30
+int __fastcall D2Win_10061(D2WinTextBoxStrc* ptTextData); // 0x004FBD20
+int __fastcall sub_004FF5A0(D2WinEditBoxStrc* pEditBox, const Unicode* pText); // 0x004FF5A0
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone);                        // 0x00433450
 void __cdecl sub_004336C0_ShowMainMenu();                                                                                // 0x004336C0
@@ -96,7 +99,7 @@ int __stdcall sub_004370B0_ShowLoginScreen(int nArg);                           
 void __cdecl sub_004370C0_CreateInfoScreen();                                                                                // 0x004370C0
 void __cdecl sub_00438560_Refresh();                                                                        // 0x00438560
 void __cdecl sub_0043B080_InitCharSelectScreen();                                                                                // 0x0043B080
-void __fastcall sub_0043C750_JoinEntry(D2LaunchCharEntryStrc* pEntry, const char* szName);                  // 0x0043C750
+void __fastcall sub_0043C750(const char* szCharName, const char* szSubdirectory); // 0x0043C750
 int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName);                                            // 0x0043CAA0
 int __fastcall sub_0043F5F0_CallTable74(int nA, int nB, int nC, int nD);                                    // 0x0043F5F0
 void __cdecl sub_0043FC20();                                                                                // 0x0043FC20
@@ -104,7 +107,7 @@ int __fastcall sub_0043FFA0_SetupCharacter(unsigned short wValue, const char* sz
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone);                     // 0x00440140
 void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x004401C0
 void __fastcall sub_004411E0_Use(const char* szText);                                                       // 0x004411E0
-int __fastcall sub_004428D0_SendChatText(const char* szText, int bFlag);                                    // 0x004428D0
+int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
 void __cdecl sub_00443130_Reset();                                                                          // 0x00443130
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 void __cdecl sub_00443E10();                                                                                // 0x00443E10

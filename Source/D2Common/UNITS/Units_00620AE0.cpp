@@ -40,7 +40,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-unsigned int __fastcall UNITS_GetCollisionMask(D2UnitStrc* pUnit); // 0x006209D0
+int __fastcall UNITS_GetCollisionMask(D2UnitStrc* ptUnit); // 0x006209D0
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
 int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce); // 0x00649560
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
@@ -494,6 +494,7 @@ int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit)
 }
 
 #include "gen/data/Source/D2Common/UNITS/Units_00620AE0.inc"
+struct D2UnitStrc;
 
 // 0x00621210
 static int __stdcall sub_00621210(D2UnitStrc* pUnit, int nPrevFrame)

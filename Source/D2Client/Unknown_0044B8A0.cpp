@@ -28,17 +28,17 @@ struct D2ClientCharRecordStrc
     char szName[0x1D0];
 };
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc); // 0x00409FF0
-int __stdcall sub_0044B6B0(D2ClientCharRecordStrc* pRecord); // 0x0044B6B0
+int __stdcall sub_0044B6B0_ProcessCommandLine(void* pArg); // 0x0044B6B0
 int __cdecl sub_00451330(); // 0x00451330
-void __cdecl sub_004F8FE0(); // 0x004F8FE0
+int __fastcall D2Win_10015(); // 0x004F8FE0
 int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc); // 0x004F8FC0
 int __stdcall sub_00451B30_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 void __stdcall sub_00619300(void* pArg, int bArg); // 0x00619300
-void __cdecl sub_00619140(); // 0x00619140
+void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 void __cdecl sub_00451290_FreeLngModule(); // 0x00451290
 void __cdecl sub_006116B0_WriteProfileCounters(); // 0x006116B0
-void __cdecl sub_0044BB80(); // 0x0044BB80
+extern "C" int __cdecl sub_0044BB80_ShutdownIfActive(); // 0x0044BB80
 extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
 extern int (__cdecl* gpfnLaunchStates_0070EE54[])(); // 0x0070EE54
 extern unsigned short gwValue_0077905C;
@@ -115,11 +115,11 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
     FOG_SetMemoryPoolSystemMode(0, 1);
     ghInstance_007A043C = hInstance;
     GetModuleFileNameA(hInstance, gszModulePath_007A0320, 0x104);
-    if (!sub_0044B6B0(pRecord))
+    if (!sub_0044B6B0_ProcessCommandLine(pRecord))
         return 0;
     if (!sub_00451330())
         return 0;
-    sub_004F8FE0();
+    D2Win_10015();
     D2Win_10014_SetWndProc((WNDPROC)sub_00451B30_WindowProc);
     if (!sub_005259C0(sub_004FAC80(sub_00408F20_HasExpansionMpq()), 0))
         return 0;
@@ -135,11 +135,11 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
         D2_ASSERT(gnLaunchState_0070EE4C > 0, 0x28F);
     }
     sub_004FA550();
-    sub_00619140();
+    DATATBLS_UnloadAllBins();
     sub_00524E40();
     sub_00451290_FreeLngModule();
     sub_006116B0_WriteProfileCounters();
-    sub_0044BB80();
+    sub_0044BB80_ShutdownIfActive();
     int nResult;
     if (gdwGlobal_0070EE8C)
     {

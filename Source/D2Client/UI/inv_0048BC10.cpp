@@ -1,7 +1,7 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 struct D2CellFileStrc* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath);                          // 0x004520C0
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00502EF0(int nSize);                                                                     // 0x00502EF0
 
 enum D2C_UIvars

@@ -194,10 +194,10 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x00
 extern "C" int __stdcall Process32First(void* hSnapshot, D2ProcessEntryStrc* pEntry); // 0x006B1440
 extern "C" int __stdcall Process32Next(void* hSnapshot, D2ProcessEntryStrc* pEntry); // 0x006B143A
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-char* __stdcall SStrChr(const char* szString, char cChar); // 0x00413490
+const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nFrames, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6); // 0x00403100
-bool __fastcall sub_00404560_UseWidePath(const wchar_t* wszPath); // 0x00404560
-void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize); // 0x00406BA0
+bool __fastcall sub_00404560_UseWidePath(wchar_t* wszPath); // 0x00404560
+int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** argv); // 0x004065E0
 extern "C" const char gszInternalCheckHost_006FF994[]; // 0x006FF994
 extern "C" const D2GuidStrc gtKnownFolderId_006CCA6C; // 0x006CCA6C

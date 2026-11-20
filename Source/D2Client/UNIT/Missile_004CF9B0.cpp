@@ -66,7 +66,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 int __stdcall sub_0064A210(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall sub_0064A280(D2UnitStrc* pMissile); // 0x0064A280
-D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nArg0, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004CDB40
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
@@ -243,6 +243,7 @@ int __fastcall sub_004CF9B0_CltHitRingSubMissiles(D2UnitStrc* pMissile, D2UnitSt
 }
 
 #include "gen/data/Source/D2Client/UNIT/Missile_004CF9B0.inc"
+struct D2UnitStrc;
 
 // 0x0045C370
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

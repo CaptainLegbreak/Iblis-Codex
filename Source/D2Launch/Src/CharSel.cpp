@@ -33,7 +33,7 @@ struct Unicode
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); // 0x00686900
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __stdcall sub_0043A460(const Unicode* pTitle, Unicode* pText, int nArg3, int nArg4); // 0x0043A460
+extern "C" int __stdcall sub_0043A460_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 extern int gdwGlobal_00779DC4; // 0x00779DC4
 extern int gdwGlobal_0070CC08; // 0x0070CC08
 
@@ -64,7 +64,7 @@ struct D2FuncTable_0077ABF0Strc
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
-void __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
+int __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
 int __fastcall sub_004F9190(); // 0x004F9190
@@ -146,7 +146,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
 void __fastcall sub_0044A590_SendRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
-D2StatesTxt* __fastcall DATATBLS_GetStatesTxtRecord(int nStateId); // 0x00452040
+extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
 void __cdecl sub_004584C0(); // 0x004584C0
 void __cdecl sub_00458680_ResetAutomapCells(); // 0x00458680
 void __cdecl sub_00458750(); // 0x00458750
@@ -155,17 +155,17 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_004565E0_DrawLoadingScreen(int nArg); // 0x004565E0
 unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 void __fastcall sub_0046E1B0_DrawUnitOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
 void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
@@ -790,7 +790,7 @@ void __cdecl sub_0043A610_ShowString()
     Unicode wEmpty;
     wEmpty.wChar = 0;
     gdwGlobal_0070CC08 = gdwGlobal_00779DC4;
-    sub_0043A460(pTitle, &wEmpty, 2, 0x12);
+    sub_0043A460_CreateNotice(pTitle, &wEmpty, 2, 0x12);
 }
 
 // 0x00445020
@@ -847,7 +847,7 @@ void __cdecl sub_00453470_DrawProgressiveStates()
             continue;
         if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
             continue;
-        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord(nState);
+        D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
         if (!pStatesTxtRecord)
             continue;
         if (!(pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[4]))

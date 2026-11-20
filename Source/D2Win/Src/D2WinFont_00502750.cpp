@@ -247,7 +247,7 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
 
 int __stdcall WINDOW_GetDimensions(int*,int*); // 0x004F59B0
 void __stdcall D2GFX_DrawBox(int,int,int,int,unsigned char,int); // 0x004F6300
-unsigned char __stdcall sub_004FB180_FindPaletteIndex(int,int,int); // 0x004FB180
+unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 extern unsigned char gnTooltipColor_00841EC4; // 0x00841EC4
 #define D2_MAX(a,b) ((a)<(b)?(b):(a))
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))

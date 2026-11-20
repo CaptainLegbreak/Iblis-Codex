@@ -122,9 +122,9 @@ void __fastcall sub_004B9EF0_ArmHint(void* pEntry, int nGroup, int nOffset, unsi
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce);                 // 0x004BA790
 int __fastcall sub_00481890_GetCacheFirst(int nId);                                                          // 0x00481890
 void __fastcall sub_004822B0_AddVariantRefs(int nIndex, int nDelta);                                        // 0x004822B0
-unsigned int __cdecl sub_0044DB00();                                                                        // 0x0044DB00
+int __cdecl sub_0044DB00(); // 0x0044DB00
 int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
-int __fastcall sub_004E4100(int nMin, int nMax);                                                            // 0x004E4100
+extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
 int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength);                     // 0x004E4180
 int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode);                                     // 0x004CA810
 int __fastcall sub_004CADB0_GetUnitFloorMaterial(D2UnitStrc* pUnit);                                        // 0x004CADB0
@@ -136,7 +136,7 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);              // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);         // 0x00625D00
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
@@ -692,7 +692,7 @@ void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit)
     sub_004B9A00(nNeutral, pUnit, 0, 0, 0);
     gnNeutralTick_007C88B8 = nTick;
     sub_004CABC0_WriteAsyncSoundTick(pUnit, nTick);
-    gnNeutralDelay_007C88C0 = sub_004E4100(0x1E, 0x5A);
+    gnNeutralDelay_007C88C0 = sub_004E4100_RandomInRange(0x1E, 0x5A);
 }
 
 // 0x004CB6A0
@@ -1025,7 +1025,7 @@ void __fastcall sub_004CC380_PlayInitSound(D2UnitStrc* pUnit)
         sub_004B9A00(nInit, pUnit, 0, 0, 0);
         gnNeutralTick_007C88B8 = nTick;
         sub_004CABC0_WriteAsyncSoundTick(pUnit, nTick);
-        gnNeutralDelay_007C88C0 = sub_004E4100(0x1E, 0x5A);
+        gnNeutralDelay_007C88C0 = sub_004E4100_RandomInRange(0x1E, 0x5A);
         return;
     }
 

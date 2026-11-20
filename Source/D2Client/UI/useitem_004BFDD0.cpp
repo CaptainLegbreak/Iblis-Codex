@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Path.h"
+struct D2CellFileStrc;
+struct D2SelectionRectStrc;
 
 struct SMSGHANDLER_PARAMS
 {
@@ -47,10 +49,10 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                  
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
 int __cdecl sub_004B1670();                                                                                 // 0x004B1670
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
-void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
+void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 void __fastcall sub_004B8020(void* pRes);                                                                   // 0x004B8020
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
-void __fastcall sub_00467430(void* pRect);                                                                  // 0x00467430
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 
 static void sub_004BFA70_ToggleUseMode(D2UnitStrc* pItem)
 {
@@ -170,9 +172,9 @@ extern const char gszUseItemCpp_006DAB50[]; // 0x006DAB50
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
-void __fastcall FOG_Free(void*,const char*,int,int); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void* __cdecl sub_00454600_GetCellFile(); // 0x00454600
+D2CellFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
 
 void __fastcall sub_0046EFD0_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
 
@@ -205,7 +207,7 @@ void __cdecl sub_004BFDD0_DrawUseItemPanel()
   else context.cellFile=gpCelFile_007C5494;
   context.frame=0;
   sub_004F6480(&context,105,270,-1,5,0);
-  context.cellFile=sub_00454600_GetCellFile();
+  context.cellFile=sub_00454600_GetBuySellButtonCells();
   for(int i=0;i<gnGlobal_007278FC;++i){
    const int drawY=gaHotspots_00727900[i].y;
    const int drawX=gaHotspots_00727900[i].x;

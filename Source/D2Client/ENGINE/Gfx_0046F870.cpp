@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -147,7 +148,7 @@ struct D2GfxRecordStrc { char unknown00[0x14]; void* gfx; };
 struct D2GfxNodeStrc { int mode,unknown04; D2GfxRecordStrc* record; int unknown0C; D2GfxNodeStrc* next; };
 extern int gnScreenWidth; // 0x0071146C
 extern int gnScreenHeight; // 0x00711470
-void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc*,int,int); // 0x0046E5A0
+D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc*,int,int); // 0x0046FA80
 D2GfxHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*,D2InventoryStrc*,int*,int,int); // 0x0064F380
@@ -762,7 +763,7 @@ int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* unit,int x,int y,int unused,i
 {
  int weapon;
  int weaponClass=COMPOSIT_GetWeaponClassId(unit,GetInventory(unit),&weapon,-1,1);
- if(!sub_0046E5A0_FindGfxNode(unit,weaponClass,-1)) sub_0046FA80_LoadGfxNode(unit,weaponClass,-1);
+ if(!sub_0046E5A0_FindGfxListNode(unit,weaponClass,-1)) sub_0046FA80_LoadGfxNode(unit,weaponClass,-1);
  int type=unit->dwUnitType;
  int classId=unit->dwClassId;
  int mode=UNITS_GetAnimOrSeqMode(unit);

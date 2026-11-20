@@ -265,7 +265,7 @@ struct D2TileRecordStrc
 extern D2TileRecordStrc* gpTileRecords; // 0x008ADBB4
 extern int gnCmpGfxMode; // 0x00741F08
 extern unsigned char gaItemShiftMaps[][105][256]; // 0x008ADBB8
-extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue); // 0x00517ABB
+int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 extern int gaDirectionIndex32[][32]; // 0x006E3A20
 
 struct D2CmpCelFileStrc
@@ -2028,7 +2028,7 @@ unsigned char* __stdcall sub_00600C20(int nSet, int nIndex)
 // 0x00600C70
 int __stdcall sub_00600C70_GetDirectionIndex32(int nDirection, unsigned int nDirections)
 {
-    return gaDirectionIndex32[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
+    return gaDirectionIndex32[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
 }
 
 // 0x00600EE0

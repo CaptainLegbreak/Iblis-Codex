@@ -31,7 +31,7 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc*,const char*,int); // 0x006
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*,D2SkillStrc*,int); // 0x006442A0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetY(D2DynamicPathStrc*); // 0x00648900
-int __stdcall sub_0064D910_CheckCollision(D2ActiveRoomStrc*,int,int,int,int); // 0x0064D910
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 static __forceinline int sub_0045ADF0(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
@@ -65,7 +65,7 @@ int __fastcall sub_005E9750_DiabloChooseAction(D2AiControlStrc* pAi,D2UnitStrc* 
     if(pAi->nAction) return pAi->nAction;
     if(!pTarget)
     {
-        if(sub_0064D910_CheckCollision(UNITS_GetRoom(pUnit),sub_0045ADF0(pUnit),sub_0045AE20(pUnit),2,64)) return 16;
+        if(COLLISION_CheckAnyCollisionWithPattern(UNITS_GetRoom(pUnit),sub_0045ADF0(pUnit),sub_0045AE20(pUnit),2,64)) return 16;
         return (int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed)%1000)<1 ? 4:11;
     }
     D2GameStrc* pGame=SUNIT_GetGameFromUnit(pTarget);

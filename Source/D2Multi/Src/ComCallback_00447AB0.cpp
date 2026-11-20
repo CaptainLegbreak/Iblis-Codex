@@ -32,7 +32,7 @@ void __cdecl sub_00448050_ClearSelectedUser(); // 0x00448050
 void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
 T0043E860* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); // 0x00449050
 int __stdcall sub_005041B0_Destroy(D2CompositeStrc* pComposite, int nFlag); // 0x005041B0
-void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
+Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 extern char gData_00798D30[]; // 0x00798D30
 extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34

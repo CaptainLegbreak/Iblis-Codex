@@ -64,7 +64,7 @@ void __cdecl sub_0043C4F0();                                                    
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 int __fastcall sub_004F9190();                                                            // 0x004F9190
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText);                      // 0x004FCF80
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 extern D2WinControlStrc* gpOkButton_00779330;                                                               // 0x00779330

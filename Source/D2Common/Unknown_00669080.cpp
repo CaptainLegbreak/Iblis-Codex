@@ -1,3 +1,4 @@
+struct D2ItemsTxt;
 struct D2CubeInputItemStrc
 {
     unsigned short wInputFlags;
@@ -36,7 +37,7 @@ extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 
 int __stdcall FOG_GetLinkIndex(void* pLinker, int nCode, int bLogError);                                    // 0x006BD130
 int __stdcall FOG_GetRowFromTxt(void* pLinker, const char* szText, int nColumn);                            // 0x006BD3C0
-void* __stdcall DATATBLS_GetItemRecordFromItemCode(int nCode, int* pItemId);                                // 0x00633640
+D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 extern void* gpItemTypesLinker_0096C824;                                                                    // 0x0096C824
 extern void* gpSetItemsLinker_0096C844;                                                                     // 0x0096C844

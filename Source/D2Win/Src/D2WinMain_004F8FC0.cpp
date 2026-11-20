@@ -174,7 +174,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall PtInRect(const tagRECT* pRect, tagPOINT tPoint); // 0x006CC4B0
 extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY); // 0x006CC4B4
 extern "C" __declspec(dllimport) int __stdcall TrackMouseEvent(tagTRACKMOUSEEVENT* pEventTrack); // 0x006CC520
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl sub_00407FF0(); // 0x00407FF0
 void __stdcall WINDOW_SetPaused(int bPaused); // 0x004F5990
 int __stdcall WINDOW_GetDimensions(int* pWidth, int* pHeight); // 0x004F59B0
@@ -203,7 +203,7 @@ D2WinControlStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int 
 D2WinControlStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int nHeight); // 0x00507E50
 D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6); // 0x005084F0
 void __fastcall sub_005148F0_SetChannelValue(int nArg); // 0x005148F0
-void __fastcall D2SOUND_10065(); // 0x00514960
+void __cdecl sub_00514960_FadeOutChannel(); // 0x00514960
 int __cdecl sub_00514CF0(); // 0x00514CF0
 void __fastcall D2SOUND_10049(int nState); // 0x00514D00
 int __cdecl sub_00514D80(); // 0x00514D80
@@ -349,12 +349,12 @@ void __stdcall D2Win_10168_WINMAIN_CreateScreenshot(); // 0x004FA7A0
 int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
 int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY); // 0x004FE3B0
-int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, unsigned char nChar); // 0x004FEAE0
+int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, char nChar); // 0x004FEAE0
 int __fastcall sub_004FF050_EditBoxKeyDown(D2WinEditBoxStrc* pEditBox, char nKey); // 0x004FF050
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
-void __stdcall POPUP_Destroy(); // 0x005085A0
+int __stdcall POPUP_Destroy(); // 0x005085A0
 int __stdcall POPUP_IsActive(); // 0x005085C0
 int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg); // 0x005086A0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -535,14 +535,14 @@ int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect)
 void __stdcall D2Win_COMMANDS_Control_6F8ADBE0(SMSGHANDLER_PARAMS* pMsg)
 {
     dword_6F8FE274 = 1;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004F9CA0
 void __stdcall D2Win_COMMANDS_Control_6F8ADBF0(SMSGHANDLER_PARAMS* pMsg)
 {
     dword_6F8FE274 = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004F9F20
@@ -593,7 +593,7 @@ void __stdcall sub_004FA160(SMSGHANDLER_PARAMS* pMsg)
 
     if (sub_00514D80())
     {
-        D2SOUND_10065();
+        sub_00514960_FadeOutChannel();
         D2SOUND_10070(0);
     }
     else
@@ -887,7 +887,7 @@ dispatch:
     }
 
 done:
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004F9BF0
@@ -941,7 +941,7 @@ dispatch:
     }
 
 done:
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004FA520
@@ -1095,7 +1095,7 @@ void __stdcall D2Win_COMMANDS_MouseButton_6F8AE070(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
 
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004FBB90

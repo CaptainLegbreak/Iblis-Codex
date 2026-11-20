@@ -45,10 +45,10 @@ struct D2StormDdaListStrc { int linkoffset; void* prev; void* next;
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*); // 0x006CC214
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void*); // 0x006CC130
-void __stdcall sub_0041C340_SetLastError(unsigned int); // 0x0041C340
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 void* __stdcall sub_00413020_Allocate(unsigned int, const char*, int, int); // 0x00413020
 int __stdcall sub_0041A990_DdaClose(void*); // 0x0041A990
-unsigned long __stdcall SFileSetFilePointer(void*, long, long*, unsigned int); // 0x004165A0
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
 int __stdcall sub_0041AAD0(void*, void*, int, int*, void*, int, int); // 0x0041AAD0
 int __stdcall SFileReadFile(void*, void*, int, int*, void*); // 0x0041B050
 void __stdcall SMemZero(void*, unsigned int); // 0x0041D300

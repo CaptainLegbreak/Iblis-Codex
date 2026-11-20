@@ -1,3 +1,4 @@
+struct D2TileLibraryEntryStrc;
 struct D2ComObjectStrc;
 struct BufferPool;
 struct D2ComVtblStrc;
@@ -31,7 +32,7 @@ char* __fastcall sub_006BAFC0(BufferPool*,char*,char*,unsigned int); // 0x006BAF
 char* __fastcall sub_006BA9A0(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
 char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
 void __cdecl sub_006B7110_InitSprites(); // 0x006B7110
-void __cdecl sub_006BBB90(); // 0x006BBB90
+void __fastcall sub_006BBB90_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
 void __stdcall sub_00604A30_StoreTileFreeHandler(void*); // 0x00604A30
 
 struct D2ComVtblStrc
@@ -53,7 +54,7 @@ extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
 void __cdecl sub_006BB640_ReleaseSurfaces(); // 0x006BB640
 void __cdecl sub_006B32B0_ReleaseRenderer(); // 0x006B32B0
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 
 // 0x006B3080
 void __cdecl sub_006B3080()
@@ -101,7 +102,7 @@ void __cdecl sub_006B3080()
  sub_006BA420(&gSmallPool,current,(char*)memory,32,32);
  gSmallBudget=gSmallPool.count*gBufferCopies*1024;
  sub_006B7110_InitSprites();
- sub_00604A30_StoreTileFreeHandler((void*)sub_006BBB90);
+ sub_00604A30_StoreTileFreeHandler((void*)sub_006BBB90_InvalidateTileCaches);
 }
 
 int gbVideoUp_00970E40; // 0x00970E40
@@ -149,7 +150,7 @@ void __cdecl sub_006B3320_ReleaseResources()
         const long hResult = gpGammaControl_00970E74->f_0->pfSetGammaRamp(gpGammaControl_00970E74, 0, gabGammaRamp_0096FCB8);
         if (hResult && hResult != (long)0x887601C2)
         {
-            sub_006B20E0_ReportError("Failed to restore original gamma ramp", hResult);
+            sub_006B20E0_DDrawLogError("Failed to restore original gamma ramp", hResult);
         }
         gpGammaControl_00970E74->f_0->pfRelease(gpGammaControl_00970E74);
         gpGammaControl_00970E74 = 0;

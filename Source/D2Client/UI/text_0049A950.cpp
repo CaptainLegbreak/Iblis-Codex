@@ -85,7 +85,7 @@ int __cdecl sub_0044DA30(); // 0x0044DA30
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __cdecl sub_00454980(); // 0x00454980
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __cdecl sub_00466FE0(); // 0x00466FE0
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
@@ -94,7 +94,7 @@ int __cdecl sub_00468740(); // 0x00468740
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
 void __fastcall sub_00469D70(int nId, int nB); // 0x00469D70
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __cdecl sub_0049FE10(); // 0x0049FE10
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
@@ -182,7 +182,7 @@ void __stdcall sub_0049CEC0_KeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 
     if (!gbGlobal_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
     {
-        sub_004786A0_SendIntInt(0x49, gnGlobal_007BF07D, 0);
+        sub_004786A0_SendDwords2(0x49, gnGlobal_007BF07D, 0);
         gbGlobal_007BF085 = 1;
     }
 

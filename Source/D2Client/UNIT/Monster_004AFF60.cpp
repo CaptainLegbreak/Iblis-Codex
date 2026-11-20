@@ -82,7 +82,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-void __fastcall sub_004643F0_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, int nUnitGUID);              // 0x004643F0
+void __fastcall sub_004643F0_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId); // 0x004643F0
 void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit);                                       // 0x004647D0
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit);                                                // 0x00464810
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
@@ -94,7 +94,7 @@ void __fastcall sub_00465BF0_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nA
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
 void __cdecl sub_00466FE0();                                                                                // 0x00466FE0
 D2UnitStrc* __cdecl sub_00467A10();                                                             // 0x00467A10
-void __fastcall sub_00467A70_RefreshHoverUnit(int nArg);                                                    // 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode);                                     // 0x0046C140
 void __fastcall sub_0046F170_RemoveOverlays(D2UnitStrc* pUnit);                                             // 0x0046F170
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
@@ -113,7 +113,7 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit);                
 void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nArg1, int nArg2);                   // 0x004AF890
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);  // 0x004AFF60
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);          // 0x004B9A00
-void __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nValue, int nArg2, int nArg3);          // 0x004C5420
+D2UnitStrc* __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 void __fastcall sub_004C6EB0_StartSkillOnUnit(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);              // 0x004C6EB0
 void __fastcall sub_004C6F40(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);                                // 0x004C6F40
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                           // 0x004CD540
@@ -134,7 +134,7 @@ int __stdcall STATES_CheckStateMaskShatterOnUnit(D2UnitStrc* pUnit);            
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex);                               // 0x0063E7A0
 int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                          // 0x00643860
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
-D2SkillStrc* __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
+void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 void __stdcall sub_00648730(D2DynamicPathStrc* pDynamicPath);                                // 0x00648730
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath);                                        // 0x006487F0
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
@@ -1041,3 +1041,4 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 }
 
 #include "gen/data/Source/D2Client/UNIT/Monster_004AFF60.inc"
+struct D2UnitStrc;

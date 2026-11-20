@@ -132,7 +132,7 @@ void __cdecl sub_0044AA80_SendPacket13(); // 0x0044AA80
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 void __cdecl sub_00515070(); // 0x00515070
 void __cdecl sub_004495A0_ClearChannel(); // 0x004495A0
-void __cdecl sub_00505100(); // 0x00505100
+void __stdcall D2Win_10146(); // 0x00505100
 void __cdecl sub_0043F800_FreeNameList(); // 0x0043F800
 void __cdecl sub_0043D510_FreeCellFiles(); // 0x0043D510
 void* __stdcall sub_005066C0(int nA, int nMode, char* szA, char* szB); // 0x005066C0
@@ -414,7 +414,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     GetTickCount();
     sub_00515070();
     sub_004495A0_ClearChannel();
-    sub_00505100();
+    D2Win_10146();
     sub_0043F8C0_ResetLaunchState();
     sub_0043F800_FreeNameList();
     sub_004F95C0_ControlDestroy(&gpChatTextBox_0077BD8C);

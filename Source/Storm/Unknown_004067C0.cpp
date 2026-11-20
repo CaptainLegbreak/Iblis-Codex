@@ -43,12 +43,12 @@ unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay); // 0x00407370
-void __fastcall sub_00407440_FromJulianDay(int nJulianDay, int* pnYear, int* pnMonth, int* pnDay); // 0x00407440
+void __fastcall sub_00407440_JulianToDate(long nJulian, int* pYear, int* pMonth, int* pDay); // 0x00407440
 int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, size_t nSize); // 0x006829C0
-const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
+const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 void __stdcall sub_0040EA00_WriteProcessorReport(); // 0x0040EA00
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -199,7 +199,7 @@ void __fastcall sub_00407570_DeleteOldDatedLogs(const char* szPrefix)
     int nJulianDay = sub_00407370_JulianDay(nYear, nMonth, nDay) - 5;
     for (int i = 0; i < 10; i++)
     {
-        sub_00407440_FromJulianDay(nJulianDay, &nYear, &nMonth, &nDay);
+        sub_00407440_JulianToDate(nJulianDay, &nYear, &nMonth, &nDay);
         SStrPrintf(szFile, 0x1000, "%s%s%02d%02d%02d.txt", szDir, szPrefix, nYear % 100, nMonth, nDay);
         DeleteFileA(szFile);
         nJulianDay--;
@@ -351,7 +351,7 @@ void __cdecl sub_004076B0_LogSystemInfo()
         sub_00410610_WriteLogLine("Application Path: %s", szPath);
     }
 
-    sub_00410610_WriteLogLine("Local IP: %s", sub_0040DF60_GetLocalIp());
+    sub_00410610_WriteLogLine("Local IP: %s", FOG_GetHostIPAddress());
 
     nSize = sizeof(szComputer);
     if (!GetComputerNameA(szComputer, &nSize))

@@ -2,6 +2,9 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+struct D2ActiveRoomStrc;
+struct D2StoredUnitRecordStrc;
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -71,7 +74,7 @@ struct ListBoxImplementation
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -84,7 +87,7 @@ void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor,
 T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
@@ -138,15 +141,15 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" unsigned int __cdecl strlen(const char* sz);
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
-int __cdecl sub_005269D0_Sprintf(int nCount, Unicode* pDest, const Unicode* pFormat, ...); // 0x005269D0
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __fastcall sub_0049E3A0_PrintEventText(Unicode* pText, char nColor); // 0x0049E3A0
-void __fastcall sub_0049E5C0_PrintPartyText(Unicode* pText, char nColor); // 0x0049E5C0
+void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
+void __fastcall sub_0049E5C0_PrintPartyText(const Unicode* wszText, char nColor); // 0x0049E5C0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId); // 0x006556E0
@@ -207,7 +210,7 @@ typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
 void __fastcall sub_00451E10_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __cdecl sub_00453AE0(); // 0x00453AE0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __cdecl sub_00463DF0(); // 0x00463DF0
 void __fastcall sub_00464950(UNITFN pfnCallback); // 0x00464950
 void __fastcall sub_00464990(UNITFN pfnCallback); // 0x00464990
@@ -215,7 +218,7 @@ void __fastcall sub_004649D0(UNITFN pfnCallback); // 0x004649D0
 void __fastcall sub_00467430(int nArg); // 0x00467430
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_0049D8E0_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
 void __stdcall sub_0049D410_FreeTextBox(T00479230* pTextBox); // 0x0049D410
 static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox);
@@ -226,7 +229,7 @@ void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
 void __cdecl sub_004A0880_CloseTextUnit(); // 0x004A0880
 void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit); // 0x004A0B30
 void __fastcall sub_004A0D20_DrawObjectHoverText(D2UnitStrc* pUnit); // 0x004A0D20
-void __fastcall sub_004B3830_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
+extern "C" void __fastcall sub_004B3830_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
 int __cdecl sub_004F59A0(); // 0x004F59A0
 int __cdecl sub_00514CC0(); // 0x00514CC0
@@ -477,10 +480,10 @@ static int sub_0049E8F0_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket
     switch (pPacket->nParam)
     {
     case 1:
-        sub_005269D0_Sprintf(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277A), wszName);
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277A), wszName);
         break;
     case 2:
-        sub_005269D0_Sprintf(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277B), wszName);
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277B), wszName);
         break;
     case 3:
         sub_005267E0(pOut, wszName);
@@ -512,10 +515,10 @@ static int sub_0049E8F0_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket
         sub_00526700(pOut, D2LANG_GetStringFromTblIndex(0xFC0));
         break;
     case 10:
-        sub_005269D0_Sprintf(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277C), wszName);
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277C), wszName);
         break;
     case 11:
-        sub_005269D0_Sprintf(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277D), wszName);
+        sub_005269D0(0x132, pOut, D2LANG_GetStringFromTblIndex(0x277D), wszName);
         break;
     }
     if (pPlayer)
@@ -581,10 +584,10 @@ void __fastcall sub_0049EB10_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         {
             Unicode wszAccount[16];
             sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
-            sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3B), wszName, wszAccount);
+            sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3B), wszName, wszAccount);
             break;
         }
-        sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE39), wszName);
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE39), wszName);
         break;
     case 3:
         D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3A)) < 0x104, 0x116A);
@@ -593,10 +596,10 @@ void __fastcall sub_0049EB10_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         {
             Unicode wszAccount[16];
             sub_00526F20_ToUnicode(wszAccount, pPacket->szTextData[1], 16);
-            sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3C), wszName, wszAccount);
+            sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3C), wszName, wszAccount);
             break;
         }
-        sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3A), wszName);
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE3A), wszName);
         break;
     case 4:
         D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE3D)) < 0x104, 0x1178);
@@ -690,16 +693,16 @@ void __fastcall sub_0049EB10_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         return;
     case 11:
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);
-        sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x69B), wszName);
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x69B), wszName);
         break;
     case 15:
-        sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE43), pPacket->dwParam);
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0xE43), pPacket->dwParam);
         break;
     case 17:
-        sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFC), pPacket->dwParam);
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFC), pPacket->dwParam);
         break;
     case 18:
-        sub_005269D0_Sprintf(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFD));
+        sub_005269D0(0x132, wszBuffer, D2LANG_GetStringFromTblIndex(0x2AFD));
         if (gpGlobal_007A0634)
             ENVIRONMENT_InitializeEnvironment(gpGlobal_007A0634, sub_004646A0_GetPlayerRoom(), 5, 0, 1);
         sub_00476A80_StartTiming(6, 0xFA0, 0x2710, 0xFA0);
@@ -708,7 +711,7 @@ void __fastcall sub_0049EB10_HandleEventMessage(D2GSPacketSrv5A* pPacket)
     default:
         return;
     }
-    sub_0049E3A0_PrintEventText(wszBuffer, pPacket->nColor);
+    sub_0049E3A0_PrintChatLine(wszBuffer, pPacket->nColor);
 }
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
@@ -1020,7 +1023,7 @@ void __fastcall sub_004A0E70_UpdateTexts(D2ViewStrc* pView)
         {
             if (gdwGlobal_007BF20A)
             {
-                sub_004786A0_SendIntInt(0x30, 1, gdwGlobal_007BF202);
+                sub_004786A0_SendDwords2(0x30, 1, gdwGlobal_007BF202);
                 sub_004B3830_ClearNpcInventoryAndSound(gdwGlobal_007BF202);
             }
 

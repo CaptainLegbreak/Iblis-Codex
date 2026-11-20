@@ -3,7 +3,7 @@
 struct D2ConfigStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
-void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize); // 0x00406BA0
+int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 extern "C" const char szD2CharMpq_006DC77C[]; // 0x006DC77C

@@ -1,5 +1,6 @@
 #include "D2Txt.h"
 #include "D2Path.h"
+struct D2UnitStrc;
 
 struct D2MagicAffixTxt
 {
@@ -76,14 +77,14 @@ extern const int gnRareAffixCounts_006E3014[];                                  
 extern "C" void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);        // 0x00627EF0
 extern "C" void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);        // 0x00627FB0
 extern "C" void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix);                       // 0x00628070
-D2MagicAffixDataTbl* __fastcall DATATBLS_GetMagicAffixDataTables(); // 0x00633ED0
+D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables(); // 0x00633ED0
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
-unsigned char __stdcall sub_00628740_GetQualityLevel(D2UnitStrc* pItem); // 0x00628740
+unsigned char __stdcall ITEMS_GetItemQlvl(const D2UnitStrc* hItem); // 0x00628740
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nClassId); // 0x006335F0
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, D2MagicAffixTxt* pRecord); // 0x0065E620
+int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, const D2MagicAffixTxt* pMagicAffixTxtRecord); // 0x0065E620
 int __stdcall ITEMS_GetClassOfClassSpecificItem(D2UnitStrc* pItem); // 0x0062C0B0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __stdcall ITEMMODS_AssignProperty(int nMode, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nSet, int nUnused); // 0x0065FEC0
@@ -176,7 +177,7 @@ static short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequire
     pSeed->nLowSeed = (unsigned int)nSeed;
     const unsigned short nFormat = ITEMS_GetItemFormat(pItem);
     int nTotalFrequency = 0;
-    const int nQualityLevel = sub_00628740_GetQualityLevel(pItem);
+    const int nQualityLevel = ITEMS_GetItemQlvl(pItem);
     if (((unsigned int)nSeed & 1) || bForceAffixRoll)
     {
         D2MagicAffixTxt* pRolledRecord;

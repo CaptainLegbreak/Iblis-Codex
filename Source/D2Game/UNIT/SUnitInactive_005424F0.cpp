@@ -1,5 +1,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2ShrinesTxt;
+struct D2SpawnAreaStrc;
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
@@ -331,12 +333,12 @@ int __fastcall ACT4Q2_IsChaosSanctumCleared(D2GameStrc*); // 0x005B5210
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 void __fastcall SUNIT_Restore(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int); // 0x00554A30
 void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc*,D2MinionListStrc*); // 0x0058F350
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithUnitId(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int,int); // 0x005B30E0
-D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned short,int,int,unsigned short,unsigned char*); // 0x005A4440
+D2UnitStrc* __fastcall sub_005B30E0_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags); // 0x005B30E0
+D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned short nNameSeed, int bChampion, int bSuperUnique, short nBossHcIdx, unsigned char* pUMods); // 0x005A4440
 D2UnitStrc* __fastcall sub_6FC6FDC0(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned char*); // 0x005A46E0
-int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc*,D2ActiveRoomStrc*,int,int,int*,int*,int); // 0x0054DC40
-int __fastcall sub_0064E840_FindRoomCoordinates(D2ActiveRoomStrc*,D2CoordStrc*,int,int,D2ActiveRoomStrc**); // 0x0064E840
-void __fastcall AIGENERAL_SetAiControlInfo(D2GameStrc*,D2UnitStrc*,int,int,int,int,D2MinionListStrc*); // 0x0058F4D0
+int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
+void __fastcall D2Common_10136(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nSize, unsigned short nMask, D2ActiveRoomStrc** ppRoom); // 0x0064E840
+void __fastcall AIGENERAL_SetAiControlInfo(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nOwnerGUID, unsigned int nOwnerType, int bSetFlag1, int bSetFlag2, D2MinionListStrc* pMinionList); // 0x0058F4D0
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int); // 0x005B0E00
 void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc*); // 0x005A0120
@@ -347,8 +349,8 @@ void __fastcall DRLGPRESET_FreeMapAI(void*,D2MapAIStrc*); // 0x00666130
 D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005557D0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int); // 0x00640E90
 int __stdcall UNITS_IsShrine(D2UnitStrc*); // 0x00621B00
-void* __stdcall DATATBLS_GetShrinesTxtRecord(int); // 0x006414B0
-void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc*,void*); // 0x00621BB0
+D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId); // 0x006414B0
+void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord); // 0x00621BB0
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
 unsigned char __fastcall sub_00552AA0_GetRegenerateMax(D2ObjectsTxt*); // 0x00552AA0
@@ -460,15 +462,15 @@ static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc* pGame,D2A
                 unit = MONSTERUNIQUE_RestoreUniqueMonster(pGame,pRoom,x,y,id,node->nUnitId,node->nNameSeed,node->nTypeFlags & 2,node->nTypeFlags & 0x800,node->nBossHcIdx,node->nMonUMods);
                 break;
             case 0:
-                unit = MONSTERSPAWN_SpawnWithUnitId(pGame,pRoom,x,y,id,mode,node->nUnitId,-1,flags);
+                unit = sub_005B30E0_SpawnWithUnitId(pGame,pRoom,x,y,id,mode,node->nUnitId,-1,flags);
                 if (!unit)
                 {
-                    unit = MONSTERSPAWN_SpawnWithUnitId(pGame,pRoom,x,y,id,mode,node->nUnitId,5,flags);
+                    unit = sub_005B30E0_SpawnWithUnitId(pGame,pRoom,x,y,id,mode,node->nUnitId,5,flags);
                     if (!unit)
                     {
                         int sx,sy;
                         if (!MONSTERREGION_FindSpawnLocation(pGame,pRoom,0,id,&sx,&sy,0)) goto fallbackLocation;
-                        unit = MONSTERSPAWN_SpawnWithUnitId(pGame,pRoom,sx,sy,id,mode,node->nUnitId,-1,flags);
+                        unit = sub_005B30E0_SpawnWithUnitId(pGame,pRoom,sx,sy,id,mode,node->nUnitId,-1,flags);
                         if (!unit)
                         {
 fallbackLocation:
@@ -476,8 +478,8 @@ fallbackLocation:
                             alternate.nX = x;
                             alternate.nY = y;
                             D2ActiveRoomStrc* otherRoom;
-                            sub_0064E840_FindRoomCoordinates(pRoom,&alternate,1,0x3C01,&otherRoom);
-                            if (otherRoom) unit = MONSTERSPAWN_SpawnWithUnitId(pGame,otherRoom,alternate.nX,alternate.nY,id,mode,node->nUnitId,-1,flags);
+                            D2Common_10136(pRoom,&alternate,1,0x3C01,&otherRoom);
+                            if (otherRoom) unit = sub_005B30E0_SpawnWithUnitId(pGame,otherRoom,alternate.nX,alternate.nY,id,mode,node->nUnitId,-1,flags);
                         }
                     }
                 }

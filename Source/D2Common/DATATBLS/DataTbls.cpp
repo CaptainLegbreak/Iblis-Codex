@@ -66,7 +66,7 @@ extern int gnSkillDescCodeSizeEx_0096BC84; // 0x0096BC84
 int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize); // 0x006118B0
 int __fastcall DATATBLS_MapSkillsTxtKeywordToNumber(char* szKey); // 0x00611930
 int __fastcall sub_006119E0_SkillsCalcParamCount(int nValue); // 0x006119E0
-int __fastcall sub_006119F0_SkillsCalcLinkParse(char* szText, int* a2, int a3, int nKeywordNumber); // 0x006119F0
+int __fastcall sub_006119F0_SkillsCalcParamCallback(char* szText, int* pResult, int nType, int nKeywordNumber); // 0x006119F0
 int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOutBuffer, int nOutBufferSize, int (__fastcall* pfnKeywordToNumber)(char*), int (__fastcall* pfnGetParameterCount)(int), int (__fastcall* pfnLinkParse)(char*, int*, int, int)); // 0x006C1AE0
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
@@ -189,7 +189,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gnDifficultylevelsTxtRecordCount; // 0x0096C8B0
 extern D2ObjectsTxt* gpObjectsTxt; // 0x0096D470
-unsigned int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
+int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 int __stdcall sub_00625350(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625350
 int __stdcall STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
@@ -263,8 +263,8 @@ extern DataTables* gVar_00744304; // 0x00744304
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int); // 0x00687330
 extern "C" int __cdecl _snprintf(char*, unsigned int, const char*, ...); // 0x006831DB
 extern "C" char* __cdecl sub_006883F8_Copy(char*, const char*); // 0x006883F8
-const Unicode* __fastcall sub_00524A30_String(unsigned short); // 0x00524A30
-char* __fastcall sub_00526F70_Narrow(char*, const Unicode*, int); // 0x00526F70
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 ObjectRecord* __stdcall sub_00640E90_Object(int); // 0x00640E90
 ItemRecord* __stdcall sub_006335F0_Item(int); // 0x006335F0
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
@@ -350,7 +350,7 @@ extern D2TxtLinkStrc* gpPlrModeLinker_0096BC64; // 0x0096BC64
 extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
 extern D2TxtLinkStrc* gpEventsLinker_0096BCA8; // 0x0096BCA8
 extern "C" const char gszTxtField_int[]; // 0x006E67EC
-void __fastcall sub_006117B0(); // 0x006117B0
+unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 extern D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
 void __fastcall sub_00612600(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength); // 0x00612600
 
@@ -492,7 +492,7 @@ void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset,
         return;
     }
 
-    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, sub_006119E0_SkillsCalcParamCount, sub_006119F0_SkillsCalcLinkParse);
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, sub_006119E0_SkillsCalcParamCount, sub_006119F0_SkillsCalcParamCallback);
     if (nBufferSize <= 0)
     {
         *(int*)((char*)pRecord + nOffset) = -1;
@@ -518,7 +518,7 @@ void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOff
         return;
     }
 
-    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, sub_006119E0_SkillsCalcParamCount, sub_006119F0_SkillsCalcLinkParse);
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, pBuffer, sizeof(pBuffer), DATATBLS_MapSkillsTxtKeywordToNumber, sub_006119E0_SkillsCalcParamCount, sub_006119F0_SkillsCalcParamCallback);
     if (nBufferSize <= 0)
     {
         *(int*)((char*)pRecord + nOffset) = -1;
@@ -1061,8 +1061,8 @@ static __declspec(noinline) void sub_00611F40_MonsterName(char* buffer, int leng
         MonsterRecord* record = &gVar_00744304->monsters[id];
         if (record && record->nameIndex != 0x1506)
         {
-            const Unicode* name = sub_00524A30_String(record->nameIndex);
-            sub_00526F70_Narrow(buffer, name, length);
+            const Unicode* name = D2LANG_GetStringFromTblIndex(record->nameIndex);
+            sub_00526F70(buffer, name, length);
             return;
         }
     }
@@ -1091,8 +1091,8 @@ static __declspec(noinline) void sub_00611FE0_ItemName(char* buffer, int length,
     ItemRecord* record = sub_006335F0_Item(id);
     if (record && record->nameIndex != 0x1506)
     {
-        const Unicode* name = sub_00524A30_String(record->nameIndex);
-            sub_00526F70_Narrow(buffer, name, length);
+        const Unicode* name = D2LANG_GetStringFromTblIndex(record->nameIndex);
+            sub_00526F70(buffer, name, length);
         return;
     }
     if (length > 0)
@@ -1510,6 +1510,7 @@ void __stdcall sub_00612EA0_UnloadCompCodeAndCompileBins()
 }
 
 #include "gen/data/Source/D2Common/DATATBLS/DataTbls.inc"
+struct D2UnitStrc;
 
 int gnCharstatsTxtRecordCount; // 0x0096C7F8
 
@@ -1542,11 +1543,11 @@ void __stdcall DATATBLS_LoadCharStatsTxt(void* hArchive)
         { "ManaPerMagic", 4, 0, 72, 0 },
         { "BlockFactor", 4, 0, 73, 0 },
         { "basewclass", 9, 0, 76, 0 },
-        { "StrAllSkills", 22, 0, 82, (void*)sub_006117B0 },
-        { "StrSkillTab1", 22, 0, 84, (void*)sub_006117B0 },
-        { "StrSkillTab2", 22, 0, 86, (void*)sub_006117B0 },
-        { "StrSkillTab3", 22, 0, 88, (void*)sub_006117B0 },
-        { "StrClassOnly", 22, 0, 90, (void*)sub_006117B0 },
+        { "StrAllSkills", 22, 0, 82, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "StrSkillTab1", 22, 0, 84, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "StrSkillTab2", 22, 0, 86, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "StrSkillTab3", 22, 0, 88, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "StrClassOnly", 22, 0, 90, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "StartSkill", 20, 0, 172, &gTxtLink_0096C7CC },
         { "Skill 1", 20, 0, 174, &gTxtLink_0096C7CC },
         { "Skill 2", 20, 0, 176, &gTxtLink_0096C7CC },
@@ -1733,7 +1734,7 @@ void __fastcall DATATBLS_LoadPetTypeTxt(void* hArchive)
         { "micon3", 1, 32, 111, 0 },
         { "mclass4", 3, 0, 184, 0 },
         { "micon4", 1, 32, 143, 0 },
-        { "name", 22, 0, 12, (void*)sub_006117B0 },
+        { "name", 22, 0, 12, (void*)DATATBLS_GetStringIdFromReferenceString },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 

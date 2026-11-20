@@ -210,7 +210,7 @@ int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg);                 
 int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl);                             // 0x005003A0
 int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl);                                                  // 0x005005B0
 void __fastcall D2SOUND_10039(const char* szFile);                                                          // 0x00514EC0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0

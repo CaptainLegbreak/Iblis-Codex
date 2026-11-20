@@ -113,7 +113,7 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize); // 0x0040D290
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-void __fastcall sub_0051A8F0_HandleLogon(int nArg1, int nArg2, const char* szText); // 0x0051A8F0
+int __fastcall sub_0051A8F0_HandleLogon(unsigned int dwExeVersion, unsigned int dwExeHash, const char* szExeInfo); // 0x0051A8F0
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 int __fastcall sub_0051C760_SplitPackets(unsigned char* pBuffer, int nLength); // 0x0051C760
@@ -131,7 +131,7 @@ extern long volatile gnDnsDone_00881BFC; // 0x00881BFC
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-int __stdcall sub_006C7130_FromWide(char* pDst, unsigned int nDstSize, const unsigned short* pSrc, unsigned int nCount, unsigned int* pnWritten, int nFlags); // 0x006C7130
+int __stdcall SUniConvertUTF16to8(char* pDest, unsigned int nDestSize, const unsigned short* pSrc, unsigned int nSrcLength, unsigned int* pDestWritten, unsigned int* pSrcRead); // 0x006C7130
 int __stdcall sub_006C7960_ToWide(unsigned short* pDst, const char* szSrc, unsigned int nCount); // 0x006C7960
 extern int gnChannelList_008818C8; // 0x008818C8
 extern char* gpAdUrlReply_008818DC; // 0x008818DC
@@ -191,8 +191,8 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn); /
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
 void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader); // 0x006612A0
-void __stdcall sub_00416710_Unlock(void* pHandle); // 0x00416710
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2WheelCallbackFn gpfnWheelUp_007A7404; // 0x007A7404
@@ -307,7 +307,7 @@ int __cdecl sub_0051C470_CloseBNetConnection(); // 0x0051C470
 unsigned long __stdcall BattleConnectFastest(void* pParameter); // 0x0051D0A0
 void __cdecl sub_0051D510_ReportNews(); // 0x0051D510
 int __cdecl sub_0051DA30_LoadNews(); // 0x0051DA30
-void __fastcall sub_0051ED00_QueryState(int* pState); // 0x0051ED00
+int __fastcall sub_0051ED00_ApplyPatches(int* pResult); // 0x0051ED00
 int __cdecl sub_00520B30_ResetReplies(); // 0x00520B30
 void __cdecl sub_00521B50_ReseedLogin(); // 0x00521B50
 int __fastcall sub_005221F0_ChangePasswordProof(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x005221F0
@@ -770,7 +770,7 @@ int __fastcall sub_0051AF40_ChatCommand(const char* szText)
     wszText[nLength] = 0;
 
     char szBuffer[0x200];
-    if (sub_006C7130_FromWide(szBuffer, 0x1FF, wszText, 0x1FF, &nLength, 0))
+    if (SUniConvertUTF16to8(szBuffer, 0x1FF, wszText, 0x1FF, &nLength, 0))
     {
         return 0;
     }
@@ -1157,7 +1157,7 @@ void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData,
 int __fastcall sub_0051F2D0_PatchUnk(int* pResult)
 {
     int nState;
-    sub_0051ED00_QueryState(&nState);
+    sub_0051ED00_ApplyPatches(&nState);
     switch (nState)
     {
     case 0:
@@ -1208,13 +1208,13 @@ void __cdecl sub_005239C0_UnlockCDKeys()
 {
     if (gpCDKeyHandle_00882744)
     {
-        sub_00416710_Unlock(gpCDKeyHandle_00882744);
+        SFileUnloadFile(gpCDKeyHandle_00882744);
         gpCDKeyHandle_00882744 = 0;
     }
 
     if (gpCDKeyHandle_00882750)
     {
-        sub_00416710_Unlock(gpCDKeyHandle_00882750);
+        SFileUnloadFile(gpCDKeyHandle_00882750);
         gpCDKeyHandle_00882750 = 0;
     }
 }

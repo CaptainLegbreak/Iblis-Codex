@@ -11,7 +11,7 @@ struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk_04; D2UnitStrc* 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*, D2UnitStrc*, int); // 0x005DE080
 int __fastcall AITACTICS_UseSkill(D2GameStrc*, D2UnitStrc*, unsigned char, int, D2UnitStrc*, int, int); // 0x005DEAD0
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc*, D2UnitStrc*); // 0x00620C10
-unsigned char __stdcall UNITS_GetDirectionToCoords(D2UnitStrc*, int, int); // 0x00621DC0
+int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc*, int); // 0x006488A0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
@@ -95,3 +95,4 @@ void __fastcall sub_005F9490_ThinkAxisCaster(D2GameStrc* pGame, D2UnitStrc* pUni
 }
 
 #include "gen/data/Source/D2Game/Unknown_005F9490.inc"
+struct D2UnitStrc;

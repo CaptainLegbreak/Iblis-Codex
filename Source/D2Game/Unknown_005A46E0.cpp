@@ -1,6 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+struct D2ActiveRoomStrc;
+struct D2GameStrc;
+struct D2SpawnAreaStrc;
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_MINION 0x10
@@ -12,7 +15,7 @@ typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUniqu
 
 extern UModInitFunc gpUModInitFunctions_0073C008[];                                                         // 0x0073C008
 
-int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
+int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
 
 static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {

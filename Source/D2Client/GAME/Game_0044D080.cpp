@@ -108,7 +108,7 @@ struct D2ClientConfigStrc
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(_RTL_CRITICAL_SECTION* pCriticalSection); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(_RTL_CRITICAL_SECTION* pCriticalSection); // 0x006CC214
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
-void __cdecl sub_00449B70(); // 0x00449B70
+int __cdecl sub_00449B70_PollMcpConnection(); // 0x00449B70
 void __cdecl sub_0044C000_StartClick(); // 0x0044C000
 void __cdecl sub_0044C2C0(); // 0x0044C2C0
 void __cdecl sub_0044C6E0_DrainPacketQueues(); // 0x0044C6E0
@@ -122,10 +122,10 @@ int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __cdecl sub_00462920_ClearValue(); // 0x00462920
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __cdecl sub_00467AC0_UpdateHoverUnit(); // 0x00467AC0
 void __cdecl sub_00477DD0(); // 0x00477DD0
-void __cdecl sub_0047BDF0(); // 0x0047BDF0
+int __cdecl sub_0047BDF0_HandleBnetChatMessage(); // 0x0047BDF0
 void __fastcall sub_00480320_CallHolderSlot3(int nDelta); // 0x00480320
 void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
 void __cdecl sub_00482C20_Tick(); // 0x00482C20
@@ -286,6 +286,7 @@ void __fastcall sub_0044D6B0_ApplyConfigClass(D2ConfigStrc* pConfig)
 }
 
 #include "gen/data/Source/D2Client/GAME/Game_0044D080.inc"
+struct D2ActiveRoomStrc;
 
 int gdwGlobal_007A04F4; // 0x007A04F4
 
@@ -483,8 +484,8 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
     }
 
     sub_0044C6E0_DrainPacketQueues();
-    sub_0047BDF0();
-    sub_00449B70();
+    sub_0047BDF0_HandleBnetChatMessage();
+    sub_00449B70_PollMcpConnection();
     sub_0044EEC0_CheckConnectionTimeouts();
 
     if (gdwGlobal_007A061C)

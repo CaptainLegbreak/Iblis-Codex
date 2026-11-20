@@ -4,6 +4,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+struct D2ActiveRoomStrc;
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
@@ -80,7 +83,7 @@ void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitSt
 void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int a2); // 0x005544B0
 int __fastcall sub_6FD10200(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, D2DamageStrc* pDamage, unsigned int nAuraFilter); // 0x0056BAD0
 D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
-void __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
+int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 void __fastcall sub_00571B70_SkillUpdate(D2UnitStrc* pUnit, int nSkillId); // 0x00571B70
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
@@ -96,7 +99,7 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 
 int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-int __stdcall sub_006444A0(D2SkillStrc* pSkill); // 0x006444A0
+int __stdcall SKILLS_GetParam1(D2SkillStrc* ptSkill); // 0x006444A0
 int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill); // 0x006444D0
 int __stdcall SKILLS_GetParam3(D2SkillStrc* pSkill); // 0x00644500
 int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill); // 0x00644530
@@ -119,7 +122,7 @@ void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064EC10
 int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY); // 0x00645CA0
 int __fastcall sub_6FD150A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0056E230
-void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064EA90
+void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
@@ -175,7 +178,7 @@ static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc*
     PATH_SetMoveTestCollisionMask(pPath, 0);
     PATH_SetFootprintCollisionMask(pPath, 0);
 
-    const int nX = sub_006444A0(pSkillRead);
+    const int nX = SKILLS_GetParam1(pSkillRead);
     const int nY = SKILLS_GetParam2(pSkill);
     if (!nX || !nY)
     {
@@ -263,7 +266,7 @@ static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D
         return 0;
     }
 
-    const int nX = sub_006444A0(pSkill);
+    const int nX = SKILLS_GetParam1(pSkill);
     const int nY = SKILLS_GetParam2(pSkill);
 
     const int bMonster = sub_I16_IsMonster(pUnit);

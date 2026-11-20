@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+struct D2InventoryStrc;
+struct D2UnitStrc;
 
 struct D2InvRectStrc { int nLeft,nRight,nTop,nBottom; };
 struct D2InvCompGridStrc { D2InvRectStrc rect; unsigned char nWidth,nHeight; unsigned short pad; };
@@ -22,7 +24,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl sub_00468830(); // 0x00468830
-void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc*,int,int); // 0x0046EE80
+int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __fastcall sub_0046EFD0_DrawFramedBox(int,int,unsigned char,unsigned char,unsigned char,int); // 0x0046EFD0
 void __cdecl sub_004835B0_LoadUiRecords(); // 0x004835B0
 void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc*,D2InventoryGridInfoStrc*,int,int); // 0x00483E40
@@ -31,7 +33,7 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc*,int,int); // 0x00621050
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
 void __stdcall ITEMS_GetDimensions(D2UnitStrc*,unsigned char*,unsigned char*,const char*,int); // 0x006286C0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
-unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc*); // 0x006299B0
+int __stdcall ITEMS_GetSockets(D2UnitStrc* hItem); // 0x006299B0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc*); // 0x0062A4E0
 unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc*); // 0x0062BEB0
@@ -41,7 +43,7 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc*,D2UnitStrc*,int,int*,int*,int*
 int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc*,int); // 0x0062ED50
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc*,int); // 0x0063BDE0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
-unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc*); // 0x0063CD60
+int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc*,D2InventoryStrc*); // 0x0063D340
 
 // 0x00483A70
@@ -184,7 +186,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             pOther=INVENTORY_GetItemFromBodyLoc(pInventory,4);
             if(bDualWield && !ITEMS_GetQuiverType(pOther) && !ITEMS_GetQuiverType(pItem))
             {
-                sub_0046EE80_DrawCursorItem(pItem,gaCompGrids_007BCC58[4].rect.nLeft+((gaCompGrids_007BCC58[5].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
+                sub_0046EE80_DrawItemCel(pItem,gaCompGrids_007BCC58[4].rect.nLeft+((gaCompGrids_007BCC58[5].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
                     gaCompGrids_007BCC58[4].rect.nTop+((gaCompGrids_007BCC58[5].nHeight-gGrid_007BCB88.nGridBoxHeight*nHeight)>>1)+nOffsetY);
                 sub_004845A0_DrawOtherHandFrame(&gaCompGrids_007BCC58[4]);
             }
@@ -193,7 +195,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             pOther=INVENTORY_GetItemFromBodyLoc(pInventory,5);
             if(bDualWield && !ITEMS_GetQuiverType(pOther) && !ITEMS_GetQuiverType(pItem))
             {
-                sub_0046EE80_DrawCursorItem(pItem,gaCompGrids_007BCC58[5].rect.nLeft+((gaCompGrids_007BCC58[4].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
+                sub_0046EE80_DrawItemCel(pItem,gaCompGrids_007BCC58[5].rect.nLeft+((gaCompGrids_007BCC58[4].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
                     gaCompGrids_007BCC58[5].rect.nTop+((gaCompGrids_007BCC58[4].nHeight-gGrid_007BCB88.nGridBoxHeight*nHeight)>>1)+nOffsetY);
                 sub_004845A0_DrawOtherHandFrame(&gaCompGrids_007BCC58[5]);
             }
@@ -213,7 +215,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
         {
             if(sub_00468830()==8)sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             else sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],1);
-            sub_0046EE80_DrawCursorItem(pItem,nX,nY);
+            sub_0046EE80_DrawItemCel(pItem,nX,nY);
             if(ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
                 sub_00483E40_DrawItemSockets(pItem,&gGrid_007BCB88,nX,nY);
         }
@@ -234,7 +236,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             {
                 sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             }
-            sub_0046EE80_DrawCursorItem(pItem,nX,nY);
+            sub_0046EE80_DrawItemCel(pItem,nX,nY);
         }
     }
     sub_004844A0_DrawBodyLocPlacement(pInventory);

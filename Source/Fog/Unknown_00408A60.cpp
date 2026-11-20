@@ -1,4 +1,5 @@
 #include "Fog.h"
+struct D2CrashInputStrc;
 
 #define FOG_ASSERT(expr, line) if (!(expr)) { const char* szAssertFile = sub_00408090(); FOG_SOCKET_WSACleanup(); sub_00408900_RaiseErrorReport(6, &gszEmptyAssertText, line, "Unrecoverable internal error %08x", szAssertFile); sub_0040F960_CloseLogFiles(); exit(-1); }
 struct D2PoolRecordStrc;
@@ -35,12 +36,12 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __cdecl sub_004016A0_StartDbgHelpThread(); // 0x004016A0
 void __fastcall sub_00401740_SetText(const char* szText); // 0x00401740
 void __fastcall sub_00403F60_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused); // 0x00403F60
-int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, int nSize); // 0x00406B60
+int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
 void __cdecl sub_004076B0_LogSystemInfo(); // 0x004076B0
 void __cdecl sub_00407DE0_CaptureSystemInfo(); // 0x00407DE0
 void __cdecl sub_00407F20_ExitHandler(); // 0x00407F20
-void __cdecl sub_004082E0_CrashHandler(); // 0x004082E0
-void __cdecl sub_0040D5B0_InitStep(); // 0x0040D5B0
+int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput); // 0x004082E0
+int __cdecl sub_0040D5B0_LoadImageHlp(); // 0x0040D5B0
 void __cdecl sub_00410540_InitLogSystem(); // 0x00410540
 int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
 void __cdecl sub_004109D0_InitTimeBase(); // 0x004109D0
@@ -51,7 +52,7 @@ extern unsigned int gdwInvBitMasks_006CE2E8[]; // 0x006CE2E8
 extern D2CriticalSectionStrc gtLock_0074C830; // 0x0074C830
 extern D2CriticalSectionStrc gtLock_0074D848; // 0x0074D848
 extern int gbErrorMgrInit_0074F0D0; // 0x0074F0D0
-void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize); // 0x00406BA0
+int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
 
 struct T00408A30_2
@@ -189,7 +190,7 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
         sub_004076B0_LogSystemInfo();
     }
     atexit(sub_00407F20_ExitHandler);
-    sub_0040D5B0_InitStep();
+    sub_0040D5B0_LoadImageHlp();
     sub_0041C0E0_SetCallback(sub_00408660_ShowErrorReport);
 }
 

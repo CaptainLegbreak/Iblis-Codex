@@ -34,7 +34,7 @@ int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, i
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
 void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength); // 0x004FDD50
-void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
+int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
 int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox); // 0x004F91C0
 void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext); // 0x004FDDD0
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
@@ -100,7 +100,7 @@ void __cdecl sub_00432100_CreateLoginScreen()
     gpEdit_0077958C = sub_0042F430_CreateControl(0x59);
     sub_004FDAD0_SetKeyCallback(gpEdit_0077958C, sub_0042FE70_FilterChar);
     sub_004FDD50_SetMaxLength(gpEdit_0077958C, 0x10);
-    sub_004FFE10_SetTextA(gpEdit_0077958C, gpLaunchRecord_007795D4->szAccount);
+    D2Win_10076(gpEdit_0077958C, gpLaunchRecord_007795D4->szAccount);
     gpEdit_00779334 = sub_0042F430_CreateControl(0x5A);
     sub_004FDAD0_SetKeyCallback(gpEdit_00779334, sub_0042FF00_FilterChar);
     sub_004FDD50_SetMaxLength(gpEdit_00779334, 0xD);
@@ -145,7 +145,7 @@ void __cdecl sub_00436F30_CreateEmailScreen()
     D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x2B57));
     gpEdit_007799E0 = sub_0042F430_CreateControl(0x134);
     sub_004FDB00_SetEnterCallback(gpEdit_007799E0, sub_00436F20_OnEditChange);
-    sub_004FFE10_SetTextA(gpEdit_007799DC, gpLaunchRecord_007795D4->szAccount);
+    D2Win_10076(gpEdit_007799DC, gpLaunchRecord_007795D4->szAccount);
     sub_004F91C0(gpEdit_007799DC);
     sub_004FDDD0_LinkTab(gpEdit_007799DC, gpEdit_007799E0);
     sub_004FDDD0_LinkTab(gpEdit_007799E0, gpEdit_007799DC);
@@ -194,7 +194,7 @@ void __cdecl sub_004372B0_CreatePasswordScreen()
     pControl = sub_0042F430_CreateControl(0x140);
     D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x1468));
     gpPasswordEdit_007799BC = sub_0042F430_CreateControl(0x141);
-    sub_004FFE10_SetTextA(gpPasswordEdit_007799BC, gpLaunchRecord_007795D4->szAccount);
+    D2Win_10076(gpPasswordEdit_007799BC, gpLaunchRecord_007795D4->szAccount);
     sub_004FDD50_SetMaxLength(gpPasswordEdit_007799BC, 0x10);
     sub_004FDAD0_SetKeyCallback(gpPasswordEdit_007799BC, sub_0042FEF0_FilterChar);
     sub_004FDB00_SetEnterCallback(gpPasswordEdit_007799BC, sub_004372A0_OnEnter);

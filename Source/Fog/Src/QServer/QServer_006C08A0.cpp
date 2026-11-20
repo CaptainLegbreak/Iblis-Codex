@@ -21,7 +21,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 void __fastcall sub_006C0420_CloseClient(D2ClientTableStrc* table, int client, const char* file, int line); // 0x006C0420
 void __fastcall sub_006BFEA0_RecordAddress(D2ClientTableStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
-void* __fastcall FOG_Alloc(unsigned int size, const char* file, int line, int zero); // 0x0040B380
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void __cdecl sub_00410660_LogWritePrefixed(const char*, const char*, ...); // 0x00410660
 extern "C" char* __stdcall inet_ntoa(unsigned int); // 0x006B013E
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int); // 0x006829C0

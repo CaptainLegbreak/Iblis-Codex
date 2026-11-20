@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+struct D2ActiveRoomStrc;
 
 
 
@@ -38,14 +39,14 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" double __cdecl fabs(double x);
 
 int __cdecl sub_004F5140();                                                                                 // 0x004F5140
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom();                                                  // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
 int __fastcall sub_006BCB40(D2WeatherStrc* pArray);                                             // 0x006BCB40
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-unsigned int __cdecl sub_0044DB00();                                                                        // 0x0044DB00
+int __cdecl sub_0044DB00(); // 0x0044DB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __fastcall sub_00472C80_StepSplashes(int nUnused);                                                     // 0x00472C80
 void __fastcall sub_00472D10_StepBubbles(int nUnused);                                                      // 0x00472D10

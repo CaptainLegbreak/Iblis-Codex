@@ -171,7 +171,7 @@ struct AsyncDataEventSlot
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
-void __fastcall sub_004068F0(void* hFile); // 0x004068F0
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
