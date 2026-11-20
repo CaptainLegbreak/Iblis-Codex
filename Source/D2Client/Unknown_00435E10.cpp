@@ -1,13 +1,5 @@
 #include "D2Client.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch)
-    {
-    }
-};
+#include "D2Unicode.h"
 
 #pragma pack(push, 1)
 struct D2LaunchRecordStrc

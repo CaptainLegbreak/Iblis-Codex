@@ -2,14 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();
-};
-
+#include "D2Unicode.h"
 
 struct T0044CB60
 {

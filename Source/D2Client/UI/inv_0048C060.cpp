@@ -3,13 +3,7 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
-
+#include "D2Unicode.h"
 struct UnicodeChar : Unicode
 {
     UnicodeChar();

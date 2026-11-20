@@ -1,15 +1,11 @@
 #include "D2Client.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
 struct D2LaunchControlTemplateStrc;
 struct D2FuncTable_0077ABF0Strc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2LaunchControlTemplateStrc
 {

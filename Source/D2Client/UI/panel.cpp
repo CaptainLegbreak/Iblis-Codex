@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -64,12 +65,6 @@ extern int gnGlobal_007BEFD0; // 0x007BEFD0
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
 extern int __cdecl sub_0044DA30(); // 0x0044DA30
 extern int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 struct D2GfxMotionStrc
 {

@@ -4,11 +4,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-};
+#include "D2Unicode.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

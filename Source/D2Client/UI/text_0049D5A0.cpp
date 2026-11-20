@@ -1,9 +1,5 @@
+#include "D2Unicode.h"
 struct D2SelectionRectStrc;
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 struct D2RectStrc
 {
     int left;

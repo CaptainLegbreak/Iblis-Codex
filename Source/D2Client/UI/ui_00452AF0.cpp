@@ -4,15 +4,8 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 struct D2UnitStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-    Unicode(unsigned short ch) : wChar(ch) {}
-};
 
 struct D2ObjectDataStrc
 {

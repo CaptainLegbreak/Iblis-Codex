@@ -1,14 +1,11 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
 class BNGatewayAccess;
 struct D2FuncTable_0077ABF0Strc;
 
-struct Unicode
-{
-    unsigned short wChar;
-};
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 void __cdecl sub_00433640_PlayIntroVideo(); // 0x00433640
 void __cdecl sub_0042FB20(); // 0x0042FB20

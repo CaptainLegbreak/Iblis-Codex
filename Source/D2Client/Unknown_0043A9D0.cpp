@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -22,11 +23,6 @@ extern void* gapRowControlsX_00779B40[]; // 0x00779B40
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern int gdwGlobal_00779DC4; // 0x00779DC4
 extern int gnTopRow_00779DC8; // 0x00779DC8
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 #pragma pack(push, 1)
 struct D2LaunchRecordStrc

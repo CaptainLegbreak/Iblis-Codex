@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ClientTextBoxStrc;
@@ -12,11 +13,6 @@ struct D2HoverClearPacketStrc;
 struct D2TextIdEntryStrc;
 struct D2ClientTextDataStrc;
 class ListBoxWrapper;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 #pragma pack(push, 2)
 struct D2TextNodeStrc

@@ -1,13 +1,9 @@
 #include "D2Structs.h"
+#include "D2Unicode.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2InventoryStrc;
 

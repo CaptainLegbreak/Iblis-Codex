@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -12,11 +13,6 @@ struct D2StaticPathStrc;
 struct D2UiRectStrc;
 struct D2UiRecordStrc;
 struct D2Block1;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

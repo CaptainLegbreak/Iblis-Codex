@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -37,14 +38,6 @@ extern unsigned int gdwScrollTick_007BF243; // 0x007BF243
 extern unsigned int gnScrollCounter_007BF247; // 0x007BF247
 extern D2CellFileStrc* gpScroin3_007BF26C; // 0x007BF26C
 extern D2CellFileStrc* gpScroin2_007BF270; // 0x007BF270
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode() {}
-    Unicode(unsigned short ch) : wChar(ch) {}
-};
 
 struct T0044CB60
 {
