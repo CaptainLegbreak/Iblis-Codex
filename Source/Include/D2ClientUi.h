@@ -25,6 +25,7 @@ struct D2ClientDialogStrc;
 struct D2UiRectStrc;
 struct D2UiRecordStrc;
 struct D2TimedHintNodeStrc;
+struct D2SoundPosStrc;
 struct D2SlotStrc;
 
 struct D2ClientNotifyStrc
@@ -177,18 +178,24 @@ struct D2TimedHintNodeStrc
     D2TimedHintNodeStrc* pNext; // 0x04
 };
 
+struct D2SoundPosStrc
+{
+    float fX; // 0x00
+    float fY; // 0x04
+    float fZ; // 0x08
+};
+
 struct D2SlotStrc
 {
     D2SoundStrc* pSound; // 0x00
     int nType; // 0x04
     D2SlotObjectStrc* pObject; // 0x08
-    int nField0x0C; // 0x0C
-    int nField0x10; // 0x10
-    int nField0x14; // 0x14
+    D2SoundPosStrc tPos; // 0x0C
     int nVolume; // 0x18
-    float fField0x1C; // 0x1C
+    float fAttenuation; // 0x1C
 };
 
+D2_CHECK_SIZE(D2SoundPosStrc, 0xC);
 D2_CHECK_SIZE(D2ClientNotifyStrc, 0x94);
 D2_CHECK_SIZE(D2AutomapCellStrc, 0x14);
 D2_CHECK_SIZE(D2InvCompGridStrc, 0x14);

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2ClientUi.h"
 
 struct D2SoundPosStrc;
 struct D2SlotObjectStrc;
@@ -10,13 +11,6 @@ struct D2SlotStrc;
 struct D2SkillsTxt;
 struct D2MissilesTxt;
 struct D2MissileStrc;
-
-struct D2SoundPosStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-};
 
 struct D2SlotObjectStrc
 {
@@ -36,16 +30,6 @@ struct D2SoundRecordStrc
     char unk0x3D[0x15];
     unsigned char bNoEnvVolume;
     unsigned char bMusic;
-};
-
-struct D2SlotStrc
-{
-    D2SoundStrc* pSound;
-    int nType;
-    D2SlotObjectStrc* pObject;
-    D2SoundPosStrc tPos;
-    int nVolume;
-    float fAttenuation;
 };
 
 extern "C" int __cdecl memcmp(const void* pA, const void* pB, unsigned int nSize);
@@ -69,7 +53,6 @@ extern int gnSfxVolume_00727564; // 0x00727564
 extern int gnEnvVolume_00727568; // 0x00727568
 extern int gdwGlobal_007C8C78; // 0x007C8C78
 
-
 struct D2SkillsTxt
 {
     char unk0x000[0xEA];
@@ -85,8 +68,6 @@ struct D2MissilesTxt
     int dwParam[2];
     char unk0x040[0x164];
 };
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gnOffsetsX_006DBAF8[16]; // 0x006DBAF8

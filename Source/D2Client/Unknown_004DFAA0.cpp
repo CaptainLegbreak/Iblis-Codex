@@ -1,16 +1,10 @@
 #include "D2Client.h"
 #include "D2Path.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SlotStrc;
 union D2SeedStrc;
-
-struct D2SlotStrc
-{
-    int f_0;
-    int nType;
-    char unk0x08[0x18];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -19,10 +13,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
 extern int gdwGlobal_007C8C78; // 0x007C8C78
 void __fastcall sub_00514CA0(int nMode); // 0x00514CA0
-int __fastcall sub_00515530(int nType, int nArg); // 0x00515530
+D2SoundStrc* __fastcall sub_00515530(int nType, int nArg); // 0x00515530
 void __cdecl sub_004DFA60(); // 0x004DFA60
-
-
 
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -55,8 +47,8 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
         else
             gaSlots_007C8A78[i].nType = nMode == 2 ? 6 : 0;
 
-        gaSlots_007C8A78[i].f_0 = sub_00515530(gaSlots_007C8A78[i].nType, gdwGlobal_007C8A70);
-        if (!gaSlots_007C8A78[i].f_0)
+        gaSlots_007C8A78[i].pSound = sub_00515530(gaSlots_007C8A78[i].nType, gdwGlobal_007C8A70);
+        if (!gaSlots_007C8A78[i].pSound)
         {
             sub_004DFA60();
             return 0;
