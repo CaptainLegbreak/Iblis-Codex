@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -16,73 +17,11 @@ struct D2SpriteCacheStrc
     void* pMemPool;
 };
 
-struct D2CmpSpriteFileStrc
-{
-    unsigned int dwFlags;
-    char unk0x04[0x10];
-    int nDirections;
-    int nFramesPerDirection;
-    unsigned int aOffsets[1];
-};
-
-struct D2CmpSpriteContextStrc
-{
-    int nFrame;
-    unsigned int dwFlags;
-    int nType;
-    int nArg0C;
-    int nArg10;
-    int unk0x14;
-    int nArg18;
-    int nArg1C;
-    int nArg20;
-    int nArg24;
-    int nArg28;
-};
-
-struct D2CmpSpriteEntryStrc
-{
-    int unk0x00;
-    int nArg04;
-    int nArg08;
-    int nArg0C;
-    int nArg10;
-    int nArg14;
-    int nArg18;
-    int nArg1C;
-    unsigned char nFlags;
-    unsigned char nFrames;
-    unsigned char nFirstFrame;
-    unsigned char nDirections;
-    unsigned char nFramesPerDirection;
-    char unk0x25[7];
-    int aOffsets[0x21];
-    T00481720* pAsync;
-    D2SpriteCacheNodeStrc* pHolder;
-};
-
 struct D2SpriteCacheNodeStrc
 {
     D2CmpSpriteEntryStrc* f_0;
     int unk0x04;
     D2CmpGfxHashEntryStrc* pRecord;
-};
-
-struct D2CmpGfxHashEntryStrc
-{
-    char unk0x00[0x24];
-    D2SpriteCacheNodeStrc* pHolder;
-};
-
-struct D2CmpLoadDescStrc
-{
-    void* pfnCallback;
-    D2CmpSpriteFileStrc* pFile;
-    unsigned char* pFlags;
-    int nFirstFrame;
-    int nFrames;
-    int unk0x14;
-    int unk0x18;
 };
 
 extern D2SpriteCacheStrc gCmpTileCache;                                                                     // 0x0089DB60
@@ -164,17 +103,17 @@ static int __stdcall sub_005FFFA0_LoadDC6CacheEntry(D2CmpSpriteFileStrc* pFile, 
     {
         D2CmpSpriteEntryStrc* pEntry = pHolder->f_0;
         memset(pEntry, 0, sizeof(D2CmpSpriteEntryStrc));
-        pEntry->nArg0C = pContext->nArg18;
-        pEntry->nArg18 = pContext->nArg24;
-        pEntry->nArg10 = pContext->nArg1C;
-        pEntry->nArg14 = pContext->nArg20;
-        pEntry->nArg1C = pContext->nArg28;
+        pEntry->nArg0C = pContext->dwName[0];
+        pEntry->nArg18 = pContext->dwName[3];
+        pEntry->nArg10 = pContext->dwName[1];
+        pEntry->nArg14 = pContext->dwName[2];
+        pEntry->nArg1C = pContext->dwName[4];
         pEntry->pHolder = pHolder;
         int nSize = 0;
         if (!(pFile->dwFlags & 1))
         {
-            pEntry->nArg08 = pContext->nArg0C;
-            pEntry->nArg04 = pContext->nArg10;
+            pEntry->nArg08 = pContext->nIndex;
+            pEntry->nArg04 = pContext->nMode;
             nSize = sub_005FFA20_LoadDC6Frames(pFile, nDirection, szName, nFrames, pEntry, pContext);
             if (nSize != -1)
             {

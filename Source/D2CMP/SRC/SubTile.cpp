@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GetRValue(rgb) ((unsigned char)(rgb))
@@ -21,33 +22,10 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2CmpSubTileHeaderStrc
-{
-    int unk0x00;
-    int unk0x04;
-    unsigned short nFlags;
-    unsigned short nLength;
-    int unk0x0C;
-};
-
-struct D2CmpSubTileRecordStrc
-{
-    D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* ptData;
-};
-
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 int __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
 
-struct D2CmpTileBlockStrc
-{
-    char reserved[0x46];
-    unsigned char nFlags;
-    char pad47[9];
-    int nSubs;
-    D2CmpSubTileRecordStrc* pSubs;
-};
 unsigned char* __stdcall sub_0060D6F0_MapPixels(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
 void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
 static __declspec(noinline) void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);

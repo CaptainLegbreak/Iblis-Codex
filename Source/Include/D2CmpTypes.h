@@ -13,6 +13,7 @@ struct D2SpriteCacheNodeStrc;
 struct AsyncData;
 struct D2CmpSpriteContextStrc;
 struct D2CmpGfxHashEntryStrc;
+struct D2CmpGfxInfoStrc;
 struct D2CmpTileBlockStrc;
 struct D2CmpSpriteEntryStrc;
 struct D2CmpDC6FrameStrc;
@@ -27,6 +28,28 @@ struct D2CmpBitCursorStrc;
 struct D2CofNodeStrc;
 struct D2CofInfoStrc;
 
+struct D2CmpColorStrc
+{
+    unsigned char nRed; // 0x00
+    unsigned char nGreen; // 0x01
+    unsigned char nBlue; // 0x02
+    unsigned char nPad; // 0x03
+};
+
+struct D2CmpTileInfoStrc
+{
+    char data[25]; // 0x00
+};
+
+struct D2CmpSubTileHeaderStrc
+{
+    int unk0x00; // 0x00
+    int unk0x04; // 0x04
+    unsigned short nFlags; // 0x08
+    unsigned short nLength; // 0x0A
+    int unk0x0C; // 0x0C
+};
+
 struct D2CmpSpriteContextStrc
 {
     int nFrame; // 0x00
@@ -35,11 +58,18 @@ struct D2CmpSpriteContextStrc
     int nIndex; // 0x0C
     int nMode; // 0x10
     int nOverlay; // 0x14
-    char szToken[4]; // 0x18
-    char szComponent[4]; // 0x1C
-    char szArmorType[4]; // 0x20
-    char szMode[4]; // 0x24
-    char szHitClass[4]; // 0x28
+    union
+    {
+        struct
+        {
+            char szToken[4]; // 0x18
+            char szComponent[4]; // 0x1C
+            char szArmorType[4]; // 0x20
+            char szMode[4]; // 0x24
+            char szHitClass[4]; // 0x28
+        };
+        unsigned int dwName[5]; // 0x18
+    };
     const char* pName; // 0x2C
     int nFrames; // 0x30
     void* pCel; // 0x34
@@ -59,7 +89,11 @@ struct D2CmpGfxHashEntryStrc
     int nKey4; // 0x14
     int nKey5; // 0x18
     unsigned int nValue; // 0x1C
-    int nArg; // 0x20
+    union
+    {
+        int nArg; // 0x20
+        D2CmpGfxInfoStrc* pInfo; // 0x20
+    };
     D2SpriteCacheNodeStrc* pHolder; // 0x24
     D2CmpGfxHashEntryStrc* pPrev; // 0x28
     D2CmpGfxHashEntryStrc* pNext; // 0x2C
@@ -77,7 +111,16 @@ struct D2CmpTileBlockStrc
     int nValue28; // 0x18
     int nValue2C; // 0x1C
     int nValue30; // 0x20
-    int unk0x24[8]; // 0x24
+    union
+    {
+        int nOwnerId; // 0x24
+        D2CmpColorStrc tColor; // 0x24
+    };
+    union
+    {
+        int unk0x28[7]; // 0x28
+        D2CmpTileInfoStrc tInfo; // 0x28
+    };
     unsigned short unk0x44; // 0x44
     unsigned char nFlags; // 0x46
     unsigned char unk0x47; // 0x47
@@ -184,11 +227,22 @@ struct D2CmpTileStrc
     int nValue28; // 0x28
     int nValue2C; // 0x2C
     int nValue30; // 0x30
-    int nOwnerId; // 0x34
-    int unk0x38[6]; // 0x38
-    unsigned char unk0x50; // 0x50
-    unsigned char nType; // 0x51
-    unsigned short unk0x52; // 0x52
+    union
+    {
+        int nOwnerId; // 0x34
+        D2CmpColorStrc tColor; // 0x34
+    };
+    union
+    {
+        struct
+        {
+            int unk0x38[6]; // 0x38
+            unsigned char unk0x50; // 0x50
+            unsigned char nType; // 0x51
+            unsigned short unk0x52; // 0x52
+        };
+        D2CmpTileInfoStrc tInfo; // 0x38
+    };
     int nCount; // 0x54
     D2CmpTileNodeStrc* pNodes; // 0x58
     D2CmpTileStrc* pNext; // 0x5C
@@ -196,10 +250,21 @@ struct D2CmpTileStrc
 
 struct D2CmpSubTileRecordStrc
 {
-    int unk0x00[2]; // 0x00
-    unsigned short unk0x08; // 0x08
-    unsigned short nLength; // 0x0A
-    int unk0x0C; // 0x0C
+    union
+    {
+        struct
+        {
+            unsigned short nX; // 0x00
+            unsigned short nY; // 0x02
+            short unk0x04; // 0x04
+            unsigned char nGridX; // 0x06
+            unsigned char nGridY; // 0x07
+            unsigned short nFlags; // 0x08
+            unsigned short nLength; // 0x0A
+            int unk0x0C; // 0x0C
+        };
+        D2CmpSubTileHeaderStrc tHeader; // 0x00
+    };
     unsigned char* ptData; // 0x10
 };
 
@@ -219,6 +284,37 @@ struct D2CmpBitCursorStrc
     unsigned int* pData; // 0x04
     int nBits; // 0x08
     int nBitPos; // 0x0C
+
+    unsigned char* GetBytePtr()
+    {
+        return (unsigned char*)pData + (nBitPos + 7) / 8;
+    }
+
+    void AlignToByte()
+    {
+        const unsigned int nPos = (nBitPos + 7) & ~7u;
+        nBitPos = nPos & 0x1F;
+        pData += nPos / 32;
+    }
+
+    void AlignToByteEnd()
+    {
+        const unsigned int nPos = (nBitPos + 7) & ~7u;
+        pData += nPos / 32;
+        nBitPos = nPos & 0x1F;
+    }
+
+    void AdvanceBits(int nCount)
+    {
+        int nPos = nBitPos + nCount;
+        nBitPos = nPos & 0x1F;
+        pData += nPos / 32;
+    }
+
+    unsigned char* sub_0060B180_GetBytePtr();
+    void sub_0060B1A0_AdvanceBits(int nBits);
+    void sub_0060B1D0_AlignToByte();
+    int sub_0060B1F0_GetBitPos();
 };
 
 struct D2CofNodeStrc
@@ -239,6 +335,9 @@ struct D2CofInfoStrc
     D2CofInfoStrc* pNext; // 0x04
 };
 
+D2_CHECK_SIZE(D2CmpColorStrc, 0x4);
+D2_CHECK_SIZE(D2CmpTileInfoStrc, 0x19);
+D2_CHECK_SIZE(D2CmpSubTileHeaderStrc, 0x10);
 D2_CHECK_SIZE(D2CmpSpriteContextStrc, 0x48);
 D2_CHECK_SIZE(D2CmpGfxHashEntryStrc, 0x30);
 D2_CHECK_SIZE(D2CmpTileBlockStrc, 0x60);

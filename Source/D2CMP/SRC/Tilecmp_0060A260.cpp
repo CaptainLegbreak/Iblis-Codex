@@ -1,40 +1,8 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CmpSubTileHeaderStrc;
-struct D2CmpSubTileRecordStrc;
-struct D2CmpTileBlockStrc;
-struct D2CmpColorStrc;
-struct D2CmpTileLibraryStrc;
-
-struct D2CmpSubTileHeaderStrc
-{
-    int unk0x00;
-    int unk0x04;
-    unsigned short nFlags;
-    unsigned short nLength;
-    int unk0x0C;
-};
-
-struct D2CmpSubTileRecordStrc
-{
-    D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* ptData;
-};
-
-struct D2CmpTileBlockStrc
-{
-    char unk0x00[0x24];
-    D2CmpColorStrc tTransparent;
-    char unk0x28[0x20];
-    int f_48;
-    int nSubBytes;
-    int nSubs;
-    D2CmpSubTileRecordStrc* pSubs;
-    char* pName;
-    void* pExtra;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
@@ -45,15 +13,6 @@ typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned 
 
 void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor); // 0x0060D5B0
 void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord); // 0x0060DB20
-
-struct D2CmpTileLibraryStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    char szName[0x104];
-    int nBlocks;
-    D2CmpTileBlockStrc* pBlocks;
-};
 
 // 0x0060A260
 static __forceinline int sub_0060A260_RelocateSubTileData(D2CmpTileBlockStrc* pBlock, unsigned char* pData)
@@ -172,7 +131,7 @@ void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTile
             memset(pDstBlock->pSubs, 0, nSubSize);
             for (int j = 0; j < pSrcBlock->nSubs; j++)
             {
-                sub_0060A650_MapSubTileRecord(pSrcBlock->tTransparent, &pSrcBlock->pSubs[j], &pDstBlock->pSubs[j], pfnMapColor);
+                sub_0060A650_MapSubTileRecord(pSrcBlock->tColor, &pSrcBlock->pSubs[j], &pDstBlock->pSubs[j], pfnMapColor);
             }
         }
     }

@@ -1,3 +1,4 @@
+#include "D2CmpTypes.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -9,36 +10,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 #pragma function(memcpy)
 
-struct D2CmpTileSubStrc
-{
-    int unk0x00;
-    int unk0x04;
-    short unk0x08;
-    unsigned short nSize;
-    int unk0x0C;
-    char* pData;
-};
-
-struct D2CmpTileBlockStrc
-{
-    char unk0x00[0x48];
-    int f_48;
-    int nSubBytes;
-    int nSubs;
-    D2CmpTileSubStrc* pSubs;
-    char* pName;
-    void* pExtra;
-};
-
-struct D2CmpTileLibraryStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    char szName[0x104];
-    int nBlocks;
-    D2CmpTileBlockStrc* pBlocks;
-};
-
 // 0x00609FD0
 static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary)
 {
@@ -47,10 +18,10 @@ static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary)
     for (int i = 0; i < pLibrary->nBlocks; i++)
     {
         D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
-        nSize += pBlock->nSubs * sizeof(D2CmpTileSubStrc);
+        nSize += pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
         for (int j = 0; j < pBlock->nSubs; j++)
         {
-            nSize += pBlock->pSubs[j].nSize;
+            nSize += pBlock->pSubs[j].nLength;
         }
     }
     return nSize;
@@ -59,16 +30,16 @@ static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary)
 static int sub_0060A050_PackBlockSubs(unsigned char* pDst, D2CmpTileBlockStrc* pBlock)
 {
     unsigned char* pWrite = pDst;
-    int nSize = pBlock->nSubs * sizeof(D2CmpTileSubStrc);
+    int nSize = pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
     memcpy(pWrite, pBlock->pSubs, nSize);
-    D2CmpTileSubStrc* pDstSubs = (D2CmpTileSubStrc*)pWrite;
+    D2CmpSubTileRecordStrc* pDstSubs = (D2CmpSubTileRecordStrc*)pWrite;
     pWrite += nSize;
     for (int i = 0; i < pBlock->nSubs; i++)
     {
-        memcpy(pWrite, pBlock->pSubs[i].pData, pBlock->pSubs[i].nSize);
-        pDstSubs[i].pData = (char*)(pWrite - pDst);
-        nSize += pBlock->pSubs[i].nSize;
-        pWrite += pBlock->pSubs[i].nSize;
+        memcpy(pWrite, pBlock->pSubs[i].ptData, pBlock->pSubs[i].nLength);
+        pDstSubs[i].ptData = (unsigned char*)(pWrite - pDst);
+        nSize += pBlock->pSubs[i].nLength;
+        pWrite += pBlock->pSubs[i].nLength;
     }
     return nSize;
 }
@@ -100,7 +71,7 @@ void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsi
         pDstBlocks[i].pSubs = 0;
         const int nBytes = sub_0060A050_PackBlockSubs(pWrite, &pLibrary->pBlocks[i]);
         pDstBlocks[i].nSubBytes = nBytes;
-        pDstBlocks[i].f_48 = pWrite - pData;
+        pDstBlocks[i].unk0x48 = pWrite - pData;
         pWrite += nBytes;
     }
     pLibrary->dwFlags |= 2;

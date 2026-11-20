@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 struct D2CmpBitCursorStrc;
 struct D2CmpByteMapStrc;
@@ -11,18 +12,6 @@ struct D2SpritePixelsStrc;
 struct D2SpriteCelStrc;
 struct D2CmpTileFileHeaderStrc;
 struct D2CmpTileHeaderTargetStrc;
-
-struct D2CmpBitCursorStrc
-{
-    int* pStart;
-    int* pData;
-    int unk0x08;
-    int f_C;
-
-    unsigned char* sub_0060B180_GetBytePtr();
-    void sub_0060B1D0_AlignToByte();
-    int sub_0060B1F0_GetBitPos();
-};
 
 struct D2CmpByteRunStrc
 {
@@ -146,21 +135,21 @@ void __cdecl sub_0060B130_Nothing()
 // 0x0060B180
 unsigned char* D2CmpBitCursorStrc::sub_0060B180_GetBytePtr()
 {
-    return (unsigned char*)pData + (f_C + 7) / 8;
+    return (unsigned char*)pData + (nBitPos + 7) / 8;
 }
 
 // 0x0060B1D0
 void D2CmpBitCursorStrc::sub_0060B1D0_AlignToByte()
 {
-    const unsigned int nPos = (f_C + 7) & ~7u;
-    f_C = nPos & 0x1F;
+    const unsigned int nPos = (nBitPos + 7) & ~7u;
+    nBitPos = nPos & 0x1F;
     pData += nPos / 32;
 }
 
 // 0x0060B1F0
 int D2CmpBitCursorStrc::sub_0060B1F0_GetBitPos()
 {
-    return (pData - pStart) * 32 + f_C;
+    return (pData - pStart) * 32 + nBitPos;
 }
 
 // 0x0060B480

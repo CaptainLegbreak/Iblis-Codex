@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -27,15 +28,6 @@ struct D2CmpCelFileViewStrc
     unsigned int nDirections;
     unsigned int nFrames;
     D2CelStrc* pCels[1];
-};
-
-struct D2CmpCelContextStrc
-{
-    unsigned int nFrame;
-    char unk0x04[0x30];
-    D2CmpCelFileViewStrc* pCelFile;
-    char unk0x38[0x08];
-    unsigned int nDirection;
 };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
@@ -320,7 +312,7 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
 // 0x00601810
 int __stdcall sub_00601810_IsGfxFrameValid(D2CmpCelContextStrc* pContext)
 {
-    D2CmpCelFileViewStrc* pCelFile = pContext->pCelFile;
+    D2CmpCelFileViewStrc* pCelFile = (D2CmpCelFileViewStrc*)pContext->pCelFile;
     if (!pCelFile)
     {
         return 0;
@@ -350,7 +342,7 @@ D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
     D2_ASSERT(pCelContext, 0x566);
     D2_ASSERT(sub_00601810_IsGfxFrameValid(pCelContext), 0x567);
 
-    D2CmpCelFileViewStrc* pCelFile = pCelContext->pCelFile;
+    D2CmpCelFileViewStrc* pCelFile = (D2CmpCelFileViewStrc*)pCelContext->pCelFile;
     const unsigned int nDirection = pCelContext->nDirection;
     const unsigned int nDirections = pCelFile->nDirections;
     const int nIndex = gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];

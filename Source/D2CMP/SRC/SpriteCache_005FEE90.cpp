@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -48,14 +49,6 @@ struct D2CmpCelFileViewStrc
     unsigned int nFrames;
 };
 
-struct D2CmpCelContextStrc
-{
-    unsigned int nFrame;
-    char unk0x04[0x30];
-    D2CmpCelFileViewStrc* pCelFile;
-    char unk0x38[0x08];
-    unsigned int nDirection;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* lpCriticalSection); // 0x006CC218
@@ -107,7 +100,7 @@ void __fastcall sub_005FEE90_SpriteCacheInit(D2SpriteCacheStrc* pCache, void* pM
 // 0x00601810
 int __stdcall sub_00601810_IsGfxFrameValid(D2CmpCelContextStrc* pContext)
 {
-    D2CmpCelFileViewStrc* pCelFile = pContext->pCelFile;
+    D2CmpCelFileViewStrc* pCelFile = (D2CmpCelFileViewStrc*)pContext->pCelFile;
     if (!pCelFile)
     {
         return 0;

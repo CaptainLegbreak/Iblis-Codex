@@ -2,10 +2,10 @@
 
 struct D2CmpPoolStrc;
 struct D2TileLibraryHashStrc;
-struct T00481720;
+struct AsyncData;
 
 D2TileLibraryHashStrc* __cdecl sub_0060CDB0_AllocTileHash(); // 0x0060CDB0
-T00481720* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
+AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x006CC1A4
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
@@ -28,7 +28,7 @@ extern int gbCmpCompressedDataMode; // 0x00741EFC
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-int __fastcall sub_0040A7F0_AsyncDataCheck(T00481720* pAsyncData); // 0x0040A7F0
+int __fastcall sub_0040A7F0_AsyncDataCheck(AsyncData* pAsyncData); // 0x0040A7F0
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile); // 0x00516E84
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
@@ -241,7 +241,7 @@ struct D2CmpCacheKeyStrc
     char unk0x0C[0x14];
     unsigned char nFlags;
     char unk0x21[0x8F];
-    T00481720* pAsyncData;
+    AsyncData* pAsyncData;
 };
 
 struct D2CmpCacheListEntryStrc
@@ -252,14 +252,6 @@ struct D2CmpCacheListEntryStrc
 };
 
 typedef void (__stdcall* D2CmpColorCallback)(unsigned int nColor);
-
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
 
 struct D2CmpPoolStrc
 {
@@ -277,11 +269,6 @@ struct D2CmpSubTilePosStrc
 {
     int nX;
     int nY;
-};
-
-struct D2CmpTileInfoStrc
-{
-    char data[25];
 };
 
 struct D2CommonMappingEntryNodeBaseStrc

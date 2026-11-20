@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -34,24 +35,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-struct D2CmpTileStrc
-{
-    char unk0x00[0x10];
-    int nValue10;
-    short nValue14;
-    short f_16;
-    char unk0x18[0x0C];
-    int nValue24;
-    int nValue28;
-    int nValue2C;
-    int nValue30;
-    int nOwnerId;
-    D2CmpTileInfoStrc tInfo;
-    unsigned char nType;
-    char unk0x52[0x0A];
-    D2CmpTileStrc* pNext;
-};
-
 struct D2CmpTileListStrc
 {
     int unk0x00;
@@ -73,16 +56,6 @@ struct D2CelDataHashStrc
 {
     int nCheck[0x200];
     T00604AE0* pBuckets[0x200];
-};
-
-struct D2CmpBitCursorStrc
-{
-    int unk0x00;
-    int* pData;
-    int unk0x08;
-    int f_C;
-
-    void sub_0060B1A0_AdvanceBits(int nBits);
 };
 
 struct D2CmpSubTileBlockStrc
@@ -724,7 +697,7 @@ D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* ptList, short nValue
     pTile->pNext = ptList->pFirst;
     ptList->nCount++;
     ptList->pFirst = pTile;
-    pTile->f_16 = nValue16;
+    pTile->unk0x16 = nValue16;
     pTile->nValue14 = nValue14;
     pTile->nValue24 = nValue24;
     pTile->nValue28 = nValue28;
@@ -764,8 +737,8 @@ void __fastcall sub_0060AF00_FreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
 // 0x0060B1A0
 void D2CmpBitCursorStrc::sub_0060B1A0_AdvanceBits(int nBits)
 {
-    int nPos = f_C + nBits;
-    f_C = nPos & 0x1F;
+    int nPos = nBitPos + nBits;
+    nBitPos = nPos & 0x1F;
     pData += nPos / 32;
 }
 

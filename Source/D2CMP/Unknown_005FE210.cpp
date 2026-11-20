@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 struct Config;
 struct D2CmpSpriteContextStrc;
@@ -17,47 +18,13 @@ extern Config extensions; // 0x00741EFC
 
 enum { DISABLED = 0 };
 
-void* __fastcall sub_0040A9E0(T00481720* pAsync); // 0x0040A9E0
+void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections); // 0x00600C90
-
-struct D2CmpSpriteContextStrc
-{
-    int nFrame;
-    unsigned int dwFlags;
-    int nType;
-    char unk0x0C[0x24];
-    int nFrames;
-    char unk0x34[0x08];
-    void* pFrame;
-    int nDirection;
-};
-
-struct D2CmpDC6HeaderStrc
-{
-    char unk0x00[3];
-    unsigned char nDirections;
-    unsigned char nFrames;
-    char unk0x05[7];
-    int aOffsets[1];
-    char unk0x10[0x80];
-    T00481720* pAsync;
-};
 
 struct D2CmpDC6CacheEntryStrc
 {
     char unk0x00[0x20];
     D2CmpDC6HeaderStrc tHeader;
-};
-
-struct D2CmpDC6FrameStrc
-{
-    int f_0;
-    unsigned int nWidth;
-    unsigned int nHeight;
-    char unk0x0C[0x08];
-    int nOffsetY;
-    char unk0x18[0x04];
-    int nLength;
 };
 
 // 0x005FE210
@@ -120,7 +87,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
     for (int i = 0; i <= nFrame; ++i)
     {
         pFrame = (D2CmpDC6FrameStrc*)((char*)pData + nOffset);
-        if (pFrame->f_0 != 0)
+        if (pFrame->unk0x00 != 0)
         {
             return 0;
         }
@@ -135,7 +102,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
             return 0;
         }
 
-        nOffset += pFrame->nLength + pFrame->nOffsetY + 0x23;
+        nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23;
         if (nOffset < 0)
         {
             return 0;

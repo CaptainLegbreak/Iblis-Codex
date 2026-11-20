@@ -1,3 +1,4 @@
+#include "D2CmpTypes.h"
 #pragma function(memcpy)
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -35,14 +36,6 @@ struct D2CellFileStrc
     unsigned int nDirections;
     unsigned int nFrames;
     D2GfxCellStrc* pGfxCells[1];
-};
-
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
 };
 
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);

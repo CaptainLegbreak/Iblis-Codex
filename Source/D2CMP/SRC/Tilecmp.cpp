@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -7,7 +8,7 @@ struct D2CmpColorStrc;
 struct D2CmpTileNodeStrc;
 struct D2CmpTileStrc;
 struct D2CmpSubTilePosStrc;
-struct D2CmpTileSubStrc;
+struct D2CmpSubTileRecordStrc;
 struct D2CmpTileInfoStrc;
 struct D2CmpTileListStrc;
 struct D2CmpTileBlockStrc;
@@ -36,50 +37,10 @@ struct D2CmpTileNodeStrc
     D2CmpTileNodeStrc* pNext;
 };
 
-struct D2CmpTileStrc
-{
-    int nMinX;
-    int nMaxY;
-    int nMaxX;
-    int nMinY;
-    int nValue10;
-    short nValue14;
-    short f_16;
-    char unk0x18[0x0C];
-    int nValue24;
-    int nValue28;
-    int nValue2C;
-    int nValue30;
-    union
-    {
-        D2CmpColorStrc tColor;
-        int nOwnerId;
-    };
-    D2CmpTileInfoStrc tInfo;
-    unsigned char nFlags;
-    char unk0x52[0x02];
-    int nCount;
-    D2CmpTileNodeStrc* pNodes;
-    D2CmpTileStrc* pNext;
-};
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500
-
-struct D2CmpTileSubStrc
-{
-    unsigned short nX;
-    unsigned short nY;
-    short unk0x04;
-    unsigned char nGridX;
-    unsigned char nGridY;
-    short nFormat;
-    unsigned short nSize;
-    int unk0x0C;
-    unsigned char* pData;
-};
 
 struct D2CmpTileListStrc
 {
@@ -89,42 +50,10 @@ struct D2CmpTileListStrc
     D2CmpTileStrc* pFirst;
 };
 
-struct D2CmpTileBlockStrc
-{
-    int nValue10;
-    short nValue14;
-    short f_6;
-    int nHeight;
-    int nWidth;
-    int unk0x10;
-    int nValue24;
-    int nValue28;
-    int nValue2C;
-    int nValue30;
-    int nOwnerId;
-    D2CmpTileInfoStrc tInfo;
-    char unk0x41[0x07];
-    int f_48;
-    int nSubBytes;
-    int nSubs;
-    D2CmpTileSubStrc* pSubs;
-    char* pName;
-    void* pExtra;
-};
-
-struct D2CmpTileLibraryStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    char szName[0x104];
-    int nBlocks;
-    D2CmpTileBlockStrc* pBlocks;
-};
-
 // 0x00609770
 static __declspec(noinline) int __stdcall sub_00609770_IsUniformBlock(D2CmpTileStrc* pTile, const unsigned char* pPixels, int nPitch)
 {
-    const unsigned char nFlags = pTile->nFlags;
+    const unsigned char nFlags = pTile->nType;
     if (nFlags & 2)
     {
         const int nSkip = nPitch - 0x60;
@@ -287,19 +216,19 @@ void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned c
 #include "gen/data/Source/D2CMP/SRC/Tilecmp.inc"
 
 // 0x00609BF0
-static __declspec(noinline) void sub_00609BF0_CopyTileNode(D2CmpTileSubStrc* pSub, D2CmpTileNodeStrc* pNode)
+static __declspec(noinline) void sub_00609BF0_CopyTileNode(D2CmpSubTileRecordStrc* pSub, D2CmpTileNodeStrc* pNode)
 {
     pSub->nX = pNode->nX;
     pSub->nY = pNode->nY;
     pSub->nGridX = pNode->nGridX;
     pSub->nGridY = pNode->nGridY;
-    pSub->nFormat = pNode->nFormat;
-    pSub->nSize = pNode->nSize;
-    pSub->pData = pNode->pData;
+    pSub->nFlags = pNode->nFormat;
+    pSub->nLength = pNode->nSize;
+    pSub->ptData = pNode->pData;
     pNode->pData = 0;
 }
 
-void __fastcall sub_M289_Emit_00609BF0(D2CmpTileSubStrc* pSub, D2CmpTileNodeStrc* pNode)
+void __fastcall sub_M289_Emit_00609BF0(D2CmpSubTileRecordStrc* pSub, D2CmpTileNodeStrc* pNode)
 {
     sub_00609BF0_CopyTileNode(pSub, pNode);
 }
@@ -309,7 +238,7 @@ static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2Cmp
 {
     ptTile->nValue10 = pSrc->nValue10;
     ptTile->nValue14 = pSrc->nValue14;
-    ptTile->f_6 = pSrc->f_16;
+    ptTile->unk0x06 = pSrc->unk0x16;
     ptTile->nWidth = pSrc->nMaxX - pSrc->nMinX;
     ptTile->nHeight = pSrc->nMinY - pSrc->nMaxY;
     ptTile->nValue24 = pSrc->nValue24;
@@ -319,10 +248,10 @@ static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2Cmp
     ptTile->nOwnerId = pSrc->nOwnerId;
     ptTile->nSubs = pSrc->nCount;
     ptTile->tInfo = pSrc->tInfo;
-    const int nSize = ptTile->nSubs * sizeof(D2CmpTileSubStrc);
+    const int nSize = ptTile->nSubs * sizeof(D2CmpSubTileRecordStrc);
     if (nSize)
     {
-        ptTile->pSubs = (D2CmpTileSubStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 0x201, 0);
+        ptTile->pSubs = (D2CmpSubTileRecordStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 0x201, 0);
         D2_ASSERT(ptTile->pSubs, 0x202);
         memset(ptTile->pSubs, 0, nSize);
     }
@@ -333,14 +262,14 @@ static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2Cmp
     int i = 0;
     for (D2CmpTileNodeStrc* pNode = pSrc->pNodes; pNode; pNode = pNode->pNext)
     {
-        D2CmpTileSubStrc* pSub = &ptTile->pSubs[i];
+        D2CmpSubTileRecordStrc* pSub = &ptTile->pSubs[i];
         pSub->nX = pNode->nX;
         pSub->nY = pNode->nY;
         pSub->nGridX = pNode->nGridX;
         pSub->nGridY = pNode->nGridY;
-        pSub->nFormat = pNode->nFormat;
-        pSub->nSize = pNode->nSize;
-        pSub->pData = pNode->pData;
+        pSub->nFlags = pNode->nFormat;
+        pSub->nLength = pNode->nSize;
+        pSub->ptData = pNode->pData;
         pNode->pData = 0;
         i++;
     }
@@ -401,8 +330,8 @@ void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* pLibrary, D2CmpCol
         D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
         for (int j = 0; j < pBlock->nSubs; j++)
         {
-            D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];
-            sub_0060A520_ForEachDataColor(pfnColor, pSub->pData, pSub->nSize);
+            D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
+            sub_0060A520_ForEachDataColor(pfnColor, pSub->ptData, pSub->nLength);
         }
     }
 }

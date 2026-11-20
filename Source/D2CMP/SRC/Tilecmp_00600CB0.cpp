@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -6,7 +7,7 @@ struct D2TileRecordStrc;
 struct D2CmpTileNodeStrc;
 struct D2CmpTileStrc;
 struct D2CmpTileListStrc;
-struct D2CmpTileSubStrc;
+struct D2CmpSubTileRecordStrc;
 struct D2CmpTileBlockStrc;
 struct D2CmpTileLibraryStrc;
 struct D2TileLibraryEntryStrc;
@@ -40,13 +41,6 @@ struct D2CmpTileNodeStrc
     D2CmpTileNodeStrc* pNext;
 };
 
-struct D2CmpTileStrc
-{
-    char unk0x00[0x58];
-    D2CmpTileNodeStrc* pNodes;
-    D2CmpTileStrc* pNext;
-};
-
 struct D2CmpTileListStrc
 {
     int unk0x00;
@@ -56,36 +50,6 @@ struct D2CmpTileListStrc
 };
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-
-struct D2CmpTileSubStrc
-{
-    int unk0x00;
-    int unk0x04;
-    short unk0x08;
-    unsigned short nSize;
-    int unk0x0C;
-    char* pData;
-};
-
-struct D2CmpTileBlockStrc
-{
-    char unk0x00[0x48];
-    int f_48;
-    int nSubBytes;
-    int nSubs;
-    D2CmpTileSubStrc* pSubs;
-    char* pName;
-    void* pExtra;
-};
-
-struct D2CmpTileLibraryStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    char szName[0x104];
-    int nBlocks;
-    D2CmpTileBlockStrc* pBlocks;
-};
 
 struct D2TileLibraryEntryStrc
 {
@@ -220,10 +184,10 @@ static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary)
     for (int i = 0; i < pLibrary->nBlocks; i++)
     {
         D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
-        nSize += pBlock->nSubs * sizeof(D2CmpTileSubStrc);
+        nSize += pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
         for (int j = 0; j < pBlock->nSubs; j++)
         {
-            nSize += pBlock->pSubs[j].nSize;
+            nSize += pBlock->pSubs[j].nLength;
         }
     }
     return nSize;
@@ -240,14 +204,14 @@ static unsigned int sub_0060A050(unsigned char * pDstBuf, D2CmpTileBlockStrc * p
     pDstBuf += nCumSize;
     int iNode = 0;
     if (pTileSetEntry->nSubs > 0) {
-      D2CmpTileSubStrc* pDVar1;
+      D2CmpSubTileRecordStrc* pDVar1;
       int nSubOffset = 0;
       pFixupPtr += 4;
       do {
-        pDVar1 = (D2CmpTileSubStrc*)((char*)pTileSetEntry->pSubs + nSubOffset);
-        memcpy(pDstBuf, (void*)pDVar1->pData, (unsigned int)pDVar1->nSize);
+        pDVar1 = (D2CmpSubTileRecordStrc*)((char*)pTileSetEntry->pSubs + nSubOffset);
+        memcpy(pDstBuf, (void*)pDVar1->ptData, (unsigned int)pDVar1->nLength);
         *pFixupPtr = pDstBuf - pBase;
-        nNodeSize = (unsigned int)pDVar1->nSize;
+        nNodeSize = (unsigned int)pDVar1->nLength;
         nCumSize += nNodeSize;
         pDstBuf += nNodeSize;
         nSubOffset += 0x14;
@@ -290,7 +254,7 @@ void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsi
         D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
         pDstBlocks[i].pSubs = 0;
         const int nBytes = sub_0060A050(pData, pBlock);
-        pDstBlocks[i].f_48 = pData - pBase;
+        pDstBlocks[i].unk0x48 = pData - pBase;
         pDstBlocks[i].nSubBytes = nBytes;
         pData += nBytes;
     }
