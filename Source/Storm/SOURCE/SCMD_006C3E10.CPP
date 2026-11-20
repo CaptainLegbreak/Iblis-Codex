@@ -1,3 +1,4 @@
+#include "D2StormTypes.h"
 // build: base-profile
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
@@ -242,15 +243,6 @@ static int __stdcall sub_006C4980_ApplyOptions(OptionContextStrc* pContext, cons
     return 1;
 }
 
-struct D2ErrorReportStrc;
-typedef void (__stdcall* D2ErrorCallback)(D2ErrorReportStrc*);
-struct D2ErrorReportStrc
-{
-    unsigned int error;
-    const char* context;
-    const char* message;
-    D2ErrorCallback callback;
-};
 extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
 extern const char gszPercentS_006FFC58[]; // 0x006FFC58
 extern const char gszNewline_006FFCB0[]; // 0x006FFCB0

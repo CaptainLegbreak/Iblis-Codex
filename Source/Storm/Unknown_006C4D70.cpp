@@ -1,7 +1,7 @@
 #include "Storm.h"
+#include "D2StormTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
-struct D2ErrorReportStrc;
 struct D2ListNode006C4D70Strc;
 struct D2List006C4D70Strc;
 struct D2CmdArg006C4E50Strc;
@@ -40,16 +40,6 @@ struct D2CmdArg006C4E50Strc
 };
 
 int __stdcall sub_006C4D70_FindValue(int nKey); // 0x006C4D70
-
-typedef void (__stdcall* D2ErrorCallback)(D2ErrorReportStrc*);
-
-struct D2ErrorReportStrc
-{
-    unsigned int error;
-    const char* context;
-    const char* message;
-    D2ErrorCallback callback;
-};
 
 extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
 extern const char gszPercentS_006FFC58[]; // 0x006FFC58
