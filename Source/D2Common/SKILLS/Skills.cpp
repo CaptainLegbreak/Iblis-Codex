@@ -514,7 +514,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 int __stdcall ITEMS_CheckType(int nItemType, int nItemTypeToCheck); // 0x00629B50
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pStat, int nArraySize); // 0x006261D0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 struct D2StaticPathStrc
 {
@@ -2283,7 +2283,7 @@ int __stdcall D2Common_11024(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* 
     int nValue = 0;
     for (int i = 0; i < nCount; ++i)
     {
-        if (ITEMS_CheckItemTypeId(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
+        if (ITEMSIsA(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
         {
             nValue = pStat[i].nValue;
         }
@@ -2336,7 +2336,7 @@ int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem,
         int nValue = 0;
         for (int i = 0; i < nCount; ++i)
         {
-            if (ITEMS_CheckItemTypeId(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
+            if (ITEMSIsA(pItem, pStat[i].nLayer) && pStat[i].nValue > nValue)
             {
                 nValue = pStat[i].nValue;
             }
@@ -2880,7 +2880,7 @@ void __stdcall SKILLS_RefreshPassiveSkills(D2UnitStrc* pUnit)
 }
 
 // 0x00646FD0
-static void __stdcall sub_00646FD0_RemoveSkill(int nSkillId, int bDecrementAndCheckSkillLevel, D2UnitStrc* pUnit)
+static void __stdcall sSkillsRemoveSkill(int nSkillId, int bDecrementAndCheckSkillLevel, D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2962,7 +2962,7 @@ static void __stdcall sub_00646FD0_RemoveSkill(int nSkillId, int bDecrementAndCh
 // 0x006470F0
 void __stdcall SKILLS_RemoveSkill(D2UnitStrc* pUnit, int nSkillId, const char* szFile, int nLine)
 {
-    sub_00646FD0_RemoveSkill(nSkillId, 1, pUnit);
+    sSkillsRemoveSkill(nSkillId, 1, pUnit);
 }
 
 // 0x00647110
@@ -3057,7 +3057,7 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
     {
         if (bRemove)
         {
-            sub_00646FD0_RemoveSkill(nSkillId, 0, pTheUnit);
+            sSkillsRemoveSkill(nSkillId, 0, pTheUnit);
             SKILLS_RefreshSkill(pTheUnit, nSkillId);
         }
         else
@@ -3119,12 +3119,12 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
         }
 
         if ((pSkillsTxtRecord->nITypeA[0] == 0x2D || pSkillsTxtRecord->nITypeA[0] == 0x2E || pSkillsTxtRecord->nITypeA[0] == 0x43)
-            && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMS_CheckItemTypeId(0, 0x2D) && !ITEMS_CheckItemTypeId(pUnit, 0x2D))
+            && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMSIsA(0, 0x2D) && !ITEMSIsA(pUnit, 0x2D))
         {
             return TRUE;
         }
 
-        if (pSkillsTxtRecord->nITypeA[0] == 0x43 && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMS_CheckItemTypeId(0, 0x2D) && !ITEMS_CheckItemTypeId(pUnit, 0x2D))
+        if (pSkillsTxtRecord->nITypeA[0] == 0x43 && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMSIsA(0, 0x2D) && !ITEMSIsA(pUnit, 0x2D))
         {
             return TRUE;
         }
@@ -3141,7 +3141,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
             break;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, *pEType))
+        if (ITEMSIsA(pItem, *pEType))
         {
             return FALSE;
         }
@@ -3158,7 +3158,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
             return i == 0;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, *pIType))
+        if (ITEMSIsA(pItem, *pIType))
         {
             if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x810, ".\\SKILLS\\Skills.cpp") || ITEMS_CheckItemFlag(pItem, 0x100, 0x811, ".\\SKILLS\\Skills.cpp"))
             {
@@ -3177,7 +3177,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
                     return TRUE;
                 }
 
-                if (!pUnit || !ITEMS_CheckItemTypeId(pUnit, ITEMS_GetAmmoType(pItem)))
+                if (!pUnit || !ITEMSIsA(pUnit, ITEMS_GetAmmoType(pItem)))
                 {
                     return FALSE;
                 }
@@ -3465,12 +3465,12 @@ static __declspec(noinline) BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUn
                 D2UnitStrc* pOtherItem = sub_6FDB1050(nBodyLoc, pInventory);
                 if (pOtherItem)
                 {
-                    bContinue = ITEMS_CheckItemTypeId(pOtherItem, 0x2D);
+                    bContinue = ITEMSIsA(pOtherItem, 0x2D);
                 }
             }
             else
             {
-                bContinue = ITEMS_CheckItemTypeId(pItem, 0x2D);
+                bContinue = ITEMSIsA(pItem, 0x2D);
             }
         }
 

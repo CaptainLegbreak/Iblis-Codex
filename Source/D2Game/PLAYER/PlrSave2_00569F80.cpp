@@ -108,7 +108,7 @@ static int __stdcall sub_00569F80_CreateNewbiePlayer(D2GameStrc* pGame, D2Client
     return 0;
 }
 
-int __fastcall PLRSAVE2_ProcessSaveFile(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char* pSaveFile, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoomArg, int nXArg, int nYArg)
+int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char* pSaveFile, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoomArg, int nXArg, int nYArg)
 {
     D2SaveHeaderStrc* pSaveHeader = (D2SaveHeaderStrc*)pSaveFile;
     unsigned char* pSection = pSaveFile;

@@ -94,7 +94,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3
 void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064EA90
 int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill); // 0x00644530
 D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 struct D2DamageStrc
@@ -242,7 +242,7 @@ void __fastcall SKILLS_CurseStateCallback_Whirlwind(D2UnitStrc* pUnit, int nStat
     if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskStayDeathOnUnitByStateId(pUnit, nState))
     {
         STATES_ToggleState(pUnit, nState, 0);
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\SkillBar.cpp", LINE_WHIRLWIND_ANIMRATE);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillBar.cpp", LINE_WHIRLWIND_ANIMRATE);
         sub_6FD14C30(pUnit);
     }
 }
@@ -405,7 +405,7 @@ static int sub_005D92D0_IsDualWieldingMelee(D2UnitStrc* pUnit)
 
     D2UnitStrc* pLeftHandWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
     D2UnitStrc* pRightHandWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-    if (pLeftHandWeapon && ITEMS_CheckItemTypeId(pLeftHandWeapon, 0x2E) && pRightHandWeapon && ITEMS_CheckItemTypeId(pRightHandWeapon, 0x2E))
+    if (pLeftHandWeapon && ITEMSIsA(pLeftHandWeapon, 0x2E) && pRightHandWeapon && ITEMSIsA(pRightHandWeapon, 0x2E))
     {
         return 1;
     }

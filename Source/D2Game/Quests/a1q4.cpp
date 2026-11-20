@@ -312,7 +312,7 @@ struct D2GSPacketSrv50
 
 extern const char gszAct1Q4SourceFile[]; // 0x006E1C48
 void __fastcall sub_00592E90_InitializeStoneOrder(D2QuestDataStrc* pQuestData); // 0x00592E90
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -1276,7 +1276,7 @@ void __fastcall ACT1Q4_SendStoneOrderToClient(D2GameStrc* pGame, D2UnitStrc* pUn
         D2GSPacketSrv50 packet;
         packet.nHeader = 0x50;
         packet.nQuestId = 4;
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszAct1Q4SourceFile, 2169);
+        D2ClientStrc* pClient = UnitGetClient(pUnit, gszAct1Q4SourceFile, 2169);
         int i = 0;
         if (i < 5)
         {

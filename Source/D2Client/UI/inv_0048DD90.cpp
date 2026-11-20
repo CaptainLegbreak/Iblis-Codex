@@ -164,7 +164,7 @@ int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem);                        
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);                                                       // 0x00629930
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem);                                                // 0x006299B0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __stdcall sub_0062A0A0(D2UnitStrc* pItem);                                                              // 0x0062A0A0
 int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc* pPlayer, int nValue);                              // 0x0062A5D0
 int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc* pPlayer, int nValue);                              // 0x0062A620
@@ -387,7 +387,7 @@ static __declspec(noinline) void __stdcall sub_00485D40_AppendThrowDamage(D2Unit
     int nMin = pItemsTxt->nMinDam;
     int nMax = pItemsTxt->nMaxDam;
     int nStringId;
-    if (ITEMS_CheckItemTypeId(pItem, 0x33))
+    if (ITEMSIsA(pItem, 0x33))
     {
         nStringId = 0xD8C;
         D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
@@ -401,7 +401,7 @@ static __declspec(noinline) void __stdcall sub_00485D40_AppendThrowDamage(D2Unit
     }
     else
     {
-        if (!ITEMS_CheckItemTypeId(pItem, 0xF))
+        if (!ITEMSIsA(pItem, 0xF))
         {
             return;
         }
@@ -504,14 +504,14 @@ static __declspec(noinline) void __stdcall sub_004861D0_AppendAttackSpeed(Unicod
     else
     {
         D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
-        const int bMissile = (ITEMS_CheckItemTypeId(pItem, 0x23) || ITEMS_CheckItemTypeId(pItem, 0x1B)) ? 1 : 0;
+        const int bMissile = (ITEMSIsA(pItem, 0x23) || ITEMSIsA(pItem, 0x1B)) ? 1 : 0;
         const int nClass = !pUnit ? -1 : pUnit->dwClassId;
         nSpeed = gaSpeedTable_00721F10[nAttackSpeed - 10][gaClassSpeedOffsets_00722078[nClass][bMissile]];
     }
     int nFound = -1;
     for (int i = 0; i < 15; ++i)
     {
-        if (ITEMS_CheckItemTypeId(pItem, gaItemTypeNames_00721EB0[i].nItemType))
+        if (ITEMSIsA(pItem, gaItemTypeNames_00721EB0[i].nItemType))
         {
             nFound = i;
             break;
@@ -612,7 +612,7 @@ static __declspec(noinline) void __stdcall sub_00486370_AppendItemFormulaText(D2
 static __declspec(noinline) void sub_004865D0_AppendBookCharges(Unicode* pText)
 {
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    D2_ASSERT(ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x35), 0xC43);
+    D2_ASSERT(ITEMSIsA(gdwGlobal_007BCBF4, 0x35), 0xC43);
     sub_004E6850(gdwGlobal_007BCBF4, pText, 0x200);
     sub_00526700(pText, D2LANG_GetStringFromTblIndex(0x2B48));
     sub_00526700(pText, pColorEnd);
@@ -636,7 +636,7 @@ static __declspec(noinline) void __stdcall sub_00486670_AppendSocketedGemLetters
         {
             break;
         }
-        if (ITEMS_CheckItemTypeId(pGem, 0x4A))
+        if (ITEMSIsA(pGem, 0x4A))
         {
             const int nClassId = pGem->dwClassId;
             D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
@@ -958,7 +958,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     sub_00484FF0_AppendNumberLine(nLevelReq, W(wszLevelReq));
                 }
             }
-            if (ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x35))
+            if (ITEMSIsA(gdwGlobal_007BCBF4, 0x35))
             {
                 sub_004865D0_AppendBookCharges(W(wszBookCharges));
             }
@@ -966,14 +966,14 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             {
                 sub_00486670_AppendSocketedGemLetters(W(wszGems), gdwGlobal_007BCBF4);
             }
-            if (ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0xD))
+            if (ITEMSIsA(gdwGlobal_007BCBF4, 0xD))
             {
                 const Unicode* pColorEnd2 = D2LANG_GetStringFromTblIndex(0xF9E);
                 sub_00526700(W(wszMisc), D2LANG_GetStringFromTblIndex(0x4FD6));
                 sub_00526700(W(wszMisc), pColorEnd2);
             }
 
-            if (ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x2D) || ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x32))
+            if (ITEMSIsA(gdwGlobal_007BCBF4, 0x2D) || ITEMSIsA(gdwGlobal_007BCBF4, 0x32))
             {
                 sub_00484B10_AppendEtherealSocketed(gdwGlobal_007BCBF4, W(wszEthSock));
                 int nStrBonus = 0;
@@ -1005,7 +1005,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     }
                     sub_004850A0_AppendReqStr(pItemsTxt, nStrBonus, W(wszReqStr));
                 }
-                if (ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x2D))
+                if (ITEMSIsA(gdwGlobal_007BCBF4, 0x2D))
                 {
                     if (STATLIST_GetMinDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0)
                     {
@@ -1013,7 +1013,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     }
                     sub_004861D0_AppendAttackSpeed(W(wszAttackSpeed), gdwGlobal_007BCBF4);
                 }
-                if (ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x33))
+                if (ITEMSIsA(gdwGlobal_007BCBF4, 0x33))
                 {
                     if (pPlayer && pPlayer->dwClassId == 3 && (!sub_0062C060_IsClassItem(gdwGlobal_007BCBF4) || sub_0062C0B0_GetItemTypeClass(gdwGlobal_007BCBF4) == 3))
                     {
@@ -1021,11 +1021,11 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     }
                     sub_00485BE0_AppendBlockChance(W(wszBlock), pItemsTxt, gdwGlobal_007BCBF4);
                 }
-                else if (ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0xF) && pPlayer && pPlayer->dwClassId == 6)
+                else if (ITEMSIsA(gdwGlobal_007BCBF4, 0xF) && pPlayer && pPlayer->dwClassId == 6)
                 {
                     sub_00485D40_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
                 }
-                if (ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x32) && sub_00626020_GetUnitDefense(gdwGlobal_007BCBF4) > 0)
+                if (ITEMSIsA(gdwGlobal_007BCBF4, 0x32) && sub_00626020_GetUnitDefense(gdwGlobal_007BCBF4) > 0)
                 {
                     sub_00485EE0_AppendDefense(pPlayer, gdwGlobal_007BCBF4, W(wszDefense));
                 }
@@ -1089,7 +1089,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             if (dwCode == 0x20686563 || dwCode == 0x20746562 || dwCode == 0x20736574 || dwCode == 0x20646566
                 || dwCode == 0x20616F74 || dwCode == 0x206E6864 || dwCode == 0x20796562 || dwCode == 0x2072626D
                 || dwCode == 0x20316B70 || dwCode == 0x20326B70 || dwCode == 0x20336B70
-                || ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x4A))
+                || ITEMSIsA(gdwGlobal_007BCBF4, 0x4A))
             {
                 nColor = 8;
             }

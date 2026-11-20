@@ -79,7 +79,7 @@ int __stdcall sub_0052B2D0_ObjectCallMode1(unsigned char* pBuffer, int nSize);  
 int __stdcall sub_0052B2F0_ObjectCallMode0(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
 int __stdcall sub_0052B310_ObjectCallMode2(unsigned char* pBuffer, int nSize);                              // 0x0052B310
 void __fastcall sub_6FC38140(void* pData, int nSize);                                                       // 0x0052CC20
-void __fastcall GAME_DisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType);            // 0x0052CAF0
+void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType);            // 0x0052CAF0
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
 int __stdcall sub_005300F0_RemoveClientById(int nClientId, const char* szFile, int nLine);                  // 0x005300F0
@@ -96,14 +96,14 @@ void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc* pClient, unsigned char* pBa
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, unsigned char nClientState);                  // 0x0053B320
 int __fastcall CCMD_IsStringZeroTerminated(const char* pData, int nDataSize);                               // 0x0053EFC0
 void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize);                                    // 0x0053F100
-void __fastcall CCMD_ProcessClientMessage(void* pData, int nPacketSize);                                    // 0x0053F3D0
+void __fastcall ProcessClientMessage(void* pData, int nPacketSize);                                    // 0x0053F3D0
 void __fastcall sub_6FC84CD0(D2GameStrc* pGame, const char* szMessage, unsigned char nColor);               // 0x0054A9B0
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit);                                               // 0x00622E70
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 
 // 0x0052C330
-int __fastcall GAME_VerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket)
+int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket)
 {
     const char* szGameName = pPacket->szGameName;
     const unsigned char nPlayerClass = pPacket->nPlayerClass;
@@ -185,7 +185,7 @@ void __fastcall GAME_ProcessNetworkMessages()
         nSize = sub_0052B2D0_ObjectCallMode1(buffer, 512);
         if (nSize != -1)
         {
-            CCMD_ProcessClientMessage(buffer, nSize);
+            ProcessClientMessage(buffer, nSize);
         }
     } while (nSize != -1);
 
@@ -218,7 +218,7 @@ void __stdcall sub_0052D350_CheckClientHeartbeats(D2GameStrc* pGame, int* pbDisc
         {
             D2GAME_SAVE_WriteFile_6FC8A500(pGame, CLIENTS_GetPlayerFromClient(pClient, 0), CLIENTS_GetName(pClient), 0);
             *pbDisconnected = 1;
-            GAME_DisconnectClient(pGame, pClient, 0);
+            SrvDisconnectClient(pGame, pClient, 0);
         }
         pClient = pNext;
     }
@@ -301,7 +301,7 @@ void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char
 }
 
 // 0x005306E0
-int __stdcall GAME_ReceiveDatabaseCharacter(int nClientId, const unsigned char* pSaveData, unsigned short nSaveSize, unsigned short nTotalSize, int nResult, int a6, D2FileTimeStrc* pSaveCreationTimestamp, int nCharSaveTransactionToken)
+int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSaveData, unsigned short nSaveSize, unsigned short nTotalSize, int nResult, int a6, D2FileTimeStrc* pSaveCreationTimestamp, int nCharSaveTransactionToken)
 {
     GAME_LogMessage(6, "[JOIN 3] %d clientid, %d csresult - Recv'ed char from CS", nClientId, nResult);
 

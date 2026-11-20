@@ -45,8 +45,8 @@ struct D2GfxDataStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-int __stdcall sub_006019F0(D2CelFileStrc* pCelFile); // 0x006019F0
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CmpCelContextStrc* pContext); // 0x00601840
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
+D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pContext); // 0x00601840
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 void __stdcall TEXTURE_CelDrawColor(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 
@@ -131,7 +131,7 @@ extern "C" void __stdcall sub_K08_EmitDrawRect(int nX, int nY, int nWidth, int n
 // 0x00502680
 void __fastcall sub_00502680_DrawCellFile(D2CellFileStrc* pCell, int nX, int nY, int nAlign, int eDrawMode, int nShift)
 {
-    const unsigned int nFrames = sub_006019F0((D2CelFileStrc*)pCell);
+    const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)pCell);
     unsigned int nWidth;
     D2GfxDataStrc tGfxData;
     memset(&tGfxData, 0, sizeof(tGfxData));
@@ -144,7 +144,7 @@ void __fastcall sub_00502680_DrawCellFile(D2CellFileStrc* pCell, int nX, int nY,
         for (unsigned int i = 0; i < nFrames; ++i)
         {
             tGfxData.nFrame = i;
-            D2CelStrc* pCel = D2CMP_CelGetHandle((D2CmpCelContextStrc*)&tGfxData);
+            D2CelStrc* pCel = CelGetHandle((D2CmpCelContextStrc*)&tGfxData);
             nWidth += sub_006018C0(pCel);
         }
 

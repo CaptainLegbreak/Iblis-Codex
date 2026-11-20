@@ -61,7 +61,7 @@ struct D2CmpDC6FrameStrc
 };
 
 // 0x005FE210
-void __stdcall sub_005FE210(char* output,int allowCompressed,const char* format,va_list args)
+void __stdcall Palette24BitTo8BitImage(char* output,int allowCompressed,const char* format,va_list args)
 {
     vsprintf(output,format,args);
     const char* suffix=(allowCompressed!=DISABLED && extensions.enabled!=DISABLED)?extensions.compressed:extensions.standard;

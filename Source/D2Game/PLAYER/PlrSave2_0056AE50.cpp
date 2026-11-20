@@ -4,7 +4,7 @@
 
 
 
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall CLIENTS_SetIronGolemItemGUID(D2ClientStrc* pClient, int nIronGolemItemGUID);                // 0x00538700
 int __fastcall PLRSAVE2_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc** ppItem, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion); // 0x0056ACE0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill);                              // 0x00620210
@@ -55,7 +55,7 @@ int __fastcall PLRSAVE2_ReadIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPla
 
         D2UnitStrc* pGolemItem = pItem;
         UNITS_ChangeAnimMode(pGolemItem, IMODE_ONGROUND);
-        CLIENTS_SetIronGolemItemGUID(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 2185), !pGolemItem ? -1 : pGolemItem->dwUnitId);
+        CLIENTS_SetIronGolemItemGUID(UnitGetClient(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 2185), !pGolemItem ? -1 : pGolemItem->dwUnitId);
         pNext = pSectionEnd;
     }
 

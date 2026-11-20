@@ -314,7 +314,7 @@ int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int
 }
 
 // 0x006BFB70
-D2QClientStrc* __fastcall sub_006BFB70_AddClient(T006BE350* server,unsigned int socket,unsigned int address)
+D2QClientStrc* __fastcall QSrvAddClient(T006BE350* server,unsigned int socket,unsigned int address)
 {
  D2QClientStrc* client=(D2QClientStrc*)FOG_Alloc(sizeof(D2QClientStrc),gszQServerSource,571,0);
  memset(client,0,sizeof(D2QClientStrc));

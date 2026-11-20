@@ -239,7 +239,7 @@ void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* pUnit, int* pFrameNo, in
 }
 
 // 0x00621A70
-int __stdcall UNITS_IsDoor(D2UnitStrc* pUnit)
+int __stdcall UnitIsDoor(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 3600);
 

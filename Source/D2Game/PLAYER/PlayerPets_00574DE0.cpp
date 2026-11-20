@@ -66,7 +66,7 @@ struct D2PetTypeTxt
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 void __fastcall sub_6FC7D260(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
 
 inline D2PetListStrc* PLAYERPETS_GetPetListFromPetType(D2PlayerPetStrc* pPlayerPets, int nPetType)
@@ -165,7 +165,7 @@ void __fastcall sub_6FC7E640(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 
     sub_00575590_RemoveDeadPets(pGame, pPlayer, pPlayerPets);
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszPlayerPetsSourceFile, 1411);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 1411);
     for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
     {
         D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, nPetType);

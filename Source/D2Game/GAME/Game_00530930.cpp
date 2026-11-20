@@ -125,7 +125,7 @@ static __declspec(noinline) void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
 }
 
 // 0x00530930
-int __stdcall GAME_CreateNewEmptyGame(char* szGameName, const char* szPassword, const char* szGameDescription, unsigned int nFlags, unsigned char nArenaTemplate, unsigned char nMaxLevelDifference, unsigned char nMaxPlayers, unsigned short* pGameId)
+int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, const char* szGameDescription, unsigned int nFlags, unsigned char nArenaTemplate, unsigned char nMaxLevelDifference, unsigned char nMaxPlayers, unsigned short* pGameId)
 {
     if (!gpGameDataTbl_6FD45818)
     {

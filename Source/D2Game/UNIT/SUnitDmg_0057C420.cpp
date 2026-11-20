@@ -391,7 +391,7 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
         sub_006270B0(pNewStatList, 0x43, nColdEffect, 0);
         sub_006270B0(pNewStatList, 0x44, nColdEffect, 0);
         sub_006270B0(pNewStatList, 0x45, nColdEffect, 0);
-        UNITS_UpdateAnimRateAndVelocity(pDefender, ".\\UNIT\\SUnitDmg.cpp", 0x1DC);
+        UnitUpdateAnimRateAndVel(pDefender, ".\\UNIT\\SUnitDmg.cpp", 0x1DC);
     }
     else if (STATLIST_GetExpireFrame(pStatList) < nExpireFrame)
     {

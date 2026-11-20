@@ -2,18 +2,18 @@
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
-const char* __stdcall D2CMP_GetGfxFileExtension(int bAllowCompressed);                                      // 0x005FE1F0
-void __stdcall D2CMP_CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, int nUnused); // 0x00601340
+const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed);                                      // 0x005FE1F0
+void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, int nUnused); // 0x00601340
 
 // 0x004FA9B0
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType)
 {
     char szPath[260];
     strcpy(szPath, szFile);
-    strcat(szPath, D2CMP_GetGfxFileExtension(nType));
+    strcat(szPath, D2CMPGetGfxFileExtension(nType));
     void* pFile = sub_00517079_LoadFile(0, szPath, 0, ".\\Src\\D2WinArchive.cpp", 0x41);
     D2CelFileStrc* pCellFile;
-    D2CMP_CelFileNormalize((D2CelFileStrc*)pFile, &pCellFile, ".\\Src\\D2WinArchive.cpp", 0x42, -1, 0);
+    CelFileNormalize((D2CelFileStrc*)pFile, &pCellFile, ".\\Src\\D2WinArchive.cpp", 0x42, -1, 0);
     return pCellFile;
 }
 
@@ -22,9 +22,9 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, u
 {
     char szPath[260];
     strcpy(szPath, szFile);
-    strcat(szPath, D2CMP_GetGfxFileExtension(nType));
+    strcat(szPath, D2CMPGetGfxFileExtension(nType));
     void* pFile = sub_00517079_LoadFile(0, szPath, pFileSize, ".\\Src\\D2WinArchive.cpp", 0x52);
     D2CelFileStrc* pCellFile;
-    D2CMP_CelFileNormalize((D2CelFileStrc*)pFile, &pCellFile, ".\\Src\\D2WinArchive.cpp", 0x53, -1, 0);
+    CelFileNormalize((D2CelFileStrc*)pFile, &pCellFile, ".\\Src\\D2WinArchive.cpp", 0x53, -1, 0);
     return pCellFile;
 }

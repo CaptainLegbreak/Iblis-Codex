@@ -249,7 +249,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __fastcall UNITS_CanAnimModeUseAttackRate(int nAnimMode, int nUnitType, D2UnitStrc* pUnit, int nClassId); // 0x00621580
 void __stdcall UNITS_MergeDualWieldWeaponStatLists(D2UnitStrc* pUnit, int bSet); // 0x00623C80
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
@@ -1077,7 +1077,7 @@ static int UNITS_GetAnimStatBasePercentage(D2UnitStrc* pUnit, int nStat)
     return nValue;
 }
 
-void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* szFile, int nLine)
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine)
 {
     if (!pUnit)
     {
@@ -1183,7 +1183,7 @@ void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* sz
                 pLeftWeapon = 0;
             }
 
-            if (ITEMS_CheckItemTypeId(pRightWeapon, 0x2D) && ITEMS_CheckItemTypeId(pLeftWeapon, 0x2D))
+            if (ITEMSIsA(pRightWeapon, 0x2D) && ITEMSIsA(pLeftWeapon, 0x2D))
             {
                 const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, 0x44, 0);
                 const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, 0x44, 0);

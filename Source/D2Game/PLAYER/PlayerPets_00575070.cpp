@@ -28,7 +28,7 @@ struct D2PlayerDataStrc
 };
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 static __forceinline D2PetListStrc* PLAYERPETS_GetPetListFromPetType(D2PlayerPetStrc* pPlayerPets, int nPetType)
@@ -50,7 +50,7 @@ int __fastcall sub_00575070_HasPetOfType7(D2GameStrc* pGame, D2UnitStrc* pPlayer
         return 0;
     }
 
-    SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 0x66E);
+    UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 0x66E);
     D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, 7);
     for (D2PetDataStrc* pPetData = pPetList->pPetData; pPetData; pPetData = pPetData->pNext)
     {

@@ -14,7 +14,7 @@ int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                 
 D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4);          // 0x00574EC0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem);                                     // 0x006289C0
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);             // 0x00553380
@@ -81,7 +81,7 @@ static int __stdcall sub_0054CED0_EquipMercItem(D2UnitStrc* pPlayer, D2UnitStrc*
 
     D2UnitStrc* pExchangeItem;
     int nTargetBodyLoc;
-    if (pMerc->dwClassId == 0x167 && ITEMS_CheckItemTypeId(pItem, 2))
+    if (pMerc->dwClassId == 0x167 && ITEMSIsA(pItem, 2))
     {
         pExchangeItem = pItem2;
         nTargetBodyLoc = nBodyLoc2;
@@ -203,7 +203,7 @@ static int __stdcall sub_0054D230_TryEquipMercItem(D2GameStrc* pGame, D2UnitStrc
         return 0;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x4C) || ITEMS_CheckItemTypeId(pItem, 0x51) || ITEMS_CheckItemTypeId(pItem, 0x50))
+    if (ITEMSIsA(pItem, 0x4C) || ITEMSIsA(pItem, 0x51) || ITEMSIsA(pItem, 0x50))
     {
         SKILLITEM_pSpell_Handler(pGame, pMerc, pItem, pItem, 0, 0);
         D2GAME_RemoveItemIfOnCursor_6FC49760(pGame, pPlayer, pItem);
@@ -212,7 +212,7 @@ static int __stdcall sub_0054D230_TryEquipMercItem(D2GameStrc* pGame, D2UnitStrc
     }
 
     int bCanBeEquipped = 0;
-    if (ITEMS_CheckItemTypeId(pItem, 3) || ITEMS_CheckItemTypeId(pItem, 0x25))
+    if (ITEMSIsA(pItem, 3) || ITEMSIsA(pItem, 0x25))
     {
         bCanBeEquipped = 1;
     }
@@ -220,21 +220,21 @@ static int __stdcall sub_0054D230_TryEquipMercItem(D2GameStrc* pGame, D2UnitStrc
     switch (!pMerc ? -1 : (unsigned int)pMerc->dwClassId)
     {
     case 0x10F:
-        if (ITEMS_CheckItemTypeId(pItem, 0x1B))
+        if (ITEMSIsA(pItem, 0x1B))
         {
             bCanBeEquipped = 1;
         }
         break;
 
     case 0x152:
-        if (ITEMS_CheckItemTypeId(pItem, 0x21) || ITEMS_CheckItemTypeId(pItem, 0x22))
+        if (ITEMSIsA(pItem, 0x21) || ITEMSIsA(pItem, 0x22))
         {
             bCanBeEquipped = 1;
         }
         break;
 
     case 0x167:
-        if (!(ITEMS_CheckItemTypeId(pItem, 2) || ITEMS_CheckItemTypeId(pItem, 0x1E) && !ITEMS_CheckWeaponIfTwoHanded(pItem)))
+        if (!(ITEMSIsA(pItem, 2) || ITEMSIsA(pItem, 0x1E) && !ITEMS_CheckWeaponIfTwoHanded(pItem)))
         {
             break;
         }
@@ -243,22 +243,22 @@ static int __stdcall sub_0054D230_TryEquipMercItem(D2GameStrc* pGame, D2UnitStrc
         break;
 
     case 0x230:
-        if (ITEMS_CheckItemTypeId(pItem, 0x1C) && !ITEMS_CheckWeaponIfTwoHanded(pItem))
+        if (ITEMSIsA(pItem, 0x1C) && !ITEMS_CheckWeaponIfTwoHanded(pItem))
         {
             bCanBeEquipped = 1;
         }
-        if (ITEMS_CheckItemTypeId(pItem, 0x47))
+        if (ITEMSIsA(pItem, 0x47))
         {
             bCanBeEquipped = 1;
         }
         break;
 
     case 0x231:
-        if (ITEMS_CheckItemTypeId(pItem, 0x1E))
+        if (ITEMSIsA(pItem, 0x1E))
         {
             bCanBeEquipped = 1;
         }
-        if (ITEMS_CheckItemTypeId(pItem, 0x47))
+        if (ITEMSIsA(pItem, 0x47))
         {
             bCanBeEquipped = 1;
         }

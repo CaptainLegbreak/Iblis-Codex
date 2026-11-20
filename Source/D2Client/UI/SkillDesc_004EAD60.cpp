@@ -83,7 +83,7 @@ void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
@@ -435,7 +435,7 @@ void __fastcall sub_004EBB50_DrawKickDamage(D2UnitStrc* pUnit, D2SkillStrc* pSki
             pOther = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc == 4 ? 5 : 4);
         }
 
-        if (ITEMS_CheckItemTypeId(pWeapon, 45) && sub_0062A4E0_TestItem(pWeapon) && STATLIST_GetOwner(pWeapon, 0))
+        if (ITEMSIsA(pWeapon, 45) && sub_0062A4E0_TestItem(pWeapon) && STATLIST_GetOwner(pWeapon, 0))
         {
             STATLIST_MergeStatLists(pUnit, pWeapon, 0);
         }
@@ -444,7 +444,7 @@ void __fastcall sub_004EBB50_DrawKickDamage(D2UnitStrc* pUnit, D2SkillStrc* pSki
             pWeapon = 0;
         }
 
-        if (pOther && pOther != pWeapon && ITEMS_CheckItemTypeId(pOther, 45) && sub_0062A4E0_TestItem(pOther) && STATLIST_GetOwner(pOther, 0))
+        if (pOther && pOther != pWeapon && ITEMSIsA(pOther, 45) && sub_0062A4E0_TestItem(pOther) && STATLIST_GetOwner(pOther, 0))
         {
             STATLIST_MergeStatLists(pUnit, pOther, 0);
         }

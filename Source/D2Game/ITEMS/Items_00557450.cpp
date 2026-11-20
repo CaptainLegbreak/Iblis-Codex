@@ -53,7 +53,7 @@ int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem);                             
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);                                                    // 0x006289F0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);                                                       // 0x00629930
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex);                             // 0x00629DF0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem);                                            // 0x0062A670
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
@@ -206,7 +206,7 @@ static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2UnitStrc* pItem
         return;
     }
 
-    if (ITEMS_GetItemFormat(pItem) >= 100 || !ITEMS_CheckItemTypeId(pItem, 3))
+    if (ITEMS_GetItemFormat(pItem) >= 100 || !ITEMSIsA(pItem, 3))
     {
         int nChance = SEED_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), 100);
         if (pItemDrop->dwFlags2 & 8)
@@ -234,7 +234,7 @@ static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2UnitStrc* pItem
                     nMaxSockets = 3;
                 }
 
-                if (ITEMS_CheckItemTypeId(pItem, 0x25) && nMaxSockets > 2)
+                if (ITEMSIsA(pItem, 0x25) && nMaxSockets > 2)
                 {
                     nMaxSockets = 2;
                 }
@@ -255,7 +255,7 @@ static void ITEMS_MakeEthereal(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
         return;
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 0x2D) && !ITEMS_CheckItemTypeId(pItem, 0x32))
+    if (!ITEMSIsA(pItem, 0x2D) && !ITEMSIsA(pItem, 0x32))
     {
         return;
     }
@@ -349,12 +349,12 @@ static void __stdcall ITEMS_AssignLegacySpecialProperties(D2GameStrc* pGame, D2U
 // 0x00556E80
 static void D2GAME_ITEMS_AssignSpecial_6FC4DB60(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
-    if (ITEMS_CheckItemTypeId(pItem, 13))
+    if (ITEMSIsA(pItem, 13))
     {
         ITEMS_AssignCharmAffixes(pItemDrop, pItem);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 40))
+    if (ITEMSIsA(pItem, 40))
     {
         int nItemIndex = pItemDrop->nItemIndex;
         if (pItemDrop->pUnit)
@@ -365,7 +365,7 @@ static void D2GAME_ITEMS_AssignSpecial_6FC4DB60(D2UnitStrc* pItem, D2ItemDropStr
         ITEMS_SetFileIndex(pItem, nItemIndex);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 7))
+    if (ITEMSIsA(pItem, 7))
     {
         int nItemIndex = pItemDrop->nItemIndex;
         if (pItemDrop->pUnit)
@@ -377,12 +377,12 @@ static void D2GAME_ITEMS_AssignSpecial_6FC4DB60(D2UnitStrc* pItem, D2ItemDropStr
         ITEMS_SetItemFlag(pItem, 0x10000, 1);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 22))
+    if (ITEMSIsA(pItem, 22))
     {
         ITEMS_AssignSuffix(pItem, ITEMS_FindBookRecordIndex(pItem, 1), 0);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 18))
+    if (ITEMSIsA(pItem, 18))
     {
         ITEMS_AssignSuffix(pItem, ITEMS_FindBookRecordIndex(pItem, 0), 0);
     }

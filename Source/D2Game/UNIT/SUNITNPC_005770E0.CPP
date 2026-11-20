@@ -86,7 +86,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 int __fastcall sub_00576890(D2GameStrc* pGame, D2UnitStrc* pNpc, int nLevel); // 0x00576890
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C310
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_0053D740_SendPacket0x2A(D2ClientStrc* pClient, char nHeader, char nResult, int nGold, int nUnitGUID, char nTransactionType); // 0x0053D740
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc, int* pIndex); // 0x00535F10
 int __fastcall sub_00575FF0(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass); // 0x00575FF0
@@ -133,7 +133,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
             D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
             if (!QUESTRECORD_GetQuestState(pQuestRecord, 0x24, 0))
             {
-                sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x654), 0x2A, 0x0B, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+                sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x654), 0x2A, 0x0B, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
                 return;
             }
         }
@@ -143,7 +143,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
             D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
             if (!QUESTRECORD_GetQuestState(pQuestRecord, 2, 0))
             {
-                sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x65F), 0x2A, 0x0B, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+                sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x65F), 0x2A, 0x0B, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
                 return;
             }
         }
@@ -153,7 +153,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
     D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
     if (!pNpcRecord)
     {
-        sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x66C), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x66C), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
         return;
     }
 
@@ -174,20 +174,20 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
 
     if (wName < nNameFirst || wName > nNameLast)
     {
-        sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x685), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x685), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
         return;
     }
 
     D2MercDataStrc* pMercData = &pNpcRecord->pMercData[wName - nNameFirst];
     if (pMercData->nMercName != wName)
     {
-        sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x693), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x693), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
         return;
     }
 
     if (pMercData->bHired)
     {
-        sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x69A), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x69A), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
         return;
     }
 
@@ -201,7 +201,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
 
     if (!sub_00576D90_SpendGold(pGame, pPlayer, hirelingInit.nGold))
     {
-        sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x6AE), 0x2A, 0x0C, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x6AE), 0x2A, 0x0C, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
         return;
     }
 
@@ -211,15 +211,15 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
         pMerc = MONSTERSPAWN_SpawnAtUnit(pGame, pPlayer, nClass, 1, 4, 0);
         if (!pMerc)
         {
-            sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x6BA), 0x2A, 0x0F, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
+            sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x6BA), 0x2A, 0x0F, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
             return;
         }
     }
 
     pMercData->bHired = 1;
     MONSTERAI_AssignHireling(pGame, pPlayer, pMerc, -1, pMercData, 0);
-    sub_00576770_VendorUpdate(pGame, SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x6C5), pNpc, MONSTERAI_GetInteractUnitCount(sub_00535E80_GetMonInteract(pNpc)) <= 1);
-    sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pPlayer, gszNpcSourceFile, 0x6C6), 0x2A, 5, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), !pMerc ? -1 : pMerc->dwUnitId, 0);
+    sub_00576770_VendorUpdate(pGame, UnitGetClient(pPlayer, gszNpcSourceFile, 0x6C5), pNpc, MONSTERAI_GetInteractUnitCount(sub_00535E80_GetMonInteract(pNpc)) <= 1);
+    sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x6C6), 0x2A, 5, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), !pMerc ? -1 : pMerc->dwUnitId, 0);
     sub_00577010_VendorRefresh(pGame, nVendorId, pNpcRecord);
 }
 

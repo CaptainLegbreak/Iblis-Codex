@@ -154,7 +154,7 @@ extern D2ClientListEntryStrc gaEntries_00724268[]; // 0x00724268
 extern D2ClientListEntryStrc gaEntries_00724468[]; // 0x00724468
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 static __declspec(noinline) int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
 
@@ -997,14 +997,14 @@ static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
         {
             nBest = nValue;
         }
-        else if (pLeftItem && ITEMS_CheckItemTypeId(pLeftItem, nItemType))
+        else if (pLeftItem && ITEMSIsA(pLeftItem, nItemType))
         {
             if (nValue > nBest)
             {
                 nBest = nValue;
             }
         }
-        else if (pRightItem && ITEMS_CheckItemTypeId(pRightItem, nItemType))
+        else if (pRightItem && ITEMSIsA(pRightItem, nItemType))
         {
             if (nValue > nBest)
             {

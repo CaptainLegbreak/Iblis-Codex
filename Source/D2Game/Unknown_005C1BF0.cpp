@@ -73,7 +73,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
@@ -559,7 +559,7 @@ int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pI
         }
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x2D))
+    if (ITEMSIsA(pItem, 0x2D))
     {
         int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x16, 0) / 100;
         if (nMaxDamage < 2)
@@ -599,7 +599,7 @@ int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pI
         }
         nResult = 1;
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 0x32))
+    else if (ITEMSIsA(pItem, 0x32))
     {
         int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, 0x1F, 0) / 100;
         if (nArmorClass <= 0)
@@ -653,7 +653,7 @@ int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
         }
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x2D))
+    if (ITEMSIsA(pItem, 0x2D))
     {
         int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x16, 0) / 100;
         if (nMaxDamage < 2)
@@ -693,7 +693,7 @@ int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
         }
         nResult = 1;
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 0x32))
+    else if (ITEMSIsA(pItem, 0x32))
     {
         int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, 0x1F, 0) / 100;
         if (nArmorClass <= 0)

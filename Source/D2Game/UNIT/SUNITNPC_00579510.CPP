@@ -15,7 +15,7 @@ int __fastcall UNITS_GetXPosition(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc*,D2UnitStrc*); // 0x00554D00
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 void __fastcall D2GAME_SendPacket0x2A_6FC3F3B0(D2ClientStrc*,unsigned char,int,int,int,int); // 0x0053D740
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc*,D2UnitStrc*,D2UnitStrc*,unsigned int); // 0x0053D010
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc*,D2UnitStrc*,int*); // 0x00535F10
@@ -47,7 +47,7 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
 void __stdcall ITEMS_SetItemCell(D2UnitStrc*,unsigned char); // 0x00628320
 void __stdcall ITEMS_SetOrRemoveFlag(int*,int,int); // 0x006287B0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc*); // 0x006295B0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0
 int __stdcall sub_0062A130(D2UnitStrc*); // 0x0062A130
 int __stdcall ITEMS_GetItemType(D2UnitStrc*); // 0x0062B400
@@ -56,7 +56,7 @@ D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int); // 0x006374B0
 D2LowQualityItemsTxt* __stdcall DATATBLS_GetLowQualityItemsTxtRecord(int); // 0x006375C0
 static __forceinline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAnimMode; return 0; }
 static __forceinline int GetId(D2UnitStrc* unit) { if (unit) return unit->dwUnitId; return -1; }
-#define SEND_ERROR(code,line) D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,14,0),-1,0)
+#define SEND_ERROR(code,line) D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,14,0),-1,0)
 // 0x00579510
 int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* player,int npcId,int itemId,unsigned short itemMode,int unused)
 {
@@ -123,12 +123,12 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
         }
     }
     if (itemMode==0) {
-        if (ITEMS_CheckItemTypeId(item,22)) sub_00576E40_DecreaseSkillQuantity(player,DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(item,0))->scrollSkill,1);
-        else if (ITEMS_CheckItemTypeId(item,18)) {
+        if (ITEMSIsA(item,22)) sub_00576E40_DecreaseSkillQuantity(player,DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(item,0))->scrollSkill,1);
+        else if (ITEMSIsA(item,18)) {
             int quantity=STATLIST_UnitGetStatValue(item,70,0);
             if (quantity>=0) sub_00576E40_DecreaseSkillQuantity(player,DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(item,0))->bookSkill,quantity);
         }
-        D2ClientStrc* client=SUNIT_GetClientFromPlayer(player,gszNpcSource_006E15F0,0x594);
+        D2ClientStrc* client=UnitGetClient(player,gszNpcSource_006E15F0,0x594);
         int flags=0;
         ITEMS_SetOrRemoveFlag(&flags,0x20,1);
         ITEMS_SetItemCell(item,ITEMS_GetInvPage(item));
@@ -146,7 +146,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
         }
     }
     ITEMS_HandleGoldTransaction(game,player,price);
-    D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(player,gszNpcSource_006E15F0,0x5BD),0x2A,1,STATLIST_UnitGetStatValue(player,14,0),itemId,3);
+    D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(player,gszNpcSource_006E15F0,0x5BD),0x2A,1,STATLIST_UnitGetStatValue(player,14,0),itemId,3);
     return 0;
     }
     SEND_ERROR(9,0x4C7);

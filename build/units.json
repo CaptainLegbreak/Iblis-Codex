@@ -3037,7 +3037,7 @@
     {
      "va": "0x0040C620",
      "length": 242,
-     "name": "?sub_0040C620_SymInitializeOnce@@YAHXZ"
+     "name": "?s_DoSymInitialize@@YAHXZ"
     },
     {
      "va": "0x0040C720",
@@ -4746,7 +4746,7 @@
     {
      "va": "0x00413310",
      "length": 180,
-     "name": "?sub_00413310@@YGPAXIIPAXI@Z"
+     "name": "?SMemHeapReAlloc@@YGPAXIIPAXI@Z"
     },
     {
      "va": "0x004133D0",
@@ -34072,7 +34072,7 @@
     {
      "va": "0x004DF9D0",
      "length": 98,
-     "name": "sub_004DF9D0_FindBestSlot"
+     "name": "SoundChannelFind"
     }
    ]
   },
@@ -48181,7 +48181,7 @@
     {
      "va": "0x0051D0A0",
      "length": 286,
-     "name": "?sub_0051D0A0_ConnectThread@@YAKPAX@Z"
+     "name": "?BattleConnectFastest@@YAKPAX@Z"
     },
     {
      "va": "0x005204D0",
@@ -48243,7 +48243,7 @@
     {
      "va": "0x0051CA90",
      "length": 1539,
-     "name": "?sub_0051CA90_Connect@@YGHPAD@Z"
+     "name": "?sFastestConnect@@YGHPAD@Z"
     },
     {
      "va": "0x00521150",
@@ -48803,7 +48803,7 @@
     {
      "va": "0x0052C690",
      "length": 295,
-     "name": "?GAME_VerifyJoinGame@@YIHHGEPBDHPADPAHE2222H@Z"
+     "name": "?SrvVerifyJoinGame@@YIHHGEPBDHPADPAHE2222H@Z"
     },
     {
      "va": "0x0052C7C0",
@@ -48813,7 +48813,7 @@
     {
      "va": "0x0052C7F0",
      "length": 235,
-     "name": "?GAME_FreeGame@@YIXHPAUD2GameStrc@@@Z"
+     "name": "?SrvFreeGame@@YIXHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0052C8E0",
@@ -48827,7 +48827,7 @@
     {
      "va": "0x0052CAF0",
      "length": 182,
-     "name": "?GAME_DisconnectClient@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@H@Z"
+     "name": "?SrvDisconnectClient@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@H@Z"
     },
     {
      "va": "0x0052CBB0",
@@ -51273,7 +51273,7 @@
     {
      "va": "0x0052FA50",
      "length": 458,
-     "name": "?GAME_JoinGame@@YIXHGHPBDH0HHHHHHH@Z"
+     "name": "?SrvJoinGame@@YIXHGHPBDH0HHHHHHH@Z"
     }
    ]
   },
@@ -51319,7 +51319,7 @@
     {
      "va": "0x0052C330",
      "length": 174,
-     "name": "GAME_VerifyCreateNewGame"
+     "name": "SrvVerifyCreateNewGame"
     },
     {
      "va": "0x0052CA10",
@@ -51349,7 +51349,7 @@
     {
      "va": "0x005306E0",
      "length": 309,
-     "name": "GAME_ReceiveDatabaseCharacter"
+     "name": "SrvRecvDatabaseCharacter"
     },
     {
      "va": "0x00530EA0",
@@ -51771,7 +51771,7 @@
     {
      "va": "0x005303D0",
      "length": 448,
-     "name": "?GAME_EndGame@@YIXHH@Z"
+     "name": "?SrvEndGame@@YIXHH@Z"
     }
    ]
   },
@@ -52040,7 +52040,7 @@
     {
      "va": "0x00530190",
      "length": 211,
-     "name": "?GAME_SendActInit@@YIXH@Z"
+     "name": "?SrvJoinAct@@YIXH@Z"
     }
    ]
   },
@@ -52051,7 +52051,7 @@
     {
      "va": "0x00530930",
      "length": 703,
-     "name": "?GAME_CreateNewEmptyGame@@YGHPADPBD1IEEEPAG@Z"
+     "name": "?SrvCreateNewEmptyGame@@YGHPADPBD1IEEEPAG@Z"
     }
    ]
   },
@@ -52062,7 +52062,7 @@
     {
      "va": "0x00530BF0",
      "length": 687,
-     "name": "?GAME_SendGameInit@@YIXHPADEEPBDHIHHHEEHH@Z"
+     "name": "?sSrvSendGameInit@@YIXHPADEEPBDHIHHHEEHH@Z"
     }
    ]
   },
@@ -53385,7 +53385,7 @@
     {
      "va": "0x00539A30",
      "length": 424,
-     "name": "?CLIENTS_AddToGame@@YIPAUD2ClientStrc@@PAUD2GameStrc@@HEPBD1HEHH@Z"
+     "name": "?ClientAddToGame@@YIPAUD2ClientStrc@@PAUD2GameStrc@@HEPBD1HEHH@Z"
     },
     {
      "va": "0x0053A2F0",
@@ -53679,7 +53679,7 @@
     {
      "va": "0x00539760",
      "length": 715,
-     "name": "?CLIENTS_AddPlayerToGame@@YIHPAUD2ClientStrc@@PAUD2GameStrc@@HPAUD2ActiveRoomStrc@@HH@Z"
+     "name": "?ClientAddPlayerToGame@@YIHPAUD2ClientStrc@@PAUD2GameStrc@@HPAUD2ActiveRoomStrc@@HH@Z"
     }
    ]
   },
@@ -56359,12 +56359,12 @@
     {
      "va": "0x0054ACD0",
      "length": 186,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x19_RemoveItemFromBuffer_6FC850C0"
+     "name": "sRemoveItemGrid"
     },
     {
      "va": "0x0054AE30",
      "length": 131,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x1B_Swap2HandedItem_6FC853C0"
+     "name": "sInsertItemBodyRmvOpp"
     },
     {
      "va": "0x0054B1E0",
@@ -56671,7 +56671,7 @@
     {
      "va": "0x0054ABB0",
      "length": 279,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x18_InsertItemInBuffer_6FC84ED0"
+     "name": "sInsertItemGrid"
     },
     {
      "va": "0x0054AEC0",
@@ -57661,7 +57661,7 @@
     {
      "va": "0x005531C0",
      "length": 29,
-     "name": "SUNIT_GetClientFromPlayer"
+     "name": "UnitGetClient"
     },
     {
      "va": "0x00553380",
@@ -59213,7 +59213,7 @@
     {
      "va": "0x005678F0",
      "length": 233,
-     "name": "?PLRTRADE_RestoreInventory@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?sPlayerRestoreInventoryCopy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00567B00",
@@ -59228,7 +59228,7 @@
     {
      "va": "0x005689D0",
      "length": 824,
-     "name": "?sub_005689D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?PlayerTradeUpdate@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00568D10",
@@ -59637,7 +59637,7 @@
     {
      "va": "0x0056B180",
      "length": 595,
-     "name": "?PLRSAVE2_ProcessSaveFile@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PAEIPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+     "name": "?PlayerCreate@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PAEIPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x0056B3E0",
@@ -62448,7 +62448,7 @@
     {
      "va": "0x00580A70",
      "length": 250,
-     "name": "?D2GAME_PLAYERMODE_Change_6FC81A00@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillStrc@@HHHH@Z"
+     "name": "?StartModeID@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillStrc@@HHHH@Z"
     },
     {
      "va": "0x00580B70",
@@ -70055,7 +70055,7 @@
     {
      "va": "0x005FE100",
      "length": 3,
-     "name": "sub_005FE100"
+     "name": "D2CMPTileCacheMarkTileForPreLoad"
     },
     {
      "va": "0x005FE110",
@@ -70125,47 +70125,47 @@
     {
      "va": "0x005FFD40",
      "length": 238,
-     "name": "D2CMP_InitSpriteCache"
+     "name": "D2CMPSpriteCacheInit"
     },
     {
      "va": "0x00600D60",
      "length": 177,
-     "name": "sub_00600D60_GetDirectionIndex64A"
+     "name": "CelGameDirToShadowGameDir"
     },
     {
      "va": "0x00600E20",
      "length": 177,
-     "name": "sub_00600E20_GetDirectionIndex64B"
+     "name": "CelGameDirToNormalDir"
     },
     {
      "va": "0x00601180",
      "length": 110,
-     "name": "sub_00601180_ForEachCel"
+     "name": "CelFileIteratePixels"
     },
     {
      "va": "0x006011F0",
      "length": 325,
-     "name": "sub_006011F0_CloneCelFile"
+     "name": "CelFileSerialize"
     },
     {
      "va": "0x00601450",
      "length": 105,
-     "name": "sub_00601450_CelFileCellOp"
+     "name": "CelFileTransform"
     },
     {
      "va": "0x00601650",
      "length": 224,
-     "name": "sub_00601650_DrawCelClipped"
+     "name": "CelDrawEx"
     },
     {
      "va": "0x00601A50",
      "length": 183,
-     "name": "D2CMP_CelFileFreeHardware"
+     "name": "CelFileFreeHardware"
     },
     {
      "va": "0x00604A40",
      "length": 94,
-     "name": "DT1_ListAdd"
+     "name": "TileLibraryAddProject"
     }
    ]
   },
@@ -78115,12 +78115,12 @@
     {
      "va": "0x005FE1F0",
      "length": 32,
-     "name": "D2CMP_GetGfxFileExtension"
+     "name": "D2CMPGetGfxFileExtension"
     },
     {
      "va": "0x005FF300",
      "length": 131,
-     "name": "sub_005FF300_IsEntryPending"
+     "name": "D2CMPSpriteFindAsynchSiblings"
     },
     {
      "va": "0x005FF630",
@@ -78155,17 +78155,17 @@
     {
      "va": "0x00600EE0",
      "length": 44,
-     "name": "sub_00600EE0_CheckCelFile"
+     "name": "CelFileHalve"
     },
     {
      "va": "0x00600F10",
      "length": 152,
-     "name": "sub_00600F10_CelFileConvert"
+     "name": "CelFileConvert24To8"
     },
     {
      "va": "0x00601340",
      "length": 199,
-     "name": "?D2CMP_CelFileNormalize@@YGXPAUD2CelFileStrc@@PAPAU1@PBDHHH@Z"
+     "name": "?CelFileNormalize@@YGXPAUD2CelFileStrc@@PAPAU1@PBDHHH@Z"
     },
     {
      "va": "0x00601410",
@@ -78175,7 +78175,7 @@
     {
      "va": "0x006014C0",
      "length": 263,
-     "name": "?sub_006014C0@@YGXPAUD2CmpCelContextStrc@@HHHHPAEHHHHH@Z"
+     "name": "?CelDraw@@YGXPAUD2CmpCelContextStrc@@HHHHPAEHHHHH@Z"
     },
     {
      "va": "0x006015D0",
@@ -78184,7 +78184,7 @@
     {
      "va": "0x006019B0",
      "length": 49,
-     "name": "?sub_006019B0@@YGHPAUUnit@@@Z"
+     "name": "?CelFileGetNumDirections@@YGHPAUUnit@@@Z"
     },
     {
      "va": "0x00601B40",
@@ -78294,7 +78294,7 @@
     {
      "va": "0x00601EA0",
      "length": 83,
-     "name": "sub_00601EA0_CelFileRelease"
+     "name": "CelFileFree"
     },
     {
      "va": "0x00601F00",
@@ -78680,7 +78680,7 @@
     {
      "va": "0x005FE010",
      "length": 79,
-     "name": "?sub_005FE010_GetPoolStats@@YGXPAH000@Z"
+     "name": "?D2CMPGetTileCacheHits@@YGXPAH000@Z"
     },
     {
      "va": "0x005FE170",
@@ -78712,7 +78712,7 @@
     {
      "va": "0x005FE210",
      "length": 98,
-     "name": "?sub_005FE210@@YGXPADHPBD0@Z"
+     "name": "?Palette24BitTo8BitImage@@YGXPADHPBD0@Z"
     },
     {
      "va": "0x005FEB80",
@@ -78869,7 +78869,7 @@
     {
      "va": "0x005FF3A0",
      "length": 71,
-     "name": "?sub_005FF3A0@@YAXXZ"
+     "name": "?D2CMPSpriteFreeAsyncLoads@@YAXXZ"
     },
     {
      "va": "0x005FFBE0",
@@ -78889,7 +78889,7 @@
     {
      "va": "0x00601730",
      "length": 213,
-     "name": "?sub_00601730_DrawCelShadow@@YGXPAUD2CmpCelContextStrc@@HHHHPAEHHHH@Z"
+     "name": "?CelDrawShadow@@YGXPAUD2CmpCelContextStrc@@HHHHPAEHHHH@Z"
     },
     {
      "va": "0x006018C0",
@@ -78914,7 +78914,7 @@
     {
      "va": "0x006019F0",
      "length": 49,
-     "name": "sub_006019F0"
+     "name": "CelFileGetCelsPerDirection"
     },
     {
      "va": "0x00601A30",
@@ -79158,7 +79158,7 @@
     {
      "va": "0x006006B0",
      "length": 89,
-     "name": "?sub_006006B0_FreeTileRecords@@YAXXZ"
+     "name": "?D2CMPDestroyTileHeaders@@YAXXZ"
     }
    ]
   },
@@ -79179,7 +79179,7 @@
     {
      "va": "0x00600790",
      "length": 306,
-     "name": "?sub_00600790_LoadTileLibrary@@YGPAUD2CmpTileLibraryStrc@@PAPAUD2TileLibraryHashStrc@@PBD@Z"
+     "name": "?D2CMPLoadProjectRecord@@YGPAUD2CmpTileLibraryStrc@@PAPAUD2TileLibraryHashStrc@@PBD@Z"
     }
    ]
   },
@@ -79274,7 +79274,7 @@
     {
      "va": "0x00609620",
      "length": 77,
-     "name": "?sub_00609620_AllocTileRecord@@YGPAUD2TileRecordStrc@@HH@Z"
+     "name": "?TileListCreate@@YGPAUD2TileRecordStrc@@HH@Z"
     },
     {
      "va": "0x00609670",
@@ -79343,7 +79343,7 @@
     {
      "va": "0x00601840",
      "length": 121,
-     "name": "?D2CMP_CelGetHandle@@YGPAUD2CelStrc@@PAUD2CmpCelContextStrc@@@Z"
+     "name": "?CelGetHandle@@YGPAUD2CelStrc@@PAUD2CmpCelContextStrc@@@Z"
     },
     {
      "va": "0x00603060",
@@ -79661,7 +79661,7 @@
     {
      "va": "0x00604940",
      "length": 229,
-     "name": "sub_00604940_NewCelList"
+     "name": "CelCompressCreate"
     }
    ]
   },
@@ -79961,7 +79961,7 @@
     {
      "va": "0x00605320",
      "length": 32,
-     "name": "sub_00605320_SetSwappedColor"
+     "name": "PaletteSetTransparency"
     },
     {
      "va": "0x006056C0",
@@ -79976,12 +79976,12 @@
     {
      "va": "0x00605850",
      "length": 36,
-     "name": "sub_00605850_SetTable"
+     "name": "PaletteSetMask"
     },
     {
      "va": "0x00605A90",
      "length": 16,
-     "name": "sub_00605A90_Forward"
+     "name": "UpdateD2TransparencyTable"
     },
     {
      "va": "0x00606B00",
@@ -80031,7 +80031,7 @@
     {
      "va": "0x00608520",
      "length": 17,
-     "name": "?sub_00608520_ToggleGlobal@@YAHXZ"
+     "name": "?D2CMPToggleCelDrawMode@@YAHXZ"
     },
     {
      "va": "0x006089F0",
@@ -80053,7 +80053,7 @@
     {
      "va": "0x006096D0",
      "length": 148,
-     "name": "sub_006096D0_AddTile"
+     "name": "TileListAddTile"
     },
     {
      "va": "0x0060AEB0",
@@ -80099,47 +80099,47 @@
     {
      "va": "0x00604AE0",
      "length": 120,
-     "name": "D2CMP_GetTiles"
+     "name": "TileLibraryGetTiles"
     },
     {
      "va": "0x00604B60",
      "length": 45,
-     "name": "TILE_GetOrientation"
+     "name": "TileGetType"
     },
     {
      "va": "0x00604B90",
      "length": 45,
-     "name": "TILE_GetMainIndex"
+     "name": "TileGetStyle"
     },
     {
      "va": "0x00604BC0",
      "length": 46,
-     "name": "TILE_GetFlags16"
+     "name": "TileGetFlags"
     },
     {
      "va": "0x00604BF0",
      "length": 45,
-     "name": "TILE_GetWidth"
+     "name": "TileGetWidth"
     },
     {
      "va": "0x00604C20",
      "length": 45,
-     "name": "TILE_GetRarity"
+     "name": "TileGetRarity"
     },
     {
      "va": "0x00604C50",
      "length": 45,
-     "name": "TILE_GetSubIndex"
+     "name": "TileGetSequence"
     },
     {
      "va": "0x00604C80",
      "length": 44,
-     "name": "TILE_GetDirection"
+     "name": "TileGetTileLight"
     },
     {
      "va": "0x00604CB0",
      "length": 48,
-     "name": "TILE_GetHeight"
+     "name": "TileGetTotalHeight"
     },
     {
      "va": "0x00604CE0",
@@ -80149,32 +80149,32 @@
     {
      "va": "0x00604D10",
      "length": 48,
-     "name": "TILE_GetUnk0x10"
+     "name": "TileGetHeightToBottom"
     },
     {
      "va": "0x00604D40",
      "length": 49,
-     "name": "TILE_GetRoofHeight"
+     "name": "TileGetRoofHeight"
     },
     {
      "va": "0x00604D80",
      "length": 48,
-     "name": "TILE_GetUnk0x58"
+     "name": "TileGetFilename"
     },
     {
      "va": "0x006069F0",
      "length": 25,
-     "name": "sub_006069F0_BuildTablesWithSize"
+     "name": "CreateD2PaletteByteStream"
     },
     {
      "va": "0x00609E90",
      "length": 312,
-     "name": "sub_00609E90_FreeTileLibrary"
+     "name": "TileProjectDestroy"
     },
     {
      "va": "0x0060A290",
      "length": 254,
-     "name": "sub_0060A290_RelocateWithData"
+     "name": "TileProjectNormalize"
     },
     {
      "va": "0x0060A390",
@@ -80290,7 +80290,7 @@
     {
      "va": "0x006054F0",
      "length": 460,
-     "name": "?sub_006054F0_ReadPaletteRange@@YGHPBDHH@Z"
+     "name": "?PaletteInit@@YGHPBDHH@Z"
     }
    ]
   },
@@ -80301,7 +80301,7 @@
     {
      "va": "0x006056D0",
      "length": 198,
-     "name": "?sub_006056D0_FindNearestPaletteIndex@@YGEEEE@Z"
+     "name": "?Palette24BitTo8BitPixel@@YGEEEE@Z"
     },
     {
      "va": "0x006057A0",
@@ -80580,7 +80580,7 @@
     {
      "va": "0x0060A570",
      "length": 162,
-     "name": "?sub_0060A570_ForEachLibraryColor@@YGXPAUD2CmpTileLibraryStrc@@P6GXI@Z@Z"
+     "name": "?TileProjectIteratePixels@@YGXPAUD2CmpTileLibraryStrc@@P6GXI@Z@Z"
     }
    ]
   },
@@ -84303,7 +84303,7 @@
     {
      "va": "0x00621A70",
      "length": 68,
-     "name": "UNITS_IsDoor"
+     "name": "UnitIsDoor"
     },
     {
      "va": "0x00621AC0",
@@ -85649,7 +85649,7 @@
     {
      "va": "0x00629BB0",
      "length": 206,
-     "name": "ITEMS_CheckItemTypeId"
+     "name": "ITEMSIsA"
     },
     {
      "va": "0x00629C80",
@@ -88857,7 +88857,7 @@
     {
      "va": "0x00646FD0",
      "length": 274,
-     "name": "?sub_00646FD0_RemoveSkill@@YGXHHPAUD2UnitStrc@@@Z"
+     "name": "?sSkillsRemoveSkill@@YGXHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x006470F0",
@@ -94543,7 +94543,7 @@
     {
      "va": "0x006709B0",
      "length": 601,
-     "name": "?DRLGMAZE_PickRoomPreset@@YGPAUD2DrlgRoomStrc@@HPAU1@@Z"
+     "name": "?sSetChamberPreset@@YGPAUD2DrlgRoomStrc@@HPAU1@@Z"
     },
     {
      "va": "0x00670C10",

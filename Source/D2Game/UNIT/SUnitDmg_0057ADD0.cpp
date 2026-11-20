@@ -133,7 +133,7 @@ short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc*); // 0x00629860
 short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc*); // 0x006298A0
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc*, D2UnitStrc*, D2SkillStrc*, int); // 0x00645830
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C3E0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 void __fastcall sub_00535D10_PrepareWeapon(D2UnitStrc*,int); // 0x00535D10
 void __fastcall sub_00535E20_RestoreWeapon(D2UnitStrc*,int); // 0x00535E20
@@ -216,7 +216,7 @@ unsigned char __fastcall sub_6FC62F50(D2UnitStrc* pUnit); // 0x005A5650
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-void __fastcall D2GAME_PLAYERMODE_Change_6FC81A00(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
+void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
@@ -559,7 +559,7 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
         sub_006270B0(pNewStatList, 0x43, nColdEffect, 0);
         sub_006270B0(pNewStatList, 0x44, nColdEffect, 0);
         sub_006270B0(pNewStatList, 0x45, nColdEffect, 0);
-        UNITS_UpdateAnimRateAndVelocity(pDefender, ".\\UNIT\\SUnitDmg.cpp", 0x1DC);
+        UnitUpdateAnimRateAndVel(pDefender, ".\\UNIT\\SUnitDmg.cpp", 0x1DC);
     }
     else if (STATLIST_GetExpireFrame(pStatList) < nExpireFrame)
     {
@@ -1038,7 +1038,7 @@ static void sub_0057B660_AddUndeadDamagePercent(D2DamageStrc* pDamage, D2UnitStr
     {
         int nPct = 0;
         D2UnitStrc* pWeapon = sub_6FC7C7B0(pAttacker);
-        if (pWeapon && ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_BLUNT))
+        if (pWeapon && ITEMSIsA(pWeapon, ITEMTYPE_BLUNT))
         {
             nPct = 50;
         }
@@ -1580,7 +1580,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
                 if (pSkill)
                 {
                     SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
-                    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, pSkill, 0x0D, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                    StartModeID(pGame, pUnit, pSkill, 0x0D, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
                 }
             }
             return;
@@ -1594,7 +1594,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
                 if (pSkill)
                 {
                     SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
-                    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, pSkill, 0x0D, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                    StartModeID(pGame, pUnit, pSkill, 0x0D, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
                 }
             }
             return;
@@ -1637,13 +1637,13 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         {
             if (pUnit && pUnit->dwAnimMode != 0 && pUnit->dwAnimMode != 0x11)
             {
-                D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, 0, 0, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                StartModeID(pGame, pUnit, 0, 0, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
             }
             return;
         }
         else if (pDamage->wResultFlags & 0x08)
         {
-            D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, 0, 0x13, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+            StartModeID(pGame, pUnit, 0, 0x13, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
             return;
         }
         else
@@ -1797,14 +1797,14 @@ static int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
         {
             nBest = nValue;
         }
-        else if (pLeftItem && ITEMS_CheckItemTypeId(pLeftItem, nItemType))
+        else if (pLeftItem && ITEMSIsA(pLeftItem, nItemType))
         {
             if (nValue > nBest)
             {
                 nBest = nValue;
             }
         }
-        else if (pRightItem && ITEMS_CheckItemTypeId(pRightItem, nItemType))
+        else if (pRightItem && ITEMSIsA(pRightItem, nItemType))
         {
             if (nValue > nBest)
             {

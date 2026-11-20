@@ -74,8 +74,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl);                             // 0x005003A0
-int __stdcall sub_006019F0(D2CelFileStrc* pCelFile);                                                // 0x006019F0
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage)
@@ -103,7 +103,7 @@ static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage)
     int nMaxFrames = 1;
     D2CelFileStrc** ppCellFile = pAnimImage->pAnimatedImageDescriptor[pAnimImage->nAnimType].ppCellFile1;
     if (ppCellFile && *ppCellFile)
-        nMaxFrames = sub_006019F0(*ppCellFile);
+        nMaxFrames = CelFileGetCelsPerDirection(*ppCellFile);
 
     nAnimType = pAnimImage->nAnimType;
     switch (nAnimType)
@@ -130,7 +130,7 @@ static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage)
     {
         D2CelFileStrc** ppNewCellFile = pAnimImage->pAnimatedImageDescriptor[pAnimImage->nAnimType].ppCellFile1;
         if (ppNewCellFile && *ppNewCellFile)
-            sub_006019F0(*ppNewCellFile);
+            CelFileGetCelsPerDirection(*ppNewCellFile);
     }
 
     if (pAnimImage->nFrame > nMaxFrames)
@@ -175,7 +175,7 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
             pCellFile2 = *ppCellFile2;
         nDrawMode = pAnimImage->pAnimatedImageDescriptor[pAnimImage->nAnimType].eDrawMode;
         nAnimDrawMode = pAnimImage->eDrawMode;
-        nFrameCount = sub_006019F0(pCellFile1);
+        nFrameCount = CelFileGetCelsPerDirection(pCellFile1);
         nAnimSpeed = pAnimImage->pAnimatedImageDescriptor[pAnimImage->nAnimType].nAnimSpeed;
     }
     else
@@ -184,12 +184,12 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
         pCellFile2 = 0;
         nAnimDrawMode = pAnimImage->eDrawMode;
         nDrawMode = nAnimDrawMode;
-        nFrameCount = sub_006019F0(pCellFile1);
+        nFrameCount = CelFileGetCelsPerDirection(pCellFile1);
         nAnimSpeed = pAnimImage->nAnimSpeed;
         tContext.pCellFile = pCellFile1;
         tContext.unk0x40 = 0;
         tContext.nFrame = 0;
-        D2CelStrc* pCel = D2CMP_CelGetHandle(&tContext);
+        D2CelStrc* pCel = CelGetHandle(&tContext);
         nY -= sub_00601950(pCel);
         nX -= sub_00601920(pCel);
     }

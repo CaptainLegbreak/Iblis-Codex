@@ -122,7 +122,7 @@ const char* __fastcall sub_0047A1F0(int nIndex); // 0x0047A1F0
 const char* __fastcall sub_0047A210(D2UnitStrc* pUnit); // 0x0047A210
 const char* __fastcall sub_0047A210_GetPartyName(D2UnitStrc* pUnit); // 0x0047A210
 const char* __fastcall sub_004BDFD0_GetObjectText(D2UnitStrc* pUnit); // 0x004BDFD0
-const char* __stdcall D2CMP_GetGfxFileExtension(int bAllowCompressed); // 0x005FE1F0
+const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed); // 0x005FE1F0
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 const char* __stdcall sub_0062E920_GetAltInvGfxName(D2UnitStrc* pItem, int nGfx); // 0x0062E920
 extern "C" SelectionState* gVar_007C0E54; // 0x007C0E54
@@ -641,7 +641,7 @@ int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY
 int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 int __stdcall UNITS_GetNewDirection(D2UnitStrc* pUnit); // 0x006238C0
 int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit); // 0x006217C0
-int __stdcall UNITS_IsDoor(D2UnitStrc* pUnit); // 0x00621A70
+int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
 int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
@@ -655,10 +655,10 @@ int __stdcall sub_004E89A0(D2UnitStrc*, int*, int*, int*, D2SkillStrc*); // 0x00
 int __stdcall sub_004F64E0(D2CelContextStrc* pContext, int nX, int nY, int nTop, int nHeight, int nDrawMode); // 0x004F64E0
 int __stdcall sub_004F66E0_IsPrecisionOnScreen(int nPrecisionX, int nPrecisionY); // 0x004F66E0
 int __stdcall sub_0052AE50_SendPacket(int nSize, int nFlags, void* pData); // 0x0052AE50
-int __stdcall sub_005FF300_IsEntryPending(int nKeyA, int nKeyB, int nKeyC); // 0x005FF300
+int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC); // 0x005FF300
 int __stdcall sub_006004E0_LoadSprite(D2CelContextStrc* pContext); // 0x006004E0
 int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
-int __stdcall sub_00600E20_GetDirectionIndex64B(unsigned int nIndex, unsigned int nDirections); // 0x00600E20
+int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirections); // 0x00600E20
 int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
 int __stdcall sub_0061A1D0_GetTileLevelId(D2ActiveRoomStrc* pRoom, int nClassId); // 0x0061A1D0
@@ -936,7 +936,7 @@ void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* 
 void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX); // 0x00620470
 void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY); // 0x006204C0
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
-void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
 void __stdcall UNITS_UpdateDirectionAndSpeed(D2UnitStrc* pUnit, int nX, int nY); // 0x00621C00
 void __stdcall UNITS_UpdateFrame(D2UnitStrc* pUnit); // 0x00621310
 void __stdcall WAYPOINTS_CopyAndValidateWaypointData(D2WaypointDataStrc* pDest, const void* pSource); // 0x00661030

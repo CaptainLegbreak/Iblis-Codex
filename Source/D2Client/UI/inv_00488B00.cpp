@@ -143,7 +143,7 @@ int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 int __stdcall sub_00628C20(D2UnitStrc* pItem); // 0x00628C20
 int __stdcall sub_00628C70(D2UnitStrc* pItem); // 0x00628C70
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall sub_0062A0A0(D2UnitStrc* pItem); // 0x0062A0A0
 D2UnitStrc* __stdcall sub_0063BD10(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, int nPage); // 0x0063BD10
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
@@ -962,8 +962,8 @@ static void __stdcall sub_00487230_UpdateBodyLocHover(int nBodyLoc, D2UnitStrc* 
         {
             pOther = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, 5);
         }
-        if (pOther && pItem && !ITEMS_CheckItemTypeId(pOther, 0x23) && !ITEMS_CheckItemTypeId(pItem, 0x23)
-            && !ITEMS_CheckItemTypeId(pOther, 0x1B) && !ITEMS_CheckItemTypeId(pItem, 0x1B))
+        if (pOther && pItem && !ITEMSIsA(pOther, 0x23) && !ITEMSIsA(pItem, 0x23)
+            && !ITEMSIsA(pOther, 0x1B) && !ITEMSIsA(pItem, 0x1B))
         {
             pItem = pOther;
         }
@@ -1513,7 +1513,7 @@ static int sub_00489FB0_IsOverButtonC(int nX, int nY)
 static void sub_004865D0_AppendBookCharges(Unicode* pText)
 {
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    D2_ASSERT(ITEMS_CheckItemTypeId(gdwGlobal_007BCBF4, 0x35), 0xC43);
+    D2_ASSERT(ITEMSIsA(gdwGlobal_007BCBF4, 0x35), 0xC43);
     sub_004E6850(gdwGlobal_007BCBF4, pText, 0x200);
     sub_00526700(pText, D2LANG_GetStringFromTblIndex(0x2B48));
     sub_00526700(pText, pColorEnd);

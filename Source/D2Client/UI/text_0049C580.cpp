@@ -81,7 +81,7 @@ void __cdecl sub_004B7C60(); // 0x004B7C60
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
 void* __stdcall sub_0065C430(void* pMemPool); // 0x0065C430
@@ -402,7 +402,7 @@ D2ClientDialogStrc* __fastcall sub_004B7CD0_CreateDialogFromFile(int nArg1, int 
     tContext.pCellFile = pDialog->pCelFile;
     tContext.unk0x40 = 0;
     tContext.nFrame = 0;
-    D2CelStrc* pCel = D2CMP_CelGetHandle(&tContext);
+    D2CelStrc* pCel = CelGetHandle(&tContext);
     D2_ASSERT(pCel, 0x3B3);
     pDialog->unk0x34 = sub_006018C0(pCel);
     pDialog->unk0x38 = sub_006018F0(pCel);

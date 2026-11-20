@@ -26,7 +26,7 @@ D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                            
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame);                                                     // 0x0052D870
 int __cdecl sub_00410A80_GetTime();                                                                         // 0x00410A80
 void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId);                                             // 0x0053B220
-void __fastcall CLIENTS_RemoveClientFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);          // 0x00539DA0
+void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);          // 0x00539DA0
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90
 void __fastcall GAME_CloseGame(int nGameGUID);                                                              // 0x0052E770
 void __fastcall TASK_LinkList_PushFront(D2LinkStrc* pList, D2LinkStrc* pLink);                              // 0x00564250
@@ -163,7 +163,7 @@ IoTimeout:
                 pNextClient = pCurrentClient->pNext;
                 sub_0053B220_SendHeaderOnly0xB0(pCurrentClient->dwClientId);
                 sub_0053B240_SendHeaderOnly0x06(pCurrentClient->dwClientId);
-                CLIENTS_RemoveClientFromGame(pGame, pCurrentClient->dwClientId, 0);
+                ClientRemoveFromGame(pGame, pCurrentClient->dwClientId, 0);
             }
         }
         else if (!sub_005645E0_IsEmptyGameExpired(pGame))

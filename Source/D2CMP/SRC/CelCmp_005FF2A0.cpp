@@ -328,7 +328,7 @@ int __cdecl sub_005FF2A0_CountPendingEntries()
 }
 
 // 0x005FF3A0
-void __cdecl sub_005FF3A0()
+void __cdecl D2CMPSpriteFreeAsyncLoads()
 {
     for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
     {
@@ -389,7 +389,7 @@ int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirecti
 }
 
 // 0x00601730
-void __stdcall sub_00601730_DrawCelShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor)
+void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor)
 {
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
@@ -528,7 +528,7 @@ int __stdcall sub_006018C0(D2CelStrc* pCel)
 }
 
 // 0x006019F0
-int __stdcall sub_006019F0(D2CelFileStrc* pCelFile)
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile)
 {
     D2_ASSERT(pCelFile->nVersion == 6, 1489);
 

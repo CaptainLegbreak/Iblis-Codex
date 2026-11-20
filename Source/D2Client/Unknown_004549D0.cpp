@@ -95,7 +95,7 @@ void __cdecl sub_00456550_LoadLoadingScreen(); // 0x00456550
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 int __cdecl sub_00478150(); // 0x00478150
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-int __stdcall sub_006019F0(D2CellFileStrc* pCelFile); // 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CellFileStrc* pCelFile); // 0x006019F0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __cdecl sub_0044DA70(); // 0x0044DA70
@@ -403,7 +403,7 @@ void __fastcall sub_004565E0_DrawLoadingScreen(int bAdvanceFrame)
         }
     }
 
-    const int nFrames = sub_006019F0(gpLoadingScreen_007A2888);
+    const int nFrames = CelFileGetCelsPerDirection(gpLoadingScreen_007A2888);
     if (gnLoadingFrame_007A2A6C >= nFrames)
     {
         gnLoadingFrame_007A2A6C = nFrames - 1;

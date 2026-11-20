@@ -249,12 +249,12 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
         {
         case 1:
         case 4:
-            sub_006014C0(pInfo->pContext, -pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, nPalette);
+            CelDraw(pInfo->pContext, -pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, nPalette);
             break;
 
         case 2:
         {
-            sub_006014C0(pInfo->pContext, -pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, nPalette);
+            CelDraw(pInfo->pContext, -pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, nPalette);
             unsigned char* pRemap = gpGfxPaletteView_007C9150->f_118;
             unsigned char* pPixel = gpGlideSpriteBufferA_0087F0C8;
             for (int i = 0; i < pInfo->nTexSize; ++i)
@@ -268,7 +268,7 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
 
         case 3:
         {
-            sub_006014C0(pInfo->pContext, 1 - pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 2, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, 0);
+            CelDraw(pInfo->pContext, 1 - pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 2, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, 0);
             unsigned char* pOutline = gpGlideSpriteBufferB_0087F0CC;
             D2_ASSERT(pOutline, 0x1AD);
             D2_ASSERT(pInfo->nTexSize <= 0x10000, 0x1AE);

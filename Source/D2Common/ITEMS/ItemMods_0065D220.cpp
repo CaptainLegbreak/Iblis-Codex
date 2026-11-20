@@ -95,7 +95,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
@@ -200,7 +200,7 @@ void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem)
 
     ITEMS_SetItemFlag(pItem, 0x400000, 1);
 
-    if (ITEMS_CheckItemTypeId(pItem, 45))
+    if (ITEMSIsA(pItem, 45))
     {
         STATLIST_SetUnitStat(pItem, 21, 3 * STATLIST_GetUnitBaseStat(pItem, 21, 0) / 2, 0);
         STATLIST_SetUnitStat(pItem, 22, 3 * STATLIST_GetUnitBaseStat(pItem, 22, 0) / 2, 0);
@@ -243,7 +243,7 @@ int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, const D2MagicAff
             break;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, pMagicAffixTxtRecord->wEType[i]))
+        if (ITEMSIsA(pItem, pMagicAffixTxtRecord->wEType[i]))
         {
             return 0;
         }
@@ -256,7 +256,7 @@ int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, const D2MagicAff
             break;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, pMagicAffixTxtRecord->wIType[i]))
+        if (ITEMSIsA(pItem, pMagicAffixTxtRecord->wIType[i]))
         {
             return 1;
         }
@@ -285,7 +285,7 @@ int __stdcall ITEMMODS_CanItemHaveRareAffix(D2UnitStrc* pItem, const D2RareAffix
             break;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, pRareAffixTxtRecord->wEType[i]))
+        if (ITEMSIsA(pItem, pRareAffixTxtRecord->wEType[i]))
         {
             return 0;
         }
@@ -298,7 +298,7 @@ int __stdcall ITEMMODS_CanItemHaveRareAffix(D2UnitStrc* pItem, const D2RareAffix
             break;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, pRareAffixTxtRecord->wIType[i]))
+        if (ITEMSIsA(pItem, pRareAffixTxtRecord->wIType[i]))
         {
             return 1;
         }
@@ -325,12 +325,12 @@ int __stdcall ITEMMODS_CanItemBeHighQuality(D2UnitStrc* pItem, const D2QualityIt
 
     const int nItemType = ITEMS_GetItemType(pItem);
 
-    if (pQualityItemsTxtRecord->nWeapon && ITEMS_CheckItemTypeId(pItem, 45) && nItemType != 26 && nItemType != 27 && nItemType != 35 && nItemType != 24 && nItemType != 25)
+    if (pQualityItemsTxtRecord->nWeapon && ITEMSIsA(pItem, 45) && nItemType != 26 && nItemType != 27 && nItemType != 35 && nItemType != 24 && nItemType != 25)
     {
         return 1;
     }
 
-    if (pQualityItemsTxtRecord->nArmor && ITEMS_CheckItemTypeId(pItem, 50) && nItemType != 2 && nItemType != 15 && nItemType != 16 && nItemType != 19)
+    if (pQualityItemsTxtRecord->nArmor && ITEMSIsA(pItem, 50) && nItemType != 2 && nItemType != 15 && nItemType != 16 && nItemType != 19)
     {
         return 1;
     }

@@ -212,7 +212,7 @@ extern D2CmpPoolStrc gCmpTilePool; // 0x0088DB20
 extern D2CmpTileCacheStrc gCmpTileCache; // 0x0089DB60
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 void __fastcall sub_005FDE50(void* pEntry); // 0x005FDE50
-void __cdecl sub_006006B0_FreeTileRecords(); // 0x006006B0
+void __cdecl D2CMPDestroyTileHeaders(); // 0x006006B0
 void __fastcall sub_005FFBE0_FreeTileCache(D2CmpTileCacheStrc* pCache); // 0x005FFBE0
 void __cdecl sub_0060CD50_ReleaseTileLock(); // 0x0060CD50
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -914,7 +914,7 @@ struct R00601DC0
     bool sub_00601DC0_IsOpen();
 };
 
-int __stdcall D2CMP_CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
+int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 
 struct D2StormNodeStrc
 {
@@ -1872,7 +1872,7 @@ void __stdcall sub_005FDE10_FreeCelPool(int bFree)
         gnCmpPoolArg = 0;
     }
 
-    sub_006006B0_FreeTileRecords();
+    D2CMPDestroyTileHeaders();
 }
 
 // 0x005FDF50
@@ -1908,7 +1908,7 @@ void __stdcall sub_005FE120_InitCelPool(void* pMemPool, int nArg)
 }
 
 // 0x005FE1F0
-const char* __stdcall D2CMP_GetGfxFileExtension(int bAllowCompressed)
+const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed)
 {
     if (bAllowCompressed && gbCmpCompressedDataMode)
     {
@@ -1919,7 +1919,7 @@ const char* __stdcall D2CMP_GetGfxFileExtension(int bAllowCompressed)
 }
 
 // 0x005FF300
-int __stdcall sub_005FF300_IsEntryPending(int nKeyA, int nKeyB, int nKeyC)
+int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
 {
     for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
     {
@@ -2032,13 +2032,13 @@ int __stdcall sub_00600C70_GetDirectionIndex32(int nDirection, unsigned int nDir
 }
 
 // 0x00600EE0
-void __stdcall sub_00600EE0_CheckCelFile(D2CmpCelFileStrc* pCelFile, int nUnused)
+void __stdcall CelFileHalve(D2CmpCelFileStrc* pCelFile, int nUnused)
 {
     D2_ASSERT(pCelFile, 0x29C);
 }
 
 // 0x00600F10
-int __stdcall sub_00600F10_CelFileConvert(D2CmpCelFileStrc* pSource, D2CmpCelFileStrc** ppTarget, int nArg1, int nArg2)
+int __stdcall CelFileConvert24To8(D2CmpCelFileStrc* pSource, D2CmpCelFileStrc** ppTarget, int nArg1, int nArg2)
 {
     D2_ASSERT(pSource->dwFlags & 4, 0x2AD);
     const int nCells = pSource->nDirections * pSource->nFrames;
@@ -2056,7 +2056,7 @@ int __stdcall sub_00600F10_CelFileConvert(D2CmpCelFileStrc* pSource, D2CmpCelFil
 #include "gen/data/Source/D2CMP/SRC/CelCmp.inc"
 
 // 0x00601340
-void __stdcall D2CMP_CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, int nUnused)
+void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, int nUnused)
 {
     if (!pFile)
     {
@@ -2110,7 +2110,7 @@ void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pCelFile)
 }
 
 // 0x006014C0
-void __stdcall sub_006014C0(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11)
+void __stdcall CelDraw(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11)
 {
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
@@ -2169,7 +2169,7 @@ void __stdcall sub_006014C0(D2CmpCelContextStrc* pContext, int nX, int nY, int n
 }
 
 // 0x006015D0
-int __stdcall sub_006015D0(CellTable* p, int nDirection, int nIndex, void* pDst)
+int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst)
 {
     if (p->type != 6)
     {
@@ -2189,7 +2189,7 @@ int __stdcall sub_006015D0(CellTable* p, int nDirection, int nIndex, void* pDst)
 }
 
 // 0x006019B0
-int __stdcall sub_006019B0(Unit* unit)
+int __stdcall CelFileGetNumDirections(Unit* unit)
 {
     if(unit->type!=REQUIRED_TYPE) {
         sub_00408A60(&emptyAssert,sub_00408090(),0x5C2);
@@ -2559,14 +2559,14 @@ void D2TSListStrc::sub_00601E80_InitCopy(const D2TSListStrc& source)
 }
 
 // 0x00601EA0
-void __stdcall sub_00601EA0_CelFileRelease(D2CelFileStrc* pCelFile)
+void __stdcall CelFileFree(D2CelFileStrc* pCelFile)
 {
     D2_ASSERT(pCelFile, 0x41B);
     if (pCelFile->dwFlags & 3)
     {
         if (pCelFile->dwFlags & 2)
         {
-            D2CMP_CelFileFreeHardware(pCelFile);
+            CelFileFreeHardware(pCelFile);
         }
         FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x422, 0);
     }
@@ -2958,7 +2958,7 @@ void __stdcall sub_006039C0(unsigned int hCelList)
 }
 
 // 0x00603A70
-unsigned int __stdcall sub_00603A70(unsigned int hCelList, D2CelFileStrc** ppCelFile)
+unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFileStrc** ppCelFile)
 {
     int hLock;
     D2StormEntry38Strc* pList = gCelListTable.Lock(hCelList, &hLock, 0);

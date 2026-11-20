@@ -100,7 +100,7 @@ void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc* pClient, D2UnitSt
 void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue);                                 // 0x0053FF00
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);             // 0x00553380
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID);                     // 0x00554100
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit);                                                  // 0x00554190
@@ -649,8 +649,8 @@ static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* p
 // 0x00567020
 static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
 {
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2422), 6);
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 2423), 6);
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2422), 6);
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 2423), 6);
 
     pPlayerData->dwTradeState = 3;
     pInteractPlayerData->dwTradeState = 3;
@@ -679,7 +679,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
 // calling-convention shim (not game code)
 static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
 {
-    const int bHardcore = CLIENTS_CheckFlag(SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9BB), 4);
+    const int bHardcore = CLIENTS_CheckFlag(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9BB), 4);
     D2UnitStrc* pItem = INVENTORY_GetFirstItem(pPlayer1->pInventory);
     if (pItem)
     {
@@ -698,15 +698,15 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
                     const int nDupeId = pDupeItem->dwUnitId;
                     if (!D2GAME_PlaceItem_6FC44410(".\\PLAYER\\PlrTrade.cpp", 0x9CF, pGame, pPlayer2, nDupeId, 0, 0, 1, 1, 0))
                     {
-                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9D1), 0xA);
-                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x9D2), 9);
+                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9D1), 0xA);
+                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x9D2), 9);
                         return false;
                     }
 
                     if (sub_0055F590_CheckItem(pCheckedItem, ".\\PLAYER\\PlrTrade.cpp", 0x9D5) && !ITEMMODE_DuplicateSocketFillers(pGame, pPlayer2, pCheckedItem, pDupeItem, 1))
                     {
-                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9D9), 0xA);
-                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x9DA), 9);
+                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9D9), 0xA);
+                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x9DA), 9);
                         return false;
                     }
                 }
@@ -715,7 +715,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
         } while (pItem);
     }
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9E4);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x9E4);
     pItem = INVENTORY_GetFirstItem(pPlayer1->pInventory);
     while (pItem)
     {
@@ -777,12 +777,12 @@ static void __stdcall PLRTRADE_ResetTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer
     pPlayerData2->pTrade->nGoldInTrade = 0;
     sub_6FC90AE0(pGame, pPlayer1, 1);
     sub_6FC90AE0(pGame, pPlayer2, 1);
-    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x991), 0, 0);
-    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x992), 0, 1);
-    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x993), 0, 0);
-    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x994), 0, 1);
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x995), 6);
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x996), 6);
+    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x991), 0, 0);
+    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x992), 0, 1);
+    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x993), 0, 0);
+    D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x994), 0, 1);
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x995), 6);
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer2, ".\\PLAYER\\PlrTrade.cpp", 0x996), 6);
     pPlayerData1->dwTradeState = 5;
     pPlayerData2->dwTradeState = 5;
     sub_6FC4B830(pGame, pPlayer1);
@@ -808,8 +808,8 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
             if ((unsigned int)(STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0) + pTrade->nGoldInTrade) > (unsigned int)UNITS_GetInventoryGoldLimit(pInteractPlayer))
             {
                 PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA2D), 0xA);
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA2E), 9);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA2D), 0xA);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA2E), 9);
                 return;
             }
         }
@@ -828,8 +828,8 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
             if ((unsigned int)(STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) + pTrade->nGoldInTrade) > (unsigned int)UNITS_GetInventoryGoldLimit(pPlayer))
             {
                 PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA41), 9);
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA42), 0xA);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA41), 9);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA42), 0xA);
                 return;
             }
         }
@@ -843,13 +843,13 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
         pFailedPartnerData->pTrade->nGoldInTrade = 0;
         if (nTradeState)
         {
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA51), 9);
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA52), 0xA);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA51), 9);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA52), 0xA);
         }
         else
         {
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA56), 0xA);
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA57), 9);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA56), 0xA);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA57), 9);
         }
         PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pFailedPartnerData);
         return;
@@ -909,9 +909,9 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
             PLRTRADE_Free(pGame, pInteractPlayer);
             sub_6FC4B830(pGame, pPlayer);
             sub_6FC4B830(pGame, pInteractPlayer);
-            D2ClientStrc* const tArg13 = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA9C);
+            D2ClientStrc* const tArg13 = UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA9C);
             D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(tArg13, 0xD);
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA9D), 0xD);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA9D), 0xD);
             return;
         }
     }
@@ -955,7 +955,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
         if (nUnitType != 0)
         {
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB31), 0xD);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB31), 0xD);
             return 3;
         }
 
@@ -1024,30 +1024,30 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                 sub_00567020_StartTrade(pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
                 if (!PLRTRADE_AllocPlayerTrade(pGame, pPlayer))
                 {
-                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB65), 0xC);
-                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB66), 0xC);
+                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB65), 0xC);
+                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB66), 0xC);
                     return 0;
                 }
 
                 if (!PLRTRADE_AllocPlayerTrade(pGame, pInteractPlayer))
                 {
                     PLRTRADE_Free(pGame, pPlayer);
-                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB6D), 0xC);
-                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB6E), 0xC);
+                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB6D), 0xC);
+                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB6E), 0xC);
                     return 0;
                 }
 
                 D2GSPacketSrv78 tPacket78;
                 tPacket78.nHeader = 0x78;
-                memcpy(tPacket78.szName, CLIENTS_GetName(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB76)), sizeof(tPacket78.szName));
+                memcpy(tPacket78.szName, CLIENTS_GetName(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB76)), sizeof(tPacket78.szName));
                 tPacket78.szName[15] = 0;
                 tPacket78.dwPlayerGUID = pInteractPlayer->dwUnitId;
-                sub_0053CAD0_SendPacket0x78(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB79), &tPacket78);
+                sub_0053CAD0_SendPacket0x78(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB79), &tPacket78);
 
-                memcpy(tPacket78.szName, CLIENTS_GetName(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB7A)), sizeof(tPacket78.szName));
+                memcpy(tPacket78.szName, CLIENTS_GetName(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB7A)), sizeof(tPacket78.szName));
                 tPacket78.szName[15] = 0;
                 tPacket78.dwPlayerGUID = pPlayer->dwUnitId;
-                sub_0053CAD0_SendPacket0x78(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB7D), &tPacket78);
+                sub_0053CAD0_SendPacket0x78(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xB7D), &tPacket78);
                 break;
             }
             case 8:
@@ -1072,8 +1072,8 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                     if (pTrade)
                     {
                         pTrade->nGoldInTrade = nGold;
-                        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBC3), nGold, 0);
-                        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBC4), nGold, 1);
+                        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBC3), nGold, 0);
+                        D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBC4), nGold, 1);
                     }
                 }
                 break;
@@ -1090,17 +1090,17 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
                     if (pPlayerData->dwTradeState != 3)
                     {
-                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBD2), 6);
+                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBD2), 6);
                         return 0;
                     }
 
                     if (INVENTORY_GetCursorItem(pPlayer->pInventory))
                     {
-                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBD7), 6);
+                        D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBD7), 6);
                         return 0;
                     }
 
-                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBDC), 5);
+                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBDC), 5);
                     if (pPlayerData->dwTradeState != 3)
                     {
                         return 0;
@@ -1119,7 +1119,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                 }
                 else
                 {
-                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBEE), 6);
+                    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBEE), 6);
                 }
                 break;
             }
@@ -1133,8 +1133,8 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                 {
                     pInteractPlayerData->dwTradeState = 3;
                 }
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBFD), 6);
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBFE), 6);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBFD), 6);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pInteractPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xBFE), 6);
                 break;
             }
             default:
@@ -1145,13 +1145,13 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
         {
             if (!sub_00597A20_IsBusy(pGame, pPlayer))
             {
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC06), 0xC);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC06), 0xC);
             }
         }
         return 0;
     }
 
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC0C), 0xC);
+    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC0C), 0xC);
     return 0;
 }
 

@@ -50,7 +50,7 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
@@ -870,7 +870,7 @@ static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
     if (!pOther || pOther == pWeapon)
         return 0;
 
-    if (!ITEMS_CheckItemTypeId(pOther, 45))
+    if (!ITEMSIsA(pOther, 45))
         return 0;
 
     if (!sub_0062A4E0_TestItem(pWeapon) || !sub_0062A4E0_TestItem(pOther))
@@ -901,7 +901,7 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
     D2UnitStrc* pOther = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc == 4 ? 5 : 4);
     if (pOther && pOther != pWeapon)
     {
-        if (ITEMS_CheckItemTypeId(pOther, 45))
+        if (ITEMSIsA(pOther, 45))
         {
             if (sub_0062A4E0_TestItem(pWeapon) && sub_0062A4E0_TestItem(pOther))
             {
@@ -928,11 +928,11 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
         return 0;
 
     D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (!sub_0062A4E0_TestItem(pRight) || ITEMS_CheckItemTypeId(pRight, 38))
+    if (!sub_0062A4E0_TestItem(pRight) || ITEMSIsA(pRight, 38))
         pRight = 0;
 
     D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (!sub_0062A4E0_TestItem(pLeft) || ITEMS_CheckItemTypeId(pLeft, 38))
+    if (!sub_0062A4E0_TestItem(pLeft) || ITEMSIsA(pLeft, 38))
         pLeft = 0;
 
     if (pRight && pLeft)

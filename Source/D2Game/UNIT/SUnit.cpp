@@ -543,7 +543,7 @@ void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pC
 }
 
 // 0x005531C0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine)
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine)
 {
     if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
     {

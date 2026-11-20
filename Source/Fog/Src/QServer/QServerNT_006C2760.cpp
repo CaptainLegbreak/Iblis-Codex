@@ -30,10 +30,10 @@ extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError();
 long __fastcall sub_006BE640_AddReference(T006BE350* pServer, T006BFAD0* pClient);                         // 0x006BE640
 
-static __declspec(noinline) int sub_006C2760_BeginWrite(T006BE350* pServer, T006BFAD0* pClient);
+static __declspec(noinline) int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* pClient);
 
 // 0x006C2760
-static int sub_006C2760_BeginWrite(T006BE350* pServer, T006BFAD0* pClient)
+static int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* pClient)
 {
     if (!pClient->f_74)
     {
@@ -113,7 +113,7 @@ int __fastcall sub_006C2C70_SendLocal(T006BE350 * pQServer, T006BFAD0 * pQServer
       }
       if (nBytesSent < (unsigned int)nSize) {
         sub_006C23B0_AppendPacket(pQServerClient, nSize - nBytesSent, pBytes + nBytesSent);
-        sub_006C2760_BeginWrite(pQServer, pQServerClient);
+        sQSNTWriteFromQueue(pQServer, pQServerClient);
       }
     }
 

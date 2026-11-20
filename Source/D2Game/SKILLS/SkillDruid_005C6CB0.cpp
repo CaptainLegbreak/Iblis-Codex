@@ -188,7 +188,7 @@ void __fastcall sub_6FCFE0E0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2Ski
         }
     }
 
-    UNITS_UpdateAnimRateAndVelocity(pUnit, gszSkillDruidSourceFile, 248);
+    UnitUpdateAnimRateAndVel(pUnit, gszSkillDruidSourceFile, 248);
 }
 
 // 0x005C6DC0
@@ -232,7 +232,7 @@ void __fastcall sub_6FCFE200(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2Ski
         }
     }
 
-    UNITS_UpdateAnimRateAndVelocity(pUnit, gszSkillDruidSourceFile, 300);
+    UnitUpdateAnimRateAndVel(pUnit, gszSkillDruidSourceFile, 300);
 }
 
 // 0x005C7040

@@ -118,7 +118,7 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
@@ -347,7 +347,7 @@ static void sub_00581B50_TeleportToUnit(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, 
     {
         D2DrlgCoordsStrc tRoomCoords;
         DUNGEON_GetRoomCoordinates(pRoom, &tRoomCoords);
-        D2GAME_PACKETS_SendPacket0x07_6FC3D120(SUNIT_GetClientFromPlayer(pPlayer, gszObjModeSourceFile_006E1970, 865), DUNGEON_GetLevelIdFromRoom(pRoom), tRoomCoords.nTileXPos, tRoomCoords.nTileYPos);
+        D2GAME_PACKETS_SendPacket0x07_6FC3D120(UnitGetClient(pPlayer, gszObjModeSourceFile_006E1970, 865), DUNGEON_GetLevelIdFromRoom(pRoom), tRoomCoords.nTileXPos, tRoomCoords.nTileYPos);
         UNITROOM_RefreshUnit(pPlayer);
         if (pPlayer)
         {
@@ -742,7 +742,7 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
             return 1;
         }
 
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszObjModeSourceFile_006E1970, 0x1135);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszObjModeSourceFile_006E1970, 0x1135);
         packet58.nHeader = 0x58;
         packet58.nUnitId = nObjectGUID;
         const int nAnimMode = pObject->dwAnimMode;

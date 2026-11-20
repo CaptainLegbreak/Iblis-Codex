@@ -49,7 +49,7 @@ struct D2GSPacketSrv5D { unsigned char header,id,flags,state; unsigned short rem
 extern const char gszQuestsSourceFile[]; // 0x006E0BE4
 
 
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 D2RoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2RoomStrc*); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int); // 0x006427F0
@@ -138,7 +138,7 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
 {
  D2QuestDataStrc* quest=GetQuest(game,id);
  if(!quest) return;
- D2ClientStrc* client=SUNIT_GetClientFromPlayer(player,gszQuestsSourceFile,1406);
+ D2ClientStrc* client=UnitGetClient(player,gszQuestsSourceFile,1406);
  D2RoomStrc* room=UNITS_GetRoom(player);
  if(!room) return;
  int level=DUNGEON_GetLevelIdFromRoom(room);

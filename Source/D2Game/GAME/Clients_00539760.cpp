@@ -73,7 +73,7 @@ static void __stdcall sub_00537930_SendPlayerAssign(D2ClientStrc* pClient, D2Uni
 }
 
 // 0x00539760
-int __fastcall CLIENTS_AddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY)
+int __fastcall ClientAddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
     D2UnitStrc* pPlayer = 0;
     D2_ASSERT(pGame, 0x23F);

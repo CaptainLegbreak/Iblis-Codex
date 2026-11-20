@@ -93,7 +93,7 @@ static __forceinline void CLIENTS_UnlinkName(char* szName)
 }
 
 // 0x00539DA0
-void __fastcall CLIENTS_RemoveClientFromGame(D2GameStrc* pGame,void* hClientId,int bTriggerSave)
+void __fastcall ClientRemoveFromGame(D2GameStrc* pGame,void* hClientId,int bTriggerSave)
 {
  D2_ASSERT(pGame,0x49F);
  D2ClientStrc* pClient=CLIENTS_GetClientFromClientId(pGame,(int)hClientId);

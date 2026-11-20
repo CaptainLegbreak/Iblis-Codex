@@ -14,7 +14,7 @@ int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
 int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
-void __stdcall sub_00601650_DrawCelClipped(D2CelContextStrc* pContext, int nX, int nY, int nOriginX, int nModeWidth, unsigned char* pBuffer, int nHeight, int nWidth, int nArg9, unsigned char* pCaps, int nSkipTop, int nDrawHeight, int nArg13); // 0x00601650
+void __stdcall CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nOriginX, int nModeWidth, unsigned char* pBuffer, int nHeight, int nWidth, int nArg9, unsigned char* pCaps, int nSkipTop, int nDrawHeight, int nArg13); // 0x00601650
 extern int gnScreenHeight_007C913C; // 0x007C913C
 
 struct D2GfxPaletteView006C85A0Strc
@@ -27,7 +27,7 @@ struct D2GfxPaletteView006C85A0Strc
     unsigned char* pMode7Table;
 };
 
-void __stdcall sub_00601730_DrawCelShadow(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, unsigned char* pShadowTable, int nArg10); // 0x00601730
+void __stdcall CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, unsigned char* pShadowTable, int nArg10); // 0x00601730
 int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50
 extern D2GfxPaletteView006C85A0Strc* gpGfxPaletteView_007C9150; // 0x007C9150
 
@@ -83,7 +83,7 @@ void __fastcall sub_006C86A0_DrawImageRows(D2CelContextStrc* pContext, int nX, i
     if (sub_006C86A0_IsCelOffScreen(pContext->pCel, nX, nY, 0))
         return;
 
-    sub_00601650_DrawCelClipped(pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C, gpScreenBuffer_007C9154,
+    CelDrawEx(pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C, gpScreenBuffer_007C9154,
         gnScreenHeight_007C913C, gnScreenWidth_007C9138, 0, (unsigned char*)sub_006C8250_GetSetting(nDrawMode, &nDrawHeight),
         nSkipTop, nDrawHeight, 0);
 }
@@ -124,6 +124,6 @@ void __fastcall sub_006C87E0_DrawShadow(void* pData, int nX, int nY)
     if (sub_006C8A50_GetBlendedShadows())
         pShadowTable = gpGfxPaletteView_007C9150->pShadowTable;
 
-    sub_00601730_DrawCelShadow(pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
+    CelDrawShadow(pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
         gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, pShadowTable, 0);
 }

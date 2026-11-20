@@ -67,7 +67,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 int __stdcall ITEMS_GetMissileType(D2UnitStrc*); // 0x006288A0
 short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc*); // 0x00629860
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc*); // 0x006298A0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall STATES_CheckState(D2UnitStrc*,int); // 0x00639DF0
 D2UnitStrc* __stdcall sub_0063BEF0(D2InventoryStrc*); // 0x0063BEF0
@@ -90,7 +90,7 @@ void __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMin,
         if (!pItem) return;
     }
     if (!ITEMS_CheckIfThrowable(pItem)) return;
-    if (ITEMS_CheckItemTypeId(pItem,38)) {
+    if (ITEMSIsA(pItem,38)) {
         int nMissile=ITEMS_GetMissileType(pItem);
         *pColor=0;
         int nMin=MISSILE_GetMinDamage(0,pUnit,nMissile,1);

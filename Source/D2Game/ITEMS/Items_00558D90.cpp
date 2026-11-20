@@ -65,7 +65,7 @@ void __fastcall ITEMS_ScheduleDurabilityReplenishment(D2GameStrc* pGame, D2UnitS
 void __fastcall ITEMS_ScheduleQuantityReplenishment(D2GameStrc* pGame, D2UnitStrc* pUnit);                  // 0x00558580
 void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat, int nValue);               // 0x00530EA0
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, int nFlag);                                         // 0x00538670
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
@@ -75,7 +75,7 @@ void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSe
 unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem);                                               // 0x00628110
 void __stdcall ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel);                                       // 0x00628220
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage);                                    // 0x00628280
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem);                                            // 0x0062A670
 void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat);                          // 0x0062A6C0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
@@ -147,7 +147,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
         ITEMS_SetItemFlag(pItem, 0x10, sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x10));
         ITEMS_SetItemFlag(pItem, 0x1000, sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x1000));
 
-        if (!ITEMS_GetItemFormat(pItem) && !ITEMS_CheckItemTypeId(pItem, 3) && sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x800) && !sub_006287A0_TestFlags(ITEMS_GetItemFlags(pItem), 0x800))
+        if (!ITEMS_GetItemFormat(pItem) && !ITEMSIsA(pItem, 3) && sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x800) && !sub_006287A0_TestFlags(ITEMS_GetItemFlags(pItem), 0x800))
         {
             if (ITEMS_GetMaxSockets(pItem))
             {
@@ -204,7 +204,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
             ITEMS_SetEarName(pItem, pPlayerData->szName);
             ITEMS_SetEarLevel(pItem, STATLIST_UnitGetStatValue(pItemDrop->pUnit, 12, 0));
 
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pItemDrop->pUnit, ".\\ITEMS\\Items.cpp", 0x880);
+            D2ClientStrc* pClient = UnitGetClient(pItemDrop->pUnit, ".\\ITEMS\\Items.cpp", 0x880);
             if (pClient)
             {
                 ITEMS_SetItemFlag(pItem, 0x8000, CLIENTS_CheckFlag(pClient, 4));

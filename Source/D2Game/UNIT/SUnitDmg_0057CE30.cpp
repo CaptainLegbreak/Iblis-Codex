@@ -63,7 +63,7 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-void __fastcall D2GAME_PLAYERMODE_Change_6FC81A00(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
+void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
@@ -196,7 +196,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
                 if (pSkill)
                 {
                     SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
-                    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, pSkill, 0x0D, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                    StartModeID(pGame, pUnit, pSkill, 0x0D, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
                 }
             }
             return;
@@ -210,7 +210,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
                 if (pSkill)
                 {
                     SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
-                    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, pSkill, 0x0D, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                    StartModeID(pGame, pUnit, pSkill, 0x0D, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
                 }
             }
             return;
@@ -253,13 +253,13 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         {
             if (pUnit && pUnit->dwAnimMode != 0 && pUnit->dwAnimMode != 0x11)
             {
-                D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, 0, 0, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                StartModeID(pGame, pUnit, 0, 0, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
             }
             return;
         }
         else if (pDamage->wResultFlags & 0x08)
         {
-            D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, 0, 0x13, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+            StartModeID(pGame, pUnit, 0, 0x13, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
             return;
         }
         else

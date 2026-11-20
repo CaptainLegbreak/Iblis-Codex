@@ -93,11 +93,11 @@ int __stdcall sub_0052B4F0(int nClientId, int a2, int a3);                      
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
 void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char* szMessage);               // 0x0052F4C0
-void __fastcall GAME_DisconnectClientById(int nClientId, int nEventType);                                   // 0x00530270
+void __fastcall SrvDisconnectClientById(int nClientId, int nEventType);                                   // 0x00530270
 int __fastcall sub_005381C0(D2GameStrc* pGame, int nClientId);                         // 0x005381C0
 void __fastcall CLIENTS_UpdatePing(int nClientId, int a2, int a3, int a4);                                  // 0x005389A0
 int __fastcall CLIENTS_GetClientIdByName(const char* szClientName);                                         // 0x00538BF0
-void __fastcall CLIENTS_RemoveClientFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);           // 0x00539DA0
+void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);           // 0x00539DA0
 void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc* pUnit);                   // 0x005433F0
 int __stdcall DUNGEON_TestRoomCanUnTile(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom);                      // 0x0061A3F0
 int __stdcall D2Common_10081_GetTileCountFromRoom(D2ActiveRoomStrc* pRoom);                                 // 0x0061A790
@@ -181,7 +181,7 @@ int __fastcall sub_0052C570_RemoveClientFromGame(D2GameStrc* pGame, int nClientI
 {
     if (pGame && sub_005381C0(pGame, nClientId))
     {
-        CLIENTS_RemoveClientFromGame(pGame, nClientId, 1);
+        ClientRemoveFromGame(pGame, nClientId, 1);
     }
 
     return sub_0052B4F0(nClientId, a3, a4);
@@ -483,7 +483,7 @@ int __stdcall sub_005300F0_RemoveClientById(int nClientId, int a2, int a3)
         {
             if (sub_005381C0(pGame, nClientId))
             {
-                CLIENTS_RemoveClientFromGame(pGame, nClientId, 1);
+                ClientRemoveFromGame(pGame, nClientId, 1);
             }
 
             D2_ASSERT(pGame->lpCriticalSection, 4196);
@@ -502,7 +502,7 @@ int __stdcall GAME_DisconnectClientByName(const char* szClientName, int nEventTy
         return 0;
     }
 
-    GAME_DisconnectClientById(nClientId, nEventType);
+    SrvDisconnectClientById(nClientId, nEventType);
     return 1;
 }
 

@@ -127,7 +127,7 @@ int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 extern void* gpGlobal_007C02DC; // 0x007C02DC
 extern void* gpGlobal_007C02E0; // 0x007C02E0
@@ -801,7 +801,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
     tContext.unk0x40 = 0;
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
-    const int nCelWidth = sub_006018C0(D2CMP_CelGetHandle(&tContext));
+    const int nCelWidth = sub_006018C0(CelGetHandle(&tContext));
     const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF92));
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -826,7 +826,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
         else
             tContext.nFrame = 0;
     }
-    sub_006018C0(D2CMP_CelGetHandle(&tContext));
+    sub_006018C0(CelGetHandle(&tContext));
     sub_00501820(D2LANG_GetStringFromTblIndex(0xF92));
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -860,7 +860,7 @@ void __cdecl sub_004A6E60_DrawRightPanelButtons()
     tContext.unk0x40 = 0;
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
-    const int nCelWidth = sub_006018C0(D2CMP_CelGetHandle(&tContext));
+    const int nCelWidth = sub_006018C0(CelGetHandle(&tContext));
     const int nTextWidth = sub_00501820(D2LANG_GetStringFromTblIndex(0xF93));
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -885,7 +885,7 @@ void __cdecl sub_004A6E60_DrawRightPanelButtons()
         else
             tContext.nFrame = 0;
     }
-    sub_006018C0(D2CMP_CelGetHandle(&tContext));
+    sub_006018C0(CelGetHandle(&tContext));
     sub_00501820(D2LANG_GetStringFromTblIndex(0xF93));
     if (D2GFX_GetResolutionMode() != 2)
     {

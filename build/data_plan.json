@@ -5229,7 +5229,7 @@
     "extern \"C\" void __cdecl sub_00580BE0(); // 0x00580BE0",
     "extern \"C\" void __cdecl sub_00581020(); // 0x00581020",
     "extern \"C\" void __cdecl sub_005811D0_CheckPlayerMode(); // 0x005811D0",
-    "extern \"C\" void __cdecl sub_005689D0(); // 0x005689D0",
+    "extern \"C\" void __cdecl PlayerTradeUpdate(); // 0x005689D0",
     "extern \"C\" void __cdecl PLRMODE_StartID_AttackCastThrowKickSpecialSequence(); // 0x0057FEF0",
     "extern \"C\" void __cdecl PLRMODE_StartID_Death(); // 0x00580EC0",
     "extern \"C\" void __cdecl PLRMODE_StartID_WalkRunKnockback(); // 0x0057F190",
@@ -104324,7 +104324,7 @@
      52,
      "0x005689D0",
      "source",
-     "sub_005689D0",
+     "PlayerTradeUpdate",
      0,
      "func"
     ]

@@ -110,7 +110,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 extern const D2ElemDamageStatsStrc gaElemDamageStats_006DBEF4[4]; // 0x006DBEF4
 int __stdcall ITEMS_GetMissileType(D2UnitStrc*); // 0x006288A0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall MISSILE_GetMinDamage(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064AF20
 int __stdcall MISSILE_GetMaxDamage(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064AFF0
@@ -591,7 +591,7 @@ void __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMin,
         if (!pItem) return;
     }
     if (!ITEMS_CheckIfThrowable(pItem)) return;
-    if (ITEMS_CheckItemTypeId(pItem,38)) {
+    if (ITEMSIsA(pItem,38)) {
         int nMissile=ITEMS_GetMissileType(pItem);
         *pColor=0;
         int nMin=MISSILE_GetMinDamage(0,pUnit,nMissile,1);

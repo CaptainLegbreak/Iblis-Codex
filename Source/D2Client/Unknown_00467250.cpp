@@ -233,7 +233,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         break;
 
     case 2:
-        if (UNITS_IsDoor(pUnit) && pUnit->dwAnimMode != 4)
+        if (UnitIsDoor(pUnit) && pUnit->dwAnimMode != 4)
         {
             const unsigned int dwNow = GetTickCount();
             if (dwNow - pUnit->dwTickCount > 0x1F4)

@@ -11,11 +11,11 @@ int __fastcall sub_005381C0(D2GameStrc* pGame, int nClientId);                  
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nState);                                  // 0x005386D0
 void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY);
 int __fastcall sub_00539760(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY);
-void __fastcall CLIENTS_RemoveClientFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);           // 0x00539DA0
+void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);           // 0x00539DA0
 void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nReason);           // 0x0053B260
 
 // 0x00530190
-void __fastcall GAME_SendActInit(int nClientId)
+void __fastcall SrvJoinAct(int nClientId)
 {
     D2ClientStrc* pClient;
     const int nGameGUID = SERVER_GetClientGameGUID(nClientId);
@@ -33,7 +33,7 @@ void __fastcall GAME_SendActInit(int nClientId)
             if (nErrorCode)
             {
                 D2GAME_PACKETS_SendSystemError(nClientId, nErrorCode);
-                CLIENTS_RemoveClientFromGame(pGame, nClientId, 1);
+                ClientRemoveFromGame(pGame, nClientId, 1);
                 sub_0052B4F0(nClientId, (int)".\\GAME\\Game.cpp", 0x672);
                 GAME_LeaveGamesCriticalSection(pGame);
                 return;

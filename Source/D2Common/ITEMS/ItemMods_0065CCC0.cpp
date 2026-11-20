@@ -30,7 +30,7 @@ void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nVal
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem);                                                 // 0x00627D90
 int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem);                                                         // 0x00628590
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem);                                            // 0x0062A670
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem);                                                    // 0x0062BA80
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
@@ -79,7 +79,7 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
         {
         case 16:
         case 31:
-            if (ITEMS_CheckItemTypeId(pItem, 50) && pItemsTxtRecord->dwMaxAc)
+            if (ITEMSIsA(pItem, 50) && pItemsTxtRecord->dwMaxAc)
             {
                 int nValue = STATLIST_GetUnitBaseStat(pItem, 31, 0) + 1;
                 if (nValue <= pItemsTxtRecord->dwMaxAc)
@@ -93,7 +93,7 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
 
         case 17:
         case 22:
-            if (ITEMS_CheckItemTypeId(pItem, 45))
+            if (ITEMSIsA(pItem, 45))
             {
                 if (pItemsTxtRecord->nMaxDam)
                 {
@@ -114,7 +114,7 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
 
         case 18:
         case 21:
-            if (ITEMS_CheckItemTypeId(pItem, 45))
+            if (ITEMSIsA(pItem, 45))
             {
                 if (pItemsTxtRecord->nMinDam)
                 {
@@ -455,17 +455,17 @@ int __fastcall sub_0065D650_AddMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStr
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem ? pItem->dwClassId : -1);
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 45) || pItemsTxtRecord->nMinDam || !pItemsTxtRecord->n2HandMinDam)
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMinDam || !pItemsTxtRecord->n2HandMinDam)
     {
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 21, nApplyType, nState, fStatList);
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 45) || pItemsTxtRecord->n2HandMinDam || !pItemsTxtRecord->nMinDam)
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->n2HandMinDam || !pItemsTxtRecord->nMinDam)
     {
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 23, nApplyType, nState, fStatList);
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
+    if (!ITEMSIsA(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
     {
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 159, nApplyType, nState, fStatList);
     }
@@ -508,17 +508,17 @@ int __fastcall sub_0065D7D0_AddMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStr
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem ? pItem->dwClassId : -1);
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 45) || pItemsTxtRecord->nMaxDam || !pItemsTxtRecord->n2HandMaxDam)
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMaxDam || !pItemsTxtRecord->n2HandMaxDam)
     {
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 22, nApplyType, nState, fStatList);
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 45) || pItemsTxtRecord->n2HandMaxDam || !pItemsTxtRecord->nMinDam)
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->n2HandMaxDam || !pItemsTxtRecord->nMinDam)
     {
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 24, nApplyType, nState, fStatList);
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
+    if (!ITEMSIsA(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
     {
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 160, nApplyType, nState, fStatList);
     }
@@ -575,7 +575,7 @@ int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2Uni
             nMaxDam = pItemsTxtRecord->nMaxDam;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, 45) && nMaxDam + (nValue * nMaxDam) / 100 <= nMaxDam)
+        if (ITEMSIsA(pItem, 45) && nMaxDam + (nValue * nMaxDam) / 100 <= nMaxDam)
         {
             if (pItemsTxtRecord->nMinDam)
             {
@@ -632,13 +632,13 @@ int __fastcall sub_0065DE40_AddStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc
             pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem ? pItem->dwClassId : -1);
         }
 
-        if (!ITEMS_CheckItemTypeId(pItem, 45) || pItemsTxtRecord->nMaxDam || !pItemsTxtRecord->n2HandMaxDam)
+        if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMaxDam || !pItemsTxtRecord->n2HandMaxDam)
         {
             sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 21, nApplyType, nState, fStatList);
             sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMax, 22, nApplyType, nState, fStatList);
         }
 
-        if (!ITEMS_CheckItemTypeId(pItem, 45) || pItemsTxtRecord->n2HandMaxDam || !pItemsTxtRecord->nMinDam)
+        if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->n2HandMaxDam || !pItemsTxtRecord->nMinDam)
         {
             sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 23, nApplyType, nState, fStatList);
             sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMax, 24, nApplyType, nState, fStatList);

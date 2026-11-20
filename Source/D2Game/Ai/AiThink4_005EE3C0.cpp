@@ -26,7 +26,7 @@ void __fastcall ACT5Q2_UpdateQuestState(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); //
 void __fastcall TARGETS_InsertUnitNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00588DD0
 extern const char gszAiThink4[]; // 0x006E3500
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 void __fastcall sub_0053DFF0(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
 // build: context SEED_RollRandomNumber
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -93,7 +93,7 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
                     packet.type = 1;
                     const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
                     packet.guid = nUnitGUID;
-                    sub_0053DFF0(SUNIT_GetClientFromPlayer(pPlayer,gszAiThink4,0x14FF),&packet);
+                    sub_0053DFF0(UnitGetClient(pPlayer,gszAiThink4,0x14FF),&packet);
                 }
             }
         }

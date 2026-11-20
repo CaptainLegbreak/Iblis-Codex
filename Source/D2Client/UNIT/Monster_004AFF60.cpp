@@ -1025,7 +1025,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         {
             STATLIST_DeactivateTemporaryStates(pUnit);
             STATLIST_AddUnitStat(pUnit, 0x43, pCommand->nParam10 - nVelocity, 0);
-            UNITS_UpdateAnimRateAndVelocity(pUnit, gszMonsterSourceFile_006DA5C8, 0x946);
+            UnitUpdateAnimRateAndVel(pUnit, gszMonsterSourceFile_006DA5C8, 0x946);
         }
     }
 

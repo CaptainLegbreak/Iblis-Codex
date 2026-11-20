@@ -21,7 +21,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x8B_6FC3F810(D2ClientStrc* pClient, int nUnitGUID, unsigned char nPartyState); // 0x0053DDC0
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg);       // 0x005538D0
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -81,7 +81,7 @@ void __fastcall PLAYERLIST_SendPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
     D2PlayerListStrc* pPlayerList = sub_0055B110(pPlayer1, pPlayer2);
     if ((!pPlayer1 ? -1 : pPlayer1->dwUnitId) != (!pPlayer2 ? -1 : pPlayer2->dwUnitId) && pPlayerList)
     {
-        D2GAME_PACKETS_SendPacket0x8B_6FC3F810(SUNIT_GetClientFromPlayer(pPlayer1, ".\\UNIT\\PlayerList.cpp", 0x10B), !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->field_C);
+        D2GAME_PACKETS_SendPacket0x8B_6FC3F810(UnitGetClient(pPlayer1, ".\\UNIT\\PlayerList.cpp", 0x10B), !pPlayer2 ? -1 : pPlayer2->dwUnitId, pPlayerList->field_C);
     }
 }
 

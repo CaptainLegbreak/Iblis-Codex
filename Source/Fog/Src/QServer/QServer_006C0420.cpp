@@ -51,7 +51,7 @@ struct D2QSrvAutoLock
 };
 
 // 0x006C0420
-void __fastcall sub_006C0420_DisconnectClient(D2QSrvServerStrc* pServer, int nKey, const char* szFile, int nLine)
+void __fastcall QSrvCloseRemoteConnection(D2QSrvServerStrc* pServer, int nKey, const char* szFile, int nLine)
 {
     D2QSrvAutoLock tLock(&pServer->tLock);
 

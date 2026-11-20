@@ -143,7 +143,7 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
@@ -222,7 +222,7 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int* pCharges, D2StatListStrc** ppStatList); // 0x0065C820
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer, D2UnitStrc* pItem); // 0x00627220
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __fastcall D2GAME_SKILLS_BloodMana_6FD025E0(D2UnitStrc* pUnit, int nManaCost); // 0x005D2B60
@@ -838,7 +838,7 @@ static int __stdcall sub_0056BEC0_SpendItemCharge(D2GameStrc* pGame, D2SkillStrc
     nCharges = nNewCharges;
     const int nNewValue = (nNewCharges & 0xFF) + (nMaxCharges << 8);
     STATLIST_SetBaseStat2(pStatList, STAT_ITEM_CHARGED_SKILL, nNewValue, nLayer, pItem);
-    D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(SUNIT_GetClientFromPlayer(pPlayer, ".\\SKILLS\\Skills.cpp", 933), pItem, 1, STAT_ITEM_CHARGED_SKILL, nNewValue, nLayer);
+    D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pPlayer, ".\\SKILLS\\Skills.cpp", 933), pItem, 1, STAT_ITEM_CHARGED_SKILL, nNewValue, nLayer);
     return 1;
 }
 
@@ -955,7 +955,7 @@ int __fastcall sub_6FD118C0(D2GameStrc* pGame, D2UnitStrc* pUnit)
         D2UnitStrc* pWeapon = sub_6FC7C7B0(pUnit);
         int bNoBow = 1;
 
-        if (ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_BOW) || ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_CROSSBOW))
+        if (ITEMSIsA(pWeapon, ITEMTYPE_BOW) || ITEMSIsA(pWeapon, ITEMTYPE_CROSSBOW))
         {
             bNoBow = 0;
         }
@@ -1490,12 +1490,12 @@ int __fastcall sub_0056D5F0_SpawnItemInFreeHand(D2GameStrc* pGame, D2UnitStrc* p
             nBodyLoc = BODYLOC_RARM;
             bEquip = 1;
         }
-        else if (!pRightArmItem && pLeftArmItem && !ITEMS_CheckWeaponIfTwoHanded(pLeftArmItem) && !ITEMS_CheckItemTypeId(pLeftArmItem, ITEMTYPE_WEAPON))
+        else if (!pRightArmItem && pLeftArmItem && !ITEMS_CheckWeaponIfTwoHanded(pLeftArmItem) && !ITEMSIsA(pLeftArmItem, ITEMTYPE_WEAPON))
         {
             nBodyLoc = BODYLOC_RARM;
             bEquip = 1;
         }
-        else if (!pLeftArmItem && pRightArmItem && !ITEMS_CheckWeaponIfTwoHanded(pRightArmItem) && !ITEMS_CheckItemTypeId(pRightArmItem, ITEMTYPE_WEAPON))
+        else if (!pLeftArmItem && pRightArmItem && !ITEMS_CheckWeaponIfTwoHanded(pRightArmItem) && !ITEMSIsA(pRightArmItem, ITEMTYPE_WEAPON))
         {
             nBodyLoc = BODYLOC_LARM;
             bEquip = 1;
@@ -1824,7 +1824,7 @@ void __fastcall SKILLS_ApplyAttackRateModifier(D2UnitStrc* pUnit, int nAttackRat
     {
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATLIST_SetStat(pStatList, STAT_ATTACKRATE, nAttackRate, 0);
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\Skills.cpp", 0x12AB);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 0x12AB);
     }
 }
 
@@ -1924,7 +1924,7 @@ void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
     if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskStayDeathOnUnitByStateId(pUnit, nState))
     {
         STATES_ToggleState(pUnit, nState, 0);
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\Skills.cpp", 1157);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 1157);
         SKILLS_RefreshPassiveSkills(pUnit);
 
         if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
@@ -2200,7 +2200,7 @@ int __fastcall SKILLS_SrvDo003_Throw(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     const int nMissileType = ITEMS_GetMissileType(pWeapon);
 
     D2UnitStrc* pMissile;
-    if (ITEMS_CheckItemTypeId(pWeapon, 38))
+    if (ITEMSIsA(pWeapon, 38))
     {
         pMissile = sub_6FD11710(pGame, nMissileType, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 1);
     }
@@ -2254,7 +2254,7 @@ int __fastcall SKILLS_SrvDo005_LeftHandThrow(D2GameStrc* pGame, D2UnitStrc* pUni
     const int nMissileType = ITEMS_GetMissileType(pWeapon);
 
     D2UnitStrc* pMissile;
-    if (ITEMS_CheckItemTypeId(pWeapon, 38))
+    if (ITEMSIsA(pWeapon, 38))
     {
         pMissile = sub_6FD11710(pGame, nMissileType, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 1);
     }
@@ -2369,7 +2369,7 @@ void __fastcall sub_00570360(D2GameStrc* pGame, D2UnitStrc* pUnit)
         {
             nSkillPoints += SKILLS_GetSkillLevel(pUnit, pSkill, 0);
             D2GAME_SetSkills_6FD14C60(pUnit, nSkillId, 0, 1);
-            D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(SUNIT_GetClientFromPlayer(pUnit, ".\\SKILLS\\Skills.cpp", 4257), pUnit, nSkillId, 0, 1);
+            D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(UnitGetClient(pUnit, ".\\SKILLS\\Skills.cpp", 4257), pUnit, nSkillId, 0, 1);
         }
     }
 

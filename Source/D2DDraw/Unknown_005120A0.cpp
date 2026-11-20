@@ -95,7 +95,7 @@ int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsign
         if (nPalette)
             pPaletteTable = gpDDrawCaps_007C9150->pPaletteTables[nPalette];
 
-        sub_006014C0((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
+        CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
             gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPaletteTable);
     }
     return 1;

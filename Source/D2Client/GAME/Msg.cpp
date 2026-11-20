@@ -35,7 +35,7 @@ extern int gnSentBytes_007A6AF8; // 0x007A6AF8
 extern int gnSentPackets_007A6B00; // 0x007A6B00
 extern int gnProgress_007BB3B4; // 0x007BB3B4
 
-int __stdcall D2CMP_CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
+int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 extern D2RosterPetNodeStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
 // 0x00478040
@@ -119,7 +119,7 @@ void __fastcall sub_004781D0(int bAnimate)
 // 0x00478A00
 void __fastcall sub_00478A00(void* pCel)
 {
-    D2CMP_CelFileFreeHardware((D2CelFileStrc*)pCel);
+    CelFileFreeHardware((D2CelFileStrc*)pCel);
     if (pCel)
         FOG_Free(pCel, ".\\CORE\\ARCHIVE.CPP", 0x7A, 0);
 }

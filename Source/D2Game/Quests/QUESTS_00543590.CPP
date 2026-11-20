@@ -139,7 +139,7 @@ struct D2GSPacketSrv8A
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 void __fastcall D2GAME_SendPacket0x8A_6FC3FA60(D2ClientStrc* pClient, D2GSPacketSrv8A* pPacket); // 0x0053DFF0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
@@ -358,7 +358,7 @@ int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* pP
     T005438E0* pQuestControl = pGame->pQuestControl;
     D2_ASSERT(pQuestControl->unk0x08, 2036);
 
-    const unsigned char nAct = CLIENTS_GetActNo(SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 2038));
+    const unsigned char nAct = CLIENTS_GetActNo(UnitGetClient(pPlayer, gszQuestsSourceFile, 2038));
 
     for (D2QuestDataStrc* pQuestData = pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
     {
@@ -377,7 +377,7 @@ int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* pP
                     tPacket8A.nHeader = 0x8A;
                     tPacket8A.nUnitType = 1;
                     tPacket8A.dwUnitGUID = pNPC->dwUnitId;
-                    D2GAME_SendPacket0x8A_6FC3FA60(SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 2061), &tPacket8A);
+                    D2GAME_SendPacket0x8A_6FC3FA60(UnitGetClient(pPlayer, gszQuestsSourceFile, 2061), &tPacket8A);
                     return 1;
                 }
             }
@@ -409,7 +409,7 @@ int __fastcall sub_005451B0_HasFlaggedItem(D2UnitStrc* pUnit)
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    D2GAME_SendPacket0x28_6FC3F2F0(SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, LINE_UPDATEFLAGS_CLIENT), QUEST_FLAGS_PACKET, QUEST_FLAGS_KIND, 0, pQuestFlags, 0);
+    D2GAME_SendPacket0x28_6FC3F2F0(UnitGetClient(pUnit, gszQuestsSourceFile, LINE_UPDATEFLAGS_CLIENT), QUEST_FLAGS_PACKET, QUEST_FLAGS_KIND, 0, pQuestFlags, 0);
 }
 
 // 0x00546040
@@ -417,7 +417,7 @@ void __fastcall QUESTS_StatusCallback(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     QUESTS_UpdatePlayerFlags(pGame, pUnit);
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, LINE_STATUS_CLIENT);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, gszQuestsSourceFile, LINE_STATUS_CLIENT);
     D2GSPacketSrv52 packet52 = { PACKET_QUESTSTATUS };
 
     T005438E0* pQuestControl = pGame->pQuestControl;
@@ -502,7 +502,7 @@ void __fastcall QUESTS_StatusCallback(D2GameStrc* pGame, D2UnitStrc* pUnit)
 // build: symbol ?QUESTS_DeleteItemEx@@YGXPAUD2InventoryStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@2@Z 0x005440A0
 static void __stdcall QUESTS_DeleteItemEx(D2InventoryStrc* pInventory, D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 0x534);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 0x534);
     int nFlags = 0;
     ITEMS_SetOrRemoveFlag(&nFlags, 0x20, 1);
     const int nAnimMode = !pItem ? 0 : pItem->dwAnimMode;
@@ -607,7 +607,7 @@ void __fastcall QUESTS_ActChange_HirelingChangeAct(D2GameStrc* pGame, D2UnitStrc
             QUESTRECORD_SetQuestState(pQuestFlags, 7, 0);
             QUESTRECORD_SetQuestState(pQuestFlags, 7, 13);
             QUESTS_UpdatePlayerFlags(pGame, pUnit);
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, 0xAD3);
+            D2ClientStrc* pClient = UnitGetClient(pUnit, gszQuestsSourceFile, 0xAD3);
             if (pPlayerData->bBusy != 1)
             {
                 pPlayerData->bBusy = 1;
@@ -653,7 +653,7 @@ void __fastcall QUESTS_ActChange_HirelingChangeAct(D2GameStrc* pGame, D2UnitStrc
             QUESTRECORD_SetQuestState(pQuestFlags, 15, 13);
             sub_00544FA0_SetActNpcIntroFlags(pGame, pUnit, 1);
             QUESTS_UpdatePlayerFlags(pGame, pUnit);
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, 0xB0F);
+            D2ClientStrc* pClient = UnitGetClient(pUnit, gszQuestsSourceFile, 0xB0F);
             if (pPlayerData->bBusy != 1)
             {
                 pPlayerData->bBusy = 1;
@@ -669,7 +669,7 @@ void __fastcall QUESTS_ActChange_HirelingChangeAct(D2GameStrc* pGame, D2UnitStrc
             QUESTRECORD_SetQuestState(pQuestFlags, 28, 13);
             sub_00544FA0_SetActNpcIntroFlags(pGame, pUnit, 1);
             QUESTS_UpdatePlayerFlags(pGame, pUnit);
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, 0xB1F);
+            D2ClientStrc* pClient = UnitGetClient(pUnit, gszQuestsSourceFile, 0xB1F);
             if (pPlayerData->bBusy != 1)
             {
                 pPlayerData->bBusy = 1;
@@ -734,8 +734,8 @@ void __fastcall QUESTS_HellPortalActChange(D2GameStrc* pGame, D2UnitStrc* pPlaye
             QUESTRECORD_SetQuestState(pQuestFlags, 0x17, 13);
             sub_00544FA0_SetActNpcIntroFlags(pGame, pPlayer, 2);
             D2BitBufferStrc* pPlayerFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-            D2GAME_SendPacket0x28_6FC3F2F0(SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 0xCA7), 0x28, 6, 0, pPlayerFlags, 0);
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 0xB56);
+            D2GAME_SendPacket0x28_6FC3F2F0(UnitGetClient(pPlayer, gszQuestsSourceFile, 0xCA7), 0x28, 6, 0, pPlayerFlags, 0);
+            D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 0xB56);
             if (pPlayerData->bBusy != 1)
             {
                 pPlayerData->bBusy = 1;

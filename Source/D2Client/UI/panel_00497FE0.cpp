@@ -20,7 +20,7 @@ extern int gnGlobal_0071146C;                                                   
 D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);              // 0x0063BDE0
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);                                                    // 0x006289F0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem);                                                       // 0x0062E740
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 
@@ -107,7 +107,7 @@ found:
             if (ITEMS_HasDurability(pItem) && !ITEMS_CheckIfStackable(pItem))
             {
                 const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-                bType = ITEMS_CheckItemTypeId(pItem, 0x33);
+                bType = ITEMSIsA(pItem, 0x33);
                 nQuiverType = ITEMS_GetQuiverType(pItem);
                 if (nMaxDurability)
                 {

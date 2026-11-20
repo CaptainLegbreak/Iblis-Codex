@@ -55,7 +55,7 @@ struct D2GSPacketSrv21
 #pragma pack(pop)
 
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv7F
@@ -167,7 +167,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc
             return;
         }
 
-        pClient = SUNIT_GetClientFromPlayer(pOwner, ".\\GAME\\SCmd.cpp", 1298);
+        pClient = UnitGetClient(pOwner, ".\\GAME\\SCmd.cpp", 1298);
     }
 
     if (pClient)

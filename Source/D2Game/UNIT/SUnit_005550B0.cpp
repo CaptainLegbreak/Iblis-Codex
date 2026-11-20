@@ -24,7 +24,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc*,D2Coo
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 int __fastcall QUESTS_LevelWarpCheck(D2GameStrc*,D2UnitStrc*,int,int); // 0x00545B80
 int __fastcall sub_00554EA0_WarpUnit(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 void __fastcall sub_005809D0_ChangeMode(D2GameStrc*,D2UnitStrc*,D2SkillStrc*,int,int,int,int); // 0x005809D0
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc*); // 0x00621F20
 void __fastcall sub_0053B4B0(D2ClientStrc*,unsigned char,unsigned char,int,unsigned char,unsigned short,unsigned short,unsigned char,unsigned char); // 0x0053B4B0
@@ -98,7 +98,7 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2
     int nY = point.nY;
     if (sub_00554EA0_WarpUnit(pGame,pPlayer,pTargetRoom,nX,nY,0,0))
     {
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer,".\\UNIT\\SUnit.cpp",376);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer,".\\UNIT\\SUnit.cpp",376);
         int nDestX = pWarp->nOffsetX + nX;
         int nDestY = pWarp->nOffsetY + nY;
         sub_005809D0_ChangeMode(pGame,pPlayer,0,2,nDestX,nDestY,0);

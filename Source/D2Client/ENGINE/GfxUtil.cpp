@@ -953,7 +953,7 @@ void __fastcall sub_004DB2E0_GetUnitDirection(D2UnitStrc* pUnit, int nUnitType, 
         sub_004DB1E0_SetDeathDirection(*pDirection, bSet, pUnit, *pDirCount, nSrcDirCount);
     }
 
-    *pIndex = sub_00600E20_GetDirectionIndex64B(*pDirection, nSrcDirCount);
+    *pIndex = CelGameDirToNormalDir(*pDirection, nSrcDirCount);
 }
 
 // 0x004DAE60

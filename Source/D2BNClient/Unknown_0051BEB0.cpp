@@ -94,7 +94,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
 void __fastcall sub_0051C0E0_ResolveHost(char* szResult, const char* szHost); // 0x0051C0E0
 void __fastcall sub_0051C190(char* szText, int nSize); // 0x0051C190
-void __stdcall sub_0051CA90_Connect(const char* szAddress); // 0x0051CA90
+void __stdcall sFastestConnect(const char* szAddress); // 0x0051CA90
 void __fastcall sub_0051EA40_SetStatus(int nStatus); // 0x0051EA40
 int __fastcall sub_00520520_SetState(int nState); // 0x00520520
 
@@ -402,7 +402,7 @@ char gszBnetAddress_008819E8[0x100]; // 0x008819E8
 long volatile gnSendBusy_00881C00; // 0x00881C00
 
 // 0x0051D0A0
-unsigned long __cdecl sub_0051D0A0_ConnectThread(void* pParameter)
+unsigned long __cdecl BattleConnectFastest(void* pParameter)
 {
     sub_0051A480_DebugLog("BattleConnectFastest()");
     if (InterlockedIncrement(&gnSendBusy_00881C00) > 1)
@@ -430,7 +430,7 @@ unsigned long __cdecl sub_0051D0A0_ConnectThread(void* pParameter)
     }
 
     sub_00520520_SetState(0);
-    sub_0051CA90_Connect(gszBnetAddress_008819E8);
+    sFastestConnect(gszBnetAddress_008819E8);
     sub_00518C70_LogIndent(2, -4);
     if (!InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0) && !InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
         sub_00520520_SetState(0xC);

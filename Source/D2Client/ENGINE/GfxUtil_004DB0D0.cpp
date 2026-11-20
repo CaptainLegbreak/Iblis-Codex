@@ -244,5 +244,5 @@ void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nUnitType, int 
         sub_004DB290_ConvertDirection(nSrcDirCount, *pDirCount, pDirection);
         sub_004DB1E0_SetDeathDirection(*pDirection, bSet, pUnit, *pDirCount, nSrcDirCount);
     }
-    *pIndex = sub_00600E20_GetDirectionIndex64B(*pDirection, nSrcDirCount);
+    *pIndex = CelGameDirToNormalDir(*pDirection, nSrcDirCount);
 }

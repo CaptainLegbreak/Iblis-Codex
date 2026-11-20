@@ -24,7 +24,7 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem); // 0x00629860
 short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem); // 0x006298A0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
@@ -149,7 +149,7 @@ void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, in
         pOtherHand = INVENTORY_GetItemFromBodyLoc(pInventory, (nValue == 4) + 4);
     }
 
-    if (ITEMS_CheckItemTypeId(pLeftHand, 0x2D) && ITEMS_CanBeEquipped(pLeftHand) && STATLIST_GetOwner(pLeftHand, 0))
+    if (ITEMSIsA(pLeftHand, 0x2D) && ITEMS_CanBeEquipped(pLeftHand) && STATLIST_GetOwner(pLeftHand, 0))
     {
         STATLIST_MergeStatLists(pUnit, pLeftHand, 0);
     }
@@ -158,7 +158,7 @@ void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, in
         pLeftHand = 0;
     }
 
-    if (pOtherHand && pOtherHand != pLeftHand && ITEMS_CheckItemTypeId(pOtherHand, 0x2D) && ITEMS_CanBeEquipped(pOtherHand) && STATLIST_GetOwner(pOtherHand, 0))
+    if (pOtherHand && pOtherHand != pLeftHand && ITEMSIsA(pOtherHand, 0x2D) && ITEMS_CanBeEquipped(pOtherHand) && STATLIST_GetOwner(pOtherHand, 0))
     {
         STATLIST_MergeStatLists(pUnit, pOtherHand, 0);
     }

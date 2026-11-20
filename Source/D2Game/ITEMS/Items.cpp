@@ -105,7 +105,7 @@ int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
@@ -211,7 +211,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithField(D2ActiveRoomSt
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x0055BF50
 void __fastcall sub_0055C270_OnItemToBelt(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C270
-void __fastcall D2GAME_ITEMS_UpdateItemStatlist_6FC42310(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
+void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, int a5); // 0x00555DA0
 void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00558AA0
 D2UnitStrc* __fastcall D2GAME_CreateItemUnit_6FC501A0(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
@@ -415,7 +415,7 @@ static void ITEMS_MakeEthereal(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
         return;
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 0x2D) && !ITEMS_CheckItemTypeId(pItem, 0x32))
+    if (!ITEMSIsA(pItem, 0x2D) && !ITEMSIsA(pItem, 0x32))
     {
         return;
     }
@@ -804,7 +804,7 @@ static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2ItemDropStrc* p
         return;
     }
 
-    if (ITEMS_GetItemFormat(pItem) >= 100 || !ITEMS_CheckItemTypeId(pItem, 3))
+    if (ITEMS_GetItemFormat(pItem) >= 100 || !ITEMSIsA(pItem, 3))
     {
         int nChance = SEED_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), 100);
         if (pItemDrop->dwFlags2 & 8)
@@ -832,7 +832,7 @@ static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2ItemDropStrc* p
                     nMaxSockets = 3;
                 }
 
-                if (ITEMS_CheckItemTypeId(pItem, 0x25) && nMaxSockets > 2)
+                if (ITEMSIsA(pItem, 0x25) && nMaxSockets > 2)
                 {
                     nMaxSockets = 2;
                 }
@@ -892,12 +892,12 @@ static void __stdcall ITEMS_AssignLegacySpecialProperties(D2GameStrc* pGame, D2U
 // 0x00556E80
 static void D2GAME_ITEMS_AssignSpecial_6FC4DB60(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
-    if (ITEMS_CheckItemTypeId(pItem, 13))
+    if (ITEMSIsA(pItem, 13))
     {
         ITEMS_AssignCharmAffixes(pItemDrop, pItem);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 40))
+    if (ITEMSIsA(pItem, 40))
     {
         int nItemIndex = pItemDrop->nItemIndex;
         if (pItemDrop->pUnit)
@@ -908,7 +908,7 @@ static void D2GAME_ITEMS_AssignSpecial_6FC4DB60(D2UnitStrc* pItem, D2ItemDropStr
         ITEMS_SetFileIndex(pItem, nItemIndex);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 7))
+    if (ITEMSIsA(pItem, 7))
     {
         int nItemIndex = pItemDrop->nItemIndex;
         if (pItemDrop->pUnit)
@@ -920,12 +920,12 @@ static void D2GAME_ITEMS_AssignSpecial_6FC4DB60(D2UnitStrc* pItem, D2ItemDropStr
         ITEMS_SetItemFlag(pItem, 0x10000, 1);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 22))
+    if (ITEMSIsA(pItem, 22))
     {
         ITEMS_AssignSuffix(pItem, ITEMS_FindBookRecordIndex(pItem, 1), 0);
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 18))
+    if (ITEMSIsA(pItem, 18))
     {
         ITEMS_AssignSuffix(pItem, ITEMS_FindBookRecordIndex(pItem, 0), 0);
     }
@@ -1029,7 +1029,7 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
     int nChance = 0;
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
-        if (ITEMS_CheckItemTypeId(pItem, 0x34))
+        if (ITEMSIsA(pItem, 0x34))
             nItemLevel = 1;
         else
         {
@@ -1585,7 +1585,7 @@ void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit)
         STATLIST_SetUnitStat(pUnit, 10, nMaxStamina, 0);
     }
 
-    UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\Skills.cpp", 267);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 267);
 }
 
 // 0x0056C2D0
@@ -1995,7 +1995,7 @@ int __fastcall sub_6FC48940(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID,
 
             if (ITEMS_IsCharmUsable(pItem, pUnit))
             {
-                D2GAME_ITEMS_UpdateItemStatlist_6FC42310(pGame, pItem, pUnit, 0);
+                sITEMSAddStatsList(pGame, pItem, pUnit, 0);
             }
 
             UNITS_ChangeAnimMode(pItem, IMODE_INBELT);

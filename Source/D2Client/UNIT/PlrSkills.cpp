@@ -1195,7 +1195,7 @@ void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState)
     {
         sub_004D9AD0_ResetTransform(pUnit);
     }
-    UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\PlrSkills.cpp", 0x59C);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\PlrSkills.cpp", 0x59C);
 }
 
 inline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecordInline(int nStatId)
@@ -1247,7 +1247,7 @@ D2StatListStrc* __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, D2StatLi
     D2ItemStatCostTxt* pItemStatCostTxtRecord = DATATBLS_GetItemStatCostTxtRecordInline(nStatId);
     if (pItemStatCostTxtRecord && pItemStatCostTxtRecord->nItemStatFlags[ITEMSTATCOSTFLAGINDEX_UPDATEANIMRATE >> 3] & gdwBitMasks_006CE268[ITEMSTATCOSTFLAGINDEX_UPDATEANIMRATE & 7])
     {
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\PlrSkills.cpp", 1490);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\PlrSkills.cpp", 1490);
     }
 
     return pStatList;

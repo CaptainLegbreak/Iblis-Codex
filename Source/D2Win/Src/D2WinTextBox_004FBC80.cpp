@@ -213,7 +213,7 @@ void __fastcall D2SOUND_10039(const char* szFile);                              
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
-int __stdcall sub_006019F0(D2CelFileStrc* pCelFile);                                                // 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern unsigned int gdwInvBitMasks[];                                                                       // 0x006CE2E8
@@ -280,7 +280,7 @@ int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* pImage, int nUnused)
 int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* pImage)
 {
     D2_ASSERT(pImage->controlHeader.nType == 2, 0xA9);
-    return sub_006019F0(pImage->controlHeader.pCellFile);
+    return CelFileGetCelsPerDirection(pImage->controlHeader.pCellFile);
 }
 
 // 0x004FD6C0
@@ -621,9 +621,9 @@ void __stdcall sub_005043B0_ReleaseToPool(void* pMemory)
 void __stdcall D2Win_10159(D2CelFileStrc* pSquelchCelFile, D2CelFileStrc* pSelectedCelFile)
 {
     ghSquelchCelFile_0087E844 = pSquelchCelFile;
-    gnSquelchCelFileFrameCount_0087E848 = sub_006019F0(pSquelchCelFile);
+    gnSquelchCelFileFrameCount_0087E848 = CelFileGetCelsPerDirection(pSquelchCelFile);
     ghSelectedCelFile_0087E850 = pSelectedCelFile;
-    gnSelectedCelFileFrameCount_0087E854 = sub_006019F0(pSelectedCelFile);
+    gnSelectedCelFileFrameCount_0087E854 = CelFileGetCelsPerDirection(pSelectedCelFile);
 }
 
 // 0x00505160

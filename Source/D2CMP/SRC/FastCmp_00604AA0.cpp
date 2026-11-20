@@ -193,7 +193,7 @@ void __stdcall sub_006051F0_FreeIfSet(void* pMemory)
 }
 
 // 0x00605320
-void __stdcall sub_00605320_SetSwappedColor(unsigned int nColor)
+void __stdcall PaletteSetTransparency(unsigned int nColor)
 {
     unsigned char nLow = (unsigned char)nColor;
     unsigned char nMid = (unsigned char)(nColor >> 8);
@@ -214,14 +214,14 @@ void __stdcall sub_00605840_SetGlobal(int nValue)
 }
 
 // 0x00605850
-void __stdcall sub_00605850_SetTable(const unsigned char* pTable)
+void __stdcall PaletteSetMask(const unsigned char* pTable)
 {
     memcpy(gaTable_008E9830, pTable, 0x100);
     gbTableSet_008E9D40 = 1;
 }
 
 // 0x00605A90
-void __stdcall sub_00605A90_Forward(unsigned char* pData, int nUnused)
+void __stdcall UpdateD2TransparencyTable(unsigned char* pData, int nUnused)
 {
     sub_006059B0_BuildTable(pData);
 }
@@ -716,7 +716,7 @@ void __stdcall sub_00608C00_RemapRegion(unsigned char* pBuffer, int nPitch)
 }
 
 // 0x006096D0
-D2CmpTileStrc* __stdcall sub_006096D0_AddTile(D2CmpTileListStrc* pList, short nValue16, short nValue14, int nValue24, int nValue28, int nValue2C, int nValue30, int nValue10, const D2CmpTileInfoStrc* pInfo)
+D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* pList, short nValue16, short nValue14, int nValue24, int nValue28, int nValue2C, int nValue30, int nValue10, const D2CmpTileInfoStrc* pInfo)
 {
     D2_ASSERT(pList, 0xA2);
     D2CmpTileStrc* pTile = sub_00609550_AllocTile();
@@ -853,7 +853,7 @@ void __cdecl sub_00413740_Nop()
 }
 
 // 0x00608520
-int __cdecl sub_00608520_ToggleGlobal()
+int __cdecl D2CMPToggleCelDrawMode()
 {
     return gdwGlobal_008F03C8 = (gdwGlobal_008F03C8 == 0);
 }

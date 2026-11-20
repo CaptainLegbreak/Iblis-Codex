@@ -173,7 +173,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                // 0x00681EF0
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-void __stdcall sub_006014C0(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
+void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult); // 0x006B20E0
 void __fastcall sub_006B38A0_Copy(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
@@ -340,13 +340,13 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
     {
     case 1:
     case 4:
-        sub_006014C0(pInfo->context, -pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 1, 0, 0, pBuffer,
+        CelDraw(pInfo->context, -pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 1, 0, 0, pBuffer,
             pInfo->f_18, pInfo->f_14, 0, 0, nArg3);
         break;
 
     case 2:
     {
-        sub_006014C0(pInfo->context, -pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 1, 0, 0, pBuffer,
+        CelDraw(pInfo->context, -pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 1, 0, 0, pBuffer,
             pInfo->f_18, pInfo->f_14, 0, 0, nArg3);
         unsigned char* pPixel = gpBuffer_00970F34;
         unsigned char* pRemap = gpGlideState_007C9150->pRemap;
@@ -363,7 +363,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
 
     case 3:
     {
-        sub_006014C0(pInfo->context, 1 - pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 2, 0, 0, pBuffer,
+        CelDraw(pInfo->context, 1 - pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 2, 0, 0, pBuffer,
             pInfo->f_18, pInfo->f_14, 0, 0, 0);
         unsigned char* pOutline = gpBuffer_00970F38;
         D2_ASSERT(pOutline, 0x19A);

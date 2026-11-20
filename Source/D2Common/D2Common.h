@@ -201,7 +201,7 @@ void __stdcall COLLISION_ResetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, in
 void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064DE30
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel); // 0x006424A0
-void __stdcall DT1_ListAdd(D2TileLibraryHeaderStrc** ppList, const char* szFilePath); // 0x00604A40
+void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ppList, const char* szFilePath); // 0x00604A40
 void __stdcall DUNGEON_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
 void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690

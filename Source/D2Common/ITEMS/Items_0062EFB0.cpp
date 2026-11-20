@@ -95,7 +95,7 @@ int __stdcall STATLIST_GetFullStatsDataFromUnit(D2UnitStrc* pUnit, D2StatStrc* p
 int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);                        // 0x00625560
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem);                                                    // 0x006295B0
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);                                                       // 0x00629930
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
 int __stdcall ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem);                                              // 0x0062A0F0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem);                                            // 0x0062A670
@@ -497,13 +497,13 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         nSellCost = ITEMS_GetEarLevel(pItem) * pItemsTxtRecord->dwCost;
         nBuyCost = nSellCost;
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 40))
+    else if (ITEMSIsA(pItem, 40))
     {
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(ITEMS_GetFileIndex(pItem));
         nSellCost = pItemsTxtRecord->dwCost + (pMonStatsTxtRecord ? 8 * pMonStatsTxtRecord->nLevel[nDifficulty] : 0);
         nBuyCost = nSellCost;
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 18))
+    else if (ITEMSIsA(pItem, 18))
     {
         D2BooksTxt* pBooksTxtRecord = DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(pItem, 0));
         D2_ASSERT(pBooksTxtRecord, 3002);
@@ -532,7 +532,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         nBuyCost = nSellCost;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 50))
+    if (ITEMSIsA(pItem, 50))
     {
         const int nArmorClass = STATLIST_GetUnitBaseStat(pItem, 31, 0);
         if (pItemsTxtRecord->dwMaxAc - pItemsTxtRecord->dwMinAc + 1 != 0 && pItemsTxtRecord->dwMaxAc)
@@ -842,7 +842,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         }
     }
 
-    if (!ITEMS_CheckItemTypeId(pItem, 18) && !ITEMS_GetQuiverType(pItem))
+    if (!ITEMSIsA(pItem, 18) && !ITEMS_GetQuiverType(pItem))
     {
         nSellCost = nSellCost * nQuantity;
 

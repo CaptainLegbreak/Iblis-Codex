@@ -467,8 +467,8 @@ extern "C" int __fastcall sub_00523AB0_SelectValue(int bSecond)
     return bSecond ? gnValue_0088274C : gnValue_00882744;
 }
 
-// build: context sub_005FE060_ClearPair88CB10
-extern "C" void __cdecl sub_005FE060_ClearPair88CB10()
+// build: context D2CMPResetTileCacheHits
+extern "C" void __cdecl D2CMPResetTileCacheHits()
 {
     gnValue_0088CB10 = 0;
     gnValue_0088CB0C = 0;

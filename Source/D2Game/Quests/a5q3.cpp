@@ -237,7 +237,7 @@ D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc*); // 0x005438B0
 void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x00545780
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc*, D2UnitStrc*); // 0x005455B0
 D2UnitStrc* __fastcall QUESTS_CreateItem(D2GameStrc*, D2UnitStrc*, unsigned int, int, int, int); // 0x005466B0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*, const char*, int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*, const char*, int); // 0x005531C0
 void __fastcall sub_0053D710_SendQuestPacket(D2ClientStrc*, D2GSPacketSrv5D*); // 0x0053D710
 int __fastcall ACT5Q3_RemoveDrehyaIced(D2GameStrc*, D2UnitStrc*, void*); // 0x005890B0
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc*, int, int); // 0x0065C3A0
@@ -554,7 +554,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             if (!QUESTS_CreateItem(pQuestArg->pGame, pQuestArg->pPlayer, ' eci', 0, 2, 1))
                 return;
             ++pQuestDataEx->nDefrostPotionsInGame;
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x214);
+            D2ClientStrc* pClient = UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x214);
             D2GSPacketSrv5D packet;
             memset(&packet, 0, sizeof(packet));
             packet.nHeader = 0x5D;
@@ -571,7 +571,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 if (!QUESTS_CreateItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 2rt', 0, 2, 1))
                     return;
                 QUESTRECORD_SetQuestState(pQuestFlags, 37, 8);
-                D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x22B);
+                D2ClientStrc* pClient = UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x22B);
                 D2GSPacketSrv5D packet;
             memset(&packet, 0, sizeof(packet));
                 packet.nHeader = 0x5D;
@@ -646,7 +646,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nItemClassId);
         if (pItemsTxt && pItemsTxt->wDropSound > 0)
             packet.field_4 = pItemsTxt->wDropSound;
-        sub_0053D710_SendQuestPacket(SUNIT_GetClientFromPlayer(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x375), &packet);
+        sub_0053D710_SendQuestPacket(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x375), &packet);
         QUESTRECORD_SetQuestState(pQuestFlags, 37, 9);
         if (QUESTRECORD_GetQuestState(pQuestFlags, 37, 8))
         {

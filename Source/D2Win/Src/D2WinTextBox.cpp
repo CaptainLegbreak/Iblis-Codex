@@ -191,7 +191,7 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 extern T004F51E0 gRGBAPalette_0081E668[]; // 0x0081E668
@@ -211,12 +211,12 @@ void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* p
     for (int i = 0; i < 0x100; ++i)
         wszTemp[i].wChar = 0;
 
-    D2_ASSERT(ITEMS_CheckItemTypeId(pItem, 0x35), 0x21A);
+    D2_ASSERT(ITEMSIsA(pItem, 0x35), 0x21A);
     D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pItemsTxt, 0x21C);
     pBuffer[0].wChar = 0;
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x14))
+    if (ITEMSIsA(pItem, 0x14))
     {
         D2GemsTxt* pGemsTxt = DATATBLS_GetGemsTxtRecord(pItemsTxt->dwGemOffset);
         D2_ASSERT(pGemsTxt, 0x223);
@@ -241,7 +241,7 @@ void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* p
         sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
         sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 0, pBuffer, nSize, (int)wszTemp);
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 0x4A))
+    else if (ITEMSIsA(pItem, 0x4A))
     {
         D2GemsTxt* pGemsTxt = DATATBLS_GetGemsTxtRecord(pItemsTxt->dwGemOffset);
         D2_ASSERT(pGemsTxt, 0x245);

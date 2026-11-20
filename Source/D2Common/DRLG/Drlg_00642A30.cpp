@@ -63,7 +63,7 @@ struct D2DrlgTileDataStrc
     char unk0x00[0x30];
 };
 
-int __stdcall D2CMP_GetTiles(D2CmpTileProjectStrc** ppProjects, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles); // 0x00604AE0
+int __stdcall TileLibraryGetTiles(D2CmpTileProjectStrc** ppProjects, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles); // 0x00604AE0
 void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry); // 0x0066DDE0
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY);                  // 0x0066B980
 int __fastcall sub_006427A0_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY);                   // 0x006427A0
@@ -114,7 +114,7 @@ void __fastcall DRLGANIM_InitCache(D2DrlgStrc* pDrlg, D2DrlgTileDataStrc* pTileD
         return;
     }
 
-    D2_ASSERT(D2CMP_GetTiles(pDrlg->pTiles, 0, nStyle, nSequence, ppTileLibraryEntry, 40), 1100);
+    D2_ASSERT(TileLibraryGetTiles(pDrlg->pTiles, 0, nStyle, nSequence, ppTileLibraryEntry, 40), 1100);
     DRLGROOMTILE_InitTileData(0, pTileData, 0, 0, 0, ppTileLibraryEntry[0]);
 }
 

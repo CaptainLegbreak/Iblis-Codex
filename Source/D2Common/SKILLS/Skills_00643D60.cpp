@@ -75,7 +75,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -216,12 +216,12 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
         }
 
         if ((pSkillsTxtRecord->nITypeA[0] == 0x2D || pSkillsTxtRecord->nITypeA[0] == 0x2E || pSkillsTxtRecord->nITypeA[0] == 0x43)
-            && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMS_CheckItemTypeId(0, 0x2D) && !ITEMS_CheckItemTypeId(pUnit, 0x2D))
+            && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMSIsA(0, 0x2D) && !ITEMSIsA(pUnit, 0x2D))
         {
             return TRUE;
         }
 
-        if (pSkillsTxtRecord->nITypeA[0] == 0x43 && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMS_CheckItemTypeId(0, 0x2D) && !ITEMS_CheckItemTypeId(pUnit, 0x2D))
+        if (pSkillsTxtRecord->nITypeA[0] == 0x43 && pSkillsTxtRecord->nITypeB[0] <= 0 && !ITEMSIsA(0, 0x2D) && !ITEMSIsA(pUnit, 0x2D))
         {
             return TRUE;
         }
@@ -238,7 +238,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
             break;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, *pEType))
+        if (ITEMSIsA(pItem, *pEType))
         {
             return FALSE;
         }
@@ -254,7 +254,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
             return i == 0;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, *pIType))
+        if (ITEMSIsA(pItem, *pIType))
         {
             break;
         }
@@ -284,7 +284,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
             return TRUE;
         }
 
-        if (!pUnit || !ITEMS_CheckItemTypeId(pUnit, ITEMS_GetAmmoType(pItem)))
+        if (!pUnit || !ITEMSIsA(pUnit, ITEMS_GetAmmoType(pItem)))
         {
             return FALSE;
         }
@@ -571,12 +571,12 @@ static __declspec(noinline) BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUn
                 D2UnitStrc* pOtherItem = sub_6FDB1050(nBodyLoc, pInventory);
                 if (pOtherItem)
                 {
-                    bContinue = ITEMS_CheckItemTypeId(pOtherItem, 0x2D);
+                    bContinue = ITEMSIsA(pOtherItem, 0x2D);
                 }
             }
             else
             {
-                bContinue = ITEMS_CheckItemTypeId(pItem, 0x2D);
+                bContinue = ITEMSIsA(pItem, 0x2D);
             }
         }
 

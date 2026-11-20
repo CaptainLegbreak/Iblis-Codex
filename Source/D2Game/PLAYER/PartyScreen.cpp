@@ -14,7 +14,7 @@ struct D2ClientStrc
     void PARTYSCREEN_SendEventUpdateToClient(int nUnitGUID, unsigned char nType);                           // 0x005A5690
 };
 
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, int nFlag); // 0x00538670
 void __fastcall PLAYERLIST_AllocPlayerList(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B140
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nFlag); // 0x0055B300
@@ -89,7 +89,7 @@ static bool IsFemaleClass(D2UnitStrc* pUnit)
 // 0x005A57B0
 void __fastcall PARTYSCREEN_ToggleLootability(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure)
 {
-    if (!CLIENTS_CheckFlag(SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PartyScreen.cpp", 74), 4))
+    if (!CLIENTS_CheckFlag(UnitGetClient(pPlayer1, ".\\PLAYER\\PartyScreen.cpp", 74), 4))
     {
         return;
     }
@@ -106,7 +106,7 @@ void __fastcall PARTYSCREEN_ToggleLootability(D2GameStrc* pGame, D2UnitStrc* pPl
         nType = nParam != 0 ? 1 : 10;
     }
 
-    SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 101)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, nType);
+    UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 101)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, nType);
 }
 
 // 0x005A5900
@@ -156,7 +156,7 @@ void __fastcall sub_6FC7AED0(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* 
 
     if (nPartyId == pArg->nPartyId && nPartyId != 0xFFFF && pLocalPlayer != pArg->pPlayer2)
     {
-        SUNIT_GetClientFromPlayer(pLocalPlayer, ".\\PLAYER\\PartyScreen.cpp", 183)->PARTYSCREEN_SendEventUpdateToClient(!pArg->pPlayer2 ? -1 : pArg->pPlayer2->dwUnitId, 7);
+        UnitGetClient(pLocalPlayer, ".\\PLAYER\\PartyScreen.cpp", 183)->PARTYSCREEN_SendEventUpdateToClient(!pArg->pPlayer2 ? -1 : pArg->pPlayer2->dwUnitId, 7);
     }
 
     sub_6FCBAA20(pLocalPlayer, pArg->pPlayer1);
@@ -218,7 +218,7 @@ void __fastcall PARTYSCREEN_InvitationCancelled(D2GameStrc* pGame, D2UnitStrc* p
             sub_6FCBA980(pPlayer2, pPlayer1, 1);
         }
 
-        SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 274)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 6);
+        UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 274)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 6);
     }
 
     sub_6FCBAA20(pPlayer1, pPlayer2);
@@ -241,7 +241,7 @@ void __fastcall PARTYSCREEN_ReceivedInvitation(D2GameStrc* pGame, D2UnitStrc* pP
     sub_6FCBA980(pPlayer1, pPlayer2, 4);
     sub_6FCBA980(pPlayer2, pPlayer1, 2);
 
-    SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 306)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 5);
+    UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 306)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 5);
 
     sub_6FCBAA20(pPlayer1, pPlayer2);
     sub_6FCBAA20(pPlayer2, pPlayer1);
@@ -253,7 +253,7 @@ void __fastcall PARTYSCREEN_PartyIterate_PlayerLeftParty(D2GameStrc* pGame, D2Un
     D2UnitStrc* pPlayer2 = (D2UnitStrc*)pArg;
     if (pPlayer1 != pPlayer2)
     {
-        SUNIT_GetClientFromPlayer(pPlayer1, ".\\PLAYER\\PartyScreen.cpp", 323)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer2 ? -1 : pPlayer2->dwUnitId, 9);
+        UnitGetClient(pPlayer1, ".\\PLAYER\\PartyScreen.cpp", 323)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer2 ? -1 : pPlayer2->dwUnitId, 9);
     }
 }
 

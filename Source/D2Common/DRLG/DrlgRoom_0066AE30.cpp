@@ -119,20 +119,20 @@ void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom)
     {
         if (dwDT1Mask & 1)
         {
-            DT1_ListAdd(&pDrlgRoom->pTiles, pLvlTypesTxtRecord->szFile[nFileIndex]);
+            TileLibraryAddProject(&pDrlgRoom->pTiles, pLvlTypesTxtRecord->szFile[nFileIndex]);
         }
     }
 
     char szPath[260] = { 0 };
 
     wsprintfA(szPath, "%s\\Tiles\\Act1\\Outdoors\\Blank.dt1", szDataGlobal_006D4118);
-    DT1_ListAdd(&pDrlgRoom->pTiles, szPath);
+    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
 
     wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\InvisWal.dt1", szDataGlobal_006D4118);
-    DT1_ListAdd(&pDrlgRoom->pTiles, szPath);
+    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
 
     wsprintfA(szPath, "%s\\Tiles\\Act1\\Barracks\\Warp.dt1", szDataGlobal_006D4118);
-    DT1_ListAdd(&pDrlgRoom->pTiles, szPath);
+    TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
 
     pDrlgRoom->dwFlags |= 0x1000000;
 }

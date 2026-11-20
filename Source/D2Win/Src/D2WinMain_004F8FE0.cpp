@@ -77,7 +77,7 @@ void __stdcall LIST_UnloadPentspinCellfile();                                   
 int __fastcall ACCOUNTLIST_Destroy(D2WinControlStrc* pControl);                                             // 0x00507AF0
 int __fastcall sub_00507DB0(void* pArg);                                                                    // 0x00507DB0
 int __fastcall sub_00507EE0(void* pArg);                                                                    // 0x00507EE0
-int __stdcall D2CMP_CelFileFreeHardware(D2CelFileStrc* pCelFile);                                           // 0x00601A50
+int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile);                                           // 0x00601A50
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern D2WinCommandRegisterStrc gpCommandRegister_6F8BDE28[0x21];                                          // 0x0072DC48
@@ -296,7 +296,7 @@ int __fastcall D2Win_10016()
 // 0x004FAAE0
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile)
 {
-    D2CMP_CelFileFreeHardware(pCellFile);
+    CelFileFreeHardware(pCellFile);
     if (pCellFile)
     {
         FOG_Free(pCellFile, ".\\Src\\D2WinArchive.cpp", 0x5C, 0);

@@ -16,7 +16,7 @@ unsigned char gaPaletteRaw_008E8D28[0x300];                                     
 unsigned char gaPcxPalette_008E9938[256 * 4];                                                               // 0x008E9938
 
 // 0x006054F0
-int __stdcall sub_006054F0_ReadPaletteRange(const char* szFile, int nStart, int nEnd)
+int __stdcall PaletteInit(const char* szFile, int nStart, int nEnd)
 {
     D2_ASSERT(szFile, 0x3B6);
     D2_ASSERT(nStart <= nEnd, 0x3B7);

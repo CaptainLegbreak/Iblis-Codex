@@ -57,7 +57,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
 int __fastcall sub_6FC48940(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6); // 0x0055E9B0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -73,7 +73,7 @@ int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID,
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 int __stdcall DATATBLS_GetLevelThreshold(int nClass, int nLevel); // 0x00611800
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall CLIENTS_SetExperienceLoss(D2ClientStrc* pClient, int nExpLoss); // 0x005391E0
 
 inline int M08_UNITS_GetXPositionInline(D2UnitStrc* pUnit)
@@ -178,7 +178,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
             {
                 PLAYER_PlaceItemInInventory(pGame, 1, pItem, pPlayer);
             }
-            if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BOW_QUIVER))
+            if (ITEMSIsA(pItem, ITEMTYPE_BOW_QUIVER))
             {
                 STATLIST_SetUnitStat(pItem, STAT_QUANTITY, 250, 0);
             }
@@ -190,7 +190,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
         else
         {
             PLAYER_PlaceItemInInventory(pGame, 1, pItem, pPlayer);
-            if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BOW_QUIVER))
+            if (ITEMSIsA(pItem, ITEMTYPE_BOW_QUIVER))
             {
                 STATLIST_SetUnitStat(pItem, STAT_QUANTITY, 250, 0);
             }
@@ -198,7 +198,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
             {
                 STATLIST_SetUnitStat(pItem, STAT_DURABILITY, STATLIST_GetMaxDurabilityFromUnit(pItem), 0);
             }
-            if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BOW_QUIVER))
+            if (ITEMSIsA(pItem, ITEMTYPE_BOW_QUIVER))
             {
                 STATLIST_SetUnitStat(pItem, STAT_QUANTITY, 100, 0);
             }
@@ -330,7 +330,7 @@ static void __stdcall sub_005359F0(D2GameStrc* pGame, D2UnitStrc* pDefender)
                 }
                 nNewExperienceValue = nPreviousExpThreshold + 1;
             }
-            CLIENTS_SetExperienceLoss(SUNIT_GetClientFromPlayer(pDefender, ".\\PLAYER\\Player.cpp", 0x3C4), nExperiencePenalty);
+            CLIENTS_SetExperienceLoss(UnitGetClient(pDefender, ".\\PLAYER\\Player.cpp", 0x3C4), nExperiencePenalty);
             STATLIST_SetUnitStat(pDefender, STAT_EXPERIENCE, nNewExperienceValue, 0);
         }
     }

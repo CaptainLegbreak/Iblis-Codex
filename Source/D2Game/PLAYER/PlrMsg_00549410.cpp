@@ -63,7 +63,7 @@ D2WaypointDataStrc* __fastcall sub_00547F50(D2GameStrc* pGame, D2UnitStrc* pPlay
 void __fastcall sub_00549A60_SendCantDoThat(D2UnitStrc* pUnit);
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit);
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
@@ -88,7 +88,7 @@ void __fastcall MONSTERAI_StartNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pUn
 int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nType, int nNpcGUID, int nItemGUID);
 void __fastcall sub_0057FB70_PickUpCorpse(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pDeadBody);
 void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7);
-void __fastcall D2GAME_PLAYERMODE_Change_6FC81A00(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter);
+void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter);
 int __fastcall OBJMODE_OperateObjectInRange(D2GameStrc* pGame, D2UnitStrc* pUnit, int nObjectType, int nObjectGUID);
 void __fastcall OBJMODE_UpdateDoorModeFromCollision(D2GameStrc* pGame, D2UnitStrc* pUnit, int nObjectGUID);
 void __fastcall sub_00584F60(D2GameStrc* pGame, D2UnitStrc* pUnit, int nWaypointGUID, int nLevelId);
@@ -106,7 +106,7 @@ int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit);
 int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject);
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);
 int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem);
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);
@@ -208,7 +208,7 @@ static __forceinline int PLRMSG_GetUnitY(D2UnitStrc* pUnit)
 
 static __declspec(noinline) void __stdcall sub_00548A50_ChangeModeAndSetInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
 {
-    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pPlayer, 0, 3, nUnitType, nUnitGUID, 0);
+    StartModeID(pGame, pPlayer, 0, 3, nUnitType, nUnitGUID, 0);
     sub_00641F20_SetPlayerModeState(pPlayer, nInteractSkill, nUnitType, nUnitGUID);
 }
 
@@ -612,7 +612,7 @@ static __declspec(noinline) int __stdcall sub_6FC82D10(D2GameStrc* pGame, int nP
     {
         if (pGame->dwGameFrame - pPlayerData->dwGameFrame > 25)
         {
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszPlrMsgSourceFile, 1639);
+            D2ClientStrc* pClient = UnitGetClient(pUnit, gszPlrMsgSourceFile, 1639);
             if (pClient)
             {
                 D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, 0, !pUnit ? -1 : pUnit->dwUnitId, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 1);
@@ -682,7 +682,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x02_WalkToEntity_6FC82ED0(D2GameStrc* p
         return nResult;
     }
 
-    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, 0, 2, nUnitType, nUnitGUID, 0);
+    StartModeID(pGame, pUnit, 0, 2, nUnitType, nUnitGUID, 0);
     return 0;
 }
 
@@ -712,7 +712,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x04_RunToEntity_6FC830F0(D2GameStrc* pG
         return nResult;
     }
 
-    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, 0, 3, nUnitType, nUnitGUID, 0);
+    StartModeID(pGame, pUnit, 0, 3, nUnitType, nUnitGUID, 0);
     return 0;
 }
 
@@ -734,7 +734,7 @@ static __declspec(noinline) D2SkillStrc* __stdcall sub_6FC83450(D2SkillStrc* pSk
             pLeftWeapon = 0;
         }
 
-        if (pRightWeapon && pLeftWeapon && ITEMS_CheckItemTypeId(pRightWeapon, 45) && ITEMS_CheckItemTypeId(pLeftWeapon, 45))
+        if (pRightWeapon && pLeftWeapon && ITEMSIsA(pRightWeapon, 45) && ITEMSIsA(pLeftWeapon, 45))
         {
             if (!SKILLS_GetParam4(pSkill))
             {
@@ -848,7 +848,7 @@ static __declspec(noinline) int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGam
 
     if (!bCheckRange || !pOtherUnit)
     {
-        D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, pSkill, nSkillMode, nUnitType, nUnitGUID, 0);
+        StartModeID(pGame, pUnit, pSkill, nSkillMode, nUnitType, nUnitGUID, 0);
         return 0;
     }
 
@@ -857,13 +857,13 @@ static __declspec(noinline) int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGam
     {
         if (UNITS_IsInMeleeRange(pUnit, pOtherUnit, UNITS_IsInMovingModeEx(pOtherUnit)))
         {
-            D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, pSkill, nSkillMode, nUnitType, nUnitGUID, 0);
+            StartModeID(pGame, pUnit, pSkill, nSkillMode, nUnitType, nUnitGUID, 0);
             return 0;
         }
     }
     else if (nSkillRange != 4)
     {
-        D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pUnit, pSkill, nSkillMode, nUnitType, nUnitGUID, 0);
+        StartModeID(pGame, pUnit, pSkill, nSkillMode, nUnitType, nUnitGUID, 0);
         return 0;
     }
 
@@ -1582,7 +1582,7 @@ int __fastcall sub_0054A5D0_HandleChat(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
     SStrCopy(packet15.szName, pText, 16);
     SStrLen(pText);
     D2GSPacketSrv26 packet26;
-    const char* pName = CLIENTS_GetName(SUNIT_GetClientFromPlayer(pUnit, gszPlrMsgSourceFile, 0x9E7));
+    const char* pName = CLIENTS_GetName(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0x9E7));
     if (SStrLen(pName) > 0) SStrCopy(packet26.szName, pName, 0x7FFFFFFF);
     else packet26.szName[0] = 0;
     const int nReceiverLength = SStrLen(packet15.szName);
@@ -1621,7 +1621,7 @@ MalformedChat:
             SStrCopy(packet5A.szName, packet15.szName, 0x7FFFFFFF);
             packet5A.nType = 13;
             packet5A.szName[15] = 0;
-            D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(SUNIT_GetClientFromPlayer(pUnit, gszPlrMsgSourceFile, 0xA2C), &packet5A);
+            D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0xA2C), &packet5A);
         }
         else if (!gbWhispTextInGame_6FD4DC20)
         {
@@ -1632,7 +1632,7 @@ MalformedChat:
             SStrCopy(packet5A.szName, packet15.szName, 0x7FFFFFFF);
             packet5A.nType = 4;
             packet5A.szName[15] = 0;
-            D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(SUNIT_GetClientFromPlayer(pUnit, gszPlrMsgSourceFile, 0xA38), &packet5A);
+            D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0xA38), &packet5A);
         }
         else
         {
@@ -1646,7 +1646,7 @@ MalformedChat:
         reply.szName[15] = 0;
         reply.nColor = 0;
         memcpy(reply.szMessage, packet15.szMessage, 256);
-        D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(SUNIT_GetClientFromPlayer(pUnit, gszPlrMsgSourceFile, 0xA46), &reply);
+        D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0xA46), &reply);
         }
     }
     return 0;

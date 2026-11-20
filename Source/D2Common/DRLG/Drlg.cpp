@@ -343,7 +343,7 @@ void __fastcall sub_00641F60_LoadTownTiles(D2DrlgStrc* pDrlg)
         return;
     }
 
-    DT1_ListAdd(pDrlg->pTiles, szPath);
+    TileLibraryAddProject(pDrlg->pTiles, szPath);
 }
 
 // 0x006427A0

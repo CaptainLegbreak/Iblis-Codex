@@ -86,7 +86,7 @@ int __fastcall sub_006C84B0_Draw(void* pData, int nX, int nY, unsigned int dwGam
     if (nDrawMode == 7)
         pGammaTable = gpDDrawCaps_007C9150->pMode7Table;
 
-    sub_006014C0((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
+    CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
         gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPalette);
     return 1;
 }

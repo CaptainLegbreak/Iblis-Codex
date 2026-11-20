@@ -94,7 +94,7 @@ void __fastcall sub_005379A0_ResetClient(D2ClientStrc* pClient);                
 void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct);                                // 0x005382E0
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nState);                                  // 0x005386D0
 void __fastcall sub_00539000(D2ClientStrc* pClient);                                       // 0x00539000
-D2ClientStrc* __fastcall CLIENTS_AddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int a8, int a9); // 0x00539A30
+D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int a8, int a9); // 0x00539A30
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);          // 0x0053B320
 void __fastcall D2GAME_PACKETS_SendPacket0x01_6FC3C7C0(D2ClientStrc* pClient, char nHeader, D2GameStrc* pGame); // 0x0053B340
 void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int nUnused, unsigned int nFlags, unsigned char nTemplate); // 0x0053F4B0
@@ -135,7 +135,7 @@ static __declspec(noinline) void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
 }
 
 // 0x00530BF0
-void __fastcall GAME_SendGameInit(int nClientId, char* szGameName, unsigned char nGameType, unsigned char nCharTemplate, const char* szClientName, int nArena, unsigned int nFlags, int nArenaTemplate, int nUnused1, int nUnused2, unsigned char nDifficulty, unsigned char nLocale, int nUnused3, int nUnused4)
+void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char nGameType, unsigned char nCharTemplate, const char* szClientName, int nArena, unsigned int nFlags, int nArenaTemplate, int nUnused1, int nUnused2, unsigned char nDifficulty, unsigned char nLocale, int nUnused3, int nUnused4)
 {
     if (!gpGameDataTbl_6FD45818)
     {
@@ -196,7 +196,7 @@ void __fastcall GAME_SendGameInit(int nClientId, char* szGameName, unsigned char
     ARENA_AllocArena(pGame, nArena, nFlags, nArenaTemplate);
     sub_005379A0_ResetClient((D2ClientStrc*)pGame);
 
-    D2ClientStrc* pClient = CLIENTS_AddToGame(pGame, nClientId, nCharTemplate, szClientName, &gszEmptyAssertText, 0, nLocale, nUnused3, nUnused4);
+    D2ClientStrc* pClient = ClientAddToGame(pGame, nClientId, nCharTemplate, szClientName, &gszEmptyAssertText, 0, nLocale, nUnused3, nUnused4);
     SERVER_SetClientGameGUID(nClientId, hGame);
 
     if (pGame->nGameType == 1)

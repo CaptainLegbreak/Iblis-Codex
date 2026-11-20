@@ -205,7 +205,7 @@ struct D2BitBufferStrc
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 unsigned int __stdcall ITEMS_GetItemTypeFromItemId(unsigned int dwItemId); // 0x00628700
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex); // 0x006374B0
 int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem); // 0x0063AAF0
@@ -1485,7 +1485,7 @@ int __stdcall ITEMS_CheckType(int nItemType1, int nItemType2)
 }
 
 // 0x00629BB0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType)
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType)
 {
     if (!pItem)
     {
@@ -1856,7 +1856,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 if (STATES_CheckState(pPlayer, nState))
                 {
                     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord_Inl(nState);
-                    if (pStatesTxtRecord && pStatesTxtRecord->nItemTrans < 0x15 && ITEMS_CheckItemTypeId(pItem, pStatesTxtRecord->wItemType))
+                    if (pStatesTxtRecord && pStatesTxtRecord->nItemTrans < 0x15 && ITEMSIsA(pItem, pStatesTxtRecord->wItemType))
                     {
                         if (D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(sub_00451F60_UnitClassId(pItem)))
                         {
@@ -1989,7 +1989,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 if (pInventoryItem)
                 {
                     pInventoryItem = INVENTORY_UnitIsItem(pInventoryItem);
-                    if (pInventoryItem && ITEMS_CheckItemTypeId(pInventoryItem, 0x14))
+                    if (pInventoryItem && ITEMSIsA(pInventoryItem, 0x14))
                     {
                         D2ItemsTxt* pGemItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pInventoryItem->dwClassId);
                         D2_ASSERT(pGemItemsTxtRecord, 0x1271);
@@ -2149,7 +2149,7 @@ void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     D2_ASSERT((pItem ? pItem->dwUnitType : 6) == UNIT_ITEM, 0x151D);
-    D2_ASSERT(ITEMS_CheckItemTypeId(pItem, 0x2D), 0x151E);
+    D2_ASSERT(ITEMSIsA(pItem, 0x2D), 0x151E);
     D2_ASSERT(pUnit, 0x151F);
 
     char szPath[8];
@@ -2508,7 +2508,7 @@ int __stdcall ITEMS_GetSpellIcon(D2UnitStrc* pItem)
     D2_ASSERT(nType == UNIT_ITEM, 3501);
 
     unsigned char nSpellIcon = 0;
-    if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_SCROLL) || ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BOOK))
+    if (ITEMSIsA(pItem, ITEMTYPE_SCROLL) || ITEMSIsA(pItem, ITEMTYPE_BOOK))
     {
         unsigned short wBookId = 0;
         if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
@@ -2557,7 +2557,7 @@ int __stdcall ITEMS_GetStaffMods(D2UnitStrc* pItem)
 // 0x0062BEB0
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem)
 {
-    return ITEMS_CheckItemTypeId(pItem, ITEMTYPE_SOCKET_FILLER);
+    return ITEMSIsA(pItem, ITEMTYPE_SOCKET_FILLER);
 }
 
 // 0x0062C060
@@ -2608,7 +2608,7 @@ static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat)
     {
     case 16:
     case 31:
-        if (ITEMS_CheckItemTypeId(pItem, 50) && pItemsTxtRecord->dwMaxAc)
+        if (ITEMSIsA(pItem, 50) && pItemsTxtRecord->dwMaxAc)
         {
             int nArmor = STATLIST_GetUnitBaseStat(pItem, 31, 0) + 1;
             if (nArmor <= pItemsTxtRecord->dwMaxAc)
@@ -2618,7 +2618,7 @@ static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat)
         break;
     case 17:
     case 22:
-        if (ITEMS_CheckItemTypeId(pItem, 45))
+        if (ITEMSIsA(pItem, 45))
         {
             const int nMax = STATLIST_GetUnitBaseStat(pItem, 22, 0);
             if (pItemsTxtRecord->nMaxDam && nMax < pItemsTxtRecord->nMaxDam)
@@ -2633,7 +2633,7 @@ static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat)
         break;
     case 18:
     case 21:
-        if (ITEMS_CheckItemTypeId(pItem, 45))
+        if (ITEMSIsA(pItem, 45))
         {
             const int nMin = STATLIST_GetUnitBaseStat(pItem, 21, 0);
             if (pItemsTxtRecord->nMinDam && nMin < pItemsTxtRecord->nMinDam)

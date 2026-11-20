@@ -82,7 +82,7 @@ struct T004013C0
 T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
 void __fastcall sub_00481840_SetCacheSize(unsigned int nSize); // 0x00481840
 void __stdcall sub_005FE120_InitCelPool(void* pMemPool, int nArg); // 0x005FE120
-void __stdcall D2CMP_InitSpriteCache(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
+void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
 void __fastcall sub_00470200_InitTables(int nSize); // 0x00470200
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -121,7 +121,7 @@ struct D2AreaScanFindStrc
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* pItem); // 0x004C2180
 int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit); // 0x004C54F0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 
 struct D2SkillsTxt
@@ -520,7 +520,7 @@ void __fastcall sub_00457300_InitGfxCaches(void* pMemPool, int bCelPool)
     }
     nRest -= 0x200000;
     unsigned int nMaxSize = D2_MIN(D2_MAX(nRest / 3, 0x1800000u), 0x4000000u);
-    D2CMP_InitSpriteCache(pMemPool, nMaxSize, 0x7D000, nSize);
+    D2CMPSpriteCacheInit(pMemPool, nMaxSize, 0x7D000, nSize);
     sub_00470200_InitTables(0x200000);
 }
 
@@ -596,7 +596,7 @@ int __fastcall sub_004C5F30_CheckWeaponStart(D2UnitStrc* pUnit, int nSkillId, in
     else
     {
         D2UnitStrc* pWeapon = sub_00623990_GetWeapon(pUnit, 0);
-        if (pWeapon && ITEMS_CheckItemTypeId(pWeapon, 0x26))
+        if (pWeapon && ITEMSIsA(pWeapon, 0x26))
         {
             return 0;
         }
@@ -672,7 +672,7 @@ int __fastcall sub_004C7E10_FireWeaponMissile(D2UnitStrc* pUnit, int nSkillId, i
         return 0;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x26))
+    if (ITEMSIsA(pItem, 0x26))
     {
         if (!sub_004CDC30(pUnit, nMissile, 0, 0, 0, 0, nSkillId, nSkillLevel, 0))
         {
@@ -915,7 +915,7 @@ void __fastcall sub_004C7BE0_ApplyClientSkillCalc(D2UnitStrc* pUnit, int nValue)
     {
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATLIST_SetStat(pStatList, 0x44, nValue, 0);
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\Skills.cpp", 0x9E5);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 0x9E5);
     }
 }
 
@@ -1352,7 +1352,7 @@ static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2Cli
         pLeftHand = NULL;
     }
 
-    if (ITEMS_CheckItemTypeId(pRightHand, 0x2D) && ITEMS_CheckItemTypeId(pLeftHand, 0x2D))
+    if (ITEMSIsA(pRightHand, 0x2D) && ITEMSIsA(pLeftHand, 0x2D))
     {
         D2SkillStrc* pSkill = SKILLS_GetSkill(pUnit, 0, -1);
         if (!SKILLS_GetParam4(pSkill))

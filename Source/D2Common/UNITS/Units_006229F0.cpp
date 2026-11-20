@@ -101,7 +101,7 @@ int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 void __stdcall UNITS_MergeDualWieldWeaponStatLists(D2UnitStrc* pUnit, int bSet); // 0x00623C80
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
@@ -135,7 +135,7 @@ int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, i
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 int __stdcall sub_00623B10_GetStartFrame(D2UnitStrc* pUnit); // 0x00623B10
 void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit); // 0x00621260
-void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
 int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -493,7 +493,7 @@ static int UNITS_GetAnimStatBasePercentage(D2UnitStrc* pUnit, int nStat)
 }
 
 // 0x00623F50
-void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* szFile, int nLine)
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine)
 {
     if (!pUnit)
     {
@@ -595,7 +595,7 @@ void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* sz
                 pLeftWeapon = 0;
             }
 
-            if (ITEMS_CheckItemTypeId(pRightWeapon, 0x2D) && ITEMS_CheckItemTypeId(pLeftWeapon, 0x2D))
+            if (ITEMSIsA(pRightWeapon, 0x2D) && ITEMSIsA(pLeftWeapon, 0x2D))
             {
                 const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, 0x44, 0);
                 const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, 0x44, 0);
@@ -724,12 +724,12 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit)
         if (nMode == 0x12)
         {
             UNITS_InitializeSequence(pUnit);
-            UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNITS\\Units.cpp", 0x967);
+            UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x967);
             return 1;
         }
 
         pUnit->pAnimSeq = 0;
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNITS\\Units.cpp", 0x96A);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x96A);
         pUnit->dwFrameCountPrecise = pUnit->pAnimData->dwFramesPerDirection << 8;
         return 1;
 
@@ -748,11 +748,11 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit)
         if (nMode == 0xE)
         {
             UNITS_InitializeSequence(pUnit);
-            UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNITS\\Units.cpp", 0x97E);
+            UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x97E);
             return 1;
         }
 
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNITS\\Units.cpp", 0x980);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x980);
         pUnit->pAnimSeq = 0;
         pUnit->dwFrameCountPrecise = pUnit->pAnimData->dwFramesPerDirection << 8;
         return 1;

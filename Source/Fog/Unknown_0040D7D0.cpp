@@ -15,7 +15,7 @@ struct D2ContextStrc
     unsigned char pExtendedRegisters[0x200];
 };
 
-int __fastcall sub_0040C7A0_QuickStackWalk(const char* szPrefix, void* hThread, D2ContextStrc* pContext); // 0x0040C7A0
+int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ContextStrc* pContext); // 0x0040C7A0
 
 // 0x0040D7D0
 void __fastcall sub_0040D7D0_WalkCurrentStack(const char* szPrefix)
@@ -43,6 +43,6 @@ void __fastcall sub_0040D7D0_WalkCurrentStack(const char* szPrefix)
         tContext.dwEsp = dwEsp;
         tContext.dwEbp = dwEbp;
         hThread = GetCurrentThread();
-        sub_0040C7A0_QuickStackWalk(szPrefix, hThread, &tContext);
+        QuickStackWalk(szPrefix, hThread, &tContext);
     }
 }

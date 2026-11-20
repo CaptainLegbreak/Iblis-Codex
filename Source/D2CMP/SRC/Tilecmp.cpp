@@ -392,7 +392,7 @@ static void sub_0060A520_ForEachDataColor(D2CmpColorCallback pfnColor, const uns
 }
 
 // 0x0060A570
-void __stdcall sub_0060A570_ForEachLibraryColor(D2CmpTileLibraryStrc* pLibrary, D2CmpColorCallback pfnColor)
+void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* pLibrary, D2CmpColorCallback pfnColor)
 {
     D2_ASSERT(pLibrary, 0x3EA);
     D2_ASSERT(pLibrary->dwFlags & 1, 0x3EB);

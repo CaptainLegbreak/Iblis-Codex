@@ -58,7 +58,7 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 void __stdcall ITEMS_GetRealmData(D2UnitStrc* pItem, int* pRealmData0, int* pRealmData1); // 0x00629E40
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
@@ -308,7 +308,7 @@ static void __stdcall ITEMS_SerializeItemCompact(int bServer, D2UnitStrc* pItem,
     {
         ITEMS_WriteBitsToBitstream(32, ITEMS_GetBaseCode(pItem), pBuffer);
 
-        if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_GOLD))
+        if (ITEMSIsA(pItem, ITEMTYPE_GOLD))
         {
             const int nGold = STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0);
             ITEMS_WriteBitsToBitstream(1, nGold >= 4096, pBuffer);

@@ -99,7 +99,7 @@ void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill);  
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
 int __stdcall sub_006217C0(D2UnitStrc* pUnit);                                                              // 0x006217C0
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);                                                       // 0x00623E00
-void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag);                // 0x00625760
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
@@ -163,7 +163,7 @@ static void sub_005A6380_SetVelocityPercent(D2UnitStrc* pUnit, D2MonVelocityPara
     }
 
     sub_006270B0(pStatList, STAT_VELOCITYPERCENT, nVelocityPercent, 0);
-    UNITS_UpdateAnimRateAndVelocity(pUnit, gszMonsterModeSourceFile_006E23B0, 269);
+    UnitUpdateAnimRateAndVel(pUnit, gszMonsterModeSourceFile_006E23B0, 269);
 }
 
 static void sub_005A68E0_SetAiStateForMode(int nMode, D2UnitStrc* pMonster)

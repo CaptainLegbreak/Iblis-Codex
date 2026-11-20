@@ -173,7 +173,7 @@ struct D2GSPacketSrv5D
 
 void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x005723C0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
@@ -564,7 +564,7 @@ void __fastcall ACT5Q3_SendPacket0x5DToClient(D2UnitStrc* pUnit)
     packet5D.nHeader = QUEST_LOG_PACKET;
     packet5D.nFlags = 32;
     packet5D.nQuestId = QUEST_A5Q3_PRISONOFICE;
-    sub_6FC3F380(SUNIT_GetClientFromPlayer(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 286), &packet5D);
+    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 286), &packet5D);
 }
 
 // 0x005890B0
@@ -880,7 +880,7 @@ int __fastcall ACT5Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
         return 0;
     }
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 472);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 472);
     D2GSPacketSrv5D packet5D = {};
     packet5D.nHeader = QUEST_LOG_PACKET;
     packet5D.nQuestId = QUEST_A5Q6_BAAL;
@@ -954,7 +954,7 @@ void __fastcall ACT1Q4_SendPacket0x5DToClient(D2UnitStrc* pUnit)
     packet5D.nHeader = QUEST_LOG_PACKET;
     packet5D.nFlags = 1;
     packet5D.nQuestId = QUEST_A1Q4_CAIN;
-    sub_6FC3F380(SUNIT_GetClientFromPlayer(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 613), &packet5D);
+    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 613), &packet5D);
 }
 
 // 0x00592F80

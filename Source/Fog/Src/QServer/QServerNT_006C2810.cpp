@@ -110,7 +110,7 @@ void __cdecl sub_00410660_Log(const char* szChannel, const char* szFormat, ...);
 int __fastcall sub_006BE9F0_CheckRecordThreshold(T006BE350* pServer, const unsigned int* pAddress); // 0x006BE9F0
 int __fastcall sub_006C0800_BanByAddress(T006BE350* pServer, unsigned int* pAddress, const char* szFile, int nLine); // 0x006C0800
 void __fastcall sub_006BFEA0_RecordAddress(T006BE350* pServer, const char* szFile, unsigned int nAddress, int nLine); // 0x006BFEA0
-D2QClientStrc* __fastcall sub_006BFB70_AddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
+D2QClientStrc* __fastcall QSrvAddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 extern "C" const char gszHack_006FC4A8[]; // 0x006FC4A8
 extern "C" const char gszDeletedSocketFmt_006FC8C0[]; // 0x006FC8C0
 extern "C" const char gszHackList_006FC938[]; // 0x006FC938
@@ -222,7 +222,7 @@ static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient)
 }
 
 // 0x006C2420
-static unsigned int __stdcall sub_006C2420_Accept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr)
+static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr)
 {
     memset(&pServer->aStats[nSlot].aTimes[0], 0, sizeof(pServer->aStats[nSlot].aTimes));
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[0]);
@@ -275,7 +275,7 @@ static unsigned int __stdcall sub_006C2420_Accept(int nSlot, int* pAddrLen, T006
         return (unsigned int)-1;
     }
 
-    D2QClientStrc* pClient = sub_006BFB70_AddClient(pServer, (unsigned int)pAddrLen, pAddr->f_4);
+    D2QClientStrc* pClient = QSrvAddClient(pServer, (unsigned int)pAddrLen, pAddr->f_4);
     pClient->nSlot = nSlot;
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[5]);
 
@@ -364,7 +364,7 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
 
                 D2SockAddrInStrc tAddr;
                 int nAddrLen;
-                sub_006C2420_Accept(nSlot, &nAddrLen, pServer, &tAddr);
+                sQSNTAccept(nSlot, &nAddrLen, pServer, &tAddr);
 
                 __int64 tEnd;
                 QueryPerformanceCounter(&tEnd);

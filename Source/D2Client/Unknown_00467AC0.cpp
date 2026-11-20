@@ -225,7 +225,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         break;
 
     case 2:
-        if (UNITS_IsDoor(pUnit) && pUnit->dwAnimMode != 4)
+        if (UnitIsDoor(pUnit) && pUnit->dwAnimMode != 4)
         {
             const unsigned int dwNow = GetTickCount();
             if (dwNow - pUnit->dwTickCount > 0x1F4)
@@ -778,7 +778,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
             {
                 if (nBestType == 2)
                 {
-                    if (UNITS_IsDoor(pBest))
+                    if (UnitIsDoor(pBest))
                     {
                         if (sub_00467250_CheckDoorSideA(pUnit, pBest))
                         {
@@ -791,7 +791,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
             }
             else if (nBestType != 2)
             {
-                if (UNITS_IsDoor(pUnit))
+                if (UnitIsDoor(pUnit))
                 {
                     if (sub_00467310_CheckDoorSideB(pBest, pUnit) && nBestPriority < nPriority)
                     {

@@ -23,7 +23,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" const char szItemModeCpp[];                                                                      // 0x006E1164
 
 unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo);                               // 0x00627F80
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex);                                               // 0x006374B0
 void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine);         // 0x0055BF50
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
@@ -38,7 +38,7 @@ int __stdcall SKILLS_GetQuantity(D2SkillStrc* pSkill);                          
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
 void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nQuantity);                                      // 0x00645120
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc* pClient, unsigned char nUnitType, int nUnitGUID, int nSkillId, int nQuantity); // 0x0053C520
 void __fastcall sub_00561E70_RemoveFromBelt(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);       // 0x00561E70
 void __fastcall sub_0055EDC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX);                                 // 0x0055EDC0
@@ -48,13 +48,13 @@ static int sub_0055E050_GetBookSkillIdChecked(D2UnitStrc* pItem);               
 static int sub_0055E050_GetBookSkillIdChecked(D2UnitStrc* pItem)
 {
     int nSkillId = -1;
-    if (ITEMS_CheckItemTypeId(pItem, 0x12))
+    if (ITEMSIsA(pItem, 0x12))
     {
         D2BooksTxt* pBooksTxtRecord = DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(pItem, 0));
         D2_ASSERT(pBooksTxtRecord, 0xFA4);
         nSkillId = pBooksTxtRecord->dwBookSkillId;
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 0x16))
+    else if (ITEMSIsA(pItem, 0x16))
     {
         D2BooksTxt* pBooksTxtRecord = DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(pItem, 0));
         D2_ASSERT(pBooksTxtRecord, 0xFAB);
@@ -104,7 +104,7 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nI
     D2UnitStrc* pTarget = pUnit;
     if (bUseOnMerc && pUnit->dwUnitType == 0 && pGame->bExpansion)
     {
-        if (!ITEMS_CheckItemTypeId(pItem, 0x4C) && !ITEMS_CheckItemTypeId(pItem, 0x51) && !ITEMS_CheckItemTypeId(pItem, 0x50))
+        if (!ITEMSIsA(pItem, 0x4C) && !ITEMSIsA(pItem, 0x51) && !ITEMSIsA(pItem, 0x50))
         {
             return 0;
         }
@@ -141,7 +141,7 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nI
             SKILLS_SetQuantity(pSkill, nQuantity);
             const int nUnitGUID = pUnit->dwUnitId;
             const int nUnitType = pUnit->dwUnitType;
-            D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(SUNIT_GetClientFromPlayer(pUnit, szItemModeCpp, 0x136D), nUnitType, nUnitGUID, nSkillId, nQuantity);
+            D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(pUnit, szItemModeCpp, 0x136D), nUnitType, nUnitGUID, nSkillId, nQuantity);
         }
     }
 

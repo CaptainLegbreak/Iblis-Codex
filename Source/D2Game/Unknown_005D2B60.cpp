@@ -38,7 +38,7 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __fastcall SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D3490
 
 struct D2DamageStrc
@@ -132,7 +132,7 @@ int __fastcall sub_005D35D0_AlternateChargeWeapon(D2GameStrc* pGame, D2UnitStrc*
     {
         D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
         D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-        if (pRight == pLeft || !pRight || !pLeft || !ITEMS_CanBeEquipped(pRight) || !ITEMS_CanBeEquipped(pLeft) || !ITEMS_CheckItemTypeId(pRight, 45) || !ITEMS_CheckItemTypeId(pLeft, 45))
+        if (pRight == pLeft || !pRight || !pLeft || !ITEMS_CanBeEquipped(pRight) || !ITEMS_CanBeEquipped(pLeft) || !ITEMSIsA(pRight, 45) || !ITEMSIsA(pLeft, 45))
         {
             pUnit->dwFlags |= 0x40;
             SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(pGame, pUnit, nSkillId, nSkillLevel);
