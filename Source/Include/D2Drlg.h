@@ -17,11 +17,14 @@ struct D2DrlgVertexStrc;
 struct D2DrlgWarpStrc;
 struct D2GameStrc;
 struct D2PresetUnitStrc;
-struct D2RoomPresetStrc;
 struct D2RoomStrc;
 struct D2RoomTileStrc;
 struct D2TileLibraryHeaderStrc;
 struct D2UnitStrc;
+struct D2DrlgOutdoorRoomStrc;
+struct D2DrlgPresetRoomStrc;
+struct D2LvlMazeTxt;
+struct D2DrlgPresetInfoStrc;
 struct D2DrlgCoordStrc;
 struct D2DrlgCoordsStrc;
 struct D2DrlgGridStrc;
@@ -90,7 +93,11 @@ struct D2DrlgRoomStrc
     unsigned short wRoomsInList[4]; // 0x0C
     D2SeedStrc pSeed; // 0x14
     D2DrlgRoomStrc* pStatusNext; // 0x1C
-    D2RoomPresetStrc* pMaze; // 0x20
+    union // 0x20
+    {
+        D2DrlgPresetRoomStrc* pMaze;
+        D2DrlgOutdoorRoomStrc* pOutdoor;
+    };
     D2DrlgRoomStrc* pDrlgRoomNext; // 0x24
     unsigned int dwFlags; // 0x28
     int nRoomsNear; // 0x2C
@@ -119,7 +126,12 @@ struct D2DrlgLevelStrc
     int nRooms; // 0x08
     int bActive; // 0x0C
     D2DrlgRoomStrc* ptRoomFirst; // 0x10
-    D2DrlgOutdoorInfoStrc* pOutdoors; // 0x14
+    union // 0x14
+    {
+        D2DrlgPresetInfoStrc* pPreset;
+        D2DrlgOutdoorInfoStrc* pOutdoors;
+        D2LvlMazeTxt* pMaze;
+    };
     int unk0x18; // 0x18
     int nPosX; // 0x1C
     int nPosY; // 0x20
