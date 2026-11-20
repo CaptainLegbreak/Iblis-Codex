@@ -2,20 +2,8 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ClientUi.h"
+#include "D2StormTypes.h"
 struct D2UnitStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bUseResult;
-    int lResult;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -129,8 +117,8 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
 
 void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nX = pMsg->nX;
-    const int nY = pMsg->nY;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     sub_00498870_ClickBeltBox(pPlayer->pInventory, nX, nY);
 }
@@ -268,12 +256,12 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!gdwGlobal_007A061C || sub_0044DA30() || sub_00463DF0())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
-    const int nX = pMsg->nX;
-    const int nY = pMsg->nY;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_0044BFE0())
     {
@@ -286,7 +274,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         {
             if (sub_004538D0(0x1F))
             {
-                pMsg->bUseResult = 1;
+                pMsg->bReturn = 1;
                 pMsg->lResult = 0;
             }
             sub_00498930_HoverBeltBox(nX, pPlayer->pInventory, nY);
@@ -295,13 +283,13 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
         if (!sub_004538D0(0x1F))
         {
-            pMsg->bUseResult = 0;
+            pMsg->bReturn = 0;
             gbUiRecordMode_007BEF98 = 0;
             gnBeltRecordMode2_007BEF9C = 0;
         }
         else
         {
-            pMsg->bUseResult = 0;
+            pMsg->bReturn = 0;
             gnBeltRecordMode2_007BEF9C = 0;
         }
         gnBeltHover_007BEF94 = 0;
@@ -310,7 +298,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
     if (nX < gnGlobal_0071146C / 2 + 0x17 || nX > gnGlobal_0071146C / 2 + 0x91 || nY < gnGlobal_00711470 - 0x27 || nY > gnGlobal_00711470 - 0xA)
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         gnBeltHover_007BEF94 = 0;
         return;
     }
@@ -321,7 +309,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         gnBeltRecordMode2_007BEF9C = 1;
         sub_00498930_HoverBeltBox(nX, pPlayer->pInventory, nY);
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
 }
 
@@ -329,16 +317,16 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30() || sub_00463DF0())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
-    const int nX = pMsg->nX;
-    const int nY = pMsg->nY;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_00498DC0_MouseMoveMsg(pMsg))
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         if (sub_00468830() == 6)
         {
@@ -352,7 +340,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
         const int nBox = sub_004987E0_GetBeltBoxAt(nY, nX);
         if (nBox < 0)
         {
-            pMsg->bUseResult = 0;
+            pMsg->bReturn = 0;
             return;
         }
 
@@ -361,6 +349,6 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
     gnBeltHover_007BEF94 = 0;
 }

@@ -1,39 +1,11 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 
 struct D2ClientListEntryStrc
 {
     unsigned char nId[4];
     unsigned char unk0x04[6];
-};
-
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        int wParam;
-        struct
-        {
-            unsigned short wParamLow;
-            unsigned short wParamHigh;
-        };
-    };
-    union
-    {
-        int lParam;
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
 };
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
@@ -87,12 +59,12 @@ void __stdcall sub_004A6310_ToggleMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
     sub_004A6260_UpdateKeyState(0x100);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -102,7 +74,7 @@ void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -116,7 +88,7 @@ void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2WinTypes.h"
+#include "D2StormTypes.h"
 
 #define D2WIN_SCROLLBAR 5
 #define D2WIN_BUTTON 6
@@ -44,19 +45,9 @@ int __stdcall WINDOW_GetDimensions(int* pWidth, int* pHeight); // 0x004F59B0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer); // 0x004F6250
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-};
-
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2WinControlStrc* gpControlList_6F8FE24C; // 0x007D55BC

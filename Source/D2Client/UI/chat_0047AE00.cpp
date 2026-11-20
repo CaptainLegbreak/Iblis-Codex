@@ -1,18 +1,7 @@
+#include "D2StormTypes.h"
 struct HIMC__;
 struct HKL__;
 typedef HIMC__* HIMC;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bUseResult;
-    int lResult;
-};
 
 struct CANDIDATELIST
 {
@@ -66,7 +55,7 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
 {
     unsigned long nSentence;
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 
@@ -146,14 +135,14 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
         if (gnLanguageId_007BB5DC == 9)
         {
             sub_0047AD60_RefreshCandidates(hImc);
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
         }
         if (gnLanguageId_007BB5DC == 8)
         {
             sub_0047AD60_RefreshCandidates(hImc);
             pMsg->lResult = 0;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
         }
         break;
 
@@ -165,7 +154,7 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
                 FOG_Free(gpCandidateList_007BB5F4, ".\\UI\\chat.cpp", 352, 0);
                 gpCandidateList_007BB5F4 = 0;
             }
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
         }
         if (gnLanguageId_007BB5DC == 8)
@@ -176,7 +165,7 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
                 gpCandidateList_007BB5F4 = 0;
             }
             pMsg->lResult = 0;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
         }
         break;
 
@@ -185,7 +174,7 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
         {
             sub_0047AD60_RefreshCandidates(hImc);
             pMsg->lResult = 0;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
         }
         break;
 
@@ -193,7 +182,7 @@ void __stdcall sub_0047AE00(SMSGHANDLER_PARAMS* pMsg)
         if (gnLanguageId_007BB5DC == 9)
         {
             gnImeState_007BB5F0 = ImmIsIME(GetKeyboardLayout(0)) ? 0 : 4;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
         }
         break;

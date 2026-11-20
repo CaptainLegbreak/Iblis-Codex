@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
 
 struct D2ListBoxEntryStrc;
 class UIWidget;
@@ -6,34 +7,6 @@ class SpinnerImplementation;
 class SpinnerWrapper;
 class ListBoxImplementation;
 class ListBoxWrapper;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 

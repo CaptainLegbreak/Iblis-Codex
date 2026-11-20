@@ -1,15 +1,5 @@
 #include "D2ClientUi.h"
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
+#include "D2StormTypes.h"
 
 class UIWidget
 {
@@ -58,7 +48,7 @@ static __declspec(noinline) int sub_004B7970_IsDialogKey(D2ClientDialogStrc* pDi
 // 0x004B79D0
 void __stdcall sub_004B79D0_DialogEnterMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
     D2ClientDialogStrc* pDialog = gpGlobal_007C0E54;
@@ -109,7 +99,7 @@ void __stdcall sub_004B7A90_DialogKeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     if (pDialog->unk0x18 == 1)
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
     }

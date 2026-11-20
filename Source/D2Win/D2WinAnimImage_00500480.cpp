@@ -2,20 +2,9 @@
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
+#include "D2StormTypes.h"
 
 struct D2WinControlStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);

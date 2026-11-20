@@ -1,16 +1,5 @@
 #include "D2Client.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
+#include "D2StormTypes.h"
 
 struct D2PacketRecord21Strc
 {
@@ -168,7 +157,7 @@ void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
         }
         else if (gnWaypointSelected_007BF06D != -1 && gnWaypointSelected_007BF06D == sub_0049C510_GetWaypointRowAtPoint(nX, nY))
         {
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             sub_004786A0_SendDwords2(0x49, gnGlobal_007BF07D, *(int*)gaWaypointEntries_007BF03C[gnWaypointSelected_007BF06D].nLevelId);
@@ -178,7 +167,7 @@ void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
             gnWaypointSelected_007BF06D = -1;
             sub_00455F20(0x14, 1, 0);
             sub_004B9A00(0x8B7, 0, 0, 0, 0);
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
@@ -186,7 +175,7 @@ void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
 
         gbWaypointButton_007BF06C = false;
         gnWaypointSelected_007BF06D = -1;
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
     }
@@ -225,7 +214,7 @@ void __stdcall sub_0049D160_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
             sub_004B9A00(6, 0, 0, 0, 0);
         sub_0049C760_SetWaypointAct(nTab);
         sub_0049C7F0_BuildWaypointList();
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
     }
@@ -246,7 +235,7 @@ void __stdcall sub_0049D160_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
     if ((unsigned short)pMsg->lParam > gnGlobal_0071146C || (unsigned short)((unsigned int)pMsg->lParam >> 16) > gnGlobal_00711470 - 0x31)
         return;
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

@@ -132,9 +132,24 @@ struct SMSGHANDLER_PARAMS
 {
     void* hWnd; // 0x00
     unsigned int uMessage; // 0x04
-    unsigned int wParam; // 0x08
-    unsigned short nXpos; // 0x0C
-    unsigned short nYpos; // 0x0E
+    union
+    {
+        unsigned int wParam; // 0x08
+        struct
+        {
+            unsigned short wParamLow; // 0x08
+            unsigned short wParamHigh; // 0x0A
+        };
+    };
+    union
+    {
+        unsigned int lParam; // 0x0C
+        struct
+        {
+            unsigned short nXpos; // 0x0C
+            unsigned short nYpos; // 0x0E
+        };
+    };
     unsigned int dwCommandSource; // 0x10
     unsigned int dwArg; // 0x14
     int bReturn; // 0x18

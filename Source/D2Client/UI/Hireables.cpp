@@ -1,11 +1,10 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2StormTypes.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { sub_00478A00(pCel); pCel = 0; }
 struct D2PetTypeTxt;
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
@@ -58,34 +57,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 int __fastcall sub_00479120_GetHirelingClassId(int nUnitId); // 0x00479120
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern void** gppHirelingCels_007BEEAC; // 0x007BEEAC
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __fastcall sub_00467410_SetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410

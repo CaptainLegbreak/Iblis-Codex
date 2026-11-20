@@ -1,35 +1,8 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
 
 class UIWidget;
 class SpinnerImplementation;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 class UIWidget
 {
@@ -67,13 +40,13 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 // 0x004BC050
 int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (pMsg->nWParamHi > 0)
+    if ((short)pMsg->wParamHigh > 0)
     {
         unk0x34 = 1;
         unk0x38 = 0;
         unk0x20 = 1;
     }
-    else if (pMsg->nWParamHi < 0)
+    else if ((short)pMsg->wParamHigh < 0)
     {
         unk0x34 = 0;
         unk0x38 = 1;

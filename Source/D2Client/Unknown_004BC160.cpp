@@ -1,22 +1,11 @@
 #include "D2Client.h"
 #include "D2Path.h"
+#include "D2StormTypes.h"
 
 class UIWidget;
 class SpinnerImplementation;
 struct SpinnerWrapper;
 union D2SeedStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 class UIWidget
 {

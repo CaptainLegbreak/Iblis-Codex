@@ -1,16 +1,6 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl sub_00466FE0(); // 0x00466FE0
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
@@ -33,7 +23,7 @@ void __stdcall sub_0044C5E0_ActivateMsg(SMSGHANDLER_PARAMS* pMessage)
         gdwGlobal_007A0664 = 0;
         sub_00466FE0();
         sub_004FB130_SetActiveState(0);
-        pMessage->bUseResult = 0;
+        pMessage->bReturn = 0;
         return;
     }
 
@@ -54,11 +44,11 @@ void __stdcall sub_0044C5E0_ActivateMsg(SMSGHANDLER_PARAMS* pMessage)
         gdwGlobal_007A0670 = 1;
         gdwGlobal_007A0658 = 0;
         sub_00466FF0();
-        pMessage->bUseResult = 0;
+        pMessage->bReturn = 0;
         return;
     }
 
-    pMessage->bUseResult = 0;
+    pMessage->bReturn = 0;
 }
 
 #include "gen/data/Source/D2Client/Unknown_0044C5E0.inc"

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CursorAnimStrc;
@@ -12,17 +13,6 @@ extern D2CursorAnimStrc gaCursorAnim_00712010[CURSOR_ANIM_COUNT]; // 0x00712010
 extern int gdwGlobal_007A6ADC; // 0x007A6ADC
 extern int gnGlobal_007A6AE0; // 0x007A6AE0
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
 extern int gnGlobal_007A6B08; // 0x007A6B08
 int __cdecl sub_0044DA30(); // 0x0044DA30
 int __cdecl sub_00463DF0(); // 0x00463DF0
@@ -68,7 +58,7 @@ void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
     {
         gnGlobal_007A6B08 = 0;
     }
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
     pMsg->lResult = 0;
 }
 

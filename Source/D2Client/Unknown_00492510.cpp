@@ -1,21 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 struct D2InvRectStrc;
-
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);
 int __cdecl sub_0044DCC0();
@@ -50,7 +37,6 @@ extern int gnGlobal_007BCB4C;
 extern int gnGlobal_007BCB50;
 int __cdecl sub_004680A0(); // 0x004680A0
 int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
-
 
 extern D2InvRectStrc gInvRect_007BCB30; // 0x007BCB30
 extern int gnGlobal_007BCB74;

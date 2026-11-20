@@ -1,20 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
-
-
+#include "D2StormTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -139,6 +125,6 @@ void __stdcall sub_00468840_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A6AE0 = 0;
         gnGlobal_007A6AE0 = sub_00467E90_GetCursorAnimLength(gnGlobal_007A6ADC) - 0x100;
     }
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
     pMsg->lResult = 0;
 }

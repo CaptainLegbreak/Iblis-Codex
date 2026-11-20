@@ -1,21 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXPos;
-    unsigned short nYPos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
-
+#include "D2StormTypes.h"
 
 struct D2MsgHandlerEntryStrc
 {
@@ -79,8 +65,8 @@ static D2UnitStrc* GetCursorItem_Inline()
 
 void __stdcall sub_004BFC50_OnClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nY = pMsg->nYPos;
-    const int nX = pMsg->nXPos;
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);

@@ -1,20 +1,9 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
+#include "D2StormTypes.h"
 
 struct D2OptionHeaderStrc;
 struct D2OptionEntryStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -66,7 +55,7 @@ void __stdcall sub_0047D8A0_SelectNextOption(SMSGHANDLER_PARAMS* pMsg)
     while (gpOptionEntries_007BC940[gnOptionSelected_007BC938].nKind == -1
         || gpOptionEntries_007BC940[gnOptionSelected_007BC938].pfnEnabled && !gpOptionEntries_007BC940[gnOptionSelected_007BC938].pfnEnabled());
     sub_004B9A00(1, 0, 0, 0, 0);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -85,7 +74,7 @@ void __stdcall sub_0047D920_SelectPreviousOption(SMSGHANDLER_PARAMS* pMsg)
     while (gpOptionEntries_007BC940[gnOptionSelected_007BC938].nKind == -1
         || gpOptionEntries_007BC940[gnOptionSelected_007BC938].pfnEnabled && !gpOptionEntries_007BC940[gnOptionSelected_007BC938].pfnEnabled());
     sub_004B9A00(1, 0, 0, 0, 0);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

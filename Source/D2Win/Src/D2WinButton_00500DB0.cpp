@@ -1,18 +1,9 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
 #include "D2Win32Types.h"
+#include "D2StormTypes.h"
 
 typedef unsigned short Unicode;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int unk0x14[3];
-};
 
 struct D2WinButtonStrc
 {

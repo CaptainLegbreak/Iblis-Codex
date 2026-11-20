@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
+#include "D2StormTypes.h"
 
 #define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
@@ -12,7 +13,6 @@ struct D2QuestLookupEntryStrc;
 struct D2QuestPanelValuesStrc;
 struct D2WardenClientM114Strc;
 
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
@@ -20,9 +20,6 @@ int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 void __stdcall sub_00476190_ResetStar(int nStar, int bRespawn);
 extern D2SeedStrc* gpClientSeed_00712C4C; // 0x00712C4C
-
-
-
 
 struct D2QuestLookupEntryStrc
 {
@@ -40,33 +37,6 @@ struct D2QuestPanelValuesStrc
 };
 
 #pragma pack(pop)
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern void* const gapWardenServices_006D8E68[7]; // 0x006D8E68

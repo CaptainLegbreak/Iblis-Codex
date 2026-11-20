@@ -1,17 +1,5 @@
 #include "D2Client.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXPos;
-    unsigned short nYPos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
+#include "D2StormTypes.h"
 
 #pragma pack(push, 2)
 struct D2BeltSlotStrc
@@ -45,7 +33,7 @@ void __cdecl sub_0044DA70();
 
 static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0(pMsg) && pMsg->nXPos <= gnGlobal_0071146C / 2 && pMsg->nYPos < gnGlobal_00711470 - 0x2F)
+    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0(pMsg) && pMsg->nXpos <= gnGlobal_0071146C / 2 && pMsg->nYpos < gnGlobal_00711470 - 0x2F)
     {
         if (sub_00468830() == 6)
             sub_00453EC0();
@@ -59,8 +47,8 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 // 0x004A78C0
 void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nX = pMsg->nXPos;
-    const int nY = pMsg->nYPos;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     sub_00467FA0_MsgHandler(pMsg);
     gnGlobal_007C02F4 = 0;
     if (nX >= gnGlobal_007A2858 + 0x80 && nX <= gnGlobal_007A2858 + 0xA0 && nY >= gnGlobal_00711470 + gnGlobal_007A285C - 0x5C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x3C)
