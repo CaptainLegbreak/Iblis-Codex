@@ -1,3 +1,4 @@
+#include "D2StormTypes.h"
 // build: context MakeLarge
 // build: context ExtractLowPart
 // build: context ExtractLowPartSx
@@ -176,12 +177,6 @@ inline void D2StormQueueStrc::sub_00421FE0_GrowToFit(int nIndex)
 {
     m_array.GrowToFit(m_start + nIndex, 1);
 }
-
-struct D2StormArrayViewStrc
-{
-    const unsigned int* pData;
-    unsigned int nCount;
-};
 
 struct D2StormBigStackStrc
 {

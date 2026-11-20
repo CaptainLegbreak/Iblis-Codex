@@ -1,31 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
-
-
-struct D2StormEventHandlerStrc
-{
-    unsigned int nId;
-    int unk0x04;
-    void* pfnHandler;
-    D2StormEventHandlerStrc* pNext;
-};
-
-struct D2StormHandlerTableStrc
-{
-    D2StormEventHandlerStrc** ppTable;
-    unsigned int nSize;
-    int nUsed;
-    D2StormHandlerTableStrc* pPrevState;
-};
-
-struct D2StormEventTypeStrc
-{
-    unsigned int nType;
-    unsigned int nSubType;
-    int unk0x08;
-    D2StormHandlerTableStrc* f_C;
-    D2StormEventTypeStrc* pNext;
-};
+#include "D2StormTypes.h"
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC218
@@ -75,9 +50,9 @@ int __stdcall SEvtDestroy()
         while ((pType = gppSEvtTypes_00779300[i]) != 0)
         {
             D2StormHandlerTableStrc* pState;
-            while ((pState = pType->f_C) != 0)
+            while ((pState = pType->pHandlers) != 0)
             {
-                pType->f_C = pState->pPrevState;
+                pType->pHandlers = pState->pPrevState;
                 DELETE_TABLE(pState);
             }
             gppSEvtTypes_00779300[i] = pType->pNext;
@@ -103,9 +78,9 @@ int __stdcall SEvtUnregisterType(unsigned int nType, unsigned int nSubType)
     if (pType)
     {
         D2StormHandlerTableStrc* pState;
-        while ((pState = pType->f_C) != 0)
+        while ((pState = pType->pHandlers) != 0)
         {
-            pType->f_C = pState->pPrevState;
+            pType->pHandlers = pState->pPrevState;
             DELETE_TABLE(pState);
         }
         D2StormEventTypeStrc** ppNext = &gppSEvtTypes_00779300[(nType ^ nSubType) & (gnSEvtTypeTableSize_00779304 - 1)];
@@ -137,14 +112,14 @@ int __stdcall SEvtPopState(unsigned int nType, unsigned int nSubType)
     D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
     if (pType)
     {
-        D2StormHandlerTableStrc* pState = pType->f_C;
+        D2StormHandlerTableStrc* pState = pType->pHandlers;
         D2StormHandlerTableStrc* pPrev = pState->pPrevState;
         if (!pPrev)
             bResult = UNREGISTER_TYPE(nType, nSubType);
         else
         {
             DELETE_TABLE(pState);
-            pType->f_C = pPrev;
+            pType->pHandlers = pPrev;
         }
     }
     gbSEvtModified_007792F8 = 1;

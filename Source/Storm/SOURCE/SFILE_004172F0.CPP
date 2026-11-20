@@ -1,6 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
-
+#include "D2StormTypes.h"
 
 struct D2StormLinkStrc
 {
@@ -29,32 +29,6 @@ struct D2StormLinkStrc
             m_next = 0;
         }
     }
-};
-
-struct D2StormMpqHeaderStrc
-{
-    unsigned int dwSignature;
-
-    unsigned int f_4;
-    unsigned int nArchiveSize;
-    unsigned short wVersion;
-    unsigned char nSectorShift;
-    unsigned char unk0x0F;
-    unsigned int nHashOffset;
-    unsigned int nBlockOffset;
-    unsigned int nHashEntries;
-    unsigned int nBlockEntries;
-};
-
-struct D2StormHashEntryStrc
-{
-    unsigned int nName1;
-    unsigned int nName2;
-
-    unsigned short wLocale;
-    unsigned char nPlatform;
-    unsigned char unk0x0B;
-    int f_C;
 };
 
 struct D2StormBlockStrc
@@ -383,7 +357,7 @@ static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer
 
 static __declspec(noinline) D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
 {
-    return &pArchive->pBlockTable[pArchive->f_140[nHashIndex].f_C];
+    return &pArchive->pBlockTable[pArchive->f_140[nHashIndex].nBlockIndex];
 }
 
 static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned char nPlatform, D2StormArchiveRecStrc* pArchive, const char* szName)
@@ -396,9 +370,9 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
     D2StormHashEntryStrc* pEntry = &pArchive->f_140[nIndex];
     const unsigned int nStart = nIndex;
     int nBest = -1;
-    while (pEntry->f_C != -1)
+    while (pEntry->nBlockIndex != -1)
     {
-        if (pEntry->nName1 == nName1 && pEntry->nName2 == nName2 && pEntry->f_C != -2)
+        if (pEntry->nName1 == nName1 && pEntry->nName2 == nName2 && pEntry->nBlockIndex != -2)
         {
             if (pEntry->wLocale == wLocale && pEntry->nPlatform == nPlatform)
                 return nIndex;
@@ -905,7 +879,7 @@ int __fastcall sub_0041B6B0_LoadArchive(D2StormArchiveRecStrc* pArchive, unsigne
             nBufferSize = nRead;
         }
         SMemCopy(pArchive->pHeader, pBuffer + pArchive->nArchiveOffset - nBufferStart, sizeof(D2StormMpqHeaderStrc));
-        if (pArchive->pHeader->dwSignature == 0x1A51504D && pArchive->pHeader->f_4 >= sizeof(D2StormMpqHeaderStrc))
+        if (pArchive->pHeader->dwSignature == 0x1A51504D && pArchive->pHeader->nHeaderSize >= sizeof(D2StormMpqHeaderStrc))
             break;
         pArchive->nArchiveOffset += 0x200;
     }

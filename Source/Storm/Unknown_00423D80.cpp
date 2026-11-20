@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2StormTypes.h"
 
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
@@ -47,12 +48,6 @@ struct D2StormArrayAStrc : D2StormFixedArrayAStrc
 struct D2StormQueueStrc : D2StormArrayAStrc
 {
     unsigned int m_start;
-};
-
-struct D2StormArrayViewStrc
-{
-    const unsigned int* pData;
-    unsigned int nCount;
 };
 
 struct D2StormRecordStackStrc

@@ -1,3 +1,4 @@
+#include "D2StormTypes.h"
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
     return pWhere;
@@ -154,12 +155,6 @@ struct D2StormArrayCStrc
 
     void sub_00421A50_Set(unsigned int nCount, const char* pData);                                          // 0x00421A50
     unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);                                  // 0x00421F60
-};
-
-struct D2StormArrayViewStrc
-{
-    const unsigned int* pData;
-    unsigned int nCount;
 };
 
 struct D2StormQueueStrc

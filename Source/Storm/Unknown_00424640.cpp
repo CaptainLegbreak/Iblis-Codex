@@ -1,6 +1,6 @@
+#include "D2StormTypes.h"
 struct D2StormArrayAStrc;
 struct D2StormQueueStrc;
-struct D2StormArrayViewStrc;
 struct D2StormRecordStackStrc;
 struct D2StormBigStrc;
 
@@ -31,12 +31,6 @@ struct D2StormQueueStrc
     }
 };
 
-struct D2StormArrayViewStrc
-{
-    const unsigned int* pData;
-    unsigned int nCount;
-};
-
 struct D2StormRecordStackStrc
 {
     D2StormQueueStrc pRecords[16];
@@ -49,7 +43,6 @@ struct D2StormBigStrc
     D2StormRecordStackStrc tStack;
     int unk0x158[4];
 };
-
 
 int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormRecordStackStrc* pStack);
 
