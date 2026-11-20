@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 struct D2TileLibraryHeaderStrc;
 struct D2CellFileStrc;
@@ -17,15 +18,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2LevelsTxt
 {
@@ -274,7 +266,7 @@ int __stdcall sub_0044E770_DrawEndGameScreen(int nUnused)
 
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = s_pEndGameCell_007A0700;
-            tContext.unk0x40 = 0;
+            tContext.nDirection = 0;
             sub_004FB0D0();
             if (!gdwGlobal_007A04F4)
             {
@@ -329,7 +321,7 @@ int __stdcall sub_0044E770_DrawEndGameScreen(int nUnused)
             sub_00502EF0(1);
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = s_pEndGameOkCell_007A06FC;
-            tContext.unk0x40 = 0;
+            tContext.nDirection = 0;
             tContext.nFrame = gdwGlobal_007A0680 != 0;
             sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0x30, gnGlobal_00711470 - 0x50, -1, 5, 0);
             const int nX = sub_0044D390_GetTextX(0x13EE, gnGlobal_0071146C / 2);

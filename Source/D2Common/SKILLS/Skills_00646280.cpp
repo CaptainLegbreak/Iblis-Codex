@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 
 struct D2InventoryStrc;
 struct D2ItemsTxt;
@@ -73,11 +74,6 @@ struct D2SkillListStrc
     D2SkillStrc* pFirstSkill;
 };
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x3C];
-    short wDescMissile[3];
-};
 
 struct D2MissilesTxt
 {

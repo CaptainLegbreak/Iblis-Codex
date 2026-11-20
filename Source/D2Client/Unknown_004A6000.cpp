@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 struct Unicode
 {
@@ -50,15 +51,6 @@ struct D2MsgHandlerEntryStrc
     int unk0x08;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -156,7 +148,7 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02DC;
     tContext.nFrame = 2;
     if (sub_004A65E0_IsInLeftButton() && !sub_004538D0(9))
@@ -177,7 +169,7 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02DC;
     tContext.nFrame = 2;
     if (sub_004A6690_IsInRightButton() && !sub_004538D0(9))

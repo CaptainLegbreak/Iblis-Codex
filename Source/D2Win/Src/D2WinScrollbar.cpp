@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 #define WM_LBUTTONDOWN 0x201
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -74,15 +75,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
 int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size); // 0x00681EF0
 int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00508120
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -272,7 +264,7 @@ int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
         D2CelContextStrc context;
         memset(&context, 0, sizeof(context));
         context.pCellFile = pCellFile;
-        context.unk0x40 = 0;
+        context.nDirection = 0;
         context.nFrame = pScrollBar->bIsLowerArrowPressed ? 3 : 1;
         sub_004F6480(&context, nX, nY, -1, 5, 0);
         context.nFrame = 5;

@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
+#include "D2Records.h"
 
 struct Unicode
 {
@@ -12,17 +14,6 @@ struct Unicode
 
 
 
-struct D2SkillDescTxt
-{
-    unsigned short wSkillDesc;
-    char nSkillPage;
-    unsigned char nSkillRow;
-    unsigned char nSkillColumn;
-    unsigned char nListRow;
-    unsigned char nListPool;
-    unsigned char nIconCel;
-    char unk0x08[0x118];
-};
 
 
 struct SMSGHANDLER_PARAMS
@@ -38,15 +29,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);
@@ -509,7 +491,7 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
     D2CelContextStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
     tCel.pCellFile = pCellFile;
-    tCel.unk0x40 = 0;
+    tCel.nDirection = 0;
     tCel.nFrame = nFrame;
     TEXTURE_CelDrawColor(&tCel, nX, nY, -1, 5, nMode);
 

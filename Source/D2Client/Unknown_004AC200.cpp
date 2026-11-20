@@ -2,15 +2,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x02];
-    char nSkillPage;
-    char unk0x03[0x11D];
-};
 
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);

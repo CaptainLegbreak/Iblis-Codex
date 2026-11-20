@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 #define STAT_STATPTS 4
 #define STAT_NEWSKILLS 5
@@ -109,15 +110,6 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __fastcall sub_004A6630_IsInRightPanelButton(int nMode, int nX, int nY); // 0x004A6630
 int __cdecl sub_004A6690_IsMouseOnRightButton(); // 0x004A6690
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 bool __stdcall sub_004A6A00_CheckUiVars(int nArg); // 0x004A6A00
@@ -798,7 +790,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
     const int nCelWidth = sub_006018C0(CelGetHandle(&tContext));
@@ -810,7 +802,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
     }
 
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02DC;
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -857,7 +849,7 @@ void __cdecl sub_004A6E60_DrawRightPanelButtons()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02E0;
     tContext.nFrame = 0;
     const int nCelWidth = sub_006018C0(CelGetHandle(&tContext));
@@ -869,7 +861,7 @@ void __cdecl sub_004A6E60_DrawRightPanelButtons()
     }
 
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpGlobal_007C02DC;
     if (D2GFX_GetResolutionMode() != 2)
     {

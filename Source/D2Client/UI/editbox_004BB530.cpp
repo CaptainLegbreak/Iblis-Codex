@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 struct Unicode;
 class UIWidget;
@@ -10,15 +11,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 class UIWidget
 {
@@ -112,7 +104,7 @@ void SpinnerImplementation::Slot01()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCellFile;
     tContext.nFrame = 2 * unk0x34;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, nUpX, nUpY, -1, 5, 0);
     tContext.nFrame = 2 * unk0x38 + 1;
     sub_004F6480(&tContext, nDownX, nDownY, -1, 5, 0);

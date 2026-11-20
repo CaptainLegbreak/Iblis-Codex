@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
 
 struct D2CellFileStrc;
 struct Unicode;
@@ -49,15 +50,6 @@ extern int gdwGlobal_007A6AAC; // 0x007A6AAC
 extern int gdwGlobal_007A6AF0; // 0x007A6AF0
 extern int gdwGlobal_007A8918; // 0x007A8918
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern D2CellFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -363,7 +355,7 @@ void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect)
     int nPiece = 0;
     memset(&context, 0, sizeof(context));
     context.pCellFile = gpBoxPiecesCel_007A2798;
-    context.unk0x40 = 0;
+    context.nDirection = 0;
 
     const int nRightCorner = nRight - 12;
     const int nHorizontalStart = nLeft + 12;
@@ -890,7 +882,7 @@ void __stdcall sub_0045FBC0_DrawCelPair(int bFirst)
         tContext.pCellFile = gpGlobal_007A523C;
     else
         tContext.pCellFile = gpGlobal_007A5244;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858 + 0xBC, 0x148 - gnGlobal_007A285C, -1, 5, 0);
     tContext.nFrame = 1;

@@ -1,8 +1,4 @@
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-};
+#include "D2StormLink.h"
 
 struct D2StormSlotLinkStrc
 {

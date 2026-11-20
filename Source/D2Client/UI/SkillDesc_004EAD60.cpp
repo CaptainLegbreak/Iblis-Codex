@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 struct D2UnitStrc;
 
 struct D2SkillsTxt;
@@ -91,17 +92,6 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 static int sub_004E6FB0_GetETypeColor(int nEType); // 0x004E6FB0
 static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight); // 0x004E96E0
 
-struct D2SkillDescTxt
-{
-    char unk0x0[0x3C];
-    short wDescMissile[3];
-    unsigned char nDescLine[17];
-    char unk0x53[0x1];
-    unsigned short wDescTextA[17];
-    unsigned short wDescTextB[17];
-    int dwDescCalcA[17];
-    int dwDescCalcB[17];
-};
 
 struct D2MonStatsTxt
 {

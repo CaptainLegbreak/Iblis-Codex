@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 struct Unicode;
 
@@ -30,15 +31,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2PanelAnimEntryStrc
 {
@@ -272,7 +264,7 @@ void __cdecl sub_00494620_DrawColumn()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007BEEF4;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     int nY = 0x49;
     for (int i = 0; i < 8; ++i)

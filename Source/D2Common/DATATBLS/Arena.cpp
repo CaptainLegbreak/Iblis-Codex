@@ -1,4 +1,5 @@
 #include "D2DataTbls.h"
+#include "D2Records.h"
 #pragma function(memset)
 
 #define ARENA_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -9,14 +10,6 @@ struct D2DataTablesStrc;
 struct D2ArenaTxt;
 struct D2CharTemplateTxt;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    D2TxtLinkStrc** pLinker;
-};
 
 
 struct D2ArenaTxt

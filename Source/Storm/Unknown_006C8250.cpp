@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2CelContext.h"
 
 struct D2CelStrc;
 struct D2ClipRectStrc;
@@ -21,29 +22,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
-struct D2CelContextStrc
-{
-    int nArg0;
-    unsigned char nFlags;
-    unsigned char nComponent;
-    short unk0x06;
-    int nType;
-    int nClass;
-    int nMode;
-    int nOverlay;
-    int nArg18;
-    int nArg1C;
-    unsigned int dwToken;
-    unsigned int dwModeToken;
-    unsigned int dwCode;
-    const char* szName;
-    int nFrames;
-    int nArg34;
-    int unk0x38;
-    D2CelStrc* pCel;
-    int nArg40;
-    int unk0x44;
-};
 
 struct D2GfxPaletteView006C85A0Strc
 {

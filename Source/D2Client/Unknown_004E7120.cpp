@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -20,19 +21,6 @@ extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
 
 
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x0C];
-    unsigned short wStrLong;
-    char unk0x0E[0x02];
-    unsigned short wStrMana;
-    char unk0x12[0x0E];
-    unsigned char nPrgDamElem[3];
-    char unk0x23[0x01];
-    int dwProgDmgMin[3];
-    int dwProgDmgMax[3];
-    char unk0x3C[0xE4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

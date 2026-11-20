@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 #define gbUpPressed_007C028C (gaPressed_007C0288[1])
 #define gbDownPressed_007C0290 (gaPressed_007C0288[2])
@@ -37,15 +38,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 #pragma pack(push, 2)
 struct D2ClientListEntryStrc

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -42,15 +43,6 @@ struct D2ClientListEntryStrc
     unsigned char unk0x04[6];
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2TextNodeStrc
 {
@@ -145,7 +137,7 @@ void __cdecl sub_0049A950_DrawPanelCel()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = sub_00454600();
     tContext.nFrame = (gnGlobal_007BF030 != 0) + 10;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858 + 278, 421 - gnGlobal_007A285C, -1, 5, 0);
 }
 

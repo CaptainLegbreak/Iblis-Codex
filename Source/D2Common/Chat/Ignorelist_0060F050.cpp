@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 #define D2_STORM_UNLINK_TERMINATOR(pThis)                                                                   \
     if ((pThis)->m_prevlink)                                                                                \
     {                                                                                                       \
@@ -112,17 +113,6 @@ struct D2CommonStormZeroBStrc
     D2CommonStormZeroBStrc();
 };
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
 
 struct D2CommonStormSlotLinkStrc
 {

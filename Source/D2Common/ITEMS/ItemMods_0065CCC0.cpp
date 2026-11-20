@@ -1,18 +1,12 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
 
 
-struct D2PropertyStrc
-{
-    int nProperty;
-    int nLayer;
-    int nMin;
-    int nMax;
-};
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

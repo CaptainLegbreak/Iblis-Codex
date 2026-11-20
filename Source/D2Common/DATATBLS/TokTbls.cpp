@@ -1,15 +1,8 @@
 #include "D2Common.h"
+#include "D2Records.h"
 
 struct D2BinFieldStrc;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 extern void* gpCompositTxt; // 0x0096D4EC
 extern void* gpArmtypeTxt; // 0x0096D4E8

@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 struct D2CharStrc
 {
@@ -56,15 +57,6 @@ struct D2FontCacheStrc
     unsigned int dwShiftedTickCount;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int nDirection;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0

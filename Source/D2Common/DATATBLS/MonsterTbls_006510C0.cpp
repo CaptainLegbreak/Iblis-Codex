@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 #define TC_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2BinFieldStrc;
@@ -12,14 +13,6 @@ struct D2MonPresetTxt;
 
 typedef unsigned int size_t;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinkField;
-};
 
 
 struct D2HirelingTxt

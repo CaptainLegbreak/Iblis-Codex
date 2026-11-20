@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 struct Unicode
 {
@@ -12,17 +13,6 @@ struct Unicode
 
 
 
-struct D2SkillDescTxt
-{
-    unsigned short wSkillDesc;
-    char nSkillPage;
-    unsigned char nSkillRow;
-    unsigned char nSkillColumn;
-    unsigned char nListRow;
-    unsigned char nListPool;
-    unsigned char nIconCel;
-    char unk0x08[0x118];
-};
 
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);

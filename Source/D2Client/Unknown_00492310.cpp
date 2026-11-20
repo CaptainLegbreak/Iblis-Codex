@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 struct D2UnitStrc;
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -119,15 +120,6 @@ unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 extern D2BodyLocRectStrc gaBodyLocRects_007BCD38[11]; // 0x007BCD38
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int nDirection;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 
 
 struct D2SkillsTxt
@@ -22,15 +23,6 @@ struct D2SkillsTxt
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x20];
-    unsigned char nPrgDamElem[3];
-    char unk0x23[0x01];
-    int dwProgDmgMin[3];
-    int dwProgDmgMax[3];
-    char unk0x3C[0xE4];
-};
 
 struct Unicode
 {

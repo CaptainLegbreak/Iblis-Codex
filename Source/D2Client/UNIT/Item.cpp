@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2Records.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_SET 5
@@ -360,13 +361,6 @@ struct D2UniqueItemsTxt
     char unk0x88[0x14C - 0x88];
 };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x82];
-    short wDropSound;
-    short wUseSound;
-    char unk0x86[0x1B8 - 0x86];
-};
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 

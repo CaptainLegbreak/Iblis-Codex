@@ -7,6 +7,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2Records.h"
 
 struct D2GfxLightStrc;
 struct D2BinFieldStrc;
@@ -18,14 +19,6 @@ struct D2MissileStrc;
 struct D2DrlgCoordsStrc;
 struct D2PlayerDataStrc;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 extern void* gpShrinesTxt; // 0x0096D468
 

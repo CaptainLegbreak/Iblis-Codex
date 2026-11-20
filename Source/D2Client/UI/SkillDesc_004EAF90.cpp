@@ -3,19 +3,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 
 
-struct D2SkillDescTxt
-{
-    char unk0x0[0x18];
-    unsigned int dwDamCalc[2];
-    unsigned char nPrgDamElem[3];
-    char unk0x23[0x1];
-    int dwProgDmgMin[3];
-    int dwProgDmgMax[3];
-    char unk0x3C[0xE4];
-};
 
 
 struct Unicode

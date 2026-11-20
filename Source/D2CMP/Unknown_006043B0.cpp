@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 struct D2StormEntry38Strc;
 struct D2StormSlotListStrc;
 struct D2StormEntryArray604080Strc;
@@ -81,11 +82,6 @@ struct D2StormEntryGrowArray604460Strc
     void ReserveInline(unsigned int nCount, int bRound);
 };
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-};
 
 struct D2StormListEStrc
 {

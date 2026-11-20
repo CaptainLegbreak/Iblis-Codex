@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2CelContext.h"
 
 struct Unicode
 {
@@ -10,13 +11,6 @@ struct Unicode
 };
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[4];
-};
 
 struct D2PetTypeTxt
 {

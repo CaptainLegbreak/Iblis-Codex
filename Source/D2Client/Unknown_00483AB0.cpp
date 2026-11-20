@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 
 
@@ -26,11 +27,6 @@ struct Unicode
 };
 
 
-struct D2SetItemsTxt
-{
-    short wSetItemId;
-    char unk0x02[0x1B6];
-};
 
 
 struct D2InvRectStrc

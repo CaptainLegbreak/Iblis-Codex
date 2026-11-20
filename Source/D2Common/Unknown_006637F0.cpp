@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Path.h"
+#include "D2Records.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 union D2SeedStrc;
@@ -68,11 +69,6 @@ D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(i
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x87];
-    unsigned char nAddFunc;
-};
 
 extern const int gnItemSetStates[]; // 0x006EE424
 extern const int gnSetMaskToBonusMappingTable[]; // 0x006EE440

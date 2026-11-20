@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -19,15 +20,6 @@ struct Unicode
     unsigned short ch;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2DialogWidget
 {
@@ -161,7 +153,7 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
 
     ++pDialog->nDrawCount;
 
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     D2RectStrc tRect;
     tRect.nTop = pDialog->nY;
     tRect.nLeft = pDialog->nX;

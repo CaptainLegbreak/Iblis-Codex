@@ -1,11 +1,4 @@
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
+#include "D2Records.h"
 
 struct D2ObjModeTypeTxt
 {

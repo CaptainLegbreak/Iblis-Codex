@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
+#include "D2Records.h"
 
 #define TEXT(y, id) sub_004AAAA0_DrawSkillTreeText(D2LANG_GetStringFromTblIndex(id), y)
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -43,17 +45,6 @@ void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeig
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
 
-struct D2SkillDescTxt
-{
-    unsigned short wSkillDesc;
-    char nSkillPage;
-    unsigned char nSkillRow;
-    unsigned char nSkillColumn;
-    unsigned char nListRow;
-    unsigned char nListPool;
-    unsigned char nIconCel;
-    char unk0x08[0x118];
-};
 
 
 struct SMSGHANDLER_PARAMS
@@ -69,15 +60,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -464,7 +446,7 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
     D2CelContextStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
     tCel.pCellFile = pCellFile;
-    tCel.unk0x40 = 0;
+    tCel.nDirection = 0;
     tCel.nFrame = nFrame;
     TEXTURE_CelDrawColor(&tCel, nX, nY, -1, 5, nMode);
 

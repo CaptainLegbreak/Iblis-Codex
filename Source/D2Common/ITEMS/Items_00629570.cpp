@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 #define IFLAG_ETHEREAL 0x00400000
 #define STAT_MINDAMAGE 21
 #define STAT_MAXDAMAGE 22
@@ -38,12 +39,6 @@ struct D2ItemDataStrc
     unsigned char unk_46[0x2];
 };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x2E];
-    short nSetItems;
-    char unk0x30[0x1B8 - 0x30];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

@@ -1,15 +1,6 @@
 #include "D2Glide.h"
+#include "D2CelContext.h"
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38;
-    D2CelStrc* f_3C;
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2GlideTexInfoStrc
 {
@@ -93,13 +84,13 @@ static int sub_0050A260_GlideTexInfoInit(D2CelContextStrc* pContext, D2GlideTexI
     if (!sub_006001F0(pContext, 0, 1))
         return 0;
 
-    D2_ASSERT(pContext->f_3C, 0xCE);
+    D2_ASSERT(pContext->pCel, 0xCE);
 
     pInfo->pContext = pContext;
-    pInfo->nWidth = sub_006018C0(pContext->f_3C);
-    pInfo->nOffsetX = sub_00601920(pContext->f_3C);
-    pInfo->nHeight = sub_006018F0(pContext->f_3C);
-    pInfo->nOffsetY = sub_00601950(pContext->f_3C);
+    pInfo->nWidth = sub_006018C0(pContext->pCel);
+    pInfo->nOffsetX = sub_00601920(pContext->pCel);
+    pInfo->nHeight = sub_006018F0(pContext->pCel);
+    pInfo->nOffsetY = sub_00601950(pContext->pCel);
     return 1;
 }
 
@@ -193,7 +184,7 @@ static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
 
 static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo)
 {
-    D2CelStrc* pCell = pInfo->pContext->f_3C;
+    D2CelStrc* pCell = pInfo->pContext->pCel;
     D2_ASSERT(pCell, 0x12D);
 
     D2GlideTexSlotStrc* pSlots = (D2GlideTexSlotStrc*)sub_00601B10_GetCelPixels(pCell);

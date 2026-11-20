@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 // build: base-profile
 #define NULL 0
 
@@ -32,14 +33,6 @@ struct Unicode;
 struct D2PropertyStrc;
 struct D2DataTablesStrc;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 
 extern D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
@@ -208,13 +201,6 @@ enum D2C_TxtFieldTypes
     TXTFIELD_CALCTODWORD = 25,
 };
 
-struct D2PropertyStrc
-{
-    int nProperty;
-    int nLayer;
-    int nMin;
-    int nMax;
-};
 
 struct D2RunesTxt
 {

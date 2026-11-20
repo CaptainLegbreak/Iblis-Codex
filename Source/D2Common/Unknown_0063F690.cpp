@@ -1,14 +1,7 @@
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2TxtLinkStrc;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 
 extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060

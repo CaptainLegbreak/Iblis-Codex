@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestTextsStrc;
@@ -100,15 +101,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2ButtonLayoutStrc
 {
@@ -747,7 +739,7 @@ void __cdecl sub_004A2A80_DrawButton()
 
     D2CelContextStrc tCel;
     memset(&tCel, 0, sizeof(tCel));
-    tCel.unk0x40 = 0;
+    tCel.nDirection = 0;
     tCel.pCellFile = gpGlobal_007C02E0;
     tCel.nFrame = 0;
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);

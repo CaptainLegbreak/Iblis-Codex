@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -179,15 +180,6 @@ struct D2WinPopUpStrc
     int nCurrentLine;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -270,7 +262,7 @@ int __fastcall IMAGE2_Draw(D2WinControlStrc* pControl)
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         tContext.pCellFile = pImage->controlHeader.pCellFile;
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
         tContext.nFrame = pImage->nFrame;
 
         for (int i = 0; i < nRows; ++i)
@@ -400,7 +392,7 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = sghPentagram;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = pList->field_5C;
 
     while (pData)

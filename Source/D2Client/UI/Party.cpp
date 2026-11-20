@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 struct D2StoredUnitRecordStrc;
 
 struct Unicode;
@@ -7,15 +8,6 @@ struct D2SevenIntStrc;
 struct D2RosterSlotStrc;
 struct D2CelContextStrc;
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
@@ -122,7 +114,7 @@ static __declspec(noinline) void __stdcall sub_00499FC0_DrawPanelCel(void* pCell
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCellFile;
     tContext.nFrame = nFrame;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858 + nX, nY - gnGlobal_007A285C, -1, 5, 0);
 }
 

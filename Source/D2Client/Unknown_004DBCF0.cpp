@@ -1,30 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 
-struct D2CelContextStrc
-{
-    int nArg0;
-    unsigned char nFlags;
-    unsigned char nComponent;
-    short unk0x06;
-    int nType;
-    int nClass;
-    int nMode;
-    int nOverlay;
-    int nArg18;
-    int nArg1C;
-    unsigned int dwToken;
-    unsigned int dwModeToken;
-    unsigned int dwCode;
-    const char* szName;
-    int nFrames;
-    int nArg34;
-    int unk0x38;
-    D2CelStrc* pCel;
-    int nArg40;
-    int unk0x44;
-};
 
 struct D2CompEntryListStrc
 {
@@ -130,8 +108,8 @@ found:
 // 0x004DBCF0
 int __fastcall sub_004DBCF0_FillMonsterCelContextEx(D2CelContextStrc* pToken, int nArg40, int nArg0, unsigned char nComponent, int nMode, unsigned int dwCode0, D2CompEntryListStrc* pList, D2MonCompInfoStrc* pClassInfo, D2CompArgStrc* pArgRec, int nRow)
 {
-    pToken->nArg40 = nArg40;
-    pToken->nArg0 = nArg0;
+    pToken->nDirection = nArg40;
+    pToken->nFrame = nArg0;
     pToken->nComponent = nComponent;
     return sub_004DBB80_FillMonsterCelContext(pList, dwCode0, pToken, nMode, pClassInfo, pArgRec, nRow);
 }

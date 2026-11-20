@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -30,15 +31,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2GfxMotionStrc
 {
@@ -210,7 +202,7 @@ void __cdecl sub_00499E50_DrawPanelQuad()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpPanelQuadCel_007BF018;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 224, -1, 5, 0);
     tContext.nFrame = 1;
@@ -269,7 +261,7 @@ void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCellFile;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 320, gnGlobal_00711470 + gnGlobal_007A285C - 224, -1, 5, 0);
     tContext.nFrame = 1;
@@ -310,7 +302,7 @@ void __cdecl sub_004AB530_DrawTabCel()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = sub_00454600();
     tContext.nFrame = (gbGlobal_007C0C38 != 0) + 10;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, nX, gnGlobal_00711470 + gnGlobal_007A285C - 63, -1, 5, 0);
 }
 
@@ -322,7 +314,7 @@ static void sub_00499F40_DrawRowSeparator(int nY)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCellFile_007BF028;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858 + 0xC, nY - gnGlobal_007A285C, -1, 5, 0);
     tContext.nFrame = 1;

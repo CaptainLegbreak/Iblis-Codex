@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -73,15 +74,6 @@ extern D2MsgHandlerEntryStrc gtPanelHandlers_0070FA84[]; // 0x0070FA84
 extern int gaUIVarStates_007A27C0[]; // 0x007A27C0
 extern int gnPanelFlag_007A2864; // 0x007A2864
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -412,7 +404,7 @@ void __fastcall sub_004565E0_DrawLoadingScreen(int bAdvanceFrame)
     D2CelContextStrc tContext;
     tContext.pCellFile = gpLoadingScreen_007A2888;
     tContext.nFrame = gnLoadingFrame_007A2A6C;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0x80, gnGlobal_00711470 / 2 + 0x80, -1, 5, 0);
     D2GFX_EndScene();
     sub_0044DA40();

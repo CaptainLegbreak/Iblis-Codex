@@ -1,17 +1,8 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 typedef unsigned short Unicode;
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38;
-    D2CelStrc* f_3C;
-    int unk0x40;
-    int unk0x44;
-};
 
 struct SMSGHANDLER_PARAMS
 {
@@ -180,7 +171,7 @@ int __fastcall BUTTON_Draw(D2WinButtonStrc* pButton)
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
         tContext.pCellFile = pButton->pCellFile;
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
 
         for (int i = 0; i < nRows; ++i)
         {

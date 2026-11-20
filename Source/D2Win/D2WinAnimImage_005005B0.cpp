@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 struct D2WinControlStrc;
 
@@ -58,15 +59,6 @@ struct D2WinAnimImageStrc
     int bIsRunning;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -150,7 +142,7 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
 
     if (!pAnimImage->controlHeader.pCellFile && !pAnimImage->pAnimatedImageDescriptor)
         return 1;
@@ -187,7 +179,7 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
         nFrameCount = CelFileGetCelsPerDirection(pCellFile1);
         nAnimSpeed = pAnimImage->nAnimSpeed;
         tContext.pCellFile = pCellFile1;
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
         tContext.nFrame = 0;
         D2CelStrc* pCel = CelGetHandle(&tContext);
         nY -= sub_00601950(pCel);

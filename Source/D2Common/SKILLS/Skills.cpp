@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 
 #define PLRMODE_THROW 11
 #define LVLSUB_UNUSED_INVALID -1
@@ -569,11 +570,6 @@ struct D2CharStatsTxt
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
-struct D2SkillDescTxt
-{
-    char unk0x00[2];
-    char nSkillPage;
-};
 
 int __stdcall SKILLS_GetShrineSkillLevelBonus(D2UnitStrc* pUnit); // 0x00644150
 int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830

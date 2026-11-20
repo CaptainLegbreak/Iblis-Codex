@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2StormLink.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LogMessageStrc;
@@ -54,11 +55,6 @@ extern "C" const char gszLogDumpByte_006CE1AC[]; // 0x006CE1AC
 extern "C" const char gszLogDumpByteSpaced_006CE1A4[]; // 0x006CE1A4
 extern "C" const char gszLogLineFormat_006CD90C[]; // 0x006CD90C
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-};
 
 struct D2StormListStrc
 {

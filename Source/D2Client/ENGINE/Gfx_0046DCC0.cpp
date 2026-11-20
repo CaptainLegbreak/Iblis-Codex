@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -83,10 +84,6 @@ struct D2GfxLayerHeaderStrc
     unsigned char nArg;
 };
 
-struct D2CelContextStrc
-{
-    char unk0x00[0x48];
-};
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0

@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 struct D2StormSlotListStrc;
 struct D2StormEntry38Strc;
 struct D2SGameDataStrc;
@@ -291,11 +292,6 @@ struct D2CommonStormHashTableAStrc
     void sub_0060ED60_Clear();
 };
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-};
 
 struct D2StormSlotLinkStrc
 {

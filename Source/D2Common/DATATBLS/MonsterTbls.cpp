@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 #pragma function(memset)
 #define MONSTATSFLAGINDEX_NORATIO 2
@@ -61,14 +62,6 @@ extern void* gpMonsoundsTxt; // 0x0096C6B4
 extern D2TxtLinkStrc* gTxtLink_0096C6B8; // 0x0096C6B8
 extern int gnMonsoundsTxtRecordCount; // 0x0096C6BC
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 extern D2TxtLinkStrc* gTxtLink_0096C6C4; // 0x0096C6C4
@@ -243,7 +236,6 @@ struct D2TreasureClassExTxt
 
 struct D2UniqueItemsTxt { char unk0x00[0x28]; unsigned int dwBaseItemCode; char unk0x2C[0x14C - 0x2C]; };
 
-struct D2SetItemsTxt { char unk0x00[0x28]; unsigned int dwItemCode; char unk0x2C[0x1B8 - 0x2C]; };
 
 typedef char check_D2TreasureClassExTxt_size[sizeof(D2TreasureClassExTxt) == 0x2E0 ? 1 : -1];
 

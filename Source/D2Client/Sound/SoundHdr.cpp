@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Records.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -42,14 +43,6 @@ extern int gdwGlobal_007BC9BC; // 0x007BC9BC
 extern unsigned int gnCacheMax_007BC9CC; // 0x007BC9CC
 extern unsigned int gdwCacheUsed_007BC9D0; // 0x007BC9D0
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    int (__fastcall* pfnLink)(const char* szKey);
-};
 
 #pragma pack(push, 1)
 struct D2SoundsTxtStrc

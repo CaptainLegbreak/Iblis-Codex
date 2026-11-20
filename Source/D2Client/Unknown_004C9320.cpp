@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -12,12 +13,6 @@ typedef unsigned short Unicode;
 
 
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x0E];
-    unsigned short wStrAlt;
-    char unk0x10[0x110];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

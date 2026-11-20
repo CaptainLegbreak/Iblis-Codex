@@ -1,3 +1,4 @@
+#include "D2Records.h"
 #ifdef MOVED_TEST
 #define FIELD_TEXT(x) ((x)+1)
 #define FIXTURE_LINE(x) ((x)+2)
@@ -5,14 +6,6 @@
 #define FIELD_TEXT(x) (x)
 #define FIXTURE_LINE(x) (x)
 #endif
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinkField;
-};
 
 struct D2HirelingTxt
 {

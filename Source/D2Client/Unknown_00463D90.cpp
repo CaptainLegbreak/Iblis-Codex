@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
 struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
@@ -29,17 +30,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[11];
-    unsigned int nFrameCount;
-    void* pCellFile;
-    int unk0x38;
-    D2CelStrc* f_3C;
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -178,10 +168,10 @@ static int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode
         int nOut;
         if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, nMode, -1) && sub_006001F0(&tContext, 0, 1))
         {
-            D2CelStrc* pCell = tContext.f_3C;
+            D2CelStrc* pCell = tContext.pCel;
             if (pCell)
             {
-                D2_ASSERT(nFrame <= tContext.nFrameCount, 0x5DF);
+                D2_ASSERT(nFrame <= tContext.nFrames, 0x5DF);
 
                 pRect->nLeft = (sub_00601920(pCell) - 12) + UNITS_GetClientCoordX(pUnit);
                 pRect->nRight = sub_006018C0(pCell) + pRect->nLeft + 24;

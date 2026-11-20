@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Records.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -13,11 +14,6 @@ struct D2StaticPathStrc;
 struct D2MissileStrc;
 
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x14];
-    unsigned short wDescFunc;
-};
 
 typedef void (__fastcall* SKILLDESCFN)(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4);
 
