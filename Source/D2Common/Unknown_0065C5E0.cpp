@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2GameRecords.h"
+#include "D2TxtItems.h"
 union D2SeedStrc;
 struct D2InventoryStrc;
 struct sub_M415_EmitArgs;
@@ -10,7 +11,6 @@ struct D2PropertyStrc;
 struct D2MagicAffixTxt;
 struct D2GradeModsStrc;
 struct D2GemsTxt;
-
 
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
@@ -30,22 +30,13 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-
 struct D2GradeModsStrc
 {
     char pad0x00[0xC];
     D2PropertyStrc pProperties[12];
 };
 
-struct D2GemsTxt
-{
-    char pad0x00[0x30];
-    D2PropertyStrc pProperties[3][3];
-};
-
 void __stdcall sub_C01_EmitSink(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a11);
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Records.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Path.h"
@@ -34,7 +35,6 @@ struct D2SkillPairStrc
     int nB;
 };
 
-
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc*); // 0x004DC0B0
@@ -65,8 +65,6 @@ void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc* pItem, unsigned short nPrefix)
 extern "C" void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix); // 0x00628070
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 void __stdcall ITEMMODS_AssignProperty(int nMode, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nSet, int nUnused); // 0x0065FEC0
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -582,7 +580,7 @@ static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D
     {
         D2SetItemsTxt* pSetItemsTxtRecord = &sgptDataTables->pSetItemsTxt[i];
         if ((pSetItemsTxtRecord->wVersion < 100 || nItemFormat >= 100) && pSetItemsTxtRecord->wLvl <= nItemLevel
-            && dwCode == pSetItemsTxtRecord->szItemCode
+            && dwCode == pSetItemsTxtRecord->dwItemCode
             && (pSetItemsTxtRecord->nSetId != 29 || pItemDrop->dwFlags2 & 1))
         {
             if (pItemDrop->nItemIndex && pItemDrop->nItemIndex - 1 == i)

@@ -7,6 +7,7 @@
 #include "D2GameRecords.h"
 #include "D2TxtTables.h"
 #include "D2Primitives.h"
+#include "D2TxtItems.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -82,9 +83,6 @@ struct D2BitBufferStrc;
 struct D2ItemTypesTxt;
 struct D2WeaponClassCodeStrc;
 struct D2StatStrc;
-
-
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -162,11 +160,8 @@ struct D2ItemsTxt
     unsigned char unk_143[0x65];
 };
 
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
-
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
@@ -179,13 +174,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
-
-
-struct D2RunesTxt
-{
-    char unk0x00[0x120];
-};
-
 
 extern D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
@@ -240,7 +228,6 @@ struct Data00628250 { unsigned char bUnknown00[0x45]; char cValue45; };
 
 struct Unit00628250 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00628250* pData; };
 
-
 int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode); // 0x00633680
 
 struct Data00629EA0 { unsigned char bUnknown00[0x1C]; unsigned int dwValue1C; unsigned int dwValue20; };
@@ -248,16 +235,6 @@ struct Data00629EA0 { unsigned char bUnknown00[0x1C]; unsigned int dwValue1C; un
 struct Unit00629EA0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00629EA0* pData; };
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-
-
-
-
-
-struct D2GemsTxt
-{
-    char unk0x00[0x2F];
-    unsigned char nTransform;
-};
 
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
@@ -312,7 +289,6 @@ extern D2WeaponClassCodeStrc gWeaponClassTable[]; // 0x007446A0
 extern unsigned int gnWeaponClassTableCount; // 0x007446E0
 int __stdcall ITEMS_IsNotQuestItemByItemId(int nItemId); // 0x00629D40
 int __stdcall INVENTORY_HasSimilarPotionInBelt(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C560
-
 
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360

@@ -6,24 +6,9 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
+#include "D2TxtItems.h"
 
 struct D2InventoryStrc;
-
-
-
-
-
-
-
-
-struct D2RunesTxt
-{
-    char unk0x00[0x82];
-    unsigned short wStringId;
-};
-
-
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

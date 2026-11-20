@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2TxtItems.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OBJMODE_OPENED 2
@@ -70,7 +71,6 @@ struct D2DataTablesStrc;
 struct D2ShrinesTxt;
 struct D2TimerArgStrc;
 
-
 struct D2ObjectDataStrc
 {
     void* pObjectTxt;
@@ -80,9 +80,6 @@ struct D2ObjectDataStrc
     void* pShrineTxt;
     int dwOperateGUID;
 };
-
-
-
 
 struct D2ObjOperateFnStrc
 {
@@ -107,7 +104,6 @@ extern int gnObjectTrapHandlers_00732D14; // 0x00732D14
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSrcUnit, D2UnitStrc* pTargetUnit, int nDamageType); // 0x005DFA00
 
-
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
@@ -116,8 +112,6 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005449E0
-
-
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
@@ -174,7 +168,6 @@ struct D2ContextStrc { int unknown; D2ContextDataStrc* data; };
 
 int __fastcall sub_00581F60_HandleState(D2ContextStrc* context, void* argument); // 0x00581F60
 
-
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
@@ -205,7 +198,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
@@ -213,18 +205,7 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
-struct D2ShrinesTxt
-{
-    unsigned char bCode;
-    char unk0x01[0x03];
-    int dwArg0;
-    int dwArg1;
-    int dwDurationInFrames;
-};
-
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pLastItem); // 0x0063CD80
@@ -236,14 +217,11 @@ void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nCell); // 0x0
 void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet); // 0x006287B0
 __declspec(noinline) static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
-
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, int nY, int nSize, int (__fastcall* pfnUnitTest)(D2UnitStrc*, D2UnitStrc*)); // 0x0065A800
 int __fastcall sub_6FC76F60(D2UnitStrc* pMonster, D2UnitStrc* pUnit1); // 0x00582750
 void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4940
-
-
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 

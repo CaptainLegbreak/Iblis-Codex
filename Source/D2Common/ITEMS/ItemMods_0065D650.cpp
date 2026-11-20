@@ -5,6 +5,7 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2TxtItems.h"
 #define STAT_POISONMAXDAM 58
 #define STAT_POISON_COUNT 326
 union D2SeedStrc;
@@ -18,14 +19,10 @@ struct D2UniqueItemsTxt;
 struct D2SetItemsTxt;
 struct D2PropertyAssignStrc;
 
-
-
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
@@ -50,25 +47,14 @@ void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); 
 extern int gaItemFileIndices_0074638C[]; // 0x0074638C
 extern int gnItemFileIndexCount_007463A4; // 0x007463A4
 
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
-
 
 struct D2GradeModsStrc
 {
     char pad0x00[0xC];
     D2PropertyStrc pProperties[12];
 };
-
-struct D2GemsTxt
-{
-    char pad0x00[0x30];
-    D2PropertyStrc pProperties[3][3];
-};
-
-
 
 struct D2SetsTxt
 {

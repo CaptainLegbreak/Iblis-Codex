@@ -5,30 +5,10 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameAux.h"
+#include "D2TxtItems.h"
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
-
-
-
-
-
-struct D2CubeMainTxt
-{
-    unsigned char nEnabled;
-    unsigned char nLadder;
-    unsigned char nMinDiff;
-    unsigned char nClass;
-    unsigned char nOp;
-    char unk0x05[0x03];
-    int nParam;
-    int nValue;
-    unsigned char nNumInputs;
-    char unk0x11;
-    unsigned short wVersion;
-};
-
-
 
 struct D2CubeItemStrc
 {

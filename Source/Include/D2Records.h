@@ -66,7 +66,7 @@ struct D2SetItemsTxt
     unsigned int dwItemCode; // 0x28
     short nSetId; // 0x2C
     short nSetItems; // 0x2E
-    unsigned short wLvl; // 0x30
+    short wLvl; // 0x30
     unsigned short wLvlReq; // 0x32
     unsigned int dwRarity; // 0x34
     int dwCostMult; // 0x38

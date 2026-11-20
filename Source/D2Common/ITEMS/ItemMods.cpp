@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2TxtItems.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -23,15 +24,11 @@ struct Unit;
 struct D2ItemStatCostTxt;
 struct D2StatListStrc;
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-
-
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
@@ -71,12 +68,6 @@ void __stdcall sub_006280D0(Unit*,unsigned,int); // 0x006280D0
 
 enum { SOCKET_FLAG = 0x800 };
 
-struct D2RunesTxt
-{
-    char unk0x00[0xB0];
-    D2PropertyStrc pProperties[7];
-};
-
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062BED0
 void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10); // 0x0065FD70
@@ -89,7 +80,6 @@ static __forceinline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin
 static int __stdcall sub_0065D1F0_AddValueStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11); // 0x0065EE80
-
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0

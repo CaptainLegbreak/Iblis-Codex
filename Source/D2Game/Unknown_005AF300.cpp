@@ -5,17 +5,13 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2TxtItems.h"
 
 struct D2ObjectControlStrc;
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2ObjOperateFnStrc;
 struct D2MissilesTxt;
-
-
-
-
-
 
 struct D2ObjOperateFnStrc
 {
@@ -24,15 +20,6 @@ struct D2ObjOperateFnStrc
     D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
-};
-
-struct D2ShrinesTxt
-{
-    unsigned char bCode;
-    char unk0x01[0x03];
-    int dwArg0;
-    int dwArg1;
-    int dwDurationInFrames;
 };
 
 struct D2ItemDropStrc
@@ -67,7 +54,6 @@ struct D2ItemDropStrc
 };
 
 struct D2MissilesTxt { char unk00[0x38]; int dwParam[3]; char unk44[0x52]; short nAnimLen; char unk98[0x10C]; };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

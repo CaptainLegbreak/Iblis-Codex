@@ -4,28 +4,18 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgTiles.h"
-
-
-
+#include "D2TxtItems.h"
 
 struct D2ObjGroupTxt
 {
     char unk0x00[0x34];
 };
 
-struct D2ShrinesTxt
-{
-    char unk0x00[0xB8];
-};
-
-
 struct D2LvlTypesTxt
 {
     char szFile[32][60];
     unsigned char nAct;
 };
-
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -40,7 +30,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId);                               // 0x00642AE0
-
 
 inline int UNITS_InlineGetXPosition(D2UnitStrc* pUnit)
 {
