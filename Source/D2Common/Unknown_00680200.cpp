@@ -1,3 +1,4 @@
+#include "D2Path.h"
 #define LEVEL_ROCKYWASTE 41
 #define LEVEL_DRYHILLS 42
 #define LEVEL_FAROASIS 43
@@ -10,15 +11,6 @@
 #define LEVEL_MOOMOOFARM 39
 
 #pragma pack(push, 4)
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 #pragma pack(pop)
 
 struct D2DrlgStrc;
