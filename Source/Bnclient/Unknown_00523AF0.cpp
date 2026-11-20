@@ -1,10 +1,4 @@
-struct D2BnHashCtxStrc
-{
-    unsigned int aState[5];
-    int nBitCountLo;
-    int nBitCountHi;
-    unsigned int f_1C[16];
-};
+#include "D2BnCryptTypes.h"
 
 #define HASH_ROL(x, n) (((x) << (n)) | ((x) >> (32 - (n))))
 
@@ -16,7 +10,7 @@ void __stdcall sub_00523AF0_HashTransform(D2BnHashCtxStrc* pCtx)
     int a, b, c, d, e, t;
 
     for (i = 0; i < 16; i++)
-        W[i] = pCtx->f_1C[i];
+        W[i] = pCtx->unk0x1C[i];
 
     for (i = 16; i < 80; i++)
         W[i] = W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16];

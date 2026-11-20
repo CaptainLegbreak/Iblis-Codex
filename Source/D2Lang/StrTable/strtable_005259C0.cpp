@@ -1,4 +1,5 @@
 #include "D2Lang.h"
+#include "D2LangTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -8,26 +9,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 #pragma pack(push, 1)
-struct D2TblHeaderStrc
-{
-    unsigned short nCRC;
-    unsigned short nNumElements;
-    int nHashTableSize;
-    unsigned char nVersion;
-    unsigned int dwIndexStart;
-    unsigned int dwNumLoops;
-    unsigned int dwFileSize;
-};
 
-struct D2TblNodeStrc
-{
-    unsigned char bUsed;
-    unsigned short nIndexNo;
-    unsigned int dwHashValue;
-    unsigned int dwStringOffset;
-    unsigned int dwKeyOffset;
-    unsigned short nNameLen;
-};
 #pragma pack(pop)
 
 struct Unicode

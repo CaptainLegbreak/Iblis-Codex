@@ -1,4 +1,5 @@
 #include "D2Lang.h"
+#include "D2LangTypes.h"
 
 struct D2UtfConvertSpecStrc;
 struct D2LangByteRangeStrc;
@@ -15,12 +16,6 @@ struct Unicode
 };
 
 extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7]; // 0x007309B8
-
-struct D2LangByteRangeStrc
-{
-    unsigned char f_0;
-    unsigned char f_1;
-};
 
 extern unsigned short gnCharMapCount_00882B20; // 0x00882B20
 extern D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
@@ -225,7 +220,7 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
     }
     for (int i = 0; i < gnLeadByteRangeCount_00882B22; ++i)
     {
-        if (gpLeadByteRanges_00882B28[i].f_0 <= nByte && nByte <= gpLeadByteRanges_00882B28[i].f_1)
+        if (gpLeadByteRanges_00882B28[i].nLow <= nByte && nByte <= gpLeadByteRanges_00882B28[i].nHigh)
         {
             return 0;
         }

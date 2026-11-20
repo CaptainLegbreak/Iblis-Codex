@@ -17,15 +17,6 @@ struct D2BnReply00520DC0Strc
     char szText[1];
 };
 
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-
-    void sub_005285A0_Init(int nSize1, const unsigned char* pData1, int nSize2, const unsigned char* pData2); // 0x005285A0
-    void sub_00528620_Seed(unsigned long nSeedTicks);                                                        // 0x00528620
-    void sub_00528630_Clear();                                                                               // 0x00528630
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern const unsigned char gabSrpData1_00730164[]; // 0x00730164
 extern int gnSrpSize1_00730168; // 0x00730168
@@ -39,19 +30,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2BnHashCtxStrc
-{
-    unsigned int aState[5];
-    int nBitCountLo;
-    int nBitCountHi;
-    unsigned int f_1C[16];
-};
-
-struct D2IdeaKeyScheduleStrc
-{
-    unsigned short aKey[52];
-};
 
 extern D2BnHashCtxStrc gaBnHashCtx_00882760[]; // 0x00882760
 extern D2IdeaKeyScheduleStrc gaIdeaKeySchedules_00882878[]; // 0x00882878
@@ -91,16 +69,17 @@ int __fastcall sub_00520DC0_HandleStatus(D2BnReply00520DC0Strc* pReply)
 void __cdecl sub_00521B50_ReseedLogin()
 {
     gtBigPair_0088273C.sub_005285A0_Init(gnSrpSize1_00730168, gabSrpData1_00730164, gnSrpSize2_0073018C, gabSrpData2_0073016C);
-    gtBigPair_0088273C.sub_00528620_Seed(GetTickCount());
+    gtBigPair_0088273C.sub_00528620_InitRandom(GetTickCount());
 }
 
 // 0x00521B90
 void __cdecl sub_00521B90_ClearSrpState()
 {
-    gtBigPair_0088273C.sub_00528630_Clear();
+    gtBigPair_0088273C.sub_00528630_Release();
 }
 
 #include "gen/data/Source/Bnclient/Unknown_00520DC0.inc"
+#include "D2BnCryptTypes.h"
 
 // 0x00522BB0
 static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)

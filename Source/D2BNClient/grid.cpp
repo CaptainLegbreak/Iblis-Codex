@@ -1,4 +1,5 @@
 #include "D2BNClient.h"
+#include "D2BnCryptTypes.h"
 
 struct D2BnHashCtxStrc;
 
@@ -16,14 +17,6 @@ void __fastcall sub_00522BC0_FillRandomBytes(unsigned char* pBuffer, int nSize);
 unsigned int __fastcall sub_00522E10_Decrypt(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
 static __declspec(noinline) int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 __declspec(noinline) static void __cdecl sub_00523350_CopyOutputs(Byte** first, Byte** second);
-
-struct D2BnHashCtxStrc
-{
-    unsigned int aState[5];
-    int nBitCountLo;
-    int nBitCountHi;
-    unsigned int f_1C[16];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750

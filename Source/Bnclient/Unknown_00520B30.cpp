@@ -1,4 +1,5 @@
 #include "Bnclient.h"
+#include "D2BnCryptTypes.h"
 #define CHECK(p,line) if(!(p)){sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 
 struct D2BigPowModStrc;
@@ -88,12 +89,6 @@ extern D2BigLoginRecordStrc gtLoginRecord_00882680; // 0x00882680
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
 void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
-
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-    void sub_00528660_MakeVerifier(const char* szName, const char* szPassword, unsigned char* pSalt, unsigned char* pVerifier); // 0x00528660
-};
 
 extern unsigned char gabNewVerifier_00882640[0x40]; // 0x00882640
 extern D2BigPairStrc gtBigPair_0088273C; // 0x0088273C

@@ -1,4 +1,5 @@
 #include "D2Lang.h"
+#include "D2LangTypes.h"
 
 #pragma intrinsic(strcmp)
 
@@ -121,26 +122,6 @@ struct D2GameStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 #pragma pack(push, 1)
-struct D2TblHeaderStrc
-{
-    unsigned short nCRC;
-    unsigned short nNumElements;
-    int nHashTableSize;
-    unsigned char nVersion;
-    unsigned int dwIndexStart;
-    unsigned int dwNumLoops;
-    unsigned int dwFileSize;
-};
-
-struct D2TblNodeStrc
-{
-    unsigned char bUsed;
-    unsigned short nIndexNo;
-    unsigned int dwHashValue;
-    unsigned int dwStringOffset;
-    unsigned int dwKeyOffset;
-    unsigned short nNameLen;
-};
 
 #pragma pack(pop)
 
@@ -149,13 +130,6 @@ extern D2TblHeaderStrc* gpM15EmitTbl;
 extern "C" const char szM15EmitFormat[];
 
 extern "C" char* __cdecl _i64toa(__int64 nValue, char* szOut, int nRadix); // 0x006876D7
-
-struct D2LangCharSetStrc
-{
-    char szChars[1];
-
-    bool sub_00527090_ContainsChar(const Unicode* pChar) const;
-};
 
 extern Unicode gawszUnitSuffix_00730510[4][2]; // 0x00730510
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0

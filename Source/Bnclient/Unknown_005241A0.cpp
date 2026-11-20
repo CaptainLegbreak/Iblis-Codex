@@ -1,17 +1,9 @@
+#include "D2BnCryptTypes.h"
 #define IDEA_MUL(x, y) (x = IdeaMul((x) & 0xFFFF, y))
 
 struct D2BnHashCtxStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2BnHashCtxStrc
-{
-    unsigned int aState[5];
-    int nBitCountLo;
-    int nBitCountHi;
-    unsigned int f_1C[16];
-};
-
 
 extern D2BnHashCtxStrc gaBnHashCtx_00882760[]; // 0x00882760
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
@@ -20,7 +12,6 @@ void __stdcall sub_00523AF0_HashTransform(D2BnHashCtxStrc* pCtx); // 0x00523AF0
 typedef unsigned int D2IdeaUInt16;
 
 typedef unsigned short D2IdeaWord16;
-
 
 unsigned int __fastcall sub_005242F0_MulInv(unsigned int x); // 0x005242F0
 
@@ -41,7 +32,7 @@ void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned 
     if (nNew < nOld)
         ++pCtx->nBitCountHi;
     pCtx->nBitCountLo = nNew;
-    memcpy(pCtx->f_1C, pBlock, sizeof(pCtx->f_1C));
+    memcpy(pCtx->unk0x1C, pBlock, sizeof(pCtx->unk0x1C));
     sub_00523AF0_HashTransform(pCtx);
     if (pDigest)
     {

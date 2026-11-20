@@ -1,4 +1,5 @@
 #include "D2Lang.h"
+#include "D2LangTypes.h"
 
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
@@ -37,14 +38,6 @@ struct D2LangCharRangeStrc
     unsigned short wHigh;
 
     void sub_005276A0_SetFromBytes(const unsigned char* pBytes);
-};
-
-struct D2LangByteRangeStrc
-{
-    unsigned char f_0;
-    unsigned char f_1;
-
-    int sub_005276C0_Contains(unsigned char nValue) const;
 };
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
@@ -287,7 +280,7 @@ void D2LangCharRangeStrc::sub_005276A0_SetFromBytes(const unsigned char* pBytes)
 // 0x005276C0
 int D2LangByteRangeStrc::sub_005276C0_Contains(unsigned char nValue) const
 {
-    if (f_0 <= nValue && nValue <= f_1)
+    if (nLow <= nValue && nValue <= nHigh)
         return 1;
     return 0;
 }

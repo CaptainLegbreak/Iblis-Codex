@@ -1,5 +1,8 @@
 #pragma once
 
+#include "D2LangTypes.h"
+#include "D2BnCryptTypes.h"
+
 struct D2CriticalSectionStrc;
 struct D2FileTimeStrc;
 struct D2LangByteRangeStrc;
@@ -49,17 +52,6 @@ struct D2FileTimeStrc
 {
     unsigned long dwLowDateTime;
     unsigned long dwHighDateTime;
-};
-
-struct D2IdeaUserKeyStrc
-{
-    unsigned int aKey[4];
-};
-
-struct D2LangByteRangeStrc
-{
-    unsigned char f_0;
-    unsigned char f_1;
 };
 
 struct D2LangCharMapEntryStrc

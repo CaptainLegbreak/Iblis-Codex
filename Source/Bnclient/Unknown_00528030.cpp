@@ -1,23 +1,6 @@
 #include "Bnclient.h"
+#include "D2BnCryptTypes.h"
 
-struct D2BigPowModStrc
-{
-    void* pUnknown0x00;
-    void* hBase;
-    void* hModulus;
-
-    void sub_00527F40_ComputePrivateKey(const unsigned char* pSalt, const char* szName, const char* szPassword, void** phResult); // 0x00527F40
-    void sub_00528030_HashToUInt(void* const& hBig, unsigned int* pValue);
-    int sub_005280C0_ComputeSessionKey(void* const& hSecret, void* const& hPublic, void* const& hExp, void* const& hKey); // 0x005280C0
-    void sub_005282A0_ComputeProof(const char* szName, const unsigned char* pSalt, const unsigned char* pClientPublic, const unsigned char* pServerPublic, const unsigned char* pKey, unsigned char* pProof); // 0x005282A0
-};
-
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-
-    int sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord, const unsigned char* pSalt, const unsigned char* pServerPublic);
-};
 unsigned char* __fastcall sub_0052A120_ShaInterleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
 void* __fastcall sub_0052A240_BigFromUnsigned(unsigned int nValue);                                         // 0x0052A240
 void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSize);                         // 0x0052A270

@@ -1,6 +1,7 @@
 #include "D2BNClient.h"
 #include "D2Primitives.h"
 #include "D2NetTypes.h"
+#include "D2BnCryptTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -18,14 +19,6 @@ public:
 };
 
 struct D2BigPowModStrc;
-
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-
-    void sub_00528660_MakeVerifier(const char* szName, const char* szPassword, unsigned char* pSalt, unsigned char* pVerifier); // 0x00528660
-    void sub_005286D0_InitLogin(D2BigLoginRecordStrc* pRecord, const char* szName, const char* szPassword);   // 0x005286D0
-};
 
 struct D2BnAuthInfoPacketStrc
 {

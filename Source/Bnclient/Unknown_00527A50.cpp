@@ -14,7 +14,7 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
     }
     for (int i = 0; i < gnLeadByteRangeCount_00882B22; ++i)
     {
-        if (gpLeadByteRanges_00882B28[i].f_0 <= nByte && nByte <= gpLeadByteRanges_00882B28[i].f_1)
+        if (gpLeadByteRanges_00882B28[i].nLow <= nByte && nByte <= gpLeadByteRanges_00882B28[i].nHigh)
         {
             return 0;
         }

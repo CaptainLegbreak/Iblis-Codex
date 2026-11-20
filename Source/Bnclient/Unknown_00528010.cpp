@@ -1,4 +1,5 @@
 #include "Bnclient.h"
+#include "D2BnCryptTypes.h"
 
 struct D2Blob32Strc
 {
@@ -11,29 +12,6 @@ struct D2BigRecordStrc
     D2Blob32Strc tSecond;
     char szName[0x20];
     D2Blob32Strc tThird;
-};
-
-struct D2BigPairStateStrc
-{
-    int bValid;
-    void* hFirst;
-    void* hSecond;
-};
-
-struct D2BigPairStrc
-{
-    D2BigPairStateStrc* pState;
-
-    int sub_00528550_ReadBoth(unsigned int* pnFirst, void* pFirst, unsigned int* pnSecond, void* pSecond);
-};
-
-struct D2BigPowModStrc
-{
-    void* pUnknown0x00;
-    void* hBase;
-    void* hModulus;
-
-    void sub_00528010_PowMod(void* const& hExp, void* const& hResult);
 };
 
 void __fastcall sub_0052A590_BigOp_425330(void* hResult, void* hArg1, void* hArg2, void* hArg3);           // 0x0052A590
@@ -53,8 +31,8 @@ int D2BigPairStrc::sub_00528550_ReadBoth(unsigned int* pnFirst, void* pFirst, un
 {
     if (!pState->bValid)
         return 0;
-    *pnFirst = sub_0052A2A0_BigToBinary(pState->hFirst, pFirst, 0x20);
-    *pnSecond = sub_0052A2A0_BigToBinary(pState->hSecond, pSecond, 0x20);
+    *pnFirst = sub_0052A2A0_BigToBinary(pState->hBase, pFirst, 0x20);
+    *pnSecond = sub_0052A2A0_BigToBinary(pState->hModulus, pSecond, 0x20);
     return 1;
 }
 
