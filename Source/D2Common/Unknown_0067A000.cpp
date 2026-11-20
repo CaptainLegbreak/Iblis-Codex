@@ -10,13 +10,6 @@ struct D2PathFoWallNodeStrc;
 struct D2PathFoWallContextStrc;
 struct D2PathMovStrc;
 
-enum D2C_PathConstants
-{
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
-
 struct D2PathPointStrc
 {
     unsigned short X;

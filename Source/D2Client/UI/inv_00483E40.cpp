@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -14,35 +15,7 @@ struct UnicodeChar;
 struct D2ItemFormulaRecordStrc;
 struct D2PanelButtonStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short pad0x02;
-    int nGridLeft;
-    int nGridRight;
-    int nGridTop;
-    int nGridBottom;
-    unsigned char nGridBoxWidth;
-    unsigned char nGridBoxHeight;
-    unsigned short pad0x16;
-};
 
 struct D2CoordStrc { int x, y; };
 

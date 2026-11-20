@@ -61,7 +61,6 @@ struct D2MissileCalcStrc
     int nMissileLevel;
 };
 
-#define UNIT_MISSILE 3
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

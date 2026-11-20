@@ -67,9 +67,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId);                               // 0x00642AE0
 
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 
 inline int UNITS_InlineGetXPosition(D2UnitStrc* pUnit)
 {

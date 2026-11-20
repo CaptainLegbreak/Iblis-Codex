@@ -1,7 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 
-#define UNIT_MONSTER 1
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 struct Unicode;
 struct D2MonsterDataStrc;

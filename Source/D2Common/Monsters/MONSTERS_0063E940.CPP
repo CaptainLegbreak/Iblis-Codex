@@ -23,8 +23,6 @@ struct D2DataTablesStrc
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 #define MONSTATSFLAGINDEX_PRIMEEVIL 7
 #define MONSTATSFLAGINDEX_LUNDEAD 11
 #define MONSTATSFLAGINDEX_HUNDEAD 12

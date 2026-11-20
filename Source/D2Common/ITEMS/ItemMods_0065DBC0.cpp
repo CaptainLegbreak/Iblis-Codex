@@ -3,7 +3,6 @@
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define STAT_ITEM_INDESTRUCTIBLE 152
-#define UNIT_ITEM 4
 struct D2SeedStrc;
 struct D2SkillsTxt;
 struct D2PropertyStrc;

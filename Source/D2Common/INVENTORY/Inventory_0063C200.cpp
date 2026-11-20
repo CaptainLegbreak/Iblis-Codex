@@ -1,11 +1,9 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 
 typedef int BOOL;
 #define INVENTORY_SIGNATURE 0x1020304
-#define UNIT_PLAYER 0
-#define UNIT_ITEM 4
-#define UNIT_INVALID 6
 #define WEAPONCLASS_HT1 12
 #define COMPOSIT_RIGHTHAND 5
 #define STAT_QUANTITY 70
@@ -40,33 +38,8 @@ struct D2StaticPathStrc
 };
 
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nGridWidth;
-    unsigned char nGridHeight;
-    unsigned short unk0x0A;
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short unk0x02;
-    int nGridRect[5];
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    char unk0x0C[0x14 - 0x08 - 4];
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-};
 
 struct D2InvRectStrc
 {

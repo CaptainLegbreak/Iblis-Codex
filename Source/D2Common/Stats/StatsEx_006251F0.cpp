@@ -4,8 +4,6 @@
 #define STATLIST_NEWLENGTH 0x00000002
 #define STATLIST_UNK_0x100 0x00000100
 #define STATLIST_SET 0x00002000
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
 struct D2StatStrc;
 struct D2ModStatsArrayStrc;
 struct D2StatsArrayStrc;

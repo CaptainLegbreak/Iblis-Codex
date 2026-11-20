@@ -57,9 +57,6 @@ struct D2DataTablesStrc
     int nItemStatCostTxtRecordCount;
 };
 #define STATLIST_SET 0x2000
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_ITEM 4
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define gnGlobal_007BCA34 (gGrid_007BCA30.nGridLeft)
 #define gnGlobal_007BCA38 (gGrid_007BCA30.nGridRight)
@@ -56,19 +57,6 @@ struct D2InvRectStrc
     int nBottom;
 };
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short pad0x02;
-    int nGridLeft;
-    int nGridRight;
-    int nGridTop;
-    int nGridBottom;
-    unsigned char nGridBoxWidth;
-    unsigned char nGridBoxHeight;
-    unsigned short pad0x16;
-};
 
 extern D2InventoryGridInfoStrc gGrid_007BCA30; // 0x007BCA30
 extern D2InvRectStrc gInvRect_007BCA68; // 0x007BCA68

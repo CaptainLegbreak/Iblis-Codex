@@ -1,7 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define SIZE_PLAYER 2
 #define SIZE_ITEM 1
 #define UNITFLAG_DOUPDATE 0x00000001
@@ -120,11 +118,6 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 enum
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_INVALID = 6,
 };
 
 enum

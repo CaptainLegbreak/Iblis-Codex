@@ -1,8 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_PLAYER 0
-#define UNIT_ITEM 4
-#define UNIT_INVALID 6
 #define IFLAG_ETHEREAL 0x00400000
 #define STAT_MINDAMAGE 21
 #define STAT_MAXDAMAGE 22

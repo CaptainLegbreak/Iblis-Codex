@@ -37,8 +37,6 @@ struct D2DataTablesStrc
 
 #define STATLIST_EXTENDED 0x80000000
 #define ISC_FLAG_FMIN 10
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
 #define STAT_SHIFT 16
 #define STAT_MAKE(nStatId, nLayer) (((nStatId) << STAT_SHIFT) + (nLayer))
 #define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])

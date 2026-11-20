@@ -1,7 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_ITEM 4
-#define UNIT_INVALID 6
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -11,9 +9,6 @@
 #define ITEMTYPE_SCROLL 22
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_MISSILE 3
 #define IFLAG_ETHEREAL 0x00400000
 #define BODYLOC_NONE 0
 #define STATEMASK_CURSE 11

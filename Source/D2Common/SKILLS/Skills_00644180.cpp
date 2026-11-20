@@ -2,9 +2,6 @@
 #include "D2Structs.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 
 struct D2InventoryStrc;
 struct D2SkillsTxt;

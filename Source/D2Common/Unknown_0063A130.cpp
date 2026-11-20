@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 #define STATEMASK_ACTIVE 5
 #define STATEMASK_REMHIT 6
 #define STATEMASK_DAMBLUE 7
@@ -21,8 +22,6 @@
 #define STATEMASK_UDEAD 33
 #define STATEMASK_GREEN 34
 #define STATEMASK_CURABLE 12
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 #define STATEMASK_RESTRICT 17
 #define STATEMASK_ARMRED 25
 #define INVENTORY_SIGNATURE 0x01020304
@@ -71,28 +70,7 @@ struct D2InventoryPairStrc
     D2UnitStrc* pLastItem;
 };
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nGridWidth;
-    unsigned char pad09[3];
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemoryPool;
-    D2UnitStrc* pOwner;
-    D2InventoryPairStrc items;
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    int dwOwnerGuid;
-    int dwItemCount;
-};
 
 extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem);
 extern "C" int __fastcall sub_0045AE20_GetY(D2UnitStrc* pItem);
@@ -405,9 +383,9 @@ static __declspec(noinline) void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGr
     }
     if (!pExtra->pPreviousGridItem)
     {
-        if (pGrid->pFirstItem == pItem)
+        if (pGrid->pItem == pItem)
         {
-            pGrid->pFirstItem = pExtra->pNextGridItem;
+            pGrid->pItem = pExtra->pNextGridItem;
         }
     }
     else
@@ -496,7 +474,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
         }
         else
         {
-            sub_0063A810_UnlinkPair(&pInventory->items, pItem);
+            sub_0063A810_UnlinkPair((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
             --pInventory->dwItemCount;
         }
         pExtra->pParentInv = 0;

@@ -3,8 +3,6 @@
 
 enum
 {
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
 };
 
 enum

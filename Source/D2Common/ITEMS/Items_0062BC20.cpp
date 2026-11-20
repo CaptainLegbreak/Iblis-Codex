@@ -1,10 +1,8 @@
 #include "D2Structs.h"
 #ifdef MOVED_TEST
-#define UNIT_ITEM 6
 #define LEVEL_LOW 27
 #define LEVEL_HIGH 42
 #else
-#define UNIT_ITEM 4
 #define LEVEL_LOW 25
 #define LEVEL_HIGH 40
 #endif

@@ -1,9 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2InventoryStrc;
 struct D2CoordStrc;

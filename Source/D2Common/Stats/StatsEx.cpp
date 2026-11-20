@@ -1,9 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #define STATLIST_SET 0x2000
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_ITEM 4
 
 struct D2GameStrc;
 struct D2DrlgActStrc;

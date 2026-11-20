@@ -3,7 +3,6 @@
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-#define UNIT_MISSILE 3
 struct D2MissileDataStrc;
 struct D2MissilesTxt;
 struct D2MissileCalcStrc;

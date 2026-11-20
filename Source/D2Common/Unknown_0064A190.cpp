@@ -702,8 +702,6 @@ struct D2MissileDamageDataStrc
 
 enum
 {
-    UNIT_MISSILE = 3,
-    UNIT_INVALID = 6,
     STAT_LEVEL = 12,
     STAT_MINDAMAGE = 21,
     STAT_MAXDAMAGE = 22,

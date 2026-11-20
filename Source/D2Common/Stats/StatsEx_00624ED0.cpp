@@ -1,7 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
 struct D2GameStrc;
 struct D2DrlgActStrc;
 struct D2SkillListStrc;

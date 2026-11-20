@@ -1,11 +1,5 @@
 #include "D2Client.h"
-
-enum D2C_H19GridClickConstants
-{
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
+#include "D2Structs.h"
 
 struct D2StaticPathStrc
 {
@@ -14,21 +8,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2ItemsTxt
 {
@@ -36,19 +15,6 @@ struct D2ItemsTxt
     int dwCode;
 };
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short pad0x02;
-    int nGridLeft;
-    int nGridRight;
-    int nGridTop;
-    int nGridBottom;
-    unsigned char nGridBoxWidth;
-    unsigned char nGridBoxHeight;
-    unsigned short pad0x16;
-};
 
 extern D2InventoryGridInfoStrc gGrid_007BCA78;                                                              // 0x007BCA78
 extern D2InventoryGridInfoStrc gGrid_007BCB40;                                                              // 0x007BCB40

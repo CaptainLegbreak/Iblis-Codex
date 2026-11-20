@@ -1,12 +1,10 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 
 #define STATEMASK_BLUE 18
-#define UNIT_ITEM 4
 #define INVENTORY_SIGNATURE 0x01020304
 #define NUM_BODYLOC 11
-#define UNIT_PLAYER 0
-#define UNIT_INVALID 6
 #define WEAPONCLASS_HT1 12
 #define COMPOSIT_RIGHTHAND 5
 #define STAT_QUANTITY 70
@@ -82,38 +80,7 @@ struct D2InventoryPairStrc
     D2UnitStrc* pLastItem;
 };
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nGridWidth;
-    unsigned char nGridHeight;
-    unsigned short unk0x0A;
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    union
-    {
-        D2InventoryPairStrc items;
-        D2UnitStrc* pFirstItem;
-    };
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    unsigned int dwOwnerId;
-    int dwItemCount;
-    D2InventoryNodeStrc* pFirstNode;
-    D2InventoryNodeStrc* pLastNode;
-    D2CorpseStrc* pFirstCorpse;
-    D2CorpseStrc* pLastCorpse;
-    int nCorpseCount;
-};
 
 extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem); // 0x0045ADF0
 extern "C" int __fastcall sub_0045AE20_GetY(D2UnitStrc* pItem); // 0x0045AE20
@@ -124,19 +91,7 @@ extern "C" const char gszInventorySource_006EA918; // 0x006EA918
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-struct D2InventoryNodeStrc
-{
-    int nItemId;
-    D2InventoryNodeStrc* pNext;
-};
 
-struct D2CorpseStrc
-{
-    unsigned int unk0x00;
-    unsigned int dwUnitId;
-    unsigned int unk0x08;
-    D2CorpseStrc* pNextCorpse;
-};
 
 int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem); // 0x0063AAF0
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -250,13 +205,6 @@ int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x0062
 
 typedef int BOOL;
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short unk0x02;
-    int nGridRect[5];
-};
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bLoD); // 0x00621050
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
@@ -423,9 +371,9 @@ static __declspec(noinline) void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGr
     }
     if (!pExtra->pPreviousGridItem)
     {
-        if (pGrid->pFirstItem == pItem)
+        if (pGrid->pItem == pItem)
         {
-            pGrid->pFirstItem = pExtra->pNextGridItem;
+            pGrid->pItem = pExtra->pNextGridItem;
         }
     }
     else
@@ -525,7 +473,7 @@ int __fastcall sub_0063AAF0_RemoveItem(D2UnitStrc* pItem)
         }
         else
         {
-            sub_0063A810_UnlinkPair(&pInventory->items, pItem);
+            sub_0063A810_UnlinkPair((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
             --pInventory->dwItemCount;
         }
         pExtra->pParentInv = 0;
@@ -580,7 +528,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
         }
         else
         {
-            sub_0063A810_UnlinkPair(&pInventory->items, pItem);
+            sub_0063A810_UnlinkPair((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
             --pInventory->dwItemCount;
         }
         pExtra->pParentInv = 0;
@@ -619,7 +567,7 @@ D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* 
     if (pOwner)
     {
         pOwner->pInventory = pInventory;
-        pInventory->dwOwnerId = !pOwner ? -1 : pOwner->dwUnitId;
+        pInventory->dwOwnerGuid = !pOwner ? -1 : pOwner->dwUnitId;
     }
     return pInventory;
 }
