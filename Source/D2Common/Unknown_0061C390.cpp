@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2Unicode.h"
 
 struct Act;
 struct D2DrlgActStrc;
@@ -65,14 +66,6 @@ static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
-};
-
 
 struct D2LevelsTxt
 {

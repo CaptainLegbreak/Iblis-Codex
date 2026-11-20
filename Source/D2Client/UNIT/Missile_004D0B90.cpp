@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -15,9 +16,6 @@ struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
-
-
-
 
 struct D2MissileStrc
 {
@@ -40,34 +38,6 @@ struct D2MissileStrc
     void* pfCallback;
     D2UnitStrc* pInitArgs;
 };
-
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned int dwMissileFlags;
-    unsigned short wCltDoFunc;
-    unsigned short wCltHitFunc;
-    unsigned short wSrvDoFunc;
-    unsigned short wSrvHitFunc;
-    unsigned short wSrvDmgFunc;
-    unsigned short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[3];
-    unsigned char unk_32[0x2];
-    short wProgSound;
-    unsigned short wProgOverlay;
-    int dwParam[5];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    int dwCltHitPar[2];
-    char unk0x074[0x130];
-};
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -99,12 +69,6 @@ extern "C" int __stdcall sub_0064A300(Unit0064A300* pUnit); // 0x0064A300
 extern "C" void __stdcall sub_00648690(Obj00648690* pObj, int nValue, int nUnused3, int nUnused4); // 0x00648690
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    int dwCltCalc;
-    char unk0x13C[0x100];
-};
 void __fastcall sub_004742D0_ResetLightSize(void* pLight, int nSize); // 0x004742D0
 int __fastcall sub_00474350_GetLightSize(void* pLight); // 0x00474350
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -633,7 +597,7 @@ void __fastcall sub_004D39C0_CltDoLightGrow(D2UnitStrc* pMissile)
     const int nParam2 = pMissilesTxtRecord->dwCltParam[2] < 1 ? 1 : pMissilesTxtRecord->dwCltParam[2];
     const int nVelocityX = nParam2 * nParam0;
 
-    int nSteps = SKILLS_EvaluateSkillFormula(sub_004639D0_GetOwnerUnit(pMissile), pSkillsTxtRecord->dwCltCalc, nSkillId, MISSILE_GetLevel(pMissile));
+    int nSteps = SKILLS_EvaluateSkillFormula(sub_004639D0_GetOwnerUnit(pMissile), pSkillsTxtRecord->dwCalc[0], nSkillId, MISSILE_GetLevel(pMissile));
     nSteps = D2_MIN(D2_MAX(nSteps, 1), 0x3C);
 
     const int nInterval = 0x3C / nSteps;

@@ -1,10 +1,6 @@
 #include "D2Unicode.h"
 #include "D2Structs.h"
-struct D2MonsterDataStrc
-{
-    char unk0[0x1C];
-    unsigned char nUniqueMods[10];
-};
+#include "D2UnitData.h"
 
 extern "C" const unsigned short gwUniqueModNameIds[];                                                       // 0x00725188
 extern "C" { Unicode gwszNameSeparator[1]; }                                                                // 0x007C0C58
@@ -32,7 +28,7 @@ void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName,
         return;
     }
 
-    unsigned char* pUniqueMods = pMonsterData->nUniqueMods;
+    unsigned char* pUniqueMods = pMonsterData->nMonUmod;
     if (!pUniqueMods)
     {
         return;

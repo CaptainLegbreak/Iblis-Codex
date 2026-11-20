@@ -1,16 +1,5 @@
 #include "D2Client.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bUseResult;
-    int lResult;
-};
+#include "D2StormTypes.h"
 
 struct T0044CB60
 {
@@ -77,7 +66,7 @@ int EditBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
 
     if (pMsg->wParam > 0x7F)
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return 1;
@@ -100,7 +89,7 @@ int EditBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
         {
             pfOnEnter();
             pMsg->lResult = 0;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             sub_00420290_BreakHandlerChain(pMsg);
             return 1;
         }
@@ -124,7 +113,7 @@ int EditBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
             --nCaret;
 
         pMsg->lResult = 0;
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         sub_00420290_BreakHandlerChain(pMsg);
         return 1;
     }
@@ -141,7 +130,7 @@ int EditBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
         }
 
         pMsg->lResult = 0;
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         sub_00420290_BreakHandlerChain(pMsg);
         return 1;
     }
@@ -220,7 +209,7 @@ int EditBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
     }
 
     pMsg->lResult = 0;
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     sub_00420290_BreakHandlerChain(pMsg);
     return 1;
 }

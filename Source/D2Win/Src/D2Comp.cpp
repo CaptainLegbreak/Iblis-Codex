@@ -1,7 +1,7 @@
 #include "D2WinTypes.h"
-#include "D2WinTypes.h"
 #include "D2WinControls.h"
-#include "D2WinControls.h"
+#include "D2Win32Types.h"
+
 struct D2WinEditBoxStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -18,7 +18,6 @@ struct D2PaletteRecordStrc;
 struct D2BinFieldStrc;
 struct D2ItemTypesTxt;
 struct SMSGHANDLER_PARAMS;
-struct tagPOINT;
 struct Unicode;
 struct D2WinSmackStrc;
 struct D2WinListDataStrc;
@@ -134,12 +133,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct tagPOINT
-{
-    long x;
-    long y;
 };
 
 #include "D2Unicode.h"

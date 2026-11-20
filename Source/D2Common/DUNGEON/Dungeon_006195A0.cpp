@@ -2,14 +2,14 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Win32Types.h"
+
 struct D2DrlgStrc;
 struct D2DrlgEnvironmentStrc;
 struct D2DrlgActStrc;
 struct D2DrlgCoordsStrc;
 struct D2CoordStrc;
-struct tagRECT;
 struct D2CommonLevelNodeStrc;
-
 
 struct D2ActiveRoomStrc
 {
@@ -74,15 +74,6 @@ struct D2DrlgCoordsStrc
         int nSubtileHeight;
         int nTileHeight;
     };
-};
-
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
 };
 
 typedef tagRECT RECT;

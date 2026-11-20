@@ -32,18 +32,4 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
+#include "D2Win32Types.h"

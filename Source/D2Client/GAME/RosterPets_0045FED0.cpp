@@ -1,37 +1,9 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 
 struct Unicode;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        int wParam;
-        struct
-        {
-            unsigned short wParamLow;
-            unsigned short wParamHigh;
-        };
-    };
-    union
-    {
-        int lParam;
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
-
 
 struct D2PanelAnimEntryStrc
 {
@@ -120,14 +92,14 @@ void __stdcall sub_0045FED0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
         {
             gnGlobal_007A5254 = 1;
             gnGlobal_007A5248 = 0;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -144,7 +116,7 @@ void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A6ADC = 4;
         gnGlobal_007A6AE0 = 0;
     }
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 // 0x00467FA0
@@ -159,7 +131,7 @@ void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A6AF0 = 1;
         gnGlobal_007A6AE0 = 0;
     }
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 // 0x0046BD50
@@ -189,7 +161,7 @@ void __stdcall sub_0047ACA0_ResetSelectionMsg2(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007BB5F0 = 4;
     else if (gnGlobal_007BB5DC == 8)
         gnGlobal_007BB5F0 = 5;
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -231,7 +203,7 @@ int __stdcall sub_004890B0_ClickRectMsg(SMSGHANDLER_PARAMS* pMsg)
     int nY = pMsg->nYpos;
     gnGlobal_007BCA4C = nX;
     gnGlobal_007BCBD8 = nY;
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
     if (nX < gnGlobal_007BCAA0 || nX >= gnGlobal_007BCAA4 || nY < gnGlobal_007BCAA8 || nY > gnGlobal_007BCAAC)
@@ -243,7 +215,7 @@ int __stdcall sub_004890B0_ClickRectMsg(SMSGHANDLER_PARAMS* pMsg)
         && nY >= gnGlobal_00711470 + gnGlobal_007A285C - 0x60 && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x40
         && gbGlobal_007BCE90)
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         sub_004C0440();
@@ -278,7 +250,7 @@ void __stdcall sub_00494F30_ButtonPressMsg(SMSGHANDLER_PARAMS* pMsg)
         if (nX >= 0x2AD && nX <= 0x2CD && nY >= 0x18 && nY <= 0x38)
         {
             gnGlobal_007BEEFC = 1;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
@@ -289,14 +261,14 @@ void __stdcall sub_00494F30_ButtonPressMsg(SMSGHANDLER_PARAMS* pMsg)
         if (nX >= 0x20D && nX <= 0x22D && nY >= 0x18 && nY <= 0x38)
         {
             gnGlobal_007BEEFC = 1;
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -354,13 +326,13 @@ void __stdcall sub_004A5980_PressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
     gnGlobal_007C0280 = 1;
     sub_004A4AD0_Press(pMsg->nXpos, pMsg->nYpos);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -371,12 +343,12 @@ void __stdcall sub_004B76D0_TimedCallbackMsg(SMSGHANDLER_PARAMS* pMsg)
     T0045FED0* pTimer = gpTimer_007C0E54;
     if (pTimer && pTimer->dwTick + 0x50 > GetTickCount())
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
     pTimer = gpTimer_007C0E54;

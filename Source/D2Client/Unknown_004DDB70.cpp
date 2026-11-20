@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Win32Types.h"
+
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 
@@ -16,21 +18,11 @@ struct D2GridOwnerStrc;
 struct D2GridUnitStrc;
 struct D2GridLightStrc;
 
-struct tagRECT
-{
-    int left;
-    int top;
-    int right;
-    int bottom;
-};
-
 struct D2WallPointStrc
 {
     int nX;
     int nY;
 };
-
-
 
 struct D2WallRoomArgStrc
 {

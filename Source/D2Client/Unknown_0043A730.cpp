@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -109,18 +110,6 @@ extern D2CelFileStrc* gpCellFile_00779768; // 0x00779768
 extern D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 extern int gnTopRow_00779DC8; // 0x00779DC8
 extern D2WinControlStrc* gpCharSelectText_00779DD4; // 0x00779DD4
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 void __cdecl sub_0043A730_UpdateButtons(); // 0x0043A730
 int __cdecl sub_0042FA30(); // 0x0042FA30

@@ -7,6 +7,7 @@
 #include "D2CelContext.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -22,10 +23,6 @@ struct UnicodeChar;
 struct D2ItemFormulaRecordStrc;
 struct D2PanelButtonStrc;
 
-
-
-
-
 extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*, unsigned int, int, const char*); // 0x006280A0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc*); // 0x0063B2C0
@@ -36,20 +33,6 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc*); // 0x0063DFA0
 int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 int __stdcall sub_004F6480(D2CelContextStrc*, int, int, int, int, int); // 0x004F6480
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
-
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct D2InvRectStrc
 {

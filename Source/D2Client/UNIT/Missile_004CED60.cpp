@@ -1,43 +1,17 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-struct D2LightStrc;
+#include "D2Path.h"
+#include "D2Structs.h"
+struct D2GfxLightStrc;
 struct D2OwnerStrc_004CA990;
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileStrc;
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x14];
-    int nSeqCurrentFramePrecise;
-    int nFrameRate;
-    char unk0x4C[0x18];
-    void* pLight;
-    char unk0x68[0x5C];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
-
-
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
 
@@ -82,7 +56,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
-D2LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x00474160
+D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x00474160
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 void __fastcall sub_004ADE80(D2UnitStrc* pUnit, void* pArg); // 0x004ADE80
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -122,13 +96,6 @@ static __declspec(noinline) void __stdcall sub_004CD420_RollPierce(D2UnitStrc* p
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
-
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
@@ -137,9 +104,8 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 
-
-void __fastcall sub_004742D0_ResetLightSize(D2LightStrc* pLight, int nSize); // 0x004742D0
-int __fastcall sub_00474350_GetLightSize(D2LightStrc* pLight); // 0x00474350
+void __fastcall sub_004742D0_ResetLightSize(D2GfxLightStrc* pLight, int nSize); // 0x004742D0
+int __fastcall sub_00474350_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
 void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce); // 0x004BA790
 extern "C" void* __fastcall sub_004CA990_GetLinkFirst(D2OwnerStrc_004CA990* pOwner); // 0x004CA990
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pMissile, int nX, int nY, int nZ); // 0x004DA1D0
@@ -372,7 +338,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 
     sub_00624390_AnimInit(pMissile);
     STATLIST_AllocStatListEx(pMissile, 0, 0, 0);
-    pMissile->nFrameRate = pMissilesTxtRecord->nAnimLen << 8;
+    pMissile->dwFrameCountPrecise = pMissilesTxtRecord->nAnimLen << 8;
     MISSILE_SetAnimSpeed(pMissile, pMissilesTxtRecord->nAnimSpeed << 4);
 
     int nRange;

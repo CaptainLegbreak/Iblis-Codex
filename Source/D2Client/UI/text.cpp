@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -72,7 +73,6 @@ extern int gnGlobal_007BCC08; // 0x007BCC08
 extern int gnGlobal_007BCC40; // 0x007BCC40
 extern int gnGlobal_007BCE30; // 0x007BCE30
 extern int gnGlobal_007BEECC; // 0x007BEECC
-
 
 struct D2TextFieldA4Strc
 {
@@ -260,26 +260,6 @@ extern char gtTextList_007BF1F0[]; // 0x007BF1F0
 extern unsigned short gwTextStringId_007BF212; // 0x007BF212
 extern int gnHintId_007BF260; // 0x007BF260
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 extern int gnGlobal_0071146C; // 0x0071146C
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290

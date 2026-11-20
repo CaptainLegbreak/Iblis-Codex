@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
+#include "D2Unicode.h"
 
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 struct Unicode;
@@ -10,11 +11,6 @@ struct D2MonsterDataStrc;
 struct D2MonStatsTxt;
 struct D2LevelsTxt;
 struct Coord;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2MonsterDataStrc
 {

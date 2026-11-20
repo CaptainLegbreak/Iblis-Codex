@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define STAT_STATPTS 4
 #define STAT_NEWSKILLS 5
@@ -70,34 +71,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 extern int gnGlobal_00711470; // 0x00711470
 extern "C" int gnFlag_007C02EC; // 0x007C02EC
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        int wParam;
-        struct
-        {
-            unsigned short wParamLow;
-            unsigned short wParamHigh;
-        };
-    };
-    union
-    {
-        int lParam;
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
-
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
@@ -105,7 +78,6 @@ int __fastcall sub_004A6580_IsInPanelButton(int nMode, int nX, int nY); // 0x004
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __fastcall sub_004A6630_IsInRightPanelButton(int nMode, int nX, int nY); // 0x004A6630
 int __cdecl sub_004A6690_IsMouseOnRightButton(); // 0x004A6690
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 bool __stdcall sub_004A6A00_CheckUiVars(int nArg); // 0x004A6A00
@@ -669,7 +641,7 @@ void __stdcall sub_004A6840_LeftButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             gnGlobal_007C02E4 = 0;
             sub_00455F20(6, 1, 0);
             sub_00455F20(2, 0, 0);
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
@@ -681,7 +653,7 @@ void __stdcall sub_004A6840_LeftButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             gnGlobal_007C02E4 = 0;
             sub_00455F20(2, 0, 0);
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
@@ -689,7 +661,7 @@ void __stdcall sub_004A6840_LeftButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 
     gnGlobal_007C02E4 = 0;
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 int gnGlobal_007C02E8; // 0x007C02E8
@@ -717,7 +689,7 @@ void __stdcall sub_004A6920_RightButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             gnGlobal_007C02E8 = 0;
             sub_00455F20(7, 1, 0);
             sub_00455F20(4, 0, 0);
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
@@ -729,7 +701,7 @@ void __stdcall sub_004A6920_RightButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             gnGlobal_007C02E8 = 0;
             sub_00455F20(4, 0, 0);
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
@@ -737,7 +709,7 @@ void __stdcall sub_004A6920_RightButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 
     gnGlobal_007C02E8 = 0;
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 // 0x004A6A00

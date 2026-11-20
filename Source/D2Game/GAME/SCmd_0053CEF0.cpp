@@ -1,13 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameRecords.h"
-
-struct D2ClientStrc
-{
-    char unk0x000[0x1B8];
-    D2PacketDataStrc* pPacketDataHead;
-    D2PacketDataStrc* pPacketDataTail;
-    D2PacketDataStrc* pPacketDataPool;
-};
+#include "D2GameClient.h"
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);                               // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0

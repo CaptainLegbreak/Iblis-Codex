@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2ClientMenus.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -13,18 +14,6 @@ struct D2SkillIconStateStrc;
 struct D2UiCelFileStrc;
 struct D2WeatherLayerStateStrc;
 struct D2MonsterDataStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -113,7 +102,7 @@ void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
                         sub_00455F20(3, 1, 0);
                     }
 
-                    pMsg->bUseResult = 1;
+                    pMsg->bReturn = 1;
                     pMsg->lResult = 0;
                     sub_00420290_BreakHandlerChain(pMsg);
                     return;
@@ -133,7 +122,7 @@ void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
         sub_00455F20(3, 1, 0);
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

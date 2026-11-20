@@ -1,7 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
@@ -9,6 +8,7 @@
 #include "D2Primitives.h"
 #include "D2DrlgRooms.h"
 #include "D2GameServer.h"
+#include "D2GameClient.h"
 
 #pragma function(memset)
 
@@ -155,21 +155,6 @@ struct D2PlayerDataStrc
     unsigned char unk_6C[0x4];
     int nRightSkillId;
     int nLeftSkillId;
-};
-
-struct D2ClientStrc
-{
-    unsigned int dwClientId;
-    int dwClientState;
-    unsigned char nClassId;
-    unsigned char unk_09[0x4];
-    char szName[16];
-    unsigned char unk_1D[0x157];
-    D2UnitStrc* pPlayer;
-    unsigned char unk_178[0x18];
-    D2FileTimeStrc nSaveCreationTimestamp;
-    char unk0x198[0x318];
-    D2ClientStrc* pServerNextByName;
 };
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);

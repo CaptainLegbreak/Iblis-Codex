@@ -1,10 +1,6 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-};
+#include "D2Unicode.h"
 
 #pragma pack(push, 1)
 #pragma pack(pop)

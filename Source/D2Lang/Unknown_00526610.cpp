@@ -1,17 +1,5 @@
 #include "D2Lang.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode() {}
-    Unicode(unsigned short wValue) : wChar(wValue) {}
-    Unicode toUpper() const
-    {
-        return Unicode(wChar < 0x100 ? gwToUpperTable_00730578[wChar] : wChar);
-    }
-    static int __fastcall strnicmp(const Unicode* str1, const Unicode* str2, size_t count);
-};
+#include "D2Unicode.h"
 
 // 0x00526610
 int __fastcall Unicode::strnicmp(const Unicode* str1, const Unicode* str2, size_t count)

@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2GameRecords.h"
+#include "D2GameClient.h"
 #pragma pack(push, 1)
 struct D2GSPacketSrv5B
 {
@@ -17,17 +18,6 @@ struct D2GSPacketSrv5B
     char szGuildTag[0x100];
 };
 #pragma pack(pop)
-
-
-struct D2ClientStrc
-{
-    char unk0x000[0x1B8];
-    D2PacketDataStrc* pPacketDataHead;
-    D2PacketDataStrc* pPacketDataTail;
-    D2PacketDataStrc* pPacketDataPool;
-};
-
-
 
 #define offsetof(s, m) ((unsigned int)&(((s*)0)->m))
 #define STAT_LEVEL 12

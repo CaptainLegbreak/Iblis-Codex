@@ -14,20 +14,6 @@ typedef long LPARAM;
 typedef unsigned short ATOM;
 typedef LRESULT (__stdcall* WNDPROC)(HWND, unsigned int, WPARAM, LPARAM);
 
-struct WNDCLASSA
-{
-    unsigned int style;
-    WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
-    HINSTANCE hInstance;
-    HICON hIcon;
-    HCURSOR hCursor;
-    HBRUSH hbrBackground;
-    const char* lpszMenuName;
-    const char* lpszClassName;
-};
-
 typedef int (__stdcall* LPDDENUMCALLBACKA)(void* pGuid, char* szDescription, char* szName, void* pContext);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

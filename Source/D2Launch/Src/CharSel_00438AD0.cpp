@@ -1,12 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-
-    static int __fastcall strcmp(const Unicode* str1, const Unicode* str2);                 // 0x005264F0
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);     // 0x00526F20
-    static char* __fastcall unicode2Win(char* dest, const Unicode* src, int count);        // 0x00526F70
-};
-
+#include "D2Unicode.h"
 extern char gbRealmNamesInit_00779DA8;                                                      // 0x00779DA8
 extern Unicode gwszRealmNames_00779DF0[7][0x100];                                           // 0x00779DF0
 extern "C" char* __cdecl strcpy(char* dst, const char* src);

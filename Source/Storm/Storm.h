@@ -4,7 +4,6 @@
 struct D2BitmapInfoStrc;
 struct D2CelContextStrc;
 struct D2CmpCelContextStrc;
-struct D2Config006C8250Strc;
 struct D2GfxBufferFuncsStrc;
 struct D2ModuleEntry32Strc;
 struct D2StormArchiveRecStrc;
@@ -97,7 +96,6 @@ extern "C" int __stdcall Module32NextW(void* hSnapshot, D2ModuleEntry32Strc* pEn
 extern "C" int gnFlag_007788DC; // 0x007788DC
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern "C" void* __stdcall CreateToolhelp32Snapshot(unsigned long dwFlags, unsigned long dwProcessId); // 0x006B1446
-extern D2Config006C8250Strc* gpConfig_007C9150; // 0x007C9150
 extern D2GfxBufferFuncsStrc* gpBufferFuncs_007C914C; // 0x007C914C
 extern D2StormArchiveRecStrc* gpArchiveHead_0070835C; // 0x0070835C
 extern D2TileDrawFunctionsStrc* gpTileDrawFunctions_007C914C; // 0x007C914C
@@ -469,17 +467,6 @@ struct D2CommonStringEntryNodeStrc
     void sub_0060EE30_Destroy();
 };
 
-struct D2Config006C8250Strc
-{
-    int n000;
-    int n004;
-    int n008;
-    unsigned char unk_00C[0xF8];
-    int n104;
-    int n108;
-    int n10C;
-};
-
 typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
 
 typedef int (__stdcall* D2CryptAcquireContextFn)(unsigned int*, const char*, const char*, unsigned int, unsigned int);
@@ -755,17 +742,7 @@ struct D2StormSignatureKeyStrc
     unsigned int nResult;
 };
 
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
+#include "D2Win32Types.h"
 
 typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
 
@@ -802,16 +779,3 @@ typedef void (__fastcall* free_func)(void* opaque, void* address);
 
 typedef unsigned int size_t;
 
-struct tagPOINT
-{
-    long x;
-    long y;
-};
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};

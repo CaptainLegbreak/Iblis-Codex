@@ -5,38 +5,7 @@
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
-
-
-
-
-struct D2SkillsTxt
-{
-    char unk0x00[0x06];
-    unsigned char nFlags6;
-    unsigned char nFlags7;
-};
-
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    char unk0x10[0x4C - 0x10];
-    unsigned char nAlign;
-};
-
-struct D2MonStats2Txt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-};
-
-struct D2ObjectsTxt
-{
-    char unk0x00[0x13C];
-    unsigned char nSide;
-};
-
-
+#include "D2Txt.h"
 
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 
@@ -225,7 +194,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
             {
                 D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
                 if (pMonStats2TxtRecord
-                    && !(pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+                    && !(pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
                     && pMonStatsTxtRecord->nAlign != 1
                     && (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[1]))
                 {
@@ -444,7 +413,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
 {
     if (pUnit)
     {
-        if ((pSkillsTxtRecord->nFlags7 & gdwBitMasks[0]) && sub_00464820_IsDeadOrDying(pUnit))
+        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) && sub_00464820_IsDeadOrDying(pUnit))
         {
             return pUnit;
         }
@@ -453,7 +422,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
         *pnY = CLIENT_GetUnitYInline(pUnit);
     }
 
-    int nFlags = (pSkillsTxtRecord->nFlags7 & gdwBitMasks[0]) ? 0x3002 : 0x2003;
+    int nFlags = (pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) ? 0x3002 : 0x2003;
     D2UnitFindCallback pfnTest = 0;
     if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillSelFile_006D6AE0, 0x301) == 0x5A)
     {
@@ -512,7 +481,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);
             if (UNIT_HasFlag(pTarget, 4))
             {
-                if (!(pSkillsTxtRecord->nFlags6 & gdwBitMasks[4])
+                if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
                     || (pTarget->dwUnitType == 1 && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {
@@ -563,7 +532,7 @@ D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitSt
             return pUnit;
         }
 
-        if ((pSkillsTxtRecord->nFlags7 & gdwBitMasks[0]) || !sub_00464820_IsDeadOrDying(pUnit))
+        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) || !sub_00464820_IsDeadOrDying(pUnit))
         {
             goto skip;
         }
@@ -590,7 +559,7 @@ skip:
         return pUnit;
     }
 
-    const int nFlags6 = pSkillsTxtRecord->nFlags6;
+    const int nFlags6 = pSkillsTxtRecord->nFlags[2];
     if (nFlags6 & gdwBitMasks[6])
     {
         return sub_00467490_FindSkillTarget(pSkill, pUnit, pnX, pnY, pSkillsTxtRecord);
@@ -615,7 +584,6 @@ D2UnitStrc* __cdecl sub_00467A10();                                             
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                       // 0x0063EA40
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                            // 0x00639DF0
-
 
 // 0x00467AC0
 void __cdecl sub_00467AC0_UpdateHoverUnit()

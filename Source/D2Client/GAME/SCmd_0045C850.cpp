@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007A7430 (gtTimedBox_007A742C.nValue)
@@ -71,43 +72,12 @@ enum D2C_CA2Constants
     GRID_SIZE = 48,
 };
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        int wParam;
-        struct
-        {
-            unsigned short wParamLow;
-            unsigned short wParamHigh;
-        };
-    };
-    union
-    {
-        int lParam;
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
-
-
-
 struct D2MonsterDataStrc
 {
     void* pMonstatsTxt;
     char unk0x04[0x24];
     unsigned short nClientFlags;
 };
-
 
 struct D2GfxNodeStrc
 {
@@ -604,7 +574,7 @@ void __stdcall sub_0045FF70_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007A5254 = 1;
     gnGlobal_007A5248 = 0;
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -615,7 +585,7 @@ void __stdcall sub_004603E0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007A5258 = 1;
     gnGlobal_007A5248 = 0;
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -721,7 +691,7 @@ void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A6B08 = 0;
     }
     pMsg->lResult = 0;
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 // 0x00469450
@@ -770,7 +740,7 @@ void __stdcall sub_0046A840_HotkeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 
             D2_ASSERT(!IsBadCodePtr((FARPROC)gtHotkeyCommands_00712698[*(int*)gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
             gtHotkeyCommands_00712698[*(int*)gtHotkeys_007A6F90[i].nCommand].pfnCommand();
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;

@@ -1,9 +1,5 @@
 #include "D2Client.h"
-
-struct D2GfxMotionStrc
-{
-    unsigned int dwFlags;
-};
+#include "D2ClientGfx.h"
 
 D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
 

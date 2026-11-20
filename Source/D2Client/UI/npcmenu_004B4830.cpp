@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Win32Types.h"
+
 struct D2ClientDialogStrc;
 struct D2UnitStrc;
 
@@ -10,7 +12,6 @@ struct UnicodeChar:Unicode
 {
     UnicodeChar(); // 0x0042F530
 };
-struct tagRECT { int left,top,right,bottom; };
 typedef int (__cdecl* D2MenuHandler)();
 #pragma pack(push,1)
 struct D2NpcIndexStrc { int nId,nCount; unsigned short awIds[5]; D2MenuHandler apfHandlers[5]; char bEnabled; };
@@ -34,7 +35,7 @@ unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc*); // 0x00464A60
 void __stdcall UNITS_GetClientCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620900
-void __fastcall sub_00476070_GetViewRect(D2ViewStrc*,int*,int*,int*,int*); // 0x00476070
+void __fastcall sub_00476070_GetViewRect(D2ViewStrc*,long*,long*,long*,long*); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc*,int*,int*); // 0x004760C0
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 void __cdecl sub_00487990_ResetHover(); // 0x00487990

@@ -9,7 +9,7 @@ struct D2GfxLightExStrc;
 struct D2TileLightStrc;
 struct D2RgbColorStrc;
 struct D2GfxSettingsStrc;
-struct D2GfxPaletteViewStrc;
+struct D2PaletteTableStrc;
 struct D2SmackStrc;
 struct D2BinkStrc;
 struct D2SmackRecordStrc;
@@ -35,20 +35,18 @@ struct D2GfxSettingsStrc
     int bBlendedShadows; // 0x14
 };
 
-struct D2GfxPaletteViewStrc
+struct D2PaletteTableStrc
 {
-    int nValue00; // 0x00
-    int nValue04; // 0x04
-    int nValue08; // 0x08
-    unsigned char* pGammaTables[0x31]; // 0x0C
-    unsigned char* pPaletteTables[0x0D]; // 0xD0
-    int nValue104; // 0x104
-    int nValue108; // 0x108
-    int nValue10C; // 0x10C
-    int unk0x110; // 0x110
-    unsigned char* pRgbTable; // 0x114
+    unsigned char* pTransPalettes[3]; // 0x00
+    unsigned char* pShadowLightGammaPalettes[49]; // 0x0C
+    unsigned char* pStandardShiftPalettes[13]; // 0xD0 (the draw code indexes up to 18 here, into the slots that follow)
+    unsigned char* pScreenPalette; // 0x104
+    unsigned char* pLuminancePalette; // 0x108
+    unsigned char* pDarkBlendPalette; // 0x10C
+    unsigned char* pDarkenPalette; // 0x110
+    unsigned char* pStandardColorsPalette; // 0x114
     unsigned char* pRemap; // 0x118
-    int unk0x11C; // 0x11C
+    unsigned char* unk0x11C; // 0x11C
 };
 
 struct D2SmackStrc
@@ -118,7 +116,7 @@ struct D2TileDrawFunctionsStrc
 
 D2_CHECK_SIZE(D2RgbColorStrc, 0x3);
 D2_CHECK_SIZE(D2GfxSettingsStrc, 0x18);
-D2_CHECK_SIZE(D2GfxPaletteViewStrc, 0x120);
+D2_CHECK_SIZE(D2PaletteTableStrc, 0x120);
 D2_CHECK_SIZE(D2SmackStrc, 0x378);
 D2_CHECK_SIZE(D2SmackRecordStrc, 0x10);
 D2_CHECK_SIZE(D2BinkStrc, 0x10);

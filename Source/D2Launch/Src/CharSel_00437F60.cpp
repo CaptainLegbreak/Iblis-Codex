@@ -1,12 +1,8 @@
 #include "D2Launch.h"
 #include "D2StormTypes.h"
+#include "D2Unicode.h"
 
 struct SMSGHANDLER_PARAMS;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30

@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Primitives.h"
 #include "D2GameServer.h"
+#include "D2GameClient.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -14,21 +15,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);          
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                              // 0x006CC260
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
-
-struct D2ClientStrc
-{
-    char unk0x000[0x60];
-    int nCharSaveTransactionToken;
-    char unk0x064[0x12C];
-    D2FileTimeStrc nSaveCreationTimestamp;
-    char unk0x198[0x240];
-    unsigned int dwLastPacketTick;
-    char unk0x3DC[0xCC];
-    D2ClientStrc* pNext;
-    char unk0x4AC[0x54];
-    unsigned int dwPingsCount;
-    int unk0x504;
-};
 
 struct D2GSPacketClt66
 {
@@ -200,7 +186,7 @@ void __stdcall sub_0052D350_CheckClientHeartbeats(D2GameStrc* pGame, int* pbDisc
     {
         D2ClientStrc* pNext = pClient->pNext;
         const int bHardcore = CLIENTS_CheckFlag(pClient, 4);
-        if (nTickCount > pClient->dwLastPacketTick && (bHardcore && nTickCount - pClient->dwLastPacketTick > 10000 && pClient->dwPingsCount > 10 || nTickCount - pClient->dwLastPacketTick > 45000 || pClient->unk0x504) && gpD2EventCallbackTable_6FD45830)
+        if (nTickCount > pClient->dwLastPacketTick && (bHardcore && nTickCount - pClient->dwLastPacketTick > 10000 && pClient->dwPingsCount > 10 || nTickCount - pClient->dwLastPacketTick > 45000 || pClient->dw504) && gpD2EventCallbackTable_6FD45830)
         {
             D2GAME_SAVE_WriteFile_6FC8A500(pGame, CLIENTS_GetPlayerFromClient(pClient, 0), CLIENTS_GetName(pClient), 0);
             *pbDisconnected = 1;

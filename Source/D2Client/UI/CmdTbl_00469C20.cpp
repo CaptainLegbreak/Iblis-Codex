@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientMenus.h"
+#include "D2StormTypes.h"
 
 #define NUM_HOTKEYS 114
 #define HOTKEY_COMMAND_LIMIT 0x38
@@ -36,15 +37,6 @@ struct D2KeyBindingStrc { int nAction; unsigned short nKey; char unk_06[4]; };
 
 #pragma pack(pop)
 struct D2HotkeyActionStrc { D2HotkeyCallback pfnCallback; int bAllowed; int f_8; };
-
-struct SMSGHANDLER_PARAMS
-{
-    char unk_00[8];
-    int nKey;
-    char unk_0C[0xC];
-    int bHandled;
-    int nResult;
-};
 
 extern D2HotkeyActionStrc gaActions_0071269C[]; // 0x0071269C
 extern int gnMode_007A7418; // 0x007A7418
@@ -131,7 +123,7 @@ D2KeyBindingStrc gaBindings_007A6F90[114]; // 0x007A6F90
 // 0x0046A940
 void __stdcall sub_0046A940_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
 {
-    int nKey = pMsg->nKey;
+    int nKey = pMsg->wParam;
     for (int i = 0; i < 114; ++i)
     {
         if (gaBindings_007A6F90[i].nKey != nKey)
@@ -143,8 +135,8 @@ void __stdcall sub_0046A940_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
                 return;
             D2_ASSERT(!IsBadCodePtr(gaActions_0071269C[gaBindings_007A6F90[i].nAction].pfnCallback), 0x81C);
             gaActions_0071269C[gaBindings_007A6F90[i].nAction].pfnCallback();
-            pMsg->bHandled = 1;
-            pMsg->nResult = 0;
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }

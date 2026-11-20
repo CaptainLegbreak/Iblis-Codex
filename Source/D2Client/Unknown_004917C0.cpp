@@ -4,11 +4,8 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 struct D2UnitStrc;
-
-
-
-
 
 extern D2InventoryGridInfoStrc gGrid_007BCA78;                                                              // 0x007BCA78
 extern D2InventoryGridInfoStrc gGrid_007BCB40;                                                              // 0x007BCB40
@@ -36,20 +33,6 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInven
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                // 0x0063C1E0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                 // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                 // 0x00648900
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
 
 extern D2InvRectStrc gInvRect_007BCAA0;                                                                     // 0x007BCAA0
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)

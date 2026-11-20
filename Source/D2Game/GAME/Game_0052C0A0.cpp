@@ -3,23 +3,11 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2GameClient.h"
 
 struct D2ServerCallbackFunctions;
 
 typedef int (__stdcall* FARPROC)();
-
-
-
-
-struct D2ClientStrc
-{
-    int dwClientId;
-    int dwClientState;
-    char unk0x08[0x4A0];
-    D2ClientStrc* pNext;
-};
-
-
 
 struct D2GameListStrc
 {

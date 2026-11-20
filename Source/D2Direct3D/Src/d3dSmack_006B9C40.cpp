@@ -1,7 +1,6 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
-
-struct T004F51E0;
+#include "D2Win32Types.h"
 
 void __fastcall sub_006B9BB0_CloseSmack(D2SmackRecordStrc* video); // 0x006B9BB0
 void __cdecl sub_006B9BD0_Apply(); // 0x006B9BD0
@@ -21,20 +20,12 @@ extern "C" const char gszLockFailed_006FC2A4[]; // 0x006FC2A4
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 static __declspec(noinline) void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, unsigned char* pDst, int nPitch);
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
 extern "C" __declspec(dllimport) void* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
 extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsigned int nLeft, unsigned int nTop, unsigned int nPitch, unsigned int nHeight, void* pBuffer, unsigned int nFlags); // 0x006CC60C
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
-int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, T004F51E0* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
+int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 void __cdecl sub_006B9F00_UploadFrameBuffer(); // 0x006B9F00
 extern "C" const char szD3DSmackFile_006FC358[]; // 0x006FC358
 extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
@@ -264,7 +255,7 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
             break;
         }
 
-        T004F51E0 aPalette[256];
+        tagPALETTEENTRY aPalette[256];
         unsigned char aPixels[60][468];
         int nWidth;
         int nHeight;

@@ -4,7 +4,7 @@
 int __fastcall sub_00511870_EndScene();                                                                     // 0x00511870
 void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
 extern int gaDDrawCapsTypes_0072F7D0[7];                                                                    // 0x0072F7D0
-D2GfxPaletteViewStrc* gpDDrawCaps_007C9150;                                                                      // 0x007C9150
+D2PaletteTableStrc* gpDDrawCaps_007C9150;                                                                      // 0x007C9150
 extern int gbDDrawReady_00881264;                                                                           // 0x00881264
 extern int gbDDrawReady2_00881268;                                                                          // 0x00881268
 extern D2DDrawSurfaceStrc* gpDDrawSurface_00881278;                                                       // 0x00881278
@@ -50,17 +50,17 @@ int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType)
     switch (nIndex)
     {
     case 0:
-        return gpDDrawCaps_007C9150->nValue08;
+        return (int)gpDDrawCaps_007C9150->pTransPalettes[2];
     case 1:
-        return gpDDrawCaps_007C9150->nValue04;
+        return (int)gpDDrawCaps_007C9150->pTransPalettes[1];
     case 2:
-        return gpDDrawCaps_007C9150->nValue00;
+        return (int)gpDDrawCaps_007C9150->pTransPalettes[0];
     case 3:
-        return gpDDrawCaps_007C9150->nValue104;
+        return (int)gpDDrawCaps_007C9150->pScreenPalette;
     case 4:
-        return gpDDrawCaps_007C9150->nValue108;
+        return (int)gpDDrawCaps_007C9150->pLuminancePalette;
     case 6:
-        return gpDDrawCaps_007C9150->nValue10C;
+        return (int)gpDDrawCaps_007C9150->pDarkBlendPalette;
     }
     return 0;
 }

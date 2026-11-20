@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 

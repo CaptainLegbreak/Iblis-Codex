@@ -4,6 +4,8 @@
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
+#include "D2ClientGfx.h"
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -11,7 +13,6 @@ struct D2ActiveRoomStrc;
 struct BitStreamContext;
 struct D2OrbSmoothStrc;
 struct Unicode;
-struct D2MotionVectorStrc;
 struct D2HotkeySlotTableStrc;
 struct D2TextPanelLineStrc;
 struct D2TextPanelStrc;
@@ -44,18 +45,6 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 extern D2OrbSmoothStrc gtOrbSmooth_007BEF30[3]; // 0x007BEF30
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nX;
-    unsigned short nY;
-    char pad_10[8];
-    int bReturn;
-    int lResult;
-};
-
 extern int gnGlobal_007BEFA4; // 0x007BEFA4
 extern int gnGlobal_007BEF84; // 0x007BEF84
 extern int gnGlobal_007BEF88; // 0x007BEF88
@@ -65,19 +54,6 @@ extern int gnGlobal_007BEFD0; // 0x007BEFD0
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
 extern int __cdecl sub_0044DA30(); // 0x0044DA30
 extern int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
-
-struct D2GfxMotionStrc
-{
-    unsigned int dwFlags;
-    D2MotionVectorStrc tA;
-    D2MotionVectorStrc tB;
-    D2MotionVectorStrc tD;
-    D2MotionVectorStrc tC;
-    char unk0x34[0xC];
-    int nParam0;
-    int nParam1;
-    int unk0x48;
-};
 
 struct D2TextPanelLineStrc
 {
@@ -499,8 +475,8 @@ void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn=0;
         return;
     }
-    int nY=pMsg->nY;
-    int nX=pMsg->nX;
+    int nY=pMsg->nYpos;
+    int nX=pMsg->nXpos;
     if (sub_00498DC0_OverlayHit(pMsg))
     {
         gnGlobal_007BEFA4=1;
@@ -971,8 +947,8 @@ void __stdcall sub_00498C00_CloseOnSpace(SMSGHANDLER_PARAMS* pMsg)
 
 void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nX = pMsg->nX;
-    const int nY = pMsg->nY;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     sub_00498870_ClickBeltBox(pPlayer->pInventory, nX, nY);
 }
@@ -1122,8 +1098,8 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    const int nY = pMsg->nY;
-    const int nX = pMsg->nX;
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_0044BFE0())
     {
@@ -1184,8 +1160,8 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    const int nX = pMsg->nX;
-    const int nY = pMsg->nY;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_00498DC0_MouseMoveMsg(pMsg))
     {

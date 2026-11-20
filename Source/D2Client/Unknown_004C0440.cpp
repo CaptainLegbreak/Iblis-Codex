@@ -1,22 +1,10 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HotspotStrc;
 struct D2PacketRecord7Strc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXPos;
-    unsigned short nYPos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct D2HotspotStrc
 {
@@ -73,8 +61,8 @@ void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
-    const int nX = pMsg->nXPos;
-    const int nY = pMsg->nYPos;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     if (gnGlobal_007C5474 == 2)
     {
         if (sub_004C0450_ClickHotspots(nX, nY))

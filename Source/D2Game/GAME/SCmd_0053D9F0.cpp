@@ -1,4 +1,5 @@
 #include "D2GameRecords.h"
+#include "D2GameClient.h"
 #pragma pack(push, 1)
 struct D2GSPacketSrv83
 {
@@ -17,15 +18,6 @@ struct D2GSPacketSrv84
     unsigned char pData[0x190];
 };
 #pragma pack(pop)
-
-
-struct D2ClientStrc
-{
-    char unk0x000[0x1B8];
-    D2PacketDataStrc* pPacketDataHead;
-    D2PacketDataStrc* pPacketDataTail;
-    D2PacketDataStrc* pPacketDataPool;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

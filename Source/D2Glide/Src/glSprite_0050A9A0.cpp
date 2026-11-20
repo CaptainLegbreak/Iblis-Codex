@@ -26,8 +26,8 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     }
     else
     {
-        gaGlideSpriteVertices_0087EFF8[0].dwColor = ((gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3] | 0xFFFFFF00) << 8
-            | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3 + 1]) << 8 | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3 + 2];
+        gaGlideSpriteVertices_0087EFF8[0].dwColor = ((gpGfxPaletteView_007C9150->pStandardColorsPalette[nPaletteIndex * 3] | 0xFFFFFF00) << 8
+            | gpGfxPaletteView_007C9150->pStandardColorsPalette[nPaletteIndex * 3 + 1]) << 8 | gpGfxPaletteView_007C9150->pStandardColorsPalette[nPaletteIndex * 3 + 2];
     }
     gaGlideSpriteVertices_0087EFF8[3].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
     gaGlideSpriteVertices_0087EFF8[2].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;

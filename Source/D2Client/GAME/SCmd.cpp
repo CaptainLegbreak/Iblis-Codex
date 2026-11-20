@@ -4,6 +4,8 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Unicode.h"
+#include "D2Structs.h"
+#include "D2UnitData.h"
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -107,7 +109,7 @@ struct D2GSPacketSrv97;
 struct D2GSPacketSrvA6;
 struct D2GSPacketSrvA7;
 struct D2GSPacketSrvA9;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2GSPacketSrv73;
 struct D2MissileStrc;
 
@@ -339,36 +341,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 void __stdcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    D2PlayerDataStrc* pPlayerData;
-    unsigned char nAct;
-    char unk0x19[3];
-    void* pDrlgAct;
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    D2DynamicPathStrc* pDynamicPath;
-    unsigned char unk_30[0x14];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    unsigned char unk_4C[0x14];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
-
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 void __fastcall sub_004B1240_UsePacket7(D2ClientPacket7Strc* pPacket); // 0x004B1240
@@ -380,7 +352,6 @@ extern int gdwGlobal_007A0670; // 0x007A0670
 extern int gdwGlobal_007A0658; // 0x007A0658
 extern void* gxGlobal_007A0708; // 0x007A0708
 extern Unicode gxGlobal_007A2C80[80]; // 0x007A2C80
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -436,14 +407,6 @@ struct D2GSPacketSrv03
 };
 
 #pragma pack(pop)
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x150];
-    unsigned int unk0x150;
-    unsigned int unk0x154;
-    unsigned int unk0x158;
-    unsigned int unk0x15C;
-};
 
 void __fastcall sub_0044DC70_SetDifficulty(unsigned char nDifficulty); // 0x0044DC70
 void __fastcall sub_0044DC80(unsigned char nValue); // 0x0044DC80
@@ -513,7 +476,6 @@ enum D2C_F23Constants
     STAT_ID_END = 0x1FF,
     STATE_ID_END = 0xFF,
 };
-
 
 struct D2GSPacketSrv0D
 {
@@ -818,7 +780,7 @@ void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648C30
 void __fastcall sub_0044DB40(int nDelay); // 0x0044DB40
-extern void* gpGlobal_007A0634; // 0x007A0634
+extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 
 #pragma pack(push, 1)
 struct D2PacketRecord11Strc
@@ -1225,7 +1187,6 @@ struct D2GSPacketSrv73
 };
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
-
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId); // 0x00621CC0
@@ -1797,10 +1758,10 @@ void __fastcall sub_0045C9A0_GamePacket04_LoadDone(void* pPacket)
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
-            pPlayer->pPlayerData->unk0x150 = 0;
-            pPlayer->pPlayerData->unk0x154 = 0;
-            pPlayer->pPlayerData->unk0x158 = 0;
-            pPlayer->pPlayerData->unk0x15C = 0;
+            pPlayer->pPlayerData->nState = 0;
+            pPlayer->pPlayerData->nMode = 0;
+            pPlayer->pPlayerData->nArg1 = 0;
+            pPlayer->pPlayerData->nArg2 = 0;
         }
     }
     else

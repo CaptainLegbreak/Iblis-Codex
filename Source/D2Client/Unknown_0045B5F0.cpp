@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -22,15 +23,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct tagRECT
-{
-    int left;
-    int top;
-    int right;
-    int bottom;
-};
-
-
 struct D2RoomCoordListStrc
 {
     D2DrlgCoordStrc pBox[2];
@@ -39,8 +31,6 @@ struct D2RoomCoordListStrc
     int nIndex;
     D2RoomCoordListStrc* pNext;
 };
-
-
 
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pWallCount); // 0x006196A0
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
@@ -53,8 +43,6 @@ void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor);
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom();
 extern int gdwGlobal_007A5208; // 0x007A5208
 extern int gdwGlobal_007A520C; // 0x007A520C
-
-
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900

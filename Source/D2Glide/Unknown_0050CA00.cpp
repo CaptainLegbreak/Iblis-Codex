@@ -2,18 +2,11 @@
 #include "D2Path.h"
 #include "D2DrlgMaps.h"
 #include "D2GlideTypes.h"
+#include "D2Win32Types.h"
 
 struct D2GfxLightStrc
 {
     unsigned int aColor[8];
-};
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

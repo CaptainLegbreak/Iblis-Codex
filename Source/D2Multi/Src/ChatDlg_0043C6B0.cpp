@@ -8,8 +8,6 @@ struct D2CharSaveFileStrc;
 struct D2LaunchCharInfoStrc;
 struct Unicode;
 struct D2ChatMessageStrc;
-struct _FILETIME;
-struct _SYSTEMTIME;
 struct D2LaunchFuncsStrc;
 struct SMSGHANDLER_PARAMS;
 
@@ -144,23 +142,11 @@ struct D2ChatMessageStrc
     D2ChatMessageStrc* pNext;
 };
 
-struct _SYSTEMTIME
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) unsigned int __stdcall GetACP(); // 0x006CC32C
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, unsigned short* wszDest, int nDest); // 0x006CC29C
-extern "C" __declspec(dllimport) int __stdcall GetDateFormatA(unsigned long nLocale, unsigned long dwFlags, const _SYSTEMTIME* pDate, const char* szFormat, char* szDate, int nDate); // 0x006CC330
-extern "C" __declspec(dllimport) int __stdcall FileTimeToSystemTime(const _FILETIME* pFileTime, _SYSTEMTIME* pSystemTime); // 0x006CC334
+extern "C" __declspec(dllimport) int __stdcall GetDateFormatA(unsigned long nLocale, unsigned long dwFlags, const D2SystemTimeStrc* pDate, const char* szFormat, char* szDate, int nDate); // 0x006CC330
+extern "C" __declspec(dllimport) int __stdcall FileTimeToSystemTime(const _FILETIME* pFileTime, D2SystemTimeStrc* pSystemTime); // 0x006CC334
 extern "C" __declspec(dllimport) int __stdcall FileTimeToLocalFileTime(const _FILETIME* pFileTime, _FILETIME* pLocalFileTime); // 0x006CC338
 unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
@@ -535,7 +521,7 @@ static void __stdcall sub_0043E450_FileTimeToText(char* szDate, int nSize, const
     unsigned short wszDate[0x100];
     for (int i = 0; i < 0x100; i++)
         wszDate[i] = 0;
-    _SYSTEMTIME tSystemTime;
+    D2SystemTimeStrc tSystemTime;
     FileTimeToSystemTime(pFileTime, &tSystemTime);
     GetDateFormatA(0x400, 2, &tSystemTime, 0, szDate, nSize);
     MultiByteToWideChar(GetACP(), 1, szDate, -1, wszDate, 0x100);

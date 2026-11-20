@@ -1,12 +1,11 @@
 #include "D2Win.h"
 #include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2DDrawSurfaceStrc;
-struct tagPOINT;
-struct T004F51E0;
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -19,21 +18,6 @@ extern D2GlideTileCacheStrc gGlideTileCache_0087EB48; // 0x0087EB48
 extern int gnGlideTileTmu_00880BF8; // 0x00880BF8
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
 
-struct tagPOINT
-{
-    long x;
-    long y;
-};
-
-struct tagMSG
-{
-    void* hwnd;
-    unsigned int message;
-    unsigned int wParam;
-    long lParam;
-    unsigned long time;
-    tagPOINT pt;
-};
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" __declspec(dllimport) D2BinkStrc* __stdcall BinkOpen(void* hFile, unsigned int nFlags); // 0x006CC5B8
 extern "C" __declspec(dllimport) int __stdcall BinkWait(D2BinkStrc* pBink); // 0x006CC5C8
@@ -52,17 +36,9 @@ extern D2DDrawSurfaceStrc* gpDDrawSurface_00881278; // 0x00881278
 extern unsigned int gnDDrawBinkY_008816B8; // 0x008816B8
 extern unsigned int gnDDrawBinkFlags_008816C8; // 0x008816C8
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
-void __fastcall sub_00510160_DDrawSetPalette(T004F51E0* pPalette); // 0x00510160
-extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
-extern T004F51E0 gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
+void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern tagPALETTEENTRY gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
 
 // 0x0050F910
 static void sub_0050F910_DecodeTileRuns(const unsigned char* pData, unsigned char* pDst)
@@ -427,7 +403,7 @@ void __fastcall sub_00510360_DDrawNop()
 {
 }
 
-D2GfxPaletteViewStrc gtDDrawPaletteView_00880C20; // 0x00880C20
+D2PaletteTableStrc gtDDrawPaletteView_00880C20; // 0x00880C20
 
 // 0x00510150
 void __fastcall sub_00510150_DDrawGetScreenSize(int* pWidth, int* pHeight)
@@ -437,7 +413,7 @@ void __fastcall sub_00510150_DDrawGetScreenSize(int* pWidth, int* pHeight)
 }
 
 // 0x005102D0
-void __fastcall sub_005102D0_DDrawSetPaletteView(D2GfxPaletteViewStrc* pSource)
+void __fastcall sub_005102D0_DDrawSetPaletteView(D2PaletteTableStrc* pSource)
 {
     gtDDrawPaletteView_00880C20 = *pSource;
     gpGfxPaletteView_007C9150 = &gtDDrawPaletteView_00880C20;

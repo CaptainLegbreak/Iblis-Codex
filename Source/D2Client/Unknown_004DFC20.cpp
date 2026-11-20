@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2ClientUi.h"
+#include "D2Txt.h"
 
 struct D2SoundPosStrc;
 struct D2SlotObjectStrc;
@@ -52,22 +53,6 @@ void __fastcall sub_00516830_GetPositionalVolumePan(int* pVolume, int* pPan, flo
 extern int gnSfxVolume_00727564; // 0x00727564
 extern int gnEnvVolume_00727568; // 0x00727568
 extern int gdwGlobal_007C8C78; // 0x007C8C78
-
-struct D2SkillsTxt
-{
-    char unk0x000[0xEA];
-    short wCltMissileA;
-    char unk0x0EC[0x4C];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x38];
-    int dwParam[2];
-    char unk0x040[0x164];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gnOffsetsX_006DBAF8[16]; // 0x006DBAF8

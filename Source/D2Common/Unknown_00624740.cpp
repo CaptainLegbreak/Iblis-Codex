@@ -3,6 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
+#include "D2Win32Types.h"
+
 struct D2StatStrc;
 struct D2StatsArrayStrc;
 struct D2ItemStatCostTxt;
@@ -10,25 +12,7 @@ struct D2StatesTxt;
 
 typedef unsigned int size_t;
 
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-
-
-
-
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];

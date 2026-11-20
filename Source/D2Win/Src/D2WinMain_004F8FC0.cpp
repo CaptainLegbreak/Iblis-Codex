@@ -1,16 +1,14 @@
 #include "D2Win.h"
 #include "D2WinControls.h"
 #include "D2Unicode.h"
-#include "D2WinControls.h"
+#include "D2Win32Types.h"
+#include "D2GfxTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CelFileStrc;
 struct D2WinEditBoxStrc;
 struct D2WinControlStrc;
-struct tagPOINT;
-struct tagRECT;
-struct tagTRACKMOUSEEVENT;
 struct D2WinTextBoxStrc;
 struct D2WinControlInitStrc;
 struct D2TransPaletteStrc;
@@ -74,20 +72,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct tagPOINT
-{
-    long x;
-    long y;
-};
-
-struct tagTRACKMOUSEEVENT
-{
-    unsigned long cbSize;
-    unsigned long dwFlags;
-    void* hwndTrack;
-    unsigned long dwHoverTime;
-};
-
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
@@ -106,20 +90,6 @@ struct D2WinControlInitStrc
     int field_24;
     int field_28;
     int field_2C;
-};
-
-struct D2PaletteTableStrc
-{
-    void* transPalettes[3];
-    void* shadowLightGammaPalettes[49];
-    void* standardShiftPalettes[13];
-    void* pScreenPalette;
-    void* pLuminancePalette;
-    void* pDarkBlendPalette;
-    void* pDarkenPalette;
-    void* pStandardColorsPalette;
-    unsigned char* unk0x118;
-    unsigned char* unk0x11C;
 };
 
 struct D2TransPaletteStrc
@@ -175,16 +145,6 @@ extern D2WinControlStrc* dword_6F8FE264; // 0x007D55D4
 extern WNDPROC gpfWndProc_6F8FE268; // 0x007D55D8
 extern int dword_6F8FE278; // 0x007D55E8
 extern D2ArchiveHandleStrc* gpD2VideoMPQ; // 0x007D5614
-
-struct tagMSG
-{
-    void* hwnd;
-    unsigned int message;
-    unsigned int wParam;
-    long lParam;
-    unsigned long time;
-    tagPOINT pt;
-};
 
 struct D2WinImageClickRectStrc
 {
@@ -655,17 +615,17 @@ void __cdecl sub_004FB010_SetPaletteTables()
 
     for (int i = 0; i < 3; ++i)
     {
-        tPaletteTable.transPalettes[i] = &gTransPalette_007EE468[i];
+        tPaletteTable.pTransPalettes[i] = gTransPalette_007EE468[i].data;
     }
 
     for (int i = 0; i < 49; ++i)
     {
-        tPaletteTable.shadowLightGammaPalettes[i] = &gShadowsLightGammaPalette_0081EA68[i];
+        tPaletteTable.pShadowLightGammaPalettes[i] = gShadowsLightGammaPalette_0081EA68[i].data;
     }
 
     for (int i = 0; i < 13; ++i)
     {
-        tPaletteTable.standardShiftPalettes[i] = &gStandardShiftsPalette_007D5668[i];
+        tPaletteTable.pStandardShiftPalettes[i] = gStandardShiftsPalette_007D5668[i].data;
     }
 
     tPaletteTable.pScreenPalette = gScreenPalette_007DE468;
@@ -673,7 +633,7 @@ void __cdecl sub_004FB010_SetPaletteTables()
     tPaletteTable.pDarkBlendPalette = gDarkBlendPalette_00831B68;
     tPaletteTable.pDarkenPalette = gDarkenPalette_0081E468;
     tPaletteTable.pStandardColorsPalette = gStandardColorsPalette_007D563C;
-    tPaletteTable.unk0x118 = gbyPaletteMap_007D6368;
+    tPaletteTable.pRemap = gbyPaletteMap_007D6368;
     tPaletteTable.unk0x11C = gbyPaletteMap_0081E568;
     D2GFX_SetPaletteTables(&tPaletteTable);
 }

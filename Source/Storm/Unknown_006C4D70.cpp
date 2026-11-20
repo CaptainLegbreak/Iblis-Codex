@@ -7,7 +7,6 @@ struct D2List006C4D70Strc;
 struct D2CmdArg006C4E50Strc;
 struct D2CmdNodeStrc;
 struct D2TargaHeaderStrc;
-struct T004F51E0;
 
 struct D2ListNode006C4D70Strc
 {
@@ -67,8 +66,6 @@ void __stdcall SMemZero(void* pDst, unsigned int nSize); // 0x0041D300
 int __fastcall sub_006C4EC0_ParseCommandText(char** ppCursor, unsigned char* pState, D2CmdNodeStrc** ppCmd, void* pfnExtra, D2ErrorCallback pfnError); // 0x006C4EC0
 
 struct D2TargaHeaderStrc { unsigned char bytes[18]; };
-
-struct T004F51E0 { unsigned char red, green, blue, alpha; };
 
 // 0x006C4D70
 int __stdcall sub_006C4D70_FindValue(int nId)
@@ -213,27 +210,27 @@ void __fastcall EmitCommandError(D2ErrorCallback callback, unsigned int error, c
 
 static __declspec(noinline)
 // 0x006C5150
-int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, T004F51E0* palette)
+int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, tagPALETTEENTRY* palette)
 {
     int bytesPerColor = (header->bytes[7] + 7) / 8;
     int index = *(const unsigned short*)&header->bytes[3];
     int end = index + *(const unsigned short*)&header->bytes[5];
     if ((end - index) * bytesPerColor != size)
         return 0;
-    SMemZero(palette, index * sizeof(T004F51E0));
+    SMemZero(palette, index * sizeof(tagPALETTEENTRY));
     for (; index < end; ++index)
     {
-        palette[index].red = source[2];
-        palette[index].green = source[1];
-        palette[index].blue = source[0];
-        palette[index].alpha = bytesPerColor > 3 ? source[3] : 0;
+        palette[index].peRed = source[2];
+        palette[index].peGreen = source[1];
+        palette[index].peBlue = source[0];
+        palette[index].peFlags = bytesPerColor > 3 ? source[3] : 0;
         source += bytesPerColor;
     }
-    SMemZero(palette + index, (256 - index) * sizeof(T004F51E0));
+    SMemZero(palette + index, (256 - index) * sizeof(tagPALETTEENTRY));
     return 1;
 }
 
-int __fastcall EmitReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, T004F51E0* palette)
+int __fastcall EmitReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, tagPALETTEENTRY* palette)
 {
     return sub_006C5150_ReadTgaPalette(header + 1, source, size, palette);
 }

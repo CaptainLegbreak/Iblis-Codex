@@ -324,7 +324,7 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     }
     else
     {
-        const unsigned char* pPalette = gpGfxPaletteView_007C9150->pRgbTable;
+        const unsigned char* pPalette = gpGfxPaletteView_007C9150->pStandardColorsPalette;
         const unsigned char* pRgb = pPalette + nPaletteIndex * 3;
         gaGlideSpriteVertices_0087EFF8[0].dwColor = ((pRgb[0] | 0xFFFFFF00) << 8 | pRgb[1]) << 8 | pRgb[2];
     }

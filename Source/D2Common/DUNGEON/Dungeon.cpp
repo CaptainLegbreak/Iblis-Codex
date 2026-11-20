@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Unicode.h"
 struct D2DrlgRoomStrc;
 
 #pragma function(memset)
@@ -231,11 +232,6 @@ struct D2ItemCalcStrc
 struct D2SkillCalcStrc
 {
     D2UnitStrc* pUnit;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 struct D2UniqueNameTxt

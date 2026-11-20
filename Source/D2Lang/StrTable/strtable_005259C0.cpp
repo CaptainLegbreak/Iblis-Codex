@@ -1,5 +1,6 @@
 #include "D2Lang.h"
 #include "D2LangTypes.h"
+#include "D2Unicode.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -12,19 +13,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 #pragma pack(pop)
 
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode toUpper() const
-    {
-        Unicode tResult;
-        tResult.wChar = wChar < 0x100 ? gwToUpperTable_00730578[wChar] : wChar;
-        return tResult;
-    }
-    static int __fastcall compare(Unicode lhs, Unicode rhs);
-    static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);
-};
 void __stdcall CRC16_CalculateChecksum(unsigned short* crc16_checksum_out, const unsigned char* data, unsigned int start_index, unsigned int end_index); // 0x00525020
 void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260
 void __cdecl sub_00525770_InitUnitSuffixes();                                                               // 0x00525770

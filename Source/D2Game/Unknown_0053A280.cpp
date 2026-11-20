@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
+#include "D2GameClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -15,15 +16,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2ClientStrc
-{
-    char unk0x000[0x198];
-    int nDeadTargetType;
-    int nDeadTargetGUID;
-    char unk0x1A0[0x3D4 - 0x1A0];
-    unsigned int dwFlags;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005387F0

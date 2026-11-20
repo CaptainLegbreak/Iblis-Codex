@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameClient.h"
 
 extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
@@ -17,14 +18,6 @@ struct D2PacketDataStrc
     int nPacketSize;
     unsigned char packetData[0x200];
     D2PacketDataStrc* pNext;
-};
-
-struct D2ClientStrc
-{
-    char unk0x000[0x1B8];
-    D2PacketDataStrc* pPacketDataHead;
-    D2PacketDataStrc* pPacketDataTail;
-    D2PacketDataStrc* pPacketDataPool;
 };
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetTail(D2ClientStrc* pClient);

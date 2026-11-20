@@ -4,7 +4,7 @@
 
 struct D2CelStrc;
 
-extern D2GfxPaletteViewStrc* gpGlideState_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGlideState_007C9150; // 0x007C9150
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern D2VertexBufferStrc* gpVertexBuffer_00970F3C; // 0x00970F3C
 extern int gnVertexIndex_00970F40; // 0x00970F40
@@ -144,7 +144,7 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     }
     else
     {
-        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 2];
+        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pStandardColorsPalette[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pStandardColorsPalette[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pStandardColorsPalette[nPaletteIndex * 3 + 2];
     }
 
     pVertices[1].dwColor = pVertices[0].dwColor;

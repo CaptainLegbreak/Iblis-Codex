@@ -8,6 +8,7 @@
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -17,19 +18,6 @@ struct D2InvRectStrc;
 struct D2InventoryGridInfoStrc;
 struct D2InvCompGridStrc;
 struct D2NpcButtonStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 #pragma pack(push, 2)
 struct D2NpcButtonStrc

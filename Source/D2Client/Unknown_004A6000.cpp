@@ -2,42 +2,13 @@
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        int wParam;
-        struct
-        {
-            unsigned short wParamLow;
-            unsigned short wParamHigh;
-        };
-    };
-    union
-    {
-        int lParam;
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
+#include "D2StormTypes.h"
 
 struct D2ClientListEntryStrc
 {
     unsigned char nId[4];
     unsigned char unk0x04[6];
 };
-
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -77,7 +48,7 @@ void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -91,7 +62,7 @@ void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007C02B8 = 0;
     gnGlobal_007C0280 = 1;
     sub_004A4AD0_Press(nX, nY);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -101,7 +72,7 @@ void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -120,7 +91,7 @@ void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         }
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

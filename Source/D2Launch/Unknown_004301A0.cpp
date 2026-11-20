@@ -1,13 +1,9 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
 struct D2WinAnimImageStrc;
 struct D2LaunchRecordStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
 int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70

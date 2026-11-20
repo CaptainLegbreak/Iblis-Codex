@@ -11,7 +11,7 @@ struct D2SkillStrc;
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2LightStrc;
+struct D2GfxLightStrc;
 struct D2GameStrc;
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
@@ -88,8 +88,8 @@ struct D2ClientUnitViewStrc
     D2PlayerDataStrc* pPlayerData;
 };
 
-D2LightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
-void __fastcall sub_004743D0_ReleaseOverlayResource(D2LightStrc* pLight); // 0x004743D0
+D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
+void __fastcall sub_004743D0_ReleaseOverlayResource(D2GfxLightStrc* pLight); // 0x004743D0
 extern int gnGlobal_007A5258; // 0x007A5258
 extern int gnGlobal_007A525C; // 0x007A525C
 
@@ -431,7 +431,7 @@ int __fastcall sub_00460810_GetPlayerArg2(D2ClientUnitViewStrc* pUnit)
 // 0x00460FF0
 static __forceinline void sub_00460FF0_ReleaseLight(D2UnitStrc* pUnit)
 {
-    D2LightStrc* pLight = D2Common_10958(pUnit, 0);
+    D2GfxLightStrc* pLight = D2Common_10958(pUnit, 0);
     if (pLight)
         sub_004743D0_ReleaseOverlayResource(pLight);
 }

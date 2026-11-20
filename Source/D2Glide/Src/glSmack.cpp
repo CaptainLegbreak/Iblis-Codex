@@ -1,7 +1,6 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
 
-struct T004F51E0;
 struct D2TileLibraryEntryStrc;
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -23,7 +22,7 @@ extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsi
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
 void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* pColors); // 0x0050E070
 void __cdecl sub_0050E330_GlideRefresh(); // 0x0050E330
-int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, T004F51E0* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
+int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 extern int gbRenderPaused_007C9144; // 0x007C9144
 
 // 0x0050DF10
@@ -192,7 +191,7 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2SmackRecor
             break;
         }
 
-        T004F51E0 aPalette[256];
+        tagPALETTEENTRY aPalette[256];
         int nWidth;
         int nHeight;
         int nDepth;

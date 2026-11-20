@@ -1,19 +1,13 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
-#include "D2MultiTypes.h"
 #include "D2StormTypes.h"
+#include "D2Unicode.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchCharEntryStrc;
 struct D2LaunchCharSelectStrc;
 struct D2LaunchGameRecStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();
-};
 
 struct D2LaunchCharEntryStrc
 {

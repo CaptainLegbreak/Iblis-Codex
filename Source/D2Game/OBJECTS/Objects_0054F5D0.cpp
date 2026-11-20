@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ROOM_MIN_SUBTILES 2
@@ -30,7 +31,6 @@ struct D2ItemsTxt;
 struct D2SkillsTxt;
 struct D2UnkPairStrc;
 struct D2UnkFieldPairStrc;
-struct _SYSTEMTIME;
 struct D2LocalDateStrc;
 struct D2PackedWordStrc;
 struct D2UnkCallRecordStrc;
@@ -74,8 +74,6 @@ struct D2UnitStrc
     char unk0xA8[0x1C];
     unsigned int dwFlags;
 };
-
-
 
 typedef void (__fastcall* D2ObjInitFn)(D2ObjInitFnStrc* pOp);
 
@@ -158,10 +156,6 @@ struct D2PlayerDataStrc
     unsigned int dwHostileDelay;
 };
 
-
-
-
-
 struct D2UnkPairStrc
 {
     int nFirst;
@@ -172,18 +166,6 @@ struct D2UnkFieldPairStrc
 {
     char unk0x00[0x80];
     int nValue;
-};
-
-struct _SYSTEMTIME
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
 };
 
 struct D2LocalDateStrc
@@ -231,7 +213,7 @@ enum D2C_ElemTypes
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-extern "C" __declspec(dllimport) void __stdcall GetLocalTime(_SYSTEMTIME* lpSystemTime); // 0x006CC1D4
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* lpSystemTime); // 0x006CC1D4
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -718,7 +700,7 @@ int __cdecl sub_00564F00_CompareDescending(const unsigned int* pValue1, const un
 // 0x005665B0
 void __stdcall sub_005665B0_GetLocalDate(D2LocalDateStrc* pDate)
 {
-    _SYSTEMTIME systemTime;
+    D2SystemTimeStrc systemTime;
     GetLocalTime(&systemTime);
     pDate->nDayOfWeek = systemTime.wDayOfWeek + 1;
     pDate->f_4 = systemTime.wMonth;

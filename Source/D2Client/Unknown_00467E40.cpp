@@ -1,23 +1,11 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define NUM_CURSOR_CELLS 7
 #define NUM_CURSOR_MSG_HANDLERS 3
 struct D2CursorAnimStrc;
 struct D2MsgHandlerEntryStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -29,7 +17,6 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY); // 0x006CC4B4
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
@@ -126,7 +113,7 @@ void __stdcall sub_00468840_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A6AE0 = sub_00467E90_GetCursorAnimLength(gnGlobal_007A6ADC) - 0x100;
     }
     pMsg->lResult = 0;
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 #include "gen/data/Source/D2Client/Unknown_00467E40.inc"

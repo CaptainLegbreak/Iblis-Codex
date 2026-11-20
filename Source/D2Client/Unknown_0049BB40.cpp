@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
 
 struct D2RosterSlotStrc;
 struct D2RosterUnitStrc;
@@ -29,17 +30,6 @@ struct D2RosterUnitStrc
 };
 
 #pragma pack(pop)
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bReturn;
-    int lResult;
-};
 
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740

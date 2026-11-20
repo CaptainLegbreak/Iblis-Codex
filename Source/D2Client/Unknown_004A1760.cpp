@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestTextsStrc;
@@ -18,18 +19,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWindow;
-    unsigned int nMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int unk0x10;
-    unsigned int unk0x14;
-    int bUseResult;
-    int lResult;
-};
 
 #pragma pack(push, 1)
 struct D2QuestPanelEntryStrc
@@ -49,8 +38,6 @@ struct D2QuestPanelEntryStrc
 
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-
-
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -460,7 +447,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             }
         }
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -503,7 +490,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
         if (D2_HIWORD(pMsg->lParam) > gnGlobal_00711470 - 0x31) return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

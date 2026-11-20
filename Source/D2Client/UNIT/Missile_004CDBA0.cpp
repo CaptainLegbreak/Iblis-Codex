@@ -1,43 +1,16 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
+#include "D2Structs.h"
+#include "D2Txt.h"
 
-struct D2PathRecordStrc;
 struct D2StaticPathStrc;
 struct D2RequestStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 struct D2MissileScanArgStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SpawnOffsetMissileView;
-
-struct D2StaticPathStrc
-{
-    void* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nXPos;
-    int nYPos;
-};
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2PathRecordStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2RequestStrc
 {
@@ -66,31 +39,9 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset); // 0x004E2ED0
-int __stdcall sub_006488C0_PathGetX(D2PathRecordStrc* pPath); // 0x006488C0
-int __stdcall sub_00648900_PathGetY(D2PathRecordStrc* pPath); // 0x00648900
-void __stdcall sub_00649030_SetPathFlag40(D2PathRecordStrc* pPath, int bClear); // 0x00649030
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x24];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    char unk0x034[0x38];
-    int dwCltHitPar[3];
-    char unk0x078[0x12C];
-};
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    char unk0x054[0x10];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0xDC];
-    unsigned int dwCalc144;
-    char unk0x148[0xF4];
-};
-
+int __stdcall sub_006488C0_PathGetX(D2DynamicPathStrc* pPath); // 0x006488C0
+int __stdcall sub_00648900_PathGetY(D2DynamicPathStrc* pPath); // 0x00648900
+void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
 
 struct D2MissileScanArgStrc
 {
@@ -395,7 +346,7 @@ int __fastcall sub_004D0060_HitScanArea(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
     int nParam = pMissilesTxtRecord->dwCltHitPar[1];
     if (nParam <= 0)
     {
-        nParam = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc144, nSkillId, nSkillLevel);
+        nParam = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
     }
 
     int nFlags = pSkillsTxtRecord->dwAuraFilter;

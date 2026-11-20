@@ -1,6 +1,8 @@
 #include "D2Win.h"
+#include "D2Win32Types.h"
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2WIN_SCROLLBAR 5
@@ -10,11 +12,7 @@ struct D2CelFileStrc;
 struct Control;
 struct D2WinControlStrc;
 struct D2WinButtonStrc;
-struct tagRECT;
 struct D2CelContextStrc;
-struct tagPOINT;
-struct tagWINDOWPLACEMENT;
-struct tagMONITORINFO;
 struct Point;
 struct Obj004FA490;
 
@@ -49,49 +47,9 @@ int __stdcall WINDOW_Destroy(); // 0x004F5900
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
-struct tagPOINT
-{
-    long x;
-    long y;
-};
 extern D2CelFileStrc* gpCursorCellFile; // 0x007D5594
 extern int gnCursorFrame; // 0x007D55A0
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        unsigned int wParam;
-        unsigned short nWParamLo;
-    };
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
-struct tagWINDOWPLACEMENT
-{
-    unsigned int length;
-    unsigned int flags;
-    unsigned int showCmd;
-    tagPOINT ptMinPosition;
-    tagPOINT ptMaxPosition;
-    tagRECT rcNormalPosition;
-};
-
-struct tagMONITORINFO
-{
-    unsigned long cbSize;
-    tagRECT rcMonitor;
-    tagRECT rcWork;
-    unsigned long dwFlags;
-};
 
 extern "C" __declspec(dllimport) void* __stdcall GetDesktopWindow(); // 0x006CC494
 extern "C" __declspec(dllimport) int __stdcall SetWindowPos(void* hWnd, void* hWndInsertAfter, int X, int Y, int cx, int cy, unsigned int uFlags); // 0x006CC4DC
@@ -446,7 +404,7 @@ tagRECT gWindowRect_007C9160; // 0x007C9160
 // 0x004F9CC0
 void __stdcall sub_004F9CC0_SysCommandMaximizeMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const unsigned short nCommand = pMsg->nWParamLo & 0xFFF0;
+    const unsigned short nCommand = pMsg->wParamLow & 0xFFF0;
     if (nCommand == 0xF130 || nCommand == 0xF100 || (nCommand == 0xF010 && WINDOW_IsFullScreen()))
     {
         pMsg->bReturn = 1;

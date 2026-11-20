@@ -10,7 +10,7 @@ int __stdcall sub_00601920(D2CelStrc* pCel);                                    
 int __stdcall sub_00601950(D2CelStrc* pCel);                                                               // 0x00601950
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 extern int gnScreenHeight_007C913C;                                                                         // 0x007C913C
-extern D2GfxPaletteViewStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
+extern D2PaletteTableStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
 
 static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
@@ -48,7 +48,7 @@ int __fastcall sub_006C84B0_Draw(void* pData, int nX, int nY, unsigned int dwGam
     unsigned char* pGammaTable = 0;
     const int nCaps = sub_006C8250_GetSetting(nDrawMode, (int*)&dwGamma);
     if (nGamma != 0xFF)
-        pGammaTable = gpDDrawCaps_007C9150->pGammaTables[nGamma >> 3];
+        pGammaTable = gpDDrawCaps_007C9150->pShadowLightGammaPalettes[nGamma >> 3];
     if (nDrawMode == 7)
         pGammaTable = gpDDrawCaps_007C9150->pRemap;
 

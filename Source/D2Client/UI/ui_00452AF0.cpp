@@ -1,20 +1,13 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
+#include "D2Win32Types.h"
+
+#include "D2GameObjs.h"
 struct D2UnitStrc;
-
-struct D2ObjectDataStrc
-{
-    char unk0x00[0x04];
-    unsigned char nInteractType;
-};
-
-
-
 
 struct D2LevelsTxt
 {
@@ -31,16 +24,6 @@ struct D2TileRectStrc
     int nY;
     unsigned int nWidth;
     unsigned int nHeight;
-};
-
-
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
 };
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
@@ -392,7 +375,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         if (nFlags & 4)
         {
             Unicode wszOwner[0x80];
-            sub_005267E0(wszText, sub_00453E70_GetLevelName(pUnit->pObjectData->nInteractType));
+            sub_005267E0(wszText, sub_00453E70_GetLevelName(pUnit->pObjectData->InteractType));
             if (gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1)
             {
                 char szOwner[0x80];

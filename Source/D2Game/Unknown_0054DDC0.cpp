@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Win32Types.h"
+
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -39,7 +41,6 @@ void __fastcall sub_M96_Emit_0054DAC0(void* pGame, D2ActiveRoomStrc* pRoom, D2Sp
     sub_0054DAC0_GetSpawnBounds(pRoom, &nWidth, pArea, &nX, &nY, &nHeight);
     sub_M96_UseBounds_0054DAC0(nX, nY, nWidth, nHeight);
 }
-
 
 struct D2ActiveRoomViewStrc
 {

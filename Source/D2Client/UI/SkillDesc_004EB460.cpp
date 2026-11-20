@@ -3,34 +3,12 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2Txt.h"
 
 struct Unicode;
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
 struct UnicodeChar;
-
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-    char unk0x0C[0x12C];
-    unsigned int dwCalc[3];
-    char unk0x144[0x04];
-    int dwParam[8];
-    char unk0x168[0x3D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
-
-struct D2ItemsTxt
-{
-    char unk0x00[0xFE];
-    unsigned char nMinMisDam;
-    unsigned char nMaxMisDam;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
@@ -53,8 +31,6 @@ short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
-
-
 
 struct UnicodeChar : Unicode
 {
@@ -140,8 +116,8 @@ void __fastcall sub_004EB460_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSk
     }
 
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
-    int nMin = pItemsTxtRecord->nMinMisDam;
-    int nMax = pItemsTxtRecord->nMaxMisDam;
+    int nMin = pItemsTxtRecord->nMinDam;
+    int nMax = pItemsTxtRecord->nMaxDam;
     D2SkillStrc* pThrowSkill = SKILLS_GetSkillById(pUnit, 0x75, -1);
     if (pThrowSkill && STATES_CheckState(pUnit, 0x65))
     {

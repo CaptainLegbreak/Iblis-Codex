@@ -1,21 +1,9 @@
 #include "D2Common.h"
 #include "D2GameTypes.h"
+#include "D2Win32Types.h"
 
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
 #define va_start(ap, v) (ap = (va_list)&(v) + _INTSIZEOF(v))
-
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
 
 typedef char* va_list;
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40

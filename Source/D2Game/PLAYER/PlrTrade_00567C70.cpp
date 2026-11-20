@@ -5,6 +5,8 @@
 #include "D2UnitData.h"
 #include "D2GameAux.h"
 #include "D2TxtItems.h"
+#include "D2Win32Types.h"
+
 struct D2GameStrc;
 struct D2PlayerDataStrc;
 struct D2UnitStrc;
@@ -13,18 +15,6 @@ struct D2UnitStrc;
 struct D2InventoryStrc;
 struct D2ClientStrc;
 struct D2ActiveRoomStrc;
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
 
 struct D2CubeItemStrc
 {

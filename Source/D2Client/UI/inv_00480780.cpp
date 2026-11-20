@@ -2,36 +2,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
-
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
+#include "D2StormTypes.h"
 
 struct D2ClientCacheEntryStrc
 {
@@ -104,7 +75,6 @@ extern D2ClientCacheNodeStrc* gpCacheList_007BC9B8;                             
 extern unsigned int gdwGlobal_007BC9BC;                                                                     // 0x007BC9BC
 extern unsigned int gdwCacheUsed_007BC9D0;                                                                  // 0x007BC9D0
 int gnGlobal_007BCA4C;                                                                                      // 0x007BCA4C
-
 
 D2InvRectStrc gInvRect_007BCAA0;                                                                            // 0x007BCAA0
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)

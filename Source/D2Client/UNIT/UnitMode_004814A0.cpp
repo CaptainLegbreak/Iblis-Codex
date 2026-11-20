@@ -3,15 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
 #include "D2ClientTypes.h"
-
-struct D2SkillsTxt
-{
-    char _pad_0x0[0x7];
-    unsigned char nFlagsB;
-    char _pad_0x8[0x26];
-    short wSrvDoFunc;
-    char _pad_0x30[0x20C];
-};
+#include "D2Txt.h"
 
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
@@ -41,7 +33,7 @@ static __declspec(noinline) int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer)
         if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         {
             D2SkillsTxt* pTxt = &sgptDataTables->pSkillsTxt[nSkillId];
-            if (pTxt && !(pTxt->nFlagsB & (unsigned char)gdwTitleMaskB_006CE284))
+            if (pTxt && !(pTxt->nFlags[3] & (unsigned char)gdwTitleMaskB_006CE284))
             {
                 if (!pPlayer || (pPlayer->dwAnimMode != 1 && pPlayer->dwAnimMode != 5))
                 {

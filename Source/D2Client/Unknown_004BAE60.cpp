@@ -1,30 +1,4 @@
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
+#include "D2StormTypes.h"
 
 class UIWidget
 {

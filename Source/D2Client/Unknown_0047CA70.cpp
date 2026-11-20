@@ -1,18 +1,8 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 struct D2StoredUnitRecordStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    long lParam;
-    char unk0x10[8];
-    int bUseResult;
-    long lResult;
-};
 
 struct T0044CB60
 {
@@ -462,7 +452,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

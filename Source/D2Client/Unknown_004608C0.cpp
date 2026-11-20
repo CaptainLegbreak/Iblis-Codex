@@ -1,20 +1,5 @@
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0xE4];
-    D2UnitStrc* ptRoomNext;
-};
-
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
-
-enum
-{
-    UNIT_PLAYER = 1,
-};
+#include "D2Drlg.h"
+#include "D2Structs.h"
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
@@ -43,7 +28,7 @@ void __cdecl sub_004608C0_RefreshAdjacentPlayers()
     {
         for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
-            if ((pUnit ? pUnit->dwUnitType : 6) == UNIT_PLAYER && STATES_CheckState(pUnit, 0x3F))
+            if ((pUnit ? pUnit->dwUnitType : 6) == UNIT_MONSTER && STATES_CheckState(pUnit, 0x3F))
             {
                 sub_00470610_Refresh(pUnit, 0);
             }

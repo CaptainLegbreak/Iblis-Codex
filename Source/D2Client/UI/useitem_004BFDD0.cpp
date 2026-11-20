@@ -1,21 +1,8 @@
 #include "D2Client.h"
 #include "D2Path.h"
+#include "D2StormTypes.h"
 struct D2CelFileStrc;
 struct D2SelectionRectStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXPos;
-    unsigned short nYPos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
 
 struct D2ItemsTxt
 {
@@ -88,8 +75,8 @@ static D2UnitStrc* GetCursorItem_Inline()
 // 0x004BFC50
 void __stdcall sub_004BFC50_OnClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nY = pMsg->nYPos;
-    const int nX = pMsg->nXPos;
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -183,7 +170,6 @@ void __fastcall sub_004B8100_DrawControl(void*); // 0x004B8100
 int __stdcall sub_004F6480(D2CelContextStrc*,int,int,int,int,int); // 0x004F6480
 
 int __fastcall sub_00501820(const Unicode*); // 0x00501820
-
 
 void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
 

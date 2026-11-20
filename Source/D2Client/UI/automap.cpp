@@ -2,13 +2,14 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2TxtTables.h"
 #include "D2Unicode.h"
+#include "D2Win32Types.h"
+#include "D2StormTypes.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -49,7 +50,6 @@ struct D2SkillListStrc;
 struct D2ActiveRoomStrc;
 struct D2DrlgCoordsStrc;
 struct D2TileRectStrc;
-struct tagRECT;
 struct D2PacketBufferStrc;
 struct D2PacketTableEntryStrc;
 struct D2MonStats2Txt;
@@ -91,7 +91,6 @@ struct T004013C0
     unsigned short wProcessorLevel;
     unsigned short wProcessorRevision;
 };
-
 
 struct D2FogBlockStrc
 {
@@ -216,14 +215,12 @@ void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern int gdwGlobal_007A520C; // 0x007A520C
 extern int gdwGlobal_007A5208; // 0x007A5208
 
-
 struct D2UnitTargetStrc
 {
     int nParam1;
     int nParam2;
     int unk0x08[5];
 };
-
 
 struct D2UnitOverlayStrc
 {
@@ -250,26 +247,10 @@ struct D2GfxDataStrc
     D2UnitOverlayStrc* pOverlays;
 };
 
-
-
 struct D2AutomapPairStrc
 {
     int nIndex;
     int nValue;
-};
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned short nWParamLo;
-    short nWParamHi;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bUseResult;
-    int lResult;
 };
 
 struct D2UiRectStrc
@@ -383,7 +364,6 @@ struct D2MsgHandlerEntryStrc
     SMSGHANDLER pfnHandler;
 };
 
-
 struct D2SkillListStrc
 {
     void* pMemPool;
@@ -391,8 +371,6 @@ struct D2SkillListStrc
     D2SkillStrc* pLeftSkill;
     D2SkillStrc* pRightSkill;
 };
-
-
 
 struct D2TileRectStrc
 {
@@ -405,14 +383,6 @@ struct D2TileRectStrc
     int nOffsetY;
 };
 
-struct tagRECT
-{
-    int left;
-    int top;
-    int right;
-    int bottom;
-};
-
 typedef void (__fastcall* D2PacketHandlerFn)(void* pArg, unsigned char* pPacket);
 
 struct D2PacketTableEntryStrc
@@ -421,7 +391,6 @@ struct D2PacketTableEntryStrc
     int nSize;
     D2PacketHandlerFn f_8;
 };
-
 
 void __fastcall sub_00451D10_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
@@ -1202,13 +1171,13 @@ void __stdcall sub_0045FE30_ButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A524C = 1;
         gnGlobal_007A5248 = 1;
         sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -1225,7 +1194,7 @@ void __stdcall sub_004601F0_TwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A524C = 1;
         gnGlobal_007A5248 = 1;
         sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
@@ -1239,13 +1208,13 @@ void __stdcall sub_004601F0_TwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A5250 = 1;
         gnGlobal_007A5248 = 1;
         sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -1275,13 +1244,13 @@ void __stdcall sub_004602E0_TwoButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             gnGlobal_007A525C = 1;
             gnGlobal_007A5248 = 0;
         }
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

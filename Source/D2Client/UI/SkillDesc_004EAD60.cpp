@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 struct D2SkillsTxt;
@@ -10,33 +11,6 @@ struct Unicode;
 struct UnicodeChar;
 struct D2SkillDescTxt;
 struct D2MonStatsTxt;
-
-
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x48];
-    short wAuraStat[6];
-    char unk0x60[0x8];
-    int dwAuraStatCalc[6];
-    char unk0x80[0x18];
-    short nPassiveStat[5];
-    char unk0xA2[0x2];
-    int dwPassiveCalc[5];
-    char unk0xB8[0x4];
-    short wSummon;
-    unsigned char unk_BE[0x7A];
-    unsigned int dwCalc[3];
-    unsigned char unk_144[0x4];
-    int dwParam[8];
-    unsigned char unk_168[0x3D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 extern "C" const char gszEmptyAssertText;
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);
@@ -85,15 +59,6 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 static int sub_004E6FB0_GetETypeColor(int nEType); // 0x004E6FB0
 static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight); // 0x004E96E0
-
-
-struct D2MonStatsTxt
-{
-    char unk0x0[0xAA];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

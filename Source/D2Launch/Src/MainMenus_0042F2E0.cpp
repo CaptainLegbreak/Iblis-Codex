@@ -1,15 +1,10 @@
 #include "D2Launch.h"
+#include "D2Unicode.h"
 struct D2ConfigStrc;
 struct D2FileTimeStrc;
 struct D2LaunchRecordStrc;
 struct D2LaunchSlotStrc;
 struct D2MenuListStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 struct D2FuncTable_0077ABF0Strc
 {

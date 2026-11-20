@@ -1,10 +1,5 @@
+#include "D2Unicode.h"
 struct D2CompositeUnitStrc;
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(); // 0x0042F530
-};
-
 extern "C" long __cdecl _time32(long* pTime);                                                               // 0x006850E6
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                      // 0x005267E0

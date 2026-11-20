@@ -3,8 +3,6 @@
 #include "D2GfxTypes.h"
 
 struct D2CriticalSectionStrc;
-struct tagPOINT;
-struct tagMSG;
 struct ConnectionHandlerView;
 struct D2Socket006BC030Strc;
 
@@ -26,16 +24,6 @@ extern D2DDSurfaceStrc* gpSurface_00970E68; // 0x00970E68
 extern unsigned int gnBinkX_00989C0C; // 0x00989C0C
 extern D2BinkStrc* gpBink_00989C10; // 0x00989C10
 extern int gbBinkDone_00989C1C; // 0x00989C1C
-
-struct tagMSG
-{
-    void* hwnd;
-    unsigned int message;
-    unsigned int wParam;
-    long lParam;
-    unsigned long time;
-    tagPOINT pt;
-};
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258

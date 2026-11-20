@@ -6,6 +6,8 @@
 #include "D2UnitData.h"
 #include "D2GameAux.h"
 #include "D2TxtItems.h"
+#include "D2Win32Types.h"
+
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2UnitStrc;

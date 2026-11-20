@@ -132,10 +132,4 @@ struct D2WinAccountListDataStrc
     D2WinAccountListDataStrc* pNext;
 };
 
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
+#include "D2Win32Rect.h"

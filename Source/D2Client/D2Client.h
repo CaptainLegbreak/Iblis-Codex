@@ -1840,13 +1840,6 @@ struct D2MonStatsInitStrc
     int nElDur;
 };
 
-struct D2MotionVectorStrc
-{
-    int nX;
-    int nY;
-    int nZ;
-};
-
 struct D2NpcMenuSlotStrc
 {
     unsigned short wId;
@@ -2180,12 +2173,6 @@ struct T00473470
 typedef unsigned short U16;
 
 typedef unsigned char U8;
-
-struct _FILETIME
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 typedef char pointer_width[sizeof(void*)==4?1:-1];
 

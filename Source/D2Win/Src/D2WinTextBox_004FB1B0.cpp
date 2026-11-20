@@ -1,25 +1,17 @@
 #include "D2Win.h"
+#include "D2Win32Types.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnMouseY_007D55A8 (gMousePosition_6F8FE234.y)
 
 struct D2CelFileStrc;
-struct T004F51E0;
 struct D2WinControlStrc;
 struct D2WinTextBoxStrc;
-struct tagPOINT;
 struct D2WinListEntry004FBB30Strc;
 struct D2WinControl004FBB30Strc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct T004F51E0
-{
-    unsigned char nBlue;
-    unsigned char nGreen;
-    unsigned char nRed;
-    unsigned char nFlags;
-};
 
 struct D2WinControlStrc
 {
@@ -28,14 +20,8 @@ struct D2WinControlStrc
     D2WinControlStrc* pChild;
 };
 
-void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
+void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-};
 
 struct D2WinTextBoxStrc
 {
@@ -77,8 +63,6 @@ struct D2WinTextBoxStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct tagPOINT { long x; long y; };
-
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 int __stdcall D2Win_10125(); // 0x00501A40
@@ -109,7 +93,7 @@ struct D2WinControl004FBB30Strc
 
 extern int gdwGlobal_00841B70; // 0x00841B70
 
-T004F51E0 gaPalette_0081E668[256]; // 0x0081E668
+tagPALETTEENTRY gaPalette_0081E668[256]; // 0x0081E668
 
 // 0x004FB1B0
 void __cdecl sub_004FB1B0_ApplyPalette()

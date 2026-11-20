@@ -1,29 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
-
-
-struct D2GfxMotionStrc
-{
-    unsigned int dwFlags;
-    int nX;
-    int nY;
-    int nZ;
-    int nVelX;
-    int nVelY;
-    int nVelZ;
-    int nAccX;
-    int nAccY;
-    int nAccZ;
-    int nTargetX;
-    int nTargetY;
-    int nTargetZ;
-    int nClientX;
-    int nClientY;
-    int nClientZ;
-    int nBounces;
-    int nBouncePercent;
-    int nFrames;
-};
+#include "D2ClientGfx.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -46,14 +23,14 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
         return;
     }
 
-    pMotion->nX += pMotion->nVelX;
-    pMotion->nVelX += pMotion->nAccX;
-    pMotion->nY += pMotion->nVelY;
-    pMotion->nVelY += pMotion->nAccY;
-    pMotion->nZ += pMotion->nVelZ;
-    pMotion->nVelZ += pMotion->nAccZ;
-    int* pX = &pMotion->nX;
-    int* pY = &pMotion->nY;
+    pMotion->tA.nX += pMotion->tB.nX;
+    pMotion->tB.nX += pMotion->tD.nX;
+    pMotion->tA.nY += pMotion->tB.nY;
+    pMotion->tB.nY += pMotion->tD.nY;
+    pMotion->tA.nZ += pMotion->tB.nZ;
+    pMotion->tB.nZ += pMotion->tD.nZ;
+    int* pX = &pMotion->tA.nX;
+    int* pY = &pMotion->tA.nY;
 
     if (pMotion->dwFlags & 2)
     {
@@ -64,21 +41,21 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
         else
         {
             pMotion->dwFlags |= 1;
-            pMotion->nX = 0;
-            pMotion->nY = 0;
+            pMotion->tA.nX = 0;
+            pMotion->tA.nY = 0;
         }
     }
 
     unsigned int dwFlags = pMotion->dwFlags;
     if (dwFlags & 4)
     {
-        if ((pMotion->nZ >> 11) <= pMotion->nTargetZ)
+        if ((pMotion->tA.nZ >> 11) <= pMotion->tC.nZ)
         {
-            pMotion->nVelZ = pMotion->nBouncePercent * pMotion->nVelZ / -100;
-            pMotion->nZ = pMotion->nTargetZ;
-            if (pMotion->nBounces)
+            pMotion->tB.nZ = pMotion->nParam1 * pMotion->tB.nZ / -100;
+            pMotion->tA.nZ = pMotion->tC.nZ;
+            if (pMotion->nParam0)
             {
-                --pMotion->nBounces;
+                --pMotion->nParam0;
             }
             else
             {
@@ -116,32 +93,32 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
             }
             pMotion->nClientX += sub_004DA0B0_GetGfxOffsetX(pOwner);
             pMotion->nClientZ += sub_004DA0F0_GetUnitGfxOffsetZ(pOwner);
-            pMotion->nX = pMotion->nClientX;
-            pMotion->nY = pMotion->nClientY;
+            pMotion->tA.nX = pMotion->nClientX;
+            pMotion->tA.nY = pMotion->nClientY;
             DUNGEON_ClientToGameSubtileCoords(pX, pY);
-            pMotion->nZ = -(pMotion->nClientZ << 11);
+            pMotion->tA.nZ = -(pMotion->nClientZ << 11);
         }
     }
-    else if (!(dwFlags & 0x20) && (pMotion->nX >> 11) <= pMotion->nTargetX && (pMotion->nY >> 11) <= pMotion->nTargetY && (pMotion->nZ >> 11) <= pMotion->nTargetZ)
+    else if (!(dwFlags & 0x20) && (pMotion->tA.nX >> 11) <= pMotion->tC.nX && (pMotion->tA.nY >> 11) <= pMotion->tC.nY && (pMotion->tA.nZ >> 11) <= pMotion->tC.nZ)
     {
-        pMotion->nX = pMotion->nTargetX << 11;
-        pMotion->nY = pMotion->nTargetY << 11;
-        pMotion->nZ = pMotion->nTargetZ << 11;
+        pMotion->tA.nX = pMotion->tC.nX << 11;
+        pMotion->tA.nY = pMotion->tC.nY << 11;
+        pMotion->tA.nZ = pMotion->tC.nZ << 11;
         pMotion->dwFlags = dwFlags | 1;
     }
-    else if ((dwFlags & 0x20) && (pMotion->nX >> 11) >= pMotion->nTargetX && (pMotion->nY >> 11) >= pMotion->nTargetY && (pMotion->nZ >> 11) >= pMotion->nTargetZ)
+    else if ((dwFlags & 0x20) && (pMotion->tA.nX >> 11) >= pMotion->tC.nX && (pMotion->tA.nY >> 11) >= pMotion->tC.nY && (pMotion->tA.nZ >> 11) >= pMotion->tC.nZ)
     {
-        pMotion->nX = pMotion->nTargetX << 11;
-        pMotion->nY = pMotion->nTargetY << 11;
-        pMotion->nZ = pMotion->nTargetZ << 11;
+        pMotion->tA.nX = pMotion->tC.nX << 11;
+        pMotion->tA.nY = pMotion->tC.nY << 11;
+        pMotion->tA.nZ = pMotion->tC.nZ << 11;
         pMotion->dwFlags = dwFlags | 1;
     }
 
     if (!(pMotion->dwFlags & 0x10))
     {
-        pMotion->nClientX = pMotion->nX >> 11;
-        pMotion->nClientY = pMotion->nY >> 11;
+        pMotion->nClientX = pMotion->tA.nX >> 11;
+        pMotion->nClientY = pMotion->tA.nY >> 11;
         DUNGEON_GameToClientCoords(&pMotion->nClientX, &pMotion->nClientY);
-        pMotion->nClientZ = -(pMotion->nZ >> 11);
+        pMotion->nClientZ = -(pMotion->tA.nZ >> 11);
     }
 }

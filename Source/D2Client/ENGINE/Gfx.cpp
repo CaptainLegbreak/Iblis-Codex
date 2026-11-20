@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2CelContext.h"
+#include "D2ClientGfx.h"
 struct D2UnitStrc;
 struct D2UnitTargetStrc;
 
@@ -35,8 +36,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-
 
 struct D2OverlayStrc
 {
@@ -99,7 +98,6 @@ struct D2OverlayTxt
     char unk0x80[4];
 };
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -133,24 +131,8 @@ struct D2StateOwnerStrc
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-struct D2GfxListNodeStrc
-{
-    char unk0x00[0x10];
-    D2GfxListNodeStrc* pNext;
-};
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
-
-
-
-
-struct D2GfxLayerHeaderStrc
-{
-    unsigned char nLayers;
-    unsigned char unk0x01;
-    unsigned char nArg;
-};
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -186,16 +168,9 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0046E300_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
 
-
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 extern D2UnitStrc* gpAiTargets_007A7470[]; // 0x007A7470
-
-struct D2GfxNodeTargetStrc
-{
-    char unk0x00[0x14];
-    int nValue;
-};
 
 struct D2UnitOverlayStrc
 {
@@ -203,25 +178,6 @@ struct D2UnitOverlayStrc
     int nOverlay;
     char unk0x08[0x9C];
     D2UnitOverlayStrc* pNext;
-};
-
-struct D2HashedFileEntryStrc
-{
-    D2HashedFileEntryStrc* pNext;
-    int nUnk0x04;
-    int nSize;
-    char szName[8];
-    unsigned char* pData;
-    unsigned char aHeader[2];
-    unsigned char nCheck;
-};
-
-struct D2HashedFileStrc
-{
-    int f_0;
-    unsigned char* pData;
-    unsigned int nSize;
-    D2HashedFileEntryStrc* f_C[0x200];
 };
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -834,11 +790,11 @@ static void sub_0046F370_FreeHashedEntries(D2HashedFileStrc* pTable)
 {
     for (int i = 0; i < 0x200; ++i)
     {
-        D2HashedFileEntryStrc* pEntry = pTable->f_C[i];
+        D2HashedFileEntryStrc* pEntry = pTable->pEntries[i];
         while (pEntry)
         {
             D2HashedFileEntryStrc* pNext = pEntry->pNext;
-            if (pEntry->nUnk0x04 & 1)
+            if (pEntry->nFlags & 1)
             {
                 unsigned char* pData = pEntry->pData;
                 gdwGlobal_007A8918 -= pEntry->nSize + sizeof(D2HashedFileEntryStrc);

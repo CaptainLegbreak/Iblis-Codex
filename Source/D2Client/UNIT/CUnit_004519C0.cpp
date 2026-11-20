@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ClientMenus.h"
+#include "D2Win32Types.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -30,14 +31,6 @@ struct D2MsgRecordChunkStrc
     int nCount;
     int nIndex;
     D2MsgRecordChunkStrc* pNext;
-};
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
 };
 
 struct D2PalShiftDataStrc

@@ -1,19 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
-
+#include "D2StormTypes.h"
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
@@ -88,7 +75,7 @@ void __stdcall sub_0044C180_OnClickUp(SMSGHANDLER_PARAMS* pMsg)
     }
     if (bLeftPanel || bRightPanel)
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
@@ -100,7 +87,7 @@ void __stdcall sub_0044C180_OnClickUp(SMSGHANDLER_PARAMS* pMsg)
     {
         gdwGlobal_007A0654 = sub_00462D00(3, pMsg->nXpos, pMsg->nYpos, nFlags);
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

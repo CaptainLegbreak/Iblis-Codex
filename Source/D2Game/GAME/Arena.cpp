@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameServer.h"
+#include "D2GameClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -28,14 +29,6 @@ struct D2ArenaTxt
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
-
-struct D2ClientStrc
-{
-    unsigned int dwClientId;
-    int dwClientState;
-    char unk0x008[0x4A0];
-    D2ClientStrc* pNext;
-};
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 unsigned int __fastcall sub_6FC33C10(D2ClientStrc* pClient); // 0x005388C0

@@ -5,8 +5,6 @@
 struct D2CriticalSectionStrc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightExStrc;
-struct T004F51E0;
-struct tagRECT;
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -106,7 +104,7 @@ int __fastcall sub_00508FE0_GlideStartDraw(int bClear, unsigned char nRed, unsig
 }
 
 // build: context sub_00509300_GlideSetPalette
-void __fastcall sub_00509300_GlideSetPalette(const T004F51E0* pPalette)
+void __fastcall sub_00509300_GlideSetPalette(const tagPALETTEENTRY* pPalette)
 {
     if (gbGlidePaletteTable_0087EFC8)
     {

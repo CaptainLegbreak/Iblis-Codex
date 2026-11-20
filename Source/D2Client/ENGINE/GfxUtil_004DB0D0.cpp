@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2TxtTables.h"
+#include "D2ClientGfx.h"
 
 struct D2GfxCodeRecordStrc;
 struct D2GfxCodeTableStrc;
@@ -27,23 +29,6 @@ struct D2GfxCodeTableStrc
 };
 
 #pragma pack(pop)
-
-struct D2OverlayTxt
-{
-    char unk0x00[0x80];
-    unsigned char nNumDirections;
-    unsigned char nLocalBlood;
-    unsigned short pad0x82;
-};
-
-
-
-struct D2MonGfxCacheStrc
-{
-    int nModeFlags[16];
-    char unk0x40[0x60];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gdwGlobal_007A8928; // 0x007A8928
@@ -96,7 +81,7 @@ static int sub_004DAD50_GetOverlayDirections(int nOverlay)
         return 1;
     }
 
-    return pOverlayTxt->nNumDirections;
+    return pOverlayTxt->szFilename[126];
 }
 
 // 0x004DAF70

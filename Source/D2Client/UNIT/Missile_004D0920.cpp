@@ -4,45 +4,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
 union D2SeedStrc;
 struct D2MissileStrc;
-
-
-
-
-
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned int dwMissileFlags;
-    unsigned short wCltDoFunc;
-    unsigned short wCltHitFunc;
-    unsigned short wSrvDoFunc;
-    unsigned short wSrvHitFunc;
-    unsigned short wSrvDmgFunc;
-    unsigned short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    short wProgOverlay;
-    int dwCltHitPar38;
-    unsigned char unk_3C[0x10];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    int dwCltHitPar[3];
-    char unk0x78[0x1E];
-    short wRange;
-    char unk0x98[0x10C];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gnUnk_0072A33C[]; // 0x0072A33C
@@ -50,7 +17,6 @@ void __fastcall sub_004CDDB0(D2UnitStrc* pUnit, const int* pArg, int nArg1, int 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
@@ -137,7 +103,7 @@ int __fastcall sub_004D0920_HitCollisionBurst(D2UnitStrc* pMissile, D2UnitStrc* 
         D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(pMissile->dwClassId);
         if (pMissilesTxtRecord)
         {
-            sub_004CDDB0(pMissile, gnUnk_0072A33C, 3, pMissilesTxtRecord->dwCltHitPar38, 0x19, 0x4B);
+            sub_004CDDB0(pMissile, gnUnk_0072A33C, 3, pMissilesTxtRecord->dwParam[0], 0x19, 0x4B);
         }
     }
 

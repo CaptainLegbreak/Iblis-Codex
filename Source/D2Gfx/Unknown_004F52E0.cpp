@@ -1,19 +1,6 @@
 #include "D2Gfx.h"
 
 typedef long (__stdcall* WNDPROC)(void*, unsigned int, unsigned int, long);
-struct WNDCLASSA
-{
-    unsigned int style;
-    WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
-    void* hInstance;
-    void* hIcon;
-    void* hCursor;
-    void* hbrBackground;
-    const char* lpszMenuName;
-    const char* lpszClassName;
-};
 extern "C" __declspec(dllimport) void* __stdcall LoadImageA(void*, const char*, unsigned int, int, int, unsigned int); // 0x006CC4D4
 extern "C" __declspec(dllimport) void* __stdcall LoadCursorA(void*, const char*); // 0x006CC4D0
 extern "C" __declspec(dllimport) void* __stdcall GetStockObject(int); // 0x006CC0E8

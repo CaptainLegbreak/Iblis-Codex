@@ -1,3 +1,4 @@
+#include "D2Win32Types.h"
 #include "D2Win.h"
 #include "D2Records.h"
 #include "D2CmpTypes.h"

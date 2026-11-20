@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Win32Types.h"
+
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -32,7 +34,6 @@ struct D2LevelsTxt
     int nWarpDistSq;
 };
 
-
 struct D2ActiveRoomStrc { char pad[0x6c]; D2SeedStrc seed; };
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -49,8 +50,6 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 int __stdcall D2Common_10095(D2ActiveRoomStrc*,int,int); // 0x0061B130
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc*,D2ActiveRoomStrc*,D2SpawnAreaStrc*,int,int,int,int,int,int); // 0x005B3040
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

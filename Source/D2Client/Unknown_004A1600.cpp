@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MessageListStrc;
@@ -97,7 +98,6 @@ extern unsigned char gabQuestFlagsA_007BF356[]; // 0x007BF356
 void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset); // 0x004A3220
 static void sub_004A1950_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 
-
 struct T0044CB60
 {
     unsigned short* pText;
@@ -164,18 +164,6 @@ struct D2QuestLogStateStrc
 #pragma pack(pop)
 
 extern D2QuestLogStateStrc gtQuestLog_007BF298; // 0x007BF298
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWindow;
-    unsigned int nMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int unk0x10;
-    unsigned int unk0x14;
-    int bUseResult;
-    int lResult;
-};
 
 #pragma pack(push, 1)
 struct D2QuestPanelEntryStrc
@@ -1191,7 +1179,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             }
         }
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -1234,7 +1222,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
         if (D2_HIWORD(pMsg->lParam) > gnGlobal_00711470 - 0x31) return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

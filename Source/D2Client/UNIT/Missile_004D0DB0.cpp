@@ -4,43 +4,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2MissilesTxt;
-
-
-
-
-
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned int dwMissileFlags;
-    unsigned short wCltDoFunc;
-    unsigned short wCltHitFunc;
-    unsigned short wSrvDoFunc;
-    unsigned short wSrvHitFunc;
-    unsigned short wSrvDmgFunc;
-    unsigned short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[3];
-    unsigned char unk_32[0x2];
-    short wProgSound;
-    unsigned short wProgOverlay;
-    int dwParam[5];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    int dwCltHitPar[2];
-    char unk0x074[0x130];
-};
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

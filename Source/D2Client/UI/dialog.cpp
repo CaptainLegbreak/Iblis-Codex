@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
+#include "D2StormTypes.h"
 
 #pragma function(memset)
 
@@ -16,19 +17,6 @@ struct D2ClientDialogStrc;
 struct Message;
 struct SelectionState;
 struct D2MsgHandlerEntryStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXPos;
-    unsigned short nYPos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 class D2DialogWidget
 {
@@ -138,8 +126,8 @@ static int sub_004B7180_FindDialogItem(D2ClientDialogStrc* pDialog, SMSGHANDLER_
 {
     if (pDialog)
     {
-        const int nX = pMsg->nXPos;
-        const int nY = pMsg->nYPos;
+        const int nX = pMsg->nXpos;
+        const int nY = pMsg->nYpos;
         int nOffset = 0;
         for (int i = 0; i < pDialog->nLines; ++i)
         {
@@ -189,8 +177,8 @@ void __stdcall sub_004B7270_DialogMouseMotion(SMSGHANDLER_PARAMS* pMsg)
 // 0x004B72E0
 void __stdcall sub_004B72E0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nX = pMsg->nXPos;
-    const int nY = pMsg->nYPos;
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
     D2ClientDialogStrc* pDialog = gpGlobal_007C0E54;
     if (sub_004538D0(0x15) && sub_0047F190_IsInMiniPanelRect(nX, nY))
     {
@@ -257,8 +245,8 @@ static void __stdcall sub_004B73E0_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         goto handled;
 
     {
-        const int nX = pMsg->nXPos;
-        const int nY = pMsg->nYPos;
+        const int nX = pMsg->nXpos;
+        const int nY = pMsg->nYpos;
         if (nX >= pDialog->nX - 4 && nX <= pDialog->nX + pDialog->nWidth + 4 && nY >= pDialog->nY - 4 && nY <= pDialog->nY + pDialog->nHeight + 4)
             goto handled;
         if (sub_004538D0(0x15) && sub_0047F190_IsInMiniPanelRect(nX, nY))

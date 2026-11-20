@@ -457,7 +457,7 @@ void __cdecl sub_00509FD0_GlideCloseAtExit()
     sub_00509E10_GlideClose();
 }
 
-D2GfxPaletteViewStrc gtGfxPaletteView_0087E980; // 0x0087E980
+D2PaletteTableStrc gtGfxPaletteView_0087E980; // 0x0087E980
 
 void (__stdcall* gpfGlideFn_0087EAB0)(); // 0x0087EAB0
 
@@ -495,7 +495,7 @@ void __fastcall sub_005092F0_GlideGetScreenSize(int* pWidth, int* pHeight)
 }
 
 // 0x00509400
-void __fastcall sub_00509400_GlideSetPaletteView(D2GfxPaletteViewStrc* pSource)
+void __fastcall sub_00509400_GlideSetPaletteView(D2PaletteTableStrc* pSource)
 {
     gtGfxPaletteView_0087E980 = *pSource;
     gpGfxPaletteView_007C9150 = &gtGfxPaletteView_0087E980;

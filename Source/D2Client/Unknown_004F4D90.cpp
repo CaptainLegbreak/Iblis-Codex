@@ -4,29 +4,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
-
-
-
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x16];
-    unsigned char nSeqInput;
-    char unk0x017[0x4D];
-    int dwAuraRangeCalc;
-    char unk0x068[0x18];
-    short nAuraState;
-    char unk0x082[0xB6];
-    unsigned int dwCalc;
-    unsigned int f_13C;
-    char unk0x140[0x08];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
-
+#include "D2Txt.h"
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -70,14 +50,14 @@ int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int
         return 0;
     }
 
-    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc, nSkillId, nSkillLevel);
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
     D2UnitStrc* pDestination = sub_004C5EB0_FindDestination(pUnit, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
     if (!pDestination)
     {
         return 0;
     }
 
-    const int nTargetX = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->f_13C, nSkillId, nSkillLevel);
+    const int nTargetX = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.dwFlags = 0x20;

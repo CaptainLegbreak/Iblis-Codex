@@ -1,6 +1,6 @@
 #include "D2Win.h"
+#include "D2Win32Types.h"
 
-struct T004F51E0;
 struct D2Palette256Strc;
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
@@ -15,14 +15,6 @@ extern D2ArchiveHandleStrc* gpD2CharMPQ; // 0x007D5610
 extern D2ArchiveHandleStrc* gpD2XTalkMPQ; // 0x007D5618
 extern D2ArchiveHandleStrc* gpD2MusicMPQ; // 0x007D5628
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
 struct D2Palette256Strc
 {
     unsigned char data[0x100];
@@ -30,9 +22,9 @@ struct D2Palette256Strc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
+void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 extern int dword_6F8BE008; // 0x0072DE50
-extern T004F51E0 gRGBAPalette_0081E668[]; // 0x0081E668
+extern tagPALETTEENTRY gRGBAPalette_0081E668[]; // 0x0081E668
 extern D2Palette256Strc gShadowsLightGammaPalette_0081EA68[49]; // 0x0081EA68
 extern int gdwGlobal_00841B70; // 0x00841B70
 

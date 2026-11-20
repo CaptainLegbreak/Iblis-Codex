@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -8,19 +9,6 @@ struct D2CelFileStrc;
 struct D2MenuItemStrc;
 struct D2OptionHeaderStrc;
 struct D2OptionEntryStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 typedef void(__fastcall* MENUSELECT)(D2MenuItemStrc*, SMSGHANDLER_PARAMS*);
 
@@ -92,7 +80,6 @@ struct D2OptionEntryStrc
     D2CelFileStrc* pValueCels[4];
 };
 
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -115,7 +102,6 @@ extern int gnOptionArrowFrame_007BC944; // 0x007BC944
 extern int gnOptionMaxWidth_007BC95C; // 0x007BC95C
 extern int gnOptionLastX_007BC980; // 0x007BC980
 extern int gnOptionLastY_007BC984; // 0x007BC984
-
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -26,14 +27,6 @@ struct D2PacketDataStrc
     int nPacketSize;
     unsigned char packetData[0x200];
     D2PacketDataStrc* pNext;
-};
-
-struct D2ClientStrc
-{
-    char unk0x000[0x1B8];
-    D2PacketDataStrc* pPacketDataHead;
-    D2PacketDataStrc* pPacketDataTail;
-    D2PacketDataStrc* pPacketDataPool;
 };
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetTail(D2ClientStrc* pClient); // 0x005392D0
@@ -93,7 +86,6 @@ struct D2PlayerDataStrc
     char unk0x00[0x98];
     D2LifeSyncStrc* pPartyLifeList;
 };
-
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710

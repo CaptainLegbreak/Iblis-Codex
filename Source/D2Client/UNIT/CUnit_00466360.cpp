@@ -4,7 +4,7 @@
 #include "D2Txt.h"
 struct D2InventoryStrc;
 
-struct D2LightStrc;
+struct D2GfxLightStrc;
 
 struct D2SeedStrc
 {
@@ -46,7 +46,7 @@ struct D2UnitStrc
     struct D2GfxDataStrc* pGfxData;
     char unk0x58[0x60 - 0x58];
     D2InventoryStrc* pInventory;
-    D2LightStrc* pLight;
+    D2GfxLightStrc* pLight;
     char unk0x68[0x94 - 0x68];
     int dwOwnerType;
     unsigned int dwOwnerGUID;
@@ -77,7 +77,6 @@ struct D2UnitSpawnStrc
     int nMode;
 };
 
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -89,8 +88,8 @@ extern D2UnitStrc* gpUnitHashTable_007A5E70[6 * 0x80];                          
 extern D2UnitStrc* gpPlayerUnit_007A6A70;                                                                   // 0x007A6A70
 extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
 
-void __fastcall sub_004743D0_ReleaseOverlayResource(D2LightStrc* pLight);                                   // 0x004743D0
-D2LightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2);                                         // 0x00643A00
+void __fastcall sub_004743D0_ReleaseOverlayResource(D2GfxLightStrc* pLight);                                   // 0x004743D0
+D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2);                                         // 0x00643A00
 void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit);                                               // 0x004DA080
 void __fastcall sub_004CA9C0_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce);                               // 0x004CA9C0
 void __fastcall sub_004AED30_FreeClientUnit(D2UnitStrc* pUnit);                                             // 0x004AED30
@@ -136,14 +135,11 @@ struct D2MonsterDataLocalStrc
     D2MonsterInfo16Strc tInfo;
 };
 
-
-
 struct D2SuperUniquesTxt
 {
     char unk0x00[0x28];
     unsigned char nModes[3];
 };
-
 
 struct D2ClientEntryStrc
 {
@@ -387,7 +383,7 @@ static void sub_00465870_FreeUnit(D2UnitStrc* pUnit)
         pUnit->pLight = 0;
     }
 
-    D2LightStrc* pRoomLight = D2Common_10958(pUnit, 0);
+    D2GfxLightStrc* pRoomLight = D2Common_10958(pUnit, 0);
     if (pRoomLight)
     {
         sub_004743D0_ReleaseOverlayResource(pRoomLight);
