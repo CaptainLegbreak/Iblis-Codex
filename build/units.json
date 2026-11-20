@@ -61395,7 +61395,7 @@
     {
      "va": "0x00576C90",
      "length": 248,
-     "name": "?sub_00576C90_RollTraderItemCode@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SeedStrc@@HPAIPAH@Z"
+     "name": "?sub_00576C90_RollTraderItemCode@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PATD2SeedStrc@@HPAIPAH@Z"
     },
     {
      "va": "0x00579D60",
