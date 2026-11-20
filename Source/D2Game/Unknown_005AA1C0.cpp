@@ -4,34 +4,19 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define MONMODE_NEUTRAL 1
 struct D2MissilesTxt;
 struct D2StaticPathStrc;
 
-
-struct D2MissilesTxt
-{
-    char unk0x00[0x38];
-    int dwParam[2];
-    unsigned char unk_40[0xC];
-    int dwHitPar[3];
-    unsigned char unk_58[0x3E];
-    short wRange;
-    short wLevRange;
-    char unk0x9A[0x10A];
-};
-
 typedef char D2MissilesTxt_size_check[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054E600
-
-
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210

@@ -4,28 +4,13 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
 
 struct D2SkillsTxt;
 struct D2CurseStrc;
 struct D2EnergyShieldDataStrc;
 
-
-
-
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
-
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -73,7 +58,6 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); /
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0

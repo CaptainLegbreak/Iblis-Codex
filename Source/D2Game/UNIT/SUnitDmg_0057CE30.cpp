@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
 
 #define D2MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -12,13 +13,6 @@ struct D2ModeChangeStrc;
 struct D2DamageHitClassMappingStrc;
 union D2SeedStrc;
 struct D2CurseStrc;
-
-
-
-
-
-
-
 
 extern "C" const D2DamageHitClassMappingStrc gsDamageHitClassMapping_006E16D8[8]; // 0x006E16D8
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -48,21 +42,7 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, void* pStatList);
-
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit); // 0x006223F0

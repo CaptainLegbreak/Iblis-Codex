@@ -7,22 +7,10 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
-
-
-
-
-
-struct D2MonsterRegionStrc
-{
-    char _pad000[0x2C8];
-    unsigned int dwUniqueCount;
-};
-
-
-
 
 struct D2SuperUniquesTxt
 {
@@ -40,7 +28,6 @@ struct D2SuperUniquesTxt
     unsigned char nReplaceable;
     char _pad28[0x0C];
 };
-
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 typedef void (__fastcall* MinionCallbackFunc)(D2UnitStrc* pUnit, void* pArg1, void* pArg2);

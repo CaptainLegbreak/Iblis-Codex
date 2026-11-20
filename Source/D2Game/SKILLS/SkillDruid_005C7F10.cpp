@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 enum D2C_F39Constants
 {
@@ -49,13 +50,6 @@ enum D2C_F39Constants
 
 struct D2MonsterRegionStrc;
 
-
-struct D2ModeChangeStrc
-{
-    int unk0x00[9];
-};
-
-
 struct D2UnitFindArgStrc
 {
     int nFlags;
@@ -89,30 +83,6 @@ struct D2UnitFindDataStrc
     int nSize;
 };
 
-
-
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int unk0x10[9];
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int unk0x40[3];
-    int dwDmgTotal;
-    int unk0x50[4];
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
-
 struct D2Do142ArgsStrc
 {
     D2DamageStrc* pDamage;
@@ -140,27 +110,6 @@ struct D2UnkNecSkillStrc
     int nAuraEventFunc[3];
 };
 
-
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[7];
-    void (__fastcall* pInitFunc)(D2UnitStrc* pMissile, int nInitArg);
-    int nInitArg;
-};
 struct D2CurseStrc
 {
     D2UnitStrc* pUnit;
@@ -210,19 +159,11 @@ struct D2DamageAuraParamStrc
     D2DamageStrc* pDamage;
 };
 
-struct D2AiCmdStrc
-{
-    int unk0x00[2];
-    int nCmdParam[5];
-};
-
 struct D2DifficultyLevelsTxt
 {
     char unk0x00[0x40];
     int dwStaticFieldMin;
 };
-
-
 
 struct D2StatesTxt
 {

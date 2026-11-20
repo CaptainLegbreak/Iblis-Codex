@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -22,11 +23,6 @@ struct Obj005F6630;
 struct D2Record5F6E20Strc;
 struct D2FetishShamanAiCallbackArgStrc;
 struct D2AiCmdStrc;
-
-
-
-
-
 
 enum D2C_BruteAIParams
 {
@@ -54,7 +50,6 @@ enum D2C_M80SkeletonAi
 
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 
-
 enum D2C_MosquitoAIParams
 {
     MOSQUITO_AI_PARAM_MIN_SUCK_LOOP = 0,
@@ -68,12 +63,10 @@ int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, u
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
 
 typedef int(__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit);
 
@@ -81,12 +74,6 @@ struct D2UnitFindArgStrc
 {
     int nFlags; int unk0x04; D2UnitStrc* pUnit; int nX; int nY; int nSize; int nMaxArrayEntries; int nIndex;
     void* pField; void* pfnUnitTest; int unk0x28; int unk0x2C; int unk0x30; int unk0x34;
-};
-
-struct D2UnitFindDataStrc
-{
-    void* pMemPool; D2UnitStrc** pUnitsArray; D2ActiveRoomStrc* pRoom; void* pfnUnitTest; D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags; int nIndex; int nMaxArrayEntries; int nX; int nY; int nSize;
 };
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
@@ -133,7 +120,6 @@ struct D2FetishShamanAiCallbackArgStrc
     int nHealCapability;
     int unk0x1C[3];
 };
-
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 

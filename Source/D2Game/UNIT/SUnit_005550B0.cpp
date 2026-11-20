@@ -2,12 +2,11 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(),line); exit(-1); }
 union D2SeedStrc;
 struct D2LvlWarpTxt;
-
-
 
 struct D2LvlWarpTxt { char unk0[0x14]; int nOffsetX; int nOffsetY; };
 
@@ -28,37 +27,6 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531
 void __fastcall sub_6FC817D0(D2GameStrc*,D2UnitStrc*,D2SkillStrc*,int,int,int,int); // 0x005809D0
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc*); // 0x00621F20
 void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc*,unsigned char,unsigned char,int,unsigned char,unsigned short,unsigned short,unsigned char,unsigned char); // 0x0053B4B0
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    D2SeedStrc* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    unsigned int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pRoom;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int bForce;
-    int nQuality;
-    int nQuantity;
-    int nMinDur;
-    int nMaxDur;
-    int nItemIndex;
-    unsigned int dwFlags1;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    int eEarLvl;
-    int nQtyOverride;
-    char szName[16];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054E600

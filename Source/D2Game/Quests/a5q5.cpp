@@ -7,6 +7,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2GameObjs.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 #define STAT_LEVEL 12
@@ -25,13 +26,6 @@ struct D2QuestDataStrc;
 struct D2DataTablesStrc;
 struct D2ObjectsTxt;
 struct D2QuestArgStrc;
-
-
-
-
-
-
-
 
 struct D2DataTablesStrc
 {
@@ -62,22 +56,8 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 int __fastcall ACT5Q5_UnitIterate_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058D510
 
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    void* pObjectregion;
-    int nObjectIdx;
-};
-
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 int __fastcall ACT5Q5_UnitIterate_ClosePortals(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058D2C0
-
-
-
-
-
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 

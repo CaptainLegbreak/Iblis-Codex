@@ -1,7 +1,4 @@
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
+#include "D2GameTypes.h"
 
 struct D2GameDataTableStrc;
 

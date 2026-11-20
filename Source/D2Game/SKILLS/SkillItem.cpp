@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2TxtTables.h"
+#include "D2ItemsWorld.h"
 
 #define IFLAG_TARGETING 4
 #define OBJECT_STASH 267
@@ -36,8 +37,6 @@ struct D2DamageStrc;
 struct D2AnimSeqTxt;
 struct D2ItemStatCostTxt;
 
-
-
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 int __stdcall ITEMS_GetSpellIcon(D2UnitStrc* pItem); // 0x0062BB20
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
@@ -45,11 +44,9 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
-
 int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x005678A0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
-
 
 struct D2ItemsTxt
 {
@@ -78,7 +75,6 @@ D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex); // 0x006374B0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
-
 
 enum D2C_Z09ItemConstants
 {
@@ -110,20 +106,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __fastcall SKILLITEM_pSpell09_StaminaPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId); // 0x005BEDA0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-
-
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0

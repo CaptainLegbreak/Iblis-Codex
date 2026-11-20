@@ -1,21 +1,13 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2ItemsWorld.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 struct D2ActiveRoomStrc
 {
     char pad00[0x6C];
     D2SeedStrc pSeed;
     unsigned int field74;
     int field78;
-};
-struct D2MonsterRegionStrc
-{
-    char pad00[0x2C4];
-    int nWanderingCount;
 };
 struct D2GameStrc
 {

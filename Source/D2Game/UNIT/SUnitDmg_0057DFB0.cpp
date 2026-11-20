@@ -1,34 +1,6 @@
 #include "D2Game.h"
-
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        uint64_t lSeed;
-    };
-};
-
-struct D2GameStrc
-{
-    char unk_00[0x70];
-    int bExpansion;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk_04[0x0C];
-    int dwAnimMode;
-    char unk_14[0x0C];
-    D2SeedStrc pSeed;
-    char unk_28[0x60 - 0x28];
-    D2InventoryStrc* pInventory;
-};
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
 int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int bExpansion); // 0x00622720
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00

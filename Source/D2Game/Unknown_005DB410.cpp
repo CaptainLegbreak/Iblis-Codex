@@ -3,11 +3,10 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
-
-
 
 struct D2SkillsTxt
 {
@@ -36,34 +35,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk_38;
-    unsigned int unk_3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    void (__fastcall* pInitFunc)(D2UnitStrc*, int);
-    int nInitArg;
-};
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc*, D2UnitStrc*, int*, int*); // 0x0056D2C0
@@ -89,22 +60,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc*, int); // 0x005DB6A0
 int __fastcall sub_004F4110_GetSkillParam5(int); // 0x004F4110
 void __fastcall sub_0056E210(D2UnitStrc*, int); // 0x0056E210
-
-struct D2DamageStrc
-{
-    int dwHitFlags;
-    short wResultFlags;
-    short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwOther[21];
-    unsigned char nHitClassActiveSet;
-    unsigned char nConvType;
-    unsigned char unk0x66;
-    unsigned char f_67;
-    int dwConvPct;
-    int nOverlay;
-};
 
 typedef char DamageSizeCheck[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
 int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20

@@ -1,16 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
-
-
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[3];
-    char unk0x144[0xF8];
-};
-
+#include "D2Txt.h"
 
 enum D2C_J10SkillPalConstants
 {

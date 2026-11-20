@@ -8,30 +8,11 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
-
-
-
-
-
-
-
-
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 enum D2C_Z09SkillConstants
 {

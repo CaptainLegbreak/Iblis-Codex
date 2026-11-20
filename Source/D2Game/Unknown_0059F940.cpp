@@ -2,39 +2,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-
-
+#include "D2GameTypes.h"
 
 typedef void(__fastcall* MISSILEINITFUNC)(D2UnitStrc* pMissile, int nInitArg);
-
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MISSILEINITFUNC pInitFunc;
-    int nInitArg;
-};
-
-
 
 extern "C" D2DataTablesStrc* sgptDataTables;                                                                // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

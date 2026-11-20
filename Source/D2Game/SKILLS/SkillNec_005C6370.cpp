@@ -4,23 +4,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2GameAux.h"
 struct D2GameStrc;
 struct D2UnitStrc;
-
-
-
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
-
 
 struct D2SkillsTxt
 {
@@ -37,7 +23,6 @@ struct D2SkillsTxt
     unsigned int dwCalc[4];
     char unk0x148[0xF4];
 };
-
 
 enum D2C_Q05SkillConstants
 {

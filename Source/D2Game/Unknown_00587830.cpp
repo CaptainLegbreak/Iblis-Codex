@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2GameObjs.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -16,26 +17,13 @@ struct D2ObjInitFnStrc;
 struct D2Act5Quest1Strc;
 struct D2Act5Quest2Strc;
 
-
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    void* pPosition;
-};
-
-
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
-
-
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 extern "C" unsigned int* __stdcall sub_0058F000(Unit0058F000* pUnit); // 0x0058F000
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
-
-
 
 int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005879D0
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300

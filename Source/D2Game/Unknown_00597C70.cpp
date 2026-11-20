@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 
@@ -9,25 +10,6 @@ struct D2StaticPathStrc
     int nTargetY;
     int nX;
     int nY;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x80];
-    unsigned char dwLastHitClass;
-    char unk0xB1[0x13];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
 };
 
 void __fastcall D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char nHitClass, unsigned char nLifePct); // 0x0053B430

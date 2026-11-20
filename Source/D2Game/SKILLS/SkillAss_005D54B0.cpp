@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 struct D2MonStatsTxt;
 struct D2UnitStrc;
 
@@ -16,39 +17,11 @@ struct D2LevelsTxt;
 struct D2CurseStrc;
 struct D2SrvDo47Strc;
 
-
-
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    short wAuraTargetState;
-    char unk0x084[0x14];
-    short nPassiveStat[5];
-    char unk0x0A2[0x02];
-    unsigned int dwPassiveCalc[5];
-    unsigned char unk_B8[0x80];
-    unsigned int dwCalc[4];
-    int dwParam[4];
-    unsigned char unk_158[0x2C];
-    short wStartMana;
-    unsigned char unk_186[0x1F];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x96];
-};
-
 struct D2LevelsTxt
 {
     char unk0x00[0x4];
     unsigned char nTeleport;
 };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -62,7 +35,6 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
-
 
 void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int a5, unsigned char nSrcDam); // 0x0057B7D0
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
