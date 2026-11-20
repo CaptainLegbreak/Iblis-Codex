@@ -1,3 +1,7 @@
+#include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2Path.h"
+#include "D2DrlgMaps.h"
 #ifdef MOVED_TEST
 #define CENTER 7
 #define MASK_A 0x102
@@ -10,46 +14,6 @@
 #define OFFSET_BASE (g_006E2D50_offsets)
 #endif
 struct D2TileLibraryEntryStrc;
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-#ifdef MOVED_TEST
-    char moved_pad[4];
-#endif
-    D2SeedStrc pSeed;
-};
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    char unk0x1C[0x14];
-};
 typedef D2ActiveRoomStrc Room;
 typedef D2DrlgTileDataStrc Tile;
 typedef D2DrlgCoordsStrc Bounds;

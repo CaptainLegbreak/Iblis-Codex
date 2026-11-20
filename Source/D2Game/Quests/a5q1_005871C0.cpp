@@ -6,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2GameObjs.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_COMPLETEDBEFORE 15
@@ -22,17 +23,6 @@ struct D2ObjInitFnStrc;
 struct D2Act5Quest1Strc;
 struct D2Act5Quest2Strc;
 
-
-
-
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    void* pPosition;
-};
-
-
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
@@ -44,10 +34,6 @@ typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
-
-
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern char gpAct5Q1NpcMessages[]; // 0x00733308

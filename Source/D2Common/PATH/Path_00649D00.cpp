@@ -2,43 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
-struct D2DynamicPathStrc
-{
-    unsigned int dwPrecisionX;
-    unsigned int dwPrecisionY;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    char unk0x10[0x1C - 0x10];
-    D2ActiveRoomStrc* pRoom;
-    char unk0x20[0x30 - 0x20];
-    D2UnitStrc* pUnit;
-    unsigned int dwFlags;
-    char unk0x38[4];
-    int eType;
-    int ePrevType;
-    int dwUnitSize;
-    int dwCollisionPattern;
-    int nFootprintCollisionMask;
-    int nMoveTestCollisionMask;
-    char unk0x54[0x7C - 0x54];
-    int dwVelocity;
-    char unk0x80[0x91 - 0x80];
-    unsigned char bDistMax;
-    unsigned char nIDAStarInitFScore;
-    unsigned char nStepNum;
-    char unk0x94[4];
-    int nDirOffset;
-    char unk0x9C[0x1D4 - 0x9C];
-    int nSavedStepsCount;
-    D2PathPointStrc SavedSteps[7];
-    char unk0x1F4[0x200 - 0x1F4];
-};
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60

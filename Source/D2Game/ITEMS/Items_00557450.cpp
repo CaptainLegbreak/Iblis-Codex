@@ -2,27 +2,11 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2MagicAffixTxt;
 struct D2UnitStrc;
 
 union D2SeedStrc;
-
-
-
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    char unk0x04[0x2C];
-    int nQuality;
-    char unk0x34[0x0C];
-    int nItemIndex;
-    unsigned int dwFlags1;
-    char unk0x48[0x20];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
-};
 
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 

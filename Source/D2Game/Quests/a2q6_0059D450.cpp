@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2GameObjs.h"
 struct D2GameStrc;
 struct D2QuestDataStrc;
 
@@ -15,18 +16,6 @@ struct D2ObjOperateFnStrc;
 struct D2Act2Quest6Strc;
 struct D2GSPacketSrv50;
 struct D2GSPacketSrv58;
-
-
-
-
-
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -39,9 +28,6 @@ typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 typedef int (__stdcall* FARPROC)();
-
-
-
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv50

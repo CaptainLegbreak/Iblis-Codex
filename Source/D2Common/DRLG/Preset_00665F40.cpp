@@ -7,6 +7,7 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2GameAux.h"
+#include "D2GameObjs.h"
 struct D2ActiveRoomStrc;
 struct D2DrlgCoordStrc
 {
@@ -16,7 +17,6 @@ struct D2DrlgCoordStrc
     int nHeight;
 };
 
-
 struct D2DrlgGridStrc
 {
     int* pCellsFlags;
@@ -25,14 +25,6 @@ struct D2DrlgGridStrc
     int nHeight;
     int nFlags;
 };
-
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    D2MapAIPathPositionStrc* pPosition;
-};
-
 
 struct D2DrlgFileStrc
 {
@@ -61,9 +53,6 @@ struct D2LevelFileListStrc
     D2DrlgFileStrc* pFile;
     D2LevelFileListStrc* pNext;
 };
-
-
-
 
 union D2C_PackedTileInformation
 {
@@ -133,7 +122,6 @@ struct D2DrlgPresetLevelStrc
     D2DrlgMapStrc* pDrlgMap;
     int nDirection;
 };
-
 
 struct D2RoomStrc;
 

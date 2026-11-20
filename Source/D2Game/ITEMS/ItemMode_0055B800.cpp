@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
+#include "D2ItemsWorld.h"
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2InventoryStrc;
@@ -38,17 +39,11 @@ struct D2StaticPathStrc;
 struct D2EquipmentRefreshStateStrc;
 struct SwapEntry;
 
-
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int); // 0x0045C4B0
 void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned short nSkillId, unsigned char nSkillLevel, unsigned char bRemove); // 0x0053C4A0
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*, const char*, int); // 0x005531C0
 D2MonStatsTxt* __fastcall sub_0055B7E0_GetMonStatsTxtFromUnit(D2UnitStrc*); // 0x0055B7E0
-
 
 void __fastcall sub_0056BD90_RefreshPetMaxForSkill(D2GameStrc*, D2UnitStrc*, int); // 0x0056BD90
 int __fastcall sub_6FD11C90(D2UnitStrc* pUnit, int nStateId, int a3); // 0x0056C740
@@ -74,7 +69,6 @@ void __stdcall SKILLS_RefreshSkill(D2UnitStrc*, int); // 0x00646D60
 D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc*, int); // 0x00647110
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 void __stdcall D2Common_10954(D2UnitStrc*, int, int, int, int, int); // 0x00647530
-
 
 extern "C" const char szItemModeCpp[]; // 0x006E1164
 void __fastcall sub_0055C270_OnItemToBelt(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C270
@@ -102,7 +96,6 @@ struct D2UniqueItemsTxt
     char unk0x030[0x11C];
 };
 
-
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2QuestItemPairStrc gQuestItemPairs_00731FEC[4]; // 0x00731FEC
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
@@ -118,7 +111,6 @@ int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D
 D2CorpseStrc* __stdcall INVENTORY_GetNextCorpse(D2CorpseStrc* pCorpse); // 0x0063D610
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 static __declspec(noinline) int __stdcall sub_6FC428F0(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxtRecordArg, D2UnitStrc* pPreviousItem);
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -149,31 +141,6 @@ void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nQuantity); // 0x0064
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 static int sub_0055BFF0_GetBookSkillId(D2UnitStrc* pItem); // 0x0055BFF0
 static void __stdcall sub_0055C070_AddBookScrollSkillQuantity(int nQuantityBonus, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C070
-
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    int* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    int unk0x24;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int unk0x2C;
-    int nQuality;
-    char unk0x34[0x40 - 0x34];
-    int dwFlags1;
-    int unk0x44;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    char unk0x50[0x84 - 0x50];
-};
 
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned int dwCmdFlag); // 0x0053D010

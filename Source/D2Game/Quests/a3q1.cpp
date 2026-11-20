@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -27,16 +28,6 @@ typedef int (__stdcall* FARPROC)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-
-
-
-struct D2MapAIStrc
-{
-    int unk0x00;
-    void* pPosition;
-};
-
 
 struct D2QuestArgStrc
 {
@@ -70,7 +61,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
-
 struct D2ObjInitFnStrc
 {
     D2GameStrc* pGame;
@@ -80,8 +70,6 @@ struct D2ObjInitFnStrc
     int nX;
     int nY;
 };
-
-
 
 extern char gpAct3Q0NpcMessages[]; // 0x0073EAA0
 extern char gpAct3Q1NpcMessages[]; // 0x0073ECF0

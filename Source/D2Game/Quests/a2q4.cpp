@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameObjs.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_COMPLETEDNOW 14
@@ -29,9 +30,6 @@ struct D2ObjInitFnStrc;
 struct D2ObjOperateFnStrc;
 struct D2Act2Quest5Strc;
 struct D2Act2Quest2Strc;
-
-
-
 
 struct D2PlayerDataStrc
 {
@@ -175,23 +173,12 @@ void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nStat
 int __fastcall ACT2Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059AD50
 int __fastcall ACT2Q4_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059ADB0
 
-
 struct D2ObjInitFnStrc
 {
     D2GameStrc* pGame;
     D2UnitStrc* pObject;
     D2ActiveRoomStrc* pRoom;
 };
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
-
 
 struct D2Act2Quest5Strc
 {

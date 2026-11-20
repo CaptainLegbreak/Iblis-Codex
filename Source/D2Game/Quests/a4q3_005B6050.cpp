@@ -1,17 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
+#include "D2QuestData.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-
-
-
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2QuestArgStrc
 {
@@ -33,54 +27,8 @@ struct D2QuestArgStrc
     };
 };
 
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
-
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    void* pfStatusFilter;
-    void* pfActiveFilter;
-    void* pfSeqFilter;
-};
-
-struct D2Act4Quest2Strc
-{
-    char pad0x00[0x14];
-    unsigned char bDiabloKilled;
-};
-
-struct D2Act4Quest3Strc
-{
-    char pad0x00[0x02];
-    unsigned char bCainActivated;
-    char pad0x03[0x0D];
-    int nHellforgeHammersInGame;
-    char pad0x14[0x08];
-    unsigned char bSoulstoneAcquired;
-};
 
 extern char gpAct4Q3NpcMessages[];                                                                          // 0x0073E140
 extern char gpAct4Q4NpcMessages[];                                                                          // 0x0073E5C0

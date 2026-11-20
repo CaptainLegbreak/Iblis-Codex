@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 #include "D2QuestData.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_HRATLI 253
@@ -19,10 +20,6 @@ struct D2QuestGUIDStrc;
 
 typedef int (__stdcall* FARPROC)();
 
-
-
-
-
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
@@ -34,8 +31,6 @@ typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuest);
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
-
-
 
 struct D2QuestArgStrc
 {
@@ -56,7 +51,6 @@ struct D2QuestArgStrc
     };
 };
 
-
 struct D2ObjInitFnStrc
 {
     D2GameStrc* pGame;
@@ -67,18 +61,6 @@ struct D2ObjInitFnStrc
     int nX;
     int nY;
 };
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    void* pObjectregion;
-    int nObjectIdx;
-};
-
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

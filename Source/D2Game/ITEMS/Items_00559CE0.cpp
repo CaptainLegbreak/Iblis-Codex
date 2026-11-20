@@ -1,40 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
-
-
-
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    D2SeedStrc* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    unsigned int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pRoom;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int bForce;
-    int nQuality;
-    int nQuantity;
-    int nMinDur;
-    int nMaxDur;
-    int nItemIndex;
-    unsigned int dwFlags1;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    int eEarLvl;
-    int nQtyOverride;
-    char szName[16];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
-};
+#include "D2ItemsWorld.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010

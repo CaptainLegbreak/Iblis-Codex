@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameAux.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -10,30 +11,6 @@ struct D2PetListStrc;
 struct D2PlayerPetStrc;
 struct D2PlayerDataStrc;
 struct D2PetTypeTxt;
-
-
-struct D2PetDataStrc
-{
-    unsigned char nFlags;
-    char unk0x01[0x03];
-    int nUnitGUID;
-    char unk0x08[0x0C];
-    D2PetDataStrc* pNext;
-};
-
-struct D2PetListStrc
-{
-    D2PetDataStrc* pPetData;
-    int nCurrent;
-    int nPetMax;
-};
-
-struct D2PlayerPetStrc
-{
-    D2PetListStrc* pPetList;
-};
-
-
 
 typedef int (__stdcall* FARPROC)();
 

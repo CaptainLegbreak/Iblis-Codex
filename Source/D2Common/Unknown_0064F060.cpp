@@ -1,22 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2InventoryStrc;
-
-
-struct D2MonStats2Txt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[0x0C];
-    int dwBaseW;
-};
-
-struct D2CharStatsTxt
-{
-    char unk0x00[0x4C];
-    int dwBaseWClass;
-    char unk0x50[0x74];
-};
-
 
 struct D2CompositStrc
 {

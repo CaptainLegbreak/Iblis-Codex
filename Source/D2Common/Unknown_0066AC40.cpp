@@ -1,12 +1,7 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2DrlgStrc;
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgTileInfoStrc
 {

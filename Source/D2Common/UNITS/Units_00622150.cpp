@@ -3,14 +3,9 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameObjs.h"
 struct D2SkillStrc;
 struct D2TimerArgStrc;
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    char unk0x04;
-    unsigned char nPortalFlags;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

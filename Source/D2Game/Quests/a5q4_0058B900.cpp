@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestGUIDStrc;
@@ -21,7 +22,6 @@ struct D2Act5Quest6Strc;
 struct D2Act1Quest3Strc;
 struct D2Act1Quest2Strc;
 struct D2Act1Quest4Strc;
-
 
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
@@ -56,7 +56,6 @@ struct D2Act5Quest4Strc
 };
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
-
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -113,8 +112,6 @@ enum D2C_F33QuestConstants
     MONSTATSFLAGINDEX_ZOO = 22,
 };
 
-
-
 struct D2PlayerDataStrc
 {
     char szName[0x10];
@@ -124,13 +121,10 @@ struct D2PlayerDataStrc
     int bBusy;
 };
 
-
-
 struct D2ObjInitFnStrc
 {
     D2GameStrc* pGame;
 };
-
 
 struct D2QuestArgStrc
 {
@@ -150,13 +144,6 @@ struct D2QuestArgStrc
         unsigned short nMessageIndex;
         int nNewLevel;
     };
-};
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
 };
 
 struct D2Act5Quest5Strc

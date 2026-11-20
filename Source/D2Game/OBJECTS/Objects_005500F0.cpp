@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 
 #define OBJMODE_OPERATING 1
 #define OBJMODE_OPENED 2
@@ -16,21 +17,9 @@ struct D2ObjectControlStrc;
 struct D2ObjInitFnStrc;
 struct D2DrlgCoordsStrc;
 
-
-
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
-
-
-
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
-
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

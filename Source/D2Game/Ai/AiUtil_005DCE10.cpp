@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
@@ -23,10 +24,6 @@ enum D2C_F41AiUtilConstants
     EVENTTYPE_AITHINK = 2,
 };
 
-
-
-
-
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
@@ -44,19 +41,6 @@ struct D2PartyCallbackArgStrc
     D2GameStrc* pGame;
     D2UnitStrc* pUnit;
     void* unk0x0C;
-};
-
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
 };
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0

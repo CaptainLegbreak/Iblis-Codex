@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameObjs.h"
 
 #define MONSTER_AKARA 148
 #define MONSTER_KASHYA 150
@@ -49,14 +50,11 @@ struct D2QuestGUIDStrc;
 struct D2Act4Quest2Strc;
 struct D2Act4Quest3Strc;
 
-
-
 struct D2PlayerDataStrc
 {
     char szName[0x10];
     D2BitBufferStrc* pQuestData[3];
 };
-
 
 struct D2QuestGUIDStrc
 {
@@ -182,12 +180,6 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
-struct D2MapAIStrc
-{
-    void* unk0x00;
-    void* pPosition;
-};
-
 struct D2MonsterDataStrc
 {
     char unk0x00[0x30];
@@ -239,15 +231,6 @@ struct D2ObjInitFnStrc
     void* pObjectTxt;
     int nX;
     int nY;
-};
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
 };
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
