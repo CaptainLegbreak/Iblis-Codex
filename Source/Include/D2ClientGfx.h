@@ -53,12 +53,6 @@ struct D2GfxLayerHeaderStrc
     unsigned char nArg; // 0x02
 };
 
-struct D2GfxNodeTargetStrc
-{
-    int unk0x00[5]; // 0x00
-    D2GfxLayerStrc* pLayer; // 0x14
-};
-
 struct D2MonGfxCacheStrc
 {
     int nModeFlags[20]; // 0x00
@@ -93,7 +87,6 @@ D2_CHECK_SIZE(D2MotionVectorStrc, 0xC);
 D2_CHECK_SIZE(D2GfxMotionStrc, 0x4C);
 D2_CHECK_SIZE(D2GfxListNodeStrc, 0x14);
 D2_CHECK_SIZE(D2GfxLayerHeaderStrc, 0x3);
-D2_CHECK_SIZE(D2GfxNodeTargetStrc, 0x18);
 D2_CHECK_SIZE(D2MonGfxCacheStrc, 0xA0);
 D2_CHECK_SIZE(D2HashedFileStrc, 0x80C);
 D2_CHECK_SIZE(D2HashedFileEntryStrc, 0x1C);

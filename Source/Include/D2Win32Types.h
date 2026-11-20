@@ -1,8 +1,8 @@
 #pragma once
 // Win32: the window, message, palette and time records the game modules declare for themselves.
 
-struct tagPOINT;
-struct tagRECT;
+#include "D2Win32Rect.h"
+
 struct tagPALETTEENTRY;
 struct tagMSG;
 struct WNDCLASSA;
@@ -11,20 +11,6 @@ struct tagTRACKMOUSEEVENT;
 struct tagMONITORINFO;
 struct _FILETIME;
 struct D2SystemTimeStrc;
-
-struct tagPOINT
-{
-    long x; // 0x00
-    long y; // 0x04
-};
-
-struct tagRECT
-{
-    long left; // 0x00
-    long top; // 0x04
-    long right; // 0x08
-    long bottom; // 0x0C
-};
 
 struct tagPALETTEENTRY
 {

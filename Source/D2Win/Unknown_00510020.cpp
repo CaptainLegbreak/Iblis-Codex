@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -85,4 +86,3 @@ void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette)
 }
 
 #include "gen/data/Source/D2Win/Unknown_00510020.inc"
-#include "D2Win32Types.h"

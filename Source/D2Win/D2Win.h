@@ -132,4 +132,4 @@ struct D2WinAccountListDataStrc
     D2WinAccountListDataStrc* pNext;
 };
 
-#include "D2Win32Types.h"
+#include "D2Win32Rect.h"
