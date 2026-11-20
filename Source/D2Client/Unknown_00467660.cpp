@@ -1,17 +1,9 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct D2DynamicPathStrc;
 struct D2ActiveRoomStrc;
-
-
-
-struct D2SkillsTxt
-{
-    char unk0x00[0x06];
-    unsigned char nFlags6;
-    unsigned char nFlags7;
-};
 
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 
@@ -83,7 +75,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);
             if (UNITS_IsSelectable(pTarget))
             {
-                if (!(pSkillsTxtRecord->nFlags6 & gdwMask_006CE278)
+                if (!(pSkillsTxtRecord->nFlags[2] & gdwMask_006CE278)
                     || (pTarget->dwUnitType == 1 && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {

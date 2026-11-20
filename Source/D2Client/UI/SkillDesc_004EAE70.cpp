@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Unicode.h"
+#include "D2Records.h"
 
 #define LEVELV (*(volatile int*)&nSkillLevel)
 struct D2SkillsTxt;
@@ -10,17 +11,6 @@ struct D2SkillDescTxt;
 struct Unicode;
 struct UnicodeChar;
 struct D2MonStatsTxt;
-
-
-
-struct D2SkillDescTxt
-{
-    char unk0x00[0x18];
-    unsigned int dwDescCalc1;
-    unsigned int dwDescCalc2;
-    char unk0x20[0x100];
-};
-
 
 struct UnicodeChar : Unicode
 {
@@ -55,7 +45,6 @@ D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId); // 0x00626070
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
@@ -72,7 +61,6 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 __declspec(noinline) static int sub_004E6FB0_GetETypeColor(int nEType);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -339,13 +327,13 @@ void __fastcall sub_004EB290_DrawElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSki
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nLevel, 1);
     const int nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
 
-    int nFrames = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDescCalc1, SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 3114), nLevel);
+    int nFrames = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 3114), nLevel);
     if (!nFrames)
     {
         nFrames = 1;
     }
 
-    int nDivisor = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDescCalc2, SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 3119), nLevel);
+    int nDivisor = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 3119), nLevel);
     if (!nDivisor)
     {
         nDivisor = 1;

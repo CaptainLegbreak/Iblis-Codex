@@ -2,20 +2,14 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2LevelTxt.h"
+#include "D2Records.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PetTypeTxt;
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
-
-
-struct D2PetTypeTxt
-{
-    unsigned int dwPetType;
-    unsigned char nFlags[4];
-    char unk0x08[0xD8];
-};
-
 
 enum
 {
@@ -26,17 +20,6 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall sub_00479150_GetOwnerId(int nUnitId); // 0x00479150
 int __fastcall sub_00479180_GetPetType(int nUnitId); // 0x00479180
-
-struct D2SkillsTxt
-{
-    char unk_00[0x2E];
-    short nClientFunction;
-    unsigned char unk_30[0x164];
-    short wSkillDesc;
-    char unk0x196[0x1DC - 0x196];
-    unsigned char nCharClass;
-    char unk0x1DD[0x23C - 0x1DD];
-};
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -49,14 +32,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2SkillDescTxt
-{
-    unsigned char nSkillPage;
-    unsigned char nSkillRow;
-    char nSkillColumn;
-    char unk0x03[0x120 - 0x03];
-};
 
 extern "C" const char szSkillsCppFile_006DAB88[]; // 0x006DAB88
 D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
@@ -101,7 +76,7 @@ int __fastcall sub_004C5FA0_CheckPetTarget(D2UnitStrc* pUnit, int nSkillId, int 
         return 0;
     }
 
-    return (pPetTypeTxtRecord->nFlags[3 >> 3] & gdwBitMasks[3 & 7]) != 0;
+    return (pPetTypeTxtRecord->nPetFlags[3 >> 3] & gdwBitMasks[3 & 7]) != 0;
 }
 
 static __forceinline D2SkillsTxt* GetSkillRecord(int nSkillId)
@@ -125,7 +100,7 @@ void __fastcall sub_004C7890(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
     D2SkillsTxt* pSkillsTxt = GetSkillRecord(nSkillId);
     if (!pSkillsTxt)
         return;
-    switch (pSkillsTxt->nClientFunction)
+    switch (pSkillsTxt->wSrvDoFunc)
     {
     case 67:
         sub_004CA000(pUnit, nSkillId);
@@ -197,8 +172,8 @@ void __fastcall sub_004C7990(D2UnitStrc* pUnit, int nA, int nB, unsigned char nC
         }
 
         if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 0 && SKILLS_IsEnhanceable(nSkillId)
-            && (!nB || pSkillsTxtRecord->nCharClass == nB)
-            && (nC == 4 || pSkillDescTxtRecord->nSkillColumn == nC + 1)
+            && (!nB || pSkillsTxtRecord->nEType == nB)
+            && (nC == 4 || pSkillDescTxtRecord->nSkillPage == nC + 1)
             && SKILLS_GetOwnerGUIDFromSkill(pSkill) == -1)
         {
             D2Common_11031(pUnit, nSkillId, nA);

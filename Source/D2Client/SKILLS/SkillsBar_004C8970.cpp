@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
@@ -13,18 +14,6 @@ struct D2UnitStrc;
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2CharStatsTxt;
-
-
-
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    unsigned char unk_04[0x2E];
-    short nRun;
-    unsigned char unk_34[0x174];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
@@ -58,12 +47,6 @@ int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection); // 0x00
 int __fastcall sub_004C85B0_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C85B0
 void __fastcall sub_004C8670_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C8670
 
-
-struct D2CharStatsTxt
-{
-    char unk0x00[0x40];
-    unsigned char nRunSpeed;
-};
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -432,12 +415,12 @@ int __fastcall sub_004C9120_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, in
         D2CharStatsTxt* pCharStatsTxtRecord = sub_004833E0_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pCharStatsTxtRecord)
         {
-            PATH_SetVelocity(pPath, pCharStatsTxtRecord->nRunSpeed << 8, gszSkillsBarSourceFile_006DAE58, 1177);
+            PATH_SetVelocity(pPath, pCharStatsTxtRecord->nWalkSpeed << 8, gszSkillsBarSourceFile_006DAE58, 1177);
         }
     }
     else
     {
-        PATH_SetVelocity(pPath, DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId)->nRun << 8, gszSkillsBarSourceFile_006DAE58, 1183);
+        PATH_SetVelocity(pPath, DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId)->nVelocity << 8, gszSkillsBarSourceFile_006DAE58, 1183);
     }
 
     PATH_SetMoveTestCollisionMask(pPath, 0x401);

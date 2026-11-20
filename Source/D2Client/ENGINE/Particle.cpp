@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
+#include "D2TxtTables.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -21,15 +22,6 @@ struct D2GfxNodeStrc
     int unk0x00[3];
     D2GfxNodeStrc* pNext;
 };
-
-struct D2OverlayTxt
-{
-    unsigned short wOverlay;
-    char szFilename[64];
-    char unk0x42[0x42];
-};
-
-
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 unsigned int gaPlrModeTokens_007C88D0[20];                                                                  // 0x007C88D0

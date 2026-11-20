@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2Txt.h"
 
 struct Unicode;
 struct UnicodeChar;
@@ -14,36 +15,6 @@ struct UnicodeChar : Unicode
 {
     UnicodeChar();                                                                                          // 0x0042F530
 };
-
-
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x48];
-    short wAuraStat[6];
-    char unk0x60[0x8];
-    int dwAuraStatCalc[6];
-    char unk0x80[0x18];
-    short nPassiveStat[5];
-    char unk0xA2[0x2];
-    int dwPassiveCalc[5];
-    char unk0xB8[0x4];
-    short wSummon;
-    unsigned char unk_BE[0x7A];
-    unsigned int dwCalc;
-    char unk0x13C[0x68];
-    unsigned char nHitShift;
-    unsigned char nSrcDam;
-    char unk0x1A6[0x02];
-    int nMinDam;
-    int dwEMax;
-    char unk0x1B0[0x2C];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
-
 
 typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
 
@@ -100,14 +71,6 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0064B0C0
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
-
-struct D2MonStatsTxt
-{
-    char unk0x0[0xAA];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -570,7 +533,7 @@ void __fastcall sub_004EA450_DrawMinDamagePlusStat(D2UnitStrc* pUnit, D2SkillStr
         return;
     }
 
-    int nDamage = pSkillsTxt->nMinDam << (pSkillsTxt->nHitShift - 8);
+    int nDamage = pSkillsTxt->dwMinDam << (pSkillsTxt->nToHitShift - 8);
     nDamage += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x89, 0);
     sub_004E96E0_DrawDamageRange(0, nY, nDamage, nDamage, nLeft, nRight);
 }
@@ -772,7 +735,7 @@ void __fastcall sub_004EA240_DrawDualWieldLineNoElem(D2UnitStrc* pUnit, D2SkillS
 
 void __fastcall sub_004EB240_DrawSkillWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
-    const int nBonus = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc, pSkillsTxt->nSkillId, nSkillLevel);
+    const int nBonus = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[0], pSkillsTxt->nSkillId, nSkillLevel);
     sub_004E99F0_DrawWeaponDamage(pUnit, pSkill, pSkillsTxt, nSkillLevel, sub_004EA4A0_WeaponDamageCallback2, nBonus, 0, nLeft, nY, nRight, 1);
 }
 
@@ -785,9 +748,9 @@ void __fastcall sub_004EB390_DrawElementalDamageLine(D2UnitStrc* pUnit, D2SkillS
     if (!pSkillsTxt)
         return;
 
-    const int nShift = pSkillsTxt->nHitShift;
-    int nMinElem = pSkillsTxt->nMinDam << nShift;
-    int nMaxElem = pSkillsTxt->dwEMax << nShift;
+    const int nShift = pSkillsTxt->nToHitShift;
+    int nMinElem = pSkillsTxt->dwMinDam << nShift;
+    int nMaxElem = pSkillsTxt->dwMaxDam << nShift;
     nMinElem += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);
     nMaxElem += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);
     int& nColor = nSkillLevel;

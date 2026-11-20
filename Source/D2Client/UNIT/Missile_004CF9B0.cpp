@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
@@ -10,29 +11,9 @@ struct D2MissilesTxt;
 struct D2SkillsTxt;
 union D2SeedStrc;
 
-
 #pragma pack(push, 4)
 
 #pragma pack(pop)
-
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x2C];
-    short wCltHitSubMissile[4];
-    char unk0x034[0x38];
-    int dwCltHitPar[3];
-    char unk0x078[0x12C];
-};
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x150];
-    int nParam150;
-    int nParam154;
-    char unk0x158[0xE4];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gaRing5OffsetX_006DB0EC[]; // 0x006DB0EC
@@ -103,7 +84,7 @@ static __forceinline int SKILLS_GetLevelBasedParam(int nSkillId, int nLevel)
         return 0;
     }
 
-    return (nLevel - 1) * pSkillsTxtRecord->nParam154 + pSkillsTxtRecord->nParam150;
+    return (nLevel - 1) * pSkillsTxtRecord->dwParam[3] + pSkillsTxtRecord->dwParam[2];
 }
 
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)

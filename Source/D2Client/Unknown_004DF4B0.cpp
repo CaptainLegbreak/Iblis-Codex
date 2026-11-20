@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2ClientUi.h"
+#include "D2Txt.h"
 
 struct D2CellNodeStrc;
 struct D2CellGridViewStrc;
@@ -47,17 +48,6 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 int __fastcall sub_004E0000_SetSoundMode(int nMode); // 0x004E0000
 void __fastcall sub_00515F50_FadeOutMaster(int nTime); // 0x00515F50
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x3C];
-    int nRange;
-    char unk0x040[0x5A];
-    unsigned char nVel;
-    char unk0x09B[0xDD];
-    unsigned char nAnimLen;
-    char unk0x179[0x2B];
-};
 
 struct D2StringSoundStrc
 {
@@ -101,20 +91,6 @@ void __stdcall sub_006445A0(D2SkillStrc*, int); // 0x006445A0
 
 enum { SUCCESS_VALUE = 1 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x11];
-    unsigned char nMonAnim;
-    unsigned char unk_12[0xD8];
-    short wCltMissileA;
-    short wCltMissileB;
-    char unk0x0EE[0x26];
-    unsigned int dwCltCalc1;
-    char unk0x118[0x20];
-    unsigned int dwCltCalc2;
-    char unk0x13C[0x100];
-};
-
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -127,20 +103,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 void __fastcall sub_004E1970_SetInfernoFrames(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x004E1970
 extern const int gaMissileVelocityPair_006DBAA0[]; // 0x006DBAA0
 extern const int gaMissileVelocityCharged_006DBB38[]; // 0x006DBB38
-
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short wMonStatsEx;
-    char unk0x1A[0x18E];
-};
-
-struct D2MonStats2Txt
-{
-    char unk0x000[0x109];
-    unsigned char nInfernoAnim;
-    char unk0x10A[0x2A];
-};
 
 int gdwGlobal_007C8C78; // 0x007C8C78
 
@@ -598,10 +560,10 @@ static int __stdcall sub_004E1400_SetMissileFrames(D2UnitStrc* pUnit, int nSkill
         return 0;
     }
 
-    int nFrames = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCltCalc2, nSkillId, nSkillLevel);
+    int nFrames = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[0], nSkillId, nSkillLevel);
     if (nFrames <= 0)
     {
-        nFrames = pMissilesTxt->nRange + nSkillLevel - 1;
+        nFrames = pMissilesTxt->dwParam[1] + nSkillLevel - 1;
     }
 
     nFrames = nFrames > 1 ? (nFrames < 0xFF ? nFrames : 0xFF) : 1;
@@ -709,7 +671,7 @@ int __fastcall sub_004E1A20_SkillCltDoChargedMissile(D2UnitStrc* pUnit, int nSki
         return 0;
     }
 
-    const int nMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCltCalc1, nSkillId, nSkillLevel);
+    const int nMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCltCalc[0], nSkillId, nSkillLevel);
     const int nParam = SKILLS_GetParam1(pSkill) + 1;
     if (nParam < nMax)
     {

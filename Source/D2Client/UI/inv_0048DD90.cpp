@@ -1,5 +1,7 @@
 #include "D2Structs.h"
 #include "D2Unicode.h"
+#include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -7,52 +9,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 struct D2InventoryStrc;
 
-
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    char unk0x84[0x1A];
-    short nStat;
-    char unk0xA0[0x04];
-    unsigned int nCalc;
-    char unk0xA8[0x0C];
-    unsigned char nDescType;
-    char unk0xB5;
-    unsigned short wStringId;
-    char unk0xB8[0x38];
-    int nGemOffset;
-    unsigned short wNameStr;
-    char unk0xF6[0x08];
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-    char unk0x100[0x0A];
-    unsigned short wReqStr;
-    unsigned short wReqDex;
-    char unk0x10E[0x03];
-    unsigned char nBlock;
-    char unk0x112[0x18];
-    unsigned char nQuest;
-};
-
 struct D2GemsTxt
 {
     char unk0x00[0x20];
     char szLetter[6];
-};
-
-struct D2CharStatsTxt
-{
-    char unk0x00[0x49];
-    unsigned char nBlockFactor;
-    char unk0x4A[0x7A];
-};
-
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
 };
 
 struct D2SpeedNameStrc
@@ -559,8 +519,8 @@ static __declspec(noinline) void __stdcall sub_00486370_AppendItemFormulaText(D2
     {
         unsigned int szValue[3];
         unsigned int wszValue[5];
-        int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->nCalc);
-        switch (pRecord->nStat)
+        int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->dwCalc[0]);
+        switch (pRecord->wStat[0])
         {
         case 6:
         case 74:
@@ -584,7 +544,7 @@ static __declspec(noinline) void __stdcall sub_00486370_AppendItemFormulaText(D2
     {
         unsigned int szValue[3];
         unsigned int wszValue[5];
-        int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->nCalc);
+        int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->dwCalc[0]);
         sub_005267E0(pBuffer, D2LANG_GetStringFromTblIndex(pRecord->wStringId));
         SStrPrintf((char*)szValue, 10, szFmtLong_006D9BE8, nValue);
         sub_00526F20(W(wszValue), (char*)szValue, 9);
@@ -596,7 +556,7 @@ static __declspec(noinline) void __stdcall sub_00486370_AppendItemFormulaText(D2
 
     case 4:
     {
-        int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->nCalc);
+        int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->dwCalc[0]);
         unsigned int wszText[0x100];
         sub_005269D0(0x200, W(wszText), D2LANG_GetStringFromTblIndex(pRecord->wStringId), nValue);
         sub_00526700(pBuffer, W(wszText));
@@ -638,7 +598,7 @@ static __declspec(noinline) void __stdcall sub_00486670_AppendSocketedGemLetters
         {
             const int nClassId = pGem->dwClassId;
             D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
-            const int nGemOffset = pItemsTxtRecord->nGemOffset;
+            const int nGemOffset = pItemsTxtRecord->dwGemOffset;
             if (nGemOffset > 0)
             {
                 D2GemsTxt* pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(nGemOffset);

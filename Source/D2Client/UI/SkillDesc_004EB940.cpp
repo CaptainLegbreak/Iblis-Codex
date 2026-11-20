@@ -3,25 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
-
-
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-    char unk0x0C[0x12C];
-    unsigned int dwCalc[3];
-    char unk0x144[0x04];
-    int dwParam[8];
-    char unk0x168[0x3D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
-
-
+#include "D2Txt.h"
 
 struct UnicodeChar : Unicode
 {

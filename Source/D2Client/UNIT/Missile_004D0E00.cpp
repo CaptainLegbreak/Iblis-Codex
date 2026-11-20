@@ -4,20 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
-
-
-
-
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x2C];
-    short wCltHitSubMissile[3];
-    char unk0x032[0x3A];
-    int dwCltHitPar[2];
-    char unk0x074[0x130];
-};
-
+#include "D2Txt.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

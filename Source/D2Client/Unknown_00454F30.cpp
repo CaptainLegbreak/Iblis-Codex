@@ -1,17 +1,11 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
-
-struct D2ObjectDataStrc
-{
-    char unk0x00[0x04];
-    unsigned char nInteractType;
-};
+#include "D2GameObjs.h"
 
 struct D2LevelsTxt
 {
@@ -375,7 +369,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         if (nFlags & 4)
         {
             Unicode wszOwner[0x80];
-            sub_005267E0(wszText, sub_00453E70_GetLevelName(pUnit->pObjectData->nInteractType));
+            sub_005267E0(wszText, sub_00453E70_GetLevelName(pUnit->pObjectData->InteractType));
             if (gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1)
             {
                 char szOwner[0x80];

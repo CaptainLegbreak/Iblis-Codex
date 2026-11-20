@@ -4,6 +4,7 @@
 #include "D2GameTypes.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2Txt.h"
 
 struct Unicode;
 struct D2SkillsTxt;
@@ -18,27 +19,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-struct D2SkillsTxt
-{
-    char unk0x000[0xEA];
-    short wCltMissileA;
-    short wCltMissileB;
-    char unk0x0EE[0x26];
-    int dwCltCalc[3];
-    unsigned char unk_120[0xC];
-    short nMaxLevel;
-    char unk12e[0x174-0x12e];
-    short wReqLevel;
-    char unk176[0x194-0x176];
-    short wSkillDesc;
-    unsigned char unk_196[0x46];
-    unsigned char nEType;
-    unsigned char unk_1DD[0x5F];
-};
-
 extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
-
-
 
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644D50
@@ -46,8 +27,6 @@ int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
 unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0064B0C0
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nArg3, int nArg4, int nLine, int nArg5); // 0x004EDEA0
@@ -61,19 +40,7 @@ void __fastcall sub_004521C0_SetTextColor(Unicode*,int); // 0x004521C0
 int __stdcall sub_004ED480_HasClassSkill(D2UnitStrc*); // 0x004ED480
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode*, int); // 0x004521C0
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x3C];
-    int nParam3C;
-    char unk0x40[0x5A];
-    unsigned char nParam9A;
-    char unk0x9B[0xDD];
-    unsigned char nParam178;
-    char unk0x179[0x2B];
-};
-
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
-
 
 void* __cdecl sub_00681EF0_Memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern const int gnVelocityBonus_006DBF38[5]; // 0x006DBF38
@@ -556,8 +523,8 @@ int __fastcall sub_004EFDF0_LobMissile(D2UnitStrc* pUnit, int nSkillId, int nSki
                 tMissileParams.nTargetY = nTargetY;
 
                 const int nHeight = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel) + sub_004DA150_GetMotionAZ(pUnit);
-                const int nFrames = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[1], nSkillId, nSkillLevel) + pMissilesTxtRecord->nParam3C;
-                int nSpeed = pMissilesTxtRecord->nParam178 << 8;
+                const int nFrames = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[1], nSkillId, nSkillLevel) + pMissilesTxtRecord->dwParam[1];
+                int nSpeed = pMissilesTxtRecord->nAnimLen << 8;
                 int nFall = -2 * nHeight;
                 if (nFrames)
                 {
@@ -572,7 +539,7 @@ int __fastcall sub_004EFDF0_LobMissile(D2UnitStrc* pUnit, int nSkillId, int nSki
                     tMissileParams.nMissile = nAltMissile;
                 }
 
-                tMissileParams.nVelocity = pMissilesTxtRecord->nParam9A + gnVelocityBonus_006DBF38[SEED_RollRandomNumber(pSeed) % 5];
+                tMissileParams.nVelocity = pMissilesTxtRecord->nVel + gnVelocityBonus_006DBF38[SEED_RollRandomNumber(pSeed) % 5];
 
                 D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
                 if (pMissile)
