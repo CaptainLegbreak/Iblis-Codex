@@ -25,10 +25,6 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit);                                          // 0x0063A770
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_ITEM 4
-#define UNIT_INVALID 6
 #define MONMODE_DEAD 12
 #define MONSTATS2FLAGINDEX_CORPSESEL 7
 #define MONSTATS2FLAGINDEX_DEADCOL 19

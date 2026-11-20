@@ -78,10 +78,6 @@ struct D2DynamicPathStrc
 };
 
 
-#define UNIT_OBJECT 2
-#define UNIT_MISSILE 3
-#define UNIT_ITEM 4
-#define UNIT_TYPES_COUNT 6
 #define PATH_NB_DIRECTIONS 64
 #define PATHTYPE_IDASTAR 0
 #define PATH_CURRENT_ROOM_INVALID 0x00002

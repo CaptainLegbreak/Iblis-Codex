@@ -2,9 +2,6 @@
 #include "D2Structs.h"
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ISEAR 0x10000
 #define IFLAG_COMPACTSAVE 0x200000

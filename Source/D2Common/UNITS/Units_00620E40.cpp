@@ -1,9 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_OBJECT 2
-#define UNIT_MISSILE 3
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define UNITFLAGEX_HASINV 0x1
 #define UNITFLAGEX_UPDATEINV 0x2
 #define UNITFLAGEX_STORELASTATTACKER 0x20000
@@ -94,8 +90,6 @@ struct D2MonStatsTxt
 
 enum
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     UNIT_TYPES = 6,
     STAT_DEXTERITY = 2,
     STAT_LEVEL = 12,

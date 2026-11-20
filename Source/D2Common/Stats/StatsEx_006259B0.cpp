@@ -1,8 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
 
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0

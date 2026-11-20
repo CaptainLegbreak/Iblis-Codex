@@ -65,9 +65,6 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType);    
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit);                                             // 0x00649400
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom);                                           // 0x0064C350
 
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_MISSILE 3
 #define COLLIDE_MISSILE_BARRIER 0x4
 #define PATH_UNKNOWN_FLAG_0x00010 0x10
 

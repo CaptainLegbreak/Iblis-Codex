@@ -1,6 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_INVALID 6
+#include "D2Structs.h"
 
 struct D2InventoryStrc;
 struct D2ItemExtraDataStrc;
@@ -25,39 +25,8 @@ struct D2ItemDataStrc
 };
 
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nGridWidth;
-    unsigned char nGridHeight;
-    unsigned short unk0x0A;
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short unk0x02;
-    int nGridRect[5];
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    int dwOwnerGuid;
-    int dwItemCount;
-    char unk0x2C[0x14];
-};
 
 struct D2ItemsTxt
 {

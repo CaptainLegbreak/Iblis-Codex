@@ -1,10 +1,8 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 #define INVENTORY_SIGNATURE 0x1020304
-#define UNIT_PLAYER 0
-#define UNIT_ITEM 4
 #define NUM_BODYLOC 13
-#define UNIT_INVALID 6
 #define ITEMTYPE_WEAPON 0x2D
 #define ITEMTYPE_MISSILE_POTION 0x26
 struct D2InventoryStrc;
@@ -22,38 +20,8 @@ struct CodeEntry;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nCellsX;
-    unsigned char nCellsY;
-    unsigned short unk0x0A;
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short unk0x02;
-    int nGridRect[5];
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    int dwOwnerGuid;
-    int dwItemCount;
-};
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 __declspec(noinline) static D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc*, int, D2InventoryGridInfoStrc*);
@@ -168,16 +136,16 @@ D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, in
         {
             if (!pInventoryGrid->ppItems)
             {
-                pInventoryGrid->nCellsX = pInventoryGridInfo->nGridX;
-                pInventoryGrid->nCellsY = pInventoryGridInfo->nGridY;
-                pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nCellsY * pInventoryGrid->nCellsX, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC1, 0);
-                unsigned int nSize = pInventoryGrid->nCellsX;
-                nSize *= pInventoryGrid->nCellsY;
+                pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
+                pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
+                pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridHeight * pInventoryGrid->nGridWidth, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC1, 0);
+                unsigned int nSize = pInventoryGrid->nGridWidth;
+                nSize *= pInventoryGrid->nGridHeight;
                 nSize *= sizeof(D2UnitStrc*);
                 memset(pInventoryGrid->ppItems, 0, nSize);
             }
 
-            if (pInventoryGrid->nCellsX != pInventoryGridInfo->nGridX || pInventoryGrid->nCellsY != pInventoryGridInfo->nGridY)
+            if (pInventoryGrid->nGridWidth != pInventoryGridInfo->nGridX || pInventoryGrid->nGridHeight != pInventoryGridInfo->nGridY)
             {
                 return 0;
             }
@@ -195,11 +163,11 @@ D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, in
         pInventory->nGridCount = nInventoryGrid + 1;
 
         pInventoryGrid = &pInventory->pGrids[nInventoryGrid];
-        pInventoryGrid->nCellsX = pInventoryGridInfo->nGridX;
-        pInventoryGrid->nCellsY = pInventoryGridInfo->nGridY;
-        pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nCellsY * pInventoryGrid->nCellsX, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC2, 0);
-        unsigned int nSize = pInventoryGrid->nCellsX;
-                nSize *= pInventoryGrid->nCellsY;
+        pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
+        pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
+        pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridHeight * pInventoryGrid->nGridWidth, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC2, 0);
+        unsigned int nSize = pInventoryGrid->nGridWidth;
+                nSize *= pInventoryGrid->nGridHeight;
                 nSize *= sizeof(D2UnitStrc*);
                 memset(pInventoryGrid->ppItems, 0, nSize);
     }
@@ -229,9 +197,9 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInven
         return 0;
     }
 
-    if (nGridX >= 0 && nGridX <= pInventoryGrid->nCellsX && nGridY >= 0 && nGridY <= pInventoryGrid->nCellsY)
+    if (nGridX >= 0 && nGridX <= pInventoryGrid->nGridWidth && nGridY >= 0 && nGridY <= pInventoryGrid->nGridHeight)
     {
-        D2UnitStrc* pItem = pInventoryGrid->ppItems[nGridX + nGridY * pInventoryGrid->nCellsX];
+        D2UnitStrc* pItem = pInventoryGrid->ppItems[nGridX + nGridY * pInventoryGrid->nGridWidth];
         if (pItem)
         {
             *pX = CLIENTS_GetUnitX(pItem);
@@ -377,7 +345,7 @@ static BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInve
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
-        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nCellsX];
+        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nGridWidth];
         for (int x = nX; x < nX + nItemWidth; ++x)
         {
             if (ppRow[x])
@@ -395,7 +363,7 @@ static __declspec(noinline) void __stdcall sub_0063A910_FillGridCells(D2Inventor
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
-        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nCellsX];
+        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nGridWidth];
         for (int x = nX; x < nX + nItemWidth; ++x)
         {
             ppRow[x] = pItem;
@@ -554,7 +522,7 @@ static BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2U
 // 0x0063B300
 static BOOL __stdcall INVENTORY_CanItemBePlacedAtPos(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
-    if (nItemWidth + nX > pInventoryGrid->nCellsX || nItemHeight + nY > pInventoryGrid->nCellsY)
+    if (nItemWidth + nX > pInventoryGrid->nGridWidth || nItemHeight + nY > pInventoryGrid->nGridHeight)
     {
         return FALSE;
     }
@@ -571,7 +539,7 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
         const int nLeftX = nXPos - 1;
         for (int y = nYPos; y < nYPos + nItemHeight; ++y)
         {
-            if (pInventoryGrid->ppItems[nLeftX + y * pInventoryGrid->nCellsX])
+            if (pInventoryGrid->ppItems[nLeftX + y * pInventoryGrid->nGridWidth])
             {
                 ++nResult;
             }
@@ -583,11 +551,11 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
     }
 
     const int nRightX = nXPos + nItemWidth;
-    if (nRightX < pInventoryGrid->nCellsX)
+    if (nRightX < pInventoryGrid->nGridWidth)
     {
         for (int y = nYPos; y < nYPos + nItemHeight; ++y)
         {
-            if (pInventoryGrid->ppItems[nRightX + y * pInventoryGrid->nCellsX])
+            if (pInventoryGrid->ppItems[nRightX + y * pInventoryGrid->nGridWidth])
             {
                 ++nResult;
             }
@@ -602,7 +570,7 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
     {
         for (int x = nXPos; x < nRightX; ++x)
         {
-            if (pInventoryGrid->ppItems[x + (nYPos - 1) * pInventoryGrid->nCellsX])
+            if (pInventoryGrid->ppItems[x + (nYPos - 1) * pInventoryGrid->nGridWidth])
             {
                 ++nResult;
             }
@@ -613,11 +581,11 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
         nResult += nItemWidth;
     }
 
-    if (nYPos + nItemHeight < pInventoryGrid->nCellsY)
+    if (nYPos + nItemHeight < pInventoryGrid->nGridHeight)
     {
         for (int x = nXPos; x < nRightX; ++x)
         {
-            if (pInventoryGrid->ppItems[x + (nYPos + nItemHeight) * pInventoryGrid->nCellsX])
+            if (pInventoryGrid->ppItems[x + (nYPos + nItemHeight) * pInventoryGrid->nGridWidth])
             {
                 ++nResult;
             }
@@ -640,11 +608,11 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
 static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     unsigned char nMax = 0;
-    for (int nX = pInventoryGrid->nCellsX - 1; nX >= 0; --nX)
+    for (int nX = pInventoryGrid->nGridWidth - 1; nX >= 0; --nX)
     {
-        for (int nY = pInventoryGrid->nCellsY - 1; nY >= 0; --nY)
+        for (int nY = pInventoryGrid->nGridHeight - 1; nY >= 0; --nY)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 const unsigned char nWeight = INVENTORY_GetPlacementWeight(pInventoryGrid, nX, nY, nItemWidth, nItemHeight);
                 if (nWeight > nMax)
@@ -668,11 +636,11 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRight
 // 0x0063B540
 static __declspec(noinline) BOOL __stdcall sub_0063B540_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
-    for (int nX = pInventoryGrid->nCellsX - 1; nX >= 0; --nX)
+    for (int nX = pInventoryGrid->nGridWidth - 1; nX >= 0; --nX)
     {
-        for (int nY = 0; nY < pInventoryGrid->nCellsY; ++nY)
+        for (int nY = 0; nY < pInventoryGrid->nGridHeight; ++nY)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 *pFreeX = nX;
                 *pFreeY = nY;
@@ -706,11 +674,11 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBo
     int nX;
     int nY;
     unsigned char nMax = 0;
-    for (nY = 0; nY < pInventoryGrid->nCellsY; ++nY)
+    for (nY = 0; nY < pInventoryGrid->nGridHeight; ++nY)
     {
-        for (nX = 0; nX < pInventoryGrid->nCellsX; ++nX)
+        for (nX = 0; nX < pInventoryGrid->nGridWidth; ++nX)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 const unsigned char nWeight = INVENTORY_GetPlacementWeight(pInventoryGrid, nX, nY, nItemWidth, nItemHeight);
                 if (nWeight > nMax)
@@ -734,11 +702,11 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBo
 // 0x0063B6E0
 static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
-    for (int nX = 0; nX < pInventoryGrid->nCellsX; ++nX)
+    for (int nX = 0; nX < pInventoryGrid->nGridWidth; ++nX)
     {
-        for (int nY = 0; nY < pInventoryGrid->nCellsY; ++nY)
+        for (int nY = 0; nY < pInventoryGrid->nGridHeight; ++nY)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 *pFreeX = nX;
                 *pFreeY = nY;

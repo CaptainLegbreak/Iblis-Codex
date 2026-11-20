@@ -1,7 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 #define STAT_STAMINA 10

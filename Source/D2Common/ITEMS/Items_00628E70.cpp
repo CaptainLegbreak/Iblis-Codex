@@ -14,12 +14,10 @@
         nBuy += *pBuyCost * (nMult) * (nValue) / (nBuyDiv) + (nAdd);                          \
         tLoop.nRep += *pRepCost * (nMult) * (nValue) / 1024 + (nAdd);                             \
     }
-#define UNIT_ITEM 4
 #define IFLAG_NEWITEM 0x00080000
 #define IFLAG_ISEAR 0x00010000
 #define IFLAG_COMPACTSAVE 0x00200000
 #define IFLAG_UNK_GAMBLE 0x02000000
-#define UNIT_INVALID 6
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ETHEREAL 0x400000
 struct D2InventoryStrc;

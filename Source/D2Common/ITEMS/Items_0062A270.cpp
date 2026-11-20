@@ -1,7 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_ITEM 4
-#define UNIT_INVALID 6
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ETHEREAL 0x400000
 #define STAT_QUANTITY 70

@@ -1,7 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 
-#define UNIT_MISSILE 3
 #define PLRMODE_THROW 11
 #define LVLSUB_UNUSED_INVALID -1
 #define PATH_CURRENT_ROOM_INVALID 2
@@ -13,8 +12,6 @@
 #define MONSTATS2FLAGINDEX_SMALL 10
 #define PATH_UNKNOWN_FLAG_0x00020 0x20
 #define PATH_UNKNOWN_FLAG_0x00040 0x40
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 #define STAT_ENERGY 1
 #define STAT_DEXTERITY 2
 #define STAT_VITALITY 3
@@ -32,10 +29,6 @@
 #define MONMODE_SKILL3 10
 #define MONMODE_SKILL4 11
 #define MONMODE_RUN 15
-#define UNIT_PLAYER 0
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 struct D2TCExShortStrc;

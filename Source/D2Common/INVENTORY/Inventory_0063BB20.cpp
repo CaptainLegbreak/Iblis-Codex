@@ -1,39 +1,9 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nGridWidth;
-    unsigned char nGridHeight;
-    unsigned short unk0x0A;
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short unk0x02;
-    int nGridRect[5];
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    int dwOwnerGuid;
-    int dwItemCount;
-    char unk0x2C[0x14];
-};
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0

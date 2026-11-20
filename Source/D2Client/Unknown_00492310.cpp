@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -9,12 +10,6 @@ struct D2ElemDamageStrc;
 struct D2BodyLocRectStrc;
 struct D2InventoryGridInfoStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x5C];
-    D2InventoryStrc* pInventory;
-};
 
 struct SMSGHANDLER_PARAMS
 {
@@ -112,19 +107,6 @@ struct D2BodyLocRectStrc
     unsigned char unk0x12[2];
 };
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short pad0x02;
-    int nGridLeft;
-    int nGridRight;
-    int nGridTop;
-    int nGridBottom;
-    unsigned char nGridBoxWidth;
-    unsigned char nGridBoxHeight;
-    unsigned short pad0x16;
-};
 
 void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __stdcall sub_00483E40(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40

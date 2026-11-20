@@ -156,7 +156,6 @@ void __stdcall D2Common_10846(int nValue, int* p1, int* p2, int* p3, int* p4);  
 void __stdcall D2Common_10845(int nValue, int* pSkillId, int* pSkillLevel, int* pChance);                   // 0x0065CB10
 void __stdcall sub_0065CB60_DecodeAddSkillTab(int nValue, int* pClass, int* pTab, int* pLevel);             // 0x0065CB60
 
-#define UNIT_ITEM 4
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ISEAR 0x10000
 

@@ -4,7 +4,6 @@
 #else
 #define ITEM_GAP 16
 #endif
-#define UNIT_ITEM 4
 struct D2ItemDataStrc
 {
     unsigned int dwQualityNo;

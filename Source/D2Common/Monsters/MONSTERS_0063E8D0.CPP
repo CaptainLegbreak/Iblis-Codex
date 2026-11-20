@@ -44,8 +44,6 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 #define MONSTER_SANDLEAPER1 78
 
 __forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)

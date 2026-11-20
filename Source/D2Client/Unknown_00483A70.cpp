@@ -1,9 +1,8 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc { char unknown00[0x60]; D2InventoryStrc* pInventory; };
 struct D2InvRectStrc { int nLeft,nRight,nTop,nBottom; };
 struct D2InvCompGridStrc { D2InvRectStrc rect; unsigned char nWidth,nHeight; unsigned short pad; };
-struct D2InventoryGridInfoStrc { unsigned char nGridX,nGridY; unsigned short pad; int nGridLeft,nGridRight,nGridTop,nGridBottom; unsigned char nGridBoxWidth,nGridBoxHeight; unsigned short pad2; };
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 extern int gnAutomapHeight_007A521C; // 0x007A521C

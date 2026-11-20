@@ -20,7 +20,6 @@ struct D2DataTablesStrc
     int nSkillsTxtRecordCount;
 };
 
-#define STATLIST_NEWLENGTH 0x80000000
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
@@ -49,7 +48,7 @@ void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pSta
     if (((void*)pStatList->Stats.pStat))
         FOG_FreePool(pStatList->pMemPool, ((void*)pStatList->Stats.pStat), ".\\Stats\\StatsEx.cpp", 0x4D8, 0);
 
-    if (pStatList->dwFlags & STATLIST_NEWLENGTH)
+    if (pStatList->dwFlags & STATLIST_EXTENDED)
     {
         D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
         D2StatListStrc* pPrevious;
@@ -58,7 +57,7 @@ void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pSta
             pPrevious = pCurrent->pPrevLink;
             pCurrent->pParent = 0;
             pCurrent->pUnit = 0;
-            if (pCurrent->dwFlags & STATLIST_NEWLENGTH)
+            if (pCurrent->dwFlags & STATLIST_EXTENDED)
                 continue;
 
             if (pStatListEx->pMyLastList == pCurrent)

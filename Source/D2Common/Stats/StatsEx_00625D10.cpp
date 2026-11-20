@@ -2,8 +2,6 @@
 #include "D2Structs.h"
 
 #define MOVED_PREFIX
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
 struct D2StatStrc;
 struct D2StatsArrayStrc;
 struct D2ItemStatCostTxt;

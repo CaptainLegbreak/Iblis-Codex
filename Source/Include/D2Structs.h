@@ -2,6 +2,8 @@
 // Offsets are 1.14d's. A field the game uses in more than one way is a union; unknown bytes are unk0xNN.
 #pragma once
 
+#include "D2Constants.h"
+
 struct D2ActiveRoomStrc;
 struct D2AnimDataRecordStrc;
 struct D2AnimSeqTxt;
@@ -211,6 +213,64 @@ struct D2UnitStrc
     D2UnitPacketListStrc* pMsgLast; // 0xF0
 };
 
+struct D2InventoryGridStrc
+{
+    D2UnitStrc* pItem; // 0x00
+    D2UnitStrc* pLastItem; // 0x04
+    unsigned char nGridWidth; // 0x08
+    unsigned char nGridHeight; // 0x09
+    unsigned short unk0x0A; // 0x0A
+    D2UnitStrc** ppItems; // 0x0C
+};
+
+struct D2InventoryGridInfoStrc
+{
+    unsigned char nGridX; // 0x00
+    unsigned char nGridY; // 0x01
+    unsigned short unk0x02; // 0x02
+    int nGridLeft; // 0x04
+    int nGridRight; // 0x08
+    int nGridTop; // 0x0C
+    int nGridBottom; // 0x10
+    unsigned char nGridBoxWidth; // 0x14
+    unsigned char nGridBoxHeight; // 0x15
+    unsigned short unk0x16; // 0x16
+};
+
+struct D2InventoryNodeStrc
+{
+    int nItemId; // 0x00
+    D2InventoryNodeStrc* pNext; // 0x04
+};
+
+struct D2CorpseStrc
+{
+    unsigned int unk0x00; // 0x00
+    unsigned int dwUnitId; // 0x04
+    unsigned int unk0x08; // 0x08
+    D2CorpseStrc* pNextCorpse; // 0x0C
+};
+
+struct D2InventoryStrc
+{
+    unsigned int dwSignature; // 0x00
+    void* pMemPool; // 0x04
+    D2UnitStrc* pOwner; // 0x08
+    D2UnitStrc* pFirstItem; // 0x0C
+    D2UnitStrc* pLastItem; // 0x10
+    D2InventoryGridStrc* pGrids; // 0x14
+    int nGridCount; // 0x18
+    int dwLeftItemGUID; // 0x1C
+    D2UnitStrc* pCursorItem; // 0x20
+    int dwOwnerGuid; // 0x24
+    int dwItemCount; // 0x28
+    D2InventoryNodeStrc* pFirstNode; // 0x2C
+    D2InventoryNodeStrc* pLastNode; // 0x30
+    D2CorpseStrc* pFirstCorpse; // 0x34
+    D2CorpseStrc* pLastCorpse; // 0x38
+    int nCorpseCount; // 0x3C
+};
+
 // Layout checks: a wrong size or offset makes the array size negative and stops the compile.
 #define D2_CHECK_SIZE(T, n) typedef char D2SizeCheck_##T[(sizeof(T) == (n)) ? 1 : -1]
 #define D2_CHECK_OFFSET(T, m, n) typedef char D2OffsetCheck_##T##_##m[((unsigned int)&((T*)0)->m == (n)) ? 1 : -1]
@@ -236,3 +296,14 @@ D2_CHECK_OFFSET(D2UnitStrc, pInventory, 0x60);
 D2_CHECK_OFFSET(D2UnitStrc, dwOwnerType, 0x94);
 D2_CHECK_OFFSET(D2UnitStrc, dwFlags, 0xC4);
 D2_CHECK_OFFSET(D2UnitStrc, pMsgLast, 0xF0);
+D2_CHECK_SIZE(D2InventoryGridStrc, 0x10);
+D2_CHECK_OFFSET(D2InventoryGridStrc, ppItems, 0x0C);
+D2_CHECK_SIZE(D2InventoryGridInfoStrc, 0x18);
+D2_CHECK_OFFSET(D2InventoryGridInfoStrc, nGridBoxWidth, 0x14);
+D2_CHECK_SIZE(D2InventoryNodeStrc, 0x08);
+D2_CHECK_SIZE(D2CorpseStrc, 0x10);
+D2_CHECK_SIZE(D2InventoryStrc, 0x40);
+D2_CHECK_OFFSET(D2InventoryStrc, pGrids, 0x14);
+D2_CHECK_OFFSET(D2InventoryStrc, pCursorItem, 0x20);
+D2_CHECK_OFFSET(D2InventoryStrc, pFirstNode, 0x2C);
+D2_CHECK_OFFSET(D2InventoryStrc, nCorpseCount, 0x3C);

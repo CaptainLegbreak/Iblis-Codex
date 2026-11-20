@@ -1,10 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2DrlgCoordsStrc;

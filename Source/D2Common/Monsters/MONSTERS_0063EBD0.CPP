@@ -1,6 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_MONSTER 1
 struct D2MonsterDataStrc;
 struct D2ItemsTxt;
 struct D2MonStatsTxt;

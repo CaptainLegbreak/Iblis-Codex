@@ -4,9 +4,6 @@
 #define D2_NORETURN __declspec(noreturn)
 #define Min(a,b) ((a) < (b) ? (a) : (b))
 #define Max(a,b) ((a) > (b) ? (a) : (b))
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 #define STAT_DEXTERITY 2
 #define STAT_LEVEL 12
 #define STAT_QUANTITY 70
@@ -131,8 +128,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 static __declspec(noinline) void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost);
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 extern "C" const char gszItemsSourceFile_006E1150[]; // 0x006E1150
-
-enum { UNIT_ITEM = 4 };
 
 static __declspec(noinline) int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem);
 unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20

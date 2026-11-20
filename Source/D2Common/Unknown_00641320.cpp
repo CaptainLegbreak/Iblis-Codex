@@ -1,8 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 
-#define UNIT_PLAYER 0
-#define UNIT_INVALID 6
 struct D2GfxLightStrc;
 struct D2BinFieldStrc;
 struct D2StaticPathStrc;

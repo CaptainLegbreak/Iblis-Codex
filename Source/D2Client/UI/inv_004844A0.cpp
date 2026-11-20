@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -19,21 +20,11 @@ struct D2ElemDamageStrc;
 struct D2SetItemsTxt;
 struct D2SetsTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-    char unk0x14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2InvRectStrc { int nLeft,nRight,nTop,nBottom; };
 
 struct D2InvCompGridStrc { D2InvRectStrc rect; unsigned char nWidth,nHeight; unsigned short pad; };
 
-struct D2InventoryGridInfoStrc { unsigned char nGridX,nGridY; unsigned short pad; int nGridLeft,nGridRight,nGridTop,nGridBottom; unsigned char nGridBoxWidth,nGridBoxHeight; unsigned short pad2; };
 
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470

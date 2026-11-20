@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define PETTYPE_FLAG_PARTY 4
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -9,13 +10,6 @@ struct D2InvRectStrc;
 struct D2InventoryGridInfoStrc;
 struct D2InvCompGridStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-};
 
 struct D2ClientEntryStrc
 {
@@ -85,19 +79,6 @@ struct D2InvRectStrc
     int nBottom;
 };
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short pad0x02;
-    int nGridLeft;
-    int nGridRight;
-    int nGridTop;
-    int nGridBottom;
-    unsigned char nGridBoxWidth;
-    unsigned char nGridBoxHeight;
-    unsigned short pad0x16;
-};
 
 struct D2InvCompGridStrc
 {

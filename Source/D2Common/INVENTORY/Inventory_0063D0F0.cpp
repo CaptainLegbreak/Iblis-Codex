@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 #define INVENTORY_SIGNATURE 0x1020304
 struct D2InventoryGridStrc;
 struct D2InventoryGridInfoStrc;
@@ -11,38 +12,8 @@ struct D2StaticPathStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nCellsX;
-    unsigned char nCellsY;
-    unsigned short unk0x0A;
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short unk0x02;
-    int nGridRect[5];
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    char unk0x0C[0x8];
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    int dwOwnerGuid;
-    int dwItemCount;
-    char unk0x2C[0x14];
-};
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 __declspec(noinline) static D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc*, int, D2InventoryGridInfoStrc*);
@@ -88,16 +59,16 @@ D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, in
         {
             if (!pInventoryGrid->ppItems)
             {
-                pInventoryGrid->nCellsX = pInventoryGridInfo->nGridX;
-                pInventoryGrid->nCellsY = pInventoryGridInfo->nGridY;
-                pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nCellsY * pInventoryGrid->nCellsX, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC1, 0);
-                unsigned int nSize = pInventoryGrid->nCellsX;
-                nSize *= pInventoryGrid->nCellsY;
+                pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
+                pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
+                pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridHeight * pInventoryGrid->nGridWidth, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC1, 0);
+                unsigned int nSize = pInventoryGrid->nGridWidth;
+                nSize *= pInventoryGrid->nGridHeight;
                 nSize *= sizeof(D2UnitStrc*);
                 memset(pInventoryGrid->ppItems, 0, nSize);
             }
 
-            if (pInventoryGrid->nCellsX != pInventoryGridInfo->nGridX || pInventoryGrid->nCellsY != pInventoryGridInfo->nGridY)
+            if (pInventoryGrid->nGridWidth != pInventoryGridInfo->nGridX || pInventoryGrid->nGridHeight != pInventoryGridInfo->nGridY)
             {
                 return 0;
             }
@@ -115,11 +86,11 @@ D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, in
         pInventory->nGridCount = nInventoryGrid + 1;
 
         pInventoryGrid = &pInventory->pGrids[nInventoryGrid];
-        pInventoryGrid->nCellsX = pInventoryGridInfo->nGridX;
-        pInventoryGrid->nCellsY = pInventoryGridInfo->nGridY;
-        pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nCellsY * pInventoryGrid->nCellsX, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC2, 0);
-        unsigned int nSize = pInventoryGrid->nCellsX;
-                nSize *= pInventoryGrid->nCellsY;
+        pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
+        pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
+        pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(*pInventoryMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridHeight * pInventoryGrid->nGridWidth, gszInventorySourceFile_006EA918, LINE_GRID_ALLOC2, 0);
+        unsigned int nSize = pInventoryGrid->nGridWidth;
+                nSize *= pInventoryGrid->nGridHeight;
                 nSize *= sizeof(D2UnitStrc*);
                 memset(pInventoryGrid->ppItems, 0, nSize);
     }
@@ -149,9 +120,9 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInven
         return 0;
     }
 
-    if (nGridX >= 0 && nGridX <= pInventoryGrid->nCellsX && nGridY >= 0 && nGridY <= pInventoryGrid->nCellsY)
+    if (nGridX >= 0 && nGridX <= pInventoryGrid->nGridWidth && nGridY >= 0 && nGridY <= pInventoryGrid->nGridHeight)
     {
-        D2UnitStrc* pItem = pInventoryGrid->ppItems[nGridX + nGridY * pInventoryGrid->nCellsX];
+        D2UnitStrc* pItem = pInventoryGrid->ppItems[nGridX + nGridY * pInventoryGrid->nGridWidth];
         if (pItem)
         {
             *pX = CLIENTS_GetUnitX(pItem);

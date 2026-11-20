@@ -1,14 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x24];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 struct SMSGHANDLER_PARAMS
 {
@@ -127,19 +119,6 @@ struct D2InvRectStrc
     int nBottom;
 };
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short pad0x02;
-    int nGridLeft;
-    int nGridRight;
-    int nGridTop;
-    int nGridBottom;
-    unsigned char nGridBoxWidth;
-    unsigned char nGridBoxHeight;
-    unsigned short pad0x16;
-};
 
 D2InvRectStrc gInvRect_007BCAA0;                                                                            // 0x007BCAA0
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)

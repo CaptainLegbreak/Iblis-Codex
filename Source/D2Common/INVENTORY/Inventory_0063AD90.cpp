@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 
 struct D2InventoryStrc;
 
@@ -17,39 +18,8 @@ struct D2ItemDataStrc
 };
 
 
-struct D2InventoryNodeStrc
-{
-    int nItemId;
-    D2InventoryNodeStrc* pNext;
-};
 
-struct D2CorpseStrc
-{
-    unsigned int unk0x00;
-    unsigned int dwUnitId;
-    unsigned int unk0x08;
-    D2CorpseStrc* pNextCorpse;
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-    void* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    int dwOwnerGuid;
-    int dwItemCount;
-    D2InventoryNodeStrc* pFirstNode;
-    D2InventoryNodeStrc* pLastNode;
-    D2CorpseStrc* pFirstCorpse;
-    D2CorpseStrc* pLastCorpse;
-    int nCorpseCount;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -63,7 +33,6 @@ int __stdcall INVENTORY_CompareWithItemsParentInventory(D2InventoryStrc* pInvent
 int __stdcall INVENTORY_CheckForItemInTradeInventory(D2InventoryStrc* pInventory, int nItemId);            // 0x0063CC30
 
 #define INVENTORY_SIGNATURE 0x1020304
-#define UNIT_ITEM 4
 
 inline D2InventoryStrc* INVENTORY_GetPtrIfValid(D2InventoryStrc* pInventory)
 {

@@ -50,9 +50,6 @@ int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill);                
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
-#define UNIT_PLAYER 0
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
 #define STRCOPY_MAX 0x7FFFFFFF
 
 // 0x00622150

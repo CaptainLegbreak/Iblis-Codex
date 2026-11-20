@@ -1,7 +1,5 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 union D2FP32_16;
 
 union D2FP32_16

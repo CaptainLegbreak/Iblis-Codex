@@ -177,7 +177,6 @@ static int __stdcall sub_00629370_GetGambleCost(D2UnitStrc* pItem, int nLevel); 
 static void __stdcall sub_006292F0_AddSocketablesCost(int* pSellCost, int* pBuyCost, int* pRepCost, D2UnitStrc* pItem); // 0x006292F0
 static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor); // 0x0062EDD0
 
-#define UNIT_ITEM 4
 
 inline D2ItemDataStrc* ITEMS_GetItemData(D2UnitStrc* pItem)
 {

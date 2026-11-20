@@ -1,10 +1,8 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Structs.h"
 #define INVENTORY_SIGNATURE 0x1020304
-#define UNIT_PLAYER 0
-#define UNIT_ITEM 4
 #define NUM_BODYLOC 13
-#define UNIT_INVALID 6
 #define WEAPONCLASS_HT1 12
 #define COMPOSIT_RIGHTHAND 5
 #define STAT_QUANTITY 70
@@ -47,43 +45,8 @@ struct D2ItemDataStrc
 };
 
 
-struct D2InventoryGridStrc
-{
-    D2UnitStrc* pItem;
-    D2UnitStrc* pLastItem;
-    unsigned char nGridWidth;
-    unsigned char nGridHeight;
-    unsigned short unk0x0A;
-    D2UnitStrc** ppItems;
-};
 
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short unk0x02;
-    int nGridRect[5];
-};
 
-struct D2InventoryStrc
-{
-    unsigned int dwSignature;
-    void* pMemPool;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-    D2InventoryGridStrc* pGrids;
-    int nGridCount;
-    int dwLeftItemGUID;
-    D2UnitStrc* pCursorItem;
-    int dwOwnerGuid;
-    int dwItemCount;
-    D2InventoryNodeStrc* pFirstNode;
-    D2InventoryNodeStrc* pLastNode;
-    D2CorpseStrc* pFirstCorpse;
-    D2CorpseStrc* pLastCorpse;
-    int nCorpseCount;
-};
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo; // 0x0074479C
 extern D2InventoryGridInfoStrc gBeltInventoryGridInfo; // 0x007447B4
@@ -109,13 +72,6 @@ static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2I
 static __declspec(noinline) BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nXPos, int nYPos, int nInventoryGrid, int nInventoryRecordId); // 0x0063AFD0
 static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight(D2InventoryGridStrc* pInventoryGrid, int nXPos, int nYPos, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B340
 
-struct D2CorpseStrc
-{
-    unsigned int unk0x00;
-    unsigned int dwUnitId;
-    unsigned int unk0x08;
-    D2CorpseStrc* pNextCorpse;
-};
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
