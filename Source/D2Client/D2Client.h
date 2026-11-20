@@ -1120,15 +1120,6 @@ struct D2AutomapSaveStrc
     void* pExtras;
 };
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
-
 struct D2Block1 { int n[6]; };
 
 struct D2BnetChatPacketStrc
@@ -1616,12 +1607,6 @@ struct D2FileIndexTextStrc
     int nPos;
 };
 
-struct D2GemsTxt
-{
-    char unk0x00[0x20];
-    char szLetter[6];
-};
-
 struct D2GfxEntryStrc
 {
     unsigned char nValue;
@@ -1746,13 +1731,6 @@ typedef void (__cdecl* D2LaunchDoneFn)();
 struct D2LaunchThreadRecordStrc
 {
     int nData[0x52];
-};
-
-struct D2LevelDefBin
-{
-    unsigned int dwQuestFlag;
-    unsigned int dwQuestFlagEx;
-    int dwLayer;
 };
 
 struct D2LightOffsetStrc
@@ -1975,11 +1953,6 @@ struct D2RosterPetNodeStrc
     int nClear;
     int unk0x24[3];
     D2RosterPetNodeStrc* pNext;
-};
-
-struct D2ShrinesTxt
-{
-    unsigned char bCode;
 };
 
 struct D2SkillIconStateStrc

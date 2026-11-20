@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2TxtItems.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Txt.h"

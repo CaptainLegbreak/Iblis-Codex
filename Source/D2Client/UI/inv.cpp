@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Primitives.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Win32Types.h"

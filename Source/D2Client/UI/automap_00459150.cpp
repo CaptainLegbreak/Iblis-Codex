@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DrlgTiles.h"
 #include "D2ClientUi.h"
 struct D2ActiveRoomStrc;
 

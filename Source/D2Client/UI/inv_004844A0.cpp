@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2TxtItems.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -10,7 +11,6 @@
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GemsTxt;
-struct D2InvRectStrc;
 struct D2InvCompGridStrc;
 struct D2InventoryGridInfoStrc;
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
@@ -25,8 +25,6 @@ struct D2ElemDamageStrc;
 struct D2SetItemsTxt;
 struct D2SetsTxt;
 
-
-struct D2InvRectStrc { int nLeft,nRight,nTop,nBottom; };
 
 struct D2InvCompGridStrc { D2InvRectStrc rect; unsigned char nWidth,nHeight; unsigned short pad; };
 
