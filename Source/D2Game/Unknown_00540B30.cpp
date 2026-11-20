@@ -1,21 +1,11 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2EventTimer.h"
 
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
 struct D2Unk00540B70Obj;
 struct D2Unk00540B70Owner;
-
-struct D2EventTimerQueueStrc
-{
-    int nArrayIndex;
-    D2EventTimerStrc* pHead[5][64];
-    D2EventTimerStrc* pTail[5][64];
-    D2EventTimerStrc* pInfinite[5];
-    D2EventTimerStrc* pCurrent;
-    D2EventTimerSlabListStrc* pSlabListHead;
-};
-
 
 typedef char QueueSizeCheck[(sizeof(D2EventTimerQueueStrc)==0xA20)?1:-1];
 

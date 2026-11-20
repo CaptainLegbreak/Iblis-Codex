@@ -9,6 +9,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2InactiveUnits.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -72,9 +73,6 @@ enum D2C_MonStatsTxtFlagIndices
     MONSTATSFLAGINDEX_INTERACT = 9,
 };
 
-
-
-
 struct D2ClientStrc
 {
     unsigned int dwClientId;
@@ -106,24 +104,6 @@ struct D2PartyControlStrc
     D2PartyStrc* pParties;
 };
 
-struct D2InactiveItemNodeStrc
-{
-    D2InactiveItemNodeStrc* pNext;
-    int nFrame;
-    int nOwnerId;
-};
-
-struct D2InactiveUnitListStrc
-{
-    int nX;
-    int nY;
-    D2InactiveItemNodeStrc* pInactiveItems;
-    void* pInactiveMonsters;
-    void* pInactiveUnits;
-    D2InactiveUnitListStrc* pNext;
-};
-
-
 typedef unsigned char (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest);
 
 struct D2QuestTimerStrc
@@ -145,8 +125,6 @@ struct D2QuestInfoStrc
     unsigned int dwTick;
 };
 
-
-
 struct D2ObjectRoomCoordStrc
 {
     D2ActiveRoomStrc* pRoom;
@@ -164,7 +142,6 @@ struct D2ObjectControlStrc
     D2ObjectRoomCoordStrc* pObjectRoomCoord;
 };
 
-
 struct D2GSPacketSrv53
 {
     unsigned char nHeader;
@@ -178,10 +155,6 @@ struct D2GSPacketSrv53
     unsigned char nTicks3;
     unsigned char nEclipse;
 };
-
-
-
-
 
 typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
 
@@ -257,7 +230,6 @@ struct D2GameDataTableStrc
     int bWrapped;
     _RTL_CRITICAL_SECTION f_50;
 };
-
 
 struct D2NpcEventStrc
 {

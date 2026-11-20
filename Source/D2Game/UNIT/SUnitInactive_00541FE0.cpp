@@ -14,52 +14,12 @@ struct D2MapAIStrc
     int nPathNodes;
 };
 
-
 struct D2MonsterDataStrc
 {
     char unk0x00[0x0E];
     unsigned char nComponent10;
     char unk0x0F[0x19];
     D2AiControlStrc* pAiControl;
-};
-
-
-struct D2InactiveMonsterNodeStrc
-{
-    int nX;
-    int nY;
-    int nClassId;
-    int nUnitId;
-    unsigned int nUnitFlags;
-    unsigned int nUnitFlagsEx;
-    int nTypeFlags;
-    int nOwnerId;
-    D2MinionListStrc* pMinionList;
-    D2MapAIStrc* pMapAI;
-    int nAiSpecialState;
-    int nLevelId;
-    unsigned short nNameSeed;
-    unsigned char nMonUMods[9];
-    unsigned char unk0x3B;
-    unsigned short nBossHcIdx;
-    unsigned short unk0x3E;
-    int nExperience;
-    int nMaxHitpoints;
-    int nHitpoints;
-    int nCmdParam1;
-    int nCmdParam2;
-    int nGameFrame;
-    D2InactiveMonsterNodeStrc* pNext;
-};
-
-struct D2InactiveUnitListStrc
-{
-    int nX;
-    int nY;
-    void* pInactiveItems;
-    D2InactiveMonsterNodeStrc* pInactiveMonsters;
-    void* pInactiveUnits;
-    D2InactiveUnitListStrc* pNext;
 };
 
 struct D2AiCmdStrc
@@ -89,8 +49,6 @@ struct D2DataTablesStrc
     int nMonStatsTxtRecordCount;
 };
 
-
-
 extern "C" const char gszEmptyAssertText;                                                                    // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                       // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                    // 0x00408A60
@@ -105,6 +63,7 @@ extern const unsigned int gdwBitMasks[32];                                      
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
+#include "D2InactiveUnits.h"
 struct D2UnitStrc;
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0

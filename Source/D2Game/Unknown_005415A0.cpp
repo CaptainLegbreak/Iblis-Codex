@@ -1,23 +1,8 @@
 #include "D2Game.h"
+#include "D2EventTimer.h"
 
 struct Data00541860;
 struct Unit00541860;
-
-struct D2EventTimerStrc
-{
-    unsigned char nEventType;
-    char padding0x01;
-    unsigned short nFlags;
-    int nExpireFrame;
-    D2UnitStrc* pUnit;
-    int nUnitGUID;
-    int nUnitType;
-    int dwEventCustomId;
-    int dwEventCustomParam;
-    D2EventTimerStrc* pNextFreeEventTimer;
-    D2EventTimerStrc* unk0x20;
-    D2EventTimerStrc* pNext;
-};
 
 D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit); // 0x00553980
 
