@@ -93,7 +93,7 @@ struct D2IdentityView {
  D2StormLinkStrc link;
 };
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 struct D2StormListBaseStrc

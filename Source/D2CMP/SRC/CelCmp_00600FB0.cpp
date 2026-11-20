@@ -29,10 +29,10 @@ struct D2StormSlotArrayStrc;
 struct D2GameHashTableStrc;
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-extern "C" void* __cdecl memmove(void*,const void*,unsigned);
+extern "C" void* __cdecl memcpy(void*,const void*,unsigned); // 0x006829C0
 extern const char gszCelCmp[]; // 0x006E5DD0
 void* __fastcall FOG_Alloc(unsigned size,const char* file,int line,int zero); // 0x0040B380
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 struct D2StormSlotLinkStrc
@@ -170,10 +170,10 @@ void __stdcall sub_00600FB0_ConvertCell(unsigned* cell,unsigned** output,unsigne
   out[4]=((unsigned*)cellCopy[13+i])[6];
   out[5]=((unsigned*)cellCopy[13+i])[7];
   out[7]=((unsigned*)cellCopy[13+i])[9];
-  memmove(out+8,(unsigned*)cellCopy[13+i]+10,out[7]);
+  memcpy(out+8,(unsigned*)cellCopy[13+i]+10,out[7]);
   cursor+=out[7]+35;
   if(((unsigned*)cellCopy[13+i])[8]) {
-   memmove(cursor,(unsigned*)cellCopy[13+i]+8,((unsigned*)cellCopy[13+i])[7]);
+   memcpy(cursor,(unsigned*)cellCopy[13+i]+8,((unsigned*)cellCopy[13+i])[7]);
    out[6]=(unsigned)(cursor-(unsigned char*)result);
    cursor+=((unsigned*)cellCopy[13+i])[7];
   }else out[6]=0;

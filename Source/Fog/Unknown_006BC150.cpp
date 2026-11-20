@@ -1,4 +1,5 @@
 #include "Fog.h"
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -70,7 +71,7 @@ static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLeng
     }
 
     const int nLeft = pBuffer - pCursor + nLength;
-    memmove(pBuffer, pCursor, nLeft);
+    memcpy(pBuffer, pCursor, nLeft);
     return nLeft;
 }
 

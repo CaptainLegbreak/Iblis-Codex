@@ -583,7 +583,7 @@ struct D2ItemDropStrc
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int a2); // 0x00558200
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3); // 0x00558D90
-int __fastcall sub_6FC45060(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int a5, int* pUnused); // 0x005606B0
+int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int a5, int* pUnused); // 0x005606B0
 
 typedef int (__fastcall *SkillCallback)(D2GameStrc*, D2UnitStrc*, int, int);
 extern const SkillCallback gpSkillCallbacks_007322B0[]; // 0x007322B0
@@ -1647,7 +1647,7 @@ int __fastcall sub_0056D5F0_SpawnItemInFreeHand(D2GameStrc* pGame, D2UnitStrc* p
 
             {
                 int nUnused;
-                sub_6FC45060(pGame, pUnit, pNewItem->dwUnitId, nBodyLoc, 0, &nUnused);
+                ITEMMODE_EquipCursorItem(pGame, pUnit, pNewItem->dwUnitId, nBodyLoc, 0, &nUnused);
             }
             return 1;
         }

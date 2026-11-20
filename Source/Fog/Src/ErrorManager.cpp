@@ -851,10 +851,4 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
     return pAsync;
 }
 
-// 0x0040F960
-void __cdecl sub_0040F960_CloseLogFiles()
-{
-    sub_0040F8A0_CloseLogFilesNow();
-}
-
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"

@@ -224,8 +224,8 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 extern "C" void __stdcall sub_006252D0(D2StatListStrc* pStatList, unsigned int dwState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
-void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList);
-void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList);
+void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 0x006277E0
+void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);
 
 struct D2MonStats2Txt

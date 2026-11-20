@@ -1082,6 +1082,12 @@ void __cdecl sub_0040F8A0_CloseLogFilesNow()
     }
 }
 
+// 0x0040F960
+void __cdecl sub_0040F960_CloseLogFiles()
+{
+    sub_0040F8A0_CloseLogFilesNow();
+}
+
 // 0x0040FD00
 void D2TSListStrc::sub_0040FD00_UnlinkAll()
 {

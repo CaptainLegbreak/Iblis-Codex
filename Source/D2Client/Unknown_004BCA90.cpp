@@ -111,8 +111,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" const char gszUnitSourceFile_006DAA8C[];
 extern D2DrlgActStrc* gpAct_007A0634;
-extern D2ShrineHandlerStrc gShrineHandlers_006DA8C0[];
-extern int gnShrineHandlerCount_0072779C;
+extern D2ShrineHandlerStrc gShrineHandlers_006DA8C0[]; // 0x006DA8C0
+extern int gnShrineHandlerCount_0072779C; // 0x0072779C
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);
 void __fastcall sub_00457460(D2UnitStrc* pUnit, int nArg, int nValue);
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);
@@ -137,7 +137,7 @@ D2ShrinesTxt* __stdcall UNITS_GetShrineTxtRecordFromObject(D2UnitStrc* pUnit);
 void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord);
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 void __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit);
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);
 D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId);
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);

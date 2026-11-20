@@ -501,7 +501,7 @@ extern "C" int __stdcall sub_00554100(D2UnitStrc* pUnit, int* pUnitType, int* pU
 extern "C" void __fastcall sub_00539300(D2ClientStrc* pClient, unsigned int* pOut); // 0x00539300
 extern "C" void __fastcall sub_00539310(D2ClientStrc* pClient, unsigned int* pOut); // 0x00539310
 void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szBuffer); // 0x005392F0
-extern "C" const char gszSaveFormat_006D4230[];
+extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 extern "C" const char gszFileModeWb_006D69E0[];
 extern "C" const char gszSaveOpenError_006E09C4[];
 extern "C" const char szPlrSaveCppFile_006E09AC[]; // 0x006E09AC

@@ -1252,6 +1252,7 @@ struct DeleteFlags { unsigned value; };
 
 int __stdcall sub_00412650(void*,const char*,int,unsigned); // 0x00412650
 
+// build: symbol ?Destroy@SlotArray@@QAEXXZ 0x00603060
 struct SlotArray { void Destroy(); SlotArray* sub_00603730(DeleteFlags flags); };
 
 enum { DELETE_BIT = 1 };
