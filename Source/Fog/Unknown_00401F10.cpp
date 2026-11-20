@@ -141,13 +141,6 @@ void __cdecl sub_00401A60_UnlockSymbols()
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
-struct D2SymbolLockGuardStrc
-{
-    D2SymbolLockGuardStrc() { EnterCriticalSection(&gtSymbolLock_0098A6F0); }
-
-    explicit D2SymbolLockGuardStrc(D2CriticalSectionStrc* pLock) { EnterCriticalSection(pLock); }
-    ~D2SymbolLockGuardStrc() { LeaveCriticalSection(&gtSymbolLock_0098A6F0); }
-};
 
 // 0x00401DF0
 static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, char* szModule, unsigned long* pdwBase)
