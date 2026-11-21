@@ -1,121 +1,207 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgPresets.h"
+#include "D2DataTbls.h"
+#include "D2Txt.h"
+
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
+
 #define PATH_UNKNOWN_FLAG_0x00020 0x00020
+
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
+
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
 #define PATH_CORPSE_SIZE 3
 
 struct ActiveRoom;
+
 struct Room;
+
 struct D2CoordStrc;
+
 union D2FP32_16;
+
 struct D2DrlgCoordsStrc;
+
 struct D2StaticPathStrc;
+
 struct D2PathInfoStrc;
+
 struct Pad40_00648690;
+
 struct Obj00648690;
+
 struct Obj006486D0;
+
 struct T00648730;
+
 struct DrlgView;
+
 struct PathView;
+
 struct UnitView;
+
 struct Obj00648750;
+
 struct View_00648780;
+
 struct View_006489C0;
+
 struct View_00648AA0;
+
 struct View_00648700;
+
 struct Obj00648790;
+
 struct Pad40_006487D0;
+
 struct Obj006487D0;
+
 struct Obj00648810;
+
 struct Obj006488A0;
+
 struct PathPrecisionView;
+
 struct PathPreviousView;
+
 struct Obj006BCDE0;
+
 struct Obj006489D0;
+
 struct Obj00648A20;
+
 struct Obj00648A30;
+
 struct Entry00648A40;
+
 struct Pad40_00648A40;
+
 struct Obj00648A40;
+
 struct Entry00648A60;
+
 struct Pad40_00648A60;
+
 struct Obj00648A60;
+
 struct Obj00648A80;
+
 struct Obj00648AB0;
+
 struct Obj00648AD0;
+
 struct RoomFlags;
+
 struct PathFlags;
+
 struct KeyValue;
+
 struct CodeRow;
+
 struct CodeOutput;
+
 struct LinkView;
+
 struct CodeLink;
+
 struct Vector;
+
 struct DirectionRecord;
+
 struct B25TargetUnit;
+
 struct B25Path;
+
 struct B25DistancePath;
+
 struct B25MissileData;
+
 struct B25MissileUnit;
+
 struct Obj00648C10;
+
 struct Obj00648CD0;
+
 struct D2Record00648E40Strc;
+
 struct PathCollisionView;
+
 struct Pad40_00649070;
+
 struct Obj00649070;
+
 struct Obj006490A0;
+
 struct Obj00649120;
+
 struct D2PathPointStrc;
+
 struct D2ActiveRoomStrc;
+
 struct D2UnitStrc;
+
 struct D2DynamicPathStrc;
 
 typedef int BOOL;
 
-
-
-
-
-
-
-
-
-
 #pragma pack(push, 1)
 
 #pragma pack(pop)
+
 typedef int (__fastcall* PATH_FUNCTION)(D2PathInfoStrc* pPathInfo);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn); // 0x006CC34C
+
 extern const D2CoordStrc gatDirectionToOffset_006EB398[8]; // 0x006EB398
+
 extern PATH_FUNCTION const scpfnPathFunction_006EB6D8[]; // 0x006EB6D8
+
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
+
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
+
 int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
+
 int __fastcall UNITS_CheckIfObjectOrientationIs1(D2UnitStrc* pUnit); // 0x00621AC0
+
 int __fastcall MONSTERS_CanBeInTown(D2UnitStrc* pMonster); // 0x0063E860
+
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
+
 int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce); // 0x00649560
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
+
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064D910
+
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
+
 int __fastcall PATH_ComputePathBlessedHammer_6FDAB3C0(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A140
+
 int __fastcall PATH_ComputePathChargedBolt_6FDAB4A0(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A240
+
 static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo); // 0x00648050
+
 static __declspec(noinline) BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
 struct Pad40_00648690 {
@@ -859,181 +945,117 @@ struct Obj006490A0 { unsigned char bUnknown00[0x93]; unsigned char bValue93; };
 struct Obj00649120 { unsigned char bUnknown00[0x94]; unsigned char bValue94; };
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
+
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath); // 0x00650590
+
 static __declspec(noinline) unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
+
 static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
+
 static __declspec(noinline) int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
 
-static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_NONE;
-    if (nUnitType != UNIT_MONSTER)
-    {
-        return TRUE;
-    }
+static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit);
 
-    if (MONSTERS_CanBeInTown(pUnit))
-    {
-        return TRUE;
-    }
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);
 
-    D2ActiveRoomStrc* pTargetRoom = pPathInfo->pTargetRoom;
-    if (!pTargetRoom)
-    {
-        const unsigned short nStartX = pPathInfo->tStartCoord.X;
-        const unsigned short nStartY = pPathInfo->tStartCoord.Y;
-        const unsigned short nTargetX = pPathInfo->tTargetCoord.X;
-        const unsigned short nTargetY = pPathInfo->tTargetCoord.Y;
-        D2ActiveRoomStrc* pRoomHalfway = sub_00463740_FindRoomAtPoint(
-            pPathInfo->pStartRoom,
-            nStartX + (nTargetX - nStartX) / 2,
-            nStartY + (nTargetY - nStartY) / 2);
-        pTargetRoom = sub_00463740_FindRoomAtPoint(pRoomHalfway, nTargetX, nTargetY);
-    }
+static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
-    return !DUNGEON_IsRoomInTown(pTargetRoom);
-}
+#define COLLIDE_MISSILE_BARRIER 0x4
 
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown)
-{
-    if (!pPath)
-    {
-        return 0;
-    }
+#define MONSTATSFLAGINDEX_INTERACT 9
 
-    D2_ASSERT(pPath->pUnit == pUnit, LINE_PATH_UNIT);
+#define UNITFLAG_ISASYNC 0x00200000
 
-    if (pPath->dwFlags & PATH_MISSILE_MASK)
-    {
-        return PATH_MissileToTarget(pPath, pUnit);
-    }
+#define PATH_UNKNOWN_FLAG_0x02000 0x00002000
 
-    pPath->nCollidedWithMask = 0;
-    D2UnitStrc* pTargetUnit = pPath->hTarget;
-    if (pTargetUnit && (!CLIENTS_GetUnitX(pTargetUnit) || !CLIENTS_GetUnitY(pTargetUnit)))
-    {
-        return 0;
-    }
+#define PATH_WITH_PREVIOUS_VELOCITY 0x00008000
 
-    D2PathInfoStrc tPathInfo;
-    D2PathPointStrc tStart;
-    tStart.X = pPath->tGameCoords.wPosX;
-    tStart.Y = pPath->tGameCoords.wPosY;
-    tPathInfo.tStartCoord = tStart;
-    if (tStart.X != 0 || tStart.Y != 0)
-    {
-        tPathInfo.nUnitSize = pPath->dwUnitSize;
-        tPathInfo.nCollisionPattern = pPath->dwCollisionPattern;
-        tPathInfo.pDynamicPath = pPath;
-        tPathInfo.nCollisionMask = pPath->nMoveTestCollisionMask;
-        tPathInfo.nDistMax = pPath->bDistMax;
-        tPathInfo.nMinimumFScoreToEvaluate = pPath->nIDAStarInitFScore;
-        tPathInfo.field_14 = PATH_UpdateTargetUnit(&tPathInfo);
+struct D2MonStatsTxt;
 
-        if (pPath->tTargetCoord.X != 0 || pPath->tTargetCoord.Y != 0)
-        {
-            tPathInfo.tTargetCoord = pPath->tTargetCoord;
-            if (tPathInfo.tStartCoord.X != tPathInfo.tTargetCoord.X || tPathInfo.tStartCoord.Y != tPathInfo.tTargetCoord.Y)
-            {
-                const int nDeltaX = tPathInfo.tTargetCoord.X - tPathInfo.tStartCoord.X;
-                const int nDeltaY = tPathInfo.tTargetCoord.Y - tPathInfo.tStartCoord.Y;
-                if (nDeltaX <= PATH_MAX_DISTANCE && -nDeltaX <= PATH_MAX_DISTANCE && nDeltaY <= PATH_MAX_DISTANCE && -nDeltaY <= PATH_MAX_DISTANCE)
-                {
-                    tPathInfo.pStartRoom = pPath->pRoom;
-                    tPathInfo.pTargetRoom = sub_00463740_FindRoomAtPoint(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y);
-                    if (tPathInfo.pStartRoom && tPathInfo.pTargetRoom && (PATH_IsTargetDestinationAllowed(&tPathInfo, pUnit) || bAllowInTown))
-                    {
-                        tPathInfo.nPathType = pPath->eType;
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-                        D2UnitStrc* pPathTargetUnit = pPath->hTarget;
-                        BOOL bRemovedTargetUnitFootprint = FALSE;
-                        PATH_RemoveCollisionFootprintForUnit(pUnit, FALSE);
-                        if (pPathTargetUnit && UNITS_GetUnitSizeX(pPathTargetUnit) && (pPath->dwFlags & PATH_UNKNOWN_FLAG_0x00800))
-                        {
-                            bRemovedTargetUnitFootprint = PATH_RemoveCollisionFootprintForUnit(pPathTargetUnit, FALSE);
-                        }
+extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-                        BOOL bUpdatePath = PATH_TRUE;
-                        if ((pPath->dwFlags & PATH_UNKNOWN_FLAG_0x01000)
-                            && COLLISION_CheckAnyCollisionWithPattern(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y, pPath->dwCollisionPattern, pPath->nMoveTestCollisionMask))
-                        {
-                            bUpdatePath = PATH_PreparePathTargetForPathUpdate(&tPathInfo);
-                        }
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-                        pPath->tFinalTargetCoord.X = tPathInfo.tTargetCoord.X;
-                        pPath->dwCurrentPointIdx = 0;
-                        pPath->tFinalTargetCoord.Y = tPathInfo.tTargetCoord.Y;
-                        pPath->dwPathPoints = 0;
-                        pPath->dwCurrentPointIdx = 0;
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-                        int nPathPoints = 0;
-                        if (bUpdatePath)
-                        {
-                            D2_ASSERT(!IsBadCodePtr((void*)scpfnPathFunction_006EB6D8[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
-                            nPathPoints = scpfnPathFunction_006EB6D8[tPathInfo.nPathType](&tPathInfo);
-                        }
-                        pPath->dwPathPoints = nPathPoints;
+void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
 
-                        D2_ASSERT(tPathInfo.tStartCoord.X == tStart.X && tPathInfo.tStartCoord.Y == tStart.Y, LINE_START_COORD);
+int __stdcall D2Common_11281_CollisionPatternFromSize(D2UnitStrc* pUnit, int nSize); // 0x00648580
 
-                        if (bRemovedTargetUnitFootprint)
-                        {
-                            PATH_AddCollisionFootprintForUnit(pPath->hTarget);
-                        }
-                        PATH_AddCollisionFootprintForUnit(pUnit);
+void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
 
-                        if (!pPath->dwPathPoints)
-                        {
-                            pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
-                            return 0;
-                        }
+int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x0064C350
 
-                        PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_TRUE, PATH_TRUE);
-                        if (pPath->dwCurrentPointIdx < pPath->dwPathPoints)
-                        {
-                            sub_6FDA8220(pPath);
-                            D2PathPointStrc tPrev;
-                            tPrev.X = pPath->tTargetCoord.X;
-                            pPath->tPrevTargetCoord.Y = pPath->tTargetCoord.Y;
-                            const unsigned int nFlags = pPath->dwFlags;
-                            pPath->unk0x38 = 0;
-                            pPath->tPrevTargetCoord.X = tPrev.X;
-                            if (!(nFlags & PATH_UNKNOWN_FLAG_0x00010) && !pPath->hTarget)
-                            {
-                                pPath->tTargetCoord.X = pPath->PathPoints[pPath->dwPathPoints - 1].X;
-                                pPath->tTargetCoord.Y = pPath->PathPoints[pPath->dwPathPoints - 1].Y;
-                            }
+int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
-                            if (pPath->dwPathPoints)
-                            {
-                                pPath->dwFlags = nFlags | PATH_UNKNOWN_FLAG_0x00020;
-                            }
-                            else
-                            {
-                                pPath->dwFlags = nFlags & ~PATH_UNKNOWN_FLAG_0x00020;
-                            }
-                            return pPath->dwPathPoints;
-                        }
-                    }
-                }
-            }
-        }
-    }
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-    pPath->dwCurrentPointIdx = 0;
-    pPath->dwPathPoints = 0;
-    pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
-    return 0;
-}
+D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 
-#include "gen/data/Source/D2Common/PATH/Path.inc"
+int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 
-// 0x00403F50
+int __stdcall D2Common_10227(D2UnitStrc* pUnit); // 0x00650540
+
+extern int gaOffsetForPathType_006EB648[]; // 0x006EB648
+
+extern int gaPathTypeFlags_006EB690[]; // 0x006EB690
+
+void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY); // 0x00643540
+
+void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOutDirection, unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FC60
+
+int __fastcall UNITS_GetCollisionMask(D2UnitStrc* pUnit); // 0x006209D0
+
+int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* pUnit); // 0x006205A0
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+int __stdcall UNITS_HasCollision(D2UnitStrc* pUnit); // 0x006219C0
+
+void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
+
+void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064EA00
+
+void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, int nMask); // 0x0064EBA0
+
+void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
+
+#define PATH_NB_DIRECTIONS 64
+
+#define PATHTYPE_IDASTAR 0
+
+#define PATH_CURRENT_ROOM_INVALID 0x00002
+
+#define PATH_UNUSED_FLAG_0x00004 0x00004
+
+#define PATH_UNKNOWN_FLAG_0x00040 0x00040
+
+#define PATH_SAVE_STEPS_MASK 0x20000
+
+static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
+
+static unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo);
+
+static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
+
+static int sub_00648480_GetMonsterMoveTestMask(D2UnitStrc* pUnit);
+
+int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
+
+void __fastcall sub_6FDA9720(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006485F0
+
+static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
+
+void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag);
+
+void __stdcall D2Common_10228(D2UnitStrc* pUnit);
+
 void __cdecl sub_00403F50_Nop()
 {
 }
 
-// 0x00648050
 static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
 {
     int nY;
@@ -1197,6 +1219,37 @@ void __cdecl sub_00648380_Nop()
 {
 }
 
+// 0x006483A0
+static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_NONE;
+    if (nUnitType != UNIT_MONSTER)
+    {
+        return TRUE;
+    }
+
+    if (MONSTERS_CanBeInTown(pUnit))
+    {
+        return TRUE;
+    }
+
+    D2ActiveRoomStrc* pTargetRoom = pPathInfo->pTargetRoom;
+    if (!pTargetRoom)
+    {
+        const unsigned short nStartX = pPathInfo->tStartCoord.X;
+        const unsigned short nStartY = pPathInfo->tStartCoord.Y;
+        const unsigned short nTargetX = pPathInfo->tTargetCoord.X;
+        const unsigned short nTargetY = pPathInfo->tTargetCoord.Y;
+        D2ActiveRoomStrc* pRoomHalfway = sub_00463740_FindRoomAtPoint(
+            pPathInfo->pStartRoom,
+            nStartX + (nTargetX - nStartX) / 2,
+            nStartY + (nTargetY - nStartY) / 2);
+        pTargetRoom = sub_00463740_FindRoomAtPoint(pRoomHalfway, nTargetX, nTargetY);
+    }
+
+    return !DUNGEON_IsRoomInTown(pTargetRoom);
+}
+
 // 0x00648430
 void __cdecl sub_00648430_Nop()
 {
@@ -1212,6 +1265,109 @@ void __cdecl sub_00648450_Nop()
 {
 }
 
+inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+// 0x00648480
+static int sub_00648480_GetMonsterMoveTestMask(D2UnitStrc* pUnit)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = pUnit ? DATATBLS_GetMonStatsTxtRecordInl(pUnit->dwClassId) : 0;
+    if (BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, MONSTATSFLAGINDEX_FLYING))
+    {
+        return COLLIDE_MASK_FLYING_UNIT;
+    }
+    return BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, MONSTATSFLAGINDEX_OPENDOORS) ? COLLIDE_MASK_MONSTER_THAT_CAN_OPEN_DOORS : COLLIDE_MASK_MONSTER_PATH;
+}
+
+inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlags & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlagEx & nFlag) != 0;
+    }
+
+    return 0;
+}
+
+// 0x00648580
+int __stdcall D2Common_11281_CollisionPatternFromSize(D2UnitStrc* pUnit, int nSize)
+{
+    if (nSize < 0 || nSize >= COLLISION_UNIT_SIZE_COUNT)
+    {
+        return COLLISION_PATTERN_SMALL_UNIT_PRESENCE;
+    }
+
+    int nCollisionPattern = gaCollisionPatternsFromSize[nSize];
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == UNIT_MONSTER && MONSTERS_CanBeInTown(pUnit) && !sub_00457490_CheckMonStatsFlag(pUnit->dwClassId, MONSTATSFLAGINDEX_INTERACT))
+    {
+        switch (nCollisionPattern)
+        {
+        case COLLISION_PATTERN_SMALL_UNIT_PRESENCE:
+            nCollisionPattern = COLLISION_PATTERN_SMALL_PET_PRESENCE;
+            break;
+        case COLLISION_PATTERN_BIG_UNIT_PRESENCE:
+            nCollisionPattern = COLLISION_PATTERN_BIG_PET_PRESENCE;
+            break;
+        }
+    }
+
+    return nCollisionPattern;
+}
+
+// 0x006485F0
+void __fastcall sub_6FDA9720(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection)
+{
+    nDirection &= 63;
+    int nUnitType;
+    if (!pDynamicPath->pUnit)
+    {
+        nUnitType = 6;
+    }
+    else
+    {
+        nUnitType = pDynamicPath->pUnit->dwUnitType;
+    }
+
+    switch (nUnitType)
+    {
+    case 2:
+    case 4:
+        pDynamicPath->nDirection = nDirection;
+        break;
+    case 3:
+        if (!(pDynamicPath->dwFlags & 0x40))
+        {
+            pDynamicPath->nDirection = nDirection;
+        }
+        break;
+    default:
+        if (nDirection != pDynamicPath->nNewDirection)
+        {
+            pDynamicPath->nNewDirection = nDirection;
+            const unsigned char nDiff = nDirection - pDynamicPath->nDirection;
+            pDynamicPath->nDiffDirection = gnDirectionDiffTable_006EB548[nDiff & 63];
+        }
+        break;
+    }
+}
+
 // 0x00648690
 extern "C" __declspec(dllexport) void __stdcall sub_00648690(Obj00648690* pObj, int nValue, int nUnused3, int nUnused4) {
     if (pObj) {
@@ -1221,6 +1377,12 @@ extern "C" __declspec(dllexport) void __stdcall sub_00648690(Obj00648690* pObj, 
         pObj->nValue7C = nValue;
         pObj->nValue84 = nValue;
     }
+}
+
+// 0x006486C0
+int __stdcall PATH_GetVelocity(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwVelocity;
 }
 
 // 0x006486D0
@@ -1282,9 +1444,59 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_006487D0(Obj006487D0
     return pObj->dwValue28;
 }
 
+// 0x006487F0
+unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath)
+{
+    if (!pDynamicPath)
+    {
+        return 0;
+    }
+
+    return pDynamicPath->nDirection;
+}
+
 // 0x00648810
 extern "C" __declspec(dllexport) unsigned char __stdcall sub_00648810(Obj00648810* pObj) {
     return pObj->nValue65;
+}
+
+// 0x00648820
+void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char bDir)
+{
+    D2_ASSERT(bDir < PATH_NB_DIRECTIONS, 1650);
+
+    const unsigned char nNormalizedDirection = bDir & (PATH_NB_DIRECTIONS - 1);
+    int nUnitType;
+    if (!pDynamicPath->pUnit)
+    {
+        nUnitType = UNIT_TYPES_COUNT;
+    }
+    else
+    {
+        nUnitType = pDynamicPath->pUnit->dwUnitType;
+    }
+
+    switch (nUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+        pDynamicPath->nDirection = nNormalizedDirection;
+        break;
+    case UNIT_MISSILE:
+        if (!(pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00040))
+        {
+            pDynamicPath->nDirection = nNormalizedDirection;
+        }
+        break;
+    default:
+        if (nNormalizedDirection != pDynamicPath->nNewDirection)
+        {
+            pDynamicPath->nNewDirection = nNormalizedDirection;
+            const unsigned char nDiff = nNormalizedDirection - pDynamicPath->nDirection;
+            pDynamicPath->nDiffDirection = gnDirectionDiffTable_006EB548[nDiff & (PATH_NB_DIRECTIONS - 1)];
+        }
+        break;
+    }
 }
 
 // 0x006488A0
@@ -1296,10 +1508,48 @@ extern "C" __declspec(dllexport) void __stdcall sub_006488A0(Obj006488A0* pObj, 
     }
 }
 
+// 0x006488C0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath)
+{
+    D2_ASSERT(hPath, 1682);
+
+    return hPath->tGameCoords.wPosX;
+}
+
+// 0x00648900
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* hPath)
+{
+    D2_ASSERT(hPath, 1693);
+
+    return hPath->tGameCoords.wPosY;
+}
+
+// 0x00648940
+int __stdcall PATH_GetPrecisionX(D2DynamicPathStrc* hPath)
+{
+    D2_ASSERT(hPath, 1704);
+
+    return hPath->tGameCoords.dwPrecisionX;
+}
+
+// 0x00648970
+int __stdcall PATH_GetPrecisionY(D2DynamicPathStrc* hPath)
+{
+    D2_ASSERT(hPath, 1715);
+
+    return hPath->tGameCoords.dwPrecisionY;
+}
+
 // 0x006489A0
 extern "C" void __stdcall PATH_SetPrecisionX(PathPrecisionView* path,U32 precisionX)
 {
     path->precisionX = precisionX;
+}
+
+// 0x006489B0
+void __stdcall PATH_SetPrecisionY(D2DynamicPathStrc* pDynamicPath, int nPrecisionY)
+{
+    pDynamicPath->tGameCoords.dwPrecisionY = nPrecisionY;
 }
 
 // 0x006489C0
@@ -1310,6 +1560,30 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_006489C0(Obj006BCDE0
 // 0x006489D0
 extern "C" __declspec(dllexport) unsigned int __stdcall sub_006489D0(Obj006489D0* pObj) {
     return pObj->dwValue0C;
+}
+
+// 0x006489E0
+void __fastcall PATH_SetClientCoordX(D2DynamicPathStrc* pPath, int nX)
+{
+    pPath->dwClientCoordX = nX;
+}
+
+// 0x006489F0
+void __fastcall PATH_SetClientCoordY(D2DynamicPathStrc* pPath, int nY)
+{
+    pPath->dwClientCoordY = nY;
+}
+
+// 0x00648A00
+int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->tTargetCoord.X;
+}
+
+// 0x00648A10
+int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->tTargetCoord.Y;
 }
 
 // 0x00648A20
@@ -1345,6 +1619,12 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_00648A80(Obj00648A80
     return pObj->dwValue1C;
 }
 
+// 0x00648A90
+void __stdcall PATH_SetRoom(D2DynamicPathStrc* pDynamicPath, D2ActiveRoomStrc* pRoom)
+{
+    pDynamicPath->pRoom = pRoom;
+}
+
 extern "C" int __stdcall sub_006489C0_clientX(View_006489C0* path)
 {
     return path->clientX;
@@ -1370,6 +1650,22 @@ extern "C" __declspec(dllexport) void __stdcall sub_00648AD0(Obj00648AD0* pObj, 
     }
 }
 
+// 0x00648B00
+void __stdcall sub_00648B00_SetTargetCoordFromClient(D2DynamicPathStrc* pDynamicPath, int nX, int nY)
+{
+    DUNGEON_ClientToGameCoords(&nX, &nY);
+    nX >>= 11;
+    nY >>= 11;
+    pDynamicPath->tTargetCoord.X = nX;
+    pDynamicPath->tTargetCoord.Y = nY;
+}
+
+// 0x00648B30
+int __stdcall PATH_IsCurrentRoomInvalid(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwFlags & PATH_CURRENT_ROOM_INVALID;
+}
+
 extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
 {
     if (reset)
@@ -1387,6 +1683,25 @@ extern "C" void __stdcall sub_00648B40_roomInvalid(PathFlags* path, int invalid)
         path->flags &= ~2U;
 }
 
+// 0x00648B60
+void __stdcall PATH_SetUnusedFlag_0x00004(D2DynamicPathStrc* pDynamicPath, int bSet)
+{
+    if (bSet)
+    {
+        pDynamicPath->dwFlags |= PATH_UNUSED_FLAG_0x00004;
+    }
+    else
+    {
+        pDynamicPath->dwFlags &= ~PATH_UNUSED_FLAG_0x00004;
+    }
+}
+
+// 0x00648B80
+int __stdcall PATH_GetUnusedFlag_0x00004(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwFlags & PATH_UNUSED_FLAG_0x00004;
+}
+
 // 0x00648B90
 extern "C" void __stdcall sub_00648B90_SetPathTarget(B25Path* path, B25TargetUnit* target)
 {
@@ -1398,6 +1713,26 @@ extern "C" void __stdcall sub_00648B90_SetPathTarget(B25Path* path, B25TargetUni
     }
 }
 
+// 0x00648BB0
+void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* ptPath, int* pTargetType, int* pTargetGUID)
+{
+    D2_ASSERT(ptPath->hTarget, 1984);
+
+    *pTargetType = ptPath->dwTargetType;
+    *pTargetGUID = ptPath->dwTargetId;
+}
+
+// 0x00648BF0
+D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath)
+{
+    if (!pDynamicPath)
+    {
+        return 0;
+    }
+
+    return pDynamicPath->hTarget;
+}
+
 // 0x00648C10
 extern "C" __declspec(dllexport) unsigned int __stdcall sub_00648C10(Obj00648C10* pObj) {
     if (!pObj) {
@@ -1406,15 +1741,112 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_00648C10(Obj00648C10
     return pObj->dwValue4C;
 }
 
+// 0x00648C30
+void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask)
+{
+    D2PathPointStrc tPosition;
+    tPosition.X = pDynamicPath->tGameCoords.wPosX;
+    tPosition.Y = pDynamicPath->tGameCoords.wPosY;
+
+    if (pDynamicPath->pRoom)
+    {
+        if (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_MISSILE)
+        {
+            COLLISION_ResetMaskWithSize(pDynamicPath->pRoom, tPosition.X, tPosition.Y, pDynamicPath->dwUnitSize, pDynamicPath->nFootprintCollisionMask);
+        }
+        else
+        {
+            COLLISION_ResetMaskWithPattern(pDynamicPath->pRoom, tPosition.X, tPosition.Y, pDynamicPath->dwCollisionPattern, pDynamicPath->nFootprintCollisionMask);
+        }
+    }
+
+    pDynamicPath->nFootprintCollisionMask = nCollisionMask;
+
+    if (pDynamicPath->pRoom)
+    {
+        if (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_MISSILE)
+        {
+            COLLISION_SetMaskWithSize(pDynamicPath->pRoom, tPosition.X, tPosition.Y, pDynamicPath->dwUnitSize, nCollisionMask);
+        }
+        else
+        {
+            COLLISION_SetMaskWithPattern(pDynamicPath->pRoom, tPosition.X, tPosition.Y, pDynamicPath->dwCollisionPattern, nCollisionMask);
+        }
+    }
+}
+
 // 0x00648CD0
 extern "C" __declspec(dllexport) unsigned int __stdcall sub_00648CD0(Obj00648CD0* pObj) {
     return pObj->dwValue50;
+}
+
+// 0x00648CE0
+void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask)
+{
+    pDynamicPath->nMoveTestCollisionMask = nCollisionMask;
+}
+
+// 0x00648CF0
+void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
+{
+    D2_ASSERT(!(ptPath->pUnit && ptPath->pUnit->dwUnitType == 0 && eType == 2), 0x861);
+
+    int nFlag = gaPathTypeFlags_006EB690[eType];
+    if ((nFlag & 0x2000) && !(ptPath->dwFlags & 0x4000))
+    {
+        ptPath->ePrevType = ptPath->eType;
+    }
+
+    if ((nFlag & 0x8000) && !(ptPath->dwFlags & 0x10000))
+    {
+        ptPath->nPreviousVelocity = ptPath->dwVelocity;
+    }
+
+    ptPath->eType = eType;
+    ptPath->dwFlags = nFlag | ptPath->dwFlags & 0xFFF800FF;
+    ptPath->nDirOffset = gaOffsetForPathType_006EB648[eType];
+
+    D2_ASSERT(ptPath->ePrevType != 0xB, 0x871);
+    D2_ASSERT(ptPath->ePrevType != 8, 0x872);
+    D2_ASSERT((eType != 4) || (ptPath->bDistMax < 78), 0x873);
+}
+
+// 0x00648DC0
+void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath)
+{
+    D2_ASSERT(pDynamicPath->pUnit, 2174);
+
+    if (pDynamicPath->dwFlags & PATH_WITH_PREVIOUS_VELOCITY)
+    {
+        pDynamicPath->dwVelocity = pDynamicPath->nPreviousVelocity;
+    }
+
+    if (pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        PATH_SetType(pDynamicPath, PATHTYPE_STRAIGHT);
+    }
+    else if (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x02000)
+    {
+        PATH_SetType(pDynamicPath, pDynamicPath->ePrevType);
+    }
+}
+
+// 0x00648E30
+int __stdcall PATH_GetType(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->eType;
 }
 
 // 0x00648E40
 void __stdcall sub_00648E40_SetByte90(D2Record00648E40Strc* pRecord, unsigned char nValue)
 {
     pRecord->nValue90 = nValue;
+}
+
+// 0x00648E60
+unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->nDist;
 }
 
 // 0x00648E70
@@ -1429,12 +1861,83 @@ extern "C" void __stdcall sub_00648E70_SetDistance(B25DistancePath* path, U8 dis
     }
 }
 
+// 0x00648EA0
+unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->bDistMax;
+}
+
 // 0x00648EB0
 extern "C" U16 __stdcall sub_00648EB0(PathCollisionView* path)
 {
     if (path->velocity == 0)
         path->collidedMask = COLLISION_CheckMaskWithSize(path->room,path->positionX,path->positionY,path->f_44,0x7FFF);
     return path->collidedMask;
+}
+
+// 0x00648EF0
+unsigned short __stdcall D2Common_10202(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->nCollidedWithMask;
+}
+
+// 0x00648F00
+void __stdcall PATH_SetIDAStarInitFScore(D2DynamicPathStrc* ptPath, int nIDAStarInitFScore)
+{
+    D2_ASSERT(ptPath->eType == PATHTYPE_IDASTAR, 2280);
+
+    ptPath->nIDAStarInitFScore = nIDAStarInitFScore;
+}
+
+// 0x00648F40
+int __stdcall D2COMMON_10198_PathGetSaveStep(D2DynamicPathStrc* ptPath, D2PathPointStrc** ppPathPoints)
+{
+    D2_ASSERT(ptPath->dwFlags & PATH_SAVE_STEPS_MASK, 2292);
+
+    *ppPathPoints = ptPath->SavedSteps;
+    return ptPath->nSavedStepsCount;
+}
+
+// 0x00648F90
+int __stdcall D2COMMON_10199_PathGetSaveX(D2DynamicPathStrc* ptPath)
+{
+    D2_ASSERT(ptPath->dwFlags & PATH_SAVE_STEPS_MASK, 2306);
+
+    if (ptPath->nSavedStepsCount)
+    {
+        return ptPath->SavedSteps[ptPath->nSavedStepsCount - 1].X;
+    }
+
+    return 0;
+}
+
+// 0x00648FE0
+int __stdcall D2COMMON_10200_PathGetSaveY(D2DynamicPathStrc* ptPath)
+{
+    D2_ASSERT(ptPath->dwFlags & PATH_SAVE_STEPS_MASK, 2321);
+
+    if (ptPath->nSavedStepsCount)
+    {
+        return ptPath->SavedSteps[ptPath->nSavedStepsCount - 1].Y;
+    }
+
+    return 0;
+}
+
+// 0x00649030
+void __stdcall D2COMMON_10203_PATH_SetRotateFlag(D2DynamicPathStrc* pDynamicPath, int bReset)
+{
+    if (pDynamicPath)
+    {
+        if (!bReset)
+        {
+            pDynamicPath->dwFlags |= PATH_UNKNOWN_FLAG_0x00040;
+        }
+        else
+        {
+            pDynamicPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00040;
+        }
+    }
 }
 
 // 0x00649050
@@ -1460,9 +1963,48 @@ extern "C" __declspec(dllexport) int __stdcall sub_006490A0(Obj006490A0* pObj) {
     return pObj->bValue93 + 1;
 }
 
+// 0x006490C0
+void __stdcall D2Common_10207(D2DynamicPathStrc* pDynamicPath, char a2, char a3)
+{
+    pDynamicPath->unk0x67 = a2;
+    pDynamicPath->dwSpeed = a3;
+}
+
+// 0x006490E0
+void __stdcall PATH_SetDistance(D2DynamicPathStrc* pDynamicPath, int nDist)
+{
+    D2_ASSERT(nDist >= 0 && nDist <= 255, 2405);
+
+    pDynamicPath->nDistance = nDist;
+}
+
 // 0x00649120
 extern "C" __declspec(dllexport) unsigned int __stdcall sub_00649120(Obj00649120* pObj) {
     return pObj->bValue94;
+}
+
+// 0x00649140
+void __stdcall PATH_AddToDistance(D2DynamicPathStrc* pDynamicPath, int nAddition)
+{
+    const int nDistance = pDynamicPath->nDistance + nAddition;
+    if (nDistance < 0)
+    {
+        pDynamicPath->nDistance = 0;
+    }
+    else if (nDistance > 255)
+    {
+        pDynamicPath->nDistance = 255;
+    }
+    else
+    {
+        pDynamicPath->nDistance = nDistance;
+    }
+}
+
+// 0x00649180
+int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit)
+{
+    return pUnit->pDynamicPath->dwCollisionPattern;
 }
 
 // 0x00649190
@@ -1471,11 +2013,69 @@ extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collis
     unit->path->collisionPattern = collisionPattern;
 }
 
+// 0x006491B0
+void __stdcall D2COMMON_10212_PATH_SetMoveFlags(D2UnitStrc* pUnit, int bSet)
+{
+    D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
+
+    D2_ASSERT(ptPath, 2466);
+
+    if (bSet)
+    {
+        pUnit->dwFlagEx |= UNITFLAGEX_UNK_PATH_RELATED;
+    }
+    else
+    {
+        pUnit->dwFlagEx &= ~UNITFLAGEX_UNK_PATH_RELATED;
+    }
+    ptPath->unk0x38 = 0;
+}
+
+// 0x00649210
+void __stdcall D2Common_10213(D2UnitStrc* pUnit)
+{
+    if (pUnit && !UNIT_HasFlag(pUnit, UNITFLAG_ISASYNC) && UNIT_HasFlagEx(pUnit, UNITFLAGEX_UNK_PATH_RELATED))
+    {
+        D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
+        D2_ASSERT(ptPath, 2485);
+
+        ++ptPath->unk0x38;
+        if ((int)ptPath->unk0x38 > 1)
+        {
+            ptPath->unk0x38 = 0;
+            if (!D2Common_10227(pUnit))
+            {
+                if (D2Common_10236(pUnit, PATH_GetTargetUnit(pUnit->pDynamicPath) != 0))
+                {
+                    UNITS_ChangeAnimMode(pUnit, 2);
+                }
+            }
+        }
+    }
+}
+
 // 0x006492A0
 extern "C" __declspec(dllexport) int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2) {
     int nDX = nX2 - nX1;
     int nDY = nY2 - nY1;
     return nDX * nDX + nDY * nDY;
+}
+
+// 0x006492C0
+int __stdcall D2Common_10237(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (!pDynamicPath)
+    {
+        return 0;
+    }
+
+    return pDynamicPath->dwCurrentPointIdx < pDynamicPath->dwPathPoints;
 }
 
 // 0x006492F0
@@ -1531,6 +2131,110 @@ static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc
         pPath->dwFlags |= PATH_ONE;
     }
     return pPath->dwPathPoints;
+}
+
+inline int __fastcall UNITS_GetXPositionInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+inline int __fastcall UNITS_GetYPositionInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+// 0x00649400
+void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    switch (nType)
+    {
+    case 0:
+    case 1:
+    {
+        const int nCollisionPattern = pUnit->pDynamicPath->dwCollisionPattern;
+        COLLISION_SetMaskWithPattern(UNITS_GetRoom(pUnit), UNITS_GetXPositionInl(pUnit), UNITS_GetYPositionInl(pUnit), nCollisionPattern, UNITS_GetCollisionMask(pUnit));
+        break;
+    }
+
+    case 2:
+        COLLISION_SetMaskWithSizeXY(UNITS_GetRoom(pUnit), UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit), UNITS_GetUnitSizeX(pUnit), UNITS_GetUnitSizeY(pUnit), UNITS_GetCollisionMask(pUnit));
+        break;
+
+    default:
+        COLLISION_SetMaskWithSize(UNITS_GetRoom(pUnit), UNITS_GetXPositionInl(pUnit), UNITS_GetYPositionInl(pUnit), UNITS_GetUnitSizeX(pUnit), UNITS_GetCollisionMask(pUnit));
+        break;
+    }
+}
+
+// 0x00649560
+int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce)
+{
+    int nType = 6;
+    if (pUnit)
+    {
+        nType = pUnit->dwUnitType;
+    }
+
+    switch (nType)
+    {
+    case 0:
+        if ((pUnit && pUnit->dwAnimMode != 17 && pUnit->dwAnimMode != 0) || bForce)
+        {
+ResetPattern:
+            const int nCollisionPattern = pUnit->pDynamicPath->dwCollisionPattern;
+            COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pUnit), UNITS_GetXPositionInl(pUnit), UNITS_GetYPositionInl(pUnit), nCollisionPattern, UNITS_GetCollisionMask(pUnit));
+            return 1;
+        }
+        break;
+
+    case 1:
+        if ((pUnit && pUnit->dwAnimMode != 12 && pUnit->dwAnimMode != 0) || bForce)
+        {
+            goto ResetPattern;
+        }
+        break;
+
+    case 2:
+        if (UNITS_HasCollision(pUnit) || bForce)
+        {
+            COLLISION_ResetMaskWithSizeXY(UNITS_GetRoom(pUnit), UNITS_GetXPositionInl(pUnit), UNITS_GetYPositionInl(pUnit), UNITS_GetUnitSizeX(pUnit), UNITS_GetUnitSizeY(pUnit), UNITS_GetCollisionMask(pUnit));
+            return 1;
+        }
+        break;
+
+    default:
+        COLLISION_ResetMaskWithSize(UNITS_GetRoom(pUnit), UNITS_GetXPositionInl(pUnit), UNITS_GetYPositionInl(pUnit), UNITS_GetUnitSizeX(pUnit), UNITS_GetCollisionMask(pUnit));
+        return 1;
+    }
+
+    return 0;
 }
 
 // 0x00649760
@@ -1636,6 +2340,276 @@ static __declspec(noinline) unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* 
     return 1;
 }
 
+// 0x00649970
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown)
+{
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    D2_ASSERT(pPath->pUnit == pUnit, LINE_PATH_UNIT);
+
+    if (pPath->dwFlags & PATH_MISSILE_MASK)
+    {
+        return PATH_MissileToTarget(pPath, pUnit);
+    }
+
+    pPath->nCollidedWithMask = 0;
+    D2UnitStrc* pTargetUnit = pPath->hTarget;
+    if (pTargetUnit && (!CLIENTS_GetUnitX(pTargetUnit) || !CLIENTS_GetUnitY(pTargetUnit)))
+    {
+        return 0;
+    }
+
+    D2PathInfoStrc tPathInfo;
+    D2PathPointStrc tStart;
+    tStart.X = pPath->tGameCoords.wPosX;
+    tStart.Y = pPath->tGameCoords.wPosY;
+    tPathInfo.tStartCoord = tStart;
+    if (tStart.X != 0 || tStart.Y != 0)
+    {
+        tPathInfo.nUnitSize = pPath->dwUnitSize;
+        tPathInfo.nCollisionPattern = pPath->dwCollisionPattern;
+        tPathInfo.pDynamicPath = pPath;
+        tPathInfo.nCollisionMask = pPath->nMoveTestCollisionMask;
+        tPathInfo.nDistMax = pPath->bDistMax;
+        tPathInfo.nMinimumFScoreToEvaluate = pPath->nIDAStarInitFScore;
+        tPathInfo.field_14 = PATH_UpdateTargetUnit(&tPathInfo);
+
+        if (pPath->tTargetCoord.X != 0 || pPath->tTargetCoord.Y != 0)
+        {
+            tPathInfo.tTargetCoord = pPath->tTargetCoord;
+            if (tPathInfo.tStartCoord.X != tPathInfo.tTargetCoord.X || tPathInfo.tStartCoord.Y != tPathInfo.tTargetCoord.Y)
+            {
+                const int nDeltaX = tPathInfo.tTargetCoord.X - tPathInfo.tStartCoord.X;
+                const int nDeltaY = tPathInfo.tTargetCoord.Y - tPathInfo.tStartCoord.Y;
+                if (nDeltaX <= PATH_MAX_DISTANCE && -nDeltaX <= PATH_MAX_DISTANCE && nDeltaY <= PATH_MAX_DISTANCE && -nDeltaY <= PATH_MAX_DISTANCE)
+                {
+                    tPathInfo.pStartRoom = pPath->pRoom;
+                    tPathInfo.pTargetRoom = sub_00463740_FindRoomAtPoint(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y);
+                    if (tPathInfo.pStartRoom && tPathInfo.pTargetRoom && (PATH_IsTargetDestinationAllowed(&tPathInfo, pUnit) || bAllowInTown))
+                    {
+                        tPathInfo.nPathType = pPath->eType;
+
+                        D2UnitStrc* pPathTargetUnit = pPath->hTarget;
+                        BOOL bRemovedTargetUnitFootprint = FALSE;
+                        PATH_RemoveCollisionFootprintForUnit(pUnit, FALSE);
+                        if (pPathTargetUnit && UNITS_GetUnitSizeX(pPathTargetUnit) && (pPath->dwFlags & PATH_UNKNOWN_FLAG_0x00800))
+                        {
+                            bRemovedTargetUnitFootprint = PATH_RemoveCollisionFootprintForUnit(pPathTargetUnit, FALSE);
+                        }
+
+                        BOOL bUpdatePath = PATH_TRUE;
+                        if ((pPath->dwFlags & PATH_UNKNOWN_FLAG_0x01000)
+                            && COLLISION_CheckAnyCollisionWithPattern(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y, pPath->dwCollisionPattern, pPath->nMoveTestCollisionMask))
+                        {
+                            bUpdatePath = PATH_PreparePathTargetForPathUpdate(&tPathInfo);
+                        }
+
+                        pPath->tFinalTargetCoord.X = tPathInfo.tTargetCoord.X;
+                        *(volatile int*)&pPath->dwCurrentPointIdx = 0;
+                        pPath->tFinalTargetCoord.Y = tPathInfo.tTargetCoord.Y;
+                        pPath->dwPathPoints = 0;
+                        pPath->dwCurrentPointIdx = 0;
+
+                        int nPathPoints = 0;
+                        if (bUpdatePath)
+                        {
+                            D2_ASSERT(!IsBadCodePtr((void*)scpfnPathFunction_006EB6D8[tPathInfo.nPathType]), LINE_PATH_FUNCTION);
+                            nPathPoints = scpfnPathFunction_006EB6D8[tPathInfo.nPathType](&tPathInfo);
+                        }
+                        pPath->dwPathPoints = nPathPoints;
+
+                        D2_ASSERT(tPathInfo.tStartCoord.X == tStart.X && tPathInfo.tStartCoord.Y == tStart.Y, LINE_START_COORD);
+
+                        if (bRemovedTargetUnitFootprint)
+                        {
+                            PATH_AddCollisionFootprintForUnit(pPath->hTarget);
+                        }
+                        PATH_AddCollisionFootprintForUnit(pUnit);
+
+                        if (!pPath->dwPathPoints)
+                        {
+                            pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
+                            return 0;
+                        }
+
+                        PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_TRUE, PATH_TRUE);
+                        if (pPath->dwCurrentPointIdx < pPath->dwPathPoints)
+                        {
+                            sub_6FDA8220(pPath);
+                            D2PathPointStrc tPrev;
+                            tPrev.X = pPath->tTargetCoord.X;
+                            pPath->tPrevTargetCoord.Y = pPath->tTargetCoord.Y;
+                            const unsigned int nFlags = pPath->dwFlags;
+                            *(volatile unsigned int*)&pPath->unk0x38 = 0;
+                            *(volatile unsigned short*)&pPath->tPrevTargetCoord.X = tPrev.X;
+                            if (!(nFlags & PATH_UNKNOWN_FLAG_0x00010) && !pPath->hTarget)
+                            {
+                                pPath->tTargetCoord.X = pPath->PathPoints[pPath->dwPathPoints - 1].X;
+                                pPath->tTargetCoord.Y = pPath->PathPoints[pPath->dwPathPoints - 1].Y;
+                            }
+
+                            if (pPath->dwPathPoints)
+                            {
+                                pPath->dwFlags = nFlags | PATH_UNKNOWN_FLAG_0x00020;
+                            }
+                            else
+                            {
+                                pPath->dwFlags = nFlags & ~PATH_UNKNOWN_FLAG_0x00020;
+                            }
+                            return pPath->dwPathPoints;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    pPath->dwCurrentPointIdx = 0;
+    pPath->dwPathPoints = 0;
+    pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
+    return 0;
+}
+
+// 0x00649CA0
+void __stdcall D2Common_10214(D2UnitStrc* pUnit)
+{
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (pDynamicPath)
+    {
+        if (UNITS_GetRoom(pUnit))
+        {
+            PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
+            pUnit->pDynamicPath->dwCollisionPattern = D2Common_11281_CollisionPatternFromSize(pUnit, pDynamicPath->dwUnitSize);
+            PATH_AddCollisionFootprintForUnit(pUnit);
+        }
+        else
+        {
+            pUnit->pDynamicPath->dwCollisionPattern = D2Common_11281_CollisionPatternFromSize(pUnit, pDynamicPath->dwUnitSize);
+        }
+    }
+}
+
+inline unsigned int PATH_ToFP16Center(int nValue)
+{
+    return (nValue << 16) + 0x8000;
+}
+
+// 0x00649D00
+void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag)
+{
+    D2DynamicPathStrc* pDynamicPath = (D2DynamicPathStrc*)FOG_AllocPool(pMemPool, sizeof(D2DynamicPathStrc), ".\\PATH\\Path.cpp", 1107, 0);
+    memset(pDynamicPath, 0, sizeof(D2DynamicPathStrc));
+
+    pUnit->pDynamicPath = pDynamicPath;
+    pDynamicPath->pUnit = pUnit;
+    pDynamicPath->dwUnitSize = UNITS_GetUnitSizeX(pUnit);
+    pDynamicPath->dwCollisionPattern = D2Common_11281_CollisionPatternFromSize(pUnit, pDynamicPath->dwUnitSize);
+
+    pDynamicPath->dwPrecisionX = PATH_ToFP16Center(nX);
+    pDynamicPath->dwPrecisionY = PATH_ToFP16Center(nY);
+    pDynamicPath->dwVelocity = 2048;
+    pDynamicPath->pRoom = pRoom;
+    pDynamicPath->nStepNum = 0;
+    pDynamicPath->nSavedStepsCount = 1;
+    pDynamicPath->SavedSteps[0].X = nX;
+    pDynamicPath->SavedSteps[0].Y = nY;
+
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        pDynamicPath->nFootprintCollisionMask = COLLIDE_PLAYER;
+        pDynamicPath->nMoveTestCollisionMask = COLLIDE_MASK_PLAYER_PATH;
+        PATH_SetType(pDynamicPath, PATHTYPE_STRAIGHT);
+        pDynamicPath->bDistMax = 73;
+        pDynamicPath->nIDAStarInitFScore = 70;
+        break;
+
+    case UNIT_MONSTER:
+    {
+        pDynamicPath->nFootprintCollisionMask = COLLIDE_MONSTER;
+
+        D2_ASSERT(!(pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER), 2145);
+        pDynamicPath->dwFlags &= 0xFFF800FF;
+        pDynamicPath->eType = PATHTYPE_TOWARD;
+        pDynamicPath->nDirOffset = 0;
+        D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_CLIENT, 2161);
+        D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_SERVER, 2162);
+
+        const int nBaseId = sub_00463860(pUnit);
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            switch (nBaseId)
+            {
+            case MONSTER_WRAITH1:
+                pUnit->pDynamicPath->dwCollisionPattern = COLLISION_PATTERN_SMALL_NO_PRESENCE;
+                pDynamicPath->nMoveTestCollisionMask = COLLIDE_MISSILE_BARRIER | COLLIDE_DOOR;
+                pDynamicPath->bDistMax = 14;
+                break;
+
+            default:
+                pDynamicPath->nMoveTestCollisionMask = sub_00648480_GetMonsterMoveTestMask(pUnit);
+                pDynamicPath->bDistMax = 14;
+                break;
+            }
+        }
+        else
+        {
+            pDynamicPath->nMoveTestCollisionMask = sub_00648480_GetMonsterMoveTestMask(pUnit);
+            pDynamicPath->bDistMax = 14;
+        }
+        break;
+    }
+
+    case UNIT_MISSILE:
+        pDynamicPath->nFootprintCollisionMask = 0;
+        pDynamicPath->nMoveTestCollisionMask = 0;
+        PATH_SetType(pDynamicPath, PATHTYPE_MISSILE);
+        break;
+    }
+
+    if (pRoom)
+    {
+        PATH_AddCollisionFootprintForUnit(pUnit);
+        UNITROOM_AddUnitToRoom(pUnit, pDynamicPath->pRoom);
+    }
+
+    int nClientX = pDynamicPath->dwPrecisionX >> 11;
+    int nClientY = pDynamicPath->dwPrecisionY >> 11;
+    DUNGEON_GameToClientCoords(&nClientX, &nClientY);
+    pDynamicPath->dwClientCoordX = nClientX;
+    pDynamicPath->dwClientCoordY = nClientY;
+
+    if (bSetFlag)
+    {
+        pDynamicPath->dwFlags |= PATH_UNKNOWN_FLAG_0x00010;
+    }
+}
+
+// 0x00649EF0
+void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, int a4)
+{
+    if (pDynamicPath)
+    {
+        D2FP32_16 tTarget;
+        tTarget.dwPrecisionX = (nX << 16) + 0x8000;
+        tTarget.dwPrecisionY = (nY << 16) + 0x8000;
+        const int nDirection = PATH_ComputeDirectionFromPreciseCoords_6FDAC760(pDynamicPath->tGameCoords, tTarget);
+        if (a4)
+        {
+            pDynamicPath->nDirection = nDirection & 0x3F;
+            pDynamicPath->nNewDirection = nDirection & 0x3F;
+        }
+        else
+        {
+            sub_6FDA9720(pDynamicPath, nDirection);
+        }
+    }
+}
+
+// 0x00649F50
 void __stdcall D2Common_10228(D2UnitStrc* pUnit)
 {
     if (pUnit->pDynamicPath)
@@ -1663,6 +2637,74 @@ void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, BOOL bForGameLogic)
     PATH_RecacheRoomIfNeeded(pPath);
 }
 
+int __stdcall PATH_GetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath)
+{
+    if (!pDynamicPath)
+    {
+        return 0xFFFF;
+    }
+
+    return pDynamicPath->nFootprintCollisionMask;
+}
+
+static __forceinline int sub_00649FF0_GetCollisionPattern(D2UnitStrc* pUnit)
+{
+    int nPattern = D2Common_11281_CollisionPatternFromSize(pUnit, UNITS_GetUnitSizeX(pUnit));
+    const int nBaseId = sub_00463860(pUnit);
+    if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        switch (nBaseId)
+        {
+        case 38:
+        case 157:
+        case 158:
+        case 319:
+            nPattern = 5;
+            break;
+        }
+    }
+    return nPattern;
+}
+
+// 0x00649FF0
+void __stdcall sub_00649FF0_ResetMonsterCollision(D2UnitStrc* pUnit, int bSkip)
+{
+    if (bSkip)
+    {
+        return;
+    }
+
+    int nValue = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    D2_ASSERT(nValue == UNIT_MONSTER, 1346);
+
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (PATH_GetFootprintCollisionMask(pDynamicPath) == 0x8000)
+    {
+        nValue = sub_00649FF0_GetCollisionPattern(pUnit);
+        if (UNITS_GetRoom(pUnit))
+        {
+            PATH_RemoveCollisionFootprintForUnit(pUnit, 1);
+            pUnit->pDynamicPath->dwCollisionPattern = nValue;
+            PATH_SetFootprintCollisionMask(pDynamicPath, 0x100);
+            PATH_AddCollisionFootprintForUnit(pUnit);
+        }
+        else
+        {
+            pUnit->pDynamicPath->dwCollisionPattern = nValue;
+            PATH_SetFootprintCollisionMask(pDynamicPath, 0x100);
+        }
+    }
+}
+
+// 0x0064A0E0
+void __stdcall PATH_AddCollisionFootprintForOptionalUnit(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        PATH_AddCollisionFootprintForUnit(pUnit);
+    }
+}
+
 // 0x0064A730
 extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
 {
@@ -1671,7 +2713,6 @@ extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* uni
     return 0;
 }
 
-// 0x006BD130
 extern "C" int __stdcall sub_006BD130_findKey(LinkView* link, U32 key, int unusedLogError)
 {
     int upper = link->count;
@@ -1690,3 +2731,43 @@ extern "C" int __stdcall sub_006BD130_findKey(LinkView* link, U32 key, int unuse
     }
     return -1;
 }
+
+// 0x0064FD70
+void __fastcall sub_0064FD70_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint)
+{
+    D2CoordStrc tStart;
+    D2CoordStrc tTarget;
+    tStart.nX = (tStartPoint.X << 16) + 0x8000;
+    tStart.nY = (tStartPoint.Y << 16) + 0x8000;
+    tTarget.nX = (tTargetPoint.X << 16) + 0x8000;
+    tTarget.nY = (tTargetPoint.Y << 16) + 0x8000;
+    PATH_GetDirectionVector(pDirectionVector, pOutDirection, tStart.nX, tStart.nY, tTarget.nX, tTarget.nY);
+}
+
+// 0x0064FDC0
+int __stdcall PATH_ComputeDirection(int nX1, int nY1, int nX2, int nY2)
+{
+    D2CoordStrc tCoords;
+    int nDirection;
+    D2CoordStrc tStart;
+    D2CoordStrc tTarget;
+    tStart.nX = (nX1 << 16) + 0x8000;
+    tStart.nY = (nY1 << 16) + 0x8000;
+    tTarget.nX = (nX2 << 16) + 0x8000;
+    tTarget.nY = (nY2 << 16) + 0x8000;
+    PATH_GetDirectionVector(&tCoords, &nDirection, tStart.nX, tStart.nY, tTarget.nX, tTarget.nY);
+    return nDirection;
+}
+
+// 0x006505C0
+int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath)
+{
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    return pPath->dwFlags & 8;
+}
+
+#include "gen/data/Source/D2Common/PATH/Path.inc"
