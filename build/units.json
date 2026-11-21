@@ -30052,6 +30052,11 @@
      "name": "?sub_004AF6A0_MonsterAttackEvent@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004B11F0",
+     "length": 77,
+     "name": "?sub_004B11F0_CheckStatus@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004B1280",
      "length": 280,
      "name": "?sub_004B1280_HandleSequenceStop@@YIHPAUD2UnitStrc@@PAUD2SeqModeStrc@@@Z"
@@ -30065,17 +30070,6 @@
      "va": "0x004B15F0",
      "length": 46,
      "name": "?sub_004B15F0@Unicode@@QBE?AU1@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B11F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B11F0",
-     "length": 77,
-     "name": "?sub_004B11F0_CheckStatus@@YIHPAUD2UnitStrc@@@Z"
     }
    ]
   },

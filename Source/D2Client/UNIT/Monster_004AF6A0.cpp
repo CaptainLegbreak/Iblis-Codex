@@ -175,6 +175,10 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit);
 
 static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit);
 
+int __fastcall UNITS_CanSwitchAI(int nMonsterId); // 0x00623470
+
+int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wFlag); // 0x004AC7E0
+
 // 0x004ADEA0
 void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId)
 {
@@ -696,6 +700,26 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         sub_00480E70_SetUnitMode(pUnit, 1);
         sub_00624390(pUnit);
     }
+}
+
+// 0x004B11F0
+int __fastcall sub_004B11F0_CheckStatus(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 0;
+    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    if (nType != 1)
+        return 0;
+    if (!UNITS_CanSwitchAI(pUnit->dwClassId))
+        return 0;
+    if (pUnit->dwUnitType == 1)
+    {
+        if (sub_004AC7E0(pUnit, 8))
+            return 0;
+        if (pUnit->dwUnitType == 1 && sub_004AC7E0(pUnit, 2))
+            return 0;
+    }
+    return 1;
 }
 
 static D2MonStatsTxt* MONSTATS_GetRecord(int nMonsterId)
