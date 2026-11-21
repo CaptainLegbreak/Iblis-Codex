@@ -1271,6 +1271,13 @@ enum D2C_M188FetishBlowgunAi
     FETISHBLOWGUN_AI_PARAM_RUN_AWAY_CHANCE_PCT = 1,
 };
 
+enum D2C_M230QuillRatAi
+{
+    QUILLRAT_AI_PARAM_ACTIVATE_DISTANCE = 0,
+    QUILLRAT_AI_PARAM_SHOOT_CHANCE_PCT = 1,
+    QUILLRAT_AI_PARAM_WALK_DISTANCE = 3,
+};
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -7753,6 +7760,72 @@ void __fastcall sub_005F0A20_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_IDLE_FRAMES));
+}
+
+// 0x005F1140
+void __fastcall AITHINK_Fn014_QuillRat(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    D2AiCmdStrc* pCurrentAiCmd = sub_0058EE80(pUnit);
+    if (pCurrentAiCmd)
+    {
+        if (SUNIT_GetServerUnit(pGame, pCurrentAiCmd->nCmdParam[1], pCurrentAiCmd->nCmdParam[2]))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+            AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+            return;
+        }
+
+        AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+    }
+
+    if (bCombat)
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    if (sub_6FCF2E70(pUnit))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+        return;
+    }
+
+    if (nDistance < AI_PARAM(pGame, pMonStatsTxt, QUILLRAT_AI_PARAM_ACTIVATE_DISTANCE))
+    {
+        if ((int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, QUILLRAT_AI_PARAM_SHOOT_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+            return;
+        }
+
+        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, QUILLRAT_AI_PARAM_WALK_DISTANCE), 1))
+        {
+            return;
+        }
+
+        if (nDistance < 4)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+            return;
+        }
+    }
+
+    unsigned char nWalkDist;
+    if (AI_PARAM(pGame, pMonStatsTxt, QUILLRAT_AI_PARAM_WALK_DISTANCE) < 3)
+    {
+        nWalkDist = 3;
+    }
+    else
+    {
+        nWalkDist = (unsigned char)AI_PARAM(pGame, pMonStatsTxt, QUILLRAT_AI_PARAM_WALK_DISTANCE);
+    }
+
+    AITACTICS_WalkCloseToUnit(pGame, pUnit, nWalkDist);
 }
 
 // 0x005F12A0
