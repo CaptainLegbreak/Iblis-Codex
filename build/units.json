@@ -55269,6 +55269,10 @@
      "name": "SUNIT_GetLastAttacker"
     },
     {
+     "va": "0x00553060",
+     "length": 137
+    },
+    {
      "va": "0x00553160",
      "length": 22,
      "name": "?sub_00553160_RoomHasClients@@YAHPAUD2UnitStrc@@@Z"
@@ -55438,6 +55442,15 @@
      "name": "SUNIT_GetInteractUnit"
     },
     {
+     "va": "0x005550B0",
+     "length": 374
+    },
+    {
+     "va": "0x00555230",
+     "length": 720,
+     "name": "?SUNIT_AllocUnitData@@YIPAUD2UnitStrc@@HHHHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@DHI@Z"
+    },
+    {
      "va": "0x00555600",
      "length": 356,
      "name": "?SUNIT_RemoveUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -55446,6 +55459,10 @@
      "va": "0x00555770",
      "length": 81,
      "name": "?sub_00555770_RemoveAllTiles@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005557D0",
+     "length": 319
     },
     {
      "va": "0x00555910",
@@ -55461,29 +55478,6 @@
      "va": "0x00555CC0",
      "length": 13,
      "name": "?sub_00555CC0_GetItemsTxtCount@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnit_00553060.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00553060",
-     "length": 137
-    },
-    {
-     "va": "0x005550B0",
-     "length": 374
-    },
-    {
-     "va": "0x00555230",
-     "length": 720,
-     "name": "?SUNIT_AllocUnitData@@YIPAUD2UnitStrc@@HHHHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@DHI@Z"
-    },
-    {
-     "va": "0x005557D0",
-     "length": 319
     }
    ]
   },
