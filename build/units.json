@@ -46758,8 +46758,33 @@
      "name": "GetSystemTimeZone"
     },
     {
+     "va": "0x00517ED0",
+     "length": 254,
+     "name": "?SaveAndUnload@BNGatewayAccess@@QAGXXZ"
+    },
+    {
      "va": "0x00517FD0",
      "length": 106
+    },
+    {
+     "va": "0x00518040",
+     "length": 19,
+     "name": "DNS"
+    },
+    {
+     "va": "0x00518060",
+     "length": 53,
+     "name": "?GMT@BNGatewayAccess@@QAGHH@Z"
+    },
+    {
+     "va": "0x005180A0",
+     "length": 62,
+     "name": "?Name@BNGatewayAccess@@QAGPBDH@Z"
+    },
+    {
+     "va": "0x005180E0",
+     "length": 108,
+     "name": "?Realm@BNGatewayAccess@@QAGPBDH@Z"
     },
     {
      "va": "0x00518150",
@@ -46767,9 +46792,24 @@
      "name": "SetCurGateway"
     },
     {
+     "va": "0x00518190",
+     "length": 212,
+     "name": "GetGatewayList"
+    },
+    {
+     "va": "0x00518270",
+     "length": 49,
+     "name": "?sub_00518270_LoadGatewayList@BNGatewayAccess@@AAEXXZ"
+    },
+    {
      "va": "0x005182B0",
      "length": 72,
      "name": "GetBattlenetRealmsList"
+    },
+    {
+     "va": "0x00518300",
+     "length": 87,
+     "name": "?sub_00518300_LoadGatewayFile@@YGPADPAI@Z"
     },
     {
      "va": "0x00518360",
@@ -46795,100 +46835,16 @@
      "va": "0x005184C0",
      "length": 178,
      "name": "FindKey"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00517ED0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00517ED0",
-     "length": 254,
-     "name": "?SaveAndUnload@BNGatewayAccess@@QAGXXZ"
-    },
-    {
-     "va": "0x00518060",
-     "length": 53,
-     "name": "?GMT@BNGatewayAccess@@QAGHH@Z"
-    },
-    {
-     "va": "0x005180A0",
-     "length": 62,
-     "name": "?Name@BNGatewayAccess@@QAGPBDH@Z"
-    },
-    {
-     "va": "0x005180E0",
-     "length": 108,
-     "name": "?Realm@BNGatewayAccess@@QAGPBDH@Z"
-    },
-    {
-     "va": "0x00518300",
-     "length": 87,
-     "name": "?sub_00518300_LoadGatewayFile@@YGPADPAI@Z"
     },
     {
      "va": "0x00518580",
      "length": 326,
      "name": "?PickClosestZone@BNGatewayAccess@@AAEXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00518040.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00518040",
-     "length": 19,
-     "name": "DNS"
     },
-    {
-     "va": "0x00518190",
-     "length": 212,
-     "name": "GetGatewayList"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00518270.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00518270",
-     "length": 49,
-     "name": "?sub_00518270_LoadGatewayList@BNGatewayAccess@@AAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_005186D0.cpp",
-   "rank": 1,
-   "functions": [
     {
      "va": "0x005186D0",
      "length": 384
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00518850.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00518850",
      "length": 777
