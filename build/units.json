@@ -51806,6 +51806,11 @@
      "name": "?sub_00534880_FreePlayerDataExtras@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00534970",
+     "length": 86,
+     "name": "?sub_00534970@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005349D0",
      "length": 122,
      "name": "?PLAYER_Destroy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -51830,6 +51835,11 @@
      "length": 226
     },
     {
+     "va": "0x00534D60",
+     "length": 431,
+     "name": "?PLAYER_CreateStartItem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2CharStatsTxt@@HPAUD2CharItemStrc@@@Z"
+    },
+    {
      "va": "0x005351C0",
      "length": 248,
      "name": "?sub_6FC7BEC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -51852,28 +51862,10 @@
      "va": "0x00535780",
      "length": 12,
      "name": "?sub_00535780_SetPlayerCount@@YIXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/Player_00534970.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
-     "va": "0x00534970",
-     "length": 86,
-     "name": "?sub_00534970@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/Player_00534D60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00534D60",
-     "length": 431,
-     "name": "?PLAYER_CreateStartItem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2CharStatsTxt@@HPAUD2CharItemStrc@@@Z"
+     "va": "0x005357D0",
+     "length": 535
     },
     {
      "va": "0x005359F0",
@@ -51885,30 +51877,6 @@
      "length": 60,
      "name": "?PLAYER_ApplyDeathPenalty@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/Player_005357D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005357D0",
-     "length": 535
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
