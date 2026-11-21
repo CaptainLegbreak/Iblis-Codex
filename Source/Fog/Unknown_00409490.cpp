@@ -1,70 +1,14 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
-struct D2PoolBlockInfoStrc;
-
-struct D2PoolBlockInfoStrc
-{
-    char unk0x00[0x1C];
-    int nBits;
-    int nSize;
-};
-
-struct D2MemPoolBlockStrc
-{
-    void* pMemory;
-    int nUnk0x04;
-    int bInUse;
-    D2MemPoolBlockStrc* pPrev;
-    D2MemPoolBlockStrc* pNext;
-    D2PoolBlockInfoStrc* pInfo;
-};
-
-struct D2MemPoolRecStrc
-{
-    D2CriticalSectionStrc tLock;
-    char unk0x18[0x0C];
-    int nBlocks;
-    D2MemPoolBlockStrc* pFirstBlock;
-    D2MemPoolBlockStrc* pLastBlock;
-};
-
-struct D2PoolRecordStrc
-{
-    int nUnk0x00;
-    void* pMemory;
-};
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nPools;
-    D2MemPoolRecStrc aPools[40];
-    int nLargeOverflow;
-    int nUnk0x7A4;
-    D2PoolRecordStrc* pUnk0x7A8;
-    int* apLargeBlocks[1023];
-    int nCount;
-    char unk0x17AC[0x20];
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_t nSize, unsigned long dwFreeType); // 0x006CC220
 extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
-
-struct D2PoolDirectoryStrc
-{
-    int bInit;
-    D2CriticalSectionStrc tLock;
-    D2PoolSystemStrc aSystems[8];
-    int nUnk0xBE7C;
-    unsigned int anFreeIndex[8];
-    int nFreeCount;
-};
 
 extern D2PoolDirectoryStrc gtPoolManager_0074F0E8; // 0x0074F0E8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -74,11 +18,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 // 0x00409490
 static void __stdcall sub_00409490_RemoveBlockRecord(D2PoolSystemStrc* pSystem, D2MemPoolBlockStrc* pBlock)
 {
-    D2PoolRecordStrc* pRecords = pSystem->pUnk0x7A8;
+    D2PoolRecordStrc* pRecords = pSystem->pRecords;
     D2CriticalSectionStrc* pLock = &pSystem->tLock;
     EnterCriticalSection(pLock);
     int nLow = 0;
-    int nHigh = pSystem->nLargeOverflow;
+    int nHigh = pSystem->nPoolBlocks;
     void* pMemory = pBlock->pMemory;
     int nMid;
     while (nLow < nHigh)
@@ -100,20 +44,20 @@ static void __stdcall sub_00409490_RemoveBlockRecord(D2PoolSystemStrc* pSystem, 
     LeaveCriticalSection(pLock);
     D2_ASSERT(0, 0x2BF);
 found:
-    if (nMid < pSystem->nLargeOverflow - 1)
+    if (nMid < pSystem->nPoolBlocks - 1)
     {
-        memmove(&pRecords[nMid], &pRecords[nMid + 1], (pSystem->nLargeOverflow - nMid - 1) * sizeof(D2PoolRecordStrc));
+        memmove(&pRecords[nMid], &pRecords[nMid + 1], (pSystem->nPoolBlocks - nMid - 1) * sizeof(D2PoolRecordStrc));
     }
-    pSystem->nLargeOverflow--;
-    D2PoolBlockInfoStrc* pPool = pBlock->pInfo;
-    pSystem->nCount = pSystem->nCount - pPool->nSize - (((pPool->nBits + 0x1F) >> 5) * 4 + sizeof(D2MemPoolBlockStrc));
-    if (pSystem->nLargeOverflow + 0x40 < pSystem->nUnk0x7A4)
+    pSystem->nPoolBlocks--;
+    D2MemPoolRecStrc* pPool = pBlock->pPool;
+    pSystem->nCount = pSystem->nCount - pPool->nChunkSize - (((pPool->nBlocksPerChunk + 0x1F) >> 5) * 4 + sizeof(D2MemPoolBlockStrc));
+    if (pSystem->nPoolBlocks + 0x40 < pSystem->nMaxPoolBlocks)
     {
-        pSystem->nUnk0x7A4 -= 0x20;
-        pSystem->pUnk0x7A8 = (D2PoolRecordStrc*)realloc(pSystem->pUnk0x7A8, pSystem->nUnk0x7A4 * sizeof(D2PoolRecordStrc));
-        if (!pSystem->pUnk0x7A8)
+        pSystem->nMaxPoolBlocks -= 0x20;
+        pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
+        if (!pSystem->pRecords)
         {
-            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nUnk0x7A4);
+            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x2B4);
         }
     }
@@ -141,7 +85,7 @@ void __cdecl sub_00409B80_FreeUnusedPoolBlocks(D2PoolSystemStrc* pArg)
         while (pBlock)
         {
             D2MemPoolBlockStrc* pNext = pBlock->pNext;
-            if (!pBlock->bInUse)
+            if (!pBlock->nUsed)
             {
                 if (pBlock->pPrev)
                 {
