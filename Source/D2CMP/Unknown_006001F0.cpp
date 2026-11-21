@@ -1,4 +1,5 @@
 #include "D2CmpTypes.h"
+#include "D2SpriteCache.h"
 #include "D2WinTypes.h"
 struct AsyncData;
 struct D2CmpBlockTableBStrc;
@@ -34,7 +35,6 @@ extern "C" const char gszMonstersDir_006D6CAC[];                                
 extern "C" const char gszCharsDir_006DCC34[];                                                               // 0x006DCC34
 extern "C" const char gszSpriteCacheSourceFile[];                                                           // 0x006E364C
 
-struct D2SpriteCacheStrc { void* pMemPool; };
 extern D2SpriteCacheStrc gCmpTileCache;                                                                     // 0x0089DB60
 
 struct D2CmpDC6CelStrc { char unk0x00[0x2C]; };

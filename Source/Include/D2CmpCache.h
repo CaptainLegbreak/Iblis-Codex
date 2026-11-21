@@ -7,6 +7,7 @@
 #include "D2SysTypes.h"
 #include "D2LRUNode.h"
 #include "D2CmpTileRecord.h"
+#include "D2SpriteCache.h"
 
 struct D2SpriteCacheNodeStrc;
 struct D2TileLibraryEntryStrc;
@@ -28,25 +29,6 @@ struct D2DccFileStrc;
 struct D2DccCellStrc;
 struct D2TileLibraryHeaderStrc;
 struct D2LRUNodeStrc;
-
-struct D2SpriteCacheStrc
-{
-    void* pMemPool; // 0x00
-    unsigned int nMaxSize; // 0x04
-    unsigned int nTotalSize; // 0x08
-    unsigned int nCount; // 0x0C
-    D2SpriteCacheNodeStrc* pNodes; // 0x10
-    D2SpriteCacheNodeStrc* pHeadA; // 0x14
-    D2SpriteCacheNodeStrc* pTailA; // 0x18
-    D2SpriteCacheNodeStrc* pHeadB; // 0x1C
-    D2SpriteCacheNodeStrc* pTailB; // 0x20
-    D2SpriteCacheNodeStrc* f_24; // 0x24
-    D2SpriteCacheNodeStrc* f_28; // 0x28
-    int nArg; // 0x2C
-    D2CriticalSectionStrc tLock; // 0x30
-    unsigned int nHits; // 0x48
-    unsigned int f_4C; // 0x4C
-};
 
 struct D2StormSlotListStrc
 {

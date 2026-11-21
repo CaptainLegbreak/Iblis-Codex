@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2SpriteCache.h"
 #include "D2CmpCelFile.h"
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
@@ -8,7 +9,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SpriteCacheNodeStrc;
 struct D2CriticalSectionStrc;
-struct D2SpriteCacheStrc;
 struct D2CmpCacheKeyStrc;
 struct D2CmpCacheListEntryStrc;
 struct D2CmpCelContextStrc;
@@ -52,25 +52,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
 extern void* gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
-
-struct D2SpriteCacheStrc
-{
-    void* pMemPool;
-    unsigned int nMaxSize;
-    unsigned int nTotalSize;
-    unsigned int nCount;
-    D2SpriteCacheNodeStrc* pNodes;
-    D2SpriteCacheNodeStrc* pHeadA;
-    D2SpriteCacheNodeStrc* pTailA;
-    D2SpriteCacheNodeStrc* pHeadB;
-    D2SpriteCacheNodeStrc* pTailB;
-    D2SpriteCacheNodeStrc* f_24;
-    D2SpriteCacheNodeStrc* f_28;
-    int nArg;
-    D2CriticalSectionStrc tLock;
-    unsigned int nHits;
-    unsigned int f_4C;
-};
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
 D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
