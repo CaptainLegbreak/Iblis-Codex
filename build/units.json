@@ -91402,19 +91402,13 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006C2110.cpp",
+   "file": "Source/Fog/Src/QServer/QServerNT.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x006C2110",
      "length": 358
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C2280",
      "length": 302
