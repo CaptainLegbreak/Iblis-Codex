@@ -68329,6 +68329,11 @@
      "length": 348
     },
     {
+     "va": "0x005F5830",
+     "length": 487,
+     "name": "?AITHINK_Fn034_Andariel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F5D50",
      "length": 795,
      "name": "?AITHINK_Fn036_CorruptLancer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -69201,17 +69206,6 @@
      "va": "0x005F5040",
      "length": 918,
      "name": "?AITHINK_Fn029_BatDemon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F5830.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F5830",
-     "length": 487,
-     "name": "?AITHINK_Fn034_Andariel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },

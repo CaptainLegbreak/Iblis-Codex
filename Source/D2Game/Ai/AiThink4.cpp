@@ -8913,6 +8913,61 @@ void __fastcall AITHINK_Fn033_HellMeteor(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 1));
 }
 
+static int AI_RollSeedPercentage(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed % 100;
+}
+
+// 0x005F5830
+void __fastcall AITHINK_Fn034_Andariel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (pAiTickParam->bCombat)
+    {
+        if (pMonStatsTxt->nSkill[0] >= 0 && AI_RollSeedPercentage(pSeed) < AI_GetParam(pGame, pMonStatsTxt, 0))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    if (AI_RollSeedPercentage(pSeed) < AI_GetParam(pGame, pMonStatsTxt, 1))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
+        return;
+    }
+
+    if (AI_RollSeedPercentage(pSeed) < AI_GetParam(pGame, pMonStatsTxt, 2))
+    {
+        if (pMonStatsTxt->nSkill[0] >= 0)
+        {
+            const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
+            if (nRoll < AI_GetParam(pGame, pMonStatsTxt, 3))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+                return;
+            }
+        }
+
+        if (pMonStatsTxt->nSkill[1] >= 0)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+            return;
+        }
+    }
+
+    sub_005DE190_SetAiParam(pUnit, 1, 0, 0);
+    AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+}
+
 // 0x005F5D50
 void __fastcall AITHINK_Fn036_CorruptLancer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
