@@ -1283,6 +1283,7 @@ void __fastcall sub_006108D0_GrowListArray(D2Cache00610CA0Strc* pCache); // 0x00
 
 void __cdecl operator delete(void* pMemory, void* pWhere) throw();
 
+
 // build: symbol ??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z 0x0060DCB0
 // build: symbol ??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z 0x0060E130
 // build: symbol ??_7ChatIgnoreList@@6B@ 0x006E6248
@@ -2872,6 +2873,13 @@ void D2CommonIgnoreListStrc::sub_00611050_Load()
     }
 
     fclose(pFile);
+}
+
+// 0x00611170
+D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_00611170_New(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    D2StormHashKeyStrIStrc key(szKey);
+    return sub_00610DF0_InternalNewNode(SStrHash(szKey, 0, 0), key, nExtraBytes, nFlags);
 }
 
 // 0x00611320
