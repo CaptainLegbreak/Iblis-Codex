@@ -3176,7 +3176,7 @@
   ["0x0046D660", 226, "verified", "?sub_0046D660_AiFlagged@@YAXPAUD2UnitStrc@@0@Z"],
   ["0x0046D750", 43, "verified", "?sub_0046D750@@YAXXZ"],
   ["0x0046D780", 563, "verified"],
-  ["0x0046D9C0", 36, "verified", "?sub_0046D9C0_GetTxtRecord@@YIPAUD2Txt84Strc@@H@Z"],
+  ["0x0046D9C0", 36, "verified", "?sub_0046D9C0_GetTxtRecord@@YIPAUD2OverlayTxt@@H@Z"],
   ["0x0046D9F0", 100, "verified", "?sub_0046D9F0_GetConvertedUnitType@@YIHPAUD2UnitStrc@@@Z"],
   ["0x0046DA60", 94, "verified", "?sub_0046DA60_GetConvertedUnitMode@@YIHPAUD2UnitStrc@@@Z"],
   ["0x0046DAC0", 99, "verified", "?sub_0046DAC0_GetConvertedClassId@@YIHPAUD2UnitStrc@@@Z"],

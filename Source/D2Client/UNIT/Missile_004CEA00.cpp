@@ -4,21 +4,13 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 
 
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x1E];
-    short nLastRandomMissile;
-    char unk0x20[0x18];
-    int dwParam[5];
-    int dwCltParam[5];
-    char unk0x60[0x144];
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -137,9 +129,9 @@ void __fastcall sub_004CEA00_SpawnMissileInRadius(D2UnitStrc* pOwner, D2UnitStrc
         return;
     }
 
-    if (pMissilesTxtRecord->nLastRandomMissile > nMissile)
+    if (pMissilesTxtRecord->wCltSubMissile[0] > nMissile)
     {
-        nMissile = MISSILE_RollInRange(&pUnit->pSeed, nMissile, pMissilesTxtRecord->nLastRandomMissile);
+        nMissile = MISSILE_RollInRange(&pUnit->pSeed, nMissile, pMissilesTxtRecord->wCltSubMissile[0]);
         pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(nMissile);
         if (!pMissilesTxtRecord)
         {
@@ -185,13 +177,13 @@ void __fastcall sub_004CEA00_SpawnMissileInRadius(D2UnitStrc* pOwner, D2UnitStrc
             sub_004DA000_ResetGfxMotion(pMissile);
             if (nRadius == 6)
             {
-                sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, 2 * pMissilesTxtRecord->dwCltParam[3]);
-                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, 2 * -pMissilesTxtRecord->dwCltParam[4], 1);
+                sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, 2 * pMissilesTxtRecord->dwCltParam[0]);
+                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, 2 * -pMissilesTxtRecord->dwCltParam[1], 1);
             }
             else
             {
-                sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, pMissilesTxtRecord->dwCltParam[3]);
-                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, -pMissilesTxtRecord->dwCltParam[4], 1);
+                sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, pMissilesTxtRecord->dwCltParam[0]);
+                sub_004DA200_SetMotionVectorB(pMissile, 0, 0, -pMissilesTxtRecord->dwCltParam[1], 1);
             }
             return;
         }

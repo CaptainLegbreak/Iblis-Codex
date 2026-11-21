@@ -1,4 +1,7 @@
 #include "D2Txt.h"
+#include "D2DataTbls.h"
+#include "D2LevelTxt.h"
+#include "D2Records.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -6,64 +9,11 @@ typedef wchar_t Unicode;
 
 struct D2UnitStrc;
 
-struct D2SkillsTxt_H
-{
-    short nSkillId;
-    char unk0x002[0x52];
-    short wAuraStat[6];
-    char unk0x060[0x8];
-    int dwAuraStatCalc[6];
-    char unk0x080[0x18];
-    short nPassiveStat[5];
-    char unk0x0A2[0x2];
-    int dwPassiveCalc[5];
-    char unk0x0B8[0x4];
-    short wSummon;
-    char unk0x0BE[0x8A];
-    int dwParam[8];
-    char unk0x168[0x1E];
-    short wMinMana;
-    short nManaShift;
-    short wMana;
-    short wLevelMana;
-    char unk0x18E[0x4E];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
-
-struct D2SkillDescTxt
-{
-    char unk0x00[0x10];
-    unsigned short wStrMana;
-    char unk0x12[0x2A];
-    short wDescMissile[3];
-    unsigned char nDescLine[17];
-    char unk0x53[0x1];
-    unsigned short wDescTextA[17];
-    unsigned short wDescTextB[17];
-    int dwDescCalcA[17];
-    int dwDescCalcB[17];
-};
 
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x1C];
-    int dwAiCurseDivisor;
-};
 
 
-struct D2DataTablesStrc
-{
-    char unk0x0[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x114];
-    D2SkillsTxt_H* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
+
 
 struct D2MonStatsInitStrc
 {
@@ -114,8 +64,8 @@ int __fastcall sub_004A9AE0_FindSkill(D2UnitStrc* pUnit, int nSkillId);         
 int __fastcall sub_004A9B30_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B30
 int __fastcall sub_004A9B80_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B80
 void __stdcall sub_004ED3F0_DrawHintText(int nArg1, int nStringIndex); // 0x004ED3F0
-int __stdcall sub_004ECF50_AddMonsterDamage(Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nBonusMin, int nBonusMax); // 0x004ECF50
-int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt_H* pSkillsTxt, int nSkillLevel); // 0x004ED150
+int __stdcall sub_004ECF50_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nBonusMin, int nBonusMax); // 0x004ECF50
+int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel); // 0x004ED150
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                   // 0x00611D30
 int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, short nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
@@ -163,7 +113,7 @@ static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline D2SkillsTxt_H* SkillsTxtRecord_0D0(int nSkillId)
+static __forceinline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -174,7 +124,7 @@ static __forceinline D2SkillsTxt_H* SkillsTxtRecord_0D0(int nSkillId)
 
 static __forceinline int SkillParam_0D0(int nSkillId, int nLevel)
 {
-    D2SkillsTxt_H* pSkillsTxt = SkillsTxtRecord_0D0(nSkillId);
+    D2SkillsTxt* pSkillsTxt = SkillsTxtRecord_0D0(nSkillId);
     if (!pSkillsTxt)
     {
         return 0;
@@ -210,7 +160,7 @@ static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType)
 }
 
 // 0x004E6EA0
-static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt_H* pSkillsTxt, int* pValue2)
+static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
@@ -227,7 +177,7 @@ static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt
 }
 
 // 0x004E6F00
-static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt_H* pSkillsTxt, int* pValue2)
+static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
@@ -245,7 +195,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt
 
 // build: context sub_004E72D0_GetElemDamage
 
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt_H* pSkillsTxt, int nSkillLevel)
+static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
     int nMin;
     int nMax;
@@ -723,7 +673,7 @@ static int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut)
 }
 
 // 0x004E85C0
-static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt_H* pSkillsTxt, int nValue)
+static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue)
 {
     short nMana = pSkillsTxt->wMana;
     if (!nMana && !pSkillsTxt->wLevelMana)
@@ -818,7 +768,7 @@ static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsig
 }
 
 // 0x004EC220
-static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, unsigned short nString)
+static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
@@ -920,7 +870,7 @@ static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, U
 }
 
 // 0x004EC620
-static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nMissileId, int nSkillLevel)
+static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nMissileId, int nSkillLevel)
 {
     int nMin = MISSILE_GetMinElemDamage(0, pUnit, nMissileId, nSkillLevel) * 0x4B;
     int nMax = MISSILE_GetMaxElemDamage(0, pUnit, nMissileId, nSkillLevel) * 0x4B;
@@ -968,7 +918,7 @@ static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkill
 }
 
 // 0x004EC740
-static int __stdcall sub_004EC740_AddSkillElemRateByType(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt)
+static int __stdcall sub_004EC740_AddSkillElemRateByType(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText, D2SkillsTxt* pSkillsTxt)
 {
     int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
     int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
@@ -1163,7 +1113,7 @@ static int __stdcall sub_004ECC80_AddFormattedText(Unicode* wszText, int nValue,
 }
 
 // 0x004ECCF0
-static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt_H* pSkillsTxt)
+static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt)
 {
     D2MonStatsTxt* pMonStatsTxt = MonStatsTxtRecord(pSkillsTxt->wSummon);
     if (!pMonStatsTxt)
@@ -1248,7 +1198,7 @@ static int __stdcall sub_004EDB30_AddSeconds(int nFrames, unsigned short nString
 }
 
 // 0x004EDC40
-static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const int nLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 0);
     if (nLength)
@@ -1274,7 +1224,7 @@ static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt_
 
 // build: context sub_004EDCA0_AddElemDamageOverTime
 
-static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nSkillId, int nSkillLevel)
+static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel)
 {
     const int nLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 0);
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * nLength >> 8;
@@ -1286,7 +1236,7 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
 
 // build: context sub_004EDDD0_AddAttackInfo
 
-static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt_H* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
+static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
 {
     if (sub_0044DCC0())
     {
@@ -1314,7 +1264,7 @@ static __forceinline void AppendString(Unicode* wszText, unsigned short nString)
 }
 
 // 0x004EDEA0
-int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nSkillId, int nSkillLevel, int nManaValue, int nLine, int nLevelBonus)
+int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, int nManaValue, int nLine, int nLevelBonus)
 {
     int nCalcA;
     int nCalcB;

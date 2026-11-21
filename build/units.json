@@ -22340,7 +22340,7 @@
     {
      "va": "0x0046D9C0",
      "length": 36,
-     "name": "?sub_0046D9C0_GetTxtRecord@@YIPAUD2Txt84Strc@@H@Z"
+     "name": "?sub_0046D9C0_GetTxtRecord@@YIPAUD2OverlayTxt@@H@Z"
     },
     {
      "va": "0x0046D9F0",
