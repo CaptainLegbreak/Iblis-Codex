@@ -10,6 +10,7 @@
 #include "D2TxtItems.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2ItemModes.h"
 
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 

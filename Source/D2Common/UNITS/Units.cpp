@@ -6,6 +6,8 @@
 #include "D2GameObjs.h"
 #include "D2UnitData.h"
 #include "D2AnimData.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define FP16_SHIFT 16
 
@@ -293,21 +295,6 @@ enum
 
 enum
 {
-    PLRMODE_WALK = 2,
-    PLRMODE_RUN = 3,
-    PLRMODE_TOWNWALK = 6,
-};
-
-enum
-{
-    MONMODE_WALK = 2,
-    MONMODE_SKILL1 = 8,
-    MONMODE_SKILL2 = 9,
-    MONMODE_RUN = 15,
-};
-
-enum
-{
     MONSTER_VULTURE1 = 110,
     MONSTER_DIABLO = 243,
     MONSTER_DOOMKNIGHT1 = 310,
@@ -510,8 +497,6 @@ int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit);                          
 
 int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit);                                          // 0x0063A770
 
-#define MONMODE_DEAD 12
-
 #define MONSTATS2FLAGINDEX_CORPSESEL 7
 
 #define MONSTATS2FLAGINDEX_DEADCOL 19
@@ -567,7 +552,6 @@ int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce
 
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
 
-
 void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit); // 0x00621260
 
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
@@ -591,7 +575,6 @@ extern int gaFrameBonus_006E8E60[][7]; // 0x006E8E60
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);
 
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker);
-
 
 int __stdcall sub_006229F0_IsRayFreeFromUnit(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask);
 

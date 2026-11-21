@@ -7,8 +7,8 @@
 #include "D2Drlg.h"
 #include "D2Path.h"
 #include "D2Txt.h"
-
-#define PLRMODE_THROW 11
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define LVLSUB_UNUSED_INVALID -1
 
@@ -41,28 +41,6 @@
 #define SKILLSFLAGINDEX_INGAME 10
 
 #define MONSTATS2FLAGINDEX_CORPSESEL 7
-
-#define MONMODE_WALK 2
-
-#define MONMODE_GETHIT 3
-
-#define MONMODE_ATTACK1 4
-
-#define MONMODE_ATTACK2 5
-
-#define MONMODE_BLOCK 6
-
-#define MONMODE_CAST 7
-
-#define MONMODE_SKILL1 8
-
-#define MONMODE_SKILL2 9
-
-#define MONMODE_SKILL3 10
-
-#define MONMODE_SKILL4 11
-
-#define MONMODE_RUN 15
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 

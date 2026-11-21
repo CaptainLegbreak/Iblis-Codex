@@ -6,6 +6,7 @@
 #include "D2Unicode.h"
 #include "D2Path.h"
 #include "D2UnitData.h"
+#include "D2MonModes.h"
 
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 
