@@ -15994,11 +15994,6 @@
      "name": "?sub_00454600_GetBuySellButtonCells@@YAPAUD2CelFileStrc@@XZ"
     },
     {
-     "va": "0x00454650",
-     "length": 229,
-     "name": "?sub_00454650_ReadWholeFile@@YIPAXPBDPAK@Z"
-    },
-    {
      "va": "0x00454740",
      "length": 79,
      "name": "?sub_00454740_LoadLoadingPalette@@YAXXZ"
@@ -16655,6 +16650,11 @@
      "va": "0x004545B0",
      "length": 16,
      "name": "?sub_004545B0_UpdateGoldPanel@@YAXXZ"
+    },
+    {
+     "va": "0x00454650",
+     "length": 229,
+     "name": "?sub_00454650_ReadWholeFile@@YIPAXPBDPAK@Z"
     },
     {
      "va": "0x004547A0",
