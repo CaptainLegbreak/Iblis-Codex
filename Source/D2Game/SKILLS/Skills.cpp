@@ -630,8 +630,6 @@ struct D2PetTypeSkillListStrc
     unsigned short unk0xDE;
 };
 
-// CONFLICT type:D2_6FD10880_Strc from Skills_0056BAD0.cpp
-
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
 typedef int (__fastcall* SkillDoFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
