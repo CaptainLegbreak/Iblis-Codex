@@ -207,7 +207,18 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-struct D2MonsterModeDataStrc { int unk_00; int unk_04; int unk_08; int unk_0C; int unk_10; int unk_14; int unk_18; int unk_1C; int unk_20; };
+struct D2MonsterModeDataStrc
+{
+    int unk_00;
+    int unk_04;
+    int unk_08;
+    int unk_0C;
+    int unk_10;
+    int unk_14;
+    int unk_18;
+    int unk_1C;
+    int unk_20;
+};
 
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int nZero); // 0x0040B430
 
@@ -428,7 +439,12 @@ static void __stdcall sub_6FC63E80(int nDirection, D2GameStrc* pGame, D2UnitStrc
 
 int __fastcall sub_005A7390_MONSTERMODE_EndDeath(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange);
 
-struct D2MonStatsInitStrc { int nMinHP; int nMaxHP; int unk_08[12]; };
+struct D2MonStatsInitStrc
+{
+    int nMinHP;
+    int nMaxHP;
+    int unk_08[12];
+};
 
 void __fastcall sub_005A6830(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A6830
 
@@ -490,7 +506,6 @@ struct D2StatListStrc;
 
 struct D2SkillStrc;
 
-
 #define STAT_VELOCITYPERCENT 67
 
 #define PATHTYPE_WALL_FOLLOW 15
@@ -515,10 +530,41 @@ int __fastcall MONSTER_GetAiState(D2UnitStrc* pMonster);                        
 
 void __fastcall MONSTER_SetAiState(D2UnitStrc* pMonster, int nAiState);                                     // 0x005734C0
 
-
 static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2MonVelocityParamStrc* pAiParam, D2UnitStrc* pUnit, unsigned char nNewDist);
 
 static void __stdcall sub_005A63F0_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* pUnit, int nVelocityPercent, D2MonVelocityParamStrc* pAiParam, int nPathType, unsigned char nNewDist);
+
+struct Data005A6190;
+
+struct Unit005A6190;
+
+struct D2TakeRecordStrc;
+
+struct Data005A6190
+{
+    unsigned char bUnknown00[0x2C];
+    unsigned int dwValue2C;
+};
+
+struct Unit005A6190
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data005A6190* pData;
+};
+
+struct D2TakeRecordStrc
+{
+    char unk0x00[0x18];
+    int nValueA;
+    int nValueB;
+    unsigned char nValueC;
+};
+
+static __forceinline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit);
 
 __forceinline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord_Inline(int nLevel)
 {
@@ -918,6 +964,34 @@ void __fastcall PARTYSCREEN_RefreshPartyRelationsAfterLeave(D2GameStrc* pGame, D
     SUNIT_IterateLivingPlayers(pGame, sub_6FC7B460, pPlayer);
 }
 
+// 0x005A6190
+extern "C" __declspec(dllexport) unsigned int __fastcall sub_005A6190(Unit005A6190* pUnit) {
+    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
+        return pUnit->pData->dwValue2C;
+    }
+    return 0;
+}
+
+// 0x005A61B0
+static void __stdcall sub_005A61B0_TakeRecordValues(D2TakeRecordStrc* pRecord, int* pValueA, int* pValueB, unsigned char* pValueC)
+{
+    if (pRecord->nValueA)
+    {
+        *pValueA = pRecord->nValueA;
+    }
+    if (pRecord->nValueB)
+    {
+        *pValueB = pRecord->nValueB;
+    }
+    if (pRecord->nValueC)
+    {
+        *pValueC = pRecord->nValueC;
+    }
+    pRecord->nValueA = 0;
+    pRecord->nValueB = 0;
+    pRecord->nValueC = 0;
+}
+
 struct D2DamageStrc;
 
 struct D2GameStrc;
@@ -975,8 +1049,6 @@ static int __stdcall MONSTERMODE_ComputePath(int nPathType, D2MonVelocityParamSt
 
     return nPathType;
 }
-
-static __forceinline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit);
 
 void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
 {
@@ -2484,6 +2556,11 @@ int __fastcall sub_6FC64E90(D2GameStrc* pGame, D2UnitStrc* pUnit)
     UNITS_StopSequence(pUnit);
 
     return 1;
+}
+
+void __stdcall sub_K13_Emit_005A61B0(D2TakeRecordStrc* pRecord, int* pValueA, int* pValueB, unsigned char* pValueC)
+{
+    sub_005A61B0_TakeRecordValues(pRecord, pValueA, pValueB, pValueC);
 }
 
 #include "gen/data/Source/D2Game/MONSTER/MonsterMode.inc"

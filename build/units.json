@@ -63623,6 +63623,16 @@
      "name": "?PARTYSCREEN_RefreshPartyRelationsAfterLeave@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005A6190",
+     "length": 23,
+     "name": "@sub_005A6190@4"
+    },
+    {
+     "va": "0x005A61B0",
+     "length": 56,
+     "name": "?sub_005A61B0_TakeRecordValues@@YGXPAUD2TakeRecordStrc@@PAH1PAE@Z"
+    },
+    {
      "va": "0x005A6250",
      "length": 4,
      "name": "?sub_005A6250_GetField14@@YIPAHPAUD2Field14Strc@@@Z"
@@ -64271,22 +64281,6 @@
      "va": "0x005A6080",
      "length": 82,
      "name": "?FRIENDLY_RemoveHostility@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A6190.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A6190",
-     "length": 23,
-     "name": "@sub_005A6190@4"
-    },
-    {
-     "va": "0x005A61B0",
-     "length": 56,
-     "name": "?sub_005A61B0_TakeRecordValues@@YGXPAUD2TakeRecordStrc@@PAH1PAE@Z"
     }
    ]
   },
