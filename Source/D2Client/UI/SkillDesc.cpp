@@ -188,7 +188,6 @@ extern const D2ElemDamageStatsStrc gaElemDamageStats_006DBEF4[4];               
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight);
 
 static __forceinline int sub_I05_ETypeColor(int nEType)
 {
@@ -796,7 +795,6 @@ void __fastcall sub_004EAA30_DrawOtherHandDamage(D2UnitStrc* pUnit, D2SkillStrc*
     sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
-
 // build: context ApplyRatio_Inline
 // build: context AddPoisonDamage_Inline
 // build: context AddPoisonDamageAndClamp_Inline
@@ -915,6 +913,267 @@ void __fastcall sub_004EB240_DrawSkillWeaponDamage(D2UnitStrc* pUnit, D2SkillStr
 {
     const int nBonus = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[0], pSkillsTxt->nSkillId, nSkillLevel);
     sub_004E99F0_DrawWeaponDamage(pUnit, pSkill, pSkillsTxt, nSkillLevel, sub_004EA4A0_WeaponDamageCallback2, nBonus, 0, nLeft, nY, nRight, 1);
+}
+
+static int sub_004E6FB0_GetETypeColor(int nEType)
+{
+    switch (nEType)
+    {
+    case 1:
+        return 1;
+    case 2:
+        return 9;
+    case 3:
+    case 4:
+        return 3;
+    case 5:
+        return 2;
+    }
+    return 0;
+}
+
+static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill, D2UnitStrc* pItem, int nRatio)
+{
+    if (!nRatio)
+        return;
+
+    int nMin = 0;
+    int nMax = 0;
+    sub_004E86F0_GetWeaponDamage(&nMin, &nMax, pColor, 0, pSkill, 128, pItem, 0, pUnit, 0);
+    sub_004E89A0_GetElementalDamage(pUnit, &nMin, &nMax, pColor, pSkill);
+    *pMinDamage += nMin * nRatio / 128;
+    *pMaxDamage += nMax * nRatio / 128;
+}
+
+void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+{
+    if (!pSkill)
+    {
+        return;
+    }
+
+    if (!pSkillsTxt)
+    {
+        return;
+    }
+
+    int nWeaponMin = 0;
+    int nWeaponMax = 0;
+    int nWeaponColor = 0;
+    sub_004E9660_AddScaledWeaponDamage(pUnit, &nWeaponMin, &nWeaponMax, &nWeaponColor, pSkill, 0, pSkillsTxt->nSrcDam);
+    const int nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
+    int nMin = SKILLS_GetMinPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
+    int nMax = SKILLS_GetMaxPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
+    nMin += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
+    nMax += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
+    sub_004E8D90_AddElementalStatDamage(pUnit, &nMin, &nMax, pSkillsTxt->nEType);
+
+    if (!nWeaponMin && !nWeaponMax)
+    {
+        sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+        return;
+    }
+
+    if (!nMin && !nMax)
+    {
+        sub_004E96E0_DrawDamageRange(nWeaponColor, nY, nWeaponMin, nWeaponMax, nLeft, nRight);
+        return;
+    }
+
+    UnicodeChar wszText1[32];
+    char szText[32];
+    if (nWeaponMin == nWeaponMax)
+    {
+        wsprintfA(szText, szFmtD_006D57BC, nWeaponMin);
+    }
+    else if (nWeaponMin < 10000 && nWeaponMax < 10000)
+    {
+        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+    }
+    else if (nWeaponMin >= 10000)
+    {
+        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+    }
+    else
+    {
+        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+    }
+    sub_00526320_ToUnicode(wszText1, szText, 32);
+
+    UnicodeChar wszText2[32];
+    if (nMin == nMax)
+    {
+        wsprintfA(szText, szFmtD_006D57BC, nMin);
+    }
+    else if (nMin < 10000 && nMax < 10000)
+    {
+        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+    }
+    else if (nMin >= 10000)
+    {
+        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+    }
+    else
+    {
+        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+    }
+    sub_00526320_ToUnicode(wszText2, szText, 32);
+    sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
+}
+
+int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor)
+{
+    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
+    {
+        if (STATES_CheckState(pUnit, sgptDataTables->pProgressiveStates[i]))
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, sgptDataTables->pProgressiveStates[i]);
+            if (pStatList)
+            {
+                int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
+                if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+                {
+                    D2SkillsTxt* pSkillsTxt = &sgptDataTables->pSkillsTxt[nSkillId];
+                    if (pSkillsTxt)
+                    {
+                        int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+                        if (nSkillLevel > 0)
+                        {
+                            short nStatId = pSkillsTxt->wAuraStat[0];
+                            if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
+                            {
+                                int nCharges = STATLIST_GetStatValue(pStatList, nStatId, 0);
+                                if (nCharges > 0)
+                                {
+                                    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
+                                    if (!pSkillDescTxt)
+                                    {
+                                        *pMinDamage += SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
+                                        *pMaxDamage += SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
+                                    }
+                                    else
+                                    {
+                                        const int nIndex = D2_MIN(D2_MAX(nCharges, 1), 3);
+
+                                        *pMinDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMin[nIndex - 1], nSkillId, nSkillLevel);
+                                        *pMaxDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMax[nIndex - 1], nSkillId, nSkillLevel);
+                                        const unsigned char* pElem = pSkillDescTxt->nPrgDamElem;
+                                        if (pElem[nIndex - 1] > 0 && pElem[nIndex - 1] < 13)
+                                            *pColor = sub_I05_ETypeColor(pElem[nIndex - 1]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return 1;
+}
+
+// build: context ApplyRatio_Inline
+// build: context AddPoisonDamage_Inline
+// build: context AddPoisonDamageAndClamp_Inline
+
+// 0x004EB640
+void __fastcall sub_004EB640_DrawMasteryWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+{
+    int nWeaponMin;
+    int nWeaponMax;
+    int nMin;
+    int nMax;
+    int nColor;
+
+    if (!pSkill)
+    {
+        return;
+    }
+
+    if (!pSkillsTxt)
+    {
+        return;
+    }
+
+    nMin = 0;
+    nMax = 0;
+    nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
+    sub_004E9660_AddScaledWeaponDamage(pUnit, &nMin, &nMax, &nColor, pSkill, 0, pSkillsTxt->nSrcDam);
+
+    if (D2Common_10434(pUnit, 1))
+    {
+        if (INVENTORY_GetWieldType(pUnit, pUnit->pInventory) == 2)
+        {
+            nWeaponMin = STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
+            nWeaponMax = STATLIST_UnitGetStatValue(pUnit, 0x18, 0);
+        }
+        else
+        {
+            nWeaponMin = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+            nWeaponMax = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+        }
+    }
+    else
+    {
+        nWeaponMin = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+        nWeaponMax = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+    }
+
+    if (nWeaponMin <= 1)
+    {
+        nWeaponMin = 1;
+    }
+    if (nWeaponMax <= 2)
+    {
+        nWeaponMax = 2;
+    }
+    if (nWeaponMax < nWeaponMin)
+        {
+            nWeaponMax = nWeaponMin;
+        }
+
+    const int nSkillId = pSkillsTxt->nSkillId;
+    int nPercent = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[0], nSkillId, nSkillLevel);
+    if (nPercent)
+    {
+        const int nMastery = STATLIST_UnitGetStatValue(pUnit, 0x149, 0);
+        if (nMastery)
+        {
+            nPercent += DATATBLS_ApplyRatio(nPercent, nMastery, 100);
+        }
+    }
+    nMin += DATATBLS_ApplyRatio(nWeaponMin, nPercent, 100);
+    nMax += DATATBLS_ApplyRatio(nWeaponMax, nPercent, 100);
+
+    nPercent = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[1], nSkillId, nSkillLevel);
+    if (nPercent)
+    {
+        const int nMastery = STATLIST_UnitGetStatValue(pUnit, 0x14B, 0);
+        if (nMastery)
+        {
+            nPercent += DATATBLS_ApplyRatio(nPercent, nMastery, 100);
+        }
+    }
+    nMin += DATATBLS_ApplyRatio(nWeaponMin, nPercent, 100);
+    nMax += DATATBLS_ApplyRatio(nWeaponMax, nPercent, 100);
+
+    nPercent = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[2], nSkillId, nSkillLevel);
+    if (nPercent)
+    {
+        const int nMastery = STATLIST_UnitGetStatValue(pUnit, 0x14A, 0);
+        if (nMastery)
+        {
+            nPercent += DATATBLS_ApplyRatio(nPercent, nMastery, 100);
+        }
+    }
+    nMin += DATATBLS_ApplyRatio(nWeaponMin, nPercent, 100);
+    nMax += DATATBLS_ApplyRatio(nWeaponMax, nPercent, 100);
+
+    if (!nColor)
+    {
+        nColor = 3;
+    }
+    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
 // 0x004EBA30
@@ -1075,56 +1334,6 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     return 1;
 }
 
-int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor)
-{
-    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
-    {
-        if (STATES_CheckState(pUnit, sgptDataTables->pProgressiveStates[i]))
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, sgptDataTables->pProgressiveStates[i]);
-            if (pStatList)
-            {
-                int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-                if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-                {
-                    D2SkillsTxt* pSkillsTxt = &sgptDataTables->pSkillsTxt[nSkillId];
-                    if (pSkillsTxt)
-                    {
-                        int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
-                        if (nSkillLevel > 0)
-                        {
-                            short nStatId = pSkillsTxt->wAuraStat[0];
-                            if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
-                            {
-                                int nCharges = STATLIST_GetStatValue(pStatList, nStatId, 0);
-                                if (nCharges > 0)
-                                {
-                                    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
-                                    if (!pSkillDescTxt)
-                                    {
-                                        *pMinDamage += SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
-                                        *pMaxDamage += SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
-                                    }
-                                    else
-                                    {
-                                        const int nIndex = D2_MIN(D2_MAX(nCharges, 1), 3);
-
-                                        *pMinDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMin[nIndex - 1], nSkillId, nSkillLevel);
-                                        *pMaxDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMax[nIndex - 1], nSkillId, nSkillLevel);
-                                        const unsigned char* pElem = pSkillDescTxt->nPrgDamElem;
-                                        if (pElem[nIndex - 1] > 0 && pElem[nIndex - 1] < 13)
-                                            *pColor = sub_I05_ETypeColor(pElem[nIndex - 1]);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return 1;
-}
 
 static __forceinline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
 {

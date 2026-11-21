@@ -37085,6 +37085,10 @@
      "name": "?sub_004EB240_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     },
     {
+     "va": "0x004EB640",
+     "length": 496
+    },
+    {
      "va": "0x004EBA30",
      "length": 288
     },
@@ -37340,30 +37344,6 @@
     {
      "va": "0x004EB830",
      "length": 259
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EB640.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EB640",
-     "length": 496
     }
    ],
    "flags": [
