@@ -258,6 +258,8 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
+#define QUEST_A5Q3_PRISONOFICE 33
+
 // 0x00589000
 void __fastcall ACT5Q3_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -293,6 +295,16 @@ static __forceinline int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit)
     if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nY;
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x00589070
+void __fastcall ACT5Q3_SendPacket0x5DToClient(D2UnitStrc* pUnit)
+{
+    D2GSPacketSrv5D packet5D = {};
+    packet5D.nHeader = QUEST_LOG_PACKET;
+    packet5D.nFlags = 32;
+    packet5D.nQuestId = QUEST_A5Q3_PRISONOFICE;
+    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 286), &packet5D);
 }
 
 // 0x005891D0
@@ -1497,44 +1509,6 @@ void __fastcall sub_0058FD20_ACT1Q1_SetRespecRewardPending(D2GameStrc* pGame, D2
 
     QUESTRECORD_SetQuestState(pQuestFlags, 0x29, 0x0D);
     QUESTRECORD_SetQuestState(pQuestFlags, 0x29, 1);
-}
-
-// 0x0058FD50
-void __fastcall sub_0058FD50_ACT1Q1_SetRespecRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    QUESTRECORD_SetQuestState(pQuestFlags, 0x29, 0);
-    QUESTRECORD_ClearQuestState(pQuestFlags, 0x29, 1);
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 0x29, 0x0F))
-    {
-        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x1E);
-        D2_ASSERT(pQuestData, 0xE1);
-
-        pQuestData->bActive = 0;
-
-        QUESTS_DebugOutput(pGame, "deactivated respec quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q1.cpp", 0xE5);
-    }
-}
-
-// 0x00591790
-void __fastcall ACT1Q3_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    QUESTRECORD_SetQuestState(pQuestFlags, 3, 0);
-    QUESTRECORD_ClearQuestState(pQuestFlags, 3, 1);
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 3, 0x0F))
-    {
-        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 3);
-        D2_ASSERT(pQuestData, 0x160);
-
-        pQuestData->bActive = 0;
-
-        QUESTS_DebugOutput(pGame, "deactivated tools of trade", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", 0x164);
-    }
 }
 
 #include "gen/data/Source/D2Game/Quests/a5q3.inc"

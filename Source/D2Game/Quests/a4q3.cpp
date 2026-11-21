@@ -176,6 +176,14 @@ bool __fastcall ACT3Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpc
 
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 
+void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget); // 0x00545780
+
+D2UnitStrc* __fastcall QUESTS_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned int dwCode, int nLevel, int nQuality, int bDroppable); // 0x005466B0
+
+void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C3A0
+
+void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); // 0x00545200
+
 // 0x005B59C0
 int __fastcall ACT4Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -415,6 +423,60 @@ void __fastcall ACT4Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 433);
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT4Q3_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005B6100
+void __fastcall ACT4Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const unsigned short nNPCNo = pQuestArg->nNPCNo;
+    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
+    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+    D2GameStrc* pGame = pQuestArg->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+    if (nNPCNo != 246)
+    {
+        return;
+    }
+
+    D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
+    if (nMessageIndex == 678)
+    {
+        pQuestDataEx->bCainActivated = 1;
+        QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 462);
+        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
+    }
+    else if (nMessageIndex == 679)
+    {
+        if (QUESTS_CreateItem(pQuestArg->pGame, pQuestArg->pPlayer, ' ssm', 0, 2, 1))
+        {
+            pQuestDataEx->bCainActivated = 1;
+            if (pQuestData->fState < 2)
+            {
+                QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 513);
+            }
+            pQuestDataEx->bSoulstoneAcquired = 1;
+            QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
+        }
+    }
+    else if (nMessageIndex == 680)
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1))
+        {
+            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 13) && pQuestData->fState != 5)
+            {
+                pQuestData->dwFlags &= 0xFFFFFF00;
+                QUESTS_UnitIterate(pQuestData, 13, 0, ACT4Q3_UnitIterate_StatusCyclerEx, false);
+                QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp", 530);
+                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 531);
+                pQuestData->pfSeqFilter(pQuestData);
+            }
+
+            QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 0);
+            QUESTRECORD_ClearQuestState(pQuestFlags, pQuestData->eFilter, 1);
+            QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
+            QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
+        }
+    }
 }
 
 // 0x005B6440
@@ -754,55 +816,6 @@ void __fastcall ACT3Q4_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
     }
 
     QUESTS_UnitIterate(pQuestData, nState, 0, ACT3Q4_UnitIterate_StatusCyclerEx, true);
-}
-
-// 0x005BAB60
-void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 852);
-
-    D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestData->bNotIntro || !pQuestDataEx->unk0x02 || !pQuestDataEx->unk0x0C)
-    {
-        return;
-    }
-
-    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-    if (pPlayer)
-    {
-        D2GameStrc* pGame = pQuestData->pGame;
-        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0))
-        {
-            return;
-        }
-    }
-
-    pQuestArg->pTarget->dwDropItemCode = ' 43j';
-    int nItemLevel;
-    if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0))
-    {
-        pQuestData->pCallback[8] = 0;
-        pQuestDataEx->unk0x0C = 0;
-        pQuestDataEx->bJadeFigurineDropped = 1;
-        ++pQuestDataEx->nGoldenBirdsInGame;
-        if (pQuestData->fState < 1)
-        {
-            QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 879);
-        }
-
-        if (!pQuestData->fLastState)
-        {
-            QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q4_UnitIterate_StatusCyclerEx, true);
-            pQuestDataEx->unk0x02 = 0;
-            return;
-        }
-    }
-    else
-    {
-        pQuestDataEx->unk0x01 = 1;
-    }
-    pQuestDataEx->unk0x02 = 0;
 }
 
 // 0x005BBE20

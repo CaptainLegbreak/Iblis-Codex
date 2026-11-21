@@ -984,50 +984,6 @@ bool __fastcall ACT5Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     return false;
 }
 
-// 0x005886A0
-void __fastcall OBJECTS_InitFunction62_CagedWussie(D2ObjInitFnStrc* pOp)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q2_RESCUESOLDIERS);
-    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
-
-    if (!pQuestData->bNotIntro)
-    {
-        return;
-    }
-
-    if (pQuestData->fState < 2)
-    {
-        QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q2.cpp", 860);
-    }
-
-    if (!pQuestData->fLastState && pQuestDataEx->nKilledWussies < 5)
-    {
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
-    }
-
-    for (int nCounter = 0; nCounter < 3; ++nCounter)
-    {
-        if (!pQuestDataEx->bWussiesSpawned[nCounter])
-        {
-            for (int i = 0; i < nCounter; ++i)
-            {
-                if (pQuestDataEx->pWussieCoords[i].nX == pOp->nX && pQuestDataEx->pWussieCoords[i].nY == pOp->nY)
-                {
-                    return;
-                }
-            }
-
-            pQuestDataEx->pWussieCoords[nCounter].nX = pOp->nX;
-            pQuestDataEx->pWussieCoords[nCounter].nY = pOp->nY;
-            pQuestDataEx->nSpawnedWussies += ACT5Q2_SpawnCagedWussies(pQuestData, pOp, nCounter);
-            pQuestDataEx->bWussiesSpawned[nCounter] = 1;
-            pQuestDataEx->unk0x10E[nCounter] = 0;
-            return;
-        }
-    }
-}
-
 // 0x00588C50
 int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData)
 {
@@ -1068,16 +1024,6 @@ void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
     pQuestData->dwFlags &= 0xFFFFFF00;
     QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
-}
-
-// 0x00589070
-void __fastcall ACT5Q3_SendPacket0x5DToClient(D2UnitStrc* pUnit)
-{
-    D2GSPacketSrv5D packet5D = {};
-    packet5D.nHeader = QUEST_LOG_PACKET;
-    packet5D.nFlags = 32;
-    packet5D.nQuestId = QUEST_A5Q3_PRISONOFICE;
-    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 286), &packet5D);
 }
 
 // 0x005890B0
@@ -1428,26 +1374,6 @@ bool __fastcall ACT5Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     return true;
 }
 
-// 0x0058DE30
-int __fastcall ACT5Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
-    {
-        return 0;
-    }
-
-    D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 472);
-    D2GSPacketSrv5D packet5D = {};
-    packet5D.nHeader = QUEST_LOG_PACKET;
-    packet5D.nQuestId = QUEST_A5Q6_BAAL;
-    packet5D.nFlags = 2;
-    sub_6FC3F380(pClient, &packet5D);
-
-    SUNIT_AttachSound(pUnit, 83, pUnit);
-    return 0;
-}
-
 // 0x0058F9B0
 bool __fastcall ACT1Intro_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
 {
@@ -1502,16 +1428,6 @@ bool __fastcall ACT1Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     }
 
     return false;
-}
-
-// 0x00592880
-void __fastcall ACT1Q4_SendPacket0x5DToClient(D2UnitStrc* pUnit)
-{
-    D2GSPacketSrv5D packet5D = {};
-    packet5D.nHeader = QUEST_LOG_PACKET;
-    packet5D.nFlags = 1;
-    packet5D.nQuestId = QUEST_A1Q4_CAIN;
-    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 613), &packet5D);
 }
 
 // 0x00592F80

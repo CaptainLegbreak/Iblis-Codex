@@ -291,6 +291,26 @@ void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame);
 
 void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc);
 
+// 0x00535F30
+void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pPlayer, int a4)
+{
+    int nUnused;
+    D2NpcEventStrc* pNpcEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 133, 0);
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nUnused);
+    if (pNpcRecord)
+    {
+        pNpcEvent->pNext = pNpcRecord->pEvent;
+        pNpcRecord->pEvent = pNpcEvent;
+        pNpcEvent->field_C = 1;
+        pNpcEvent->pUnit = pPlayer;
+        pNpcEvent->field_8 = a4;
+    }
+    else
+    {
+        ITEMS_RemoveFromAllPlayers(pGame, pPlayer);
+    }
+}
+
 // 0x00535FB0
 static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* pUnitProxy, int nNpcInventoryId)
 {
@@ -677,6 +697,29 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame
     return 0;
 }
 
+// 0x00536850
+void __fastcall SUNITPROXY_InitializeNpcEventChain(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit)
+{
+    int i = 0;
+    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
+    D2NpcRecordStrc* pRecord = pNpcControl->pFirstRecord;
+    GetTickCount();
+    for (; i < pNpcControl->nArraySize; ++i)
+    {
+        if (pRecord->bTrader == 1 && pRecord->bVendorInit == 1 && pRecord->bTrading == 1)
+        {
+            D2NpcEventStrc* pEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 611, 0);
+            pEvent->pNext = pRecord->pEvent;
+            pEvent->field_C = 0;
+            pEvent->pUnit = pUnit;
+            pEvent->field_8 = 1;
+            pEvent->field_4 = 4;
+            pRecord->pEvent = pEvent;
+        }
+        ++pRecord;
+    }
+}
+
 // 0x005368F0
 void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
 {
@@ -975,27 +1018,6 @@ void __fastcall CLIENTS_FreeClientsFromGame(D2GameStrc* pGame)
         pClient = pClient->pNext;
         FOG_FreePool(pGame->pMemoryPool, pCurrent, ".\\GAME\\Clients.cpp", 0x617, 0);
     }
-}
-
-// 0x00541400
-void __fastcall EVENT_FreeEventQueue(D2GameStrc* pGame)
-{
-    D2EventTimerQueueStrc* pTimerQueue = pGame->pTimerQueue;
-    if (!pTimerQueue)
-    {
-        return;
-    }
-
-    D2EventTimerSlabListStrc* pTimerArray = pTimerQueue->pSlabListHead;
-    while (pTimerArray)
-    {
-        D2EventTimerSlabListStrc* pNext = pTimerArray->pNextSlab;
-        FOG_FreePool(pGame->pMemoryPool, pTimerArray, ".\\GAME\\Event.cpp", 0x314, 0);
-        pTimerArray = pNext;
-    }
-
-    FOG_FreePool(pGame->pMemoryPool, pTimerQueue, ".\\GAME\\Event.cpp", 0x317, 0);
-    pGame->pTimerQueue = 0;
 }
 
 // 0x00545300

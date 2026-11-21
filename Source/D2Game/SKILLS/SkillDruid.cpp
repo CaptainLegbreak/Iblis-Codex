@@ -709,6 +709,8 @@ inline int SKILLS_IsValidPetType(int nPetType)
     return nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount;
 }
 
+void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
+
 // 0x005C6910
 int __fastcall SKILLS_SrvDo114_Raven(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -819,6 +821,34 @@ int __fastcall SKILLS_SrvDo115_Vines(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     STATLIST_SetUnitStat(pPet, STAT_LEVEL, nLevel, 0);
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
     return 1;
+}
+
+// 0x005C6BF0
+int __fastcall sub_005C6BF0_GetConvertedMode(D2UnitStrc* pUnit, int nMode)
+{
+    int nUnitType;
+    int nClassId;
+    int nNewMode = nMode;
+
+    int nTypeValue;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+        if (nTypeValue == 0)
+        {
+            return nMode;
+        }
+    }
+    else
+    {
+        nTypeValue = 6;
+    }
+
+    nUnitType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClassId = nClassValue;
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nNewMode, gszSkillDruidSourceFile, 156);
+    return nNewMode;
 }
 
 // 0x005C6CB0

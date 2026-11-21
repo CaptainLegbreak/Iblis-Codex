@@ -939,6 +939,10 @@ static int __stdcall sub_0054D230_TryEquipMercItem(D2GameStrc* pGame, D2UnitStrc
 
 int __fastcall sub_0054D430(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize);
 
+void __fastcall D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480(D2ClientStrc* pClient, unsigned short nStatId, unsigned int nValue); // 0x0053BE40
+
+void __fastcall sub_6FC3D830(D2ClientStrc* pClient, unsigned char nHeader, int nUnitGUID, unsigned short nStatId, int nValue); // 0x0053C1D0
+
 // 0x00547F70
 void __fastcall sub_6FC81C00(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -1053,6 +1057,22 @@ static __forceinline int PoisonStat_GetPerFrame(D2StatListStrc* pStatList)
 		return STATLIST_GetStatValue(pStatList, 74, 0);
 	}
 	return 0;
+}
+
+// 0x00548520
+void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer)
+{
+    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrMsg.cpp", 339);
+    D2_ASSERT(hClient, 340);
+
+    if (pUnit == pPlayer)
+    {
+        D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480(hClient, nStat, nNewValue);
+    }
+    else
+    {
+        sub_6FC3D830(hClient, 0x20, !pUnit ? -1 : pUnit->dwUnitId, nStat, nNewValue);
+    }
 }
 
 // 0x005485B0

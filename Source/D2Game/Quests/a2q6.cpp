@@ -426,34 +426,6 @@ void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
     }
 }
 
-// 0x0059C330
-void __fastcall ACT2Q5_OnSummonerActivated(D2GameStrc* pGame)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 12);
-    if (!pQuestData || pQuestData->bNotIntro != 1)
-    {
-        return;
-    }
-
-    D2Act2Quest5Strc* pQuestDataEx = (D2Act2Quest5Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->unk0x01)
-    {
-        pQuestDataEx->unk0x01 = 1;
-    }
-
-    if (!pQuestData->fState)
-    {
-        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q5.cpp", 0x238);
-    }
-
-    if (pQuestData->fLastState < 2)
-    {
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q5_UnitIterate_StatusCyclerEx, 1);
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q5_UnitIterate_UpdateQuestStateFlags);
-    }
-}
-
 // 0x0059C6C0
 int __fastcall sub_0059C6C0_ACT2Q6_UpdateRewardFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
 {

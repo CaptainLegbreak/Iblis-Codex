@@ -229,6 +229,21 @@ int __fastcall ACT5Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
 #define MONSTER_ANCIENTSTATUE3 539
 
+struct D2GSPacketSrv5D
+{
+    unsigned char nHeader;
+    unsigned char nQuestId;
+    unsigned char nFlags;
+    unsigned char nState;
+    unsigned short field_4;
+};
+
+void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+
+void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
 // 0x0058D7D0
 int __fastcall sub_0058D7D0_ACT5Q6_UnitIterate_SpawnObject(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -268,6 +283,32 @@ int __fastcall sub_0058D8B0(Game* game, Unit* unit, void* unused)
     return 0;
 }
 
+// 0x0058DC60
+void __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 40, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 40, 1) == 1)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    if (!nLevelId || DRLG_GetActNoFromLevelId(nLevelId) != 4)
+    {
+        return;
+    }
+
+    QUESTRECORD_SetQuestState(pQuestFlags, 40, 0);
+    QUESTRECORD_SetQuestState(pQuestFlags, 40, 13);
+    CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 384), 5, pGame->nDifficulty);
+}
+
 // 0x0058DD30
 static void __stdcall sub_0058DD30(D2UnitStrc* pPlayer, D2GameStrc* pGame, D2BitBufferStrc* pQuestFlags)
 {
@@ -279,6 +320,26 @@ static void __stdcall sub_0058DD30(D2UnitStrc* pPlayer, D2GameStrc* pGame, D2Bit
     {
         ++((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->nCompletions;
     }
+}
+
+// 0x0058DE30
+int __fastcall ACT5Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+    {
+        return 0;
+    }
+
+    D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 472);
+    D2GSPacketSrv5D packet5D = {};
+    packet5D.nHeader = QUEST_LOG_PACKET;
+    packet5D.nQuestId = QUEST_A5Q6_BAAL;
+    packet5D.nFlags = 2;
+    sub_6FC3F380(pClient, &packet5D);
+
+    SUNIT_AttachSound(pUnit, 83, pUnit);
+    return 0;
 }
 
 // 0x0058DEA0

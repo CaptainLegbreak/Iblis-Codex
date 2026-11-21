@@ -747,6 +747,8 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 
 void __fastcall MONSTER_ToggleSummonerFlag(D2UnitStrc* pUnit, int nFlag, int bSet); // 0x00573570
 
+void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
+
 // 0x00543540
 D2PlrIntroStrc* __fastcall sub_00543540_GetPlayerIntro(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -892,6 +894,32 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
             TEXT_AddNodeToTextList(pTextControl, pTables[nIndex].pMessages[i].nStringIndex, nMenu);
         }
     }
+}
+
+// 0x00543800
+void __fastcall QUESTS_QuestFree(D2GameStrc* pGame)
+{
+    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
+    if (!pQuestControl)
+        return;
+    D2QuestDataStrc* pQuestData = pQuestControl->pLastQuest;
+    while (pQuestData)
+    {
+        D2QuestDataStrc* pPrevQuestData = pQuestData->pPrev;
+        if (pQuestData->pQuestDataEx)
+            FOG_FreeServerMemory(pGame->pMemoryPool, pQuestData->pQuestDataEx, gszQuestsSourceFile, 0x1DF, 0);
+        FOG_FreeServerMemory(pGame->pMemoryPool, pQuestData, gszQuestsSourceFile, 0x1E1, 0);
+        pQuestData = pPrevQuestData;
+    }
+    D2QuestTimerStrc* pTimer = pQuestControl->pTimer;
+    while (pTimer)
+    {
+        D2QuestTimerStrc* pNextTimer = pTimer->pNext;
+        FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x1E8, 0);
+        pTimer = pNextTimer;
+    }
+    QUESTRECORD_FreeRecord(pGame->pMemoryPool, pQuestControl->pQuestFlags);
+    FOG_FreeServerMemory(pGame->pMemoryPool, pQuestControl, gszQuestsSourceFile, 0x1EC, 0);
 }
 
 // 0x005438B0
@@ -3371,22 +3399,6 @@ void __fastcall sub_6FC82270(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     {
         D2_ASSERT(!IsBadCodePtr((FARPROC)pfSendMode), 328);
         pfSendMode(pGame, pUnit, pClient, nAnimMode);
-    }
-}
-
-// 0x00548520
-void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer)
-{
-    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrMsg.cpp", 339);
-    D2_ASSERT(hClient, 340);
-
-    if (pUnit == pPlayer)
-    {
-        D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480(hClient, nStat, nNewValue);
-    }
-    else
-    {
-        sub_6FC3D830(hClient, 0x20, !pUnit ? -1 : pUnit->dwUnitId, nStat, nNewValue);
     }
 }
 

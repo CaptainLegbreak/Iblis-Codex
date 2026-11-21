@@ -4047,50 +4047,6 @@ void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* hRoom, D2C
     }
 }
 
-// 0x0053AEC0
-void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc)
-{
-    const unsigned char nDestinationAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
-    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\GAME\\Level.cpp", 506);
-    D2_ASSERT(hClient, 507);
-
-    int nSourceLevelId = 0;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (pRoom)
-    {
-        nSourceLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    }
-
-    if (nDestinationAct != CLIENTS_GetActNo(hClient))
-    {
-        SUNITPROXY_UpdateNpcsOnActChange(pGame, pPlayer, nSourceLevelId, nDestinationLevelId);
-        LEVEL_ChangeAct(pGame, hClient, nDestinationLevelId, nTileCalc);
-        return;
-    }
-
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nDestinationAct], nDestinationLevelId, nTileCalc, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
-    if (pSpawnRoom)
-    {
-        sub_6FCBDFE0(pGame, pPlayer, pSpawnRoom, nX, nY, 0, 0);
-    }
-}
-
-// 0x0053EC90
-void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* hClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
-{
-    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2013) == hClient, 2013);
-    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
-}
-
-// 0x0053ECF0
-void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
-{
-    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
-}
-
 // 0x0053FF00
 void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
 {
@@ -4336,25 +4292,6 @@ int __fastcall sub_00569D80(D2GameStrc* pGame, unsigned short nFlags, D2ClientSt
     }
 
     return 0;
-}
-
-// 0x0056C210
-D2UnitFindDataStrc* __fastcall sub_6FD10D90(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nX, int nY)
-{
-    D2UnitFindDataStrc* pUnitFindData = (D2UnitFindDataStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2UnitFindDataStrc), ".\\SKILLS\\Skills.cpp", 1099, 0);
-
-    D2UnitFindArgStrc unitFindArg = {};
-    unitFindArg.nFlags = 0x583;
-    unitFindArg.pUnit = pUnit;
-    unitFindArg.nX = nX;
-    unitFindArg.nY = nY;
-    unitFindArg.nSize = nSize;
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, pUnitFindData, pRoom, nX, nY, nSize, 0, &unitFindArg);
-    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(pUnitFindData);
-
-    return pUnitFindData;
 }
 
 // 0x00573640

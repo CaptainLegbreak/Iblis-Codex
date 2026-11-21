@@ -5148,19 +5148,6 @@ void __fastcall sub_00534AD0_ResetModeAndEvents(D2GameStrc* pGame, D2UnitStrc* p
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_DELAYEDPORTAL, pGame->dwGameFrame + 250, 0, 0);
 }
 
-// 0x005356B0
-int __fastcall sub_005356B0_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, unsigned char nHand, int nFlags)
-{
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\Player.cpp", 755);
-    if (!pClient)
-    {
-        return 0;
-    }
-
-    CLIENTS_SetSkillHotKey(pClient, nHotkeyId, nSkillId, nHand, nFlags);
-    return 1;
-}
-
 // 0x005356F0
 void __fastcall sub_005356F0_CountPlayersInLevelCb(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
 {
@@ -5267,26 +5254,6 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D
     return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, pIndex);
 }
 
-// 0x00535F30
-void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pPlayer, int a4)
-{
-    int nUnused;
-    D2NpcEventStrc* pNpcEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 133, 0);
-    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nUnused);
-    if (pNpcRecord)
-    {
-        pNpcEvent->pNext = pNpcRecord->pEvent;
-        pNpcRecord->pEvent = pNpcEvent;
-        pNpcEvent->field_C = 1;
-        pNpcEvent->pUnit = pPlayer;
-        pNpcEvent->field_8 = a4;
-    }
-    else
-    {
-        ITEMS_RemoveFromAllPlayers(pGame, pPlayer);
-    }
-}
-
 // 0x00536820
 void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
 {
@@ -5295,29 +5262,6 @@ void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pU
     if (pRoom && pUnitProxyArg->nLevelId == DUNGEON_GetLevelIdFromRoom(pRoom))
     {
         ++pUnitProxyArg->nCounter;
-    }
-}
-
-// 0x00536850
-void __fastcall SUNITPROXY_InitializeNpcEventChain(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit)
-{
-    int i = 0;
-    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
-    D2NpcRecordStrc* pRecord = pNpcControl->pFirstRecord;
-    GetTickCount();
-    for (; i < pNpcControl->nArraySize; ++i)
-    {
-        if (pRecord->bTrader == 1 && pRecord->bVendorInit == 1 && pRecord->bTrading == 1)
-        {
-            D2NpcEventStrc* pEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 611, 0);
-            pEvent->pNext = pRecord->pEvent;
-            pEvent->field_C = 0;
-            pEvent->pUnit = pUnit;
-            pEvent->field_8 = 1;
-            pEvent->field_4 = 4;
-            pRecord->pEvent = pEvent;
-        }
-        ++pRecord;
     }
 }
 
@@ -5542,41 +5486,6 @@ void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameS
     SUNIT_IterateLivingPlayers(pGame, sub_0053DF50, &packet8E);
 }
 
-// 0x0053F4B0
-void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int nUnused, unsigned int nFlags, unsigned char nTemplate)
-{
-    D2ArenaStrc* pArena = (D2ArenaStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ArenaStrc), ".\\GAME\\Arena.cpp", 50, 0);
-    memset(pArena, 0, sizeof(D2ArenaStrc));
-    pGame->pArenaCtrl = pArena;
-    pArena->fFlags = nFlags & 0x3179C7;
-    pArena->nTemplate = nTemplate;
-}
-
-// 0x00540000
-void __fastcall PARTY_FreePartyControl(D2GameStrc* ptGame)
-{
-    D2_ASSERT(ptGame, 0x2E);
-    D2PartyControlStrc* pPartyControl = ptGame->hParty;
-    if (!pPartyControl)
-        return;
-    D2PartyStrc* pParty = pPartyControl->pParties;
-    while (pParty)
-    {
-        D2PartyStrc* pNextParty = pParty->pNext;
-        D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes;
-        while (pPartyNode)
-        {
-            D2PartyNodeStrc* pNextPartyNode = pPartyNode->pNext;
-            FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 0x3F, 0);
-            pPartyNode = pNextPartyNode;
-        }
-        FOG_FreeServerMemory(ptGame->pMemoryPool, pParty, ".\\UNIT\\Party.cpp", 0x43, 0);
-        pParty = pNextParty;
-    }
-    FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyControl, ".\\UNIT\\Party.cpp", 0x47, 0);
-    ptGame->hParty = 0;
-}
-
 // 0x005404C0
 void __fastcall sub_005404C0_AddLivingMemberLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
 {
@@ -5591,59 +5500,6 @@ void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, voi
     {
         ++*((int*)pLivingUnits);
     }
-}
-
-// 0x00542AC0
-void __fastcall SUNITINACTIVE_DeleteExpiredItemNodes(D2GameStrc* pGame, int nAct)
-{
-    for (D2InactiveUnitListStrc* i = pGame->pInactiveUnitList[nAct]; i; i = i->pNext)
-    {
-        D2InactiveItemNodeStrc* pPrevious = 0;
-        D2InactiveItemNodeStrc* pCurrent = i->pInactiveItems;
-        while (pCurrent)
-        {
-            D2InactiveItemNodeStrc* pNext = pCurrent->pNext;
-            if (pCurrent->nFrame && pGame->dwGameFrame > pCurrent->nFrame)
-            {
-                if (pPrevious)
-                    pPrevious->pNext = pNext;
-                else
-                    i->pInactiveItems = pNext;
-                FOG_FreeServerMemory(pGame->pMemoryPool, pCurrent, ".\\UNIT\\SUnitInactive.cpp", 0x723, 0);
-            }
-            else
-            {
-                pPrevious = pCurrent;
-            }
-            pCurrent = pNext;
-        }
-    }
-}
-
-// 0x00543800
-void __fastcall QUESTS_QuestFree(D2GameStrc* pGame)
-{
-    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
-    if (!pQuestControl)
-        return;
-    D2QuestDataStrc* pQuestData = pQuestControl->pLastQuest;
-    while (pQuestData)
-    {
-        D2QuestDataStrc* pPrevQuestData = pQuestData->pPrev;
-        if (pQuestData->pQuestDataEx)
-            FOG_FreeServerMemory(pGame->pMemoryPool, pQuestData->pQuestDataEx, gszQuestsSourceFile, 0x1DF, 0);
-        FOG_FreeServerMemory(pGame->pMemoryPool, pQuestData, gszQuestsSourceFile, 0x1E1, 0);
-        pQuestData = pPrevQuestData;
-    }
-    D2QuestTimerStrc* pTimer = pQuestControl->pTimer;
-    while (pTimer)
-    {
-        D2QuestTimerStrc* pNextTimer = pTimer->pNext;
-        FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x1E8, 0);
-        pTimer = pNextTimer;
-    }
-    QUESTRECORD_FreeRecord(pGame->pMemoryPool, pQuestControl->pQuestFlags);
-    FOG_FreeServerMemory(pGame->pMemoryPool, pQuestControl, gszQuestsSourceFile, 0x1EC, 0);
 }
 
 // 0x00543E10

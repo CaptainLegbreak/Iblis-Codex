@@ -2682,38 +2682,6 @@ void __fastcall sub_005C2FF0_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* 
     }
 }
 
-// 0x005C32A0
-int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    if (pTarget->dwUnitType != UNIT_ITEM)
-    {
-        return 0;
-    }
-
-    if (pTarget->dwAnimMode != 3)
-    {
-        return 0;
-    }
-
-    if (!ITEMS_IsMetalItem(pTarget->dwClassId))
-    {
-        return 0;
-    }
-
-    if (!ITEMS_CheckItemFlag(pTarget, 0x10, 256, ".\\SKILLS\\SkillNec.cpp"))
-    {
-        return 0;
-    }
-
-    return !STATLIST_GetOwner(pTarget, 0);
-}
-
 // 0x005C34B0
 void __fastcall sub_005C34B0_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel)
 {

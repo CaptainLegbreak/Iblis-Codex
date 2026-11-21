@@ -118,6 +118,15 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
+// 0x005B7FF0
+void __fastcall ACT3Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (pQuestArg->nNewLevel == 77 && pQuestData->bNotIntro && pQuestData->fState < 3)
+    {
+        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 335);
+    }
+}
+
 // 0x005B8020
 void __fastcall ACT3Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -531,34 +540,6 @@ int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* p
     }
 
     return sub_6FD15190(pTarget, 11) != 0;
-}
-
-// 0x005C6BF0
-int __fastcall sub_005C6BF0_GetConvertedMode(D2UnitStrc* pUnit, int nMode)
-{
-    int nUnitType;
-    int nClassId;
-    int nNewMode = nMode;
-
-    int nTypeValue;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-        if (nTypeValue == 0)
-        {
-            return nMode;
-        }
-    }
-    else
-    {
-        nTypeValue = 6;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nNewMode, gszSkillDruidSourceFile, 156);
-    return nNewMode;
 }
 
 // 0x005D8510

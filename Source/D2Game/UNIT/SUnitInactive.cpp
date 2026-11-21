@@ -1194,6 +1194,33 @@ int __fastcall sub_005429B0_IsDeadMonsterAt(D2GameStrc* ptGame, D2ActiveRoomStrc
     return 0;
 }
 
+// 0x00542AC0
+void __fastcall SUNITINACTIVE_DeleteExpiredItemNodes(D2GameStrc* pGame, int nAct)
+{
+    for (D2InactiveUnitListStrc* i = pGame->pInactiveUnitList[nAct]; i; i = i->pNext)
+    {
+        D2InactiveItemNodeStrc* pPrevious = 0;
+        D2InactiveItemNodeStrc* pCurrent = i->pInactiveItems;
+        while (pCurrent)
+        {
+            D2InactiveItemNodeStrc* pNext = pCurrent->pNext;
+            if (pCurrent->nFrame && pGame->dwGameFrame > pCurrent->nFrame)
+            {
+                if (pPrevious)
+                    pPrevious->pNext = pNext;
+                else
+                    i->pInactiveItems = pNext;
+                FOG_FreeServerMemory(pGame->pMemoryPool, pCurrent, ".\\UNIT\\SUnitInactive.cpp", 0x723, 0);
+            }
+            else
+            {
+                pPrevious = pCurrent;
+            }
+            pCurrent = pNext;
+        }
+    }
+}
+
 // 0x00542B40
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom)
 {

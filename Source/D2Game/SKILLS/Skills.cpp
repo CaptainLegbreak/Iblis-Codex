@@ -811,6 +811,38 @@ static __forceinline int SKILLS_IsInRangeY(int nY, int nDistance, const D2DrlgCo
     return nY + nDistance >= drlgCoords.nSubtileY || nY - nDistance <= drlgCoords.nSubtileY + drlgCoords.nSubtileHeight;
 }
 
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+
+int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
+
+int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
+
+// 0x0056B6C0
+void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit)
+{
+    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
+    if (STATLIST_UnitGetStatValue(pUnit, 6, 0) > nMaxHp)
+    {
+        STATLIST_SetUnitStat(pUnit, 6, nMaxHp, 0);
+    }
+
+    const int nMaxMana = STATLIST_GetMaxManaFromUnit(pUnit);
+    if (STATLIST_UnitGetStatValue(pUnit, 8, 0) > nMaxMana)
+    {
+        STATLIST_SetUnitStat(pUnit, 8, nMaxMana, 0);
+    }
+
+    const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
+    if (STATLIST_UnitGetStatValue(pUnit, 10, 0) > nMaxStamina)
+    {
+        STATLIST_SetUnitStat(pUnit, 10, nMaxStamina, 0);
+    }
+
+    UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 267);
+}
+
 // 0x0056B770
 static int sub_0056B770_IsRoomInRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nDistance)
 {
@@ -1345,6 +1377,25 @@ static __forceinline int MONSTERS_GetBaseIdFromMonsterId(int nMonsterId)
     }
 
     return nMonsterId;
+}
+
+// 0x0056C210
+D2UnitFindDataStrc* __fastcall sub_6FD10D90(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nX, int nY)
+{
+    D2UnitFindDataStrc* pUnitFindData = (D2UnitFindDataStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2UnitFindDataStrc), ".\\SKILLS\\Skills.cpp", 1099, 0);
+
+    D2UnitFindArgStrc unitFindArg = {};
+    unitFindArg.nFlags = 0x583;
+    unitFindArg.pUnit = pUnit;
+    unitFindArg.nX = nX;
+    unitFindArg.nY = nY;
+    unitFindArg.nSize = nSize;
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, pUnitFindData, pRoom, nX, nY, nSize, 0, &unitFindArg);
+    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(pUnitFindData);
+
+    return pUnitFindData;
 }
 
 // 0x0056C2A0

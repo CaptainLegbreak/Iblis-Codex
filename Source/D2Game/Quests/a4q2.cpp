@@ -211,6 +211,31 @@ int __fastcall ACT4Q2_UnitIterate_UpdatePlayerState(D2GameStrc* pGame, D2UnitStr
 
 int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp);
 
+void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* pOrigin); // 0x00553380
+
+void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005351C0
+
+struct D2GSPacketSrv50
+{
+    unsigned char nHeader;
+    unsigned char nQuestId[2];
+    unsigned char data[0x0C];
+};
+
+void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
+
+int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
+
+void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
+
+void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
+
+void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc); // 0x0054B830
+
+void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
+
+void __stdcall sub_005B4FF0_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
+
 // 0x005B4390
 void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
 {
@@ -247,6 +272,16 @@ int __fastcall ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(D2GameStrc* pGame, D2UnitSt
 void __fastcall ACT4Q1_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
 {
     SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT4Q1_UnitIterate_AttachCompletionSound);
+}
+
+// 0x005B4530
+bool __fastcall ACT4Q2_SeqCallback(D2QuestDataStrc* pQuestData)
+{
+    if (!pQuestData->fState && pQuestData->bNotIntro == 1)
+    {
+        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 145);
+    }
+    return 1;
 }
 
 // 0x005B45E0
@@ -324,6 +359,25 @@ void __fastcall ACT4Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
+// 0x005B49C0
+int __fastcall ACT4Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
+    {
+        return 0;
+    }
+
+    D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 420);
+    D2GSPacketSrv5D packet5D = {};
+    packet5D.nHeader = 0x5D;
+    packet5D.nQuestId = 23;
+    packet5D.nFlags = 2;
+    sub_6FC3F380(pClient, &packet5D);
+    SUNIT_AttachSound(pUnit, 75, pUnit);
+    return 0;
+}
+
 // 0x005B4A30
 static void sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -334,6 +388,38 @@ static void sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket(D2GameStrc* pGame, 
     packet.nQuestId = 0x17;
     packet.nFlags = 1;
     sub_6FC3F380(pClient, &packet);
+}
+
+// 0x005B4A80
+int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    sub_6FC7BEC0(pGame, pUnit);
+    UNITS_GetPlayerData(pUnit)->bBusy = 1;
+
+    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)QUESTS_GetQuestData(pGame, 23)->pQuestDataEx;
+    pQuestDataEx->unk0x20 = (int)pUnit;
+
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
+    {
+        LEVEL_WarpUnit(pGame, pUnit, 103, 0);
+
+        D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 440);
+        D2GSPacketSrv5D packet5D = {};
+        packet5D.nHeader = 0x5D;
+        packet5D.nQuestId = 23;
+        packet5D.nFlags = 1;
+        sub_6FC3F380(pClient, &packet5D);
+    }
+    else
+    {
+        D2GSPacketSrv50 packet50;
+        packet50.nHeader = 0x50;
+        *(unsigned short*)packet50.nQuestId = 23;
+        D2GAME_SendPacket0x50_6FC3F440(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 474), &packet50);
+    }
+
+    return 0;
 }
 
 // 0x005B4B60
@@ -1001,6 +1087,60 @@ void __fastcall OBJECTS_InitFunction78_LastLastPortal(D2ObjInitFnStrc* pOp)
     {
         UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
     }
+}
+
+// 0x005B5880
+int __fastcall OBJECTS_OperateFunction73_LastLastPortal(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    D2GameStrc* pGame = pOp->pGame;
+    if (!pGame->bExpansion)
+    {
+        return 0;
+    }
+
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pOp->hPlayer)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
+    {
+        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hPlayer);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    if (DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)) != 3)
+    {
+        return 0;
+    }
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 28, 0))
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 28, 0);
+        QUESTRECORD_SetQuestState(pQuestFlags, 28, 13);
+
+        D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 1370);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pOp->hPlayer);
+        if (pClient && !PLAYER_IsBusy(pOp->hPlayer))
+        {
+            SUNIT_ResetInteractInfo(pOp->hPlayer);
+            pPlayerData->bBusy = 1;
+
+            D2GSPacketSrv5D packet5D = {};
+            packet5D.nHeader = 0x5D;
+            packet5D.nQuestId = 23;
+            packet5D.nFlags = 2;
+            sub_6FC3F380(pClient, &packet5D);
+            sub_0053D940_SendPacket0x61(pClient, 5);
+        }
+    }
+
+    D2GAME_PlayerChangeAct_6FC867C0(pOp->pGame, pOp->hPlayer, 109, 5);
+    QUESTS_UpdatePlayerFlags(pOp->pGame, pOp->hPlayer);
+    sub_005B4FF0_ActivateHarrogathWaypoint(pOp->pGame, pOp->hPlayer);
+    return 0;
 }
 
 // 0x005B6930
