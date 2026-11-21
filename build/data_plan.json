@@ -6023,8 +6023,6 @@
    "bytes": 36,
    "definitions": 2,
    "externs": [
-    "extern \"C\" void __cdecl sub_00627B50_Min(); // 0x00627B50",
-    "extern \"C\" void __cdecl sub_00627B60_Max(); // 0x00627B60",
     "extern \"C\" void __cdecl sub_00627B70(); // 0x00627B70",
     "extern \"C\" void __cdecl sub_00627BB0_ItemCalcGetStatValue(); // 0x00627BB0"
    ],

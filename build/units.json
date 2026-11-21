@@ -78500,6 +78500,21 @@
      "name": "?sub_00624DD0_InsertStatModOrFail@@YGXPAUD2StatListStrc@@H@Z"
     },
     {
+     "va": "0x00624ED0",
+     "length": 104,
+     "name": "?sub_00624ED0_GetBaseStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
+    },
+    {
+     "va": "0x00624F40",
+     "length": 17,
+     "name": "?sub_00624F40_GetStatsArray@@YAPAUD2StatsArrayStrc@@PAUD2StatListExStrc@@@Z"
+    },
+    {
+     "va": "0x00624F60",
+     "length": 122,
+     "name": "?sub_00624F60_GetTotalStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
+    },
+    {
      "va": "0x00624FE0",
      "length": 207,
      "name": "?sub_00624FE0_GetStatWithChildLists@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
@@ -78518,6 +78533,16 @@
      "va": "0x00625250",
      "length": 26,
      "name": "_sub_00625250@4"
+    },
+    {
+     "va": "0x00625270",
+     "length": 22,
+     "name": "STATLIST_GetBaseStatsCount"
+    },
+    {
+     "va": "0x00625290",
+     "length": 31,
+     "name": "STATLIST_GetFullStatsCountFromUnit"
     },
     {
      "va": "0x006252B0",
@@ -78558,6 +78583,11 @@
      "va": "0x00625600",
      "length": 31,
      "name": "sub_00625600_UnitGetStatValueWithPercent"
+    },
+    {
+     "va": "0x00625620",
+     "length": 38,
+     "name": "sub_00625620"
     },
     {
      "va": "0x00625650",
@@ -78660,6 +78690,11 @@
      "name": "?sub_00626020_ArmorValue@@YGHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00626070",
+     "length": 22,
+     "name": "D2Common_11248"
+    },
+    {
      "va": "0x00626090",
      "length": 21,
      "name": "_sub_00626090@4"
@@ -78668,6 +78703,16 @@
      "va": "0x006260B0",
      "length": 28,
      "name": "_sub_006260B0@8"
+    },
+    {
+     "va": "0x006260E0",
+     "length": 13,
+     "name": "sub_006260E0"
+    },
+    {
+     "va": "0x00626100",
+     "length": 13,
+     "name": "STATLIST_GetSkillLevel"
     },
     {
      "va": "0x00626110",
@@ -78708,9 +78753,19 @@
      "name": "?D2Common_STATLIST_FreeStatListImpl_6FDB7050@@YIXPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x00626CD0",
+     "length": 28,
+     "name": "STATLIST_FreeStatList"
+    },
+    {
      "va": "0x00626CF0",
      "length": 19,
      "name": "?sub_00626CF0_FreeExtendedStatList@@YIXPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x00626D10",
+     "length": 40,
+     "name": "STATLIST_FreeStatListEx"
     },
     {
      "va": "0x00626E10",
@@ -78727,111 +78782,14 @@
      "name": "?sub_006270B0@@YGHPAUD2StatListStrc@@HHG@Z"
     },
     {
-     "va": "0x00627170",
-     "length": 162,
-     "name": "?STATLIST_SetBaseStat@@YGHPAUD2StatListStrc@@HHGPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00627260",
-     "length": 63,
-     "name": "?STATLIST_SetUnitStat@@YGXPAUD2UnitStrc@@HHG@Z"
-    },
-    {
-     "va": "0x006276C0",
-     "length": 283,
-     "name": "?D2Common_10525@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00627830",
-     "length": 43,
-     "name": "sub_00627830_GetStatAccumulated"
-    },
-    {
-     "va": "0x00627AF0",
-     "length": 62,
-     "name": "?sub_00627AF0_HasSkillDesc@@YIHH@Z"
-    },
-    {
-     "va": "0x00627C20",
-     "length": 101,
-     "name": "ITEMMODS_EvaluateItemFormula"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00624C60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00624C60",
-     "length": 20,
-     "name": "?sub_00624C60_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00624ED0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00624ED0",
-     "length": 104,
-     "name": "?sub_00624ED0_GetBaseStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
-    },
-    {
-     "va": "0x00624F40",
-     "length": 17,
-     "name": "?sub_00624F40_GetStatsArray@@YAPAUD2StatsArrayStrc@@PAUD2StatListExStrc@@@Z"
-    },
-    {
-     "va": "0x00624F60",
-     "length": 122,
-     "name": "?sub_00624F60_GetTotalStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
-    },
-    {
-     "va": "0x00625270",
-     "length": 22,
-     "name": "STATLIST_GetBaseStatsCount"
-    },
-    {
-     "va": "0x00625290",
-     "length": 31,
-     "name": "STATLIST_GetFullStatsCountFromUnit"
-    },
-    {
-     "va": "0x00625620",
-     "length": 38,
-     "name": "sub_00625620"
-    },
-    {
-     "va": "0x00626070",
-     "length": 22,
-     "name": "D2Common_11248"
-    },
-    {
-     "va": "0x006260E0",
-     "length": 13,
-     "name": "sub_006260E0"
-    },
-    {
-     "va": "0x00626100",
-     "length": 13,
-     "name": "STATLIST_GetSkillLevel"
-    },
-    {
-     "va": "0x00626CD0",
-     "length": 28,
-     "name": "STATLIST_FreeStatList"
-    },
-    {
-     "va": "0x00626D10",
-     "length": 40,
-     "name": "STATLIST_FreeStatListEx"
-    },
-    {
      "va": "0x00627150",
      "length": 32,
      "name": "STATLIST_SetStatIfListIsValid"
+    },
+    {
+     "va": "0x00627170",
+     "length": 162,
+     "name": "?STATLIST_SetBaseStat@@YGHPAUD2StatListStrc@@HHGPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00627220",
@@ -78839,9 +78797,19 @@
      "name": "STATLIST_SetBaseStat2"
     },
     {
+     "va": "0x00627260",
+     "length": 63,
+     "name": "?STATLIST_SetUnitStat@@YGXPAUD2UnitStrc@@HHG@Z"
+    },
+    {
      "va": "0x006272B0",
      "length": 35,
      "name": "STATLIST_AddUnitStat"
+    },
+    {
+     "va": "0x006276C0",
+     "length": 283,
+     "name": "?D2Common_10525@@YGXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x006277E0",
@@ -78859,6 +78827,11 @@
      "name": "D2Common_10531_SetStatInStatListLayer0"
     },
     {
+     "va": "0x00627830",
+     "length": 43,
+     "name": "sub_00627830_GetStatAccumulated"
+    },
+    {
      "va": "0x00627860",
      "length": 174,
      "name": "?D2Common_11274@@YGHPAUD2UnitStrc@@0@Z"
@@ -78867,6 +78840,11 @@
      "va": "0x00627A40",
      "length": 176,
      "name": "?D2Common_11275@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00627AF0",
+     "length": 62,
+     "name": "?sub_00627AF0_HasSkillDesc@@YIHH@Z"
     },
     {
      "va": "0x00627B30",
@@ -78887,6 +78865,22 @@
      "va": "0x00627B60",
      "length": 11,
      "name": "sub_00627B60_Max"
+    },
+    {
+     "va": "0x00627C20",
+     "length": 101,
+     "name": "ITEMMODS_EvaluateItemFormula"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_00624C60.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00624C60",
+     "length": 20,
+     "name": "?sub_00624C60_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
     }
    ]
   },
