@@ -61895,6 +61895,11 @@
      "name": "?sub_0058ED80_FreeAllAiCommands@@YAXPAUD2GameStrc@@PAUD2AiControlStrc@@@Z"
     },
     {
+     "va": "0x0058EDE0",
+     "length": 150,
+     "name": "AIGENERAL_FreeAllAiCommands"
+    },
+    {
      "va": "0x0058EE80",
      "length": 30,
      "name": "@sub_0058EE80@4"
@@ -61910,6 +61915,10 @@
      "name": "AIGENERAL_GetAiCommandFromParam"
     },
     {
+     "va": "0x0058EF40",
+     "length": 85
+    },
+    {
      "va": "0x0058EFA0",
      "length": 83,
      "name": "AIGENERAL_SetCurrentAiCommand"
@@ -61920,9 +61929,51 @@
      "name": "_sub_0058F000@4"
     },
     {
+     "va": "0x0058F030",
+     "length": 93,
+     "name": "AIGENERAL_SetOwnerData"
+    },
+    {
+     "va": "0x0058F090",
+     "length": 61,
+     "name": "?AIGENERAL_GetOwnerData@@YIXPAUD2UnitStrc@@PAH1@Z"
+    },
+    {
      "va": "0x0058F0D0",
      "length": 48,
      "name": "?AIGENERAL_GetMinionOwner@@YIPAUD2UnitStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x0058F100",
+     "length": 96,
+     "name": "AIGENERAL_AllocMinionList"
+    },
+    {
+     "va": "0x0058F160",
+     "length": 256
+    },
+    {
+     "va": "0x0058F260",
+     "length": 230
+    },
+    {
+     "va": "0x0058F350",
+     "length": 40,
+     "name": "?AIGENERAL_FreeAllMinionLists@@YIXPAUD2GameStrc@@PAUD2MinionListStrc@@@Z"
+    },
+    {
+     "va": "0x0058F380",
+     "length": 190,
+     "name": "AIGENERAL_ExecuteCallbackOnMinions"
+    },
+    {
+     "va": "0x0058F440",
+     "length": 135,
+     "name": "AIGENERAL_GetAiControlInfo"
+    },
+    {
+     "va": "0x0058F4D0",
+     "length": 81
     },
     {
      "va": "0x0058F530",
@@ -61940,27 +61991,6 @@
      "name": "?AIGENERAL_UpdateMinionList@@YIXPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x0058F810",
-     "length": 93,
-     "name": "?AIGENERAL_FreeAiControl@@YIXPAUD2GameStrc@@PAUD2AiControlStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058EDE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058EDE0",
-     "length": 150,
-     "name": "AIGENERAL_FreeAllAiCommands"
-    },
-    {
-     "va": "0x0058F350",
-     "length": 40,
-     "name": "?AIGENERAL_FreeAllMinionLists@@YIXPAUD2GameStrc@@PAUD2MinionListStrc@@@Z"
-    },
-    {
      "va": "0x0058F710",
      "length": 29,
      "name": "?AIGENERAL_GetMinionSpawnClassId@@YIHPAUD2UnitStrc@@@Z"
@@ -61969,126 +61999,12 @@
      "va": "0x0058F730",
      "length": 224,
      "name": "AIGENERAL_AllocCommandsForMinions"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058EF40.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x0058EF40",
-     "length": 85
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058F030.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058F030",
+     "va": "0x0058F810",
      "length": 93,
-     "name": "AIGENERAL_SetOwnerData"
-    },
-    {
-     "va": "0x0058F090",
-     "length": 61,
-     "name": "?AIGENERAL_GetOwnerData@@YIXPAUD2UnitStrc@@PAH1@Z"
-    },
-    {
-     "va": "0x0058F100",
-     "length": 96,
-     "name": "AIGENERAL_AllocMinionList"
-    },
-    {
-     "va": "0x0058F440",
-     "length": 135,
-     "name": "AIGENERAL_GetAiControlInfo"
+     "name": "?AIGENERAL_FreeAiControl@@YIXPAUD2GameStrc@@PAUD2AiControlStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058F160.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058F160",
-     "length": 256
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058F260.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058F260",
-     "length": 230
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058F380.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058F380",
-     "length": 190,
-     "name": "AIGENERAL_ExecuteCallbackOnMinions"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058F4D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058F4D0",
-     "length": 81
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -74172,6 +74088,10 @@
      "name": "?sub_005FBB00_GetUberTargetScore@@YGHPAUD2UnitStrc@@0PAUD2AiBaalTargetArgsStrc@@@Z"
     },
     {
+     "va": "0x005FBDD0",
+     "length": 551
+    },
+    {
      "va": "0x005FC000",
      "length": 99,
      "name": "AIBAAL_CullPotentialTargets"
@@ -74194,16 +74114,6 @@
      "va": "0x005FC1C0",
      "length": 319,
      "name": "?sub_005FC1C0_RollBaalMeleeAiParam@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiBaal_005FBDD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FBDD0",
-     "length": 551
     },
     {
      "va": "0x005FC300",
@@ -74212,93 +74122,19 @@
     {
      "va": "0x005FC450",
      "length": 478
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiBaal_005FC630.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005FC630",
      "length": 498
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiBaal_005FC860.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005FC860",
      "length": 761
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiBaal_005FCB60.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005FCB60",
      "length": 972
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
