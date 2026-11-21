@@ -40422,6 +40422,11 @@
      "name": "?D2Win_CloseSpriteCache@@YGHXZ"
     },
     {
+     "va": "0x004F9050",
+     "length": 15,
+     "name": "?sub_004F9050@@YAHXZ"
+    },
+    {
      "va": "0x004F9060",
      "length": 59,
      "name": "D2Win_10004"
@@ -40430,6 +40435,11 @@
      "va": "0x004F90A0",
      "length": 140,
      "name": "sub_004F90A0_SwitchResolution"
+    },
+    {
+     "va": "0x004F9130",
+     "length": 5,
+     "name": "?D2Win_10006_ClearDrawCaches@@YGXXZ"
     },
     {
      "va": "0x004F9140",
@@ -40676,11 +40686,6 @@
      "name": "D2Win_COMMANDS_MouseButton_6F8AE070"
     },
     {
-     "va": "0x004FAAE0",
-     "length": 31,
-     "name": "?ARCHIVE_FreeCellFile@@YIXPAUD2CelFileStrc@@@Z"
-    },
-    {
      "va": "0x004FAD10",
      "length": 95,
      "name": "ARCHIVE_LoadVideoArchives"
@@ -40726,11 +40731,6 @@
      "name": "sub_00503FA0_AddHoverLine"
     },
     {
-     "va": "0x00506EC0",
-     "length": 314,
-     "name": "D2Win_10137"
-    },
-    {
      "va": "0x00507A10",
      "length": 210,
      "name": "ACCOUNTLIST_HandleMouseDown"
@@ -40762,22 +40762,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F9050.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F9050",
-     "length": 15,
-     "name": "?sub_004F9050@@YAHXZ"
-    },
-    {
-     "va": "0x004F9130",
-     "length": 5,
-     "name": "?D2Win_10006_ClearDrawCaches@@YGXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Win/Src/D2WinArchive.cpp",
    "rank": 0,
    "functions": [
@@ -40790,6 +40774,11 @@
      "va": "0x004FAA40",
      "length": 146,
      "name": "?ARCHIVE_LoadCellFileWithFileSize@@YIPAUD2CelFileStrc@@PBDPAIH@Z"
+    },
+    {
+     "va": "0x004FAAE0",
+     "length": 31,
+     "name": "?ARCHIVE_FreeCellFile@@YIXPAUD2CelFileStrc@@@Z"
     }
    ],
    "flags": [
@@ -41026,6 +41015,20 @@
      "name": "?sub_004FBDC0_Unsupported@@YAXXZ"
     },
     {
+     "va": "0x004FBE90",
+     "length": 67,
+     "name": "?sub_004FBE90_CountLinesFromCurrent@@YAHPAUD2WinTextBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FBEE0",
+     "length": 75,
+     "name": "?sub_004FBEE0@@YGHHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004FBF30",
+     "length": 957
+    },
+    {
      "va": "0x004FC2F0",
      "length": 253,
      "name": "?TEXTBOX_HandleMouseDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -41185,40 +41188,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004FBE90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FBE90",
-     "length": 67,
-     "name": "?sub_004FBE90_CountLinesFromCurrent@@YAHPAUD2WinTextBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FBEE0",
-     "length": 75,
-     "name": "?sub_004FBEE0@@YGHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004FBF30",
-     "length": 957
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Win/Src/D2WinImage.cpp",
    "rank": 0,
    "functions": [
@@ -41301,11 +41270,6 @@
      "name": "LIST_Draw"
     },
     {
-     "va": "0x00507900",
-     "length": 184,
-     "name": "ACCOUNTLIST_RemoveEntry"
-    },
-    {
      "va": "0x00507DC0",
      "length": 136,
      "name": "PROGRESSBAR_Draw"
@@ -41318,7 +41282,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
+   "file": "Source/D2Win/Src/D2WinTimer.cpp",
    "rank": 0,
    "functions": [
     {
@@ -41340,7 +41304,13 @@
      "va": "0x004FDA50",
      "length": 41,
      "name": "?sub_004FDA50_2@@YIXPAUD2WinTimerStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x004FDCC0",
      "length": 62,
@@ -41884,9 +41854,23 @@
      "name": "sub_005028E0_AllocSplitTextLine"
     },
     {
+     "va": "0x00502C40",
+     "length": 18,
+     "name": "?sub_00502C40_ClearTable@@YIPAHPAH@Z"
+    },
+    {
      "va": "0x00502C60",
      "length": 644,
      "name": "?D2Win_10115_FONT@@YIXXZ"
+    },
+    {
+     "va": "0x00502EF0",
+     "length": 265,
+     "name": "?sub_00502EF0@@YIHH@Z"
+    },
+    {
+     "va": "0x00503000",
+     "length": 456
     }
    ]
   },
@@ -41949,66 +41933,6 @@
     {
      "va": "0x00502360",
      "length": 58
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_00502C40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00502C40",
-     "length": 18,
-     "name": "?sub_00502C40_ClearTable@@YIPAHPAH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_00502EF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00502EF0",
-     "length": 265,
-     "name": "?sub_00502EF0@@YIHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_00503000.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00503000",
-     "length": 456
     }
    ],
    "flags": [
@@ -42468,6 +42392,11 @@
      "name": "?LIST_Destroy@@YIHPAUD2WinListStrc@@@Z"
     },
     {
+     "va": "0x00506EC0",
+     "length": 314,
+     "name": "D2Win_10137"
+    },
+    {
      "va": "0x00507000",
      "length": 77,
      "name": "?LIST_GetSelectedDataIndex@@YIHPAUD2WinListStrc@@@Z"
@@ -42491,11 +42420,6 @@
      "va": "0x005075E0",
      "length": 522,
      "name": "?LIST_Create@@YIPAUD2WinListStrc@@HHHHPAUD2WinListInitStrc@@PAH@Z"
-    },
-    {
-     "va": "0x005078A0",
-     "length": 86,
-     "name": "?ACCOUNTLIST_AllocData@@YIXPAUD2WinAccountListStrc@@PBD@Z"
     },
     {
      "va": "0x005079C0",
@@ -42537,6 +42461,16 @@
      "va": "0x00507850",
      "length": 73,
      "name": "?ACCOUNTLIST_FreeData@@YIXPAUD2WinAccountListStrc@@@Z"
+    },
+    {
+     "va": "0x005078A0",
+     "length": 86,
+     "name": "?ACCOUNTLIST_AllocData@@YIXPAUD2WinAccountListStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00507900",
+     "length": 184,
+     "name": "ACCOUNTLIST_RemoveEntry"
     },
     {
      "va": "0x00507AF0",
@@ -42600,11 +42534,6 @@
     {
      "va": "0x00508370",
      "length": 380
-    },
-    {
-     "va": "0x005088C0",
-     "length": 170,
-     "name": "?POPUP_Create@@YGXXZ"
     }
    ],
    "flags": [
@@ -42645,6 +42574,11 @@
      "va": "0x00508710",
      "length": 138,
      "name": "?sub_00508710@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x005088C0",
+     "length": 170,
+     "name": "?POPUP_Create@@YGXXZ"
     }
    ]
   },

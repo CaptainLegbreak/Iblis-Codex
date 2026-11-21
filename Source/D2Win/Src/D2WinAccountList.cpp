@@ -38,6 +38,8 @@ enum D2ControlTypes
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
+extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
+
 // 0x00507B30
 int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)
 {
@@ -100,4 +102,48 @@ int __fastcall ACCOUNTLIST_Destroy(D2WinAccountListStrc* ptListData)
     D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x50);
     ACCOUNTLIST_FreeData(ptListData);
     return CONTROL_RemoveFromList(&ptListData->controlHeader);
+}
+
+// 0x00507900
+int __fastcall ACCOUNTLIST_RemoveEntry(D2WinAccountListStrc* ptListData, const char* szText)
+{
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x90);
+
+    D2WinAccountListDataStrc* pPrevious = 0;
+    for (D2WinAccountListDataStrc* pData = ptListData->pDataList; pData; pData = pData->pNext)
+    {
+        if (!strcmp(pData->szText, szText))
+        {
+            if (ptListData->pSelectedDataEntry == pData)
+            {
+                ptListData->pSelectedDataEntry = 0;
+            }
+
+            if (pPrevious)
+            {
+                pPrevious->pNext = pData->pNext;
+            }
+            else
+            {
+                ptListData->pDataList = pData->pNext;
+            }
+
+            FOG_Free(pData, ".\\Src\\D2WinAccountList.cpp", 0xA7, 0);
+            return 1;
+        }
+
+        pPrevious = pData;
+    }
+
+    return 0;
+}
+
+// 0x005078A0
+void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* ptListData, const char* szText)
+{
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x72);
+    D2WinAccountListDataStrc* pData = (D2WinAccountListDataStrc*)FOG_Alloc(sizeof(D2WinAccountListDataStrc), ".\\Src\\D2WinAccountList.cpp", 0x77, 0);
+    strncpy(pData->szText, szText, sizeof(pData->szText));
+    pData->pNext = ptListData->pDataList;
+    ptListData->pDataList = pData;
 }

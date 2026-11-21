@@ -159,15 +159,6 @@ int __fastcall D2Win_10141(D2WinListStrc* ptListData)
     return ptListData->field_50;
 }
 
-// 0x005078A0
-void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* ptListData, const char* szText)
-{
-    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x72);
-    D2WinAccountListDataStrc* pData = (D2WinAccountListDataStrc*)FOG_Alloc(sizeof(D2WinAccountListDataStrc), ".\\Src\\D2WinAccountList.cpp", 0x77, 0);
-    strncpy(pData->szText, szText, sizeof(pData->szText));
-    pData->pNext = ptListData->pDataList;
-    ptListData->pDataList = pData;
-}
 
 // 0x005079C0
 int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptListData, char* szBuffer)
@@ -386,6 +377,71 @@ int __fastcall LIST_Destroy(D2WinListStrc* pList)
         FOG_Free(pData, ".\\Src\\D2WinList.cpp", 0x85, 0);
     }
     return CONTROL_RemoveFromList(&pList->controlHeader);
+}
+
+// 0x00506EC0
+void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D2WinMsgHandler a3, char a4, int a5, int a6, int a7)
+{
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_LIST, 0xA1);
+
+    sub_00502EF0(ptListData->eFont);
+
+    D2WinListDataStrc* pNewData = (D2WinListDataStrc*)FOG_Alloc(sizeof(D2WinListDataStrc), ".\\Src\\D2WinList.cpp", 0xA5, 0);
+    D2_ASSERT(sub_00526800(wszText) < 256, 0xA6);
+
+    sub_005267E0(pNewData->wszText, wszText);
+
+    int nTextWidth;
+    int nTextHeight;
+    D2Win_10131_GetTextDimensions(wszText, &nTextWidth, &nTextHeight);
+    nTextWidth += 8;
+    if (nTextWidth > ptListData->nWidestEntry)
+    {
+        ptListData->nWidestEntry = nTextWidth;
+    }
+
+    pNewData->field_200 = nTextWidth;
+    pNewData->field_204 = a3;
+    pNewData->field_208 = 0;
+    pNewData->field_20C = 0;
+    pNewData->field_210 = 0;
+    pNewData->field_214 = 0;
+    pNewData->field_218 = a4;
+    pNewData->field_21C = a5;
+
+    if (!a6)
+    {
+        D2WinListDataStrc* pLast = ptListData->pDataList;
+        if (pLast)
+        {
+            while (pLast->pNext)
+            {
+                pLast = pLast->pNext;
+            }
+
+            pLast->pNext = pNewData;
+            pNewData->pNext = 0;
+        }
+        else
+        {
+            ptListData->pDataList = pNewData;
+            pNewData->pNext = 0;
+        }
+    }
+    else
+    {
+        pNewData->pNext = ptListData->pDataList;
+        ptListData->pDataList = pNewData;
+    }
+
+    ++ptListData->field_50;
+    sub_00502EF0(1);
+
+    if (a7)
+    {
+        ptListData->pSelectedDataEntry = pNewData;
+        ptListData->field_54 = ptListData->field_50 - 1;
+    }
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinList.inc"
