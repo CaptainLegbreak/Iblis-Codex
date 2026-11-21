@@ -13,6 +13,7 @@ struct D2QWriteNodeStrc;
 typedef void (__fastcall* D2AddressCallback)(unsigned int, const char*, int);
 typedef int (__fastcall* D2MessageCallback)(unsigned char*, int, int*, int*, int*, int*, int, int, unsigned int);
 typedef void (__fastcall* D2NewClientFn)(D2QueueServerStrc*, int, const char*, int);
+typedef int (__fastcall* D2QServerHandler)(D2QueueServerStrc* pServer, char* pData, int nSize);
 typedef void (__fastcall* D2QRemoveCallback)(D2QueueServerStrc* pServer, int nClientId, const char* szFile, int nLine);
 
 // One per-bucket client lock (0x18 bytes).
@@ -169,7 +170,7 @@ struct D2QueueServerStrc
     D2QServerNodeStrc* pHead;                               // 0x84C
     D2QServerNodeStrc* pTail;                               // 0x850
     D2CriticalSectionStrc tLock;                            // 0x854
-    int unk0x86C;                                           // 0x86C
+    int nState;                                             // 0x86C
     D2MessageStrc** ppMsgHeads;                             // 0x870
     D2MessageStrc** ppMsgTails;                             // 0x874
     D2MessageStrc* pFreeMessages;                           // 0x878
@@ -198,7 +199,7 @@ struct D2QueueServerStrc
     D2MessageCallback pfnProcess;                           // 0xBC0
     D2NewClientFn pfnOnNewClient;                           // 0xBC4
     D2QRemoveCallback pfnOnRemove;                          // 0xBC8
-    int unk0xBCC;                                           // 0xBCC
+    D2QServerHandler pfnHandler;                            // 0xBCC
     int bEnabled;                                           // 0xBD0
     void* hEvent;                                           // 0xBD4
     int unk0xBD8[8];                                        // 0xBD8

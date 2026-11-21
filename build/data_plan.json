@@ -7137,8 +7137,8 @@
    "state": "included"
   },
   "Source/Fog/Src/QServer/QServer.cpp": {
-   "bytes": 44,
-   "definitions": 1,
+   "bytes": 48,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/QServer/QServer.inc",
@@ -7297,15 +7297,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/QServer/QServer_006BE650.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Fog/Src/QServer/QServer_006BEC70.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Fog/Src/QServer/QServer_006BEC70.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -157782,7 +157773,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Src/QServer/QServer_006BEC70.cpp",
+   "file": "Source/Fog/Src/QServer/QServer.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLockCount_0074C3E0 = ",
