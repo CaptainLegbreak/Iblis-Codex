@@ -67879,6 +67879,11 @@
      "name": "SKILLITEM_pSpell11_CastFireBallToCoordinates"
     },
     {
+     "va": "0x005BF240",
+     "length": 395,
+     "name": "?SKILLITEM_pSpell_Handler@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11HH@Z"
+    },
+    {
      "va": "0x005BF3D0",
      "length": 315,
      "name": "SKILLS_SrvDo113_Scroll_Book"
@@ -67907,6 +67912,10 @@
      "va": "0x005BF880",
      "length": 218,
      "name": "SKILLITEM_EventFunc12_ApplyColdDamage"
+    },
+    {
+     "va": "0x005BF960",
+     "length": 166
     },
     {
      "va": "0x005BFAA0",
@@ -68004,21 +68013,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005BF240.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BF240",
-     "length": 395,
-     "name": "?SKILLITEM_pSpell_Handler@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11HH@Z"
-    },
-    {
-     "va": "0x005BF960",
-     "length": 166
-    }
    ]
   },
   {

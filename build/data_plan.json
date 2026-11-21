@@ -5550,18 +5550,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/SKILLS/SkillItem_005BF240.cpp": {
+  "Source/D2Game/SKILLS/SkillItem.cpp": {
    "bytes": 436,
    "definitions": 2,
    "externs": [
-    "extern \"C\" void __cdecl SKILLITEM_pSpell01_IdentifyItem(); // 0x005BE230",
-    "extern \"C\" void __cdecl SKILLITEM_pSpell01_Initializer(); // 0x005BE130",
-    "extern \"C\" void __cdecl SKILLITEM_pSpell07_OpenCube(); // 0x005BF0C0",
     "extern \"C\" void __cdecl SKILLITEM_pSpell08_ExperienceElixir(); // 0x005BF060",
     "extern \"C\" void __cdecl SKILLITEM_pSpell09_AntidoteThawingPotion(); // 0x005BEF90",
-    "extern \"C\" void __cdecl SKILLITEM_pSpell09_StaminaPotion(); // 0x005BEDA0",
-    "extern \"C\" void __cdecl SKILLITEM_pSpell10_CastFireBallOnTarget(); // 0x005BF170",
-    "extern \"C\" void __cdecl SKILLITEM_pSpell11_CastFireBallToCoordinates(); // 0x005BF1F0",
     "extern \"C\" void __cdecl sub_005BE290_CreateTownPortal(); // 0x005BE290",
     "extern \"C\" void __cdecl sub_005BE3F0(); // 0x005BE3F0",
     "extern \"C\" void __cdecl sub_005BE7B0(); // 0x005BE7B0",
@@ -115537,7 +115531,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillItem_005BF240.cpp",
+   "file": "Source/D2Game/SKILLS/SkillItem.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnPSpellTableCount_0074178C = ",
@@ -115562,7 +115556,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillItem_005BF240.cpp",
+   "file": "Source/D2Game/SKILLS/SkillItem.cpp",
    "fill": 54,
    "form": "declared",
    "fwd": null,
