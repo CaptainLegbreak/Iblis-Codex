@@ -64,112 +64,13 @@ extern int gnSquelchCelFileFrameCount_0087E848;                                 
 extern D2CelFileStrc* ghSelectedCelFile_0087E850;                                                           // 0x0087E850
 extern int gnSelectedCelFileFrameCount_0087E854;                                                            // 0x0087E854
 
-// 0x004FBC80
-void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
-{
-    D2_ASSERT(pTextBox, 0x2EF);
-    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x2F0);
-    D2_ASSERT((nColumn >= 0) && (nColumn < pTextBox->nNumColumns), 0x2F2);
-    pTextBox->unk0x68[nColumn] = a3;
-}
 
-// 0x004FBCD0
-void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
-{
-    D2_ASSERT(ptTextData, 0x2FC);
-    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x2FD);
-    D2_ASSERT(nColumn >= 0, 0x2FF);
-    ptTextData->unk0x7C[nColumn] = a3;
-}
 
-// 0x004FD070
-int __stdcall IMAGE_SetCellFile(D2WinImageStrc* pImage, D2CelFileStrc* pCellFile, D2WinImageClickRectStrc* pClickRect)
-{
-    D2_ASSERT(pImage->controlHeader.eType == 2, 0x5F);
-    pImage->controlHeader.pCellFile = pCellFile;
-    pImage->pClickRect = pClickRect;
-    return 1;
-}
 
-// 0x004FD0B0
-int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* ptImageData, int nX, int nY)
-{
-    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x6C);
-    ptImageData->controlHeader.nImageX = nX;
-    ptImageData->controlHeader.nImageY = nY;
-    return 1;
-}
 
-// 0x004FD170
-int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused)
-{
-    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x9D);
-    ptImageData->eDrawMode = 5;
-    return 1;
-}
 
-// 0x004FD1B0
-int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)
-{
-    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0xA9);
-    return CelFileGetCelsPerDirection(ptImageData->controlHeader.pCellFile);
-}
 
-// 0x004FD6C0
-D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler a6, D2WinImageClickRectStrc* pClickRect, D2WinMsgHandler pfHandleVirtualKeyInput)
-{
-    D2WinImage2Strc* pImage = (D2WinImage2Strc*)FOG_Alloc(sizeof(D2WinImage2Strc), ".\\Src\\D2WinImage.cpp", 0x1D, 0);
-    memset(pImage, 0, sizeof(D2WinImage2Strc));
-    pImage->controlHeader.eType = 2;
-    pImage->controlHeader.dwFlags |= gdwBitMasks[0];
-    pImage->controlHeader.dwFlags |= gdwBitMasks[2];
-    pImage->controlHeader.pCellFile = pCellFile;
-    pImage->controlHeader.nImageX = nX;
-    pImage->controlHeader.nImageY = nY;
-    pImage->controlHeader.nWidth = nWidth;
-    pImage->controlHeader.nHeight = nHeight;
-    pImage->controlHeader.pfDraw = IMAGE2_Draw;
-    pImage->controlHeader.pNext = 0;
-    pImage->controlHeader.pfHandleMouseDown = IMAGE2_HandleMouseDown;
-    pImage->controlHeader.pfHandleMouseUp = 0;
-    pImage->controlHeader.pfHandleCharInput = 0;
-    pImage->controlHeader.pfHandleVirtualKeyInput = pfHandleVirtualKeyInput;
-    pImage->controlHeader.field_34 = a6;
-    pImage->pClickRect = pClickRect;
-    pImage->nFrame = 0;
-    pImage->eDrawMode = 5;
-    CONTROL_AppendToList(&pImage->controlHeader);
-    return pImage;
-}
 
-// 0x004FD770
-D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7)
-{
-    D2WinImageStrc* pImage = (D2WinImageStrc*)FOG_Alloc(sizeof(D2WinImageStrc), ".\\Src\\D2WinImage.cpp", 0x3B, 0);
-    memset(pImage, 0, sizeof(D2WinImageStrc));
-    pImage->controlHeader.eType = 2;
-    pImage->controlHeader.dwFlags |= gdwBitMasks[0];
-    pImage->controlHeader.dwFlags |= gdwBitMasks[2];
-    pImage->controlHeader.pCellFile = pCellFile;
-    pImage->controlHeader.nImageX = nX;
-    pImage->controlHeader.nImageY = nY;
-    pImage->controlHeader.nWidth = nWidth;
-    pImage->controlHeader.nHeight = nHeight;
-    pImage->controlHeader.pfDraw = IMAGE_Draw;
-    pImage->controlHeader.pNext = 0;
-    pImage->controlHeader.pfHandleMouseDown = IMAGE2_HandleMouseDown;
-    pImage->controlHeader.pfHandleMouseUp = 0;
-    pImage->controlHeader.pfHandleCharInput = 0;
-    pImage->controlHeader.pfHandleVirtualKeyInput = 0;
-    pImage->controlHeader.field_34 = 0;
-    pImage->pClickRect = 0;
-    pImage->nFrame = 0;
-    pImage->eDrawMode = 5;
-    pImage->field_4C = a6;
-    pImage->field_50 = a7;
-    CONTROL_AppendToList(&pImage->controlHeader);
-    return pImage;
-}
 
 // 0x004FD970
 int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
@@ -185,78 +86,6 @@ int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-// 0x00500790
-int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)pMsg->hWnd;
-    D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x15A);
-    int nResult;
-    if (pAnimImage->controlHeader.field_34)
-        nResult = pAnimImage->controlHeader.field_34(pMsg);
-    else
-        nResult = 0;
-    if (nResult)
-    {
-        if (pAnimImage->nAnimType == 3)
-        {
-            pAnimImage->nAnimType = 4;
-            pAnimImage->nFrame = 0;
-            pAnimImage->dwStartTickCount = GetTickCount();
-        }
-        else if (pAnimImage->nAnimType == 1)
-        {
-            pAnimImage->nAnimType = 2;
-            pAnimImage->nFrame = 0;
-            pAnimImage->dwStartTickCount = GetTickCount();
-        }
-    }
-    return nResult;
-}
-
-// 0x00500810
-int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* ptAnim, int bIsRunning)
-{
-    D2_ASSERT(ptAnim->controlHeader.eType == 2, 0x183);
-    ptAnim->bIsRunning = bIsRunning;
-    return 1;
-}
-
-// 0x00500850
-D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, unsigned int nAnimSpeed, D2WinMsgHandler a7, D2AnimatedImageDescriptor* pDescriptor, int eDrawMode, D2WinMsgHandler a10)
-{
-    D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)FOG_Alloc(sizeof(D2WinAnimImageStrc), ".\\D2WinAnimImage.cpp", 0x1C, 0);
-    memset(pAnimImage, 0, sizeof(D2WinAnimImageStrc));
-    pAnimImage->controlHeader.eType = 2;
-    pAnimImage->controlHeader.dwFlags |= gdwBitMasks[0];
-    pAnimImage->controlHeader.dwFlags |= gdwBitMasks[2];
-    pAnimImage->controlHeader.pCellFile = pCellFile;
-    pAnimImage->controlHeader.nImageX = nX;
-    pAnimImage->controlHeader.nImageY = nY;
-    pAnimImage->controlHeader.nWidth = nWidth;
-    pAnimImage->controlHeader.nHeight = nHeight;
-    pAnimImage->controlHeader.pfDraw = ANIMIMAGE_Draw;
-    pAnimImage->controlHeader.pNext = 0;
-    pAnimImage->controlHeader.pfHandleMouseDown = ANIMIMAGE_HandleMouseDown;
-    pAnimImage->controlHeader.pfHandleMouseUp = 0;
-    pAnimImage->controlHeader.pfHandleCharInput = 0;
-    pAnimImage->controlHeader.pfHandleVirtualKeyInput = 0;
-    pAnimImage->controlHeader.field_34 = a7;
-    pAnimImage->pAnimatedImageDescriptor = pDescriptor;
-    pAnimImage->nAnimSpeed = nAnimSpeed;
-    pAnimImage->nFrame = 0;
-    pAnimImage->dwStartTickCount = GetTickCount();
-    pAnimImage->nAnimType = 0;
-    if (pDescriptor)
-        pAnimImage->controlHeader.pfShouldMouseInputBeHandled = ANIMIMAGE_ShouldMouseInputBeHandled;
-    if (!eDrawMode)
-        pAnimImage->eDrawMode = 5;
-    else
-        pAnimImage->eDrawMode = eDrawMode;
-    pAnimImage->field_58 = a10;
-    pAnimImage->bIsRunning = 1;
-    CONTROL_AppendToList(&pAnimImage->controlHeader);
-    return pAnimImage;
-}
 
 
 
@@ -264,43 +93,10 @@ D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int 
 
 
 
-// 0x005017D0
-int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength)
-{
-    int nCount = 0;
-    int nWidth = 0;
-    for (const Unicode* i = wszText; i->wChar; ++i)
-    {
-        if (nCount >= nTextLength)
-            break;
-        const unsigned short wChar = i->wChar;
-        if (wChar != '\n')
-            nWidth += gpfGetCharInfo_00841DA0(wChar)->nWidth;
-        ++nCount;
-    }
-    return nWidth;
-}
 
-// 0x00502280
-void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign)
-{
-    if (wszText && sub_00526800(wszText) < 1024)
-        sub_005267E0(gwszFramedText_00841EC8, wszText);
-    else
-        memset(gwszFramedText_00841EC8, 0, sizeof(gwszFramedText_00841EC8));
-    gnFramedTextX_008426C8 = nX;
-    gnFramedTextY_008426CC = nY;
-    gnFramedTextColor_008426D0 = nTextColor;
-    gnFramedTextAlign_008426D4 = nAlign;
-    gnFramedTextRectColor_008426D8 = 0;
-}
 
-// 0x005022F0
-void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign, int nRectangleColor)
-{
-    D2Win_10129_DrawFramedText(wszText, nX, nY, nTextColor, nAlign);
-    gnFramedTextRectColor_008426D8 = nRectangleColor;
-}
+
+
 
 // 0x00504270
 void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* a2, const Unicode* a3, const Unicode* a4, const Unicode* a5, int a6, int a7)

@@ -43,6 +43,26 @@ struct D2SplittedTextStrc
     D2SplittedTextStrc* pNextLine;
 };
 
+int gnFramedTextAlign_008426D4;                                                                             // 0x008426D4
+
+int gnFramedTextColor_008426D0;                                                                             // 0x008426D0
+
+int gnFramedTextRectColor_008426D8;                                                                         // 0x008426D8
+
+int gnFramedTextX_008426C8;                                                                                 // 0x008426C8
+
+int gnFramedTextY_008426CC;                                                                                 // 0x008426CC
+
+extern D2CharStrc* (__fastcall* gpfGetCharInfo_00841DA0)(int nChar);                                        // 0x00841DA0
+
+Unicode gwszFramedText_00841EC8[1024];                                                                      // 0x00841EC8
+
+int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength);                                        // 0x005017D0
+
+extern D2CelFileStrc* ghMonsterIndicators_00841DA4;                                                         // 0x00841DA4
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
+
 // 0x00501650
 D2CharStrc* __fastcall sub_6F8AA100(unsigned short wChar)
 {
@@ -176,6 +196,70 @@ D2SplittedTextStrc* __stdcall sub_005028E0_AllocSplitTextLine(const Unicode* wsz
     Unicode::strncpy(pSplitText->wszLine, pText, nCount);
     pSplitText->wszLine[nCount].wChar = 0;
     return pSplitText;
+}
+
+// 0x005015F0
+void __stdcall D2Win_10116()
+{
+    for (int i = 0; i < 14; ++i)
+    {
+        if (gFontCache_00841DA8[i].pCellFile)
+        {
+            sub_004FAAE0_FreeCellFile(gFontCache_00841DA8[i].pCellFile);
+            gFontCache_00841DA8[i].pCellFile = 0;
+        }
+        if (gFontCache_00841DA8[i].pFontInfo[0])
+        {
+            FOG_Free(gFontCache_00841DA8[i].pFontInfo[0], ".\\Src\\D2WinFont.cpp", 0x135, 0);
+            gFontCache_00841DA8[i].pFontInfo[0] = 0;
+        }
+    }
+    sub_004FAAE0_FreeCellFile(ghMonsterIndicators_00841DA4);
+    ghMonsterIndicators_00841DA4 = 0;
+}
+
+// 0x00501820
+int __fastcall sub_00501820(const Unicode* wszText)
+{
+    return D2Win_10122(wszText, sub_00526800(wszText));
+}
+
+// 0x005017D0
+int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength)
+{
+    int nCount = 0;
+    int nWidth = 0;
+    for (const Unicode* i = wszText; i->wChar; ++i)
+    {
+        if (nCount >= nTextLength)
+            break;
+        const unsigned short wChar = i->wChar;
+        if (wChar != '\n')
+            nWidth += gpfGetCharInfo_00841DA0(wChar)->nWidth;
+        ++nCount;
+    }
+    return nWidth;
+}
+
+// 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign)
+{
+    if (wszText && sub_00526800(wszText) < 1024)
+        sub_005267E0(gwszFramedText_00841EC8, wszText);
+    else
+        memset(gwszFramedText_00841EC8, 0, sizeof(gwszFramedText_00841EC8));
+    gnFramedTextX_008426C8 = nX;
+    gnFramedTextY_008426CC = nY;
+    gnFramedTextColor_008426D0 = nTextColor;
+    gnFramedTextAlign_008426D4 = nAlign;
+    gnFramedTextRectColor_008426D8 = 0;
+}
+
+// 0x005022F0
+void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign, int nRectangleColor)
+{
+    D2Win_10129_DrawFramedText(wszText, nX, nY, nTextColor, nAlign);
+    gnFramedTextRectColor_008426D8 = nRectangleColor;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinFont.inc"

@@ -42010,6 +42010,16 @@
      "name": "?D2Win_10056@@YIXPAUD2WinTextBoxStrc@@H@Z"
     },
     {
+     "va": "0x004FBC80",
+     "length": 77,
+     "name": "D2Win_10059"
+    },
+    {
+     "va": "0x004FBCD0",
+     "length": 72,
+     "name": "D2Win_10060"
+    },
+    {
      "va": "0x004FBD20",
      "length": 71,
      "name": "?D2Win_10061@@YIHPAUD2WinTextBoxStrc@@@Z"
@@ -42075,6 +42085,11 @@
      "name": "?D2Win_10042_TEXTBOX_Create@@YIPAUD2WinTextBoxStrc@@HHHHHHPAUD2CelFileStrc@@P6GHPAUSMSGHANDLER_PARAMS@@@ZIPAH3@Z"
     },
     {
+     "va": "0x004FC960",
+     "length": 80,
+     "name": "?D2Win_10043_TEXTBOX_Destroy@@YIHPAUD2WinTextBoxStrc@@@Z"
+    },
+    {
      "va": "0x004FC9B0",
      "length": 648
     },
@@ -42106,6 +42121,11 @@
      "va": "0x004FCFF0",
      "length": 108,
      "name": "?D2Win_10046@@YIXPAUD2WinControlStrc@@PBDH@Z"
+    },
+    {
+     "va": "0x004FD060",
+     "length": 12,
+     "name": "?D2Win_10044@@YIXPAUD2WinControlStrc@@PBUUnicode@@@Z"
     },
     {
      "va": "0x004FD470",
@@ -42178,79 +42198,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004FBC80",
-     "length": 77,
-     "name": "D2Win_10059"
-    },
-    {
-     "va": "0x004FBCD0",
-     "length": 72,
-     "name": "D2Win_10060"
-    },
-    {
-     "va": "0x004FD070",
-     "length": 60,
-     "name": "IMAGE_SetCellFile"
-    },
-    {
-     "va": "0x004FD0B0",
-     "length": 60,
-     "name": "IMAGE_SetCoordinates"
-    },
-    {
-     "va": "0x004FD170",
-     "length": 58,
-     "name": "IMAGE_ForceNormalDrawMode"
-    },
-    {
-     "va": "0x004FD1B0",
-     "length": 55,
-     "name": "IMAGE_GetFrameCount"
-    },
-    {
-     "va": "0x004FD6C0",
-     "length": 162,
-     "name": "IMAGE2_Create"
-    },
-    {
-     "va": "0x004FD770",
-     "length": 168,
-     "name": "IMAGE_Create"
-    },
-    {
      "va": "0x004FD970",
      "length": 84,
      "name": "TIMER_HandleVirtualKeyInput"
-    },
-    {
-     "va": "0x00500790",
-     "length": 125,
-     "name": "ANIMIMAGE_HandleMouseDown"
-    },
-    {
-     "va": "0x00500810",
-     "length": 57,
-     "name": "ANIMIMAGE_SetIsRunning"
-    },
-    {
-     "va": "0x00500850",
-     "length": 216,
-     "name": "ANIMIMAGE_Create"
-    },
-    {
-     "va": "0x005017D0",
-     "length": 71,
-     "name": "D2Win_10122"
-    },
-    {
-     "va": "0x00502280",
-     "length": 107,
-     "name": "D2Win_10129_DrawFramedText"
-    },
-    {
-     "va": "0x005022F0",
-     "length": 33,
-     "name": "D2Win_10130_DrawFramedTextEx"
     },
     {
      "va": "0x00504270",
@@ -42343,16 +42293,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004FC960",
-     "length": 80,
-     "name": "?D2Win_10043_TEXTBOX_Destroy@@YIHPAUD2WinTextBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FD060",
-     "length": 12,
-     "name": "?D2Win_10044@@YIXPAUD2WinControlStrc@@PBUUnicode@@@Z"
-    },
-    {
      "va": "0x004FD830",
      "length": 41,
      "name": "?sub_004FD830_2@@YIXPAUD2WinTimerStrc@@@Z"
@@ -42371,16 +42311,6 @@
      "va": "0x004FDCC0",
      "length": 62,
      "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x005015F0",
-     "length": 88,
-     "name": "?D2Win_10116@@YGXXZ"
-    },
-    {
-     "va": "0x00501820",
-     "length": 18,
-     "name": "?sub_00501820@@YIHPBUUnicode@@@Z"
     },
     {
      "va": "0x005042F0",
@@ -42406,56 +42336,6 @@
      "va": "0x005055D0",
      "length": 106,
      "name": "?sub_005055D0_ApplyPalette@@YIXXZ"
-    },
-    {
-     "va": "0x00506A40",
-     "length": 53,
-     "name": "?SMACK_Destroy@@YIHPAUD2WinSmackStrc@@@Z"
-    },
-    {
-     "va": "0x00506E60",
-     "length": 86,
-     "name": "?LIST_Destroy@@YIHPAUD2WinListStrc@@@Z"
-    },
-    {
-     "va": "0x00507850",
-     "length": 73,
-     "name": "?ACCOUNTLIST_FreeData@@YIXPAUD2WinAccountListStrc@@@Z"
-    },
-    {
-     "va": "0x00507AF0",
-     "length": 49,
-     "name": "?ACCOUNTLIST_Destroy@@YIHPAUD2WinAccountListStrc@@@Z"
-    },
-    {
-     "va": "0x00507F20",
-     "length": 54,
-     "name": "?SCROLLBAR_SetMaxSteps@@YIHPAUD2WinScrollBarStrc@@H@Z"
-    },
-    {
-     "va": "0x00507F60",
-     "length": 51,
-     "name": "?SCROLLBAR_SetCurrentStep@@YIHPAUD2WinScrollBarStrc@@H@Z"
-    },
-    {
-     "va": "0x00507FD0",
-     "length": 42,
-     "name": "?SCROLLBAR_SetTextBox@@YIHPAUD2WinScrollBarStrc@@PAUD2WinTextBoxStrc@@@Z"
-    },
-    {
-     "va": "0x005085A0",
-     "length": 29,
-     "name": "?POPUP_Destroy@@YGHXZ"
-    },
-    {
-     "va": "0x005085C0",
-     "length": 70,
-     "name": "?POPUP_IsActive@@YGHXZ"
-    },
-    {
-     "va": "0x005086A0",
-     "length": 104,
-     "name": "?POPUP_HandleMouseButtonInput@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
@@ -42464,8 +42344,28 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004FD070",
+     "length": 60,
+     "name": "IMAGE_SetCellFile"
+    },
+    {
+     "va": "0x004FD0B0",
+     "length": 60,
+     "name": "IMAGE_SetCoordinates"
+    },
+    {
      "va": "0x004FD110",
      "length": 83
+    },
+    {
+     "va": "0x004FD170",
+     "length": 58,
+     "name": "IMAGE_ForceNormalDrawMode"
+    },
+    {
+     "va": "0x004FD1B0",
+     "length": 55,
+     "name": "IMAGE_GetFrameCount"
     },
     {
      "va": "0x004FD1F0",
@@ -42480,6 +42380,16 @@
      "va": "0x004FD5A0",
      "length": 42,
      "name": "?sub_004FD5A0_IsInClickRect@@YAHPBUD2WinImageClickRectStrc@@HH@Z"
+    },
+    {
+     "va": "0x004FD6C0",
+     "length": 162,
+     "name": "IMAGE2_Create"
+    },
+    {
+     "va": "0x004FD770",
+     "length": 168,
+     "name": "IMAGE_Create"
     },
     {
      "va": "0x004FD860",
@@ -42710,6 +42620,21 @@
      "name": "?ANIMIMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
+     "va": "0x00500790",
+     "length": 125,
+     "name": "ANIMIMAGE_HandleMouseDown"
+    },
+    {
+     "va": "0x00500810",
+     "length": 57,
+     "name": "ANIMIMAGE_SetIsRunning"
+    },
+    {
+     "va": "0x00500850",
+     "length": 216,
+     "name": "ANIMIMAGE_Create"
+    },
+    {
      "va": "0x005009A0",
      "length": 40,
      "name": "@BUTTON_SetIsPressed@8"
@@ -42860,9 +42785,24 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x005015F0",
+     "length": 88,
+     "name": "?D2Win_10116@@YGXXZ"
+    },
+    {
      "va": "0x00501650",
      "length": 49,
      "name": "?sub_6F8AA100@@YIPAUD2CharStrc@@G@Z"
+    },
+    {
+     "va": "0x005017D0",
+     "length": 71,
+     "name": "D2Win_10122"
+    },
+    {
+     "va": "0x00501820",
+     "length": 18,
+     "name": "?sub_00501820@@YIHPBUUnicode@@@Z"
     },
     {
      "va": "0x005019C0",
@@ -42878,6 +42818,16 @@
      "va": "0x00501A60",
      "length": 29,
      "name": "?sub_00501A60_DrawRectUp@@YGXHHHHIH@Z"
+    },
+    {
+     "va": "0x00502280",
+     "length": 107,
+     "name": "D2Win_10129_DrawFramedText"
+    },
+    {
+     "va": "0x005022F0",
+     "length": 33,
+     "name": "D2Win_10130_DrawFramedTextEx"
     },
     {
      "va": "0x00502680",
@@ -43652,6 +43602,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00506A40",
+     "length": 53,
+     "name": "?SMACK_Destroy@@YIHPAUD2WinSmackStrc@@@Z"
+    },
+    {
      "va": "0x00506A80",
      "length": 11,
      "name": "?D2Win_10184@@YGXXZ"
@@ -43671,6 +43626,11 @@
    "file": "Source/D2Win/Src/D2WinList.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00506E60",
+     "length": 86,
+     "name": "?LIST_Destroy@@YIHPAUD2WinListStrc@@@Z"
+    },
     {
      "va": "0x00507000",
      "length": 77,
@@ -43738,6 +43698,16 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00507850",
+     "length": 73,
+     "name": "?ACCOUNTLIST_FreeData@@YIXPAUD2WinAccountListStrc@@@Z"
+    },
+    {
+     "va": "0x00507AF0",
+     "length": 49,
+     "name": "?ACCOUNTLIST_Destroy@@YIHPAUD2WinAccountListStrc@@@Z"
+    },
+    {
      "va": "0x00507B30",
      "length": 367,
      "name": "?ACCOUNTLIST_Draw@@YIHPAUD2WinControlStrc@@@Z"
@@ -43762,6 +43732,21 @@
    "file": "Source/D2Win/Src/D2WinScrollbar.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00507F20",
+     "length": 54,
+     "name": "?SCROLLBAR_SetMaxSteps@@YIHPAUD2WinScrollBarStrc@@H@Z"
+    },
+    {
+     "va": "0x00507F60",
+     "length": 51,
+     "name": "?SCROLLBAR_SetCurrentStep@@YIHPAUD2WinScrollBarStrc@@H@Z"
+    },
+    {
+     "va": "0x00507FD0",
+     "length": 42,
+     "name": "?SCROLLBAR_SetTextBox@@YIHPAUD2WinScrollBarStrc@@PAUD2WinTextBoxStrc@@@Z"
+    },
     {
      "va": "0x00508000",
      "length": 45,
@@ -43805,6 +43790,21 @@
    "file": "Source/D2Win/Src/D2WinPopup.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005085A0",
+     "length": 29,
+     "name": "?POPUP_Destroy@@YGHXZ"
+    },
+    {
+     "va": "0x005085C0",
+     "length": 70,
+     "name": "?POPUP_IsActive@@YGHXZ"
+    },
+    {
+     "va": "0x005086A0",
+     "length": 104,
+     "name": "?POPUP_HandleMouseButtonInput@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
     {
      "va": "0x00508710",
      "length": 138,

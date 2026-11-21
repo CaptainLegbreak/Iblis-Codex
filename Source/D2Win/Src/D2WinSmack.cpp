@@ -41,6 +41,10 @@ int __fastcall SMACK_Draw(D2WinControlStrc* pControl); // 0x00506A90
 
 int __stdcall SMACK_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00506B10
 
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+
+int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack);                                                     // 0x00506990
+
 // 0x00506A80
 void __stdcall D2Win_10184()
 {
@@ -100,4 +104,12 @@ D2WinSmackStrc* __fastcall sub_00506B70_SmackCreate(int nX, int nY, int nWidth, 
     pSmack->nMovieY = (nHeight - 60) / 2 + nY;
     CONTROL_AppendToList(&pSmack->controlHeader);
     return pSmack;
+}
+
+// 0x00506A40
+int __fastcall SMACK_Destroy(D2WinSmackStrc* pSmack)
+{
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0x8C);
+    SMACK_DeleteFile(pSmack);
+    return CONTROL_RemoveFromList(&pSmack->controlHeader);
 }

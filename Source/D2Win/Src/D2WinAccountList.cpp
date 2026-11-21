@@ -17,6 +17,27 @@ extern const unsigned int gdwBitMasks[32];                                      
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+
+enum D2ControlTypes
+{
+    D2WIN_EDITBOX = 1,
+    D2WIN_IMAGE = 2,
+    D2WIN_ANIMIMAGE = 3,
+    D2WIN_TEXTBOX = 4,
+    D2WIN_SCROLLBAR = 5,
+    D2WIN_BUTTON = 6,
+    D2WIN_LIST = 7,
+    D2WIN_TIMER = 8,
+    D2WIN_SMACK = 9,
+    D2WIN_PROGRESSBAR = 10,
+    D2WIN_POPUP = 11,
+    D2WIN_ACCOUNTLIST = 12,
+    D2WIN_IMAGE2 = 13,
+};
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
 // 0x00507B30
 int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)
 {
@@ -59,4 +80,24 @@ int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)
     }
 
     return 1;
+}
+
+// 0x00507850
+void __fastcall ACCOUNTLIST_FreeData(D2WinAccountListStrc* ptListData)
+{
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x5D);
+    D2WinAccountListDataStrc* pNext = 0;
+    for (D2WinAccountListDataStrc* pData = ptListData->pDataList; pData; pData = pNext)
+    {
+        pNext = pData->pNext;
+        FOG_Free(pData, ".\\Src\\D2WinAccountList.cpp", 0x63, 0);
+    }
+}
+
+// 0x00507AF0
+int __fastcall ACCOUNTLIST_Destroy(D2WinAccountListStrc* ptListData)
+{
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x50);
+    ACCOUNTLIST_FreeData(ptListData);
+    return CONTROL_RemoveFromList(&ptListData->controlHeader);
 }

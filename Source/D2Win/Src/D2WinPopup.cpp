@@ -31,6 +31,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
 
+D2WinPopUpStrc* gpPopUp_0087E974;                                                                           // 0x0087E974
+
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+
 // 0x00508710
 int __fastcall sub_00508710(D2WinControlStrc* pControl)
 {
@@ -53,5 +57,46 @@ int __fastcall sub_00508710(D2WinControlStrc* pControl)
         pPopUp->nCurrentLine = nY / 20;
     }
 
+    return 1;
+}
+
+// 0x005085A0
+int __stdcall POPUP_Destroy()
+{
+    int nResult = 0;
+    if (gpPopUp_0087E974)
+    {
+        nResult = CONTROL_RemoveFromList(&gpPopUp_0087E974->controlHeader);
+        gpPopUp_0087E974 = 0;
+    }
+    return nResult;
+}
+
+// 0x005085C0
+int __stdcall POPUP_IsActive()
+{
+    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
+    if (!pPopUp)
+        return 0;
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x62);
+    if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+        return 0;
+    return 1;
+}
+
+// 0x005086A0
+int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x90);
+    if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+        return 0;
+    const int nCurrentLine = pPopUp->nCurrentLine;
+    if (nCurrentLine == -1)
+        return 0;
+    void (__stdcall* pfHandleMouseInput)() = pPopUp->lines[nCurrentLine].pfHandleMouseInput;
+    if (!pfHandleMouseInput)
+        return 0;
+    pfHandleMouseInput();
     return 1;
 }
