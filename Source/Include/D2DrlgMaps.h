@@ -97,9 +97,9 @@ struct D2TileLibraryEntryStrc
     unsigned short nFlags; // 0x06
     int nHeight; // 0x08
     int nWidth; // 0x0C
-    int unk0x10; // 0x10
+    int nHeightToBottom; // 0x10
     int nOrientation; // 0x14
-    int unk0x18; // 0x18
+    int nIndex; // 0x18
     int nSubIndex; // 0x1C
     int nRarity; // 0x20
     int unk0x24; // 0x24

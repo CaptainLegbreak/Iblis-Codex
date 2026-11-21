@@ -25,9 +25,13 @@ struct D2ShrinesTxt
     int dwArg1; // 0x08
     int dwDurationInFrames; // 0x0C
     unsigned char nResetTimeInMins; // 0x10
-    unsigned char unk0x11; // 0x11
+    unsigned char nRarity; // 0x11
     unsigned short unk0x12; // 0x12
-    int unk0x14[41]; // 0x14
+    unsigned char unk0x14[0x1E]; // 0x14
+    char szNiftyphrase[128]; // 0x32
+    unsigned char nEffectClass; // 0xB2
+    unsigned char unk0xB3; // 0xB3
+    unsigned int dwLevelMin; // 0xB4
 };
 
 struct D2RunesTxt

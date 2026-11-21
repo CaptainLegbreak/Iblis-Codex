@@ -45,7 +45,10 @@ struct D2LvlSubTxt
 struct D2LvlWarpTxt
 {
     int dwLevelId; // 0x00
-    int unk0x04[4]; // 0x04
+    int dwSelectX; // 0x04
+    int dwSelectY; // 0x08
+    int dwSelectDX; // 0x0C
+    int dwSelectDY; // 0x10
     int dwExitWalkX; // 0x14
     int dwExitWalkY; // 0x18
     int dwOffsetX; // 0x1C
@@ -73,16 +76,16 @@ struct D2ItemTypesTxt
     unsigned char nMagic; // 0x14
     unsigned char nRare; // 0x15
     unsigned char nNormal; // 0x16
-    unsigned char unk0x17; // 0x17
-    unsigned char unk0x18; // 0x18
+    unsigned char nCharm; // 0x17
+    unsigned char nGem; // 0x18
     unsigned char nBeltable; // 0x19
     unsigned char nMaxSock1; // 0x1A
     unsigned char nMaxSock25; // 0x1B
     unsigned char nMaxSock40; // 0x1C
-    unsigned char unk0x1D; // 0x1D
-    unsigned char unk0x1E; // 0x1E
+    unsigned char nTreasureClass; // 0x1D
+    unsigned char nRarity; // 0x1E
     unsigned char nStaffMods; // 0x1F
-    unsigned char unk0x20; // 0x20
+    unsigned char nCostFormula; // 0x20
     unsigned char nClass; // 0x21
     unsigned char nStorePage; // 0x22
     unsigned char nVarInvGfx; // 0x23

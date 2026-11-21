@@ -66,14 +66,17 @@ struct D2LevelDefBin
     int dwDepend; // 0x2C
     int dwDrlgType; // 0x30
     int dwLevelType; // 0x34
-    int unk0x38[4]; // 0x38
+    int unk0x38; // 0x38
+    int dwSubTheme; // 0x3C
+    int dwSubWaypoint; // 0x40
+    int dwSubShrine; // 0x44
     int dwVis[8]; // 0x48
     int dwWarp[8]; // 0x68
     unsigned char nIntensity; // 0x88
     unsigned char nRed; // 0x89
     unsigned char nGreen; // 0x8A
     unsigned char nBlue; // 0x8B
-    int unk0x8C; // 0x8C
+    int dwPortal; // 0x8C
     int dwPosition; // 0x90
     int dwSaveMonsters; // 0x94
     int dwLOSDraw; // 0x98

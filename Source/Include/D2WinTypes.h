@@ -92,7 +92,7 @@ struct D2FontStrc
     unsigned short unk0x06; // 0x06
     unsigned short nCharCount; // 0x08
     unsigned char nHeight; // 0x0A
-    unsigned char unk0x0B; // 0x0B
+    unsigned char nWidth; // 0x0B
     D2CharStrc aChars[1]; // 0x0C
 };
 
