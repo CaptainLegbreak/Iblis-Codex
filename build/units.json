@@ -16700,77 +16700,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/CUnit_004519C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004519C0",
-     "length": 207,
-     "name": "?sub_004519C0_ReplayRecords@@YAXXZ"
-    },
-    {
-     "va": "0x0045B1A0",
-     "length": 60,
-     "name": "?sub_0045B1A0_DrawDiamond@@YIXHHE@Z"
-    },
-    {
-     "va": "0x004637F0",
-     "length": 23,
-     "name": "?sub_004637F0_GetMonsterComponents@@YIPAEPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463860",
-     "length": 58,
-     "name": "?sub_00463860@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463920",
-     "length": 9,
-     "name": "?sub_00463920_GetClientHashTable@@YAPAPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00463930",
-     "length": 9,
-     "name": "?sub_00463930_GetServerHashTable@@YAPAPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00463C60",
-     "length": 16,
-     "name": "?sub_00463C60_RemoveUnitFromRoom@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463D70",
-     "length": 1,
-     "name": "?sub_00463D70_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00463DD0",
-     "length": 6,
-     "name": "?sub_00463DD0_GetPlayerUnit@@YAPAUD2UnitStrc@@XZ"
-    },
-    {
-     "va": "0x00463FE0",
-     "length": 186,
-     "name": "?sub_00463FE0_IsInObjectSelectBox@@YGHHPAUD2ObjectsTxt@@HPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004642B0",
-     "length": 86,
-     "name": "?sub_004642B0_CheckSkillSelectProc@@YGHPAUD2UnitStrc@@0H@Z"
-    },
-    {
-     "va": "0x00464860",
-     "length": 144,
-     "name": "?sub_00464860_IsUnitDead@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00477530",
-     "length": 232,
-     "name": "?sub_00477530_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/SCmd.cpp",
    "rank": 0,
    "flags": [
@@ -20036,16 +19965,16 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/CUnit_00466360.cpp",
+   "file": "Source/D2Client/Unknown_00466DE0.cpp",
    "rank": 1,
    "functions": [
     {
-     "va": "0x00463A50",
-     "length": 302
+     "va": "0x00466DE0",
+     "length": 508
     },
     {
-     "va": "0x00466360",
-     "length": 966
+     "va": "0x00467000",
+     "length": 158
     }
    ],
    "flags": [
@@ -20064,16 +19993,81 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00466DE0.cpp",
-   "rank": 1,
+   "file": "Source/D2Client/UNIT/CUnit_00466360.cpp",
+   "rank": 0,
    "functions": [
     {
-     "va": "0x00466DE0",
-     "length": 508
+     "va": "0x004519C0",
+     "length": 207,
+     "name": "?sub_004519C0_ReplayRecords@@YAXXZ"
     },
     {
-     "va": "0x00467000",
-     "length": 158
+     "va": "0x0045B1A0",
+     "length": 60,
+     "name": "?sub_0045B1A0_DrawDiamond@@YIXHHE@Z"
+    },
+    {
+     "va": "0x004637F0",
+     "length": 23,
+     "name": "?sub_004637F0_GetMonsterComponents@@YIPAEPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463860",
+     "length": 58,
+     "name": "?sub_00463860@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463920",
+     "length": 9,
+     "name": "?sub_00463920_GetClientHashTable@@YAPAPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00463930",
+     "length": 9,
+     "name": "?sub_00463930_GetServerHashTable@@YAPAPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00463A50",
+     "length": 302
+    },
+    {
+     "va": "0x00463C60",
+     "length": 16,
+     "name": "?sub_00463C60_RemoveUnitFromRoom@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463D70",
+     "length": 1,
+     "name": "?sub_00463D70_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x00463DD0",
+     "length": 6,
+     "name": "?sub_00463DD0_GetPlayerUnit@@YAPAUD2UnitStrc@@XZ"
+    },
+    {
+     "va": "0x00463FE0",
+     "length": 186,
+     "name": "?sub_00463FE0_IsInObjectSelectBox@@YGHHPAUD2ObjectsTxt@@HPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004642B0",
+     "length": 86,
+     "name": "?sub_004642B0_CheckSkillSelectProc@@YGHPAUD2UnitStrc@@0H@Z"
+    },
+    {
+     "va": "0x00464860",
+     "length": 144,
+     "name": "?sub_00464860_IsUnitDead@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00466360",
+     "length": 966
+    },
+    {
+     "va": "0x00477530",
+     "length": 232,
+     "name": "?sub_00477530_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
     }
    ],
    "flags": [

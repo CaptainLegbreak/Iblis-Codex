@@ -1709,7 +1709,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UNIT/CUnit_004519C0.cpp": {
+  "Source/D2Client/UNIT/CUnit_00466360.cpp": {
    "bytes": 92,
    "definitions": 3,
    "externs": [
@@ -42054,7 +42054,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit_004519C0.cpp",
+   "file": "Source/D2Client/UNIT/CUnit_00466360.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -42134,7 +42134,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit_004519C0.cpp",
+   "file": "Source/D2Client/UNIT/CUnit_00466360.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnSkillSelectProcs_00711F50 = ",
@@ -42159,7 +42159,7 @@
    "cname": "gData_00711F54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit_004519C0.cpp",
+   "file": "Source/D2Client/UNIT/CUnit_00466360.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00711F54_t gData_00711F54; // 0x00711F54",
    "head": "extern \"C\" struct d2data_00711F54_t gData_00711F54 = ",
