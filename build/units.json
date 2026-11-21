@@ -25804,6 +25804,10 @@
     {
      "va": "0x0048D1D0",
      "length": 2465
+    },
+    {
+     "va": "0x00491AD0",
+     "length": 577
     }
    ],
    "flags": [
@@ -26279,30 +26283,6 @@
     "/Ob2",
     "/Gd",
     "/EHsc",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00491AD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00491AD0",
-     "length": 577
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
     "/GS-"
    ]
   },
