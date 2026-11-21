@@ -69593,6 +69593,11 @@
      "name": "?AITHINK_Fn036_CorruptLancer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F6070",
+     "length": 421,
+     "name": "?AITHINK_Fn037_SkeletonBow@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F6530",
      "length": 242,
      "name": "?AITHINK_Fn040_MaggotEgg@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -70667,17 +70672,6 @@
      "va": "0x005F5A20",
      "length": 802,
      "name": "?AITHINK_Fn035_CorruptArcher@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F6070.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F6070",
-     "length": 421,
-     "name": "?AITHINK_Fn037_SkeletonBow@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },

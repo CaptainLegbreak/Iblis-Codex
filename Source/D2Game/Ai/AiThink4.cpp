@@ -1093,6 +1093,17 @@ enum D2C_M86CorruptLancerAi
 
 int __fastcall AITACTICS_RunToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEFB0
 
+enum D2C_M80SkeletonBowAi
+{
+    SKELETONBOW_AI_PARAM_SHOOT_CHANCE_PCT = 0,
+    SKELETONBOW_AI_PARAM_STALL_DURATION = 1,
+    SKELETONBOW_AI_PARAM_APPROACH_CHANCE_PCT = 2,
+    SKELETONBOW_AI_PARAM_WALK_STEPS = 3,
+    SKELETONBOW_AI_PARAM_TARGET_DISTANCE = 4,
+};
+
+int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -7077,6 +7088,51 @@ void __fastcall AITHINK_Fn036_CorruptLancer(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_STALL_DURATION));
+}
+
+// 0x005F6070
+void __fastcall AITHINK_Fn037_SkeletonBow(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    D2UnitStrc* pTickTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (sub_6FCF2E70(pUnit))
+    {
+        D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+        if (pTarget)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+    }
+
+    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+    if (pTarget && nDistance < 20)
+    {
+        if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_SHOOT_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        if ((int)(AI_RollUnitSeed(pUnit) % 100) < 20)
+        {
+            sub_005DF7D0(pGame, pUnit, pTickTarget, 3, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_STALL_DURATION));
+        return;
+    }
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTickTarget, AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_WALK_STEPS), AI_PARAM(pGame, pMonStatsTxt, SKELETONBOW_AI_PARAM_TARGET_DISTANCE));
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
 }
 
 // 0x005F6530
