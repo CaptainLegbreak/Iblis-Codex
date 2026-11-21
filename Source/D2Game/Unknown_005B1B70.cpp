@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
 #include "D2GameServer.h"
+#include "D2Txt.h"
 
 struct D2TargetNodeStrc;
 struct D2MonsterSpawnParamsStrc;
@@ -23,19 +24,7 @@ struct D2MonsterSpawnParamsStrc
     int nMonsterId;
 };
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    char pad0x04[0x1A4];
-};
 
-struct D2ItemsTxt
-{
-    char pad0x00[0x88];
-    unsigned int dwUltraCode;
-    unsigned int dwUberCode;
-};
 
 struct D2MonsterItemCodeStrc
 {
@@ -132,10 +121,10 @@ static __declspec(noinline) void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc*
         switch (pGame->nDifficulty)
         {
         case 1:
-            tCode.dwCode = pItemsTxt->dwUltraCode;
+            tCode.dwCode = pItemsTxt->dwUberCode;
             break;
         case 2:
-            tCode.dwCode = pItemsTxt->dwUberCode;
+            tCode.dwCode = pItemsTxt->dwUltraCode;
             break;
         }
         sub_6FC61190(pGame, pUnit, &tCode, nLevel, 4);

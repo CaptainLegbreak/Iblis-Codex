@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -59,12 +60,6 @@ struct D2NpcControlStrc
     D2NpcRecordStrc* pFirstRecord;
     D2SeedStrc pSeed;
     int nNpcCount;
-};
-struct D2MonStatsTxt
-{
-    unsigned char unknown00[0x0D];
-    unsigned char nFlags1;
-    unsigned char unknown0E[0x1A8-0x0E];
 };
 struct D2NpcConfigStrc
 {
@@ -127,7 +122,7 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
         D2MonStatsTxt* pTxt = SUNITPROXY_GetMonStatsTxtRecordInline(nClass);
         int bInteract = 0;
         if (pTxt)
-            bInteract = pTxt->nFlags1 & gdwBitMasks[1];
+            bInteract = pTxt->nMonStatsFlags[1] & gdwBitMasks[1];
         if (!bInteract) continue;
         D2NpcRecordStrc* pNpc = &pRecords[nCount];
         pNpc->nNPC = nClass;

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 union D2SeedStrc;
 struct D2MissilesTxt;
@@ -12,23 +13,7 @@ struct D2StaticPathStrc;
 
 
 
-struct D2MissilesTxt
-{
-    char pad00[0x18];
-    short wSubMissile;
-    char pad1A[0x1E];
-    int dwParam[5];
-    char pad4C[0x4A];
-    short nRange;
-    char pad98[0x10C];
-};
 
-struct D2SkillsTxt
-{
-    char pad00[0x138];
-    unsigned int dwCalc[2];
-    char pad140[0xFC];
-};
 
 
 
@@ -110,7 +95,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_005A9820_SpawnNearby(
 int __fastcall sub_005AE8A0_SpawnByLevel(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pRecord = GetMissileRecord(pMissile);
-    if (!pRecord && pRecord->wSubMissile < 0)
+    if (!pRecord && pRecord->wSubMissile[0] < 0)
         return 2;
     int nLevel = MISSILE_GetLevel(pMissile);
     int nDivisor = pRecord->dwParam[2];
@@ -124,7 +109,7 @@ int __fastcall sub_005AE8A0_SpawnByLevel(D2GameStrc* pGame, D2UnitStrc* pMissile
     int nRate = pRecord->dwParam[1] - nQuotient;
     if (nRate < 3)
         nRate = 3;
-    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile, 5, pMissile, nRate);
+    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile[0], 5, pMissile, nRate);
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
@@ -132,7 +117,7 @@ int __fastcall sub_005AE8A0_SpawnByLevel(D2GameStrc* pGame, D2UnitStrc* pMissile
 int __fastcall sub_005AEA60_SpawnBySkill(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pRecord = GetMissileRecord(pMissile);
-    if (!pRecord && pRecord->wSubMissile < 0)
+    if (!pRecord && pRecord->wSubMissile[0] < 0)
         return 2;
     int nSkill = MISSILE_GetSkill(pMissile);
     D2SkillsTxt* pSkill = GetSkillRecord(nSkill);
@@ -141,7 +126,7 @@ int __fastcall sub_005AEA60_SpawnBySkill(D2GameStrc* pGame, D2UnitStrc* pMissile
     int nLevel = MISSILE_GetLevel(pMissile);
     int nRange = SKILLS_EvaluateSkillFormula(SUNIT_GetOwner(pGame, pMissile), pSkill->dwCalc[0], nSkill, nLevel);
     int nRate = SKILLS_EvaluateSkillFormula(SUNIT_GetOwner(pGame, pMissile), pSkill->dwCalc[1], nSkill, nLevel);
-    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile, 5, pMissile, nRate);
+    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile[0], 5, pMissile, nRate);
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
@@ -152,8 +137,8 @@ int __fastcall sub_005AF240_SpawnDuringFrames(D2GameStrc* pGame, D2UnitStrc* pMi
     if (!pRecord)
         return 2;
     int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
-    if (pRecord->wSubMissile > 0 && nRemaining < pRecord->nRange - pRecord->dwParam[0] && nRemaining > pRecord->dwParam[0])
-        sub_005A9820_SpawnNearby(pGame, pRecord->dwParam[2], pRecord->wSubMissile, 5, pMissile, pRecord->dwParam[1]);
+    if (pRecord->wSubMissile[0] > 0 && nRemaining < pRecord->wRange - pRecord->dwParam[0] && nRemaining > pRecord->dwParam[0])
+        sub_005A9820_SpawnNearby(pGame, pRecord->dwParam[2], pRecord->wSubMissile[0], 5, pMissile, pRecord->dwParam[1]);
     if (pRecord->dwParam[3] >= 0 && !MISSILE_GetTargetX(pMissile) && nRemaining <= pRecord->dwParam[4] + pRecord->dwParam[0])
         sub_005A9930_CreateAtMissile(pGame, pMissile, pRecord->dwParam[3]);
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
@@ -163,7 +148,7 @@ int __fastcall sub_005AF240_SpawnDuringFrames(D2GameStrc* pGame, D2UnitStrc* pMi
 int __fastcall sub_005AF880_SpawnBySkillMask(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pRecord = GetMissileRecord(pMissile);
-    if (!pRecord || !pRecord->wSubMissile)
+    if (!pRecord || !pRecord->wSubMissile[0])
         return 2;
     int nSkill = MISSILE_GetSkill(pMissile);
     D2SkillsTxt* pSkill = GetSkillRecord(nSkill);
@@ -172,7 +157,7 @@ int __fastcall sub_005AF880_SpawnBySkillMask(D2GameStrc* pGame, D2UnitStrc* pMis
     int nLevel = MISSILE_GetLevel(pMissile);
     int nRange = SKILLS_EvaluateSkillFormula(SUNIT_GetOwner(pGame, pMissile), pSkill->dwCalc[0], nSkill, nLevel);
     int nRate = SKILLS_EvaluateSkillFormula(SUNIT_GetOwner(pGame, pMissile), pSkill->dwCalc[1], nSkill, nLevel);
-    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile, 0x45, pMissile, nRate);
+    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile[0], 0x45, pMissile, nRate);
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 

@@ -4,36 +4,11 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
 
-struct D2SkillsTxt
-{
-    char unk_00[0x48];
-    short nSrvMissile;
-    short nCltMissile;
-    char unk_04C[0x18];
-    unsigned int dwRangeCalc;
-    unsigned char unk_68[0xD0];
-    union
-    {
-        struct
-        {
-            int dwCalc[4];
-        };
-        struct
-        {
-            unsigned char unk_138[0x4];
-            unsigned int dwDamageCalc;
-        };
-    };
-    char unk0x148[0x5D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int);
@@ -117,8 +92,8 @@ int __fastcall sub_005DB410_CreateMissileWall(D2GameStrc* pGame, D2UnitStrc* pUn
         SKILLS_MakeShortPerpendicularVector(&nDx, &nDy);
         nX += -(nDx * nTotal / 2);
         nY += -(nDy * nTotal / 2);
-        int nMissile = pSkillsTxtRecord->nSrvMissile;
-        if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxtRecord->nCltMissile >= 0) nMissile = pSkillsTxtRecord->nCltMissile;
+        int nMissile = pSkillsTxtRecord->wSrvMissileA;
+        if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxtRecord->wSrvMissileB >= 0) nMissile = pSkillsTxtRecord->wSrvMissileB;
         if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount) goto ReturnZero;
         int nActive = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
         if (!nActive) nActive = nTotal;
@@ -210,7 +185,7 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     if (!pSkillsTxt) return 0;
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill) return 0;
-    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwRangeCalc, nSkillId, nSkillLevel);
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwAuraRangeCalc, nSkillId, nSkillLevel);
     int nCount = SKILLS_GetParam1(pSkill);
     if (!nCount) return 0;
     const int nTargetId = SKILLS_GetParam3(pSkill);
@@ -224,11 +199,11 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     int nX = 0;
     int nY = 0;
     D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY);
-    int nMissile = pSkillsTxt->nSrvMissile;
-    if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxt->nCltMissile >= 0)
-        nMissile = pSkillsTxt->nCltMissile;
+    int nMissile = pSkillsTxt->wSrvMissileA;
+    if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxt->wSrvMissileB >= 0)
+        nMissile = pSkillsTxt->wSrvMissileB;
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount) return 0;
-    const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwDamageCalc, nSkillId, nSkillLevel);
+    const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[1], nSkillId, nSkillLevel);
     D2MissileStrc missile;
     memset(&missile, 0, sizeof(missile));
     missile.dwFlags = 0x21;

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)<(b)?(b):(a))
@@ -10,18 +11,6 @@ struct Monster;
 
 struct D2DamageStrc { int unk00; unsigned short resultFlags; unsigned short unk06; int physical; };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissile;
-    char unk0x04A[0xEE];
-    union
-    {
-        unsigned int dwCalc[4];
-        int calc;
-    };
-    char unk0x148[0xF4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -135,7 +124,7 @@ int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* game,D2UnitStrc* 
   int life=STATLIST_UnitGetStatValue(owner,6,0);
   int maxLife=STATLIST_GetMaxLifeFromUnit(owner);
   int amount=MIN(damage->physical,STATLIST_UnitGetStatValue(target,6,0));
-  life+=DATATBLS_ApplyRatio(amount,SKILLS_EvaluateSkillFormula(unit,skill->calc,skillId,level),100);
+  life+=DATATBLS_ApplyRatio(amount,SKILLS_EvaluateSkillFormula(unit,skill->dwCalc[0],skillId,level),100);
   life=MIN(MAX(life,1),maxLife);
   STATLIST_SetUnitStat(owner,6,life,0);
  }
@@ -188,7 +177,7 @@ int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    const int nMissile = pSkillsTxtRecord->wSrvMissile;
+    const int nMissile = pSkillsTxtRecord->wSrvMissileA;
     if (nMissile <= 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;

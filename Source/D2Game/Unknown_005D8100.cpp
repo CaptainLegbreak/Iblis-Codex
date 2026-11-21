@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 union D2SeedStrc;
 struct D2SkillsTxt;
@@ -12,13 +13,6 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 static __declspec(noinline) int __stdcall sub_005D8100_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId);
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[4];
-    int dwParam[4];
-    char unk0x158[0xE4];
-};
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 

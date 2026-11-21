@@ -10,6 +10,7 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
+#include "D2LevelTxt.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -76,11 +77,6 @@ enum D2C_F39Constants
     STATLIST_FLAG_8 = 8,
 };
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x40];
-    int dwStaticFieldMin;
-};
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

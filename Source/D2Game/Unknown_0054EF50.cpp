@@ -2,14 +2,8 @@
 #include "D2Structs.h"
 #include "D2ItemsWorld.h"
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
 
-struct D2ActiveRoomStrc
-{
-    char pad00[0x6C];
-    D2SeedStrc pSeed;
-    unsigned int field74;
-    int field78;
-};
 struct D2LevelsTxt
 {
     char pad00[3];
@@ -81,7 +75,7 @@ static __declspec(noinline) void __stdcall sub_0054EFF0_CheckWandering(
 // 0x0054F060
 void __fastcall MONSTERREGION_TrySpawnWanderingMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
-    if (((unsigned int)RollSeedInline(pRoom ? &pRoom->pSeed : 0) & 0x7FFF) == 0 && !pRoom->field78)
+    if (((unsigned int)RollSeedInline(pRoom ? &pRoom->pSeed : 0) & 0x7FFF) == 0 && !pRoom->nNumClients)
     {
         int nLevel = DUNGEON_GetLevelIdFromRoom(pRoom);
         D2LevelsTxt* pLevels = DATATBLS_GetLevelsTxtRecord(nLevel);

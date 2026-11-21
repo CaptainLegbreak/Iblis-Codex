@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameServer.h"
+#include "D2GameRecords.h"
 
 #define UNIT_MONSTER 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -28,29 +29,6 @@ struct D2NpcEventStrc
     D2NpcEventStrc* pNext;
 };
 
-struct D2NpcRecordStrc
-{
-    int nNPC;
-    D2InventoryStrc* pInventory;
-    D2NpcGambleStrc* pGamble;
-    int bGambleInit;
-    void* pMercData;
-    D2NpcEventStrc* pEvent;
-    D2NpcVendorChainStrc* pVendorChain;
-    int bTrading;
-    unsigned char bVendorInit;
-    unsigned char unk0x21;
-    unsigned char nAct;
-    unsigned char bTrader;
-    char unk0x24[3];
-    unsigned char bRefreshInventory;
-    unsigned int dwTicks;
-    void* pItemCache;
-    int nPerms;
-    void* pPermCache;
-    char unk0x38[8];
-    int dwNPCGUID;
-};
 
 struct D2NpcControlStrc
 {

@@ -10,6 +10,8 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2GameObjs.h"
+#include "D2GameTypes.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -75,32 +77,7 @@ void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005
 static __declspec(noinline) D2InactiveUnitListStrc* __stdcall sub_00541DE0_GetListNodeFromRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int bAllocNewNode);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    union
-    {
-        struct
-        {
-            unsigned char nComponent[16];
-        };
-        struct
-        {
-            unsigned char unk_04[0xA];
-            unsigned char nComponent10;
-        };
-    };
-    unsigned char unk_14[0x14];
-    D2AiControlStrc* pAiControl;
-};
 
-struct D2AiCmdStrc
-{
-    int unk0x00[3];
-    int nCmdParam1;
-    int nCmdParam2;
-    int nCmdParam3;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
@@ -510,7 +487,7 @@ inline unsigned char MONSTERS_GetComponent10Inl(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
     {
-        return pUnit->pMonsterData->nComponent10;
+        return pUnit->pMonsterData->nComponent[10];
     }
     return 0;
 }
@@ -570,10 +547,10 @@ static void __stdcall sub_00541FE0_SaveSpecialMonsterParameters(D2GameStrc* pGam
         || BITARRAY_CHECK(pMonStatsTxtRecord->nMonStatsFlags, 10))
     {
         D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
-        if (pAiCmd && pAiCmd->nCmdParam1)
+        if (pAiCmd && pAiCmd->nCmdParam[1])
         {
-            pNode->nCmdParam1 = pAiCmd->nCmdParam1;
-            pNode->nCmdParam2 = pAiCmd->nCmdParam2;
+            pNode->nCmdParam1 = pAiCmd->nCmdParam[1];
+            pNode->nCmdParam2 = pAiCmd->nCmdParam[2];
         }
 
         D2MapAIStrc* pMapAI = AIGENERAL_GetMapAiFromUnit(pUnit);
@@ -588,8 +565,8 @@ static void __stdcall sub_00541FE0_SaveSpecialMonsterParameters(D2GameStrc* pGam
         D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
         if (pAiCmd)
         {
-            pNode->nCmdParam1 = pAiCmd->nCmdParam1;
-            pNode->nCmdParam2 = pAiCmd->nCmdParam2;
+            pNode->nCmdParam1 = pAiCmd->nCmdParam[1];
+            pNode->nCmdParam2 = pAiCmd->nCmdParam[2];
         }
     }
 
@@ -799,9 +776,9 @@ static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* p
         D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
         if (pAiCmd)
         {
-            pAiCmd->nCmdParam1 = pNode->nCmdParam1;
-            pAiCmd->nCmdParam2 = pNode->nCmdParam2;
-            pAiCmd->nCmdParam3 = 0;
+            pAiCmd->nCmdParam[1] = pNode->nCmdParam1;
+            pAiCmd->nCmdParam[2] = pNode->nCmdParam2;
+            pAiCmd->nCmdParam[3] = 0;
         }
 
         D2MapAIStrc** ppMapAI = &pNode->pMapAI;
@@ -819,8 +796,8 @@ static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* p
             D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
             if (pAiCmd)
             {
-                pAiCmd->nCmdParam1 = pNode->nCmdParam1;
-                pAiCmd->nCmdParam2 = pNode->nCmdParam2;
+                pAiCmd->nCmdParam[1] = pNode->nCmdParam1;
+                pAiCmd->nCmdParam[2] = pNode->nCmdParam2;
             }
         }
     }

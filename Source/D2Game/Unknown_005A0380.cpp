@@ -7,6 +7,8 @@
 #include "D2Txt.h"
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
+#include "D2UnitData.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -21,38 +23,7 @@ struct D2MonUModTxt;
 struct D2SuperUniquesTxt;
 struct D2DifficultyLevelsTxt;
 
-struct D2MonsterDataStrc
-{
-    void* pMonStatsTxt;
-    unsigned char nComponent[16];
-    unsigned short wNameSeed;
-    unsigned short nTypeFlag;
-    unsigned int dwDurielFlag;
-    union
-    {
-        unsigned char nMonUmod[10];
-        unsigned char unk_1C;
-    };
-    short wBossHcIdx;
-    D2AiControlStrc* pAiControl;
-};
 
-struct D2SuperUniquesTxt
-{
-    unsigned short wSuperUnique;
-    unsigned short wNameStr;
-    int dwClass;
-    int dwHcIdx;
-    int dwMod[3];
-    int dwMonSound;
-    int dwMinGrp;
-    int dwMaxGrp;
-    unsigned char nAutopos;
-    unsigned char nEclass;
-    unsigned char nStacks;
-    unsigned char nReplaceable;
-    char _pad28[0x0C];
-};
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -89,11 +60,6 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId); // 0x006556E0
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x34];
-    int nDamageBonusPercent;
-};
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -120,7 +86,7 @@ int __fastcall sub_005A0380_HasMonsterFlag(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    return pMonsterData->unk_1C != 0;
+    return pMonsterData->nMonUmod[0] != 0;
 }
 
 static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
@@ -1202,8 +1168,8 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, i
     D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
     if (pDifficultyLevelsTxtRecord)
     {
-        nDamage = nDamage * pDifficultyLevelsTxtRecord->nDamageBonusPercent / 100;
-        nToHit = nToHit * pDifficultyLevelsTxtRecord->nDamageBonusPercent / 100;
+        nDamage = nDamage * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
+        nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
         if (sub_00463900_GetValidMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
         {
             nDamage /= 2;

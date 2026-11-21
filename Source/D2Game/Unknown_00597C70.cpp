@@ -1,16 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
 
 struct D2StaticPathStrc;
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nX;
-    int nY;
-};
 
 void __fastcall D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char nHitClass, unsigned char nLifePct); // 0x0053B430
 void __fastcall D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned short nPosX, unsigned short nPosY, unsigned char a7); // 0x0053BC10
@@ -44,7 +37,7 @@ static __forceinline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
 
     default:
         if (pUnit->pDynamicPath)
@@ -62,7 +55,7 @@ static __forceinline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
 
     default:
         if (pUnit->pDynamicPath)
