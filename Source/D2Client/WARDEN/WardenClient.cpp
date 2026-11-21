@@ -879,6 +879,13 @@ void* __stdcall sub_004800C0_WardenAlloc(int nSize)
     return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x274, 0);
 }
 
+
+// 0x004800E0
+void __stdcall sub_004800E0_WardenFree(void* pMemory)
+{
+    SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x27B, 0);
+}
+
 // 0x00480150
 bool __stdcall sub_00480150_TakeWardenBuffer(void* pDst, unsigned int* pSize)
 {
