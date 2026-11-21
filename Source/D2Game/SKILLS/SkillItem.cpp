@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"

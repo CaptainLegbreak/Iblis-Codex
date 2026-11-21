@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2MonsterIds.h"
 #include "D2Common.h"
 #include "D2ClientTypes.h"
@@ -291,8 +292,6 @@ static int gnComponentArrayRecordCount_0096D460; // 0x0096D460
 
 static int gbComponentArrayInitialized_0096D464; // 0x0096D464
 
-#define ITEMTYPE_WEAPON 45
-
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
@@ -357,8 +356,6 @@ struct D2BeltsTxtLayout
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0);
 
 #define BODYLOC_LAST (13 - 1)
-
-#define ITEMTYPE_ANY_SHIELD 51
 
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner);
 
@@ -431,8 +428,6 @@ BOOL __stdcall INVENTORY_PlaceItemInFreeBeltSlot(D2InventoryStrc* pInventory, D2
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
 static void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output);
-
-#define ITEMTYPE_MISSILE_POTION 0x26
 
 BOOL __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nUnused);
 

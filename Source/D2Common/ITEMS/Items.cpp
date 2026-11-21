@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Common.h"
@@ -26,8 +27,6 @@
 
 #define INVPAGE_NULL 255
 
-#define ITEMTYPE_SCROLL 22
-
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -39,8 +38,6 @@
 #define STATEMASK_CURSE 11
 
 #define UNITFLAGEX_ISSHAPESHIFTED_BIT 3
-
-#define ITEMTYPE_QUEST 39
 
 #define STAT_ITEM_NUMSOCKETS 194
 
@@ -59,8 +56,6 @@
 #define ITEMVERSION 0x60
 
 #define IFLAG_NOSELL 0x00001000
-
-#define ITEMTYPE_SOCKET_FILLER 0x35
 
 #define NUMBER_OF_PLAYERCLASSES 7
 

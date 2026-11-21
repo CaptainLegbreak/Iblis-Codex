@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -32,8 +33,6 @@
 #define UNITFLAGEX_TELEPORTED 0x10000
 
 #define UNITFLAG_TARGETABLE 0x00000002
-
-#define ITEMTYPE_GEM 20
 
 #define STAT_HITPOINTS 6
 

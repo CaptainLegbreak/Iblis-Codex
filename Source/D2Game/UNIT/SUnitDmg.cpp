@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
@@ -28,8 +29,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_OBJECT 2
-
-#define ITEMTYPE_GOLD 4
 
 #define ITEMQUAL_NORMAL 2
 

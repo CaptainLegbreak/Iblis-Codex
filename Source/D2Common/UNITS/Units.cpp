@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
@@ -294,10 +295,6 @@ enum
     COMPOSIT_RIGHTHAND = 7,
 };
 
-enum
-{
-    ITEMTYPE_SHIELD = 2,
-};
 
 struct D2InventoryRecordMapStrc
 {

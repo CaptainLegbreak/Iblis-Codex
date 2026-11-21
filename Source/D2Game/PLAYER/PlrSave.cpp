@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -36,8 +37,6 @@
 #define UNIT_TILE 5
 
 #define STAT_GOLD 14
-
-#define ITEMTYPE_WEAPON 45
 
 #define ITEMACTION_DROPTOGROUND 2
 

@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -45,8 +46,6 @@
 #define IFLAG_BROKEN 0x00000100
 
 #define STAT_GOLD 14
-
-#define ITEMTYPE_GOLD 4
 
 #define UNITFLAG_ISRESURRECT 0x02000000
 

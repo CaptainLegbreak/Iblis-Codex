@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
@@ -24,8 +25,6 @@
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 
-#define ITEMTYPE_CROSSBOW 35
-
 #define STAT_TOHIT 19
 
 #define STAT_DAMAGEPERCENT 25
@@ -45,8 +44,6 @@
 #define SKILLSFLAGINDEX_PERIODIC 6
 
 #define EVENTTYPE_PERIODICSTATS 9
-
-#define ITEMTYPE_WEAPON 0x2D
 
 struct D2SkillListStrc;
 
@@ -713,8 +710,6 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
-
-#define ITEMTYPE_MISSILE_POTION 38
 
 #define STAT_PROGRESSIVE_TOHIT 325
 

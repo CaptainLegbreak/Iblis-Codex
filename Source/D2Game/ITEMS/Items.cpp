@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -355,10 +356,6 @@ static void ITEMS_ClearAffixesAndFileIndex(D2UnitStrc** ppItem);
 #define ITEMDROPFLAG_NEVERETH 0x2
 
 #define ITEMDROPFLAG_NOSOCKETS 0x8
-
-#define ITEMTYPE_GOLD 4
-
-#define ITEMTYPE_PLAYER_BODY_PART 7
 
 #define STAT_MAXDURABILITY 73
 

@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -24,7 +25,6 @@ struct D2ItemUnkStrc
     D2ItemsTxt* pItemsTxtRecord;
 };
 
-#define ITEMTYPE_BODY_PART 0x28
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                              // 0x006427F0
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C3E0
 

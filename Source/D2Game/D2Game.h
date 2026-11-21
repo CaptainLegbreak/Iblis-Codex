@@ -633,11 +633,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define ITEMCODE_MALUS ' mdh'
 #define ITEMSPAWN_GROUND 3
 #define ITEMSTATCOSTFLAGINDEX_CSVSIGNED 13
-#define ITEMTYPE_BLUNT 57
-#define ITEMTYPE_BOOK 18
-#define ITEMTYPE_BOW 27
-#define ITEMTYPE_BOW_QUIVER 5
-#define ITEMTYPE_SCROLL 22
 #define ITEM_BOOK_BKS 0x20736B62
 #define ITEM_SCROLL_BKD 0x20646B62
 #define ITERSTATE_13 13

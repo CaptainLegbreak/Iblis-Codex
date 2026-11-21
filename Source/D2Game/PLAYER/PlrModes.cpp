@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -19,8 +20,6 @@
 #define UNIT_PLAYER 0
 
 #define UNIT_MONSTER 1
-
-#define ITEMTYPE_WEAPON 45
 
 #define STAT_DEXTERITY 2
 
