@@ -4,6 +4,8 @@
 #include "D2GameStrc.h"
 #include "D2Structs.h"
 
+#include "D2UnitData.h"
+#include "D2QuestData.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_STARTED 2
@@ -27,39 +29,6 @@ struct Obj00590810 {
     unsigned char bValue0C;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
-
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
-
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char nFlag0B;
-    unsigned char nState0C;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned char bStatusFlags;
-    unsigned char pad0x15[3];
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    void* pCallback[16];
-    int eFilter;
-};
-
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
@@ -81,11 +50,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
-struct D2Act1Quest2Strc
-{
-    char unk0x00[0x03];
-    unsigned char bKashyaActivated;
-};
 void __fastcall ACT1Q2_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 // 0x00590810
@@ -124,7 +88,7 @@ void __fastcall ACT1Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         return;
     }
 
-    pQuestData->bStatusFlags = 0;
+    (*(unsigned char*)&pQuestData->dwFlags) = 0;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bKashyaActivated = 0;
     pQuestData->pCallback[2] = 0;
@@ -134,7 +98,7 @@ void __fastcall ACT1Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 // 0x00590BF0
 bool __fastcall ACT1Q2_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
-    pQuestData->bStatusFlags = 0;
+    (*(unsigned char*)&pQuestData->dwFlags) = 0;
     QUESTS_UnitIterate(pQuestData, 3, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 1);
     return true;
 }
@@ -224,7 +188,7 @@ int __fastcall sub_00590890_SyncQuest2(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
     {
         return 0;
     }
-    const unsigned char nState = pQuestData->nState0C;
+    const unsigned char nState = pQuestData->fState;
     if (nState == 2)
     {
         QUESTRECORD_SetQuestState(pQuestRecord, 2, 2);
@@ -232,7 +196,7 @@ int __fastcall sub_00590890_SyncQuest2(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
     }
     if (nState == 3)
     {
-        if (pQuestData->nFlag0B == 1)
+        if (pQuestData->fLastState == 1)
         {
             QUESTRECORD_SetQuestState(pQuestRecord, 2, 3);
             return 0;
