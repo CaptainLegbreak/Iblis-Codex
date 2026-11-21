@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -17,27 +18,6 @@ struct D2MissileStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[6];
-    int nFrames;
-    void* pfCallback;
-    D2UnitStrc* pInitArgs;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -672,8 +652,8 @@ void __fastcall sub_004D49F0_CltDoWeave(D2UnitStrc* pMissile)
             tParams.nSkill = MISSILE_GetSkill(pMissile);
             tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
             tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[0];
-            tParams.pfCallback = sub_004CC870_SubMissileCallback;
-            tParams.pInitArgs = pMissile;
+            tParams.pInitFunc = (MissileInitFunc)sub_004CC870_SubMissileCallback;
+            tParams.nInitArg = (int)pMissile;
             D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
             if (pNew)
                 sub_004DA1D0_SetMotionVectorA(pNew, 0, 0, sub_004DA150_GetMotionAZ(pMissile));

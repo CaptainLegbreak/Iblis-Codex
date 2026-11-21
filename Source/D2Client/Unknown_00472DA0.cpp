@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define M341_ROLL_SEED_LOW(pSeed, nOut)                                                                     \
@@ -23,18 +24,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
 
 
-struct D2WeatherStrc
-{
-    char unk0x000[0x110];
-    int nLastParticle;
-    int bActive;
-    char unk0x118[0x04];
-    union
-    {
-        D2WeatherSplashStrc* pRecords;
-        T00473470* pParticles;
-    };
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
@@ -249,11 +238,11 @@ int __cdecl sub_00473770_IsMudLevel()
 // 0x00473C00
 void __cdecl sub_00473C00_DrawWeatherLayers()
 {
-    if (gpWeather_007A89FC->bActive)
+    if (gpWeather_007A89FC->nCount)
     {
         sub_00473A70(gpWeather_007A89FC, &gtWeatherLayer_007A89B0);
     }
-    if (gpWeather_007A8A00->bActive)
+    if (gpWeather_007A8A00->nCount)
     {
         sub_00473A70(gpWeather_007A8A00, &gtWeatherLayer_007A893C);
     }
@@ -358,7 +347,7 @@ void __cdecl sub_00473910_UpdateWeather()
         }
     }
 
-    if (bRain && gpWeather_007A8A04->bActive)
+    if (bRain && gpWeather_007A8A04->nCount)
     {
         sub_00473470();
     }
@@ -532,7 +521,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
             if (!pParticle->nType)
             {
                 sub_006BCCD0_FreeDataArraySlot(gpWeather_007A8A04, i << 16);
-                if (gpWeather_007A8A04->bActive < gnPhaseLevel_007A89E0)
+                if (gpWeather_007A8A04->nCount < gnPhaseLevel_007A89E0)
                 {
                     sub_00473090_InitParticle(pSeed);
                 }
@@ -572,7 +561,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
 
 static void sub_004737B0_StepWind(D2SeedStrc* pSeed)
 {
-    while (gpWeather_007A8A04->bActive < gnPhaseLevel_007A89E0)
+    while (gpWeather_007A8A04->nCount < gnPhaseLevel_007A89E0)
     {
         sub_00473090_InitParticle(pSeed);
     }
@@ -630,12 +619,12 @@ void __cdecl sub_00473F50_UpdateWeather()
 
     if (!bRain && gbRainActive_007A8A44)
     {
-        if (gpWeather_007A8A04->bActive)
+        if (gpWeather_007A8A04->nCount)
         {
             sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
         }
 
-        if (gpWeather_007A89FC->bActive)
+        if (gpWeather_007A89FC->nCount)
         {
             sub_006BCAC0_ResetDataArray(gpWeather_007A89FC);
         }
@@ -643,7 +632,7 @@ void __cdecl sub_00473F50_UpdateWeather()
 
     if (!bMud && gbMudActive_007A8A40)
     {
-        if (gpWeather_007A8A00->bActive)
+        if (gpWeather_007A8A00->nCount)
         {
             sub_006BCAC0_ResetDataArray(gpWeather_007A8A00);
         }
@@ -665,7 +654,7 @@ void __cdecl sub_00473F50_UpdateWeather()
     gnLastTick_007A8A0C = nTick;
     if (bRain)
     {
-        if (gpWeather_007A8A04->bActive)
+        if (gpWeather_007A8A04->nCount)
         {
             sub_004732C0_StepParticles(pSeed);
         }

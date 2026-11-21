@@ -2,6 +2,7 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CelFileStrc;
@@ -19,11 +20,6 @@ extern "C" int __cdecl strcmp(const char* a, const char* b);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x24];
-    int (__fastcall* pfnGetMessage)(int* pResult, D2BnetChatPacketStrc* pPacket);
-};
 
 class D2SquelchListStrc
 {
@@ -44,31 +40,7 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
 
-struct D2OptionHeaderStrc
-{
-    int nCount;
-    int nHeight;
-    int nTextOffset;
-    int nArrowOffset;
-};
 
-struct D2OptionEntryStrc
-{
-    int nKind;
-    int bExpansionOnly;
-    int nY;
-    char szCelName[0x104];
-    int (__cdecl* pfnEnabled)();
-    void (__fastcall* pfnChanged)(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
-    void (__fastcall* pfnLoad)(D2OptionEntryStrc* pEntry, int nArg);
-    void (__fastcall* pfnInit)(D2OptionEntryStrc* pEntry, int nArg);
-    unsigned int nValues;
-    unsigned int nValue;
-    char unk0x128[4];
-    char szValueCels[4][0x104];
-    D2CelFileStrc* pCel;
-    D2CelFileStrc* pValueCels[4];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

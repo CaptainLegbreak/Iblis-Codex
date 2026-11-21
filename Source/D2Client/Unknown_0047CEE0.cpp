@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2StormTypes.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CelFileStrc;
@@ -9,31 +10,7 @@ struct D2OptionEntryStrc;
 
 int __cdecl sub_004DF880();
 
-struct D2OptionHeaderStrc
-{
-    int nCount;
-    int nHeight;
-    int nTextOffset;
-    int nArrowOffset;
-};
 
-struct D2OptionEntryStrc
-{
-    int nKind;
-    int bExpansionOnly;
-    int nY;
-    char f_C[0x104];
-    int (__cdecl* pfnEnabled)();
-    void (__fastcall* pfnChanged)(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
-    void (__fastcall* pfnLoad)(D2OptionEntryStrc* pEntry, int nArg);
-    void (__fastcall* pfnInit)(D2OptionEntryStrc* pEntry, int nArg);
-    unsigned int nValues;
-    unsigned int nValue;
-    char unk0x128[4];
-    char szValueCels[4][0x104];
-    D2CelFileStrc* pCel;
-    D2CelFileStrc* pValueCels[4];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
