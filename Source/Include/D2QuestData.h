@@ -428,7 +428,8 @@ struct D2Act3Quest4Strc
 {
     unsigned char bGoldenBirdBroughtToAlkor; // 0x00
     unsigned char unk0x01; // 0x01
-    unsigned short unk0x02; // 0x02
+    unsigned char unk0x02; // 0x02
+    unsigned char unk0x03; // 0x03
     int nBossGUID; // 0x04
     unsigned char bTalkedToAlkor; // 0x08
     unsigned char bTalkedToCainOnce; // 0x09
@@ -561,7 +562,11 @@ struct D2Act4Quest3Strc
     unsigned short nHellforgeMode; // 0x00
     unsigned char bCainActivated; // 0x02
     unsigned char unk0x03; // 0x03
-    int unk0x04[3]; // 0x04
+    unsigned char bRewardPending; // 0x04
+    unsigned char unk0x05; // 0x05
+    unsigned short unk0x06; // 0x06
+    int nRewardState; // 0x08
+    int nHammerHits; // 0x0C
     int nHellforgeHammersInGame; // 0x10
     int nPlayersInAct; // 0x14
     int unk0x18; // 0x18

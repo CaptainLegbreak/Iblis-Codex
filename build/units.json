@@ -70638,6 +70638,10 @@
      "name": "?ACT4Q3_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005B5C10",
+     "length": 705
+    },
+    {
      "va": "0x005B5F40",
      "length": 127,
      "name": "?ACT4Q3_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
@@ -70648,9 +70652,68 @@
      "name": "?ACT4Q3_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005B6050",
+     "length": 33,
+     "name": "?ACT4Q3_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6080",
+     "length": 124,
+     "name": "?ACT4Q3_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6440",
+     "length": 94
+    },
+    {
+     "va": "0x005B64A0",
+     "length": 26,
+     "name": "?ACT4Q3_Callback09_PlayerDroppedWithQuestItem@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B64C0",
+     "length": 31,
+     "name": "?ACT4Q3_Callback14_PlayerJoinedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005B64E0",
      "length": 228,
      "name": "ACT4Q3_Callback13_PlayerStartedGame"
+    },
+    {
+     "va": "0x005B6610",
+     "length": 248,
+     "name": "?ACT4Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005B6940",
+     "length": 156,
+     "name": "?ACT4Q4_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6A70",
+     "length": 91,
+     "name": "?ACT4Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005B6E60",
+     "length": 101,
+     "name": "?ACT3Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005B6ED0",
+     "length": 80,
+     "name": "?ACT3Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6F20",
+     "length": 112,
+     "name": "?ACT3Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6FD0",
+     "length": 54,
+     "name": "?ACT3Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005B72B0",
@@ -70687,101 +70750,6 @@
      "va": "0x005B5A20",
      "length": 101,
      "name": "?sub_005B5A20_InitHellforge@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q3_005B5C10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B5C10",
-     "length": 705
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q3_005B6050.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B6050",
-     "length": 33,
-     "name": "?ACT4Q3_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6080",
-     "length": 124,
-     "name": "?ACT4Q3_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B64A0",
-     "length": 26,
-     "name": "?ACT4Q3_Callback09_PlayerDroppedWithQuestItem@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B64C0",
-     "length": 31,
-     "name": "?ACT4Q3_Callback14_PlayerJoinedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6610",
-     "length": 248,
-     "name": "?ACT4Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B6940",
-     "length": 156,
-     "name": "?ACT4Q4_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6A70",
-     "length": 91,
-     "name": "?ACT4Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B6E60",
-     "length": 101,
-     "name": "?ACT3Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B6ED0",
-     "length": 80,
-     "name": "?ACT3Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6F20",
-     "length": 112,
-     "name": "?ACT3Q0_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6FD0",
-     "length": 54,
-     "name": "?ACT3Q0_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q3_005B6440.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B6440",
-     "length": 94
     }
    ]
   },

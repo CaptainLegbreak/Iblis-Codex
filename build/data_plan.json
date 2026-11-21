@@ -6074,7 +6074,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a4q3_005B6050.cpp": {
+  "Source/D2Game/Quests/a4q3.cpp": {
    "bytes": 2228,
    "definitions": 3,
    "externs": [],
@@ -115218,7 +115218,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3_005B6050.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 980,
    "form": "declared",
    "fwd": null,
@@ -115249,7 +115249,7 @@
    "cname": "gData_0073E5C0",
    "declared": true,
    "decorated": "?gpAct4Q4NpcMessages@@3PADA",
-   "file": "Source/D2Game/Quests/a4q3_005B6050.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 656,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0073E5C0_t gData_0073E5C0; // 0x0073E5C0",
@@ -115390,7 +115390,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3_005B6050.cpp",
+   "file": "Source/D2Game/Quests/a4q3.cpp",
    "fill": 592,
    "form": "declared",
    "fwd": null,
