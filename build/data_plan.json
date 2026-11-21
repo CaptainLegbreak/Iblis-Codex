@@ -5968,8 +5968,8 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 2980,
-   "definitions": 7,
+   "bytes": 3028,
+   "definitions": 8,
    "externs": [
     "extern \"C\" void __cdecl sub_00606B50_CompressCellFile(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
@@ -6004,15 +6004,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/Tilecmp_00600CB0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2CMP/SRC/CelCmp_00600FB0.cpp": {
-   "bytes": 48,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2CMP/SRC/CelCmp_00600FB0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -121750,7 +121741,7 @@
    "cname": "gData_00741F44",
    "declared": true,
    "decorated": "_gszTypeNameCelSlotList",
-   "file": "Source/D2CMP/SRC/CelCmp_00600FB0.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 48,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_00741F44[48]; // 0x00741F44",

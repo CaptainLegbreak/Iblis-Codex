@@ -73722,6 +73722,10 @@
      "name": "CelFileConvert24To8"
     },
     {
+     "va": "0x00600FB0",
+     "length": 456
+    },
+    {
      "va": "0x00601340",
      "length": 199,
      "name": "?CelFileNormalize@@YGXPAUD2CelFileStrc@@PAPAU1@PBDHHH@Z"
@@ -73739,6 +73743,16 @@
     {
      "va": "0x006015D0",
      "length": 117
+    },
+    {
+     "va": "0x00601840",
+     "length": 121,
+     "name": "?CelGetHandle@@YGPAUD2CelStrc@@PAUD2CmpCelContextStrc@@@Z"
+    },
+    {
+     "va": "0x00601980",
+     "length": 48,
+     "name": "?sub_00601980@@YGPADPAUD2CelStrc@@@Z"
     },
     {
      "va": "0x006019B0",
@@ -73766,14 +73780,29 @@
      "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
+     "va": "0x00601B80",
+     "length": 34,
+     "name": "sub_00601B80_SyncEnterLock"
+    },
+    {
      "va": "0x00601BB0",
      "length": 14,
      "name": "sub_00601BB0"
     },
     {
+     "va": "0x00601BC0",
+     "length": 36,
+     "name": "sub_00601BC0_NextLink"
+    },
+    {
      "va": "0x00601BF0",
      "length": 50,
      "name": "??1sub_00601BF0@@QAE@XZ"
+    },
+    {
+     "va": "0x00601C30",
+     "length": 36,
+     "name": "sub_00601C30_NextLink"
     },
     {
      "va": "0x00601C60",
@@ -73784,6 +73813,11 @@
      "va": "0x00601C70",
      "length": 50,
      "name": "??1sub_00601C70@@QAE@XZ"
+    },
+    {
+     "va": "0x00601CB0",
+     "length": 16,
+     "name": "sub_00601CB0_IsWriteLock"
     },
     {
      "va": "0x00601CC0",
@@ -73801,6 +73835,11 @@
      "name": "@sub_00601CF0@4"
     },
     {
+     "va": "0x00601D00",
+     "length": 13,
+     "name": "sub_00601D00_SlotIndex"
+    },
+    {
      "va": "0x00601D10",
      "length": 6,
      "name": "sub_00601D10"
@@ -73809,6 +73848,11 @@
      "va": "0x00601D20",
      "length": 14,
      "name": "sub_00601D20"
+    },
+    {
+     "va": "0x00601D30",
+     "length": 36,
+     "name": "sub_00601D30_NextLink"
     },
     {
      "va": "0x00601D60",
@@ -73844,6 +73888,16 @@
      "va": "0x00601E10",
      "length": 11,
      "name": "?sub_00601E10_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+    },
+    {
+     "va": "0x00601E20",
+     "length": 57,
+     "name": "sub_00601E20_CalcChunkSize"
+    },
+    {
+     "va": "0x00601E60",
+     "length": 31,
+     "name": "sub_00601E60_RoundUp"
     },
     {
      "va": "0x00601E80",
@@ -73896,6 +73950,11 @@
      "name": "?sub_00602090@LockedObject@@QAEXH@Z"
     },
     {
+     "va": "0x006020C0",
+     "length": 16,
+     "name": "?sub_006020C0_Head@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
      "va": "0x006020D0",
      "length": 50,
      "name": "??1sub_006020D0@@QAE@XZ"
@@ -73926,6 +73985,16 @@
      "name": "sub_00602190_UnlinkNode"
     },
     {
+     "va": "0x006021E0",
+     "length": 121,
+     "name": "sub_006021E0_UnlinkNode"
+    },
+    {
+     "va": "0x00602260",
+     "length": 28,
+     "name": "sub_00602260_RawNext"
+    },
+    {
      "va": "0x00602280",
      "length": 25,
      "name": "sub_00602280_Link"
@@ -73951,6 +74020,21 @@
      "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
+     "va": "0x006023B0",
+     "length": 39,
+     "name": "?0D2StormListCStrc"
+    },
+    {
+     "va": "0x006023E0",
+     "length": 24,
+     "name": "sub_006023E0_RawNext"
+    },
+    {
+     "va": "0x00602400",
+     "length": 23,
+     "name": "sub_00602400_SyncLeaveLock"
+    },
+    {
      "va": "0x00602420",
      "length": 16,
      "name": "??0sub_00602420@@QAE@XZ"
@@ -73964,6 +74048,16 @@
      "va": "0x006024E0",
      "length": 171,
      "name": "sub_006024E0_LinkNode"
+    },
+    {
+     "va": "0x00602620",
+     "length": 31,
+     "name": "sub_00602620_Delete"
+    },
+    {
+     "va": "0x006026E0",
+     "length": 37,
+     "name": "sub_006026E0_ChangeLinkOffset"
     },
     {
      "va": "0x00602710",
@@ -73981,6 +74075,31 @@
      "name": "??1sub_00602760@@QAE@XZ"
     },
     {
+     "va": "0x006027A0",
+     "length": 60,
+     "name": "??1D2StormNodeList006027A0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x006027E0",
+     "length": 31,
+     "name": "sub_006027E0_Delete"
+    },
+    {
+     "va": "0x00602800",
+     "length": 142,
+     "name": "?sub_00602800_InternalClear@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXH@Z"
+    },
+    {
+     "va": "0x00602890",
+     "length": 60,
+     "name": "??1D2StormSlotList00602890Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x006028D0",
+     "length": 60,
+     "name": "??1D2StormListE006028D0Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00602910",
      "length": 32,
      "name": "??0D2ChatStormListEStrc@@QAE@XZ"
@@ -73996,14 +74115,139 @@
      "name": "?sub_0044FB50_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
     },
     {
+     "va": "0x00602980",
+     "length": 39,
+     "name": "?0D2StormListDStrc"
+    },
+    {
+     "va": "0x00602A10",
+     "length": 47,
+     "name": "sub_00602A10_DeleteUnlock"
+    },
+    {
+     "va": "0x00602AA0",
+     "length": 60,
+     "name": "??1D2StormSlotList00602AA0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00602AE0",
+     "length": 60,
+     "name": "??1D2StormListE00602AE0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00602B20",
+     "length": 73,
+     "name": "??1D2StormEntry00602B20Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00602BD0",
+     "length": 32,
+     "name": "?sub_00602BD0@@YIXPAUD2StormSlotListStrc@@PBU1@@Z"
+    },
+    {
+     "va": "0x00602DF0",
+     "length": 60,
+     "name": "??1D2StormSlotList00602DF0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00602EC0",
+     "length": 73,
+     "name": "??1D2StormEntry00602EC0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00602F10",
+     "length": 325,
+     "name": "?sub_00602F10_ReallocData@D2StormSlotArrayStrc@@QAEXI@Z"
+    },
+    {
+     "va": "0x00603060",
+     "length": 128,
+     "name": "?1D2StormSlotArrayStrc"
+    },
+    {
+     "va": "0x006030E0",
+     "length": 85,
+     "name": "?sub_006030E0_Ptr@D2StormHashTable006030E0Strc@@QAEPADIH@Z"
+    },
+    {
+     "va": "0x00603140",
+     "length": 153,
+     "name": "?1D2StormEntryArrayStrc"
+    },
+    {
      "va": "0x006031E0",
      "length": 16,
      "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     },
     {
+     "va": "0x006031F0",
+     "length": 70,
+     "name": "sub_006031F0_Reserve"
+    },
+    {
+     "va": "0x00603240",
+     "length": 5,
+     "name": "??1D2StormSlotGrowArrayStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x00603270",
+     "length": 5,
+     "name": "??1D2StormEntryGrowArrayStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x006032C0",
+     "length": 59,
+     "name": "??1D2StormHashChunkStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x00603300",
+     "length": 247,
+     "name": "sub_00603300_SetCount"
+    },
+    {
+     "va": "0x00603500",
+     "length": 11,
+     "name": "?sub_00603500_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+    },
+    {
+     "va": "0x00603510",
+     "length": 17,
+     "name": "?sub_00603510_Reset@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00603530",
+     "length": 17,
+     "name": "??0D2Storm603530Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00603550",
+     "length": 32,
+     "name": "??0D2ChatStormListFStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x00603570",
+     "length": 33,
+     "name": "??0D2Storm603570Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00603730",
      "length": 43,
      "name": "?sub_00603730@SlotArray@@QAEPAU1@UDeleteFlags@@@Z"
+    },
+    {
+     "va": "0x00603760",
+     "length": 20,
+     "name": "?sub_00603760_Clear@D2StormSlotArrayStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00603780",
+     "length": 40,
+     "name": "?Destroy@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXXZ"
+    },
+    {
+     "va": "0x00603850",
+     "length": 9,
+     "name": "?sub_00603850_SetCount@D2StormSlotArrayStrc@@QAEXI@Z"
     },
     {
      "va": "0x006039C0",
@@ -74016,9 +74260,34 @@
      "name": "?CELCMP_CreateCelFileFromCache@@YGIIPAPAUD2CelFileStrc@@@Z"
     },
     {
+     "va": "0x00603BD0",
+     "length": 171,
+     "name": "?0D2GameHashTableStrc"
+    },
+    {
      "va": "0x00603C80",
      "length": 451,
      "name": "sub_00603C80_GrowListArray"
+    },
+    {
+     "va": "0x00603E50",
+     "length": 20,
+     "name": "?sub_00603E50_DeleteLists@D2GameHashTableReuseStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00603ED0",
+     "length": 6,
+     "name": "?sub_00603ED0_GetDifference@D2Storm603ED0Strc@@QAEIXZ"
+    },
+    {
+     "va": "0x00603EE0",
+     "length": 57,
+     "name": "sub_00603EE0_CalcChunkSize"
+    },
+    {
+     "va": "0x00603F20",
+     "length": 31,
+     "name": "sub_00603F20_RoundUp"
     },
     {
      "va": "0x00603F50",
@@ -74026,9 +74295,44 @@
      "name": "sub_00603F50_CopyLinkOffset"
     },
     {
+     "va": "0x00603F70",
+     "length": 19,
+     "name": "??0D2Storm603F70Strc@@QAE@H@Z"
+    },
+    {
+     "va": "0x00603F90",
+     "length": 39,
+     "name": "?0D2StormNodeListStrc"
+    },
+    {
      "va": "0x00603FC0",
      "length": 171,
      "name": "sub_00603FC0_LinkNode"
+    },
+    {
+     "va": "0x006040B0",
+     "length": 79,
+     "name": "?0D2StormEntry38Strc"
+    },
+    {
+     "va": "0x00604350",
+     "length": 70,
+     "name": "sub_00604350_Reserve"
+    },
+    {
+     "va": "0x00604440",
+     "length": 23,
+     "name": "sub_00604440_Grow"
+    },
+    {
+     "va": "0x00604840",
+     "length": 37,
+     "name": "sub_00604840_NewHandle"
+    },
+    {
+     "va": "0x006048C0",
+     "length": 58,
+     "name": "sub_006048C0_NewLock"
     },
     {
      "va": "0x0060D040",
@@ -74813,239 +75117,6 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/CelCmp_00600FB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00600FB0",
-     "length": 456
-    },
-    {
-     "va": "0x006020C0",
-     "length": 16,
-     "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00602800",
-     "length": 142,
-     "name": "?sub_00602800_InternalClear@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXH@Z"
-    },
-    {
-     "va": "0x00602BD0",
-     "length": 32,
-     "name": "?sub_00602BD0@@YIXPAUD2StormSlotListStrc@@PBU1@@Z"
-    },
-    {
-     "va": "0x00602F10",
-     "length": 325,
-     "name": "?sub_00602F10_ReallocData@D2StormSlotArrayStrc@@QAEXI@Z"
-    },
-    {
-     "va": "0x00603510",
-     "length": 17,
-     "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00603550",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00603850",
-     "length": 9,
-     "name": "?sub_00603850_SetCount@D2StormSlotArrayStrc@@QAEXI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00601840.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00601840",
-     "length": 121,
-     "name": "?CelGetHandle@@YGPAUD2CelStrc@@PAUD2CmpCelContextStrc@@@Z"
-    },
-    {
-     "va": "0x00603060",
-     "length": 128,
-     "name": "?1D2StormSlotArrayStrc"
-    },
-    {
-     "va": "0x00603140",
-     "length": 153,
-     "name": "?1D2StormEntryArrayStrc"
-    },
-    {
-     "va": "0x00603780",
-     "length": 40,
-     "name": "?Destroy@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00601980.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00601980",
-     "length": 48,
-     "name": "?sub_00601980@@YGPADPAUD2CelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00601B80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00601B80",
-     "length": 34,
-     "name": "sub_00601B80_SyncEnterLock"
-    },
-    {
-     "va": "0x00601BC0",
-     "length": 36,
-     "name": "sub_00601BC0_NextLink"
-    },
-    {
-     "va": "0x00601C30",
-     "length": 36,
-     "name": "sub_00601C30_NextLink"
-    },
-    {
-     "va": "0x00601CB0",
-     "length": 16,
-     "name": "sub_00601CB0_IsWriteLock"
-    },
-    {
-     "va": "0x00601D00",
-     "length": 13,
-     "name": "sub_00601D00_SlotIndex"
-    },
-    {
-     "va": "0x00601D30",
-     "length": 36,
-     "name": "sub_00601D30_NextLink"
-    },
-    {
-     "va": "0x00601E20",
-     "length": 57,
-     "name": "sub_00601E20_CalcChunkSize"
-    },
-    {
-     "va": "0x00601E60",
-     "length": 31,
-     "name": "sub_00601E60_RoundUp"
-    },
-    {
-     "va": "0x006021E0",
-     "length": 121,
-     "name": "sub_006021E0_UnlinkNode"
-    },
-    {
-     "va": "0x00602260",
-     "length": 28,
-     "name": "sub_00602260_RawNext"
-    },
-    {
-     "va": "0x006023B0",
-     "length": 39,
-     "name": "?0D2StormListCStrc"
-    },
-    {
-     "va": "0x006023E0",
-     "length": 24,
-     "name": "sub_006023E0_RawNext"
-    },
-    {
-     "va": "0x00602400",
-     "length": 23,
-     "name": "sub_00602400_SyncLeaveLock"
-    },
-    {
-     "va": "0x00602620",
-     "length": 31,
-     "name": "sub_00602620_Delete"
-    },
-    {
-     "va": "0x006026E0",
-     "length": 37,
-     "name": "sub_006026E0_ChangeLinkOffset"
-    },
-    {
-     "va": "0x006027E0",
-     "length": 31,
-     "name": "sub_006027E0_Delete"
-    },
-    {
-     "va": "0x00602980",
-     "length": 39,
-     "name": "?0D2StormListDStrc"
-    },
-    {
-     "va": "0x00602A10",
-     "length": 47,
-     "name": "sub_00602A10_DeleteUnlock"
-    },
-    {
-     "va": "0x006031F0",
-     "length": 70,
-     "name": "sub_006031F0_Reserve"
-    },
-    {
-     "va": "0x00603300",
-     "length": 247,
-     "name": "sub_00603300_SetCount"
-    },
-    {
-     "va": "0x00603BD0",
-     "length": 171,
-     "name": "?0D2GameHashTableStrc"
-    },
-    {
-     "va": "0x00603EE0",
-     "length": 57,
-     "name": "sub_00603EE0_CalcChunkSize"
-    },
-    {
-     "va": "0x00603F20",
-     "length": 31,
-     "name": "sub_00603F20_RoundUp"
-    },
-    {
-     "va": "0x00603F90",
-     "length": 39,
-     "name": "?0D2StormNodeListStrc"
-    },
-    {
-     "va": "0x006040B0",
-     "length": 79,
-     "name": "?0D2StormEntry38Strc"
-    },
-    {
-     "va": "0x00604350",
-     "length": 70,
-     "name": "sub_00604350_Reserve"
-    },
-    {
-     "va": "0x00604440",
-     "length": 23,
-     "name": "sub_00604440_Grow"
-    },
-    {
-     "va": "0x00604840",
-     "length": 37,
-     "name": "sub_00604840_NewHandle"
-    },
-    {
-     "va": "0x006048C0",
-     "length": 58,
-     "name": "sub_006048C0_NewLock"
-    }
-   ]
-  },
-  {
    "file": "Source/D2CMP/SRC/CelCmp_006022A0.cpp",
    "rank": 0,
    "functions": [
@@ -75183,119 +75254,6 @@
      "va": "0x00604940",
      "length": 229,
      "name": "CelCompressCreate"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_006027A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006027A0",
-     "length": 60,
-     "name": "??1D2StormNodeList006027A0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00602890",
-     "length": 60,
-     "name": "??1D2StormSlotList00602890Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x006028D0",
-     "length": 60,
-     "name": "??1D2StormListE006028D0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00602AA0",
-     "length": 60,
-     "name": "??1D2StormSlotList00602AA0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00602AE0",
-     "length": 60,
-     "name": "??1D2StormListE00602AE0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00602B20",
-     "length": 73,
-     "name": "??1D2StormEntry00602B20Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00602DF0",
-     "length": 60,
-     "name": "??1D2StormSlotList00602DF0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00602EC0",
-     "length": 73,
-     "name": "??1D2StormEntry00602EC0Strc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_006030E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006030E0",
-     "length": 85,
-     "name": "?sub_006030E0_Ptr@D2StormHashTable006030E0Strc@@QAEPADIH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00603500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00603240",
-     "length": 5,
-     "name": "??1D2StormSlotGrowArrayStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00603270",
-     "length": 5,
-     "name": "??1D2StormEntryGrowArrayStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x006032C0",
-     "length": 59,
-     "name": "??1D2StormHashChunkStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00603500",
-     "length": 11,
-     "name": "?sub_00603500_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    },
-    {
-     "va": "0x00603530",
-     "length": 17,
-     "name": "??0D2Storm603530Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00603570",
-     "length": 33,
-     "name": "??0D2Storm603570Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00603760",
-     "length": 20,
-     "name": "?sub_00603760_Clear@D2StormSlotArrayStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00603E50",
-     "length": 20,
-     "name": "?sub_00603E50_DeleteLists@D2GameHashTableReuseStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00603ED0",
-     "length": 6,
-     "name": "?sub_00603ED0_GetDifference@D2Storm603ED0Strc@@QAEIXZ"
-    },
-    {
-     "va": "0x00603F70",
-     "length": 19,
-     "name": "??0D2Storm603F70Strc@@QAE@H@Z"
     }
    ]
   },
