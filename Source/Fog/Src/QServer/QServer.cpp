@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2QServer.h"
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
 
@@ -17,7 +18,6 @@ struct D2HashNode006BE540Strc;
 struct D2HashTable006BE540Strc;
 struct D2ReferenceStrc;
 struct D2ServerNode006BE980Strc;
-struct D2Server006BE980Strc;
 struct D2RecordNodeStrc;
 struct D2RecordTableStrc;
 struct D2NetPacketStrc;
@@ -31,17 +31,14 @@ struct D2SocketTableStrc;
 struct D2HashNode006BEF40Strc;
 struct D2HashTable006BEF40Strc;
 struct D2Server006BEFB0Strc;
-struct D2QueueServerStrc;
 struct D2Object006BF040Strc;
 struct Obj006BF080;
 struct Obj006BF4E0;
 struct D2PairEntry006BF610Strc;
 struct D2PairTable006BF610Strc;
-struct D2ServerStrc;
 struct D2RecordStrc;
 struct D2QServerConfigStrc;
 struct D2AddressRecordStrc;
-struct D2ClientTableStrc;
 struct D2ConnectionNodeStrc;
 struct D2ConnectionTableStrc;
 struct D2ClientNodeStrc;
@@ -127,16 +124,6 @@ struct D2ServerNode006BE980Strc
     unsigned char unk_04[4];
     int nTimer8;
     D2ServerNode006BE980Strc* pNext;
-};
-
-struct D2Server006BE980Strc
-{
-    unsigned char unk_000[0x894];
-    D2CriticalSectionStrc tLock;
-    D2ServerNode006BE980Strc** ppBuckets;
-    unsigned int nBuckets;
-
-    int sub_006BE980_Refresh(unsigned int nKey);
 };
 
 struct D2RecordNodeStrc { unsigned int key; int value; D2RecordNodeStrc* next; };
@@ -266,20 +253,6 @@ struct D2Server006BEFB0Strc
 char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
 void __fastcall sub_006BE890_UnlistIP(D2Server006BEFB0Strc* pServer, const char* szFile, unsigned long dwAddress, int nLine); // 0x006BE890
 
-struct D2QueueServerStrc
-{
-    int bAltSend;
-    int unk0x04;
-    unsigned int nBuckets;
-    int unk0x0C[2];
-    D2SrvClientStrc** ppBuckets;
-    int unk0x18;
-    D2CriticalSectionStrc* pLocks;
-    unsigned char unk_20[0x870];
-    int unk0x890;
-    char unk0x894[0xBD0 - 0x894];
-    int unk0xBD0;
-};
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -305,15 +278,6 @@ struct D2PairTable006BF610Strc
     unsigned char unk_000[0x48];
     D2PairEntry006BF610Strc pEntries[256];
     int nCount;
-};
-
-struct D2ServerStrc
-{
-    unsigned char unknown[0x8b4];
-    D2CriticalSectionStrc lock;
-    unsigned char records[0x2dc];
-    int values[1];
-    int __thiscall sub_006BF660_CheckClient(int clientId); // 0x006BF660
 };
 
 struct D2RecordStrc { unsigned char data[0xac]; int value; };
@@ -389,28 +353,7 @@ struct D2AddressRecordStrc
     D2AddressRecordStrc* pNext;
 };
 
-typedef void (__fastcall* D2AddressCallback)(unsigned int, const char*, int);
 
-struct D2ClientTableStrc
-{
-    unsigned char pad0[0xC];
-    unsigned int mask;
-    unsigned char pad1[4];
-    D2ClientNodeStrc** buckets;
-    unsigned char pad2[4];
-    D2CriticalSectionStrc* locks;
-    unsigned char unk_20[0x86C];
-    D2AddressRecordStrc* pFree;
-    int nCount;
-    D2CriticalSectionStrc lock;
-    D2AddressRecordStrc** ppBuckets;
-    unsigned int f_8B0;
-    char unk_8B4[0x304];
-    D2AddressCallback pfnCallback;
-    char unk_BBC[0x14];
-    int enabled;
-    int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress); // 0x006BF660
-};
 void __stdcall sub_006BE6C0_LogHackListSize(int nSize); // 0x006BE6C0
 int __fastcall sub_006C0420_ProcessClient(QServer* pServer, int nClientId, const char* szFile, int nLine); // 0x006C0420
 
@@ -436,8 +379,8 @@ const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
 struct D2ClientNodeStrc { int client; D2ClientNodeStrc* next; unsigned char pad[0x10]; unsigned int address; };
 
-void __fastcall sub_006C0420_CloseClient(D2ClientTableStrc* table, int client, const char* file, int line); // 0x006C0420
-void __fastcall sub_006BFEA0_RecordAddress(D2ClientTableStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
+void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, const char* file, int line); // 0x006C0420
+void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
 
 struct D2SrvClientStrc
 {
@@ -592,24 +535,24 @@ void __stdcall sub_006BE6C0_LogHackListSize(int nSize)
 }
 
 // 0x006BE980
-int D2Server006BE980Strc::sub_006BE980_Refresh(unsigned int nKey)
+int D2QueueServerStrc::sub_006BE980_Refresh(unsigned int nKey)
 {
-    EnterCriticalSection(&tLock);
-    for (D2ServerNode006BE980Strc* pNode = ppBuckets[nKey % nBuckets]; pNode; pNode = pNode->pNext)
+    EnterCriticalSection(&tRecordLock);
+    for (D2ServerNode006BE980Strc* pNode = ppRecordNodes[nKey % nRecordBuckets]; pNode; pNode = pNode->pNext)
     {
         if (pNode->nKey == nKey)
         {
             if (pNode->nTimer8)
             {
                 pNode->nTimer8 = 120;
-                LeaveCriticalSection(&tLock);
+                LeaveCriticalSection(&tRecordLock);
                 return 1;
             }
-            LeaveCriticalSection(&tLock);
+            LeaveCriticalSection(&tRecordLock);
             return 0;
         }
     }
-    LeaveCriticalSection(&tLock);
+    LeaveCriticalSection(&tRecordLock);
     return 0;
 }
 
@@ -803,9 +746,9 @@ void __stdcall sub_006BEFB0_HackUnlistIP(D2Server006BEFB0Strc* pServer, unsigned
 // 0x006BF000
 void __stdcall sub_006BF000_QSHackListSize(D2QueueServerStrc* pServer, unsigned int nFile, unsigned int nLine)
 {
-    if (pServer->unk0xBD0)
+    if (pServer->bEnabled)
     {
-        sub_00410660_LogWritePrefixed("HACK", "[HACKLIST]  Size:%s  QSHackListSize() from FILE:%s  LINE:%d", pServer->unk0x890, nFile, nLine);
+        sub_00410660_LogWritePrefixed("HACK", "[HACKLIST]  Size:%s  QSHackListSize() from FILE:%s  LINE:%d", pServer->nRecordCount, nFile, nLine);
     }
 }
 
@@ -855,18 +798,18 @@ void __fastcall sub_006BF610_AddPair(D2PairTable006BF610Strc* pTable, int nValue
 }
 
 // 0x006BF6C0
-int __fastcall sub_006BF6C0(D2ServerStrc* server, int clientId)
+int __fastcall sub_006BF6C0(D2QueueServerStrc* server, int clientId)
 {
     return server->sub_006BF660_CheckClient(clientId);
 }
 
 // 0x006BF6D0
-void __fastcall sub_006BF6D0_CopyRecords(D2ServerStrc* server,D2RecordStrc* destination,int count)
+void __fastcall sub_006BF6D0_CopyRecords(D2QueueServerStrc* server,D2RecordStrc* destination,int count)
 {
- EnterCriticalSection(&server->lock);
- memcpy(destination,server->records,count*sizeof(D2RecordStrc));
- LeaveCriticalSection(&server->lock);
- for (int i=0;i<count;++i) destination[i].value=server->values[i];
+ EnterCriticalSection(&server->tClientLock);
+ memcpy(destination,server->aRecords,count*sizeof(D2RecordStrc));
+ LeaveCriticalSection(&server->tClientLock);
+ for (int i=0;i<count;++i) destination[i].value=server->aValues[i];
 }
 
 // 0x006BF740
@@ -953,13 +896,13 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
 
 static __declspec(noinline)
 // 0x006C0770
-void __stdcall sub_006C0770_BanClient(D2ClientTableStrc* table, int client, const char* file, int line)
+void __stdcall sub_006C0770_BanClient(D2QueueServerStrc* table, int client, const char* file, int line)
 {
-    if (!table->enabled)
+    if (!table->bEnabled)
         return;
-    unsigned int bucket = table->mask & client;
-    EnterCriticalSection(&table->locks[bucket]);
-    D2ClientNodeStrc* node = table->buckets[bucket];
+    unsigned int bucket = table->nMask & client;
+    EnterCriticalSection(&table->pLocks[bucket]);
+    D2ClientNodeStrc* node = table->ppNodes[bucket];
     unsigned int address = 0;
     while (node)
     {
@@ -970,13 +913,13 @@ void __stdcall sub_006C0770_BanClient(D2ClientTableStrc* table, int client, cons
         }
         node = node->next;
     }
-    LeaveCriticalSection(&table->locks[bucket]);
+    LeaveCriticalSection(&table->pLocks[bucket]);
     sub_006C0420_CloseClient(table, client, file, line);
     if (address)
         sub_006BFEA0_RecordAddress(table, file, address, line);
 }
 
-void __fastcall EmitBanClient(D2ClientTableStrc* table, int client, const char* file, int line)
+void __fastcall EmitBanClient(D2QueueServerStrc* table, int client, const char* file, int line)
 {
     sub_006C0770_BanClient(table + 1, client, file, line);
 }
@@ -1019,18 +962,18 @@ int __stdcall sub_006BFAD0_BroadcastToAllClients(D2QueueServerStrc* pServer, cha
 #include "gen/data/Source/Fog/Src/QServer/QServer.inc"
 
 // 0x006BFEA0
-void __fastcall sub_006BFEA0_RecordAddress(D2ClientTableStrc* pTable, const char* szFile, unsigned int nAddress, int nLine)
+void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* pTable, const char* szFile, unsigned int nAddress, int nLine)
 {
-    if (!pTable->enabled)
+    if (!pTable->bEnabled)
         return;
     if (pTable->sub_006BF660_CheckAddress(nAddress))
         return;
-    if (pTable->pfnCallback)
-        pTable->pfnCallback(nAddress, szFile, nLine);
-    D2CriticalSectionStrc* pLock = &pTable->lock;
+    if (pTable->pfnAddressCallback)
+        pTable->pfnAddressCallback(nAddress, szFile, nLine);
+    D2CriticalSectionStrc* pLock = &pTable->tRecordLock;
     EnterCriticalSection(pLock);
-    unsigned int nBucket = nAddress % pTable->f_8B0;
-    D2AddressRecordStrc* pRecord = pTable->ppBuckets[nBucket];
+    unsigned int nBucket = nAddress % pTable->nRecordBuckets;
+    D2AddressRecordStrc* pRecord = pTable->ppRecords[nBucket];
     while (pRecord && pRecord->f_0 != nAddress)
         pRecord = pRecord->pNext;
     if (pRecord)
@@ -1039,19 +982,19 @@ void __fastcall sub_006BFEA0_RecordAddress(D2ClientTableStrc* pTable, const char
         LeaveCriticalSection(pLock);
         return;
     }
-    pRecord = pTable->pFree;
+    pRecord = pTable->pFreeRecords;
     if (pRecord)
-        pTable->pFree = pRecord->pNext;
+        pTable->pFreeRecords = pRecord->pNext;
     else
         pRecord = (D2AddressRecordStrc*)FOG_Alloc(sizeof(D2AddressRecordStrc), gszServerFile_006FC460, 0x4AA, 0);
     pRecord->f_0 = nAddress;
     pRecord->f_4 = 120;
     pRecord->nRefresh = 0;
-    pRecord->pNext = pTable->ppBuckets[nBucket];
-    pTable->ppBuckets[nBucket] = pRecord;
-    ++pTable->nCount;
+    pRecord->pNext = pTable->ppRecords[nBucket];
+    pTable->ppRecords[nBucket] = pRecord;
+    ++pTable->nRecordCount;
     LeaveCriticalSection(pLock);
-    sub_006BE6C0_LogHackListSize(pTable->nCount);
+    sub_006BE6C0_LogHackListSize(pTable->nRecordCount);
 }
 
 // 0x006C06B0
