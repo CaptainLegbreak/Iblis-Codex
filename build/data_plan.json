@@ -2481,20 +2481,11 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Monster_004AF6A0.cpp": {
-   "bytes": 728,
-   "definitions": 2,
+   "bytes": 968,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004ADEA0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/Monster_004AFF60.cpp": {
-   "bytes": 240,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/Monster_004AFF60.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -59973,7 +59964,7 @@
    "cname": "gData_006DA4D8",
    "declared": true,
    "decorated": "?gMonCmdRecords_006DA4D8@@3PAUD2MonCmdRecordStrc@@A",
-   "file": "Source/D2Client/UNIT/Monster_004AFF60.cpp",
+   "file": "Source/D2Client/UNIT/Monster_004AF6A0.cpp",
    "fill": 30,
    "form": "declared",
    "fwd": "extern \"C\" const D2MonCmdRecordStrc gData_006DA4D8[30]; // 0x006DA4D8",
