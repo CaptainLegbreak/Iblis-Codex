@@ -67855,6 +67855,11 @@
      "name": "?AITHINK_Fn094_DesertTurret@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005E0C80",
+     "length": 728,
+     "name": "?AITHINK_Fn089_Megademon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E0F60",
      "length": 274,
      "name": "AITHINK_Fn093_ArcaneTower"
@@ -67900,9 +67905,19 @@
      "name": "?AITHINK_TargetCallback_MinionSpawner@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005E2CD0",
+     "length": 162,
+     "name": "?sub_005E2CD0@@YIXPAXPAUUnit@@PAUTick@@@Z"
+    },
+    {
      "va": "0x005E2FD0",
      "length": 19,
      "name": "sub_005E2FD0"
+    },
+    {
+     "va": "0x005E34C0",
+     "length": 106,
+     "name": "?AITHINK_Fn123_Catapult@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E36F0",
@@ -67949,6 +67964,11 @@
     {
      "va": "0x005E5870",
      "length": 589
+    },
+    {
+     "va": "0x005E5AC0",
+     "length": 162,
+     "name": "?AITHINK_Fn090_Griswold@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E5B70",
@@ -68235,6 +68255,11 @@
      "va": "0x005EC6A0",
      "length": 19,
      "name": "sub_005EC6A0"
+    },
+    {
+     "va": "0x005ECB70",
+     "length": 76,
+     "name": "?AITHINK_InitializeRaven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005ECBC0",
@@ -68765,37 +68790,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E0C80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E0C80",
-     "length": 728,
-     "name": "?AITHINK_Fn089_Megademon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E2CD0",
-     "length": 162,
-     "name": "?sub_005E2CD0@@YIXPAXPAUUnit@@PAUTick@@@Z"
-    },
-    {
-     "va": "0x005E34C0",
-     "length": 106,
-     "name": "?AITHINK_Fn123_Catapult@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E5AC0",
-     "length": 162,
-     "name": "?AITHINK_Fn090_Griswold@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005ECB70",
-     "length": 76,
-     "name": "?AITHINK_InitializeRaven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {

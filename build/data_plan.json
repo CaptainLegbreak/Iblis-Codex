@@ -5489,8 +5489,8 @@
    "state": "included"
   },
   "Source/D2Game/Ai/AiThink4.cpp": {
-   "bytes": 708,
-   "definitions": 4,
+   "bytes": 724,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_005E6E80(); // 0x005E6E80",
     "extern \"C\" void __cdecl sub_005E6DE0(); // 0x005E6DE0",
@@ -5508,15 +5508,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005E0490.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005E0C80.cpp": {
-   "bytes": 16,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E0C80.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -119172,7 +119163,7 @@
    "cname": "gData_006E34E0",
    "declared": true,
    "decorated": "?skill_choices@@3QAY01$$CBHA",
-   "file": "Source/D2Game/Unknown_005E0C80.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E34E0[2][2]; // 0x006E34E0",
    "head": "extern \"C\" const int gData_006E34E0[2][2] = ",

@@ -1156,6 +1156,53 @@ int __fastcall sub_00573520_GetLevelIdFromUnit(D2UnitStrc* pUnit); // 0x00573520
 
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** pMonReg, int nLevelId); // 0x00547BB0
 
+#define GRISWOLD_WALK_FLAGS 7
+
+struct Control;
+
+struct MonStats;
+
+struct Tick;
+
+enum D2C_MegademonAIParams
+{
+    MEGADEMON_AI_PARAM_INFERNO_RANGED_CHANCE_PCT = 0,
+    MEGADEMON_AI_PARAM_INFERNO_MELEE_CHANCE_PCT = 1,
+    MEGADEMON_AI_PARAM_SWING_MELEE_CHANCE_PCT = 2,
+    MEGADEMON_AI_PARAM_APPROACH_CHANCE_PCT = 3,
+    MEGADEMON_AI_PARAM_CIRCLE_MELEE_CHANCE_PCT = 4,
+    MEGADEMON_AI_PARAM_INFERNO_TIMER = 5,
+};
+
+struct Unit
+{
+    char seedPad[0x20];
+    D2SeedStrc seed;
+};
+
+struct Control
+{
+    char controlPad[0x18];
+    int params[2];
+};
+
+struct MonStats
+{
+    char statsPad[0x170];
+    short skills[8];
+};
+
+struct Tick
+{
+    Control* control;
+    char pad4[0x18];
+    MonStats* stats;
+};
+
+extern const int skill_choices[2][2]; // 0x006E34E0
+
+Skill* __fastcall sub_006439B0(Unit*,int,int); // 0x006439B0
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -1425,6 +1472,106 @@ void __fastcall AITHINK_Fn094_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit,
     if (pAiControl->dwAiParam[1] > 0)
     {
         --pAiControl->dwAiParam[1];
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
+static inline unsigned int SEED_RollPercentage(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+{
+    const uint64_t lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;
+    nHighSeed = (unsigned int)(lSeed >> 32);
+    nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = nHighSeed;
+    pSeed->nLowSeed = nLowSeed;
+    return nLowSeed % 100;
+}
+
+static inline int SEED_RollPercentage_005E0C80(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed % 100;
+}
+
+// 0x005E0C80
+void __fastcall AITHINK_Fn089_Megademon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    int nSkillLevel = 0;
+    if (pMonStatsTxt->nSkill[0] >= 0)
+    {
+        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pMonStatsTxt->nSkill[0], -1);
+        if (pSkill)
+        {
+            nSkillLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
+        }
+    }
+
+    if (nSkillLevel <= 0)
+    {
+        nSkillLevel = 1;
+    }
+
+    const int bInferno = STATES_CheckState(pUnit, STATE_INFERNO);
+    if (pMonStatsTxt->nSkill[0] >= 0 && !bCombat && nTargetDistance < nSkillLevel && !bInferno)
+    {
+        if (pGame->dwGameFrame > pAiControl->dwAiParam[0])
+        {
+            const int nDifficulty = pGame->nDifficulty;
+            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < pMonStatsTxt->wAiParam[MEGADEMON_AI_PARAM_INFERNO_RANGED_CHANCE_PCT][nDifficulty])
+            {
+                pAiControl->dwAiParam[0] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[MEGADEMON_AI_PARAM_INFERNO_TIMER][nDifficulty];
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+                return;
+            }
+        }
+    }
+    else
+    {
+        if (bInferno)
+        {
+            STATES_ToggleState(pUnit, STATE_INFERNO, 0);
+        }
+
+        if (bCombat)
+        {
+            if (pMonStatsTxt->nSkill[0] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[0]
+                && SEED_RollPercentage_005E0C80(pSeed) < AI_GetParam(pGame, pMonStatsTxt, MEGADEMON_AI_PARAM_INFERNO_MELEE_CHANCE_PCT))
+            {
+                pAiControl->dwAiParam[0] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, MEGADEMON_AI_PARAM_INFERNO_TIMER);
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+                return;
+            }
+
+            if (SEED_RollPercentage_005E0C80(pSeed) < AI_GetParam(pGame, pMonStatsTxt, MEGADEMON_AI_PARAM_SWING_MELEE_CHANCE_PCT))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+                return;
+            }
+
+            if (SEED_RollPercentage_005E0C80(pSeed) < AI_GetParam(pGame, pMonStatsTxt, MEGADEMON_AI_PARAM_CIRCLE_MELEE_CHANCE_PCT))
+            {
+                sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+                return;
+            }
+
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
+            return;
+        }
+    }
+
+    if (SEED_RollPercentage_005E0C80(pSeed) < AI_GetParam(pGame, pMonStatsTxt, MEGADEMON_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
@@ -1965,20 +2112,57 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_MinionSpawner(D2GameStrc* pGame, D
     return 0;
 }
 
+static inline unsigned int SEED_RollRandomNumber_005E0C80(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    return (unsigned int)lSeed;
+}
+
+// 0x005E2CD0
+void __fastcall sub_005E2CD0(void* game,Unit* unit,Tick* tick)
+{
+    int choice=SEED_RollRandomNumber_005E0C80(&unit->seed)&1;
+    for (int i=0;i<2;++i) {
+        choice=(choice+1)%2;
+        if (sub_006439B0(unit,tick->stats->skills[skill_choices[choice][0]],-1)) {
+            tick->control->params[0]=skill_choices[choice][0];
+            tick->control->params[1]=skill_choices[choice][1];
+            return;
+        }
+    }
+    tick->control->params[0]=0;
+    tick->control->params[1]=0;
+}
+
 // 0x005E2FD0
 void __fastcall sub_005E2FD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     pAiTickParam->pAiControl->dwAiParam[0] = -1;
 }
 
-static inline unsigned int SEED_RollPercentage(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+static int AI_RollPercentage(D2UnitStrc* pUnit)
 {
-    const uint64_t lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;
-    nHighSeed = (unsigned int)(lSeed >> 32);
-    nLowSeed = (unsigned int)lSeed;
-    pSeed->nHighSeed = nHighSeed;
-    pSeed->nLowSeed = nLowSeed;
-    return nLowSeed % 100;
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+static int AI_RollPercentage_005E0C80(D2UnitStrc* pUnit)
+{
+    return SEED_RollRandomNumber_005E0C80(&pUnit->pSeed) % 100;
+}
+
+// 0x005E34C0
+void __fastcall AITHINK_Fn123_Catapult(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (AI_RollPercentage_005E0C80(pUnit) < pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, 0);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
 }
 
 static inline unsigned int SEED_RollPercentageAgain(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
@@ -2267,11 +2451,6 @@ static inline unsigned __int64 Roll(D2SeedStrc* pSeed)
     return nSeed;
 }
 
-static int AI_RollPercentage(D2UnitStrc* pUnit)
-{
-    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
-}
-
 static inline int AI_RollPercentage_005E5870(D2UnitStrc* pUnit)
 {
     return (unsigned int)Roll(&pUnit->pSeed) % 100;
@@ -2355,6 +2534,30 @@ void __fastcall AITHINK_Formation(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
     AIGENERAL_AllocCommandsForMinions(pGame, pUnit, &cmd);
     AIGENERAL_FreeMinionList(pUnit);
     AITHINK_ExecuteAiFn(pGame, pUnit, pAiTickParam->pAiControl, 0);
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
+// 0x005E5AC0
+void __fastcall AITHINK_Fn090_Griswold(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    if (pAiTickParam->bCombat)
+    {
+        if (AI_RollPercentage_005E0C80(pUnit) < 80)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+    }
+    else
+    {
+        if (AI_RollPercentage_005E0C80(pUnit) < 50)
+        {
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, GRISWOLD_WALK_FLAGS);
+            return;
+        }
+    }
+
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
@@ -5830,6 +6033,16 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
 void __fastcall sub_005EC6A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     pAiTickParam->pAiControl->dwAiParam[0] = 0;
+}
+
+// 0x005ECB70
+void __fastcall AITHINK_InitializeRaven(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    pAiControl->dwAiParam[0] = -1;
+    pAiControl->dwAiParam[1] = pMonStatsTxt->wAiParam[2][pGame->nDifficulty] + 1;
+    pAiControl->dwAiParam[2] = SEED_RollRandomNumber_005E0C80(&pUnit->pSeed) & 1;
 }
 
 // 0x005ECBC0
