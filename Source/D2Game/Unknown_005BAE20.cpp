@@ -24,17 +24,10 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-#ifdef MOVED_TEST
-#define QUEST_FLAG 23
-#define QUEST_ID 25
-#define OTHER_QUEST_FLAG 20
-#define ROOM_ASSERT_LINE 227
-#else
 #define QUEST_FLAG 21
 #define QUEST_ID 19
 #define OTHER_QUEST_FLAG 18
 #define ROOM_ASSERT_LINE 223
-#endif
 
 // 0x005BAE20
 int __fastcall sub_005BAE20_UpdateQuestStateAfterMonsterKill(D2GameStrc* pGame,D2UnitStrc* pUnit,void* pData)

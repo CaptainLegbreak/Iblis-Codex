@@ -207,11 +207,7 @@ void sub_Y01_EmitGameDataCopy(void* pWhere, const D2SGameDataStrc& tSource, void
 
 // 0x00450D20
 void D2StormHashTableStrc::sub_00450D20_Clear() {
-#ifdef MOVED_TEST
- sub_0044FA00_InternalClear(4);
-#else
  sub_0044FA00_InternalClear(0);
-#endif
 }
 
 // 0x00451160

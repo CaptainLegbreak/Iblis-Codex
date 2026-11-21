@@ -2,17 +2,10 @@
 #include "D2Drlg.h"
 #include "D2Path.h"
 #include "D2DrlgMaps.h"
-#ifdef MOVED_TEST
-#define CENTER 7
-#define MASK_A 0x102
-#define MASK_B 0x1c19
-#define OFFSET_BASE (g_006E2D50_offsets+1)
-#else
 #define CENTER 3
 #define MASK_A 0x100
 #define MASK_B 0x1c09
 #define OFFSET_BASE (g_006E2D50_offsets)
-#endif
 struct D2TileLibraryEntryStrc;
 typedef D2ActiveRoomStrc Room;
 typedef D2DrlgTileDataStrc Tile;

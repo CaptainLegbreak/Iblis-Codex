@@ -10,16 +10,10 @@ struct D2MessageLink {
 };
 struct D2MessageNode {
  D2MessageLink link;
-#ifdef MOVED_TEST
- int movedPadding;
-#endif
  int (__stdcall* callback)(unsigned int,char*,unsigned int);
 };
 struct D2MessageList {
  int m_linkoffset;
-#ifdef MOVED_TEST
- int movedTermPadding;
-#endif
  D2MessageLink m_terminator;
  D2MessageLink* Link(char* node) {return node?(D2MessageLink*)(node+m_linkoffset):&m_terminator;}
  D2MessageNode* Head(){return m_terminator.Next();}

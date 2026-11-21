@@ -28,9 +28,6 @@ extern "C" const char gszEmptyString_006CC837; // 0x006CC837
 int __fastcall sub_00414990_SRegDeleteEntry(unsigned int nFlags, const char* szKeyName, const char* szValueName);
 
 struct D2StormQuadStrc {
-#ifdef MOVED_TEST
- int movedPrefix;
-#endif
  int n00,n04,n08,n0C;
  D2StormQuadStrc& __thiscall sub_00415160_Copy(const D2StormQuadStrc& source);
 };

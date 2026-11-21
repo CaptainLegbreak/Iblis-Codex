@@ -1,11 +1,7 @@
 extern "C" int __cdecl abs(int);
 #pragma intrinsic(abs)
 #define MINIMUM(a,b) (((a) < (b)) ? (a) : (b))
-#ifdef MOVED_TEST
-#define MASK_DECREMENT 3
-#else
 #define MASK_DECREMENT 1
-#endif
 static __forceinline int Absolute(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;

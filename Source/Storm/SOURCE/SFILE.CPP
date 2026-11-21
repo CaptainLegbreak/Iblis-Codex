@@ -754,9 +754,6 @@ extern char gData_006D17C8[]; // 0x006D17C8
 extern char gData_006D3870[]; // 0x006D3870
 
 struct D2IdentityView {
-#ifdef MOVED_TEST
- unsigned int movedPrefix;
-#endif
  D2StormLinkStrc link;
 };
 

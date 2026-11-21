@@ -1,11 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-#ifdef MOVED_TEST
-#define UNIT_FLAG 0x20
-#else
 #define UNIT_FLAG 0x40
-#endif
 struct D2DynamicPathStrc;
 struct D2GameStrc;
 struct D2MissilesTxt;

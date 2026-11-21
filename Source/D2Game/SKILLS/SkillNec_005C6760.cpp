@@ -1,17 +1,5 @@
 #include "D2Structs.h"
 #include "D2ItemsWorld.h"
-#ifdef MOVED_TEST
-#define SLOW_STAT 152
-#define SMALL_CAP 52
-#define LARGE_CAP 92
-#define UNITMASK_MONSTER 14
-#define CURSE_DURATION 754
-#define STAT_A 69
-#define STAT_B 70
-#define STAT_C 71
-#define CURSE_STATE 26
-#define SOURCE_LINE 0xB66
-#else
 #define SLOW_STAT 150
 #define SMALL_CAP 50
 #define LARGE_CAP 90
@@ -22,7 +10,6 @@
 #define STAT_C 69
 #define CURSE_STATE 24
 #define SOURCE_LINE 0xB62
-#endif
 struct D2UnitStrc;
 struct D2StatListStrc;
 struct D2GameStrc;

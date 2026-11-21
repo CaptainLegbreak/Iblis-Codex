@@ -910,9 +910,6 @@ extern int gnGlobal_007A5230;
 #pragma pack(push, 1)
 struct D2GSPacketCoordinateStrc
 {
-#ifdef MOVED_TEST
-    unsigned char movedPrefix[4];
-#endif
     unsigned char nHeader;
     unsigned char nUnitType;
     int nUnitId;

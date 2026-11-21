@@ -973,11 +973,7 @@ void __fastcall sub_00576E40_DecreaseSkillQuantity(D2UnitStrc* unit, int skillId
 
 // 0x00576F40
 void __fastcall sub_00576F40_Gold(D2GameStrc* game,D2UnitStrc* unit,unsigned int value) {
-#ifdef MOVED_TEST
- ITEMS_HandleGoldTransaction(game,unit,value+4);
-#else
  ITEMS_HandleGoldTransaction(game,unit,value);
-#endif
 }
 
 // 0x00578610

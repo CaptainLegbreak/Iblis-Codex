@@ -5,9 +5,6 @@ struct D2CmpByteMapStrc;
 struct D2CmpByteMapArgStrc;
 
 struct D2BitBufferInitStrc {
-#ifdef MOVED_TEST
- int movedGap;
-#endif
  unsigned char* pBuffer; unsigned char* pCurrent; int nBits; int nPos;
 };
 

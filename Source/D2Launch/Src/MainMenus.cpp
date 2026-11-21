@@ -979,11 +979,7 @@ void __cdecl sub_00431020_ClearLists()
 
 // 0x00431040
 void __cdecl sub_00431040_ClearList() {
-#ifdef MOVED_TEST
- D2Win_10045(gpList_00779964,&gszEmptyAssertText+4);
-#else
  D2Win_10045(gpList_00779964,&gszEmptyAssertText);
-#endif
 }
 
 // 0x004312C0

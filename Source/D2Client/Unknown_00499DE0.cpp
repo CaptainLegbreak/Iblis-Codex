@@ -1,8 +1,4 @@
-#ifdef MOVED_TEST
-#define ROSTER_GAP 0x29
-#else
 #define ROSTER_GAP 0x25
-#endif
 struct D2RosterSlotStrc
 {
     int bFlag;

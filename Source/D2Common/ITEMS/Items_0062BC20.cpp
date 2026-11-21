@@ -3,13 +3,8 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2TxtTables.h"
-#ifdef MOVED_TEST
-#define LEVEL_LOW 27
-#define LEVEL_HIGH 42
-#else
 #define LEVEL_LOW 25
 #define LEVEL_HIGH 40
-#endif
 
 
 

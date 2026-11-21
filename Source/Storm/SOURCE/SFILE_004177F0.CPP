@@ -262,16 +262,10 @@ struct D2CommonStormHashTableAStrc
 };
 
 struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
-#ifdef MOVED_TEST
- int movedGap;
-#endif
  char* m_next; };
 
 struct D2StormListBaseStrc {
  int m_linkoffset;
-#ifdef MOVED_TEST
- int movedGap;
-#endif
  D2StormLinkStrc m_terminator;
  void sub_00417D40_Initialize();
 };

@@ -19,9 +19,6 @@ struct D2StartupInfoAStrc
     unsigned char* lpReserved2;
     void* hStdInput;
     void* hStdOutput;
-#ifdef MOVED_TEST
-    unsigned int movedPadding;
-#endif
     void* hStdError;
 };
 

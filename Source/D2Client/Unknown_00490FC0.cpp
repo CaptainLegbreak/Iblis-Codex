@@ -1,9 +1,5 @@
 #include "D2Structs.h"
-#ifdef MOVED_TEST
-#define MV(x) ((x)+2)
-#else
 #define MV(x) (x)
-#endif
 struct D2InventoryStrc;
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc;

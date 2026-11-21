@@ -1,11 +1,6 @@
 #include "D2Structs.h"
-#ifdef MOVED_TEST
-#define MV(x) (x)
-#define PACKET(x) ((x)+0x10)
-#else
 #define MV(x) (x)
 #define PACKET(x) (x)
-#endif
 struct D2InventoryStrc;
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc;

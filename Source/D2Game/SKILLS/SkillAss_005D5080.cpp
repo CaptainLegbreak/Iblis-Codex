@@ -2,13 +2,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-#ifdef MOVED_TEST
-#define BURST_CENTER 22
-#define MISSILE_FLAGS 7
-#else
 #define BURST_CENTER 20
 #define MISSILE_FLAGS 3
-#endif
 struct D2GameStrc;
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

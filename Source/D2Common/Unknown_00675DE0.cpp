@@ -1,10 +1,5 @@
-#ifdef MOVED_TEST
-#define LARGE_SHIFT 20
-#define SMALL_SHIFT 12
-#else
 #define LARGE_SHIFT 16
 #define SMALL_SHIFT 8
-#endif
 struct D2DrlgCoordStrc { int nPosX,nPosY,nWidth,nHeight; };
 
 // 0x00675DE0

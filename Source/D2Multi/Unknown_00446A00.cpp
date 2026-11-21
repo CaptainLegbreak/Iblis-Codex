@@ -1,14 +1,8 @@
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
-#ifdef MOVED_TEST
-#define BUFFER_SIZE 0x104
-#define COMMAND_DELAY 1004
-#define ERROR_STRING 0x14EB
-#else
 #define BUFFER_SIZE 0x100
 #define COMMAND_DELAY 1000
 #define ERROR_STRING 0x14E7
-#endif
 struct D2WinEditBoxStrc;
 typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260

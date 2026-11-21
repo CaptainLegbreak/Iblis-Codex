@@ -1,15 +1,6 @@
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
 #include "D2UnitData.h"
-#ifdef MOVED_TEST
-#define PREFIX char movedPrefix[4];
-#define QUEST_ID 26
-#define STATE_A 15
-#define STATE_B 4
-#define STATE_C 5
-#define FALLBACK_MODE 5
-#define ITERATE_STATE 4
-#else
 #define PREFIX
 #define QUEST_ID 24
 #define STATE_A 13
@@ -17,7 +8,6 @@
 #define STATE_C 3
 #define FALLBACK_MODE 3
 #define ITERATE_STATE 2
-#endif
 struct D2GameStrc; struct D2UnitStrc; struct D2ActiveRoomStrc;
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640

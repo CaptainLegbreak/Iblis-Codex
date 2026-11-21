@@ -1,14 +1,8 @@
 #include "D2GameTypes.h"
 #include "D2GameAux.h"
-#ifdef MOVED_TEST
-#define CMD_ID 6
-#define DURATION 22
-#define INTERVAL 12
-#else
 #define CMD_ID 4
 #define DURATION 20
 #define INTERVAL 10
-#endif
 struct D2GameStrc;
 struct D2UnitStrc;
 struct D2AiTickParamStrc;

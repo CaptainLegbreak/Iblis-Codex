@@ -2,13 +2,8 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-#ifdef MOVED_TEST
-#define ATTACK_MODE 6
-#define IDLE_FRAMES 17
-#else
 #define ATTACK_MODE 4
 #define IDLE_FRAMES 15
-#endif
 
 
 
