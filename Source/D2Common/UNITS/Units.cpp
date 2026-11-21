@@ -2311,6 +2311,7 @@ void __stdcall UNITS_AllocPlayerData(D2UnitStrc* ptUnit)
     for (int i = 0; i < 3; ++i)
     {
         D2BitBufferStrc* const pQuestRecord = QUESTRECORD_AllocRecord(sub_004DC0B0_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
+        // volatile: stands in for the reload of pPlayerData after the call (the original indexes it as [loop + record])
         (*(D2PlayerDataStrc* volatile*)&ptUnit->pPlayerData)->pQuestData[i] = pQuestRecord;
         ptUnit->pPlayerData->pWaypointData[i] = WAYPOINTS_AllocWaypointData(sub_004DC0B0_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
     }

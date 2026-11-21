@@ -75406,6 +75406,26 @@
      "name": "?sub_00624730_CloseLogFile@@YAXPAU_iobuf@@@Z"
     },
     {
+     "va": "0x00624780",
+     "length": 300,
+     "name": "?StoreLogging@@YGXPAU_iobuf@@HHHHPBDH1PAD@Z"
+    },
+    {
+     "va": "0x006248B0",
+     "length": 45,
+     "name": "?sub_006248B0_StoreLoggingToFile@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
+    },
+    {
+     "va": "0x006248E0",
+     "length": 79,
+     "name": "?LOG_11100@@YAXHHHHPBDH0ZZ"
+    },
+    {
+     "va": "0x00624930",
+     "length": 400,
+     "name": "?sub_00624930_WriteLogLine@@YAXHHHHHPBDZZ"
+    },
+    {
      "va": "0x00624AC0",
      "length": 84,
      "name": "?sub_00624AC0_OpenLog@@YIHPBD@Z"
@@ -75435,38 +75455,6 @@
      "va": "0x00624B90",
      "length": 53,
      "name": "?sub_00624B90_FindStatIndex@@YAHPAUD2StatsArrayStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00624780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00624780",
-     "length": 300,
-     "name": "?StoreLogging@@YGXPAU_iobuf@@HHHHPBDH1PAD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_006248B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006248B0",
-     "length": 45,
-     "name": "?sub_006248B0_StoreLoggingToFile@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
-    },
-    {
-     "va": "0x006248E0",
-     "length": 79,
-     "name": "?LOG_11100@@YAXHHHHPBDH0ZZ"
-    },
-    {
-     "va": "0x00624930",
-     "length": 400,
-     "name": "?sub_00624930_WriteLogLine@@YAXHHHHHPBDZZ"
     }
    ]
   },
@@ -81676,13 +81664,7 @@
      "va": "0x0065C560",
      "length": 64,
      "name": "QUESTRECORD_CopyRecordToBuffer"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0065C5A0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0065C5A0",
      "length": 33,
@@ -82317,8 +82299,8 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_006617B0.cpp",
-   "rank": 0,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "rank": 1,
    "functions": [
     {
      "va": "0x006617B0",
@@ -82343,13 +82325,7 @@
     {
      "va": "0x00661A30",
      "length": 240
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00661B20",
      "length": 5861
