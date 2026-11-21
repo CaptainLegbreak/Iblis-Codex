@@ -1104,6 +1104,14 @@ enum D2C_M80SkeletonBowAi
 
 int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
 
+enum D2C_M80FlyingScimitarAi
+{
+    FLYINGSCIMITAR_AI_PARAM_APPROACH_CHANCE_PCT = 0,
+    FLYINGSCIMITAR_AI_PARAM_ATTACK_CHANCE_PCT = 1,
+    FLYINGSCIMITAR_AI_PARAM_STALL_DURATION = 2,
+    FLYINGSCIMITAR_AI_PARAM_CIRCLE_CHANCE_PCT = 3,
+};
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -7287,6 +7295,44 @@ void __fastcall AITHINK_Fn045_Sarcophagus(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 10 + 20);
+}
+
+// 0x005F6CA0
+void __fastcall AITHINK_Fn047_FlyingScimitar(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    if (pAiTickParam->bCombat)
+    {
+        if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_CIRCLE_CHANCE_PCT))
+        {
+            sub_005DF7D0(pGame, pUnit, pTarget, 2, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_STALL_DURATION));
+        return;
+    }
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 8, 1);
+        return;
+    }
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_STALL_DURATION));
 }
 
 // 0x005F7240
