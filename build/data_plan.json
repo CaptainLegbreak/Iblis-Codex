@@ -4582,11 +4582,9 @@
    "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl MISSMODE_SrvDo01_BasicMissile(); // 0x005B0BC0",
-    "extern \"C\" void __cdecl MISSMODE_SrvDo35_RoyalStrikeChaosIce(); // 0x005B0640",
     "extern \"C\" void __cdecl MISSMODE_SrvDo37_Unused(); // 0x005B0AA0",
     "extern \"C\" void __cdecl sub_005AE520(); // 0x005AE520",
     "extern \"C\" void __cdecl sub_005AFB80(); // 0x005AFB80",
-    "extern \"C\" void __cdecl sub_005B01F0_SrvDo_MirrorSubMissile(); // 0x005B01F0",
     "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(); // 0x005A87F0",
     "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithMonster(); // 0x005A87B0",
     "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster(); // 0x005A8850",
