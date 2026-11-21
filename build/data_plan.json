@@ -1437,9 +1437,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0044C5E0.cpp": {
-   "bytes": 8,
-   "definitions": 2,
+  "Source/D2Client/GAME/Game_0044D080.cpp": {
+   "bytes": 166,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0044C5E0.inc",
@@ -1466,15 +1466,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game_0044C990.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/GAME/Game_0044D080.cpp": {
-   "bytes": 158,
-   "definitions": 5,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/Game_0044D080.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -32365,7 +32356,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044C5E0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044D080.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0070F2BC = ",
@@ -32390,7 +32381,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044C5E0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044D080.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0070F7E0 = ",
