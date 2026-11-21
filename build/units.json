@@ -85815,6 +85815,11 @@
      "name": "?sub_6FDB1050@@YGPAUD2UnitStrc@@HPAUD2InventoryStrc@@@Z"
     },
     {
+     "va": "0x00643D90",
+     "length": 495,
+     "name": "?sub_6FDB1130@@YGHPAUD2UnitStrc@@0PAUD2SkillsTxt@@H@Z"
+    },
+    {
      "va": "0x00643F80",
      "length": 211,
      "name": "?sub_00643F80_CheckWeaponTypes@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
@@ -85997,7 +86002,7 @@
     {
      "va": "0x00645030",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?sub_00645030_AlwaysZero@@YGHH@Z"
     },
     {
      "va": "0x00645040",
@@ -86154,6 +86159,16 @@
      "name": "?sub_00645FF0_AlwaysZero@@YGHH@Z"
     },
     {
+     "va": "0x00646000",
+     "length": 5,
+     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+    },
+    {
+     "va": "0x00646010",
+     "length": 3,
+     "name": "?sub_00646010_Empty@@YGXHHH@Z"
+    },
+    {
      "va": "0x00646020",
      "length": 144,
      "name": "SKILLS_RemoveTransformStatesFromShapeshiftedUnit"
@@ -86162,6 +86177,21 @@
      "va": "0x006460B0",
      "length": 3,
      "name": "_sub_006460B0@12"
+    },
+    {
+     "va": "0x006460C0",
+     "length": 3,
+     "name": "?sub_006460C0_Empty@@YGXH@Z"
+    },
+    {
+     "va": "0x006460D0",
+     "length": 3,
+     "name": "?sub_006460D0_Empty@@YGXHHH@Z"
+    },
+    {
+     "va": "0x006460E0",
+     "length": 3,
+     "name": "?sub_006460E0_Empty@@YGXH@Z"
     },
     {
      "va": "0x006460F0",
@@ -86242,6 +86272,10 @@
      "va": "0x00647280",
      "length": 146,
      "name": "?SKILLS_AssignSkill@@YGXPAUD2UnitStrc@@HHHPBDH@Z"
+    },
+    {
+     "va": "0x00647320",
+     "length": 524
     },
     {
      "va": "0x00647530",
@@ -86520,46 +86554,6 @@
      "va": "0x00643860",
      "length": 29,
      "name": "_sub_00643860@8"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/SKILLS/Skills_00643D90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00643D90",
-     "length": 495,
-     "name": "?sub_6FDB1130@@YGHPAUD2UnitStrc@@0PAUD2SkillsTxt@@H@Z"
-    },
-    {
-     "va": "0x00646000",
-     "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
-    },
-    {
-     "va": "0x00646010",
-     "length": 3,
-     "name": "?sub_00646010_Empty@@YGXHHH@Z"
-    },
-    {
-     "va": "0x006460C0",
-     "length": 3,
-     "name": "?sub_006460C0_Empty@@YGXH@Z"
-    },
-    {
-     "va": "0x006460D0",
-     "length": 3,
-     "name": "?sub_006460D0_Empty@@YGXHHH@Z"
-    },
-    {
-     "va": "0x006460E0",
-     "length": 3,
-     "name": "?sub_006460E0_Empty@@YGXH@Z"
-    },
-    {
-     "va": "0x00647320",
-     "length": 524
     }
    ]
   },
