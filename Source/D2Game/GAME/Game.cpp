@@ -5486,31 +5486,6 @@ void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameS
     SUNIT_IterateLivingPlayers(pGame, sub_0053DF50, &packet8E);
 }
 
-// 0x00540000
-void __fastcall PARTY_FreePartyControl(D2GameStrc* ptGame)
-{
-    D2_ASSERT(ptGame, 0x2E);
-    D2PartyControlStrc* pPartyControl = ptGame->hParty;
-    if (!pPartyControl)
-        return;
-    D2PartyStrc* pParty = pPartyControl->pParties;
-    while (pParty)
-    {
-        D2PartyStrc* pNextParty = pParty->pNext;
-        D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes;
-        while (pPartyNode)
-        {
-            D2PartyNodeStrc* pNextPartyNode = pPartyNode->pNext;
-            FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 0x3F, 0);
-            pPartyNode = pNextPartyNode;
-        }
-        FOG_FreeServerMemory(ptGame->pMemoryPool, pParty, ".\\UNIT\\Party.cpp", 0x43, 0);
-        pParty = pNextParty;
-    }
-    FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyControl, ".\\UNIT\\Party.cpp", 0x47, 0);
-    ptGame->hParty = 0;
-}
-
 // 0x005404C0
 void __fastcall sub_005404C0_AddLivingMemberLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
 {

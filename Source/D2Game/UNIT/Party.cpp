@@ -101,6 +101,31 @@ void __fastcall PARTY_AllocPartyControl(D2GameStrc* ptGame)
     ptGame->hParty = pPartyControl;
 }
 
+// 0x00540000
+void __fastcall PARTY_FreePartyControl(D2GameStrc* ptGame)
+{
+    D2_ASSERT(ptGame, 0x2E);
+    D2PartyControlStrc* pPartyControl = ptGame->hParty;
+    if (!pPartyControl)
+        return;
+    D2PartyStrc* pParty = pPartyControl->pParties;
+    while (pParty)
+    {
+        D2PartyStrc* pNextParty = pParty->pNext;
+        D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes;
+        while (pPartyNode)
+        {
+            D2PartyNodeStrc* pNextPartyNode = pPartyNode->pNext;
+            FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 0x3F, 0);
+            pPartyNode = pNextPartyNode;
+        }
+        FOG_FreeServerMemory(ptGame->pMemoryPool, pParty, ".\\UNIT\\Party.cpp", 0x43, 0);
+        pParty = pNextParty;
+    }
+    FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyControl, ".\\UNIT\\Party.cpp", 0x47, 0);
+    ptGame->hParty = 0;
+}
+
 // 0x005400B0
 static short sub_005400B0_GetFreePartyId(D2GameStrc* pGame)
 {
