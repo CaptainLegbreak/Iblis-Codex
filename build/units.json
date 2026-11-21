@@ -46882,11 +46882,6 @@
      "name": "SUNITPROXY_GetNpcRecordFromUnit"
     },
     {
-     "va": "0x00535F30",
-     "length": 117,
-     "name": "SUNITPROXY_AllocNpcEvent"
-    },
-    {
      "va": "0x00536820",
      "length": 34,
      "name": "SUNITPROXY_CountPlayersInLevel"
@@ -50604,6 +50599,11 @@
    "file": "Source/D2Game/UNIT/sunitproxy.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00535F30",
+     "length": 117,
+     "name": "SUNITPROXY_AllocNpcEvent"
+    },
     {
      "va": "0x00535FB0",
      "length": 187,
