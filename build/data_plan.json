@@ -5749,8 +5749,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a4q1.cpp": {
-   "bytes": 452,
-   "definitions": 2,
+   "bytes": 1660,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a4q1.inc",
@@ -5763,24 +5763,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005B2570.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a4q1_005B2700.cpp": {
-   "bytes": 32,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a4q1_005B2700.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a4q1_005B31B0.cpp": {
-   "bytes": 1176,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a4q1_005B31B0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -114780,10 +114762,10 @@
    "cname": "gData_006E2D50",
    "declared": true,
    "decorated": "?g_006E2D50_offsets@@3PAUD2CoordStrc@@A",
-   "file": "Source/D2Game/Quests/a4q1_005B2700.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const Coord gData_006E2D50[4]; // 0x006E2D50",
-   "head": "extern \"C\" const Coord gData_006E2D50[4] = ",
+   "fwd": "extern \"C\" const D2CoordStrc gData_006E2D50[4]; // 0x006E2D50",
+   "head": "extern \"C\" const D2CoordStrc gData_006E2D50[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -114823,7 +114805,7 @@
    "stars": 0,
    "struct": null,
    "tail": "; // 0x006E2D50\n#pragma comment(linker, \"/alternatename:?g_006E2D50_offsets@@3PAUD2CoordStrc@@A=_gData_006E2D50\")",
-   "type": "Coord",
+   "type": "D2CoordStrc",
    "va": "0x006E2D50"
   },
   {
@@ -114831,7 +114813,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q1_005B31B0.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 1176,
    "form": "declared",
    "fwd": null,

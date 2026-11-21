@@ -68098,6 +68098,19 @@
      "name": "sub_6FC6A230"
     },
     {
+     "va": "0x005B2700",
+     "length": 295,
+     "name": "?sub_005B2700_FindPosition@@YGHPAUD2ActiveRoomStrc@@PAH1@Z"
+    },
+    {
+     "va": "0x005B2830",
+     "length": 462
+    },
+    {
+     "va": "0x005B2A00",
+     "length": 1300
+    },
+    {
      "va": "0x005B3040",
      "length": 77,
      "name": "?sub_005B3040_SpawnInCoordList@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2RoomCoordListStrc@@HHHHHF@Z"
@@ -68115,6 +68128,15 @@
     {
      "va": "0x005B3130",
      "length": 113
+    },
+    {
+     "va": "0x005B31B0",
+     "length": 187,
+     "name": "?sub_005B31B0_SpawnMinionsAt@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHHF@Z"
+    },
+    {
+     "va": "0x005B3270",
+     "length": 588
     },
     {
      "va": "0x005B34C0",
@@ -68161,6 +68183,10 @@
      "name": "?ACT4Q1_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005B39A0",
+     "length": 528
+    },
+    {
      "va": "0x005B3BB0",
      "length": 283,
      "name": "ACT4Q1_Callback00_NpcActivate"
@@ -68185,6 +68211,11 @@
      "length": 72
     },
     {
+     "va": "0x005B3E30",
+     "length": 33,
+     "name": "?ACT4Q3_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005B3E60",
      "length": 190,
      "name": "?ACT4Q1_SpawnIzualGhost@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
@@ -68195,14 +68226,59 @@
      "name": "ACT4Q1_Callback08_MonsterKilled"
     },
     {
+     "va": "0x005B4140",
+     "length": 135,
+     "name": "?ACT4Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B41D0",
+     "length": 66,
+     "name": "?ACT4Q1_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B4220",
+     "length": 143,
+     "name": "?ACT4Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B42B0",
+     "length": 214,
+     "name": "?ACT4Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005B4530",
+     "length": 35,
+     "name": "?ACT4Q2_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005B4560",
+     "length": 119,
+     "name": "?ACT4Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005B4790",
      "length": 479,
      "name": "ACT4Q2_Callback00_NpcActivate"
     },
     {
+     "va": "0x005B4970",
+     "length": 66,
+     "name": "?ACT4Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005B4A80",
      "length": 224,
      "name": "ACT4Q2_UnitIterate_WarpToTownEndGame"
+    },
+    {
+     "va": "0x005B4DF0",
+     "length": 72,
+     "name": "?ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005B4E40",
+     "length": 96,
+     "name": "?ACT4Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x005B5880",
@@ -68312,69 +68388,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a4q1_005B2700.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B2700",
-     "length": 295,
-     "name": "?sub_005B2700_FindPosition@@YGHPAUD2ActiveRoomStrc@@PAH1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q1_005B2830.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B2830",
-     "length": 462
-    },
-    {
-     "va": "0x005B3270",
-     "length": 588
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q1_005B2A00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B2A00",
-     "length": 1300
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a4q1_005B2F20.cpp",
    "rank": 1,
    "functions": [
@@ -68396,77 +68409,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q1_005B31B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B31B0",
-     "length": 187,
-     "name": "?sub_6FC6A230@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHHF@Z"
-    },
-    {
-     "va": "0x005B39A0",
-     "length": 528
-    },
-    {
-     "va": "0x005B4140",
-     "length": 135,
-     "name": "?ACT4Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B41D0",
-     "length": 66,
-     "name": "?ACT4Q1_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B4220",
-     "length": 143,
-     "name": "?ACT4Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B42B0",
-     "length": 214,
-     "name": "?ACT4Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B4530",
-     "length": 35,
-     "name": "?ACT4Q2_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B4560",
-     "length": 119,
-     "name": "?ACT4Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005B4970",
-     "length": 66,
-     "name": "?ACT4Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005B4DF0",
-     "length": 72,
-     "name": "?ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005B4E40",
-     "length": 96,
-     "name": "?ACT4Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q1_005B3E30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B3E30",
-     "length": 33,
-     "name": "?ACT4Q3_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
    ]
   },
   {
