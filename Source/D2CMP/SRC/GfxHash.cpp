@@ -4,21 +4,104 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2FindTileEntryStrc;
-struct D2CmpBlockTableAStrc;
-struct D2CmpBlockTableBStrc;
-struct T00604AE0;
-struct D2CelDataHashStrc;
-struct D2CmpGfxKeyStrc;
+struct D2AsyncLoadStrc;
+
+struct D2CmpGfxFrameStrc;
+
+struct D2CmpGfxInfoStrc;
+
 struct D2CmpGfxHashEntryStrc;
+
 struct D2CmpGfxHashStrc;
+
+struct D2CmpGfxKeyStrc;
+
+struct D2CmpGfxCelStrc;
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+extern "C" const char szGfxHashFile[]; // 0x006E5F44
+
+typedef void(__fastcall* PixelDataFreeCallback)(void* pData);
+
+void* __fastcall FOG_AsyncDataGetBuffer(D2AsyncLoadStrc* pAsync); // 0x0040A9E0
+
+void __fastcall sub_0040AB00_FreeAsyncData(D2AsyncLoadStrc* pAsync); // 0x0040AB00
+
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+PixelDataFreeCallback __fastcall sub_00601A40(struct D2CmpGfxHashStrc* pHash); // 0x00601A40
+
+struct D2CmpGfxFrameStrc
+{
+    char unk0x00[0x14];
+    int nSizeA;
+    void* pPixelData;
+    int nSizeB;
+};
+
+struct D2CmpGfxInfoStrc
+{
+    char unk0x00[0x21];
+    unsigned char nCountB;
+    char unk0x22[0x02];
+    unsigned char nCountA;
+    char unk0x25[0x03];
+    int bHardware;
+    char unk0x2C[0xB0 - 0x2C];
+    D2AsyncLoadStrc* pAsync;
+};
+
+struct D2CmpGfxKeyStrc
+{
+    int unk0x00;
+    unsigned int dwFlags;
+    int nType;
+    int nSubA;
+    int nMode;
+    int nSubB;
+    int nKey1;
+    int nKey2;
+    int nKey3;
+    int nKey4;
+    int nKey5;
+    const char* szName;
+    int unk0x30[4];
+    int nDirection;
+    unsigned int dwFlags44;
+};
+
+struct D2CmpGfxCelStrc
+{
+    unsigned int dwFlags;
+    int unk0x04[4];
+    unsigned int nDirections;
+};
+
+int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections); // 0x00600C90
+
+struct D2FindTileEntryStrc;
+
+struct D2CmpBlockTableAStrc;
+
+struct D2CmpBlockTableBStrc;
+
+struct T00604AE0;
+
+struct D2CelDataHashStrc;
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pAddend); // 0x006CC208
+
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
+
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCriticalSection); // 0x006CC1FC
 
 struct D2CmpBlockTableAStrc
@@ -41,27 +124,60 @@ struct D2CelDataHashStrc
     T00604AE0* pBuckets[0x200];
 };
 
-struct D2CmpGfxKeyStrc
-{
-    int unk0x00;
-    unsigned int dwFlags;
-    int nType;
-    int nSubA;
-    int unk0x10;
-    int nSubB;
-    int nKey1;
-    int nKey2;
-    int nKey3;
-    int nKey4;
-    int nKey5;
-    const char* szName;
-};
-
-unsigned int __fastcall sub_0060AB80_GetGfxKeyValue(D2CmpGfxKeyStrc* pKey, int* pAux, void* pCel); // 0x0060AB80
-
 long gnTileLockRefCount_008F03E4; // 0x008F03E4
 
 char gTileLock_008F03CC[0x18]; // 0x008F03CC
+
+// 0x0060A9D0
+void __fastcall sub_0060A9D0_Remove(D2CmpGfxHashStrc* pHash, int nUnused, void* pMemPool, D2CmpGfxHashEntryStrc* pEntry)
+{
+    void* pBlocks = 0;
+    D2CmpGfxHashEntryStrc* pEntryCopy = pEntry;
+    D2CmpGfxHashEntryStrc** ppBucket = &*(pEntryCopy->nIndex + pHash->pBuckets);
+    if (*ppBucket == pEntry)
+    {
+        *ppBucket = pEntry->pNext;
+    }
+
+    D2CmpGfxInfoStrc* pInfo = pEntry->pInfo;
+    D2AsyncLoadStrc* pAsync = pInfo->pAsync;
+    if (pAsync)
+    {
+        if (pInfo->bHardware)
+        {
+            PixelDataFreeCallback pfnFree = sub_00601A40(pHash);
+            char* pData = (char*)FOG_AsyncDataGetBuffer(pAsync);
+            D2_ASSERT(pData, 0x5F);
+            unsigned int nOffset = 0;
+            pBlocks = ((D2CmpGfxFrameStrc*)pData)->pPixelData;
+            for (unsigned int i = 0; i < pInfo->nCountA * (int)pInfo->nCountB;)
+            {
+                D2CmpGfxFrameStrc* pFrame = (D2CmpGfxFrameStrc*)(nOffset + pData);
+                void* const tPPixelData = pFrame->pPixelData;
+                if (tPPixelData)
+                {
+                    if (pfnFree)
+                    {
+                        pfnFree(tPPixelData);
+                    }
+                    pFrame->pPixelData = 0;
+                }
+                nOffset = nOffset + (pFrame->nSizeB + pFrame->nSizeA + 0x23);
+                ++i;
+            }
+
+            if (pBlocks)
+            {
+                FOG_FreeServerMemory(pMemPool, pBlocks, szGfxHashFile, 0x82, 0);
+            }
+        }
+
+        sub_0040AB00_FreeAsyncData(pAsync);
+        pInfo->pAsync = 0;
+    }
+
+    FOG_FreeServerMemory(pMemPool, pEntry, szGfxHashFile, 0x8E, 0);
+}
 
 // 0x0060AAF0
 void __fastcall sub_0060AAF0_ClearBlockTableB(D2CmpBlockTableBStrc* pTable)
@@ -69,52 +185,6 @@ void __fastcall sub_0060AAF0_ClearBlockTableB(D2CmpBlockTableBStrc* pTable)
     memset(pTable, 0, sizeof(D2CmpBlockTableBStrc));
 }
 
-// 0x0060AEE0
-void __fastcall sub_0060AEE0_ClearBlockTableA(D2CmpBlockTableAStrc* pTable)
-{
-    memset(pTable, 0, sizeof(D2CmpBlockTableAStrc));
-}
-
-// 0x0060AF90
-T00604AE0* __fastcall sub_0060AF90_CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
-{
-    if (!*szName)
-        return 0;
-
-    unsigned int nHash = SStrHash(szName, 1, 0);
-    unsigned int nKey = ((((((nHash >> 8) ^ nHash) >> 8) ^ nHash) >> 8) ^ nHash) & 0x1FF;
-    for (T00604AE0* pEntry = pHash->pBuckets[nKey]; pEntry; pEntry = pEntry->pNext)
-    {
-        if (!strcmp(szName, pEntry->szName))
-            return pEntry;
-    }
-    return 0;
-}
-
-// 0x0060CD30
-void __cdecl sub_0060CD30_InitTileLock()
-{
-    if (InterlockedIncrement(&gnTileLockRefCount_008F03E4) == 1)
-        InitializeCriticalSection(gTileLock_008F03CC);
-}
-
-// 0x0060CD50
-void __cdecl sub_0060CD50_ReleaseTileLock()
-{
-    if (InterlockedDecrement(&gnTileLockRefCount_008F03E4) == 0)
-        DeleteCriticalSection(gTileLock_008F03CC);
-}
-
-// 0x0060CDB0
-D2FindTileEntryStrc** __cdecl sub_0060CDB0_AllocFindTilesTable()
-{
-    D2FindTileEntryStrc** ppBuckets = (D2FindTileEntryStrc**)FOG_Alloc(0x200, ".\\SRC\\FindTiles.cpp", 0x2A, 0);
-    D2_ASSERT(ppBuckets, 0x2B);
-    memset(ppBuckets, 0, 0x200);
-    return ppBuckets;
-}
-
-// 0x0054FB30
 void __stdcall sub_0054FB30_Nop()
 {
 }
@@ -122,6 +192,61 @@ void __stdcall sub_0054FB30_Nop()
 // 0x0060AB70
 void __stdcall sub_0060AB70_Nop()
 {
+}
+
+// 0x0060AB80
+unsigned int __fastcall sub_0060AB80_GetGfxKeyValue(D2CmpGfxKeyStrc* pKey, unsigned int* pDivisor, D2CmpGfxCelStrc* pCel)
+{
+    unsigned int nValue = 0;
+    *pDivisor = 0;
+    switch (pKey->nType)
+    {
+    case 0:
+        *pDivisor = 8;
+        if (pKey->nMode == 0 || pKey->nMode == 0x11 || (pKey->dwFlags44 & 2))
+        {
+            *pDivisor = 1;
+        }
+        if (!(pCel->dwFlags & 1))
+        {
+            nValue = sub_00600C90_GetDirectionIndex64(pKey->nDirection, pCel->nDirections);
+        }
+        break;
+
+    case 1:
+        if (!(pCel->dwFlags & 1))
+        {
+            *pDivisor = pCel->nDirections == 8 ? 4 : 1;
+            nValue = sub_00600C90_GetDirectionIndex64(pKey->nDirection, pCel->nDirections);
+        }
+        break;
+
+    default:
+        *pDivisor = 1;
+        if (pKey->nType == 2)
+        {
+            nValue = 0;
+        }
+        else if ((pKey->nType == 6 && (pKey->dwFlags & 2)) || pKey->nType == 4 || pKey->nType == 3)
+        {
+            if (pKey->nType == 4)
+            {
+                nValue = pKey->nDirection;
+            }
+            else if (!(pCel->dwFlags & 1))
+            {
+                nValue = sub_00600C90_GetDirectionIndex64(pKey->nDirection, pCel->nDirections);
+            }
+        }
+        break;
+    }
+
+    if (!*pDivisor)
+    {
+        return 0;
+    }
+
+    return nValue / *pDivisor;
 }
 
 // 0x0060AC50
@@ -132,7 +257,7 @@ void __stdcall sub_0060AC50_Nop()
 // 0x0060AC60
 static unsigned int sub_0060AC60_GfxHashIndex(D2CmpGfxKeyStrc* pKey, int* pAux, void* pCel, unsigned int* pValue)
 {
-    const unsigned int nValue = sub_0060AB80_GetGfxKeyValue(pKey, pAux, pCel);
+    const unsigned int nValue = sub_0060AB80_GetGfxKeyValue(pKey, (unsigned int*)pAux, (D2CmpGfxCelStrc*)pCel);
     *pValue = nValue;
     unsigned int nHash;
     if ((pKey->nType == 6 && (pKey->dwFlags & 2)) || pKey->nType == 3 || pKey->nType == 4)
@@ -214,4 +339,49 @@ D2CmpGfxHashEntryStrc* __fastcall sub_0060ADC0_GfxHashAdd(void* pMemPool, D2CmpG
     pEntry->nIndex = nIndex;
     pHash->pBuckets[nIndex] = pEntry;
     return pEntry;
+}
+
+// 0x0060AEE0
+void __fastcall sub_0060AEE0_ClearBlockTableA(D2CmpBlockTableAStrc* pTable)
+{
+    memset(pTable, 0, sizeof(D2CmpBlockTableAStrc));
+}
+
+// 0x0060AF90
+T00604AE0* __fastcall sub_0060AF90_CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
+{
+    if (!*szName)
+        return 0;
+
+    unsigned int nHash = SStrHash(szName, 1, 0);
+    unsigned int nKey = ((((((nHash >> 8) ^ nHash) >> 8) ^ nHash) >> 8) ^ nHash) & 0x1FF;
+    for (T00604AE0* pEntry = pHash->pBuckets[nKey]; pEntry; pEntry = pEntry->pNext)
+    {
+        if (!strcmp(szName, pEntry->szName))
+            return pEntry;
+    }
+    return 0;
+}
+
+// 0x0060CD30
+void __cdecl sub_0060CD30_InitTileLock()
+{
+    if (InterlockedIncrement(&gnTileLockRefCount_008F03E4) == 1)
+        InitializeCriticalSection(gTileLock_008F03CC);
+}
+
+// 0x0060CD50
+void __cdecl sub_0060CD50_ReleaseTileLock()
+{
+    if (InterlockedDecrement(&gnTileLockRefCount_008F03E4) == 0)
+        DeleteCriticalSection(gTileLock_008F03CC);
+}
+
+// 0x0060CDB0
+D2FindTileEntryStrc** __cdecl sub_0060CDB0_AllocFindTilesTable()
+{
+    D2FindTileEntryStrc** ppBuckets = (D2FindTileEntryStrc**)FOG_Alloc(0x200, ".\\SRC\\FindTiles.cpp", 0x2A, 0);
+    D2_ASSERT(ppBuckets, 0x2B);
+    memset(ppBuckets, 0, 0x200);
+    return ppBuckets;
 }

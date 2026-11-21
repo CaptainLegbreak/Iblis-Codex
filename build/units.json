@@ -79412,32 +79412,12 @@
   },
   {
    "file": "Source/D2CMP/SRC/LRUCache.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00609020",
      "length": 177
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/LRUCache_006090E0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x006090E0",
      "length": 27,
@@ -79493,22 +79473,7 @@
      "length": 139,
      "name": "sub_00609420"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ],
-   "ltcg": true
+   ]
   },
   {
    "file": "Source/D2CMP/SRC/Tilecmp.cpp",
@@ -79637,37 +79602,13 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/GfxHash_0060A9D0.cpp",
-   "rank": 1,
+   "file": "Source/D2CMP/SRC/GfxHash.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x0060A9D0",
      "length": 286
     },
-    {
-     "va": "0x0060AB80",
-     "length": 204
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/GfxHash.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0060AAF0",
      "length": 17,
@@ -79677,6 +79618,10 @@
      "va": "0x0060AB70",
      "length": 1,
      "name": "?sub_0060AB70_Nop@@YGXXZ"
+    },
+    {
+     "va": "0x0060AB80",
+     "length": 204
     },
     {
      "va": "0x0060AC50",
@@ -94880,6 +94825,10 @@
      "name": "sub_0067CE00_MarkVertex"
     },
     {
+     "va": "0x0067CE20",
+     "length": 528
+    },
+    {
      "va": "0x0067D030",
      "length": 22,
      "name": "sub_0067D030"
@@ -94904,30 +94853,6 @@
      "length": 76,
      "name": "sub_0067D280"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgVer_0067CE20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067CE20",
-     "length": 528
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
