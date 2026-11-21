@@ -9,7 +9,6 @@ struct D2CrashGuidStrc;
 struct D2CrashModuleStrc;
 struct D2CrashModuleListStrc;
 struct D2CrashRecord24Strc;
-struct D2ModuleInfoStrc;
 struct D2FloatSaveStrc;
 struct D2FpuRegStrc;
 struct D2XmmRegStrc;
@@ -108,13 +107,7 @@ extern int gnGlobal_007A5254; // 0x007A5254
 extern int gdwGlobal_007BC974; // 0x007BC974
 extern int gdwGlobal_007BCBF4; // 0x007BCBF4
 
-struct D2ModuleInfoStrc
-{
-    void* lpBaseOfDll;
-    unsigned long SizeOfImage;
-    void* EntryPoint;
-};
-extern "C" int __stdcall GetModuleInformation(void* hProcess, void* hModule, D2ModuleInfoStrc* pInfo, unsigned long cb); // 0x006B13C8
+extern "C" int __stdcall GetModuleInformation(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long cb); // 0x006B13C8
 void __stdcall sub_M452_EmitSink(D2CrashModuleListStrc* pList);
 
 #pragma pack(push, 1)
@@ -402,7 +395,7 @@ int __cdecl sub_0048A690_HasHoverItem()
 // 0x00402A90
 bool __stdcall sub_00402A90_GetDbgHelpModuleRange(void** ppBase, unsigned long* pSize)
 {
-    D2ModuleInfoStrc tInfo;
+    D2PsapiModuleInfoStrc tInfo;
     if (!ghDbgHelp_0098A680)
         return false;
     if (!GetModuleInformation(GetCurrentProcess(), ghDbgHelp_0098A680, &tInfo, sizeof(tInfo)))

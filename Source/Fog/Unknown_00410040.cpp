@@ -1,60 +1,26 @@
 #include "Fog.h"
+#include "D2StormLink.h"
 #include "D2GameTypes.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
-struct D2LogMsgLinkStrc;
 struct D2LogMsgListStrc;
 struct D2LogMessageStrc;
 struct D2LogMemoryInfoStrc;
 struct T00410610;
 
 
-struct D2LogMsgLinkStrc
-{
-    D2LogMsgLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2LogMsgLinkStrc() { m_prevlink = 0; m_next = 0; }
-    ~D2LogMsgLinkStrc() { Unlink(); }
-
-    D2LogMsgLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2LogMsgLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2LogMsgLinkStrc*)(m_next + nLinkOffset);
-    }
-
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
 struct D2LogMsgListStrc
 {
     int m_linkoffset;
-    D2LogMsgLinkStrc m_terminator;
+    D2StormLinkStrc m_terminator;
 
     char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
 };
 
 struct D2LogMessageStrc
 {
-    D2LogMsgLinkStrc f_0;
+    D2StormLinkStrc f_0;
     unsigned int nSize;
     int nType;
     int bTimeStamp;
@@ -149,7 +115,7 @@ void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitl
     if (!bBadPointer)
         memcpy(pText, pAddress, nSize);
     EnterCriticalSection(&gtLogQueueLock_0075E838);
-    D2LogMsgLinkStrc* pLink = &pMessage->f_0;
+    D2StormLinkStrc* pLink = &pMessage->f_0;
     if (pLink->m_prevlink)
     {
         pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
@@ -157,7 +123,7 @@ void __cdecl sub_00410040_LogMemoryDump(const char* szPrefix, const char* szTitl
         pLink->m_prevlink = 0;
         pLink->m_next = 0;
     }
-    D2LogMsgLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
+    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
     pLink->m_prevlink = pPrev;
     pLink->m_next = pPrev->m_next;
     pPrev->m_next = (char*)pMessage;
@@ -209,7 +175,7 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
     SStrCopy(pText, szBuffer, nExtraBytes);
 
     EnterCriticalSection(&gtLogQueueLock_0075E838);
-    D2LogMsgLinkStrc* pLink = &pMessage->f_0;
+    D2StormLinkStrc* pLink = &pMessage->f_0;
     if (pLink->m_prevlink)
     {
         pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
@@ -217,7 +183,7 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
         pLink->m_prevlink = 0;
         pLink->m_next = 0;
     }
-    D2LogMsgLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
+    D2StormLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
     pLink->m_prevlink = pPrev;
     pLink->m_next = pPrev->m_next;
     pPrev->m_next = (char*)pMessage;

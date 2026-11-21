@@ -24,7 +24,6 @@ struct D2Object006BE4E0Strc;
 
 struct D2ReferenceStrc;
 
-struct D2RecordNodeStrc;
 
 struct D2RecordTableStrc;
 
@@ -129,13 +128,11 @@ extern const char gszHackListSizeFormat_006FC4B0[]; // 0x006FC4B0
 
 extern unsigned long gdwLastLogTick_00989C34; // 0x00989C34
 
-struct D2RecordNodeStrc { unsigned int key; int value; D2RecordNodeStrc* next; };
-
 struct D2RecordTableStrc {
     unsigned char unknown0[0x10];
     unsigned int bucketCount;
     unsigned char unknown14[0x2c];
-    D2RecordNodeStrc** buckets;
+    D2QIpCountStrc** buckets;
     unsigned char unknown44[0x810];
     D2CriticalSectionStrc lock;
     unsigned char unknown86c[0x18];
@@ -968,14 +965,14 @@ int __fastcall sub_006BE9F0_CheckRecordThreshold(D2RecordTableStrc* table, const
     unsigned int key = *keyPointer;
     unsigned int index = key % table->bucketCount;
     EnterCriticalSection(&table->lock);
-    D2RecordNodeStrc* node = table->buckets[index];
+    D2QIpCountStrc* node = table->buckets[index];
     while (node) {
-        if (node->key == key) {
-            int value = node->value;
+        if (node->nKey == key) {
+            int value = node->nRefCount;
             LeaveCriticalSection(&table->lock);
             return value >= table->threshold;
         }
-        node = node->next;
+        node = node->pNext;
     }
     LeaveCriticalSection(&table->lock);
     return 0;

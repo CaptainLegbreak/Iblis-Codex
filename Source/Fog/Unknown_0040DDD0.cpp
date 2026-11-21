@@ -1,11 +1,11 @@
 #include "Fog.h"
+#include "D2StormLink.h"
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
 
 struct FSafeSock;
 struct D2CriticalSectionStrc;
 struct Obj0040E0B0;
-struct D2LogMsgLinkStrc;
 struct D2LogMsgListStrc;
 struct D2LogMsgNodeStrc;
 struct D2LogMessageStrc;
@@ -39,16 +39,10 @@ extern "C" int __stdcall WSAGetLastError(); // 0x006B0168
 int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
 extern char gszResolvedHostIP_0075D040[]; // 0x0075D040
 
-struct D2LogMsgLinkStrc
-{
-    D2LogMsgLinkStrc* m_prevlink;
-    char* m_next;
-};
-
 struct D2LogMsgListStrc
 {
     int m_linkoffset;
-    D2LogMsgLinkStrc m_terminator;
+    D2StormLinkStrc m_terminator;
 
     void sub_0040FED0_DeleteAll();                                          // 0x0040FED0
 };
