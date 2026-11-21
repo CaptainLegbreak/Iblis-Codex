@@ -5148,19 +5148,6 @@ void __fastcall sub_00534AD0_ResetModeAndEvents(D2GameStrc* pGame, D2UnitStrc* p
     EVENT_SetEvent(pGame, pUnit, EVENTTYPE_DELAYEDPORTAL, pGame->dwGameFrame + 250, 0, 0);
 }
 
-// 0x005356B0
-int __fastcall sub_005356B0_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, unsigned char nHand, int nFlags)
-{
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\Player.cpp", 755);
-    if (!pClient)
-    {
-        return 0;
-    }
-
-    CLIENTS_SetSkillHotKey(pClient, nHotkeyId, nSkillId, nHand, nFlags);
-    return 1;
-}
-
 // 0x005356F0
 void __fastcall sub_005356F0_CountPlayersInLevelCb(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg)
 {

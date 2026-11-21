@@ -46817,11 +46817,6 @@
      "name": "sub_00534AD0_ResetModeAndEvents"
     },
     {
-     "va": "0x005356B0",
-     "length": 59,
-     "name": "sub_005356B0_SetSkillHotKey"
-    },
-    {
      "va": "0x005356F0",
      "length": 50,
      "name": "sub_005356F0_CountPlayersInLevelCb"
@@ -50547,6 +50542,11 @@
      "va": "0x00535510",
      "length": 248,
      "name": "sub_6FC7C260"
+    },
+    {
+     "va": "0x005356B0",
+     "length": 59,
+     "name": "sub_005356B0_SetSkillHotKey"
     },
     {
      "va": "0x00535780",
