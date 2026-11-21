@@ -1640,7 +1640,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00454F30.cpp": {
+  "Source/D2Client/UI/ui_004527D0.cpp": {
    "bytes": 8,
    "definitions": 2,
    "externs": [],
@@ -40955,7 +40955,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00454F30.cpp",
+   "file": "Source/D2Client/UI/ui_004527D0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHoverX_0070F854 = ",
@@ -40980,7 +40980,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00454F30.cpp",
+   "file": "Source/D2Client/UI/ui_004527D0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHoverY_0070F858 = ",

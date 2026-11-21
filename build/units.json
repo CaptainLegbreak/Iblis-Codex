@@ -17836,6 +17836,11 @@
      "va": "0x00453B30",
      "length": 120,
      "name": "?sub_00453B30_DrawStoredUnitNumber@@YAXXZ"
+    },
+    {
+     "va": "0x00454F30",
+     "length": 1400,
+     "name": "?sub_00454F30_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
     }
    ],
    "flags": [
@@ -18137,31 +18142,6 @@
      "va": "0x004554B0",
      "length": 93,
      "name": "?sub_004554B0_DrawHoverName@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00454F30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00454F30",
-     "length": 1400,
-     "name": "?sub_00454F30_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
     }
    ],
    "flags": [
