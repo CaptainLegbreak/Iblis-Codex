@@ -1186,6 +1186,16 @@
      "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
+     "va": "0x0040F8A0",
+     "length": 191,
+     "name": "?sub_0040F8A0_CloseLogFilesNow@@YAXXZ"
+    },
+    {
+     "va": "0x0040F960",
+     "length": 5,
+     "name": "?sub_0040F960_CloseLogFiles@@YAXXZ"
+    },
+    {
      "va": "0x0040FAA0",
      "length": 163,
      "name": "??1D2LogMsgNodeStrc@@QAE@XZ"
@@ -3005,6 +3015,15 @@
      "name": "@sub_0040B660_FreeList@4"
     },
     {
+     "va": "0x0040B690",
+     "length": 649
+    },
+    {
+     "va": "0x0040B920",
+     "length": 814,
+     "name": "?sub_0040B920_BuildModuleList@@YGPAUD2ModuleInfoStrc@@PAX@Z"
+    },
+    {
      "va": "0x0040BC50",
      "length": 92,
      "name": "?sub_0040BC50_GetModuleList@@YGPAUD2ModuleInfoStrc@@PAXK@Z"
@@ -3013,6 +3032,10 @@
      "va": "0x0040BCB0",
      "length": 52,
      "name": "?sub_0040BCB0_FindModuleByAddress@@YIPAUD2ModuleInfoStrc@@KPAU1@@Z"
+    },
+    {
+     "va": "0x0040BCF0",
+     "length": 1018
     },
     {
      "va": "0x0040C0F0",
@@ -3048,6 +3071,10 @@
      "length": 1136
     },
     {
+     "va": "0x0040CC10",
+     "length": 1452
+    },
+    {
      "va": "0x0040D1C0",
      "length": 207,
      "name": "?sub_0040D1C0_AppendCrashDump@@YIXKKKHPBX@Z"
@@ -3075,16 +3102,6 @@
      "va": "0x0040F470",
      "length": 123,
      "name": "?sub_0040F470_LookupLog@@YIXPBD@Z"
-    },
-    {
-     "va": "0x0040F8A0",
-     "length": 191,
-     "name": "?sub_0040F8A0_CloseLogFilesNow@@YAXXZ"
-    },
-    {
-     "va": "0x0040F960",
-     "length": 5,
-     "name": "?sub_0040F960_CloseLogFiles@@YAXXZ"
     },
     {
      "va": "0x0040FD00",
@@ -3116,41 +3133,6 @@
      "va": "0x0040D5B0",
      "length": 531,
      "name": "?sub_0040D5B0_LoadImageHlp@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Exceptions_0040B690.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040B690",
-     "length": 649
-    },
-    {
-     "va": "0x0040B920",
-     "length": 814,
-     "name": "?sub_0040B920_BuildModuleList@@YGPAUD2ModuleEntryStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Exceptions_0040BCF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040BCF0",
-     "length": 1018
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Exceptions_0040CC10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040CC10",
-     "length": 1452
     }
    ]
   },
