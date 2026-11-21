@@ -46912,11 +46912,6 @@
      "name": "D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0"
     },
     {
-     "va": "0x00540000",
-     "length": 171,
-     "name": "PARTY_FreePartyControl"
-    },
-    {
      "va": "0x005404C0",
      "length": 36,
      "name": "sub_005404C0_AddLivingMemberLevel"
@@ -52505,6 +52500,11 @@
      "va": "0x0053FF90",
      "length": 98,
      "name": "?PARTY_AllocPartyControl@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x00540000",
+     "length": 171,
+     "name": "PARTY_FreePartyControl"
     },
     {
      "va": "0x005400B0",
