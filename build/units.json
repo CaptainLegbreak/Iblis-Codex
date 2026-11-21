@@ -19503,6 +19503,11 @@
      "name": "?sub_00478A90_FindRosterPet@@YIPAUD2RosterPetNodeStrc@@H@Z"
     },
     {
+     "va": "0x00478AB0",
+     "length": 85,
+     "name": "?sub_00478AB0_RemoveType7@@YIXHH@Z"
+    },
+    {
      "va": "0x00478B10",
      "length": 151,
      "name": "sub_00478B10_SetRosterEntry"
@@ -23603,11 +23608,6 @@
      "va": "0x004781D0",
      "length": 379,
      "name": "?NET_D2GS_CLIENT_Send_0x6C@@YIXH@Z"
-    },
-    {
-     "va": "0x00478AB0",
-     "length": 85,
-     "name": "?sub_00478AB0_RemoveType7@@YIXHH@Z"
     }
    ],
    "flags": [
