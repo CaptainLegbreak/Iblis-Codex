@@ -66088,6 +66088,21 @@
      "va": "0x005BAA70",
      "length": 240,
      "name": "?ACT3Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005BAC70",
+     "length": 124,
+     "name": "?ACT3Q4_UnitIterate_SetGoldenBirdBoss@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005BACF0",
+     "length": 35,
+     "name": "?sub_005BACF0_GoldenBirdSpawnCheck@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005BADC0",
+     "length": 96,
+     "name": "?ACT3Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
@@ -66119,27 +66134,6 @@
      "va": "0x005BA2F0",
      "length": 39,
      "name": "?sub_005BA2F0_UpdatePartyQuestState@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BAC70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BAC70",
-     "length": 124,
-     "name": "?ACT3Q4_UnitIterate_SetGoldenBirdBoss@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005BACF0",
-     "length": 35,
-     "name": "?sub_005BACF0_GoldenBirdSpawnCheck@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005BADC0",
-     "length": 96,
-     "name": "?ACT3Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
