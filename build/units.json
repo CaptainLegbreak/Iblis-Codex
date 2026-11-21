@@ -64200,6 +64200,11 @@
      "name": "?sub_0058DEA0_UnitIterate_CompleteInChamber@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x0058DF20",
+     "length": 503,
+     "name": "?sub_0058DF20_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x0058E120",
      "length": 93,
      "name": "?sub_0058E120_SendZooMonsterId@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -64213,48 +64218,11 @@
      "va": "0x0058E190",
      "length": 278,
      "name": "?ACT5Q6_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q6_0058DF20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058DF20",
-     "length": 503,
-     "name": "?sub_0058DF20_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q6_0058E2B0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0058E2B0",
      "length": 216
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q6_0058E390.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0058E390",
      "length": 88,

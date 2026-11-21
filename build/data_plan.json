@@ -5324,7 +5324,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a5q6_0058E390.cpp": {
+  "Source/D2Game/Quests/a5q6.cpp": {
    "bytes": 1764,
    "definitions": 1,
    "externs": [],
@@ -107786,7 +107786,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q6_0058E390.cpp",
+   "file": "Source/D2Game/Quests/a5q6.cpp",
    "fill": 1764,
    "form": "declared",
    "fwd": null,
