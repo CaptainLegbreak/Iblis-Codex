@@ -1,11 +1,3 @@
-// build: context D2CommonStormSlotListAStrc::~D2CommonStormSlotListAStrc
-// build: context D2CommonStormSlotListBStrc::~D2CommonStormSlotListBStrc
-
-inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
-{
-    return pWhere;
-}
-
 struct D2StormLinkStrc
 {
     D2StormLinkStrc* m_prevlink;
@@ -245,14 +237,6 @@ struct D2CommonStormSlotListBStrc
     void UnlinkAll();
 };
 
-static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
 struct D2CommonStormSlotArrayAStrc
 {
     unsigned int f_0;
@@ -294,13 +278,21 @@ struct D2CommonStormSlotArrayBStrc
 };
 
 struct StringEntryNode;
+
 struct MappingEntryNode;
+
 class HASHKEY_STRI;
+
 template <class T, class KEY> class TSHashTable;
+
 template <> class TSHashTable<StringEntryNode, HASHKEY_STRI>;
+
 typedef TSHashTable<StringEntryNode, HASHKEY_STRI> D2CommonStormHashTableAStrc;
+
 template <> class TSHashTable<MappingEntryNode, HASHKEY_STRI>;
+
 typedef TSHashTable<MappingEntryNode, HASHKEY_STRI> D2CommonStormHashTableBStrc;
+
 // build: symbol ??0?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@QAE@XZ 0x006104A0
 // build: symbol ??0?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@QAE@XZ 0x00610B30
 
@@ -338,6 +330,55 @@ public:
     TSHashTable();
     char* sub_0060EC00_Next(char* pNode);
 };
+
+#define DEAD_MARKER 0xDDDDDDDD
+
+struct D2StormCtorLinkStrc
+{
+    D2StormCtorLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2StormCtorLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+};
+
+struct D2StormDeadListStrc
+{
+    int m_linkoffset;
+    D2StormCtorLinkStrc m_terminator;
+
+    D2StormDeadListStrc()
+    {
+        m_linkoffset = DEAD_MARKER;
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    D2StormDeadListStrc(const D2StormDeadListStrc& source)
+    {
+        m_linkoffset = source.m_linkoffset;
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+};
+
+// build: context D2CommonStormSlotListAStrc::~D2CommonStormSlotListAStrc
+// build: context D2CommonStormSlotListBStrc::~D2CommonStormSlotListBStrc
+
+inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
+{
+    return pWhere;
+}
+
+static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nAlign)
+{
+    unsigned int nRemainder = nValue % nAlign;
+    if (nRemainder)
+        nValue += nAlign - nRemainder;
+    return nValue;
+}
 
 // build: symbol ??_7?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62B4
 // build: symbol ??_7?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62C8
@@ -523,12 +564,22 @@ void D2CommonStormListBStrc::sub_0060EF30_ChangeLinkOffset(int nLinkOffset)
     }
 }
 
+// 0x0060F020
+void __fastcall sub_0060F020_ConstructDeadList(D2StormDeadListStrc* pList) {
+ new(pList) D2StormDeadListStrc;
+}
+
 // 0x0060F070
 D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& source)
 {
     m_linkoffset = source.m_linkoffset;
     m_terminator.m_prevlink = &m_terminator;
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x0060F360
+void __fastcall sub_0060F360_ConstructDeadList(D2StormDeadListStrc* pList) {
+ new(pList) D2StormDeadListStrc;
 }
 
 // 0x0060F6D0

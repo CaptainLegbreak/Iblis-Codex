@@ -6883,7 +6883,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/DRLG/RoomTile_0066D960.cpp": {
+  "Source/D2Common/DRLG/RoomTile.cpp": {
    "bytes": 460,
    "definitions": 2,
    "externs": [],
@@ -148663,7 +148663,7 @@
    "cname": "gData_006EEFC8",
    "declared": true,
    "decorated": "?gDrlgRoomTileLevelRanges_006EEFC8@@3QBUD2UnkDrlgRoomTileStrc@@B",
-   "file": "Source/D2Common/DRLG/RoomTile_0066D960.cpp",
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006EEFC8_t gData_006EEFC8; // 0x006EEFC8",
    "head": "extern \"C\" const struct d2data_006EEFC8_t gData_006EEFC8 = ",
@@ -148680,7 +148680,7 @@
    "cname": "gData_006EF188",
    "declared": true,
    "decorated": "?gDrlgRoomTilePresetUnits_006EF188@@3QBUD2UnkDrlgRoomTileStrc2@@B",
-   "file": "Source/D2Common/DRLG/RoomTile_0066D960.cpp",
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006EF188_t gData_006EF188; // 0x006EF188",
    "head": "extern \"C\" const struct d2data_006EF188_t gData_006EF188 = ",

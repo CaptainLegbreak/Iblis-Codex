@@ -78975,9 +78975,19 @@
      "name": "sub_0060EF30_ChangeLinkOffset"
     },
     {
+     "va": "0x0060F020",
+     "length": 34,
+     "name": "?sub_0060F020_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
+    },
+    {
      "va": "0x0060F070",
      "length": 39,
      "name": "?0D2CommonStormListFStrc"
+    },
+    {
+     "va": "0x0060F360",
+     "length": 34,
+     "name": "?sub_0060F360_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
     },
     {
      "va": "0x0060F6D0",
@@ -79160,17 +79170,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F020.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060F020",
-     "length": 34,
-     "name": "?sub_0060F020_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Common/Chat/Ignorelist_0060F050.cpp",
    "rank": 0,
    "functions": [
@@ -79261,17 +79260,6 @@
      "va": "0x0060F250",
      "length": 32,
      "name": "??0D2ChatStormListEStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F360.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060F360",
-     "length": 34,
-     "name": "?sub_0060F360_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
     }
    ]
   },
@@ -82072,9 +82060,19 @@
      "name": "?STATLIST_GetMaxDamageFromUnit@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00625EF0",
+     "length": 132,
+     "name": "?sub_00625EF0_MinDamage@@YGHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x00625F80",
      "length": 77,
      "name": "?STATLIST_GetMaxThrowDamageFromUnit@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00625FD0",
+     "length": 77,
+     "name": "?sub_00625FD0_MinDamage@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00626020",
@@ -82426,28 +82424,6 @@
      "va": "0x006279A0",
      "length": 148,
      "name": "D2Common_10574"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00625EF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00625EF0",
-     "length": 132,
-     "name": "?sub_00625EF0_MinDamage@@YGHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00625FD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00625FD0",
-     "length": 77,
-     "name": "?sub_00625FD0_MinDamage@@YGHPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -88080,6 +88056,10 @@
      "name": "?sub_00654080@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
     },
     {
+     "va": "0x00655720",
+     "length": 2958
+    },
+    {
      "va": "0x00656390",
      "length": 162,
      "name": "DATATBLS_GetNextHirelingTxtRecordFromNameId"
@@ -88318,16 +88298,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00655720.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00655720",
-     "length": 2958
-    }
    ]
   },
   {
@@ -90788,6 +90758,11 @@
      "length": 309
     },
     {
+     "va": "0x0066D960",
+     "length": 120,
+     "name": "?sub_0066D960_FindTilePresetEntry@@YGHHIH@Z"
+    },
+    {
      "va": "0x0066DC10",
      "length": 60,
      "name": "sub_0066DC10"
@@ -90876,17 +90851,6 @@
      "va": "0x0066F1A0",
      "length": 160,
      "name": "DRLGROOMTILE_FreeRoom"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066D960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066D960",
-     "length": 120,
-     "name": "?sub_0066D960_FindTilePresetEntry@@YGHHIH@Z"
     }
    ]
   },
