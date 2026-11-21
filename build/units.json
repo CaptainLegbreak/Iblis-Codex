@@ -24385,9 +24385,19 @@
      "name": "sub_00480150_TakeWardenBuffer"
     },
     {
+     "va": "0x004801D0",
+     "length": 89,
+     "name": "?sub_004801D0_UnloadWarden@@YAXXZ"
+    },
+    {
      "va": "0x00480320",
      "length": 28,
      "name": "?sub_00480320_CallHolderSlot3@@YIXH@Z"
+    },
+    {
+     "va": "0x00480340",
+     "length": 121,
+     "name": "?sub_00480340_ResetWarden@@YAXXZ"
     },
     {
      "va": "0x004803C0",
@@ -25289,16 +25299,6 @@
    "file": "Source/D2Client/UNIT/UnitMode.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004801D0",
-     "length": 89,
-     "name": "?sub_004801D0_UnloadWarden@@YAXXZ"
-    },
-    {
-     "va": "0x00480340",
-     "length": 121,
-     "name": "?sub_00480340_ResetWarden@@YAXXZ"
-    },
     {
      "va": "0x00480490",
      "length": 10,

@@ -57,7 +57,6 @@ class WardenModule;
 
 struct D2ClientSlotObjStrc;
 
-struct D2ClientSlotHolderStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -323,6 +322,14 @@ extern int gnGlobal_007BEEE8; // 0x007BEEE8
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
+struct D2ClientSlotObjStrc
+{
+    virtual void Slot0();
+    virtual void Slot1();
+    virtual void Slot2(int nArg1, int nArg2, int* pOut);
+    virtual void Slot3(int nArg);
+};
+
 class WardenModule
 {
 public:
@@ -342,7 +349,7 @@ public:
     void* pImage;
     int unk0x04;
     int nImports;
-    int unk0x0C;
+    D2ClientSlotObjStrc* pObj;
     void* f_10;
 };
 
@@ -445,7 +452,7 @@ static int __stdcall sub_0047FA20_VerifyModuleSignature(const char* szName, unsi
 
 void __cdecl sub_00480230(); // 0x00480230
 
-extern D2ClientSlotHolderStrc* gpSlotHolder_007BC990; // 0x007BC990
+extern WardenModule* gpSlotHolder_007BC990; // 0x007BC990
 
 int gnOptionSelected_007BC938; // 0x007BC938
 
@@ -479,19 +486,7 @@ int __fastcall sub_004803C0_InitWarden(int nValue);
 
 bool __stdcall sub_00480020_LoadModuleByKey(const unsigned char* pModuleKey, const unsigned char* pRc4Key);
 
-struct D2ClientSlotObjStrc
-{
-    virtual void Slot0();
-    virtual void Slot1();
-    virtual void Slot2(int nArg1, int nArg2, int* pOut);
-    virtual void Slot3(int nArg);
-};
 
-struct D2ClientSlotHolderStrc
-{
-    char unk0x00[0x0C];
-    D2ClientSlotObjStrc* pObj;
-};
 
 // 0x00479230
 void __fastcall sub_00479230_UpdateOwnerPetFlags(int nOwnerId)
@@ -716,7 +711,7 @@ WardenModule::WardenModule()
     pImage = 0;
     unk0x04 = 0;
     nImports = 0;
-    unk0x0C = 0;
+    pObj = 0;
     f_10 = 0;
 }
 
@@ -923,6 +918,18 @@ void WardenModule_EmitDelete(WardenModule* pModule)
     delete pModule;
 }
 
+// 0x004801D0
+void __cdecl sub_004801D0_UnloadWarden()
+{
+    if (gpSlotHolder_007BC990)
+    {
+        gpSlotHolder_007BC990->pObj->Slot1();
+        gpSlotHolder_007BC990->~WardenModule();
+        delete gpSlotHolder_007BC990;
+    }
+    gpSlotHolder_007BC990 = 0;
+}
+
 // 0x00480320
 void __fastcall sub_00480320_CallHolderSlot3(int nArg)
 {
@@ -931,6 +938,25 @@ void __fastcall sub_00480320_CallHolderSlot3(int nArg)
         gpSlotHolder_007BC990->pObj->Slot3(nArg);
         sub_00480230();
     }
+}
+
+
+// 0x00480340
+void __cdecl sub_00480340_ResetWarden()
+{
+    if (gpPendingWarden_007BC994)
+    {
+        gpPendingWarden_007BC994->~WardenModule();
+        delete gpPendingWarden_007BC994;
+        gpPendingWarden_007BC994 = 0;
+    }
+    sub_004801D0_UnloadWarden();
+    gnWardenIfaceValue_00721C94 = -1;
+    gpService_007BC998 = 0;
+    if (gpWardenBuffer_007BC988)
+        SMemFree(gpWardenBuffer_007BC988, ".\\WARDEN\\WardenClient.cpp", 0x24F, 0);
+    gpWardenBuffer_007BC988 = 0;
+    gnWardenBufferSize_007BC98C = 0;
 }
 
 // 0x004803C0
