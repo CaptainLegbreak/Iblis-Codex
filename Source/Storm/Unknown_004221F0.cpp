@@ -267,22 +267,7 @@ static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(D2StormQueueS
     return 0;
 }
 
-// build: context sub_004225C0_DivUInt
-static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c)
-{
-    a.SetCount(b.Count());
-    unsigned __int64 nData = 0;
-    unsigned int i = b.Count();
-    while (i)
-    {
-        --i;
-        nData = nData * 0x100000000ui64 + b[i];
-        a[i] = (unsigned int)(nData / c);
-        nData %= c;
-    }
-    a.sub_00422140_Trim();
-    *pRemainder = (unsigned int)nData;
-}
+void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c); // 0x004225C0
 
 // 0x00422750
 static __declspec(noinline) int sub_00422750_IsOne(D2StormQueueStrc& a)

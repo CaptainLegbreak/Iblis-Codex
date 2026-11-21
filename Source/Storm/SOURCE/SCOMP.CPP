@@ -302,14 +302,7 @@ int __cdecl sub_00412240_DestroyHeaps()
     return 1;
 }
 
-// build: context sub_0041D7D0_VerifySignature
-int __fastcall sub_0041D7D0_VerifySignature(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize)
-{
-    D2StormHashBufferStrc* pBuffer;
-    sub_0041D3B0_NewHashBuffer(&pBuffer, nSignSize, nModulusSize);
-    sub_0041D420_HashBuffered(pBuffer, pData, nSize);
-    return sub_0041D6D0_VerifyHashBuffer(pBuffer, pExponent, pModulus);
-}
+int __fastcall sub_0041D7D0_VerifySignature(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize); // 0x0041D7D0
 
 // 0x0041DF40
 void __fastcall sub_0041DF40_CompressImplode(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int* pType, int nLevel)

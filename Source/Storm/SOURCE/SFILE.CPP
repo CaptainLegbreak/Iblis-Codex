@@ -1184,11 +1184,7 @@ char* __stdcall sub_00414200_StrLower(char* szString)
     return _strlwr(szString);
 }
 
-// build: context sub_00414220_PowInt
-double __fastcall sub_00414220_PowInt(double x, int nExp)
-{
-    return StormPowInt(x, nExp);
-}
+double __fastcall sub_00414220_PowInt(double x, int nExp); // 0x00414220
 
 // 0x00414260
 double __cdecl sub_00414260_PowInt(double x, int nExp)

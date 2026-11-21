@@ -349,29 +349,7 @@ static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a)
     a.SetCount(0);
 }
 
-// build: context sub_00422D00_Shl
-
-static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
-{
-    unsigned int nWords = nShift / 32;
-    unsigned int nBits = nShift % 32;
-    unsigned int nCount = b.Count() + nWords + 1;
-    unsigned int i = nCount;
-    while (i)
-    {
-        --i;
-        unsigned int nValue = 0;
-        if (i >= nWords)
-        {
-            nValue = b[i - nWords] << nBits;
-            if (i > nWords && nBits)
-                nValue += b[i - nWords - 1] >> (32 - nBits);
-        }
-        a[i] = nValue;
-    }
-    a.SetCount(nCount);
-    a.sub_00422140_Trim();
-}
+void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422D00
 
 // 0x00422E70
 static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)

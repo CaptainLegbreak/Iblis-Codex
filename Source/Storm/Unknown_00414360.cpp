@@ -39,29 +39,11 @@ extern "C" void __cdecl sub_00414360_CallThenSetFlag()
     gnFlag_007788DC = 1;
 }
 
-// build: context sub_004F8DC0_InitLookupTable
-extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
-{
-    sub_004F7CC0();
-    gnBufferBase_007D5448 = 0;
-}
+extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
 
-// build: context sub_004B9D00_ResetSoundState
-extern "C" void __cdecl sub_004B9D00_ResetSoundState()
-{
-    gnSoundFlag_007C545C = 1;
-    gnSoundSerial_007C5460 = 0;
-    sub_004E4280();
-}
+extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
 
-// build: context sub_0044BB80_ShutdownIfActive
-extern "C" int __cdecl sub_0044BB80_ShutdownIfActive()
-{
-    if (gnSubsystemActive_007A0458 == 0)
-        return 0;
-    gnSubsystemActive_007A0458 = 0;
-    return GAME_Shutdown();
-}
+extern "C" int __cdecl sub_0044BB80_ShutdownIfActive(); // 0x0044BB80
 
 // 0x00414990
 int __fastcall sub_00414990_SRegDeleteEntry(unsigned int nFlags, const char* szKeyName, const char* szValueName)
