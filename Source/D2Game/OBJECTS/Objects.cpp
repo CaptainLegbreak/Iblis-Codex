@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameAux.h"
@@ -21,8 +22,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_OBJECT 2
-
-#define OBJECT_FLIES 103
 
 #define EVENTTYPE_MODECHANGE 0
 

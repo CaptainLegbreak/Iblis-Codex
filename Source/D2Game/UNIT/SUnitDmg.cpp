@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
@@ -33,10 +34,6 @@
 #define ITEMQUAL_NORMAL 2
 
 #define STAT_STAMINA 10
-
-#define OBJECT_FIRE_SMALL 160
-
-#define OBJECT_FIRE_LARGE 162
 
 #define EVENTTYPE_ENDANIM 1
 

@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -25,8 +26,6 @@
 #define QUEST_A2Q5_SUMMONER 12
 
 #define ACT_II 1
-
-#define OBJECT_EUNUCH_HAREM_BLOCKER 318
 
 #define EVENTTYPE_ENDANIM 1
 
@@ -68,7 +67,6 @@ enum D2C_M11A2Q4Constants
     QFLAG_CUSTOM3 = 7,
     QFLAG_CUSTOM4 = 8,
     QFLAG_PRIMARYGOALDONE = 13,
-    OBJECT_PERMANENT_TOWN_PORTAL = 60,
 };
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);

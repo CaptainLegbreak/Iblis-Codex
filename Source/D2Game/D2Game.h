@@ -679,8 +679,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define NUM_ACTS 5
 #define OBJECT_EXPLODINGBARREL 11
 #define OBJECT_INTERACT_TRAPPED 0x80
-#define OBJECT_STEEG_STONE 337
-#define OBJECT_TOWN_PORTAL 59
 #define PATHTYPE_WALL_FOLLOW 15
 #define PCLASS_PALADIN 3
 #define PETTYPE_HIREABLE 7

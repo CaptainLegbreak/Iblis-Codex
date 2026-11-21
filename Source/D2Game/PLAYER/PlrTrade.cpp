@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -54,7 +55,6 @@ void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc
 
 enum
 {
-    OBJECT_STASH = 0x10B,
     UPDATEUI_OPENSTASH = 0x10,
 };
 

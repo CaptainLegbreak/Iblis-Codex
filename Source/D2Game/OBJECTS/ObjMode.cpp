@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2MissileIds.h"
 #include "D2ItemTypes.h"
 #include "D2SkillIds.h"
@@ -525,24 +526,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 #define QFLAG_REWARDGRANTED 0
 
 #define QFLAG_PRIMARYGOALDONE 13
-
-#define OBJECT_STONETHETA 22
-
-#define OBJECT_OBELISK 80
-
-#define OBJECT_DESERT_OBELISK 90
-
-#define OBJECT_PORTAL_TO_DURIELS_LAIR 100
-
-#define OBJECT_JERHYN_PLACEHOLDER1 121
-
-#define OBJECT_JERHYN_PLACEHOLDER2 122
-
-#define OBJECT_ORIFICE 152
-
-#define OBJECT_STASH 267
-
-#define OBJECT_GUILD_PORTAL 377
 
 struct D2ObjOperateStrc;
 

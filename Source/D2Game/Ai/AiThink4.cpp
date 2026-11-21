@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -73,10 +74,6 @@ enum
     MONMODE_RUN = 15,
 };
 
-enum
-{
-    OBJECT_BAALS_PORTAL_WORLDSTONECHAMBER = 563,
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

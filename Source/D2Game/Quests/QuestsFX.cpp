@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
