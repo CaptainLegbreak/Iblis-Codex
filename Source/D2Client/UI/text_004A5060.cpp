@@ -142,7 +142,7 @@ void __cdecl sub_004A5060_LayoutSlider()
     gnSliderPos_007C02CC = sub_F08_TrackSpan() * gnSliderScale_007C02AC / sub_004A44C0_GetMaxFirstEntry() + sub_F08_TrackTop();
 }
 
-#include "gen/data/Source/D2Client/Unknown_004A5060.inc"
+#include "gen/data/Source/D2Client/UI/text_004A5060.inc"
 
 int gnScreenHeight_007A521C; // 0x007A521C
 
