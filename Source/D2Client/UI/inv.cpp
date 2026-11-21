@@ -1,4 +1,5 @@
 #include <D2UnitData.h>
+#include "D2ClientTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
@@ -515,15 +516,6 @@ int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 int __stdcall sub_0064B2A0(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCellFile;
-    char unk0x38[0x08];
-    int nDirection;
-    char unk0x44[0x04];
-};
 
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
