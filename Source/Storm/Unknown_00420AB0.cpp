@@ -1,4 +1,5 @@
 #include "D2StormLink.h"
+#include "Storm.h"
 struct HWND__;
 struct D2StormLinkStrc;
 struct D2StormListStrc;
@@ -33,13 +34,6 @@ struct D2Storm4168F0Strc
     D2StormLinkStrc f_0;
 
     ~D2Storm4168F0Strc();
-};
-
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
 };
 
 // 0x00420AB0

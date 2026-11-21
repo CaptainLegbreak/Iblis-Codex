@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "Storm.h"
 #define VALIDATEBEGIN int nValid = -1
 #define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEKEEP(x) nValid = (x) ? nValid : 0
@@ -183,18 +184,6 @@ void __stdcall SMemZero(void*, unsigned int); // 0x0041D300
 typedef unsigned int size_t;
 
 
-struct T0041FA40
-{
-    void* hLog;
-    T0041FA40* pNext;
-    void* hFile;
-    unsigned long nUsed;
-    unsigned long nPended;
-    int nIndent;
-    int bTimestamp;
-    char szBuffer[0x10000];
-};
-
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
@@ -375,7 +364,7 @@ int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** p
         return 0;
     }
     pLog->hFile = hFile;
-    pLog->bTimestamp = 1;
+    pLog->f_18 = 1;
     pLog->nIndent = 0;
     sub_0041FCE0_UnlockLog(nIndex);
     return 1;

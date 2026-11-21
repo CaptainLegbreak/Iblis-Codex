@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2Primitives.h"
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
 #include "D2FogTypes.h"
@@ -29,15 +30,6 @@ struct D2FindDataStrc
     unsigned long dwReserved1;
     char cFileName[260];
     char cAlternateFileName[14];
-};
-
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

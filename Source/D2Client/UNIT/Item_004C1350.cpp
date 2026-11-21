@@ -1,4 +1,5 @@
 #include "D2StatIds.h"
+#include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
@@ -18,17 +19,6 @@ struct D2GemsTxt;
 struct D2UnitTargetStrc;
 
 
-
-struct D2SkillStateStrc
-{
-    int nLife;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightOwnerGUID;
-    int nLeftOwnerGUID;
-};
 
 void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
 void __fastcall sub_0046F950(D2UnitStrc* pUnit);                                                            // 0x0046F950

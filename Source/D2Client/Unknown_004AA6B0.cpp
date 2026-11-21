@@ -1,12 +1,5 @@
+#include "D2Client.h"
 struct D2UnitStrc;
-
-struct D2SkillIconStateStrc
-{
-    char unk0x000[0x2D0];
-    int anValues[60];
-    unsigned char bFlag;
-    char unk0x3C1[0x4];
-};
 
 extern D2SkillIconStateStrc gtSkillIconState_007C0300;                                                      // 0x007C0300
 extern int gbGlobal_007C07FC;                                                                               // 0x007C07FC
