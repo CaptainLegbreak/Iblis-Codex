@@ -648,14 +648,10 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Launch/Src/MainMenus_0042F540.cpp": {
-   "bytes": 2420,
-   "definitions": 4,
+  "Source/D2Launch/Src/MainMenus.cpp": {
+   "bytes": 13628,
+   "definitions": 56,
    "externs": [
-    "extern \"C\" char gData_007089B4[]; // 0x007089B4",
-    "extern \"C\" char gData_007089BC[]; // 0x007089BC",
-    "extern \"C\" char gData_007089C4[]; // 0x007089C4",
-    "extern \"C\" char gData_007089DC[]; // 0x007089DC",
     "extern \"C\" char gpCellFile_00779738[]; // 0x00779738",
     "extern \"C\" char gpCellFile_0077973C[]; // 0x0077973C",
     "extern \"C\" char gpCellFile_0077974C[]; // 0x0077974C",
@@ -670,79 +666,13 @@
     "extern \"C\" void __cdecl sub_00437710_OnInfoScreen(); // 0x00437710",
     "extern \"C\" void __cdecl sub_00437720_OnPasswordScreen(); // 0x00437720",
     "extern \"C\" void __cdecl sub_00437730_ChangePassword(); // 0x00437730",
-    "extern \"C\" void __cdecl sub_004378D0_SubmitTexts(); // 0x004378D0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Src/MainMenus_0042F540.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/GAME/Game.cpp": {
-   "bytes": 20,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl sub_0044C990_DrawGameView(); // 0x0044C990",
-    "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
-    "extern \"C\" void __cdecl sub_00460190_DrawFrame(); // 0x00460190"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/Game.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Multi/Src/ComCallback.cpp": {
-   "bytes": 888,
-   "definitions": 23,
-   "externs": [
-    "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
-    "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C",
-    "extern \"C\" char gpCellFile_0077BD2C[]; // 0x0077BD2C",
-    "extern \"C\" void __cdecl sub_004438C0_OnCancel(); // 0x004438C0",
-    "extern \"C\" void __cdecl sub_00445530_ResetBuildPanel(); // 0x00445530",
-    "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
-    "extern \"C\" char gpCellFile_0077BD3C[]; // 0x0077BD3C",
-    "extern \"C\" char gpCellFile_0077BD40[]; // 0x0077BD40",
-    "extern \"C\" void __cdecl sub_00443EF0_OnSelect(); // 0x00443EF0",
-    "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
-    "extern \"C\" void __cdecl sub_00443F80_SubmitCreateGame(); // 0x00443F80"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Src/ComCallback.inc",
-   "lang": "cpp",
-   "state": "included",
-   "static_definitions": 3
-  },
-  "Source/D2Launch/Src/CharSel_00430520.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Src/CharSel_00430520.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Launch/Src/MainMenus_00431AF0.cpp": {
-   "bytes": 144,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Src/MainMenus_00431AF0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Launch/Src/MainMenus_00432EF0.cpp": {
-   "bytes": 11208,
-   "definitions": 52,
-   "externs": [
+    "extern \"C\" void __cdecl sub_004378D0_SubmitTexts(); // 0x004378D0",
     "extern \"C\" char gpCellFile_00779720[]; // 0x00779720",
     "extern \"C\" char gpCellFile_00779724[]; // 0x00779724",
     "extern \"C\" char gpCellFile_00779728[]; // 0x00779728",
     "extern \"C\" char gpCellFile_00779730[]; // 0x00779730",
     "extern \"C\" char gpCellFile_00779734[]; // 0x00779734",
-    "extern \"C\" char gpCellFile_00779738[]; // 0x00779738",
-    "extern \"C\" char gpCellFile_0077973C[]; // 0x0077973C",
     "extern \"C\" char gpCellFile_00779744[]; // 0x00779744",
-    "extern \"C\" char gpCellFile_0077974C[]; // 0x0077974C",
     "extern \"C\" char gpCellFile_0077975C[]; // 0x0077975C",
     "extern \"C\" char gpCellFile_00779764[]; // 0x00779764",
     "extern \"C\" char gpCellFile_0077976C[]; // 0x0077976C",
@@ -812,29 +742,11 @@
     "extern \"C\" void __cdecl sub_0042FFD0_ShowAddress(); // 0x0042FFD0",
     "extern \"C\" void __cdecl sub_00430120_OnToggle(); // 0x00430120",
     "extern \"C\" void __cdecl sub_00430160_OnToggle(); // 0x00430160",
-    "extern \"C\" void __cdecl sub_00430430_OnBack(); // 0x00430430",
-    "extern \"C\" void __cdecl sub_00430440_ScrollUp(); // 0x00430440",
-    "extern \"C\" void __cdecl sub_004304B0_ScrollDown(); // 0x004304B0",
-    "extern \"C\" void __cdecl sub_00430730_ToggleFlag04(); // 0x00430730",
-    "extern \"C\" void __cdecl sub_00430750_ToggleFlag40(); // 0x00430750",
-    "extern \"C\" void __cdecl sub_00430770_ToggleFlag20(); // 0x00430770",
     "extern \"C\" void __cdecl sub_00430840(); // 0x00430840",
     "extern \"C\" void __cdecl sub_00430870(); // 0x00430870",
-    "extern \"C\" void __cdecl sub_004308A0_ExpansionNotice6(); // 0x004308A0",
-    "extern \"C\" void __cdecl sub_004308E0_ExpansionNotice5(); // 0x004308E0",
     "extern \"C\" void __cdecl sub_00430920(); // 0x00430920",
     "extern \"C\" void __cdecl sub_00430950(); // 0x00430950",
     "extern \"C\" void __cdecl sub_00430980(); // 0x00430980",
-    "extern \"C\" void __cdecl sub_00430C30_OnCancel(); // 0x00430C30",
-    "extern \"C\" void __cdecl sub_00430C50_OnCreate(); // 0x00430C50",
-    "extern \"C\" void __cdecl sub_00431910_SetFlagD4(); // 0x00431910",
-    "extern \"C\" void __cdecl sub_00431920_SetFlagD4(); // 0x00431920",
-    "extern \"C\" void __cdecl sub_00431930_RunAndSetFlag(); // 0x00431930",
-    "extern \"C\" void __cdecl sub_00431D20_CreateTcpIpScreen(); // 0x00431D20",
-    "extern \"C\" void __cdecl sub_00431E00_CreateControl10B(); // 0x00431E00",
-    "extern \"C\" void __cdecl sub_00432310_StoreAccount(); // 0x00432310",
-    "extern \"C\" void __cdecl sub_00432340_Callback(); // 0x00432340",
-    "extern \"C\" void __cdecl sub_00432EE0_CloseBox(); // 0x00432EE0",
     "extern \"C\" void __cdecl sub_00433BF0_SelectCharacterClass(); // 0x00433BF0",
     "extern \"C\" void __cdecl sub_004341F0_CheckListEnd(); // 0x004341F0",
     "extern \"C\" void __cdecl sub_00434320_PlayD2Intro(); // 0x00434320",
@@ -845,24 +757,19 @@
     "extern \"C\" void __cdecl sub_00434500_PlayXIntro(); // 0x00434500",
     "extern \"C\" void __cdecl sub_00434560_PlayXOutro(); // 0x00434560",
     "extern \"C\" void __cdecl sub_004345C0_ReloadAndLeave(); // 0x004345C0",
-    "extern \"C\" void __cdecl sub_00434700(); // 0x00434700",
     "extern \"C\" void __cdecl sub_00434760_ResetAndLeave(); // 0x00434760",
     "extern \"C\" void __cdecl sub_00434790_JoinTcpIp(); // 0x00434790",
     "extern \"C\" void __cdecl sub_00434DD0_ClearAndLeave(); // 0x00434DD0",
     "extern \"C\" void __cdecl sub_00434E00_CheckFreeSpace(); // 0x00434E00",
     "extern \"C\" void __cdecl sub_00435020_Callback(); // 0x00435020",
-    "extern \"C\" void __cdecl sub_00435030_ChangePasswordOk(); // 0x00435030",
     "extern \"C\" void __cdecl sub_00435200_RunSlot70(); // 0x00435200",
-    "extern \"C\" void __cdecl sub_00435D50(); // 0x00435D50",
     "extern \"C\" void __cdecl sub_00435D80_SelectMode2(); // 0x00435D80",
     "extern \"C\" void __cdecl sub_00435E00_Back(); // 0x00435E00",
-    "extern \"C\" void __cdecl sub_004361B0_LoginOk(); // 0x004361B0",
     "extern \"C\" void __cdecl sub_00436270_OnShowLogin(); // 0x00436270",
     "extern \"C\" void __cdecl sub_00436280_ConnectOk(); // 0x00436280",
     "extern \"C\" void __cdecl sub_00436300_BackToLogin(); // 0x00436300",
     "extern \"C\" void __cdecl sub_00436360_SubmitCharacter(); // 0x00436360",
     "extern \"C\" void __cdecl sub_00436590_Back(); // 0x00436590",
-    "extern \"C\" void __cdecl sub_00436910_CreateAccountOk(); // 0x00436910",
     "extern \"C\" void __cdecl sub_004369F0_OkClick(); // 0x004369F0",
     "extern \"C\" void __cdecl sub_00439840(); // 0x00439840",
     "extern \"C\" void __cdecl sub_00439B80(); // 0x00439B80",
@@ -876,17 +783,68 @@
     "extern \"C\" void __cdecl sub_00439DA0_ScrollDown(); // 0x00439DA0",
     "extern \"C\" void __cdecl sub_00439DF0_OnScroll(); // 0x00439DF0",
     "extern \"C\" void __cdecl sub_0043A0D0_ListKeyDown(); // 0x0043A0D0",
-    "extern \"C\" void __cdecl sub_0043A950(); // 0x0043A950",
     "extern \"C\" void __cdecl sub_0043A9A0_CopyName(); // 0x0043A9A0",
     "extern \"C\" void __cdecl sub_0043A9D0_ListClick(); // 0x0043A9D0",
     "extern \"C\" void __cdecl sub_0043AC00_PollConnect(); // 0x0043AC00",
     "extern \"C\" void __cdecl sub_0043B490_OnName(); // 0x0043B490",
-    "extern \"C\" void __cdecl sub_0043B4C0(); // 0x0043B4C0",
     "extern \"C\" void __cdecl sub_0043B520_OnCharSelect(); // 0x0043B520",
     "extern \"C\" void __cdecl sub_0043B6B0_JoinSelected(); // 0x0043B6B0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Src/MainMenus_00432EF0.inc",
+   "include": "gen/data/Source/D2Launch/Src/MainMenus_0042F540.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/GAME/Game.cpp": {
+   "bytes": 20,
+   "definitions": 3,
+   "externs": [
+    "extern \"C\" void __cdecl sub_0044C990_DrawGameView(); // 0x0044C990",
+    "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
+    "extern \"C\" void __cdecl sub_00460190_DrawFrame(); // 0x00460190"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/Game.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Multi/Src/ComCallback.cpp": {
+   "bytes": 888,
+   "definitions": 23,
+   "externs": [
+    "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
+    "extern \"C\" char gData_0070CD9C[]; // 0x0070CD9C",
+    "extern \"C\" char gpCellFile_0077BD2C[]; // 0x0077BD2C",
+    "extern \"C\" void __cdecl sub_004438C0_OnCancel(); // 0x004438C0",
+    "extern \"C\" void __cdecl sub_00445530_ResetBuildPanel(); // 0x00445530",
+    "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
+    "extern \"C\" char gpCellFile_0077BD3C[]; // 0x0077BD3C",
+    "extern \"C\" char gpCellFile_0077BD40[]; // 0x0077BD40",
+    "extern \"C\" void __cdecl sub_00443EF0_OnSelect(); // 0x00443EF0",
+    "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
+    "extern \"C\" void __cdecl sub_00443F80_SubmitCreateGame(); // 0x00443F80"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Multi/Src/ComCallback.inc",
+   "lang": "cpp",
+   "state": "included",
+   "static_definitions": 3
+  },
+  "Source/D2Launch/Src/CharSel_00430520.cpp": {
+   "bytes": 8,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Src/CharSel_00430520.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Launch/Src/MainMenus_00431AF0.cpp": {
+   "bytes": 144,
+   "definitions": 3,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Src/MainMenus_00431AF0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -14445,7 +14403,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_0042F540.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnTextMode_00708D0C = ",
@@ -14470,7 +14428,7 @@
    "cname": "gData_0070C208",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_0042F540.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070C208_t gData_0070C208; // 0x0070C208",
    "head": "extern \"C\" struct d2data_0070C208_t gData_0070C208 = ",
@@ -14496,7 +14454,7 @@
    "cname": "gData_0070C238",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_0042F540.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070C238_t gData_0070C238; // 0x0070C238",
    "head": "extern \"C\" struct d2data_0070C238_t gData_0070C238 = ",
@@ -14522,7 +14480,7 @@
    "cname": "gData_0070C268",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_0042F540.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070C268_t gData_0070C268; // 0x0070C268",
    "head": "extern \"C\" struct d2data_0070C268_t gData_0070C268 = ",
@@ -14539,7 +14497,7 @@
     [
      64,
      "0x007089B4",
-     "generated",
+     "generated_same_file",
      "gData_007089B4",
      0,
      "data"
@@ -14547,7 +14505,7 @@
     [
      112,
      "0x007089BC",
-     "generated",
+     "generated_same_file",
      "gData_007089BC",
      0,
      "data"
@@ -14555,7 +14513,7 @@
     [
      160,
      "0x007089BC",
-     "generated",
+     "generated_same_file",
      "gData_007089BC",
      0,
      "data"
@@ -14579,7 +14537,7 @@
     [
      304,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14587,7 +14545,7 @@
     [
      352,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14595,7 +14553,7 @@
     [
      400,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14603,7 +14561,7 @@
     [
      448,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14611,7 +14569,7 @@
     [
      496,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -14619,7 +14577,7 @@
     [
      544,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -14675,7 +14633,7 @@
     [
      736,
      "0x007089B4",
-     "generated",
+     "generated_same_file",
      "gData_007089B4",
      0,
      "data"
@@ -14715,7 +14673,7 @@
     [
      880,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14731,7 +14689,7 @@
     [
      976,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14747,7 +14705,7 @@
     [
      1024,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -14763,7 +14721,7 @@
     [
      1120,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14779,7 +14737,7 @@
     [
      1168,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -14787,7 +14745,7 @@
     [
      1216,
      "0x007089B4",
-     "generated",
+     "generated_same_file",
      "gData_007089B4",
      0,
      "data"
@@ -14795,7 +14753,7 @@
     [
      1264,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14803,7 +14761,7 @@
     [
      1312,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14811,7 +14769,7 @@
     [
      1360,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14883,7 +14841,7 @@
     [
      1600,
      "0x007089B4",
-     "generated",
+     "generated_same_file",
      "gData_007089B4",
      0,
      "data"
@@ -14891,7 +14849,7 @@
     [
      1648,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14907,7 +14865,7 @@
     [
      1744,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14923,7 +14881,7 @@
     [
      1792,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -14939,7 +14897,7 @@
     [
      1888,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14955,7 +14913,7 @@
     [
      1936,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -14971,7 +14929,7 @@
     [
      2032,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -14987,7 +14945,7 @@
     [
      2080,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -15003,7 +14961,7 @@
     [
      2176,
      "0x007089C4",
-     "generated",
+     "generated_same_file",
      "gData_007089C4",
      0,
      "data"
@@ -15019,7 +14977,7 @@
     [
      2224,
      "0x007089DC",
-     "generated",
+     "generated_same_file",
      "gData_007089DC",
      0,
      "data"
@@ -16166,7 +16124,7 @@
    "cname": "gData_007089AC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089AC_t gData_007089AC; // 0x007089AC",
    "head": "extern \"C\" struct d2data_007089AC_t gData_007089AC = ",
@@ -16183,7 +16141,7 @@
    "cname": "gData_007089B4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089B4_t gData_007089B4; // 0x007089B4",
    "head": "extern \"C\" struct d2data_007089B4_t gData_007089B4 = ",
@@ -16200,7 +16158,7 @@
    "cname": "gData_007089BC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089BC_t gData_007089BC; // 0x007089BC",
    "head": "extern \"C\" struct d2data_007089BC_t gData_007089BC = ",
@@ -16217,7 +16175,7 @@
    "cname": "gData_007089C4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089C4_t gData_007089C4; // 0x007089C4",
    "head": "extern \"C\" struct d2data_007089C4_t gData_007089C4 = ",
@@ -16234,7 +16192,7 @@
    "cname": "gData_007089CC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089CC_t gData_007089CC; // 0x007089CC",
    "head": "extern \"C\" struct d2data_007089CC_t gData_007089CC = ",
@@ -16251,7 +16209,7 @@
    "cname": "gData_007089D4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089D4_t gData_007089D4; // 0x007089D4",
    "head": "extern \"C\" struct d2data_007089D4_t gData_007089D4 = ",
@@ -16268,7 +16226,7 @@
    "cname": "gData_007089DC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089DC_t gData_007089DC; // 0x007089DC",
    "head": "extern \"C\" struct d2data_007089DC_t gData_007089DC = ",
@@ -16285,7 +16243,7 @@
    "cname": "gData_007089E4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089E4_t gData_007089E4; // 0x007089E4",
    "head": "extern \"C\" struct d2data_007089E4_t gData_007089E4 = ",
@@ -16302,7 +16260,7 @@
    "cname": "gData_007089EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007089EC_t gData_007089EC; // 0x007089EC",
    "head": "extern \"C\" struct d2data_007089EC_t gData_007089EC = ",
@@ -16319,7 +16277,7 @@
    "cname": "gData_00708A00",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708A00_t gData_00708A00; // 0x00708A00",
    "head": "extern \"C\" struct d2data_00708A00_t gData_00708A00 = ",
@@ -16377,7 +16335,7 @@
    "cname": "gData_00708A50",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708A50_t gData_00708A50; // 0x00708A50",
    "head": "extern \"C\" struct d2data_00708A50_t gData_00708A50 = ",
@@ -16435,7 +16393,7 @@
    "cname": "gData_00708AA0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708AA0_t gData_00708AA0; // 0x00708AA0",
    "head": "extern \"C\" struct d2data_00708AA0_t gData_00708AA0 = ",
@@ -16493,7 +16451,7 @@
    "cname": "gData_00708AF0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708AF0_t gData_00708AF0; // 0x00708AF0",
    "head": "extern \"C\" struct d2data_00708AF0_t gData_00708AF0 = ",
@@ -16575,7 +16533,7 @@
    "cname": "gData_00708B40",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708B40_t gData_00708B40; // 0x00708B40",
    "head": "extern \"C\" struct d2data_00708B40_t gData_00708B40 = ",
@@ -16641,7 +16599,7 @@
    "cname": "gData_00708B90",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708B90_t gData_00708B90; // 0x00708B90",
    "head": "extern \"C\" struct d2data_00708B90_t gData_00708B90 = ",
@@ -16723,7 +16681,7 @@
    "cname": "gData_00708BE0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708BE0_t gData_00708BE0; // 0x00708BE0",
    "head": "extern \"C\" struct d2data_00708BE0_t gData_00708BE0 = ",
@@ -16789,7 +16747,7 @@
    "cname": "gData_00708CDC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708CDC_t gData_00708CDC; // 0x00708CDC",
    "head": "extern \"C\" struct d2data_00708CDC_t gData_00708CDC = ",
@@ -16806,7 +16764,7 @@
    "cname": "gData_00708CE8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708CE8_t gData_00708CE8; // 0x00708CE8",
    "head": "extern \"C\" struct d2data_00708CE8_t gData_00708CE8 = ",
@@ -16823,7 +16781,7 @@
    "cname": "gData_00708CF4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708CF4_t gData_00708CF4; // 0x00708CF4",
    "head": "extern \"C\" struct d2data_00708CF4_t gData_00708CF4 = ",
@@ -16840,7 +16798,7 @@
    "cname": "gData_00708D00",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708D00_t gData_00708D00; // 0x00708D00",
    "head": "extern \"C\" struct d2data_00708D00_t gData_00708D00 = ",
@@ -16857,7 +16815,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_007091F8 = ",
@@ -16882,7 +16840,7 @@
    "cname": "gData_007091FC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007091FC_t gData_007091FC; // 0x007091FC",
    "head": "extern \"C\" struct d2data_007091FC_t gData_007091FC = ",
@@ -16908,7 +16866,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_00709228 = ",
@@ -16933,7 +16891,7 @@
    "cname": "gData_0070922C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070922C_t gData_0070922C; // 0x0070922C",
    "head": "extern \"C\" struct d2data_0070922C_t gData_0070922C = ",
@@ -16959,7 +16917,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_00709258 = ",
@@ -16984,7 +16942,7 @@
    "cname": "gData_0070925C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070925C_t gData_0070925C; // 0x0070925C",
    "head": "extern \"C\" struct d2data_0070925C_t gData_0070925C = ",
@@ -17026,7 +16984,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_007092E8 = ",
@@ -17051,7 +17009,7 @@
    "cname": "gData_007092EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007092EC_t gData_007092EC; // 0x007092EC",
    "head": "extern \"C\" struct d2data_007092EC_t gData_007092EC = ",
@@ -17077,7 +17035,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_00709318 = ",
@@ -17102,7 +17060,7 @@
    "cname": "gData_0070931C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070931C_t gData_0070931C; // 0x0070931C",
    "head": "extern \"C\" struct d2data_0070931C_t gData_0070931C = ",
@@ -17127,7 +17085,7 @@
     [
      120,
      "0x004361B0",
-     "names.json",
+     "owner",
      "sub_004361B0_LoginOk",
      0,
      "func"
@@ -17143,7 +17101,7 @@
     [
      168,
      "0x004361B0",
-     "names.json",
+     "owner",
      "sub_004361B0_LoginOk",
      0,
      "func"
@@ -17183,7 +17141,7 @@
     [
      260,
      "0x00432310",
-     "names.json",
+     "owner",
      "sub_00432310_StoreAccount",
      0,
      "func"
@@ -17199,7 +17157,7 @@
     [
      308,
      "0x004361B0",
-     "names.json",
+     "owner",
      "sub_004361B0_LoginOk",
      0,
      "func"
@@ -17431,7 +17389,7 @@
     [
      1268,
      "0x00431930",
-     "names.json",
+     "owner",
      "sub_00431930_RunAndSetFlag",
      0,
      "func"
@@ -17447,7 +17405,7 @@
     [
      1316,
      "0x00431920",
-     "names.json",
+     "owner",
      "sub_00431920_SetFlagD4",
      0,
      "func"
@@ -17463,7 +17421,7 @@
     [
      1364,
      "0x00431910",
-     "names.json",
+     "owner",
      "sub_00431910_SetFlagD4",
      0,
      "func"
@@ -17647,7 +17605,7 @@
     [
      2036,
      "0x00435D50",
-     "names.json",
+     "owner",
      "sub_00435D50",
      0,
      "func"
@@ -17679,7 +17637,7 @@
     [
      2084,
      "0x00434700",
-     "names.json",
+     "source",
      "sub_00434700",
      0,
      "func"
@@ -17743,7 +17701,7 @@
     [
      2276,
      "0x00430430",
-     "names.json",
+     "owner",
      "sub_00430430_OnBack",
      0,
      "func"
@@ -17776,7 +17734,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_00709C48 = ",
@@ -17801,7 +17759,7 @@
    "cname": "gData_00709C4C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00709C4C_t gData_00709C4C; // 0x00709C4C",
    "head": "extern \"C\" struct d2data_00709C4C_t gData_00709C4C = ",
@@ -17818,7 +17776,7 @@
     [
      68,
      "0x00430440",
-     "names.json",
+     "owner",
      "sub_00430440_ScrollUp",
      0,
      "func"
@@ -17826,7 +17784,7 @@
     [
      116,
      "0x004304B0",
-     "names.json",
+     "owner",
      "sub_004304B0_ScrollDown",
      0,
      "func"
@@ -17834,7 +17792,7 @@
     [
      168,
      "0x00436910",
-     "names.json",
+     "owner",
      "sub_00436910_CreateAccountOk",
      0,
      "func"
@@ -17850,7 +17808,7 @@
     [
      216,
      "0x00436910",
-     "names.json",
+     "owner",
      "sub_00436910_CreateAccountOk",
      0,
      "func"
@@ -17866,7 +17824,7 @@
     [
      264,
      "0x00436910",
-     "names.json",
+     "owner",
      "sub_00436910_CreateAccountOk",
      0,
      "func"
@@ -17890,7 +17848,7 @@
     [
      308,
      "0x00436910",
-     "names.json",
+     "owner",
      "sub_00436910_CreateAccountOk",
      0,
      "func"
@@ -17914,7 +17872,7 @@
     [
      408,
      "0x00435030",
-     "names.json",
+     "owner",
      "sub_00435030_ChangePasswordOk",
      0,
      "func"
@@ -17930,7 +17888,7 @@
     [
      456,
      "0x00435030",
-     "names.json",
+     "owner",
      "sub_00435030_ChangePasswordOk",
      0,
      "func"
@@ -17946,7 +17904,7 @@
     [
      504,
      "0x00435030",
-     "names.json",
+     "owner",
      "sub_00435030_ChangePasswordOk",
      0,
      "func"
@@ -17962,7 +17920,7 @@
     [
      552,
      "0x00435030",
-     "names.json",
+     "owner",
      "sub_00435030_ChangePasswordOk",
      0,
      "func"
@@ -17986,7 +17944,7 @@
     [
      596,
      "0x00435030",
-     "names.json",
+     "owner",
      "sub_00435030_ChangePasswordOk",
      0,
      "func"
@@ -18002,7 +17960,7 @@
     [
      644,
      "0x00432340",
-     "names.json",
+     "owner",
      "sub_00432340_Callback",
      0,
      "func"
@@ -18019,7 +17977,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_00709EE8 = ",
@@ -18044,7 +18002,7 @@
    "cname": "gData_00709EEC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00709EEC_t gData_00709EEC; // 0x00709EEC",
    "head": "extern \"C\" struct d2data_00709EEC_t gData_00709EEC = ",
@@ -18229,7 +18187,7 @@
     [
      836,
      "0x0043B4C0",
-     "names.json",
+     "owner",
      "sub_0043B4C0",
      0,
      "func"
@@ -18261,7 +18219,7 @@
     [
      884,
      "0x0043A950",
-     "names.json",
+     "source",
      "sub_0043A950",
      0,
      "func"
@@ -18317,7 +18275,7 @@
     [
      1124,
      "0x0043B4C0",
-     "names.json",
+     "owner",
      "sub_0043B4C0",
      0,
      "func"
@@ -18349,7 +18307,7 @@
     [
      1172,
      "0x0043A950",
-     "names.json",
+     "source",
      "sub_0043A950",
      0,
      "func"
@@ -19117,7 +19075,7 @@
     [
      3764,
      "0x00432EE0",
-     "names.json",
+     "owner",
      "sub_00432EE0_CloseBox",
      0,
      "func"
@@ -19141,7 +19099,7 @@
     [
      3860,
      "0x00430C30",
-     "names.json",
+     "owner",
      "sub_00430C30_OnCancel",
      0,
      "func"
@@ -19414,7 +19372,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070B088 = ",
@@ -19439,7 +19397,7 @@
    "cname": "gData_0070B08C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B08C_t gData_0070B08C; // 0x0070B08C",
    "head": "extern \"C\" struct d2data_0070B08C_t gData_0070B08C = ",
@@ -19464,7 +19422,7 @@
     [
      68,
      "0x00430730",
-     "names.json",
+     "owner",
      "sub_00430730_ToggleFlag04",
      0,
      "func"
@@ -19481,7 +19439,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070B0E8 = ",
@@ -19506,7 +19464,7 @@
    "cname": "gData_0070B0EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B0EC_t gData_0070B0EC; // 0x0070B0EC",
    "head": "extern \"C\" struct d2data_0070B0EC_t gData_0070B0EC = ",
@@ -19531,7 +19489,7 @@
     [
      68,
      "0x00430750",
-     "names.json",
+     "owner",
      "sub_00430750_ToggleFlag40",
      0,
      "func"
@@ -19548,7 +19506,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070B148 = ",
@@ -19573,7 +19531,7 @@
    "cname": "gData_0070B14C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B14C_t gData_0070B14C; // 0x0070B14C",
    "head": "extern \"C\" struct d2data_0070B14C_t gData_0070B14C = ",
@@ -19598,7 +19556,7 @@
     [
      68,
      "0x00430750",
-     "names.json",
+     "owner",
      "sub_00430750_ToggleFlag40",
      0,
      "func"
@@ -19615,7 +19573,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070B1A8 = ",
@@ -19640,7 +19598,7 @@
    "cname": "gData_0070B1AC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B1AC_t gData_0070B1AC; // 0x0070B1AC",
    "head": "extern \"C\" struct d2data_0070B1AC_t gData_0070B1AC = ",
@@ -19665,7 +19623,7 @@
     [
      68,
      "0x00430750",
-     "names.json",
+     "owner",
      "sub_00430750_ToggleFlag40",
      0,
      "func"
@@ -19714,7 +19672,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070B2C8 = ",
@@ -19739,7 +19697,7 @@
    "cname": "gData_0070B2CC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B2CC_t gData_0070B2CC; // 0x0070B2CC",
    "head": "extern \"C\" struct d2data_0070B2CC_t gData_0070B2CC = ",
@@ -19765,7 +19723,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070B2F8 = ",
@@ -19790,7 +19748,7 @@
    "cname": "gData_0070B2FC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B2FC_t gData_0070B2FC; // 0x0070B2FC",
    "head": "extern \"C\" struct d2data_0070B2FC_t gData_0070B2FC = ",
@@ -19815,7 +19773,7 @@
     [
      68,
      "0x00430730",
-     "names.json",
+     "owner",
      "sub_00430730_ToggleFlag04",
      0,
      "func"
@@ -19903,7 +19861,7 @@
     [
      364,
      "0x004308A0",
-     "names.json",
+     "owner",
      "sub_004308A0_ExpansionNotice6",
      0,
      "func"
@@ -19927,7 +19885,7 @@
     [
      412,
      "0x004308E0",
-     "names.json",
+     "owner",
      "sub_004308E0_ExpansionNotice5",
      0,
      "func"
@@ -19944,7 +19902,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070B4A8 = ",
@@ -19969,7 +19927,7 @@
    "cname": "gData_0070B4AC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B4AC_t gData_0070B4AC; // 0x0070B4AC",
    "head": "extern \"C\" struct d2data_0070B4AC_t gData_0070B4AC = ",
@@ -19994,7 +19952,7 @@
     [
      68,
      "0x00430770",
-     "names.json",
+     "owner",
      "sub_00430770_ToggleFlag20",
      0,
      "func"
@@ -20115,7 +20073,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070BDA8 = ",
@@ -20140,7 +20098,7 @@
    "cname": "gData_0070BDAC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070BDAC_t gData_0070BDAC; // 0x0070BDAC",
    "head": "extern \"C\" struct d2data_0070BDAC_t gData_0070BDAC = ",
@@ -20205,7 +20163,7 @@
     [
      212,
      "0x00431D20",
-     "names.json",
+     "owner",
      "sub_00431D20_CreateTcpIpScreen",
      0,
      "func"
@@ -20245,7 +20203,7 @@
     [
      356,
      "0x00430C50",
-     "names.json",
+     "owner",
      "sub_00430C50_OnCreate",
      0,
      "func"
@@ -20270,7 +20228,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern \"C\" int gLayout_0070BF58 = ",
@@ -20295,7 +20253,7 @@
    "cname": "gData_0070BF5C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070BF5C_t gData_0070BF5C; // 0x0070BF5C",
    "head": "extern \"C\" struct d2data_0070BF5C_t gData_0070BF5C = ",
@@ -20352,7 +20310,7 @@
     [
      212,
      "0x00431E00",
-     "names.json",
+     "owner",
      "sub_00431E00_CreateControl10B",
      0,
      "func"
