@@ -76435,6 +76435,11 @@
      "name": "?_GD2CommonStormSlotListAStrc"
     },
     {
+     "va": "0x0060F020",
+     "length": 34,
+     "name": "?sub_0060F020_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
+    },
+    {
      "va": "0x0060F070",
      "length": 39,
      "name": "?0D2CommonStormListFStrc"
@@ -76450,6 +76455,11 @@
      "name": "?sub_0060F1D0_Ptr@D2StormHashTable0060F1D0Strc@@QAEPADIABUD2StormNameKeyStrc@@@Z"
     },
     {
+     "va": "0x0060F250",
+     "length": 32,
+     "name": "??0D2ChatStormListEStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0060F270",
      "length": 68,
      "name": "sub_0060F270_DeleteNode"
@@ -76458,6 +76468,11 @@
      "va": "0x0060F300",
      "length": 96,
      "name": "?_GD2CommonStormSlotListBStrc"
+    },
+    {
+     "va": "0x0060F360",
+     "length": 34,
+     "name": "?sub_0060F360_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
     },
     {
      "va": "0x0060F390",
@@ -76736,17 +76751,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F250.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060F250",
-     "length": 32,
-     "name": "??0D2ChatStormListEStrc@@QAE@XZ"
-    }
    ]
   },
   {

@@ -318,6 +318,14 @@ struct D2ChatStormListEStrc
     D2ChatStormListEStrc();
 };
 
+struct D2ChatStormListFStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListFStrc();
+};
+
 struct D2CommonStormSlotLinkStrc
 {
     D2CommonStormSlotLinkStrc* m_prevlink;
@@ -1043,6 +1051,40 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
 
 extern D2CommonIgnoreListStrc* gpIgnoreList_0096BC20; // 0x0096BC20
 
+struct D2StormCtorLinkStrc
+{
+    D2StormCtorLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2StormCtorLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+};
+
+struct D2StormDeadListStrc
+{
+    int m_linkoffset;
+    D2StormCtorLinkStrc m_terminator;
+
+    D2StormDeadListStrc()
+    {
+        m_linkoffset = 0xDDDDDDDD;
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    D2StormDeadListStrc(const D2StormDeadListStrc& source)
+    {
+        m_linkoffset = source.m_linkoffset;
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+};
+
+char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
+
+char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset);
 
 // 0x0060E0B0
 char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
@@ -1552,6 +1594,11 @@ inline void D2CommonStormSlotListAStrc::operator delete(void* pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
 
+// 0x0060F020
+void __fastcall sub_0060F020_ConstructDeadList(D2StormDeadListStrc* pList) {
+ new(pList) D2StormDeadListStrc;
+}
+
 // 0x0060F070
 D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& source)
 {
@@ -1580,6 +1627,14 @@ char* D2StormHashTable0060F1D0Strc::sub_0060F1D0_Ptr(unsigned int nHashVal, cons
     return 0;
 }
 
+// 0x0060F250
+D2ChatStormListFStrc::D2ChatStormListFStrc()
+{
+    m_linkoffset = 0xDDDDDDDD;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
 // 0x0060F270
 char* D2CommonStormListAStrc::sub_0060F270_DeleteNode(D2CommonStringEntryNodeStrc* pNode)
 {
@@ -1594,6 +1649,11 @@ inline void D2CommonStormSlotListBStrc::operator delete(void* pMemory)
 {
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
+}
+
+// 0x0060F360
+void __fastcall sub_0060F360_ConstructDeadList(D2StormDeadListStrc* pList) {
+ new(pList) D2StormDeadListStrc;
 }
 
 // 0x0060F390
