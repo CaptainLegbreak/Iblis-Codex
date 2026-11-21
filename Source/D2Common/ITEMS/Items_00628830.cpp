@@ -5,6 +5,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define D2_NORETURN __declspec(noreturn)
 #define Min(a,b) ((a) < (b) ? (a) : (b))
@@ -27,7 +28,6 @@ struct D2SkillsTxt;
 
 
 
-struct D2UniqueItemsTxt { unsigned char pad00[0x36]; short levelReq; };
 
 
 
