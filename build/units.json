@@ -1898,11 +1898,6 @@
      "name": "?sub_0046F0C0@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x00480230",
-     "length": 169,
-     "name": "?sub_00480230@@YAXXZ"
-    },
-    {
      "va": "0x00480C10",
      "length": 108,
      "name": "?sub_00480C10_DispatchUnitCommand@@YIHHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@H@Z"
@@ -24293,6 +24288,11 @@
      "va": "0x004801D0",
      "length": 89,
      "name": "?sub_004801D0_UnloadWarden@@YAXXZ"
+    },
+    {
+     "va": "0x00480230",
+     "length": 169,
+     "name": "?sub_00480230@@YAXXZ"
     },
     {
      "va": "0x00480320",
