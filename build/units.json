@@ -25535,6 +25535,10 @@
      "va": "0x00485EE0",
      "length": 544,
      "name": "?sub_00485EE0_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00488F10",
+     "length": 322
     }
    ],
    "flags": [
@@ -25740,30 +25744,6 @@
      "va": "0x0048BE80",
      "length": 471,
      "name": "?sub_0048BE80_FormatArgs@@YAXPAUUnicode@@PBU1@ZZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_00488F10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00488F10",
-     "length": 322
     }
    ],
    "flags": [
