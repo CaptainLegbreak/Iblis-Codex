@@ -2487,7 +2487,7 @@ static __declspec(noinline) int __stdcall sub_006454C0_IsSelectableCorpse(int bD
         return 0;
     }
 
-    if (!(pUnit->dwAnimMode == 12 || bDying && pUnit->dwAnimMode == 0))
+    if (!(pUnit->dwAnimMode == MONMODE_DEAD || bDying && pUnit->dwAnimMode == MONMODE_DEATH))
     {
         return 0;
     }

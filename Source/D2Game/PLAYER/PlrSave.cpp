@@ -1215,7 +1215,7 @@ int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitS
 
         break;
     }
-    case 6:
+    case IMODE_SOCKETED:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         int nUnused;
@@ -1345,7 +1345,7 @@ static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem
         QUESTS_ItemPickedUp(pGame, pUnit, pItem);
         break;
     }
-    case 6:
+    case IMODE_SOCKETED:
     {
         if (!*ppItem)
             return 13;

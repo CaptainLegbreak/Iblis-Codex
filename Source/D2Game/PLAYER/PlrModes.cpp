@@ -1899,7 +1899,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
         SKILLS_CreateBlazeMissile(pGame, pPlayer);
     }
 
-    if (pPlayer && pPlayer->dwAnimMode == 3 && !sub_0057F240_DrainRunStamina(pPlayer))
+    if (pPlayer && pPlayer->dwAnimMode == PLRMODE_RUN && !sub_0057F240_DrainRunStamina(pPlayer))
     {
         sub_0057F090_StartMovement(pGame, pPlayer, 2);
     }

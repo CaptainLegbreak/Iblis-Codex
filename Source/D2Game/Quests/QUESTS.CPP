@@ -2343,7 +2343,7 @@ int __fastcall QUESTS_PortalCheck(D2GameStrc* pGame, D2CoordStrc* pCoord, int nL
 int __fastcall QUESTS_SetObjectSelection(D2ObjOperateFnStrc* pOp)
 {
     int bCanOperate = 1;
-    if (pOp->hObject && pOp->hObject->dwAnimMode != 0)
+    if (pOp->hObject && pOp->hObject->dwAnimMode != OBJMODE_NEUTRAL)
     {
         bCanOperate = 0;
     }

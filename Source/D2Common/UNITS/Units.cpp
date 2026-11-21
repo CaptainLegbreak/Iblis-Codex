@@ -2042,10 +2042,10 @@ int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
     switch (ptUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        if (ptUnit->dwAnimMode == 18)
+        if (ptUnit->dwAnimMode == PLRMODE_SEQUENCE)
             bSequence = 1;
     case UNIT_MONSTER:
-        if (ptUnit->dwAnimMode == 14)
+        if (ptUnit->dwAnimMode == MONMODE_SEQUENCE)
             break;
         if (bSequence)
             break;

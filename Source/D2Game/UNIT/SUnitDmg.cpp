@@ -3242,7 +3242,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
     int nResult = 0;
     if (pDefender && pDefender->dwUnitType == UNIT_PLAYER)
     {
-        if (pDefender->dwAnimMode == 3 || pDefender->dwAnimMode == 2)
+        if (pDefender->dwAnimMode == PLRMODE_RUN || pDefender->dwAnimMode == PLRMODE_WALK)
         {
             const int nEvade = STATLIST_UnitGetStatValue(pDefender, 340, 0);
             if (nEvade > 0)
@@ -3379,7 +3379,7 @@ int __fastcall SUNITDMG_ApplyBlockOrDodge(D2GameStrc* pGame, D2UnitStrc* pAttack
         return SUNITDMG_ApplyDodge(pAttacker, pDefender, bAvoid);
     }
 
-    if (pDefender && pDefender->dwUnitType == UNIT_PLAYER && UNITS_IsInMovingMode(pDefender) && pDefender->dwAnimMode != 2)
+    if (pDefender && pDefender->dwUnitType == UNIT_PLAYER && UNITS_IsInMovingMode(pDefender) && pDefender->dwAnimMode != PLRMODE_WALK)
     {
         nBlockChance /= 3;
     }

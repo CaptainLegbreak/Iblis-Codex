@@ -923,7 +923,7 @@ void __cdecl sub_005B5620_Return()
 // 0x005B5630
 int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp)
 {
-    if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         UNITS_ChangeAnimMode(pOp->hObject, 1);
 

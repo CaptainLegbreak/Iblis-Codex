@@ -3378,7 +3378,7 @@ int __fastcall ITEMMODE_AddScrollToBook(D2GameStrc* ptGame, D2UnitStrc* hUnit, i
         return 0;
     }
 
-    if (pScroll->dwAnimMode != 3 && pScroll->dwAnimMode != 4 || !ITEMSIsA(pScroll, 0x16))
+    if (pScroll->dwAnimMode != IMODE_ONGROUND && pScroll->dwAnimMode != IMODE_ONCURSOR || !ITEMSIsA(pScroll, 0x16))
     {
         *pItemStatus = 1;
         return 0;
@@ -3396,7 +3396,7 @@ int __fastcall ITEMMODE_AddScrollToBook(D2GameStrc* ptGame, D2UnitStrc* hUnit, i
         return 0;
     }
 
-    if (pBook->dwAnimMode != 0 || ITEMS_GetItemType(pBook) != 0x12)
+    if (pBook->dwAnimMode != IMODE_STORED || ITEMS_GetItemType(pBook) != 0x12)
     {
         *pItemStatus = 1;
         return 0;
@@ -5521,7 +5521,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStr
         return 0;
     }
     if (pFiller->dwUnitType != UNIT_ITEM) return 0;
-    if (pFiller->dwAnimMode != 4)
+    if (pFiller->dwAnimMode != IMODE_ONCURSOR)
     {
         *bPlaced = 1;
         return 0;
