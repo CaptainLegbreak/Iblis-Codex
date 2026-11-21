@@ -267,6 +267,10 @@ int __fastcall sub_005D8C70_AdvanceSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
 int __fastcall sub_005D8B10_ApplyToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x005D8B10
 
+static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+
+static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX, int nY, D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+
 // 0x005D80C0
 int __fastcall SKILLS_SrvSt33_FindPotion_GrimWard(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1100,6 +1104,56 @@ int __fastcall SKILLS_SrvSt40_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     return 1;
 }
 
+static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
+{
+    return pUnit->dwUnitType == 1;
+}
+
+// 0x005D9F70
+static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkillRead = pSkill;
+    SKILLS_SetFlags(pSkillRead, 0x1101);
+    PATH_SetMoveTestCollisionMask(pPath, 0);
+    PATH_SetFootprintCollisionMask(pPath, 0);
+
+    const int nX = SKILLS_GetParam1(pSkillRead);
+    const int nY = SKILLS_GetParam2(pSkill);
+    if (!nX || !nY)
+    {
+        return 0;
+    }
+
+    D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
+    PATH_SetType(pPath, 9);
+
+    int nVelocity;
+    if ((!pUnit ? 6 : pUnit->dwUnitType) == 1)
+    {
+        D2MonStatsTxtRun* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
+        if (!pMonStatsTxtRecord)
+        {
+            return 0;
+        }
+
+        nVelocity = pMonStatsTxtRecord->nRun << 8;
+    }
+    else
+    {
+        nVelocity = sub_004833E0_GetCharStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nRunSpeed << 8;
+    }
+
+    PATH_SetVelocity(pPath, nVelocity, ".\\SKILLS\\SkillBar.cpp", 0x6C2);
+    D2Common_10142(pPath, pUnit, 0);
+    return 1;
+}
+
 static __forceinline D2SkillsTxt* sub_I16_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -1122,49 +1176,6 @@ static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
-}
-
-static int __stdcall sub_005D9F70_SetLeapVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
-{
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (!pPath)
-    {
-        return 0;
-    }
-
-    SKILLS_SetFlags(pSkill, 0x1101);
-    PATH_SetMoveTestCollisionMask(pPath, 0);
-    PATH_SetFootprintCollisionMask(pPath, 0);
-
-    const int nX = SKILLS_GetParam1(pSkill);
-    const int nY = SKILLS_GetParam2(pSkill);
-    if (!nX || !nY)
-    {
-        return 0;
-    }
-
-    D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
-    PATH_SetType(pPath, 9);
-
-    int nVelocity;
-    if (pUnit->dwUnitType == 1)
-    {
-        D2MonStatsTxtRun* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
-        if (!pMonStatsTxtRecord)
-        {
-            return 0;
-        }
-
-        nVelocity = pMonStatsTxtRecord->nRun << 8;
-    }
-    else
-    {
-        nVelocity = sub_004833E0_GetCharStatsTxtRecord(pUnit->dwClassId)->nRunSpeed << 8;
-    }
-
-    PATH_SetVelocity(pPath, nVelocity, ".\\SKILLS\\SkillBar.cpp", 0x6C2);
-    D2Common_10142(pPath, pUnit, 0);
-    return 1;
 }
 
 // 0x005DA020
@@ -1244,7 +1255,7 @@ int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
     {
         if (nSkillFlags & 0x80)
         {
-            return sub_005D9F70_SetLeapVelocity(pUnit, pSkill);
+            return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
         }
 
         if (!bMonster)
@@ -1391,7 +1402,7 @@ int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (nSkillFlags & 0x80)
     {
-        return sub_005D9F70_SetLeapVelocity(pUnit, pSkill);
+        return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
     }
 
     if (!(SKILLS_GetFlags(pSkill) & 0x200))
@@ -1509,4 +1520,14 @@ int __fastcall sub_M441_Emit_005DA120(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 
     SKILLS_SetFlags(pSkill, nSkillLevel);
     return 3;
+}
+
+static __forceinline int sub_M392_GetUnitType(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+
+    return pUnit->dwUnitType;
 }

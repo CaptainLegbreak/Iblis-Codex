@@ -70362,6 +70362,10 @@
      "name": "?SKILLS_SrvSt40_Leap@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D9F70",
+     "length": 175
+    },
+    {
      "va": "0x005DA020",
      "length": 251,
      "name": "?sub_005DA020_SandLeaperKnockback@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
@@ -70446,30 +70450,6 @@
      "length": 400,
      "name": "?sub_005D8C70@@YIHPAUGame@@PAUUnit@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillBar_005D9F70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D9F70",
-     "length": 175
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
