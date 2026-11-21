@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 struct HWND__;
 struct D2StormLinkStrc;
 struct D2StormListStrc;
@@ -7,38 +8,12 @@ struct D2Storm416A90Strc;
 
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 
-
 int __fastcall sub_004209E0_FindWndRec(HWND__* hWnd); // 0x004209E0
 void __stdcall sub_004208E0_AddWndRec(HWND__* hWnd); // 0x004208E0
 int __stdcall SEvtUnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler); // 0x00426720
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
 extern unsigned short gwValue_0077905C;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
 
 struct D2StormListStrc
 {
@@ -66,7 +41,6 @@ struct D2Storm416A90Strc
     int n14C;
     int n150;
 };
-
 
 // 0x00420AB0
 static __declspec(noinline) int __stdcall sub_00420AB0_UnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
