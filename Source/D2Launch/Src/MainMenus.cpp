@@ -162,6 +162,7 @@ struct D2SlotEntryStrc
 };
 
 extern void** gppSlots_00779988; // 0x00779988
+
 extern int gdwGlobal_0077998C; // 0x0077998C
 
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
@@ -545,8 +546,13 @@ static int gnWaitDone_00779994; // 0x00779994
 
 struct D2WinAnimImageStrc;
 
-
 int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* pAnimImage, int bIsRunning); // 0x00500810
+
+int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg);                                            // 0x004FA470
+
+void __cdecl sub_0042FF20_ShowLocalAddress();                                                               // 0x0042FF20
+
+void __cdecl sub_00436CF0(); // 0x00436CF0
 
 // 0x004065E0
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
@@ -794,10 +800,51 @@ void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode
     sub_004FD060_SetText(pControl, pMessage);
 }
 
+// 0x0042F6C0
+void __cdecl sub_0042F6C0_SetDone()
+{
+    gdwGlobal_00779974 = 1;
+}
+
+// 0x0042F790
+int __stdcall sub_0042F790_ShowCantConnect(SMSGHANDLER_PARAMS* pMsg)
+{
+    gpfnGatewayDone_007795BC = sub_0042F6C0_SetDone;
+    sub_0042F3F0_DestroyControls();
+    D2WinControlStrc* pControl = sub_0042F3A0_CreateFromTemplate(0xDE);
+    D2Win_10033(pControl, 1);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    D2WinControlStrc* pControlB = sub_0042F3A0_CreateFromTemplate(0xFD);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControlB, 1);
+    pControl = sub_0042F3A0_CreateFromTemplate(0xFE);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    sub_004FCF80_SetTextA(pControl, "Can't connect to Battle.Net. Try again later.");
+    return 1;
+}
+
+// 0x0042FE60
+int __stdcall sub_0042FE60_FilterChar(void* pControl, int nUnused, const char* pChar)
+{
+    return 1;
+}
+
 // 0x0042FEF0
 int __stdcall sub_0042FEF0_FilterChar(void* pControl, int nUnused, const char* pChar)
 {
     return sub_0042FDE0_FilterChar(pControl, nUnused, pChar);
+}
+
+// 0x0042FF00
+int __stdcall sub_0042FF00_FilterChar(void* pControl, int nUnused, const char* pChar)
+{
+    return 1;
+}
+
+// 0x0042FFD0
+int __stdcall sub_0042FFD0_ShowAddress(SMSGHANDLER_PARAMS* pMsg)
+{
+    sub_0042FF20_ShowLocalAddress();
+    return 1;
 }
 
 // 0x004301A0
@@ -1004,6 +1051,34 @@ int __stdcall sub_004308E0_ExpansionNotice5(D2MenuCallbackArgStrc* pArg)
 void __cdecl sub_004309B0_ClearLaunchState()
 {
     gnLaunchState_007795E8 = 0;
+}
+
+extern "C" int __fastcall sub_0043DAD0_SetControlFlag(int value)
+{
+    sub_004F9740_ControlFlag(gControl, value);
+    return 1;
+}
+
+// 0x00430A20
+int __cdecl sub_00430A20_FreeSlots()
+{
+    if (!gppSlots_00779988)
+        return 1;
+    for (int i = 0; i < gdwGlobal_0077998C; i++)
+    {
+        D2LaunchSlotStrc* pSlot = ((D2LaunchSlotStrc**)gppSlots_00779988)[i];
+        if (pSlot)
+        {
+            D2_ASSERT(pSlot->pData, 0x1139);
+            sub_0040B3C0(pSlot->pData, ".\\Src\\MainMenus.cpp", 0x113A, 0);
+            D2_ASSERT(((D2LaunchSlotStrc**)gppSlots_00779988)[i]->szName, 0x113B);
+            sub_0040B3C0(((D2LaunchSlotStrc**)gppSlots_00779988)[i]->szName, ".\\Src\\MainMenus.cpp", 0x113C, 0);
+            sub_0040B3C0(gppSlots_00779988[i], ".\\Src\\MainMenus.cpp", 0x113E, 0);
+        }
+    }
+    sub_0040B3C0(gppSlots_00779988, ".\\Src\\MainMenus.cpp", 0x1141, 0);
+    gppSlots_00779988 = 0;
+    return 1;
 }
 
 int __stdcall sub_M121_Emit_00430600(const char* szText, int nLength) { return sub_00430600_CountNameMarks(szText, nLength); }
@@ -1245,8 +1320,6 @@ int __stdcall sub_00431A40_SetMode2(int nArg)
     sub_0042FFE0_CreateScreen();
     return 1;
 }
-
-void __cdecl sub_00436CF0(); // 0x00436CF0
 
 // 0x00431A60
 int __fastcall sub_00431A60_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)
@@ -2070,34 +2143,6 @@ void __cdecl sub_004431B0()
 // 0x00443C10
 int __stdcall sub_00443C10_AlwaysOne(int nArg)
 {
-    return 1;
-}
-
-extern "C" int __fastcall sub_0043DAD0_SetControlFlag(int value)
-{
-    sub_004F9740_ControlFlag(gControl, value);
-    return 1;
-}
-
-// 0x00430A20
-int __cdecl sub_00430A20_FreeSlots()
-{
-    if (!gppSlots_00779988)
-        return 1;
-    for (int i = 0; i < gdwGlobal_0077998C; i++)
-    {
-        D2LaunchSlotStrc* pSlot = ((D2LaunchSlotStrc**)gppSlots_00779988)[i];
-        if (pSlot)
-        {
-            D2_ASSERT(pSlot->pData, 0x1139);
-            sub_0040B3C0(pSlot->pData, ".\\Src\\MainMenus.cpp", 0x113A, 0);
-            D2_ASSERT(((D2LaunchSlotStrc**)gppSlots_00779988)[i]->szName, 0x113B);
-            sub_0040B3C0(((D2LaunchSlotStrc**)gppSlots_00779988)[i]->szName, ".\\Src\\MainMenus.cpp", 0x113C, 0);
-            sub_0040B3C0(gppSlots_00779988[i], ".\\Src\\MainMenus.cpp", 0x113E, 0);
-        }
-    }
-    sub_0040B3C0(gppSlots_00779988, ".\\Src\\MainMenus.cpp", 0x1141, 0);
-    gppSlots_00779988 = 0;
     return 1;
 }
 

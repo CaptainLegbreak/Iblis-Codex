@@ -2147,9 +2147,34 @@
      "name": "sub_0042F540_ShowMessageBox"
     },
     {
+     "va": "0x0042F6C0",
+     "length": 11,
+     "name": "?sub_0042F6C0_SetDone@@YAXXZ"
+    },
+    {
+     "va": "0x0042F790",
+     "length": 103,
+     "name": "?sub_0042F790_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0042FE60",
+     "length": 8,
+     "name": "?sub_0042FE60_FilterChar@@YGHPAXHPBD@Z"
+    },
+    {
      "va": "0x0042FEF0",
      "length": 9,
      "name": "sub_0042FEF0_FilterChar"
+    },
+    {
+     "va": "0x0042FF00",
+     "length": 8,
+     "name": "?sub_0042FF00_FilterChar@@YGHPAXHPBD@Z"
+    },
+    {
+     "va": "0x0042FFD0",
+     "length": 13,
+     "name": "?sub_0042FFD0_ShowAddress@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004301A0",
@@ -9811,37 +9836,6 @@
      "va": "0x0042FF20",
      "length": 168,
      "name": "?sub_0042FF20_ShowLocalAddress@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0042F6C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042F6C0",
-     "length": 11,
-     "name": "?sub_0042F6C0_SetDone@@YAXXZ"
-    },
-    {
-     "va": "0x0042F790",
-     "length": 103,
-     "name": "?sub_0042F790_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0042FE60",
-     "length": 8,
-     "name": "?sub_0042FE60_FilterChar@@YGHPAXHPBD@Z"
-    },
-    {
-     "va": "0x0042FF00",
-     "length": 8,
-     "name": "?sub_0042FF00_FilterChar@@YGHPAXHPBD@Z"
-    },
-    {
-     "va": "0x0042FFD0",
-     "length": 13,
-     "name": "?sub_0042FFD0_ShowAddress@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },

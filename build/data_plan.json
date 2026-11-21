@@ -721,7 +721,6 @@
     "extern \"C\" char gpCellFile_007798A4[]; // 0x007798A4",
     "extern \"C\" char gpCellFile_007798B0[]; // 0x007798B0",
     "extern \"C\" char gpCellFile_007798C4[]; // 0x007798C4",
-    "extern \"C\" void __cdecl sub_0042FFD0_ShowAddress(); // 0x0042FFD0",
     "extern \"C\" void __cdecl sub_00430120_OnToggle(); // 0x00430120",
     "extern \"C\" void __cdecl sub_00430160_OnToggle(); // 0x00430160",
     "extern \"C\" void __cdecl sub_00430840(); // 0x00430840",
@@ -19175,7 +19174,7 @@
     [
      404,
      "0x0042FFD0",
-     "names.json",
+     "owner",
      "sub_0042FFD0_ShowAddress",
      0,
      "func"
