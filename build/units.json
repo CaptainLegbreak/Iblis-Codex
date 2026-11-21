@@ -34648,30 +34648,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004CD310.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CD310",
-     "length": 100
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UNIT/Missile_004CDBA0.cpp",
    "rank": 0,
    "functions": [
@@ -34707,9 +34683,45 @@
    ]
   },
   {
+   "file": "Source/D2Client/UNIT/Missile_004CDDB0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004CDDB0",
+     "length": 672
+    },
+    {
+     "va": "0x004CF800",
+     "length": 417
+    },
+    {
+     "va": "0x004D47F0",
+     "length": 192
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004CD310",
+     "length": 100
+    },
     {
      "va": "0x004CD420",
      "length": 279
@@ -34753,38 +34765,6 @@
     {
      "va": "0x004D7880",
      "length": 167
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004CDDB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CDDB0",
-     "length": 672
-    },
-    {
-     "va": "0x004CF800",
-     "length": 417
-    },
-    {
-     "va": "0x004D47F0",
-     "length": 192
     }
    ],
    "flags": [

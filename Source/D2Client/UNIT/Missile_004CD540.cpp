@@ -6,6 +6,18 @@
 #include "D2Constants.h"
 #include "D2Path.h"
 
+extern D2DataTablesStrc* sgptDataTables_00744304; // 0x00744304
+
+extern const unsigned char gbFlagMask_006CE270; // 0x006CE270
+
+int __stdcall sub_0064A3E0(D2UnitStrc* pUnit); // 0x0064A3E0
+
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
+
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
+
+static __declspec(noinline) int sub_004CD310_UseCharge(D2UnitStrc* pUnit);
+
 struct D2GfxLightStrc;
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
@@ -60,8 +72,6 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);             // 0x00625480
-
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);         // 0x00625500
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
@@ -70,7 +80,6 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 
 void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, void* pCallback, void* pGame);       // 0x00626D40
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 
@@ -175,18 +184,43 @@ int __stdcall sub_0064A730_GetTargetX(D2UnitStrc* pUnit); // 0x0064A730
 
 int __stdcall sub_0064A780_GetTargetY(D2UnitStrc* pUnit); // 0x0064A780
 
-static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile);
 
-D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);
-
-inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+// build: context DATATBLS_GetMissilesTxtRecord
+static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
-    if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return &sgptDataTables->pMissilesTxt[nMissileId];
-    }
-    return 0;
+	if (nMissileId >= 0 && nMissileId < sgptDataTables_00744304->nMissilesTxtRecordCount)
+	{
+		return &sgptDataTables_00744304->pMissilesTxt[nMissileId];
+	}
+	return 0;
 }
+
+// 0x004CD310
+static int sub_004CD310_UseCharge(D2UnitStrc* pUnit)
+{
+	int nResult = 3;
+	D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(sub_0064A3E0(pUnit));
+
+	if (!(pMissilesTxtRecord->nMissileFlags[0] & gbFlagMask_006CE270))
+	    return nResult;
+		const int nValue = STATLIST_UnitGetStatValue(pUnit, 328, 0);
+		if (nValue)
+		{
+			nResult = 2;
+			STATLIST_SetUnitStat(pUnit, 328, nValue - 1, 0);
+		}
+
+	return nResult;
+}
+
+// build: context sub_004CD310_Shim
+
+// calling-convention shim (not game code)
+int __stdcall sub_004CD310_Shim(D2UnitStrc* pUnit)
+{
+	return sub_004CD310_UseCharge(pUnit);
+}
+
 
 static __forceinline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
 {
