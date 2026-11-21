@@ -56651,9 +56651,17 @@
      "name": "?sub_0056C670_GetOtherHandItem@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
+     "va": "0x0056C700",
+     "length": 62
+    },
+    {
      "va": "0x0056C740",
      "length": 253,
      "name": "?sub_6FD11C90@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x0056C8E0",
+     "length": 348
     },
     {
      "va": "0x0056CA40",
@@ -56722,6 +56730,10 @@
     {
      "va": "0x0056D790",
      "length": 126
+    },
+    {
+     "va": "0x0056DBC0",
+     "length": 252
     },
     {
      "va": "0x0056DCC0",
@@ -56834,6 +56846,10 @@
      "name": "?sub_6FD10E50@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x0056E970",
+     "length": 622
+    },
+    {
      "va": "0x0056EBE0",
      "length": 201
     },
@@ -56866,6 +56882,14 @@
      "va": "0x0056F550",
      "length": 228,
      "name": "SKILLS_SrvDo005_LeftHandThrow"
+    },
+    {
+     "va": "0x0056F640",
+     "length": 432
+    },
+    {
+     "va": "0x0056FAF0",
+     "length": 351
     },
     {
      "va": "0x0056FCB0",
@@ -57022,50 +57046,6 @@
      "length": 27,
      "name": "D2GAME_STATES_SendStates_6FCC5F00"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_0056C700.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0056C700",
-     "length": 62
-    },
-    {
-     "va": "0x0056C8E0",
-     "length": 348
-    },
-    {
-     "va": "0x0056DBC0",
-     "length": 252
-    },
-    {
-     "va": "0x0056E970",
-     "length": 622
-    },
-    {
-     "va": "0x0056F640",
-     "length": 432
-    },
-    {
-     "va": "0x0056FAF0",
-     "length": 351
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
