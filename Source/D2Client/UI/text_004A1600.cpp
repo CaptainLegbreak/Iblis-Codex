@@ -965,7 +965,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
     }
 }
 
-#include "gen/data/Source/D2Client/Unknown_004A1600.inc"
+#include "gen/data/Source/D2Client/UI/text_004A1600.inc"
 struct D2CelFileStrc;
 
 // 0x004A2220
