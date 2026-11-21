@@ -57284,6 +57284,10 @@
      "name": "?sub_00564FD0_CountCubeItems@@YAHPAUD2InventoryStrc@@@Z"
     },
     {
+     "va": "0x00565010",
+     "length": 2212
+    },
+    {
      "va": "0x005658C0",
      "length": 112,
      "name": "?sub_005658C0_CheckCubeInputs@@YGHPAUD2GameStrc@@PAUD2CubeItemStrc@@PAUD2CubeMainTxt@@PAUD2InventoryStrc@@@Z"
@@ -57309,6 +57313,14 @@
      "name": "PLRTRADE_CreateUberFinalePortal"
     },
     {
+     "va": "0x00565AB0",
+     "length": 2812
+    },
+    {
+     "va": "0x005665F0",
+     "length": 1264
+    },
+    {
      "va": "0x00566AE0",
      "length": 77,
      "name": "?sub_00566AE0_HandleCubeButton@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@G@Z"
@@ -57324,6 +57336,11 @@
      "name": "?PLRTRADE_SendEventPacketToPlayer@@YIXPAUD2UnitStrc@@EPAD@Z"
     },
     {
+     "va": "0x00566E20",
+     "length": 60,
+     "name": "?sub_00566E20_HasItemsInCube@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00566E60",
      "length": 440,
      "name": "PLRTRADE_TryToTrade"
@@ -57334,6 +57351,10 @@
      "name": "?sub_00567070_CopyEarData@@YGXHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x005670E0",
+     "length": 487
+    },
+    {
      "va": "0x005672D0",
      "length": 84,
      "name": "?sub_005672D0_CanPickUpTradeItems@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
@@ -57342,6 +57363,30 @@
      "va": "0x00567330",
      "length": 23,
      "name": "?sub_6FC92EF0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00567350",
+     "length": 74,
+     "name": "?sub_00567350_AddItemTrade@@YGXPAUD2GameStrc@@HHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005673A0",
+     "length": 32,
+     "name": "?sub_005673A0_WalkItemTrade@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005673C0",
+     "length": 63,
+     "name": "?sub_005673C0_FindItemTrade@@YGDPAHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00567400",
+     "length": 475,
+     "name": "?PLRTRADE_RemoveItemFromTrade@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x00567620",
+     "length": 542
     },
     {
      "va": "0x005678A0",
@@ -57359,9 +57404,21 @@
      "name": "?PLRTRADE_ResetTrade@@YGXPAUD2PlayerDataStrc@@0PAUD2UnitStrc@@1PAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x00567C70",
+     "length": 1001
+    },
+    {
+     "va": "0x00568060",
+     "length": 1500
+    },
+    {
      "va": "0x00568760",
      "length": 5,
      "name": "?sub_00568760_ResetPlayerInteract@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00568770",
+     "length": 608
     },
     {
      "va": "0x005689D0",
@@ -57377,133 +57434,6 @@
      "va": "0x00568D80",
      "length": 46,
      "name": "?sub_00568D80_FindTerminator@@YIHPBDH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00565010.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00565010",
-     "length": 2212
-    },
-    {
-     "va": "0x005665F0",
-     "length": 1264
-    },
-    {
-     "va": "0x00567620",
-     "length": 542
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00565AB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00565AB0",
-     "length": 2812
-    },
-    {
-     "va": "0x00566E20",
-     "length": 60,
-     "name": "?sub_00566E20_HasItemsInCube@@YAHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_005670E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005670E0",
-     "length": 487
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00567350.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00567350",
-     "length": 74,
-     "name": "?sub_00567350_AddItemTrade@@YGXPAUD2GameStrc@@HHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005673C0",
-     "length": 63,
-     "name": "?sub_005673C0_FindItemTrade@@YGDPAHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00567400",
-     "length": 475,
-     "name": "?PLRTRADE_RemoveItemFromTrade@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_005673A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005673A0",
-     "length": 32,
-     "name": "?sub_005673A0_WalkItemTrade@@YAXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00567C70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00567C70",
-     "length": 1001
-    },
-    {
-     "va": "0x00568060",
-     "length": 1500
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00568770.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00568770",
-     "length": 608
     }
    ]
   },

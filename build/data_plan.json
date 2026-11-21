@@ -4643,14 +4643,10 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/PLAYER/PlrTrade_00565AB0.cpp": {
+  "Source/D2Game/PLAYER/PlrTrade.cpp": {
    "bytes": 16,
    "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl PLRTRADE_CreateCowPortal(); // 0x00565A80",
-    "extern \"C\" void __cdecl PLRTRADE_CreateUberFinalePortal(); // 0x00565AA0",
-    "extern \"C\" void __cdecl PLRTRADE_CreateUberRunPortal(); // 0x00565A90"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrTrade_00565AB0.inc",
    "lang": "cpp",
@@ -100938,7 +100934,7 @@
    "cname": "gData_006E11C8",
    "declared": true,
    "decorated": "?gCubeOutputFunctions_006E11C8@@3QBQ6IHPAUD2GameStrc@@PAUD2UnitStrc@@@ZB",
-   "file": "Source/D2Game/PLAYER/PlrTrade_00565AB0.cpp",
+   "file": "Source/D2Game/PLAYER/PlrTrade.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const CubeOutputFunc gData_006E11C8[4]; // 0x006E11C8",
