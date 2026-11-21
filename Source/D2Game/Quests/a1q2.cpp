@@ -1,119 +1,158 @@
-#include "D2Game.h"
 #include "D2Structs.h"
-#include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2UnitData.h"
+#include "D2Game.h"
+#include "D2GameStrc.h"
+#include "D2QuestData.h"
+
+#define DIAG_LINE_NUMBER 447
+
+#define STATE_LINE 448
+
+#define QUEST_STATE 4
+
+#define TIMER_TICKS 15
+
+#define GLOBAL_STATE 13
+
+struct D2GameStrc;
+
+typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
+
+typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
+
+void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
+
+void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
+
+void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const char* szFile, int nLine);  // 0x00544350
+
+void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState);                         // 0x00544720
+
+extern "C" const char gszA1Q2SourceFile[];                                                                  // 0x006E1B98
+
+bool __fastcall ACT1Q2_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);  // 0x00590BF0
+
+int __fastcall ACT1Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);  // 0x00590DD0
+
+int __fastcall ACT1Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);  // 0x00590E30
+
+int __fastcall ACT1Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);  // 0x00590E70
+
+int __fastcall ACT1Q2_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);  // 0x00590C40
+
 #define LEVEL_ROGUEENCAMPMENT 1
+
 #define QFLAG_REWARDGRANTED 0
+
 #define QFLAG_REWARDPENDING 1
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define QFLAG_STARTED 2
+
 #define QFLAG_LEAVETOWN 3
+
 #define QFLAG_ENTERAREA 4
+
 #define QFLAG_COMPLETEDBEFORE 15
+
 #define QUESTSTATEFLAG_A1Q2 2
+
 #define A1Q2_INITNO 4
+
 #define A1Q2_SEQID 4
+
 #define LINE_SEQ_DEBUG 0x230
+
 #define LINE_SEQ_ASSERT 0x23B
+
 #define LINE_INIT_ALLOC 0x27F
+
 struct D2NPCMessageTableStrc;
+
 struct D2PlayerDataStrc;
+
 struct D2QuestGUIDStrc;
+
 struct D2Act1Quest2Strc;
-
-
-
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
-
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
-
-
-typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
-typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
-
-typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
-
-typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
-
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned char bStatusFlags;
-    unsigned char pad0x15[3];
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    char pad0xE4[0x4];
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300
-void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const char* szFile, int nLine); // 0x00544350
+
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
+
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, SUNIT_ITERATEFN pfIterate); // 0x005537D0
+
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
+
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
+
 int __fastcall ACT1Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00590830
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 typedef int(__stdcall* FARPROC)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
+
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2Act1Quest2Strc
-{
-    unsigned char unk0x00;
-    unsigned char unk0x01;
-    unsigned char bBloodravenKilled;
-    unsigned char bKashyaActivated;
-    int unk0x04;
-    int nBloodravenGUID;
-};
-
-typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
+
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
 extern char gpAct1Q2NpcMessages[]; // 0x00736CE8
+
 void __fastcall ACT1Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590980
+
 void __fastcall ACT1Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590B10
+
 void __fastcall ACT1Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590920
+
 void __fastcall ACT1Q2_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590C10
+
 void __fastcall sub_00590EC0_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590EC0
+
 void __fastcall ACT1Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590FA0
+
 bool __fastcall ACT1Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x00591080
+
 bool __fastcall ACT1Q2_SeqCallback(D2QuestDataStrc* pQuestData);
+
 void __fastcall ACT1Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
+
+// 0x00590EC0
+void __fastcall sub_00590EC0_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (pQuestData->bNotIntro)
+    {
+        QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", gszA1Q2SourceFile, DIAG_LINE_NUMBER);
+        QUESTS_StateDebug(pQuestData, QUEST_STATE, gszA1Q2SourceFile, STATE_LINE);
+        D2Act1Quest2Strc* pQuestDataEx = (D2Act1Quest2Strc*)pQuestData->pQuestDataEx;
+        pQuestDataEx->bUnk0x01 = 1;
+        pQuestDataEx->bBloodravenKilled = 1;
+        pQuestDataEx->nBloodravenGUID = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwUnitId;
+        SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_SetRewardPending);
+        SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
+        SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_SetCompletionFlag);
+        SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_AttachCompletionSound);
+        QUESTS_CreateTimer(pQuestData, ACT1Q2_Timer_StatusCycler, TIMER_TICKS);
+        pQuestData->pCallback[2] = 0;
+        pQuestDataEx->bUnk0x00 = 1;
+        pQuestDataEx->unk0x04 = 1;
+        QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, GLOBAL_STATE);
+    }
+}
 
 // 0x00590FA0
 void __fastcall ACT1Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
@@ -126,7 +165,7 @@ void __fastcall ACT1Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         if (pQuestData->fState < 3)
         {
             QUESTS_StateDebug(pQuestData, 3, gszA1Q2SourceFile, 489);
-            pQuestData->bStatusFlags = 0;
+            pQuestData->dwFlags &= 0xFFFFFF00;
             bStateUpdated = true;
         }
 
@@ -242,8 +281,8 @@ void __fastcall ACT1Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->nSeqId = A1Q2_SEQID;
     pQuestData->pfActiveFilter = ACT1Q2_ActiveFilterCallback;
 
-    pQuestDataEx->unk0x01 = 0;
-    pQuestDataEx->unk0x00 = 0;
+    pQuestDataEx->bUnk0x01 = 0;
+    pQuestDataEx->bUnk0x00 = 0;
     pQuestDataEx->bKashyaActivated = 0;
     pQuestDataEx->bBloodravenKilled = 0;
     pQuestDataEx->nBloodravenGUID = 0;

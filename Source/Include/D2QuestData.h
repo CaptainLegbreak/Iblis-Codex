@@ -54,7 +54,15 @@ struct D2Act1Quest1Strc
 
 struct D2Act1Quest2Strc
 {
-    unsigned short unk0x00; // 0x00
+    union
+    {
+        unsigned short unk0x00; // 0x00
+        struct
+        {
+            unsigned char bUnk0x00; // 0x00
+            unsigned char bUnk0x01; // 0x01
+        };
+    };
     unsigned char bBloodravenKilled; // 0x02
     unsigned char bKashyaActivated; // 0x03
     int unk0x04; // 0x04

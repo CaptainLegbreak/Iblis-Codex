@@ -5432,15 +5432,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a1q2.cpp": {
-   "bytes": 1176,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q2.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a1q3_005912E0.cpp": {
    "bytes": 1176,
    "definitions": 1,
@@ -8110,6 +8101,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a3q5.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a1q2.cpp": {
+   "bytes": 1176,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a1q2.inc",
    "lang": "cpp",
    "state": "included"
   }

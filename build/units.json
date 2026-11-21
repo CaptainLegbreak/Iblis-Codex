@@ -65043,20 +65043,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a1q2_00590EC0.cpp",
+   "file": "Source/D2Game/Quests/a1q2.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00590EC0",
      "length": 216,
      "name": "?sub_00590EC0_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q2.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00590FA0",
      "length": 212,
