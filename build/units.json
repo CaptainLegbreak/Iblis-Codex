@@ -67470,6 +67470,14 @@
      "va": "0x005DB850",
      "length": 494,
      "name": "?SKILLS_SrvDo011_ChargedStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005E4830",
+     "length": 642
+    },
+    {
+     "va": "0x005E52D0",
+     "length": 1078
     }
    ]
   },
@@ -70066,34 +70074,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E4830.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E4830",
-     "length": 642
-    },
-    {
-     "va": "0x005E52D0",
-     "length": 1078
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
