@@ -576,6 +576,8 @@ struct Damage {
 
 enum { ZERO_DAMAGE=0 };
 
+static int __stdcall sub_005A94C0_CheckDistanceAndLineOfSight(int nMaxDistanceSq, int nX, int nY, D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY);
+
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
 {
@@ -1219,6 +1221,82 @@ static int __stdcall sub_005A94C0_CheckDistanceAndLineOfSight(int nMaxDistanceSq
     end.nX = nX + nOffsetX;
     end.nY = nY + nOffsetY;
     return !COLLISION_RayTrace(pRoom, &begin, &end, 4);
+}
+
+static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005A9530
+void __fastcall sub_005A9530_CreateMissilesInRadius(D2GameStrc* pGame, D2UnitStrc* pMissile, int nRadius, int nMissileId, int nRange)
+{
+    if (!UNITS_GetRoom(pMissile))
+    {
+        return;
+    }
+
+    int x = 0;
+    int y = 0;
+    nRange = nRange < 0 ? 0 : nRange;
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.dwFlags = 1;
+    missileParams.pOwner = SUNIT_GetOwner(pGame, pMissile);
+    missileParams.nSkill = MISSILE_GetSkill(pMissile);
+    missileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+    missileParams.nMissile = nMissileId;
+    if (nRange)
+    {
+        missileParams.dwFlags |= 0x8000;
+    }
+
+    const int nUnitX = UNITS_GetUnitXPosition(pMissile);
+    const int nUnitY = UNITS_GetUnitYPosition(pMissile);
+    const int nMaxDistanceSq = nRadius * nRadius;
+    for (x = -nRadius; x <= nRadius; ++x)
+    {
+        for (y = -nRadius; y <= nRadius; ++y)
+        {
+            const int nY = nUnitY + y;
+            if (sub_005A94C0_CheckDistanceAndLineOfSight(nMaxDistanceSq, nUnitX + x, nY, UNITS_GetRoom(pMissile), x, y))
+            {
+                D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pMissile), nUnitX + x, nY);
+                if (pTargetRoom && !DUNGEON_IsRoomInTown(pTargetRoom))
+                {
+                    if (nRange)
+                    {
+                        missileParams.nRange = nRange;
+                    }
+                    missileParams.nX = nUnitX + x;
+                    missileParams.nY = nY;
+                    MISSILES_CreateMissileFromParams(pGame, &missileParams);
+                }
+            }
+        }
+    }
 }
 
 // 0x005A9720

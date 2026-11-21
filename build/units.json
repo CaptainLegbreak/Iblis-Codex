@@ -62414,6 +62414,10 @@
      "name": "?sub_005A94C0_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
     },
     {
+     "va": "0x005A9530",
+     "length": 482
+    },
+    {
      "va": "0x005A9720",
      "length": 245,
      "name": "MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles"
@@ -64236,30 +64240,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A9530.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A9530",
-     "length": 482
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
