@@ -1,18 +1,33 @@
 struct D2ScmdNode006C4CF0Strc;
+
 struct sub_006C4010_Link;
+
 struct sub_006C40B0_Link;
+
 struct sub_006C40B0_List;
+
 struct sub_006C40D0_Link;
+
 struct sub_006C4140_Link;
+
 struct sub_006C4140_List;
+
 struct sub_006C4160_LinkStrc;
+
 struct sub_006C4160_List;
+
 struct sub_006C4230_LinkStrc;
+
 struct sub_006C4230_List;
+
 struct TSLink006C4290;
+
 struct TSList006C4290;
+
 struct sub_006C4470_Pair;
+
 struct D2ScmdLink006C4CF0Strc;
+
 struct D2ScmdList006C4CF0Strc;
 
 struct sub_006C4010_Link
@@ -119,7 +134,6 @@ struct sub_006C4470_Pair
     int nSecond;
 };
 
-
 extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 struct D2ScmdLink006C4CF0Strc
@@ -150,10 +164,37 @@ struct D2ScmdList006C4CF0Strc
     void sub_006C4760_DeleteAll(); // 0x006C4760
 };
 
-
 extern D2ScmdList006C4CF0Strc gtList_0074C48C; // 0x0074C48C
+
 extern D2ScmdList006C4CF0Strc gtList_0074C498; // 0x0074C498
+
 extern int gnValue_00989C38; // 0x00989C38
+
+
+struct T0051755C { T0051755C* pPrevLink; int pNext; };
+
+struct T0051755C_1 { int nLinkOffset; T0051755C head; };
+
+
+struct D2StormLinkStrc
+{
+    D2StormLinkStrc* m_prevlink;
+    int m_next;
+
+    D2StormLinkStrc() { m_prevlink = 0; m_next = 0; }
+};
+
+struct D2StormListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    D2StormListStrc();
+};
+
+void __stdcall sub_0041C340_SetLastError(unsigned long dwError); // 0x0041C340
+
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 
 // 0x006C4010
 char* __fastcall sub_006C4010_Head(sub_006C4010_Link* pLink)
@@ -179,6 +220,20 @@ void* __fastcall sub_006C40C0_Identity(void* p)
 char* __fastcall sub_006C40D0_Head(sub_006C40D0_Link* pLink)
 {
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x006C40E0
+int __fastcall sub_006C40E0_Head(T0051755C_1* pList)
+{
+    return pList->head.pNext <= 0 ? 0 : pList->head.pNext;
+}
+
+// 0x006C40F0
+T0051755C* __fastcall sub_006C40F0_ResetLink(T0051755C* pLink)
+{
+    pLink->pPrevLink = 0;
+    pLink->pNext = 0;
+    return pLink;
 }
 
 // 0x006C4140
@@ -210,12 +265,44 @@ void TSList006C4290::sub_006C4290(TSLink006C4290* link)
     link->Unlink();
 }
 
+// 0x006C4360
+D2StormListStrc::D2StormListStrc()
+{
+    D2StormLinkStrc* pLink = &m_terminator;
+    pLink->m_prevlink = pLink;
+    m_linkoffset = 0;
+    m_terminator.m_next = ~(unsigned int)pLink;
+}
+
+// 0x006C43A0
+T0051755C* __fastcall sub_006C43A0_ResetLink(T0051755C* pLink)
+{
+    pLink->pPrevLink = 0;
+    pLink->pNext = 0;
+    return pLink;
+}
+
 // 0x006C4470
 sub_006C4470_Pair* __fastcall sub_006C4470_Clear(sub_006C4470_Pair* pPair)
 {
     pPair->nFirst = 0;
     pPair->nSecond = 0;
     return pPair;
+}
+
+// 0x006C4CA0
+int __stdcall sub_006C4CA0_FindValue(int nId)
+{
+    for (int i = 0; i <= 1; ++i)
+    {
+        D2ScmdList006C4CF0Strc* pList = i ? &gtList_0074C498 : &gtList_0074C48C;
+        for (D2ScmdNode006C4CF0Strc* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->tLink.m_next)
+        {
+            if (pNode->nId == nId)
+                return pNode->nValue;
+        }
+    }
+    return 0;
 }
 
 // 0x006C4CF0
@@ -237,24 +324,6 @@ int __cdecl sub_006C4CF0_FreeBuffers()
     gtList_0074C498.sub_006C4760_DeleteAll();
     gnValue_00989C38 = 0;
     return 1;
-}
-
-void __stdcall sub_0041C340_SetLastError(unsigned long dwError); // 0x0041C340
-unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
-
-// 0x006C4CA0
-int __stdcall sub_006C4CA0_FindValue(int nId)
-{
-    for (int i = 0; i <= 1; ++i)
-    {
-        D2ScmdList006C4CF0Strc* pList = i ? &gtList_0074C498 : &gtList_0074C48C;
-        for (D2ScmdNode006C4CF0Strc* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->tLink.m_next)
-        {
-            if (pNode->nId == nId)
-                return pNode->nValue;
-        }
-    }
-    return 0;
 }
 
 // 0x006C4DC0
