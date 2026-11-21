@@ -890,40 +890,6 @@ D2UnitStrc* __fastcall sub_0058D030_FindAncientMonsterByClassId(D2GameStrc* pGam
     return 0;
 }
 
-// 0x0058E740
-int __fastcall OBJECTS_OperateFunction72_LastPortal(D2ObjOperateFnStrc* pOp, int nOperate)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q6_BAAL);
-    if (((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->nLastPortalObjectMode != OBJMODE_OPENED)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pPlayer = pOp->hPlayer;
-    D2GameStrc* pGame = pOp->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
-    {
-        LEVEL_WarpUnit(pOp->pGame, pOp->hPlayer, LEVEL_HARROGATH, 0);
-        D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 923);
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pOp->hPlayer);
-        GAME_SaveAndSendClientSaves(pQuestData->pGame);
-        if (pClient && !PLAYER_IsBusy(pOp->hPlayer))
-        {
-            SUNIT_ResetInteractInfo(pOp->hPlayer);
-            pPlayerData->bBusy = 1;
-            sub_0053D940_SendPacket0x61(pClient, 7);
-            QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_CUSTOM6);
-        }
-    }
-    else
-    {
-        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
-    }
-
-    return 0;
-}
-
 // 0x0058E830
 void __fastcall OBJECTS_InitFunction79_Zoo(D2ObjInitFnStrc* pOp)
 {

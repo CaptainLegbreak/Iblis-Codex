@@ -244,6 +244,42 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
+enum D2C_F33QuestConstants
+{
+    ACT_V = 4,
+    LEVEL_ROGUEENCAMPMENT = 1,
+    LEVEL_TRISTRAM = 38,
+    LEVEL_ROCKYSUMMIT = 120,
+    LEVEL_HALLSOFDEATHSCALLING = 123,
+    QUEST_A1Q2_BLOODRAVEN = 2,
+    QUEST_A1Q3_MALUS = 3,
+    QUEST_A1Q4_CAIN = 4,
+    QUEST_A1Q5_COUNTESS = 5,
+    QUESTSTATEFLAG_A1Q2 = 2,
+    QUESTSTATEFLAG_A1Q3 = 3,
+    QUESTSTATEFLAG_A1Q4 = 4,
+    MONSTER_CHARSI = 154,
+    MONSTER_KASHYA = 150,
+    MONSTER_AKARA = 148,
+    MONSTER_CAIN5 = 265,
+    OBJMODE_NEUTRAL = 0,
+    OBJMODE_OPERATING = 1,
+    OBJMODE_OPENED = 2,
+    OBJMODE_SPECIAL1 = 3,
+    MONMODE_NEUTRAL = 1,
+    EVENTTYPE_ENDANIM = 1,
+    EVENTTYPE_QUESTFN = 7,
+    STAT_LEVEL = 12,
+    ITEMQUAL_NORMAL = 2,
+    MONSTATSFLAGINDEX_ZOO = 22,
+};
+
+int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
+
+void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
+
+void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
+
 // 0x0058D7D0
 int __fastcall sub_0058D7D0_ACT5Q6_UnitIterate_SpawnObject(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -703,6 +739,40 @@ void __fastcall OBJECTS_InitFunction77_LastPortal(D2ObjInitFnStrc* pOp)
 
     UNITS_ChangeAnimMode(pOp->pObject, pQuestDataEx->nLastPortalObjectMode);
     pQuestDataEx->nLastPortalObjectMode = 2;
+}
+
+// 0x0058E740
+int __fastcall OBJECTS_OperateFunction72_LastPortal(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q6_BAAL);
+    if (((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->nLastPortalObjectMode != OBJMODE_OPENED)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pPlayer = pOp->hPlayer;
+    D2GameStrc* pGame = pOp->pGame;
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
+    {
+        LEVEL_WarpUnit(pOp->pGame, pOp->hPlayer, LEVEL_HARROGATH, 0);
+        D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 923);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pOp->hPlayer);
+        GAME_SaveAndSendClientSaves(pQuestData->pGame);
+        if (pClient && !PLAYER_IsBusy(pOp->hPlayer))
+        {
+            SUNIT_ResetInteractInfo(pOp->hPlayer);
+            pPlayerData->bBusy = 1;
+            sub_0053D940_SendPacket0x61(pClient, 7);
+            QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_CUSTOM6);
+        }
+    }
+    else
+    {
+        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
+    }
+
+    return 0;
 }
 
 #include "gen/data/Source/D2Game/Quests/a5q6.inc"

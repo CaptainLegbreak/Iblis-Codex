@@ -58585,11 +58585,6 @@
      "name": "sub_0058D030_FindAncientMonsterByClassId"
     },
     {
-     "va": "0x0058E740",
-     "length": 225,
-     "name": "OBJECTS_OperateFunction72_LastPortal"
-    },
-    {
      "va": "0x0058E830",
      "length": 225,
      "name": "OBJECTS_InitFunction79_Zoo"
@@ -58987,6 +58982,11 @@
      "va": "0x0058E710",
      "length": 48,
      "name": "?OBJECTS_InitFunction77_LastPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0058E740",
+     "length": 225,
+     "name": "OBJECTS_OperateFunction72_LastPortal"
     }
    ]
   },
