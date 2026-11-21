@@ -93286,7 +93286,7 @@
     {
      "va": "0x006BE540",
      "length": 99,
-     "name": "?sub_006BE540_Find@@YIPAUD2HashNode006BE540Strc@@PAUD2HashTable006BE540Strc@@I@Z"
+     "name": "?sub_006BE540_Find@@YIPAUD2QClientStrc@@PAUD2QueueServerStrc@@I@Z"
     },
     {
      "va": "0x006BE640",
@@ -93319,7 +93319,23 @@
     {
      "va": "0x006BEC00",
      "length": 104,
-     "name": "?sub_006BEC00_FindLocked@@YIPAUD2HashNode006BEC00Strc@@PAUD2HashTable006BEC00Strc@@IPAPAUD2CriticalSectionStrc@@@Z"
+     "name": "?sub_006BEC00_FindLocked@@YIPAUD2QClientStrc@@PAUD2QueueServerStrc@@IPAPAUD2CriticalSectionStrc@@@Z"
+    },
+    {
+     "va": "0x006BEC70",
+     "length": 59
+    },
+    {
+     "va": "0x006BECB0",
+     "length": 70
+    },
+    {
+     "va": "0x006BED00",
+     "length": 62
+    },
+    {
+     "va": "0x006BED40",
+     "length": 73
     },
     {
      "va": "0x006BED90",
@@ -93359,9 +93375,35 @@
      "name": "_sub_006BF080@8"
     },
     {
+     "va": "0x006BF0A0",
+     "length": 32,
+     "name": "?sub_006BF0A0_SetValue@@YGXPAXHH@Z"
+    },
+    {
+     "va": "0x006BF0C0",
+     "length": 35,
+     "name": "?sub_006BF0C0_GetValue@@YGHPAXH@Z"
+    },
+    {
+     "va": "0x006BF370",
+     "length": 354
+    },
+    {
      "va": "0x006BF4E0",
      "length": 19,
      "name": "_sub_006BF4E0@8"
+    },
+    {
+     "va": "0x006BF500",
+     "length": 32
+    },
+    {
+     "va": "0x006BF520",
+     "length": 86
+    },
+    {
+     "va": "0x006BF580",
+     "length": 101
     },
     {
      "va": "0x006BF5F0",
@@ -93405,8 +93447,34 @@
      "length": 152
     },
     {
+     "va": "0x006BFB70",
+     "length": 352
+    },
+    {
      "va": "0x006BFEA0",
      "length": 252
+    },
+    {
+     "va": "0x006C0140",
+     "length": 47
+    },
+    {
+     "va": "0x006C0170",
+     "length": 484
+    },
+    {
+     "va": "0x006C03A0",
+     "length": 117,
+     "name": "?sub_006C03A0_SendToKey@@YGHPAUD2QueueServerStrc@@IPADH@Z"
+    },
+    {
+     "va": "0x006C0530",
+     "length": 201
+    },
+    {
+     "va": "0x006C0600",
+     "length": 172,
+     "name": "?sub_006C0600_RecordClosedAddress@@YGXPAUD2QueueServerStrc@@IPBDH@Z"
     },
     {
      "va": "0x006C06B0",
@@ -93421,6 +93489,11 @@
     {
      "va": "0x006C0770",
      "length": 142
+    },
+    {
+     "va": "0x006C0800",
+     "length": 145,
+     "name": "?sub_006C0800_BanByAddress@@YIHPAUD2QueueServerStrc@@PAIPBDH@Z"
     }
    ]
   },
@@ -95162,6 +95235,10 @@
      "length": 10
     },
     {
+     "va": "0x006BEA70",
+     "length": 93
+    },
+    {
      "va": "0x006BF170",
      "length": 15
     },
@@ -95192,27 +95269,7 @@
     {
      "va": "0x006BE5B0",
      "length": 129
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BE650.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006BE650",
      "length": 98
@@ -95234,12 +95291,36 @@
      "length": 94
     },
     {
+     "va": "0x006BF260",
+     "length": 177
+    },
+    {
+     "va": "0x006BF320",
+     "length": 78
+    },
+    {
      "va": "0x006BF660",
      "length": 81
     },
     {
+     "va": "0x006BFCD0",
+     "length": 462
+    },
+    {
+     "va": "0x006BFFA0",
+     "length": 244
+    },
+    {
      "va": "0x006C00A0",
      "length": 153
+    },
+    {
+     "va": "0x006C0360",
+     "length": 64
+    },
+    {
+     "va": "0x006C08A0",
+     "length": 732
     }
    ],
    "flags": [
@@ -95255,110 +95336,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BEA70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BEA70",
-     "length": 93
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BEC70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BEC70",
-     "length": 59
-    },
-    {
-     "va": "0x006BF0A0",
-     "length": 32,
-     "name": "?sub_006BF0A0_SetValue@@YGXPAXHH@Z"
-    },
-    {
-     "va": "0x006BF0C0",
-     "length": 35,
-     "name": "?sub_006BF0C0_GetValue@@YGHPAXH@Z"
-    },
-    {
-     "va": "0x006BF370",
-     "length": 354
-    },
-    {
-     "va": "0x006BFB70",
-     "length": 352
-    },
-    {
-     "va": "0x006C0170",
-     "length": 484
-    },
-    {
-     "va": "0x006C0530",
-     "length": 201
-    },
-    {
-     "va": "0x006C0600",
-     "length": 172,
-     "name": "?sub_006C0600_RecordClosedAddress@@YGXPAUD2QueueServerStrc@@IPBDH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BECB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BECB0",
-     "length": 70
-    },
-    {
-     "va": "0x006C0140",
-     "length": 47
-    },
-    {
-     "va": "0x006C03A0",
-     "length": 117,
-     "name": "?sub_006C03A0_SendToKey@@YGHPAUD2Server006C03A0Strc@@IHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BED00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BED00",
-     "length": 62
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BED40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BED40",
-     "length": 73
-    }
    ]
   },
   {
@@ -95387,136 +95364,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/QServer/QServer_006BF260.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF260",
-     "length": 177
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BF320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF320",
-     "length": 78
-    },
-    {
-     "va": "0x006BFCD0",
-     "length": 462
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BF500.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF500",
-     "length": 32
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BF520.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF520",
-     "length": 86
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BF580.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF580",
-     "length": 101
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BFFA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BFFA0",
-     "length": 244
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006C0360.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C0360",
-     "length": 64
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Fog/Src/QServer/QServer_006C0420.cpp",
    "rank": 1,
    "functions": [
@@ -95538,41 +95385,6 @@
     "/Ob2",
     "/Gd",
     "/EHa"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006C0800.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006C0800",
-     "length": 145,
-     "name": "?sub_006C0800_BanByAddress@@YIHPAUD2QueueServerStrc@@PAIPBDH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006C08A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C08A0",
-     "length": 732
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

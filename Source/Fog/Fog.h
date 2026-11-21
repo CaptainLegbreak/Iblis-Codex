@@ -2,12 +2,10 @@
 
 #include "D2Win32Base.h"
 
-struct D2Connection006C03A0Strc;
 struct D2MemoryBasicInfoStrc;
 struct D2ModuleInfoStrc;
 struct D2PoolSystemStrc;
 struct D2QClientStrc;
-struct D2Server006C03A0Strc;
 struct D2SockAddrInStrc;
 struct D2SystemTimeStrc;
 struct D2ThreadContextStrc;
@@ -74,7 +72,6 @@ extern void* ghDbgHelpDoneEvent_0098A6BC; // 0x0098A6BC
 extern void* ghDbgHelpWorkEvent_0098A6C0; // 0x0098A6C0
 int __fastcall FOG_SOCKET_WSACleanup(); // 0x0040D8D0
 int __fastcall sub_006BFFA0_CheckReconnects(T006BE350* pServer, unsigned int* pAddress); // 0x006BFFA0
-int __fastcall sub_006C2C70_Queue(D2Server006C03A0Strc* pServer, D2Connection006C03A0Strc* pConnection, int a, int b); // 0x006C2C70
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
@@ -139,12 +136,6 @@ struct D2CalcCallbackInfoStrc
 {
 	CalcFogCallBack_t fpCallBack;
 	int nParameters;
-};
-
-struct D2Connection006C03A0Strc
-{
-    unsigned char unk_00[0x0C];
-    int bClosing;
 };
 
 typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
@@ -271,17 +262,6 @@ struct D2SNameNodeStrc
     D2SNameNodeStrc* pNext;
     unsigned int nHash;
     D2SNameEntryStrc* pEntry;
-};
-
-typedef int (__fastcall* SERVERHANDLER)(D2Server006C03A0Strc* pServer, int a, int b);
-
-struct D2Server006C03A0Strc
-{
-    int bQueued;
-    unsigned char unk_004[0x868];
-    int nMode;
-    unsigned char unk_870[0xBCC - 0x870];
-    SERVERHANDLER pfnHandler;
 };
 
 #include "D2Win32Types.h"

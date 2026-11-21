@@ -2,48 +2,76 @@
 #include "D2QServer.h"
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
+#include "D2SysTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct QServer;
+
 struct D2PacketBufferStrc;
+
 struct D2CriticalSectionStrc;
+
 struct D2ServerNode006BE3C0Strc;
+
 struct D2Server006BE3C0Strc;
+
 struct Obj006BE450;
+
 struct D2Worker006BE4A0Strc;
+
 struct D2Object006BE4E0Strc;
-struct D2HashNode006BE540Strc;
-struct D2HashTable006BE540Strc;
+
 struct D2ReferenceStrc;
+
 struct D2RecordNodeStrc;
+
 struct D2RecordTableStrc;
+
 struct D2NetPacketStrc;
+
 struct D2NetQueueStrc;
-struct D2HashNode006BEC00Strc;
-struct D2HashTable006BEC00Strc;
+
 struct D2HashNodeStrc;
+
 struct D2HashTableStrc;
+
 struct D2SocketTableStrc;
+
 struct D2HashNode006BEF40Strc;
+
 struct D2HashTable006BEF40Strc;
+
 struct D2Server006BEFB0Strc;
+
 struct D2Object006BF040Strc;
+
 struct Obj006BF080;
+
 struct Obj006BF4E0;
+
 struct D2PairEntry006BF610Strc;
+
 struct D2PairTable006BF610Strc;
+
 struct D2RecordStrc;
+
 struct D2QServerConfigStrc;
+
 struct D2ConnectionNodeStrc;
+
 struct D2ConnectionTableStrc;
 
 extern int gdwGlobal_00970E50; // 0x00970E50
+
 extern char gData_007C90C8[]; // 0x007C90C8
+
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
+
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 struct D2ServerNode006BE3C0Strc
@@ -82,22 +110,6 @@ struct D2Object006BE4E0Strc
     void* hEventBD4;
 };
 
-struct D2HashNode006BE540Strc
-{
-    unsigned int nKey;
-    D2HashNode006BE540Strc* pNext;
-};
-
-struct D2HashTable006BE540Strc
-{
-    unsigned char unk_00[0x0C];
-    unsigned int nMask;
-    unsigned char unk_10[4];
-    D2HashNode006BE540Strc** ppBuckets;
-    unsigned char unk_18[4];
-    D2CriticalSectionStrc* pLocks;
-};
-
 struct D2ReferenceStrc
 {
     int unk_00;
@@ -106,10 +118,15 @@ struct D2ReferenceStrc
 };
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long* value); // 0x006CC208
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
+
 void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* szFormat, ...); // 0x00410660
+
 extern const char gszHackChannel_006FC4A8[]; // 0x006FC4A8
+
 extern const char gszHackListSizeFormat_006FC4B0[]; // 0x006FC4B0
+
 extern unsigned long gdwLastLogTick_00989C34; // 0x00989C34
 
 struct D2RecordNodeStrc { unsigned int key; int value; D2RecordNodeStrc* next; };
@@ -145,24 +162,10 @@ struct D2NetQueueStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
 int __fastcall sub_006C30D0_Wait(D2Object006BE4E0Strc* pObject, unsigned long dwMilliseconds); // 0x006C30D0
-
-struct D2HashNode006BEC00Strc
-{
-    unsigned int nKey;
-    D2HashNode006BEC00Strc* pNext;
-};
-
-struct D2HashTable006BEC00Strc
-{
-    unsigned char unk_00[0x0C];
-    unsigned int nMask;
-    unsigned char unk_10[4];
-    D2HashNode006BEC00Strc** ppBuckets;
-    unsigned char unk_18[4];
-    D2CriticalSectionStrc* pLocks;
-};
 
 struct D2HashNodeStrc
 {
@@ -190,6 +193,7 @@ struct D2HashTableStrc
 };
 
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc); // 0x006B013E
+
 unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 
 struct D2SocketTableStrc
@@ -229,10 +233,13 @@ struct D2Server006BEFB0Strc
 };
 
 char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
+
 void __fastcall sub_006BE890_UnlistIP(D2Server006BEFB0Strc* pServer, const char* szFile, unsigned long dwAddress, int nLine); // 0x006BE890
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 struct D2Object006BF040Strc
@@ -313,18 +320,27 @@ struct QServer
     int nValueC18;
     char unkC1C[0x30];
 };
+
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
+
 int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
+
 void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, QServer* pServer); // 0x006BE300
+
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
+
 int __fastcall sub_006C3360_Startup(QServer* pServer, int nPort); // 0x006C3360
+
 int __fastcall sub_006C3B50_StartServer(QServer* pServer, int nPort); // 0x006C3B50
+
 extern "C" const char gszQServerTag_006FC47C[]; // 0x006FC47C
+
 extern "C" const char gszQServerAllocated_006FC548[]; // 0x006FC548
 
-
 void __stdcall sub_006BE6C0_LogHackListSize(int nSize); // 0x006BE6C0
+
 int __fastcall sub_006C0420_ProcessClient(QServer* pServer, int nClientId, const char* szFile, int nLine); // 0x006C0420
 
 struct D2ConnectionNodeStrc
@@ -344,14 +360,180 @@ struct D2ConnectionTableStrc
     int unk_24;
     D2CriticalSectionStrc tLock;
 };
+
 void __fastcall QSrvCloseRemoteConnection(D2ConnectionTableStrc* pTable, int nClient, const char* pFile, int nLine); // 0x006C0420
+
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, const char* file, int line); // 0x006C0420
+
 void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
 
 int __fastcall sub_006C2C70(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C2C70
+
 int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C3410
+
+struct D2QueueServerStrc;
+
+struct D2QPacketStrc;
+
+struct D2AddressRefStrc;
+
+struct D2QPacketStrc { int id; unsigned char data[0x5B0]; int size; unsigned int tick; D2QPacketStrc* next; };
+
+typedef int (__fastcall *D2PacketParser)(const unsigned char*,int,int*,int*,int*,int*,int,int,int);
+
+struct T006BE350
+{
+    int nMode;
+    unsigned int nextId;
+    int unknown08;
+    unsigned int mask;
+    unsigned int modulus;
+    union
+    {
+        D2QClientStrc** clients;
+        void* p014;
+    };
+    int unknown18;
+    union
+    {
+        D2CriticalSectionStrc* locks;
+        D2CriticalSectionStrc* pLocks;
+    };
+    union
+    {
+        D2QClientStrc** addressClients;
+        void* p020;
+    };
+    int unknown24;
+    union
+    {
+        D2CriticalSectionStrc addressLock;
+        D2CriticalSectionStrc tLock028;
+    };
+    union
+    {
+        D2AddressRefStrc** addressRefs;
+        void* p040;
+    };
+    char unk0x044[0x84C - 0x44];
+    D2QServerNodeStrc* pChain84C;
+    char unk0x850[0x04];
+    union
+    {
+        D2CriticalSectionStrc lock;
+        D2CriticalSectionStrc idLock;
+        D2CriticalSectionStrc tLock854;
+    };
+    int nState;
+    union
+    {
+        D2QPacketStrc** heads;
+        void* p870;
+    };
+    union
+    {
+        D2QPacketStrc** tails;
+        void* p874;
+    };
+    union
+    {
+        D2QPacketStrc* freePackets;
+        D2QClientStrc* f_878;
+    };
+    int channelCount;
+    int count;
+    unsigned char unk_884[0x8];
+    D2QServerNodeStrc* pChain88C;
+    int n890;
+    D2CriticalSectionStrc tLock894;
+    D2QServerNodeStrc** ppBuckets;
+    unsigned int f_8B0;
+    D2CriticalSectionStrc tLock8B4;
+    char unk0x8CC[0xB90 - 0x8CC];
+    unsigned int aSockets[4];
+    unsigned char unk_BA0[0x20];
+    D2PacketParser parser;
+};
+
+extern const char gszQServerSource[]; // 0x006FC460
+
+void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
+
+struct D2AddressRefStrc { unsigned int address,count; D2AddressRefStrc* next; };
+
+extern const char gszQServerPrefix[]; // 0x006FC47C
+
+long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
+
+void __cdecl sub_006BE300_Log(const char* prefix,const char* format,...); // 0x006BE300
+
+static int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int* address); // 0x006BF180
+
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
+
+int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+
+extern "C" int __stdcall WSACleanup(void); // 0x006B0138
+
+void __stdcall sub_006BE3C0_Shutdown(T006BE350* pServer); // 0x006BE3C0
+
+void __stdcall sub_006BFAD0_Notify(T006BE350* pServer, int a2, int a3); // 0x006BFAD0
+
+void __fastcall sub_006C2110_StopServerThreads(T006BE350* pServer); // 0x006C2110
+
+void __fastcall sub_006C33D0_Stop(T006BE350* pServer); // 0x006C33D0
+
+static __declspec(noinline) void sub_006BF320_FreeChain(T006BE350* pServer);
+
+static __declspec(noinline) void sub_006BF0F0_FreeBuckets(T006BE350* pServer);
+
+extern const char gszLogTag_006FC4A8[]; // 0x006FC4A8
+
+static int sub_006C0140_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize); // 0x006C0140
+
+static __declspec(noinline) int __fastcall sub_006BF500_Dispatch(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize);
+
+extern "C" unsigned int __security_cookie; // 0x00749DE0
+
+extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
+
+__declspec(noinline) static void sub_006BF520_StartServer(QServer* pServer, int nValue);
+
+struct D2QEntry006BF580Strc
+{
+    unsigned char unk_000[0x5BC];
+    D2QEntry006BF580Strc* pNext;
+};
+
+struct D2QServer006BF580Strc
+{
+    unsigned char unk_000[0x854];
+    D2CriticalSectionStrc pLock;
+    unsigned char unk_86C[0x04];
+    D2QEntry006BF580Strc** ppBuckets;
+    unsigned char unk_874[0x08];
+    int nBuckets;
+};
+
+const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x006B013E
+
+void __stdcall sub_006C0770_BanClient(int nClient, const char* szFile, int nLine); // 0x006C0770
+
+extern const char gszHack_006FC4A8[]; // 0x006FC4A8
+
+static int gnLockCount_0074C3E0; // 0x0074C3E0
+
+static int gnGlobal_0074C3E4; // 0x0074C3E4
+
+static int gnGlobal_0074C3E8; // 0x0074C3E8
+
+static int gnGlobal_0074C3EC; // 0x0074C3EC
+
+static int gnGlobal_00989C28; // 0x00989C28
+
+int __stdcall sub_006C03A0_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize);
 
 // 0x006B1C00
 int __cdecl sub_006B1C00()
@@ -386,16 +568,6 @@ void __stdcall sub_006B76C0(int nUnused1, int nUnused2)
 void __stdcall sub_006BC850(int nUnused1)
 {
 }
-
-static int gnLockCount_0074C3E0; // 0x0074C3E0
-
-static int gnGlobal_0074C3E4; // 0x0074C3E4
-
-static int gnGlobal_0074C3E8; // 0x0074C3E8
-
-static int gnGlobal_0074C3EC; // 0x0074C3EC
-
-static int gnGlobal_00989C28; // 0x00989C28
 
 // 0x006BE310
 void __stdcall sub_006BE310_SetServerConfig(D2QServerConfigStrc* pConfig)
@@ -457,7 +629,7 @@ unsigned long __stdcall sub_006BE4E0_Wait(D2Object006BE4E0Strc* pObject, unsigne
 }
 
 // 0x006BE540
-D2HashNode006BE540Strc* __fastcall sub_006BE540_Find(D2HashTable006BE540Strc* pTable, unsigned int nKey)
+D2QClientStrc* __fastcall sub_006BE540_Find(D2QueueServerStrc* pTable, unsigned int nKey)
 {
     if (!pTable)
     {
@@ -465,10 +637,10 @@ D2HashNode006BE540Strc* __fastcall sub_006BE540_Find(D2HashTable006BE540Strc* pT
     }
     const unsigned int nBucket = pTable->nMask & nKey;
     EnterCriticalSection(&pTable->pLocks[nBucket]);
-    D2HashNode006BE540Strc* pNode;
-    for (pNode = pTable->ppBuckets[nBucket]; pNode; pNode = pNode->pNext)
+    D2QClientStrc* pNode;
+    for (pNode = pTable->ppClients[nBucket]; pNode; pNode = pNode->pNext)
     {
-        if (pNode->nKey == nKey)
+        if (pNode->nId == nKey)
         {
             break;
         }
@@ -594,13 +766,13 @@ int __stdcall sub_006BEBC0_Wait(D2Object006BE4E0Strc* pObject, unsigned long dwM
 }
 
 // 0x006BEC00
-D2HashNode006BEC00Strc* __fastcall sub_006BEC00_FindLocked(D2HashTable006BEC00Strc* pTable, unsigned int nKey, D2CriticalSectionStrc** ppLock)
+D2QClientStrc* __fastcall sub_006BEC00_FindLocked(D2QueueServerStrc* pTable, unsigned int nKey, D2CriticalSectionStrc** ppLock)
 {
     const unsigned int nBucket = pTable->nMask & nKey;
     EnterCriticalSection(&pTable->pLocks[nBucket]);
-    for (D2HashNode006BEC00Strc* pNode = pTable->ppBuckets[nBucket]; pNode; pNode = pNode->pNext)
+    for (D2QClientStrc* pNode = pTable->ppClients[nBucket]; pNode; pNode = pNode->pNext)
     {
-        if (pNode->nKey == nKey)
+        if (pNode->nId == nKey)
         {
             *ppLock = &pTable->pLocks[nBucket];
             return pNode;
@@ -608,6 +780,62 @@ D2HashNode006BEC00Strc* __fastcall sub_006BEC00_FindLocked(D2HashTable006BEC00St
     }
     LeaveCriticalSection(&pTable->pLocks[nBucket]);
     return 0;
+}
+
+// 0x006BEC70
+unsigned int __stdcall sub_006BEC70_GetClientLocalIpByToken(D2QueueServerStrc* pServer, unsigned int nToken)
+{
+    D2CriticalSectionStrc* pLock = 0;
+    D2QClientStrc* pClient = sub_006BEC00_FindLocked(pServer, nToken, &pLock);
+    unsigned int nIp = 0;
+    if (pClient)
+    {
+        nIp = pClient->tLocalAddr.sin_addr.s_addr;
+    }
+    if (pLock)
+    {
+        LeaveCriticalSection(pLock);
+    }
+    return nIp;
+}
+
+// 0x006BECB0
+unsigned short __stdcall sub_006BECB0_GetPort(D2QueueServerStrc* pServer, unsigned int nId)
+{
+    D2CriticalSectionStrc* pLock = 0;
+    D2QClientStrc* pClient = sub_006BEC00_FindLocked(pServer, nId, &pLock);
+    unsigned short nPort = 0;
+    if (pClient)
+        nPort = sub_006B019E(pClient->tLocalAddr.sin_port);
+    if (pLock)
+        LeaveCriticalSection(pLock);
+    return nPort;
+}
+
+// 0x006BED00
+int __stdcall sub_006BED00_GetValue(D2QueueServerStrc* pServer, unsigned int nId)
+{
+    D2CriticalSectionStrc* pLock = 0;
+    D2QClientStrc* pClient = sub_006BEC00_FindLocked(pServer, nId, &pLock);
+    int nValue = 0;
+    if (pClient)
+        nValue = pClient->tPeerAddr.sin_addr.s_addr;
+    if (pLock)
+        LeaveCriticalSection(pLock);
+    return nValue;
+}
+
+// 0x006BED40
+unsigned short __stdcall sub_006BED40_GetPort(D2QueueServerStrc* pServer, unsigned int nId)
+{
+    D2CriticalSectionStrc* pLock = 0;
+    D2QClientStrc* pClient = sub_006BEC00_FindLocked(pServer, nId, &pLock);
+    unsigned short nPort = 0;
+    if (pClient)
+        nPort = sub_006B019E(pClient->tPeerAddr.sin_port);
+    if (pLock)
+        LeaveCriticalSection(pLock);
+    return nPort;
 }
 
 static inline int sub_006BED90_MatchKey(const D2HashNodeStrc* node, unsigned int key)
@@ -724,9 +952,133 @@ extern "C" __declspec(dllexport) void __stdcall sub_006BF080(Obj006BF080* pObj, 
     pObj->dwValueBBC = dwValue;
 }
 
+// 0x006BF0A0
+void __stdcall sub_006BF0A0_SetValue(void* pContainer, int nKey, int nValue)
+{
+    if (nKey)
+    {
+        D2QClientStrc* pClient = sub_006BE540_Find((D2QueueServerStrc*)pContainer, nKey);
+        if (pClient)
+            pClient->nContext = nValue;
+    }
+}
+
+// 0x006BF0C0
+int __stdcall sub_006BF0C0_GetValue(void* pContainer, int nKey)
+{
+    if (!nKey)
+        return 0;
+    D2QClientStrc* pClient = sub_006BE540_Find((D2QueueServerStrc*)pContainer, nKey);
+    if (!pClient)
+        return 0;
+    return pClient->nContext;
+}
+
+// 0x006BF370
+int __stdcall FOG_10175(T006BE350* server,const unsigned char* buffer,int size,int id)
+{
+ int consumed=0;
+ int unknown1=0;
+ int channel=0;
+ int unknown2=0;
+ int result=server->parser(buffer,size,&unknown1,&consumed,&channel,&unknown2,0,0,0);
+ if(result!=2 && result!=1) return 0;
+ D2QPacketStrc* packet;
+ if(server->freePackets) {
+  EnterCriticalSection(&server->lock);
+  packet=server->freePackets;
+  if(packet) server->freePackets=packet->next;
+  else packet=(D2QPacketStrc*)FOG_Alloc(sizeof(D2QPacketStrc),gszQServerSource,2569,0);
+  LeaveCriticalSection(&server->lock);
+ } else packet=(D2QPacketStrc*)FOG_Alloc(sizeof(D2QPacketStrc),gszQServerSource,2578,0);
+ sub_006829C0_Copy(packet->data,buffer+consumed,size-consumed);
+ packet->size=size-consumed;
+ packet->tick=GetTickCount();
+ packet->next=0;
+ packet->id=id;
+ if(channel<server->channelCount) {
+  EnterCriticalSection(&server->lock);
+  D2QPacketStrc* last=server->tails[channel];
+  if(!last) server->heads[channel]=packet;
+  else last->next=packet;
+  server->tails[channel]=packet;
+  LeaveCriticalSection(&server->lock);
+ }
+ return 1;
+}
+
 // 0x006BF4E0
 extern "C" __declspec(dllexport) void __stdcall sub_006BF4E0(Obj006BF4E0* pObj, unsigned int dwValue) {
     pObj->dwValueBD0 = dwValue;
+}
+
+// 0x006BF500
+static int __fastcall sub_006BF500_Dispatch(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize)
+{
+    if (!pClient || pClient->bClosing) return 0;
+    if (pServer->bAltSend) return sub_006C2C70(pServer, pClient, pData, nSize);
+    return sub_006C3410_Send(pServer, pClient, pData, nSize);
+}
+
+// build: context sub_Emit_006BF500
+// calling-convention shim (not game code)
+int __stdcall sub_Emit_006BF500(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize)
+{
+    if (!pServer)
+    {
+        return 0;
+    }
+    if ((pServer->nState == 1 || pServer->nState == 2) && pServer->pfnHandler)
+    {
+        return pServer->pfnHandler(pServer, pData, nSize);
+    }
+    D2QClientStrc* pClient = sub_006BE540_Find(pServer, nKey);
+    return sub_006BF500_Dispatch(pServer, pClient, pData, nSize);
+}
+
+// 0x006BF520
+static void sub_006BF520_StartServer(QServer* pServer, int nValue)
+{
+    D2WSADataStrc tWsaData;
+    if (WSAStartup(0x101, &tWsaData))
+    {
+        return;
+    }
+
+    if (pServer->bUseNt)
+    {
+        sub_006C3360_Startup(pServer, nValue);
+    }
+    else
+    {
+        sub_006C3B50_StartServer(pServer, nValue);
+    }
+}
+
+void __fastcall sub_Emit_006BF520(QServer* pServer, int nValue)
+{
+    sub_006BF520_StartServer(pServer, nValue);
+    sub_006BF520_StartServer(pServer, nValue);
+}
+
+// 0x006BF580
+int __stdcall sub_006BF580_CountEntries(D2QServer006BF580Strc* pServer)
+{
+    int nCount = 0;
+    if (!pServer)
+    {
+        return 0;
+    }
+    EnterCriticalSection(&pServer->pLock);
+    for (int i = 0; i < pServer->nBuckets; ++i)
+    {
+        for (D2QEntry006BF580Strc* pEntry = pServer->ppBuckets[i]; pEntry; pEntry = pEntry->pNext)
+        {
+            ++nCount;
+        }
+    }
+    LeaveCriticalSection(&pServer->pLock);
+    return nCount;
 }
 
 // 0x006BF5F0
@@ -919,7 +1271,62 @@ int __stdcall sub_006BFAD0_BroadcastToAllClients(D2QueueServerStrc* pServer, cha
     return 1;
 }
 
-#include "gen/data/Source/Fog/Src/QServer/QServer.inc"
+// build: context sub_006BF180_ReferenceAddress
+static __declspec(noinline)
+int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int* address)
+{
+ unsigned int value=*address;
+ unsigned int bucket=value%server->modulus;
+ D2AddressRefStrc* entry=server->addressRefs[bucket];
+ while(entry) {
+  if(entry->address==value) {
+   ++entry->count;
+   return 1;
+  }
+  entry=entry->next;
+ }
+ entry=(D2AddressRefStrc*)FOG_Alloc(sizeof(D2AddressRefStrc),gszQServerSource,2329,0);
+ entry->address=value;
+ entry->count=1;
+ entry->next=server->addressRefs[bucket];
+ server->addressRefs[bucket]=entry;
+ return 1;
+}
+
+// 0x006BFB70
+D2QClientStrc* __fastcall QSrvAddClient(T006BE350* server,unsigned int socket,unsigned int address)
+{
+ D2QClientStrc* client=(D2QClientStrc*)FOG_Alloc(sizeof(D2QClientStrc),gszQServerSource,571,0);
+ memset(client,0,sizeof(D2QClientStrc));
+ EnterCriticalSection(&server->idLock);
+ unsigned int id=++server->nextId;
+ LeaveCriticalSection(&server->idLock);
+ client->nId=id;
+ client->nSocket=socket;
+ client->nAddress=address;
+ client->nPending24=0;client->nQueued=0;client->nValue74=0;
+ client->bEnabled=1;client->nState=2;
+ unsigned int tick=sub_00410A80_GetTimeSeconds();
+ client->nCreateTime=tick;client->nLastTick=tick;client->nTick3=tick;client->nTick4=tick;
+ InitializeCriticalSection(&client->tLock);
+ unsigned int bucket=id&server->mask;
+ EnterCriticalSection(&server->locks[bucket]);
+ client->pNext=server->clients[bucket];
+ server->clients[bucket]=client;
+ LeaveCriticalSection(&server->locks[bucket]);
+ EnterCriticalSection(&server->addressLock);
+ unsigned int addressBucket=address&server->mask;
+ client->pNextByAddress=server->addressClients[addressBucket];
+ server->addressClients[addressBucket]=client;
+ LeaveCriticalSection(&server->addressLock);
+ EnterCriticalSection(&server->idLock);
+ sub_006BF180_ReferenceAddress(server,&address);
+ InterlockedIncrement(&client->nRefCount);
+ ++server->count;
+ LeaveCriticalSection(&server->idLock);
+ sub_006BE300_Log(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
+ return client;
+}
 
 // 0x006BFEA0
 void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* pTable, const char* szFile, unsigned int nAddress, int nLine)
@@ -957,6 +1364,190 @@ void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* pTable, const char
     sub_006BE6C0_LogHackListSize(pTable->nRecordCount);
 }
 
+// 0x006C0140
+static int sub_006C0140_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize)
+{
+    if (!pServer)
+    {
+        return 0;
+    }
+    D2QClientStrc* pConnection = sub_006BE540_Find(pServer, nKey);
+    if (!pConnection || pConnection->bClosing)
+    {
+        return 0;
+    }
+    if (pServer->bAltSend)
+    {
+        return sub_006C2C70(pServer, pConnection, pData, nSize);
+    }
+    return sub_006C3410_Send(pServer, pConnection, pData, nSize);
+}
+
+// build: context sub_006BF320_FreeChain
+static void sub_006BF320_FreeChain(T006BE350* pServer)
+{
+    EnterCriticalSection(&pServer->tLock854);
+    D2QServerNodeStrc* pNode = pServer->pChain84C;
+    while (pNode)
+    {
+        D2QServerNodeStrc* pNext = pNode->pNext;
+        FOG_Free(pNode, gszQServerFile_006FC460, 0x9B0, 0);
+        pNode = pNext;
+    }
+    pServer->pChain84C = 0;
+    LeaveCriticalSection(&pServer->tLock854);
+}
+
+// build: context sub_006BF0F0_FreeBuckets
+static void sub_006BF0F0_FreeBuckets(T006BE350* pServer)
+{
+    EnterCriticalSection(&pServer->tLock894);
+    for (unsigned int i = 0; i < pServer->f_8B0; ++i)
+    {
+        D2QServerNodeStrc* pNode = pServer->ppBuckets[i];
+        while (pNode)
+        {
+            D2QServerNodeStrc* pNext = pNode->pNext;
+            FOG_Free(pNode, gszQServerFile_006FC460, 0x8BE, 0);
+            pNode = pNext;
+        }
+        pServer->ppBuckets[i] = 0;
+    }
+    pServer->n890 = 0;
+    LeaveCriticalSection(&pServer->tLock894);
+}
+
+// 0x006C0170
+int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
+{
+    if (!pServer)
+        return 1;
+
+    if (a2)
+        sub_006BFAD0_Notify(pServer, a2, a3);
+
+    if (pServer->nState != 1 && pServer->nState != 2)
+    {
+        if (pServer->nMode)
+            sub_006C2110_StopServerThreads(pServer);
+        else
+            sub_006C33D0_Stop(pServer);
+    }
+
+    sub_006BF320_FreeChain(pServer);
+    sub_006BF0F0_FreeBuckets(pServer);
+    sub_006BE3C0_Shutdown(pServer);
+
+    for (int i = 0; i < 4; ++i)
+    {
+        if (pServer->aSockets[i] != -1)
+        {
+            sub_0040D880(pServer->aSockets[i]);
+            pServer->aSockets[i] = -1;
+        }
+    }
+
+    WSACleanup();
+    DeleteCriticalSection(&pServer->tLock854);
+    DeleteCriticalSection(&pServer->tLock894);
+    DeleteCriticalSection(&pServer->tLock8B4);
+
+    while (pServer->f_878)
+    {
+        D2QClientStrc* pNext = pServer->f_878->pNextQueued;
+        FOG_Free(pServer->f_878, gszQServerFile_006FC460, 0x183, 0);
+        pServer->f_878 = pNext;
+    }
+
+    while (pServer->pChain88C)
+    {
+        D2QServerNodeStrc* pNext = pServer->pChain88C->pNext;
+        FOG_Free(pServer->pChain88C, gszQServerFile_006FC460, 0x189, 0);
+        pServer->pChain88C = pNext;
+    }
+
+    FOG_Free(pServer->p870, gszQServerFile_006FC460, 0x18D, 0);
+    FOG_Free(pServer->p874, gszQServerFile_006FC460, 0x18E, 0);
+    FOG_Free(pServer->p040, gszQServerFile_006FC460, 0x192, 0);
+    FOG_Free(pServer->ppBuckets, gszQServerFile_006FC460, 0x193, 0);
+    FOG_Free(pServer->p020, gszQServerFile_006FC460, 0x195, 0);
+    DeleteCriticalSection(&pServer->tLock028);
+    FOG_Free(pServer->p014, gszQServerFile_006FC460, 0x198, 0);
+
+    for (int i = 0; i < gnLockCount_0074C3E0; ++i)
+        DeleteCriticalSection(&pServer->pLocks[i]);
+
+    FOG_Free(pServer->pLocks, gszQServerFile_006FC460, 0x19C, 0);
+    FOG_Free(pServer, gszQServerFile_006FC460, 0x19F, 0);
+    return 1;
+}
+
+// build: context sub_CallSite_SendToKey
+// calling-convention shim (not game code)
+int __stdcall sub_CallSite_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize)
+{
+    return sub_006C0140_SendToKey(pServer, nKey, pData, nSize);
+}
+
+// 0x006C03A0
+int __stdcall sub_006C03A0_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize)
+{
+    if (!pServer)
+    {
+        return 0;
+    }
+    if ((pServer->nState == 1 || pServer->nState == 2) && pServer->pfnHandler)
+    {
+        return pServer->pfnHandler(pServer, pData, nSize);
+    }
+    D2QClientStrc* pConnection = sub_006BE540_Find(pServer, nKey);
+    if (!pConnection || pConnection->bClosing)
+    {
+        return 0;
+    }
+    if (pServer->bAltSend)
+    {
+        return sub_006C2C70(pServer, pConnection, pData, nSize);
+    }
+    return sub_006C3410_Send(pServer, pConnection, pData, nSize);
+}
+
+// 0x006C0530
+void __stdcall sub_006C0530_RecordClient(D2QueueServerStrc* pTable, int nClient, const char* szFile, int nLine)
+{
+    if (!pTable->bEnabled) return;
+    unsigned int nBucket = pTable->nMask & nClient;
+    EnterCriticalSection(&pTable->pLocks[nBucket]);
+    D2QClientStrc* pNode = pTable->ppClients[nBucket];
+    while (pNode && pNode->iId != nClient)
+        pNode = pNode->pNext;
+    LeaveCriticalSection(&pTable->pLocks[nBucket]);
+    if (!pNode)
+    {
+        sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  Couldn't hacklist client %d (closed) from FILE:%s  LINE:%d", nClient, szFile, nLine);
+        return;
+    }
+    unsigned int nAddress = pNode->nAddress;
+    sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackList() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(nAddress), szFile, nLine);
+    sub_006C0420_CloseClient(pTable, nClient, szFile, nLine);
+    sub_006BFEA0_RecordAddress(pTable, szFile, nAddress, nLine);
+}
+
+// 0x006C0600
+void __stdcall sub_006C0600_RecordClosedAddress(D2QueueServerStrc* table, unsigned int ip, const char* file, int line)
+{
+    if (!table->bEnabled) return;
+    unsigned int bucket = table->nMask & ip;
+    EnterCriticalSection(&table->tAddressLock);
+    D2QClientStrc* node = table->ppAddressBuckets[bucket];
+    while (node && node->nAddress != ip) node = node->pNextByAddress;
+    LeaveCriticalSection(&table->tAddressLock);
+    if (node) sub_006C0420_CloseClient(table, node->iId, file, line);
+    else sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_InetNtoa(ip));
+    sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackListIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(ip), file, line);
+    sub_006BFEA0_RecordAddress(table, file, ip, line);
+}
+
 // 0x006C06B0
 int __stdcall FOG_10165(QServer* pServer, int nClientId, const char* szFile, int nLine)
 {
@@ -982,3 +1573,23 @@ void __stdcall sub_006C06D0_DisconnectIP(D2ConnectionTableStrc* pTable, unsigned
         sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
     sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
 }
+
+// 0x006C0800
+int __fastcall sub_006C0800_BanByAddress(D2QueueServerStrc* pServer, unsigned int* pAddress, const char* szFile, int nLine)
+{
+    unsigned int nAddress = *pAddress;
+    unsigned int nBucket = pServer->nMask & nAddress;
+    EnterCriticalSection(&pServer->tAddressLock);
+    D2QClientStrc* pNode = pServer->ppAddressBuckets[nBucket];
+    while (pNode && pNode->nAddress != nAddress)
+        pNode = pNode->pNextByAddress;
+    LeaveCriticalSection(&pServer->tAddressLock);
+    if (pNode && !pServer->sub_006BF660_CheckAddress(pNode->nAddress))
+    {
+        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
+        sub_006C0770_BanClient(pNode->iId, gszServerFile_006FC460, 0x584);
+    }
+    return 1;
+}
+
+#include "gen/data/Source/Fog/Src/QServer/QServer.inc"
