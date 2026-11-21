@@ -2155,31 +2155,6 @@ void __cdecl sub_004DC000_DrawFadeBox()
     D2GFX_DrawBoxAlpha(nXStart, 0, nXEnd, nYEnd, 0, nRemaining * 255 / 500);
 }
 
-// 0x004DC110
-D2CltUnitEventStrc* __fastcall sub_004DC110_AddCltUnitEvent(D2UnitStrc* pUnit, int nType, int nParam1, int nParam2, int nParam3, int nParam4, int nParam5)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2CltUnitEventStrc* pEvent = (D2CltUnitEventStrc*)FOG_AllocPool(pUnit->pMemoryPool, sizeof(D2CltUnitEventStrc), ".\\UNIT\\CUnitEvent.cpp", 72, 0);
-    memset(pEvent, 0, sizeof(D2CltUnitEventStrc));
-    pEvent->nParam1 = nParam1;
-    pEvent->nParam2 = nParam2;
-    pEvent->nParam3 = nParam3;
-    pEvent->nType = nType;
-    pEvent->pNext = pUnit->pCltTimerList;
-    pEvent->f_4 = nParam4;
-    pEvent->f_8 = nParam5;
-    if (pUnit->pCltTimerList)
-    {
-        pUnit->pCltTimerList->pPrevious = pEvent;
-    }
-    pUnit->pCltTimerList = pEvent;
-    return pEvent;
-}
-
 // 0x004DC3E0
 void __fastcall sub_004DC3E0_TogglePvpFlag(int nUnitId1, int nUnitId2, unsigned int nFlags, int bSet)
 {

@@ -45,25 +45,6 @@ void __cdecl sub_004DC0A0()
     gdwFadeTick_007C89CC = 0;
 }
 
-// 0x004DC0C0
-void __fastcall sub_004DC0C0_FreeCltUnitEvents(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    D2CltUnitEventStrc* pEvent = pUnit->pCltTimerList;
-    while (pEvent)
-    {
-        D2CltUnitEventStrc* pNext = pEvent->pNext;
-        sub_0040B480(sub_004DC0B0_GetUnitMemoryPool(pUnit), pEvent, ".\\UNIT\\CUnitEvent.cpp", 0x2F, 0);
-        pEvent = pNext;
-    }
-
-    pUnit->pCltTimerList = 0;
-}
-
 // 0x004DC270
 D2RosterInfoStrc** __cdecl sub_004DC270_AllocRosterInfoList()
 {

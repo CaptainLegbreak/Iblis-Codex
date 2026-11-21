@@ -15535,11 +15535,6 @@
      "name": "_sub_004AA8F0_ClearValue7C0C3C"
     },
     {
-     "va": "0x004ACD70",
-     "length": 62,
-     "name": "sub_004ACD70_AssignSkillB8"
-    },
-    {
      "va": "0x004B1050",
      "length": 58,
      "name": "sub_004B1050_GetMonsterValue"
@@ -15563,6 +15558,17 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004ACD70",
+     "length": 62,
+     "name": "sub_004ACD70_AssignSkillB8"
+    }
    ]
   },
   {
@@ -21789,11 +21795,6 @@
      "va": "0x004DC000",
      "length": 158,
      "name": "?sub_004DC000_DrawFadeBox@@YAXXZ"
-    },
-    {
-     "va": "0x004DC110",
-     "length": 123,
-     "name": "sub_004DC110_AddCltUnitEvent"
     },
     {
      "va": "0x004DC3E0",
@@ -34373,11 +34374,6 @@
      "name": "sub_004DAAB0_GetArmorComponents"
     },
     {
-     "va": "0x004DC190",
-     "length": 127,
-     "name": "sub_004DC190_RemoveCltUnitEvents"
-    },
-    {
      "va": "0x004DED20",
      "length": 141,
      "name": "?sub_004DED20_UpdateRoomColor@@YAXXZ"
@@ -36293,11 +36289,6 @@
      "name": "?sub_004DC0B0_GetNextRosterInfo@@YIPAUD2RosterInfoStrc@@PAU1@@Z"
     },
     {
-     "va": "0x004DC0C0",
-     "length": 67,
-     "name": "?sub_004DC0C0_FreeCltUnitEvents@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x004DC270",
      "length": 58,
      "name": "?sub_004DC270_AllocRosterInfoList@@YAPAPAUD2RosterInfoStrc@@XZ"
@@ -36341,6 +36332,27 @@
      "va": "0x004DDDF0",
      "length": 1,
      "name": "?sub_004DDDF0@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UNIT/CUnitEvent.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004DC0C0",
+     "length": 67,
+     "name": "?sub_004DC0C0_FreeCltUnitEvents@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004DC110",
+     "length": 123,
+     "name": "sub_004DC110_AddCltUnitEvent"
+    },
+    {
+     "va": "0x004DC190",
+     "length": 127,
+     "name": "sub_004DC190_RemoveCltUnitEvents"
     }
    ]
   },
