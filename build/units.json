@@ -87388,12 +87388,20 @@
      "name": "?DRLGMAZE_InitRoomFixedPreset@@YGPAUD2DrlgRoomStrc@@PAU1@HHHH@Z"
     },
     {
+     "va": "0x00670EB0",
+     "length": 164
+    },
+    {
      "va": "0x00670F60",
      "length": 567
     },
     {
      "va": "0x00671210",
      "length": 260
+    },
+    {
+     "va": "0x006714D0",
+     "length": 995
     },
     {
      "va": "0x006718C0",
@@ -87543,34 +87551,6 @@
     {
      "va": "0x00670E70",
      "length": 53
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670EB0.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00670EB0",
-     "length": 164
-    },
-    {
-     "va": "0x006714D0",
-     "length": 995
     }
    ]
   },
