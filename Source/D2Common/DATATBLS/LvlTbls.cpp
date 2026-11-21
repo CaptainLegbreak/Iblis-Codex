@@ -3,35 +3,57 @@
 #include "D2Path.h"
 
 #pragma intrinsic(strcpy)
+
 #define LVL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 union D2SeedStrc;
+
 struct D2SkillsTxt;
+
 struct D2AutomapShortStrc;
+
 struct D2DrlgStrc;
+
 struct D2LevelDefBin;
+
 struct D2BinFieldStrc;
+
 struct D2AutomapTxt;
+
 struct D2AutomapRandStrc;
-struct D2DrlgFileStrc;
+
+
 struct D2DataTablesStrc;
+
 struct D2LvlTypesTxt;
+
 struct D2SkillStrc;
+
 struct D2DrlgRoomStrc;
+
 struct D2DrlgLevelStrc;
+
 struct D2LevelsTxt;
+
 struct D2LvlPrestTxt;
+
 struct D2LvlWarpTxt;
+
 struct D2LvlMazeTxt;
+
 struct D2LvlSubTxt;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -44,7 +66,7 @@ struct D2LevelDefBin
     int dwLOSDraw;
 };
 
-extern D2LevelDefBin* gpLevelDefBin; // 0x0096C890
+D2LevelDefBin* gpLevelDefBin; // 0x0096C890
 
 struct D2BinFieldStrc
 {
@@ -56,11 +78,17 @@ struct D2BinFieldStrc
 };
 
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
+
 extern "C" const char gszTxtField_end_006D9060[]; // 0x006D9060
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
+
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 extern "C" unsigned int __cdecl strlen(const char* sz);
+
 extern void* gpLvlwarpTxt; // 0x0096CA00
+
 extern void* gpLvlmazeTxt; // 0x0096CA08
 
 struct D2LvlTypesTxt
@@ -72,7 +100,9 @@ struct D2LvlTypesTxt
 };
 
 extern "C" int __cdecl strcmp(const char* s1, const char* s2);
+
 extern const char gszAutomapLevelNames_006E7D50[36][16]; // 0x006E7D50
+
 extern const char gszAutomapTileNames_006E7F90[20][8]; // 0x006E7F90
 
 struct D2AutomapTxt
@@ -104,11 +134,14 @@ struct D2AutomapRandStrc
     int nEnd;
 };
 
-
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
+
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
+
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
+
 extern D2SeedStrc* gpAutomapSeed_00744504; // 0x00744504
+
 extern D2AutomapShortStrc* gpAutomap_0096CA28; // 0x0096CA28
 
 struct D2SkillStrc
@@ -176,17 +209,29 @@ struct D2LvlMazeTxt
 
 struct D2LvlSubTxt
 {
-    char unk0x00[0x15C];
+    int dwType;
+    char szFile[60];
+    char unk0x40[0x118];
+    int dwExpansion;
 };
 
-extern int gnLvlwarpTxtRecordCount; // 0x0096CA04
-extern int gnLvlmazeTxtRecordCount; // 0x0096CA0C
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile); // 0x00668300
-void __fastcall DRLGTILESUB_FreeDrlgFile(D2LvlSubTxt* pLvlSubTxtRecord); // 0x00670630
+struct D2DrlgFileStrc
+{
+    char unk0x00[0x4C];
+    int nGroups;
+};
 
-D2LevelDefBin* gpLevelDefBin; // 0x0096C890
+int gnLvlwarpTxtRecordCount; // 0x0096CA04
+
+int gnLvlmazeTxtRecordCount; // 0x0096CA0C
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile); // 0x00668300
+
+void __fastcall DRLGTILESUB_FreeDrlgFile(D2LvlSubTxt* pLvlSubTxtRecord); // 0x00670630
 
 D2LvlPrestTxt* gpLvlPrestTxt; // 0x0096C894
 
@@ -211,6 +256,82 @@ void* gppTileLibraryHash; // 0x0096CA1C
 D2DrlgFileStrc** gppLvlPrestDrlgFiles; // 0x0096CA20
 
 D2DrlgFileStrc** gppLvlSubDrlgFiles; // 0x0096CA24
+
+extern const char gszFile_006E84DC[]; // 0x006E84DC
+
+extern const char gszDirectory_006E867C[]; // 0x006E867C
+
+extern const char gszPathFormat_006D4124[]; // 0x006D4124
+
+extern const char gszTable_006E8928[]; // 0x006E8928
+
+void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
+
+int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
+
+void __fastcall DRLGPRESET_LoadDrlgFile(D2DrlgFileStrc**,void*,const char*); // 0x00665F40
+
+__declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
+
+extern const char gszField_Type[]; // 0x006E89A4
+
+extern const char gszField_File[]; // 0x006E899C
+
+extern const char gszField_CheckAll[]; // 0x006E8990
+
+extern const char gszField_BordType[]; // 0x006E8984
+
+extern const char gszField_GridSize[]; // 0x006E8978
+
+extern const char gszField_Dt1Mask[]; // 0x006E879C
+
+extern const char gszField_Prob0[]; // 0x006E8970
+
+extern const char gszField_Trials0[]; // 0x006E8968
+
+extern const char gszField_Max0[]; // 0x006E8960
+
+extern const char gszField_Prob1[]; // 0x006E8958
+
+extern const char gszField_Trials1[]; // 0x006E8950
+
+extern const char gszField_Max1[]; // 0x006E8948
+
+extern const char gszField_Prob2[]; // 0x006E8940
+
+extern const char gszField_Trials2[]; // 0x006E8938
+
+extern const char gszField_Max2[]; // 0x006E8930
+
+extern const char gszField_Prob3[]; // 0x006E8920
+
+extern const char gszField_Trials3[]; // 0x006E8918
+
+extern const char gszField_Max3[]; // 0x006E8910
+
+extern const char gszField_Prob4[]; // 0x006E8908
+
+extern const char gszField_Trials4[]; // 0x006E8900
+
+extern const char gszField_Max4[]; // 0x006E88F8
+
+extern const char gszField_Expansion[]; // 0x006DCF44
+
+extern const char gszField_end[]; // 0x006D9060
+
+static int* gpPortalLevels_0096C9F4; // 0x0096C9F4
+
+static int gnPortalLevels_0096C9F8; // 0x0096C9F8
+
+static D2LvlTypesTxt* gpLvlTypesTxt_0096C9F0; // 0x0096C9F0
+
+static int gnLvlTypesTxtRecordCount_0096C9FC; // 0x0096C9FC
+
+static D2TileLibraryHeaderStrc** gppTileLibraryHash_0096CA1C; // 0x0096CA1C
+
+int gnAutomapRecordCount_0096CA2C; // 0x0096CA2C
+
+D2AutomapRandStrc gAutomapRand_0096C8D0[36]; // 0x0096C8D0
 
 // 0x0061DB70
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId)
@@ -287,10 +408,6 @@ int __stdcall DATATBLS_GetMonsterLevelInArea(int nLevelId, unsigned char nDiffic
 
     return pLevelsTxtRecord->wMonLvl[nDifficulty];
 }
-
-static int* gpPortalLevels_0096C9F4; // 0x0096C9F4
-
-static int gnPortalLevels_0096C9F8; // 0x0096C9F8
 
 // 0x0061DD00
 static void sub_0061DD00_InitPortalLevels(D2LevelDefBin* pLevelDefBin)
@@ -526,8 +643,6 @@ void __fastcall sub_Z16_EmitFixPathSlashes(char* pRecords, int nCount)
     }
 }
 
-int gnLvlwarpTxtRecordCount; // 0x0096CA04
-
 // 0x0061F130
 void __fastcall DATATBLS_LoadLvlWarpTxt(void* hArchive)
 {
@@ -580,8 +695,6 @@ D2LvlWarpTxt* __fastcall DATATBLS_GetLvlWarpTxtRecordFromLevelIdAndDirection(int
     LVL_ASSERT(0, 826);
 }
 
-int gnLvlmazeTxtRecordCount; // 0x0096CA0C
-
 // 0x0061F380
 void __fastcall DATATBLS_LoadLvlMazeTxt(void* hArchive)
 {
@@ -620,6 +733,74 @@ D2LvlMazeTxt* __fastcall DATATBLS_GetLvlMazeTxtRecordFromLevelId(int nLevelId)
     }
 
     LVL_ASSERT(0, 876);
+}
+
+// 0x0061F500
+void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
+{
+ D2BinFieldStrc fields[]={
+  {gszField_Type,2,0,0x0,0},
+  {gszField_File,1,59,0x4,0},
+  {gszField_CheckAll,2,0,0x40,0},
+  {gszField_BordType,2,0,0x44,0},
+  {gszField_GridSize,2,0,0x4c,0},
+  {gszField_Dt1Mask,2,0,0x48,0},
+  {gszField_Prob0,2,0,0x11c,0},
+  {gszField_Trials0,2,0,0x130,0},
+  {gszField_Max0,2,0,0x144,0},
+  {gszField_Prob1,2,0,0x120,0},
+  {gszField_Trials1,2,0,0x134,0},
+  {gszField_Max1,2,0,0x148,0},
+  {gszField_Prob2,2,0,0x124,0},
+  {gszField_Trials2,2,0,0x138,0},
+  {gszField_Max2,2,0,0x14c,0},
+  {gszField_Prob3,2,0,0x128,0},
+  {gszField_Trials3,2,0,0x13c,0},
+  {gszField_Max3,2,0,0x150,0},
+  {gszField_Prob4,2,0,0x12c,0},
+  {gszField_Trials4,2,0,0x140,0},
+  {gszField_Max4,2,0,0x154,0},
+  {gszField_Expansion,2,0,0x158,0},
+  {gszField_end,0,0,0x0,0},
+ };
+  int maxType=0;
+ D2LvlSubTxt* rows=(D2LvlSubTxt*)DATATBLS_CompileTxt(archive,gszTable_006E8928,fields,&gnLvlSubTxtRecordCount,sizeof(D2LvlSubTxt));
+ gpLvlSubTxt=rows;
+ if(gnLvlSubTxtRecordCount>0) {
+  for(int i=0;i<gnLvlSubTxtRecordCount;++i) { if(rows[i].dwType>maxType)maxType=rows[i].dwType; }
+  if(maxType) {
+   int size=sizeof(int)*(maxType+1);
+   gpLvlSubTypeStartIds=(int*)FOG_AllocPool(0,size,gszFile_006E84DC,0x3a6,0);
+   memset(gpLvlSubTypeStartIds,0,size);
+   int lastType=0;
+   D2LvlSubTxt* txt=gpLvlSubTxt;
+   int i=0;
+   while(i<gnLvlSubTxtRecordCount) {
+    if(txt[i].dwType!=lastType) {
+
+     if(txt[i].dwType>lastType) { lastType=txt[i].dwType;gpLvlSubTypeStartIds[lastType]=i; }
+     else { lastType=txt[i].dwType;gpLvlSubTypeStartIds[lastType]=i; }
+     ++i; continue;
+    }
+    ++i;
+   }
+  }
+ }
+ if(loadFiles||extra) {
+  gppLvlSubDrlgFiles=(D2DrlgFileStrc**)FOG_Alloc(sizeof(D2DrlgFileStrc*)*gnLvlSubTxtRecordCount,gszFile_006E84DC,0x3b6,0);
+  memset(gppLvlSubDrlgFiles,0,sizeof(D2DrlgFileStrc*)*gnLvlSubTxtRecordCount);
+ }
+ D2LvlSubTxt* row=gpLvlSubTxt;
+ int expansion=sub_00408F20_HasExpansionMpq();
+ for(int i=0;i<gnLvlSubTxtRecordCount;++i,++row) {
+  sub_0061E4A0(row->szFile,gszDirectory_006E867C);
+  if((expansion||!row->dwExpansion)&&(loadFiles||extra)) {
+   DRLGPRESET_LoadDrlgFile(&gppLvlSubDrlgFiles[i],0,row->szFile);
+   if(!gppLvlSubDrlgFiles[i]->nGroups) {
+    sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x3c8);sub_00681E09_Exit(-1);
+   }
+  }
+ }
 }
 
 // 0x0061F9C0
@@ -669,12 +850,6 @@ D2LvlSubTxt* __fastcall DATATBLS_GetLvlSubTxtRecord(int nSubType)
 
     return &gpLvlSubTxt[gpLvlSubTypeStartIds[nSubType]];
 }
-
-static D2LvlTypesTxt* gpLvlTypesTxt_0096C9F0; // 0x0096C9F0
-
-static int gnLvlTypesTxtRecordCount_0096C9FC; // 0x0096C9FC
-
-static D2TileLibraryHeaderStrc** gppTileLibraryHash_0096CA1C; // 0x0096CA1C
 
 // 0x0061FAE0
 void __fastcall DATATBLS_AllocGlobalTileLibraryHash()
@@ -763,12 +938,6 @@ void __stdcall sub_M14_EmitAutomapLookups(const char* pAutomapRecord, int* pType
     pTypes[0] = sub_0061FC10_GetAutomapLevelType(pAutomapRecord);
     pTypes[1] = sub_0061FC80_GetAutomapTileType(pAutomapRecord + 16);
 }
-
-#include "gen/data/Source/D2Common/DATATBLS/LvlTbls.inc"
-
-int gnAutomapRecordCount_0096CA2C; // 0x0096CA2C
-
-D2AutomapRandStrc gAutomapRand_0096C8D0[36]; // 0x0096C8D0
 
 // 0x0061FCF0
 void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
@@ -948,3 +1117,5 @@ int __fastcall sub_00673FF0_GetVisFlagToLevel(D2DrlgLevelStrc* pLevel, D2DrlgLev
 
     return 1 << (i + 4);
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/LvlTbls.inc"

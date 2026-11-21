@@ -81245,6 +81245,10 @@
      "name": "DATATBLS_GetLvlMazeTxtRecordFromLevelId"
     },
     {
+     "va": "0x0061F500",
+     "length": 1203
+    },
+    {
      "va": "0x0061F9C0",
      "length": 206,
      "name": "DATATBLS_UnloadLvlSubTxt"
@@ -81319,27 +81323,11 @@
      "va": "0x0061E520",
      "length": 1378,
      "name": "?sub_0061E520@@YIXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/LvlTbls_0061EBB0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0061EBB0",
      "length": 1143,
      "name": "?DATATBLS_LoadLvlPrestTxt@@YIXPAXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/LvlTbls_0061F500.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0061F500",
-     "length": 1203
     }
    ]
   },
