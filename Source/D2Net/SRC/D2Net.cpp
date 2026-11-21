@@ -1,4 +1,5 @@
 #include "D2Net.h"
+#include "D2GameServer.h"
 struct D2NetPacketRecStrc;
 struct D2NetLockStrc;
 struct D2Net52BE10Strc;
@@ -20,12 +21,6 @@ struct D2Net52BE10Strc
 };
 
 typedef const char* (__stdcall* FnLoadComplete)();
-
-struct D2ServerCallbackFunctions
-{
-    void* pfCallbacks[15];
-    FnLoadComplete pfLoadComplete;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0

@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2WinControls.h"
 #include "D2Unicode.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CelFileStrc;
@@ -20,16 +21,6 @@ int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 int __fastcall SCROLLBAR_SetMaxSteps(D2WinScrollBarStrc* pScrollBar, int nMaxSteps); // 0x00507F20
 int __fastcall SCROLLBAR_SetCurrentStep(D2WinScrollBarStrc* pScrollBar, int nCurrentStep); // 0x00507F60
 int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, int nIndent);
-
-struct D2GfxDataStrc
-{
-    int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCellFile;
-    char unk0x38[0x08];
-    int nDirection;
-    char unk0x44[0x04];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern int gdwGlobal_00841B70; // 0x00841B70
