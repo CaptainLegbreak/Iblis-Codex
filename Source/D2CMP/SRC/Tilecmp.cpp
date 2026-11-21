@@ -120,9 +120,6 @@ void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, cons
 
 void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord); // 0x0060DB20
 
-// CONFLICT name:sub_00609980_ExtractSubTile from Tilecmp.cpp
-static void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY);
-
 void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize);
 
 static void sub_00609AA0_SplitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels);
