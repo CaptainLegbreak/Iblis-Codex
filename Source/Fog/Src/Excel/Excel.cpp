@@ -119,8 +119,6 @@ extern "C" void __fastcall sub_006BD070_FreeNodes(LinkNode* node);
 
 extern "C" int __fastcall sub_0040B480_FreePool(void* pool,void* block,const char* file,int line,int unused);
 
-extern "C" const char gExcelFile[]; // 0x006FC448
-
 struct Unit
 {
     int type;
@@ -166,8 +164,6 @@ extern "C" ClientNode* __fastcall sub_006BE540_FindClient(Server* server,int cli
 
 extern "C" const int gCollisionPatterns_006EB3DC[4];
 
-extern "C" const char gExcelFile_006FC448[]; // 0x006FC448
-
 struct Obj006BCDE0 {
     unsigned int dwUnknown00;
     unsigned int dwUnknown04;
@@ -191,8 +187,6 @@ struct D2Block006BD040Strc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
-extern const char gszExcelSourceFile_006FC448[]; // 0x006FC448
 
 typedef signed char S8;
 
@@ -361,8 +355,6 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 void __fastcall sub_004113C0(char* szText, int nLength); // 0x004113C0
 
-extern "C" const char gszExcelCppFile[]; // 0x006FC448
-
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError); // 0x006BD3C0
@@ -497,8 +489,8 @@ extern "C" U32 __stdcall sub_006BC120_receive(ReceiveConnection* connection, cha
 // 0x006BCDA0
 extern "C" void __stdcall sub_006BCDA0_freeBinFile(BinFile* file)
 {
-    sub_0040B3C0_Free(file->data,gExcelFile_006FC448,154,0);
-    sub_0040B480_FreePool(0,file,gExcelFile_006FC448,155,0);
+    sub_0040B3C0_Free(file->data,".\\Src\\Excel\\Excel.cpp",154,0);
+    sub_0040B480_FreePool(0,file,".\\Src\\Excel\\Excel.cpp",155,0);
 }
 
 // 0x006BCDE0
@@ -623,7 +615,7 @@ void __fastcall sub_006BD070_FreeTree(D2TxtLinkNodeStrc* pNode)
         sub_006BD070_FreeTree(pNode->pPrevious);
     if (pNode->pNext)
         sub_006BD070_FreeTree(pNode->pNext);
-    FOG_FreeServerMemory(0, pNode, gszExcelSourceFile_006FC448, 0x346, 0);
+    FOG_FreeServerMemory(0, pNode, ".\\Src\\Excel\\Excel.cpp", 0x346, 0);
 }
 
 // 0x006BD0B0
@@ -638,11 +630,11 @@ extern "C" void __stdcall sub_006BD0B0_FreeLinker(LinkerView* linker)
                 sub_006BD070_FreeNodes(root->firstChild);
             if (root->secondChild)
                 sub_006BD070_FreeNodes(root->secondChild);
-            sub_0040B480_FreePool(0,root,gExcelFile,0x346,0);
+            sub_0040B480_FreePool(0,root,".\\Src\\Excel\\Excel.cpp",0x346,0);
         }
         if (linker->entries)
-            sub_0040B480_FreePool(0,linker->entries,gExcelFile,0x35D,0);
-        sub_0040B480_FreePool(0,linker,gExcelFile,0x360,0);
+            sub_0040B480_FreePool(0,linker->entries,".\\Src\\Excel\\Excel.cpp",0x35D,0);
+        sub_0040B480_FreePool(0,linker,".\\Src\\Excel\\Excel.cpp",0x360,0);
     }
 }
 
@@ -831,7 +823,7 @@ int __fastcall sub_006BD5A0_AddTxtLink(D2TxtLinkStrc* pLinker, const char* szTex
         return nRow;
     }
 
-    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), gszExcelCppFile, 0x4D9, 0);
+    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), ".\\Src\\Excel\\Excel.cpp", 0x4D9, 0);
     memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
     SStrCopy(pNode->szText, szText, sizeof(pNode->szText));
     sub_004113C0(pNode->szText, sizeof(pNode->szText));
@@ -845,7 +837,7 @@ D2BinFileStrc* __stdcall FOG_CreateBinFile(char* pDataBuffer, int nBufferSize)
 {
     char* pCur = pDataBuffer;
     char* pEnd = pCur + nBufferSize;
-    D2BinFileStrc* pBinFile = (D2BinFileStrc*)FOG_AllocPool(0, sizeof(D2BinFileStrc), gszExcelCppFile, 0x4D, 0);
+    D2BinFileStrc* pBinFile = (D2BinFileStrc*)FOG_AllocPool(0, sizeof(D2BinFileStrc), ".\\Src\\Excel\\Excel.cpp", 0x4D, 0);
     pBinFile->pDataBuffer = pCur;
     pBinFile->pFirstRow = 0;
     pBinFile->nRecordCount = 0;
@@ -871,8 +863,8 @@ D2BinFileStrc* __stdcall FOG_CreateBinFile(char* pDataBuffer, int nBufferSize)
 
     if (pCur >= pEnd)
     {
-        FOG_Free(pBinFile->pDataBuffer, gszExcelCppFile, 0x9A, 0);
-        FOG_FreePool(0, pBinFile, gszExcelCppFile, 0x9B, 0);
+        FOG_Free(pBinFile->pDataBuffer, ".\\Src\\Excel\\Excel.cpp", 0x9A, 0);
+        FOG_FreePool(0, pBinFile, ".\\Src\\Excel\\Excel.cpp", 0x9B, 0);
         return 0;
     }
 
