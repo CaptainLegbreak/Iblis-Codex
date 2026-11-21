@@ -3206,36 +3206,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Gfx/SRC/Window_004F5160.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Gfx/SRC/Window_004F5160.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Win/Unknown_004F5190.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_004F5190.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Gfx/Unknown_004F52E0.cpp": {
-   "bytes": 172,
-   "definitions": 3,
+   "bytes": 180,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_004F7EA0_DrawVisTile(); // 0x004F7EA0",
     "extern \"C\" void __cdecl sub_004F8050_DrawRleVisTile(); // 0x004F8050",
@@ -3246,7 +3219,16 @@
     "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Gfx/Unknown_004F52E0.inc",
+   "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Win/Unknown_004F5190.cpp": {
+   "bytes": 4,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Win/Unknown_004F5190.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5518,8 +5500,8 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 3028,
-   "definitions": 8,
+   "bytes": 3032,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl sub_00606B50_CompressCellFile(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
@@ -5527,15 +5509,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/CelCmp.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2CMP/Unknown_005FDE50.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2CMP/Unknown_005FDE50.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -81033,7 +81006,7 @@
    "cname": "gData_0072DA58",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Gfx/SRC/Window_004F5160.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072DA58_t gData_0072DA58; // 0x0072DA58",
    "head": "extern \"C\" struct d2data_0072DA58_t gData_0072DA58 = ",
@@ -81100,7 +81073,7 @@
    "cname": "gData_0072DA60",
    "declared": true,
    "decorated": "?gGraphicsHelpers_0072DA60@@3QBEB",
-   "file": "Source/D2Gfx/Unknown_004F52E0.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 28,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072DA60_t gData_0072DA60; // 0x0072DA60",
@@ -81177,7 +81150,7 @@
    "cname": "gData_0072DAA8",
    "declared": true,
    "decorated": "?gszRetryUnsupportedGraphics_0072DAA8@@3QBDB",
-   "file": "Source/D2Gfx/Unknown_004F52E0.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 72,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_0072DAA8[72]; // 0x0072DAA8",
@@ -81208,7 +81181,7 @@
    "cname": "gData_0072DAF0",
    "declared": true,
    "decorated": "?gszUnsupportedGraphics_0072DAF0@@3QBDB",
-   "file": "Source/D2Gfx/Unknown_004F52E0.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 72,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_0072DAF0[72]; // 0x0072DAF0",
@@ -120763,7 +120736,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2CMP/Unknown_005FDE50.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gbCmpCompressedDataMode = ",

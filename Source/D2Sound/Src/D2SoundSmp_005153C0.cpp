@@ -469,6 +469,7 @@ static __forceinline float SOUND_GetAttenuation(float fDistance)
 // 0x00516830
 void __fastcall sub_00516830_GetPositionalVolumePan(int* pVolume, int* pPan, float fX, float fY, float fZ)
 {
+    // stands for the original rounding the distance twice through the fY slot and the pan through the fX slot (no plain form found)
     *(volatile float*)&fY = SOUND_GetDistance(fX, fY, fZ);
     const float fAttenuation = SOUND_GetAttenuation(*(volatile float*)&fY);
 

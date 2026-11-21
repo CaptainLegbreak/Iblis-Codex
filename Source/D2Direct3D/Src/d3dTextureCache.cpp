@@ -35,8 +35,6 @@ static __declspec(noinline) void sub_006BA5C0_AppendTail(D2TexPoolStrc* pList, D
 
 D2TexPoolEntryStrc* __fastcall sub_006BA660_Unlink(D2TexPoolStrc* pList, int nIndex);
 
-D2TexPoolEntryStrc* __fastcall sub_006BA660_Unlink(D2TexPoolStrc* pList, int nIndex);
-
 struct D2OwnerSlot006BA7C0Strc
 {
     int n0;
@@ -69,6 +67,20 @@ struct D2List006BA7C0Strc
     D2Node006BA7C0Strc* pHead10;
     D2Node006BA7C0Strc* pTail14;
 };
+
+int __fastcall sub_006BA420_Init(D2TexPoolStrc* pPool, int nBase, int nLimit, int nWidth, int nHeight);
+
+static void sub_006BA5E0_AppendSpare(D2TexPoolStrc* pPool, D2TexPoolEntryStrc* pEntry);
+
+static D2TexPoolEntryStrc* sub_006BA600_PopInUse(D2TexPoolStrc* pPool);
+
+static D2TexPoolEntryStrc* sub_006BA630_PopSpare(D2TexPoolStrc* pPool);
+
+static int sub_006BA6D0_Alloc(D2TexPoolStrc* pPool);
+
+void __fastcall sub_006BA830_Destroy(D2TexPoolStrc* pPool, int bReleaseAll);
+
+int __fastcall sub_006BA920_AllocOrEvict(D2TexPoolStrc* pPool);
 
 // 0x006BA420
 int __fastcall sub_006BA420_Init(D2TexPoolStrc* pPool, int nBase, int nLimit, int nWidth, int nHeight)
@@ -412,6 +424,7 @@ void __fastcall sub_006BA830_Destroy(D2TexPoolStrc* pPool, int bReleaseAll)
 	memset(pPool, 0, sizeof(D2TexPoolStrc));
 }
 
+// 0x006BA920
 int __fastcall sub_006BA920_AllocOrEvict(D2TexPoolStrc* pPool)
 {
 	int nId = sub_006BA6D0_Alloc(pPool);

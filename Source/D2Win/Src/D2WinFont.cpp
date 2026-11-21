@@ -857,7 +857,7 @@ unsigned int __fastcall D2Win_10128(unsigned char nCharCode)
         return 0;
     }
 
-    // not original source: the identical arms, the identical-arm if below and the __assume only shape register use
+    // stands for the original not knowing the character's range: it masks the row with 7 and checks it against 8 (the identical arms, the identical-arm if and the __assume keep that shape)
     const unsigned int nRowChar = nCharCode ? nCharCode : nCharCode;
     const unsigned int dwOffset = (nRowChar >> 5) & 7;
     D2_ASSERT(dwOffset < 8, 0x4D8);

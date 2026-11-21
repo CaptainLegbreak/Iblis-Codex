@@ -160,7 +160,31 @@ unsigned char gabTileBuffer_009897F8[0x400]; // 0x009897F8
 D2DDSurfaceStrc* gpMemorySurface_00989C00; // 0x00989C00
 
 int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
+
 extern int gnWidth_0096F4DC; // 0x0096F4DC
+
+int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight); // 0x006B58A0
+
+extern int gnGlobal_0096F4DC; // 0x0096F4DC
+
+extern int gnGlobal_009702B8; // 0x009702B8
+
+extern const char gszFloorPoolSourceFile_006FC3E4[]; // 0x006FC3E4
+
+struct D2TileBlockStrc {
+ short x,y;
+ int unk04;
+ unsigned short flags;
+ unsigned short unk0A;
+ int unk0C;
+ const unsigned char* data;
+};
+
+struct D2TileStrc { int unk00[20]; int count; D2TileBlockStrc* blocks; };
+
+extern unsigned short gwPalette_0096FA80[]; // 0x0096FA80
+
+int __fastcall sub_006BB520_AllocOrEvict(D2FloorPoolStrc* pPool);
 
 // 0x006BAFC0
 int __fastcall sub_006BAFC0_Init(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
@@ -363,7 +387,6 @@ static void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc
     pList->pInUseLast = pNode;
 }
 
-
 // 0x006BB2D0
 void __fastcall sub_006BB2D0_MoveToTail(D2FloorPoolStrc* pList, int nIndex)
 {
@@ -467,13 +490,7 @@ void __fastcall sub_006BB3E0_Destroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 	memset(pPool, 0, sizeof(D2FloorPoolStrc));
 }
 
-// 0x006BB5E0
-void __cdecl sub_006BB5E0_CreateSurfaces()
-{
-    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989BF8, (void**)&gpTexture_00989BFC, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
-    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989C00, (void**)&gpTexture_00989C04, 0x20, 0x20), 0x2A);
-}
-
+// 0x006BB520
 int __fastcall sub_006BB520_AllocOrEvict(D2FloorPoolStrc* pPool)
 {
 	int nId = sub_006BB270_Alloc(pPool);
@@ -483,6 +500,13 @@ int __fastcall sub_006BB520_AllocOrEvict(D2FloorPoolStrc* pPool)
 		nId = sub_006BB270_Alloc(pPool);
 	}
 	return nId;
+}
+
+// 0x006BB5E0
+void __cdecl sub_006BB5E0_CreateSurfaces()
+{
+    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989BF8, (void**)&gpTexture_00989BFC, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
+    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989C00, (void**)&gpTexture_00989C04, 0x20, 0x20), 0x2A);
 }
 
 // 0x006BB640
@@ -519,6 +543,62 @@ static void sub_006BB6B0_DecodeTile(const unsigned char* source, unsigned char* 
                 *pixel++ = *input++;
         }
     } while (rows);
+}
+
+// 0x006BB720
+void __stdcall sub_006BB720_RenderTile(D2TileStrc* tile,unsigned short* output,int stride)
+{
+ memset(output,0,gnHeight_009702B8*stride*sizeof(unsigned short));
+ for(int i=0;i<tile->count;++i) {
+  D2TileBlockStrc* block=&tile->blocks[i];
+  unsigned short* dest=output+block->y*stride+block->x;
+  if(block->flags&1) {
+   if(block->flags&4) {
+    const unsigned char* data=block->data;
+    int rows=15;
+    unsigned short* row=dest;
+    unsigned short* p=dest;
+    do {
+     unsigned char skip=*data++;
+     unsigned char count=*data++;
+     if(!skip&&!count) {
+      row+=stride;
+      --rows;
+      p=row;
+     } else {
+      p+=skip;
+      while(count) {
+       --count;
+       *p++=gwPalette_0096FA80[*data++];
+      }
+     }
+    } while(rows);
+   } else {
+    int count=4;
+    unsigned short* row=dest+14;
+    const unsigned char* data=block->data;
+    int y=0;
+    do {
+     unsigned short* pixel=row;
+     const unsigned char* source=data;
+     if(count>0) {
+      int n=count;
+      do {
+       *pixel++=gwPalette_0096FA80[*source++];
+      } while(--n);
+     }
+     data+=count;
+     if(y<7) {
+      row+=stride-2;
+      count+=4;
+     } else {
+      row+=stride+2;
+      count-=4;
+     }
+    } while(++y<15);
+   }
+  }
+ }
 }
 
 // 0x006BBA00
