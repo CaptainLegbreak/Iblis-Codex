@@ -11,6 +11,8 @@
 #include "D2ItemsWorld.h"
 #include "D2QuestData.h"
 #include "D2GameServer.h"
+#include "D2TxtItems.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -695,6 +697,28 @@ void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
 void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 
 static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc* pGame, int nMissileId, int nRange, int nStep, D2UnitStrc* pMissile);
+
+struct D2ObjectControlStrc;
+
+struct D2ObjOperateFnStrc;
+
+extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
+
+void __fastcall sub_6FC75EB0(D2ObjOperateFnStrc* pOp); // 0x00585E00
+
+void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
+
+D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
+
+void __fastcall sub_0056DDE0_FillRecordAndCall(D2GameStrc* pGame, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, void* pArg8); // 0x0056DDE0
+
+int __fastcall MISSMODE_RadamentDeathAreaEffectCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillLevel, int nUnused); // 0x005AD8F0
+
+int __fastcall MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillLevel, int nUnused); // 0x005AD910
 
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
@@ -5308,6 +5332,74 @@ int __fastcall sub_005AF240_SpawnDuringFrames(D2GameStrc* pGame, D2UnitStrc* pMi
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
+// 0x005AF300
+int __fastcall MISSMODE_SrvDo18_TowerChestSpawner(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxt = 0;
+    if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
+        pMissilesTxt = &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
+    if (!pMissilesTxt) return 2;
+    const int nCurrentFrame = sub_0064A380_GetRemainingFrames(pMissile);
+    if (nCurrentFrame == 1)
+    {
+        D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, MISSILE_GetTargetX(pMissile));
+        if (pObject) SUNIT_AttachSound(pObject, 92, 0);
+    }
+    if (nCurrentFrame == pMissilesTxt->wRange - pMissilesTxt->dwParam[0])
+    {
+        const int nObjectGUID = MISSILE_GetTargetX(pMissile);
+        D2ObjOperateFnStrc op;
+        op.pGame = pGame;
+        op.hPlayer = 0;
+        D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, nObjectGUID);
+        if (pObject)
+        {
+            op.pObjectregion = (D2ObjectControlStrc*)&pObject->pSeed;
+            op.hObject = pObject;
+            op.nObjectIdx = pObject->dwClassId;
+            sub_6FC75EB0(&op);
+        }
+        MISSILE_SetTargetY(pMissile, 1);
+    }
+    if (MISSILE_GetTargetY(pMissile))
+    {
+        int nFrequency = 2 * pMissilesTxt->dwParam[1];
+        nFrequency *= 2;
+        if (nFrequency < 1) nFrequency = 1;
+        if (!(nCurrentFrame % nFrequency))
+        {
+            D2CoordStrc coords;
+            UNITS_GetCoords(pMissile, &coords);
+            const int nRange = pMissilesTxt->dwParam[2];
+            D2SeedStrc* pSeed = &pMissile->pSeed;
+            coords.nX += ITEMS_RollLimitedRandomNumber(pSeed, 2 * nRange + 1) - nRange;
+            coords.nY += ITEMS_RollLimitedRandomNumber(pSeed, 2 * nRange + 1) - nRange;
+            D2CoordStrc returnCoords;
+            D2ActiveRoomStrc* pRoom = D2GAME_GetFreeSpaceEx_6FC4BF00(UNITS_GetRoom(pMissile), &coords, &returnCoords, 1, 1);
+            if (pRoom)
+            {
+                const int nItemLevel = DATATBLS_GetMonsterLevelInArea(DUNGEON_GetLevelIdFromRoom(pRoom), pGame->nDifficulty, pGame->bExpansion);
+                D2ItemDropStrc drop;
+                memset(&drop, 0, sizeof(drop));
+                drop.pUnit = pMissile;
+                drop.pSeed = 0;
+                drop.pGame = pGame;
+                drop.wItemFormat = pGame->wItemFormat;
+                drop.nId = DATATBLS_GetItemIdFromItemCode(0x20646C67);
+                drop.nSpawnType = 3;
+                drop.nX = returnCoords.nX;
+                drop.nY = returnCoords.nY;
+                drop.pRoom = pRoom;
+                drop.wUnitInitFlags = 1;
+                drop.nQuality = 2;
+                drop.nItemLvl = nItemLevel;
+                D2GAME_CreateItemEx_6FC4ED80(pGame, &drop, 0);
+            }
+        }
+    }
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
+}
+
 // 0x005AF540
 int __fastcall MISSMODE_SrvDo20_BladeCreeper(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
@@ -5647,6 +5739,48 @@ int __fastcall sub_005B0870(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc*
     }
 
     return 1;
+}
+
+static __forceinline int MISSMODE_GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline int MISSMODE_GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005B0940
+int __fastcall MISSMODE_SrvDo19_RadamentDeath(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    const int nCurrentFrame = sub_0064A380_GetRemainingFrames(pMissile);
+    if (nCurrentFrame > 1 && nCurrentFrame < 25)
+    {
+        sub_0056DDE0_FillRecordAndCall(pGame, 0x3002, MISSMODE_GetUnitX(pMissile), MISSMODE_GetUnitY(pMissile), (int)pMissile, 124, 1, (void*)MISSMODE_RadamentDeathAreaEffectCallback);
+    }
+    else if (nCurrentFrame == 1)
+    {
+        sub_0056DDE0_FillRecordAndCall(pGame, 0x3002, MISSMODE_GetUnitX(pMissile), MISSMODE_GetUnitY(pMissile), (int)pMissile, 124, 1, (void*)MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame);
+    }
+
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
 // 0x005B0A40

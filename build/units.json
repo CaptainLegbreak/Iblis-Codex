@@ -62912,6 +62912,10 @@
      "name": "?sub_005AF240_SpawnDuringFrames@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005AF300",
+     "length": 567
+    },
+    {
      "va": "0x005AF540",
      "length": 79,
      "name": "?MISSMODE_SrvDo20_BladeCreeper@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -62964,6 +62968,11 @@
      "va": "0x005B0870",
      "length": 200,
      "name": "sub_005B0870"
+    },
+    {
+     "va": "0x005B0940",
+     "length": 251,
+     "name": "?MISSMODE_SrvDo19_RadamentDeath@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B0A40",
@@ -64453,21 +64462,6 @@
     {
      "va": "0x005AE8A0",
      "length": 155
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AF300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005AF300",
-     "length": 567
-    },
-    {
-     "va": "0x005B0940",
-     "length": 251,
-     "name": "?MISSMODE_SrvDo19_RadamentDeath@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
