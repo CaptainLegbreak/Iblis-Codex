@@ -986,6 +986,7 @@ public:
     virtual int sub_0060DDF0_IsEnabled() = 0;
     virtual void sub_0060DE00_SetEnabled(int bEnabled) = 0;
     virtual void sub_0060F500_VirtSlot10() = 0;
+    // 0x0060DD50
     virtual ~ChatIgnoreList()
     {
     }
@@ -1280,9 +1281,7 @@ struct D2Cache00610CA0Strc
 
 void __fastcall sub_006108D0_GrowListArray(D2Cache00610CA0Strc* pCache); // 0x006108D0
 
-inline void __cdecl operator delete(void* pMemory, void* pWhere) throw()
-{
-}
+void __cdecl operator delete(void* pMemory, void* pWhere) throw();
 
 // build: symbol ??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z 0x0060DCB0
 // build: symbol ??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z 0x0060E130
@@ -2705,6 +2704,15 @@ void D2CommonStormHashTableBStrc::sub_006108D0_GrowListArray()
     D2CommonMappingEntryNodeStrc* pNode;
     while ((pNode = (D2CommonMappingEntryNodeStrc*)tTemp.Head()) != 0)
         InternalLinkNode(pNode, pNode->f_0);
+}
+
+// build: symbol ??_7ChatIgnoreList@@6B@ 0x006E6248
+// build: symbol ??_7IgnoreList@@6B@ 0x006E62DC
+// 0x00610AA0
+D2CommonIgnoreListStrc::~IgnoreList()
+{
+    m_table.sub_0060EB70_InternalClear(0);
+    m_table3.sub_0060EE60_InternalClear(0);
 }
 
 // 0x00610B30
