@@ -59506,6 +59506,10 @@
      "name": "?sub_0058AF90_OpenDrehyaPortal@@YG_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0058B050",
+     "length": 93
+    },
+    {
      "va": "0x0058B0B0",
      "length": 137,
      "name": "?ACT5Q4_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -59672,16 +59676,6 @@
      "va": "0x00595160",
      "length": 218,
      "name": "sub_00595160_UpdateCountessQuestState"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0058B050.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058B050",
-     "length": 93
     }
    ]
   },
