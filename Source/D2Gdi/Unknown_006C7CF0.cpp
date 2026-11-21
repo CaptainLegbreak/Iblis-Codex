@@ -5,7 +5,6 @@
 struct D2Callbacks006C7CF0Strc;
 struct D2CriticalSectionStrc;
 struct D2RgbQuadStrc;
-struct D2PaletteEntry006C7FA0Strc;
 struct D2RgbQuad006C7FA0Strc;
 
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* hObject);
@@ -49,14 +48,6 @@ extern int gnScreenHeight_007C913C; // 0x007C913C
 extern D2RgbQuadStrc gaPalette_00989C40[256]; // 0x00989C40
 extern void* ghPalette_0098A160; // 0x0098A160
 
-struct D2PaletteEntry006C7FA0Strc
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
 struct D2RgbQuad006C7FA0Strc
 {
     unsigned char rgbBlue;
@@ -65,10 +56,10 @@ struct D2RgbQuad006C7FA0Strc
     unsigned char rgbReserved;
 };
 
-extern "C" __declspec(dllimport) unsigned int __stdcall SetPaletteEntries(void* hPalette, unsigned int nStart, unsigned int nEntries, const D2PaletteEntry006C7FA0Strc* pEntries);
+extern "C" __declspec(dllimport) unsigned int __stdcall SetPaletteEntries(void* hPalette, unsigned int nStart, unsigned int nEntries, const D2PaletteEntry006C7C10Strc* pEntries);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern D2RgbQuad006C7FA0Strc gaColors_00989C40[256]; // 0x00989C40
-extern D2PaletteEntry006C7FA0Strc gaPalette_007C8CC8[256]; // 0x007C8CC8
+extern D2PaletteEntry006C7C10Strc gaPalette_007C8CC8[256]; // 0x007C8CC8
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
@@ -144,7 +135,7 @@ void __fastcall sub_006C7F90_GetScreenSize(int* width, int* height)
 }
 
 // 0x006C7FA0
-void __fastcall sub_006C7FA0_SetPalette(D2PaletteEntry006C7FA0Strc* pEntries)
+void __fastcall sub_006C7FA0_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
 {
     for (int i = 0; i < 256; ++i)
     {
