@@ -134,6 +134,7 @@ DrawVisibleTile:
             {
                 int nX = nStartX;
 
+                // the original keeps both row starts in memory and steps them separately; with a plain copy the two counters merge into one register
                 int nY = *(volatile int*)&nStartY;
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {

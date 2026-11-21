@@ -308,6 +308,7 @@ Draw:
             {
                 int nRowX=nStartX;
 
+                // the original keeps both row starts in memory and steps them separately; with a plain copy the two counters merge into one register
                 int nRowY=*(volatile int*)&nStartY;
                 for(int j=0;j<3;++j)
                 {

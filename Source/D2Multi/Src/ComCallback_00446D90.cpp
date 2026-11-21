@@ -830,9 +830,8 @@ void __cdecl sub_00447BB0_Refresh()
             CHAN_SETBIT(nState, 4, wFlags & 8);
             CHAN_SETBIT(nState, 5, wFlags & 4);
             CHAN_SETBIT(nState, 12, wFlags & 0x20);
-            const D2LaunchCharInfoStrc* pCharInfo = *(D2LaunchCharInfoStrc* volatile*)&gpCharInfo_0077BBD8;
-            int bDiffers = pCharInfo->nValue3C2 != pUser->nValue94;
-            const unsigned short wCharFlags = *(const unsigned short*)pCharInfo->wFlags;
+            int bDiffers = gpCharInfo_0077BBD8->nValue3C2 != pUser->nValue94;
+            const unsigned short wCharFlags = *(const unsigned short*)gpCharInfo_0077BBD8->wFlags;
             bDiffers |= (wCharFlags & 4) && !pUser->nValue0xA0;
             bDiffers |= !(wCharFlags & 4) && pUser->nValue0xA0;
             bDiffers |= (wCharFlags & 0x20) && !pUser->nValue0xA8;

@@ -119,24 +119,22 @@ int __fastcall sub_00414990_SRegDeleteEntry(unsigned int nFlags, const char* szK
         }
         if (!nMachineError)
         {
-            return 1;
+            bResult = 1;
         }
     }
 
-    if (bResult)
+    if (!bResult)
     {
-        return bResult;
+        if (nUserError)
+        {
+            SetLastError(nUserError);
+        }
+        else
+        {
+            SetLastError(nMachineError);
+        }
     }
-
-    if (nUserError)
-    {
-        SetLastError(nUserError);
-    }
-    else
-    {
-        SetLastError(nMachineError);
-    }
-    return *(volatile int*)&bResult;
+    return bResult;
 }
 
 // 0x00414B00

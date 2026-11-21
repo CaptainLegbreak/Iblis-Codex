@@ -293,6 +293,8 @@ char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize)
     void* pBuffer;
     unsigned int nSize = 0;
     D2_ASSERT(SFileLoadFile("DATA\\GLOBAL\\gateways.txt", &pBuffer, &nSize, 0, 0), 0x1F9);
+    // stands for the original reading the out-pointer before the loaded size; a plain *pSize = nSize loads them
+    // the other way round and also moves Load's (0x5186D0) register choice.
     unsigned int* const pOut = *(unsigned int* volatile*)&pSize;
     *pOut = nSize;
     return (char*)pBuffer;
