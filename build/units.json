@@ -33106,6 +33106,11 @@
      "name": "?sub_004C2540_PlaceItem@@YGXPAUD2UnitStrc@@GGHHE@Z"
     },
     {
+     "va": "0x004C25B0",
+     "length": 147,
+     "name": "?sub_004C25B0_ItemDropToGround9C@@YIXPAUD2ItemPacket9CStrc@@@Z"
+    },
+    {
      "va": "0x004C2650",
      "length": 156,
      "name": "?sub_004C2650_ItemOnCursor9C@@YIXPAUD2GSPacketSrv9C@@@Z"
@@ -33164,17 +33169,6 @@
      "va": "0x004C4990",
      "length": 260,
      "name": "?sub_004C4990_ItemToSocket9D@@YIXPAUD2GSPacketSrv9D@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C25B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C25B0",
-     "length": 147,
-     "name": "?sub_004C25B0_ItemDropToGround9C@@YIXPAUD2ItemPacket9CStrc@@@Z"
     }
    ]
   },
