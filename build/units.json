@@ -53668,49 +53668,29 @@
   {
    "file": "Source/D2Game/UNIT/SUnitInactive_005424F0.cpp",
    "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x005424F0",
      "length": 1216
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitInactive_00542B40.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00542B40",
      "length": 716
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -55526,11 +55506,24 @@
   },
   {
    "file": "Source/D2Game/UNIT/SUnit_00553060.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00553060",
      "length": 137
+    },
+    {
+     "va": "0x005550B0",
+     "length": 374
+    },
+    {
+     "va": "0x00555230",
+     "length": 720,
+     "name": "?SUNIT_AllocUnitData@@YIPAUD2UnitStrc@@HHHHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@DHI@Z"
+    },
+    {
+     "va": "0x005557D0",
+     "length": 319
     }
    ]
   },
@@ -55623,31 +55616,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnit_005550B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005550B0",
-     "length": 374
-    },
-    {
-     "va": "0x005557D0",
-     "length": 319
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnit_00555230.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00555230",
-     "length": 720,
-     "name": "?SUNIT_AllocUnitData@@YIPAUD2UnitStrc@@HHHHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@DHI@Z"
-    }
    ]
   },
   {
@@ -58619,12 +58587,6 @@
   {
    "file": "Source/D2Game/UNIT/SUnitDmg_0057B230.cpp",
    "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057B230",
-     "length": 491
-    }
-   ],
    "flags": [
     "/nologo",
     "/c",
@@ -58638,6 +58600,16 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x0057B230",
+     "length": 491
+    },
+    {
+     "va": "0x0057D3D0",
+     "length": 278
+    }
    ]
   },
   {
@@ -58837,30 +58809,6 @@
      "length": 564,
      "name": "?SUNITDMG_IsHitSuccessful@@YIHPAUD2UnitStrc@@0HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057D3D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057D3D0",
-     "length": 278
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -68517,6 +68465,20 @@
   {
    "file": "Source/D2Game/SKILLS/SkillNec_005C3300.cpp",
    "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x005C3300",
@@ -68531,6 +68493,10 @@
      "length": 370
     },
     {
+     "va": "0x005C4DF0",
+     "length": 694
+    },
+    {
      "va": "0x005C5D00",
      "length": 341
     },
@@ -68538,20 +68504,6 @@
      "va": "0x005C5F50",
      "length": 650
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -68642,30 +68594,6 @@
     {
      "va": "0x005C55C0",
      "length": 248
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillNec_005C4DF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C4DF0",
-     "length": 694
     }
    ],
    "flags": [
@@ -69357,14 +69285,29 @@
      "name": "SKILLS_SrvDo091_Nest_EvilHutSpawner"
     },
     {
+     "va": "0x005CC440",
+     "length": 158,
+     "name": "?SKILLS_SetInfernoFrame@@YIXPAUD2SkillsTxt@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005CC960",
      "length": 424,
      "name": "SKILLS_ResurrectUnit"
     },
     {
+     "va": "0x005CCD10",
+     "length": 365,
+     "name": "?sub_005CCD10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005CD110",
      "length": 170,
      "name": "?SKILLS_MissileInit_DiabWall@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005CD1C0",
+     "length": 246,
+     "name": "?SKILLS_SrvDo102_DiabWall@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CD5D0",
@@ -69417,22 +69360,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CC440.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CC440",
-     "length": 158,
-     "name": "?SKILLS_SetInfernoFrame@@YIXPAUD2SkillsTxt@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005CD1C0",
-     "length": 246,
-     "name": "?SKILLS_SrvDo102_DiabWall@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/SKILLS/SkillMonst_005CC840.cpp",
    "rank": 0,
    "functions": [
@@ -69445,17 +69372,6 @@
      "va": "0x005CCB10",
      "length": 356,
      "name": "?SKILLS_SrvDo097_Resurrect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CCD10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CCD10",
-     "length": 365,
-     "name": "?sub_005CCD10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -69653,16 +69569,39 @@
      "va": "0x005CF010",
      "length": 616,
      "name": "?SKILLS_SrvDo065_BasicAura@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D0920",
+     "length": 787,
+     "name": "?SKILLS_SrvDo081_HolyFreeze@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
   {
    "file": "Source/D2Game/SKILLS/SkilPal_005CF3A0.cpp",
    "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x005CF3A0",
      "length": 781
+    },
+    {
+     "va": "0x005CF6B0",
+     "length": 495
     },
     {
      "va": "0x005D0670",
@@ -69672,55 +69611,11 @@
      "va": "0x005D07C0",
      "length": 352
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005CF6B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005CF6B0",
-     "length": 495
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
    "file": "Source/D2Game/SKILLS/SkilPal_005CF900.cpp",
    "rank": 1,
-   "functions": [
-    {
-     "va": "0x005CF900",
-     "length": 1052
-    }
-   ],
    "flags": [
     "/nologo",
     "/c",
@@ -69734,16 +69629,15 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005D0920.cpp",
-   "rank": 0,
+   ],
    "functions": [
     {
-     "va": "0x005D0920",
-     "length": 787,
-     "name": "?SKILLS_SrvDo081_HolyFreeze@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "va": "0x005CF900",
+     "length": 1052
+    },
+    {
+     "va": "0x005D0D70",
+     "length": 288
     }
    ]
   },
@@ -69756,30 +69650,6 @@
      "length": 298,
      "name": "?SKILLS_ApplyRedemptionEffect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005D0D70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D0D70",
-     "length": 288
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -70399,17 +70269,6 @@
      "name": "?SKILLS_SrvSt26_BladeFury@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005D7850",
-     "length": 430,
-     "name": "?SKILLS_SrvDo052_DragonFlight@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAss_005D6CF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005D6CF0",
      "length": 372,
      "name": "?sub_005D6CF0_SetSummonStats@@YGXPAUD2GameStrc@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
@@ -70418,6 +70277,11 @@
      "va": "0x005D6E70",
      "length": 534,
      "name": "?sub_005D6E70_SrvDoSummonPet@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D7850",
+     "length": 430,
+     "name": "?SKILLS_SrvDo052_DragonFlight@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -70495,9 +70359,24 @@
      "name": "?sub_005D9C80_StartMonsterLeapAttack@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillStrc@@1@Z"
     },
     {
+     "va": "0x005D9CE0",
+     "length": 107,
+     "name": "?sub_005D9CE0_CheckLeapRoom@@YGHPAUD2UnitStrc@@HHH@Z"
+    },
+    {
      "va": "0x005D9D50",
      "length": 537,
      "name": "?SKILLS_SrvSt40_Leap@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DA020",
+     "length": 251,
+     "name": "?sub_005DA020_SandLeaperKnockback@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x005DA120",
+     "length": 578,
+     "name": "?sub_005DA120_Leap@@YGHPAUD2GameStrc@@PAUD2SkillStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -70584,27 +70463,6 @@
      "va": "0x005D8E00",
      "length": 236,
      "name": "?sub_005D8E00_SequenceAction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillBar_005D9CE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D9CE0",
-     "length": 107,
-     "name": "?sub_005D9CE0_CheckLeapRoom@@YGHPAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x005DA020",
-     "length": 251,
-     "name": "?sub_005DA020_SandLeaperKnockback@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x005DA120",
-     "length": 578,
-     "name": "?sub_005DA120_Leap@@YGHPAUD2GameStrc@@PAUD2SkillStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },

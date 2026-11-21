@@ -7,57 +7,100 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
+#include "D2Path.h"
+#include "D2GameAux.h"
+
 struct D2MonStatsTxt;
+
 struct D2UnitStrc;
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
+
 struct D2AuraCallbackStrc;
+
 union D2SeedStrc;
+
 struct D2SkillsTxt;
+
 struct D2LevelsTxt;
+
 struct D2CurseStrc;
+
 struct D2SrvDo47Strc;
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3AC0
+
 int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00647BC0
+
 int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00647D00
+
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
+
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
+
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
+
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
+
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
+
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 
 void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int a5, unsigned char nSrcDam); // 0x0057B7D0
+
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset); // 0x0057EC10
+
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
+
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
+
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
+
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
+
 int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
+
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
+
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+
 D2DamageStrc* __fastcall SUNITDMG_GetDamageFromUnits(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0057D690
+
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
+
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
+
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
+
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
+
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
+
 void __fastcall sub_0056E210(D2UnitStrc* pUnit, int nArg); // 0x0056E210
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
+
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+
 int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
@@ -68,11 +111,17 @@ enum D2C_Y09CloakConstants
 };
 
 void __fastcall sub_6FD0FE80(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, AURACALLBACK pCallback, void* pCallbackArgs, int bCheckMonAuraFlag, const char* szFile, int nLine); // 0x0056B7E0
+
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
+
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
+
 int __fastcall SKILLS_AuraCallback_CloakOfShadows(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit); // 0x005D6520
+
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
+
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+
 void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639E30
 
 enum D2C_Z09St26Constants
@@ -83,19 +132,60 @@ enum D2C_Z09St26Constants
 };
 
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x005D3CF0
+
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
+
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
+
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
+
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
+
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveFunc pfStatRemove); // 0x00625CE0
+
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
+
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
+
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
+
 void __fastcall sub_6FCBD120(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x00553C70
+
 int __fastcall SKILLS_SrvDo048_BladeFury(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D68A0
+
 int __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel); // 0x0056BFE0
+
 void __fastcall sub_005D69B0_StatRemoveCallback_RemoveState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005D69B0
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+struct D2SummonArgStrc;
+
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+
+int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
+
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
+void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
+
+int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
+
+D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
+
+int __fastcall sub_004EFCB0_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
+
+int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
+
+void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nLevel, int a7); // 0x005D6B60
+
+void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+
+void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
+
+void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
 
 static __forceinline D2SkillsTxt* GetSkillsTxtRecord_Inline(int nSkillId)
 {
@@ -356,110 +446,6 @@ int __fastcall SKILLS_SrvDo042_DragonTalon(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return 1;
 }
 
-// build: context SKILLS_SrvSt27_DragonTail
-int __fastcall SKILLS_SrvSt27_DragonTail(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord_Inline(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    sub_6FD15470(pUnit, pSkillsTxtRecord->dwParam[3]);
-
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel) + STATLIST_UnitGetStatValue(pUnit, 0x145, 0);
-
-    D2DamageStrc damage;
-    memset(&damage, 0, sizeof(damage));
-    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, nToHit, 0);
-    if (!(damage.wResultFlags & 1))
-    {
-        return 0;
-    }
-
-    sub_005D54B0_KickDamage(pGame, &damage, pTarget, nSkillId, nSkillLevel, pUnit);
-
-    unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
-    if (!nSrcDam)
-    {
-        nSrcDam = 0x80;
-    }
-
-    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
-    return 1;
-}
-
-// 0x005D7850
-int __fastcall SKILLS_SrvDo052_DragonFlight(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord_Inline(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    if (((pUnit->dwSeqFrame >> 8) % 2) == 0)
-    {
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        if (!pRoom)
-        {
-            return 0;
-        }
-
-        pUnit->dwFlags &= ~0x40;
-
-        int nX;
-        int nY;
-        if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
-        {
-            return 0;
-        }
-
-        D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom));
-        if (!pLevelsTxtRecord || pLevelsTxtRecord->nTeleport == 0 || (pLevelsTxtRecord->nTeleport == 2 && UNITS_TestCollisionByCoordinates(pUnit, nX, nY, 0x804)))
-        {
-            return 0;
-        }
-
-        sub_6FCBDFE0(pGame, pUnit, 0, nX, nY, 0, 0);
-        return 1;
-    }
-
-    D2DamageStrc damage;
-    memset(&damage, 0, sizeof(damage));
-
-    const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel) + STATLIST_UnitGetStatValue(pUnit, 0x145, 0);
-    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, nToHit, 0);
-    if (damage.wResultFlags & 1)
-    {
-        damage.dwEnDmgPct = sub_004E6CA0_GetSkillParamByLevel(nSkillId, nSkillLevel);
-        sub_005D54B0_KickDamage(pGame, &damage, pTarget, nSkillId, nSkillLevel, pUnit);
-    }
-
-    unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
-    if (!nSrcDam)
-    {
-        nSrcDam = 0x80;
-    }
-
-    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
-    sub_6FCF77E0(pGame, pUnit, SUNITDMG_GetDamageFromUnits(pUnit, pTarget));
-    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
-    return 1;
-}
-
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -601,4 +587,229 @@ int __fastcall SKILLS_SrvSt26_BladeFury(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     return nResult;
+}
+
+// 0x005D6CF0
+static void __stdcall sub_005D6CF0_SetSummonStats(D2GameStrc* pGame, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel, D2UnitStrc* pPet)
+{
+    if (nSkillLevel <= 1)
+    {
+        return;
+    }
+
+    D2SkillsTxt* pSkillsRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    const int nParam = !pSkillsRecord ? 0 : pSkillsRecord->dwParam[0];
+    int nHp = STATLIST_GetMaxLifeFromUnit(pPet);
+    nHp += DATATBLS_ApplyRatio(nHp, (nSkillLevel - 1) * nParam, 100);
+    STATLIST_SetUnitStat(pPet, 7, nHp, 0);
+    STATLIST_SetUnitStat(pPet, 6, nHp, 0);
+
+    D2StatListStrc* pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, !pPet ? 6 : pPet->dwUnitType, !pPet ? -1 : pPet->dwUnitId);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    D2COMMON_10475_PostStatToStatList(pPet, pStatList, 1);
+
+    for (int i = 0; i < 6; ++i)
+    {
+        if (pSkillsTxtRecord->wAuraStat[i] >= 0 && pSkillsTxtRecord->wAuraStat[i] < sgptDataTables->nItemStatCostTxtRecordCount)
+        {
+            const int nValue = SKILLS_EvaluateSkillFormula(pPet, pSkillsTxtRecord->dwAuraStatCalc[1], nSkillId, nSkillLevel);
+            STATLIST_SetStat(pStatList, pSkillsTxtRecord->wAuraStat[i], nValue, 0);
+        }
+    }
+
+    for (int i = 0; i < 5; ++i)
+    {
+        if (pSkillsTxtRecord->nPassiveStat[i] >= 0 && pSkillsTxtRecord->nPassiveStat[i] < sgptDataTables->nItemStatCostTxtRecordCount)
+        {
+            const int nValue = SKILLS_EvaluateSkillFormula(pPet, pSkillsTxtRecord->dwPassiveCalc[1], nSkillId, nSkillLevel);
+            STATLIST_SetStat(pStatList, pSkillsTxtRecord->nPassiveStat[i], nValue, 0);
+        }
+    }
+
+    if (pSkillsTxtRecord->wSumUMod > 0 && pSkillsTxtRecord->wSumUMod < 43)
+    {
+        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, pSkillsTxtRecord->wSumUMod, 1);
+    }
+}
+
+D2UnitStrc* __fastcall sub_M98_Emit_005D6CF0(D2GameStrc* pGame, D2UnitStrc* pPet, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel, int nExtra)
+{
+    sub_005D6CF0_SetSummonStats(pGame, pSkillsTxtRecord, nSkillId, nSkillLevel + nExtra, pPet);
+    return pPet;
+}
+
+// 0x005D6E70
+int __fastcall sub_005D6E70_SrvDoSummonPet(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nSpawnMode;
+    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    if (nSummonId < 0)
+    {
+        return 0;
+    }
+
+    unsigned char nPetType = pSkillsTxtRecord->nPetType;
+    if (nPetType >= sgptDataTables->nPetTypeTxtRecordCount)
+    {
+        nPetType = 0;
+    }
+
+    D2SummonArgStrc summonArg = {};
+    summonArg.nHcIdx = nSummonId;
+    summonArg.nAiSpecialState = 0;
+    summonArg.pOwner = pUnit;
+    summonArg.nMonMode = nSpawnMode;
+    summonArg.nPetType = nPetType;
+    summonArg.nPetMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPetMax, nSkillId, nSkillLevel);
+
+    D2UnitStrc* pPet = D2GAME_SummonPet_6FD14430(pGame, &summonArg);
+    if (!pPet)
+    {
+        return 0;
+    }
+
+    STATLIST_SetUnitStat(pPet, 12, STATLIST_UnitGetStatValue(pUnit, 12, 0), 0);
+    sub_005D6CF0_SetSummonStats(pGame, pSkillsTxtRecord, nSkillId, nSkillLevel, pPet);
+
+    int nLevel = sub_004EFCB0_GetSummonLevel(nSkillId, nSkillLevel);
+    nLevel = D2_MAX(nLevel, 1) < DATATBLS_GetMaxLevel(0) ? D2_MAX(nLevel, 1) : DATATBLS_GetMaxLevel(0);
+    SKILLS_EquipMonsterFromTable(pGame, pUnit, pPet, nSkillId, nSkillLevel, nLevel, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, 2, 0);
+    EVENT_SetEvent(pGame, pPet, 2, pGame->dwGameFrame + 20, 0, 0);
+
+    if (pSkillsTxtRecord->nAuraState > 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        STATES_ToggleState(pPet, pSkillsTxtRecord->nAuraState, 1);
+    }
+
+    UNITS_StoreOwner(pPet, pUnit);
+
+    const int nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
+    if (nDuration > 0)
+    {
+        EVENT_SetEvent(pGame, pPet, 7, pGame->dwGameFrame + nDuration, 0, 0);
+        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 21, 0);
+    }
+
+    D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pUnit->dwNodeIndex);
+    return 1;
+}
+
+// build: context SKILLS_SrvSt27_DragonTail
+int __fastcall SKILLS_SrvSt27_DragonTail(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord_Inline(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    sub_6FD15470(pUnit, pSkillsTxtRecord->dwParam[3]);
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel) + STATLIST_UnitGetStatValue(pUnit, 0x145, 0);
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, nToHit, 0);
+    if (!(damage.wResultFlags & 1))
+    {
+        return 0;
+    }
+
+    sub_005D54B0_KickDamage(pGame, &damage, pTarget, nSkillId, nSkillLevel, pUnit);
+
+    unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
+    if (!nSrcDam)
+    {
+        nSrcDam = 0x80;
+    }
+
+    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
+    return 1;
+}
+
+// 0x005D7850
+int __fastcall SKILLS_SrvDo052_DragonFlight(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord_Inline(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (((pUnit->dwSeqFrame >> 8) % 2) == 0)
+    {
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+        if (!pRoom)
+        {
+            return 0;
+        }
+
+        pUnit->dwFlags &= ~0x40;
+
+        int nX;
+        int nY;
+        if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
+        {
+            return 0;
+        }
+
+        D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pRoom));
+        if (!pLevelsTxtRecord || pLevelsTxtRecord->nTeleport == 0 || (pLevelsTxtRecord->nTeleport == 2 && UNITS_TestCollisionByCoordinates(pUnit, nX, nY, 0x804)))
+        {
+            return 0;
+        }
+
+        sub_6FCBDFE0(pGame, pUnit, 0, nX, nY, 0, 0);
+        return 1;
+    }
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+
+    const int nToHit = SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel) + STATLIST_UnitGetStatValue(pUnit, 0x145, 0);
+    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, nToHit, 0);
+    if (damage.wResultFlags & 1)
+    {
+        damage.dwEnDmgPct = sub_004E6CA0_GetSkillParamByLevel(nSkillId, nSkillLevel);
+        sub_005D54B0_KickDamage(pGame, &damage, pTarget, nSkillId, nSkillLevel, pUnit);
+    }
+
+    unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
+    if (!nSrcDam)
+    {
+        nSrcDam = 0x80;
+    }
+
+    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
+    sub_6FCF77E0(pGame, pUnit, SUNITDMG_GetDamageFromUnits(pUnit, pTarget));
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+    return 1;
 }

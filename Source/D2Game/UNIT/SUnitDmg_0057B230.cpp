@@ -4,16 +4,13 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+
 struct D2StatListStrc;
-
-
 
 struct D2MonsterDataStrc
 {
     D2MonStatsTxt* pMonstatsTxt;
 };
-
-
 
 struct D2DifficultyLevelsTxt
 {
@@ -25,63 +22,176 @@ struct D2DifficultyLevelsTxt
     int dwManaStealDiv;
 };
 
-
-
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
 #define STAT_HITPOINTS 6
+
 #define STAT_MANA 8
+
 #define STAT_STAMINA 10
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
+
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
+
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
+
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
+
 enum D2C_EventTypes { EVENTTYPE_AITHINK = 2, EVENTTYPE_REMOVESTATE = 12 };
+
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, D2C_EventTypes nEventType, int nSkillId); // 0x00540E60
+
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, D2C_EventTypes nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
+
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
+
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
+
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);                     // 0x0056E900
+
 void __fastcall SUNITDMG_RemoveShatterState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);      // 0x0057AD80
+
 int __fastcall SUNITDMG_GetColdEffect(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x0057AF30
+
 void __fastcall SUNITDMG_RemoveFreezeState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);       // 0x0057B170
+
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag);                                // 0x005A0180
+
 void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);      // 0x005A4390
+
 int __fastcall SUNITEVENT_Trigger(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage); // 0x005C0C30
+
 void __fastcall sub_6FCF8DD0(D2UnitStrc* pUnit);                                                            // 0x005D6410
+
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                   // 0x00611D30
+
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
+
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3);                                   // 0x00621E40
+
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
+
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState);                                    // 0x006252D0
+
 void __stdcall STATLIST_SetExpireFrame(D2StatListStrc* pStatList, int nExpireFrame);                        // 0x00625310
+
 int __stdcall STATLIST_GetExpireFrame(D2StatListStrc* pStatList);                                           // 0x00625330
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
+
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);              // 0x006256B0
+
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
+
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);         // 0x00625D00
+
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                                                // 0x00625D10
+
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit);                                                // 0x00625D60
+
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame);                                 // 0x006260B0
+
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
+
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer);            // 0x00627150
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
+
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
+
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);                                 // 0x00639DB0
+
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                              // 0x00639DF0
+
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster);                     // 0x0063E9F0
+
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit);                                                // 0x0063EE90
+
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
+
+__declspec(noinline) static void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender);
+
+__declspec(noinline) static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nColdLength); // 0x0057AF80
+
+__declspec(noinline) static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nFreezeLength);
+
+extern "C" void _ReadWriteBarrier(void);
+
+#pragma intrinsic(_ReadWriteBarrier)
+
+struct D2GameStrc;
+
+struct D2InventoryStrc;
+
+#define UNIT_PLAYER 0
+
+#define UNIT_MONSTER 1
+
+#define UNIT_OBJECT 2
+
+struct D2CombatStrc
+{
+    D2GameStrc* pGame;
+    int dwAttackerType;
+    int dwAttackerId;
+    int dwDefenderType;
+    int dwDefenderId;
+    D2DamageStrc tDamage;
+    D2CombatStrc* pNext;
+};
+
+struct D2BodyLocWeightStrc
+{
+    int nBodyLoc;
+    int nWeight;
+};
+
+extern D2BodyLocWeightStrc gaBodyLocWeights_00732B90[];                                                     // 0x00732B90
+
+extern int gnBodyLocWeightCount_00732BC8;                                                                   // 0x00732BC8
+
+int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
+
+int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
+
+int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
+
+D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit);                                                     // 0x00535BC0
+
+void __fastcall sub_00559E30_DecreaseDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);           // 0x00559E30
+
+void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0
+
+void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
+
+void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057CEE0
+
+void __fastcall SKILLS_ApplyThornsDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x005D10C0
+
+int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);                // 0x00622C40
+
+int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit); // 0x00623C20
+
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);              // 0x0063BDE0
+
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 
 static __forceinline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
 {
@@ -91,7 +201,6 @@ static __forceinline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// 0x0057A980
 static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedLife(D2UnitStrc* pUnit, int nLifeLeeched)
 {
     if (nLifeLeeched <= 0)
@@ -122,7 +231,6 @@ static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedLife(D2UnitStrc* pU
     return nMaxHp - nHp;
 }
 
-// 0x0057AA00
 static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedMana(D2UnitStrc* pUnit, int nManaLeeched)
 {
     if (nManaLeeched <= 0)
@@ -143,7 +251,6 @@ static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedMana(D2UnitStrc* pU
     return nMaxMana - nMana;
 }
 
-// 0x0057AA60
 static __declspec(noinline) int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nDrain)
 {
     if (nDrain <= 0)
@@ -161,7 +268,6 @@ static __declspec(noinline) int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nD
     return nMana ? nDrain : 0;
 }
 
-// 0x0057AAA0
 static __declspec(noinline) int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int nDrain)
 {
     if (nDrain <= 0)
@@ -179,8 +285,6 @@ static __declspec(noinline) int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int
     return nStamina ? nDrain : 0;
 }
 
-__declspec(noinline) static void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender);
-// 0x0057AAE0
 static void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender)
 {
     if (nStunLength <= 0)
@@ -308,8 +412,6 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* 
     }
 }
 
-__declspec(noinline) static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nColdLength); // 0x0057AF80
-
 // build: context SUNITDMG_ApplyColdState
 static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nColdLength)
 {
@@ -386,8 +488,6 @@ static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, D2UnitStrc*
 
     STATES_ToggleState(pDefender, 0x6B, 0);
 }
-
-__declspec(noinline) static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nFreezeLength);
 
 // 0x0057B230
 static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nFreezeLength)
@@ -745,4 +845,144 @@ void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker,
         SUNITEVENT_Trigger(pGame, 10, pDefender, pAttacker, pDamage);
         SUNITEVENT_Trigger(pGame, 9, pAttacker, pDefender, pDamage);
     }
+}
+
+static __forceinline int SUNITDMG_IsInDeathMode(D2UnitStrc* pUnit)
+{
+    if (pUnit->dwUnitType != UNIT_OBJECT)
+    {
+        switch (pUnit->dwUnitType)
+        {
+        case UNIT_PLAYER:
+            if (pUnit->dwAnimMode == 0)
+            {
+                return 1;
+            }
+            break;
+        case UNIT_MONSTER:
+            if (pUnit->dwAnimMode == 0)
+            {
+                return 1;
+            }
+            break;
+        }
+    }
+    return 0;
+}
+
+// 0x0057D3D0
+static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc* pGame, D2UnitStrc* pDefender)
+{
+    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER)
+    {
+        D2UnitStrc* pItem = sub_6FC7C7B0(pAttacker);
+        if (pItem)
+        {
+            sub_00559E30_DecreaseDurability(pGame, pAttacker, pItem);
+        }
+    }
+
+    D2InventoryStrc* pInventory;
+    if (pDefender && pDefender->dwUnitType == UNIT_PLAYER && (pInventory = pDefender->pInventory) != 0)
+    {
+        D2UnitStrc* pItems[7] = {};
+        int nTotalWeight = 0;
+        for (int i = 0; i < gnBodyLocWeightCount_00732BC8; ++i)
+        {
+            D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocWeights_00732B90[i].nBodyLoc);
+            if (pItem && ITEMSIsA(pItem, 0x32))
+            {
+                pItems[i] = pItem;
+                nTotalWeight += gaBodyLocWeights_00732B90[i].nWeight;
+            }
+        }
+
+        if (nTotalWeight > 0)
+        {
+            int nIndex = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, gnBodyLocWeightCount_00732BC8);
+            int nWeight = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, nTotalWeight);
+            do
+            {
+                if (pItems[nIndex])
+                {
+                    if (nWeight < gaBodyLocWeights_00732B90[nIndex].nWeight)
+                    {
+                        sub_00559E30_DecreaseDurability(pGame, pDefender, pItems[nIndex]);
+                        break;
+                    }
+                    nWeight -= gaBodyLocWeights_00732B90[nIndex].nWeight;
+                }
+                _ReadWriteBarrier();
+                nIndex = (nIndex + 1) % gnBodyLocWeightCount_00732BC8;
+            }
+            while (nWeight >= 0);
+        }
+    }
+}
+
+void __fastcall sub_0057D4F0_ExecuteMeleeDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nUnused)
+{
+    if (!pAttacker || !pDefender)
+    {
+        return;
+    }
+
+    D2CombatStrc* pCombat = pAttacker->pCombat;
+    while (pCombat)
+    {
+        if (pCombat->dwAttackerType == sub_0044BE50_GetUnitTypeOrInvalid(pAttacker) && pCombat->dwAttackerId == sub_00451F50_GetUnitGUID(pAttacker)
+            && pCombat->dwDefenderType == sub_0044BE50_GetUnitTypeOrInvalid(pDefender) && pCombat->dwDefenderId == sub_00451F50_GetUnitGUID(pDefender))
+        {
+            break;
+        }
+        pCombat = pCombat->pNext;
+    }
+
+    if (!pCombat)
+    {
+        return;
+    }
+
+    const int nUnitType = pAttacker->dwUnitType;
+    D2DamageStrc tDamage = pCombat->tDamage;
+    if (UNITS_IsInMeleeRange(pAttacker, pDefender, nUnitType == UNIT_MONSTER ? 3 : 1))
+    {
+        if (tDamage.dwHitFlags & 1)
+        {
+            if (SUNITDMG_IsInDeathMode(pAttacker))
+            {
+                return;
+            }
+
+            tDamage.wResultFlags = 0x20;
+            SUNITDMG_ExecuteEvents(pGame, pAttacker, pDefender, 0, &tDamage);
+            if (tDamage.nOverlay > 0)
+            {
+                UNITS_SetOverlay(pDefender, tDamage.nOverlay, 0);
+            }
+
+            if (!tDamage.nHitClassActiveSet && !(tDamage.dwHitClass & 0xF))
+            {
+                tDamage.dwHitClass |= UNITS_GetHitClass(pAttacker);
+            }
+
+            sub_0057D3D0_DamageItems(pAttacker, pGame, pDefender);
+        }
+
+        SUNITEVENT_Trigger(pGame, 7, pAttacker, pDefender, &tDamage);
+        SUNITEVENT_Trigger(pGame, 3, pDefender, pAttacker, &tDamage);
+        if (tDamage.dwHitFlags & 1)
+        {
+            if (SUNITDMG_IsInDeathMode(pAttacker))
+            {
+                return;
+            }
+
+            SKILLS_ApplyThornsDamage(pGame, pAttacker, pDefender, &tDamage);
+        }
+
+        SUNITDMG_ExecuteMissileDamage(pGame, pAttacker, pDefender, &tDamage);
+    }
+
+    SUNITDMG_FreeAttackerDefenderCombatList(pGame, pAttacker, pDefender);
 }
