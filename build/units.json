@@ -26103,17 +26103,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004917C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004917C0",
-     "length": 372,
-     "name": "?sub_004917C0_OnGridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/text.cpp",
    "rank": 0,
    "functions": [
@@ -26370,22 +26359,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/inv_00492510.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00492510",
-     "length": 603,
-     "name": "?sub_00492510_CubeButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004927C0",
-     "length": 550,
-     "name": "?sub_004927C0_CubeButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/Hireables.cpp",
    "rank": 0,
    "flags": [
@@ -26500,6 +26473,27 @@
      "va": "0x004979F0",
      "length": 68,
      "name": "?sub_004979F0@@YAHXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/inv_00492510.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004917C0",
+     "length": 372,
+     "name": "?sub_004917C0_OnGridClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00492510",
+     "length": 603,
+     "name": "?sub_00492510_CubeButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004927C0",
+     "length": 550,
+     "name": "?sub_004927C0_CubeButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
