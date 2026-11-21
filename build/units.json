@@ -69758,6 +69758,10 @@
      "name": "?SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D5220",
+     "length": 656
+    },
+    {
      "va": "0x005D6020",
      "length": 334,
      "name": "SKILLS_SrvDo044_BladeSentinel"
@@ -70137,30 +70141,6 @@
      "length": 430,
      "name": "?SKILLS_SrvDo052_DragonFlight@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAss_005D5220.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D5220",
-     "length": 656
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
