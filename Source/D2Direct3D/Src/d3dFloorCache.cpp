@@ -159,6 +159,9 @@ unsigned char gabTileBuffer_009897F8[0x400]; // 0x009897F8
 
 D2DDSurfaceStrc* gpMemorySurface_00989C00; // 0x00989C00
 
+int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
+extern int gnWidth_0096F4DC; // 0x0096F4DC
+
 // 0x006BAFC0
 int __fastcall sub_006BAFC0_Init(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
 {
@@ -498,6 +501,13 @@ void __fastcall sub_006BB3E0_Destroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 	memset(pPool, 0, sizeof(D2FloorPoolStrc));
 }
 
+// 0x006BB5E0
+void __cdecl sub_006BB5E0_CreateSurfaces()
+{
+    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989BF8, (void**)&gpTexture_00989BFC, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
+    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989C00, (void**)&gpTexture_00989C04, 0x20, 0x20), 0x2A);
+}
+
 int __fastcall sub_006BB520_AllocOrEvict(D2FloorPoolStrc* pPool)
 {
 	int nId = sub_006BB270_Alloc(pPool);
@@ -518,6 +528,7 @@ void __cdecl sub_006BB640_ReleaseSurfaces()
     RELEASE(gpSurface_00989C00);
 }
 
+// 0x006BB6B0
 static __declspec(noinline) void sub_006BB6B0_DecodeTile(const unsigned char* source, unsigned char* destination)
 {
     int rows = 32;

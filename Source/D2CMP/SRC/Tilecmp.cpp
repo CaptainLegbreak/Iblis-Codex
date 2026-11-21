@@ -120,8 +120,6 @@ void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, cons
 
 void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord); // 0x0060DB20
 
-static void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY);
-
 void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize);
 
 static void sub_00609AA0_SplitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels);
@@ -131,6 +129,9 @@ void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned c
 static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary);
 
 void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
+
+
+void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor);
 
 // 0x00600CB0
 int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt)
@@ -179,6 +180,15 @@ void __stdcall sub_00605D20_BuildTintTables(unsigned char* pData)
     }
 }
 
+// 0x006094B0
+D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader()
+{
+    D2TileListHeaderStrc* pHeader = (D2TileListHeaderStrc*)FOG_Alloc(sizeof(D2TileListHeaderStrc), ".\\SRC\\Tilecmp.cpp", 0x23, 0);
+    D2_ASSERT(pHeader, 0x24);
+    memset(pHeader, 0, sizeof(D2TileListHeaderStrc));
+    return pHeader;
+}
+
 // 0x00609500
 static __forceinline void sub_00609500_ReleaseTileNode(D2CmpTileNodeStrc* pNode)
 {
@@ -188,6 +198,15 @@ static __forceinline void sub_00609500_ReleaseTileNode(D2CmpTileNodeStrc* pNode)
         FOG_Free(pNode->pData, ".\\SRC\\Tilecmp.cpp", 0x35, 0);
     }
     FOG_Free(pNode, ".\\SRC\\Tilecmp.cpp", 0x38, 0);
+}
+
+// 0x00609550
+D2CmpTileStrc* __cdecl sub_00609550_AllocTile()
+{
+    D2CmpTileStrc* pTile = (D2CmpTileStrc*)FOG_Alloc(sizeof(D2CmpTileStrc), ".\\SRC\\Tilecmp.cpp", 0x45, 0);
+    D2_ASSERT(pTile, 0x46);
+    memset(pTile, 0, sizeof(D2CmpTileStrc));
+    return pTile;
 }
 
 void __stdcall sub_M128_Emit_00609500(D2CmpTileNodeStrc* pNode)
@@ -498,6 +517,41 @@ int __stdcall sub_00609D60_BuildTileLibrary(D2CmpTileListStrc* pList, D2CmpTileL
     return 0;
 }
 
+// 0x00609E90
+void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
+{
+    if (bKeep)
+        return;
+    D2_ASSERT(pLibrary, 0x25A);
+    sub_005FE080_ReleaseBlockCaches(pLibrary);
+    if (pLibrary->dwFlags & 4)
+    {
+        FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x262, 0);
+        return;
+    }
+    D2_ASSERT(!(pLibrary->dwFlags & 8), 0x267);
+    for (int i = 0; i < pLibrary->nBlocks; i++)
+    {
+        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+        for (int j = 0; j < pBlock->nSubs; j++)
+        {
+            D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
+            if (pSub->ptData)
+                FOG_Free(pSub->ptData, ".\\SRC\\Tilecmp.cpp", 0x274, 0);
+            pSub->nLength = 0;
+            pSub->ptData = 0;
+        }
+        if (pBlock->pSubs)
+            FOG_Free(pBlock->pSubs, ".\\SRC\\Tilecmp.cpp", 0x27B, 0);
+        pBlock->pSubs = 0;
+        pBlock->nSubs = 0;
+    }
+    FOG_Free(pLibrary->pBlocks, ".\\SRC\\Tilecmp.cpp", 0x281, 0);
+    pLibrary->pBlocks = 0;
+    pLibrary->nBlocks = 0;
+    FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x285, 0);
+}
+
 // 0x00609FD0
 static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary)
 {
@@ -703,7 +757,7 @@ static int IsSubTileDataEmpty(const D2CmpSubTileRecordStrc* pRecord, const unsig
 }
 
 // 0x0060A650
-static void __stdcall sub_0060A650_MapSubTileRecord(D2CmpColorStrc tTransparent, const D2CmpSubTileRecordStrc* pSrc, D2CmpSubTileRecordStrc* pDst, D2CmpMapColorFn pfnMapColor)
+static void __stdcall sub_0060A650_MapSubTileRecord(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpMapColorFn pfnMapColor, D2CmpColorStrc tTransparent)
 {
     if (!pSrc->ptData)
     {
@@ -739,30 +793,7 @@ static void __stdcall sub_0060A650_MapSubTileRecord(D2CmpColorStrc tTransparent,
     }
 }
 
-// 0x0060A910
-void __stdcall sub_0060A910_CopyTileLibrary(D2TileLibraryHeaderStrc* pSource, D2TileLibraryHeaderStrc** ppCopy, int* pnSize)
-{
-    D2_ASSERT(pSource, 1171);
-
-    int nSize = sizeof(D2TileLibraryHeaderStrc) + pSource->nTiles * sizeof(D2TileLibraryEntryStrc);
-    D2TileLibraryHeaderStrc* pCopy = (D2TileLibraryHeaderStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 1178, 0);
-    D2_ASSERT(pCopy, 1179);
-
-    memset(pCopy, 0, nSize);
-    memcpy(pCopy, pSource, nSize);
-    D2TileLibraryEntryStrc* pEntries = (D2TileLibraryEntryStrc*)(pCopy + 1);
-    pCopy->pFirst = pEntries;
-    for (int i = 0; i < pCopy->nTiles; ++i)
-    {
-        pEntries[i].pUnk0x54 = 0;
-        pEntries[i].pUnk0x50 = 0;
-    }
-    pCopy->dwFlags &= 4;
-
-    *ppCopy = pCopy;
-    *pnSize = nSize;
-}
-
+// 0x0060A750
 void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor)
 {
     D2_ASSERT(pSrc, 0x44F);
@@ -792,64 +823,35 @@ void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTile
             memset(pDstBlock->pSubs, 0, nSubSize);
             for (int j = 0; j < pSrcBlock->nSubs; j++)
             {
-                sub_0060A650_MapSubTileRecord(pSrcBlock->tColor, &pSrcBlock->pSubs[j], &pDstBlock->pSubs[j], pfnMapColor);
+                sub_0060A650_MapSubTileRecord(&pDstBlock->pSubs[j], &pSrcBlock->pSubs[j], pfnMapColor, pSrcBlock->tColor);
             }
         }
     }
     *ppLibrary = pLibrary;
 }
 
-// 0x006094B0
-D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader()
+// 0x0060A910
+void __stdcall sub_0060A910_CopyTileLibrary(D2TileLibraryHeaderStrc* pSource, D2TileLibraryHeaderStrc** ppCopy, int* pnSize)
 {
-    D2TileListHeaderStrc* pHeader = (D2TileListHeaderStrc*)FOG_Alloc(sizeof(D2TileListHeaderStrc), ".\\SRC\\Tilecmp.cpp", 0x23, 0);
-    D2_ASSERT(pHeader, 0x24);
-    memset(pHeader, 0, sizeof(D2TileListHeaderStrc));
-    return pHeader;
-}
+    D2_ASSERT(pSource, 1171);
 
-// 0x00609550
-D2CmpTileStrc* __cdecl sub_00609550_AllocTile()
-{
-    D2CmpTileStrc* pTile = (D2CmpTileStrc*)FOG_Alloc(sizeof(D2CmpTileStrc), ".\\SRC\\Tilecmp.cpp", 0x45, 0);
-    D2_ASSERT(pTile, 0x46);
-    memset(pTile, 0, sizeof(D2CmpTileStrc));
-    return pTile;
-}
+    int nSize = sizeof(D2TileLibraryHeaderStrc) + pSource->nTiles * sizeof(D2TileLibraryEntryStrc);
+    D2TileLibraryHeaderStrc* pCopy = (D2TileLibraryHeaderStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 1178, 0);
+    D2_ASSERT(pCopy, 1179);
 
-// 0x00609E90
-void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
-{
-    if (bKeep)
-        return;
-    D2_ASSERT(pLibrary, 0x25A);
-    sub_005FE080_ReleaseBlockCaches(pLibrary);
-    if (pLibrary->dwFlags & 4)
+    memset(pCopy, 0, nSize);
+    memcpy(pCopy, pSource, nSize);
+    D2TileLibraryEntryStrc* pEntries = (D2TileLibraryEntryStrc*)(pCopy + 1);
+    pCopy->pFirst = pEntries;
+    for (int i = 0; i < pCopy->nTiles; ++i)
     {
-        FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x262, 0);
-        return;
+        pEntries[i].pUnk0x54 = 0;
+        pEntries[i].pUnk0x50 = 0;
     }
-    D2_ASSERT(!(pLibrary->dwFlags & 8), 0x267);
-    for (int i = 0; i < pLibrary->nBlocks; i++)
-    {
-        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
-        for (int j = 0; j < pBlock->nSubs; j++)
-        {
-            D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
-            if (pSub->ptData)
-                FOG_Free(pSub->ptData, ".\\SRC\\Tilecmp.cpp", 0x274, 0);
-            pSub->nLength = 0;
-            pSub->ptData = 0;
-        }
-        if (pBlock->pSubs)
-            FOG_Free(pBlock->pSubs, ".\\SRC\\Tilecmp.cpp", 0x27B, 0);
-        pBlock->pSubs = 0;
-        pBlock->nSubs = 0;
-    }
-    FOG_Free(pLibrary->pBlocks, ".\\SRC\\Tilecmp.cpp", 0x281, 0);
-    pLibrary->pBlocks = 0;
-    pLibrary->nBlocks = 0;
-    FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x285, 0);
+    pCopy->dwFlags &= 4;
+
+    *ppCopy = pCopy;
+    *pnSize = nSize;
 }
 
 #include "gen/data/Source/D2CMP/SRC/Tilecmp.inc"

@@ -43654,27 +43654,7 @@
     {
      "va": "0x005153C0",
      "length": 361
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundSmp_00516250.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00516250",
      "length": 691
@@ -72010,12 +71990,24 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_005FE610.cpp",
+   "file": "Source/D2CMP/SRC/SpriteCache_005FE610.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x005FE610",
      "length": 894
+    },
+    {
+     "va": "0x005FF0F0",
+     "length": 114
+    },
+    {
+     "va": "0x005FF1B0",
+     "length": 233
+    },
+    {
+     "va": "0x005FFE90",
+     "length": 268
     }
    ],
    "flags": [
@@ -72040,34 +72032,6 @@
     {
      "va": "0x005FE990",
      "length": 496
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FF0F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FF0F0",
-     "length": 114
-    },
-    {
-     "va": "0x005FF1B0",
-     "length": 233
     }
    ],
    "flags": [
@@ -72214,30 +72178,6 @@
      "length": 119,
      "name": "?sub_0060A440_CreateTileHashBlock@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FFE90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FFE90",
-     "length": 268
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -72494,6 +72434,10 @@
      "va": "0x0060A650",
      "length": 243,
      "name": "?sub_0060A650_MapSubTileRecord@@YGXUD2CmpColorStrc@@PBUD2CmpSubTileRecordStrc@@PAU2@P6GEEEE@Z@Z"
+    },
+    {
+     "va": "0x0060A750",
+     "length": 448
     },
     {
      "va": "0x0060A910",
@@ -73319,16 +73263,6 @@
      "va": "0x00609420",
      "length": 139,
      "name": "sub_00609420"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Tilecmp_0060A750.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060A750",
-     "length": 448
     }
    ]
   },
@@ -89073,9 +89007,18 @@
      "length": 312
     },
     {
+     "va": "0x006BB5E0",
+     "length": 88,
+     "name": "?sub_006BB5E0_CreateSurfaces@@YAXXZ"
+    },
+    {
      "va": "0x006BB640",
      "length": 97,
      "name": "?sub_006BB640_ReleaseSurfaces@@YAXXZ"
+    },
+    {
+     "va": "0x006BB6B0",
+     "length": 111
     },
     {
      "va": "0x006BBA00",
@@ -89113,21 +89056,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dFloorCache_006BB5E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BB5E0",
-     "length": 88,
-     "name": "?sub_006BB5E0_CreateSurfaces@@YAXXZ"
-    },
-    {
-     "va": "0x006BB6B0",
-     "length": 111
-    }
    ]
   },
   {

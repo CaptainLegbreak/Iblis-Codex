@@ -1147,7 +1147,7 @@ static const unsigned char* __stdcall sub_005166D0_FindRiffChunk(const unsigned 
 // 0x00516720
 void __fastcall sub_00516720_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels)
 {
-    memset(pFormat, 0, (unsigned int)&((D2WaveFormatStrc*)0)->unk0x12);
+    memset(pFormat, 0, sizeof(D2WaveFormatStrc));
     pFormat->wFormatTag = 1;
     pFormat->nChannels = nChannels;
     pFormat->nSamplesPerSec = 22050;
