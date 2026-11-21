@@ -197,7 +197,7 @@ D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY,
 
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     pOutdoor->dwFlags = dwOutdoorFlags;
-    pOutdoor->unk0x58 = nOutdoor58;
+    pOutdoor->dwFlagsEx = nOutdoor58;
 
     D2LevelDefRecordStrc* pLevelDef = DATATBLS_GetLevelDefRecord(pLevel->eLevelId);
     pOutdoor->nTileInfo64 = pLevelDef->n38;

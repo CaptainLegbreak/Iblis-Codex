@@ -23,7 +23,7 @@ struct D2DrlgOutdoorRoomStrc
     D2DrlgGridStrc tGrid3C; // 0x3C
     D2DrlgVertexStrc* pVertex; // 0x50
     unsigned int dwFlags; // 0x54
-    int unk0x58; // 0x58
+    int dwFlagsEx; // 0x58
     int unk0x5C; // 0x5C
     int unk0x60; // 0x60
     int nTileInfo64; // 0x64

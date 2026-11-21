@@ -275,7 +275,7 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int b
     const int nUnitId = pUnit->dwUnitId;
     for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
     {
-        if (pPet->nType == nType && pPet->dwOwnerId == nUnitId && (bAny || !pPet->unk0x20))
+        if (pPet->nType == nType && pPet->dwOwnerId == nUnitId && (bAny || !pPet->bDead))
             return pPet->dwUnitId;
     }
 

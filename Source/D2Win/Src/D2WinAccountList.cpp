@@ -63,7 +63,7 @@ int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)
 
     for (; pData; pData = pData->pNext)
     {
-        if (nCounter >= pAccountList->unk0x48 && nCounter < pAccountList->unk0x48 + 24)
+        if (nCounter >= pAccountList->nFirstDrawnEntry && nCounter < pAccountList->nFirstDrawnEntry + 24)
         {
             const int nX = nBaseX + 120 * (nCounter % 6);
             const int nY = nBaseY + 20 * (nCounter / 6);

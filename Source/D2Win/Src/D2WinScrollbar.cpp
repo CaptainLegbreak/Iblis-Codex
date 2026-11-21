@@ -69,7 +69,7 @@ extern "C" int __fastcall sub_00508000_SetScrollBarHandler(D2WinScrollBarStrc* p
 extern "C" int __fastcall sub_005080F0_GetScrollBarField50(D2WinScrollBarStrc* pScrollBar)
 {
     D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0xD2);
-    return pScrollBar->field_50;
+    return pScrollBar->nPageStep;
 }
 
 // 0x00508120
@@ -129,7 +129,7 @@ int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
         }
         else
         {
-            nValue = ptScrollbarData->field_50;
+            nValue = ptScrollbarData->nPageStep;
             if (!nValue)
             {
                 int nPages = nRange / 10;

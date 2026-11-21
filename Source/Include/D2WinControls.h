@@ -104,7 +104,7 @@ struct D2WinAccountListStrc
     D2WinControlStrc controlHeader; // 0x00
     D2WinAccountListDataStrc* pDataList; // 0x40
     D2WinAccountListDataStrc* pSelectedDataEntry; // 0x44
-    int unk0x48; // 0x48
+    int nFirstDrawnEntry; // 0x48
     int unk0x4C; // 0x4C
     int eFont; // 0x50
     int unk0x54; // 0x54
@@ -117,7 +117,7 @@ struct D2WinScrollBarStrc
     int bIsLowerArrowPressed; // 0x44
     int nMaxSteps; // 0x48
     int nCurrentStep; // 0x4C
-    int field_50; // 0x50
+    int nPageStep; // 0x50
     D2WinTextBoxStrc* pTextBox; // 0x54
     int bIsStepIndicatorDragged; // 0x58
     D2WinMsgHandler field_5C; // 0x5C

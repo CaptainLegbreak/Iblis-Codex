@@ -206,7 +206,7 @@ struct D2DataTablesStrc
     int nUniqueItemsTxtRecordCount; // 0xC28
     unsigned char unk0xC2C[0x4]; // 0xC2C
     D2MonStats2Txt* unk0xC30; // 0xC30
-    int unk0xC34; // 0xC34
+    int nMonPropTxtRecordCount; // 0xC34
     unsigned char unk0xC38[0x4]; // 0xC38
     D2MonTypeTxt* pMonTypeTxt; // 0xC3C
     int nMonTypeTxtRecordCount; // 0xC40

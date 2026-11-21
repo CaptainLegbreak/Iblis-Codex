@@ -1647,7 +1647,7 @@ void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int dwTick)
 // 0x004E4640
 D2MonTypeTxt* __fastcall sub_004E4640_GetMonTypeTxtRecord(int nMonType)
 {
-    if (nMonType >= 0 && nMonType < sgptDataTables->unk0xC34)
+    if (nMonType >= 0 && nMonType < sgptDataTables->nMonPropTxtRecordCount)
         return &sgptDataTables->pMonTypeTxt[nMonType];
     return sgptDataTables->pMonTypeTxt;
 }

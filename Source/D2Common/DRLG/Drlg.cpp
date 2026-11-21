@@ -1130,7 +1130,7 @@ void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelt
 {
     pLevel->bActive += nDelta;
     pLevel->bActive = pLevel->bActive <= 0 ? 0 : pLevel->bActive;
-    pLevel->unk0x1D4 = 10;
+    pLevel->dwInactiveFrames = 10;
 
     int* pVisLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
     for (int i = 0; i < 8; ++i)
@@ -1141,7 +1141,7 @@ void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelt
             D2DrlgLevelStrc* pVisLevel = DRLG_InlineGetLevel(pLevel->pDrlg, nVisLevelId);
             pVisLevel->bActive += nDelta;
             pVisLevel->bActive = pVisLevel->bActive <= 0 ? 0 : pVisLevel->bActive;
-            pVisLevel->unk0x1D4 = 10;
+            pVisLevel->dwInactiveFrames = 10;
         }
     }
 }

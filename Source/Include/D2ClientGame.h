@@ -32,7 +32,7 @@ struct D2RosterPetStrc
     int nArg10; // 0x10
     int unk0x14[2]; // 0x14
     int nLifePercent; // 0x1C
-    int unk0x20; // 0x20
+    int bDead; // 0x20
     D2ClientEntryStrc tEntry; // 0x24
     D2RosterPetStrc* pNext; // 0x30
 };

@@ -348,7 +348,7 @@ struct D2MonStatsTxt
     short wMonSound; // 0x14
     short wUMonSound; // 0x16
     short wMonStatsEx; // 0x18
-    short unk0x1A; // 0x1A
+    short wMonProp; // 0x1A
     short wMonType; // 0x1C
     short wAI; // 0x1E
     short wSpawn; // 0x20
@@ -455,7 +455,7 @@ struct D2MonStats2Txt
     unsigned char unk0x10E[0xA]; // 0x10E
     int dwAutomapCel; // 0x118
     unsigned char nLocalBlood; // 0x11C
-    unsigned char unk0x11D; // 0x11D
+    unsigned char nBleed; // 0x11D
     unsigned char nLightRadius; // 0x11E
     unsigned char nLight_R; // 0x11F
     unsigned char nLight_G; // 0x120
