@@ -429,6 +429,16 @@ int __stdcall sub_006252B0(D2StatListStrc* pStatList); // 0x006252B0
 
 int __stdcall sub_00625250(D2StatListStrc* pStatList); // 0x00625250
 
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
+
+D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
+
+void __stdcall MISSILE_SetTargetX(D2UnitStrc*, int); // 0x0064A710
+
+void __stdcall MISSILE_SetTargetY(D2UnitStrc*, int); // 0x0064A760
+
 static __forceinline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
 {
     const int nTop = pClickRect->nY;
@@ -1597,6 +1607,96 @@ int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     D2GAME_UpdateSummonAI_6FC401F0(pGame, pTarget, 0, pUnit->dwNodeIndex);
     D2Common_10214(pTarget);
     return 1;
+}
+
+static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwUnitId;
+}
+
+static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) return &sgptDataTables->pSkillsTxt[nSkillId];
+    return 0;
+}
+
+// 0x005C58B0
+int __fastcall sub_005C58B0_SummonBoneWall(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    int nX;
+    int nY;
+    int nLength;
+    D2MissileStrc missile;
+    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY)) return 0;
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
+    if (!pRoom || DUNGEON_IsRoomInTown(pRoom)) return 0;
+    if (pUnit) pUnit->dwFlags |= 0x40;
+    D2SkillsTxt* pSkills = SKILLS_GetSkillsTxtRecordForceInline(nSkillId);
+    if (!nSkillId) return 0;
+    int nSpawnMode;
+    int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    if (nSummonId < 0) return 0;
+    unsigned char nPetType = pSkills->nPetType;
+    if (nPetType >= sgptDataTables->nPetTypeTxtRecordCount) nPetType = 0;
+    D2SummonArgStrc summon = {};
+    summon.nHcIdx = nSummonId;
+    summon.nAiSpecialState = 0;
+    summon.dwFlags = 9;
+    summon.pOwner = pUnit;
+    summon.nMonMode = nSpawnMode;
+    summon.pPosition.nX = nX;
+    summon.pPosition.nY = nY;
+    summon.nPetType = nPetType;
+    summon.nPetMax = SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwPetMax, nSkillId, nSkillLevel);
+    D2UnitStrc* pPet = D2GAME_SummonPet_6FD14430(pGame, &summon);
+    if (!pPet) return 0;
+    AIGENERAL_SetOwnerData(pGame, pPet, sub_00451F50(pUnit), sub_0044BE50(pUnit), 0, 1);
+    D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 15, 0);
+    D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
+    sub_6FC40280(pGame, pPet, 0, 9);
+    nX = CLIENTS_GetUnitX(pPet);
+    nY = CLIENTS_GetUnitY(pPet);
+    if (!DUNGEON_IsRoomInTown(pRoom))
+    {
+        nLength = SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwCalc[1], nSkillId, nSkillLevel) / 2;
+        if (nLength > 1 && pSkills->wSrvMissileA >= 0 && pSkills->wSrvMissileA < sgptDataTables->nMissilesTxtRecordCount)
+        {
+            memset(&missile, 0, sizeof(missile));
+            missile.dwFlags = 0x21;
+            missile.pOwner = pUnit;
+            missile.nX = nX;
+            missile.nY = nY;
+            missile.nSkill = nSkillId;
+            missile.nSkillLevel = nSkillLevel;
+            missile.nMissile = pSkills->wSrvMissileA;
+            int nDeltaX = CLIENTS_GetUnitX(pUnit) - nX;
+            int nDeltaY = CLIENTS_GetUnitY(pUnit) - nY;
+            if (!nDeltaX && !nDeltaY) nDeltaX = 1;
+            missile.nTargetX = nX - nDeltaY;
+            missile.nTargetY = nY + nDeltaX;
+            D2UnitStrc* pMissile = MISSILES_CreateMissileFromParams(pGame, &missile);
+            if (pMissile)
+            {
+                MISSILE_SetTargetX(pMissile, sub_00451F50(pPet));
+                MISSILE_SetTargetY(pMissile, nLength);
+            }
+            missile.nTargetX = nX + nDeltaY;
+            missile.nTargetY = nY - nDeltaX;
+            pMissile = MISSILES_CreateMissileFromParams(pGame, &missile);
+            if (pMissile)
+            {
+                MISSILE_SetTargetX(pMissile, sub_00451F50(pPet));
+                MISSILE_SetTargetY(pMissile, nLength);
+            }
+        }
+        return 1;
+    }
+    return 0;
 }
 
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)

@@ -58765,6 +58765,10 @@
      "length": 491
     },
     {
+     "va": "0x005C58B0",
+     "length": 772
+    },
+    {
      "va": "0x005C5BC0",
      "length": 316,
      "name": "?sub_005C5BC0_SpawnBonePrisonPet@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHH@Z"
@@ -68545,30 +68549,6 @@
     {
      "va": "0x005C55C0",
      "length": 248
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillNec_005C58B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C58B0",
-     "length": 772
     }
    ],
    "flags": [
