@@ -811,6 +811,8 @@ static __forceinline int SKILLS_IsInRangeY(int nY, int nDistance, const D2DrlgCo
     return nY + nDistance >= drlgCoords.nSubtileY || nY - nDistance <= drlgCoords.nSubtileY + drlgCoords.nSubtileHeight;
 }
 
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
 // 0x0056B770
 static int sub_0056B770_IsRoomInRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nDistance)
 {
@@ -1345,6 +1347,25 @@ static __forceinline int MONSTERS_GetBaseIdFromMonsterId(int nMonsterId)
     }
 
     return nMonsterId;
+}
+
+// 0x0056C210
+D2UnitFindDataStrc* __fastcall sub_6FD10D90(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nX, int nY)
+{
+    D2UnitFindDataStrc* pUnitFindData = (D2UnitFindDataStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2UnitFindDataStrc), ".\\SKILLS\\Skills.cpp", 1099, 0);
+
+    D2UnitFindArgStrc unitFindArg = {};
+    unitFindArg.nFlags = 0x583;
+    unitFindArg.pUnit = pUnit;
+    unitFindArg.nX = nX;
+    unitFindArg.nY = nY;
+    unitFindArg.nSize = nSize;
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, pUnitFindData, pRoom, nX, nY, nSize, 0, &unitFindArg);
+    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(pUnitFindData);
+
+    return pUnitFindData;
 }
 
 // 0x0056C2A0

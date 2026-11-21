@@ -4294,25 +4294,6 @@ int __fastcall sub_00569D80(D2GameStrc* pGame, unsigned short nFlags, D2ClientSt
     return 0;
 }
 
-// 0x0056C210
-D2UnitFindDataStrc* __fastcall sub_6FD10D90(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nX, int nY)
-{
-    D2UnitFindDataStrc* pUnitFindData = (D2UnitFindDataStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2UnitFindDataStrc), ".\\SKILLS\\Skills.cpp", 1099, 0);
-
-    D2UnitFindArgStrc unitFindArg = {};
-    unitFindArg.nFlags = 0x583;
-    unitFindArg.pUnit = pUnit;
-    unitFindArg.nX = nX;
-    unitFindArg.nY = nY;
-    unitFindArg.nSize = nSize;
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, pUnitFindData, pRoom, nX, nY, nSize, 0, &unitFindArg);
-    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(pUnitFindData);
-
-    return pUnitFindData;
-}
-
 // 0x00573640
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame)
 {
