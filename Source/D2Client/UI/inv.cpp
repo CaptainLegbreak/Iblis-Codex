@@ -1,4 +1,5 @@
 #include <D2UnitData.h>
+#include "D2StormTypes.h"
 #include "D2ClientTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -48,29 +49,6 @@ extern int gnGlobal_007A5254; // 0x007A5254
 
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned short nWParamLo;
-    short nWParamHi;
-    union
-    {
-        struct
-        {
-            unsigned int lParam;
-        };
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct Unicode
 {
