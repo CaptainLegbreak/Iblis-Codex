@@ -90442,12 +90442,20 @@
      "length": 118
     },
     {
+     "va": "0x006C5CF0",
+     "length": 495
+    },
+    {
      "va": "0x006C5EE0",
      "length": 86
     },
     {
      "va": "0x006C5F40",
      "length": 33
+    },
+    {
+     "va": "0x006C5F70",
+     "length": 378
     },
     {
      "va": "0x006C60F0",
@@ -90460,6 +90468,18 @@
     {
      "va": "0x006C6330",
      "length": 58
+    },
+    {
+     "va": "0x006C6370",
+     "length": 248
+    },
+    {
+     "va": "0x006C6990",
+     "length": 238
+    },
+    {
+     "va": "0x006C6A80",
+     "length": 233
     }
    ],
    "flags": [
@@ -90502,78 +90522,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SBMP_006C5CF0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C5CF0",
-     "length": 495
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBMP_006C5F70.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C5F70",
-     "length": 378
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBMP_006C6370.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C6370",
-     "length": 248
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SBMP_006C6620.CPP",
    "rank": 1,
    "functions": [
@@ -90591,54 +90539,6 @@
      "va": "0x006C6790",
      "length": 505
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBMP_006C6990.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C6990",
-     "length": 238
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SBMP_006C6A80.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C6A80",
-     "length": 233
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

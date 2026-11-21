@@ -1,15 +1,27 @@
 #define STORM_MIN(a, b) (((a) < (b)) ? (a) : (b))
+
 #define VALIDATEBEGIN int nValid = -1
+
 #define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
+
+#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
+
+#define VALIDATEENDVOID if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
 
 struct D2TargaHeaderStrc;
+
 struct D2TgaFieldsStrc;
+
 struct D2BitOutputStrc;
+
 struct D2BitmapFileHeader;
+
 struct D2BitmapInfoHeader;
+
 struct D2PaletteEntry;
+
 struct D2BitmapColor;
+
 struct D2CopyStackArg;
 
 struct D2TargaHeaderStrc { unsigned char bytes[18]; };
@@ -21,6 +33,7 @@ struct tagPALETTEENTRY { unsigned char red, green, blue, alpha; };
 void __stdcall SMemZero(void* destination, unsigned int size); // 0x0041D300
 
 #pragma pack(push, 1)
+
 struct D2TgaFieldsStrc
 {
     unsigned char nIdLength;
@@ -39,11 +52,11 @@ struct D2TgaFieldsStrc
 
 #pragma pack(pop)
 
-static __declspec(noinline) int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader);
-static __declspec(noinline) int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
+
+
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
-static __declspec(noinline) void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride);
-static __declspec(noinline) int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
+
+
 
 struct D2BitOutputStrc
 {
@@ -61,12 +74,14 @@ struct D2BitOutputStrc
     int nBlockLength;
     unsigned char pBlock[256];
 };
-static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc*, unsigned char**);
-static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc*, unsigned char**, int);
-static __declspec(noinline) void __stdcall ClearBlock(unsigned char**, D2BitOutputStrc*);
+
+
+
+
 const char* __stdcall SStrChr(const char* szString, char c); // 0x00413490
-static __declspec(noinline) const char* sub_006C5EE0_FindExtension(const char* szPath);
-static __declspec(noinline) int sub_006C5F40_GetImageType(unsigned short signature);
+
+
+
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 typedef unsigned char BYTE;
@@ -76,9 +91,9 @@ typedef unsigned short WORD;
 typedef unsigned int DWORD;
 
 #pragma pack(push, 2)
+
 struct D2BitmapFileHeader { WORD type; DWORD size; WORD reserved1; WORD reserved2; DWORD offset; };
 
-#pragma pack(pop)
 struct D2BitmapInfoHeader {
     DWORD size; int width; int height; WORD planes; WORD bits;
     DWORD compression; DWORD imageSize; int xppm; int yppm; DWORD colorsUsed; DWORD colorsImportant;
@@ -87,14 +102,91 @@ struct D2BitmapInfoHeader {
 struct D2PaletteEntry { BYTE red, green, blue, flags; };
 
 struct D2BitmapColor { BYTE blue, green, red, reserved; };
+
 void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int); // 0x00413020
-void __stdcall SMemFree(void*, const char*, int, unsigned int); // 0x00412650
+
+
 extern "C" __declspec(dllimport) int __stdcall WriteFile(void*, const void*, unsigned int, unsigned int*, void*); // 0x006CC1A8
 
 struct D2CopyStackArg { unsigned int value; };
 
-static __declspec(noinline) unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows); // 0x006C59C0
+
+
+extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
+
+
+struct D2BmpFileHeaderStrc
+{
+    unsigned short bfType;
+    unsigned int bfSize;
+    unsigned short bfReserved1;
+    unsigned short bfReserved2;
+    unsigned int bfOffBits;
+};
+
+struct D2BmpInfoHeaderStrc
+{
+    unsigned int biSize;
+    int biWidth;
+    int biHeight;
+    unsigned short biPlanes;
+    unsigned short biBitCount;
+    unsigned int biCompression;
+    unsigned int biSizeImage;
+    int biXPelsPerMeter;
+    int biYPelsPerMeter;
+    unsigned int biClrUsed;
+    unsigned int biClrImportant;
+};
+
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
+
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                   // 0x00412650
+
+int __stdcall SFileReadFile(void* hFile, void* pBuffer, unsigned int nToRead, unsigned int* pnRead, void* pOverlapped); // 0x0041B050
+
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
+
+
+
+
+
+void __stdcall sub_0041D2A0_CopyBytes(void*, const void*, unsigned int); // 0x0041D2A0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+static __declspec(noinline) int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader);
+static __declspec(noinline) int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
+static __declspec(noinline) void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride);
+static __declspec(noinline) int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
+static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppOutput);
+static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode);
+static __declspec(noinline) void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState);
+static __declspec(noinline) const char* sub_006C5EE0_FindExtension(const char* szPath);
+static __declspec(noinline) int sub_006C5F40_GetImageType(unsigned short signature);
+static __declspec(noinline) void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, unsigned int nWidth, int nSrcSize, unsigned int nBytesPerLine, int nPlanes);
+static __declspec(noinline) int __stdcall DecodeBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
+static __declspec(noinline) void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
+static __declspec(noinline) int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
+static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, const unsigned char* pSrc, int nSrcSize, unsigned char* pDst, int nDstSize);
 static __declspec(noinline) int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
+static __declspec(noinline) unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows);
 
 // 0x006C50D0
 static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader)
@@ -425,7 +517,7 @@ static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, cons
     __assume(nStride != 0);
     VALIDATE(nRows);
     __assume(nRows != 0);
-    VALIDATEEND;
+    VALIDATEENDVOID;
 
     {
     pSrc += (nRows - 1) * nStride;
@@ -440,61 +532,6 @@ static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, cons
         pSrc -= nStride;
     }
     }
-}
-
-// 0x006C60F0
-static int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize)
-{
-    unsigned char* pOut = pPalette;
-    if (pWidth)
-    {
-        *pWidth = *(const int*)(pData + 0x12);
-    }
-
-    if (pHeight)
-    {
-        *pHeight = *(const int*)(pData + 0x16);
-    }
-
-    if (pBitCount)
-    {
-        *pBitCount = *(const unsigned short*)(pData + 0x1C);
-    }
-
-    {
-        if (*(const unsigned short*)(pData + 0x1C) > 8)
-        {
-            pOut = 0;
-        }
-        else if (pOut)
-        {
-
-            const unsigned char* pColors = pData + 0x36;
-            for (pPalette = 0; (int)pPalette < 256; ++pPalette)
-            {
-                pOut[4 * (int)pPalette + 0] = pColors[4 * (int)pPalette + 2];
-                pOut[4 * (int)pPalette + 1] = pColors[4 * (int)pPalette + 1];
-                pOut[4 * (int)pPalette + 2] = pColors[4 * (int)pPalette + 0];
-                pOut[4 * (int)pPalette + 3] = 0;
-            }
-        }
-
-        if (pPixels)
-        {
-            const int nBitCount = *(const unsigned short*)(pData + 0x1C);
-            const int nOffset = *(const int*)(pData + 0x0A) - (pOut ? 0x400 : 0) - 0x36;
-            const int nRowWidth = (nBitCount * *(const int*)(pData + 0x12)) >> 3;
-            int nStride = nRowWidth;
-            if (nRowWidth & 3)
-            {
-                nStride = nRowWidth - (nRowWidth & 3) + 4;
-            }
-
-            sub_006C59C0_FlipRows(pPixels, *(const int*)(pData + 0x16), pData + nOffset, nPixelsSize, nRowWidth, nStride);
-        }
-    }
-
-    return 1;
 }
 
 // build: context sub_006C60F0_Shim
@@ -561,16 +598,138 @@ static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned c
     }
 }
 
-// 0x006C6330
-static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState)
+// 0x006C5CF0
+static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, unsigned int nWidth, int nSrcSize, unsigned int nBytesPerLine, int nPlanes)
 {
-    SMemZero(pState->f_28, 0x4E2C);
-    int nCode = pState->nClearCode;
-    pState->nNextCode = nCode + 2;
-    sub_006C5A90_EmitCode(pState, ppOutput, nCode);
-    int nWidth = pState->nInitialCodeWidth;
-    pState->f_0 = nWidth;
-    pState->nCodeMask = (1 << nWidth) - 1;
+    unsigned char* pDstEnd = pDst + nLimit;
+    const unsigned char* pSrcEnd = pSrc + nSrcSize;
+    const int nRowBytes = nWidth * nPlanes;
+    unsigned int nColumn = 0;
+    int nPlane = nPlanes - 1;
+
+    while (pDst + nColumn < pDstEnd && pSrc < pSrcEnd)
+    {
+        unsigned char nToken = *pSrc++;
+        if (nToken >= 0xC0)
+        {
+            unsigned int nCount = nToken & 0x3F;
+            nCount = STORM_MIN(nCount, (unsigned int)(pDstEnd - pDst));
+
+            nToken = *pSrc++;
+            do
+            {
+                if (nColumn >= nWidth)
+                {
+                    unsigned int nSkip = STORM_MIN(nCount, nBytesPerLine - nColumn);
+                    nColumn += nSkip;
+                    if (nColumn >= nBytesPerLine)
+                    {
+                        nColumn -= nBytesPerLine;
+                        if (--nPlane < 0)
+                        {
+                            pDst += nRowBytes;
+                            nPlane = nPlanes - 1;
+                        }
+                    }
+
+                    nCount -= nSkip;
+                    if (!nCount)
+                    {
+                        break;
+                    }
+                }
+
+                int nRun = STORM_MIN(nCount, nWidth - nColumn);
+
+                switch (nPlanes)
+                {
+                case 1:
+                    memset(pDst + nColumn, nToken, nRun);
+                    break;
+
+                case 3:
+                {
+                    int nOffset = nColumn * 3 + nPlane;
+                    int nEnd = nOffset + STORM_MIN(pDstEnd - pDst, nRun * 3);
+                    for (; nOffset < nEnd; nOffset += 3)
+                    {
+                        pDst[nOffset] = nToken;
+                    }
+                    break;
+                }
+
+                default:
+                {
+                    int nOffset = nColumn * nPlanes + nPlane;
+                    int nEnd = nOffset + STORM_MIN(pDstEnd - pDst, nRun * nPlanes);
+                    for (; nOffset < nEnd; nOffset += nPlanes)
+                    {
+                        pDst[nOffset] = nToken;
+                    }
+                    break;
+                }
+                }
+
+                nColumn += nRun;
+                if (nColumn >= nBytesPerLine)
+                {
+                    nColumn -= nBytesPerLine;
+                    if (--nPlane < 0)
+                    {
+                        pDst += nRowBytes;
+                        nPlane = nPlanes - 1;
+                    }
+                }
+
+                nCount -= nRun;
+            }
+            while (nCount > 0);
+        }
+        else
+        {
+            if (nColumn < nWidth)
+            {
+                switch (nPlanes)
+                {
+                case 1:
+                    pDst[nColumn] = nToken;
+                    break;
+
+                case 3:
+                    if (pDst + (nColumn * 3 + nPlane) < pDstEnd)
+                    {
+                        pDst[nColumn * 3 + nPlane] = nToken;
+                    }
+                    break;
+
+                default:
+                    if (pDst + (nColumn * nPlanes + nPlane) < pDstEnd)
+                    {
+                        pDst[nColumn * nPlanes + nPlane] = nToken;
+                    }
+                    break;
+                }
+            }
+
+            ++nColumn;
+            if (nColumn >= nBytesPerLine)
+            {
+                nColumn -= nBytesPerLine;
+                if (--nPlane < 0)
+                {
+                    pDst += nRowBytes;
+                    nPlane = nPlanes - 1;
+                }
+            }
+        }
+    }
+}
+
+// build: context sub_Emit_006C6990
+
+int __stdcall sub_Emit_006C6990(const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nSize, int* pWidth, int* pHeight, int* pBitDepth)
+{
+    return DecodePcxMem(pWidth, pData, nDataSize, pPalette, pPixels, nSize, pHeight, pBitDepth) + 2;
 }
 
 void __fastcall ResetDictionaryContext(D2BitOutputStrc* pState, unsigned char** ppOutput)
@@ -607,6 +766,145 @@ static int sub_006C5F40_GetImageType(unsigned short signature)
     default:
         return 3;
     }
+}
+
+// 0x006C5F70
+static int __stdcall DecodeBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth)
+{
+    unsigned char aColors[0x400];
+    D2BmpFileHeaderStrc tFileHeader;
+    D2BmpInfoHeaderStrc tInfoHeader;
+
+    if (!SFileReadFile(hFile, &tFileHeader, sizeof(tFileHeader), 0, 0))
+    {
+        return 0;
+    }
+
+    if (!SFileReadFile(hFile, &tInfoHeader, sizeof(tInfoHeader), 0, 0))
+    {
+        return 0;
+    }
+
+    if (pWidth)
+    {
+        *pWidth = tInfoHeader.biWidth;
+    }
+
+    if (pHeight)
+    {
+        *pHeight = tInfoHeader.biHeight;
+    }
+
+    if (pBitDepth)
+    {
+        *pBitDepth = tInfoHeader.biBitCount;
+    }
+
+    if (tInfoHeader.biBitCount > 8)
+    {
+        pPalette = 0;
+    }
+    else if (pPalette)
+    {
+        if (!SFileReadFile(hFile, aColors, sizeof(aColors), 0, 0))
+        {
+            return 0;
+        }
+
+        for (int i = 0; i < 256; ++i)
+        {
+            pPalette[4 * i + 0] = aColors[4 * i + 2];
+            pPalette[4 * i + 1] = aColors[4 * i + 1];
+            pPalette[4 * i + 2] = aColors[4 * i + 0];
+            pPalette[4 * i + 3] = 0;
+        }
+    }
+
+    if (pBuffer)
+    {
+        SFileSetFilePointer(hFile, tFileHeader.bfOffBits - (pPalette ? 0x400 : 0) - 0x36, 0, 1);
+
+        unsigned int& nRead = *(unsigned int*)&pHeight;
+        nRead = 0;
+        unsigned char* pData = (unsigned char*)SMemAlloc(tInfoHeader.biSizeImage, ".\\SOURCE\\SBMP.CPP", 0x1FF, 0);
+        SFileReadFile(hFile, pData, tInfoHeader.biSizeImage, &nRead, 0);
+
+        const int nRowBytes = (int)(tInfoHeader.biBitCount * tInfoHeader.biWidth) >> 3;
+        int nStride = nRowBytes;
+        if (nRowBytes & 3)
+        {
+            nStride = nRowBytes - (nRowBytes & 3) + 4;
+        }
+
+        sub_006C59C0_FlipRows(pBuffer, tInfoHeader.biHeight, pData, nBufferSize, nRowBytes, nStride);
+        SMemFree(pData, ".\\SOURCE\\SBMP.CPP", 0x20B, 0);
+        if (nRead < tInfoHeader.biSizeImage)
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+int __stdcall sub_Emit_006C5F70(void* hFile, unsigned char* pPalette, unsigned char* pBuffer, unsigned int nBufferSize, int* pWidth, int* pHeight, int* pBitDepth)
+{
+    return DecodeBmpFile(pPalette, pWidth, hFile, pBuffer, nBufferSize, pHeight, pBitDepth) + 1;
+}
+
+// 0x006C60F0
+static int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize)
+{
+    unsigned char* pOut = pPalette;
+    if (pWidth)
+    {
+        *pWidth = *(const int*)(pData + 0x12);
+    }
+
+    if (pHeight)
+    {
+        *pHeight = *(const int*)(pData + 0x16);
+    }
+
+    if (pBitCount)
+    {
+        *pBitCount = *(const unsigned short*)(pData + 0x1C);
+    }
+
+    {
+        if (*(const unsigned short*)(pData + 0x1C) > 8)
+        {
+            pOut = 0;
+        }
+        else if (pOut)
+        {
+
+            const unsigned char* pColors = pData + 0x36;
+            for (pPalette = 0; (int)pPalette < 256; ++pPalette)
+            {
+                pOut[4 * (int)pPalette + 0] = pColors[4 * (int)pPalette + 2];
+                pOut[4 * (int)pPalette + 1] = pColors[4 * (int)pPalette + 1];
+                pOut[4 * (int)pPalette + 2] = pColors[4 * (int)pPalette + 0];
+                pOut[4 * (int)pPalette + 3] = 0;
+            }
+        }
+
+        if (pPixels)
+        {
+            const int nBitCount = *(const unsigned short*)(pData + 0x1C);
+            const int nOffset = *(const int*)(pData + 0x0A) - (pOut ? 0x400 : 0) - 0x36;
+            const int nRowWidth = (nBitCount * *(const int*)(pData + 0x12)) >> 3;
+            int nStride = nRowWidth;
+            if (nRowWidth & 3)
+            {
+                nStride = nRowWidth - (nRowWidth & 3) + 4;
+            }
+
+            sub_006C59C0_FlipRows(pPixels, *(const int*)(pData + 0x16), pData + nOffset, nPixelsSize, nRowWidth, nStride);
+        }
+    }
+
+    return 1;
 }
 
 int __cdecl EmitGetImageType(unsigned short signature)
@@ -678,4 +976,167 @@ static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette,
 int __stdcall sub_006C61C0_Shim(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height)
 {
     return EncodeBmp256File(file, palette, pixels, width, height);
+}
+
+// 0x006C6330
+static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState)
+{
+    SMemZero(pState->f_28, 0x4E2C);
+    int nCode = pState->nClearCode;
+    pState->nNextCode = nCode + 2;
+    sub_006C5A90_EmitCode(pState, ppOutput, nCode);
+    int nWidth = pState->nInitialCodeWidth;
+    pState->f_0 = nWidth;
+    pState->nCodeMask = (1 << nWidth) - 1;
+}
+
+// 0x006C6370
+static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState)
+{
+    if (pState->unknown14[1])
+    {
+        pState->unknown14[0] = nChar;
+        pState->unknown14[1] = 0;
+        return;
+    }
+
+    const int nPrefix = pState->unknown14[0];
+    int nIndex = (nChar << 4) + nPrefix;
+    if (nIndex >= 5003)
+    {
+        nIndex -= 5003;
+    }
+
+    const int nKey = (nPrefix << 8) | nChar;
+    if (((int*)pState->f_28)[nIndex])
+    {
+        if (((int*)pState->unknown2C)[nIndex] == nKey)
+        {
+            pState->unknown14[0] = ((int*)pState->f_28)[nIndex];
+            return;
+        }
+
+        const int nStep = !nIndex ? 1 : 5003 - nIndex;
+        do
+        {
+            nIndex -= nStep;
+            if (nIndex < 0)
+            {
+                nIndex += 5003;
+            }
+
+            if (!((int*)pState->f_28)[nIndex])
+            {
+                goto lNotFound;
+            }
+        }
+        while (((int*)pState->unknown2C)[nIndex] != nKey);
+
+        pState->unknown14[0] = ((int*)pState->f_28)[nIndex];
+        return;
+    }
+
+lNotFound:
+    sub_006C5A90_EmitCode(pState, ppOutput, pState->unknown14[0]);
+    if (pState->nNextCode < 4096)
+    {
+        ((int*)pState->f_28)[nIndex] = pState->nNextCode;
+        ++pState->nNextCode;
+        ((int*)pState->unknown2C)[nIndex] = nKey;
+    }
+    else
+    {
+        ClearBlock(ppOutput, pState);
+    }
+
+    pState->unknown14[0] = nChar;
+}
+
+// build: context sub_006C6370_Shim
+// calling-convention shim (not game code)
+extern "C" void __stdcall sub_006C6370_Shim(D2BitOutputStrc* pState, unsigned char** ppOutput, int nChar)
+{
+    sub_006C6370_AddChar(ppOutput, nChar, pState);
+}
+
+// 0x006C6990
+static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth)
+{
+    const int nWidth = *(const unsigned short*)(pData + 8) - *(const unsigned short*)(pData + 4) + 1;
+    const int nHeight = *(const unsigned short*)(pData + 0x0A) - *(const unsigned short*)(pData + 6) + 1;
+    const int nBits = pData[3] * pData[0x41];
+
+    if (pWidth)
+    {
+        *pWidth = nWidth;
+    }
+
+    if (pHeight)
+    {
+        *pHeight = nHeight;
+    }
+
+    if (pBitDepth)
+    {
+        *pBitDepth = nBits;
+    }
+
+    if (pPixels)
+    {
+        unsigned int nLimit = (nBits + 7) / 8 * nHeight * nWidth;
+        if (nPixelsSize < nLimit)
+        {
+            nLimit = nPixelsSize;
+        }
+
+        sub_006C5CF0_DecodeRle(pPixels, nLimit, pData + 0x80, nWidth, nDataSize - (nBits == 8 ? 0x301 : 0) - 0x80, *(const unsigned short*)(pData + 0x42), pData[0x41]);
+    }
+
+    if (pPalette && nBits == 8)
+    {
+        const unsigned char* pColors = pData + nDataSize - 0x300;
+        for (int i = 0; i < 256; ++i)
+        {
+            pPalette[4 * i + 0] = pColors[3 * i + 0];
+            pPalette[4 * i + 1] = pColors[3 * i + 1];
+            pPalette[4 * i + 2] = pColors[3 * i + 2];
+            pPalette[4 * i + 3] = 0;
+        }
+    }
+
+    return 1;
+}
+
+// 0x006C6A80
+int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
+{
+    if (pWidth)
+        *pWidth = 0;
+    if (pHeight)
+        *pHeight = 0;
+    if (pBitDepth)
+        *pBitDepth = 0;
+
+    VALIDATEBEGIN;
+    VALIDATE(pData);
+    VALIDATE(nDataSize);
+    VALIDATE(nPixelsSize || !pPixels);
+    VALIDATEEND;
+
+    if (!nType && nDataSize >= 2)
+    {
+        nType = sub_006C5F40_GetImageType(*(const unsigned short*)pData);
+    }
+
+    switch (nType)
+    {
+    case 1:
+        return sub_006C60F0_DecodeBmp(pWidth, pHeight, (unsigned int*)pBitDepth, pData, pPalette, pPixels, nPixelsSize);
+    case 2:
+        return DecodePcxMem(pWidth, pData, nDataSize, pPalette, pPixels, nPixelsSize, pHeight, pBitDepth);
+    case 3:
+        return DecodeTgaMem((const D2TgaFieldsStrc*)pData, nDataSize, (tagPALETTEENTRY*)pPalette, pPixels, nPixelsSize, pWidth, pHeight, pBitDepth);
+    }
+
+    return 0;
 }
