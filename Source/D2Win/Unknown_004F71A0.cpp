@@ -510,6 +510,7 @@ void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int n
                     unsigned char* pNextSrc = pSrc + nCount;
                     int nPosX = p - pDst + nX;
                     unsigned char* pNextDst = p + nCount;
+                    // stands for the original's register use in this draw loop (blend table kept in a stack slot); without it, plain forms reassign registers from the top of the function
                     __assume(nPosX != 0x80000000);
                     nPosX = -nPosX;
                     int nLeft = gnColClipLeft_007CA318 + nPosX;
