@@ -56598,9 +56598,19 @@
      "name": "sub_6FCF5DE0"
     },
     {
+     "va": "0x0056BAD0",
+     "length": 69,
+     "name": "sub_6FD10200"
+    },
+    {
      "va": "0x0056BB20",
      "length": 147,
      "name": "?sub_6FD106F0@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0056BBC0",
+     "length": 176,
+     "name": "SKILLS_FindAuraTarget"
     },
     {
      "va": "0x0056BC70",
@@ -56608,9 +56618,24 @@
      "name": "?sub_0056BC70_CountAuraTargets@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0056BC80",
+     "length": 67,
+     "name": "sub_6FD10790"
+    },
+    {
      "va": "0x0056BCD0",
      "length": 61,
      "name": "?sub_6FD10880@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0056BD10",
+     "length": 118,
+     "name": "sub_6FD107F0"
+    },
+    {
+     "va": "0x0056BD90",
+     "length": 300,
+     "name": "sub_0056BD90_RefreshPetMaxForSkill"
     },
     {
      "va": "0x0056BEC0",
@@ -56636,9 +56661,19 @@
      "name": "?SKILLS_FreeUnitSearch@@YIXPAUD2GameStrc@@PAUD2UnitFindDataStrc@@@Z"
     },
     {
+     "va": "0x0056C310",
+     "length": 222,
+     "name": "sub_6FD11340"
+    },
+    {
      "va": "0x0056C3F0",
      "length": 227,
      "name": "sub_6FD118C0"
+    },
+    {
+     "va": "0x0056C4E0",
+     "length": 283,
+     "name": "sub_6FD119C0"
     },
     {
      "va": "0x0056C600",
@@ -56649,6 +56684,11 @@
      "va": "0x0056C670",
      "length": 33,
      "name": "?sub_0056C670_GetOtherHandItem@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+    },
+    {
+     "va": "0x0056C6A0",
+     "length": 92,
+     "name": "sub_6FD11AE0"
     },
     {
      "va": "0x0056C700",
@@ -56708,6 +56748,11 @@
      "name": "D2GAME_CreateLinkPortal_6FD13B20"
     },
     {
+     "va": "0x0056D130",
+     "length": 399,
+     "name": "?D2GAME_CreatePortalObject_6FD13DF0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHPAPAU2@HH@Z"
+    },
+    {
      "va": "0x0056D370",
      "length": 62,
      "name": "?SKILLS_EnlargeVector@@YIXPAH0@Z"
@@ -56716,6 +56761,11 @@
      "va": "0x0056D3B0",
      "length": 73,
      "name": "?SKILLS_MakeShortPerpendicularVector@@YIXPAH0@Z"
+    },
+    {
+     "va": "0x0056D400",
+     "length": 224,
+     "name": "sub_6FD14170"
     },
     {
      "va": "0x0056D4E0",
@@ -56730,6 +56780,31 @@
     {
      "va": "0x0056D790",
      "length": 126
+    },
+    {
+     "va": "0x0056D810",
+     "length": 40,
+     "name": "sub_6FD14400"
+    },
+    {
+     "va": "0x0056D840",
+     "length": 132,
+     "name": "?sub_6FD146D0@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0056D8D0",
+     "length": 103,
+     "name": "?sub_0056D8D0_SetPetFlagsAndCount@@YGXPAUD2GameStrc@@PAUD2SummonArgStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0056D940",
+     "length": 359,
+     "name": "?D2GAME_SummonPet_6FD14430@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2SummonArgStrc@@@Z"
+    },
+    {
+     "va": "0x0056DAB0",
+     "length": 268,
+     "name": "OBJMODE_DropItemWithCodeAndQuality"
     },
     {
      "va": "0x0056DBC0",
@@ -56801,6 +56876,11 @@
      "name": "?sub_0056E210@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x0056E230",
+     "length": 187,
+     "name": "?sub_6FD150A0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x0056E2F0",
      "length": 114,
      "name": "?sub_6FD15190@@YIHPAUD2UnitStrc@@H@Z"
@@ -56809,6 +56889,11 @@
      "va": "0x0056E370",
      "length": 31,
      "name": "?sub_6FD15320@@YIHPAUD2UnitStrc@@PAUD2UnitFindArgStrc@@@Z"
+    },
+    {
+     "va": "0x0056E390",
+     "length": 191,
+     "name": "sub_6FD15210"
     },
     {
      "va": "0x0056E450",
@@ -56834,6 +56919,21 @@
      "va": "0x0056E5B0",
      "length": 111,
      "name": "?SKILLS_GetBaseWalkVelocity@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0056E680",
+     "length": 109,
+     "name": "sub_6FD155E0"
+    },
+    {
+     "va": "0x0056E6F0",
+     "length": 70,
+     "name": "sub_6FD15650"
+    },
+    {
+     "va": "0x0056E740",
+     "length": 60,
+     "name": "sub_6FD156A0"
     },
     {
      "va": "0x0056E780",
@@ -56892,6 +56992,11 @@
      "length": 351
     },
     {
+     "va": "0x0056FC50",
+     "length": 92,
+     "name": "sub_6FD13410"
+    },
+    {
      "va": "0x0056FCB0",
      "length": 399,
      "name": "sub_0056FCB0"
@@ -56905,6 +57010,11 @@
      "va": "0x0056FF10",
      "length": 354,
      "name": "?sub_0056FF10_StartAssignedAura@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00570080",
+     "length": 294,
+     "name": "sub_6FD136E0"
     },
     {
      "va": "0x005701B0",
@@ -56921,130 +57031,14 @@
      "name": "sub_00570530_StatRemoveCallback"
     },
     {
-     "va": "0x0057E270",
-     "length": 118,
-     "name": "?SUNITDMG_RollSuckBloodDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HHPAUD2DamageStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_0056BAD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0056BAD0",
-     "length": 69,
-     "name": "sub_6FD10200"
-    },
-    {
-     "va": "0x0056BBC0",
-     "length": 176,
-     "name": "SKILLS_FindAuraTarget"
-    },
-    {
-     "va": "0x0056BC80",
-     "length": 67,
-     "name": "sub_6FD10790"
-    },
-    {
-     "va": "0x0056BD10",
-     "length": 118,
-     "name": "sub_6FD107F0"
-    },
-    {
-     "va": "0x0056BD90",
-     "length": 300,
-     "name": "sub_0056BD90_RefreshPetMaxForSkill"
-    },
-    {
-     "va": "0x0056C310",
-     "length": 222,
-     "name": "sub_6FD11340"
-    },
-    {
-     "va": "0x0056C4E0",
-     "length": 283,
-     "name": "sub_6FD119C0"
-    },
-    {
-     "va": "0x0056C6A0",
-     "length": 92,
-     "name": "sub_6FD11AE0"
-    },
-    {
-     "va": "0x0056D130",
-     "length": 399,
-     "name": "?D2GAME_CreatePortalObject_6FD13DF0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHPAPAU2@HH@Z"
-    },
-    {
-     "va": "0x0056D400",
-     "length": 224,
-     "name": "sub_6FD14170"
-    },
-    {
-     "va": "0x0056D810",
-     "length": 40,
-     "name": "sub_6FD14400"
-    },
-    {
-     "va": "0x0056D840",
-     "length": 132,
-     "name": "?sub_6FD146D0@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0056D8D0",
-     "length": 103,
-     "name": "?sub_0056D8D0_SetPetFlagsAndCount@@YGXPAUD2GameStrc@@PAUD2SummonArgStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0056D940",
-     "length": 359,
-     "name": "?D2GAME_SummonPet_6FD14430@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2SummonArgStrc@@@Z"
-    },
-    {
-     "va": "0x0056DAB0",
-     "length": 268,
-     "name": "OBJMODE_DropItemWithCodeAndQuality"
-    },
-    {
-     "va": "0x0056E230",
-     "length": 187,
-     "name": "?sub_6FD150A0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0056E390",
-     "length": 191,
-     "name": "sub_6FD15210"
-    },
-    {
-     "va": "0x0056E680",
-     "length": 109,
-     "name": "sub_6FD155E0"
-    },
-    {
-     "va": "0x0056E6F0",
-     "length": 70,
-     "name": "sub_6FD15650"
-    },
-    {
-     "va": "0x0056E740",
-     "length": 60,
-     "name": "sub_6FD156A0"
-    },
-    {
-     "va": "0x0056FC50",
-     "length": 92,
-     "name": "sub_6FD13410"
-    },
-    {
-     "va": "0x00570080",
-     "length": 294,
-     "name": "sub_6FD136E0"
-    },
-    {
      "va": "0x00571580",
      "length": 27,
      "name": "D2GAME_STATES_SendStates_6FCC5F00"
+    },
+    {
+     "va": "0x0057E270",
+     "length": 118,
+     "name": "?SUNITDMG_RollSuckBloodDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HHPAUD2DamageStrc@@@Z"
     }
    ]
   },

@@ -4414,8 +4414,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/Skills.cpp": {
-   "bytes": 536,
-   "definitions": 8,
+   "bytes": 796,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl SKILLS_SrvSt05_Jab(); // 0x005DA8F0",
     "extern \"C\" void __cdecl SKILLS_SrvSt06_PowerStrike_ChargedStrike(); // 0x005DA940",
@@ -4477,17 +4477,7 @@
     "extern \"C\" void __cdecl sub_005DAB40(); // 0x005DAB40",
     "extern \"C\" void __cdecl sub_005DAE30_InitializeMeleeTargets(); // 0x005DAE30",
     "extern \"C\" void __cdecl sub_005CB170(); // 0x005CB170",
-    "extern \"C\" void __cdecl sub_005CD910(); // 0x005CD910"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/Skills.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/SKILLS/Skills_0056BAD0.cpp": {
-   "bytes": 260,
-   "definitions": 1,
-   "externs": [
+    "extern \"C\" void __cdecl sub_005CD910(); // 0x005CD910",
     "extern \"C\" void __cdecl SKILLITEM_EventFunc06_AttackerTakesDamage(); // 0x005BF670",
     "extern \"C\" void __cdecl SKILLITEM_EventFunc08_Howl(); // 0x005BFA10",
     "extern \"C\" void __cdecl SKILLITEM_EventFunc10_AttackerTakesLightDamage(); // 0x005BF720",
@@ -4521,7 +4511,7 @@
     "extern \"C\" void __cdecl sub_005C87A0(); // 0x005C87A0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/Skills_0056BAD0.inc",
+   "include": "gen/data/Source/D2Game/SKILLS/Skills.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -100797,7 +100787,7 @@
    "cname": "gData_007325B0",
    "declared": true,
    "decorated": "?gpEventCallbackTable_007325B0@@3QBQ6IHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@ZB",
-   "file": "Source/D2Game/SKILLS/Skills_0056BAD0.cpp",
+   "file": "Source/D2Game/SKILLS/Skills.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007325B0_t gData_007325B0; // 0x007325B0",
    "head": "extern \"C\" struct d2data_007325B0_t gData_007325B0 = ",
