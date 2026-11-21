@@ -1464,6 +1464,7 @@ D2CommonStormListDStrc::D2CommonStormListDStrc(const D2CommonStormListDStrc& sou
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
+// 0x0060DDB0
 void __cdecl sub_0060DDB0()
 {
     delete gpIgnoreList_0096BC20;

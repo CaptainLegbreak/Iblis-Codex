@@ -75351,6 +75351,11 @@
      "name": "?_GD2CommonChatIgnoreListStrc"
     },
     {
+     "va": "0x0060DDB0",
+     "length": 30,
+     "name": "?sub_0060DDB0@@YAXXZ"
+    },
+    {
      "va": "0x0060DE00",
      "length": 34,
      "name": "sub_0060DE00_SetEnabled"
@@ -76176,17 +76181,6 @@
      "va": "0x0060DDF0",
      "length": 7,
      "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060DDB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DDB0",
-     "length": 30,
-     "name": "?sub_0060DDB0@@YAXXZ"
     }
    ]
   },
