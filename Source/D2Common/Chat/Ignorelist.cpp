@@ -131,6 +131,11 @@ struct D2CommonStormSlotLinkStrc
     {
         return (int)m_next <= 0 ? 0 : m_next;
     }
+    __forceinline char* NextChecked()
+    {
+        char* const pResult = (int)m_next <= 0 ? 0 : m_next;
+        return pResult;
+    }
     char* MaskNext()
     {
         return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
@@ -1147,10 +1152,6 @@ extern "C" char* __stdcall sub_00414200_StrLower(char* szString); // 0x00414200
 
 __declspec(nothrow) void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
-struct D2Cache00610840Strc;
-
-struct D2Cache00610CA0Strc;
-
 struct D2StormSlotListStrc;
 
 struct D2IgnoreKeyNodeStrc;
@@ -1158,14 +1159,6 @@ struct D2IgnoreKeyNodeStrc;
 struct D2StormHashTableStrc;
 
 struct D2IgnoreListStrc;
-
-struct D2CacheLink00610840Strc;
-
-struct D2CacheList00610840Strc;
-
-struct D2CacheLink00610CA0Strc;
-
-struct D2CacheList00610CA0Strc;
 
 struct D2StormSlotListStrc
 {
@@ -1220,69 +1213,7 @@ extern const char gszFirstFormat_006CD90C[]; // 0x006CD90C
 
 extern const char gszSecondFormat_006E62A8[]; // 0x006E62A8
 
-struct D2CacheLink00610840Strc
-{
-	char* pPrev;
-	char* pNext;
 
-	__forceinline char* Next()
-	{
-		char* const pResult = (int)pNext <= 0 ? 0 : pNext;
-		return pResult;
-	}
-};
-
-struct D2CacheList00610840Strc
-{
-	int nLinkOffset;
-	D2CacheLink00610840Strc tTerminator;
-};
-
-struct D2Cache00610840Strc
-{
-	char unk_00[0x10];
-	unsigned int nCounter;
-	char unk_14[0x08];
-	D2CacheList00610840Strc* pLists;
-	int unk_20;
-	unsigned int nCount;
-
-	int sub_00610840_Touch(int nIndex);
-};
-
-void __fastcall sub_006101B0_GrowListArray(D2Cache00610840Strc* pCache); // 0x006101B0
-
-struct D2CacheLink00610CA0Strc
-{
-	char* pPrev;
-	char* pNext;
-
-	__forceinline char* Next()
-	{
-		char* const pResult = (int)pNext <= 0 ? 0 : pNext;
-		return pResult;
-	}
-};
-
-struct D2CacheList00610CA0Strc
-{
-	int nLinkOffset;
-	D2CacheLink00610CA0Strc tTerminator;
-};
-
-struct D2Cache00610CA0Strc
-{
-	char unk_00[0x10];
-	unsigned int nCounter;
-	char unk_14[0x08];
-	D2CacheList00610CA0Strc* pLists;
-	int unk_20;
-	unsigned int nCount;
-
-	int sub_00610CA0_Touch(int nIndex);
-};
-
-void __fastcall sub_006108D0_GrowListArray(D2Cache00610CA0Strc* pCache); // 0x006108D0
 
 void __cdecl operator delete(void* pMemory, void* pWhere) throw();
 
@@ -2666,39 +2597,29 @@ void D2CommonStormSlotArrayBStrc::sub_00610830_SetCountForward(unsigned int nCou
 }
 
 // 0x00610840
-int D2Cache00610840Strc::sub_00610840_Touch(int nIndex)
+int D2CommonStormHashTableAStrc::sub_00610840(unsigned int nSlot)
 {
-	D2CacheList00610840Strc* const& pListArray = pLists;
-	if (nCount >= 0x3FF)
-	{
-		return 0;
-	}
-
-	if (nCounter > 3)
-	{
-		nCounter -= 3;
-	}
-	else
-	{
-		nCounter = 0;
-	}
-
-	for (char* pEntry = pListArray[nIndex].tTerminator.Next(); (int)pEntry > 0; )
-	{
-		++nCounter;
-		if (nCounter > 13)
-		{
-			nCounter = 0;
-			sub_006101B0_GrowListArray(this);
-			return 1;
-		}
-
-		D2CacheList00610840Strc* pList = &pListArray[nIndex];
-		D2CacheLink00610840Strc* pLink = pEntry ? (D2CacheLink00610840Strc*)(pEntry + pList->nLinkOffset) : &pList->tTerminator;
-		pEntry = pLink->pNext;
-	}
-
-	return 0;
+    D2CommonStormSlotListAStrc* const& pListArray = m_slotlistarray.f_8;
+    if (m_slotmask >= 0x3FF)
+        return 0;
+    if (m_fullnessIndicator > 3)
+        m_fullnessIndicator -= 3;
+    else
+        m_fullnessIndicator = 0;
+    for (char* pNode = pListArray[nSlot].m_terminator.NextChecked(); (int)pNode > 0;)
+    {
+        ++m_fullnessIndicator;
+        if (m_fullnessIndicator > 13)
+        {
+            m_fullnessIndicator = 0;
+            sub_006101B0_GrowListArray();
+            return 1;
+        }
+        D2CommonStormSlotListAStrc* pList = &pListArray[nSlot];
+        D2CommonStormSlotLinkStrc* pLink = pNode ? (D2CommonStormSlotLinkStrc*)(pNode + pList->m_linkoffset) : &pList->m_terminator;
+        pNode = pLink->m_next;
+    }
+    return 0;
 }
 
 // 0x006108D0
@@ -2757,39 +2678,29 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::sub_00610BE0_InternalN
 }
 
 // 0x00610CA0
-int D2Cache00610CA0Strc::sub_00610CA0_Touch(int nIndex)
+int D2CommonStormHashTableBStrc::sub_00610CA0(unsigned int nSlot)
 {
-	D2CacheList00610CA0Strc* const& pListArray = pLists;
-	if (nCount >= 0x3FF)
-	{
-		return 0;
-	}
-
-	if (nCounter > 3)
-	{
-		nCounter -= 3;
-	}
-	else
-	{
-		nCounter = 0;
-	}
-
-	for (char* pEntry = pListArray[nIndex].tTerminator.Next(); (int)pEntry > 0; )
-	{
-		++nCounter;
-		if (nCounter > 13)
-		{
-			nCounter = 0;
-			sub_006108D0_GrowListArray(this);
-			return 1;
-		}
-
-		D2CacheList00610CA0Strc* pList = &pListArray[nIndex];
-		D2CacheLink00610CA0Strc* pLink = pEntry ? (D2CacheLink00610CA0Strc*)(pEntry + pList->nLinkOffset) : &pList->tTerminator;
-		pEntry = pLink->pNext;
-	}
-
-	return 0;
+    D2CommonStormSlotListBStrc* const& pListArray = m_slotlistarray.f_8;
+    if (m_slotmask >= 0x3FF)
+        return 0;
+    if (m_fullnessIndicator > 3)
+        m_fullnessIndicator -= 3;
+    else
+        m_fullnessIndicator = 0;
+    for (char* pNode = pListArray[nSlot].m_terminator.NextChecked(); (int)pNode > 0;)
+    {
+        ++m_fullnessIndicator;
+        if (m_fullnessIndicator > 13)
+        {
+            m_fullnessIndicator = 0;
+            sub_006108D0_GrowListArray();
+            return 1;
+        }
+        D2CommonStormSlotListBStrc* pList = &pListArray[nSlot];
+        D2CommonStormSlotLinkStrc* pLink = pNode ? (D2CommonStormSlotLinkStrc*)(pNode + pList->m_linkoffset) : &pList->m_terminator;
+        pNode = pLink->m_next;
+    }
+    return 0;
 }
 
 // 0x00610D30
