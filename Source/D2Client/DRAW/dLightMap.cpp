@@ -25,13 +25,11 @@ struct D2UnitRefStrc;
 
 struct D2LightCellStrc;
 
-
 struct D2P08LightSourceStrc;
 
 struct D2R01LightStrc;
 
 struct D2GridCellStrc;
-
 
 struct D2UnitStrc;
 
@@ -66,7 +64,6 @@ extern int gbFlag_00712B8C; // 0x00712B8C
 extern int gnCellOriginX_007B0A54; // 0x007B0A54
 
 extern int gnCellOriginY_007B0A58; // 0x007B0A58
-
 
 typedef void (__fastcall* ACTCALLBACKFN)(D2ActiveRoomStrc* pRoom);
 
@@ -171,7 +168,6 @@ unsigned int gdwLightOverrideRows_007ACA50[64][64]; // 0x007ACA50
 
 static D2R01LightStrc* gpLights_007B5668; // 0x007B5668
 
-
 extern "C" int __cdecl abs(int nValue);
 
 int gnPathStepSignX_007B0A50; // 0x007B0A50
@@ -192,7 +188,6 @@ int gnPathStepRatio_007A8A4C; // 0x007A8A4C
 
 static void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint);
 
-
 extern D2LightCellStrc gLightGrid_007B0E68[][48]; // 0x007B0E68
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -207,18 +202,13 @@ void __fastcall sub_00474550_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensi
 
 static void sub_00474C00_BlendLightCell(int nCol, int nRow);
 
-
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 unsigned int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 
 unsigned int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 
-
-
 int gnLightsAllocated_007B566C; // 0x007B566C
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -226,13 +216,8 @@ extern int gnGlobal_00712B8C;                                                   
 
 static void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX);
 
-
 static void sub_00474A70_BuildOverrideWindow(D2R01LightStrc* pLight);
 
-
-
-
-static unsigned char sub_00474A30_IsCellBlocked(int nX, int nY);
 
 static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
 
@@ -241,9 +226,6 @@ static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
 struct D2ActiveRoomStrc;
 
 struct D2DynamicPathStrc;
-
-
-
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 
@@ -275,10 +257,6 @@ static unsigned int __stdcall sub_004740D0_ApproxDistance(int nB, int nA);
 
 static void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp);
 
-static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
-
-static void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp);
-
 static void sub_004750F0_BuildLightMask(D2R01LightStrc* pLight);
 
 static void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight);
@@ -293,12 +271,7 @@ int gdwGlobal_007BB388; // 0x007BB388
 
 int gdwGlobal_007BCC48; // 0x007BCC48
 
-
-void __stdcall sub_00474610_UpdateLightGrid(int bReset);
-
 unsigned int gdwLightMapRows_007A8A50[64][64]; // 0x007A8A50
-
-static void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight);
 
 static void __stdcall sub_004755A0_UpdateLight(int nLevel, D2R01LightStrc* pLight);
 
@@ -1364,6 +1337,49 @@ void __cdecl sub_004758D0_FreeAllLights()
     }
 
     gpLights_007B5668 = 0;
+}
+
+// 0x00475930
+void __fastcall sub_00475930_ActCallback(D2ActiveRoomStrc* pRoom)
+{
+    for (D2R01LightStrc* pLight = gpLights_007B5668; pLight; pLight = pLight->pNext)
+    {
+        if (pLight->nMode == 2)
+        {
+            D2UnitStrc* pUnit = 0;
+            if (pLight->nUnitType != 6)
+            {
+                unsigned int const tNUnitId = pLight->nUnitId;
+                pUnit = pLight->f_8 ? sub_004639B0_FindServerSideUnit(tNUnitId, pLight->nUnitType)
+                                    : sub_00463990(tNUnitId, pLight->nUnitType);
+            }
+            D2_ASSERT(pUnit, 1425);
+
+            D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
+            if (pUnitRoom != pRoom)
+            {
+                const unsigned int nX = CLIENTS_GetUnitXInline(pUnit);
+                const unsigned int nY = CLIENTS_GetUnitYInline(pUnit);
+                const int nRadius = pLight->nRadius >> 3;
+                if (COLLISION_GetRoomBySubTileCoordinates(pUnitRoom, nX + nRadius, nY) == pRoom)
+                {
+                    pLight->bMaskReady = 0;
+                }
+                else if (COLLISION_GetRoomBySubTileCoordinates(pUnitRoom, nX - nRadius, nY) == pRoom)
+                {
+                    pLight->bMaskReady = 0;
+                }
+                else if (COLLISION_GetRoomBySubTileCoordinates(pUnitRoom, nX, nY + nRadius) == pRoom)
+                {
+                    pLight->bMaskReady = 0;
+                }
+                else if (COLLISION_GetRoomBySubTileCoordinates(pUnitRoom, nX, nY - nRadius) == pRoom)
+                {
+                    pLight->bMaskReady = 0;
+                }
+            }
+        }
+    }
 }
 
 // 0x00475B20

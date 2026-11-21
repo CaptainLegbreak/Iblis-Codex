@@ -22629,6 +22629,10 @@
      "name": "?sub_004758D0_FreeAllLights@@YAXXZ"
     },
     {
+     "va": "0x00475930",
+     "length": 364
+    },
+    {
      "va": "0x00475B20",
      "length": 29,
      "name": "?sub_00475B20_DebugDrawLights@@YAXXZ"
@@ -22763,30 +22767,6 @@
      "length": 6,
      "name": "sub_004A8A20"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00475930.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00475930",
-     "length": 364
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
