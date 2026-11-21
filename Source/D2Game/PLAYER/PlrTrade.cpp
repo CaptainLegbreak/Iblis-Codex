@@ -456,6 +456,8 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
+void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
 // 0x00564CB0
 void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit)
 {
@@ -1765,6 +1767,29 @@ static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2
     }
 
     return false;
+}
+
+// 0x00566BF0
+void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+    D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
+    if (pTrade)
+    {
+        FOG_FreePool(pGame->pMemoryPool, pTrade->pSaveData, ".\\PLAYER\\PlrTrade.cpp", 2082, 0);
+
+        D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)pTrade->pItemTrade;
+        while (pItemTrade)
+        {
+            D2ItemTradeStrc* pNext = pItemTrade->pNext;
+            FOG_FreePool(pGame->pMemoryPool, pItemTrade, ".\\PLAYER\\PlrTrade.cpp", 2087, 0);
+            pItemTrade = pNext;
+        }
+
+        pTrade->pItemTrade = 0;
+        FOG_FreePool(pGame->pMemoryPool, pTrade, ".\\PLAYER\\PlrTrade.cpp", 2091, 0);
+        pPlayerData->hTrade = 0;
+    }
 }
 
 // 0x00566D90

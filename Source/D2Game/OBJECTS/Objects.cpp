@@ -3075,29 +3075,6 @@ void __stdcall sub_005665B0_GetLocalDate(D2LocalDateStrc* pDate)
     pDate->f_C = systemTime.wYear;
 }
 
-// 0x00566BF0
-void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-    D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
-    if (pTrade)
-    {
-        FOG_FreePool(pGame->pMemoryPool, pTrade->pSaveData, ".\\PLAYER\\PlrTrade.cpp", 2082, 0);
-
-        D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)pTrade->pItemTrade;
-        while (pItemTrade)
-        {
-            D2ItemTradeStrc* pNext = pItemTrade->pNext;
-            FOG_FreePool(pGame->pMemoryPool, pItemTrade, ".\\PLAYER\\PlrTrade.cpp", 2087, 0);
-            pItemTrade = pNext;
-        }
-
-        pTrade->pItemTrade = 0;
-        FOG_FreePool(pGame->pMemoryPool, pTrade, ".\\PLAYER\\PlrTrade.cpp", 2091, 0);
-        pPlayerData->hTrade = 0;
-    }
-}
-
 // 0x00566C80
 void __fastcall sub_6FC90BE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
 {
