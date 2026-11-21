@@ -23,6 +23,7 @@ void __cdecl sub_004F8EA0(); // 0x004F8EA0
 struct tagPOINT;
 struct tagPALETTEENTRY;
 struct D2PaletteTableStrc;
+struct D2CacheStatsStrc;
 
 struct D2GraphicsInterfaceStrc
 {
@@ -45,7 +46,7 @@ struct D2GraphicsInterfaceStrc
     void (__fastcall* pfDecodeSmacker)(const char* szSmacker, unsigned char* pBuffer, int nVersion);
     void (__fastcall* pfPlaySmacker)(void* pContext);
     void (__fastcall* pfCloseSmacker)(void* pContext);
-    void* (__fastcall* pfGetCacheResults)();
+    D2CacheStatsStrc* (__fastcall* pfGetCacheResults)();
     int (__fastcall* pfGetDimensions)(int* pWidth, int* pHeight);
     void (__fastcall* pfSetGlobalScale)(int nScaleFactor);
     int (__fastcall* pfSetGamma)(int nGamma);
@@ -74,7 +75,7 @@ struct D2GraphicsInterfaceStrc
     void (__fastcall* pfUtilPoint)(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex);
     void (__fastcall* pfDrawBox)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode);
     void (__fastcall* pfDrawBoxAlpha)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha);
-    void* pfDrawLine;
+    void (__fastcall* pfDrawLine)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha);
     void (__fastcall* pfClearScreen)(int bPartial);
     void* pfOutputString;
     void* pfDebugDraw;
@@ -93,3 +94,6 @@ struct D2WindowPlacementStrc
     void* hWnd;
     tagWINDOWPLACEMENT windowPlacement;
 };
+
+// Moved from D2Win.h (used by D2Gfx units).
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD

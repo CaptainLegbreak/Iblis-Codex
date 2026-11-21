@@ -39235,7 +39235,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F5050.cpp",
+   "file": "Source/D2Gfx/Unknown_004F5050.cpp",
    "rank": 0,
    "functions": [
     {
@@ -39721,7 +39721,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F5160.cpp",
+   "file": "Source/D2Gfx/SRC/Window_004F5160.cpp",
    "rank": 0,
    "functions": [
     {
@@ -43587,7 +43587,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_00510020.cpp",
+   "file": "Source/D2DDraw/Unknown_00510020.cpp",
    "rank": 0,
    "functions": [
     {
@@ -43898,7 +43898,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_005135F0.cpp",
+   "file": "Source/D2DDraw/Unknown_005135F0.cpp",
    "rank": 1,
    "functions": [
     {

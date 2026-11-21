@@ -1,21 +1,7 @@
-#include "D2Win.h"
+#include "D2Gfx.h"
 #include "D2GfxTypes.h"
 
 struct D2CacheStatsStrc;
-
-struct D2GraphicsInterfaceStrc
-{
-    char unk0x00[40];
-    int (__fastcall* pfGetBackBuffer)(unsigned char* pBuffer);
-    unsigned char unk_2C[0x4];
-    int (__fastcall* pfSetOption)(int nOption, int nValue);
-    char unk0x34[0x18];
-    D2CacheStatsStrc* (__fastcall* pfGetCacheResults)();
-    char unk0x50[0x0C];
-    int (__fastcall* pfGammaCanBeControlled)();
-    unsigned char unk_60[0x60];
-    void (__fastcall* pfDrawLine)(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha);
-};
 
 extern int gnResolutionMode; // 0x007C8CB8
 
@@ -84,4 +70,4 @@ int __fastcall D2GFX_SetOption(int nOption, int nValue)
     return gpGraphicsInterface->pfSetOption(nOption, nValue);
 }
 
-#include "gen/data/Source/D2Win/Unknown_004F5160.inc"
+#include "gen/data/Source/D2Gfx/SRC/Window_004F5160.inc"

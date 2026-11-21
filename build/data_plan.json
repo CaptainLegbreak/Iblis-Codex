@@ -3443,12 +3443,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Win/Unknown_004F5160.cpp": {
+  "Source/D2Gfx/SRC/Window_004F5160.cpp": {
    "bytes": 4,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_004F5160.inc",
+   "include": "gen/data/Source/D2Gfx/SRC/Window_004F5160.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3707,12 +3707,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Win/Unknown_00510020.cpp": {
+  "Source/D2DDraw/Unknown_00510020.cpp": {
    "bytes": 8,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_00510020.inc",
+   "include": "gen/data/Source/D2DDraw/Unknown_00510020.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -81385,7 +81385,7 @@
    "cname": "gData_0072DA58",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_004F5160.cpp",
+   "file": "Source/D2Gfx/SRC/Window_004F5160.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072DA58_t gData_0072DA58; // 0x0072DA58",
    "head": "extern \"C\" struct d2data_0072DA58_t gData_0072DA58 = ",
@@ -86705,7 +86705,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_00510020.cpp",
+   "file": "Source/D2DDraw/Unknown_00510020.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnDDrawGammaScale_0072F7C8 = ",
@@ -86730,7 +86730,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_00510020.cpp",
+   "file": "Source/D2DDraw/Unknown_00510020.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnDDrawGamma_0072F7CC = ",
