@@ -1,7 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2DrlgRooms.h"
@@ -9,17 +8,20 @@
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
 struct D2DrlgOutdoorInfoStrc;
+
 union D2SeedStrc;
+
 struct D2LvlPrestRecordStrc;
+
 struct D2DrlgCoordsStrc;
+
 struct D2DrlgVertexStrc;
+
 struct D2DrlgGridStrc;
+
 struct D2DrlgLevelStrc;
+
 struct D2CoordStrc;
-
-
-
-
 
 struct D2LvlPrestRecordStrc
 {
@@ -29,24 +31,82 @@ struct D2LvlPrestRecordStrc
 };
 
 extern D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
+
 extern void* __fastcall sub_0040B430(void* pPool, int nSize, const char* szFile, int nLine, int nZero); // 0x0040B430
+
 extern int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc* pSeed, int nLimit); // 0x0045C3E0
+
 extern int __fastcall DRLGPRESET_GetSizeX(int nPresetId); // 0x00666FD0
+
 extern int __fastcall DRLGPRESET_GetSizeY(int nPresetId); // 0x00666FE0
-extern void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int nOperation); // 0x0067C4F0
+
+void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
+int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nOffset, char nFlags); // 0x00674230
 
-
-int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nOffset, int nFlags); // 0x00674230
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int bBorder); // 0x006743C0
-
 
 int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
-
 extern "C" const int gdwAct12ShrineFlags_006F061C[4]; // 0x006F061C
+
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
+
+#define LEVEL_COLDPLAINS 3
+
+#define FLAG_OPERATION_OR 0
+
+struct D2DrlgStrc;
+
+int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
+
+#define BORDER 2
+
+#define CELL_OFFSET 1
+
+#define TEST_FLAGS 15
+
+int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
+
+extern const signed char gOffsetX_006F0614[8];  // 0x006F0614
+
+extern const signed char gOffsetY_006F060C[8];  // 0x006F060C
+
+struct Point { int x, y; };
+
+struct D2DrlgMapStrc;
+
+struct D2DrlgOrthStrc;
+
+struct D2DrlgCoordStrc;
+
+D2DrlgMapStrc* __fastcall DRLGPRESET_AllocDrlgMap(D2DrlgLevelStrc* pLevel, int nLvlPrestId, D2DrlgCoordStrc* pDrlgCoord, D2SeedStrc* pSeed); // 0x00666ED0
+
+int __fastcall DRLGPRESET_SetPickedFileInDrlgMap(D2DrlgMapStrc* pDrlgMap, int nPickedFile); // 0x00666EC0
+
+D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom); // 0x00667ED0
+
+D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50); // 0x0067D540
+
+static __declspec(noinline) void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
+void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight); // 0x0067CB80
+
+void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pDrlgOrth); // 0x0067D050
+
+void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel); // 0x0067E600
+
+void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel); // 0x0067E890
+
+void __fastcall sub_0067F450(D2DrlgLevelStrc* pLevel); // 0x0067F450
+
+void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x006807F0
+
+static void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex);
 
 // 0x00674320
 static __declspec(noinline) int __cdecl sub_00674320_PickFile(D2DrlgLevelStrc* pLevel, int nPresetId)
@@ -167,6 +227,191 @@ int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCo
     return 0;
 }
 
+// 0x00674730
+int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags)
+{
+    D2CoordStrc pCoord[256];
+
+    const int nWidth = pLevel->pOutdoors->nGridWidth - 2;
+    const int nArea = nWidth * (pLevel->pOutdoors->nGridHeight - 2);
+
+    if (nArea)
+    {
+        for (int i = 0; i < nArea; ++i)
+        {
+            pCoord[i].nX = i % nWidth;
+            pCoord[i].nY = i / nWidth;
+        }
+
+        for (int i = 0; i < nArea; ++i)
+        {
+            const unsigned int nRand1 = SEED_RollLimitedRandomNumber(&pLevel->pSeed, nArea);
+            const unsigned int nRand2 = SEED_RollLimitedRandomNumber(&pLevel->pSeed, nArea);
+
+            const D2CoordStrc tCoord = pCoord[nRand1];
+            pCoord[nRand1] = pCoord[nRand2];
+            pCoord[nRand2] = tCoord;
+        }
+
+        for (int i = 0; i < nArea; ++i)
+        {
+            const int nX = pCoord[i].nX + 1;
+            const int nY = pCoord[i].nY + 1;
+
+            if (DRLGOUTDOORS_TestOutdoorLevelPreset(pLevel, nX, nY, nLevelPrestId, nOffset, nFlags))
+            {
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nLevelPrestId, nRand, 0);
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+static __forceinline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+// 0x00674920
+int __fastcall sub_00674920_PlaceRandomPreset(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand)
+{
+    sub_0061F0B0(nLvlPrestId);
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    const int width = pOutdoors->nGridWidth - BORDER;
+    const int count = width * (pOutdoors->nGridHeight - BORDER);
+    if (!count) return 0;
+    Point cells[256];
+    for (int i = 0; i < count; ++i)
+    {
+        cells[i].x = i % width;
+        cells[i].y = i / width;
+    }
+    for (int i = 0; i < count; ++i)
+    {
+        const int first = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, count);
+        const int second = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, count);
+        Point temp = cells[first];
+        cells[first] = cells[second];
+        cells[second] = temp;
+    }
+    for (int i = 0; i < count; ++i)
+    {
+        const int x = cells[i].x + CELL_OFFSET;
+        const int y = cells[i].y + CELL_OFFSET;
+        if (DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], x, y) & 0x80)
+        {
+            for (int j = 0; j < 8; ++j)
+            {
+                const int tx = x + gOffsetX_006F0614[j];
+                const int ty = y + gOffsetY_006F060C[j];
+                if (DRLGOUTDOORS_TestOutdoorLevelPreset(pLevel, tx, ty, nLvlPrestId, 0, TEST_FLAGS))
+                {
+                    DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, tx, ty, nLvlPrestId, nRand, 0);
+                    return 1;
+                }
+            }
+        }
+    }
+    return DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nLvlPrestId, nRand, 0, TEST_FLAGS);
+}
+
+static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+        return 0;
+    if ((nMax - 1) & nMax)
+        return SEED_RollRandomNumber_Inline(pSeed) % nMax;
+    return SEED_RollRandomNumber_Inline(pSeed) & (nMax - 1);
+}
+
+// 0x00674B70
+void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
+{
+    D2CoordStrc pCoord[256];
+    const int nLevelId = pLevel->eLevelId;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    if (nLevelId == LEVEL_COLDPLAINS)
+    {
+        int* pVisArray = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, nLevelId);
+        int k;
+        for (k = 0; k < 8; ++k)
+        {
+            if (pVisArray[k] == LEVEL_BLOODMOOR)
+                break;
+        }
+        int nFlags = 1 << (k + 4);
+        int nW = pOutdoors->nGridWidth;
+        int nH = pOutdoors->nGridHeight;
+        for (int i = 0; i < nH; ++i)
+        {
+            for (int j = 0; j < nW; ++j)
+            {
+                int a = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[1], j, i);
+                int b = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], j, i);
+                if ((a & nFlags) && (b & 0x400))
+                {
+                    if (!j) j = 1;
+                    if (!i) i = 1;
+                    if (j == nW - 1) --j;
+                    if (i == nH - 1) --i;
+                    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[1], j, i, 0x20000, FLAG_OPERATION_OR);
+                    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], j, i, 0x800, FLAG_OPERATION_OR);
+                    return;
+                }
+            }
+        }
+    }
+    int nWidth = pOutdoors->nGridWidth - 2;
+    int nArea = nWidth * (pOutdoors->nGridHeight - 2);
+    if (nArea)
+    {
+        for (int i = 0; i < nArea; ++i)
+        {
+            pCoord[i].nX = i % nWidth;
+            pCoord[i].nY = i / nWidth;
+        }
+        for (int i = 0; i < nArea; ++i)
+        {
+            int nRand1 = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nArea);
+            int nRand2 = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nArea);
+            D2CoordStrc tCoord = pCoord[nRand1];
+            pCoord[nRand1] = pCoord[nRand2];
+            pCoord[nRand2] = tCoord;
+        }
+        for (int i = 0; i < nArea; ++i)
+        {
+            int nX = pCoord[i].nX + 1;
+            int nY = pCoord[i].nY + 1;
+            if (!(DRLGGRID_GetGridEntry(&pLevel->pOutdoors->pGrid[2], nX, nY) & 0x1B81))
+            {
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[1], nX, nY, 0x10000, FLAG_OPERATION_OR);
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x800, FLAG_OPERATION_OR);
+                break;
+            }
+        }
+    }
+}
+
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
@@ -264,6 +509,75 @@ static void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc*
     while (pVertex != *ppVertex);
 }
 
+// 0x006750F0
+static void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    int nLevelFlags = 0;
+    switch (pLevel->nLevelType)
+    {
+    case 2:
+        nLevelFlags = 0x44103;
+        break;
+    case 16:
+        nLevelFlags = 1;
+        break;
+    case 21:
+        nLevelFlags = 4;
+        break;
+    case 22:
+        nLevelFlags = 1;
+        break;
+    case 27:
+        nLevelFlags = 1;
+        break;
+    case 28:
+        nLevelFlags = 1;
+        break;
+    case 30:
+        nLevelFlags = 0x11;
+        break;
+    case 31:
+        nLevelFlags = 0x11;
+        break;
+    }
+
+    int nPosY = pLevel->pLevelCoords.nPosY;
+    for (int nY = 0; nY < pOutdoors->nGridHeight; ++nY)
+    {
+        int nPosX = pLevel->pLevelCoords.nPosX;
+        for (int nX = 0; nX < pOutdoors->nGridWidth; ++nX)
+        {
+            const int nRoomFlags = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[1], nX, nY);
+            const unsigned int dwCellFlags = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY);
+            if (dwCellFlags & 0x200)
+            {
+                const int nLvlPrestId = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[0], nX, nY);
+                if (nLvlPrestId)
+                {
+                    D2DrlgCoordStrc tDrlgCoord;
+                    tDrlgCoord.nPosX = nPosX;
+                    tDrlgCoord.nPosY = nPosY;
+                    tDrlgCoord.nWidth = 0;
+                    tDrlgCoord.nHeight = 0;
+                    D2DrlgMapStrc* pDrlgMap = DRLGPRESET_AllocDrlgMap(pLevel, nLvlPrestId, &tDrlgCoord, &pLevel->pSeed);
+                    DRLGPRESET_SetPickedFileInDrlgMap(pDrlgMap, (dwCellFlags >> 16) & 0xF);
+                    DRLGPRESET_BuildArea(pLevel, pDrlgMap, nRoomFlags, 0);
+                }
+            }
+            else if (!(dwCellFlags & 0x100))
+            {
+                const int nOutdoorEntry = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[3], nX, nY);
+                sub_0067D540(pLevel, nPosX, nPosY, 8, 8, nRoomFlags, dwCellFlags, nOutdoorEntry, nLevelFlags);
+            }
+
+            nPosX += 8;
+        }
+
+        nPosY += 8;
+    }
+}
+
 void __fastcall sub_M16_EmitScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
 {
     sub_00675080_ScaleAndMergeVertices(pMemPool, ppVertex);
@@ -273,6 +587,86 @@ void __fastcall sub_M16_EmitScaleAndMergeVertices(void* pMemPool, D2DrlgVertexSt
 int __fastcall sub_00675290_GetOutdoorValue(D2DrlgLevelStrc* pLevel, int nIndex)
 {
     return (int)pLevel->pOutdoors->pRoads[nIndex];
+}
+
+void __fastcall sub_006750F0_EmitSpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
+{
+    sub_006750F0_SpawnPresetsAndRooms(pLevel);
+}
+
+static __forceinline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
+{
+    int nFlags = 0;
+    switch (nLevelType)
+    {
+    case 2:
+        nFlags = 0x44103;
+        break;
+    case 16:
+    case 22:
+    case 27:
+    case 28:
+        nFlags = 1;
+        break;
+    case 21:
+        nFlags = 4;
+        break;
+    case 30:
+    case 31:
+        nFlags = 0x11;
+        break;
+    }
+    return nFlags;
+}
+
+// 0x00675360
+void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
+{
+    void* pMemPool = pLevel->pDrlg->pMempool;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+
+    pOutdoors->unk0x54 = 0;
+    pOutdoors->nRoomData = 0;
+    pOutdoors->nGridWidth = pLevel->pLevelCoords.nWidth / 8;
+    pOutdoors->nGridHeight = pLevel->pLevelCoords.nHeight / 8;
+
+    const int nGridWidth = pOutdoors->nGridWidth;
+    const int nGridHeight = pOutdoors->nGridHeight;
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[0], nGridWidth, nGridHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[1], nGridWidth, nGridHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[2], nGridWidth, nGridHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[3], nGridWidth, nGridHeight);
+
+    unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->eLevelId);
+
+    DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pRoomData);
+    sub_00675080_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
+
+    if (pLevel->eLevelId == 134)
+    {
+        nAct = 1;
+    }
+
+    switch (nAct)
+    {
+    case 0:
+        DRLGOUTWILD_InitAct1OutdoorLevel(pLevel);
+        break;
+    case 1:
+        DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
+        break;
+    case 2:
+        sub_0067F450(pLevel);
+        break;
+    case 3:
+        sub_0067E890(pLevel);
+        break;
+    case 4:
+        sub_0067E600(pLevel);
+        break;
+    }
+
+    sub_006750F0_SpawnPresetsAndRooms(pLevel);
 }
 
 // 0x006757E0
