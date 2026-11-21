@@ -56834,6 +56834,10 @@
      "name": "?sub_6FD10E50@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x0056EBE0",
+     "length": 201
+    },
+    {
      "va": "0x0056ECB0",
      "length": 295,
      "name": "?sub_6FD11420@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHHHHHH@Z"
@@ -56877,6 +56881,10 @@
      "va": "0x0056FF10",
      "length": 354,
      "name": "?sub_0056FF10_StartAssignedAura@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005701B0",
+     "length": 420
     },
     {
      "va": "0x00570360",
@@ -57043,34 +57051,6 @@
     {
      "va": "0x0056FAF0",
      "length": 351
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_0056EBE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0056EBE0",
-     "length": 201
-    },
-    {
-     "va": "0x005701B0",
-     "length": 420
     }
    ],
    "flags": [
