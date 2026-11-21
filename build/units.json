@@ -42545,8 +42545,22 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinFont_005013A0.cpp",
+   "file": "Source/D2Win/Src/D2WinFont.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x005013A0",
@@ -42564,31 +42578,6 @@
      "name": "?sub_6F8A9E90@@YAXH@Z"
     },
     {
-     "va": "0x00502C60",
-     "length": 644,
-     "name": "?D2Win_10115_FONT@@YIXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005015F0",
      "length": 88,
      "name": "?D2Win_10116@@YGXXZ"
@@ -42599,6 +42588,11 @@
      "name": "?sub_6F8AA100@@YIPAUD2CharStrc@@G@Z"
     },
     {
+     "va": "0x00501730",
+     "length": 146,
+     "name": "?D2Win_10123@@YIHPBUUnicode@@H@Z"
+    },
+    {
      "va": "0x005017D0",
      "length": 71,
      "name": "D2Win_10122"
@@ -42607,6 +42601,15 @@
      "va": "0x00501820",
      "length": 18,
      "name": "?sub_00501820@@YIHPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x00501840",
+     "length": 203
+    },
+    {
+     "va": "0x00501910",
+     "length": 174,
+     "name": "?sub_00501910_GetTextLineWidth@@YAHPBUUnicode@@@Z"
     },
     {
      "va": "0x005019C0",
@@ -42624,6 +42627,19 @@
      "name": "?sub_00501A60_DrawRectUp@@YGXHHHHIH@Z"
     },
     {
+     "va": "0x00501A80",
+     "length": 428
+    },
+    {
+     "va": "0x00501C30",
+     "length": 436
+    },
+    {
+     "va": "0x00502190",
+     "length": 227,
+     "name": "?sub_00502190_DrawFontText@@YAXPBUUnicode@@HH@Z"
+    },
+    {
      "va": "0x00502280",
      "length": 107,
      "name": "D2Win_10129_DrawFramedText"
@@ -42634,9 +42650,47 @@
      "name": "D2Win_10130_DrawFramedTextEx"
     },
     {
+     "va": "0x00502320",
+     "length": 55,
+     "name": "?sub_00502320@@YIXPBUUnicode@@HHHH@Z"
+    },
+    {
+     "va": "0x005023A0",
+     "length": 15,
+     "name": "?sub_005023A0_DrawFontText@@YIXPBUUnicode@@HH@Z"
+    },
+    {
+     "va": "0x005023B0",
+     "length": 207
+    },
+    {
+     "va": "0x00502480",
+     "length": 155,
+     "name": "?D2Win_10133@@YIXPBUUnicode@@HHHHH@Z"
+    },
+    {
+     "va": "0x00502520",
+     "length": 34,
+     "name": "?D2Win_10131_GetTextDimensions@@YIXPBUUnicode@@PAH1@Z"
+    },
+    {
+     "va": "0x00502550",
+     "length": 105,
+     "name": "?D2Win_10128@@YIIE@Z"
+    },
+    {
+     "va": "0x005025C0",
+     "length": 186,
+     "name": "?sub_005025C0_DrawFramedText@@YIXPBUUnicode@@HHHHHH@Z"
+    },
+    {
      "va": "0x00502680",
      "length": 200,
      "name": "?sub_00502680_DrawCellFile@@YIXPAUD2CelFileStrc@@HHHHH@Z"
+    },
+    {
+     "va": "0x00502750",
+     "length": 324
     },
     {
      "va": "0x005028A0",
@@ -42647,101 +42701,12 @@
      "va": "0x005028E0",
      "length": 130,
      "name": "sub_005028E0_AllocSplitTextLine"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00501730.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
-     "va": "0x00501730",
-     "length": 146,
-     "name": "?D2Win_10123@@YIHPBUUnicode@@H@Z"
+     "va": "0x00502C60",
+     "length": 644,
+     "name": "?D2Win_10115_FONT@@YIXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00501840.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00501840",
-     "length": 203
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00501910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00501910",
-     "length": 174,
-     "name": "?sub_00501910_GetTextLineWidth@@YAHPBUUnicode@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00501A80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00501A80",
-     "length": 428
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00501C30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00501C30",
-     "length": 436
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -42797,64 +42762,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinFont_00502190.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00502190",
-     "length": 227,
-     "name": "?sub_00502190_DrawFontText@@YAXPBUUnicode@@HH@Z"
-    },
-    {
-     "va": "0x005023A0",
-     "length": 15,
-     "name": "?sub_005023A0_DrawFontText@@YIXPBUUnicode@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00502520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00502320",
-     "length": 55,
-     "name": "?sub_00502320@@YIXPBUUnicode@@HHHH@Z"
-    },
-    {
-     "va": "0x00502520",
-     "length": 34,
-     "name": "?D2Win_10131_GetTextDimensions@@YIXPBUUnicode@@PAH1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00502550.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00502550",
-     "length": 105,
-     "name": "?D2Win_10128@@YIIE@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
    "file": "Source/D2Win/Src/D2WinFont_00502360.cpp",
    "rank": 1,
    "functions": [
@@ -42876,62 +42783,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_005023B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005023B0",
-     "length": 207
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00502480.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00502480",
-     "length": 155,
-     "name": "?D2Win_10133@@YIXPBUUnicode@@HHHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_005025C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005025C0",
-     "length": 186,
-     "name": "?sub_005025C0_DrawFramedText@@YIXPBUUnicode@@HHHHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00502750.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00502750",
-     "length": 324
-    }
    ]
   },
   {
