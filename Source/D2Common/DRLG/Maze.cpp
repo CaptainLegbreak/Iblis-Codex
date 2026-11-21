@@ -312,6 +312,7 @@ static int sub_00670810(D2DrlgLevelStrc* pLevel)
     return pLevel->pMaze->dwRooms[pLevel->pDrlg->nDifficulty] == 1;
 }
 
+// 0x00670960
 static int DRLGMAZE_HasMapDS1(D2DrlgRoomStrc* pDrlgRoom)
 {
     return !((pDrlgRoom->pMaze->dwFlags >> 1) & 1);

@@ -87312,6 +87312,11 @@
      "name": "sub_00670880"
     },
     {
+     "va": "0x00670960",
+     "length": 14,
+     "name": "DRLGMAZE_HasMapDS1"
+    },
+    {
      "va": "0x00670970",
      "length": 36,
      "name": "DRLGMAZE_SetPickedFileAndPresetId"
@@ -87514,17 +87519,6 @@
     {
      "va": "0x00673B30",
      "length": 1197
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00670960",
-     "length": 14,
-     "name": "DRLGMAZE_HasMapDS1"
     }
    ]
   },
