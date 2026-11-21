@@ -45,6 +45,10 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage);
 
+int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+
+extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
+
 // 0x00500310
 extern "C" int __fastcall sub_00500310_GetAnimImageField50(D2WinAnimImageStrc* ptAnim)
 {
@@ -258,4 +262,36 @@ extern "C" void __fastcall sub_005080C0_SetScrollBarField50(D2WinScrollBarStrc* 
 {
     D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_TYPE_5, 0xCA);
     ptScrollbarData->field_50 = nValue;
+}
+
+// 0x005003A0
+int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
+{
+    D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)pControl;
+    D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x73);
+
+    int nY = gMousePosition_6F8FE234.y;
+    int nX = gMousePosition_6F8FE234.x;
+
+    D2CelFileStrc* pCellFile = 0;
+    D2CelFileStrc** ppCellFile = pAnimImage->pAnimatedImageDescriptor[pAnimImage->nAnimType].ppCellFile1;
+    if (ppCellFile)
+    {
+        pCellFile = *ppCellFile;
+    }
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = pCellFile;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+
+    D2CelStrc* pCel = CelGetHandle(&tContext);
+    const int nImageX = pAnimImage->controlHeader.nImageX;
+    const int nImageY = pAnimImage->controlHeader.nImageY;
+    const int nWidth = sub_006018C0(pCel);
+    const int nHeight = sub_006018F0(pCel);
+    nX -= sub_00601920(pCel);
+    nY -= sub_00601950(pCel);
+    return nX >= nImageX && nY >= nImageY - nHeight && nX < nImageX + nWidth && nY < nImageY;
 }

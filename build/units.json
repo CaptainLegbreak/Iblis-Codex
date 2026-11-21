@@ -42786,21 +42786,6 @@
      "va": "0x005001D0",
      "length": 298,
      "name": "D2Win_10070_EDITBOX_Create"
-    },
-    {
-     "va": "0x005003A0",
-     "length": 212,
-     "name": "ANIMIMAGE_ShouldMouseInputBeHandled"
-    },
-    {
-     "va": "0x00500B50",
-     "length": 153,
-     "name": "BUTTON_OnMouseWheelScrolled"
-    },
-    {
-     "va": "0x005028E0",
-     "length": 130,
-     "name": "sub_005028E0_AllocSplitTextLine"
     }
    ]
   },
@@ -42817,6 +42802,11 @@
      "va": "0x00500340",
      "length": 95,
      "name": "?D2Win_10104@@YIHPAUD2WinAnimImageStrc@@@Z"
+    },
+    {
+     "va": "0x005003A0",
+     "length": 212,
+     "name": "ANIMIMAGE_ShouldMouseInputBeHandled"
     },
     {
      "va": "0x00500480",
@@ -42858,6 +42848,11 @@
    "file": "Source/D2Win/Src/D2WinButton.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00500B50",
+     "length": 153,
+     "name": "BUTTON_OnMouseWheelScrolled"
+    },
     {
      "va": "0x00500C20",
      "length": 43,
@@ -42951,6 +42946,11 @@
      "va": "0x005028A0",
      "length": 58,
      "name": "?sub_005028A0_FreeTextLines@@YIXPAUD2TextLineStrc@@@Z"
+    },
+    {
+     "va": "0x005028E0",
+     "length": 130,
+     "name": "sub_005028E0_AllocSplitTextLine"
     }
    ]
   },
