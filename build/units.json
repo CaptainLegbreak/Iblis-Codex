@@ -29293,71 +29293,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UNIT/Monster_004AF4C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004AF4C0",
-     "length": 477
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Monster_004AE7B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004ADD90",
-     "length": 167
-    },
-    {
-     "va": "0x004AE7B0",
-     "length": 273,
-     "name": "?sub_004AE7B0_CheckMonsterFacing@@YIHPAUD2UnitStrc@@0HH@Z"
-    },
-    {
-     "va": "0x004AE8D0",
-     "length": 1113
-    },
-    {
-     "va": "0x004AEDD0",
-     "length": 985
-    },
-    {
-     "va": "0x004AF1B0",
-     "length": 302
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
    "rank": 0,
    "functions": [
@@ -29448,6 +29383,51 @@
      "va": "0x004B6A30",
      "length": 568,
      "name": "?sub_004B6A30_NpcTextCallback@@YIHPAXHH@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UNIT/Monster_004AE7B0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004ADD90",
+     "length": 167
+    },
+    {
+     "va": "0x004AE7B0",
+     "length": 273,
+     "name": "?sub_004AE7B0_CheckMonsterFacing@@YIHPAUD2UnitStrc@@0HH@Z"
+    },
+    {
+     "va": "0x004AE8D0",
+     "length": 1113
+    },
+    {
+     "va": "0x004AEDD0",
+     "length": 985
+    },
+    {
+     "va": "0x004AF1B0",
+     "length": 302
+    },
+    {
+     "va": "0x004AF4C0",
+     "length": 477
     }
    ],
    "flags": [
