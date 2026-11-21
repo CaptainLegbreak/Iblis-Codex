@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameRecords.h"
+#include "D2GameClient.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -12,30 +13,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define WARP_ATTEMPT_EXPIRATION_FRAMES 0x8CA
 #define NUM_WARP_ATTEMPT_SLOTS 5
 
-struct D2ClientStrc
-{
-    char unk0x000[0x17C];
-    void* pSaveHeader;
-    int nSaveHeaderSize;
-    unsigned int nSaveHeaderSendDelay;
-    unsigned int nSaveHeaderDataSentBytes;
-    char unk0x18C[0x1C];
-    D2GameStrc* pGame;
-    char unk0x1AC[0x0C];
-    D2PacketDataStrc* pPacketDataHead;
-    D2PacketDataStrc* pPacketDataTail;
-    char unk0x1C0[0x200];
-    int aLastWarpAttemptsFrame[5];
-    union
-    {
-        unsigned int dwFlags;
-        struct
-        {
-            unsigned char bFlagsLow : 5;
-            unsigned char bGameOwner : 1;
-        };
-    };
-};
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);           // 0x0040B480
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);    // 0x005531C0
@@ -99,10 +76,10 @@ void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUnit)
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
     {
-        const int nLastWarpFrame = ptClient->aLastWarpAttemptsFrame[i];
+        const int nLastWarpFrame = ptClient->unk0x3C0[i];
         if (!nLastWarpFrame || (unsigned int)pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
         {
-            ptClient->aLastWarpAttemptsFrame[i] = pGame->dwGameFrame;
+            ptClient->unk0x3C0[i] = pGame->dwGameFrame;
             return;
         }
     }
@@ -118,7 +95,7 @@ int __fastcall CLIENTS_ShouldDelayWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUn
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
     {
-        const int nLastWarpFrame = pClient->aLastWarpAttemptsFrame[i];
+        const int nLastWarpFrame = pClient->unk0x3C0[i];
         if (!nLastWarpFrame || (unsigned int)pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
         {
             return 0;

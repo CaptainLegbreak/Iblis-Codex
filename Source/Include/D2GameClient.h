@@ -72,7 +72,15 @@ struct D2ClientStrc
     char unk0x3BB; // 0x3BB
     unsigned int nUnitUpdateIndex; // 0x3BC
     int unk0x3C0[5]; // 0x3C0
-    unsigned int dwFlags; // 0x3D4
+    union
+    {
+        unsigned int dwFlags; // 0x3D4
+        struct
+        {
+            unsigned char bFlagsLow : 5; // 0x3D4
+            unsigned char bGameOwner : 1; // 0x3D4
+        };
+    };
     unsigned int dwLastPacketTick; // 0x3D8
     D2HotkeySkillStrc HotkeySkills[16]; // 0x3DC
     unsigned short unk0x45C; // 0x45C
