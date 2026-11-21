@@ -1694,14 +1694,5 @@ extern "C" void __cdecl sub_0049A020_FreeList()
     gList_007BF014 = 0;
 }
 
-// 0x006B9B00
-extern "C" void __cdecl sub_006B9B00_FreeGlobal()
-{
-    if (gAllocation_009897D0)
-    {
-        FOG_Free(gAllocation_009897D0, ".\\Src\\d3dSmack.cpp", 0x5E, 0);
-        gAllocation_009897D0 = 0;
-    }
-}
 
 #include "gen/data/Source/Fog/Src/Exceptions.inc"

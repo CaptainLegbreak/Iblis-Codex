@@ -359,3 +359,19 @@ static D2GlideFloorCacheEntryStrc* sub_0050F540_FloorCachePopFree(D2GlideFloorCa
     pEntry->pPrev = 0;
     return pEntry;
 }
+
+// 0x0050F210
+void __fastcall sub_0050F210_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush)
+{
+    if (bFlush)
+    {
+        while (pCache->nUsed)
+            sub_N19_TileEvict(pCache);
+    }
+    if (pCache->pEntries)
+    {
+        FOG_Free(pCache->pEntries, ".\\Src\\glSubtileCache.cpp", 0x74, 0);
+        pCache->pEntries = 0;
+    }
+    memset(pCache, 0, sizeof(*pCache));
+}

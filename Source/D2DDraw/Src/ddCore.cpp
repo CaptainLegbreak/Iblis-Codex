@@ -891,44 +891,6 @@ int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType)
     return 0;
 }
 
-// 0x00512430
-void __cdecl sub_00512430_DDrawCreateDebugFont()
-{
-    void* hDC = CreateDCA("DISPLAY", 0, 0, 0);
-    void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier_006DD52C);
-    void* hBitmap = CreateBitmap(8, 16, 1, 8, 0);
-    SelectObject(hDC, hFont);
-    SelectObject(hDC, hBitmap);
-    SetTextColor(hDC, gdwDDrawDebugFontTextColor_0072F7F0);
-    SetBkColor(hDC, gdwDDrawDebugFontBkColor_008815A8);
-    SetBkMode(hDC, 2);
-    tagRECT rect;
-    SetRect(&rect, 0, 0, 8, 16);
-    gpDDrawDebugFontGlyphs_008815AC = (unsigned char*)FOG_Alloc(0x3000, ".\\Src\\ddDebugFont.cpp", 0x3A, 0);
-    unsigned char* pMask = gpDDrawDebugFontGlyphs_008815AC;
-    int nOffset = 0;
-    for (int nChar = 0x20; nChar <= 0x7F; ++nChar)
-    {
-        char cChar = nChar;
-        DrawTextA(hDC, &cChar, 1, &rect, 0);
-        for (int y = 0; y < 16; ++y)
-        {
-            for (int x = 0; x < 8; ++x)
-            {
-                if (GetPixel(hDC, x, y) == gdwDDrawDebugFontTextColor_0072F7F0)
-                    *pMask++ = 0xFF;
-                else
-                    *pMask++ = 0;
-            }
-        }
-        gaDDrawDebugFontGlyphOffsets_008812A8[nChar - 0x20] = nOffset;
-        nOffset += 0x80;
-    }
-    GetCharWidthA(hDC, 0x20, 0x7F, gaDDrawDebugFontCharWidths_00881428);
-    DeleteObject(hBitmap);
-    DeleteObject(hFont);
-    DeleteDC(hDC);
-}
 
 // 0x00512700
 int __cdecl sub_00512700_DDrawGetBlendedShadows()
@@ -981,20 +943,6 @@ int __fastcall sub_005132C0_DDrawFloorTileDraw(D2TileLibraryEntryStrc* pTile, D2
     return nResult;
 }
 
-// 0x00513330
-void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
-{
-    if (gpDDrawSmackBuffer_008816B0)
-    {
-        FOG_Free(gpDDrawSmackBuffer_008816B0, szDDSmackFile_006DE20C, 0xF0, 0);
-        gpDDrawSmackBuffer_008816B0 = 0;
-    }
-    if (pRecord->nType == 's' && pRecord->hSmack)
-    {
-        SmackClose(pRecord->hSmack);
-        pRecord->hSmack = 0;
-    }
-}
 
 // 0x005136F0
 void __cdecl sub_005136F0_BlitBinkFrame()

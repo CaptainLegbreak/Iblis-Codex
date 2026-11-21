@@ -182,26 +182,6 @@ void __cdecl D2CMPSpriteFreeAsyncLoads()
     }
 }
 
-// 0x005FFBE0
-void __fastcall sub_005FFBE0_FreeTileCache(D2SpriteCacheStrc* pCache)
-{
-    while (pCache->nCount)
-    {
-        if (!sub_005FF4A0_SpriteCachePurge(pCache, 0, 1))
-        {
-            break;
-        }
-    }
-
-    if (pCache->pNodes)
-    {
-        sub_0040B480(pCache->pMemPool, pCache->pNodes, ".\\SRC\\SpriteCache.cpp", 0x921, 0);
-        pCache->pNodes = 0;
-    }
-
-    DeleteCriticalSection(&pCache->tLock);
-    pCache->nArg = 0;
-}
 
 // 0x00600C90
 int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections)
@@ -319,23 +299,7 @@ const char* __fastcall sub_00606D10_SkipCelLines(const char* pData, int nLines)
     return pData;
 }
 
-// 0x006094B0
-D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader()
-{
-    D2TileListHeaderStrc* pHeader = (D2TileListHeaderStrc*)FOG_Alloc(sizeof(D2TileListHeaderStrc), ".\\SRC\\Tilecmp.cpp", 0x23, 0);
-    D2_ASSERT(pHeader, 0x24);
-    memset(pHeader, 0, sizeof(D2TileListHeaderStrc));
-    return pHeader;
-}
 
-// 0x00609550
-D2CmpTileStrc* __cdecl sub_00609550_AllocTile()
-{
-    D2CmpTileStrc* pTile = (D2CmpTileStrc*)FOG_Alloc(sizeof(D2CmpTileStrc), ".\\SRC\\Tilecmp.cpp", 0x45, 0);
-    D2_ASSERT(pTile, 0x46);
-    memset(pTile, 0, sizeof(D2CmpTileStrc));
-    return pTile;
-}
 
 // 0x0060A440
 D2TileLibraryHashStrc* __fastcall sub_0060A440_CreateTileHashBlock(D2CmpTileLibraryStrc* pLibrary)

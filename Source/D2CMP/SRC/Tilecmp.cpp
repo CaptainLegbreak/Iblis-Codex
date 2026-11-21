@@ -130,6 +130,8 @@ void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned c
 
 static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary);
 
+void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
+
 // 0x00600CB0
 int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt)
 {
@@ -795,6 +797,59 @@ void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTile
         }
     }
     *ppLibrary = pLibrary;
+}
+
+// 0x006094B0
+D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader()
+{
+    D2TileListHeaderStrc* pHeader = (D2TileListHeaderStrc*)FOG_Alloc(sizeof(D2TileListHeaderStrc), ".\\SRC\\Tilecmp.cpp", 0x23, 0);
+    D2_ASSERT(pHeader, 0x24);
+    memset(pHeader, 0, sizeof(D2TileListHeaderStrc));
+    return pHeader;
+}
+
+// 0x00609550
+D2CmpTileStrc* __cdecl sub_00609550_AllocTile()
+{
+    D2CmpTileStrc* pTile = (D2CmpTileStrc*)FOG_Alloc(sizeof(D2CmpTileStrc), ".\\SRC\\Tilecmp.cpp", 0x45, 0);
+    D2_ASSERT(pTile, 0x46);
+    memset(pTile, 0, sizeof(D2CmpTileStrc));
+    return pTile;
+}
+
+// 0x00609E90
+void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
+{
+    if (bKeep)
+        return;
+    D2_ASSERT(pLibrary, 0x25A);
+    sub_005FE080_ReleaseBlockCaches(pLibrary);
+    if (pLibrary->dwFlags & 4)
+    {
+        FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x262, 0);
+        return;
+    }
+    D2_ASSERT(!(pLibrary->dwFlags & 8), 0x267);
+    for (int i = 0; i < pLibrary->nBlocks; i++)
+    {
+        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+        for (int j = 0; j < pBlock->nSubs; j++)
+        {
+            D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
+            if (pSub->ptData)
+                FOG_Free(pSub->ptData, ".\\SRC\\Tilecmp.cpp", 0x274, 0);
+            pSub->nLength = 0;
+            pSub->ptData = 0;
+        }
+        if (pBlock->pSubs)
+            FOG_Free(pBlock->pSubs, ".\\SRC\\Tilecmp.cpp", 0x27B, 0);
+        pBlock->pSubs = 0;
+        pBlock->nSubs = 0;
+    }
+    FOG_Free(pLibrary->pBlocks, ".\\SRC\\Tilecmp.cpp", 0x281, 0);
+    pLibrary->pBlocks = 0;
+    pLibrary->nBlocks = 0;
+    FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x285, 0);
 }
 
 #include "gen/data/Source/D2CMP/SRC/Tilecmp.inc"

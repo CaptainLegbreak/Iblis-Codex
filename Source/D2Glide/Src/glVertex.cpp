@@ -18,11 +18,6 @@ void __cdecl sub_0050DB20_AllocBlendTable()
     gpBlendTable_00880B5C = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glVertex.cpp", 0x17, 0);
 }
 
-// 0x0050DC80
-void __cdecl sub_0050DC80_AllocPerspectiveTable()
-{
-    gpnPerspectiveTable_00880B6C = (int*)FOG_Alloc(0x8000, ".\\Src\\glPerspective.cpp", 0x38, 0);
-}
 
 unsigned char* gpBlendTable_00880B5C; // 0x00880B5C
 
@@ -62,15 +57,6 @@ void __fastcall sub_0050DC30_GlideSetVertexColor(D2GlideSpriteVertexStrc* pVerte
     pVertex->dwColor = (((-1 << 8 | pRow[(unsigned char)(dwColor >> 8)]) << 8 | pRow[(unsigned char)(dwColor >> 16)]) << 8) | pRow[dwColor >> 24];
 }
 
-// 0x0050DCA0
-void __cdecl sub_0050DCA0_FreePerspectiveTable()
-{
-    if (gpnPerspectiveTable_00880B6C)
-    {
-        FOG_Free(gpnPerspectiveTable_00880B6C, ".\\Src\\glPerspective.cpp", 63, 0);
-        gpnPerspectiveTable_00880B6C = 0;
-    }
-}
 
 // 0x0050DD30
 int __cdecl sub_0050DD30_GlideIsPerspective()
@@ -83,22 +69,3 @@ int __cdecl sub_0050DD30_GlideIsPerspective()
     return 0;
 }
 
-// 0x0050DF70
-void __cdecl sub_0050DF70_GlideSmackFree()
-{
-    if (gpGlideSmackBufferB_00880B70)
-    {
-        FOG_Free(gpGlideSmackBufferB_00880B70, ".\\Src\\glSmack.cpp", 86, 0);
-        gpGlideSmackBufferB_00880B70 = 0;
-    }
-    if (gpGlideSmackBufferC_00880B74)
-    {
-        FOG_Free(gpGlideSmackBufferC_00880B74, ".\\Src\\glSmack.cpp", 91, 0);
-        gpGlideSmackBufferC_00880B74 = 0;
-    }
-    if (sgbSmack8BitBuffer)
-    {
-        FOG_Free(sgbSmack8BitBuffer, ".\\Src\\glSmack.cpp", 96, 0);
-        sgbSmack8BitBuffer = 0;
-    }
-}
