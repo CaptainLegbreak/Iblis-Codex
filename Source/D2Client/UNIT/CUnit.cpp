@@ -2,11 +2,11 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Unicode.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 struct D2DynamicPathStrc;
 struct D2UnitTargetStrc;
 
-#define PLRMODE_NEUTRAL 1
-#define PLRMODE_TOWNNEUTRAL 5
 #define MONSTATS2FLAGINDEX_ISATT 9
 #define UNITFLAG_CANBEATTACKED 0x00000004
 #define UNITFLAG_ISDEAD 0x00010000
@@ -94,7 +94,6 @@ struct D2MonStats2Txt
     unsigned char nFlags[4];
     char unk0x08[0x134 - 0x08];
 };
-
 
 struct D2ObjectsTxt
 {

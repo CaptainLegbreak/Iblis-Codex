@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 #define UNIT_MONSTER 1
 
