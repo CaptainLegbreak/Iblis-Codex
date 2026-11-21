@@ -6747,20 +6747,11 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SCMD.CPP": {
-   "bytes": 16,
-   "definitions": 1,
+   "bytes": 28,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SCMD.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_006C4EC0.cpp": {
-   "bytes": 12,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006C4EC0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -157411,7 +157402,7 @@
    "cname": "gData_006FCC4C",
    "declared": true,
    "decorated": "_gszCmdWhitespace_006FCC4C",
-   "file": "Source/Storm/Unknown_006C4EC0.cpp",
+   "file": "Source/Storm/SOURCE/SCMD.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FCC4C[12]; // 0x006FCC4C",

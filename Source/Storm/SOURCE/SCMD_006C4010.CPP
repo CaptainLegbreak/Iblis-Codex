@@ -132,8 +132,14 @@ struct D2ScmdNode006C4CF0Strc
 {
     D2ScmdLink006C4CF0Strc tLink;
     unsigned int dwFlags;
-    unsigned char unk_0C[0x30];
-    void* pBuffer;
+    int nId;
+    unsigned char unk_10[0x28];
+    int nValue;
+    union
+    {
+        void* pBuffer;
+        const char* szText;
+    };
 };
 
 struct D2ScmdList006C4CF0Strc
@@ -231,4 +237,55 @@ int __cdecl sub_006C4CF0_FreeBuffers()
     gtList_0074C498.sub_006C4760_DeleteAll();
     gnValue_00989C38 = 0;
     return 1;
+}
+
+void __stdcall sub_0041C340_SetLastError(unsigned long dwError); // 0x0041C340
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+
+// 0x006C4CA0
+int __stdcall sub_006C4CA0_FindValue(int nId)
+{
+    for (int i = 0; i <= 1; ++i)
+    {
+        D2ScmdList006C4CF0Strc* pList = i ? &gtList_0074C498 : &gtList_0074C48C;
+        for (D2ScmdNode006C4CF0Strc* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->tLink.m_next)
+        {
+            if (pNode->nId == nId)
+                return pNode->nValue;
+        }
+    }
+    return 0;
+}
+
+// 0x006C4DC0
+int __stdcall sub_006C4DC0_GetText(int nId, char* szBuffer, unsigned int nBufferSize)
+{
+    if (szBuffer)
+    {
+        *szBuffer = 0;
+    }
+
+    int nValid = (szBuffer ? -1 : 0) & (nBufferSize ? -1 : 0);
+    if (!nValid)
+    {
+        sub_0041C340_SetLastError(0x57);
+        return nValid;
+    }
+
+    for (int i = 0; i <= 1; ++i)
+    {
+        D2ScmdList006C4CF0Strc* pList = i ? &gtList_0074C498 : &gtList_0074C48C;
+        for (D2ScmdNode006C4CF0Strc* pNode = pList->m_terminator.m_next; (int)pNode > 0; pNode = pNode->tLink.m_next)
+        {
+            if (pNode->nId == nId)
+            {
+                if (pNode->szText)
+                {
+                    SStrCopy(szBuffer, pNode->szText, nBufferSize);
+                }
+                return 1;
+            }
+        }
+    }
+    return 0;
 }

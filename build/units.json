@@ -91534,54 +91534,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C3CB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3CB0",
-     "length": 97
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C3D20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3D20",
-     "length": 116
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SCMD_006C3DA0.CPP",
    "rank": 1,
    "functions": [
@@ -91670,8 +91622,16 @@
      "length": 16
     },
     {
+     "va": "0x006C4CA0",
+     "length": 70
+    },
+    {
      "va": "0x006C4CF0",
      "length": 124
+    },
+    {
+     "va": "0x006C4DC0",
+     "length": 134
     }
    ],
    "flags": [
@@ -91744,6 +91704,22 @@
     {
      "va": "0x006C47B0",
      "length": 106
+    },
+    {
+     "va": "0x006C4A00",
+     "length": 444
+    },
+    {
+     "va": "0x006C4BC0",
+     "length": 216
+    },
+    {
+     "va": "0x006C4EC0",
+     "length": 202
+    },
+    {
+     "va": "0x006C50B0",
+     "length": 29
     },
     {
      "va": "0x006C7A60",
@@ -91999,29 +91975,17 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x006C3CB0",
+     "length": 97
+    },
+    {
+     "va": "0x006C3D20",
+     "length": 116
+    },
+    {
      "va": "0x006C4820",
      "length": 350
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4980.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C4980",
      "length": 123
@@ -92040,50 +92004,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4A00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4A00",
-     "length": 444
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4BC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4BC0",
-     "length": 216
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4CA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4CA0",
-     "length": 70
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -92111,50 +92031,6 @@
     {
      "va": "0x006C5150",
      "length": 184
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4DC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4DC0",
-     "length": 134
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4EC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4EC0",
-     "length": 202
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C50B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C50B0",
-     "length": 29
     }
    ]
   },
