@@ -77729,6 +77729,16 @@
      "name": "UNITS_SetYForStaticUnit"
     },
     {
+     "va": "0x00620510",
+     "length": 132,
+     "name": "UNITS_GetUnitSizeX"
+    },
+    {
+     "va": "0x006205A0",
+     "length": 164,
+     "name": "UNITS_GetUnitSizeY"
+    },
+    {
      "va": "0x00620650",
      "length": 81,
      "name": "UNITS_GetClientCoordX"
@@ -77774,6 +77784,11 @@
      "name": "sub_00620980"
     },
     {
+     "va": "0x00620A70",
+     "length": 102,
+     "name": "UNITS_BlockCollisionPath"
+    },
+    {
      "va": "0x00620B50",
      "length": 90,
      "name": "UNITS_ResetRoom"
@@ -77799,156 +77814,6 @@
      "name": "UNITS_SetTargetUnitForPlayerOrMonster"
     },
     {
-     "va": "0x00621190",
-     "length": 45,
-     "name": "UNITS_GetAnimOrSeqMode"
-    },
-    {
-     "va": "0x00621420",
-     "length": 37,
-     "name": "?sub_00621420_GetRecordForValue@@YGPBUD2ValueRecordStrc@@HH@Z"
-    },
-    {
-     "va": "0x00621450",
-     "length": 33,
-     "name": "?UNITS_IsAnimModeKnockBack@@YAHHH@Z"
-    },
-    {
-     "va": "0x00621480",
-     "length": 19,
-     "name": "?sub_00621480@@YAHH@Z"
-    },
-    {
-     "va": "0x00621580",
-     "length": 172,
-     "name": "UNITS_CanAnimModeUseAttackRate"
-    },
-    {
-     "va": "0x00621680",
-     "length": 33,
-     "name": "?UNITS_IsAnimModeGetHit@@YAHHH@Z"
-    },
-    {
-     "va": "0x006216B0",
-     "length": 33,
-     "name": "?sub_006216B0_IsModeValue@@YAHHH@Z"
-    },
-    {
-     "va": "0x00621870",
-     "length": 89,
-     "name": "?UNITS_GetFrameMetrics@@YGXPAUD2UnitStrc@@PAH1@Z"
-    },
-    {
-     "va": "0x006219C0",
-     "length": 40,
-     "name": "UNITS_HasCollision"
-    },
-    {
-     "va": "0x00621B00",
-     "length": 35,
-     "name": "UNITS_IsShrine"
-    },
-    {
-     "va": "0x00621C30",
-     "length": 144,
-     "name": "?UNITS_StoreOwnerInfo@@YGXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x00621CE0",
-     "length": 109,
-     "name": "?UNITS_StoreOwner@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00621DC0",
-     "length": 115,
-     "name": "UNITS_GetDirectionToCoords"
-    },
-    {
-     "va": "0x00621ED0",
-     "length": 77,
-     "name": "UNITS_GetBeltType"
-    },
-    {
-     "va": "0x00621F20",
-     "length": 58,
-     "name": "UNITS_GetCurrentLifePercentage"
-    },
-    {
-     "va": "0x00621F60",
-     "length": 46,
-     "name": "?UNITS_IsSoftMonster@@YGHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00622060",
-     "length": 143,
-     "name": "UNITS_FreePlayerData"
-    },
-    {
-     "va": "0x006221A0",
-     "length": 60,
-     "name": "UNITS_GetPlayerData"
-    },
-    {
-     "va": "0x00622870",
-     "length": 173
-    },
-    {
-     "va": "0x00622E70",
-     "length": 26,
-     "name": "UNITS_GetInventoryGoldLimit"
-    },
-    {
-     "va": "0x00623410",
-     "length": 77,
-     "name": "UNITS_GetWeaponGUID"
-    },
-    {
-     "va": "0x00623460",
-     "length": 8,
-     "name": "_sub_00623460@4"
-    },
-    {
-     "va": "0x006235A0",
-     "length": 91,
-     "name": "UNITS_CanDualWield"
-    },
-    {
-     "va": "0x006238C0",
-     "length": 204,
-     "name": "UNITS_GetNewDirection"
-    },
-    {
-     "va": "0x00623990",
-     "length": 380,
-     "name": "D2Common_10434"
-    },
-    {
-     "va": "0x00623C20",
-     "length": 62,
-     "name": "?UNITS_GetHitClass@@YIHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Units_00620510.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00620510",
-     "length": 132,
-     "name": "UNITS_GetUnitSizeX"
-    },
-    {
-     "va": "0x006205A0",
-     "length": 164,
-     "name": "UNITS_GetUnitSizeY"
-    },
-    {
-     "va": "0x00620A70",
-     "length": 102,
-     "name": "UNITS_BlockCollisionPath"
-    },
-    {
      "va": "0x00620D80",
      "length": 179,
      "name": "sub_00620D80_SetMonsterAnimSpeed"
@@ -77962,6 +77827,11 @@
      "va": "0x00621050",
      "length": 244,
      "name": "?UNITS_GetInventoryRecordId@@YGHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00621190",
+     "length": 45,
+     "name": "UNITS_GetAnimOrSeqMode"
     },
     {
      "va": "0x00621210",
@@ -77984,14 +77854,44 @@
      "name": "?UNITS_GetBaseAnimSpeed@@YAHHHH@Z"
     },
     {
+     "va": "0x00621420",
+     "length": 37,
+     "name": "?sub_00621420_GetRecordForValue@@YGPBUD2ValueRecordStrc@@HH@Z"
+    },
+    {
+     "va": "0x00621450",
+     "length": 33,
+     "name": "?UNITS_IsAnimModeKnockBack@@YAHHH@Z"
+    },
+    {
+     "va": "0x00621480",
+     "length": 19,
+     "name": "?sub_00621480@@YAHH@Z"
+    },
+    {
      "va": "0x006214A0",
      "length": 223,
      "name": "?UNITS_CanAnimModeUseVelocityModifier@@YGHHHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00621580",
+     "length": 172,
+     "name": "UNITS_CanAnimModeUseAttackRate"
+    },
+    {
      "va": "0x00621630",
      "length": 73,
      "name": "?UNITS_AnimModeAllowsAnimSpeed@@YGHHHH@Z"
+    },
+    {
+     "va": "0x00621680",
+     "length": 33,
+     "name": "?UNITS_IsAnimModeGetHit@@YAHHH@Z"
+    },
+    {
+     "va": "0x006216B0",
+     "length": 33,
+     "name": "?sub_006216B0_IsModeValue@@YAHHH@Z"
     },
     {
      "va": "0x006216E0",
@@ -78004,9 +77904,29 @@
      "name": "?UNITS_GetAnimStatBasePercentage@@YAHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00621870",
+     "length": 89,
+     "name": "?UNITS_GetFrameMetrics@@YGXPAUD2UnitStrc@@PAH1@Z"
+    },
+    {
      "va": "0x006218D0",
      "length": 78,
      "name": "UNITS_SetAnimActionFrame"
+    },
+    {
+     "va": "0x006219C0",
+     "length": 40,
+     "name": "UNITS_HasCollision"
+    },
+    {
+     "va": "0x00621B00",
+     "length": 35,
+     "name": "UNITS_IsShrine"
+    },
+    {
+     "va": "0x00621C30",
+     "length": 144,
+     "name": "?UNITS_StoreOwnerInfo@@YGXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00621CC0",
@@ -78014,14 +77934,49 @@
      "name": "?UNITS_StoreOwnerTypeAndGUID@@YGXPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x00621CE0",
+     "length": 109,
+     "name": "?UNITS_StoreOwner@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00621DC0",
+     "length": 115,
+     "name": "UNITS_GetDirectionToCoords"
+    },
+    {
      "va": "0x00621E40",
      "length": 130,
      "name": "UNITS_SetOverlay"
     },
     {
+     "va": "0x00621ED0",
+     "length": 77,
+     "name": "UNITS_GetBeltType"
+    },
+    {
+     "va": "0x00621F20",
+     "length": 58,
+     "name": "UNITS_GetCurrentLifePercentage"
+    },
+    {
+     "va": "0x00621F60",
+     "length": 46,
+     "name": "?UNITS_IsSoftMonster@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00622060",
+     "length": 143,
+     "name": "UNITS_FreePlayerData"
+    },
+    {
      "va": "0x006220F0",
      "length": 86,
      "name": "?UNITS_SetNameInPlayerData@@YGIPAUD2UnitStrc@@PAD@Z"
+    },
+    {
+     "va": "0x006221A0",
+     "length": 60,
+     "name": "UNITS_GetPlayerData"
     },
     {
      "va": "0x006223F0",
@@ -78039,6 +77994,10 @@
      "name": "UNITS_GetEquippedWeaponFromMonster"
     },
     {
+     "va": "0x00622870",
+     "length": 173
+    },
+    {
      "va": "0x00622C40",
      "length": 180,
      "name": "?UNITS_IsInMeleeRange@@YGHPAUD2UnitStrc@@0H@Z"
@@ -78047,6 +78006,11 @@
      "va": "0x00622D00",
      "length": 178,
      "name": "?UNITS_IsInMovingMode@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00622E70",
+     "length": 26,
+     "name": "UNITS_GetInventoryGoldLimit"
     },
     {
      "va": "0x00622EA0",
@@ -78099,14 +78063,44 @@
      "name": "?UNITS_GetSwitchRightSkillData@@YGXPAUD2UnitStrc@@PAH1@Z"
     },
     {
+     "va": "0x00623410",
+     "length": 77,
+     "name": "UNITS_GetWeaponGUID"
+    },
+    {
+     "va": "0x00623460",
+     "length": 8,
+     "name": "_sub_00623460@4"
+    },
+    {
      "va": "0x00623470",
      "length": 79,
      "name": "?UNITS_CanSwitchAI@@YIHH@Z"
     },
     {
+     "va": "0x006235A0",
+     "length": 91,
+     "name": "UNITS_CanDualWield"
+    },
+    {
      "va": "0x00623830",
      "length": 140,
      "name": "?UNITS_FreeCollisionPath@@YGXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x006238C0",
+     "length": 204,
+     "name": "UNITS_GetNewDirection"
+    },
+    {
+     "va": "0x00623990",
+     "length": 380,
+     "name": "D2Common_10434"
+    },
+    {
+     "va": "0x00623C20",
+     "length": 62,
+     "name": "?UNITS_GetHitClass@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00623C60",
