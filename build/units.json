@@ -58749,6 +58749,11 @@
      "va": "0x005C6690",
      "length": 208,
      "name": "?sub_005C6690_ShareDamageWithOwner@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C6760",
+     "length": 269,
+     "name": "?sub_005C6760@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     }
    ]
   },
@@ -68652,17 +68657,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/SKILLS/SkillNec_005C6760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C6760",
-     "length": 269,
-     "name": "?sub_005C6760@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005C6870.cpp",
    "rank": 1,
    "functions": [
@@ -70212,37 +70206,7 @@
      "va": "0x005D5080",
      "length": 411,
      "name": "?sub_005D5080_CreateMissileBurst@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAss_005D5220.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D5220",
-     "length": 656
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAss_005D54B0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005D54B0",
      "length": 967,
@@ -70286,6 +70250,30 @@
    ]
   },
   {
+   "file": "Source/D2Game/SKILLS/SkillAss_005D5220.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x005D5220",
+     "length": 656
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Game/Unknown_005D7EA0.cpp",
    "rank": 0,
    "functions": [
@@ -70314,6 +70302,11 @@
      "va": "0x005D8760",
      "length": 29,
      "name": "?SKILLS_SrvSt34_FindItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D8E00",
+     "length": 236,
+     "name": "?sub_005D8E00_SequenceAction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D8EF0",
@@ -70452,17 +70445,6 @@
      "va": "0x005D8C70",
      "length": 400,
      "name": "?sub_005D8C70@@YIHPAUGame@@PAUUnit@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillBar_005D8E00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D8E00",
-     "length": 236,
-     "name": "?sub_005D8E00_SequenceAction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },

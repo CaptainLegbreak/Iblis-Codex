@@ -17,7 +17,6 @@ struct D2DamageStrc;
 struct Unit005A0180;
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
 extern "C" int __fastcall sub_005A0180(Unit005A0180* pUnit, unsigned short wMask);                         // 0x005A0180
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);
