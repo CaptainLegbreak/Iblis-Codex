@@ -1,5 +1,7 @@
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
+#include "D2PlayerModes.h"
+#include "D2ObjModes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -20,8 +22,6 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2QuestData.h"
-#include "D2PlayerModes.h"
-#include "D2ObjModes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -41,7 +41,6 @@
 
 #define PCLASS_ASSASSIN 6
 
-#define UNIT_PLAYER 0
 
 struct D2MonsterRegionStrc;
 
@@ -777,35 +776,15 @@ struct D2UnitInfoStrc
 
 void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo);                           // 0x00553F30
 
-static inline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)
+struct D2GameNodeStrc
 {
-    if ((int)pLink->pNext < 0)
-        return (D2GameLinkStrc*)~(unsigned int)pLink->pNext;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)pLink - (char*)pLink->pPrevLink->pNext;
-    return (D2GameLinkStrc*)((char*)pLink->pNext + nLinkOffset);
-}
-
-static inline void GAMELINK_Unlink(D2GameLinkStrc* pLink)
-{
-    if (pLink->pPrevLink)
-    {
-        GAMELINK_NextLink(pLink, -1)->pPrevLink = pLink->pPrevLink;
-        pLink->pPrevLink->pNext = pLink->pNext;
-        pLink->pPrevLink = 0;
-        pLink->pNext = 0;
-    }
-}
+    ~D2GameNodeStrc();                                                                                      // 0x0044F820
+};
 
 static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 {
     return (int)pLink->pNext <= 0 ? 0 : pLink->pNext;
 }
-
-struct D2GameNodeStrc
-{
-    ~D2GameNodeStrc();                                                                                      // 0x0044F820
-};
 
 struct D2GameListStrc
 {
@@ -947,9 +926,16 @@ struct Request {
  int client; unsigned char unused,command;
 };
 
-struct ShortResponse { unsigned char command; char payload[15]; };
+struct ShortResponse
+{
+    unsigned char command;
+    char payload[15];
+};
 
-struct Array8 { unsigned int values[8]; };
+struct Array8
+{
+    unsigned int values[8];
+};
 
 struct ServerInfo {
  unsigned int a,b,c,d,e,f,g,h,i,j;
@@ -995,7 +981,6 @@ void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A
 
 enum { MODE_MASK = 15 };
 
-#define UNIT_MONSTER 1
 
 struct D2GameStatisticsStrc;
 
@@ -1146,7 +1131,6 @@ struct D2UnitProxyArgStrc;
 struct D2GSPacketSrv8C;
 
 struct D2GSPacketSrv8E;
-
 
 enum D2C_MonStatsTxtFlagIndices
 {
@@ -1372,13 +1356,13 @@ void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
 void __fastcall sub_6FC81E10(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode);
 
-#define UNIT_PLAYER 0x00
 
 #define CLIENTS_MAX_UPDATES 55u
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 #pragma pack(push, 1)
+
 struct D2SavePartPacketStrc
 {
     unsigned char nHeader;
@@ -1387,6 +1371,7 @@ struct D2SavePartPacketStrc
     int nSaveHeaderSize;
     unsigned char aData[0x100];
 };
+
 #pragma pack(pop)
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);                       // 0x006CC258
@@ -1462,6 +1447,26 @@ void __fastcall sub_00564A00_QueueGame(void* pTask, int a2, unsigned int hGame);
 void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct);                                // 0x005382E0
 
 void __fastcall sub_00539000(D2ClientStrc* pClient);                                       // 0x00539000
+
+static inline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)
+{
+    if ((int)pLink->pNext < 0)
+        return (D2GameLinkStrc*)~(unsigned int)pLink->pNext;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)pLink - (char*)pLink->pPrevLink->pNext;
+    return (D2GameLinkStrc*)((char*)pLink->pNext + nLinkOffset);
+}
+
+static inline void GAMELINK_Unlink(D2GameLinkStrc* pLink)
+{
+    if (pLink->pPrevLink)
+    {
+        GAMELINK_NextLink(pLink, -1)->pPrevLink = pLink->pPrevLink;
+        pLink->pPrevLink->pNext = pLink->pNext;
+        pLink->pPrevLink = 0;
+        pLink->pNext = 0;
+    }
+}
 
 // 0x00520650
 void* __cdecl sub_00520650()
@@ -1539,6 +1544,11 @@ int __fastcall sub_0052A600(void* pArg)
 int __cdecl sub_0052BDC0()
 {
     return gdwGlobal_00882D14;
+}
+
+// 0x0052BE20
+void __cdecl GAME_LogMessage(int nLevel, const char* szFormat, ...)
+{
 }
 
 // 0x0052BE30

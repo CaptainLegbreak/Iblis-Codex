@@ -8,6 +8,7 @@
 #include "D2Win32Types.h"
 
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -17,8 +18,6 @@ struct D2SpawnAreaStrc;
 union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterRegionStrc;
-
-struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int nSubtileHeight; int nTileXPos; int nTileYPos; int nTileWidth; int nTileHeight; };
 
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730

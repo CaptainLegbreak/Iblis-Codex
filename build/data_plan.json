@@ -3899,7 +3899,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/GAME/Event_00540CD0.cpp": {
+  "Source/D2Game/GAME/Event.cpp": {
    "bytes": 24,
    "definitions": 1,
    "externs": [],
@@ -4582,11 +4582,9 @@
    "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl MISSMODE_SrvDo01_BasicMissile(); // 0x005B0BC0",
-    "extern \"C\" void __cdecl MISSMODE_SrvDo35_RoyalStrikeChaosIce(); // 0x005B0640",
     "extern \"C\" void __cdecl MISSMODE_SrvDo37_Unused(); // 0x005B0AA0",
     "extern \"C\" void __cdecl sub_005AE520(); // 0x005AE520",
     "extern \"C\" void __cdecl sub_005AFB80(); // 0x005AFB80",
-    "extern \"C\" void __cdecl sub_005B01F0_SrvDo_MirrorSubMissile(); // 0x005B01F0",
     "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(); // 0x005A87F0",
     "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithMonster(); // 0x005A87B0",
     "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithPlayerOrMonster(); // 0x005A8850",
@@ -5407,8 +5405,8 @@
    "state": "included"
   },
   "Source/D2Game/Ai/AiThink4.cpp": {
-   "bytes": 724,
-   "definitions": 5,
+   "bytes": 732,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl sub_005E6E80(); // 0x005E6E80",
     "extern \"C\" void __cdecl sub_005E6DE0(); // 0x005E6DE0",
@@ -5426,15 +5424,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0490.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Ai/AiThink4_005E3EA0.cpp": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Ai/AiThink4_005E3EA0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -94902,7 +94891,7 @@
    "cname": "gData_006E0B9C",
    "declared": true,
    "decorated": "?gaSlotRows_006E0B9C@@3QBHB",
-   "file": "Source/D2Game/GAME/Event_00540CD0.cpp",
+   "file": "Source/D2Game/GAME/Event.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E0B9C[6]; // 0x006E0B9C",
@@ -119088,7 +119077,7 @@
    "cname": "gData_006E34F8",
    "declared": true,
    "decorated": "?gnPetDirections@@3QBEB",
-   "file": "Source/D2Game/Ai/AiThink4_005E3EA0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E34F8[8]; // 0x006E34F8",
    "head": "extern \"C\" const unsigned char gData_006E34F8[8] = ",

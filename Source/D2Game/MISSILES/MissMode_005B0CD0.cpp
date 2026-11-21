@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 
+#include "D2LevelTxt.h"
 struct D2MonStatsTxt;
 struct D2LevelsTxt;
 struct D2PantherAiCallbackArgStrc;
@@ -9,12 +10,6 @@ struct D2AiCallback11ArgStrc;
 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-struct D2LevelsTxt
-{
-    char unk0x00[0x2F];
-    unsigned char nMonSpcWalk;
-};
 
 struct D2AiTickParamStrc
 {

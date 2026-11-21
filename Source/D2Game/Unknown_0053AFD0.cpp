@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
 
+#include "D2UnitData.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonsterDataStrc;
 struct D2GSPacketSrvB1;
@@ -19,12 +20,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x3C];
-    int nField3C;
-};
 
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
@@ -94,7 +89,7 @@ int* __fastcall sub_0053B180_GetMonsterDataField3C(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    return &pMonsterData->nField3C;
+    return &pMonsterData->nOwnerGUID;
 }
 
 // 0x0053B1A0

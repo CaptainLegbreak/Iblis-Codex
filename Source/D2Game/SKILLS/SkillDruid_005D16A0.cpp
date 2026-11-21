@@ -4,13 +4,12 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 
+#include "D2GameTypes.h"
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)<(b)?(b):(a))
 struct D2SkillsTxt;
 struct Monster;
 
-
-struct D2DamageStrc { int unk00; unsigned short resultFlags; unsigned short unk06; int physical; };
 
 
 
@@ -25,26 +24,6 @@ int __fastcall DATATBLS_ApplyRatio(int,int,int); // 0x00483360
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0057D4F0
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[7];
-    void (__fastcall* pInitFunc)(D2UnitStrc* pMissile, int nInitArg);
-    int nInitArg;
-};
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
@@ -116,7 +95,7 @@ int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* game,D2UnitStrc* 
  if(unit)unit->dwFlags|=0x40;
  D2DamageStrc* damage=SUNITDMG_GetDamageFromUnits(unit,target);
  if(!damage)return 0;
- if(damage->resultFlags&1) {
+ if(damage->wResultFlags&1) {
   D2UnitStrc* owner=0;
   if(sub_0044BE50(unit)==1) {
    owner=AIGENERAL_GetMinionOwner(unit);
@@ -124,7 +103,7 @@ int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* game,D2UnitStrc* 
   }
   int life=STATLIST_UnitGetStatValue(owner,STAT_HITPOINTS,0);
   int maxLife=STATLIST_GetMaxLifeFromUnit(owner);
-  int amount=MIN(damage->physical,STATLIST_UnitGetStatValue(target,STAT_HITPOINTS,0));
+  int amount=MIN(damage->dwPhysDamage,STATLIST_UnitGetStatValue(target,STAT_HITPOINTS,0));
   life+=DATATBLS_ApplyRatio(amount,SKILLS_EvaluateSkillFormula(unit,skill->dwCalc[0],skillId,level),100);
   life=MIN(MAX(life,1),maxLife);
   STATLIST_SetUnitStat(owner,STAT_HITPOINTS,life,0);

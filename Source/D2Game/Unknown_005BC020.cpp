@@ -1,8 +1,7 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 
-struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
-struct D2QuestDataStrc { char unk00[0xB]; unsigned char fLastState; unsigned char fState; };
+#include "D2UnitData.h"
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc*, int, int); // 0x0065C360

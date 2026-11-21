@@ -4,26 +4,12 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 
+#include "D2GameTypes.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 
 
 
-
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    union
-    {
-        D2TextHeaderStrc* pTextControl;
-        unsigned short nNPCNo;
-    };
-    unsigned short nMessageIndex;
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);

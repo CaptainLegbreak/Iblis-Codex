@@ -8,6 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
 
+#include "D2UnitData.h"
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
 struct D2CoordListStrc;
@@ -38,7 +39,6 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 
-struct D2MonsterDataStrc { char unk_00[0x28]; D2AiControlStrc* pAiControl; };
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
@@ -53,8 +53,6 @@ int __fastcall AITACTICS_WalkToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
-
-struct D2PlayerDataStrc { char unk00[0xA0]; unsigned char nTrailIndex; char unkA1[7]; D2CoordStrc pTrail[20]; };
 
 struct D2PetMoveStrc { D2UnitStrc* pUnit; D2UnitStrc* pTarget; int nCounter; };
 
@@ -340,14 +338,14 @@ int __fastcall sub_005E3930_MovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
             return 1;
         }
         int nVel=nVelocity ? nVelocity : SEED_RollLimitedRandomNumber(pSeed,15)+50;
-        unsigned char nTrail=pPlayerData->nTrailIndex;
+        unsigned char nTrail=pPlayerData->nPositionHistoryIndex;
         D2AiControlStrc* pAi=sub_005A6190_GetAiControl(pPet);
         int bChanged=0;
         for (int i=0;i<20;++i)
         {
             if (!nTrail) nTrail=19; else --nTrail;
-            const int nX=pPlayerData->pTrail[nTrail].nX;
-            const int nY=pPlayerData->pTrail[nTrail].nY;
+            const int nX=pPlayerData->pPositionHistory[nTrail].nX;
+            const int nY=pPlayerData->pPositionHistory[nTrail].nY;
             if (AIUTIL_GetDistanceToCoordinates(pPet,nX,nY)>5)
             {
                 sub_005DE190_SetAiParam(pPet,0,nVel,100);

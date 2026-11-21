@@ -2,6 +2,9 @@
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
+#include "D2MonModes.h"
+#include "D2ObjModes.h"
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -17,12 +20,9 @@
 #include "D2GameServer.h"
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
-#include "D2MonModes.h"
-#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-#define STAT_TOHIT 19
 
 #define UNITFLAGEX_0x40000 0x40000
 
@@ -32,15 +32,11 @@
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-#define STAT_MANA 8
 
 #define QUEST_A5Q6_BAAL 36
 
-#define STAT_HITPOINTS 6
 
-#define STAT_DAMAGEPERCENT 25
 
-#define STAT_COLDLENGTH 56
 
 #define UNITFLAG_ISMERC 0x00000200
 
@@ -366,11 +362,8 @@ void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet
 
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile);                                        // 0x0064A380
 
-#define UNIT_OBJECT 2
 
-#define UNIT_ITEM 4
 
-#define UNIT_TILE 5
 
 #define EVENTTYPE_REMOVESTATE 12
 
@@ -515,43 +508,6 @@ int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile); // 0x0064A5A0
 static int sub_005ADA80_GetDamageTarget(D2UnitStrc* pMissile);
 
 static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x005ADB00
-
-enum D2C_ItemStats
-{
-    STAT_MINDAMAGE = 21,
-    STAT_MAXDAMAGE = 22,
-    STAT_FIREMINDAM = 48,
-    STAT_FIREMAXDAM = 49,
-    STAT_LIGHTMINDAM = 50,
-    STAT_LIGHTMAXDAM = 51,
-    STAT_MAGICMINDAM = 52,
-    STAT_MAGICMAXDAM = 53,
-    STAT_COLDMINDAM = 54,
-    STAT_COLDMAXDAM = 55,
-    STAT_POISONMINDAM = 57,
-    STAT_POISONMAXDAM = 58,
-    STAT_POISONLENGTH = 59,
-    STAT_LIFEDRAINMINDAM = 60,
-    STAT_MANADRAINMINDAM = 62,
-    STAT_STAMDRAINMINDAM = 64,
-    STAT_STUNLENGTH = 66,
-    STAT_SKILL_BYPASS_UNDEAD = 103,
-    STAT_SKILL_BYPASS_DEMONS = 104,
-    STAT_SKILL_BYPASS_BEASTS = 106,
-    STAT_ITEM_DEMONDAMAGE_PERCENT = 121,
-    STAT_ITEM_UNDEADDAMAGE_PERCENT = 122,
-    STAT_ITEM_DEADLYSTRIKE = 141,
-    STAT_DAMAGE_VS_MONTYPE = 180,
-    STAT_POISON_COUNT = 326,
-    STAT_PASSIVE_FIRE_MASTERY = 329,
-    STAT_PASSIVE_LTNG_MASTERY = 330,
-    STAT_PASSIVE_COLD_MASTERY = 331,
-    STAT_PASSIVE_POIS_MASTERY = 332,
-    STAT_FIRELENGTH = 315,
-    STAT_BURNINGMIN = 316,
-    STAT_BURNINGMAX = 317,
-    STAT_PASSIVE_MAG_MASTERY = 357,
-};
 
 enum D2C_DamageFlags
 {
@@ -756,7 +712,6 @@ int __fastcall MISSMODE_SrvDo33_VineRecyclerDelay(D2GameStrc* pGame, D2UnitStrc*
 
 #define MONSTATSFLAGINDEX_OPENDOORS 3
 
-#define UNIT_MONSTER 1
 
 struct D2MonStats2Txt;
 
@@ -827,6 +782,16 @@ int __fastcall sub_005AE8A0_SpawnByLevel(D2GameStrc* pGame, D2UnitStrc* pMissile
 int __fastcall sub_005AEA60_SpawnBySkill(D2GameStrc* pGame, D2UnitStrc* pMissile);
 
 int __fastcall sub_005AF880_SpawnBySkillMask(D2GameStrc* pGame, D2UnitStrc* pMissile);
+
+static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile); // 0x005ADA80
+
+extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
+
+extern "C" int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x0064A780
+
+int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
+
+int __fastcall sub_004CC9A0_CltHitProgOverlay(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x004CC9A0
 
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
@@ -1790,7 +1755,6 @@ int __fastcall MISSMODE_SrvHit03_ExplosivePotion_BombOnGround(D2GameStrc* pGame,
 
     return 0;
 }
-
 
 // 0x005A9FB0
 int __fastcall MISSMODE_SrvHit07_HolyBolt_FistOfTheHeavenBolt(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)
@@ -3164,8 +3128,6 @@ void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
     pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
 }
 
-int __fastcall sub_004CC9A0_CltHitProgOverlay(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x004CC9A0
-
 int __fastcall sub_004CCCA0_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
@@ -3253,6 +3215,15 @@ int __fastcall MISSMODE_SrvHit39_ImpSpawnMonsters(D2GameStrc* pGame, D2UnitStrc*
 }
 
 static D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
+{
+    if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return &sgptDataTables->pMissilesTxt[nMissileId];
+    }
+    return 0;
+}
+
+static inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord_005B01F0(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -3902,6 +3873,14 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
+static inline unsigned int SEED_RollRandomNumber_005B01F0(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
 // 0x005AD220
 void __fastcall MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
@@ -4485,6 +4464,22 @@ static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile)
     return nResult;
 }
 
+static int sub_005ADA80_GetPierceFlags_005B01F0(D2UnitStrc* pMissile)
+{
+    int nResult = 3;
+    D2MissilesTxt* pTxt = pMissile ? SKILLS_GetMissilesTxtRecord_005B01F0(pMissile->dwClassId) : 0;
+    if ((pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2]))
+    {
+        const int nPierce = STATLIST_UnitGetStatValue(pMissile, STAT_PIERCE_IDX, 0);
+        if (nPierce)
+        {
+            nResult = 2;
+            STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, nPierce - 1, 0);
+        }
+    }
+    return nResult;
+}
+
 __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
 {
     D2MissilesTxt* pTxt = 0;
@@ -4602,6 +4597,127 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
         sub_005ADCD0_ApplyDamageFlags(pGame, pMissile, pUnit, &tDamage);
     }
 
+    if (!(nHitResult & 1) && !bForceCollision || !(nPierceFlags & 1))
+    {
+        return 1;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
+    if (pRoom)
+    {
+        COLLISION_ResetMaskWithSize(pRoom, CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), UNITS_GetUnitSizeX(pMissile), 0x40);
+    }
+    return 2;
+}
+
+static inline int __fastcall MISSMODE_SrvDmgHitHandler_005B01F0(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
+{
+    D2MissilesTxt* pTxt = 0;
+    if (pMissile)
+    {
+        pTxt = SKILLS_GetMissilesTxtRecord_005B01F0(pMissile->dwClassId);
+    }
+
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
+    int nHitResult = 2;
+    int nPierceFlags = 3;
+    if (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[1])
+    {
+        nHitResult = 0;
+    }
+
+    if (pUnit)
+    {
+        if ((pTxt->nNextHit && STATES_CheckState(pUnit, STATE_JUSTHIT)) || MISSILE_CheckUnitIfOwner(pMissile, pUnit))
+        {
+            return 1;
+        }
+
+        MISSILE_SetOwner(pMissile, pUnit);
+        if (!sub_005ADA40_CheckMissileMode(!pMissile ? 0 : pMissile->dwMissileMode, pUnit))
+        {
+            return 1;
+        }
+
+        if (pOwner && !SUNIT_AreUnitsHostile(pGame, pOwner, pUnit) && !pTxt->nCollideFriend)
+        {
+            return 1;
+        }
+    }
+
+    if (pOwner && pUnit && (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2])
+        && (STATLIST_UnitGetStatValue(pOwner, STAT_SKILL_PIERCE, 0) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0)))
+    {
+        nPierceFlags = sub_005ADA80_GetPierceFlags_005B01F0(pMissile);
+    }
+
+    if (pTxt->nCollideKill)
+    {
+        nHitResult |= 1;
+    }
+
+    if (pUnit)
+    {
+        if (pTxt->nToHit)
+        {
+            int nToHit = 0;
+            if (pMissile)
+            {
+                nToHit = STATLIST_UnitGetStatValue(pMissile, STAT_TOHIT, 0);
+            }
+
+            if (!SUNITDMG_IsHitSuccessful(pOwner, pUnit, nToHit, 1))
+            {
+                sub_005ADB00_SetJustHitState(pMissile, pUnit);
+                SUNITEVENT_Trigger(pGame, 0, pUnit, pMissile, 0);
+                if (pTxt->nAlwaysExplode)
+                {
+                    const short nHitFunc = pTxt->wSrvHitFunc;
+                    if (nHitFunc > 0 && nHitFunc < gnMissileSrvHitFnCount)
+                    {
+                        if (gpfMissileSrvHitFn[nHitFunc](pGame, pMissile, pUnit) & 4)
+                        {
+                            return 1;
+                        }
+                    }
+                }
+                return 2;
+            }
+        }
+    }
+    else if (!bForceCollision && !pTxt->nAlwaysExplode)
+    {
+        goto CollisionCleanup;
+    }
+
+    if (nPierceFlags & 2)
+    {
+        sub_005ADB00_SetJustHitState(pMissile, pUnit);
+        SUNITEVENT_Trigger(pGame, 0, pUnit, pMissile, 0);
+        const short nHitFunc = pTxt->wSrvHitFunc;
+        if (nHitFunc > 0 && nHitFunc < gnMissileSrvHitFnCount)
+        {
+            nHitResult = gpfMissileSrvHitFn[nHitFunc](pGame, pMissile, pUnit);
+            if (nHitResult & 4)
+            {
+                return 1;
+            }
+        }
+    }
+
+    if (pUnit && (nHitResult & 2))
+    {
+        D2DamageStrc tDamage;
+        MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &tDamage);
+        const short nDmgFunc = pTxt->wSrvDmgFunc;
+        if (nDmgFunc > 0 && nDmgFunc < gnMissileSrvDmgFnCount_0073C95C)
+        {
+            gpfMissileSrvDmgFn_0073C960[nDmgFunc](pGame, pMissile, pUnit, &tDamage);
+        }
+        sub_005ADCD0_ApplyDamageFlags(pGame, pMissile, pUnit, &tDamage);
+    }
+
+CollisionCleanup:
     if (!(nHitResult & 1) && !bForceCollision || !(nPierceFlags & 1))
     {
         return 1;
@@ -5705,6 +5821,47 @@ int __fastcall sub_005B0010_MISSMODE_SrvDo(D2GameStrc* pGame, D2UnitStrc* pMissi
     return 1;
 }
 
+// 0x005B01F0
+int __fastcall sub_005B01F0_SrvDo_MirrorSubMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
+    if (!pMissilesTxtRecord || pMissilesTxtRecord->wSubMissile[0] < 0)
+    {
+        return 2;
+    }
+
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
+    if (!pOwner)
+    {
+        MISSMODE_SrvDmgHitHandler_005B01F0(pGame, pMissile, 0, 0);
+        return 2;
+    }
+
+    if (sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    {
+        const int nTargetX = sub_0064A730_GetMissileTargetStatus(pMissile);
+        const int nTargetY = sub_0064A780_targetValue(pMissile);
+
+        D2MissileStrc missileParams;
+        memset(&missileParams, 0, sizeof(missileParams));
+        missileParams.dwFlags = 2;
+        missileParams.pOwner = pOwner;
+        missileParams.pOrigin = pMissile;
+        missileParams.nSkill = MISSILE_GetSkill(pMissile);
+        missileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+        missileParams.nMissile = pMissilesTxtRecord->wSubMissile[0];
+        missileParams.nTargetX = nTargetX;
+        missileParams.nTargetY = nTargetY;
+        MISSILES_CreateMissileFromParams(pGame, &missileParams);
+
+        missileParams.nTargetX = -nTargetX;
+        missileParams.nTargetY = -nTargetY;
+        MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    }
+
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
+}
+
 // 0x005B03E0
 int __fastcall MISSMODE_SrvDo32_TigerFury(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
@@ -5820,6 +5977,69 @@ int __fastcall MISSMODE_SrvDo34_BaalTauntControl(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     return MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod(pGame, pMissile);
+}
+
+// 0x005B0640
+int __fastcall MISSMODE_SrvDo35_RoyalStrikeChaosIce(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord_005B01F0(pMissile ? pMissile->dwClassId : -1);
+    if (!pMissilesTxtRecord)
+    {
+        return 2;
+    }
+
+    const int nUpdateInterval = pMissilesTxtRecord->dwParam[0] < 1 ? 1 : pMissilesTxtRecord->dwParam[0];
+    if (MISSILE_GetRemainingFrames(pMissile) % nUpdateInterval)
+    {
+        return MISSMODE_HandleMissileCollision(pGame, pMissile);
+    }
+
+    D2SeedStrc* pSeed = &pMissile->pSeed;
+    if (!pSeed)
+    {
+        return 2;
+    }
+
+    SEED_InitLowSeed(pSeed, MISSILE_GetTargetX(pMissile));
+
+    const unsigned int nPackedOffset = MISSILE_GetTargetY(pMissile);
+    const int nPreviousOffsetX = (short)nPackedOffset;
+    const int nPreviousOffsetY = (short)(nPackedOffset >> 16);
+
+    int nSignedOffsetX;
+    int nSignedOffsetY;
+    if (SEED_RollRandomNumber_005B01F0(pSeed) & 1)
+    {
+        nSignedOffsetX = nPreviousOffsetX;
+        nSignedOffsetY = -nPreviousOffsetY;
+    }
+    else
+    {
+        nSignedOffsetX = -nPreviousOffsetX;
+        nSignedOffsetY = nPreviousOffsetY;
+    }
+
+    int nNextOffsetX = (nSignedOffsetY + 4 * nPreviousOffsetX) / 4;
+    int nNextOffsetY = (nSignedOffsetX + 4 * nPreviousOffsetY) / 4;
+    if (!nNextOffsetX)
+    {
+        nNextOffsetX = 1;
+    }
+
+    if (!nNextOffsetY)
+    {
+        nNextOffsetY = 1;
+    }
+
+    D2COMMON_10170_PathSetTargetPos(pMissile->pDynamicPath, nNextOffsetX + CLIENTS_GetUnitX(pMissile), nNextOffsetY + CLIENTS_GetUnitY(pMissile));
+    D2Common_10142(pMissile->pDynamicPath, pMissile, 0);
+
+    MISSILE_SetTargetX(pMissile, SEED_GetLowSeed(pSeed));
+    const unsigned short nPackedOffsetX = (unsigned short)nNextOffsetX;
+    const unsigned short nPackedOffsetY = (unsigned short)nNextOffsetY;
+    MISSILE_SetTargetY(pMissile, nPackedOffsetX + (nPackedOffsetY << 16));
+
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
 // 0x005B07A0
@@ -6707,6 +6927,5 @@ int __stdcall sub_K13_Emit_005A94C0(D2ActiveRoomStrc* pRoom, int nOffsetX, int n
 {
     return sub_005A94C0_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
 }
-
 
 #include "gen/data/Source/D2Game/MISSILES/MissMode.inc"
