@@ -84,17 +84,11 @@ void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
 
 D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDrlgRoom, int nType, unsigned int nPackedTileInformation); // 0x0066D820
 
-
-
-
-
-
 void __fastcall sub_0040B480(void*,void*,const char*,int,int); // 0x0040B480
 
 void* __fastcall FOG_ReallocPool(void*,void*,int,const char*,int,int); // 0x0040B4B0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
 
 int* __fastcall DRLGGRID_GetGridFlagsPointer(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C550
 
@@ -204,10 +198,7 @@ static void __stdcall DRLGROOMTILE_GetCreateLinkedTileData(void* pMemPool, D2Drl
 
 static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int nY, int bFillBlanks, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nTileType);
 
-
 static void __stdcall sub_0066DC10(D2DrlgTileDataStrc* pTileData, D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
-
-D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry, int nTileType);
 
 static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
 {
@@ -336,7 +327,6 @@ inline unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, i
 
     return SEED_RollRandomNumberInline(pSeed) & (nMax - 1);
 }
-
 
 // 0x004E6C50
 inline int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId)
