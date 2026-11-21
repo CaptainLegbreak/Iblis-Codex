@@ -42223,16 +42223,6 @@
      "name": "TIMER_HandleVirtualKeyInput"
     },
     {
-     "va": "0x004FE350",
-     "length": 89,
-     "name": "EDITBOX_HandleMouseUp"
-    },
-    {
-     "va": "0x004FE790",
-     "length": 39,
-     "name": "D2Win_10079_IsLetter"
-    },
-    {
      "va": "0x00500790",
      "length": 125,
      "name": "ANIMIMAGE_HandleMouseDown"
@@ -42408,54 +42398,9 @@
      "name": "?sub_004FDA50_2@@YIXPAUD2WinTimerStrc@@@Z"
     },
     {
-     "va": "0x004FDAA0",
-     "length": 48,
-     "name": "?D2Win_10071_EDITBOX_Destroy@@YIHPAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FDAD0",
-     "length": 48,
-     "name": "?sub_004FDAD0@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
-    },
-    {
-     "va": "0x004FDB00",
-     "length": 54,
-     "name": "?sub_004FDB00@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
-    },
-    {
-     "va": "0x004FDB40",
-     "length": 99,
-     "name": "?sub_004FDB40_GetClipboardText@@YAPBDXZ"
-    },
-    {
-     "va": "0x004FDBB0",
-     "length": 181,
-     "name": "?sub_004FDBB0_SetClipboardText@@YIHPBD@Z"
-    },
-    {
      "va": "0x004FDCC0",
      "length": 62,
      "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FDD00",
-     "length": 70,
-     "name": "?D2Win_10082@@YIHPAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FDD50",
-     "length": 51,
-     "name": "?sub_004FDD50@@YIXPAUD2WinEditBoxStrc@@H@Z"
-    },
-    {
-     "va": "0x004FDD90",
-     "length": 51,
-     "name": "?D2Win_10077_EDITBOX_GetText@@YIPBUUnicode@@PAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FDDD0",
-     "length": 83,
-     "name": "?D2Win_10080_EDITBOX_SetNextEditBox@@YIXPAUD2WinEditBoxStrc@@0@Z"
     },
     {
      "va": "0x00500930",
@@ -42663,9 +42608,54 @@
    ],
    "functions": [
     {
+     "va": "0x004FDAA0",
+     "length": 48,
+     "name": "?D2Win_10071_EDITBOX_Destroy@@YIHPAUD2WinEditBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FDAD0",
+     "length": 48,
+     "name": "?sub_004FDAD0@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
+    },
+    {
+     "va": "0x004FDB00",
+     "length": 54,
+     "name": "?sub_004FDB00@@YIXPAUD2WinEditBoxStrc@@PAX@Z"
+    },
+    {
+     "va": "0x004FDB40",
+     "length": 99,
+     "name": "?sub_004FDB40_GetClipboardText@@YAPBDXZ"
+    },
+    {
+     "va": "0x004FDBB0",
+     "length": 181,
+     "name": "?sub_004FDBB0_SetClipboardText@@YIHPBD@Z"
+    },
+    {
      "va": "0x004FDC70",
      "length": 69,
      "name": "?sub_004FDC70_HasSelection@@YAHPAUD2WinEditBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FDD00",
+     "length": 70,
+     "name": "?D2Win_10082@@YIHPAUD2WinEditBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FDD50",
+     "length": 51,
+     "name": "?sub_004FDD50@@YIXPAUD2WinEditBoxStrc@@H@Z"
+    },
+    {
+     "va": "0x004FDD90",
+     "length": 51,
+     "name": "?D2Win_10077_EDITBOX_GetText@@YIPBUUnicode@@PAUD2WinEditBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FDDD0",
+     "length": 83,
+     "name": "?D2Win_10080_EDITBOX_SetNextEditBox@@YIXPAUD2WinEditBoxStrc@@0@Z"
     },
     {
      "va": "0x004FDE30",
@@ -42678,6 +42668,11 @@
      "name": "?sub_004FDFF0_GetCaretPosition@@YGXPAH0PAUD2WinEditBoxStrc@@@Z"
     },
     {
+     "va": "0x004FE350",
+     "length": 89,
+     "name": "EDITBOX_HandleMouseUp"
+    },
+    {
      "va": "0x004FE3B0",
      "length": 856
     },
@@ -42685,6 +42680,11 @@
      "va": "0x004FE770",
      "length": 31,
      "name": "?sub_004FE770@@YGHPAX0PBUCharacter@@@Z"
+    },
+    {
+     "va": "0x004FE790",
+     "length": 39,
+     "name": "D2Win_10079_IsLetter"
     },
     {
      "va": "0x004FE7C0",

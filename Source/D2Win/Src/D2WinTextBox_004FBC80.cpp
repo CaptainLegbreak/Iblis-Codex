@@ -183,25 +183,7 @@ int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// 0x004FE350
-int __stdcall EDITBOX_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
-    D2_ASSERT(pEditBox, 0x739);
-    D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x73A);
-    if (pEditBox->bMouseSelecting)
-    {
-        pEditBox->bMouseSelecting = 0;
-        return 1;
-    }
-    return 0;
-}
 
-// 0x004FE790
-int __stdcall D2Win_10079_IsLetter(int nUnused1, int nUnused2, const char* szChar)
-{
-    return *szChar >= 'a' && *szChar <= 'z' || *szChar >= 'A' && *szChar <= 'Z';
-}
 
 // 0x00500790
 int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)

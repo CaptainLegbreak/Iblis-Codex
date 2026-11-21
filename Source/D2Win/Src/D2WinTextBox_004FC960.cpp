@@ -96,7 +96,6 @@ void __fastcall sub_00507EE0(void* pArg);                                       
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 extern D2EmblemColorStrc gaEmblemColorRGB1_0072E19C[10];                                                    // 0x0072E19C
 extern D2EmblemColorStrc gaEmblemColorRGB2_0072E1BC[10];                                                    // 0x0072E1BC
-char gszClipboardText_00841B80[0x200];                                                                      // 0x00841B80
 extern D2CelFileStrc* ghMonsterIndicators_00841DA4;                                                         // 0x00841DA4
 extern D2FontCacheStrc gFontCache_00841DA8[14];                                                             // 0x00841DA8
 extern unsigned char gabEmblemColor1_0087D810[];                                                            // 0x0087D810
@@ -104,7 +103,6 @@ extern unsigned char gabEmblemColor2_0087E82C[];                                
 D2CompositeUnitStrc* gpCompositeUnitList_0087E838;                                                          // 0x0087E838
 D2WinPopUpStrc* gpPopUp_0087E974;                                                                           // 0x0087E974
 
-static void* ghClipboardData_00841D80;                                                                      // 0x00841D80
 
 // 0x004FC960
 int __fastcall D2Win_10043_TEXTBOX_Destroy(D2WinTextBoxStrc* ptTextData)
@@ -155,123 +153,15 @@ void __fastcall sub_004FDA50_2(D2WinTimerStrc* ptTimerData)
     ptTimerData->controlHeader.pfInitialize = sub_6F8B1CF0;
 }
 
-// 0x004FDAA0
-int __fastcall D2Win_10071_EDITBOX_Destroy(D2WinEditBoxStrc* ptEditData)
-{
-    D2_ASSERT(ptEditData, 0x6E);
-    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x70);
-    return CONTROL_RemoveFromList(&ptEditData->controlHeader);
-}
 
-// 0x004FDAD0
-void __fastcall sub_004FDAD0(D2WinEditBoxStrc* ptEditData, void* pfKeyFilter)
-{
-    D2_ASSERT(ptEditData, 0x79);
-    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x7B);
-    ptEditData->pfFilter = pfKeyFilter;
-}
 
-// 0x004FDB00
-void __fastcall sub_004FDB00(D2WinEditBoxStrc* ptEditData, void* pfOnChange)
-{
-    D2_ASSERT(ptEditData, 0x86);
-    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x88);
-    ptEditData->pfOnChange = pfOnChange;
-}
 
-// 0x004FDB40
-const char* __cdecl sub_004FDB40_GetClipboardText()
-{
-    if (!IsClipboardFormatAvailable(1))
-        return &gszEmptyAssertText;
-    if (!OpenClipboard(sub_004F59A0()))
-        return &gszEmptyAssertText;
-    void* hData = GetClipboardData(1);
-    if (hData)
-    {
-        const char* szData = (const char*)GlobalLock(hData);
-        if (szData)
-        {
-            strncpy(gszClipboardText_00841B80, szData, 0x200);
-            GlobalUnlock(hData);
-        }
-    }
-    CloseClipboard();
-    return gszClipboardText_00841B80;
-}
 
-// 0x004FDBB0
-int __fastcall sub_004FDBB0_SetClipboardText(const char* szText)
-{
-    if (ghClipboardData_00841D80)
-    {
-        GlobalFree(ghClipboardData_00841D80);
-        ghClipboardData_00841D80 = 0;
-    }
-    if (!OpenClipboard(sub_004F59A0()))
-        return 0;
-    EmptyClipboard();
-    const int nLength = strlen(szText);
-    ghClipboardData_00841D80 = GlobalAlloc(0x2000, nLength + 1);
-    if (!ghClipboardData_00841D80)
-    {
-        CloseClipboard();
-        return 0;
-    }
-    char* pData = (char*)GlobalLock(ghClipboardData_00841D80);
-    memcpy(pData, szText, nLength);
-    pData[nLength] = 0;
-    GlobalUnlock(ghClipboardData_00841D80);
-    SetClipboardData(1, ghClipboardData_00841D80);
-    CloseClipboard();
-    return 1;
-}
 
-// 0x004FDCC0
-void __fastcall sub_004FDCC0(D2WinEditBoxStrc* ptEditData)
-{
-    D2_ASSERT(ptEditData, 0x1A4);
-    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x1A6);
-    ptEditData->nSelectionStart = -1;
-    ptEditData->nSelectionEnd = 0;
-}
 
-// 0x004FDD00
-int __fastcall D2Win_10082(D2WinEditBoxStrc* pEditBox)
-{
-    D2_ASSERT(pEditBox, 0x1B3);
-    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x1B5);
-    pEditBox->nSelectionStart = 0;
-    pEditBox->nSelectionEnd = sub_00526800((Unicode*)pEditBox->wszText);
-    return pEditBox->nSelectionEnd;
-}
 
-// 0x004FDD50
-void __fastcall sub_004FDD50(D2WinEditBoxStrc* pEditBox, int nMaxLength)
-{
-    D2_ASSERT(pEditBox, 0x445);
-    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x448);
-    pEditBox->nMaxLength = nMaxLength;
-}
 
-// 0x004FDD90
-const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox)
-{
-    D2_ASSERT(pEditBox, 0x47E);
-    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x480);
-    return (Unicode*)pEditBox->wszText;
-}
 
-// 0x004FDDD0
-void __fastcall D2Win_10080_EDITBOX_SetNextEditBox(D2WinEditBoxStrc* pEditBox, D2WinEditBoxStrc* hNext)
-{
-    D2_ASSERT(pEditBox, 0x48A);
-    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x48C);
-    D2_ASSERT(hNext, 0x48E);
-    D2_ASSERT(hNext->controlHeader.eType == D2WIN_EDITBOX, 0x490);
-    pEditBox->pNext = hNext;
-    hNext->pPrevious = pEditBox;
-}
 
 // 0x00500930
 int __fastcall BUTTON_Destroy(D2WinButtonStrc* ptBtnData)
@@ -510,6 +400,15 @@ int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
         return 0;
     pfHandleMouseInput();
     return 1;
+}
+
+// 0x004FDCC0
+void __fastcall sub_004FDCC0(D2WinEditBoxStrc* ptEditData)
+{
+    D2_ASSERT(ptEditData, 0x1A4);
+    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x1A6);
+    ptEditData->nSelectionStart = -1;
+    ptEditData->nSelectionEnd = 0;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinTextBox_004FC960.inc"
