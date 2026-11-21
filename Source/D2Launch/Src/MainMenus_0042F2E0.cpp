@@ -1,314 +1,296 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
+
 struct D2ConfigStrc;
+
 struct D2FileTimeStrc;
+
 struct D2LaunchRecordStrc;
+
 struct D2LaunchSlotStrc;
+
 struct D2MenuListStrc;
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
+
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
+
 void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
+
 int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+
 void __cdecl sub_0042FDD0(); // 0x0042FDD0
+
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
+
 void __cdecl sub_0042F480_Reset(); // 0x0042F480
+
 void __cdecl sub_0042F6E0(); // 0x0042F6E0
+
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
+
 void __cdecl sub_004317D0_FlushInput(); // 0x004317D0
+
 void __cdecl sub_00430520(); // 0x00430520
+
 void __stdcall sub_004313D0(int nLevel); // 0x004313D0
+
 void __cdecl sub_00431AF0(); // 0x00431AF0
-void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchCallback pfnDone, int nArg); // 0x00433380
+
+void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00433380
+void __cdecl sub_0042FFE0_CreateScreen(); // 0x0042FFE0
+
 void __cdecl sub_004365B0_CreateCharacter(); // 0x004365B0
+
 void __cdecl sub_0043B080_InitCharSelectScreen(); // 0x0043B080
+
 void __cdecl sub_0043B9A0(); // 0x0043B9A0
+
 void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
+
 void __cdecl sub_0043C4F0(); // 0x0043C4F0
+
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
+
 int __fastcall sub_004F9190(); // 0x004F9190
+
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
+
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
 extern int gbConnected_0077959C; // 0x0077959C
+
 extern char gszAddress_007795F8[]; // 0x007795F8
+
 extern D2WinControlStrc* gpAddressEdit_00779958; // 0x00779958
+
 extern int gbPaletteBusy_00779970; // 0x00779970
+
 extern int gdwGlobal_00779974; // 0x00779974
+
 extern D2CelFileStrc* gpCellFile_007796F8; // 0x007796F8
+
 extern D2CelFileStrc* gpCellFile_007796FC; // 0x007796FC
+
 extern D2CelFileStrc* gpCellFile_00779704; // 0x00779704
+
 extern D2CelFileStrc* gpCellFile_00779708; // 0x00779708
+
 extern D2CelFileStrc* gpCellFile_0077970C; // 0x0077970C
+
 extern D2CelFileStrc* gpCellFile_00779710; // 0x00779710
+
 extern D2CelFileStrc* gpCellFile_00779714; // 0x00779714
+
 extern D2CelFileStrc* gpCellFile_00779718; // 0x00779718
+
 extern D2CelFileStrc* gpCellFile_0077971C; // 0x0077971C
+
 extern D2CelFileStrc* gpCellFile_00779720; // 0x00779720
+
 extern D2CelFileStrc* gpCellFile_0077972C; // 0x0077972C
+
 extern D2CelFileStrc* gpCellFile_00779730; // 0x00779730
+
 extern D2CelFileStrc* gpCellFile_00779734; // 0x00779734
+
 extern D2CelFileStrc* gpCellFile_00779738; // 0x00779738
+
 extern D2CelFileStrc* gpCellFile_0077973C; // 0x0077973C
+
 extern D2CelFileStrc* gpCellFile_00779740; // 0x00779740
+
 extern D2CelFileStrc* gpCellFile_00779748; // 0x00779748
+
 extern D2CelFileStrc* gpCellFile_0077974C; // 0x0077974C
+
 extern D2CelFileStrc* gpCellFile_00779750; // 0x00779750
+
 extern D2CelFileStrc* gpCellFile_00779754; // 0x00779754
+
 extern D2CelFileStrc* gpCellFile_00779758; // 0x00779758
+
 extern D2CelFileStrc* gpCellFile_0077975C; // 0x0077975C
+
 extern D2CelFileStrc* gpCellFile_00779764; // 0x00779764
+
 extern D2CelFileStrc* gpCellFile_00779768; // 0x00779768
+
 extern D2CelFileStrc* gpCellFile_0077976C; // 0x0077976C
+
 extern D2CelFileStrc* gpCellFile_00779770; // 0x00779770
+
 extern D2CelFileStrc* gpCellFile_00779774; // 0x00779774
+
 extern D2CelFileStrc* gpCellFile_00779778; // 0x00779778
+
 extern D2CelFileStrc* gpCellFile_0077977C; // 0x0077977C
+
 extern D2CelFileStrc* gpCellFile_00779780; // 0x00779780
+
 extern D2CelFileStrc* gpCellFile_00779784; // 0x00779784
+
 extern D2CelFileStrc* gpCellFile_00779788; // 0x00779788
+
 extern D2CelFileStrc* gpCellFile_0077978C; // 0x0077978C
+
 extern D2CelFileStrc* gpCellFile_00779790; // 0x00779790
+
 extern D2CelFileStrc* gpCellFile_00779794; // 0x00779794
+
 extern D2CelFileStrc* gpCellFile_00779798; // 0x00779798
+
 extern D2CelFileStrc* gpCellFile_0077979C; // 0x0077979C
+
 extern D2CelFileStrc* gpCellFile_007797A0; // 0x007797A0
+
 extern D2CelFileStrc* gpCellFile_007797A4; // 0x007797A4
+
 extern D2CelFileStrc* gpCellFile_007797A8; // 0x007797A8
+
 extern D2CelFileStrc* gpCellFile_007797AC; // 0x007797AC
+
 extern D2CelFileStrc* gpCellFile_007797B0; // 0x007797B0
+
 extern D2CelFileStrc* gpCellFile_007797B4; // 0x007797B4
+
 extern D2CelFileStrc* gpCellFile_007797B8; // 0x007797B8
+
 extern D2CelFileStrc* gpCellFile_007797C8; // 0x007797C8
+
 extern D2CelFileStrc* gpCellFile_007797CC; // 0x007797CC
+
 extern D2CelFileStrc* gpCellFile_007797D0; // 0x007797D0
+
 extern D2CelFileStrc* gpCellFile_007797D4; // 0x007797D4
+
 extern D2CelFileStrc* gpCellFile_007797D8; // 0x007797D8
+
 extern D2CelFileStrc* gpCellFile_007797DC; // 0x007797DC
+
 extern D2CelFileStrc* gpCellFile_00779724; // 0x00779724
+
 extern D2CelFileStrc* gpCellFile_00779728; // 0x00779728
+
 extern D2CelFileStrc* gpCellFile_00779744; // 0x00779744
+
 extern D2CelFileStrc* gpCellFile_007797BC; // 0x007797BC
+
 extern D2CelFileStrc* gpCellFile_007797C0; // 0x007797C0
+
 extern D2CelFileStrc* gpCellFile_007797C4; // 0x007797C4
+
 extern D2CelFileStrc* gpCellFile_007797E0; // 0x007797E0
+
 extern D2CelFileStrc* gpCellFile_007797F4; // 0x007797F4
+
 extern D2CelFileStrc* gpCellFile_00779808; // 0x00779808
+
 extern D2CelFileStrc* gpCellFile_0077981C; // 0x0077981C
+
 extern D2CelFileStrc* gpCellFile_00779830; // 0x00779830
+
 extern D2CelFileStrc* gpCellFile_00779844; // 0x00779844
+
 extern D2CelFileStrc* gpCellFile_00779858; // 0x00779858
+
 extern D2CelFileStrc* gpCellFile_00779888; // 0x00779888
+
 extern D2CelFileStrc* gpCellFile_0077989C; // 0x0077989C
+
 extern D2CelFileStrc* gpCellFile_007798B0; // 0x007798B0
+
 extern D2CelFileStrc* gpCellFile_007798C4; // 0x007798C4
+
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
+
 int __cdecl sub_004F9050(); // 0x004F9050
+
 void __stdcall D2Win_10004(int nResolution); // 0x004F9060
+
 int __stdcall sub_00431600_ShowLevelScreen(int nUnused); // 0x00431600
+
 void __cdecl sub_0042FB20(); // 0x0042FB20
+
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
+
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
+
 int __cdecl sub_00431A00_ShowArchiveMessage(); // 0x00431A00
+
 int __cdecl sub_00434220_PlayDisc(); // 0x00434220
+
 int __cdecl sub_004342E0_ExpansionDisc(); // 0x004342E0
+
 extern D2ConfigStrc* gpConfig_007795D4; // 0x007795D4
+
 extern "C" const char gszMainMenusFile_006D41C0[]; // 0x006D41C0
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
+
 int __fastcall sub_004068F0(void* pArg); // 0x004068F0
+
 int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+
 int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __fastcall sub_0042E5D0_SwapUnicodeBytes(Unicode* pText, int nLength); // 0x0042E5D0
+
 Unicode* __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
+
 extern D2WinControlStrc* gpList_0077995C; // 0x0077995C
+
 extern D2WinControlStrc* gpList_00779960; // 0x00779960
+
 extern D2WinControlStrc* gpList_00779964; // 0x00779964
+
 extern "C" int __cdecl isalpha(int c); // 0x00686DA5
+
 Unicode* __stdcall sub_00430CD0_LoadCreditsText(int* pnLength); // 0x00430CD0
+
 void __cdecl sub_00430C80_FillList(); // 0x00430C80
+
 void __cdecl sub_00430EF0_SyncLists(); // 0x00430EF0
+
 extern "C" const char gszDiablo2_006CC8B8[]; // 0x006CC8B8
+
 extern "C" const char gszDottedQuadFormat_006CDEA4[]; // 0x006CDEA4
+
 extern "C" const char gszAuxBattleNet_006D4164[]; // 0x006D4164
+
 extern "C" const char gszLastTcpIp_006D4224[]; // 0x006D4224
+
 extern "C" const char gszDottedQuadLongFormat_006D4174[]; // 0x006D4174
+
 extern "C" const char gszEng_006D41A4[]; // 0x006D41A4
+
 extern "C" const char gszAuxAddressFormat_006D4868[]; // 0x006D4868
+
 extern "C" const char gszIntroFormatEng_006D4878[]; // 0x006D4878
+
 extern "C" const char gszIntroFormat_006D4894[]; // 0x006D4894
+
 extern "C" const char gszVersionSuffix_006D48D0[]; // 0x006D48D0
+
 extern "C" const char gszVersionFormat_006D48D4[]; // 0x006D48D4
+
 extern "C" const char gszDotsFormat_006D4D9C[]; // 0x006D4D9C
+
 extern "C" const char gszDots_006D4DA4[]; // 0x006D4DA4
-extern D2WinControlStrc* gpOkButton_00779330; // 0x00779330
-extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
-extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
-extern int gbFeCharPalette_007795F0; // 0x007795F0
-extern int gbFlag_00779984; // 0x00779984
-extern D2WinControlStrc* gpStatusText_007799A8; // 0x007799A8
-extern D2WinControlStrc* gpCounterText_007799AC; // 0x007799AC
-extern int gnStatusStringId_007799B0; // 0x007799B0
-extern unsigned long gdwStatusStart_007799B8; // 0x007799B8
-extern "C" const char gszCellPath_006D4100[]; // 0x006D4100
-extern "C" const char gszCellPath_006D40DC[]; // 0x006D40DC
-extern "C" const char gszCellPath_006D40C0[]; // 0x006D40C0
-extern "C" const char gszCellPath_006D40AC[]; // 0x006D40AC
-extern "C" const char gszCellPath_006D4094[]; // 0x006D4094
-extern "C" const char gszCellPath_006D4074[]; // 0x006D4074
-extern "C" const char gszCellPath_006D4054[]; // 0x006D4054
-extern "C" const char gszCellPath_006D4034[]; // 0x006D4034
-extern "C" const char gszCellPath_006D4014[]; // 0x006D4014
-extern "C" const char gszCellPath_006D3FF0[]; // 0x006D3FF0
-extern "C" const char gszCellPath_006D3FD4[]; // 0x006D3FD4
-extern "C" const char gszCellPath_006D3FB0[]; // 0x006D3FB0
-extern "C" const char gszCellPath_006D3F90[]; // 0x006D3F90
-extern "C" const char gszCellPath_006D3F70[]; // 0x006D3F70
-extern "C" const char gszCellPath_006D3F4C[]; // 0x006D3F4C
-extern "C" const char gszCellPath_006D3F28[]; // 0x006D3F28
-extern "C" const char gszCellPath_006D3F0C[]; // 0x006D3F0C
-extern "C" const char gszCellPath_006D3EE8[]; // 0x006D3EE8
-extern "C" const char gszCellPath_006D3EC4[]; // 0x006D3EC4
-extern "C" const char gszCellPath_006D3E98[]; // 0x006D3E98
-extern "C" const char gszCellPath_006D3E70[]; // 0x006D3E70
-extern "C" const char gszCellPath_006D3E4C[]; // 0x006D3E4C
-extern "C" const char gszCellPath_006D3E28[]; // 0x006D3E28
-extern "C" const char gszCellPath_006D3E10[]; // 0x006D3E10
-extern "C" const char gszCellPath_006D3DF0[]; // 0x006D3DF0
-extern "C" const char gszCellPath_006D3DD0[]; // 0x006D3DD0
-extern "C" const char gszCellPath_006D3DB0[]; // 0x006D3DB0
-extern "C" const char gszCellPath_006D3D8C[]; // 0x006D3D8C
-extern "C" const char gszCellPath_006D3D68[]; // 0x006D3D68
-extern "C" const char gszCellPath_006D3D48[]; // 0x006D3D48
-extern "C" const char gszCellPath_006D3D24[]; // 0x006D3D24
-extern "C" const char gszCellPath_006D3D00[]; // 0x006D3D00
-extern "C" const char gszCellPath_006D3CE8[]; // 0x006D3CE8
-extern "C" const char gszCellPath_006D3CC8[]; // 0x006D3CC8
-extern "C" const char gszCellPath_006D3CAC[]; // 0x006D3CAC
-extern "C" const char gszCellPath_006D3C90[]; // 0x006D3C90
-extern "C" const char gszCellPath_006D3C70[]; // 0x006D3C70
-extern "C" const char gszCellPath_006D3C58[]; // 0x006D3C58
-extern "C" const char gszCellPath_006D3C38[]; // 0x006D3C38
-extern "C" const char gszCellPath_006D3C18[]; // 0x006D3C18
-extern "C" const char gszCellPath_006D3BF4[]; // 0x006D3BF4
-extern "C" const char gszCellPath_006D3BD0[]; // 0x006D3BD0
-extern "C" const char gszCellPath_006D3BAC[]; // 0x006D3BAC
-extern "C" const char gszCellPath_006D3B8C[]; // 0x006D3B8C
-extern "C" const char gszCellPath_006D3B74[]; // 0x006D3B74
-extern "C" const char gszCellPath_006D3B4C[]; // 0x006D3B4C
-extern "C" const char gszCellPath_006D3B28[]; // 0x006D3B28
-extern "C" const char gszCellPath_006D3B0C[]; // 0x006D3B0C
-extern "C" const char gszCellPath_006D3AF0[]; // 0x006D3AF0
-extern "C" const char gszCellPath_006D3ACC[]; // 0x006D3ACC
-extern "C" const char gszCellPath_006D3AB0[]; // 0x006D3AB0
-extern "C" const char gszCellPath_006D3A94[]; // 0x006D3A94
-extern "C" const char gszCellPath_006D3A78[]; // 0x006D3A78
-extern "C" const char gszCellPath_006D3A54[]; // 0x006D3A54
-extern "C" const char gszCellPath_006D3A30[]; // 0x006D3A30
-extern "C" const char gszCellPath_006D3A10[]; // 0x006D3A10
-extern "C" const char gszCellPath_006D4844[]; // 0x006D4844
-extern "C" const char gszCellPath_006D4818[]; // 0x006D4818
-extern "C" const char gszCellPath_006D47F8[]; // 0x006D47F8
-extern "C" const char gszCellPath_006D47E4[]; // 0x006D47E4
-extern "C" const char gszCellPath_006D47CC[]; // 0x006D47CC
-extern "C" const char gszCellPath_006D47B4[]; // 0x006D47B4
-extern "C" const char gszCellPath_006D4790[]; // 0x006D4790
-extern "C" const char gszCellPath_006D4770[]; // 0x006D4770
-extern "C" const char gszCellPath_006D4750[]; // 0x006D4750
-extern "C" const char gszCellPath_006D4730[]; // 0x006D4730
-extern "C" const char gszCellPath_006D4710[]; // 0x006D4710
-extern "C" const char gszCellPath_006D46F0[]; // 0x006D46F0
-extern "C" const char gszCellPath_006D46D4[]; // 0x006D46D4
-extern "C" const char gszCellPath_006D46B8[]; // 0x006D46B8
-extern "C" const char gszCellPath_006D469C[]; // 0x006D469C
-extern "C" const char gszCellPath_006D4680[]; // 0x006D4680
-extern "C" const char gszCellPath_006D4664[]; // 0x006D4664
-extern "C" const char gszCellPath_006D4648[]; // 0x006D4648
-extern "C" const char gszCellPath_006D462C[]; // 0x006D462C
-extern "C" const char gszCellPath_006D4610[]; // 0x006D4610
-extern "C" const char gszCellPath_006D45F4[]; // 0x006D45F4
-extern "C" const char gszCellPath_006D45D8[]; // 0x006D45D8
-extern "C" const char gszCellPath_006D45B4[]; // 0x006D45B4
-extern "C" const char gszCellPath_006D4590[]; // 0x006D4590
-extern "C" const char gszCellPath_006D4570[]; // 0x006D4570
-extern "C" const char gszCellPath_006D454C[]; // 0x006D454C
-extern "C" const char gszCellPath_006D452C[]; // 0x006D452C
-extern "C" const char gszCellPath_006D450C[]; // 0x006D450C
-extern "C" const char gszCellPath_006D44EC[]; // 0x006D44EC
-extern "C" const char gszCellPath_006D44CC[]; // 0x006D44CC
-extern "C" const char gszCellPath_006D44AC[]; // 0x006D44AC
-extern "C" const char gszCellPath_006D448C[]; // 0x006D448C
-extern "C" const char gszCellPath_006D446C[]; // 0x006D446C
-extern "C" const char gszCellPath_006D444C[]; // 0x006D444C
-extern "C" const char gszCellPath_006D442C[]; // 0x006D442C
-extern "C" const char gszCellPath_006D440C[]; // 0x006D440C
-extern "C" const char gszCellPath_006D43EC[]; // 0x006D43EC
-extern "C" const char gszCellPath_006D43CC[]; // 0x006D43CC
-extern "C" const char gszCellPath_006D43AC[]; // 0x006D43AC
-extern "C" const char gszCellPath_006D4390[]; // 0x006D4390
-extern "C" const char gszCellPath_006D4370[]; // 0x006D4370
-extern "C" const char gszCellPath_006D4354[]; // 0x006D4354
-extern "C" const char gszCellPath_006D4334[]; // 0x006D4334
-extern "C" const char gszCellPath_006D4314[]; // 0x006D4314
-extern "C" const char gszCellPath_006D42F4[]; // 0x006D42F4
-extern "C" const char gszCellPath_006D42D0[]; // 0x006D42D0
-extern "C" const char gszCellPath_006D42AC[]; // 0x006D42AC
-extern "C" const char gszCellPath_006D4288[]; // 0x006D4288
-extern "C" const char gszCellPath_006D4268[]; // 0x006D4268
-extern "C" const char gszCellPath_006D4248[]; // 0x006D4248
-extern D2CelFileStrc* gpCellFile_007797E4; // 0x007797E4
-extern D2CelFileStrc* gpCellFile_007797E8; // 0x007797E8
-extern D2CelFileStrc* gpCellFile_007797EC; // 0x007797EC
-extern D2CelFileStrc* gpCellFile_007797F0; // 0x007797F0
-extern D2CelFileStrc* gpCellFile_007797F8; // 0x007797F8
-extern D2CelFileStrc* gpCellFile_007797FC; // 0x007797FC
-extern D2CelFileStrc* gpCellFile_00779800; // 0x00779800
-extern D2CelFileStrc* gpCellFile_00779804; // 0x00779804
-extern D2CelFileStrc* gpCellFile_0077980C; // 0x0077980C
-extern D2CelFileStrc* gpCellFile_00779810; // 0x00779810
-extern D2CelFileStrc* gpCellFile_00779814; // 0x00779814
-extern D2CelFileStrc* gpCellFile_00779818; // 0x00779818
-extern D2CelFileStrc* gpCellFile_00779820; // 0x00779820
-extern D2CelFileStrc* gpCellFile_00779824; // 0x00779824
-extern D2CelFileStrc* gpCellFile_00779828; // 0x00779828
-extern D2CelFileStrc* gpCellFile_0077982C; // 0x0077982C
-extern D2CelFileStrc* gpCellFile_00779834; // 0x00779834
-extern D2CelFileStrc* gpCellFile_00779838; // 0x00779838
-extern D2CelFileStrc* gpCellFile_0077983C; // 0x0077983C
-extern D2CelFileStrc* gpCellFile_00779840; // 0x00779840
-extern D2CelFileStrc* gpCellFile_00779848; // 0x00779848
-extern D2CelFileStrc* gpCellFile_0077984C; // 0x0077984C
-extern D2CelFileStrc* gpCellFile_00779850; // 0x00779850
-extern D2CelFileStrc* gpCellFile_00779854; // 0x00779854
-extern D2CelFileStrc* gpCellFile_0077985C; // 0x0077985C
-extern D2CelFileStrc* gpCellFile_00779860; // 0x00779860
-extern D2CelFileStrc* gpCellFile_00779864; // 0x00779864
-extern D2CelFileStrc* gpCellFile_00779868; // 0x00779868
-extern D2CelFileStrc* gpCellFile_0077988C; // 0x0077988C
-extern D2CelFileStrc* gpCellFile_00779890; // 0x00779890
-extern D2CelFileStrc* gpCellFile_007798A0; // 0x007798A0
-extern D2CelFileStrc* gpCellFile_007798A4; // 0x007798A4
-
-struct D2MenuListStrc
-{
-    int unk_00;
-    int nCount;
-};
-
-extern "C" unsigned int __cdecl strlen(const char* szText);
-extern "C" void __cdecl qsort(void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfnCompare)(const void*, const void*)); // 0x00685B50
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
-int __stdcall sub_00431D10_ClearLoop(int nArg); // 0x00431D10
-int __cdecl sub_00430B00_CompareNames(const void* pEntry1, const void* pEntry2); // 0x00430B00
-extern D2MenuListStrc* gpMenuList_007795C0; // 0x007795C0
-extern int gdwGlobal_0077998C; // 0x0077998C
-
-int __cdecl sub_00431F70_SaveExists();
 
 D2WinControlStrc* gpOkButton_00779330; // 0x00779330
 
@@ -327,6 +309,218 @@ D2WinControlStrc* gpCounterText_007799AC; // 0x007799AC
 int gnStatusStringId_007799B0; // 0x007799B0
 
 unsigned long gdwStatusStart_007799B8; // 0x007799B8
+
+extern "C" const char gszCellPath_006D4100[]; // 0x006D4100
+
+extern "C" const char gszCellPath_006D40DC[]; // 0x006D40DC
+
+extern "C" const char gszCellPath_006D40C0[]; // 0x006D40C0
+
+extern "C" const char gszCellPath_006D40AC[]; // 0x006D40AC
+
+extern "C" const char gszCellPath_006D4094[]; // 0x006D4094
+
+extern "C" const char gszCellPath_006D4074[]; // 0x006D4074
+
+extern "C" const char gszCellPath_006D4054[]; // 0x006D4054
+
+extern "C" const char gszCellPath_006D4034[]; // 0x006D4034
+
+extern "C" const char gszCellPath_006D4014[]; // 0x006D4014
+
+extern "C" const char gszCellPath_006D3FF0[]; // 0x006D3FF0
+
+extern "C" const char gszCellPath_006D3FD4[]; // 0x006D3FD4
+
+extern "C" const char gszCellPath_006D3FB0[]; // 0x006D3FB0
+
+extern "C" const char gszCellPath_006D3F90[]; // 0x006D3F90
+
+extern "C" const char gszCellPath_006D3F70[]; // 0x006D3F70
+
+extern "C" const char gszCellPath_006D3F4C[]; // 0x006D3F4C
+
+extern "C" const char gszCellPath_006D3F28[]; // 0x006D3F28
+
+extern "C" const char gszCellPath_006D3F0C[]; // 0x006D3F0C
+
+extern "C" const char gszCellPath_006D3EE8[]; // 0x006D3EE8
+
+extern "C" const char gszCellPath_006D3EC4[]; // 0x006D3EC4
+
+extern "C" const char gszCellPath_006D3E98[]; // 0x006D3E98
+
+extern "C" const char gszCellPath_006D3E70[]; // 0x006D3E70
+
+extern "C" const char gszCellPath_006D3E4C[]; // 0x006D3E4C
+
+extern "C" const char gszCellPath_006D3E28[]; // 0x006D3E28
+
+extern "C" const char gszCellPath_006D3E10[]; // 0x006D3E10
+
+extern "C" const char gszCellPath_006D3DF0[]; // 0x006D3DF0
+
+extern "C" const char gszCellPath_006D3DD0[]; // 0x006D3DD0
+
+extern "C" const char gszCellPath_006D3DB0[]; // 0x006D3DB0
+
+extern "C" const char gszCellPath_006D3D8C[]; // 0x006D3D8C
+
+extern "C" const char gszCellPath_006D3D68[]; // 0x006D3D68
+
+extern "C" const char gszCellPath_006D3D48[]; // 0x006D3D48
+
+extern "C" const char gszCellPath_006D3D24[]; // 0x006D3D24
+
+extern "C" const char gszCellPath_006D3D00[]; // 0x006D3D00
+
+extern "C" const char gszCellPath_006D3CE8[]; // 0x006D3CE8
+
+extern "C" const char gszCellPath_006D3CC8[]; // 0x006D3CC8
+
+extern "C" const char gszCellPath_006D3CAC[]; // 0x006D3CAC
+
+extern "C" const char gszCellPath_006D3C90[]; // 0x006D3C90
+
+extern "C" const char gszCellPath_006D3C70[]; // 0x006D3C70
+
+extern "C" const char gszCellPath_006D3C58[]; // 0x006D3C58
+
+extern "C" const char gszCellPath_006D3C38[]; // 0x006D3C38
+
+extern "C" const char gszCellPath_006D3C18[]; // 0x006D3C18
+
+extern "C" const char gszCellPath_006D3BF4[]; // 0x006D3BF4
+
+extern "C" const char gszCellPath_006D3BD0[]; // 0x006D3BD0
+
+extern "C" const char gszCellPath_006D3BAC[]; // 0x006D3BAC
+
+extern "C" const char gszCellPath_006D3B8C[]; // 0x006D3B8C
+
+extern "C" const char gszCellPath_006D3B74[]; // 0x006D3B74
+
+extern "C" const char gszCellPath_006D3B4C[]; // 0x006D3B4C
+
+extern "C" const char gszCellPath_006D3B28[]; // 0x006D3B28
+
+extern "C" const char gszCellPath_006D3B0C[]; // 0x006D3B0C
+
+extern "C" const char gszCellPath_006D3AF0[]; // 0x006D3AF0
+
+extern "C" const char gszCellPath_006D3ACC[]; // 0x006D3ACC
+
+extern "C" const char gszCellPath_006D3AB0[]; // 0x006D3AB0
+
+extern "C" const char gszCellPath_006D3A94[]; // 0x006D3A94
+
+extern "C" const char gszCellPath_006D3A78[]; // 0x006D3A78
+
+extern "C" const char gszCellPath_006D3A54[]; // 0x006D3A54
+
+extern "C" const char gszCellPath_006D3A30[]; // 0x006D3A30
+
+extern "C" const char gszCellPath_006D3A10[]; // 0x006D3A10
+
+extern "C" const char gszCellPath_006D4844[]; // 0x006D4844
+
+extern "C" const char gszCellPath_006D4818[]; // 0x006D4818
+
+extern "C" const char gszCellPath_006D47F8[]; // 0x006D47F8
+
+extern "C" const char gszCellPath_006D47E4[]; // 0x006D47E4
+
+extern "C" const char gszCellPath_006D47CC[]; // 0x006D47CC
+
+extern "C" const char gszCellPath_006D47B4[]; // 0x006D47B4
+
+extern "C" const char gszCellPath_006D4790[]; // 0x006D4790
+
+extern "C" const char gszCellPath_006D4770[]; // 0x006D4770
+
+extern "C" const char gszCellPath_006D4750[]; // 0x006D4750
+
+extern "C" const char gszCellPath_006D4730[]; // 0x006D4730
+
+extern "C" const char gszCellPath_006D4710[]; // 0x006D4710
+
+extern "C" const char gszCellPath_006D46F0[]; // 0x006D46F0
+
+extern "C" const char gszCellPath_006D46D4[]; // 0x006D46D4
+
+extern "C" const char gszCellPath_006D46B8[]; // 0x006D46B8
+
+extern "C" const char gszCellPath_006D469C[]; // 0x006D469C
+
+extern "C" const char gszCellPath_006D4680[]; // 0x006D4680
+
+extern "C" const char gszCellPath_006D4664[]; // 0x006D4664
+
+extern "C" const char gszCellPath_006D4648[]; // 0x006D4648
+
+extern "C" const char gszCellPath_006D462C[]; // 0x006D462C
+
+extern "C" const char gszCellPath_006D4610[]; // 0x006D4610
+
+extern "C" const char gszCellPath_006D45F4[]; // 0x006D45F4
+
+extern "C" const char gszCellPath_006D45D8[]; // 0x006D45D8
+
+extern "C" const char gszCellPath_006D45B4[]; // 0x006D45B4
+
+extern "C" const char gszCellPath_006D4590[]; // 0x006D4590
+
+extern "C" const char gszCellPath_006D4570[]; // 0x006D4570
+
+extern "C" const char gszCellPath_006D454C[]; // 0x006D454C
+
+extern "C" const char gszCellPath_006D452C[]; // 0x006D452C
+
+extern "C" const char gszCellPath_006D450C[]; // 0x006D450C
+
+extern "C" const char gszCellPath_006D44EC[]; // 0x006D44EC
+
+extern "C" const char gszCellPath_006D44CC[]; // 0x006D44CC
+
+extern "C" const char gszCellPath_006D44AC[]; // 0x006D44AC
+
+extern "C" const char gszCellPath_006D448C[]; // 0x006D448C
+
+extern "C" const char gszCellPath_006D446C[]; // 0x006D446C
+
+extern "C" const char gszCellPath_006D444C[]; // 0x006D444C
+
+extern "C" const char gszCellPath_006D442C[]; // 0x006D442C
+
+extern "C" const char gszCellPath_006D440C[]; // 0x006D440C
+
+extern "C" const char gszCellPath_006D43EC[]; // 0x006D43EC
+
+extern "C" const char gszCellPath_006D43CC[]; // 0x006D43CC
+
+extern "C" const char gszCellPath_006D43AC[]; // 0x006D43AC
+
+extern "C" const char gszCellPath_006D4390[]; // 0x006D4390
+
+extern "C" const char gszCellPath_006D4370[]; // 0x006D4370
+
+extern "C" const char gszCellPath_006D4354[]; // 0x006D4354
+
+extern "C" const char gszCellPath_006D4334[]; // 0x006D4334
+
+extern "C" const char gszCellPath_006D4314[]; // 0x006D4314
+
+extern "C" const char gszCellPath_006D42F4[]; // 0x006D42F4
+
+extern "C" const char gszCellPath_006D42D0[]; // 0x006D42D0
+
+extern "C" const char gszCellPath_006D42AC[]; // 0x006D42AC
+
+extern "C" const char gszCellPath_006D4288[]; // 0x006D4288
+
+extern "C" const char gszCellPath_006D4268[]; // 0x006D4268
+
+extern "C" const char gszCellPath_006D4248[]; // 0x006D4248
 
 D2CelFileStrc* gpCellFile_007797E4; // 0x007797E4
 
@@ -392,7 +586,166 @@ D2CelFileStrc* gpCellFile_007798A0; // 0x007798A0
 
 D2CelFileStrc* gpCellFile_007798A4; // 0x007798A4
 
-// 0x0042E6D0
+struct D2MenuListStrc
+{
+    int unk_00;
+    int nCount;
+};
+
+extern "C" unsigned int __cdecl strlen(const char* szText);
+
+extern "C" void __cdecl qsort(void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfnCompare)(const void*, const void*)); // 0x00685B50
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
+
+int __stdcall sub_00431D10_ClearLoop(int nArg); // 0x00431D10
+
+int __cdecl sub_00430B00_CompareNames(const void* pEntry1, const void* pEntry2); // 0x00430B00
+
+extern D2MenuListStrc* gpMenuList_007795C0; // 0x007795C0
+
+extern int gdwGlobal_0077998C; // 0x0077998C
+
+int __cdecl sub_00431F70_SaveExists();
+
+struct Unicode;
+
+int __stdcall sub_00432FE0_OnReceiveB(int nArg); // 0x00432FE0
+
+
+int __cdecl sub_0043BF60(); // 0x0043BF60
+
+int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int nMode); // 0x0043C180
+
+int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
+
+int __cdecl sub_00449C00(); // 0x00449C00
+
+int __stdcall sub_00449E10_Forward1(const char* szName); // 0x00449E10
+
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+
+
+extern char gaGlobal_007089C4[]; // 0x007089C4
+
+extern void* gpGlobal_0070B738; // 0x0070B738
+
+extern int gnLaunchState_007795E8; // 0x007795E8
+
+extern int gnLaunchMode_007795EC; // 0x007795EC
+
+extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
+
+static void sub_00431E70_SetModeFlags(char nMode); // 0x00431E70
+
+int __stdcall sub_0042FDE0_KeyFilter(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FDE0
+
+int __stdcall sub_0042FE60_KeyFilter(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FE60
+
+void __cdecl sub_004306C0_UpdateOk(); // 0x004306C0
+
+int __stdcall sub_00433BE0_UpdateOk(int nArg); // 0x00433BE0
+
+int __cdecl sub_0043B840(); // 0x0043B840
+
+int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox); // 0x004F91C0
+
+void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
+
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+
+void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
+
+void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
+
+void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength); // 0x004FDD50
+
+void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext); // 0x004FDDD0
+
+int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
+
+extern int gnValue_00779980; // 0x00779980
+
+int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+
+int __stdcall sub_00430590_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar); // 0x00430590
+
+void __cdecl sub_00430620_UpdateNameOk(); // 0x00430620
+
+void __cdecl sub_004326F0_LoadFrontEndCells2(); // 0x004326F0
+
+int __stdcall sub_00433BD0_UpdateNameOk(int nArg); // 0x00433BD0
+
+void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0
+
+void __stdcall sub_004FA450(void* a1); // 0x004FA450
+
+void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB); // 0x004FB740
+
+extern "C" const char gszFecharPalDat_006D39E8[]; // 0x006D39E8
+
+extern int gnGlobal_00708D0C; // 0x00708D0C
+
+extern int gnGlobal_0070CB80; // 0x0070CB80
+
+extern D2WinControlStrc* gpControl_00779330; // 0x00779330
+
+extern D2WinControlStrc* gpControl_00779348; // 0x00779348
+
+extern D2WinControlStrc* gpControl_00779568; // 0x00779568
+
+extern D2WinControlStrc* gpControl_00779598; // 0x00779598
+
+extern D2WinControlStrc* gpControl_007795B4; // 0x007795B4
+
+extern D2WinControlStrc* gpControl_007795C8; // 0x007795C8
+
+extern D2WinControlStrc* gpControl_007795D8; // 0x007795D8
+
+extern D2WinControlStrc* gpControl_007795DC; // 0x007795DC
+
+const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*); // 0x004FDD90
+
+extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
+
+static D2LaunchSlotStrc** gppSlots_00779988; // 0x00779988
+
+D2WinControlStrc* gpEdit_00779334; // 0x00779334
+
+D2WinControlStrc* gpEdit_0077958C; // 0x0077958C
+
+D2WinControlStrc* gpControl_00779594; // 0x00779594
+
+static int s_bGatewayFlag_00779954; // 0x00779954
+
+D2WinControlStrc* gpControl_0077933C; // 0x0077933C
+
+D2WinControlStrc* gpControl_0077934C; // 0x0077934C
+
+D2WinControlStrc* gpControl_0077956C; // 0x0077956C
+
+D2WinControlStrc* gpControl_00779570; // 0x00779570
+
+D2WinControlStrc* gpControl_00779574; // 0x00779574
+
+D2WinControlStrc* gpControl_00779578; // 0x00779578
+
+D2WinControlStrc* gpControl_0077957C; // 0x0077957C
+
+D2WinControlStrc* gpControl_00779580; // 0x00779580
+
+D2WinControlStrc* gpControl_00779584; // 0x00779584
+
+D2WinControlStrc* gpControl_007795B0; // 0x007795B0
+
+D2WinControlStrc* gpControl_007795B8; // 0x007795B8
+
+D2WinControlStrc* gpControl_007795C4; // 0x007795C4
+
+D2WinControlStrc* gpControl_007795CC; // 0x007795CC
+
+int gnGlobal_00779DA4; // 0x00779DA4
+
 void __cdecl sub_0042E6D0_LoadFrontEndCells()
 {
     char szPath[0x104];
@@ -562,6 +915,35 @@ int __cdecl sub_0042FAB0_GetAuxFlag()
     return 0;
 }
 
+static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
+{
+    void* hFile;
+    if (!SFileOpenFileEx(0, szFile, 0, &hFile))
+        return 0;
+    sub_004198D0(hFile);
+    return 1;
+}
+
+// 0x0042FD10
+static void sub_0042FD10_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile)
+{
+    char szLang[4];
+    sub_00525260(szLang, 0);
+    sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
+    if (sub_0042FCE0_ArchiveFilePresent(szOut))
+        return;
+    if (STRTABLE_GetLanguage())
+    {
+        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "ENG", szFile);
+        sub_0042FCE0_ArchiveFilePresent(szOut);
+    }
+    else
+    {
+        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "CHI", szFile);
+        sub_0042FCE0_ArchiveFilePresent(szOut);
+    }
+}
+
 // 0x00430620
 void __cdecl sub_00430620_UpdateNameOk()
 {
@@ -607,649 +989,6 @@ int __cdecl sub_00430BC0_HasSaveFiles()
         return 1;
     }
     return 0;
-}
-
-// 0x00431600
-int __stdcall sub_00431600_ShowLevelScreen(int nUnused)
-{
-    char szAddress[0x64];
-    unsigned char nLevel;
-    sub_00515F50(0xB4);
-    sub_00514930();
-    sub_00515CE0_SetMasterVolume(0xFF);
-    sub_0043C4F0();
-    if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
-    {
-        int a;
-        int b;
-        int c;
-        int d = 0x22;
-        sscanf(szAddress, "%ld.%ld.%ld.%ld", &a, &b, &c, &d);
-        const unsigned char nLow = (unsigned char)d;
-        if (nLow & 1)
-            nLevel = 7;
-        else if (nLow & 0x80)
-            nLevel = 6;
-        else if (nLow & 0x10)
-            nLevel = 5;
-        else if (nLow & 0x08)
-            nLevel = 4;
-        else if (nLow & 0x40)
-            nLevel = 3;
-        else
-            nLevel = (nLow & 4) ? 2 : 1;
-    }
-    else
-    {
-        nLevel = 1;
-        sprintf(szAddress, "%d.%d.%d.%d", 0xD8, 0x94, 0xF6, 0x22);
-        SRegSaveString("Diablo II", "Aux Battle.net", 0, szAddress);
-    }
-    if (sub_00408F20_HasExpansionMpq())
-    {
-        sub_004313D0(nLevel);
-        return 1;
-    }
-    sub_0042F430_CreateControl(0x32);
-    D2WinControlStrc* pTitle = sub_0042F430_CreateControl(0x33);
-    sub_004FD060_SetText(pTitle, D2LANG_GetStringFromTblIndex(0x13FA));
-    sub_0042F430_CreateControl(0x34);
-    D2WinControlStrc* pField1 = sub_0042F430_CreateControl(0x35);
-    D2WinControlStrc* pField2 = sub_0042F430_CreateControl(0x36);
-    D2WinControlStrc* pField3 = sub_0042F430_CreateControl(0x37);
-    D2WinControlStrc* pField4 = sub_0042F430_CreateControl(0x38);
-    switch (nLevel)
-    {
-    default:
-        sub_004F96F0_ControlClearState(pField1, 0);
-    case 2:
-        sub_004F96F0_ControlClearState(pField2, 0);
-    case 3:
-        sub_004F96F0_ControlClearState(pField3, 0);
-    case 4:
-        sub_004F96F0_ControlClearState(pField4, 0);
-    case 5:
-    case 6:
-    case 7:
-        break;
-    }
-    sub_0042F430_CreateControl(0x39);
-    return 1;
-}
-
-// 0x004326F0
-void __cdecl sub_004326F0_LoadFrontEndCells2()
-{
-    char szPath[0x104];
-    if (gpCellFile_00779724)
-        return;
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\MediumSelButtonBlank", szDataGlobal_006D4118);
-    gpCellFile_00779744 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    if (sub_00408F20_HasExpansionMpq())
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\charactercreationscreenEXP", szDataGlobal_006D4118);
-    else
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CharacterCreate", szDataGlobal_006D4118);
-    gpCellFile_00779724 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\fire", szDataGlobal_006D4118);
-    gpCellFile_00779728 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\textbox", szDataGlobal_006D4118);
-    gpCellFile_007797BC = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\clickbox", szDataGlobal_006D4118);
-    gpCellFile_007797C0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    if (sub_00408F20_HasExpansionMpq())
-    {
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\joingameclickboxgrey", szDataGlobal_006D4118);
-        gpCellFile_007797C4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu1", szDataGlobal_006D4118);
-        gpCellFile_007797E0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu2", szDataGlobal_006D4118);
-        gpCellFile_007797E4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asfw", szDataGlobal_006D4118);
-        gpCellFile_007797E8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu3", szDataGlobal_006D4118);
-        gpCellFile_007797EC = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asbw", szDataGlobal_006D4118);
-        gpCellFile_007797F0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu1", szDataGlobal_006D4118);
-        gpCellFile_007797F4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu2", szDataGlobal_006D4118);
-        gpCellFile_007797F8 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzfw", szDataGlobal_006D4118);
-        gpCellFile_007797FC = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu3", szDataGlobal_006D4118);
-        gpCellFile_00779800 = sub_004FA9B0_LoadCellFile(szPath, 0);
-        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzbw", szDataGlobal_006D4118);
-        gpCellFile_00779804 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    }
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu1", szDataGlobal_006D4118);
-    gpCellFile_00779808 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu2", szDataGlobal_006D4118);
-    gpCellFile_0077980C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amfw", szDataGlobal_006D4118);
-    gpCellFile_00779810 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu3", szDataGlobal_006D4118);
-    gpCellFile_00779814 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\ambw", szDataGlobal_006D4118);
-    gpCellFile_00779818 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu1", szDataGlobal_006D4118);
-    gpCellFile_0077981C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu2", szDataGlobal_006D4118);
-    gpCellFile_00779820 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefw", szDataGlobal_006D4118);
-    gpCellFile_00779824 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3", szDataGlobal_006D4118);
-    gpCellFile_00779828 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebw", szDataGlobal_006D4118);
-    gpCellFile_0077982C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu1", szDataGlobal_006D4118);
-    gpCellFile_00779830 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu2", szDataGlobal_006D4118);
-    gpCellFile_00779834 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafw", szDataGlobal_006D4118);
-    gpCellFile_00779838 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu3", szDataGlobal_006D4118);
-    gpCellFile_0077983C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\babw", szDataGlobal_006D4118);
-    gpCellFile_00779840 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu1", szDataGlobal_006D4118);
-    gpCellFile_00779844 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu2", szDataGlobal_006D4118);
-    gpCellFile_00779848 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofw", szDataGlobal_006D4118);
-    gpCellFile_0077984C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3", szDataGlobal_006D4118);
-    gpCellFile_00779850 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobw", szDataGlobal_006D4118);
-    gpCellFile_00779854 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu1", szDataGlobal_006D4118);
-    gpCellFile_00779858 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu2", szDataGlobal_006D4118);
-    gpCellFile_0077985C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafw", szDataGlobal_006D4118);
-    gpCellFile_00779860 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu3", szDataGlobal_006D4118);
-    gpCellFile_00779864 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pabw", szDataGlobal_006D4118);
-    gpCellFile_00779868 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofws", szDataGlobal_006D4118);
-    gpCellFile_0077989C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3s", szDataGlobal_006D4118);
-    gpCellFile_007798A0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobws", szDataGlobal_006D4118);
-    gpCellFile_007798A4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefws", szDataGlobal_006D4118);
-    gpCellFile_00779888 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3s", szDataGlobal_006D4118);
-    gpCellFile_0077988C = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebws", szDataGlobal_006D4118);
-    gpCellFile_00779890 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafws", szDataGlobal_006D4118);
-    gpCellFile_007798B0 = sub_004FA9B0_LoadCellFile(szPath, 0);
-    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafws", szDataGlobal_006D4118);
-    gpCellFile_007798C4 = sub_004FA9B0_LoadCellFile(szPath, 0);
-}
-
-// 0x004334E0
-void __cdecl sub_004334E0_PlayIntro()
-{
-    char szPath[0x104];
-    char szAddress[0x64];
-    int a;
-    int b;
-    int c;
-    int d;
-    void* hFile;
-    char szLanguage[4];
-    char szSize[8];
-    sub_004317D0_FlushInput();
-    int nMode = 0;
-    if (!sub_0040EB10())
-    {
-        strcpy(szSize, "640x292");
-    }
-    else
-    {
-        nMode = 2;
-        strcpy(szSize, "640x146");
-    }
-    sub_00525260(szLanguage, 0);
-    sprintf(szPath, "%s\\video\\%s\\D2x_Intro_%s.bik", gszDataLocal_006D41A8, szLanguage, szSize);
-    if (SFileOpenFileEx(0, szPath, 0, &hFile))
-        sub_004198D0(hFile);
-    else
-        sprintf(szPath, "%s\\video\\%s\\D2x_Intro%s.bik", gszDataLocal_006D41A8, "ENG", szSize);
-    sub_004F5D90_PlayVideo(szPath, nMode, 0);
-    if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
-        sscanf(szAddress, "%ld.%ld.%ld.%ld", &a, &b, &c, &d);
-    d |= 0x80;
-    sprintf(szAddress, "%d.%d.%d.%ld", 0xD8, 0x94, 0xF6, d);
-    SRegSaveString("Diablo II", "Aux Battle.net", 0, szAddress);
-}
-
-// 0x004336C0
-void __cdecl sub_004336C0_ShowMainMenu()
-{
-    char szVersion[0x40];
-    D2WinControlStrc* pFirst;
-    D2WinControlStrc* pSecond;
-    sub_0043B9A0();
-    gpLaunchRecord_007795D4->szName[0] = 0;
-    sub_0043C4F0();
-    if (sub_00408F20_HasExpansionMpq())
-    {
-        gpControl_007795AC = sub_0042F430_CreateControl(0x12);
-        sub_00431AF0();
-        pFirst = sub_0042F430_CreateControl(0x11);
-        pSecond = sub_0042F430_CreateControl(0x13);
-        sub_0042F430_CreateControl(0x10);
-    }
-    else
-    {
-        pFirst = sub_0042F430_CreateControl(0x0A);
-        gpControl_007795AC = sub_0042F430_CreateControl(0x0B);
-        sub_00431AF0();
-        sub_0042F430_CreateControl(0x09);
-        pSecond = sub_0042F430_CreateControl(0x0C);
-    }
-    if (sub_004FAC90())
-    {
-        sub_004F96F0_ControlClearState(pFirst, 0);
-        sub_004F96F0_ControlClearState(pSecond, 0);
-        sub_004F96F0_ControlClearState(gpControl_007795AC, 0);
-    }
-    sub_0042F430_CreateControl(0x0D);
-    sub_0042F430_CreateControl(0x0E);
-    sub_0042F430_CreateControl(0x0F);
-    D2WinControlStrc* pText = sub_0042F430_CreateControl(0x115);
-    const int nLen = SStrPrintf(szVersion, 0x40, "v %d.%d%c", 1, 0x0E, 0x64);
-    if (gpLaunchRecord_007795D4->bFlag223)
-        SStrPrintf(&szVersion[nLen], 0x40 - nLen, " %d", 0x47);
-    sub_004FCFF0_SetTextA(pText, szVersion, 0);
-    if (sub_00514D80())
-        D2SOUND_10034(1);
-}
-
-// 0x00434790
-int __stdcall sub_00434790_JoinTcpIp(int nUnused)
-{
-    char szText[0x400];
-    int a;
-    int b;
-    int c;
-    int d;
-    const Unicode* pText = sub_004FDD90_GetEditText(gpAddressEdit_00779958);
-    sub_005263E0(szText, pText, 0x100);
-    if (!szText[0])
-        return 1;
-    strncpy(gszAddress_007795F8, szText, 0xFF);
-    gszAddress_007795F8[0xFF] = 0;
-    SRegSaveString("Diablo II", "LastTcpIp", 0, gszAddress_007795F8);
-    if (sscanf(szText, "%d.%d.%d.%d", &a, &b, &c, &d) != 4)
-    {
-        const char* szResolved = FOG_ResolveHostIPAddress(szText);
-        if (szResolved)
-        {
-            strcpy(szText, szResolved);
-        }
-        else
-        {
-            sub_004FFE10_SetTextA(gpAddressEdit_00779958, &gszEmptyAssertText);
-            return 1;
-        }
-    }
-    strcpy(gpLaunchRecord_007795D4->szName, szText);
-    sub_0042F6E0();
-    sub_004FA590_RunLoop(sub_00431D10);
-    gbConnected_0077959C = 0;
-    sub_0052A750(0, szText);
-    sub_004FA590_RunLoop(sub_00431E30);
-    if (!gbConnected_0077959C)
-    {
-        sub_0052A7E0();
-        sub_0042F3F0_DestroyControls();
-        const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x145B);
-        sub_00433380_ShowMessage(pMessage, sub_0042FFE0, 1);
-        return 1;
-    }
-    sub_0042F3F0_DestroyControls();
-    sub_0042F6E0();
-    sub_004FA590_RunLoop(sub_00431C90);
-    sub_0052A7E0();
-    sub_0042F3F0_DestroyControls();
-    if (!gdwGlobal_00779974)
-    {
-        gnLaunchMode_007795EC = 2;
-        *(int*)gpLaunchRecord_007795D4->aState19 = 9;
-        *(unsigned short*)gpLaunchRecord_007795D4->aWord1D = 1;
-        sub_00515020();
-        sub_0042F480_Reset();
-        sub_0043B080_InitCharSelectScreen();
-    }
-    return 1;
-}
-
-// 0x004365B0
-void __cdecl sub_004365B0_CreateCharacter()
-{
-    char szName[0x100];
-    if (sub_00431F70_SaveExists() == 1 && gnLaunchMode_007795EC != 1)
-    {
-        sub_00433460_ShowMessage(D2LANG_GetStringFromTblIndex(0x142D), sub_0042F3F0_DestroyControls);
-        return;
-    }
-    if (gpLaunchRecord_007795D4->nMode == 6 || gpLaunchRecord_007795D4->nMode == 5)
-        *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF |= 0x20;
-    const Unicode* pText = sub_004FDD90_GetEditText(gpNameEdit_0077934C);
-    sub_005263E0(szName, pText, 0x100);
-    sprintf((gpLaunchRecord_007795D4->szPassword + 0x18), gszStringFormat_006FFC58, szName);
-    gpLaunchRecord_007795D4->szPassword[0x30] = 0;
-    if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
-        gbFlag_00779984 = 1;
-    if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
-    {
-        sub_00430520();
-        return;
-    }
-    if (gnLaunchMode_007795EC == 0)
-    {
-        sub_0042F480_Reset();
-        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
-        gpLaunchRecord_007795D4->nByte35E = 1;
-        *(int*)gpLaunchRecord_007795D4->aState19 = 0;
-        gnLaunchState_007795E8 = 1;
-        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
-            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
-            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
-        sub_004F9190();
-    }
-    else if (gnLaunchMode_007795EC == 2)
-    {
-        sub_0042F480_Reset();
-        sub_0043C6A0(0);
-        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
-        gpLaunchRecord_007795D4->nByte35E = 3;
-        gnLaunchState_007795E8 = 1;
-        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
-            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
-            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
-        sub_004F9190();
-    }
-    else if (gnLaunchMode_007795EC == 3)
-    {
-        sub_0042F480_Reset();
-        D2MCPClientCloseMCP();
-        sub_0043C6A0(0);
-        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
-        gpLaunchRecord_007795D4->nByte3C1 = 1;
-        SMemCopy(gpLaunchRecord_007795D4->aData3A1, gabDefault_006D4D88, 0x10);
-        SMemZero(gpLaunchRecord_007795D4->aData3B1, 0x10);
-        gpLaunchRecord_007795D4->nByte3C2 = (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF >> 6) & 1;
-        *(unsigned short*)gpLaunchRecord_007795D4->aWord3CB = *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF;
-        gpLaunchRecord_007795D4->nByte35E = 4;
-        gpLaunchRecord_007795D4->nByte22D = 0;
-        gpLaunchRecord_007795D4->szPassword[0x30] = 0;
-        gnLaunchState_007795E8 = 3;
-        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
-            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
-        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
-            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
-        sub_004F9190();
-    }
-    else if (gnLaunchMode_007795EC == 1)
-    {
-        sub_00435E10();
-    }
-}
-
-// 0x004369F0
-int __stdcall sub_004369F0_OkClick(int nUnused)
-{
-    char szPath[0x400];
-    if (sub_004F9710_TestFlags(gpOkButton_00779330))
-    {
-        sub_00407050_GetSavePath(szPath, 0x400);
-        for (unsigned int i = 0; i < 0x400; i += 1)
-        {
-            if (szPath[i] == '\\')
-            {
-                szPath[i + 1] = 0;
-                break;
-            }
-        }
-        unsigned long nSectorsPerCluster = 0;
-        unsigned long nBytesPerSector = 0;
-        unsigned long nFreeClusters = 0;
-        unsigned long nTotalClusters = 0;
-        GetDiskFreeSpaceA(szPath, &nSectorsPerCluster, &nBytesPerSector, &nFreeClusters, &nTotalClusters);
-        if (nFreeClusters * nBytesPerSector * nSectorsPerCluster < 5000)
-        {
-            sub_00433460_ShowMessage(D2LANG_GetStringFromTblIndex(0x141D), sub_0042FDD0);
-            return 1;
-        }
-        sub_004F96F0_ControlClearState(gpOkButton_00779330, 0);
-        sub_004365B0_CreateCharacter();
-    }
-    return 1;
-}
-
-// 0x00436AD0
-void __cdecl sub_00436AD0_UpdateStatus()
-{
-    char szText[0x100];
-    int nState;
-    if (!gpStatusText_007799A8)
-        return;
-    gpFuncTable_0077ABF0->pfnSlot80(&nState);
-    switch (nState)
-    {
-    case 0:
-        gnStatusStringId_007799B0 = 0x1433;
-        break;
-    case 1:
-        gnStatusStringId_007799B0 = 0x1434;
-        break;
-    case 2:
-        gnStatusStringId_007799B0 = 0x1435;
-        break;
-    case 3:
-        gnStatusStringId_007799B0 = 0x1436;
-        break;
-    case 4:
-        gnStatusStringId_007799B0 = 0x1437;
-        break;
-    case 5:
-        gnStatusStringId_007799B0 = 0x1438;
-        break;
-    case 6:
-        gnStatusStringId_007799B0 = 0x1439;
-        break;
-    default:
-        gnStatusStringId_007799B0 = -1;
-        break;
-    }
-    sub_004FB6A0_ClearText(gpStatusText_007799A8);
-    if (gnStatusStringId_007799B0 >= 0)
-        sub_004FC9B0_SetText(gpStatusText_007799A8, D2LANG_GetStringFromTblIndex(gnStatusStringId_007799B0), 0, 0, 0);
-    const unsigned long nCounter = (GetTickCount() - gdwStatusStart_007799B8) / 250 % 20 + 1;
-    sprintf(szText, "%.*s", nCounter, "....................");
-    sub_004FB6A0_ClearText(gpCounterText_007799AC);
-    D2Win_10045(gpCounterText_007799AC, szText);
-}
-
-static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
-{
-    void* hFile;
-    if (!SFileOpenFileEx(0, szFile, 0, &hFile))
-        return 0;
-    sub_004198D0(hFile);
-    return 1;
-}
-
-// 0x0042FD10
-static void sub_0042FD10_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile)
-{
-    char szLang[4];
-    sub_00525260(szLang, 0);
-    sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
-    if (sub_0042FCE0_ArchiveFilePresent(szOut))
-        return;
-    if (STRTABLE_GetLanguage())
-    {
-        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "ENG", szFile);
-        sub_0042FCE0_ArchiveFilePresent(szOut);
-    }
-    else
-    {
-        sprintf(szOut, szFormat, gszDataLocal_006D41A8, "CHI", szFile);
-        sub_0042FCE0_ArchiveFilePresent(szOut);
-    }
-}
-
-// 0x00431870
-static void __stdcall sub_00431870_PlayVideo(int nArg, const char* szFormat)
-{
-    char szPath[0x104];
-    char szSize[8];
-    sub_0042F480_Reset();
-    sub_0042F3F0_DestroyControls();
-    sub_004317D0_FlushInput();
-    if (sub_004F9050())
-    {
-        int nMode = 0;
-        if (!sub_0040EB10())
-        {
-            strcpy(szSize, "640x292");
-        }
-        else
-        {
-            nMode = 2;
-            strcpy(szSize, "640x146");
-        }
-        sub_0042FD10_BuildLocalizedVideoPath(szPath, szFormat, szSize);
-        sub_004F5D90_PlayVideo(szPath, nMode, 0);
-        D2Win_10004(1);
-    }
-    sub_004317D0_FlushInput();
-    sub_00431600_ShowLevelScreen(nArg);
-}
-
-// 0x00433640
-void __cdecl sub_00433640_PlayIntroVideo()
-{
-    char szPath[0x104];
-    char szSize[8];
-    sub_004317D0_FlushInput();
-    int nMode = 0;
-    if (!sub_0040EB10())
-    {
-        strcpy(szSize, "640x292");
-    }
-    else
-    {
-        nMode = 2;
-        strcpy(szSize, "640x146");
-    }
-    sub_0042FD10_BuildLocalizedVideoPath(szPath, "%s\\video\\%s\\d2intro%s.bik", szSize);
-    sub_004F5D90_PlayVideo(szPath, nMode, 0);
-    sub_0042FB20();
-}
-
-// 0x00434320
-int __stdcall sub_00434320_PlayD2Intro(int nArg)
-{
-    ARCHIVE_UnloadExpansionArchives();
-    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
-    {
-        ARCHIVE_UnloadExpansionArchives();
-        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
-        return 0;
-    }
-    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\d2intro%s.bik");
-    return 1;
-}
-
-// 0x00434380
-int __stdcall sub_00434380_PlayAct2Start(int nArg)
-{
-    ARCHIVE_UnloadExpansionArchives();
-    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
-    {
-        ARCHIVE_UnloadExpansionArchives();
-        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
-        return 0;
-    }
-    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act02start%s.bik");
-    return 1;
-}
-
-// 0x004343E0
-int __stdcall sub_004343E0_PlayAct3Start(int nArg)
-{
-    ARCHIVE_UnloadExpansionArchives();
-    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
-    {
-        ARCHIVE_UnloadExpansionArchives();
-        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
-        return 0;
-    }
-    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act03start%s.bik");
-    return 1;
-}
-
-// 0x00434440
-int __stdcall sub_00434440_PlayAct4Start(int nArg)
-{
-    ARCHIVE_UnloadExpansionArchives();
-    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
-    {
-        ARCHIVE_UnloadExpansionArchives();
-        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
-        return 0;
-    }
-    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act04start%s.bik");
-    return 1;
-}
-
-// 0x004344A0
-int __stdcall sub_004344A0_PlayAct4End(int nArg)
-{
-    ARCHIVE_UnloadExpansionArchives();
-    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
-    {
-        ARCHIVE_UnloadExpansionArchives();
-        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
-        return 0;
-    }
-    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act04end%s.bik");
-    return 1;
-}
-
-// 0x00434500
-int __stdcall sub_00434500_PlayXIntro(int nArg)
-{
-    ARCHIVE_UnloadExpansionArchives();
-    if (!ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4))
-        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
-    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\D2x_Intro_%s.bik");
-    return 1;
-}
-
-// 0x00434560
-int __stdcall sub_00434560_PlayXOutro(int nArg)
-{
-    ARCHIVE_UnloadExpansionArchives();
-    if (!ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4))
-        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
-    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\D2x_Out_%s.bik");
-    return 1;
 }
 
 // 0x00430CD0
@@ -1411,6 +1150,102 @@ int __fastcall sub_00431050_ShowCredits(int nUnused)
     return 1;
 }
 
+// 0x00431600
+int __stdcall sub_00431600_ShowLevelScreen(int nUnused)
+{
+    char szAddress[0x64];
+    unsigned char nLevel;
+    sub_00515F50(0xB4);
+    sub_00514930();
+    sub_00515CE0_SetMasterVolume(0xFF);
+    sub_0043C4F0();
+    if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
+    {
+        int a;
+        int b;
+        int c;
+        int d = 0x22;
+        sscanf(szAddress, "%ld.%ld.%ld.%ld", &a, &b, &c, &d);
+        const unsigned char nLow = (unsigned char)d;
+        if (nLow & 1)
+            nLevel = 7;
+        else if (nLow & 0x80)
+            nLevel = 6;
+        else if (nLow & 0x10)
+            nLevel = 5;
+        else if (nLow & 0x08)
+            nLevel = 4;
+        else if (nLow & 0x40)
+            nLevel = 3;
+        else
+            nLevel = (nLow & 4) ? 2 : 1;
+    }
+    else
+    {
+        nLevel = 1;
+        sprintf(szAddress, "%d.%d.%d.%d", 0xD8, 0x94, 0xF6, 0x22);
+        SRegSaveString("Diablo II", "Aux Battle.net", 0, szAddress);
+    }
+    if (sub_00408F20_HasExpansionMpq())
+    {
+        sub_004313D0(nLevel);
+        return 1;
+    }
+    sub_0042F430_CreateControl(0x32);
+    D2WinControlStrc* pTitle = sub_0042F430_CreateControl(0x33);
+    sub_004FD060_SetText(pTitle, D2LANG_GetStringFromTblIndex(0x13FA));
+    sub_0042F430_CreateControl(0x34);
+    D2WinControlStrc* pField1 = sub_0042F430_CreateControl(0x35);
+    D2WinControlStrc* pField2 = sub_0042F430_CreateControl(0x36);
+    D2WinControlStrc* pField3 = sub_0042F430_CreateControl(0x37);
+    D2WinControlStrc* pField4 = sub_0042F430_CreateControl(0x38);
+    switch (nLevel)
+    {
+    default:
+        sub_004F96F0_ControlClearState(pField1, 0);
+    case 2:
+        sub_004F96F0_ControlClearState(pField2, 0);
+    case 3:
+        sub_004F96F0_ControlClearState(pField3, 0);
+    case 4:
+        sub_004F96F0_ControlClearState(pField4, 0);
+    case 5:
+    case 6:
+    case 7:
+        break;
+    }
+    sub_0042F430_CreateControl(0x39);
+    return 1;
+}
+
+// 0x00431870
+static void __stdcall sub_00431870_PlayVideo(int nArg, const char* szFormat)
+{
+    char szPath[0x104];
+    char szSize[8];
+    sub_0042F480_Reset();
+    sub_0042F3F0_DestroyControls();
+    sub_004317D0_FlushInput();
+    if (sub_004F9050())
+    {
+        int nMode = 0;
+        if (!sub_0040EB10())
+        {
+            strcpy(szSize, "640x292");
+        }
+        else
+        {
+            nMode = 2;
+            strcpy(szSize, "640x146");
+        }
+        sub_0042FD10_BuildLocalizedVideoPath(szPath, szFormat, szSize);
+        sub_004F5D90_PlayVideo(szPath, nMode, 0);
+        D2Win_10004(1);
+    }
+    sub_004317D0_FlushInput();
+    sub_00431600_ShowLevelScreen(nArg);
+}
+
 // 0x00431F70
 int __cdecl sub_00431F70_SaveExists()
 {
@@ -1432,9 +1267,219 @@ int __cdecl sub_00431F70_SaveExists()
     return 0;
 }
 
-static D2LaunchSlotStrc** gppSlots_00779988; // 0x00779988
+// 0x004326F0
+void __cdecl sub_004326F0_LoadFrontEndCells2()
+{
+    char szPath[0x104];
+    if (gpCellFile_00779724)
+        return;
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\MediumSelButtonBlank", szDataGlobal_006D4118);
+    gpCellFile_00779744 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    if (sub_00408F20_HasExpansionMpq())
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\charactercreationscreenEXP", szDataGlobal_006D4118);
+    else
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\CharacterCreate", szDataGlobal_006D4118);
+    gpCellFile_00779724 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\fire", szDataGlobal_006D4118);
+    gpCellFile_00779728 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\textbox", szDataGlobal_006D4118);
+    gpCellFile_007797BC = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\clickbox", szDataGlobal_006D4118);
+    gpCellFile_007797C0 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    if (sub_00408F20_HasExpansionMpq())
+    {
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\joingameclickboxgrey", szDataGlobal_006D4118);
+        gpCellFile_007797C4 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu1", szDataGlobal_006D4118);
+        gpCellFile_007797E0 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu2", szDataGlobal_006D4118);
+        gpCellFile_007797E4 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asfw", szDataGlobal_006D4118);
+        gpCellFile_007797E8 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asnu3", szDataGlobal_006D4118);
+        gpCellFile_007797EC = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\assassin\\asbw", szDataGlobal_006D4118);
+        gpCellFile_007797F0 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu1", szDataGlobal_006D4118);
+        gpCellFile_007797F4 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu2", szDataGlobal_006D4118);
+        gpCellFile_007797F8 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzfw", szDataGlobal_006D4118);
+        gpCellFile_007797FC = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dznu3", szDataGlobal_006D4118);
+        gpCellFile_00779800 = sub_004FA9B0_LoadCellFile(szPath, 0);
+        wsprintfA(szPath, "%s\\ui\\FrontEnd\\druid\\dzbw", szDataGlobal_006D4118);
+        gpCellFile_00779804 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    }
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu1", szDataGlobal_006D4118);
+    gpCellFile_00779808 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu2", szDataGlobal_006D4118);
+    gpCellFile_0077980C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amfw", szDataGlobal_006D4118);
+    gpCellFile_00779810 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\amnu3", szDataGlobal_006D4118);
+    gpCellFile_00779814 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\amazon\\ambw", szDataGlobal_006D4118);
+    gpCellFile_00779818 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu1", szDataGlobal_006D4118);
+    gpCellFile_0077981C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu2", szDataGlobal_006D4118);
+    gpCellFile_00779820 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefw", szDataGlobal_006D4118);
+    gpCellFile_00779824 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3", szDataGlobal_006D4118);
+    gpCellFile_00779828 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebw", szDataGlobal_006D4118);
+    gpCellFile_0077982C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu1", szDataGlobal_006D4118);
+    gpCellFile_00779830 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu2", szDataGlobal_006D4118);
+    gpCellFile_00779834 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafw", szDataGlobal_006D4118);
+    gpCellFile_00779838 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\banu3", szDataGlobal_006D4118);
+    gpCellFile_0077983C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\babw", szDataGlobal_006D4118);
+    gpCellFile_00779840 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu1", szDataGlobal_006D4118);
+    gpCellFile_00779844 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu2", szDataGlobal_006D4118);
+    gpCellFile_00779848 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofw", szDataGlobal_006D4118);
+    gpCellFile_0077984C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3", szDataGlobal_006D4118);
+    gpCellFile_00779850 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobw", szDataGlobal_006D4118);
+    gpCellFile_00779854 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu1", szDataGlobal_006D4118);
+    gpCellFile_00779858 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu2", szDataGlobal_006D4118);
+    gpCellFile_0077985C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafw", szDataGlobal_006D4118);
+    gpCellFile_00779860 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\panu3", szDataGlobal_006D4118);
+    gpCellFile_00779864 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pabw", szDataGlobal_006D4118);
+    gpCellFile_00779868 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sofws", szDataGlobal_006D4118);
+    gpCellFile_0077989C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sonu3s", szDataGlobal_006D4118);
+    gpCellFile_007798A0 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\sorceress\\sobws", szDataGlobal_006D4118);
+    gpCellFile_007798A4 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nefws", szDataGlobal_006D4118);
+    gpCellFile_00779888 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nenu3s", szDataGlobal_006D4118);
+    gpCellFile_0077988C = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\necromancer\\nebws", szDataGlobal_006D4118);
+    gpCellFile_00779890 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\barbarian\\bafws", szDataGlobal_006D4118);
+    gpCellFile_007798B0 = sub_004FA9B0_LoadCellFile(szPath, 0);
+    wsprintfA(szPath, "%s\\ui\\FrontEnd\\paladin\\pafws", szDataGlobal_006D4118);
+    gpCellFile_007798C4 = sub_004FA9B0_LoadCellFile(szPath, 0);
+}
 
-// 0x004309C0
+// 0x004334E0
+void __cdecl sub_004334E0_PlayIntro()
+{
+    char szPath[0x104];
+    char szAddress[0x64];
+    int a;
+    int b;
+    int c;
+    int d;
+    void* hFile;
+    char szLanguage[4];
+    char szSize[8];
+    sub_004317D0_FlushInput();
+    int nMode = 0;
+    if (!sub_0040EB10())
+    {
+        strcpy(szSize, "640x292");
+    }
+    else
+    {
+        nMode = 2;
+        strcpy(szSize, "640x146");
+    }
+    sub_00525260(szLanguage, 0);
+    sprintf(szPath, "%s\\video\\%s\\D2x_Intro_%s.bik", gszDataLocal_006D41A8, szLanguage, szSize);
+    if (SFileOpenFileEx(0, szPath, 0, &hFile))
+        sub_004198D0(hFile);
+    else
+        sprintf(szPath, "%s\\video\\%s\\D2x_Intro%s.bik", gszDataLocal_006D41A8, "ENG", szSize);
+    sub_004F5D90_PlayVideo(szPath, nMode, 0);
+    if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
+        sscanf(szAddress, "%ld.%ld.%ld.%ld", &a, &b, &c, &d);
+    d |= 0x80;
+    sprintf(szAddress, "%d.%d.%d.%ld", 0xD8, 0x94, 0xF6, d);
+    SRegSaveString("Diablo II", "Aux Battle.net", 0, szAddress);
+}
+
+// 0x00433640
+void __cdecl sub_00433640_PlayIntroVideo()
+{
+    char szPath[0x104];
+    char szSize[8];
+    sub_004317D0_FlushInput();
+    int nMode = 0;
+    if (!sub_0040EB10())
+    {
+        strcpy(szSize, "640x292");
+    }
+    else
+    {
+        nMode = 2;
+        strcpy(szSize, "640x146");
+    }
+    sub_0042FD10_BuildLocalizedVideoPath(szPath, "%s\\video\\%s\\d2intro%s.bik", szSize);
+    sub_004F5D90_PlayVideo(szPath, nMode, 0);
+    sub_0042FB20();
+}
+
+// 0x004336C0
+void __cdecl sub_004336C0_ShowMainMenu()
+{
+    char szVersion[0x40];
+    D2WinControlStrc* pFirst;
+    D2WinControlStrc* pSecond;
+    sub_0043B9A0();
+    gpLaunchRecord_007795D4->szName[0] = 0;
+    sub_0043C4F0();
+    if (sub_00408F20_HasExpansionMpq())
+    {
+        gpControl_007795AC = sub_0042F430_CreateControl(0x12);
+        sub_00431AF0();
+        pFirst = sub_0042F430_CreateControl(0x11);
+        pSecond = sub_0042F430_CreateControl(0x13);
+        sub_0042F430_CreateControl(0x10);
+    }
+    else
+    {
+        pFirst = sub_0042F430_CreateControl(0x0A);
+        gpControl_007795AC = sub_0042F430_CreateControl(0x0B);
+        sub_00431AF0();
+        sub_0042F430_CreateControl(0x09);
+        pSecond = sub_0042F430_CreateControl(0x0C);
+    }
+    if (sub_004FAC90())
+    {
+        sub_004F96F0_ControlClearState(pFirst, 0);
+        sub_004F96F0_ControlClearState(pSecond, 0);
+        sub_004F96F0_ControlClearState(gpControl_007795AC, 0);
+    }
+    sub_0042F430_CreateControl(0x0D);
+    sub_0042F430_CreateControl(0x0E);
+    sub_0042F430_CreateControl(0x0F);
+    D2WinControlStrc* pText = sub_0042F430_CreateControl(0x115);
+    const int nLen = SStrPrintf(szVersion, 0x40, "v %d.%d%c", 1, 0x0E, 0x64);
+    if (gpLaunchRecord_007795D4->bFlag223)
+        SStrPrintf(&szVersion[nLen], 0x40 - nLen, " %d", 0x47);
+    sub_004FCFF0_SetTextA(pText, szVersion, 0);
+    if (sub_00514D80())
+        D2SOUND_10034(1);
+}
+
 int __stdcall sub_004309C0_AddToSlots(void* pEntry)
 {
     D2_ASSERT(gppSlots_00779988, 4383);
@@ -1449,7 +1494,6 @@ int __stdcall sub_004309C0_AddToSlots(void* pEntry)
     return 0;
 }
 
-// 0x00430A20
 int __cdecl sub_00430A20_FreeSlots()
 {
     if (!gppSlots_00779988)
@@ -1512,3 +1556,700 @@ void __cdecl sub_00434060_BuildMenuList()
         qsort(gppSlots_00779988, gdwGlobal_0077998C, sizeof(D2LaunchSlotStrc*), sub_00430B00_CompareNames);
     }
 }
+
+// 0x00434320
+int __stdcall sub_00434320_PlayD2Intro(int nArg)
+{
+    ARCHIVE_UnloadExpansionArchives();
+    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
+    {
+        ARCHIVE_UnloadExpansionArchives();
+        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
+        return 0;
+    }
+    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\d2intro%s.bik");
+    return 1;
+}
+
+// 0x00434380
+int __stdcall sub_00434380_PlayAct2Start(int nArg)
+{
+    ARCHIVE_UnloadExpansionArchives();
+    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
+    {
+        ARCHIVE_UnloadExpansionArchives();
+        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
+        return 0;
+    }
+    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act02start%s.bik");
+    return 1;
+}
+
+// 0x004343E0
+int __stdcall sub_004343E0_PlayAct3Start(int nArg)
+{
+    ARCHIVE_UnloadExpansionArchives();
+    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
+    {
+        ARCHIVE_UnloadExpansionArchives();
+        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
+        return 0;
+    }
+    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act03start%s.bik");
+    return 1;
+}
+
+// 0x00434440
+int __stdcall sub_00434440_PlayAct4Start(int nArg)
+{
+    ARCHIVE_UnloadExpansionArchives();
+    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
+    {
+        ARCHIVE_UnloadExpansionArchives();
+        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
+        return 0;
+    }
+    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act04start%s.bik");
+    return 1;
+}
+
+// 0x004344A0
+int __stdcall sub_004344A0_PlayAct4End(int nArg)
+{
+    ARCHIVE_UnloadExpansionArchives();
+    if (!ARCHIVE_LoadVideoArchives((void*)sub_00431A00_ShowArchiveMessage, 0, 0))
+    {
+        ARCHIVE_UnloadExpansionArchives();
+        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
+        return 0;
+    }
+    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\Act04end%s.bik");
+    return 1;
+}
+
+// 0x00434500
+int __stdcall sub_00434500_PlayXIntro(int nArg)
+{
+    ARCHIVE_UnloadExpansionArchives();
+    if (!ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4))
+        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
+    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\D2x_Intro_%s.bik");
+    return 1;
+}
+
+// 0x00434560
+int __stdcall sub_00434560_PlayXOutro(int nArg)
+{
+    ARCHIVE_UnloadExpansionArchives();
+    if (!ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4))
+        ARCHIVE_LoadExpansionArchives(sub_00434220_PlayDisc, sub_004342E0_ExpansionDisc, 0, gpConfig_007795D4);
+    sub_00431870_PlayVideo(nArg, "%s\\video\\%s\\D2x_Out_%s.bik");
+    return 1;
+}
+
+// 0x00434790
+int __stdcall sub_00434790_JoinTcpIp(int nUnused)
+{
+    char szText[0x400];
+    int a;
+    int b;
+    int c;
+    int d;
+    const Unicode* pText = sub_004FDD90_GetEditText(gpAddressEdit_00779958);
+    sub_005263E0(szText, pText, 0x100);
+    if (!szText[0])
+        return 1;
+    strncpy(gszAddress_007795F8, szText, 0xFF);
+    gszAddress_007795F8[0xFF] = 0;
+    SRegSaveString("Diablo II", "LastTcpIp", 0, gszAddress_007795F8);
+    if (sscanf(szText, "%d.%d.%d.%d", &a, &b, &c, &d) != 4)
+    {
+        const char* szResolved = FOG_ResolveHostIPAddress(szText);
+        if (szResolved)
+        {
+            strcpy(szText, szResolved);
+        }
+        else
+        {
+            sub_004FFE10_SetTextA(gpAddressEdit_00779958, &gszEmptyAssertText);
+            return 1;
+        }
+    }
+    strcpy(gpLaunchRecord_007795D4->szName, szText);
+    sub_0042F6E0();
+    sub_004FA590_RunLoop(sub_00431D10);
+    gbConnected_0077959C = 0;
+    sub_0052A750(0, szText);
+    sub_004FA590_RunLoop(sub_00431E30);
+    if (!gbConnected_0077959C)
+    {
+        sub_0052A7E0();
+        sub_0042F3F0_DestroyControls();
+        const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x145B);
+        sub_00433380_ShowMessage(pMessage, sub_0042FFE0_CreateScreen, 1);
+        return 1;
+    }
+    sub_0042F3F0_DestroyControls();
+    sub_0042F6E0();
+    sub_004FA590_RunLoop(sub_00431C90);
+    sub_0052A7E0();
+    sub_0042F3F0_DestroyControls();
+    if (!gdwGlobal_00779974)
+    {
+        gnLaunchMode_007795EC = 2;
+        *(int*)gpLaunchRecord_007795D4->aState19 = 9;
+        *(unsigned short*)gpLaunchRecord_007795D4->aWord1D = 1;
+        sub_00515020();
+        sub_0042F480_Reset();
+        sub_0043B080_InitCharSelectScreen();
+    }
+    return 1;
+}
+
+static void sub_00431E70_SetModeFlags(char nMode)
+{
+    gpLaunchRecord_007795D4->nMode = nMode;
+    gpLaunchRecord_007795D4->nFlag085 = 0;
+    gpLaunchRecord_007795D4->nFlag089 = 0;
+    gpLaunchRecord_007795D4->nFlag088 = 0;
+    gpLaunchRecord_007795D4->nFlag086 = 0;
+    gpLaunchRecord_007795D4->nFlag087 = 0;
+    gpLaunchRecord_007795D4->nFlag08A = 0;
+    gpLaunchRecord_007795D4->nFlag08B = 0;
+
+    if (nMode == 0)
+    {
+        gpLaunchRecord_007795D4->nFlag085 = 1;
+    }
+    else if (nMode == 4)
+    {
+        gpLaunchRecord_007795D4->nFlag089 = 1;
+    }
+    else if (nMode == 2)
+    {
+        gpLaunchRecord_007795D4->nFlag088 = 1;
+    }
+    else if (nMode == 3)
+    {
+        gpLaunchRecord_007795D4->nFlag086 = 1;
+    }
+    else if (nMode == 1)
+    {
+        gpLaunchRecord_007795D4->nFlag087 = 1;
+    }
+    else if (nMode == 5)
+    {
+        gpLaunchRecord_007795D4->nFlag08A = 1;
+    }
+    else if (nMode == 6)
+    {
+        gpLaunchRecord_007795D4->nFlag08B = 1;
+    }
+}
+
+// 0x00434A00
+int __fastcall sub_00434A00_Join(const char* szGameName, unsigned short wFlags, char nMode, const char* szPassword)
+{
+    int bPassword = szPassword[0] != 0;
+    strcpy(gpLaunchRecord_007795D4->szGameName, szGameName);
+    strcpy(gpLaunchRecord_007795D4->szGamePassword, szPassword);
+    gpLaunchRecord_007795D4->wFlags1EF = wFlags;
+    sub_00431E70_SetModeFlags(nMode);
+
+    if (gnLaunchMode_007795EC == 1 || gnLaunchMode_007795EC == 3)
+    {
+        if (!gpFuncTable_0077ABF0->pfnSlot68())
+        {
+            sub_0043C4F0();
+            if (!sub_0043BF60())
+                return 0;
+            if (!sub_0043C180_Connect(gpLaunchRecord_007795D4, 0, 0))
+                return 0;
+        }
+    }
+
+    if (gnLaunchMode_007795EC == 0)
+    {
+        gpLaunchRecord_007795D4->nByte35E = 1;
+        gnLaunchState_007795E8 = 1;
+        gpLaunchRecord_007795D4->nState19 = 0;
+        gpLaunchRecord_007795D4->dwFlags209 = 4;
+        if (wFlags & 4)
+            gpLaunchRecord_007795D4->dwFlags209 = 0x804;
+        if (gpLaunchRecord_007795D4->wFlags1EF & 0x20)
+            gpLaunchRecord_007795D4->dwFlags209 |= 0x100000;
+        sub_004F9190();
+        return 1;
+    }
+
+    if (gnLaunchMode_007795EC == 2)
+    {
+        gpLaunchRecord_007795D4->nByte35E = 3;
+        gnLaunchState_007795E8 = 1;
+        gpLaunchRecord_007795D4->dwFlags209 = 4;
+        if (wFlags & 4)
+            gpLaunchRecord_007795D4->dwFlags209 = 0x804;
+        if (gpLaunchRecord_007795D4->wFlags1EF & 0x20)
+            gpLaunchRecord_007795D4->dwFlags209 |= 0x100000;
+        sub_004F9190();
+        return 1;
+    }
+    {
+        int bNewGame;
+        if (bPassword)
+        {
+            switch (sub_00432480(szPassword, 0))
+            {
+            case 1:
+                return 0;
+            case 2:
+            {
+                const Unicode* pText = D2LANG_GetStringFromTblIndex(0x145B);
+                sub_00433380_ShowMessage(pText, sub_0042FDD0, 1);
+                return 1;
+            }
+            }
+
+            if (sub_00449C00())
+            {
+                D2MCPClientCloseMCP();
+                int nString;
+                switch (sub_00449C00())
+                {
+                case 2:
+                    nString = 0x145B;
+                    break;
+                case 0x47:
+                    nString = 0x145C;
+                    break;
+                default:
+                    nString = 0x145B;
+                    break;
+                }
+                const Unicode* pText = D2LANG_GetStringFromTblIndex(nString);
+                sub_00433380_ShowMessage(pText, sub_0042FDD0, 1);
+                return 1;
+            }
+
+            sub_00449E10_Forward1(gpLaunchRecord_007795D4->szGameName);
+            sub_0042F6E0();
+            sub_004FA590_RunLoop(sub_00432FE0_OnReceiveB);
+            int nState = sub_00449C00();
+            if (nState == 0x46 || !sub_00449B30_QueryAddress())
+            {
+                sub_0042F3F0_DestroyControls();
+                const Unicode* pText = D2LANG_GetStringFromTblIndex(0x140D);
+                sub_00433380_ShowMessage(pText, sub_0042FDD0, 1);
+                return 0;
+            }
+
+            if (nState == 0x7B)
+            {
+                Unicode wszText[256];
+                Unicode wszName[256];
+                sub_00526F20_ToUnicode(wszName, gpLaunchRecord_007795D4->szGameName, 256);
+                D2MCPClientCloseMCP();
+                sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszName);
+                sub_0042F3F0_DestroyControls();
+                void* pSaved = gpGlobal_0070B738;
+                gpGlobal_0070B738 = gaGlobal_007089C4;
+                sub_00433380_ShowMessage(wszText, sub_0042FDD0, 1);
+                gpGlobal_0070B738 = pSaved;
+                return 0;
+            }
+
+            if (gdwGlobal_00779974)
+            {
+                sub_0042F3F0_DestroyControls();
+                return 0;
+            }
+
+            bNewGame = 0;
+        }
+        else
+        {
+            gpLaunchRecord_007795D4->nByte22D = 0;
+            gpLaunchRecord_007795D4->szGamePassword[0] = 0;
+            bNewGame = 1;
+        }
+
+        if (!bNewGame)
+        {
+            gpLaunchRecord_007795D4->nByte35E = 2;
+        }
+        else
+        {
+            gpLaunchRecord_007795D4->nByte35E = 4;
+            gpLaunchRecord_007795D4->dwFlags209 = 4;
+            if (wFlags & 4)
+                gpLaunchRecord_007795D4->dwFlags209 = 0x804;
+            if (gpLaunchRecord_007795D4->wFlags1EF & 0x20)
+                gpLaunchRecord_007795D4->dwFlags209 |= 0x100000;
+        }
+
+        gnLaunchState_007795E8 = 3;
+        sub_0042F6E0();
+        sub_004FA590_RunLoop(sub_00431D10_ClearLoop);
+        sub_004F9190();
+        return 1;
+    }
+}
+
+struct D2WinControlStrc;
+
+// 0x00435330
+void __cdecl sub_00435330_ShowLoginScreen()
+{
+    char szAccount[0x400];
+    s_bGatewayFlag_00779954 = 1;
+    int bConnected = gpFuncTable_0077ABF0->pfnSlot68();
+    if (bConnected && !sub_0043B840())
+        goto create;
+    if (bConnected)
+        sub_0043B9A0();
+    sub_004336C0();
+    if (!sub_0043BF60())
+        return;
+create:
+    gpEdit_0077958C = 0;
+    gpEdit_00779334 = 0;
+    gpEdit_007795A8 = 0;
+    gpControl_00779594 = 0;
+    sub_0043C4F0();
+    sub_0042F430_CreateControl(0x15);
+    sub_0042F430_CreateControl(0x16);
+    D2WinControlStrc* pControl = sub_0042F430_CreateControl(0x1A);
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x1468));
+    pControl = sub_0042F430_CreateControl(0x1B);
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x1469));
+    if (!sub_00408F20_HasExpansionMpq())
+    {
+        pControl = sub_0042F430_CreateControl(0x1F);
+        sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1454), 0, 0, 0);
+    }
+    pControl = sub_0042F430_CreateControl(0x20);
+    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1455), 0, 0, 0);
+    gpEdit_0077958C = sub_0042F430_CreateControl(0x22);
+    sub_004FDD50_SetMaxLength(gpEdit_0077958C, 0x10);
+    sub_004FDB00_SetEnterCallback(gpEdit_0077958C, sub_00433BE0_UpdateOk);
+    sub_004FDAD0_SetKeyCallback(gpEdit_0077958C, sub_0042FDE0_KeyFilter);
+    gpEdit_00779334 = sub_0042F430_CreateControl(0x23);
+    sub_004FDD50_SetMaxLength(gpEdit_00779334, 0xD);
+    sub_004FDB00_SetEnterCallback(gpEdit_00779334, sub_00433BE0_UpdateOk);
+    sub_004FDAD0_SetKeyCallback(gpEdit_00779334, sub_0042FE60_KeyFilter);
+    if (SRegLoadString("Diablo II", "Last BNet", 0, szAccount, 0x400))
+    {
+        D2Win_10076(gpEdit_0077958C, szAccount);
+        sub_004F91C0(gpEdit_00779334);
+    }
+    else
+        sub_004F91C0(gpEdit_0077958C);
+    sub_004FDDD0_LinkTab(gpEdit_0077958C, gpEdit_00779334);
+    sub_004FDDD0_LinkTab(gpEdit_00779334, gpEdit_0077958C);
+    sub_0042F430_CreateControl(0x24);
+    sub_0042F430_CreateControl(0x25);
+    gpControl_00779594 = sub_0042F430_CreateControl(0x26);
+    sub_0042F430_CreateControl(0x27);
+    sub_004306C0_UpdateOk();
+    if (gnValue_00779980)
+    {
+        pControl = sub_0042F430_CreateControl(0x28);
+        D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x2B62));
+    }
+    if (sub_00514D80())
+        D2SOUND_10034(1);
+}
+
+// 0x00435580
+void __cdecl sub_00435580_CreateCharCreateScreen()
+{
+    sub_004326F0_LoadFrontEndCells2();
+    sub_0042F480_Reset();
+    gnGlobal_00708D0C = -1;
+    gnGlobal_0070CB80 = -1;
+    gpLaunchRecord_007795D4->wFlags1EF = 0;
+    sub_0042F2E0_ReadPaletteFiles(gszFecharPalDat_006D39E8, "palette\\fechar\\pal.pl2");
+
+    sub_0042F430_CreateControl(0xB1);
+    gpControl_007795D8 = sub_0042F430_CreateControl(0xC5);
+    gpControl_007795DC = sub_0042F430_CreateControl(0xC6);
+    D2WinControlStrc* pTitle = sub_0042F430_CreateControl(0xAE);
+    sub_004FC9B0_SetText(pTitle, D2LANG_GetStringFromTblIndex(0x1407), 0, 0, 0);
+
+    if (gnLaunchMode_007795EC == 1)
+    {
+        gpControl_0077933C = sub_0042F430_CreateControl(0xC7);
+        sub_004FB740(gpControl_0077933C, -6, 0);
+        sub_004FC9B0_SetText(gpControl_0077933C, D2LANG_GetStringFromTblIndex(0x2B87), 1, 0, 0);
+        sub_004FC9B0_SetText(gpControl_0077933C, D2LANG_GetStringFromTblIndex(0x2B88), 1, 0, 0);
+    }
+
+    sub_004FA450(sub_0042F430_CreateControl(0xAF));
+    gpControl_00779598 = sub_0042F430_CreateControl(0xC8);
+    gpControl_007795CC = sub_0042F430_CreateControl(0xC9);
+    sub_004FC9B0_SetText(gpControl_007795CC, D2LANG_GetStringFromTblIndex(0x1405), 4, 0, 0);
+    gpControl_0077934C = sub_0042F430_CreateControl(0xCC);
+    sub_004FDD50_SetMaxLength(gpControl_0077934C, 0x10);
+    sub_004FDAD0_SetKeyCallback(gpControl_0077934C, sub_00430590_FilterNameChar);
+    sub_004FDB00_SetEnterCallback(gpControl_0077934C, sub_00433BD0_UpdateNameOk);
+
+    if (sub_00408F20_HasExpansionMpq())
+    {
+        gpControl_00779568 = sub_0042F430_CreateControl(0xD3);
+        sub_004FC9B0_SetText(gpControl_00779568, D2LANG_GetStringFromTblIndex(0x58CB), 4, 0, 0);
+        sub_004F9740_SetControlState(gpControl_00779568, 0);
+        gpControl_007795C8 = sub_0042F430_CreateControl(0xD4);
+        sub_004F9740_SetControlState(gpControl_007795C8, 0);
+        gpControl_007795B4 = sub_0042F430_CreateControl(0xD5);
+        sub_004F9740_SetControlState(gpControl_007795B4, 0);
+        gpControl_007795B0 = sub_0042F430_CreateControl(0xBD);
+        sub_004FC9B0_SetText(gpControl_007795B0, D2LANG_GetStringFromTblIndex(0x1406), 4, 0, 0);
+        gpControl_007795C4 = sub_0042F430_CreateControl(0xBE);
+        if (gnLaunchMode_007795EC == 1)
+        {
+            if (gnGlobal_00779DA4)
+            {
+                gpControl_007795B8 = sub_0042F430_CreateControl(0xC3);
+                gpControl_00779348 = sub_0042F430_CreateControl(0xC4);
+            }
+            else
+            {
+                gpControl_007795B8 = sub_0042F430_CreateControl(0xC1);
+                gpControl_00779348 = sub_0042F430_CreateControl(0xC2);
+            }
+        }
+    }
+    else
+    {
+        gpControl_007795B0 = sub_0042F430_CreateControl(0xCA);
+        sub_004FC9B0_SetText(gpControl_007795B0, D2LANG_GetStringFromTblIndex(0x1406), 4, 0, 0);
+        gpControl_007795C4 = sub_0042F430_CreateControl(0xCB);
+        if (gnLaunchMode_007795EC == 1)
+        {
+            if (gnGlobal_00779DA4)
+            {
+                gpControl_007795B8 = sub_0042F430_CreateControl(0xC1);
+                gpControl_00779348 = sub_0042F430_CreateControl(0xC2);
+            }
+            else
+            {
+                gpControl_007795B8 = sub_0042F430_CreateControl(0xBF);
+                gpControl_00779348 = sub_0042F430_CreateControl(0xC0);
+            }
+        }
+    }
+
+    if (gnLaunchMode_007795EC == 1)
+    {
+        sub_004FC9B0_SetText(gpControl_007795B8, D2LANG_GetStringFromTblIndex(0x2AAF), 4, 0, 0);
+    }
+
+    gpControl_00779330 = sub_0042F430_CreateControl(0xB0);
+    if (!gnGlobal_00779DA4)
+    {
+        sub_004F96F0_ControlClearState(gpControl_007795C4, 0);
+        sub_004F96F0_ControlClearState(gpControl_007795B0, 0);
+    }
+
+    sub_004F9740_SetControlState(gpControl_00779598, 0);
+    sub_004F9740_SetControlState(gpControl_007795CC, 0);
+    sub_004F9740_SetControlState(gpControl_007795B0, 0);
+    sub_004F9740_SetControlState(gpControl_007795C4, 0);
+    sub_004F9740_SetControlState(gpControl_0077934C, 0);
+    sub_004F9740_SetControlState(gpControl_00779330, 0);
+    if (gnLaunchMode_007795EC == 1)
+    {
+        sub_004F9740_SetControlState(gpControl_007795B8, 0);
+        sub_004F9740_SetControlState(gpControl_00779348, 0);
+    }
+
+    gpControl_0077956C = sub_0042F430_CreateControl(0xB6);
+    if (sub_00408F20_HasExpansionMpq())
+    {
+        gpControl_00779578 = sub_0042F430_CreateControl(0xBA);
+        gpControl_0077957C = sub_0042F430_CreateControl(0xBB);
+        gpControl_00779570 = sub_0042F430_CreateControl(0xB5);
+        gpControl_00779584 = sub_0042F430_CreateControl(0xD1);
+        gpControl_00779574 = sub_0042F430_CreateControl(0xBC);
+        gpControl_00779580 = sub_0042F430_CreateControl(0xD2);
+        sub_0042F430_CreateControl(0xB2);
+    }
+    else
+    {
+        gpControl_00779570 = sub_0042F430_CreateControl(0xB5);
+        gpControl_00779578 = sub_0042F430_CreateControl(0xB7);
+        gpControl_00779574 = sub_0042F430_CreateControl(0xB4);
+        gpControl_0077957C = sub_0042F430_CreateControl(0xB8);
+        sub_0042F430_CreateControl(0xB3);
+    }
+
+    sub_00430620_UpdateNameOk();
+}
+
+// 0x004365B0
+void __cdecl sub_004365B0_CreateCharacter()
+{
+    char szName[0x100];
+    if (sub_00431F70_SaveExists() == 1 && gnLaunchMode_007795EC != 1)
+    {
+        sub_00433460_ShowMessage(D2LANG_GetStringFromTblIndex(0x142D), sub_0042F3F0_DestroyControls);
+        return;
+    }
+    if (gpLaunchRecord_007795D4->nMode == 6 || gpLaunchRecord_007795D4->nMode == 5)
+        *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF |= 0x20;
+    const Unicode* pText = sub_004FDD90_GetEditText(gpNameEdit_0077934C);
+    sub_005263E0(szName, pText, 0x100);
+    sprintf((gpLaunchRecord_007795D4->szPassword + 0x18), gszStringFormat_006FFC58, szName);
+    gpLaunchRecord_007795D4->szPassword[0x30] = 0;
+    if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
+        gbFlag_00779984 = 1;
+    if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
+    {
+        sub_00430520();
+        return;
+    }
+    if (gnLaunchMode_007795EC == 0)
+    {
+        sub_0042F480_Reset();
+        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
+        gpLaunchRecord_007795D4->nByte35E = 1;
+        *(int*)gpLaunchRecord_007795D4->aState19 = 0;
+        gnLaunchState_007795E8 = 1;
+        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
+        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
+            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
+        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
+            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
+        sub_004F9190();
+    }
+    else if (gnLaunchMode_007795EC == 2)
+    {
+        sub_0042F480_Reset();
+        sub_0043C6A0(0);
+        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
+        gpLaunchRecord_007795D4->nByte35E = 3;
+        gnLaunchState_007795E8 = 1;
+        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
+        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
+            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
+        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
+            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
+        sub_004F9190();
+    }
+    else if (gnLaunchMode_007795EC == 3)
+    {
+        sub_0042F480_Reset();
+        D2MCPClientCloseMCP();
+        sub_0043C6A0(0);
+        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
+        gpLaunchRecord_007795D4->nByte3C1 = 1;
+        SMemCopy(gpLaunchRecord_007795D4->aData3A1, gabDefault_006D4D88, 0x10);
+        SMemZero(gpLaunchRecord_007795D4->aData3B1, 0x10);
+        gpLaunchRecord_007795D4->nByte3C2 = (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF >> 6) & 1;
+        *(unsigned short*)gpLaunchRecord_007795D4->aWord3CB = *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF;
+        gpLaunchRecord_007795D4->nByte35E = 4;
+        gpLaunchRecord_007795D4->nByte22D = 0;
+        gpLaunchRecord_007795D4->szPassword[0x30] = 0;
+        gnLaunchState_007795E8 = 3;
+        *(int*)gpLaunchRecord_007795D4->aState209 = 4;
+        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
+            *(int*)gpLaunchRecord_007795D4->aState209 = 0x804;
+        if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
+            *(int*)gpLaunchRecord_007795D4->aState209 |= 0x100000;
+        sub_004F9190();
+    }
+    else if (gnLaunchMode_007795EC == 1)
+    {
+        sub_00435E10();
+    }
+}
+
+// 0x004369F0
+int __stdcall sub_004369F0_OkClick(int nUnused)
+{
+    char szPath[0x400];
+    if (sub_004F9710_TestFlags(gpOkButton_00779330))
+    {
+        sub_00407050_GetSavePath(szPath, 0x400);
+        for (unsigned int i = 0; i < 0x400; i += 1)
+        {
+            if (szPath[i] == '\\')
+            {
+                szPath[i + 1] = 0;
+                break;
+            }
+        }
+        unsigned long nSectorsPerCluster = 0;
+        unsigned long nBytesPerSector = 0;
+        unsigned long nFreeClusters = 0;
+        unsigned long nTotalClusters = 0;
+        GetDiskFreeSpaceA(szPath, &nSectorsPerCluster, &nBytesPerSector, &nFreeClusters, &nTotalClusters);
+        if (nFreeClusters * nBytesPerSector * nSectorsPerCluster < 5000)
+        {
+            sub_00433460_ShowMessage(D2LANG_GetStringFromTblIndex(0x141D), sub_0042FDD0);
+            return 1;
+        }
+        sub_004F96F0_ControlClearState(gpOkButton_00779330, 0);
+        sub_004365B0_CreateCharacter();
+    }
+    return 1;
+}
+
+// 0x00436AD0
+void __cdecl sub_00436AD0_UpdateStatus()
+{
+    char szText[0x100];
+    int nState;
+    if (!gpStatusText_007799A8)
+        return;
+    gpFuncTable_0077ABF0->pfnSlot80(&nState);
+    switch (nState)
+    {
+    case 0:
+        gnStatusStringId_007799B0 = 0x1433;
+        break;
+    case 1:
+        gnStatusStringId_007799B0 = 0x1434;
+        break;
+    case 2:
+        gnStatusStringId_007799B0 = 0x1435;
+        break;
+    case 3:
+        gnStatusStringId_007799B0 = 0x1436;
+        break;
+    case 4:
+        gnStatusStringId_007799B0 = 0x1437;
+        break;
+    case 5:
+        gnStatusStringId_007799B0 = 0x1438;
+        break;
+    case 6:
+        gnStatusStringId_007799B0 = 0x1439;
+        break;
+    default:
+        gnStatusStringId_007799B0 = -1;
+        break;
+    }
+    sub_004FB6A0_ClearText(gpStatusText_007799A8);
+    if (gnStatusStringId_007799B0 >= 0)
+        sub_004FC9B0_SetText(gpStatusText_007799A8, D2LANG_GetStringFromTblIndex(gnStatusStringId_007799B0), 0, 0, 0);
+    const unsigned long nCounter = (GetTickCount() - gdwStatusStart_007799B8) / 250 % 20 + 1;
+    sprintf(szText, "%.*s", nCounter, "....................");
+    sub_004FB6A0_ClearText(gpCounterText_007799AC);
+    D2Win_10045(gpCounterText_007799AC, szText);
+}
+
+// 0x00436CF0
+void __cdecl sub_00436CF0()
+{
+ const Unicode* pText1=D2Win_10077_EDITBOX_GetText(gpEdit_007799CC);
+ const Unicode* pText2=D2Win_10077_EDITBOX_GetText(gpEdit_007799D0);
+ int bOk=sub_00526800(pText1)>0;
+ bOk|=sub_00526800(pText2)>0;
+ sub_004F96F0_ControlClearState(gpControl_007799D4,bOk);
+}
+
+#include "gen/data/Source/D2Launch/Src/MainMenus_0042F2E0.inc"
