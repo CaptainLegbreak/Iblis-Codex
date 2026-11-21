@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -108,7 +109,7 @@ int __fastcall sub_005D8780_SrvDoStageRoll(D2GameStrc* pGame, D2UnitStrc* pUnit,
         return 0;
     }
 
-    if (STATES_CheckState(pTarget, 0x76))
+    if (STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT))
     {
         return 0;
     }

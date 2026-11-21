@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -1224,7 +1225,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
     D2CombinedStatsStrc tCombined;
     D2StatStrc aStats[511];
 
-    if (ITEMS_GetItemType(pUnit) == 11)
+    if (ITEMS_GetItemType(pUnit) == ITEMTYPE_ELIXIR)
     {
         sub_004E5E90_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText_0072D6C0);
         return;

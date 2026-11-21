@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"

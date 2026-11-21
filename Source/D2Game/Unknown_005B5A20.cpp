@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
 #include "D2UnitData.h"

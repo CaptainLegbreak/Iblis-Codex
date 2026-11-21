@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -93,7 +94,6 @@ enum
 {
     UNITFLAG_CANBEATTACKED = 0x00000004,
     UNITFLAG_ISVALIDTARGET = 0x00000008,
-    STATE_JUSTHIT = 0x56,
 };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268

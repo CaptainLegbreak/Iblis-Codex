@@ -633,11 +633,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define ITEMCODE_MALUS ' mdh'
 #define ITEMSPAWN_GROUND 3
 #define ITEMSTATCOSTFLAGINDEX_CSVSIGNED 13
-#define ITEMTYPE_BLUNT 57
-#define ITEMTYPE_BOOK 18
-#define ITEMTYPE_BOW 27
-#define ITEMTYPE_BOW_QUIVER 5
-#define ITEMTYPE_SCROLL 22
 #define ITEM_BOOK_BKS 0x20736B62
 #define ITEM_SCROLL_BKD 0x20646B62
 #define ITERSTATE_13 13
@@ -760,11 +755,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
      (unsigned int)lSeed)
 #define SKILL_LEFTHANDSWING 5
 #define SOUND_MALUS_PICKUP 36
-#define STATE_CORPSE_NODRAW 104
-#define STATE_CORPSE_NOSELECT 118
-#define STATE_DEATH_DELAY 92
-#define STATE_SHATTER 107
-#define STATE_SKILL_MOVE 18
 #define STATLIST_FLAG_EXP 0x800
 #define STAT_DURABILITY 72
 #define STAT_EXPERIENCE 13

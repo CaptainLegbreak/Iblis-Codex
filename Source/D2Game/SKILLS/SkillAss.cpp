@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -437,7 +438,6 @@ void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet
 
 enum D2C_Z09St26Constants
 {
-    STATE_INFERNO = 0x0C,
     EVENTTYPE_REMOVESTATE = 0x0C,
     STAT_MANA = 8,
 };
@@ -894,7 +894,7 @@ int __fastcall sub_005D27B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
         nY += nYDiff;
     }
 
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         UNITS_SetAnimationFrame(pUnit, 8);
         pUnit->dwFrameCountPrecise = 0x600;
@@ -971,7 +971,7 @@ int __fastcall SKILLS_SrvSt63_Corpse_VineCycler(D2GameStrc* pGame, D2UnitStrc* p
     }
 
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget || STATES_CheckState(pTarget, 118))
+    if (!pTarget || STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT))
     {
         return 0;
     }
@@ -1005,7 +1005,7 @@ int __fastcall sub_005D2B20(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
 // 0x005D2B40
 static __forceinline void sub_005D2B40_RemoveState114(D2UnitStrc* pUnit)
 {
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x72);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
     if (pStatList)
     {
         D2Common_10474(pUnit, pStatList);
@@ -3098,7 +3098,7 @@ void __fastcall SKILLS_StatRemoveCallback_MindBlast(D2UnitStrc* pUnit, int nStat
     STATES_ToggleState(pUnit, nState, 0);
     sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 
-    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 109);
+    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONVERSION_SAVE);
     if (pStatList)
     {
         const int nLevel = STATLIST_GetStatValue(pStatList, 176, 0);
@@ -3130,7 +3130,7 @@ static int __stdcall sub_005D7430_ApplyConversion(D2GameStrc* pGame, D2UnitStrc*
     }
 
     const int nExpireFrame = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pArgs->nParam2) + pGame->dwGameFrame + pArgs->nParam1;
-    D2StatListStrc* pConversionStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x35);
+    D2StatListStrc* pConversionStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONVERSION);
     if (!pConversionStatList)
     {
         const int nUnitGUID = !pOwner ? -1 : pOwner->dwUnitId;
@@ -3142,7 +3142,7 @@ static int __stdcall sub_005D7430_ApplyConversion(D2GameStrc* pGame, D2UnitStrc*
             return 0;
         }
 
-        STATLIST_SetState(pConversionStatList, 0x35);
+        STATLIST_SetState(pConversionStatList, STATE_CONVERSION);
         STATLIST_SetStatRemoveCallback(pConversionStatList, SKILLS_StatRemoveCallback_MindBlast);
         D2COMMON_10475_PostStatToStatList(pUnit, pConversionStatList, 1);
         STATES_ToggleState(pUnit, 0x35, 1);
@@ -3164,7 +3164,7 @@ static int __stdcall sub_005D7430_ApplyConversion(D2GameStrc* pGame, D2UnitStrc*
 
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
     const int nOwnerLevel = STATLIST_UnitGetStatValue(pOwner, 12, 0);
-    if (!nLevel || nOwnerLevel >= nLevel || STATLIST_GetStatListFromUnitAndState(pUnit, 0x6D))
+    if (!nLevel || nOwnerLevel >= nLevel || STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONVERSION_SAVE))
     {
         return 1;
     }
@@ -3178,7 +3178,7 @@ static int __stdcall sub_005D7430_ApplyConversion(D2GameStrc* pGame, D2UnitStrc*
         return 1;
     }
 
-    STATLIST_SetState(pConversionSaveStatList, 0x6D);
+    STATLIST_SetState(pConversionSaveStatList, STATE_CONVERSION_SAVE);
     D2COMMON_10475_PostStatToStatList(pUnit, pConversionSaveStatList, 1);
     const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
     const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;

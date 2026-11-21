@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -7,7 +8,6 @@
 struct D2GameStrc;
 struct D2UnitStrc;
 
-#define STATE_DECREPIFY 60
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2ModeChangeStrc;

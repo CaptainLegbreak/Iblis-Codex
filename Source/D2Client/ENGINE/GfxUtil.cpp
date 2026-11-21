@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -1262,7 +1263,7 @@ static unsigned int sub_004DAD80_GetWeaponClassToken(D2UnitStrc* pUnit, int nCom
         return 0x2074696C;
     }
 
-    if (nComponent == 7 && STATES_CheckState(pUnit, 0x65) && INVENTORY_GetEquippedShield(pInventory, 0))
+    if (nComponent == 7 && STATES_CheckState(pUnit, STATE_HOLYSHIELD) && INVENTORY_GetEquippedShield(pInventory, 0))
         return 0x20687368;
 
     return 0;

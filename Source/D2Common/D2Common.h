@@ -318,10 +318,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
             nValue = nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls); \
         }
 #define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
-#define ITEMTYPE_ARMOR 3
-#define ITEMTYPE_BOOK 18
-#define ITEMTYPE_CHARM 13
-#define ITEMTYPE_GOLD 4
 #define ITEM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define LINE_DOOR 0x215
 #define LINE_GETDIMENSIONS 2855

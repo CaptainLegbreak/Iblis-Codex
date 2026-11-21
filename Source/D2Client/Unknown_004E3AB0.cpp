@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -48,7 +49,7 @@ void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
         return;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 13);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLAZE);
     if (!pStatList)
     {
         return;

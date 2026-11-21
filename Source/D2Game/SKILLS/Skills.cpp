@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
@@ -23,19 +25,13 @@
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 
-#define ITEMTYPE_CROSSBOW 35
-
 #define STAT_TOHIT 19
 
 #define STAT_DAMAGEPERCENT 25
 
-#define STATE_UNINTERRUPTABLE 0x36
-
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
 #define STAT_MANA 8
-
-#define STATE_BLOOD_MANA 114
 
 #define STATE_BLOODMANA 114
 
@@ -48,8 +44,6 @@
 #define SKILLSFLAGINDEX_PERIODIC 6
 
 #define EVENTTYPE_PERIODICSTATS 9
-
-#define ITEMTYPE_WEAPON 0x2D
 
 struct D2SkillListStrc;
 
@@ -507,8 +501,6 @@ int __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId
 
 #define SKILLSRVDO_SHAPESHIFT 116
 
-#define STATE_NOMANAREGEN 85
-
 #define STAT_MODIFIERLIST_SKILL 350
 
 #define STAT_MODIFIERLIST_LEVEL 351
@@ -719,8 +711,6 @@ void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2Mod
 
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
 
-#define ITEMTYPE_MISSILE_POTION 38
-
 #define STAT_PROGRESSIVE_TOHIT 325
 
 unsigned int __stdcall sub_006417F0(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
@@ -750,8 +740,6 @@ D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                         
 void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nExpireFrame);                                // 0x006260B0
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
-
-#define STATE_SKILLDELAY 121
 
 #define EVENTTYPE_REMOVESTATE 12
 
@@ -2812,7 +2800,7 @@ int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState)
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const int nBaseId = MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_IMP1 && STATES_CheckState(pUnit, 0x8F))
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_IMP1 && STATES_CheckState(pUnit, STATE_ATTACHED))
         {
             return 0;
         }
@@ -3098,7 +3086,7 @@ D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse)
             const int nDuration = pCurse->nDuration;
             pCurse->nDuration = nDuration - DATATBLS_ApplyRatio(nDuration, nResistance, 100);
         }
-        if (STATES_CheckState(pTarget, 57))
+        if (STATES_CheckState(pTarget, STATE_ATTRACT))
             return 0;
     }
     unsigned int nFlags = 0;
@@ -3302,7 +3290,7 @@ static void __stdcall D2GAME_SKILLS_SetDelay_6FD11C00(D2GameStrc* pGame, D2UnitS
     const int nExpireFrame = nDelay + pGame->dwGameFrame;
     if (pUnit && !pUnit->dwUnitType && nDelay)
     {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x79);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_SKILLDELAY);
         if (!pStatList)
         {
             pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
@@ -3311,7 +3299,7 @@ static void __stdcall D2GAME_SKILLS_SetDelay_6FD11C00(D2GameStrc* pGame, D2UnitS
                 return;
             }
 
-            STATLIST_SetState(pStatList, 0x79);
+            STATLIST_SetState(pStatList, STATE_SKILLDELAY);
             STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
             D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
             STATES_ToggleState(pUnit, 0x79, 1);
@@ -4186,7 +4174,7 @@ void __fastcall sub_00570360(D2GameStrc* pGame, D2UnitStrc* pUnit)
 void __fastcall sub_00570530_StatRemoveCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
-    if (STATES_CheckState(pUnit, 0x36))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
         return;
     }

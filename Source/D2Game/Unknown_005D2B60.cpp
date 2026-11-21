@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -68,7 +69,7 @@ static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 // 0x005D2B60
 int __fastcall D2GAME_SKILLS_BloodMana_6FD025E0(D2UnitStrc* pUnit, int nManaCost)
 {
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 114);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
     const int nSkillId = sub_006260E0(pStatList);
     if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >= nManaCost)
     {
@@ -76,7 +77,7 @@ int __fastcall D2GAME_SKILLS_BloodMana_6FD025E0(D2UnitStrc* pUnit, int nManaCost
         D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
         if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) < (pSkillsTxtRecord->dwParam[4] << 8))
         {
-            pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 114);
+            pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
             if (pStatList)
             {
                 D2Common_10474(pUnit, pStatList);
@@ -85,7 +86,7 @@ int __fastcall D2GAME_SKILLS_BloodMana_6FD025E0(D2UnitStrc* pUnit, int nManaCost
         }
         return 1;
     }
-    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 114);
+    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
     if (pStatList)
     {
         D2Common_10474(pUnit, pStatList);

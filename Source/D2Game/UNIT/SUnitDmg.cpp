@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -27,8 +29,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_OBJECT 2
-
-#define ITEMTYPE_GOLD 4
 
 #define ITEMQUAL_NORMAL 2
 
@@ -673,10 +673,6 @@ static int __stdcall SUNITDMG_ComputeExperienceGain(D2GameStrc* pGame, int nAtta
 
 struct D2PlayerDataStrc;
 
-enum D2C_ResultFlagsConstants
-{
-    STATE_UNINTERRUPTABLE = 0x36,
-};
 
 int __fastcall SUNITDMG_IsHitSuccessful(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int bMissile); // 0x0057D9B0
 
@@ -906,14 +902,14 @@ static __declspec(noinline) void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pA
         nStunLength = 250;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 21);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, STATE_STUNNED);
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
     const int nStunEndFrame = pGame->dwGameFrame + nStunLength;
     if (!pStatList)
     {
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nStunEndFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nStunEndFrame, 0, 0);
-        STATLIST_SetState(pNewStatList, 21);
+        STATLIST_SetState(pNewStatList, STATE_STUNNED);
         STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
         STATES_ToggleState(pDefender, 21, 1);
@@ -933,7 +929,7 @@ static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitSt
         return;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 2);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, STATE_POISON);
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
     if ((!pDefender ? 6 : pDefender->dwUnitType) == 1)
     {
@@ -948,7 +944,7 @@ static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitSt
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
         sub_006270B0(pNewStatList, 0x4A, -nPoisonDamage, 0);
-        STATLIST_SetState(pNewStatList, 2);
+        STATLIST_SetState(pNewStatList, STATE_POISON);
         STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
     }
@@ -985,7 +981,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
         return;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 0x73);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, STATE_BURNING);
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
     if ((!pDefender ? 6 : pDefender->dwUnitType) == 1)
     {
@@ -1000,7 +996,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
         sub_006270B0(pNewStatList, 0x4A, -nBurnDamage, 0);
-        STATLIST_SetState(pNewStatList, 0x73);
+        STATLIST_SetState(pNewStatList, STATE_BURNING);
         STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
     }
@@ -1048,7 +1044,7 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
         return;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 11);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, STATE_COLD);
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
     int nColdEffect;
     if (!pDefender || pDefender->dwUnitType != UNIT_MONSTER)
@@ -1092,7 +1088,7 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
 
         D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-        STATLIST_SetState(pNewStatList, 11);
+        STATLIST_SetState(pNewStatList, STATE_COLD);
         STATLIST_SetStatRemoveCallback(pNewStatList, SUNITDMG_RemoveShatterState);
         D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
         sub_006270B0(pNewStatList, 0x43, nColdEffect, 0);
@@ -1190,7 +1186,7 @@ static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFree
         return;
 
     case 1:
-        if (STATES_CheckState(pDefender, 0x36))
+        if (STATES_CheckState(pDefender, STATE_UNINTERRUPTABLE))
         {
             return;
         }
@@ -1209,7 +1205,7 @@ static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFree
         break;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 1);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, STATE_FREEZE);
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
     if (SUNITDMG_GetColdEffect(pGame, pDefender) >= 0)
     {
@@ -2214,7 +2210,7 @@ void __stdcall sub_U01_EmitMonTypeDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDef
 // 0x0057CB00
 static int __stdcall sub_0057CB00(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nHitClass)
 {
-    if (STATES_CheckState(pUnit, 1))
+    if (STATES_CheckState(pUnit, STATE_FREEZE))
     {
         return 1;
     }
@@ -2528,7 +2524,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         pUnit->dwLastHitClass = pDamage->dwHitClass;
     }
 
-    if (STATES_CheckState(pUnit, 0x36))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
         if (pDamage->wResultFlags & 0x02)
         {
@@ -2549,7 +2545,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
     {
         if (pDamage->wResultFlags & 0x80)
         {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x41);
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_DODGE);
             if (pStatList)
             {
                 D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
@@ -2563,7 +2559,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         }
         else if (pDamage->wResultFlags & 0x100)
         {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x42);
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_AVOID);
             if (pStatList)
             {
                 D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
@@ -2577,7 +2573,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         }
         else if (pDamage->wResultFlags & 0x200)
         {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x44);
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_EVADE);
             if (pStatList)
             {
                 const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
@@ -2626,7 +2622,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         {
             if (pDamage->wResultFlags & 0x04)
             {
-                if (STATLIST_GetStatListFromUnitAndState(pUnit, 0x15) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
+                if (STATLIST_GetStatListFromUnitAndState(pUnit, STATE_STUNNED) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
                 {
                     sub_6FC817D0(pGame, pUnit, 0, 0x04, pDamage->dwDmgTotal, 0, 0);
                     return;
@@ -2700,7 +2696,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
 
         if (pDamage->wResultFlags & 0x04)
         {
-            if (STATLIST_GetStatListFromUnitAndState(pUnit, 0x15) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
+            if (STATLIST_GetStatListFromUnitAndState(pUnit, STATE_STUNNED) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
             {
                 MONSTERMODE_GetModeChangeInfo(pUnit, 0x03, &modeChange);
                 D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);

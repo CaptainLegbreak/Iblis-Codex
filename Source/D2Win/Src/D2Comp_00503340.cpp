@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2Win.h"
 #include "D2Win32Types.h"
 #include "D2Txt.h"
@@ -631,13 +632,13 @@ void __stdcall sub_00506000_InitCompItems()
     sub_00504570_LoadItems(sub_004FAC80());
 
     gaItems_0087D838[1].dwCode = ' til';
-    gaItems_0087D838[1].nItemType = 3;
+    gaItems_0087D838[1].nItemType = ITEMTYPE_ARMOR;
     gaItems_0087D838[1].nWeaponClass = gaWClassTokens_0072EF30[0];
     gaItems_0087D838[2].dwCode = ' dem';
-    gaItems_0087D838[2].nItemType = 3;
+    gaItems_0087D838[2].nItemType = ITEMTYPE_ARMOR;
     gaItems_0087D838[2].nWeaponClass = gaWClassTokens_0072EF30[0];
     gaItems_0087D838[3].dwCode = ' yvh';
-    gaItems_0087D838[3].nItemType = 3;
+    gaItems_0087D838[3].nItemType = ITEMTYPE_ARMOR;
     gaItems_0087D838[3].nWeaponClass = gaWClassTokens_0072EF30[0];
 
     int nNext = 4;

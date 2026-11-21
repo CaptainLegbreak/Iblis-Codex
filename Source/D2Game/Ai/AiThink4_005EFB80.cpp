@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -129,7 +130,6 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 
 enum D2C_M172FetishShamanAi
 {
-    STATE_INFERNO = 12,
     FETISHSHAMAN_AI_PARAM_HEAL_CHANCE_PCT = 0,
     FETISHSHAMAN_AI_PARAM_HEAL_CAPABILITY = 1,
     FETISHSHAMAN_AI_PARAM_HEAL_RANGE = 2,

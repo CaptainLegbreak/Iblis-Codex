@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -628,7 +629,7 @@ void __cdecl sub_00499040_DrawBelt()
     D2UnitStrc* pBelt = INVENTORY_GetItemFromBodyLoc(pInventory, 8);
     if (pBelt)
     {
-        if (ITEMS_GetItemType(pBelt) == 0x13)
+        if (ITEMS_GetItemType(pBelt) == ITEMTYPE_BELT)
         {
             const int nBeltType = UNITS_GetBeltType(pBelt);
             D2_ASSERT(nBeltType >= 0, 0xB07);

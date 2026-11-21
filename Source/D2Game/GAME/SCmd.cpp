@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
 #include "D2UnitData.h"
@@ -2723,7 +2724,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc* pClient, un
     packet22.nQuantity = nQuantity;
 
     D2UnitStrc* pUnit = SUNIT_GetServerUnit(CLIENTS_GetGame(pClient), nUnitType, nUnitGUID);
-    packet22.bIsCorpse = pUnit && STATES_CheckState(pUnit, 7);
+    packet22.bIsCorpse = pUnit && STATES_CheckState(pUnit, STATE_PLAYERBODY);
 
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &packet22, sizeof(packet22));
 }

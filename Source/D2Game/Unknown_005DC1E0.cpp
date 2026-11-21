@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -31,7 +32,6 @@ enum
     UNITFLAG_SKSRVDOFUNC = 0x40,
     AISPECIALSTATE_NONE = 0,
     EVENTTYPE_AITHINK = 2,
-    STATE_VALKYRIE = 0x5D,
 };
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)

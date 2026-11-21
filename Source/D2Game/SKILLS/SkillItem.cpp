@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
@@ -25,8 +27,6 @@
 #define UPDATEUI_CLOSEALL 17
 
 #define UPDATEUI_OPENCUBE 21
-
-#define STATE_SLOWED 24
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -366,11 +366,6 @@ struct D2UnitEventStrc;
 
 enum D2C_G4Constants
 {
-    STATE_INFERNO = 12,
-    STATE_DIMVISION = 23,
-    STATE_TAUNT = 27,
-    STATE_TERROR = 56,
-    STATE_RESTINPEACE = 172,
     AISPECIALSTATE_NONE = 0,
     AISPECIALSTATE_DIMVISION = 10,
     AISPECIALSTATE_TERROR = 11,
@@ -574,10 +569,6 @@ void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* 
 
 D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553010
 
-enum D2C_Y11SkillItemConstants
-{
-    STATE_UNINTERRUPTABLE = 0x36,
-};
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
@@ -3157,7 +3148,7 @@ int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget
         return 0;
     }
 
-    if (STATES_CheckState(pTarget, 110))
+    if (STATES_CheckState(pTarget, STATE_PREGNANT))
     {
         return 0;
     }

@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -626,7 +628,7 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
         return 0;
     }
     int nSize = 0;
-    if (ITEMS_GetItemType(pItem) == 4)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
     {
         unsigned int nGold = STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0);
         if (nGold >= 0x64)
@@ -955,7 +957,7 @@ inline int UNITS_IsFlag5SetInl(D2UnitStrc* pUnit)
 // 0x00471450
 int __fastcall sub_00471450_DrawUnitShadow(D2UnitStrc* pUnit)
 {
-    if (UNITS_IsFlag5SetInl(pUnit) || STATES_CheckState(pUnit, 0x92))
+    if (UNITS_IsFlag5SetInl(pUnit) || STATES_CheckState(pUnit, STATE_INVIS))
     {
         return 0;
     }

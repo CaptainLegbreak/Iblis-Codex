@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -34,11 +36,7 @@
 
 #define UNIT_TILE 5
 
-#define STATE_PLAYERBODY 7
-
 #define STAT_GOLD 14
-
-#define ITEMTYPE_WEAPON 45
 
 #define ITEMACTION_DROPTOGROUND 2
 
@@ -49,8 +47,6 @@
 #define ACT_III 2
 
 #define EVENTTYPE_REMOVESTATE 12
-
-#define STATE_POISON 2
 
 #define QUESTSTATEFLAG_A2Q6 14
 

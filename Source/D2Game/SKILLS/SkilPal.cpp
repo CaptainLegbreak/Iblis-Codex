@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -62,7 +63,6 @@ struct D2DataTablesStrc;
 
 enum D2C_F39Constants
 {
-    STATE_BLAZE = 13,
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_SKSRVDOFUNC = 0x40,
     UNITFLAG_NOXP = 0x4000000,
@@ -70,11 +70,8 @@ enum D2C_F39Constants
     DAMAGERESULTFLAG_WILLDIE = 2,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
-    STATE_FETISHAURA = 0x19,
     UNITFLAG_NOTC = 0x20000,
     EVENTTYPE_ENDANIM = 1,
-    STATE_NOMANAREGEN = 0x55,
-    STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
 };
 
@@ -344,7 +341,6 @@ void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); //
 
 enum D2C_J10SkillPalConstants
 {
-    STATE_REDEEMED = 0x63,
     UNITFLAG_TARGETABLE = 0x00000002,
     UNITFLAG_CANBEATTACKED = 0x00000004,
 };
@@ -446,8 +442,6 @@ typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 #define UNIT_PLAYER 0
-
-#define STATE_HOLYSHIELD 101
 
 #define MONMODE_ATTACK2 5
 
@@ -1067,7 +1061,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             modeChange.pTargetUnit = pTarget;
             return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
         }
-        if (!STATES_CheckState(pTarget, 54)) {
+        if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE)) {
             SKILLS_SetParam1(pSkill, UNITS_GetUnitTypeChecked(pTarget));
             SKILLS_SetParam2(pSkill, UNITS_GetUnitIdChecked(pTarget));
         } else {
@@ -1466,14 +1460,14 @@ Drain:
  }
  int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, STAT_LEVEL, 0);
  int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
- if (nTargetLevel && nUnitLevel < nTargetLevel && !STATLIST_GetStatListFromUnitAndState(pTarget, 109))
+ if (nTargetLevel && nUnitLevel < nTargetLevel && !STATLIST_GetStatListFromUnitAndState(pTarget, STATE_CONVERSION_SAVE))
  {
   int nTargetId = pTarget->dwUnitId;
   int nTargetType = pTarget->dwUnitType;
   D2StatListStrc* pSave = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0, nTargetType, nTargetId);
   if (pSave)
   {
-   STATLIST_SetState(pSave, 109);
+   STATLIST_SetState(pSave, STATE_CONVERSION_SAVE);
    D2COMMON_10475_PostStatToStatList(pTarget, pSave, 1);
    int nHp = STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0) >> 8;
    int nMaxHp = STATLIST_GetMaxLifeFromUnit(pTarget) >> 8;

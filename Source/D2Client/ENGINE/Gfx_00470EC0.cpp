@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -9,9 +11,6 @@ struct D2InventoryStrc;
 
 
 
-enum
-{
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -119,7 +118,7 @@ int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
     }
 
     int nCelDirection = nDirection;
-    if (nUnitType == UNIT_ITEM && ITEMS_GetItemType(pUnit) == 4)
+    if (nUnitType == UNIT_ITEM && ITEMS_GetItemType(pUnit) == ITEMTYPE_GOLD)
     {
         const unsigned int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
         if (nGold < 100)
@@ -386,7 +385,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         else if (nComponent == 14)
         {
             D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
-            if (pOwner && (pOwner->dwUnitType == UNIT_MISSILE || STATES_CheckState(pOwner, 0x8F)))
+            if (pOwner && (pOwner->dwUnitType == UNIT_MISSILE || STATES_CheckState(pOwner, STATE_ATTACHED)))
                 sub_004DC7B0_DrawUnitByType(pOwner, dwColor, 1);
             continue;
         }

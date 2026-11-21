@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -351,7 +352,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
             case 0x98:
             {
                 pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
-                if (pMonStats2Txt && STATES_CheckState(pUnit, 0xC))
+                if (pMonStats2Txt && STATES_CheckState(pUnit, STATE_INFERNO))
                 {
                     const int nFrame = pUnit->nSeqCurrentFramePrecise >> 8;
                     if (nFrame >= pMonStats2Txt->nInfernoAnim)
@@ -384,7 +385,7 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
         return;
     }
 
-    if (STATES_CheckState(pUnit, 1) && !sub_00464820_IsDeadOrDying(pUnit))
+    if (STATES_CheckState(pUnit, STATE_FREEZE) && !sub_00464820_IsDeadOrDying(pUnit))
     {
         return;
     }

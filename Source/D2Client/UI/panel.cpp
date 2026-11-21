@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -523,7 +525,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
     tContext.nDirection = 0;
     tContext.pCellFile = gpCellFile_007BEF68;
     tContext.nFrame = 0;
-    if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x64))
+    if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_HEALTHPOT))
     {
         int nPoison = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_HPREGEN, 0) / 100;
         if (nPoison > 80)
@@ -537,7 +539,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
         }
     }
 
-    tContext.nFrame = STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 2) ? 2 : 0;
+    tContext.nFrame = STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_POISON) ? 2 : 0;
     if (nHeight)
     {
         switch (sub_004F5140())
@@ -575,7 +577,7 @@ void __cdecl sub_00497110_DrawManaOrb()
     tContext.nDirection = 0;
     tContext.pCellFile = gpCellFile_007BEF68;
     tContext.nFrame = 1;
-    if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x6A))
+    if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_MANAPOT))
     {
         int nShield = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_MANARECOVERY, 0) / 100;
         if (nShield > 80)
@@ -650,7 +652,7 @@ void __cdecl sub_004975B0_DrawStaminaBar()
     int nCur = sub_00496DD0_GetSmoothedOrbValue(10) / 256;
     const int nMax = STATLIST_GetMaxStaminaFromUnit(pPlayer) / 256;
     int nTextColor = 0;
-    if (nCur > nMax || STATES_CheckState(pPlayer, 0x88))
+    if (nCur > nMax || STATES_CheckState(pPlayer, STATE_SHRINE_STAMINA))
     {
         nCur = nMax;
         nTextColor = 3;
@@ -1335,7 +1337,7 @@ void __cdecl sub_00499040_DrawBelt()
     D2UnitStrc* pBelt = INVENTORY_GetItemFromBodyLoc(pInventory, 8);
     if (pBelt)
     {
-        if (ITEMS_GetItemType(pBelt) == 0x13)
+        if (ITEMS_GetItemType(pBelt) == ITEMTYPE_BELT)
         {
             const int nBeltType = UNITS_GetBeltType(pBelt);
             if (nBeltType >= 0)

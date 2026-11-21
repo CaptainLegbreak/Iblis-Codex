@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -547,7 +548,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                     case 0:
                     {
                         int nString = 0x897;
-                        if (nItemType != 0x12)
+                        if (nItemType != ITEMTYPE_BOOK)
                         {
                             nString = 0x898;
                         }
@@ -557,7 +558,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                     case 1:
                     {
                         int nString = 0x899;
-                        if (nItemType != 0x12)
+                        if (nItemType != ITEMTYPE_BOOK)
                         {
                             nString = 0x89A;
                         }
@@ -860,7 +861,7 @@ void __cdecl sub_0048CFF0_DrawStackTooltip()
 {
     Unicode wszText[0x400];
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    D2_ASSERT(gdwGlobal_007BCBF4 && ITEMS_GetItemType(gdwGlobal_007BCBF4) == 0x12, 0xCF1);
+    D2_ASSERT(gdwGlobal_007BCBF4 && ITEMS_GetItemType(gdwGlobal_007BCBF4) == ITEMTYPE_BOOK, 0xCF1);
     D2_ASSERT(DATATBLS_GetItemsTxtRecord(!gdwGlobal_007BCBF4 ? -1 : gdwGlobal_007BCBF4->dwClassId), 0xCF5);
 
     sub_00486100_AppendStackQuantity(gdwGlobal_007BCBF4, wszText);

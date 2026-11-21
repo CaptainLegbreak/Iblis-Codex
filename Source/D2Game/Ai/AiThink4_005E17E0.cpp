@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
@@ -15,10 +16,8 @@ enum D2C_P11AiConstants
 {
     AISPECIALSTATE_NONE = 0,
     EVENTTYPE_AITHINK = 2,
-    STATE_POISON = 2,
     STAT_POISONRESIST = 45,
     MONSTATSFLAGINDEX_INTERACT = 9,
-    STATE_TERROR = 0x38,
 };
 
 struct D2MinionSpawnerAiCallbackArgStrc

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -39,7 +40,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
 
 static __forceinline int SKILLS_IsUnlootedCorpse(D2UnitStrc* pTarget)
 {
-    return pTarget && sub_00645590_IsSelectableSoftCorpse(pTarget) && !STATES_CheckState(pTarget, 118);
+    return pTarget && sub_00645590_IsSelectableSoftCorpse(pTarget) && !STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT);
 }
 
 // 0x005D81C0

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -228,10 +229,6 @@ enum
     MONTYPEFLAG_CHAMPION = 0x04,
 };
 
-enum
-{
-    STATE_BLOODLUST = 141,
-};
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {
@@ -400,8 +397,6 @@ enum D2C_F42AiConstants
     UNITFLAG_NOTC = 0x00020000,
     UNITFLAG_NOXP = 0x04000000,
 
-    STATE_POISON = 2,
-    STATE_INFERNO = 12,
     STATE_BAALTOSTAIRS_INVIS = 0x92,
     STAT_HITPOINTS = 6,
     STAT_POISONRESIST = 45,
@@ -541,7 +536,6 @@ enum D2C_V04AiBaalConstants
     STAT_MAGICMAXDAM = 0x35,
     STAT_COLDMAXDAM = 0x37,
     STAT_POISONMAXDAM = 0x3A,
-    STATE_COLD = 0x0B,
 };
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(D2UnitStrc* pUnit, int nX, int nY);             // 0x005DC480
@@ -755,9 +749,6 @@ struct D2PetInfoStrc;
 
 int __fastcall sub_005FD350_SpawnNearby(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5); // 0x005FD350
 
-enum D2C_F41AiThinkConstants
-{
-};
 
 struct D2HighPriestAiCallbackArgStrc
 {
@@ -3329,7 +3320,7 @@ int __fastcall sub_005E8810_SelectBaalAction(D2AiControlStrc* pAi,D2UnitStrc* pU
         int nInitial[17]={0,0,40,70,0,40,24,40,15,0,0,0,0,0,0,0,0};
         memcpy(nWeights,nInitial,sizeof(nWeights));
         if(UNITS_GetCurrentLifePercentage(pTarget)<20)nWeights[2]=50;
-        if(STATES_CheckState(pTarget,11)){nWeights[7]=0;nWeights[8]=0;}
+        if(STATES_CheckState(pTarget,STATE_COLD)){nWeights[7]=0;nWeights[8]=0;}
         if(nFireRes>nColdRes)nWeights[6]-=10;
         if(nFireRes<nColdRes)nWeights[6]+=10;
         if(!bAttack){nWeights[5]=0;nWeights[6]=0;}
@@ -3447,7 +3438,7 @@ int __fastcall sub_005E9750_DiabloChooseAction(D2AiControlStrc* pAi,D2UnitStrc* 
         int nInitial[17]={0,0,40,70,0,75,24,40,15,0,0,0,0,0,0,0,0};
         memcpy(nWeights,nInitial,sizeof(nWeights));
         if(UNITS_GetCurrentLifePercentage(pTarget)<20)nWeights[2]=50;
-        if(STATES_CheckState(pTarget,11)){nWeights[7]=0;nWeights[8]=0;}
+        if(STATES_CheckState(pTarget,STATE_COLD)){nWeights[7]=0;nWeights[8]=0;}
         if(nFireRes>nColdRes)nWeights[6]-=10;
         if(nFireRes<nColdRes)nWeights[6]+=10;
         if(!bAttack){nWeights[5]=0;nWeights[6]=0;}
@@ -3767,7 +3758,7 @@ void __fastcall AITHINK_Fn101_AssassinSentry(D2GameStrc* pGame, D2UnitStrc* pUni
         return;
     }
 
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         STATES_ToggleState(pUnit, 12, 0);
     }
@@ -5736,7 +5727,7 @@ void __fastcall sub_005EE5D0_ThinkNihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit
     const int nTargetDistance = pAiTickParam->nTargetDistance;
     D2SeedStrc* pSeed = &pUnit->pSeed;
     ACT5Q4_OnNihlathakActivated(pGame, pUnit);
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
         STATES_ToggleState(pUnit, 12, 0);
     if (!pTarget)
     {
@@ -6816,7 +6807,7 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
         {
             pAiControl->dwAiParam[0] = 1;
 
-            if (pMonStatsTxt->nSkill[0] < 0 || STATES_CheckState(pUnit, 22))
+            if (pMonStatsTxt->nSkill[0] < 0 || STATES_CheckState(pUnit, STATE_SPIDERLAY))
             {
                 sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
                 return;

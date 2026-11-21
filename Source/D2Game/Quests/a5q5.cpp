@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -295,7 +296,7 @@ static bool sub_0058BEC0_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMon
         return false;
     }
 
-    if (STATES_CheckState(pAncientMonster, 0x36))
+    if (STATES_CheckState(pAncientMonster, STATE_UNINTERRUPTABLE))
     {
         sub_6FCBDE90(pAncientMonster, 0);
     }

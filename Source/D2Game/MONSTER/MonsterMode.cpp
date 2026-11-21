@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
@@ -35,7 +36,6 @@ enum D2C_P08MonsterConstants
     STAT_POISONLENGTH = 59,
     STAT_MANADRAINMINDAM = 62,
     STAT_MANADRAINMAXDAM = 63,
-    STATE_FREEZE = 1,
     MISSILE_NOVA = 90,
     EVENTTYPE_MONUMOD = 7,
 };
@@ -260,8 +260,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 struct D2DynamicPathStrc;
 
 #define UNIT_MONSTER 1
-
-#define STATE_UNINTERRUPTABLE 54
 
 #define PATHTYPE_ASTAR 1
 
@@ -1379,7 +1377,7 @@ void __fastcall sub_005A6920_MonsterRegenEvent(D2GameStrc* pGame, D2UnitStrc* pU
         nRegen -= STATLIST_GetUnitBaseStat(pUnit, STAT_HPREGEN, 0);
     }
 
-    if (STATES_CheckState(pUnit, 0x34) && nRegen >= 0)
+    if (STATES_CheckState(pUnit, STATE_PREVENTHEAL) && nRegen >= 0)
     {
         return;
     }
@@ -1454,7 +1452,7 @@ void __fastcall sub_005A6920_MonsterRegenEvent(D2GameStrc* pGame, D2UnitStrc* pU
         pKiller = SUNIT_GetServerUnit(pGame, STATLIST_GetOwnerType(pStatList), STATLIST_GetOwnerGUID(pStatList));
     }
 
-    if (STATES_CheckState(pUnit, 0x36))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
         STATES_ToggleState(pUnit, 0x5C, 1);
         return;
@@ -1648,7 +1646,7 @@ static void sub_005A6DF0_DamageNearbyPlayers(D2GameStrc* pGame, D2UnitStrc* pUni
             memset(&damage, 0, sizeof(damage));
             damage.dwPhysDamage = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 5;
             damage.wResultFlags = 1;
-            if (!STATES_CheckState(pTarget, 0x36))
+            if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE))
                 damage.wResultFlags |= 4;
             sub_0057C1E0_Total(pGame, pUnit, pTarget, &damage);
             SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
@@ -1694,7 +1692,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
             memset(&damage, 0, sizeof(damage));
             damage.dwPhysDamage = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 5;
             damage.wResultFlags = 1;
-            if (!STATES_CheckState(pTarget, 54)) damage.wResultFlags |= 4;
+            if (!STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE)) damage.wResultFlags |= 4;
             sub_0057C1E0_CalculateDamage(pGame, pUnit, pTarget, &damage);
             SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
             sub_0057CEE0_ApplyDamage(pGame, pUnit, pTarget, &damage);
@@ -1882,7 +1880,7 @@ int __fastcall MONSTERMODE_StartNeutral(D2GameStrc* pGame, D2ModeChangeStrc* pMo
 
     if (EVENT_GetEventFrame(pGame, pUnit, 2) <= pGame->dwGameFrame)
     {
-        if (STATES_CheckState(pUnit, 21))
+        if (STATES_CheckState(pUnit, STATE_STUNNED))
         {
             EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 45, 0, 0);
             return 1;
@@ -2492,7 +2490,7 @@ static __forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 // build: context MONSTERMODE_AiThinkUnlessFrozen
 static __forceinline void MONSTERMODE_AiThinkUnlessFrozen(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (STATES_CheckState(pUnit, 1) && !SUNIT_IsDead(pUnit)) return;
+    if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit)) return;
     if (gpModeCallback_006E2498) gpModeCallback_006E2498(pGame, pUnit, 0, 0);
 }
 
@@ -2536,7 +2534,7 @@ void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pU
         MONSTERMODE_AiThinkUnlessFrozen(pGame, pUnit);
         return;
     }
-    if (STATES_CheckState(pUnit, 54))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
         sub_6FCBDE90(pUnit, 0);
         if (SUNIT_IsDead(pUnit)) return;
@@ -2687,7 +2685,7 @@ static int __stdcall sub_005A8730_MISSMODE_CanCollideWithUnit(D2GameStrc* pGame,
         return 0;
     }
 
-    if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pUnit, 0x56))
+    if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pUnit, STATE_JUSTHIT))
     {
         return 0;
     }

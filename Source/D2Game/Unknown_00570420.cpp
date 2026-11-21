@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -9,8 +10,6 @@
 #include "D2MonModes.h"
 
 #define MONTYPEFLAG_UNIQUE 8
-#define STATE_STUNNED 0x15
-#define STATE_UNINTERRUPTABLE 0x36
 #define EVENTTYPE_REMOVESTATE 0x0C
 
 #define UNITFLAG_DOUPDATE 1

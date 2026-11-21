@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -24,8 +25,6 @@ struct D2UnitStrc;
 #define UNITFLAG_SKSRVDOFUNC 0x40
 
 #define AISPECIALSTATE_NONE 0
-
-#define STATE_VINE_BEAST 150
 
 #define SKILLDRUID_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -188,8 +187,6 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D
 enum D2C_Z09SkillConstants
 {
     UNITFLAG_TARGETFLAGS = 0x0E,
-    STATE_INFERNO = 0x0C,
-    STATE_ATTACHED = 0x8F,
     EVENTTYPE_ENDANIM = 1,
     AISPECIALSTATE_MOUNTING_UNIT = 0x10,
     PATHTYPE_BLESSEDHAMMER = 0x0E,
@@ -286,16 +283,12 @@ void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame, D2UnitStrc* pAttack
 
 enum D2C_F39Constants
 {
-    STATE_BLAZE = 13,
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_NOXP = 0x4000000,
     DAMAGERESULTFLAG_WILLDIE = 2,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
-    STATE_FETISHAURA = 0x19,
     UNITFLAG_NOTC = 0x20000,
-    STATE_NOMANAREGEN = 0x55,
-    STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
 };
 
@@ -2019,7 +2012,7 @@ int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         SKILLS_SetParam1(UNITS_GetUsedSkill(pUnit), nTimeout + pGame->dwGameFrame);
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 12);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_INFERNO);
     if (!pStatList)
     {
         const int nExpireFrame = pGame->dwGameFrame + 20;
@@ -2034,7 +2027,7 @@ int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         EVENT_SetEvent(pGame, pUnit, 12, nExpireFrame, 0, 0);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATLIST_SetStatRemoveCallback(pStatList, SKILLS_StatRemoveCallback_RemoveState);
-        STATLIST_SetState(pStatList, 12);
+        STATLIST_SetState(pStatList, STATE_INFERNO);
         STATES_ToggleState(pUnit, 12, 1);
         SKILLS_SetParam1(UNITS_GetUsedSkill(pUnit), 0);
         return 1;
@@ -2826,7 +2819,7 @@ int __fastcall SKILLS_SrvSt47_Jump(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         return 0;
     }
 
-    if (STATES_CheckState(pUnit, 1))
+    if (STATES_CheckState(pUnit, STATE_FREEZE))
     {
         return 0;
     }
@@ -4443,7 +4436,7 @@ void __fastcall sub_005E52D0_HirelingThink(D2GameStrc* pGame, D2UnitStrc* pUnit,
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
         return;
     }
-    if (STATES_CheckState(pUnit, 12)) STATES_ToggleState(pUnit, 12, 0);
+    if (STATES_CheckState(pUnit, STATE_INFERNO)) STATES_ToggleState(pUnit, 12, 0);
     int nMode;
     if (!pUnit) nMode = 0;
     else nMode = pUnit->dwAnimMode;

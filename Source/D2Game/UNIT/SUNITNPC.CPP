@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -44,10 +46,6 @@ struct D2UnitStrc;
 #define STAT_STAMINA 10
 
 #define STAT_GOLD 14
-
-#define STATE_FREEZE 1
-
-#define STATE_POISON 2
 
 #define IFLAG_IDENTIFIED 0x00000010
 
@@ -2452,7 +2450,7 @@ void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* a2, D2Un
         *(unsigned char*)a4 = 1;
     }
 
-    D2StatListStrc* pStatListPoison = STATLIST_GetStatListFromUnitAndState(pUnit, 2);
+    D2StatListStrc* pStatListPoison = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_POISON);
     if (pStatListPoison)
     {
         D2Common_10474(pUnit, pStatListPoison);
@@ -2460,7 +2458,7 @@ void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* a2, D2Un
         *(unsigned char*)a4 = 1;
     }
 
-    D2StatListStrc* pStatListFreeze = STATLIST_GetStatListFromUnitAndState(pUnit, 1);
+    D2StatListStrc* pStatListFreeze = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_FREEZE);
     if (pStatListFreeze)
     {
         D2Common_10474(pUnit, pStatListFreeze);
@@ -2879,7 +2877,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
     int keep=1;
     if (ITEMS_GetItemQuality(item)==ITEMQUAL_INFERIOR) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
     if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSource_006E15F0)) keep=0;
-    if (ITEMS_GetItemType(item)==7) keep=0;
+    if (ITEMS_GetItemType(item)==ITEMTYPE_PLAYER_BODY_PART) keep=0;
     if (ITEMS_CheckItemFlag(item,0x1000000,0x50D,gszNpcSource_006E15F0)) keep=0;
     if (ITEMS_CheckItemFlag(item,0x400000,0x511,gszNpcSource_006E15F0)) keep=0;
     if (sub_0055F590_CheckItem(item,gszNpcSource_006E15F0,0x513)) keep=0;

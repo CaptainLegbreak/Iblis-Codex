@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -638,7 +639,7 @@ void __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMin,
     *pMin+=*pMin*(nMinPercent+nStatBonus)/100;
     *pMax+=*pMax*(nMaxPercent+nStatBonus)/100;
     int nSkillBonus=nBonus;
-    if(STATES_CheckState(pUnit,78))nSkillBonus+=SKILLS_GetWeaponMasteryBonus(pUnit,pItem,pSkill,1);
+    if(STATES_CheckState(pUnit,STATE_THROWINGMASTERY))nSkillBonus+=SKILLS_GetWeaponMasteryBonus(pUnit,pItem,pSkill,1);
     *pMin+=DATATBLS_ApplyRatio(*pMin,nSkillBonus,100);
     *pMax+=DATATBLS_ApplyRatio(*pMax,nSkillBonus,100);
     if(*pMax<*pMin)*pMax=*pMin;

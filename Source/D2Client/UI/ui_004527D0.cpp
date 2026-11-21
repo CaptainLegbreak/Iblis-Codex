@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -521,7 +522,7 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
         nColor = 8;
 
     Unicode wszText[0x80] = { 0 };
-    if (ITEMS_GetItemType(pUnit) == 4)
+    if (ITEMS_GetItemType(pUnit) == ITEMTYPE_GOLD)
     {
         char szGold[10];
         const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);

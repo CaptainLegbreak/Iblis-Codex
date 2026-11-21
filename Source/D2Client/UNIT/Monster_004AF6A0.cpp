@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -688,7 +689,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
             case 0x98:
             {
                 pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
-                if (!pMonStats2Txt || !STATES_CheckState(pUnit, 0xC))
+                if (!pMonStats2Txt || !STATES_CheckState(pUnit, STATE_INFERNO))
                 {
                     return;
                 }
@@ -896,7 +897,7 @@ static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pU
         return;
 
     D2MissileStrc tMissile;
-    if (STATES_CheckState(pUnit, 0xB8) && !STATES_CheckState(pUnit, 1))
+    if (STATES_CheckState(pUnit, STATE_UBERMINION) && !STATES_CheckState(pUnit, STATE_FREEZE))
     {
         memset(&tMissile, 0, sizeof(tMissile));
         tMissile.dwFlags = 0x2020;
@@ -1083,7 +1084,7 @@ static __forceinline int sub_n5b_ValidateMonsterId(int nMonsterId)
 static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand, int nMode)
 {
     if (sub_004AE080(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY)
-        || STATES_CheckState(pUnit, 0x8F) || !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, nMode))
+        || STATES_CheckState(pUnit, STATE_ATTACHED) || !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, nMode))
     {
         sub_004AE1D0_RefreshMonsterMode(pUnit);
         return;
@@ -1898,7 +1899,7 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
         return;
     }
 
-    if (STATES_CheckState(pUnit, 1) && !sub_00464820_IsDeadOrDying(pUnit))
+    if (STATES_CheckState(pUnit, STATE_FREEZE) && !sub_00464820_IsDeadOrDying(pUnit))
     {
         return;
     }

@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -716,7 +718,7 @@ int __fastcall sub_004E3060_CltDoPrgState(D2UnitStrc* pUnit, int nSkillId, int n
     {
         return 0;
     }
-    if (!STATES_CheckState(pUnit, 12))
+    if (!STATES_CheckState(pUnit, STATE_INFERNO))
     {
         if (pSkillsTxtRecord->wPrgOverlay > 0 && pSkillsTxtRecord->wPrgOverlay < sgptDataTables->nOverlayTxtRecordCount)
         {
@@ -727,7 +729,7 @@ int __fastcall sub_004E3060_CltDoPrgState(D2UnitStrc* pUnit, int nSkillId, int n
             sub_004B9A00(pSkillsTxtRecord->wPrgSound, 0, 0, 0, 0);
         }
     }
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 12);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_INFERNO);
     if (!pStatList)
     {
         pStatList = STATLIST_AllocStatList(0, 2, 0x15, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
@@ -737,7 +739,7 @@ int __fastcall sub_004E3060_CltDoPrgState(D2UnitStrc* pUnit, int nSkillId, int n
         }
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         STATLIST_SetStatRemoveCallback(pStatList, sub_004C21E0_StatRemoveCallback_ToggleStateOff);
-        STATLIST_SetState(pStatList, 12);
+        STATLIST_SetState(pStatList, STATE_INFERNO);
         STATES_ToggleState(pUnit, 12, 1);
         return 1;
     }
@@ -790,7 +792,7 @@ D2UnitStrc* __fastcall sub_004E31C0_CltDo(D2UnitStrc* pUnit, int nSkillId, int n
     if (pMissile)
         sub_004E3170_SetMissileFrames(pMissile, nRange);
 
-    if (STATES_CheckState(pUnit, 0xC))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         if (pUnit->pAnimSeq)
         {
@@ -1519,14 +1521,14 @@ static int __stdcall sub_004E9160_GetAttackRateValues(D2UnitStrc* pUnit, D2UnitS
     if (!pItem && pUnit->pInventory)
         pItem = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
-    if (pItem && ITEMS_GetItemType(pItem) == 38)
+    if (pItem && ITEMS_GetItemType(pItem) == ITEMTYPE_MISSILE_POTION)
     {
         *pValue1 = 0;
         *pValue2 = 0;
     }
 
     int nBonus = 0;
-    if (STATES_CheckState(pUnit, 78))
+    if (STATES_CheckState(pUnit, STATE_THROWINGMASTERY))
         nBonus = SKILLS_GetWeaponMasteryBonus(pUnit, pItem, pSkill, 0);
 
     nBonus += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
@@ -2448,7 +2450,7 @@ int __fastcall sub_004F11D0_MissileLine(D2UnitStrc* pUnit, int nSkillId, int nSk
         nY += nStepY;
     }
 
-    if (STATES_CheckState(pUnit, 0x0C))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         UNITS_SetAnimationFrame(pUnit, 8);
         pUnit->dwFrameCountPrecise = 0x600;

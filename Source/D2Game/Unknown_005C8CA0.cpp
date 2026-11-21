@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -121,7 +122,7 @@ int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
     }
 
     pUnit->nSeqCurrentFramePrecise = 0xB00;
-    if (pGame->dwGameFrame < SKILLS_GetParam1(pSkill) && STATES_CheckState(pUnit, 12))
+    if (pGame->dwGameFrame < SKILLS_GetParam1(pSkill) && STATES_CheckState(pUnit, STATE_INFERNO))
     {
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
         EVENT_SetEvent(pGame, pUnit, 0, pGame->dwGameFrame + 2, 4, 0);

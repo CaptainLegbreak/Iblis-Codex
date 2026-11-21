@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -426,7 +427,7 @@ int __fastcall SKILLS_SrvSt38_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         return 0;
     }
 
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         return 0;
     }
@@ -1538,7 +1539,7 @@ int __fastcall SKILLS_SrvSt41_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     SKILLS_SetFlags(pSkill, 0x1080);
     STATES_ToggleState(pUnit, 0x12, 1);
 
-    if (pTarget && STATES_CheckState(pTarget, 0x36))
+    if (pTarget && STATES_CheckState(pTarget, STATE_UNINTERRUPTABLE))
     {
         sub_6FD14F70(pGame, pUnit, pTarget, 100);
     }
@@ -1602,7 +1603,7 @@ static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId,
             UNITS_SetOverlay(pDefender, pSkillsTxtRecord->wSrvOverlay, 0);
         }
 
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 0x15);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, STATE_STUNNED);
         if (pStatList)
         {
             D2Common_10474(pDefender, pStatList);

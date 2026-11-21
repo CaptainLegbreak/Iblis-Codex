@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2ItemsWorld.h"
@@ -505,7 +506,7 @@ static int __stdcall sub_005C1BF0_RollRareItemNew(D2ItemDropStrc* pItemDrop, D2U
     D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);
 
     int nAffixCount = 0;
-    if (ITEMS_GetItemType(pItem) == 0x3A)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_JEWEL)
     {
         nAffixCount = sub_00472280(pSeed, 3, 2);
     }
@@ -605,7 +606,7 @@ static int __stdcall ITEMS_RollLegacyRareItem(D2ItemDropStrc* pItemDrop, D2UnitS
     D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);
 
     unsigned int nAffixCount = 0;
-    if (ITEMS_GetItemType(pItem) == 0x3A)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_JEWEL)
     {
         nAffixCount = sub_00472280(pSeed, 3, 2);
     }

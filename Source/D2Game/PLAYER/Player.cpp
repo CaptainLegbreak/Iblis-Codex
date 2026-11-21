@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"

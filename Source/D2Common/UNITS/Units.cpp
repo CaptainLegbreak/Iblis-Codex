@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Common.h"
@@ -293,10 +295,6 @@ enum
     COMPOSIT_RIGHTHAND = 7,
 };
 
-enum
-{
-    ITEMTYPE_SHIELD = 2,
-};
 
 struct D2InventoryRecordMapStrc
 {
@@ -2158,7 +2156,7 @@ static void __stdcall UNITS_StoreOwnerInfo(D2UnitStrc* pUnit, int nOwnerType, in
         if (pUnit->pStatListEx)
         {
             STATES_ToggleState(pUnit, 0x62, 1);
-            pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x62);
+            pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_SOURCEUNIT);
             if (!pStatList)
             {
                 pStatList = STATLIST_AllocStatList(sub_M442_GetMemPool(pUnit), 0, 0, sub_T03_GetUnitType(pUnit), sub_T03_GetUnitId(pUnit));
@@ -2212,7 +2210,7 @@ void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner)
             {
                 STATES_ToggleState(pUnit, 0x62, 0);
 
-                pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x62);
+                pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_SOURCEUNIT);
                 if (pStatList)
                 {
                     D2Common_10474(pUnit, pStatList);
@@ -2471,9 +2469,9 @@ int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
     int nArmorPercent = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_SKILL_ARMOR_PERCENT, 0);
     nArmorPercent += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_ARMOR_PERCENT, 0);
 
-    if (STATES_CheckState(pUnit, 0x65))
+    if (STATES_CheckState(pUnit, STATE_HOLYSHIELD))
     {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x65);
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_HOLYSHIELD);
         if (pStatList)
         {
             const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
@@ -3982,7 +3980,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
     {
         const int nFasterBlockRate = UNITS_GetAnimStatBasePercentage(pUnit, 3);
         int nBlockRateBonus = 0x32;
-        if (STATES_CheckState(pUnit, 0x65))
+        if (STATES_CheckState(pUnit, STATE_HOLYSHIELD))
         {
             nBlockRateBonus = 0x64;
         }

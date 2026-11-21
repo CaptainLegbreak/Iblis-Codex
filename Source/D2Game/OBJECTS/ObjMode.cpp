@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -32,8 +33,6 @@
 #define UNITFLAGEX_TELEPORTED 0x10000
 
 #define UNITFLAG_TARGETABLE 0x00000002
-
-#define ITEMTYPE_GEM 20
 
 #define STAT_HITPOINTS 6
 
@@ -1688,7 +1687,7 @@ static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2G
 void __fastcall sub_00582C40_OperateGemShrine(D2ObjOperateFnStrc* pOp, int nOperate)
 {
     D2InventoryStrc* pInventory = pOp->hPlayer->pInventory;
-    D2UnitStrc* pItem = INVENTORY_GetBackPackItemByType(pInventory, 0x14, 0);
+    D2UnitStrc* pItem = INVENTORY_GetBackPackItemByType(pInventory, ITEMTYPE_GEM, 0);
     int bUpgraded = 0;
     while (pItem)
     {
@@ -1709,7 +1708,7 @@ void __fastcall sub_00582C40_OperateGemShrine(D2ObjOperateFnStrc* pOp, int nOper
             }
         }
 
-        pItem = INVENTORY_GetBackPackItemByType(pInventory, 0x14, pItem);
+        pItem = INVENTORY_GetBackPackItemByType(pInventory, ITEMTYPE_GEM, pItem);
     }
 
     if (bUpgraded)
@@ -2037,7 +2036,7 @@ static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D
         pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
     }
 
-    if (pWeapon && ITEMS_GetItemType(pWeapon) == 0x26)
+    if (pWeapon && ITEMS_GetItemType(pWeapon) == ITEMTYPE_MISSILE_POTION)
     {
         *pToHit = 0;
     }

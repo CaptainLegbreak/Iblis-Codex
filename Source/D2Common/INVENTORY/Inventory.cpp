@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2MonsterIds.h"
 #include "D2Common.h"
 #include "D2ClientTypes.h"
@@ -291,8 +292,6 @@ static int gnComponentArrayRecordCount_0096D460; // 0x0096D460
 
 static int gbComponentArrayInitialized_0096D464; // 0x0096D464
 
-#define ITEMTYPE_WEAPON 45
-
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
@@ -357,8 +356,6 @@ struct D2BeltsTxtLayout
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0);
 
 #define BODYLOC_LAST (13 - 1)
-
-#define ITEMTYPE_ANY_SHIELD 51
 
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner);
 
@@ -431,8 +428,6 @@ BOOL __stdcall INVENTORY_PlaceItemInFreeBeltSlot(D2InventoryStrc* pInventory, D2
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
 static void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output);
-
-#define ITEMTYPE_MISSILE_POTION 0x26
 
 BOOL __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nUnused);
 
@@ -3459,11 +3454,11 @@ void __fastcall INVENTORY_InitializeComponentArray()
         D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
 
         gTxtComponentItemTypeMap_0096CC68[1].dwCode = 0x2074696C;
-        gTxtComponentItemTypeMap_0096CC68[1].nItemType = 3;
+        gTxtComponentItemTypeMap_0096CC68[1].nItemType = ITEMTYPE_ARMOR;
         gTxtComponentItemTypeMap_0096CC68[2].dwCode = 0x2064656D;
-        gTxtComponentItemTypeMap_0096CC68[2].nItemType = 3;
+        gTxtComponentItemTypeMap_0096CC68[2].nItemType = ITEMTYPE_ARMOR;
         gTxtComponentItemTypeMap_0096CC68[3].dwCode = 0x20797668;
-        gTxtComponentItemTypeMap_0096CC68[3].nItemType = 3;
+        gTxtComponentItemTypeMap_0096CC68[3].nItemType = ITEMTYPE_ARMOR;
 
         int nCurrentTableEntries = 4;
 
@@ -3482,11 +3477,11 @@ void __fastcall INVENTORY_InitializeComponentArray()
             }
 
             int bNeedsToBeAdded = 1;
-            if (!(ITEMS_CheckType(pItemsTxtRecord->wType[0], 0x2D)
-                || ITEMS_CheckType(pItemsTxtRecord->wType[0], 3)
-                || ITEMS_CheckType(pItemsTxtRecord->wType[0], 0x33)
-                || ITEMS_CheckType(pItemsTxtRecord->wType[0], 0x25))
-                || ITEMS_CheckType(pItemsTxtRecord->wType[0], 0x4B))
+            if (!(ITEMS_CheckType(pItemsTxtRecord->wType[0], ITEMTYPE_WEAPON)
+                || ITEMS_CheckType(pItemsTxtRecord->wType[0], ITEMTYPE_ARMOR)
+                || ITEMS_CheckType(pItemsTxtRecord->wType[0], ITEMTYPE_ANY_SHIELD)
+                || ITEMS_CheckType(pItemsTxtRecord->wType[0], ITEMTYPE_HELM))
+                || ITEMS_CheckType(pItemsTxtRecord->wType[0], ITEMTYPE_CIRCLET))
             {
                 bNeedsToBeAdded = 0;
             }
@@ -3505,8 +3500,8 @@ void __fastcall INVENTORY_InitializeComponentArray()
             {
                 int nIndex = nCurrentTableEntries;
 
-                while (ITEMS_CheckType(gComponentItemTypeMap_00744CA8[nIndex].nItemType, 0x2D) && ITEMS_CheckType(pItemsTxtRecord->wType[0], 0x2D)
-                       || ITEMS_CheckType(gComponentItemTypeMap_00744CA8[nIndex].nItemType, 0x32) && ITEMS_CheckType(pItemsTxtRecord->wType[0], 0x32)
+                while (ITEMS_CheckType(gComponentItemTypeMap_00744CA8[nIndex].nItemType, ITEMTYPE_WEAPON) && ITEMS_CheckType(pItemsTxtRecord->wType[0], ITEMTYPE_WEAPON)
+                       || ITEMS_CheckType(gComponentItemTypeMap_00744CA8[nIndex].nItemType, ITEMTYPE_ANY_ARMOR) && ITEMS_CheckType(pItemsTxtRecord->wType[0], ITEMTYPE_ANY_ARMOR)
                        || gTxtComponentItemTypeMap_0096CC68[nIndex].dwCode)
                 {
                     ++nIndex;
@@ -4255,7 +4250,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                 }
                 else
                 {
-                    if (!ITEMS_CheckType(FIELD(short, record, 0x11E), 0x4B))
+                    if (!ITEMS_CheckType(FIELD(short, record, 0x11E), ITEMTYPE_CIRCLET))
                     {
                         sub_0063DA70_ItemSlots(unit, firstOutput, secondOutput, item);
                     }

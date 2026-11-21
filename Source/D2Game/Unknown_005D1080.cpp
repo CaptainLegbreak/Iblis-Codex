@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -19,7 +20,6 @@ enum D2C_Y09ImpInfernoConstants
     EVENTTYPE_MODECHANGE = 0,
     EVENTTYPE_ENDANIM = 1,
     EVENTTYPE_AITHINK = 2,
-    STATE_INFERNO = 12,
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

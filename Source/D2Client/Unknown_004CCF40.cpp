@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -52,7 +53,7 @@ static int __stdcall sub_004CCF40_CanMissileHitUnit(D2UnitStrc* pUnit, D2UnitStr
     if (!UNITS_CanBeAttackedInline(pUnit))
         return 0;
 
-    if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pUnit, 0x56))
+    if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pUnit, STATE_JUSTHIT))
         return 0;
 
     if (MISSILE_CheckUnitIfOwner(pMissile, pUnit))

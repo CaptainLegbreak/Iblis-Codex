@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -17,8 +18,6 @@
 #define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define STATE_INVIS 0x92
 
 struct D2AiTickStrc;
 
@@ -201,7 +200,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit,
 // 0x005B0E00
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiControlStrc* pAiControl, int nAiSpecialState)
 {
-    ASSERT(!STATES_CheckState(hUnit, 54), 422);
+    ASSERT(!STATES_CheckState(hUnit, STATE_UNINTERRUPTABLE), 422);
 
     if (!pGame || !hUnit || !pAiControl || nAiSpecialState >= 18 || (!hUnit ? 6 : hUnit->dwUnitType) != 1)
     {
@@ -496,7 +495,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
     case 4: AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 11, pTarget); break;
     case 5:
         if (pStats->nSkill[0] < 0) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 2); break; }
-        if (STATES_CheckState(pUnit, 12)) {
+        if (STATES_CheckState(pUnit, STATE_INFERNO)) {
             STATES_ToggleState(pUnit, 12, 0);
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 2);
             break;
@@ -720,7 +719,7 @@ void __fastcall sub_005EF320_ThinkBaalThrone(D2GameStrc* pGame, D2UnitStrc* pUni
             if (pList)
             {
                 sub_00626E10(pUnit, pList, 1);
-                STATLIST_SetState(pList, 142);
+                STATLIST_SetState(pList, STATE_CHANGECLASS);
                 STATLIST_SetStat(pList, STAT_SHORTPARAM1, 559, 0);
             }
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);

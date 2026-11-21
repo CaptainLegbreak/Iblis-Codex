@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -1112,7 +1114,7 @@ int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, 
     {
         return 0;
     }
-    if (nFlags & 0x80000 && STATES_CheckState(pTarget, 0x56))
+    if (nFlags & 0x80000 && STATES_CheckState(pTarget, STATE_JUSTHIT))
     {
         return 0;
     }
@@ -1416,7 +1418,7 @@ int __fastcall sub_004C60A0_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nAr
     }
 
     nMissile = ITEMS_GetMissileType(pItem);
-    if (ITEMS_GetItemType(pItem) == 0x26)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_MISSILE_POTION)
     {
         sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);
         sub_004CDC30(pUnit, nMissile, 0, 0, nX, nY, nSkillId, 1, 0);
@@ -1570,7 +1572,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
     {
         sub_00480E70_SetUnitMode(pUnit, nMode);
     }
-    else if (!STATES_CheckState(pUnit, 12) || !BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 11))
+    else if (!STATES_CheckState(pUnit, STATE_INFERNO) || !BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 11))
     {
         SKILLCLT_SetCastState(pUnit);
     }
@@ -2073,13 +2075,13 @@ static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2Cli
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     D2UnitStrc* pRightHand = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (pRightHand && (!ITEMS_CanBeEquipped(pRightHand) || ITEMS_GetItemType(pRightHand) == 0x26))
+    if (pRightHand && (!ITEMS_CanBeEquipped(pRightHand) || ITEMS_GetItemType(pRightHand) == ITEMTYPE_MISSILE_POTION))
     {
         pRightHand = NULL;
     }
 
     D2UnitStrc* pLeftHand = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (pLeftHand && (!ITEMS_CanBeEquipped(pLeftHand) || ITEMS_GetItemType(pLeftHand) == 0x26))
+    if (pLeftHand && (!ITEMS_CanBeEquipped(pLeftHand) || ITEMS_GetItemType(pLeftHand) == ITEMTYPE_MISSILE_POTION))
     {
         pLeftHand = NULL;
     }
@@ -2479,7 +2481,7 @@ void __fastcall sub_004C7890(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
         return;
-    if (STATES_CheckState(pUnit, 18))
+    if (STATES_CheckState(pUnit, STATE_SKILL_MOVE))
         return;
     if (SKILLS_GetFlags(pSkill) & 2)
         return;

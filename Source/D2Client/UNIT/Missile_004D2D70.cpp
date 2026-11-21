@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -109,7 +110,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
     {
         if (pTarget)
         {
-            if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pTarget, 0x56))
+            if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pTarget, STATE_JUSTHIT))
                 return 0;
 
             if (MISSILE_CheckUnitIfOwner(pMissile, pTarget))
@@ -125,7 +126,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
 
         if (pOwner && pTarget && (pMissilesTxtRecord->nMissileFlags[0] & gbChargeMissileMask_006CE270) && (unsigned int)pOwner->dwUnitType <= 1)
         {
-            if (STATES_CheckState(pOwner, 0x45) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0))
+            if (STATES_CheckState(pOwner, STATE_PIERCE) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0))
                 nResult = sub_004CD310_UseMissileCharge(pMissile);
         }
 
@@ -138,7 +139,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
                 D2StatListStrc* pStatList = STATLIST_AllocStatList(0, 2, pMissilesTxtRecord->nNextDelay, nType, nId);
                 if (pStatList)
                 {
-                    STATLIST_SetState(pStatList, 0x56);
+                    STATLIST_SetState(pStatList, STATE_JUSTHIT);
                     STATLIST_SetStatRemoveCallback(pStatList, sub_004CD380_StatRemoveCallback_ToggleStateOff);
                     D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);
                     STATES_ToggleState(pTarget, 0x56, 1);

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -11,7 +12,6 @@ struct D2UnitStrc;
 #define UNIT_INVALID 6
 #define UNIT_MONSTER 1
 
-#define STATE_DECREPIFY 60
 #define EVENTTYPE_AITHINK 2
 union D2SeedStrc;
 struct D2StaticPathStrc;

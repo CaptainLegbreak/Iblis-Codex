@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
@@ -27,10 +28,6 @@ struct D2AiTableStrc;
 
 union D2SeedStrc;
 
-enum D2C_M244AiBaalConstants
-{
-    STATE_COLD = 0x0B,
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -712,7 +709,7 @@ static __declspec(noinline) int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2Ga
 
     aiParams[1] += 100 - UNITS_GetCurrentLifePercentage(pUnit);
 
-    if (STATES_CheckState(pTarget, 11))
+    if (STATES_CheckState(pTarget, STATE_COLD))
     {
         aiParams[8] = 0;
         aiParams[13] = 0;

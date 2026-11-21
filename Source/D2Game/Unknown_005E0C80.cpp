@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -12,10 +13,6 @@ struct Control;
 struct MonStats;
 struct Tick;
 
-enum D2C_M74MegademonConstants
-{
-    STATE_INFERNO = 12,
-};
 
 enum D2C_MegademonAIParams
 {

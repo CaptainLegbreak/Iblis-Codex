@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -116,7 +117,7 @@ int __fastcall sub_004F25A0_RepeatMissile(D2UnitStrc* pUnit, int nSkillId, int n
         SKILLS_SetParam1(pSkill, nParam - 1);
     }
 
-    if (STATES_CheckState(pUnit, 12))
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
     {
         UNITS_SetAnimationFrame(pUnit, pSkillsTxtRecord->nSeqInput - 1);
         pUnit->dwFrameCountPrecise = 0x800;

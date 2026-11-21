@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -755,7 +756,7 @@ void __fastcall sub_004EA790_DrawWeaponStatDamage(D2UnitStrc* pUnit, D2SkillStrc
     nMax += (nMaxPercent + nBonus) * nMax / 100;
 
     int nMastery = 0;
-    if (STATES_CheckState(pUnit, 0x4E))
+    if (STATES_CheckState(pUnit, STATE_THROWINGMASTERY))
     {
         nMastery = SKILLS_GetWeaponMasteryBonus(pUnit, pItem, pSkill, 1);
     }

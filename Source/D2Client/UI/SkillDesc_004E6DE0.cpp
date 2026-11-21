@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -965,7 +967,7 @@ static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2Uni
     if (!pItem && pUnit->pInventory)
         pItem = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
-    if (pItem && ITEMS_GetItemType(pItem) == 38)
+    if (pItem && ITEMS_GetItemType(pItem) == ITEMTYPE_MISSILE_POTION)
     {
         *pValue1 = 0;
         *pValue2 = 0;
@@ -1340,7 +1342,7 @@ void __fastcall sub_004EB460_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSk
     int nMin = pItemsTxtRecord->nMinDam;
     int nMax = pItemsTxtRecord->nMaxDam;
     D2SkillStrc* pThrowSkill = SKILLS_GetSkillById(pUnit, SKILL_HOLYSHIELD, -1);
-    if (pThrowSkill && STATES_CheckState(pUnit, 0x65))
+    if (pThrowSkill && STATES_CheckState(pUnit, STATE_HOLYSHIELD))
     {
         const int nLevel = SKILLS_GetSkillLevel(pUnit, pThrowSkill, 1);
         nMin += SKILLS_GetMinPhysDamage(pUnit, SKILL_HOLYSHIELD, nLevel, 1) >> 8;

@@ -1,3 +1,5 @@
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -30,10 +32,6 @@ struct D2InventoryStrc;
 #define MAX_QUEST_STATUS 42
 
 #define QFLAG_UPDATEQUESTLOG 12
-
-#define STATE_HEALTHPOT 100
-
-#define STATE_MANAPOT 106
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -608,8 +606,6 @@ int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc*
 
 #define PLRMODE_DEAD 17
 
-#define STATE_INFERNO 12
-
 #define BODYLOC_BELT 8
 
 #define EVENTTYPE_AITHINK 2
@@ -745,11 +741,6 @@ struct D2WarpDelayStrc
     int nDelay;
 };
 
-enum
-{
-    STATE_UNINTERRUPTABLE = 54,
-    STATE_SYNC_WARPED = 108,
-};
 
 extern const D2WarpDelayStrc gWarpDelays_006E1064[3]; // 0x006E1064
 
@@ -1069,7 +1060,7 @@ static unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit)
 {
 	const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
 	const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
-	D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 100);
+	D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_HEALTHPOT);
 	if (!pStatList || !nMaxLife)
 	{
 		return 0;
@@ -2067,13 +2058,13 @@ static __declspec(noinline) D2SkillStrc* __stdcall sub_6FC83450(D2SkillStrc* pSk
     {
         D2InventoryStrc* pInventory = pUnit->pInventory;
         D2UnitStrc* pRightWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-        if (pRightWeapon && (!ITEMS_CanBeEquipped(pRightWeapon) || ITEMS_GetItemType(pRightWeapon) == 38))
+        if (pRightWeapon && (!ITEMS_CanBeEquipped(pRightWeapon) || ITEMS_GetItemType(pRightWeapon) == ITEMTYPE_MISSILE_POTION))
         {
             pRightWeapon = 0;
         }
 
         D2UnitStrc* pLeftWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-        if (pLeftWeapon && (!ITEMS_CanBeEquipped(pLeftWeapon) || ITEMS_GetItemType(pLeftWeapon) == 38))
+        if (pLeftWeapon && (!ITEMS_CanBeEquipped(pLeftWeapon) || ITEMS_GetItemType(pLeftWeapon) == ITEMTYPE_MISSILE_POTION))
         {
             pLeftWeapon = 0;
         }
@@ -2218,7 +2209,7 @@ static int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
 
     D2UnitStrc* pOtherUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-    if (pOtherUnit && STATES_CheckState(pOtherUnit, 0x8F))
+    if (pOtherUnit && STATES_CheckState(pOtherUnit, STATE_ATTACHED))
     {
         D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pOtherUnit);
         if (pOwner)
