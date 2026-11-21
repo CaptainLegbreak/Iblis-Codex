@@ -99,7 +99,7 @@ struct TSLink006C4290
     TSLink006C4290* m_prevlink;
     int m_next;
 
-    __forceinline TSLink006C4290* NextLink(int linkoffset)
+    inline TSLink006C4290* NextLink(int linkoffset)
     {
         if (m_next < 0)
             return (TSLink006C4290*)~m_next;
@@ -108,7 +108,7 @@ struct TSLink006C4290
         return (TSLink006C4290*)(m_next + linkoffset);
     }
 
-    __forceinline void Unlink()
+    inline void Unlink()
     {
         if (m_prevlink)
         {

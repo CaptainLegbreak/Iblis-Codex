@@ -147,7 +147,7 @@ int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
 void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BAB60
 
-static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -221,7 +221,7 @@ void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-static __forceinline int ACT3Q4_UpdatePartyQuestStateInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline int ACT3Q4_UpdatePartyQuestStateInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     const unsigned short nPartyId = SUNIT_GetPartyId(pPlayer);
     if (nPartyId != 0xFFFF)

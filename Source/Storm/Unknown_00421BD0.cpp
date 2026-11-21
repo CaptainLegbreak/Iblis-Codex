@@ -197,7 +197,7 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
     *pSize = pBig->tBuffer.f_4;
 }
 
-static __forceinline void ReserveCount(D2StormArrayAStrc* pArray, unsigned int nCount)
+static inline void ReserveCount(D2StormArrayAStrc* pArray, unsigned int nCount)
 {
     if (nCount > pArray->f_0)
     {

@@ -211,7 +211,7 @@ inline unsigned char UNITS_GetMonsterComponent(D2UnitStrc* pUnit, int nComponent
     return 0;
 }
 
-__forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -224,7 +224,7 @@ __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-__forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

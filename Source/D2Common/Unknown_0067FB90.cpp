@@ -75,7 +75,7 @@ void __fastcall sub_0067FC50(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
 }
 
 // 0x0067FCD0
-static __forceinline int __stdcall sub_0067FCD0_GetPresetPairValue(int bFirst, int nIndex, unsigned int nFlags)
+static inline int __stdcall sub_0067FCD0_GetPresetPairValue(int bFirst, int nIndex, unsigned int nFlags)
 {
     if (nIndex)
     {
@@ -93,7 +93,7 @@ static __forceinline int __stdcall sub_0067FCD0_GetPresetPairValue(int bFirst, i
 }
 
 // 0x0067FFB0
-static __forceinline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
+static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
 {
     D2DrlgOutRectStrc* pBounds = pRect->pBounds;
     if (pRect->nX < pBounds->nX && pOther->nY > pRect->nY && !(pRect->nFlags & 1) && !(pOther->nFlags & 1))
@@ -118,7 +118,7 @@ void __fastcall sub_M127_Emit_0067FCD0(int nValue, D2DrlgOutRectStrc* pRect, D2D
 
 #include "gen/data/Source/D2Common/Unknown_0067FB90.inc"
 
-static __forceinline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
@@ -126,7 +126,7 @@ static __forceinline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
     return nSeed;
 }
 
-static __forceinline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimit)
+static inline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimit)
 {
     if (nLimit <= 0)
         return 0;

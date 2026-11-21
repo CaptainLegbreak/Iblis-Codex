@@ -470,14 +470,14 @@ static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit,
     sub_0046F280_ClearGfxBytes(pUnit, nComponent);
 }
 
-static __forceinline D2UniqueItemsTxt* ITEM_GetUniqueItemsTxtRecord(int nIndex)
+static inline D2UniqueItemsTxt* ITEM_GetUniqueItemsTxtRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < sgptDataTables->nUniqueItemsTxtRecordCount)
         return &sgptDataTables->pUniqueItemsTxt[nIndex];
     return 0;
 }
 
-static __forceinline D2SetItemsTxt* ITEM_GetSetItemsTxtRecord(int nIndex)
+static inline D2SetItemsTxt* ITEM_GetSetItemsTxtRecord(int nIndex)
 {
     if (nIndex >= 0 && nIndex < sgptDataTables->nSetItemsTxtRecordCount)
         return &sgptDataTables->pSetItemsTxt[nIndex];
@@ -658,7 +658,7 @@ void __fastcall sub_E08_Emit_SkillState(D2UnitStrc* pUnit, D2UnitStrc* pItem)
     sub_004C1200_RestoreSkillState(pUnit, &tState);
 }
 
-static __forceinline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
+static inline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -671,7 +671,7 @@ static __forceinline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
+static inline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -684,7 +684,7 @@ static __forceinline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline unsigned int ITEMPKT_GetItemCode(D2UnitStrc* pItem)
+static inline unsigned int ITEMPKT_GetItemCode(D2UnitStrc* pItem)
 {
     return DATATBLS_GetItemsTxtRecord(pItem->dwClassId)->dwCode;
 }
@@ -1156,7 +1156,7 @@ void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket)
     sub_004B3C00(!pItem ? -1 : pItem->dwUnitId);
 }
 
-static __forceinline int ITEMPKT_UnitFlag9(D2UnitStrc* pUnit)
+static inline int ITEMPKT_UnitFlag9(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1441,12 +1441,12 @@ void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
 }
 
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
-static __forceinline void ITEM_RemoveItemStats(D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static inline void ITEM_RemoveItemStats(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (pUnit->dwUnitType == UNIT_PLAYER)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
@@ -1455,7 +1455,7 @@ static __forceinline void ITEM_RemoveItemStats(D2UnitStrc* pUnit, D2UnitStrc* pI
     STATLIST_ExpireUnitStatlist(pUnit, pItem);
 }
 
-static __forceinline void ITEM_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static inline void ITEM_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (!pUnit || !pItem)
         return;

@@ -89,7 +89,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -101,7 +101,7 @@ static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -201,7 +201,7 @@ int __fastcall sub_004F1640_AuraStateOverlay(D2UnitStrc* pUnit, int nSkillId, in
     return 1;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber_Spray(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Spray(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -209,12 +209,12 @@ static __forceinline unsigned int SEED_RollRandomNumber_Spray(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Spray(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Spray(int nSkillId)
 {
     return (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -226,7 +226,7 @@ static __forceinline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

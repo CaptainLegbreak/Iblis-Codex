@@ -43,12 +43,12 @@ void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQu
 void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* pQuestRecord, int nQuest);          // 0x0065C3E0
 void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x005BA0B0
 
-static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
-static __forceinline int ACT3Q4_UpdatePartyQuestStateInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline int ACT3Q4_UpdatePartyQuestStateInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     const unsigned short nPartyId = SUNIT_GetPartyId(pPlayer);
     if (nPartyId != 0xFFFF)

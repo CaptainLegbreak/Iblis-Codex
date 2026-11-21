@@ -59,7 +59,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -93,7 +93,7 @@ void __fastcall sub_005F0A20_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_IDLE_FRAMES));
 }
 
-static __forceinline unsigned int AI_RollSeedUnit(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollSeedUnit(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -203,7 +203,7 @@ void __fastcall sub_005F6B70(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 2));
 }
 
-static __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -216,7 +216,7 @@ static __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -229,7 +229,7 @@ static __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

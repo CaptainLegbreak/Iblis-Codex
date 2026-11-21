@@ -92,7 +92,7 @@ inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
     return 0;
 }
 
-__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -105,7 +105,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

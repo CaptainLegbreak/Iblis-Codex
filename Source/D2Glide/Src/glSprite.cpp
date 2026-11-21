@@ -147,7 +147,7 @@ void __cdecl sub_0050A0C0_FreeSpriteBuffers()
 }
 
 // 0x0050A1E0
-static __forceinline int sub_0050A1E0_RoundTexSize(int nSize)
+static inline int sub_0050A1E0_RoundTexSize(int nSize)
 {
     if (nSize > 128)
         return 256;
@@ -161,7 +161,7 @@ static __forceinline int sub_0050A1E0_RoundTexSize(int nSize)
 }
 
 // 0x0050A220
-static __forceinline int sub_0050A220_GetTexSizeLog2(int nSize)
+static inline int sub_0050A220_GetTexSizeLog2(int nSize)
 {
     if (nSize == 256)
         return 8;
@@ -608,7 +608,7 @@ static void sub_0050ABF0_GlideSetBlendMode(int nMode)
 }
 
 // 0x0050AC90
-static __forceinline int sub_0050AC90_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
+static inline int sub_0050AC90_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
 {
     nX += pRect->nOffsetX;
     if (nX > gnScreenWidth_007C9138 || pRect->nLeft + nX < 0 || (nY += pRect->nOffsetY) < 0 || nY - pRect->nTop >= gnScreenHeight_007C913C)

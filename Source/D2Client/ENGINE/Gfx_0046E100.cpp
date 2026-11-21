@@ -663,7 +663,7 @@ inline int IsShapeShifted(D2UnitStrc* pUnit)
     return bResult;
 }
 
-static __forceinline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
+static inline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (pGfxData)

@@ -49,7 +49,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);     
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId);                                       // 0x0063EC70
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                          // 0x006556E0
 
-static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -58,7 +58,7 @@ static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
+static inline unsigned char* UModsOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -67,7 +67,7 @@ static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
+static inline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -76,7 +76,7 @@ static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
     return 0;
 }
 
-static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
+static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
@@ -99,7 +99,7 @@ static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag
     }
 }
 
-static __forceinline int CountUMods(unsigned char* pUMods)
+static inline int CountUMods(unsigned char* pUMods)
 {
     int nIndex = 0;
     while (nIndex < 9 && pUMods[nIndex])
@@ -109,7 +109,7 @@ static __forceinline int CountUMods(unsigned char* pUMods)
     return nIndex;
 }
 
-static __forceinline int CountUModsTo(unsigned char* pUMods)
+static inline int CountUModsTo(unsigned char* pUMods)
 {
     for (int i = 0; i < 9; ++i)
     {
@@ -121,7 +121,7 @@ static __forceinline int CountUModsTo(unsigned char* pUMods)
     return 9;
 }
 
-static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
+static inline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
     {
@@ -130,7 +130,7 @@ static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag
     return 0;
 }
 
-static __forceinline unsigned char* UModsOfData(D2UnitStrc* pUnit)
+static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = 0;
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
@@ -145,7 +145,7 @@ static __forceinline unsigned char* UModsOfData(D2UnitStrc* pUnit)
     return pMonsterData->nMonUmod;
 }
 
-static __forceinline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
+static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     UModInitFunc pfnInit = gpUModInitFunctions_0073C008[nUMod];
     if (pfnInit)
@@ -154,7 +154,7 @@ static __forceinline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
     }
 }
 
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -163,7 +163,7 @@ static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
+static inline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecord(nMonsterId);
     if (pMonStatsTxtRecord)
@@ -173,7 +173,7 @@ static __forceinline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
     return 0;
 }
 
-static __forceinline D2MonUModTxt* MonUModTxtRecord(int nUMod)
+static inline D2MonUModTxt* MonUModTxtRecord(int nUMod)
 {
     if (nUMod < sgptDataTables->nMonUModTxtRecordCount)
     {
@@ -182,7 +182,7 @@ static __forceinline D2MonUModTxt* MonUModTxtRecord(int nUMod)
     return 0;
 }
 
-static __forceinline int SuperUniqueHcIdx(int nSuperUnique)
+static inline int SuperUniqueHcIdx(int nSuperUnique)
 {
     if (nSuperUnique >= 0 && nSuperUnique < sgptDataTables->nSuperUniquesTxtRecordCount)
     {
@@ -191,7 +191,7 @@ static __forceinline int SuperUniqueHcIdx(int nSuperUnique)
     return -1;
 }
 
-static __forceinline unsigned int RollRandomInline(D2SeedStrc* pSeed)
+static inline unsigned int RollRandomInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -199,7 +199,7 @@ static __forceinline unsigned int RollRandomInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
+static inline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {

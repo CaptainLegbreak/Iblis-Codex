@@ -19,7 +19,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 void __stdcall D2Common_10216(D2DynamicPathStrc*, int, int, int); // 0x00649EF0
 
-static __forceinline int UNITS_GetXPosition(D2UnitStrc* unit)
+static inline int UNITS_GetXPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
@@ -27,7 +27,7 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* unit)
     }
     return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath) : 0;
 }
-static __forceinline int UNITS_GetYPosition(D2UnitStrc* unit)
+static inline int UNITS_GetYPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {

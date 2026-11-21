@@ -652,7 +652,7 @@ static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)
     return sub_005267E0(pBuffer, D2LANG_GetStringFromTblIndex(0x1507));
 }
 
-static __forceinline unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime)
+static inline unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime)
 {
     long nNow;
     const unsigned int nTime = _time32(&nNow);
@@ -843,7 +843,7 @@ void __cdecl sub_004380F0_UpdateCharList()
     }
 }
 
-static __forceinline int sub_F4B0_IsMaleClass(int nClass)
+static inline int sub_F4B0_IsMaleClass(int nClass)
 {
     switch (nClass)
     {
@@ -1076,7 +1076,7 @@ void __stdcall sub_0043AAB0(const char* szName, unsigned char* pPacket, int bFla
     sub_00439210_Redraw();
 }
 
-static __forceinline int CharSel_IsValidCharName(const char* szName)
+static inline int CharSel_IsValidCharName(const char* szName)
 {
     const int nLen = strlen(szName);
     if (nLen < 2 || nLen > 15 || szName[nLen - 1] == '-' || szName[0] == '_')

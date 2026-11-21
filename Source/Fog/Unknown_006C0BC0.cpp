@@ -276,7 +276,7 @@ extern "C" int __stdcall EmitOperandCountComparison(
         nToken, pfnGetOperandCount, nFunctionId);
 }
 
-static __forceinline int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType)
+static inline int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType)
 {
     if (nPreviousCalcType == 1 || nNewCalcType == 1 || nPreviousCalcType >= 23)
     {

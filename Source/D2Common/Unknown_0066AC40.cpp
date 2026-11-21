@@ -33,12 +33,12 @@ struct D2DrlgLevelStrc
 extern D2TileGroupStrc gaTileGroups_006EED88[];                                                             // 0x006EED88
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pRoomHint, D2DrlgLevelStrc* pLevel); // 0x00642C30
 
-static __forceinline int TileMatches(int nTileIndex, int nOther)
+static inline int TileMatches(int nTileIndex, int nOther)
 {
     return nTileIndex == nOther || (gaTileGroups_006EED88[nTileIndex].bValid && gaTileGroups_006EED88[nTileIndex].nGroup == gaTileGroups_006EED88[nOther].nGroup);
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {

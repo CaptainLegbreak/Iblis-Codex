@@ -187,7 +187,7 @@ int __cdecl sub_00568D70_GetHighestClassSkillCount()
 }
 
 // 0x00576320
-static __forceinline int sub_00576320_CheckItem(D2UnitStrc* pItem)
+static inline int sub_00576320_CheckItem(D2UnitStrc* pItem)
 {
     return sub_0062E880(pItem);
 }
@@ -213,7 +213,7 @@ int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMis
 }
 
 // build: context CLIENTS_GetUnitX
-__forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -227,7 +227,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 }
 
 // build: context CLIENTS_GetUnitY
-__forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -434,7 +434,7 @@ inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-__forceinline int AI_GetUnitX(D2UnitStrc* pUnit)
+inline int AI_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -447,7 +447,7 @@ __forceinline int AI_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int AI_GetUnitY(D2UnitStrc* pUnit)
+inline int AI_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -725,7 +725,7 @@ D2UnitStrc* __fastcall sub_6FCCF9D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
     return 0;
 }
 
-static __forceinline void AITACTICS_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+static inline void AITACTICS_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
 {
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     EVENT_SetEvent(pGame, pUnit, 2, nFrames + pGame->dwGameFrame, 0, 0);

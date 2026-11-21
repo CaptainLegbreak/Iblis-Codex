@@ -83,17 +83,17 @@ struct D2TaskGameStrc
 
 int __fastcall TASK_GetClockTime();                                                                         // 0x00564340
 
-static __forceinline D2TaskQueueStrc* TASK_GetTaskQueueFromLink(D2LinkStrc* pLink)
+static inline D2TaskQueueStrc* TASK_GetTaskQueueFromLink(D2LinkStrc* pLink)
 {
     return (D2TaskQueueStrc*)((char*)pLink - 0x10);
 }
 
-static __forceinline D2GameTaskStrc* TASK_GetGameTaskFromLink(D2LinkStrc* pLink)
+static inline D2GameTaskStrc* TASK_GetGameTaskFromLink(D2LinkStrc* pLink)
 {
     return (D2GameTaskStrc*)((char*)pLink - 0x0C);
 }
 
-static __forceinline int TASK_GetScheduledTimeDelta(D2LinkStrc* pTaskLink, D2LinkStrc* pOtherTaskLink)
+static inline int TASK_GetScheduledTimeDelta(D2LinkStrc* pTaskLink, D2LinkStrc* pOtherTaskLink)
 {
     return (int)((unsigned int)TASK_GetGameTaskFromLink(pTaskLink)->nScheduledTime
         - (unsigned int)TASK_GetGameTaskFromLink(pOtherTaskLink)->nScheduledTime);
@@ -355,7 +355,7 @@ static __forceinline void TASK_LinkList_PushFrontInline(D2LinkStrc* pList, D2Lin
 }
 
 // build: context TASK_LinkList_RemoveInline
-static __forceinline void TASK_LinkList_RemoveInline(D2LinkStrc* pLink)
+static inline void TASK_LinkList_RemoveInline(D2LinkStrc* pLink)
 {
     pLink->pPrev->pNext = pLink->pNext;
     pLink->pNext->pPrev = pLink->pPrev;

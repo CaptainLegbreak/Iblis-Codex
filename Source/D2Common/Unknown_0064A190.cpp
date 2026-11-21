@@ -746,7 +746,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_0064A190(Unit0064A19
     return 0;
 }
 
-__forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
+inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {

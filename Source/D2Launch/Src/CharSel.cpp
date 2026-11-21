@@ -351,7 +351,7 @@ void __cdecl sub_004379F0_Forward()
 }
 
 // 0x00437A00
-static __forceinline char* sub_00437A00_GetSlotNameChecked(int nIndex)
+static inline char* sub_00437A00_GetSlotNameChecked(int nIndex)
 {
     if (nIndex < sub_00430B40())
         return sub_00430B50_GetSlotName(nIndex);

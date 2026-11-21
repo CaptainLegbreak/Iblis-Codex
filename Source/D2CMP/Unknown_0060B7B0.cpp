@@ -32,7 +32,7 @@ int __fastcall sub_Emit_0060B280(int nIndex, D2CmpBitCursorStrc* pCursor, int bS
     return nValue;
 }
 
-static __forceinline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
+static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
 {
     int nBits;
     for (nBits = 0; (1 << nBits) + 1 <= 4 && pBytes[1 << nBits] != pBytes[(1 << nBits) - 1]; ++nBits)

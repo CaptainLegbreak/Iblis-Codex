@@ -98,7 +98,7 @@ inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
     return 0;
 }
 
-static __forceinline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -110,7 +110,7 @@ static __forceinline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

@@ -24,7 +24,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int skillId)
         return &sgptDataTables->pSkillsTxt[skillId];
     return 0;
 }
-static __forceinline int UNITS_GetXPosition(D2UnitStrc* unit)
+static inline int UNITS_GetXPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
@@ -32,7 +32,7 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* unit)
     }
     return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath) : 0;
 }
-static __forceinline int UNITS_GetYPosition(D2UnitStrc* unit)
+static inline int UNITS_GetYPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {

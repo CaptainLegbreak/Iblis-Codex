@@ -1153,7 +1153,7 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
     sub_004769D0_UpdateShakeSound(nMagnitude);
 }
 
-static __forceinline unsigned int STARS_Roll(D2SeedStrc* pSeed)
+static inline unsigned int STARS_Roll(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1161,7 +1161,7 @@ static __forceinline unsigned int STARS_Roll(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int STARS_RollLH(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
+static inline unsigned int STARS_RollLH(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
 {
     const unsigned __int64 lSeed = nHigh + 0x6AC690C5i64 * nLow;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1169,7 +1169,7 @@ static __forceinline unsigned int STARS_RollLH(D2SeedStrc* pSeed, unsigned int n
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int STARS_RollUpTo(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int STARS_RollUpTo(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {

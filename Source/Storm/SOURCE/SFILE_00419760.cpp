@@ -143,7 +143,7 @@ int __stdcall SFileCloseArchive(void* hArchive)
 }
 
 // 0x00419BD0
-static __forceinline void sub_00419BD0(D2StormAudioStreamStrc* stream)
+static inline void sub_00419BD0(D2StormAudioStreamStrc* stream)
 {
     if (stream && --stream->nRefCount == 0)
         delete stream;

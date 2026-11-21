@@ -29,7 +29,7 @@ int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-static __forceinline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
+static inline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -47,7 +47,7 @@ static __forceinline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
+static inline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -65,7 +65,7 @@ static __forceinline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_F05_UnitFlagBit(D2UnitStrc* pUnit, int nBit)
+static inline int sub_F05_UnitFlagBit(D2UnitStrc* pUnit, int nBit)
 {
     if (!pUnit)
     {
@@ -75,7 +75,7 @@ static __forceinline int sub_F05_UnitFlagBit(D2UnitStrc* pUnit, int nBit)
     return (pUnit->dwFlags >> nBit) & 1;
 }
 
-static __forceinline int sub_F05_UnitFlagExBit(D2UnitStrc* pUnit, int nBit)
+static inline int sub_F05_UnitFlagExBit(D2UnitStrc* pUnit, int nBit)
 {
     if (!pUnit)
     {
@@ -85,7 +85,7 @@ static __forceinline int sub_F05_UnitFlagExBit(D2UnitStrc* pUnit, int nBit)
     return (pUnit->dwFlagEx >> nBit) & 1;
 }
 
-static __forceinline int sub_F05_MsgGetUnitId(D2UnitStrc* pUnit)
+static inline int sub_F05_MsgGetUnitId(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }

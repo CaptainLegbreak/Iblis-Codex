@@ -346,11 +346,11 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData)
     }
 }
 
-static __forceinline int GetX(D2UnitStrc* unit) {
+static inline int GetX(D2UnitStrc* unit) {
  switch(unit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nXPos;default:return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath):0;}
 }
 
-static __forceinline int GetY(D2UnitStrc* unit) {
+static inline int GetY(D2UnitStrc* unit) {
  switch(unit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nYPos;default:return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath):0;}
 }
 

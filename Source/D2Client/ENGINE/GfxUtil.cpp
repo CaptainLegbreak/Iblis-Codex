@@ -996,7 +996,7 @@ T004DA110* __fastcall sub_004DA990_FindGfxUtilNode(T004DA110* pList, int nKeyA, 
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* GFXUTIL_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* GFXUTIL_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1766,7 +1766,7 @@ inline D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUn
     return pUnit->pInventory;
 }
 
-static __forceinline D2InventoryStrc* GetCompInventoryInline(D2UnitStrc* pUnit)
+static inline D2InventoryStrc* GetCompInventoryInline(D2UnitStrc* pUnit)
 {
     int nOut;
     return sub_0046DB30_GetCompInventory(pUnit, &nOut);

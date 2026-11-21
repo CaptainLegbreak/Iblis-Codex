@@ -723,7 +723,7 @@ int __fastcall sub_00537A40_QueryGridSecond(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x00537AB0
-static __forceinline void sub_00537AB0_ChangeClientRooms(D2ActiveRoomStrc* pNewRoom, D2ActiveRoomStrc* pOldRoom)
+static inline void sub_00537AB0_ChangeClientRooms(D2ActiveRoomStrc* pNewRoom, D2ActiveRoomStrc* pOldRoom)
 {
     DUNGEON_ChangeClientRoom(pOldRoom, pNewRoom);
     D2Common_10077(pOldRoom, pNewRoom);
@@ -739,7 +739,7 @@ void __fastcall sub_M124_Emit_00537AB0(D2ClientStrc* pClient, D2ActiveRoomStrc* 
 }
 
 // 0x00537B00
-static __forceinline void sub_00537B00_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
+static inline void sub_00537B00_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 {
     D2ActiveRoomStrc* pRoom = pClient->hRoom;
     if (pRoom && pClient->pPlayer)

@@ -34,7 +34,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* room
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     int nResult;
     switch (pUnit->dwUnitType)
@@ -51,7 +51,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return nResult;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     int nResult;
     switch (pUnit->dwUnitType)
@@ -94,7 +94,7 @@ void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* unit)
  if(missile&&object)MISSILE_SetTargetX(missile,object->dwUnitId);
 }
 
-static __forceinline D2MonStats2Txt* GetMonStats2(int nMonsterId)
+static inline D2MonStats2Txt* GetMonStats2(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {

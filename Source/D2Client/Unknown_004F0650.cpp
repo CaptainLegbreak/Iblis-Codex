@@ -29,7 +29,7 @@ static void __stdcall sub_004F04F0_CreateMissileFan(D2UnitStrc* pUnit, int nCoun
     shim_1(&nSkillId, &nSkillLevel);
 }
 
-static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
+static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {

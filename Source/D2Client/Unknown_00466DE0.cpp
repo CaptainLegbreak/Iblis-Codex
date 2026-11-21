@@ -46,7 +46,7 @@ static int gnSelectedUnitType_007A6A8C; // 0x007A6A8C
 
 static unsigned int gnSelectedUnitId_007A6A78; // 0x007A6A78
 
-static __forceinline unsigned int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
+static inline unsigned int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

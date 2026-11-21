@@ -539,7 +539,7 @@ struct D2TakeRecordStrc
     unsigned char nValueC;
 };
 
-static __forceinline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit);
+static inline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit);
 
 struct D2MissilesTxt;
 
@@ -563,7 +563,7 @@ struct D2MissileUnitFindArgStrc
 
 int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 
-__forceinline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord_Inline(int nLevel)
+inline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord_Inline(int nLevel)
 {
     if (nLevel >= 0 && nLevel < sgptDataTables->nMonLvlTxtRecordCount)
     {
@@ -573,7 +573,7 @@ __forceinline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord_Inline(int nLevel)
     return 0;
 }
 
-__forceinline D2MonsterDataStrc* MONSTER_GetMonsterData_Inline(D2UnitStrc* pUnit)
+inline D2MonsterDataStrc* MONSTER_GetMonsterData_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -1159,7 +1159,7 @@ void __fastcall D2GAME_MONSTERMODE_FreeParams_6FC63020(D2GameStrc* pGame, D2AiPa
 }
 
 // 0x005A64F0
-static __forceinline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
+static inline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode == 14)
         return (pUnit->dwFlags >> 6) & 1;
@@ -1512,7 +1512,7 @@ inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1525,7 +1525,7 @@ static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1696,7 +1696,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
-__forceinline D2MonStatsTxt* GetMonStatsById(int nId)
+inline D2MonStatsTxt* GetMonStatsById(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) return &sgptDataTables->pMonStatsTxt[nId];
     return 0;
@@ -1708,26 +1708,26 @@ __forceinline int GetBaseId(int nId)
     return pRecord ? pRecord->nBaseId : nId;
 }
 
-static __forceinline int GetUnitType(D2UnitStrc* pUnit)
+static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     int nType = 6;
     if (pUnit) nType = pUnit->dwUnitType;
     return nType;
 }
 
-__forceinline int GetX(D2UnitStrc* pUnit)
+inline int GetX(D2UnitStrc* pUnit)
 {
     switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-__forceinline int GetY(D2UnitStrc* pUnit)
+inline int GetY(D2UnitStrc* pUnit)
 {
     switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int HasCorpseExplosion(D2MonStatsTxt* pRecord)
+static inline int HasCorpseExplosion(D2MonStatsTxt* pRecord)
 {
     if (pRecord) return pRecord->nMonStatsFlags[2] & gdwBitMasks[4];
     return 0;
@@ -2450,7 +2450,7 @@ void __fastcall sub_005A7F70(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a
 }
 
 // build: context MONSTATS_GetRecordInline
-static __forceinline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
+static inline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
@@ -2458,7 +2458,7 @@ static __forceinline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
 }
 
 // build: context MONSTATS_GetBaseIdInline
-static __forceinline int MONSTATS_GetBaseIdInline(int nClassId)
+static inline int MONSTATS_GetBaseIdInline(int nClassId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetRecordInline(nClassId);
     if (!pMonStatsTxtRecord)
@@ -2467,7 +2467,7 @@ static __forceinline int MONSTATS_GetBaseIdInline(int nClassId)
 }
 
 // build: context MONSTERS_GetBaseIdFromUnitInline
-static __forceinline int MONSTERS_GetBaseIdFromUnitInline(D2UnitStrc* pUnit)
+static inline int MONSTERS_GetBaseIdFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return MONSTATS_GetBaseIdInline(pUnit->dwClassId);
@@ -2475,7 +2475,7 @@ static __forceinline int MONSTERS_GetBaseIdFromUnitInline(D2UnitStrc* pUnit)
 }
 
 // build: context MONSTERS_ValidateMonsterIdInline
-static __forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
+static inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return nMonsterId;

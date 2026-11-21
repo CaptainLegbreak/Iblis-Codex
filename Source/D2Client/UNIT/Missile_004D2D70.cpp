@@ -57,7 +57,7 @@ int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 
 static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile);                                            // 0x004CD310
 
-static __forceinline int UNITS_TestFlagBit(D2UnitStrc* pUnit, int nBit)
+static inline int UNITS_TestFlagBit(D2UnitStrc* pUnit, int nBit)
 {
     if (pUnit)
     {

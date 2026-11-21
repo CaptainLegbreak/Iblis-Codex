@@ -122,7 +122,7 @@ struct D2CommonStormSlotLinkStrc
     {
         return (int)m_next <= 0 ? 0 : m_next;
     }
-    __forceinline char* NextChecked()
+    inline char* NextChecked()
     {
         char* const pResult = (int)m_next <= 0 ? 0 : m_next;
         return pResult;

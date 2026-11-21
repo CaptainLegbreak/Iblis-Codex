@@ -521,7 +521,7 @@ static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSki
     return 0;
 }
 
-static __forceinline int AIBAAL_GetSkillId_Inline(D2SkillStrc* pSkill)
+static inline int AIBAAL_GetSkillId_Inline(D2SkillStrc* pSkill)
 {
     return SKILLS_GetSkillIdFromSkill(pSkill, ".\\Ai\\AiBaal.cpp", 0x131);
 }
@@ -557,7 +557,7 @@ static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit)
     return sub_005FC070_CheckPrimeEvilSkill(pUnit, UNITS_GetLeftSkill(pUnit));
 }
 
-static __forceinline unsigned int AIBAAL_RollSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int AIBAAL_RollSeed_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -565,7 +565,7 @@ static __forceinline unsigned int AIBAAL_RollSeed_Inline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int AIBAAL_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
+static inline int AIBAAL_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
 {
     int nResult;
     if (nMax <= 0)
@@ -577,7 +577,7 @@ static __forceinline int AIBAAL_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
     return nResult;
 }
 
-static __forceinline int AIBAAL_GetRandomArrayIndex_Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
+static inline int AIBAAL_GetRandomArrayIndex_Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
 {
     int nSum = 0;
     int* pWeight = pArray;
@@ -609,14 +609,14 @@ int __stdcall sub_B01_Emit_005FC300(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Unit
     return sub_005FC300_RollUberAiParam(pGame, pTarget, nCount, bInMediumRange, bInFarRange, pUnit);
 }
 
-static __forceinline unsigned __int64 AIBAAL_RollSeed_M282Inline(D2SeedStrc* pSeed)
+static inline unsigned __int64 AIBAAL_RollSeed_M282Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return lSeed;
 }
 
-static __forceinline unsigned int AIBAAL_RollLimited_M282Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int AIBAAL_RollLimited_M282Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -664,7 +664,7 @@ int __fastcall GetRandomArrayIndexContext(D2UnitStrc* pUnit, int nArraySize, int
     return AI_GetRandomArrayIndex(pArray, nArraySize, pUnit);
 }
 
-static __forceinline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
+static inline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
 {
     int nSum = 0;
     int* pSum = pArray;
@@ -855,7 +855,7 @@ static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGa
     return AIBAAL_GetRandomArrayIndex_M282Inline(aiParams, 16, pUnit, 1);
 }
 
-static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
+static inline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
     case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return ((int*)pUnit->pDynamicPath)[3];
@@ -863,7 +863,7 @@ static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
+static inline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
     case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return ((int*)pUnit->pDynamicPath)[4];
@@ -922,25 +922,25 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
     return sub_005FC300_RollUberAiParam(pGame, pTarget, nCount, bInMediumRange, bInFarRange, pUnit);
 }
 
-static __forceinline int UnitX(D2UnitStrc* u) {
+static inline int UnitX(D2UnitStrc* u) {
  switch(u->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return ((D2StaticPathStrc*)u->pDynamicPath)->nXPos;}
  if (u->pDynamicPath)
      return PATH_GetXPosition((D2DynamicPathStrc*)u->pDynamicPath);
  return 0;
 }
 
-static __forceinline int UnitY(D2UnitStrc* u) {
+static inline int UnitY(D2UnitStrc* u) {
  switch(u->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return ((D2StaticPathStrc*)u->pDynamicPath)->nYPos;}
  return u->pDynamicPath?PATH_GetYPosition((D2DynamicPathStrc*)u->pDynamicPath):0;
 }
 
-static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed) {
+static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed) {
  unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
  pSeed->lSeed = lSeed;
  return lSeed;
 }
 
-static __forceinline unsigned __int64 SEED_RollNextHL_Inline(D2SeedStrc* pSeed, unsigned __int64 lPrev) {
+static inline unsigned __int64 SEED_RollNextHL_Inline(D2SeedStrc* pSeed, unsigned __int64 lPrev) {
  const unsigned __int64 lSeed = (lPrev >> 32) + 0x6AC690C5i64 * (unsigned int)lPrev;
  pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
  pSeed->nLowSeed = (unsigned int)lSeed;
@@ -998,7 +998,7 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  return false;
 }
 
-static __forceinline unsigned int RollSeed(D2SeedStrc* s) {
+static inline unsigned int RollSeed(D2SeedStrc* s) {
  unsigned __int64 value=(unsigned __int64)0x6AC690C5*s->nLowSeed+s->nHighSeed;
  s->nHighSeed=(unsigned int)(value>>32);s->nLowSeed=(unsigned int)value;return s->nLowSeed;
 }

@@ -1090,7 +1090,7 @@ int __fastcall sub_0061A7E0_HasEntryMissingFrom(D2ActiveRoomStrc* pRoom1, D2Acti
     return 0;
 }
 
-static __forceinline void DUNGEON_GetClientUnitFlag(D2UnitStrc* pUnit, unsigned int dwFlags, int* pResult)
+static inline void DUNGEON_GetClientUnitFlag(D2UnitStrc* pUnit, unsigned int dwFlags, int* pResult)
 {
     *pResult = pUnit ? (dwFlags >> UNITFLAGINDEX_ISCLIENTUNIT) & 1 : 0;
 }

@@ -54,7 +54,7 @@ D2CriticalSectionStrc gtChatLock_0077AE28; // 0x0077AE28
 D2ChatMessageStrc* gpChatQueueHead_0077BDAC; // 0x0077BDAC
 
 // 0x0043E180
-static __forceinline void sub_0043E180_UnixTimeToFileTime(unsigned int nTime, _FILETIME* pFileTime)
+static inline void sub_0043E180_UnixTimeToFileTime(unsigned int nTime, _FILETIME* pFileTime)
 {
     const unsigned __int64 nFileTime = ((unsigned __int64)nTime + 0x2B6109100ull) * 10000000;
     pFileTime->dwLowDateTime = (unsigned long)nFileTime;
@@ -74,7 +74,7 @@ void __cdecl sub_0043E240_DeleteChatLock()
 }
 
 // 0x0043E2E0
-static __forceinline void sub_0043E2E0(D2ChatMessageStrc* pMessage)
+static inline void sub_0043E2E0(D2ChatMessageStrc* pMessage)
 {
     if (pMessage)
     {

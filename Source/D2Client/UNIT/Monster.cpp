@@ -320,13 +320,13 @@ static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit);
 static void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit);
 static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord);
 static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit);
-static __forceinline void sub_004B17D0_SetMenuState(int nState);
-static __forceinline void sub_004B17E0_SetMenuUnit(D2UnitStrc* pUnit);
-static __forceinline void sub_004B17F0_SetMenuValue(unsigned short wValue);
-static __forceinline bool sub_004B1800_IsStringFree(unsigned short wString);
-static __forceinline int sub_004B1F60_IsItemIdentified(D2UnitStrc* pItem);
+static inline void sub_004B17D0_SetMenuState(int nState);
+static inline void sub_004B17E0_SetMenuUnit(D2UnitStrc* pUnit);
+static inline void sub_004B17F0_SetMenuValue(unsigned short wValue);
+static inline bool sub_004B1800_IsStringFree(unsigned short wString);
+static inline int sub_004B1F60_IsItemIdentified(D2UnitStrc* pItem);
 
-__forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -495,7 +495,7 @@ extern "C" __declspec(dllexport) unsigned int* __fastcall sub_004AE110(Unit004AE
     return &pData->dwField30;
 }
 
-static __forceinline D2MonsterDataStrc* CLIENT_GetMonsterDataInline(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* CLIENT_GetMonsterDataInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -688,7 +688,7 @@ void __fastcall sub_004AE3C0_OwnerMissileHit(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline unsigned int sub_H12_SeedStep(D2SeedStrc* pSeed)
+static inline unsigned int sub_H12_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -696,7 +696,7 @@ static __forceinline unsigned int sub_H12_SeedStep(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline D2SkillsTxt* sub_H12_GetSkillsTxt(int nSkillId)
+static inline D2SkillsTxt* sub_H12_GetSkillsTxt(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -705,7 +705,7 @@ static __forceinline D2SkillsTxt* sub_H12_GetSkillsTxt(int nSkillId)
     return 0;
 }
 
-static __forceinline int sub_H12_HasUnitFlagBit(D2UnitStrc* pUnit)
+static inline int sub_H12_HasUnitFlagBit(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)
@@ -715,7 +715,7 @@ static __forceinline int sub_H12_HasUnitFlagBit(D2UnitStrc* pUnit)
     return bResult;
 }
 
-static __forceinline int sub_H12_UnitX(D2UnitStrc* pUnit)
+static inline int sub_H12_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -732,7 +732,7 @@ static __forceinline int sub_H12_UnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_H12_UnitY(D2UnitStrc* pUnit)
+static inline int sub_H12_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1119,7 +1119,7 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
     sub_004CAF60(pUnit);
 }
 
-static __forceinline unsigned __int64 sub_I07_SeedRoll(D2SeedStrc* pSeed)
+static inline unsigned __int64 sub_I07_SeedRoll(D2SeedStrc* pSeed)
 {
     const unsigned int nLowSeed = pSeed->nLowSeed;
     const unsigned int nHighSeed = pSeed->nHighSeed;
@@ -1305,7 +1305,7 @@ void __fastcall sub_M103_Emit_004B1000(D2UnitStrc* pItem, int nArg)
     sub_004B17F0_SetMenuValue((unsigned short)nArg);
 }
 
-static __forceinline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
+static inline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1313,7 +1313,7 @@ static __forceinline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline D2SkillsTxt* sub_J20_GetSkillsTxt(int nSkillId)
+static inline D2SkillsTxt* sub_J20_GetSkillsTxt(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1322,7 +1322,7 @@ static __forceinline D2SkillsTxt* sub_J20_GetSkillsTxt(int nSkillId)
     return 0;
 }
 
-static __forceinline unsigned int sub_J20_GetAnimMode(D2UnitStrc* pUnit)
+static inline unsigned int sub_J20_GetAnimMode(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1332,7 +1332,7 @@ static __forceinline unsigned int sub_J20_GetAnimMode(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int sub_J20_HasUnitFlagBit(D2UnitStrc* pUnit)
+static inline int sub_J20_HasUnitFlagBit(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)
@@ -1342,7 +1342,7 @@ static __forceinline int sub_J20_HasUnitFlagBit(D2UnitStrc* pUnit)
     return bResult;
 }
 
-static __forceinline int sub_J20_UnitX(D2UnitStrc* pUnit)
+static inline int sub_J20_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1359,7 +1359,7 @@ static __forceinline int sub_J20_UnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_J20_UnitY(D2UnitStrc* pUnit)
+static inline int sub_J20_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1429,7 +1429,7 @@ void __fastcall sub_I07_Emit_004AE4F0(D2UnitStrc* pUnit, int nEvent)
     sub_004AE4F0_MonsterEvent(pUnit, nEvent);
 }
 
-static __forceinline unsigned int sub_M165_SeedStep(D2SeedStrc* pSeed)
+static inline unsigned int sub_M165_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1452,7 +1452,7 @@ static __forceinline unsigned int sub_M165_RollLimited(D2SeedStrc* pSeed, int nM
     return sub_M165_SeedStep(pSeed) & (nMax - 1);
 }
 
-static __forceinline D2MonStats2Txt* sub_M165_GetMonStats2Txt(D2UnitStrc* pUnit)
+static inline D2MonStats2Txt* sub_M165_GetMonStats2Txt(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1469,7 +1469,7 @@ static __forceinline D2MonStats2Txt* sub_M165_GetMonStats2Txt(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int sub_M165_UnitX(D2UnitStrc* pUnit)
+static inline int sub_M165_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1486,7 +1486,7 @@ static __forceinline int sub_M165_UnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_M165_UnitY(D2UnitStrc* pUnit)
+static inline int sub_M165_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1642,7 +1642,7 @@ static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
     sub_004CD540_CreateMissile(&tMissile);
 }
 
-static __forceinline int sub_J10_UnitX(D2UnitStrc* pUnit)
+static inline int sub_J10_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1659,7 +1659,7 @@ static __forceinline int sub_J10_UnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_J10_UnitY(D2UnitStrc* pUnit)
+static inline int sub_J10_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1814,25 +1814,25 @@ int __cdecl sub_004B1670()
 }
 
 // 0x004B17D0
-static __forceinline void sub_004B17D0_SetMenuState(int nState)
+static inline void sub_004B17D0_SetMenuState(int nState)
 {
     gnGlobal_007C0C6B = nState;
 }
 
 // 0x004B17E0
-static __forceinline void sub_004B17E0_SetMenuUnit(D2UnitStrc* pUnit)
+static inline void sub_004B17E0_SetMenuUnit(D2UnitStrc* pUnit)
 {
     gpUnit_007C0DD4 = pUnit;
 }
 
 // 0x004B17F0
-static __forceinline void sub_004B17F0_SetMenuValue(unsigned short wValue)
+static inline void sub_004B17F0_SetMenuValue(unsigned short wValue)
 {
     gwGlobal_007C0DD8 = wValue;
 }
 
 // 0x004B1800
-static __forceinline bool sub_004B1800_IsStringFree(unsigned short wString)
+static inline bool sub_004B1800_IsStringFree(unsigned short wString)
 {
     for (int i = 0; i < gtStringList_007C0D9A.wCount; ++i)
     {
@@ -1867,7 +1867,7 @@ int __cdecl sub_004B1DC0()
 }
 
 // 0x004B1F60
-static __forceinline int sub_004B1F60_IsItemIdentified(D2UnitStrc* pItem)
+static inline int sub_004B1F60_IsItemIdentified(D2UnitStrc* pItem)
 {
     return ITEMS_CheckItemFlag(pItem, 0x10, 2457, ".\\UI\\npcmenu.cpp");
 }

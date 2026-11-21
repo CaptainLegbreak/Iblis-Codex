@@ -60,7 +60,7 @@ extern const int gnJunglePresets_006F13F0[][4];                                 
 
 static void __stdcall sub_006777D0_OffsetByDirection(const D2PosStrc* pBase, int nDir, int nA, int nB, D2OffsetPosStrc* pOut); // 0x006777D0
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -68,7 +68,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -97,7 +97,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed
         nResult = SEED_RollRandomNumber(pSeed) & ((nMax) - 1); \
     }
 
-static __forceinline int JUNGLE_ABS(int n)
+static inline int JUNGLE_ABS(int n)
 {
     return n < 0 ? -n : n;
 }
@@ -739,7 +739,7 @@ extern D2DrlgLinkStrc gAct5OutdoorDrlgLink[15];
 extern D2DrlgLinkStrc gAct5TundraDrlgLink[15];
 extern int dword_6FDEA6FC;
 
-static __forceinline unsigned int SEED_RollRandomNumber_Links(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Links(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;

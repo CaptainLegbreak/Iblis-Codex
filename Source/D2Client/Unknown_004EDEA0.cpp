@@ -76,7 +76,7 @@ static __forceinline int ApplyPercent(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -85,7 +85,7 @@ static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
+static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -94,7 +94,7 @@ static __forceinline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
     return 0;
 }
 
-static __forceinline int SkillParam_0D0(int nSkillId, int nLevel)
+static inline int SkillParam_0D0(int nSkillId, int nLevel)
 {
     D2SkillsTxt* pSkillsTxt = SkillsTxtRecord_0D0(nSkillId);
     if (!pSkillsTxt)

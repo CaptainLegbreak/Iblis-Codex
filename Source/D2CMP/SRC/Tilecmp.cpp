@@ -190,7 +190,7 @@ D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader()
 }
 
 // 0x00609500
-static __forceinline void sub_00609500_ReleaseTileNode(D2CmpTileNodeStrc* pNode)
+static inline void sub_00609500_ReleaseTileNode(D2CmpTileNodeStrc* pNode)
 {
     D2_ASSERT(pNode, 0x31);
     if (pNode->pData)
@@ -680,7 +680,7 @@ void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsi
 }
 
 // 0x0060A260
-static __forceinline int sub_0060A260_RelocateSubTileData(D2CmpTileBlockStrc* pBlock, unsigned char* pData)
+static inline int sub_0060A260_RelocateSubTileData(D2CmpTileBlockStrc* pBlock, unsigned char* pData)
 {
     int nSize = pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
     for (int j = 0; j < pBlock->nSubs; j++)
@@ -719,7 +719,7 @@ void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* pLibrary, D2CmpCol
 }
 
 // 0x0060A620
-static __forceinline int sub_0060A620_IsSubTileDataEmpty(const D2CmpSubTileRecordStrc* pRecord)
+static inline int sub_0060A620_IsSubTileDataEmpty(const D2CmpSubTileRecordStrc* pRecord)
 {
     const unsigned char* pData = pRecord->ptData;
     for (int i = 0; i < pRecord->tHeader.nLength; i++)

@@ -70,7 +70,7 @@ int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);                  
 void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3);                         // 0x00649970
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064EC10
 
-static __forceinline D2SkillsTxt* sub_I16_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* sub_I16_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -80,7 +80,7 @@ static __forceinline D2SkillsTxt* sub_I16_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
+static inline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -94,7 +94,7 @@ static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
+static inline int sub_I16_IsMonster(D2UnitStrc* pUnit)
 {
     return pUnit->dwUnitType == UNIT_MONSTER;
 }

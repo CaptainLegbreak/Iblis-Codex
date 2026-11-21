@@ -133,7 +133,7 @@ static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMonsterId)
+static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -142,7 +142,7 @@ static __forceinline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMo
     return 0;
 }
 
-static __forceinline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
+static inline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -151,7 +151,7 @@ static __forceinline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
     return nMonsterId;
 }
 
-static __forceinline void MONSTERUNIQUE_ToggleUnitFlag_Inline(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline void MONSTERUNIQUE_ToggleUnitFlag_Inline(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {
@@ -313,14 +313,14 @@ void __fastcall sub_H02_Emit_005B1CF0(D2UnitStrc* pUnit, D2MonsterSpawnParamsStr
 
 #include "gen/data/Source/D2Game/Unknown_005B1B70.inc"
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
     return 0;
 }
 
-static __forceinline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
+static inline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
         return -1;

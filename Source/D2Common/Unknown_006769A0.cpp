@@ -3,14 +3,14 @@
 #include "D2DrlgPresets.h"
 typedef unsigned __int64 uint64_t;
 
-static __forceinline uint64_t SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline uint64_t SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     uint64_t lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return lSeed;
 }
 
-static __forceinline void sub_6FD81430(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static inline void sub_6FD81430(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
 {
 	switch (a3)
 	{
@@ -75,7 +75,7 @@ static __forceinline void sub_6FD81430(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoord
 	}
 }
 
-static __forceinline void sub_6FD81850(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+static inline void sub_6FD81850(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
 {
 	switch (a3)
 	{

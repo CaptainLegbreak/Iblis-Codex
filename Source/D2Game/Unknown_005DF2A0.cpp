@@ -22,7 +22,7 @@ unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc* pPath);         
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps);                      // 0x00649070
 
 // build: context CLIENTS_GetUnitXInline
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -35,7 +35,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 }
 
 // build: context CLIENTS_GetUnitYInline
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

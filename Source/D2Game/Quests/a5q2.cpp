@@ -193,7 +193,7 @@ void __fastcall ACT5Q2_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
 
 void __fastcall ACT5Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
-static __forceinline void sub_00588010_CountWussie(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit);
+static inline void sub_00588010_CountWussie(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit);
 
 struct D2ActiveRoomUnitsStrc;
 
@@ -207,7 +207,7 @@ typedef int (__fastcall* QUESTUNITITERATEFN)(D2GameStrc*, D2UnitStrc*, void*);
 
 
 
-static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -469,7 +469,7 @@ void __fastcall ACT1Q1_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 }
 
 // 0x00588010
-static __forceinline void sub_00588010_CountWussie(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+static inline void sub_00588010_CountWussie(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     const int nIndex = sub_00587FC0_GetWussieGroupIndex(pQuestData, pUnit);
     if (nIndex >= 0)

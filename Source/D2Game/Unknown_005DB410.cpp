@@ -158,7 +158,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int GetTargetType(D2UnitStrc* pUnit)
+static inline int GetTargetType(D2UnitStrc* pUnit)
 {
     int nType = 6;
     if (pUnit)
@@ -168,7 +168,7 @@ static __forceinline int GetTargetType(D2UnitStrc* pUnit)
     return nType;
 }
 
-static __forceinline int GetTargetId(D2UnitStrc* pUnit)
+static inline int GetTargetId(D2UnitStrc* pUnit)
 {
     int nId = -1;
     if (pUnit)

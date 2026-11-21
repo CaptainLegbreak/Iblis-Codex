@@ -122,21 +122,21 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
 #include "D2Txt.h"
 #include "D2TxtTables.h"
 
-static __forceinline D2MissilesTxt* MONUNIQUE_GetMissilesTxtRecord_Inline(int nMissileId)
+static inline D2MissilesTxt* MONUNIQUE_GetMissilesTxtRecord_Inline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
         return &sgptDataTables->pMissilesTxt[nMissileId];
     return 0;
 }
 
-static __forceinline D2MonLvlTxt* MONUNIQUE_GetMonLvlTxtRecord_Inline(int nLevel)
+static inline D2MonLvlTxt* MONUNIQUE_GetMonLvlTxtRecord_Inline(int nLevel)
 {
     if (nLevel >= 0 && nLevel < sgptDataTables->nMonLvlTxtRecordCount)
         return &sgptDataTables->pMonLvlTxt[nLevel];
     return 0;
 }
 
-static __forceinline int MONUNIQUE_GetMonUModConstant_Inline(int nIndex)
+static inline int MONUNIQUE_GetMonUModConstant_Inline(int nIndex)
 {
     if (nIndex < 0 || nIndex >= sgptDataTables->nMonUModTxtRecordCount)
         return 0;
@@ -146,7 +146,7 @@ static __forceinline int MONUNIQUE_GetMonUModConstant_Inline(int nIndex)
     return pRecord->dwConstants;
 }
 
-static __forceinline unsigned int MONUNIQUE_RollSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int MONUNIQUE_RollSeed_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

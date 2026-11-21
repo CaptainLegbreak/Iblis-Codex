@@ -613,7 +613,7 @@ int __fastcall SKILLS_SrvDo091_Nest_EvilHutSpawner(D2GameStrc* pGame, D2UnitStrc
     return 1;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nId)
+static inline D2SkillsTxt* GetSkillsTxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nId];
@@ -1238,7 +1238,7 @@ int __fastcall SKILLS_SrvDo101_FingerMageSpider(D2GameStrc* pGame, D2UnitStrc* p
     return pMissilesTxtRecord ? 1 : 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;

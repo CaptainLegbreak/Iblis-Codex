@@ -298,7 +298,7 @@ void __fastcall sub_006BACB0_MoveToTail(D2SubtilePoolStrc* pList, int nIndex)
     }
 }
 
-static __forceinline D2SubtilePoolEntryStrc* TakeNode(D2SubtilePoolStrc* pList)
+static inline D2SubtilePoolEntryStrc* TakeNode(D2SubtilePoolStrc* pList)
 {
     D2SubtilePoolEntryStrc* pNode = pList->pInUseFirst;
     if (!pNode)
@@ -452,7 +452,7 @@ int __fastcall sub_006BAF00_AllocOrEvict(D2SubtilePoolStrc* pPool)
 	return nId;
 }
 
-static __forceinline D2CacheNodeStrc* PopNode(D2CacheNodeStrc*& first, D2CacheNodeStrc*& last)
+static inline D2CacheNodeStrc* PopNode(D2CacheNodeStrc*& first, D2CacheNodeStrc*& last)
 {
     D2CacheNodeStrc* node = first;
     if (!node)
@@ -467,7 +467,7 @@ static __forceinline D2CacheNodeStrc* PopNode(D2CacheNodeStrc*& first, D2CacheNo
     return node;
 }
 
-static __forceinline void AppendNode(D2CacheNodeStrc*& first, D2CacheNodeStrc*& last, D2CacheNodeStrc* node)
+static inline void AppendNode(D2CacheNodeStrc*& first, D2CacheNodeStrc*& last, D2CacheNodeStrc* node)
 {
     if (!first)
         first = node;

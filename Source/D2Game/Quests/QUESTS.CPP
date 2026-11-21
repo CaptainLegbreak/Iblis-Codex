@@ -951,7 +951,7 @@ static void __stdcall QUESTS_StatusCycler(bool bForceActive, D2QuestArgStrc* pAr
     }
 }
 
-static __forceinline int DATATBLS_GetSuperUniqueHcIdx_Inline(int nSuperUniqueId)
+static inline int DATATBLS_GetSuperUniqueHcIdx_Inline(int nSuperUniqueId)
 {
     if (nSuperUniqueId >= 0 && nSuperUniqueId < sgptDataTables->nSuperUniquesTxtRecordCount)
     {
@@ -1043,7 +1043,7 @@ void __fastcall QUESTS_ChangeLevel(D2GameStrc* pGame, int nOldLevelId, int nTarg
     QUESTS_EventCallback(true, false, &tArgs);
 }
 
-static __forceinline int QUESTS_GetClassIdInline(D2UnitStrc* pUnit)
+static inline int QUESTS_GetClassIdInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1053,7 +1053,7 @@ static __forceinline int QUESTS_GetClassIdInline(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
-static __forceinline D2QuestDataStrc* QUESTS_GetQuestDataInline(D2GameStrc* pGame, int nId)
+static inline D2QuestDataStrc* QUESTS_GetQuestDataInline(D2GameStrc* pGame, int nId)
 {
     D2QuestInfoStrc* pControl = pGame->pQuestControl;
     D2_ASSERT(nId >= 0, 119);
@@ -1283,7 +1283,7 @@ void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, con
 }
 
 // build: context QUESTS_GetQuestData_Inl
-static __forceinline D2QuestDataStrc* QUESTS_GetQuestData_Inl(D2GameStrc* pGame, int nId)
+static inline D2QuestDataStrc* QUESTS_GetQuestData_Inl(D2GameStrc* pGame, int nId)
 {
     D2_ASSERT(nId >= 0, 119);
     if (!pGame->pQuestControl)
@@ -1340,7 +1340,7 @@ void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dw
     }
 }
 
-static __forceinline D2QuestDataStrc* GetQuest(D2GameStrc* game,int id) {
+static inline D2QuestDataStrc* GetQuest(D2GameStrc* game,int id) {
  D2QuestInfoStrc* control=game->pQuestControl;
  D2_ASSERT(id>=0,119);
  if(!control) return 0;
@@ -1481,7 +1481,7 @@ __declspec(noinline) void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, 
     D2GAME_PACKETS_SendPacket0x29_6FC3F370(pClient, &packet29);
 }
 
-static __forceinline int sub_00544590_CheckMonStatsFlag(int nMonsterId, int nFlag)
+static inline int sub_00544590_CheckMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = 0;
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -1657,7 +1657,7 @@ void __fastcall OBJECTS_InitFunction20_TaintedAltar(D2ObjInitFnStrc* pOp)
     }
 }
 
-static __forceinline D2QuestDataStrc* QUESTS_FindQuestData(D2GameStrc* pGame, int nId)
+static inline D2QuestDataStrc* QUESTS_FindQuestData(D2GameStrc* pGame, int nId)
 {
     D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
     if (pQuestControl)
@@ -2259,7 +2259,7 @@ void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2)
     SUNIT_IterateUnitsOfType(pGame, 0, 0, QUESTS_FXIterate);
 }
 
-static __forceinline int QUESTS_GetUnitGUIDInline(D2UnitStrc* pUnit)
+static inline int QUESTS_GetUnitGUIDInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2269,7 +2269,7 @@ static __forceinline int QUESTS_GetUnitGUIDInline(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-static __forceinline int QUESTS_GetUnitTypeInline(D2UnitStrc* pUnit)
+static inline int QUESTS_GetUnitTypeInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2625,7 +2625,7 @@ void __fastcall sub_K10_EmitInitRecord(D2Unk00545D40Rec* pRec, int n)
 
 #pragma function(memset)
 
-static __forceinline void QUESTS_InitQuestData(D2QuestDataStrc* pQuestData, D2GameStrc* pGame, int nChainNo, unsigned char nAct)
+static inline void QUESTS_InitQuestData(D2QuestDataStrc* pQuestData, D2GameStrc* pGame, int nChainNo, unsigned char nAct)
 {
     memset(pQuestData, 0, sizeof(D2QuestDataStrc));
     pQuestData->nQuestNo = nChainNo;
@@ -2953,7 +2953,7 @@ D2UnitStrc* __fastcall QUESTS_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer,
     return 0;
 }
 
-static __forceinline D2QuestDataStrc* QUESTS_GetQuestDataInl_B08(D2GameStrc* pGame, int nId)
+static inline D2QuestDataStrc* QUESTS_GetQuestDataInl_B08(D2GameStrc* pGame, int nId)
 {
     if (!pGame->pQuestControl)
     {

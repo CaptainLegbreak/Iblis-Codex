@@ -323,7 +323,7 @@ struct D2UnitStrc;
 
 int gnGlobal_007C02F4; // 0x007C02F4
 
-static __forceinline D2MonStatsTxt* sub_MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* sub_MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -333,7 +333,7 @@ static __forceinline D2MonStatsTxt* sub_MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
+static inline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {

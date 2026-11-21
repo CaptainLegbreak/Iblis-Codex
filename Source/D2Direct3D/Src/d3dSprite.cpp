@@ -187,7 +187,7 @@ unsigned char __fastcall EmitSetBlendAndAlpha(int mode)
 }
 
 // 0x006B6700
-static __forceinline int sub_006B6700_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
+static inline int sub_006B6700_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
 {
     nX += pRect->nOffsetX;
     if (nX > gnScreenWidth_007C9138 || pRect->nLeft + nX < 0 || (nY += pRect->nOffsetY) < 0 || nY - pRect->nTop >= gnScreenHeight_007C913C)

@@ -1294,7 +1294,7 @@ void __fastcall sub_00415730_IncField148(D2SFileRecordViewStrc* pRecord)
 }
 
 // 0x00415740
-static __forceinline void sub_00415740_IncField144(D2SFileRecordViewStrc* pRecord)
+static inline void sub_00415740_IncField144(D2SFileRecordViewStrc* pRecord)
 {
     if (pRecord)
     {
@@ -1303,7 +1303,7 @@ static __forceinline void sub_00415740_IncField144(D2SFileRecordViewStrc* pRecor
 }
 
 // 0x00415750
-static __forceinline void sub_00415750_IncField4C(D2SFileOtherRecordViewStrc* pRecord)
+static inline void sub_00415750_IncField4C(D2SFileOtherRecordViewStrc* pRecord)
 {
     if (pRecord)
     {
@@ -3138,7 +3138,7 @@ char* D2SFileStormLinkM114Strc::sub_004179A0_Next()
 }
 
 // 0x00417EE0
-static __forceinline int sub_00417EE0_IsNotListHead(D2SFileArchiveM114Strc* pArchive)
+static inline int sub_00417EE0_IsNotListHead(D2SFileArchiveM114Strc* pArchive)
 {
     if (pArchive->nKey && pArchive->pOwner->pList->Head() && pArchive->nKey == pArchive->pOwner->pList->Head()->nKey)
     {

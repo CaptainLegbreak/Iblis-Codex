@@ -869,7 +869,7 @@ D2ClientSoundStrc* __fastcall sub_004B9440_FindSoundByHandle(int nHandle)
 }
 
 // 0x004B9470
-static __forceinline void sub_004B9470_ReleaseUnits(D2ClientSoundStrc* pSound)
+static inline void sub_004B9470_ReleaseUnits(D2ClientSoundStrc* pSound)
 {
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
     {
@@ -879,7 +879,7 @@ static __forceinline void sub_004B9470_ReleaseUnits(D2ClientSoundStrc* pSound)
 }
 
 // 0x004B94A0
-static __forceinline void sub_004B94A0_StopStream(D2ClientSoundStrc* pSound)
+static inline void sub_004B94A0_StopStream(D2ClientSoundStrc* pSound)
 {
     if (pSound->nType == 1)
     {
@@ -905,7 +905,7 @@ int __fastcall sub_004B9560_HasSoundHandle(int nHandle)
 }
 
 // 0x004B9BB0
-static __forceinline int sub_004B9BB0_GetStreamValue(D2SoundStream4B9BB0Strc* pStream)
+static inline int sub_004B9BB0_GetStreamValue(D2SoundStream4B9BB0Strc* pStream)
 {
     return pStream->nValue;
 }
@@ -1285,7 +1285,7 @@ void __fastcall sub_004B9B50_SetValue(int nKey, int nValue)
 }
 
 // 0x004B9BC0
-static __forceinline int sub_004B9BC0_IsOnAndNotHeld(D2Packed004B9BC0Strc* pRecord)
+static inline int sub_004B9BC0_IsOnAndNotHeld(D2Packed004B9BC0Strc* pRecord)
 {
     return pRecord->nOn && !pRecord->nHeld;
 }

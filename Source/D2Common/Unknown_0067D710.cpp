@@ -156,7 +156,7 @@ static const D2CoordStrc gOutdoorOrthOffsets[2][2] =
 };
 
 // 0x0067D7E0
-static __forceinline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordStrc* pCoords, D2DrlgCoordStrc* pLinkCoords, int nRand, int nLinkRand)
+static inline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordStrc* pCoords, D2DrlgCoordStrc* pLinkCoords, int nRand, int nLinkRand)
 {
     switch (nRand)
     {
@@ -175,7 +175,7 @@ static __forceinline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordStr
     pCoords->nPosY = gOutdoorOrthOffsets_006F1F7C[nIndex].nY + pLinkCoords->nPosY;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;

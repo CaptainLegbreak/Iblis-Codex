@@ -69,7 +69,7 @@ void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSe
 
 #define ITEMDROPFLAG_NOSOCKETS 0x8
 
-static __forceinline void D2GAME_SetStatOrResetGold_Inline(D2UnitStrc* pUnit, int nStat, int nValue)
+static inline void D2GAME_SetStatOrResetGold_Inline(D2UnitStrc* pUnit, int nStat, int nValue)
 {
     if (!pUnit)
     {

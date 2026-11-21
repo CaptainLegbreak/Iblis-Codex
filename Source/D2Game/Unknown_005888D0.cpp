@@ -32,9 +32,9 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc*,D2UnitStrc*); // 0x006416D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc*,int,int); // 0x0065C360
-static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame,D2UnitStrc* pPlayer) { return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty]; }
-static __forceinline int FreedCount(D2Act5Quest2Strc* pEx) { return pEx->nFreedWussies; }
-static __forceinline int UnitId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
+static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame,D2UnitStrc* pPlayer) { return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty]; }
+static inline int FreedCount(D2Act5Quest2Strc* pEx) { return pEx->nFreedWussies; }
+static inline int UnitId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 // 0x005888D0
 void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pTarget)
 {

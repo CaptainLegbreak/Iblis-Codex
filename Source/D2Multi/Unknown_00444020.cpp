@@ -252,14 +252,14 @@ int __cdecl sub_00444020_CreateControls()
 
 int gnGameCount_00798CCC; // 0x00798CCC
 
-static __forceinline int sub_00444E70_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
+static inline int sub_00444E70_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
 {
     if (wFlags & 0x20)
         return (wFlags & 0x1F00u) >= nExpansion;
     return (wFlags & 0x1F00u) >= nClassic;
 }
 
-static __forceinline char* sub_00444E70_NextString(char* p)
+static inline char* sub_00444E70_NextString(char* p)
 {
     D2_ASSERT(p, 0xAD);
     while (*p)

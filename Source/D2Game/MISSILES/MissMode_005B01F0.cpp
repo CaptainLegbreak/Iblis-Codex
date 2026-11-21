@@ -51,7 +51,7 @@ static int sub_005ADA40_CheckMissileMode(int nMissileMode, D2UnitStrc* pUnit); /
 static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile); // 0x005ADA80
 static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x005ADB00
 static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005ADCD0
-static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision); // 0x005ADF10
+static inline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision); // 0x005ADF10
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
@@ -74,7 +74,7 @@ int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nSeed); // 0x00650E40
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed); // 0x00650E50
 
-static __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -155,7 +155,7 @@ static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc* pGame, D2UnitSt
     }
 }
 
-static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
+static inline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int bForceCollision)
 {
     D2MissilesTxt* pTxt = 0;
     if (pMissile)
@@ -326,7 +326,7 @@ int __fastcall sub_005B01F0_SrvDo_MirrorSubMissile(D2GameStrc* pGame, D2UnitStrc
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

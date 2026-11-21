@@ -349,7 +349,7 @@ int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc*, int); // 0x0062A5D0
 
 int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc*, int); // 0x0062A620
 
-static __forceinline int GetUnitType(D2UnitStrc* unit) { return unit?unit->dwUnitType:UNIT_INVALID; }
+static inline int GetUnitType(D2UnitStrc* unit) { return unit?unit->dwUnitType:UNIT_INVALID; }
 
 struct D2AiControlStrc;
 
@@ -546,7 +546,7 @@ int __fastcall sub_00472280(D2SeedStrc*, int, int); // 0x00472280
 
 void __stdcall ITEMMODS_AssignProperty(int, D2UnitStrc*, D2UnitStrc*, const void*, int, int); // 0x0065FEC0
 
-static __forceinline int ClampLevel(int v) { if (v <= 1) return 1; if (v >= 99) return 99; return v; }
+static inline int ClampLevel(int v) { if (v <= 1) return 1; if (v >= 99) return 99; return v; }
 
 struct D2AiCmdStrc;
 
@@ -649,7 +649,7 @@ int __fastcall SKILLITEM_pSpell01_IdentifyItem(D2GameStrc* pGame, D2UnitStrc* pU
     return 1;
 }
 
-static __forceinline int GetItemType(D2UnitStrc* pItem)
+static inline int GetItemType(D2UnitStrc* pItem)
 {
     int nType = 6;
     if (pItem)
@@ -696,7 +696,7 @@ int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D
 }
 
 // build: context GetItemStatCost
-static __forceinline D2ItemStatCostTxt* GetItemStatCost(int nStat)
+static inline D2ItemStatCostTxt* GetItemStatCost(int nStat)
 {
     if (nStat >= 0 && nStat < sgptDataTables->nItemStatCostTxtRecordCount)
         return &sgptDataTables->pItemStatCostTxt[nStat];
@@ -891,7 +891,7 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
 }
 
 // build: context SKILLS_GetItemStatCostTxtRecord
-static __forceinline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
+static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId < 0)
     {
@@ -1735,7 +1735,7 @@ ReturnZero:
     return 1;
 }
 
-static __forceinline int GetUnitTypeChecked(const D2UnitStrc* pUnit)
+static inline int GetUnitTypeChecked(const D2UnitStrc* pUnit)
 {
     int nType = 6;
     if (pUnit)
@@ -1861,7 +1861,7 @@ int __fastcall SKILLITEM_CalculateOpenWoundsHpRegen(int nLevel, const int* pValu
     return pValues[0] * (nLevel - 1);
 }
 
-static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2143,7 +2143,7 @@ int __fastcall SKILLITEM_EventFunc19_Slow(D2GameStrc* pGame, int nEvent, D2UnitS
     return 1;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber32(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber32(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -2320,7 +2320,7 @@ inline int UNIT_GetUnitType(D2UnitStrc* pUnit)
     return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
-static __forceinline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
+static inline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -2329,7 +2329,7 @@ static __forceinline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
     return 6;
 }
 
-static __forceinline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
+static inline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -2547,7 +2547,7 @@ void __fastcall sub_005C1260(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
     }
 }
 
-static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -3319,14 +3319,14 @@ void __fastcall AITHINK_Fn145_UberBaal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
 {
 }
 
-static __forceinline D2MonStatsTxt* GetMonStatsTxtRecord(int nId)
+static inline D2MonStatsTxt* GetMonStatsTxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nId];
     return 0;
 }
 
-static __forceinline int GetMonsterBaseId(int nId)
+static inline int GetMonsterBaseId(int nId)
 {
     D2MonStatsTxt* pRecord = GetMonStatsTxtRecord(nId);
     if (!pRecord)
@@ -3334,7 +3334,7 @@ static __forceinline int GetMonsterBaseId(int nId)
     return pRecord->nBaseId;
 }
 
-static __forceinline int ValidateMonsterId(int nId)
+static inline int ValidateMonsterId(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
         return nId;

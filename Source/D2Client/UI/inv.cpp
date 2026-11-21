@@ -1176,7 +1176,7 @@ void __stdcall sub_Z12_EmitDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit)
 unsigned char gbFlag_007BCC06; // 0x007BCC06
 
 // 0x00486640
-static __forceinline void sub_00486640_AppendStrings(Unicode* pText)
+static inline void sub_00486640_AppendStrings(Unicode* pText)
 {
     const Unicode* pFirst = D2LANG_GetStringFromTblIndex(0xF9E);
     const Unicode* pSecond = D2LANG_GetStringFromTblIndex(0x4FD6);
@@ -2890,7 +2890,7 @@ D2UnitStrc* __cdecl sub_0048B640_GetMercUnit()
     return 0;
 }
 
-static __forceinline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
+static inline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }

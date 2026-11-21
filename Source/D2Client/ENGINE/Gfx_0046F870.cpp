@@ -658,9 +658,9 @@ void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg)
     }
 }
 
-static __forceinline int IsShapeShifted(D2UnitStrc* unit) { if(!unit) return 0; return (unit->dwFlagEx>>3)&1; }
+static inline int IsShapeShifted(D2UnitStrc* unit) { if(!unit) return 0; return (unit->dwFlagEx>>3)&1; }
 
-static __forceinline D2InventoryStrc* GetInventory(D2UnitStrc* unit) {
+static inline D2InventoryStrc* GetInventory(D2UnitStrc* unit) {
  if(IsShapeShifted(unit) && STATES_CheckStateMaskOnUnit(unit,37)) {
   D2UnitStrc* owner=sub_004639D0_GetOwnerUnit(unit);
   if(owner) return owner->pInventory;
@@ -668,7 +668,7 @@ static __forceinline D2InventoryStrc* GetInventory(D2UnitStrc* unit) {
  return unit->pInventory;
 }
 
-static __forceinline void* GetModeGfx(D2UnitStrc* unit,int mode) {
+static inline void* GetModeGfx(D2UnitStrc* unit,int mode) {
  D2GfxDataStrc* data=sub_00463E10_GetGfxData(unit);
  if(!data) return 0;
  D2GfxNodeStrc* node=data->list;

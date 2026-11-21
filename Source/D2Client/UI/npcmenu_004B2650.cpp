@@ -439,7 +439,7 @@ int __cdecl sub_004B1C00_SendNpcMessage152()
     return 1;
 }
 
-static __forceinline D2UnitStrc* NPC_GetInteractUnit_Inline()
+static inline D2UnitStrc* NPC_GetInteractUnit_Inline()
 {
     return gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0;
 }
@@ -610,7 +610,7 @@ static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline D2UnitStrc* GetInteractNpc_Inline()
+static inline D2UnitStrc* GetInteractNpc_Inline()
 {
     if (!gnGlobal_007C0D29)
         return 0;

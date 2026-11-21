@@ -707,7 +707,7 @@ int __fastcall SKILLS_GetMonsterClassFromChain(int nMonsterId, int nNoInChain)
     return nClassId;
 }
 
-static __forceinline unsigned __int64 ITEMS_RollRandomNumberForceInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 ITEMS_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -992,7 +992,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
     UNITS_SetTimerArg(pUnit, sub_0054F520_AllocTimerArg(pGame));
 }
 
-static __forceinline U32 Roll(Seed* seed)
+static inline U32 Roll(Seed* seed)
 {
     unsigned __int64 value = (unsigned __int64)seed->hi + (unsigned __int64)seed->lo * NRNG;
     seed->hi = (U32)(value >> N32);
@@ -1000,7 +1000,7 @@ static __forceinline U32 Roll(Seed* seed)
     return (U32)value;
 }
 
-static __forceinline U32 Limited(Seed* seed,int maximum)
+static inline U32 Limited(Seed* seed,int maximum)
 {
     if (maximum <= N0)
         return N0;
@@ -1037,7 +1037,7 @@ static int __stdcall sub_0054F770_Select(Game* game,U32 level,Room* room,unsigne
     exit(NNEG1);
 }
 
-static __forceinline int CoordinateX(Unit* object)
+static inline int CoordinateX(Unit* object)
 {
     if (object->type == N2 || (object->type > N3 && object->type <= N5))
         return object->path->x;
@@ -1046,7 +1046,7 @@ static __forceinline int CoordinateX(Unit* object)
     return N0;
 }
 
-static __forceinline int CoordinateY(Unit* object)
+static inline int CoordinateY(Unit* object)
 {
     if (object->type == N2 || (object->type > N3 && object->type <= N5))
         return object->path->y;
@@ -1373,7 +1373,7 @@ void __fastcall OBJECTS_InitFunction34_HellBrazierFire(D2ObjInitFnStrc* pOp)
     }
 }
 
-static __forceinline int sub_E03_GetAnimMode(D2UnitStrc* pUnit)
+static inline int sub_E03_GetAnimMode(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwAnimMode : 0;
 }
@@ -1403,7 +1403,7 @@ void __fastcall OBJECTS_InitFunction51_TrappedSoul(D2ObjInitFnStrc* pOp)
     }
 }
 
-static __forceinline unsigned int OBJECTS_RollSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int OBJECTS_RollSeed_Inline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 nSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nLowSeed = (unsigned int)nSeed;
@@ -1411,7 +1411,7 @@ static __forceinline unsigned int OBJECTS_RollSeed_Inline(D2SeedStrc* pSeed)
     return (unsigned int)nSeed;
 }
 
-static __forceinline unsigned int OBJECTS_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int OBJECTS_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -1424,7 +1424,7 @@ static __forceinline unsigned int OBJECTS_RollLimited_Inline(D2SeedStrc* pSeed, 
     return OBJECTS_RollSeed_Inline(pSeed) & (nMax - 1);
 }
 
-static __forceinline unsigned int OBJECTS_RollSeedHi_Inline(D2SeedStrc* pSeed)
+static inline unsigned int OBJECTS_RollSeedHi_Inline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 nSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
@@ -1432,7 +1432,7 @@ static __forceinline unsigned int OBJECTS_RollSeedHi_Inline(D2SeedStrc* pSeed)
     return (unsigned int)nSeed;
 }
 
-static __forceinline unsigned int OBJECTS_RollLimitedHi_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int OBJECTS_RollLimitedHi_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -1521,7 +1521,7 @@ D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int 
 }
 
 // build: context SEED_RollLimitedRandomNumberInl
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInl(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInl(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -1648,7 +1648,7 @@ void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgC
     memcpy(pCoords, &pRoom->tCoords, sizeof(D2DrlgCoordsStrc));
 }
 
-static __forceinline int sub_00550A30_IsInsideRoom(D2DrlgCoordsStrc* pCoords, unsigned short nX, unsigned short nY)
+static inline int sub_00550A30_IsInsideRoom(D2DrlgCoordsStrc* pCoords, unsigned short nX, unsigned short nY)
 {
     return nX >= pCoords->nSubtileX + 1 && nY >= pCoords->nSubtileY + 1
         && nX < pCoords->nSubtileX + pCoords->nSubtileWidth - 1 && nY < pCoords->nSubtileY + pCoords->nSubtileHeight - 1;
@@ -1716,7 +1716,7 @@ D2UnitStrc* __stdcall sub_00550A30_SpawnObjectInRoom(D2GameStrc* pGame, int nCla
     return SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, pRoom, 1, 0, 0);
 }
 
-static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0) return 0;
     if ((nMax - 1) & nMax) return OBJECTS_RollSeed_Inline(pSeed) % nMax;
@@ -2388,7 +2388,7 @@ int __stdcall shim_3(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2Activ
     return sub_005502F0_CanPlace(pDrlgCoords, pCoord, pRoom, nSizeX, nSizeY);
 }
 
-static __forceinline unsigned int OBJPOP_RollSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int OBJPOP_RollSeed_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2634,7 +2634,7 @@ void __fastcall sub_005528E0_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoom
 }
 
 // 0x00552DE0
-static __forceinline void sub_00552DE0_SetFlag2AndField(D2UnitStrc* pUnit, int nValue)
+static inline void sub_00552DE0_SetFlag2AndField(D2UnitStrc* pUnit, int nValue)
 {
     if (pUnit)
     {

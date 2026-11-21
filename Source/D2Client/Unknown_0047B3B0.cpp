@@ -164,7 +164,7 @@ extern D2OptionHeaderStrc gOptionHeader_0071D734; // 0x0071D734
 extern D2OptionEntryStrc gaOptionEntries_0071D748[]; // 0x0071D748
 extern D2OptionEntryStrc gaOptionEntries_0071F728[]; // 0x0071F728
 
-static __forceinline int sub_0047D500(D2OptionEntryStrc* pEntry);
+static inline int sub_0047D500(D2OptionEntryStrc* pEntry);
 void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
@@ -828,7 +828,7 @@ void __cdecl sub_0047F1D0_LoadResolution()
 }
 
 // 0x0047D500
-static __forceinline int sub_0047D500(D2OptionEntryStrc* pEntry)
+static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
 {
     return !pEntry->pfnEnabled || pEntry->pfnEnabled();
 }

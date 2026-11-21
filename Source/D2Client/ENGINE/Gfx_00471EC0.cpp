@@ -268,7 +268,7 @@ inline int IsShapeShifted(D2UnitStrc* pUnit)
     if (pUnit) bResult = (pUnit->dwFlagEx >> 3) & 1;
     return bResult;
 }
-static __forceinline void* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
+static inline void* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 {
     D2GfxDataStrc* pData = sub_00463E10_GetGfxData(pUnit);
     if (pData)

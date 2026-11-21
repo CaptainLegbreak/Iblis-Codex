@@ -24,7 +24,7 @@ extern int gnGlobal_007C02B8;                                                   
 extern unsigned long gnGlobal_007C02C8;                                                                     // 0x007C02C8
 
 // 0x004A5D70
-static __forceinline void __stdcall sub_004A5D70_RegisterMsgHandlers(int bReset)
+static inline void __stdcall sub_004A5D70_RegisterMsgHandlers(int bReset)
 {
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_00724738, 6);
     sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gaMsgHandlers_0072478C, 1);

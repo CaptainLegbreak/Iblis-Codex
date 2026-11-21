@@ -114,7 +114,7 @@ extern bool gbSymInitialized_0098A6B0;                                          
 extern SymGetLineFromAddr64Fn gpfnSymGetLineFromAddr64_0098A6E8;                                            // 0x0098A6E8
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
 
-static __forceinline bool sub_EnsureSymbolEngine()
+static inline bool sub_EnsureSymbolEngine()
 {
     if (!ghDbgHelp_0098A680 && !sub_00401B00_LoadDbgHelp())
         return false;
@@ -234,7 +234,7 @@ static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char
 }
 
 // build: context CRASH_GetFileName
-static __forceinline const char* CRASH_GetFileName(const char* szPath)
+static inline const char* CRASH_GetFileName(const char* szPath)
 {
     const char* pLast = 0;
     const char* pFound = strrchr(szPath, '/');

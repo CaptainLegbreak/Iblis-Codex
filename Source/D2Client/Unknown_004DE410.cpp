@@ -312,7 +312,7 @@ void __thiscall D2GridLightStrc::sub_004DE410_ApplyUnitLight(D2GridUnitStrc* pUn
     sub_004DDE80_UpdateBounds(pUnit, nSubX, nSubY);
 }
 
-static __forceinline int CLIENTS_GetUnitX_FloorView(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX_FloorView(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -324,7 +324,7 @@ static __forceinline int CLIENTS_GetUnitX_FloorView(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitY_FloorView(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY_FloorView(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

@@ -1023,7 +1023,7 @@ void __cdecl sub_00505550_LoadItemPalettes()
     sub_00505470_LoadItemPalette("invgreybrown", 8);
 }
 
-static __forceinline int sub_00505640_IsFemaleClass(int nClass)
+static inline int sub_00505640_IsFemaleClass(int nClass)
 {
     switch (nClass)
     {

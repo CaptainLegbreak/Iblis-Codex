@@ -104,7 +104,7 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
 
 static int __fastcall sub_005FF760_LoadDCCFrames(const char* szName, D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, int nDirection, int nFrames, D2CmpSpriteEntryStrc* pEntry);
 
-static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pContext)
+static inline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pContext)
 {
     switch (pContext->nType)
     {
@@ -134,7 +134,7 @@ static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pCon
     return 1;
 }
 
-static __forceinline int SpriteCache_CopyName(char* szDst, const char* szSrc)
+static inline int SpriteCache_CopyName(char* szDst, const char* szSrc)
 {
     strcpy(szDst, szSrc);
     return 1;

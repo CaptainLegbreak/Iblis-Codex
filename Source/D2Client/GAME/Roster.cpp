@@ -334,7 +334,7 @@ int __fastcall sub_00479180_GetPetType(int nUnitId)
 }
 
 // 0x004792C0
-static __forceinline int sub_004792C0_HasCorpse(D2RosterUnitStrc* pRosterUnit, unsigned int dwCorpseId)
+static inline int sub_004792C0_HasCorpse(D2RosterUnitStrc* pRosterUnit, unsigned int dwCorpseId)
 {
     for (D2RosterCorpseStrc* pCorpse = pRosterUnit->pCorpse; pCorpse; pCorpse = pCorpse->pNext)
     {
@@ -406,7 +406,7 @@ static void __stdcall sub_004793C0_FillRosterUnit(int nUnitId, int nClassId, uns
 }
 
 // 0x00479470
-static __forceinline void sub_00479470_FreeCorpses(D2RosterUnitStrc* pRosterUnit)
+static inline void sub_00479470_FreeCorpses(D2RosterUnitStrc* pRosterUnit)
 {
     D2RosterCorpseStrc* pCorpse = pRosterUnit->pCorpse;
     while (pCorpse)
@@ -542,7 +542,7 @@ D2RosterGroupStrc* __fastcall sub_00479750_FindGroup(unsigned short wId)
     return 0;
 }
 
-static __forceinline D2RosterGroupStrc* ROSTER_FindGroup(unsigned short wId)
+static inline D2RosterGroupStrc* ROSTER_FindGroup(unsigned short wId)
 {
     for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
     {

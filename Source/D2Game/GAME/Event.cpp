@@ -78,7 +78,7 @@ struct D2Unk00540B70Owner
 void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 
 // 0x00540B20
-static __forceinline D2EventTimerQueueStrc* sub_00540B20_GetTimerQueue(D2GameStrc* pGame)
+static inline D2EventTimerQueueStrc* sub_00540B20_GetTimerQueue(D2GameStrc* pGame)
 {
     return pGame->pTimerQueue;
 }
@@ -199,7 +199,7 @@ static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCall
 }
 
 // 0x00540C10
-static __forceinline void sub_00540C10_PushFreeTimer(D2EventTimerStrc* pTimer, D2EventTimerStrc** ppHead)
+static inline void sub_00540C10_PushFreeTimer(D2EventTimerStrc* pTimer, D2EventTimerStrc** ppHead)
 {
     D2EventTimerStrc* pHead = *ppHead;
     pTimer->pNextFreeEventTimer = pHead;
@@ -232,7 +232,7 @@ static D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame,
 }
 
 // 0x00540CA0
-static __forceinline void sub_00540CA0_ReleaseTimer(D2EventTimerQueueStrc* pQueue, D2EventTimerStrc* pTimer)
+static inline void sub_00540CA0_ReleaseTimer(D2EventTimerQueueStrc* pQueue, D2EventTimerStrc* pTimer)
 {
     D2EventTimerSlabListStrc* pSlab = pQueue->pSlabListHead;
     pTimer->pNextFreeEventTimer = pSlab->pFreeEventTimerListHead;
@@ -247,7 +247,7 @@ void __stdcall sub_M113_Emit_00540B20(D2GameStrc* pGame, D2EventTimerStrc* pTime
     sub_00540CA0_ReleaseTimer(sub_00540B20_GetTimerQueue(pGame), pTimer);
 }
 
-static __forceinline D2EventTimerStrc** sub_6FC353D0(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
+static inline D2EventTimerStrc** sub_6FC353D0(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
 {
     if (nExpireFrame == -1)
     {

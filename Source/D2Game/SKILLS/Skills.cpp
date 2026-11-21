@@ -788,7 +788,7 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int SKILLS_IsInRangeY(int nY, int nDistance, const D2DrlgCoordsStrc& drlgCoords)
+static inline int SKILLS_IsInRangeY(int nY, int nDistance, const D2DrlgCoordsStrc& drlgCoords)
 {
     return nY + nDistance >= drlgCoords.nSubtileY || nY - nDistance <= drlgCoords.nSubtileY + drlgCoords.nSubtileHeight;
 }
@@ -1217,7 +1217,7 @@ static int __stdcall sub_0056BEC0_UseChargedSkillCharge(D2GameStrc* pGame, D2Ski
     return 1;
 }
 
-static __forceinline int SKILLS_IsPlayerInline(D2UnitStrc* pUnit)
+static inline int SKILLS_IsPlayerInline(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwUnitType == UNIT_PLAYER;
 }
@@ -1330,7 +1330,7 @@ int __fastcall SKILLS_HasManaOrChargesForUsedSkill(D2UnitStrc* pUnit)
     return STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) >= nManaCost;
 }
 
-static __forceinline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord(int nClassId)
+static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord(int nClassId)
 {
     if (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount)
     {
@@ -1340,7 +1340,7 @@ static __forceinline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord(int nClassId
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1350,7 +1350,7 @@ static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId
     return 0;
 }
 
-static __forceinline int MONSTERS_GetBaseIdFromMonsterId(int nMonsterId)
+static inline int MONSTERS_GetBaseIdFromMonsterId(int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
     if (pMonStatsTxtRecord)
@@ -1550,14 +1550,14 @@ void __fastcall sub_6FD11AE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
     D2GAME_PACKETS_SendPacket0x3F_6FC3EDC0(UnitGetClient(pUnit, ".\\SKILLS\\Skills.cpp", 1711), 0, 0xFF, 1, 0, 0xFFFF);
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
 
-static __forceinline int GetClassId(D2UnitStrc* pUnit)
+static inline int GetClassId(D2UnitStrc* pUnit)
 {
     int nClassId = -1;
     if (pUnit)
@@ -1835,7 +1835,7 @@ int __fastcall SKILLS_SrvDo004_Unsummon(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return 1;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_H15(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_H15(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1844,7 +1844,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_H15(int nSkillId)
     return 0;
 }
 
-static __forceinline int UNIT_HasFlag_H15(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UNIT_HasFlag_H15(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {
@@ -2284,7 +2284,7 @@ int __fastcall sub_0056D5F0_SpawnItemInFreeHand(D2GameStrc* pGame, D2UnitStrc* p
     return 0;
 }
 
-static __forceinline SkillCallback GetSkillCallback(short nIndex)
+static inline SkillCallback GetSkillCallback(short nIndex)
 {
     if (nIndex < 0)
         return 0;
@@ -2326,7 +2326,7 @@ void __fastcall sub_6FD14400(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDoFunc, 
     }
 }
 
-static __forceinline int UNITS_HasBeenDeletedInline(D2UnitStrc* pUnit)
+static inline int UNITS_HasBeenDeletedInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2335,7 +2335,7 @@ static __forceinline int UNITS_HasBeenDeletedInline(D2UnitStrc* pUnit)
     return (pUnit->dwFlagEx >> 8) & 1;
 }
 
-static __forceinline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
+static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -2625,7 +2625,7 @@ D2SkillStrc* __fastcall sub_0056DE70_AddSkillAndRefresh(D2UnitStrc* pUnit, int n
     return pSkill;
 }
 
-static __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -3149,7 +3149,7 @@ D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse)
     return pStatList;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -3388,7 +3388,7 @@ int __fastcall SKILLS_SrvDo001_Attack_LeftHandSwing(D2GameStrc* pGame, D2UnitStr
     return 1;
 }
 
-static __forceinline int sub_0056F1F0_DrainTargetItemDurability(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline int sub_0056F1F0_DrainTargetItemDurability(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     if (!pTarget)

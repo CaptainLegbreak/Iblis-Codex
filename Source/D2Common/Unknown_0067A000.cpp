@@ -164,7 +164,7 @@ static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pD
     return 0;
 }
 
-static __forceinline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
+static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
 {
     return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
 }
@@ -487,7 +487,7 @@ int __fastcall PATH_Knockback_Client(D2PathInfoStrc* pPathInfo)
     return 1;
 }
 
-static __forceinline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
+static inline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
 {
     int nResult = nScale;
     nResult *= nDelta;
@@ -536,7 +536,7 @@ int __fastcall PATH_Knockback_Server(D2PathInfoStrc* pPathInfo)
     return pDynamicPath->dwPathPoints;
 }
 
-static __forceinline unsigned short PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+static inline unsigned short PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     int nDiffX = tPoint1.X - tPoint2.X;
     if (nDiffX < 0)
@@ -596,7 +596,7 @@ static void PATH_AStar_MakeCandidate(D2PathFoWallContextStrc* pContext, D2PathFo
     }
 }
 
-static __forceinline D2PathFoWallNodeStrc* PATH_AStar_RemoveFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pToRemove)
+static inline D2PathFoWallNodeStrc* PATH_AStar_RemoveFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pToRemove)
 {
     D2PathFoWallNodeStrc* pPrev = 0;
     const int nHash = (gaIdaStar_PointCacheHashMaskY[pToRemove->tPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[pToRemove->tPoint.X & 0x7F]) & 0x7F;
@@ -678,7 +678,7 @@ static void PATH_AStar_PropagateNewFScoreToChildren(D2PathFoWallContextStrc* pCo
     }
 }
 
-static __forceinline void PATH_AStar_AddChildToNode(D2PathFoWallNodeStrc* pNode, D2PathFoWallNodeStrc* pChild)
+static inline void PATH_AStar_AddChildToNode(D2PathFoWallNodeStrc* pNode, D2PathFoWallNodeStrc* pChild)
 {
     if (!pNode->pChildren[0])
         pNode->pChildren[0] = pChild;
@@ -900,7 +900,7 @@ static int PATH_AStar_TargetLocationHasEnoughRoom(D2PathInfoStrc* pPathInfo)
     return !COLLISION_CheckAnyCollisionWithPattern(pStartRoom, nTargetX + 0, nTargetY + 2, nCollisionPattern, nCollisionMask);
 }
 
-static __forceinline D2PathFoWallNodeStrc* PATH_AStar_GetNewNode(D2PathFoWallContextStrc* pContext)
+static inline D2PathFoWallNodeStrc* PATH_AStar_GetNewNode(D2PathFoWallContextStrc* pContext)
 {
     D2PathFoWallNodeStrc* pNewNode = 0;
     if (pContext->nNodesCount != 200)
@@ -968,7 +968,7 @@ int __stdcall sub_0067BBC0_DeltaTableLookup(D2PathPointStrc tPoint1, D2PathPoint
 }
 
 // build: context PATH_TestNewTargetPoint
-static __forceinline int PATH_TestNewTargetPoint(D2PathMovStrc* pMov, D2ActiveRoomStrc* pRoom, int nCollisionPattern, int nCollisionMask)
+static inline int PATH_TestNewTargetPoint(D2PathMovStrc* pMov, D2ActiveRoomStrc* pRoom, int nCollisionPattern, int nCollisionMask)
 {
     pMov->tTargetCoord.X = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nX + pMov->tCurrentCoord.X);
     pMov->tTargetCoord.Y = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nY + pMov->tCurrentCoord.Y);
@@ -1012,7 +1012,7 @@ static void __stdcall PATH_ReplaceSubpathPoints(D2PathPointStrc* pPoints, int* p
 }
 
 // build: context PATH_GetSquaredDistance
-static __forceinline int PATH_GetSquaredDistance(D2PathPointStrc tPoint, D2PathPointStrc tTarget)
+static inline int PATH_GetSquaredDistance(D2PathPointStrc tPoint, D2PathPointStrc tTarget)
 {
     const int nDX = tPoint.X - tTarget.X;
     const int nDY = tPoint.Y - tTarget.Y;

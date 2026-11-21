@@ -373,7 +373,7 @@ int __fastcall sub_005DC360_GetMonsterVision(D2UnitStrc* pUnit)
     return 0;
 }
 
-__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -386,7 +386,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -564,7 +564,7 @@ static int __stdcall sub_6FCF1A50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitSt
     return sub_00554200(pGame, pUnit, pTarget);
 }
 
-static __forceinline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
+static inline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)
@@ -736,7 +736,7 @@ D2UnitStrc* __fastcall sub_6FCF1BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Unit
     return 0;
 }
 
-static __forceinline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMonsterId)
+static inline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -758,7 +758,7 @@ static __forceinline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecordFromUnit
     return MONSTERREGION_GetMonStats2TxtRecord(pUnit->dwClassId);
 }
 
-static __forceinline void AITHINK_DieInline(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline void AITHINK_DieInline(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1061,7 +1061,7 @@ D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* 
     }
 }
 
-static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1110,7 +1110,7 @@ int __fastcall AIUTIL_CheckIfMonsterUsesSkill(D2UnitStrc* pUnit, int nSkillId)
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1120,7 +1120,7 @@ static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMon
     return 0;
 }
 
-static __forceinline int MONSTERS_GetBaseIdFromMonsterId(int nMonsterId)
+static inline int MONSTERS_GetBaseIdFromMonsterId(int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(nMonsterId);
     if (!pMonStatsTxtRecord)
@@ -1131,7 +1131,7 @@ static __forceinline int MONSTERS_GetBaseIdFromMonsterId(int nMonsterId)
     return pMonStatsTxtRecord->nBaseId;
 }
 
-static __forceinline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1144,7 +1144,7 @@ static __forceinline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitYForceInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYForceInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1273,7 +1273,7 @@ static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, in
     return 0;
 }
 
-static __forceinline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget)
+static inline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget)
 {
     if (!pTarget)
     {

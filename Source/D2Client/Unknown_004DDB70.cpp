@@ -185,7 +185,7 @@ void __cdecl sub_004DDDE0_Nop()
 }
 
 // 0x004DDE40
-static __forceinline int sub_004DDE40_IsPointInRect(D2GridRectStrc* pRect, int nX, int nY)
+static inline int sub_004DDE40_IsPointInRect(D2GridRectStrc* pRect, int nX, int nY)
 {
     D2_ASSERT(pRect, 0x76);
     if (nX < pRect->nLeft || nX >= pRect->nRight || nY < pRect->nTop || nY >= pRect->nBottom)
@@ -196,7 +196,7 @@ static __forceinline int sub_004DDE40_IsPointInRect(D2GridRectStrc* pRect, int n
 }
 
 // 0x004DDEC0
-static __forceinline void sub_004DDEC0_FillCells(D2GridCellStrc* pCells)
+static inline void sub_004DDEC0_FillCells(D2GridCellStrc* pCells)
 {
     for (int j = 0; j < 8; ++j)
     {

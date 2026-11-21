@@ -287,7 +287,7 @@ void __fastcall sub_0067F450(D2DrlgLevelStrc* pLevel)
     sub_0067F3B0(pLevel);
 }
 
-static __forceinline unsigned int OUTJUNG_SeedStepInline(D2SeedStrc* pSeed)
+static inline unsigned int OUTJUNG_SeedStepInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -295,7 +295,7 @@ static __forceinline unsigned int OUTJUNG_SeedStepInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int OUTJUNG_RollLimitedInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int OUTJUNG_RollLimitedInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {

@@ -454,7 +454,7 @@ bool __fastcall ACT3Intro_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitSt
 
 bool __fastcall ACT3Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-__forceinline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -467,7 +467,7 @@ __forceinline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -538,7 +538,7 @@ int __stdcall sub_005B2700_FindPosition(D2ActiveRoomStrc* room,int* outX,int* ou
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
@@ -613,7 +613,7 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
 }
 
 // build: context MONSTERREGION_SanitizeMonsterId_Inline
-static __forceinline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
+static inline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
         return -1;
@@ -703,7 +703,7 @@ static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 }
 
 // build: context MONSTERS_GetMonStatsTxtRecord_Inline
-static __forceinline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMonsterId)
+static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -713,7 +713,7 @@ static __forceinline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMo
 }
 
 // build: context MONSTERS_ValidateMonsterId_Inline
-static __forceinline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
+static inline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -723,7 +723,7 @@ static __forceinline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
 }
 
 // build: context MONSTERUNIQUE_ToggleUnitFlag_Inline
-static __forceinline void MONSTERUNIQUE_ToggleUnitFlag_Inline(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline void MONSTERUNIQUE_ToggleUnitFlag_Inline(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {
@@ -878,7 +878,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
 }
 
 // build: context GetMonStats2
-static __forceinline D2MonStats2Txt* GetMonStats2(int nId)
+static inline D2MonStats2Txt* GetMonStats2(int nId)
 {
     if(nId<0 || nId>=sgptDataTables->nMonStatsTxtRecordCount) return 0;
     int nIndex=sgptDataTables->pMonStatsTxt[nId].wMonStatsEx;
@@ -887,7 +887,7 @@ static __forceinline D2MonStats2Txt* GetMonStats2(int nId)
 }
 
 // build: context SEED_RollRandomNumber
-static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -896,7 +896,7 @@ static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // build: context ITEMS_RollRandomNumber
-static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     return (unsigned int)SEED_RollRandomNumber(pSeed);
 }
@@ -1243,7 +1243,7 @@ int __fastcall sub_6FC6A810(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int a3, 
     return nResult;
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {

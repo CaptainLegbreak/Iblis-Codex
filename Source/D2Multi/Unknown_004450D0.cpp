@@ -37,7 +37,7 @@ static void sub_00442E30_ShowGameInfo(int nIndex)
     }
 }
 
-static __forceinline int sub_004450D0_IsDoubleClick(int nSelection)
+static inline int sub_004450D0_IsDoubleClick(int nSelection)
 {
     const unsigned long dwTick = GetTickCount();
     if (nSelection == gnLastSelection_0070EBDC && dwTick - gdwLastClickTick_00798CEC <= 500)

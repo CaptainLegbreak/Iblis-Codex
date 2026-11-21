@@ -511,7 +511,7 @@ static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pCon
     return 1;
 }
 
-static __forceinline int SpriteCache_CopyName(char* szDst, const char* szSrc)
+static inline int SpriteCache_CopyName(char* szDst, const char* szSrc)
 {
     strcpy(szDst, szSrc);
     return 1;
@@ -867,7 +867,7 @@ static void __stdcall sub_005FF060_SpriteCacheLinkNode(int bLocked, D2SpriteCach
 }
 
 // 0x005FF0D0
-static __forceinline void sub_005FF0D0_SpriteCachePushFree(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode)
+static inline void sub_005FF0D0_SpriteCachePushFree(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode)
 {
     if (!pCache->f_28)
     {
@@ -883,7 +883,7 @@ static __forceinline void sub_005FF0D0_SpriteCachePushFree(D2SpriteCacheStrc* pC
 }
 
 // 0x005FF170
-static __forceinline D2SpriteCacheNodeStrc* sub_005FF170_SpriteCachePopFree(D2SpriteCacheStrc* pCache)
+static inline D2SpriteCacheNodeStrc* sub_005FF170_SpriteCachePopFree(D2SpriteCacheStrc* pCache)
 {
     D2SpriteCacheNodeStrc* pNode = pCache->f_24;
     if (!pNode)
@@ -1611,7 +1611,7 @@ static int __stdcall sub_005FFFA0_LoadDC6CacheEntry(D2CmpSpriteFileStrc* pFile, 
     return 0;
 }
 
-static __forceinline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pContext, int nDirection, unsigned int nFrames)
+static inline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pContext, int nDirection, unsigned int nFrames)
 {
     unsigned int bConvert = 1;
     if (!(pContext->nType == 6 && (pContext->dwFlags & 2)))

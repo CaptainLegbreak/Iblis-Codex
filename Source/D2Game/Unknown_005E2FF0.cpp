@@ -29,12 +29,12 @@ inline unsigned __int64 SEED_RollRandomNumber(Seed* seed)
     seed->low = (unsigned int)value;
     return value;
 }
-static __forceinline MonStats* GetMonStats(int id)
+static inline MonStats* GetMonStats(int id)
 {
     if (id >= 0 && id < sgptDataTables->count) return &sgptDataTables->stats[id];
     return 0;
 }
-static __forceinline AiControl* GetAiControl(Unit* unit)
+static inline AiControl* GetAiControl(Unit* unit)
 {
     if (unit && unit->type == 1 && unit->monster) return unit->monster->control;
     return 0;

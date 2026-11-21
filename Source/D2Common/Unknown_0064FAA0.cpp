@@ -92,7 +92,7 @@ struct D2Storm416A90Strc
 };
 
 // 0x0064FAA0
-static __forceinline void PATHMISC_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pNewRoom)
+static inline void PATHMISC_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pNewRoom)
 {
     D2UnitStrc* pUnit = pPath->pUnit;
     pPath->pPreviousRoom = pPath->pRoom;
@@ -832,7 +832,7 @@ int __stdcall sub_M106_Emit_0051DD40(int n)
     return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
-static __forceinline void SEED_Step(unsigned int* pSeed)
+static inline void SEED_Step(unsigned int* pSeed)
 {
     *pSeed = *pSeed * 0x19660D + 0x3C6EF35F;
 }

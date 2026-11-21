@@ -63,7 +63,7 @@ extern OptionListStrc gOptionList_0074C48C; // 0x0074C48C
 extern const char gszSCmdFile_006FCC30[]; // 0x006FCC30
 extern OptionListStrc gOptionList_0074C498; // 0x0074C498
 
-static __forceinline OptionStrc* OPTION_Next(OptionStrc* pLink)
+static inline OptionStrc* OPTION_Next(OptionStrc* pLink)
 {
     return (int)pLink > 0 ? pLink : 0;
 }

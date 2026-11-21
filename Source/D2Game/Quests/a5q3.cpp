@@ -286,14 +286,14 @@ void __fastcall ACT5Q3_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
     }
 }
 
-static __forceinline int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nX;
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nY;
@@ -369,7 +369,7 @@ static void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Ac
 // 0x00589340
 static void sub_00589340_RemoveNihlathakInTown(D2QuestDataStrc* pQuestData, D2UnitStrc* pNihlathak); // 0x00589340
 
-static __forceinline int CLIENTS_GetUnitX_A5Q3(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX_A5Q3(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -381,7 +381,7 @@ static __forceinline int CLIENTS_GetUnitX_A5Q3(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitY_A5Q3(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY_A5Q3(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -554,7 +554,7 @@ void __fastcall sub_005891D0_EmitCaller(D2QuestDataStrc* pQuestData, D2Act5Quest
     ACT5Q3_SeqCallback(pQuestData);
 }
 
-static __forceinline D2BitBufferStrc* QUESTS_GetPlayerFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* QUESTS_GetPlayerFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }

@@ -1198,7 +1198,7 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
     sub_00650F00(gnMonstatsTxtRecordCount);
 }
 
-__forceinline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord(int nLevel)
+inline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord(int nLevel)
 {
     if (nLevel >= 0 && nLevel < sgptDataTables->nMonLvlTxtRecordCount)
     {
@@ -1208,7 +1208,7 @@ __forceinline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord(int nLevel)
     return 0;
 }
 
-__forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -3330,7 +3330,7 @@ D2AnimSeqRecordStrc* __stdcall sub_00659E30(int nIndex)
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* GetMonStatsRecord(int monster)
+static inline D2MonStatsTxt* GetMonStatsRecord(int monster)
 {
  if(monster>=0 && monster<sgptDataTables->nMonStatsTxtRecordCount)return &gpMonstatsTxt[monster];
  return 0;

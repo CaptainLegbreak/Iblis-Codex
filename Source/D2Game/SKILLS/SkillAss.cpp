@@ -1004,7 +1004,7 @@ int __fastcall sub_005D2B20(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
 }
 
 // 0x005D2B40
-static __forceinline void sub_005D2B40_RemoveState114(D2UnitStrc* pUnit)
+static inline void sub_005D2B40_RemoveState114(D2UnitStrc* pUnit)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_BLOOD_MANA);
     if (pStatList)
@@ -1016,7 +1016,7 @@ static __forceinline void sub_005D2B40_RemoveState114(D2UnitStrc* pUnit)
 
 void __stdcall sub_M121_Emit_005D2B40(D2UnitStrc* pUnit) { sub_005D2B40_RemoveState114(pUnit); }
 
-static __forceinline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1029,7 +1029,7 @@ static __forceinline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitYForceInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYForceInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1505,7 +1505,7 @@ int __fastcall SKILLS_SrvDo038_FistsOfFire_BladesOfIce_ProgressiveFn2(D2GameStrc
     return 1;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1645,7 +1645,7 @@ static void __stdcall SKILLS_CreateChargedBoltMissileRing(D2GameStrc* pGame, D2U
     }
 }
 
-static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
+static inline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
 {
     const unsigned __int64 lSeed = pSrc->nHighSeed + 0x6AC690C5i64 * pSrc->nLowSeed;
     pDst->nLowSeed = (unsigned int)lSeed;
@@ -1653,7 +1653,7 @@ static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -1661,7 +1661,7 @@ static __forceinline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     int nX;
     switch (pUnit->dwUnitType)
@@ -1678,7 +1678,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return nX;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     int nY;
     switch (pUnit->dwUnitType)
@@ -1973,7 +1973,7 @@ void __fastcall sub_005D5220_DischargeProgressiveSkills(D2GameStrc* pGame, D2Uni
     STATES_UpdatePgsvFlags(pUnit);
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord_Inline(int nSkillId)
+static inline D2SkillsTxt* GetSkillsTxtRecord_Inline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1983,7 +1983,7 @@ static __forceinline D2SkillsTxt* GetSkillsTxtRecord_Inline(int nSkillId)
     return 0;
 }
 
-static __forceinline int GetSkillParamByLevel_Inline(int nSkillId, int nSkillLevel)
+static inline int GetSkillParamByLevel_Inline(int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord_Inline(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1999,7 +1999,7 @@ static __forceinline int GetSkillParamByLevel_Inline(int nSkillId, int nSkillLev
     return pSkillsTxtRecord->dwParam[0] + (nSkillLevel - 1) * pSkillsTxtRecord->dwParam[1];
 }
 
-static __forceinline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
+static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
     {
@@ -2233,7 +2233,7 @@ int __fastcall SKILLS_SrvDo042_DragonTalon(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return 1;
 }
 
-static __forceinline unsigned __int64 SEED_RollRandomNumberInline64(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumberInline64(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2242,7 +2242,7 @@ static __forceinline unsigned __int64 SEED_RollRandomNumberInline64(D2SeedStrc* 
 }
 
 // build: context SEED_RollLimitedRandomNumberInline
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;
@@ -2325,7 +2325,7 @@ int __fastcall SKILLS_CreateMissilesAroundTarget(D2GameStrc* pGame, D2UnitStrc* 
     return 1;
 }
 
-static __forceinline int UNITS_GetUnitType_Inline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitType_Inline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2945,7 +2945,7 @@ int __fastcall sub_005D6E70_SrvDoSummonPet(D2GameStrc* pGame, D2UnitStrc* pUnit,
 }
 
 // build: context GetSkillParam3ById_Inline
-static __forceinline int GetSkillParam3ById_Inline(int nSkillId)
+static inline int GetSkillParam3ById_Inline(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord_Inline(nSkillId);
     if (!pSkillsTxtRecord)

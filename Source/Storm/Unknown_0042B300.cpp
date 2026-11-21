@@ -27,7 +27,7 @@ struct z_stream
 
 int __fastcall inflateResetKeep(z_stream* strm);                                                            // 0x00429810
 
-static __forceinline int inflateReset_Inl(z_stream* strm)
+static inline int inflateReset_Inl(z_stream* strm)
 {
     inflate_state* state;
     if (strm == 0 || strm->state == 0) return -2;

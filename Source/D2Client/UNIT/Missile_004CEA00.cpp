@@ -81,7 +81,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
 // build: context SEED_RollRandomNumber
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -90,7 +90,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // build: context SEED_RollLimitedRandomNumber
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -106,7 +106,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed
 }
 
 // build: context MISSILE_RollInRange
-static __forceinline int MISSILE_RollInRange(D2SeedStrc* pSeed, int nMin, int nMax)
+static inline int MISSILE_RollInRange(D2SeedStrc* pSeed, int nMin, int nMax)
 {
     if (nMin < nMax)
     {
@@ -117,7 +117,7 @@ static __forceinline int MISSILE_RollInRange(D2SeedStrc* pSeed, int nMin, int nM
 }
 
 // build: context SKILLS_GetMissilesTxtRecord
-static __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -306,7 +306,7 @@ int __fastcall sub_004D0DB0_CltHitBurst(D2UnitStrc* pMissile, D2UnitStrc* pHitUn
     return 1;
 }
 
-static __forceinline int sub_CanHitUnit(D2UnitStrc* pUnit)
+static inline int sub_CanHitUnit(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -365,7 +365,7 @@ static inline D2MissilesTxt* MISSILE_GetMissilesTxtRecordFromUnit(D2UnitStrc* pU
     return SKILLS_GetMissilesTxtRecordChecked(pUnit->dwClassId);
 }
 
-static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -377,7 +377,7 @@ static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

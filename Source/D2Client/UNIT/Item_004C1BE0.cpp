@@ -234,7 +234,7 @@ static void __stdcall sub_004C12F0_ReattachItem(int nMode, int nComponent, D2Uni
     sub_0063D1D0_InventoryItemCall(pInventory, pItem);
 }
 
-static __forceinline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
+static inline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

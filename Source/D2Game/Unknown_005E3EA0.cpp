@@ -48,15 +48,15 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 int __stdcall sub_00648A20_GetLastPointX(D2DynamicPathStrc*); // 0x00648A20
 int __stdcall sub_00648A30_GetLastPointY(D2DynamicPathStrc*); // 0x00648A30
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc*); // 0x0064C040
-static __forceinline int GetUnitX(D2UnitStrc* pUnit) {
+static inline int GetUnitX(D2UnitStrc* pUnit) {
     switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos; }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
-static __forceinline int GetUnitY(D2UnitStrc* pUnit) {
+static inline int GetUnitY(D2UnitStrc* pUnit) {
     switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos; }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
-static __forceinline int GetMonsterId(int nId) {
+static inline int GetMonsterId(int nId) {
     if (nId < 0 || nId >= sgptDataTables->nMonStatsTxtRecordCount) return -1;
     return nId;
 }

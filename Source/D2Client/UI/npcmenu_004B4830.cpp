@@ -358,7 +358,7 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 
 static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc*);
 
-static __forceinline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1020,7 +1020,7 @@ int __cdecl sub_004B4730_NpcMenuTalk()
     return 1;
 }
 
-static __forceinline D2UnitStrc* NPC_GetInteractUnit_Inline()
+static inline D2UnitStrc* NPC_GetInteractUnit_Inline()
 {
     return gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25,1):0;
 }

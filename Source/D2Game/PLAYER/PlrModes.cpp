@@ -566,13 +566,13 @@ static int sub_6FC81890(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode)
     return 1;
 }
 
-static __forceinline int sub_GetConcStat(D2UnitStrc* pUnit)
+static inline int sub_GetConcStat(D2UnitStrc* pUnit)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_CONCENTRATION);
     return STATLIST_GetStatValue(pStatList, STAT_SKILL_CONCENTRATION, 0);
 }
 
-static __forceinline int sub_GetAnimMode(D2UnitStrc* pUnit)
+static inline int sub_GetAnimMode(D2UnitStrc* pUnit)
 {
     return !pUnit ? 0 : pUnit->dwAnimMode;
 }
@@ -671,7 +671,7 @@ int __fastcall sub_0057F080_PLRMODE_ModeCheck_Neutral(D2GameStrc* pGame, D2UnitS
     return 1;
 }
 
-static __forceinline int sub_F05_PlrGetUnitX(D2UnitStrc* pUnit)
+static inline int sub_F05_PlrGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -689,7 +689,7 @@ static __forceinline int sub_F05_PlrGetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
+static inline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -707,22 +707,22 @@ static __forceinline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_F05_GetInteractAction(D2UnitStrc* pPlayer)
+static inline int sub_F05_GetInteractAction(D2UnitStrc* pPlayer)
 {
     return pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nMode : 0;
 }
 
-static __forceinline int sub_F05_GetInteractUnitType(D2UnitStrc* pPlayer)
+static inline int sub_F05_GetInteractUnitType(D2UnitStrc* pPlayer)
 {
     return pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg1 : 0;
 }
 
-static __forceinline int sub_F05_GetInteractUnitGUID(D2UnitStrc* pPlayer)
+static inline int sub_F05_GetInteractUnitGUID(D2UnitStrc* pPlayer)
 {
     return pPlayer->dwUnitType == UNIT_PLAYER ? (pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg2 : 0) : 0;
 }
 
-static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
+static inline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
 {
     if (pPlayer)
     {
@@ -746,7 +746,7 @@ static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
     return 0;
 }
 
-static __forceinline void sub_F05_SetInteractFlag(D2UnitStrc* pPlayer, int nFlag)
+static inline void sub_F05_SetInteractFlag(D2UnitStrc* pPlayer, int nFlag)
 {
     if (pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
     {
@@ -754,7 +754,7 @@ static __forceinline void sub_F05_SetInteractFlag(D2UnitStrc* pPlayer, int nFlag
     }
 }
 
-static __forceinline D2CharStatsTxt* sub_F05_GetCharStatsTxtRecord(int nClass)
+static inline D2CharStatsTxt* sub_F05_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {
@@ -897,7 +897,7 @@ static int sub_0057F240_DrainRunStamina(D2UnitStrc* pPlayer)
     return 1;
 }
 
-__forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -910,7 +910,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1075,7 +1075,7 @@ static int __stdcall sub_0057F690_FreeStaleCorpses(D2GameStrc* pGame, D2UnitStrc
 }
 
 // build: context ApplyRatio
-static __forceinline int ApplyRatio(int nValue,int nMultiplier,int nDivisor)
+static inline int ApplyRatio(int nValue,int nMultiplier,int nDivisor)
 {
  if(!nDivisor) return 0;
  if(nValue>0x100000) {
@@ -1248,7 +1248,7 @@ void __fastcall sub_0057FB70_PickUpCorpse(D2GameStrc* pGame, D2UnitStrc* pPlayer
 }
 
 // 0x0057FC60
-static __forceinline int sub_0057FC60_IsOtherPlayerOrMinion(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+static inline int sub_0057FC60_IsOtherPlayerOrMinion(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     if (!pUnit || !pTarget || pUnit->dwUnitType != UNIT_PLAYER || pUnit == pTarget)
     {
@@ -1538,7 +1538,7 @@ void __fastcall sub_6FC80E10(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     }
 }
 
-static __forceinline unsigned char UNITS_GetHpPercent_Inline(D2UnitStrc* pUnit)
+static inline unsigned char UNITS_GetHpPercent_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1550,7 +1550,7 @@ static __forceinline unsigned char UNITS_GetHpPercent_Inline(D2UnitStrc* pUnit)
     return 0x80;
 }
 
-static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord_Inline(int nClassId)
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord_Inline(int nClassId)
 {
     if (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount)
         return &sgptDataTables->pCharStatsTxt[nClassId];

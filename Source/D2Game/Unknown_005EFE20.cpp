@@ -103,7 +103,7 @@ lApproach:
     AITACTICS_WalkCloseToUnit(pGame, pUnit, 3);
 }
 
-static __forceinline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -199,15 +199,15 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
     AITACTICS_IdleInNeutralMode(pGame,pUnit,15);
 }
 
-static __forceinline unsigned __int64 RollSeed(D2UnitStrc* pUnit)
+static inline unsigned __int64 RollSeed(D2UnitStrc* pUnit)
 {
  const unsigned __int64 lSeed=pUnit->pSeed.nHighSeed+0x6AC690C5i64*pUnit->pSeed.nLowSeed;
  pUnit->pSeed.lSeed=lSeed;return lSeed;
 }
 
-static __forceinline int MonsterId(int nId) { if (nId<0 || nId>=sgptDataTables->nMonStatsTxtRecordCount) return -1; return nId; }
+static inline int MonsterId(int nId) { if (nId<0 || nId>=sgptDataTables->nMonStatsTxtRecordCount) return -1; return nId; }
 
-static __forceinline int UnitClassId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwClassId; }
+static inline int UnitClassId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwClassId; }
 
 // 0x005F2B10
 void __fastcall sub_005F2B10_GreaterMummyThink(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTickParamStrc* pAiTickParam)

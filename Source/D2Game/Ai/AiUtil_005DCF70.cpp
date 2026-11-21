@@ -219,7 +219,7 @@ void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
         pAiControl->nAiFlags &= ~0x20;
 }
 
-static __forceinline D2AiControlStrc* GetAiControl(D2UnitStrc* pUnit)
+static inline D2AiControlStrc* GetAiControl(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == 1 && pUnit->pMonsterData)
@@ -227,7 +227,7 @@ static __forceinline D2AiControlStrc* GetAiControl(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int GetUnitType(D2UnitStrc* pUnit)
+static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     int nUnitType = 6;
     if (pUnit)
@@ -313,7 +313,7 @@ static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, in
     return 0;
 }
 
-static __forceinline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget)
+static inline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget)
 {
     if (!pTarget)
     {

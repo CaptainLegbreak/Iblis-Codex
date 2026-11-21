@@ -9,13 +9,13 @@ extern "C" unsigned long __readfsdword(unsigned long nOffset);
 #pragma intrinsic(__readfsdword)
 
 // build: symbol ?wcsrchr@@YAPA_WPA_W_W@Z 0x00404100
-static __forceinline wchar_t* wcsrchr(wchar_t* szString, wchar_t nChar)
+static inline wchar_t* wcsrchr(wchar_t* szString, wchar_t nChar)
 {
     return wcsrchr((const wchar_t*)szString, nChar);
 }
 
 // 0x004041D0
-static __forceinline int sub_004041D0_VFormatText(char* szDest, size_t nSize, const char* szFormat, va_list args)
+static inline int sub_004041D0_VFormatText(char* szDest, size_t nSize, const char* szFormat, va_list args)
 {
     const int nResult = _vsnprintf(szDest, nSize - 1, szFormat, args);
     szDest[nSize - 1] = 0;
@@ -29,7 +29,7 @@ void* __cdecl sub_004046D0_GetCurrentTeb()
 }
 
 // 0x004046E0
-static __forceinline const char* sub_004046E0_GetFileName(const char* szPath)
+static inline const char* sub_004046E0_GetFileName(const char* szPath)
 {
     const char* pSep = 0;
     const char* p = strrchr(szPath, '/');

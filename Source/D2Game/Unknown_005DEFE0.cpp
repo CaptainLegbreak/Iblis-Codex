@@ -8,7 +8,7 @@ int __stdcall PATH_GetYPosition(D2PathRecordStrc* path); // 0x00648900
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* unit,int mode,int velocity,unsigned char flags); // 0x005DE190
 int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags); // 0x005DEB60
 // build: context GetX
-static __forceinline int GetX(D2UnitStrc* unit)
+static inline int GetX(D2UnitStrc* unit)
 {
  int value;
  switch(unit->type) {
@@ -18,7 +18,7 @@ static __forceinline int GetX(D2UnitStrc* unit)
  return value;
 }
 // build: context GetY
-static __forceinline int GetY(D2UnitStrc* unit)
+static inline int GetY(D2UnitStrc* unit)
 {
  int value;
  switch(unit->type) {

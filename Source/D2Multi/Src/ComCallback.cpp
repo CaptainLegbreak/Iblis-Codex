@@ -239,7 +239,7 @@ D2WinControlStrc* gpPanelControl_00798C48; // 0x00798C48
 
 #include "gen/data/Source/D2Multi/Src/ComCallback/s_nSelectionB_0070CC08.inc"
 
-static __forceinline int ProgressBarValue(int nPercent)
+static inline int ProgressBarValue(int nPercent)
 {
     return nPercent * sub_004FD1B0_GetBarMax(gpProgressBar_0077997C) / 100;
 }

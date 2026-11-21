@@ -574,7 +574,7 @@ void __fastcall sub_6FC61AB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
     }
 }
 
-static __forceinline int GetUnitType(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
+static inline int GetUnitType(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
 
 inline D2MonsterInteractStrc* GetInteractions(D2UnitStrc* pUnit)
 {
@@ -686,7 +686,7 @@ void __fastcall MONSTERAI_StartNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pUn
     sub_00572C10_StartNpcInteraction(pGame, pMonInteract, nQuestFlags, pTarget, pUnit);
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -695,7 +695,7 @@ static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId
     return 0;
 }
 
-static __forceinline unsigned int MONSTERS_CheckMonStatsFlag(D2MonStatsTxt* pMonStatsTxtRecord, int nFlag)
+static inline unsigned int MONSTERS_CheckMonStatsFlag(D2MonStatsTxt* pMonStatsTxtRecord, int nFlag)
 {
     if (!pMonStatsTxtRecord)
     {
@@ -704,7 +704,7 @@ static __forceinline unsigned int MONSTERS_CheckMonStatsFlag(D2MonStatsTxt* pMon
     return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
-static __forceinline D2MonsterDataStrc* MONSTERS_GetMonsterData(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MONSTERS_GetMonsterData(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -744,7 +744,7 @@ int __fastcall sub_00573090_ApplyAiMode(D2UnitStrc* pUnit, int nState, int nValu
     return 0;
 }
 
-static __forceinline D2MonsterDataStrc* MONSTERS_GetMonsterDataInline(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MONSTERS_GetMonsterDataInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -801,7 +801,7 @@ void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnitInline(D2UnitStrc* pUnit)
+static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -897,17 +897,17 @@ void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fas
     pMonInteract->pInteractInfo = 0;
 }
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
-static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static __forceinline void MONSTER_SetComponent(D2UnitStrc* pUnit, int nComponent, unsigned char nValue)
+static inline void MONSTER_SetComponent(D2UnitStrc* pUnit, int nComponent, unsigned char nValue)
 {
     if (sub_0044BE50(pUnit) == 1)
     {

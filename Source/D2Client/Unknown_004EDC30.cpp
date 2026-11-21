@@ -469,7 +469,7 @@ inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -563,7 +563,7 @@ int __fastcall sub_004EFDF0_LobMissile(D2UnitStrc* pUnit, int nSkillId, int nSki
 
 #include "gen/data/Source/D2Client/Unknown_004EDC30.inc"
 
-static __forceinline void sub_004F0050_LaunchMotion(D2UnitStrc* pMissile, int nHeight, int nVelocity)
+static inline void sub_004F0050_LaunchMotion(D2UnitStrc* pMissile, int nHeight, int nVelocity)
 {
     sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nHeight);
     sub_004DA200_SetMotionVectorB(pMissile, 0, 0, nVelocity, 1);
@@ -609,12 +609,12 @@ int __fastcall sub_004F0050_LaunchMissileAtTarget(D2UnitStrc* pUnit, int nSkillI
     return 1;
 }
 
-static __forceinline int GetUnitType(D2UnitStrc* unit)
+static inline int GetUnitType(D2UnitStrc* unit)
 {
     return !unit ? 6 : unit->dwUnitType;
 }
 
-static __forceinline int GetUnitClass(D2UnitStrc* unit)
+static inline int GetUnitClass(D2UnitStrc* unit)
 {
     return !unit ? -1 : unit->dwClassId;
 }

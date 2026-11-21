@@ -10,14 +10,14 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 extern "C" int __cdecl memcmp(const void*, const void*, unsigned int);
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
-static __forceinline unsigned int RollRandom(D2SeedStrc* pSeed)
+static inline unsigned int RollRandom(D2SeedStrc* pSeed)
 {
  unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
  pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
  pSeed->nLowSeed = (unsigned int)nSeed;
  return (unsigned int)nSeed;
 }
-static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
 {
  if (nMax <= 0) return 0;
  if ((nMax - 1) & nMax) return RollRandom(pSeed) % nMax;

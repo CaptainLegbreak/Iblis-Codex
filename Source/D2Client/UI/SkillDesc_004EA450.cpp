@@ -81,7 +81,7 @@ int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
 static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsigned short nString, int nMax, int nElemType);
 static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt);
 
-static __forceinline int sub_I05_ETypeColor(int nEType)
+static inline int sub_I05_ETypeColor(int nEType)
 {
     switch (nEType)
     {
@@ -919,7 +919,7 @@ int __fastcall sub_H14_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {

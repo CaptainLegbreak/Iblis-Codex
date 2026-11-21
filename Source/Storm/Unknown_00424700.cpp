@@ -156,7 +156,7 @@ struct D2StormQueueStrc
         sub_00421FE0_GrowToFit(nIndex);
         return m_array.m_data[m_start + nIndex];
     }
-    __forceinline unsigned int& At(unsigned int nIndex)
+    inline unsigned int& At(unsigned int nIndex)
     {
         m_array.GrowToFitInline(m_start + nIndex);
         return m_array.m_data[m_start + nIndex];

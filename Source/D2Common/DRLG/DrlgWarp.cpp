@@ -142,7 +142,7 @@ void __cdecl sub_0066A290_AssertFail()
 }
 
 // 0x0066A870
-static __forceinline int sub_0066A870_SumStringBytes(const char* szText)
+static inline int sub_0066A870_SumStringBytes(const char* szText)
 {
     int nSum = 0;
     while (*szText)
@@ -155,7 +155,7 @@ static __forceinline int sub_0066A870_SumStringBytes(const char* szText)
 }
 
 // 0x0066A890
-static __forceinline int sub_0066A890_CompareCodes(const char* szA, const char* szB)
+static inline int sub_0066A890_CompareCodes(const char* szA, const char* szB)
 {
     D2_ASSERT(sub_006C9A38(szA) <= 8, 0xD9);
     D2_ASSERT(sub_006C9A38(szB) <= 8, 0xDA);
@@ -199,13 +199,13 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRo
 }
 
 // 0x0066AC30
-static __forceinline D2ActiveRoomStrc* sub_0066AC30_GetActiveRoom(D2DrlgRoomStrc* pDrlgRoom)
+static inline D2ActiveRoomStrc* sub_0066AC30_GetActiveRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
     DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
     return pDrlgRoom->pRoom;
 }
 
-static __forceinline int* sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
+static inline int* sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
 {
     for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
     {
@@ -318,7 +318,7 @@ D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromUnit(D2DrlgRoomStrc* pD
 }
 
 // 0x0066AFB0
-static __forceinline int sub_0066AFB0_FindVisIndex(D2DrlgStrc* pDrlg, int nLevelId, int nVisLevel, int nIndex)
+static inline int sub_0066AFB0_FindVisIndex(D2DrlgStrc* pDrlg, int nLevelId, int nVisLevel, int nIndex)
 {
     int* pVis = DRLGROOM_GetVisArrayFromLevelId(pDrlg, nLevelId);
     int nCount = 0;
@@ -339,7 +339,7 @@ static __forceinline int sub_0066AFB0_FindVisIndex(D2DrlgStrc* pDrlg, int nLevel
 }
 
 // 0x0066AFF0
-static __forceinline D2DrlgListEntryStrc* sub_0066AFF0_FindFlaggedEntry(D2DrlgStrc* pDrlg, int nBit)
+static inline D2DrlgListEntryStrc* sub_0066AFF0_FindFlaggedEntry(D2DrlgStrc* pDrlg, int nBit)
 {
     const int nMask = 1 << (nBit + 4);
     for (D2DrlgListEntryStrc* pEntry = ((D2DrlgListOwnerStrc*)pDrlg)->pFirst; pEntry; pEntry = pEntry->pNext)
@@ -378,7 +378,7 @@ D2PresetUnitStrc* __fastcall sub_0066B010_FindPresetTile(D2DrlgRoomStrc* pDrlgRo
     return pPreset;
 }
 
-static __forceinline int FindVis(D2DrlgStrc* pDrlg,int nLevel,int nOther,int nIndex)
+static inline int FindVis(D2DrlgStrc* pDrlg,int nLevel,int nOther,int nIndex)
 {
  int* pVis=DRLGROOM_GetVisArrayFromLevelId(pDrlg,nLevel);
  int nCount=0;
@@ -386,7 +386,7 @@ static __forceinline int FindVis(D2DrlgStrc* pDrlg,int nLevel,int nOther,int nIn
  return -1;
 }
 
-static __forceinline D2DrlgRoomStrc* FindRoom(D2DrlgLevelStrc* pLevel,int nIndex)
+static inline D2DrlgRoomStrc* FindRoom(D2DrlgLevelStrc* pLevel,int nIndex)
 {
  int nMask=1<<(nIndex+4);
  for(D2DrlgRoomStrc* pRoom=pLevel->ptRoomFirst;pRoom;pRoom=pRoom->pNext) if(pRoom->dwFlags&nMask)return pRoom;

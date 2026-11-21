@@ -1217,7 +1217,7 @@ int __fastcall PLRTRADE_CreateUberFinalePortal(D2GameStrc* pGame, D2UnitStrc* pU
     return ACT1Q4_CreateUberFinalePortal(pGame, pUnit);
 }
 
-static __forceinline int CubePercentage(int value,int multiplier,int divisor)
+static inline int CubePercentage(int value,int multiplier,int divisor)
 {
  if(!divisor) return 0;
  int result;
@@ -1231,7 +1231,7 @@ static __forceinline int CubePercentage(int value,int multiplier,int divisor)
  return result;
 }
 
-static __forceinline unsigned RollCubeSeed(D2SeedStrc* seed)
+static inline unsigned RollCubeSeed(D2SeedStrc* seed)
 {
  unsigned __int64 n=0x6AC690C5ui64*seed->nLowSeed+seed->nHighSeed;
  seed->nHighSeed=(unsigned)(n>>32);seed->nLowSeed=(unsigned)n;return (unsigned)n;
@@ -2120,7 +2120,7 @@ void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPla
     }
 }
 
-__forceinline int PLRTRADE_GetUnitX(D2UnitStrc* pUnit)
+inline int PLRTRADE_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2133,7 +2133,7 @@ __forceinline int PLRTRADE_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int PLRTRADE_GetUnitY(D2UnitStrc* pUnit)
+inline int PLRTRADE_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

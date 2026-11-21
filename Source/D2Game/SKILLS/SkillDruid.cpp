@@ -1029,7 +1029,7 @@ int __fastcall sub_6FCFE4C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissil
     return 1;
 }
 
-__forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1042,7 +1042,7 @@ __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-__forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1066,7 +1066,7 @@ static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* 
 }
 
 // build: context SKILLS_CreateSubMissilesInline
-static __forceinline int SKILLS_CreateSubMissilesInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int a7)
+static inline int SKILLS_CreateSubMissilesInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int a7)
 {
     if (a7)
     {
@@ -1747,14 +1747,14 @@ int __fastcall SKILLS_SrvDo145_PeriodicAreaDamage(D2GameStrc* pGame, D2UnitStrc*
     return 1;
 }
 
-static __forceinline D2SkillsTxt* GetRecord(int nSkillId)
+static inline D2SkillsTxt* GetRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
 
-static __forceinline int DeleteEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId)
+static inline int DeleteEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId)
 {
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 5, nSkillId);
     return 0;
@@ -2236,12 +2236,12 @@ int __fastcall SKILLS_AuraCallback_StaticField(D2AuraCallbackStrc* pAuraCallback
     return 1;
 }
 
-static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+static inline int sub_00451F50(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
@@ -2789,7 +2789,7 @@ int __fastcall SKILLS_SrvDo088_AndrialSpray(D2GameStrc* pGame, D2UnitStrc* pUnit
     return 1;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -3217,7 +3217,7 @@ int __fastcall SKILLS_SrvDo073_BlessedHammer(D2GameStrc* pGame, D2UnitStrc* pUni
 }
 
 // 0x005D1080
-static __forceinline int sub_005D1080_GetThornsPercent(D2UnitStrc* pDefender, D2UnitStrc* pAttacker)
+static inline int sub_005D1080_GetThornsPercent(D2UnitStrc* pDefender, D2UnitStrc* pAttacker)
 {
     const int nThornsPercent = STATLIST_UnitGetStatValue(pDefender, STAT_THORNS_PERCENT, 0);
     if (nThornsPercent <= 0)
@@ -3310,7 +3310,7 @@ int __fastcall SKILLS_SrvDo125_WakeOfDestruction(D2GameStrc* pGame, D2UnitStrc* 
 int __stdcall sub_M121_Emit_005D1080(D2UnitStrc* pDefender, D2UnitStrc* pAttacker) { return sub_005D1080_GetThornsPercent(pDefender, pAttacker); }
 
 // 0x005D1320
-static __forceinline void sub_005D1320_ResetUnitEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline void sub_005D1320_ResetUnitEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 0, 0);
     EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 13, 0, 0);
@@ -3593,26 +3593,26 @@ int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pU
     return 1;
 }
 
-static __forceinline SkillRecord* GetSkillRecord(int skill)
+static inline SkillRecord* GetSkillRecord(int skill)
 {
     if (skill < 0 || skill >= gVar_00744304->skillCount)
         return 0;
     return &gVar_00744304->skills[skill];
 }
 
-static __forceinline int GetUnitType(Unit* unit)
+static inline int GetUnitType(Unit* unit)
 {
     return unit ? unit->type : 6;
 }
 
-static __forceinline AiState* GetAiState(Unit* unit)
+static inline AiState* GetAiState(Unit* unit)
 {
     if (GetUnitType(unit) == 1 && unit->monster)
         return unit->monster->ai;
     return 0;
 }
 
-static __forceinline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skill, int level)
+static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skill, int level)
 {
     int chance = sub_00646CA0_Evaluate(owner, record->chance, skill, level);
     return sub_0045C390_Roll(&owner->seed, 100) < chance;
@@ -4274,7 +4274,7 @@ extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int ski
     return 0;
 }
 
-static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -4282,7 +4282,7 @@ static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int UNITS_TestIgnoreTargetFlag(D2UnitStrc* pUnit)
+static inline int UNITS_TestIgnoreTargetFlag(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)

@@ -94,7 +94,7 @@ struct D2StormQueueStrc
     {
         return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
     }
-    __forceinline unsigned int& operator[](unsigned int nIndex)
+    inline unsigned int& operator[](unsigned int nIndex)
     {
         m_array.GrowToFit(m_start + nIndex, 1);
         return m_array.f_8[m_start + nIndex];
@@ -115,7 +115,7 @@ struct D2StormQueueStrc
         sub_00421FE0_GrowToFit(nIndex);
         return m_array.f_8[m_start + nIndex];
     }
-    __forceinline unsigned int& At(unsigned int nIndex)
+    inline unsigned int& At(unsigned int nIndex)
     {
         m_array.GrowToFitInline(m_start + nIndex);
         return m_array.f_8[m_start + nIndex];

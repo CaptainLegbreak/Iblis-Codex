@@ -71,7 +71,7 @@ void __cdecl sub_00407300_Empty()
 }
 
 // 0x00407540
-static __forceinline void sub_00407540_MakeAppSubdir(char* szPath, unsigned int nSize)
+static inline void sub_00407540_MakeAppSubdir(char* szPath, unsigned int nSize)
 {
     *szPath = 0;
     if (sub_0040C220_GetAppPath(szPath, nSize))

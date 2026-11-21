@@ -26,7 +26,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-__forceinline int UNITS_GetXInline(D2UnitStrc* pUnit)
+inline int UNITS_GetXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -39,7 +39,7 @@ __forceinline int UNITS_GetXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int UNITS_GetYInline(D2UnitStrc* pUnit)
+inline int UNITS_GetYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

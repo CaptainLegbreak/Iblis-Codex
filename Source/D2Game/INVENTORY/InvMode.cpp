@@ -412,7 +412,7 @@ struct D2ClientStrc;
 
 struct D2UnitStrc;
 
-static __forceinline int CheckFlag(D2UnitStrc* unit, int bit)
+static inline int CheckFlag(D2UnitStrc* unit, int bit)
 {
     if (!unit)
     {
@@ -523,7 +523,7 @@ void __fastcall D2GAME_INVMODE_Last_6FC416D0(D2GameStrc* pGame, D2UnitStrc* pUni
     INVENTORY_FreeTradeInventory(pInventory);
 }
 
-static __forceinline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
+static inline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -541,7 +541,7 @@ static __forceinline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
+static inline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -559,7 +559,7 @@ static __forceinline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_F05_UnitFlagBit(D2UnitStrc* pUnit, int nBit)
+static inline int sub_F05_UnitFlagBit(D2UnitStrc* pUnit, int nBit)
 {
     if (!pUnit)
     {
@@ -569,7 +569,7 @@ static __forceinline int sub_F05_UnitFlagBit(D2UnitStrc* pUnit, int nBit)
     return (pUnit->dwFlags >> nBit) & 1;
 }
 
-static __forceinline int sub_F05_UnitFlagExBit(D2UnitStrc* pUnit, int nBit)
+static inline int sub_F05_UnitFlagExBit(D2UnitStrc* pUnit, int nBit)
 {
     if (!pUnit)
     {
@@ -579,7 +579,7 @@ static __forceinline int sub_F05_UnitFlagExBit(D2UnitStrc* pUnit, int nBit)
     return (pUnit->dwFlagEx >> nBit) & 1;
 }
 
-static __forceinline int sub_F05_MsgGetUnitId(D2UnitStrc* pUnit)
+static inline int sub_F05_MsgGetUnitId(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }

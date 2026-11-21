@@ -74,7 +74,7 @@ static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pCon
     return 1;
 }
 
-static __forceinline int SpriteCache_CopyName(char* szDst, const char* szSrc)
+static inline int SpriteCache_CopyName(char* szDst, const char* szSrc)
 {
     strcpy(szDst, szSrc);
     return 1;

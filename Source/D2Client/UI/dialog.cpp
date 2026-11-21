@@ -133,7 +133,7 @@ extern D2MsgHandlerEntryStrc gaMsgHandlers_007273E4[]; // 0x007273E4
 
 extern D2MsgHandlerEntryStrc gaMsgHandlers_007273F0[]; // 0x007273F0
 
-static __forceinline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog);
+static inline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog);
 
 extern "C" int __stdcall sub_00420290_QueueMessage(Message*); // 0x00420290
 
@@ -191,7 +191,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
 // 0x004B7150
-static __forceinline void sub_004B7150_HoverFirstTypedItem(D2ClientDialogStrc* pDialog)
+static inline void sub_004B7150_HoverFirstTypedItem(D2ClientDialogStrc* pDialog)
 {
     for (int i = 0; i < pDialog->nLines; ++i)
     {
@@ -410,7 +410,7 @@ static inline SelectionState* GetSelectionState(int line)
     return state;
 }
 
-static __forceinline bool DispatchWheelHandlers(HandlerNode* pNode, Message* pMessage)
+static inline bool DispatchWheelHandlers(HandlerNode* pNode, Message* pMessage)
 {
     for (; pNode; pNode = pNode->next)
     {
@@ -623,7 +623,7 @@ void __cdecl sub_004B7B50()
 }
 
 // 0x004B7BC0
-static __forceinline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog)
+static inline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog)
 {
     memset(pDialog, 0, sizeof(D2ClientDialogStrc));
     pDialog->nWidth = 0;

@@ -237,7 +237,7 @@ void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pMissile, int nX, int n
 
 
 // build: context DATATBLS_GetMissilesTxtRecord
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
 	if (nMissileId >= 0 && nMissileId < sgptDataTables_00744304->nMissilesTxtRecordCount)
 	{
@@ -272,7 +272,7 @@ int __stdcall sub_004CD310_Shim(D2UnitStrc* pUnit)
 	return sub_004CD310_UseCharge(pUnit);
 }
 
-static __forceinline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
+static inline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
     {
@@ -300,7 +300,7 @@ static __forceinline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDi
     return nMultiplier * nValue / nDivisor;
 }
 
-static __forceinline unsigned int sub_004CD420_RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int sub_004CD420_RollSeed(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -647,7 +647,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
     return pMissile;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -655,7 +655,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -670,7 +670,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc*
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -682,7 +682,7 @@ static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -784,7 +784,7 @@ D2UnitStrc* __fastcall sub_004CE320(D2UnitStrc* pMissile, int nRange, int nFrequ
     return sub_004CD540_CreateMissile(&tMissileParams);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -831,7 +831,7 @@ static D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, in
     return pNew;
 }
 
-static __forceinline int UNITS_GetXPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -848,7 +848,7 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int UNITS_GetYPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -865,7 +865,7 @@ static __forceinline int UNITS_GetYPosition(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int RollOffset(D2UnitStrc* pUnit, int nRange)
+static inline int RollOffset(D2UnitStrc* pUnit, int nRange)
 {
     return ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nRange) - nRange / 2;
 }
@@ -940,7 +940,7 @@ void __fastcall sub_004CE850_SpawnPeriodicMissile(D2UnitStrc* pOwner, D2UnitStrc
 
 
 // build: context DATATBLS_GetMissilesTxtRecordInline
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -1003,7 +1003,7 @@ void __fastcall sub_004CED60(D2UnitStrc* pUnit, int nX, int nY, int nCount, int 
     }
 }
 
-static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1015,7 +1015,7 @@ static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1063,7 +1063,7 @@ inline D2MissilesTxt* MISSILE_GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
     return 0;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1193,13 +1193,13 @@ int __fastcall sub_004D01D0_CreateMissileFan(D2UnitStrc* pOwner, D2UnitStrc* pOr
 
 struct D2DynamicPathStrc;
 
-static __forceinline D2MissilesTxt* GetMissileRecord(int id) {
+static inline D2MissilesTxt* GetMissileRecord(int id) {
  if(id>=0 && id<sgptDataTables->nMissilesTxtRecordCount)
   return &sgptDataTables->pMissilesTxt[id];
  return 0;
 }
 
-static __forceinline D2SkillsTxt* GetSkillRecord(int id) {
+static inline D2SkillsTxt* GetSkillRecord(int id) {
  if(id>=0 && id<sgptDataTables->nSkillsTxtRecordCount)
   return &sgptDataTables->pSkillsTxt[id];
  return 0;
@@ -1247,7 +1247,7 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 }
 
 // build: context MISSILE_GetApproxOffsetLengthInline
-__forceinline int MISSILE_GetApproxOffsetLengthInline(int nX, int nY)
+inline int MISSILE_GetApproxOffsetLengthInline(int nX, int nY)
 {
     int nAbsX = nX < 0 ? -nX : nX;
     int nAbsY = nY < 0 ? -nY : nY;
@@ -1480,7 +1480,7 @@ void __fastcall sub_004D6680_CltDoObjectRing(D2UnitStrc* pMissile)
     sub_004D30C0_CltDoCommon(pMissile);
 }
 
-static __forceinline int GetX(D2UnitStrc* pUnit)
+static inline int GetX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1495,7 +1495,7 @@ static __forceinline int GetX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int GetY(D2UnitStrc* pUnit)
+static inline int GetY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

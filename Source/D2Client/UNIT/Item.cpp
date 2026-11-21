@@ -756,7 +756,7 @@ static void sub_004C16C0_RefreshUnitItems(D2UnitStrc* pUnit)
     sub_004C1350_RefreshEquippedItems(pUnit);
 }
 
-static __forceinline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
+static inline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -958,14 +958,14 @@ int __fastcall sub_004C1C50_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStr
     return sub_0063BDB0(pInventory, pItem, nBodyLoc) != 0;
 }
 
-static __forceinline D2UniqueItemsTxt* ITEMS_GetUniqueItemsTxtRecordInline(int nId)
+static inline D2UniqueItemsTxt* ITEMS_GetUniqueItemsTxtRecordInline(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nUniqueItemsTxtRecordCount)
         return &sgptDataTables->pUniqueItemsTxt[nId];
     return 0;
 }
 
-static __forceinline D2SetItemsTxt* ITEMS_GetSetItemsTxtRecordInline(int nId)
+static inline D2SetItemsTxt* ITEMS_GetSetItemsTxtRecordInline(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nSetItemsTxtRecordCount)
         return &sgptDataTables->pSetItemsTxt[nId];
@@ -1153,7 +1153,7 @@ void __fastcall sub_004C23E0_RemoveEquippedItems(D2UnitStrc* pUnit)
     INVENTORY_RemoveAllItems(pInventory);
 }
 
-static __forceinline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
+static inline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1166,7 +1166,7 @@ static __forceinline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
+static inline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1179,7 +1179,7 @@ static __forceinline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline unsigned int ITEMPKT_GetItemCode(D2UnitStrc* pItem)
+static inline unsigned int ITEMPKT_GetItemCode(D2UnitStrc* pItem)
 {
     return DATATBLS_GetItemsTxtRecord(pItem->dwClassId)->dwCode;
 }

@@ -72,7 +72,7 @@ extern char gbGlobal_007BF085; // 0x007BF085
 extern int gnGlobal_00711470; // 0x00711470
 
 // 0x0049BB40
-static __forceinline void sub_0049BB40_SetSlotCount(D2RosterUnitStrc* pRow, int nSlot)
+static inline void sub_0049BB40_SetSlotCount(D2RosterUnitStrc* pRow, int nSlot)
 {
     if (pRow->f_0[nSlot].nState != 1)
         pRow->f_0[nSlot].nCount = 1;
@@ -87,7 +87,7 @@ int gnGlobal_007BF030; // 0x007BF030
 
 int gbRosterMode_007BF038; // 0x007BF038
 
-static __forceinline int sub_M165_InSlot(int nSlotX, int nSlotY, int nWidth)
+static inline int sub_M165_InSlot(int nSlotX, int nSlotY, int nWidth)
 {
     const int nCursorX = sub_00468730();
     const int nCursorY = sub_00468740();
@@ -181,7 +181,7 @@ void __stdcall sub_0049BB60_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
 char gbGlobal_007BF06C; // 0x007BF06C
 
 // 0x0049C470
-static __forceinline bool sub_0049C470_IsPointInRect(int nX, int nY)
+static inline bool sub_0049C470_IsPointInRect(int nX, int nY)
 {
     if (nX >= 0x111 && nX <= 0x134 && nY >= 0x183 && nY <= 0x1A4)
         return true;

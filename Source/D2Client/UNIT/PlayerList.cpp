@@ -141,7 +141,7 @@ void __fastcall sub_004DC2B0_FreeRosterInfoList(D2RosterInfoStrc** ppRosterInfo)
 }
 
 // 0x004DC2F0
-static __forceinline D2RosterInfoStrc* sub_004DC2F0_FindRosterInfo(int nUnitId1, int nUnitId2)
+static inline D2RosterInfoStrc* sub_004DC2F0_FindRosterInfo(int nUnitId1, int nUnitId2)
 {
     D2RosterInfoStrc** ppRosterInfo = sub_0047A310_GetRosterInfoList(nUnitId1);
     if (!ppRosterInfo || nUnitId1 == nUnitId2)

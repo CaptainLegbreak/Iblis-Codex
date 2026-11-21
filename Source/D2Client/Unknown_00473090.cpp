@@ -51,7 +51,7 @@ extern unsigned int gnLastTick_007A8A0C;                                        
 extern int gbRainActive_007A8A44;                                                                           // 0x007A8A44
 extern int gbMudActive_007A8A40;                                                                            // 0x007A8A40
 
-static __forceinline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -59,7 +59,7 @@ static __forceinline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static __forceinline void sub_U01_StepSeedInline(D2SeedStrc* pSeed)
+static inline void sub_U01_StepSeedInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

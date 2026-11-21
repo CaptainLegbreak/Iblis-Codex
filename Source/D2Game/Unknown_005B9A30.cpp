@@ -50,7 +50,7 @@ static __declspec(noinline) void sub_005B9930_QUESTS_SpawnQuestMonster(D2GameStr
     pQuestDataEx->bSpawning = 0;
 }
 
-static __forceinline bool CanSpawnMonster(const D2QuestExStrc* pQuestDataEx)
+static inline bool CanSpawnMonster(const D2QuestExStrc* pQuestDataEx)
 {
     return pQuestDataEx->bInitDone == 1 && pQuestDataEx->f_3 && !pQuestDataEx->bMonsterSpawned;
 }

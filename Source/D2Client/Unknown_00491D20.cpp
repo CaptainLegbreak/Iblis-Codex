@@ -718,11 +718,11 @@ int __cdecl sub_00483E10_IsNpcStateIdle(); // 0x00483E10
 int __cdecl sub_00487BE0_ResetButtons(); // 0x00487BE0
 void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab); // 0x00487A10
 int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc*,int,int*,Unicode*,int); // 0x004B2AD0
-static __forceinline int GetNpcTabLeft(int tab)
+static inline int GetNpcTabLeft(int tab)
 {
     return gnGlobal_007A2858+80*tab;
 }
-static __forceinline int GetNpcTabRight(int tab)
+static inline int GetNpcTabRight(int tab)
 {
     return GetNpcTabLeft(tab)+80;
 }

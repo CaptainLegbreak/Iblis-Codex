@@ -605,7 +605,7 @@ void __fastcall sub_00535780_SetPlayerCount(int nPlayers)
 }
 
 // build: context PLAYER_SetStatOrResetGold
-static __forceinline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat, int nValue)
+static inline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat, int nValue)
 {
     if (!pUnit)
     {

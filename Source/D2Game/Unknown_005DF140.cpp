@@ -10,12 +10,12 @@ int __stdcall PATH_GetYPosition(D2PathRecordStrc* path); // 0x00648900
 void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* ai,int a,int velocity,unsigned char flags); // 0x005A6260
 int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags); // 0x005DEB60
 // build: context GetX
-static __forceinline unsigned int GetX(D2UnitStrc* unit) {
+static inline unsigned int GetX(D2UnitStrc* unit) {
  switch(unit->type) {case 2:case 4:case 5:return unit->staticPath->x;}
  return unit->path?PATH_GetXPosition(unit->path):0;
 }
 // build: context GetY
-static __forceinline unsigned int GetY(D2UnitStrc* unit) {
+static inline unsigned int GetY(D2UnitStrc* unit) {
  switch(unit->type) {case 2:case 4:case 5:return unit->staticPath->y;}
  return unit->path?PATH_GetYPosition(unit->path):0;
 }

@@ -28,7 +28,7 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY);          
 
 extern D2UnitStrc* gpAiTargets_007A7470[];                                                                  // 0x007A7470
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -41,7 +41,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -54,7 +54,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -62,13 +62,13 @@ static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber64_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber64_Inline(D2SeedStrc* pSeed)
 {
     pSeed->lSeed = (pSeed->lSeed >> 32) + 0x6AC690C5i64 * (unsigned int)pSeed->lSeed;
     return (unsigned int)pSeed->lSeed;
 }
 
-static __forceinline unsigned __int64 SEED_RollFrom_Inline(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
+static inline unsigned __int64 SEED_RollFrom_Inline(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
 {
     const unsigned __int64 lSeed = nHigh + 0x6AC690C5i64 * nLow;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -76,7 +76,7 @@ static __forceinline unsigned __int64 SEED_RollFrom_Inline(D2SeedStrc* pSeed, un
     return lSeed;
 }
 
-static __forceinline unsigned __int64 SEED_RollFromHL_Inline(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
+static inline unsigned __int64 SEED_RollFromHL_Inline(D2SeedStrc* pSeed, unsigned int nLow, unsigned int nHigh)
 {
     const unsigned __int64 lSeed = nHigh + 0x6AC690C5i64 * nLow;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -84,7 +84,7 @@ static __forceinline unsigned __int64 SEED_RollFromHL_Inline(D2SeedStrc* pSeed, 
     return lSeed;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberHL_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberHL_Inline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -92,22 +92,22 @@ static __forceinline unsigned int SEED_RollRandomNumberHL_Inline(D2SeedStrc* pSe
     return (unsigned int)lSeed;
 }
 
-static __forceinline int SEED_RollPercentage64_Inline(D2SeedStrc* pSeed)
+static inline int SEED_RollPercentage64_Inline(D2SeedStrc* pSeed)
 {
     return SEED_RollRandomNumber64_Inline(pSeed) % 100;
 }
 
-static __forceinline int SEED_RollPercentage_Inline(D2SeedStrc* pSeed)
+static inline int SEED_RollPercentage_Inline(D2SeedStrc* pSeed)
 {
     return SEED_RollRandomNumber_Inline(pSeed) % 100;
 }
 
-static __forceinline int AI_GetUnitMode_Inline(D2UnitStrc* pUnit)
+static inline int AI_GetUnitMode_Inline(D2UnitStrc* pUnit)
 {
     return !pUnit ? 0 : pUnit->dwAnimMode;
 }
 
-static __forceinline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
+static inline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
 {
     int* pTimer = sub_004AE110_GetAiTimer(pUnit);
     if (pTimer)
@@ -202,7 +202,7 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
     return 1;
 }
 
-static __forceinline unsigned int SEED_RollUnitHL_0046C960(D2UnitStrc* pUnit)
+static inline unsigned int SEED_RollUnitHL_0046C960(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -210,7 +210,7 @@ static __forceinline unsigned int SEED_RollUnitHL_0046C960(D2UnitStrc* pUnit)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollUnitLH_0046C960(D2UnitStrc* pUnit)
+static inline unsigned int SEED_RollUnitLH_0046C960(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nLowSeed = (unsigned int)lSeed;

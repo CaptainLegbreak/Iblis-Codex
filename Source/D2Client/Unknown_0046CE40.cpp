@@ -13,7 +13,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -26,7 +26,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -39,7 +39,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline unsigned int SEED_RollUnitHL_0046CE40(D2UnitStrc* pUnit)
+static inline unsigned int SEED_RollUnitHL_0046CE40(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -47,12 +47,12 @@ static __forceinline unsigned int SEED_RollUnitHL_0046CE40(D2UnitStrc* pUnit)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitIdInline(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static __forceinline int AI_GetUnitMode_Inline(D2UnitStrc* pUnit)
+static inline int AI_GetUnitMode_Inline(D2UnitStrc* pUnit)
 {
     return !pUnit ? 0 : pUnit->dwAnimMode;
 }

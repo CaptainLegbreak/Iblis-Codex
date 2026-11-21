@@ -1472,7 +1472,7 @@ int __fastcall CompressGifImage(int nSize, const unsigned char* pData, unsigned 
     return pOutput - pStart;
 }
 
-static __forceinline int SBmpWrite(HANDLE hFile, const void* pData, unsigned long nBytes)
+static inline int SBmpWrite(HANDLE hFile, const void* pData, unsigned long nBytes)
 {
     unsigned long written;
     return WriteFile(hFile, pData, nBytes, &written, 0);

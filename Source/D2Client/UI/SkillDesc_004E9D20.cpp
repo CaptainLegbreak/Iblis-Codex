@@ -246,7 +246,7 @@ static void sub_004E4240_ResetEntryPairs(int nIndex)
     }
 }
 
-static __forceinline float GetEnvironVolume_Inline()
+static inline float GetEnvironVolume_Inline()
 {
     return sub_00473C40() ? sub_00473C80() : 0.0f;
 }

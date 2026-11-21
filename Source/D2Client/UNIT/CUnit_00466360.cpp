@@ -375,14 +375,14 @@ unsigned char* __fastcall sub_004637F0_GetMonsterComponents(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
+static inline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
     return 0;
 }
 
-static __forceinline int MONSTATS_GetBaseIdInline(int nClassId)
+static inline int MONSTATS_GetBaseIdInline(int nClassId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetRecordInline(nClassId);
     if (!pMonStatsTxtRecord)
@@ -399,13 +399,13 @@ int __fastcall sub_00463860(D2UnitStrc* pUnit)
 }
 
 // 0x00463920
-static __forceinline D2UnitStrc** sub_00463920_GetClientHashTable(int nUnitType)
+static inline D2UnitStrc** sub_00463920_GetClientHashTable(int nUnitType)
 {
     return &gpUnitHashTable_007A5E70[nUnitType * 0x80];
 }
 
 // 0x00463930
-static __forceinline D2UnitStrc** sub_00463930_GetServerHashTable(int nUnitType)
+static inline D2UnitStrc** sub_00463930_GetServerHashTable(int nUnitType)
 {
     return &gpUnitHashTable_007A5270[nUnitType * 0x80];
 }
@@ -433,7 +433,7 @@ inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // build: context CUNIT_GetUnitClassId
-static __forceinline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
+static inline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
 {
     return pUnit->dwClassId;
 }
@@ -545,7 +545,7 @@ static int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit)
 }
 
 // 0x00463C60
-static __forceinline void sub_00463C60_RemoveUnitFromRoom(D2UnitStrc* pUnit)
+static inline void sub_00463C60_RemoveUnitFromRoom(D2UnitStrc* pUnit)
 {
     if (gpGlobal_007A0634)
     {
@@ -637,7 +637,7 @@ static int __stdcall sub_004642B0_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2Un
     return 0;
 }
 
-static __forceinline int OBJECTS_IsDeadInline(int nClassId, int nMode)
+static inline int OBJECTS_IsDeadInline(int nClassId, int nMode)
 {
     const unsigned char nFlags = DATATBLS_GetObjectsTxtRecord(nClassId)->nFlags1B7;
     return (nFlags & 2) || (nMode == 2 && (nFlags & 1));
@@ -1230,7 +1230,7 @@ static void sub_004656C0_ClassEffects(D2UnitStrc* pUnit, int nClassId)
     }
 }
 
-static __forceinline D2MonStatsTxt* sub_F4B0_GetMonStatsTxt(int nId)
+static inline D2MonStatsTxt* sub_F4B0_GetMonStatsTxt(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1240,7 +1240,7 @@ static __forceinline D2MonStatsTxt* sub_F4B0_GetMonStatsTxt(int nId)
     return 0;
 }
 
-static __forceinline D2MonStats2Txt* sub_A3_GetMonStats2TxtRecord(int nMonStatsEx)
+static inline D2MonStats2Txt* sub_A3_GetMonStats2TxtRecord(int nMonStatsEx)
 {
     if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
     {
@@ -1250,7 +1250,7 @@ static __forceinline D2MonStats2Txt* sub_A3_GetMonStats2TxtRecord(int nMonStatsE
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* sub_A3_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* sub_A3_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1274,13 +1274,13 @@ static __forceinline D2MonStats2Txt* sub_F4B0_GetMonStats2TxtFromMonsterId(int n
     return 0;
 }
 
-static __forceinline D2MonsterInfo16Strc* sub_F4B0_GetMonsterInfo(D2UnitStrc* pUnit)
+static inline D2MonsterInfo16Strc* sub_F4B0_GetMonsterInfo(D2UnitStrc* pUnit)
 {
     D2MonsterDataLocalStrc* pMonsterData = pUnit->dwUnitType == UNIT_MONSTER ? (D2MonsterDataLocalStrc*)pUnit->pMonsterData : 0;
     return pMonsterData ? &pMonsterData->tInfo : 0;
 }
 
-static __forceinline unsigned int sub_F4B0_SeedStep(D2SeedStrc* pSeed)
+static inline unsigned int sub_F4B0_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

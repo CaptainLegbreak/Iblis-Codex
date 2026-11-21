@@ -462,7 +462,7 @@ char* D2CmdListStrc::sub_006C47B0_DeleteNode(char* node) {
  return next;
 }
 
-static __forceinline OptionStrc* OPTION_Next(OptionStrc* pLink)
+static inline OptionStrc* OPTION_Next(OptionStrc* pLink)
 {
     return (int)pLink > 0 ? pLink : 0;
 }

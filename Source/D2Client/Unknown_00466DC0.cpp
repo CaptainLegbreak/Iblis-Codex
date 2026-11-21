@@ -76,7 +76,7 @@ D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 
 #include "gen/data/Source/D2Client/Unknown_00466DC0.inc"
 
-static __forceinline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

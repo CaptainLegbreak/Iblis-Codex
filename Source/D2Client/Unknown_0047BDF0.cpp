@@ -185,7 +185,7 @@ static int gbOptionPressed_007BC948; // 0x007BC948
 
 static int gbOptionDragging_007BC94C; // 0x007BC94C
 
-static __forceinline int sub_0047D500(D2OptionEntryStrc* pEntry)
+static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
 {
     return !pEntry->pfnEnabled || pEntry->pfnEnabled();
 }

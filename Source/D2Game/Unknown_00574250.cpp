@@ -41,7 +41,7 @@ static void __stdcall sub_00573CB0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     shim_1(pUnit, 0);
 }
 
-static __forceinline D2MonsterDataStrc* MONSTER_GetMonsterData(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MONSTER_GetMonsterData(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -50,7 +50,7 @@ static __forceinline D2MonsterDataStrc* MONSTER_GetMonsterData(D2UnitStrc* pUnit
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* MONSTER_GetMonStatsTxtRecord(D2UnitStrc* pUnit)
+static inline D2MonStatsTxt* MONSTER_GetMonStatsTxtRecord(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId >= 0 && pUnit->dwClassId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -59,7 +59,7 @@ static __forceinline D2MonStatsTxt* MONSTER_GetMonStatsTxtRecord(D2UnitStrc* pUn
     return 0;
 }
 
-static __forceinline D2AiControlStrc* MONSTER_GetAiControl(D2UnitStrc* pUnit)
+static inline D2AiControlStrc* MONSTER_GetAiControl(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = MONSTER_GetMonsterData(pUnit);
     if (pMonsterData)

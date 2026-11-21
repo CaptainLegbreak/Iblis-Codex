@@ -23,20 +23,20 @@ struct D2DynamicPathStrc {
 extern const D2CoordStrc gtZeroVector_006EB7D4; // 0x006EB7D4
 void __fastcall sub_6FDA9720(D2DynamicPathStrc*,unsigned char); // 0x006485F0
 // build: context PATH_ToFP16Center
-static __forceinline unsigned int PATH_ToFP16Center(unsigned short nValue)
+static inline unsigned int PATH_ToFP16Center(unsigned short nValue)
 {
     return (nValue << 16) + 0x8000;
 }
 
 // build: context PATH_FromFP16
-static __forceinline unsigned short PATH_FromFP16(unsigned int nValue)
+static inline unsigned short PATH_FromFP16(unsigned int nValue)
 {
     return (nValue >> 16) & 0xFFFF;
 }
 
 extern int gDirectionTable_006EB7E0[128 * 3];                                                               // 0x006EB7E0
 
-static __forceinline void SwapPrecision(unsigned int& a, unsigned int& b)
+static inline void SwapPrecision(unsigned int& a, unsigned int& b)
 {
     unsigned int temp = a;
     a = b;

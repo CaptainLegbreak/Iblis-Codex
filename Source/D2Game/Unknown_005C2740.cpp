@@ -18,7 +18,7 @@ void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
 void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
 // build: context SEED_RollRandomNumberInline
-static __forceinline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -27,7 +27,7 @@ static __forceinline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pS
 }
 
 // build: context SEED_RollLimitedRandomNumberInline
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0) return 0;
     if (nMax & (nMax - 1)) return (unsigned int)SEED_RollRandomNumberInline(pSeed) % nMax;
@@ -35,7 +35,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc*
 }
 
 // build: context ITEMS_RollLimitedRandomNumber
-static __forceinline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     return SEED_RollLimitedRandomNumberInline(pSeed, nMax);
 }

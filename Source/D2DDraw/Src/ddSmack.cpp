@@ -47,7 +47,7 @@ extern int gbDDrawSmackRemapReady_008816B4;                                     
 
 static void* gpDDrawSmackBuffer_008816B0; // 0x008816B0
 
-static __forceinline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
+static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
 {
     while (nCount)
     {

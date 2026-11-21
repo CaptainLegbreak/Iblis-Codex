@@ -19,7 +19,7 @@ struct D2MissilesTxt
 
 extern const unsigned char gbBitMasks_006CE268[]; // 0x006CE268
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTable->nMissilesTxtRecordCount)
     {

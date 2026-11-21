@@ -1541,22 +1541,22 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-static __forceinline int sub_F08_ListTop()
+static inline int sub_F08_ListTop()
 {
     return (gnAutomapHeight_007A521C - 0x1A4) / 2;
 }
 
-static __forceinline int sub_F08_LinesTop()
+static inline int sub_F08_LinesTop()
 {
     return sub_F08_ListTop() + 0x28;
 }
 
-static __forceinline int sub_F08_LinesBottom()
+static inline int sub_F08_LinesBottom()
 {
     return sub_F08_ListTop() + 0x136;
 }
 
-static __forceinline int sub_F08_VisibleLines()
+static inline int sub_F08_VisibleLines()
 {
     return (sub_F08_LinesBottom() - sub_F08_LinesTop()) / 0x12;
 }
@@ -1573,27 +1573,27 @@ int __cdecl sub_004A44C0_GetMaxFirstEntry()
     return nCount;
 }
 
-static __forceinline int sub_I18_ListTop()
+static inline int sub_I18_ListTop()
 {
     return (gnAutomapHeight_007A521C - 0x1A4) / 2;
 }
 
-static __forceinline int sub_I18_TrackTop()
+static inline int sub_I18_TrackTop()
 {
     return sub_I18_ListTop() + 0x2F;
 }
 
-static __forceinline int sub_I18_TrackBottom()
+static inline int sub_I18_TrackBottom()
 {
     return sub_I18_ListTop() + 0x125;
 }
 
-static __forceinline int sub_I18_ThumbHeight()
+static inline int sub_I18_ThumbHeight()
 {
     return gnThumbScale_007C0278 * 12;
 }
 
-static __forceinline int sub_I18_TrackSpan()
+static inline int sub_I18_TrackSpan()
 {
     return sub_I18_TrackBottom() - sub_I18_TrackTop() - sub_I18_ThumbHeight();
 }
@@ -1637,27 +1637,27 @@ done:
     gnThumbY_007C02CC = sub_I18_TrackSpan() * nFirst / nMax + sub_I18_TrackTop();
 }
 
-static __forceinline int sub_F08_PanelLeft()
+static inline int sub_F08_PanelLeft()
 {
     return (gnGlobal_0071146C - 0x26C) / 2;
 }
 
-static __forceinline int sub_F08_PanelRight()
+static inline int sub_F08_PanelRight()
 {
     return sub_F08_PanelLeft() + (gnGlobal_0071146C - sub_F08_PanelLeft() * 2);
 }
 
-static __forceinline int sub_F08_TrackTop()
+static inline int sub_F08_TrackTop()
 {
     return sub_F08_ListTop() + 0x2F;
 }
 
-static __forceinline int sub_F08_TrackBottom()
+static inline int sub_F08_TrackBottom()
 {
     return sub_F08_ListTop() + 0x125;
 }
 
-static __forceinline int sub_F08_ThumbHeight()
+static inline int sub_F08_ThumbHeight()
 {
     return gnThumbScale_007C0278 * 12;
 }
@@ -1667,7 +1667,7 @@ static __forceinline int sub_F08_TrackSpan()
     return sub_F08_TrackBottom() - sub_F08_TrackTop() - sub_F08_ThumbHeight();
 }
 
-static __forceinline int sub_F08_NoOtherPressed(int nIndex)
+static inline int sub_F08_NoOtherPressed(int nIndex)
 {
     for (int i = 0; i < 7; ++i)
     {
@@ -1855,7 +1855,7 @@ static int sub_004A49A0_IsBelowThumb(int nX, int nY)
 }
 
 // 0x004A4A00
-static __forceinline int sub_004A4A00_IsOnButton(int nX, int nY)
+static inline int sub_004A4A00_IsOnButton(int nX, int nY)
 {
     return sub_004A47C0_GetButtonAt(nX, nY) != 3;
 }
@@ -1870,7 +1870,7 @@ static int sub_004A4A10_IsOnSelectedLine(int nX, int nY)
 }
 
 // 0x004A4A80
-static __forceinline int sub_004A4A80_IsOnPressedButton(int nX, int nY)
+static inline int sub_004A4A80_IsOnPressedButton(int nX, int nY)
 {
     const int nButton = gnPressedButton_007C02B4;
     if (nButton != 3 && sub_004A47C0_GetButtonAt(nX, nY) == nButton)
@@ -2318,7 +2318,7 @@ void __stdcall sub_004A66E0_HandleLeftButton(SMSGHANDLER_PARAMS* message)
     message->bReturn = 0;
 }
 
-static __forceinline void MarkRightButtonPressed()
+static inline void MarkRightButtonPressed()
 {
     gnPressed_007C02E8 = 1;
     const int nClickSound = 4;
@@ -2691,7 +2691,7 @@ void __stdcall sub_I10_Emit_004A7180(int nX, int nY, int nValue)
 
 struct D2UnitStrc;
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inl(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inl(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -2701,7 +2701,7 @@ static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inl(int nMonst
     return 0;
 }
 
-static __forceinline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
+static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {

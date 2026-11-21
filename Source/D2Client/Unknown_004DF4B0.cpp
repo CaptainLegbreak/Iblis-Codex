@@ -107,7 +107,7 @@ extern const int gaMissileVelocityCharged_006DBB38[]; // 0x006DBB38
 int gdwGlobal_007C8C78; // 0x007C8C78
 
 // 0x004DF4B0
-static __forceinline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNodeStrc* pNode, int nArg)
+static inline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNodeStrc* pNode, int nArg)
 {
     const int bMode = sub_004F51D0_IsPerspective();
     if (pNode->dwFlags & 1)
@@ -298,7 +298,7 @@ int __cdecl sub_004E0140_ToggleSoundMode12()
     return nResult;
 }
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord_Inline(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord_Inline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -489,7 +489,7 @@ int __fastcall sub_004E0C90(D2UnitStrc* unit, int skillId, int skillLevel)
     return SUCCESS_VALUE;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -497,7 +497,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -512,17 +512,17 @@ static __forceinline int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     return (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
 }
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     return (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount) ? &sgptDataTables->pMissilesTxt[nMissileId] : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -534,7 +534,7 @@ static __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

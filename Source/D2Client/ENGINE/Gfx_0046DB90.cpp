@@ -667,7 +667,7 @@ static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRec
 }
 
 // build: context CLIENT_GetMonStats2TxtRecord
-static __forceinline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
+static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -822,7 +822,7 @@ inline int IsShapeShifted(D2UnitStrc* pUnit)
 }
 
 // build: context GetNodeLayer
-static __forceinline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
+static inline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
     if (pGfxData)

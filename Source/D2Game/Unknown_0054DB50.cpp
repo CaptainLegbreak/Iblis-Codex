@@ -127,7 +127,7 @@ static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* 
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -135,7 +135,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -202,7 +202,7 @@ int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomSt
 }
 
 // build: context GetMonStatsRecord
-static __forceinline D2MonStatsTxt* GetMonStatsRecord(D2DataTablesStrc* pDataTables, int nClassId)
+static inline D2MonStatsTxt* GetMonStatsRecord(D2DataTablesStrc* pDataTables, int nClassId)
 {
     D2MonStatsTxt* pRecord = 0;
     if (nClassId >= 0 && nClassId < pDataTables->nMonStatsTxtRecordCount)

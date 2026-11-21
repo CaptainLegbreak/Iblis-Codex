@@ -22,7 +22,7 @@ int gbRemapValid_008816B4;                                                      
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 extern int gbSurfaceActive_007C9140;                                                                        // 0x007C9140
 
-static __forceinline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
+static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
 {
     while (nCount)
     {

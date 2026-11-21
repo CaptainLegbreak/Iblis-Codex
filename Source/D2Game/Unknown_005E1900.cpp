@@ -43,7 +43,7 @@ int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                            
 #define AI_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define AI_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-static __forceinline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

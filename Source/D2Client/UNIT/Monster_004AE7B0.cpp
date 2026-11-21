@@ -274,7 +274,7 @@ int __fastcall sub_004AE7B0_CheckMonsterFacing(D2UnitStrc* pUnit, D2UnitStrc* pT
     return 0;
 }
 
-static __forceinline unsigned int sub_H12_SeedStep(D2SeedStrc* pSeed)
+static inline unsigned int sub_H12_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -282,7 +282,7 @@ static __forceinline unsigned int sub_H12_SeedStep(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned __int64 sub_I07_SeedRoll(D2SeedStrc* pSeed)
+static inline unsigned __int64 sub_I07_SeedRoll(D2SeedStrc* pSeed)
 {
     const unsigned int nLowSeed = pSeed->nLowSeed;
     const unsigned int nHighSeed = pSeed->nHighSeed;
@@ -291,7 +291,7 @@ static __forceinline unsigned __int64 sub_I07_SeedRoll(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static __forceinline int sub_H12_UnitX(D2UnitStrc* pUnit)
+static inline int sub_H12_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -308,7 +308,7 @@ static __forceinline int sub_H12_UnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_H12_UnitY(D2UnitStrc* pUnit)
+static inline int sub_H12_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -397,7 +397,7 @@ static void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
     }
 }
 
-static __forceinline D2MonStatsTxt* sub_F4B0_GetMonStatsTxt(int nId)
+static inline D2MonStatsTxt* sub_F4B0_GetMonStatsTxt(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -407,7 +407,7 @@ static __forceinline D2MonStatsTxt* sub_F4B0_GetMonStatsTxt(int nId)
     return 0;
 }
 
-static __forceinline D2MonStats2Txt* sub_F4B0_GetMonStats2TxtFromMonsterId(int nMonsterId)
+static inline D2MonStats2Txt* sub_F4B0_GetMonStats2TxtFromMonsterId(int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = sub_F4B0_GetMonStatsTxt(nMonsterId);
     if (pMonStatsTxtRecord)
@@ -422,14 +422,14 @@ static __forceinline D2MonStats2Txt* sub_F4B0_GetMonStats2TxtFromMonsterId(int n
     return 0;
 }
 
-static __forceinline unsigned int MONSTERS_GetFlagInline(D2UnitStrc* pUnit, int nFlag)
+static inline unsigned int MONSTERS_GetFlagInline(D2UnitStrc* pUnit, int nFlag)
 {
     D2MonStatsTxt* pRecord=sub_F4B0_GetMonStatsTxt(pUnit->dwClassId);
     if (pRecord) return pRecord->nMonStatsFlags[nFlag>>3]&gdwBitMasks[nFlag&7];
     return 0;
 }
 
-static __forceinline int MONSTERS_GetBaseIdInline(int nClassId)
+static inline int MONSTERS_GetBaseIdInline(int nClassId)
 {
     D2MonStatsTxt* pRecord=sub_F4B0_GetMonStatsTxt(nClassId);
     if (!pRecord) return nClassId;
@@ -687,7 +687,7 @@ static __forceinline D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline int GetBaseId(int nMonsterId)
+static inline int GetBaseId(int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = GetMonStatsTxtRecord(nMonsterId);
     if (!pMonStatsTxtRecord)
@@ -697,7 +697,7 @@ static __forceinline int GetBaseId(int nMonsterId)
     return pMonStatsTxtRecord->nBaseId;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

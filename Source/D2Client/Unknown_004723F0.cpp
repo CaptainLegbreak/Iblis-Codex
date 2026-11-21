@@ -20,7 +20,7 @@ int __cdecl sub_004723F0_GetPhase()
 }
 
 // 0x00472530
-static __forceinline void sub_00472530_SetPhaseActive(int bValue)
+static inline void sub_00472530_SetPhaseActive(int bValue)
 {
     gbPhaseActive_007A8A1C = bValue;
     if (bValue)

@@ -380,7 +380,7 @@ void __fastcall sub_004EBB50_DrawKickDamage(D2UnitStrc* pUnit, D2SkillStrc* pSki
     sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
-static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
+static inline int ApplyPercent_2E0(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
     {
@@ -403,7 +403,7 @@ static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-static __forceinline int ApplyPercent_CF0(int nValue, int nPercent)
+static inline int ApplyPercent_CF0(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
     {
@@ -426,7 +426,7 @@ static __forceinline int ApplyPercent_CF0(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-static __forceinline int ApplyPercent_150(int nValue, int nPercent)
+static inline int ApplyPercent_150(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
     {
@@ -449,7 +449,7 @@ static __forceinline int ApplyPercent_150(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-static __forceinline int IsSingleValue(int nMin, int nMax)
+static inline int IsSingleValue(int nMin, int nMax)
 {
     if (!nMin)
     {
@@ -458,7 +458,7 @@ static __forceinline int IsSingleValue(int nMin, int nMax)
     return nMin == nMax;
 }
 
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1150,7 +1150,7 @@ int __stdcall sub_004ECF50_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkil
     return 1;
 }
 
-static __forceinline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
+static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1159,7 +1159,7 @@ static __forceinline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
     return 0;
 }
 
-static __forceinline int SkillParam_0D0(int nSkillId, int nLevel)
+static inline int SkillParam_0D0(int nSkillId, int nLevel)
 {
     D2SkillsTxt* pSkillsTxt = SkillsTxtRecord_0D0(nSkillId);
     if (!pSkillsTxt)

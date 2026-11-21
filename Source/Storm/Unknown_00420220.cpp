@@ -184,7 +184,7 @@ void* D2Strc00420E80::sub_00420E80_GetField158()
 }
 
 // 0x00420E90
-static __forceinline unsigned int sub_00420E90_TakeLow32(unsigned __int64* pValue)
+static inline unsigned int sub_00420E90_TakeLow32(unsigned __int64* pValue)
 {
     const unsigned int nLow = (unsigned int)*pValue;
     *pValue >>= 32;
@@ -192,7 +192,7 @@ static __forceinline unsigned int sub_00420E90_TakeLow32(unsigned __int64* pValu
 }
 
 // 0x00420F00
-static __forceinline unsigned int sub_00420F00_TakeLow32Ext(unsigned __int64* pValue)
+static inline unsigned int sub_00420F00_TakeLow32Ext(unsigned __int64* pValue)
 {
     const unsigned int nLow = (unsigned int)*pValue;
     *pValue >>= 32;

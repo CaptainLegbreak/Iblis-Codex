@@ -376,7 +376,7 @@ void* __cdecl operator new(size_t nSize)
 }
 
 // 0x00405430
-static __forceinline void sub_00405430_GetIniPath(char* szPath)
+static inline void sub_00405430_GetIniPath(char* szPath)
 {
     sub_00406B60_GetModuleDirectory(szPath, 0x104);
     sub_00413800(szPath, "D2.ini", 0x104);

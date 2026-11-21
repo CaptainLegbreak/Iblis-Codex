@@ -56,7 +56,7 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nFrames); // 0x0
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nFrame); // 0x0064A330
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
 
-static __forceinline unsigned int SEED_RollRandomNumber_Spray(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Spray(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -64,12 +64,12 @@ static __forceinline unsigned int SEED_RollRandomNumber_Spray(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Spray(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Spray(int nSkillId)
 {
     return (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -81,7 +81,7 @@ static __forceinline int CLIENTS_GetUnitX_Spray(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY_Spray(D2UnitStrc* pUnit)
 {
     int nResult;
     switch (pUnit->dwUnitType)
@@ -209,7 +209,7 @@ int __fastcall sub_004F1C80_SkillCltDoSpray(D2UnitStrc* pUnit, int nSkillId, int
 #include "gen/data/Source/D2Client/Unknown_004F1A30.inc"
 
 // build: context sub_004F21B0_GetSkillsTxtRecord
-static __forceinline D2SkillsTxt* sub_004F21B0_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* sub_004F21B0_GetSkillsTxtRecord(int nSkillId)
 {
 	if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
 	{
@@ -245,7 +245,7 @@ int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId)
 	return pSkillsTxtRecord->wCltMissile[1];
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -253,7 +253,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -302,7 +302,7 @@ void __fastcall sub_004F28A0_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nM
     }
 }
 
-static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
+static inline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
 {
     const unsigned __int64 lSeed = pSrc->nHighSeed + 0x6AC690C5i64 * pSrc->nLowSeed;
     pDst->nLowSeed = (unsigned int)lSeed;
@@ -310,7 +310,7 @@ static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -318,7 +318,7 @@ static __forceinline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     int nX;
     switch (pUnit->dwUnitType)
@@ -335,7 +335,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return nX;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     int nY;
     switch (pUnit->dwUnitType)

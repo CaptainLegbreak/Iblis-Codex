@@ -160,7 +160,7 @@ static int sub_0049D9A0_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
     return 1;
 }
 
-static __forceinline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
+static inline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
 {
     for (int i = 0; i < nCount; ++i)
     {

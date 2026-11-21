@@ -68,7 +68,7 @@ void __fastcall sub_I11_Emit_005271A0(Unicode* pDst, const Unicode* pText)
     }
 }
 
-static __forceinline void win2UnicodeInline(Unicode* pDst, const char* szSrc, int nMaxLength)
+static inline void win2UnicodeInline(Unicode* pDst, const char* szSrc, int nMaxLength)
 {
     int i;
     for (i = 0; i < nMaxLength && szSrc[i] != '\0'; ++i)

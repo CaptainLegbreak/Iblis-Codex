@@ -119,9 +119,9 @@ void __fastcall ACT4Q3_UnitIterate_SetPrimaryGoalDone(D2GameStrc*,D2UnitStrc*,vo
 
 int __fastcall ACT4Q3_UnitIterate_SetCompletionFlag(D2GameStrc*,D2UnitStrc*,void*); // 0x005B5BB0
 
-static __forceinline int UNITS_GetClassIdInline(D2UnitStrc* unit){ if(!unit)return -1; return unit->dwClassId; }
+static inline int UNITS_GetClassIdInline(D2UnitStrc* unit){ if(!unit)return -1; return unit->dwClassId; }
 
-static __forceinline int UNITS_GetAnimModeInline(D2UnitStrc* unit){ if(!unit)return 0; return unit->dwAnimMode; }
+static inline int UNITS_GetAnimModeInline(D2UnitStrc* unit){ if(!unit)return 0; return unit->dwAnimMode; }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 

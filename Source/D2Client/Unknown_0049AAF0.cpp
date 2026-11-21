@@ -106,7 +106,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char*
 
 unsigned char gbGlobal_007BF034; // 0x007BF034
 
-static __forceinline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
+static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));

@@ -168,7 +168,7 @@ static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pD
     return 0;
 }
 
-static __forceinline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
+static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
 {
     return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
 }
@@ -807,7 +807,7 @@ const int* __stdcall sub_M125_Emit_0067A5D0(int nUnused1, int nUnused2, int nBas
 #include "gen/data/Source/D2Common/Unknown_00679A60.inc"
 struct D2DynamicPathStrc;
 
-static __forceinline int PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+static inline int PATH_AStar_HeuristicInline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     int nDiffX = tPoint1.X - tPoint2.X;
     if (nDiffX < 0)
@@ -868,7 +868,7 @@ static void PATH_AStar_MakeCandidate(D2PathFoWallContextStrc* pContext, D2PathFo
 }
 
 // build: context PATH_AStar_RemoveFromPendingCache
-static __forceinline D2PathFoWallNodeStrc* PATH_AStar_RemoveFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pToRemove)
+static inline D2PathFoWallNodeStrc* PATH_AStar_RemoveFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pToRemove)
 {
     D2PathFoWallNodeStrc* pPrev = 0;
     const int nHash = (gaIdaStar_PointCacheHashMaskY[pToRemove->tPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[pToRemove->tPoint.X & 0x7F]) & 0x7F;
@@ -1178,7 +1178,7 @@ int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo)
 }
 
 // 0x0067BD70
-static __forceinline void sub_0067BD70_SwapPoints(D2PathPointStrc* pA, D2PathPointStrc* pB)
+static inline void sub_0067BD70_SwapPoints(D2PathPointStrc* pA, D2PathPointStrc* pB)
 {
     const D2PathPointStrc tPoint = *pA;
     *pA = *pB;
@@ -1190,7 +1190,7 @@ void __fastcall sub_M110_Emit_0067BD70(D2PathPointStrc* pPoints, int nCount)
     sub_0067BD70_SwapPoints(pPoints, pPoints + nCount);
 }
 
-static __forceinline int PATH_TestNewTargetPoint(D2PathMovStrc* pMov, D2ActiveRoomStrc* pRoom, int nCollisionPattern, int nCollisionMask)
+static inline int PATH_TestNewTargetPoint(D2PathMovStrc* pMov, D2ActiveRoomStrc* pRoom, int nCollisionPattern, int nCollisionMask)
 {
     pMov->tTargetCoord.X = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nX + pMov->tCurrentCoord.X);
     pMov->tTargetCoord.Y = (unsigned short)(gnDirectionsToAdjacentCellOffsets[pMov->nDirectionIndex].nY + pMov->tCurrentCoord.Y);

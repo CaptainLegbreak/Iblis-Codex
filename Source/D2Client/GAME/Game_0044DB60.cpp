@@ -530,7 +530,7 @@ struct D2ActiveRoomStrc;
 
 struct D2StoredUnitRecordStrc;
 
-static __forceinline int TimerExpired(D2LoadingTimerStrc* pTimer)
+static inline int TimerExpired(D2LoadingTimerStrc* pTimer)
 {
     if(pTimer->dwLength)
     {
@@ -860,7 +860,7 @@ void __cdecl sub_00456550_LoadLoadingScreen()
 }
 
 // build: context SEED_RollRandomNumberInline
-static __forceinline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -869,7 +869,7 @@ static __forceinline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pS
 }
 
 // build: context SEED_RollLimitedRandomNumberInline
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;

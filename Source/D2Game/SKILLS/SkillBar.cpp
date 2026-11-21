@@ -213,9 +213,9 @@ static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int 
 
 static int __stdcall sub_005D9CE0_CheckLeapRoom(D2UnitStrc* pUnit, int nX, int nY, int nSkillId);
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit);
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit);
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit);
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit);
 
 struct D2MonStatsTxtRun;
 
@@ -950,7 +950,7 @@ static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int 
     return 0;
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -963,7 +963,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1124,7 +1124,7 @@ int __fastcall SKILLS_SrvSt40_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     return 1;
 }
 
-static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
+static inline int sub_I16_IsMonster(D2UnitStrc* pUnit)
 {
     return pUnit->dwUnitType == UNIT_MONSTER;
 }
@@ -1174,7 +1174,7 @@ static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc*
     return 1;
 }
 
-static __forceinline D2SkillsTxt* sub_I16_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* sub_I16_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1184,7 +1184,7 @@ static __forceinline D2SkillsTxt* sub_I16_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
+static inline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1389,7 +1389,7 @@ int __fastcall sub_M441_Emit_005DA120(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     return 3;
 }
 
-static __forceinline int sub_M392_GetUnitType(D2UnitStrc* pUnit)
+static inline int sub_M392_GetUnitType(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

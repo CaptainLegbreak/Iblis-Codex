@@ -11,7 +11,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc* pSeed, D2MonRegDataStrc* pMonRegData, int nCount); // 0x005BDB20
 
-static __forceinline int MONSTERREGION_SanitizeMonsterId(int nMonsterId)
+static inline int MONSTERREGION_SanitizeMonsterId(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -35,12 +35,12 @@ static __forceinline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMo
     return 0;
 }
 
-static __forceinline D2MonsterRegionStrc* MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId)
+static inline D2MonsterRegionStrc* MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId)
 {
     return ppMonsterRegion[nLevelId];
 }
 
-static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
+static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

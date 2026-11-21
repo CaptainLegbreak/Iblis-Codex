@@ -199,7 +199,7 @@ void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg)
     }
 }
 
-static __forceinline D2StatesTxt* GetStatesTxtRecord(int nState)
+static inline D2StatesTxt* GetStatesTxtRecord(int nState)
 {
     if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
     {
@@ -208,12 +208,12 @@ static __forceinline D2StatesTxt* GetStatesTxtRecord(int nState)
     return 0;
 }
 
-static __forceinline int GetOverlay(short nOverlay)
+static inline int GetOverlay(short nOverlay)
 {
     return nOverlay >= 0 ? nOverlay : -1;
 }
 
-static __forceinline int GetThirdsTier(int nValue, int nTotal)
+static inline int GetThirdsTier(int nValue, int nTotal)
 {
     const int nThird = nTotal / 3;
     const int nTwoThirds = 2 * nThird;

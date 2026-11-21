@@ -983,7 +983,7 @@ bool __stdcall sub_004045F0_UseUtf8Path(const char* szPath)
     return sub_00404560_UseWidePath(wszPath);
 }
 
-__forceinline D2TebStrc* D2_NtCurrentTeb()
+inline D2TebStrc* D2_NtCurrentTeb()
 {
     return (D2TebStrc*)__readfsdword(0x18);
 }

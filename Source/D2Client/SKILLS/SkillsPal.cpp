@@ -37,7 +37,7 @@ void __stdcall PATH_SetVelocity(D2DynamicPathStrc*, int, const char*, int); // 0
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc*, unsigned char); // 0x00648E70
 void __stdcall sub_00649050(D2DynamicPathStrc*); // 0x00649050
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
-static __forceinline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -46,7 +46,7 @@ static __forceinline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
     return 6;
 }
 
-static __forceinline int UNITS_GetUnitIdChecked(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitIdChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {

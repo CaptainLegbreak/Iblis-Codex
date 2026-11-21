@@ -34,7 +34,7 @@ struct D2MonRegDataStrc
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-static __forceinline int GetValidMonsterClass(int nClassId)
+static inline int GetValidMonsterClass(int nClassId)
 {
     if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
         return nClassId;
@@ -67,7 +67,7 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -75,7 +75,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -91,7 +91,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed
 }
 
 // build: context MONSTER_GetComponents
-static __forceinline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
+static inline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
@@ -139,7 +139,7 @@ void __fastcall MONSTER_SetComponents(D2MonRegDataStrc* pMonRegData, D2UnitStrc*
 }
 
 // build: context sub_00573AE0_GetComponents
-static __forceinline unsigned char* sub_00573AE0_GetComponents(D2UnitStrc* pUnit)
+static inline unsigned char* sub_00573AE0_GetComponents(D2UnitStrc* pUnit)
 {
 	if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
 	{

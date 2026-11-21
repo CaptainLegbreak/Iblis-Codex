@@ -3058,7 +3058,7 @@ void __fastcall sub_0045D5E0_SkillPacket(D2SkillPacketStrc* pPacket)
     }
 }
 
-static __forceinline D2SkillsTxt* GetSkillRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
@@ -4254,13 +4254,13 @@ int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
 }
 
 // build: context Log2Ceil
-static __forceinline int Log2Ceil(int nValue)
+static inline int Log2Ceil(int nValue)
 {
     return nValue < 3 ? 1 : sub_00409000_GetBitWidth(nValue - 1);
 }
 
 // build: context GetMonStats2TxtRecordFromMonsterId
-static __forceinline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
+static inline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount) return 0;
     int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
@@ -4272,7 +4272,7 @@ static __forceinline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMon
 }
 
 // build: context GetItemStatCostTxtRecord
-static __forceinline D2ItemStatCostTxt* GetItemStatCostTxtRecord(int nStatId)
+static inline D2ItemStatCostTxt* GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
     {
@@ -4427,7 +4427,7 @@ static void __stdcall sub_0045F730_QueuePacket(unsigned char* pPacket, int nLeng
     ++pBuffer->nCount;
 }
 
-static __forceinline void sub_0045F7B0_FindStoppedPlayer(const unsigned char* pPacket)
+static inline void sub_0045F7B0_FindStoppedPlayer(const unsigned char* pPacket)
 {
     const int nUnitId = *(const int*)(pPacket + 2);
     __assume((nUnitId | 1) != 0);

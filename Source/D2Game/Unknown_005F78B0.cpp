@@ -20,7 +20,7 @@ Unit* __fastcall sub_005F77C0_SelectSkillTarget(Game*,Unit*,MonStats*,Unit*); //
 int __stdcall UNITS_GetCurrentLifePercentage(Unit*); // 0x00621F20
 int __stdcall UNITS_TestCollisionWithUnit(Unit*,Unit*,int); // 0x00622AA0
 // 0x0045C370
-static __forceinline unsigned __int64 SEED_RollRandomNumber(Seed* seed) {
+static inline unsigned __int64 SEED_RollRandomNumber(Seed* seed) {
     const unsigned __int64 value=seed->high+0x6AC690C5i64*seed->low;
     seed->high=(unsigned int)(value>>32);seed->low=(unsigned int)value;return value;
 }

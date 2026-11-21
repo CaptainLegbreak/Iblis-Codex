@@ -153,7 +153,7 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem); // 0x004E8FE0
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1459,7 +1459,7 @@ static int sub_004E6FB0_GetETypeColor(int nEType)
     return 0;
 }
 
-static __forceinline int SDPHYS_TestFlag(const unsigned char* pFlags, int nBit)
+static inline int SDPHYS_TestFlag(const unsigned char* pFlags, int nBit)
 {
     return pFlags[nBit >> 3] & gdwBitMasks_006CE268[nBit & 7];
 }

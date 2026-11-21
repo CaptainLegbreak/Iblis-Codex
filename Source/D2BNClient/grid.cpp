@@ -65,7 +65,7 @@ static void* gpCDKeyHandle_00882750; // 0x00882750
 unsigned int gnSize_00882754; // 0x00882754
 
 // build: context sub_GetTerminatedLength
-static __forceinline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
+static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
 {
     unsigned int nMax = 0x80;
     unsigned int nLength = 0;
@@ -153,7 +153,7 @@ void __cdecl sub_00523350_Shim(Byte** first, Byte** second)
 }
 
 // 0x00523420
-static __forceinline void sub_00523420_FreeStringPair(char* szFirst, char* szSecond)
+static inline void sub_00523420_FreeStringPair(char* szFirst, char* szSecond)
 {
     if (szFirst)
     {
@@ -302,7 +302,7 @@ const char* __fastcall sub_00523AB0_GetCDKey(int nSlot)
 }
 
 // 0x00523AC0
-static __forceinline void sub_00523AC0_InitHashCtx(D2BnHashCtxStrc* pCtx)
+static inline void sub_00523AC0_InitHashCtx(D2BnHashCtxStrc* pCtx)
 {
     pCtx->aState[0] = 0x67452301;
     pCtx->aState[1] = 0xEFCDAB89;

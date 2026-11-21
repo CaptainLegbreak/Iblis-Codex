@@ -143,7 +143,7 @@ int __fastcall sub_005D35D0_AlternateChargeWeapon(D2GameStrc* pGame, D2UnitStrc*
     return 1;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];

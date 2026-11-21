@@ -214,7 +214,7 @@ int __fastcall sub_005A0060_GetMonUModTxtRecordCount()
     return sgptDataTables->nMonUModTxtRecordCount;
 }
 
-static __forceinline D2MonsterDataStrc* CLIENT_GetMonsterDataInline(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* CLIENT_GetMonsterDataInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -225,7 +225,7 @@ static __forceinline D2MonsterDataStrc* CLIENT_GetMonsterDataInline(D2UnitStrc* 
 }
 
 // 0x005A0220
-static __forceinline int sub_005A0220_GetMonsterField18(D2UnitStrc* pUnit)
+static inline int sub_005A0220_GetMonsterField18(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterDataInline(pUnit);
     if (!pMonsterData)
@@ -237,7 +237,7 @@ static __forceinline int sub_005A0220_GetMonsterField18(D2UnitStrc* pUnit)
 }
 
 // 0x005A0240
-static __forceinline void sub_005A0240_SetMonsterField18(D2UnitStrc* pUnit, int nValue)
+static inline void sub_005A0240_SetMonsterField18(D2UnitStrc* pUnit, int nValue)
 {
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterDataInline(pUnit);
     if (pMonsterData)
@@ -408,7 +408,7 @@ int __fastcall MONSTERUNIQUE_GetSuperUniqueBossHcIdx(D2GameStrc* pGame, D2UnitSt
     return sub_005A01E0((Unit005A01E0*)pUnit);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

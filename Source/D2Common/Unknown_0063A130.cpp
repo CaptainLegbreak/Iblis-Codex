@@ -233,7 +233,7 @@ void __stdcall STATES_UpdatePgsvFlags(D2UnitStrc* pUnit)
     sub_0063A180_UpdateGfxFlagsWithMask(pUnit, sgptDataTables->fStateMasks[STATEMASK_PGSV]);
 }
 
-__forceinline int __fastcall STATES_CheckStateMaskByStateId(int nState, int nStateMask)
+inline int __fastcall STATES_CheckStateMaskByStateId(int nState, int nStateMask)
 {
     if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
     {
@@ -293,7 +293,7 @@ int __stdcall STATES_CheckStateMaskArmRedOnUnit(D2UnitStrc* pUnit)
 }
 
 // 0x0063A7E0
-static __forceinline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
+static inline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {

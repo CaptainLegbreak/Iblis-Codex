@@ -1356,7 +1356,7 @@ static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int sub_I05_ETypeColor(int nEType)
+static inline int sub_I05_ETypeColor(int nEType)
 {
     switch (nEType)
     {

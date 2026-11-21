@@ -188,13 +188,13 @@ int __cdecl sub_004A1760_Forward()
 }
 
 // 0x004A18E0
-static __forceinline void sub_004A18E0_SetIndex(int nIndex)
+static inline void sub_004A18E0_SetIndex(int nIndex)
 {
     gnIndex_007BF2B9 = nIndex;
 }
 
 // 0x004A1930
-static __forceinline int sub_004A1930_FindEntryIndex(int nId)
+static inline int sub_004A1930_FindEntryIndex(int nId)
 {
     for (int i = 0; i < 41; i++)
     {
@@ -221,7 +221,7 @@ void __cdecl sub_004A3050()
 }
 
 // 0x004A1910
-static __forceinline int sub_004A1910_FindQuestIndex(int nKey)
+static inline int sub_004A1910_FindQuestIndex(int nKey)
 {
     for (int i = 0; i < 41; i++)
     {
@@ -885,7 +885,7 @@ char __cdecl sub_004A3120_IsQuestUnitPresent()
 
 char gbGlobal_007C025F; // 0x007C025F
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -893,7 +893,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -908,7 +908,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;
     return pUnit->dwUnitId;

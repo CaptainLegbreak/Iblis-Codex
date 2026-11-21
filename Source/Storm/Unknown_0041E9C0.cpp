@@ -1388,7 +1388,7 @@ int* __fastcall sub_005A6250_GetField14(D2Field14Strc* pRecord)
     return &pRecord->nField14;
 }
 
-static __forceinline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
+static inline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode == 14)
         return (pUnit->dwFlags >> 6) & 1;

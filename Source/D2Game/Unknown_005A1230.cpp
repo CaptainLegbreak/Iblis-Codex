@@ -14,14 +14,14 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nUMod, i
 static void sub_005A0D20_AddLifePercent(D2UnitStrc* pUnit, int nPercent);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
-static __forceinline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterData(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterData(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return pUnit->pMonsterData;
     return 0;
 }
 
-static __forceinline int MONSTERUNIQUE_ApplyPercentage(int nValue, int nMultiplier, int nDivisor)
+static inline int MONSTERUNIQUE_ApplyPercentage(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
         return 0;

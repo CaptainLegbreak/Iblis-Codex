@@ -30,7 +30,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY);                                      // 0x0061B130
 
-static __forceinline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
+static inline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)

@@ -161,7 +161,7 @@ void __cdecl sub_004B69E0_CloseTrade()
     }
 }
 
-static __forceinline SelectionState* GetSelectionState(int line)
+static inline SelectionState* GetSelectionState(int line)
 {
     SelectionState* state = gVar_007C0E54;
     D2_ASSERT(state, line);

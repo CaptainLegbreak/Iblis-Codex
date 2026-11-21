@@ -18,7 +18,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 
 extern const D2CoordStrc gaMinionSpawnOffsets_006E2CF0[3][6];                                               // 0x006E2CF0
 
-__forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -31,7 +31,7 @@ __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-__forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -44,7 +44,7 @@ __forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -52,7 +52,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline D2UnitStrc* sub_005B3090_SpawnAtPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags)
+static inline D2UnitStrc* sub_005B3090_SpawnAtPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags)
 {
     D2UnkMonCreateStrc monCreate;
     monCreate.nUnitGUID = 0;

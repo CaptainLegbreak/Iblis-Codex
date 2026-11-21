@@ -15,7 +15,7 @@ extern "C" __declspec(dllexport) unsigned short* __fastcall sub_005267E0(unsigne
 int __stdcall SKILLS_IsPlayerClassSkill(int nSkillId, int* pPlayerClass); // 0x00645080
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-static __forceinline D2CharStatsTxt* sub_GetCharStatsTxtRecord(int nClass)
+static inline D2CharStatsTxt* sub_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {

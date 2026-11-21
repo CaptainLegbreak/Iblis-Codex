@@ -178,7 +178,7 @@ int gnPathStepSignX_007B0A50; // 0x007B0A50
 
 int gnPathStepSignY_007A8A48; // 0x007A8A48
 
-static __forceinline unsigned char sub_00474A30_IsCellBlocked(int nX, int nY);
+static inline unsigned char sub_00474A30_IsCellBlocked(int nX, int nY);
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
@@ -318,7 +318,7 @@ static __declspec(noinline) unsigned int __stdcall sub_004740D0_ApproxDistance(i
 }
 
 // 0x00474120
-static __forceinline D2UnitStrc* sub_00474120_FindUnitFromRef(D2UnitRefStrc* pRef)
+static inline D2UnitStrc* sub_00474120_FindUnitFromRef(D2UnitRefStrc* pRef)
 {
     if (pRef->nType == 6)
     {
@@ -747,7 +747,7 @@ static void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoC
 }
 
 // 0x00474A30
-static __forceinline unsigned char sub_00474A30_IsCellBlocked(int nX, int nY)
+static inline unsigned char sub_00474A30_IsCellBlocked(int nX, int nY)
 {
     nX = (nX >> 3) - gnCellOriginX_007B0A54;
     if (nX < 0)
@@ -1008,7 +1008,7 @@ void __stdcall sub_E4F1_Emit_00474D70(int nLevel, D2R01LightStrc* pLight)
     pLight->nRadius = 0;
 }
 
-static __forceinline unsigned char sub_K01_GetGridCellByte(int nX, int nY)
+static inline unsigned char sub_K01_GetGridCellByte(int nX, int nY)
 {
     const int nGridX = (nX >> 3) - gnGlobal_007B0A54;
     if (nGridX < 0)
@@ -1293,7 +1293,7 @@ low:
     return nLevel;
 }
 
-__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1306,7 +1306,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

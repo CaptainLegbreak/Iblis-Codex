@@ -32,7 +32,7 @@ D2UnitStrc* __fastcall sub_6FCCF9D0(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, 
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
 D2UnitStrc* __fastcall sub_005DE9D0_FindTarget(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DE9D0
 
-static __forceinline int CanWalk(D2UnitStrc* pMonster)
+static inline int CanWalk(D2UnitStrc* pMonster)
 {
     return sub_0046C140_TestMonModeFlag(!pMonster ? -1 : pMonster->dwClassId, 2);
 }
@@ -79,7 +79,7 @@ int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc*
     return 1;
 }
 
-static __forceinline D2MonStatsTxt* GetRec(D2UnitStrc* pUnit)
+static inline D2MonStatsTxt* GetRec(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
         return pUnit->pMonsterData->pMonStatsTxt;
@@ -87,7 +87,7 @@ static __forceinline D2MonStatsTxt* GetRec(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline const D2AiTableStrc* GetByIndex(D2MonStatsTxt* pRecord)
+static inline const D2AiTableStrc* GetByIndex(D2MonStatsTxt* pRecord)
 {
     short nIndex = pRecord->wAI;
     if (nIndex >= 0 && (unsigned short)nIndex < 148) {

@@ -130,7 +130,7 @@ int __fastcall sub_005169F0_CountEntries(T00516950* pNode)
     return nCount;
 }
 
-static __forceinline void RemoveNode(D2SoundNode00516A10Strc** ppList, int nKey)
+static inline void RemoveNode(D2SoundNode00516A10Strc** ppList, int nKey)
 {
     D2SoundNode00516A10Strc* pPrev = 0;
     for (D2SoundNode00516A10Strc* pNode = *ppList; pNode; pNode = pNode->pNext)

@@ -89,7 +89,7 @@ inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
     return 0;
 }
 
-static __forceinline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -101,7 +101,7 @@ static __forceinline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -252,7 +252,7 @@ static void __stdcall sub_004670A0_AdjustCursorPerspective(int* pnX, int* pnY)
     *pnY += sub_0045AFD0_GetMouseYOffset();
 }
 
-static __forceinline void HOVER_ClearHoverUnit()
+static inline void HOVER_ClearHoverUnit()
 {
     if (gdwGlobal_007A6A98)
     {

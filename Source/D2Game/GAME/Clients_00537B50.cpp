@@ -161,7 +161,7 @@ inline int M08_UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline D2UnitStrc* sub_M08_GetClientPlayerUnit(D2ClientStrc* pClient)
+static inline D2UnitStrc* sub_M08_GetClientPlayerUnit(D2ClientStrc* pClient)
 {
     if (pClient->dwFlags & CLIENTFLAGEX_PLAYER_UNIT_ALIVE)
     {

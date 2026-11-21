@@ -34,7 +34,7 @@ int __fastcall sub_0058A9F0_ACT5Q3_IsDrehyaStateZero(D2GameStrc* pGame); // 0x00
 int __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005943B0
 int __fastcall ACT5Q3_SpawnDrehyaPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A820
 
-static __forceinline D2MonsterInteractStrc* GetMonInteract(D2UnitStrc* pUnit)
+static inline D2MonsterInteractStrc* GetMonInteract(D2UnitStrc* pUnit)
 {
     D2MonsterInteractStrc* p;
     if (pUnit)

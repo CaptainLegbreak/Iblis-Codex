@@ -6,7 +6,7 @@
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 
-static __forceinline D2MissilesTxt* GetMissileRecord(int nMissileId)
+static inline D2MissilesTxt* GetMissileRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < gpDataTables_00744304->nMissilesTxtRecordCount)
         return &gpDataTables_00744304->pMissilesTxt[nMissileId];

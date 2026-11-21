@@ -186,7 +186,7 @@ void __fastcall sub_0051D350_CopyElement(D2Storm408ElemStrc* pDst, const D2Storm
 }
 
 // build: context AddItemSize
-static __forceinline bool AddItemSize(const D2Storm408ElemStrc* pItem, int* pnSize)
+static inline bool AddItemSize(const D2Storm408ElemStrc* pItem, int* pnSize)
 {
     *pnSize += sizeof(unsigned int);
     int nLen = strlen(pItem->szText);

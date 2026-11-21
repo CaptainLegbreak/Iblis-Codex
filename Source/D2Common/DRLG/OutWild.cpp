@@ -75,7 +75,7 @@ int __fastcall sub_00674920_PlaceRandomPreset(D2DrlgLevelStrc* pLevel, int nLvlP
 
 
 
-static __forceinline unsigned int SEED_RollRandomNumber_Wild(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Wild(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -102,7 +102,7 @@ static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
     return 1;
 }
 
-static __forceinline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
+static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
 {
     D2DrlgOutRectStrc* pBounds = pRect->pBounds;
     if (pRect->nX < pBounds->nX && pOther->nY > pRect->nY && !(pRect->nFlags & 1) && !(pOther->nFlags & 1))
@@ -116,7 +116,7 @@ static __forceinline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D
     return 0;
 }
 
-static __forceinline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
+static inline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
 {
     D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
 
@@ -132,7 +132,7 @@ static __forceinline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVe
 }
 
 // 0x00680040
-static __forceinline BOOL sub_00680040_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
+static inline BOOL sub_00680040_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
 {
     D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
 

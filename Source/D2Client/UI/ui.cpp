@@ -390,7 +390,7 @@ void __cdecl sub_004535D0_DrawPartyTexts()
 }
 
 // 0x004535F0
-static __forceinline void __stdcall sub_004535F0_SetSlotClass(D2SlotOwnerStrc* pOwner, unsigned short wDefault, int nIndex, int nA, int nB)
+static inline void __stdcall sub_004535F0_SetSlotClass(D2SlotOwnerStrc* pOwner, unsigned short wDefault, int nIndex, int nA, int nB)
 {
     if (nIndex == -1)
     {
@@ -413,7 +413,7 @@ static __forceinline void __stdcall sub_004535F0_SetSlotClass(D2SlotOwnerStrc* p
 
 int gnPanelFlag_007A2864; // 0x007A2864
 
-static __forceinline void SetHotkey(const D2PanelHotkeysStrc* pDesc, int nIndex, int nKeyFunc, int bSecondary, int nDefault)
+static inline void SetHotkey(const D2PanelHotkeysStrc* pDesc, int nIndex, int nKeyFunc, int bSecondary, int nDefault)
 {
     if (nIndex == -1)
         return;
@@ -492,7 +492,7 @@ D2UiControlCStrc* gpGoldControlD_007A27B0; // 0x007A27B0
 
 int gbGoldPanelFlag_007A27B4; // 0x007A27B4
 
-static __forceinline int IsGoldPanelMode(int nMode)
+static inline int IsGoldPanelMode(int nMode)
 {
     if (nMode <= 0)
     {
@@ -574,7 +574,7 @@ unsigned short gwDialogAmountHigh_007A2A6A; // 0x007A2A6A
 
 int gnDialogMode_007A279C; // 0x007A279C
 
-static __forceinline int GetUnitId(D2UnitStrc* pUnit)
+static inline int GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return -1;

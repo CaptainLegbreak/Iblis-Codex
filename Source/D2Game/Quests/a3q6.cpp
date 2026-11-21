@@ -315,7 +315,7 @@ void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 }
 
 // build: context ACT3Q6_CycleStatusFromLastState
-static __forceinline int ACT3Q6_CycleStatusFromLastState(D2QuestDataStrc* pQuestData)
+static inline int ACT3Q6_CycleStatusFromLastState(D2QuestDataStrc* pQuestData)
 {
     int bResult = 0;
     if (pQuestData->fLastState == 2)
@@ -565,7 +565,7 @@ int __fastcall ACT3Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
     return 0;
 }
 
-static __forceinline D2BitBufferStrc* sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -635,7 +635,7 @@ void __fastcall ACT3Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     QUESTS_TriggerFX(pQuestData->pGame, 11);
 }
 
-static __forceinline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }

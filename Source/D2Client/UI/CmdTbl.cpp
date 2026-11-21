@@ -174,7 +174,7 @@ void __cdecl sub_00469370_CallBoundCommand()
     }
 }
 
-static __forceinline int HOTKEY_CheckWheelKey(int nCommand, int nKey)
+static inline int HOTKEY_CheckWheelKey(int nCommand, int nKey)
 {
     switch (nKey)
     {
@@ -300,7 +300,7 @@ void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir)
 }
 
 // 0x00469A50
-static __forceinline void sub_00469A50_LoadKeyConfig(int bInstallDir)
+static inline void sub_00469A50_LoadKeyConfig(int bInstallDir)
 {
     sub_004698D0_LoadKeyConfig(bInstallDir);
 }
@@ -450,7 +450,7 @@ void __cdecl sub_00469D50_RestoreHotkeys()
     sub_004694A0_BindMouseHotkeys();
 }
 
-static __forceinline unsigned short sub_00469AA0(int nA, int nB)
+static inline unsigned short sub_00469AA0(int nA, int nB)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
@@ -785,7 +785,7 @@ const Unicode* __fastcall sub_00469DE0_GetKeyText(int nA, int nB)
     return gwszKeyText_007A741C;
 }
 
-static __forceinline unsigned short FindHotkeyKey_Inline(int nId, int nMode)
+static inline unsigned short FindHotkeyKey_Inline(int nId, int nMode)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {

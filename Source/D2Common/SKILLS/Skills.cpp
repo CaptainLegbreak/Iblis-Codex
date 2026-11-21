@@ -680,7 +680,7 @@ bool R00601DC0::sub_00601DC0_IsOpen()
     return m_pFile != 0;
 }
 
-__forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
+inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -805,7 +805,7 @@ void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY)
     *pY = 2 * nY - nX;
 }
 
-static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1729,7 +1729,7 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* ptSkill, int nValue)
     ptSkill->dwFlags = nValue;
 }
 
-static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord_ForceInl(int nSkillId)
+static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord_ForceInl(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -2533,7 +2533,7 @@ int __fastcall sub_G02_Emit_006454C0(D2UnitStrc* pUnit, int nMode)
     return sub_006454C0_IsSelectableCorpse(0, pUnit);
 }
 
-static __forceinline int CORPSE_CanUnitCorpseBeSelected(D2UnitStrc* pUnit)
+static inline int CORPSE_CanUnitCorpseBeSelected(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD && !STATES_CheckStateMaskUdeadOnUnit(pUnit))
     {
@@ -2888,7 +2888,7 @@ int __stdcall D2COMMON_11036_GetMonCurseResistanceSubtraction(int nLevel, int nS
     return D2Common_11033(nLevel, pSkillsTxtRecord->dwParam[4], pSkillsTxtRecord->dwParam[5]);
 }
 
-static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2900,7 +2900,7 @@ static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -4433,7 +4433,7 @@ static BOOL sub_6FDB1070(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
     return 1;
 }
 
-static __forceinline BOOL U04_IsPlayerUnit(D2UnitStrc* pUnit)
+static inline BOOL U04_IsPlayerUnit(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwUnitType == UNIT_PLAYER;
 }
@@ -4563,7 +4563,7 @@ void __stdcall D2Common_11030(D2UnitStrc* pUnit, int nSkillId, int a3)
 }
 
 // build: context SKILLS_GetSkillForceInl
-static __forceinline D2SkillStrc* SKILLS_GetSkillForceInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+static inline D2SkillStrc* SKILLS_GetSkillForceInl(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
     D2SkillStrc* pSkill;
     if (pUnit->pSkills)

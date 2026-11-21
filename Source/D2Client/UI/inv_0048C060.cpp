@@ -422,7 +422,7 @@ static int __stdcall sub_00484D30_FormatEarNameTo(D2UnitStrc* pItem, Unicode* pO
     return 0;
 }
 
-static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
+static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     return pUnit->dwClassId;
 }

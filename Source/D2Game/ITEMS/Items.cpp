@@ -865,7 +865,7 @@ FailedUnique:
  ITEMS_SetFileIndex(pItem,-1);return 0;
 }
 
-__forceinline D2ItemsTxt* ITEMMODE_GetItemsTxtRecordOfItem_H10(D2UnitStrc* pItem)
+inline D2ItemsTxt* ITEMMODE_GetItemsTxtRecordOfItem_H10(D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType == 4)
@@ -1544,9 +1544,9 @@ static void sub_00557A70_RollVarInvGfx(D2UnitStrc* pItem)
     }
 }
 
-static __forceinline unsigned int D2_MinU(unsigned int a, unsigned int b) { return a < b ? a : b; }
+static inline unsigned int D2_MinU(unsigned int a, unsigned int b) { return a < b ? a : b; }
 
-static __forceinline void ITEMS_SetGoldStat(D2UnitStrc* pUnit, int nStat, int nValue)
+static inline void ITEMS_SetGoldStat(D2UnitStrc* pUnit, int nStat, int nValue)
 {
     if (!pUnit)
     {
@@ -1785,7 +1785,7 @@ void __fastcall ITEMS_PlayerIterateCallback_RemoveItem(D2GameStrc* pGame, D2Unit
 }
 
 // 0x00557FC0
-static __forceinline void sub_00557FC0_RemoveItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pItem)
+static inline void sub_00557FC0_RemoveItemFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pItem)
 {
     SUNIT_IterateLivingPlayers(pGame, ITEMS_PlayerIterateCallback_RemoveItem, pItem);
 }
@@ -1868,7 +1868,7 @@ int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevelId)
     return nLevel > 1 ? nLevel : 1;
 }
 
-__forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1881,7 +1881,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2048,7 +2048,7 @@ int sub_B05_Emit_005585D0(int nBase, int nDiv, D2UnitStrc* pPlayer, int* pOut)
     return nMagicBonus + 100;
 }
 
-static __forceinline D2ItemTypesTxt* sub_C03_GetItemTypesTxtRecord(int nItemType)
+static inline D2ItemTypesTxt* sub_C03_GetItemTypesTxtRecord(int nItemType)
 {
     if (nItemType >= 0 && nItemType < sgptDataTables->nItemTypesTxtRecordCount)
     {

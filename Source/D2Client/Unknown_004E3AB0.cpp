@@ -121,7 +121,7 @@ void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
     sub_004CD540_CreateMissile(&tMissile);
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {

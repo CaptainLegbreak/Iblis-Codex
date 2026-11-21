@@ -36,7 +36,7 @@ static bool sub_00404760_IsDosHeaderValid(const D2ImageDosHeaderStrc* pImage)
     return true;
 }
 
-static __forceinline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
+static inline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
 {
     if (IsBadReadPtr(pNt, 4))
     {
@@ -61,7 +61,7 @@ static __forceinline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStr
     return true;
 }
 // build: context GetDebugDirectoryEntry
-static __forceinline bool GetDebugDirectoryEntry(const D2ImageDataDirStrc* pDir, unsigned long* pRva, unsigned long* pSize)
+static inline bool GetDebugDirectoryEntry(const D2ImageDataDirStrc* pDir, unsigned long* pRva, unsigned long* pSize)
 {
     const D2ImageDataDirStrc tDir = *pDir;
     *pSize = tDir.Size;

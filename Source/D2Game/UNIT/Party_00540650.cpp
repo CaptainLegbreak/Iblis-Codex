@@ -135,7 +135,7 @@ void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitSt
     }
 }
 
-static __forceinline int PARTY_GetLivingUnitsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline int PARTY_GetLivingUnitsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nLivingUnits = 0;
     PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_CountLivingUnits, &nLivingUnits);

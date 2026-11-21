@@ -374,9 +374,9 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nFlags); // 0x00644660
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
-static __forceinline int GetUnitType(D2UnitStrc* pUnit) { int nType = 6; if (pUnit) nType = pUnit->dwUnitType; return nType; }
+static inline int GetUnitType(D2UnitStrc* pUnit) { int nType = 6; if (pUnit) nType = pUnit->dwUnitType; return nType; }
 
-static __forceinline int GetUnitId(D2UnitStrc* pUnit) { int nId = -1; if (pUnit) nId = pUnit->dwUnitId; return nId; }
+static inline int GetUnitId(D2UnitStrc* pUnit) { int nId = -1; if (pUnit) nId = pUnit->dwUnitId; return nId; }
 
 struct D2RedemptionAuraCallbackArgStrc
 {
@@ -495,7 +495,7 @@ inline unsigned char UNITS_GetMonsterComponent(D2UnitStrc* pUnit, int nComponent
     return 0;
 }
 
-__forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -508,7 +508,7 @@ __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-__forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1022,7 +1022,7 @@ int __fastcall sub_005CF3A0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
     return 1;
 }
 
-static __forceinline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1031,7 +1031,7 @@ static __forceinline int UNITS_GetUnitTypeChecked(D2UnitStrc* pUnit)
     return 6;
 }
 
-static __forceinline int UNITS_GetUnitIdChecked(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitIdChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1105,12 +1105,12 @@ void __stdcall sub_M217_Emit_005CF280(D2UnitStrc* pUnit, int* pResult)
 }
 
 // 0x005CF8A0
-static __forceinline D2UnitStrc* sub_005CF8A0_FindMeleeTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID)
+static inline D2UnitStrc* sub_005CF8A0_FindMeleeTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID)
 {
     return sub_6FD107F0(pGame, pUnit, 0, 0, 3, 3, nUnitGUID, 0);
 }
 
-static __forceinline D2SkillsTxt* GetSkillsRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillsRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
@@ -1227,7 +1227,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     return 1;
 }
 
-static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed,int nRange)
+static inline unsigned int RollLimited(D2SeedStrc* pSeed,int nRange)
 {
     if (nRange<=0) return 0;
     if (nRange & (nRange-1))
@@ -1485,7 +1485,7 @@ Drain:
  return 1;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
@@ -1538,7 +1538,7 @@ void __fastcall SKILLS_CurseStateCallback_HolyFreeze(D2UnitStrc* pUnit, int nSta
     }
 }
 
-static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1754,7 +1754,7 @@ int __fastcall SKILLS_ApplyRedemptionEffect(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 }
 
-static __forceinline int SKILLS_ApplyRedemptionEffect_Inline(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillId, int nSkillLevel, int bSkipChanceRoll)
+static inline int SKILLS_ApplyRedemptionEffect_Inline(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillId, int nSkillLevel, int bSkipChanceRoll)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)

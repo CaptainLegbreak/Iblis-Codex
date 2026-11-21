@@ -35,7 +35,7 @@ wchar_t* __fastcall sub_00653F10_GetNameSuffix(D2UnitStrc* pUnit);              
 wchar_t* __fastcall sub_00653F50_GetNameAppellation(D2UnitStrc* pUnit);                                     // 0x00653F50
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                         // 0x006556E0
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
@@ -75,7 +75,7 @@ int __fastcall sub_004AC7E0_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short n
     return (unsigned short)(pMonsterData->nTypeFlag & nFlag) != 0;
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {

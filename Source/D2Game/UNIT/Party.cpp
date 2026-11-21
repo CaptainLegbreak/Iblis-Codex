@@ -483,7 +483,7 @@ void __fastcall PARTY_LeaveParty(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline void PLRTRADE_AddGoldInline(D2UnitStrc* pUnit, int nStat, int nValue)
+static inline void PLRTRADE_AddGoldInline(D2UnitStrc* pUnit, int nStat, int nValue)
 {
     if (!pUnit)
     {
@@ -522,7 +522,7 @@ static __forceinline void PLRTRADE_AddGoldInline(D2UnitStrc* pUnit, int nStat, i
     STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
 }
 
-static __forceinline int PARTY_GetLivingUnitsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline int PARTY_GetLivingUnitsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nLivingUnits = 0;
     PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_CountLivingUnits, &nLivingUnits);

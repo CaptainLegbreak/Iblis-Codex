@@ -57,7 +57,7 @@ int gnOptionLastX_007BC980; // 0x007BC980
 
 int gnOptionLastY_007BC984; // 0x007BC984
 
-static __forceinline int sub_0047D500(D2OptionEntryStrc* pEntry)
+static inline int sub_0047D500(D2OptionEntryStrc* pEntry)
 {
     return !pEntry->pfnEnabled || pEntry->pfnEnabled();
 }

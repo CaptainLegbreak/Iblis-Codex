@@ -726,14 +726,14 @@ void __stdcall sub_004C5620_SetSpeedToTarget(D2UnitStrc* pMissile, D2UnitStrc* p
     }
 }
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
         return &sgptDataTables->pMissilesTxt[nMissileId];
     return 0;
 }
 
-static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
+static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
@@ -754,7 +754,7 @@ void __fastcall sub_004C5680_AttachMissileLight(D2UnitStrc* pUnit, int nMissileI
     }
 }
 
-static __forceinline D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -763,7 +763,7 @@ static __forceinline D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
     return NULL;
 }
 
-static __forceinline D2MonStatsTxt* SKILLCLT_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* SKILLCLT_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -772,7 +772,7 @@ static __forceinline D2MonStatsTxt* SKILLCLT_GetMonStatsTxtRecord(int nMonsterId
     return NULL;
 }
 
-static __forceinline unsigned int SKILLCLT_RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int SKILLCLT_RollSeed(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -780,12 +780,12 @@ static __forceinline unsigned int SKILLCLT_RollSeed(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned char SKILLCLT_GetUnitTypeByte(D2UnitStrc* pUnit)
+static inline unsigned char SKILLCLT_GetUnitTypeByte(D2UnitStrc* pUnit)
 {
     return pUnit->dwUnitType;
 }
 
-static __forceinline int SKILLCLT_GetUnitType(D2UnitStrc* pUnit)
+static inline int SKILLCLT_GetUnitType(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
@@ -1141,7 +1141,7 @@ int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, 
     return 1;
 }
 
-static __forceinline int U04_IsNearRoomY(const D2DrlgCoordsStrc* pCoords, int nY, int nRadius)
+static inline int U04_IsNearRoomY(const D2DrlgCoordsStrc* pCoords, int nY, int nRadius)
 {
     return nY + nRadius >= pCoords->nSubtileY || nY - nRadius <= pCoords->nSubtileHeight + pCoords->nSubtileY;
 }
@@ -1193,7 +1193,7 @@ static int sub_004C5BD0_IsPointNearRoom(D2ActiveRoomStrc* pRoom, int nX, int nY,
     return 0;
 }
 
-static __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1206,7 +1206,7 @@ static __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1355,7 +1355,7 @@ int __fastcall sub_004C5F70_CheckThrowStart(D2UnitStrc* pUnit, int nSkillId, int
     return sub_00623990_GetWeapon(pUnit, 0) != 0;
 }
 
-static __forceinline D2PetTypeTxt* DATATBLS_GetPetTypeTxtRecord(int nPetType)
+static inline D2PetTypeTxt* DATATBLS_GetPetTypeTxtRecord(int nPetType)
 {
     if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
     {
@@ -1786,7 +1786,7 @@ int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* p
     return 1;
 }
 
-static __forceinline D2SkillsTxt* GetSkillRecord(int id)
+static inline D2SkillsTxt* GetSkillRecord(int id)
 {if(id>=0 && id<sgptDataTables->nSkillsTxtRecordCount)return &sgptDataTables->pSkillsTxt[id];return 0;}
 
 // 0x004C6680
@@ -2160,7 +2160,7 @@ int __fastcall sub_004C6F40_StartSkillAtPos(D2UnitStrc* pUnit, D2ClientSkillArgs
     return sub_004C6140_StartSkill(pArgs->nOwnerGUID, pArgs->nSkillLevel, pUnit, pArgs->nSkillId);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2333,7 +2333,7 @@ void __fastcall sub_004C7470_SetMissileDirection(D2UnitStrc* pMissile, int nDire
     sub_006488A0_SetDirection(pMissile->pDynamicPath, nDirection);
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -2427,7 +2427,7 @@ void __fastcall sub_004C76D0_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent)
     pUnit->nSeqCurrentFramePrecise = (pUnit->nSeqCurrentFramePrecise >> 8) * (100 - nPercent) / 100 << 8;
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2439,7 +2439,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2516,7 +2516,7 @@ void __fastcall sub_004C7950(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline D2SkillDescTxt* SKILLCLT_GetSkillDescTxtRecord(int nSkillDesc)
+static inline D2SkillDescTxt* SKILLCLT_GetSkillDescTxtRecord(int nSkillDesc)
 {
     if (nSkillDesc >= 0 && nSkillDesc < sgptDataTables->nSkillDescTxtRecordCount)
     {
@@ -2526,7 +2526,7 @@ static __forceinline D2SkillDescTxt* SKILLCLT_GetSkillDescTxtRecord(int nSkillDe
 }
 
 // build: context sub_004C7990_GetSkillDescFromSkillId
-static __forceinline D2SkillDescTxt* sub_004C7990_GetSkillDescFromSkillId(int nSkillId)
+static inline D2SkillDescTxt* sub_004C7990_GetSkillDescFromSkillId(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLCLT_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -2971,7 +2971,7 @@ int __fastcall sub_004C9D70(D2UnitStrc* pUnit)
     return 7;
 }
 
-static __forceinline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
+static inline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -2980,7 +2980,7 @@ static __forceinline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
     return 6;
 }
 
-static __forceinline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
+static inline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {

@@ -48,7 +48,7 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer, D2UnitStrc* pUnit); // 0x00627220
 
 // 0x0065C5E0
-static __forceinline int sub_0065C5E0_RollItemRange(D2UnitStrc* pItem, int nMin, int nMax)
+static inline int sub_0065C5E0_RollItemRange(D2UnitStrc* pItem, int nMin, int nMax)
 {
     if (nMax == nMin)
     {
@@ -73,7 +73,7 @@ static __forceinline int sub_0065C5E0_RollItemRange(D2UnitStrc* pItem, int nMin,
 }
 
 // 0x0065C620
-static __forceinline int sub_0065C620_RollItemRange(D2UnitStrc* pItem, int nMin, int nMax)
+static inline int sub_0065C620_RollItemRange(D2UnitStrc* pItem, int nMin, int nMax)
 {
     if (nMax == nMin)
     {

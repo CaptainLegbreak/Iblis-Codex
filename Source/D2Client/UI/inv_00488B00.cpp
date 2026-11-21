@@ -1384,7 +1384,7 @@ void __cdecl sub_00487990_ResetHover()
     gdwGlobal_007BCBF8 = 0;
 }
 
-static __forceinline int sub_00488B00_PanelTop()
+static inline int sub_00488B00_PanelTop()
 {
     return gnGlobal_00711470 + gnGlobal_007A285C - 0x6D;
 }

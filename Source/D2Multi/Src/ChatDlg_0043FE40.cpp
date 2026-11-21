@@ -174,7 +174,7 @@ extern char gData_00799108[];                                                   
 void* ghThread_007992A4;                                                                                    // 0x007992A4
 extern void* ghConnectEvent_007992EC;                                                                       // 0x007992EC
 
-static __forceinline int LAUNCH_SetCallback_inl(int nUnused, D2LaunchCallback pfnCallback)
+static inline int LAUNCH_SetCallback_inl(int nUnused, D2LaunchCallback pfnCallback)
 {
     D2_ASSERT(pfnCallback, 0x559);
     sub_0043F8C0_ResetLaunchState();

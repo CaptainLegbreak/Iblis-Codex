@@ -3,7 +3,7 @@ struct TSLink006C4070
     TSLink006C4070* m_prevlink;
     int m_next;
 
-    __forceinline TSLink006C4070* NextLink(int linkoffset)
+    inline TSLink006C4070* NextLink(int linkoffset)
     {
         if (m_next < 0)
             return (TSLink006C4070*)~m_next;

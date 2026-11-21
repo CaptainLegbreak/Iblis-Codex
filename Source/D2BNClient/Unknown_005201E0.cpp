@@ -89,7 +89,7 @@ void __fastcall sub_00520680_SHA1Init(T0041D340* pContext)
 }
 
 // 0x00520A80
-static __forceinline int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
+static inline int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
 {
     if (nSize < nPos + nCount)
     {
