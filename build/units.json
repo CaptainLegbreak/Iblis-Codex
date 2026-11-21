@@ -52588,6 +52588,16 @@
      "name": "?sub_00540B20_GetTimerQueue@@YAPAUD2EventTimerQueueStrc@@PAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x00540B30",
+     "length": 49,
+     "name": "?sub_00540B30_GetTimerListHead@@YIPAPAUD2EventTimerStrc@@PAUD2GameStrc@@HH@Z"
+    },
+    {
+     "va": "0x00540B70",
+     "length": 58,
+     "name": "?sub_00540B70_GetSlot@@YGPAHPAUD2Unk00540B70Owner@@HH@Z"
+    },
+    {
      "va": "0x00540BB0",
      "length": 84,
      "name": "?sub_00540BB0_AllocateSlab@@YAPAUD2EventTimerSlabListStrc@@PAUD2GameStrc@@@Z"
@@ -52681,22 +52691,6 @@
      "va": "0x00541800",
      "length": 35,
      "name": "?sub_00541800_DirectDatedCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHP6IX01HHH@ZHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00540B30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00540B30",
-     "length": 49,
-     "name": "?sub_00540B30_GetTimerListHead@@YIPAPAUD2EventTimerStrc@@PAUD2GameStrc@@HH@Z"
-    },
-    {
-     "va": "0x00540B70",
-     "length": 58,
-     "name": "?sub_00540B70_GetSlot@@YGPAHPAUD2Unk00540B70Owner@@HH@Z"
     }
    ]
   },
