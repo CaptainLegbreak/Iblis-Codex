@@ -25799,32 +25799,11 @@
      "va": "0x0048BA50",
      "length": 389,
      "name": "?sub_0048BA50_MercPanelHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_0048BC10.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0048BC10",
      "length": 361
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
