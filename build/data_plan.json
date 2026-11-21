@@ -6339,8 +6339,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/RoomTile.cpp": {
-   "bytes": 460,
-   "definitions": 2,
+   "bytes": 572,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
@@ -6353,15 +6353,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D9E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DRLG/RoomTile_0066DB20.cpp": {
-   "bytes": 112,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066DB20.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -148076,7 +148067,7 @@
    "cname": "gData_006EF554",
    "declared": true,
    "decorated": "?gWarpTileOffsets_006EF554@@3QBUD2CoordStrc@@B",
-   "file": "Source/D2Common/DRLG/RoomTile_0066DB20.cpp",
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2CoordStrc gData_006EF554[4]; // 0x006EF554",
    "head": "extern \"C\" const D2CoordStrc gData_006EF554[4] = ",
@@ -148127,7 +148118,7 @@
    "cname": "gData_006EF620",
    "declared": true,
    "decorated": "?gnWallRemapIndices_006EF620@@3QBHB",
-   "file": "Source/D2Common/DRLG/RoomTile_0066DB20.cpp",
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EF620[20]; // 0x006EF620",
