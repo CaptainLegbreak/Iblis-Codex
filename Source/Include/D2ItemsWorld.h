@@ -43,6 +43,20 @@ struct D2MonRegDataStrc
     int unk0x04[12]; // 0x04
 };
 
+// Item qualities: the value of D2ItemDataStrc::dwQualityNo.
+enum D2C_ItemQualities
+{
+    ITEMQUAL_INFERIOR = 1,
+    ITEMQUAL_NORMAL = 2,
+    ITEMQUAL_SUPERIOR = 3,
+    ITEMQUAL_MAGIC = 4,
+    ITEMQUAL_SET = 5,
+    ITEMQUAL_RARE = 6,
+    ITEMQUAL_UNIQUE = 7,
+    ITEMQUAL_CRAFT = 8,
+    ITEMQUAL_TEMPERED = 9,
+};
+
 struct D2ItemDataStrc
 {
     int dwQualityNo; // 0x00

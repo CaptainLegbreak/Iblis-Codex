@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 
 struct Unicode { unsigned short wChar; };
 struct D2ActiveRoomStrc { char unknown00[0x74]; D2UnitStrc* pUnitFirst; };
@@ -216,12 +217,12 @@ Placed:
                 pLabel->nFillColor=0;pLabel->nDrawMode=1;
                 switch(ITEMS_GetItemQuality(pItem))
                 {
-                case 4:nColor=3;break;
-                case 6:nColor=9;break;
-                case 8:nColor=8;break;
-                case 9:nColor=10;break;
-                case 7:nColor=4;break;
-                case 5:nColor=2;break;
+                case ITEMQUAL_MAGIC:nColor=3;break;
+                case ITEMQUAL_RARE:nColor=9;break;
+                case ITEMQUAL_CRAFT:nColor=8;break;
+                case ITEMQUAL_TEMPERED:nColor=10;break;
+                case ITEMQUAL_UNIQUE:nColor=4;break;
+                case ITEMQUAL_SET:nColor=2;break;
                 default:
                     if((ITEMS_CheckItemFlag(pItem,0x800,0x106,gszShowItems_006DAB64) && ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0) || ITEMS_CheckItemFlag(pItem,0x400000,0x10C,gszShowItems_006DAB64))nColor=5;
                     break;

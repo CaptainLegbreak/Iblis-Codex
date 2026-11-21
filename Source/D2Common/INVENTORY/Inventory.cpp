@@ -3018,7 +3018,7 @@ int __stdcall INVENTORY_GetSetItemEquipCountByFileIndex(D2InventoryStrc* invento
  if (!grid) return 0;
  int count=0;
  for (D2UnitStrc* item=grid->pItem;item;) {
-  if (ITEMS_GetItemQuality(item)==5 && ITEMS_GetFileIndex(item)==fileIndex) {
+  if (ITEMS_GetItemQuality(item)==ITEMQUAL_SET && ITEMS_GetFileIndex(item)==fileIndex) {
    unsigned int x;
    if (item->dwUnitType==UNIT_OBJECT || (item->dwUnitType>3 && item->dwUnitType<=5)) x=item->pStaticPath->tGameCoords.nX;
    else x=item->pDynamicPath ? PATH_GetXPosition(item->pDynamicPath):0;

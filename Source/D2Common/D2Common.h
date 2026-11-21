@@ -320,11 +320,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
             } \
             nValue = nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls); \
         }
-#define ITEMQUAL_INFERIOR 1
-#define ITEMQUAL_MAGIC 4
-#define ITEMQUAL_NORMAL 2
-#define ITEMQUAL_SET 5
-#define ITEMQUAL_TEMPERED 9
 #define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
 #define ITEMTYPE_ARMOR 3
 #define ITEMTYPE_BOOK 18

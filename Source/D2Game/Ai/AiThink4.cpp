@@ -230,8 +230,6 @@ enum
 
 enum
 {
-    ITEMQUAL_NORMAL = 2,
-    ITEMQUAL_UNIQUE = 7,
 };
 
 enum

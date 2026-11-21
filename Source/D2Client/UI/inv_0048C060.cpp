@@ -6,6 +6,7 @@
 #include "D2Unicode.h"
 #include "D2Client.h"
 
+#include "D2ItemsWorld.h"
 struct UnicodeChar : Unicode
 {
     UnicodeChar();
@@ -155,7 +156,6 @@ int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* p
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
-
 
 unsigned int __stdcall ITEMS_GetTransmogrify(D2UnitStrc* pItem); // 0x0062A0A0
 
@@ -473,7 +473,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
         {
             switch (ITEMS_GetItemQuality(pItem))
             {
-            case 1:
+            case ITEMQUAL_INFERIOR:
             {
                 D2LowQualityItemsTxt* pLowQuality = DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (pLowQuality)
@@ -482,7 +482,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                 }
                 break;
             }
-            case 2:
+            case ITEMQUAL_NORMAL:
             {
                 if (!ITEMSIsA(pItem, 0x16) && !ITEMSIsA(pItem, 0x12))
                 {
@@ -567,12 +567,12 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                 }
                 break;
             }
-            case 3:
+            case ITEMQUAL_SUPERIOR:
                 sub_0048BE80_FormatArgs(pOut, D2LANG_GetStringFromTblIndex(0x6AF), D2LANG_GetStringFromTblIndex(0x6BF), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr), 0);
                 break;
-            case 6:
-            case 8:
-            case 9:
+            case ITEMQUAL_RARE:
+            case ITEMQUAL_CRAFT:
+            case ITEMQUAL_TEMPERED:
             {
                 D2RareAffixTxt* pRarePrefix = DATATBLS_GetRareAffixTxtRecord(ITEMS_GetRarePrefixId(pItem));
                 D2RareAffixTxt* pRareSuffix = DATATBLS_GetRareAffixTxtRecord(ITEMS_GetRareSuffixId(pItem));
@@ -658,7 +658,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                 sub_00526700(pOut, WSZ(aLine));
                 break;
             }
-            case 7:
+            case ITEMQUAL_UNIQUE:
             {
                 UnicodeChar aName[0x200];
                 sub_005267E0(WSZ(aName), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr));
@@ -689,7 +689,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                 }
                 break;
             }
-            case 5:
+            case ITEMQUAL_SET:
             {
                 D2SetItemsTxt* pSetItemsTxt = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (pSetItemsTxt)
@@ -717,7 +717,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                 }
                 break;
             }
-            case 4:
+            case ITEMQUAL_MAGIC:
             {
                 D2MagicAffixTxt* pPrefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, 0));
                 D2MagicAffixTxt* pSuffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, 0));

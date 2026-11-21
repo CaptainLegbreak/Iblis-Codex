@@ -10,6 +10,7 @@
 #include "D2ClientGame.h"
 #include "D2StormTypes.h"
 #include "D2Win32Types.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1378,7 +1379,7 @@ void __fastcall sub_004E6560_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* p
         return;
     }
 
-    if (ITEMS_GetItemQuality(pItem) != 5)
+    if (ITEMS_GetItemQuality(pItem) != ITEMQUAL_SET)
     {
         return;
     }

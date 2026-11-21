@@ -8,6 +8,7 @@
 #include "D2GameObjs.h"
 #include "D2LevelTxt.h"
 #include "D2CelContext.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -481,22 +482,22 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
     int nColor = 0;
     switch (ITEMS_GetItemQuality(pUnit))
     {
-    case 6:
+    case ITEMQUAL_RARE:
         nColor = 9;
         break;
-    case 8:
+    case ITEMQUAL_CRAFT:
         nColor = 8;
         break;
-    case 9:
+    case ITEMQUAL_TEMPERED:
         nColor = 10;
         break;
-    case 4:
+    case ITEMQUAL_MAGIC:
         nColor = 3;
         break;
-    case 5:
+    case ITEMQUAL_SET:
         nColor = 2;
         break;
-    case 7:
+    case ITEMQUAL_UNIQUE:
         nColor = 4;
         break;
     default:

@@ -246,9 +246,6 @@ void __fastcall sub_00576C30_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStr
 
 enum
 {
-    ITEMQUAL_INFERIOR = 1,
-    ITEMQUAL_NORMAL = 2,
-    ITEMQUAL_SUPERIOR = 3,
 };
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0
@@ -1026,7 +1023,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* hNPC, u
         {
             bValid = 1;
             pItem = D2GAME_CreateItemUnit_6FC501A0(hNPC, nItemId, ptGame, 4, nQuality, 0, 1, nItemLevel, 0, 0, 0);
-            if (ITEMS_GetItemQuality(pItem) == 1)
+            if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_INFERIOR)
             {
                 const char* szName = DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(pItem))->name;
                 if (!_stricmp(szName, "Cracked"))
@@ -2889,7 +2886,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
     const int vendorId=npc->dwClassId;
     int price=ITEMS_GetTransactionCost(player,item,ptGame->nDifficulty,sub_00543520(ptGame,player),vendorId,1);
     int keep=1;
-    if (ITEMS_GetItemQuality(item)==1) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
+    if (ITEMS_GetItemQuality(item)==ITEMQUAL_INFERIOR) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
     if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSource_006E15F0)) keep=0;
     if (ITEMS_GetItemType(item)==7) keep=0;
     if (ITEMS_CheckItemFlag(item,0x1000000,0x50D,gszNpcSource_006E15F0)) keep=0;
@@ -3324,7 +3321,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
             int nSockets = sub_0062BC20(pOutput);
             switch (ITEMS_GetItemQuality(pOutput))
             {
-            case 4:
+            case ITEMQUAL_MAGIC:
                 if (nSockets >= 2)
                 {
                     nSockets = 2;
@@ -3332,11 +3329,11 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
                 nSockets = ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pOutput), nSockets) + 1;
                 break;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
+            case ITEMQUAL_SET:
+            case ITEMQUAL_RARE:
+            case ITEMQUAL_UNIQUE:
+            case ITEMQUAL_CRAFT:
+            case ITEMQUAL_TEMPERED:
                 if (nSockets >= 1)
                 {
                     nSockets = 1;

@@ -6,6 +6,7 @@
 #include "D2Records.h"
 #include "D2Path.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -3441,7 +3442,7 @@ int __fastcall sub_004E34E0_StartMissileEffect(D2UnitStrc* pUnit, int nSkillId, 
 // 0x004E6680
 void __fastcall sub_004E6680_AddSetStatePropText(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nArg1, int nArg2)
 {
-    if (ITEMS_GetItemQuality(pItem) != 5)
+    if (ITEMS_GetItemQuality(pItem) != ITEMQUAL_SET)
     {
         return;
     }

@@ -857,7 +857,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     for (int i = 0; i < 0x0B; ++i)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, i);
-        if (pItem && ITEMS_GetItemQuality(pItem) == 5 && !ITEMS_CheckItemFlag(pItem, 0x100, 0x247, ".\\UNIT\\Item.cpp")
+        if (pItem && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET && !ITEMS_CheckItemFlag(pItem, 0x100, 0x247, ".\\UNIT\\Item.cpp")
             && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x248, ".\\UNIT\\Item.cpp"))
         {
             if (pUnit->dwUnitType == UNIT_PLAYER)
@@ -978,7 +978,7 @@ int __fastcall sub_004C1D60(D2UnitStrc* pItem)
     if (pItemsTxt && pItemsTxt->wDropSound > 0)
         nSound = pItemsTxt->wDropSound;
 
-    if (ITEMS_GetItemQuality(pItem) == 7)
+    if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_UNIQUE)
     {
         if (ITEMS_GetFileIndex(pItem) >= 0)
         {
@@ -987,7 +987,7 @@ int __fastcall sub_004C1D60(D2UnitStrc* pItem)
                 nSound = pUniqueItemsTxt->wDropSound;
         }
     }
-    else if (ITEMS_GetItemQuality(pItem) == 5)
+    else if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
     {
         D2SetItemsTxt* pSetItemsTxt = ITEMS_GetSetItemsTxtRecordInline(ITEMS_GetFileIndex(pItem));
         if (pSetItemsTxt && pSetItemsTxt->wDropSound > 0)

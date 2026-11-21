@@ -672,14 +672,6 @@ unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem);             
 
 D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables();                                          // 0x00633ED0
 
-#define ITEMQUAL_SUPERIOR 3
-
-#define ITEMQUAL_RARE 6
-
-#define ITEMQUAL_UNIQUE 7
-
-#define ITEMQUAL_CRAFT 8
-
 #define ITEMS_WriteBitsInl(nBits, nData, pBuffer) ITEMS_WriteBitsRevInl(pBuffer, nData, nBits)
 
 #define ITEMS_WriteBitsCall(nBits, nData, pBuffer) ITEMS_WriteBitsCallInl(pBuffer, nData, nBits)
@@ -3953,12 +3945,12 @@ static int ITEMS_IsMagSetRarUniCrfOrTmp_Inline(D2UnitStrc* pItem)
     {
         switch (pItem->pItemData->dwQualityNo)
         {
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
+        case ITEMQUAL_MAGIC:
+        case ITEMQUAL_SET:
+        case ITEMQUAL_RARE:
+        case ITEMQUAL_UNIQUE:
+        case ITEMQUAL_CRAFT:
+        case ITEMQUAL_TEMPERED:
             return 1;
         default:
             return 0;

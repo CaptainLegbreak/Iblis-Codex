@@ -6,6 +6,7 @@
 #include "D2TxtItems.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2ItemsWorld.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -2688,7 +2689,7 @@ void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem,
     }
 
     const int nType = pItem ? pItem->dwUnitType : 6;
-    if (nType == 4 && ITEMS_GetItemQuality(pItem) == 5)
+    if (nType == 4 && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
     {
         D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
         if (pSetItemsTxtRecord)

@@ -1479,7 +1479,7 @@ void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitS
 
         ITEMMODS_AssignProperty(5, pUnit, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
-    else if (ITEMS_GetItemQuality(pItem) == 5)
+    else if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
     {
         ITEMS_UpdateSets(pUnit, pItem, 0, 0);
     }
@@ -1701,7 +1701,7 @@ void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc* pG
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, 9, pItem->dwUnitId);
     if (pTarget != STATLIST_GetOwner(pItem, 0))
         return;
-    if (ITEMS_GetItemQuality(pItem) == 5)
+    if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
         ITEMS_UpdateSets(pTarget, pItem, 1, 0);
     const int nTargetType = pTarget ? pTarget->dwUnitType : 6;
     D2UnitStrc* pLeftWeapon = 0;
@@ -2704,7 +2704,7 @@ void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitSt
     for(int i=1;i<11;++i)
     {
         D2UnitStrc* pItem=INVENTORY_GetItemFromBodyLoc(pInventory,i);
-        if(pItem && ITEMS_GetItemQuality(pItem)==5 && !ITEMS_CheckItemFlag(pItem,0x100,0xac2,szItemModeCpp) && !ITEMS_CheckItemFlag(pItem,0x4000,0xac3,szItemModeCpp))
+        if(pItem && ITEMS_GetItemQuality(pItem)==ITEMQUAL_SET && !ITEMS_CheckItemFlag(pItem,0x100,0xac2,szItemModeCpp) && !ITEMS_CheckItemFlag(pItem,0x4000,0xac3,szItemModeCpp))
         {
             D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(*(D2GameStrc* *)&pGame,pItem,pUnit,1,1);
             sITEMSAddStatsList(pGame,pItem,pUnit,1);
