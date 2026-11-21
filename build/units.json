@@ -49709,11 +49709,6 @@
      "name": "sub_005665B0_GetLocalDate"
     },
     {
-     "va": "0x00566BF0",
-     "length": 139,
-     "name": "PLRTRADE_Free"
-    },
-    {
      "va": "0x00566C80",
      "length": 55,
      "name": "sub_6FC90BE0"
@@ -55384,6 +55379,11 @@
      "va": "0x00566B30",
      "length": 179,
      "name": "?PLRTRADE_AllocPlayerTrade@@YA_NPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00566BF0",
+     "length": 139,
+     "name": "PLRTRADE_Free"
     },
     {
      "va": "0x00566D90",
