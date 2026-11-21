@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -179,7 +180,7 @@ static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParams
     switch (MONSTERS_ValidateMonsterId_Inline(nBaseId))
     {
     case 0xD3:
-        if (nMonsterId != 0x2C4)
+        if (nMonsterId != MONSTER_UBERDURIEL)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0xD);
             QUESTS_CreateChainRecord(pGame, pUnit, 9);
@@ -190,7 +191,7 @@ static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParams
         return;
     case 0xAF:
     {
-        const int nWarrivId = MONSTERS_ValidateMonsterId_Inline(0xAF);
+        const int nWarrivId = MONSTERS_ValidateMonsterId_Inline(MONSTER_WARRIV2);
         QUESTS_WarrivSpawn(pGame, pRoom, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nWarrivId);
         return;
     }
@@ -200,7 +201,7 @@ static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParams
         MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
         return;
     case 0xF3:
-        if (nMonsterId != 0x2C1)
+        if (nMonsterId != MONSTER_UBERDIABLO)
         {
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 0x17);
@@ -222,7 +223,7 @@ static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParams
         MONSTERUNIQUE_ToggleUnitFlag_Inline(pUnit, 0x20000);
         return;
     case 0xF2:
-        if (nMonsterId != 0x2C0)
+        if (nMonsterId != MONSTER_UBERMEPHISTO)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0x14);
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
@@ -235,7 +236,7 @@ static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParams
         D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
         return;
     case 0x9C:
-        if (nMonsterId != 0x2C3)
+        if (nMonsterId != MONSTER_UBERANDARIEL)
         {
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 6);
@@ -249,7 +250,7 @@ static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParams
         QUESTS_CreateChainRecord(pGame, pUnit, 0x18);
         return;
     case 0x100:
-        if (nMonsterId != 0x2C2)
+        if (nMonsterId != MONSTER_UBERIZUAL)
         {
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 0x16);
@@ -291,7 +292,7 @@ static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParams
         MONSTERSPAWN_EquipAncientBarbarians(pUnit);
         return;
     case 0x220:
-        if (nMonsterId != 0x2C5)
+        if (nMonsterId != MONSTER_UBERBAAL)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0x24);
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);

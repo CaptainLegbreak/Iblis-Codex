@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -422,15 +424,15 @@ int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStr
 // 0x005B4B60
 D2UnitStrc* __fastcall sub_005B4B60_SpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2Act4Quest2Strc* pQuestDataEx)
 {
-    D2UnitStrc* pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 243, 1, -1, 0);
+    D2UnitStrc* pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, -1, 0);
     if (!pDiablo)
     {
-        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 243, 1, 5, 0);
+        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 5, 0);
     }
 
     if (!pDiablo)
     {
-        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 243, 1, 10, 0);
+        pDiablo = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_DIABLO, 1, 10, 0);
         if (!pDiablo)
         {
             return 0;
@@ -733,7 +735,7 @@ static void __stdcall ACT4Q2_KillAllMonstersInCS(D2GameStrc* pGame, D2Act4Quest2
 
     for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[3]); pRoom; pRoom = pRoom->pRoomNext)
     {
-        if (DUNGEON_GetLevelIdFromRoom(pRoom) == 108)
+        if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_CHAOSSANCTUM)
         {
             D2UnitStrc* pNext = 0;
             for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNext)
@@ -1228,7 +1230,7 @@ int __fastcall ACT3Q5_IsDuranceOfHateClosed(D2GameStrc* pGame, D2UnitStrc* pUnit
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 19);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
 
-    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == 101)
+    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DURANCEOFHATELEV2)
     {
         return 0;
     }

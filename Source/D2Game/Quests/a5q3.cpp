@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -331,7 +333,7 @@ static void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Ac
         return;
     }
 
-    D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pQuestData->pGame, op.nX, op.nY, op.pRoom, 1, 0x200);
+    D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pQuestData->pGame, op.nX, op.nY, op.pRoom, 1, MONSTER_DREHYA);
     if (!pDrehya)
     {
         return;
@@ -413,7 +415,7 @@ static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData
         return;
     }
 
-    D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pQuestData->pGame, nX, nY, pRoom, 1, 0x200);
+    D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pQuestData->pGame, nX, nY, pRoom, 1, MONSTER_DREHYA);
     if (!pDrehya)
     {
         return;
@@ -1157,7 +1159,7 @@ void __fastcall OBJECTS_InitFunction68_NihlathakStartInTown(D2ObjInitFnStrc* pOp
         return;
     }
 
-    D2UnitStrc* pNihlathak = sub_005459A0_SpawnMonsterNear(pOp->pGame, pOp->nX, pOp->nY, pOp->pRoom, 1, 514);
+    D2UnitStrc* pNihlathak = sub_005459A0_SpawnMonsterNear(pOp->pGame, pOp->nX, pOp->nY, pOp->pRoom, 1, MONSTER_NIHLATHAK);
     if (!pNihlathak)
     {
         return;
@@ -1345,7 +1347,7 @@ bool __fastcall ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown(D2GameStrc* pGame, D2Qu
             pQuestDataEx->nTimerInvocations = 2;
             if (pFrozenDrehya)
             {
-                D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pGame, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nY, UNITS_GetRoom(pFrozenDrehya), 1, 0x20F);
+                D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pGame, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nY, UNITS_GetRoom(pFrozenDrehya), 1, MONSTER_DREHYAICED);
                 if (pDrehya)
                 {
                     const int nUnitGUID = pFrozenDrehya->dwUnitId;
@@ -1402,7 +1404,7 @@ void __fastcall ACT5Q4_OnNihlathakActivated(D2GameStrc* pGame)
 void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) != 0x78)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROCKYSUMMIT)
     {
         return;
     }
@@ -1480,7 +1482,7 @@ void __fastcall sub_0058EAC0_InitDrehyaTownObject(D2ObjInitFnStrc* pOp)
             ACT5Q3_SeqCallback(pQuestData);
             if (!pQuestDataEx->bDrehyaMonsterInTownSpawned)
             {
-                D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pOp->pGame, pOp->nX, pOp->nY, pOp->pRoom, 1, 512);
+                D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pOp->pGame, pOp->nX, pOp->nY, pOp->pRoom, 1, MONSTER_DREHYA);
                 if (pDrehya)
                 {
                     pQuestDataEx->nDrehyaMonsterInTownGUID = !pDrehya ? -1 : pDrehya->dwUnitId;

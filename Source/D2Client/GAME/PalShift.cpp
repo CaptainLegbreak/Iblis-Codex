@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -284,9 +285,9 @@ void __cdecl sub_00477470_InitPalShifts()
         pEntries[i].nId = i;
     }
 
-    sub_00477170_LoadPalShift(0x16B);
-    sub_00477170_LoadPalShift(0x16C);
-    sub_00477170_LoadPalShift(0x1A4);
-    sub_00477170_LoadPalShift(0x1A5);
+    sub_00477170_LoadPalShift(MONSTER_NECROSKELETON);
+    sub_00477170_LoadPalShift(MONSTER_NECROMAGE);
+    sub_00477170_LoadPalShift(MONSTER_SPIRITWOLF);
+    sub_00477170_LoadPalShift(MONSTER_FENRIS);
 }
 

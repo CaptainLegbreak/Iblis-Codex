@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -6,11 +7,6 @@
 #include "D2GameTypes.h"
 #include "D2ObjModes.h"
 
-#define MONSTER_AKARA 148
-#define MONSTER_DROGNAN 177
-#define MONSTER_JERHYN 201
-#define MONSTER_ACT2GUARD2 331
-#define MONSTER_ACT2GUARD4 377
 #define QUESTSTATEFLAG_A1Q1 1
 #define QUESTSTATEFLAG_A2Q1 9
 #define QUESTSTATEFLAG_A2Q4 12
@@ -28,7 +24,6 @@
 #define QFLAG_ENTERAREA 4
 #define QFLAG_COMPLETEDNOW 14
 #define QFLAG_COMPLETEDBEFORE 15
-#define MONSTER_WARRIV1 155
 struct D2PlayerDataStrc;
 struct D2Act2Quest4Strc;
 struct D2Act1Quest1Strc;

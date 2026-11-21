@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
@@ -26,10 +28,6 @@
 #define QFLAG_COMPLETEDNOW 14
 
 #define QFLAG_COMPLETEDBEFORE 15
-
-#define MONSTER_AKARA 148
-
-#define MONSTER_CAIN1 146
 
 #define LINE_ITEM_PICKED 1222
 
@@ -247,8 +245,6 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
 void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00597030
 
-
-#define MONSTER_CAIN5 0x109
 
 #define ITEM_RING 0x206E6972
 
@@ -914,7 +910,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
         pCoord.nY = nY;
     }
 
-    D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, 0x109, 1, 5, 0);
+    D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 5, 0);
     if (pCain)
     {
         pCain->dwFlags |= 0x3000000;
@@ -947,7 +943,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
             }
 
             ++nCounter;
-            pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, 0x109, 1, 10, 0);
+            pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN5, 1, 10, 0);
             if (pCain)
             {
                 pCain->dwFlags |= 0x3000000;
@@ -960,7 +956,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
         while (nCounter < 20);
     }
 
-    pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 0x109, 1, 15, 0);
+    pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_CAIN5, 1, 15, 0);
     if (!pCain)
     {
         return;
@@ -1157,7 +1153,7 @@ int __fastcall ACT1Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
         return 0;
     }
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 38)
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_TRISTRAM)
     {
         return 0;
     }
@@ -1189,7 +1185,7 @@ int __fastcall ACT1Q4_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 int __fastcall ACT1Q4_UnitIterate_FindPlayersInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 38)
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_TRISTRAM)
     {
         return 0;
     }
@@ -1221,7 +1217,7 @@ void __fastcall ACT1Q4_SpawnCainInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit)
         const int nY = CLIENTS_GetUnitY(pUnit) + 3;
 
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, 0x92, 1, -1, 0);
+        D2UnitStrc* pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_CAIN1, 1, -1, 0);
         if (!pCain)
         {
             D2CoordStrc pCoord;
@@ -1232,7 +1228,7 @@ void __fastcall ACT1Q4_SpawnCainInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit)
             QUESTS_GetFreePosition(pRoom, &pCoord, 2, 0x100, &pFreeRoom, 3, 0x64);
             if (pFreeRoom)
             {
-                pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, 0x92, 1, -1, 0);
+                pCain = D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, pCoord.nX, pCoord.nY, MONSTER_CAIN1, 1, -1, 0);
             }
         }
 
@@ -1638,7 +1634,7 @@ bool __fastcall ACT1Q4_SeqCallback(D2QuestDataStrc* pQuestData)
 int __fastcall ACT1Q4_UnitIterate_SetCustom6Flag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == 39)
+    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_MOOMOOFARM)
     {
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
         QUESTRECORD_SetQuestState(pQuestFlags, 4, 10);

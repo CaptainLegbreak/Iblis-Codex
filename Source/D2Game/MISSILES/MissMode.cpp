@@ -1,4 +1,6 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -74,7 +76,6 @@ struct D2UnkFieldsStrc
 enum D2MiscConstants
 {
     EVENTTYPE_MONUMOD = 7,
-    MONSTER_SANDLEAPER1 = 78,
     STATE_FREEZE = 1,
     STATE_BLAZE = 13,
     ELEMTYPE_NONE = 0,
@@ -6207,7 +6208,7 @@ int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamS
     const int nBaseId = (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) ? nId : -1;
 
     int bNoHeal = sub_00457490_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, 1);
-    if (nBaseId == 10 || nBaseId == 345 || nBaseId == 557)
+    if (nBaseId == MONSTER_BIGHEAD1 || nBaseId == MONSTER_COUNCILMEMBER1 || nBaseId == MONSTER_BAALHIGHPRIEST)
     {
         bNoHeal = 1;
     }
@@ -6503,7 +6504,7 @@ bool __fastcall ACT4Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 void __stdcall sub_005B4FF0_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     unsigned short nWpNo;
-    if (WAYPOINTS_GetWaypointNoFromLevelId(109, &nWpNo))
+    if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HARROGATH, &nWpNo))
     {
         D2WaypointDataStrc* pWaypointData = UNITS_GetPlayerData(pPlayer)->pWaypointData[pGame->nDifficulty];
         WAYPOINTS_ActivateWaypoint(pWaypointData, nWpNo);

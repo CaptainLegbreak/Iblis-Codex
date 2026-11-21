@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
@@ -1079,7 +1080,7 @@ void __fastcall DRLGROOM_InitNearRooms(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom
 
         do
         {
-            if ((nFlags & pDrlgRoom->dwFlags) && pDrlgRoom->ptDrlgLevel->eLevelId != 133)
+            if ((nFlags & pDrlgRoom->dwFlags) && pDrlgRoom->ptDrlgLevel->eLevelId != LEVEL_PANDEMONIUMRUN1)
             {
                 sub_0066C220(pMemPool, pDrlgRoom, nWarpId);
             }

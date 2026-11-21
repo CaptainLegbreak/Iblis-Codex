@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -155,7 +156,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
         nMask = 0x1600000;
         break;
     case 0x1F:
-        nMask = (pLevel->eLevelId == 117) ? 0x600000 : 0;
+        nMask = (pLevel->eLevelId == LEVEL_TUNDRAWASTELANDS) ? 0x600000 : 0;
         break;
     }
 

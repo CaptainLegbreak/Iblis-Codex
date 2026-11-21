@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Path.h"
 #include "D2DrlgTiles.h"
 #include "D2Drlg.h"
@@ -156,9 +157,9 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
             }
         }
 
-        if (pLevel->eLevelId == 6)
+        if (pLevel->eLevelId == LEVEL_BLACKMARSH)
         {
-            D2DrlgLevelStrc* pOuterLevel = DRLG_GetLevel(pDrlg, 0x1B);
+            D2DrlgLevelStrc* pOuterLevel = DRLG_GetLevel(pDrlg, LEVEL_OUTERCLOISTER);
             pPresetInfo = pOuterLevel->pPreset;
             switch (pLevelLinkData.nRand[0][nCounter])
             {
@@ -275,7 +276,7 @@ static __declspec(noinline) void sub_00678A20_CreateAct4LevelConnections(D2DrlgS
     sub_006772C0_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
     sub_006772C0_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
 
-    DRLG_GetLevel(pDrlg, 0x68)->pOutdoors->dwFlags |= dword_6FDEA6FC;
+    DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= dword_6FDEA6FC;
 
     sub_00677680_AddLevelOrths(pDrlg, 0x6A, 0x67);
 }

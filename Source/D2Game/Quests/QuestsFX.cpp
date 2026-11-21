@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -33,7 +34,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 enum D2C_M96QuestsFxConstants
 {
-    MONSTER_DIABLOCLONE = 333,
     MISSILE_RADAMENTDEATH = 347,
     EVENTTYPE_MONUMOD = 7,
     MONUMOD_TEMPSUMMON = 21,

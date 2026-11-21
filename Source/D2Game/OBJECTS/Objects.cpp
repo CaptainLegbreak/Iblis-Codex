@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameAux.h"
 #include "D2UnitData.h"
@@ -22,8 +23,6 @@
 #define UNIT_OBJECT 2
 
 #define OBJECT_FLIES 103
-
-#define LEVEL_ROGUEENCAMPMENT 1
 
 #define EVENTTYPE_MODECHANGE 0
 
@@ -264,9 +263,6 @@ struct D2ObjectPopulateStrc;
 
 enum
 {
-    LEVEL_TOWERCELLARLEV5 = 25,
-    LEVEL_MAGGOTLAIRLEV1 = 62,
-    LEVEL_MAGGOTLAIRLEV3 = 64,
     OBJECT_COUNTESSCHEST = 0x173,
 };
 
@@ -308,33 +304,7 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
-#define LEVEL_STONYFIELD 4
-
-#define LEVEL_TRISTRAM 38
-
-#define LEVEL_MOOMOOFARM 39
-
-#define LEVEL_CANYONOFTHEMAGI 46
-
-#define LEVEL_DURIELSLAIR 73
-
-#define LEVEL_ARCANESANCTUARY 74
-
-#define LEVEL_HARROGATH 109
-
 #define LEVEL_FRIGIDHIGHLANDS 111
-
-#define LEVEL_ARREATPLATEAU 112
-
-#define LEVEL_TUNDRAWASTELANDS 117
-
-#define LEVEL_NIHLATHAKSTEMPLE 121
-
-#define LEVEL_HELL1 125
-
-#define LEVEL_HELL2 126
-
-#define LEVEL_HELL3 127
 
 struct D2CoordInitStrc;
 

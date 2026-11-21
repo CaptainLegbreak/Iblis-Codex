@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -283,8 +284,6 @@ int __stdcall sub_00604BC0_GetTileFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
 unsigned short __stdcall sub_0064CB30_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
 
 struct D2GameStrc;
-
-#define MONSTER_TENTACLEHEAD1 261
 
 #define MONSTATSFLAGINDEX_SETBOSS 4
 
@@ -762,7 +761,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
     switch (MONSTERS_ValidateMonsterId_Inline(nBaseId))
     {
     case 0xD3:
-        if (nMonsterId != 0x2C4)
+        if (nMonsterId != MONSTER_UBERDURIEL)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0xD);
             QUESTS_CreateChainRecord(pGame, pUnit, 9);
@@ -773,7 +772,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         return;
     case 0xAF:
     {
-        const int nWarrivId = MONSTERS_ValidateMonsterId_Inline(0xAF);
+        const int nWarrivId = MONSTERS_ValidateMonsterId_Inline(MONSTER_WARRIV2);
         QUESTS_WarrivSpawn(pGame, pRoom, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nWarrivId);
         return;
     }
@@ -783,7 +782,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
         return;
     case 0xF3:
-        if (nMonsterId != 0x2C1)
+        if (nMonsterId != MONSTER_UBERDIABLO)
         {
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 0x17);
@@ -805,7 +804,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         MONSTERUNIQUE_ToggleUnitFlag_Inline(pUnit, 0x20000);
         return;
     case 0xF2:
-        if (nMonsterId != 0x2C0)
+        if (nMonsterId != MONSTER_UBERMEPHISTO)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0x14);
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
@@ -818,7 +817,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
         return;
     case 0x9C:
-        if (nMonsterId != 0x2C3)
+        if (nMonsterId != MONSTER_UBERANDARIEL)
         {
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 6);
@@ -832,7 +831,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         QUESTS_CreateChainRecord(pGame, pUnit, 0x18);
         return;
     case 0x100:
-        if (nMonsterId != 0x2C2)
+        if (nMonsterId != MONSTER_UBERIZUAL)
         {
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 0x16);
@@ -874,7 +873,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         MONSTERSPAWN_EquipAncientBarbarians(pUnit);
         return;
     case 0x220:
-        if (nMonsterId != 0x2C5)
+        if (nMonsterId != MONSTER_UBERBAAL)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0x24);
             D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
@@ -955,7 +954,7 @@ D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2UnkMonCreateStrc* pCrea
     if(!nRadius) nMaxRadius=0; else nMaxRadius=3*pCreate->nMaxSearchRings;
     {
     int nSpawnY=0,nSpawnX=0;
-    if(pRecord2->nSpawnCol==1 && !(pCreate->nMonsterId>=0x102 && pCreate->nMonsterId<=0x107) && pCreate->nMonsterId!=0x99)
+    if(pRecord2->nSpawnCol==1 && !(pCreate->nMonsterId>=0x102 && pCreate->nMonsterId<=0x107) && pCreate->nMonsterId!=MONSTER_HELLMETEOR)
     {
         sub_005B2700_FindPosition(pRoom,&nSpawnX,&nSpawnY);
         pRoom=sub_00463740_FindRoomAtPoint(pRoom,nSpawnX,nSpawnY);
@@ -1657,10 +1656,10 @@ bool __fastcall ACT4Q1_SpawnIzualGhost(D2GameStrc* pGame, D2QuestDataStrc* pQues
         D2ActiveRoomStrc* pRoom = sub_00619DA0_ActLookup(pGame->pAct[3], pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY);
         if (pRoom)
         {
-            if (!D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, 406, 8, -1, 0)
-                && !D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, 406, 8, 3, 0))
+            if (!D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, -1, 0)
+                && !D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, 3, 0))
             {
-                D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, 406, 8, 5, 0);
+                D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, 5, 0);
             }
         }
     }

@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -8,9 +9,6 @@
 #include "D2Drlg.h"
 #include "D2LevelTxt.h"
 
-#define LEVEL_DENOFEVIL 8
-#define LEVEL_THRONEOFDESTRUCTION 131
-#define LEVEL_THEWORLDSTONECHAMBER 132
 #define LEVEL_EFFECT_TICKS 30
 #define THRONE_MISSILE 0x27F
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -272,7 +270,7 @@ void __cdecl sub_0046B290_EventLevel108Request()
     if (!pRoom)
         return;
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) != 0x6C)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_CHAOSSANCTUM)
         return;
 
     const int nX = CLIENTS_GetUnitX(pPlayer);

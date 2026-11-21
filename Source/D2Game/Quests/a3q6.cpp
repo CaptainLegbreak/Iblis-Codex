@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
@@ -29,10 +31,6 @@
 #define QFLAG_COMPLETEDBEFORE 15
 
 #define ACT_III 2
-
-#define MONSTER_ORMUS 255
-
-#define LEVEL_OUTERSTEPPES 104
 
 #define EVENTTYPE_QUESTFN 7
 
@@ -134,8 +132,6 @@ unsigned int __stdcall D2Common_10399(D2UnitStrc*, D2UnitStrc*); // 0x00641530
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc*); // 0x00623830
 
 #define UNIT_MONSTER 1
-
-#define MONSTER_NATALYA 297
 
 struct D2Act3Quest5Strc;
 

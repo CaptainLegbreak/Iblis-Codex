@@ -1,4 +1,6 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
@@ -42,12 +44,6 @@
 
 #define ITEMACTION_ONGROUND 3
 
-#define LEVEL_ROGUEENCAMPMENT 1
-
-#define LEVEL_LUTGHOLEIN 40
-
-#define LEVEL_KURASTDOCKTOWN 75
-
 #define ACT_II 1
 
 #define ACT_III 2
@@ -83,24 +79,6 @@
 #define QFLAG_PRIMARYGOALDONE 13
 
 #define QFLAG_COMPLETEDNOW 14
-
-#define MONSTER_WARRIV2 175
-
-#define MONSTER_ATMA 176
-
-#define MONSTER_DROGNAN 177
-
-#define MONSTER_FARA 178
-
-#define MONSTER_JERHYN 201
-
-#define MONSTER_LYSANDER 202
-
-#define MONSTER_MESHIF1 210
-
-#define MONSTER_CAIN2 244
-
-#define MONSTER_TYRAEL1 251
 
 #define CLIENTSAVEFLAG_HARDCORE 0x4
 
@@ -776,8 +754,6 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
 #define COLLIDE_MASK_CORPSE 0x9C19
 
 #define CLIENTFLAGEX_HAS_SAVE_CHECKSUM 0x08
-
-#define LEVEL_HARROGATH 109
 
 struct D2SkillListStrc;
 

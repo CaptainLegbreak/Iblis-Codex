@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
@@ -476,12 +477,12 @@ static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStr
 
     case 15:
         nLevelPrest = gnMazePresetRemap[nLevelPrest][1];
-        if (pLevel->eLevelId == 52 && nLevelPrest == 361)
+        if (pLevel->eLevelId == LEVEL_PALACECELLARLEV1 && nLevelPrest == 361)
         {
             nPickedFile = 2;
         }
 
-        if (pLevel->eLevelId == 54 && (nLevelPrest == 361 || nLevelPrest == 359))
+        if (pLevel->eLevelId == LEVEL_PALACECELLARLEV3 && (nLevelPrest == 361 || nLevelPrest == 359))
         {
             nPickedFile = 3;
         }
@@ -505,12 +506,12 @@ static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStr
 
     case 23:
         nLevelPrest = gnMazePresetRemap[nLevelPrest][2];
-        if (pLevel->eLevelId == 84 && nLevelPrest == 662)
+        if (pLevel->eLevelId == LEVEL_SPIDERCAVE && nLevelPrest == 662)
         {
             nLevelPrest = 664;
         }
 
-        if (pLevel->eLevelId == 85 && nLevelPrest == 661)
+        if (pLevel->eLevelId == LEVEL_SPIDERCAVERN && nLevelPrest == 661)
         {
             nLevelPrest = 663;
         }
@@ -1244,7 +1245,7 @@ static void sub_00672550(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
     DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CavePrevIds[nRand], &nRand);
-    if (pLevel->eLevelId == 8)
+    if (pLevel->eLevelId == LEVEL_DENOFEVIL)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CaveDOEIds[nRand], &nRand);
     }
@@ -1253,12 +1254,12 @@ static void sub_00672550(D2DrlgLevelStrc* pLevel)
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CaveDownIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 9)
+    if (pLevel->eLevelId == LEVEL_CAVELEV1)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CaveColdcrowIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 10)
+    if (pLevel->eLevelId == LEVEL_UNDERGROUNDPASSAGELEV1)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CaveNextIds[nRand], &nRand);
     }
@@ -1269,12 +1270,12 @@ static void sub_00672610(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
     DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CryptPrevIds[nRand], &nRand);
-    if (pLevel->eLevelId == 18)
+    if (pLevel->eLevelId == LEVEL_CRYPT)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CryptSpecialIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 19 || pLevel->eLevelId == 133)
+    if (pLevel->eLevelId == LEVEL_MAUSOLEUM || pLevel->eLevelId == LEVEL_PANDEMONIUMRUN1)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CryptChestIds[nRand], &nRand);
     }
@@ -1290,17 +1291,17 @@ static void sub_006726D0(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
     DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1JailPrevIds[nRand], &nRand);
-    if (pLevel->eLevelId == 29)
+    if (pLevel->eLevelId == LEVEL_JAILLEV1)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1JailWaypointIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 30)
+    if (pLevel->eLevelId == LEVEL_JAILLEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1JailPitspawnIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 31)
+    if (pLevel->eLevelId == LEVEL_JAILLEV3)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1JailCathIds[nRand], &nRand);
     }
@@ -1315,7 +1316,7 @@ static void sub_006727A0(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
     DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CatacombsNextIds[nRand], &nRand);
-    if (pLevel->eLevelId == 35)
+    if (pLevel->eLevelId == LEVEL_CATACOMBSLEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct1CatacombsWaypointIds[nRand], &nRand);
     }
@@ -1411,12 +1412,12 @@ static void DRLGMAZE_PlaceAct2TombStuff(D2DrlgLevelStrc* pLevel)
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2TombPrevIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 57)
+    if (pLevel->eLevelId == LEVEL_HALLSOFTHEDEADLEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2TombNextIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 59 || pLevel->eLevelId == 61)
+    if (pLevel->eLevelId == LEVEL_STONYTOMBLEV2 || pLevel->eLevelId == LEVEL_CLAWVIPERTEMPLELEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2TombTreasureIds[nRand], &nRand);
     }
@@ -1426,17 +1427,17 @@ static void DRLGMAZE_PlaceAct2TombStuff(D2DrlgLevelStrc* pLevel)
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2TombTreasureIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 59)
+    if (pLevel->eLevelId == LEVEL_STONYTOMBLEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2TombTalRashaIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 60)
+    if (pLevel->eLevelId == LEVEL_HALLSOFTHEDEADLEV3)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2TombNext2Ids[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 59 || pLevel->eLevelId == 61)
+    if (pLevel->eLevelId == LEVEL_STONYTOMBLEV2 || pLevel->eLevelId == LEVEL_CLAWVIPERTEMPLELEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2TombChest2Ids[nRand], &nRand);
     }
@@ -1456,7 +1457,7 @@ static void DRLGMAZE_PlaceAct2TombStuff(D2DrlgLevelStrc* pLevel)
 static void DRLGMAZE_PlaceAct2LairStuff(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
-    if (pLevel->eLevelId == 64)
+    if (pLevel->eLevelId == LEVEL_MAGGOTLAIRLEV3)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2LairSpecialIds[8], &nRand);
         nRand = 3;
@@ -1498,13 +1499,13 @@ static void DRLGMAZE_PlaceAct3MephistoStuff(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
     DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct3KurastPrevIds[nRand], &nRand);
-    if (pLevel->eLevelId == 101)
+    if (pLevel->eLevelId == LEVEL_DURANCEOFHATELEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct3KurastNextIds[nRand], &nRand);
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct3KurastChestIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 100)
+    if (pLevel->eLevelId == LEVEL_DURANCEOFHATELEV1)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct3KurastChestIds[nRand], &nRand);
     }
@@ -1515,12 +1516,12 @@ static void DRLGMAZE_PlaceAct5TempleStuff(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) % 3;
     const int nFirstRand = nRand;
-    if (pLevel->eLevelId != 124)
+    if (pLevel->eLevelId != LEVEL_HALLSOFVAUGHT)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct5TemplePrevIds[nRand], &nRand);
     }
 
-    if (pLevel->eLevelId == 123)
+    if (pLevel->eLevelId == LEVEL_HALLSOFDEATHSCALLING)
     {
         D2_ASSERT(nRand != nFirstRand, 1532);
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct5TempleNextIds[nRand], &nRand);
@@ -1532,7 +1533,7 @@ static void DRLGMAZE_PlaceAct5BaalStuff(D2DrlgLevelStrc* pLevel)
 {
     int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
     DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct5BaalPrevIds[nRand], &nRand);
-    if (pLevel->eLevelId == 129)
+    if (pLevel->eLevelId == LEVEL_THEWORLDSTONEKEEPLEV2)
     {
         DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct5BaalNextIds[nRand], &nRand);
     }
@@ -1541,7 +1542,7 @@ static void DRLGMAZE_PlaceAct5BaalStuff(D2DrlgLevelStrc* pLevel)
 // 0x00673120
 static void DRLGMAZE_PlaceAct1Barracks(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgLevelStrc* pOuterCloisterLevel = DRLG_GetLevel(pLevel->pDrlg, 27);
+    D2DrlgLevelStrc* pOuterCloisterLevel = DRLG_GetLevel(pLevel->pDrlg, LEVEL_OUTERCLOISTER);
     int nDirection = pOuterCloisterLevel->pPreset->nDirection;
     D2DrlgRoomStrc* pDrlgRoom = gpfnMazeGetBarracksEntryRoom[nDirection](pLevel);
     int nX = pOuterCloisterLevel->nPosX;
@@ -1612,7 +1613,7 @@ static void DRLGMAZE_PlaceAct4Lava(D2DrlgLevelStrc* pLevel)
         return;
     }
 
-    D2DrlgLevelStrc* pChaosSanctum = DRLG_GetLevel(pLevel->pDrlg, 108);
+    D2DrlgLevelStrc* pChaosSanctum = DRLG_GetLevel(pLevel->pDrlg, LEVEL_CHAOSSANCTUM);
     D2DrlgRoomStrc* pParentRoom = DRLGMAZE_GetFreeLocationForRoomNorth(pLevel);
     DRLGMAZE_InitRoomFixedPreset(pParentRoom, 3, 852, -1, 1);
 
@@ -1735,7 +1736,7 @@ void __fastcall DRLGMAZE_RollAct_1_2_3_BasicPresets(D2DrlgLevelStrc* pLevel)
         return;
     }
 
-    if (pLevel->eLevelId == 8)
+    if (pLevel->eLevelId == LEVEL_DENOFEVIL)
     {
         return;
     }
@@ -1847,7 +1848,7 @@ void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* ptDrlgLevel)
         break;
 
     case 10:
-        sub_006714D0(ptDrlgLevel, ptDrlgLevel->eLevelId == 34);
+        sub_006714D0(ptDrlgLevel, ptDrlgLevel->eLevelId == LEVEL_CATACOMBSLEV1);
         DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
         sub_006727A0(ptDrlgLevel);
         break;
@@ -1865,7 +1866,7 @@ void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* ptDrlgLevel)
         break;
 
     case 17:
-        if (ptDrlgLevel->eLevelId == 61)
+        if (ptDrlgLevel->eLevelId == LEVEL_CLAWVIPERTEMPLELEV2)
         {
             MAZE_SetPreset(pDrlgRoom, 480, -1);
         }
@@ -1901,7 +1902,7 @@ void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* ptDrlgLevel)
         break;
 
     case 25:
-        if (ptDrlgLevel->eLevelId == 92)
+        if (ptDrlgLevel->eLevelId == LEVEL_SEWERSA3LEV1)
         {
             DRLGMAZE_InitBasicMazeLayout(5, ptDrlgLevel);
             D2_ASSERT(MAZE_ReplaceRoomPreset(ptDrlgLevel, 709, 735, -1), 2121);

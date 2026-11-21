@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -1467,12 +1468,12 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
     sub_004DED20_UpdateRoomColor();
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 74)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
     {
         sub_00476290_DrawStarfield();
     }
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 120)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ROCKYSUMMIT)
     {
         sub_00476460_DrawSummitBackdrop(pPlayer);
     }

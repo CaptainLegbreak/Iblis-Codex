@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
@@ -13,12 +14,6 @@
 #define FP16_SHIFT 16
 
 #define OBJSUBCLASS_SHRINE 0x01
-
-#define MONSTER_SHADOWWARRIOR 0x1A1
-
-#define MONSTER_SHADOWMASTER 0x1A2
-
-#define MONSTER_FIRST_EXPANSION 410
 
 #define SKILLSFLAGINDEX_USEATTACKRATE 3
 
@@ -286,20 +281,7 @@ enum
     OBJECT_TROPHY_CASE = 339,
 };
 
-enum
-{
-    MONSTER_VULTURE1 = 110,
-    MONSTER_DIABLO = 243,
-    MONSTER_DOOMKNIGHT1 = 310,
-    MONSTER_DIABLOCLONE = 333,
-    MONSTER_ACT3HIRE = 359,
-};
 
-enum
-{
-    MONSTER_TENTACLE1 = 258,
-    MONSTER_TENTACLEHEAD1 = 261,
-};
 
 enum
 {

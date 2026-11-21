@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -138,7 +139,7 @@ static int sub_0054EBC0_CanPopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRo
     if (!pRegion->nMonsterRegionLevel)
         return 0;
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 0x6C)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_CHAOSSANCTUM)
     {
         if (sub_005B5210(pGame))
             return 0;

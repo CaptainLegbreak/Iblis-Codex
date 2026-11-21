@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -733,11 +734,11 @@ int __fastcall DRLG_IsTownLevel(int nLevelId)
 {
     switch (nLevelId)
     {
-    case 1:
-    case 40:
-    case 75:
-    case 103:
-    case 109:
+    case LEVEL_ROGUEENCAMPMENT:
+    case LEVEL_LUTGHOLEIN:
+    case LEVEL_KURASTDOCKTOWN:
+    case LEVEL_THEPANDEMONIUMFORTRESS:
+    case LEVEL_HARROGATH:
         return 1;
 
     default:
@@ -1341,7 +1342,7 @@ void __fastcall DRLGOUTDESR_PlaceDesertTransitionToTown(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOrthStrc* pTownRoomData = pLevel->pOutdoors->pRoomData;
 
-    while (pTownRoomData && pTownRoomData->pLevel->eLevelId != 40)
+    while (pTownRoomData && pTownRoomData->pLevel->eLevelId != LEVEL_LUTGHOLEIN)
     {
         pTownRoomData = pTownRoomData->pNext;
     }

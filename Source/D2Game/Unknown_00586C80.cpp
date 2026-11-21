@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -12,7 +13,6 @@
 #define QFLAG_PRIMARYGOALDONE 13
 #define QFLAG_COMPLETEDNOW 14
 #define QFLAG_COMPLETEDBEFORE 15
-#define MONSTER_LARZUK 511
 #define QFLAG_CUSTOM1 5
 struct D2PlayerDataStrc;
 struct D2Act5Quest1Strc;

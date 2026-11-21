@@ -1,17 +1,7 @@
+#include "D2LevelIds.h"
 #include "D2Path.h"
 #include "D2LevelTxt.h"
 #include "D2Drlg.h"
-#define LEVEL_ROCKYWASTE 41
-#define LEVEL_DRYHILLS 42
-#define LEVEL_FAROASIS 43
-#define LEVEL_LOSTCITY 44
-#define LEVEL_VALLEYOFSNAKES 45
-#define LEVEL_CANYONOFTHEMAGI 46
-#define LEVEL_PANDEMONIUMRUN2 134
-#define LEVEL_ROGUEENCAMPMENT 1
-#define LEVEL_BLOODMOOR 2
-#define LEVEL_MOOMOOFARM 39
-
 struct D2DrlgStrc;
 
 

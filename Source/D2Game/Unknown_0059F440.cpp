@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -153,8 +154,8 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2ActiveRoomStr
     coords->nY-=3;
     D2ActiveRoomStrc* found=sub_00463740_FindRoomAtPoint(room,coords->nX,coords->nY);
     QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
-    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,201,1,-1,0);
-    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,201,1,2,0);
+    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,MONSTER_JERHYN,1,-1,0);
+    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->game,found,coords->nX,coords->nY,MONSTER_JERHYN,1,2,0);
     if (npc) {
         npc->dwFlags|=0x03000000;
         ex=quest->ex;
@@ -176,7 +177,7 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
         D2ActiveRoomStrc* pRoom = pOp->pRoom;
         pQuestDataEx->guardX = pOp->nX + 1;
         pQuestDataEx->guardY = pOp->nY;
-        sub_005B3090_SpawnAtPosition((pQuestData ? pQuestData->game : 0), pRoom, pQuestDataEx->guardX, pQuestDataEx->guardY, 331, 1, 0);
+        sub_005B3090_SpawnAtPosition((pQuestData ? pQuestData->game : 0), pRoom, pQuestDataEx->guardX, pQuestDataEx->guardY, MONSTER_ACT2GUARD2, 1, 0);
     }
     sub_005417D0_DirectDated(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 1, 0, 0);
     D2CoordStrc pCoord;

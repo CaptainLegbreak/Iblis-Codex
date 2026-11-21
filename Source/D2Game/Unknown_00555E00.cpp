@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -55,7 +56,7 @@ static int __stdcall sub_00555E00_CanSelectItem(D2SeedStrc* pSeed, int bIgnoreRa
 {
     if (nLevelId <= 0)
     {
-        nLevelId = 1;
+        nLevelId = LEVEL_ROGUEENCAMPMENT;
     }
 
     if (pItemsTxtRecord->nSpawnable > 0 && !pItemsTxtRecord->nQuest && pItemsTxtRecord->nLevel <= nLevelId)

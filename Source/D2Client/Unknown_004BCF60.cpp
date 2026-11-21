@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
 #include "D2Structs.h"
@@ -182,9 +184,9 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
     case 0x3C:
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-        if (nLevelId == 0x26)
+        if (nLevelId == LEVEL_TRISTRAM)
             pUnit->pObjectData->InteractType = 4;
-        else if (nLevelId == 4)
+        else if (nLevelId == LEVEL_STONYFIELD)
             pUnit->pObjectData->InteractType = 0x26;
         break;
     }
@@ -298,9 +300,9 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
             if (pTxt->dwParm[7])
             {
                 if (pTxt->dwParm[7] == 0xFF)
-                    sub_0046C320_SpawnAroundUnit(pUnit, 0x153, 4);
+                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_MINISPIDER, 4);
                 else
-                    sub_0046C320_SpawnAroundUnit(pUnit, 0x97, 4);
+                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_RAT, 4);
             }
 
             pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;

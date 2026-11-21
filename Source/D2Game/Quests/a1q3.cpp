@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
@@ -28,11 +30,7 @@
 
 #define QUEST_A1Q3_MALUS 3
 
-#define LEVEL_ROGUEENCAMPMENT 1
-
 #define STAT_LEVEL 12
-
-#define MONSTER_CHARSI 154
 
 #define LINE_CHANGEDLEVEL_DEBUG 0x189
 

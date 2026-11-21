@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2DataTbls.h"
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
@@ -598,13 +600,13 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
                     {
                         if (nIndex < sgptDataTables->nMonStatsTxtRecordCount)
                         {
-                            if (nIndex == sub_004E6C50_ValidateMonsterId(297))
+                            if (nIndex == sub_004E6C50_ValidateMonsterId(MONSTER_NATALYA))
                             {
                                 nIndex = 382;
                                 nType = 2;
                                 nMode = 0;
                             }
-                            else if (nIndex == sub_004E6C50_ValidateMonsterId(366))
+                            else if (nIndex == sub_004E6C50_ValidateMonsterId(MONSTER_COMPELLINGORB))
                             {
                                 nIndex = 404;
                                 nType = 2;
@@ -1379,7 +1381,7 @@ void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
         DRLGGRID_ResetGrid(&tTileInfoGrid);
     }
 
-    if (pDrlgRoom->ptDrlgLevel->eLevelId == 17)
+    if (pDrlgRoom->ptDrlgLevel->eLevelId == LEVEL_BURIALGROUNDS)
     {
         sub_00666990(pMemPool, pDrlgRoom);
     }
@@ -1896,10 +1898,10 @@ void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc*
             {
                 switch (DRLGPRESET_GetMonsterId(pPresetUnit->nIndex, nMonStatsCount))
                 {
-                case 204:
-                case 205:
-                case 371:
-                case 372:
+                case MONSTER_ACT2VENDOR1:
+                case MONSTER_ACT2VENDOR2:
+                case MONSTER_LIGHTNINGSPIRE:
+                case MONSTER_FIRETOWER:
                     if (SEED_RollRandomNumber(pSeed) % 3)
                     {
                         continue;
@@ -1985,7 +1987,7 @@ void __fastcall DRLGPRESET_SpawnHardcodedPresetUnits(D2DrlgRoomStrc* pDrlgRoom)
         case 5:
         case 6:
         case 7:
-            if (pDrlgRoom->ptDrlgLevel->eLevelId == 2 && pDrlgMap->nPickedFile == 3)
+            if (pDrlgRoom->ptDrlgLevel->eLevelId == LEVEL_BLOODMOOR && pDrlgMap->nPickedFile == 3)
             {
                 sub_006664A0(pDrlgMap, pMemPool);
             }
@@ -2299,7 +2301,7 @@ void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
 
     DRLGPRESET_BuildArea(pLevel, pPreset->pDrlgMap, 0, 0);
 
-    if (pLevel->eLevelId == 40 || pLevel->eLevelId == 103 || pLevel->eLevelId == 109)
+    if (pLevel->eLevelId == LEVEL_LUTGHOLEIN || pLevel->eLevelId == LEVEL_THEPANDEMONIUMFORTRESS || pLevel->eLevelId == LEVEL_HARROGATH)
     {
         if (pLevel->pDrlg->pfTownAutomap && pDrlgMap->pLvlPrestTxtRecord->dwAutoMap)
         {

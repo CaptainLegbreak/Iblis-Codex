@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
@@ -593,7 +595,7 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
         nLight = pMonStats2TxtRecord->nLight;
     }
 
-    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == 8 && sub_004B92E0_GetTableByte(0, 1) && !sub_00451F30_TestUnitFlag(pUnit, 0x200000)
+    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_DENOFEVIL && sub_004B92E0_GetTableByte(0, 1) && !sub_00451F30_TestUnitFlag(pUnit, 0x200000)
         && pMonStatsTxtRecord->nAlign != 1 && pMonStatsTxtRecord->nAlign != 2)
     {
         nLight = 3;
@@ -871,7 +873,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
     const int nId = sub_00463860_GetMonsterId(pUnit);
     const int nMonsterId = (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) ? nId : -1;
 
-    if (nMode == 0xD && nMonsterId != 0x4E)
+    if (nMode == 0xD && nMonsterId != MONSTER_SANDLEAPER1)
     {
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
         if (pPath)
@@ -900,13 +902,13 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
         switch (pUnit->dwAnimMode)
         {
         case 8:
-            if (nMonsterId == 0x6E)
+            if (nMonsterId == MONSTER_VULTURE1)
             {
                 return;
             }
         case 5:
         case 9:
-            if (nMonsterId == 0x193 || nMonsterId == 0x194)
+            if (nMonsterId == MONSTER_TRAPPEDSOUL1 || nMonsterId == MONSTER_TRAPPEDSOUL2)
             {
                 sub_00480E70_SetUnitMode(pUnit, 8);
                 sub_00624390(pUnit);
@@ -915,7 +917,7 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
             break;
 
         case 10:
-            if (nMonsterId == 0x88)
+            if (nMonsterId == MONSTER_BATDEMON1)
             {
                 sub_00480E70_SetUnitMode(pUnit, 0xB);
                 sub_00624390(pUnit);
@@ -924,27 +926,27 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
             break;
 
         case 11:
-            if (nMonsterId == 0x88)
+            if (nMonsterId == MONSTER_BATDEMON1)
             {
                 return;
             }
             break;
 
         case 2:
-            if (nMonsterId == 0xE7 || nMonsterId == 0x76)
+            if (nMonsterId == MONSTER_ICEGLOBE || nMonsterId == MONSTER_WILLOWISP1)
             {
                 return;
             }
             break;
 
         case 4:
-            if (nMonsterId == 0x193 || nMonsterId == 0x194)
+            if (nMonsterId == MONSTER_TRAPPEDSOUL1 || nMonsterId == MONSTER_TRAPPEDSOUL2)
             {
                 sub_00480E70_SetUnitMode(pUnit, 8);
                 sub_00624390(pUnit);
                 return;
             }
-            if (nMonsterId == 0x1F1)
+            if (nMonsterId == MONSTER_CATAPULT1)
             {
                 sub_004AE3C0(pUnit);
                 sub_004AE400_CastRandomCurse(pUnit);
@@ -952,14 +954,14 @@ static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
             break;
 
         case 14:
-            if (nMonsterId == 0xF7)
+            if (nMonsterId == MONSTER_FROGDEMON1)
             {
                 return;
             }
             break;
 
         case 12:
-            if (nMonsterId == 0x11C)
+            if (nMonsterId == MONSTER_MAGGOTQUEEN1)
             {
                 return;
             }

@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -7,16 +8,6 @@
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
 #include "D2MonModes.h"
-
-#define MONSTER_AKARA 148
-
-#define MONSTER_KASHYA 150
-
-#define MONSTER_WARRIV1 155
-
-#define MONSTER_LARZUK 511
-
-#define MONSTER_MALAH 513
 
 #define QUEST_A1Q4_CAIN 4
 
@@ -37,12 +28,6 @@
 #define UNIT_MONSTER 1
 
 #define UNIT_INVALID 6
-
-#define MONSTER_DREHYA 512
-
-#define MONSTER_DREHYAICED 527
-
-#define MONSTER_ACT5POW 534
 
 #define QUESTSTATEFLAG_A5Q4 38
 
@@ -802,7 +787,7 @@ void __fastcall OBJECTS_InitFunction71_LarzukStandard(D2ObjInitFnStrc* pOp)
         return;
     }
 
-    D2UnitStrc* pLarzuk = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pRoom, pCoord.nX, pCoord.nY, 0x1FF, 1, 5, 0);
+    D2UnitStrc* pLarzuk = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pRoom, pCoord.nX, pCoord.nY, MONSTER_LARZUK, 1, 5, 0);
     if (!pLarzuk)
     {
         return;

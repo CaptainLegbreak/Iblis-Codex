@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -7,14 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
 
-enum
-{
-};
 
-enum
-{
-    MONSTER_DREHYAICED = 0x20F,
-};
 
 enum
 {

@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -23,10 +25,6 @@
 #define QUEST_A2Q5_SUMMONER 12
 
 #define ACT_II 1
-
-#define LEVEL_ARCANESANCTUARY 74
-
-#define LEVEL_PALACECELLARLEV3 54
 
 #define OBJECT_EUNUCH_HAREM_BLOCKER 318
 
@@ -70,10 +68,6 @@ enum D2C_M11A2Q4Constants
     QFLAG_CUSTOM3 = 7,
     QFLAG_CUSTOM4 = 8,
     QFLAG_PRIMARYGOALDONE = 13,
-    MONSTER_DROGNAN = 177,
-    MONSTER_JERHYN = 201,
-    MONSTER_ACT2GUARD2 = 331,
-    LEVEL_CANYONOFTHEMAGI = 46,
     OBJECT_PERMANENT_TOWN_PORTAL = 60,
 };
 
@@ -627,8 +621,8 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* co
     coords->nY-=3;
     D2ActiveRoomStrc* found=sub_00463740_FindRoomAtPoint(room,coords->nX,coords->nY);
     QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
-    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,201,1,-1,0);
-    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,201,1,2,0);
+    D2UnitStrc* npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,MONSTER_JERHYN,1,-1,0);
+    if (!npc) npc=D2GAME_SpawnMonster_6FC69F10(quest->pGame,found,coords->nX,coords->nY,MONSTER_JERHYN,1,2,0);
     if (npc) {
         npc->dwFlags|=0x03000000;
         ex=(D2Act2Quest4Strc*)quest->pQuestDataEx;

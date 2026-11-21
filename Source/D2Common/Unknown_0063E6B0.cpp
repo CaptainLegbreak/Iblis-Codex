@@ -1,10 +1,8 @@
+#include "D2MonsterIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 
-enum
-{
-};
 
 enum
 {
@@ -17,11 +15,6 @@ enum
     ACT_II = 1,
 };
 
-enum
-{
-    MONSTER_SKELETON1 = 0,
-    MONSTER_SK_ARCHER1 = 170,
-};
 
 
 struct D2MonStatsTxt

@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Drlg.h"
 
 
@@ -37,7 +38,7 @@ static void sub_0067E660(D2DrlgLevelStrc* pLevel)
 // 0x0067E6A0
 static void sub_0067E6A0(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->eLevelId == 106)
+    if (pLevel->eLevelId == LEVEL_CITYOFTHEDAMNED)
     {
         DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x32B, -1, 0, 15);
     }
@@ -53,7 +54,7 @@ static void sub_0067E6A0(D2DrlgLevelStrc* pLevel)
     DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 3, -1, 0, 15);
     DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 3, -1, 0, 15);
 
-    if (pLevel->eLevelId == 105)
+    if (pLevel->eLevelId == LEVEL_PLAINSOFDESPAIR)
     {
         DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x336, -1, 0, 15);
     }
@@ -86,7 +87,7 @@ static void sub_0067E840(D2DrlgLevelStrc* pLevel)
 // 0x0067E890
 void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->eLevelId == 108)
+    if (pLevel->eLevelId == LEVEL_CHAOSSANCTUM)
     {
         DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     }

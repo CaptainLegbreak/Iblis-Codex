@@ -1,4 +1,6 @@
+#include "D2MonsterIds.h"
 #include "D2SkillIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -2071,7 +2073,7 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
 
     if (pUnit && DUNGEON_IsRoomInTown(hRoom))
     {
-        if ((nDestLevel != 0x27 && nDestLevel != 0x88 && nDestLevel != 0x85 && nDestLevel != 0x86 && nDestLevel != 0x87) || nObjectId != 0x3C)
+        if ((nDestLevel != LEVEL_MOOMOOFARM && nDestLevel != LEVEL_PANDEMONIUMFINALE && nDestLevel != LEVEL_PANDEMONIUMRUN1 && nDestLevel != LEVEL_PANDEMONIUMRUN2 && nDestLevel != LEVEL_PANDEMONIUMRUN3) || nObjectId != 0x3C)
         {
             SUNIT_AttachSound(pUnit, 0x18, pUnit);
             return 0;
@@ -2810,7 +2812,7 @@ int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState)
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const int nBaseId = MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == 0x1EC && STATES_CheckState(pUnit, 0x8F))
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_IMP1 && STATES_CheckState(pUnit, 0x8F))
         {
             return 0;
         }

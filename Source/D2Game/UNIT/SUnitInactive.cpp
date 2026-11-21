@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -767,11 +769,11 @@ static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* p
         const int nBaseId = MONSTERS_GetBaseIdInl(pUnit->dwClassId);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
         {
-            if (nBaseId == 0x44)
+            if (nBaseId == MONSTER_SANDMAGGOT1)
             {
                 AIGENERAL_SetAiControlParam(pUnit, 3, pNode->nCmdParam1);
             }
-            else if (nBaseId == 0x21F)
+            else if (nBaseId == MONSTER_BAALTHRONE)
             {
                 AIGENERAL_SetAiControlParam(pUnit, 1, pNode->nCmdParam1);
             }
@@ -855,11 +857,11 @@ static void __stdcall sub_00541FE0_SaveSpecialMonsterParameters(D2GameStrc* pGam
         const int nBaseId = MONSTERS_GetBaseIdInl(pUnit->dwClassId);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
         {
-            if (nBaseId == 0x44)
+            if (nBaseId == MONSTER_SANDMAGGOT1)
             {
                 pNode->nCmdParam1 = AIGENERAL_GetAiControlParam(pUnit, 3);
             }
-            else if (nBaseId == 0x21F)
+            else if (nBaseId == MONSTER_BAALTHRONE)
             {
                 pNode->nCmdParam1 = AIGENERAL_GetAiControlParam(pUnit, 1);
             }
@@ -1033,7 +1035,7 @@ static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc* pGame,D2A
     if (!list) return;
     D2InactiveMonsterNodeStrc* next = list->pInactiveMonsters;
     int chaos = 0;
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 108 && ACT4Q2_IsChaosSanctumCleared(pGame)) chaos = 1;
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_CHAOSSANCTUM && ACT4Q2_IsChaosSanctumCleared(pGame)) chaos = 1;
     while (next)
     {
         D2InactiveMonsterNodeStrc* node = next;

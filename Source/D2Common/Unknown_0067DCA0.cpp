@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -44,7 +45,7 @@ void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
     int nX = nRight;
     int nY = 0;
     int nBottom = pInfo->nGridHeight - 2;
-    int bTundra = pLevel->eLevelId == 117;
+    int bTundra = pLevel->eLevelId == LEVEL_TUNDRAWASTELANDS;
     int nKindBase = bTundra ? 0x3BD : 0x371;
     int nPresetBase = bTundra ? 0x3C9 : 0x37D;
 

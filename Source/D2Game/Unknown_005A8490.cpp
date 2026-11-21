@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -23,7 +24,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 enum D2C_Q05MonsterConstants
 {
     EVENTTYPE_AITHINK = 2,
-    MONSTER_SANDLEAPER1 = 78,
     STATE_STUNNED = 21,
 };
 

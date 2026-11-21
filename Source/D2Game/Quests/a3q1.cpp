@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -154,7 +155,7 @@ void __fastcall OBJECTS_InitFunction49_HratliStart(D2ObjInitFnStrc* pOp)
         return;
     }
 
-    D2UnitStrc* pHratli = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, 253, 1, -1, 0);
+    D2UnitStrc* pHratli = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_HRATLI, 1, -1, 0);
     if (pHratli)
     {
         pQuestDataEx->nHratliGUID = pHratli->dwUnitId;
@@ -187,7 +188,7 @@ void __fastcall OBJECTS_InitFunction50_HratliEnd(D2ObjInitFnStrc* pOp)
         return;
     }
 
-    D2UnitStrc* pHratli = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, 253, 1, -1, 0);
+    D2UnitStrc* pHratli = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_HRATLI, 1, -1, 0);
     if (!pHratli)
     {
         return;

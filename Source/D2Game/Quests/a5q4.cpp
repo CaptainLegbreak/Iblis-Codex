@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -20,11 +22,7 @@
 
 #define QUEST_A5Q4_NIHLATHAK 34
 
-#define LEVEL_NIHLATHAKSTEMPLE 121
-
 #define OBJECT_PERMANENT_TOWN_PORTAL 60
-
-#define MONSTER_DREHYA 512
 
 #define EVENTTYPE_MONUMOD 7
 
@@ -99,8 +97,6 @@ typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 #define MSG_DREHYA_INTRO 20137
 
 #define MSG_DREHYA_DONE 20148
-
-#define LEVEL_HARROGATH 109
 
 #define QUESTFX_A5Q4 17
 
@@ -205,10 +201,6 @@ struct D2Act1Quest4Strc;
 enum D2C_F33QuestConstants
 {
     ACT_V = 4,
-    LEVEL_ROGUEENCAMPMENT = 1,
-    LEVEL_TRISTRAM = 38,
-    LEVEL_ROCKYSUMMIT = 120,
-    LEVEL_HALLSOFDEATHSCALLING = 123,
     QUEST_A1Q2_BLOODRAVEN = 2,
     QUEST_A1Q3_MALUS = 3,
     QUEST_A1Q4_CAIN = 4,
@@ -219,11 +211,6 @@ enum D2C_F33QuestConstants
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A5Q6 = 40,
     QFLAG_CUSTOM6 = 10,
-    MONSTER_CHARSI = 154,
-    MONSTER_KASHYA = 150,
-    MONSTER_AKARA = 148,
-    MONSTER_CAIN5 = 265,
-    MONSTER_TYRAEL3 = 521,
     EVENTTYPE_ENDANIM = 1,
     EVENTTYPE_QUESTFN = 7,
     STAT_LEVEL = 12,

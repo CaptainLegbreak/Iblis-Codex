@@ -1,12 +1,10 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2DrlgTiles.h"
 #include "D2Drlg.h"
 
-#define LEVEL_SPIDERFOREST 76
-#define LEVEL_GREATMARSH 77
-#define LEVEL_FLAYERJUNGLE 78
 #define LVLPREST_ACT3_JUNGLE_HEAD 573
 #define LVLPREST_ACT3_JUNGLE_TAIL 574
 
@@ -269,7 +267,7 @@ void __fastcall sub_0067F190(D2DrlgLevelStrc* pLevel)
 // 0x0067F3B0
 void __fastcall sub_0067F3B0(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->eLevelId == 83)
+    if (pLevel->eLevelId == LEVEL_TRAVINCAL)
     {
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 0, 0x28D, -1, 0);
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 2, 0, 0x28E, -1, 0);

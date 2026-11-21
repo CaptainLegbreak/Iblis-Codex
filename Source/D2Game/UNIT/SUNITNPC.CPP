@@ -1,4 +1,6 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
 #include "D2Structs.h"
@@ -245,7 +247,6 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
 
 void __fastcall sub_00576C30_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory); // 0x00576C30
 
-
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0
 
 int __stdcall SKILLS_GetQuantity(D2SkillStrc*); // 0x006450F0
@@ -410,7 +411,6 @@ void __fastcall sub_00576070_InitGamble(D2GameStrc* pGame, int nVendorId, D2NpcR
 
 void __fastcall D2GAME_SendPacket0x4E_6FC3F410(D2ClientStrc* pClient, D2GSPacketSrv4E* pPacket);           // 0x0053D7B0
 
-
 struct D2ActiveRoomStrc;
 
 struct D2CoordStrc;
@@ -567,7 +567,6 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 
-
 struct D2HirelingInitStrc;
 
 struct D2HirelingInitStrc
@@ -590,7 +589,6 @@ struct D2HirelingInitStrc
     short unk0x3A;
 };
 
-
 int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nClassId, unsigned short nNameId); // 0x00663750
 
 int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
@@ -606,12 +604,6 @@ unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient);               
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(int bExpansion, int nAct, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x00656580
-
-#define MONSTER_KASHYA 150
-
-#define MONSTER_GREIZ 198
-
-#define MONSTER_ASHEARA 252
 
 void __fastcall sub_00578AE0_FillGambleIfMissing(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer, D2NpcRecordStrc* pNpcRecord); // 0x00578AE0
 
@@ -1145,7 +1137,7 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
         return;
     }
 
-    if (pNpc->dwClassId != 150 && pNpc->dwClassId != 198 && pNpc->dwClassId != 515 && pNpc->dwClassId != 252)
+    if (pNpc->dwClassId != MONSTER_KASHYA && pNpc->dwClassId != MONSTER_GREIZ && pNpc->dwClassId != MONSTER_QUAL_KEHK && pNpc->dwClassId != MONSTER_ASHEARA)
     {
         return;
     }
@@ -1500,7 +1492,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
 
     if (pNpc)
     {
-        if (pNpc->dwClassId == 0x203)
+        if (pNpc->dwClassId == MONSTER_QUAL_KEHK)
         {
             D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
             if (!QUESTRECORD_GetQuestState(pQuestRecord, 0x24, 0))
@@ -1510,7 +1502,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
             }
         }
 
-        if (pNpc->dwClassId == 0x96 && nLevel < 8)
+        if (pNpc->dwClassId == MONSTER_KASHYA && nLevel < 8)
         {
             D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
             if (!QUESTRECORD_GetQuestState(pQuestRecord, 2, 0))
@@ -2010,7 +2002,7 @@ int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* ptGame, D2UnitStrc* pUnit,
         return 1;
     }
 
-    if (pNpc->dwClassId != 257 && pNpc->dwClassId != 154 && pNpc->dwClassId != 178 && pNpc->dwClassId != 511 && pNpc->dwClassId != 253)
+    if (pNpc->dwClassId != MONSTER_HALBU && pNpc->dwClassId != MONSTER_CHARSI && pNpc->dwClassId != MONSTER_FARA && pNpc->dwClassId != MONSTER_LARZUK && pNpc->dwClassId != MONSTER_HRATLI)
     {
         SEND_0x2A(9, 0x9D2, 0);
         return 1;
@@ -3453,7 +3445,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         D2GAME_PlayerChangeAct_6FC867C0(pGame, pPlayer, 0x28, 0);
         QUESTS_ActChange_HirelingChangeAct(pGame, pPlayer, pMonster, 0x28, 1);
 
-        if (WAYPOINTS_GetWaypointNoFromLevelId(0x28, &nWpNo))
+        if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_LUTGHOLEIN, &nWpNo))
         {
             WAYPOINTS_ActivateWaypoint(sub_00547F50(pGame, pPlayer), nWpNo);
         }
@@ -3474,7 +3466,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         D2GAME_PlayerChangeAct_6FC867C0(pGame, pPlayer, 0x4B, 0);
         QUESTS_ActChange_HirelingChangeAct(pGame, pPlayer, pMonster, 0x4B, 0x28);
 
-        if (WAYPOINTS_GetWaypointNoFromLevelId(0x4B, &nWpNo))
+        if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_KURASTDOCKTOWN, &nWpNo))
         {
             WAYPOINTS_ActivateWaypoint(sub_00547F50(pGame, pPlayer), nWpNo);
         }
@@ -3498,7 +3490,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         D2GAME_PlayerChangeAct_6FC867C0(pGame, pPlayer, 0x6D, 0);
         QUESTS_ActChange_HirelingChangeAct(pGame, pPlayer, pMonster, 0x6D, 0x67);
 
-        if (WAYPOINTS_GetWaypointNoFromLevelId(0x6D, &nWpNo))
+        if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_HARROGATH, &nWpNo))
         {
             WAYPOINTS_ActivateWaypoint(sub_00547F50(pGame, pPlayer), nWpNo);
         }

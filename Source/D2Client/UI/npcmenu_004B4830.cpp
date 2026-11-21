@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2MonModes.h"
 #include "D2Client.h"
@@ -393,7 +394,7 @@ void __fastcall sub_004AD5F0_StateOverlayOrSpawn(D2UnitStrc* pUnit, int nState, 
         {
             CLIENTS_GetUnitX(pUnit);
             CLIENTS_GetUnitY(pUnit);
-            sub_0046C320_SpawnAroundUnit(pUnit, 0xE3, 4);
+            sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_MAGGOT, 4);
             pMonsterData->dwDurielFlag += 4;
         }
     }
@@ -846,21 +847,21 @@ int __cdecl sub_004B41E0_GreetNpcMessage()
         {
             switch (pNpc->dwClassId)
             {
-            case 0x201:
+            case MONSTER_MALAH:
                 if (nClass == 4)
                 {
                     sub_004B40D0_ShowNpcMessage(0, 0xF);
                     return 1;
                 }
                 break;
-            case 0x202:
+            case MONSTER_NIHLATHAK:
                 if (nClass == 2)
                 {
                     sub_004B40D0_ShowNpcMessage(0, 0xB);
                     return 1;
                 }
                 break;
-            case 0x203:
+            case MONSTER_QUAL_KEHK:
                 if (nClass == 3)
                 {
                     sub_004B40D0_ShowNpcMessage(0, 0xA);

@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -131,10 +132,6 @@ bool __fastcall sub_0059D450(Quest*); // 0x0059D450
 enum { QUEST_FILTER = 14, ALLOC_LINE = 1090 };
 
 #define QUEST_A2Q4_HORAZONTOME 11
-
-#define LEVEL_PALACECELLARLEV3 54
-
-#define LEVEL_ARCANESANCTUARY 74
 
 #define UNIT_TILE 5
 
@@ -468,7 +465,7 @@ int __fastcall ACT2Q6_UnitIterate_SetLeaveTownFlag(D2GameStrc* pGame, D2UnitStrc
     D2_ASSERT(tLocals.pQuestInfo, 401);
 
     bool bInLair = false;
-    if (DUNGEON_GetLevelIdFromRoom(tLocals.pRoom) == 73)
+    if (DUNGEON_GetLevelIdFromRoom(tLocals.pRoom) == LEVEL_DURIELSLAIR)
     {
         bInLair = true;
     }

@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -70,16 +71,6 @@ enum D2C_F39Constants
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
     STATE_FETISHAURA = 0x19,
-    MONSTER_FETISH1 = 0x8D,
-    MONSTER_FETISH2 = 0x8E,
-    MONSTER_FETISH3 = 0x8F,
-    MONSTER_FETISH4 = 0x90,
-    MONSTER_FETISH5 = 0x91,
-    MONSTER_FETISHBLOW1 = 0x18C,
-    MONSTER_FETISHBLOW2 = 0x18D,
-    MONSTER_FETISHBLOW3 = 0x18E,
-    MONSTER_FETISHBLOW4 = 0x18F,
-    MONSTER_FETISHBLOW5 = 0x190,
     UNITFLAG_NOTC = 0x20000,
     EVENTTYPE_ENDANIM = 1,
     STATE_NOMANAREGEN = 0x55,
@@ -1070,7 +1061,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             SUNIT_SetCombatMode(pGame, pUnit, 1);
             UNITS_SetUsedSkill(pUnit, 0);
             const int nMonsterId = sub_00463900_GetValidMonsterId(sub_00463860(pUnit));
-            const int nMode = nMonsterId != 73 ? (nMonsterId == 211 ? 5 : 4) : 5;
+            const int nMode = nMonsterId != MONSTER_CLAWVIPER1 ? (nMonsterId == MONSTER_DURIEL ? 5 : 4) : 5;
             D2ModeChangeStrc modeChange;
             MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
             modeChange.pTargetUnit = pTarget;
@@ -1097,7 +1088,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         D2MonStatsTxt* pRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
         if (pRecord) {
             nVelocity = pRecord->nRun << 8;
-            if (nMonsterId == 211) SKILLS_SetParam4(pSkill, 15);
+            if (nMonsterId == MONSTER_DURIEL) SKILLS_SetParam4(pSkill, 15);
             sub_00649050(pPath);
             PATH_SetNewDistance(pPath, 20);
         }

@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
@@ -18,7 +19,6 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 enum D2C_M101VileMotherConstants
 {
     UNIT_ALIGNMENT_EVIL = 0,
-    MONSTER_VILECHILD1 = 301,
 };
 
 enum D2C_VileMotherAIParams

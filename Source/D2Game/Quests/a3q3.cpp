@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -9,12 +10,6 @@
 #include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define MONSTER_HRATLI 253
-
-#define MONSTER_ASHEARA 252
-
-#define MONSTER_ORMUS 255
 
 struct D2PlayerDataStrc;
 

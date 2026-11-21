@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2GameAux.h"
 #include "D2Constants.h"
@@ -14,9 +15,6 @@ union D2SeedStrc;
 struct D2MapAIPathPositionStrc;
 struct D2AiCmdStrc;
 
-enum
-{
-};
 
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
@@ -39,14 +37,6 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 
-enum D2C_Y10AiThinkConstants
-{
-    MONSTER_JERHYN = 201,
-    MONSTER_ALKOR = 254,
-    MONSTER_ORMUS = 255,
-    MONSTER_CAIN5 = 265,
-    MONSTER_DREHYA = 512,
-};
 
 bool __fastcall sub_005E6800_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam); // 0x005E6800
 bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E68F0

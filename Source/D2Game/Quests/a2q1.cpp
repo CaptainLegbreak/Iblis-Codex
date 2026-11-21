@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Game.h"
@@ -112,7 +113,6 @@ void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc*,D2UnitStrc*,D2UnitStrc*);
 enum
 {
     QUESTSTATEFLAG_A2Q1 = 9,
-    LEVEL_LUTGHOLEIN = 40,
 };
 
 extern char gpAct2Q1NpcMessages[];                                                                          // 0x00739218

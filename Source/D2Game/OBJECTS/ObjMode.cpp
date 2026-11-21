@@ -1,4 +1,6 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -30,14 +32,6 @@
 #define UNITFLAGEX_TELEPORTED 0x10000
 
 #define UNITFLAG_TARGETABLE 0x00000002
-
-#define MONSTER_TRAP_FIREBOLT 0x146
-
-#define MONSTER_TRAP_POISONCLOUD 0x149
-
-#define MONSTER_TRAP_LIGHTNING 0x14A
-
-#define MONSTER_TRAP_NOVA 0x171
 
 #define ITEMTYPE_GEM 20
 
@@ -365,8 +359,6 @@ int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp
 enum
 {
     EVENTTYPE_ENDANIM = 1,
-    LEVEL_PALACECELLARLEV3 = 54,
-    LEVEL_ARCANESANCTUARY = 74,
     ARCANE_TILECALC = 11,
 };
 
@@ -552,8 +544,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 
 #define OBJECT_GUILD_PORTAL 377
 
-#define LEVEL_DURIELSLAIR 73
-
 struct D2ObjOperateStrc;
 
 void __fastcall D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char a6, int nAnimMode); // 0x0053B470
@@ -621,8 +611,6 @@ struct D2RoomCoordListStrc;
 #define EVENTTYPE_TRAP 4
 
 #define UNITFLAG_TARGETABLE 2
-
-#define MONSTER_FLYINGSCIMITAR 234
 
 #define STAT_LEVEL 12
 
@@ -917,7 +905,7 @@ void __fastcall sub_6FC74DF0(D2GameStrc* pGame, D2UnitStrc* pObject)
     }
     else if (nTrapType == 3)
     {
-        if (nLevelId < 40 && nLevelId != 25)
+        if (nLevelId < 40 && nLevelId != LEVEL_TOWERCELLARLEV5)
         {
             D2_ASSERT(!IsBadCodePtr((FARPROC)sgObjectTrapHandlers[2]), 0x16C);
             sgObjectTrapHandlers[2](pGame, pObject);
@@ -2890,8 +2878,8 @@ void __fastcall OBJMODE_TravelViaWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer
     }
 
     int nTileIndex;
-    if (DUNGEON_IsTownLevelId(nDestLevelId) || nDestLevelId == 46 || nDestLevelId == 74 || nDestLevelId == 133
-        || nDestLevelId == 134 || nDestLevelId == 135 || nDestLevelId == 136)
+    if (DUNGEON_IsTownLevelId(nDestLevelId) || nDestLevelId == LEVEL_CANYONOFTHEMAGI || nDestLevelId == LEVEL_ARCANESANCTUARY || nDestLevelId == LEVEL_PANDEMONIUMRUN1
+        || nDestLevelId == LEVEL_PANDEMONIUMRUN2 || nDestLevelId == LEVEL_PANDEMONIUMRUN3 || nDestLevelId == LEVEL_PANDEMONIUMFINALE)
     {
         nTileIndex = 13;
     }

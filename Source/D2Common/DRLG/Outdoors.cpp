@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -53,8 +54,6 @@ int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 extern "C" const int gdwAct12ShrineFlags_006F061C[4]; // 0x006F061C
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
-
-#define LEVEL_COLDPLAINS 3
 
 #define FLAG_OPERATION_OR 0
 
@@ -648,7 +647,7 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
     DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pRoomData);
     sub_00675080_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
 
-    if (pLevel->eLevelId == 134)
+    if (pLevel->eLevelId == LEVEL_PANDEMONIUMRUN2)
     {
         nAct = 1;
     }

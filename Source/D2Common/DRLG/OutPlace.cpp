@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Path.h"
 #include "D2Drlg.h"
 #include "D2DrlgTiles.h"
@@ -147,7 +148,7 @@ static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel); // 0x0067
 // build: context DRLG_GenerateJungles
 static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel)
 {
-    D2LevelDefBin* pLevelDef = DATATBLS_GetLevelDefRecord(76);
+    D2LevelDefBin* pLevelDef = DATATBLS_GetLevelDefRecord(LEVEL_SPIDERFOREST);
     int nIdx = 1;
     D2DrlgStrc* pDrlg = pLevel->pDrlg;
     void* pMemPool = pDrlg->pMempool;
@@ -842,9 +843,9 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
             }
         }
 
-        if (pLevel->eLevelId == 6)
+        if (pLevel->eLevelId == LEVEL_BLACKMARSH)
         {
-            pPresetInfo = DRLG_GetLevel(pDrlg, 0x1B)->pPreset;
+            pPresetInfo = DRLG_GetLevel(pDrlg, LEVEL_OUTERCLOISTER)->pPreset;
             switch (pLevelLinkData.nRand[0][i])
             {
             case 1:
@@ -968,7 +969,7 @@ static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
     sub_006772C0_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
     sub_006772C0_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
 
-    DRLG_GetLevel(pDrlg, 0x68)->pOutdoors->dwFlags |= dword_6FDEA6FC;
+    DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= dword_6FDEA6FC;
 
     sub_00677680_AddLevelOrths(pDrlg, 0x6A, 0x67);
 }
@@ -1000,7 +1001,7 @@ D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLeve
     D2DrlgStrc* pDrlg = pLevel->pDrlg;
     int nHalfWidth = pLevel->nWidth / 2;
     int nPosY = 0;
-    int nLevelId = 79;
+    int nLevelId = LEVEL_LOWERKURAST;
     int nCount = 5;
     D2DrlgLevelStrc* pAdjacentLevel;
     do
@@ -1024,8 +1025,8 @@ static __declspec(noinline) void sub_006789B0_CreateAct3LevelConnections(D2DrlgS
 // 0x006789B0
 static void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg)
 {
-    D2DrlgLevelStrc* pLevel = DRLG_GetLevel(pDrlg, 75);
-    D2LevelDefBin* pDef = DATATBLS_GetLevelDefRecord(75);
+    D2DrlgLevelStrc* pLevel = DRLG_GetLevel(pDrlg, LEVEL_KURASTDOCKTOWN);
+    D2LevelDefBin* pDef = DATATBLS_GetLevelDefRecord(LEVEL_KURASTDOCKTOWN);
     pLevel->nPosX = pDef->dwOffsetX;
     pLevel->nPosY = pDef->dwOffsetY;
     pLevel->nWidth = pDef->dwSizeX[pDrlg->nDifficulty];

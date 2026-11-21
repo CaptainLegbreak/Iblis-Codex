@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -215,7 +216,7 @@ static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D
             PATH_SetMoveTestCollisionMask(pPath, 0x3C01);
             PATH_SetType(pPath, 2);
 
-            if (nBaseId == 0x4E)
+            if (nBaseId == MONSTER_SANDLEAPER1)
             {
                 sub_005DA020_SandLeaperKnockback(pGame, nX, nY, pUnit, pSkill);
             }
@@ -248,11 +249,11 @@ static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D
     }
 
     int nAnimFrame = 0;
-    if (nBaseId == 0x4E)
+    if (nBaseId == MONSTER_SANDLEAPER1)
     {
         nAnimFrame = 8;
     }
-    else if (nBaseId == 0x21C)
+    else if (nBaseId == MONSTER_ANCIENTBARB1)
     {
         nAnimFrame = sub_006417F0_GetDistanceToXY(pUnit, nX, nY) < 2 ? 12 : 10;
     }

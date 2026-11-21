@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -43,12 +45,6 @@ struct D2MapAIStrc;
 #define UNIT_ALIGNMENT_GOOD 2
 
 #define UNIT_NUM_ALIGNMENT 3
-
-#define MONSTER_HYDRA1 351
-
-#define MONSTER_HYDRA2 352
-
-#define MONSTER_HYDRA3 353
 
 #define STATE_ALIGNMENT 105
 
@@ -565,10 +561,6 @@ int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc
 
 enum D2C_M108SUnitConstants
 {
-    LEVEL_PANDEMONIUMRUN1 = 133,
-    LEVEL_PANDEMONIUMRUN2 = 134,
-    LEVEL_PANDEMONIUMRUN3 = 135,
-    LEVEL_PANDEMONIUMFINALE = 136,
     OBJECT_GOLD_PLACEHOLDER = 26,
     OBJECT_WIRTSBODY = 268,
     OBJECT_CAINGIBBET = 269,

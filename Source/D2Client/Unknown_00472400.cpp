@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
@@ -50,10 +51,10 @@ void __cdecl sub_00472400_ResetPhaseState()
 
     switch (nLevelId)
     {
-    case 109:
-    case 110:
-    case 111:
-    case 112:
+    case LEVEL_HARROGATH:
+    case LEVEL_BLOODYFOOTHILLS:
+    case LEVEL_ID_ACT5_BARRICADE_1:
+    case LEVEL_ARREATPLATEAU:
         gnGlobal_007A89DC = 42;
         gnGlobal_007A89D8 = 42;
         gnGlobal_007A899C = 170;
@@ -61,7 +62,7 @@ void __cdecl sub_00472400_ResetPhaseState()
         gnPhaseLevel_007A89E0 = gnPhaseMax_007A89C0 = sub_00472280(pSeed, 0x20, 0x38);
         return;
 
-    case 117:
+    case LEVEL_TUNDRAWASTELANDS:
         gnGlobal_007A89D8 = 170;
         gnGlobal_007A8998 = 56;
         gnGlobal_007A89DC = 28;
@@ -69,8 +70,8 @@ void __cdecl sub_00472400_ResetPhaseState()
         gnPhaseLevel_007A89E0 = gnPhaseMax_007A89C0 = sub_00472280(pSeed, 0x20, 0x70);
         return;
 
-    case 120:
-    case 121:
+    case LEVEL_ROCKYSUMMIT:
+    case LEVEL_NIHLATHAKSTEMPLE:
         gnGlobal_007A89D8 = 28;
         gnGlobal_007A8998 = 28;
         gnGlobal_007A89DC = 28;

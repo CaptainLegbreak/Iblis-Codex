@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -4630,7 +4631,7 @@ static int __stdcall sub_0054CED0_EquipMercItem(D2UnitStrc* pPlayer, D2UnitStrc*
 
     D2UnitStrc* pExchangeItem;
     int nTargetBodyLoc;
-    if (pMerc->dwClassId == 0x167 && ITEMSIsA(pItem, 2))
+    if (pMerc->dwClassId == MONSTER_ACT3HIRE && ITEMSIsA(pItem, 2))
     {
         pExchangeItem = pItem2;
         nTargetBodyLoc = nBodyLoc2;

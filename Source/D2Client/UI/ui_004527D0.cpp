@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -981,7 +982,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         const int nY = (pRect->nHeight >> 1) + pRect->nY + gnHoverY_0070F858;
         Unicode wszText[0xC8] = { 0 };
         const Unicode* pText = (const Unicode*)pLevelsTxt->wszLevelWarp;
-        if (nLevelId == 8)
+        if (nLevelId == LEVEL_DENOFEVIL)
         {
             if (sub_004B92E0_GetTableByte(0, 1))
             {

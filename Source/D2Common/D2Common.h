@@ -323,12 +323,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define ITEMTYPE_CHARM 13
 #define ITEMTYPE_GOLD 4
 #define ITEM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define LEVEL_BLOODMOOR 2
-#define LEVEL_CITYOFTHEDAMNED 106
-#define LEVEL_OUTERSTEPPES 104
-#define LEVEL_PLAINSOFDESPAIR 105
-#define LEVEL_ROCKYSUMMIT 120
-#define LEVEL_THEPANDEMONIUMFORTRESS 103
 #define LINE_DOOR 0x215
 #define LINE_GETDIMENSIONS 2855
 #define LINE_GRID_ALLOC1 721
@@ -344,9 +338,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define MONSTATSFLAGINDEX_BOSS 6
 #define MONSTATSFLAGINDEX_FLYING 14
 #define MONSTATSFLAGINDEX_OPENDOORS 3
-#define MONSTER_ACT5HIRE1 560
-#define MONSTER_ACT5HIRE2 561
-#define MONSTER_WRAITH1 38
 #define NUM_ENVIRONMENT_CYCLES 6
 #define NUM_GRID_BODYLOCS 11
 #define NUM_TIME_RATES 3

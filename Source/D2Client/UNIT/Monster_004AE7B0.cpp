@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
@@ -247,7 +248,7 @@ int __fastcall sub_004AE7B0_CheckMonsterFacing(D2UnitStrc* pUnit, D2UnitStrc* pT
     }
 
     const int nBaseId = FACING_GetBaseIdInline(pTarget->dwClassId);
-    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != 298)
+    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != MONSTER_VILEMOTHER1)
     {
         return 0;
     }
@@ -505,8 +506,8 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     D2DirectionArgStrc tDirection; tDirection.nDirection=0;
     int nBaseId=MONSTERS_GetUnitBaseIdInline(pUnit);
     if(sub_0046C140_TestMonModeFlag(pUnit->dwClassId,2)) tDirection.nDirection=sub_I07_SeedRoll(&pUnit->pSeed)&0x3F;
-    if(nBaseId==0x60) tDirection.nDirection=7;
-    else if(nBaseId==0x12D) tDirection.nDirection=sub_0046C570_ForEachUnitInAdjacentRooms(pUnit,0,0,sub_004AE7B0_CheckMonsterFacing);
+    if(nBaseId==MONSTER_MUMMY1) tDirection.nDirection=7;
+    else if(nBaseId==MONSTER_VILECHILD1) tDirection.nDirection=sub_0046C570_ForEachUnitInAdjacentRooms(pUnit,0,0,sub_004AE7B0_CheckMonsterFacing);
     if(nClassId==0x15F) tDirection.nDirection=0x18;
     else if(nClassId==0x160) tDirection.nDirection=0;
     else if(nClassId==0x161) tDirection.nDirection=0x28;
@@ -713,7 +714,7 @@ void __stdcall sub_004AF1B0(D2UnitStrc* pUnit, int nMissile, int nX, int nY)
     }
 
     const int nBaseId = GetBaseId(pUnit->dwClassId);
-    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != 63)
+    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != MONSTER_QUILLRAT1)
     {
         return;
     }

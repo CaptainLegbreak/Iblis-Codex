@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -29,7 +30,6 @@ enum
     QUESTSTATEFLAG_A2Q2 = 10,
     QUEST_A2Q3_TAINTEDSUN = 10,
     QUEST_A2Q6_DURIEL = 13,
-    LEVEL_LUTGHOLEIN = 40,
 };
 
 extern "C" const char gszA2Q2SourceFile[];                                                                  // 0x006E211C

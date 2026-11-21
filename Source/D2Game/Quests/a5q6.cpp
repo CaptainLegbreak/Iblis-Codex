@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -64,10 +66,6 @@ enum { QUEST_FLAGS_ID = 40, QUEST_DATA_ID = 36 };
 #define QUEST_A5Q6_BAAL 36
 
 #define UNIT_PLAYER 0
-
-#define LEVEL_HARROGATH 109
-
-#define LEVEL_THRONEOFDESTRUCTION 131
 
 struct D2PlayerDataStrc;
 
@@ -215,20 +213,6 @@ int __fastcall ACT5Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
 #define QFLAG_CUSTOM6 10
 
-#define MONSTER_LARZUK 511
-
-#define MONSTER_DREHYA 512
-
-#define MONSTER_MALAH 513
-
-#define MONSTER_CAIN6 520
-
-#define MONSTER_TYRAEL3 521
-
-#define MONSTER_ANCIENTSTATUE1 537
-
-#define MONSTER_ANCIENTSTATUE3 539
-
 struct D2GSPacketSrv5D
 {
     unsigned char nHeader;
@@ -247,10 +231,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 enum D2C_F33QuestConstants
 {
     ACT_V = 4,
-    LEVEL_ROGUEENCAMPMENT = 1,
-    LEVEL_TRISTRAM = 38,
-    LEVEL_ROCKYSUMMIT = 120,
-    LEVEL_HALLSOFDEATHSCALLING = 123,
     QUEST_A1Q2_BLOODRAVEN = 2,
     QUEST_A1Q3_MALUS = 3,
     QUEST_A1Q4_CAIN = 4,
@@ -258,10 +238,6 @@ enum D2C_F33QuestConstants
     QUESTSTATEFLAG_A1Q2 = 2,
     QUESTSTATEFLAG_A1Q3 = 3,
     QUESTSTATEFLAG_A1Q4 = 4,
-    MONSTER_CHARSI = 154,
-    MONSTER_KASHYA = 150,
-    MONSTER_AKARA = 148,
-    MONSTER_CAIN5 = 265,
     OBJMODE_NEUTRAL = 0,
     OBJMODE_OPERATING = 1,
     OBJMODE_OPENED = 2,
@@ -284,7 +260,7 @@ void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char
 int __fastcall sub_0058D7D0_ACT5Q6_UnitIterate_SpawnObject(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == 132)
+    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_THEWORLDSTONECHAMBER)
     {
         D2CoordStrc coord;
         UNITS_GetCoords(pUnit, &coord);
@@ -717,7 +693,7 @@ int __fastcall OBJECTS_OperateFunction70_BaalPortal(D2ObjOperateFnStrc* pOp, int
         return 0;
     }
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 131)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_THRONEOFDESTRUCTION)
     {
         if (((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->bWorldStoneChamberOpen == 1)
         {

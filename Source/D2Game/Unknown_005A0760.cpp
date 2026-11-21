@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -1119,18 +1120,18 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
         const unsigned int nMinionCount = SEED_RollLimitedRandomNumber(&pMonster->pSeed, 5) + 2;
         for (unsigned int i = 0; i < nMinionCount; ++i)
         {
-            MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, 4, 1, 4, 64);
+            MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKELETON5, 1, 4, 64);
         }
 
-        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, 0x114, 1, 4, 64);
-        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, 0x17E, 1, 4, 64);
-        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, 0x181, 1, 4, 64);
-        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, 0x185, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_POIS3, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_COLD4, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_FIRE3, 1, 4, 64);
+        MONSTERSPAWN_SpawnAtUnit(pGame, pMonster, MONSTER_SKMAGE_LTNG3, 1, 4, 64);
         break;
     }
 
     case 42:
-        MONSTERSPAWN_SpawnLinkedMinionsAtOwner(pGame, pMonster, 0x1C5, 1, 20, 20, 0);
+        MONSTERSPAWN_SpawnLinkedMinionsAtOwner(pGame, pMonster, MONSTER_MINION1, 1, 20, 20, 0);
         QUESTS_CreateChainRecord(pGame, pMonster, 31);
         QUESTS_MonsterSpawn(pGame, pMonster);
         STATES_ToggleState(pMonster, 0x76, 1);
@@ -1150,7 +1151,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
         break;
 
     case 62:
-        MONSTERSPAWN_SpawnLinkedMinionsAtOwner(pGame, pMonster, 0x17D, 1, 20, 10, 64);
+        MONSTERSPAWN_SpawnLinkedMinionsAtOwner(pGame, pMonster, MONSTER_SKMAGE_COLD3, 1, 20, 10, 64);
         break;
     }
 

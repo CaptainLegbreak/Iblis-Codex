@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
@@ -420,7 +421,7 @@ const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId)
     D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(nLevelId);
     if (pLevelsTxtRecord)
     {
-        if (nLevelId == 8)
+        if (nLevelId == LEVEL_DENOFEVIL)
         {
             if (sub_004B92E0_GetTableByte(0, 1))
             {

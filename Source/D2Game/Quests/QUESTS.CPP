@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameObjs.h"
 #include "D2ItemsWorld.h"
@@ -38,16 +40,6 @@
 
 #define STRCOLOR_DARK_GOLD 4
 
-#define LEVEL_DURIELSLAIR 73
-
-#define LEVEL_DURANCEOFHATELEV1 100
-
-#define LEVEL_GLACIALCAVESLEV1 118
-
-#define LEVEL_ROCKYSUMMIT 120
-
-#define LEVEL_THEWORLDSTONEKEEPLEV1 128
-
 #define OBJECT_DREHYA_START_IN_TOWN 459
 
 #define OBJECT_NIHLATHAK_START_IN_TOWN 461
@@ -67,12 +59,6 @@
 #define MONTYPEFLAG_OTHER 1
 
 #define ACT_III 2
-
-#define MONSTER_JERHYN 0xC9
-
-#define MONSTER_ACT2GUARD2 0x14B
-
-#define MONSTER_FETISH11 0x197
 
 #define MONSTATSFLAGINDEX_FLYING 14
 
@@ -522,10 +508,6 @@ struct D2QuestDataStrc;
 #define QUEST_A2Q5_SUMMONER 12
 
 #define OBJECT_INVISIBLE_OBJECT 61
-
-#define MONSTER_RADAMENT 229
-
-#define MONSTER_SUMMONER 250
 
 #define MAX_QUEST_STATUS 41
 
@@ -1760,12 +1742,12 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
             switch (DUNGEON_GetLevelIdFromRoom(pRoom))
             {
-            case 108:
+            case LEVEL_CHAOSSANCTUM:
                 sub_005B5750_SpawnQuestMonster(pGame, pUnit);
                 break;
 
-            case 76:
-                sub_6FC68D70(pGame, pUnit, 301, 1, -1, 0);
+            case LEVEL_SPIDERFOREST:
+                sub_6FC68D70(pGame, pUnit, MONSTER_VILECHILD1, 1, -1, 0);
                 break;
             }
         }
@@ -1796,7 +1778,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 ACT1Q4_UpdatePortalInTown(pQuestData, pUnit);
             }
         }
-        else if (nLevelId != 109 && nLevelId < 113)
+        else if (nLevelId != LEVEL_HARROGATH && nLevelId < 113)
         {
             D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 32);
             if (pQuestData)

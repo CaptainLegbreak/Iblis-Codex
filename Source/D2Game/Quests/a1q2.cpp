@@ -1,3 +1,5 @@
+#include "D2MonsterIds.h"
+#include "D2LevelIds.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
 #include "D2UnitData.h"
@@ -40,8 +42,6 @@ int __fastcall ACT1Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 int __fastcall ACT1Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);  // 0x00590E70
 
 int __fastcall ACT1Q2_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);  // 0x00590C40
-
-#define LEVEL_ROGUEENCAMPMENT 1
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -134,9 +134,6 @@ void __fastcall ACT1Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 enum D2C_F33QuestConstants
 {
     ACT_V = 4,
-    LEVEL_TRISTRAM = 38,
-    LEVEL_ROCKYSUMMIT = 120,
-    LEVEL_HALLSOFDEATHSCALLING = 123,
     QUEST_A1Q2_BLOODRAVEN = 2,
     QUEST_A1Q3_MALUS = 3,
     QUEST_A1Q4_CAIN = 4,
@@ -146,11 +143,6 @@ enum D2C_F33QuestConstants
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A5Q6 = 40,
     QFLAG_CUSTOM6 = 10,
-    MONSTER_CHARSI = 154,
-    MONSTER_KASHYA = 150,
-    MONSTER_AKARA = 148,
-    MONSTER_CAIN5 = 265,
-    MONSTER_TYRAEL3 = 521,
     OBJMODE_NEUTRAL = 0,
     OBJMODE_OPERATING = 1,
     OBJMODE_OPENED = 2,

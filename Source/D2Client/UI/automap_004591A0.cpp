@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2DrlgTiles.h"
 #include "D2ClientUi.h"
 #include "D2Client.h"
@@ -273,7 +274,7 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
     int nCelNo;
     switch (nLevelId)
     {
-    case 0x28:
+    case LEVEL_LUTGHOLEIN:
         pLayer->fSaved = 1;
         switch (gdwGlobal_007A5150)
         {
@@ -294,7 +295,7 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
         nPickedFile = nCelNo;
         break;
 
-    case 0x67:
+    case LEVEL_THEPANDEMONIUMFORTRESS:
         pLayer->fSaved = 2;
         pSkip = 0;
         nColumns = 2;
@@ -315,7 +316,7 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
         nPickedFile = nCelNo;
         break;
 
-    case 0x6D:
+    case LEVEL_HARROGATH:
         pLayer->fSaved = 3;
         pSkip = 0;
         nColumns = 3;
@@ -704,8 +705,8 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
         case 0x3C:
         {
             const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
-            if (nLevelId == 0x7D || nLevelId == 0x7E || nLevelId == 0x7F || nLevelId == 0x6F
-                || nLevelId == 0x70 || nLevelId == 0x75)
+            if (nLevelId == LEVEL_HELL1 || nLevelId == LEVEL_HELL2 || nLevelId == LEVEL_HELL3 || nLevelId == LEVEL_ID_ACT5_BARRICADE_1
+                || nLevelId == LEVEL_ARREATPLATEAU || nLevelId == LEVEL_TUNDRAWASTELANDS)
             {
                 return 0;
             }

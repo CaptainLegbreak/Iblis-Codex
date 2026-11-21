@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -29,7 +30,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 enum D2C_M11A2Q2Constants
 {
-    MONSTER_CAIN2 = 244,
     QUESTSTATEFLAG_A2Q2 = 10,
     QFLAG_REWARDGRANTED = 0,
     QFLAG_REWARDPENDING = 1,
