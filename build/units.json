@@ -27403,6 +27403,11 @@
      "name": "sub_004A2840_OpenPanelMsgHandler"
     },
     {
+     "va": "0x004A2A20",
+     "length": 93,
+     "name": "?sub_004A2A20@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004A4110",
      "length": 99,
      "name": "sub_004A4110_ButtonUpMsgHandler"
@@ -28343,17 +28348,6 @@
      "va": "0x004A2390",
      "length": 53,
      "name": "_sub_004A2390_ResetGlobals"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004A2A20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A2A20",
-     "length": 93,
-     "name": "?sub_004A2A20@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
