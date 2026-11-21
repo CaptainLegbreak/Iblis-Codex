@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2LevelTxt.h"
 
@@ -126,20 +127,6 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
 void __fastcall sub_004C1C10(D2UnitStrc* pUnit); // 0x004C1C10
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY); // 0x004E4160
-
-struct D2MonsterDataStrc
-{
-    D2MonStatsTxt* pMonstatsTxt;
-    char unk0x04[0x18];
-    unsigned char nMonUmod[10];
-    char unk0x26[0x2];
-    unsigned short wClientFlags;
-    char unk0x2A[0x2];
-    void* wszMonName;
-    unsigned char unk_30[0xC];
-    int dwOwnerGUID;
-    int dwField40;
-};
 
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
@@ -473,7 +460,7 @@ void __fastcall sub_004AE0A0_SetClientFlags(D2UnitStrc* pUnit, unsigned short wF
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
         if (pMonsterData)
         {
-            pMonsterData->wClientFlags = wFlags;
+            pMonsterData->nClientFlags = wFlags;
             pMonsterData->pMonstatsTxt = CLIENT_GetMonStatsTxtRecord(pUnit->dwClassId);
         }
     }
@@ -521,7 +508,7 @@ int __fastcall sub_004AE130(D2UnitStrc* pUnit)
         return -1;
     }
 
-    return pMonsterData->dwOwnerGUID;
+    return pMonsterData->nOwnerGUID;
 }
 
 // 0x004AE150
@@ -546,7 +533,7 @@ void __fastcall sub_004AE190_SetMonsterField40(D2UnitStrc* pUnit, int nValue)
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterDataInline(pUnit);
     if (pMonsterData)
     {
-        pMonsterData->dwField40 = nValue;
+        pMonsterData->nMinionSpawnClassId = nValue;
     }
 }
 
@@ -559,7 +546,7 @@ int __fastcall sub_004AE1B0_GetMonsterField40(D2UnitStrc* pUnit)
         return -1;
     }
 
-    return pMonsterData->dwField40;
+    return pMonsterData->nMinionSpawnClassId;
 }
 
 // 0x004AE1D0
@@ -1748,9 +1735,9 @@ int __cdecl sub_004B1020()
 // 0x004B1030
 D2UnitStrc* __fastcall sub_004B1030_GetMonsterLinkedPlayer(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->dwOwnerGUID != -1)
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nOwnerGUID != -1)
     {
-        return sub_00463990(pUnit->pMonsterData->dwOwnerGUID, 0);
+        return sub_00463990(pUnit->pMonsterData->nOwnerGUID, 0);
     }
     return 0;
 }
