@@ -92159,54 +92159,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C50D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C50D0",
-     "length": 117
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C5210.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C5210",
-     "length": 700
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SBMP_006C54D0.CPP",
    "rank": 1,
    "functions": [
@@ -92228,6 +92180,14 @@
    "file": "Source/Storm/SOURCE/SBMP.CPP",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x006C50D0",
+     "length": 117
+    },
+    {
+     "va": "0x006C5210",
+     "length": 700
+    },
     {
      "va": "0x006C5730",
      "length": 254

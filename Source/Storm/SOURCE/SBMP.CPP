@@ -1,3 +1,4 @@
+#define STORM_MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define VALIDATEBEGIN int nValid = -1
 #define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
@@ -95,6 +96,7 @@ struct D2CopyStackArg { unsigned int value; };
 static __declspec(noinline) unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows); // 0x006C59C0
 static __declspec(noinline) int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
 
+// 0x006C50D0
 static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader)
 {
     const unsigned char nType = pHeader->nImageType;
@@ -137,24 +139,19 @@ static __declspec(noinline) int __stdcall sub_006C5150_ReadTgaPalette(const D2Ta
     return 1;
 }
 
+// 0x006C5210
 static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, const unsigned char* pSrc, int nSrcSize, unsigned char* pDst, int nDstSize)
 {
-    const int nBytes = (pHeader->bytes[16] + 7) / 8;
+    unsigned char* pOut = pDst;
     const int nWidth = *(const unsigned short*)&pHeader->bytes[12];
-    const int nImageSize = nBytes * *(const unsigned short*)&pHeader->bytes[14] * nWidth;
-    int nSize = nDstSize;
-    if (nSize >= nImageSize)
-    {
-        nSize = nImageSize;
-    }
+    const int nHeight = *(const unsigned short*)&pHeader->bytes[14];
+    const int nBytes = (pHeader->bytes[16] + 7) / 8;
+    const int nImageSize = nBytes * nHeight * nWidth;
+    int nSize = STORM_MIN(nDstSize, nImageSize);
 
     const unsigned char nDescriptor = pHeader->bytes[17];
-    int nStepX = nBytes;
     const unsigned char bRightToLeft = (nDescriptor >> 4) & 1;
-    if (bRightToLeft)
-    {
-        nStepX = -nStepX;
-    }
+    const int nStepX = bRightToLeft ? -nBytes : nBytes;
 
     const unsigned char bTopToBottom = (nDescriptor >> 5) & 1;
     int nRowStep;
@@ -167,7 +164,6 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
         nRowStep = -((nStepX + nBytes) * nWidth);
     }
 
-    unsigned char* pOut = pDst;
     if (bRightToLeft)
     {
         pOut = pDst + (nWidth - 1) * nBytes;
@@ -175,7 +171,7 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
 
     if (!bTopToBottom)
     {
-        pOut += (*(const unsigned short*)&pHeader->bytes[14] - 1) * nBytes * nWidth;
+        pOut += (nHeight - 1) * nBytes * nWidth;
     }
 
     switch (pHeader->bytes[2])
@@ -191,7 +187,7 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
         if (!bRightToLeft && bTopToBottom)
         {
             SMemCopy(pOut, pSrc, nSize);
-            return 1;
+            break;
         }
 
         int nCount = nSize / nBytes;
@@ -221,7 +217,7 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
             pSrc += nBytes;
         }
 
-        return 1;
+        break;
     }
 
     case 9:
@@ -279,19 +275,19 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
             }
             else
             {
-                nRun = nRun + 1;
-                if (nRun >= nPixels)
+                int nRaw = nRun + 1;
+                if (nRaw >= nPixels)
                 {
-                    nRun = nPixels;
+                    nRaw = nPixels;
                 }
 
-                nPixels -= nRun;
-                if (pSrc + nRun * nBytes > pSrcEnd)
+                nPixels -= nRaw;
+                if (pSrc + nRaw * nBytes > pSrcEnd)
                 {
                     return 0;
                 }
 
-                while (nRun--)
+                while (nRaw--)
                 {
                     switch (nBytes)
                     {
@@ -318,11 +314,14 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
             }
         }
 
-        return 1;
-    }
+        break;
     }
 
-    return 0;
+    default:
+        return 0;
+    }
+
+    return 1;
 }
 
 // 0x006C5730
