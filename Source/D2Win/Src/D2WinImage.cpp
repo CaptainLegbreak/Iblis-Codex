@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Win.h"
 #include "D2StormTypes.h"
 #include "D2Win32Types.h"
@@ -408,15 +409,15 @@ static __forceinline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass
 
 static __forceinline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
-    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 0x78, 0);
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, STAT_ITEM_DAMAGETARGETAC, 0);
     if (nValue)
     {
-        int nNew = STATLIST_UnitGetStatValue(pDefender, 0x1F, 0) + nValue;
+        int nNew = STATLIST_UnitGetStatValue(pDefender, STAT_ARMORCLASS, 0) + nValue;
         if (nNew < 0)
         {
             nNew = 0;
         }
-        STATLIST_SetUnitStat(pDefender, 0x1F, nNew, 0);
+        STATLIST_SetUnitStat(pDefender, STAT_ARMORCLASS, nNew, 0);
     }
 }
 

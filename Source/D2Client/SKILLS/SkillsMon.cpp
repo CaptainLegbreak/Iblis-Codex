@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -282,7 +283,7 @@ int __fastcall sub_004E1E50_ChargeFrames(D2UnitStrc* pUnit, int nSkillId, int nS
             nVelocity = 0x100;
         }
 
-        const int nRate = STATLIST_UnitGetStatValue(pUnit, 0x43, 0);
+        const int nRate = STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
         PATH_SetVelocity(pPath, DATATBLS_ApplyRatio(nVelocity, nRate, 100), ".\\SKILLS\\SkillsMon.cpp", 0x466);
         PATH_SetType(pPath, 1);
         D2Common_10142(pPath, pUnit, 0);

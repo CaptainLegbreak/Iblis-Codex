@@ -5,18 +5,10 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
-
-
-
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M81AbyssKnightAi
 {
-    MONMODE_ATTACK1 = 4,
     ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_HP_PCT = 0,
     ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_CHANCE_PCT = 1,
     ABYSSKNIGHT_AI_PARAM_ATTACK_CHANCE_PCT = 2,

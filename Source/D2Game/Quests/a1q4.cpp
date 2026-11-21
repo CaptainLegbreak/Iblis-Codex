@@ -9,6 +9,7 @@
 #include "D2Drlg.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1300,7 +1301,7 @@ int __fastcall OBJECTS_OperateFunction10_CainGibbet(D2ObjOperateFnStrc* pOp, int
 
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
 
-    if (pOp->hObject && pOp->hObject->dwAnimMode != 0)
+    if (pOp->hObject && pOp->hObject->dwAnimMode != OBJMODE_NEUTRAL)
     {
         return 0;
     }
@@ -1377,7 +1378,7 @@ void __fastcall OBJECTS_InitFunction06_CairnStone(D2ObjInitFnStrc* pOp)
     }
     else
     {
-        if (pOp->pObject && pOp->pObject->dwAnimMode == 2)
+        if (pOp->pObject && pOp->pObject->dwAnimMode == OBJMODE_OPENED)
         {
             return;
         }
@@ -1533,7 +1534,7 @@ int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, in
     }
 
     D2BitBufferStrc* pQuestFlags;
-    if (pOp->hObject && pOp->hObject->dwAnimMode != 0
+    if (pOp->hObject && pOp->hObject->dwAnimMode != OBJMODE_NEUTRAL
         || QUESTRECORD_GetQuestState(pQuestFlags = sub_00593AF0_GetPlayerQuestFlags(pOp->pGame, pOp->hPlayer), 4, 0) == 1
         || QUESTRECORD_GetQuestState(pQuestFlags, 4, 1) == 1)
     {
@@ -1661,7 +1662,7 @@ void __fastcall OBJECTS_InitFunction09_InifussTree(D2ObjInitFnStrc* pOp)
     }
     else
     {
-        if (!pOp->pObject || pOp->pObject->dwAnimMode != 2)
+        if (!pOp->pObject || pOp->pObject->dwAnimMode != OBJMODE_OPENED)
         {
             UNITS_ChangeAnimMode(pOp->pObject, 2);
         }
@@ -2202,7 +2203,7 @@ void __fastcall ACT3Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
 // 0x005BB980
 int __fastcall OBJECTS_OperateFunction53_CompellingOrb(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         D2UnitStrc* pItem = INVENTORY_GetLeftHandWeapon(pOp->hPlayer->pInventory);
         if (!pItem || ITEMS_GetBaseCode(pItem) != ' 2fq')

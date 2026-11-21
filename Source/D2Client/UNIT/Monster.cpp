@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -5,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2LevelTxt.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STAT_LEVEL 12
@@ -1505,13 +1507,13 @@ void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultC
         return;
     }
 
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == 3 && sub_M165_SeedStep(&pUnit->pSeed) % 3)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_GETHIT && sub_M165_SeedStep(&pUnit->pSeed) % 3)
     {
         return;
     }
 
     int nCount = nDefaultCount;
-    const int nExtraBlood = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x8C, 0);
+    const int nExtraBlood = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXTRABLOOD, 0);
     if (nExtraBlood)
     {
         nCount = nExtraBlood;

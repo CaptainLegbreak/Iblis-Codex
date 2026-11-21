@@ -2,16 +2,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M144SandMaggotAi
 {
-    MONMODE_ATTACK1 = 4,
-    MONMODE_ATTACK2 = 5,
     SANDMAGGOT_AI_PARAM_LAY_CHANCE_PCT = 0,
     SANDMAGGOT_AI_PARAM_SPIT_CHANCE_PCT = 1,
     SANDMAGGOT_AI_PARAM_NUMBER_OF_EGGS = 2,

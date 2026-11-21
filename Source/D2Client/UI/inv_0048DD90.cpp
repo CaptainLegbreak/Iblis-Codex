@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
@@ -551,10 +552,10 @@ static __declspec(noinline) void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTx
     unsigned int szNumber[3];
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    if (STATLIST_UnitGetStatValue(pItem, 0x46, 0) > 0)
+    if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) > 0)
     {
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD86));
-        SStrPrintf((char*)szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, 0x46, 0));
+        SStrPrintf((char*)szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0));
         sub_00526F20(W(&wszNumber), (char*)szNumber, 9);
         sub_00526700(pText, pColorStart);
         sub_00526700(pText, W(&wszNumber));
@@ -572,12 +573,12 @@ static __declspec(noinline) void __stdcall sub_00484E90_AppendDurability(D2UnitS
     if (ITEMS_HasDurability(pItem) && STATLIST_GetMaxDurabilityFromUnit(pItem) > 0 && !ITEMS_CheckIfThrowable(pItem))
     {
         int bBonus = 0;
-        if (STATLIST_GetUnitStatBonus(pItem, 0x4B, 0))
+        if (STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_MAXDURABILITY_PERCENT, 0))
         {
             bBonus = 1;
         }
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD81));
-        SStrPrintf((char*)szNumber, 10, szFmtInt_006D6454, STATLIST_UnitGetStatValue(pItem, 0x48, 0));
+        SStrPrintf((char*)szNumber, 10, szFmtInt_006D6454, STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0));
         sub_00526700(pText, pColorStart);
         sub_00526F20(W(&wszNumber), (char*)szNumber, 9);
         sub_00526700(pText, W(&wszNumber));
@@ -698,10 +699,10 @@ static __declspec(noinline) void __stdcall sub_00486100_AppendStackQuantity(D2Un
     unsigned int szNumber[3];
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    if (STATLIST_UnitGetStatValue(pItem, 0x46, 0) > 0 || ITEMS_GetTotalMaxStack(pItem) > 0)
+    if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) > 0 || ITEMS_GetTotalMaxStack(pItem) > 0)
     {
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD86));
-        SStrPrintf((char*)szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, 0x46, 0));
+        SStrPrintf((char*)szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0));
         sub_00526F20(W(&wszNumber), (char*)szNumber, 9);
         sub_00526700(pText, pColorStart);
         sub_00526700(pText, W(&wszNumber));
@@ -711,7 +712,7 @@ static __declspec(noinline) void __stdcall sub_00486100_AppendStackQuantity(D2Un
 
 static __declspec(noinline) void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
-    int nBlock = STATLIST_UnitGetStatValue(pItem, 0x14, 0);
+    int nBlock = STATLIST_UnitGetStatValue(pItem, STAT_TOBLOCK, 0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
@@ -756,7 +757,7 @@ static __declspec(noinline) void __stdcall sub_004861D0_AppendAttackSpeed(Unicod
     D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
     const int nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pStoredUnit, pItem);
     int bBonus = 0;
-    if (STATLIST_GetUnitStatBonus(pItem, 0x5D, 0))
+    if (STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_FASTERATTACKRATE, 0))
     {
         bBonus = 1;
     }
@@ -1243,7 +1244,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 sub_00484B10_AppendEtherealSocketed(gdwGlobal_007BCBF4, W(wszEthSock));
                 int nStrBonus = 0;
                 int nDexBonus = 0;
-                const int nPercent = STATLIST_UnitGetItemStatOrSkillStatValue(gdwGlobal_007BCBF4, 0x5B, 0);
+                const int nPercent = STATLIST_UnitGetItemStatOrSkillStatValue(gdwGlobal_007BCBF4, STAT_ITEM_REQ_PERCENT, 0);
                 if (nPercent)
                 {
                     nStrBonus = DATATBLS_ApplyRatio(pItemsTxt->wReqStr, nPercent, 100);

@@ -3,15 +3,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_AiThink005F2460
 {
-    MONMODE_ATTACK1 = 4,
     AI_PARAM_WALK_CHANCE_PCT = 0,
     AI_PARAM_IDLE_FRAMES = 1,
     AI_PARAM_ATTACK_CHANCE_PCT = 2,

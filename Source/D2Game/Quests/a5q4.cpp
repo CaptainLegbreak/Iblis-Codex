@@ -9,6 +9,8 @@
 #include "D2GameObjs.h"
 #include "D2QuestData.h"
 #include "D2UnitData.h"
+#include "D2MonModes.h"
+#include "D2ObjModes.h"
 
 #define UNIT_OBJECT 2
 
@@ -222,11 +224,6 @@ enum D2C_F33QuestConstants
     MONSTER_AKARA = 148,
     MONSTER_CAIN5 = 265,
     MONSTER_TYRAEL3 = 521,
-    OBJMODE_NEUTRAL = 0,
-    OBJMODE_OPERATING = 1,
-    OBJMODE_OPENED = 2,
-    OBJMODE_SPECIAL1 = 3,
-    MONMODE_NEUTRAL = 1,
     EVENTTYPE_ENDANIM = 1,
     EVENTTYPE_QUESTFN = 7,
     STAT_LEVEL = 12,
@@ -315,8 +312,6 @@ int __fastcall ACT1Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 int __fastcall ACT1Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00594830
 
 int __fastcall ACT1Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00594890
-
-
 
 __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {

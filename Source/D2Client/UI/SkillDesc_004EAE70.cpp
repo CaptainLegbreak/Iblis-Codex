@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -196,19 +197,19 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         }
         else if (INVENTORY_GetWieldType(pUnit, pInventory) != 2)
         {
-            nMin = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
-            nMax = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
+            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0);
         }
         else
         {
-            nMin = STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
-            nMax = STATLIST_UnitGetStatValue(pUnit, 0x18, 0);
+            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
+            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MAXDAMAGE, 0);
         }
     }
     else
     {
-        nMin = STATLIST_UnitGetStatValue(pUnit, 0x15, 0) + 1;
-        nMax = STATLIST_UnitGetStatValue(pUnit, 0x16, 0) + 2;
+        nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0) + 1;
+        nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0) + 2;
     }
 
     if (!nSrcDam)
@@ -230,10 +231,10 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         *pMaxDamage += nMax;
     }
 
-    nBonus += STATLIST_UnitGetStatValue(pUnit, 0x19, 0);
+    nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
     nBonus += SKILLS_GetWeaponMasteryBonus(pUnit, pItem, pSkill, 1);
-    int nMinPercent = STATLIST_UnitGetStatValue(pUnit, 0x12, 0);
-    int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, 0x11, 0);
+    int nMinPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MINDAMAGE_PERCENT, 0);
+    int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
     if (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7])
     {
         int nProgressive = sub_004E6FF0_SumProgressiveBonus();
@@ -249,15 +250,15 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     {
         int nFactor = ITEMS_GetStrengthBonus(pItem);
         if (nFactor)
-            nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
+            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0) * nFactor / 100;
         nFactor = ITEMS_GetDexBonus(pItem);
         if (nFactor)
-            nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
-        nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x6F, 0);
+            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) * nFactor / 100;
+        nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_NORMALDAMAGE, 0);
     }
     else
     {
-        nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0);
+        nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
     }
 
     if (sub_0063A380(pUnit))

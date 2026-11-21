@@ -6,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2GameTypes.h"
+#include "D2ObjModes.h"
 
 struct D2ActiveRoomStrc;
 
@@ -32,8 +33,6 @@ struct D2UnitStrc;
 #define QFLAG_COMPLETEDNOW 14
 
 #define QFLAG_COMPLETEDBEFORE 15
-
-#define OBJMODE_SPECIAL1 3
 
 #define ITEMQUAL_NORMAL 2
 
@@ -89,7 +88,6 @@ enum D2C_P08QuestConstants
     QFLAG_PRIMARYGOALDONE = 13,
     EVENTTYPE_QUESTFN = 7,
 };
-
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
@@ -221,7 +219,6 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
 
-
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pQuestGUID); // 0x00545300
 
 void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00545530
@@ -229,7 +226,6 @@ void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgS
 void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pPlayer, int nQuestId, unsigned char nAct); // 0x00545920
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
-
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 

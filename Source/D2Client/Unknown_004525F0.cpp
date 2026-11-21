@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
@@ -39,7 +40,7 @@ int __fastcall sub_004525F0_GetMonsterLifeFraction(D2UnitStrc* pUnit)
             }
             else
             {
-                const int nCurrentLife = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+                const int nCurrentLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
                 nResult = D2_MIN(D2_MAX((nCurrentLife << 7) / nMaxLife, 2), 0x80);
             }
         }

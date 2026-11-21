@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -7,6 +8,8 @@
 #include "D2GameTypes.h"
 #include "D2Constants.h"
 #include "D2GameStrc.h"
+#include "D2PlayerModes.h"
+#include "D2ItemModes.h"
 
 struct D2ClientStrc;
 
@@ -25,18 +28,6 @@ struct D2InventoryStrc;
 #define MAX_QUEST_STATUS 42
 
 #define QFLAG_UPDATEQUESTLOG 12
-
-#define STAT_HITPOINTS 6
-
-#define STAT_MANA 8
-
-#define STAT_STAMINA 10
-
-#define STAT_GOLD 14
-
-#define STAT_MANARECOVERY 26
-
-#define STAT_MANARECOVERYBONUS 27
 
 #define STATE_HEALTHPOT 100
 
@@ -85,7 +76,6 @@ struct D2UnitStrc;
 struct D2GameStrc;
 
 struct D2DataTablesStrc;
-
 
 // Item-location checks of the game object (defined with the quest code); called with the game in ECX.
 struct D2GameItemChecks
@@ -616,10 +606,7 @@ int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc*
 
 #define PLRMODE_DEAD 17
 
-#define STAT_GOLDLOST 0xAF
-
 #define STATE_INFERNO 12
-
 
 #define BODYLOC_BELT 8
 
@@ -1054,7 +1041,7 @@ static __forceinline int PoisonStat_GetPerFrame(D2StatListStrc* pStatList)
 {
 	if (pStatList)
 	{
-		return STATLIST_GetStatValue(pStatList, 74, 0);
+		return STATLIST_GetStatValue(pStatList, STAT_HPREGEN, 0);
 	}
 	return 0;
 }
@@ -1078,7 +1065,7 @@ void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned shor
 // 0x005485B0
 static unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit)
 {
-	const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+	const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
 	const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
 	D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 100);
 	if (!pStatList || !nMaxLife)
@@ -2277,7 +2264,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x05_ShiftLeftClickSkill_6FC832B0(D2Game
         return 3;
     }
 
-    STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
     sub_6FC83340(pGame, pUnit, UNITS_GetLeftSkill(pUnit), nX, nY);
     return 0;
 }
@@ -2299,7 +2286,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x06_LeftSkillOnUnit_6FC83550(D2GameStrc
         return 3;
     }
 
-    STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
     PLRMSG_UseSkillOnUnit(pGame, pUnit, UNITS_GetLeftSkill(pUnit), nUnitType, nUnitGUID, 1);
     return 0;
 }
@@ -2321,7 +2308,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x07_ShiftLeftSkillOnUnit_6FC83890(D2Gam
         return 3;
     }
 
-    STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
     PLRMSG_UseSkillOnUnit(pGame, pUnit, UNITS_GetLeftSkill(pUnit), nUnitType, nUnitGUID, 0);
     return 0;
 }
@@ -2406,7 +2393,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill_6FC83EF0(D2GameStrc* pGa
         return 3;
     }
 
-    STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
     sub_6FC83340(pGame, pUnit, UNITS_GetRightSkill(pUnit), nX, nY);
     return 0;
 }
@@ -2428,7 +2415,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0D_RightSkillOnUnit_6FC83F80(D2GameStr
         return 3;
     }
 
-    STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
     PLRMSG_UseSkillOnUnit(pGame, pUnit, UNITS_GetRightSkill(pUnit), nUnitType, nUnitGUID, 1);
     return 0;
 }
@@ -2450,7 +2437,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0E_ShiftRightSkillOnUnit_6FC84100(D2Ga
         return 3;
     }
 
-    STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
     PLRMSG_UseSkillOnUnit(pGame, pUnit, UNITS_GetRightSkill(pUnit), nUnitType, nUnitGUID, 0);
     return 0;
 }
@@ -2692,7 +2679,7 @@ int __fastcall sub_0054A5D0_HandleChat(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
     else packet26.szName[0] = 0;
     const int nReceiverLength = SStrLen(packet15.szName);
     const int bWhisper = nReceiverLength > 0 && nReceiverLength <= 15;
-    packet26.nNameColor = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+    packet26.nNameColor = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     packet15.szName[15] = 0;
     if (packet15.szMessage[255]) goto MalformedChat;
     if (SStrChr(packet15.szMessage, -1)) {

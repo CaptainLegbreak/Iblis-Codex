@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2TxtTables.h"
 #include "D2DataTbls.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1

@@ -3,15 +3,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M86ReanimatedHordeAi
 {
-    MONMODE_ATTACK1 = 4,
     UNITFLAG_ISVALIDTARGET = 0x00000002,
     UNITFLAG_CANBEATTACKED = 0x00000004,
     UNITFLAG_TARGETABLE = 0x00000008,

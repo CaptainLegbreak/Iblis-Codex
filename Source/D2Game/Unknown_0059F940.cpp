@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -77,14 +78,14 @@ static void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2Uni
         return;
     }
 
-    const int nPierceValue = STATLIST_UnitGetStatValue(pOwner, 0xA6, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0);
+    const int nPierceValue = STATLIST_UnitGetStatValue(pOwner, STAT_SKILL_PIERCE, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0);
     if (!nPierceValue)
     {
         return;
     }
 
     D2SeedStrc tSeed;
-    SEED_InitLowSeed(&tSeed, STATLIST_GetUnitBaseStat(pOwner, 0x148, 0));
+    SEED_InitLowSeed(&tSeed, STATLIST_GetUnitBaseStat(pOwner, STAT_PIERCE_IDX, 0));
 
     int nPierceIndex = 0;
     for (;;)
@@ -98,7 +99,7 @@ static void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2Uni
         ++nPierceIndex;
     }
 
-    STATLIST_SetUnitStat(pMissile, 0x148, nPierceIndex, 0);
+    STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, nPierceIndex, 0);
 }
 
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams)
@@ -189,7 +190,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);
         if (pStatList)
         {
-            nVelocity = STATLIST_GetStatValue(pStatList, 0xA1, 0) * nVelocity / 100;
+            nVelocity = STATLIST_GetStatValue(pStatList, STAT_SKILL_HANDOFATHENA, 0) * nVelocity / 100;
         }
     }
 
@@ -368,7 +369,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 
     if (pMissileParams->dwFlags & 0x1000)
     {
-        STATLIST_SetUnitStat(pMissile, 0x13, pMissileParams->nAttBonus, 0);
+        STATLIST_SetUnitStat(pMissile, STAT_TOHIT, pMissileParams->nAttBonus, 0);
     }
 
     if (pMissileParams->dwFlags & 0x10000)
@@ -377,6 +378,6 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
     }
 
     sub_005A43B0_OwnerMissileHook(pGame, pMissileParams->pOwner, pMissile);
-    STATLIST_SetUnitStat(pMissile, 0x147, pMissilesTxtRecord->nMissileStatValue, 0);
+    STATLIST_SetUnitStat(pMissile, STAT_DAMAGE_FRAMERATE, pMissilesTxtRecord->nMissileStatValue, 0);
     return pMissile;
 }

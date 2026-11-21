@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -91,17 +92,17 @@ int __fastcall sub_004ACDB0_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bU
     {
         if (nUMod == 28)
         {
-            int nDefense = 2 * STATLIST_UnitGetStatValue(pUnit, 31, 0);
-            STATLIST_SetUnitStat(pUnit, 31, nDefense, 0);
+            int nDefense = 2 * STATLIST_UnitGetStatValue(pUnit, STAT_ARMORCLASS, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_ARMORCLASS, nDefense, 0);
         }
 
         int nImmunities = 0;
-        int nFireResist = STATLIST_UnitGetStatValue(pUnit, 39, 0);
-        int nLightResist = STATLIST_UnitGetStatValue(pUnit, 41, 0);
-        int nColdResist = STATLIST_UnitGetStatValue(pUnit, 43, 0);
-        int nPoisonResist = STATLIST_UnitGetStatValue(pUnit, 45, 0);
-        int nDamageResist = STATLIST_UnitGetStatValue(pUnit, 36, 0);
-        int nMagicResist = STATLIST_UnitGetStatValue(pUnit, 37, 0);
+        int nFireResist = STATLIST_UnitGetStatValue(pUnit, STAT_FIRERESIST, 0);
+        int nLightResist = STATLIST_UnitGetStatValue(pUnit, STAT_LIGHTRESIST, 0);
+        int nColdResist = STATLIST_UnitGetStatValue(pUnit, STAT_COLDRESIST, 0);
+        int nPoisonResist = STATLIST_UnitGetStatValue(pUnit, STAT_POISONRESIST, 0);
+        int nDamageResist = STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGERESIST, 0);
+        int nMagicResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAGICRESIST, 0);
 
         if (nFireResist >= 100) ++nImmunities;
         if (nLightResist >= 100) ++nImmunities;
@@ -117,7 +118,7 @@ int __fastcall sub_004ACDB0_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bU
                 if (nColdResist < 100)
                 {
                     int nNewColdResist = nColdResist + 40;
-                    STATLIST_SetUnitStat(pUnit, 43, nNewColdResist, 0);
+                    STATLIST_SetUnitStat(pUnit, STAT_COLDRESIST, nNewColdResist, 0);
                     if (nNewColdResist >= 100) ++nImmunities;
                 }
                 if (nImmunities < 2)
@@ -125,7 +126,7 @@ int __fastcall sub_004ACDB0_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bU
                     if (nFireResist < 100)
                     {
                         int nNewFireResist = nFireResist + 40;
-                        STATLIST_SetUnitStat(pUnit, 39, nNewFireResist, 0);
+                        STATLIST_SetUnitStat(pUnit, STAT_FIRERESIST, nNewFireResist, 0);
                         if (nNewFireResist >= 100) ++nImmunities;
                     }
                     if (nImmunities < 2)
@@ -133,23 +134,23 @@ int __fastcall sub_004ACDB0_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bU
                         if (nLightResist < 100)
                         {
                             int nNewLightResist = nLightResist + 40;
-                            STATLIST_SetUnitStat(pUnit, 41, nNewLightResist, 0);
+                            STATLIST_SetUnitStat(pUnit, STAT_LIGHTRESIST, nNewLightResist, 0);
                             if (nNewLightResist >= 100) return nImmunities + 1;
                         }
                     }
                 }
             }
-            else if (nUMod == 9) STATLIST_SetUnitStat(pUnit, 39, nFireResist + 75, 0);
-            else if (nUMod == 18) STATLIST_SetUnitStat(pUnit, 43, nColdResist + 75, 0);
-            else if (nUMod == 17) STATLIST_SetUnitStat(pUnit, 41, nLightResist + 75, 0);
-            else if (nUMod == 23) STATLIST_SetUnitStat(pUnit, 45, nPoisonResist + 75, 0);
-            else if (nUMod == 25) STATLIST_SetUnitStat(pUnit, 37, nMagicResist + 20, 0);
+            else if (nUMod == 9) STATLIST_SetUnitStat(pUnit, STAT_FIRERESIST, nFireResist + 75, 0);
+            else if (nUMod == 18) STATLIST_SetUnitStat(pUnit, STAT_COLDRESIST, nColdResist + 75, 0);
+            else if (nUMod == 17) STATLIST_SetUnitStat(pUnit, STAT_LIGHTRESIST, nLightResist + 75, 0);
+            else if (nUMod == 23) STATLIST_SetUnitStat(pUnit, STAT_POISONRESIST, nPoisonResist + 75, 0);
+            else if (nUMod == 25) STATLIST_SetUnitStat(pUnit, STAT_MAGICRESIST, nMagicResist + 20, 0);
             else if (nUMod == 27)
             {
                 if (nColdResist < 75)
                 {
                     int nNewColdResist = nColdResist + 20;
-                    STATLIST_SetUnitStat(pUnit, 43, nNewColdResist, 0);
+                    STATLIST_SetUnitStat(pUnit, STAT_COLDRESIST, nNewColdResist, 0);
                     if (nNewColdResist >= 100) ++nImmunities;
                 }
                 if (nImmunities < 2)
@@ -157,7 +158,7 @@ int __fastcall sub_004ACDB0_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bU
                     if (nFireResist < 75)
                     {
                         int nNewFireResist = nFireResist + 20;
-                        STATLIST_SetUnitStat(pUnit, 39, nNewFireResist, 0);
+                        STATLIST_SetUnitStat(pUnit, STAT_FIRERESIST, nNewFireResist, 0);
                         if (nNewFireResist >= 100) ++nImmunities;
                     }
                     if (nImmunities < 2)
@@ -165,13 +166,13 @@ int __fastcall sub_004ACDB0_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bU
                         if (nLightResist < 75)
                         {
                             int nNewLightResist = nLightResist + 20;
-                            STATLIST_SetUnitStat(pUnit, 41, nNewLightResist, 0);
+                            STATLIST_SetUnitStat(pUnit, STAT_LIGHTRESIST, nNewLightResist, 0);
                             if (nNewLightResist >= 100) return nImmunities + 1;
                         }
                     }
                 }
             }
-            else if (nUMod == 28) STATLIST_SetUnitStat(pUnit, 36, nDamageResist + 50, 0);
+            else if (nUMod == 28) STATLIST_SetUnitStat(pUnit, STAT_DAMAGERESIST, nDamageResist + 50, 0);
         }
     }
 }

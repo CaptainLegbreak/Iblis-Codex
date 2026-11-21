@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Unicode.h"
@@ -1006,10 +1007,10 @@ static void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitS
     char szNumber[10];
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    if (STATLIST_UnitGetStatValue(pItem, 0x46, 0) > 0)
+    if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) > 0)
     {
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD86));
-        SStrPrintf(szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, 0x46, 0));
+        SStrPrintf(szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0));
         sub_00526F20(wszNumber, szNumber, 9);
         sub_00526700(pText, pColorStart);
         sub_00526700(pText, wszNumber);
@@ -1028,12 +1029,12 @@ static void __stdcall sub_00484E90_AppendDurability(D2UnitStrc* pItem, Unicode* 
     if (ITEMS_HasDurability(pItem) && STATLIST_GetMaxDurabilityFromUnit(pItem) > 0 && !ITEMS_CheckIfThrowable(pItem))
     {
         int bBonus = 0;
-        if (STATLIST_GetUnitStatBonus(pItem, 0x4B, 0))
+        if (STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_MAXDURABILITY_PERCENT, 0))
         {
             bBonus = 1;
         }
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD81));
-        SStrPrintf(szNumber, 10, szFmtInt_006D6454, STATLIST_UnitGetStatValue(pItem, 0x48, 0));
+        SStrPrintf(szNumber, 10, szFmtInt_006D6454, STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0));
         sub_00526700(pText, pColorStart);
         sub_00526F20(wszNumber, szNumber, 9);
         sub_00526700(pText, wszNumber);
@@ -1111,7 +1112,7 @@ static void __stdcall sub_00485170_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonu
 // 0x00485BE0
 static void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
-    int nBlock = STATLIST_UnitGetStatValue(pItem, 0x14, 0);
+    int nBlock = STATLIST_UnitGetStatValue(pItem, STAT_TOBLOCK, 0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
@@ -1199,10 +1200,10 @@ static void __stdcall sub_00486100_AppendStackQuantity(D2UnitStrc* pItem, Unicod
     char szNumber[10];
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    if (STATLIST_UnitGetStatValue(pItem, 0x46, 0) > 0 || ITEMS_GetTotalMaxStack(pItem) > 0)
+    if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) > 0 || ITEMS_GetTotalMaxStack(pItem) > 0)
     {
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD86));
-        SStrPrintf(szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, 0x46, 0));
+        SStrPrintf(szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0));
         sub_00526F20(wszNumber, szNumber, 9);
         sub_00526700(pText, pColorStart);
         sub_00526700(pText, wszNumber);
@@ -1219,7 +1220,7 @@ static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc*
     D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
     const int nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pStoredUnit, pItem);
     int bBonus = 0;
-    if (STATLIST_GetUnitStatBonus(pItem, 0x5D, 0))
+    if (STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_FASTERATTACKRATE, 0))
     {
         bBonus = 1;
     }
@@ -1329,7 +1330,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
             }
             SStrPrintf(szText, 0x80, "%d / %d", nLife, nMaxLife);
             sub_00526320_ToUnicode(wszText, szText, 0x80);
-            if ((STATLIST_GetUnitBaseStat(pUnit, 7, 0) >> 8) < nMaxLife)
+            if ((STATLIST_GetUnitBaseStat(pUnit, STAT_MAXHP, 0) >> 8) < nMaxLife)
             {
                 nColor = 3;
             }
@@ -1339,9 +1340,9 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
         {
             D2UnitStrc* pWeapon = 0;
             int nFlat = 0;
-            int nPercent = STATLIST_UnitGetStatValue(pUnit, 0x19, 0);
-            const int nMinPercent = STATLIST_UnitGetStatValue(pUnit, 0x12, 0);
-            const int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, 0x11, 0);
+            int nPercent = STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
+            const int nMinPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MINDAMAGE_PERCENT, 0);
+            const int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
             if (nMinPercent + nPercent > 0)
             {
                 nColor = 3;
@@ -1356,41 +1357,41 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 pWeapon = INVENTORY_GetItemFromBodyLoc(pUnit->pInventory, 4);
             }
 
-            int nMaxDamage = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+            int nMaxDamage = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0);
             if (pWeapon)
             {
                 if (ITEMS_CheckWeaponIfTwoHanded(pWeapon))
                 {
-                    nValue -= STATLIST_UnitGetStatValue(pWeapon, 0x15, 0);
-                    nMaxDamage -= STATLIST_UnitGetStatValue(pWeapon, 0x16, 0);
-                    nValue += STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
-                    nMaxDamage += STATLIST_UnitGetStatValue(pUnit, 0x18, 0);
+                    nValue -= STATLIST_UnitGetStatValue(pWeapon, STAT_MINDAMAGE, 0);
+                    nMaxDamage -= STATLIST_UnitGetStatValue(pWeapon, STAT_MAXDAMAGE, 0);
+                    nValue += STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
+                    nMaxDamage += STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MAXDAMAGE, 0);
                 }
 
                 nFlat = ITEMS_GetStrengthBonus(pWeapon);
                 if (nFlat)
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFlat / 100;
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0) * nFlat / 100;
                 }
 
                 nFlat = ITEMS_GetDexBonus(pWeapon);
                 if (nFlat)
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFlat / 100;
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) * nFlat / 100;
                 }
 
                 nPercent += SKILLS_GetWeaponMasteryBonus(pUnit, pWeapon, 0, 1);
-                nFlat = STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 0x6F, 0);
+                nFlat = STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_NORMALDAMAGE, 0);
             }
             else
             {
                 if (sub_00451F60_UnitClassId(pUnit) == 0x10F)
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 2, 0);
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0);
                 }
                 else
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 0, 0);
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
                 }
             }
 
@@ -1421,19 +1422,19 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 nMax += nElemMax;
             }
 
-            nValue = STATLIST_UnitGetStatValue(pUnit, 0x39, 0);
-            nFlat = STATLIST_UnitGetStatValue(pUnit, 0x3A, 0);
+            nValue = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMINDAM, 0);
+            nFlat = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMAXDAM, 0);
             if (nValue || nFlat)
             {
-                int nLength = STATLIST_UnitGetStatValue(pUnit, 0x65, 0);
+                int nLength = STATLIST_UnitGetStatValue(pUnit, STAT_SKILL_POISON_OVERRIDE_LENGTH, 0);
                 if (nLength <= 0)
                 {
-                    int nCount = STATLIST_UnitGetStatValue(pUnit, 0x146, 0);
+                    int nCount = STATLIST_UnitGetStatValue(pUnit, STAT_POISON_COUNT, 0);
                     if (nCount < 1)
                     {
                         nCount = 1;
                     }
-                    nLength = STATLIST_UnitGetStatValue(pUnit, 0x3B, 0) / nCount;
+                    nLength = STATLIST_UnitGetStatValue(pUnit, STAT_POISONLENGTH, 0) / nCount;
                 }
                 nMin += (nLength * nValue) >> 8;
                 nColor = 2;
@@ -1472,7 +1473,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x28, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXFIRERESIST, 0);
                 break;
             case 0x29:
                 if (STATES_CheckStateMaskRLBlueOnUnit(pUnit))
@@ -1483,7 +1484,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x2A, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXLIGHTRESIST, 0);
                 break;
             case 0x2B:
                 if (STATES_CheckStateMaskRCBlueOnUnit(pUnit))
@@ -1494,7 +1495,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x2C, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXCOLDRESIST, 0);
                 break;
             case 0x2D:
                 if (STATES_CheckStateMaskRPBlueOnUnit(pUnit))
@@ -1505,7 +1506,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x2E, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXPOISONRESIST, 0);
                 break;
             }
 
@@ -1680,7 +1681,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
     {
         int nStrBonus = 0;
         int nDexBonus = 0;
-        const int nPercent = STATLIST_UnitGetItemStatOrSkillStatValue(gpHoverItem_007BCBF4, 0x5B, 0);
+        const int nPercent = STATLIST_UnitGetItemStatOrSkillStatValue(gpHoverItem_007BCBF4, STAT_ITEM_REQ_PERCENT, 0);
         if (nPercent)
         {
             nStrBonus = DATATBLS_ApplyRatio(pItemsTxt->wReqStr, nPercent, 100);

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2ItemModes.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"

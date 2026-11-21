@@ -7,6 +7,8 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
+#include "D2PlayerModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -52,9 +54,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 
 enum D2C_F41AiTacticsConstants
 {
-    MONMODE_WALK = 2,
-    MONMODE_SEQUENCE = 14,
-    MONMODE_RUN = 15,
     STATE_DECREPIFY = 60,
     EVENTTYPE_AITHINK = 2,
     EVENTTYPE_FREEHOVER = 6,
@@ -143,11 +142,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20); // 0x005A6260
-
-enum D2C_Y10AiTacticsConstants
-{
-    MONMODE_NEUTRAL = 1,
-};
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 
@@ -256,14 +250,6 @@ __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonster
     }
     return 0;
 }
-
-enum
-{
-    MONMODE_DEATH = 0,
-    MONMODE_DEAD = 12,
-    PLRMODE_DEATH = 0,
-    PLRMODE_DEAD = 17,
-};
 
 // 0x005DDE50
 D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance)

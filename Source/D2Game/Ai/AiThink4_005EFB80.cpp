@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -9,6 +10,7 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
+#include "D2MonModes.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -41,8 +43,6 @@ int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 
 enum D2C_M80SkeletonAi
 {
-    MONMODE_ATTACK1 = 4,
-    MONMODE_ATTACK2 = 5,
     SKELETON_AI_PARAM_APPROACH_CHANCE_PCT = 0,
     SKELETON_AI_PARAM_STALL_TIME = 1,
     SKELETON_AI_PARAM_ATTACK_CHANCE_PCT = 2,
@@ -510,7 +510,7 @@ void __fastcall sub_005F39B0_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
             D2StatListStrc* pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pTarget ? 6 : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId);
             if (pStatList)
             {
-                STATLIST_SetStatIfListIsValid(pStatList, 80, 50 * (pGame->nDifficulty + 1), 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_ITEM_MAGICBONUS, 50 * (pGame->nDifficulty + 1), 0);
                 sub_006260B0(pStatList, nExpireFrame);
                 sub_005417D0_DirectDated(pGame, pTarget, 12, nExpireFrame, 0, 0);
                 D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);

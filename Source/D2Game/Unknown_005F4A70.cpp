@@ -3,17 +3,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M236SuccubusWitchAi
 {
-    MONMODE_ATTACK1 = 4,
-    MONMODE_SKILL2 = 9,
     SUCCUBUSWITCH_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     SUCCUBUSWITCH_AI_PARAM_APPROACH_CHANCE_PCT = 1,
     SUCCUBUSWITCH_AI_PARAM_WALK_AWAY_CHANCE_PCT = 2,

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
@@ -293,7 +294,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
             }
             SStrPrintf(szText, 0x80, "%d / %d", nLife, nMaxLife);
             sub_00526320_ToUnicode(wszText, szText, 0x80);
-            if ((STATLIST_GetUnitBaseStat(pUnit, 7, 0) >> 8) < nMaxLife)
+            if ((STATLIST_GetUnitBaseStat(pUnit, STAT_MAXHP, 0) >> 8) < nMaxLife)
             {
                 nColor = 3;
             }
@@ -303,9 +304,9 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
         {
             D2UnitStrc* pWeapon = 0;
             int nFlat = 0;
-            int nPercent = STATLIST_UnitGetStatValue(pUnit, 0x19, 0);
-            const int nMinPercent = STATLIST_UnitGetStatValue(pUnit, 0x12, 0);
-            const int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, 0x11, 0);
+            int nPercent = STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
+            const int nMinPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MINDAMAGE_PERCENT, 0);
+            const int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
             if (nMinPercent + nPercent > 0)
             {
                 nColor = 3;
@@ -320,41 +321,41 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 pWeapon = INVENTORY_GetItemFromBodyLoc(pUnit->pInventory, 4);
             }
 
-            int nMaxDamage = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+            int nMaxDamage = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0);
             if (pWeapon)
             {
                 if (ITEMS_CheckWeaponIfTwoHanded(pWeapon))
                 {
-                    nValue -= STATLIST_UnitGetStatValue(pWeapon, 0x15, 0);
-                    nMaxDamage -= STATLIST_UnitGetStatValue(pWeapon, 0x16, 0);
-                    nValue += STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
-                    nMaxDamage += STATLIST_UnitGetStatValue(pUnit, 0x18, 0);
+                    nValue -= STATLIST_UnitGetStatValue(pWeapon, STAT_MINDAMAGE, 0);
+                    nMaxDamage -= STATLIST_UnitGetStatValue(pWeapon, STAT_MAXDAMAGE, 0);
+                    nValue += STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
+                    nMaxDamage += STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MAXDAMAGE, 0);
                 }
 
                 nFlat = ITEMS_GetStrengthBonus(pWeapon);
                 if (nFlat)
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFlat / 100;
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0) * nFlat / 100;
                 }
 
                 nFlat = ITEMS_GetDexBonus(pWeapon);
                 if (nFlat)
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFlat / 100;
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) * nFlat / 100;
                 }
 
                 nPercent += SKILLS_GetWeaponMasteryBonus(pUnit, pWeapon, 0, 1);
-                nFlat = STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 0x6F, 0);
+                nFlat = STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_NORMALDAMAGE, 0);
             }
             else
             {
                 if (sub_00451F60_UnitClassId(pUnit) == 0x10F)
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 2, 0);
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0);
                 }
                 else
                 {
-                    nPercent += STATLIST_UnitGetStatValue(pUnit, 0, 0);
+                    nPercent += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
                 }
             }
 
@@ -385,19 +386,19 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 nMax += nElemMax;
             }
 
-            nValue = STATLIST_UnitGetStatValue(pUnit, 0x39, 0);
-            nFlat = STATLIST_UnitGetStatValue(pUnit, 0x3A, 0);
+            nValue = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMINDAM, 0);
+            nFlat = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMAXDAM, 0);
             if (nValue || nFlat)
             {
-                int nLength = STATLIST_UnitGetStatValue(pUnit, 0x65, 0);
+                int nLength = STATLIST_UnitGetStatValue(pUnit, STAT_SKILL_POISON_OVERRIDE_LENGTH, 0);
                 if (nLength <= 0)
                 {
-                    int nCount = STATLIST_UnitGetStatValue(pUnit, 0x146, 0);
+                    int nCount = STATLIST_UnitGetStatValue(pUnit, STAT_POISON_COUNT, 0);
                     if (nCount < 1)
                     {
                         nCount = 1;
                     }
-                    nLength = STATLIST_UnitGetStatValue(pUnit, 0x3B, 0) / nCount;
+                    nLength = STATLIST_UnitGetStatValue(pUnit, STAT_POISONLENGTH, 0) / nCount;
                 }
                 nMin += (nLength * nValue) >> 8;
                 nColor = 2;
@@ -436,7 +437,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x28, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXFIRERESIST, 0);
                 break;
             case 0x29:
                 if (STATES_CheckStateMaskRLBlueOnUnit(pUnit))
@@ -447,7 +448,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x2A, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXLIGHTRESIST, 0);
                 break;
             case 0x2B:
                 if (STATES_CheckStateMaskRCBlueOnUnit(pUnit))
@@ -458,7 +459,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x2C, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXCOLDRESIST, 0);
                 break;
             case 0x2D:
                 if (STATES_CheckStateMaskRPBlueOnUnit(pUnit))
@@ -469,7 +470,7 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
                 {
                     nColor = 1;
                 }
-                nMaxResist = STATLIST_UnitGetStatValue(pUnit, 0x2E, 0);
+                nMaxResist = STATLIST_UnitGetStatValue(pUnit, STAT_MAXPOISONRESIST, 0);
                 break;
             }
 

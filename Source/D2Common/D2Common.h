@@ -258,9 +258,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define IFLAG_PERSONALIZED 0x1000000
 #define IFLAG_RUNEWORD 0x4000000
 #define IFLAG_SOCKETED 0x800
-#define IMODE_DROPPING 5
-#define IMODE_EQUIP 1
-#define IMODE_ONGROUND 3
 #define INVENTORY_GRID_X_LIMIT 11
 #define INVGRID_BELT 1
 #define INVGRID_BODYLOC 0
@@ -344,9 +341,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define LINE_START_COORD 0x389
 #define MASK_ALL 0xFFFF
 #define MASK_INVALID 0x27
-#define MONMODE_DEAD 12
-#define MONMODE_DEATH 0
-#define MONMODE_NEUTRAL 1
 #define MONSTATSFLAGINDEX_BOSS 6
 #define MONSTATSFLAGINDEX_FLYING 14
 #define MONSTATSFLAGINDEX_OPENDOORS 3

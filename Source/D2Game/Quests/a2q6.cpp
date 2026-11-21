@@ -8,6 +8,7 @@
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -134,10 +135,6 @@ enum { QUEST_FILTER = 14, ALLOC_LINE = 1090 };
 #define LEVEL_PALACECELLARLEV3 54
 
 #define LEVEL_ARCANESANCTUARY 74
-
-#define OBJMODE_OPERATING 1
-
-#define OBJMODE_OPENED 2
 
 #define UNIT_TILE 5
 

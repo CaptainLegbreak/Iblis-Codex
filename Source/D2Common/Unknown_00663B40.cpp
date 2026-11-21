@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -66,7 +67,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
         pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
         if (pStatList)
         {
-            if (nValue == STATLIST_GetStatValue(pStatList, 71, 0))
+            if (nValue == STATLIST_GetStatValue(pStatList, STAT_VALUE, 0))
             {
                 if (a3 == 0)
                 {
@@ -102,7 +103,7 @@ update:
     switch (a3)
     {
     case 0:
-        STATLIST_AddStat(pStatList, 71, nValue, 0);
+        STATLIST_AddStat(pStatList, STAT_VALUE, nValue, 0);
         ITEMMODS_UpdateFullSetBoni(pUnit, pItem, nState);
         break;
 

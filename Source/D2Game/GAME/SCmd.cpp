@@ -9,6 +9,7 @@
 #include "D2GameClient.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -316,7 +317,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
 
-
 #pragma pack(push, 1)
 struct D2UnitUpdateEntry
 {
@@ -325,7 +325,6 @@ struct D2UnitUpdateEntry
     unsigned char nType;
 };
 #pragma pack(pop)
-
 
 void __fastcall D2GAME_SendPacket0x9D_6FC3E6F0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053CEF0
 
@@ -1695,16 +1694,6 @@ enum { HEADER = 0x40 };
 #define UNIT_ITEM 4
 
 #define UNIT_TILE 5
-
-#define MONMODE_DEATH 0
-
-#define MONMODE_NEUTRAL 1
-
-#define MONMODE_SKILL1 8
-
-#define MONMODE_SKILL2 9
-
-#define MONMODE_DEAD 12
 
 #define MONTYPEFLAG_CHAMPION 4
 
@@ -3688,7 +3677,7 @@ void __fastcall SCMD_Send0x75_PartyRosterUpdate(D2UnitStrc* pLocalPlayer, D2Unit
     packet75.nHeader = 0x75u;
     const int nUnitGUID = !pOtherPlayer ? -1 : pOtherPlayer->dwUnitId;
     packet75.nUnitGUID = nUnitGUID;
-    packet75.nLevel = STATLIST_UnitGetStatValue(pOtherPlayer, 0xC, 0);
+    packet75.nLevel = STATLIST_UnitGetStatValue(pOtherPlayer, STAT_LEVEL, 0);
     packet75.nPartyId = SUNIT_GetPartyId(pOtherPlayer);
     packet75.nFlags = PLAYERLIST_GetFlags(pLocalPlayer, pOtherPlayer);
     packet75.unk0x0B = sub_6FCBA9D0(pLocalPlayer, pOtherPlayer);

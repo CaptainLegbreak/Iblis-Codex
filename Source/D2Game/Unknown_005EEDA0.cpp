@@ -7,6 +7,8 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2GameAux.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 int __fastcall ACT5Q5_IsNotActivatable(D2GameStrc* pGame);                                                  // 0x0058CF90
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
@@ -17,8 +19,7 @@ int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc
 int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 struct D2AiBaalTargetArgsStrc;
 #define UNIT_PLAYER 0
-#define PLRMODE_DEATH 0
-#define PLRMODE_DEAD 17
+
 #define PATHTYPE_TOWARD 2
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -184,8 +185,6 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 int __fastcall AITHINK_AreUnitsInSameLevel(D2UnitStrc* pUnit, D2UnitStrc* pTarget);                        // 0x005EEB10
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget);                        // 0x006416D0
-
-#define MONMODE_ATTACK1 4
 
 enum D2C_AncientBarb2AIParams
 {

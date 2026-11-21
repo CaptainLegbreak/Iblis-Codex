@@ -1150,8 +1150,8 @@ static int __stdcall sub_005D3320_ApplyChargeState(D2GameStrc* pGame, int nSkill
         STATLIST_SetState(pStatList, nAuraState);
         STATLIST_SetStatRemoveCallback(pStatList, SKILLS_StatRemoveCallback_ProgressiveStrike);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-        STATLIST_SetStat(pStatList, 350, nSkillId, 0);
-        STATLIST_SetStat(pStatList, 351, nSkillLevel, 0);
+        STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_SKILL, nSkillId, 0);
+        STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_LEVEL, nSkillLevel, 0);
     }
 
     D2COMMON_10476(pStatList, nExpireFrame);
@@ -1233,14 +1233,14 @@ inline int SKILLS_GetProgressiveState(int nIndex)
 // 0x005D3680
 static void __stdcall sub_005D3680_ApplyProgressiveDamage(D2StatListStrc* pStatList, D2DamageStrc* pDamage, D2UnitStrc* pUnit)
 {
-    const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
     {
         return;
     }
 
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     const int nMaxLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId), 1);
     if (nMaxLevel > nSkillLevel)
     {
@@ -1309,14 +1309,14 @@ D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* p
 // 0x005D3880
 void __stdcall sub_005D3880_ProgressiveElemental(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
 {
-    const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
     {
         return;
     }
 
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     const int nMaxSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId), 1);
     if (nMaxSkillLevel > nSkillLevel)
     {
@@ -1369,7 +1369,7 @@ void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));
             if (pStatList)
             {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                 if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
                 {
                     D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
@@ -1391,14 +1391,14 @@ void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 // 0x005D3970
 static void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
 {
-    const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
     {
         return;
     }
 
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     const int nLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId), 1);
     if (nLevel > nSkillLevel)
     {
@@ -1956,11 +1956,11 @@ void __fastcall sub_005D5220_DischargeProgressiveSkills(D2GameStrc* pGame, D2Uni
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, sgptDataTables->pProgressiveStates[i]);
         if (!pStatList)
             continue;
-        int nSkill = STATLIST_GetStatValue(pStatList, 350, 0);
+        int nSkill = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
         D2SkillsTxt* pSkills = sub_0045C4B0_GetSkillsTxtRecord(nSkill);
         if (pSkills)
         {
-            int nLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+            int nLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
             int nCurrentLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkill), 1);
             if (nCurrentLevel > nLevel)
                 nLevel = nCurrentLevel;
@@ -3728,7 +3728,7 @@ void __fastcall sub_6FCF5870(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));
             if (pStatList)
             {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                 if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
                 {
                     D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);

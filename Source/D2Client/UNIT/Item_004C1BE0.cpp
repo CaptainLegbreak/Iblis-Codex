@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
 #include "D2Structs.h"
@@ -132,9 +133,9 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
 
 static void sub_004C1160_SaveSkillState(D2SkillStateStrc* pState, D2UnitStrc* pUnit)
 {
-    pState->nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0);
-    pState->nMana = STATLIST_UnitGetStatValue(pUnit, 8, 0);
-    pState->nStamina = STATLIST_UnitGetStatValue(pUnit, 0x0A, 0);
+    pState->nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
+    pState->nMana = STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0);
+    pState->nStamina = STATLIST_UnitGetStatValue(pUnit, STAT_STAMINA, 0);
 
     D2SkillStrc* pLeftSkill = UNITS_GetLeftSkill(pUnit);
     if (pLeftSkill)

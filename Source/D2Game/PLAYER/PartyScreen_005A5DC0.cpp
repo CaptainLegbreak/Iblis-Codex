@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 struct D2GameStrc;
@@ -42,7 +43,7 @@ static void __stdcall sub_005A5DC0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2Un
         FRIENDLY_OpenHostility(pGame, pPlayer2, pPlayer1);
         UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 412)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 3);
     }
-    else if (STATLIST_GetUnitBaseStat(pPlayer1, 12, 0) >= 9)
+    else if (STATLIST_GetUnitBaseStat(pPlayer1, STAT_LEVEL, 0) >= 9)
     {
         PARTY_IteratePartyMembers(pGame, nPartyId, sub_6FC7B3F0, pPlayer1);
     }
@@ -52,7 +53,7 @@ static void __stdcall sub_005A5DC0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2Un
 void __fastcall PARTYSCREEN_ToggleHostile(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer1);
-    if (!pRoom || !DUNGEON_IsRoomInTown(pRoom) || STATLIST_GetUnitBaseStat(pPlayer1, 12, 0) < 9 || STATLIST_GetUnitBaseStat(pPlayer2, 12, 0) < 9)
+    if (!pRoom || !DUNGEON_IsRoomInTown(pRoom) || STATLIST_GetUnitBaseStat(pPlayer1, STAT_LEVEL, 0) < 9 || STATLIST_GetUnitBaseStat(pPlayer2, STAT_LEVEL, 0) < 9)
     {
         *pFailure = 1;
         return;
@@ -68,7 +69,7 @@ void __fastcall PARTYSCREEN_ToggleHostile(D2GameStrc* pGame, D2UnitStrc* pPlayer
         return;
     }
 
-    if (!PLAYERLIST_CheckFlag(pPlayer1, pPlayer2, 8) && STATLIST_UnitGetStatValue(pPlayer2, 12, 0) < 9)
+    if (!PLAYERLIST_CheckFlag(pPlayer1, pPlayer2, 8) && STATLIST_UnitGetStatValue(pPlayer2, STAT_LEVEL, 0) < 9)
     {
         return;
     }

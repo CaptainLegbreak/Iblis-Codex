@@ -13,6 +13,8 @@
 #include "D2GameServer.h"
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
+#include "D2MonModes.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -25,8 +27,6 @@
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-
-#define MONMODE_NEUTRAL 1
 
 #define STAT_MANA 8
 
@@ -72,8 +72,6 @@ struct D2UnkFieldsStrc
 
 enum D2MiscConstants
 {
-    MONMODE_DEATH = 0,
-    MONMODE_GETHIT = 3,
     EVENTTYPE_MONUMOD = 7,
     SKILL_MONTELEPORT = 184,
     MONSTER_SANDLEAPER1 = 78,
@@ -2071,7 +2069,7 @@ int __fastcall sub_005AA250_ApplyHitExplosion(D2GameStrc* pGame, D2UnitStrc* pMi
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     if (pMissilesTxtRecord->wHitSubMissile[0] >= 0)
     {
-        STATLIST_SetUnitStat(pMissile, 0x38, 0, 0);
+        STATLIST_SetUnitStat(pMissile, STAT_COLDLENGTH, 0, 0);
         STATLIST_SetUnitStat(pMissile, 0x86, 0, 0);
         int nCount = pMissilesTxtRecord->dwHitPar[0];
         if (nCount <= 0)
@@ -3207,7 +3205,7 @@ int __fastcall MISSMODE_SrvHit35_OrbMist(D2GameStrc* pGame, D2UnitStrc* pMissile
         DUNGEON_ToggleHasPortalFlag(pRoom, 1);
     }
 
-    if (pObject->dwAnimMode == 0)
+    if (pObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         UNITS_ChangeAnimMode(pObject, 1);
         const int nClassId = pObject->dwClassId;
@@ -4670,7 +4668,7 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
             int nToHit = 0;
             if (pMissile)
             {
-                nToHit = STATLIST_UnitGetStatValue(pMissile, 0x13, 0);
+                nToHit = STATLIST_UnitGetStatValue(pMissile, STAT_TOHIT, 0);
             }
 
             if (!SUNITDMG_IsHitSuccessful(pOwner, pUnit, nToHit, 1))
@@ -6242,13 +6240,13 @@ int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamS
                 if (nLifePct < 30 && (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25 && !STATES_CheckState(pUnit, 52))
                 {
                     int nHeal = STATLIST_UnitGetStatValue(pUnit, 12, 0) << 8;
-                    const int nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+                    const int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
                     const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit);
                     if (nLife + nHeal > nMaxLife)
                     {
                         nHeal = nMaxLife - nLife;
                     }
-                    STATLIST_AddUnitStat(pUnit, 6, nHeal, 0);
+                    STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, nHeal, 0);
                 }
 
                 AITACTICS_UseSkill(pGame, pUnit, 4, 184, 0, nX, nY);
@@ -6805,7 +6803,7 @@ D2UnitStrc* __fastcall sub_6FCF1CB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Unit
 {
     D2DoorObjectAiCallbackArgStrc* pArg = (D2DoorObjectAiCallbackArgStrc*)pCallbackArg;
 
-    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != 0)
+    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != OBJMODE_NEUTRAL)
     {
         return 0;
     }

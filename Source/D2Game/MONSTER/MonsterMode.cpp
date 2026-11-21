@@ -9,6 +9,8 @@
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2MonModes.h"
+#include "D2PlayerModes.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -16,10 +18,6 @@
 
 enum D2C_P08MonsterConstants
 {
-    MONMODE_DEATH = 0,
-    MONMODE_GETHIT = 3,
-    MONMODE_SKILL1 = 8,
-    MONMODE_DEAD = 12,
     MONLVL_DM = 6,
     STAT_LEVEL = 12,
     STAT_DAMAGERESIST = 36,
@@ -110,8 +108,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
-
-#define MONMODE_NEUTRAL 1
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -265,14 +261,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 struct D2DynamicPathStrc;
 
 #define UNIT_MONSTER 1
-
-#define MONMODE_DEATH 0
-
-#define MONMODE_GETHIT 3
-
-#define MONMODE_DEAD 12
-
-#define MONMODE_SEQUENCE 14
 
 #define STATE_UNINTERRUPTABLE 54
 
@@ -489,16 +477,6 @@ void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit);               
 #define UNITEVENT_DEATH 13
 
 #define EVENTTYPE_AITHINK 2
-
-#define MONMODE_WALK 2
-
-#define MONMODE_BLOCK 6
-
-#define MONMODE_SKILL3 10
-
-#define MONMODE_SKILL4 11
-
-#define MONMODE_RUN 15
 
 // build: ob1
 
@@ -1396,10 +1374,10 @@ static void sub_005A68E0_SetAiStateForMode(int nMode, D2UnitStrc* pMonster)
 // 0x005A6920
 void __fastcall sub_005A6920_MonsterRegenEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nParam)
 {
-    int nRegen = STATLIST_UnitGetStatValue(pUnit, 0x4A, 0);
+    int nRegen = STATLIST_UnitGetStatValue(pUnit, STAT_HPREGEN, 0);
     if (STATES_CheckStateMaskLifeOnUnit(pUnit))
     {
-        nRegen -= STATLIST_GetUnitBaseStat(pUnit, 0x4A, 0);
+        nRegen -= STATLIST_GetUnitBaseStat(pUnit, STAT_HPREGEN, 0);
     }
 
     if (STATES_CheckState(pUnit, 0x34) && nRegen >= 0)
@@ -1640,7 +1618,7 @@ int __fastcall sub_005A6D50_CreateMonsterMissile(D2GameStrc* pGame, D2UnitStrc* 
     int nSkillLevel = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty)->dwMonsterSkillBonus + 1;
     if (UNIT_HasFlag(pUnit, 0x200))
     {
-        nSkillLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+        nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     }
 
     if (sub_6FD11420(pGame, nMissileId, pUnit, 0, nSkillLevel, 0, 0, 0, 0, 1))
@@ -1711,7 +1689,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
     while (pTarget)
     {
-        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != 17 && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
+        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
@@ -1813,7 +1791,7 @@ int __fastcall sub_005A6FF0_MonsterDeath(D2GameStrc* pGame, D2ModeChangeStrc* pM
         D2MonStatsInitStrc stats;
         memset(&stats, 0, sizeof(stats));
         int nClassId = pUnit->dwClassId;
-        DATATBLS_CalculateMonsterStatsByLevel(nClassId, pGame->dwGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pUnit, 12, 0), 1, &stats);
+        DATATBLS_CalculateMonsterStatsByLevel(nClassId, pGame->dwGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 1, &stats);
         int nMaxDamage = DATATBLS_ApplyRatio(stats.nMaxHP, pDifficulty->nMonsterCEDamagePercent, 100);
         int nMinDamage;
         if (nMaxDamage > 0x100000)

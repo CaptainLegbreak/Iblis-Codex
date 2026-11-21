@@ -7,6 +7,7 @@
 #include "D2Skills.h"
 #include "D2ItemsWorld.h"
 #include "D2TxtItems.h"
+#include "D2ItemModes.h"
 
 #define STATEMASK_BLUE 18
 

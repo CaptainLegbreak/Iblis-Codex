@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -10,6 +11,7 @@
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
+#include "D2ItemModes.h"
 
 struct D2ClientStrc;
 
@@ -142,8 +144,6 @@ void __fastcall sub_6FC80A30(D2GameStrc*,D2UnitStrc*); // 0x00580310
 #define UNIT_PLAYER 0
 
 #define UNIT_MONSTER 1
-
-#define IMODE_SOCKETED 6
 
 #define STAT_LEVEL 12
 
@@ -486,7 +486,6 @@ int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2U
 
 int __stdcall ITEMS_CheckItemTypeIfThrowable(int nItemType); // 0x00628860
 
-
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem); // 0x0062BEB0
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
@@ -590,7 +589,7 @@ static __declspec(noinline) void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
     const unsigned int nMaxAc = pItemsTxtRecord->dwMaxAc;
     const unsigned int nACValue = sub_00472280(&pItem->pSeed, nMinAc, nMaxAc - nMinAc + 1);
     D2_ASSERT(nACValue <= nMaxAc, 0x1CE);
-    STATLIST_SetUnitStat(pItem, 31, nACValue, 0);
+    STATLIST_SetUnitStat(pItem, STAT_ARMORCLASS, nACValue, 0);
 }
 
 // 0x005563D0
@@ -601,28 +600,28 @@ static __declspec(noinline) void sub_005563D0_SetWeaponDamage(D2UnitStrc* pItem)
 
     if (pItemsTxtRecord->nMaxDam)
     {
-        STATLIST_SetUnitStat(pItem, 22, pItemsTxtRecord->nMaxDam, 0);
+        STATLIST_SetUnitStat(pItem, STAT_MAXDAMAGE, pItemsTxtRecord->nMaxDam, 0);
     }
 
     if (pItemsTxtRecord->nMinDam)
     {
-        STATLIST_SetUnitStat(pItem, 21, pItemsTxtRecord->nMinDam, 0);
+        STATLIST_SetUnitStat(pItem, STAT_MINDAMAGE, pItemsTxtRecord->nMinDam, 0);
     }
 
     if (pItemsTxtRecord->n2HandMinDam)
     {
-        STATLIST_SetUnitStat(pItem, 23, pItemsTxtRecord->n2HandMinDam, 0);
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MINDAMAGE, pItemsTxtRecord->n2HandMinDam, 0);
     }
 
     if (pItemsTxtRecord->n2HandMaxDam)
     {
-        STATLIST_SetUnitStat(pItem, 24, pItemsTxtRecord->n2HandMaxDam, 0);
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MAXDAMAGE, pItemsTxtRecord->n2HandMaxDam, 0);
     }
 
     if (pItemsTxtRecord->nMaxMisDam)
     {
-        STATLIST_SetUnitStat(pItem, 159, pItemsTxtRecord->nMinMisDam, 0);
-        STATLIST_SetUnitStat(pItem, 160, pItemsTxtRecord->nMaxMisDam, 0);
+        STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, pItemsTxtRecord->nMinMisDam, 0);
+        STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, pItemsTxtRecord->nMaxMisDam, 0);
     }
 }
 
@@ -777,10 +776,10 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
  unsigned short nFormat=ITEMS_GetItemFormat(pItem);
  if(ITEMS_HasDurability(pItem) && !nFormat)
  {
-  int nDur=STATLIST_UnitGetStatValue(pItem,72,0);
+  int nDur=STATLIST_UnitGetStatValue(pItem,STAT_DURABILITY,0);
   int nMaxDur=sub_006253B0_GetBaseStat(pItem,73,0);
-  STATLIST_SetUnitStat(pItem,72,D2_MIN(5*nDur,255),0);
-  STATLIST_SetUnitStat(pItem,73,D2_MIN(5*nMaxDur,255),0);
+  STATLIST_SetUnitStat(pItem,STAT_DURABILITY,D2_MIN(5*nDur,255),0);
+  STATLIST_SetUnitStat(pItem,STAT_MAXDURABILITY,D2_MIN(5*nMaxDur,255),0);
  }
  if(pItemDrop->bForce)
  {
@@ -1062,10 +1061,10 @@ static void ITEMS_MakeEthereal(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
         ITEMMODS_ApplyEthereality(pItem);
         if (ITEMS_HasDurability(pItem))
         {
-            const int nMaxDurability = STATLIST_GetUnitBaseStat(pItem, 0x49, 0) / 2 + 1;
-            STATLIST_SetUnitStat(pItem, 0x49, nMaxDurability, 0);
-            const int nDurability = STATLIST_UnitGetStatValue(pItem, 0x49, 0);
-            STATLIST_SetUnitStat(pItem, 0x48, nDurability, 0);
+            const int nMaxDurability = STATLIST_GetUnitBaseStat(pItem, STAT_MAXDURABILITY, 0) / 2 + 1;
+            STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, nMaxDurability, 0);
+            const int nDurability = STATLIST_UnitGetStatValue(pItem, STAT_MAXDURABILITY, 0);
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nDurability, 0);
         }
     }
 }
@@ -1419,10 +1418,10 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         {
             if (ITEMS_HasDurability(*ppItem) && ITEMS_GetItemFormat(*ppItem) >= 1)
             {
-                const int nDurability = STATLIST_UnitGetStatValue(*ppItem, 0x48, 0);
-                const int nMaxDurability = STATLIST_GetUnitBaseStat(*ppItem, 0x49, 0);
-                STATLIST_SetUnitStat(*ppItem, 0x48, D2_MIN(3 * nDurability, 255), 0);
-                STATLIST_SetUnitStat(*ppItem, 0x49, D2_MIN(3 * nMaxDurability, 255), 0);
+                const int nDurability = STATLIST_UnitGetStatValue(*ppItem, STAT_DURABILITY, 0);
+                const int nMaxDurability = STATLIST_GetUnitBaseStat(*ppItem, STAT_MAXDURABILITY, 0);
+                STATLIST_SetUnitStat(*ppItem, STAT_DURABILITY, D2_MIN(3 * nDurability, 255), 0);
+                STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, D2_MIN(3 * nMaxDurability, 255), 0);
             }
 
             if (!sub_005573F0_ResetToRareQuality(pItemDrop, ppItem, &nSeed) && !sub_00557380_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
@@ -1468,10 +1467,10 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         {
             if (ITEMS_HasDurability(*ppItem) && ITEMS_GetItemFormat(*ppItem) >= 1)
             {
-                const int nDurability = STATLIST_UnitGetStatValue(*ppItem, 0x48, 0);
-                const int nMaxDurability = STATLIST_GetUnitBaseStat(*ppItem, 0x49, 0);
-                STATLIST_SetUnitStat(*ppItem, 0x48, D2_MIN(2 * nDurability, 255), 0);
-                STATLIST_SetUnitStat(*ppItem, 0x49, D2_MIN(2 * nMaxDurability, 255), 0);
+                const int nDurability = STATLIST_UnitGetStatValue(*ppItem, STAT_DURABILITY, 0);
+                const int nMaxDurability = STATLIST_GetUnitBaseStat(*ppItem, STAT_MAXDURABILITY, 0);
+                STATLIST_SetUnitStat(*ppItem, STAT_DURABILITY, D2_MIN(2 * nDurability, 255), 0);
+                STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, D2_MIN(2 * nMaxDurability, 255), 0);
             }
 
             if (!sub_00557380_ResetToMagicQuality(pItemDrop, ppItem, &nSeed) && !ITEMS_ResetToSuperiorQuality(pItemDrop, ppItem, &nSeed))
@@ -1613,7 +1612,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             nQuantity = pItemDrop->nQtyOverride;
         }
 
-        STATLIST_SetUnitStat(*ppItem, 70, nQuantity, 0);
+        STATLIST_SetUnitStat(*ppItem, STAT_QUANTITY, nQuantity, 0);
     }
     else
     {
@@ -1622,8 +1621,8 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
 
         if (ITEMSIsA(*ppItem, 50))
         {
-            STATLIST_SetUnitStat(*ppItem, 20, pItemsTxtRecord->nBlock, 0);
-            STATLIST_SetUnitStat(*ppItem, 67, -pItemsTxtRecord->dwSpeed, 0);
+            STATLIST_SetUnitStat(*ppItem, STAT_TOBLOCK, pItemsTxtRecord->nBlock, 0);
+            STATLIST_SetUnitStat(*ppItem, STAT_VELOCITYPERCENT, -pItemsTxtRecord->dwSpeed, 0);
             const unsigned int nMaxDurability = pItemsTxtRecord->nDurability;
             const unsigned int nDurability = nMaxDurability >> 1;
             unsigned int nValue = ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nDurability) + nDurability;
@@ -1631,8 +1630,8 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             {
                 nValue = 255;
             }
-            STATLIST_SetUnitStat(*ppItem, 72, nValue, 0);
-            STATLIST_SetUnitStat(*ppItem, 73, nMaxDurability >= 255 ? 255 : nMaxDurability, 0);
+            STATLIST_SetUnitStat(*ppItem, STAT_DURABILITY, nValue, 0);
+            STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, nMaxDurability >= 255 ? 255 : nMaxDurability, 0);
             sub_00556360_RollArmorClass(*ppItem);
         }
         else if (ITEMSIsA(*ppItem, 45))
@@ -1657,14 +1656,14 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
                     nQuantity = 1;
                 }
 
-                STATLIST_SetUnitStat(*ppItem, 70, nQuantity, 0);
+                STATLIST_SetUnitStat(*ppItem, STAT_QUANTITY, nQuantity, 0);
             }
 
             const unsigned int nDurability = pItemsTxtRecord->nDurability;
-            STATLIST_SetUnitStat(*ppItem, 72, D2_MinU(ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nDurability >> 1) + (nDurability >> 1), 255), 0);
-            STATLIST_SetUnitStat(*ppItem, 73, D2_MinU(nDurability, 255), 0);
+            STATLIST_SetUnitStat(*ppItem, STAT_DURABILITY, D2_MinU(ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nDurability >> 1) + (nDurability >> 1), 255), 0);
+            STATLIST_SetUnitStat(*ppItem, STAT_MAXDURABILITY, D2_MinU(nDurability, 255), 0);
             sub_005563D0_SetWeaponDamage(*ppItem);
-            STATLIST_SetUnitStat(*ppItem, 68, -pItemsTxtRecord->dwSpeed, 0);
+            STATLIST_SetUnitStat(*ppItem, STAT_ATTACKRATE, -pItemsTxtRecord->dwSpeed, 0);
         }
         else
         {
@@ -1689,7 +1688,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
                     nQuantity = 1;
                 }
 
-                STATLIST_SetUnitStat(*ppItem, 70, nQuantity, 0);
+                STATLIST_SetUnitStat(*ppItem, STAT_QUANTITY, nQuantity, 0);
             }
 
             if (ITEMS_GetItemType(*ppItem) == 11)
@@ -1716,7 +1715,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
                 D2COMMON_10475_PostStatToStatList(*ppItem, pStatList, 1);
             }
 
-            STATLIST_SetStatIfListIsValid(pStatList, 356, pGame->nDifficulty, 0);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_QUESTITEMDIFFICULTY, pGame->nDifficulty, 0);
             ITEMS_SetItemFlag(*ppItem, 0x10, 1);
         }
     }
@@ -2252,14 +2251,14 @@ static void sub_005589A0_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
     if (pPlayer && pItem && ITEMS_GetItemType(pItem) == 4)
     {
-        int nGoldBonus = STATLIST_UnitGetItemStatOrSkillStatValue(pPlayer, 0x4F, 0) + 100;
+        int nGoldBonus = STATLIST_UnitGetItemStatOrSkillStatValue(pPlayer, STAT_ITEM_GOLDBONUS, 0) + 100;
         D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pPlayer);
         if (pOwner)
         {
-            nGoldBonus += STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x4F, 0);
+            nGoldBonus += STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_GOLDBONUS, 0);
         }
 
-        const int nGold = STATLIST_UnitGetStatValue(pItem, 0xE, 0);
+        const int nGold = STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0);
         D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 0xE, nGold * nGoldBonus / 100);
     }
 }
@@ -2346,7 +2345,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                     nPlayerCount += (PLAYER_GetPlayerCount(pGame) - nPlayerCount) / 2;
                     if (pMonster && sub_0044BE50_GetUnitTypeOrInvalid(pMonster) == 1)
                     {
-                        int nMonsterPlayers = STATLIST_UnitGetStatValue(pMonster, 100, 0);
+                        int nMonsterPlayers = STATLIST_UnitGetStatValue(pMonster, STAT_MONSTER_PLAYERCOUNT, 0);
                         nMonsterPlayers = D2_MAX(1, nMonsterPlayers);
                         nPlayerCount = D2_MIN(nPlayerCount, nMonsterPlayers);
                     }
@@ -2580,7 +2579,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
             if (ITEMSIsA(pItem, 4) && pTC->pInfo[nIndex].nTxtRow)
             {
-                D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 0xE, STATLIST_UnitGetStatValue(pItem, 0xE, 0) * pTC->pInfo[nIndex].nTxtRow >> 8);
+                D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 0xE, STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0) * pTC->pInfo[nIndex].nTxtRow >> 8);
             }
 
             if (ppItems)
@@ -2852,13 +2851,13 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
         }
         else
         {
-            STATLIST_SetUnitStat(pItem, 0x46, pItemDrop->nQuantity, 0);
+            STATLIST_SetUnitStat(pItem, STAT_QUANTITY, pItemDrop->nQuantity, 0);
         }
 
         pItemDrop->nMaxDur = D2_MIN((unsigned int)pItemDrop->nMaxDur, 0xFFu);
         pItemDrop->nMinDur = D2_MIN((unsigned int)pItemDrop->nMinDur, (unsigned int)pItemDrop->nMaxDur);
-        STATLIST_SetUnitStat(pItem, 0x48, pItemDrop->nMinDur, 0);
-        STATLIST_SetUnitStat(pItem, 0x49, pItemDrop->nMaxDur, 0);
+        STATLIST_SetUnitStat(pItem, STAT_DURABILITY, pItemDrop->nMinDur, 0);
+        STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, pItemDrop->nMaxDur, 0);
     }
 
     if (ITEMS_GetItemType(pItem) == 7)
@@ -2885,7 +2884,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
             }
 
             ITEMS_SetEarName(pItem, pPlayerData->szName);
-            ITEMS_SetEarLevel(pItem, STATLIST_UnitGetStatValue(pItemDrop->pUnit, 12, 0));
+            ITEMS_SetEarLevel(pItem, STATLIST_UnitGetStatValue(pItemDrop->pUnit, STAT_LEVEL, 0));
 
             D2ClientStrc* pClient = UnitGetClient(pItemDrop->pUnit, ".\\ITEMS\\Items.cpp", 0x880);
             if (pClient)
@@ -3327,11 +3326,11 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2Unit
     {
         if (pUnit->dwUnitType == UNIT_MONSTER)
         {
-            nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+            nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
         }
         else if (pUnit->dwUnitType == UNIT_PLAYER)
         {
-            nLevel = STATLIST_GetUnitBaseStat(pUnit, 12, 0);
+            nLevel = STATLIST_GetUnitBaseStat(pUnit, STAT_LEVEL, 0);
         }
         else
         {
@@ -3431,27 +3430,27 @@ void __fastcall sub_00559E30_DecreaseDurability(D2GameStrc* pGame,D2UnitStrc* pP
  if (bWeapon) chance=10;
  else if (ITEMS_CheckIfThrowable(pItem)) { if (!pGame->bExpansion) return; chance=10; }
  if ((int)((unsigned)Roll(pPlayer)%100)>=chance) return;
- int durability=STATLIST_UnitGetStatValue(pItem,72,0)-1;
+ int durability=STATLIST_UnitGetStatValue(pItem,STAT_DURABILITY,0)-1;
  if (durability>0) {
   if(durability>=STATLIST_GetMaxDurabilityFromUnit(pItem)) durability=STATLIST_GetMaxDurabilityFromUnit(pItem);
   ITEMS_ScheduleDurabilityReplenishment(pGame,pItem);
-  STATLIST_SetUnitStat(pItem,72,durability,0);
+  STATLIST_SetUnitStat(pItem,STAT_DURABILITY,durability,0);
   SEND(72,durability,0xc5a);
  } else {
   if(!bStack && !sub_006280A0(pItem,0x100,0xc5f,".\\ITEMS\\Items.cpp")) {sub_6FC4B580(pGame,pPlayer,pItem);return;}
   if(ITEMS_GetItemFormat(pItem)>=1) {
-   int quantity=STATLIST_UnitGetStatValue(pItem,70,0);
+   int quantity=STATLIST_UnitGetStatValue(pItem,STAT_QUANTITY,0);
    if(quantity>1) {
-    --quantity;STATLIST_SetUnitStat(pItem,70,quantity,0);SEND(70,quantity,0xc70);
+    --quantity;STATLIST_SetUnitStat(pItem,STAT_QUANTITY,quantity,0);SEND(70,quantity,0xc70);
     durability=STATLIST_GetMaxDurabilityFromUnit(pItem);
-    STATLIST_SetUnitStat(pItem,72,durability,0);SEND(72,durability,0xc73);
+    STATLIST_SetUnitStat(pItem,STAT_DURABILITY,durability,0);SEND(72,durability,0xc73);
    } else {
-    STATLIST_SetUnitStat(pItem,72,0,0);SEND(72,0,0xc78);
-    STATLIST_SetUnitStat(pItem,70,0,0);SEND(70,quantity,0xc7b);
+    STATLIST_SetUnitStat(pItem,STAT_DURABILITY,0,0);SEND(72,0,0xc78);
+    STATLIST_SetUnitStat(pItem,STAT_QUANTITY,0,0);SEND(70,quantity,0xc7b);
     sub_6FC80A30(pGame,pPlayer);
    }
    if(ITEMS_GetTotalMaxStack(pItem)>0) ITEMS_ScheduleDurabilityReplenishment(pGame,pItem);
-  } else {STATLIST_SetUnitStat(pItem,72,0,0);SEND(72,0,0xc87);}
+  } else {STATLIST_SetUnitStat(pItem,STAT_DURABILITY,0,0);SEND(72,0,0xc87);}
  }
 }
 
@@ -3524,10 +3523,10 @@ D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2U
         }
     }
     ITEMS_SetItemFlag(pItem, 0x8000000, 1);
-    const int nReplenishDurability = STATLIST_UnitGetStatValue(pNewItem, 252, 0);
+    const int nReplenishDurability = STATLIST_UnitGetStatValue(pNewItem, STAT_ITEM_REPLENISH_DURABILITY, 0);
     if (nReplenishDurability && !EVENT_GetEventFrame(pGame, pNewItem, 3))
         EVENT_SetEvent(pGame, pNewItem, 3, pGame->dwGameFrame + 2500 / nReplenishDurability + 1, 0, 0);
-    const int nReplenishQuantity = STATLIST_UnitGetStatValue(pNewItem, 253, 0);
+    const int nReplenishQuantity = STATLIST_UnitGetStatValue(pNewItem, STAT_ITEM_REPLENISH_QUANTITY, 0);
     if (nReplenishQuantity && !EVENT_GetEventFrame(pGame, pNewItem, 3))
         EVENT_SetEvent(pGame, pNewItem, 3, pGame->dwGameFrame + 2500 / nReplenishQuantity + 1, 0, 0);
     D2GAME_ResetSomeItemFlags_6FC415F0(pGame, pNewItem);
@@ -3572,11 +3571,11 @@ static D2UnitStrc* __stdcall sub_0055A550_CreateDropAtUnit(D2GameStrc* pGame, in
     {
         if (pUnit->dwUnitType == UNIT_MONSTER)
         {
-            nItemLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0);
+            nItemLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
         }
         else if (pUnit->dwUnitType == UNIT_PLAYER)
         {
-            nItemLevel = STATLIST_GetUnitBaseStat(pUnit, 0xC, 0);
+            nItemLevel = STATLIST_GetUnitBaseStat(pUnit, STAT_LEVEL, 0);
         }
         else
         {

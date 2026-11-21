@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -5,18 +6,13 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
-#define MONMODE_DEATH 0
-#define MONMODE_NEUTRAL 1
+#include "D2MonModes.h"
+
 #define EVENTTYPE_MONUMOD 7
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
-
-
-
-
-
 
 struct D2MonStatsTxt
 {
@@ -28,8 +24,6 @@ struct D2MonStatsTxt
     short nElMaxD;
     char unk0x122[0x1A8 - 0x122];
 };
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -107,7 +101,7 @@ void __fastcall MONSTERUNIQUE_ApplyCorpseFireDamage(D2GameStrc* pGame, D2UnitStr
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit);
     const int nFireDamage = (ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pMonStatsTxtRecord->nElMaxD - pMonStatsTxtRecord->nElMinD) + pMonStatsTxtRecord->nElMinD) << 8;
-    const int nSize = pMonStatsTxtRecord->wAiParam3[pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, 12, 0);
+    const int nSize = pMonStatsTxtRecord->wAiParam3[pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
 
     D2DamageStrc damage;
     memset(&damage, 0, sizeof(damage));

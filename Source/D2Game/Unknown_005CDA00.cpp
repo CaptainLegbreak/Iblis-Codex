@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -65,12 +66,12 @@ int __fastcall sub_005CDA00_ApplySkillDamage(D2GameStrc* pGame, D2UnitStrc* pUni
     damage.wResultFlags = 1;
     const int nPercent = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->f_13C, nSkillId, nSkillLevel);
     const int nHeal = DATATBLS_ApplyRatio(damage.dwPhysDamage, nPercent, 100);
-    int nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0) + nHeal;
+    int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) + nHeal;
     const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit);
     if (nLife >= nMaxLife) nLife = nMaxLife;
-    STATLIST_SetUnitStat(pUnit, 6, nLife, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nLife, 0);
     SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
-    if (!STATLIST_UnitGetStatValue(pTarget, 6, 0)) damage.wResultFlags |= 2;
+    if (!STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0)) damage.wResultFlags |= 2;
     SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pTarget, &damage);
     --nCount;
     if (nCount > 0)

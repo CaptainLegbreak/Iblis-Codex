@@ -2,16 +2,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M188FetishBlowgunAi
 {
-    MONMODE_ATTACK1 = 4,
     FETISHBLOWGUN_AI_PARAM_STAY_IN_RANGE = 0,
     FETISHBLOWGUN_AI_PARAM_RUN_AWAY_CHANCE_PCT = 1,
 };

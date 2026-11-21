@@ -1,9 +1,12 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -321,8 +324,8 @@ void __fastcall sub_004D87E0_StateAuraEffect(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-    nLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+    nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    nLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
     {
@@ -352,8 +355,8 @@ void __fastcall sub_004D88A0_StateSkillLevel(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-    nLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+    nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    nLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
     int nCurrent = pSkill ? SKILLS_GetSkillLevel(pUnit, pSkill, 1) : 0;
     if (nCurrent == nLevel)
@@ -379,10 +382,10 @@ void __fastcall sub_004D8960_StateStoreOwner(D2UnitStrc* pUnit, int nState)
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
     if (pStatList)
     {
-        unsigned int nOwnerType = STATLIST_GetStatValue(pStatList, 0x161, 0);
+        unsigned int nOwnerType = STATLIST_GetStatValue(pStatList, STAT_SOURCE_UNIT_TYPE, 0);
         if (nOwnerType < 6)
         {
-            UNITS_StoreOwnerTypeAndGUID(pUnit, nOwnerType, STATLIST_GetStatValue(pStatList, 0x162, 0));
+            UNITS_StoreOwnerTypeAndGUID(pUnit, nOwnerType, STATLIST_GetStatValue(pStatList, STAT_SOURCE_UNIT_ID, 0));
         }
     }
 }
@@ -408,7 +411,7 @@ void __fastcall sub_004D89B0_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    const int nValue = STATLIST_GetStatValue(pStatList, 0x163, 0);
+    const int nValue = STATLIST_GetStatValue(pStatList, STAT_SHORTPARAM1, 0);
     const int nMode = pUnit->dwAnimMode;
     sub_004AEDD0(pUnit, nValue);
     if (nMode == 8)
@@ -491,16 +494,16 @@ void __fastcall sub_004D8B90_StateTier4(D2UnitStrc* pUnit, int nState)
     if (!pStatList)
         return;
 
-    const int nValue = STATLIST_GetStatValue(pStatList, 0x84, 0);
-    const int nTotal = STATLIST_GetStatValue(pStatList, 0x85, 0);
+    const int nValue = STATLIST_GetStatValue(pStatList, STAT_BONEARMOR, 0);
+    const int nTotal = STATLIST_GetStatValue(pStatList, STAT_BONEARMORMAX, 0);
     const int nCast = GetOverlay((short)pTxt->wCastOverlay);
     const int nOverlay1 = GetOverlay(pTxt->wOverlay[0]);
     const int nOverlay2 = GetOverlay(pTxt->wOverlay[1]);
     const int nOverlay3 = GetOverlay(pTxt->wOverlay[2]);
     const int nOverlay4 = GetOverlay(pTxt->wOverlay[3]);
-    const int nOldTier = STATLIST_GetStatValue(pStatList, 0x163, 0);
+    const int nOldTier = STATLIST_GetStatValue(pStatList, STAT_SHORTPARAM1, 0);
     const int nTier = GetThirdsTier(nValue, nTotal);
-    STATLIST_SetStat(pStatList, 0x163, nTier, 0);
+    STATLIST_SetStat(pStatList, STAT_SHORTPARAM1, nTier, 0);
     if (nTier > nOldTier)
     {
         sub_004D8A60_StateOverlays(pUnit, nState);
@@ -585,14 +588,14 @@ void __fastcall sub_004D8E60_StateTier3(D2UnitStrc* pUnit, int nState)
     if (!pStatList)
         return;
 
-    const int nValue = STATLIST_GetStatValue(pStatList, 0x84, 0);
-    const int nTotal = STATLIST_GetStatValue(pStatList, 0x85, 0);
+    const int nValue = STATLIST_GetStatValue(pStatList, STAT_BONEARMOR, 0);
+    const int nTotal = STATLIST_GetStatValue(pStatList, STAT_BONEARMORMAX, 0);
     const int nOverlay1 = GetOverlay(pTxt->wOverlay[0]);
     const int nOverlay2 = GetOverlay(pTxt->wOverlay[1]);
     const int nOverlay3 = GetOverlay(pTxt->wOverlay[2]);
-    const int nOldTier = STATLIST_GetStatValue(pStatList, 0x163, 0);
+    const int nOldTier = STATLIST_GetStatValue(pStatList, STAT_SHORTPARAM1, 0);
     const int nTier = GetThirdsTier(nValue, nTotal);
-    STATLIST_SetStat(pStatList, 0x163, nTier, 0);
+    STATLIST_SetStat(pStatList, STAT_SHORTPARAM1, nTier, 0);
     if (nTier > nOldTier)
     {
         sub_004D8D90_StateOverlayPairs(pUnit, nState);
@@ -811,9 +814,9 @@ void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    int nSelect = STATLIST_GetStatValue(pStatList, 0xA9, 0);
-    int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+    int nSelect = STATLIST_GetStatValue(pStatList, STAT_SKILL_FRENZY, 0);
+    int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
     {
@@ -1398,11 +1401,11 @@ void __fastcall sub_004E9040_AttackRating(D2UnitStrc* pUnit, void* pArg, D2Skill
         *pValue = UNITS_GetAttackRate(pUnit);
     }
 
-    int nToHit = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x77, 0);
+    int nToHit = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
     nToHit += SKILLS_GetToHitFactor(pUnit, pSkillsTxtRecord->nSkillId, nSkillLevel);
     if (pSkillsTxtRecord->nFlags[0] & gnBitMasks_006CE268[3])
     {
-        const int nBonus = STATLIST_UnitGetStatValue(pUnit, 0x145, 0);
+        const int nBonus = STATLIST_UnitGetStatValue(pUnit, STAT_PROGRESSIVE_TOHIT, 0);
         if (nBonus)
         {
             nToHit += nBonus;

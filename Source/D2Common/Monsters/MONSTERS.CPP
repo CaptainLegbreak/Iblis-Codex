@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -6,6 +7,7 @@
 #include "D2Unicode.h"
 #include "D2Path.h"
 #include "D2UnitData.h"
+#include "D2MonModes.h"
 
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 
@@ -517,7 +519,7 @@ void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc* unit, int mode, unsig
         }
         STATLIST_SetUnitStat(unit, p->stat, DATATBLS_ApplyRatio(value, numerator, denominator), 0);
     }
-    STATLIST_SetUnitStat(unit, 12, record->nLevel[0] + 25 * difficulty, 0);
+    STATLIST_SetUnitStat(unit, STAT_LEVEL, record->nLevel[0] + 25 * difficulty, 0);
 }
 
 __forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)

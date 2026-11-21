@@ -7,9 +7,11 @@
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
 #include "D2GameObjs.h"
+#include "D2PlayerModes.h"
+#include "D2ObjModes.h"
 
 #define UNIT_PLAYER 0
-#define PLRMODE_DEAD 17
+
 #define EVENTTYPE_MODECHANGE 0
 #define EVENTTYPE_PERIODICSTATS 9
 
@@ -17,8 +19,6 @@ struct D2ObjectDataStrc;
 union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjOperateFnStrc;
-
-
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
@@ -103,7 +103,7 @@ void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject
 // 0x00581700
 void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
-    if (pObject && pObject->dwAnimMode == 1)
+    if (pObject && pObject->dwAnimMode == OBJMODE_OPERATING)
     {
         pObject->dwAnimMode = 2;
     }

@@ -1,4 +1,5 @@
 #include <D2UnitData.h>
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2Constants.h"
@@ -960,7 +961,7 @@ static void __stdcall sub_00485240_GetItemDamageRange(D2UnitStrc* pItem, D2UnitS
         *pbModified = 1;
     if (nMax <= nMin)
         nMax = nMin;
-    const int nByTimeMax = STATLIST_UnitGetStatValue(pItem, 0x110, 0);
+    const int nByTimeMax = STATLIST_UnitGetStatValue(pItem, STAT_ITEM_MAXDAMAGE_BYTIME, 0);
     if (nByTimeMax && sgptDataTables->nItemStatCostTxtRecordCount > 0x110 && &sgptDataTables->pItemStatCostTxt[0x110] && pUnit->pDrlgAct)
     {
         int nBaseTime = 0;
@@ -970,7 +971,7 @@ static void __stdcall sub_00485240_GetItemDamageRange(D2UnitStrc* pItem, D2UnitS
         if (nAdd)
             *pbModified = 1;
     }
-    const int nByTimePct = STATLIST_UnitGetStatValue(pItem, 0x111, 0);
+    const int nByTimePct = STATLIST_UnitGetStatValue(pItem, STAT_ITEM_MAXDAMAGE_PERCENT_BYTIME, 0);
     if (nByTimePct && sgptDataTables->nItemStatCostTxtRecordCount > 0x111 && &sgptDataTables->pItemStatCostTxt[0x111] && pUnit->pDrlgAct)
     {
         int nBaseTime = 0;
@@ -1142,8 +1143,8 @@ void __stdcall sub_00485410_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuf
     }
 
     bModified = 0;
-    if (STATLIST_GetUnitStatBonus(pItem, 0x12, 0) || STATLIST_GetUnitStatBonus(pItem, 0x11, 0)
-        || STATLIST_GetUnitStatBonus(pItem, 0x9F, 0) || STATLIST_GetUnitStatBonus(pItem, 0xA0, 0))
+    if (STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_MINDAMAGE_PERCENT, 0) || STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_MAXDAMAGE_PERCENT, 0)
+        || STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_THROW_MINDAMAGE, 0) || STATLIST_GetUnitStatBonus(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0))
         bModified = 1;
 
     if (ITEMS_CheckIfThrowable(pItem))
@@ -1864,7 +1865,7 @@ void __fastcall sub_00488100_DrawGold(int nType)
     switch (nType)
     {
     case 0:
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), 15, 0);
+        nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0);
         nTextX = gnGlobal_007A2858 + 0xA5;
         if (sub_0044DCC0())
         {
@@ -1895,7 +1896,7 @@ void __fastcall sub_00488100_DrawGold(int nType)
         break;
 
     case 1:
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), 14, 0);
+        nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLD, 0);
         nTextX = gnGlobal_0071146C - gnGlobal_007A2858 - 0xD4;
         nTextY = gnGlobal_00711470 + gnGlobal_007A285C - 0x48;
         nIconY = gnGlobal_00711470 + gnGlobal_007A285C - 0x45;
@@ -1904,7 +1905,7 @@ void __fastcall sub_00488100_DrawGold(int nType)
         break;
 
     default:
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), 15, 0);
+        nGold = STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0);
         nTextX = sub_00501820(D2LANG_GetStringFromTblIndex(0xCF3)) + gnGlobal_007A2858 + 0x15;
         nTextY = gnGlobal_00711470 + gnGlobal_007A285C - 0x6A;
         nIconX = 0;

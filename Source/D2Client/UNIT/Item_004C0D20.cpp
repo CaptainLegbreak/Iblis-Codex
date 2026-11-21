@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
 #include "D2Structs.h"
@@ -187,14 +188,14 @@ int __fastcall sub_004C1E40_SetChargedSkill(D2UnitStrc* pItem, int nSkillId, int
 
     for (D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pItem, 0x40); pStatList; pStatList = STATLIST_GetStatListFromFlag(pStatList, 0x40))
     {
-        int nValue = STATLIST_GetStatValue(pStatList, 204, nLayer);
+        int nValue = STATLIST_GetStatValue(pStatList, STAT_ITEM_CHARGED_SKILL, nLayer);
         if (nValue)
         {
             nValue >>= 8;
             if (nValue > 0 && nValue <= 255)
             {
                 nCharges = D2_MIN(D2_MAX(nCharges, 0), nValue);
-                STATLIST_SetBaseStat2(pStatList, 204, (nValue << 8) + (nCharges & 0xFF), nLayer, pItem);
+                STATLIST_SetBaseStat2(pStatList, STAT_ITEM_CHARGED_SKILL, (nValue << 8) + (nCharges & 0xFF), nLayer, pItem);
                 return 1;
             }
             return 0;

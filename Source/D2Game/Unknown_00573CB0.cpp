@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 struct D2MonsterInteractStrc;
 struct D2MonsterModeDataStrc;
@@ -131,17 +132,17 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
         nLevel=DATATBLS_GetMonsterLevelInArea(DUNGEON_GetLevelIdFromRoom(pRoom),nDifficulty,pGame->bExpansion);
     }
     sub_00626D40_SetStatCallback(pMonster,0,sub_0055B800_StatCallback,pGame);
-    STATLIST_SetUnitStat(pMonster,12,nLevel,0);
-    STATLIST_SetUnitStat(pMonster,100,nCount,0);
-    STATLIST_SetUnitStat(pMonster,36,pStats->nResist[0][nDifficulty],0);
-    STATLIST_SetUnitStat(pMonster,37,pStats->nResist[1][nDifficulty],0);
-    STATLIST_SetUnitStat(pMonster,39,pStats->nResist[2][nDifficulty],0);
-    STATLIST_SetUnitStat(pMonster,41,pStats->nResist[3][nDifficulty],0);
-    STATLIST_SetUnitStat(pMonster,43,pStats->nResist[4][nDifficulty],0);
-    STATLIST_SetUnitStat(pMonster,45,pStats->nResist[5][nDifficulty],0);
-    STATLIST_SetUnitStat(pMonster,20,pStats->nBlock[nDifficulty],0);
-    STATLIST_SetUnitStat(pMonster,68,100,0); STATLIST_SetUnitStat(pMonster,67,75,0);
-    STATLIST_SetUnitStat(pMonster,69,100,0); STATLIST_SetUnitStat(pMonster,352,128,0);
+    STATLIST_SetUnitStat(pMonster,STAT_LEVEL,nLevel,0);
+    STATLIST_SetUnitStat(pMonster,STAT_MONSTER_PLAYERCOUNT,nCount,0);
+    STATLIST_SetUnitStat(pMonster,STAT_DAMAGERESIST,pStats->nResist[0][nDifficulty],0);
+    STATLIST_SetUnitStat(pMonster,STAT_MAGICRESIST,pStats->nResist[1][nDifficulty],0);
+    STATLIST_SetUnitStat(pMonster,STAT_FIRERESIST,pStats->nResist[2][nDifficulty],0);
+    STATLIST_SetUnitStat(pMonster,STAT_LIGHTRESIST,pStats->nResist[3][nDifficulty],0);
+    STATLIST_SetUnitStat(pMonster,STAT_COLDRESIST,pStats->nResist[4][nDifficulty],0);
+    STATLIST_SetUnitStat(pMonster,STAT_POISONRESIST,pStats->nResist[5][nDifficulty],0);
+    STATLIST_SetUnitStat(pMonster,STAT_TOBLOCK,pStats->nBlock[nDifficulty],0);
+    STATLIST_SetUnitStat(pMonster,STAT_ATTACKRATE,100,0); STATLIST_SetUnitStat(pMonster,STAT_VELOCITYPERCENT,75,0);
+    STATLIST_SetUnitStat(pMonster,STAT_OTHER_ANIMRATE,100,0); STATLIST_SetUnitStat(pMonster,STAT_LAST_SENT_HP_PCT,128,0);
     const int bGameType=pGame->nGameTypeByte || pGame->nGameType;
     D2MonsterStatsStrc tStats;
     memset(&tStats,0,sizeof(tStats));
@@ -150,10 +151,10 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
     nLife+=DATATBLS_ApplyRatio(nLife,tBonus.nHp,100);
     if (nLife>=0x800000) nLife=0x7FFFFF;
     const int nShiftedHp=nLife<<8;
-    STATLIST_SetUnitStat(pMonster,7,nShiftedHp,0);STATLIST_SetUnitStat(pMonster,6,nShiftedHp,0);
-    STATLIST_SetUnitStat(pMonster,31,tStats.nArmor,0);
-    STATLIST_SetUnitStat(pMonster,13,tStats.nExperience+DATATBLS_ApplyRatio(tStats.nExperience,tBonus.nExperience,100),0);
-    STATLIST_SetUnitStat(pMonster,74,MONSTER_Regeneration(nShiftedHp,pStats->nDamageRegen),0);
+    STATLIST_SetUnitStat(pMonster,STAT_MAXHP,nShiftedHp,0);STATLIST_SetUnitStat(pMonster,STAT_HITPOINTS,nShiftedHp,0);
+    STATLIST_SetUnitStat(pMonster,STAT_ARMORCLASS,tStats.nArmor,0);
+    STATLIST_SetUnitStat(pMonster,STAT_EXPERIENCE,tStats.nExperience+DATATBLS_ApplyRatio(tStats.nExperience,tBonus.nExperience,100),0);
+    STATLIST_SetUnitStat(pMonster,STAT_HPREGEN,MONSTER_Regeneration(nShiftedHp,pStats->nDamageRegen),0);
     sub_0063EEF0_AdjustMonsterStats(pMonster,pGame->bExpansion,pGame->nDifficulty);
     D2StatListStrc* pStatList=STATLIST_AllocStatList(pGame->pMemoryPool,1,0,1,!pMonster ? -1 : pMonster->dwUnitId);
     sub_00626E10(pMonster,pStatList,1);

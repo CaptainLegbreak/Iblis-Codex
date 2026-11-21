@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -10,8 +11,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
-
-#define STAT_HITPOINTS 6
+#include "D2MonModes.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
@@ -145,8 +145,6 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId);
 
 #define UNIT_TYPES 6
 
-#define MONMODE_SEQUENCE 14
-
 #define COLLIDE_MASK_PLAYER_PATH 0x1C09
 
 union D2SeedStrc;
@@ -214,16 +212,12 @@ struct D2DifficultyLevelsTxt;
 
 enum D2C_F39Constants
 {
-    STAT_MODIFIERLIST_SKILL = 350,
-    STAT_MODIFIERLIST_LEVEL = 351,
     STATE_BLAZE = 13,
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_NOXP = 0x4000000,
     DAMAGERESULTFLAG_WILLDIE = 2,
-    MONMODE_SKILL1 = 8,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
-    STAT_ATTACKRATE = 0x44,
     STATE_FETISHAURA = 0x19,
     MONSTER_FETISH1 = 0x8D,
     MONSTER_FETISH2 = 0x8E,
@@ -237,12 +231,6 @@ enum D2C_F39Constants
     MONSTER_FETISHBLOW5 = 0x190,
     UNITFLAG_NOTC = 0x20000,
     EVENTTYPE_ENDANIM = 1,
-    STAT_MAXHP = 7,
-    STAT_MANA = 8,
-    STAT_LEVEL = 12,
-    STAT_THORNS_PERCENT = 0x83,
-    STAT_CONVERSION_LEVEL = 0xB0,
-    STAT_CONVERSION_MAXHP = 0xB1,
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
@@ -1198,7 +1186,7 @@ int __fastcall sub_005CCE80_ApplyFreezingSkillDamage(D2GameStrc* pGame, D2UnitSt
         damage.dwFrzLen = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 1);
         D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
         SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
-        if (!STATLIST_UnitGetStatValue(pTarget, 6, 0))
+        if (!STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0))
             damage.wResultFlags |= 2;
         SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pTarget, &damage);
         if (pSkillsTxt->wSrvOverlay > 0 && pSkillsTxt->wSrvOverlay <= sgptDataTables->nOverlayTxtRecordCount)

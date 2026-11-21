@@ -217,7 +217,7 @@ int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkil
 
     for (D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pItem, 0x40); pStatList; pStatList = STATLIST_GetStatListFromFlag(pStatList, 0x40))
     {
-        const int nValue = STATLIST_GetStatValue(pStatList, 204, nLayer);
+        const int nValue = STATLIST_GetStatValue(pStatList, STAT_ITEM_CHARGED_SKILL, nLayer);
         if (nValue)
         {
             if (pValue)
@@ -262,7 +262,7 @@ int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillI
 
     for (D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pItem, 0x40); pStatList; pStatList = STATLIST_GetStatListFromFlag(pStatList, 0x40))
     {
-        int nValue = STATLIST_GetStatValue(pStatList, 204, nLayer);
+        int nValue = STATLIST_GetStatValue(pStatList, STAT_ITEM_CHARGED_SKILL, nLayer);
         if (nValue)
         {
             nValue >>= 8;
@@ -273,7 +273,7 @@ int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillI
                 {
                     nCharges = nValue;
                 }
-                STATLIST_SetBaseStat2(pStatList, 204, (nValue << 8) + (nCharges & 0xFF), nLayer, pItem);
+                STATLIST_SetBaseStat2(pStatList, STAT_ITEM_CHARGED_SKILL, (nValue << 8) + (nCharges & 0xFF), nLayer, pItem);
                 return 1;
             }
             return 0;

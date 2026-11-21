@@ -9,6 +9,9 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2PlayerModes.h"
+#include "D2ObjModes.h"
+#include "D2ItemModes.h"
 
 struct D2ClientStrc;
 
@@ -37,16 +40,6 @@ struct D2InventoryStrc;
 #define UNITFLAG_HASTXTMSG 0x00000100
 
 #define UNITFLAG_DOUPDATE 0x00000001
-
-#define PLRMODE_NEUTRAL 1
-
-#define PLRMODE_TOWNNEUTRAL 5
-
-#define OBJMODE_OPERATING 1
-
-#define OBJMODE_OPENED 2
-
-#define OBJMODE_SPECIAL1 3
 
 #define LEVEL_HARROGATH 109
 
@@ -617,7 +610,7 @@ int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
     }
 
     saveHeader.nClass = CLIENTS_GetClassId(pClient);
-    saveHeader.nLevel = STATLIST_UnitGetStatValue(pPlayer, 0xC, 0);
+    saveHeader.nLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
     saveHeader.dwCreateTime = CLIENTS_GetCreateTime(pClient);
     saveHeader.dwLasTime = _time32(0);
     saveHeader.dwPlayTime = sub_005385C0_GetPlayTime(pClient);
@@ -1706,13 +1699,13 @@ D2UnitStrc* __fastcall PLRSAVE2_ReadMercData(D2GameStrc* pGame, D2UnitStrc* pPla
     petInfo.nHirelingId = hirelingData.nHirelingId;
     PLAYERPETS_UpdatePetInfo(pPlayer, 7, !pMerc ? -1 : pMerc->dwUnitId, &petInfo);
 
-    STATLIST_UnitGetStatValue(pPlayer, 12, 0);
+    STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
     const int nMaxLevel = DATATBLS_GetMaxLevel(0);
     int nLevel = 1;
 
-    if ((unsigned int)STATLIST_UnitGetStatValue(pMerc, 13, 0) < hirelingData.nExperience)
+    if ((unsigned int)STATLIST_UnitGetStatValue(pMerc, STAT_EXPERIENCE, 0) < hirelingData.nExperience)
     {
-        STATLIST_SetUnitStat(pMerc, 13, hirelingData.nExperience, 0);
+        STATLIST_SetUnitStat(pMerc, STAT_EXPERIENCE, hirelingData.nExperience, 0);
     }
 
     D2GAME_MERCS_SendStat_6FCC61D0(pMerc, 13, hirelingData.nExperience);

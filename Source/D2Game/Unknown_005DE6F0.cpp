@@ -5,15 +5,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
-
-enum
-{
-    MONMODE_WALK = 2,
-};
-
-
-
-
+#include "D2MonModes.h"
 
 struct UnkAiStrc1
 {

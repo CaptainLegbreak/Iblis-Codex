@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -108,11 +109,11 @@ static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile)
     D2MissilesTxt* pTxt = pMissile ? SKILLS_GetMissilesTxtRecord(pMissile->dwClassId) : 0;
     if ((pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2]))
     {
-        const int nPierce = STATLIST_UnitGetStatValue(pMissile, 0x148, 0);
+        const int nPierce = STATLIST_UnitGetStatValue(pMissile, STAT_PIERCE_IDX, 0);
         if (nPierce)
         {
             nResult = 2;
-            STATLIST_SetUnitStat(pMissile, 0x148, nPierce - 1, 0);
+            STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, nPierce - 1, 0);
         }
     }
     return nResult;
@@ -142,13 +143,13 @@ static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc* pGame, D2UnitSt
     MISSMODE_SetDamageFlags(pGame, pMissile, pUnit, pDamage);
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pUnit))
     {
-        const int nDamageTargetAc = STATLIST_UnitGetStatValue(pMissile, 0x78, 0);
+        const int nDamageTargetAc = STATLIST_UnitGetStatValue(pMissile, STAT_ITEM_DAMAGETARGETAC, 0);
         if (nDamageTargetAc)
         {
-            int nArmor = nDamageTargetAc + STATLIST_UnitGetStatValue(pUnit, 0x1F, 0);
+            int nArmor = nDamageTargetAc + STATLIST_UnitGetStatValue(pUnit, STAT_ARMORCLASS, 0);
             if (nArmor < 0)
                 nArmor = 0;
-            STATLIST_SetUnitStat(pUnit, 0x1F, nArmor, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_ARMORCLASS, nArmor, 0);
         }
     }
 }
@@ -189,7 +190,7 @@ static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
     }
 
     if (pOwner && pUnit && (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2])
-        && (STATLIST_UnitGetStatValue(pOwner, 0xA6, 0) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0)))
+        && (STATLIST_UnitGetStatValue(pOwner, STAT_SKILL_PIERCE, 0) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0)))
     {
         nPierceFlags = sub_005ADA80_GetPierceFlags(pMissile);
     }
@@ -206,7 +207,7 @@ static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
             int nToHit = 0;
             if (pMissile)
             {
-                nToHit = STATLIST_UnitGetStatValue(pMissile, 0x13, 0);
+                nToHit = STATLIST_UnitGetStatValue(pMissile, STAT_TOHIT, 0);
             }
 
             if (!SUNITDMG_IsHitSuccessful(pOwner, pUnit, nToHit, 1))

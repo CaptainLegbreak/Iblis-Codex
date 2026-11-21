@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 struct Game
 {
@@ -169,7 +170,7 @@ static __declspec(noinline) void __stdcall sub_005D1E10_Transform(Unit* owner, i
     {
         D2COMMON_10475_PostStatToStatList(target, list, 1);
         sub_006252D0(list, 142);
-        STATLIST_SetStatIfListIsValid(list, 355, resolved, 0);
+        STATLIST_SetStatIfListIsValid(list, STAT_SHORTPARAM1, resolved, 0);
     }
 
     if (record->effect > 0 && record->effect < 43)

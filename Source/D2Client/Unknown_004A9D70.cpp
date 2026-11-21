@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -509,7 +510,7 @@ void __cdecl sub_004AC200_RefreshSkillTree()
     wszText[7] = 0;
     wszText[8] = 0;
     wszText[9] = 0;
-    wsprintfA(szText, "%i", STATLIST_GetUnitBaseStat(pPlayer, 5, 0));
+    wsprintfA(szText, "%i", STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0));
     sub_00526320_ToUnicode((Unicode*)wszText, szText, 9);
 
     D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
@@ -524,7 +525,7 @@ void __cdecl sub_004AC200_RefreshSkillTree()
 
     int bCanLearn;
     int nLevel;
-    const int nPoints = STATLIST_GetUnitBaseStat(pPlayer, 5, 0);
+    const int nPoints = STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0);
     for (int i = 0; i < SKILLS_GetPlayerSkillCount(nClass); ++i)
     {
         const int nSkillId = SKILLS_GetClassSkillId(nClass, i);

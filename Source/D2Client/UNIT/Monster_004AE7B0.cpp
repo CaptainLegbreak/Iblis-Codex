@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2Client.h"
@@ -454,19 +455,19 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     int nDifficulty = sub_0044DCD0_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 0x1F0);
     STATLIST_AllocStatListEx(pUnit,0,0,0);
-    STATLIST_SetUnitStat(pUnit,12,pMonStats->nLevel[nDifficulty],0);
-    STATLIST_SetUnitStat(pUnit,0x44,100,0);
-    STATLIST_SetUnitStat(pUnit,0x43,75,0);
-    STATLIST_SetUnitStat(pUnit,0x45,100,0);
-    STATLIST_SetUnitStat(pUnit,0x24,pMonStats->wResDm[nDifficulty],0);
-    STATLIST_SetUnitStat(pUnit,0x25,pMonStats->wResMa[nDifficulty],0);
-    STATLIST_SetUnitStat(pUnit,0x27,pMonStats->wResFi[nDifficulty],0);
-    STATLIST_SetUnitStat(pUnit,0x29,pMonStats->wResLi[nDifficulty],0);
-    STATLIST_SetUnitStat(pUnit,0x2B,pMonStats->wResCo[nDifficulty],0);
-    STATLIST_SetUnitStat(pUnit,0x2D,pMonStats->wResPo[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,STAT_LEVEL,pMonStats->nLevel[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,STAT_ATTACKRATE,100,0);
+    STATLIST_SetUnitStat(pUnit,STAT_VELOCITYPERCENT,75,0);
+    STATLIST_SetUnitStat(pUnit,STAT_OTHER_ANIMRATE,100,0);
+    STATLIST_SetUnitStat(pUnit,STAT_DAMAGERESIST,pMonStats->wResDm[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,STAT_MAGICRESIST,pMonStats->wResMa[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,STAT_FIRERESIST,pMonStats->wResFi[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,STAT_LIGHTRESIST,pMonStats->wResLi[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,STAT_COLDRESIST,pMonStats->wResCo[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,STAT_POISONRESIST,pMonStats->wResPo[nDifficulty],0);
     sub_0063EEF0_AdjustMonsterStats(pUnit,sub_0044DCC0(),sub_0044DCD0_GetDifficulty());
-    STATLIST_SetUnitStat(pUnit,7,0x6400,0);
-    STATLIST_SetUnitStat(pUnit,6,0x6400,0);
+    STATLIST_SetUnitStat(pUnit,STAT_MAXHP,0x6400,0);
+    STATLIST_SetUnitStat(pUnit,STAT_HITPOINTS,0x6400,0);
     PATH_AllocDynamicPath(0,pRoom,nX,nY,pUnit,1);
     D2DynamicPathStrc* pPath=pUnit->pDynamicPath;
     PATH_SetVelocity(pPath,pMonStats->nVelocity<<8,gszMonsterFile_006DA5C8,0x208);
@@ -566,18 +567,18 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
     }
 
     STATLIST_AllocStatListEx(pUnit, 0, 0, 0);
-    STATLIST_SetUnitStat(pUnit, 0x44, 100, 0);
-    STATLIST_SetUnitStat(pUnit, 0x43, 100, 0);
-    STATLIST_SetUnitStat(pUnit, 0x45, 100, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_ATTACKRATE, 100, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_VELOCITYPERCENT, 100, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_OTHER_ANIMRATE, 100, 0);
     const int nDifficulty = sub_0044DCD0_GetDifficulty();
-    STATLIST_SetUnitStat(pUnit, 0x24, pMonStatsTxtRecord->wResDm[nDifficulty], 0);
-    STATLIST_SetUnitStat(pUnit, 0x25, pMonStatsTxtRecord->wResMa[nDifficulty], 0);
-    STATLIST_SetUnitStat(pUnit, 0x27, pMonStatsTxtRecord->wResFi[nDifficulty], 0);
-    STATLIST_SetUnitStat(pUnit, 0x29, pMonStatsTxtRecord->wResLi[nDifficulty], 0);
-    STATLIST_SetUnitStat(pUnit, 0x2B, pMonStatsTxtRecord->wResCo[nDifficulty], 0);
-    STATLIST_SetUnitStat(pUnit, 0x2D, pMonStatsTxtRecord->wResPo[nDifficulty], 0);
-    STATLIST_SetUnitStat(pUnit, 7, 0x8000, 0);
-    STATLIST_SetUnitStat(pUnit, 6, 0x8000, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_DAMAGERESIST, pMonStatsTxtRecord->wResDm[nDifficulty], 0);
+    STATLIST_SetUnitStat(pUnit, STAT_MAGICRESIST, pMonStatsTxtRecord->wResMa[nDifficulty], 0);
+    STATLIST_SetUnitStat(pUnit, STAT_FIRERESIST, pMonStatsTxtRecord->wResFi[nDifficulty], 0);
+    STATLIST_SetUnitStat(pUnit, STAT_LIGHTRESIST, pMonStatsTxtRecord->wResLi[nDifficulty], 0);
+    STATLIST_SetUnitStat(pUnit, STAT_COLDRESIST, pMonStatsTxtRecord->wResCo[nDifficulty], 0);
+    STATLIST_SetUnitStat(pUnit, STAT_POISONRESIST, pMonStatsTxtRecord->wResPo[nDifficulty], 0);
+    STATLIST_SetUnitStat(pUnit, STAT_MAXHP, 0x8000, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0x8000, 0);
     UNITS_ChangeAnimMode(pUnit, 1);
     pUnit->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pUnit->dwFrameCountPrecise);
 

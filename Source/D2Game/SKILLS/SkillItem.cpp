@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
 #include "D2Constants.h"
@@ -12,6 +13,7 @@
 #include "D2LevelTxt.h"
 #include "D2AnimData.h"
 #include "D2Path.h"
+#include "D2ItemModes.h"
 
 #define IFLAG_TARGETING 4
 
@@ -22,14 +24,6 @@
 #define UPDATEUI_OPENCUBE 21
 
 #define SKILL_FIREBALL 47
-
-#define STAT_HITPOINTS 6
-
-#define STAT_LEVEL 12
-
-#define STAT_ATTACKRATE 68
-
-#define STAT_VALUE 71
 
 #define STATE_SLOWED 24
 
@@ -112,9 +106,6 @@ typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStr
 enum D2C_Z09ItemConstants
 {
     EVENTTYPE_REMOVESTATE = 0x0C,
-    STAT_STAMINA = 0x0A,
-    STAT_MAXSTAMINA = 0x0B,
-    STAT_STAMINARECOVERYBONUS = 0x1C,
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -384,14 +375,6 @@ enum D2C_G4Constants
     AISPECIALSTATE_DIMVISION = 10,
     AISPECIALSTATE_TERROR = 11,
     AISPECIALSTATE_TAUNT = 12,
-    STAT_MANA = 8,
-    STAT_DAMAGERESIST = 36,
-    STAT_MAGICRESIST = 37,
-    STAT_FIRERESIST = 39,
-    STAT_LIGHTRESIST = 41,
-    STAT_COLDRESIST = 43,
-    STAT_POISONRESIST = 45,
-    STAT_MODIFIERLIST_SKILL = 350,
     UNITFLAG_SKSRVDOFUNC = 0x40,
     UNITFLAGEX_TELEPORTED = 0x10000,
     UNITEVENTFLAG_IN_CALLBACK = 1,
@@ -761,7 +744,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         case 6:
         {
             nValue = ITEMS_GetBonusLifeBasedOnClass(pUnit, nValue);
-            const int nVitality = STATLIST_UnitGetStatValue(pUnit, 3, 0);
+            const int nVitality = STATLIST_UnitGetStatValue(pUnit, STAT_VITALITY, 0);
             if (nVitality > 0)
             {
                 const unsigned int nChance = (unsigned int)ITEMS_RollLimitedRandomNumber(pSeed, nVitality) >> 1;
@@ -773,7 +756,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         case 8:
         {
             nValue = ITEMS_GetBonusManaBasedOnClass(pUnit, nValue);
-            const int nEnergy = STATLIST_UnitGetStatValue(pUnit, 1, 0);
+            const int nEnergy = STATLIST_UnitGetStatValue(pUnit, STAT_ENERGY, 0);
             if (nEnergy > 0)
             {
                 const unsigned int nChance = (unsigned int)ITEMS_RollLimitedRandomNumber(pSeed, nEnergy) >> 1;
@@ -832,14 +815,14 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
     if (bUpdateLife && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
-        const unsigned char nOldLife = STATLIST_UnitGetStatValue(pUnit, 352, 0);
+        const unsigned char nOldLife = STATLIST_UnitGetStatValue(pUnit, STAT_LAST_SENT_HP_PCT, 0);
         const unsigned char nNewLife = MONSTERMODE_GetHpPercent128(pUnit);
         int nDifference = nOldLife - nNewLife;
         if (nDifference < 0) nDifference = -nDifference;
         if (nDifference > 4)
         {
             SUNITMSG_QueueLifeUpdate(pUnit, nNewLife);
-            STATLIST_SetUnitStat(pUnit, 352, nNewLife, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_LAST_SENT_HP_PCT, nNewLife, 0);
         }
     }
 
@@ -905,13 +888,13 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
   }
  }
  if(updateLife && unit && unit->dwUnitType==UNIT_PLAYER){
-  unsigned char previous=(unsigned char)STATLIST_UnitGetStatValue(unit,352,0);
+  unsigned char previous=(unsigned char)STATLIST_UnitGetStatValue(unit,STAT_LAST_SENT_HP_PCT,0);
   unsigned char life=MONSTERMODE_GetHpPercent128(unit);
   int difference=(int)previous-(int)life;
   if(difference<0)difference=-difference;
   if(difference>4){
    SUNITMSG_QueueLifeUpdate(unit,life);
-   STATLIST_SetUnitStat(unit,352,life,0);
+   STATLIST_SetUnitStat(unit,STAT_LAST_SENT_HP_PCT,life,0);
   }
  }
  return changed;
@@ -1050,7 +1033,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
     {
         const unsigned char nNewSentHpPct = MONSTERMODE_GetHpPercent128(pUnit);
         SUNITMSG_QueueLifeUpdate(pUnit, nNewSentHpPct);
-        STATLIST_SetUnitStat(pUnit, 352, nNewSentHpPct, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_LAST_SENT_HP_PCT, nNewSentHpPct, 0);
     }
 
     return nResult;
@@ -1792,12 +1775,12 @@ int __fastcall sub_005BFBB0_DamageToMana(D2GameStrc* pGame, int nEvent, D2UnitSt
     if (nValue <= 0)
         return 0;
     const int nMaxMana = STATLIST_GetMaxManaFromUnit(pAttacker);
-    int nMana = STATLIST_UnitGetStatValue(pAttacker, 8, 0);
+    int nMana = STATLIST_UnitGetStatValue(pAttacker, STAT_MANA, 0);
     if (nMana >= nMaxMana)
         return 0;
     int nNewMana = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, nValue, 100) + nMana;
     nNewMana = nNewMana > 0 ? nNewMana : 0;
-    STATLIST_SetUnitStat(pAttacker, 8, nNewMana < nMaxMana ? nNewMana : nMaxMana, 0);
+    STATLIST_SetUnitStat(pAttacker, STAT_MANA, nNewMana < nMaxMana ? nNewMana : nMaxMana, 0);
     UNITS_SetOverlay(pAttacker, 152, 0);
     return 1;
 }
@@ -1816,8 +1799,8 @@ int __fastcall sub_005BFC60_EventFuncFreeze(D2GameStrc* pGame, int nEvent, D2Uni
         return 0;
     }
 
-    int nAttackerLevel = STATLIST_UnitGetStatValue(pAttacker, 12, 0);
-    const int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+    int nAttackerLevel = STATLIST_UnitGetStatValue(pAttacker, STAT_LEVEL, 0);
+    const int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
 
     int nBonus = nValue - 1;
     if (nBonus < 0)
@@ -1915,7 +1898,7 @@ int __fastcall SKILLITEM_EventFunc15_OpenWounds(D2GameStrc* pGame, int nEvent, D
         return 0;
     }
 
-    int nLevel = STATLIST_UnitGetStatValue(pAttacker, 12, 0);
+    int nLevel = STATLIST_UnitGetStatValue(pAttacker, STAT_LEVEL, 0);
     if (nLevel <= 1)
     {
         nLevel = 1;
@@ -1986,7 +1969,7 @@ int __fastcall SKILLITEM_EventFunc16_CrushingBlow(D2GameStrc* pGame, int nEvent,
                 nDivisor = 8;
             }
 
-            int nPlayerCount = STATLIST_UnitGetStatValue(pUnit, 100, 0);
+            int nPlayerCount = STATLIST_UnitGetStatValue(pUnit, STAT_MONSTER_PLAYERCOUNT, 0);
             if (nPlayerCount < 1)
             {
                 nPlayerCount = 1;
@@ -2005,10 +1988,10 @@ int __fastcall SKILLITEM_EventFunc16_CrushingBlow(D2GameStrc* pGame, int nEvent,
         nDivisor *= 2;
     }
 
-    const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+    const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     int nCrushingBlowHp = nHitpoints / nDivisor;
 
-    int nDamageResist = STATLIST_UnitGetStatValue(pUnit, 36, 0);
+    int nDamageResist = STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGERESIST, 0);
     if (nDamageResist >= 100)
     {
         nDamageResist = 100;
@@ -2021,7 +2004,7 @@ int __fastcall SKILLITEM_EventFunc16_CrushingBlow(D2GameStrc* pGame, int nEvent,
 
     int nNewHp = nHitpoints - nCrushingBlowHp;
     nNewHp = nNewHp > 0 ? nNewHp : 0;
-    STATLIST_SetUnitStat(pUnit, 6, nNewHp, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nNewHp, 0);
 
     if (nNewHp <= 0 && pDamage)
     {
@@ -2045,12 +2028,12 @@ int __fastcall sub_005C0130_RestoreManaAfterKill(D2GameStrc* pGame, int nEvent, 
     if (!nValue)
         return 0;
     const int nMaxMana = STATLIST_GetMaxManaFromUnit(pAttacker);
-    int nMana = STATLIST_UnitGetStatValue(pAttacker, 8, 0);
+    int nMana = STATLIST_UnitGetStatValue(pAttacker, STAT_MANA, 0);
     if (nMana >= nMaxMana)
         return 0;
     nMana += nValue << 8;
     nMana = nMana > 0 ? nMana : 0;
-    STATLIST_SetUnitStat(pAttacker, 8, nMana < nMaxMana ? nMana : nMaxMana, 0);
+    STATLIST_SetUnitStat(pAttacker, STAT_MANA, nMana < nMaxMana ? nMana : nMaxMana, 0);
     UNITS_SetOverlay(pAttacker, 152, 0);
     return 1;
 }
@@ -2681,6 +2664,38 @@ void __fastcall sub_005C2FF0_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* 
         SUNITDMG_ExecuteEvents(pGame, pUnit, pUnit, 0, &damage);
         SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pUnit, &damage);
     }
+}
+
+// 0x005C32A0
+int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (pTarget->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pTarget->dwAnimMode != IMODE_ONGROUND)
+    {
+        return 0;
+    }
+
+    if (!ITEMS_IsMetalItem(pTarget->dwClassId))
+    {
+        return 0;
+    }
+
+    if (!ITEMS_CheckItemFlag(pTarget, 0x10, 256, ".\\SKILLS\\SkillNec.cpp"))
+    {
+        return 0;
+    }
+
+    return !STATLIST_GetOwner(pTarget, 0);
 }
 
 // 0x005C34B0

@@ -1,6 +1,8 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2ItemModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -675,7 +677,7 @@ static void __stdcall sub_00597CF0_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStr
 {
     const unsigned char nHitClass = pUnit->dwLastHitClass;
     unsigned char nHpPct = MONSTERMODE_GetHpPercent128(pUnit);
-    STATLIST_SetUnitStat(pUnit, 0x160, nHpPct, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_LAST_SENT_HP_PCT, nHpPct, 0);
     if (nHpPct > 1)
     {
         --nHpPct;

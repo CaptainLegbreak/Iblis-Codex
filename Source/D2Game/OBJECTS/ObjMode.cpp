@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -11,10 +12,11 @@
 #include "D2ItemsWorld.h"
 #include "D2GameTypes.h"
 #include "D2GameRecords.h"
+#include "D2ObjModes.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define OBJMODE_OPENED 2
 
 #define EVENTTYPE_FREEHOVER 6
 
@@ -38,8 +40,6 @@
 
 #define ITEMTYPE_GEM 20
 
-#define OBJMODE_SPECIAL1 3
-
 #define STAT_HITPOINTS 6
 
 #define STAT_MANA 8
@@ -49,10 +49,6 @@
 #define UNIT_MONSTER 1
 
 #define UNIT_TILE 5
-
-#define PLRMODE_DEAD 17
-
-#define MONMODE_DEAD 12
 
 #define STAT_STAMINA 10
 
@@ -367,8 +363,6 @@ int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp
 
 enum
 {
-    OBJMODE_NEUTRAL = 0,
-    OBJMODE_OPERATING = 1,
     EVENTTYPE_ENDANIM = 1,
     LEVEL_PALACECELLARLEV3 = 54,
     LEVEL_ARCANESANCTUARY = 74,
@@ -527,10 +521,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 
 #define UNIT_INVALID 6
 
-#define OBJMODE_NEUTRAL 0
-
-#define OBJMODE_OPERATING 1
-
 #define EVENTTYPE_ENDANIM 1
 
 #define EVENTTYPE_ACTIVESTATE 5
@@ -572,7 +562,6 @@ void __fastcall sub_6FC3F060(D2ClientStrc* pClient, unsigned char a2, int a3, un
 void __fastcall sub_6FC3F550(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D900
 
 extern "C" const char gszObjModeSourceFile_006E1970[]; // 0x006E1970
-
 
 struct D2ObjOperateStrc { D2GameStrc* game; D2UnitStrc* object; D2UnitStrc* player; };
 
@@ -633,8 +622,6 @@ struct D2RoomCoordListStrc;
 #define UNITFLAG_TARGETABLE 2
 
 #define MONSTER_FLYINGSCIMITAR 234
-
-#define MONMODE_WALK 2
 
 #define STAT_LEVEL 12
 
@@ -723,7 +710,6 @@ unsigned char __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit);
 void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pClient);                       // 0x00571740
 
 D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwCode, int nItemQuality); // 0x00585970
-
 
 int __fastcall OBJECTS_OperateFunction27_TeleportPad(D2ObjOperateFnStrc* pOp, int nOperate);
 
@@ -1687,7 +1673,7 @@ static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2G
         tItemDrop.nQuality = 2;
         tItemDrop.nItemLvl = ITEMS_GetItemLevelForNewItem(pPlayer, 0);
         D2UnitStrc* pNewItem = D2GAME_CreateItemEx_6FC4ED80(pGame, &tItemDrop, 0);
-        STATLIST_SetUnitStat(pNewItem, 0x46, 1, 0);
+        STATLIST_SetUnitStat(pNewItem, STAT_QUANTITY, 1, 0);
         UNITROOM_RefreshUnit(pNewItem);
         if (pNewItem)
         {
@@ -1809,8 +1795,8 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
         D2UnitStrc* pUnit = data.pUnitsArray[i];
         if (pUnit && (pUnit->dwUnitType == UNIT_MONSTER || pUnit->dwUnitType == UNIT_PLAYER) && !SUNIT_IsDead(pUnit))
         {
-            int nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
-            STATLIST_AddUnitStat(pUnit, 6, (pArgs->nDamagePct * nLife / -100) << 8, 0);
+            int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >> 8;
+            STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, (pArgs->nDamagePct * nLife / -100) << 8, 0);
         }
     }
     UNITFINDS_FreeUnitFindData(&data);
@@ -1827,7 +1813,7 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
             missile.nTargetY = (j & 1) ? 5 * j : -5 * j;
             missile.pOwner = pSfx->pOwner;
             missile.nMissile = 62;
-            int nSkillLevel = STATLIST_UnitGetStatValue(pSfx->pOwner, 12, 0) / 5;
+            int nSkillLevel = STATLIST_UnitGetStatValue(pSfx->pOwner, STAT_LEVEL, 0) / 5;
             if (nSkillLevel < 1) nSkillLevel = 1;
             else if (nSkillLevel > 8) nSkillLevel = 8;
             missile.nSkillLevel = nSkillLevel;
@@ -2067,7 +2053,7 @@ static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D
         *pToHit = 0;
     }
 
-    const int nBonus = SKILLS_GetWeaponMasteryBonus(pUnit, pWeapon, pSkill, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x77, 0);
+    const int nBonus = SKILLS_GetWeaponMasteryBonus(pUnit, pWeapon, pSkill, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
     D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
     const int nToHit = *pToHit;
     *pToHit = nToHit + nToHit * (pSkillsTxtRecord->dwToHit + (nSkillLevel - 1) * pSkillsTxtRecord->dwLevToHit + nBonus) / 100;
@@ -2123,11 +2109,11 @@ static NOINLINE int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int 
 
         if (bTwoHanded)
         {
-            nStatValue = STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
+            nStatValue = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
         }
         else
         {
-            nStatValue = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+            nStatValue = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
         }
         return nValue * nStatValue / 100;
     }
@@ -2157,9 +2143,9 @@ static __forceinline int OBJMODE_GetMinDamagePercentage(D2UnitStrc* pUnit, D2Uni
 
     if (bTwoHanded)
     {
-        return STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
+        return STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
     }
-    return STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+    return STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
 }
 
 // 0x005839B0
@@ -2180,7 +2166,7 @@ void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2Shrin
 
     const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->bCode];
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->hPlayer);
-    STATLIST_SetUnitStat(pOp->hPlayer, 0x0A, nMaxStamina, 0);
+    STATLIST_SetUnitStat(pOp->hPlayer, STAT_STAMINA, nMaxStamina, 0);
     const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->hPlayer);
     D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, sub_6FC77AB0);
     sub_006270B0(pStatList, 0x0A, 2 * nStatValue, 0);

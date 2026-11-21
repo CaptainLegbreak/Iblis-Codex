@@ -5,6 +5,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1

@@ -1,7 +1,10 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
 #include "D2DataTbls.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 struct D2StatesTxt;
 
@@ -41,12 +44,12 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
 
     if (pStatesTxt->nStateFlags[4] & gdwBitMasks[7])
     {
-        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == 12)
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD)
         {
             return;
         }
 
-        if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 17)
+        if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_DEAD)
         {
             return;
         }
@@ -68,8 +71,8 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    const int nValue1 = STATLIST_GetStatValue(pStatList, 350, 0);
-    const int nValue2 = STATLIST_GetStatValue(pStatList, 351, 0);
+    const int nValue1 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    const int nValue2 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     sub_004C7C40_RegisterTableEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
 }
 

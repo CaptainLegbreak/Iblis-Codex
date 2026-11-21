@@ -6,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2MonModes.h"
 
 #define MONSTER_AKARA 148
 
@@ -36,8 +37,6 @@
 #define UNIT_MONSTER 1
 
 #define UNIT_INVALID 6
-
-#define MONMODE_DEAD 12
 
 #define MONSTER_DREHYA 512
 

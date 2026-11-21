@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 #define GRISWOLD_WALK_FLAGS 7
 union D2SeedStrc;
@@ -11,15 +12,8 @@ struct Control;
 struct MonStats;
 struct Tick;
 
-
-
-
-
-
-
 enum D2C_M74MegademonConstants
 {
-    MONMODE_ATTACK1 = 4,
     STATE_INFERNO = 12,
 };
 

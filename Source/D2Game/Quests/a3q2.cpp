@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -6,6 +7,7 @@
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
 
+#include "D2ObjModes.h"
 #define QFLAG_REWARDGRANTED 0
 
 #define QFLAG_STARTED 2
@@ -15,8 +17,6 @@
 #define MONSTER_CAIN3 245
 
 #define UNIT_OBJECT 2
-
-#define OBJMODE_OPENED 2
 
 #define ITEMQUAL_NORMAL 2
 
@@ -876,7 +876,7 @@ int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent
     }
 
     const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pAttacker);
-    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, 6, 0);
+    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, STAT_HITPOINTS, 0);
     if (nHitpoints >= nMaxHp)
     {
         return 0;
@@ -884,7 +884,7 @@ int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent
 
     nHitpoints += nValue << 8;
     nHitpoints = nHitpoints > 0 ? nHitpoints : 0;
-    STATLIST_SetUnitStat(pAttacker, 6, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
+    STATLIST_SetUnitStat(pAttacker, STAT_HITPOINTS, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
     UNITS_SetOverlay(pAttacker, 151, 0);
     return 1;
 }

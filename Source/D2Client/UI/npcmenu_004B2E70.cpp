@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -5,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 #define UNIT_MONSTER 1
 
@@ -390,7 +392,7 @@ void __fastcall sub_004AD890_StateBurstOnFrame(D2UnitStrc* pUnit, int nState, in
     UNITS_GetShiftedFrameMetrics(pUnit, &bSet, &nFrameCount);
     if (!pUnit || pUnit->dwAnimMode != 3 || bSet != 2)
         return;
-    const int nLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0) >> 1;
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0) >> 1;
     sub_004AD6E0_StateMissileBurst(nLevel, pUnit, 0xC3);
 }
 
@@ -401,7 +403,7 @@ void __fastcall sub_004AD8E0_StateBurst(D2UnitStrc* pUnit, int nState, int bSet)
         return;
     if (pUnit && pUnit->dwAnimMode == 3)
         return;
-    const int nLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0) >> 1;
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0) >> 1;
     sub_004AD6E0_StateMissileBurst(nLevel, pUnit, 0xC3);
 }
 
@@ -415,7 +417,7 @@ void __fastcall sub_004AD920_StateBurstNeutral(D2UnitStrc* pUnit, int nState, in
         return;
     if (nFrameNo != 2)
         return;
-    const int nLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0);
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     sub_004AD6E0_StateMissileBurst(nLevel, pUnit, 0xE1);
 }
 

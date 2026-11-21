@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -77,8 +78,8 @@ static int __stdcall sub_005D3320_ApplyChargeState(D2GameStrc* pGame, int nSkill
         STATLIST_SetState(pStatList, nAuraState);
         STATLIST_SetStatRemoveCallback(pStatList, SKILLS_StatRemoveCallback_ProgressiveStrike);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-        STATLIST_SetStat(pStatList, 350, nSkillId, 0);
-        STATLIST_SetStat(pStatList, 351, nSkillLevel, 0);
+        STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_SKILL, nSkillId, 0);
+        STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_LEVEL, nSkillLevel, 0);
     }
 
     D2COMMON_10476(pStatList, nExpireFrame);

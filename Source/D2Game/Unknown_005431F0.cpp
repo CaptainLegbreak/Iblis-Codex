@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2DataTbls.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
@@ -376,9 +377,9 @@ static void __stdcall sub_005421A0_CompressInactiveMonster(D2GameStrc* pGame, D2
         pNode->nTypeFlags |= 0x400;
     }
 
-    pNode->nExperience = STATLIST_UnitGetStatValue(pUnit, 13, 0);
+    pNode->nExperience = STATLIST_UnitGetStatValue(pUnit, STAT_EXPERIENCE, 0);
     pNode->nMaxHitpoints = STATLIST_GetMaxLifeFromUnit(pUnit);
-    pNode->nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+    pNode->nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     pNode->nLevelId = MONSTER_GetLevelId(pUnit);
 
     const unsigned char* pMonUMods = MONSTERUNIQUE_GetUMods(pUnit);

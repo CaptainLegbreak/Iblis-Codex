@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Records.h"
@@ -789,7 +790,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
         sub_00452170(pOut);
         if (pItemsTxt->nQuest)
         {
-            if (pItemsTxt->nQuestDiffCheck && STATLIST_UnitGetStatValue(pItem, 0x164, 0) < sub_0044DCD0_GetDifficulty())
+            if (pItemsTxt->nQuestDiffCheck && STATLIST_UnitGetStatValue(pItem, STAT_QUESTITEMDIFFICULTY, 0) < sub_0044DCD0_GetDifficulty())
             {
                 sub_004521C0_PrefixLevelText(pOut, 1);
             }
@@ -807,10 +808,10 @@ static void __stdcall sub_00486100_AppendStackQuantity(D2UnitStrc* pItem, Unicod
     char szNumber[10];
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    if (STATLIST_UnitGetStatValue(pItem, 0x46, 0) > 0 || ITEMS_GetTotalMaxStack(pItem) > 0)
+    if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) > 0 || ITEMS_GetTotalMaxStack(pItem) > 0)
     {
         sub_005267E0(pText, D2LANG_GetStringFromTblIndex(0xD86));
-        SStrPrintf(szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, 0x46, 0));
+        SStrPrintf(szNumber, 10, szFmtLong_006D9BE8, STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0));
         sub_00526F20(wszNumber, szNumber, 9);
         sub_00526700(pText, pColorStart);
         sub_00526700(pText, wszNumber);

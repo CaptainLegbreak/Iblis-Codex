@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
 #include "D2DataTbls.h"
@@ -8,6 +9,7 @@
 #include "D2Constants.h"
 #include "D2Path.h"
 #include "D2GameAux.h"
+#include "D2PlayerModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -25,17 +27,6 @@ union D2SeedStrc;
 
 enum D2C_M244AiBaalConstants
 {
-    STAT_DAMAGERESIST = 0x24,
-    STAT_MAGICRESIST = 0x25,
-    STAT_FIRERESIST = 0x27,
-    STAT_LIGHTRESIST = 0x29,
-    STAT_COLDRESIST = 0x2B,
-    STAT_MAXDAMAGE = 0x16,
-    STAT_FIREMAXDAM = 0x31,
-    STAT_LIGHTMAXDAM = 0x33,
-    STAT_MAGICMAXDAM = 0x35,
-    STAT_COLDMAXDAM = 0x37,
-    STAT_POISONMAXDAM = 0x3A,
     STATE_COLD = 0x0B,
 };
 
@@ -84,10 +75,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
 
 static __declspec(noinline) int __stdcall AI_GetRandomArrayIndex(int* pArray, int nArraySize, D2UnitStrc* pUnit);
-
-#define PLRMODE_DEATH 0
-
-#define PLRMODE_DEAD 17
 
 #define PATHTYPE_TOWARD 2
 
@@ -1000,9 +987,9 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  AIGENERAL_SetOwnerData(game,unit,!unit?-1:unit->dwUnitId,!unit?6:unit->dwUnitType,1,0);
  AIGENERAL_AllocMinionList(game,unit,clone);
  AIGENERAL_SetOwnerData(game,clone,!unit?-1:unit->dwUnitId,!unit?6:unit->dwUnitType,1,0);
- STATLIST_SetUnitStat(clone,7,STATLIST_GetMaxLifeFromUnit(unit)/3,0);
- STATLIST_SetUnitStat(clone,6,STATLIST_UnitGetStatValue(unit,6,0)/3,0);
- STATLIST_SetUnitStat(clone,74,0,0);
+ STATLIST_SetUnitStat(clone,STAT_MAXHP,STATLIST_GetMaxLifeFromUnit(unit)/3,0);
+ STATLIST_SetUnitStat(clone,STAT_HITPOINTS,STATLIST_UnitGetStatValue(unit,STAT_HITPOINTS,0)/3,0);
+ STATLIST_SetUnitStat(clone,STAT_HPREGEN,0,0);
  UNITS_StoreOwner(clone,unit);UNITS_StoreOwner(unit,clone);
  SUNIT_AttachSound(unit,16,0);
  ++control->dwAiParam[1];return true;
@@ -1011,7 +998,6 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  }
  return false;
 }
-
 
 static __forceinline unsigned int RollSeed(D2SeedStrc* s) {
  unsigned __int64 value=(unsigned __int64)0x6AC690C5*s->nLowSeed+s->nHighSeed;

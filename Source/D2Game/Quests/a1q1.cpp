@@ -256,7 +256,7 @@ void __fastcall ACT1Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuest, D2Quest
         QUESTRECORD_SetQuestState(pQuestFlags, pQuest->eFilter2, 0xD);
         QUESTRECORD_SetQuestState(pQuestFlags, pQuest->eFilter2, 1);
         QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuest->eFilter);
-        STATLIST_AddUnitStat(pArg->pPlayer, 5, 1, 0);
+        STATLIST_AddUnitStat(pArg->pPlayer, STAT_SKILLPTS, 1, 0);
         QUESTS_AddPlayerGUID(&pQuest->tPlayerGUIDs, !pArg->pPlayer ? -1 : pArg->pPlayer->dwUnitId);
         QUESTS_NPCActivateSpeeches(pArg->pGame, pArg->pPlayer, pArg->pTarget);
     }

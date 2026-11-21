@@ -10,6 +10,9 @@
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 #include "D2AnimData.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
+#include "D2ItemModes.h"
 
 struct D2MapAIStrc;
 
@@ -27,19 +30,11 @@ struct D2MapAIStrc;
 
 #define EVENTTYPE_ENDANIM 1
 
-#define PLRMODE_DEATH 0
-
-#define PLRMODE_DEAD 17
-
 #define COLLISION_PATTERN_SMALL_NO_PRESENCE 5
 
 #define COLLIDE_CORPSE 0x8000
 
 #define UNITFLAGEX_HASBEENDELETED 0x100
-
-#define MONMODE_DEATH 0
-
-#define MONMODE_DEAD 12
 
 #define SKILLSFLAGINDEX_TARGETPET 25
 
@@ -512,10 +507,6 @@ int gnUnitInitSeed_008846E8; // 0x008846E8
 
 struct D2UnitStrc;
 
-#define PLRMODE_SEQUENCE 0x12
-
-#define MONMODE_SEQUENCE 0xE
-
 #define ITEMQUAL_UNIQUE 7
 
 #define SKILLSFLAGINDEX_TARGETALLY 26
@@ -932,7 +923,7 @@ void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* ptUnit)
     switch (ptUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        STATLIST_SetUnitStat(ptUnit, 29, -1, 0);
+        STATLIST_SetUnitStat(ptUnit, STAT_LASTEXP, -1, 0);
         ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
         sub_0053FA90_ClearArenaUnitUpdate(pGame, ptUnit);
         return;

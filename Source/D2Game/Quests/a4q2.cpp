@@ -9,6 +9,7 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2DataTbls.h"
+#include "D2ObjModes.h"
 
 #define QUEST_A4Q2_DIABLO 23
 
@@ -23,10 +24,6 @@
 #define QFLAG_ENTERAREA 4
 
 #define QFLAG_COMPLETEDBEFORE 15
-
-#define OBJMODE_OPERATING 1
-
-#define OBJMODE_OPENED 2
 
 struct D2PlayerDataStrc;
 
@@ -926,7 +923,7 @@ void __cdecl sub_005B5620_Return()
 // 0x005B5630
 int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp)
 {
-    if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         UNITS_ChangeAnimMode(pOp->hObject, 1);
 

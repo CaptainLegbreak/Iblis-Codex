@@ -11,6 +11,8 @@
 #include "D2GameServer.h"
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
+#include "D2ObjModes.h"
+#include "D2ItemModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -19,8 +21,6 @@
 #define QUEST_A2Q4_HORAZONTOME 11
 
 #define QUEST_A3Q1_LAMESENTOME 15
-
-#define OBJMODE_OPENED 2
 
 #define UNIT_PLAYER 0
 
@@ -2343,7 +2343,7 @@ int __fastcall QUESTS_PortalCheck(D2GameStrc* pGame, D2CoordStrc* pCoord, int nL
 int __fastcall QUESTS_SetObjectSelection(D2ObjOperateFnStrc* pOp)
 {
     int bCanOperate = 1;
-    if (pOp->hObject && pOp->hObject->dwAnimMode != 0)
+    if (pOp->hObject && pOp->hObject->dwAnimMode != OBJMODE_NEUTRAL)
     {
         bCanOperate = 0;
     }
@@ -2952,7 +2952,7 @@ D2UnitStrc* __fastcall QUESTS_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
         if (nMaxDurability > 0)
-            STATLIST_SetUnitStat(pItem, 0x48, nMaxDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nMaxDurability, 0);
 
         ITEMS_SetInvPage(pItem, 0);
 

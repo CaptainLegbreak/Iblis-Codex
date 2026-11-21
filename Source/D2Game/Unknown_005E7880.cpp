@@ -5,14 +5,10 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 enum
 {
-};
-
-enum
-{
-    MONMODE_DEAD = 12,
 };
 
 enum
@@ -24,9 +20,6 @@ enum
 {
     STAT_HITPOINTS = 6,
 };
-
-
-
 
 int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x005DDFC0
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract);                              // 0x00572DC0

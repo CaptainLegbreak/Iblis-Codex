@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientGfx.h"
+#include "D2MonModes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -75,7 +76,7 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
             {
             case UNIT_MISSILE:
                 D2_ASSERT(pOwner->dwUnitType == UNIT_MONSTER, 425);
-                if (!pOwner->dwAnimMode || pOwner->dwAnimMode == 12)
+                if (!pOwner->dwAnimMode || pOwner->dwAnimMode == MONMODE_DEAD)
                 {
                     return;
                 }

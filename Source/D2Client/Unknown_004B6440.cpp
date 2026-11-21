@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2ClientMenus.h"
@@ -263,7 +264,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
 
     gnGlobal_007C0C6B = 1;
     gnGlobal_007C0D31 = 0;
-    gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xE, 0);
+    gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
     sub_00456300_CloseUIVars(0, 0);
 
     if (!bReopen)
@@ -304,7 +305,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     switch (pUnit->dwClassId)
     {
     case 0x96:
-        if (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xC, 0) >= 8)
+        if (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_LEVEL, 0) >= 8)
         {
             sub_004B6410_InitHandler();
         }

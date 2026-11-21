@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -11,22 +12,18 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
+#include "D2MonModes.h"
 
 enum D2C_F39Constants
 {
-    STAT_HITPOINTS = 6,
-    STAT_MODIFIERLIST_SKILL = 350,
-    STAT_MODIFIERLIST_LEVEL = 351,
     STATE_BLAZE = 13,
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_SKSRVDOFUNC = 0x40,
     UNITFLAG_NOXP = 0x4000000,
     DAMAGERESULTFLAG_SUCCESSFULHIT = 1,
     DAMAGERESULTFLAG_WILLDIE = 2,
-    MONMODE_SKILL1 = 8,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
-    STAT_ATTACKRATE = 0x44,
     STATE_FETISHAURA = 0x19,
     MONSTER_FETISH1 = 0x8D,
     MONSTER_FETISH2 = 0x8E,
@@ -38,22 +35,14 @@ enum D2C_F39Constants
     MONSTER_FETISHBLOW3 = 0x18E,
     MONSTER_FETISHBLOW4 = 0x18F,
     MONSTER_FETISHBLOW5 = 0x190,
-    MONMODE_SEQUENCE = 14,
     UNITFLAG_NOTC = 0x20000,
     EVENTTYPE_ENDANIM = 1,
-    STAT_MAXHP = 7,
-    STAT_MANA = 8,
-    STAT_LEVEL = 12,
-    STAT_THORNS_PERCENT = 0x83,
-    STAT_CONVERSION_LEVEL = 0xB0,
-    STAT_CONVERSION_MAXHP = 0xB1,
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
 };
 
 struct D2MonsterRegionStrc;
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

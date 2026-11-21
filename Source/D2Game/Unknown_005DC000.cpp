@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -83,10 +84,10 @@ int __fastcall sub_005DC000_SrvDoSummonPet(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     int nHp = STATLIST_GetMaxLifeFromUnit(pUnit);
     nHp = DATATBLS_ApplyRatio(nHp, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel), 100);
-    STATLIST_SetUnitStat(pPet, 6, nHp, 0);
-    STATLIST_SetUnitStat(pPet, 7, nHp, 0);
-    const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
-    STATLIST_SetUnitStat(pPet, 12, nLevel, 0);
+    STATLIST_SetUnitStat(pPet, STAT_HITPOINTS, nHp, 0);
+    STATLIST_SetUnitStat(pPet, STAT_MAXHP, nHp, 0);
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    STATLIST_SetUnitStat(pPet, STAT_LEVEL, nLevel, 0);
 
     D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);

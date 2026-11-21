@@ -6,29 +6,21 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 #define UNIT_MONSTER 1
-
-
 
 enum D2C_P11AiConstants
 {
     AISPECIALSTATE_NONE = 0,
     EVENTTYPE_AITHINK = 2,
-    MONMODE_ATTACK1 = 4,
-    MONMODE_SKILL1 = 8,
     SKILL_IMPREGNATE = 300,
     STATE_POISON = 2,
     STAT_POISONRESIST = 45,
     MONSTER_VILEMOTHER1 = 0x12A,
-    MONMODE_RUN = 15,
     MONSTATSFLAGINDEX_INTERACT = 9,
     STATE_TERROR = 0x38,
 };
-
-
-
-
 
 struct D2MinionSpawnerAiCallbackArgStrc
 {
@@ -36,9 +28,7 @@ struct D2MinionSpawnerAiCallbackArgStrc
     int unk0x04[9];
 };
 
-
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
-
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60

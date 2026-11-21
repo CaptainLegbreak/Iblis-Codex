@@ -5,13 +5,12 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-#define MONMODE_DEATH 0
-#define MONMODE_NEUTRAL 1
+#include "D2MonModes.h"
+
 #define EVENTTYPE_MONUMOD 7
 struct D2MonsterDataStrc;
 union D2SeedStrc;
 struct D2MonStatsTxt;
-
 
 struct D2MonsterDataStrc
 {
@@ -20,8 +19,6 @@ struct D2MonsterDataStrc
     char unk0x17[5];
     unsigned char nUMods[9];
 };
-
-
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -32,9 +29,6 @@ int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x005A0180
-
-
-
 
 enum D2C_J10MonModeConstants
 {

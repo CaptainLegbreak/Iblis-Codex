@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -681,7 +682,7 @@ int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit)
     {
         bNoAmmo = 0;
         if (!SKILLS_GetSkillIdFromSkill(UNITS_GetUsedSkill(pUnit), ".\\SKILLS\\Skills.cpp", 0xB6)
-            && STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 0x9D, 0))
+            && STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_MAGICARROW, 0))
         {
             return 1;
         }
@@ -693,13 +694,13 @@ int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit)
     }
     D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
     if (pItem && (!bNoAmmo || pItem == pWeapon)
-        && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem) || STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x7D, 0)))
+        && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem) || STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROWABLE, 0)))
     {
         return ITEMS_CanItemBeUsedForThrowSkill(pItem);
     }
     pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
     if (pItem && (!bNoAmmo || pItem == pWeapon)
-        && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem) || STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x7D, 0)))
+        && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem) || STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROWABLE, 0)))
     {
         return ITEMS_CanItemBeUsedForThrowSkill(pItem);
     }
@@ -2295,8 +2296,8 @@ void __fastcall sub_004C72F0(D2UnitStrc* pUnit)
                 D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
                 if (pStatList)
                 {
-                    nA = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-                    nB = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+                    nA = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+                    nB = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
                 }
                 gpfnClientSkillDoFuncs_00727BA8[pStatesTxtRecord->wCltActiveFunc](pUnit, nA, nB);
             }
@@ -2616,7 +2617,7 @@ void __fastcall sub_004C7BE0_ApplyClientSkillCalc(D2UnitStrc* pUnit, int nValue)
     if (pStatList)
     {
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-        STATLIST_SetStat(pStatList, 0x44, nValue, 0);
+        STATLIST_SetStat(pStatList, STAT_ATTACKRATE, nValue, 0);
         UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 0x9E5);
     }
 }
@@ -2694,7 +2695,7 @@ int __fastcall sub_004C7E10_FireWeaponMissile(D2UnitStrc* pUnit, int nSkillId, i
         pUnit->dwFlags |= 0x40;
     }
 
-    if (!ITEMS_CheckIfThrowable(pItem) && STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x7D, 0))
+    if (!ITEMS_CheckIfThrowable(pItem) && STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROWABLE, 0))
     {
         return 0;
     }

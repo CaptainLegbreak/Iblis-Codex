@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -522,7 +523,7 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
     if (ITEMS_GetItemType(pUnit) == 4)
     {
         char szGold[10];
-        const int nGold = STATLIST_UnitGetStatValue(pUnit, 0xE, 0);
+        const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
         Unicode wszGold[10];
         wsprintfA(szGold, gszFmtInt_006D6454, nGold);
         sub_00526F20(wszGold, szGold, 9);

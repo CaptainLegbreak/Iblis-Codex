@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -14,6 +15,8 @@
 #include "D2GameObjs.h"
 #include "D2GameRecords.h"
 #include "D2Skills.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 
@@ -333,9 +336,7 @@ typedef char H15_CheckSkillsCount[(int)&((D2DataTablesStrc*)0)->nSkillsTxtRecord
 
 enum
 {
-    MONMODE_DEAD = 12,
     UNITFLAG_TARGETABLE = 0x00000002,
-    PLRMODE_TOWNNEUTRAL = 5,
     SKILLSFLAGINDEX_INTOWN = 8,
     SKILLSFLAGINDEX_TARGETABLEONLY = 20,
     SKILLSFLAGINDEX_TARGETCORPSE = 24,
@@ -705,12 +706,6 @@ void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 
-enum
-{
-    PLRMODE_ATTACK1 = 7,
-    MONMODE_ATTACK1 = 4,
-};
-
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570
 
 void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
@@ -741,7 +736,6 @@ void __fastcall sub_005D5220_DischargeProgressiveSkills(D2GameStrc* pGame, D2Uni
 
 unsigned int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
-
 typedef int (__fastcall* SKILLDOFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
 typedef int (__fastcall* SKILLSTARTFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
@@ -754,9 +748,6 @@ void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nExpireFrame);       
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
-
-#define PLRMODE_SEQUENCE 18
-
 #define STATE_SKILLDELAY 121
 
 #define EVENTTYPE_REMOVESTATE 12
@@ -764,7 +755,6 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 #define SKILLSFLAGINDEX_DECQUANT 0
 
 #define SKILLSFLAGINDEX_LOB 1
-
 
 #define SKILLSFLAGINDEX2_USEMANAONDO (32 + 5)
 
@@ -823,21 +813,21 @@ int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit)
 {
     const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
-    if (STATLIST_UnitGetStatValue(pUnit, 6, 0) > nMaxHp)
+    if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) > nMaxHp)
     {
-        STATLIST_SetUnitStat(pUnit, 6, nMaxHp, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nMaxHp, 0);
     }
 
     const int nMaxMana = STATLIST_GetMaxManaFromUnit(pUnit);
-    if (STATLIST_UnitGetStatValue(pUnit, 8, 0) > nMaxMana)
+    if (STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) > nMaxMana)
     {
-        STATLIST_SetUnitStat(pUnit, 8, nMaxMana, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_MANA, nMaxMana, 0);
     }
 
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
-    if (STATLIST_UnitGetStatValue(pUnit, 10, 0) > nMaxStamina)
+    if (STATLIST_UnitGetStatValue(pUnit, STAT_STAMINA, 0) > nMaxStamina)
     {
-        STATLIST_SetUnitStat(pUnit, 10, nMaxStamina, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nMaxStamina, 0);
     }
 
     UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 267);
@@ -3097,7 +3087,7 @@ D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse)
     const int bCurse = STATES_CheckStateMaskCurseByStateId(nState);
     if (bCurse)
     {
-        const int nResistance = STATLIST_UnitGetStatValue(pTarget, 109, 0);
+        const int nResistance = STATLIST_UnitGetStatValue(pTarget, STAT_CURSE_RESISTANCE, 0);
         if (nResistance >= 100)
             return 0;
         if (nResistance)
@@ -3545,7 +3535,7 @@ int __fastcall SKILLS_SrvDo003_Throw(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
             }
         }
 
-        if (!ITEMS_CheckIfThrowable(pWeapon) && !STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 125, 0))
+        if (!ITEMS_CheckIfThrowable(pWeapon) && !STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_THROWABLE, 0))
         {
             return 0;
         }
@@ -3599,7 +3589,7 @@ int __fastcall SKILLS_SrvDo005_LeftHandThrow(D2GameStrc* pGame, D2UnitStrc* pUni
             }
         }
 
-        if (!ITEMS_CheckIfThrowable(pWeapon) && !STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 125, 0))
+        if (!ITEMS_CheckIfThrowable(pWeapon) && !STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_THROWABLE, 0))
         {
             return 0;
         }
@@ -3952,8 +3942,8 @@ void __fastcall sub_0056FCB0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillIdA
             return;
         }
 
-        const int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
-        if (SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillIdArg) && nSkillIdArg == STATLIST_GetStatValue(pStatList, 0x15E, 0))
+        const int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
+        if (SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillIdArg) && nSkillIdArg == STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0))
         {
             sub_0056F7F0(pGame, pUnit, nSkillIdArg, nSkillLevel, 1, 0, 0);
             sub_6FD13260(pGame, pUnit, nSkillIdArg, nSkillLevel, 0);
@@ -3981,7 +3971,7 @@ void __fastcall sub_0056FE40(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int n
         return;
     }
 
-    const int nAura = STATLIST_UnitGetStatValue(pUnit, 151, nSkillId);
+    const int nAura = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_AURA, nSkillId);
     if (nAura <= 0)
     {
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 9, a3);

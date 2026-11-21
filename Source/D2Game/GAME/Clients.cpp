@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -7,6 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2GameServer.h"
+#include "D2PlayerModes.h"
 
 #pragma intrinsic(strcpy)
 
@@ -20,11 +22,9 @@
 #define CLIENTFLAGEX_ARENA_RELATED 0x04
 #define ASSERT(x,line) if(!(x)){sub_00408A60(&data_006CC837,sub_00408090(),line);sub_00681E09(-1);}
 #define PREVIEW_VERSION 0x0E
-#define STAT_LEVEL 0x0C
 #define PREVIEW_COPY_SIZE 0x0B
 #define PREVIEW_MAX_LEVEL_INDEX 98
-#define PLRMODE_DEATH 0
-#define PLRMODE_DEAD 0x11
+
 #define CLIENTSAVEFLAG_HARDCORE 0x04
 #define CLIENTSAVEFLAG_DEAD 0x08
 #define CLIENTSAVEFLAG_INVALID_1 0x01

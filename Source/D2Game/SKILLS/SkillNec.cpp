@@ -544,12 +544,12 @@ static __forceinline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker,
     const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 0x78, 0);
     if (nValue)
     {
-        int nNew = STATLIST_UnitGetStatValue(pDefender, 0x1F, 0) + nValue;
+        int nNew = STATLIST_UnitGetStatValue(pDefender, STAT_ARMORCLASS, 0) + nValue;
         if (nNew < 0)
         {
             nNew = 0;
         }
-        STATLIST_SetUnitStat(pDefender, 0x1F, nNew, 0);
+        STATLIST_SetUnitStat(pDefender, STAT_ARMORCLASS, nNew, 0);
     }
 }
 
@@ -1587,7 +1587,7 @@ int __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitSt
     int nLife = STATLIST_GetMaxLifeFromUnit(pPet);
     nLife += ApplyRatio(nLife, nPercent, 100);
     STATLIST_SetUnitStat(pPet, 7, nLife, 0);
-    STATLIST_SetUnitStat(pPet, 6, nLife, 0);
+    STATLIST_SetUnitStat(pPet, STAT_HITPOINTS, nLife, 0);
     for (int i = 0; i < 5; ++i) {
         if (pSkill->wSumSkill[i] > 0 && pSkill->wSumSkill[i] < sgptDataTables->nSkillsTxtRecordCount) {
             int nLevel = SKILLS_EvaluateSkillFormula(pUnit, pSkill->dwSumSkCalc[i], nSkillId, nSkillLevel);
@@ -1610,7 +1610,7 @@ int __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitSt
     if (pSkill->wSumOverlay > 0 && pSkill->wSumOverlay < sgptDataTables->nOverlayTxtRecordCount) UNITS_SetOverlay(pPet, pSkill->wSumOverlay, 0);
     int nLevel = nItemLevel;
     if (!nLevel) {
-        int nOwnerLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+        int nOwnerLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
         nLevel = 3 * nSkillLevel;
         nLevel = MAXIMUM(nLevel, 1) < nOwnerLevel ? MAXIMUM(nLevel, 1) : nOwnerLevel;
     }
@@ -1774,7 +1774,7 @@ int __fastcall sub_005C4DF0_DetonateCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit,
         D2MonStatsInitStrc monStats;
         memset(&monStats, 0, sizeof(monStats));
         const int nMonsterId = pTarget->dwClassId;
-        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, nGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pTarget, 12, 0), 1, &monStats);
+        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, nGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pTarget, STAT_LEVEL, 0), 1, &monStats);
         nLife = (monStats.nMinHP + monStats.nMaxHP) << 7;
     }
     int nX = CLIENTS_GetUnitX(pTarget);
@@ -1785,8 +1785,8 @@ int __fastcall sub_005C4DF0_DetonateCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit,
     int nMinDamage = DATATBLS_ApplyRatio(SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwCalc[0], nSkillId, nSkillLevel), nLife, 100);
     int nMaxDamage = DATATBLS_ApplyRatio(SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwCalc[1], nSkillId, nSkillLevel), nLife, 100);
     int nDamage = nMinDamage + ITEMS_RollLimitedRandomNumber(&pTarget->pSeed, nMaxDamage - nMinDamage);
-    int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, 12, 0);
-    int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+    int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, STAT_LEVEL, 0);
+    int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     if (nTargetLevel && nLevel < nTargetLevel)
         nDamage = DATATBLS_ApplyRatio(nDamage, nLevel, nTargetLevel);
     D2DamageStrc damage;
@@ -2036,12 +2036,12 @@ int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     D2MonStatsInitStrc tMonStatsInit;
     memset(&tMonStatsInit, 0, sizeof(tMonStatsInit));
     const int nClassId = pTarget->dwClassId;
-    DATATBLS_CalculateMonsterStatsByLevel(nClassId, bExpansion, pGame->nDifficulty, STATLIST_UnitGetStatValue(pTarget, 12, 0), 1, &tMonStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(nClassId, bExpansion, pGame->nDifficulty, STATLIST_UnitGetStatValue(pTarget, STAT_LEVEL, 0), 1, &tMonStatsInit);
     const int nNewHp = (ITEMS_RollLimitedRandomNumber(&pTarget->pSeed, tMonStatsInit.nMaxHP - tMonStatsInit.nMinHP + 1) + tMonStatsInit.nMinHP) << 8;
     STATLIST_SetUnitStat(pTarget, 7, nNewHp, 0);
-    STATLIST_SetUnitStat(pTarget, 6, nNewHp, 0);
-    const int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
-    const int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, 12, 0);
+    STATLIST_SetUnitStat(pTarget, STAT_HITPOINTS, nNewHp, 0);
+    const int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    const int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, STAT_LEVEL, 0);
     if (nTargetLevel && nUnitLevel < nTargetLevel)
     {
         int nHitpoints = DATATBLS_ApplyRatio(nNewHp, nUnitLevel, nTargetLevel);
@@ -2050,8 +2050,8 @@ int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             nHitpoints = 1;
         }
         STATLIST_SetUnitStat(pTarget, 7, nHitpoints, 0);
-        STATLIST_SetUnitStat(pTarget, 6, nHitpoints, 0);
-        STATLIST_SetUnitStat(pTarget, 12, nUnitLevel, 0);
+        STATLIST_SetUnitStat(pTarget, STAT_HITPOINTS, nHitpoints, 0);
+        STATLIST_SetUnitStat(pTarget, STAT_LEVEL, nUnitLevel, 0);
     }
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pTarget, nSkillId, nSkillLevel, 0);
     sub_005C55C0_InitializeRevivedMonster(pGame, pUnit, pTarget, nSkillId, nSkillLevel);
@@ -2296,7 +2296,7 @@ static int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue)
         return 0;
     }
 
-    int nNewHp = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+    int nNewHp = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
     nNewHp += nValue;
     if (nNewHp > nMaxHp)
@@ -2305,7 +2305,7 @@ static int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue)
         nNewHp = nMaxHp;
     }
 
-    STATLIST_SetUnitStat(pUnit, 6, nNewHp, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nNewHp, 0);
     return nValue;
 }
 
@@ -2481,7 +2481,7 @@ int __fastcall sub_005C61E0_ApplyLifeTap(D2GameStrc* pGame, int nEvent, D2UnitSt
     D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, sub_00625250(pStatList), sub_006252B0(pStatList));
     const int nPercent = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc[0], nSkillId, nLevel);
     const int nLifeGain = DATATBLS_ApplyRatio(pDamage->dwPhysDamage, nPercent, 100);
-    int nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+    int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit);
     if (nLife <= 0 || nMaxLife <= 0)
     {
@@ -2489,7 +2489,7 @@ int __fastcall sub_005C61E0_ApplyLifeTap(D2GameStrc* pGame, int nEvent, D2UnitSt
     }
     nLife += nLifeGain;
     nLife = D2_MIN(nLife < 1 ? 1 : nLife, nMaxLife);
-    STATLIST_SetUnitStat(pUnit, 6, nLife, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nLife, 0);
     if (pSkillsTxtRecord->wPrgOverlay > 0 && pSkillsTxtRecord->wPrgOverlay < sgptDataTables->nOverlayTxtRecordCount)
     {
         UNITS_SetOverlay(pUnit, pSkillsTxtRecord->wPrgOverlay, 0);
@@ -2620,7 +2620,7 @@ int __fastcall sub_005C6870_FeedBloodGolem(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
     else
     {
-        STATLIST_SetUnitStat(pGolem, 6, STATLIST_GetMaxLifeFromUnit(pGolem), 0);
+        STATLIST_SetUnitStat(pGolem, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pGolem), 0);
     }
 
     return nValue;
@@ -2669,9 +2669,9 @@ int __fastcall D2GAME_EventFunc23_6FD0F1F0(D2GameStrc* pGame, int nEvent, D2Unit
         nDamage = DATATBLS_ApplyRatio(nDamage, nDrain, 100);
     }
 
-    if (nDamage >= STATLIST_UnitGetStatValue(pUnit, 6, 0))
+    if (nDamage >= STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0))
     {
-        nDamage = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+        nDamage = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     }
 
     D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pAttacker);
@@ -2851,7 +2851,7 @@ int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc* pGame, D2UnitStr
     else
     {
         const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pBloodGolem);
-        STATLIST_SetUnitStat(pBloodGolem, 6, nMaxHp, 0);
+        STATLIST_SetUnitStat(pBloodGolem, STAT_HITPOINTS, nMaxHp, 0);
     }
 
     return nLife;

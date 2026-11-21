@@ -8,6 +8,7 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2Drlg.h"
+#include "D2ObjModes.h"
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -33,12 +34,9 @@
 
 #define LEVEL_OUTERSTEPPES 104
 
-#define OBJMODE_OPENED 2
-
 #define EVENTTYPE_QUESTFN 7
 
 #define QUESTSTATEFLAG_A3COMPLETED 23
-
 
 struct D2MapAIPathPositionStrc;
 
@@ -55,7 +53,6 @@ struct Player;
 struct QuestEx;
 
 struct Args;
-
 
 typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
@@ -107,15 +104,7 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 void __fastcall ACT3Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-
-
-
-
-
-
 extern unsigned indices_00741518[]; // 0x00741518
-
-
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 int __fastcall sub_005452C0(D2QuestDataStrc* pQuest, int nUnitGUID); // 0x005452C0
@@ -125,7 +114,6 @@ enum { QUEST_ID = 22 };
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544720
-
 
 extern "C" const char gszAct3Q6SourceFile[]; // 0x006E2F7C
 
@@ -141,10 +129,7 @@ int __fastcall ACT3Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BC370
 
-
-
 unsigned int __stdcall D2Common_10399(D2UnitStrc*, D2UnitStrc*); // 0x00641530
-
 
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc*); // 0x00623830
 
@@ -203,8 +188,6 @@ typedef int(__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, v
 #define UNIT_PLAYER 0
 
 #define UNIT_OBJECT 2
-
-#define OBJMODE_OPERATING 1
 
 #define EVENTTYPE_ENDANIM 1
 

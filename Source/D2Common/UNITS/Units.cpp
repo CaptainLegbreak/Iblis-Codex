@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -6,6 +7,8 @@
 #include "D2GameObjs.h"
 #include "D2UnitData.h"
 #include "D2AnimData.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define FP16_SHIFT 16
 
@@ -14,10 +17,6 @@
 #define MONSTER_SHADOWWARRIOR 0x1A1
 
 #define MONSTER_SHADOWMASTER 0x1A2
-
-#define STAT_HITPOINTS 6
-
-#define STAT_LEVEL 0x0C
 
 #define MONSTER_FIRST_EXPANSION 410
 
@@ -263,10 +262,6 @@ int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, u
 
 enum
 {
-};
-
-enum
-{
     INVPAGE_EQUIP = 1,
     INVPAGE_TRADE = 2,
     INVPAGE_CUBE = 3,
@@ -289,21 +284,6 @@ enum
 {
     OBJECT_GUILD_VAULT = 338,
     OBJECT_TROPHY_CASE = 339,
-};
-
-enum
-{
-    PLRMODE_WALK = 2,
-    PLRMODE_RUN = 3,
-    PLRMODE_TOWNWALK = 6,
-};
-
-enum
-{
-    MONMODE_WALK = 2,
-    MONMODE_SKILL1 = 8,
-    MONMODE_SKILL2 = 9,
-    MONMODE_RUN = 15,
 };
 
 enum
@@ -462,12 +442,6 @@ void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);
 
 #define OBJSUBCLASS_TOWNPORTAL 0x4
 
-#define STAT_TOHIT 0x13
-
-#define STAT_DEXTERITY 0x2
-
-#define STAT_MANA 0x8
-
 #define DEX_BASE 7
 
 #define DEX_MUL 5
@@ -510,8 +484,6 @@ int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit);                          
 
 int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit);                                          // 0x0063A770
 
-#define MONMODE_DEAD 12
-
 #define MONSTATS2FLAGINDEX_CORPSESEL 7
 
 #define MONSTATS2FLAGINDEX_DEADCOL 19
@@ -547,7 +519,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 enum
 {
     UNIT_TYPES = 6,
-    STAT_TOBLOCK = 20,
     MONSTATSFLAGINDEX_NOSHLDBLOCK = 26,
 };
 
@@ -566,7 +537,6 @@ void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x006494
 int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce); // 0x00649560
 
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
-
 
 void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit); // 0x00621260
 
@@ -591,7 +561,6 @@ extern int gaFrameBonus_006E8E60[][7]; // 0x006E8E60
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);
 
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker);
-
 
 int __stdcall sub_006229F0_IsRayFreeFromUnit(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask);
 
@@ -1280,7 +1249,7 @@ void __stdcall sub_00620D80_SetMonsterAnimSpeed(D2UnitStrc* pUnit)
             pUnit->wAnimSpeed = pMonStatsTxtRecord->nWalkAnimSpeed;
             return;
         }
-        const int nVelocityPercent = STATLIST_UnitGetStatValue(pUnit, 67, 0);
+        const int nVelocityPercent = STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
         const short nBaseAnimSpeed = (pUnit->dwAnimMode == 15) ? pMonStatsTxtRecord->nRunAnimSpeed : pMonStatsTxtRecord->nWalkAnimSpeed;
         int nAnimSpeed = nBaseAnimSpeed * nVelocityPercent / 100;
         nAnimSpeed = nAnimSpeed > 0 ? nAnimSpeed : 0;
@@ -2059,10 +2028,10 @@ int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
     switch (ptUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        if (ptUnit->dwAnimMode == 18)
+        if (ptUnit->dwAnimMode == PLRMODE_SEQUENCE)
             bSequence = 1;
     case UNIT_MONSTER:
-        if (ptUnit->dwAnimMode == 14)
+        if (ptUnit->dwAnimMode == MONMODE_SEQUENCE)
             break;
         if (bSequence)
             break;
@@ -2218,8 +2187,8 @@ static void __stdcall UNITS_StoreOwnerInfo(D2UnitStrc* pUnit, int nOwnerType, in
                 D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
             }
 
-            STATLIST_SetStatIfListIsValid(pStatList, 0x161, nOwnerType, 0);
-            STATLIST_SetStatIfListIsValid(pStatList, 0x162, nOwnerId, 0);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_SOURCE_UNIT_TYPE, nOwnerType, 0);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_SOURCE_UNIT_ID, nOwnerId, 0);
         }
 
         pUnit->dwFlagEx |= 0x400;
@@ -2515,18 +2484,18 @@ int __stdcall UNITS_GetOverlayHeight(D2UnitStrc* pUnit)
 // 0x006223F0
 int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
 {
-    int nDefense = STATLIST_UnitGetStatValue(pUnit, 0x1F, 0);
-    nDefense += STATLIST_UnitGetStatValue(pUnit, 2, 0) / 4;
-    int nArmorPercent = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0xAB, 0);
-    nArmorPercent += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x10, 0);
+    int nDefense = STATLIST_UnitGetStatValue(pUnit, STAT_ARMORCLASS, 0);
+    nDefense += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) / 4;
+    int nArmorPercent = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_SKILL_ARMOR_PERCENT, 0);
+    nArmorPercent += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_ARMOR_PERCENT, 0);
 
     if (STATES_CheckState(pUnit, 0x65))
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x65);
         if (pStatList)
         {
-            const int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-            const int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+            const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+            const int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
             if (nSkillId > 0 && nSkillLevel > 0)
             {
                 D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
@@ -2552,7 +2521,7 @@ int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
         nDefense += nDefense * nArmorPercent / -100;
     }
 
-    const int nArmorOverridePercent = STATLIST_UnitGetStatValue(pUnit, 0xB6, 0);
+    const int nArmorOverridePercent = STATLIST_UnitGetStatValue(pUnit, STAT_ARMOR_OVERRIDE_PERCENT, 0);
     if (nArmorOverridePercent)
     {
         nDefense += DATATBLS_ApplyRatio(nDefense, nArmorOverridePercent, 100);
@@ -4060,7 +4029,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
         if (pUnit->pDynamicPath)
         {
             const int nFasterMoveVelocity = UNITS_GetAnimStatBasePercentage(pUnit, 4);
-            int nVelocityPercent = nFasterMoveVelocity + STATLIST_UnitGetStatValue(pUnit, 0x43, 0);
+            int nVelocityPercent = nFasterMoveVelocity + STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
             if (nVelocityPercent < 0x19)
             {
                 nVelocityPercent = 0x19;
@@ -4076,7 +4045,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
     {
         UNITS_MergeDualWieldWeaponStatLists(pUnit, 1);
         const int nFasterAttackRate = UNITS_GetAnimStatBasePercentage(pUnit, 0);
-        int nRate = nFasterAttackRate + STATLIST_UnitGetStatValue(pUnit, 0x44, 0);
+        int nRate = nFasterAttackRate + STATLIST_UnitGetStatValue(pUnit, STAT_ATTACKRATE, 0);
         if (UNITS_CanDualWield(pUnit))
         {
             D2InventoryStrc* pInventory = pUnit->pInventory;
@@ -4094,8 +4063,8 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
 
             if (ITEMSIsA(pRightWeapon, 0x2D) && ITEMSIsA(pLeftWeapon, 0x2D))
             {
-                const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, 0x44, 0);
-                const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, 0x44, 0);
+                const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, STAT_ATTACKRATE, 0);
+                const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, STAT_ATTACKRATE, 0);
                 nRate += (nRightAttackRate + nLeftAttackRate) / 2 - nRightAttackRate;
             }
         }
@@ -4143,7 +4112,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
         return;
     }
 
-    int nOtherAnimRate = STATLIST_UnitGetStatValue(pUnit, 0x45, 0);
+    int nOtherAnimRate = STATLIST_UnitGetStatValue(pUnit, STAT_OTHER_ANIMRATE, 0);
     if (nOtherAnimRate < 0xF)
     {
         nOtherAnimRate = 0xF;

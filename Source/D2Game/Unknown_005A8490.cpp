@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 #define STATE_BLAZE 0x0D
 #define STATE_SPIDERLAY 0x16
@@ -12,8 +13,6 @@ struct D2ModeChangeStrc;
 struct D2MonStatsTxt;
 struct D2MissilesTxt;
 struct D2MissileUnitFindArgStrc;
-
-
 
 int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
 void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8030
@@ -23,14 +22,10 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 enum D2C_Q05MonsterConstants
 {
-    MONMODE_GETHIT = 3,
     EVENTTYPE_AITHINK = 2,
     MONSTER_SANDLEAPER1 = 78,
     STATE_STUNNED = 21,
 };
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
@@ -38,7 +33,6 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8520
-
 
 struct D2MissileUnitFindArgStrc
 {

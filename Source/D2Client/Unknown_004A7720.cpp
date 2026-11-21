@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2StormTypes.h"
 
@@ -57,7 +58,7 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     if (nX >= gnGlobal_007A2858 && nX <= gnGlobal_0071146C / 2 - 1 && nY >= gnGlobal_007A285C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x31)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (STATLIST_GetUnitBaseStat(pPlayer, 4, 0))
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
         {
             for (int i = 0; i < 4; ++i)
             {

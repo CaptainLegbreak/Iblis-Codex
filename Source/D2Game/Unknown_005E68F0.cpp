@@ -7,8 +7,8 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2GameObjs.h"
+#include "D2MonModes.h"
 
-#define MONMODE_ATTACK1 4
 struct D2MonsterDataStrc;
 union D2SeedStrc;
 struct D2MapAIPathPositionStrc;
@@ -46,7 +46,6 @@ enum D2C_Y10AiThinkConstants
     MONSTER_ORMUS = 255,
     MONSTER_CAIN5 = 265,
     MONSTER_DREHYA = 512,
-    MONMODE_SKILL1 = 8,
 };
 
 bool __fastcall sub_005E6800_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam); // 0x005E6800

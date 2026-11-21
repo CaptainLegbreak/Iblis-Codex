@@ -532,7 +532,7 @@ int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID,
         return 0;
     }
 
-    if (nValue > STATLIST_UnitGetStatValue(pUnit, 0xE, 0))
+    if (nValue > STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0))
     {
         return 0;
     }
@@ -572,8 +572,8 @@ int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID,
                     UNITS_StoreOwner(pItem, pUnit);
                 }
 
-                const int nPileGold = STATLIST_UnitGetStatValue(pItem, 0xE, 0);
-                D2GAME_SetStatOrResetGold_6FC7CA70(pUnit, 0xE, STATLIST_UnitGetStatValue(pUnit, 0xE, 0) - nPileGold);
+                const int nPileGold = STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0);
+                D2GAME_SetStatOrResetGold_6FC7CA70(pUnit, 0xE, STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0) - nPileGold);
             }
         }
     }
@@ -623,7 +623,7 @@ static __forceinline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat
         {
             if (nValue > (int)UNITS_GetInventoryGoldLimit(pUnit))
             {
-                STATLIST_SetUnitStat(pUnit, 14, 0, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_GOLD, 0, 0);
                 return;
             }
         }
@@ -631,7 +631,7 @@ static __forceinline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat
         {
             if (nValue > UNITS_GetStashGoldLimit(pUnit))
             {
-                STATLIST_SetUnitStat(pUnit, 15, 0, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_GOLDBANK, 0, 0);
                 return;
             }
         }
@@ -643,9 +643,9 @@ static __forceinline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat
 // 0x005357D0
 static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitStrc* pKiller, D2UnitStrc* pPlayer)
 {
-    const int nLevel = STATLIST_UnitGetStatValue(pPlayer, 12, 0);
-    const int nGold = STATLIST_UnitGetStatValue(pPlayer, 14, 0);
-    const int nStash = STATLIST_UnitGetStatValue(pPlayer, 15, 0);
+    const int nLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
+    const int nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
+    const int nStash = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDBANK, 0);
     const int nTotal = nStash + nGold;
     const int nPercent = nLevel < 20 ? nLevel : 20;
     const int nMinimum = nLevel * 500;

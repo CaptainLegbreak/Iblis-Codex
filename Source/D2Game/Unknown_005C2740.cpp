@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -46,14 +47,14 @@ int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem)
     if (!pItemsTxt) return 0;
     const unsigned int nSavedSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(pItem));
     const unsigned short nFormat = ITEMS_GetItemFormat(pItem);
-    const int nDurability = STATLIST_UnitGetStatValue(pItem, 72, 0);
-    const int nMaxDurability = STATLIST_GetUnitBaseStat(pItem, 73, 0);
+    const int nDurability = STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0);
+    const int nMaxDurability = STATLIST_GetUnitBaseStat(pItem, STAT_MAXDURABILITY, 0);
     int nNew = 2 * nDurability;
     if (nNew >= 255) nNew = 255;
-    STATLIST_SetUnitStat(pItem, 72, nNew, 0);
+    STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nNew, 0);
     nNew = 2 * nMaxDurability;
     if (nNew >= 255) nNew = 255;
-    STATLIST_SetUnitStat(pItem, 73, nNew, 0);
+    STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, nNew, 0);
     D2SetsTxt* pSets = sgptDataTables->pSetsTxt;
     int i = 0;
     for (; i < sgptDataTables->nSetsTxtRecordCount; ++i)

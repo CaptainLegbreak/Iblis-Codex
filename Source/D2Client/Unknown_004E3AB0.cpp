@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
@@ -53,8 +54,8 @@ void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
         return;
     }
 
-    const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     if (nSkillId <= 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
     {
         return;

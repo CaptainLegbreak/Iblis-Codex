@@ -192,7 +192,7 @@ void __stdcall ITEMS_AssignModernStaffMods(D2UnitStrc* pUnit, int nItemLvl, int 
 
         if (pStatList)
         {
-            STATLIST_SetStatIfListIsValid(pStatList, 107, nValue, nSkillId);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_ITEM_SINGLESKILL, nValue, nSkillId);
         }
     }
 }

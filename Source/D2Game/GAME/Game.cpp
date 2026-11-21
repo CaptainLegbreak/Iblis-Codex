@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -18,6 +19,8 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2QuestData.h"
+#include "D2PlayerModes.h"
+#include "D2ObjModes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -1089,12 +1092,6 @@ static void sub_0052D440_UpdateAllClients(D2GameStrc* pGame);
 
 static void sub_0052D720_UpdateFrameRate(D2GameStrc* pGame);
 
-#define PLRMODE_DEATH 0
-
-#define PLRMODE_NEUTRAL 1
-
-#define PLRMODE_DEAD 17
-
 #define EVENTTYPE_STATREGEN 3
 
 #define EVENTTYPE_DELAYEDPORTAL 11
@@ -1996,7 +1993,7 @@ void __fastcall sub_0052C900_SaveClientAndGamePlayers(D2ClientStrc* pClient, D2G
                 unsigned char nBackgroundColor, nForegroundColor, nEmblemType;
                 CLIENTS_GetGuildEmblem(i, &nBackgroundColor, &nForegroundColor, &nEmblemType);
                 const int nClassId = pPlayer->dwClassId;
-                gpD2EventCallbackTable_6FD45830->pfUpdateCharacterLadder(CLIENTS_GetName(i), nClassId, STATLIST_GetUnitBaseStat(pPlayer, 12, 0), (unsigned int)STATLIST_GetUnitBaseStat(pPlayer, 13, 0), CLIENTS_GetFlags(i), &i->nSaveCreationTimestamp);
+                gpD2EventCallbackTable_6FD45830->pfUpdateCharacterLadder(CLIENTS_GetName(i), nClassId, STATLIST_GetUnitBaseStat(pPlayer, STAT_LEVEL, 0), (unsigned int)STATLIST_GetUnitBaseStat(pPlayer, STAT_EXPERIENCE, 0), CLIENTS_GetFlags(i), &i->nSaveCreationTimestamp);
             }
         }
     }
@@ -2018,7 +2015,7 @@ void __fastcall sub_0052CA10(D2GameStrc* pGame)
                 unsigned char nBackgroundColor, nForegroundColor, nEmblemType;
                 CLIENTS_GetGuildEmblem(i, &nBackgroundColor, &nForegroundColor, &nEmblemType);
                 const int nClassId = pPlayer->dwClassId;
-                gpD2EventCallbackTable_6FD45830->pfUpdateCharacterLadder(CLIENTS_GetName(i), nClassId, STATLIST_GetUnitBaseStat(pPlayer, 12, 0), (unsigned int)STATLIST_GetUnitBaseStat(pPlayer, 13, 0), CLIENTS_GetFlags(i), &i->nSaveCreationTimestamp);
+                gpD2EventCallbackTable_6FD45830->pfUpdateCharacterLadder(CLIENTS_GetName(i), nClassId, STATLIST_GetUnitBaseStat(pPlayer, STAT_LEVEL, 0), (unsigned int)STATLIST_GetUnitBaseStat(pPlayer, STAT_EXPERIENCE, 0), CLIENTS_GetFlags(i), &i->nSaveCreationTimestamp);
             }
         }
         i = pNext;
@@ -2414,7 +2411,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
                     if (pPlayer && gpD2EventCallbackTable_6FD45830->pfEnterGame)
                     {
                         const int nClassId = pPlayer->dwClassId;
-                        gpD2EventCallbackTable_6FD45830->pfEnterGame(pGame->nGameId, pClient->szName, nClassId, STATLIST_UnitGetStatValue(pPlayer, 12, 0), pClient->nSaveFlags);
+                        gpD2EventCallbackTable_6FD45830->pfEnterGame(pGame->nGameId, pClient->szName, nClassId, STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0), pClient->nSaveFlags);
                     }
                 }
 
@@ -5030,14 +5027,14 @@ void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat,
         case 14:
             if (nValue > UNITS_GetInventoryGoldLimit(pUnit))
             {
-                STATLIST_SetUnitStat(pUnit, 14, 0, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_GOLD, 0, 0);
                 return;
             }
             break;
         case 15:
             if (nValue > UNITS_GetStashGoldLimit(pUnit))
             {
-                STATLIST_SetUnitStat(pUnit, 15, 0, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_GOLDBANK, 0, 0);
                 return;
             }
             break;
@@ -5490,7 +5487,7 @@ void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameS
 void __fastcall sub_005404C0_AddLivingMemberLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
 {
     if (!SUNIT_IsDead(pUnit))
-        *(int*)pArgs += STATLIST_UnitGetStatValue(pUnit, 12, 0);
+        *(int*)pArgs += STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
 }
 
 // 0x005404F0
@@ -5585,7 +5582,7 @@ void __fastcall OBJECTS_InitFunction17_Waypoint(D2ObjInitFnStrc* pOp)
             || (pOp->pRoom && pObjectRoomCoord->nX >= pOp->pRoom->tCoords.nSubtileX && pObjectRoomCoord->nX < pOp->pRoom->tCoords.nSubtileX + pOp->pRoom->tCoords.nSubtileWidth
                 && pObjectRoomCoord->nY >= pOp->pRoom->tCoords.nSubtileY && pObjectRoomCoord->nY < pOp->pRoom->tCoords.nSubtileY + pOp->pRoom->tCoords.nSubtileHeight))
         {
-            if (!pOp->pObject || pOp->pObject->dwAnimMode == 0)
+            if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
             {
                 UNITS_ChangeAnimMode(pOp->pObject, 1);
                 D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pOp->pObject ? -1 : pOp->pObject->dwClassId);

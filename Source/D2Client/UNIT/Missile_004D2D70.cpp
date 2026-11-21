@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -84,11 +85,11 @@ static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile)
 
     if (!(pMissilesTxtRecord->nMissileFlags[0] & gbChargeMissileMask_006CE270))
         return nResult;
-    const int nValue = STATLIST_UnitGetStatValue(pMissile, 328, 0);
+    const int nValue = STATLIST_UnitGetStatValue(pMissile, STAT_PIERCE_IDX, 0);
     if (nValue)
     {
         nResult = 2;
-        STATLIST_SetUnitStat(pMissile, 328, nValue - 1, 0);
+        STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, nValue - 1, 0);
     }
 
     return nResult;
@@ -124,7 +125,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
 
         if (pOwner && pTarget && (pMissilesTxtRecord->nMissileFlags[0] & gbChargeMissileMask_006CE270) && (unsigned int)pOwner->dwUnitType <= 1)
         {
-            if (STATES_CheckState(pOwner, 0x45) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0))
+            if (STATES_CheckState(pOwner, 0x45) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0))
                 nResult = sub_004CD310_UseMissileCharge(pMissile);
         }
 

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
 #include "D2QuestData.h"
@@ -15,6 +16,8 @@
 #include "D2UnitData.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2PlayerModes.h"
+#include "D2ItemModes.h"
 
 #pragma function(memset)
 
@@ -47,10 +50,6 @@
 #define ACT_II 1
 
 #define ACT_III 2
-
-#define PLRMODE_WALK 2
-
-#define PLRMODE_RUN 3
 
 #define EVENTTYPE_REMOVESTATE 12
 
@@ -115,8 +114,6 @@
 #define NUM_DIFFICULTIES 3
 
 #define PLRSAVE2ERROR_BAD_PLAYERINTRO 11
-
-#define PLRMODE_NEUTRAL 1
 
 struct D2CorpseStrc;
 
@@ -769,8 +766,6 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
 
 #define UNITFLAG_INITSEEDSET 0x10
 
-#define PLRMODE_DEAD 0x11
-
 #define EVENTTYPE_FREEHOVER 3
 
 #define EVENTTYPE_STATREGEN 4
@@ -1221,7 +1216,7 @@ int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitS
 
         break;
     }
-    case 6:
+    case IMODE_SOCKETED:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         int nUnused;
@@ -1351,7 +1346,7 @@ static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem
         QUESTS_ItemPickedUp(pGame, pUnit, pItem);
         break;
     }
-    case 6:
+    case IMODE_SOCKETED:
     {
         if (!*ppItem)
             return 13;
@@ -2124,12 +2119,12 @@ int __fastcall sub_00532DA0_ReadPlayerStats(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (ARENA_IsInArenaMode(pGame))
     {
         const int nLife = STATLIST_GetMaxLifeFromUnit(pUnit);
-        STATLIST_SetUnitStat(pUnit, 6, nLife, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nLife, 0);
         const int nMana = STATLIST_GetMaxManaFromUnit(pUnit);
-        STATLIST_SetUnitStat(pUnit, 8, nMana, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_MANA, nMana, 0);
     }
     const int nStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
-    STATLIST_SetUnitStat(pUnit, 10, nStamina, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nStamina, 0);
     *pSize = nSize;
     return 0;
 }
@@ -2704,12 +2699,12 @@ static int __stdcall sub_00533C70_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* 
             petInfo.nName = pMercSave->wName;
             petInfo.nHirelingId = pMercSave->wHirelingId;
             PLAYERPETS_UpdatePetInfo(pPlayer, 7, !pMerc ? -1 : pMerc->dwUnitId, &petInfo);
-            STATLIST_UnitGetStatValue(pPlayer, 12, 0);
+            STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
             const int nMaxLevel = DATATBLS_GetMaxLevel(0);
             int nLevel = 1;
             const unsigned int nExperience = pMercSave->dwExperience;
-            if ((unsigned int)STATLIST_UnitGetStatValue(pMerc, 13, 0) < nExperience)
-                STATLIST_SetUnitStat(pMerc, 13, nExperience, 0);
+            if ((unsigned int)STATLIST_UnitGetStatValue(pMerc, STAT_EXPERIENCE, 0) < nExperience)
+                STATLIST_SetUnitStat(pMerc, STAT_EXPERIENCE, nExperience, 0);
             D2GAME_MERCS_SendStat_6FCC61D0(pMerc, 13, nExperience);
             for (;;)
             {
@@ -2744,7 +2739,7 @@ static int __stdcall sub_00533C70_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* 
                 return nResult;
             sub_0055DF00_RecalcItemStates(pGame, pMerc, 0, 0);
             sub_0055F4F0(pGame, pMerc, 0);
-            STATLIST_SetUnitStat(pMerc, 6, STATLIST_GetMaxLifeFromUnit(pMerc), 0);
+            STATLIST_SetUnitStat(pMerc, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pMerc), 0);
             MONSTERAI_SendMercStats(pGame, pPlayer, 1);
             nRead = pItems + nItemsRead - pStart;
             }
@@ -2836,26 +2831,26 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientS
     nResult = sub_00532DA0_ReadPlayerStats(pGame, pPlayer, pSection, 16, nVersion, &nRead);
     if (nResult)
         return nResult;
-    int nHitpoints = STATLIST_UnitGetStatValue(pPlayer, 6, 0);
-    int nMana = STATLIST_UnitGetStatValue(pPlayer, 8, 0);
-    int nGold = STATLIST_UnitGetStatValue(pPlayer, 14, 0);
+    int nHitpoints = STATLIST_UnitGetStatValue(pPlayer, STAT_HITPOINTS, 0);
+    int nMana = STATLIST_UnitGetStatValue(pPlayer, STAT_MANA, 0);
+    int nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
     if (nGold < 0 || nGold > UNITS_GetInventoryGoldLimit(pPlayer))
     {
         if (pPlayer)
         {
             if (pPlayer->dwUnitType == UNIT_PLAYER)
                 UNITS_GetInventoryGoldLimit(pPlayer);
-            STATLIST_SetUnitStat(pPlayer, 14, 0, 0);
+            STATLIST_SetUnitStat(pPlayer, STAT_GOLD, 0, 0);
         }
     }
-    nGold = STATLIST_UnitGetStatValue(pPlayer, 15, 0);
+    nGold = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDBANK, 0);
     if (nGold < 0 || nGold > UNITS_GetStashGoldLimit(pPlayer))
     {
         if (pPlayer)
         {
             if (pPlayer->dwUnitType == UNIT_PLAYER)
                 UNITS_GetStashGoldLimit(pPlayer);
-            STATLIST_SetUnitStat(pPlayer, 15, 0, 0);
+            STATLIST_SetUnitStat(pPlayer, STAT_GOLDBANK, 0, 0);
         }
     }
     pSection += nRead;
@@ -2892,19 +2887,19 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientS
             }
         }
     }
-    STATLIST_SetUnitStat(pPlayer, 6, nHitpoints, 0);
-    STATLIST_SetUnitStat(pPlayer, 8, nMana, 0);
-    STATLIST_SetUnitStat(pPlayer, 0x44, 100, 0);
-    STATLIST_SetUnitStat(pPlayer, 0x43, 100, 0);
-    STATLIST_SetUnitStat(pPlayer, 0x45, 100, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_HITPOINTS, nHitpoints, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_MANA, nMana, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_ATTACKRATE, 100, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_VELOCITYPERCENT, 100, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_OTHER_ANIMRATE, 100, 0);
     int nClass;
     if (!pPlayer)
         nClass = -1;
     else
         nClass = pPlayer->dwClassId;
-    const int nLevel = STATLIST_GetUnitBaseStat(pPlayer, 12, 0);
+    const int nLevel = STATLIST_GetUnitBaseStat(pPlayer, STAT_LEVEL, 0);
     const int nNextExperience = DATATBLS_GetLevelThreshold(nClass, nLevel);
-    STATLIST_SetUnitStat(pPlayer, 0x1E, nNextExperience, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_NEXTEXP, nNextExperience, 0);
     if (CLIENTS_GetWeaponSwitch(pClient))
         D2GAME_PACKETS_SendPacket0x97_6FC3FB60(pClient);
     return 0;

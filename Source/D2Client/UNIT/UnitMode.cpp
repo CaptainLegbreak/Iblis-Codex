@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -888,7 +889,7 @@ void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int 
         case 15:
         case 16:
         case 17:
-            STATLIST_SetUnitStat(pPlayer, 0x148, STATLIST_GetUnitBaseStat(pPlayer, 0x148, 0) + 1, 0);
+            STATLIST_SetUnitStat(pPlayer, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pPlayer, STAT_PIERCE_IDX, 0) + 1, 0);
             break;
         }
         sub_00480B40_SendPacket(nAction, pPlayer, nArg1, nArg2, nArg3);

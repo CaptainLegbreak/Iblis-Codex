@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -251,11 +252,11 @@ static int sub_004CD310_UseCharge(D2UnitStrc* pUnit)
 
 	if (!(pMissilesTxtRecord->nMissileFlags[0] & gbFlagMask_006CE270))
 	    return nResult;
-		const int nValue = STATLIST_UnitGetStatValue(pUnit, 328, 0);
+		const int nValue = STATLIST_UnitGetStatValue(pUnit, STAT_PIERCE_IDX, 0);
 		if (nValue)
 		{
 			nResult = 2;
-			STATLIST_SetUnitStat(pUnit, 328, nValue - 1, 0);
+			STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, nValue - 1, 0);
 		}
 
 	return nResult;
@@ -320,7 +321,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
         return;
     }
 
-    int nChance = STATLIST_UnitGetStatValue(pOwner, 0xA6, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0);
+    int nChance = STATLIST_UnitGetStatValue(pOwner, STAT_SKILL_PIERCE, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0);
     if (!nChance)
     {
         return;
@@ -334,7 +335,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
     else
     {
-        SEED_InitLowSeed(&tSeed, STATLIST_GetUnitBaseStat(pOwner, 0x148, 0));
+        SEED_InitLowSeed(&tSeed, STATLIST_GetUnitBaseStat(pOwner, STAT_PIERCE_IDX, 0));
     }
 
     for (;;)
@@ -348,7 +349,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
         ++nPierce;
     }
 
-    STATLIST_SetUnitStat(pMissile, 0x148, nPierce, 0);
+    STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, nPierce, 0);
 }
 
 // 0x004CD540
@@ -425,7 +426,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);
         if (pStatList)
         {
-            nVelocityPercent = STATLIST_GetStatValue(pStatList, 0xA1, 0);
+            nVelocityPercent = STATLIST_GetStatValue(pStatList, STAT_SKILL_HANDOFATHENA, 0);
             nVelocity = DATATBLS_ApplyRatio(nVelocity, nVelocityPercent, 100);
         }
     }

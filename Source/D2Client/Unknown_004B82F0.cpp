@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
@@ -924,7 +925,7 @@ void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
         return;
     }
 
-    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0x0E, 0);
+    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
     if (nGold >= nMaxGold)
     {
         gdwGlobal_007C0E68 = nMaxGold;

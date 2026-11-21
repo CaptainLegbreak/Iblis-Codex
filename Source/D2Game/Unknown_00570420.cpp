@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -5,12 +6,13 @@
 #include "D2GameTypes.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2MonModes.h"
 
 #define MONTYPEFLAG_UNIQUE 8
 #define STATE_STUNNED 0x15
 #define STATE_UNINTERRUPTABLE 0x36
 #define EVENTTYPE_REMOVESTATE 0x0C
-#define MONMODE_NEUTRAL 1
+
 #define UNITFLAG_DOUPDATE 1
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
 #define D2_MAX(a,b) ((a)>(b)?(a):(b))
@@ -211,27 +213,27 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
 {
  int classId;
  if(!unit) classId=-1; else classId=unit->dwClassId;
- int previousLevel=STATLIST_GetUnitBaseStat(unit,12,0);
- int level=DATATBLS_GetCurrentLevelFromExp(classId,STATLIST_UnitGetStatValue(unit,13,0));
- STATLIST_SetUnitStat(unit,12,level,0);
- STATLIST_SetUnitStat(unit,30,DATATBLS_GetLevelThreshold(classId,level),0);
+ int previousLevel=STATLIST_GetUnitBaseStat(unit,STAT_LEVEL,0);
+ int level=DATATBLS_GetCurrentLevelFromExp(classId,STATLIST_UnitGetStatValue(unit,STAT_EXPERIENCE,0));
+ STATLIST_SetUnitStat(unit,STAT_LEVEL,level,0);
+ STATLIST_SetUnitStat(unit,STAT_NEXTEXP,DATATBLS_GetLevelThreshold(classId,level),0);
  int gained=level-previousLevel;
  if(gained>0) {
   D2CharStatsTxt* record=(classId>=0 && classId<sgptDataTables->nCharStatsTxtRecordCount)?&sgptDataTables->pCharStatsTxt[classId]:0;
-  int life=STATLIST_GetUnitBaseStat(unit,7,0)+((record->lifePerLevel*gained)<<6);
-  STATLIST_SetUnitStat(unit,7,life,0);
+  int life=STATLIST_GetUnitBaseStat(unit,STAT_MAXHP,0)+((record->lifePerLevel*gained)<<6);
+  STATLIST_SetUnitStat(unit,STAT_MAXHP,life,0);
   int maxLife=STATLIST_GetMaxLifeFromUnit(unit);
-  if(STATLIST_UnitGetStatValue(unit,6,0)>0) STATLIST_SetUnitStat(unit,6,maxLife,0);
-  int mana=STATLIST_GetUnitBaseStat(unit,9,0)+((record->manaPerLevel*gained)<<6);
-  STATLIST_SetUnitStat(unit,9,mana,0);
+  if(STATLIST_UnitGetStatValue(unit,STAT_HITPOINTS,0)>0) STATLIST_SetUnitStat(unit,STAT_HITPOINTS,maxLife,0);
+  int mana=STATLIST_GetUnitBaseStat(unit,STAT_MAXMANA,0)+((record->manaPerLevel*gained)<<6);
+  STATLIST_SetUnitStat(unit,STAT_MAXMANA,mana,0);
   int maxMana=sub_00625D60(unit);
-  STATLIST_SetUnitStat(unit,8,maxMana,0);
-  int stamina=STATLIST_GetUnitBaseStat(unit,11,0)+((record->staminaPerLevel*gained)<<6);
-  STATLIST_SetUnitStat(unit,11,stamina,0);
+  STATLIST_SetUnitStat(unit,STAT_MANA,maxMana,0);
+  int stamina=STATLIST_GetUnitBaseStat(unit,STAT_MAXSTAMINA,0)+((record->staminaPerLevel*gained)<<6);
+  STATLIST_SetUnitStat(unit,STAT_MAXSTAMINA,stamina,0);
   int maxStamina=STATLIST_GetMaxStaminaFromUnit(unit);
-  STATLIST_SetUnitStat(unit,10,maxStamina,0);
-  STATLIST_AddUnitStat(unit,4,record->statPerLevel*gained,0);
-  STATLIST_AddUnitStat(unit,5,gained,0);
+  STATLIST_SetUnitStat(unit,STAT_STAMINA,maxStamina,0);
+  STATLIST_AddUnitStat(unit,STAT_STATPTS,record->statPerLevel*gained,0);
+  STATLIST_AddUnitStat(unit,STAT_SKILLPTS,gained,0);
   sub_00536850_UpdateLevel(game,unit,level);
   SUNIT_AttachSound(unit,2,unit);
   SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)sub_00570850_Forward,unit);
@@ -246,8 +248,8 @@ static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue
 {
     if (nValue)
     {
-        STATLIST_AddUnitStat(pUnit, 4, -nValue, 0);
-        STATLIST_AddUnitStat(pUnit, 0, nValue, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nValue, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STRENGTH, nValue, 0);
         UNITROOM_RefreshUnit(pUnit);
     }
 }
@@ -276,17 +278,17 @@ static void sub_00570A80_AddEnergyPoints(D2UnitStrc* pUnit, int nPoints)
         D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pCharStatsTxtRecord)
         {
-            STATLIST_AddUnitStat(pUnit, 4, -nPoints, 0);
-            STATLIST_AddUnitStat(pUnit, 1, nPoints, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nPoints, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_ENERGY, nPoints, 0);
             if (nPoints > 0)
             {
-                STATLIST_AddUnitStat(pUnit, 8, pCharStatsTxtRecord->nManaPerMagic * nPoints << 6, 0);
+                STATLIST_AddUnitStat(pUnit, STAT_MANA, pCharStatsTxtRecord->nManaPerMagic * nPoints << 6, 0);
             }
-            STATLIST_AddUnitStat(pUnit, 9, pCharStatsTxtRecord->nManaPerMagic * nPoints << 6, 0);
-            const int nMaxMana = STATLIST_UnitGetStatValue(pUnit, 9, 0);
-            if (STATLIST_UnitGetStatValue(pUnit, 8, 0) > nMaxMana)
+            STATLIST_AddUnitStat(pUnit, STAT_MAXMANA, pCharStatsTxtRecord->nManaPerMagic * nPoints << 6, 0);
+            const int nMaxMana = STATLIST_UnitGetStatValue(pUnit, STAT_MAXMANA, 0);
+            if (STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) > nMaxMana)
             {
-                STATLIST_SetUnitStat(pUnit, 8, nMaxMana, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_MANA, nMaxMana, 0);
             }
         }
     }
@@ -300,27 +302,27 @@ static void sub_00570B60_AddVitalityPoints(D2UnitStrc* pUnit, int nPoints)
         D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pCharStatsTxtRecord)
         {
-            STATLIST_AddUnitStat(pUnit, 4, -nPoints, 0);
-            STATLIST_AddUnitStat(pUnit, 3, nPoints, 0);
-            STATLIST_AddUnitStat(pUnit, 7, pCharStatsTxtRecord->nLifePerVitality * nPoints << 6, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nPoints, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_VITALITY, nPoints, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_MAXHP, pCharStatsTxtRecord->nLifePerVitality * nPoints << 6, 0);
             if (nPoints > 0)
             {
-                STATLIST_AddUnitStat(pUnit, 6, pCharStatsTxtRecord->nLifePerVitality * nPoints << 6, 0);
+                STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, pCharStatsTxtRecord->nLifePerVitality * nPoints << 6, 0);
             }
-            const int nMaxHp = STATLIST_UnitGetStatValue(pUnit, 7, 0);
-            if (STATLIST_UnitGetStatValue(pUnit, 6, 0) > nMaxHp)
+            const int nMaxHp = STATLIST_UnitGetStatValue(pUnit, STAT_MAXHP, 0);
+            if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) > nMaxHp)
             {
-                STATLIST_SetUnitStat(pUnit, 6, nMaxHp, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nMaxHp, 0);
             }
-            STATLIST_AddUnitStat(pUnit, 11, pCharStatsTxtRecord->nStaminaPerVitality * nPoints << 6, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_MAXSTAMINA, pCharStatsTxtRecord->nStaminaPerVitality * nPoints << 6, 0);
             if (nPoints > 0)
             {
-                STATLIST_AddUnitStat(pUnit, 10, pCharStatsTxtRecord->nStaminaPerVitality * nPoints << 6, 0);
+                STATLIST_AddUnitStat(pUnit, STAT_STAMINA, pCharStatsTxtRecord->nStaminaPerVitality * nPoints << 6, 0);
             }
-            const int nMaxStamina = STATLIST_UnitGetStatValue(pUnit, 11, 0);
-            if (STATLIST_UnitGetStatValue(pUnit, 10, 0) > nMaxStamina)
+            const int nMaxStamina = STATLIST_UnitGetStatValue(pUnit, STAT_MAXSTAMINA, 0);
+            if (STATLIST_UnitGetStatValue(pUnit, STAT_STAMINA, 0) > nMaxStamina)
             {
-                STATLIST_SetUnitStat(pUnit, 10, nMaxStamina, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nMaxStamina, 0);
             }
         }
     }
@@ -338,44 +340,44 @@ void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc* pGame, D2U
     {
         return;
     }
-    int nDiff = pCharStatsTxtRecord->nStr - STATLIST_GetUnitBaseStat(pUnit, 0, 0);
+    int nDiff = pCharStatsTxtRecord->nStr - STATLIST_GetUnitBaseStat(pUnit, STAT_STRENGTH, 0);
     if (nDiff)
     {
-        STATLIST_AddUnitStat(pUnit, 4, -nDiff, 0);
-        STATLIST_AddUnitStat(pUnit, 0, nDiff, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nDiff, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STRENGTH, nDiff, 0);
         UNITROOM_RefreshUnit(pUnit);
     }
-    sub_00570A80_AddEnergyPoints(pUnit, pCharStatsTxtRecord->nInt - STATLIST_GetUnitBaseStat(pUnit, 1, 0));
-    nDiff = pCharStatsTxtRecord->nDex - STATLIST_GetUnitBaseStat(pUnit, 2, 0);
+    sub_00570A80_AddEnergyPoints(pUnit, pCharStatsTxtRecord->nInt - STATLIST_GetUnitBaseStat(pUnit, STAT_ENERGY, 0));
+    nDiff = pCharStatsTxtRecord->nDex - STATLIST_GetUnitBaseStat(pUnit, STAT_DEXTERITY, 0);
     if (nDiff)
     {
-        STATLIST_AddUnitStat(pUnit, 4, -nDiff, 0);
-        STATLIST_AddUnitStat(pUnit, 2, nDiff, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nDiff, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_DEXTERITY, nDiff, 0);
         UNITROOM_RefreshUnit(pUnit);
     }
-    sub_00570B60_AddVitalityPoints(pUnit, pCharStatsTxtRecord->nVit - STATLIST_GetUnitBaseStat(pUnit, 3, 0));
+    sub_00570B60_AddVitalityPoints(pUnit, pCharStatsTxtRecord->nVit - STATLIST_GetUnitBaseStat(pUnit, STAT_VITALITY, 0));
 }
 
 // 0x00570D60
 int __fastcall PLAYERSTATS_SpendStatPoint(D2UnitStrc* pUnit, int nStatId)
 {
-    if (!STATLIST_UnitGetStatValue(pUnit, 4, 0))
+    if (!STATLIST_UnitGetStatValue(pUnit, STAT_STATPTS, 0))
     {
         return 0;
     }
     switch (nStatId)
     {
     case 0:
-        STATLIST_AddUnitStat(pUnit, 4, -1, 0);
-        STATLIST_AddUnitStat(pUnit, 0, 1, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -1, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STRENGTH, 1, 0);
         UNITROOM_RefreshUnit(pUnit);
         return 1;
     case 1:
         sub_00570A80_AddEnergyPoints(pUnit, 1);
         return 1;
     case 2:
-        STATLIST_AddUnitStat(pUnit, 4, -1, 0);
-        STATLIST_AddUnitStat(pUnit, 2, 1, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -1, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_DEXTERITY, 1, 0);
         UNITROOM_RefreshUnit(pUnit);
         return 1;
     case 3:
@@ -390,8 +392,8 @@ static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValu
 {
     if (nValue)
     {
-        STATLIST_AddUnitStat(pUnit, 4, -nValue, 0);
-        STATLIST_AddUnitStat(pUnit, 2, nValue, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, -nValue, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_DEXTERITY, nValue, 0);
         UNITROOM_RefreshUnit(pUnit);
     }
 }

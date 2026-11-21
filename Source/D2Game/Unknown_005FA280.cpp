@@ -3,13 +3,9 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 struct D2StaticPathStrc;
-
-
-
-
-
 
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
@@ -31,11 +27,6 @@ enum D2C_VileDogAIParams
     VILEDOG_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     VILEDOG_AI_PARAM_STALL_DURATION = 1,
     VILEDOG_AI_PARAM_APPROACH_CHANCE_PCT = 2,
-};
-
-enum D2C_M432VileDogConstants
-{
-    MONMODE_ATTACK1 = 4,
 };
 
 // 0x005FA280

@@ -3,11 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {
@@ -19,7 +15,6 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 
 enum D2C_M80SiegeBeastAi
 {
-    MONMODE_ATTACK1 = 4,
     UNIT_ALIGNMENT_EVIL = 0,
     SIEGEBEAST_AI_PARAM_CALL_IMP_DISTANCE = 0,
     SIEGEBEAST_AI_PARAM_ATTACK_CHANCE_PCT = 1,

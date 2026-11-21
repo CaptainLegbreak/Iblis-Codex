@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Path.h"
 #include "D2Records.h"
@@ -86,7 +87,7 @@ int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int n
     D2HirelingTxt* pHirelingTxtRecord = pRecords[ITEMS_RollLimitedRandomNumber(&tSeed, nEntries)];
     pHirelingInit->nId = pHirelingTxtRecord->nId;
 
-    const int nBaseLevel = STATLIST_UnitGetStatValue(pMonster, 12, 0) - 5;
+    const int nBaseLevel = STATLIST_UnitGetStatValue(pMonster, STAT_LEVEL, 0) - 5;
     int nLevel = nBaseLevel + (unsigned int)SEED_RollRandomNumber(&tSeed) % 5;
     if (nLevel < 2)
     {

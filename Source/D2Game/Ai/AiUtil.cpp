@@ -10,6 +10,8 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 
@@ -173,10 +175,6 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061
 
 enum D2C_J07AiConstants
 {
-    MONMODE_DEATH = 0,
-    MONMODE_NEUTRAL = 1,
-    MONMODE_ATTACK1 = 4,
-    MONMODE_DEAD = 12,
     UNITFLAG_NOTC = 0x20000,
     MONTYPEFLAG_UNIQUE_CHAMPION = 0xE,
     MONSTATSFLAGINDEX_BYTE1_BIT0 = 0,
@@ -349,12 +347,6 @@ D2UnitStrc* __stdcall sub_005DCEE0_FindPlayerTargetInAdjacentRooms(D2GameStrc* p
 
 enum
 {
-};
-
-enum
-{
-    PLRMODE_DEATH = 0,
-    PLRMODE_DEAD = 17,
 };
 
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);       // 0x005A7C20

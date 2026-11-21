@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Txt.h"
 #include "D2Path.h"
@@ -525,59 +526,59 @@ int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pI
                 nDurability = 1;
             }
 
-            STATLIST_SetUnitStat(pItem, 0x48, nDurability, 0);
-            STATLIST_SetUnitStat(pItem, 0x49, nMaxDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, nMaxDurability, 0);
         }
     }
 
     if (ITEMSIsA(pItem, 0x2D))
     {
-        int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x16, 0) / 100;
+        int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MAXDAMAGE, 0) / 100;
         if (nMaxDamage < 2)
         {
             nMaxDamage = 2;
         }
-        STATLIST_SetUnitStat(pItem, 0x16, nMaxDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_MAXDAMAGE, nMaxDamage, 0);
 
-        int nMinDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x15, 0) / 100;
+        int nMinDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MINDAMAGE, 0) / 100;
         if (nMinDamage < 1)
         {
             nMinDamage = 1;
         }
-        STATLIST_SetUnitStat(pItem, 0x15, nMinDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_MINDAMAGE, nMinDamage, 0);
 
-        int nMaxSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x18, 0) / 100;
+        int nMaxSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MAXDAMAGE, 0) / 100;
         if (nMaxSecondaryDamage < 2)
         {
             nMaxSecondaryDamage = 2;
         }
-        STATLIST_SetUnitStat(pItem, 0x18, nMaxSecondaryDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MAXDAMAGE, nMaxSecondaryDamage, 0);
 
-        int nMinSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x17, 0) / 100;
+        int nMinSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MINDAMAGE, 0) / 100;
         if (nMinSecondaryDamage < 1)
         {
             nMinSecondaryDamage = 1;
         }
-        STATLIST_SetUnitStat(pItem, 0x17, nMinSecondaryDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MINDAMAGE, nMinSecondaryDamage, 0);
 
         if (ITEMS_CheckIfThrowable(pItem))
         {
-            const int nMinThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x9F, 0), 75, 2);
-            STATLIST_SetUnitStat(pItem, 0x9F, nMinThrowDamage, 0);
+            const int nMinThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, nMinThrowDamage, 0);
 
-            const int nMaxThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0xA0, 0), 75, 1);
-            STATLIST_SetUnitStat(pItem, 0xA0, nMaxThrowDamage, 0);
+            const int nMaxThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, nMaxThrowDamage, 0);
         }
         nResult = 1;
     }
     else if (ITEMSIsA(pItem, 0x32))
     {
-        int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, 0x1F, 0) / 100;
+        int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_ARMORCLASS, 0) / 100;
         if (nArmorClass <= 0)
         {
             nArmorClass = 1;
         }
-        STATLIST_SetUnitStat(pItem, 0x1F, nArmorClass, 0);
+        STATLIST_SetUnitStat(pItem, STAT_ARMORCLASS, nArmorClass, 0);
         nResult = 1;
     }
 
@@ -619,59 +620,59 @@ int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDro
                 nDurability = 1;
             }
 
-            STATLIST_SetUnitStat(pItem, 0x48, nDurability, 0);
-            STATLIST_SetUnitStat(pItem, 0x49, nMaxDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, nMaxDurability, 0);
         }
     }
 
     if (ITEMSIsA(pItem, 0x2D))
     {
-        int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x16, 0) / 100;
+        int nMaxDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MAXDAMAGE, 0) / 100;
         if (nMaxDamage < 2)
         {
             nMaxDamage = 2;
         }
-        STATLIST_SetUnitStat(pItem, 0x16, nMaxDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_MAXDAMAGE, nMaxDamage, 0);
 
-        int nMinDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x15, 0) / 100;
+        int nMinDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_MINDAMAGE, 0) / 100;
         if (nMinDamage < 1)
         {
             nMinDamage = 1;
         }
-        STATLIST_SetUnitStat(pItem, 0x15, nMinDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_MINDAMAGE, nMinDamage, 0);
 
-        int nMaxSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x18, 0) / 100;
+        int nMaxSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MAXDAMAGE, 0) / 100;
         if (nMaxSecondaryDamage < 2)
         {
             nMaxSecondaryDamage = 2;
         }
-        STATLIST_SetUnitStat(pItem, 0x18, nMaxSecondaryDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MAXDAMAGE, nMaxSecondaryDamage, 0);
 
-        int nMinSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, 0x17, 0) / 100;
+        int nMinSecondaryDamage = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_SECONDARY_MINDAMAGE, 0) / 100;
         if (nMinSecondaryDamage < 1)
         {
             nMinSecondaryDamage = 1;
         }
-        STATLIST_SetUnitStat(pItem, 0x17, nMinSecondaryDamage, 0);
+        STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MINDAMAGE, nMinSecondaryDamage, 0);
 
         if (ITEMS_CheckIfThrowable(pItem))
         {
-            const int nMinThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x9F, 0), 75, 2);
-            STATLIST_SetUnitStat(pItem, 0x9F, nMinThrowDamage, 0);
+            const int nMinThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MINDAMAGE, 0), 75, 2);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, nMinThrowDamage, 0);
 
-            const int nMaxThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0xA0, 0), 75, 1);
-            STATLIST_SetUnitStat(pItem, 0xA0, nMaxThrowDamage, 0);
+            const int nMaxThrowDamage = sub_005C0D40_PercentWithMinimum(STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_THROW_MAXDAMAGE, 0), 75, 1);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, nMaxThrowDamage, 0);
         }
         nResult = 1;
     }
     else if (ITEMSIsA(pItem, 0x32))
     {
-        int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, 0x1F, 0) / 100;
+        int nArmorClass = 75 * STATLIST_GetUnitBaseStat(pItem, STAT_ARMORCLASS, 0) / 100;
         if (nArmorClass <= 0)
         {
             nArmorClass = 1;
         }
-        STATLIST_SetUnitStat(pItem, 0x1F, nArmorClass, 0);
+        STATLIST_SetUnitStat(pItem, STAT_ARMORCLASS, nArmorClass, 0);
         nResult = 1;
     }
 

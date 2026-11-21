@@ -1,3 +1,5 @@
+#include "D2StatIds.h"
+#include "D2MonModes.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -1093,7 +1095,7 @@ void __cdecl sub_004B4830_Rebuild()
         }
         else if(nStringId==0xD09)
         {
-            int nLife=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),6,0);
+            int nLife=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),STAT_HITPOINTS,0);
             if(nLife>=STATLIST_GetMaxLifeFromUnit(sub_00463DD0_GetPlayerUnit()))continue;
             int nCost=UNITS_GetHealingCost(sub_00463DD0_GetPlayerUnit());
             if(!nCost)nCost=1;

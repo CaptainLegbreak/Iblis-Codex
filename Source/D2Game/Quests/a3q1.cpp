@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -228,7 +229,7 @@ int __fastcall ACT3Q1_UnitIterate_AddStatPointReward(D2GameStrc* pGame, D2UnitSt
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 1) == 1)
     {
-        STATLIST_AddUnitStat(pUnit, 4, 5, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_STATPTS, 5, 0);
         QUESTS_SendLogUpdate(pUnit, 15);
         QUESTRECORD_ClearQuestState(pQuestFlags, 17, 1);
     }

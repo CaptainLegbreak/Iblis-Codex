@@ -4,15 +4,15 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define UNIT_PLAYER 0
-#define PLRMODE_DEATH 0
-#define PLRMODE_DEAD 17
+
 #define PATHTYPE_TOWARD 2
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STATE_UNINTERRUPTABLE 54
-#define MONMODE_ATTACK1 4
-#define MONMODE_ATTACK2 5
+
 #define AI_GetParamValue(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 struct D2AiBaalTargetArgsStrc;
@@ -22,9 +22,6 @@ struct D2TargetNodeStrc;
 struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
 
-
-
-
 struct D2TargetNodeStrc
 {
     D2UnitStrc* hUnit;
@@ -32,7 +29,6 @@ struct D2TargetNodeStrc
     D2TargetNodeStrc* pNext;
     D2TargetNodeStrc* unk0x0C;
 };
-
 
 struct D2MonStatsTxt
 {
@@ -43,8 +39,6 @@ struct D2MonStatsTxt
     char nSkillMode[8];
     char unk0x188[0x20];
 };
-
-
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
@@ -87,7 +81,6 @@ enum D2C_AncientBarb1AIParams
 };
 
 int __fastcall AITACTICS_UseSequenceSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DE000
-
 
 void __fastcall AITHINK_AncientBarb1SkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EEB70
 void __fastcall AITHINK_AncientBarb2SkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EEDA0

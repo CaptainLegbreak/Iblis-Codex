@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -179,7 +180,7 @@ void __stdcall SKILLS_RefreshSkill(D2UnitStrc* pUnit, int nSkillId)
 
     int nSkillLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
     D2StatListStrc* pStatList = sub_00643620(pUnit, pSkillsTxtRecord->nPassiveState, nSkillLevel);
-    if (!pStatList || STATLIST_GetStatValue(pStatList, 351, 0) == nSkillLevel)
+    if (!pStatList || STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0) == nSkillLevel)
     {
         return;
     }
@@ -202,8 +203,8 @@ void __stdcall SKILLS_RefreshSkill(D2UnitStrc* pUnit, int nSkillId)
         }
     }
 
-    STATLIST_SetStat(pStatList, 350, nSkillId, 0);
-    STATLIST_SetStat(pStatList, 351, nSkillLevel, 0);
+    STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_SKILL, nSkillId, 0);
+    STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_LEVEL, nSkillLevel, 0);
     STATES_ToggleGfxStateFlag(pUnit, pSkillsTxtRecord->nPassiveState, 1);
 }
 

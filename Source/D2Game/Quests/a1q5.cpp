@@ -8,6 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2ObjModes.h"
 
 struct D2ActiveRoomStrc;
 
@@ -26,10 +27,6 @@ struct D2UnitStrc;
 #define QFLAG_REWARDPENDING 1
 
 #define QFLAG_COMPLETEDNOW 14
-
-#define OBJMODE_NEUTRAL 0
-
-#define OBJMODE_SPECIAL1 3
 
 #define OBJECT_CAINPORTAL 189
 
@@ -124,8 +121,6 @@ enum D2C_Q05QuestConstants
     QUESTSTATEFLAG_A4Q2 = 26,
     QUESTSTATEFLAG_A5Q6 = 40,
     OBJECT_PORTAL_TO_DURIELS_LAIR = 100,
-    OBJMODE_OPERATING = 1,
-    OBJMODE_OPENED = 2,
     EVENTTYPE_ENDANIM = 1,
     QFLAG_REWARDGRANTED = 0,
     QFLAG_PRIMARYGOALDONE = 13,
@@ -172,10 +167,6 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 #define QFLAG_REWARDGRANTED 0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-
-
-
 
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 
@@ -234,10 +225,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 struct D2BitBufferStrc;
 
 struct D2QuestDataStrc;
-
-
-
-
 
 static __forceinline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
 {

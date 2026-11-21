@@ -1,5 +1,7 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2PlayerModes.h"
 
 #define BODYLOC_BELT 8
 #define ITEMTYPE_BELT 19
@@ -467,9 +469,9 @@ void __cdecl sub_00469000_HotkeyRunOn()
         return;
     if (pPlayer->dwUnitType != UNIT_PLAYER)
         return;
-    if (pPlayer->dwAnimMode != 2)
+    if (pPlayer->dwAnimMode != PLRMODE_WALK)
         return;
-    if (!STATLIST_UnitGetStatValue(pPlayer, 10, 0))
+    if (!STATLIST_UnitGetStatValue(pPlayer, STAT_STAMINA, 0))
         return;
     sub_00480E70_SetUnitMode(pPlayer, 3);
     sub_00478590(0x53);
@@ -565,7 +567,7 @@ void __cdecl sub_004691C0_HotkeyRunOff()
         return;
     if (pPlayer->dwUnitType != UNIT_PLAYER)
         return;
-    if (pPlayer->dwAnimMode != 3)
+    if (pPlayer->dwAnimMode != PLRMODE_RUN)
         return;
     sub_00480E70_SetUnitMode(pPlayer, 2);
     sub_00478590(0x54);
