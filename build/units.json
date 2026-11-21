@@ -81398,6 +81398,10 @@
      "name": "?sub_00654410_NextIntToken@@YAHPAPADD@Z"
     },
     {
+     "va": "0x00654440",
+     "length": 911
+    },
+    {
      "va": "0x006547D0",
      "length": 1396,
      "name": "?sub_006547D0@@YGXPAX@Z"
@@ -84579,16 +84583,6 @@
     {
      "va": "0x00651150",
      "length": 192
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00654440.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00654440",
-     "length": 911
     }
    ]
   },

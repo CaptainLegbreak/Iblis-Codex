@@ -282,8 +282,6 @@ extern "C" const char gszTxtField_magic_006DCFBC[]; // 0x006DCFBC
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
-static __declspec(noinline) int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExShortStrc* pTCExTxtRecord, int nProb, char* szText); // 0x00654440
-
 D2TxtLinkStrc* gpMonUModLinker; // 0x0096C87C
 
 void* gpMonumodTxt; // 0x0096C880
@@ -853,6 +851,28 @@ extern const char gszField_oninit[]; // 0x006ED56C
 extern const char gszField_monster[]; // 0x006ED574
 
 extern const char gszField_monequip[]; // 0x006ED57C
+
+
+extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
+
+extern D2TxtLinkStrc* gpTreasureClassExLinker;                                                              // 0x0096C5E8
+
+D2TxtLinkStrc* gpSetItemsLinker;                                                                            // 0x0096C844
+
+void* gpSetItemsTxt;                                                                                        // 0x0096C848
+
+extern D2TxtLinkStrc* gpUniqueItemsLinker;                                                                  // 0x0096C850
+
+extern void* gpUniqueItemsTxt;                                                                              // 0x0096C854
+
+static int __declspec(noinline) sub_00654410_NextIntToken(char** ppString, char chSeparator);
+
+struct D2TCExRecordArgStrc
+{
+    D2TCExShortStrc* pRecord;
+};
+
+static int __declspec(noinline) __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord, int nProb, char* szText); // 0x00654440
 
 // 0x00640EE0
 void __fastcall DATATBLS_UnloadObjectsTxt()
@@ -1628,17 +1648,7 @@ static int sub_00654410_NextIntToken(char** ppString, char chSeparator)
     return atoi(szToken);
 }
 
-int __stdcall sub_A10_Emit_00654410(char* szText, int nCount)
-{
-    int nSum = 0;
-    for (int i = 0; i < nCount; ++i)
-    {
-        nSum += sub_00654410_NextIntToken(&szText, ',');
-    }
-    return nSum;
-}
-
-static __declspec(noinline) void sub_00650EB0_MakeCode(const char* szText, char* szCode)
+static void __declspec(noinline) sub_00650EB0_MakeCode(const char* szText, char* szCode)
 {
     if (!szText[0])
     {
@@ -1672,16 +1682,17 @@ static __declspec(noinline) void sub_00650EB0_MakeCode(const char* szText, char*
     szCode[3] = szText[3];
 }
 
-// build: context DATATBLS_ParseTreasureClassItem
-static __declspec(noinline) int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExShortStrc* pTCExTxtRecord, int nProb, char* szText)
+// 0x00654440
+static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord, int nProb, char* szText)
 {
+    D2TCExInfoStrc* pTCExInfo;
     if (nProb <= 0)
     {
         return 0;
     }
 
     char* szItem = szText;
-    if (szItem[0] == '"')
+    if (*szItem == '"')
     {
         ++szItem;
     }
@@ -1701,21 +1712,21 @@ static __declspec(noinline) int __stdcall DATATBLS_ParseTreasureClassItem(D2TCEx
         ++szNext;
     }
 
-    D2TCExInfoStrc* pTCExInfo;
     if (strlen(szItem) <= 4)
     {
+        unsigned int dwCode;
+        sub_00650EB0_MakeCode(szItem, (char*)&dwCode);
         int nItemId;
-        sub_00650EB0_MakeCode(szItem, (char*)&nItemId);
-        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(nItemId, &nItemId);
+        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(dwCode, &nItemId);
         if (pItemsTxtRecord)
         {
-            pTCExInfo = sub_00654080(pTCExTxtRecord);
+            pTCExInfo = sub_00654080(tRecord.pRecord);
             pTCExInfo->nItemId = nItemId;
             if (pItemsTxtRecord->wVersion >= 100)
             {
                 pTCExInfo->nFlags |= 0x10;
             }
-            DATATBLS_UpdateTreasureClassProbabilities(pTCExTxtRecord, pTCExInfo, nProb, pItemsTxtRecord->wVersion >= 100);
+            DATATBLS_UpdateTreasureClassProbabilities(tRecord.pRecord, pTCExInfo, nProb, pItemsTxtRecord->wVersion >= 100);
             goto MODIFIERS;
         }
     }
@@ -1724,43 +1735,38 @@ static __declspec(noinline) int __stdcall DATATBLS_ParseTreasureClassItem(D2TCEx
         int nIndex = FOG_GetRowFromTxt(gpTreasureClassExLinker, szItem, 0);
         if (nIndex > 0)
         {
-            pTCExInfo = sub_00654080(pTCExTxtRecord);
+            pTCExInfo = sub_00654080(tRecord.pRecord);
             pTCExInfo->nFlags |= 4;
             pTCExInfo->nItemId = nIndex;
             if (!gpTreasureClassEx[nIndex].nClassic)
             {
                 pTCExInfo->nFlags |= 0x10;
             }
-            DATATBLS_UpdateTreasureClassProbabilities(pTCExTxtRecord, pTCExInfo, nProb, gpTreasureClassEx[nIndex].nClassic == 0);
+            DATATBLS_UpdateTreasureClassProbabilities(tRecord.pRecord, pTCExInfo, nProb, gpTreasureClassEx[nIndex].nClassic == 0);
         }
         else if (gpUniqueItemsLinker && (nIndex = FOG_GetRowFromTxt(gpUniqueItemsLinker, szItem, 0)) > 0)
         {
-            pTCExInfo = sub_00654080(pTCExTxtRecord);
+            pTCExInfo = sub_00654080(tRecord.pRecord);
             int nUniqueItemId;
             DATATBLS_GetItemRecordFromItemCode(((D2UniqueItemsTxt*)gpUniqueItemsTxt)[nIndex].dwCode, &nUniqueItemId);
-            pTCExInfo->nFlags |= 0x11;
             pTCExInfo->nItemId = nUniqueItemId;
+            pTCExInfo->nFlags |= 0x11;
             pTCExInfo->nTxtRow = nIndex;
-            DATATBLS_UpdateTreasureClassProbabilities(pTCExTxtRecord, pTCExInfo, nProb, 1);
+            DATATBLS_UpdateTreasureClassProbabilities(tRecord.pRecord, pTCExInfo, nProb, 1);
+        }
+        else if (gpSetItemsLinker && (nIndex = FOG_GetRowFromTxt(gpSetItemsLinker, szItem, 0)) >= 0)
+        {
+            pTCExInfo = sub_00654080(tRecord.pRecord);
+            int nSetItemId;
+            DATATBLS_GetItemRecordFromItemCode(((D2SetItemsTxt*)gpSetItemsTxt)[nIndex].dwItemCode, &nSetItemId);
+            pTCExInfo->nItemId = nSetItemId;
+            pTCExInfo->nFlags |= 0x12;
+            pTCExInfo->nTxtRow = nIndex;
+            DATATBLS_UpdateTreasureClassProbabilities(tRecord.pRecord, pTCExInfo, nProb, 1);
         }
         else
         {
-            if (!gpSetItemsLinker)
-            {
-                return 0;
-            }
-            nIndex = FOG_GetRowFromTxt(gpSetItemsLinker, szItem, 0);
-            if (nIndex < 0)
-            {
-                return 0;
-            }
-            pTCExInfo = sub_00654080(pTCExTxtRecord);
-            int nSetItemId;
-            DATATBLS_GetItemRecordFromItemCode(((D2SetItemsTxt*)gpSetItemsTxt)[nIndex].dwItemCode, &nSetItemId);
-            pTCExInfo->nFlags |= 0x12;
-            pTCExInfo->nItemId = nSetItemId;
-            pTCExInfo->nTxtRow = nIndex;
-            DATATBLS_UpdateTreasureClassProbabilities(pTCExTxtRecord, pTCExInfo, nProb, 1);
+            return 0;
         }
     }
 
@@ -1768,72 +1774,70 @@ MODIFIERS:
     while (szNext)
     {
         char* szKey = szNext;
-        char* szArg = strchr(szNext, '=');
-        if (!szArg)
+        szNext = strchr(szNext, '=');
+        if (!szNext)
         {
             break;
         }
-        *szArg = 0;
-        ++szArg;
-        if (!szArg)
+        *szNext = 0;
+        ++szNext;
+        if (!szNext)
         {
             break;
         }
 
         if (!strcmp(szKey, "mul"))
         {
-            szNext = strchr(szArg, ',');
+            char* szValue = szNext;
+            szNext = strchr(szValue, ',');
             if (szNext)
             {
                 *szNext = 0;
                 ++szNext;
             }
-            pTCExInfo->nTxtRow = atoi(szArg);
+            pTCExInfo->nTxtRow = atoi(szValue);
         }
         else if (!strcmp(szKey, "cu"))
         {
-            szNext = strchr(szArg, ',');
+            char* szValue = szNext;
+            szNext = strchr(szValue, ',');
             if (szNext)
             {
                 *szNext = 0;
                 ++szNext;
             }
-            pTCExInfo->nUnique = atoi(szArg);
+            pTCExInfo->nUnique = atoi(szValue);
         }
         else if (!strcmp(szKey, "cs"))
         {
-            szNext = strchr(szArg, ',');
+            char* szValue = szNext;
+            szNext = strchr(szValue, ',');
             if (szNext)
             {
                 *szNext = 0;
                 ++szNext;
             }
-            pTCExInfo->nSet = atoi(szArg);
+            pTCExInfo->nSet = atoi(szValue);
         }
         else if (!strcmp(szKey, "cr"))
         {
-            pTCExInfo->nRare = sub_00654410_NextIntToken(&szArg, ',');
-            szNext = szArg;
+            pTCExInfo->nRare = sub_00654410_NextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "cm"))
         {
-            pTCExInfo->nMagic = sub_00654410_NextIntToken(&szArg, ',');
-            szNext = szArg;
+            pTCExInfo->nMagic = sub_00654410_NextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "ce"))
         {
-            pTCExInfo->nSuperior = sub_00654410_NextIntToken(&szArg, ',');
-            szNext = szArg;
+            pTCExInfo->nSuperior = sub_00654410_NextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "cg"))
         {
-            pTCExInfo->nNormal = sub_00654410_NextIntToken(&szArg, ',');
-            szNext = szArg;
+            pTCExInfo->nNormal = sub_00654410_NextIntToken(&szNext, ',');
         }
         else if (!strcmp(szKey, "ma") || !strcmp(szKey, "mg"))
         {
-            pTCExInfo->nTxtRow = sub_00654410_NextIntToken(&szArg, ',');
-            szNext = szArg;
+            pTCExInfo->nTxtRow = sub_00654410_NextIntToken(&szNext, ',');
         }
         else
         {
@@ -1842,6 +1846,16 @@ MODIFIERS:
     }
 
     return 1;
+}
+
+int __stdcall sub_A10_Emit_00654410(char* szText, int nCount)
+{
+    int nSum = 0;
+    for (int i = 0; i < nCount; ++i)
+    {
+        nSum += sub_00654410_NextIntToken(&szText, ',');
+    }
+    return nSum;
 }
 
 // 0x006547D0
@@ -1916,7 +1930,8 @@ void __stdcall sub_006547D0(void* hArchive)
                 {
                     break;
                 }
-                DATATBLS_ParseTreasureClassItem(pTCExTxtRecord, pTreasureClassExTxt[i].nProb[nItem], pTreasureClassExTxt[i].szItem[nItem]);
+                D2TCExRecordArgStrc tRecord = { pTCExTxtRecord };
+                DATATBLS_ParseTreasureClassItem(tRecord, pTreasureClassExTxt[i].nProb[nItem], pTreasureClassExTxt[i].szItem[nItem]);
             }
         }
     }
