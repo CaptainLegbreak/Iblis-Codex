@@ -91452,19 +91452,13 @@
      "length": 152
     },
     {
-     "va": "0x006C3120",
-     "length": 569
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006C30D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x006C30D0",
      "length": 73,
-     "name": "?sub_006C30D0_ServiceSlots@@YIHPAUD2Object006C30D0Strc@@H@Z"
+     "name": "?sub_006C30D0_ServiceSlots@@YIHPAUD2QueueServerStrc@@H@Z"
+    },
+    {
+     "va": "0x006C3120",
+     "length": 569
     }
    ]
   },

@@ -190,7 +190,11 @@ struct D2QueueServerStrc
         struct
         {
             int unk0x8CC[0xB1];
-            int nListener;                                  // 0xB90
+            union
+            {
+                int nListener;                              // 0xB90
+                int aListenSockets[4];
+            };
         };
     };
     int aValues[4];                                         // 0xBA8

@@ -815,3 +815,19 @@ unsigned int __fastcall sub_006C3120_Start(T006BE350* pServer, int nPort)
 
     return s;
 }
+
+// 0x006C30D0
+int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeout)
+{
+    if (!pServer->bInitialized)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            if (pServer->aListenSockets[i] != -1)
+            {
+                sub_006C2D70(pServer, i, nTimeout);
+            }
+        }
+    }
+    return 1;
+}
