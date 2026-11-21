@@ -67972,6 +67972,10 @@
      "name": "sub_005E6860_HomeCommandStep"
     },
     {
+     "va": "0x005E68F0",
+     "length": 490
+    },
+    {
      "va": "0x005E6AE0",
      "length": 760,
      "name": "?sub_6FCE69A0@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -67992,9 +67996,23 @@
      "name": "sub_6FCE64D0"
     },
     {
+     "va": "0x005E7080",
+     "length": 166,
+     "name": "?AITHINK_ExecuteMapAiAction@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E7130",
+     "length": 532,
+     "name": "?AITHINK_Fn032_Npc@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E7350",
      "length": 65,
      "name": "?sub_005E7350_StopUnlessInteracting@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005E73A0",
+     "length": 406
     },
     {
      "va": "0x005E7540",
@@ -68029,6 +68047,11 @@
      "va": "0x005E7DC0",
      "length": 91,
      "name": "sub_005E7DC0_SpecialState08TownRogue"
+    },
+    {
+     "va": "0x005E7E20",
+     "length": 290,
+     "name": "?AITHINK_Fn058_Navi@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E7F50",
@@ -69001,35 +69024,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E68F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E68F0",
-     "length": 490
-    },
-    {
-     "va": "0x005E7080",
-     "length": 166,
-     "name": "?AITHINK_ExecuteMapAiAction@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E7130",
-     "length": 532,
-     "name": "?AITHINK_Fn032_Npc@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E73A0",
-     "length": 406
-    },
-    {
-     "va": "0x005E7E20",
-     "length": 290,
-     "name": "?AITHINK_Fn058_Navi@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {

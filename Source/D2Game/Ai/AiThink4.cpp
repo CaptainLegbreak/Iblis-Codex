@@ -16,6 +16,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2MonModes.h"
 
 struct D2GameStrc;
 
@@ -62,18 +63,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-enum
-{
-    MONMODE_DEATH = 0,
-    MONMODE_NEUTRAL = 1,
-    MONMODE_WALK = 2,
-    MONMODE_ATTACK1 = 4,
-    MONMODE_SKILL3 = 10,
-    MONMODE_DEAD = 12,
-    MONMODE_RUN = 15,
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -225,7 +214,6 @@ enum
     MONTYPEFLAG_UNIQUE = 0x08,
     MONTYPEFLAG_CHAMPION = 0x04,
 };
-
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {
@@ -382,9 +370,6 @@ struct D2ActiveRoomStrc;
 enum D2C_F42AiConstants
 {
 
-    MONMODE_ATTACK2 = 5,
-    MONMODE_SKILL2 = 9,
-    MONMODE_SKILL4 = 11,
 
     PLRMODE_NEUTRAL = 1,
 
@@ -746,7 +731,6 @@ struct D2PetInfoStrc;
 
 int __fastcall sub_005FD350_SpawnNearby(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5); // 0x005FD350
 
-
 struct D2HighPriestAiCallbackArgStrc
 {
     D2UnitStrc* pTarget;
@@ -1090,7 +1074,6 @@ enum D2C_M144UberIzualAi
 
 enum D2C_M388TentacleAi
 {
-    MONMODE_SEQUENCE = 14,
     DEFAULT_FRAMES_PER_SECOND = 25,
     TENTACLE_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     TENTACLE_AI_PARAM_SUBMERGE_CHANCE_PCT = 1,
@@ -1113,6 +1096,52 @@ enum D2C_M80SkeletonMageAi
     SKELETONMAGE_AI_PARAM_CIRCLE_CHANCE_PCT = 6,
     SKELETONMAGE_AI_PARAM_STALL_DURATION = 7,
 };
+
+int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
+
+int __fastcall MONSTERAI_IsInteractingWith(D2MonsterInteractStrc* pMonInteract, D2UnitStrc* pUnit); // 0x00572DE0
+
+bool __fastcall sub_005E6860_HomeCommandStep(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, unsigned int nMaxDistance); // 0x005E6860
+
+typedef bool (__fastcall* MAPAIACTIONFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition);
+
+extern MAPAIACTIONFN gpfMapAiActions_00741D74[7]; // 0x00741D74
+
+int __fastcall ACT3Q3_GetAltarCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord); // 0x005B9CA0
+
+void __fastcall ACT3Q3_SetAltarMode(D2GameStrc* pGame); // 0x005B9CD0
+
+int __fastcall ACT2Q4_IsJerhynPalaceActivated(D2GameStrc* pGame); // 0x0059F570
+
+void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* a3, int* pIdle); // 0x0059F580
+
+int __fastcall ACT2Q4_IsGuardMoving(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059B6E0
+
+int __fastcall ACT3Q4_GoldenBirdBroughtToAlkor(D2GameStrc* pGame); // 0x005BAD20
+
+void __fastcall ACT3Q4_ResetAlkor(D2GameStrc* pGame); // 0x005BAD40
+
+int __fastcall ACT1Q4_GetCainPortalInTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00594360
+
+void __fastcall ACT1Q4_OnCainInTownActivated(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005945F0
+
+void __fastcall ACT5Q4_AnyaOpenPortal(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058BC80
+
+void __fastcall ACT2Q6_AttachCompletionSoundToPlayers(D2GameStrc* pGame); // 0x0059C750
+
+int __fastcall ACT2Q6_IsInRangeOfTyrael(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059DF50
+
+int __fastcall ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B43F0
+
+void __fastcall ACT4Q1_AttachCompletionSoundToPlayers(D2GameStrc* pGame); // 0x005B4440
+
+int __fastcall sub_005E7350_StopUnlessInteracting(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005E7350
+
+void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E2BD0
+
+void __fastcall AITHINK_Fn110_Vines(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EC6C0
+
+void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EFA90
 
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
@@ -2030,8 +2059,6 @@ void __fastcall AITHINK_Fn098_Smith(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 
-void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E2BD0
-
 // 0x005E3900
 void __fastcall sub_6FCE34B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -2362,6 +2389,107 @@ bool __fastcall sub_005E6860_HomeCommandStep(D2GameStrc* pGame, D2UnitStrc* pUni
     return false;
 }
 
+// 0x005E68F0
+bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int bCloseToTarget = 0;
+    D2UnitStrc* pTarget = sub_6FCCFD70(pGame, pUnit, &bCloseToTarget);
+    const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget);
+
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    D2MonsterInteractStrc* pMonInteract = nType == UNIT_MONSTER && pUnit->pMonsterData ? pUnit->pMonsterData->pMonInteract : 0;
+    if (!pMonInteract)
+    {
+        return false;
+    }
+
+    int bInteracting = MONSTERAI_IsInteractingWith(pMonInteract, pTarget);
+    if (pTarget && pTarget->dwUnitType == UNIT_PLAYER && PLAYER_IsBusy(pTarget) == 1)
+    {
+        bInteracting = 1;
+    }
+
+    const int bHasInteractUnit = MONSTERAI_HasInteractUnit(pMonInteract);
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (bHasInteractUnit || bInteracting || pAiControl->dwAiParam[0] > 0)
+    {
+        if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pAiControl->dwAiParam[1], pAiControl->dwAiParam[2]) > 2 && pAiControl->dwAiParam[0] > 36)
+        {
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pAiControl->dwAiParam[1], pAiControl->dwAiParam[2]);
+        }
+        else if (pAiControl->dwAiParam[0] > 0)
+        {
+            if (pUnit->pDynamicPath)
+            {
+                sub_00648730(pUnit->pDynamicPath);
+            }
+
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 8);
+        }
+
+        if (pAiControl->dwAiParam[0] < 0)
+        {
+            pAiControl->dwAiParam[0] = 0;
+        }
+        else
+        {
+            --pAiControl->dwAiParam[0];
+        }
+
+        return true;
+    }
+
+    if (!pTarget || pTarget == pUnit)
+    {
+        return false;
+    }
+
+    if (nDistance >= 3 && nDistance <= 23)
+    {
+        if (sub_005E6860_HomeCommandStep(pGame, pUnit, pAiTickParam, 16))
+        {
+            return true;
+        }
+
+        sub_005DE190_SetAiParam(pUnit, 1, 0, 0);
+        if (nDistance >= 5)
+        {
+            D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 3, 2);
+        }
+        else
+        {
+            D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, nDistance - 2, 2);
+        }
+
+        return true;
+    }
+
+    sub_00648730(pUnit->pDynamicPath);
+    if (!pAiControl->dwAiParam[1])
+    {
+        pAiControl->dwAiParam[1] = 60;
+        if (pTarget->dwUnitType == UNIT_PLAYER)
+        {
+            SUNIT_AttachSound(pUnit, 18, pTarget);
+        }
+    }
+    else
+    {
+        if (pAiControl->dwAiParam[1] < 0)
+        {
+            pAiControl->dwAiParam[1] = 0;
+        }
+
+        if (pAiControl->dwAiParam[1] > 0)
+        {
+            --pAiControl->dwAiParam[1];
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+    return true;
+}
+
 static inline int AITHINK_GetClassIdInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -2600,6 +2728,152 @@ bool __fastcall sub_6FCE64D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     return bResult;
 }
 
+inline D2MonsterInteractStrc* AITHINK_GetMonInteractInline(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pMonInteract;
+    }
+
+    return 0;
+}
+
+static int AI_RollPercentage(D2UnitStrc* pUnit)
+{
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+// 0x005E7080
+bool __fastcall AITHINK_ExecuteMapAiAction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    bool bResult = false;
+    D2MapAIStrc* pMapAi = pAiTickParam->pAiControl->pMapAi;
+    if (pMapAi && AI_RollPercentage(pUnit) < 66)
+    {
+        if (!pMapAi->nPathNodes)
+        {
+            return false;
+        }
+
+        D2MapAIPathPositionStrc* pPosition = &pMapAi->pPosition[ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pMapAi->nPathNodes)];
+        if (pPosition->nMapAIAction < 0 || pPosition->nMapAIAction >= 7)
+        {
+            return false;
+        }
+
+        MAPAIACTIONFN pfAction = gpfMapAiActions_00741D74[pPosition->nMapAIAction];
+        if (pfAction)
+        {
+            bResult = pfAction(pGame, pUnit, pAiTickParam, pPosition);
+        }
+    }
+
+    return bResult;
+}
+
+// 0x005E7130
+void __fastcall AITHINK_Fn032_Npc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2CoordStrc coord;
+    int a3;
+    int a4;
+
+    if (sub_005E6800_InitHomeCommand(pGame, pUnit, pAiTickParam))
+    {
+        return;
+    }
+
+    const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
+    switch (nClassId)
+    {
+    case MONSTER_ORMUS:
+    {
+        if (ACT3Q3_GetAltarCoordinates(pGame, &coord))
+        {
+            if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, coord.nX, coord.nY) > 3)
+            {
+                AITACTICS_WalkToTargetCoordinates(pGame, pUnit, coord.nX, coord.nY);
+            }
+            else
+            {
+                AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, MONMODE_SKILL1, 0, 0);
+                ACT3Q3_SetAltarMode(pGame);
+            }
+            return;
+        }
+        break;
+    }
+    case MONSTER_JERHYN:
+    {
+        if (!ACT2Q4_IsJerhynPalaceActivated(pGame))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 40);
+            return;
+        }
+
+        ACT2Q4_GetAndUpdatePalaceNpcState(pGame, pUnit, &a3, &a4);
+        if (a4)
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        }
+
+        if (!a3)
+        {
+            return;
+        }
+
+        if (ACT2Q4_IsGuardMoving(pGame, pUnit))
+        {
+            D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 10, 0);
+            if (pAiCmd)
+            {
+                pAiCmd->nCmdParam[1] = CLIENTS_GetUnitX(pUnit) + 9;
+                pAiCmd->nCmdParam[2] = CLIENTS_GetUnitY(pUnit);
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
+                return;
+            }
+        }
+        break;
+    }
+    case MONSTER_ALKOR:
+    {
+        if (ACT3Q4_GoldenBirdBroughtToAlkor(pGame))
+        {
+            AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, MONMODE_SKILL1, 0, 0);
+            ACT3Q4_ResetAlkor(pGame);
+            return;
+        }
+        break;
+    }
+    case MONSTER_CAIN5:
+    {
+        if (ACT1Q4_GetCainPortalInTownCoordinates(pGame, pUnit, &coord))
+        {
+            if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, coord.nX, coord.nY) > 2)
+            {
+                AITACTICS_WalkToTargetCoordinates(pGame, pUnit, coord.nX, coord.nY);
+                return;
+            }
+
+            ACT1Q4_OnCainInTownActivated(pGame, pUnit);
+        }
+        break;
+    }
+    case MONSTER_DREHYA:
+    {
+        ACT5Q4_AnyaOpenPortal(pGame, pUnit);
+        break;
+    }
+    default:
+        break;
+    }
+
+    if (!sub_005E68F0(pGame, pUnit, pAiTickParam) && !sub_6FCE69A0(pGame, pUnit, pAiTickParam) && !AITHINK_ExecuteMapAiAction(pGame, pUnit, pAiTickParam))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 8);
+    }
+}
+
 // 0x005E7350
 int __fastcall sub_005E7350_StopUnlessInteracting(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -2611,6 +2885,77 @@ int __fastcall sub_005E7350_StopUnlessInteracting(D2GameStrc* pGame, D2UnitStrc*
     }
 
     return 0;
+}
+
+// 0x005E73A0
+void __fastcall sub_005E73A0_AiThinkTownNpc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int bCloseToTarget = 0;
+    D2UnitStrc* pTarget = sub_6FCCFD70(pGame, pUnit, &bCloseToTarget);
+    if (pTarget && pTarget != pUnit)
+    {
+        const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget);
+        D2MonsterInteractStrc* pMonInteract = pUnit ? (pUnit->dwUnitType == UNIT_MONSTER ? (pUnit->pMonsterData ? pUnit->pMonsterData->pMonInteract : 0) : 0) : 0;
+        if (pTarget->dwUnitType == UNIT_PLAYER && PLAYER_IsBusy(pTarget) == 1)
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+
+        if (MONSTERAI_HasInteractUnit(pMonInteract))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+
+        D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+        if (nDistance < 24)
+        {
+            if (!pAiControl->dwAiParam[1])
+            {
+                pAiControl->dwAiParam[1] = 60;
+                if (pTarget->dwUnitType == UNIT_PLAYER)
+                {
+                    SUNIT_AttachSound(pUnit, 18, pTarget);
+                }
+            }
+            else
+            {
+                --pAiControl->dwAiParam[1];
+            }
+        }
+        else
+        {
+            if (pAiControl->dwAiParam[1] <= 0)
+            {
+                pAiControl->dwAiParam[1] = 60;
+            }
+            --pAiControl->dwAiParam[1];
+        }
+    }
+    else if (pUnit)
+    {
+        if (pUnit->dwClassId == 0xFB)
+        {
+            if (ACT2Q6_IsInRangeOfTyrael(pGame, pUnit) && sub_005E7350_StopUnlessInteracting(pGame, pUnit))
+            {
+                AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+                ACT2Q6_AttachCompletionSoundToPlayers(pGame);
+                return;
+            }
+        }
+        else if (pUnit->dwClassId == 0x196)
+        {
+            if (ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(pGame, pUnit) && sub_005E7350_StopUnlessInteracting(pGame, pUnit))
+            {
+                AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+                ACT4Q1_AttachCompletionSoundToPlayers(pGame);
+                return;
+            }
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
 }
 
 // build: context AITHINK_IdleInline
@@ -2910,6 +3255,60 @@ void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitSt
     }
 }
 
+// 0x005E7E20
+void __fastcall AITHINK_Fn058_Navi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (MONSTERAI_HasInteractUnit(AITHINK_GetMonInteractInline(pUnit)))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    int bCloseToTarget;
+    D2UnitStrc* pPlayer = sub_6FCCFD70(pGame, pUnit, &bCloseToTarget);
+    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && !PLAYER_IsBusy(pPlayer) && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) && bCloseToTarget)
+    {
+        D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+        if (!pAiControl->dwAiParam[1])
+        {
+            pAiControl->dwAiParam[1] = 60;
+
+            if (pPlayer->dwUnitType == UNIT_PLAYER)
+            {
+                SUNIT_AttachSound(pUnit, 18, pPlayer);
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+                return;
+            }
+        }
+        else
+        {
+            if (pAiControl->dwAiParam[1] < 0)
+            {
+                pAiControl->dwAiParam[1] = 0;
+            }
+
+            if (pAiControl->dwAiParam[1] > 0)
+            {
+                --pAiControl->dwAiParam[1];
+            }
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        return;
+    }
+
+    int bInMeleeRange;
+    int nDistance;
+    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bInMeleeRange);
+    if (pTarget && nDistance < 25)
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
+}
+
 // 0x005E7F50
 void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -2963,11 +3362,6 @@ static inline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
         return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
     }
     return 0;
-}
-
-static int AI_RollPercentage(D2UnitStrc* pUnit)
-{
-    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
 }
 
 static inline int AI_RollPercentage_005F02C0(D2UnitStrc* pUnit)
@@ -5522,8 +5916,6 @@ void __fastcall sub_005EDC00_SetAiParams12(D2GameStrc* pGame, D2AiControlStrc* p
     pAiControl->dwAiParam[2] = nParam2;
 }
 
-void __fastcall AITHINK_Fn110_Vines(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EC6C0
-
 // 0x005EDF70
 int __fastcall sub_005EDF70_TryRoomSteps(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -6313,8 +6705,6 @@ void __fastcall AITHINK_Fn013_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
     }
 }
-
-void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EFA90
 
 // 0x005F1750
 void __fastcall sub_005F1750(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
@@ -8478,5 +8868,6 @@ void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, vo
 // build: context ?SKILLS_GetMissilesTxtRecord@@YAPAUD2MissilesTxt@@H@Z
 // build: context ?GetAuraStateStatList@@YAPAUD2StatListStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@@Z
 // build: context ?AI_ClampChance@@YAHH@Z
+
 
 #include "gen/data/Source/D2Game/Ai/AiThink4.inc"

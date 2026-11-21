@@ -5489,9 +5489,14 @@
    "state": "included"
   },
   "Source/D2Game/Ai/AiThink4.cpp": {
-   "bytes": 320,
-   "definitions": 2,
-   "externs": [],
+   "bytes": 708,
+   "definitions": 4,
+   "externs": [
+    "extern \"C\" void __cdecl sub_005E6E80(); // 0x005E6E80",
+    "extern \"C\" void __cdecl sub_005E6DE0(); // 0x005E6DE0",
+    "extern \"C\" void __cdecl sub_005E6F00(); // 0x005E6F00",
+    "extern \"C\" void __cdecl sub_005E6FC0(); // 0x005E6FC0"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0260.inc",
    "lang": "cpp",
@@ -5521,21 +5526,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005E3EA0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005E68F0.cpp": {
-   "bytes": 388,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_005E6E80(); // 0x005E6E80",
-    "extern \"C\" void __cdecl sub_005E6DE0(); // 0x005E6DE0",
-    "extern \"C\" void __cdecl sub_005E6EF0_MapAiActionWalkToPosition(); // 0x005E6EF0",
-    "extern \"C\" void __cdecl sub_005E6F00(); // 0x005E6F00",
-    "extern \"C\" void __cdecl sub_005E6FC0(); // 0x005E6FC0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E68F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -119247,7 +119237,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005E68F0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern MAPAIACTIONFN gpfMapAiActions_00741D74[7] = ",
@@ -119318,7 +119308,7 @@
    "cname": "gData_00741D90",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005E68F0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00741D90_t gData_00741D90; // 0x00741D90",
    "head": "extern \"C\" struct d2data_00741D90_t gData_00741D90 = ",
