@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 struct Unicode;
 struct D2LaunchCharInfoStrc;
@@ -9,32 +10,7 @@ struct D2LaunchGameListStrc;
 struct D2LaunchGameRecStrc;
 
 #pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x1EF];
-    union
-    {
-        unsigned short wFlags;
-        unsigned char nFlags1EF;
-    };
-    unsigned char unk_1F1[0x170];
-    char szRealm0x361[0x20];
-    char szRealm0x381[0x20];
-};
-
 #pragma pack(pop)
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x14];
-    void (__fastcall* pfn0x14)(const char* szText);
-    unsigned char unk_18[0x8];
-    const char* (__fastcall* pfn0x20)(int nFlag);
-    unsigned char unk_24[0x14];
-    D2LaunchGameListStrc* (__fastcall* pfQueryGames)(const char* szName, const char* szPassword, int nFilterA, int nFilterB);
-    unsigned char unk_3C[0x2C];
-    int (__fastcall* pfn0x68)();
-};
-
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -80,17 +56,6 @@ struct D2LaunchGameListStrc
     D2LaunchGameEntryStrc tFirst;
 };
 
-struct D2LaunchGameRecStrc
-{
-    char nUnk0x00;
-    char szName[0x10];
-    char szDesc[0x20];
-    char wValue0x31[2];
-    char wValue0x33[2];
-    char unk0x35[2];
-    char nAddress0x37[4];
-};
-
 const char* __fastcall sub_00442AE0_SkipString(const char* szText); // 0x00442AE0
 int __fastcall sub_00442B20_IsCharOverLimit(const char* pChar); // 0x00442B20
 
@@ -134,7 +99,7 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
 
     gpControl_0077BCFC = CONTROL_Create(&gtControlInit_0070D9F0);
 
-    const char* szList = gpLaunchFuncs_0077B09C->pfn0x20(gpCharInfo_0077BBD8->nFlags1EF & 0x20);
+    const char* szList = gpLaunchFuncs_0077B09C->pfn0x20(gpCharInfo_0077BBD8->wFlags[0] & 0x20);
 
     if (gpCharInfo_0077BBD8->szRealm0x381[0])
     {
@@ -277,19 +242,19 @@ int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D
 {
     int nFilterA = 0;
     int nFilterB = 0;
-    if (gpCharInfo_0077BBD8->wFlags & 4)
+    if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4)
     {
         nFilterA = 4;
         nFilterB = 4;
     }
-    if (gpCharInfo_0077BBD8->wFlags & 0x20)
+    if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 0x20)
     {
         nFilterA |= 8;
         nFilterB |= 8;
     }
-    if (!sub_004438E0_HasProgress(gpCharInfo_0077BBD8->wFlags, 0x800, 0xA00))
+    if (!sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo_0077BBD8->wFlags, 0x800, 0xA00))
     {
-        if (sub_004438E0_HasProgress(gpCharInfo_0077BBD8->wFlags, 0x400, 0x500))
+        if (sub_004438E0_HasProgress(*(unsigned short*)gpCharInfo_0077BBD8->wFlags, 0x400, 0x500))
             nFilterB |= 2;
         else
             nFilterB |= 3;

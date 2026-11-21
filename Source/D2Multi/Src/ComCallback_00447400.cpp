@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 struct D2CompositeUnitStrc;
 struct D2NamedValueStrc;
@@ -18,21 +19,6 @@ struct D2NamedValueStrc
 
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
-
-struct D2MultiChannelUserStrc
-{
-    int nUnk0x00;
-    char szName[0x32];
-    char szText[0x50];
-    unsigned char nClass;
-    char unk0x87[0x15];
-    D2CompositeUnitStrc* f_9C;
-    int nValue0xA0;
-    int unk0xA4;
-    int nValue0xA8;
-    int unk0xAC;
-    D2MultiChannelUserStrc* pNext;
-};
 
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
@@ -111,9 +97,9 @@ void __cdecl sub_004477A0_Refresh()
     sub_004F96F0_ControlClearState(gpChatControl_0077B05C, gpSelectedChannelUser_00798F48 && bHasText);
 
     unsigned int nFlags = 0;
-    if (gpSelectedChannelUser_00798F48 && gpSelectedChannelUser_00798F48->f_9C)
+    if (gpSelectedChannelUser_00798F48 && gpSelectedChannelUser_00798F48->pComposite)
     {
-        const unsigned int nComposite = D2Win_10155(gpSelectedChannelUser_00798F48->f_9C);
+        const unsigned int nComposite = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
         nFlags = gdwBitMasks[9] & nComposite;
     }
 

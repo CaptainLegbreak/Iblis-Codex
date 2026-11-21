@@ -276,7 +276,15 @@ struct D2MultiChannelUserStrc
 struct D2LaunchGameRecStrc
 {
     unsigned char unk0x00; // 0x00
-    char szName[48]; // 0x01
+    union
+    {
+        char szName[48]; // 0x01
+        struct
+        {
+            char szShortName[16]; // 0x01
+            char szDesc[32]; // 0x11
+        };
+    };
     char wValue0x31[2]; // 0x31
     char wValue0x33[2]; // 0x33
     unsigned char unk0x35; // 0x35

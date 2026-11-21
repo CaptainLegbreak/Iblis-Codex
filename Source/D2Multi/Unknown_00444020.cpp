@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2WinTextBoxStrc;
@@ -7,22 +8,6 @@ struct Unicode;
 struct D2LaunchCharInfoStrc;
 struct D2GameListRecordStrc;
 struct D2LaunchFuncsStrc;
-
-struct D2WinControlInitStrc
-{
-    int nType;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int field_14;
-    int nStringId;
-    void* ppCellFile;
-    int field_20;
-    int field_24;
-    int field_28;
-    int field_2C;
-};
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
@@ -40,12 +25,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 #pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x1EF];
-    unsigned short wProgressFlags;
-};
-
 struct D2GameListRecordStrc
 {
     char szName[0x10];
@@ -57,12 +36,6 @@ struct D2GameListRecordStrc
 };
 
 #pragma pack(pop)
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x38];
-    int* (__fastcall* pfnGetGameList)(int nA, int nB, int nFlags, int nDifficulties);
-};
-
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 extern D2GameListRecordStrc gtGameList_0077BDC9[]; // 0x0077BDC9
@@ -299,25 +272,25 @@ void __cdecl sub_00444E70_FillGameList()
 {
     int nFlags = 0;
     int nDifficulties = 0;
-    if (gpCharInfo_0077BBD8->wProgressFlags & 4)
+    if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4)
     {
         nFlags = 4;
         nDifficulties = 4;
     }
-    if (gpCharInfo_0077BBD8->wProgressFlags & 0x20)
+    if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 0x20)
     {
         nFlags |= 8;
         nDifficulties |= 8;
     }
-    if (!sub_00444E70_HasProgress(gpCharInfo_0077BBD8->wProgressFlags, 0x800, 0xA00))
+    if (!sub_00444E70_HasProgress(*(unsigned short*)gpCharInfo_0077BBD8->wFlags, 0x800, 0xA00))
     {
-        if (sub_00444E70_HasProgress(gpCharInfo_0077BBD8->wProgressFlags, 0x400, 0x500))
+        if (sub_00444E70_HasProgress(*(unsigned short*)gpCharInfo_0077BBD8->wFlags, 0x400, 0x500))
             nDifficulties |= 2;
         else
             nDifficulties |= 3;
     }
 
-    char* p = (char*)gpLaunchFuncs_0077B09C->pfnGetGameList(0, 0, nFlags, nDifficulties);
+    char* p = (char*)gpLaunchFuncs_0077B09C->pfQueryGames(0, 0, nFlags, nDifficulties);
     if (p)
     {
         gnGameCount_00798CCC = *(int*)p;

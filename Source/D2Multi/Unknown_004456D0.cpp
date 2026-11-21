@@ -1,29 +1,13 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 struct D2LaunchResultStrc
 {
     int nResult;
 };
 
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x34];
-    void (__fastcall* pfnCreateGame)(char* szName, char* szPassword, char* szDesc, int nFlags);
-    char unk0x38[0x54];
-    void (__fastcall* pfnGetResult)(D2LaunchResultStrc* pResult);
-};
-
 #pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x1EF];
-    unsigned short wFlags;
-    char unk0x1F1[0x18];
-    unsigned int dwFlags;
-    char unk0x20D[0x03];
-    char nDifficulty;
-};
 #pragma pack(pop)
 
 struct D2LaunchLoginStrc
@@ -123,8 +107,8 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
 
         if (!sub_00449B30_QueryAddress())
         {
-            int bExpansion = gpCharInfo_0077BBD8->wFlags & 4;
-            int bLadder = gpCharInfo_0077BBD8->wFlags & 0x20;
+            int bExpansion = (*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4;
+            int bLadder = (*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 0x20;
             if (bExpansion)
                 gpCharInfo_0077BBD8->dwFlags |= 0x800;
             if (bLadder)
@@ -134,22 +118,22 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             SStrCopy(&szDesc[1], tLogin.szText0x20, 0x7FFFFFFF);
 
             int nFlags = 0;
-            if (gpCharInfo_0077BBD8->nDifficulty == 1)
+            if (gpCharInfo_0077BBD8->nByte210 == 1)
                 nFlags = 1;
-            if (gpCharInfo_0077BBD8->nDifficulty == 2)
+            if (gpCharInfo_0077BBD8->nByte210 == 2)
                 nFlags |= 2;
-            if (gpCharInfo_0077BBD8->wFlags & 4)
+            if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4)
                 nFlags |= 4;
-            if (gpCharInfo_0077BBD8->wFlags & 0x20)
+            if ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 0x20)
                 nFlags |= 8;
 
-            gpLaunchFuncs_0077B09C->pfnCreateGame(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
+            gpLaunchFuncs_0077B09C->pfn0x34(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
             sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             sub_004FA590_RunLoop(sub_00443840_CallTable8C);
             sub_0043EA20_Wait();
 
             D2LaunchResultStrc tResult;
-            gpLaunchFuncs_0077B09C->pfnGetResult(&tResult);
+            gpLaunchFuncs_0077B09C->pfn0x8C((int*)&tResult);
             if (!tResult.nResult)
             {
                 sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x1412), 0);
