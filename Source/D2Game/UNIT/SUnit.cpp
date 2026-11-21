@@ -1932,7 +1932,7 @@ void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2Unit
         D2MonsterDataStrc* pMonsterData = sub_00554670_GetMonsterData(pUnit);
         if (pMonsterData)
         {
-            *(int*)&pMonsterData->unk0x34[0x1C] = 0;
+            pMonsterData->pVision = 0;
         }
     }
 
