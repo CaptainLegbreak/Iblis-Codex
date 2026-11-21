@@ -13766,57 +13766,17 @@
   },
   {
    "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00446D90",
      "length": 1042
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_004471B0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004471B0",
      "length": 478,
      "name": "?sub_004471B0_UpdateUserText@@YAXPAUD2ChannelUserStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447740.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00447740",
      "length": 86,
@@ -13828,33 +13788,26 @@
      "name": "?sub_00447A10_Pump@@YAHXZ"
     },
     {
-     "va": "0x00447FD0",
-     "length": 122
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447AB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00447AB0",
      "length": 79,
      "name": "?sub_00447AB0_AddChatLine@@YGHPBDH@Z"
+    },
+    {
+     "va": "0x00447BB0",
+     "length": 1050
+    },
+    {
+     "va": "0x00447FD0",
+     "length": 122
+    },
+    {
+     "va": "0x004480D0",
+     "length": 113
+    },
+    {
+     "va": "0x004481F0",
+     "length": 377,
+     "name": "?sub_004481F0_PrintOwnLine@@YIXPBD@Z"
     },
     {
      "va": "0x00449350",
@@ -13935,79 +13888,6 @@
      "va": "0x00448920",
      "length": 305,
      "name": "?sub_00448920_OnWhisper@@YGHPBD0@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447BB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00447BB0",
-     "length": 1050
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_004480D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004480D0",
-     "length": 113
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_004481F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004481F0",
-     "length": 377,
-     "name": "?sub_004481F0_PrintOwnLine@@YIXPBD@Z"
     }
    ],
    "flags": [
