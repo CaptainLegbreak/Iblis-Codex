@@ -68280,6 +68280,11 @@
      "name": "SKILLS_SrvDo134_SiegeBeastStomp"
     },
     {
+     "va": "0x005D2490",
+     "length": 287,
+     "name": "?sub_005D2490@@YIHPAUGame@@PAUUnit@@HH@Z"
+    },
+    {
      "va": "0x005D26F0",
      "length": 182,
      "name": "SKILLS_SrvDo137_FenrisRage"
@@ -68300,9 +68305,44 @@
      "name": "SKILLS_SrvSt63_Corpse_VineCycler"
     },
     {
+     "va": "0x005D2B20",
+     "length": 28,
+     "name": "?sub_005D2B20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D2B40",
+     "length": 30,
+     "name": "?sub_005D2B40_RemoveState114@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005D2C20",
+     "length": 551,
+     "name": "?SKILLS_SrvDo140_BaalTentacle@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005D2E80",
      "length": 248,
      "name": "SKILLS_SrvDo141_BaalCorpseExplode"
+    },
+    {
+     "va": "0x005D32F0",
+     "length": 31,
+     "name": "?SKILLS_SrvSt23_AssasinChargeStrikes@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D3310",
+     "length": 12,
+     "name": "?sub_004C21E0_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005D3320",
+     "length": 362,
+     "name": "?sub_005D3320_ApplyChargeState@@YGHPAUD2GameStrc@@HHHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005D3680",
+     "length": 261,
+     "name": "?sub_005D3680_ApplyProgressiveDamage@@YGXPAUD2StatListStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005D3880",
@@ -68310,9 +68350,19 @@
      "name": "sub_005D3880_ProgressiveElemental"
     },
     {
+     "va": "0x005D3970",
+     "length": 336,
+     "name": "?sub_6FCF5BC0@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
+    },
+    {
      "va": "0x005D3CB0",
      "length": 51,
      "name": "sub_005D3CB0_AuraDamageCopy"
+    },
+    {
+     "va": "0x005D3DA0",
+     "length": 219,
+     "name": "?SKILLS_EvaluateProgressiveSkillCalc@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D3E80",
@@ -68527,62 +68577,6 @@
      "va": "0x005DB6D0",
      "length": 380,
      "name": "SKILLS_SrvDo010_GuidedArrow_BoneSpirit"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D2490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D2490",
-     "length": 287,
-     "name": "?sub_005D2490@@YIHPAUGame@@PAUUnit@@HH@Z"
-    },
-    {
-     "va": "0x005D2B20",
-     "length": 28,
-     "name": "?sub_005D2B20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D2B40",
-     "length": 30,
-     "name": "?sub_005D2B40_RemoveState114@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D2C20",
-     "length": 551,
-     "name": "?SKILLS_SrvDo140_BaalTentacle@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D32F0",
-     "length": 31,
-     "name": "?SKILLS_SrvSt23_AssasinChargeStrikes@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D3310",
-     "length": 12,
-     "name": "?sub_004C21E0_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
-    },
-    {
-     "va": "0x005D3320",
-     "length": 362,
-     "name": "?sub_005D3320_ApplyChargeState@@YGHPAUD2GameStrc@@HHHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D3680",
-     "length": 261,
-     "name": "?sub_005D3680_ApplyProgressiveDamage@@YGXPAUD2StatListStrc@@PAUD2DamageStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D3970",
-     "length": 336,
-     "name": "?sub_6FCF5BC0@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
-    },
-    {
-     "va": "0x005D3DA0",
-     "length": 219,
-     "name": "?SKILLS_EvaluateProgressiveSkillCalc@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },

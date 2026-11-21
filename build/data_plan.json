@@ -5528,7 +5528,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo029_ThunderStorm(); // 0x005CA4D0",
     "extern \"C\" void __cdecl SKILLS_SrvDo030_Curse(); // 0x005C37C0",
     "extern \"C\" void __cdecl SKILLS_SrvDo032_PoisonDagger(); // 0x005C4CD0",
-    "extern \"C\" void __cdecl SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(); // 0x005D3490",
     "extern \"C\" void __cdecl SKILLS_SrvDo036_ClawsOfThunder_ProgressiveFn2(); // 0x005D4DB0",
     "extern \"C\" void __cdecl SKILLS_SrvDo040_RoyalStrike_ProgressiveFn1(); // 0x005D5010",
     "extern \"C\" void __cdecl SKILLS_SrvDo043_ShockField(); // 0x005D5D70",
@@ -5593,7 +5592,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo132_ImpFireMissile(); // 0x005D2090",
     "extern \"C\" void __cdecl SKILLS_SrvDo136_DeathMaul(); // 0x005D25B0",
     "extern \"C\" void __cdecl SKILLS_SrvDo138_Unused(); // 0x005D27B0",
-    "extern \"C\" void __cdecl SKILLS_SrvDo140_BaalTentacle(); // 0x005D2C20",
     "extern \"C\" void __cdecl SKILLS_SrvDo142_Unused(); // 0x005D7CE0",
     "extern \"C\" void __cdecl SKILLS_SrvDo145_PeriodicAreaDamage(); // 0x005C8380",
     "extern \"C\" void __cdecl SKILLS_SrvDo147_Unused(); // 0x005D2B20",
@@ -5636,7 +5634,6 @@
     "extern \"C\" void __cdecl sub_005CCD10(); // 0x005CCD10",
     "extern \"C\" void __cdecl sub_005CDF10(); // 0x005CDF10",
     "extern \"C\" void __cdecl sub_005CDFB0(); // 0x005CDFB0",
-    "extern \"C\" void __cdecl sub_005D2490(); // 0x005D2490",
     "extern \"C\" void __cdecl sub_005DBE50(); // 0x005DBE50"
    ],
    "fn_types": {},
