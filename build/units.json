@@ -49514,6 +49514,16 @@
      "name": "?sub_00524E40_UnloadStringTables@@YAXXZ"
     },
     {
+     "va": "0x00524FD0",
+     "length": 13,
+     "name": "sub_00524FD0_Crc16Init"
+    },
+    {
+     "va": "0x00524FE0",
+     "length": 42,
+     "name": "sub_00524FE0_Crc16Update"
+    },
+    {
      "va": "0x00525010",
      "length": 4,
      "name": "?sub_0059FFF0_ToWord@@YIGG@Z"
@@ -49574,6 +49584,10 @@
      "name": "?sub_00525920_LoadTblFile@@YAPAUD2TblHeaderStrc@@PBD@Z"
     },
     {
+     "va": "0x005259C0",
+     "length": 1519
+    },
+    {
      "va": "0x00527090",
      "length": 258,
      "name": "sub_00527090_ContainsChar"
@@ -49587,37 +49601,6 @@
     {
      "va": "0x00524930",
      "length": 132
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/StrTable/strtable_00524FD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00524FD0",
-     "length": 13,
-     "name": "sub_00524FD0_Crc16Init"
-    },
-    {
-     "va": "0x00524FE0",
-     "length": 42,
-     "name": "sub_00524FE0_Crc16Update"
-    },
-    {
-     "va": "0x00526490",
-     "length": 81,
-     "name": "compare"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/StrTable/strtable_005259C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005259C0",
-     "length": 1519
     }
    ]
   },
@@ -49832,6 +49815,11 @@
    "file": "Source/D2Lang/Unknown_00526610.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00526490",
+     "length": 81,
+     "name": "compare"
+    },
     {
      "va": "0x00526610",
      "length": 168,

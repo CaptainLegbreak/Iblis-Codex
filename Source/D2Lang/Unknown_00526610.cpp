@@ -1,6 +1,12 @@
 #include "D2Lang.h"
 #include "D2Unicode.h"
 
+// 0x00526490
+int __fastcall Unicode::compare(Unicode lhs, Unicode rhs)
+{
+    return lhs.toUpper().wChar == rhs.toUpper().wChar;
+}
+
 // 0x00526610
 int __fastcall Unicode::strnicmp(const Unicode* str1, const Unicode* str2, size_t count)
 {

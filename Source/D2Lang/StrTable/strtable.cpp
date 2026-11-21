@@ -4,24 +4,23 @@
 #pragma intrinsic(strcmp)
 
 struct D2ArchiveHandleStrc;
+
 struct D2StrCacheNodeStrc;
+
 struct D2LanguageInfoStrc;
-struct D2StringHashNodeStrc;
-struct D2GameStrc;
-struct D2TblHeaderStrc;
-struct D2TblNodeStrc;
-struct Unicode;
-struct D2StringTableStrc;
-struct D2LangCharSetStrc;
-struct D2StrTableHeader00524C60Strc;
-struct D2StrHashEntry00524C60Strc;
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
+
 void __fastcall sub_005173AC_Unload(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
+
 extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
+
 extern "C" const char szPatchD2Mpq_006DC728[]; // 0x006DC728
+
 extern "C" const char szD2DataMpq_006DC770[]; // 0x006DC770
 
 struct D2StrCacheNodeStrc
@@ -32,13 +31,21 @@ struct D2StrCacheNodeStrc
 };
 
 extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, const char* szValueName, unsigned long* pReserved, unsigned long* pType, unsigned char* pData, unsigned long* pcbData); // 0x006CC00C
+
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long nOptions, unsigned long nSamDesired, void** phResult); // 0x006CC010
+
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
+
 extern "C" unsigned int __cdecl strlen(const char* szString);
+
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
+
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
+
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
+
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
+
 int __fastcall sub_00525100_LookupLanguage(const char* szLanguage); // 0x00525100
 
 struct Unicode
@@ -56,8 +63,11 @@ struct Unicode
 };
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSource, int nLength); // 0x00527D50
+
 extern const unsigned short gaCrc16Table_007301D8[256]; // 0x007301D8
+
 extern "C" const char szNotTranslated_00730520[]; // 0x00730520
 
 struct D2LanguageInfoStrc
@@ -71,103 +81,76 @@ struct D2LanguageInfoStrc
 };
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
+
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
-#pragma pack(push, 1)
-struct D2StringTableStrc
-{
-    unsigned short nCrc;
-    unsigned short nElements;
-    int nHashTableSize;
-    unsigned char nVersion;
-    unsigned int dwIndexStart;
-    unsigned int dwMaxTries;
-    unsigned int dwIndexEnd;
-};
-
-#pragma pack(pop)
-
 extern D2LanguageInfoStrc gaLanguageInfo_007303D8[13]; // 0x007303D8
-extern D2StringTableStrc* sghStringTable; // 0x008829B4
-extern void* gpStringIndex_008829B8; // 0x008829B8
-extern void* gpPatchStringIndex_008829BC; // 0x008829BC
-extern void* gpExpansionStringIndex_008829C0; // 0x008829C0
-extern D2StringTableStrc* sghPatchStringTable; // 0x008829D0
-extern D2StringTableStrc* sghExpansionStringTable; // 0x008829D4
-extern void* ghArchive_008829DC; // 0x008829DC
 
-#pragma pack(push, 1)
-struct D2StringHashNodeStrc
-{
-    unsigned char bUsed;
-    unsigned short nIndex;
-    unsigned int dwHashValue;
-    unsigned int dwKeyOffset;
-    unsigned int dwStringOffset;
-    unsigned short nStringLength;
-};
-
-#pragma pack(pop)
+void* ghArchive_008829DC; // 0x008829DC
 
 unsigned int __stdcall sub_005249E0(const char* szKey, unsigned int nTableSize); // 0x005249E0
-wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey); // 0x00524AC0
-void __cdecl sub_00527720_FreeCodePageTables(); // 0x00527720
 
-struct D2GameStrc
-{
-    char unk0x0000[0x1920];
-    char unk0x1920[0x7A00];
-};
+wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey); // 0x00524AC0
+
+void __cdecl sub_00527720_FreeCodePageTables(); // 0x00527720
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 void __stdcall CRC16_CalculateChecksum(unsigned short* crc16_checksum_out, const unsigned char* data, unsigned int start_index, unsigned int end_index); // 0x00525020
+
 extern D2TblHeaderStrc* gpM15EmitTbl;
+
 extern "C" const char szM15EmitFormat[];
 
 extern "C" char* __cdecl _i64toa(__int64 nValue, char* szOut, int nRadix); // 0x006876D7
 
 extern Unicode gawszUnitSuffix_00730510[4][2]; // 0x00730510
+
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
+
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
+
 static D2TblHeaderStrc* sub_00525920_LoadTblFile(const char* szPath);
+
 extern "C" char* __cdecl _ui64toa(unsigned __int64 nValue, char* szOut, int nRadix); // 0x00687708
 
-#pragma pack(push, 1)
-struct D2StrTableHeader00524C60Strc
-{
-	unsigned short wCrc;
-	unsigned short wNumElements;
-	int nHashTableSize;
-	unsigned char nVersion;
-	unsigned int dwIndexStart;
-	unsigned int nNumLoops;
-	unsigned int dwFileSize;
-};
-
-struct D2StrHashEntry00524C60Strc
-{
-	unsigned char bUsed;
-	unsigned short wIndex;
-	unsigned int dwHash;
-	unsigned int dwStrOffset;
-	unsigned int dwNameOffset;
-	unsigned short wNameLength;
-};
-
-#pragma pack(pop)
-static __declspec(noinline) unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2StrTableHeader00524C60Strc* pTable);
-
-void* ghArchive_008829DC; // 0x008829DC
+static __declspec(noinline) unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable);
 
 void* ghArchive_008829E0; // 0x008829E0
 
 void* ghArchive_008829E4; // 0x008829E4
+
+extern unsigned short gwCrc16Table_007301D8[0x100];                                                         // 0x007301D8
+
+extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
+
+void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260
+
+void __cdecl sub_00525770_InitUnitSuffixes();                                                               // 0x00525770
+
+int __fastcall sub_00527790_LoadCodePageMap(void* hArchive, const char* szPath);                            // 0x00527790
+
+static D2TblHeaderStrc* sghStringTable;                                                             // 0x008829B4
+
+static Unicode** gpStringIndex_008829B8;                                                                    // 0x008829B8
+
+static Unicode** gpPatchStringIndex_008829BC;                                                               // 0x008829BC
+
+static Unicode** gpExpansionStringIndex_008829C0;                                                           // 0x008829C0
+
+static Unicode* gpStringData_008829C4;                                                                      // 0x008829C4
+
+static Unicode* gpPatchStringData_008829C8;                                                                 // 0x008829C8
+
+static Unicode* gpExpansionStringData_008829CC;                                                             // 0x008829CC
+
+static D2TblHeaderStrc* sghPatchStringTable;                                                        // 0x008829D0
+
+static D2TblHeaderStrc* sghExpansionStringTable;                                                    // 0x008829D4
+
+static int gnStringTableRefs_008829D8;                                                                      // 0x008829D8
 
 // 0x00524810
 int __cdecl sub_00524810_OpenArchives()
@@ -301,20 +284,20 @@ wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey)
 }
 
 // 0x00524C60
-static unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2StrTableHeader00524C60Strc* pTable)
+static unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable)
 {
-	D2StrHashEntry00524C60Strc* pHashTable = (D2StrHashEntry00524C60Strc*)((char*)pTable + sizeof(D2StrTableHeader00524C60Strc) + pTable->wNumElements * sizeof(unsigned short));
+	D2TblNodeStrc* pHashTable = (D2TblNodeStrc*)((char*)pTable + sizeof(D2TblHeaderStrc) + pTable->nNumElements * sizeof(unsigned short));
 	unsigned int nLoops = 0;
 	int const tArg1 = pTable->nHashTableSize;
 	int nHash = sub_005249E0(szKey, tArg1);
-	while (nLoops < pTable->nNumLoops)
+	while (nLoops < pTable->dwNumLoops)
 	{
 		++nLoops;
-		if ((&pHashTable[nHash])->bUsed == 1 && !strcmp((const char*)pTable + (&pHashTable[nHash])->dwStrOffset, szKey))
+		if ((&pHashTable[nHash])->bUsed == 1 && !strcmp((const char*)pTable + (&pHashTable[nHash])->dwStringOffset, szKey))
 		{
 			D2_ASSERT(ppSlots[nHash], 662);
 			*ppOut = ppSlots[nHash];
-			return pHashTable[nHash].wIndex;
+			return pHashTable[nHash].nIndexNo;
 		}
 		nHash = (nHash + 1) % pTable->nHashTableSize;
 	}
@@ -323,26 +306,6 @@ static unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char*
 }
 
 wchar_t gwszEmptyString_008829E8[2]; // 0x008829E8
-
-static unsigned short __stdcall sub_00524C60_FindInTable(D2StringTableStrc* pTable, const wchar_t** ppIndex, const char* szKey, const wchar_t** ppText)
-{
-    unsigned int i = 0;
-    D2StringHashNodeStrc* pNodes = (D2StringHashNodeStrc*)((char*)pTable + sizeof(D2StringTableStrc) + pTable->nElements * 2);
-    int nIndex = sub_005249E0(szKey, pTable->nHashTableSize);
-    while (i < pTable->dwMaxTries)
-    {
-        D2StringHashNodeStrc* pNode = &pNodes[nIndex];
-        ++i;
-        if (pNode->bUsed == 1 && !strcmp((char*)pTable + pNode->dwKeyOffset, szKey))
-        {
-            D2_ASSERT(ppIndex[nIndex], 0x296);
-            *ppText = ppIndex[nIndex];
-            return pNodes[nIndex].nIndex;
-        }
-        nIndex = (nIndex + 1) % pTable->nHashTableSize;
-    }
-    return 0xFFFF;
-}
 
 // 0x00524D30
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText)
@@ -355,16 +318,16 @@ unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_
         *ppText = gwszEmptyString_008829E8;
         return 0;
     }
-    unsigned short nIndex = sub_00524C60_FindInTable(sghPatchStringTable, (const wchar_t**)gpPatchStringIndex_008829BC, szKey, ppText);
+    unsigned short nIndex = sub_00524C60_FindKey((void**)gpPatchStringIndex_008829BC, szKey, (void**)ppText, sghPatchStringTable);
     if (nIndex != 0xFFFF)
         return nIndex + 10000;
     if (sghExpansionStringTable)
     {
-        nIndex = sub_00524C60_FindInTable(sghExpansionStringTable, (const wchar_t**)gpExpansionStringIndex_008829C0, szKey, ppText);
+        nIndex = sub_00524C60_FindKey((void**)gpExpansionStringIndex_008829C0, szKey, (void**)ppText, sghExpansionStringTable);
         if (nIndex != 0xFFFF)
             return nIndex + 20000;
     }
-    nIndex = sub_00524C60_FindInTable(sghStringTable, (const wchar_t**)gpStringIndex_008829B8, szKey, ppText);
+    nIndex = sub_00524C60_FindKey((void**)gpStringIndex_008829B8, szKey, (void**)ppText, sghStringTable);
     if (nIndex == 0xFFFF)
     {
         *ppText = sub_00524AC0_GetUntranslatedString(szKey);
@@ -380,24 +343,6 @@ const wchar_t* __fastcall D2LANG_GetStringByReferenceString(const char* szKey)
     sub_00524D30_FindString(szKey, &pText);
     return pText;
 }
-
-D2StrCacheNodeStrc* gpStringCache_008829B0; // 0x008829B0
-
-void* gpPatchStringIndex_008829BC; // 0x008829BC
-
-void* gpExpansionStringIndex_008829C0; // 0x008829C0
-
-void* gpStringData_008829C4; // 0x008829C4
-
-void* gpPatchStringData_008829C8; // 0x008829C8
-
-void* gpExpansionStringData_008829CC; // 0x008829CC
-
-D2StringTableStrc* sghPatchStringTable; // 0x008829D0
-
-D2StringTableStrc* sghExpansionStringTable; // 0x008829D4
-
-int gnStringTableRefs_008829D8; // 0x008829D8
 
 // 0x00524E40
 void __cdecl sub_00524E40_UnloadStringTables()
@@ -443,7 +388,7 @@ void __cdecl sub_00524E40_UnloadStringTables()
             sghExpansionStringTable = 0;
         }
 
-        D2StrCacheNodeStrc* pNode = gpStringCache_008829B0;
+        D2StrCacheNodeStrc* pNode = s_pStringCache_008829B0;
         while (pNode)
         {
             D2StrCacheNodeStrc* pNext = pNode->pNext;
@@ -452,14 +397,21 @@ void __cdecl sub_00524E40_UnloadStringTables()
             FOG_Free(pNode, ".\\StrTable\\strtable.cpp", 0x379, 0);
             pNode = pNext;
         }
-        gpStringCache_008829B0 = 0;
+        s_pStringCache_008829B0 = 0;
         sub_00527720_FreeCodePageTables();
     }
 }
 
-void __fastcall sub_0059F820_ClearGameBlock(D2GameStrc* pGame)
+// 0x00524FD0
+void __cdecl sub_00524FD0_Crc16Init(unsigned short* pCrc)
 {
-    memset(pGame->unk0x1920, 0, sizeof(pGame->unk0x1920));
+    *pCrc = 0xFFFF;
+}
+
+// 0x00524FE0
+void __cdecl sub_00524FE0_Crc16Update(unsigned short* pCrc, unsigned char nByte)
+{
+    *pCrc = (*pCrc << 8) ^ gwCrc16Table_007301D8[(*pCrc >> 8) ^ nByte];
 }
 
 // 0x00525010
@@ -544,10 +496,6 @@ int sub_M15_Emit_00525920(const char* szDir, const char* szLang)
     gpM15EmitTbl = sub_00525920_LoadTblFile(szPath);
     return gpM15EmitTbl != 0;
 }
-
-D2StringTableStrc* sghStringTable; // 0x008829B4
-
-void* gpStringIndex_008829B8; // 0x008829B8
 
 static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short nIndex)
 {
@@ -706,8 +654,6 @@ void __stdcall sub_00525490_FormatInt64(Unicode* pOut, __int64 nValue, int nSize
     sub_005267E0(pOut, wszStar);
 }
 
-#include "gen/data/Source/D2Lang/StrTable/strtable.inc"
-
 // 0x005255C0
 void __stdcall sub_005255C0_FormatUInt64Suffixed(Unicode* pOut, unsigned __int64 nValue, int nSize)
 {
@@ -845,6 +791,147 @@ static D2TblHeaderStrc* sub_00525920_LoadTblFile(const char* szPath)
     return pHeader;
 }
 
+// 0x005259C0
+int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLanguage, int bExpansion)
+{
+    char szLang[4];
+    char szMapPath[0x104];
+    char szPath[0x104];
+    char szFormat[0x104];
+    char szCodePage[0x20];
+    D2TblNodeStrc* pNodes;
+    Unicode* pText;
+    Unicode** pIndex;
+    int nTotal;
+    int i;
+
+    if (sghStringTable)
+    {
+        ++gnStringTableRefs_008829D8;
+        return 1;
+    }
+
+    if (szLanguage)
+        strcpy(szLang, szLanguage);
+    else
+        sub_00525260(szLang, 0);
+
+    if (!_stricmp(szLang, "JPN"))
+        strcpy(szCodePage, "JPN");
+    else if (!_stricmp(szLang, "KOR"))
+        strcpy(szCodePage, "KOR");
+    else if (!_stricmp(szLang, "POL"))
+        strcpy(szCodePage, "LATIN2");
+    else if (!_stricmp(szLang, "RUS"))
+        strcpy(szCodePage, "CYR");
+    else
+        strcpy(szCodePage, "LATIN");
+
+    sprintf(szMapPath, "data\\local\\font\\%s\\default.map", szCodePage);
+    sub_00527790_LoadCodePageMap(ghArchive_008829DC, szMapPath);
+
+    strncpy(szFormat, "data\\local\\lng\\%s\\string.tbl", 0x103);
+    sprintf(szPath, szFormat, szLang);
+    sghStringTable = sub_00525920_LoadTblFile(szPath);
+    if (!sghStringTable)
+        return 0;
+
+    D2TblHeaderStrc* pTbl = sghStringTable;
+    D2TblHeaderStrc* pLoaded = sghStringTable;
+
+    pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x18F, 0);
+    gpStringIndex_008829B8 = pIndex;
+    memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
+    ++gnStringTableRefs_008829D8;
+
+    pNodes = (D2TblNodeStrc*)((char*)sghStringTable + sizeof(D2TblHeaderStrc) + pLoaded->nNumElements * sizeof(unsigned short));
+    nTotal = 0;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
+        nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+    }
+
+    gpStringData_008829C4 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1A9, 0);
+    pText = gpStringData_008829C4;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        gpStringIndex_008829B8[i] = pText;
+        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
+        const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+        sub_00526320_ToUnicode(gpStringIndex_008829B8[i], szText, nCount);
+        pText += nCount;
+    }
+
+    strncpy(szFormat, "data\\local\\lng\\%s\\patchstring.tbl", 0x103);
+    sprintf(szPath, szFormat, szLang);
+    sghPatchStringTable = sub_00525920_LoadTblFile(szPath);
+    D2_ASSERT(sghPatchStringTable, 0x1C3);
+
+    pTbl = sghPatchStringTable;
+
+    pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1C5, 0);
+    gpPatchStringIndex_008829BC = pIndex;
+    memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
+
+    pTbl = sghPatchStringTable;
+    pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
+    nTotal = 0;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
+        nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+    }
+
+    gpPatchStringData_008829C8 = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x1DC, 0);
+    pText = gpPatchStringData_008829C8;
+    for (i = 0; i < pTbl->nHashTableSize; i++)
+    {
+        gpPatchStringIndex_008829BC[i] = pText;
+        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
+        const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+        sub_00526320_ToUnicode(gpPatchStringIndex_008829BC[i], szText, nCount);
+        pText += nCount;
+    }
+
+    if (bExpansion)
+    {
+        strncpy(szFormat, "data\\local\\lng\\%s\\expansionstring.tbl", 0x103);
+        sprintf(szPath, szFormat, szLang);
+        sghExpansionStringTable = sub_00525920_LoadTblFile(szPath);
+        D2_ASSERT(sghExpansionStringTable, 0x1F6);
+
+        pTbl = sghExpansionStringTable;
+
+        pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1F8, 0);
+        gpExpansionStringIndex_008829C0 = pIndex;
+        memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
+
+        pTbl = sghExpansionStringTable;
+        pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
+        nTotal = 0;
+        for (i = 0; i < pTbl->nHashTableSize; i++)
+        {
+            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
+            nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+        }
+
+        gpExpansionStringData_008829CC = (Unicode*)FOG_Alloc(nTotal * sizeof(Unicode), ".\\StrTable\\strtable.cpp", 0x20F, 0);
+        pText = gpExpansionStringData_008829CC;
+        for (i = 0; i < pTbl->nHashTableSize; i++)
+        {
+            gpExpansionStringIndex_008829C0[i] = pText;
+            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
+            const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
+            sub_00526320_ToUnicode(gpExpansionStringIndex_008829C0[i], szText, nCount);
+            pText += nCount;
+        }
+    }
+
+    sub_00525770_InitUnitSuffixes();
+    return 1;
+}
+
 // build: context Unicode::strncat
 Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int count)
 {
@@ -897,7 +984,9 @@ bool D2LangCharSetStrc::sub_00527090_ContainsChar(const Unicode* pChar) const
 
 // build: context sub_00524C60_Shim
 // calling-convention shim (not game code)
-unsigned short __stdcall sub_00524C60_Shim(D2StrTableHeader00524C60Strc* pTable, void** ppSlots, const char* szKey, void** ppOut)
+unsigned short __stdcall sub_00524C60_Shim(D2TblHeaderStrc* pTable, void** ppSlots, const char* szKey, void** ppOut)
 {
 	return sub_00524C60_FindKey(ppSlots, szKey, ppOut, pTable);
 }
+
+#include "gen/data/Source/D2Lang/StrTable/strtable.inc"
