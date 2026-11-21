@@ -56361,11 +56361,6 @@
      "name": "PLRINTRO_MaskNpcIntroFlag"
     },
     {
-     "va": "0x00572E00",
-     "length": 86,
-     "name": "MONSTERAI_RemoveInteractInfoFor"
-    },
-    {
      "va": "0x00573750",
      "length": 42,
      "name": "sub_00573750_ClearTargetIfMatches"
@@ -56522,6 +56517,11 @@
      "va": "0x00572DE0",
      "length": 26,
      "name": "@sub_00572DE0@8"
+    },
+    {
+     "va": "0x00572E00",
+     "length": 86,
+     "name": "MONSTERAI_RemoveInteractInfoFor"
     },
     {
      "va": "0x00572E60",
