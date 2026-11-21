@@ -34057,6 +34057,11 @@
      "name": "?sub_004D5710_CltDoPerpendicular@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D59E0",
+     "length": 447,
+     "name": "?sub_004D59E0_CltDoSeededSpawn@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D6540",
      "length": 72,
      "name": "?sub_004D6540_CltDoTimedSound@@YIXPAUD2UnitStrc@@@Z"
@@ -34661,17 +34666,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D59E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004D59E0",
-     "length": 447,
-     "name": "?sub_004D59E0_CltDoSeededSpawn@@YIXPAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
