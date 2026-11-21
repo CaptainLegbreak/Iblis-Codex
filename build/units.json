@@ -64825,174 +64825,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a1q5_00594740.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00594740",
-     "length": 149,
-     "name": "?ACT1Q5_UpdateUnitGUIDLists@@YGHPAUD2Act1Quest5Strc@@HH@Z"
-    },
-    {
-     "va": "0x00594BB0",
-     "length": 158,
-     "name": "?ACT1Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595010",
-     "length": 326,
-     "name": "?ACT1Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595240",
-     "length": 113,
-     "name": "?ACT1Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00595320",
-     "length": 66,
-     "name": "?ACT1Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00595370",
-     "length": 90,
-     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005953D0",
-     "length": 72,
-     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005954C0",
-     "length": 46,
-     "name": "?ACT1Q5_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00595710",
-     "length": 327,
-     "name": "?ACT1Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595860",
-     "length": 183,
-     "name": "?ACT1Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595920",
-     "length": 214,
-     "name": "?ACT1Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00595A00",
-     "length": 70,
-     "name": "?OBJECTS_InitFunction04_TowerTome@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q5_00594960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00594960",
-     "length": 590,
-     "name": "?ACT1Q5_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q5.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00594020",
-     "length": 57,
-     "name": "?OBJECTS_InitFunction13_InvisibleObject@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00594060",
-     "length": 53,
-     "name": "?sub_00594060_InitCainGibbet@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00594140",
-     "length": 289,
-     "name": "?ACT1Q4_CreateCowPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00594290",
-     "length": 42,
-     "name": "?OBJECTS_InitFunction61_CainPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x005942C0",
-     "length": 151,
-     "name": "?ACT1Q4_UpdatePortalInTown@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005943B0",
-     "length": 155,
-     "name": "?ACT1Q4_SpawnCainPortalOutsideTown@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005944B0",
-     "length": 58,
-     "name": "?ACT1Q4_UpdateCainPortalCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00594700",
-     "length": 60,
-     "name": "?sub_00594700_ACT1Q5_AddUnitGUID@@YGXPAUD2Act1Quest5Strc@@HH@Z"
-    },
-    {
-     "va": "0x00594830",
-     "length": 82,
-     "name": "?ACT1Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00594DB0",
-     "length": 18,
-     "name": "?sub_00594DB0_InitTowerTome@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00594DD0",
-     "length": 155,
-     "name": "?ACT1Q5_UnitIterate_SetRewardGranted@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00594E70",
-     "length": 152,
-     "name": "?OBJECTS_OperateFunction06_TowerTome@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x00594F10",
-     "length": 183,
-     "name": "?ACT1Q5_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00594FD0",
-     "length": 58,
-     "name": "?sub_00594FD0_FinishCountessQuest@@YAXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00595420",
-     "length": 151,
-     "name": "?sub_00595420_UpdatePlayerListQuestState@@YIXPAUD2GameStrc@@PAUD2QuestGUIDStrc@@HH@Z"
-    },
-    {
-     "va": "0x005954F0",
-     "length": 460,
-     "name": "?ACT1Q5_SpawnTowerChestMissiles@@YGXPAUD2QuestDataStrc@@PAUD2Act1Quest5Strc@@@Z"
-    },
-    {
-     "va": "0x0059D870",
-     "length": 349,
-     "name": "?ACT2Q6_Timer_UpdateObjects@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a2q3.cpp",
    "rank": 0,
    "functions": [
@@ -65131,6 +64963,162 @@
      "va": "0x00594280",
      "length": 3,
      "name": "ACT1Q4_CreateUberFinalePortal"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a1q5.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00594020",
+     "length": 57,
+     "name": "?OBJECTS_InitFunction13_InvisibleObject@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x00594060",
+     "length": 53,
+     "name": "?sub_00594060_InitCainGibbet@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x00594140",
+     "length": 289,
+     "name": "?ACT1Q4_CreateCowPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594290",
+     "length": 42,
+     "name": "?OBJECTS_InitFunction61_CainPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005942C0",
+     "length": 151,
+     "name": "?ACT1Q4_UpdatePortalInTown@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005943B0",
+     "length": 155,
+     "name": "?ACT1Q4_SpawnCainPortalOutsideTown@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005944B0",
+     "length": 58,
+     "name": "?ACT1Q4_UpdateCainPortalCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00594700",
+     "length": 60,
+     "name": "?sub_00594700_ACT1Q5_AddUnitGUID@@YGXPAUD2Act1Quest5Strc@@HH@Z"
+    },
+    {
+     "va": "0x00594740",
+     "length": 149,
+     "name": "?ACT1Q5_UpdateUnitGUIDLists@@YGHPAUD2Act1Quest5Strc@@HH@Z"
+    },
+    {
+     "va": "0x00594830",
+     "length": 82,
+     "name": "?ACT1Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00594960",
+     "length": 590,
+     "name": "?ACT1Q5_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00594BB0",
+     "length": 158,
+     "name": "?ACT1Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00594DB0",
+     "length": 18,
+     "name": "?sub_00594DB0_InitTowerTome@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x00594DD0",
+     "length": 155,
+     "name": "?ACT1Q5_UnitIterate_SetRewardGranted@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00594E70",
+     "length": 152,
+     "name": "?OBJECTS_OperateFunction06_TowerTome@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00594F10",
+     "length": 183,
+     "name": "?ACT1Q5_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00594FD0",
+     "length": 58,
+     "name": "?sub_00594FD0_FinishCountessQuest@@YAXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00595010",
+     "length": 326,
+     "name": "?ACT1Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595240",
+     "length": 113,
+     "name": "?ACT1Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00595320",
+     "length": 66,
+     "name": "?ACT1Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00595370",
+     "length": 90,
+     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005953D0",
+     "length": 72,
+     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00595420",
+     "length": 151,
+     "name": "?sub_00595420_UpdatePlayerListQuestState@@YIXPAUD2GameStrc@@PAUD2QuestGUIDStrc@@HH@Z"
+    },
+    {
+     "va": "0x005954C0",
+     "length": 46,
+     "name": "?ACT1Q5_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005954F0",
+     "length": 460,
+     "name": "?ACT1Q5_SpawnTowerChestMissiles@@YGXPAUD2QuestDataStrc@@PAUD2Act1Quest5Strc@@@Z"
+    },
+    {
+     "va": "0x00595710",
+     "length": 327,
+     "name": "?ACT1Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595860",
+     "length": 183,
+     "name": "?ACT1Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595920",
+     "length": 214,
+     "name": "?ACT1Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00595A00",
+     "length": 70,
+     "name": "?OBJECTS_InitFunction04_TowerTome@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059D870",
+     "length": 349,
+     "name": "?ACT2Q6_Timer_UpdateObjects@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     }
    ]
   },
