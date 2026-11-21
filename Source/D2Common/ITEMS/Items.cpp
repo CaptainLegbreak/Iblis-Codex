@@ -768,7 +768,7 @@ int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc*, unsigned int); // 0x0046
 
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 
-static __declspec(noinline) int __fastcall sub_00628830_ApplyClassMinimum(D2MagicAffixTxt*, D2UnitStrc*, int);
+static int __fastcall sub_00628830_ApplyClassMinimum(D2MagicAffixTxt*, D2UnitStrc*, int);
 
 typedef int BOOL;
 
@@ -955,10 +955,13 @@ extern "C" __declspec(dllexport) void __stdcall sub_00627EF0(Unit00627EF0* pUnit
 }
 
 // 0x00627F20
-extern "C" __declspec(dllexport) unsigned short __stdcall sub_00627F20(Unit00627F20* pUnit) {
-    if (pUnit && pUnit->nType == 4 && pUnit->pData) {
-        return pUnit->pData->wValue36;
+unsigned short __stdcall ITEMS_GetAutoAffix(D2UnitStrc* pItem)
+{
+    if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
+    {
+        return pItemData->wAutoAffix;
     }
+
     return 0;
 }
 
@@ -1701,7 +1704,7 @@ int __fastcall sub_00628830_Shim(D2UnitStrc* item, D2UnitStrc* player)
 {
     D2MagicAffixTxt* prefix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(item, 0));
     D2MagicAffixTxt* suffix = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(item, 0));
-    D2MagicAffixTxt* automatic = DATATBLS_GetMagicAffixTxtRecord(sub_00627F20_GetAutoAffix(item));
+    D2MagicAffixTxt* automatic = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(item));
     int required = sub_00628830_ApplyClassMinimum(prefix, player, 0);
     required = sub_00628830_ApplyClassMinimum(suffix, player, required);
     required = sub_00628830_ApplyClassMinimum(automatic, player, required);
