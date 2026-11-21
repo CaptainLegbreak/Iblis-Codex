@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2MultiTypes.h"
+#include "D2LevelTxt.h"
 
 #pragma intrinsic(strlen)
 
@@ -69,18 +70,6 @@ int __cdecl sub_00430A20_FreeSlots(); // 0x00430A20
 extern D2CharSelCacheStrc* gpCharSelCache_00779DE8; // 0x00779DE8
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern char gszBaseName_00779B68[]; // 0x00779B68
-
-struct D2StatesTxt
-{
-    unsigned short wState;
-    unsigned short wOverlay[4];
-    unsigned short wCastOverlay;
-    unsigned short wRemoveOverlay;
-    short wPrgOverlay;
-    unsigned char nStateFlags[4];
-    unsigned int dwStateFlagsEx;
-    short wStat;
-};
 
 struct D2LaunchRequestStrc
 {
