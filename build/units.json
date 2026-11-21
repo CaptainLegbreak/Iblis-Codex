@@ -69452,6 +69452,11 @@
      "name": "?AITHINK_Fn108_DruidWolf@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005ED730",
+     "length": 681,
+     "name": "?AITHINK_Fn112_DruidBear@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005ED9E0",
      "length": 538,
      "name": "?AITHINK_Fn109_Totem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -70298,17 +70303,6 @@
     {
      "va": "0x005ED2A0",
      "length": 1131
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005ED730.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005ED730",
-     "length": 681,
-     "name": "?AITHINK_Fn112_DruidBear@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
