@@ -2256,7 +2256,7 @@ void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit
         pNext = INVENTORY_GetNextItem(pCurrent);
         if (pItem && pItem->dwUnitType == UNIT_ITEM)
         {
-            if (pItem->dwAnimMode == 0)
+            if (pItem->dwAnimMode == IMODE_STORED)
             {
                 ITEMMODE_ResetBookScrollSkillQuantity(pUnit, pItem);
             }

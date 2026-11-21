@@ -1709,7 +1709,7 @@ void __fastcall sub_00544950_ObjInitMalus(D2ObjInitFnStrc* pOp)
         return;
     }
 
-    if (!pOp->pObject || pOp->pObject->dwAnimMode != 2)
+    if (!pOp->pObject || pOp->pObject->dwAnimMode != OBJMODE_OPENED)
     {
         UNITS_ChangeAnimMode(pOp->pObject, 2);
     }
@@ -1725,7 +1725,7 @@ void __fastcall sub_00544990_ObjInitCainGibbet(D2ObjInitFnStrc* pOp)
         return;
     }
 
-    if (!pOp->pObject || pOp->pObject->dwAnimMode != 2)
+    if (!pOp->pObject || pOp->pObject->dwAnimMode != OBJMODE_OPENED)
     {
         UNITS_ChangeAnimMode(pOp->pObject, 2);
     }

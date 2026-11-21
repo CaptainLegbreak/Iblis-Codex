@@ -1022,7 +1022,7 @@ static void __stdcall sub_0057F540_DropItemsOnCorpseOverflow(D2GameStrc* pGame, 
             }
             else
             {
-                D2_ASSERT(pItem->dwAnimMode == 1, 0x2A8);
+                D2_ASSERT(pItem->dwAnimMode == IMODE_EQUIP, 0x2A8);
                 sub_6FC802F0(pGame, nBodyLoc, pItem, pUnit);
             }
 
@@ -1130,7 +1130,7 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
   if(!hItem) continue;
   if(nBodyLoc==-1) sub_6FC803F0(pGame,hItem,pUnit);
   else {
-   D2_ASSERT(hItem->dwAnimMode==1,0x339);
+   D2_ASSERT(hItem->dwAnimMode==IMODE_EQUIP,0x339);
    sub_6FC802F0(pGame,nBodyLoc,hItem,pUnit);
   }
   ITEMS_SetInvPage(hItem,0);

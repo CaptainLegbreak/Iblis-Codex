@@ -1268,7 +1268,7 @@ void __fastcall OBJECTS_InitFunction58_Fissure(D2ObjInitFnStrc* pOp)
 // 0x0054FE10
 void __fastcall OBJECTS_InitFunction59_VileDogAfterglow(D2ObjInitFnStrc* pOp)
 {
-    if (pOp->pObject && pOp->pObject->dwAnimMode != 0)
+    if (pOp->pObject && pOp->pObject->dwAnimMode != OBJMODE_NEUTRAL)
     {
         return;
     }
@@ -1282,7 +1282,7 @@ void __fastcall OBJECTS_InitFunction59_VileDogAfterglow(D2ObjInitFnStrc* pOp)
 void __fastcall OBJECTS_InitFunction12_PermanentPortal(D2ObjInitFnStrc* pOp)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pOp->pRoom);
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == 0)
+    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         UNITS_ChangeAnimMode(pOp->pObject, 1);
         UNITS_BlockCollisionPath(pOp->pObject, pOp->pRoom, pOp->nX, pOp->nY);

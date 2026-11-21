@@ -1168,7 +1168,7 @@ int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitS
 
     switch (pItem->dwAnimMode)
     {
-    case 0:
+    case IMODE_STORED:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         const int nX = pSavedItem->nX;
@@ -1186,7 +1186,7 @@ int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitS
 
         break;
     }
-    case 1:
+    case IMODE_EQUIP:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         int nUnused;
@@ -1197,7 +1197,7 @@ int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitS
 
         break;
     }
-    case 2:
+    case IMODE_INBELT:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         UNITS_SetXForStaticUnit(pItem, pSavedItem->nX);
@@ -1210,7 +1210,7 @@ int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitS
 
         break;
     }
-    case 4:
+    case IMODE_ONCURSOR:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         INVENTORY_SetCursorItem(pPlayer->pInventory, pItem);
@@ -1314,7 +1314,7 @@ static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem
 
     switch (pItem->dwAnimMode)
     {
-    case 0:
+    case IMODE_STORED:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         const int nX = pSavedItem->nX;
@@ -1326,7 +1326,7 @@ static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem
             return 13;
         break;
     }
-    case 1:
+    case IMODE_EQUIP:
     {
         D2InventoryStrc* pInventory = pUnit->pInventory;
         const int nBodyLoc = ITEMS_GetBodyLocation(pItem);

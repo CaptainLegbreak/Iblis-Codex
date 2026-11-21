@@ -298,7 +298,7 @@ static int sub_6FC410E0(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pUnu
 
     if (ITEMS_CheckItemFlag(pItem, IFLAG_BROKEN, 183, ".\\INVENTORY\\InvMode.cpp"))
     {
-        if (pPlayer != pClientPlayer && (!pItem || pItem->dwAnimMode != 1))
+        if (pPlayer != pClientPlayer && (!pItem || pItem->dwAnimMode != IMODE_EQUIP))
         {
             return 0;
         }
@@ -307,7 +307,7 @@ static int sub_6FC410E0(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pUnu
     }
     else if (ITEMS_CheckItemFlag(pItem, IFLAG_REPAIRED, 197, ".\\INVENTORY\\InvMode.cpp"))
     {
-        if (pPlayer == pClientPlayer || pItem && pItem->dwAnimMode == 1)
+        if (pPlayer == pClientPlayer || pItem && pItem->dwAnimMode == IMODE_EQUIP)
         {
             sub_6FC3EFC0(pClient, pPlayer, pItem, IFLAG_REPAIRED, ITEMS_CheckItemFlag(pItem, IFLAG_REPAIRED, 207, ".\\INVENTORY\\InvMode.cpp"));
             return 1;

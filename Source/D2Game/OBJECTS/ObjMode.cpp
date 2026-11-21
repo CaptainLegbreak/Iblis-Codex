@@ -1327,7 +1327,7 @@ int __fastcall sub_00582180_FilterState(D2ContextStrc* context, void* argument)
 // 0x005821A0
 int __fastcall OBJECTS_OperateFunction29_SlimeDoor(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         UNITS_ChangeAnimMode(pOp->hObject, 1);
         UNITS_FreeCollisionPath(pOp->hObject);
@@ -2328,7 +2328,7 @@ int __fastcall OBJECTS_OperateFunction51_JungleStash(D2ObjOperateFnStrc* pOp, in
 // 0x00583FF0
 int __fastcall OBJECTS_OperateFunction18_SecretDoor(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         UNITS_ChangeAnimMode(pOp->hObject, 1);
         D2UnitStrc* pObject = pOp->hObject;
@@ -2759,7 +2759,7 @@ int __fastcall sub_00584870_OperatePortal(D2ObjOperateFnStrc* pOp)
             SUNIT_RemoveUnit(pOp->pGame, pOtherPortal);
             DUNGEON_ToggleHasPortalFlag(pRoom, 1);
         }
-    } else if (pOp->hObject && pOp->hObject->dwAnimMode == 1) {
+    } else if (pOp->hObject && pOp->hObject->dwAnimMode == OBJMODE_OPERATING) {
         D2ObjectsTxt* pRecord = DATATBLS_GetObjectsTxtRecord((unsigned short)nClassId);
         EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, (pRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
     }
@@ -3406,7 +3406,7 @@ static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2Uni
 
 void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
-    if (pObject && pObject->dwAnimMode == 1)
+    if (pObject && pObject->dwAnimMode == OBJMODE_OPERATING)
     {
         pObject->dwAnimMode = 2;
     }
