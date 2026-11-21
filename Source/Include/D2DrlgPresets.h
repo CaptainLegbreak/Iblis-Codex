@@ -75,14 +75,21 @@ struct D2DrlgLinkStrc
 
 struct D2RoomCollisionGridStrc
 {
-    int nSubtileX; // 0x00
-    int nSubtileY; // 0x04
-    int nSubtileWidth; // 0x08
-    int nSubtileHeight; // 0x0C
-    int nTileX; // 0x10
-    int nTileY; // 0x14
-    int nTileWidth; // 0x18
-    int nTileHeight; // 0x1C
+    union // 0x00
+    {
+        struct
+        {
+            int nSubtileX; // 0x00
+            int nSubtileY; // 0x04
+            int nSubtileWidth; // 0x08
+            int nSubtileHeight; // 0x0C
+            int nTileX; // 0x10
+            int nTileY; // 0x14
+            int nTileWidth; // 0x18
+            int nTileHeight; // 0x1C
+        };
+        D2DrlgCoordsStrc pRoomCoords;
+    };
     unsigned short* pCollisionMask; // 0x20
 };
 
