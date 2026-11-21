@@ -55293,6 +55293,10 @@
      "name": "UnitGetClient"
     },
     {
+     "va": "0x00553220",
+     "length": 344
+    },
+    {
      "va": "0x00553380",
      "length": 72,
      "name": "SUNIT_AttachSound"
@@ -55323,6 +55327,10 @@
      "name": "sub_6FCBC9C0"
     },
     {
+     "va": "0x00553720",
+     "length": 165
+    },
+    {
      "va": "0x005537D0",
      "length": 244,
      "name": "?SUNIT_IterateUnitsOfType@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAXP6IH0PAU1@1@Z@Z"
@@ -55336,6 +55344,10 @@
      "va": "0x00553990",
      "length": 31,
      "name": "D2GAME_DeletePlayerPerFrameEvents_6FCBCE50"
+    },
+    {
+     "va": "0x005539B0",
+     "length": 348
     },
     {
      "va": "0x00553B10",
@@ -55403,6 +55415,10 @@
      "name": "?SUNIT_IsDead@@YIHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00554200",
+     "length": 181
+    },
+    {
      "va": "0x005542C0",
      "length": 119,
      "name": "?SUNIT_CanPetBeTargetedBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
@@ -55460,6 +55476,10 @@
      "va": "0x00554D20",
      "length": 187,
      "name": "?SUNIT_CanAllyBeTargetedBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    },
+    {
+     "va": "0x00554DE0",
+     "length": 188
     },
     {
      "va": "0x00554EA0",
@@ -55524,46 +55544,6 @@
      "length": 83,
      "name": "?sub_005564D0_IsDroppedUnique@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnit_00553220.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00553220",
-     "length": 344
-    },
-    {
-     "va": "0x00553720",
-     "length": 165
-    },
-    {
-     "va": "0x005539B0",
-     "length": 348
-    },
-    {
-     "va": "0x00554200",
-     "length": 181
-    },
-    {
-     "va": "0x00554DE0",
-     "length": 188
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
