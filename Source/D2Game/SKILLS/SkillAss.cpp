@@ -3,6 +3,13 @@
 #include "D2DataTbls.h"
 #include "D2Path.h"
 #include "D2GameStrc.h"
+#include "D2Structs.h"
+#include "D2Txt.h"
+#include "D2UnitData.h"
+#include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
+#include "D2GameAux.h"
+#include "D2GameRecords.h"
 struct D2StatListStrc;
 struct D2UnitStrc;
 
@@ -28,61 +35,10 @@ union D2SeedStrc;
 struct D2MonEquipTxt;
 struct D2MonsterItemCodeStrc;
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int dwAbsLife;
-    int dwDmgTotal;
-    unsigned int unk0x50;
-    int dwPiercePct;
-    int dwDamageRate;
-    unsigned int unk0x5C;
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 struct D2EffectStrc
 {
@@ -97,77 +53,10 @@ struct D2EffectStrc
     void* pfAreaEffect;
 };
 
-typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pUnit, int nArg);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
-struct D2UnitFindArgStrc
-{
-    int nFlags;
-    int unk0x04;
-    D2UnitStrc* pUnit;
-    int nX;
-    int nY;
-    int nSize;
-    int nMaxArrayEntries;
-    int nIndex;
-    void* pField;
-    void* pfnUnitTest;
-    int unk0x28;
-    int unk0x2C;
-    int unk0x30;
-    int unk0x34;
-};
 
-struct D2UnitFindDataStrc
-{
-    void* pMemPool;
-    D2UnitStrc** pUnitsArray;
-    D2ActiveRoomStrc* pRoom;
-    void* pfnUnitTest;
-    D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags;
-    int nIndex;
-    int nMaxArrayEntries;
-    int nX;
-    int nY;
-    int nSize;
-    int unk0x2C;
-    int unk0x30;
-};
 
-struct D2AuraCallbackStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pOwner;
-    int nCounter;
-    void* pArgs;
-};
 
 struct D2SrvDo51Strc
 {
@@ -199,50 +88,8 @@ struct D2SrvDo06Strc
     int nAuraStatCalcValue;
 };
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-};
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    short wSrvMissileB;
-    short wSrvMissileC;
-    char unk0x04E[0x02];
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    short wAuraTargetState;
-    char unk0x084[0x38];
-    short wSummon;
-    signed char nPetType;
-    signed char nSumMode;
-    char unk0x0C0[0x6E];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    int dwParam[8];
-    char unk0x168[0x3C];
-    unsigned char nToHitShift;
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -488,9 +335,9 @@ void __fastcall sub_6FD01B00(D2UnitStrc* pUnit, int nStateId, D2StatListStrc* pS
                 nSummonId = pSkillsTxtRecord->wSummon;
             }
 
-            if (pSkillsTxtRecord->nSumMode >= 0 && pSkillsTxtRecord->nSumMode < 16)
+            if ((signed char)pSkillsTxtRecord->nSumMode >= 0 && (signed char)pSkillsTxtRecord->nSumMode < 16)
             {
-                nMonMode = pSkillsTxtRecord->nSumMode;
+                nMonMode = (signed char)pSkillsTxtRecord->nSumMode;
             }
         }
     }
@@ -1474,7 +1321,7 @@ int __fastcall SKILLS_SrvDo010_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2UnitS
     {
         missileParams.pInitFunc = SKILLS_AddDamagePercentBonus;
     }
-    missileParams.pInitArgs = nParam;
+    missileParams.nInitArg = nParam;
 
     if (!pTarget)
     {
@@ -1634,7 +1481,7 @@ static __declspec(noinline) void __stdcall SKILLS_CreateChargedBoltMissileRing(D
         missileParams.nTargetY = yOffsets[i];
         const unsigned __int64 lSeed = tSeed.nHighSeed + 0x6AC690C5i64 * tSeed.nLowSeed;
         tSeed.lSeed = lSeed;
-        missileParams.pInitArgs = (unsigned int)lSeed;
+        missileParams.nInitArg = (unsigned int)lSeed;
 
         D2UnitStrc* pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
         MISSILE_SetTargetX(pMissile, sub_004EFC20_GetSkillParam2(0x118) + 1);
@@ -1677,7 +1524,7 @@ static void __stdcall SKILLS_CreateCurvingMissileRing(D2GameStrc* pGame, D2UnitS
     {
         missileParams.nTargetX = xOffsets[i];
         missileParams.nTargetY = yOffsets[i];
-        missileParams.pInitArgs = SEED_RollRandomNumber(&seed);
+        missileParams.nInitArg = SEED_RollRandomNumber(&seed);
 
         D2UnitStrc* pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
         if (pMissile && nMissileId == 0x238)
