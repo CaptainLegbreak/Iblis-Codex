@@ -1252,7 +1252,6 @@ extern void* gpCelFile_007C02BC; // 0x007C02BC
 
 void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
 
-
 enum D2C_AiThink005F0A20
 {
     AI_PARAM_ESCAPE_CHANCE_PCT = 0,
@@ -1264,6 +1263,12 @@ enum D2C_SandLeaperAIParams
     SANDLEAPER_AI_PARAM_ATTACK_CHANCE_PCT = 1,
     SANDLEAPER_AI_PARAM_APPROACH_CHANCE_PCT = 2,
     SANDLEAPER_AI_PARAM_CIRCLE_CHANCE_PCT = 3,
+};
+
+enum D2C_M188FetishBlowgunAi
+{
+    FETISHBLOWGUN_AI_PARAM_STAY_IN_RANGE = 0,
+    FETISHBLOWGUN_AI_PARAM_RUN_AWAY_CHANCE_PCT = 1,
 };
 
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
@@ -1689,6 +1694,139 @@ void __fastcall AITHINK_Fn093_ArcaneTower(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     }
 }
 
+static inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x005E1250
+void __fastcall AITHINK_Fn096_FetishBlowgun(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    D2AiCmdStrc* pCurrentAiCmd = (D2AiCmdStrc*)sub_0058EE80(pUnit);
+    if (pCurrentAiCmd)
+    {
+        if (pCurrentAiCmd->nCmdParam[0] == 1)
+        {
+            D2UnitStrc* pCmdTarget = SUNIT_GetServerUnit(pGame, pCurrentAiCmd->nCmdParam[2], pCurrentAiCmd->nCmdParam[1]);
+            if (pCmdTarget)
+            {
+                pAiControl->dwAiParam[0] = 0;
+                pAiControl->dwAiParam[1] = 0;
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pCmdTarget);
+                AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+                return;
+            }
+        }
+
+        if (pCurrentAiCmd->nCmdParam[0] == 14)
+        {
+            D2UnitStrc* pCmdTarget = SUNIT_GetServerUnit(pGame, pCurrentAiCmd->nCmdParam[2], pCurrentAiCmd->nCmdParam[1]);
+            if (pCmdTarget)
+            {
+                pAiControl->dwAiParam[0] = 0;
+                pAiControl->dwAiParam[1] = 0;
+                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+                AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCmdTarget, 0);
+                AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+                return;
+            }
+        }
+
+        AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+    }
+
+    if (!bCombat)
+    {
+        if (nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, FETISHBLOWGUN_AI_PARAM_STAY_IN_RANGE))
+        {
+            sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
+            D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pTarget, 6);
+            return;
+        }
+
+        if (nTargetDistance >= 6)
+        {
+            goto LSelectTarget;
+        }
+    }
+
+    if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, FETISHBLOWGUN_AI_PARAM_RUN_AWAY_CHANCE_PCT))
+    {
+        pAiControl->dwAiParam[0] = 2;
+    }
+
+LSelectTarget:
+    int nDistance;
+    D2UnitStrc* pSelected = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
+
+    switch (pAiControl->dwAiParam[0])
+    {
+    case 0:
+        ++pAiControl->dwAiParam[1];
+        if (pAiControl->dwAiParam[1] > (int)(AI_RollSeed(pSeed) % 3 + 3))
+        {
+            pAiControl->dwAiParam[0] = 1;
+            pAiControl->dwAiParam[1] = 0;
+        }
+
+        if (pSelected)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pSelected);
+        }
+        else
+        {
+            sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+        }
+        return;
+
+    case 1:
+        pAiControl->dwAiParam[0] = 0;
+        pAiControl->dwAiParam[1] = 0;
+        sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
+        if (!sub_005DF7D0(pGame, pUnit, pTarget, 6, 1))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        }
+        return;
+
+    case 2:
+        if (nTargetDistance > 12)
+        {
+            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) >= 20 || !sub_005DF7D0(pGame, pUnit, pTarget, 4, 1))
+            {
+                pAiControl->dwAiParam[0] = 0;
+                pAiControl->dwAiParam[1] = 0;
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            }
+        }
+        else
+        {
+            sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
+            if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pSelected);
+                pAiControl->dwAiParam[0] = 0;
+                pAiControl->dwAiParam[1] = 0;
+            }
+        }
+        return;
+
+    default:
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+}
+
 // 0x005E1720
 D2UnitStrc* __fastcall AITHINK_TargetCallback_SiegeBeast(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -1838,14 +1976,6 @@ void __fastcall AITHINK_Fn116_Minion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
             AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStats->wAiParam[3][pGame->nDifficulty]);
         }
     }
-}
-
-static inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
-{
-    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
 }
 
 // 0x005E1E00

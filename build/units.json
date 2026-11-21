@@ -67715,6 +67715,11 @@
      "name": "AITHINK_Fn093_ArcaneTower"
     },
     {
+     "va": "0x005E1250",
+     "length": 741,
+     "name": "?AITHINK_Fn096_FetishBlowgun@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E1720",
      "length": 177,
      "name": "?AITHINK_TargetCallback_SiegeBeast@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -68706,17 +68711,6 @@
      "va": "0x005E4D30",
      "length": 788,
      "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PATD2SeedStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E1250.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E1250",
-     "length": 741,
-     "name": "?AITHINK_Fn096_FetishBlowgun@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
