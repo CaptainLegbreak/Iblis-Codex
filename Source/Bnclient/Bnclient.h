@@ -2,9 +2,9 @@
 
 #include "D2LangTypes.h"
 #include "D2BnCryptTypes.h"
+#include "D2Win32Base.h"
 
 struct D2CriticalSectionStrc;
-struct D2FileTimeStrc;
 struct D2LangByteRangeStrc;
 struct D2SrpSha1ContextStrc;
 struct Unicode;
@@ -46,12 +46,6 @@ struct D2BigLoginRecordStrc
     unsigned char abPublic[0x20];
     unsigned char abKey[0x28];
     unsigned char abProof[0x14];
-};
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
 };
 
 struct D2LangCharMapEntryStrc

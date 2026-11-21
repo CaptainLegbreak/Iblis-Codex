@@ -1,6 +1,7 @@
 #pragma once
 
 #include "D2SysTypes.h"
+#include "D2Win32Base.h"
 
 struct D2CelFileStrc;
 struct D2CriticalSectionStrc;
@@ -157,12 +158,6 @@ struct D2CharSelCacheStrc
     void* pData;
     unsigned int dwExpireTick;
     D2CharSelCacheStrc* pNext;
-};
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
 };
 
 struct D2FindDataStrc

@@ -3,9 +3,9 @@
 
 #include "D2Check.h"
 #include "D2Structs.h"
+#include "D2Win32Base.h"
 
 struct D2BitBufferStrc;
-struct D2FileTimeStrc;
 struct D2BoundingBoxStrc;
 
 struct D2BitBufferStrc
@@ -15,12 +15,6 @@ struct D2BitBufferStrc
     int nPos; // 0x08
     int nPosBits; // 0x0C
     int bFull; // 0x10
-};
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime; // 0x00
-    unsigned long dwHighDateTime; // 0x04
 };
 
 struct D2BoundingBoxStrc

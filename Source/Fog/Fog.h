@@ -1,7 +1,8 @@
 #pragma once
 
+#include "D2Win32Base.h"
+
 struct D2Connection006C03A0Strc;
-struct D2FileTimeStrc;
 struct D2MemoryBasicInfoStrc;
 struct D2ModuleInfoStrc;
 struct D2PoolSystemStrc;
@@ -147,12 +148,6 @@ struct D2Connection006C03A0Strc
 };
 
 typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2ImageHlpLineStrc
 {
