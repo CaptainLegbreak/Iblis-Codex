@@ -55033,11 +55033,6 @@
      "name": "?sub_0056A370_ReadQuestSection@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPAEI@Z"
     },
     {
-     "va": "0x0056B6C0",
-     "length": 122,
-     "name": "?SKILLS_ClampVitalsAndUpdateAnimRate@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x0056C2D0",
      "length": 55,
      "name": "?sub_0056C2D0_DrainTargetDurability@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
@@ -55684,6 +55679,11 @@
    "file": "Source/D2Game/SKILLS/Skills.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0056B6C0",
+     "length": 122,
+     "name": "?SKILLS_ClampVitalsAndUpdateAnimRate@@YIXPAUD2UnitStrc@@@Z"
+    },
     {
      "va": "0x0056B770",
      "length": 104,
