@@ -63191,6 +63191,14 @@
      "name": "?sub_005FE110_Empty@@YAXXZ"
     },
     {
+     "va": "0x005FE2B0",
+     "length": 850
+    },
+    {
+     "va": "0x005FE610",
+     "length": 894
+    },
+    {
      "va": "0x005FEC90",
      "length": 366,
      "name": "?sub_005FEC90_InitDC6Frames@@YGXPAUD2CmpSpriteFileStrc@@PAUD2CmpSpriteContextStrc@@PAUD2CmpSpriteEntryStrc@@@Z"
@@ -63246,9 +63254,17 @@
      "name": "?sub_005FF0D0_SpriteCachePushFree@@YAXPAUD2SpriteCacheStrc@@PAUD2SpriteCacheNodeStrc@@@Z"
     },
     {
+     "va": "0x005FF0F0",
+     "length": 114
+    },
+    {
      "va": "0x005FF170",
      "length": 52,
      "name": "?sub_005FF170_SpriteCachePopFree@@YAPAUD2SpriteCacheNodeStrc@@PAUD2SpriteCacheStrc@@@Z"
+    },
+    {
+     "va": "0x005FF1B0",
+     "length": 233
     },
     {
      "va": "0x005FF390",
@@ -63296,6 +63312,10 @@
      "va": "0x005FFD40",
      "length": 238,
      "name": "D2CMPSpriteCacheInit"
+    },
+    {
+     "va": "0x005FFE90",
+     "length": 268
     },
     {
      "va": "0x005FFFA0",
@@ -70528,66 +70548,6 @@
      "length": 58,
      "name": "?sub_005FEC50_GetCachedDC6Frame@@YAPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6CacheEntryStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FE2B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FE2B0",
-     "length": 850
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FE610.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FE610",
-     "length": 894
-    },
-    {
-     "va": "0x005FF0F0",
-     "length": 114
-    },
-    {
-     "va": "0x005FF1B0",
-     "length": 233
-    },
-    {
-     "va": "0x005FFE90",
-     "length": 268
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
