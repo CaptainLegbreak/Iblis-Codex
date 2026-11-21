@@ -79374,6 +79374,11 @@
      "name": "ITEMS_SetVarGfxIndex"
     },
     {
+     "va": "0x00628440",
+     "length": 54,
+     "name": "_sub_00628440_GetShootsFromItemType@4"
+    },
+    {
      "va": "0x00628480",
      "length": 54,
      "name": "ITEMS_GetQuiverTypeFromItemType"
@@ -79654,6 +79659,11 @@
      "name": "?sub_0062A250@@YAEHH@Z"
     },
     {
+     "va": "0x0062A270",
+     "length": 49,
+     "name": "?sub_0062A270_HasSocketedItem@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0062A2F0",
      "length": 23,
      "name": "?sub_0062A2F0_IsPlainQuality@@YAHH@Z"
@@ -79783,6 +79793,11 @@
      "name": "ITEMS_GetClassOfClassSpecificItem"
     },
     {
+     "va": "0x0062C770",
+     "length": 213,
+     "name": "?ITEMS_IsSocketable@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0062C9F0",
      "length": 492,
      "name": "?ITEMS_SetDefenseOrDamage@@YGXPAUD2UnitStrc@@H@Z"
@@ -79791,6 +79806,11 @@
      "va": "0x0062E410",
      "length": 30,
      "name": "sub_0062E410"
+    },
+    {
+     "va": "0x0062E5D0",
+     "length": 132,
+     "name": "?sub_0062E5D0_IsQuantityRepairable@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062E6F0",
@@ -79858,6 +79878,10 @@
      "name": "?ITEMS_CheckBodyLocation@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x0062EFB0",
+     "length": 3600
+    },
+    {
      "va": "0x0062FDC0",
      "length": 34,
      "name": "?sub_0062FDC0_GetRepairCost@@YGHPAUD2UnitStrc@@0HPAUD2BitBufferStrc@@HH@Z"
@@ -79866,6 +79890,11 @@
      "va": "0x0062FDF0",
      "length": 111,
      "name": "ITEMS_IsBodyItem"
+    },
+    {
+     "va": "0x0062FE60",
+     "length": 261,
+     "name": "?ITEMS_GetAllRepairCosts@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@HHPAUD2BitBufferStrc@@P6IX011@Z@Z"
     },
     {
      "va": "0x006313E0",
@@ -79936,41 +79965,6 @@
      "va": "0x0063A420",
      "length": 57,
      "name": "STATES_CheckStateMaskCurseByStateId"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_00628440.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00628440",
-     "length": 54,
-     "name": "_sub_00628440_GetShootsFromItemType@4"
-    },
-    {
-     "va": "0x0062A270",
-     "length": 49,
-     "name": "?sub_0062A270_HasSocketedItem@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0062C770",
-     "length": 213,
-     "name": "?ITEMS_IsSocketable@@YGHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0062E5D0",
-     "length": 132,
-     "name": "?sub_0062E5D0_IsQuantityRepairable@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0062EFB0",
-     "length": 3600
-    },
-    {
-     "va": "0x0062FE60",
-     "length": 261,
-     "name": "?ITEMS_GetAllRepairCosts@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@HHPAUD2BitBufferStrc@@P6IX011@Z@Z"
     }
    ]
   },
