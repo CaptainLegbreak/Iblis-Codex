@@ -7,7 +7,6 @@
 #include "D2TxtItems.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2ClientTypes.h"
@@ -15,18 +14,26 @@
 #include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define SEED_STEP_HIFIRST(pSeed, nOut) { const unsigned __int64 lSeed_ = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; (pSeed)->nHighSeed = (unsigned int)(lSeed_ >> 32); (pSeed)->nLowSeed = (unsigned int)lSeed_; nOut = (unsigned int)lSeed_; }
 
 struct D2GfxLightStrc;
-struct D2ShrinesTxt;
-struct D2ObjectDataStrc;
-struct D2UnitTargetStrc;
-struct D2ShrineHandlerStrc;
-union D2SeedStrc;
-struct D2PlayerDataStrc;
-struct D2StaticPathStrc;
-struct D2MissileStrc;
 
+struct D2ShrinesTxt;
+
+struct D2ObjectDataStrc;
+
+struct D2UnitTargetStrc;
+
+struct D2ShrineHandlerStrc;
+
+union D2SeedStrc;
+
+struct D2PlayerDataStrc;
+
+struct D2StaticPathStrc;
+
+struct D2MissileStrc;
 
 struct D2ShrineHandlerStrc
 {
@@ -38,70 +45,144 @@ struct D2ShrineHandlerStrc
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 extern "C" const char gszUnitSourceFile_006DAA8C[];
+
 extern D2DrlgActStrc* gpAct_007A0634;
+
 extern D2ShrineHandlerStrc gShrineHandlers_006DA8C0[]; // 0x006DA8C0
+
 extern int gnShrineHandlerCount_0072779C; // 0x0072779C
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);
+
 void __fastcall sub_00457460(D2UnitStrc* pUnit, int nArg, int nValue);
+
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);
+
 void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue);
+
 unsigned char __fastcall sub_004BDEE0(D2UnitStrc* pUnit);
+
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);
+
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit);
+
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8);
+
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);
+
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6);
+
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);
+
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);
+
 void __fastcall sub_004CB460(D2UnitStrc* pUnit);
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);
+
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct);
+
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);
+
 void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);
+
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);
+
 int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit);
+
 D2ShrinesTxt* __stdcall UNITS_GetShrineTxtRecordFromObject(D2UnitStrc* pUnit);
+
 void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord);
+
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
+
 void __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit);
+
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);
+
 D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId);
+
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);
+
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom);
+
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);
+
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
+
 extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 void __fastcall sub_00481030_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
+
 void __cdecl sub_004A30A0_TriggerOnceD3(); // 0x004A30A0
+
 void __cdecl sub_004A30C0_TriggerOnce219(); // 0x004A30C0
+
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
+
 int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
+
 int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh); // 0x004BC5E0
+
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
+
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath); // 0x00648730
+
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
+
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
+
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+
 char __cdecl sub_004A3110_GetFlag025F(); // 0x004A3110
+
 char __cdecl sub_004A3120_IsQuestUnitPresent(); // 0x004A3120
+
 void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY); // 0x004A3150
 
 void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
+
+struct D2UnitStrc;
+
+
+
+
+void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
+
+
+static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit);
+
+static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
+
+static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit);
+
+void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
 
 static void __stdcall sub_004BC580_UpdateLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue)
 {
@@ -260,101 +341,6 @@ static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
         pUnit->dwFlags &= ~2;
 }
 
-static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
-{
-    D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
-    int nMode = pUnit->dwAnimMode;
-    const int nFrameCnt = pTxt->dwFrameCnt[nMode];
-    if (nFrameCnt == 0x100)
-        return;
-
-    const int nCycle = pUnit->pObjectData->pObjectTxt->nCycleAnim[nMode];
-    if (!nCycle)
-    {
-        if (pTxt->nIsDoor)
-        {
-            sub_004BCB20_StepDoorFrame(pUnit);
-            return;
-        }
-
-        if (pUnit->nSeqCurrentFramePrecise >= nFrameCnt - 0x100)
-        {
-            if (pUnit->dwClassId == 0xBD && (nMode == 2 || nMode == 3))
-            {
-                ++nMode;
-                pUnit->dwAnimMode = nMode;
-                pUnit->nSeqCurrentFramePrecise = pTxt->nStart[nMode] << 8;
-                sub_00470610_Refresh(pUnit, 0);
-                sub_00624390_AnimInit(pUnit);
-                return;
-            }
-
-            if (nMode != 1)
-                return;
-
-            pUnit->dwAnimMode = 2;
-            if (pTxt->nOrderFlag[2] == 1)
-                pUnit->dwFlags |= 0x100000;
-
-            if (pTxt->dwParm[7])
-            {
-                if (pTxt->dwParm[7] == 0xFF)
-                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_MINISPIDER, 4);
-                else
-                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_RAT, 4);
-            }
-
-            pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;
-            sub_00470610_Refresh(pUnit, 0);
-            sub_00624390_AnimInit(pUnit);
-            if (pTxt->nOverlay)
-            {
-                const int nClassId = pUnit->dwClassId;
-                if (nClassId == 0x162 || nClassId == 0x163 || nClassId == 0x18D || nClassId == 0x195
-                    || nClassId == 0x197 || nClassId == 0x196 || nClassId == 0x164)
-                    sub_0046F0C0(pUnit, 0, 0x47);
-            }
-
-            sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
-            sub_004BC580_UpdateLight(pUnit, pTxt->nLit[2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
-            if (!pTxt->nHasCollision[pUnit->dwAnimMode] && pTxt->nHasCollision[1])
-                UNITS_FreeCollisionPath(pUnit);
-            return;
-        }
-    }
-
-    if (pUnit->dwClassId == 0x0C)
-    {
-        pUnit->nSeqCurrentFramePrecise -= pUnit->wAnimSpeed;
-        if (pUnit->nSeqCurrentFramePrecise < 0)
-            pUnit->nSeqCurrentFramePrecise += nFrameCnt;
-        return;
-    }
-
-    if (pUnit->dwClassId == 0xBD && nMode == 3)
-    {
-        pUnit->nSeqCurrentFramePrecise -= pUnit->wAnimSpeed;
-        if (pUnit->nSeqCurrentFramePrecise >= 0)
-            return;
-
-        pUnit->dwAnimMode = 4;
-        pUnit->nSeqCurrentFramePrecise = pTxt->nStart[4] << 8;
-        sub_00470610_Refresh(pUnit, 0);
-        sub_00624390_AnimInit(pUnit);
-        return;
-    }
-
-    pUnit->nSeqCurrentFramePrecise += pUnit->wAnimSpeed;
-    const int nFrame = pUnit->nSeqCurrentFramePrecise;
-    if (nFrame >= nFrameCnt)
-    {
-        if (!nCycle)
-            pUnit->nSeqCurrentFramePrecise = nFrameCnt - 0x100;
-        else
-            pUnit->nSeqCurrentFramePrecise = (pTxt->nStart[nMode] << 8) - nFrameCnt + nFrame;
-    }
-}
-
 static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUnit, int nMode)
 {
     D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
@@ -460,8 +446,6 @@ static void __stdcall sub_004BD550_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitSt
         sub_004B9A00(pHandler->nSoundId, pPlayer, 0, 0, 0);
 }
 
-void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
-
 static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
 {
     D2ShrinesTxt* pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
@@ -541,6 +525,103 @@ static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
     D2_ASSERT(0, 0x155);
 }
 
+
+// 0x004BCBB0
+static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
+{
+    D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
+    int nMode = pUnit->dwAnimMode;
+    const int nFrameCnt = pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode];
+    if (nFrameCnt == 0x100)
+        return;
+
+    const int nCycle = pUnit->pObjectData->pObjectTxt->nCycleAnim[nMode];
+    if (!nCycle)
+    {
+        if (pTxt->nIsDoor)
+        {
+            sub_004BCB20_StepDoorFrame(pUnit);
+            return;
+        }
+
+        if (pUnit->nSeqCurrentFramePrecise >= nFrameCnt - 0x100)
+        {
+            if (pUnit->dwClassId == 0xBD && (nMode == 2 || nMode == 3))
+            {
+                ++nMode;
+                pUnit->dwAnimMode = nMode;
+                pUnit->nSeqCurrentFramePrecise = pTxt->nStart[nMode] << 8;
+                sub_00470610_Refresh(pUnit, 0);
+                sub_00624390_AnimInit(pUnit);
+                return;
+            }
+
+            if (nMode != 1)
+                return;
+
+            pUnit->dwAnimMode = 2;
+            if (pTxt->nOrderFlag[2] == 1)
+                pUnit->dwFlags |= 0x100000;
+
+            if (pTxt->dwParm[7])
+            {
+                if (pTxt->dwParm[7] == 0xFF)
+                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_MINISPIDER, 4);
+                else
+                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_RAT, 4);
+            }
+
+            pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;
+            sub_00470610_Refresh(pUnit, 0);
+            sub_00624390_AnimInit(pUnit);
+            if (pTxt->nOverlay)
+            {
+                const int nClassId = pUnit->dwClassId;
+                if (nClassId == 0x162 || nClassId == 0x163 || nClassId == 0x18D || nClassId == 0x195
+                    || nClassId == 0x197 || nClassId == 0x196 || nClassId == 0x164)
+                    sub_0046F0C0(pUnit, 0, 0x47);
+            }
+
+            sub_00457460(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
+            sub_004BC580_UpdateLight(pUnit, pTxt->nLit[2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
+            if (!pTxt->nHasCollision[pUnit->dwAnimMode] && pTxt->nHasCollision[1])
+                UNITS_FreeCollisionPath(pUnit);
+            return;
+        }
+    }
+
+    if (pUnit->dwClassId == 0x0C)
+    {
+        pUnit->nSeqCurrentFramePrecise -= pUnit->wAnimSpeed;
+        if (pUnit->nSeqCurrentFramePrecise < 0)
+            pUnit->nSeqCurrentFramePrecise += nFrameCnt;
+        return;
+    }
+
+    if (pUnit->dwClassId == 0xBD && nMode == 3)
+    {
+        pUnit->nSeqCurrentFramePrecise -= pUnit->wAnimSpeed;
+        if (pUnit->nSeqCurrentFramePrecise >= 0)
+            return;
+
+        pUnit->dwAnimMode = 4;
+        pUnit->nSeqCurrentFramePrecise = pTxt->nStart[4] << 8;
+        sub_00470610_Refresh(pUnit, 0);
+        sub_00624390_AnimInit(pUnit);
+        return;
+    }
+
+    pUnit->nSeqCurrentFramePrecise += pUnit->wAnimSpeed;
+    const int nFrame = pUnit->nSeqCurrentFramePrecise;
+    if (nFrame >= nFrameCnt)
+    {
+        if (!nCycle)
+            pUnit->nSeqCurrentFramePrecise = nFrameCnt - 0x100;
+        else
+            pUnit->nSeqCurrentFramePrecise = (pTxt->nStart[pUnit->dwAnimMode] << 8) - nFrameCnt + nFrame;
+    }
+}
+
 void __fastcall sub_M256_Emit_004BCB20(D2UnitStrc* pUnit)
 {
     sub_004BCB20_StepDoorFrame(pUnit);
@@ -561,6 +642,137 @@ void __fastcall sub_004BD090_OperateReverseNameShrine(D2UnitStrc* pUnit, D2UnitS
     if (pPlayerData)
     {
         strncpy(pPlayerData->szName, _strrev(pPlayerData->szName), 16);
+    }
+}
+
+inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+// 0x004BD0C0
+void __fastcall sub_004BD0C0_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
+{
+    for (int i = 1; i < 5; ++i)
+    {
+        for (int j = 1; j < 5; ++j)
+        {
+            D2MissileStrc tMissileParams;
+            memset(&tMissileParams, 0, sizeof(tMissileParams));
+            tMissileParams.dwFlags = 3;
+            tMissileParams.nX = UNITS_GetUnitXPosition(pUnit);
+            tMissileParams.nY = UNITS_GetUnitYPosition(pUnit);
+            tMissileParams.nTargetX = (i & 1) ? 5 * i : -5 * i;
+            tMissileParams.nTargetY = (j & 1) ? 5 * j : -5 * j;
+            tMissileParams.pOwner = pOwner;
+            tMissileParams.nMissile = MISSILE_FIREBALL;
+            int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
+            if (nLevel < 1)
+            {
+                nLevel = 1;
+            }
+            else if (nLevel > 8)
+            {
+                nLevel = 8;
+            }
+            tMissileParams.nSkillLevel = nLevel;
+            sub_004CD540_CreateMissile(&tMissileParams);
+        }
+    }
+}
+
+// 0x004BD220
+void __fastcall sub_004BD220_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
+{
+    int aOffsetX[6] = { -6, -6, 0, 0, 6, 6 };
+    int aOffsetY[6] = { 6, -6, 6, -6, 6, -6 };
+    for (int i = 0; i < 6; ++i)
+    {
+        D2MissileStrc tMissileParams;
+        memset(&tMissileParams, 0, sizeof(tMissileParams));
+        tMissileParams.dwFlags = 0x520;
+        tMissileParams.nX = UNITS_GetUnitXPosition(pUnit);
+        tMissileParams.nY = UNITS_GetUnitYPosition(pUnit);
+        tMissileParams.nTargetX = tMissileParams.nX + aOffsetX[i];
+        tMissileParams.nTargetY = tMissileParams.nY + aOffsetY[i];
+        tMissileParams.pOwner = pOwner;
+        tMissileParams.pOrigin = pUnit;
+        tMissileParams.nGfxArg = 1;
+        tMissileParams.nMissile = MISSILE_EXPLOSIVEPOTION;
+        int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
+        if (nLevel < 1)
+        {
+            nLevel = 1;
+        }
+        else if (nLevel > 8)
+        {
+            nLevel = 8;
+        }
+        tMissileParams.nSkillLevel = nLevel;
+        sub_004CD540_CreateMissile(&tMissileParams);
+    }
+}
+
+// 0x004BD360
+void __fastcall sub_004BD360_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
+{
+    int aOffsetX[6] = { -6, -6, 0, 0, 6, 6 };
+    int aOffsetY[6] = { 6, -6, 6, -6, 6, -6 };
+    for (int i = 0; i < 6; ++i)
+    {
+        D2MissileStrc tMissileParams;
+        memset(&tMissileParams, 0, sizeof(tMissileParams));
+        tMissileParams.dwFlags = 0x520;
+        tMissileParams.nX = UNITS_GetUnitXPosition(pUnit);
+        tMissileParams.nY = UNITS_GetUnitYPosition(pUnit);
+        tMissileParams.nTargetX = tMissileParams.nX + aOffsetX[i];
+        tMissileParams.nTargetY = tMissileParams.nY + aOffsetY[i];
+        tMissileParams.pOwner = pOwner;
+        tMissileParams.pOrigin = pUnit;
+        tMissileParams.nGfxArg = 1;
+        tMissileParams.nMissile = MISSILE_CHOKINGGASPOITION;
+        int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
+        if (nLevel < 1)
+        {
+            nLevel = 1;
+        }
+        else if (nLevel > 8)
+        {
+            nLevel = 8;
+        }
+        tMissileParams.nSkillLevel = nLevel;
+        sub_004CD540_CreateMissile(&tMissileParams);
     }
 }
 
@@ -750,6 +962,12 @@ char __fastcall sub_004BDA60_TimedOperate(D2UnitStrc* pUnit)
     return 1;
 }
 
+// 0x004BDAF0
+char __fastcall sub_004BDAF0_AlwaysOne(D2UnitStrc* pUnit)
+{
+    return 1;
+}
+
 // 0x004BDB00
 char __fastcall sub_004BDB00_TimedOperateShort(D2UnitStrc* pUnit)
 {
@@ -772,6 +990,12 @@ char __fastcall sub_004BDB00_TimedOperateShort(D2UnitStrc* pUnit)
         sub_00470610_Refresh(pUnit, 0);
     }
 
+    return 1;
+}
+
+// 0x004BDB90
+char __fastcall sub_004BDB90_AlwaysOne(D2UnitStrc* pUnit)
+{
     return 1;
 }
 
@@ -851,149 +1075,6 @@ char __fastcall sub_004BDCC0_UpdateEnvObject(D2UnitStrc* pUnit)
         pUnit->dwTickCount = GetTickCount() + 500;
     }
 
-    return 1;
-}
-
-inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
-
-// 0x004BD0C0
-void __fastcall sub_004BD0C0_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
-{
-    for (int i = 1; i < 5; ++i)
-    {
-        for (int j = 1; j < 5; ++j)
-        {
-            D2MissileStrc tMissileParams;
-            memset(&tMissileParams, 0, sizeof(tMissileParams));
-            tMissileParams.dwFlags = 3;
-            tMissileParams.nX = UNITS_GetUnitXPosition(pUnit);
-            tMissileParams.nY = UNITS_GetUnitYPosition(pUnit);
-            tMissileParams.nTargetX = (i & 1) ? 5 * i : -5 * i;
-            tMissileParams.nTargetY = (j & 1) ? 5 * j : -5 * j;
-            tMissileParams.pOwner = pOwner;
-            tMissileParams.nMissile = MISSILE_FIREBALL;
-            int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
-            if (nLevel < 1)
-            {
-                nLevel = 1;
-            }
-            else if (nLevel > 8)
-            {
-                nLevel = 8;
-            }
-            tMissileParams.nSkillLevel = nLevel;
-            sub_004CD540_CreateMissile(&tMissileParams);
-        }
-    }
-}
-
-// 0x004BD220
-void __fastcall sub_004BD220_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
-{
-    int aOffsetX[6] = { -6, -6, 0, 0, 6, 6 };
-    int aOffsetY[6] = { 6, -6, 6, -6, 6, -6 };
-    for (int i = 0; i < 6; ++i)
-    {
-        D2MissileStrc tMissileParams;
-        memset(&tMissileParams, 0, sizeof(tMissileParams));
-        tMissileParams.dwFlags = 0x520;
-        tMissileParams.nX = UNITS_GetUnitXPosition(pUnit);
-        tMissileParams.nY = UNITS_GetUnitYPosition(pUnit);
-        tMissileParams.nTargetX = tMissileParams.nX + aOffsetX[i];
-        tMissileParams.nTargetY = tMissileParams.nY + aOffsetY[i];
-        tMissileParams.pOwner = pOwner;
-        tMissileParams.pOrigin = pUnit;
-        tMissileParams.nGfxArg = 1;
-        tMissileParams.nMissile = MISSILE_EXPLOSIVEPOTION;
-        int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
-        if (nLevel < 1)
-        {
-            nLevel = 1;
-        }
-        else if (nLevel > 8)
-        {
-            nLevel = 8;
-        }
-        tMissileParams.nSkillLevel = nLevel;
-        sub_004CD540_CreateMissile(&tMissileParams);
-    }
-}
-
-// 0x004BD360
-void __fastcall sub_004BD360_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nArg)
-{
-    int aOffsetX[6] = { -6, -6, 0, 0, 6, 6 };
-    int aOffsetY[6] = { 6, -6, 6, -6, 6, -6 };
-    for (int i = 0; i < 6; ++i)
-    {
-        D2MissileStrc tMissileParams;
-        memset(&tMissileParams, 0, sizeof(tMissileParams));
-        tMissileParams.dwFlags = 0x520;
-        tMissileParams.nX = UNITS_GetUnitXPosition(pUnit);
-        tMissileParams.nY = UNITS_GetUnitYPosition(pUnit);
-        tMissileParams.nTargetX = tMissileParams.nX + aOffsetX[i];
-        tMissileParams.nTargetY = tMissileParams.nY + aOffsetY[i];
-        tMissileParams.pOwner = pOwner;
-        tMissileParams.pOrigin = pUnit;
-        tMissileParams.nGfxArg = 1;
-        tMissileParams.nMissile = MISSILE_CHOKINGGASPOITION;
-        int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
-        if (nLevel < 1)
-        {
-            nLevel = 1;
-        }
-        else if (nLevel > 8)
-        {
-            nLevel = 8;
-        }
-        tMissileParams.nSkillLevel = nLevel;
-        sub_004CD540_CreateMissile(&tMissileParams);
-    }
-}
-
-// 0x004BDAF0
-char __fastcall sub_004BDAF0_AlwaysOne(D2UnitStrc* pUnit)
-{
-    return 1;
-}
-
-// 0x004BDB90
-char __fastcall sub_004BDB90_AlwaysOne(D2UnitStrc* pUnit)
-{
     return 1;
 }
 
@@ -1079,3 +1160,30 @@ char __fastcall sub_004BDE40_ReportPosition(D2UnitStrc* pUnit)
     }
     return 1;
 }
+
+
+static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit)
+{
+    D2ShrinesTxt* pShrinesTxt = 0;
+    int nIndex;
+    if (UNITS_IsShrine(pUnit))
+    {
+        pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
+        nIndex = pShrinesTxt->bCode;
+    }
+    else
+    {
+        nIndex = DATATBLS_GetObjectsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nShrineFunction;
+    }
+
+    D2UnitStrc* pPlayer = sub_00463990(pTarget->nParam1, 0);
+    if (!pPlayer)
+        return;
+
+    if (nIndex > 0 && nIndex < gnShrineHandlerCount_0072779C && gShrineHandlers_006DA8C0[nIndex].pfnOperate)
+        gShrineHandlers_006DA8C0[nIndex].pfnOperate(pUnit, pPlayer, pShrinesTxt);
+
+    sub_004BD550_PlayShrineSound(pPlayer, pUnit);
+}
+
+

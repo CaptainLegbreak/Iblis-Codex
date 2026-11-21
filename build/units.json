@@ -31664,6 +31664,10 @@
      "name": "?sub_004BCB20_StepDoorFrame@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004BCBB0",
+     "length": 550
+    },
+    {
      "va": "0x004BD090",
      "length": 38,
      "name": "?sub_004BD090_OperateReverseNameShrine@@YIXPAUD2UnitStrc@@0PAUD2ShrinesTxt@@@Z"
@@ -31904,30 +31908,6 @@
      "length": 176,
      "name": "?sub_004C1AD0_UpdateAnim@@YIXPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BCBB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BCBB0",
-     "length": 550
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
