@@ -79977,6 +79977,10 @@
      "name": "?ITEMS_CheckBodyLocation@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x0062EDD0",
+     "length": 480
+    },
+    {
      "va": "0x0062EFB0",
      "length": 3600
     },
@@ -80184,30 +80188,6 @@
     {
      "va": "0x0062BE00",
      "length": 170
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_0062EDD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0062EDD0",
-     "length": 480
     }
    ],
    "flags": [

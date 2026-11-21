@@ -612,6 +612,12 @@ void __stdcall D2Common_10845(int nValue, int* pSkillId, int* pSkillLevel, int* 
 
 void __stdcall D2Common_10848(int nValue, int* pClass, int* pTab, int* pLevel);             // 0x0065CB60
 
+void __fastcall sub_00628E70_AddBonusStatsCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor); // 0x00628E70
+
+static int __stdcall sub_00629370_GetGambleCost(D2UnitStrc* pItem, int nLevel);                             // 0x00629370
+
+int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType);
+
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)
 {
@@ -4957,6 +4963,140 @@ int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc* pItem, int nBodyLoc)
     return 0;
 }
 
+// build: context sub_00628E70_AddBonusStatsCost
+void __fastcall sub_00628E70_AddBonusStatsCost(D2UnitStrc* item,int* sell,int* buy,int* repair,unsigned int divisor)
+{
+    D2StatStrc stats[511];
+    unsigned int saleAdd=0,buyAdd=0,repairAdd=0;
+    int count=STATLIST_GetFullStatsDataFromUnit(item,stats,511);
+    for(int index=0;index<count;++index)
+    {
+        int id=stats[index].nStat;
+        int bonus=STATLIST_GetUnitStatBonus(item,id,stats[index].nLayer);
+        if(!bonus || id<0 || id>=sgptDataTables->nItemStatCostTxtRecordCount) continue;
+        D2ItemStatCostTxt* record=&sgptDataTables->pItemStatCostTxt[id];
+        if(!record) continue;
+        if(record->nValShift) bonus>>=record->nValShift;
+        switch(record->nEncode)
+        {
+        case 1:
+        {
+            int skill=stats[index].nLayer;
+            D2SkillsTxt* entry=0;
+            if(skill>=0 && skill<sgptDataTables->nSkillsTxtRecordCount) entry=&sgptDataTables->pSkillsTxt[skill];
+            if(!entry) break;
+            if(bonus * *sell>65535 && entry->nCostMult)
+            {
+                saleAdd+=entry->nCostAdd+entry->nCostMult*(bonus * *sell/1024);
+                buyAdd+=entry->nCostAdd+entry->nCostMult*(bonus * *buy/4096);
+                repairAdd+=entry->nCostAdd+entry->nCostMult*(bonus * *repair/1024);
+            }
+            else
+            {
+                saleAdd+=entry->nCostAdd+bonus * *sell*entry->nCostMult/1024;
+                buyAdd+=entry->nCostAdd+bonus*entry->nCostMult * *buy/4096;
+                repairAdd+=entry->nCostAdd+bonus*entry->nCostMult * *repair/1024;
+            }
+            break;
+        }
+        case 2: case 3:
+        {
+            int skill=stats[index].nLayer>>sgptDataTables->nStuff;
+            int value=stats[index].nLayer&sgptDataTables->nShiftedStuff;
+            D2SkillsTxt* entry=0;
+            if(skill>=0 && skill<sgptDataTables->nSkillsTxtRecordCount) entry=&sgptDataTables->pSkillsTxt[skill];
+            if(value * *sell>65535 && entry->nCostMult)
+            {
+                saleAdd+=entry->nCostAdd+entry->nCostMult*(value * *sell/1024);
+                buyAdd+=entry->nCostAdd+entry->nCostMult*(value * *buy/4096);
+                repairAdd+=entry->nCostAdd+entry->nCostMult*(value * *repair/1024);
+            }
+            else
+            {
+                saleAdd+=entry->nCostAdd+value * *sell*entry->nCostMult/1024;
+                buyAdd+=entry->nCostAdd+value*entry->nCostMult * *buy/4096;
+                repairAdd+=entry->nCostAdd+value*entry->nCostMult * *repair/1024;
+            }
+            break;
+        }
+        case 4:
+        {
+            int period,min,max;
+            ITEMMODS_GetByTimeAdjustment(bonus,0,0,&period,&min,&max);
+            int value=(min+max)/2;
+            if(value * *sell>65535 && record->dwMultiply)
+            {
+                saleAdd+=record->dwAdd+record->dwMultiply*(value * *sell/1024);
+                buyAdd+=record->dwAdd+record->dwMultiply*(value * *buy/1024);
+                repairAdd+=record->dwAdd+record->dwMultiply*(value * *repair/1024);
+            }
+            else
+            {
+                saleAdd+=record->dwAdd+value * *sell*record->dwMultiply/1024;
+                buyAdd+=record->dwAdd+value*record->dwMultiply * *buy/1024;
+                repairAdd+=record->dwAdd+value*record->dwMultiply * *repair/1024;
+            }
+            break;
+        }
+        default:
+            if(bonus * *sell>65535 && record->dwMultiply)
+            {
+                saleAdd+=record->dwAdd+record->dwMultiply*(bonus * *sell/1024);
+                buyAdd+=record->dwAdd+record->dwMultiply*(bonus * *buy/1024);
+                repairAdd+=record->dwAdd+record->dwMultiply*(bonus * *repair/1024);
+            }
+            else
+            {
+                saleAdd+=record->dwAdd+bonus * *sell*record->dwMultiply/1024;
+                buyAdd+=record->dwAdd+bonus*record->dwMultiply * *buy/1024;
+                repairAdd+=record->dwAdd+bonus*record->dwMultiply * *repair/1024;
+            }
+            break;
+        }
+    }
+    *sell+=saleAdd/divisor;*buy+=buyAdd/divisor;*repair+=repairAdd/divisor;
+}
+
+// 0x0062EDD0
+static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor)
+{
+    D2StatStrc pStat[64];
+    if (ITEMS_GetStaffMods(pItem) != 7)
+    {
+        unsigned int nSell = 0;
+        unsigned int nBuy = 0;
+        unsigned int nRep = 0;
+        const int nStats = STATLIST_CopyStats(pItem, 107, pStat, 64);
+
+        for (int i = 0; i < nStats; ++i)
+        {
+            const int nSkillId = pStat[i].nLayer;
+            const int nValue = pStat[i].nValue;
+            D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+            if (pSkillsTxtRecord)
+            {
+                    const int nFactor = 2 * nValue - 1;
+                    if (*pSellCost > 65535 && pSkillsTxtRecord->nCostMult)
+                    {
+                        nSell += nFactor * (pSkillsTxtRecord->nCostAdd + *pSellCost * (pSkillsTxtRecord->nCostMult / 1024));
+                        nBuy += nFactor * (pSkillsTxtRecord->nCostAdd + *pBuyCost * (pSkillsTxtRecord->nCostMult / 4096));
+                        nRep += nFactor * (pSkillsTxtRecord->nCostAdd + *pRepCost * (pSkillsTxtRecord->nCostMult / 1024));
+                    }
+                    else
+                    {
+                        nSell += nFactor * (pSkillsTxtRecord->nCostAdd + pSkillsTxtRecord->nCostMult * *pSellCost / 1024);
+                        nBuy += nFactor * (pSkillsTxtRecord->nCostAdd + pSkillsTxtRecord->nCostMult * *pBuyCost / 4096);
+                        nRep += nFactor * (pSkillsTxtRecord->nCostAdd + pSkillsTxtRecord->nCostMult * *pRepCost / 1024);
+                    }
+            }
+        }
+
+        *pSellCost += nSell / nDivisor;
+        *pBuyCost += nBuy / nDivisor;
+        *pRepCost += nRep / nDivisor;
+    }
+}
+
 static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost)
 {
     int nSellCost = 0;
@@ -5068,45 +5208,6 @@ void __fastcall ITEMS_CalculateAdditionalCostsForBonusStats(D2UnitStrc* pItem, i
     *pSellCost += nSell / nDivisor;
     *pBuyCost += nBuy / nDivisor;
     *pRepCost += tLoop.nRep / nDivisor;
-}
-
-static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor)
-{
-    D2StatStrc pStat[64];
-    if (ITEMS_GetStaffMods(pItem) != 7)
-    {
-        unsigned int nSell = 0;
-        unsigned int nBuy = 0;
-        unsigned int nRep = 0;
-        const int nStats = STATLIST_CopyStats(pItem, 107, pStat, 64);
-
-        for (int i = 0; i < nStats; ++i)
-        {
-            const int nSkillId = pStat[i].nLayer;
-            const int nValue = pStat[i].nValue;
-            D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-            if (pSkillsTxtRecord)
-            {
-                    const int nFactor = 2 * nValue - 1;
-                    if (*pSellCost > 65535 && pSkillsTxtRecord->nCostMult)
-                    {
-                        nSell += nFactor * (pSkillsTxtRecord->nCostAdd + *pSellCost * (pSkillsTxtRecord->nCostMult / 1024));
-                        nBuy += nFactor * (pSkillsTxtRecord->nCostAdd + *pBuyCost * (pSkillsTxtRecord->nCostMult / 4096));
-                        nRep += nFactor * (pSkillsTxtRecord->nCostAdd + *pRepCost * (pSkillsTxtRecord->nCostMult / 1024));
-                    }
-                    else
-                    {
-                        nSell += nFactor * (pSkillsTxtRecord->nCostAdd + pSkillsTxtRecord->nCostMult * *pSellCost / 1024);
-                        nBuy += nFactor * (pSkillsTxtRecord->nCostAdd + pSkillsTxtRecord->nCostMult * *pBuyCost / 4096);
-                        nRep += nFactor * (pSkillsTxtRecord->nCostAdd + pSkillsTxtRecord->nCostMult * *pRepCost / 1024);
-                    }
-            }
-        }
-
-        *pSellCost += nSell / nDivisor;
-        *pBuyCost += nBuy / nDivisor;
-        *pRepCost += nRep / nDivisor;
-    }
 }
 
 // 0x0062EFB0
