@@ -3,6 +3,7 @@
 #include "D2ClientGame.h"
 #include "D2Unicode.h"
 #include "D2ClientUi.h"
+#include "D2StormTypes.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -202,33 +203,6 @@ struct D2CinematicPacketStrc
 
 void __fastcall sub_00482EF0_PlayCinematic(int nIndex); // 0x00482EF0
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct D2UnkFieldsStrc
 {

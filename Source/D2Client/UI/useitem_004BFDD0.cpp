@@ -1,21 +1,12 @@
 #include "D2Client.h"
 #include "D2Path.h"
 #include "D2StormTypes.h"
+#include "D2ClientTypes.h"
+#include "D2Txt.h"
 struct D2CelFileStrc;
 struct D2SelectionRectStrc;
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-};
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 extern int gnGlobal_007C5474;                                                                               // 0x007C5474
 extern int gnGlobal_007C5480;                                                                               // 0x007C5480

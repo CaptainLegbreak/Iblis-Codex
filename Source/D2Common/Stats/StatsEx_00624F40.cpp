@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2DataTbls.h"
 
 struct D2StatStrc;
 struct D2StatsArrayStrc;
@@ -16,11 +17,6 @@ D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId)
 void __fastcall sub_00626920_UpdateStatValue(D2StatListStrc* pStatList, int nLayer_StatId, int nValue, D2UnitStrc* pUnit); // 0x00626920
 
 
-struct D2DataTablesStrc
-{
-    char unk0x00[3068];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -171,7 +167,7 @@ int __stdcall D2Common_10531_SetStatInStatListLayer0(D2StatListStrc* pStatList, 
 // 0x00627B30
 int __cdecl sub_00627B30()
 {
-    return sgptDataTables->nItemStatCostTxtRecordCount;
+    return sgptDataTables->nItemTypesTxtRecordCount;
 }
 
 // 0x00627B40

@@ -122,8 +122,6 @@ extern "C" long gnPendingCount_00881D5C; // 0x00881D5C
 extern "C" int gnFlag_00882528; // 0x00882528
 extern "C" int gnSlotArrayA_00882128[94]; // 0x00882128
 extern "C" int gnSlotArrayB_008822A8[94]; // 0x008822A8
-extern "C" int gnValue_00882744; // 0x00882744
-extern "C" int gnValue_0088274C; // 0x0088274C
 extern "C" int gnValue_0088CB0C;
 extern "C" int gnValue_0088CB10;
 extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, __int64* pCreation, __int64* pAccess, __int64* pWrite); // 0x006CC2F4
@@ -445,12 +443,6 @@ extern "C" void __fastcall sub_00520C00_ClearSlotPair(unsigned char nSlot)
 extern "C" int __fastcall sub_00520C20_GetSlotB(unsigned char nSlot)
 {
     return gnSlotArrayB_008822A8[nSlot];
-}
-
-// 0x00523AB0
-extern "C" int __fastcall sub_00523AB0_SelectValue(int bSecond)
-{
-    return bSecond ? gnValue_0088274C : gnValue_00882744;
 }
 
 // build: context D2CMPResetTileCacheHits

@@ -8,6 +8,7 @@
 #include "D2Unicode.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2StormTypes.h"
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -120,17 +121,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    int lParam;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
@@ -1206,7 +1196,7 @@ void __stdcall sub_0044C5E0_ActivateMsg(SMSGHANDLER_PARAMS* pMsg)
         gdwGlobal_007A0664 = 0;
         sub_00466FE0();
         sub_004FB130_SetActiveState(0);
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -1229,21 +1219,21 @@ void __stdcall sub_0044C5E0_ActivateMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_00466FF0();
     }
 
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 // 0x00451A90
 void __stdcall sub_00451A90_QuitMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     PostQuitMessage(0);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
 }
 
 // 0x00451AD0
 void __stdcall sub_00451AD0_DefWindowProcMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = DefWindowProcA(pMsg->hWnd, pMsg->uMessage, pMsg->wParam, pMsg->lParam);
 }
 
@@ -1251,7 +1241,7 @@ void __stdcall sub_00451AD0_DefWindowProcMsg(SMSGHANDLER_PARAMS* pMsg)
 void __stdcall sub_00451B00_CloseMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     SendMessageA(pMsg->hWnd, 0x10, 0, 0);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
 }
 
@@ -1346,7 +1336,7 @@ void __fastcall sub_00451D10_UnregisterMsgHandler(void* hWnd, int nType, int nId
 void __stdcall sub_00452090_ResetMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_004A01E0_ClearListFlags();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

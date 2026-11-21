@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 // build: context SEED_RollRandomNumber_Wild
 typedef int BOOL;
 
@@ -15,50 +17,10 @@ typedef int BOOL;
 
 struct D2DrlgStrc;
 
-struct D2DrlgGridStrc
-{
-    char unk0x00[0x14];
-};
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    char pad0x09[3];
-    unsigned char nFlags;
-    char pad0x0D[3];
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    char unk0x54[0x08];
-    int nGridWidth;
-    int nGridHeight;
-    D2DrlgVertexStrc* pVertex;
-};
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char unk0x018[0x04];
-    D2DrlgCoordsStrc pLevelCoords;
-    char unk0x020[0x194];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-};
 
 struct D2DrlgOutRectStrc
 {
@@ -80,7 +42,7 @@ M303_OFFSET_CHECK(M303_check_nGridWidth, D2DrlgOutdoorInfoStrc, nGridWidth, 0x5C
 M303_OFFSET_CHECK(M303_check_nGridHeight, D2DrlgOutdoorInfoStrc, nGridHeight, 0x60);
 M303_OFFSET_CHECK(M303_check_pVertex, D2DrlgOutdoorInfoStrc, pVertex, 0x64);
 M303_OFFSET_CHECK(M303_check_nDirection, D2DrlgVertexStrc, nDirection, 0x08);
-M303_OFFSET_CHECK(M303_check_nFlags, D2DrlgVertexStrc, nFlags, 0x0C);
+M303_OFFSET_CHECK(M303_check_nFlags, D2DrlgVertexStrc, dwFlags, 0x0C);
 M303_OFFSET_CHECK(M303_check_pNext, D2DrlgVertexStrc, pNext, 0x10);
 M303_OFFSET_CHECK(M303_check_pBounds, D2DrlgOutRectStrc, pBounds, 0x10);
 
@@ -95,7 +57,7 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
 void __fastcall DRLGOUTDOORS_SpawnAct1DirtPaths(D2DrlgLevelStrc* pLevel);                                   // 0x00681420
 void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel);                               // 0x00680200
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);                                  // 0x00642BB0
-int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordsStrc* pCoords, int nLevelPrestId, int nPickedFile, int a5, int a6); // 0x006744F0
+int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordStrc* pCoords, int nLevelPrestId, int nPickedFile, int a5, int a6); // 0x006744F0
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                // 0x0067C570
 void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn);                             // 0x0067FE90
 
@@ -153,12 +115,12 @@ static __forceinline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVe
 {
     D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
 
-    if (pDrlgVertex->nPosX < pDrlgVertex->pNext->nPosX && pNext->nPosY < pNext->pNext->nPosY && !(pDrlgVertex->nFlags & 1) && !(pNext->nFlags & 1))
+    if (pDrlgVertex->nPosX < pDrlgVertex->pNext->nPosX && pNext->nPosY < pNext->pNext->nPosY && !(pDrlgVertex->dwFlags & 1) && !(pNext->dwFlags & 1))
     {
         return 1;
     }
 
-    if (pDrlgVertex->nPosY > pDrlgVertex->pNext->nPosY && pNext->nPosX < pNext->pNext->nPosX && !(pDrlgVertex->nFlags & 1) && !(pNext->nFlags & 1))
+    if (pDrlgVertex->nPosY > pDrlgVertex->pNext->nPosY && pNext->nPosX < pNext->pNext->nPosX && !(pDrlgVertex->dwFlags & 1) && !(pNext->dwFlags & 1))
     {
         return 1;
     }
@@ -181,12 +143,12 @@ static __forceinline BOOL sub_00680040_IsVertexBlocking(D2DrlgVertexStrc* pDrlgV
         return 1;
     }
 
-    if (pDrlgVertex->nFlags & 1)
+    if (pDrlgVertex->dwFlags & 1)
     {
         return 1;
     }
 
-    if (pNext->nFlags & 1)
+    if (pNext->dwFlags & 1)
     {
         return 1;
     }
@@ -298,7 +260,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2Drlg
         int bAdded = 0;
         if (pLevel->eLevelId == LEVEL_BLOODMOOR)
         {
-            D2DrlgCoordsStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
+            D2DrlgCoordStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
             bAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);
         }
         else

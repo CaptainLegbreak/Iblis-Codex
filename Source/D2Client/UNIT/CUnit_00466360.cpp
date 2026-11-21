@@ -5,19 +5,11 @@
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
 #include "D2ClientTypes.h"
+#include "D2Drlg.h"
+#include "D2GameObjs.h"
 struct D2InventoryStrc;
 
-struct D2ObjectDataStrc
-{
-    void* pObjectTxt;
-    unsigned char nInteractType;
-};
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
-};
 
 struct D2UnitSpawnExtraStrc
 {
@@ -725,7 +717,7 @@ D2UnitStrc* __fastcall sub_00466300_CreateObjectUnit(unsigned int nUnitId, int n
     pUnit = sub_00465FD0_InitUnit(nUnitId, nClassId, nY, nUnitType, nArg5, nArg6, pUnit, nX);
     if (pUnit)
     {
-        pUnit->pObjectData->nInteractType = nInteractType;
+        pUnit->pObjectData->InteractType = nInteractType;
         if (UNITS_IsShrine(pUnit))
         {
             sub_004BD6B0_InitShrine(pUnit);

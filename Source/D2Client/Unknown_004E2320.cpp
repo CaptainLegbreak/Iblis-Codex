@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Unicode.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GemsTxt;
@@ -25,30 +26,6 @@ struct D2CombinedStatIdStrc;
 struct D2FileIndexTextStrc;
 struct UnicodeChar;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-    char nCharClass;
-    unsigned char unk_0D[0x47];
-    short wAuraStat[6];
-    unsigned char unk_60[0xD8];
-    unsigned int dwCalc1;
-    unsigned int dwCalc2;
-    unsigned char unk_140[0x46];
-    short wMinMana;
-    short nManaShift;
-    short wMana;
-    short wLevelMana;
-    char unk0x18E[0x06];
-    short wSkillDesc;
-    char unk0x196[0x0F];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -74,42 +51,8 @@ int __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x00648810
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-    char unk0x19[0x1D];
-    unsigned char nDescFunc;
-    unsigned char nDescVal;
-    unsigned short wDescStrPos;
-    unsigned short wDescStrNeg;
-    unsigned short wDescStr2;
-    unsigned short wDescGrp;
-    unsigned char nDescGrpFunc;
-    unsigned char nDescGrpVal;
-    unsigned short wDescGrpStrPos;
-    unsigned short wDescGrpStrNeg;
-    unsigned short wDescGrpStr2;
-    char unk0x48[0x0C];
-    unsigned char nOp;
-    unsigned char nOpParam;
-    unsigned short wOpBase;
-    char unk0x58[0xEC];
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x52];
-    unsigned short wStrAllSkills;
-    unsigned short wStrSkillTab[3];
-    unsigned short wStrClassOnly;
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x06];
-    unsigned short wNameStr;
-};
 
 struct D2MonTypeTxt
 {
@@ -117,14 +60,6 @@ struct D2MonTypeTxt
     unsigned short wStrPlur;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF0];
-    unsigned int dwGemOffset;
-    unsigned char unk_F4[0x1E];
-    unsigned char nDurability;
-    unsigned char nNoDurability;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -249,8 +184,8 @@ int __fastcall sub_004E2320_StartSkillRollParam(D2UnitStrc* pUnit, int nSkillId,
     SEED_InitSeed(&tSeed);
     SEED_InitLowSeed(&tSeed, (!pUnit ? -1 : pUnit->dwUnitId) + (!pTarget ? -1 : pTarget->dwUnitId));
 
-    const int nMin = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc1, nSkillId, nSkillLevel);
-    const int nMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc2, nSkillId, nSkillLevel);
+    const int nMin = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    const int nMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
     int nValue = sub_0045C3E0(&tSeed, nMax - nMin) + nMin;
     if (nValue < 1)
     {

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2StormLink.h"
 
 struct D2CommonStormSlotListAStrc;
 struct D2CommonStormSlotListBStrc;
@@ -18,15 +19,6 @@ struct D2CommonIgnoreListStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    char* Next()
-    {
-        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
-    }
-};
 
 struct D2StormListAStrc
 {

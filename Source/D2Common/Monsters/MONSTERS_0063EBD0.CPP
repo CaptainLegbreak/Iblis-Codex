@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
+#include "D2Txt.h"
 struct D2MonsterDataStrc;
 struct D2ItemsTxt;
 struct D2MonStatsTxt;
@@ -15,25 +16,10 @@ struct D2StaticPathStrc;
 
 
 
-struct D2ItemsTxt
-{
-    unsigned char pad00[0x12F];
-    unsigned char nLightRadius;
-};
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    unsigned char unk_04[0x48];
-    unsigned char nSpecial;
-    char unk_4D[0x5D];
-    short nLevel;
-    unsigned char unk_AC[0xFC];
-};
 
 struct D2DifficultyStatStrc { int stat; int numerator1; int denominator1; int numerator2; int denominator2; };
 
@@ -98,7 +84,7 @@ void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc* unit, int mode, unsig
     if (nType != 1)
         return;
     D2MonStatsTxt* record = DATATBLS_GetMonStatsTxtRecord(unit->dwClassId);
-    if (!record || record->nSpecial == 1)
+    if (!record || record->nAlign == 1)
         return;
     const D2DifficultyStatStrc* p = gaDifficultyStats_006EA9F0;
     for (int i = 0; i < 3; ++i, ++p)
@@ -118,7 +104,7 @@ void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc* unit, int mode, unsig
         }
         STATLIST_SetUnitStat(unit, p->stat, DATATBLS_ApplyRatio(value, numerator, denominator), 0);
     }
-    STATLIST_SetUnitStat(unit, 12, record->nLevel + 25 * difficulty, 0);
+    STATLIST_SetUnitStat(unit, 12, record->nLevel[0] + 25 * difficulty, 0);
 }
 
 #include "gen/data/Source/D2Common/Monsters/MONSTERS_0063EBD0.inc"

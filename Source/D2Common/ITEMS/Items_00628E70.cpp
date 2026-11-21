@@ -8,6 +8,7 @@
 #include "D2TxtTables.h"
 #include "D2Primitives.h"
 #include "D2TxtItems.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
@@ -45,26 +46,7 @@ struct D2UniqueItemsTxt;
 struct D2SetItemsTxt;
 struct D2GemsTxt;
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x234];
-    int nCostMult;
-    int nCostAdd;
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x10];
-    int dwMultiply;
-    int dwAdd;
-    unsigned char nValShift;
-    unsigned char nSaveBits2;
-    char unk0x1A[2];
-    int dwSaveAdd;
-    unsigned char unk_20[0x10];
-    unsigned char nEncode;
-    char unk0x31[0x144 - 0x31];
-};
 
 struct D2TimeModStrc
 {
@@ -79,20 +61,6 @@ int __stdcall STATLIST_GetFullStatsDataFromUnit(D2UnitStrc* pUnit, D2StatStrc* p
 int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625560
 int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nBaseTime, int* pItemModPeriodOfDay, int* pItemModMin, int* pItemModMax); // 0x0065CA30
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF0];
-    int dwGemOffset;
-    unsigned char unk_F4[0x36];
-    unsigned char nQuantity;
-    unsigned char nStackable;
-    unsigned char unk_12C[0xB];
-    unsigned char nHasInv;
-    char unk0x138[0x09];
-    unsigned char nTransform;
-    unsigned char nInvTrans;
-    unsigned char unk_143[0x1];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -348,7 +316,7 @@ static __forceinline unsigned int BITMANIP_ReadInl(D2BitBufferStrc* pBuffer, int
 
 static __forceinline int ITEMS_ReadQuestItemDifficultyForceInl(D2BitBufferStrc* pBuffer, D2ItemStatCostTxt* pRecord)
 {
-    return (BITMANIP_ReadInl(pBuffer, pRecord->nSaveBits2) - pRecord->dwSaveAdd) << pRecord->nValShift;
+    return (BITMANIP_ReadInl(pBuffer, pRecord->nSaveBits) - pRecord->dwSaveAdd) << pRecord->nValShift;
 }
 
 // 0x0062A970
@@ -413,7 +381,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
         if (!pItemsTxtRecord)
             return -1;
 
-        if (pItemsTxtRecord->nQuantity && pItemsTxtRecord->nStackable)
+        if (pItemsTxtRecord->nQuest && pItemsTxtRecord->nQuestDiffCheck)
         {
             D2ItemStatCostTxt* pRecord = DATATBLS_GetItemStatCostTxtRecord(356);
             if (!pRecord)
@@ -498,7 +466,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
         return 0;
     }
 
-    if (DATATBLS_GetItemsTxtRecord(sub_00623C60(pItem))->nQuantity)
+    if (DATATBLS_GetItemsTxtRecord(sub_00623C60(pItem))->nQuest)
     {
         return 0;
     }

@@ -9,6 +9,8 @@
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
 #include "D2ClientGame.h"
+#include "D2CelContext.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -101,15 +103,6 @@ struct D2ClientNodeListStrc
     void sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2ClientUnitViewStrc
 {
@@ -225,17 +218,7 @@ struct D2TimedHintEntryStrc
     int nState;
 };
 
-struct D2TimedHintNodeStrc
-{
-    D2TimedHintEntryStrc* f_0;
-    D2TimedHintNodeStrc* pNext;
-};
 
-struct D2HintCursorStrc
-{
-    char unk0x00[0x60];
-    int nOwnerId;
-};
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
 extern int gdwGlobal_007A520C; // 0x007A520C
@@ -590,7 +573,7 @@ void __stdcall sub_0045FD20_DrawPanelCel(int nFrame)
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007A5240;
     tContext.nFrame = nFrame;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858 + 0x110, 0x13E - gnGlobal_007A285C, -1, 5, 0);
 }
 
@@ -601,7 +584,7 @@ void __stdcall sub_00460060_DrawPanelCels(int nFrame1, int nFrame2)
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007A5240;
     tContext.nFrame = nFrame1;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858 + 0xCE, 0x13E - gnGlobal_007A285C, -1, 5, 0);
     tContext.nFrame = nFrame2;
     sub_004F6480(&tContext, gnGlobal_007A2858 + 0x152, 0x13E - gnGlobal_007A285C, -1, 5, 0);
@@ -1247,7 +1230,7 @@ void __cdecl sub_004943B0_DrawFrameCels()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007BEEEC;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
     tContext.nFrame = 1;
@@ -1272,7 +1255,7 @@ void __cdecl sub_004944F0_DrawFrameCels()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007BEEEC;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0, 0x100, -1, 5, 0);
     tContext.nFrame = 1;
@@ -1295,7 +1278,7 @@ void __cdecl sub_00494680_DrawCelsAndLines()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007BEEF0;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0x33, 0x19E, -1, 5, 0);
     D2GFX_DrawLine(0x36, 0x16D, 0x36, 0x19B, 0xFF, 0xFF);
@@ -1332,7 +1315,7 @@ void __cdecl sub_00494A00_DrawCelsAndLines()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007BEEF0;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0x37, 0x217, -1, 5, 0);
     D2GFX_DrawLine(0x3A, 0x1E6, 0x3A, 0x214, 0xFF, 0xFF);
@@ -1376,7 +1359,7 @@ void __cdecl sub_00494E40_DrawPanelCel()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = sub_00454600();
     tContext.nFrame = (gnGlobal_007BEEFC != 0) + 10;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     if (D2GFX_GetResolutionMode() == 2)
     {
         sub_004F6480(&tContext, 0x2AD, 0x38, -1, 5, 0);
@@ -1403,7 +1386,7 @@ void __cdecl sub_00495180_DrawButtons()
         memset(&tContext, 0, sizeof(tContext));
         sub_00495030_DrawKeyHelp();
         tContext.pCellFile = gpGlobal_007C02E0;
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
         tContext.nFrame = 0;
         sub_004F6480(&tContext, gnGlobal_0071146C - 0x4B, gnGlobal_00711470 - 0xA0, -1, 5, 0);
         tContext.pCellFile = gpGlobal_007C02DC;
@@ -1446,7 +1429,7 @@ void __cdecl sub_00497480_DrawButton()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpGlobal_007BEF0C;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     if (sub_0044BE90())
     {
         if (gnGlobal_007BEFD8 && ButtonHitTest_00497480(nX, nY))
@@ -1501,7 +1484,7 @@ int __fastcall sub_004B9640_CountHintsForOwner(int nOwnerId)
     int nCount = 0;
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (sub_00481860(pEntry->nHintId)->nOwnerId == nOwnerId && pEntry->nState == 1)
             nCount += 1;
     }
