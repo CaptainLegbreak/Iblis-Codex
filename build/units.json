@@ -18042,13 +18042,7 @@
      "va": "0x004549C0",
      "length": 12,
      "name": "?sub_004549C0_IsPanelAllocated@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004549D0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004549D0",
      "length": 18

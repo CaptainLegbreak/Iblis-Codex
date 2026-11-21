@@ -1591,8 +1591,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/ui_004545C0.cpp": {
-   "bytes": 228,
-   "definitions": 3,
+   "bytes": 312,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_004574D0_AutomapBaseYAddStep(); // 0x004574D0",
     "extern \"C\" void __cdecl sub_004574E0_AutomapBaseYSubStep(); // 0x004574E0",
@@ -1608,17 +1608,7 @@
     "extern \"C\" void __cdecl sub_004A5BF0_SelectEntryMsgHandler(); // 0x004A5BF0",
     "extern \"C\" void __cdecl sub_004A5F10_ButtonUpMsgHandler(); // 0x004A5F10",
     "extern \"C\" void __cdecl sub_004A5F70_ApplyEntryMsgHandler(); // 0x004A5F70",
-    "extern \"C\" void __cdecl sub_004A5C70(); // 0x004A5C70"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/ui_004545C0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_004549D0.cpp": {
-   "bytes": 84,
-   "definitions": 2,
-   "externs": [
+    "extern \"C\" void __cdecl sub_004A5C70(); // 0x004A5C70",
     "extern \"C\" void __cdecl sub_0047ED90_SlotsClickMsg(); // 0x0047ED90",
     "extern \"C\" void __cdecl sub_0047EF30_SlotsClick(); // 0x0047EF30",
     "extern \"C\" void __cdecl sub_00494F30_ButtonPressMsg(); // 0x00494F30",
@@ -1627,7 +1617,7 @@
     "extern \"C\" void __cdecl sub_004967A0_KeyCloseHelp(); // 0x004967A0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004549D0.inc",
+   "include": "gen/data/Source/D2Client/UI/ui_004545C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -39842,7 +39832,7 @@
    "cname": "gData_006D6204",
    "declared": true,
    "decorated": "?gtMiniPanelHandlers_006D6204@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/Unknown_004549D0.cpp",
+   "file": "Source/D2Client/UI/ui_004545C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006D6204_t gData_006D6204; // 0x006D6204",
    "head": "extern \"C\" const struct d2data_006D6204_t gData_006D6204 = ",
@@ -39876,7 +39866,7 @@
    "cname": "gData_006D62C4",
    "declared": true,
    "decorated": "?gtUIVar33Handlers_006D62C4@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/Unknown_004549D0.cpp",
+   "file": "Source/D2Client/UI/ui_004545C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006D62C4_t gData_006D62C4; // 0x006D62C4",
    "head": "extern \"C\" const struct d2data_006D62C4_t gData_006D62C4 = ",
