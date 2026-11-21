@@ -9747,6 +9747,11 @@
      "length": 900
     },
     {
+     "va": "0x00434E00",
+     "length": 544,
+     "name": "?sub_00434E00_CheckFreeSpace@@YGHH@Z"
+    },
+    {
      "va": "0x00435330",
      "length": 584,
      "name": "?sub_00435330_ShowLoginScreen@@YAXXZ"
@@ -9771,8 +9776,28 @@
      "name": "?sub_00436AD0_UpdateStatus@@YAXXZ"
     },
     {
+     "va": "0x00436C10",
+     "length": 93,
+     "name": "?sub_00436C10_CheckAtAndDot@@YAHPBD@Z"
+    },
+    {
      "va": "0x00436CF0",
      "length": 75
+    },
+    {
+     "va": "0x00436EB0",
+     "length": 99,
+     "name": "?sub_00436EB0_UpdateOkButton@@YAXXZ"
+    },
+    {
+     "va": "0x004371E0",
+     "length": 192,
+     "name": "?sub_004371E0_UpdatePasswordOk@@YAXXZ"
+    },
+    {
+     "va": "0x00437620",
+     "length": 229,
+     "name": "?sub_00437620_ConfirmText@@YGHH@Z"
     }
    ],
    "flags": [
@@ -11422,51 +11447,6 @@
      "length": 13,
      "name": "?sub_00436F20_OnEditChange@@YGHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_00434E00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00434E00",
-     "length": 544,
-     "name": "?sub_00434E00_CheckFreeSpace@@YGHH@Z"
-    },
-    {
-     "va": "0x00436C10",
-     "length": 93,
-     "name": "?sub_00436C10_CheckAtAndDot@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00436EB0",
-     "length": 99,
-     "name": "?sub_00436EB0_UpdateOkButton@@YAXXZ"
-    },
-    {
-     "va": "0x004371E0",
-     "length": 192,
-     "name": "?sub_004371E0_UpdatePasswordOk@@YAXXZ"
-    },
-    {
-     "va": "0x00437620",
-     "length": 229,
-     "name": "?sub_00437620_ConfirmText@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
