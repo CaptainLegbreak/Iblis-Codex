@@ -61182,11 +61182,6 @@
      "name": "?ACT2Q4_SetPortalMode@@YIXPAUD2GameStrc@@H@Z"
     },
     {
-     "va": "0x0059C330",
-     "length": 113,
-     "name": "?ACT2Q5_OnSummonerActivated@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
      "va": "0x0059C6C0",
      "length": 72,
      "name": "?sub_0059C6C0_ACT2Q6_UpdateRewardFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
@@ -62026,6 +62021,11 @@
      "va": "0x0059C280",
      "length": 171,
      "name": "?ACT2Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059C330",
+     "length": 113,
+     "name": "?ACT2Q5_OnSummonerActivated@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0059C650",
