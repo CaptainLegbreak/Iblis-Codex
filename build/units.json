@@ -68233,6 +68233,11 @@
      "length": 211
     },
     {
+     "va": "0x005F0CD0",
+     "length": 1127,
+     "name": "?AITHINK_Fn011_Baboon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F1140",
      "length": 348,
      "name": "?AITHINK_Fn014_QuillRat@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -69126,17 +69131,6 @@
      "va": "0x005FAF00",
      "length": 914,
      "name": "?AITHINK_Fn074_OblivionKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F0CD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F0CD0",
-     "length": 1127,
-     "name": "?AITHINK_Fn011_Baboon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
