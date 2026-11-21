@@ -3,6 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameServer.h"
+#include "D2GameObjs.h"
+#include "D2ItemsWorld.h"
 
 struct D2ObjectControlStrc;
 struct Entry00547390;
@@ -12,11 +14,6 @@ struct D2MonRegDataStrc;
 struct D2MonsterRegionStrc;
 struct D2ObjOperateFnStrc;
 
-struct D2ObjectControlStrc
-{
-    char unk0x00[0x48];
-    D2ObjectRegionStrc* pObjectRegion[1024];
-};
 
 struct Entry00547390 { unsigned int dwUnknown00[4]; int nCount10; };
 
@@ -24,25 +21,8 @@ struct Sub00547390 { unsigned char bUnknown00[0x48]; Entry00547390* pEntries48[1
 
 struct Obj00547390 { unsigned char bUnknown00[0x10F0]; Sub00547390* pSub10F0; };
 
-struct D2MonRegDataStrc
-{
-    short nMonHcIdx;
-    char unk0x02[0x32];
-};
 
-struct D2MonsterRegionStrc
-{
-    char unk0x00[0x10];
-    unsigned char nMonCount;
-    char unk0x11[3];
-    D2MonRegDataStrc pMonData[13];
-};
 
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0

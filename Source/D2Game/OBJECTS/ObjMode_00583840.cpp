@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2TxtItems.h"
+#include "D2GameObjs.h"
 #define NOINLINE __declspec(noinline)
 
 struct D2InventoryStrc;
@@ -10,12 +11,6 @@ struct D2StatListStrc;
 
 struct D2GameStrc;
 
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-};
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);

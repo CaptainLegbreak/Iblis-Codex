@@ -7,6 +7,7 @@
 #include "D2GameAux.h"
 #include "D2TxtItems.h"
 #include "D2Win32Types.h"
+#include "D2GameObjs.h"
 
 struct D2ClientStrc;
 struct D2GameStrc;
@@ -30,14 +31,6 @@ void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
 void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00568640
 
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
 
 enum
 {
