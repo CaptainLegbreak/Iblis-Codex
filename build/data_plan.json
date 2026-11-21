@@ -1939,7 +1939,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/GAME/Roster_0047A120.cpp": {
+  "Source/D2Client/GAME/Roster.cpp": {
    "bytes": 8,
    "definitions": 2,
    "externs": [],
@@ -46916,7 +46916,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Roster_0047A120.cpp",
+   "file": "Source/D2Client/GAME/Roster.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gdwGlobal_00712EFC = ",
@@ -46941,7 +46941,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Roster_0047A120.cpp",
+   "file": "Source/D2Client/GAME/Roster.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_00712F00 = ",
