@@ -26030,6 +26030,10 @@
      "va": "0x0048DB80",
      "length": 515,
      "name": "?sub_0048DB80_DrawBaseItemTooltip@@YAXXZ"
+    },
+    {
+     "va": "0x0048FFE0",
+     "length": 1945
     }
    ],
    "flags": [
@@ -26059,30 +26063,6 @@
      "va": "0x0048EDF0",
      "length": 4583
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0048FFE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0048FFE0",
-     "length": 1945
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
