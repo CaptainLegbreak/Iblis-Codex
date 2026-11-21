@@ -4,13 +4,11 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 struct D2AiParamStrc;
-struct D2MonsterDataStrc { char pad00[0x2C]; D2AiParamStrc* pAiParam; };
-struct D2AiControlStrc { char pad00[0x14]; int dwAiParam[3]; };
-struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk04; D2UnitStrc* pTarget; int unk0C[2]; int nTargetDistance; int bCombat; D2MonStatsTxt* pMonstatsTxt; };
-struct D2AiCmdStrc { D2AiCmdStrc* pNext; D2AiCmdStrc* pPrev; int nCmdParam[5]; };
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
