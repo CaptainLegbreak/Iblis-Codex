@@ -1,6 +1,8 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
 #include "D2DrlgTiles.h"
+#include "D2Drlg.h"
 
 #define LEVEL_SPIDERFOREST 76
 #define LEVEL_GREATMARSH 77
@@ -12,35 +14,10 @@ union D2SeedStrc;
 struct D2DrlgStrc;
 struct D2LevelDefBin;
 struct D2DrlgOutdoorInfoStrc;
-struct D2DrlgCoordStrc;
 
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x450];
-    unsigned char nDifficulty;
-    unsigned char unk_451[0x23];
-    int bJungleInterlink;
-    void* pMempool;
-};
 
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    unsigned char unk_18[0xC];
-    int nWidth;
-    int nHeight;
-    char unk0x02C[0x188];
-    D2DrlgStrc* pDrlg;
-    int nJungleDefs;
-    int* pnJungleDefs;
-    char unk0x1C0[0x04];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -56,18 +33,6 @@ void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x
 void __fastcall DRLGOUTJUNG_BuildJungle(D2DrlgLevelStrc* pLevel); // 0x0067E910
 void __fastcall DRLGOUTJUNG_SpawnRandomPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId1, int nLevelPrestId2, int nMaxSpawns); // 0x0067EED0
 
-struct D2DrlgOutdoorInfoStrc
-{
-    char unk0x00[0x5C];
-    int nGridWidth;
-    int nGridHeight;
-};
-
-struct D2DrlgCoordStrc
-{
-    int nX;
-    int nY;
-};
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -359,7 +324,7 @@ void __fastcall DRLGOUTJUNG_SpawnRandomPreset(D2DrlgLevelStrc* pLevel, int nLeve
 
     if (nCount)
     {
-        D2DrlgCoordStrc* pCoords = (D2DrlgCoordStrc*)FOG_AllocPool(pMemPool, 8 * nCount, ".\\DRLG\\OutJung.cpp", 0xCB, 0);
+        D2CoordStrc* pCoords = (D2CoordStrc*)FOG_AllocPool(pMemPool, 8 * nCount, ".\\DRLG\\OutJung.cpp", 0xCB, 0);
 
         for (int i = 0; i < nCount; ++i)
         {
@@ -371,7 +336,7 @@ void __fastcall DRLGOUTJUNG_SpawnRandomPreset(D2DrlgLevelStrc* pLevel, int nLeve
         {
             const unsigned int nA = OUTJUNG_RollLimitedInline(&pLevel->pSeed, nCount);
             const unsigned int nB = OUTJUNG_RollLimitedInline(&pLevel->pSeed, nCount);
-            const D2DrlgCoordStrc tTemp = pCoords[nA];
+            const D2CoordStrc tTemp = pCoords[nA];
             pCoords[nA] = pCoords[nB];
             pCoords[nB] = tTemp;
         }

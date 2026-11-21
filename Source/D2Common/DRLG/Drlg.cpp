@@ -1,6 +1,9 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DrlgTiles.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgRooms.h"
 
 #define ACT_I 0
 #define ACT_II 1
@@ -22,67 +25,12 @@ struct D2DrlgTableEntryStrc;
 struct D2DrlgEntryTableStrc;
 union D2SeedStrc;
 struct D2DrlgCoordsStrc;
-struct D2DrlgTileDataListStrc;
-struct D2RoomTileGridStrc;
 struct D2DrlgVertexStrc;
 struct D2UnkDrlgRoomTileStrc;
 struct D2UnkDrlgRoomTileStrc2;
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x010];
-    D2DrlgRoomStrc* ptRoomFirst;
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    unsigned char unk_18[0x4];
-    union
-    {
-        struct
-        {
-            D2DrlgCoordStrc pLevelCoords;
-        };
-        struct
-        {
-            int nPosX;
-            int nPosY;
-            int nWidth;
-            int nHeight;
-        };
-    };
-    char unk0x2C[0x180];
-    D2DrlgLevelStrc* pNextLevel;
-    char unk0x1B0[0x1B4 - 0x1B0];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x1D0 - 0x1B8];
-    int eLevelId;
-    char unk0x1D4[0x1E0 - 0x1D4];
-    int nRoom_Center_Warp_X[4];
-};
 
-struct D2DrlgStrc
-{
-    char unk0x00[0x0C];
-    D2TileLibraryHeaderStrc* pTiles[32];
-    unsigned int dwFlags;
-    D2DrlgWarpStrc* pWarp;
-    int nStaffTombLevel;
-    unsigned char unk_98[0x3B8];
-    unsigned char nDifficulty;
-    unsigned char unk_451[0x1B];
-    D2DrlgActStrc* pAct;
-    unsigned char unk_470[0x8];
-    void* pMempool;
-    D2DrlgLevelStrc* pLevel;
-    unsigned char nAct;
-    unsigned char unk_481[0x3];
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDst, const char* szFormat, ...); // 0x006CC468
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoord, int nX, int nY); // 0x0066B980
@@ -166,64 +114,9 @@ struct D2DrlgWarpStrc
 
 
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x14];
-    D2SeedStrc pSeed;
-    unsigned char unk_1C[0x8];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int unk0x2C;
-    D2ActiveRoomStrc* pRoom;
-    union
-    {
-        struct
-        {
-            D2DrlgCoordStrc pDrlgCoord;
-        };
-        struct
-        {
-            int nTileXPos;
-            int nTileYPos;
-            int nTileWidth;
-            int nTileHeight;
-        };
-    };
-    char unk0x44[0x10];
-    D2RoomTileGridStrc* ptDrlgTiles;
-    D2DrlgLevelStrc* ptDrlgLevel;
-    unsigned char unk_5C[0x4];
-    unsigned int dwOtherFlags;
-};
 
-struct D2DrlgOrthStrc
-{
-    D2DrlgLevelStrc* pLevel;
-    int nDirection;
-    char unk0x08[0x14 - 0x08];
-    D2DrlgOrthStrc* pNext;
-};
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    unsigned char unk_54[0x8];
-    int nGridWidth;
-    int nGridHeight;
-    D2DrlgVertexStrc* pVertex;
-    unsigned char unk_68[0x1FC];
-    D2DrlgOrthStrc* pRoomData;
-};
 
 struct D2DrlgTableEntryStrc
 {
@@ -245,43 +138,9 @@ void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelt
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
-struct D2DrlgTileDataListStrc
-{
-    void* pWallTiles;
-    int nWalls;
-    void* pFloorTiles;
-    int nFloors;
-};
+D2ActiveRoomStrc* __fastcall DUNGEON_AllocRoom(D2DrlgActStrc* pAct, D2DrlgRoomStrc* pDrlgRoom, D2DrlgCoordsStrc* pDrlgCoords, D2DrlgRoomTilesStrc* pRoomTiles, int nLowSeed, int nFlags); // 0x00619890
 
-struct D2RoomTileGridStrc
-{
-    char unk0x00[0x14];
-    D2DrlgTileDataListStrc pTiles;
-};
-
-D2ActiveRoomStrc* __fastcall DUNGEON_AllocRoom(D2DrlgActStrc* pAct, D2DrlgRoomStrc* pDrlgRoom, D2DrlgCoordsStrc* pDrlgCoords, D2DrlgTileDataListStrc* pRoomTiles, int nLowSeed, int nFlags); // 0x00619890
-
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned char pad0x09[3];
-    int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
 int __fastcall DRLGOUTDOORS_GetOutLinkVisFlag(D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pDrlgVertex); // 0x00674040
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
@@ -294,16 +153,6 @@ struct D2UnkDrlgRoomTileStrc
     int nArrayEndId;
 };
 
-struct D2UnkDrlgRoomTileStrc2
-{
-    int nTileStyle;
-    int nTileSequence;
-    int bIsRightWallWithDoor;
-    int nUnitId;
-    int nUnitType;
-    int nX;
-    int nY;
-};
 
 extern const D2UnkDrlgRoomTileStrc gDrlgRoomTileLevelRanges_006EEFC8[37]; // 0x006EEFC8
 extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[]; // 0x006EF188
@@ -702,20 +551,20 @@ void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrl
 {
     D2DrlgCoordsStrc tDrlgCoords = { 0 };
 
-    tDrlgCoords.nTileXPos = pDrlgRoom->nTileXPos;
-    tDrlgCoords.nTileYPos = pDrlgRoom->nTileYPos;
-    tDrlgCoords.nTileWidth = pDrlgRoom->nTileWidth;
-    tDrlgCoords.nTileHeight = pDrlgRoom->nTileHeight;
+    tDrlgCoords.nTileXPos = pDrlgRoom->pDrlgCoord.nPosX;
+    tDrlgCoords.nTileYPos = pDrlgRoom->pDrlgCoord.nPosY;
+    tDrlgCoords.nTileWidth = pDrlgRoom->pDrlgCoord.nWidth;
+    tDrlgCoords.nTileHeight = pDrlgRoom->pDrlgCoord.nHeight;
 
-    tDrlgCoords.nSubtileX = pDrlgRoom->nTileXPos;
-    tDrlgCoords.nSubtileY = pDrlgRoom->nTileYPos;
-    tDrlgCoords.nSubtileWidth = pDrlgRoom->nTileWidth;
-    tDrlgCoords.nSubtileHeight = pDrlgRoom->nTileHeight;
+    tDrlgCoords.nSubtileX = pDrlgRoom->pDrlgCoord.nPosX;
+    tDrlgCoords.nSubtileY = pDrlgRoom->pDrlgCoord.nPosY;
+    tDrlgCoords.nSubtileWidth = pDrlgRoom->pDrlgCoord.nWidth;
+    tDrlgCoords.nSubtileHeight = pDrlgRoom->pDrlgCoord.nHeight;
 
     DUNGEON_GameTileToSubtileCoords(&tDrlgCoords.nSubtileX, &tDrlgCoords.nSubtileY);
     DUNGEON_GameTileToSubtileCoords(&tDrlgCoords.nSubtileWidth, &tDrlgCoords.nSubtileHeight);
 
-    D2DrlgTileDataListStrc* pTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
+    D2DrlgRoomTilesStrc* pTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
     if (pTiles->nWalls || pTiles->nFloors)
     {
         int nFlags = 0;

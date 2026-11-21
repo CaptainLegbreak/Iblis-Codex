@@ -1,109 +1,29 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgRooms.h"
 
-struct D2DrlgCoordsStrc;
+struct D2DrlgCoordStrc;
 struct D2DrlgVertexStrc;
 struct D2DrlgOutdoorInfoStrc;
 struct D2DrlgStrc;
 struct D2DrlgOutdoorRoomStrc;
 struct D2DrlgOrthStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[3];
-    char unk0x040[0x1C];
-    int nGridWidth;
-    int nGridHeight;
-    char unk0x064[0x4];
-    D2DrlgVertexStrc* pRoads[6];
-    D2DrlgVertexStrc pVertices[24];
-    int nRoads;
-    D2DrlgOrthStrc* pRoomData;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMemPool;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    char unk0x18[0x4];
-    int nPosX;
-    int nPosY;
-    unsigned char unk_24[0x190];
-    D2DrlgStrc* pDrlg;
-    unsigned char unk_1B8[0x18];
-    int eLevelId;
-};
 
-struct D2DrlgOutdoorRoomStrc
-{
-    D2DrlgGridStrc tGrid00;
-    D2DrlgGridStrc tGrid14;
-    D2DrlgGridStrc tGrid28;
-    D2DrlgGridStrc tGrid3C;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x20];
-    D2DrlgOutdoorRoomStrc* pOutdoor;
-    int unk0x24;
-    unsigned int dwFlags;
-    int unk0x2C;
-    int unk0x30;
-    D2DrlgCoordsStrc tTileCoords;
-};
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
-void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D2DrlgCoordsStrc* pCoords, int nFlag, int eOperation, int nSize); // 0x0067C8E0
+void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D2DrlgCoordStrc* pCoords, int nFlag, int eOperation, int nSize); // 0x0067C8E0
 void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight); // 0x0067CB80
 extern const unsigned char gRoadPatternCodes[256]; // 0x006F2700
 
-struct D2DrlgOrthStrc
-{
-    D2DrlgLevelStrc* pLevel;
-    int nDirection;
-    int bInit;
-    int unk0x0C;
-    void* pBox;
-    D2DrlgOrthStrc* pNext;
-};
 
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200
 void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, int* pY); // 0x0067FC20
@@ -169,15 +89,15 @@ static void __stdcall sub_006809C0(D2DrlgGridStrc* pGrid, int pFlags[3][3], int 
 // 0x00680A70
 static void sub_00680A70(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
-    D2DrlgCoordsStrc tCoords = pRoom->tTileCoords;
-    tCoords.nX -= 1;
-    tCoords.nY -= 1;
+    D2DrlgCoordStrc tCoords = pRoom->pDrlgCoord;
+    tCoords.nPosX -= 1;
+    tCoords.nPosY -= 1;
     tCoords.nWidth += 3;
     tCoords.nHeight += 3;
 
-    for (int i = 0; i < pInfo->nRoads; ++i)
+    for (int i = 0; i < pInfo->nVertices; ++i)
     {
         for (D2DrlgVertexStrc* pVertex = pInfo->pRoads[i]; pVertex; pVertex = pVertex->pNext)
         {
@@ -193,10 +113,10 @@ static void sub_00680A70(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom)
 static void __stdcall sub_00680B10(D2DrlgRoomStrc* pRoom)
 {
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
-    for (int nX = 1; nX <= pRoom->tTileCoords.nWidth + 1; ++nX)
+    for (int nX = 1; nX <= pRoom->pDrlgCoord.nWidth + 1; ++nX)
     {
         int aFlags[3][3];
-        int nY = pRoom->tTileCoords.nHeight + 1;
+        int nY = pRoom->pDrlgCoord.nHeight + 1;
         sub_006809C0(&pOutdoor->tGrid3C, aFlags, nX, nY);
 
         for (; nY >= 1; --nY)
@@ -222,7 +142,7 @@ static void __stdcall sub_00680B10(D2DrlgRoomStrc* pRoom)
 // 0x00680C80
 void __fastcall sub_00680C80(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom)
 {
-    DRLGGRID_InitializeGridCells(pLevel->pDrlg->pMemPool, &pRoom->pOutdoor->tGrid3C, pRoom->tTileCoords.nWidth + 3, pRoom->tTileCoords.nHeight + 3);
+    DRLGGRID_InitializeGridCells(pLevel->pDrlg->pMempool, &pRoom->pOutdoor->tGrid3C, pRoom->pDrlgCoord.nWidth + 3, pRoom->pDrlgCoord.nHeight + 3);
     sub_00680A70(pLevel, pRoom);
     sub_00680B10(pRoom);
 }
@@ -264,8 +184,8 @@ static void DRLGOUTDOORS_CalculatePathCoordinates(D2DrlgLevelStrc* pLevel, D2Drl
 // 0x00680D70
 void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoorInfo;
-    pOutdoors->nRoads = 0;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    pOutdoors->nVertices = 0;
 
     for (D2DrlgOrthStrc* pRoomData = pOutdoors->pRoomData; pRoomData; pRoomData = pRoomData->pNext)
     {
@@ -274,7 +194,7 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
         switch (pRoomLevel->eLevelId)
         {
         case 1:
-            pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];
+            pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];
             pVertex->nDirection = pRoomData->nDirection;
 
             switch (pRoomData->nDirection)
@@ -303,15 +223,15 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
                 break;
             }
 
-            ++pOutdoors->nRoads;
+            ++pOutdoors->nVertices;
             break;
 
         case 26:
-            pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];
+            pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];
             pVertex->nPosX = pRoomLevel->nPosX + 27;
             pVertex->nPosY = pRoomLevel->nPosY + 13;
             pVertex->nDirection = 1;
-            ++pOutdoors->nRoads;
+            ++pOutdoors->nVertices;
             break;
         }
     }
@@ -323,7 +243,7 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
             const int nGrid0Entry = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[0], i, j);
             const unsigned int nPacked = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], i, j);
 
-            D2DrlgVertexStrc* pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];
+            D2DrlgVertexStrc* pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];
             pVertex->nPosX = pLevel->nPosX + 8 * i + 3;
             pVertex->nPosY = pLevel->nPosY + 8 * j + 3;
             pVertex->nDirection = 4;
@@ -365,12 +285,12 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
 
             if (pVertex->nDirection != 4)
             {
-                ++pOutdoors->nRoads;
+                ++pOutdoors->nVertices;
             }
         }
     }
 
-    for (int i = 0; i < pOutdoors->nRoads; ++i)
+    for (int i = 0; i < pOutdoors->nVertices; ++i)
     {
         DRLGOUTDOORS_CalculatePathCoordinates(pLevel, &pOutdoors->pVertices[i], &pOutdoors->pVertices[6 + i]);
     }
