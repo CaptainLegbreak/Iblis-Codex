@@ -3712,7 +3712,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Win/Src/D2WinTextBox_004FB1B0.cpp": {
+  "Source/D2Win/Src/D2WinTextBox.cpp": {
    "bytes": 364,
    "definitions": 2,
    "externs": [],
@@ -83579,7 +83579,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinTextBox_004FB1B0.cpp",
+   "file": "Source/D2Win/Src/D2WinTextBox.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnTextBoxLineGap_0072DE90 = ",
@@ -83604,7 +83604,7 @@
    "cname": "gData_0072DE94",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinTextBox_004FB1B0.cpp",
+   "file": "Source/D2Win/Src/D2WinTextBox.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072DE94_t gData_0072DE94; // 0x0072DE94",
    "head": "extern \"C\" struct d2data_0072DE94_t gData_0072DE94 = ",
