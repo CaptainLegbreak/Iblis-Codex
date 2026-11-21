@@ -479,13 +479,6 @@ typedef void* (__stdcall* CreateToolhelp32SnapshotFn)(unsigned long dwFlags, uns
 
 typedef int (__stdcall* Module32Fn)(void* hSnapshot, D2ToolhelpModuleEntryStrc* pEntry);
 
-struct D2PsapiModuleInfoStrc
-{
-    unsigned int nBase;
-    unsigned int nSize;
-    void* pEntryPoint;
-};
-
 typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
 
 typedef unsigned long (__stdcall* GetModuleNameFn)(void* hProcess, void* hModule, char* szName, unsigned long nSize);

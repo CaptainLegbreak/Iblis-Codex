@@ -288,6 +288,51 @@ struct D2Storm408ElemStrc
     char unk0x00[0x408];
 };
 
+struct D2ModuleStrc
+{
+    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
+};
+struct D2ModuleEntry32Strc
+{
+    unsigned long dwSize;
+    unsigned long th32ModuleID;
+    unsigned long th32ProcessID;
+    unsigned long GlblcntUsage;
+    unsigned long ProccntUsage;
+    D2ModuleStrc* modBaseAddr;
+    unsigned long modBaseSize;
+    void* hModule;
+    wchar_t szModule[256];
+    wchar_t szExePath[260];
+};
+struct D2PsapiModuleInfoStrc
+{
+    union
+    {
+        D2ModuleStrc* lpBaseOfDll;
+        unsigned int nBase;
+    };
+    union
+    {
+        unsigned long SizeOfImage;
+        unsigned int nSize;
+    };
+    union
+    {
+        void* EntryPoint;
+        void* pEntryPoint;
+    };
+};
+
+bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext); // 0x00404E60
+extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
+extern "C" __declspec(dllimport) void* __stdcall LoadLibraryW(const wchar_t* szFileName); // 0x006CC294
+extern "C" int __stdcall Module32FirstW(void* hSnapshot, D2ModuleEntry32Strc* pEntry); // 0x006B15AE
+extern "C" int __stdcall Module32NextW(void* hSnapshot, D2ModuleEntry32Strc* pEntry); // 0x006B15B4
+typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
+typedef unsigned long (__stdcall* GetModuleBaseNameWFn)(void* hProcess, void* hModule, wchar_t* wszName, unsigned long nSize);
+typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
+
 struct D2StormArray408Strc
 {
     unsigned int f_0;

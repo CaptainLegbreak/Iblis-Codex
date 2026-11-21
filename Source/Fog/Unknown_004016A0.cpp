@@ -5,7 +5,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HostentStrc;
 struct D2ThreadNameInfoStrc;
-struct D2ModuleStrc;
 struct D2UnicodeStringStrc;
 struct D2ListEntryStrc;
 struct D2LdrEntryStrc;
@@ -30,11 +29,6 @@ struct D2ThreadNameInfoStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2ModuleStrc
-{
-    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);
-};
 
 struct D2UnicodeStringStrc
 {
