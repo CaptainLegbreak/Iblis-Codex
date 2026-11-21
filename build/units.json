@@ -91041,6 +91041,10 @@
      "va": "0x006BCAC0",
      "length": 114,
      "name": "?sub_006BCAC0_ResetDataArray@@YIXPAUD2DataArrayStrc@@@Z"
+    },
+    {
+     "va": "0x006BCC90",
+     "length": 41
     }
    ]
   },
@@ -91084,16 +91088,6 @@
     {
      "va": "0x006BCD50",
      "length": 75
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BCC90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BCC90",
-     "length": 41
     }
    ]
   },

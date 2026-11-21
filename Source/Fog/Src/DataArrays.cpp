@@ -60,3 +60,17 @@ void __fastcall sub_006BCAC0_ResetDataArray(D2RecordArrayStrc* array)
     for (int i = 0; i < array->count; ++i)
         *(unsigned short*)(array->data + i * array->stride) = 0;
 }
+
+short* __fastcall sub_006BCC10_GetEntry(void* pDataArray, int nHandle); // 0x006BCC10
+
+// 0x006BCC90
+short* __fastcall sub_006BCC90_GetEntryOrHalt(void* pDataArray, int nHandle)
+{
+    short* pEntry = sub_006BCC10_GetEntry(pDataArray, nHandle);
+    if (!pEntry)
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 253);
+        exit(-1);
+    }
+    return pEntry;
+}
