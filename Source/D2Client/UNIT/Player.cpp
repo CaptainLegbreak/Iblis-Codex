@@ -757,18 +757,6 @@ D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId)
     return 0;
 }
 
-// 0x0045F9F0
-void __fastcall sub_0045F9F0_FreePacketBuffer(void* pArg)
-{
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pArg);
-    if (pBuffer)
-    {
-        FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x1516, 0);
-        FOG_Free(pBuffer, ".\\GAME\\SCmd.cpp", 0x1517, 0);
-        sub_004647A0_SetPacketBuffer(pArg, 0);
-    }
-}
-
 // 0x00460170
 int __cdecl sub_00460170_IsEitherSet()
 {

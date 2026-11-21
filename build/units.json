@@ -15490,11 +15490,6 @@
      "name": "sub_00492770_KeyIfReadyMsg"
     },
     {
-     "va": "0x00492C20",
-     "length": 665,
-     "name": "?sub_00492C20_LoadHirelingIcons@@YAXXZ"
-    },
-    {
      "va": "0x00493100",
      "length": 275,
      "name": "?sub_00493100_DrawNumber@@YGXHH@Z"
@@ -15997,11 +15992,6 @@
      "va": "0x00454600",
      "length": 66,
      "name": "?sub_00454600_GetBuySellButtonCells@@YAPAUD2CelFileStrc@@XZ"
-    },
-    {
-     "va": "0x00454650",
-     "length": 229,
-     "name": "?sub_00454650_ReadWholeFile@@YIPAXPBDPAK@Z"
     },
     {
      "va": "0x00454740",
@@ -16662,6 +16652,11 @@
      "name": "?sub_004545B0_UpdateGoldPanel@@YAXXZ"
     },
     {
+     "va": "0x00454650",
+     "length": 229,
+     "name": "?sub_00454650_ReadWholeFile@@YIPAXPBDPAK@Z"
+    },
+    {
      "va": "0x004547A0",
      "length": 6,
      "name": "sub_004547A0"
@@ -16835,11 +16830,6 @@
      "va": "0x00476AF0",
      "length": 18,
      "name": "?sub_00476AF0_ClearGlobals@@YAXXZ"
-    },
-    {
-     "va": "0x00478A50",
-     "length": 51,
-     "name": "?sub_00478A50_FreeRosterPets@@YAXXZ"
     }
    ],
    "flags": [
@@ -17676,6 +17666,11 @@
      "length": 562
     },
     {
+     "va": "0x0045F9F0",
+     "length": 68,
+     "name": "?sub_0045F9F0_FreePacketBuffer@@YIXPAX@Z"
+    },
+    {
      "va": "0x0045FC60",
      "length": 180,
      "name": "?sub_0045FC60_DrawLoadingTexts@@YAXXZ"
@@ -18504,11 +18499,6 @@
      "va": "0x0045C4F0",
      "length": 36,
      "name": "?sub_0045C4F0_GetItemStatCostTxtRecord@@YIPAUD2ItemStatCostTxt@@H@Z"
-    },
-    {
-     "va": "0x0045F9F0",
-     "length": 68,
-     "name": "?sub_0045F9F0_FreePacketBuffer@@YIXPAX@Z"
     },
     {
      "va": "0x00460170",
@@ -19488,6 +19478,11 @@
      "name": "sub_0046BD50_GetPulseColor"
     },
     {
+     "va": "0x00478A50",
+     "length": 51,
+     "name": "?sub_00478A50_FreeRosterPets@@YAXXZ"
+    },
+    {
      "va": "0x00478A90",
      "length": 31,
      "name": "?sub_00478A90_FindRosterPet@@YIPAUD2RosterPetNodeStrc@@H@Z"
@@ -20243,11 +20238,6 @@
     {
      "va": "0x00466870",
      "length": 1080
-    },
-    {
-     "va": "0x004698D0",
-     "length": 373,
-     "name": "?sub_004698D0_LoadKeyConfig@@YGXH@Z"
     },
     {
      "va": "0x0046C060",
@@ -21144,6 +21134,20 @@
   {
    "file": "Source/D2Client/UI/CmdTbl.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004690A0",
@@ -21169,6 +21173,11 @@
      "va": "0x004694A0",
      "length": 420,
      "name": "?sub_004694A0_BindMouseHotkeys@@YAXXZ"
+    },
+    {
+     "va": "0x004698D0",
+     "length": 373,
+     "name": "?sub_004698D0_LoadKeyConfig@@YGXH@Z"
     },
     {
      "va": "0x00469A50",
@@ -24385,9 +24394,19 @@
      "name": "sub_00480150_TakeWardenBuffer"
     },
     {
+     "va": "0x004801D0",
+     "length": 89,
+     "name": "?sub_004801D0_UnloadWarden@@YAXXZ"
+    },
+    {
      "va": "0x00480320",
      "length": 28,
      "name": "?sub_00480320_CallHolderSlot3@@YIXH@Z"
+    },
+    {
+     "va": "0x00480340",
+     "length": 121,
+     "name": "?sub_00480340_ResetWarden@@YAXXZ"
     },
     {
      "va": "0x004803C0",
@@ -25289,16 +25308,6 @@
    "file": "Source/D2Client/UNIT/UnitMode.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004801D0",
-     "length": 89,
-     "name": "?sub_004801D0_UnloadWarden@@YAXXZ"
-    },
-    {
-     "va": "0x00480340",
-     "length": 121,
-     "name": "?sub_00480340_ResetWarden@@YAXXZ"
-    },
     {
      "va": "0x00480490",
      "length": 10,
@@ -26756,6 +26765,11 @@
    ],
    "functions": [
     {
+     "va": "0x00492C20",
+     "length": 665,
+     "name": "?sub_00492C20_LoadHirelingIcons@@YAXXZ"
+    },
+    {
      "va": "0x00492EC0",
      "length": 122,
      "name": "?sub_00492EC0_FreeHirelingIcons@@YAXXZ"
@@ -28123,11 +28137,6 @@
      "va": "0x004B23E0",
      "length": 192,
      "name": "?sub_004B23E0_InitPartyPanel@@YAXXZ"
-    },
-    {
-     "va": "0x004B7CD0",
-     "length": 475,
-     "name": "?sub_004B7CD0_CreateDialogFromFile@@YIPAUD2ClientDialogStrc@@HHHHHH@Z"
     },
     {
      "va": "0x004BE020",
@@ -31144,6 +31153,20 @@
   {
    "file": "Source/D2Client/UI/dialog.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004B7150",
@@ -31238,6 +31261,11 @@
      "va": "0x004B7C60",
      "length": 102,
      "name": "?sub_004B7C60@@YAXXZ"
+    },
+    {
+     "va": "0x004B7CD0",
+     "length": 475,
+     "name": "?sub_004B7CD0_CreateDialogFromFile@@YIPAUD2ClientDialogStrc@@HHHHHH@Z"
     },
     {
      "va": "0x004B7EB0",

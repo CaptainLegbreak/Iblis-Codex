@@ -419,27 +419,6 @@ D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells()
     return gpBuySellButton_007A287C;
 }
 
-// 0x00454650
-void* __fastcall sub_00454650_ReadWholeFile(const char* szName, unsigned long* pSize)
-{
-    unsigned long nRead;
-    char szPath[0x104];
-    strcpy(szPath, szName);
-    strcat(szPath, D2CMPGetGfxFileExtension(0));
-    void* hFile = CreateFileA(szName, 0x80000000, 0, 0, 3, 0x80, 0);
-    if (hFile == (void*)-1)
-    {
-        return 0;
-    }
-
-    *pSize = GetFileSize(hFile, 0);
-    void* pBuffer = FOG_Alloc(*pSize, ".\\UI\\ui.cpp", 0x18AD, 0);
-    memset(pBuffer, 0, *pSize);
-    ReadFile(hFile, pBuffer, *pSize, &nRead, 0);
-    CloseHandle(hFile);
-    return pBuffer;
-}
-
 // 0x00454740
 void __cdecl sub_00454740_LoadLoadingPalette()
 {

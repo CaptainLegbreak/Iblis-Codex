@@ -25,10 +25,6 @@ struct D2UnitStrc;
 
 #define D2_ABS(n) ((n) < 0 ? -(n) : (n))
 
-struct D2ClientSlotObjStrc;
-
-class WardenModule;
-
 struct D2ClientSkillCmdStrc;
 
 struct D2PlayerDataStrc;
@@ -38,30 +34,6 @@ struct D2SkillsTxt;
 struct D2StaticPathStrc;
 
 struct D2UnitTargetStrc;
-
-struct D2ClientSlotObjStrc
-{
-    virtual void Slot0(int* pValue, int nSize);
-    virtual void Slot1();
-    virtual void Slot2(int nArg1, int nArg2, int* pOut);
-};
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
-
-class WardenModule
-{
-public:
-    ~WardenModule();
-    void operator delete(void* pMemory)
-    {
-        SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x117, 0);
-    }
-
-    void* pImage;
-    int unk0x04;
-    int nImports;
-    D2ClientSlotObjStrc* pObj;
-};
 
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pDynamicPath); // 0x00650590
 
@@ -80,16 +52,6 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 void __cdecl sub_004DF800(); // 0x004DF800
-
-extern WardenModule* gpSlotHolder_007BC990; // 0x007BC990
-
-extern WardenModule* gpPendingWarden_007BC994; // 0x007BC994
-
-extern D2ClientServiceStrc* gpService_007BC998; // 0x007BC998
-
-extern void* gpWardenBuffer_007BC988; // 0x007BC988
-
-extern unsigned int gnWardenBufferSize_007BC98C; // 0x007BC98C
 
 struct D2ClientSkillCmdStrc
 {
@@ -230,36 +192,6 @@ void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int 
 
 static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit);
 
-// build: symbol ??1WardenModule@@QAE@XZ 0x004E06A0
-// 0x004801D0
-void __cdecl sub_004801D0_UnloadWarden()
-{
-    if (gpSlotHolder_007BC990)
-    {
-        gpSlotHolder_007BC990->pObj->Slot1();
-        gpSlotHolder_007BC990->~WardenModule();
-        delete gpSlotHolder_007BC990;
-    }
-    gpSlotHolder_007BC990 = 0;
-}
-
-// 0x00480340
-void __cdecl sub_00480340_ResetWarden()
-{
-    if (gpPendingWarden_007BC994)
-    {
-        gpPendingWarden_007BC994->~WardenModule();
-        delete gpPendingWarden_007BC994;
-        gpPendingWarden_007BC994 = 0;
-    }
-    sub_004801D0_UnloadWarden();
-    gnWardenIfaceValue_00721C94 = -1;
-    gpService_007BC998 = 0;
-    if (gpWardenBuffer_007BC988)
-        SMemFree(gpWardenBuffer_007BC988, ".\\WARDEN\\WardenClient.cpp", 0x24F, 0);
-    gpWardenBuffer_007BC988 = 0;
-    gnWardenBufferSize_007BC98C = 0;
-}
 
 // 0x00480490
 void __fastcall sub_00480490_RecacheUnitPath(D2UnitStrc* pUnit)

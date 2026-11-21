@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
@@ -179,6 +180,15 @@ static int gnGlobal_007C0E4C; // 0x007C0E4C
 static int gnGlobal_007C0E58; // 0x007C0E58
 
 static int gnGlobal_007C0E5C; // 0x007C0E5C
+
+extern const char* gaszDialogCels_007274AC[]; // 0x007274AC
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
+int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
 // 0x004B7150
 static __forceinline void sub_004B7150_HoverFirstTypedItem(D2ClientDialogStrc* pDialog)
@@ -656,6 +666,74 @@ void __cdecl sub_004B7C60()
             gnGlobal_00727400 = nValue;
         }
     }
+}
+
+
+// 0x004B7CD0
+D2ClientDialogStrc* __fastcall sub_004B7CD0_CreateDialogFromFile(int nArg1, int nArg2, int nArg8, int nArgC, int nType, int nArg14)
+{
+    char szPath[0x104];
+    D2CelContextStrc tContext;
+
+    sub_004545C0(0);
+    sub_004898D0(0);
+    sub_0044DA40();
+    if (!nArg8)
+    {
+        return 0;
+    }
+    if (nType >= 1)
+    {
+        return 0;
+    }
+
+    gnGlobal_007C0E5C += 1;
+    D2ClientDialogStrc* pDialog = (D2ClientDialogStrc*)FOG_Alloc(sizeof(D2ClientDialogStrc), ".\\UI\\dialog.cpp", 0x396, 0);
+    memset(pDialog, 0, sizeof(D2ClientDialogStrc));
+    pDialog->pNext = gpGlobal_007C0E54;
+    gpGlobal_007C0E54 = pDialog;
+    memset(pDialog, 0, sizeof(D2ClientDialogStrc));
+    pDialog->nWidth = 0;
+    pDialog->nHeight = 0;
+    pDialog->nLines = 0;
+    pDialog->nEnabled = 0;
+    pDialog->nHover = -1;
+    pDialog->nMode = 2;
+    pDialog->nX = 0;
+    pDialog->nY = 0;
+    pDialog->pWidgets = 0;
+    pDialog->pfnDefault = (void (__cdecl*)())nArg8;
+    pDialog->pfnOutside = (int (__cdecl*)())nArgC;
+    pDialog->bAutoSize = 0;
+    pDialog->bCountEnabled = 0;
+    pDialog->dwTick = GetTickCount();
+    pDialog->unk0x18 = nArg14;
+    pDialog->unk0x48 = -1;
+    pDialog->bActive = 0;
+    pDialog->nState = 0;
+    pDialog->bDrawCel = 1;
+    sprintf(szPath, "%s\\ui\\menu\\%s", szDataGlobal_006D4118, gaszDialogCels_007274AC[nType]);
+    pDialog->pCelFile = sub_004788B0(szPath, 0);
+
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = pDialog->pCelFile;
+    tContext.nDirection = 0;
+    tContext.nFrame = 0;
+    D2CelStrc* hCel = CelGetHandle(&tContext);
+    D2_ASSERT(hCel, 0x3B3);
+    pDialog->nWidth = sub_006018C0(hCel);
+    pDialog->nHeight = sub_006018F0(hCel);
+    pDialog->nCenterX = nArg1;
+    pDialog->nCenterY = nArg2;
+    pDialog->nX = nArg1;
+    pDialog->nY = nArg2;
+    gnGlobal_007C0E58 = 1;
+    sub_004B7C60();
+    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);
+    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273E4, 1);
+    gnGlobal_007C0E4C += 1;
+    D2_ASSERT(gnGlobal_007C0E5C == 1, 0x3C8);
+    return pDialog;
 }
 
 // 0x004B7EB0

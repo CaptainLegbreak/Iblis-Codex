@@ -4577,6 +4577,19 @@ void __fastcall sub_0045F7B0_ProcessPackets(unsigned char* pData, int nSize)
     ++gnPacketBlocks_007A6AFC;
 }
 
+
+// 0x0045F9F0
+void __fastcall sub_0045F9F0_FreePacketBuffer(D2UnitStrc* pUnit)
+{
+    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
+    if (pBuffer)
+    {
+        FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x1516, 0);
+        FOG_Free(pBuffer, ".\\GAME\\SCmd.cpp", 0x1517, 0);
+        sub_004647A0_SetPacketBuffer(pUnit, 0);
+    }
+}
+
 // 0x0045FC60
 void __cdecl sub_0045FC60_DrawLoadingTexts()
 {

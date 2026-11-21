@@ -203,6 +203,20 @@ int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGr
 }
 
 
+
+// 0x00478A50
+void __cdecl sub_00478A50_FreeRosterPets()
+{
+    D2RosterPetNodeStrc* pPet = gpRosterPets_007BB5BC;
+    while (pPet)
+    {
+        D2RosterPetNodeStrc* pNext = pPet->pNext;
+        FOG_Free(pPet, ".\\GAME\\RosterPets.cpp", 0x2F, 0);
+        pPet = pNext;
+    }
+    gpRosterPets_007BB5BC = 0;
+}
+
 // 0x00478AB0
 void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey)
 {

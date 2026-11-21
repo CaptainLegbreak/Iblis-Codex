@@ -268,6 +268,12 @@ int gdwGlobal_007A8914; // 0x007A8914
 
 int gdwGlobal_007A891C; // 0x007A891C
 
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x006CC1A4
+extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
+
 // 0x00451910
 int __cdecl sub_00451910()
 {
@@ -642,6 +648,28 @@ void __cdecl sub_004545B0_UpdateGoldPanel()
         sub_004B8100(gpGlobal_007A27A0);
 }
 
+
+// 0x00454650
+void* __fastcall sub_00454650_ReadWholeFile(const char* szName, unsigned long* pSize)
+{
+    unsigned long nRead;
+    char szPath[0x104];
+    strcpy(szPath, szName);
+    strcat(szPath, D2CMPGetGfxFileExtension(0));
+    void* hFile = CreateFileA(szName, 0x80000000, 0, 0, 3, 0x80, 0);
+    if (hFile == (void*)-1)
+    {
+        return 0;
+    }
+
+    *pSize = GetFileSize(hFile, 0);
+    void* pBuffer = FOG_Alloc(*pSize, ".\\UI\\ui.cpp", 0x18AD, 0);
+    memset(pBuffer, 0, *pSize);
+    ReadFile(hFile, pBuffer, *pSize, &nRead, 0);
+    CloseHandle(hFile);
+    return pBuffer;
+}
+
 // 0x004547A0
 int __cdecl sub_004547A0()
 {
@@ -1003,19 +1031,6 @@ void __cdecl sub_00476AF0_ClearGlobals()
     gnGlobal_007B9534 = 0;
     gnGlobal_007B9538 = 0;
     gnGlobal_007B8D20 = 0;
-}
-
-// 0x00478A50
-void __cdecl sub_00478A50_FreeRosterPets()
-{
-    D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
-    while (pPet)
-    {
-        D2RosterPetStrc* pNext = pPet->pNext;
-        FOG_Free(pPet, ".\\GAME\\RosterPets.cpp", 0x2F, 0);
-        pPet = pNext;
-    }
-    gpRosterPets_007BB5BC = 0;
 }
 
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
