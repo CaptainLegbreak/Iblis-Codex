@@ -58,7 +58,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId); // 0x006556E0
 static int __stdcall MONSTERUNIQUE_CanAssignUMod(D2UnitStrc* pUnit, D2MonUModTxt* pMonUModTxtRecord, int bExpansion); // 0x005A03E0
-static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitStrc* pUnit, int bAllowChampion); // 0x005A0760
+void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitStrc* pUnit, int bAllowChampion); // 0x005A0760
 
 static __forceinline D2MonUModTxt* sub_M433_GetMonUModTxtRecord(int nUMod)
 {
@@ -915,29 +915,7 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
-// build: context sub_005A4940_PromoteToUnique
-void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType != 1)
-    {
-        return;
-    }
-
-    D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-    unsigned char* pUMods = pMonsterData ? pMonsterData->nMonUmod : 0;
-    if (!pUMods)
-    {
-        return;
-    }
-
-    SetMonTypeFlag(pUnit, 1, 1);
-    sub_005A0320_MarkUnique(pGame, pUnit);
-    MONSTERUNIQUE_AssignRandomUMods(pGame, pUnit, 1);
-    MONSTERUNIQUE_SpawnMinions(pGame, UNITS_GetRoom(pUnit), 0, pUnit, 0, 0, 0);
-    pUnit->dwFlags |= 0x800;
-    MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
-}
+void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4940
 
 D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSuperUnique)
 {

@@ -418,7 +418,7 @@ static int __stdcall MONSTERUNIQUE_RollNonChampionUMod(D2UnitStrc* pUnit, D2Game
     return 0;
 }
 
-static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitStrc* pUnit, int bAllowChampion); // 0x005A0760
+void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitStrc* pUnit, int bAllowChampion); // 0x005A0760
 
 // build: context MONSTERUNIQUE_AssignRandomUMods
 static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitStrc* pUnit, int bAllowChampion)
@@ -500,46 +500,7 @@ static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitS
     }
 }
 
-// build: context sub_005A0930_TransferUMods
-static void __stdcall sub_005A0930_TransferUMods(D2UnitStrc* pOwner, D2UnitStrc* pMinion, int bFromStart)
-{
-    unsigned char* pOwnerUMods = UModsOfData(pOwner);
-    unsigned char* pMinionUMods = UModsOfData(pMinion);
-    if (!pOwnerUMods || !pMinionUMods)
-    {
-        return;
-    }
-
-    int nIndex = 0;
-    if (!bFromStart)
-    {
-        nIndex = CountUModsTo(pMinionUMods);
-    }
-    unsigned char* pMinionUMod = &pMinionUMods[nIndex];
-    while (nIndex < 9)
-    {
-        const unsigned char nOwnerUMod = *pOwnerUMods;
-        if (!nOwnerUMod)
-        {
-            break;
-        }
-
-        D2MonUModTxt* pMonUModTxtRecord = MonUModTxtRecord(nOwnerUMod);
-        if (!pMonUModTxtRecord)
-        {
-            break;
-        }
-
-        if (pMonUModTxtRecord->nXfer)
-        {
-            *pMinionUMod = nOwnerUMod;
-            ++pMinionUMod;
-        }
-
-        ++nIndex;
-        ++pOwnerUMods;
-    }
-}
+void __stdcall sub_005A0930_TransferUMods(D2UnitStrc* pOwner, D2UnitStrc* pMinion, int bFromStart); // 0x005A0930
 
 // 0x005A09E0
 static D2UnitStrc* __stdcall MONSTERUNIQUE_SpawnUniqueMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nX, int nY, int nUnitGUID, int nClassId, int bAvoidWarps)

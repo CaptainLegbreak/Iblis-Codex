@@ -468,8 +468,4 @@ int __fastcall sub_005EF1E0_BaalThroneGetAiParamFlag(D2AiTickParamStrc* pAiTickP
     return pAiTickParam->pAiControl->dwAiParam[1] & nFlag;
 }
 
-// build: context sub_00600C60_CallFree
-void __fastcall sub_00600C60_CallFree(void* pMemory)
-{
-    sub_00517ABB(pMemory);
-}
+void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60

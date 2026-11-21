@@ -244,35 +244,7 @@ static int __stdcall sub_005D1C30_CreateMissileVolley(D2GameStrc* pGame, int nCo
     return 1;
 }
 
-// build: context sub_005D1CD0_SrvDoMissileVolley
-int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissile <= 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    if (nCount <= 0)
-    {
-        return 0;
-    }
-
-    sub_005D1C30_CreateMissileVolley(pGame, nCount, pUnit, nMissile, nSkillId, nSkillLevel);
-    return 1;
-}
+int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D1CD0
 
 #include "gen/data/Source/D2Game/Unknown_005D1080.inc"
 

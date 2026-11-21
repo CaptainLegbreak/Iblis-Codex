@@ -47,14 +47,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context SEED_RollRandomNumber
-inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    const unsigned __int64 nValue = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(nValue >> 32);
-    pSeed->nLowSeed = (unsigned int)nValue;
-    return (unsigned int)nValue;
-}
+unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed); // 0x0045C370
 
 #define UNIT_INVALID 6
 #define UNIT_MONSTER 1

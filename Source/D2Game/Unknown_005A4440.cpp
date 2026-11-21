@@ -310,60 +310,7 @@ static int __stdcall MONSTERUNIQUE_CanAssignUMod(D2UnitStrc* pUnit, D2MonUModTxt
     return 1;
 }
 
-// build: context sub_005A0500_RollChampionUMod
-static int sub_005A0500_RollChampionUMod(D2UnitStrc* pUnit, D2GameStrc* pGame)
-{
-    int aPicks[512];
-    int nPickCount = 0;
-
-    if (!pGame)
-    {
-        return 0;
-    }
-
-    const unsigned char nDifficulty = pGame->nDifficulty;
-    if (nDifficulty >= 3)
-    {
-        return 0;
-    }
-
-    const int bExpansion = pGame->bExpansion;
-    int nTotal = 0;
-    const int nRecords = sgptDataTables->nMonUModTxtRecordCount;
-    D2MonUModTxt* pMonUModTxtRecord = MonUModTxtRecord(0);
-    if (!pMonUModTxtRecord)
-    {
-        return 0;
-    }
-
-    for (int i = 0; i < nRecords; ++i, ++pMonUModTxtRecord)
-    {
-        const short nPick = pMonUModTxtRecord->wCPick[nDifficulty];
-        if (nPick > 0 && pMonUModTxtRecord->nChampion && MONSTERUNIQUE_CanAssignUMod(pUnit, pMonUModTxtRecord, bExpansion))
-        {
-            nTotal += nPick;
-            aPicks[2 * nPickCount] = i;
-            aPicks[2 * nPickCount + 1] = nPick;
-            ++nPickCount;
-            if (nPickCount >= 256)
-            {
-                break;
-            }
-        }
-    }
-
-    int nRand = SEED_RollLimitedRandomNumber(&pUnit->pSeed, nTotal);
-    for (int i = 0; i < nPickCount; ++i)
-    {
-        if (nRand < aPicks[2 * i + 1])
-        {
-            return aPicks[2 * i];
-        }
-        nRand -= aPicks[2 * i + 1];
-    }
-
-    return 0;
-}
+int sub_005A0500_RollChampionUMod(D2UnitStrc* pUnit, D2GameStrc* pGame); // 0x005A0500
 
 static int __stdcall MONSTERUNIQUE_RollNonChampionUMod(D2UnitStrc* pUnit, D2GameStrc* pGame, unsigned char* pUsedUMods)
 {
@@ -683,19 +630,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinions(D2GameStrc* pGame, D2ActiveRoom
     }
 }
 
-// build: context MONSTERUNIQUE_SpawnUniqueGroup
-D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps)
-{
-    D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueMonster(pGame, pRoom, pRoomCoordList, nX, nY, -1, nClassId, bAvoidWarps);
-    if (!pMonster)
-    {
-        return 0;
-    }
-
-    MONSTERUNIQUE_AssignRandomUMods(pGame, pMonster, bAllowChampion);
-    MONSTERUNIQUE_SpawnMinions(pGame, pRoom, pRoomCoordList, pMonster, 1, 3, 6);
-    return pMonster;
-}
+D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
 
 static __forceinline void SetBossIndex(D2UnitStrc* pUnit, short nIndex)
 {

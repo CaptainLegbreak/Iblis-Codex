@@ -9,7 +9,7 @@ struct D2EventTimerQueueStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2EventTimerSlabListStrc* __stdcall sub_00540BB0_AllocateSlab(D2GameStrc* pGame); // 0x00540BB0
 D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit); // 0x00553980
-__declspec(noinline) static D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue);
+__declspec(noinline) D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue);
 __declspec(noinline) static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 __declspec(noinline) static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
@@ -17,31 +17,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int bUninterruptable); // 0x005544B0
 __declspec(noinline) static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
 
-// build: context sub_00540C30_AllocateTimer
-static D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue)
-{
-    D2EventTimerSlabListStrc* pSlab = pQueue->pSlabListHead;
-    while (pSlab)
-    {
-        if (pSlab->pFreeEventTimerListHead)
-        {
-            break;
-        }
-        pSlab = pSlab->pNextSlab;
-    }
-
-    if (!pSlab)
-    {
-        pSlab = sub_00540BB0_AllocateSlab(pGame);
-        pSlab->pNextSlab = pQueue->pSlabListHead->pNextSlab;
-        pQueue->pSlabListHead->pNextSlab = pSlab;
-    }
-
-    D2EventTimerStrc* pTimer = pSlab->pFreeEventTimerListHead;
-    pSlab->pFreeEventTimerListHead = pTimer->pNextFreeEventTimer;
-    memset(pTimer, 0, sizeof(D2EventTimerStrc));
-    return pTimer;
-}
+D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue); // 0x00540C30
 
 // 0x00540DF0
 static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)

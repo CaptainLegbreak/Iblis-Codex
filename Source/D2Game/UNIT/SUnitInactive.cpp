@@ -466,18 +466,6 @@ static void __stdcall sub_00541AC0_RestoreInactiveItems(D2ActiveRoomStrc* pRoom,
     }
 }
 
-// build: context sub_B08_Emit_00542B40
-void __fastcall sub_B08_Emit_00542B40(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
-{
-    D2InactiveUnitNodeStrc* pUnitNode = 0;
-    D2InactiveItemNodeStrc* pItemNode = 0;
-    sub_005418C0_TakeInactiveListNode(&pUnitNode, &pItemNode, pGame, pRoom);
-    sub_00541AC0_RestoreInactiveItems(pRoom, pGame, pItemNode);
-    if (pUnitNode)
-    {
-        FOG_FreeServerMemory(pGame->pMemoryPool, pUnitNode, ".\\UNIT\\SUnitInactive.cpp", 0x1C3, 0);
-    }
-}
 
 // 0x00541B10
 static void __stdcall sub_00541B10_CompressInactiveItem(D2InactiveUnitListStrc* pList, D2GameStrc* pGame, D2InactiveItemNodeStrc** ppItemNode, D2UnitStrc* pItem)

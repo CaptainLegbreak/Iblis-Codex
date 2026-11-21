@@ -111,50 +111,7 @@ static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
     return pUnit->dwUnitType == UNIT_MONSTER;
 }
 
-// build: context sub_005D9F70_SetLeapVelocity
-static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
-{
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    if (!pPath)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkillRead = pSkill;
-    SKILLS_SetFlags(pSkillRead, 0x1101);
-    PATH_SetMoveTestCollisionMask(pPath, 0);
-    PATH_SetFootprintCollisionMask(pPath, 0);
-
-    const int nX = SKILLS_GetParam1(pSkillRead);
-    const int nY = SKILLS_GetParam2(pSkill);
-    if (!nX || !nY)
-    {
-        return 0;
-    }
-
-    D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
-    PATH_SetType(pPath, 9);
-
-    int nVelocity;
-    if ((!pUnit ? 6 : pUnit->dwUnitType) == 1)
-    {
-        D2MonStatsTxtRun* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
-        if (!pMonStatsTxtRecord)
-        {
-            return 0;
-        }
-
-        nVelocity = pMonStatsTxtRecord->nRun << 8;
-    }
-    else
-    {
-        nVelocity = sub_004833E0_GetCharStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nRunSpeed << 8;
-    }
-
-    PATH_SetVelocity(pPath, nVelocity, ".\\SKILLS\\SkillBar.cpp", 0x6C2);
-    D2Common_10142(pPath, pUnit, 0);
-    return 1;
-}
+int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x005D9F70
 
 // 0x005DA020
 static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX, int nY, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
