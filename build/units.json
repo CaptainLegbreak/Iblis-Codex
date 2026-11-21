@@ -59846,7 +59846,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0058D7D0.cpp",
+   "file": "Source/D2Game/Quests/a5q6.cpp",
    "rank": 0,
    "functions": [
     {
@@ -59857,48 +59857,7 @@
      "va": "0x0058D8B0",
      "length": 144,
      "name": "?sub_0058D8B0@@YIHPAUGame@@PAUUnit@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0058D940.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058D940",
-     "length": 168
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0058D9F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058D9F0",
-     "length": 620,
-     "name": "?sub_0058D9F0@@YIXPAUQuest@@PAUArgs@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q6.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0058DD30",
      "length": 88,
@@ -59967,6 +59926,41 @@
      "va": "0x0058E710",
      "length": 48,
      "name": "?OBJECTS_InitFunction77_LastPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_0058D940.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0058D940",
+     "length": 168
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_0058D9F0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0058D9F0",
+     "length": 620,
+     "name": "?sub_0058D9F0@@YIXPAUQuest@@PAUArgs@@@Z"
     }
    ]
   },
