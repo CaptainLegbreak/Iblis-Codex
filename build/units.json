@@ -69613,6 +69613,15 @@
      "name": "sub_005FDE10_FreeCelPool"
     },
     {
+     "va": "0x005FDE50",
+     "length": 79
+    },
+    {
+     "va": "0x005FDEA0",
+     "length": 166,
+     "name": "sub_005FDEA0"
+    },
+    {
      "va": "0x005FDF50",
      "length": 33,
      "name": "sub_005FDF50_FreeCacheBlock"
@@ -69623,6 +69632,11 @@
      "name": "sub_005FDF80_GetTileLibrarySize"
     },
     {
+     "va": "0x005FE080",
+     "length": 93,
+     "name": "sub_005FE080_FreeTileLibraryBlocks"
+    },
+    {
      "va": "0x005FE120",
      "length": 69,
      "name": "sub_005FE120_InitCelPool"
@@ -69631,6 +69645,11 @@
      "va": "0x005FE1F0",
      "length": 32,
      "name": "D2CMPGetGfxFileExtension"
+    },
+    {
+     "va": "0x005FE280",
+     "length": 45,
+     "name": "sub_005FE280_LoadCompressedDataFlag"
     },
     {
      "va": "0x005FF300",
@@ -70477,31 +70496,6 @@
      "va": "0x0066A250",
      "length": 3,
      "name": "sub_0066A250"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FDE50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FDE50",
-     "length": 79
-    },
-    {
-     "va": "0x005FDEA0",
-     "length": 166,
-     "name": "sub_005FDEA0"
-    },
-    {
-     "va": "0x005FE080",
-     "length": 93,
-     "name": "sub_005FE080_FreeTileLibraryBlocks"
-    },
-    {
-     "va": "0x005FE280",
-     "length": 45,
-     "name": "sub_005FE280_LoadCompressedDataFlag"
     }
    ]
   },

@@ -5500,8 +5500,8 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 3028,
-   "definitions": 8,
+   "bytes": 3032,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl sub_00606B50_CompressCellFile(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
@@ -5509,15 +5509,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/CelCmp.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2CMP/Unknown_005FDE50.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2CMP/Unknown_005FDE50.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -120745,7 +120736,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2CMP/Unknown_005FDE50.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gbCmpCompressedDataMode = ",

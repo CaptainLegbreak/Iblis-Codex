@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2StormLink.h"
 #include "D2SysTypes.h"
+#include "D2LRUNode.h"
 
 struct D2SpriteCacheNodeStrc;
 struct D2TileLibraryEntryStrc;
@@ -184,14 +185,6 @@ struct D2TileLibraryHeaderStrc
     D2TileLibraryEntryStrc* pFirst; // 0x110
 };
 
-struct D2LRUNodeStrc
-{
-    void* pData; // 0x00
-    unsigned int nSize; // 0x04
-    unsigned int nCost; // 0x08
-    D2LRUNodeStrc* pNext; // 0x0C
-    D2LRUNodeStrc* pPrev; // 0x10
-};
 
 D2_CHECK_SIZE(D2SpriteCacheStrc, 0x50);
 D2_CHECK_SIZE(D2StormSlotListStrc, 0xC);
@@ -209,4 +202,3 @@ D2_CHECK_SIZE(D2DccHeaderStrc, 0x14);
 D2_CHECK_SIZE(D2DccFileStrc, 0x20);
 D2_CHECK_SIZE(D2DccCellStrc, 0x14);
 D2_CHECK_SIZE(D2TileLibraryHeaderStrc, 0x114);
-D2_CHECK_SIZE(D2LRUNodeStrc, 0x14);
