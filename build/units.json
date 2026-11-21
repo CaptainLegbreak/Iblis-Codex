@@ -66771,6 +66771,14 @@
      "name": "SKILLITEM_EventFunc29_RestInPeace"
     },
     {
+     "va": "0x005C07A0",
+     "length": 564
+    },
+    {
+     "va": "0x005C09E0",
+     "length": 167
+    },
+    {
      "va": "0x005C0AD0",
      "length": 123,
      "name": "SUNITEVENT_Register"
@@ -66925,34 +66933,6 @@
      "length": 67,
      "name": "?sub_005DC920_GetThreat@@YIHPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C07A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C07A0",
-     "length": 564
-    },
-    {
-     "va": "0x005C09E0",
-     "length": 167
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
