@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Path.h"
 #include "D2LevelTxt.h"
+#include "D2Drlg.h"
 
 // build: context SEED_RollLimitedRandomNumber_Inline
 #define LEVEL_ROCKYWASTE 41
@@ -21,38 +22,9 @@ struct D2LvlPrestTxt;
 struct D2DrlgOutDesertInitStrc;
 
 
-struct D2DrlgGridStrc
-{
-    char unk0x00[0x14];
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    char unk0x54[0x08];
-    int nGridWidth;
-    int nGridHeight;
-};
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char unk0x018[0x04];
-    D2DrlgCoordsStrc pLevelCoords;
-    char unk0x020[0x194];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-};
 
 
 struct D2DrlgOutDesertInitStrc
@@ -74,7 +46,7 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
 void __fastcall DRLGOUTDESR_PlaceDesertTransitionToTown(D2DrlgLevelStrc* pLevel); // 0x0067F560
 void __fastcall DRLGOUTDESR_AddExits(D2DrlgLevelStrc* pLevel); // 0x0067F670
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
-int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordsStrc* pCoords, int nLevelPrestId, int nPickedFile, int a5, int a6); // 0x006744F0
+int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordStrc* pCoords, int nLevelPrestId, int nPickedFile, int a5, int a6); // 0x006744F0
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn); // 0x0067FE90
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -441,7 +413,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2Drlg
         int bAdded = 0;
         if (pLevel->eLevelId == LEVEL_BLOODMOOR)
         {
-            D2DrlgCoordsStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
+            D2DrlgCoordStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
             bAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);
         }
         else
