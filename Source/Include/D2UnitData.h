@@ -95,7 +95,11 @@ struct D2MonsterDataStrc
         Unicode* wszMonName; // 0x2C (client side)
     };
     D2MonsterInteractStrc* pMonInteract; // 0x30
-    unsigned char unk0x34[0x28]; // 0x34
+    int nAiValue; // 0x34
+    int nAiState; // 0x38
+    unsigned char unk0x3C[0x14]; // 0x3C
+    int pVision; // 0x50
+    unsigned char unk0x54[0x8]; // 0x54
 };
 
 struct D2QuestGUIDStrc
