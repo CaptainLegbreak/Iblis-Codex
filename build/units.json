@@ -26054,13 +26054,7 @@
     {
      "va": "0x0048DD90",
      "length": 4192
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0048EDF0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0048EDF0",
      "length": 4583
