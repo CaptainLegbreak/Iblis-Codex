@@ -2517,9 +2517,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004ADEA0.cpp": {
-   "bytes": 152,
-   "definitions": 1,
+  "Source/D2Client/UNIT/Monster_004AF6A0.cpp": {
+   "bytes": 728,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004ADEA0.inc",
@@ -2532,15 +2532,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Monster_004AFF60.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/Monster_004AF6A0.cpp": {
-   "bytes": 576,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004B1280.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -59591,7 +59582,7 @@
    "cname": "gData_00725188",
    "declared": true,
    "decorated": "_gwUniqueModNameIds",
-   "file": "Source/D2Client/Unknown_004ADEA0.cpp",
+   "file": "Source/D2Client/UNIT/Monster_004AF6A0.cpp",
    "fill": 76,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00725188_t gData_00725188; // 0x00725188",
