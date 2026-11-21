@@ -224,6 +224,18 @@ struct D2GSPacketSrv50
 
 void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
+int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
+
+void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
+
+void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
+
+void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc); // 0x0054B830
+
+void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
+
+void __stdcall sub_005B4FF0_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
+
 // 0x005B4390
 void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
 {
@@ -1065,6 +1077,60 @@ void __fastcall OBJECTS_InitFunction78_LastLastPortal(D2ObjInitFnStrc* pOp)
     {
         UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
     }
+}
+
+// 0x005B5880
+int __fastcall OBJECTS_OperateFunction73_LastLastPortal(D2ObjOperateFnStrc* pOp, int nOperate)
+{
+    D2GameStrc* pGame = pOp->pGame;
+    if (!pGame->bExpansion)
+    {
+        return 0;
+    }
+
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pOp->hPlayer)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
+    {
+        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hPlayer);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    if (DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)) != 3)
+    {
+        return 0;
+    }
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 28, 0))
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 28, 0);
+        QUESTRECORD_SetQuestState(pQuestFlags, 28, 13);
+
+        D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 1370);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pOp->hPlayer);
+        if (pClient && !PLAYER_IsBusy(pOp->hPlayer))
+        {
+            SUNIT_ResetInteractInfo(pOp->hPlayer);
+            pPlayerData->bBusy = 1;
+
+            D2GSPacketSrv5D packet5D = {};
+            packet5D.nHeader = 0x5D;
+            packet5D.nQuestId = 23;
+            packet5D.nFlags = 2;
+            sub_6FC3F380(pClient, &packet5D);
+            sub_0053D940_SendPacket0x61(pClient, 5);
+        }
+    }
+
+    D2GAME_PlayerChangeAct_6FC867C0(pOp->pGame, pOp->hPlayer, 109, 5);
+    QUESTS_UpdatePlayerFlags(pOp->pGame, pOp->hPlayer);
+    sub_005B4FF0_ActivateHarrogathWaypoint(pOp->pGame, pOp->hPlayer);
+    return 0;
 }
 
 // 0x005B6930

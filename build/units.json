@@ -65103,11 +65103,6 @@
      "name": "?ACT4Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
-     "va": "0x005B5880",
-     "length": 306,
-     "name": "OBJECTS_OperateFunction73_LastLastPortal"
-    },
-    {
      "va": "0x005B6100",
      "length": 457,
      "name": "ACT4Q3_Callback11_ScrollMessage"
@@ -65370,6 +65365,11 @@
      "va": "0x005B5840",
      "length": 60,
      "name": "?OBJECTS_InitFunction78_LastLastPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005B5880",
+     "length": 306,
+     "name": "OBJECTS_OperateFunction73_LastLastPortal"
     },
     {
      "va": "0x005B6930",
