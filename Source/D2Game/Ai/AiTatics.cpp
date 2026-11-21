@@ -216,6 +216,18 @@ __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonster
     return 0;
 }
 
+D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553010
+
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+
+enum
+{
+    MONMODE_DEATH = 0,
+    MONMODE_DEAD = 12,
+    PLRMODE_DEATH = 0,
+    PLRMODE_DEAD = 17,
+};
+
 // 0x005DDE50
 D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance)
 {
@@ -266,6 +278,16 @@ D2UnitStrc* __fastcall sub_6FCCFDE0(D2GameStrc* pGame, D2UnitStrc* pNPC, D2UnitS
     }
 
     return 0;
+}
+
+// 0x005DDFC0
+int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY)
+{
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
 }
 
 // 0x005DE000
@@ -386,6 +408,36 @@ int __fastcall AITACTICS_ChangeModeAndTargetCoordinatesOneStep(D2GameStrc* pGame
 int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback)
 {
     return AITACTICS_MoveInRadiusToTarget(pGame, pUnit, pTarget, MONMODE_WALK, nMaxDistance, bDeleteAiEventCallback);
+}
+
+// 0x005DE830
+D2UnitStrc* __fastcall AITACTICS_GetTargetMinion(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pTarget = SUNIT_GetLastAttacker(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    switch (pTarget->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        if (pTarget->dwAnimMode == PLRMODE_DEATH || pTarget->dwAnimMode == PLRMODE_DEAD)
+        {
+            return 0;
+        }
+        return pTarget;
+
+    case UNIT_MONSTER:
+        if (pTarget->dwAnimMode == MONMODE_DEATH || pTarget->dwAnimMode == MONMODE_DEAD)
+        {
+            return 0;
+        }
+        return SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) ? pTarget : 0;
+
+    default:
+        return 0;
+    }
 }
 
 // 0x005DE890

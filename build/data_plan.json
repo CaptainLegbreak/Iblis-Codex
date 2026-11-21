@@ -6166,13 +6166,10 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Ai/AiUtil_005DCE10.cpp": {
+  "Source/D2Game/Ai/AiUtil.cpp": {
    "bytes": 104,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl AIUTIL_TargetCallback_CountDeadMinions(); // 0x005DCDA0",
-    "extern \"C\" void __cdecl AIUTIL_TargetCallback_SelectHostileTarget(); // 0x005DCA70",
-    "extern \"C\" void __cdecl sub_005DC870_FindNearestMonster(); // 0x005DC870",
     "extern \"C\" void __cdecl sub_005DC8E0(); // 0x005DC8E0",
     "extern \"C\" void __cdecl sub_005DCBD0(); // 0x005DCBD0",
     "extern \"C\" void __cdecl sub_005DCC60(); // 0x005DCC60",
@@ -119812,7 +119809,7 @@
    "cname": "gData_006E3300",
    "declared": true,
    "decorated": "?gAiTargetSearchTable_006E3300@@3QBUD2UnkAiTableStrc@@B",
-   "file": "Source/D2Game/Ai/AiUtil_005DCE10.cpp",
+   "file": "Source/D2Game/Ai/AiUtil.cpp",
    "fill": 13,
    "form": "declared",
    "fwd": "extern \"C\" const D2UnkAiTableStrc gData_006E3300[13]; // 0x006E3300",

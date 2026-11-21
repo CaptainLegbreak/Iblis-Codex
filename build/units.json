@@ -50443,6 +50443,11 @@
      "name": "sub_6FCCFDE0"
     },
     {
+     "va": "0x005DDFC0",
+     "length": 54,
+     "name": "?AITACTICS_ChangeModeAndTargetCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
+    },
+    {
      "va": "0x005DE000",
      "length": 124,
      "name": "AITACTICS_UseSequenceSkill"
@@ -50480,6 +50485,11 @@
      "va": "0x005DE6D0",
      "length": 26,
      "name": "D2GAME_AICORE_Escape_6FCD0560"
+    },
+    {
+     "va": "0x005DE830",
+     "length": 86,
+     "name": "?AITACTICS_GetTargetMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
     },
     {
      "va": "0x005DE890",
@@ -72743,6 +72753,31 @@
      "name": "?AIUTIL_TargetCallback_CountDeadMinions@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005DCE10",
+     "length": 70,
+     "name": "sub_6FCF1E30"
+    },
+    {
+     "va": "0x005DCE60",
+     "length": 113,
+     "name": "?AIUTIL_FindTargetInAdjacentRooms@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
+    },
+    {
+     "va": "0x005DCEE0",
+     "length": 135,
+     "name": "sub_005DCEE0_FindPlayerTargetInAdjacentRooms"
+    },
+    {
+     "va": "0x005DD020",
+     "length": 46,
+     "name": "sub_6FCF20E0"
+    },
+    {
+     "va": "0x005DD050",
+     "length": 86,
+     "name": "?sub_005DD050_FindTargetAmongMinions@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
+    },
+    {
      "va": "0x005DD140",
      "length": 220
     },
@@ -72755,6 +72790,21 @@
      "va": "0x005DD230",
      "length": 27,
      "name": "@sub_005DD230@12"
+    },
+    {
+     "va": "0x005DD290",
+     "length": 17,
+     "name": "?sub_005DD290_NoMissileBarrierCollision@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x005DD2B0",
+     "length": 24,
+     "name": "?sub_6FCF2E70@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005DD2D0",
+     "length": 93,
+     "name": "?AIUTIL_CheckIfMonsterUsesSkill@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005DD370",
@@ -72775,6 +72825,16 @@
      "name": "?AIUTIL_SelectAiTargetWithCollisionCheck@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH2@Z"
     },
     {
+     "va": "0x005DDD00",
+     "length": 324,
+     "name": "AIUTIL_ApplyTerrorCurseState"
+    },
+    {
+     "va": "0x005E6800",
+     "length": 81,
+     "name": "?sub_005E6800_InitHomeCommand@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005E6DE0",
      "length": 160,
      "name": "?sub_6FCE61E0@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
@@ -72783,6 +72843,16 @@
      "va": "0x005EB650",
      "length": 117,
      "name": "?AITHINK_IsTargetKillableByShadowMaster@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x005F2EB0",
+     "length": 262,
+     "name": "?sub_005F2EB0_RemoveGroundCollision@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005F2FC0",
+     "length": 303,
+     "name": "?AITHINK_TryRestoreGroundCollision@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005FB5B0",
@@ -72820,82 +72890,6 @@
      "va": "0x005DCA20",
      "length": 70,
      "name": "?sub_005DCA20_IsHostile@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiUtil_005DCE10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DCE10",
-     "length": 70,
-     "name": "sub_6FCF1E30"
-    },
-    {
-     "va": "0x005DCE60",
-     "length": 113,
-     "name": "?AIUTIL_FindTargetInAdjacentRooms@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
-    },
-    {
-     "va": "0x005DCEE0",
-     "length": 135,
-     "name": "sub_005DCEE0_FindPlayerTargetInAdjacentRooms"
-    },
-    {
-     "va": "0x005DD020",
-     "length": 46,
-     "name": "sub_6FCF20E0"
-    },
-    {
-     "va": "0x005DD050",
-     "length": 86,
-     "name": "?sub_005DD050_FindTargetAmongMinions@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
-    },
-    {
-     "va": "0x005DD290",
-     "length": 17,
-     "name": "?sub_005DD290_NoMissileBarrierCollision@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005DD2B0",
-     "length": 24,
-     "name": "?sub_6FCF2E70@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005DD2D0",
-     "length": 93,
-     "name": "?AIUTIL_CheckIfMonsterUsesSkill@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005DDD00",
-     "length": 324,
-     "name": "AIUTIL_ApplyTerrorCurseState"
-    },
-    {
-     "va": "0x005DDFC0",
-     "length": 54,
-     "name": "?AITACTICS_ChangeModeAndTargetCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x005DE830",
-     "length": 86,
-     "name": "?AITACTICS_GetTargetMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x005E6800",
-     "length": 81,
-     "name": "?sub_005E6800_InitHomeCommand@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005F2EB0",
-     "length": 262,
-     "name": "?sub_005F2EB0_RemoveGroundCollision@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005F2FC0",
-     "length": 303,
-     "name": "?AITHINK_TryRestoreGroundCollision@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
