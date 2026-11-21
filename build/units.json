@@ -61687,6 +61687,10 @@
      "name": "?ACT2Q2_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00599A30",
+     "length": 256
+    },
+    {
      "va": "0x00599B30",
      "length": 157,
      "name": "?ACT2Q2_Callback05_ItemDropped@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -61717,30 +61721,6 @@
      "length": 5,
      "name": "?ACT3Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00599A30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00599A30",
-     "length": 256
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
