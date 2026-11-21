@@ -51330,6 +51330,10 @@
      "name": "?SUNITPROXY_ClearNpcRecordData@@YGXPAUD2NpcRecordStrc@@PAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x00536640",
+     "length": 275
+    },
+    {
      "va": "0x00536760",
      "length": 65,
      "name": "?sub_00536760_AddNpcEvent@@YGXPAUD2UnitStrc@@HHPAUD2GameStrc@@PAUD2NpcRecordStrc@@@Z"
@@ -51347,6 +51351,10 @@
      "va": "0x00536B40",
      "length": 10,
      "name": "@sub_00536B40@4"
+    },
+    {
+     "va": "0x00536B50",
+     "length": 241
     },
     {
      "va": "0x00536CB0",
@@ -51403,34 +51411,6 @@
      "length": 123,
      "name": "?AITHINK_TargetCallback_Regurgitator@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/sunitproxy_00536640.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00536640",
-     "length": 275
-    },
-    {
-     "va": "0x00536B50",
-     "length": 241
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

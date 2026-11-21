@@ -8,6 +8,7 @@
 #include "D2GameServer.h"
 #include "D2GameClient.h"
 #include "D2DataTbls.h"
+#include "D2GameRecords.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -92,40 +93,6 @@ struct D2NpcTradeStrc
     unsigned char bTrader;
     int unk0x04;
     unsigned int dwTick;
-};
-
-struct D2NpcRecordStrc
-{
-    int nNPC;
-    D2InventoryStrc* pInventory;
-    D2NpcGambleStrc* pGamble;
-    int bGambleInit;
-    void* pMercData;
-    D2NpcEventStrc* pEvent;
-    D2NpcVendorChainStrc* pVendorChain;
-    int bTrading;
-    union
-    {
-        struct
-        {
-            D2NpcTradeStrc tTrade;
-        };
-        struct
-        {
-            unsigned char bVendorInit;
-            unsigned char unknown21;
-            unsigned char nAct;
-            unsigned char bTrader;
-            unsigned char bRepair;
-            unsigned char bVendor;
-            unsigned char unknown26;
-            unsigned char bRefreshInventory;
-            unsigned int dwTicks;
-        };
-    };
-    D2UnitProxyStrc tProxy;
-    int unknown3C;
-    int dwNPCGUID;
 };
 
 struct D2NpcControlStrc
@@ -306,6 +273,24 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
+#define UNIT_MONSTER 1
+
+#define NPCREC_FIELD(type, cursor, offset) (*(type*)((cursor) + (offset) - 0x2C))
+
+extern "C" const char szSUnitProxyCppFile_006E0A30[]; // 0x006E0A30
+
+static void __stdcall sub_00536510_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory);
+
+static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord, D2GameStrc* pGame);
+
+void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc); // 0x00536D10
+
+void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer);
+
+void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame);
+
+void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc);
+
 // 0x00535FB0
 static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* pUnitProxy, int nNpcInventoryId)
 {
@@ -364,7 +349,7 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
         ++pControl->nNpcCount;
         pNpc->pEvent = 0;
         pNpc->bVendorInit = 0;
-        pNpc->unknown21 = 0;
+        pNpc->bInitialized = 0;
         pNpc->dwTicks = 0;
         pNpc->bTrader = 0;
         pNpc->pInventory = INVENTORY_AllocInventory(pGame->pMemoryPool, 0);
@@ -387,7 +372,7 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
             pNpc->bTrader = gNpcConfig.entries[nConfig].bTrader;
             pNpc->bRepair = 0;
             pNpc->bVendor = 0;
-            pNpc->unknown26 = gNpcConfig.entries[nConfig].unknown06;
+            pNpc->unk0x26 = gNpcConfig.entries[nConfig].unknown06;
             pNpc->bRefreshInventory = 0;
             if (pNpc->bTrader == 1)
             {
@@ -395,75 +380,75 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
                 switch (pNpc->nNPC)
                 {
                 case 257:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 12);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 12);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     break;
                 case 254:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 7);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 7);
                     pNpc->bGambleInit = 1;
                     break;
                 case 154:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 2);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 2);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     break;
                 case 178:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 3);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 3);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     break;
                 case 252:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 10);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 10);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     break;
                 case 253:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 6);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 6);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     break;
-                case 148: SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 0); break;
-                case 177: SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 5); break;
-                case 202: SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 4); break;
-                case 255: SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 8); break;
+                case 148: SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 0); break;
+                case 177: SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 5); break;
+                case 202: SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 4); break;
+                case 255: SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 8); break;
                 case 147:
                     nCacheIndex = 1;
                     goto initialize_shared;
                 case 199:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 9);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 9);
                     pNpc->bGambleInit = 1;
                     break;
                 case 405:
                     nCacheIndex = 13;
 initialize_shared:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, nCacheIndex);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, nCacheIndex);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     pNpc->bGambleInit = 1;
                     break;
                 case 511:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 15);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 15);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     break;
                 case 514:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 15);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 15);
                     pNpc->bGambleInit = 1;
                     break;
                 case 512:
-                    SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 16);
+                    SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 16);
                     pNpc->bRepair = 1;
                     pNpc->bVendor = 1;
                     pNpc->bGambleInit = 1;
                     break;
-                case 513: SUNITPROXY_InitializeItemCache(pGame, &pNpc->tProxy, 14); break;
+                case 513: SUNITPROXY_InitializeItemCache(pGame, (D2UnitProxyStrc*)&pNpc->pItemCache, 14); break;
                 }
             }
             else
             {
-                pNpc->tProxy.pItemCache = 0;
-                pNpc->tProxy.pPermCache = 0;
+                pNpc->pItemCache = 0;
+                pNpc->pPermCache = 0;
             }
         }
         ++nCount;
@@ -558,7 +543,54 @@ static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord,
     pNpcRecord->pEvent = 0;
 }
 
-void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc); // 0x00536D10
+// 0x00536640
+void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame)
+{
+    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
+    D2NpcRecordStrc* pFirst = pNpcControl->pFirstRecord;
+    for (int i = 0; i < pNpcControl->nArraySize; ++i)
+    {
+        char* pCursor = (char*)&pFirst[i] + 0x2C;
+        D2NpcVendorChainStrc* pVendorChain = NPCREC_FIELD(D2NpcVendorChainStrc*, pCursor, 0x18);
+        if (pVendorChain)
+        {
+            do
+            {
+                D2NpcVendorChainStrc* pNext = pVendorChain->pNext;
+                sub_0040B480(pGame->pMemoryPool, pVendorChain, ".\\UNIT\\sunitproxy.cpp", 0x21E, 0);
+                pVendorChain = pNext;
+            }
+            while (pVendorChain);
+            NPCREC_FIELD(D2NpcVendorChainStrc*, pCursor, 0x18) = 0;
+        }
+
+        SUNITPROXY_ClearNpcRecordData((D2NpcRecordStrc*)(pCursor - 0x2C), pGame);
+
+        if (NPCREC_FIELD(void*, pCursor, 0x2C))
+        {
+            sub_0040B480(pGame->pMemoryPool, NPCREC_FIELD(void*, pCursor, 0x2C), ".\\UNIT\\sunitproxy.cpp", 0x227, 0);
+            NPCREC_FIELD(void*, pCursor, 0x2C) = 0;
+        }
+
+        if (NPCREC_FIELD(void*, pCursor, 0x34))
+        {
+            sub_0040B480(pGame->pMemoryPool, NPCREC_FIELD(void*, pCursor, 0x34), ".\\UNIT\\sunitproxy.cpp", 0x22C, 0);
+            NPCREC_FIELD(void*, pCursor, 0x34) = 0;
+        }
+
+        if (NPCREC_FIELD(void*, pCursor, 0x10))
+        {
+            sub_0040B480(pGame->pMemoryPool, NPCREC_FIELD(void*, pCursor, 0x10), ".\\UNIT\\sunitproxy.cpp", 0x237, 0);
+            NPCREC_FIELD(void*, pCursor, 0x10) = 0;
+        }
+
+        NPCREC_FIELD(void*, pCursor, 0x14) = 0;
+    }
+
+    sub_0040B480(pGame->pMemoryPool, pNpcControl->pFirstRecord, ".\\UNIT\\sunitproxy.cpp", 0x242, 0);
+    sub_0040B480(pGame->pMemoryPool, pNpcControl, ".\\UNIT\\sunitproxy.cpp", 0x243, 0);
+    pGame->pNpcControl = 0;
+}
 
 void __stdcall SUNITPROXY_UpdateVendorInventory(D2GameStrc* pGame, unsigned char nAct, int bNoMorePlayersInLevel)
 {
@@ -621,7 +653,7 @@ void __fastcall sub_005367B0_QueueTradeEvent(D2UnitStrc* pNpc, D2GameStrc* pGame
     D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nIndex);
     if (pNpcRecord)
     {
-        D2NpcTradeStrc* pTrade = &pNpcRecord->tTrade;
+        D2NpcTradeStrc* pTrade = (D2NpcTradeStrc*)&pNpcRecord->bVendorInit;
         if (pTrade && pTrade->bTrader == 1 && pTrade->bVendorInit == 1 && pNpcRecord->bTrading == 1)
         {
             sub_00536760_AddNpcEvent(pUnit, nParam, nAction, pGame, pNpcRecord);
@@ -694,84 +726,18 @@ extern "C" __declspec(dllexport) unsigned int __fastcall sub_00536B40(Obj00536B4
     return pObj->dwValue1D24 + 8;
 }
 
-// 0x00536CB0
-D2NpcVendorChainStrc* __fastcall SUNITPROXY_GetVendorChain(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pPlayer)
-{
-    const int nNpcGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
-
-    for (D2NpcVendorChainStrc* pVendorChain = pNpcRecord->pVendorChain; pVendorChain; pVendorChain = pVendorChain->pNext)
-    {
-        if (pVendorChain->dwGUID == nNpcGUID)
-        {
-            return pVendorChain;
-        }
-    }
-
-    D2NpcVendorChainStrc* pVendorChain = (D2NpcVendorChainStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2NpcVendorChainStrc), ".\\UNIT\\sunitproxy.cpp", 0x4ED, 0);
-    pVendorChain->dwGUID = nNpcGUID;
-    pVendorChain->pNext = pNpcRecord->pVendorChain;
-    pNpcRecord->pVendorChain = pVendorChain;
-    return pVendorChain;
-}
-
-void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame)
-{
-    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
-    D2NpcRecordStrc* pRecords = pNpcControl->pFirstRecord;
-    for (int i = 0; i < pNpcControl->nArraySize; ++i)
-    {
-        D2NpcRecordStrc* pRecord = &pRecords[i];
-
-        D2NpcVendorChainStrc* pVendorChain = pRecord->pVendorChain;
-        if (pVendorChain)
-        {
-            do
-            {
-                D2NpcVendorChainStrc* pNext = pVendorChain->pNext;
-                sub_0040B480(pGame->pMemoryPool, pVendorChain, ".\\UNIT\\sunitproxy.cpp", 0x21E, 0);
-                pVendorChain = pNext;
-            }
-            while (pVendorChain);
-            pRecord->pVendorChain = 0;
-        }
-
-        SUNITPROXY_ClearNpcRecordData(pRecord, pGame);
-
-        if (pRecord->tProxy.pItemCache)
-        {
-            sub_0040B480(pGame->pMemoryPool, pRecord->tProxy.pItemCache, ".\\UNIT\\sunitproxy.cpp", 0x227, 0);
-            pRecord->tProxy.pItemCache = 0;
-        }
-
-        if (pRecord->tProxy.pPermCache)
-        {
-            sub_0040B480(pGame->pMemoryPool, pRecord->tProxy.pPermCache, ".\\UNIT\\sunitproxy.cpp", 0x22C, 0);
-            pRecord->tProxy.pPermCache = 0;
-        }
-
-        if (pRecord->pMercData)
-        {
-            sub_0040B480(pGame->pMemoryPool, pRecord->pMercData, ".\\UNIT\\sunitproxy.cpp", 0x237, 0);
-            pRecord->pMercData = 0;
-        }
-
-        pRecord->pEvent = 0;
-    }
-
-    sub_0040B480(pGame->pMemoryPool, pNpcControl->pFirstRecord, ".\\UNIT\\sunitproxy.cpp", 0x242, 0);
-    sub_0040B480(pGame->pMemoryPool, pNpcControl, ".\\UNIT\\sunitproxy.cpp", 0x243, 0);
-    pGame->pNpcControl = 0;
-}
-
+// 0x00536B50
 void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
 {
-    D2NpcRecordStrc* pNpcRecord = D10_GetNpcRecordFromUnit(pGame, pNpc);
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, (int*)&pNpc);
     if (!pNpcRecord)
     {
         return;
     }
 
-    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    int& nPlayerGUID = *(int*)&pNpc;
+    const int nGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    nPlayerGUID = nGUID;
     if (pNpcRecord->bGambleInit)
     {
         D2NpcGambleStrc* pPreviousGamble = 0;
@@ -795,7 +761,7 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
                     pGamble->pInventory = 0;
                 }
 
-                sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x48F, 0);
+                sub_0040B480(pGame->pMemoryPool, pGamble, szSUnitProxyCppFile_006E0A30, 0x48F, 0);
                 break;
             }
 
@@ -803,8 +769,14 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
         }
     }
 
+    D2NpcVendorChainStrc* pVendorChain = pNpcRecord->pVendorChain;
+    if (!pVendorChain)
+    {
+        return;
+    }
+
     D2NpcVendorChainStrc* pPreviousVendorChain = 0;
-    for (D2NpcVendorChainStrc* pVendorChain = pNpcRecord->pVendorChain; pVendorChain; pVendorChain = pVendorChain->pNext)
+    for (; pVendorChain; pVendorChain = pVendorChain->pNext)
     {
         if (pVendorChain->dwGUID == nPlayerGUID)
         {
@@ -817,12 +789,32 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
                 pNpcRecord->pVendorChain = pVendorChain->pNext;
             }
 
-            sub_0040B480(pGame->pMemoryPool, pVendorChain, ".\\UNIT\\sunitproxy.cpp", 0x4A7, 0);
+            sub_0040B480(pGame->pMemoryPool, pVendorChain, szSUnitProxyCppFile_006E0A30, 0x4A7, 0);
             return;
         }
 
         pPreviousVendorChain = pVendorChain;
     }
+}
+
+// 0x00536CB0
+D2NpcVendorChainStrc* __fastcall SUNITPROXY_GetVendorChain(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pPlayer)
+{
+    const int nNpcGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+
+    for (D2NpcVendorChainStrc* pVendorChain = pNpcRecord->pVendorChain; pVendorChain; pVendorChain = pVendorChain->pNext)
+    {
+        if (pVendorChain->dwGUID == nNpcGUID)
+        {
+            return pVendorChain;
+        }
+    }
+
+    D2NpcVendorChainStrc* pVendorChain = (D2NpcVendorChainStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2NpcVendorChainStrc), ".\\UNIT\\sunitproxy.cpp", 0x4ED, 0);
+    pVendorChain->dwGUID = nNpcGUID;
+    pVendorChain->pNext = pNpcRecord->pVendorChain;
+    pNpcRecord->pVendorChain = pVendorChain;
+    return pVendorChain;
 }
 
 // 0x00536D10
