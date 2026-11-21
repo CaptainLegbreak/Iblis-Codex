@@ -436,6 +436,30 @@ void __stdcall sub_00649050(D2DynamicPathStrc*); // 0x00649050
 
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
 
+
+
+void __fastcall SKILLS_CurseStateCallback_BasicAura(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005CEC50
+
+int __stdcall sub_005CEC90_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent); // 0x005CEC90
+
+int __fastcall SUNITDMG_GetColdEffect(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0057AF30
+
+extern D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc*); // 0x00535BC0
+
+extern int __stdcall INVENTORY_GetWieldType(D2UnitStrc*,D2InventoryStrc*); // 0x0063D340
+
+extern int __stdcall sub_00625480_GetStat(D2UnitStrc*,int,int); // 0x00625480
+
+extern int __stdcall sub_006449F0_ToHit(D2UnitStrc*,int,int); // 0x006449F0
+
+extern int __stdcall sub_00646CA0_EvaluateFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
+
+extern int __fastcall sub_00483360_ApplyRatio(int,int,int); // 0x00483360
+
+extern void __stdcall sub_00644560_SetParameter(D2SkillStrc*,int); // 0x00644560
+
+extern void __fastcall sub_0057DBF0_AllocateCombat(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2DamageStrc*,int); // 0x0057DBF0
+
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -540,6 +564,93 @@ int __fastcall SKILLS_SrvSt29_Sacrifice(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 0x80);
+    return 1;
+}
+
+// 0x005CEDC0
+int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit)
+{
+    D2CurseStrc curse = {};
+    D2BasicAuraParamStrc* pArgs = (D2BasicAuraParamStrc*)pAuraCallback->pArgs;
+    curse.pTarget = pUnit;
+    curse.pUnit = pAuraCallback->pOwner;
+    curse.nSkill = pArgs->nSkillId;
+    curse.nSkillLevel = pArgs->nSkillLevel;
+    curse.nDuration = pArgs->nDuration;
+    curse.nStat = -1;
+    curse.nStatValue = 0;
+    curse.nState = pArgs->nAuraState;
+    if (pArgs->pStateRemoveCallback)
+        curse.pStateRemoveCallback = (StatListRemoveFunc)pArgs->pStateRemoveCallback;
+    else if (pAuraCallback->pOwner == pUnit)
+        curse.pStateRemoveCallback = SKILLS_CurseStateCallback_BasicAura;
+    D2StatListStrc* pStatList = sub_0056E970(&curse);
+    if (!pStatList) return 0;
+    pArgs->pStatList = pStatList;
+    int* pAuraStat = pArgs->nAuraStat;
+    for (int i = 0; i < 6; ++i, ++pAuraStat)
+    {
+        if (!pAuraStat[6]) continue;
+        int nStat = *pAuraStat;
+        if (nStat <= 0 || nStat >= sgptDataTables->nItemStatCostTxtRecordCount) continue;
+        if (nStat == 110)
+        {
+            if (sub_005CEC90_ShortenPoisonAndCurses(pAuraCallback->pGame, pUnit, pAuraStat[6]))
+                ++pArgs->unk0x40;
+            continue;
+        }
+        int nValue = sub_6FD0B3D0(pUnit, nStat, pAuraStat[6]);
+        if (!nValue) continue;
+        D2ItemStatCostTxt* pRecord = sub_0045C4F0_GetItemStatCostTxtRecord(nStat);
+        if (!pRecord) continue;
+        if (!(pRecord->nItemStatFlags[0] & gdwBitMasks[4]))
+        {
+            if (STATLIST_GetStatValue(pStatList, nStat, 0) != nValue)
+                STATES_ToggleGfxStateFlag(pUnit, curse.nState, 1);
+            switch (nStat)
+            {
+            case 67:
+            case 68:
+            {
+                int nColdEffect = SUNITDMG_GetColdEffect(SUNIT_GetGameFromUnit(pUnit), pUnit);
+                if (nValue < nColdEffect) nValue = nColdEffect;
+                break;
+            }
+            }
+            STATLIST_SetStat(pStatList, nStat, nValue, 0);
+            if (nStat == 68) STATLIST_SetStat(pStatList, 69, nValue, 0);
+            ++pArgs->unk0x40;
+        }
+        else
+        {
+            int nOldValue = STATLIST_UnitGetStatValue(pUnit, nStat, 0);
+            nValue += nOldValue;
+            int nMaxStat = pRecord->wMaxStat;
+            if (nMaxStat < sgptDataTables->nItemStatCostTxtRecordCount)
+            {
+                int nMax = STATLIST_UnitGetStatValue(pUnit, nMaxStat, 0);
+                if (nValue >= nMax) nValue = nMax;
+            }
+            if (nValue != nOldValue)
+            {
+                STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
+                ++pArgs->unk0x40;
+            }
+        }
+    }
+    UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkilPal.cpp", 413);
+    STATLIST_SetStat(pStatList, 350, pArgs->nSkillId, 0);
+    STATLIST_SetStat(pStatList, 351, pArgs->nSkillLevel, 0);
+    if (pArgs->nPassiveState > 0)
+    {
+        D2StatListStrc* pPassive = STATLIST_GetStatListFromUnitAndState(pUnit, pArgs->nPassiveState);
+        if (pPassive)
+        {
+            D2Common_10474(pUnit, pPassive);
+            STATLIST_FreeStatList(pPassive);
+            STATES_ToggleGfxStateFlag(pUnit, pArgs->nPassiveState, 1);
+        }
+    }
     return 1;
 }
 
@@ -985,6 +1096,112 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
         UNITS_SetOverlay(pTarget, 147, 0);
     }
+    return 1;
+}
+
+static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed,int nRange)
+{
+    if (nRange<=0) return 0;
+    if (nRange & (nRange-1))
+    {
+        const unsigned __int64 nSeed=pSeed->nHighSeed+0x6ac690c5i64*pSeed->nLowSeed;
+        pSeed->nHighSeed=(unsigned int)(nSeed>>32);
+        pSeed->nLowSeed=(unsigned int)nSeed;
+        return (unsigned int)nSeed % nRange;
+    }
+    const unsigned __int64 nSeed=pSeed->nHighSeed+0x6ac690c5i64*pSeed->nLowSeed;
+    pSeed->nLowSeed=(unsigned int)nSeed;
+    pSeed->nHighSeed=(unsigned int)(nSeed>>32);
+    return (unsigned int)nSeed & (nRange-1);
+}
+
+// 0x005CFD20
+static __declspec(noinline) int __cdecl sub_005CFD20_RangeRoll(D2UnitStrc* pUnit)
+{
+    int nMinimum;
+    int nMaximum;
+    if (sub_6FC7C7B0(pUnit))
+    {
+        if (INVENTORY_GetWieldType(pUnit,pUnit->pInventory)==2)
+        {
+            nMinimum=sub_00625480_GetStat(pUnit,23,0);
+            nMaximum=sub_00625480_GetStat(pUnit,24,0);
+        }
+        else
+        {
+            nMinimum=sub_00625480_GetStat(pUnit,21,0);
+            nMaximum=sub_00625480_GetStat(pUnit,22,0);
+        }
+    }
+    else
+    {
+        nMinimum=sub_00625480_GetStat(pUnit,21,0);
+        if (nMinimum<=0) nMinimum=1;
+        nMaximum=sub_00625480_GetStat(pUnit,22,0);
+        if (nMaximum<=1) nMaximum=2;
+    }
+    nMinimum<<=8;
+    nMaximum<<=8;
+    if (nMinimum<1) nMinimum=256;
+    if (nMaximum<=nMinimum) nMaximum=nMinimum+256;
+    return RollLimited(&pUnit->pSeed,nMaximum-nMinimum)+nMinimum;
+}
+
+// 0x005CFE10
+int __fastcall sub_005CFE10_ElementalStrike(D2GameStrc* pGame,D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
+{
+    D2SkillsTxt* pRecord;
+    if (nSkillId>=0 && nSkillId<sgptDataTables->nSkillsTxtRecordCount)
+        pRecord=&sgptDataTables->pSkillsTxt[nSkillId];
+    else
+        pRecord=0;
+    if (!pRecord) return 0;
+    D2SkillStrc* pSkill=UNITS_GetUsedSkill(pUnit);
+    if (!pSkill) return 0;
+    D2UnitStrc* pTarget=SUNIT_GetTargetUnit(pGame,pUnit);
+    if (!pTarget) return 0;
+    D2DamageStrc damage;
+    memset(&damage,0,sizeof(damage));
+    damage.wResultFlags=SUNITDMG_GetResultFlags(pGame,pUnit,pTarget,sub_006449F0_ToHit(pUnit,nSkillId,nSkillLevel),0);
+    if (damage.wResultFlags & 1)
+    {
+        damage.dwPhysDamage=SUNITDMG_ApplyDamageBonuses(pUnit,1,0,0,0,0,0,pRecord->nSrcDam);
+        damage.dwHitFlags=1;
+        damage.wResultFlags|=pRecord->wResultFlags;
+        damage.dwHitFlags=pRecord->dwHitFlags|1;
+        const int nDamage=sub_005CFD20_RangeRoll(pUnit);
+        int nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[0],nSkillId,nSkillLevel);
+        if (nPercent)
+        {
+            const int nMastery=sub_00625480_GetStat(pUnit,329,0);
+            if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
+        }
+        damage.dwFireDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
+        nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[1],nSkillId,nSkillLevel);
+        if (nPercent)
+        {
+            const int nMastery=sub_00625480_GetStat(pUnit,331,0);
+            if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
+        }
+        damage.dwColdDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
+        nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[2],nSkillId,nSkillLevel);
+        if (nPercent)
+        {
+            const int nMastery=sub_00625480_GetStat(pUnit,330,0);
+            if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
+        }
+        damage.dwLtngDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
+        damage.dwColdLen+=SKILLS_GetElementalLength(pUnit,nSkillId,nSkillLevel,1);
+        const int nParameter=SKILLS_GetParam1(pSkill);
+        switch(nParameter)
+        {
+        case 0: damage.dwHitClass=32; break;
+        case 1: damage.dwHitClass=48; break;
+        case 2: damage.dwHitClass=64; break;
+        }
+        sub_00644560_SetParameter(pSkill,(nParameter+1)%3);
+    }
+    sub_0057DBF0_AllocateCombat(pGame,pUnit,pTarget,&damage,128);
     return 1;
 }
 

@@ -69441,6 +69441,10 @@
      "name": "SKILLS_SrvSt29_Sacrifice"
     },
     {
+     "va": "0x005CEDC0",
+     "length": 590
+    },
+    {
      "va": "0x005CF010",
      "length": 616,
      "name": "?SKILLS_SrvDo065_BasicAura@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -69471,6 +69475,16 @@
     {
      "va": "0x005CF900",
      "length": 1052
+    },
+    {
+     "va": "0x005CFD20",
+     "length": 238,
+     "name": "?sub_005CFD20_RangeRoll@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005CFE10",
+     "length": 558,
+     "name": "?sub_005CFE10_ElementalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D0180",
@@ -69543,26 +69557,6 @@
      "va": "0x005CE9F0",
      "length": 600,
      "name": "?SKILLS_SrvDo150_Smite@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005CEDC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CEDC0",
-     "length": 590
-    },
-    {
-     "va": "0x005CFD20",
-     "length": 238,
-     "name": "?sub_005CFD20_RangeRoll@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005CFE10",
-     "length": 558,
-     "name": "?sub_005CFE10_ElementalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
