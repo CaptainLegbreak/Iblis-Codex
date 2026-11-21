@@ -132,7 +132,6 @@ static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString,
 
 static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel);
 
-
 static void __stdcall sub_004E99F0_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, SKILLWEAPONFN pfnEvaluate, int nBonus, int nAdd, int nLeft, int nY, int nRight, int bElemDamage);
 
 void __fastcall sub_004EA170_DrawDualWieldLine(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight);
@@ -173,7 +172,6 @@ int __stdcall sub_0063A380(D2UnitStrc* pUnit);                                  
 
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                         // 0x0063A3A0
 
-
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
 static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc*, int*, int*, int*, D2SkillsTxt*, int); // 0x004E72D0
@@ -189,6 +187,8 @@ extern const D2ElemDamageStatsStrc gaElemDamageStats_006DBEF4[4];               
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
+static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight);
 
 static __forceinline int sub_I05_ETypeColor(int nEType)
 {
@@ -796,6 +796,120 @@ void __fastcall sub_004EAA30_DrawOtherHandDamage(D2UnitStrc* pUnit, D2SkillStrc*
     sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
+
+// build: context ApplyRatio_Inline
+// build: context AddPoisonDamage_Inline
+// build: context AddPoisonDamageAndClamp_Inline
+
+void __fastcall sub_004EA010_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+{
+    if (!pSkill || !pSkillsTxt)
+    {
+        return;
+    }
+
+    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
+    if (!pSkillDescTxt)
+    {
+        return;
+    }
+
+    int nMin = 0;
+    int nMax = 0;
+    int nColor = 0;
+    const int nBonus = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x98C), nSkillLevel);
+    const int nAdd = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0x98D), nSkillLevel);
+    sub_004E86F0_GetWeaponDamage(&nMin, &nMax, &nColor, nAdd, pSkill, 0x80, 0, 0, pUnit, nBonus);
+    sub_004E89A0_GetElementalDamage(pUnit, &nMin, &nMax, &nColor, pSkill);
+    if (pSkillsTxt->nSrcDam != 0x80)
+    {
+        const int nSrcDam = pSkillsTxt->nSrcDam;
+        nMin = DATATBLS_ApplyRatio(nMin, nSrcDam, 0x80);
+        nMax = DATATBLS_ApplyRatio(nMax, nSrcDam, 0x80);
+    }
+
+    nMin += SKILLS_GetMinPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
+    nMax += SKILLS_GetMaxPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
+    nMin += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
+    nMax += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
+    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+}
+
+// 0x004EAF90
+void __fastcall sub_004EAF90_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+{
+    if (!pSkill || !pSkillsTxt)
+    {
+        return;
+    }
+
+    int nWeaponMinOutput = 0;
+    int nWeaponMaxOutput = 0;
+    int nWeaponColor = 0;
+    sub_004E86F0_GetWeaponDamage(&nWeaponMinOutput, &nWeaponMaxOutput, &nWeaponColor, 0, pSkill, 0x80, 0, 0, pUnit, 0);
+    sub_004E89A0_GetElementalDamage(pUnit, &nWeaponMinOutput, &nWeaponMaxOutput, &nWeaponColor, pSkill);
+
+    int nMin = 0;
+    int nMax = 0;
+    int nColor = 0;
+    sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nColor, pSkillsTxt, nSkillLevel);
+
+    if (!nWeaponMinOutput && !nWeaponMaxOutput)
+    {
+        sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
+        return;
+    }
+
+    if (!nMin && !nMax)
+    {
+        sub_004E96E0_DrawDamageRange(nWeaponColor, nY, nWeaponMinOutput, nWeaponMaxOutput, nLeft, nRight);
+        return;
+    }
+
+    int nWeaponMin = nWeaponMinOutput;
+    int nWeaponMax = nWeaponMaxOutput;
+
+    UnicodeChar wszText1[32];
+    char szText[32];
+    if (nWeaponMin == nWeaponMax)
+    {
+        wsprintfA(szText, szFmtD_006D57BC, nWeaponMin);
+    }
+    else if (nWeaponMin < 10000 && nWeaponMax < 10000)
+    {
+        wsprintfA(szText, szFmtRange_006D9D70, nWeaponMin, nWeaponMax);
+    }
+    else if (nWeaponMin >= 10000)
+    {
+        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+    }
+    else
+    {
+        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+    }
+    sub_00526320_ToUnicode(wszText1, szText, 32);
+
+    UnicodeChar wszText2[32];
+    if (nMin == nMax)
+    {
+        wsprintfA(szText, szFmtD_006D57BC, nMin);
+    }
+    else if (nMin < 10000 && nMax < 10000)
+    {
+        wsprintfA(szText, szFmtRange_006D9D70, nMin, nMax);
+    }
+    else if (nMin >= 10000)
+    {
+        wsprintfA(szText, szFmtRangeKK_006DBEAC, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+    }
+    else
+    {
+        wsprintfA(szText, szFmtRangeK_006DBEB8, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+    }
+    sub_00526320_ToUnicode(wszText2, szText, 32);
+    sub_004E9870_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
+}
+
 // 0x004EB240
 void __fastcall sub_004EB240_DrawSkillWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
@@ -854,7 +968,6 @@ static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
 
     return 0;
 }
-
 
 // build: context sub_004E86F0_GetWeaponDamage
 static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDamage, int* pColor, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem, int bStatBonus, D2UnitStrc* pUnit, int nBonus)
@@ -1410,6 +1523,26 @@ static __forceinline int sub_004ED530_HasOnlyBonusLevels(D2UnitStrc* pUnit, int 
 int __fastcall sub_M119_Emit_004ED530(D2UnitStrc* pUnit, int nSkillId)
 {
     return sub_004ED530_HasOnlyBonusLevels(pUnit, nSkillId);
+}
+
+void __fastcall sub_004EB940_DrawWeaponDamageWithParam(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+{
+    if (!pSkill || !pSkillsTxt)
+    {
+        return;
+    }
+
+    int nMin = 0;
+    int nMax = 0;
+    int nColor = 0;
+    sub_004E86F0_GetWeaponDamage(&nMin, &nMax, &nColor, 0, pSkill, 0, 0, 0, pUnit, 0);
+    const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szSkillDescFile_006DBF24, 0xD40);
+    D2SkillsTxt* pRecord = sub_I05_GetSkillsTxtRecord(nSkillId);
+    const int nParam = !pRecord ? 0 : pRecord->dwParam[4];
+    nMin += nParam * nMin / 100;
+    nMax += nParam * nMax / 100;
+    sub_004E89A0_GetElementalDamage(pUnit, &nMin, &nMax, &nColor, pSkill);
+    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
 #include "gen/data/Source/D2Client/UI/SkillDesc.inc"
