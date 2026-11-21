@@ -135,6 +135,38 @@ void __fastcall DATATBLS_LoadObjType_ModeTxt(void* hArchive)
     gnObjModeTypeTxtRecordCount = nTotal;
 }
 
+// 0x0065ADC0
+void __fastcall DATATBLS_LoadPlrType_ModeTxt(void* hArchive)
+{
+    int nTypeRecords;
+    int nModeRecords;
+    D2BinFieldStrc pTbl[] =
+    {
+        { "name", 1, 31, 0, 0 },
+        { "token", 9, 0, 32, 0 },
+        { gszTxtField_end, 0, 0, 0, 0 },
+    };
+
+    D2TokRecord* pType = (D2TokRecord*)DATATBLS_CompileTxt(hArchive, "plrtype", pTbl, &nTypeRecords, sizeof(D2TokRecord));
+    D2TokRecord* pModeSrc = (D2TokRecord*)DATATBLS_CompileTxt(hArchive, "plrmode", pTbl, &nModeRecords, sizeof(D2TokRecord));
+
+    int nTotal = nModeRecords + nTypeRecords;
+    D2TokRecord* pTxt = (D2TokRecord*)FOG_AllocPool(0, sizeof(D2TokRecord) * nTotal, ".\\DATATBLS\\TokTbls.cpp", 55, 0);
+    TBL_ASSERT(pTxt, 56);
+
+    memcpy(pTxt, pType, sizeof(D2TokRecord) * nTypeRecords);
+    D2TokRecord* pMode = pTxt + nTypeRecords;
+    memcpy(pMode, pModeSrc, sizeof(D2TokRecord) * nModeRecords);
+
+    DATATBLS_UnloadBin(pType);
+    DATATBLS_UnloadBin(pModeSrc);
+
+    gPlrModeDataTables.pPlayerMode = pMode;
+    gPlrModeDataTables.pPlrModeTypeTxt = pTxt;
+    gPlrModeDataTables.pPlayerType = pTxt;
+    gPlrModeDataTables.nPlrModeTypeTxtRecordCount = nTotal;
+}
+
 // 0x0065B2E0
 void __fastcall DATATBLS_LoadCompositTxt(void* hArchive)
 {

@@ -289,10 +289,10 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddAdjacentMazeRoom(D2DrlgRoomStrc* pD
 
 static void __stdcall sub_006714D0(D2DrlgLevelStrc* pLevel, int bFirstLevel);
 
+void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* pLevel);
+
 // 0x006738C0
 static void __stdcall sub_006738C0(D2DrlgMapStrc* pDrlgMap, int nPickedFile, D2DrlgLevelStrc* pLevel);
-
-void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* pLevel);
 
 // 0x00670810
 static int sub_00670810(D2DrlgLevelStrc* pLevel)
@@ -310,12 +310,6 @@ static int sub_00670810(D2DrlgLevelStrc* pLevel)
     }
 
     return pLevel->pMaze->dwRooms[pLevel->pDrlg->nDifficulty] == 1;
-}
-
-// 0x00670960
-static int DRLGMAZE_HasMapDS1(D2DrlgRoomStrc* pDrlgRoom)
-{
-    return !((pDrlgRoom->pMaze->dwFlags >> 1) & 1);
 }
 
 // 0x00670860
@@ -385,6 +379,12 @@ static int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom, int nDirection, D2D
     }
 
     return DRLGMAZE_CheckRoomNotOverlaping(pNewRoomEx->ptDrlgLevel, pNewRoomEx, pDrlgRoom, 0);
+}
+
+// 0x00670960
+static int DRLGMAZE_HasMapDS1(D2DrlgRoomStrc* pDrlgRoom)
+{
+    return !((pDrlgRoom->pMaze->dwFlags >> 1) & 1);
 }
 
 // 0x00670970
@@ -834,6 +834,7 @@ static __forceinline unsigned int MAZE_RollLimitedRandomNumberInline(D2SeedStrc*
     return MAZE_RollSeed(pSeed) & (nMax - 1);
 }
 
+// 0x006711A0
 D2DrlgRoomStrc* __fastcall DRLGMAZE_GetRandomRoomExFromLevel(D2DrlgLevelStrc* pLevel)
 {
     int i = MAZE_RollLimitedRandomNumberInline(&pLevel->pSeed, pLevel->nRooms);
@@ -1982,6 +1983,15 @@ void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* ptDrlgLevel)
 
     DRLGMAZE_RollAct_1_2_3_BasicPresets(ptDrlgLevel);
     DRLGMAZE_RollBasicPresets(ptDrlgLevel);
+}
+
+// 0x00673FE0
+void __fastcall DRLGMAZE_ResetMazeRecord(D2DrlgLevelStrc* pLevel, int bKeepMazeRecord)
+{
+    if (!bKeepMazeRecord)
+    {
+        pLevel->pMaze = 0;
+    }
 }
 
 #include "gen/data/Source/D2Common/DRLG/Maze.inc"

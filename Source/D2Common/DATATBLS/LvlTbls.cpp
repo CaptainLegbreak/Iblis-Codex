@@ -1,6 +1,13 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
+#include "D2LevelTxt.h"
+#include "D2Records.h"
+#include "D2Skills.h"
+#include "D2TxtTables.h"
 
 #pragma intrinsic(strcpy)
 
@@ -10,7 +17,7 @@ union D2SeedStrc;
 
 struct D2SkillsTxt;
 
-struct D2AutomapShortStrc;
+struct D2AutomapRecordStrc;
 
 struct D2DrlgStrc;
 
@@ -20,8 +27,7 @@ struct D2BinFieldStrc;
 
 struct D2AutomapTxt;
 
-struct D2AutomapRandStrc;
-
+struct D2AutomapIndexStrc;
 
 struct D2DataTablesStrc;
 
@@ -57,25 +63,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x8C];
-    int dwPortal;
-    int dwPosition;
-    int dwSaveMonsters;
-    int dwLOSDraw;
-};
-
 D2LevelDefBin* gpLevelDefBin; // 0x0096C890
-
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 
@@ -116,19 +104,19 @@ struct D2AutomapTxt
     int nCel[4];
 };
 
-struct D2AutomapShortStrc
+struct D2AutomapRecordStrc
 {
-    int dwAutomapLevelType;
-    int dwAutomapTileType;
-    char nStyle;
-    char nStartSequence;
-    char nEndSequence;
-    char pad0x0B;
+    int nLevelNo;
+    int nTileType;
+    unsigned char nStyle;
+    unsigned char nStartSequence;
+    unsigned char nEndSequence;
+    unsigned char pad0x0B;
     int nCel[4];
     int nCels;
 };
 
-struct D2AutomapRandStrc
+struct D2AutomapIndexStrc
 {
     int nStart;
     int nEnd;
@@ -142,84 +130,9 @@ void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 extern D2SeedStrc* gpAutomapSeed_00744504; // 0x00744504
 
-extern D2AutomapShortStrc* gpAutomap_0096CA28; // 0x0096CA28
-
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    int dwSkillMode;
-    int dwFlags;
-};
-
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x24];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-};
-
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x8];
-    int nRooms;
-    char unk0x0C[0x4];
-    D2DrlgRoomStrc* ptRoomFirst;
-    D2LvlMazeTxt* pMaze;
-    char unk0x18[0x19C];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0xC];
-    D2SeedStrc pSeed;
-    void* pBuild;
-    int eLevelId;
-};
+D2AutomapRecordStrc* gpAutomapRecords_0096CA28; // 0x0096CA28
 
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
-
-struct D2LevelsTxt
-{
-    char unk0x00[5 + 0x0];
-    unsigned char nRain;
-    unsigned char nMud;
-    unsigned char nNoPer;
-    char unk0x08[8];
-    short wMonLvl[3];
-    short wMonLvlEx[3];
-    char unk0x1C[0x220 - 0x1C - 0x0];
-};
-
-struct D2LvlPrestTxt
-{
-    char unk0x00[0x4];
-    int dwLevelId;
-    char unk0x08[0x1B0 - 0x4 - 4];
-};
-
-struct D2LvlWarpTxt
-{
-    int dwLevelId;
-    char unk0x04[0x2C - 4];
-    char szDirection[4];
-};
-
-struct D2LvlMazeTxt
-{
-    int dwLevelId;
-    char unk0x04[0x1C - 4];
-};
-
-struct D2LvlSubTxt
-{
-    int dwType;
-    char szFile[60];
-    char unk0x40[0x118];
-    int dwExpansion;
-};
-
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x4C];
-    int nGroups;
-};
 
 int gnLvlwarpTxtRecordCount; // 0x0096CA04
 
@@ -331,7 +244,15 @@ static D2TileLibraryHeaderStrc** gppTileLibraryHash_0096CA1C; // 0x0096CA1C
 
 int gnAutomapRecordCount_0096CA2C; // 0x0096CA2C
 
-D2AutomapRandStrc gAutomapRand_0096C8D0[36]; // 0x0096C8D0
+D2AutomapIndexStrc gAutomapIndex_0096C8D0[36]; // 0x0096C8D0
+
+extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
+
+void __fastcall sub_0061E520(void* hArchive);
+
+void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles);
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 // 0x0061DB70
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId)
@@ -406,7 +327,7 @@ int __stdcall DATATBLS_GetMonsterLevelInArea(int nLevelId, unsigned char nDiffic
         return pLevelsTxtRecord->wMonLvlEx[nDifficulty];
     }
 
-    return pLevelsTxtRecord->wMonLvl[nDifficulty];
+    return (short)pLevelsTxtRecord->wMonLvl[nDifficulty];
 }
 
 // 0x0061DD00
@@ -530,7 +451,7 @@ D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId)
 }
 
 // 0x0061E4A0
-static void sub_0061E4A0(char* szPath, const char* szDirectory)
+static void sub_0061E4A0(const char* szDirectory, char* szPath)
 {
     char szBuffer[60];
     const int nLength = strlen(szPath);
@@ -546,6 +467,60 @@ static void sub_0061E4A0(char* szPath, const char* szDirectory)
     {
         wsprintfA(szBuffer, gszPathFormat_006D4124, szDirectory, szPath);
         strcpy(szPath, szBuffer);
+    }
+}
+
+// 0x0061E520
+void __fastcall sub_0061E520(void* hArchive)
+{
+    D2BinFieldStrc pTbl[] =
+    {
+        { "File 1", 1, 0x3B, 0, 0 },
+        { "File 2", 1, 0x3B, 0x3C, 0 },
+        { "File 3", 1, 0x3B, 0x78, 0 },
+        { "File 4", 1, 0x3B, 0xB4, 0 },
+        { "File 5", 1, 0x3B, 0xF0, 0 },
+        { "File 6", 1, 0x3B, 0x12C, 0 },
+        { "File 7", 1, 0x3B, 0x168, 0 },
+        { "File 8", 1, 0x3B, 0x1A4, 0 },
+        { "File 9", 1, 0x3B, 0x1E0, 0 },
+        { "File 10", 1, 0x3B, 0x21C, 0 },
+        { "File 11", 1, 0x3B, 0x258, 0 },
+        { "File 12", 1, 0x3B, 0x294, 0 },
+        { "File 13", 1, 0x3B, 0x2D0, 0 },
+        { "File 14", 1, 0x3B, 0x30C, 0 },
+        { "File 15", 1, 0x3B, 0x348, 0 },
+        { "File 16", 1, 0x3B, 0x384, 0 },
+        { "File 17", 1, 0x3B, 0x3C0, 0 },
+        { "File 18", 1, 0x3B, 0x3FC, 0 },
+        { "File 19", 1, 0x3B, 0x438, 0 },
+        { "File 20", 1, 0x3B, 0x474, 0 },
+        { "File 21", 1, 0x3B, 0x4B0, 0 },
+        { "File 22", 1, 0x3B, 0x4EC, 0 },
+        { "File 23", 1, 0x3B, 0x528, 0 },
+        { "File 24", 1, 0x3B, 0x564, 0 },
+        { "File 25", 1, 0x3B, 0x5A0, 0 },
+        { "File 26", 1, 0x3B, 0x5DC, 0 },
+        { "File 27", 1, 0x3B, 0x618, 0 },
+        { "File 28", 1, 0x3B, 0x654, 0 },
+        { "File 29", 1, 0x3B, 0x690, 0 },
+        { "File 30", 1, 0x3B, 0x6CC, 0 },
+        { "File 31", 1, 0x3B, 0x708, 0 },
+        { "File 32", 1, 0x3B, 0x744, 0 },
+        { "Act", 4, 0, 0x780, 0 },
+        { gszTxtField_Expansion, 2, 0, 0x784, 0 },
+        { gszTxtField_end, 0, 0, 0, 0 },
+    };
+    D2LvlTypesTxt* pLvlTypesTxt = (D2LvlTypesTxt*)DATATBLS_CompileTxt(hArchive, "lvltypes", pTbl, &sgtDataTables.nLvlTypesTxtRecordCount, sizeof(D2LvlTypesTxt));
+    sgtDataTables.pLvlTypesTxt = pLvlTypesTxt;
+    D2LvlTypesTxt* pRecord = pLvlTypesTxt;
+    for (int i = 0; i < sgtDataTables.nLvlTypesTxtRecordCount; ++i)
+    {
+        for (int j = 0; j < 0x20; ++j)
+        {
+            sub_0061E4A0(gszDirectory_006E867C, pRecord->szFile[j]);
+        }
+        ++pRecord;
     }
 }
 
@@ -580,6 +555,59 @@ void __stdcall DATATBLS_GetFileNameFromLevelTypeAndFileId(int nLevelType, int nF
     if (pLevelTypesTxtRecord && nFile < 32)
     {
         strcpy(szFile, pLevelTypesTxtRecord->szFile[nFile]);
+    }
+}
+
+// 0x0061EBB0
+void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles)
+{
+    D2BinFieldStrc pTbl[] =
+    {
+        { "Def", 2, 0, 0, 0 },
+        { "LevelId", 2, 0, 4, 0 },
+        { "Populate", 2, 0, 8, 0 },
+        { "Logicals", 2, 0, 0xC, 0 },
+        { "Outdoors", 2, 0, 0x10, 0 },
+        { "Animate", 2, 0, 0x14, 0 },
+        { "KillEdge", 2, 0, 0x18, 0 },
+        { "FillBlanks", 2, 0, 0x1C, 0 },
+        { "SizeX", 2, 0, 0x28, 0 },
+        { "SizeY", 2, 0, 0x2C, 0 },
+        { "AutoMap", 2, 0, 0x30, 0 },
+        { "Scan", 2, 0, 0x34, 0 },
+        { "Pops", 2, 0, 0x38, 0 },
+        { "PopPad", 2, 0, 0x3C, 0 },
+        { "Files", 2, 0, 0x40, 0 },
+        { "File1", 1, 0x3B, 0x44, 0 },
+        { "File2", 1, 0x3B, 0x80, 0 },
+        { "File3", 1, 0x3B, 0xBC, 0 },
+        { "File4", 1, 0x3B, 0xF8, 0 },
+        { "File5", 1, 0x3B, 0x134, 0 },
+        { "File6", 1, 0x3B, 0x170, 0 },
+        { "Dt1Mask", 2, 0, 0x1AC, 0 },
+        { gszTxtField_Expansion, 2, 0, 0x20, 0 },
+        { gszTxtField_end, 0, 0, 0, 0 },
+    };
+    sgtDataTables.pLvlPrestTxt = (D2LvlPrestTxt*)DATATBLS_CompileTxt(hArchive, "lvlprest", pTbl, &sgtDataTables.nLvlPrestTxtRecordCount, sizeof(D2LvlPrestTxt));
+    if (bLoadFiles)
+    {
+        const int nSize = sizeof(D2DrlgFileStrc*) * 6 * sgptDataTables->nLvlPrestTxtRecordCount;
+        sgtDataTables.ppLvlPrestFiles = (D2DrlgFileStrc**)FOG_Alloc(nSize, ".\\DATATBLS\\LvlTbls.cpp", 0x2A7, 0);
+        memset(sgtDataTables.ppLvlPrestFiles, 0, nSize);
+    }
+    D2LvlPrestTxt* pRecord = sgtDataTables.pLvlPrestTxt;
+    const int bExpansion = sub_00408F20_HasExpansionMpq();
+    for (int i = 0; i < sgptDataTables->nLvlPrestTxtRecordCount; ++i, ++pRecord)
+    {
+        if (bExpansion || !pRecord->dwExpansion)
+        {
+            for (unsigned int j = 0; j < 6; ++j)
+            {
+                sub_0061E4A0(gszDirectory_006E867C, pRecord->szFile[j]);
+                if (bLoadFiles && strlen(pRecord->szFile[j]) > 1)
+                    DRLGPRESET_LoadDrlgFile(&sgtDataTables.ppLvlPrestFiles[j + 6 * i], 0, pRecord->szFile[j]);
+            }
+        }
     }
 }
 
@@ -638,7 +666,7 @@ void __fastcall sub_Z16_EmitFixPathSlashes(char* pRecords, int nCount)
 {
     for (int i = 0; i < nCount; ++i)
     {
-        sub_0061E4A0(pRecords, "DATA\\GLOBAL\\TILES");
+        sub_0061E4A0("DATA\\GLOBAL\\TILES", pRecords);
         pRecords += 0x3C;
     }
 }
@@ -793,10 +821,10 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
  D2LvlSubTxt* row=gpLvlSubTxt;
  int expansion=sub_00408F20_HasExpansionMpq();
  for(int i=0;i<gnLvlSubTxtRecordCount;++i,++row) {
-  sub_0061E4A0(row->szFile,gszDirectory_006E867C);
+  sub_0061E4A0(gszDirectory_006E867C,row->szFile);
   if((expansion||!row->dwExpansion)&&(loadFiles||extra)) {
    DRLGPRESET_LoadDrlgFile(&gppLvlSubDrlgFiles[i],0,row->szFile);
-   if(!gppLvlSubDrlgFiles[i]->nGroups) {
+   if(!gppLvlSubDrlgFiles[i]->nSubstGroups) {
     sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x3c8);sub_00681E09_Exit(-1);
    }
   }
@@ -942,7 +970,7 @@ void __stdcall sub_M14_EmitAutomapLookups(const char* pAutomapRecord, int* pType
 // 0x0061FCF0
 void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
 {
-    D2AutomapShortStrc* pAutomap = 0;
+    D2AutomapRecordStrc* pAutomap = 0;
     D2AutomapTxt* pAutomapTxt;
     int nRecordCount;
 
@@ -964,13 +992,13 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
     };
 
     pAutomapTxt = (D2AutomapTxt*)DATATBLS_CompileTxt(hArchive, "automap", pTbl, &nRecordCount, sizeof(D2AutomapTxt));
-    pAutomap = (D2AutomapShortStrc*)FOG_AllocPool(0, sizeof(D2AutomapShortStrc) * nRecordCount, ".\\DATATBLS\\LvlTbls.cpp", 0x4F7, 0);
-    memset(pAutomap, 0, sizeof(D2AutomapShortStrc) * nRecordCount);
+    pAutomap = (D2AutomapRecordStrc*)FOG_AllocPool(0, sizeof(D2AutomapRecordStrc) * nRecordCount, ".\\DATATBLS\\LvlTbls.cpp", 0x4F7, 0);
+    memset(pAutomap, 0, sizeof(D2AutomapRecordStrc) * nRecordCount);
 
     for (int i = 0; i < nRecordCount; ++i)
     {
-        pAutomap[i].dwAutomapLevelType = sub_0061FC10_GetAutomapLevelType(pAutomapTxt[i].szLevelName);
-        pAutomap[i].dwAutomapTileType = sub_0061FC80_GetAutomapTileType(pAutomapTxt[i].szTileName);
+        pAutomap[i].nLevelNo = sub_0061FC10_GetAutomapLevelType(pAutomapTxt[i].szLevelName);
+        pAutomap[i].nTileType = sub_0061FC80_GetAutomapTileType(pAutomapTxt[i].szTileName);
         pAutomap[i].nStyle = pAutomapTxt[i].nStyle;
         pAutomap[i].nStartSequence = pAutomapTxt[i].nStartSequence;
         pAutomap[i].nEndSequence = pAutomapTxt[i].nEndSequence;
@@ -994,40 +1022,67 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
 
     DATATBLS_UnloadBin(pAutomapTxt);
 
-    gpAutomap_0096CA28 = pAutomap;
+    gpAutomapRecords_0096CA28 = pAutomap;
     gnAutomapRecordCount_0096CA2C = nRecordCount;
 
     for (int i = 0; i < 36; ++i)
     {
-        gAutomapRand_0096C8D0[i].nStart = -1;
-        gAutomapRand_0096C8D0[i].nEnd = -1;
+        gAutomapIndex_0096C8D0[i].nStart = -1;
+        gAutomapIndex_0096C8D0[i].nEnd = -1;
     }
 
     int nCounter = 0;
     while (nCounter < nRecordCount)
     {
-        const int nLevelType = pAutomap[nCounter].dwAutomapLevelType;
-        gAutomapRand_0096C8D0[nLevelType].nStart = nCounter;
-        while (nCounter + 1 < nRecordCount && nLevelType == pAutomap[nCounter + 1].dwAutomapLevelType)
+        const int nLevelType = pAutomap[nCounter].nLevelNo;
+        gAutomapIndex_0096C8D0[nLevelType].nStart = nCounter;
+        while (nCounter + 1 < nRecordCount && nLevelType == pAutomap[nCounter + 1].nLevelNo)
         {
             ++nCounter;
         }
         ++nCounter;
-        gAutomapRand_0096C8D0[nLevelType].nEnd = nCounter;
+        gAutomapIndex_0096C8D0[nLevelType].nEnd = nCounter;
     }
 
     D2_ASSERT(nCounter <= nRecordCount, 0x528);
 }
 
+// 0x0061FFF0
+int __fastcall sub_0061FFF0_GetAutomapCel(int nLevelNo, int nTileType, int nStyle, int nSequence)
+{
+    if (!nLevelNo)
+        return -1;
+
+    int nStart = gAutomapIndex_0096C8D0[nLevelNo].nStart;
+    int nEnd = gAutomapIndex_0096C8D0[nLevelNo].nEnd;
+    if (nStart == -1)
+        return -1;
+
+    D2_ASSERT(gAutomapIndex_0096C8D0[nLevelNo].nEnd != -1, 0x53B);
+
+    for (int i = nStart; i < nEnd; ++i)
+    {
+        if (gpAutomapRecords_0096CA28[i].nLevelNo == nLevelNo && gpAutomapRecords_0096CA28[i].nTileType == nTileType
+            && (gpAutomapRecords_0096CA28[i].nStyle == 0xFF || gpAutomapRecords_0096CA28[i].nStyle == nStyle)
+            && (gpAutomapRecords_0096CA28[i].nStartSequence == 0xFF
+                || (gpAutomapRecords_0096CA28[i].nStartSequence <= nSequence && gpAutomapRecords_0096CA28[i].nEndSequence >= nSequence)))
+        {
+            D2AutomapRecordStrc* pRecords = gpAutomapRecords_0096CA28;
+            return pRecords[i].nCel[ITEMS_RollLimitedRandomNumber(gpAutomapSeed_00744504, gpAutomapRecords_0096CA28[i].nCels)];
+        }
+    }
+    return -1;
+}
+
 // 0x006200D0
 void __fastcall DATATBLS_FreeAutomap()
 {
-    if (gpAutomap_0096CA28)
+    if (gpAutomapRecords_0096CA28)
     {
-        FOG_FreeServerMemory(0, gpAutomap_0096CA28, ".\\DATATBLS\\LvlTbls.cpp", 0x551, 0);
+        FOG_FreeServerMemory(0, gpAutomapRecords_0096CA28, ".\\DATATBLS\\LvlTbls.cpp", 0x551, 0);
     }
 
-    gpAutomap_0096CA28 = 0;
+    gpAutomapRecords_0096CA28 = 0;
 }
 
 // 0x00644140
@@ -1050,51 +1105,6 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill)
     }
 
     return 0;
-}
-
-static __forceinline unsigned int MAZE_RollRandomNumberInline(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return (unsigned int)lSeed;
-}
-
-static __forceinline unsigned int MAZE_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
-{
-    if (nMax <= 0)
-    {
-        return 0;
-    }
-
-    if ((nMax - 1) & nMax)
-    {
-        return MAZE_RollRandomNumberInline(pSeed) % nMax;
-    }
-
-    return MAZE_RollRandomNumberInline(pSeed) & (nMax - 1);
-}
-
-// 0x006711A0
-D2DrlgRoomStrc* __fastcall DRLGMAZE_GetRandomRoomExFromLevel(D2DrlgLevelStrc* pLevel)
-{
-    int i = MAZE_RollLimitedRandomNumberInline(&pLevel->pSeed, pLevel->nRooms);
-    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
-    for (; i; --i)
-    {
-        pDrlgRoom = pDrlgRoom->pDrlgRoomNext;
-    }
-
-    return pDrlgRoom;
-}
-
-// 0x00673FE0
-void __fastcall DRLGMAZE_ResetMazeRecord(D2DrlgLevelStrc* pLevel, int bKeepMazeRecord)
-{
-    if (!bKeepMazeRecord)
-    {
-        pLevel->pMaze = 0;
-    }
 }
 
 // 0x00673FF0
