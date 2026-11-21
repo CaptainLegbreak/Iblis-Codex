@@ -113,4 +113,4 @@ char* D2LogMsgListStrc::sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraB
     return (char*)pNode;
 }
 
-#include "gen/data/Source/Storm/Unknown_0040EB30.inc"
+#include "gen/data/Source/Fog/Unknown_0040EB30.inc"

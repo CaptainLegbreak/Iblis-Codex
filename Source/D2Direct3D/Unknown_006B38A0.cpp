@@ -48,4 +48,4 @@ void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, 
     pDst->lpVtbl->Unlock(pDst, 0);
 }
 
-#include "gen/data/Source/Storm/Unknown_006B38A0.inc"
+#include "gen/data/Source/D2Direct3D/Unknown_006B38A0.inc"

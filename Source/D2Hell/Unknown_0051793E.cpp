@@ -1,4 +1,3 @@
-#include "Bnclient.h"
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* pArgs);
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48

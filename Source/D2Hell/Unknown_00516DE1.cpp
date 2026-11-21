@@ -1,4 +1,3 @@
-#include "D2Win.h"
 
 int __fastcall sub_00517AD6_Check(void* pContext); // 0x00517AD6
 bool __fastcall sub_00517C30_Read(void* pContext, char* pBuffer, int nSize); // 0x00517C30
@@ -21,4 +20,4 @@ bool __fastcall sub_00516DE1_Verify(void* pContext)
     return bResult;
 }
 
-#include "gen/data/Source/D2Win/Unknown_00516DE1.inc"
+#include "gen/data/Source/D2Hell/Unknown_00516DE1.inc"
