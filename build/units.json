@@ -1877,11 +1877,6 @@
      "va": "0x004C5420",
      "length": 79,
      "name": "?sub_004C5420_RequestAtTarget@@YIPAUD2UnitStrc@@PAU1@HHH@Z"
-    },
-    {
-     "va": "0x004C54F0",
-     "length": 290,
-     "name": "?sub_004C54F0_CanThrow@@YIHPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -11614,6 +11609,11 @@
      "va": "0x004C5390",
      "length": 62,
      "name": "?sub_004C5390_EnlargeVector@@YIXPAH0@Z"
+    },
+    {
+     "va": "0x004C54F0",
+     "length": 290,
+     "name": "?sub_004C54F0_CanThrow@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004C5620",

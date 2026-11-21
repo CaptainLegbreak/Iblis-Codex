@@ -519,6 +519,10 @@ static int __stdcall sub_004C6140_StartSkill(int nOwnerGUID, int nSkillLevel, D2
 
 int __fastcall sub_004C6660_StartSkillWrapper(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nOwnerGUID);
 
+int __stdcall ITEMS_CanItemBeUsedForThrowSkill(D2UnitStrc* pItem); // 0x0062A310
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
+
 // 0x00436E90
 int __stdcall sub_00436E90_AlwaysOne(int nArg)
 {
@@ -639,6 +643,53 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
         return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+
+// 0x004C54F0
+int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+    if (pUnit->dwUnitType != 0)
+    {
+        return 1;
+    }
+    D2UnitStrc* pWeapon = sub_00623990_GetWeapon(pUnit, 0);
+    int bNoAmmo = 1;
+    if (!pWeapon)
+    {
+        return 1;
+    }
+    if (ITEMS_GetAmmoType(pWeapon))
+    {
+        bNoAmmo = 0;
+        if (!SKILLS_GetSkillIdFromSkill(UNITS_GetUsedSkill(pUnit), ".\\SKILLS\\Skills.cpp", 0xB6)
+            && STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 0x9D, 0))
+        {
+            return 1;
+        }
+    }
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return 0;
+    }
+    D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
+    if (pItem && (!bNoAmmo || pItem == pWeapon)
+        && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem) || STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x7D, 0)))
+    {
+        return ITEMS_CanItemBeUsedForThrowSkill(pItem);
+    }
+    pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
+    if (pItem && (!bNoAmmo || pItem == pWeapon)
+        && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem) || STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x7D, 0)))
+    {
+        return ITEMS_CanItemBeUsedForThrowSkill(pItem);
     }
     return 0;
 }
