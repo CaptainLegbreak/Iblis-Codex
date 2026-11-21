@@ -145,6 +145,7 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
         int nColor = pLine->nType;
         sub_00502EF0(pLine->nFont);
         int nLineY = pDialog->nY;
+        // volatile: the original adds dialog y and the offset first, then the line height
         nLineY += *(volatile int*)&nOffsetY;
         nLineY += pLine->nHeight;
         const int nLineX = pLine->nX + pDialog->nX;

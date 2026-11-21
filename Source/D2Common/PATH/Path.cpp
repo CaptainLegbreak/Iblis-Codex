@@ -2404,6 +2404,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                         }
 
                         pPath->tFinalTargetCoord.X = tPathInfo.tTargetCoord.X;
+                        // volatile: the original keeps these stores, the repeated one included, in this order
                         *(volatile int*)&pPath->dwCurrentPointIdx = 0;
                         pPath->tFinalTargetCoord.Y = tPathInfo.tTargetCoord.Y;
                         pPath->dwPathPoints = 0;

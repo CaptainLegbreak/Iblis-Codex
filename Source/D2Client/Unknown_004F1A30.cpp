@@ -386,6 +386,7 @@ void __fastcall sub_004F2BE0_MissileInit_CurvingPath(D2UnitStrc* pMissile, int n
     const unsigned int nRoll = SEED_RollLowInline(&tSeed);
     pSeed->nHighSeed = tSeed.nHighSeed;
     pSeed->nLowSeed = tSeed.nLowSeed;
+    // volatile: the original reads the turn base from memory inside each sum
     int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_0072D990;
     for (int i = 0; i < nFrames; ++i)
     {

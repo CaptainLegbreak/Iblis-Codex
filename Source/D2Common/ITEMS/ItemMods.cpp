@@ -1590,6 +1590,7 @@ int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatLi
     if (nSet)
     {
         const unsigned char nShift = pItemStatCostTxtRecord->nValShift;
+        // volatile: the original reads nValue from its stack slot here
         STATLIST_SetStatIfListIsValid(pStatList, nStatId, (*(int volatile*)&nValue) << nShift, nLayer);
 
         if (nStatId == STAT_POISONMAXDAM && !STATLIST_GetStatValue(pStatList, STAT_POISON_COUNT, 0))

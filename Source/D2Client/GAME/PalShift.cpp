@@ -196,6 +196,7 @@ static void sub_00477060_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pSh
     }
 }
 
+// The original builds this function without optimization (its code keeps every value on the stack).
 #pragma optimize("", off)
 // 0x00477170
 void __fastcall sub_00477170_LoadPalShift(int nMonsterId)

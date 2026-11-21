@@ -380,6 +380,7 @@ D2R01LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nM
         }
         pLight->nX = (UNITS_GetPrecisionX(pUnit) >> 13) + 4;
         unsigned int nPrecisionY = UNITS_GetPrecisionY(pUnit);
+        // volatile: the original reads both arguments from their stack slots here
         unsigned char nNativeIntensity = *(volatile unsigned char*)&nIntensity;
         int nNativeMode = *(volatile int*)&nMode;
         pLight->nY = (nPrecisionY >> 13) + 4;

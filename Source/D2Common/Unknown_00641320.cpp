@@ -368,6 +368,7 @@ D2UnitStrc* __stdcall D2Common_10406(D2UnitStrc* pSource,D2UnitFindCallback pCal
     if(D2_ABS(nX-nUnitX)+D2_ABS(nY-nUnitY)<=1) bInRange=1;
     break;
    case 3: case 7: {
+    // volatile: the original reads the coordinates from their stack slots here
     const int rangeX=*(const volatile int*)&nX;
     if(rangeX>=nUnitX-1 && rangeX<=nUnitX+1) {
      const int rangeY=*(const volatile int*)&nY;

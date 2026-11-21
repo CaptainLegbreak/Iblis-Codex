@@ -4071,6 +4071,7 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
 // 0x00647280
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine)
 {
+    // volatile: the original loads the unit argument once, at entry
     D2UnitStrc* const pTheUnit = *(D2UnitStrc* volatile*)&pUnit;
     D2SkillStrc* pSkill = 0;
     if (!nSkillLevel)

@@ -387,6 +387,7 @@ void __fastcall sub_004EB290_DrawElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSki
     }
 
     const int nSkillId = pSkillsTxt->nSkillId;
+    // volatile: the volatile read keeps the original's esi/edi assignment; no plain form found
     const int nLevel = *(volatile int*)&nSkillLevel;
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nLevel, 1);
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nLevel, 1);
