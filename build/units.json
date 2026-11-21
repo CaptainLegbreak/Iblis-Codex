@@ -76206,6 +76206,10 @@
      "name": "?DATATBLS_LoadAutomapTxt@@YIXPAX@Z"
     },
     {
+     "va": "0x0061FFF0",
+     "length": 218
+    },
+    {
      "va": "0x006200D0",
      "length": 40,
      "name": "?DATATBLS_FreeAutomap@@YIXXZ"
@@ -76331,30 +76335,6 @@
      "length": 92,
      "name": "?ENVIRONMENT_TaintedSunEnd@@YGXPAUD2DrlgActStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/LvlTbls_0061FFF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0061FFF0",
-     "length": 218
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

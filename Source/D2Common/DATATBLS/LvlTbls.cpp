@@ -17,7 +17,7 @@ union D2SeedStrc;
 
 struct D2SkillsTxt;
 
-struct D2AutomapShortStrc;
+struct D2AutomapRecordStrc;
 
 struct D2DrlgStrc;
 
@@ -27,7 +27,7 @@ struct D2BinFieldStrc;
 
 struct D2AutomapTxt;
 
-struct D2AutomapRandStrc;
+struct D2AutomapIndexStrc;
 
 struct D2DataTablesStrc;
 
@@ -104,19 +104,19 @@ struct D2AutomapTxt
     int nCel[4];
 };
 
-struct D2AutomapShortStrc
+struct D2AutomapRecordStrc
 {
-    int dwAutomapLevelType;
-    int dwAutomapTileType;
-    char nStyle;
-    char nStartSequence;
-    char nEndSequence;
-    char pad0x0B;
+    int nLevelNo;
+    int nTileType;
+    unsigned char nStyle;
+    unsigned char nStartSequence;
+    unsigned char nEndSequence;
+    unsigned char pad0x0B;
     int nCel[4];
     int nCels;
 };
 
-struct D2AutomapRandStrc
+struct D2AutomapIndexStrc
 {
     int nStart;
     int nEnd;
@@ -130,7 +130,7 @@ void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 extern D2SeedStrc* gpAutomapSeed_00744504; // 0x00744504
 
-extern D2AutomapShortStrc* gpAutomap_0096CA28; // 0x0096CA28
+D2AutomapRecordStrc* gpAutomapRecords_0096CA28; // 0x0096CA28
 
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
 
@@ -244,13 +244,15 @@ static D2TileLibraryHeaderStrc** gppTileLibraryHash_0096CA1C; // 0x0096CA1C
 
 int gnAutomapRecordCount_0096CA2C; // 0x0096CA2C
 
-D2AutomapRandStrc gAutomapRand_0096C8D0[36]; // 0x0096C8D0
+D2AutomapIndexStrc gAutomapIndex_0096C8D0[36]; // 0x0096C8D0
 
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
 void __fastcall sub_0061E520(void* hArchive);
 
 void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles);
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
 // 0x0061DB70
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId)
@@ -968,7 +970,7 @@ void __stdcall sub_M14_EmitAutomapLookups(const char* pAutomapRecord, int* pType
 // 0x0061FCF0
 void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
 {
-    D2AutomapShortStrc* pAutomap = 0;
+    D2AutomapRecordStrc* pAutomap = 0;
     D2AutomapTxt* pAutomapTxt;
     int nRecordCount;
 
@@ -990,13 +992,13 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
     };
 
     pAutomapTxt = (D2AutomapTxt*)DATATBLS_CompileTxt(hArchive, "automap", pTbl, &nRecordCount, sizeof(D2AutomapTxt));
-    pAutomap = (D2AutomapShortStrc*)FOG_AllocPool(0, sizeof(D2AutomapShortStrc) * nRecordCount, ".\\DATATBLS\\LvlTbls.cpp", 0x4F7, 0);
-    memset(pAutomap, 0, sizeof(D2AutomapShortStrc) * nRecordCount);
+    pAutomap = (D2AutomapRecordStrc*)FOG_AllocPool(0, sizeof(D2AutomapRecordStrc) * nRecordCount, ".\\DATATBLS\\LvlTbls.cpp", 0x4F7, 0);
+    memset(pAutomap, 0, sizeof(D2AutomapRecordStrc) * nRecordCount);
 
     for (int i = 0; i < nRecordCount; ++i)
     {
-        pAutomap[i].dwAutomapLevelType = sub_0061FC10_GetAutomapLevelType(pAutomapTxt[i].szLevelName);
-        pAutomap[i].dwAutomapTileType = sub_0061FC80_GetAutomapTileType(pAutomapTxt[i].szTileName);
+        pAutomap[i].nLevelNo = sub_0061FC10_GetAutomapLevelType(pAutomapTxt[i].szLevelName);
+        pAutomap[i].nTileType = sub_0061FC80_GetAutomapTileType(pAutomapTxt[i].szTileName);
         pAutomap[i].nStyle = pAutomapTxt[i].nStyle;
         pAutomap[i].nStartSequence = pAutomapTxt[i].nStartSequence;
         pAutomap[i].nEndSequence = pAutomapTxt[i].nEndSequence;
@@ -1020,40 +1022,67 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
 
     DATATBLS_UnloadBin(pAutomapTxt);
 
-    gpAutomap_0096CA28 = pAutomap;
+    gpAutomapRecords_0096CA28 = pAutomap;
     gnAutomapRecordCount_0096CA2C = nRecordCount;
 
     for (int i = 0; i < 36; ++i)
     {
-        gAutomapRand_0096C8D0[i].nStart = -1;
-        gAutomapRand_0096C8D0[i].nEnd = -1;
+        gAutomapIndex_0096C8D0[i].nStart = -1;
+        gAutomapIndex_0096C8D0[i].nEnd = -1;
     }
 
     int nCounter = 0;
     while (nCounter < nRecordCount)
     {
-        const int nLevelType = pAutomap[nCounter].dwAutomapLevelType;
-        gAutomapRand_0096C8D0[nLevelType].nStart = nCounter;
-        while (nCounter + 1 < nRecordCount && nLevelType == pAutomap[nCounter + 1].dwAutomapLevelType)
+        const int nLevelType = pAutomap[nCounter].nLevelNo;
+        gAutomapIndex_0096C8D0[nLevelType].nStart = nCounter;
+        while (nCounter + 1 < nRecordCount && nLevelType == pAutomap[nCounter + 1].nLevelNo)
         {
             ++nCounter;
         }
         ++nCounter;
-        gAutomapRand_0096C8D0[nLevelType].nEnd = nCounter;
+        gAutomapIndex_0096C8D0[nLevelType].nEnd = nCounter;
     }
 
     D2_ASSERT(nCounter <= nRecordCount, 0x528);
 }
 
+// 0x0061FFF0
+int __fastcall sub_0061FFF0_GetAutomapCel(int nLevelNo, int nTileType, int nStyle, int nSequence)
+{
+    if (!nLevelNo)
+        return -1;
+
+    int nStart = gAutomapIndex_0096C8D0[nLevelNo].nStart;
+    int nEnd = gAutomapIndex_0096C8D0[nLevelNo].nEnd;
+    if (nStart == -1)
+        return -1;
+
+    D2_ASSERT(gAutomapIndex_0096C8D0[nLevelNo].nEnd != -1, 0x53B);
+
+    for (int i = nStart; i < nEnd; ++i)
+    {
+        if (gpAutomapRecords_0096CA28[i].nLevelNo == nLevelNo && gpAutomapRecords_0096CA28[i].nTileType == nTileType
+            && (gpAutomapRecords_0096CA28[i].nStyle == 0xFF || gpAutomapRecords_0096CA28[i].nStyle == nStyle)
+            && (gpAutomapRecords_0096CA28[i].nStartSequence == 0xFF
+                || (gpAutomapRecords_0096CA28[i].nStartSequence <= nSequence && gpAutomapRecords_0096CA28[i].nEndSequence >= nSequence)))
+        {
+            D2AutomapRecordStrc* pRecords = gpAutomapRecords_0096CA28;
+            return pRecords[i].nCel[ITEMS_RollLimitedRandomNumber(gpAutomapSeed_00744504, gpAutomapRecords_0096CA28[i].nCels)];
+        }
+    }
+    return -1;
+}
+
 // 0x006200D0
 void __fastcall DATATBLS_FreeAutomap()
 {
-    if (gpAutomap_0096CA28)
+    if (gpAutomapRecords_0096CA28)
     {
-        FOG_FreeServerMemory(0, gpAutomap_0096CA28, ".\\DATATBLS\\LvlTbls.cpp", 0x551, 0);
+        FOG_FreeServerMemory(0, gpAutomapRecords_0096CA28, ".\\DATATBLS\\LvlTbls.cpp", 0x551, 0);
     }
 
-    gpAutomap_0096CA28 = 0;
+    gpAutomapRecords_0096CA28 = 0;
 }
 
 // 0x00644140
