@@ -87623,17 +87623,17 @@
     {
      "va": "0x006C3360",
      "length": 99,
-     "name": "?sub_006C3360_Startup@@YIHPAUD2Server006C3360Strc@@H@Z"
+     "name": "?sub_006C3360_Startup@@YIHPAUQServer@@H@Z"
     },
     {
      "va": "0x006C33D0",
      "length": 55,
-     "name": "?sub_006C33D0_Stop@@YIXPAUD2Worker006C33D0Strc@@@Z"
+     "name": "?sub_006C33D0_Stop@@YIXPAUD2QueueServerStrc@@@Z"
     },
     {
      "va": "0x006C3410",
      "length": 47,
-     "name": "?sub_006C3410_Send@@YIHHPAUD2Connection006C3410Strc@@PBXH@Z"
+     "name": "?sub_006C3410_Send@@YIHPAUD2QueueServerStrc@@PAUD2QClientStrc@@PADH@Z"
     }
    ]
   },
