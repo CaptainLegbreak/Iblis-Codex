@@ -43953,6 +43953,11 @@
      "name": "?sub_00513ED0_GetDSoundErrorString@@YIPBDJ@Z"
     },
     {
+     "va": "0x00514780",
+     "length": 39,
+     "name": "@sub_00514780_CreateSoundChannel@4"
+    },
+    {
      "va": "0x005147B0",
      "length": 30,
      "name": "?sub_005147B0_DestroySoundChannel@@YAXXZ"
@@ -43983,11 +43988,6 @@
      "name": "?sub_00514D90_SetOptionsMusic@@YIHH@Z"
     },
     {
-     "va": "0x00515070",
-     "length": 160,
-     "name": "?sub_00515070_FreeWaveSlots@@YAXXZ"
-    },
-    {
      "va": "0x00515110",
      "length": 1,
      "name": "?sub_00515110_Nop@@YAXXZ"
@@ -43996,6 +43996,10 @@
      "va": "0x00515120",
      "length": 86,
      "name": "?sub_00515120_StopSoundThread@@YAXXZ"
+    },
+    {
+     "va": "0x00515180",
+     "length": 372
     },
     {
      "va": "0x00515300",
@@ -44178,6 +44182,11 @@
      "name": "sub_00516670_VolumeToScale"
     },
     {
+     "va": "0x005166D0",
+     "length": 67,
+     "name": "?sub_005166D0_FindRiffChunk@@YGPBEPBEPAII1@Z"
+    },
+    {
      "va": "0x00516720",
      "length": 53,
      "name": "?sub_00516720_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
@@ -44272,6 +44281,11 @@
      "va": "0x00515020",
      "length": 54,
      "name": "?sub_00515020_FadeOutWaves@@YAXXZ"
+    },
+    {
+     "va": "0x00515070",
+     "length": 160,
+     "name": "?sub_00515070_FreeWaveSlots@@YAXXZ"
     }
    ]
   },
@@ -44328,17 +44342,6 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Unknown_00514780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00514780",
-     "length": 39,
-     "name": "@sub_00514780_CreateSoundChannel@4"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Sound/Unknown_00514990.cpp",
    "rank": 1,
    "functions": [
@@ -44374,17 +44377,7 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Unknown_00515180.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00515180",
-     "length": 372
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Unknown_005153C0.cpp",
+   "file": "Source/D2Sound/Src/D2SoundSmp_005153C0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -44408,7 +44401,7 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Unknown_00516250.cpp",
+   "file": "Source/D2Sound/Src/D2SoundSmp_00516250.cpp",
    "rank": 1,
    "functions": [
     {
@@ -44437,17 +44430,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Unknown_005166D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005166D0",
-     "length": 67,
-     "name": "?sub_005166D0_FindRiffChunk@@YGPBEPBEPAII1@Z"
-    }
    ]
   },
   {
