@@ -1590,9 +1590,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/ui_004545C0.cpp": {
-   "bytes": 312,
-   "definitions": 5,
+  "Source/D2Client/UI/ui_004527D0.cpp": {
+   "bytes": 320,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl sub_004574D0_AutomapBaseYAddStep(); // 0x004574D0",
     "extern \"C\" void __cdecl sub_004574E0_AutomapBaseYSubStep(); // 0x004574E0",
@@ -1617,7 +1617,7 @@
     "extern \"C\" void __cdecl sub_004967A0_KeyCloseHelp(); // 0x004967A0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/ui_004545C0.inc",
+   "include": "gen/data/Source/D2Client/Unknown_00454F30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1637,15 +1637,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004549F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/ui_004527D0.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00454F30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -38737,7 +38728,7 @@
    "cname": "gData_006D6024",
    "declared": true,
    "decorated": "?gtPanelHandlers_006D6024@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/UI/ui_004545C0.cpp",
+   "file": "Source/D2Client/UI/ui_004527D0.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": "extern \"C\" const D2MsgHandlerEntryStrc gData_006D6024[1]; // 0x006D6024",
@@ -38807,7 +38798,7 @@
    "cname": "gData_006D6084",
    "declared": true,
    "decorated": "?gtPanelHandlers_006D6084@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/UI/ui_004545C0.cpp",
+   "file": "Source/D2Client/UI/ui_004527D0.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": "extern \"C\" const D2MsgHandlerEntryStrc gData_006D6084[5]; // 0x006D6084",
@@ -38909,7 +38900,7 @@
    "cname": "gData_006D60C0",
    "declared": true,
    "decorated": "?gtPanelHandlers_006D60C0@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/UI/ui_004545C0.cpp",
+   "file": "Source/D2Client/UI/ui_004527D0.cpp",
    "fill": 13,
    "form": "declared",
    "fwd": "extern \"C\" const D2MsgHandlerEntryStrc gData_006D60C0[13]; // 0x006D60C0",
@@ -39718,7 +39709,7 @@
    "cname": "gData_006D6204",
    "declared": true,
    "decorated": "?gtMiniPanelHandlers_006D6204@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/UI/ui_004545C0.cpp",
+   "file": "Source/D2Client/UI/ui_004527D0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006D6204_t gData_006D6204; // 0x006D6204",
    "head": "extern \"C\" const struct d2data_006D6204_t gData_006D6204 = ",
@@ -39752,7 +39743,7 @@
    "cname": "gData_006D62C4",
    "declared": true,
    "decorated": "?gtUIVar33Handlers_006D62C4@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/UI/ui_004545C0.cpp",
+   "file": "Source/D2Client/UI/ui_004527D0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006D62C4_t gData_006D62C4; // 0x006D62C4",
    "head": "extern \"C\" const struct d2data_006D62C4_t gData_006D62C4 = ",

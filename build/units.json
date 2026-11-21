@@ -17846,9 +17846,48 @@
      "name": "?sub_00453B30_DrawStoredUnitNumber@@YAXXZ"
     },
     {
+     "va": "0x004545C0",
+     "length": 62,
+     "name": "?sub_004545C0_TogglePanelHandlers@@YIXH@Z"
+    },
+    {
+     "va": "0x00454980",
+     "length": 39,
+     "name": "?sub_00454980@@YAXXZ"
+    },
+    {
+     "va": "0x004549C0",
+     "length": 12,
+     "name": "?sub_004549C0_IsPanelAllocated@@YAHXZ"
+    },
+    {
+     "va": "0x004549D0",
+     "length": 18
+    },
+    {
      "va": "0x00454F30",
      "length": 1400,
      "name": "?sub_00454F30_DrawUnitHover@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00455AE0",
+     "length": 1080,
+     "name": "?sub_00455AE0_ClearPanelHandlers@@YIXH@Z"
+    },
+    {
+     "va": "0x004565E0",
+     "length": 527,
+     "name": "?sub_004565E0_DrawLoadingScreen@@YIXH@Z"
+    },
+    {
+     "va": "0x004567F0",
+     "length": 380,
+     "name": "?sub_004567F0_ToggleMiniPanel@@YAXXZ"
+    },
+    {
+     "va": "0x00456EE0",
+     "length": 1044,
+     "name": "?sub_00456EE0_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
     }
    ],
    "flags": [
@@ -18051,51 +18090,6 @@
     "/Gd",
     "/GS-",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/ui_004545C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004545C0",
-     "length": 62,
-     "name": "?sub_004545C0_TogglePanelHandlers@@YIXH@Z"
-    },
-    {
-     "va": "0x00454980",
-     "length": 39,
-     "name": "?sub_00454980@@YAXXZ"
-    },
-    {
-     "va": "0x004549C0",
-     "length": 12,
-     "name": "?sub_004549C0_IsPanelAllocated@@YAHXZ"
-    },
-    {
-     "va": "0x004549D0",
-     "length": 18
-    },
-    {
-     "va": "0x00455AE0",
-     "length": 1080,
-     "name": "?sub_00455AE0_ClearPanelHandlers@@YIXH@Z"
-    },
-    {
-     "va": "0x004565E0",
-     "length": 527,
-     "name": "?sub_004565E0_DrawLoadingScreen@@YIXH@Z"
-    },
-    {
-     "va": "0x004567F0",
-     "length": 380,
-     "name": "?sub_004567F0_ToggleMiniPanel@@YAXXZ"
-    },
-    {
-     "va": "0x00456EE0",
-     "length": 1044,
-     "name": "?sub_00456EE0_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
-    }
    ]
   },
   {
