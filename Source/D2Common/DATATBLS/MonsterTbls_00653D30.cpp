@@ -3,15 +3,22 @@
 #include "D2Txt.h"
 
 #define MON_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2MonStatsTxt;
-struct D2TCExShortStrc;
-struct D2SuperUniquesTxt;
-struct D2NpcTxt;
-struct D2MonSoundsTxt;
-struct D2MonItemPercentTxt;
-struct D2MonRecord0C;
-struct D2MonItemPercentDataTbl;
 
+struct D2MonStatsTxt;
+
+struct D2TCExShortStrc;
+
+struct D2SuperUniquesTxt;
+
+struct D2NpcTxt;
+
+struct D2MonSoundsTxt;
+
+struct D2MonItemPercentTxt;
+
+struct D2MonRecord0C;
+
+struct D2MonItemPercentDataTbl;
 
 struct D2TCExShortStrc { unsigned short nGroup; short nLevel; char unk0x04[0x28 - 4]; void* pInfo; };
 
@@ -27,54 +34,81 @@ struct D2MonRecord0C { char unk[0xC]; };
 
 struct D2MonItemPercentDataTbl { int nMonItemPercentTxtRecordCount; D2MonItemPercentTxt* pMonItemPercentTxt; };
 
-
 extern void* gpMonTable_96BDC4; // 0x0096BDC4
+
 extern D2TxtLinkStrc* gpMonTableLinker_96BDC8; // 0x0096BDC8
+
 extern int gnMonTable_96BDCC; // 0x0096BDCC
+
 extern void* gpHirelingTxt; // 0x0096BDD0
+
 extern int gnNpcTxtRecordCount; // 0x0096C5DC
+
 extern int gnTreasureClassEx; // 0x0096C5F0
+
 extern int gnMonStatsTxtRecordCount; // 0x0096C6B0
+
 extern D2TxtLinkStrc* gpMonSoundsLinker; // 0x0096C6B8
+
 extern void* gpMonTypeTxt; // 0x0096C6C0
+
 extern D2TxtLinkStrc* gpMonTypeLinker_0096C6C4; // 0x0096C6C4
+
 extern void* gpMonPresetTxt; // 0x0096C6D8
-extern void* gpMonPresetTxtActSections[5]; // 0x0096C6DC
-extern int gnMonPresetTxtActRecordCounts[5]; // 0x0096C6F0
+
+void* gpMonPresetTxtActSections[5]; // 0x0096C6DC
+
+int gnMonPresetTxtActRecordCounts[5]; // 0x0096C6F0
+
 extern D2TxtLinkStrc* gpSuperUniquesLinker; // 0x0096C708
+
 extern void* gpMonTable_96C7A0; // 0x0096C7A0
+
 extern int gnMonTable_96C7A4; // 0x0096C7A4
+
 extern void* gpMonTable_96C7A8; // 0x0096C7A8
+
 extern int gnMonTable_96C7B0; // 0x0096C7B0
+
 extern D2MonRecord0C* gpMonTableRecords_96C7B4; // 0x0096C7B4
+
 extern int gnMonTableRecords_96C7B8; // 0x0096C7B8
+
 extern void* gpMonTable_96C810; // 0x0096C810
+
 extern int gnMonTable_96C814; // 0x0096C814
+
 extern D2TxtLinkStrc* gpMonTableLinker_96C85C; // 0x0096C85C
+
 extern void* gpMonTable_96C860; // 0x0096C860
+
 extern int gnMonTable_96C864; // 0x0096C864
+
 extern D2TxtLinkStrc* gpMonTableLinker_96C868; // 0x0096C868
+
 extern void* gpMonTableBuffer_96C874; // 0x0096C874
+
 extern D2TxtLinkStrc* gpMonUModLinker; // 0x0096C87C
+
 extern void* gpMonUModTxt; // 0x0096C880
+
 extern int gnMonUModTxtRecordCount; // 0x0096C884
+
 extern D2MonItemPercentDataTbl gMonItemPercentDataTables; // 0x0096D480
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
+
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern int gnHirelingIndex[2][256]; // 0x0096BDD8
-extern D2NpcTxt* gpNpcTxt; // 0x0096C5D8
-extern D2TCExShortStrc* gpTreasureClassEx; // 0x0096C5EC
-extern D2MonStatsTxt* gpMonStatsTxt; // 0x0096C6A8
-extern D2MonSoundsTxt* gpMonSoundsTxt; // 0x0096C6B4
-extern int gnMonSoundsTxtRecordCount; // 0x0096C6BC
-extern D2SuperUniquesTxt* gpSuperUniquesTxt; // 0x0096C704
-extern int gnSuperUniquesTxtRecordCount; // 0x0096C70C
-extern void* gpMonTable_96C86C; // 0x0096C86C
 
 int gnHirelingIndex[2][256]; // 0x0096BDD8
 
@@ -93,6 +127,20 @@ D2SuperUniquesTxt* gpSuperUniquesTxt; // 0x0096C704
 int gnSuperUniquesTxtRecordCount; // 0x0096C70C
 
 void* gpMonTable_96C86C; // 0x0096C86C
+
+struct D2TxtLinkStrc;
+
+extern "C" char* __cdecl strchr(const char* szString, int nChar);                                           // 0x00687740
+
+extern "C" unsigned int __cdecl strlen(const char* sz);
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
+#pragma intrinsic(strlen, memset)
+
+int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError);                 // 0x006BD130
+
+D2TxtLinkStrc* gpCompCodeLinker_0096BCB0;                                                                   // 0x0096BCB0
 
 // 0x00653D30
 void __fastcall sub_00653D30()
@@ -333,6 +381,117 @@ D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromMonsterId(int nMonst
     return 0;
 }
 
+static void DATATBLS_MakeCompCode(const char* szText, char* szCode)
+{
+    if (!szText[0])
+    {
+        szCode[0] = ' ';
+        szCode[1] = ' ';
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[0] = szText[0];
+    if (!szText[1])
+    {
+        szCode[1] = ' ';
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[1] = szText[1];
+    if (!szText[2])
+    {
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[2] = szText[2];
+    if (!szText[3])
+    {
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[3] = szText[3];
+}
+
+// 0x00657010
+void __fastcall DATATBLS_MonStats2CompositLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    D2MonStats2Txt* pMonStats2TxtRecord = (D2MonStats2Txt*)pRecord;
+    char szCode[4];
+
+    if (!pMonStats2TxtRecord || (unsigned int)nOffset > 15)
+    {
+        return;
+    }
+
+    pMonStats2TxtRecord->nComponentChoiceCounts[nOffset] = 0;
+    memset(pMonStats2TxtRecord->pComponents[nOffset].nComposit, -1, sizeof(pMonStats2TxtRecord->pComponents[nOffset].nComposit));
+
+    if (!pSrc)
+    {
+        return;
+    }
+
+    char* pNext = pSrc;
+    if (*pSrc == '"')
+    {
+        pNext = pSrc + 1;
+    }
+
+    for (char* pTmp = pNext; *pTmp; ++pTmp)
+    {
+        if (*pTmp == '"')
+        {
+            *pTmp = 0;
+        }
+    }
+
+    int nCounter = 0;
+    do
+    {
+        char* szToken = pNext;
+        pNext = strchr(pNext, ',');
+        if (pNext)
+        {
+            *pNext = 0;
+            ++pNext;
+        }
+
+        if (!szToken || !*szToken || strlen(szToken) > 4)
+        {
+            break;
+        }
+
+        DATATBLS_MakeCompCode(szToken, szCode);
+        pMonStats2TxtRecord->pComponents[nOffset].nComposit[nCounter] = (unsigned char)FOG_GetLinkIndex(gpCompCodeLinker_0096BCB0, *(unsigned int*)szCode, 1);
+        ++nCounter;
+    }
+    while (pNext && nCounter < 12);
+
+    pMonStats2TxtRecord->nComponentChoiceCounts[nOffset] = (unsigned char)nCounter;
+
+    if (nOffset == 15)
+    {
+        int nTotal = 0;
+        for (int i = 0; i < 16; ++i)
+        {
+            if (pMonStats2TxtRecord->nComponentChoiceCounts[i] > 1)
+            {
+                nTotal += pMonStats2TxtRecord->nComponentChoiceCounts[i] - 1;
+            }
+        }
+
+        if (nTotal > 254)
+        {
+            nTotal = 254;
+        }
+
+        pMonStats2TxtRecord->nTotalPieces = (unsigned char)nTotal;
+    }
+}
+
 // 0x00658440
 void __fastcall DATATBLS_UnloadMonTypeTxt()
 {
@@ -374,6 +533,21 @@ void __fastcall sub_00659970()
     {
         DATATBLS_UnloadBin(gpMonTable_96C7A0);
         gnMonTable_96C7A4 = 0;
+    }
+}
+
+// 0x00659AF0
+void __fastcall sub_00659AF0()
+{
+    if (gpMonPresetTxt)
+    {
+        DATATBLS_UnloadBin(gpMonPresetTxt);
+    }
+
+    for (int i = 0; i < 5; ++i)
+    {
+        gpMonPresetTxtActSections[i] = 0;
+        gnMonPresetTxtActRecordCounts[i] = 0;
     }
 }
 
@@ -455,24 +629,5 @@ void __fastcall sub_0065A170()
     {
         DATATBLS_UnloadBin(gpMonTable_96C810);
         gnMonTable_96C814 = 0;
-    }
-}
-
-void* gpMonPresetTxtActSections[5]; // 0x0096C6DC
-
-int gnMonPresetTxtActRecordCounts[5]; // 0x0096C6F0
-
-// 0x00659AF0
-void __fastcall sub_00659AF0()
-{
-    if (gpMonPresetTxt)
-    {
-        DATATBLS_UnloadBin(gpMonPresetTxt);
-    }
-
-    for (int i = 0; i < 5; ++i)
-    {
-        gpMonPresetTxtActSections[i] = 0;
-        gnMonPresetTxtActRecordCounts[i] = 0;
     }
 }

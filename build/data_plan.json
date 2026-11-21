@@ -6600,7 +6600,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/INVENTORY/Inventory_0063C2F0.cpp": {
+  "Source/D2Common/INVENTORY/Inventory_0063AD50.cpp": {
    "bytes": 24,
    "definitions": 1,
    "externs": [],
@@ -6926,20 +6926,11 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/RoomTile_0066DB20.cpp": {
-   "bytes": 32,
-   "definitions": 1,
+   "bytes": 112,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066DB20.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DRLG/RoomTile_0066E260.cpp": {
-   "bytes": 80,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066E260.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -6962,8 +6953,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/Maze_00670D70.cpp": {
-   "bytes": 3040,
-   "definitions": 46,
+   "bytes": 3072,
+   "definitions": 47,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Maze_00670D70.inc",
@@ -6988,15 +6979,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Maze_00672810.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DRLG/Maze_00673320.cpp": {
-   "bytes": 32,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/Maze_00673320.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -127634,7 +127616,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/INVENTORY/Inventory_0063C2F0.cpp",
+   "file": "Source/D2Common/INVENTORY/Inventory_0063AD50.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo = ",
@@ -148807,7 +148789,7 @@
    "cname": "gData_006EF620",
    "declared": true,
    "decorated": "?gnWallRemapIndices_006EF620@@3QBHB",
-   "file": "Source/D2Common/DRLG/RoomTile_0066E260.cpp",
+   "file": "Source/D2Common/DRLG/RoomTile_0066DB20.cpp",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EF620[20]; // 0x006EF620",
@@ -152572,7 +152554,7 @@
    "cname": "gData_006F0474",
    "declared": true,
    "decorated": "?gnAct4LavaForgeIds@@3QBUD2MazeLevelIdStrc@@B",
-   "file": "Source/D2Common/DRLG/Maze_00673320.cpp",
+   "file": "Source/D2Common/DRLG/Maze_00670D70.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2MazeLevelIdStrc gData_006F0474[2]; // 0x006F0474",
    "head": "extern \"C\" const D2MazeLevelIdStrc gData_006F0474[2] = ",

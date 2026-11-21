@@ -8,34 +8,55 @@
 #pragma function(memset)
 
 struct D2DrlgTileDataStrc;
+
 union D2SeedStrc;
+
 union D2C_PackedTileInformation;
+
 struct D2DrlgRoomTilesStrc;
+
 struct Tile;
+
 struct T0066E090;
+
 struct Drlg;
+
 struct Level;
+
 struct Room;
+
 struct D2DrlgTileLinkStrc;
+
 struct D2DrlgCoordStrc;
+
 struct D2RoomTileStrc;
+
 struct D2DrlgActStrc;
+
 struct D2ActiveRoomStrc;
+
 struct D2TileLibraryEntryStrc;
+
 struct D2DrlgRoomStrc;
+
 struct D2DrlgTileGridStrc;
+
 struct D2DrlgStrc;
+
 struct D2DrlgLevelStrc;
+
 struct D2DrlgAnimTileGridStrc;
 
-
-
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
+
 int __stdcall TileGetRarity(D2TileLibraryEntryStrc* pTile); // 0x00604C20
 
 union D2C_PackedTileInformation
@@ -65,11 +86,10 @@ union D2C_PackedTileInformation
     };
 };
 
-
-
-
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
+
 D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDrlgRoom, int nType, unsigned int nPackedTileInformation); // 0x0066D820
+
 void __fastcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, unsigned int nPackedTileInformation, int nX, int nY, int nTileType); // 0x0066D9E0
 
 struct Tile { char pad0[0x20]; Tile* next; char f_24[0xC]; };
@@ -83,20 +103,22 @@ struct Level { char pad0[0x1B4]; Drlg* drlg; };
 struct Room { char pad0[0x54]; T0066E090* grid; Level* level; };
 
 void __fastcall sub_0040B480(void*,void*,const char*,int,int); // 0x0040B480
+
 void* __fastcall FOG_ReallocPool(void*,void*,int,const char*,int,int); // 0x0040B4B0
 
-
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
 void __fastcall sub_M105_EmitSink_0066E5E0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY);
+
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
+
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
+
 void __fastcall DRLGOUTPLACE_InitOutdoorRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D2D0
+
 void __fastcall DRLGPRESET_InitPresetRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x006667D0
 
-
 D2DrlgRoomStrc* __fastcall DUNGEON_GetRoomExFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
-
-
 
 struct D2DrlgAnimTileGridStrc
 {
@@ -108,15 +130,26 @@ struct D2DrlgAnimTileGridStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void __stdcall DUNGEON_RemoveRoomFromAct(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061A910
+
 void __fastcall DRLGPRESET_FreeDrlgGridsFromPresetRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x00666610
+
 void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom); // 0x00666AC0
+
 void __fastcall DRLGLOGIC_FreeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom); // 0x0066C6E0
+
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitShadowTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DF40
+
 void __fastcall sub_0067D680(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D680
+
 void __fastcall sub_0067D710(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D710
 
 static void sub_0066F180_ResetRoomTiles(D2DrlgRoomStrc* pDrlgRoom);
+
+struct D2CmpTileStrc;
+
+void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry); // 0x0066DDE0
 
 static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
 {
@@ -331,6 +364,27 @@ void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileD
     }
 
     DRLGROOMTILE_InitializeTileDataFlags(pDrlgRoom, pTileData, nPackedTileInformation, 0, nX, nY);
+}
+
+// 0x0066DEF0
+D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitFloorTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry)
+{
+    D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
+    D2DrlgTileDataStrc* pTileData = &pTileGrid->pFloorTiles[pTileGrid->nFloors];
+    if (ppTileData)
+    {
+        pTileData->pNext = *ppTileData;
+        *ppTileData = pTileData;
+    }
+    else
+    {
+        pTileData->pNext = 0;
+    }
+
+    ++pTileGrid->nFloors;
+
+    DRLGROOMTILE_InitTileData(pDrlgRoom, pTileData, nX, nY, nPackedTileInformation, pTileLibraryEntry);
+    return pTileData;
 }
 
 // 0x0066DF40
