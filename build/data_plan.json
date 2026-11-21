@@ -6776,26 +6776,8 @@
    "state": "included"
   },
   "Source/D2Common/PATH/Path.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/PATH/Path.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/PATH/Path_00648480.cpp": {
-   "bytes": 400,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/PATH/Path_00648480.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/PATH/Path_00649970.cpp": {
-   "bytes": 68,
-   "definitions": 1,
+   "bytes": 532,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl PATH_AStar_ComputePath(); // 0x0067B850",
     "extern \"C\" void __cdecl PATH_BackupTurn_Compute(); // 0x00679E60",
@@ -6809,7 +6791,7 @@
     "extern \"C\" void __cdecl sub_0067C2D0(); // 0x0067C2D0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/PATH/Path_00649970.inc",
+   "include": "gen/data/Source/D2Common/PATH/Path.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -132480,7 +132462,7 @@
    "cname": "gData_006EB548",
    "declared": true,
    "decorated": "?gnDirectionDiffTable_006EB548@@3PAHA",
-   "file": "Source/D2Common/PATH/Path_00648480.cpp",
+   "file": "Source/D2Common/PATH/Path.cpp",
    "fill": 64,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EB548[64]; // 0x006EB548",
@@ -132511,7 +132493,7 @@
    "cname": "gData_006EB648",
    "declared": true,
    "decorated": "?gaOffsetForPathType_006EB648@@3PAHA",
-   "file": "Source/D2Common/PATH/Path_00648480.cpp",
+   "file": "Source/D2Common/PATH/Path.cpp",
    "fill": 18,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EB648[18]; // 0x006EB648",
@@ -132542,7 +132524,7 @@
    "cname": "gData_006EB690",
    "declared": true,
    "decorated": "?gaPathTypeFlags_006EB690@@3PAHA",
-   "file": "Source/D2Common/PATH/Path_00648480.cpp",
+   "file": "Source/D2Common/PATH/Path.cpp",
    "fill": 18,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EB690[18]; // 0x006EB690",
@@ -132573,7 +132555,7 @@
    "cname": "gData_006EB6D8",
    "declared": true,
    "decorated": "?scpfnPathFunction_006EB6D8@@3QBQ6IHPAUD2PathInfoStrc@@@ZB",
-   "file": "Source/D2Common/PATH/Path_00649970.cpp",
+   "file": "Source/D2Common/PATH/Path.cpp",
    "fill": 17,
    "form": "declared",
    "fwd": "extern \"C\" PATH_FUNCTION const gData_006EB6D8[17]; // 0x006EB6D8",

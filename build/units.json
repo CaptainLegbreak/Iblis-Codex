@@ -87771,6 +87771,11 @@
      "name": "?sub_00648380_Nop@@YAXXZ"
     },
     {
+     "va": "0x006483A0",
+     "length": 135,
+     "name": "?PATH_IsTargetDestinationAllowed@@YAHPAUD2PathInfoStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00648430",
      "length": 1,
      "name": "?sub_00648430_Nop@@YAXXZ"
@@ -87786,9 +87791,29 @@
      "name": "?sub_00648450_Nop@@YAXXZ"
     },
     {
+     "va": "0x00648480",
+     "length": 82,
+     "name": "?sub_00648480_GetMonsterMoveTestMask@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00648580",
+     "length": 109,
+     "name": "?D2Common_11281_CollisionPatternFromSize@@YGHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x006485F0",
+     "length": 69,
+     "name": "?sub_6FDA9720@@YIXPAUD2DynamicPathStrc@@E@Z"
+    },
+    {
      "va": "0x00648690",
      "length": 38,
      "name": "_sub_00648690@16"
+    },
+    {
+     "va": "0x006486C0",
+     "length": 13,
+     "name": "?PATH_GetVelocity@@YGHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x006486D0",
@@ -87826,9 +87851,19 @@
      "name": "_sub_006487D0@8"
     },
     {
+     "va": "0x006487F0",
+     "length": 23,
+     "name": "?PATH_GetDirection@@YGEPAUD2DynamicPathStrc@@@Z"
+    },
+    {
      "va": "0x00648810",
      "length": 13,
      "name": "_sub_00648810@4"
+    },
+    {
+     "va": "0x00648820",
+     "length": 118,
+     "name": "D2COMMON_10160_PathUpdateDirection"
     },
     {
      "va": "0x006488A0",
@@ -87836,9 +87871,34 @@
      "name": "_sub_006488A0@8"
     },
     {
+     "va": "0x006488C0",
+     "length": 49,
+     "name": "PATH_GetXPosition"
+    },
+    {
+     "va": "0x00648900",
+     "length": 49,
+     "name": "PATH_GetYPosition"
+    },
+    {
+     "va": "0x00648940",
+     "length": 47,
+     "name": "PATH_GetPrecisionX"
+    },
+    {
+     "va": "0x00648970",
+     "length": 48,
+     "name": "PATH_GetPrecisionY"
+    },
+    {
      "va": "0x006489A0",
      "length": 15,
      "name": "_PATH_SetPrecisionX@8"
+    },
+    {
+     "va": "0x006489B0",
+     "length": 16,
+     "name": "PATH_SetPrecisionY"
     },
     {
      "va": "0x006489C0",
@@ -87849,6 +87909,26 @@
      "va": "0x006489D0",
      "length": 13,
      "name": "_sub_006489D0@4"
+    },
+    {
+     "va": "0x006489E0",
+     "length": 4,
+     "name": "?PATH_SetClientCoordX@@YIXPAUD2DynamicPathStrc@@H@Z"
+    },
+    {
+     "va": "0x006489F0",
+     "length": 4,
+     "name": "?PATH_SetClientCoordY@@YIXPAUD2DynamicPathStrc@@H@Z"
+    },
+    {
+     "va": "0x00648A00",
+     "length": 14,
+     "name": "?D2COMMON_10175_PathGetFirstPointX@@YGHPAUD2DynamicPathStrc@@@Z"
+    },
+    {
+     "va": "0x00648A10",
+     "length": 14,
+     "name": "?D2COMMON_10176_PathGetFirstPointY@@YGHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00648A20",
@@ -87876,6 +87956,11 @@
      "name": "_sub_00648A80@4"
     },
     {
+     "va": "0x00648A90",
+     "length": 16,
+     "name": "PATH_SetRoom"
+    },
+    {
      "va": "0x00648AA0",
      "length": 13,
      "name": "_sub_00648AA0_previousRoom@4"
@@ -87891,9 +87976,29 @@
      "name": "_sub_00648AD0@12"
     },
     {
+     "va": "0x00648B00",
+     "length": 43,
+     "name": "sub_00648B00_SetTargetCoordFromClient"
+    },
+    {
+     "va": "0x00648B30",
+     "length": 16,
+     "name": "PATH_IsCurrentRoomInvalid"
+    },
+    {
      "va": "0x00648B40",
      "length": 28,
      "name": "_sub_00648B40_roomInvalid@8"
+    },
+    {
+     "va": "0x00648B60",
+     "length": 28,
+     "name": "PATH_SetUnusedFlag_0x00004"
+    },
+    {
+     "va": "0x00648B80",
+     "length": 16,
+     "name": "PATH_GetUnusedFlag_0x00004"
     },
     {
      "va": "0x00648B90",
@@ -87901,9 +88006,24 @@
      "name": "_sub_00648B90_SetPathTarget@8"
     },
     {
+     "va": "0x00648BB0",
+     "length": 63,
+     "name": "PATH_GetTargetTypeAndGUID"
+    },
+    {
+     "va": "0x00648BF0",
+     "length": 21,
+     "name": "?PATH_GetTargetUnit@@YGPAUD2UnitStrc@@PAUD2DynamicPathStrc@@@Z"
+    },
+    {
      "va": "0x00648C10",
      "length": 26,
      "name": "_sub_00648C10@4"
+    },
+    {
+     "va": "0x00648C30",
+     "length": 159,
+     "name": "PATH_SetFootprintCollisionMask"
     },
     {
      "va": "0x00648CD0",
@@ -87911,150 +88031,9 @@
      "name": "_sub_00648CD0@4"
     },
     {
-     "va": "0x00648E40",
-     "length": 19,
-     "name": "?sub_00648E40_SetByte90@@YGXPAUD2Record00648E40Strc@@E@Z"
-    },
-    {
-     "va": "0x00648E70",
-     "length": 35,
-     "name": "_sub_00648E70_SetDistance@8"
-    },
-    {
-     "va": "0x00648EB0",
-     "length": 54,
-     "name": "_sub_00648EB0@4"
-    },
-    {
-     "va": "0x00649050",
-     "length": 20,
-     "name": "_sub_00649050@4"
-    },
-    {
-     "va": "0x00649070",
-     "length": 46,
-     "name": "_sub_00649070@8"
-    },
-    {
-     "va": "0x006490A0",
-     "length": 20,
-     "name": "_sub_006490A0@4"
-    },
-    {
-     "va": "0x00649120",
-     "length": 17,
-     "name": "_sub_00649120@4"
-    },
-    {
-     "va": "0x00649190",
-     "length": 19,
-     "name": "_PATH_SetUnitCollisionPattern@8"
-    },
-    {
-     "va": "0x006492A0",
-     "length": 29,
-     "name": "_sub_006492A0@16"
-    },
-    {
-     "va": "0x006492F0",
-     "length": 266,
-     "name": "?PATH_ComputePathClassicMissile@@YAHPAUD2DynamicPathStrc@@@Z"
-    },
-    {
-     "va": "0x00649760",
-     "length": 105
-    },
-    {
-     "va": "0x006497D0",
-     "length": 200,
-     "name": "?PATH_AdvanceToDoor@@YAEPAUD2PathInfoStrc@@@Z"
-    },
-    {
-     "va": "0x006498A0",
-     "length": 204,
-     "name": "?PATH_UpdateTargetUnit@@YAEPAUD2PathInfoStrc@@@Z"
-    },
-    {
-     "va": "0x00649F70",
-     "length": 121,
-     "name": "?PATH_SetUnitDeadCollision@@YGXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0064A730",
-     "length": 35,
-     "name": "_sub_0064A730_GetMissileTargetStatus@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/Path_006483A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006483A0",
-     "length": 135,
-     "name": "?PATH_IsTargetDestinationAllowed@@YAHPAUD2PathInfoStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/Path_00648480.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00648480",
-     "length": 82,
-     "name": "?sub_00648480_GetMonsterMoveTestMask@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00648580",
-     "length": 109,
-     "name": "?D2Common_11281_CollisionPatternFromSize@@YGHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x006485F0",
-     "length": 69,
-     "name": "?sub_6FDA9720@@YIXPAUD2DynamicPathStrc@@E@Z"
-    },
-    {
-     "va": "0x006486C0",
-     "length": 13,
-     "name": "?PATH_GetVelocity@@YGHPAUD2DynamicPathStrc@@@Z"
-    },
-    {
-     "va": "0x006487F0",
-     "length": 23,
-     "name": "?PATH_GetDirection@@YGEPAUD2DynamicPathStrc@@@Z"
-    },
-    {
-     "va": "0x006489E0",
-     "length": 4,
-     "name": "?PATH_SetClientCoordX@@YIXPAUD2DynamicPathStrc@@H@Z"
-    },
-    {
-     "va": "0x006489F0",
-     "length": 4,
-     "name": "?PATH_SetClientCoordY@@YIXPAUD2DynamicPathStrc@@H@Z"
-    },
-    {
-     "va": "0x00648A00",
-     "length": 14,
-     "name": "?D2COMMON_10175_PathGetFirstPointX@@YGHPAUD2DynamicPathStrc@@@Z"
-    },
-    {
-     "va": "0x00648A10",
-     "length": 14,
-     "name": "?D2COMMON_10176_PathGetFirstPointY@@YGHPAUD2DynamicPathStrc@@@Z"
-    },
-    {
-     "va": "0x00648B00",
-     "length": 43,
-     "name": "sub_00648B00_SetTargetCoordFromClient"
-    },
-    {
-     "va": "0x00648BF0",
-     "length": 21,
-     "name": "?PATH_GetTargetUnit@@YGPAUD2UnitStrc@@PAUD2DynamicPathStrc@@@Z"
+     "va": "0x00648CE0",
+     "length": 16,
+     "name": "PATH_SetMoveTestCollisionMask"
     },
     {
      "va": "0x00648CF0",
@@ -88072,105 +88051,9 @@
      "name": "?PATH_GetType@@YGHPAUD2DynamicPathStrc@@@Z"
     },
     {
-     "va": "0x00649210",
-     "length": 143,
-     "name": "?D2Common_10213@@YGXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00649400",
-     "length": 344,
-     "name": "PATH_AddCollisionFootprintForUnit"
-    },
-    {
-     "va": "0x00649560",
-     "length": 507,
-     "name": "PATH_RemoveCollisionFootprintForUnit"
-    },
-    {
-     "va": "0x0064FD70",
-     "length": 75,
-     "name": "sub_0064FD70_GetDirectionVectorFromPoints"
-    },
-    {
-     "va": "0x0064FDC0",
-     "length": 79,
-     "name": "PATH_ComputeDirection"
-    },
-    {
-     "va": "0x006505C0",
-     "length": 24,
-     "name": "?sub_006505C0_TestPathFlag8@@YGHPAUD2DynamicPathStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/Path_00648820.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00648820",
-     "length": 118,
-     "name": "D2COMMON_10160_PathUpdateDirection"
-    },
-    {
-     "va": "0x006488C0",
-     "length": 49,
-     "name": "PATH_GetXPosition"
-    },
-    {
-     "va": "0x00648900",
-     "length": 49,
-     "name": "PATH_GetYPosition"
-    },
-    {
-     "va": "0x00648940",
-     "length": 47,
-     "name": "PATH_GetPrecisionX"
-    },
-    {
-     "va": "0x00648970",
-     "length": 48,
-     "name": "PATH_GetPrecisionY"
-    },
-    {
-     "va": "0x006489B0",
-     "length": 16,
-     "name": "PATH_SetPrecisionY"
-    },
-    {
-     "va": "0x00648A90",
-     "length": 16,
-     "name": "PATH_SetRoom"
-    },
-    {
-     "va": "0x00648B30",
-     "length": 16,
-     "name": "PATH_IsCurrentRoomInvalid"
-    },
-    {
-     "va": "0x00648B60",
-     "length": 28,
-     "name": "PATH_SetUnusedFlag_0x00004"
-    },
-    {
-     "va": "0x00648B80",
-     "length": 16,
-     "name": "PATH_GetUnusedFlag_0x00004"
-    },
-    {
-     "va": "0x00648BB0",
-     "length": 63,
-     "name": "PATH_GetTargetTypeAndGUID"
-    },
-    {
-     "va": "0x00648C30",
-     "length": 159,
-     "name": "PATH_SetFootprintCollisionMask"
-    },
-    {
-     "va": "0x00648CE0",
-     "length": 16,
-     "name": "PATH_SetMoveTestCollisionMask"
+     "va": "0x00648E40",
+     "length": 19,
+     "name": "?sub_00648E40_SetByte90@@YGXPAUD2Record00648E40Strc@@E@Z"
     },
     {
      "va": "0x00648E60",
@@ -88178,9 +88061,19 @@
      "name": "D2COMMON_10191_PATH_GetDistance"
     },
     {
+     "va": "0x00648E70",
+     "length": 35,
+     "name": "_sub_00648E70_SetDistance@8"
+    },
+    {
      "va": "0x00648EA0",
      "length": 16,
      "name": "PATH_GetMaxDistance"
+    },
+    {
+     "va": "0x00648EB0",
+     "length": 54,
+     "name": "_sub_00648EB0@4"
     },
     {
      "va": "0x00648EF0",
@@ -88213,6 +88106,21 @@
      "name": "D2COMMON_10203_PATH_SetRotateFlag"
     },
     {
+     "va": "0x00649050",
+     "length": 20,
+     "name": "_sub_00649050@4"
+    },
+    {
+     "va": "0x00649070",
+     "length": 46,
+     "name": "_sub_00649070@8"
+    },
+    {
+     "va": "0x006490A0",
+     "length": 20,
+     "name": "_sub_006490A0@4"
+    },
+    {
      "va": "0x006490C0",
      "length": 22,
      "name": "D2Common_10207"
@@ -88221,6 +88129,11 @@
      "va": "0x006490E0",
      "length": 58,
      "name": "PATH_SetDistance"
+    },
+    {
+     "va": "0x00649120",
+     "length": 17,
+     "name": "_sub_00649120@4"
     },
     {
      "va": "0x00649140",
@@ -88233,9 +88146,24 @@
      "name": "PATH_GetUnitCollisionPattern"
     },
     {
+     "va": "0x00649190",
+     "length": 19,
+     "name": "_PATH_SetUnitCollisionPattern@8"
+    },
+    {
      "va": "0x006491B0",
      "length": 92,
      "name": "D2COMMON_10212_PATH_SetMoveFlags"
+    },
+    {
+     "va": "0x00649210",
+     "length": 143,
+     "name": "?D2Common_10213@@YGXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x006492A0",
+     "length": 29,
+     "name": "_sub_006492A0@16"
     },
     {
      "va": "0x006492C0",
@@ -88243,9 +88171,52 @@
      "name": "D2Common_10237"
     },
     {
+     "va": "0x006492F0",
+     "length": 266,
+     "name": "?PATH_ComputePathClassicMissile@@YAHPAUD2DynamicPathStrc@@@Z"
+    },
+    {
+     "va": "0x00649400",
+     "length": 344,
+     "name": "PATH_AddCollisionFootprintForUnit"
+    },
+    {
+     "va": "0x00649560",
+     "length": 507,
+     "name": "PATH_RemoveCollisionFootprintForUnit"
+    },
+    {
+     "va": "0x00649760",
+     "length": 105
+    },
+    {
+     "va": "0x006497D0",
+     "length": 200,
+     "name": "?PATH_AdvanceToDoor@@YAEPAUD2PathInfoStrc@@@Z"
+    },
+    {
+     "va": "0x006498A0",
+     "length": 204,
+     "name": "?PATH_UpdateTargetUnit@@YAEPAUD2PathInfoStrc@@@Z"
+    },
+    {
+     "va": "0x00649970",
+     "length": 802,
+     "name": "?D2Common_10142@@YGHPAUD2DynamicPathStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x00649CA0",
      "length": 83,
      "name": "D2Common_10214"
+    },
+    {
+     "va": "0x00649D00",
+     "length": 485,
+     "name": "?PATH_AllocDynamicPath@@YGXPAXPAUD2ActiveRoomStrc@@HHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00649EF0",
+     "length": 81
     },
     {
      "va": "0x00649F50",
@@ -88253,60 +88224,39 @@
      "name": "D2Common_10228"
     },
     {
-     "va": "0x0064A0E0",
-     "length": 20,
-     "name": "PATH_AddCollisionFootprintForOptionalUnit"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/Path_00649970.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00649970",
-     "length": 802,
-     "name": "?D2Common_10142@@YGHPAUD2DynamicPathStrc@@PAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/Path_00649D00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00649D00",
-     "length": 485,
-     "name": "?PATH_AllocDynamicPath@@YGXPAXPAUD2ActiveRoomStrc@@HHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/Path_00649EF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00649EF0",
-     "length": 81
+     "va": "0x00649F70",
+     "length": 121,
+     "name": "?PATH_SetUnitDeadCollision@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00649FF0",
      "length": 230
+    },
+    {
+     "va": "0x0064A0E0",
+     "length": 20,
+     "name": "PATH_AddCollisionFootprintForOptionalUnit"
+    },
+    {
+     "va": "0x0064A730",
+     "length": 35,
+     "name": "_sub_0064A730_GetMissileTargetStatus@4"
+    },
+    {
+     "va": "0x0064FD70",
+     "length": 75,
+     "name": "sub_0064FD70_GetDirectionVectorFromPoints"
+    },
+    {
+     "va": "0x0064FDC0",
+     "length": 79,
+     "name": "PATH_ComputeDirection"
+    },
+    {
+     "va": "0x006505C0",
+     "length": 24,
+     "name": "?sub_006505C0_TestPathFlag8@@YGHPAUD2DynamicPathStrc@@@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
