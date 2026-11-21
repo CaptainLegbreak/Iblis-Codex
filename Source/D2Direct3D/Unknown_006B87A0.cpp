@@ -101,11 +101,4 @@ static int __stdcall sub_006B8DF0_AlphaWall(D2TileLibraryEntryStrc* t,int x,int 
 int __fastcall sub_006B8E60_DrawAlphaWall(D2TileLibraryEntryStrc* t,int x,int y,const unsigned int* l,int panels,unsigned char alpha)
 { return sub_006B8DF0_AlphaWall(t,x,y,l,panels,alpha); }
 
-// build: context sub_006B8E90_DrawWall
-int __fastcall sub_006B8E90_DrawWall(D2TileLibraryEntryStrc* t,int x,int y,const unsigned int* l,int panels)
-{
- if(!sub_005FDEA0_CheckTile(t,1,0))return 0;
- sub_006B1EA0_SetState(1);sub_006B1F40_SetBlendMode(1);sub_006B2030_SetFilterMode(1);
- if(sub_006B9830_GetPerspective())return sub_006B8950_Lit(panels,t,x,y,l,255);
- return sub_006B87A0_DrawNoPerspective(t,x,y,l,panels,255);
-}
+int __fastcall sub_006B8E90_DrawWall(D2TileLibraryEntryStrc* t,int x,int y,const unsigned int* l,int panels); // 0x006B8E90

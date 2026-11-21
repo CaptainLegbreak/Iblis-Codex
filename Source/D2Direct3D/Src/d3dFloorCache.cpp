@@ -363,40 +363,6 @@ static void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc
     pList->pInUseLast = pNode;
 }
 
-// build: context sub_006BB1F0_Unlink
-D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_Unlink(D2FloorPoolStrc* pList, int nIndex)
-{
-    D2FloorPoolEntryStrc* pHead = pList->pInUseFirst;
-    if (!pHead)
-        return 0;
-
-    D2FloorPoolEntryStrc* pNode = &pList->pEntries[nIndex];
-    if (pNode == pHead)
-    {
-        pList->pInUseFirst = pHead->pNext;
-        if (pHead->pNext)
-            pHead->pNext->pPrev = 0;
-        else
-            pList->pInUseLast = 0;
-        pHead->pNext = 0;
-        pHead->pPrev = 0;
-        return pHead;
-    }
-
-    if (pNode == pList->pInUseLast)
-    {
-        pList->pInUseLast = pNode->pPrev;
-        pList->pInUseLast->pNext = 0;
-    }
-    else
-    {
-        pNode->pPrev->pNext = pNode->pNext;
-        pNode->pNext->pPrev = pNode->pPrev;
-    }
-    pNode->pNext = 0;
-    pNode->pPrev = 0;
-    return pNode;
-}
 
 // 0x006BB2D0
 void __fastcall sub_006BB2D0_MoveToTail(D2FloorPoolStrc* pList, int nIndex)
