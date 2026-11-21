@@ -14135,7 +14135,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00449FB0.cpp",
+   "file": "Source/D2MCPClient/Unknown_00449FB0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -14151,7 +14151,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0044A1D0.cpp",
+   "file": "Source/D2MCPClient/Unknown_0044A1D0.cpp",
    "rank": 1,
    "functions": [
     {

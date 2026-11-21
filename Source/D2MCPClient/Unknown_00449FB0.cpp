@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2MCPClient.h"
 #include "D2GameTypes.h"
 struct T006BC290;
 
