@@ -46942,11 +46942,6 @@
      "name": "PARTY_CountLivingUnits"
     },
     {
-     "va": "0x00543800",
-     "length": 174,
-     "name": "QUESTS_QuestFree"
-    },
-    {
      "va": "0x00543E10",
      "length": 251,
      "name": "QUESTS_QuestUpdater"
@@ -52943,6 +52938,11 @@
      "va": "0x00543790",
      "length": 103,
      "name": "?QUESTS_InitScrollTextChain@@YIXPAUD2QuestDataStrc@@PAUD2TextHeaderStrc@@HH@Z"
+    },
+    {
+     "va": "0x00543800",
+     "length": 174,
+     "name": "QUESTS_QuestFree"
     },
     {
      "va": "0x005438B0",
