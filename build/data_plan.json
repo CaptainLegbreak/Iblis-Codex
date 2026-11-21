@@ -3940,7 +3940,7 @@
    "state": "included",
    "static_definitions": 3
   },
-  "Source/D2Game/Unknown_005431F0.cpp": {
+  "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp": {
    "bytes": 12,
    "definitions": 3,
    "externs": [],
@@ -95056,12 +95056,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Game/Unknown_005431F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnInactiveCmdParam1_007314C0 = ",
-   "include": "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveCmdParam1_007314C0.inc",
+   "include": "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveCmdParam1_007314C0.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -95085,12 +95085,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Game/Unknown_005431F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnInactiveNoXpParam2_007314C4 = ",
-   "include": "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveNoXpParam2_007314C4.inc",
+   "include": "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveNoXpParam2_007314C4.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -95114,12 +95114,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Game/Unknown_005431F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnInactiveNoTcParam2_007314C8 = ",
-   "include": "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveNoTcParam2_007314C8.inc",
+   "include": "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveNoTcParam2_007314C8.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
