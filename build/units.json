@@ -69207,6 +69207,11 @@
      "name": "sub_005E6860_HomeCommandStep"
     },
     {
+     "va": "0x005E6AE0",
+     "length": 760,
+     "name": "?sub_6FCE69A0@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E6EF0",
      "length": 9,
      "name": "sub_005E6EF0_MapAiActionWalkToPosition"
@@ -69222,6 +69227,11 @@
      "name": "sub_6FCE64D0"
     },
     {
+     "va": "0x005E7350",
+     "length": 65,
+     "name": "?sub_005E7350_StopUnlessInteracting@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005E7540",
      "length": 69,
      "name": "AITHINK_Fn041_Towner"
@@ -69230,6 +69240,11 @@
      "va": "0x005E7590",
      "length": 528,
      "name": "?AITHINK_Fn081_JarJar@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E77A0",
+     "length": 219,
+     "name": "?AITHINK_SpawnNpcPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x005E7C10",
@@ -70182,27 +70197,6 @@
      "va": "0x005E7E20",
      "length": 290,
      "name": "?AITHINK_Fn058_Navi@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E6AE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E6AE0",
-     "length": 760,
-     "name": "?sub_6FCE69A0@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E7350",
-     "length": 65,
-     "name": "?sub_005E7350_StopUnlessInteracting@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005E77A0",
-     "length": 219,
-     "name": "?AITHINK_SpawnNpcPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
