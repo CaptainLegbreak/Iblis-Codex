@@ -41454,6 +41454,16 @@
      "name": "D2Win_InitializeSpriteCache"
     },
     {
+     "va": "0x004F8FC0",
+     "length": 20,
+     "name": "D2Win_10014_SetWndProc"
+    },
+    {
+     "va": "0x004F8FE0",
+     "length": 77,
+     "name": "?D2Win_10015@@YIHXZ"
+    },
+    {
      "va": "0x004F9030",
      "length": 30,
      "name": "?D2Win_CloseSpriteCache@@YGHXZ"
@@ -41467,77 +41477,6 @@
      "va": "0x004F90A0",
      "length": 140,
      "name": "sub_004F90A0_SwitchResolution"
-    },
-    {
-     "va": "0x004F9190",
-     "length": 16,
-     "name": "?D2WINMAIN_ClearMessageLoopFlag@@YIHXZ"
-    },
-    {
-     "va": "0x004F9310",
-     "length": 172,
-     "name": "CONTROL_RemoveFromList"
-    },
-    {
-     "va": "0x004F96F0",
-     "length": 27,
-     "name": "?sub_004F96F0_ControlClearState@@YIXPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x004F9780",
-     "length": 45,
-     "name": "?sub_004F9780@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F97E0",
-     "length": 138,
-     "name": "sub_004F97E0_PaintCursor"
-    },
-    {
-     "va": "0x004F98E0",
-     "length": 401,
-     "name": "sub_004F98E0"
-    },
-    {
-     "va": "0x004F9B30",
-     "length": 34,
-     "name": "?sub_004F9B30_CONTROL_IsInActiveList@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9CC0",
-     "length": 604,
-     "name": "?sub_004F9CC0_SysCommandMaximizeMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004FA1B0",
-     "length": 66,
-     "name": "?sub_004FA1B0@@YAHPAUControl@@PBUPoint@@@Z"
-    },
-    {
-     "va": "0x004FA340",
-     "length": 203,
-     "name": "?D2Win_COMMANDS_MouseWheel_6F8AE220@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004FA490",
-     "length": 20,
-     "name": "_sub_004FA490@4"
-    },
-    {
-     "va": "0x004FA760",
-     "length": 63,
-     "name": "?D2Win_COMMANDS_Escape_6F8ADB10@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinMain_004F8FC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F8FC0",
-     "length": 20,
-     "name": "D2Win_10014_SetWndProc"
     },
     {
      "va": "0x004F9140",
@@ -41555,6 +41494,11 @@
      "name": "sub_004F9180"
     },
     {
+     "va": "0x004F9190",
+     "length": 16,
+     "name": "?D2WINMAIN_ClearMessageLoopFlag@@YIHXZ"
+    },
+    {
      "va": "0x004F91A0",
      "length": 21,
      "name": "CONTROL_SetCellFile"
@@ -41570,9 +41514,49 @@
      "name": "CONTROL_AppendToList"
     },
     {
+     "va": "0x004F9250",
+     "length": 52,
+     "name": "?sub_004F9250_AppendToDeadList@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x004F9290",
+     "length": 117,
+     "name": "?CONTROL_FreeDeadList@@YGHXZ"
+    },
+    {
+     "va": "0x004F9310",
+     "length": 172,
+     "name": "CONTROL_RemoveFromList"
+    },
+    {
      "va": "0x004F93C0",
      "length": 512,
      "name": "CONTROL_Create"
+    },
+    {
+     "va": "0x004F95C0",
+     "length": 300,
+     "name": "?CONTROL_Destroy@@YGHPAPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x004F96F0",
+     "length": 27,
+     "name": "?sub_004F96F0_ControlClearState@@YIXPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x004F9710",
+     "length": 45,
+     "name": "?sub_004F9710@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x004F9740",
+     "length": 58,
+     "name": "?sub_004F9740@@YIXPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x004F9780",
+     "length": 45,
+     "name": "?sub_004F9780@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F97B0",
@@ -41580,9 +41564,29 @@
      "name": "CONTROL_MouseInsideRect"
     },
     {
+     "va": "0x004F97E0",
+     "length": 138,
+     "name": "sub_004F97E0_PaintCursor"
+    },
+    {
+     "va": "0x004F9870",
+     "length": 109,
+     "name": "?sub_004F9870_DrawFontCaches@@YAXXZ"
+    },
+    {
+     "va": "0x004F98E0",
+     "length": 401,
+     "name": "sub_004F98E0"
+    },
+    {
      "va": "0x004F9A80",
      "length": 170,
      "name": "D2Win_MAINWINDOW_WndProc_6F8AD9B0"
+    },
+    {
+     "va": "0x004F9B30",
+     "length": 34,
+     "name": "?sub_004F9B30_CONTROL_IsInActiveList@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F9B60",
@@ -41605,14 +41609,43 @@
      "name": "D2Win_COMMANDS_Control_6F8ADBF0"
     },
     {
+     "va": "0x004F9CC0",
+     "length": 604,
+     "name": "?sub_004F9CC0_SysCommandMaximizeMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004F9F20",
      "length": 144,
      "name": "D2Win_COMMANDS_ActivateApp_6F8ADC40"
     },
     {
+     "va": "0x004F9FB0",
+     "length": 269,
+     "name": "?sub_004F9FB0_WriteScreenshotJpeg@@YGXPAEPBDHH@Z"
+    },
+    {
+     "va": "0x004FA0C0",
+     "length": 151,
+     "name": "?sub_004FA0C0_SaveScreenshot@@YIXPBD@Z"
+    },
+    {
      "va": "0x004FA160",
      "length": 80,
      "name": "sub_004FA160"
+    },
+    {
+     "va": "0x004FA1B0",
+     "length": 66,
+     "name": "?sub_004FA1B0@@YAHPAUControl@@PBUPoint@@@Z"
+    },
+    {
+     "va": "0x004FA200",
+     "length": 316
+    },
+    {
+     "va": "0x004FA340",
+     "length": 203,
+     "name": "?D2Win_COMMANDS_MouseWheel_6F8AE220@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004FA410",
@@ -41635,6 +41668,11 @@
      "name": "D2Win_10033"
     },
     {
+     "va": "0x004FA490",
+     "length": 20,
+     "name": "_sub_004FA490@4"
+    },
+    {
      "va": "0x004FA4C0",
      "length": 40,
      "name": "sub_004FA4C0_HideCursorMsg"
@@ -41650,6 +41688,11 @@
      "name": "D2Win_CreateWindow"
     },
     {
+     "va": "0x004FA550",
+     "length": 50,
+     "name": "?D2Win_10016@@YIHXZ"
+    },
+    {
      "va": "0x004FA590",
      "length": 281,
      "name": "sub_004FA590"
@@ -41660,6 +41703,16 @@
      "name": "D2Win_COMMANDS_MouseMove_6F8AD670"
     },
     {
+     "va": "0x004FA760",
+     "length": 63,
+     "name": "?D2Win_COMMANDS_Escape_6F8ADB10@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004FA7A0",
+     "length": 147,
+     "name": "?D2Win_10168_WINMAIN_CreateScreenshot@@YGXXZ"
+    },
+    {
      "va": "0x004FA840",
      "length": 29,
      "name": "D2Win_COMMANDS_Snapshot_6F8ADE70"
@@ -41668,6 +41721,11 @@
      "va": "0x004FA860",
      "length": 324,
      "name": "D2Win_COMMANDS_MouseButton_6F8AE070"
+    },
+    {
+     "va": "0x004FAAE0",
+     "length": 31,
+     "name": "?ARCHIVE_FreeCellFile@@YIXPAUD2CelFileStrc@@@Z"
     },
     {
      "va": "0x004FAD10",
@@ -41734,57 +41792,20 @@
      "length": 139,
      "name": "POPUP_AddLine"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinMain_004F8FE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F8FE0",
-     "length": 77,
-     "name": "?D2Win_10015@@YIHXZ"
-    },
-    {
-     "va": "0x004F9250",
-     "length": 52,
-     "name": "?sub_004F9250_AppendToDeadList@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9290",
-     "length": 117,
-     "name": "?CONTROL_FreeDeadList@@YGHXZ"
-    },
-    {
-     "va": "0x004F95C0",
-     "length": 300,
-     "name": "?CONTROL_Destroy@@YGHPAPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9710",
-     "length": 45,
-     "name": "?sub_004F9710@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9740",
-     "length": 58,
-     "name": "?sub_004F9740@@YIXPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x004F9870",
-     "length": 109,
-     "name": "?sub_004F9870_DrawFontCaches@@YAXXZ"
-    },
-    {
-     "va": "0x004FA550",
-     "length": 50,
-     "name": "?D2Win_10016@@YIHXZ"
-    },
-    {
-     "va": "0x004FAAE0",
-     "length": 31,
-     "name": "?ARCHIVE_FreeCellFile@@YIXPAUD2CelFileStrc@@@Z"
-    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob1",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -41801,45 +41822,6 @@
      "length": 5,
      "name": "?D2Win_10006_ClearDrawCaches@@YGXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinMain_004F9FB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F9FB0",
-     "length": 269,
-     "name": "?sub_004F9FB0_WriteScreenshotJpeg@@YGXPAEPBDHH@Z"
-    },
-    {
-     "va": "0x004FA0C0",
-     "length": 151,
-     "name": "?sub_004FA0C0_SaveScreenshot@@YIXPBD@Z"
-    },
-    {
-     "va": "0x004FA200",
-     "length": 316
-    },
-    {
-     "va": "0x004FA7A0",
-     "length": 147,
-     "name": "?D2Win_10168_WINMAIN_CreateScreenshot@@YGXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
