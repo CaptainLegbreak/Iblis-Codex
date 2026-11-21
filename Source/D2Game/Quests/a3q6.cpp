@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
@@ -31,8 +32,6 @@
 #define ACT_III 2
 
 #define MONSTER_ORMUS 255
-
-#define LEVEL_OUTERSTEPPES 104
 
 #define EVENTTYPE_QUESTFN 7
 

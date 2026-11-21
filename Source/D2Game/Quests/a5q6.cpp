@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -64,10 +65,6 @@ enum { QUEST_FLAGS_ID = 40, QUEST_DATA_ID = 36 };
 #define QUEST_A5Q6_BAAL 36
 
 #define UNIT_PLAYER 0
-
-#define LEVEL_HARROGATH 109
-
-#define LEVEL_THRONEOFDESTRUCTION 131
 
 struct D2PlayerDataStrc;
 
@@ -247,10 +244,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 enum D2C_F33QuestConstants
 {
     ACT_V = 4,
-    LEVEL_ROGUEENCAMPMENT = 1,
-    LEVEL_TRISTRAM = 38,
-    LEVEL_ROCKYSUMMIT = 120,
-    LEVEL_HALLSOFDEATHSCALLING = 123,
     QUEST_A1Q2_BLOODRAVEN = 2,
     QUEST_A1Q3_MALUS = 3,
     QUEST_A1Q4_CAIN = 4,

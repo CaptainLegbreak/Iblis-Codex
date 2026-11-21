@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameObjs.h"
 #include "D2ItemsWorld.h"
@@ -37,16 +38,6 @@
 #define UNIT_INVALID 6
 
 #define STRCOLOR_DARK_GOLD 4
-
-#define LEVEL_DURIELSLAIR 73
-
-#define LEVEL_DURANCEOFHATELEV1 100
-
-#define LEVEL_GLACIALCAVESLEV1 118
-
-#define LEVEL_ROCKYSUMMIT 120
-
-#define LEVEL_THEWORLDSTONEKEEPLEV1 128
 
 #define OBJECT_DREHYA_START_IN_TOWN 459
 

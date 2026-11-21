@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
@@ -41,12 +42,6 @@
 #define ITEMACTION_DROPTOGROUND 2
 
 #define ITEMACTION_ONGROUND 3
-
-#define LEVEL_ROGUEENCAMPMENT 1
-
-#define LEVEL_LUTGHOLEIN 40
-
-#define LEVEL_KURASTDOCKTOWN 75
 
 #define ACT_II 1
 
@@ -776,8 +771,6 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
 #define COLLIDE_MASK_CORPSE 0x9C19
 
 #define CLIENTFLAGEX_HAS_SAVE_CHECKSUM 0x08
-
-#define LEVEL_HARROGATH 109
 
 struct D2SkillListStrc;
 

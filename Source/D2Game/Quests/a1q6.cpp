@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -17,10 +18,6 @@ struct D2GameStrc;
 struct D2QuestDataStrc;
 
 struct D2UnitStrc;
-
-#define LEVEL_ROGUEENCAMPMENT 1
-
-#define LEVEL_SEWERSLEV3 49
 
 #define QUEST_A2Q1_RADAMENT 8
 
@@ -57,10 +54,6 @@ struct D2Act2Quest1Strc;
 enum D2C_P08QuestConstants
 {
     ACT_II = 1,
-    LEVEL_LUTGHOLEIN = 40,
-    LEVEL_CANYONOFTHEMAGI = 46,
-    LEVEL_DURIELSLAIR = 73,
-    LEVEL_KURASTDOCKTOWN = 75,
     MONSTER_AKARA = 148,
     MONSTER_KASHYA = 150,
     MONSTER_WARRIV1 = 155,

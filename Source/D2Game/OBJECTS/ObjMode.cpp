@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -365,8 +366,6 @@ int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp
 enum
 {
     EVENTTYPE_ENDANIM = 1,
-    LEVEL_PALACECELLARLEV3 = 54,
-    LEVEL_ARCANESANCTUARY = 74,
     ARCANE_TILECALC = 11,
 };
 
@@ -551,8 +550,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 #define OBJECT_STASH 267
 
 #define OBJECT_GUILD_PORTAL 377
-
-#define LEVEL_DURIELSLAIR 73
 
 struct D2ObjOperateStrc;
 
