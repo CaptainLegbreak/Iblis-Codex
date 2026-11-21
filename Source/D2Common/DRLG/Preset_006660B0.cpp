@@ -131,7 +131,7 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_InitPresetRoomData(D2DrlgLevelStrc* pLevel
     return pDrlgRoom;
 }
 
-void __fastcall DRLGPRESET_GetTombStoneTileCoords(D2DrlgRoomStrc* pDrlgRoom, D2DrlgCoordStrc** ppTombStoneTiles, int* pnTombStoneTiles)
+void __fastcall DRLGPRESET_GetTombStoneTileCoords(D2DrlgRoomStrc* pDrlgRoom, D2CoordStrc** ppTombStoneTiles, int* pnTombStoneTiles)
 {
     if (pDrlgRoom->nType != 2)
     {

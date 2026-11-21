@@ -139,11 +139,10 @@ void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom)
     DRLGROOMTILE_LoadInitRoomTiles(pRoom, &pOutdoor->tGrid14, &pOutdoor->pTileTypeGrid, 0, 0, 0);
     DRLGROOMTILE_LoadInitRoomTiles(pRoom, &pOutdoor->tGrid28, 0, 0, 0, 0);
 
-    D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
-    for (int i = 0; i < 3; ++i)
-    {
-        (&pTileGrid->pTiles.nWalls)[2 * i] = (&pTileGrid->nWalls)[i];
-    }
+    volatile D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
+    pTileGrid->nTileWalls = pTileGrid->nWalls;
+    pTileGrid->nTileFloors = pTileGrid->nFloors;
+    pTileGrid->nTileRoofs = pTileGrid->nShadows;
 
     DRLGLOGIC_AllocCoordLists(pRoom);
 }

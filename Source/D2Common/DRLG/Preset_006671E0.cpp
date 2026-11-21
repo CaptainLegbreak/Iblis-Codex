@@ -7,37 +7,12 @@
 #include "D2LevelTxt.h"
 #include "D2GameAux.h"
 #include "D2GameObjs.h"
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgPresets.h"
+#include "D2DrlgTiles.h"
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
 
-struct D2DrlgFileStrc
-{
-    char unk0x00[0xC];
-    int nWidth;
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    void* pTileTypeLayer[4];
-    void* pWallLayer[4];
-    void* pFloorLayer[2];
-    void* pShadowLayer;
-    char unk0x48[0xC];
-    D2PresetUnitStrc* pPresetUnit;
-};
 
 union D2C_PackedTileInformation
 {
@@ -68,141 +43,18 @@ union D2C_PackedTileInformation
 
 struct D2DrlgVertexStrc;
 
-struct D2DrlgMapStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2LvlPrestTxt* pLvlPrestTxtRecord;
-    D2DrlgFileStrc* ptFile;
-    D2DrlgCoordStrc tCoords;
-    D2DrlgVertexStrc* pVertices;
-    D2DrlgGridStrc pMapGrid;
-    D2PresetUnitStrc* pPresetUnit;
-    int bInited;
-    int nPops;
-    int* pPopsIndex;
-    int* pPopsSubIndex;
-    int* pPopsOrientation;
-    D2DrlgCoordStrc* pPopsLocation;
-    D2DrlgMapStrc* pNext;
-};
 
-struct D2DrlgPresetRoomStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2DrlgMapStrc* pMap;
-    unsigned int dwFlags;
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pFloorGrid[2];
-    D2DrlgGridStrc pCellGrid;
-    D2DrlgGridStrc* pMazeGrid;
-    D2CoordStrc* pTombStoneTiles;
-    int nTombStoneTiles;
-};
 
-struct D2DrlgPresetLevelStrc
-{
-    D2DrlgMapStrc* pDrlgMap;
-    int nDirection;
-};
 
 struct D2RoomStrc;
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x454];
-    void(__stdcall* pfAutomap)(D2RoomStrc* pRoom);
-    char unk0x458[0xC];
-    void* hArchive;
-    char unk0x468[0x10];
-    void* pMempool;
-    char unk0x47C[0xC];
-    void(__stdcall* pfTownAutomap)(int nLevelId, int nPickedFile, int nX, int nY);
-};
 
 struct D2DrlgRoomStrc;
 
-struct D2DrlgTileInfoStrc
-{
-    int nPosX;
-    int nPosY;
-    int nTileIndex;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    D2DrlgPresetLevelStrc* pPreset;
-    char unk0x018[0x4];
-    D2DrlgCoordStrc pLevelCoords;
-    D2DrlgTileInfoStrc pTileInfo[32];
-    char unk0x1AC[0x8];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0xC];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x4];
-    int eLevelId;
-    char unk0x1D4[0x4];
-    int nTileInfo;
-};
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    void* pTile;
-    int nTileType;
-    void* unk0x20;
-    int dwPopFlags;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nIntensity;
-    int nPopTick;
-};
 
-struct D2DrlgTileGridStrc
-{
-    char unk0x00[0x8];
-    int nWalls;
-    int nFloors;
-    int nShadows;
-    struct D2DrlgTileDataStrc* pWallTiles;
-    int nTileWalls;
-    char unk0x1C[0x4];
-    int nTileFloors;
-    char unk0x24[0x4];
-    int nTileRoofs;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x8];
-    D2DrlgRoomStrc** ppRoomsNear;
-    char unk0x0C[0x8];
-    D2SeedStrc pSeed;
-    char unk0x1C[0x4];
-    D2DrlgPresetRoomStrc* pMaze;
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int nRoomsNear;
-    D2RoomStrc* pRoom;
-    D2DrlgCoordStrc pDrlgCoord;
-    char unk0x44[0x4];
-    int nType;
-    char unk0x4C[0x4];
-    unsigned int dwDT1Mask;
-    struct D2DrlgTileGridStrc* ptDrlgTiles;
-    D2DrlgLevelStrc* ptDrlgLevel;
-    struct D2PresetUnitStrc* pPresetUnits;
-};
 
 extern "C" const char gszDrlgPresetSourceFile;
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);
@@ -882,7 +734,7 @@ static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* pDrlgRoom,
     tDrlgCoord.nHeight = pDrlgCoord->nHeight + 2;
 
     const int nWalls = pDrlgRoom->ptDrlgTiles->nTileWalls;
-    D2DrlgTileDataStrc* pWallTiles = pDrlgRoom->ptDrlgTiles->pWallTiles;
+    D2DrlgTileDataStrc* pWallTiles = pDrlgRoom->ptDrlgTiles->pTiles.pWallTiles;
     for (int i = 0; i < nWalls; ++i)
     {
         D2DrlgTileDataStrc* pTileData = &pWallTiles[i];
@@ -1331,7 +1183,7 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgM
 
 void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgPresetLevelStrc* pPreset = pLevel->pPreset;
+    D2DrlgPresetInfoStrc* pPreset = pLevel->pPreset;
     D2LvlPrestTxt* pLvlPrestTxtRecord = DATATBLS_GetLvlPrestTxtRecordFromLevelId(pLevel->eLevelId);
     D2DrlgMapStrc* pDrlgMap = DRLGPRESET_AllocDrlgMap(pLevel, pLvlPrestTxtRecord->dwDef, &pLevel->pLevelCoords, &pLevel->pSeed);
     pPreset->pDrlgMap = pDrlgMap;
@@ -1374,7 +1226,7 @@ void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
             for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
             {
                 DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
-                pLevel->pDrlg->pfAutomap(pDrlgRoom->pRoom);
+                pLevel->pDrlg->pfAutomap((D2RoomStrc*)pDrlgRoom->pRoom);
             }
         }
     }

@@ -8,6 +8,10 @@
 #include "D2LevelTxt.h"
 #include "D2GameAux.h"
 #include "D2GameObjs.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgPresets.h"
+#include "D2StormLink.h"
 
 #pragma intrinsic(memset)
 
@@ -36,7 +40,6 @@ struct D2Unk00667420BStrc;
 struct D2Unk00667420Strc;
 struct D2ObjectsTxt;
 struct D2DrlgTileInfoStrc;
-struct D2RoomTileGridStrc;
 struct D2DrlgRoomStrc;
 struct D2DrlgGridStrc;
 struct D2DrlgFileStrc;
@@ -58,73 +61,11 @@ struct D2DrlgRoomSubStrc
     int nFieldEC;
 };
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x14];
-    D2SeedStrc pSeed;
-    char unk0x1C[0x4];
-    union
-    {
-        D2DrlgRoomSubStrc* pSub20;
-        D2DrlgPresetRoomStrc* pMaze;
-    };
-    char unk0x24[0x4];
-    unsigned int dwFlags;
-    char unk0x2C[0x8];
-    union
-    {
-        struct
-        {
-            D2DrlgCoordStrc pDrlgCoord;
-        };
-        struct
-        {
-            int nTileXPos;
-            int nTileYPos;
-            int nTileWidth;
-            int nTileHeight;
-        };
-    };
-    char unk0x44[0x4];
-    int nType;
-    char unk0x4C[0x4];
-    unsigned int dwDT1Mask;
-    D2RoomTileGridStrc* ptDrlgTiles;
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 
 extern D2LevelFileListStrc* gpLevelFilesList; // 0x0096D60C
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
 
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x0C];
-    int nWidth;
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    void* pTileTypeLayer[4];
-    void* pWallLayer[4];
-    void* pFloorLayer[2];
-    unsigned char unk_44[0x10];
-    D2PresetUnitStrc* pPresetUnit;
-};
 
 union D2C_PackedTileInformation
 {
@@ -153,76 +94,11 @@ union D2C_PackedTileInformation
     };
 };
 
-struct D2DrlgMapStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2LvlPrestTxt* pLvlPrestTxtRecord;
-    D2DrlgFileStrc* ptFile;
-    D2DrlgCoordStrc tCoords;
-    D2DrlgVertexStrc* pVertices;
-    D2DrlgGridStrc pMapGrid;
-    D2PresetUnitStrc* pPresetUnit;
-    int bInited;
-    int nPops;
-    int* pPopsIndex;
-    int* pPopsSubIndex;
-    int* pPopsOrientation;
-    D2DrlgCoordStrc* pPopsLocation;
-    D2DrlgMapStrc* pNext;
-};
 
-struct D2DrlgPresetRoomStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2DrlgMapStrc* pMap;
-    unsigned int dwFlags;
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pFloorGrid[2];
-    D2DrlgGridStrc pCellGrid;
-    D2DrlgGridStrc* pMazeGrid;
-    D2CoordStrc* pTombStoneTiles;
-    int nTombStoneTiles;
-};
 
-struct D2DrlgPresetLevelStrc
-{
-    D2DrlgMapStrc* pDrlgMap;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x464];
-    void* hArchive;
-    char unk0x468[0x10];
-    void* pMempool;
-};
 
-struct D2DrlgTileInfoStrc
-{
-    int nPosX;
-    int nPosY;
-    int nTileIndex;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x14];
-    D2DrlgPresetInfoStrc* pPreset;
-    unsigned char unk_18[0x14];
-    D2DrlgTileInfoStrc pTileInfo[32];
-    unsigned char unk_1AC[0x4];
-    D2DrlgMapStrc* pCurrentMap;
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-    char unk0x1D4[0x04];
-    int nTileInfo;
-};
 
 struct D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY); // 0x0066BF30
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
@@ -235,30 +111,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern unsigned short gwValue_0077905C;
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
 
 struct D2StormListStrc
 {
@@ -319,20 +171,6 @@ int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlags, int nOperation); // 0x0067C4F0
 void __fastcall DRLGGRID_AlterAllGridFlags(D2DrlgGridStrc* pGrid, int nFlags, int nOperation); // 0x0067C590
 
-struct D2RoomTileGridStrc
-{
-    char unk0x00[0x08];
-    volatile int nWalls;
-    volatile int nFloors;
-    volatile int nShadows;
-    int unk0x14;
-    volatile int nTileWalls;
-    int unk0x1C;
-    volatile int nTileFloors;
-    int unk0x24;
-    volatile int nTileRoofs;
-};
-
 void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
 void __fastcall DRLGROOMTILE_AllocTileGrid(D2DrlgRoomStrc* pDrlgRoom); // 0x0066EEA0
 void __fastcall sub_0067CBF0(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags); // 0x0067CBF0
@@ -351,11 +189,6 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_InitPresetRoomData(D2DrlgLevelStrc* pLevel
 static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2DrlgGridStrc* pDrlgGrid, int nFlags, int bSingleRoom, D2DrlgMapStrc* pDrlgMap); // 0x00667970
 static void __stdcall sub_00666E00(D2DrlgMapStrc* pDrlgMap, int nPops);
 
-struct D2DrlgPresetInfoStrc
-{
-	void* pDrlgMap;
-	int nDirection;
-};
 
 extern const char gszPresetFile[]; // 0x006EE7C4
 int __fastcall sub_0045C3E0(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -574,9 +407,9 @@ static void sub_00666990(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
         return;
 
     pMaze->pTombStoneTiles = (D2CoordStrc*)FOG_AllocPool(pMemPool, 6 * sizeof(D2CoordStrc), gszDrlgPresetSourceFile_006EE7C4, 1964, 0);
-    for (int i = 0; i < pDrlgRoom->nTileHeight; ++i)
+    for (int i = 0; i < pDrlgRoom->pDrlgCoord.nHeight; ++i)
     {
-        for (int j = 0; j < pDrlgRoom->nTileWidth; ++j)
+        for (int j = 0; j < pDrlgRoom->pDrlgCoord.nWidth; ++j)
         {
             const unsigned int nPacked = DRLGGRID_GetGridEntry(pMaze->pWallGrid, j, i);
             const unsigned char nTileStyle = (nPacked >> 20) & 0x3F;
@@ -587,8 +420,8 @@ static void sub_00666990(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
                 {
                     int nY;
                     int nX;
-                    nX = j + pDrlgRoom->nTileXPos;
-                    nY = i + pDrlgRoom->nTileYPos;
+                    nX = j + pDrlgRoom->pDrlgCoord.nPosX;
+                    nY = i + pDrlgRoom->pDrlgCoord.nPosY;
                     DUNGEON_GameTileToSubtileCoords(&nX, &nY);
                     nX += 2;
                     nY += 2;
@@ -617,8 +450,8 @@ void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
     int bKillEdgeY = 0;
     if (pMazeMap->pLvlPrestTxtRecord->dwKillEdge)
     {
-        bKillEdgeX = pDrlgRoom->nTileXPos + pDrlgRoom->nTileWidth == pMazeMap->tCoords.nPosX + pMazeMap->tCoords.nWidth;
-        bKillEdgeY = pDrlgRoom->nTileYPos + pDrlgRoom->nTileHeight == pMazeMap->tCoords.nPosY + pMazeMap->tCoords.nHeight;
+        bKillEdgeX = pDrlgRoom->pDrlgCoord.nPosX + pDrlgRoom->pDrlgCoord.nWidth == pMazeMap->tCoords.nPosX + pMazeMap->tCoords.nWidth;
+        bKillEdgeY = pDrlgRoom->pDrlgCoord.nPosY + pDrlgRoom->pDrlgCoord.nHeight == pMazeMap->tCoords.nPosY + pMazeMap->tCoords.nHeight;
     }
 
     D2DrlgGridStrc tTileTypeGrid;
@@ -633,8 +466,8 @@ void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
     case 1:
     case 108:
         bTownOrGraveyard = 1;
-        sub_0067CBF0(&tTileTypeGrid, pDrlgRoom->nTileWidth + 1, pDrlgRoom->nTileHeight + 1, aTileTypeCellPos, aTileTypeCellFlags);
-        sub_0067CBF0(&tTileInfoGrid, pDrlgRoom->nTileWidth + 1, pDrlgRoom->nTileHeight + 1, aTileInfoCellPos, aTileInfoCellFlags);
+        sub_0067CBF0(&tTileTypeGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, aTileTypeCellPos, aTileTypeCellFlags);
+        sub_0067CBF0(&tTileInfoGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, aTileInfoCellPos, aTileInfoCellFlags);
         break;
     }
 
@@ -695,7 +528,7 @@ void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
         DRLGANIM_AllocAnimationTileGrids(pDrlgRoom, pMaze->pMap->pLvlPrestTxtRecord->nAnimSpeed, pMaze->pWallGrid, nWallLayers, pMaze->pFloorGrid, nFloorLayers, &pMaze->pCellGrid);
     }
 
-    D2RoomTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
+    volatile D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
     pTileGrid->nTileWalls = pTileGrid->nWalls;
     pTileGrid->nTileFloors = pTileGrid->nFloors;
     pTileGrid->nTileRoofs = pTileGrid->nShadows;
@@ -744,7 +577,7 @@ static void __stdcall sub_00666E00(D2DrlgMapStrc* pDrlgMap, int nPops)
 
 void __fastcall sub_Z16_EmitTombStoneTiles(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool)
 {
-    if (pDrlgRoom->nTileWidth == 9)
+    if (pDrlgRoom->pDrlgCoord.nWidth == 9)
         sub_00666990(pMemPool, pDrlgRoom);
 }
 
@@ -924,7 +757,7 @@ void __stdcall sub_M121_Emit_00666070(D2DrlgFileStrc** ppDrlgFile, D2LevelFileLi
 // 0x00666FF0
 int __fastcall sub_00666FF0_GetRoomSubFieldEC(D2DrlgRoomStrc* pDrlgRoom)
 {
-    return pDrlgRoom->pSub20->nFieldEC;
+    return (int)pDrlgRoom->pMaze->pMazeGrid;
 }
 
 // 0x00667000

@@ -3,27 +3,9 @@
 #include "D2GameAux.h"
 #include "D2DrlgRooms.h"
 #include "D2GameObjs.h"
+#include "D2DrlgMaps.h"
 
 
-struct D2DrlgFileStrc
-{
-    int nSubstMethod;
-    void* pDS1File;
-    int unk0x08;
-    int nWidth;
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    int* pTileTypeLayer[4];
-    int* pWallLayer[4];
-    int* pFloorLayer[2];
-    int* pShadowLayer;
-    int* pSubstGroupTags;
-    int nSubstGroups;
-    D2DrlgSubstGroupStrc* pSubstGroups;
-    D2PresetUnitStrc* pPresetUnit;
-    D2DrlgFileStrc* pNext;
-};
 
 struct D2MonPresetTxt
 {
@@ -187,7 +169,7 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
     {
         for (int i = 0; i < pDrlgFile->nWallLayers; ++i)
         {
-            int* pTileType = pDrlgFile->pTileTypeLayer[i];
+            int* pTileType = (int*)pDrlgFile->pTileTypeLayer[i];
             for (int j = 0; j < nCells; ++j)
             {
                 *pTileType = DRLGPRESET_MapTileType(*pTileType);

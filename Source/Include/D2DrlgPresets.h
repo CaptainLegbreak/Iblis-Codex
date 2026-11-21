@@ -23,7 +23,7 @@ struct D2PathInfoStrc;
 
 struct D2DrlgPresetInfoStrc
 {
-    void* pDrlgMap; // 0x00
+    D2DrlgMapStrc* pDrlgMap; // 0x00
     int nDirection; // 0x04
 };
 
@@ -38,7 +38,7 @@ struct D2DrlgPresetRoomStrc
     D2DrlgGridStrc pFloorGrid[2]; // 0xB0
     D2DrlgGridStrc pCellGrid; // 0xD8
     D2DrlgGridStrc* pMazeGrid; // 0xEC
-    D2DrlgCoordStrc* pTombStoneTiles; // 0xF0
+    D2CoordStrc* pTombStoneTiles; // 0xF0
     int nTombStoneTiles; // 0xF4
 };
 
