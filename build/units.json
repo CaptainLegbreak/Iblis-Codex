@@ -89754,7 +89754,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B2F60.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B2F60.cpp",
    "rank": 0,
    "functions": [
     {
@@ -89805,7 +89805,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_006B3530.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3530.cpp",
    "rank": 1,
    "functions": [
     {
@@ -89815,7 +89815,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B3570.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3570.cpp",
    "rank": 1,
    "functions": [
     {
@@ -89869,7 +89869,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B3FD0.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3FD0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -89904,7 +89904,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B4C90.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B4C90.cpp",
    "rank": 1,
    "functions": [
     {
@@ -90657,13 +90657,7 @@
     {
      "va": "0x006BADC0",
      "length": 312
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006BAF00.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006BAF00",
      "length": 183
@@ -90722,11 +90716,24 @@
     {
      "va": "0x006BB3E0",
      "length": 312
+    },
+    {
+     "va": "0x006BB640",
+     "length": 97,
+     "name": "?sub_006BB640_ReleaseSurfaces@@YAXXZ"
+    },
+    {
+     "va": "0x006BBA00",
+     "length": 398
+    },
+    {
+     "va": "0x006BBB90",
+     "length": 92
     }
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006BB520.cpp",
+   "file": "Source/D2Direct3D/Unknown_006BB520.cpp",
    "rank": 1,
    "functions": [
     {
@@ -90754,7 +90761,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006BB5E0.cpp",
+   "file": "Source/D2Direct3D/Src/d3dFloorCache_006BB5E0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -90765,21 +90772,6 @@
     {
      "va": "0x006BB6B0",
      "length": 111
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006BB640.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BB640",
-     "length": 97,
-     "name": "?sub_006BB640_ReleaseSurfaces@@YAXXZ"
-    },
-    {
-     "va": "0x006BBA00",
-     "length": 398
     }
    ]
   },
@@ -90805,16 +90797,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006BBB90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BBB90",
-     "length": 92
-    }
    ]
   },
   {

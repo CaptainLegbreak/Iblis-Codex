@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Direct3D.h"
 
 struct D2SurfaceDescStrc { unsigned int size, flags, height, width, pitch, backBuffers, refresh; unsigned int reserved1[14]; unsigned int bits; unsigned int reserved2[4]; unsigned int caps; unsigned int reserved3[4]; };
 struct D2CapsStrc { unsigned int caps, caps2, caps3, caps4; };
@@ -138,4 +138,4 @@ done:
     return 1;
 }
 
-#include "gen/data/Source/Storm/Unknown_006B3FD0.inc"
+#include "gen/data/Source/D2Direct3D/Unknown_006B3FD0.inc"

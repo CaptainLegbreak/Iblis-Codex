@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
 
 struct D2GammaControlStrc;
@@ -191,7 +191,7 @@ int __fastcall sub_006B3730_CreateMemoryTexture(D2ComObject006B3730Strc** ppSurf
     return 1;
 }
 
-#include "gen/data/Source/Storm/Unknown_006B3570.inc"
+#include "gen/data/Source/D2Direct3D/Unknown_006B3570.inc"
 
 // 0x006B3800
 void __cdecl sub_006B3800_Flush()
