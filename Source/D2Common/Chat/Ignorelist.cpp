@@ -974,6 +974,9 @@ struct _iobuf;
 class ChatIgnoreList
 {
 public:
+    ChatIgnoreList()
+    {
+    }
     ChatIgnoreList(int nEmitTag);
     virtual int sub_00610EB0_Add(const char* szName) = 0;
     virtual int sub_0060FB20_Remove(const char* szName) = 0;
@@ -1136,7 +1139,7 @@ extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode);   
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
 
-extern "C" unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                          // 0x004135D0
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);
 
@@ -1283,6 +1286,19 @@ void __fastcall sub_006108D0_GrowListArray(D2Cache00610CA0Strc* pCache); // 0x00
 
 void __cdecl operator delete(void* pMemory, void* pWhere) throw();
 
+extern "C" const char gszTypeNameStringEntryList_0074366C[];                                                          // 0x0074366C
+
+extern "C" const char gszTypeNameMappingEntryList_007436AC[];                                                         // 0x007436AC
+
+int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize);                                    // 0x00406B60
+
+void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                             // 0x0041D300
+
+const char* __stdcall SStrChrR(const char* szString, char nChar);                                                     // 0x004134D0
+
+unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize);                          // 0x00413800
+
+int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
 // build: symbol ??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z 0x0060DCB0
 // build: symbol ??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z 0x0060E130
@@ -2880,6 +2896,27 @@ D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_00611170_New(cons
 {
     D2StormHashKeyStrIStrc key(szKey);
     return sub_00610DF0_InternalNewNode(SStrHash(szKey, 0, 0), key, nExtraBytes, nFlags);
+}
+
+// 0x00611200
+D2CommonIgnoreListStrc::IgnoreList()
+{
+    m_pFile = 0;
+    m_bEnabled = 1;
+
+    char szPath[0x104];
+    sub_00406B60_GetModuleDirectory(szPath, 0x104);
+    SMemZero(szFileName, 0x104);
+    char* pSep = (char*)SStrChrR(szPath, 0x5C);
+    if (pSep)
+        pSep[1] = 0;
+    sub_00413800(szPath, "ignorelist", 0x104);
+    SStrCopy(szFileName, szPath, 0x104);
+
+    unsigned long dwEnabled = 1;
+    SRegLoadValue("Diablo II", "Persistent Ignore", 0, &dwEnabled);
+    m_bEnabled = dwEnabled;
+    sub_00611050_Load();
 }
 
 // 0x00611320
