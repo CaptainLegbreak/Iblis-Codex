@@ -89067,9 +89067,18 @@
      "length": 312
     },
     {
+     "va": "0x006BB5E0",
+     "length": 88,
+     "name": "?sub_006BB5E0_CreateSurfaces@@YAXXZ"
+    },
+    {
      "va": "0x006BB640",
      "length": 97,
      "name": "?sub_006BB640_ReleaseSurfaces@@YAXXZ"
+    },
+    {
+     "va": "0x006BB6B0",
+     "length": 111
     },
     {
      "va": "0x006BBA00",
@@ -89107,21 +89116,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dFloorCache_006BB5E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BB5E0",
-     "length": 88,
-     "name": "?sub_006BB5E0_CreateSurfaces@@YAXXZ"
-    },
-    {
-     "va": "0x006BB6B0",
-     "length": 111
-    }
    ]
   },
   {
