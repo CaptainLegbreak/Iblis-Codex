@@ -1,4 +1,5 @@
 #include "D2StateIds.h"
+#include "D2ClientUi.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -143,7 +144,6 @@ struct D2SetItemsTxt;
 
 struct D2SetsTxt;
 
-struct D2InvCompGridStrc { D2InvRectStrc rect; unsigned char nWidth,nHeight; unsigned short pad; };
 
 extern int gnGlobal_0071146C; // 0x0071146C
 
