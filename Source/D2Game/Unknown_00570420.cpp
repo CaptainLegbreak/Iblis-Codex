@@ -10,6 +10,7 @@
 #include "D2MonModes.h"
 
 #include "D2Primitives.h"
+#include "D2LevelTxt.h"
 #define MONTYPEFLAG_UNIQUE 8
 #define EVENTTYPE_REMOVESTATE 0x0C
 
@@ -71,8 +72,6 @@ int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
 static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
-
-struct D2StatesTxt { char unk_00[0x10]; unsigned char nStateFlags[8]; char unk_18[0x24]; };
 
 #pragma pack(push, 1)
 struct D2GSPacketSrvAA { unsigned char nHeader; unsigned char nUnitType; int nUnitId; unsigned char nSize; unsigned char pStream[244]; };
