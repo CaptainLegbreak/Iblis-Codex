@@ -1,4 +1,5 @@
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 
 struct D2StormNodeList006027A0Strc : D2StormNodeListStrc { ~D2StormNodeList006027A0Strc(); };
 struct D2StormSlotList00602890Strc : D2StormSlotListStrc { ~D2StormSlotList00602890Strc(); };
@@ -6,16 +7,6 @@ struct D2StormListE006028D0Strc : D2StormListEStrc { ~D2StormListE006028D0Strc()
 struct D2StormSlotList00602AA0Strc : D2StormSlotListStrc { ~D2StormSlotList00602AA0Strc(); };
 struct D2StormListE00602AE0Strc : D2StormListEStrc { ~D2StormListE00602AE0Strc(); };
 struct D2StormSlotList00602DF0Strc : D2StormSlotListStrc { ~D2StormSlotList00602DF0Strc(); };
-
-struct D2StormHashObjectStrc
-{
-    unsigned int f_0;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-    int f_14;
-
-    ~D2StormHashObjectStrc();                                                                               // 0x00602430
-};
 
 struct D2StormEntry00602B20Strc : D2StormHashObjectStrc
 {

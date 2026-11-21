@@ -4,6 +4,7 @@
 #include "D2DrlgMaps.h"
 #include "D2CmpTypes.h"
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -136,8 +137,6 @@ struct R0052E0F0;
 struct R00601DC0;
 struct D2StormListEArrayStrc;
 struct D2StormHashTableEStrc;
-struct D2StormHashNodeStrc;
-struct D2GameHashTableStrc;
 struct CriticalSection;
 struct LockedObject;
 struct D2StormChunkLinkStrc;
@@ -159,8 +158,6 @@ struct DeleteFlags;
 struct SlotArray;
 struct D2CriticalSectionStrc;
 struct D2CelEntryStrc;
-struct D2StormEntry38Strc;
-struct D2GameDataTableStrc;
 struct D2CmpPoolStrc;
 class WardenModule;
 struct D2Warden47F930Strc;
@@ -208,8 +205,6 @@ void __fastcall sub_005FFBE0_FreeTileCache(D2CmpTileCacheStrc* pCache); // 0x005
 void __cdecl sub_0060CD50_ReleaseTileLock(); // 0x0060CD50
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* lpCriticalSection); // 0x006CC218
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void* lpCriticalSection); // 0x006CC214
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -240,7 +235,7 @@ struct D2CmpCacheStrc
     unsigned int nMaxSize;
     unsigned int nTotalSize;
     char unk0x0C[0x24];
-    char tLock[0x18];
+    D2CriticalSectionStrc tLock;
 };
 
 D2CmpCacheNodeStrc* __fastcall sub_005FF4A0_EvictCacheNode(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nArg); // 0x005FF4A0
@@ -855,27 +850,6 @@ struct D2StormHashTableEStrc
     unsigned int sub_0060E210_SlotIndex(unsigned int nHashVal);
 };
 
-struct D2StormHashNodeStrc
-{
-    unsigned int f_0;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-};
-
-struct D2GameHashTableStrc
-{
-    virtual void sub_006036D0_InternalDelete(D2StormHashNodeStrc* pNode);                                   // 0x006036D0
-    virtual void sub_00603610_VirtSlot1();                                                                  // 0x00603610
-    virtual void sub_006037B0_VirtSlot2();                                                                  // 0x006037B0
-    virtual void sub_00603780_VirtSlot3();                                                                  // 0x00603780
-    D2StormSlotListStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormSlotArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    void sub_00603C80_GrowListArray();
-};
-
 struct CriticalSection { unsigned data[6]; };
 
 struct LockedObject { char pad[0x50]; CriticalSection lock; void sub_00602090(int acquired); };
@@ -1032,63 +1006,10 @@ struct D2CelEntryStrc : D2StormNodeStrc
     void* pData;
 };
 
-struct D2StormEntry38Strc
-{
-    char unk0x00[0x18];
-    unsigned int dwFlags;
-    int nType;
-    int nData;
-    unsigned int nCount;
-    unsigned int nDirections;
-    D2StormNodeListStrc tList;
-};
-
 typedef void (__fastcall* CelFileBuildFn)(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile);
 
 extern CelFileBuildFn gpfnCelFileBuilders_006E3680[]; // 0x006E3680
 void __fastcall sub_0060D190_BuildCelFileWithData(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile); // 0x0060D190
-
-struct D2GameDataTableStrc
-{
-    virtual void InternalDelete(D2StormEntry38Strc* pNode);
-    char unk0x04[0x40];
-    int f_44;
-    char unk0x48[0x08];
-    D2CriticalSectionStrc m_sync;
-
-    D2StormEntry38Strc* sub_006030E0_InternalFind(unsigned int nHashVal, const int& tKey);                 // 0x006030E0
-    void sub_006021E0_UnlinkNode(D2StormEntry38Strc* pNode);                                                // 0x006021E0
-    void SyncEnterLock(int* pLockHandle, int bForWriting)
-    {
-        EnterCriticalSection(&m_sync);
-        *pLockHandle = bForWriting ? 1 : -1;
-    }
-    void SyncLeaveLock(int nLockHandle)
-    {
-        if (nLockHandle)
-            LeaveCriticalSection(&m_sync);
-    }
-    D2StormEntry38Strc* Ptr(unsigned int hHandle)
-    {
-        return sub_006030E0_InternalFind(hHandle, f_44);
-    }
-    D2StormEntry38Strc* Lock(unsigned int hHandle, int* pLockHandle, int bForWriting)
-    {
-        SyncEnterLock(pLockHandle, bForWriting);
-        D2StormEntry38Strc* pList = Ptr(hHandle);
-        if (!pList)
-        {
-            SyncLeaveLock(*pLockHandle);
-            *pLockHandle = 0;
-        }
-        return pList;
-    }
-    void sub_0052E590(D2StormEntry38Strc* pNode)
-    {
-        sub_006021E0_UnlinkNode(pNode);
-        InternalDelete(pNode);
-    }
-};
 
 extern D2GameDataTableStrc gCelListTable; // 0x008E8CC0
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
@@ -1699,14 +1620,14 @@ int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
 // 0x005FF630
 void __fastcall sub_005FF630_ResizeCacheEntry(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nDelta, int nArg)
 {
-    EnterCriticalSection(pCache->tLock);
+    EnterCriticalSection(&pCache->tLock);
     const unsigned int nNewSize = nDelta + pNode->nSize;
     pCache->nTotalSize -= pNode->nSize;
     pNode->dwFlags |= 2;
     pNode->nSize = nNewSize;
     pCache->nTotalSize += nNewSize;
     unsigned int nTotalSize = pCache->nTotalSize;
-    LeaveCriticalSection(pCache->tLock);
+    LeaveCriticalSection(&pCache->tLock);
 
     while (nTotalSize > pCache->nMaxSize)
     {
@@ -1717,14 +1638,14 @@ void __fastcall sub_005FF630_ResizeCacheEntry(D2CmpCacheStrc* pCache, D2CmpCache
         }
 
         D2_ASSERT(pEvicted != pNode, 0xA47);
-        EnterCriticalSection(pCache->tLock);
+        EnterCriticalSection(&pCache->tLock);
         nTotalSize = pCache->nTotalSize;
-        LeaveCriticalSection(pCache->tLock);
+        LeaveCriticalSection(&pCache->tLock);
     }
 
-    EnterCriticalSection(pCache->tLock);
+    EnterCriticalSection(&pCache->tLock);
     pNode->dwFlags &= ~2;
-    LeaveCriticalSection(pCache->tLock);
+    LeaveCriticalSection(&pCache->tLock);
 }
 
 // 0x005FFE30
@@ -2396,7 +2317,7 @@ char* D2StormNodeListStrc::sub_00602070_Next(D2StormNodeStrc* pNode)
 // 0x00602090
 void LockedObject::sub_00602090(int acquired)
 {
-    if(acquired!=NOT_ACQUIRED) LeaveCriticalSection(&lock);
+    if(acquired!=NOT_ACQUIRED) LeaveCriticalSection((D2CriticalSectionStrc*)&lock);
 }
 
 // 0x006020D0
@@ -2776,7 +2697,7 @@ void D2GameHashTableStrc::sub_00603C80_GrowListArray()
 
     char* pNode;
     while ((pNode = tTempList.Head()) != 0)
-        m_slotlistarray.f_8[((D2StormHashNodeStrc*)pNode)->f_0 & m_slotmask].LinkToTail(pNode);
+        m_slotlistarray.f_8[((D2StormEntry38Strc*)pNode)->f_0 & m_slotmask].LinkToTail(pNode);
 }
 
 // 0x00603F50

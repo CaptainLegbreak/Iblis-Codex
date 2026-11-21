@@ -1,8 +1,12 @@
 #include "D2GameTypes.h"
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 // build: context D2StormEntry38Strc::~D2StormEntry38Strc
 // build: context D2StormNodeListStrc::LinkNode
 // build: context D2StormSlotListStrc::LinkNode
+// build: context ??0?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@*
+// build: context ??0?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@*
+// build: context ??0?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@*
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
@@ -39,142 +43,16 @@ struct D2CelEntryStrc : D2StormNodeStrc
     void* pData;
 };
 
-struct D2StormHashObjectStrc
+inline D2StormHashChunkStrc::~D2StormHashChunkStrc()
 {
-    unsigned int f_0;
-    D2StormSlotLinkStrc m_linktoslot;
-    D2StormSlotLinkStrc f_C;
-    int f_14;
-};
+}
 
-struct D2StormEntry38Strc : D2StormHashObjectStrc
+inline D2StormHashObjectStrc::~D2StormHashObjectStrc()
 {
-    unsigned int dwFlags;
-    int nType;
-    int nData;
-    unsigned int nCount;
-    unsigned int nDirections;
-    D2StormNodeListStrc tList;
+}
 
-    static void operator delete(void* pMemory);
-};
-
-struct D2StormHashChunkStrc
-{
-    D2StormEntryArrayStrc tArray;
-    D2StormSlotLinkStrc f_10;
-
-    static void operator delete(void* pMemory);
-};
-
-struct CELLIST;
-struct HCELLIST__;
-struct HLOCKEDCELLIST__;
-class HASHKEY_NONE;
-class CCritSect;
-template <class T, class KEY> class TSHashTable;
-template <class T, class KEY, int CHUNKSIZE> class TSHashTableReuse;
-template <class T, class THANDLE, int CHUNKSIZE> class TSExportTableSimple;
-template <class T, class THANDLE, class TLOCKEDHANDLE, class TSYNC, int CHUNKSIZE> class TSExportTableSync;
-template <> class TSHashTable<CELLIST, HASHKEY_NONE>;
-typedef TSHashTable<CELLIST, HASHKEY_NONE> D2GameHashTableStrc;
-template <> class TSHashTableReuse<CELLIST, HASHKEY_NONE, 0>;
-typedef TSHashTableReuse<CELLIST, HASHKEY_NONE, 0> D2GameHashTableReuseStrc;
-template <> class TSExportTableSimple<CELLIST, HCELLIST__*, 0>;
-typedef TSExportTableSimple<CELLIST, HCELLIST__*, 0> D2GameExportTableSimpleStrc;
-template <> class TSExportTableSync<CELLIST, HCELLIST__*, HLOCKEDCELLIST__*, CCritSect, 0>;
-typedef TSExportTableSync<CELLIST, HCELLIST__*, HLOCKEDCELLIST__*, CCritSect, 0> D2GameDataTableStrc;
 // build: symbol ??1?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAE@XZ 0x00604640
 // build: symbol ??1?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAE@XZ 0x00603460
-
-template <> class TSHashTable<CELLIST, HASHKEY_NONE>
-{
-public:
-    D2StormSlotListStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormSlotArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    virtual void InternalDelete(D2StormEntry38Strc* pNode);
-    virtual D2StormEntry38Strc* InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
-    virtual ~TSHashTable();                                                                         // 0x00603460
-    virtual void Destroy();                                                                                 // 0x00603780
-    static void operator delete(void* pMemory);
-    explicit TSHashTable(int nEmit)
-    {
-        m_slotmask = nEmit;
-    }
-    D2StormEntry38Strc* sub_006030E0_InternalFind(unsigned int nHashVal, const int& tKey);                 // 0x006030E0
-    int sub_006045B0(unsigned int nSlot);                                                   // 0x006045B0
-};
-
-template <> class TSHashTableReuse<CELLIST, HASHKEY_NONE, 0> : public D2GameHashTableStrc
-{
-public:
-    D2StormListEStrc m_reuseList;
-    int unk0x34;
-    D2StormListEStrc m_chunkList;
-
-    virtual void InternalDelete(D2StormEntry38Strc* pNode);
-    virtual D2StormEntry38Strc* InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
-    virtual ~TSHashTableReuse();                                                                    // 0x00604640
-    virtual void Destroy();                                                                                 // 0x006046E0
-    static void operator delete(void* pMemory);
-    // build: context ??0?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@*
-    explicit TSHashTableReuse(int nEmit) : D2GameHashTableStrc(nEmit)
-    {
-    }
-};
-
-template <> class TSExportTableSimple<CELLIST, HCELLIST__*, 0> : public D2GameHashTableReuseStrc
-{
-public:
-    int f_44;
-    unsigned int m_sequence;
-    int m_wrapped;
-
-    static void operator delete(void* pMemory);
-    // build: context ??0?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@*
-    explicit TSExportTableSimple(int nEmit) : D2GameHashTableReuseStrc(nEmit)
-    {
-    }
-};
-
-struct D2StormCritSectStrc
-{
-    D2CriticalSectionStrc f_0;
-
-    ~D2StormCritSectStrc()
-    {
-        DeleteCriticalSection(&f_0);
-    }
-};
-
-template <> class TSExportTableSync<CELLIST, HCELLIST__*, HLOCKEDCELLIST__*, CCritSect, 0> : public D2GameExportTableSimpleStrc
-{
-public:
-    D2StormCritSectStrc m_sync;
-
-    static void operator delete(void* pMemory);
-    // build: context ??0?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@*
-    explicit TSExportTableSync(int nEmit) : D2GameExportTableSimpleStrc(nEmit)
-    {
-    }
-    void SyncEnterLock(int* pLockHandle, int bForWriting)
-    {
-        EnterCriticalSection(&m_sync.f_0);
-        *pLockHandle = bForWriting ? 1 : -1;
-    }
-    void SyncLeaveLock(int nLockHandle)
-    {
-        if (nLockHandle)
-            LeaveCriticalSection(&m_sync.f_0);
-    }
-    D2StormEntry38Strc* sub_00603250_Ptr(unsigned int hHandle);
-    D2StormEntry38Strc* sub_00603400_Lock(unsigned int hHandle, int* pLockHandle, int bForWriting);
-    char* sub_00604760_New(unsigned int nHashVal, const int& tKey, int nExtraBytes, int nFlags);
-    char* sub_006048C0_NewLock(unsigned int* pHandle, int* pLockHandle);                                    // 0x006048C0
-};
 
 extern D2GameDataTableStrc gCelListTable;                                                                   // 0x008E8CC0
 

@@ -1,5 +1,6 @@
 #include "D2GameTypes.h"
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 // build: context ??_GD2StormSlotListStrc@@QAEPAXI@Z
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
@@ -35,36 +36,8 @@ struct D2StormListDStrc
     D2StormListDStrc(const D2StormListDStrc& source);
 };
 
-struct D2StormEntryListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
 
-    D2StormEntryListStrc(const D2StormEntryListStrc& source);
-};
 
-struct D2StormHashNodeStrc
-{
-    unsigned int f_0;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-};
-
-struct D2StormEntry38Strc
-{
-    unsigned int f_0;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-    int unk0x14;
-    int dwUnk0x18;
-    int dwUnk0x1C;
-    int dwUnk0x20;
-    int dwUnk0x24;
-    int dwUnk0x28;
-    D2StormEntryListStrc tList;
-
-    D2StormEntry38Strc(const D2StormEntry38Strc& source);
-};
 
 static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nAlign)
 {
@@ -74,72 +47,15 @@ static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nA
     return nValue;
 }
 
-struct CELLIST;
-struct HCELLIST__;
-struct HLOCKEDCELLIST__;
-class HASHKEY_NONE;
-class CCritSect;
-template <class T, class KEY> class TSHashTable;
-template <class T, class THANDLE, class TLOCKEDHANDLE, class TSYNC, int CHUNKSIZE> class TSExportTableSync;
-template <> class TSHashTable<CELLIST, HASHKEY_NONE>;
-typedef TSHashTable<CELLIST, HASHKEY_NONE> D2GameHashTableStrc;
-template <> class TSExportTableSync<CELLIST, HCELLIST__*, HLOCKEDCELLIST__*, CCritSect, 0>;
-typedef TSExportTableSync<CELLIST, HCELLIST__*, HLOCKEDCELLIST__*, CCritSect, 0> D2GameDataTableStrc;
 // build: symbol ??0?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x00603BD0
 
-template <> class TSHashTable<CELLIST, HASHKEY_NONE>
-{
-public:
-    virtual void sub_006036D0_InternalDelete(D2StormHashNodeStrc* pNode);                                   // 0x006036D0
-    virtual void sub_00603610_VirtSlot1();                                                                  // 0x00603610
-    virtual void sub_006037B0_VirtSlot2();                                                                  // 0x006037B0
-    virtual void sub_00603780_VirtSlot3();                                                                  // 0x00603780
-    D2StormSlotListStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormSlotArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
 
-    TSHashTable();
-};
-
-template <> class TSExportTableSync<CELLIST, HCELLIST__*, HLOCKEDCELLIST__*, CCritSect, 0> : public D2GameHashTableStrc
-{
-public:
-    char unk0x28[0x1C];
-    int f_44;
-    unsigned int m_sequence;
-    int m_wrapped;
-    D2CriticalSectionStrc f_50;
-
-    void SyncEnterLock(int* pLockHandle, int bForWriting)
-    {
-        EnterCriticalSection(&f_50);
-        *pLockHandle = 2 * (bForWriting != 0) - 1;
-    }
-    void SyncLeaveLock(int nLockHandle)
-    {
-        if (nLockHandle)
-            LeaveCriticalSection(&f_50);
-    }
-    unsigned int sub_00603280_GenerateHandle();                                                             // 0x00603280
-    char* sub_00604760_New(unsigned int nHashVal, const int& tKey, int nExtraBytes, int nFlags);            // 0x00604760
-    void sub_00601B80_SyncEnterLock(int* pLockHandle, int bForWriting);
-    int sub_00601CB0_IsWriteLock(int nLockHandle);
-    unsigned int sub_00601D00_SlotIndex(unsigned int nHashVal);
-    void sub_006021E0_UnlinkNode(D2StormHashNodeStrc* pNode);
-    void sub_00602400_SyncLeaveLock(int nLockHandle);
-    void sub_00602620_Delete(D2StormHashNodeStrc* pNode);
-    void sub_006027E0_Delete(D2StormHashNodeStrc* pNode);
-    void sub_00602A10_DeleteUnlock(D2StormHashNodeStrc* pNode, int nLockHandle);
-    char* sub_00604840_NewHandle(unsigned int* pHandle);
-    char* sub_006048C0_NewLock(unsigned int* pHandle, int* pLockHandle);
-};
 
 // build: symbol ??_7?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@6B@ 0x006E5DE8
 // 0x00601B80
 void D2GameDataTableStrc::sub_00601B80_SyncEnterLock(int* pLockHandle, int bForWriting)
 {
-    EnterCriticalSection(&f_50);
+    EnterCriticalSection(&m_sync.f_0);
     *pLockHandle = bForWriting ? 1 : -1;
 }
 
@@ -209,7 +125,7 @@ unsigned int __stdcall sub_00601E60_RoundUp(unsigned int nValue, unsigned int nA
 }
 
 // 0x006021E0
-void D2GameDataTableStrc::sub_006021E0_UnlinkNode(D2StormHashNodeStrc* pNode)
+void D2GameDataTableStrc::sub_006021E0_UnlinkNode(D2StormEntry38Strc* pNode)
 {
     if (pNode->m_linktoslot.m_next)
     {
@@ -242,14 +158,14 @@ char* D2StormListBStrc::sub_006023E0_RawNext(D2StormLinkStrc* pLink)
 void D2GameDataTableStrc::sub_00602400_SyncLeaveLock(int nLockHandle)
 {
     if (nLockHandle)
-        LeaveCriticalSection(&f_50);
+        LeaveCriticalSection(&m_sync.f_0);
 }
 
 // 0x00602620
-void D2GameDataTableStrc::sub_00602620_Delete(D2StormHashNodeStrc* pNode)
+void D2GameDataTableStrc::sub_00602620_Delete(D2StormEntry38Strc* pNode)
 {
     sub_006021E0_UnlinkNode(pNode);
-    sub_006036D0_InternalDelete(pNode);
+    InternalDelete(pNode);
 }
 
 // 0x006026E0
@@ -264,10 +180,10 @@ void D2StormSlotListStrc::sub_006026E0_ChangeLinkOffset(int nLinkOffset)
 }
 
 // 0x006027E0
-void D2GameDataTableStrc::sub_006027E0_Delete(D2StormHashNodeStrc* pNode)
+void D2GameDataTableStrc::sub_006027E0_Delete(D2StormEntry38Strc* pNode)
 {
     sub_006021E0_UnlinkNode(pNode);
-    sub_006036D0_InternalDelete(pNode);
+    InternalDelete(pNode);
 }
 
 // 0x00602980
@@ -279,7 +195,7 @@ D2StormListDStrc::D2StormListDStrc(const D2StormListDStrc& source)
 }
 
 // 0x00602A10
-void D2GameDataTableStrc::sub_00602A10_DeleteUnlock(D2StormHashNodeStrc* pNode, int nLockHandle)
+void D2GameDataTableStrc::sub_00602A10_DeleteUnlock(D2StormEntry38Strc* pNode, int nLockHandle)
 {
     sub_00602620_Delete(pNode);
     SyncLeaveLock(nLockHandle);
@@ -356,7 +272,7 @@ unsigned int __stdcall sub_00603F20_RoundUp(unsigned int nValue, unsigned int nA
 }
 
 // 0x00603F90
-D2StormEntryListStrc::D2StormEntryListStrc(const D2StormEntryListStrc& source)
+D2StormNodeListStrc::D2StormNodeListStrc(const D2StormNodeListStrc& source)
 {
     m_linkoffset = source.m_linkoffset;
     m_terminator.m_prevlink = &m_terminator;
@@ -365,8 +281,8 @@ D2StormEntryListStrc::D2StormEntryListStrc(const D2StormEntryListStrc& source)
 
 // 0x006040B0
 D2StormEntry38Strc::D2StormEntry38Strc(const D2StormEntry38Strc& source)
-    : dwUnk0x18(source.dwUnk0x18), dwUnk0x1C(source.dwUnk0x1C), dwUnk0x20(source.dwUnk0x20),
-      dwUnk0x24(source.dwUnk0x24), dwUnk0x28(source.dwUnk0x28), tList(source.tList)
+    : dwFlags(source.dwFlags), nType(source.nType), nData(source.nData),
+      nCount(source.nCount), nDirections(source.nDirections), tList(source.tList)
 {
 }
 
