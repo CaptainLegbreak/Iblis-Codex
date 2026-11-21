@@ -542,34 +542,6 @@ int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* p
     return sub_6FD15190(pTarget, 11) != 0;
 }
 
-// 0x005C6BF0
-int __fastcall sub_005C6BF0_GetConvertedMode(D2UnitStrc* pUnit, int nMode)
-{
-    int nUnitType;
-    int nClassId;
-    int nNewMode = nMode;
-
-    int nTypeValue;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-        if (nTypeValue == 0)
-        {
-            return nMode;
-        }
-    }
-    else
-    {
-        nTypeValue = 6;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nNewMode, gszSkillDruidSourceFile, 156);
-    return nNewMode;
-}
-
 // 0x005D8510
 int __fastcall SKILLS_Callback_FindTargetForTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
