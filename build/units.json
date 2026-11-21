@@ -84501,33 +84501,13 @@
    ]
   },
   {
-   "file": "Source/D2Common/DRLG/Preset_00665950.cpp",
-   "rank": 1,
+   "file": "Source/D2Common/DRLG/Preset.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x00665950",
      "length": 1513
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00665F40",
      "length": 295,

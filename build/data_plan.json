@@ -6141,7 +6141,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/DRLG/Preset_00665950.cpp": {
+  "Source/D2Common/DRLG/Preset.cpp": {
    "bytes": 4,
    "definitions": 1,
    "externs": [],
@@ -145504,7 +145504,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/DRLG/Preset_00665950.cpp",
+   "file": "Source/D2Common/DRLG/Preset.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
