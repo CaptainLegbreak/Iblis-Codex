@@ -4791,8 +4791,6 @@
     "extern \"C\" void __cdecl MISSMODE_SrvDo35_RoyalStrikeChaosIce(); // 0x005B0640",
     "extern \"C\" void __cdecl MISSMODE_SrvDo37_Unused(); // 0x005B0AA0",
     "extern \"C\" void __cdecl sub_005AE520(); // 0x005AE520",
-    "extern \"C\" void __cdecl sub_005AEDA0_SummonPet(); // 0x005AEDA0",
-    "extern \"C\" void __cdecl sub_005AF170_RotateMissileTarget(); // 0x005AF170",
     "extern \"C\" void __cdecl sub_005AFB80(); // 0x005AFB80",
     "extern \"C\" void __cdecl sub_005B01F0_SrvDo_MirrorSubMissile(); // 0x005B01F0",
     "extern \"C\" void __cdecl MISSMODE_UnitFindCallback_CanCollideWithGoodAlignmentUnit(); // 0x005A87F0",

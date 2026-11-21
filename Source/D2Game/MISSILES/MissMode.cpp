@@ -654,6 +654,46 @@ int __fastcall MISSMODE_SrvDo07_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Unit
 
 static void sub_005A99E0_MISSMODE_PlacePathAtOwner(D2GameStrc* pGame, D2UnitStrc* pMissile);
 
+struct D2DataTables;
+
+struct D2SummonArgs;
+
+struct D2DataTables { char pad[0xb64]; D2MissilesTxt* missiles; int unknown; int count; };
+
+extern D2DataTables* gpDataTables; // 0x00744304
+
+int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc*,int); // 0x0045C3E0
+
+void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc*,int,int,int,unsigned short); // 0x0064EA00
+
+struct D2SummonArgs { int mode; D2UnitStrc* owner; int monsterId; int unknown; int variant; int x; int y; int petType; int flags; };
+
+int __stdcall sub_0064A780_GetCount(D2UnitStrc*); // 0x0064A780
+
+int __stdcall sub_006505C0_CheckPath(void*); // 0x006505C0
+
+int __stdcall sub_0064A280_GetSkill(D2UnitStrc*); // 0x0064A280
+
+int __stdcall sub_0064A210_GetSkillLevel(D2UnitStrc*); // 0x0064A210
+
+int __fastcall sub_0056E620_GetValidMonsterId(D2UnitStrc*,int,int,int,int*,int,int); // 0x0056E620
+
+int __stdcall sub_0064A730_GetUnitId(D2UnitStrc*); // 0x0064A730
+
+D2UnitStrc* __fastcall sub_0056D940_Summon(D2GameStrc*,D2SummonArgs*); // 0x0056D940
+
+void __fastcall AIGENERAL_SetOwnerData(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x0058F030
+
+void __fastcall AIGENERAL_AllocMinionList(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0058F100
+
+void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
+
+void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int,int); // 0x005C4470
+
+void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
+
+void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
+
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
 {
@@ -4763,6 +4803,27 @@ int __fastcall MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod(D2Ga
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
+// 0x005AE520
+int __fastcall sub_005AE520_UpdateMissileFrames(D2GameStrc* game,D2UnitStrc* unit)
+{
+ D2MissilesTxt* rec;
+ if(unit && unit->dwClassId>=0 && unit->dwClassId<gpDataTables->count) rec=&gpDataTables->missiles[unit->dwClassId];
+ else rec=0;
+ if(!rec) return MISSMODE_HandleMissileCollision(game,unit);
+ int frame=unit->nSeqCurrentFramePrecise>>8;
+ COLLISION_SetMaskWithSize(UNITS_GetRoom(unit),GetX(unit),GetY(unit),UNITS_GetUnitSizeX(unit),0x40);
+ if(frame==rec->nSubStart-1) {
+  unit->nSeqCurrentFramePrecise=(frame+sub_0045C3E0_RollLimited(&unit->pSeed,rec->nSubStop-rec->nSubStart))<<8;
+ }
+ else if(sub_0064A380_GetRemainingFrames(unit)==rec->nSubStart) {
+  unit->nSeqCurrentFramePrecise=(rec->nSubStart-3)<<8;
+ }
+ else if(sub_0064A380_GetRemainingFrames(unit)<rec->nSubStart) {
+  frame-=2; if(frame<0)frame=0; unit->nSeqCurrentFramePrecise=frame<<8;
+ }
+ return MISSMODE_HandleMissileCollision(game,unit);
+}
+
 // 0x005AE680
 int __fastcall MISSMODE_SrvDo06_MoltenBoulder_FireWallMaker(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
@@ -5039,6 +5100,45 @@ int __fastcall MISSMODE_SrvDo12_DiabWallMaker(D2GameStrc* pGame, D2UnitStrc* pMi
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
+// 0x005AEDA0
+int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
+{
+ if(!SUNIT_GetOwner(game,unit) || !sub_0064A780_GetCount(unit)) return 2;
+ if(sub_006505C0_CheckPath(unit->pDynamicPath)) {
+  D2UnitStrc* owner=SUNIT_GetOwner(game,unit);
+  int skillId,skillLevel;
+  D2SkillsTxt* skill;
+  if(!owner) return 2;
+  skillId=sub_0064A280_GetSkill(unit);
+  skillLevel=sub_0064A210_GetSkillLevel(unit);
+  skill=sub_0045C4B0_GetSkillsTxtRecord(skillId);
+  if(!skill) return 2;
+  int variant;
+  int monsterId=sub_0056E620_GetValidMonsterId(owner,0,skillId,skillLevel,&variant,0,0);
+  if(monsterId<0) return 0;
+  unsigned char petType=skill->nPetType;
+  if(petType>=sgptDataTables->nPetTypeTxtRecordCount) petType=0;
+  D2UnitStrc* target=SUNIT_GetServerUnit(game,1,sub_0064A730_GetUnitId(unit));
+  if(target) {
+   D2SummonArgs args;
+   memset(&args,0,sizeof(args));
+   args.mode=13;args.owner=owner;args.monsterId=monsterId;args.unknown=0;args.variant=variant;
+   args.x=CLIENTS_GetUnitX(unit);args.y=CLIENTS_GetUnitY(unit);args.petType=petType;
+   D2UnitStrc* summoned=sub_0056D940_Summon(game,&args);
+   if(summoned) {
+    AIGENERAL_SetOwnerData(game,summoned,!target ? -1 : target->dwUnitId,1,0,0);
+    AIGENERAL_AllocMinionList(game,target,summoned);
+    D2GAME_BOSSES_AssignUMod_6FC6FF10(game,summoned,15,0);
+    D2GAME_SetSummonPassiveStats_6FD0C530(game,owner,summoned,skillId,skillLevel,0);
+    UNITS_StoreOwner(summoned,owner);
+    sub_6FC40280(game,summoned,0,9);
+    int count=sub_0064A780_GetCount(unit);--count;MISSILE_SetTargetY(unit,count);
+   }
+  }
+ }
+ return MISSMODE_HandleMissileCollision(game,unit);
+}
+
 // 0x005AEF70
 int __fastcall MISSMODE_SrvDo14_GrimWard(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
@@ -5101,6 +5201,30 @@ int __fastcall MISSMODE_SrvDo15_FrozenOrb(D2GameStrc* pGame, D2UnitStrc* pMissil
     missileParams.nTargetY = gnSrvDo15_YPositions_006E2A78[nIndex];
     MISSILE_SetTargetX(pMissile, (nIndex + pMissilesTxtRecord->dwParam[1]) % 64);
     MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
+}
+
+// 0x005AF170
+int __fastcall sub_005AF170_RotateMissileTarget(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
+    if (!pRecord) return 2;
+    const int nPeriod = pRecord->dwParam[1] < 1 ? 1 : pRecord->dwParam[1];
+    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    if (nFrames < pRecord->dwParam[0] && !(nFrames % nPeriod))
+    {
+        int nNewX = sub_0064A730_GetUnitId(pMissile);
+        int nNewY = sub_0064A780_GetCount(pMissile);
+        const int nOldX = nNewX;
+        const int nNegY = -nNewY;
+        __assume(nNegY != (-2147483647 - 1));
+        nNewX = (nNegY + nNewX) / 2;
+        nNewY = (nOldX + nNewY) / 2;
+        D2COMMON_10170_PathSetTargetPos(pMissile->pDynamicPath, CLIENTS_GetUnitX(pMissile) + nNewX, CLIENTS_GetUnitY(pMissile) + nNewY);
+        D2Common_10142(pMissile->pDynamicPath, pMissile, 0);
+        MISSILE_SetTargetX(pMissile, nNewX);
+        MISSILE_SetTargetY(pMissile, nNewY);
+    }
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 

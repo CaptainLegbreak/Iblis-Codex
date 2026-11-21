@@ -62845,6 +62845,10 @@
      "name": "?MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005AE520",
+     "length": 349
+    },
+    {
      "va": "0x005AE680",
      "length": 252,
      "name": "MISSMODE_SrvDo06_MoltenBoulder_FireWallMaker"
@@ -62875,6 +62879,10 @@
      "name": "MISSMODE_SrvDo12_DiabWallMaker"
     },
     {
+     "va": "0x005AEDA0",
+     "length": 453
+    },
+    {
      "va": "0x005AEF70",
      "length": 177,
      "name": "MISSMODE_SrvDo14_GrimWard"
@@ -62883,6 +62891,10 @@
      "va": "0x005AF030",
      "length": 315,
      "name": "MISSMODE_SrvDo15_FrozenOrb"
+    },
+    {
+     "va": "0x005AF170",
+     "length": 208
     },
     {
      "va": "0x005AF240",
@@ -64423,38 +64435,6 @@
     {
      "va": "0x005ADF10",
      "length": 732
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AE520.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005AE520",
-     "length": 349
-    },
-    {
-     "va": "0x005AEDA0",
-     "length": 453
-    },
-    {
-     "va": "0x005AF170",
-     "length": 208
     }
    ],
    "flags": [
