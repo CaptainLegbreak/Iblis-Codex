@@ -58580,19 +58580,9 @@
      "name": "sub_0058BF40_ActivateAncientStatues"
     },
     {
-     "va": "0x0058CBA0",
-     "length": 325,
-     "name": "ACT5Q5_Callback03_ChangedLevel"
-    },
-    {
      "va": "0x0058D030",
      "length": 91,
      "name": "sub_0058D030_FindAncientMonsterByClassId"
-    },
-    {
-     "va": "0x0058E740",
-     "length": 225,
-     "name": "OBJECTS_OperateFunction72_LastPortal"
     },
     {
      "va": "0x0058E830",
@@ -58603,11 +58593,6 @@
      "va": "0x0058E920",
      "length": 108,
      "name": "ACT5Q6_SpawnTyrael"
-    },
-    {
-     "va": "0x00590980",
-     "length": 400,
-     "name": "ACT1Q2_Callback11_ScrollMessage"
     },
     {
      "va": "0x00590B10",
@@ -58722,6 +58707,11 @@
      "va": "0x0058C9A0",
      "length": 498,
      "name": "?ACT5Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058CBA0",
+     "length": 325,
+     "name": "ACT5Q5_Callback03_ChangedLevel"
     },
     {
      "va": "0x0058CD30",
@@ -58987,6 +58977,11 @@
      "va": "0x0058E710",
      "length": 48,
      "name": "?OBJECTS_InitFunction77_LastPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0058E740",
+     "length": 225,
+     "name": "OBJECTS_OperateFunction72_LastPortal"
     }
    ]
   },
@@ -59394,6 +59389,11 @@
    "file": "Source/D2Game/Quests/a1q2.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00590980",
+     "length": 400,
+     "name": "ACT1Q2_Callback11_ScrollMessage"
+    },
     {
      "va": "0x00590EC0",
      "length": 216,
@@ -64870,6 +64870,11 @@
      "name": "?OBJECTS_OperateFunction59_KhalimChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x005BD630",
+     "length": 530,
+     "name": "?ACT3Q2_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005BDA30",
      "length": 218,
      "name": "?ACT3Q2_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
@@ -65501,17 +65506,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BD630.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BD630",
-     "length": 530,
-     "name": "?ACT3Q2_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
    ]
   },
   {

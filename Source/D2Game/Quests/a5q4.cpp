@@ -873,73 +873,6 @@ int __stdcall sub_0058BF40_ActivateAncientStatues(D2QuestDataStrc* pQuestData, D
     return 1;
 }
 
-// 0x0058CBA0
-void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
-    const int nNewLevel = pQuestArg->nNewLevel;
-    if (pQuestArg->nOldLevel == LEVEL_HARROGATH)
-    {
-        QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
-        if (!pQuestData->bNotIntro)
-        {
-            return;
-        }
-
-        if (pQuestData->fState == 2)
-        {
-            D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-            D2GameStrc* pGame = pQuestArg->pGame;
-            D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) == 1)
-            {
-                return;
-            }
-
-            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 899);
-            if (pQuestData->fLastState != 1)
-            {
-                pQuestData->dwFlags &= 0xFFFFFF00;
-                QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
-            }
-
-            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
-        }
-    }
-
-    if (nNewLevel == LEVEL_ROCKYSUMMIT)
-    {
-        unsigned char bUpdate = 0;
-        if (pQuestData->fLastState < 2 && pQuestData->fState > 2)
-        {
-            pQuestData->dwFlags &= 0xFFFFFF00;
-            QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
-            bUpdate = 1;
-        }
-
-        if (pQuestData->fState < 3)
-        {
-            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 919);
-            bUpdate = 1;
-        }
-
-        if (bUpdate)
-        {
-            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
-        }
-
-        if (!pQuestDataEx->bAncientsDefeated && pQuestDataEx->bSummitDoorInitialized)
-        {
-            D2UnitStrc* pSummitDoor = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSummitDoorGUID);
-            if (pSummitDoor && pQuestDataEx->nSummitDoorObjectMode == OBJMODE_NEUTRAL)
-            {
-                pQuestDataEx->nSummitDoorObjectMode = OBJMODE_OPENED;
-                UNITS_ChangeAnimMode(pSummitDoor, OBJMODE_OPERATING);
-            }
-        }
-    }
-}
-
 // 0x0058D030
 D2UnitStrc* __fastcall sub_0058D030_FindAncientMonsterByClassId(D2GameStrc* pGame, int nClassId)
 {
@@ -952,40 +885,6 @@ D2UnitStrc* __fastcall sub_0058D030_FindAncientMonsterByClassId(D2GameStrc* pGam
         {
             return pAncient;
         }
-    }
-
-    return 0;
-}
-
-// 0x0058E740
-int __fastcall OBJECTS_OperateFunction72_LastPortal(D2ObjOperateFnStrc* pOp, int nOperate)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q6_BAAL);
-    if (((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->nLastPortalObjectMode != OBJMODE_OPENED)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pPlayer = pOp->hPlayer;
-    D2GameStrc* pGame = pOp->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE))
-    {
-        LEVEL_WarpUnit(pOp->pGame, pOp->hPlayer, LEVEL_HARROGATH, 0);
-        D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 923);
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pOp->hPlayer);
-        GAME_SaveAndSendClientSaves(pQuestData->pGame);
-        if (pClient && !PLAYER_IsBusy(pOp->hPlayer))
-        {
-            SUNIT_ResetInteractInfo(pOp->hPlayer);
-            pPlayerData->bBusy = 1;
-            sub_0053D940_SendPacket0x61(pClient, 7);
-            QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_CUSTOM6);
-        }
-    }
-    else
-    {
-        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
     }
 
     return 0;
@@ -1049,51 +948,6 @@ void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     if (pFreeRoom)
     {
         D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, coord.nX, coord.nY, MONSTER_TYRAEL3, MONMODE_NEUTRAL, 4, 66);
-    }
-}
-
-// 0x00590980
-void __fastcall ACT1Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const unsigned short nNPCNo = pQuestArg->nNPCNo;
-    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
-    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    if (nNPCNo != MONSTER_KASHYA)
-    {
-        return;
-    }
-
-    if (nMessageIndex == 81)
-    {
-        ((D2Act1Quest2Strc*)pQuestData->pQuestDataEx)->bKashyaActivated = 1;
-        QUESTS_StateDebug(pQuestData, 2, gszA1Q2SourceFile, 192);
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT1Q2_UnitIterate_UpdateQuestStateFlags);
-        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
-    }
-    else if (nMessageIndex == 92)
-    {
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
-        {
-            return;
-        }
-
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE) && pQuestData->fState != 5)
-        {
-            pQuestData->dwFlags &= 0xFFFFFF00;
-            QUESTS_UnitIterate(pQuestData, 13, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 0);
-            QUESTS_StateDebug(pQuestData, 5, gszA1Q2SourceFile, 205);
-            D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 206);
-            pQuestData->pfSeqFilter(pQuestData);
-        }
-
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED);
-        QUESTRECORD_ClearQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING);
-        QUESTS_UpdatePlayerFlags(pQuestData->pGame, pQuestArg->pPlayer);
-        QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-        D2GAME_NPC_AssignMercenary_6FCCB520(pQuestData->pGame, pQuestArg->pPlayer, MONSTER_KASHYA);
-        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
     }
 }
 
