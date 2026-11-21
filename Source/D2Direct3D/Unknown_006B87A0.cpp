@@ -1,8 +1,7 @@
 #include "D2GlideTypes.h"
+#include "D2Direct3D.h"
 #include "D2DrlgMaps.h"
 #include "D2D3DTypes.h"
-
-struct D2RectStrc { int nLeft; int nTop; int nRight; int nBottom; };
 
 struct D2GraphicsDeviceStrc;
 struct D2GraphicsVTableStrc
