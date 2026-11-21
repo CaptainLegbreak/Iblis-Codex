@@ -4,6 +4,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 #include "D2LevelTxt.h"
 #include "D2ClientGame.h"
 #include "D2Records.h"
@@ -56,54 +57,6 @@ struct D2PathPointStrc;
 struct D2ScatterRateStrc;
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
-
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    union
-    {
-        struct
-        {
-            int unk0x38[6];
-        };
-        struct
-        {
-            unsigned char unk_38[0x8];
-            int nFrame;
-            unsigned char unk_44[0x8];
-            int nRange;
-        };
-        struct
-        {
-            unsigned char unk_38_2[0x14];
-            int nTotalFrames;
-        };
-    };
-    int nFrames;
-    union
-    {
-        MissileInitFunc pInitFunc;
-        void* pfCallback;
-    };
-    union
-    {
-        int nInitArg;
-        D2UnitStrc* pInitArgs;
-    };
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -1398,7 +1351,7 @@ int __fastcall sub_004D1890(D2UnitStrc* pMissile)
         tParams.nSkill=MISSILE_GetSkill(pMissile);
         tParams.nSkillLevel=MISSILE_GetLevel(pMissile);
         tParams.nVelocity=0;
-        tParams.unk0x38[5]=pRecord->wRange;
+        tParams.nRange=pRecord->wRange;
         tParams.nX=UNITS_GetUnitXPosition(pMissile);
         tParams.nY=UNITS_GetUnitYPosition(pMissile);
         D2UnitStrc* pNew=sub_004CD540_CreateMissile(&tParams);
@@ -1877,8 +1830,8 @@ void __fastcall sub_004D38D0_CltDoTimedSubMissile(D2UnitStrc* pMissile)
         missileParams.nMissile = pMissilesTxtRecord->wCltSubMissile[0];
         int nLoops = pMissilesTxtRecord->dwCltParam[0];
         missileParams.nLoops = nLoops < 1 ? 1 : nLoops;
-        missileParams.pfCallback = sub_004CC870_SubMissileCallback;
-        missileParams.pInitArgs = pMissile;
+        missileParams.pInitFunc = (MissileInitFunc)sub_004CC870_SubMissileCallback;
+        missileParams.nInitArg = (int)pMissile;
         sub_004CD540_CreateMissile(&missileParams);
     }
 
@@ -2141,7 +2094,7 @@ void __fastcall sub_004D4180_CltDoHomingSubMissile(D2UnitStrc* pMissile)
             missileParams.dwFlags = 5;
             missileParams.nX = CLIENTS_GetUnitX(pMissile);
             missileParams.nY = CLIENTS_GetUnitY(pMissile);
-            missileParams.nTotalFrames = MISSILE_GetTotalFrames(pMissile) - 1;
+            missileParams.nRange = MISSILE_GetTotalFrames(pMissile) - 1;
             missileParams.nVelocity = 0;
             missileParams.nMissile = pMissilesTxtRecord->wCltSubMissile[0];
             missileParams.pOwner = pOwner;
