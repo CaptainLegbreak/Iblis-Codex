@@ -37738,377 +37738,12 @@
    ]
   },
   {
-   "file": "Source/D2Gfx/SRC/Window_004F5160.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F5160",
-     "length": 6,
-     "name": "D2GFX_GetResolutionMode"
-    },
-    {
-     "va": "0x004F51C0",
-     "length": 13,
-     "name": "?sub_004F51C0_IsHighVideoMode@@YAHXZ"
-    },
-    {
-     "va": "0x004F5260",
-     "length": 10,
-     "name": "?D2GFX_GammaCanBeControlled@@YGHXZ"
-    },
-    {
-     "va": "0x004F5270",
-     "length": 11,
-     "name": "?D2GFX_EnableVSync@@YAXXZ"
-    },
-    {
-     "va": "0x004F5280",
-     "length": 11,
-     "name": "?sub_004F5280@@YAXXZ"
-    },
-    {
-     "va": "0x004F5290",
-     "length": 10,
-     "name": "?sub_004F5290_GetCacheStats@@YAPAUD2CacheStatsStrc@@XZ"
-    },
-    {
-     "va": "0x004F52A0",
-     "length": 7,
-     "name": "?sub_004F52A0_SetOffset@@YIXH@Z"
-    },
-    {
-     "va": "0x004F52B0",
-     "length": 10,
-     "name": "?D2GFX_SetOption@@YIHHH@Z"
-    },
-    {
-     "va": "0x004F6250",
-     "length": 20,
-     "name": "D2GFX_GetBackBuffer"
-    },
-    {
-     "va": "0x004F6380",
-     "length": 42,
-     "name": "D2GFX_DrawLine"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Win/Unknown_004F5190.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x004F5190",
      "length": 35
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Gfx/SRC/Window.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F5020",
-     "length": 16,
-     "name": "?sub_004F5020_ClearInterface@@YGHXZ"
-    },
-    {
-     "va": "0x004F5030",
-     "length": 5,
-     "name": "?j_D2GFX_10040_ShowAllWindows@@YAXXZ"
-    },
-    {
-     "va": "0x004F5040",
-     "length": 5,
-     "name": "?D2GFX_ReturnFalse@@YGHHHH@Z"
-    },
-    {
-     "va": "0x004F51D0",
-     "length": 16,
-     "name": "?D2GFX_CheckPerspective@@YGHXZ"
-    },
-    {
-     "va": "0x004F51E0",
-     "length": 15,
-     "name": "D2GFX_SetPerspective"
-    },
-    {
-     "va": "0x004F5200",
-     "length": 15,
-     "name": "D2GFX_SetBlendShadows"
-    },
-    {
-     "va": "0x004F5220",
-     "length": 15,
-     "name": "D2GFX_SetLowQuality"
-    },
-    {
-     "va": "0x004F5230",
-     "length": 35,
-     "name": "D2GFX_SetGamma"
-    },
-    {
-     "va": "0x004F52C0",
-     "length": 1,
-     "name": "?sub_004F52C0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x004F52D0",
-     "length": 1,
-     "name": "?sub_004F52D0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x004F54B0",
-     "length": 17,
-     "name": "?D2GFX_TogglePerspective@@YGHXZ"
-    },
-    {
-     "va": "0x004F54D0",
-     "length": 17,
-     "name": "?D2GFX_ToggleBlendedShadows@@YGHXZ"
-    },
-    {
-     "va": "0x004F54F0",
-     "length": 17,
-     "name": "?D2GFX_ToggleLowQuality@@YGHXZ"
-    },
-    {
-     "va": "0x004F5510",
-     "length": 36,
-     "name": "?sub_004F5510_HideCursor@@YAXXZ"
-    },
-    {
-     "va": "0x004F5540",
-     "length": 36,
-     "name": "?sub_004F5540_ShowCursor@@YAXXZ"
-    },
-    {
-     "va": "0x004F5570",
-     "length": 148,
-     "name": "sub_004F5570_GetResolutionSize"
-    },
-    {
-     "va": "0x004F5610",
-     "length": 737,
-     "name": "?WINDOW_Create@@YGHHH@Z"
-    },
-    {
-     "va": "0x004F5900",
-     "length": 140,
-     "name": "?WINDOW_Destroy@@YGHXZ"
-    },
-    {
-     "va": "0x004F5990",
-     "length": 15,
-     "name": "WINDOW_SetPaused"
-    },
-    {
-     "va": "0x004F59B0",
-     "length": 58,
-     "name": "WINDOW_GetDimensions"
-    },
-    {
-     "va": "0x004F59F0",
-     "length": 56,
-     "name": "WINDOW_ShowCursor"
-    },
-    {
-     "va": "0x004F5A30",
-     "length": 20,
-     "name": "?WINDOW_IsFullScreen@@YGHXZ"
-    },
-    {
-     "va": "0x004F5A50",
-     "length": 68,
-     "name": "WINDOW_Activate"
-    },
-    {
-     "va": "0x004F5AA0",
-     "length": 275,
-     "name": "WINDOW_Resize"
-    },
-    {
-     "va": "0x004F5BC0",
-     "length": 398,
-     "name": "sub_004F5BC0_CenterWindow"
-    },
-    {
-     "va": "0x004F5D50",
-     "length": 13,
-     "name": "?WINDOW_ClearCaches@@YGXXZ"
-    },
-    {
-     "va": "0x004F5D60",
-     "length": 45,
-     "name": "?WINDOW_PlayCutscene@@YGXXZ"
-    },
-    {
-     "va": "0x004F5D90",
-     "length": 62,
-     "name": "WINDOW_OpenSmackCutscene"
-    },
-    {
-     "va": "0x004F5DD0",
-     "length": 45,
-     "name": "?WINDOW_CheckCutScene@@YGHXZ"
-    },
-    {
-     "va": "0x004F5E00",
-     "length": 62,
-     "name": "WINDOW_DecodeSmacker"
-    },
-    {
-     "va": "0x004F5E40",
-     "length": 55,
-     "name": "WINDOW_PlaySmacker"
-    },
-    {
-     "va": "0x004F5E80",
-     "length": 55,
-     "name": "WINDOW_CloseSmacker"
-    },
-    {
-     "va": "0x004F5EC0",
-     "length": 146,
-     "name": "WINDOW_UpdatePlacement"
-    },
-    {
-     "va": "0x004F5F60",
-     "length": 49,
-     "name": "?WINDOW_ShowAll@@YGXXZ"
-    },
-    {
-     "va": "0x004F5FA0",
-     "length": 208,
-     "name": "?sub_004F5FA0_UpdatePauseState@@YAXXZ"
-    },
-    {
-     "va": "0x004F6070",
-     "length": 11,
-     "name": "?WINDOW_GetState@@YGHXZ"
-    },
-    {
-     "va": "0x004F6080",
-     "length": 112,
-     "name": "WINDOW_EndCutScene"
-    },
-    {
-     "va": "0x004F60F0",
-     "length": 31,
-     "name": "D2GFX_StartDraw"
-    },
-    {
-     "va": "0x004F6190",
-     "length": 190,
-     "name": "D2GFX_EndScene"
-    },
-    {
-     "va": "0x004F6270",
-     "length": 13,
-     "name": "?D2GFX_HardwareAcceleratedRenderMode@@YGHXZ"
-    },
-    {
-     "va": "0x004F6280",
-     "length": 26,
-     "name": "D2GFX_UtilDiamond"
-    },
-    {
-     "va": "0x004F62A0",
-     "length": 26,
-     "name": "D2GFX_UtilRect"
-    },
-    {
-     "va": "0x004F62C0",
-     "length": 26,
-     "name": "D2GFX_UtilFilledRect"
-    },
-    {
-     "va": "0x004F62E0",
-     "length": 30,
-     "name": "D2GFX_UtilPoint"
-    },
-    {
-     "va": "0x004F6300",
-     "length": 54,
-     "name": "D2GFX_DrawBox"
-    },
-    {
-     "va": "0x004F6340",
-     "length": 54,
-     "name": "D2GFX_DrawBoxAlpha"
-    },
-    {
-     "va": "0x004F63B0",
-     "length": 23,
-     "name": "D2GFX_ClearScreen"
-    },
-    {
-     "va": "0x004F63D0",
-     "length": 63,
-     "name": "D2GFX_SetPalette"
-    },
-    {
-     "va": "0x004F6410",
-     "length": 31,
-     "name": "D2GFX_SetPaletteTables"
-    },
-    {
-     "va": "0x004F6830",
-     "length": 82,
-     "name": "?SCALE_SetDefaultFactorPerspectiveFactor@@YGXXZ"
-    },
-    {
-     "va": "0x004F7CC0",
-     "length": 212,
-     "name": "_sub_004F7CC0"
-    },
-    {
-     "va": "0x004F7E70",
-     "length": 33,
-     "name": "?sub_004F7E70_InitRowOffsets@@YAXXZ"
-    },
-    {
-     "va": "0x004F8E40",
-     "length": 66,
-     "name": "?sub_004F8E40_CopyPaletteTables@@YIXPAUD2PaletteTableStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Gfx/Unknown_004F52E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F52E0",
-     "length": 458
     }
    ],
    "flags": [
@@ -38260,6 +37895,345 @@
      "length": 937,
      "name": "sub_004F6BB0_DrawLitSubtileRows"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Gfx/SRC/Window.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004F5020",
+     "length": 16,
+     "name": "?sub_004F5020_ClearInterface@@YGHXZ"
+    },
+    {
+     "va": "0x004F5030",
+     "length": 5,
+     "name": "?j_D2GFX_10040_ShowAllWindows@@YAXXZ"
+    },
+    {
+     "va": "0x004F5040",
+     "length": 5,
+     "name": "?D2GFX_ReturnFalse@@YGHHHH@Z"
+    },
+    {
+     "va": "0x004F5160",
+     "length": 6,
+     "name": "D2GFX_GetResolutionMode"
+    },
+    {
+     "va": "0x004F51C0",
+     "length": 13,
+     "name": "?sub_004F51C0_IsHighVideoMode@@YAHXZ"
+    },
+    {
+     "va": "0x004F51D0",
+     "length": 16,
+     "name": "?D2GFX_CheckPerspective@@YGHXZ"
+    },
+    {
+     "va": "0x004F51E0",
+     "length": 15,
+     "name": "D2GFX_SetPerspective"
+    },
+    {
+     "va": "0x004F5200",
+     "length": 15,
+     "name": "D2GFX_SetBlendShadows"
+    },
+    {
+     "va": "0x004F5220",
+     "length": 15,
+     "name": "D2GFX_SetLowQuality"
+    },
+    {
+     "va": "0x004F5230",
+     "length": 35,
+     "name": "D2GFX_SetGamma"
+    },
+    {
+     "va": "0x004F5260",
+     "length": 10,
+     "name": "?D2GFX_GammaCanBeControlled@@YGHXZ"
+    },
+    {
+     "va": "0x004F5270",
+     "length": 11,
+     "name": "?D2GFX_EnableVSync@@YAXXZ"
+    },
+    {
+     "va": "0x004F5280",
+     "length": 11,
+     "name": "?sub_004F5280@@YAXXZ"
+    },
+    {
+     "va": "0x004F5290",
+     "length": 10,
+     "name": "?sub_004F5290_GetCacheStats@@YAPAUD2CacheStatsStrc@@XZ"
+    },
+    {
+     "va": "0x004F52A0",
+     "length": 7,
+     "name": "?sub_004F52A0_SetOffset@@YIXH@Z"
+    },
+    {
+     "va": "0x004F52B0",
+     "length": 10,
+     "name": "?D2GFX_SetOption@@YIHHH@Z"
+    },
+    {
+     "va": "0x004F52C0",
+     "length": 1,
+     "name": "?sub_004F52C0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x004F52D0",
+     "length": 1,
+     "name": "?sub_004F52D0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x004F52E0",
+     "length": 458
+    },
+    {
+     "va": "0x004F54B0",
+     "length": 17,
+     "name": "?D2GFX_TogglePerspective@@YGHXZ"
+    },
+    {
+     "va": "0x004F54D0",
+     "length": 17,
+     "name": "?D2GFX_ToggleBlendedShadows@@YGHXZ"
+    },
+    {
+     "va": "0x004F54F0",
+     "length": 17,
+     "name": "?D2GFX_ToggleLowQuality@@YGHXZ"
+    },
+    {
+     "va": "0x004F5510",
+     "length": 36,
+     "name": "?sub_004F5510_HideCursor@@YAXXZ"
+    },
+    {
+     "va": "0x004F5540",
+     "length": 36,
+     "name": "?sub_004F5540_ShowCursor@@YAXXZ"
+    },
+    {
+     "va": "0x004F5570",
+     "length": 148,
+     "name": "sub_004F5570_GetResolutionSize"
+    },
+    {
+     "va": "0x004F5610",
+     "length": 737,
+     "name": "?WINDOW_Create@@YGHHH@Z"
+    },
+    {
+     "va": "0x004F5900",
+     "length": 140,
+     "name": "?WINDOW_Destroy@@YGHXZ"
+    },
+    {
+     "va": "0x004F5990",
+     "length": 15,
+     "name": "WINDOW_SetPaused"
+    },
+    {
+     "va": "0x004F59B0",
+     "length": 58,
+     "name": "WINDOW_GetDimensions"
+    },
+    {
+     "va": "0x004F59F0",
+     "length": 56,
+     "name": "WINDOW_ShowCursor"
+    },
+    {
+     "va": "0x004F5A30",
+     "length": 20,
+     "name": "?WINDOW_IsFullScreen@@YGHXZ"
+    },
+    {
+     "va": "0x004F5A50",
+     "length": 68,
+     "name": "WINDOW_Activate"
+    },
+    {
+     "va": "0x004F5AA0",
+     "length": 275,
+     "name": "WINDOW_Resize"
+    },
+    {
+     "va": "0x004F5BC0",
+     "length": 398,
+     "name": "sub_004F5BC0_CenterWindow"
+    },
+    {
+     "va": "0x004F5D50",
+     "length": 13,
+     "name": "?WINDOW_ClearCaches@@YGXXZ"
+    },
+    {
+     "va": "0x004F5D60",
+     "length": 45,
+     "name": "?WINDOW_PlayCutscene@@YGXXZ"
+    },
+    {
+     "va": "0x004F5D90",
+     "length": 62,
+     "name": "WINDOW_OpenSmackCutscene"
+    },
+    {
+     "va": "0x004F5DD0",
+     "length": 45,
+     "name": "?WINDOW_CheckCutScene@@YGHXZ"
+    },
+    {
+     "va": "0x004F5E00",
+     "length": 62,
+     "name": "WINDOW_DecodeSmacker"
+    },
+    {
+     "va": "0x004F5E40",
+     "length": 55,
+     "name": "WINDOW_PlaySmacker"
+    },
+    {
+     "va": "0x004F5E80",
+     "length": 55,
+     "name": "WINDOW_CloseSmacker"
+    },
+    {
+     "va": "0x004F5EC0",
+     "length": 146,
+     "name": "WINDOW_UpdatePlacement"
+    },
+    {
+     "va": "0x004F5F60",
+     "length": 49,
+     "name": "?WINDOW_ShowAll@@YGXXZ"
+    },
+    {
+     "va": "0x004F5FA0",
+     "length": 208,
+     "name": "?sub_004F5FA0_UpdatePauseState@@YAXXZ"
+    },
+    {
+     "va": "0x004F6070",
+     "length": 11,
+     "name": "?WINDOW_GetState@@YGHXZ"
+    },
+    {
+     "va": "0x004F6080",
+     "length": 112,
+     "name": "WINDOW_EndCutScene"
+    },
+    {
+     "va": "0x004F60F0",
+     "length": 31,
+     "name": "D2GFX_StartDraw"
+    },
+    {
+     "va": "0x004F6190",
+     "length": 190,
+     "name": "D2GFX_EndScene"
+    },
+    {
+     "va": "0x004F6250",
+     "length": 20,
+     "name": "D2GFX_GetBackBuffer"
+    },
+    {
+     "va": "0x004F6270",
+     "length": 13,
+     "name": "?D2GFX_HardwareAcceleratedRenderMode@@YGHXZ"
+    },
+    {
+     "va": "0x004F6280",
+     "length": 26,
+     "name": "D2GFX_UtilDiamond"
+    },
+    {
+     "va": "0x004F62A0",
+     "length": 26,
+     "name": "D2GFX_UtilRect"
+    },
+    {
+     "va": "0x004F62C0",
+     "length": 26,
+     "name": "D2GFX_UtilFilledRect"
+    },
+    {
+     "va": "0x004F62E0",
+     "length": 30,
+     "name": "D2GFX_UtilPoint"
+    },
+    {
+     "va": "0x004F6300",
+     "length": 54,
+     "name": "D2GFX_DrawBox"
+    },
+    {
+     "va": "0x004F6340",
+     "length": 54,
+     "name": "D2GFX_DrawBoxAlpha"
+    },
+    {
+     "va": "0x004F6380",
+     "length": 42,
+     "name": "D2GFX_DrawLine"
+    },
+    {
+     "va": "0x004F63B0",
+     "length": 23,
+     "name": "D2GFX_ClearScreen"
+    },
+    {
+     "va": "0x004F63D0",
+     "length": 63,
+     "name": "D2GFX_SetPalette"
+    },
+    {
+     "va": "0x004F6410",
+     "length": 31,
+     "name": "D2GFX_SetPaletteTables"
+    },
+    {
+     "va": "0x004F6830",
+     "length": 82,
+     "name": "?SCALE_SetDefaultFactorPerspectiveFactor@@YGXXZ"
+    },
+    {
+     "va": "0x004F7CC0",
+     "length": 212,
+     "name": "_sub_004F7CC0"
+    },
+    {
+     "va": "0x004F7E70",
+     "length": 33,
+     "name": "?sub_004F7E70_InitRowOffsets@@YAXXZ"
+    },
+    {
+     "va": "0x004F8E40",
+     "length": 66,
+     "name": "?sub_004F8E40_CopyPaletteTables@@YIXPAUD2PaletteTableStrc@@@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {

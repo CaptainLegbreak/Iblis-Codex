@@ -1,23 +1,35 @@
 #include "D2Gfx.h"
+#include "D2GfxTypes.h"
 
 struct D2GraphicsInterfaceStrc;
+
 struct D2GfxSettingsStrc;
+
 struct D2PaletteStrc;
+
 struct _AppBarData;
+
 struct D2WindowPlacementStrc;
+
 struct D2DevModeStrc;
 
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
-extern int gbIsWindowed; // 0x007C8CB4
+
+int gbIsWindowed; // 0x007C8CB4
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+
 void __cdecl sub_004F5510_HideCursor(); // 0x004F5510
+
 void __cdecl sub_004F5540_ShowCursor(); // 0x004F5540
+
 double __cdecl sub_004F6130_GetElapsedMs(); // 0x004F6130
 
 void __fastcall sub_004F8E40_CopyPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F8E40
-extern int gbPaused_6FA8D84C; // 0x007C933C
+
+int gbPaused_6FA8D84C; // 0x007C933C
 
 enum DisplayType
 {
@@ -37,16 +49,26 @@ struct D2PaletteStrc
 };
 
 void __cdecl sub_004F5FA0_UpdatePauseState(); // 0x004F5FA0
+
 extern int gbCursorDisplayed; // 0x0072DB38
-extern void* ghWnd; // 0x007C8CBC
-extern int gbWindowState_6FA8D850; // 0x007C9340
+
+void* ghWnd; // 0x007C8CBC
+
+int gbWindowState_6FA8D850; // 0x007C9340
+
 extern unsigned char gLightCube_007CA320[32][32][32]; // 0x007CA320
+
 extern D2PaletteStrc gLightPalettes_007D2348[49]; // 0x007D2348
+
 extern int gnScreenPitch_007D544C; // 0x007D544C
+
 extern D2PaletteTableStrc* gpPaletteTables_007D5578; // 0x007D5578
+
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
+
 void __stdcall sub_004F5570_GetResolutionSize(int nResolution, long* pWidth, long* pHeight); // 0x004F5570
-extern int gnResolutionMode; // 0x007C8CB8
+
+int gnResolutionMode; // 0x007C8CB8
 
 struct _AppBarData
 {
@@ -59,15 +81,25 @@ struct _AppBarData
 };
 
 extern "C" __declspec(dllimport) unsigned int __stdcall SHAppBarMessage(unsigned long dwMessage, _AppBarData* pData); // 0x006CC434
+
 extern "C" __declspec(dllimport) int __stdcall GetWindowRect(void* hWnd, tagRECT* lpRect); // 0x006CC4BC
+
 extern "C" __declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned int uiAction, unsigned int uiParam, void* pvParam, unsigned int fWinIni); // 0x006CC504
+
 extern "C" __declspec(dllimport) int __stdcall GetWindowPlacement(void* hWnd, tagWINDOWPLACEMENT* lpwndpl); // 0x006CC508
+
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+
 int __stdcall WINDOW_Resize(int nResolution, int bForceResize); // 0x004F5AA0
+
 void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
+
 extern tagRECT gWindowRect_007C9160; // 0x007C9160
-extern D2WindowPlacementStrc gWindowPlacement[4]; // 0x007C9278
+
+D2WindowPlacementStrc gWindowPlacement[4]; // 0x007C9278
+
 extern "C" __declspec(dllimport) int __stdcall IsIconic(void* hWnd); // 0x006CC50C
+
 void __cdecl WINDOW_UpdatePlacement(); // 0x004F5EC0
 
 struct D2DevModeStrc
@@ -86,20 +118,88 @@ struct D2DevModeStrc
 };
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GdiSetBatchLimit(unsigned long dwLimit); // 0x006CC0DC
+
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
+
 extern "C" __declspec(dllimport) void* __stdcall GetDesktopWindow(); // 0x006CC494
+
 extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex); // 0x006CC4B8
+
 extern "C" __declspec(dllimport) void* __stdcall SetFocus(void* hWnd); // 0x006CC4E4
+
 extern "C" __declspec(dllimport) int __stdcall UpdateWindow(void* hWnd); // 0x006CC4E8
+
 extern "C" __declspec(dllimport) void* __stdcall CreateWindowExA(unsigned long dwExStyle, const char* szClass, const char* szWindow, unsigned long dwStyle, int nX, int nY, int nWidth, int nHeight, void* hParent, void* hMenu, void* hInstance, void* pParam); // 0x006CC4F0
+
 extern "C" __declspec(dllimport) void* __stdcall FindWindowA(const char* szClass, const char* szWindow); // 0x006CC500
-extern int gnCaptionHeight_007C9270; // 0x007C9270
+
+int gnCaptionHeight_007C9270; // 0x007C9270
+
 extern int gbNoWindowCreated_007C9338; // 0x007C9338
+
 void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
 
-#include "gen/data/Source/D2Gfx/SRC/Window.inc"
+struct D2CacheStatsStrc;
+
+extern int gdwGlobal_0072DA7C; // 0x0072DA7C
+
+extern int gnDisplayType; // 0x007C8CB0
+
+extern int gnViewMatrixAdjust_007C8CC4; // 0x007C8CC4
+
+typedef long (__stdcall* WNDPROC)(void*, unsigned int, unsigned int, long);
+
+extern "C" __declspec(dllimport) void* __stdcall LoadImageA(void*, const char*, unsigned int, int, int, unsigned int); // 0x006CC4D4
+
+extern "C" __declspec(dllimport) void* __stdcall LoadCursorA(void*, const char*); // 0x006CC4D0
+
+extern "C" __declspec(dllimport) void* __stdcall GetStockObject(int); // 0x006CC0E8
+
+extern "C" __declspec(dllimport) unsigned short __stdcall RegisterClassA(const WNDCLASSA*); // 0x006CC4CC
+
+int __fastcall sub_00408F20_HasExpansionMpq(); // 0x00408F20
+
+extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
+
+void __cdecl j_D2GFX_10040_ShowAllWindows(); // 0x004F5030
+
+extern "C" int __cdecl atexit(void (__cdecl*)()); // 0x00683824
+
+void __cdecl sub_00408900_RaiseErrorReport(int, const char*, int, const char*, ...); // 0x00408900
+
+extern WNDPROC gpWndProc_007C8CAC; // 0x007C8CAC
+
+extern const char* gszWindowClassName_007C9158; // 0x007C9158
+
+extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces_0072DA80[]; // 0x0072DA80
+
+extern const unsigned char gGraphicsHelpers_0072DA60[]; // 0x0072DA60
+
+extern const char gszUnsupportedMode_006DC458[]; // 0x006DC458
+
+extern const char gszStringFormat_006FFC58[]; // 0x006FFC58
+
+extern const char gszUnsupportedGraphics_0072DAF0[]; // 0x0072DAF0
+
+extern const char gszRetryUnsupportedGraphics_0072DAA8[]; // 0x0072DAA8
+
+D2GraphicsInterfaceStrc* gpGraphicsInterface; // 0x007C8CC0
+
+double gdFrameRemainder_007C9360; // 0x007C9360
+
+tagPALETTEENTRY gpPalette_6FA8D278[256]; // 0x007C9378
+
+int gnRowOffsets_007C97A8[732]; // 0x007C97A8
+
+D2PaletteTableStrc gPaletteTables_007D5458; // 0x007D5458
+
+const char* gszWindowClass_007C9344; // 0x007C9344
+
+const char* gszWindowTitle_007C9348; // 0x007C9348
 
 // 0x004F5020
 int __stdcall sub_004F5020_ClearInterface()
@@ -120,17 +220,23 @@ int __stdcall D2GFX_ReturnFalse(int nArg1, int nArg2, int nArg3)
     return 0;
 }
 
+// 0x004F5160
+int __stdcall D2GFX_GetResolutionMode()
+{
+    return gnResolutionMode;
+}
+
+// 0x004F51C0
+int __cdecl sub_004F51C0_IsHighVideoMode()
+{
+    return gnDisplayType >= 4;
+}
+
 // 0x004F51D0
 int __stdcall D2GFX_CheckPerspective()
 {
     return gGfxSettings.bPerspectiveCapable != 0 ? gGfxSettings.bPerspectiveEnabled : 0;
 }
-
-D2GraphicsInterfaceStrc* gpGraphicsInterface; // 0x007C8CC0
-
-double gdFrameRemainder_007C9360; // 0x007C9360
-
-tagPALETTEENTRY gpPalette_6FA8D278[256]; // 0x007C9378
 
 // build: symbol ?$S1@?1??D2GFX_EndScene@@YGHXZ@4IA 0x007C9370
 // build: symbol ?sdLastFrame@?1??D2GFX_EndScene@@YGHXZ@4NA 0x007C9368
@@ -163,6 +269,42 @@ int __stdcall D2GFX_SetGamma(int nGamma)
     return gpGraphicsInterface->pfSetGamma(gGfxSettings.nGamma);
 }
 
+// 0x004F5260
+int __stdcall D2GFX_GammaCanBeControlled()
+{
+    return gpGraphicsInterface->pfGammaCanBeControlled();
+}
+
+// 0x004F5270
+void __cdecl D2GFX_EnableVSync()
+{
+    gGfxSettings.bVSync = 1;
+}
+
+// 0x004F5280
+void __cdecl sub_004F5280()
+{
+    gdwGlobal_0072DA7C = 0;
+}
+
+// 0x004F5290
+D2CacheStatsStrc* __cdecl sub_004F5290_GetCacheStats()
+{
+    return gpGraphicsInterface->pfGetCacheResults();
+}
+
+// 0x004F52A0
+void __fastcall sub_004F52A0_SetOffset(int nOffset)
+{
+    gnViewMatrixAdjust_007C8CC4 = nOffset;
+}
+
+// 0x004F52B0
+int __fastcall D2GFX_SetOption(int nOption, int nValue)
+{
+    return gpGraphicsInterface->pfSetOption(nOption, nValue);
+}
+
 // 0x004F52C0
 void __cdecl sub_004F52C0_Empty()
 {
@@ -171,6 +313,74 @@ void __cdecl sub_004F52C0_Empty()
 // 0x004F52D0
 void __cdecl sub_004F52D0_Empty()
 {
+}
+
+int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
+{
+    if (!gapGraphicsInterfaces_0072DA80[nMode])
+    {
+        sub_00410610_WriteLogLine(gszUnsupportedMode_006DC458, nMode);
+        return 0;
+    }
+    gpGraphicsInterface = gapGraphicsInterfaces_0072DA80[nMode];
+    return 1;
+}
+
+// 0x004F52E0
+int __stdcall D2GFX_Initialize(void* hInstance, WNDPROC pfWndProc, int nRenderMode, int bWindowed)
+{
+    ghInstance_007C8CA8 = hInstance;
+    gpWndProc_007C8CAC = pfWndProc;
+    WNDCLASSA windowClass;
+    windowClass.style = nRenderMode == 5 ? 0x20 : 0;
+    windowClass.lpfnWndProc = pfWndProc;
+    windowClass.cbClsExtra = 0;
+    windowClass.cbWndExtra = 0;
+    windowClass.hInstance = hInstance;
+    const int nIconId = sub_00408F20_HasExpansionMpq() ? 103 : 102;
+    windowClass.hIcon = LoadImageA(ghInstance_007C8CA8, (const char*)(unsigned short)nIconId, 1, 0, 0, 0);
+    windowClass.hCursor = LoadCursorA(0, (const char*)32512);
+    windowClass.hbrBackground = GetStockObject(5);
+    windowClass.lpszMenuName = 0;
+    windowClass.lpszClassName = gszWindowClassName_007C9158;
+    if (!RegisterClassA(&windowClass))
+    {
+        sub_0051793E_FormatAndRaise(GetLastError());
+        return 0;
+    }
+    sub_004F8DC0_InitLookupTable();
+    atexit(j_D2GFX_10040_ShowAllWindows);
+    gnDisplayType = nRenderMode;
+    gbIsWindowed = bWindowed;
+    if (!sub_004F4FF0_SetVideoMode(nRenderMode))
+    {
+        return 0;
+    }
+    gpGraphicsInterface->pfSetOption(8, bWindowed == 1);
+    if (!gpGraphicsInterface->pfDetect(hInstance))
+    {
+        sub_00408900_RaiseErrorReport(9, 0, 0, gszStringFormat_006FFC58, gszUnsupportedGraphics_0072DAF0);
+        return 0;
+    }
+    int bPerspectiveCapable = gGfxSettings.bPerspectiveCapable;
+    if (!(gnDisplayType >= 4))
+    {
+        bPerspectiveCapable = 0;
+    }
+    gGfxSettings.bPerspectiveCapable = bPerspectiveCapable;
+    int result = gpGraphicsInterface->pfInit(&gGfxSettings, gGraphicsHelpers_0072DA60);
+    if (!result)
+    {
+        if (!gpGraphicsInterface->pfDetect(hInstance))
+        {
+            sub_00408900_RaiseErrorReport(9, 0, 0, gszStringFormat_006FFC58, gszRetryUnsupportedGraphics_0072DAA8);
+        }
+        else
+        {
+            result = gpGraphicsInterface->pfInit(&gGfxSettings, gGraphicsHelpers_0072DA60);
+        }
+    }
+    return result;
 }
 
 // 0x004F54B0
@@ -193,10 +403,6 @@ int __stdcall D2GFX_ToggleLowQuality()
     gGfxSettings.bLowQuality = gGfxSettings.bLowQuality == 0;
     return gGfxSettings.bLowQuality;
 }
-
-int gnRowOffsets_007C97A8[732]; // 0x007C97A8
-
-D2PaletteTableStrc gPaletteTables_007D5458; // 0x007D5458
 
 // 0x004F5510
 void __cdecl sub_004F5510_HideCursor()
@@ -245,14 +451,6 @@ void __stdcall sub_004F5570_GetResolutionSize(int nResolution, long* pWidth, lon
         D2_ASSERT(0, 109);
     }
 }
-
-int gbIsWindowed; // 0x007C8CB4
-
-void* ghWnd; // 0x007C8CBC
-
-const char* gszWindowClass_007C9344; // 0x007C9344
-
-const char* gszWindowTitle_007C9348; // 0x007C9348
 
 // 0x004F5610
 int __stdcall WINDOW_Create(int bWindowed, int nResolution)
@@ -474,10 +672,6 @@ int __stdcall WINDOW_Resize(int nResolution, int bForceResize)
     return bResult;
 }
 
-int gnResolutionMode; // 0x007C8CB8
-
-int gnCaptionHeight_007C9270; // 0x007C9270
-
 // 0x004F5BC0
 int __stdcall sub_004F5BC0_CenterWindow(int nResolution)
 {
@@ -609,12 +803,6 @@ void __cdecl WINDOW_UpdatePlacement()
     }
 }
 
-D2WindowPlacementStrc gWindowPlacement[4]; // 0x007C9278
-
-int gbPaused_6FA8D84C; // 0x007C933C
-
-int gbWindowState_6FA8D850; // 0x007C9340
-
 // 0x004F5F60
 void __stdcall WINDOW_ShowAll()
 {
@@ -745,6 +933,12 @@ int __stdcall D2GFX_EndScene()
     return 1;
 }
 
+// 0x004F6250
+int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer)
+{
+    return gpGraphicsInterface->pfGetBackBuffer(pBuffer);
+}
+
 // 0x004F6270
 int __stdcall D2GFX_HardwareAcceleratedRenderMode()
 {
@@ -791,6 +985,12 @@ void __stdcall D2GFX_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd
     {
         gpGraphicsInterface->pfDrawBoxAlpha(nXStart, nYStart, nXEnd, nYEnd, dwColor, nAlpha);
     }
+}
+
+// 0x004F6380
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
+{
+    gpGraphicsInterface->pfDrawLine(nXStart, nYStart, nXEnd, nYEnd, dwColor, nAlpha);
 }
 
 // 0x004F63B0
@@ -875,3 +1075,5 @@ void __fastcall sub_004F8E40_CopyPaletteTables(D2PaletteTableStrc* pPaletteTable
         gLightPalettes_007D2348[i] = *(D2PaletteStrc*)gPaletteTables_007D5458.pShadowLightGammaPalettes[i];
     }
 }
+
+#include "gen/data/Source/D2Gfx/SRC/Window.inc"
