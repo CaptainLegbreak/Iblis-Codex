@@ -59376,11 +59376,6 @@
      "va": "0x0058FD20",
      "length": 39,
      "name": "?sub_0058FD20_ACT1Q1_SetRespecRewardPending@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00591790",
-     "length": 126,
-     "name": "?ACT1Q3_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -60380,6 +60375,11 @@
      "va": "0x005916A0",
      "length": 226,
      "name": "ACT1Q3_Callback00_NpcActivate"
+    },
+    {
+     "va": "0x00591790",
+     "length": 126,
+     "name": "?ACT1Q3_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00591810",

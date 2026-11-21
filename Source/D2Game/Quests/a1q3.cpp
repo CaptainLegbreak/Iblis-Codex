@@ -159,6 +159,10 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                
 
 void __fastcall ACT1Q3_UnitIterate_CheckForMalus(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);        // 0x00591CA0
 
+void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc*, int, int); // 0x0065C3A0
+
+void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
+
 // 0x005912E0
 int __fastcall ACT1Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -319,6 +323,25 @@ void __fastcall ACT1Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestAr
         {
             QUESTS_InitScrollTextChain(pQuest, pArg->pTextControl, nNpcId, nIndex);
         }
+    }
+}
+
+// 0x00591790
+void __fastcall ACT1Q3_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    QUESTRECORD_SetQuestState(pQuestFlags, 3, 0);
+    QUESTRECORD_ClearQuestState(pQuestFlags, 3, 1);
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 3, 0x0F))
+    {
+        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 3);
+        D2_ASSERT(pQuestData, 0x160);
+
+        pQuestData->bActive = 0;
+
+        QUESTS_DebugOutput(pGame, "deactivated tools of trade", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q3.cpp", 0x164);
     }
 }
 
