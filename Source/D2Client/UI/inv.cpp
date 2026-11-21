@@ -686,7 +686,6 @@ int gnSentBytes_007A6AF8; // 0x007A6AF8
 
 int gnSentPackets_007A6B00; // 0x007A6B00
 
-D2RosterEntryStrc* gpRosterListB_007BB5C4; // 0x007BB5C4
 
 int gdwGlobal_007BB5EC; // 0x007BB5EC
 
@@ -743,48 +742,6 @@ void __fastcall sub_004790B0_FindNodeValues(int nId, int* pValueA, int* pValueB)
     }
     *pValueA = 0;
     *pValueB = 0;
-}
-
-// 0x004794B0
-void __cdecl sub_004794B0_FreeRosterLists()
-{
-    D2RosterEntryStrc* pEntry = gpRosterListA_007BB5C0;
-    while (pEntry)
-    {
-        D2RosterEntryStrc* pNext = pEntry->pNext;
-        sub_004DC2B0(pEntry->pResource);
-        pEntry->pResource = 0;
-        D2RosterSubStrc* pSub = pEntry->pSubList;
-        while (pSub)
-        {
-            D2RosterSubStrc* pSubNext = pSub->pNext;
-            FOG_Free(pSub, ".\\GAME\\Roster.cpp", 0x110, 0);
-            pSub = pSubNext;
-        }
-        pEntry->pSubList = 0;
-        FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x14D, 0);
-        pEntry = pNext;
-    }
-    gpRosterListA_007BB5C0 = 0;
-
-    pEntry = gpRosterListB_007BB5C4;
-    while (pEntry)
-    {
-        D2RosterEntryStrc* pNext = pEntry->pNext;
-        sub_004DC2B0(pEntry->pResource);
-        pEntry->pResource = 0;
-        D2RosterSubStrc* pSub = pEntry->pSubList;
-        while (pSub)
-        {
-            D2RosterSubStrc* pSubNext = pSub->pNext;
-            FOG_Free(pSub, ".\\GAME\\Roster.cpp", 0x110, 0);
-            pSub = pSubNext;
-        }
-        pEntry->pSubList = 0;
-        FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x159, 0);
-        pEntry = pNext;
-    }
-    gpRosterListB_007BB5C4 = 0;
 }
 
 // 0x0047AD10

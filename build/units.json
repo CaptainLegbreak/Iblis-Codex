@@ -15029,11 +15029,6 @@
      "name": "sub_004790B0_FindNodeValues"
     },
     {
-     "va": "0x004794B0",
-     "length": 228,
-     "name": "sub_004794B0_FreeRosterLists"
-    },
-    {
      "va": "0x0047AD10",
      "length": 67,
      "name": "sub_0047AD10_ResetSelectionMsg"
@@ -23848,6 +23843,11 @@
      "va": "0x00479470",
      "length": 51,
      "name": "?sub_00479470_FreeCorpses@@YAXPAUD2RosterUnitStrc@@@Z"
+    },
+    {
+     "va": "0x004794B0",
+     "length": 228,
+     "name": "sub_004794B0_FreeRosterLists"
     },
     {
      "va": "0x004795A0",

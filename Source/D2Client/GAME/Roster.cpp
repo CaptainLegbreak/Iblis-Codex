@@ -303,6 +303,8 @@ void __cdecl sub_00479740_SortMainListByKills();
 
 void __cdecl sub_00479FC0();
 
+
+
 // 0x00479080
 int __fastcall sub_00479080_GetPetLife(int nUnitId)
 {
@@ -423,6 +425,49 @@ int __fastcall sub_M119_Emit_004792C0(D2RosterUnitStrc* pRosterUnit, unsigned in
         sub_00479470_FreeCorpses(pRosterUnit);
     }
     return 1;
+}
+
+
+// 0x004794B0
+void __cdecl sub_004794B0_FreeRosterLists()
+{
+    D2StoredUnitRecordStrc* pEntry = gpStoredUnits_007BB5C0;
+    while (pEntry)
+    {
+        D2StoredUnitRecordStrc* pNext = pEntry->pNext;
+        sub_004DC2B0_FreeRosterInfoList(pEntry->pRosterInfo);
+        pEntry->pRosterInfo = 0;
+        D2RosterCorpseStrc* pSub = pEntry->pCorpse;
+        while (pSub)
+        {
+            D2RosterCorpseStrc* pSubNext = pSub->pNext;
+            FOG_Free(pSub, ".\\GAME\\Roster.cpp", 0x110, 0);
+            pSub = pSubNext;
+        }
+        pEntry->pCorpse = 0;
+        FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x14D, 0);
+        pEntry = pNext;
+    }
+    gpStoredUnits_007BB5C0 = 0;
+
+    pEntry = gpStoredUnits2_007BB5C4;
+    while (pEntry)
+    {
+        D2StoredUnitRecordStrc* pNext = pEntry->pNext;
+        sub_004DC2B0_FreeRosterInfoList(pEntry->pRosterInfo);
+        pEntry->pRosterInfo = 0;
+        D2RosterCorpseStrc* pSub = pEntry->pCorpse;
+        while (pSub)
+        {
+            D2RosterCorpseStrc* pSubNext = pSub->pNext;
+            FOG_Free(pSub, ".\\GAME\\Roster.cpp", 0x110, 0);
+            pSub = pSubNext;
+        }
+        pEntry->pCorpse = 0;
+        FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x159, 0);
+        pEntry = pNext;
+    }
+    gpStoredUnits2_007BB5C4 = 0;
 }
 
 // 0x004795A0
