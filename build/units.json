@@ -22349,11 +22349,6 @@
      "name": "sub_004795F0_SortRosterByName"
     },
     {
-     "va": "0x0047B2E0",
-     "length": 196,
-     "name": "sub_0047B2E0_CloseChatInput"
-    },
-    {
      "va": "0x0047BA80",
      "length": 80,
      "name": "sub_0047BA80_StepChatIndex"
@@ -24493,6 +24488,11 @@
      "va": "0x0047B090",
      "length": 588,
      "name": "?sub_0047B090_InitChatIme@@YAXXZ"
+    },
+    {
+     "va": "0x0047B2E0",
+     "length": 196,
+     "name": "sub_0047B2E0_CloseChatInput"
     },
     {
      "va": "0x0047B4E0",

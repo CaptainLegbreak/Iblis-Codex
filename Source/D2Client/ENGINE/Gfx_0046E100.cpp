@@ -609,36 +609,6 @@ D2RosterUnitStrc* __stdcall sub_004795F0_SortRosterByName(D2RosterUnitStrc* pLis
     return pSorted;
 }
 
-// 0x0047B2E0
-void __cdecl sub_0047B2E0_CloseChatInput()
-{
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtChatHandlers_00712F4C, 4);
-    if (gbChatInputOpen_007BB5E1)
-    {
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtChatInputHandlers_00712FA8, 7);
-        T0046E1B0* hImc = ImmGetContext(sub_004F59A0());
-        if (hImc)
-        {
-            ImmSetOpenStatus(hImc, 0);
-            if (gnLanguageId_007BB5DC == 7 || gnLanguageId_007BB5DC == 12)
-            {
-                unsigned long nConversion;
-                unsigned long nSentence;
-                ImmGetConversionStatus(hImc, &nConversion, &nSentence);
-                ImmSetConversionStatus(hImc, 0, nSentence);
-            }
-            ImmReleaseContext(sub_004F59A0(), hImc);
-        }
-        gwChatText_007BB5F8 = 0;
-        gwChatText_007BC850 = 0;
-        if (gpChatBuffer_007BB5F4)
-        {
-            FOG_Free(gpChatBuffer_007BB5F4, ".\\UI\\chat.cpp", 0x29D, 0);
-            gpChatBuffer_007BB5F4 = 0;
-        }
-    }
-}
-
 // 0x0047BA80
 void __stdcall sub_0047BA80_StepChatIndex(int nDelta)
 {
