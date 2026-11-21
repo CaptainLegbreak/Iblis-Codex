@@ -56626,6 +56626,11 @@
      "length": 78
     },
     {
+     "va": "0x0056C160",
+     "length": 167,
+     "name": "?SKILLS_HasManaOrChargesForUsedSkill@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0056C2A0",
      "length": 37,
      "name": "?SKILLS_FreeUnitSearch@@YIXPAUD2GameStrc@@PAUD2UnitFindDataStrc@@@Z"
@@ -56693,6 +56698,16 @@
      "va": "0x0056CF40",
      "length": 494,
      "name": "D2GAME_CreateLinkPortal_6FD13B20"
+    },
+    {
+     "va": "0x0056D370",
+     "length": 62,
+     "name": "?SKILLS_EnlargeVector@@YIXPAH0@Z"
+    },
+    {
+     "va": "0x0056D3B0",
+     "length": 73,
+     "name": "?SKILLS_MakeShortPerpendicularVector@@YIXPAH0@Z"
     },
     {
      "va": "0x0056D4E0",
@@ -56859,6 +56874,11 @@
      "name": "sub_0056FE40"
     },
     {
+     "va": "0x0056FF10",
+     "length": 354,
+     "name": "?sub_0056FF10_StartAssignedAura@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x00570360",
      "length": 191,
      "name": "?ClearSkills@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -56867,6 +56887,11 @@
      "va": "0x00570530",
      "length": 86,
      "name": "sub_00570530_StatRemoveCallback"
+    },
+    {
+     "va": "0x0057E270",
+     "length": 118,
+     "name": "?SUNITDMG_RollSuckBloodDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HHPAUD2DamageStrc@@@Z"
     }
    ]
   },
@@ -56988,37 +57013,6 @@
      "va": "0x00571580",
      "length": 27,
      "name": "D2GAME_STATES_SendStates_6FCC5F00"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_0056C160.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0056C160",
-     "length": 167,
-     "name": "?SKILLS_HasManaOrChargesForUsedSkill@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0056D370",
-     "length": 62,
-     "name": "?SKILLS_EnlargeVector@@YIXPAH0@Z"
-    },
-    {
-     "va": "0x0056D3B0",
-     "length": 73,
-     "name": "?SKILLS_MakeShortPerpendicularVector@@YIXPAH0@Z"
-    },
-    {
-     "va": "0x0056FF10",
-     "length": 354,
-     "name": "?sub_0056FF10_StartAssignedAura@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057E270",
-     "length": 118,
-     "name": "?SUNITDMG_RollSuckBloodDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HHPAUD2DamageStrc@@@Z"
     }
    ]
   },
