@@ -254,7 +254,6 @@ extern T0044A980* gpPalShiftEntries_007B9578; // 0x007B9578
 
 extern int gnGlobal_007B957C; // 0x007B957C
 
-void* gpGlobal_007BB384; // 0x007BB384
 
 extern void* gpGlobal_007BEEF0; // 0x007BEEF0
 
@@ -486,9 +485,7 @@ int gnGlobal_007BEF04; // 0x007BEF04
 
 int gnGlobal_007BEF08; // 0x007BEF08
 
-char gData_007B9580[7680]; // 0x007B9580
 
-int gnGlobal_007BB380; // 0x007BB380
 
 #define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
@@ -1616,58 +1613,6 @@ Obj004DCF10* __cdecl sub_00476B10_CreateView()
     view->flags |= 1;
     gnGlobal_007B9530 = 0;
     return view;
-}
-
-// 0x00476EA0
-void __cdecl sub_00476EA0_LoadPalShift()
-{
-    int nSize = sgptDataTables->nMonStatsTxtRecordCount * sizeof(T0044A980);
-    T0044A980* pEntries = (T0044A980*)FOG_Alloc(nSize, ".\\GAME\\PalShift.cpp", 0x63, 0);
-    gpPalShiftEntries_007B9578 = pEntries;
-    memset(pEntries, 0, nSize);
-    int nCount = sgptDataTables->nMonStatsTxtRecordCount;
-    for (int i = 0; i < nCount; ++i)
-    {
-        pEntries[i].nId = i;
-    }
-    gnGlobal_007B957C = 0;
-    void* hFile;
-    if (ARCHIVE_OpenFile(0, "Data\\Global\\Monsters\\RandTransforms.dat", &hFile, 1))
-    {
-        ARCHIVE_ReadFileToBuffer(0, hFile, gData_007B9580, 0x1E00);
-        ARCHIVE_CloseFile(0, hFile);
-        gnGlobal_007BB380 = 1;
-    }
-    void* hFile2;
-    if (ARCHIVE_OpenFile(0, "Data\\Global\\Monsters\\GreenBlood.dat", &hFile2, 1))
-    {
-        void* pBuffer = FOG_Alloc(0x100, ".\\GAME\\PalShift.cpp", 0x52, 0);
-        gpGlobal_007BB384 = pBuffer;
-        memset(pBuffer, 0, 0x100);
-        ARCHIVE_ReadFileToBuffer(0, hFile2, pBuffer, 0x100);
-        ARCHIVE_CloseFile(0, hFile2);
-    }
-}
-
-// 0x00476FB0
-void __cdecl sub_00476FB0()
-{
-    while (gpPalShiftList_007B957C)
-    {
-        D2PalShiftNodeStrc* pNext = gpPalShiftList_007B957C->pNext;
-        FOG_Free(gpPalShiftList_007B957C, ".\\GAME\\PalShift.cpp", 0x84, 0);
-        gpPalShiftList_007B957C = pNext;
-    }
-    if (gpPalShiftEntries_007B9578)
-    {
-        FOG_Free(gpPalShiftEntries_007B9578, ".\\GAME\\PalShift.cpp", 0x8A, 0);
-        gpPalShiftEntries_007B9578 = 0;
-    }
-    if (gpGlobal_007BB384)
-    {
-        FOG_Free(gpGlobal_007BB384, ".\\GAME\\PalShift.cpp", 0x90, 0);
-        gpGlobal_007BB384 = 0;
-    }
 }
 
 // 0x00477030

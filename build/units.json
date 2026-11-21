@@ -14395,16 +14395,6 @@
      "name": "?sub_00476B10_CreateView@@YAPAUObj004DCF10@@XZ"
     },
     {
-     "va": "0x00476EA0",
-     "length": 259,
-     "name": "sub_00476EA0_LoadPalShift"
-    },
-    {
-     "va": "0x00476FB0",
-     "length": 127,
-     "name": "?sub_00476FB0@@YAXXZ"
-    },
-    {
      "va": "0x00477030",
      "length": 33,
      "name": "?sub_00477030_FindPalShiftNode@@YIPAUD2PalShiftNodeStrc@@H@Z"
@@ -17789,11 +17779,6 @@
      "va": "0x00476A80",
      "length": 61,
      "name": "sub_00476A80_SetTimedState"
-    },
-    {
-     "va": "0x00476E30",
-     "length": 101,
-     "name": "sub_00476E30_LoadGreenBlood"
     }
    ]
   },
@@ -23394,54 +23379,49 @@
   {
    "file": "Source/D2Client/GAME/PalShift.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
+    {
+     "va": "0x00476E30",
+     "length": 101,
+     "name": "sub_00476E30_LoadGreenBlood"
+    },
+    {
+     "va": "0x00476EA0",
+     "length": 259,
+     "name": "sub_00476EA0_LoadPalShift"
+    },
+    {
+     "va": "0x00476FB0",
+     "length": 127,
+     "name": "?sub_00476FB0@@YAXXZ"
+    },
     {
      "va": "0x00477060",
      "length": 257
+    },
+    {
+     "va": "0x00477170",
+     "length": 767
     },
     {
      "va": "0x00477470",
      "length": 180,
      "name": "?sub_00477470_InitPalShifts@@YAXXZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/PalShift_00477170.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00477170",
-     "length": 767
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
