@@ -111,7 +111,7 @@ const D2AiTableStrc* __fastcall sub_005B15D0_GetAiTable(D2UnitStrc* pUnit, int n
     return GetByIndex(pRecord);
 }
 
-#include "gen/data/Source/D2Game/Unknown_005B0FF0.inc"
+#include "gen/data/Source/D2Game/MISSILES/MissMode_005B0FF0.inc"
 struct D2GameStrc;
 struct D2UnitStrc;
 

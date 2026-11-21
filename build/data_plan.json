@@ -4865,7 +4865,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005B0FF0.cpp": {
+  "Source/D2Game/MISSILES/MissMode_005B0FF0.cpp": {
    "bytes": 2368,
    "definitions": 1,
    "externs": [
@@ -5040,7 +5040,7 @@
     "extern \"C\" void __cdecl sub_005FCF30(); // 0x005FCF30"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005B0FF0.inc",
+   "include": "gen/data/Source/D2Game/MISSILES/MissMode_005B0FF0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -112066,7 +112066,7 @@
    "cname": "gData_0073CA18",
    "declared": true,
    "decorated": "?gpAiTable_6FD3F990@@3QBUD2AiTableStrc@@B",
-   "file": "Source/D2Game/Unknown_005B0FF0.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005B0FF0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2AiTableStrc gData_0073CA18[148]; // 0x0073CA18",
    "head": "extern \"C\" const D2AiTableStrc gData_0073CA18[148] = ",
