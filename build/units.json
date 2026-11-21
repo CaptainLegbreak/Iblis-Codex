@@ -58053,6 +58053,16 @@
      "name": "?sub_0057CA80_AddCombatRecord@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x0057CE30",
+     "length": 107,
+     "name": "?SUNITDMG_GetHitClass@@YAIPAUD2DamageStrc@@I@Z"
+    },
+    {
+     "va": "0x0057CEC0",
+     "length": 26,
+     "name": "?sub_0057CEC0_SetHitClassIfUnset@@YAXPAUD2DamageStrc@@@Z"
+    },
+    {
      "va": "0x0057D4F0",
      "length": 406
     },
@@ -58070,6 +58080,21 @@
      "va": "0x0057D760",
      "length": 172,
      "name": "?SUNITDMG_RollAndCompareValues@@YGHPAUD2UnitStrc@@PAH1@Z"
+    },
+    {
+     "va": "0x0057D810",
+     "length": 138,
+     "name": "?SUNITDMG_PreventMonsterHeal@@YAXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0057D8A0",
+     "length": 261,
+     "name": "?sub_0057D8A0_ApplyTargetDefenseModifiers@@YGXPAH0PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x0057D9B0",
+     "length": 564,
+     "name": "?SUNITDMG_IsHitSuccessful@@YIHPAUD2UnitStrc@@0HH@Z"
     },
     {
      "va": "0x0057DBF0",
@@ -58669,37 +58694,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057CE30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0057CE30",
-     "length": 107,
-     "name": "?SUNITDMG_GetHitClass@@YAIPAUD2DamageStrc@@I@Z"
-    },
-    {
-     "va": "0x0057CEC0",
-     "length": 26,
-     "name": "?sub_0057CEC0_SetHitClassIfUnset@@YAXPAUD2DamageStrc@@@Z"
-    },
-    {
-     "va": "0x0057D810",
-     "length": 138,
-     "name": "?SUNITDMG_PreventMonsterHeal@@YAXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0057D8A0",
-     "length": 261,
-     "name": "?sub_0057D8A0_ApplyTargetDefenseModifiers@@YGXPAH0PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0057D9B0",
-     "length": 564,
-     "name": "?SUNITDMG_IsHitSuccessful@@YIHPAUD2UnitStrc@@0HH@Z"
-    }
    ]
   },
   {

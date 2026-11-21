@@ -4524,20 +4524,11 @@
    "state": "included"
   },
   "Source/D2Game/UNIT/SUnitDmg.cpp": {
-   "bytes": 744,
-   "definitions": 6,
+   "bytes": 808,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/SUnitDmg.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/UNIT/SUnitDmg_0057CE30.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/UNIT/SUnitDmg_0057CE30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -102846,7 +102837,7 @@
    "cname": "gData_006E16D8",
    "declared": true,
    "decorated": "_gsDamageHitClassMapping_006E16D8",
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057CE30.cpp",
+   "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2DamageHitClassMappingStrc gData_006E16D8[8]; // 0x006E16D8",
    "head": "extern \"C\" const D2DamageHitClassMappingStrc gData_006E16D8[8] = ",
