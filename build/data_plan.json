@@ -2262,7 +2262,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/panel_00499040.cpp": {
+  "Source/D2Client/UI/panel.cpp": {
    "bytes": 80,
    "definitions": 3,
    "externs": [],
@@ -52026,7 +52026,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/panel_00499040.cpp",
+   "file": "Source/D2Client/UI/panel.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnUiRecordIndex_00722354 = ",
@@ -52051,7 +52051,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/panel_00499040.cpp",
+   "file": "Source/D2Client/UI/panel.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gaBeltKeys_00722404[4] = ",
@@ -52081,7 +52081,7 @@
    "cname": "gData_00722414",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/panel_00499040.cpp",
+   "file": "Source/D2Client/UI/panel.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00722414_t gData_00722414; // 0x00722414",
    "head": "extern \"C\" struct d2data_00722414_t gData_00722414 = ",

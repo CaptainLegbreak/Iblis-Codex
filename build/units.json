@@ -26856,6 +26856,10 @@
      "name": "?sub_00498E90_SetRecordMode@@YAXXZ"
     },
     {
+     "va": "0x00499040",
+     "length": 1036
+    },
+    {
      "va": "0x00499D10",
      "length": 208,
      "name": "?sub_00499D10_BeltClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -27008,30 +27012,6 @@
      "va": "0x00498EA0",
      "length": 411,
      "name": "?sub_00498EA0_DrawExperienceBar@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/panel_00499040.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00499040",
-     "length": 1036
     }
    ],
    "flags": [

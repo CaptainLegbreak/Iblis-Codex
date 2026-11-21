@@ -6,23 +6,38 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2ClientGfx.h"
+#include "D2Path.h"
+
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct BitStreamContext;
+
 struct D2OrbSmoothStrc;
+
 struct Unicode;
+
 struct D2HotkeySlotTableStrc;
+
 struct D2TextPanelLineStrc;
+
 struct D2TextPanelStrc;
+
 struct D2UiRectStrc;
+
 struct D2UiRecordStrc;
+
 struct D2Block1;
+
 struct D2UnitStrc;
+
 struct D2CelContextStrc;
+
 struct SMSGHANDLER_PARAMS;
+
 struct D2GfxMotionStrc;
+
 struct D2ItemsTxt;
 
 struct D2OrbSmoothStrc
@@ -34,26 +49,44 @@ struct D2OrbSmoothStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern int gnGlobal_0071146C; // 0x0071146C
+
 extern int gnGlobal_00711470; // 0x00711470
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 unsigned int __cdecl sub_0044DA90(); // 0x0044DA90
+
 int __cdecl sub_004F5140(); // 0x004F5140
+
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-extern D2OrbSmoothStrc gtOrbSmooth_007BEF30[3]; // 0x007BEF30
+
+D2OrbSmoothStrc gtOrbSmooth_007BEF30[3]; // 0x007BEF30
 
 extern int gnGlobal_007BEFA4; // 0x007BEFA4
+
 extern int gnGlobal_007BEF84; // 0x007BEF84
+
 extern int gnGlobal_007BEF88; // 0x007BEF88
+
 extern int gnGlobal_007BEFDC; // 0x007BEFDC
+
 extern int gnGlobal_007BEFE0; // 0x007BEFE0
+
 extern int gnGlobal_007BEFD0; // 0x007BEFD0
+
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
-extern int __cdecl sub_0044DA30(); // 0x0044DA30
-extern int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
+
+int __cdecl sub_0044DA30(); // 0x0044DA30
+
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 struct D2TextPanelLineStrc
 {
@@ -77,134 +110,278 @@ struct D2TextPanelStrc
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+
 int __cdecl sub_00468730(); // 0x00468730
+
 int __cdecl sub_00468740(); // 0x00468740
+
 D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
+
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+
 extern int gnTabSelection_00724CE0; // 0x00724CE0
+
 extern int gnGlobal_00724BEC; // 0x00724BEC
+
 extern unsigned char gbGlobal_007A0522; // 0x007A0522
+
 extern int gnGlobal_007A2858; // 0x007A2858
+
 extern int gnGlobal_007A285C; // 0x007A285C
-extern void* gpPanelQuadCel_007BF018; // 0x007BF018
+
+void* gpPanelQuadCel_007BF018; // 0x007BF018
+
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
+
 extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
+
 extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
+
 extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
+
 extern int gbGlobal_007C07FC; // 0x007C07FC
+
 extern int gbGlobal_007C0C38; // 0x007C0C38
 
 int __cdecl sub_0047A560(); // 0x0047A560
+
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
+
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
+
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 extern "C" int gnScreenWidth; // 0x0071146C
+
 extern "C" int gnScreenHeight; // 0x00711470
+
 extern "C" int __cdecl sub_00468730_MouseX();
+
 extern "C" int __cdecl sub_00468740_MouseY();
+
 extern "C" U32 __fastcall sub_004538D0_UIState(U32 index);
+
 extern "C" const U16* __fastcall sub_00524A30_LocalizedText(U16 index);
+
 extern "C" void __fastcall sub_00502280_SetTooltip(const U16* text, int x, int y, int color, int mode);
+
 extern "C" void __stdcall sub_00410EB0_WriteBits(BitStreamContext* stream, U32 value, int bitCount);
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
+
 void __stdcall sub_00660CB0_GetUiRecord(int nIndex, int nRow, D2UiRecordStrc* pRecord); // 0x00660CB0
+
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2UiRectStrc* pInvRect, int nBoxId); // 0x00660D10
+
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
+
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc* pInventory, int nSlotId); // 0x0063C7F0
+
 int __cdecl sub_00468830(); // 0x00468830
+
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
+
 int __fastcall sub_004C2240(D2UnitStrc* pItem); // 0x004C2240
+
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
+
 void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pItem); // 0x004C21F0
+
 int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
+
 int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
+
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
+
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-int __cdecl sub_0044DA30(); // 0x0044DA30
+
 int __cdecl sub_00463DF0(); // 0x00463DF0
+
 int __cdecl sub_0044BFE0(); // 0x0044BFE0
+
 void __cdecl sub_00453EC0(); // 0x00453EC0
+
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
-void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x0049FF90
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
-int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-extern int gnUiRecordRow_007A5218; // 0x007A5218
-extern int gdwGlobal_007A061C; // 0x007A061C
-extern int gnBeltHover_007BEF94; // 0x007BEF94
-extern int gbUiRecordMode_007BEF98; // 0x007BEF98
-extern int gnBeltRecordMode2_007BEF9C; // 0x007BEF9C
-extern D2UnitStrc* gpBeltItemA_007BEFA8; // 0x007BEFA8
-int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
-extern "C" size_t __cdecl strlen(const char* szString);
-int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
-int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
-void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
-void __fastcall sub_00478A00(void* pCel); // 0x00478A00
-void __cdecl sub_00499E50_DrawPanelQuad(); // 0x00499E50
-void __cdecl sub_0049C270_DrawPartyRows(); // 0x0049C270
-void __cdecl sub_0049A510_DrawPartyButtons(); // 0x0049A510
-void __cdecl sub_0049A950_DrawPanelCel(); // 0x0049A950
-void __cdecl sub_0049ABD0_DrawRosterHoverHints(); // 0x0049ABD0
-void __cdecl sub_0049B330_DrawRosterButtonHints(); // 0x0049B330
-void __cdecl sub_0049A9B0_RefreshRosterIndices(); // 0x0049A9B0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
-extern int gdwGlobal_007BEFA8; // 0x007BEFA8
-extern int gdwGlobal_007BEFAC; // 0x007BEFAC
-extern void* gpCelFile_007BF020; // 0x007BF020
-extern unsigned char gbGlobal_007BF034; // 0x007BF034
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
-int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
-int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
-void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
-extern unsigned char gabBeltHotkey_007BEFB0[]; // 0x007BEFB0
-static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY);
-static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
-static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState);
-extern unsigned char gnTextColorRed_007BEFBA; // 0x007BEFBA
-extern unsigned char gnTextColorA_007BEFBB; // 0x007BEFBB
-extern unsigned char gnTextColorB_007BEFE4; // 0x007BEFE4
 
-D2OrbSmoothStrc gtOrbSmooth_007BEF30[3]; // 0x007BEF30
+D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
+
+void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x0049FF90
+
+void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
+
+int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+
+int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+
+extern int gnUiRecordRow_007A5218; // 0x007A5218
+
+extern int gdwGlobal_007A061C; // 0x007A061C
+
+extern int gnBeltHover_007BEF94; // 0x007BEF94
+
+int gbUiRecordMode_007BEF98;                                                                                // 0x007BEF98
+
+extern int gnBeltRecordMode2_007BEF9C; // 0x007BEF9C
+
+extern D2UnitStrc* gpBeltItemA_007BEFA8; // 0x007BEFA8
+
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+
+extern "C" size_t __cdecl strlen(const char* szString);
+
+int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
+
+int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
+void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+
+void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+
+void __cdecl sub_00499E50_DrawPanelQuad(); // 0x00499E50
+
+void __cdecl sub_0049C270_DrawPartyRows(); // 0x0049C270
+
+void __cdecl sub_0049A510_DrawPartyButtons(); // 0x0049A510
+
+void __cdecl sub_0049A950_DrawPanelCel(); // 0x0049A950
+
+void __cdecl sub_0049ABD0_DrawRosterHoverHints(); // 0x0049ABD0
+
+void __cdecl sub_0049B330_DrawRosterButtonHints(); // 0x0049B330
+
+void __cdecl sub_0049A9B0_RefreshRosterIndices(); // 0x0049A9B0
+
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+
+extern int gdwGlobal_007BEFA8; // 0x007BEFA8
+
+extern int gdwGlobal_007BEFAC; // 0x007BEFAC
+
+extern void* gpCelFile_007BF020; // 0x007BF020
+
+extern unsigned char gbGlobal_007BF034; // 0x007BF034
+
+int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
+
+void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
+
+int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+
+void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
+int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
+
+void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
+
+unsigned char gabBeltHotkey_007BEFB0[1]; // 0x007BEFB0
+
+static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY);
+
+static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
+
+static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState);
+
+unsigned char gnTextColorRed_007BEFBA; // 0x007BEFBA
+
+unsigned char gnTextColorA_007BEFBB; // 0x007BEFBB
+
+unsigned char gnTextColorB_007BEFE4; // 0x007BEFE4
+
+int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
+
+int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
+
+void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
+
+void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
+
+D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
+
+D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
+
+void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
+
+
+unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
+
+const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                          // 0x0046A530
+
+int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
+
+int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
+
+int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);  // 0x006280A0
+
+int __stdcall ITEMS_CheckIfUseable(D2UnitStrc* pItem);                                                              // 0x00628C20
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
+
+extern D2CelFileStrc* gpCellFile_007BEF10;                                                                  // 0x007BEF10
+
+unsigned char gabBeltColors_007BEF6C[4];                                                                    // 0x007BEF6C
+
+int gbGlobal_007BEFA0;                                                                                      // 0x007BEFA0
+
+void __cdecl sub_004972B0_InitBeltColors(); // 0x004972B0
+
+static void __stdcall sub_004978D0_DrawBeltBoxFrame(int nBox, int nColor); // 0x004978D0
+
+static void __cdecl sub_00497920_DrawCursorBeltBox(D2InventoryStrc* pInventory); // 0x00497920
+
+void* gpBorderFrameCel_007BEF18; // 0x007BEF18
+
+int gnLevelTimer_007BEFEC; // 0x007BEFEC
+
+int gnLevelId_007BEFF0; // 0x007BEFF0
+
+void* gpCelFile_007BF01C; // 0x007BF01C
+
+void* gpCelFile_007BF024; // 0x007BF024
+
+void* gpCelFile_007BF028; // 0x007BF028
+
+void __cdecl sub_0049A580_DrawPlayerName(); // 0x0049A580
 
 static int ORB_AbsValue(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;
 }
-
-
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
-void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
-void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
-void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
 
 // 0x00496CF0
 void __cdecl sub_00496CF0_ValidateActiveSkills()
@@ -436,12 +613,6 @@ static __declspec(noinline) int __cdecl sub_00497440_Bounds(int nX,int nY)
     return 0;
 }
 
-unsigned char gnTextColorRed_007BEFBA; // 0x007BEFBA
-
-unsigned char gnTextColorA_007BEFBB; // 0x007BEFBB
-
-unsigned char gnTextColorB_007BEFE4; // 0x007BEFE4
-
 // 0x004975B0
 void __cdecl sub_004975B0_DrawStaminaBar()
 {
@@ -562,8 +733,6 @@ handled:
     pMsg->lResult=0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
-
-void* gpBorderFrameCel_007BEF18; // 0x007BEF18
 
 static int sub_004977C0_IsInButtonRect(int nX, int nY)
 {
@@ -739,10 +908,6 @@ found:
     }
 }
 
-int gnLevelTimer_007BEFEC; // 0x007BEFEC
-
-int gnLevelId_007BEFF0; // 0x007BEFF0
-
 // 0x00498310
 void __cdecl sub_00498310_UpdateLevelTimer()
 {
@@ -842,8 +1007,6 @@ extern "C" void __fastcall sub_0053B0E0_WriteVariableValue(BitStreamContext* str
     }
 }
 
-unsigned char gabBeltHotkey_007BEFB0[1]; // 0x007BEFB0
-
 // 0x004987E0
 static int __stdcall sub_004987E0_GetBeltBoxAt(int nY, int nX)
 {
@@ -906,7 +1069,6 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
     }
 }
 
-// 0x00498A90
 static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift)
 {
     if (!sub_0044DCC0())
@@ -1104,14 +1266,6 @@ void __fastcall sub_00498D90_SetUiRecordIndex(int nIndex)
     exit(-1);
 }
 
-void* gpPanelQuadCel_007BF018; // 0x007BF018
-
-void* gpCelFile_007BF01C; // 0x007BF01C
-
-void* gpCelFile_007BF024; // 0x007BF024
-
-void* gpCelFile_007BF028; // 0x007BF028
-
 // 0x00498E80
 void __cdecl sub_00498E80_ClearPair()
 {
@@ -1123,6 +1277,207 @@ void __cdecl sub_00498E80_ClearPair()
 void __cdecl sub_00498E90_SetRecordMode()
 {
     gbUiRecordMode_007BEF98 = 1;
+}
+
+void __cdecl sub_004972B0_InitBeltColors()
+{
+    gabBeltColors_007BEF6C[0] = D2Win_10034_MixRGB(0x80, 0, 0);
+    gabBeltColors_007BEF6C[1] = D2Win_10034_MixRGB(0, 0x80, 0);
+    gabBeltColors_007BEF6C[2] = D2Win_10034_MixRGB(0, 0, 0x80);
+    gabBeltColors_007BEF6C[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
+}
+
+static void __stdcall sub_004978D0_DrawBeltBoxFrame(int nBox, int nColor)
+{
+    sub_004972B0_InitBeltColors();
+    if (nColor == 2)
+        return;
+
+    D2UiRectStrc tRect;
+    DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
+    sub_0046EFD0_DrawFramedBox(tRect.nLeft, tRect.nTop, 0x1D, 0x1D, gabBeltColors_007BEF6C[nColor], 0);
+}
+
+static void __cdecl sub_00497920_DrawCursorBeltBox(D2InventoryStrc* pInventory)
+{
+    D2UnitStrc* pItem = INVENTORY_GetCursorItem(pInventory);
+    if (!pItem || !gnBeltHover_007BEF94)
+        return;
+
+    D2UiRecordStrc tRecord;
+    sub_00660CB0_GetUiRecord(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRecord);
+    if (gnBeltBox_0072235C < 0 || gnBeltBox_0072235C >= tRecord.nBoxes)
+        return;
+
+    if (!INVENTORY_GetItemFromBeltSlot(pInventory, gnBeltBox_0072235C) && ITEMS_CheckIfBeltable(pItem))
+    {
+        sub_004978D0_DrawBeltBoxFrame(gnBeltBox_0072235C, 1);
+        return;
+    }
+
+    int nResult;
+    if (sub_0063C830_CanPlaceInBelt(pInventory, pItem, gnBeltBox_0072235C, &nResult))
+    {
+        sub_004978D0_DrawBeltBoxFrame(gnBeltBox_0072235C, 3);
+        return;
+    }
+
+    sub_004978D0_DrawBeltBoxFrame(gnBeltBox_0072235C, 0);
+}
+
+// 0x00499040
+void __cdecl sub_00499040_DrawBelt()
+{
+    sub_00502EF0(1);
+    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2UnitStrc* pBelt = INVENTORY_GetItemFromBodyLoc(pInventory, 8);
+    if (pBelt)
+    {
+        if (ITEMS_GetItemType(pBelt) == 0x13)
+        {
+            const int nBeltType = UNITS_GetBeltType(pBelt);
+            if (nBeltType >= 0)
+            {
+                gnUiRecordIndex_00722354 = nBeltType;
+            }
+            else
+            {
+                sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xB07);
+                exit(-1);
+            }
+        }
+    }
+    else
+    {
+        gnUiRecordIndex_00722354 = 2;
+    }
+
+    if (!sub_004538D0(0x1F) && !gnBeltRecordMode2_007BEF9C)
+        gbUiRecordMode_007BEF98 = 0;
+
+    if (sub_004538D0(9))
+        gbUiRecordMode_007BEF98 = 0;
+
+    gbGlobal_007BEFA0 = 0;
+    if (gbUiRecordMode_007BEF98)
+    {
+        unsigned char abShow[3];
+        abShow[0] = 1;
+        abShow[1] = 1;
+        abShow[2] = 1;
+        switch (gnUiRecordIndex_00722354)
+        {
+        case 2:
+            abShow[0] = 0;
+            abShow[1] = 0;
+            abShow[2] = 0;
+            gbGlobal_007BEFA0 = 0;
+            break;
+        case 1:
+        case 4:
+            abShow[1] = 0;
+            abShow[2] = 0;
+            gbGlobal_007BEFA0 = 1;
+            break;
+        case 0:
+        case 5:
+            abShow[2] = 0;
+            gbGlobal_007BEFA0 = 1;
+            break;
+        case 3:
+        default:
+            gbGlobal_007BEFA0 = 1;
+            break;
+        }
+
+        D2CelContextStrc tContext;
+        memset(&tContext, 0, sizeof(tContext));
+        tContext.nDirection = 0;
+        tContext.nFrame = 0;
+        tContext.pCellFile = gpCellFile_007BEF10;
+        int nOffset = 0;
+        unsigned char* pShow = abShow;
+        for (int i = 0; i < 3; ++i)
+        {
+            if (*pShow)
+                sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0x15, gnGlobal_00711470 - nOffset - 0x29, -1, 5, 0);
+
+            ++pShow;
+            nOffset += 0x20;
+        }
+    }
+
+    D2UiRecordStrc tRecord;
+    sub_00660CB0_GetUiRecord(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRecord);
+    for (int nSlot = 0; nSlot < tRecord.nBoxes; ++nSlot)
+    {
+        if (nSlot > 3 && !gbGlobal_007BEFA0)
+            break;
+
+        D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nSlot);
+        if (!pItem)
+            continue;
+
+        int nBox;
+        switch (pItem->dwUnitType)
+        {
+        case 2:
+        case 4:
+        case 5:
+            nBox = pItem->pStaticPath->nXPos;
+            break;
+        default:
+            if (pItem->pDynamicPath)
+                nBox = PATH_GetXPosition(pItem->pDynamicPath);
+            else
+                nBox = 0;
+            break;
+        }
+
+        if (!ITEMS_CheckItemFlag(pItem, 4, 0x5D5, ".\\UI\\panel.cpp") && ITEMS_CheckIfUseable(pItem) && !sub_004C2240(pItem))
+        {
+            if (pItem == gpBeltItemA_007BEFA8 && gnBeltHover_007BEF94)
+                sub_004978D0_DrawBeltBoxFrame(nBox, 1);
+            else
+                sub_004978D0_DrawBeltBoxFrame(nBox, 2);
+        }
+        else
+        {
+            sub_004978D0_DrawBeltBoxFrame(nBox, 0);
+        }
+
+        D2UiRectStrc tRect;
+        DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
+        sub_0046EE80_DrawItemCel(pItem, tRect.nLeft, tRect.nTop);
+        if (nSlot < sizeof(gaBeltKeys_00722404) / sizeof(gaBeltKeys_00722404[0]) && ITEMS_CheckIfUseable(pItem))
+        {
+            Unicode wszKey[100];
+            for (int i = 0; i < 100; ++i)
+            {
+                wszKey[i].wChar = 0;
+            }
+
+            if (sub_00469AA0(gaBeltKeys_00722404[nSlot], 1) != 0xFFFF || sub_00469AA0(gaBeltKeys_00722404[nSlot], 0) != 0xFFFF)
+            {
+                sub_005267E0(wszKey, sub_0046A530_GetKeyName(gaBeltKeys_00722404[nSlot], 1));
+                const int nLength = sub_00526800(wszKey);
+                if (sub_00501820(wszKey) > 0x1C)
+                {
+                    Unicode* pEnd = &wszKey[nLength];
+                    do
+                    {
+                        pEnd->wChar = 0;
+                        --pEnd;
+                    }
+                    while (sub_00501820(wszKey) > 0x1C);
+                }
+                sub_00502320(wszKey, tRect.nLeft + 2, tRect.nBottom - 2, 4, 0);
+            }
+        }
+    }
+
+    if (gnUiRecordIndex_00722354 == 2 || sub_004538D0(0x1F) || gbUiRecordMode_007BEF98)
+        sub_00497920_DrawCursorBeltBox(pInventory);
 }
 
 void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
@@ -1238,7 +1593,6 @@ void __cdecl sub_00499E30_SetBlackColour()
 {
     gbGlobal_007BF034 = D2Win_10034_MixRGB(0, 0, 0);
 }
-void __cdecl sub_0049A580_DrawPlayerName(); // 0x0049A580
 
 // 0x0049C0A0
 void __cdecl sub_0049C0A0_LoadPartyCels()
@@ -1439,3 +1793,5 @@ int __fastcall sub_004BE340_CountLinesInView(D2TextPanelStrc* pPanel)
 
     return nLineCount;
 }
+
+#include "gen/data/Source/D2Client/UI/panel.inc"
