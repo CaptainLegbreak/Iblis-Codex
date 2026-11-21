@@ -80441,22 +80441,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0061B730",
-     "length": 120,
-     "name": "?DRLGACTIVATE_InitializeRoomEx@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061BA30",
-     "length": 138,
-     "name": "?DRLGACTIVATE_TestRoomCanUnTile@@YIHPAUD2DrlgRoomStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B170.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0061B170",
      "length": 23,
      "name": "?DRLGACTIVATE_InitRoomsInitTimeout@@YAXPAUD2DrlgStrc@@@Z"
@@ -80466,67 +80450,6 @@
      "length": 62,
      "name": "?DRLGACTIVATE_RoomEx_EnsureHasRoom@@YAHPAXPAUD2DrlgRoomStrc@@@Z"
     },
-    {
-     "va": "0x0061B360",
-     "length": 43,
-     "name": "?sub_0061B360_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x0061B5A0",
-     "length": 12,
-     "name": "?sub_0061B5A0_CallUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
-    },
-    {
-     "va": "0x0061B610",
-     "length": 45,
-     "name": "?sub_0061B610_RoomUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
-    },
-    {
-     "va": "0x0061B7E0",
-     "length": 42,
-     "name": "?sub_0061B7E0_InitEntries@@YIXPAUD2Owner0061B7E0Strc@@@Z"
-    },
-    {
-     "va": "0x0061B810",
-     "length": 34,
-     "name": "?DRLGACTIVATE_RoomExStatusList_GetFirst@@YAPAUD2DrlgRoomStrc@@PAUD2DrlgStrc@@E@Z"
-    },
-    {
-     "va": "0x0061B8B0",
-     "length": 53,
-     "name": "?sub_0061B8B0_UpdateRoomStats@@YAXPAUD2DrlgStrc@@@Z"
-    },
-    {
-     "va": "0x0061B8F0",
-     "length": 43,
-     "name": "DRLGACTIVATE_GetRoomsAllocationStats"
-    },
-    {
-     "va": "0x0061B920",
-     "length": 232,
-     "name": "?DRLGACTIVATE_Update@@YGXPAUD2DrlgStrc@@@Z"
-    },
-    {
-     "va": "0x0061BA10",
-     "length": 23,
-     "name": "?sub_0061BA10_CanUntileLevel@@YAHH@Z"
-    },
-    {
-     "va": "0x0061BB50",
-     "length": 14,
-     "name": "?sub_0061BB50_SetFieldFromTable@@YAXPAUD2DrlgTableRefStrc@@@Z"
-    },
-    {
-     "va": "0x0061BB60",
-     "length": 25,
-     "name": "?sub_0061BB60_SetColorForId@@YGXPAUD2ColorRecordStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B1D0.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0061B1D0",
      "length": 53,
@@ -80563,6 +80486,16 @@
      "name": "?DRLGACTIVATE_RoomExSetStatus_Untile@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0061B360",
+     "length": 43,
+     "name": "?sub_0061B360_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0061B490",
+     "length": 84,
+     "name": "?DRLGACTIVATE_RoomSetAndPropagateStatus@@YAXEPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
      "va": "0x0061B4F0",
      "length": 61,
      "name": "?sub_0061B4F0@@YAXPAUD2DrlgRoomStrc@@@Z"
@@ -80588,14 +80521,94 @@
      "name": "?DRLGACTIVATE_RoomExStatusUnset_Untile@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0061B5A0",
+     "length": 12,
+     "name": "?sub_0061B5A0_CallUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
+    },
+    {
+     "va": "0x0061B5B0",
+     "length": 85,
+     "name": "DRLGACTIVATE_RoomExPropagateUnsetStatus"
+    },
+    {
+     "va": "0x0061B610",
+     "length": 45,
+     "name": "?sub_0061B610_RoomUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
+    },
+    {
+     "va": "0x0061B640",
+     "length": 74,
+     "name": "?DRLGACTIVATE_SetClientIsInSight@@YIXPAUD2DrlgStrc@@HHHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061B690",
+     "length": 95,
+     "name": "DRLGACTIVATE_UnsetClientIsInSight"
+    },
+    {
+     "va": "0x0061B6F0",
+     "length": 64,
+     "name": "?DRLGACTIVATE_ChangeClientRoom@@YIXPAUD2DrlgRoomStrc@@0@Z"
+    },
+    {
+     "va": "0x0061B730",
+     "length": 120,
+     "name": "?DRLGACTIVATE_InitializeRoomEx@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061B7B0",
+     "length": 41,
+     "name": "DRLGACTIVATE_StreamRoomAtCoords"
+    },
+    {
+     "va": "0x0061B7E0",
+     "length": 42,
+     "name": "?sub_0061B7E0_InitEntries@@YIXPAUD2Owner0061B7E0Strc@@@Z"
+    },
+    {
+     "va": "0x0061B810",
+     "length": 34,
+     "name": "?DRLGACTIVATE_RoomExStatusList_GetFirst@@YAPAUD2DrlgRoomStrc@@PAUD2DrlgStrc@@E@Z"
+    },
+    {
      "va": "0x0061B840",
      "length": 47,
      "name": "?DRLGACTIVATE_GetARoomInClientSight@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgStrc@@@Z"
     },
     {
+     "va": "0x0061B8B0",
+     "length": 53,
+     "name": "?sub_0061B8B0_UpdateRoomStats@@YAXPAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x0061B8F0",
+     "length": 43,
+     "name": "DRLGACTIVATE_GetRoomsAllocationStats"
+    },
+    {
+     "va": "0x0061B920",
+     "length": 232,
+     "name": "?DRLGACTIVATE_Update@@YGXPAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x0061BA10",
+     "length": 23,
+     "name": "?sub_0061BA10_CanUntileLevel@@YAHH@Z"
+    },
+    {
+     "va": "0x0061BA30",
+     "length": 138,
+     "name": "?DRLGACTIVATE_TestRoomCanUnTile@@YIHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
      "va": "0x0061BAC0",
      "length": 20,
      "name": "?DRLGACTIVATE_ToggleHasPortalFlag@@YIXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0061BAE0",
+     "length": 4,
+     "name": "?DRLGACTIVATE_GetRoomStatusFlags@@YIEPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061BAF0",
@@ -80606,6 +80619,16 @@
      "va": "0x0061BB10",
      "length": 59,
      "name": "?DRLGACTIVATE_RoomExSetStatus_ClientOutOfSight@@YIXPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061BB50",
+     "length": 14,
+     "name": "?sub_0061BB50_SetFieldFromTable@@YAXPAUD2DrlgTableRefStrc@@@Z"
+    },
+    {
+     "va": "0x0061BB60",
+     "length": 25,
+     "name": "?sub_0061BB60_SetColorForId@@YGXPAUD2ColorRecordStrc@@H@Z"
     }
    ]
   },
@@ -80617,53 +80640,6 @@
      "va": "0x0061B210",
      "length": 121,
      "name": "?DRLGACTIVATE_ForceRoomExStatusImpl@@YAXPAUD2DrlgRoomStrc@@E@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061B490",
-     "length": 84,
-     "name": "?DRLGACTIVATE_RoomSetAndPropagateStatus@@YAXEPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061B5B0",
-     "length": 85,
-     "name": "DRLGACTIVATE_RoomExPropagateUnsetStatus"
-    },
-    {
-     "va": "0x0061B690",
-     "length": 95,
-     "name": "DRLGACTIVATE_UnsetClientIsInSight"
-    },
-    {
-     "va": "0x0061B7B0",
-     "length": 41,
-     "name": "DRLGACTIVATE_StreamRoomAtCoords"
-    },
-    {
-     "va": "0x0061BAE0",
-     "length": 4,
-     "name": "?DRLGACTIVATE_GetRoomStatusFlags@@YIEPAUD2DrlgRoomStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B640.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061B640",
-     "length": 74,
-     "name": "?DRLGACTIVATE_SetClientIsInSight@@YIXPAUD2DrlgStrc@@HHHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061B6F0",
-     "length": 64,
-     "name": "?DRLGACTIVATE_ChangeClientRoom@@YIXPAUD2DrlgRoomStrc@@0@Z"
     }
    ]
   },

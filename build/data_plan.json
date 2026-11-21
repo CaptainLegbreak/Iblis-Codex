@@ -6470,27 +6470,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0061B170.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_0061B530_UnsetStatusClientInRoom(); // 0x0061B530"
-   ],
+  "Source/D2Common/DRLG/DrlgActivate.cpp": {
+   "bytes": 80,
+   "definitions": 2,
+   "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0061B170.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_0061B490.cpp": {
-   "bytes": 76,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl DRLGACTIVATE_RoomExStatusUnset_Untile(); // 0x0061B560",
-    "extern \"C\" void __cdecl sub_0061B540_UnsetStatusClientInSight(); // 0x0061B540",
-    "extern \"C\" void __cdecl sub_0061B550_UnsetStatusClientOutOfSight(); // 0x0061B550"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0061B490.inc",
+   "include": "gen/data/Source/D2Common/DRLG/DrlgActivate_0061B170.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -123189,7 +123174,7 @@
    "cname": "gData_00744394",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0061B170.cpp",
+   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00744394_t gData_00744394; // 0x00744394",
    "head": "extern \"C\" struct d2data_00744394_t gData_00744394 = ",
@@ -123215,7 +123200,7 @@
    "cname": "gData_00744398",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0061B490.cpp",
+   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00744398_t gData_00744398; // 0x00744398",
    "head": "extern \"C\" struct d2data_00744398_t gData_00744398 = ",
