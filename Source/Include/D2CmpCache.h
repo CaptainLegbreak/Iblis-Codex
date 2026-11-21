@@ -4,6 +4,7 @@
 #include "D2Check.h"
 #include "D2Structs.h"
 #include "D2StormLink.h"
+#include "D2SysTypes.h"
 
 struct D2SpriteCacheNodeStrc;
 struct D2TileLibraryEntryStrc;
@@ -37,11 +38,12 @@ struct D2SpriteCacheStrc
     D2SpriteCacheNodeStrc* pTailA; // 0x18
     D2SpriteCacheNodeStrc* pHeadB; // 0x1C
     D2SpriteCacheNodeStrc* pTailB; // 0x20
-    int unk0x24[2]; // 0x24
+    D2SpriteCacheNodeStrc* f_24; // 0x24
+    D2SpriteCacheNodeStrc* f_28; // 0x28
     int nArg; // 0x2C
-    int unk0x30[6]; // 0x30
+    D2CriticalSectionStrc tLock; // 0x30
     unsigned int nHits; // 0x48
-    int unk0x4C; // 0x4C
+    unsigned int f_4C; // 0x4C
 };
 
 struct D2StormSlotListStrc

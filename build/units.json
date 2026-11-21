@@ -68633,6 +68633,16 @@
      "name": "?sub_005FEE80_IsValueSet@@YIHPAUD2CmpValueObjStrc@@@Z"
     },
     {
+     "va": "0x005FEE90",
+     "length": 456,
+     "name": "sub_005FEE90_SpriteCacheInit"
+    },
+    {
+     "va": "0x005FF060",
+     "length": 111,
+     "name": "?sub_005FF060_SpriteCacheLinkNode@@YGXHPAUD2SpriteCacheStrc@@PAUD2SpriteCacheNodeStrc@@@Z"
+    },
+    {
      "va": "0x005FF0D0",
      "length": 27,
      "name": "?sub_005FF0D0_SpriteCachePushFree@@YAXPAUD2SpriteCacheStrc@@PAUD2SpriteCacheNodeStrc@@@Z"
@@ -68648,14 +68658,45 @@
      "name": "?sub_005FF390_Nop@@YAXXZ"
     },
     {
+     "va": "0x005FF3F0",
+     "length": 164,
+     "name": "?sub_005FF3F0_SpriteCacheTakeNode@@YGPAUD2SpriteCacheNodeStrc@@IHPAUD2SpriteCacheStrc@@@Z"
+    },
+    {
+     "va": "0x005FF4A0",
+     "length": 270
+    },
+    {
+     "va": "0x005FF5B0",
+     "length": 119,
+     "name": "?sub_005FF5B0_SpriteCacheTouchNode@@YIXPAUD2SpriteCacheStrc@@PAUD2SpriteCacheNodeStrc@@@Z"
+    },
+    {
      "va": "0x005FF6E0",
      "length": 119,
      "name": "sub_005FF6E0_SpriteLoadCallback"
     },
     {
+     "va": "0x005FF760",
+     "length": 704
+    },
+    {
+     "va": "0x005FFA20",
+     "length": 442
+    },
+    {
+     "va": "0x005FFC40",
+     "length": 245,
+     "name": "?sub_005FFC40_SpriteCacheAlloc@@YIPAUD2SpriteCacheNodeStrc@@PAUD2SpriteCacheStrc@@IIH@Z"
+    },
+    {
      "va": "0x005FFD40",
      "length": 238,
      "name": "D2CMPSpriteCacheInit"
+    },
+    {
+     "va": "0x006004E0",
+     "length": 452
     },
     {
      "va": "0x00600D60",
@@ -68686,6 +68727,11 @@
      "va": "0x00601650",
      "length": 224,
      "name": "CelDrawEx"
+    },
+    {
+     "va": "0x00601810",
+     "length": 44,
+     "name": "sub_00601810_IsGfxFrameValid"
     },
     {
      "va": "0x00601A50",
@@ -77172,37 +77218,6 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FEE90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FEE90",
-     "length": 456,
-     "name": "sub_005FEE90_SpriteCacheInit"
-    },
-    {
-     "va": "0x005FF060",
-     "length": 111,
-     "name": "?sub_005FF060_SpriteCacheLinkNode@@YGXHPAUD2SpriteCacheStrc@@PAUD2SpriteCacheNodeStrc@@@Z"
-    },
-    {
-     "va": "0x005FF3F0",
-     "length": 164,
-     "name": "?sub_005FF3F0_SpriteCacheTakeNode@@YGPAUD2SpriteCacheNodeStrc@@IHPAUD2SpriteCacheStrc@@@Z"
-    },
-    {
-     "va": "0x005FFC40",
-     "length": 245,
-     "name": "?sub_005FFC40_SpriteCacheAlloc@@YIPAUD2SpriteCacheNodeStrc@@PAUD2SpriteCacheStrc@@IIH@Z"
-    },
-    {
-     "va": "0x00601810",
-     "length": 44,
-     "name": "sub_00601810_IsGfxFrameValid"
-    }
-   ]
-  },
-  {
    "file": "Source/D2CMP/Unknown_005FF0F0.cpp",
    "rank": 1,
    "functions": [
@@ -77377,75 +77392,6 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FF4A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FF4A0",
-     "length": 270
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FF5B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FF5B0",
-     "length": 119,
-     "name": "?sub_005FF5B0_SpriteCacheTouchNode@@YIXPAUD2SpriteCacheStrc@@PAUD2SpriteCacheNodeStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FF760.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FF760",
-     "length": 704
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FFA20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FFA20",
-     "length": 442
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2CMP/Unknown_005FFE90.cpp",
    "rank": 1,
    "functions": [
@@ -77511,16 +77457,6 @@
     {
      "va": "0x006001F0",
      "length": 744
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_006004E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006004E0",
-     "length": 452
     }
    ]
   },
