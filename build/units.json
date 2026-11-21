@@ -50215,9 +50215,18 @@
      "name": "?sub_0054F180_SelectAndSpawnObject@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHH@Z"
     },
     {
+     "va": "0x0054F370",
+     "length": 179
+    },
+    {
      "va": "0x0054F430",
      "length": 83,
      "name": "OBJECTS_SpawnArcaneSymbol"
+    },
+    {
+     "va": "0x0054F490",
+     "length": 143,
+     "name": "OBJECTS_SpawnPresetObject"
     },
     {
      "va": "0x0054F520",
@@ -50228,6 +50237,10 @@
      "va": "0x0054F580",
      "length": 71,
      "name": "?sub_0054F580@@YIXPAUD2GameStrc@@PAUD2TimerArgStrc@@@Z"
+    },
+    {
+     "va": "0x0054F5D0",
+     "length": 402
     },
     {
      "va": "0x0054F770",
@@ -50285,6 +50298,21 @@
      "name": "?OBJECTS_InitFunction57_SparklyChest@@YIXPAUD2ObjInitFnStrc@@@Z"
     },
     {
+     "va": "0x0054FDB0",
+     "length": 89,
+     "name": "?OBJECTS_InitFunction58_Fissure@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0054FE10",
+     "length": 91,
+     "name": "?OBJECTS_InitFunction59_VileDogAfterglow@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0054FE70",
+     "length": 583,
+     "name": "?OBJECTS_InitFunction12_PermanentPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x005500C0",
      "length": 12,
      "name": "OBJECTS_InitFunction08_Torch"
@@ -50300,9 +50328,49 @@
      "name": "sub_005500E0"
     },
     {
+     "va": "0x005500F0",
+     "length": 59,
+     "name": "?OBJECTS_InitFunction34_HellBrazierFire@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x00550140",
      "length": 161,
      "name": "?sub_00550140_WarpEventCallback@@YIXPAUD2WarpEventArgStrc@@@Z"
+    },
+    {
+     "va": "0x005501F0",
+     "length": 47,
+     "name": "?OBJECTS_InitFunction51_TrappedSoul@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x00550220",
+     "length": 193,
+     "name": "?sub_00550220_CanPlaceObject@@YGHPAUD2ActiveRoomStrc@@HPAUD2DrlgCoordsStrc@@PAUD2CoordStrc@@H@Z"
+    },
+    {
+     "va": "0x005502F0",
+     "length": 142
+    },
+    {
+     "va": "0x00550380",
+     "length": 445,
+     "name": "?OBJECTS_CreateObject@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x00550540",
+     "length": 399
+    },
+    {
+     "va": "0x005506D0",
+     "length": 861
+    },
+    {
+     "va": "0x00550A30",
+     "length": 485
+    },
+    {
+     "va": "0x00550C20",
+     "length": 1322
     },
     {
      "va": "0x00551150",
@@ -50310,14 +50378,86 @@
      "name": "?sub_00551150_SpawnFlies@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00551200",
+     "length": 609,
+     "name": "?OBJECTS_PopulateFn7_RogueOnStick@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@EIG@Z"
+    },
+    {
+     "va": "0x00551470",
+     "length": 263
+    },
+    {
+     "va": "0x00551580",
+     "length": 266,
+     "name": "?OBJECTS_PopulateFn9_TrappedSoul@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@EIG@Z"
+    },
+    {
+     "va": "0x00551690",
+     "length": 47,
+     "name": "OBJECTS_PopulateFn6_RogueGuardCorpse"
+    },
+    {
+     "va": "0x005516C0",
+     "length": 385
+    },
+    {
+     "va": "0x00551850",
+     "length": 932
+    },
+    {
+     "va": "0x00551C00",
+     "length": 1004
+    },
+    {
      "va": "0x00551FF0",
      "length": 8,
      "name": "?sub_00551FF0_AlwaysOne@@YGHH@Z"
     },
     {
+     "va": "0x00552000",
+     "length": 319
+    },
+    {
+     "va": "0x00552140",
+     "length": 191,
+     "name": "?OBJECTS_SpawnRandomItemGrid@@YIHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2DrlgCoordsStrc@@@Z"
+    },
+    {
+     "va": "0x00552200",
+     "length": 439
+    },
+    {
+     "va": "0x005523C0",
+     "length": 25,
+     "name": "?OBJECTS_SpawnArmorStand@@YIHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2DrlgCoordsStrc@@@Z"
+    },
+    {
+     "va": "0x005523E0",
+     "length": 28,
+     "name": "?OBJECTS_SpawnWeaponRack@@YIHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2DrlgCoordsStrc@@@Z"
+    },
+    {
+     "va": "0x00552400",
+     "length": 347
+    },
+    {
+     "va": "0x00552560",
+     "length": 164,
+     "name": "?sub_00552560_CanPopulateRoom@@YGHPAUD2GameStrc@@PAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x00552610",
+     "length": 535
+    },
+    {
      "va": "0x00552830",
      "length": 7,
      "name": "?sub_00552830_SetObjectPopulateDensity@@YIXE@Z"
+    },
+    {
+     "va": "0x005528E0",
+     "length": 286,
+     "name": "?sub_005528E0_PopulateObjectGroup@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@H@Z"
     },
     {
      "va": "0x00552A00",
@@ -50360,6 +50500,10 @@
      "name": "OBJECTS_InitFunction16_Well"
     },
     {
+     "va": "0x00552B50",
+     "length": 514
+    },
+    {
      "va": "0x00552D80",
      "length": 42,
      "name": "?sub_00552D80_SetListNext@@YIXPAUD2UnitStrc@@0@Z"
@@ -50368,6 +50512,141 @@
      "va": "0x00552DE0",
      "length": 15,
      "name": "?sub_00552DE0_SetFlag2AndField@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005545C0",
+     "length": 103,
+     "name": "sub_005545C0_GetValidNextRoom"
+    },
+    {
+     "va": "0x00555CD0",
+     "length": 34,
+     "name": "sub_00555CD0_AppendPair"
+    },
+    {
+     "va": "0x00555D20",
+     "length": 118,
+     "name": "sub_6FC4BE80"
+    },
+    {
+     "va": "0x00557FF0",
+     "length": 117,
+     "name": "sub_00557FF0_InventoryContainsItem"
+    },
+    {
+     "va": "0x0055B260",
+     "length": 148,
+     "name": "PLAYERLIST_ToggleFlag"
+    },
+    {
+     "va": "0x0055B300",
+     "length": 77,
+     "name": "PLAYERLIST_CheckFlag"
+    },
+    {
+     "va": "0x0055B3A0",
+     "length": 71,
+     "name": "sub_6FCBA980"
+    },
+    {
+     "va": "0x0055B4C0",
+     "length": 125,
+     "name": "sub_6FCBAAA0"
+    },
+    {
+     "va": "0x0055B720",
+     "length": 87,
+     "name": "PLAYERLIST_SetHostileDelay"
+    },
+    {
+     "va": "0x0055CA00",
+     "length": 57,
+     "name": "sub_0055CA00_MatchFieldPair"
+    },
+    {
+     "va": "0x0055ED30",
+     "length": 143,
+     "name": "sub_6FC49090"
+    },
+    {
+     "va": "0x00564F00",
+     "length": 33,
+     "name": "sub_00564F00_CompareDescending"
+    },
+    {
+     "va": "0x005665B0",
+     "length": 55,
+     "name": "sub_005665B0_GetLocalDate"
+    },
+    {
+     "va": "0x00566BF0",
+     "length": 139,
+     "name": "PLRTRADE_Free"
+    },
+    {
+     "va": "0x00566C80",
+     "length": 55,
+     "name": "sub_6FC90BE0"
+    },
+    {
+     "va": "0x00567020",
+     "length": 75,
+     "name": "sub_00567020_StartTrade"
+    },
+    {
+     "va": "0x005675E0",
+     "length": 57,
+     "name": "PLRTRADE_CopyTradeSaveDataToBuffer"
+    },
+    {
+     "va": "0x00567840",
+     "length": 88,
+     "name": "sub_6FC93740"
+    },
+    {
+     "va": "0x005697B0",
+     "length": 61,
+     "name": "sub_005697B0"
+    },
+    {
+     "va": "0x00569EC0",
+     "length": 81,
+     "name": "sub_00569EC0_UnpackWord"
+    },
+    {
+     "va": "0x0056B740",
+     "length": 37,
+     "name": "sub_0056B740_CallWithRecord"
+    },
+    {
+     "va": "0x0056C840",
+     "length": 148,
+     "name": "sub_6FD11D90"
+    },
+    {
+     "va": "0x0056CD50",
+     "length": 66,
+     "name": "SKILL_ComputePeriodicRate"
+    },
+    {
+     "va": "0x0056D2C0",
+     "length": 162,
+     "name": "D2GAME_GetXAndYFromTargetUnit_6FD14020"
+    },
+    {
+     "va": "0x0056DDE0",
+     "length": 88,
+     "name": "sub_0056DDE0_FillRecordAndCall"
+    },
+    {
+     "va": "0x0056E620",
+     "length": 84,
+     "name": "sub_0056E620_GetValidMonsterId"
+    },
+    {
+     "va": "0x00570850",
+     "length": 17,
+     "name": "sub_00570850_Forward"
     }
    ]
   },
@@ -55266,449 +55545,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/OBJECTS/Objects_0054F370.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0054F370",
-     "length": 179
-    },
-    {
-     "va": "0x005502F0",
-     "length": 142
-    },
-    {
-     "va": "0x00552400",
-     "length": 347
-    },
-    {
-     "va": "0x00552B50",
-     "length": 514
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_0054F490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0054F490",
-     "length": 143,
-     "name": "OBJECTS_SpawnPresetObject"
-    },
-    {
-     "va": "0x0054FDB0",
-     "length": 89,
-     "name": "?OBJECTS_InitFunction58_Fissure@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0054FE10",
-     "length": 91,
-     "name": "?OBJECTS_InitFunction59_VileDogAfterglow@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0054FE70",
-     "length": 583,
-     "name": "?OBJECTS_InitFunction12_PermanentPortal@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00550220",
-     "length": 193,
-     "name": "?sub_00550220_CanPlaceObject@@YGHPAUD2ActiveRoomStrc@@HPAUD2DrlgCoordsStrc@@PAUD2CoordStrc@@H@Z"
-    },
-    {
-     "va": "0x00551200",
-     "length": 609,
-     "name": "?OBJECTS_PopulateFn7_RogueOnStick@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@EIG@Z"
-    },
-    {
-     "va": "0x00551470",
-     "length": 263
-    },
-    {
-     "va": "0x00551580",
-     "length": 266,
-     "name": "?OBJECTS_PopulateFn9_TrappedSoul@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@EIG@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_0054F5D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0054F5D0",
-     "length": 402
-    },
-    {
-     "va": "0x00550380",
-     "length": 445,
-     "name": "?OBJECTS_CreateObject@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x00551690",
-     "length": 47,
-     "name": "OBJECTS_PopulateFn6_RogueGuardCorpse"
-    },
-    {
-     "va": "0x005545C0",
-     "length": 103,
-     "name": "sub_005545C0_GetValidNextRoom"
-    },
-    {
-     "va": "0x00555CD0",
-     "length": 34,
-     "name": "sub_00555CD0_AppendPair"
-    },
-    {
-     "va": "0x00555D20",
-     "length": 118,
-     "name": "sub_6FC4BE80"
-    },
-    {
-     "va": "0x00557FF0",
-     "length": 117,
-     "name": "sub_00557FF0_InventoryContainsItem"
-    },
-    {
-     "va": "0x0055B260",
-     "length": 148,
-     "name": "PLAYERLIST_ToggleFlag"
-    },
-    {
-     "va": "0x0055B300",
-     "length": 77,
-     "name": "PLAYERLIST_CheckFlag"
-    },
-    {
-     "va": "0x0055B3A0",
-     "length": 71,
-     "name": "sub_6FCBA980"
-    },
-    {
-     "va": "0x0055B4C0",
-     "length": 125,
-     "name": "sub_6FCBAAA0"
-    },
-    {
-     "va": "0x0055B720",
-     "length": 87,
-     "name": "PLAYERLIST_SetHostileDelay"
-    },
-    {
-     "va": "0x0055CA00",
-     "length": 57,
-     "name": "sub_0055CA00_MatchFieldPair"
-    },
-    {
-     "va": "0x0055ED30",
-     "length": 143,
-     "name": "sub_6FC49090"
-    },
-    {
-     "va": "0x00564F00",
-     "length": 33,
-     "name": "sub_00564F00_CompareDescending"
-    },
-    {
-     "va": "0x005665B0",
-     "length": 55,
-     "name": "sub_005665B0_GetLocalDate"
-    },
-    {
-     "va": "0x00566BF0",
-     "length": 139,
-     "name": "PLRTRADE_Free"
-    },
-    {
-     "va": "0x00566C80",
-     "length": 55,
-     "name": "sub_6FC90BE0"
-    },
-    {
-     "va": "0x00567020",
-     "length": 75,
-     "name": "sub_00567020_StartTrade"
-    },
-    {
-     "va": "0x005675E0",
-     "length": 57,
-     "name": "PLRTRADE_CopyTradeSaveDataToBuffer"
-    },
-    {
-     "va": "0x00567840",
-     "length": 88,
-     "name": "sub_6FC93740"
-    },
-    {
-     "va": "0x005697B0",
-     "length": 61,
-     "name": "sub_005697B0"
-    },
-    {
-     "va": "0x00569EC0",
-     "length": 81,
-     "name": "sub_00569EC0_UnpackWord"
-    },
-    {
-     "va": "0x0056B740",
-     "length": 37,
-     "name": "sub_0056B740_CallWithRecord"
-    },
-    {
-     "va": "0x0056C840",
-     "length": 148,
-     "name": "sub_6FD11D90"
-    },
-    {
-     "va": "0x0056CD50",
-     "length": 66,
-     "name": "SKILL_ComputePeriodicRate"
-    },
-    {
-     "va": "0x0056D2C0",
-     "length": 162,
-     "name": "D2GAME_GetXAndYFromTargetUnit_6FD14020"
-    },
-    {
-     "va": "0x0056DDE0",
-     "length": 88,
-     "name": "sub_0056DDE0_FillRecordAndCall"
-    },
-    {
-     "va": "0x0056E620",
-     "length": 84,
-     "name": "sub_0056E620_GetValidMonsterId"
-    },
-    {
-     "va": "0x00570850",
-     "length": 17,
-     "name": "sub_00570850_Forward"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_005500F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005500F0",
-     "length": 59,
-     "name": "?OBJECTS_InitFunction34_HellBrazierFire@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x005501F0",
-     "length": 47,
-     "name": "?OBJECTS_InitFunction51_TrappedSoul@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00552140",
-     "length": 191,
-     "name": "?OBJECTS_SpawnRandomItemGrid@@YIHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2DrlgCoordsStrc@@@Z"
-    },
-    {
-     "va": "0x005523C0",
-     "length": 25,
-     "name": "?OBJECTS_SpawnArmorStand@@YIHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2DrlgCoordsStrc@@@Z"
-    },
-    {
-     "va": "0x005523E0",
-     "length": 28,
-     "name": "?OBJECTS_SpawnWeaponRack@@YIHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2DrlgCoordsStrc@@@Z"
-    },
-    {
-     "va": "0x00552560",
-     "length": 164,
-     "name": "?sub_00552560_CanPopulateRoom@@YGHPAUD2GameStrc@@PAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_00550540.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00550540",
-     "length": 399
-    },
-    {
-     "va": "0x00550C20",
-     "length": 1322
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_005506D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005506D0",
-     "length": 861
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_00550A30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00550A30",
-     "length": 485
-    },
-    {
-     "va": "0x00552000",
-     "length": 319
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_005516C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005516C0",
-     "length": 385
-    },
-    {
-     "va": "0x00551850",
-     "length": 932
-    },
-    {
-     "va": "0x00551C00",
-     "length": 1004
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_00552200.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00552200",
-     "length": 439
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_00552610.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00552610",
-     "length": 535
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_005528E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005528E0",
-     "length": 286,
-     "name": "?sub_005528E0_PopulateObjectGroup@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@H@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_00552D60.cpp",
    "rank": 0,
    "functions": [
@@ -60288,6 +60124,11 @@
      "name": "?sub_6FC74B00@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00581510",
+     "length": 257,
+     "name": "sub_6FC74B40"
+    },
+    {
      "va": "0x00581620",
      "length": 95,
      "name": "?sub_6FC74CA0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -60298,9 +60139,17 @@
      "name": "?sub_6FC74DF0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005818B0",
+     "length": 352
+    },
+    {
      "va": "0x00581A10",
      "length": 5,
      "name": "?sub_00581A10_ObjectEvents@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00581A20",
+     "length": 167
     },
     {
      "va": "0x00581B50",
@@ -60308,9 +60157,26 @@
      "name": "?sub_00581B50_TeleportToUnit@@YAXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@0@Z"
     },
     {
+     "va": "0x00581BF0",
+     "length": 213
+    },
+    {
      "va": "0x00581CD0",
      "length": 105,
      "name": "?OBJECTS_OperateFunction30_ExplodingChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00581D40",
+     "length": 360
+    },
+    {
+     "va": "0x00581EB0",
+     "length": 171,
+     "name": "OBJECTS_OperateFunction16_TrapDoor"
+    },
+    {
+     "va": "0x00581F60",
+     "length": 281
     },
     {
      "va": "0x00582080",
@@ -60325,6 +60191,21 @@
      "va": "0x005821A0",
      "length": 176,
      "name": "?OBJECTS_OperateFunction29_SlimeDoor@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00582250",
+     "length": 47,
+     "name": "?sub_00582250@@YGHPAUD2ActiveRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x00582280",
+     "length": 109,
+     "name": "?D2GAME_SpawnTrapMonster_6FC75B40@@YAXPAUD2ObjOperateFnStrc@@HH@Z"
+    },
+    {
+     "va": "0x005822F0",
+     "length": 138,
+     "name": "?D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00582420",
@@ -60350,6 +60231,11 @@
      "va": "0x005824F0",
      "length": 21,
      "name": "?D2GAME_OBJECTS_TrapHandler4_6FC75E20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00582510",
+     "length": 158,
+     "name": "?D2GAME_SetTrapCallback_6FC764B0@@YGXEPAUD2ObjOperateFnStrc@@@Z"
     },
     {
      "va": "0x005825B0",
@@ -60405,9 +60291,35 @@
      "length": 382
     },
     {
+     "va": "0x00582C40",
+     "length": 344
+    },
+    {
+     "va": "0x00582DA0",
+     "length": 688
+    },
+    {
      "va": "0x00583050",
      "length": 131,
      "name": "?D2GAME_SHRINES_Monster_6FC76ED0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+    },
+    {
+     "va": "0x005830E0",
+     "length": 807,
+     "name": "?D2GAME_SHRINES_Exploding_6FC770D0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+    },
+    {
+     "va": "0x00583410",
+     "length": 807,
+     "name": "?D2GAME_SHRINES_Poison_6FC773B0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
+    },
+    {
+     "va": "0x00583740",
+     "length": 241
+    },
+    {
+     "va": "0x00583840",
+     "length": 361
     },
     {
      "va": "0x005839B0",
@@ -60435,6 +60347,16 @@
      "name": "?sub_00583BF0_ApplyEventCurse@@YIXPAUD2SkillContext00583BF0Strc@@PAUD2Event00583BF0Strc@@@Z"
     },
     {
+     "va": "0x00583C70",
+     "length": 502,
+     "name": "OBJECTS_OperateFunction02_Shrine"
+    },
+    {
+     "va": "0x00583F10",
+     "length": 211,
+     "name": "?OBJECTS_OperateFunction51_JungleStash@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
      "va": "0x00583FF0",
      "length": 99,
      "name": "?OBJECTS_OperateFunction18_SecretDoor@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -60443,6 +60365,10 @@
      "va": "0x00584060",
      "length": 250,
      "name": "?OBJECTS_OperateFunction26_BookShelf@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00584240",
+     "length": 236
     },
     {
      "va": "0x00584330",
@@ -60460,9 +60386,24 @@
      "name": "?OBJECTS_OperateFunction11_Torch@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x00584420",
+     "length": 285,
+     "name": "OBJECTS_OperateHandler"
+    },
+    {
+     "va": "0x005845D0",
+     "length": 219,
+     "name": "sub_005845D0_UpdateDoorCollisionMode"
+    },
+    {
      "va": "0x005846B0",
      "length": 158,
      "name": "?OBJECTS_OperateFunction34_ArcaneSanctuaryPortal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00584750",
+     "length": 200,
+     "name": "OBJECTS_OperateFunction46_HellGatePortal"
     },
     {
      "va": "0x00584820",
@@ -60470,9 +60411,33 @@
      "name": "?sub_00584820_ClearSteegStoneGUID@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
+     "va": "0x00584870",
+     "length": 1156
+    },
+    {
+     "va": "0x00584D00",
+     "length": 291,
+     "name": "OBJECTS_OperateFunction43_DurielPortal"
+    },
+    {
+     "va": "0x00584E30",
+     "length": 290,
+     "name": "OBJECTS_OperateFunction23_Waypoint"
+    },
+    {
      "va": "0x00584F60",
      "length": 438,
      "name": "?OBJMODE_TravelViaWaypoint@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00585120",
+     "length": 56,
+     "name": "OBJMODE_ObeliskPowerUp_IncreaseMana"
+    },
+    {
+     "va": "0x005851E0",
+     "length": 56,
+     "name": "OBJMODE_ObeliskPowerUp_IncreaseHitpoints"
     },
     {
      "va": "0x00585240",
@@ -60480,8 +60445,26 @@
      "name": "?sub_00585240_ApplyObeliskPowerUp@@YGHPAUD2GameStrc@@EPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005852E0",
+     "length": 489
+    },
+    {
+     "va": "0x005854D0",
+     "length": 116,
+     "name": "sub_6FC79B50"
+    },
+    {
+     "va": "0x00585550",
+     "length": 43
+    },
+    {
      "va": "0x00585580",
      "length": 281
+    },
+    {
+     "va": "0x005856A0",
+     "length": 114,
+     "name": "OBJMODE_PetIterate_Heal"
     },
     {
      "va": "0x00585720",
@@ -60492,6 +60475,11 @@
      "va": "0x005858A0",
      "length": 193,
      "name": "?OBJECTS_OperateFunction22_Well@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00585970",
+     "length": 268,
+     "name": "OBJMODE_DropItemWithCodeAndQuality"
     },
     {
      "va": "0x00585A80",
@@ -60509,9 +60497,48 @@
      "name": "?OBJMODE_UpdateTrappedSoul@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00585E00",
+     "length": 344,
+     "name": "sub_6FC75EB0"
+    },
+    {
+     "va": "0x00585F60",
+     "length": 1200
+    },
+    {
+     "va": "0x00586410",
+     "length": 259,
+     "name": "?OBJECTS_OperateFunction01_Casket@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00586520",
+     "length": 343,
+     "name": "?OBJECTS_OperateFunction68_EvilUrn@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
      "va": "0x00586680",
      "length": 64,
      "name": "?sub_00586680_RollChestDrop@@YIPAUD2UnitStrc@@PAUD2ObjOperateFnStrc@@@Z"
+    },
+    {
+     "va": "0x005866C0",
+     "length": 223,
+     "name": "?OBJECTS_OperateFunction03_Urn_Basket_Jar@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x005867A0",
+     "length": 163,
+     "name": "?OBJECTS_OperateFunction14_Corpse@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00586850",
+     "length": 72,
+     "name": "sub_6FC78340"
+    },
+    {
+     "va": "0x005868A0",
+     "length": 330,
+     "name": "?OBJECTS_OperateFunction05_Barrel@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
      "va": "0x005869F0",
@@ -60522,87 +60549,6 @@
      "va": "0x00586B30",
      "length": 23,
      "name": "?sub_00586B30_GetSuperUniqueId@@YIHI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00581510.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00581510",
-     "length": 257,
-     "name": "sub_6FC74B40"
-    },
-    {
-     "va": "0x00581EB0",
-     "length": 171,
-     "name": "OBJECTS_OperateFunction16_TrapDoor"
-    },
-    {
-     "va": "0x00583C70",
-     "length": 502,
-     "name": "OBJECTS_OperateFunction02_Shrine"
-    },
-    {
-     "va": "0x00584420",
-     "length": 285,
-     "name": "OBJECTS_OperateHandler"
-    },
-    {
-     "va": "0x005845D0",
-     "length": 219,
-     "name": "sub_005845D0_UpdateDoorCollisionMode"
-    },
-    {
-     "va": "0x00584750",
-     "length": 200,
-     "name": "OBJECTS_OperateFunction46_HellGatePortal"
-    },
-    {
-     "va": "0x00584D00",
-     "length": 291,
-     "name": "OBJECTS_OperateFunction43_DurielPortal"
-    },
-    {
-     "va": "0x00584E30",
-     "length": 290,
-     "name": "OBJECTS_OperateFunction23_Waypoint"
-    },
-    {
-     "va": "0x00585120",
-     "length": 56,
-     "name": "OBJMODE_ObeliskPowerUp_IncreaseMana"
-    },
-    {
-     "va": "0x005851E0",
-     "length": 56,
-     "name": "OBJMODE_ObeliskPowerUp_IncreaseHitpoints"
-    },
-    {
-     "va": "0x005854D0",
-     "length": 116,
-     "name": "sub_6FC79B50"
-    },
-    {
-     "va": "0x005856A0",
-     "length": 114,
-     "name": "OBJMODE_PetIterate_Heal"
-    },
-    {
-     "va": "0x00585970",
-     "length": 268,
-     "name": "OBJMODE_DropItemWithCodeAndQuality"
-    },
-    {
-     "va": "0x00585E00",
-     "length": 344,
-     "name": "sub_6FC75EB0"
-    },
-    {
-     "va": "0x00586850",
-     "length": 72,
-     "name": "sub_6FC78340"
     }
    ]
   },
@@ -60620,208 +60566,6 @@
      "length": 146,
      "name": "?OBJMODE_UpdateTrapProximity@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_005818B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005818B0",
-     "length": 352
-    },
-    {
-     "va": "0x00581A20",
-     "length": 167
-    },
-    {
-     "va": "0x00581BF0",
-     "length": 213
-    },
-    {
-     "va": "0x00581D40",
-     "length": 360
-    },
-    {
-     "va": "0x00582C40",
-     "length": 344
-    },
-    {
-     "va": "0x00583740",
-     "length": 241
-    },
-    {
-     "va": "0x00584240",
-     "length": 236
-    },
-    {
-     "va": "0x005852E0",
-     "length": 489
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00581F60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00581F60",
-     "length": 281
-    },
-    {
-     "va": "0x00584870",
-     "length": 1156
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00582250.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00582250",
-     "length": 47,
-     "name": "?sub_00582250@@YGHPAUD2ActiveRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x00582280",
-     "length": 109,
-     "name": "?D2GAME_SpawnTrapMonster_6FC75B40@@YAXPAUD2ObjOperateFnStrc@@HH@Z"
-    },
-    {
-     "va": "0x005822F0",
-     "length": 138,
-     "name": "?D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00582510",
-     "length": 158,
-     "name": "?D2GAME_SetTrapCallback_6FC764B0@@YGXEPAUD2ObjOperateFnStrc@@@Z"
-    },
-    {
-     "va": "0x00582DA0",
-     "length": 688
-    },
-    {
-     "va": "0x005830E0",
-     "length": 807,
-     "name": "?D2GAME_SHRINES_Exploding_6FC770D0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
-    },
-    {
-     "va": "0x00583410",
-     "length": 807,
-     "name": "?D2GAME_SHRINES_Poison_6FC773B0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
-    },
-    {
-     "va": "0x00583F10",
-     "length": 211,
-     "name": "?OBJECTS_OperateFunction51_JungleStash@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x00586410",
-     "length": 259,
-     "name": "?OBJECTS_OperateFunction01_Casket@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x00586520",
-     "length": 343,
-     "name": "?OBJECTS_OperateFunction68_EvilUrn@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x005866C0",
-     "length": 223,
-     "name": "?OBJECTS_OperateFunction03_Urn_Basket_Jar@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x005867A0",
-     "length": 163,
-     "name": "?OBJECTS_OperateFunction14_Corpse@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x005868A0",
-     "length": 330,
-     "name": "?OBJECTS_OperateFunction05_Barrel@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00583840.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00583840",
-     "length": 361
-    },
-    {
-     "va": "0x00585550",
-     "length": 43
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00585F60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00585F60",
-     "length": 1200
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -64769,14 +64513,74 @@
      "name": "MISSMODE_CreatePoisonCloudHitSubmissiles"
     },
     {
+     "va": "0x005A9720",
+     "length": 245,
+     "name": "MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles"
+    },
+    {
      "va": "0x005A9930",
      "length": 169,
      "name": "sub_005A9930_CreateCairnPortal"
     },
     {
+     "va": "0x005A9A70",
+     "length": 383,
+     "name": "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion"
+    },
+    {
+     "va": "0x005A9BF0",
+     "length": 385,
+     "name": "?MISSMODE_SrvHit24_PantherPotOrange@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x005A9D80",
+     "length": 136,
+     "name": "MISSMODE_SrvHit02_PlagueJavelin_PoisonPotion"
+    },
+    {
+     "va": "0x005A9F90",
+     "length": 26,
+     "name": "MISSMODE_SrvHit03_ExplosivePotion_BombOnGround"
+    },
+    {
+     "va": "0x005AA8B0",
+     "length": 479,
+     "name": "MISSMODE_SrvHit13_GlacialSpike_HellMeteorDown"
+    },
+    {
+     "va": "0x005AAD40",
+     "length": 205,
+     "name": "MISSMODE_SrvHit15_SpiderGooLay"
+    },
+    {
+     "va": "0x005AAE10",
+     "length": 414,
+     "name": "MISSMODE_SrvHit16_SpiderGoo_VinesTrail_VinesWither"
+    },
+    {
+     "va": "0x005AB0B0",
+     "length": 86,
+     "name": "MISSMODE_SrvHit18_Shout_BattleCommand_BattleOrders"
+    },
+    {
+     "va": "0x005AB110",
+     "length": 389,
+     "name": "MISSMODE_SrvHit19_FingerMageSpider"
+    },
+    {
      "va": "0x005AB2A0",
      "length": 197,
      "name": "MISSMODE_LightningFury_AuraCallback"
+    },
+    {
+     "va": "0x005AB370",
+     "length": 385,
+     "name": "MISSMODE_SrvHit20_LightningFury"
+    },
+    {
+     "va": "0x005AB500",
+     "length": 302,
+     "name": "MISSMODE_SrvHit21_BattleCry"
     },
     {
      "va": "0x005AB630",
@@ -64789,9 +64593,38 @@
      "name": "MISSMODE_CreatePantherPotGreenSubmissiles"
     },
     {
+     "va": "0x005AB820",
+     "length": 176,
+     "name": "MISSMODE_SrvHit25_PantherPotGreen"
+    },
+    {
+     "va": "0x005AB8D0",
+     "length": 299
+    },
+    {
      "va": "0x005ABA00",
      "length": 8,
      "name": "?MISSMODE_SrvHit27_GrimWard@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x005ABA10",
+     "length": 238,
+     "name": "MISSMODE_SrvHit28_GrimWardScare"
+    },
+    {
+     "va": "0x005ABB00",
+     "length": 307,
+     "name": "MISSMODE_SrvHit29_FrozenOrb"
+    },
+    {
+     "va": "0x005ABC40",
+     "length": 290,
+     "name": "sub_005ABC40"
+    },
+    {
+     "va": "0x005ABD70",
+     "length": 212,
+     "name": "MISSMODE_SrvHit31_FireHead"
     },
     {
      "va": "0x005ABE50",
@@ -64804,6 +64637,16 @@
      "name": "MISSMODE_SrvHit33_TowerChestSpawner"
     },
     {
+     "va": "0x005ABEE0",
+     "length": 138,
+     "name": "?MISSMODE_SrvHit35_OrbMist@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x005ABF70",
+     "length": 161,
+     "name": "MISSMODE_SrvHit36_MissileInAir"
+    },
+    {
      "va": "0x005AC020",
      "length": 17,
      "name": "MISSMODE_SrvHit37_BladeCreeper"
@@ -64812,6 +64655,11 @@
      "va": "0x005AC040",
      "length": 84,
      "name": "?sub_004CCCC0_SubmissileInitFunc@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005AC0A0",
+     "length": 290,
+     "name": "MISSMODE_SrvHit38_CatapultChargedBall"
     },
     {
      "va": "0x005AC1D0",
@@ -64833,6 +64681,15 @@
      "name": "MISSMODE_SrvHit45_LightningTrailingJavelin"
     },
     {
+     "va": "0x005AC550",
+     "length": 384,
+     "name": "?MISSMODE_SrvHit47_MoltenBoulder@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x005AC6D0",
+     "length": 292
+    },
+    {
      "va": "0x005AC800",
      "length": 107,
      "name": "MISSMODE_SrvHit50_PlagueVinesTrail"
@@ -64848,6 +64705,11 @@
      "name": "MISSMODE_SrvHit52_BladeFury"
     },
     {
+     "va": "0x005ACA50",
+     "length": 145,
+     "name": "?MISSMODE_SrvHit53_RabiesContagion@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005ACAF0",
      "length": 100,
      "name": "MISSMODE_SrvHit54_BaalSpawnMonsters"
@@ -64856,6 +64718,11 @@
      "va": "0x005ACB60",
      "length": 234,
      "name": "MISSMODE_SrvHit55_Baalnferno"
+    },
+    {
+     "va": "0x005ACC50",
+     "length": 410,
+     "name": "MISSMODE_SrvHit56_ArmageddonControl"
     },
     {
      "va": "0x005ACDF0",
@@ -64878,6 +64745,10 @@
      "name": "MISSMODE_SrvDmg01_FireArrow_MagicArrow_ColdArrow"
     },
     {
+     "va": "0x005AD0F0",
+     "length": 183
+    },
+    {
      "va": "0x005AD1B0",
      "length": 97,
      "name": "MISSMODE_SrvDmg02_IceArrow_RoyalStrikeChaos"
@@ -64891,6 +64762,11 @@
      "va": "0x005AD290",
      "length": 23,
      "name": "MISSMODE_SrvDmg04_IceBlast"
+    },
+    {
+     "va": "0x005AD2B0",
+     "length": 57,
+     "name": "MISSMODE_SrvDmg10_BladesOfIceCubes"
     },
     {
      "va": "0x005AD2F0",
@@ -64933,6 +64809,20 @@
      "name": "?MISSMODE_SrvDmg14_MoltenBoulder@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x005AD730",
+     "length": 433
+    },
+    {
+     "va": "0x005AD8F0",
+     "length": 24,
+     "name": "MISSMODE_RadamentDeathAreaEffectCallback"
+    },
+    {
+     "va": "0x005AD910",
+     "length": 24,
+     "name": "MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame"
+    },
+    {
      "va": "0x005AD930",
      "length": 49,
      "name": "?sub_005AD930_BaalFxOpenPortal@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -64948,9 +64838,23 @@
      "name": "?sub_005AD9D0_HitAndRemoveMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x005ADA40",
+     "length": 64,
+     "name": "?sub_005ADA40_CheckMissileMode@@YAHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005ADA80",
+     "length": 101
+    },
+    {
      "va": "0x005ADAF0",
      "length": 12,
      "name": "?sub_004C21E0_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005ADB00",
+     "length": 169,
+     "name": "?sub_005ADB00_SetJustHitState@@YIXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005ADBB0",
@@ -64963,6 +64867,15 @@
      "name": "?sub_005ADCC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x005ADCD0",
+     "length": 73,
+     "name": "?sub_005ADCD0_ApplyDamageFlags@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@@Z"
+    },
+    {
+     "va": "0x005ADD20",
+     "length": 489
+    },
+    {
      "va": "0x005B07A0",
      "length": 200,
      "name": "MISSMODE_SrvHit04_ExplodingArrow_FreezingArrow_RoyalStrikeMeteorCenter"
@@ -64971,6 +64884,126 @@
      "va": "0x005B0870",
      "length": 200,
      "name": "sub_005B0870"
+    },
+    {
+     "va": "0x005B0D70",
+     "length": 48,
+     "name": "AITHINK_SetAiControlParams"
+    },
+    {
+     "va": "0x005B1140",
+     "length": 176,
+     "name": "sub_005B1140_BossTauntOnSight"
+    },
+    {
+     "va": "0x005B23C0",
+     "length": 204,
+     "name": "sub_6FC68D70"
+    },
+    {
+     "va": "0x005B2F70",
+     "length": 207,
+     "name": "sub_6FC69F70"
+    },
+    {
+     "va": "0x005B3750",
+     "length": 40,
+     "name": "ACT4Q0_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005B3F20",
+     "length": 249,
+     "name": "ACT4Q1_UnitIterate_SetRewardPending"
+    },
+    {
+     "va": "0x005B43D0",
+     "length": 31,
+     "name": "ACT4Q1_UnitIterate_CheckDistanceToIzualGhost"
+    },
+    {
+     "va": "0x005B4450",
+     "length": 217,
+     "name": "ACT4Q2_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005B49C0",
+     "length": 111,
+     "name": "ACT4Q2_UnitIterate_AttachCompletionSound"
+    },
+    {
+     "va": "0x005B4FF0",
+     "length": 55,
+     "name": "sub_005B4FF0_ActivateHarrogathWaypoint"
+    },
+    {
+     "va": "0x005B69F0",
+     "length": 115,
+     "name": "ACT4Q4_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005B6E20",
+     "length": 15,
+     "name": "ACT3Intro_StatusFilterCallback"
+    },
+    {
+     "va": "0x005B6E30",
+     "length": 39,
+     "name": "ACT3Intro_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005B6FA0",
+     "length": 40,
+     "name": "ACT3Q0_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005BAD60",
+     "length": 91,
+     "name": "ACT3Q5_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005BBFE0",
+     "length": 64,
+     "name": "ACT3Q6_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005D2420",
+     "length": 112,
+     "name": "SKILLS_SrvSt62_MinionSpawner"
+    },
+    {
+     "va": "0x005D2E50",
+     "length": 43,
+     "name": "SKILLS_AreaEffect_BaalCorpseExplode"
+    },
+    {
+     "va": "0x005D6170",
+     "length": 130,
+     "name": "SKILLS_SrvDo045_Sentry"
+    },
+    {
+     "va": "0x005D7E10",
+     "length": 134,
+     "name": "SKILLS_SrvDo054_BladeShield"
+    },
+    {
+     "va": "0x005DA8F0",
+     "length": 66,
+     "name": "SKILLS_SrvSt05_Jab"
+    },
+    {
+     "va": "0x005DC530",
+     "length": 144,
+     "name": "AIUTIL_GetDistanceToCoordinates_NoUnitSize"
+    },
+    {
+     "va": "0x005DCD50",
+     "length": 65,
+     "name": "sub_6FCF1CB0"
+    },
+    {
+     "va": "0x005DEC80",
+     "length": 28,
+     "name": "AITACTICS_WalkToTargetUnitWithFlags"
     }
    ]
   },
@@ -66369,126 +66402,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/MISSILES/MissMode_005A9720.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A9720",
-     "length": 245,
-     "name": "MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles"
-    },
-    {
-     "va": "0x005A9A70",
-     "length": 383,
-     "name": "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion"
-    },
-    {
-     "va": "0x005A9BF0",
-     "length": 385,
-     "name": "?MISSMODE_SrvHit24_PantherPotOrange@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x005A9D80",
-     "length": 136,
-     "name": "MISSMODE_SrvHit02_PlagueJavelin_PoisonPotion"
-    },
-    {
-     "va": "0x005A9F90",
-     "length": 26,
-     "name": "MISSMODE_SrvHit03_ExplosivePotion_BombOnGround"
-    },
-    {
-     "va": "0x005AA8B0",
-     "length": 479,
-     "name": "MISSMODE_SrvHit13_GlacialSpike_HellMeteorDown"
-    },
-    {
-     "va": "0x005AAD40",
-     "length": 205,
-     "name": "MISSMODE_SrvHit15_SpiderGooLay"
-    },
-    {
-     "va": "0x005AAE10",
-     "length": 414,
-     "name": "MISSMODE_SrvHit16_SpiderGoo_VinesTrail_VinesWither"
-    },
-    {
-     "va": "0x005AB0B0",
-     "length": 86,
-     "name": "MISSMODE_SrvHit18_Shout_BattleCommand_BattleOrders"
-    },
-    {
-     "va": "0x005AB110",
-     "length": 389,
-     "name": "MISSMODE_SrvHit19_FingerMageSpider"
-    },
-    {
-     "va": "0x005AB370",
-     "length": 385,
-     "name": "MISSMODE_SrvHit20_LightningFury"
-    },
-    {
-     "va": "0x005AB500",
-     "length": 302,
-     "name": "MISSMODE_SrvHit21_BattleCry"
-    },
-    {
-     "va": "0x005AB820",
-     "length": 176,
-     "name": "MISSMODE_SrvHit25_PantherPotGreen"
-    },
-    {
-     "va": "0x005ABA10",
-     "length": 238,
-     "name": "MISSMODE_SrvHit28_GrimWardScare"
-    },
-    {
-     "va": "0x005ABB00",
-     "length": 307,
-     "name": "MISSMODE_SrvHit29_FrozenOrb"
-    },
-    {
-     "va": "0x005ABC40",
-     "length": 290,
-     "name": "sub_005ABC40"
-    },
-    {
-     "va": "0x005ABD70",
-     "length": 212,
-     "name": "MISSMODE_SrvHit31_FireHead"
-    },
-    {
-     "va": "0x005ABEE0",
-     "length": 138,
-     "name": "?MISSMODE_SrvHit35_OrbMist@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x005ABF70",
-     "length": 161,
-     "name": "MISSMODE_SrvHit36_MissileInAir"
-    },
-    {
-     "va": "0x005AC0A0",
-     "length": 290,
-     "name": "MISSMODE_SrvHit38_CatapultChargedBall"
-    },
-    {
-     "va": "0x005ACA50",
-     "length": 145,
-     "name": "?MISSMODE_SrvHit53_RabiesContagion@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x005ADA40",
-     "length": 64,
-     "name": "?sub_005ADA40_CheckMissileMode@@YAHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005ADD20",
-     "length": 489
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A9820.cpp",
    "rank": 0,
    "functions": [
@@ -66599,233 +66512,6 @@
      "length": 398,
      "name": "?MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005AB8D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005AB8D0",
-     "length": 299
-    },
-    {
-     "va": "0x005AC550",
-     "length": 384,
-     "name": "?MISSMODE_SrvHit47_MoltenBoulder@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x005ADB00",
-     "length": 169,
-     "name": "?sub_005ADB00_SetJustHitState@@YIXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005ADCD0",
-     "length": 73,
-     "name": "?sub_005ADCD0_ApplyDamageFlags@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005AC6D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005AC6D0",
-     "length": 292
-    },
-    {
-     "va": "0x005ACC50",
-     "length": 410,
-     "name": "MISSMODE_SrvHit56_ArmageddonControl"
-    },
-    {
-     "va": "0x005AD2B0",
-     "length": 57,
-     "name": "MISSMODE_SrvDmg10_BladesOfIceCubes"
-    },
-    {
-     "va": "0x005AD8F0",
-     "length": 24,
-     "name": "MISSMODE_RadamentDeathAreaEffectCallback"
-    },
-    {
-     "va": "0x005AD910",
-     "length": 24,
-     "name": "MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame"
-    },
-    {
-     "va": "0x005B0D70",
-     "length": 48,
-     "name": "AITHINK_SetAiControlParams"
-    },
-    {
-     "va": "0x005B1140",
-     "length": 176,
-     "name": "sub_005B1140_BossTauntOnSight"
-    },
-    {
-     "va": "0x005B23C0",
-     "length": 204,
-     "name": "sub_6FC68D70"
-    },
-    {
-     "va": "0x005B2F70",
-     "length": 207,
-     "name": "sub_6FC69F70"
-    },
-    {
-     "va": "0x005B3750",
-     "length": 40,
-     "name": "ACT4Q0_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005B3F20",
-     "length": 249,
-     "name": "ACT4Q1_UnitIterate_SetRewardPending"
-    },
-    {
-     "va": "0x005B43D0",
-     "length": 31,
-     "name": "ACT4Q1_UnitIterate_CheckDistanceToIzualGhost"
-    },
-    {
-     "va": "0x005B4450",
-     "length": 217,
-     "name": "ACT4Q2_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005B49C0",
-     "length": 111,
-     "name": "ACT4Q2_UnitIterate_AttachCompletionSound"
-    },
-    {
-     "va": "0x005B4FF0",
-     "length": 55,
-     "name": "sub_005B4FF0_ActivateHarrogathWaypoint"
-    },
-    {
-     "va": "0x005B69F0",
-     "length": 115,
-     "name": "ACT4Q4_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005B6E20",
-     "length": 15,
-     "name": "ACT3Intro_StatusFilterCallback"
-    },
-    {
-     "va": "0x005B6E30",
-     "length": 39,
-     "name": "ACT3Intro_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005B6FA0",
-     "length": 40,
-     "name": "ACT3Q0_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005BAD60",
-     "length": 91,
-     "name": "ACT3Q5_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005BBFE0",
-     "length": 64,
-     "name": "ACT3Q6_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005D2420",
-     "length": 112,
-     "name": "SKILLS_SrvSt62_MinionSpawner"
-    },
-    {
-     "va": "0x005D2E50",
-     "length": 43,
-     "name": "SKILLS_AreaEffect_BaalCorpseExplode"
-    },
-    {
-     "va": "0x005D6170",
-     "length": 130,
-     "name": "SKILLS_SrvDo045_Sentry"
-    },
-    {
-     "va": "0x005D7E10",
-     "length": 134,
-     "name": "SKILLS_SrvDo054_BladeShield"
-    },
-    {
-     "va": "0x005DA8F0",
-     "length": 66,
-     "name": "SKILLS_SrvSt05_Jab"
-    },
-    {
-     "va": "0x005DC530",
-     "length": 144,
-     "name": "AIUTIL_GetDistanceToCoordinates_NoUnitSize"
-    },
-    {
-     "va": "0x005DCD50",
-     "length": 65,
-     "name": "sub_6FCF1CB0"
-    },
-    {
-     "va": "0x005DEC80",
-     "length": 28,
-     "name": "AITACTICS_WalkToTargetUnitWithFlags"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005AD0F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005AD0F0",
-     "length": 183
-    },
-    {
-     "va": "0x005AD730",
-     "length": 433
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005ADA80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005ADA80",
-     "length": 101
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
