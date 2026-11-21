@@ -1,16 +1,9 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 
 struct D2WinButtonStrc;
 struct D2WinEditBoxStrc;
 struct Unicode;
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x1EF];
-    char nByte1EF;
-    char nByte1F0;
-    char unk0x1F1[0x1F];
-    char nByte210;
-};
 extern D2WinControlStrc* gpPanelControl_00798BEC;                                                           // 0x00798BEC
 D2WinControlStrc* gpControl_00798BF8;                                                                       // 0x00798BF8
 D2WinControlStrc* gpControl_00798BFC;                                                                       // 0x00798BFC
@@ -203,12 +196,12 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     unsigned long dwDifficulty = 0;
     if (!SRegLoadValue("Diablo II", "DIFF_LEVEL", 0, &dwDifficulty))
         SRegSaveValue("Diablo II", "DIFF_LEVEL", 0, 0);
-    int nLevel = gpCharInfo_0077BBD8->nByte1F0 & 0x1F;
+    int nLevel = gpCharInfo_0077BBD8->wFlags[1] & 0x1F;
     gpControl_00798C54 = CONTROL_Create(&gtControlInit_0070DDB0);
     gpControl_00798C60 = CONTROL_Create(&gtControlInit_0070DE40);
     gpControl_00798C50 = CONTROL_Create(&gtControlInit_0070DD80);
     gpControl_00798C5C = CONTROL_Create(&gtControlInit_0070DE10);
-    int bExpansion = gpCharInfo_0077BBD8->nByte1EF & 0x20;
+    int bExpansion = gpCharInfo_0077BBD8->wFlags[0] & 0x20;
     if ((!bExpansion && nLevel >= 8) || nLevel >= 10)
     {
         sub_004FC9B0_SetText(gpControl_00798C60, D2LANG_GetStringFromTblIndex(0x2720), 4, 0, 0);

@@ -4,6 +4,7 @@
 #include "D2Unicode.h"
 #include "D2WinControls.h"
 #include "D2Win32Types.h"
+#include "D2StormTypes.h"
 
 #define WM_LBUTTONDOWN 0x201
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -16,18 +17,6 @@ struct D2WinScrollBarStrc;
 struct Unicode;
 struct D2WinPopUpLineStrc;
 struct D2WinPopUpStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
