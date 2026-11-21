@@ -81329,6 +81329,16 @@
      "name": "?DATATBLS_CalculateMonsterStatsByLevel@@YGHHHHHFPAUD2MonStatsInitStrc@@@Z"
     },
     {
+     "va": "0x00653D30",
+     "length": 37,
+     "name": "sub_00653D30"
+    },
+    {
+     "va": "0x00653D60",
+     "length": 78,
+     "name": "DATATBLS_SetVelocityInMonStatsTxtRecord"
+    },
+    {
      "va": "0x00653DB0",
      "length": 98,
      "name": "?sub_00653DB0@@YIXPAXPBDI@Z"
@@ -81393,6 +81403,26 @@
      "name": "?sub_006547D0@@YGXPAX@Z"
     },
     {
+     "va": "0x00654D50",
+     "length": 127,
+     "name": "sub_00654D50"
+    },
+    {
+     "va": "0x00654DD0",
+     "length": 44,
+     "name": "DATATBLS_GetTreasureClassExRecordFromName"
+    },
+    {
+     "va": "0x00654E00",
+     "length": 97,
+     "name": "DATATBLS_GetTreasureClassExRecordFromIdAndLevel"
+    },
+    {
+     "va": "0x00654E70",
+     "length": 5,
+     "name": "sub_00654E70"
+    },
+    {
      "va": "0x00654EF0",
      "length": 5,
      "name": "?sub_00654EF0_UnloadTCEx@@YIXXZ"
@@ -81408,9 +81438,29 @@
      "name": "DATATBLS_LoadMonItemPercentTxt"
     },
     {
+     "va": "0x00654FC0",
+     "length": 12,
+     "name": "DATATBLS_UnloadMonItemPercentTxt"
+    },
+    {
+     "va": "0x00654FD0",
+     "length": 6,
+     "name": "DATATBLS_GetMonItemPercentDataTables"
+    },
+    {
+     "va": "0x00654FE0",
+     "length": 79,
+     "name": "DATATBLS_GetMonItemPercentTxtRecord"
+    },
+    {
      "va": "0x00655030",
      "length": 618,
      "name": "DATATBLS_LoadMonUModTxt"
+    },
+    {
+     "va": "0x006552A0",
+     "length": 53,
+     "name": "sub_006552A0"
     },
     {
      "va": "0x006552E0",
@@ -81418,8 +81468,28 @@
      "name": "?DATATBLS_LoadSuperUniquesTxt@@YIXPAX@Z"
     },
     {
+     "va": "0x006556A0",
+     "length": 51,
+     "name": "sub_006556A0"
+    },
+    {
+     "va": "0x006556E0",
+     "length": 33,
+     "name": "DATATBLS_GetSuperUniquesTxtRecord"
+    },
+    {
+     "va": "0x00655710",
+     "length": 6,
+     "name": "DATATBLS_GetSuperUniquesTxtRecordCount"
+    },
+    {
      "va": "0x00655720",
      "length": 2958
+    },
+    {
+     "va": "0x006562B0",
+     "length": 51,
+     "name": "sub_006562B0"
     },
     {
      "va": "0x00656390",
@@ -81447,13 +81517,47 @@
      "name": "DATATBLS_LoadNpcTxt"
     },
     {
+     "va": "0x006568F0",
+     "length": 12,
+     "name": "sub_006568F0_FreeNpcTable"
+    },
+    {
+     "va": "0x00656900",
+     "length": 45,
+     "name": "DATATBLS_GetNpcTxtRecord"
+    },
+    {
      "va": "0x00656930",
      "length": 1573,
      "name": "DATATBLS_LoadMonSoundsTxt"
     },
     {
+     "va": "0x00656F60",
+     "length": 37,
+     "name": "sub_00656F60_FreeMonSoundsTable"
+    },
+    {
+     "va": "0x00656F90",
+     "length": 46,
+     "name": "DATATBLS_GetMonSoundsTxtRecordFromSoundId"
+    },
+    {
+     "va": "0x00656FC0",
+     "length": 75,
+     "name": "DATATBLS_GetMonSoundsTxtRecordFromMonsterId"
+    },
+    {
+     "va": "0x00657010",
+     "length": 396
+    },
+    {
      "va": "0x006571A0",
      "length": 4755
+    },
+    {
+     "va": "0x00658440",
+     "length": 27,
+     "name": "DATATBLS_UnloadMonTypeTxt"
     },
     {
      "va": "0x00658460",
@@ -81466,14 +81570,29 @@
      "name": "?DATATBLS_LoadMonTypeTxt@@YIXPAX@Z"
     },
     {
+     "va": "0x006586D0",
+     "length": 72,
+     "name": "sub_006586D0"
+    },
+    {
      "va": "0x00658720",
      "length": 3492,
      "name": "DATATBLS_LoadMonPropTxt"
     },
     {
+     "va": "0x006594D0",
+     "length": 37,
+     "name": "sub_006594D0"
+    },
+    {
      "va": "0x00659500",
      "length": 1124,
      "name": "DATATBLS_LoadMonLvlTxt"
+    },
+    {
+     "va": "0x00659970",
+     "length": 26,
+     "name": "sub_00659970"
     },
     {
      "va": "0x00659990",
@@ -81486,14 +81605,49 @@
      "name": "DATATBLS_LoadMonPresetTxt"
     },
     {
+     "va": "0x00659AF0",
+     "length": 80,
+     "name": "sub_00659AF0"
+    },
+    {
+     "va": "0x00659B40",
+     "length": 59,
+     "name": "DATATBLS_GetMonPresetTxtActSection"
+    },
+    {
+     "va": "0x00659B80",
+     "length": 48,
+     "name": "DATATBLS_MapSuperUniqueId"
+    },
+    {
      "va": "0x00659BB0",
      "length": 117,
      "name": "DATATBLS_LoadSoundsTxt"
     },
     {
+     "va": "0x00659C30",
+     "length": 37,
+     "name": "sub_00659C30"
+    },
+    {
      "va": "0x00659C60",
      "length": 381,
      "name": "DATATBLS_LoadMonSeqTxt"
+    },
+    {
+     "va": "0x00659DE0",
+     "length": 76,
+     "name": "sub_00659DE0"
+    },
+    {
+     "va": "0x00659E30",
+     "length": 40,
+     "name": "sub_00659E30"
+    },
+    {
+     "va": "0x0065A170",
+     "length": 26,
+     "name": "sub_0065A170"
     },
     {
      "va": "0x0065A190",
@@ -84417,166 +84571,6 @@
     {
      "va": "0x00651150",
      "length": 192
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00653D30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00653D30",
-     "length": 37,
-     "name": "sub_00653D30"
-    },
-    {
-     "va": "0x00653D60",
-     "length": 78,
-     "name": "DATATBLS_SetVelocityInMonStatsTxtRecord"
-    },
-    {
-     "va": "0x00654D50",
-     "length": 127,
-     "name": "sub_00654D50"
-    },
-    {
-     "va": "0x00654DD0",
-     "length": 44,
-     "name": "DATATBLS_GetTreasureClassExRecordFromName"
-    },
-    {
-     "va": "0x00654E00",
-     "length": 97,
-     "name": "DATATBLS_GetTreasureClassExRecordFromIdAndLevel"
-    },
-    {
-     "va": "0x00654E70",
-     "length": 5,
-     "name": "sub_00654E70"
-    },
-    {
-     "va": "0x00654FC0",
-     "length": 12,
-     "name": "DATATBLS_UnloadMonItemPercentTxt"
-    },
-    {
-     "va": "0x00654FD0",
-     "length": 6,
-     "name": "DATATBLS_GetMonItemPercentDataTables"
-    },
-    {
-     "va": "0x00654FE0",
-     "length": 79,
-     "name": "DATATBLS_GetMonItemPercentTxtRecord"
-    },
-    {
-     "va": "0x006552A0",
-     "length": 53,
-     "name": "sub_006552A0"
-    },
-    {
-     "va": "0x006556A0",
-     "length": 51,
-     "name": "sub_006556A0"
-    },
-    {
-     "va": "0x006556E0",
-     "length": 33,
-     "name": "DATATBLS_GetSuperUniquesTxtRecord"
-    },
-    {
-     "va": "0x00655710",
-     "length": 6,
-     "name": "DATATBLS_GetSuperUniquesTxtRecordCount"
-    },
-    {
-     "va": "0x006562B0",
-     "length": 51,
-     "name": "sub_006562B0"
-    },
-    {
-     "va": "0x006568F0",
-     "length": 12,
-     "name": "sub_006568F0_FreeNpcTable"
-    },
-    {
-     "va": "0x00656900",
-     "length": 45,
-     "name": "DATATBLS_GetNpcTxtRecord"
-    },
-    {
-     "va": "0x00656F60",
-     "length": 37,
-     "name": "sub_00656F60_FreeMonSoundsTable"
-    },
-    {
-     "va": "0x00656F90",
-     "length": 46,
-     "name": "DATATBLS_GetMonSoundsTxtRecordFromSoundId"
-    },
-    {
-     "va": "0x00656FC0",
-     "length": 75,
-     "name": "DATATBLS_GetMonSoundsTxtRecordFromMonsterId"
-    },
-    {
-     "va": "0x00657010",
-     "length": 396
-    },
-    {
-     "va": "0x00658440",
-     "length": 27,
-     "name": "DATATBLS_UnloadMonTypeTxt"
-    },
-    {
-     "va": "0x006586D0",
-     "length": 72,
-     "name": "sub_006586D0"
-    },
-    {
-     "va": "0x006594D0",
-     "length": 37,
-     "name": "sub_006594D0"
-    },
-    {
-     "va": "0x00659970",
-     "length": 26,
-     "name": "sub_00659970"
-    },
-    {
-     "va": "0x00659AF0",
-     "length": 80,
-     "name": "sub_00659AF0"
-    },
-    {
-     "va": "0x00659B40",
-     "length": 59,
-     "name": "DATATBLS_GetMonPresetTxtActSection"
-    },
-    {
-     "va": "0x00659B80",
-     "length": 48,
-     "name": "DATATBLS_MapSuperUniqueId"
-    },
-    {
-     "va": "0x00659C30",
-     "length": 37,
-     "name": "sub_00659C30"
-    },
-    {
-     "va": "0x00659DE0",
-     "length": 76,
-     "name": "sub_00659DE0"
-    },
-    {
-     "va": "0x00659E30",
-     "length": 40,
-     "name": "sub_00659E30"
-    },
-    {
-     "va": "0x0065A170",
-     "length": 26,
-     "name": "sub_0065A170"
     }
    ]
   },

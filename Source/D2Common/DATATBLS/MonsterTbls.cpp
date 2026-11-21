@@ -4,12 +4,13 @@
 #include "D2Records.h"
 #include "D2Unicode.h"
 #include "D2LevelTxt.h"
+#include "D2DataTbls.h"
 
 #pragma function(memset)
 
 #define MONSTATSFLAGINDEX_NORATIO 2
 
-#define ITEMTYPES_RECORD(i) (((i) >= 0 && (i) < sgptDataTables->nItemTypesTxtRecordCount) ? &sgptDataTables->pItemTypesTxt[(i)] : 0)
+#define ITEMTYPES_RECORD(i) (((i) >= 0 && (i) < sgptDataTables->nItemTypesTxtRecordCount) ? &((TableRow*)sgptDataTables->pItemTypesTxt)[(i)] : 0)
 
 struct D2ObjectsTxt;
 
@@ -63,6 +64,12 @@ struct D2AnimSeqTxt;
 
 struct D2AnimSeqRecordStrc;
 
+struct D2NpcTxt;
+
+struct D2MonSoundsTxt;
+
+struct D2MonItemPercentTxt;
+
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 void __fastcall sub_006562B0(); // 0x006562B0
@@ -77,26 +84,25 @@ void __cdecl sub_00653E20(); // 0x00653E20
 
 extern int gnObjgroupTxtRecordCount; // 0x0096D47C
 
-extern void* gpNpcTxt; // 0x0096C5D8
+D2NpcTxt* gpNpcTxt; // 0x0096C5D8
 
+D2SuperUniquesTxt* gpSuperUniquesTxt; // 0x0096C704
 
-extern D2SuperUniquesTxt* gpSuperUniquesTxt; // 0x0096C704
-
-extern int gnSuperUniquesTxtRecordCount; // 0x0096C70C
+int gnSuperUniquesTxtRecordCount; // 0x0096C70C
 
 int gnMonumodTxtRecordCount; // 0x0096C884
 
-extern D2MonStatsTxt* gpMonstatsTxt; // 0x0096C6A8
+D2MonStatsTxt* gpMonstatsTxt; // 0x0096C6A8
 
 D2TxtLinkStrc* gTxtLink_0096C6AC; // 0x0096C6AC
 
 D2TxtLinkStrc* gTxtLink_0096C85C; // 0x0096C85C
 
-extern void* gpMonsoundsTxt; // 0x0096C6B4
+D2MonSoundsTxt* gpMonsoundsTxt; // 0x0096C6B4
 
-D2TxtLinkStrc* gTxtLink_0096C6B8; // 0x0096C6B8
+D2TxtLinkStrc* gpMonSoundsLinker; // 0x0096C6B8
 
-extern int gnMonsoundsTxtRecordCount; // 0x0096C6BC
+int gnMonsoundsTxtRecordCount; // 0x0096C6BC
 
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 
@@ -153,36 +159,6 @@ struct D2MonStatsInitStrc
     int nElDur;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0x02C];
-    D2TxtLinkStrc* pMonModeLinker;
-    unsigned char unk_30[0x988];
-    D2TxtLinkStrc* pTreasureClassExLinker;
-    unsigned char unk_9BC[0xBC];
-    D2MonStatsTxt* pMonStatsTxt;
-    D2TxtLinkStrc* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x4];
-    D2TxtLinkStrc* pMonSoundsLinker;
-    unsigned char unk_A8C[0x4];
-    D2MonStats2Txt* pMonStats2Txt;
-    D2TxtLinkStrc* pMonStats2Linker;
-    int nMonStats2TxtRecordCount;
-    unsigned char unk_A9C[0x38];
-    D2SuperUniquesTxt* pSuperUniquesTxt;
-    D2TxtLinkStrc* pSuperUniquesLinker;
-    int nSuperUniquesTxtRecordCount;
-    unsigned short nSuperUniqueIds[66];
-    unsigned char unk_B64[0xC];
-    D2MonLvlTxt* pMonLvlTxt;
-    int nMonLvlTxtRecordCount;
-    unsigned char unk_B78[0x24];
-    D2TxtLinkStrc* pSkillsLinker;
-    unsigned char unk_BA0[0x58];
-    TableRow* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -293,7 +269,6 @@ struct D2TreasureClassExTxt
     int nProb[10];
 };
 
-
 typedef char check_D2TreasureClassExTxt_size[sizeof(D2TreasureClassExTxt) == 0x2E0 ? 1 : -1];
 
 typedef char check_D2SetItemsTxt_size[sizeof(D2SetItemsTxt) == 0x1B8 ? 1 : -1];
@@ -302,7 +277,7 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
-extern D2TCExShortStrc* gpTreasureClassEx; // 0x0096C5EC
+D2TCExShortStrc* gpTreasureClassEx; // 0x0096C5EC
 
 extern "C" const char gszTxtField_magic_006DCFBC[]; // 0x006DCFBC
 
@@ -310,12 +285,11 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 static __declspec(noinline) int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExShortStrc* pTCExTxtRecord, int nProb, char* szText); // 0x00654440
 
-D2TxtLinkStrc* gTxtLink_0096C87C; // 0x0096C87C
+D2TxtLinkStrc* gpMonUModLinker; // 0x0096C87C
 
 void* gpMonumodTxt; // 0x0096C880
 
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
-
 
 D2HirelingTxt* gpHirelingTxt; // 0x0096BDD0
 
@@ -606,9 +580,9 @@ struct D2MonPresetTxt
     unsigned short nPlace;
 };
 
-extern D2MonPresetTxt* gpMonPresetTxtActSections[5]; // 0x0096C6DC
+D2MonPresetTxt* gpMonPresetTxtActSections[5]; // 0x0096C6DC
 
-extern int gnMonPresetTxtActRecordCounts[5]; // 0x0096C6F0
+int gnMonPresetTxtActRecordCounts[5]; // 0x0096C6F0
 
 void __fastcall DATATBLS_MonPresetPlaceLinker(char* pSrc, D2MonPresetTxt* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00659990
 
@@ -727,7 +701,7 @@ struct D2MonTypeTxt
     char unk0x08[4];
 };
 
-extern D2MonTypeTxt* gpMonTypeTxt; // 0x0096C86C
+D2MonTypeTxt* gpMonTypeTxt; // 0x0096C86C
 
 extern "C" const char gszTxtField_equiv1[];                                                                 // 0x006DCD14
 
@@ -788,10 +762,6 @@ int gnMonstatsTxtRecordCount; // 0x0096C6B0
 
 int gnTreasureClassItemTypes; // 0x0096D4B0
 
-void* gpMonitempercentTxt; // 0x0096D484
-
-int gnMonitempercentTxtRecordCount; // 0x0096D480
-
 int gnNpcTxtRecordCount; // 0x0096C5DC
 
 D2MonPresetTxt* gpMonPresetTxt; // 0x0096C6D8
@@ -807,6 +777,40 @@ int gnMonseqTxtRecordCount; // 0x0096C7B0
 D2AnimSeqRecordStrc* gpMonSeqTable; // 0x0096C7B4
 
 int gnMonSeqTableRecordCount; // 0x0096C7B8
+
+#define MON_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2MonItemPercentDataTbl;
+
+struct D2NpcTxt
+{
+    unsigned int dwNpc;
+    char unk[0x4C - 4];
+};
+
+struct D2MonSoundsTxt
+{
+    char unk[0x94];
+};
+
+struct D2MonItemPercentTxt
+{
+    int nValue;
+};
+
+struct D2MonItemPercentDataTbl
+{
+    int nMonItemPercentTxtRecordCount;
+    D2MonItemPercentTxt* pMonItemPercentTxt;
+};
+
+D2MonItemPercentDataTbl gMonItemPercentDataTables; // 0x0096D480
+
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError);                 // 0x006BD130
+
+D2TxtLinkStrc* gpCompCodeLinker_0096BCB0;                                                                   // 0x0096BCB0
 
 // 0x00640EE0
 void __fastcall DATATBLS_UnloadObjectsTxt()
@@ -875,8 +879,8 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { "DescStr", 22, 0, 8, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "Code", 9, 0, 16, 0 },
         { "TransLvl", 4, 0, 77, 0 },
-        { "MonSound", 20, 0, 20, &gTxtLink_0096C6B8 },
-        { "UMonSound", 20, 0, 22, &gTxtLink_0096C6B8 },
+        { "MonSound", 20, 0, 20, &gpMonSoundsLinker },
+        { "UMonSound", 20, 0, 22, &gpMonSoundsLinker },
         { "MonStatsEx", 20, 0, 24, &gTxtLink_0096C6C4 },
         { "MonType", 20, 0, 28, &gTxtLink_0096C868 },
         { "MonProp", 20, 0, 26, &gTxtLink_0096C85C },
@@ -1309,6 +1313,28 @@ int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameTyp
     }
 
     return 1;
+}
+
+// 0x00653D30
+void __fastcall sub_00653D30()
+{
+    if (gpMonstatsTxt)
+    {
+        DATATBLS_UnloadBin(gpMonstatsTxt);
+        FOG_FreeLinker(gpMonStatsLinker);
+    }
+    gpMonstatsTxt = 0;
+}
+
+// 0x00653D60
+void __stdcall DATATBLS_SetVelocityInMonStatsTxtRecord(int nMonsterId, short nVelocity)
+{
+    MON_ASSERT(gpMonstatsTxt, 751);
+
+    if (nMonsterId >= 0 && nMonsterId < gnMonstatsTxtRecordCount)
+    {
+        gpMonstatsTxt[nMonsterId].nVelocity = nVelocity;
+    }
 }
 
 // 0x00653DB0
@@ -1856,6 +1882,73 @@ void __stdcall sub_006547D0(void* hArchive)
     DATATBLS_UnloadBin(pTreasureClassExTxt);
 }
 
+// 0x00654D50
+void __fastcall sub_00654D50()
+{
+    FOG_FreeLinker(gpTreasureClassExLinker);
+
+    for (int i = 0; i < gnTreasureClassEx; ++i)
+    {
+        if (gpTreasureClassEx[i].pInfo)
+        {
+            sub_0040B480(0, gpTreasureClassEx[i].pInfo, ".\\DATATBLS\\MonsterTbls.cpp", 1603, 0);
+        }
+    }
+
+    sub_0040B480(0, gpTreasureClassEx, ".\\DATATBLS\\MonsterTbls.cpp", 1607, 0);
+    gpTreasureClassEx = 0;
+    gnTreasureClassEx = 0;
+}
+
+// 0x00654DD0
+D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromName(char* szText)
+{
+    int nId = FOG_GetRowFromTxt(gpTreasureClassExLinker, szText, 0);
+    if (nId >= 0)
+    {
+        return &gpTreasureClassEx[nId];
+    }
+
+    return 0;
+}
+
+// 0x00654E00
+D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromIdAndLevel(unsigned short wTCId, int nLvl)
+{
+    D2TCExShortStrc* pTCExRecord = 0;
+    D2TCExShortStrc* pNext = 0;
+
+    if (wTCId > 0 && wTCId < gnTreasureClassEx)
+    {
+        pTCExRecord = &gpTreasureClassEx[wTCId];
+        if (nLvl > 0 && pTCExRecord->nGroup)
+        {
+            pNext = pTCExRecord + 1;
+
+            while (pNext->nGroup == pTCExRecord->nGroup)
+            {
+                if (pNext->nLevel > nLvl)
+                {
+                    break;
+                }
+
+                pTCExRecord = pNext;
+                ++pNext;
+            }
+        }
+
+        return pTCExRecord;
+    }
+
+    return 0;
+}
+
+// 0x00654E70
+int __stdcall sub_00654E70(int a1, int a2)
+{
+    return 0;
+}
+
 char* __stdcall sub_M116_Emit_006543C0(char* szText, char** ppOut)
 {
     ppOut[0] = sub_006543C0_StripQuotes(sub_006543F0_NextStrToken(&szText, ','));
@@ -1887,7 +1980,34 @@ void __fastcall DATATBLS_LoadMonItemPercentTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gpMonitempercentTxt = DATATBLS_CompileTxt(hArchive, "monitempercent", pTbl, &gnMonitempercentTxtRecordCount, 4);
+    gMonItemPercentDataTables.pMonItemPercentTxt = (D2MonItemPercentTxt*)DATATBLS_CompileTxt(hArchive, "monitempercent", pTbl, &gMonItemPercentDataTables.nMonItemPercentTxtRecordCount, 4);
+}
+
+// 0x00654FC0
+void __fastcall DATATBLS_UnloadMonItemPercentTxt()
+{
+    DATATBLS_UnloadBin(gMonItemPercentDataTables.pMonItemPercentTxt);
+}
+
+// 0x00654FD0
+D2MonItemPercentDataTbl* __fastcall DATATBLS_GetMonItemPercentDataTables()
+{
+    return &gMonItemPercentDataTables;
+}
+
+// 0x00654FE0
+D2MonItemPercentTxt* __stdcall DATATBLS_GetMonItemPercentTxtRecord(int nId)
+{
+    if (nId >= gMonItemPercentDataTables.nMonItemPercentTxtRecordCount || nId == -1)
+    {
+        return 0;
+    }
+    else
+    {
+        MON_ASSERT(gMonItemPercentDataTables.pMonItemPercentTxt, 1756);
+        MON_ASSERT(&gMonItemPercentDataTables.pMonItemPercentTxt[nId], 1756 + 1);
+        return &gMonItemPercentDataTables.pMonItemPercentTxt[nId];
+    }
 }
 
 // 0x00655030
@@ -1895,7 +2015,7 @@ void __fastcall DATATBLS_LoadMonUModTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "uniquemod", 17, 0, 0, &gTxtLink_0096C87C },
+        { "uniquemod", 17, 0, 0, &gpMonUModLinker },
         { gszTxtField_version, 3, 0, 4, 0 },
         { "enabled", 4, 0, 6, 0 },
         { "xfer", 4, 0, 7, 0 },
@@ -1913,12 +2033,30 @@ void __fastcall DATATBLS_LoadMonUModTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gTxtLink_0096C87C = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 1791);
+    gpMonUModLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 1791);
     gpMonumodTxt = DATATBLS_CompileTxt(hArchive, "monumod", pTbl, &gnMonumodTxtRecordCount, 32);
     if (gnMonumodTxtRecordCount > 256)
     {
         gnMonumodTxtRecordCount = 256;
     }
+}
+
+// 0x006552A0
+void __fastcall sub_006552A0()
+{
+    if (gpMonUModLinker)
+    {
+        FOG_FreeLinker(gpMonUModLinker);
+        gpMonUModLinker = 0;
+    }
+
+    if (gpMonumodTxt)
+    {
+        DATATBLS_UnloadBin(gpMonumodTxt);
+        gpMonumodTxt = 0;
+    }
+
+    gnMonumodTxtRecordCount = 0;
 }
 
 // 0x006552E0
@@ -1974,6 +2112,40 @@ void __fastcall DATATBLS_LoadSuperUniquesTxt(void* hArchive)
     {
         D2_ASSERT(sgtDataTables.nSuperUniqueIds[i] != 0xFFFF, 0x782);
     }
+}
+
+// 0x006556A0
+void __fastcall sub_006556A0()
+{
+    if (gpSuperUniquesLinker)
+    {
+        FOG_FreeLinker(gpSuperUniquesLinker);
+    }
+
+    if (gpSuperUniquesTxt)
+    {
+        DATATBLS_UnloadBin(gpSuperUniquesTxt);
+        gpSuperUniquesTxt = 0;
+    }
+
+    gnSuperUniquesTxtRecordCount = 0;
+}
+
+// 0x006556E0
+D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId)
+{
+    if (nSuperUniqueId >= gnSuperUniquesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    return &gpSuperUniquesTxt[nSuperUniqueId];
+}
+
+// 0x00655710
+int __fastcall DATATBLS_GetSuperUniquesTxtRecordCount()
+{
+    return gnSuperUniquesTxtRecordCount;
 }
 
 // 0x00655720
@@ -2076,6 +2248,19 @@ void __fastcall sub_00655720_LoadHirelingTxt(void* hArchive)
             if (gaHirelingIds[nVersion][gpHirelingTxt[i].nId] < 0)
                 gaHirelingIds[nVersion][gpHirelingTxt[i].nId] = i;
         }
+    }
+}
+
+// 0x006562B0
+void __fastcall sub_006562B0()
+{
+    DATATBLS_UnloadBin(gpHirelingTxt);
+    gnHirelingTxtRecordCount = 0;
+
+    for (int i = 0; i < 256; ++i)
+    {
+        gaHirelingIds[0][i] = -1;
+        gaHirelingIds[1][i] = -1;
     }
 }
 
@@ -2208,7 +2393,28 @@ void __fastcall DATATBLS_LoadNpcTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gpNpcTxt = DATATBLS_CompileTxt(hArchive, "npc", pTbl, &gnNpcTxtRecordCount, 76);
+    gpNpcTxt = (D2NpcTxt*)DATATBLS_CompileTxt(hArchive, "npc", pTbl, &gnNpcTxtRecordCount, 76);
+}
+
+// 0x006568F0
+void __fastcall sub_006568F0_FreeNpcTable()
+{
+    DATATBLS_UnloadBin(gpNpcTxt);
+}
+
+// 0x00656900
+D2NpcTxt* __stdcall DATATBLS_GetNpcTxtRecord(unsigned int dwNpcId)
+{
+    for (int i = 0; i < gnNpcTxtRecordCount; ++i)
+    {
+        D2NpcTxt* pNpcTxtRecord = &gpNpcTxt[i];
+        if (pNpcTxtRecord->dwNpc == dwNpcId)
+        {
+            return pNpcTxtRecord;
+        }
+    }
+
+    return 0;
 }
 
 // 0x00656930
@@ -2216,7 +2422,7 @@ void __fastcall DATATBLS_LoadMonSoundsTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "Id", 17, 0, 0, &gTxtLink_0096C6B8 },
+        { "Id", 17, 0, 0, &gpMonSoundsLinker },
         { "Attack1", 19, 0, 4, &gTxtLink_0096BDC8 },
         { "Att1Del", 2, 0, 8, 0 },
         { "Att1Prb", 2, 0, 12, 0 },
@@ -2259,9 +2465,161 @@ void __fastcall DATATBLS_LoadMonSoundsTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gTxtLink_0096C6B8 = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2415);
-    gpMonsoundsTxt = DATATBLS_CompileTxt(hArchive, "monsounds", pTbl, &gnMonsoundsTxtRecordCount, 148);
+    gpMonSoundsLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2415);
+    gpMonsoundsTxt = (D2MonSoundsTxt*)DATATBLS_CompileTxt(hArchive, "monsounds", pTbl, &gnMonsoundsTxtRecordCount, 148);
 }
+
+// 0x00656F60
+void __fastcall sub_00656F60_FreeMonSoundsTable()
+{
+    if (gpMonsoundsTxt)
+    {
+        DATATBLS_UnloadBin(gpMonsoundsTxt);
+        FOG_FreeLinker(gpMonSoundsLinker);
+        gnMonsoundsTxtRecordCount = 0;
+    }
+}
+
+// 0x00656F90
+D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromSoundId(int nSoundId)
+{
+    if (gpMonsoundsTxt && nSoundId >= 0 && nSoundId < gnMonsoundsTxtRecordCount)
+    {
+        return &gpMonsoundsTxt[nSoundId];
+    }
+
+    return 0;
+}
+
+// 0x00656FC0
+D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromMonsterId(int nMonsterId)
+{
+    if (gpMonsoundsTxt && gpMonstatsTxt && nMonsterId < gnMonstatsTxtRecordCount)
+    {
+        int nSoundId = gpMonstatsTxt[nMonsterId].wMonSound;
+        if (nSoundId >= 0 && nSoundId < gnMonsoundsTxtRecordCount)
+        {
+            return &gpMonsoundsTxt[nSoundId];
+        }
+    }
+
+    return 0;
+}
+
+static void DATATBLS_MakeCompCode(const char* szText, char* szCode)
+{
+    if (!szText[0])
+    {
+        szCode[0] = ' ';
+        szCode[1] = ' ';
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[0] = szText[0];
+    if (!szText[1])
+    {
+        szCode[1] = ' ';
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[1] = szText[1];
+    if (!szText[2])
+    {
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[2] = szText[2];
+    if (!szText[3])
+    {
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[3] = szText[3];
+}
+
+#pragma intrinsic(memset)
+
+// 0x00657010
+void __fastcall DATATBLS_MonStats2CompositLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    D2MonStats2Txt* pMonStats2TxtRecord = (D2MonStats2Txt*)pRecord;
+    char szCode[4];
+
+    if (!pMonStats2TxtRecord || (unsigned int)nOffset > 15)
+    {
+        return;
+    }
+
+    pMonStats2TxtRecord->nComponentChoiceCounts[nOffset] = 0;
+    memset(pMonStats2TxtRecord->pComponents[nOffset].nComposit, -1, sizeof(pMonStats2TxtRecord->pComponents[nOffset].nComposit));
+
+    if (!pSrc)
+    {
+        return;
+    }
+
+    char* pNext = pSrc;
+    if (*pSrc == '"')
+    {
+        pNext = pSrc + 1;
+    }
+
+    for (char* pTmp = pNext; *pTmp; ++pTmp)
+    {
+        if (*pTmp == '"')
+        {
+            *pTmp = 0;
+        }
+    }
+
+    int nCounter = 0;
+    do
+    {
+        char* szToken = pNext;
+        pNext = strchr(pNext, ',');
+        if (pNext)
+        {
+            *pNext = 0;
+            ++pNext;
+        }
+
+        if (!szToken || !*szToken || strlen(szToken) > 4)
+        {
+            break;
+        }
+
+        DATATBLS_MakeCompCode(szToken, szCode);
+        pMonStats2TxtRecord->pComponents[nOffset].nComposit[nCounter] = (unsigned char)FOG_GetLinkIndex(gpCompCodeLinker_0096BCB0, *(unsigned int*)szCode, 1);
+        ++nCounter;
+    }
+    while (pNext && nCounter < 12);
+
+    pMonStats2TxtRecord->nComponentChoiceCounts[nOffset] = (unsigned char)nCounter;
+
+    if (nOffset == 15)
+    {
+        int nTotal = 0;
+        for (int i = 0; i < 16; ++i)
+        {
+            if (pMonStats2TxtRecord->nComponentChoiceCounts[i] > 1)
+            {
+                nTotal += pMonStats2TxtRecord->nComponentChoiceCounts[i] - 1;
+            }
+        }
+
+        if (nTotal > 254)
+        {
+            nTotal = 254;
+        }
+
+        pMonStats2TxtRecord->nTotalPieces = (unsigned char)nTotal;
+    }
+}
+
+#pragma function(memset)
 
 // 0x006571A0
 D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive)
@@ -2400,6 +2758,16 @@ D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive)
     return sgtDataTables.pMonStats2Txt = (D2MonStats2Txt*)DATATBLS_CompileTxt(hArchive, gszMonStats2TxtName, pTbl, &sgtDataTables.nMonStats2TxtRecordCount, 308);
 }
 
+// 0x00658440
+void __fastcall DATATBLS_UnloadMonTypeTxt()
+{
+    if (gpMonTable_96C6C0)
+    {
+        DATATBLS_UnloadBin(gpMonTable_96C6C0);
+        FOG_FreeLinker(gTxtLink_0096C6C4);
+    }
+}
+
 // 0x00658460
 int __fastcall DATATBLS_CheckNestedMonsterTypes(int nMonType1, int nMonType2)
 {
@@ -2481,6 +2849,19 @@ void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive)
                 pMonTypeNest[j >> 5] |= gdwBitMasks[j & 31];
             }
         }
+    }
+}
+
+// 0x006586D0
+void __fastcall sub_006586D0()
+{
+    if (gpMonTypeTxt)
+    {
+        DATATBLS_UnloadBin(gpMonTypeTxt);
+        FOG_FreeLinker(gTxtLink_0096C868);
+        sub_0040B480(0, gpMonTypeNest, ".\\DATATBLS\\MonsterTbls.cpp", 2838, 0);
+        gpMonTypeTxt = 0;
+        gTxtLink_0096C868 = 0;
     }
 }
 
@@ -2587,6 +2968,17 @@ void __fastcall DATATBLS_LoadMonPropTxt(void* hArchive)
     gpMonpropTxt = DATATBLS_CompileTxt(hArchive, "monprop", pTbl, &gnMonpropTxtRecordCount, 312);
 }
 
+// 0x006594D0
+void __fastcall sub_006594D0()
+{
+    if (gpMonpropTxt)
+    {
+        DATATBLS_UnloadBin(gpMonpropTxt);
+        FOG_FreeLinker(gTxtLink_0096C85C);
+    }
+    gnMonpropTxtRecordCount = 0;
+}
+
 // 0x00659500
 void __fastcall DATATBLS_LoadMonLvlTxt(void* hArchive)
 {
@@ -2626,6 +3018,16 @@ void __fastcall DATATBLS_LoadMonLvlTxt(void* hArchive)
     };
 
     gpMonlvlTxt = DATATBLS_CompileTxt(hArchive, "monlvl", pTbl, &gnMonlvlTxtRecordCount, 120);
+}
+
+// 0x00659970
+void __fastcall sub_00659970()
+{
+    if (gpMonlvlTxt)
+    {
+        DATATBLS_UnloadBin(gpMonlvlTxt);
+        gnMonlvlTxtRecordCount = 0;
+    }
 }
 
 // 0x00659990
@@ -2701,6 +3103,53 @@ void __fastcall DATATBLS_LoadMonPresetTxt(void* hArchive)
     gnMonPresetTxtActRecordCounts[nAct] = nActRecords;
 }
 
+// 0x00659AF0
+void __fastcall sub_00659AF0()
+{
+    if (gpMonPresetTxt)
+    {
+        DATATBLS_UnloadBin(gpMonPresetTxt);
+    }
+
+    for (int i = 0; i < 5; ++i)
+    {
+        gpMonPresetTxtActSections[i] = 0;
+        gnMonPresetTxtActRecordCounts[i] = 0;
+    }
+}
+
+// 0x00659B40
+void* __stdcall DATATBLS_GetMonPresetTxtActSection(int nAct, int* pRecordCount)
+{
+    if (pRecordCount)
+    {
+        if (nAct >= 0 && nAct < 5 && gpMonPresetTxt)
+        {
+            *pRecordCount = gnMonPresetTxtActRecordCounts[nAct];
+            return gpMonPresetTxtActSections[nAct];
+        }
+
+        *pRecordCount = 0;
+    }
+
+    return 0;
+}
+
+// 0x00659B80
+int __stdcall DATATBLS_MapSuperUniqueId(int nType, int nSuperUnique)
+{
+    switch (nType)
+    {
+    case 0:
+        nSuperUnique += gnSuperUniquesTxtRecordCount;
+    case 2:
+        nSuperUnique += sgptDataTables->nMonStatsTxtRecordCount;
+        break;
+    }
+
+    return nSuperUnique;
+}
+
 // 0x00659BB0
 void __fastcall DATATBLS_LoadSoundsTxt(void* hArchive)
 {
@@ -2714,6 +3163,17 @@ void __fastcall DATATBLS_LoadSoundsTxt(void* hArchive)
 
         gTxtLink_0096BDC8 = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 3225);
         gpSoundsTxt = DATATBLS_CompileTxt(hArchive, "sounds", pTbl, &gnSoundsTxtRecordCount, 2);
+    }
+}
+
+// 0x00659C30
+void __fastcall sub_00659C30()
+{
+    if (gpSoundsTxt)
+    {
+        DATATBLS_UnloadBin(gpSoundsTxt);
+        FOG_FreeLinker(gpSoundsLinker);
+        gnSoundsTxtRecordCount = 0;
     }
 }
 
@@ -2753,6 +3213,44 @@ void __fastcall DATATBLS_LoadMonSeqTxt(void* hArchive)
     }
 }
 
+// 0x00659DE0
+void __fastcall sub_00659DE0()
+{
+    if (gpMonseqTxt)
+    {
+        DATATBLS_UnloadBin(gpMonseqTxt);
+        FOG_FreeLinker(gTxtLink_0096C7AC);
+        gnMonseqTxtRecordCount = 0;
+    }
+
+    if (gpMonSeqTable)
+    {
+        sub_0040B480(0, gpMonSeqTable, ".\\DATATBLS\\MonsterTbls.cpp", 3306, 0);
+        gnMonSeqTableRecordCount = 0;
+    }
+}
+
+// 0x00659E30
+D2AnimSeqRecordStrc* __stdcall sub_00659E30(int nIndex)
+{
+    if (nIndex >= 0 && nIndex < gnMonSeqTableRecordCount)
+    {
+        return &gpMonSeqTable[nIndex];
+    }
+
+    return 0;
+}
+
+// 0x0065A170
+void __fastcall sub_0065A170()
+{
+    if (gpMonTable_96C810)
+    {
+        DATATBLS_UnloadBin(gpMonTable_96C810);
+        gnMonTable_96C814 = 0;
+    }
+}
+
 // 0x0065A190
 void __fastcall DATATBLS_UnloadSomeMonsterTxts()
 {
@@ -2778,10 +3276,10 @@ void __fastcall DATATBLS_UnloadSomeMonsterTxts()
     }
     gnSuperUniquesTxtRecordCount = 0;
 
-    if (gTxtLink_0096C87C)
+    if (gpMonUModLinker)
     {
-        FOG_FreeLinker(gTxtLink_0096C87C);
-        gTxtLink_0096C87C = 0;
+        FOG_FreeLinker(gpMonUModLinker);
+        gpMonUModLinker = 0;
     }
     if (gpMonumodTxt)
     {
@@ -2813,7 +3311,7 @@ void __fastcall DATATBLS_UnloadSomeMonsterTxts()
     if (gpMonsoundsTxt)
     {
         DATATBLS_UnloadBin(gpMonsoundsTxt);
-        FOG_FreeLinker(gTxtLink_0096C6B8);
+        FOG_FreeLinker(gpMonSoundsLinker);
         gnMonsoundsTxtRecordCount = 0;
     }
 
