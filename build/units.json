@@ -49689,11 +49689,6 @@
      "name": "sub_005665B0_GetLocalDate"
     },
     {
-     "va": "0x00566C80",
-     "length": 55,
-     "name": "sub_6FC90BE0"
-    },
-    {
      "va": "0x00567020",
      "length": 75,
      "name": "sub_00567020_StartTrade"
@@ -55364,6 +55359,11 @@
      "va": "0x00566BF0",
      "length": 139,
      "name": "PLRTRADE_Free"
+    },
+    {
+     "va": "0x00566C80",
+     "length": 55,
+     "name": "sub_6FC90BE0"
     },
     {
      "va": "0x00566D90",

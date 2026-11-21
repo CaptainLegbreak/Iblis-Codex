@@ -458,6 +458,8 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
+#define PACKETSIZE06_HEADER 0x92
+
 // 0x00564CB0
 void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit)
 {
@@ -1789,6 +1791,16 @@ void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit)
         pTrade->pItemTrade = 0;
         FOG_FreePool(pGame->pMemoryPool, pTrade, ".\\PLAYER\\PlrTrade.cpp", 2091, 0);
         pPlayerData->hTrade = 0;
+    }
+}
+
+// 0x00566C80
+void __fastcall sub_6FC90BE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
+{
+    D2UnitStrc* pOtherPlayer = (D2UnitStrc*)pArg;
+    if (pPlayer != pOtherPlayer)
+    {
+        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2107), PACKETSIZE06_HEADER, 0, !pOtherPlayer ? -1 : pOtherPlayer->dwUnitId);
     }
 }
 
