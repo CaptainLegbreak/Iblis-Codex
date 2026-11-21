@@ -77,7 +77,6 @@ void* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); 
 
 D2WinButtonStrc* gpButton_00798C40; // 0x00798C40
 
-char* gpMcpPacket_007992F4; // 0x007992F4
 
 // 0x00445300
 void __cdecl sub_00445300_LoadLvlRest()
@@ -165,45 +164,6 @@ int __fastcall sub_00449690_OnMessage(int nA, int nB, const char* szText, int nL
     return 1;
 }
 
-// 0x00449E70
-void __stdcall sub_00449E70_SetMcpPacket(const char* pData, int nSize)
-{
-    if (gpMcpPacket_007992F4)
-    {
-        FOG_Free(gpMcpPacket_007992F4, ".\\Src\\McpConnect.cpp", 0x21E, 0);
-        gpMcpPacket_007992F4 = 0;
-    }
-    if (!nSize)
-        return;
-    gpMcpPacket_007992F4 = (char*)FOG_Alloc(nSize, ".\\Src\\McpConnect.cpp", 0x227, 0);
-    memcpy(gpMcpPacket_007992F4, pData, nSize);
-    if (*pData == 0x17)
-    {
-        D2_ASSERT(*(unsigned short*)(gpMcpPacket_007992F4 + 1) < 0x100, 0x233);
-        D2_ASSERT(*(unsigned short*)(gpMcpPacket_007992F4 + 3) < 0x100, 0x234);
-        D2_ASSERT(*(unsigned short*)(gpMcpPacket_007992F4 + 5) < 0x100, 0x235);
-        D2_ASSERT(*(unsigned short*)(gpMcpPacket_007992F4 + 7) < 0x100, 0x236);
-    }
-    else if (*pData == 0x19)
-    {
-        D2_ASSERT(*(unsigned short*)(gpMcpPacket_007992F4 + 1) < 0x100, 0x242);
-        D2_ASSERT(*(unsigned short*)(gpMcpPacket_007992F4 + 3) < 0x100, 0x243);
-        D2_ASSERT(*(unsigned short*)(gpMcpPacket_007992F4 + 5) < 0x100, 0x244);
-        const unsigned short nCount = *(unsigned short*)(gpMcpPacket_007992F4 + 7);
-        D2_ASSERT(nCount < 0x100, 0x245);
-        const char* p = gpMcpPacket_007992F4 + 9;
-        for (int i = 0; i < nCount; i++)
-        {
-            p += 4;
-            while (*p++);
-            while (*p++);
-        }
-    }
-    else
-    {
-        D2_ASSERT(0, 0x254);
-    }
-}
 
 // 0x0044CCA0
 int __fastcall sub_0044CCA0_CountLevels(int nValue, int nUnused, int nLimit)
