@@ -49,7 +49,7 @@ struct D2MaskPairListStrc;
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...); // 0x006BE300
+void __cdecl sub_006BE300_Log(const char* szTag, const char* szFormat, ...); // 0x006BE300
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
@@ -176,7 +176,7 @@ void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, c
 
 void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
 
-extern "C" char* __stdcall inet_ntoa(unsigned int); // 0x006B013E
+char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
 
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int); // 0x006829C0
 
@@ -224,7 +224,7 @@ static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)
 {
     if (pClient->pNext)
     {
-        sub_006BE300_Nop("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
+        sub_006BE300_Log("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
     }
     D2QWriteNodeStrc* pNode = pClient->pWriteQueue;
     while (pNode)
@@ -532,7 +532,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     if (!pClient)
     {
         sub_006BE2F0_Nop(&gszEmptyAssertText, "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
-        sub_006BE300_Nop("QSRV", "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
+        sub_006BE300_Log("QSRV", "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
         LeaveCriticalSection((D2CriticalSectionStrc*)&pServer->pClientLocks[nBucket]);
         return;
     }
@@ -555,7 +555,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     D2_ASSERT(nClientId == pClient->nId, 0x3E0);
 
     unsigned int* pAddress = &pClient->nAddress;
-    sub_006BE300_Nop("QSRV", "[sRemoveClient]  Remove client %d %s refcount=%d life=%d", nClientId,
+    sub_006BE300_Log("QSRV", "[sRemoveClient]  Remove client %d %s refcount=%d life=%d", nClientId,
         sub_006B013E_FormatAddress(*pAddress), pClient->nRefCount, sub_00410A80_GetTimeSeconds() - pClient->nCreateTime);
 
     D2CriticalSectionStrc* pLock = (D2CriticalSectionStrc*)&pServer->tAddressLock;
@@ -737,14 +737,14 @@ void __fastcall sub_006C08A0_Dispatch(D2QueueServerStrc* server, D2QClientStrc* 
         switch (result) {
         case 2:
             if (server->bEnabled && !sub_006C00A0_AccountTraffic(server, charge, client)) {
-                sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", inet_ntoa(client->nAddress));
+                sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
                 sub_006C0770_BanClient(server, client->iId, gszFile_006FC460, 0x649);
                 return;
             }
             break;
         case 3: return;
         case 4:
-            sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", inet_ntoa(client->nAddress));
+            sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", sub_006B013E_InetNtoa(client->nAddress));
             sub_006C0770_BanClient(server, client->iId, gszFile_006FC460, 0x635);
             return;
         }

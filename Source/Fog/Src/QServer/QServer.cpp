@@ -327,7 +327,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags)
 
 int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
 
-void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, QServer* pServer); // 0x006BE300
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
 
@@ -1081,7 +1080,7 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
     pServer->nBuckets = gnGlobal_0074C3EC;
     pServer->ppBuckets = (D2QServerNodeStrc**)FOG_Alloc(gnGlobal_0074C3EC * sizeof(D2QServerNodeStrc*), gszQServerFile_006FC460, 180, 0);
     memset(pServer->ppBuckets, 0, gnGlobal_0074C3EC * sizeof(D2QServerNodeStrc*));
-    sub_006BE300_Nop(gszQServerTag_006FC47C, gszQServerAllocated_006FC548, pServer);
+    sub_006BE300_Log(gszQServerTag_006FC47C, gszQServerAllocated_006FC548, pServer);
     pServer->nValue880 = 0;
     pServer->pChain84C = 0;
     pServer->pChain850 = 0;
