@@ -1963,7 +1963,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
             {
                 PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
                 sub_6FC828D0(pPlayer, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), nAction == -2, pGame);
-                nResult = *(volatile int*)&nPathResult;
+                nResult = *(volatile int*)&nPathResult; // volatile only gives nPathResult the original's stack slot
             }
 
             if (nPathResult) sub_F05_SetInteractFlag(pPlayer, 0); else sub_F05_SetInteractFlag(pPlayer, 0);

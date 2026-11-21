@@ -114,6 +114,7 @@ void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
     {
 
+        // volatile only reproduces the original reloading the table pointer here instead of reusing the loop test's load
         if (STATES_CheckState(pUnit, (*(D2DataTablesStrc* volatile*)&sgptDataTables)->pProgressiveStates[i]))
         {
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));

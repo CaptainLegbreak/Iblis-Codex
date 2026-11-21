@@ -4812,7 +4812,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
         const int nArg20 = arg.unk0x20;
         const int nArg1C = arg.unk0x1C;
 
-        const int nArg0C = *(volatile int*)&arg.unk0x0C;
+        const int nArg0C = *(volatile int*)&arg.unk0x0C; // volatile only fixes where the original loads this field (before 0x08 and 0x18)
         const int nArg08 = arg.unk0x08;
         const int nArg18 = arg.unk0x18;
 

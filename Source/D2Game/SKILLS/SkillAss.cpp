@@ -1758,7 +1758,7 @@ void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSe
     const unsigned int nRoll = SEED_RollLowInline(&tSeed);
     pSeed->nHighSeed = tSeed.nHighSeed;
     pSeed->nLowSeed = tSeed.nLowSeed;
-    int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_00741B10;
+    int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_00741B10; // volatile only reproduces the original re-reading the turn base at each use
     for (int i = 0; i < nFrames; ++i)
     {
         nDirection += nSign * nStep;

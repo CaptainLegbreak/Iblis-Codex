@@ -42,6 +42,7 @@ int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc*
 {
     int nOwnerGUID = 0;
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    // volatile below only makes pAiControl live in memory (the original spills it, keeping pGame in a register)
     nOwnerGUID = *(volatile int*)&pAiControl->dwOwnerGUID;
     if (nOwnerGUID == -1)
         return 0;

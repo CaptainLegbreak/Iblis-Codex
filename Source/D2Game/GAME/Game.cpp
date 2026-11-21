@@ -1981,7 +1981,7 @@ void __fastcall sub_0052C900_SaveClientAndGamePlayers(D2ClientStrc* pClient, D2G
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     if (!pPlayer || !D2GAME_SAVE_WriteFile_6FC8A500(pGame, pPlayer, CLIENTS_GetName(pClient), 1))
         return;
-    D2ClientStrc* volatile pNext;
+    D2ClientStrc* volatile pNext; // volatile only keeps pNext in its stack slot across the loop body, as the original does
     D2ClientStrc* i = pGame->pClientList;
     for (; i; i = pNext)
     {

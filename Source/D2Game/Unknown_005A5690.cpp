@@ -19,7 +19,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, D2
 // 0x005A5690
 void D2ClientStrc::PARTYSCREEN_SendEventUpdateToClient(int nUnitGUID, unsigned char nType)
 {
-    const unsigned char nEvent = *(unsigned char volatile*)&nType;
+    const unsigned char nEvent = *(unsigned char volatile*)&nType; // volatile only reproduces the original reading nType at entry, before the packet is cleared
     D2GSPacketSrv5A packet;
     memset(&packet, 0, sizeof(packet));
     packet.nUnitGUID = nUnitGUID;

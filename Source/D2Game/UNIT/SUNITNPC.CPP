@@ -2680,6 +2680,7 @@ void __fastcall sub_00579090_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlay
     if (pTrade && pTrade->bTrader)
     {
         pTrade->bVendorInit = 0;
+        // volatile only makes these two reloads come from the stack copies of the register parameters, as the original does
         D2UnitStrc* const pStorePlayer = *(D2UnitStrc* volatile*)&pPlayer;
         D2GameStrc* const pStoreGame = *(D2GameStrc* volatile*)&pGame;
         D2GAME_NPC_FillStoreInventory_6FCC7100(pStoreGame, pStorePlayer, pNpc, pTrade);

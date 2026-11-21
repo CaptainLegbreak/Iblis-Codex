@@ -574,7 +574,7 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
     {
         return;
     }
-    const int nCount = *(volatile int*)&sgptDataTables->nMonStatsTxtRecordCount;
+    const int nCount = *(volatile int*)&sgptDataTables->nMonStatsTxtRecordCount; // volatile only fixes where the original reads the count
     if (nMinion >= nCount)
     {
         return;
@@ -1006,7 +1006,7 @@ D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2UnkMonCreateStrc* pCrea
                 --nSteps;
             }
             const int nNext=nRadius+3;
-            *(int volatile*)&nRadius=nNext;
+            *(int volatile*)&nRadius=nNext; // volatile only keeps nRadius (and nSpawnY below) in memory, as the original does
             if(nStepX && nStepY && nFlags){if(nNext>nMaxRadius)break;}else{if(nNext>nMaxRadius)break;}
         }while(1);
     }

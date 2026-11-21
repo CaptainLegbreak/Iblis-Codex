@@ -2456,6 +2456,7 @@ int __fastcall sub_005C09E0_SkillItemEventFunc_Reanimate(D2GameStrc* pGame, int 
         if (sub_0044BE50(pAttacker) == UNIT_PLAYER)
         {
             const int nOwnerId = pAttacker->dwUnitId;
+            // volatile only makes these reloads come from the stack copies of the register parameters, as the original does
             D2UnitStrc* pEventUnit = static_cast<D2UnitStrc* const volatile&>(pUnit);
             D2GameStrc* pOwnerGame = static_cast<D2GameStrc* const volatile&>(pGame);
             SUNITEVENT_Register(pOwnerGame, pEventUnit, UNITEVENT_13, static_cast<unsigned short>(nSkillId), nOwnerId, sub_005C07A0_UnitEventCallback, 0, nOwnerId);
