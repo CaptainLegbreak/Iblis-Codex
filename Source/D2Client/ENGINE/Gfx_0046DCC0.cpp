@@ -379,7 +379,7 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
 
     nDrawX = nX - sub_0045AFC0() - 2;
     nDrawY = nY - sub_0045AFD0_GetMouseYOffset();
-    if (pUnit && pUnit->dwUnitType == 2)
+    if (pUnit && pUnit->dwUnitType == UNIT_OBJECT)
     {
         const int nObjectId = pUnit->dwClassId;
         D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(nObjectId);

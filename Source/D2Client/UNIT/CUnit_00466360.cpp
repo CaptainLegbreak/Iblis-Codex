@@ -535,7 +535,7 @@ static void sub_00465E80_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType
                 pPrev->pListNext = pUnit->pListNext;
             }
 
-            if (pUnit->dwUnitType == 4)
+            if (pUnit->dwUnitType == UNIT_ITEM)
             {
                 sub_004879D0(pUnit);
             }

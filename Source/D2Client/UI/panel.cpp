@@ -335,7 +335,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
     if (nHeight >= 1 && nHeight <= 2)
     {
         D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
-        if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode != 0x11)
+        if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11)
             nHeight = 2;
     }
 
@@ -673,7 +673,7 @@ void __cdecl sub_00498120()
         int nLife = sub_00496DD0_GetSmoothedOrbValue(6) >> 8;
         const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pPlayer) >> 8;
         D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
-        if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode != 0x11 && nLife >= 0 && nLife <= 1)
+        if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11 && nLife >= 0 && nLife <= 1)
             nLife = 1;
 
         sub_005269D0(100, wszLifeText, D2LANG_GetStringFromTblIndex(0x1045), nLife, nMaxLife);

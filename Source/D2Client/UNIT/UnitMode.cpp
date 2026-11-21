@@ -305,12 +305,12 @@ static __forceinline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
 
 static __forceinline D2PlayerDataStrc* UMODE_GetPlayerData(D2UnitStrc* pUnit)
 {
-    return (pUnit && pUnit->dwUnitType == 0) ? pUnit->pPlayerData : 0;
+    return (pUnit && pUnit->dwUnitType == UNIT_PLAYER) ? pUnit->pPlayerData : 0;
 }
 
 static __forceinline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         return pUnit->pPlayerData->nState;
     }
@@ -319,7 +319,7 @@ static __forceinline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
 
 static __forceinline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         return pUnit->pPlayerData->nMode;
     }
@@ -328,7 +328,7 @@ static __forceinline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
 
 static __forceinline int UMODE_GetPendingType(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         return pUnit->pPlayerData->nArg1;
     }
@@ -337,7 +337,7 @@ static __forceinline int UMODE_GetPendingType(D2UnitStrc* pUnit)
 
 static __forceinline int UMODE_GetPendingId(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         return pUnit->pPlayerData->nArg2;
     }
@@ -346,7 +346,7 @@ static __forceinline int UMODE_GetPendingId(D2UnitStrc* pUnit)
 
 static __forceinline void UMODE_SetPendingAction(D2UnitStrc* pUnit, int bFlag, int nAction, int nType, int nId)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         pUnit->pPlayerData->nState = bFlag;
         pUnit->pPlayerData->nMode = nAction;
@@ -416,7 +416,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
         }
     }
 
-    if (pUnit && pUnit->dwUnitType == 2)
+    if (pUnit && pUnit->dwUnitType == UNIT_OBJECT)
     {
         if (sub_00623660_IsInObjectInteractRange(pPlayer, pUnit) && !sub_00622B50_IsRayFreeBetweenUnits(pPlayer, pUnit, 0x804))
         {
@@ -434,12 +434,12 @@ void __fastcall sub_00480D20_SetModeOverlay(D2UnitStrc* pUnit, int nMode)
     if (!pUnit)
         return;
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         if (nMode != 0 && nMode != 4 && nMode != 0x13)
             return;
     }
-    else if (pUnit->dwUnitType == 1)
+    else if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         if (nMode != 0 && nMode != 3 && nMode != 0xD)
             return;
@@ -594,9 +594,9 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
         return;
     }
 
-    const int nAction = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nMode : 0;
-    const int nType = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nArg1 : 0;
-    const int nId = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nArg2 : 0;
+    const int nAction = pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nMode : 0;
+    const int nType = pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nArg1 : 0;
+    const int nId = pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nArg2 : 0;
 
     D2UnitStrc* pUnit = sub_00463990(nId, nType);
     sub_0045C470_ClearPendingAction(pPlayer);
@@ -812,7 +812,7 @@ void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int 
         if (nArg1 == 4)
         {
             D2UnitStrc* pItem = sub_00463990(nArg2, nArg1);
-            if (pItem && pItem->dwUnitType == 4 && !sub_00451F30_TestUnitFlag(pItem, 2))
+            if (pItem && pItem->dwUnitType == UNIT_ITEM && !sub_00451F30_TestUnitFlag(pItem, 2))
             {
                 return;
             }
@@ -900,7 +900,7 @@ void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int 
 // build: context sub_GetPlayerDataOrNull
 static __forceinline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         return pUnit->pPlayerData;
     return 0;
 }

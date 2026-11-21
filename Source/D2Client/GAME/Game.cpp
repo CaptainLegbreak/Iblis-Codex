@@ -1751,7 +1751,7 @@ void __stdcall sub_0044BF40_ClickMapMsg(SMSGHANDLER_PARAMS* pMsg)
             nFlags |= 8;
         if (gdwGlobal_007A0664)
             nFlags |= 4;
-        if (pPlayer && pPlayer->dwUnitType == 0)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
             gdwGlobal_007A0650 = sub_00462D00(0, pMsg->nXpos, pMsg->nYpos, nFlags);
         }
@@ -1804,7 +1804,7 @@ void __stdcall sub_0044C370_ClickMapMsgMode5(SMSGHANDLER_PARAMS* pMsg)
     if (gdwGlobal_007A061C)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == 0)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
             gdwGlobal_007A0654 = sub_00462D00(5, pMsg->nXpos, pMsg->nYpos, pMsg->wParamLow);
         }

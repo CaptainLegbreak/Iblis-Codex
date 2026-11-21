@@ -70,7 +70,7 @@ int __stdcall COMPOSIT_GetWeaponClassCode(D2UnitStrc* pUnit, int nUnitType, int 
             pItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
             if (pItem && ITEMS_CanBeEquipped(pItem))
             {
-                if (pItem->dwUnitType != 4)
+                if (pItem->dwUnitType != UNIT_ITEM)
                 {
                     return 0;
                 }

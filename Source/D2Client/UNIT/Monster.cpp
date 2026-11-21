@@ -405,7 +405,7 @@ int __cdecl sub_004A74A0_GetPercentB()
 
 static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         return pUnit->pMonsterData;
     }
@@ -450,7 +450,7 @@ void __fastcall sub_004ADE70(D2UnitStrc* pUnit)
 // 0x004ADE80
 void __fastcall sub_004ADE80(D2UnitStrc* pUnit, void* pArg)
 {
-    if (pUnit && pArg && pUnit->dwUnitType == 1)
+    if (pUnit && pArg && pUnit->dwUnitType == UNIT_MONSTER)
     {
         sub_004ADD90_DispatchStates(pUnit, pArg, 4);
     }
@@ -468,7 +468,7 @@ static inline D2MonStatsTxt* CLIENT_GetMonStatsTxtRecord(int nMonsterId)
 // 0x004AE0A0
 void __fastcall sub_004AE0A0_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
         if (pMonsterData)
@@ -565,7 +565,7 @@ int __fastcall sub_004AE1B0_GetMonsterField40(D2UnitStrc* pUnit)
 // 0x004AE1D0
 static __declspec(noinline) void sub_004AE1D0_RefreshMonsterMode(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const unsigned int nMode = pUnit->dwAnimMode;
         if (nMode < 0x10 && nMode && nMode != 0xC)
@@ -647,7 +647,7 @@ void __cdecl sub_F03_Emit_004AFC10(D2UnitStrc* pUnit)
 // 0x004AE320
 int __fastcall sub_004AE320_IsChampionMonster(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x04);
     return 0;
 }
@@ -655,7 +655,7 @@ int __fastcall sub_004AE320_IsChampionMonster(D2UnitStrc* pUnit)
 // 0x004AE340
 int __fastcall sub_004AE340_IsGhostlyMonster(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x40);
     return 0;
 }
@@ -663,7 +663,7 @@ int __fastcall sub_004AE340_IsGhostlyMonster(D2UnitStrc* pUnit)
 // 0x004AE360
 int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x08);
     return 0;
 }
@@ -671,7 +671,7 @@ int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit)
 // 0x004AE380
 int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x10);
     return 0;
 }
@@ -679,7 +679,7 @@ int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit)
 // 0x004AE3A0
 int __fastcall sub_004AE3A0_IsSuperUniqueMonster(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return sub_004AC7E0_CheckMonTypeFlag(pUnit, 0x02);
     return 0;
 }
@@ -690,7 +690,7 @@ void __fastcall sub_004AE3C0_OwnerMissileHit(D2UnitStrc* pUnit)
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
     if (pOwner)
     {
-        D2_ASSERT(pOwner->dwUnitType == 3, 353);
+        D2_ASSERT(pOwner->dwUnitType == UNIT_MISSILE, 353);
         sub_004D2D70_CltMissileHit(pOwner, 0, 0);
     }
 }
@@ -1220,7 +1220,7 @@ void __fastcall sub_004AED30_FreeClientUnit(D2UnitStrc* pUnit)
         sub_004743D0_ReleaseOverlayResource(pResource);
     }
 
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
         if (pMonsterData && pMonsterData->wszMonName)
@@ -1391,7 +1391,7 @@ static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit)
         return 0;
     }
 
-    if (pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }
@@ -1518,7 +1518,7 @@ void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultC
         return;
     }
 
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->dwAnimMode == 3 && sub_M165_SeedStep(&pUnit->pSeed) % 3)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == 3 && sub_M165_SeedStep(&pUnit->pSeed) % 3)
     {
         return;
     }
@@ -1748,7 +1748,7 @@ int __cdecl sub_004B1020()
 // 0x004B1030
 D2UnitStrc* __fastcall sub_004B1030_GetMonsterLinkedPlayer(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 1 && pUnit->pMonsterData && pUnit->pMonsterData->dwOwnerGUID != -1)
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->dwOwnerGUID != -1)
     {
         return sub_00463990(pUnit->pMonsterData->dwOwnerGUID, 0);
     }

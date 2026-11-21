@@ -1347,7 +1347,7 @@ void __fastcall sub_005C40D0(Unit* unit,Unit* pet)
 // build: context MONSTERUNIQUE_GetMonsterDataInl
 inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInl(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         return pUnit->pMonsterData;
     }
@@ -2415,11 +2415,11 @@ int __fastcall sub_005C61E0_ApplyLifeTap(D2GameStrc* pGame, int nEvent, D2UnitSt
     {
         return 0;
     }
-    if (pAttacker->dwUnitType != 0 && pAttacker->dwUnitType != 1)
+    if (pAttacker->dwUnitType != UNIT_PLAYER && pAttacker->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }
-    if ((pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1) || SUNIT_IsDead(pUnit) || !pDamage || pDamage->dwPhysDamage <= 0)
+    if ((pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER) || SUNIT_IsDead(pUnit) || !pDamage || pDamage->dwPhysDamage <= 0)
     {
         return 0;
     }
@@ -2748,12 +2748,12 @@ int __fastcall sub_005C6760(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
     int nSlow = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, SLOW_STAT, 0);
     if (!nSlow)
         return 0;
-    if (pTarget->dwUnitType == 0)
+    if (pTarget->dwUnitType == UNIT_PLAYER)
     {
         if (nSlow >= SMALL_CAP)
             nSlow = SMALL_CAP;
     }
-    else if (pTarget->dwUnitType == 1)
+    else if (pTarget->dwUnitType == UNIT_MONSTER)
     {
         if (sub_005A0180((Unit005A0180*)pTarget, UNITMASK_MONSTER))
         {

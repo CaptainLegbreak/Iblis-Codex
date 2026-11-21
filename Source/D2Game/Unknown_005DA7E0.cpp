@@ -94,7 +94,7 @@ static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
 
 static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
 {
-    return pUnit->dwUnitType == 1;
+    return pUnit->dwUnitType == UNIT_MONSTER;
 }
 
 static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
@@ -120,7 +120,7 @@ static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc*
     PATH_SetType(pPath, 9);
 
     int nVelocity;
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonStatsTxtRun* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
         if (!pMonStatsTxtRecord)

@@ -993,13 +993,13 @@ static __declspec(noinline) void sub_004D9AD0_ResetTransform(D2UnitStrc* pUnit)
     sub_0046F000_ResetGfx(pUnit);
     if (pUnit)
     {
-        if (pUnit->dwUnitType == 0)
+        if (pUnit->dwUnitType == UNIT_PLAYER)
         {
             if (pUnit->dwAnimMode == 0x12)
                 return;
             sub_00480E70_SetUnitMode(pUnit, 1);
         }
-        else if (pUnit->dwUnitType == 1)
+        else if (pUnit->dwUnitType == UNIT_MONSTER)
         {
             sub_00480E70_SetUnitMode(pUnit, 1);
         }
@@ -1022,7 +1022,7 @@ void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState)
 
     if (pTxt->nStateFlags[39 >> 3] & gdwBitMasks_006CE268[39 & 7])
     {
-        if ((pUnit->dwUnitType == 1 && pUnit->dwAnimMode == 0xC) || (pUnit->dwUnitType == 0 && pUnit->dwAnimMode == 0x11))
+        if ((pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == 0xC) || (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 0x11))
         {
             STATES_ToggleState(pUnit, nState, 1);
             return;

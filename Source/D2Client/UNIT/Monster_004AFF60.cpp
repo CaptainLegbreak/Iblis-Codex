@@ -109,7 +109,7 @@ static void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode);  
 // 0x004AE1D0
 static __declspec(noinline) void sub_004AE1D0_RefreshMonsterMode(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const unsigned int nMode = pUnit->dwAnimMode;
         if (nMode < 0x10 && nMode && nMode != 0xC)
@@ -306,7 +306,7 @@ static __forceinline int sub_n5b_Distance(int nDelta)
 
 static __forceinline int sub_n5b_IsTypeFlag1(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
         return pUnit->pMonsterData->nClientFlags & 1;
     return 0;
 }
@@ -335,7 +335,7 @@ static __forceinline D2MonStats2Txt* sub_n5b_GetMonStats2TxtRecord(int nMonsterI
 
 __declspec(noinline) int __fastcall sub_00463860(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = sub_n5b_GetMonStatsTxtRecord(pUnit->dwClassId);
         if (!pMonStatsTxtRecord)

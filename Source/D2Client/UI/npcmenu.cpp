@@ -550,7 +550,7 @@ void __fastcall sub_004B1240_UsePacket7(D2ClientPacket7Strc* pPacket)
     {
         const unsigned short wClassId = pPacket->f_5;
         const int nClassId = wClassId == 0xFFFF ? -1 : wClassId;
-        if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
         {
             pUnit->pMonsterData->nMinionSpawnClassId = nClassId;
         }
@@ -1078,7 +1078,7 @@ void __fastcall sub_004B2A80_ResetHoverForItem(int nUnitId)
 {
     D2UnitStrc* pSelected = sub_00467A10();
     if (pSelected && gnGlobal_007C0D29 && sub_00463990(gnGlobal_007C0D25, 1)
-        && pSelected->dwUnitType == 4 && pSelected->dwUnitId == nUnitId)
+        && pSelected->dwUnitType == UNIT_ITEM && pSelected->dwUnitId == nUnitId)
     {
         sub_00466FE0();
         sub_00487990_ResetHover();

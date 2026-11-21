@@ -140,7 +140,7 @@ static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2Unit
 static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     MISSMODE_SetDamageFlags(pGame, pMissile, pUnit, pDamage);
-    if (pUnit && pUnit->dwUnitType == 1 && !MONSTERS_GetHirelingTypeId(pUnit))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pUnit))
     {
         const int nDamageTargetAc = STATLIST_UnitGetStatValue(pMissile, 0x78, 0);
         if (nDamageTargetAc)

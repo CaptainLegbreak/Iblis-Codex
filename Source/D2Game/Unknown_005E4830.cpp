@@ -202,7 +202,7 @@ void __fastcall sub_005E52D0_HirelingThink(D2GameStrc* pGame, D2UnitStrc* pUnit,
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
         return;
     }
-    if (pOwner->dwUnitType != 0)
+    if (pOwner->dwUnitType != UNIT_PLAYER)
     {
         if (nMonsterId == 271)
         {

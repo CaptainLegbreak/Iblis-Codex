@@ -74,7 +74,7 @@ void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, in
 // 0x005A0120
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 {
-    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == 1) ? pUnit->pMonsterData : 0;
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData)
     {
         return 0;
@@ -85,7 +85,7 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 // build: context MONSTERUNIQUE_CheckMonTypeFlag
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
-    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == 1) ? pUnit->pMonsterData : 0;
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData)
     {
         return 0;
@@ -156,7 +156,7 @@ void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pMissile)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pMissile)
     {
         sub_005A4270_ExecuteUModCallbacks(pGame, pMissile, 5, pUnit);
     }

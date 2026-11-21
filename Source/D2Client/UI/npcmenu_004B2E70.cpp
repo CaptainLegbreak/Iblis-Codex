@@ -349,7 +349,7 @@ static void __stdcall sub_004AD6E0_StateMissileBurst(int nSkillLevel, D2UnitStrc
         nSkillLevel = 1;
     if (nMissile == 0xC3)
     {
-        if (!pUnit || pUnit->dwUnitType != 1 || !pUnit->pMonsterData || !(pUnit->pMonsterData->nTypeFlag & 0x100))
+        if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || !pUnit->pMonsterData || !(pUnit->pMonsterData->nTypeFlag & 0x100))
             return;
     }
     D2MissileStrc tMissile;
@@ -432,7 +432,7 @@ __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 // 0x004AD970
 void __fastcall sub_004AD970_StateMissileSplit(D2UnitStrc* pUnit, int nState, int bFlag)
 {
-    if (!bFlag || !pUnit || pUnit->dwUnitType != 3)
+    if (!bFlag || !pUnit || pUnit->dwUnitType != UNIT_MISSILE)
     {
         return;
     }
@@ -507,7 +507,7 @@ void __fastcall sub_004AD970_StateMissileSplit(D2UnitStrc* pUnit, int nState, in
         break;
     }
 
-    if (pOwner->dwUnitType == 1)
+    if (pOwner->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)
@@ -519,7 +519,7 @@ void __fastcall sub_004AD970_StateMissileSplit(D2UnitStrc* pUnit, int nState, in
     sub_004CDBA0_SubmitOwnerRequest(pOwner, nMissileId, nX - nDY, bFlag + nDX, sub_0064A280(pUnit), sub_0064A210(pUnit));
     sub_004CDBA0_SubmitOwnerRequest(pOwner, nMissileId, nX + nDY, bFlag - nDX, sub_0064A280(pUnit), sub_0064A210(pUnit));
 
-    if (pOwner->dwUnitType == 1)
+    if (pOwner->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)

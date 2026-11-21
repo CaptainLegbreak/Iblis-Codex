@@ -310,7 +310,7 @@ static inline int PLAYER_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 
 static inline void PLAYER_SetPlayerState(D2UnitStrc* pUnit, int nState)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
         pUnit->pPlayerData->nState = nState;
 }
 
@@ -323,7 +323,7 @@ static inline int PLAYER_GetPlayerMode(D2UnitStrc* pUnit)
 
 static inline D2PlayerDataStrc* PLAYER_GetPlayerData(D2UnitStrc* pUnit)
 {
-    return (pUnit && pUnit->dwUnitType == 0) ? pUnit->pPlayerData : 0;
+    return (pUnit && pUnit->dwUnitType == UNIT_PLAYER) ? pUnit->pPlayerData : 0;
 }
 
 static inline int PLAYER_IsLocalPlayer(D2UnitStrc* pUnit)

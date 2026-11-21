@@ -710,17 +710,17 @@ static __forceinline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
 
 static __forceinline int sub_F05_GetInteractAction(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nMode : 0;
+    return pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nMode : 0;
 }
 
 static __forceinline int sub_F05_GetInteractUnitType(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 && pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg1 : 0;
+    return pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg1 : 0;
 }
 
 static __forceinline int sub_F05_GetInteractUnitGUID(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 ? (pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg2 : 0) : 0;
+    return pPlayer->dwUnitType == UNIT_PLAYER ? (pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg2 : 0) : 0;
 }
 
 static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
@@ -749,7 +749,7 @@ static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
 
 static __forceinline void sub_F05_SetInteractFlag(D2UnitStrc* pPlayer, int nFlag)
 {
-    if (pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+    if (pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
     {
         pPlayer->pPlayerData->nState = nFlag;
     }
@@ -1036,7 +1036,7 @@ static void __stdcall sub_0057F540_DropItemsOnCorpseOverflow(D2GameStrc* pGame, 
     }
 
     const int nGold = STATLIST_UnitGetStatValue(pUnit, 0x0E, 0);
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         UNITS_GetInventoryGoldLimit(pUnit);
     }
@@ -1171,7 +1171,7 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
   D2GAME_DropItem_6FC52260(pGame,pUnit,pDupedItem,pFreeRoom,returned.nX,returned.nY);
  }
  int nGold=STATLIST_UnitGetStatValue(pUnit,14,0);
- if(pUnit->dwUnitType==0) UNITS_GetInventoryGoldLimit(pUnit);
+ if(pUnit->dwUnitType==UNIT_PLAYER) UNITS_GetInventoryGoldLimit(pUnit);
  STATLIST_SetUnitStat(pUnit,14,0,0);
  sub_0057F390_DropCorpseGold(pGame,pUnit,pCorpse,nGold,1);
  sub_0053DF80_SendCorpse(pGame,!pUnit ? -1 : pUnit->dwUnitId,!pCorpse ? -1 : pCorpse->dwUnitId,1);
@@ -1329,7 +1329,7 @@ static void __stdcall sub_0057FF70_RestoreWeapon(D2GameStrc* pGame, unsigned cha
 
 void __fastcall sub_0057F240_EmitCaller(void* pGame, D2UnitStrc* pPlayer)
 {
-    if (pPlayer && pPlayer->dwUnitType == 0 && !sub_0057F240_DrainRunStamina(pPlayer))
+    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && !sub_0057F240_DrainRunStamina(pPlayer))
     {
         sub_0057F240_EmitWalk(pPlayer);
     }
@@ -1460,7 +1460,7 @@ static void sub_00580280_RestoreActiveSkills(D2UnitStrc* pUnit, D2UnkPlrModeStrc
 // 0x00580310
 void __fastcall sub_6FC80A30(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         D2InventoryStrc* pInventory = pUnit->pInventory;
         if (pInventory)
@@ -1832,12 +1832,12 @@ void __fastcall StartModeID(D2GameStrc* ptGame, D2UnitStrc* pPlayer, D2SkillStrc
 
     if (sub_6FC81890(ptGame, pPlayer, nMode) && (bAllowReEnter || sub_0057EEC0(ptGame, pPlayer, nMode, 1, pSkill)))
     {
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nMode = 0;
         }
 
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
         }
@@ -1980,7 +1980,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, int nMode, D2UnitStrc* pAttacker)
 {
     bool bIsDruid = false;
-    if (pDefender && pDefender->dwUnitType == 0 && pDefender->dwClassId == 0x05)
+    if (pDefender && pDefender->dwUnitType == UNIT_PLAYER && pDefender->dwClassId == 0x05)
     {
         bIsDruid = true;
     }
@@ -2014,11 +2014,11 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
         pDefender->dwFlags &= ~0x02;
     }
 
-    if (pDefender && pAttacker && pDefender->dwUnitType == 0 && pDefender != pAttacker)
+    if (pDefender && pAttacker && pDefender->dwUnitType == UNIT_PLAYER && pDefender != pAttacker)
     {
         D2UnitStrc* pOwner;
-        if (pAttacker->dwUnitType == 0
-            || pAttacker->dwUnitType == 1 && (pOwner = AIGENERAL_GetMinionOwner(pAttacker)) != 0 && pOwner->dwUnitType == 0 && pOwner != pDefender)
+        if (pAttacker->dwUnitType == UNIT_PLAYER
+            || pAttacker->dwUnitType == UNIT_MONSTER && (pOwner = AIGENERAL_GetMinionOwner(pAttacker)) != 0 && pOwner->dwUnitType == UNIT_PLAYER && pOwner != pDefender)
         {
             ITEMS_DropPlayerEar(pGame, pDefender);
         }

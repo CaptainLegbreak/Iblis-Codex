@@ -590,7 +590,7 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
             {
                 gaSlotState_007BC8F8[i] = 1;
             }
-            else if (pUnit->dwUnitType == 0 && pUnit->dwAnimMode != 0x11)
+            else if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11)
             {
                 if (!sub_004538D0(9))
                 {

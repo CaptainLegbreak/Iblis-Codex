@@ -158,7 +158,7 @@ void __cdecl sub_00456970_InitUI()
             }
         }
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (!pPlayer || (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer)))
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer)))
             gaUIVarStates_007A27C0[0] = 1;
         if (!bWasOn)
         {
@@ -214,7 +214,7 @@ mini_panel:
             }
         }
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (!pPlayer || (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer)))
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer)))
             gaUIVarStates_007A27C0[0x22] = 1;
         if (!bWasOn)
         {

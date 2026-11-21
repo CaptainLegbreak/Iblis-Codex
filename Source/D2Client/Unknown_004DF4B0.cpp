@@ -333,7 +333,7 @@ int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId)
 // 0x004E3170
 void __fastcall sub_004E3170_SetMissileFrames(D2UnitStrc* pMissile, int nDivisor)
 {
-    if (pMissile && pMissile->dwUnitType == 3 && nDivisor)
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && nDivisor)
     {
         D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord_Inline(pMissile->dwClassId);
         if (pMissilesTxtRecord)

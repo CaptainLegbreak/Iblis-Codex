@@ -436,7 +436,7 @@ static __forceinline int MONSTERS_GetBaseIdInline(int nClassId)
 
 static __forceinline int MONSTERS_GetUnitBaseIdInline(D2UnitStrc* pUnit)
 {
-    if(pUnit->dwUnitType==1)
+    if(pUnit->dwUnitType==UNIT_MONSTER)
     {
         int nId=MONSTERS_GetBaseIdInline(pUnit->dwClassId);
         if(nId>=0 && nId<sgptDataTables->nMonStatsTxtRecordCount) return nId;

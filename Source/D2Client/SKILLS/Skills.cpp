@@ -655,7 +655,7 @@ int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    if (pUnit->dwUnitType != 0)
+    if (pUnit->dwUnitType != UNIT_PLAYER)
     {
         return 1;
     }
@@ -778,7 +778,7 @@ static __forceinline int SKILLCLT_GetUnitType(D2UnitStrc* pUnit)
 
 static __forceinline void SKILLCLT_SetCastState(D2UnitStrc* pUnit)
 {
-    if (pUnit && (pUnit->dwUnitType == 0 || pUnit->dwUnitType == 1))
+    if (pUnit && (pUnit->dwUnitType == UNIT_PLAYER || pUnit->dwUnitType == UNIT_MONSTER))
     {
         sub_00480E70_SetUnitMode(pUnit, 1);
     }
@@ -790,7 +790,7 @@ static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
     int nMode = 7;
     D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     int bRandom = 1;
-    if (pTarget && pTarget->dwUnitType == 1)
+    if (pTarget && pTarget->dwUnitType == UNIT_MONSTER)
     {
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pTarget->dwClassId);
         if (pMonStats2TxtRecord->nType == 2)
@@ -950,7 +950,7 @@ int __fastcall sub_004C5910(D2UnitStrc* pUnitA, D2UnitStrc* pUnitB)
     else
     {
         nUnitIdB = pUnitB->dwUnitId;
-        if (pUnitB->dwUnitType == 1)
+        if (pUnitB->dwUnitType == UNIT_MONSTER)
         {
             nUnitIdB = sub_00479150_FindRosterIndex(nUnitIdB);
             if (nUnitIdB == -1)
@@ -1084,7 +1084,7 @@ int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, 
         {
             return 0;
         }
-        if (pTarget->dwUnitType == 1)
+        if (pTarget->dwUnitType == UNIT_MONSTER)
         {
             D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pTarget->dwClassId);
             if (!pMonStatsTxtRecord || pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
@@ -2095,7 +2095,7 @@ static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2Cli
 // 0x004C6EB0
 int __fastcall sub_004C6EB0_StartSkillOnUnit(D2UnitStrc* pUnit, D2ClientSkillArgsStrc* pArgs)
 {
-    if (UNITS_CanDualWield(pUnit) && (!pUnit || pUnit->dwUnitType != 1))
+    if (UNITS_CanDualWield(pUnit) && (!pUnit || pUnit->dwUnitType != UNIT_MONSTER))
     {
         sub_004C6DE0_SwapDualWieldSkill(pArgs, pUnit);
     }
@@ -2799,7 +2799,7 @@ int __fastcall sub_004C7F50_SpawnPairAtTarget(D2UnitStrc* pUnit, int nSkillId, i
         return 0;
     }
 
-    if (pTarget->dwUnitType != 1)
+    if (pTarget->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

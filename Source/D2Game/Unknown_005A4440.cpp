@@ -50,7 +50,7 @@ D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueI
 
 static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData;
     }
@@ -59,7 +59,7 @@ static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 
 static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nMonUmod;
     }
@@ -68,7 +68,7 @@ static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
 
 static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nTypeFlag & nFlag;
     }
@@ -77,7 +77,7 @@ static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 
 static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return;
     }
@@ -122,7 +122,7 @@ static __forceinline int CountUModsTo(unsigned char* pUMods)
 
 static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
     {
         return 1;
     }
@@ -132,7 +132,7 @@ static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag
 static __forceinline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = 0;
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         pMonsterData = pUnit->pMonsterData;
     }

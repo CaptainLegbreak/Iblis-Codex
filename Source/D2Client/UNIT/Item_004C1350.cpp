@@ -236,7 +236,7 @@ static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit,
         return;
 
     INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
     ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp");
@@ -251,7 +251,7 @@ static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
 
 static __forceinline void ITEM_RemoveItemStats(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
     ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp");
@@ -382,7 +382,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     sub_004C1200_RestoreSkillState(pUnit, &tState);
     if (bChanged)
     {
-        if (pUnit->dwUnitType == 0)
+        if (pUnit->dwUnitType == UNIT_PLAYER)
         {
             sub_0046F950(pUnit);
             sub_00470610_Refresh(pUnit, 0);

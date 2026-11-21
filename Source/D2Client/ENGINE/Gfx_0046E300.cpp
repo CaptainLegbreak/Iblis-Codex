@@ -78,7 +78,7 @@ void __stdcall sub_0046E300_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nCo
 
     int nDrawX;
     int nDrawY;
-    if (bPerspective && (!pUnit || pUnit->dwUnitType != 4 || UNITS_GetAnimOrSeqMode(pUnit) == 3))
+    if (bPerspective && (!pUnit || pUnit->dwUnitType != UNIT_ITEM || UNITS_GetAnimOrSeqMode(pUnit) == 3))
     {
         SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
         switch (sub_0045AE90())
@@ -97,7 +97,7 @@ void __stdcall sub_0046E300_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nCo
     {
         nDrawX = UNITS_GetClientCoordX(pUnit) - sub_0045AFC0();
         nDrawY = UNITS_GetClientCoordY(pUnit) - sub_0045AFD0_GetMouseYOffset();
-        if (pUnit && pUnit->dwUnitType == 4 && nX != -1 && nY != -1)
+        if (pUnit && pUnit->dwUnitType == UNIT_ITEM && nX != -1 && nY != -1)
         {
             nDrawX = nX;
             nDrawY = nY;

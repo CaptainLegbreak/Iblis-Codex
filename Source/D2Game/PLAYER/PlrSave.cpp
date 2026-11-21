@@ -1445,7 +1445,7 @@ int __fastcall sub_005317B0_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2I
             if (pRight && PREPARE_ITEM(pRight) < 0) return -1;
             if (pOther && PREPARE_ITEM(pOther) < 0) return -1;
         }
-        if (pCursor && pCursor->dwUnitType == 4 && PREPARE_ITEM(pCursor) < 0) return -1;
+        if (pCursor && pCursor->dwUnitType == UNIT_ITEM && PREPARE_ITEM(pCursor) < 0) return -1;
         D2UnitStrc* pListItem = INVENTORY_GetFirstItem(pInventory);
         while (pListItem)
         {
@@ -1475,7 +1475,7 @@ int __fastcall sub_005317B0_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2I
             if (pRight) { WRITE_ITEM(pRight); }
             if (pOther) { WRITE_ITEM(pOther); }
         }
-        if (pCursor && pCursor->dwUnitType == 4) { WRITE_ITEM(pCursor); }
+        if (pCursor && pCursor->dwUnitType == UNIT_ITEM) { WRITE_ITEM(pCursor); }
         *pItemCount = nItems;
     }
     return pData - pBuffer;
@@ -2815,7 +2815,7 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientS
     {
         if (pPlayer)
         {
-            if (pPlayer->dwUnitType == 0)
+            if (pPlayer->dwUnitType == UNIT_PLAYER)
                 UNITS_GetInventoryGoldLimit(pPlayer);
             STATLIST_SetUnitStat(pPlayer, 14, 0, 0);
         }
@@ -2825,7 +2825,7 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientS
     {
         if (pPlayer)
         {
-            if (pPlayer->dwUnitType == 0)
+            if (pPlayer->dwUnitType == UNIT_PLAYER)
                 UNITS_GetStashGoldLimit(pPlayer);
             STATLIST_SetUnitStat(pPlayer, 15, 0, 0);
         }

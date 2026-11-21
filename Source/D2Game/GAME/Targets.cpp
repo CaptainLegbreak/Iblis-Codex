@@ -16,7 +16,7 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 // 0x005B1880
 void __fastcall sub_005B1880(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
 {
-    if (!pGame || !pUnit || pUnit->dwUnitType != 0 || pUnit->dwNodeIndex != 11)
+    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER || pUnit->dwNodeIndex != 11)
         return;
     D2TargetNodeStrc** ppNode = pGame->pTargetNodes;
     int i = 0;
@@ -40,7 +40,7 @@ void __fastcall sub_005B1880(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
 // 0x005B1900
 void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex)
 {
-    if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex >= 8 || (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1))
+    if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex >= 8 || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
         return;
     D2TargetNodeStrc* pNode = pGame->pTargetNodes[nNodeIndex];
     if (!pNode || !pNode->hUnit)
@@ -64,7 +64,7 @@ void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pU
 // 0x005B1990
 void __fastcall sub_6FC40280(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex)
 {
-    if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex < 8 || nNodeIndex > 9 || (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1))
+    if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex < 8 || nNodeIndex > 9 || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
         return;
     D2TargetNodeStrc* pNode = pGame->pTargetNodes[nNodeIndex];
     D2TargetNodeStrc* p = (D2TargetNodeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2TargetNodeStrc), gszTargetsSourceFile, 161, 0);
@@ -85,7 +85,7 @@ void __fastcall sub_6FC40280(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int n
 // 0x005B1A20
 void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (!pGame || !pUnit || (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1))
+    if (!pGame || !pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
     {
         return;
     }
@@ -114,7 +114,7 @@ void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUni
 // 0x005B1A90
 void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (!pGame || !pUnit || (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1))
+    if (!pGame || !pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
         return;
     const int nNodeIndex = pUnit->dwNodeIndex;
     if (nNodeIndex == 11)

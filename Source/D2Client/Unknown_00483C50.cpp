@@ -466,7 +466,7 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
         sub_004839D0_DrawGridCells(pGrid, nX, nY, nWidth, nHeight, nColor);
         sub_0046EE80_DrawItemCel(pItem, pGrid->nGridBoxWidth * nX + pGrid->nGridLeft, pGrid->nGridBoxHeight * nY + pGrid->nGridTop);
     }
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         return;
     }

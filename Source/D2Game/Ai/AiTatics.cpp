@@ -417,7 +417,7 @@ void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValu
 		nParam = 7;
 	}
 
-	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0;
+	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0;
 	sub_005A6260_SetAiParamFields(pAiParams, nParam, nValue, nArg);
 }
 

@@ -1050,7 +1050,7 @@ int __fastcall sub_0065DE40_AddStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc
     if (nStatId == 21)
     {
         int nClassId;
-        if (pUnit && pUnit->dwUnitType == 4)
+        if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
         {
             nClassId = pUnit->dwClassId;
         }
@@ -1554,7 +1554,7 @@ void __stdcall sub_0065E8E0_InitItemFileIndex(D2UnitStrc* pItem)
 // 0x0065E9B0
 D2ItemsTxt* __fastcall sub_0065E9B0(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
-    if (pUnit && pUnit->dwUnitType == 4)
+    if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
     {
         return DATATBLS_GetItemsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
     }
@@ -1643,7 +1643,7 @@ int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         return 0;
     }
 
-    if (pItem && pItem->dwUnitType == 4 && nType == 1)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && nType == 1)
     {
         sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
     }
@@ -1660,7 +1660,7 @@ int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         return 0;
     }
 
-    if (pItem && pItem->dwUnitType == 4)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
         sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
     }
@@ -1677,7 +1677,7 @@ int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         return 0;
     }
 
-    if (pItem && pItem->dwUnitType == 4 && nType == 1)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && nType == 1)
     {
         sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
     }
@@ -1699,7 +1699,7 @@ int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         return 0;
     }
 
-    if (pItem && pItem->dwUnitType == 4)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
         sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
     }
@@ -1895,7 +1895,7 @@ int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     }
 
     int nClassId;
-    if (pUnit && pUnit->dwUnitType == 4)
+    if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
     {
         nClassId = pUnit->dwClassId;
     }
@@ -2166,7 +2166,7 @@ int __fastcall sub_0065F6A0_PropertyFunc17_ChargedSkill(int nType, D2UnitStrc* p
     {
         return 0;
     }
-    if (pItem->dwUnitType != 4)
+    if (pItem->dwUnitType != UNIT_ITEM)
     {
         return 0;
     }
@@ -2418,7 +2418,7 @@ int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         return 0;
     }
 
-    if (pItem->dwUnitType == 4 && nType == 1)
+    if (pItem->dwUnitType == UNIT_ITEM && nType == 1)
     {
         sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
     }

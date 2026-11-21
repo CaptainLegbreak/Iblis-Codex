@@ -94,7 +94,7 @@ static __forceinline int sub_A17E0_GetUModConstant(int nUMod)
 // 0x005A17E0
 void __fastcall sub_005A17E0_UModDamageBonus(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return;
     }
@@ -147,7 +147,7 @@ static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId
 // 0x005A1910
 void __fastcall sub_005A1910_ApplyVelocity(D2UnitStrc* pUnit, int nUnused1, int nUnused2)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
         if (pMonStatsTxtRecord && pMonStatsTxtRecord->nVelocity > 0)

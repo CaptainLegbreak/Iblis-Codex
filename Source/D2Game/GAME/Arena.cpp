@@ -234,14 +234,14 @@ void __fastcall ARENA_ProcessKillEvent(D2GameStrc* pGame,D2UnitStrc* pAttacker,D
   }
   else if(pDefender)
   {
-   if(pDefender->dwUnitType==0)
+   if(pDefender->dwUnitType==UNIT_PLAYER)
    {
     ARENA_UpdateScore(pGame,pAttacker,pDefender,1);
     ARENA_UpdateScore(pGame,pAttacker,pDefender,2);
     ARENA_UpdateScore(pGame,pDefender,pAttacker,4);
     ARENA_UpdateScore(pGame,pDefender,pAttacker,5);
    }
-   else if(pDefender->dwUnitType==1)
+   else if(pDefender->dwUnitType==UNIT_MONSTER)
    {
     ARENA_UpdateScore(pGame,pAttacker,pDefender,3);
    }

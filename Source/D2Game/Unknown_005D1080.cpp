@@ -103,7 +103,7 @@ static __forceinline int sub_005D1080_GetThornsPercent(D2UnitStrc* pDefender, D2
     {
         return 0;
     }
-    if (!(pAttacker && pAttacker->dwUnitType == 0) && !MONSTERS_GetHirelingTypeId(pAttacker))
+    if (!(pAttacker && pAttacker->dwUnitType == UNIT_PLAYER) && !MONSTERS_GetHirelingTypeId(pAttacker))
     {
         return nThornsPercent;
     }

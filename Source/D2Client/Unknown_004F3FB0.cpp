@@ -44,7 +44,7 @@ D2UnitStrc* __fastcall sub_004F3FB0_GetTargetMonster(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    if (pTarget->dwUnitType != 1)
+    if (pTarget->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

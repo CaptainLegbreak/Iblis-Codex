@@ -542,7 +542,7 @@ static int sub_005D92D0_IsDualWieldingMelee(D2UnitStrc* pUnit)
 // 0x005D9320
 static int __stdcall sub_005D9320_GetWhirlwindHitCount(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
         pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
@@ -709,7 +709,7 @@ int __fastcall SKILLS_SrvDo076_Whirlwind(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         return 0;
     }
 
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, 3);
     }
@@ -1106,7 +1106,7 @@ int __fastcall SKILLS_SrvSt40_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
 
 static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
 {
-    return pUnit->dwUnitType == 1;
+    return pUnit->dwUnitType == UNIT_MONSTER;
 }
 
 // 0x005D9F70

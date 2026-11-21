@@ -4179,7 +4179,7 @@ void __fastcall MISSMODE_SrvDmg13_BlessedHammerEx(D2GameStrc* pGame, D2UnitStrc*
 // 0x005AD630
 void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
-    if (!pMissile || pMissile->dwUnitType != 3)
+    if (!pMissile || pMissile->dwUnitType != UNIT_MISSILE)
     {
         return;
     }
@@ -4191,7 +4191,7 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
     }
 
     int nChance = 0;
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         if (pMissilesTxtRecord->dwDmgParam[0] < 1)
         {
@@ -4199,7 +4199,7 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         }
         nChance = pMissilesTxtRecord->dwDmgParam[1];
     }
-    else if (pUnit->dwUnitType == 1)
+    else if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         const int nParam = pMissilesTxtRecord->dwDmgParam[0];
         if (nParam < 1)
@@ -4276,7 +4276,7 @@ static __forceinline void MISSMODE_SetMissileHitFlags(D2UnitStrc* pUnit, D2Damag
 // 0x005AD730
 void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pDefender, D2DamageStrc* pDamage)
 {
-    if (!pMissile || pMissile->dwUnitType != 3)
+    if (!pMissile || pMissile->dwUnitType != UNIT_MISSILE)
     {
         return;
     }
@@ -4527,7 +4527,7 @@ static __declspec(noinline) void __stdcall sub_005ADBB0_MISSMODE_SrvDo(D2GameStr
 
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     if ((pMissilesTxtRecord->nMissileFlags[MISSILESFLAGINDEX_SRCTOWN >> 3] & gdwBitMasks[MISSILESFLAGINDEX_SRCTOWN & 7]) && pOwner && IsUnitInTown(pOwner)
-        || pOwner && pOwner->dwUnitType == 0 && IsUnitInTown(pOwner)
+        || pOwner && pOwner->dwUnitType == UNIT_PLAYER && IsUnitInTown(pOwner)
         || !(pMissilesTxtRecord->nMissileFlags[MISSILESFLAGINDEX_TOWN >> 3] & gdwBitMasks[MISSILESFLAGINDEX_TOWN & 7]) && DUNGEON_IsRoomInTown(pRoom)
         || gMissileSrvDoFuncTable_0073C768[(short)pMissilesTxtRecord->wSrvDoFunc](pGame, pMissile) == 2)
     {
@@ -4545,7 +4545,7 @@ void __fastcall sub_005ADCC0(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnuse
 static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     MISSMODE_SetDamageFlags(pGame, pMissile, pUnit, pDamage);
-    if (pUnit && pUnit->dwUnitType == 1 && !MONSTERS_GetHirelingTypeId(pUnit))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pUnit))
     {
         const int nDamageTargetAc = STATLIST_UnitGetStatValue(pMissile, 0x78, 0);
         if (nDamageTargetAc)
@@ -6124,7 +6124,7 @@ int __fastcall sub_005B1140_BossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUni
     const int bBoss = MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 8) || MONSTERS_IsBoss(0, pUnit);
     if (pUnit && pUnit->dwClassId >= 0 && pUnit->dwClassId < sgptDataTables->nMonStatsTxtRecordCount && pUnit->dwClassId == 250 || bBoss)
     {
-        if (pAiTickParam->nTargetDistance < 20u && pAiTickParam->pTarget && pAiTickParam->pTarget->dwUnitType == 0 && !AIUTIL_CheckAiControlFlag(pAiTickParam->pAiControl, 0x10))
+        if (pAiTickParam->nTargetDistance < 20u && pAiTickParam->pTarget && pAiTickParam->pTarget->dwUnitType == UNIT_PLAYER && !AIUTIL_CheckAiControlFlag(pAiTickParam->pAiControl, 0x10))
         {
             SUNIT_AttachSound(pUnit, 16, 0);
             AIUTIL_ToggleAiControlFlag(pAiTickParam->pAiControl, 0x10, 1);
@@ -6782,7 +6782,7 @@ D2UnitStrc* __fastcall sub_6FCF1CB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Unit
 {
     D2DoorObjectAiCallbackArgStrc* pArg = (D2DoorObjectAiCallbackArgStrc*)pCallbackArg;
 
-    if (!pTarget || pTarget->dwUnitType != 2 || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != 0)
+    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != 0)
     {
         return 0;
     }

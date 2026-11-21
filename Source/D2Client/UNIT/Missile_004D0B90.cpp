@@ -183,7 +183,7 @@ int __fastcall sub_004D0E00_CltHitBurstSub(D2UnitStrc* pMissile, D2UnitStrc* pHi
         return 1;
     if (pHitUnit)
     {
-        if (pHitUnit->dwUnitType != 1)
+        if (pHitUnit->dwUnitType != UNIT_MONSTER)
             return 0;
         if (!sub_004638A0_CheckMonStats2Flag(pHitUnit->dwClassId, 0xB))
             return 0;

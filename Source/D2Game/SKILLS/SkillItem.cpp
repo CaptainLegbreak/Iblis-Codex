@@ -830,7 +830,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             nResult = 1;
         }
     }
-    if (bUpdateLife && pUnit && pUnit->dwUnitType == 0)
+    if (bUpdateLife && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         const unsigned char nOldLife = STATLIST_UnitGetStatValue(pUnit, 352, 0);
         const unsigned char nNewLife = MONSTERMODE_GetHpPercent128(pUnit);
@@ -904,7 +904,7 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
    changed=1;
   }
  }
- if(updateLife && unit && unit->dwUnitType==0){
+ if(updateLife && unit && unit->dwUnitType==UNIT_PLAYER){
   unsigned char previous=(unsigned char)STATLIST_UnitGetStatValue(unit,352,0);
   unsigned char life=MONSTERMODE_GetHpPercent128(unit);
   int difference=(int)previous-(int)life;
@@ -1046,7 +1046,7 @@ int __fastcall SKILLITEM_pSpell05_RejuvPotion(D2GameStrc* pGame, D2UnitStrc* pUn
         }
     }
 
-    if (bAffectsHitpoints && pUnit && pUnit->dwUnitType == 0)
+    if (bAffectsHitpoints && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         const unsigned char nNewSentHpPct = MONSTERMODE_GetHpPercent128(pUnit);
         SUNITMSG_QueueLifeUpdate(pUnit, nNewSentHpPct);
@@ -1923,7 +1923,7 @@ int __fastcall SKILLITEM_EventFunc15_OpenWounds(D2GameStrc* pGame, int nEvent, D
 
     const int nValues[] = { 9, 18, 27, 36, 45 };
     int nHpRegen = SKILLITEM_CalculateOpenWoundsHpRegen(nLevel, nValues) + 40;
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         nHpRegen /= 4;
         if (nEvent == 6)
@@ -1931,7 +1931,7 @@ int __fastcall SKILLITEM_EventFunc15_OpenWounds(D2GameStrc* pGame, int nEvent, D
             nHpRegen /= 2;
         }
     }
-    else if (pUnit->dwUnitType == 1 && sub_005A0180((Unit005A0180*)pUnit, 0x0C))
+    else if (pUnit->dwUnitType == UNIT_MONSTER && sub_005A0180((Unit005A0180*)pUnit, 0x0C))
     {
         nHpRegen /= 2;
     }
@@ -1969,11 +1969,11 @@ int __fastcall SKILLITEM_EventFunc16_CrushingBlow(D2GameStrc* pGame, int nEvent,
     }
 
     int nDivisor = 4;
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         nDivisor = 10;
     }
-    else if (pUnit->dwUnitType == 1)
+    else if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         if (MONSTERS_GetHirelingTypeId(pUnit))
         {
@@ -2039,7 +2039,7 @@ int __fastcall SKILLITEM_EventFunc16_CrushingBlow(D2GameStrc* pGame, int nEvent,
 // 0x005C0130
 int __fastcall sub_005C0130_RestoreManaAfterKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
-    if (!pAttacker || !pUnit || pAttacker->dwUnitType != 0)
+    if (!pAttacker || !pUnit || pAttacker->dwUnitType != UNIT_PLAYER)
         return 0;
     const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
     if (!nValue)
@@ -2691,7 +2691,7 @@ int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         return 0;
     }
 
-    if (pTarget->dwUnitType != 4)
+    if (pTarget->dwUnitType != UNIT_ITEM)
     {
         return 0;
     }
@@ -3155,7 +3155,7 @@ int __fastcall SKILLS_SrvSt59_ImpInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 // 0x005D2140
 int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
-    if (!pTarget || pTarget->dwUnitType != 1 || SUNIT_IsDead(pTarget))
+    if (!pTarget || pTarget->dwUnitType != UNIT_MONSTER || SUNIT_IsDead(pTarget))
     {
         return 0;
     }
@@ -3219,7 +3219,7 @@ int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit
         return 0;
     }
 
-    if (pTargetUnit->dwUnitType != 0 && pTargetUnit->dwUnitType != 1)
+    if (pTargetUnit->dwUnitType != UNIT_PLAYER && pTargetUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

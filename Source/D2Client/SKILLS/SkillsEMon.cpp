@@ -56,7 +56,7 @@ static D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
 // build: context UNITS_GetXPositionInline
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
     {
         return pUnit->pStaticPath->nXPos;
     }
@@ -66,7 +66,7 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 // build: context UNITS_GetYPositionInline
 static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
     {
         return pUnit->pStaticPath->nYPos;
     }

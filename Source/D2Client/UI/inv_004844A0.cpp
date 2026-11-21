@@ -1635,7 +1635,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
     const Unicode* pNewline = D2LANG_GetStringFromTblIndex(0xF9E);
 
     D2UnitStrc* pPlayer = pUnit;
-    if (pUnit && pUnit->dwUnitType == 1 && !MONSTERS_GetHirelingTypeId(pUnit))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pUnit))
         pPlayer = sub_00463DD0_GetPlayerUnit();
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
@@ -1716,7 +1716,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
     {
         sub_00526700(wszClass, D2LANG_GetStringFromTblIndex(nClass + 0x2AA5));
         sub_00526700(wszClass, pNewline);
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->dwClassId != nClass)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->dwClassId != nClass)
             bClassRed = 1;
         sub_00526700(wszStats, sub_004521C0_PrefixLevelText(wszClass, bClassRed));
     }
@@ -1739,7 +1739,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
 
     if (ITEMSIsA(gpHoverItem_007BCBF4, 0x33))
     {
-        if (pPlayer && pPlayer->dwUnitType == 0)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
             const int nPlayerClass = pPlayer->dwClassId;
             if (nPlayerClass == 3 && (!ITEMS_IsClassValid(gpHoverItem_007BCBF4) || ITEMS_GetClassOfClassSpecificItem(gpHoverItem_007BCBF4) == nPlayerClass))

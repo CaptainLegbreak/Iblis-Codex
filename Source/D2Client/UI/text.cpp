@@ -900,7 +900,7 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
 
     D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitGUID, pPacket->nUnitType);
     char szName[0x11] = { 0 };
-    if ((pUnit && pUnit->dwUnitType == 0) || pPacket->szName[0])
+    if ((pUnit && pUnit->dwUnitType == UNIT_PLAYER) || pPacket->szName[0])
     {
         if (pUnit)
             SStrCopy(szName, UNITS_GetPlayerName(pUnit), 0x11);

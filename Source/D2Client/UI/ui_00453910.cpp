@@ -67,7 +67,7 @@ static int sub_00453910_CanSetUIVar(int nUIVar, int nState)
                 {
                     return 0;
                 }
-                if (pPlayer->dwUnitType == 0 && pPlayer->dwAnimMode == 0x11)
+                if (pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->dwAnimMode == 0x11)
                 {
                     sub_004647D0(pPlayer);
                     sub_00478590(0x41);
@@ -141,7 +141,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     switch (nState)
     {
     case 0:
-        if (!pPlayer || (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer)))
+        if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer)))
         {
             gaUIVarStates_007A27C0[nUIVar] = 1;
         }
@@ -152,7 +152,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 2:
         if (pPlayer)
         {
-            if (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer))
+            if (pPlayer->dwUnitType == UNIT_PLAYER && !sub_00464820_IsDeadOrDying(pPlayer))
             {
                 gaUIVarStates_007A27C0[nUIVar] = !gaUIVarStates_007A27C0[nUIVar];
             }

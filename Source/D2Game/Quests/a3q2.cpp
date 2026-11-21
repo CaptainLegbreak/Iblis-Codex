@@ -376,7 +376,7 @@ int __fastcall OBJECTS_OperateFunction59_KhalimChest(D2ObjOperateFnStrc* pOp, in
 
 inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->pAiControl;
     }

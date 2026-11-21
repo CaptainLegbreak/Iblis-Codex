@@ -79,11 +79,11 @@ void __fastcall sub_005B1C00_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pU
     }
 
     D2TargetNodeStrc* pTargetNode;
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
     }
-    else if (pUnit->dwUnitType == 1)
+    else if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
     }

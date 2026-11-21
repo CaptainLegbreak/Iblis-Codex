@@ -466,7 +466,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     if (!pUnit)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
             pPlayer->pPlayerData->nMode = 0;

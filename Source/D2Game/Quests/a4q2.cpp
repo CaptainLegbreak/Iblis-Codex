@@ -656,7 +656,7 @@ static void __stdcall ACT4Q2_KillAllMonstersInCS(D2GameStrc* pGame, D2Act4Quest2
             for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNext)
             {
                 pNext = pUnit->ptRoomNext;
-                if (pUnit->dwUnitType == 1 && pUnit->dwClassId != 243 && !SUNIT_IsDead(pUnit) && STATLIST_GetUnitAlignment(pUnit) == 0)
+                if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwClassId != 243 && !SUNIT_IsDead(pUnit) && STATLIST_GetUnitAlignment(pUnit) == 0)
                 {
                     D2ModeChangeStrc modeChange;
                     MONSTERMODE_GetModeChangeInfo(pUnit, 0, &modeChange);

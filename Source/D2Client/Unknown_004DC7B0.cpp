@@ -80,7 +80,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     int bFlag;
     if (!bForce && UNIT_HasFlagEx(pUnit, 0x40000))
         return;
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode == 0x11 && !STATES_CheckState(pUnit, 7))
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 0x11 && !STATES_CheckState(pUnit, 7))
         return;
     if (!bForce && pUnit && pUnit->dwUnitType > 0 && pUnit->dwUnitType <= 2)
     {
@@ -100,7 +100,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     if (bPerspective)
     {
         bFlag = 0;
-        if (pUnit && pUnit->dwUnitType == 2)
+        if (pUnit && pUnit->dwUnitType == UNIT_OBJECT)
         {
             const int nClassId = pUnit->dwClassId;
             D2ObjectsTxt* pObjectsRecord = DATATBLS_GetObjectsTxtRecord(nClassId);

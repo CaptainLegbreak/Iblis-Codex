@@ -165,7 +165,7 @@ static D2UnitStrc* __stdcall sub_005DD050_FindTargetAmongMinions(D2GameStrc* pGa
         return 0;
     }
 
-    if (pOwner->dwUnitType != 1)
+    if (pOwner->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }
@@ -208,7 +208,7 @@ D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitSt
 void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
 {
     D2AiControlStrc* pAiControl;
-    if (pUnit && pUnit->dwUnitType == 1) {
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER) {
         D2MonsterDataStrc* m = pUnit->pMonsterData;
         if (m) { pAiControl = m->pAiControl; }
         else pAiControl = 0;
@@ -259,7 +259,7 @@ void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner
 // 0x005DD510
 static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, int* pTargetDistance, D2UnitStrc* pAlternativeTarget, int nAlternativeDistance, D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         return 0;
     }

@@ -49,7 +49,7 @@ void __fastcall MONSTER_Free(D2GameStrc* pGame, D2UnitStrc* pMonster)
         CHAT_FreeHoverMsg(pGame->pMemoryPool, pMonster->pHoverText);
     }
 
-    if (pMonster->dwUnitType == 1)
+    if (pMonster->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pMonster->pMonsterData;
         if (pMonsterData)

@@ -163,7 +163,7 @@ __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nId)
 // 0x0059FEE0
 void __fastcall sub_0059FEE0_SendMissilePacket(D2ClientStrc* pClient, D2GameStrc* pGame, D2UnitStrc* pMissile, int bSendPath)
 {
-    if (!pMissile || pMissile->dwUnitType != 3)
+    if (!pMissile || pMissile->dwUnitType != UNIT_MISSILE)
         return;
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     if (!pOwner)
@@ -472,7 +472,7 @@ void __fastcall MONSTERUNIQUE_UMod2_HealthBonus(D2UnitStrc* pUnit, int nUMod, in
 // 0x005A0E40
 void __fastcall sub_005A0E40_IncreaseMonsterLevelAndExperience(D2UnitStrc* pUnit, void* unused, void* context)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
         STATLIST_SetUnitStat(pUnit, 12, nLevel + 3, 0);

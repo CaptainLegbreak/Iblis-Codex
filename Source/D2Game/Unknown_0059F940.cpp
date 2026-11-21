@@ -61,12 +61,12 @@ __declspec(noinline) static void __stdcall sub_0059F940_RollMissilePierce(D2Unit
 // 0x0059F940
 static void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner)
 {
-    if (!pOwner || !pMissile || pMissile->dwUnitType != 3)
+    if (!pOwner || !pMissile || pMissile->dwUnitType != UNIT_MISSILE)
     {
         return;
     }
 
-    if (pOwner->dwUnitType != 0 && pOwner->dwUnitType != 1)
+    if (pOwner->dwUnitType != UNIT_PLAYER && pOwner->dwUnitType != UNIT_MONSTER)
     {
         return;
     }
@@ -116,7 +116,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
         return 0;
     }
 
-    if (pMissileParams->pOwner->dwUnitType != 0 && pMissileParams->pOwner->dwUnitType != 1)
+    if (pMissileParams->pOwner->dwUnitType != UNIT_PLAYER && pMissileParams->pOwner->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

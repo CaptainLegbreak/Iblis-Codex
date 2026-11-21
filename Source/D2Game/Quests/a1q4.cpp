@@ -815,7 +815,7 @@ static void sub_00592860_DebugStartedQuest(D2QuestDataStrc* pQuestData)
 
 inline D2MonsterInteractStrc* MONSTERS_GetMonInteractInline(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->pMonInteract;
     }
@@ -1457,7 +1457,7 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
    D2UnitStrc* pUnit=ppRooms[i]->pUnitFirst;
    while(pUnit) {
     D2UnitStrc* pNext=pUnit->ptRoomNext;
-    if(pUnit->dwUnitType==2 && pUnit->dwClassId==21) {
+    if(pUnit->dwUnitType==UNIT_OBJECT && pUnit->dwClassId==21) {
      UNITS_GetCoords(pUnit,&coords);i=nRooms;break;
     }
     pUnit=pNext;

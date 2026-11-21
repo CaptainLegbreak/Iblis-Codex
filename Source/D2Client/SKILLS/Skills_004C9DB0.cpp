@@ -55,7 +55,7 @@ int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSki
     }
 
     const int nEventFrame = sub_004C9D70(pUnit);
-    if (pUnit && (pUnit->dwUnitType == 0 || pUnit->dwUnitType == 1) && pUnit->nActionFrame == 3)
+    if (pUnit && (pUnit->dwUnitType == UNIT_PLAYER || pUnit->dwUnitType == UNIT_MONSTER) && pUnit->nActionFrame == 3)
     {
         sub_004CB6A0_PlayAttackSound(pUnit, pUnit->dwAnimMode, 0);
         return 0;
@@ -91,7 +91,7 @@ int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSki
             }
 
             SKILLS_SetFlags(pSkill, 0);
-            if (pUnit && pUnit->dwUnitType == 1)
+            if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
             {
                 switch (sub_00463900_GetValidMonsterId(sub_00463860(pUnit)))
                 {

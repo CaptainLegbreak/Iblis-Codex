@@ -348,7 +348,7 @@ unsigned char __stdcall sub_0063EBD0_GetLightRadius(D2UnitStrc* pMonster)
     if (pMonster && (!pMonster ? 6 : pMonster->dwUnitType) == 1)
     {
         unsigned char nMaxLightRadius = 0;
-        unsigned char* pComponents = pMonster && pMonster->dwUnitType == 1 && pMonster->pMonsterData ? pMonster->pMonsterData->nComponent : 0;
+        unsigned char* pComponents = pMonster && pMonster->dwUnitType == UNIT_MONSTER && pMonster->pMonsterData ? pMonster->pMonsterData->nComponent : 0;
         if (!pComponents)
             return 0;
         for (int i = 0; i < 16; ++i)

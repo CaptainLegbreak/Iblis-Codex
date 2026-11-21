@@ -76,7 +76,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             if (UNITS_IsSelectable(pTarget))
             {
                 if (!(pSkillsTxtRecord->nFlags[2] & gdwMask_006CE278)
-                    || (pTarget->dwUnitType == 1 && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
+                    || (pTarget->dwUnitType == UNIT_MONSTER && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {
                     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
@@ -91,7 +91,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
 
 D2UnitStrc* __fastcall sub_807B_Emit_00467660(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pPlayer, int bArg)
 {
-    if (bArg && pPlayer->dwUnitType == 0)
+    if (bArg && pPlayer->dwUnitType == UNIT_PLAYER)
     {
         return sub_00467660_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
     }

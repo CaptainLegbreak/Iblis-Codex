@@ -934,12 +934,12 @@ int __fastcall sub_004CD240_IsOwnersPet(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
         return 1;
     }
 
-    if (pOwner->dwUnitType != 0)
+    if (pOwner->dwUnitType != UNIT_PLAYER)
     {
         return 0;
     }
 
-    if (pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

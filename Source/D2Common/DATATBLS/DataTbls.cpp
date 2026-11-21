@@ -867,7 +867,7 @@ void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int*
 // 0x0065FD20
 int __fastcall ITEMMODS_PropertyFunc23(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
 {
-    if (pProperty && pItem && pItem->dwUnitType == 4 && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
+    if (pProperty && pItem && pItem->dwUnitType == UNIT_ITEM && !ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
     {
         ITEMMODS_ApplyEthereality(pItem);
         return 1;

@@ -83,7 +83,7 @@ void __fastcall sub_00573C00_ResetMonsterModesInLevel(D2GameStrc* pGame, int nCl
         for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNext)
         {
             pNext = pUnit->ptRoomNext;
-            if (pUnit->dwUnitType == 1 && (pUnit->dwClassId == nClassId1 || pUnit->dwClassId == nClassId2) && !SUNIT_IsDead(pUnit) && !STATLIST_GetUnitAlignment(pUnit))
+            if (pUnit->dwUnitType == UNIT_MONSTER && (pUnit->dwClassId == nClassId1 || pUnit->dwClassId == nClassId2) && !SUNIT_IsDead(pUnit) && !STATLIST_GetUnitAlignment(pUnit))
             {
                 D2ModeChangeStrc modeChange;
                 MONSTERMODE_GetModeChangeInfo(pUnit, 0, &modeChange);

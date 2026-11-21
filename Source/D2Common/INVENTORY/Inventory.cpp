@@ -475,7 +475,7 @@ int __stdcall STATES_CheckStateMaskBlueOnUnit(D2UnitStrc* pUnit)
 
 static __forceinline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
 {
-    if (pItem && pItem->dwUnitType == 4 && pItem->pItemData)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
         return &pItem->pItemData->pExtraData;
     }
@@ -1670,7 +1670,7 @@ int __stdcall sub_0063BB20_CheckInventoryOverlap(D2InventoryStrc* pInventory, D2
         return 0;
     if (pInventory->dwSignature != 0x1020304)
         return 0;
-    if (!pItem || pItem->dwUnitType != 4)
+    if (!pItem || pItem->dwUnitType != UNIT_ITEM)
         return 0;
     if (nPage == 0xFF)
         return 0;
@@ -2485,7 +2485,7 @@ int __stdcall sub_0063C830_CheckBeltItem(D2InventoryStrc* inventory, D2UnitStrc*
     D2InventoryGridStrc* grid = INVENTORY_GetGrid(inventory, 1, &gBeltInventoryGridInfo);
     if (!grid)
         return 0;
-    if (!item || item->dwUnitType != 4 || !ITEMS_CheckIfBeltable(item))
+    if (!item || item->dwUnitType != UNIT_ITEM || !ITEMS_CheckIfBeltable(item))
         return 0;
     unsigned char width;
     unsigned char height;
@@ -3020,11 +3020,11 @@ int __stdcall INVENTORY_GetSetItemEquipCountByFileIndex(D2InventoryStrc* invento
  for (D2UnitStrc* item=grid->pItem;item;) {
   if (ITEMS_GetItemQuality(item)==5 && ITEMS_GetFileIndex(item)==fileIndex) {
    unsigned int x;
-   if (item->dwUnitType==2 || (item->dwUnitType>3 && item->dwUnitType<=5)) x=item->pStaticPath->tGameCoords.nX;
+   if (item->dwUnitType==UNIT_OBJECT || (item->dwUnitType>3 && item->dwUnitType<=5)) x=item->pStaticPath->tGameCoords.nX;
    else x=item->pDynamicPath ? PATH_GetXPosition(item->pDynamicPath):0;
    if (x<11) ++count;
   }
-  if (item->dwUnitType!=4) return count;
+  if (item->dwUnitType!=UNIT_ITEM) return count;
   D2ItemDataStrc* data=item->pItemData;
   if (!data) return count;
   D2ItemExtraDataStrc* extra=&data->pExtraData;
@@ -3705,7 +3705,7 @@ static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, 
             return 0;
         }
 
-        if (pUnit->dwUnitType == 1)
+        if (pUnit->dwUnitType == UNIT_MONSTER)
         {
             switch (MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId))
             {
@@ -3723,7 +3723,7 @@ static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, 
             }
         }
 
-        if (pUnit->dwUnitType != 0)
+        if (pUnit->dwUnitType != UNIT_PLAYER)
         {
             return 0;
         }

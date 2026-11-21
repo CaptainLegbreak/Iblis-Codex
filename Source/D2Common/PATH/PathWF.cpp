@@ -44,7 +44,7 @@ static int PATH_FindNonCollidingTargetPoint(D2PathInfoStrc* pInfo, D2PathMovStrc
     D2ActiveRoomStrc* pRoom = pInfo->pStartRoom;
     const int nCollisionPattern = pInfo->nCollisionPattern;
     const int nCollisionMask = pInfo->nCollisionMask;
-    D2_ASSERT(((pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == 0) || (pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == 1)) != 0, 290);
+    D2_ASSERT(((pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 290);
 
     pMov->bReachedDeadEnd = 0;
     if (!PATH_TestNewTargetPoint(pMov, pRoom, nCollisionPattern, nCollisionMask))
@@ -370,7 +370,7 @@ static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPoint
 int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* ptPathInfo = pPathInfo->pDynamicPath;
-    D2_ASSERT(((ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == 0) || (ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == 1)) != 0, 0x2AD);
+    D2_ASSERT(((ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == UNIT_PLAYER) || (ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 0x2AD);
 
     D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
     const int nCollisionPattern = pPathInfo->nCollisionPattern;

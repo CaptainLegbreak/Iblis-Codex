@@ -5002,7 +5002,7 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
     {
         int bCloseToTarget = 0;
         D2UnitStrc* pPlayer = sub_6FCCFD70(pGame,pUnit,&bCloseToTarget);
-        if (pPlayer && pPlayer->dwUnitType == 0)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
             if (sub_00588E10_IsMonsterNearby(pGame,pPlayer,pUnit))
             {

@@ -895,7 +895,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
         }
 
         D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
-        if (!pOwner || pOwner->dwUnitType != 0)
+        if (!pOwner || pOwner->dwUnitType != UNIT_PLAYER)
         {
             break;
         }

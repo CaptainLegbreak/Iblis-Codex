@@ -480,7 +480,7 @@ void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, 
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     }
 
-    if (!nSkillId && pUnit->dwUnitType == 0 && pUnit->dwClassId == 6)
+    if (!nSkillId && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwClassId == 6)
     {
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x5722));
     }

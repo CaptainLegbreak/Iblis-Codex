@@ -188,7 +188,7 @@ static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponen
         return;
 
     sub_0063D2B0_DetachItem(pUnit->pInventory, pItem);
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
     ITEMS_CheckItemFlag(pItem, 0x100, 0x96, szItemCppFile);

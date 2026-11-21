@@ -272,7 +272,7 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* ptClient, int n
     D2UnitStrc* hUnit = CLIENTS_GetPlayerFromClient(ptClient, 0);
     D2_ASSERT(hUnit, 0x1AF);
 
-    if (!pGame->bExpansion && hUnit->dwUnitType == 0)
+    if (!pGame->bExpansion && hUnit->dwUnitType == UNIT_PLAYER)
     {
         sub_00575BC0(pGame, hUnit);
     }
@@ -319,7 +319,7 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* ptClient, int n
     sub_00554670_UpdateClientsOnRoomChange(pGame, hUnit, 0);
     UNITROOM_RefreshUnit(hUnit);
 
-    if (hUnit->dwUnitType == 0)
+    if (hUnit->dwUnitType == UNIT_PLAYER)
     {
         PLAYERPETS_UpdatePetsForOwnerMove(pGame, hUnit, CLIENTS_GetUnitX(hUnit), CLIENTS_GetUnitY(hUnit));
     }

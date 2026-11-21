@@ -71,7 +71,7 @@ int __fastcall SKILLS_SrvDo033_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUni
     nLevel = D2_MIN(D2_MAX(nLevel, 1), nSkillLevel);
 
     int nChance;
-    if (!(pTargetUnit && pTargetUnit->dwUnitType == 0) && !MONSTERS_GetHirelingTypeId(pTargetUnit))
+    if (!(pTargetUnit && pTargetUnit->dwUnitType == UNIT_PLAYER) && !MONSTERS_GetHirelingTypeId(pTargetUnit))
     {
         if (MONSTERS_IsBoss(0, pTargetUnit))
         {

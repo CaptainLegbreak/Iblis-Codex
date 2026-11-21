@@ -215,7 +215,7 @@ static __declspec(noinline) int __stdcall sub_00467000_CheckWarpTileHover(D2Unit
 // 0x00467000
 static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
-    if (pUnit && pUnit->dwUnitType == 5
+    if (pUnit && pUnit->dwUnitType == UNIT_TILE
         && sub_00463EE0_IsPointInTileRect(pUnit, nX1, tY1.nValue)
         && sub_00463EE0_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)
@@ -426,7 +426,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
     D2UnitFindCallback pfnTest = 0;
     if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillSelFile_006D6AE0, 0x301) == 0x5A)
     {
-        if (pUnit && pUnit->dwUnitType == 4)
+        if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
         {
             const int nClassId = pUnit->dwClassId;
             if (ITEMS_IsMetalItem(nClassId))
@@ -482,7 +482,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             if (UNIT_HasFlag(pTarget, 4))
             {
                 if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
-                    || (pTarget->dwUnitType == 1 && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
+                    || (pTarget->dwUnitType == UNIT_MONSTER && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {
                     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
@@ -527,7 +527,7 @@ D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitSt
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pUnit)
     {
-        if (pUnit->dwUnitType == 0 && sub_00464820_IsDeadOrDying(pUnit))
+        if (pUnit->dwUnitType == UNIT_PLAYER && sub_00464820_IsDeadOrDying(pUnit))
         {
             return pUnit;
         }
@@ -601,7 +601,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
     }
 
     D2UnitStrc* pSelected = sub_00467A10();
-    if (pSelected && sub_00466870(pSelected, nX, nY, 1) && (pSelected->dwUnitType != 4 || !gdwGlobal_007A6A90))
+    if (pSelected && sub_00466870(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gdwGlobal_007A6A90))
     {
         sub_00466DE0_SetHoverUnit(pSelected);
         return;
@@ -665,7 +665,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
                 continue;
             }
 
-            if (pUnit && pUnit->dwUnitType == 4 && gdwGlobal_007A6A90)
+            if (pUnit && pUnit->dwUnitType == UNIT_ITEM && gdwGlobal_007A6A90)
             {
                 continue;
             }

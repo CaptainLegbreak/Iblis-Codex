@@ -74,7 +74,7 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
             switch (!pUnit ? 6 : pUnit->dwUnitType)
             {
             case 3:
-                D2_ASSERT(pOwner->dwUnitType == 1, 425);
+                D2_ASSERT(pOwner->dwUnitType == UNIT_MONSTER, 425);
                 if (!pOwner->dwAnimMode || pOwner->dwAnimMode == 12)
                 {
                     return;
@@ -87,7 +87,7 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
             sub_004706E0_GetUnitCelOffsets(pOwner, nComponent, &nOffsetX, &nOffsetY);
             pMotion->nClientX = nOffsetX;
             pMotion->nClientZ = nOffsetY;
-            if (pUnit && pUnit->dwUnitType == 3)
+            if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
             {
                 pMotion->nClientZ += 10;
             }

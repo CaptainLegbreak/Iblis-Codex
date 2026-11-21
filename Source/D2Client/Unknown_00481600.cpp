@@ -106,7 +106,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
         }
     }
 
-    if (pUnit && pUnit->dwUnitType == 2)
+    if (pUnit && pUnit->dwUnitType == UNIT_OBJECT)
     {
         if (sub_00623660_IsInObjectInteractRange(pPlayer, pUnit) && !sub_00622B50_IsRayFreeBetweenUnits(pPlayer, pUnit, 0x804))
         {
@@ -121,7 +121,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
 // build: context sub_GetPlayerDataOrNull
 static __forceinline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         return pUnit->pPlayerData;
     return 0;
 }

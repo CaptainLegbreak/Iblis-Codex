@@ -976,14 +976,14 @@ void __fastcall QUESTS_ParseKill(D2GameStrc* pGame, D2UnitStrc* pDefender, D2Uni
     pArgs.pGame = pGame;
     pArgs.nEvent = 8;
     pArgs.pTarget = pDefender;
-    if (pAttacker && pAttacker->dwUnitType == 0)
+    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER)
     {
         pArgs.pPlayer = pAttacker;
     }
     else
     {
         pArgs.pPlayer = 0;
-        if (pAttacker && pAttacker->dwUnitType == 1)
+        if (pAttacker && pAttacker->dwUnitType == UNIT_MONSTER)
         {
             int nOwnerType;
             int nOwnerId;
@@ -1497,7 +1497,7 @@ static __forceinline int sub_00544590_CheckMonStatsFlag(int nMonsterId, int nFla
 // 0x00544590
 int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pNPC)
 {
-    const bool bIsPlayer = hPlayer && hPlayer->dwUnitType == 0;
+    const bool bIsPlayer = hPlayer && hPlayer->dwUnitType == UNIT_PLAYER;
     D2_ASSERT(bIsPlayer, 2028);
 
     const int nNPCType = pNPC ? pNPC->dwUnitType : 6;

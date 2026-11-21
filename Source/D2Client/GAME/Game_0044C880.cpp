@@ -796,7 +796,7 @@ void __cdecl sub_0044C000_StartClick()
         gdwGlobal_007A066C = 1;
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nFlags = sub_0044BEC0_GetClickFlags_static();
-        if (pPlayer && pPlayer->dwUnitType == 0)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
             sub_00462D00(1, sub_00468730(), sub_00468740(), nFlags);
         }
@@ -826,7 +826,7 @@ void __cdecl sub_0044C060_Refresh()
     if (gdwGlobal_007A061C)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == 0)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
             sub_00462D00(2, sub_00468730(), sub_00468740(), CLIENT_GetClickFlags_inl());
     }
 }
@@ -869,7 +869,7 @@ void __stdcall sub_0044C180_OnClickUp(SMSGHANDLER_PARAMS* pMsg)
     gdwGlobal_007A0654 = 1;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nFlags = sub_0044BEC0_GetClickFlags_static();
-    if (pPlayer && pPlayer->dwUnitType == 0)
+    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
     {
         gdwGlobal_007A0654 = sub_00462D00(3, pMsg->nXpos, pMsg->nYpos, nFlags);
     }
@@ -887,7 +887,7 @@ void __cdecl sub_0044C2C0()
         gdwGlobal_007A0670 = 1;
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nFlags = CLIENT_GetClickFlags_inl();
-        if (pPlayer && pPlayer->dwUnitType == 0)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
             sub_00462D00(4, sub_00468730(), sub_00468740(), nFlags);
     }
 }

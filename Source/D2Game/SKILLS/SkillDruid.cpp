@@ -1887,7 +1887,7 @@ int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         return 0;
     }
 
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         int nTimeout = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
         if (nTimeout < 1)
@@ -3809,7 +3809,7 @@ int __fastcall SKILLS_SrvDo071_Taunt(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     curseData.nAuraTargetState = pSkillsTxtRecord->wAuraTargetState;
     sub_005C35C0_CurseUnitCallback(pTarget, &curseData);
 
-    D2AiControlStrc* pAiControl = (pTarget->dwUnitType == 1 && pTarget->pMonsterData) ? pTarget->pMonsterData->pAiControl : 0;
+    D2AiControlStrc* pAiControl = (pTarget->dwUnitType == UNIT_MONSTER && pTarget->pMonsterData) ? pTarget->pMonsterData->pAiControl : 0;
     AITHINK_SetAiControlParams(pAiControl, -666, -666, -666);
     AIUTIL_SetOwnerGUIDAndType(pTarget, 0);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, 2, 0);

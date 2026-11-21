@@ -674,7 +674,7 @@ D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit)
 // 0x0046F950
 void __fastcall sub_0046F950(D2UnitStrc* pUnit)
 {
-    if (!sub_00464820_IsDeadOrDying(pUnit) && pUnit && pUnit->dwUnitType == 0)
+    if (!sub_00464820_IsDeadOrDying(pUnit) && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         sub_00461250_QueueMove(7, pUnit, 0, 1);
 }
 
@@ -709,7 +709,7 @@ void __fastcall sub_0046C700(D2UnitStrc* pUnit)
 // 0x0045C470
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         pUnit->pPlayerData->nState = 0;
         pUnit->pPlayerData->nMode = 0;
@@ -861,7 +861,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
         if (UNIT_HasFlagEx(pUnit, 0x40000))
             return;
 
-        if (pUnit->dwUnitType == 1 && sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 2))
+        if (pUnit->dwUnitType == UNIT_MONSTER && sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 2))
             return;
     }
 

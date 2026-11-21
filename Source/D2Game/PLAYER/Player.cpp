@@ -602,7 +602,7 @@ static __forceinline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat
         return;
     }
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         if (nStat == 14)
         {
@@ -640,14 +640,14 @@ static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitS
     int bPlayerKill = 0;
     if (pKiller && pKiller != pPlayer)
     {
-        if (pKiller->dwUnitType == 0)
+        if (pKiller->dwUnitType == UNIT_PLAYER)
         {
             bPlayerKill = 1;
         }
-        else if (pKiller->dwUnitType == 1)
+        else if (pKiller->dwUnitType == UNIT_MONSTER)
         {
             D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pKiller);
-            if (pOwner && pOwner->dwUnitType == 0)
+            if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
             {
                 bPlayerKill = 1;
             }

@@ -1397,7 +1397,7 @@ int __fastcall sub_00576D90_SpendGold(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
             return 1;
         }
 
-        if (pPlayer->dwUnitType == 0 && nNewValue > UNITS_GetStashGoldLimit(pPlayer))
+        if (pPlayer->dwUnitType == UNIT_PLAYER && nNewValue > UNITS_GetStashGoldLimit(pPlayer))
         {
             STATLIST_SetUnitStat(pPlayer, 15, 0, 0);
             return 1;
@@ -1628,7 +1628,7 @@ int __fastcall sub_00577470_RelinkItemStatLists(D2UnitStrc* pUnit)
         pNext = INVENTORY_GetNextItem(pCurrent);
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCurrent);
         int bStatNotDynamic = 0;
-        if (pItem && pItem->dwUnitType == 4 && STATLIST_GetOwner(pItem, &bStatNotDynamic))
+        if (pItem && pItem->dwUnitType == UNIT_ITEM && STATLIST_GetOwner(pItem, &bStatNotDynamic))
         {
             STATLIST_ExpireUnitStatlist(pUnit, pItem);
             STATLIST_MergeStatLists(pUnit, pItem, bStatNotDynamic);

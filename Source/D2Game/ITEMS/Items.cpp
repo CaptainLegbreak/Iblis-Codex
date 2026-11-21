@@ -1569,7 +1569,7 @@ static __forceinline void ITEMS_SetGoldStat(D2UnitStrc* pUnit, int nStat, int nV
         return;
     }
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         if (nValue > UNITS_GetInventoryGoldLimit(pUnit))
         {
@@ -1815,7 +1815,7 @@ void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 static inline int ITEMS_IsUniqueWithFileIndex(D2UnitStrc* pItem, int nFileIndex)
 {
-    return pItem && pItem->dwUnitType == 4 && ITEMS_GetItemQuality(pItem) == 7 && ITEMS_GetFileIndex(pItem) == nFileIndex;
+    return pItem && pItem->dwUnitType == UNIT_ITEM && ITEMS_GetItemQuality(pItem) == 7 && ITEMS_GetFileIndex(pItem) == nFileIndex;
 }
 
 // 0x00558070
@@ -2336,12 +2336,12 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                     if (pPlayer)
                     {
                         D2UnitStrc* pOwner = pPlayer;
-                        if (pPlayer->dwUnitType != 0)
+                        if (pPlayer->dwUnitType != UNIT_PLAYER)
                         {
                             pOwner = AIGENERAL_GetMinionOwner(pPlayer);
                         }
 
-                        if (pOwner && pOwner->dwUnitType == 0)
+                        if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
                         {
                             const int nLiving = PARTY_GetLivingPartyMemberCountInSameLevel(pGame, pOwner);
                             nPlayerCount = D2_MIN(D2_MAX(nLiving, 1), 8);
@@ -2876,7 +2876,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
         }
         else
         {
-            if (!pItemDrop->pUnit || pItemDrop->pUnit->dwUnitType != 0)
+            if (!pItemDrop->pUnit || pItemDrop->pUnit->dwUnitType != UNIT_PLAYER)
             {
                 SUNIT_RemoveUnit(pGame, pItem);
                 return 0;
@@ -3322,7 +3322,7 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2Unit
     D2SeedStrc* pSeed = &pUnit->pSeed;
 
     int bIsMonster = 0;
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         bIsMonster = 1;
     }
@@ -3330,11 +3330,11 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2Unit
     int nLevel;
     if (pUnit)
     {
-        if (pUnit->dwUnitType == 1)
+        if (pUnit->dwUnitType == UNIT_MONSTER)
         {
             nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
         }
-        else if (pUnit->dwUnitType == 0)
+        else if (pUnit->dwUnitType == UNIT_PLAYER)
         {
             nLevel = STATLIST_GetUnitBaseStat(pUnit, 12, 0);
         }
@@ -3575,11 +3575,11 @@ static D2UnitStrc* __stdcall sub_0055A550_CreateDropAtUnit(D2GameStrc* pGame, in
     int nItemLevel = 0;
     if (pUnit)
     {
-        if (pUnit->dwUnitType == 1)
+        if (pUnit->dwUnitType == UNIT_MONSTER)
         {
             nItemLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0);
         }
-        else if (pUnit->dwUnitType == 0)
+        else if (pUnit->dwUnitType == UNIT_PLAYER)
         {
             nItemLevel = STATLIST_GetUnitBaseStat(pUnit, 0xC, 0);
         }
@@ -3594,7 +3594,7 @@ static D2UnitStrc* __stdcall sub_0055A550_CreateDropAtUnit(D2GameStrc* pGame, in
     tItemDrop.nItemLvl = nItemLevel;
     tItemDrop.nItemIndex = nItemIndex;
 
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->dwClassId == 0x187)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwClassId == 0x187)
     {
         tItemDrop.dwFlags2 = 1;
     }

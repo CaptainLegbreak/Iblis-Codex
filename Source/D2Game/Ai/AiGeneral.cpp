@@ -365,7 +365,7 @@ void __fastcall AIGENERAL_FreeAllAiCommands(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     do
     {
-        if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
         {
             D2AiControlStrc* pCurrentAiControl = pUnit->pMonsterData->pAiControl;
             if (pCurrentAiControl)

@@ -41,12 +41,12 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
 
     if (pStatesTxt->nStateFlags[4] & gdwBitMasks[7])
     {
-        if (pUnit->dwUnitType == 1 && pUnit->dwAnimMode == 12)
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == 12)
         {
             return;
         }
 
-        if (pUnit->dwUnitType == 0 && pUnit->dwAnimMode == 17)
+        if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 17)
         {
             return;
         }

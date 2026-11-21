@@ -136,7 +136,7 @@ static __forceinline unsigned int sub_004CD420_RollSeed(D2SeedStrc* pSeed)
 static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile)
 {
     int nPierce = 0;
-    if (pOwner && pOwner->dwUnitType != 0 && pOwner->dwUnitType != 1)
+    if (pOwner && pOwner->dwUnitType != UNIT_PLAYER && pOwner->dwUnitType != UNIT_MONSTER)
     {
         return;
     }
@@ -154,7 +154,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
 
     D2SeedStrc tSeed;
-    if (pOwner && pOwner->dwUnitType == 0 && sub_00463DD0_GetPlayerUnit() != pOwner)
+    if (pOwner && pOwner->dwUnitType == UNIT_PLAYER && sub_00463DD0_GetPlayerUnit() != pOwner)
     {
         nChance = 100;
         SEED_InitLowSeed(&tSeed, 0);
@@ -512,7 +512,7 @@ void __fastcall sub_004CED60(D2UnitStrc* pUnit, int nX, int nY, int nCount, int 
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecordInline(nMissile);
 
     D2UnitStrc* pOwner = pUnit;
-    if (!pUnit || (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1))
+    if (!pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
     {
         pOwner = sub_004639D0_GetOwnerUnit(pUnit);
         if (!pOwner)

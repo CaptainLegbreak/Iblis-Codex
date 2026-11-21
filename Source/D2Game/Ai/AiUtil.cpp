@@ -378,7 +378,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomSt
 // 0x005DC360
 int __fastcall sub_005DC360_GetMonsterVision(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->pVision;
     }
@@ -596,7 +596,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHostileTarget(D2GameStrc* pGa
 
     if (pTarget->dwUnitType < 0 || pTarget->dwUnitType > 1 || SUNIT_IsDead(pTarget) || !UNITS_CanBeAttackedInline(pTarget) || !sub_00554200(pGame, pUnit, pTarget))
     {
-        if (pTarget->dwUnitType == 1 && (!pUnit || pUnit->dwUnitType != 0) && !sub_006259B0_GetStateStat(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
+        if (pTarget->dwUnitType == UNIT_MONSTER && (!pUnit || pUnit->dwUnitType != UNIT_PLAYER) && !sub_006259B0_GetStateStat(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
         {
             D2AiControlStrc* pAiControl = (D2AiControlStrc*)sub_00541860(pTarget);
             if ((pAiControl->nAiFlags & 8) && pArg->unk0x10 == D2Common_10095(UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
@@ -965,7 +965,7 @@ static D2UnitStrc* __stdcall sub_005DD050_FindTargetAmongMinions(D2GameStrc* pGa
         return 0;
     }
 
-    if (pOwner->dwUnitType != 1)
+    if (pOwner->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }
@@ -1231,7 +1231,7 @@ int __fastcall sub_005DD480_CanSwitchAiMode(D2UnitStrc* pUnit, int nAiMode)
 // 0x005DD510
 static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, int* pTargetDistance, D2UnitStrc* pAlternativeTarget, int nAlternativeDistance, D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         return 0;
     }

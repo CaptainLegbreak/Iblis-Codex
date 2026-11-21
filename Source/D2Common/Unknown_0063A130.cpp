@@ -295,7 +295,7 @@ int __stdcall STATES_CheckStateMaskArmRedOnUnit(D2UnitStrc* pUnit)
 // 0x0063A7E0
 static __forceinline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
 {
-    if (pItem && pItem->dwUnitType == 4 && pItem->pItemData)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
         return &pItem->pItemData->pExtraData;
     }

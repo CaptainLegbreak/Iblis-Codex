@@ -294,7 +294,7 @@ void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* ptGame, D2UnitStr
 {
     D2_ASSERT(ptGame, 0xE0);
     D2_ASSERT(hPlayer, 0xE1);
-    D2_ASSERT(hPlayer->dwUnitType == 0, 0xE2);
+    D2_ASSERT(hPlayer->dwUnitType == UNIT_PLAYER, 0xE2);
 
     D2UnitStrc* pHireling = pMerc;
     if (!pHireling)
@@ -892,7 +892,7 @@ static __forceinline void MONSTER_SetComponent(D2UnitStrc* pUnit, int nComponent
 // 0x00573270
 void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pUnit, unsigned short nSaveVersion, D2MercDataStrc* pMercData, int bDead)
 {
-    if (!pPlayer || !pUnit || !pMercData || pPlayer->dwUnitType != 0)
+    if (!pPlayer || !pUnit || !pMercData || pPlayer->dwUnitType != UNIT_PLAYER)
     {
         return;
     }

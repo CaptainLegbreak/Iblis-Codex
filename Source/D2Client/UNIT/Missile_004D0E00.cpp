@@ -134,7 +134,7 @@ static __forceinline int sub_CanHitUnit(D2UnitStrc* pUnit)
         return 1;
     }
 
-    if (pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

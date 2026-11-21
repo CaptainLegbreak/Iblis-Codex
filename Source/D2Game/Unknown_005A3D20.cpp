@@ -90,14 +90,14 @@ static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(D2UnitStrc* pUnit)
 
 static __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nX;
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
 static __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nY;
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
@@ -143,7 +143,7 @@ void __fastcall sub_6FC6E730(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, in
 // 0x005A0120
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 {
-    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == 1) ? pUnit->pMonsterData : 0;
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData)
     {
         return 0;
@@ -154,7 +154,7 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 // build: context MONSTERUNIQUE_CheckMonTypeFlag
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
-    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == 1) ? pUnit->pMonsterData : 0;
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData)
     {
         return 0;
@@ -225,7 +225,7 @@ void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pMissile)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pMissile)
     {
         MONSTERUNIQUE_ExecuteUModCallbacks(pGame, pMissile, 5, pUnit);
     }

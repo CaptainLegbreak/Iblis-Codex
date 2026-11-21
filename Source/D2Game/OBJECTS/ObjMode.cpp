@@ -1532,12 +1532,12 @@ int __fastcall sub_00582710_IsLivingUnit(D2UnitStrc* unit, void* unused)
     int result = 1;
     if (!unit)
         result = 0;
-    else if (unit->dwUnitType == 1)
+    else if (unit->dwUnitType == UNIT_MONSTER)
     {
         if (MONSTERS_IsDead(unit))
             result = 0;
     }
-    else if (unit->dwUnitType != 0 || !unit->dwAnimMode || unit->dwAnimMode == 17)
+    else if (unit->dwUnitType != UNIT_PLAYER || !unit->dwAnimMode || unit->dwAnimMode == 17)
         result = 0;
     return result;
 }
@@ -1807,7 +1807,7 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
     for (int i = 0; i < data.nIndex; ++i)
     {
         D2UnitStrc* pUnit = data.pUnitsArray[i];
-        if (pUnit && (pUnit->dwUnitType == 1 || pUnit->dwUnitType == 0) && !SUNIT_IsDead(pUnit))
+        if (pUnit && (pUnit->dwUnitType == UNIT_MONSTER || pUnit->dwUnitType == UNIT_PLAYER) && !SUNIT_IsDead(pUnit))
         {
             int nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
             STATLIST_AddUnitStat(pUnit, 6, (pArgs->nDamagePct * nLife / -100) << 8, 0);
@@ -2691,7 +2691,7 @@ int __fastcall sub_00584870_OperatePortal(D2ObjOperateFnStrc* pOp)
     }
     D2_ASSERT((pOp->hPlayer ? pOp->hPlayer->dwUnitType : 6) == 0, 0xED8);
     D2UnitStrc* pOtherPortal = sub_00553720_ResolveObjectOwner(pOp->pGame, pOp->hObject);
-    if (pOtherPortal && pOtherPortal->dwUnitType != 2) pOtherPortal = 0;
+    if (pOtherPortal && pOtherPortal->dwUnitType != UNIT_OBJECT) pOtherPortal = 0;
     if (UNITS_GetRoom(pOp->hObject)) {
         D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
         if (!pQuestFlags) {

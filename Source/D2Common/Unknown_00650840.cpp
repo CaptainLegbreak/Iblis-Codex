@@ -378,7 +378,7 @@ static __declspec(noinline) BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16*
     pPath->nCollidedWithMask = 0;
     *pSteps = 0;
 
-    const BOOL bRepath = pUnit && pUnit->dwUnitType == 1 && (pPath->dwFlags & 0x10);
+    const BOOL bRepath = pUnit && pUnit->dwUnitType == UNIT_MONSTER && (pPath->dwFlags & 0x10);
     if (!pPath->tVelocityVector.nX && !pPath->tVelocityVector.nY)
     {
         pPath->dwPathPoints = 0;
