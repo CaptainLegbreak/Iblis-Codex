@@ -183,25 +183,7 @@ int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// 0x004FE350
-int __stdcall EDITBOX_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
-    D2_ASSERT(pEditBox, 0x739);
-    D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x73A);
-    if (pEditBox->bMouseSelecting)
-    {
-        pEditBox->bMouseSelecting = 0;
-        return 1;
-    }
-    return 0;
-}
 
-// 0x004FE790
-int __stdcall D2Win_10079_IsLetter(int nUnused1, int nUnused2, const char* szChar)
-{
-    return *szChar >= 'a' && *szChar <= 'z' || *szChar >= 'A' && *szChar <= 'Z';
-}
 
 // 0x00500790
 int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
@@ -276,111 +258,11 @@ D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int 
     return pAnimImage;
 }
 
-// 0x005009D0
-void __fastcall BUTTON_SetText(D2WinButtonStrc* pButton, int eFont, const Unicode* wszText, int nTextColor)
-{
-    D2_ASSERT(pButton->controlHeader.eType == 6, 0x84);
-    pButton->eFont = eFont;
-    pButton->nTextColor = nTextColor;
-    sub_005267E0((Unicode*)pButton->wszText, wszText);
-}
 
-// 0x00500A20
-void __fastcall BUTTON_SetTextWithStringId(D2WinButtonStrc* ptBtnData, int eFont, unsigned short nStringId, int nTextColor)
-{
-    D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0x96);
-    ptBtnData->eFont = eFont;
-    ptBtnData->nTextColor = nTextColor;
-    sub_005267E0((Unicode*)ptBtnData->wszText, D2LANG_GetStringFromTblIndex(nStringId));
-}
 
-// 0x00500A70
-void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* ptBtnData, int nX, int nY, int nWidth, int nHeight)
-{
-    D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0xAB);
-    ptBtnData->controlHeader.nImageX = nX;
-    ptBtnData->controlHeader.nImageY = nY;
-    ptBtnData->controlHeader.nWidth = nWidth;
-    ptBtnData->controlHeader.nHeight = nHeight;
-}
 
-// 0x00501090
-int __stdcall BUTTON_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(pButton->controlHeader.eType == 6, 0x1FD);
-    if (!(pButton->controlHeader.dwFlags & gdwBitMasks[2]) || !(pButton->controlHeader.dwFlags & gdwBitMasks[0]))
-        return 0;
-    if (pButton->dwButtonFlags & 2)
-    {
-        pButton->bIsPressed = pButton->bIsPressed == 0;
-        pButton->bIsCallbackPending = pButton->bIsCallbackPending == 0;
-    }
-    else
-    {
-        if (pButton->bIsPressed && pButton->bIsCallbackPending)
-            return 1;
-        pButton->bIsPressed = 1;
-        pButton->bIsCallbackPending = 1;
-    }
-    if (!(pButton->dwButtonFlags & 4))
-        D2SOUND_10039("data\\global\\sfx\\cursor\\button.wav");
-    if ((pButton->dwButtonFlags & 3) && pButton->controlHeader.field_34)
-    {
-        D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x221);
-        pButton->controlHeader.field_34(pMsg);
-    }
-    return 1;
-}
 
-// 0x00501150
-int __stdcall BUTTON_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(pButton->controlHeader.eType == 6, 0x232);
-    int nResult = 0;
-    pButton->controlHeader.dwFlags |= gdwBitMasks[1];
-    if (!(pButton->controlHeader.dwFlags & gdwBitMasks[2]) || !(pButton->controlHeader.dwFlags & gdwBitMasks[0]))
-    {
-        pButton->controlHeader.dwFlags &= gdwInvBitMasks[1];
-        return 0;
-    }
-    if (!(pButton->dwButtonFlags & 3))
-    {
-        pButton->bIsPressed = 0;
-        if (pButton->bIsCallbackPending && pButton->controlHeader.field_34)
-        {
-            D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x243);
-            nResult = pButton->controlHeader.field_34(pMsg);
-        }
-        pButton->bIsCallbackPending = 0;
-    }
-    pButton->controlHeader.dwFlags &= gdwInvBitMasks[1];
-    return nResult;
-}
 
-// 0x005011F0
-int __stdcall BUTTON_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(pButton->controlHeader.eType == 6, 0x259);
-    int nResult = 0;
-    if (pMsg->uMessage != 0x102 && pButton->nActivationVirtualKey == pMsg->wParam && pButton->controlHeader.pfHandleMouseDown)
-    {
-        pButton->nActivationCounter = 1;
-        D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x263);
-        nResult = pButton->controlHeader.pfHandleMouseDown(pMsg);
-        if (pButton->controlHeader.pfHandleMouseUp)
-        {
-            SMSGHANDLER_PARAMS msg;
-            msg.hWnd = pMsg->hWnd;
-            ++gnWinCallbackDepth_007D55C4;
-            pButton->controlHeader.pfHandleMouseUp(&msg);
-            --gnWinCallbackDepth_007D55C4;
-        }
-    }
-    return nResult;
-}
 
 // 0x005017D0
 int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength)
