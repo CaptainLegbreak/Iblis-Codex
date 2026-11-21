@@ -4,27 +4,237 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2TileListHeaderStrc;
-struct D2CmpColorStrc;
+struct D2TileRecordStrc;
+
 struct D2CmpTileNodeStrc;
+
 struct D2CmpTileStrc;
-struct D2CmpSubTilePosStrc;
-struct D2CmpSubTileRecordStrc;
-struct D2CmpTileInfoStrc;
+
 struct D2CmpTileListStrc;
+
+struct D2CmpSubTileRecordStrc;
+
 struct D2CmpTileBlockStrc;
+
 struct D2CmpTileLibraryStrc;
+
+struct D2TileLibraryEntryStrc;
+
+struct D2TileLibraryHeaderStrc;
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader(); // 0x006094B0
-void __fastcall sub_005179B3_ConvertCelPixels(void* pDst, void* pSrc, int nRows, unsigned int nSrcSize, unsigned int nWidth, int nRows2);
+
+unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+
+extern const unsigned char gaDirection8To4_006E5DA0[]; // 0x006E5DA0
+
+extern const unsigned char gaDirection16To8_006E5DA8[]; // 0x006E5DA8
+
+extern const unsigned char gaDirection8To4Alt_006E5DB8[]; // 0x006E5DB8
+
+extern const unsigned char gaDirection16To8Alt_006E5DC0[]; // 0x006E5DC0
+
+struct D2TileRecordStrc
+{
+    int nFirst;
+    int nSecond;
+    int unk0x08;
+    int unk0x0C;
+};
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
+struct D2TileLibraryEntryStrc
+{
+    char unk0x00[0x50];
+    void* pUnk0x50;
+    void* pUnk0x54;
+    char unk0x58[0x08];
+};
+
+struct D2TileLibraryHeaderStrc
+{
+    int dwVersion;
+    int dwFlags;
+    char szLibraryName[260];
+    int nTiles;
+    D2TileLibraryEntryStrc* pFirst;
+};
+
+struct D2TileListHeaderStrc;
+
+struct D2CmpColorStrc;
+
+struct D2CmpSubTilePosStrc;
+
+struct D2CmpTileInfoStrc;
+
+D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader(); // 0x006094B0
+
+void __fastcall sub_005179B3_ConvertCelPixels(void* pDst, void* pSrc, int nRows, unsigned int nSrcSize, unsigned int nWidth, int nRows2);
+
 extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500
+
+struct D2Block0060A050Strc;
+
+struct D2BlockSet0060A050Strc;
+
+static __declspec(noinline) void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY);
+
+struct D2Block0060A050Strc
+{
+    unsigned char unk_00[0x0A];
+    unsigned short nSize;
+    unsigned char unk_0C[0x04];
+    unsigned int pData;
+};
+
+struct D2BlockSet0060A050Strc
+{
+    unsigned char unk_00[0x50];
+    int nBlocks;
+    D2Block0060A050Strc* pBlocks;
+};
+
+static __declspec(noinline) int sub_0060A050_Serialize(unsigned char* pOut, D2BlockSet0060A050Strc* pSet);
+
+static int __stdcall sub_00609940_HasOtherColor(D2CmpColorStrc tColor, const unsigned char* pData);
+
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
+#pragma function(memcpy)
+
+typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
+
+void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor); // 0x0060D5B0
+
+void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord); // 0x0060DB20
+
+static void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY);
+
+void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize);
+
+static void sub_00609AA0_SplitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels);
+
+void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels);
+
+static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary);
+
+// 0x00600CB0
+int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt)
+{
+    D2_ASSERT(nDirection < nDirections, 0x1A0);
+
+    if (nDirections == 8)
+    {
+        if (nNewDirections == 4)
+        {
+            if (bAlt)
+            {
+                return gaDirection8To4Alt_006E5DB8[nDirection];
+            }
+            return gaDirection8To4_006E5DA0[nDirection];
+        }
+    }
+    else if (nDirections == 16)
+    {
+        if (nNewDirections == 8)
+        {
+            if (bAlt)
+            {
+                return gaDirection16To8Alt_006E5DC0[nDirection];
+            }
+            return gaDirection16To8_006E5DA8[nDirection];
+        }
+    }
+
+    return 0;
+}
+
+// 0x00605D20
+void __stdcall sub_00605D20_BuildTintTables(unsigned char* pData)
+{
+    for (int j = 0; j < 12; ++j)
+    {
+        for (int i = 0; i < 256; ++i)
+        {
+            const int nValue = pData[4 * i];
+            pData[0x6B727 + 256 * j + i] = sub_00605210_FindNearestColor(pData, 256,
+                (unsigned char)(pData[0x6B603 + 3 * j] * nValue / 255),
+                (unsigned char)(pData[0x6B604 + 3 * j] * nValue / 255),
+                (unsigned char)(pData[0x6B605 + 3 * j] * nValue / 255));
+        }
+    }
+}
+
+// 0x00609500
+static __forceinline void sub_00609500_ReleaseTileNode(D2CmpTileNodeStrc* pNode)
+{
+    D2_ASSERT(pNode, 0x31);
+    if (pNode->pData)
+    {
+        FOG_Free(pNode->pData, ".\\SRC\\Tilecmp.cpp", 0x35, 0);
+    }
+    FOG_Free(pNode, ".\\SRC\\Tilecmp.cpp", 0x38, 0);
+}
+
+void __stdcall sub_M128_Emit_00609500(D2CmpTileNodeStrc* pNode)
+{
+    sub_00609500_ReleaseTileNode(pNode);
+}
+
+// 0x006095A0
+static void sub_006095A0_FreeTile(D2CmpTileStrc* pTile)
+{
+    D2_ASSERT(pTile, 0x54);
+    D2CmpTileNodeStrc* pNode = pTile->pNodes;
+    while (pNode)
+    {
+        D2CmpTileNodeStrc* pNext = pNode->pNext;
+        if (pNode->pData)
+        {
+            FOG_Free(pNode->pData, ".\\SRC\\Tilecmp.cpp", 0x35, 0);
+        }
+        FOG_Free(pNode, ".\\SRC\\Tilecmp.cpp", 0x38, 0);
+        pNode = pNext;
+    }
+    FOG_Free(pTile, ".\\SRC\\Tilecmp.cpp", 0x60, 0);
+}
+
+// 0x00609620
+D2TileRecordStrc* __stdcall TileListCreate(int nFirst, int nSecond)
+{
+    D2TileRecordStrc* pRecord = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\Tilecmp.cpp", 0x6D, 0);
+    D2_ASSERT(pRecord, 0x6E);
+    memset(pRecord, 0, sizeof(D2TileRecordStrc));
+    pRecord->nFirst = nFirst;
+    pRecord->nSecond = nSecond;
+    return pRecord;
+}
+
+// 0x00609670
+void __stdcall sub_00609670_FreeTileList(D2CmpTileListStrc* pList)
+{
+    D2_ASSERT(pList, 0x80);
+    D2CmpTileStrc* pTile = pList->pFirst;
+    while (pTile)
+    {
+        D2CmpTileStrc* pNext = pTile->pNext;
+        sub_006095A0_FreeTile(pTile);
+        pTile = pNext;
+    }
+    FOG_Free(pList, ".\\SRC\\Tilecmp.cpp", 0x8C, 0);
+}
 
 // 0x00609770
 static __declspec(noinline) int __stdcall sub_00609770_IsUniformBlock(D2CmpTileStrc* pTile, const unsigned char* pPixels, int nPitch)
@@ -108,6 +318,7 @@ static __declspec(noinline) int __stdcall sub_00609940_HasOtherColor(D2CmpColorS
     return 0;
 }
 
+// 0x00609980
 static void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY)
 {
     unsigned char* pBuffer = (unsigned char*)FOG_Alloc(0x600, ".\\SRC\\Tilecmp.cpp", 0x154, 0);
@@ -121,11 +332,12 @@ static void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const
         pFill[2] = tColor.nBlue;
         pFill += 3;
     }
+    int nRow = 0;
     const unsigned char* pSrc = pPixels + 3 * (nY * 160 + nX);
     unsigned char* pDst = pBuffer;
     int nStart = 0x2A;
     int nWidth = 0x0C;
-    for (int nRow = 0; nRow < 15; nRow++)
+    for (; nRow < 15; nRow++)
     {
         memcpy(pDst + nStart, pSrc + nStart, nWidth);
         if (nRow < 7)
@@ -188,8 +400,6 @@ void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned c
     pTile->nMinX = 0;
     pTile->nMaxX = 0xA0;
 }
-
-#include "gen/data/Source/D2CMP/SRC/Tilecmp.inc"
 
 // 0x00609BF0
 static __declspec(noinline) void sub_00609BF0_CopyTileNode(D2CmpSubTileRecordStrc* pSub, D2CmpTileNodeStrc* pNode)
@@ -286,6 +496,146 @@ int __stdcall sub_00609D60_BuildTileLibrary(D2CmpTileListStrc* pList, D2CmpTileL
     return 0;
 }
 
+// 0x00609FD0
+static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary)
+{
+    D2_ASSERT(pLibrary, 0x293);
+    int nSize = pLibrary->nBlocks * sizeof(D2CmpTileBlockStrc) + sizeof(D2CmpTileLibraryStrc);
+    for (int i = 0; i < pLibrary->nBlocks; i++)
+    {
+        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+        nSize += pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
+        for (int j = 0; j < pBlock->nSubs; j++)
+        {
+            nSize += pBlock->pSubs[j].nLength;
+        }
+    }
+    return nSize;
+}
+
+static int sub_0060A050_PackBlockSubs(unsigned char* pDst, D2CmpTileBlockStrc* pBlock)
+{
+    unsigned char* pWrite = pDst;
+    int nSize = pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
+    memcpy(pWrite, pBlock->pSubs, nSize);
+    D2CmpSubTileRecordStrc* pDstSubs = (D2CmpSubTileRecordStrc*)pWrite;
+    pWrite += nSize;
+    for (int i = 0; i < pBlock->nSubs; i++)
+    {
+        memcpy(pWrite, pBlock->pSubs[i].ptData, pBlock->pSubs[i].nLength);
+        pDstSubs[i].ptData = (unsigned char*)(pWrite - pDst);
+        nSize += pBlock->pSubs[i].nLength;
+        pWrite += pBlock->pSubs[i].nLength;
+    }
+    return nSize;
+}
+
+// 0x0060A050
+static int sub_0060A050_Serialize(unsigned char* pOut, D2BlockSet0060A050Strc* pSet)
+{
+    unsigned char* pStart = pOut;
+    int nTotal = pSet->nBlocks * sizeof(D2Block0060A050Strc);
+    memcpy(pOut, pSet->pBlocks, nTotal);
+    D2Block0060A050Strc* pOutBlocks = (D2Block0060A050Strc*)pOut;
+    pOut += nTotal;
+    for (int i = 0; i < pSet->nBlocks; ++i)
+    {
+        D2Block0060A050Strc* pBlock = &pSet->pBlocks[i];
+        memcpy(pOut, (const void*)pBlock->pData, pBlock->nSize);
+        pOutBlocks[i].pData = pOut - pStart;
+        nTotal += pBlock->nSize;
+        pOut += pBlock->nSize;
+    }
+    return nTotal;
+}
+
+// calling-convention shim (not game code)
+int __stdcall shim_5(unsigned char* pOut, D2BlockSet0060A050Strc* pSet)
+{
+    return sub_0060A050_Serialize(pOut, pSet);
+}
+
+static unsigned int sub_0060A050(unsigned char * pDstBuf, D2CmpTileBlockStrc * pTileSetEntry) {
+    unsigned char* pBase = pDstBuf;
+    unsigned int nNodeSize;
+    int* pFixupPtr;
+    unsigned int nCumSize = pTileSetEntry->nSubs * 0x14;
+    memcpy(pDstBuf, pTileSetEntry->pSubs, nCumSize);
+    pFixupPtr = (int*)pDstBuf;
+    pDstBuf += nCumSize;
+    int iNode = 0;
+    if (pTileSetEntry->nSubs > 0) {
+      D2CmpSubTileRecordStrc* pDVar1;
+      int nSubOffset = 0;
+      pFixupPtr += 4;
+      do {
+        pDVar1 = (D2CmpSubTileRecordStrc*)((char*)pTileSetEntry->pSubs + nSubOffset);
+        memcpy(pDstBuf, (void*)pDVar1->ptData, (unsigned int)pDVar1->nLength);
+        *pFixupPtr = pDstBuf - pBase;
+        nNodeSize = (unsigned int)pDVar1->nLength;
+        nCumSize += nNodeSize;
+        pDstBuf += nNodeSize;
+        nSubOffset += 0x14;
+        iNode++;
+        pFixupPtr += 5;
+      } while (iNode < pTileSetEntry->nSubs);
+
+      return nCumSize;
+    }
+
+    return nCumSize;
+}
+
+// 0x0060A0F0
+void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize)
+{
+    D2_ASSERT(pLibrary, 0x2D9);
+    D2_ASSERT(ppData, 0x2DA);
+    D2_ASSERT(pnSize, 0x2DB);
+    D2_ASSERT(pLibrary->nBlocks, 0x2DC);
+    const int nSize = sub_00609FD0_GetPackedSize(pLibrary);
+    D2_ASSERT(nSize, 0x2E0);
+    unsigned char* pData = (unsigned char*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 0x2E3, 0);
+    D2_ASSERT(pData, 0x2E4);
+    memset(pData, 0, nSize);
+    *ppData = pData;
+    *pnSize = nSize;
+    unsigned char* pBase = pData;
+    unsigned int nHeaderSize = sizeof(D2CmpTileLibraryStrc);
+    memcpy(pData, pLibrary, nHeaderSize);
+    D2CmpTileLibraryStrc* pHeader = (D2CmpTileLibraryStrc*)pData;
+    pData += sizeof(D2CmpTileLibraryStrc);
+    const int nBlockBytes = pLibrary->nBlocks * sizeof(D2CmpTileBlockStrc);
+    memcpy(pData, pLibrary->pBlocks, nBlockBytes);
+    pHeader->pBlocks = (D2CmpTileBlockStrc*)(pData - pBase);
+    D2CmpTileBlockStrc* pDstBlocks = (D2CmpTileBlockStrc*)pData;
+    pData += nBlockBytes;
+    for (int i = 0; i < pLibrary->nBlocks; i++)
+    {
+        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+        pDstBlocks[i].pSubs = 0;
+        const int nBytes = sub_0060A050(pData, pBlock);
+        pDstBlocks[i].unk0x48 = pData - pBase;
+        pDstBlocks[i].nSubBytes = nBytes;
+        pData += nBytes;
+    }
+    pLibrary->dwFlags |= 2;
+    pHeader->dwFlags |= 6;
+}
+
+// 0x0060A260
+static __forceinline int sub_0060A260_RelocateSubTileData(D2CmpTileBlockStrc* pBlock, unsigned char* pData)
+{
+    int nSize = pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
+    for (int j = 0; j < pBlock->nSubs; j++)
+    {
+        D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
+        pSub->ptData += (int)pData;
+        nSize += pSub->tHeader.nLength;
+    }
+    return nSize;
+}
+
 // 0x0060A520
 static void sub_0060A520_ForEachDataColor(D2CmpColorCallback pfnColor, const unsigned char* pData, int nSize)
 {
@@ -311,3 +661,140 @@ void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* pLibrary, D2CmpCol
         }
     }
 }
+
+// 0x0060A620
+static __forceinline int sub_0060A620_IsSubTileDataEmpty(const D2CmpSubTileRecordStrc* pRecord)
+{
+    const unsigned char* pData = pRecord->ptData;
+    for (int i = 0; i < pRecord->tHeader.nLength; i++)
+    {
+        if (*pData)
+        {
+            return 0;
+        }
+        pData++;
+    }
+    return 1;
+}
+
+int __stdcall sub_M213_Emit_0060A260(D2CmpTileBlockStrc* pBlock, unsigned char* pData)
+{
+    return sub_0060A260_RelocateSubTileData(pBlock, pData);
+}
+
+void __fastcall sub_M213_Emit_0060A620(const D2CmpSubTileRecordStrc* pRecord, int* pResult)
+{
+    *pResult = sub_0060A620_IsSubTileDataEmpty(pRecord);
+}
+
+static int IsSubTileDataEmpty(const D2CmpSubTileRecordStrc* pRecord, const unsigned char* pData)
+{
+    for (int i = 0; i < pRecord->tHeader.nLength; i++)
+    {
+        if (*pData)
+        {
+            return 0;
+        }
+        pData++;
+    }
+    return 1;
+}
+
+// 0x0060A650
+static void __stdcall sub_0060A650_MapSubTileRecord(D2CmpColorStrc tTransparent, const D2CmpSubTileRecordStrc* pSrc, D2CmpSubTileRecordStrc* pDst, D2CmpMapColorFn pfnMapColor)
+{
+    if (!pSrc->ptData)
+    {
+        pDst->tHeader.nFlags &= ~1;
+        pDst->tHeader.nLength = 0;
+        pDst->ptData = 0;
+        return;
+    }
+    sub_0060D5B0_MapSubTileColors(pDst, pSrc, tTransparent, pfnMapColor);
+    unsigned char* pMapped = pDst->ptData;
+    if (IsSubTileDataEmpty(pDst, pMapped))
+    {
+        FOG_Free(pMapped, ".\\SRC\\Tilecmp.cpp", 0x429, 0);
+        pDst->tHeader.nFlags &= ~1;
+        pDst->tHeader.nLength = 0;
+        pDst->ptData = 0;
+        return;
+    }
+    if (pDst->tHeader.nFlags & 0x1000)
+    {
+        int nLength;
+        unsigned char* pData = (unsigned char*)sub_0060D430_Compress(pMapped, &nLength);
+        D2_ASSERT(pData, 0x434);
+        D2_ASSERT(nLength < 0x10000, 0x435);
+        FOG_Free(pDst->ptData, ".\\SRC\\Tilecmp.cpp", 0x436, 0);
+        pDst->ptData = pData;
+        pDst->tHeader.nLength = nLength;
+    }
+    else
+    {
+        D2_ASSERT(pDst->tHeader.nFlags & 0x2000, 0x43B);
+        sub_0060DB20_RecodeSubTile(pDst);
+    }
+}
+
+// 0x0060A910
+void __stdcall sub_0060A910_CopyTileLibrary(D2TileLibraryHeaderStrc* pSource, D2TileLibraryHeaderStrc** ppCopy, int* pnSize)
+{
+    D2_ASSERT(pSource, 1171);
+
+    int nSize = sizeof(D2TileLibraryHeaderStrc) + pSource->nTiles * sizeof(D2TileLibraryEntryStrc);
+    D2TileLibraryHeaderStrc* pCopy = (D2TileLibraryHeaderStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 1178, 0);
+    D2_ASSERT(pCopy, 1179);
+
+    memset(pCopy, 0, nSize);
+    memcpy(pCopy, pSource, nSize);
+    D2TileLibraryEntryStrc* pEntries = (D2TileLibraryEntryStrc*)(pCopy + 1);
+    pCopy->pFirst = pEntries;
+    for (int i = 0; i < pCopy->nTiles; ++i)
+    {
+        pEntries[i].pUnk0x54 = 0;
+        pEntries[i].pUnk0x50 = 0;
+    }
+    pCopy->dwFlags &= 4;
+
+    *ppCopy = pCopy;
+    *pnSize = nSize;
+}
+
+void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor)
+{
+    D2_ASSERT(pSrc, 0x44F);
+    D2_ASSERT(pSrc->dwFlags & 1, 0x450);
+    D2CmpTileLibraryStrc* pLibrary = (D2CmpTileLibraryStrc*)FOG_Alloc(sizeof(D2CmpTileLibraryStrc), ".\\SRC\\Tilecmp.cpp", 0x453, 0);
+    D2_ASSERT(pLibrary, 0x454);
+    memset(pLibrary, 0, sizeof(D2CmpTileLibraryStrc));
+    *pLibrary = *pSrc;
+    pLibrary->dwFlags &= ~1;
+    pLibrary->pBlocks = 0;
+    const int nSize = pLibrary->nBlocks * sizeof(D2CmpTileBlockStrc);
+    pLibrary->pBlocks = (D2CmpTileBlockStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 0x45E, 0);
+    D2_ASSERT(pLibrary->pBlocks, 0x45F);
+    memset(pLibrary->pBlocks, 0, nSize);
+    for (int i = 0; i < pSrc->nBlocks; i++)
+    {
+        D2CmpTileBlockStrc* pDstBlock = &pLibrary->pBlocks[i];
+        D2CmpTileBlockStrc* pSrcBlock = &pSrc->pBlocks[i];
+        *pDstBlock = *pSrcBlock;
+        pDstBlock->pSubs = 0;
+        if (pDstBlock->nSubs)
+        {
+            const int nSubSize = pDstBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
+            D2_ASSERT(nSubSize, 0x470);
+            pDstBlock->pSubs = (D2CmpSubTileRecordStrc*)FOG_Alloc(nSubSize, ".\\SRC\\Tilecmp.cpp", 0x472, 0);
+            D2_ASSERT(pDstBlock->pSubs, 0x473);
+            memset(pDstBlock->pSubs, 0, nSubSize);
+            for (int j = 0; j < pSrcBlock->nSubs; j++)
+            {
+                sub_0060A650_MapSubTileRecord(pSrcBlock->tColor, &pSrcBlock->pSubs[j], &pDstBlock->pSubs[j], pfnMapColor);
+            }
+        }
+    }
+    *ppLibrary = pLibrary;
+}
+
+#include "gen/data/Source/D2CMP/SRC/Tilecmp.inc"

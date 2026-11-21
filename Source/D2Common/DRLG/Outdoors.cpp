@@ -108,6 +108,12 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x
 
 static void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex);
 
+void __fastcall DRLGROOM_FreeRoomData(void* pMemPool, D2DrlgOrthStrc* pDrlgOrth);                           // 0x0066B530
+
+void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pDrlgGrid);                               // 0x0067CD90
+
+void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                        // 0x0067D1E0
+
 // 0x00674320
 static __declspec(noinline) int __cdecl sub_00674320_PickFile(D2DrlgLevelStrc* pLevel, int nPresetId)
 {
@@ -667,6 +673,49 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
     }
 
     sub_006750F0_SpawnPresetsAndRooms(pLevel);
+}
+
+// 0x006754C0
+void __fastcall DRLGOUTDOORS_FreeOutdoorInfo(D2DrlgLevelStrc* pLevel, int bKeepRoomData)
+{
+    void* pMemPool = pLevel->pDrlg->pMempool;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+
+    if (pOutdoors->dwFlags & 0x20)
+    {
+        pOutdoors->dwFlags ^= 0x20;
+    }
+
+    if (pOutdoors->dwFlags & 0x40)
+    {
+        pOutdoors->dwFlags ^= 0x40;
+    }
+
+    DRLGGRID_FreeGrid(pMemPool, &pOutdoors->pGrid[0]);
+    DRLGGRID_FreeGrid(pMemPool, &pOutdoors->pGrid[1]);
+    DRLGGRID_FreeGrid(pMemPool, &pOutdoors->pGrid[2]);
+    DRLGGRID_FreeGrid(pMemPool, &pOutdoors->pGrid[3]);
+
+    DRLGVER_FreeVertices(pMemPool, &pOutdoors->pVertex);
+
+    for (int i = 0; i < 6; ++i)
+    {
+        DRLGVER_FreeVertices(pMemPool, &pOutdoors->pRoads[i]);
+    }
+
+    memset(&pOutdoors->pVertices[0], 0, 0x78);
+    memset(&pOutdoors->pVertices[6], 0, 0x78);
+    memset(&pOutdoors->pVertices[12], 0, 0x78);
+    memset(&pOutdoors->pVertices[18], 0, 0x78);
+
+    pOutdoors->nVertices = 0;
+
+    if (!bKeepRoomData)
+    {
+        DRLGROOM_FreeRoomData(pMemPool, pOutdoors->pRoomData);
+        FOG_FreeServerMemory(pMemPool, pLevel->pOutdoors, ".\\DRLG\\Outdoors.cpp", 940, 0);
+        pLevel->pOutdoors = 0;
+    }
 }
 
 // 0x006757E0
