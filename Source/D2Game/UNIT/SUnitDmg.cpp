@@ -588,11 +588,124 @@ extern "C" void _ReadWriteBarrier(void);
 
 struct D2InventoryStrc;
 
-
-
 static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc* pGame, D2UnitStrc* pDefender);
 
 void __fastcall sub_0057D4F0_ExecuteMeleeDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nUnused);
+
+struct D2SkillStrc;
+
+struct D2DamageContextStrc;
+
+struct D2ResistTableEntryStrc;
+
+struct D2UnitFindArgStrc;
+
+int __stdcall INVENTORY_GetWieldType(D2UnitStrc*, D2InventoryStrc*); // 0x0063D340
+
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc*); // 0x00629860
+
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc*); // 0x006298A0
+
+void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc*,int); // 0x00535D10
+
+void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc*,int); // 0x00535E20
+
+int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc*); // 0x006259B0
+
+int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam); // 0x0057B420
+
+int __fastcall sub_00472280(D2SeedStrc*,int,int); // 0x00472280
+
+void __fastcall D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70(D2UnitStrc*,D2UnitStrc*,D2DamageStrc*); // 0x005A5560
+
+struct D2DamageContextStrc
+{
+    void* pGame;
+    void* pDifficultyLevelsTxt;
+    D2UnitStrc* pAttacker;
+    D2UnitStrc* pDefender;
+    int bAttackerIsMonster;
+    int bDefenderIsMonster;
+    D2DamageStrc* pDamage;
+};
+
+struct D2ResistTableEntryStrc
+{
+    int nOffsetInDamageStrc;
+    int nResStatId;
+    int nMaxResStatId;
+    int nPierceStatId;
+    int nAbsorbPctStatId;
+    int nAbsorbStatId;
+};
+
+static __declspec(noinline) int __cdecl sub_0057BF10_AbsorbDamage(D2DamageContextStrc* pContext, D2ResistTableEntryStrc* pEntry, int nValue);
+
+
+static __declspec(noinline) int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
+
+struct D2UnitFindArgStrc
+{
+    int nFlags;
+    int unk0x04;
+    D2UnitStrc* pUnit;
+    int nX;
+    int nY;
+    int nSize;
+    int nMaxArrayEntries;
+    int nIndex;
+    void* pField;
+    void* pfnUnitTest;
+    int unk0x28;
+    int unk0x2C;
+    int unk0x30;
+    int unk0x34;
+};
+
+typedef int (__fastcall* DAMAGECALLBACK)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
+
+extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(DAMAGECALLBACK lpfn); // 0x006CC34C
+
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+
+D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
+
+void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005AD730
+
+int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950
+
+void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, void* pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
+
+void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); // 0x0065AA00
+
+int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
+
+static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nBurnDamage, int nBurnLength);
+
+static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFreezeLength, D2UnitStrc* pDefender);
+
+static void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2GameStrc* pGame, D2UnitStrc* pAttacker, D2DamageStrc* pDamage);
+
+
+static int __stdcall sub_0057A8E0_AddStatDamage(int nStatMin, int nStatPct, int nMinPct, int nMaxPct, int nDamage, int nStatMax, D2UnitStrc* pUnit);
+
+static void sub_0057B660_AddUndeadDamagePercent(D2DamageStrc* pDamage, D2UnitStrc* pAttacker, D2UnitStrc* pDefender);
+
+static void __stdcall sub_0057B6A0_AddMonTypeDamagePercent(D2UnitStrc* pAttacker, D2DamageStrc* pDamage, D2UnitStrc* pDefender);
+
+static int __stdcall sub_0057BF80_Apply(int ignore,Context* c,Record* r);
+
+static int __cdecl sub_0057C060_Scale(Context* c);
+
+static void __cdecl sub_0057C140_Durations(Context* c);
+
+void __fastcall sub_0057C1E0_Total(Game* game,Unit* attacker,Unit* defender,Damage* damage);
+
+static int __cdecl sub_0057BE00_Resistance(Context* c,Record* r);
+
+static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid);
+
+int __fastcall SUNITDMG_ApplyBlockOrDodge(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid, int bBlock);
 
 static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
@@ -617,7 +730,7 @@ int __fastcall SUNITDMG_CheckMonType(int nMonType1, int nMonType2)
 }
 
 // 0x0057A880
-static int __stdcall sub_0057A880_AddRolledDamage(D2UnitStrc* pUnit, int nMin, int nMaxPct, int nMax, int nDamage, int nMinPct)
+static int __stdcall sub_0057A880_AddRolledDamage(D2UnitStrc* pUnit, int nMin, int nMax, int nMinPct, int nMaxPct, int nDamage)
 {
     if (nMax > 0)
     {
@@ -650,7 +763,7 @@ static int __stdcall sub_0057A8E0_AddStatDamage(int nStatMin, int nStatPct, int 
         nMaxPct += nPct;
     }
 
-    return sub_0057A880_AddRolledDamage(pUnit, nMin, nMaxPct, nMax, nDamage, nMinPct);
+    return sub_0057A880_AddRolledDamage(pUnit, nMin, nMax, nMinPct, nMaxPct, nDamage);
 }
 
 // calling-convention shim (not game code)
@@ -823,6 +936,41 @@ void __fastcall SUNITDMG_RemoveShatterState(D2UnitStrc* pUnit, int nState, D2Sta
     UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\SUnitDmg.cpp", 338);
 }
 
+// 0x0057ADD0
+static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nBurnDamage, int nBurnLength)
+{
+    if (nBurnLength <= 0 || nBurnDamage <= 0)
+    {
+        return;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 0x73);
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
+    if ((!pDefender ? 6 : pDefender->dwUnitType) == 1)
+    {
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pDefender, 3, 0);
+        EVENT_SetEvent(pGame, pDefender, 3, pGame->dwGameFrame + 1, 0, 0);
+    }
+
+    const int nExpireFrame = nBurnLength + pGame->dwGameFrame;
+    if (!pStatList)
+    {
+        STATES_ToggleState(pDefender, 0x73, 1);
+        D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
+        EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
+        sub_006270B0(pNewStatList, 0x4A, -nBurnDamage, 0);
+        STATLIST_SetState(pNewStatList, 0x73);
+        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
+        D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
+    }
+    else if (-STATLIST_GetStatValue(pStatList, 0x4A, 0) <= nBurnDamage)
+    {
+        D2COMMON_10476(pStatList, nExpireFrame);
+        EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
+        STATLIST_SetStat(pStatList, 0x4A, -nBurnDamage, 0);
+    }
+}
+
 // 0x0057AF00
 static __declspec(noinline) int sub_0057AF00_IsMonsterWithoutDeadCol(D2UnitStrc* pUnit)
 {
@@ -883,41 +1031,6 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc
         D2COMMON_10476(pStatList, nExpireFrame);
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
         STATLIST_SetStat(pStatList, 0x4A, -nPoisonDamage, 0);
-    }
-}
-
-// 0x0057ADD0
-static __declspec(noinline) void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nBurnDamage, int nBurnLength)
-{
-    if (nBurnLength <= 0 || nBurnDamage <= 0)
-    {
-        return;
-    }
-
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 0x73);
-    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
-    if ((!pDefender ? 6 : pDefender->dwUnitType) == 1)
-    {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pDefender, 3, 0);
-        EVENT_SetEvent(pGame, pDefender, 3, pGame->dwGameFrame + 1, 0, 0);
-    }
-
-    const int nExpireFrame = nBurnLength + pGame->dwGameFrame;
-    if (!pStatList)
-    {
-        STATES_ToggleState(pDefender, 0x73, 1);
-        D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
-        EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-        sub_006270B0(pNewStatList, 0x4A, -nBurnDamage, 0);
-        STATLIST_SetState(pNewStatList, 0x73);
-        STATLIST_SetStatRemoveCallback(pNewStatList, sub_6FD10E50);
-        D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
-    }
-    else if (-STATLIST_GetStatValue(pStatList, 0x4A, 0) <= nBurnDamage)
-    {
-        D2COMMON_10476(pStatList, nExpireFrame);
-        EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-        STATLIST_SetStat(pStatList, 0x4A, -nBurnDamage, 0);
     }
 }
 
@@ -1134,6 +1247,66 @@ static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFree
     EVENT_SetEvent(pGame, pDefender, EVENTTYPE_AITHINK, pGame->dwGameFrame + nFreezeLength + 1, 0, 0);
 }
 
+// 0x0057B420
+int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam)
+{
+    if (bGetStats)
+    {
+        if (!pItem) pItem = sub_6FC7C7B0(pUnit);
+        if (pItem)
+        {
+            if (INVENTORY_GetWieldType(pUnit, pUnit->pInventory) == 2)
+            {
+                nMinDmg = STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
+                nMaxDmg = STATLIST_UnitGetStatValue(pUnit, 0x18, 0);
+            }
+            else
+            {
+                nMinDmg = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+                nMaxDmg = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+            }
+        }
+        else
+        {
+            nMinDmg = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+            if (nMinDmg <= 0) nMinDmg = 1;
+            nMaxDmg = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+            if (nMaxDmg <= 1) nMaxDmg = 2;
+        }
+        nMinDmg <<= 8;
+        nMaxDmg <<= 8;
+    }
+    const int nBonus = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x6F, 0) << 8;
+    nMinDmg += nBonus;
+    nMaxDmg += nBonus;
+    if (nMinDmg < 1) nMinDmg = 256;
+    if (nMaxDmg <= nMinDmg) nMaxDmg = nMinDmg + 256;
+    nDamagePercent += STATLIST_UnitGetStatValue(pUnit, 0x19, 0);
+    const int nMinPercent = STATLIST_UnitGetStatValue(pUnit, 0x12, 0);
+    const int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, 0x11, 0);
+    if (pItem)
+    {
+        int nFactor = ITEMS_GetStrengthBonus(pItem);
+        if (nFactor) nDamagePercent += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
+        nFactor = ITEMS_GetDexBonus(pItem);
+        if (nFactor) nDamagePercent += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
+        nDamagePercent += SKILLS_GetWeaponMasteryBonus(pUnit, pItem, 0, 1);
+    }
+    else if (bGetStats) nDamagePercent += STATLIST_UnitGetStatValue(pUnit, 0, 0);
+    if (nDamagePercent <= -90) nDamagePercent = -90;
+    int nResult = nDamage;
+    if (nMaxDmg > 0)
+    {
+        const int nMin = nMinDmg + DATATBLS_ApplyRatio(nMinDmg, nMinPercent + nDamagePercent, 100);
+        const int nMax = nMaxDmg + DATATBLS_ApplyRatio(nMaxDmg, nMaxPercent + nDamagePercent, 100);
+        nResult = nMin + nDamage;
+        if (nMax > nMin) nResult += ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nMax - nMin);
+    }
+    nResult = nResult < 0 ? 0 : nResult;
+    if (nSrcDam != 0x80) return DATATBLS_ApplyRatio(nResult, nSrcDam, 0x80);
+    return nResult;
+}
+
 // 0x0057B630
 static void __stdcall sub_0057B630_AddDemonDamage(D2UnitStrc* pAttacker, D2UnitStrc* pTarget, D2UnkDamageRecordStrc* pRecord)
 {
@@ -1171,7 +1344,7 @@ void __stdcall sub_A08_EmitDamageHelpers(D2UnitStrc* pAttacker, D2UnitStrc* pDef
 {
     pDamage->dwPhysDamage = sub_0057A8E0_AddStatDamage(a, b, c, d, pDamage->dwPhysDamage, f, pAttacker);
     pDamage->dwFireDamage = sub_0057A8E0_AddStatDamage(b, c, d, e, pDamage->dwFireDamage, a, pAttacker);
-    pDamage->dwEnDmgPct = sub_0057A880_AddRolledDamage(pAttacker, a, b, c, pDamage->dwEnDmgPct, d);
+    pDamage->dwEnDmgPct = sub_0057A880_AddRolledDamage(pAttacker, a, c, d, b, pDamage->dwEnDmgPct);
     sub_0057B660_AddUndeadDamagePercent(pDamage, pAttacker, pDefender);
     sub_0057B660_AddUndeadDamagePercent(pDamage, pDefender, pAttacker);
 }
@@ -1230,6 +1403,129 @@ static void __stdcall sub_0057B6A0_AddMonTypeDamagePercent(D2UnitStrc* pAttacker
     }
 }
 
+// 0x0057B7D0
+void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame,D2UnitStrc* pAttacker,D2UnitStrc* pDefender,D2DamageStrc* pDamage,int nWeapon,unsigned char nSrcDam)
+{
+    if (!pAttacker || !pDefender) return;
+    if (!nSrcDam) nSrcDam=128;
+    PLAYER_ApplyWeaponStatsForSkill(pAttacker,nWeapon);
+    const int nAttackerType=pAttacker->dwUnitType;
+    const int nDefenderType=pDefender->dwUnitType;
+    pDamage->dwHitFlags|=0x20;
+    if ((!nAttackerType || STATLIST_GetUnitAlignment(pAttacker)==2) && nDefenderType==1)
+    {
+        int nTargetDefense=STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker,120,0);
+        if(nTargetDefense)
+        {
+            int nDefense=STATLIST_UnitGetStatValue(pDefender,31,0)+nTargetDefense;
+            if(nDefense<0) nDefense=0;
+            STATLIST_SetUnitStat(pDefender,31,nDefense,0);
+        }
+        if(MONSTERS_IsDemon(pDefender))
+        {
+            int nPct=STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker,121,0);
+            if(nPct>0) pDamage->dwEnDmgPct+=nPct;
+        }
+        sub_0057B660_AddUndeadDamagePercent(pDamage,pAttacker,pDefender);
+        sub_0057B6A0_AddMonTypeDamagePercent(pAttacker,pDamage,pDefender);
+    }
+    if(!(pDamage->dwHitFlags&1))
+    {
+        pDamage->dwPhysDamage=SUNITDMG_ApplyDamageBonuses(pAttacker,1,0,0,0,pDamage->dwEnDmgPct,pDamage->dwPhysDamage,nSrcDam);
+        if(!nWeapon)
+        {
+            D2UnitStrc* pWeapon=sub_6FC7C7B0(pAttacker);
+            if(pWeapon)
+            {
+                int nChance=SKILLS_GetWeaponMasteryBonus(pAttacker,pWeapon,0,2);
+                if(nChance>0 && sub_00472280(&pAttacker->pSeed,0,100)<nChance) goto critical;
+            }
+        }
+        {
+            int nChance=STATLIST_UnitGetStatValue(pAttacker,337,0);
+            if(nChance>0 && sub_00472280(&pAttacker->pSeed,0,100)<nChance) goto critical;
+            nChance=STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker,141,0);
+            if(nChance<=0 || sub_00472280(&pAttacker->pSeed,0,100)>=nChance) goto elemental;
+        }
+critical:
+        pDamage->dwPhysDamage*=2;
+        pDamage->wResultFlags|=0x2000;
+    }
+elemental:
+    if(nSrcDam!=128)
+    {
+        pDamage->dwFireDamage=sub_0057A8E0_AddStatDamage(48,329,0,0,pDamage->dwFireDamage,49,pAttacker)*nSrcDam/128;
+        pDamage->dwLtngDamage=sub_0057A8E0_AddStatDamage(50,330,0,0,pDamage->dwLtngDamage,51,pAttacker)*nSrcDam/128;
+        pDamage->dwColdDamage=sub_0057A8E0_AddStatDamage(54,331,0,0,pDamage->dwColdDamage,55,pAttacker)*nSrcDam/128;
+        pDamage->dwMagDamage=sub_0057A8E0_AddStatDamage(52,357,0,0,pDamage->dwMagDamage,53,pAttacker)*nSrcDam/128;
+    }
+    else
+    {
+        pDamage->dwFireDamage=sub_0057A8E0_AddStatDamage(48,329,0,0,pDamage->dwFireDamage,49,pAttacker);
+        pDamage->dwLtngDamage=sub_0057A8E0_AddStatDamage(50,330,0,0,pDamage->dwLtngDamage,51,pAttacker);
+        pDamage->dwColdDamage=sub_0057A8E0_AddStatDamage(54,331,0,0,pDamage->dwColdDamage,55,pAttacker);
+        pDamage->dwMagDamage=sub_0057A8E0_AddStatDamage(52,357,0,0,pDamage->dwMagDamage,53,pAttacker);
+    }
+    int bHireling=sub_0063EE90_IsHireling(pAttacker);
+    if(nAttackerType==1 && !bHireling)
+    {
+        if(!(pDamage->dwHitFlags&4)) pDamage->dwLifeLeech+=sub_0057A8E0_AddStatDamage(60,-1,0,0,pDamage->dwLifeLeech,61,pAttacker)*nSrcDam/128;
+        if(!(pDamage->dwHitFlags&8)) pDamage->dwManaLeech+=sub_0057A8E0_AddStatDamage(62,-1,0,0,pDamage->dwManaLeech,63,pAttacker)*nSrcDam/128;
+        if(!(pDamage->dwHitFlags&16)) pDamage->dwStamLeech+=sub_0057A8E0_AddStatDamage(64,-1,0,0,pDamage->dwStamLeech,65,pAttacker)*nSrcDam/128;
+    }
+    else if(!nAttackerType || bHireling)
+    {
+        if(!(pDamage->dwHitFlags&4)) pDamage->dwLifeLeech+=STATLIST_UnitGetStatValue(pAttacker,60,0);
+        if(!(pDamage->dwHitFlags&8)) pDamage->dwManaLeech+=STATLIST_UnitGetStatValue(pAttacker,62,0);
+        if(STATLIST_UnitGetStatValue(pAttacker,103,0)) pDamage->dwHitFlags|=0x100;
+        if(STATLIST_UnitGetStatValue(pAttacker,104,0)) pDamage->dwHitFlags|=0x200;
+        if(STATLIST_UnitGetStatValue(pAttacker,106,0)) pDamage->dwHitFlags|=0x400;
+    }
+    int nPoisonMin=STATLIST_UnitGetStatValue(pAttacker,57,0);
+    int nPoisonMax=STATLIST_UnitGetStatValue(pAttacker,58,0);
+    int nPoisonPct=0;
+    if(nPoisonMax>0) nPoisonPct=STATLIST_UnitGetStatValue(pAttacker,332,0);
+    pDamage->dwPoisDamage=sub_0057A880_AddRolledDamage(pAttacker,nPoisonMin,nPoisonMax,nPoisonPct,nPoisonPct,pDamage->dwPoisDamage)*nSrcDam/128;
+    if(pDamage->dwPoisDamage)
+    {
+        int nOverride=STATLIST_UnitGetStatValue(pAttacker,101,0);
+        if(nOverride>0) pDamage->dwPoisLen+=nOverride;
+        else
+        {
+            pDamage->dwPoisLen+=STATLIST_UnitGetStatValue(pAttacker,59,0);
+            int nCount=STATLIST_UnitGetStatValue(pAttacker,326,0);
+            if(nCount>1) pDamage->dwPoisLen/=nCount;
+        }
+    }
+    if(pDamage->dwColdDamage>0) pDamage->dwColdLen+=STATLIST_UnitGetStatValue(pAttacker,56,0)*nSrcDam/128;
+    if(!pDamage->dwStunLen) pDamage->dwStunLen+=STATLIST_UnitGetStatValue(pAttacker,66,0)*nSrcDam/128;
+    int nBurn=pDamage->dwBurnDamage*nSrcDam+316;
+    nBurn+=ITEMS_RollLimitedRandomNumber(&pAttacker->pSeed,1);
+    pDamage->dwBurnDamage+=(nBurn<0 ? 0:nBurn)/128;
+    if(pDamage->dwBurnLen) pDamage->dwBurnLen+=STATLIST_UnitGetStatValue(pAttacker,315,0)*nSrcDam/128;
+    if((!nAttackerType || bHireling) && !(pDamage->wResultFlags&0x20)) SUNITEVENT_Trigger(pGame,3,pDefender,pAttacker,pDamage);
+    if((unsigned char)pDamage->nConvType>0)
+    {
+        int nConverted=DATATBLS_ApplyRatio(pDamage->dwPhysDamage,pDamage->dwConvPct,100);
+        pDamage->dwPhysDamage-=nConverted;
+        pDamage->dwPhysDamage=pDamage->dwPhysDamage<=0 ? 0:pDamage->dwPhysDamage;
+        unsigned char nType=pDamage->nConvType;
+        if(nType==10) nType=(unsigned char)SEED_RollLimitedRandomNumber(&pAttacker->pSeed,5)+1;
+        switch(nType)
+        {
+        case 1:pDamage->dwFireDamage+=nConverted;break;
+        case 2:pDamage->dwLtngDamage+=nConverted;break;
+        case 3:pDamage->dwMagDamage+=nConverted;break;
+        case 4:pDamage->dwColdDamage+=nConverted;pDamage->dwColdLen=pDamage->dwColdLen<50 ? 50:pDamage->dwColdLen;break;
+        case 5:pDamage->dwPoisDamage+=nConverted/8;pDamage->dwPoisLen=pDamage->dwPoisLen<50 ? 50:pDamage->dwPoisLen;break;
+        case 11:pDamage->dwFireDamage+=nConverted;pDamage->dwBurnLen=pDamage->dwBurnLen<50 ? 50:pDamage->dwBurnLen;break;
+        case 12:pDamage->dwColdDamage+=nConverted;pDamage->dwFrzLen=pDamage->dwFrzLen<50 ? 50:pDamage->dwFrzLen;break;
+        }
+    }
+    D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70(pAttacker,pDefender,pDamage);
+    PLAYER_RestoreWeaponStats(pAttacker,nWeapon);
+}
+
 void __fastcall sub_K11_Emit0057B630(D2UnitStrc* pAttacker, D2UnitStrc* pTarget, D2UnkDamageRecordStrc* pRecord)
 {
     sub_0057B630_AddDemonDamage(pAttacker, pTarget, pRecord);
@@ -1258,12 +1554,7 @@ static int sub_0057BDD0_ReduceByStat(D2StatReduceCtx* pCtx, D2StatReduceRec* pRe
     return nValue - nStat;
 }
 
-int __fastcall sub_Emit_0057BDD0(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, int nValue)
-{
-    int n = sub_0057BDD0_ReduceByStat(pCtx, pRec, nValue);
-    return n + sub_0057BDD0_ReduceByStat(pCtx, pRec + 1, n);
-}
-
+// 0x0057BE00
 static __declspec(noinline) int __cdecl sub_0057BE00_Resistance(Context* c,Record* r)
 {
     int resistance=0;
@@ -1288,24 +1579,72 @@ static __declspec(noinline) int __cdecl sub_0057BE00_Resistance(Context* c,Recor
     }
     if(resistance<=0)
     {
-        if(resistance<=-100) resistance=-100;
+        if(resistance<=-100)
+        {
+            resistance=-100;
+        }
+        return resistance;
     }
     else
     {
         if(!c->defenderFlag)
         {
             int maximum=75;
-            if(r->maximumStat!=-1)
-            {
-                maximum=sub_00625480_Stat(c->defender,r->maximumStat,0)+75;
-                if(maximum>=95) maximum=95;
-            }
+            const int nMaximumStat=r->maximumStat;
+            if(nMaximumStat!=-1)
+                maximum=sub_00625480_Stat(c->defender,nMaximumStat,0)+75;
             else if(r->resistanceStat==36) maximum=50;
+            if(maximum>=95) maximum=95;
             resistance=(resistance>-100 ? resistance : -100)<maximum ? (resistance>-100 ? resistance : -100) : maximum;
         }
-        if(r->resistanceStat==36 && sub_00639DF0_State(c->attacker,47) && sub_0063E990_ClassB(c->defender)) resistance=0;
+        if(r->resistanceStat==36 && sub_00639DF0_State(c->attacker,47) && sub_0063E990_ClassB(c->defender))
+        {
+            resistance=0;
+        }
+        return resistance;
     }
-    return resistance;
+}
+
+// 0x0057BF10
+static int __cdecl sub_0057BF10_AbsorbDamage(D2DamageContextStrc* pContext, D2ResistTableEntryStrc* pEntry, int nValue)
+{
+    if (pEntry->nAbsorbPctStatId == -1)
+    {
+        return nValue;
+    }
+
+    int nAbsorbPct = STATLIST_UnitGetStatValue(pContext->pDefender, pEntry->nAbsorbPctStatId, 0);
+    if (nAbsorbPct >= 40)
+    {
+        nAbsorbPct = 40;
+    }
+
+    if (nAbsorbPct > 0)
+    {
+        const int nAbsorbed = DATATBLS_ApplyRatio(nValue, nAbsorbPct, 100);
+        pContext->pDamage->dwAbsLife += nAbsorbed;
+        nValue -= nAbsorbed;
+    }
+
+    int nAbsorb = STATLIST_UnitGetStatValue(pContext->pDefender, pEntry->nAbsorbStatId, 0) << 8;
+    if (nAbsorb > 0)
+    {
+        if (nAbsorb >= nValue)
+        {
+            nAbsorb = nValue;
+        }
+
+        pContext->pDamage->dwAbsLife += nAbsorb;
+        nValue -= nAbsorb;
+    }
+
+    return nValue;
+}
+
+int __fastcall sub_Emit_0057BDD0(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, int nValue)
+{
+    int n = sub_0057BDD0_ReduceByStat(pCtx, pRec, nValue);
+    return n + sub_0057BDD0_ReduceByStat(pCtx, pRec + 1, n);
 }
 
 static __declspec(noinline) int __cdecl sub_0057BF10_Absorb(Record* r,Context* c,int amount)
@@ -2153,6 +2492,252 @@ static void sub_0057CEC0_SetHitClassIfUnset(D2DamageStrc* pDamage)
     }
 }
 
+// build: context sub_0057BF10_Shim
+// calling-convention shim (not game code)
+int __fastcall sub_0057BF10_Shim(D2DamageContextStrc* pContext, D2ResistTableEntryStrc* pEntry, int nValue)
+{
+    return sub_0057BF10_AbsorbDamage(pContext, pEntry, nValue);
+}
+
+// 0x0057CEE0
+void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+{
+    if (UNITS_GetRoom(pUnit) && DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        if (!pAttacker || pAttacker->dwUnitType != 1)
+        {
+            return;
+        }
+
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pAttacker->dwClassId);
+        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nMonStatsFlags[0x0A >> 3] & gdwBitMasks[0x0A & 7]))
+        {
+            return;
+        }
+    }
+
+    if (pDamage->wResultFlags & 1)
+    {
+        sub_0057CEC0_SetHitClassIfUnset(pDamage);
+        pUnit->dwLastHitClass = pDamage->dwHitClass;
+    }
+
+    if (STATES_CheckState(pUnit, 0x36))
+    {
+        if (pDamage->wResultFlags & 0x02)
+        {
+            STATES_ToggleState(pUnit, 0x5C, 1);
+        }
+        return;
+    }
+
+    int nType = 0x06;
+    if (pUnit)
+    {
+        nType = pUnit->dwUnitType;
+    }
+
+    switch (nType)
+    {
+    case 0:
+    {
+        if (pDamage->wResultFlags & 0x80)
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x41);
+            if (pStatList)
+            {
+                D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, 0x15E, 0));
+                if (pSkill)
+                {
+                    SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
+                    StartModeID(pGame, pUnit, pSkill, 0x0D, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                }
+            }
+            return;
+        }
+        else if (pDamage->wResultFlags & 0x100)
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x42);
+            if (pStatList)
+            {
+                D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, 0x15E, 0));
+                if (pSkill)
+                {
+                    SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
+                    StartModeID(pGame, pUnit, pSkill, 0x0D, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+                }
+            }
+            return;
+        }
+        else if (pDamage->wResultFlags & 0x200)
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x44);
+            if (pStatList)
+            {
+                const int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
+
+                if (SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId))
+                {
+                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+                    if (pSkillsTxtRecord && pSkillsTxtRecord->wStSound > 0)
+                    {
+                        SUNIT_AttachSound(pUnit, 0x0C, pUnit);
+                    }
+                }
+            }
+            return;
+        }
+        else if (pDamage->wResultFlags & (0x10 | 0x8000))
+        {
+            if (pDamage->wResultFlags & 0x4000)
+            {
+                return;
+            }
+
+            const int nLastBlockFrame = STATLIST_UnitGetStatValue(pUnit, 0x5F, 0);
+            const int nBlockRate = STATLIST_UnitGetStatValue(pUnit, 0x66, 0);
+            if ((int)(pGame->dwGameFrame - nLastBlockFrame) > nBlockRate / 0x08 + 0x0F)
+            {
+                sub_6FC817D0(pGame, pUnit, 0, 0x09, 0, 0, 0);
+                STATLIST_SetUnitStat(pUnit, 0x5F, pGame->dwGameFrame, 0);
+            }
+            return;
+        }
+        else if (pDamage->wResultFlags & 0x02)
+        {
+            if (pUnit && pUnit->dwAnimMode != 0 && pUnit->dwAnimMode != 0x11)
+            {
+                StartModeID(pGame, pUnit, 0, 0, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+            }
+            return;
+        }
+        else if (pDamage->wResultFlags & 0x08)
+        {
+            StartModeID(pGame, pUnit, 0, 0x13, UNIT_GetType(pAttacker), !pAttacker ? -1 : pAttacker->dwUnitId, 0);
+            return;
+        }
+        else
+        {
+            if (pDamage->wResultFlags & 0x04)
+            {
+                if (STATLIST_GetStatListFromUnitAndState(pUnit, 0x15) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
+                {
+                    sub_6FC817D0(pGame, pUnit, 0, 0x04, pDamage->dwDmgTotal, 0, 0);
+                    return;
+                }
+            }
+            else
+            {
+                if (!(pDamage->wResultFlags & 0x4000))
+                {
+                    return;
+                }
+            }
+
+            UNITROOM_RefreshUnit(pUnit);
+            if (pUnit)
+            {
+                pUnit->dwFlags |= 0x8000;
+            }
+            return;
+        }
+    }
+    case 1:
+    {
+        if (!pUnit || pUnit->dwAnimMode == 0 || pUnit->dwAnimMode == 0x0C)
+        {
+            return;
+        }
+
+        const unsigned short wResultFlags = pDamage->wResultFlags;
+        if (wResultFlags & 0x08)
+        {
+            if (!sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 0x0D))
+            {
+                pDamage->wResultFlags = wResultFlags & (unsigned short)(~0x08) | 0x04;
+            }
+        }
+
+        sub_6FC62DF0(pGame, pAttacker, pUnit, pDamage);
+
+        if (pDamage->wResultFlags & 0x02)
+        {
+            SUNITDMG_KillMonster(pGame, pUnit, pAttacker, 1);
+            return;
+        }
+
+        D2ModeChangeStrc modeChange;
+        if (pDamage->wResultFlags & 0x08)
+        {
+            MONSTERMODE_GetModeChangeInfo(pUnit, 0x0D, &modeChange);
+            modeChange.pTargetUnit = pAttacker;
+            D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+            return;
+        }
+
+        if (pDamage->wResultFlags & 0x10)
+        {
+            if (pDamage->wResultFlags & 0x4000) goto Blocked;
+            if (pUnit->dwClassId == 0xF3) goto Blocked;
+            if (pUnit->dwClassId == 0x14D) goto Blocked;
+            if (pUnit->dwClassId == 0x2C1) goto Blocked;
+            if (!sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 6))
+            {
+            Blocked:
+                MONSTER_SetAiState(pUnit, 0x13);
+                return;
+            }
+            MONSTERMODE_GetModeChangeInfo(pUnit, 6, &modeChange);
+            D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+            return;
+        }
+
+        if (pDamage->wResultFlags & 0x04)
+        {
+            if (STATLIST_GetStatListFromUnitAndState(pUnit, 0x15) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
+            {
+                MONSTERMODE_GetModeChangeInfo(pUnit, 0x03, &modeChange);
+                D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+                sub_6FC6E8A0(pGame, pUnit);
+                return;
+            }
+
+            UNITROOM_RefreshUnit(pUnit);
+            pUnit->dwFlags |= 0x8000;
+            MONSTER_SetAiState(pUnit, 0x13);
+            sub_6FC6E8A0(pGame, pUnit);
+            return;
+        }
+
+        if (pDamage->wResultFlags & 0x4000)
+        {
+            UNITROOM_RefreshUnit(pUnit);
+            pUnit->dwFlags |= 0x8000;
+            MONSTER_SetAiState(pUnit, 0x13);
+            sub_6FC6E8A0(pGame, pUnit);
+            return;
+        }
+
+        if (pDamage->wResultFlags & 1 && pDamage->dwDmgTotal > 0)
+        {
+            const unsigned char nLastHpPct = (unsigned char)STATLIST_UnitGetStatValue(pUnit, 0x160, 0);
+            int nHpDiff = nLastHpPct - MONSTERMODE_GetHpPercent128(pUnit);
+            if (nHpDiff < 0)
+            {
+                nHpDiff = -nHpDiff;
+            }
+
+            if (nHpDiff > 0x04)
+            {
+                UNITROOM_RefreshUnit(pUnit);
+                pUnit->dwFlags |= 0x8000;
+            }
+        }
+        return;
+    }
+    }
+}
+
 // 0x0057D3D0
 static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc* pGame, D2UnitStrc* pDefender)
 {
@@ -2372,241 +2957,6 @@ int __stdcall SUNITDMG_RollAndCompareValues(D2UnitStrc* pUnit, int* pFirstValue,
     return *pFirstValue >= *pSecondValue;
 }
 
-void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
-{
-    if (UNITS_GetRoom(pUnit) && DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
-    {
-        if (!pAttacker || pAttacker->dwUnitType != 1)
-        {
-            return;
-        }
-
-        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pAttacker->dwClassId);
-        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nMonStatsFlags[0x0A >> 3] & gdwBitMasks[0x0A & 7]))
-        {
-            return;
-        }
-    }
-
-    if (pDamage->wResultFlags & 1)
-    {
-        sub_0057CEC0_SetHitClassIfUnset(pDamage);
-        pUnit->dwLastHitClass = pDamage->dwHitClass;
-    }
-
-    if (STATES_CheckState(pUnit, 0x36))
-    {
-        if (pDamage->wResultFlags & 0x02)
-        {
-            STATES_ToggleState(pUnit, 0x5C, 1);
-        }
-        return;
-    }
-
-    int nType = 0x06;
-    if (pUnit)
-    {
-        nType = pUnit->dwUnitType;
-    }
-
-    switch (nType)
-    {
-    case 0:
-    {
-        if (pDamage->wResultFlags & 0x80)
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x41);
-            if (pStatList)
-            {
-                D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, 0x15E, 0));
-                if (pSkill)
-                {
-                    SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
-                    StartModeID(pGame, pUnit, pSkill, 0x0D, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
-                }
-            }
-            return;
-        }
-        else if (pDamage->wResultFlags & 0x100)
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x42);
-            if (pStatList)
-            {
-                D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, 0x15E, 0));
-                if (pSkill)
-                {
-                    SKILLS_SetFlags(pSkill, SKILLS_GetFlags(pSkill) | 0x04);
-                    StartModeID(pGame, pUnit, pSkill, 0x0D, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
-                }
-            }
-            return;
-        }
-        else if (pDamage->wResultFlags & 0x200)
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x44);
-            if (pStatList)
-            {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-
-                if (SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId))
-                {
-                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
-                    if (pSkillsTxtRecord && pSkillsTxtRecord->wStSound > 0)
-                    {
-                        SUNIT_AttachSound(pUnit, 0x0C, pUnit);
-                    }
-                }
-            }
-            return;
-        }
-        else if (pDamage->wResultFlags & (0x10 | 0x8000))
-        {
-            if (pDamage->wResultFlags & 0x4000)
-            {
-                return;
-            }
-
-            const int nLastBlockFrame = STATLIST_UnitGetStatValue(pUnit, 0x5F, 0);
-            const int nBlockRate = STATLIST_UnitGetStatValue(pUnit, 0x66, 0);
-            if ((int)(pGame->dwGameFrame - nLastBlockFrame) > nBlockRate / 0x08 + 0x0F)
-            {
-                sub_6FC817D0(pGame, pUnit, 0, 0x09, 0, 0, 0);
-                STATLIST_SetUnitStat(pUnit, 0x5F, pGame->dwGameFrame, 0);
-            }
-            return;
-        }
-        else if (pDamage->wResultFlags & 0x02)
-        {
-            if (pUnit && pUnit->dwAnimMode != 0 && pUnit->dwAnimMode != 0x11)
-            {
-                StartModeID(pGame, pUnit, 0, 0, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
-            }
-            return;
-        }
-        else if (pDamage->wResultFlags & 0x08)
-        {
-            StartModeID(pGame, pUnit, 0, 0x13, !pAttacker ? 0x06 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId, 0);
-            return;
-        }
-        else
-        {
-            if (pDamage->wResultFlags & 0x04)
-            {
-                if (STATLIST_GetStatListFromUnitAndState(pUnit, 0x15) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
-                {
-                    sub_6FC817D0(pGame, pUnit, 0, 0x04, pDamage->dwDmgTotal, 0, 0);
-                    return;
-                }
-            }
-            else
-            {
-                if (!(pDamage->wResultFlags & 0x4000))
-                {
-                    return;
-                }
-            }
-
-            UNITROOM_RefreshUnit(pUnit);
-            if (pUnit)
-            {
-                pUnit->dwFlags |= 0x8000;
-            }
-            return;
-        }
-    }
-    case 1:
-    {
-        if (!pUnit || pUnit->dwAnimMode == 0 || pUnit->dwAnimMode == 0x0C)
-        {
-            return;
-        }
-
-        const unsigned short wResultFlags = pDamage->wResultFlags;
-        if (wResultFlags & 0x08)
-        {
-            if (!sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 0x0D))
-            {
-                pDamage->wResultFlags = wResultFlags & (unsigned short)(~0x08) | 0x04;
-            }
-        }
-
-        sub_6FC62DF0(pGame, pAttacker, pUnit, pDamage);
-
-        if (pDamage->wResultFlags & 0x02)
-        {
-            SUNITDMG_KillMonster(pGame, pUnit, pAttacker, 1);
-            return;
-        }
-
-        D2ModeChangeStrc modeChange;
-        if (pDamage->wResultFlags & 0x08)
-        {
-            MONSTERMODE_GetModeChangeInfo(pUnit, 0x0D, &modeChange);
-            modeChange.pTargetUnit = pAttacker;
-            D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-            return;
-        }
-
-        if (pDamage->wResultFlags & 0x10)
-        {
-            if (pDamage->wResultFlags & 0x4000 || pUnit->dwClassId == 0xF3 || pUnit->dwClassId == 0x14D || pUnit->dwClassId == 0x2C1
-                || !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 0x06))
-            {
-                MONSTER_SetAiState(pUnit, 0x13);
-                return;
-            }
-
-            MONSTERMODE_GetModeChangeInfo(pUnit, 0x06, &modeChange);
-            D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-            return;
-        }
-
-        if (pDamage->wResultFlags & 0x04)
-        {
-            if (STATLIST_GetStatListFromUnitAndState(pUnit, 0x15) || !sub_0057CB00(pUnit, pDamage, pDamage->dwHitClass))
-            {
-                MONSTERMODE_GetModeChangeInfo(pUnit, 0x03, &modeChange);
-                D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-                sub_6FC6E8A0(pGame, pUnit);
-                return;
-            }
-
-            UNITROOM_RefreshUnit(pUnit);
-            pUnit->dwFlags |= 0x8000;
-            MONSTER_SetAiState(pUnit, 0x13);
-            sub_6FC6E8A0(pGame, pUnit);
-            return;
-        }
-
-        if (pDamage->wResultFlags & 0x4000)
-        {
-            UNITROOM_RefreshUnit(pUnit);
-            pUnit->dwFlags |= 0x8000;
-            MONSTER_SetAiState(pUnit, 0x13);
-            sub_6FC6E8A0(pGame, pUnit);
-            return;
-        }
-
-        if (pDamage->wResultFlags & 1 && pDamage->dwDmgTotal > 0)
-        {
-            const unsigned char nLastHpPct = (unsigned char)STATLIST_UnitGetStatValue(pUnit, 0x160, 0);
-            int nHpDiff = nLastHpPct - MONSTERMODE_GetHpPercent128(pUnit);
-            if (nHpDiff < 0)
-            {
-                nHpDiff = -nHpDiff;
-            }
-
-            if (nHpDiff > 0x04)
-            {
-                UNITROOM_RefreshUnit(pUnit);
-                pUnit->dwFlags |= 0x8000;
-            }
-        }
-        return;
-    }
-    }
-}
-
 // 0x0057D810
 static void SUNITDMG_PreventMonsterHeal(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
@@ -2824,14 +3174,67 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D
     sub_0057CA80_AddCombatRecord(pGame, pAttacker, pDefender, pDamage);
 }
 
-// build: context SUNITDMG_ApplyDodge
-static __declspec(noinline) int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid)
+// 0x0057DCA0
+static int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
 {
-
-    if (pDefender)
+    int i;
+    if (!pUnit)
     {
-        if (pDefender->dwUnitType == 0 && (pDefender->dwAnimMode == 3 || pDefender->dwAnimMode == 2)
-            || pDefender->dwUnitType == 1 && (pDefender->dwAnimMode == 15 || pDefender->dwAnimMode == 2))
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* pRightItem = 0;
+    D2UnitStrc* pLeftItem = 0;
+    if (pInventory)
+    {
+        pRightItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
+        pLeftItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
+    }
+
+    D2StatStrc aStats[0x20];
+    const int nCount = STATLIST_CopyStats(pUnit, 0x15C, aStats, 0x20);
+    int nBest = 0;
+    for (i = 0; i < nCount; ++i)
+    {
+        const int nItemType = aStats[i].nLayer;
+        const int nValue = aStats[i].nValue;
+        if (nItemType <= 0)
+        {
+            nBest = nValue;
+        }
+        else if (pLeftItem && ITEMSIsA(pLeftItem, nItemType))
+        {
+            if (nValue > nBest)
+            {
+                nBest = nValue;
+            }
+        }
+        else if (pRightItem && ITEMSIsA(pRightItem, nItemType))
+        {
+            if (nValue > nBest)
+            {
+                nBest = nValue;
+            }
+        }
+    }
+
+    return nBest;
+}
+
+int __fastcall sub_0057DCA0_Emit(int nArg, D2UnitStrc* pUnit)
+{
+    int nValue = sub_0057DCA0_GetWieldedTypeStatMax(pUnit);
+    return nValue > 0 ? nValue : nArg;
+}
+
+// 0x0057DD60
+static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid)
+{
+    int nResult = 0;
+    if (pDefender && pDefender->dwUnitType == 0)
+    {
+        if (pDefender->dwAnimMode == 3 || pDefender->dwAnimMode == 2)
         {
             const int nEvade = STATLIST_UnitGetStatValue(pDefender, 340, 0);
             if (nEvade > 0)
@@ -2840,54 +3243,114 @@ static __declspec(noinline) int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttac
                 sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nEvade, nRand, "evades");
                 if (nRand < nEvade)
                 {
+                    nResult = 8;
+                }
+            }
+            return nResult;
+        }
+
+        const int nWeaponBlock = sub_0057DCA0_GetWieldedTypeStatMax(pDefender);
+        if (nWeaponBlock > 0)
+        {
+            int nWeaponClassId;
+            COMPOSIT_GetWeaponClassId(pDefender, pDefender->pInventory, &nWeaponClassId, -1, 1);
+            if (nWeaponClassId == 13)
+            {
+                const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
+                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
+                if (nRand < nWeaponBlock)
+                {
+                    return 16;
+                }
+            }
+        }
+        if (!bAvoid)
+        {
+            const int nDodge = STATLIST_UnitGetStatValue(pDefender, 338, 0);
+            if (nDodge > 0)
+            {
+                const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
+                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
+                if (nRand < nDodge)
+                {
                     return 4;
                 }
             }
-
-            return 0;
         }
-    }
-
-    const int nWeaponBlock = SUNITDMG_GetWeaponBlock(pDefender);
-    if (nWeaponBlock > 0)
-    {
-        int nWeaponClassId = 0;
-        COMPOSIT_GetWeaponClassId(pDefender, pDefender->pInventory, &nWeaponClassId, -1, 1);
-        if (nWeaponClassId == 13)
+        else
         {
-            const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
-            sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
-            if (nRand < nWeaponBlock)
+            const int nAvoid = STATLIST_UnitGetStatValue(pDefender, 339, 0);
+            if (nAvoid > 0)
             {
-                return 5;
-            }
-        }
-    }
-
-    if (bAvoid)
-    {
-        const int nAvoid = STATLIST_UnitGetStatValue(pDefender, 339, 0);
-        if (nAvoid > 0)
-        {
-            const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
-            sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
-            if (nRand < nAvoid)
-            {
-                return 3;
+                const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
+                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
+                if (nRand < nAvoid)
+                {
+                    return 2;
+                }
             }
         }
     }
     else
     {
-        const int nDodge = STATLIST_UnitGetStatValue(pDefender, 338, 0);
-        if (nDodge > 0)
+        const int bMoving = pDefender && (pDefender->dwAnimMode == 15 || pDefender->dwAnimMode == 2);
+        if (!bMoving)
         {
-            const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
-            sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
-            if (nRand < nDodge)
+            const int nWeaponBlock = sub_0057DCA0_GetWieldedTypeStatMax(pDefender);
+            if (nWeaponBlock > 0)
             {
-                return 2;
+                int nWeaponClassId;
+                COMPOSIT_GetWeaponClassId(pDefender, pDefender->pInventory, &nWeaponClassId, -1, 1);
+                if (nWeaponClassId == 13)
+                {
+                    const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
+                    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
+                    if (nRand < nWeaponBlock)
+                    {
+                        return 16;
+                    }
+                }
             }
+            if (!bAvoid)
+            {
+                const int nDodge = STATLIST_UnitGetStatValue(pDefender, 338, 0);
+                if (nDodge > 0)
+                {
+                    const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
+                    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
+                    if (nRand < nDodge)
+                    {
+                        return 4;
+                    }
+                }
+            }
+            else
+            {
+                const int nAvoid = STATLIST_UnitGetStatValue(pDefender, 339, 0);
+                if (nAvoid > 0)
+                {
+                    const int nRand = SEED_RollLimitedRandomNumber(&pDefender->pSeed, 100);
+                    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
+                    if (nRand < nAvoid)
+                    {
+                        return 2;
+                    }
+                }
+            }
+        }
+        else
+        {
+            const int nEvade = STATLIST_UnitGetStatValue(pDefender, 340, 0);
+            if (nEvade > 0)
+            {
+                const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
+                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nEvade, nRand, "evades");
+                if (nRand < nEvade)
+                {
+                    nResult = 8;
+                }
+            }
+            return nResult;
         }
     }
 
@@ -2921,6 +3384,75 @@ int __fastcall SUNITDMG_ApplyBlockOrDodge(D2GameStrc* pGame, D2UnitStrc* pAttack
     }
 
     return 1;
+}
+
+// 0x0057E090
+int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int a7, int a8, DAMAGECALLBACK pfCallback, int a10)
+{
+    D2DamageStrc damage;
+    D2UnitFindArgStrc unitFindArg;
+    D2UnitFindDataStrc unitFindData;
+    D2ActiveRoomStrc* pRoom;
+    D2UnitStrc* pOwner;
+    D2UnitStrc* pOwnerOwner;
+    int nFlags;
+    int i;
+    int bResult;
+
+    bResult = 0;
+    pRoom = UNITS_GetRoom(pUnit);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+
+    nFlags = a10;
+    if (!a10)
+    {
+        nFlags = 0x583;
+    }
+
+    memset(&unitFindArg, 0, sizeof(unitFindArg));
+    unitFindArg.nFlags = nFlags;
+    unitFindArg.nSize = nSize;
+    unitFindArg.nY = nY;
+    unitFindArg.nX = nX;
+
+    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, &unitFindData, pRoom, nX, nY, nSize, 0, &unitFindArg);
+    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(&unitFindData);
+
+    pOwner = SUNIT_GetOwner(pGame, pUnit);
+    pOwnerOwner = pOwner ? SUNIT_GetOwner(pGame, pOwner) : 0;
+    if (!pOwner)
+    {
+        UNITFINDS_FreeUnitFindData(&unitFindData);
+        return 0;
+    }
+
+    for (i = 0; i < unitFindData.nIndex; ++i)
+    {
+        if ((pOwnerOwner != unitFindData.pUnitsArray[i] || a8) && (pOwner != unitFindData.pUnitsArray[i] || a7)
+            && SUNIT_AreUnitsHostile(pGame, pOwner, unitFindData.pUnitsArray[i])
+            && D2Common_11026(nX, nY, unitFindData.pUnitsArray[i], 0x805))
+        {
+            damage = *pDamage;
+            if (pfCallback)
+            {
+                D2_ASSERT(!IsBadCodePtr(pfCallback), 0xDA6);
+
+                if (pfCallback(pGame, pUnit, unitFindData.pUnitsArray[i]))
+                {
+                    MISSMODE_SetDamageFlags(pGame, pUnit, unitFindData.pUnitsArray[i], &damage);
+                    bResult = 1;
+                }
+            }
+            else
+            {
+                MISSMODE_SetDamageFlags(pGame, pUnit, unitFindData.pUnitsArray[i], &damage);
+                bResult = 1;
+            }
+        }
+    }
+
+    UNITFINDS_FreeUnitFindData(&unitFindData);
+    return bResult;
 }
 
 // 0x0057E240

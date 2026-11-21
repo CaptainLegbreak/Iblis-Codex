@@ -58009,6 +58009,10 @@
      "name": "?SUNITDMG_RemoveShatterState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x0057ADD0",
+     "length": 302
+    },
+    {
      "va": "0x0057AF00",
      "length": 35,
      "name": "?sub_0057AF00_IsMonsterWithoutDeadCol@@YAHPAUD2UnitStrc@@@Z"
@@ -58033,6 +58037,10 @@
      "length": 491
     },
     {
+     "va": "0x0057B420",
+     "length": 526
+    },
+    {
      "va": "0x0057B630",
      "length": 37,
      "name": "?sub_0057B630_AddDemonDamage@@YGXPAUD2UnitStrc@@0PAUD2UnkDamageRecordStrc@@@Z"
@@ -58048,8 +58056,20 @@
      "name": "?sub_0057B6A0_AddMonTypeDamagePercent@@YGXPAUD2UnitStrc@@PAUD2DamageStrc@@0@Z"
     },
     {
+     "va": "0x0057B7D0",
+     "length": 1524
+    },
+    {
      "va": "0x0057BDD0",
      "length": 45
+    },
+    {
+     "va": "0x0057BE00",
+     "length": 262
+    },
+    {
+     "va": "0x0057BF10",
+     "length": 102
     },
     {
      "va": "0x0057BF80",
@@ -58124,6 +58144,10 @@
      "name": "?sub_0057CEC0_SetHitClassIfUnset@@YAXPAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x0057CEE0",
+     "length": 1254
+    },
+    {
      "va": "0x0057D3D0",
      "length": 278
     },
@@ -58167,8 +58191,20 @@
      "name": "?SUNITDMG_AllocCombat@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@E@Z"
     },
     {
+     "va": "0x0057DCA0",
+     "length": 177
+    },
+    {
+     "va": "0x0057DD60",
+     "length": 585
+    },
+    {
      "va": "0x0057DFB0",
      "length": 222
+    },
+    {
+     "va": "0x0057E090",
+     "length": 432
     },
     {
      "va": "0x0057E240",
@@ -58339,62 +58375,6 @@
     {
      "va": "0x0057AC50",
      "length": 302
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057ADD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057ADD0",
-     "length": 302
-    },
-    {
-     "va": "0x0057B420",
-     "length": 526
-    },
-    {
-     "va": "0x0057B7D0",
-     "length": 1524
-    },
-    {
-     "va": "0x0057BE00",
-     "length": 262
-    },
-    {
-     "va": "0x0057BF10",
-     "length": 102
-    },
-    {
-     "va": "0x0057CEE0",
-     "length": 1254
-    },
-    {
-     "va": "0x0057DCA0",
-     "length": 177
-    },
-    {
-     "va": "0x0057DD60",
-     "length": 585
-    },
-    {
-     "va": "0x0057E090",
-     "length": 432
     }
    ],
    "flags": [
