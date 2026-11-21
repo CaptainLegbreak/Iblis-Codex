@@ -1026,16 +1026,6 @@ void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
 }
 
-// 0x00589070
-void __fastcall ACT5Q3_SendPacket0x5DToClient(D2UnitStrc* pUnit)
-{
-    D2GSPacketSrv5D packet5D = {};
-    packet5D.nHeader = QUEST_LOG_PACKET;
-    packet5D.nFlags = 32;
-    packet5D.nQuestId = QUEST_A5Q3_PRISONOFICE;
-    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 286), &packet5D);
-}
-
 // 0x005890B0
 int __fastcall ACT5Q3_RemoveDrehyaIced(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
