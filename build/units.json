@@ -69658,6 +69658,15 @@
      "name": "?ACT3Q6_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x005BC3C0",
+     "length": 470
+    },
+    {
+     "va": "0x005BC710",
+     "length": 5,
+     "name": "?ACT3Q6_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005BC720",
      "length": 41,
      "name": "?ACT3Q6_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
@@ -69683,6 +69692,14 @@
      "name": "?ACT3Q6_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005BC8B0",
+     "length": 524
+    },
+    {
+     "va": "0x005BCAC0",
+     "length": 207
+    },
+    {
      "va": "0x005BCB90",
      "length": 93,
      "name": "?OBJECTS_InitFunction45_MephistoBridge@@YIXPAUD2ObjInitFnStrc@@@Z"
@@ -69701,45 +69718,6 @@
      "va": "0x005BCC80",
      "length": 316,
      "name": "?ACT3Q6_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q6_005BC3C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005BC3C0",
-     "length": 470
-    },
-    {
-     "va": "0x005BCAC0",
-     "length": 207
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q6_005BC710.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BC710",
-     "length": 5,
-     "name": "?ACT3Q6_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005BCDC0",
@@ -69751,30 +69729,6 @@
      "length": 216,
      "name": "?OBJECTS_InitFunction52_NatalyaStart@@YIXPAUD2ObjInitFnStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q6_005BC8B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005BC8B0",
-     "length": 524
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
