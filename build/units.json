@@ -8985,27 +8985,13 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00426F90.cpp",
+   "file": "Source/Storm/SOURCE/SEVT_00426F90.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x00426F90",
      "length": 453
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -87561,7 +87547,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006BCB40.cpp",
+   "file": "Source/Fog/Src/DataArrays_006BCB40.cpp",
    "rank": 1,
    "functions": [
     {
@@ -87572,20 +87558,6 @@
      "va": "0x006BCCD0",
      "length": 121
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -87604,27 +87576,13 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006BCCC0.cpp",
+   "file": "Source/Fog/Src/DataArrays_006BCCC0.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x006BCCC0",
      "length": 15
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
