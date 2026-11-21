@@ -62467,8 +62467,23 @@
      "length": 52
     },
     {
+     "va": "0x005AA1C0",
+     "length": 129,
+     "name": "?sub_005AA1C0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005AA250",
      "length": 523
+    },
+    {
+     "va": "0x005AA460",
+     "length": 329,
+     "name": "?sub_005AA460_MISSMODE_GuidedRetarget@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x005AA5B0",
+     "length": 157,
+     "name": "?sub_005AA5B0_MISSMODE_GuidedFindTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005AA650",
@@ -64290,27 +64305,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AA1C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005AA1C0",
-     "length": 129,
-     "name": "?sub_005AA1C0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x005AA460",
-     "length": 329,
-     "name": "?sub_005AA460_MISSMODE_GuidedRetarget@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005AA5B0",
-     "length": 157,
-     "name": "?sub_005AA5B0_MISSMODE_GuidedFindTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {

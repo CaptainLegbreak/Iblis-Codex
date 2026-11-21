@@ -602,10 +602,17 @@ D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX
 
 unsigned short __stdcall D2Common_10201(D2DynamicPathStrc* pDynamicPath); // 0x00648EB0
 
-
 int __fastcall sub_004EFC20_GetSkillParam2(int); // 0x004EFC20
 
 int __fastcall sub_004EFCB0_GetSummonLevel(int, int); // 0x004EFCB0
+
+typedef char D2MissilesTxt_size_check[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
+
+static void __stdcall sub_005AA460_MISSMODE_GuidedRetarget(D2UnitStrc* pTarget, D2UnitStrc* pMissile);
+
+static int __stdcall sub_005AA5B0_MISSMODE_GuidedFindTarget(D2GameStrc* pGame, D2UnitStrc* pMissile);
+
+int __fastcall MISSMODE_SrvHit10_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
@@ -1781,6 +1788,31 @@ int __fastcall sub_005AA180_CheckOwnerState(D2GameStrc* pGame, D2UnitStrc* pUnit
             nResult = 0;
     }
     return nResult;
+}
+
+// 0x005AA1C0
+int __fastcall sub_005AA1C0(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    D2MissilesTxt* pMissilesTxtRecord = 0;
+
+    pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
+    if (!pMissilesTxtRecord)
+    {
+        return 1;
+    }
+
+    if (pMissilesTxtRecord->dwHitPar[0] >= 0 && pMissilesTxtRecord->dwHitPar[0] < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        int nSpawnMode = MONMODE_NEUTRAL;
+        if (pMissilesTxtRecord->dwHitPar[1] >= 0 && pMissilesTxtRecord->dwHitPar[1] < 16)
+        {
+            nSpawnMode = pMissilesTxtRecord->dwHitPar[1];
+        }
+
+        D2GAME_SpawnPresetMonster_6FC66560(pGame, UNITS_GetRoom(pMissile), pMissilesTxtRecord->dwHitPar[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), nSpawnMode);
+    }
+
+    return 1;
 }
 
 static D2MissilesTxt* GetMissilesTxt(D2UnitStrc* pMissile)
