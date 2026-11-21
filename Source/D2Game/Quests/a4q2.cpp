@@ -211,6 +211,8 @@ int __fastcall ACT4Q2_UnitIterate_UpdatePlayerState(D2GameStrc* pGame, D2UnitStr
 
 int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp);
 
+void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* pOrigin); // 0x00553380
+
 // 0x005B4390
 void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
 {
@@ -322,6 +324,25 @@ void __fastcall ACT4Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             QUESTRECORD_SetQuestState(GetQuestFlags(pQuestData->pGame, pQuestArg->pPlayer), 0x1A, 8);
         }
     }
+}
+
+// 0x005B49C0
+int __fastcall ACT4Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
+    {
+        return 0;
+    }
+
+    D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 420);
+    D2GSPacketSrv5D packet5D = {};
+    packet5D.nHeader = 0x5D;
+    packet5D.nQuestId = 23;
+    packet5D.nFlags = 2;
+    sub_6FC3F380(pClient, &packet5D);
+    SUNIT_AttachSound(pUnit, 75, pUnit);
+    return 0;
 }
 
 // 0x005B4A30
