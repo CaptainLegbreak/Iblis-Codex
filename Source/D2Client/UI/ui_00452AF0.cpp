@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -338,9 +339,9 @@ void __cdecl sub_00453100_DrawDeathScreen()
         }
         else
         {
-            if (!STATLIST_UnitGetStatValue(pPlayer, 0xAF, 0))
+            if (!STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0))
                 goto second_text;
-            sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E6), STATLIST_UnitGetStatValue(pPlayer, 0xAF, 0));
+            sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E6), STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDLOST, 0));
         }
         nY += 0x30;
         sub_00502EF0(2);

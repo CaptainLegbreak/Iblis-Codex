@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -1640,7 +1641,7 @@ int __fastcall sub_004DB360_GetCompTransparency(D2UnitStrc* pUnit, int nComponen
     {
     case 1:
     {
-        const int nStat = STATLIST_UnitGetStatValue(pUnit, 0xB5, 0);
+        const int nStat = STATLIST_UnitGetStatValue(pUnit, STAT_FADE, 0);
         if (nStat <= 0)
             break;
         if (nStat > 0xF)
@@ -1663,7 +1664,7 @@ int __fastcall sub_004DB360_GetCompTransparency(D2UnitStrc* pUnit, int nComponen
         return 1;
     }
     case 0:
-        if (STATLIST_UnitGetStatValue(pUnit, 0xB5, 0))
+        if (STATLIST_UnitGetStatValue(pUnit, STAT_FADE, 0))
         {
             *pOut = 1;
             return 1;

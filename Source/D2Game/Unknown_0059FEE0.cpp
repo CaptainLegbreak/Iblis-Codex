@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -186,7 +187,7 @@ void __fastcall sub_0059FEE0_SendMissilePacket(D2ClientStrc* pClient, D2GameStrc
     packet.nUnitType = nOwnerType;
     packet.nUnitGUID = pOwner->dwUnitId;
     packet.nLevel = MISSILE_GetLevel(pMissile);
-    packet.nPierce = STATLIST_UnitGetStatValue(pMissile, 0x148, 0);
+    packet.nPierce = STATLIST_UnitGetStatValue(pMissile, STAT_PIERCE_IDX, 0);
     sub_6FC3F610(pClient, &packet);
 }
 
@@ -347,8 +348,8 @@ static void sub_005A0D20_AddLifePercent(D2UnitStrc* pUnit, int nPercentage)
     }
 
     nHitpoints += nBonus;
-    STATLIST_SetUnitStat(pUnit, 7, nHitpoints, 0);
-    STATLIST_SetUnitStat(pUnit, 6, nHitpoints, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_MAXHP, nHitpoints, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nHitpoints, 0);
 }
 
 // 0x005A0160
@@ -465,7 +466,7 @@ void __fastcall MONSTERUNIQUE_UMod2_HealthBonus(D2UnitStrc* pUnit, int nUMod, in
             nIndex = nDifficulty + 7;
         }
         sub_005A0D20_AddLifePercent(pUnit, sub_005A00F0_GetMonUModConstant(nIndex));
-        STATLIST_SetUnitStat(pUnit, 0x4A, 0, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_HPREGEN, 0, 0);
     }
 }
 
@@ -474,9 +475,9 @@ void __fastcall sub_005A0E40_IncreaseMonsterLevelAndExperience(D2UnitStrc* pUnit
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
-        const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
-        STATLIST_SetUnitStat(pUnit, 12, nLevel + 3, 0);
-        const int nExperience = STATLIST_GetUnitBaseStat(pUnit, 13, 0);
-        STATLIST_SetUnitStat(pUnit, 13, 5 * nExperience, 0);
+        const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_LEVEL, nLevel + 3, 0);
+        const int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, 5 * nExperience, 0);
     }
 }

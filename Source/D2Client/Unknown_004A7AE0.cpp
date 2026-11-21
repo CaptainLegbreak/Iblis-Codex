@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -285,14 +286,14 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
    D2UnitStrc* other=sub_0063BDE0_GetBodyItem(inv,5);
    if(hand==item)item=other;
    if(item && ITEMSIsA(item,45) && ITEMS_CheckIfThrowable(item) && ITEMS_CheckIfStackable(item)) {
-    quantity=STATLIST_UnitGetStatValue(item,70,0);goto draw;
+    quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);goto draw;
    }
    break;
   }
   case 2: {
    D2UnitStrc* item=sub_0063BEF0_GetMainHand(inv);
    if(item && ITEMS_CheckIfThrowable(item) && ITEMS_CheckIfStackable(item)) {
-    quantity=STATLIST_UnitGetStatValue(item,70,0);goto draw;
+    quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);goto draw;
    }
    break;
   }

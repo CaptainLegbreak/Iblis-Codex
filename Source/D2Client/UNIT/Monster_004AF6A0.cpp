@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
@@ -1269,11 +1270,11 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         int bBlood = 1;
         if (pCommand->nZero)
         {
-            const int nOldValue = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
+            const int nOldValue = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >> 8;
             if (nOldValue == pCommand->nZero)
                 bBlood = 0;
             else
-                STATLIST_SetUnitStat(pUnit, 6, pCommand->nZero << 8, 0);
+                STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nZero << 8, 0);
         }
 
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
@@ -1296,7 +1297,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             ++pCommand->nY;
 
         if (pCommand->nY)
-            STATLIST_SetUnitStat(pUnit, 6, pCommand->nY << 8, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nY << 8, 0);
 
         pUnit->dwLastHitClass = pCommand->nX;
         sub_004AF890_SpawnBloodMissiles(pUnit, 1, 1);
@@ -1309,7 +1310,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     case 0x14:
         D2_ASSERT(pCommand, 0x79A);
         if (pCommand->nPathByte)
-            STATLIST_SetUnitStat(pUnit, 6, pCommand->nPathByte << 8, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nPathByte << 8, 0);
 
         pUnit->dwLastHitClass = pCommand->nParam18;
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
@@ -1347,7 +1348,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             }
         }
 
-        STATLIST_SetUnitStat(pUnit, 6, 0, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0, 0);
         if (STATES_CheckStateMaskHideOnUnit(pUnit))
         {
             pUnit->dwFlagEx |= 0x40000;
@@ -1579,7 +1580,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (!(pMonStats2Txt->nFlags[2] & gdwBitMasks[3]))
             PATH_SetUnitDeadCollision(pUnit, 0);
 
-        STATLIST_SetUnitStat(pUnit, 6, 0, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0, 0);
         if (sub_004648F0_GetPathTargetUnit(pPlayer) == pUnit)
             UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
 
@@ -1625,7 +1626,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     {
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         if (pCommand && pCommand->nZero)
-            STATLIST_SetUnitStat(pUnit, 6, pCommand->nZero << 8, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nZero << 8, 0);
 
         if (sub_00451F30_TestUnitFlag(pUnit, 0x200))
             pUnit->dwFlags |= 2;
@@ -1696,11 +1697,11 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
     if (bUpdateVelocity && pCommand && pCommand->nArg)
     {
-        const int nVelocity = STATLIST_UnitGetStatValue(pUnit, 0x43, 0);
+        const int nVelocity = STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
         if (nVelocity != pCommand->nArg)
         {
             STATLIST_DeactivateTemporaryStates(pUnit);
-            STATLIST_AddUnitStat(pUnit, 0x43, pCommand->nArg - nVelocity, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, pCommand->nArg - nVelocity, 0);
             UnitUpdateAnimRateAndVel(pUnit, gszMonsterSourceFile_006DA5C8, 0x946);
         }
     }

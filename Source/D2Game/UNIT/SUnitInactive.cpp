@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -962,9 +963,9 @@ static void __stdcall sub_005421A0_CompressInactiveMonster(D2GameStrc* pGame, D2
         pNode->nTypeFlags |= 0x400;
     }
 
-    pNode->nExperience = STATLIST_UnitGetStatValue(pUnit, 13, 0);
+    pNode->nExperience = STATLIST_UnitGetStatValue(pUnit, STAT_EXPERIENCE, 0);
     pNode->nMaxHitpoints = STATLIST_GetMaxLifeFromUnit(pUnit);
-    pNode->nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+    pNode->nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     pNode->nLevelId = MONSTER_GetLevelId(pUnit);
 
     const unsigned char* pMonUMods = MONSTERUNIQUE_GetUMods(pUnit);
@@ -1098,16 +1099,16 @@ fallbackLocation:
             if (unit)
             {
                 AIGENERAL_SetAiControlInfo(pGame,unit,node->nOwnerId,1,node->nTypeFlags & 8,node->nTypeFlags & 0x10,node->pMinionList);
-                STATLIST_SetUnitStat(unit,13,node->nExperience,0);
+                STATLIST_SetUnitStat(unit,STAT_EXPERIENCE,node->nExperience,0);
                 if ((unsigned int)(pGame->dwGameFrame - node->nGameFrame) >= 7500)
                 {
-                    STATLIST_SetUnitStat(unit,7,node->nMaxHitpoints,0);
-                    STATLIST_SetUnitStat(unit,6,node->nMaxHitpoints,0);
+                    STATLIST_SetUnitStat(unit,STAT_MAXHP,node->nMaxHitpoints,0);
+                    STATLIST_SetUnitStat(unit,STAT_HITPOINTS,node->nMaxHitpoints,0);
                 }
                 else
                 {
-                    STATLIST_SetUnitStat(unit,7,node->nMaxHitpoints,0);
-                    STATLIST_SetUnitStat(unit,6,node->nHitpoints,0);
+                    STATLIST_SetUnitStat(unit,STAT_MAXHP,node->nMaxHitpoints,0);
+                    STATLIST_SetUnitStat(unit,STAT_HITPOINTS,node->nHitpoints,0);
                 }
                 AITHINK_ExecuteAiFn(pGame,unit,AIGENERAL_GetAiControlFromUnitInline(unit),node->nAiSpecialState);
                 sub_00541E20_RestoreSpecialMonsterParameters(pGame,node,unit);
@@ -1146,11 +1147,11 @@ cleanup:
 
 void __fastcall sub_EMIT_00542871(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InactiveMonsterNodeStrc* pNode)
 {
-    STATLIST_SetUnitStat(pUnit, 6, pNode->nHitpoints, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pNode->nHitpoints, 0);
     sub_00541E20_RestoreSpecialMonsterParameters(pGame, pNode, pUnit);
     if (pNode->nTypeFlags & 0x400)
     {
-        STATLIST_SetUnitStat(pUnit, 8, 0, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_MANA, 0, 0);
     }
 }
 

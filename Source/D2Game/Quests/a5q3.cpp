@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -456,7 +457,7 @@ static void sub_00589340_RemoveNihlathakInTown(D2QuestDataStrc* pQuestData, D2Un
 
     D2Common_10153(pNihlathak->pDynamicPath);
     D2GAME_EVENTS_Delete_6FC34840(pQuestData->pGame, pNihlathak, 2, 0);
-    STATLIST_SetUnitStat(pNihlathak, 6, 0, 0);
+    STATLIST_SetUnitStat(pNihlathak, STAT_HITPOINTS, 0, 0);
 
     D2ModeChangeStrc modeChange;
     MONSTERMODE_GetModeChangeInfo(pNihlathak, 12, &modeChange);
@@ -644,7 +645,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         if (!QUESTRECORD_GetQuestState(pQuestFlags, 37, 1) || QUESTRECORD_GetQuestState(pQuestFlags, 37, 0))
             return;
         D2QuestRewardItemsStrc* pRewardTable = gNormalRewards;
-        const unsigned int nLevel = STATLIST_GetUnitBaseStat(pQuestArg->pPlayer, 12, 0);
+        const unsigned int nLevel = STATLIST_GetUnitBaseStat(pQuestArg->pPlayer, STAT_LEVEL, 0);
         switch (pQuestArg->pGame->nDifficulty)
         {
         case 1:

@@ -1,5 +1,6 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2DataTbls.h"
@@ -461,7 +462,7 @@ void __fastcall sub_004AD510_StateEffect(D2UnitStrc* pUnit, int nState, int bFla
     {
         if (!pUnit || !pUnit->dwAnimMode)
         {
-            sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0x5A, -1, 0, STATLIST_UnitGetStatValue(pUnit, 0x0C, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(0x5A, 0));
+            sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0x5A, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(0x5A, 0));
         }
     }
 
@@ -478,12 +479,12 @@ void __fastcall sub_004AD510_StateEffect(D2UnitStrc* pUnit, int nState, int bFla
 
     if (nState == 0x0A)
     {
-        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x9B, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, 0x0C, 0));
+        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x9B, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0));
         return;
     }
     if (nState == 0x12)
     {
-        sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0xC2, -1, 0, STATLIST_UnitGetStatValue(pUnit, 0x0C, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(0x77, 0));
+        sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0xC2, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(0x77, 0));
     }
 }
 
@@ -780,10 +781,10 @@ static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
     if (ITEMS_HasDurability(pItem))
     {
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, 0x48, 0) < nMaxDurability)
+        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) < nMaxDurability)
             return 1;
     }
-    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, 0x46, 0) < ITEMS_GetTotalMaxStack(pItem))
+    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) < ITEMS_GetTotalMaxStack(pItem))
         return 1;
     int bHasChargedSkills;
     if (ITEMS_HasUsedCharges(pItem, &bHasChargedSkills) && !bHasChargedSkills)

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -138,23 +139,23 @@ static int sub_0064ABA0_GetElementMasteryBonus(int nAmount, int nElement, D2Unit
     switch (nElement)
     {
     case 1:
-        nMastery = STATLIST_UnitGetStatValue(pUnit, 0x149, 0);
+        nMastery = STATLIST_UnitGetStatValue(pUnit, STAT_PASSIVE_FIRE_MASTERY, 0);
         if (nMastery)
             return DATATBLS_ApplyRatio(nAmount, nMastery, 100);
         break;
     case 2:
-        nMastery = STATLIST_UnitGetStatValue(pUnit, 0x14A, 0);
+        nMastery = STATLIST_UnitGetStatValue(pUnit, STAT_PASSIVE_LTNG_MASTERY, 0);
         if (nMastery)
             return DATATBLS_ApplyRatio(nAmount, nMastery, 100);
         break;
     case 4:
     case 12:
-        nMastery = STATLIST_UnitGetStatValue(pUnit, 0x14B, 0);
+        nMastery = STATLIST_UnitGetStatValue(pUnit, STAT_PASSIVE_COLD_MASTERY, 0);
         if (nMastery)
             return DATATBLS_ApplyRatio(nAmount, nMastery, 100);
         break;
     case 5:
-        nMastery = STATLIST_UnitGetStatValue(pUnit, 0x14C, 0);
+        nMastery = STATLIST_UnitGetStatValue(pUnit, STAT_PASSIVE_POIS_MASTERY, 0);
         if (nMastery)
             return DATATBLS_ApplyRatio(nAmount, nMastery, 100);
         break;

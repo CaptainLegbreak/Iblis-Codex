@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2Structs.h"
@@ -192,10 +193,10 @@ static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
     if (ITEMS_HasDurability(pItem))
     {
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, 0x48, 0) < nMaxDurability)
+        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) < nMaxDurability)
             return 1;
     }
-    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, 0x46, 0) < ITEMS_GetTotalMaxStack(pItem))
+    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) < ITEMS_GetTotalMaxStack(pItem))
         return 1;
     int bHasChargedSkills;
     if (ITEMS_HasUsedCharges(pItem, &bHasChargedSkills) && !bHasChargedSkills)

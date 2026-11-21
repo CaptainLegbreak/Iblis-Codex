@@ -1374,10 +1374,10 @@ static void sub_005A68E0_SetAiStateForMode(int nMode, D2UnitStrc* pMonster)
 // 0x005A6920
 void __fastcall sub_005A6920_MonsterRegenEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nParam)
 {
-    int nRegen = STATLIST_UnitGetStatValue(pUnit, 0x4A, 0);
+    int nRegen = STATLIST_UnitGetStatValue(pUnit, STAT_HPREGEN, 0);
     if (STATES_CheckStateMaskLifeOnUnit(pUnit))
     {
-        nRegen -= STATLIST_GetUnitBaseStat(pUnit, 0x4A, 0);
+        nRegen -= STATLIST_GetUnitBaseStat(pUnit, STAT_HPREGEN, 0);
     }
 
     if (STATES_CheckState(pUnit, 0x34) && nRegen >= 0)
@@ -1618,7 +1618,7 @@ int __fastcall sub_005A6D50_CreateMonsterMissile(D2GameStrc* pGame, D2UnitStrc* 
     int nSkillLevel = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty)->dwMonsterSkillBonus + 1;
     if (UNIT_HasFlag(pUnit, 0x200))
     {
-        nSkillLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+        nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     }
 
     if (sub_6FD11420(pGame, nMissileId, pUnit, 0, nSkillLevel, 0, 0, 0, 0, 1))
@@ -1791,7 +1791,7 @@ int __fastcall sub_005A6FF0_MonsterDeath(D2GameStrc* pGame, D2ModeChangeStrc* pM
         D2MonStatsInitStrc stats;
         memset(&stats, 0, sizeof(stats));
         int nClassId = pUnit->dwClassId;
-        DATATBLS_CalculateMonsterStatsByLevel(nClassId, pGame->dwGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pUnit, 12, 0), 1, &stats);
+        DATATBLS_CalculateMonsterStatsByLevel(nClassId, pGame->dwGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 1, &stats);
         int nMaxDamage = DATATBLS_ApplyRatio(stats.nMaxHP, pDifficulty->nMonsterCEDamagePercent, 100);
         int nMinDamage;
         if (nMaxDamage > 0x100000)

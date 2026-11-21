@@ -1249,7 +1249,7 @@ void __stdcall sub_00620D80_SetMonsterAnimSpeed(D2UnitStrc* pUnit)
             pUnit->wAnimSpeed = pMonStatsTxtRecord->nWalkAnimSpeed;
             return;
         }
-        const int nVelocityPercent = STATLIST_UnitGetStatValue(pUnit, 67, 0);
+        const int nVelocityPercent = STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
         const short nBaseAnimSpeed = (pUnit->dwAnimMode == 15) ? pMonStatsTxtRecord->nRunAnimSpeed : pMonStatsTxtRecord->nWalkAnimSpeed;
         int nAnimSpeed = nBaseAnimSpeed * nVelocityPercent / 100;
         nAnimSpeed = nAnimSpeed > 0 ? nAnimSpeed : 0;
@@ -2187,8 +2187,8 @@ static void __stdcall UNITS_StoreOwnerInfo(D2UnitStrc* pUnit, int nOwnerType, in
                 D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
             }
 
-            STATLIST_SetStatIfListIsValid(pStatList, 0x161, nOwnerType, 0);
-            STATLIST_SetStatIfListIsValid(pStatList, 0x162, nOwnerId, 0);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_SOURCE_UNIT_TYPE, nOwnerType, 0);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_SOURCE_UNIT_ID, nOwnerId, 0);
         }
 
         pUnit->dwFlagEx |= 0x400;
@@ -2484,18 +2484,18 @@ int __stdcall UNITS_GetOverlayHeight(D2UnitStrc* pUnit)
 // 0x006223F0
 int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
 {
-    int nDefense = STATLIST_UnitGetStatValue(pUnit, 0x1F, 0);
-    nDefense += STATLIST_UnitGetStatValue(pUnit, 2, 0) / 4;
-    int nArmorPercent = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0xAB, 0);
-    nArmorPercent += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x10, 0);
+    int nDefense = STATLIST_UnitGetStatValue(pUnit, STAT_ARMORCLASS, 0);
+    nDefense += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) / 4;
+    int nArmorPercent = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_SKILL_ARMOR_PERCENT, 0);
+    nArmorPercent += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_ARMOR_PERCENT, 0);
 
     if (STATES_CheckState(pUnit, 0x65))
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x65);
         if (pStatList)
         {
-            const int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-            const int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+            const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+            const int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
             if (nSkillId > 0 && nSkillLevel > 0)
             {
                 D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
@@ -2521,7 +2521,7 @@ int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
         nDefense += nDefense * nArmorPercent / -100;
     }
 
-    const int nArmorOverridePercent = STATLIST_UnitGetStatValue(pUnit, 0xB6, 0);
+    const int nArmorOverridePercent = STATLIST_UnitGetStatValue(pUnit, STAT_ARMOR_OVERRIDE_PERCENT, 0);
     if (nArmorOverridePercent)
     {
         nDefense += DATATBLS_ApplyRatio(nDefense, nArmorOverridePercent, 100);
@@ -4029,7 +4029,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
         if (pUnit->pDynamicPath)
         {
             const int nFasterMoveVelocity = UNITS_GetAnimStatBasePercentage(pUnit, 4);
-            int nVelocityPercent = nFasterMoveVelocity + STATLIST_UnitGetStatValue(pUnit, 0x43, 0);
+            int nVelocityPercent = nFasterMoveVelocity + STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
             if (nVelocityPercent < 0x19)
             {
                 nVelocityPercent = 0x19;
@@ -4045,7 +4045,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
     {
         UNITS_MergeDualWieldWeaponStatLists(pUnit, 1);
         const int nFasterAttackRate = UNITS_GetAnimStatBasePercentage(pUnit, 0);
-        int nRate = nFasterAttackRate + STATLIST_UnitGetStatValue(pUnit, 0x44, 0);
+        int nRate = nFasterAttackRate + STATLIST_UnitGetStatValue(pUnit, STAT_ATTACKRATE, 0);
         if (UNITS_CanDualWield(pUnit))
         {
             D2InventoryStrc* pInventory = pUnit->pInventory;
@@ -4063,8 +4063,8 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
 
             if (ITEMSIsA(pRightWeapon, 0x2D) && ITEMSIsA(pLeftWeapon, 0x2D))
             {
-                const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, 0x44, 0);
-                const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, 0x44, 0);
+                const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, STAT_ATTACKRATE, 0);
+                const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, STAT_ATTACKRATE, 0);
                 nRate += (nRightAttackRate + nLeftAttackRate) / 2 - nRightAttackRate;
             }
         }
@@ -4112,7 +4112,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
         return;
     }
 
-    int nOtherAnimRate = STATLIST_UnitGetStatValue(pUnit, 0x45, 0);
+    int nOtherAnimRate = STATLIST_UnitGetStatValue(pUnit, STAT_OTHER_ANIMRATE, 0);
     if (nOtherAnimRate < 0xF)
     {
         nOtherAnimRate = 0xF;

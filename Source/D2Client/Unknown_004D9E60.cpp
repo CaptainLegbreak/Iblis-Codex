@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
@@ -70,8 +71,8 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    const int nValue1 = STATLIST_GetStatValue(pStatList, 350, 0);
-    const int nValue2 = STATLIST_GetStatValue(pStatList, 351, 0);
+    const int nValue1 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+    const int nValue2 = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     sub_004C7C40_RegisterTableEvent(pUnit, pStatesTxt->wCltEvent, nValue1, nValue2, pStatesTxt->wCltEventFunc, 1, nState);
 }
 

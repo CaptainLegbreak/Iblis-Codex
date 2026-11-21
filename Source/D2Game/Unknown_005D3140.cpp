@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -66,8 +67,8 @@ int __fastcall SKILLS_SrvDo033_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUni
     SUNITDMG_ExecuteEvents(pGame, pUnit, pTargetUnit, 1, &damage);
     damage.wResultFlags |= 1;
 
-    const int nTargetLevel = STATLIST_UnitGetStatValue(pTargetUnit, 12, 0);
-    int nLevel = nTargetLevel + nSkillLevel - STATLIST_UnitGetStatValue(pTargetUnit, 12, 0);
+    const int nTargetLevel = STATLIST_UnitGetStatValue(pTargetUnit, STAT_LEVEL, 0);
+    int nLevel = nTargetLevel + nSkillLevel - STATLIST_UnitGetStatValue(pTargetUnit, STAT_LEVEL, 0);
     nLevel = D2_MIN(D2_MAX(nLevel, 1), nSkillLevel);
 
     int nChance;
@@ -102,7 +103,7 @@ int __fastcall SKILLS_SrvDo033_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUni
         }
     }
 
-    if (!(STATLIST_UnitGetStatValue(pTargetUnit, 6, 0) & 0xFFFFFF00))
+    if (!(STATLIST_UnitGetStatValue(pTargetUnit, STAT_HITPOINTS, 0) & 0xFFFFFF00))
     {
         damage.wResultFlags |= 2;
     }

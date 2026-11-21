@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
@@ -192,7 +193,7 @@ int __stdcall MONSTERS_GetHirelingExpForNextLevel(int nLevel, int nExpPerLevel)
 // 0x006637B0
 unsigned int __stdcall MONSTERS_GetHirelingResurrectionCost(D2UnitStrc* pHireling)
 {
-    const int nLevel = STATLIST_UnitGetStatValue(pHireling, 12, 0);
+    const int nLevel = STATLIST_UnitGetStatValue(pHireling, STAT_LEVEL, 0);
     unsigned int nCost = 15 * (nLevel * nLevel / 2);
     if (nCost > 50000)
     {

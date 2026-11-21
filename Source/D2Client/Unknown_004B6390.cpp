@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2ClientMenus.h"
 
@@ -45,7 +46,7 @@ extern short gwGlobal_007272DF;                                                 
 void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
 {
     gPacket2A_007C0D87 = *pPacket;
-    gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xE, 0);
+    gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
     if (gnGlobal_007C0C6B == 5)
     {
         sub_004B53F0();

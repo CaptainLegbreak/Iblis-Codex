@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -179,7 +180,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (nMouseX > gnGlobal_0071146C - gnGlobal_007A2858 - 0x140 && nMouseX < gnGlobal_0071146C - gnGlobal_007A2858 - 0x58)
     {
-        if (STATLIST_GetUnitBaseStat(pPlayer, 5, 0) <= 0)
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) <= 0)
         {
             for (int i = 0; i < SKILLS_GetPlayerSkillCount(nClassId); ++i)
             {
@@ -265,7 +266,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (nMouseX > gnGlobal_0071146C - gnGlobal_007A2858 - 0x140 && nMouseX < gnGlobal_0071146C - gnGlobal_007A2858 - 0x58)
     {
-        if (STATLIST_GetUnitBaseStat(pPlayer, 5, 0) > 0)
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) > 0)
         {
             for (int i = 0; i < SKILLS_GetPlayerSkillCount(nClassId); ++i)
             {
@@ -363,7 +364,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 
     if (nMouseX > gnGlobal_0071146C / 2)
     {
-        const int nNewSkills = STATLIST_GetUnitBaseStat(pPlayer, 5, 0);
+        const int nNewSkills = STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0);
         if (nNewSkills > 0)
         {
             for (int i = 0; i < SKILLS_GetPlayerSkillCount(nClassId); ++i)

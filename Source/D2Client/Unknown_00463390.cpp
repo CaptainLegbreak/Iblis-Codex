@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -259,7 +260,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
 {
     if (unit != sub_00463DE0_GetPlayerUnit())
         return;
-    if (STATLIST_UnitGetStatValue(unit, 10, 0))
+    if (STATLIST_UnitGetStatValue(unit, STAT_STAMINA, 0))
         return;
     D2DynamicPathStrc* path = unit->pDynamicPath;
     int args[7] = {};

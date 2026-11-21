@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -570,7 +571,7 @@ static int sub_6FC81890(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode)
 static __forceinline int sub_GetConcStat(D2UnitStrc* pUnit)
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x2A);
-    return STATLIST_GetStatValue(pStatList, 0xA4, 0);
+    return STATLIST_GetStatValue(pStatList, STAT_SKILL_CONCENTRATION, 0);
 }
 
 static __forceinline int sub_GetAnimMode(D2UnitStrc* pUnit)
@@ -776,7 +777,7 @@ static void __stdcall sub_0057F090_StartMovement(D2GameStrc* ptGame, D2UnitStrc*
     switch (nMode)
     {
     case 3:
-        if (STATLIST_UnitGetStatValue(pPlayer, 10, 0))
+        if (STATLIST_UnitGetStatValue(pPlayer, STAT_STAMINA, 0))
         {
             break;
         }
@@ -876,7 +877,7 @@ static int sub_0057F240_DrainRunStamina(D2UnitStrc* pPlayer)
         }
     }
 
-    const int nStaminaDrainPct = STATLIST_UnitGetItemStatOrSkillStatValue(pPlayer, 154, 0);
+    const int nStaminaDrainPct = STATLIST_UnitGetItemStatOrSkillStatValue(pPlayer, STAT_ITEM_STAMINADRAINPCT, 0);
     if (nStaminaDrainPct)
     {
         nStaminaLost += nStaminaLost * nStaminaDrainPct / -100;
@@ -887,11 +888,11 @@ static int sub_0057F240_DrainRunStamina(D2UnitStrc* pPlayer)
         nStaminaLost = 1;
     }
 
-    STATLIST_AddUnitStat(pPlayer, 10, -nStaminaLost, 0);
+    STATLIST_AddUnitStat(pPlayer, STAT_STAMINA, -nStaminaLost, 0);
 
-    if (STATLIST_UnitGetStatValue(pPlayer, 10, 0) <= 0)
+    if (STATLIST_UnitGetStatValue(pPlayer, STAT_STAMINA, 0) <= 0)
     {
-        STATLIST_SetUnitStat(pPlayer, 10, 0, 0);
+        STATLIST_SetUnitStat(pPlayer, STAT_STAMINA, 0, 0);
         return 0;
     }
 
@@ -927,7 +928,7 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 // 0x0057F330
 static void sub_6FC814F0(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    STATLIST_SetUnitStat(pPlayer, 0x06, 0, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_HITPOINTS, 0, 0);
     D2Common_10469(pPlayer);
     STATES_UpdateStayDeathFlags(pPlayer, 0);
     D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x234);
@@ -1035,12 +1036,12 @@ static void __stdcall sub_0057F540_DropItemsOnCorpseOverflow(D2GameStrc* pGame, 
         }
     }
 
-    const int nGold = STATLIST_UnitGetStatValue(pUnit, 0x0E, 0);
+    const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
     if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         UNITS_GetInventoryGoldLimit(pUnit);
     }
-    STATLIST_SetUnitStat(pUnit, 0x0E, 0, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_GOLD, 0, 0);
     const int nUnitId = (pUnit ? pUnit->dwUnitId : -1);
     sub_6FC7C260(pGame, pUnit, nUnitId, nGold);
 }
@@ -1118,7 +1119,7 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
  pCorpse->dwFlags|=2;
  int nExperience=ApplyRatio(CLIENTS_GetExperienceLoss(pClient),75,100);
  CLIENTS_SetExperienceLoss(pClient,0);
- STATLIST_SetUnitStat(pCorpse,13,nExperience,0);
+ STATLIST_SetUnitStat(pCorpse,STAT_EXPERIENCE,nExperience,0);
  INVENTORY_CreateCorpseForPlayer(pInventory,!pCorpse ? -1 : pCorpse->dwUnitId,0,1);
  D2InventoryStrc* pCorpseInventory=pCorpse->pInventory;
  D2_ASSERT((!pCorpse ? -1 : pCorpse->dwUnitId)!=(!pUnit ? -1 : pUnit->dwUnitId),0x31A);
@@ -1170,9 +1171,9 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
   D2ActiveRoomStrc* pFreeRoom=D2GAME_GetFreeSpaceEx_6FC4BF00(UNITS_GetRoom(pUnit),&coords,&returned,1,1);
   D2GAME_DropItem_6FC52260(pGame,pUnit,pDupedItem,pFreeRoom,returned.nX,returned.nY);
  }
- int nGold=STATLIST_UnitGetStatValue(pUnit,14,0);
+ int nGold=STATLIST_UnitGetStatValue(pUnit,STAT_GOLD,0);
  if(pUnit->dwUnitType==UNIT_PLAYER) UNITS_GetInventoryGoldLimit(pUnit);
- STATLIST_SetUnitStat(pUnit,14,0,0);
+ STATLIST_SetUnitStat(pUnit,STAT_GOLD,0,0);
  sub_0057F390_DropCorpseGold(pGame,pUnit,pCorpse,nGold,1);
  sub_0053DF80_SendCorpse(pGame,!pUnit ? -1 : pUnit->dwUnitId,!pCorpse ? -1 : pCorpse->dwUnitId,1);
  return pCorpse;
@@ -1338,11 +1339,11 @@ void __fastcall sub_0057F240_EmitCaller(void* pGame, D2UnitStrc* pPlayer)
 // 0x00580030
 static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon)
 {
-    if ((ITEMS_CheckIfStackable(pWeapon) || ITEMS_CheckIfThrowable(pWeapon) || STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 0x7D, 0)) && STATLIST_UnitGetStatValue(pWeapon, 0x46, 0) <= 0)
+    if ((ITEMS_CheckIfStackable(pWeapon) || ITEMS_CheckIfThrowable(pWeapon) || STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_THROWABLE, 0)) && STATLIST_UnitGetStatValue(pWeapon, STAT_QUANTITY, 0) <= 0)
     {
-        if (STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 0x7D, 0))
+        if (STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, STAT_ITEM_THROWABLE, 0))
         {
-            STATLIST_SetUnitStat(pWeapon, 0x46, 0, 0);
+            STATLIST_SetUnitStat(pWeapon, STAT_QUANTITY, 0, 0);
             return;
         }
 
@@ -1543,7 +1544,7 @@ static __forceinline unsigned char UNITS_GetHpPercent_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
+        const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >> 8;
         const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
         if (nMaxLife > 0 && nHitpoints < nMaxLife)
             return (nHitpoints << 7) / nMaxLife;
@@ -1561,9 +1562,9 @@ static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord_Inline(int n
 // 0x00580500
 static __declspec(noinline) void EVENTS_StaminaRegen(D2UnitStrc* pUnit)
 {
-    int nStamina = STATLIST_UnitGetStatValue(pUnit, 0xA, 0);
+    int nStamina = STATLIST_UnitGetStatValue(pUnit, STAT_STAMINA, 0);
     int nShift = 8;
-    const int nStaminaRecoveryBonus = STATLIST_UnitGetStatValue(pUnit, 0x1C, 0);
+    const int nStaminaRecoveryBonus = STATLIST_UnitGetStatValue(pUnit, STAT_STAMINARECOVERYBONUS, 0);
 
     int nAnimMode;
     if (!pUnit)
@@ -1604,7 +1605,7 @@ static __declspec(noinline) void EVENTS_StaminaRegen(D2UnitStrc* pUnit)
         if (nStamina > nMaxStamina)
             nStamina = nMaxStamina;
 
-        STATLIST_SetUnitStat(pUnit, 0xA, nStamina, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nStamina, 0);
     }
 }
 
@@ -1629,11 +1630,11 @@ unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit)
 // 0x00580610
 static __declspec(noinline) int EVENTS_HpRegen(D2UnitStrc* pUnit)
 {
-    const int nHpRegen = STATLIST_UnitGetStatValue(pUnit, 0x4A, 0);
+    const int nHpRegen = STATLIST_UnitGetStatValue(pUnit, STAT_HPREGEN, 0);
     if (!nHpRegen)
         return 1;
 
-    const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+    const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
     int nLife = nHpRegen + nHitpoints;
     if (nLife > nMaxHp)
@@ -1650,9 +1651,9 @@ static __declspec(noinline) int EVENTS_HpRegen(D2UnitStrc* pUnit)
     if (nLife < 0x100)
         nLife = 0x100;
 
-    STATLIST_SetUnitStat(pUnit, 6, nLife, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nLife, 0);
 
-    const unsigned char nLastSentHpPct = STATLIST_UnitGetStatValue(pUnit, 0x160, 0);
+    const unsigned char nLastSentHpPct = STATLIST_UnitGetStatValue(pUnit, STAT_LAST_SENT_HP_PCT, 0);
     const unsigned char nHpPct = UNITS_GetHpPercent_Inline(pUnit);
 
     int nHpPctDiff = nLastSentHpPct - nHpPct;
@@ -1662,7 +1663,7 @@ static __declspec(noinline) int EVENTS_HpRegen(D2UnitStrc* pUnit)
     if (nHpPctDiff > 4)
     {
         SUNITMSG_QueueLifeUpdate(pUnit, nHpPct);
-        STATLIST_SetUnitStat(pUnit, 0x160, nHpPct, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_LAST_SENT_HP_PCT, nHpPct, 0);
     }
     return 1;
 }
@@ -1672,7 +1673,7 @@ static __declspec(noinline) void EVENTS_ManaRegen(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        const int nMana = STATLIST_UnitGetStatValue(pUnit, 8, 0);
+        const int nMana = STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0);
         const int nMaxMana = STATLIST_GetMaxManaFromUnit(pUnit);
 
         int nManaRecovery = 0;
@@ -1690,10 +1691,10 @@ static __declspec(noinline) void EVENTS_ManaRegen(D2UnitStrc* pUnit)
             if (nManaMultiplier < 1)
                 nManaMultiplier = 1;
 
-            nManaRecovery = DATATBLS_ApplyRatio(nManaMultiplier, STATLIST_UnitGetStatValue(pUnit, 0x1B, 0) + 100, 100);
+            nManaRecovery = DATATBLS_ApplyRatio(nManaMultiplier, STATLIST_UnitGetStatValue(pUnit, STAT_MANARECOVERYBONUS, 0) + 100, 100);
         }
 
-        nManaRecovery += STATLIST_UnitGetStatValue(pUnit, 0x1A, 0);
+        nManaRecovery += STATLIST_UnitGetStatValue(pUnit, STAT_MANARECOVERY, 0);
         if (nMaxMana <= nMana && nManaRecovery > 0)
         {
             D2StatListStrc* pManaPotStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x6A);
@@ -1711,7 +1712,7 @@ static __declspec(noinline) void EVENTS_ManaRegen(D2UnitStrc* pUnit)
             nManaRecovery = -nMana;
 
         if (nManaRecovery)
-            STATLIST_AddUnitStat(pUnit, 8, nManaRecovery, 0);
+            STATLIST_AddUnitStat(pUnit, STAT_MANA, nManaRecovery, 0);
     }
 }
 

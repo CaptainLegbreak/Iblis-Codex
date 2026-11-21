@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -82,12 +83,12 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     switch (nClass)
     {
     case 426:
-        nCurrent = STATLIST_UnitGetStatValue(pOwner, 6, 0);
+        nCurrent = STATLIST_UnitGetStatValue(pOwner, STAT_HITPOINTS, 0);
         nMaximum = STATLIST_GetMaxLifeFromUnit(pOwner);
         if (nCurrent >= nMaximum) bUseSkill = 0;
         break;
     case 427:
-        nCurrent = STATLIST_UnitGetStatValue(pOwner, 8, 0);
+        nCurrent = STATLIST_UnitGetStatValue(pOwner, STAT_MANA, 0);
         nMaximum = sub_00625D60(pOwner);
         if (nCurrent >= nMaximum) bUseSkill = 0;
         break;

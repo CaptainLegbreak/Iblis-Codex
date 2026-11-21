@@ -73,7 +73,7 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
         return;
     }
 
-    int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+    int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
     if (nLevel <= 0)
     {
         nLevel = 1;

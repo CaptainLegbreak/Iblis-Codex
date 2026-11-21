@@ -923,7 +923,7 @@ void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* ptUnit)
     switch (ptUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        STATLIST_SetUnitStat(ptUnit, 29, -1, 0);
+        STATLIST_SetUnitStat(ptUnit, STAT_LASTEXP, -1, 0);
         ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
         sub_0053FA90_ClearArenaUnitUpdate(pGame, ptUnit);
         return;

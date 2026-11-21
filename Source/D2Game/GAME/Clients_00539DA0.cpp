@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -115,9 +116,9 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
  GAME_SendPacket0x5CToAllConnectedClients(ptGame,pClient);
  D2UnitStrc* pPlayer=CLIENTS_GetPlayerFromClient(pClient,0);
  if(pPlayer) {
-  const __int64 nExperience=STATLIST_GetUnitBaseStat(pPlayer,13,0);
+  const __int64 nExperience=STATLIST_GetUnitBaseStat(pPlayer,STAT_EXPERIENCE,0);
   const int nClassId=pPlayer->dwClassId;
-  const int nLevel=(unsigned short)STATLIST_GetUnitBaseStat(pPlayer,12,0);
+  const int nLevel=(unsigned short)STATLIST_GetUnitBaseStat(pPlayer,STAT_LEVEL,0);
   PARTY_LeaveParty(ptGame,pPlayer);
   PLAYERPETS_FreePetsFromPlayerData(ptGame,pPlayer);
   SUNITPROXY_OnClientRemovedFromGame(ptGame,pPlayer);

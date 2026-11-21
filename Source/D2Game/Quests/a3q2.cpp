@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -875,7 +876,7 @@ int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent
     }
 
     const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pAttacker);
-    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, 6, 0);
+    int nHitpoints = STATLIST_UnitGetStatValue(pAttacker, STAT_HITPOINTS, 0);
     if (nHitpoints >= nMaxHp)
     {
         return 0;
@@ -883,7 +884,7 @@ int __fastcall SKILLITEM_EventFunc28_HealAfterKill(D2GameStrc* pGame, int nEvent
 
     nHitpoints += nValue << 8;
     nHitpoints = nHitpoints > 0 ? nHitpoints : 0;
-    STATLIST_SetUnitStat(pAttacker, 6, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
+    STATLIST_SetUnitStat(pAttacker, STAT_HITPOINTS, nHitpoints < nMaxHp ? nHitpoints : nMaxHp, 0);
     UNITS_SetOverlay(pAttacker, 151, 0);
     return 1;
 }

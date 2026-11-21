@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -100,7 +101,7 @@ void __fastcall MONSTERUNIQUE_ApplyCorpseFireDamage(D2GameStrc* pGame, D2UnitStr
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit);
     const int nFireDamage = (ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pMonStatsTxtRecord->nElMaxD - pMonStatsTxtRecord->nElMinD) + pMonStatsTxtRecord->nElMinD) << 8;
-    const int nSize = pMonStatsTxtRecord->wAiParam3[pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, 12, 0);
+    const int nSize = pMonStatsTxtRecord->wAiParam3[pGame->nDifficulty] * STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
 
     D2DamageStrc damage;
     memset(&damage, 0, sizeof(damage));

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -571,7 +572,7 @@ void __stdcall sub_004B2650_OpenNpcMenu(int bAlternate, int nFlags)
     else if (nCommand == 0x35)
     {
         if (sub_00489870()) { sub_00478700_SendCommand(nCommand, gnGlobal_007C0D25, gnGlobal_007C0DE5, (unsigned short)nMode, 0x80000000); }
-        else if (pUnit) { sub_00478700_SendCommand(0x35, gnGlobal_007C0D25, gnGlobal_007C0DE5, (unsigned short)nMode, STATLIST_UnitGetStatValue(pUnit, 0x48, 0)); }
+        else if (pUnit) { sub_00478700_SendCommand(0x35, gnGlobal_007C0D25, gnGlobal_007C0DE5, (unsigned short)nMode, STATLIST_UnitGetStatValue(pUnit, STAT_DURABILITY, 0)); }
         else { sub_00478700_SendCommand(0x35, gnGlobal_007C0D25, gnGlobal_007C0DE5, (unsigned short)nMode, 0); }
     }
     else { sub_00478700_SendCommand(nCommand, gnGlobal_007C0D25, gnGlobal_007C0DE5, (unsigned short)nMode, gnGlobal_007C0D7F); }
@@ -597,10 +598,10 @@ static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
     if (ITEMS_HasDurability(pItem))
     {
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, 0x48, 0) < nMaxDurability)
+        if (nMaxDurability && STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) < nMaxDurability)
             return 1;
     }
-    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, 0x46, 0) < ITEMS_GetTotalMaxStack(pItem))
+    if (ITEMS_CheckIfStackable(pItem) && STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) < ITEMS_GetTotalMaxStack(pItem))
         return 1;
     int bHasChargedSkills;
     if (ITEMS_HasUsedCharges(pItem, &bHasChargedSkills) && !bHasChargedSkills)

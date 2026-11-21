@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -107,7 +108,7 @@ int __fastcall sub_004C9B40_StartCharge(D2UnitStrc* pUnit,int nSkillId,int nSkil
    PATH_SetNewDistance(pPath,30);
   }
  }
- int bonus=STATLIST_UnitGetStatValue(pUnit,67,0);
+ int bonus=STATLIST_UnitGetStatValue(pUnit,STAT_VELOCITYPERCENT,0);
  if(bonus<=50)bonus=50;
  PATH_SetVelocity(pPath,DATATBLS_ApplyRatio(nVelocity,sub_004C9460_GetSkillParam1(nSkillId)+bonus,100),".\\SKILLS\\SkillsPal.cpp",0x1ca);
  D2Common_10142(pPath,pUnit,0);

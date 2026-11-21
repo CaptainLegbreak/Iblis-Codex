@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
@@ -49,8 +50,8 @@ static void sub_005A0D20_AddLifePercent(D2UnitStrc* pUnit, int nPercentage)
     }
 
     nHitpoints += nBonus;
-    STATLIST_SetUnitStat(pUnit, 7, nHitpoints, 0);
-    STATLIST_SetUnitStat(pUnit, 6, nHitpoints, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_MAXHP, nHitpoints, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nHitpoints, 0);
 }
 
 // 0x005A1280
@@ -82,6 +83,6 @@ void __fastcall sub_005A1280_UModChampion(D2UnitStrc* pUnit, int nUMod, int bUni
         }
     }
 
-    STATLIST_AddUnitStat(pUnit, 0x19, nDamage, 0);
-    STATLIST_AddUnitStat(pUnit, 0x77, nToHit, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_DAMAGEPERCENT, nDamage, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
 }

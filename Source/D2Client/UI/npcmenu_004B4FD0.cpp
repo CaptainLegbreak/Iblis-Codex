@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 struct D2UnitStrc { int type,classId,unknown008,id; char unknown010[0xB4]; unsigned int flags; };
 struct D2NpcEntryStrc { char unknown000[21]; unsigned char greeting; };
 extern int gnNpcOpen; // 0x007C0C6B
@@ -54,7 +55,7 @@ void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* unit)
  }
  gnNpcOpen=1;
  gnNpcMenu=0;
- gnNpcPlayerStat=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),14,0);
+ gnNpcPlayerStat=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),STAT_GOLD,0);
  sub_00456300_CloseUIVars(0,0);
  sub_0044DA40();
  if(FindCurrentNpc()) { sub_00408A60(gszEmptyAssert,sub_00408090(),3529);exit(-1); }

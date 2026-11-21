@@ -1325,11 +1325,11 @@ int __fastcall SKILLS_SrvDo120_FeralRage_Maul(D2GameStrc* pGame, D2UnitStrc* pUn
     STATES_ToggleGfxStateFlag(pUnit, pSkillsTxtRecord->nAuraState, 1);
 
     const int nParam = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
-    const int nValue = SKILLDRUID_MIN(nParam, STATLIST_GetStatValue(pStatList, 0xA9, 0) + 1);
+    const int nValue = SKILLDRUID_MIN(nParam, STATLIST_GetStatValue(pStatList, STAT_SKILL_FRENZY, 0) + 1);
 
-    STATLIST_SetStatIfListIsValid(pStatList, 0xA9, nValue, 0);
-    STATLIST_SetStatIfListIsValid(pStatList, 0x15E, nSkillId, 0);
-    STATLIST_SetStatIfListIsValid(pStatList, 0x15F, nSkillLevel, 0);
+    STATLIST_SetStatIfListIsValid(pStatList, STAT_SKILL_FRENZY, nValue, 0);
+    STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_SKILL, nSkillId, 0);
+    STATLIST_SetStatIfListIsValid(pStatList, STAT_MODIFIERLIST_LEVEL, nSkillLevel, 0);
     sub_6FCFE0E0(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nValue);
     return 1;
 }
@@ -1923,11 +1923,11 @@ int __fastcall sub_005C87A0(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
     if (nValue0 > 0)
     {
         const int nNewParamValue = DATATBLS_ApplyRatio(nValue0, 100, nValue1);
-        const int nOldParamValue = STATLIST_GetStatValue(pStatList, 84, 0);
+        const int nOldParamValue = STATLIST_GetStatValue(pStatList, STAT_UNSENTPARAM1, 0);
         if (m12_Abs(nNewParamValue - nOldParamValue >= 5))
         {
             STATES_ToggleGfxStateFlag(pAttacker, pSkillsTxtRecord->nAuraState, 1);
-            STATLIST_SetStatIfListIsValid(pStatList, 84, nNewParamValue, 0);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_UNSENTPARAM1, nNewParamValue, 0);
         }
     }
     else
@@ -2203,7 +2203,7 @@ int __fastcall SKILLS_AuraCallback_StaticField(D2AuraCallbackStrc* pAuraCallback
     D2StaticFieldCallbackArgStrc* pArgs = (D2StaticFieldCallbackArgStrc*)pAuraCallback->pArgs;
     D2UnitStrc* pOwner = pAuraCallback->pOwner;
 
-    const int nHitpoints = STATLIST_UnitGetStatValue(pDefender, 6, 0) >> 8;
+    const int nHitpoints = STATLIST_UnitGetStatValue(pDefender, STAT_HITPOINTS, 0) >> 8;
     if (nHitpoints < 1)
     {
         return 0;
@@ -3239,7 +3239,7 @@ int __fastcall SKILLS_SrvDo073_BlessedHammer(D2GameStrc* pGame, D2UnitStrc* pUni
 // 0x005D1080
 static __forceinline int sub_005D1080_GetThornsPercent(D2UnitStrc* pDefender, D2UnitStrc* pAttacker)
 {
-    const int nThornsPercent = STATLIST_UnitGetStatValue(pDefender, 0x83, 0);
+    const int nThornsPercent = STATLIST_UnitGetStatValue(pDefender, STAT_THORNS_PERCENT, 0);
     if (nThornsPercent <= 0)
     {
         return 0;

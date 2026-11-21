@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -766,7 +767,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x44);
         if (!pStatList)
             return;
-        const int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
+        const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
         if (!SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId))
             return;
         D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);

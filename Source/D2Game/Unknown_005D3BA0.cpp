@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -41,14 +42,14 @@ static __declspec(noinline) void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2Sta
 // 0x005D3970
 static void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
 {
-    const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
     {
         return;
     }
 
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     const int nLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId), 1);
     if (nLevel > nSkillLevel)
     {
@@ -120,7 +121,7 @@ void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));
             if (pStatList)
             {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                 if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
                 {
                     D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);

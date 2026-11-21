@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -685,7 +686,7 @@ static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 {
 	const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
 	D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
-	const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+	const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
 	const D2MonsterEquipmentStrc* pItemInfo = &gtAncientEquipment[nClassId - 540];
 
 	int nItemId;
@@ -1476,7 +1477,7 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             QUESTRECORD_SetQuestState(pFlags, pQuestData->eFilter, 0);
             QUESTRECORD_ClearQuestState(pFlags, pQuestData->eFilter, 1);
             QUESTRECORD_ResetIntermediateStateFlags(pFlags, pQuestData->eFilter);
-            STATLIST_AddUnitStat(pQuestArg->pPlayer, 5, 2, 0);
+            STATLIST_AddUnitStat(pQuestArg->pPlayer, STAT_SKILLPTS, 2, 0);
             QUESTS_SendLogUpdate(pQuestArg->pPlayer, 22);
             QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
             QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);

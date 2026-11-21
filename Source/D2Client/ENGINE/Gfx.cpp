@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -627,7 +628,7 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
     int nSize = 0;
     if (ITEMS_GetItemType(pItem) == 4)
     {
-        unsigned int nGold = STATLIST_UnitGetStatValue(pItem, 0x0E, 0);
+        unsigned int nGold = STATLIST_UnitGetStatValue(pItem, STAT_GOLD, 0);
         if (nGold >= 0x64)
         {
             if (nGold < 0x1F4)

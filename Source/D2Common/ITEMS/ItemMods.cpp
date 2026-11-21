@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -504,7 +505,7 @@ int __fastcall sub_0065E070_AddStatTriple(int nType, D2UnitStrc* pUnit, D2UnitSt
     STATLIST_AddStat(pStatList, nStatId2, nLayer, 0);
     if (nStatId == 57)
     {
-        STATLIST_AddStat(pStatList, 326, 1, 0);
+        STATLIST_AddStat(pStatList, STAT_POISON_COUNT, 1, 0);
     }
     return 1;
 }
@@ -539,13 +540,13 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
         case 31:
             if (ITEMSIsA(pItem, 50) && pItemsTxtRecord->dwMaxAc)
             {
-                int nValue = STATLIST_GetUnitBaseStat(pItem, 31, 0) + 1;
+                int nValue = STATLIST_GetUnitBaseStat(pItem, STAT_ARMORCLASS, 0) + 1;
                 if (nValue <= pItemsTxtRecord->dwMaxAc)
                 {
                     nValue = pItemsTxtRecord->dwMaxAc + 1;
                 }
 
-                STATLIST_SetUnitStat(pItem, 31, nValue, 0);
+                STATLIST_SetUnitStat(pItem, STAT_ARMORCLASS, nValue, 0);
             }
             break;
 
@@ -555,17 +556,17 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
             {
                 if (pItemsTxtRecord->nMaxDam)
                 {
-                    STATLIST_SetUnitStat(pItem, 22, pItemsTxtRecord->nMaxDam, 0);
+                    STATLIST_SetUnitStat(pItem, STAT_MAXDAMAGE, pItemsTxtRecord->nMaxDam, 0);
                 }
 
                 if (pItemsTxtRecord->n2HandMaxDam)
                 {
-                    STATLIST_SetUnitStat(pItem, 24, pItemsTxtRecord->n2HandMaxDam, 0);
+                    STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MAXDAMAGE, pItemsTxtRecord->n2HandMaxDam, 0);
                 }
 
                 if (ITEMS_CheckIfThrowable(pItem) && pItemsTxtRecord->nMaxMisDam)
                 {
-                    STATLIST_SetUnitStat(pItem, 160, pItemsTxtRecord->nMaxMisDam, 0);
+                    STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, pItemsTxtRecord->nMaxMisDam, 0);
                 }
             }
             break;
@@ -576,17 +577,17 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
             {
                 if (pItemsTxtRecord->nMinDam)
                 {
-                    STATLIST_SetUnitStat(pItem, 21, pItemsTxtRecord->nMinDam, 0);
+                    STATLIST_SetUnitStat(pItem, STAT_MINDAMAGE, pItemsTxtRecord->nMinDam, 0);
                 }
 
                 if (pItemsTxtRecord->n2HandMinDam)
                 {
-                    STATLIST_SetUnitStat(pItem, 23, pItemsTxtRecord->n2HandMinDam, 0);
+                    STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MINDAMAGE, pItemsTxtRecord->n2HandMinDam, 0);
                 }
 
                 if (ITEMS_CheckIfThrowable(pItem) && pItemsTxtRecord->nMinMisDam)
                 {
-                    STATLIST_SetUnitStat(pItem, 159, pItemsTxtRecord->nMinMisDam, 0);
+                    STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, pItemsTxtRecord->nMinMisDam, 0);
                 }
             }
             break;
@@ -656,7 +657,7 @@ skip_base:
     STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
     if (nStatId == 58)
     {
-        STATLIST_AddStat(hStatsList, 326, 1, 0);
+        STATLIST_AddStat(hStatsList, STAT_POISON_COUNT, 1, 0);
     }
     return 1;
 }
@@ -1089,7 +1090,7 @@ int __fastcall sub_0065DE40_AddStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc
         STATLIST_AddStat(hStatsList, nStatId1, nMax, 0);
         if (nStatId == 57)
         {
-            STATLIST_AddStat(hStatsList, 326, 1, 0);
+            STATLIST_AddStat(hStatsList, STAT_POISON_COUNT, 1, 0);
         }
     }
     return 1;
@@ -1124,7 +1125,7 @@ int __fastcall sub_6FD94AB0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, con
     STATLIST_AddStat(hStatsList, nStatId2, nLayer, 0);
     if (nStatId == 57)
     {
-        STATLIST_AddStat(hStatsList, 326, 1, 0);
+        STATLIST_AddStat(hStatsList, STAT_POISON_COUNT, 1, 0);
     }
     return 1;
 }
@@ -1184,7 +1185,7 @@ int __fastcall sub_0065E170_AddSingleSkillStat(int nType, D2UnitStrc* pUnit, D2U
         nValue = -sub_006254E0_GetStatValue(pStatList, 107, nSkillId);
     }
 
-    STATLIST_AddStat(pStatList, 107, nValue, nSkillId);
+    STATLIST_AddStat(pStatList, STAT_ITEM_SINGLESKILL, nValue, nSkillId);
     return 1;
 }
 
@@ -1237,7 +1238,7 @@ int __fastcall sub_0065E230_AddElemSkillStat(int nType, D2UnitStrc* pUnit, D2Uni
         nValue = -sub_006254E0_GetStatValue(pStatList, 126, 1);
     }
 
-    STATLIST_AddStat(pStatList, 126, nValue, 1);
+    STATLIST_AddStat(pStatList, STAT_ITEM_ELEMSKILL, nValue, 1);
     return 1;
 }
 
@@ -1316,7 +1317,7 @@ int __fastcall sub_0065E2D0_AddClassSkillStat(int nType, D2UnitStrc* pUnit, D2Un
         nValue = -sub_006254E0_GetStatValue(pStatList, 83, nClass);
     }
 
-    STATLIST_AddStat(pStatList, 83, nValue, nClass);
+    STATLIST_AddStat(pStatList, STAT_ITEM_ADDCLASSSKILLS, nValue, nClass);
     return 1;
 }
 
@@ -1342,16 +1343,16 @@ void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* hItem)
 
     if (ITEMSIsA(hItem, 45))
     {
-        STATLIST_SetUnitStat(hItem, 21, 3 * STATLIST_GetUnitBaseStat(hItem, 21, 0) / 2, 0);
-        STATLIST_SetUnitStat(hItem, 22, 3 * STATLIST_GetUnitBaseStat(hItem, 22, 0) / 2, 0);
-        STATLIST_SetUnitStat(hItem, 23, 3 * STATLIST_GetUnitBaseStat(hItem, 23, 0) / 2, 0);
-        STATLIST_SetUnitStat(hItem, 24, 3 * STATLIST_GetUnitBaseStat(hItem, 24, 0) / 2, 0);
-        STATLIST_SetUnitStat(hItem, 159, 3 * STATLIST_GetUnitBaseStat(hItem, 159, 0) / 2, 0);
-        STATLIST_SetUnitStat(hItem, 160, 3 * STATLIST_GetUnitBaseStat(hItem, 160, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, STAT_MINDAMAGE, 3 * STATLIST_GetUnitBaseStat(hItem, STAT_MINDAMAGE, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, STAT_MAXDAMAGE, 3 * STATLIST_GetUnitBaseStat(hItem, STAT_MAXDAMAGE, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, STAT_SECONDARY_MINDAMAGE, 3 * STATLIST_GetUnitBaseStat(hItem, STAT_SECONDARY_MINDAMAGE, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, STAT_SECONDARY_MAXDAMAGE, 3 * STATLIST_GetUnitBaseStat(hItem, STAT_SECONDARY_MAXDAMAGE, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, STAT_ITEM_THROW_MINDAMAGE, 3 * STATLIST_GetUnitBaseStat(hItem, STAT_ITEM_THROW_MINDAMAGE, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, STAT_ITEM_THROW_MAXDAMAGE, 3 * STATLIST_GetUnitBaseStat(hItem, STAT_ITEM_THROW_MAXDAMAGE, 0) / 2, 0);
     }
     else
     {
-        STATLIST_SetUnitStat(hItem, 31, 3 * STATLIST_GetUnitBaseStat(hItem, 31, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, STAT_ARMORCLASS, 3 * STATLIST_GetUnitBaseStat(hItem, STAT_ARMORCLASS, 0) / 2, 0);
     }
 }
 
@@ -1549,7 +1550,7 @@ void __stdcall sub_0065E8E0_InitItemFileIndex(D2UnitStrc* pItem)
     {
         nValue = 1;
     }
-    STATLIST_SetUnitStat(pItem, 0x47, nValue, 0);
+    STATLIST_SetUnitStat(pItem, STAT_VALUE, nValue, 0);
 }
 
 // 0x0065E9B0
@@ -1918,17 +1919,17 @@ int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     {
         if (pBaseRecord->nMinDam)
         {
-            STATLIST_SetUnitStat(pItem, 21, pBaseRecord->nMinDam, 0);
+            STATLIST_SetUnitStat(pItem, STAT_MINDAMAGE, pBaseRecord->nMinDam, 0);
         }
 
         if (pBaseRecord->n2HandMinDam)
         {
-            STATLIST_SetUnitStat(pItem, 23, pBaseRecord->n2HandMinDam, 0);
+            STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MINDAMAGE, pBaseRecord->n2HandMinDam, 0);
         }
 
         if (ITEMS_CheckIfThrowable(pItem) && pBaseRecord->nMinMisDam)
         {
-            STATLIST_SetUnitStat(pItem, 159, pBaseRecord->nMinMisDam, 0);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MINDAMAGE, pBaseRecord->nMinMisDam, 0);
         }
     }
 
@@ -1937,17 +1938,17 @@ int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     {
         if (pBaseRecord->nMaxDam)
         {
-            STATLIST_SetUnitStat(pItem, 22, pBaseRecord->nMaxDam, 0);
+            STATLIST_SetUnitStat(pItem, STAT_MAXDAMAGE, pBaseRecord->nMaxDam, 0);
         }
 
         if (pBaseRecord->n2HandMaxDam)
         {
-            STATLIST_SetUnitStat(pItem, 24, pBaseRecord->n2HandMaxDam, 0);
+            STATLIST_SetUnitStat(pItem, STAT_SECONDARY_MAXDAMAGE, pBaseRecord->n2HandMaxDam, 0);
         }
 
         if (ITEMS_CheckIfThrowable(pItem) && pBaseRecord->nMaxMisDam)
         {
-            STATLIST_SetUnitStat(pItem, 160, pBaseRecord->nMaxMisDam, 0);
+            STATLIST_SetUnitStat(pItem, STAT_ITEM_THROW_MAXDAMAGE, pBaseRecord->nMaxMisDam, 0);
         }
     }
 
@@ -2152,7 +2153,7 @@ int __fastcall sub_0065F590(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, con
     }
 
     ITEMS_SetItemFlag(pItem, SOCKET_FLAG, 1);
-    STATLIST_SetUnitStat(pItem, 194, nSockets, 0);
+    STATLIST_SetUnitStat(pItem, STAT_ITEM_NUMSOCKETS, nSockets, 0);
     return nSockets;
 }
 
@@ -2432,7 +2433,7 @@ int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
         if (nMaxDurability > 0)
         {
-            STATLIST_SetUnitStat(pItem, 72, nMaxDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nMaxDurability, 0);
         }
 
         return nResult;

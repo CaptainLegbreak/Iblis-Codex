@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
 #include "D2Structs.h"
@@ -322,17 +323,17 @@ static void __stdcall sub_004E49C0_CollectCombinedStats(D2UnitStrc* pUnit, D2Sta
             break;
         case 59:
             pCombined->tPoison.nLength = STATLIST_GetStatValue(pStatList, nStatId, 0);
-            pCombined->tPoison.nCount = STATLIST_UnitGetStatValue(pUnit, 326, 0);
+            pCombined->tPoison.nCount = STATLIST_UnitGetStatValue(pUnit, STAT_POISON_COUNT, 0);
             break;
         case 21:
             pCombined->tDamage.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
             if (!pCombined->tDamage.nMin)
-                pCombined->tDamage.nMin = STATLIST_GetStatValue(pStatList, 23, 0);
+                pCombined->tDamage.nMin = STATLIST_GetStatValue(pStatList, STAT_SECONDARY_MINDAMAGE, 0);
             break;
         case 22:
             pCombined->tDamage.nMax = STATLIST_GetStatValue(pStatList, nStatId, 0);
             if (!pCombined->tDamage.nMax)
-                pCombined->tDamage.nMax = STATLIST_GetStatValue(pStatList, 24, 0);
+                pCombined->tDamage.nMax = STATLIST_GetStatValue(pStatList, STAT_SECONDARY_MAXDAMAGE, 0);
             break;
         case 18:
             pCombined->tDamagePercent.nMin = STATLIST_GetStatValue(pStatList, nStatId, 0);
@@ -1104,7 +1105,7 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
 
         wszLine[0] = 0;
         wszValue[0] = 0;
-        int nValue = STATLIST_UnitGetStatValue(pUnit, 71, 0);
+        int nValue = STATLIST_UnitGetStatValue(pUnit, STAT_VALUE, 0);
         const int nType = pTable->nFileIndex;
         if (nType == 8 || nType == 9)
             nValue >>= 8;
@@ -1212,7 +1213,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
     const Unicode* pSpace = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pComma = D2LANG_GetStringFromTblIndex(0xF0C);
 
-    if (bQuantity && ITEMSIsA(pUnit, 57) && !STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 122, 0))
+    if (bQuantity && ITEMSIsA(pUnit, 57) && !STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_UNDEADDAMAGE_PERCENT, 0))
     {
         sub_004E48B0_BuildText(pUnit, wszQuantity, 128);
         sub_00526700(pOut, wszQuantity);
@@ -1244,11 +1245,11 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
             switch (nStatId)
             {
             case 23:
-                if (STATLIST_GetStatValue(pMerged, 21, 0))
+                if (STATLIST_GetStatValue(pMerged, STAT_MINDAMAGE, 0))
                     continue;
                 break;
             case 24:
-                if (STATLIST_GetStatValue(pMerged, 22, 0))
+                if (STATLIST_GetStatValue(pMerged, STAT_MAXDAMAGE, 0))
                     continue;
                 break;
             }
@@ -1271,7 +1272,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
     {
         const int nClassId = pUnit->dwClassId;
         D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nClassId);
-        if (!pItemsTxt->nNoDurability && pItemsTxt->nDurability && STATLIST_UnitGetStatValue(pUnit, 152, 0) <= 0 && !STATLIST_GetMaxDurabilityFromUnit(pUnit))
+        if (!pItemsTxt->nNoDurability && pItemsTxt->nDurability && STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_INDESCTRUCTIBLE, 0) <= 0 && !STATLIST_GetMaxDurabilityFromUnit(pUnit))
         {
             const Unicode* pIndestructible = D2LANG_GetStringFromTblIndex(0x52F8);
             if (bAdded && !bNewline)
@@ -1489,19 +1490,19 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         }
         else if (INVENTORY_GetWieldType(pUnit, pInventory) != 2)
         {
-            nMin = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
-            nMax = STATLIST_UnitGetStatValue(pUnit, 0x16, 0);
+            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
+            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0);
         }
         else
         {
-            nMin = STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
-            nMax = STATLIST_UnitGetStatValue(pUnit, 0x18, 0);
+            nMin = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
+            nMax = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MAXDAMAGE, 0);
         }
     }
     else
     {
-        nMin = STATLIST_UnitGetStatValue(pUnit, 0x15, 0) + 1;
-        nMax = STATLIST_UnitGetStatValue(pUnit, 0x16, 0) + 2;
+        nMin = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0) + 1;
+        nMax = STATLIST_UnitGetStatValue(pUnit, STAT_MAXDAMAGE, 0) + 2;
     }
 
     if (!nSrcDam)
@@ -1523,10 +1524,10 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
         *pMaxDamage += nMax;
     }
 
-    nBonus += STATLIST_UnitGetStatValue(pUnit, 0x19, 0);
+    nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DAMAGEPERCENT, 0);
     nBonus += SKILLS_GetWeaponMasteryBonus(pUnit, pItem, pSkill, 1);
-    int nMinPercent = STATLIST_UnitGetStatValue(pUnit, 0x12, 0);
-    int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, 0x11, 0);
+    int nMinPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MINDAMAGE_PERCENT, 0);
+    int nMaxPercent = STATLIST_UnitGetStatValue(pUnit, STAT_ITEM_MAXDAMAGE_PERCENT, 0);
     if (SDPHYS_TestFlag(pSkillsTxt->nFlags, 3))
     {
         int nProgressive = sub_004E6FF0_SumProgressiveBonus();
@@ -1542,15 +1543,15 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     {
         int nFactor = ITEMS_GetStrengthBonus(pItem);
         if (nFactor)
-            nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
+            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0) * nFactor / 100;
         nFactor = ITEMS_GetDexBonus(pItem);
         if (nFactor)
-            nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
-        nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x6F, 0);
+            nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_DEXTERITY, 0) * nFactor / 100;
+        nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, STAT_ITEM_NORMALDAMAGE, 0);
     }
     else
     {
-        nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0);
+        nBonus += STATLIST_UnitGetStatValue(pUnit, STAT_STRENGTH, 0);
     }
 
     if (sub_0063A380(pUnit))
@@ -1586,34 +1587,34 @@ static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDama
     switch (nType)
     {
     case 1:
-        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, 0x30, 0);
-        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, 0x31, 0);
+        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, STAT_FIREMINDAM, 0);
+        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, STAT_FIREMAXDAM, 0);
         break;
     case 2:
-        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, 0x32, 0);
-        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, 0x33, 0);
+        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, STAT_LIGHTMINDAM, 0);
+        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, STAT_LIGHTMAXDAM, 0);
         break;
     case 4:
     case 12:
-        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, 0x36, 0);
-        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, 0x37, 0);
+        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, STAT_COLDMINDAM, 0);
+        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, STAT_COLDMAXDAM, 0);
         break;
     case 3:
-        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, 0x34, 0);
-        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, 0x35, 0);
+        *pMinDamage += STATLIST_UnitGetStatValue(pUnit, STAT_MAGICMINDAM, 0);
+        *pMaxDamage += STATLIST_UnitGetStatValue(pUnit, STAT_MAGICMAXDAM, 0);
         break;
     case 5:
     {
-        int nLength = STATLIST_UnitGetStatValue(pUnit, 0x65, 0);
+        int nLength = STATLIST_UnitGetStatValue(pUnit, STAT_SKILL_POISON_OVERRIDE_LENGTH, 0);
         if (nLength <= 0)
         {
-            int nCount = STATLIST_UnitGetStatValue(pUnit, 0x146, 0);
+            int nCount = STATLIST_UnitGetStatValue(pUnit, STAT_POISON_COUNT, 0);
             if (nCount <= 1)
                 nCount = 1;
-            nLength = STATLIST_UnitGetStatValue(pUnit, 0x3B, 0) / nCount;
+            nLength = STATLIST_UnitGetStatValue(pUnit, STAT_POISONLENGTH, 0) / nCount;
         }
-        int nMin = STATLIST_UnitGetStatValue(pUnit, 0x39, 0);
-        int nMax = STATLIST_UnitGetStatValue(pUnit, 0x3A, 0);
+        int nMin = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMINDAM, 0);
+        int nMax = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMAXDAM, 0);
         *pMinDamage += nMin * nLength >> 8;
         *pMaxDamage += nMax * nLength >> 8;
         break;
@@ -1762,11 +1763,11 @@ static __declspec(noinline) int __stdcall sub_004E8EC0_GetAttackRatingValues(D2U
     }
 
     int nBonus = SKILLS_GetWeaponMasteryBonus(pUnit, pItem, pSkill, 0);
-    nBonus += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x77, 0);
+    nBonus += STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
     nBonus += SKILLS_GetToHitFactor(pUnit, pSkillsTxt->nSkillId, nLevel);
     if (pSkillsTxt->nFlags[3 >> 3] & gdwBitMasks_006CE268[3 & 7])
     {
-        int nProgressive = STATLIST_UnitGetStatValue(pUnit, 0x145, 0);
+        int nProgressive = STATLIST_UnitGetStatValue(pUnit, STAT_PROGRESSIVE_TOHIT, 0);
         if (nProgressive)
         {
             nBonus += nProgressive;

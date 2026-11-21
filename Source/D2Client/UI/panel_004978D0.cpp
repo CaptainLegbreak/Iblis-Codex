@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -427,7 +428,7 @@ void __cdecl sub_00497E00()
             }
 
             D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(sub_00451F60_UnitClassId(pItem));
-            unsigned int nQuantity = STATLIST_UnitGetStatValue(pItem, 0x46, 0);
+            unsigned int nQuantity = STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0);
             if (!ITEMS_IsMagSetRarUniCrfOrTmp(pItem))
             {
                 for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(pInventory); pNode; pNode = INVENTORY_GetNextItem(pNode))
@@ -436,7 +437,7 @@ void __cdecl sub_00497E00()
                     if (pInvItem != pItem && !ITEMS_GetInvPage(pInvItem)
                         && DATATBLS_GetItemsTxtRecord(!pInvItem ? -1 : pInvItem->dwClassId)->dwCode == pItemsTxtRecord->dwCode)
                     {
-                        nQuantity += STATLIST_UnitGetStatValue(pInvItem, 0x46, 0);
+                        nQuantity += STATLIST_UnitGetStatValue(pInvItem, STAT_QUANTITY, 0);
                     }
                 }
             }
@@ -523,7 +524,7 @@ void __cdecl sub_00497FE0_DrawDurabilityIcons()
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
         if (!nMaxDurability)
             continue;
-        if (STATLIST_UnitGetStatValue(pItem, 0x48, 0) * 100 / nMaxDurability <= 20)
+        if (STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) * 100 / nMaxDurability <= 20)
             goto found;
     }
     return;
@@ -544,7 +545,7 @@ found:
                 nQuiverType = ITEMS_GetQuiverType(pItem);
                 if (nMaxDurability)
                 {
-                    const int nPercent = STATLIST_UnitGetStatValue(pItem, 0x48, 0) * 100 / nMaxDurability;
+                    const int nPercent = STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) * 100 / nMaxDurability;
                     if (nPercent <= 0)
                         nState = 2;
                     else if (nPercent <= 20)

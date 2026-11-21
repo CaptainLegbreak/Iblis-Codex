@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2TxtItems.h"
@@ -925,7 +926,7 @@ void __fastcall sub_004BD0C0_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOw
             tMissileParams.nTargetY = (j & 1) ? 5 * j : -5 * j;
             tMissileParams.pOwner = pOwner;
             tMissileParams.nMissile = 0x3E;
-            int nLevel = STATLIST_UnitGetStatValue(pOwner, 0xC, 0) / 5;
+            int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
             if (nLevel < 1)
             {
                 nLevel = 1;
@@ -958,7 +959,7 @@ void __fastcall sub_004BD220_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOw
         tMissileParams.pOrigin = pUnit;
         tMissileParams.nGfxArg = 1;
         tMissileParams.nMissile = 0x2D;
-        int nLevel = STATLIST_UnitGetStatValue(pOwner, 0xC, 0) / 5;
+        int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
         if (nLevel < 1)
         {
             nLevel = 1;
@@ -990,7 +991,7 @@ void __fastcall sub_004BD360_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOw
         tMissileParams.pOrigin = pUnit;
         tMissileParams.nGfxArg = 1;
         tMissileParams.nMissile = 0x30;
-        int nLevel = STATLIST_UnitGetStatValue(pOwner, 0xC, 0) / 5;
+        int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
         if (nLevel < 1)
         {
             nLevel = 1;

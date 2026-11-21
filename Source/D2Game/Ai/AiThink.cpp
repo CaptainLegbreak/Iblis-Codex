@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -721,7 +722,7 @@ void __fastcall sub_005EF320_ThinkBaalThrone(D2GameStrc* pGame, D2UnitStrc* pUni
             {
                 sub_00626E10(pUnit, pList, 1);
                 STATLIST_SetState(pList, 142);
-                STATLIST_SetStat(pList, 355, 559, 0);
+                STATLIST_SetStat(pList, STAT_SHORTPARAM1, 559, 0);
             }
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
             return;

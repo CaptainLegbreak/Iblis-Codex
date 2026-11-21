@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -121,12 +122,12 @@ int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* game,D2UnitStrc* 
    owner=AIGENERAL_GetMinionOwner(unit);
    if(!owner)owner=unit;
   }
-  int life=STATLIST_UnitGetStatValue(owner,6,0);
+  int life=STATLIST_UnitGetStatValue(owner,STAT_HITPOINTS,0);
   int maxLife=STATLIST_GetMaxLifeFromUnit(owner);
-  int amount=MIN(damage->physical,STATLIST_UnitGetStatValue(target,6,0));
+  int amount=MIN(damage->physical,STATLIST_UnitGetStatValue(target,STAT_HITPOINTS,0));
   life+=DATATBLS_ApplyRatio(amount,SKILLS_EvaluateSkillFormula(unit,skill->dwCalc[0],skillId,level),100);
   life=MIN(MAX(life,1),maxLife);
-  STATLIST_SetUnitStat(owner,6,life,0);
+  STATLIST_SetUnitStat(owner,STAT_HITPOINTS,life,0);
  }
  SUNITDMG_DrainItemDurability(game,unit,target,0);
  return 1;

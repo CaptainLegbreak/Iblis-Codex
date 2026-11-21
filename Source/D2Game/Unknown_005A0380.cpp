@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -1157,10 +1158,10 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, i
         return;
     }
 
-    const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
-    STATLIST_SetUnitStat(pUnit, 12, nLevel + -1, 0);
-    const unsigned int nExperience = STATLIST_GetUnitBaseStat(pUnit, 13, 0);
-    STATLIST_SetUnitStat(pUnit, 13, nExperience - 2 * (nExperience / 5), 0);
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_LEVEL, nLevel + -1, 0);
+    const unsigned int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, nExperience - 2 * (nExperience / 5), 0);
 
     int nDamage = MONSTERUNIQUE_GetUModConstantInline(11);
     int nToHit = MONSTERUNIQUE_GetUModConstantInline(10);
@@ -1176,8 +1177,8 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, i
         }
     }
 
-    STATLIST_AddUnitStat(pUnit, 25, nDamage, 0);
-    STATLIST_AddUnitStat(pUnit, 119, nToHit, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_DAMAGEPERCENT, nDamage, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
 
     if (pMonStatsTxtRecord->nVelocity <= 0 || nMode == 36)
     {
@@ -1187,7 +1188,7 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, i
     switch (nMode)
     {
     case 36:
-        STATLIST_AddUnitStat(pUnit, 67, -33, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, -33, 0);
         break;
 
     case 37:
@@ -1195,12 +1196,12 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, i
         int nVelocity = 0x800 / pMonStatsTxtRecord->nVelocity;
         nVelocity -= 0x80;
         nVelocity = D2_MIN(D2_MAX(nVelocity, 10), 100);
-        STATLIST_AddUnitStat(pUnit, 67, nVelocity, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, nVelocity, 0);
         break;
     }
 
     default:
-        STATLIST_AddUnitStat(pUnit, 67, 20, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, 20, 0);
         break;
     }
 }

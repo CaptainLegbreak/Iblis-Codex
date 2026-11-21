@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -523,7 +524,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
     tContext.nFrame = 0;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x64))
     {
-        int nPoison = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0x4A, 0) / 100;
+        int nPoison = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_HPREGEN, 0) / 100;
         if (nPoison > 80)
             nPoison = 80;
         if (nPoison > nHeight)
@@ -575,7 +576,7 @@ void __cdecl sub_00497110_DrawManaOrb()
     tContext.nFrame = 1;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x6A))
     {
-        int nShield = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0x1A, 0) / 100;
+        int nShield = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_MANARECOVERY, 0) / 100;
         if (nShield > 80)
             nShield = 80;
         if (nShield > nHeight)
@@ -873,7 +874,7 @@ void __cdecl sub_00497FE0_DrawDurabilityIcons()
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
         if (!nMaxDurability)
             continue;
-        if (STATLIST_UnitGetStatValue(pItem, 0x48, 0) * 100 / nMaxDurability <= 20)
+        if (STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) * 100 / nMaxDurability <= 20)
             goto found;
     }
     return;
@@ -894,7 +895,7 @@ found:
                 nQuiverType = ITEMS_GetQuiverType(pItem);
                 if (nMaxDurability)
                 {
-                    const int nPercent = STATLIST_UnitGetStatValue(pItem, 0x48, 0) * 100 / nMaxDurability;
+                    const int nPercent = STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) * 100 / nMaxDurability;
                     if (nPercent <= 0)
                         nState = 2;
                     else if (nPercent <= 20)

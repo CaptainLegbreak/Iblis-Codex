@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -275,7 +276,7 @@ static void sub_00461010_ResetPlayerState(D2UnitStrc* pUnit)
         pUnit->dwFlags &= ~2;
     sub_0046ECE0_PruneGfxNodes(pUnit);
     sub_0046F020_FillGfxEntries(pUnit, 0);
-    STATLIST_SetUnitStat(pUnit, 6, 0, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0, 0);
 }
 
 static void __stdcall sub_00461070_RequestSkillString(D2UnitStrc* pUnit, int nIndex)
@@ -1112,7 +1113,7 @@ static int sub_00462A20_CmdLeftSkillMove(D2PlayerCmdStrc* pCmd)
     sub_00620E40_GetClassSpeed(pPlayer, !pPlayer ? -1 : pPlayer->dwClassId, &nSpeed, &nBase);
     nSpeed <<= 8;
     D2DynamicPathStrc* pPath = pCmd->pPlayer->pDynamicPath;
-    const int nVelocity = STATLIST_UnitGetStatValue(pCmd->pPlayer, 0x43, 0) * nSpeed / 100;
+    const int nVelocity = STATLIST_UnitGetStatValue(pCmd->pPlayer, STAT_VELOCITYPERCENT, 0) * nSpeed / 100;
     if (PATH_GetVelocity(pPath) == nVelocity)
     {
         if (pCmd->dwFlags & 0x40)
@@ -1246,7 +1247,7 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
         }
     }
 
-    if ((nKeyFlags & 8) && STATLIST_UnitGetStatValue(tCmd.pPlayer, 0xA, 0))
+    if ((nKeyFlags & 8) && STATLIST_UnitGetStatValue(tCmd.pPlayer, STAT_STAMINA, 0))
         tCmd.dwFlags |= 0x40;
     if (nKeyFlags & 4)
         tCmd.dwFlags |= 0x20;

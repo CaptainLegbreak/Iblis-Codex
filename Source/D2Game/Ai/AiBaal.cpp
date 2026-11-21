@@ -987,9 +987,9 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  AIGENERAL_SetOwnerData(game,unit,!unit?-1:unit->dwUnitId,!unit?6:unit->dwUnitType,1,0);
  AIGENERAL_AllocMinionList(game,unit,clone);
  AIGENERAL_SetOwnerData(game,clone,!unit?-1:unit->dwUnitId,!unit?6:unit->dwUnitType,1,0);
- STATLIST_SetUnitStat(clone,7,STATLIST_GetMaxLifeFromUnit(unit)/3,0);
- STATLIST_SetUnitStat(clone,6,STATLIST_UnitGetStatValue(unit,6,0)/3,0);
- STATLIST_SetUnitStat(clone,74,0,0);
+ STATLIST_SetUnitStat(clone,STAT_MAXHP,STATLIST_GetMaxLifeFromUnit(unit)/3,0);
+ STATLIST_SetUnitStat(clone,STAT_HITPOINTS,STATLIST_UnitGetStatValue(unit,STAT_HITPOINTS,0)/3,0);
+ STATLIST_SetUnitStat(clone,STAT_HPREGEN,0,0);
  UNITS_StoreOwner(clone,unit);UNITS_StoreOwner(unit,clone);
  SUNIT_AttachSound(unit,16,0);
  ++control->dwAiParam[1];return true;

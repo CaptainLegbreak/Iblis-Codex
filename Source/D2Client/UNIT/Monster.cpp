@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -1512,7 +1513,7 @@ void __fastcall sub_004AF890_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultC
     }
 
     int nCount = nDefaultCount;
-    const int nExtraBlood = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x8C, 0);
+    const int nExtraBlood = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_EXTRABLOOD, 0);
     if (nExtraBlood)
     {
         nCount = nExtraBlood;

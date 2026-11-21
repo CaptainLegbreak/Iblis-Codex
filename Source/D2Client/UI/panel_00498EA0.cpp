@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 
@@ -27,9 +28,9 @@ void __cdecl sub_00498EA0_DrawExperienceBar()
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
-    const unsigned int nLevel = STATLIST_UnitGetStatValue(pPlayer, 0xC, 0);
-    const unsigned int nExperience = STATLIST_UnitGetStatValue(pPlayer, 0xD, 0);
-    const unsigned int nNextExperience = DATATBLS_GetLevelThreshold(nClass, STATLIST_GetUnitBaseStat(pPlayer, 0xC, 0));
+    const unsigned int nLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
+    const unsigned int nExperience = STATLIST_UnitGetStatValue(pPlayer, STAT_EXPERIENCE, 0);
+    const unsigned int nNextExperience = DATATBLS_GetLevelThreshold(nClass, STATLIST_GetUnitBaseStat(pPlayer, STAT_LEVEL, 0));
     const unsigned int nLastExperience = DATATBLS_GetLevelThreshold(nClass, nLevel - 1);
     unsigned int nRange = nNextExperience - nLastExperience;
     unsigned int nProgress;

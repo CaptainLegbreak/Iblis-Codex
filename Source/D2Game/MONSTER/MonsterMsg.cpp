@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 
@@ -133,7 +134,7 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
   nDirection=MONSTERMODE_GetHpPercent128(pUnit);
   int nGUID=pUnit->dwUnitId;
   D2GAME_PACKETS_SendPacket0x6D_6FC3D080(hClient,nGUID,CLIENTS_GetUnitX(pUnit),CLIENTS_GetUnitY(pUnit),nDirection);
-  STATLIST_SetUnitStat(pUnit,0x148,sub_006253B0_GetBaseStat(pUnit,0x148,0)+1,0);
+  STATLIST_SetUnitStat(pUnit,STAT_PIERCE_IDX,sub_006253B0_GetBaseStat(pUnit,0x148,0)+1,0);
   return;
  }
  if(nMode==13) {

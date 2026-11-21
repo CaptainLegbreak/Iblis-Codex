@@ -2952,7 +2952,7 @@ D2UnitStrc* __fastcall QUESTS_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 
         const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
         if (nMaxDurability > 0)
-            STATLIST_SetUnitStat(pItem, 0x48, nMaxDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nMaxDurability, 0);
 
         ITEMS_SetInvPage(pItem, 0);
 

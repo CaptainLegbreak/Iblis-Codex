@@ -2069,7 +2069,7 @@ int __fastcall sub_005AA250_ApplyHitExplosion(D2GameStrc* pGame, D2UnitStrc* pMi
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     if (pMissilesTxtRecord->wHitSubMissile[0] >= 0)
     {
-        STATLIST_SetUnitStat(pMissile, 0x38, 0, 0);
+        STATLIST_SetUnitStat(pMissile, STAT_COLDLENGTH, 0, 0);
         STATLIST_SetUnitStat(pMissile, 0x86, 0, 0);
         int nCount = pMissilesTxtRecord->dwHitPar[0];
         if (nCount <= 0)
@@ -4668,7 +4668,7 @@ __declspec(noinline) int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
             int nToHit = 0;
             if (pMissile)
             {
-                nToHit = STATLIST_UnitGetStatValue(pMissile, 0x13, 0);
+                nToHit = STATLIST_UnitGetStatValue(pMissile, STAT_TOHIT, 0);
             }
 
             if (!SUNITDMG_IsHitSuccessful(pOwner, pUnit, nToHit, 1))
@@ -6240,13 +6240,13 @@ int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamS
                 if (nLifePct < 30 && (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25 && !STATES_CheckState(pUnit, 52))
                 {
                     int nHeal = STATLIST_UnitGetStatValue(pUnit, 12, 0) << 8;
-                    const int nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0);
+                    const int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
                     const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pUnit);
                     if (nLife + nHeal > nMaxLife)
                     {
                         nHeal = nMaxLife - nLife;
                     }
-                    STATLIST_AddUnitStat(pUnit, 6, nHeal, 0);
+                    STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, nHeal, 0);
                 }
 
                 AITACTICS_UseSkill(pGame, pUnit, 4, 184, 0, nX, nY);

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Unicode.h"
 
@@ -127,7 +128,7 @@ int __cdecl sub_004B5C60_Handler()
 
     Unicode wszGold[300];
     sub_005269D0(300, wszGold, D2LANG_GetStringFromTblIndex(0xD24),
-        STATLIST_UnitGetStatValue(sub_00463DD0(), 15, 0) + STATLIST_UnitGetStatValue(sub_00463DD0(), 14, 0));
+        STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(sub_00463DD0(), STAT_GOLD, 0));
     sub_004B85F0_AddTextLine(gpDialog_007C0D77, wszGold, 0x15, 0, 4, 1, 0, 0);
     sub_004B85F0_AddTextLine(gpDialog_007C0D77, D2LANG_GetStringFromTblIndex(0xD48), 0x13B, 0, 0, 1, sub_004B5C20_ClosePanel77, 1);
 

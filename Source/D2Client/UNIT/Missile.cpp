@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Structs.h"
@@ -3456,7 +3457,7 @@ void __fastcall sub_004E6680_AddSetStatePropText(D2UnitStrc* pUnit, D2UnitStrc* 
     for (int i = 0; i < 6; ++i)
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, gaSetPropIds_006DBD70[i]);
-        if (pStatList && pSetItemsTxt->nSetId == STATLIST_GetStatValue(pStatList, 0x47, 0))
+        if (pStatList && pSetItemsTxt->nSetId == STATLIST_GetStatValue(pStatList, STAT_VALUE, 0))
         {
             sub_004E60A0_AddSetPropText(pUnit, nArg1, nArg2, 0, gaSetPropIds_006DBD70[i], 0, 0, 1);
             return;

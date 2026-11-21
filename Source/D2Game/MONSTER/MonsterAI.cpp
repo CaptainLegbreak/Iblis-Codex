@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
@@ -306,15 +307,15 @@ void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* ptGame, D2UnitStr
         }
     }
 
-    STATLIST_UnitGetStatValue(hPlayer, 0xC, 0);
-    const int nHirelingLevel = STATLIST_UnitGetStatValue(pHireling, 0xC, 0);
+    STATLIST_UnitGetStatValue(hPlayer, STAT_LEVEL, 0);
+    const int nHirelingLevel = STATLIST_UnitGetStatValue(pHireling, STAT_LEVEL, 0);
     if (!nLevel)
     {
         nLevel = nHirelingLevel + 1;
     }
 
     AITACTICS_AddMessage(ptGame, pHireling, hPlayer, 0xD7C, 1);
-    STATLIST_SetUnitStat(pHireling, 0xC, nLevel, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_LEVEL, nLevel, 0);
 
     D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(hPlayer, pHireling->dwUnitId);
     D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(ptGame->bExpansion, pPetInfo->nHirelingId, nLevel);
@@ -326,53 +327,53 @@ void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* ptGame, D2UnitStr
     const int nLevelUps = nLevel - pHirelingTxtRecord->nHirelingLevel;
 
     const int nNextExp = nLevel >= DATATBLS_GetMaxLevel(0) - 1 ? 0 : MONSTERS_GetHirelingExpForNextLevel(nLevel + 1, pHirelingTxtRecord->dwExpPerLvl);
-    STATLIST_SetUnitStat(pHireling, 0x1E, nNextExp, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_NEXTEXP, nNextExp, 0);
 
     const int nExperience = MONSTERS_GetHirelingExpForNextLevel(nLevel, pHirelingTxtRecord->dwExpPerLvl);
-    if (STATLIST_UnitGetStatValue(pHireling, 0xD, 0) < nExperience)
+    if (STATLIST_UnitGetStatValue(pHireling, STAT_EXPERIENCE, 0) < nExperience)
     {
-        STATLIST_SetUnitStat(pHireling, 0xD, nExperience, 0);
+        STATLIST_SetUnitStat(pHireling, STAT_EXPERIENCE, nExperience, 0);
     }
 
     int nStrength = pHirelingTxtRecord->nStr + nLevelUps * pHirelingTxtRecord->nStrPerLvl / 8;
     nStrength = nStrength < 10 ? 10 : nStrength;
-    STATLIST_SetUnitStat(pHireling, 0, nStrength, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_STRENGTH, nStrength, 0);
 
     int nDexterity = pHirelingTxtRecord->nDex + nLevelUps * pHirelingTxtRecord->nDexPerLvl / 8;
     nDexterity = nDexterity < 10 ? 10 : nDexterity;
-    STATLIST_SetUnitStat(pHireling, 2, nDexterity, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_DEXTERITY, nDexterity, 0);
 
     int nHitpoints = (pHirelingTxtRecord->dwHitpoints << 8) + nLevelUps * (pHirelingTxtRecord->dwHitpointsPerLvl << 8);
     nHitpoints = nHitpoints < 0x2800 ? 0x2800 : nHitpoints;
-    STATLIST_SetUnitStat(pHireling, 7, nHitpoints, 0);
-    STATLIST_SetUnitStat(pHireling, 6, nHitpoints, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_MAXHP, nHitpoints, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_HITPOINTS, nHitpoints, 0);
 
     int nDefense = pHirelingTxtRecord->dwDefense + nLevelUps * pHirelingTxtRecord->dwDefensePerLvl;
     nDefense = nDefense < 0 ? 0 : nDefense;
-    STATLIST_SetUnitStat(pHireling, 0x1F, nDefense, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_ARMORCLASS, nDefense, 0);
 
     int nMinDamage = pHirelingTxtRecord->nDmgMin + nLevelUps * pHirelingTxtRecord->nDmgPerLvl / 8;
     nMinDamage = nMinDamage < 0 ? 0 : nMinDamage;
-    STATLIST_SetUnitStat(pHireling, 0x17, nMinDamage, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_SECONDARY_MINDAMAGE, nMinDamage, 0);
 
     int nMaxDamage = pHirelingTxtRecord->nDmgMax + nLevelUps * pHirelingTxtRecord->nDmgPerLvl / 8;
     nMaxDamage = nMaxDamage < 1 ? 1 : nMaxDamage;
-    STATLIST_SetUnitStat(pHireling, 0x18, nMaxDamage, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_SECONDARY_MAXDAMAGE, nMaxDamage, 0);
 
     int nAttackRate = pHirelingTxtRecord->dwAttackRate + nLevelUps * pHirelingTxtRecord->dwAttackRatePerLvl;
     nAttackRate = nAttackRate < 0 ? 0 : nAttackRate;
-    STATLIST_SetUnitStat(pHireling, 0x13, nAttackRate, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_TOHIT, nAttackRate, 0);
 
     int nResist = pHirelingTxtRecord->dwResist + nLevelUps * pHirelingTxtRecord->dwResistPerLvl / 4;
     nResist = nResist < 0 ? 0 : nResist;
-    STATLIST_SetUnitStat(pHireling, 0x27, nResist, 0);
-    STATLIST_SetUnitStat(pHireling, 0x29, nResist, 0);
-    STATLIST_SetUnitStat(pHireling, 0x2B, nResist, 0);
-    STATLIST_SetUnitStat(pHireling, 0x2D, nResist, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_FIRERESIST, nResist, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_LIGHTRESIST, nResist, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_COLDRESIST, nResist, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_POISONRESIST, nResist, 0);
 
-    int nHpRegen = STATLIST_GetUnitBaseStat(pHireling, 7, 0) / 2000;
+    int nHpRegen = STATLIST_GetUnitBaseStat(pHireling, STAT_MAXHP, 0) / 2000;
     nHpRegen = nHpRegen < 0 ? 0 : nHpRegen;
-    STATLIST_SetUnitStat(pHireling, 0x4A, nHpRegen, 0);
+    STATLIST_SetUnitStat(pHireling, STAT_HPREGEN, nHpRegen, 0);
 
     for (int i = 0; i < 6; ++i)
     {
@@ -972,7 +973,7 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
             return;
         }
 
-        STATLIST_SetUnitStat(pUnit, 13, hirelingInit.nExperience, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, hirelingInit.nExperience, 0);
         MONSTERAI_UpdateMercStatsAndSkills(pGame, pPlayer, pUnit, nLevel);
         MONSTERAI_SendMercStats(pGame, pPlayer, 1);
     }

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2GameClient.h"
 #include "D2Primitives.h"
@@ -2807,7 +2808,7 @@ void __fastcall sub_0045D010_UnitPacket6D(D2UnitStrc* pUnit, const unsigned char
     const unsigned short nY = *(const unsigned short*)(p + 7);
     int args[7] = { nX, nY, p[9], 2, 0, 4, 0 };
     sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);
-    STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, STATLIST_GetUnitBaseStat(pUnit, STAT_PIERCE_IDX, 0) + 1, 0);
     sub_00480C10_UnitEvent(7, pUnit, args, 1);
 }
 
@@ -3242,11 +3243,11 @@ void __fastcall sub_0045D9B0_HandlePacket18(unsigned char* pPacket)
         return;
     }
     int nLife = tRecord.nLife << 8;
-    STATLIST_SetUnitStat(pPlayer, 6, nLife, 0);
-    STATLIST_SetUnitStat(pPlayer, 8, tRecord.nMana << 8, 0);
-    STATLIST_SetUnitStat(pPlayer, 10, tRecord.nStamina << 8, 0);
-    STATLIST_SetUnitStat(pPlayer, 0x4A, tRecord.nValue07, 0);
-    STATLIST_SetUnitStat(pPlayer, 0x1A, tRecord.nValue08, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_HITPOINTS, nLife, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_MANA, tRecord.nMana << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_STAMINA, tRecord.nStamina << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_HPREGEN, tRecord.nValue07, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_MANARECOVERY, tRecord.nValue08, 0);
     int nDeltaX = tRecord.nDeltaX;
     int nDeltaY = tRecord.nDeltaY;
     if (nDeltaX > 0x80) nDeltaX -= 0x100;
@@ -3285,9 +3286,9 @@ void __fastcall sub_0045DB20_HandlePacket95(unsigned char* pPacket)
         return;
     }
     int nLife = tRecord.nLife << 8;
-    STATLIST_SetUnitStat(pPlayer, 6, nLife, 0);
-    STATLIST_SetUnitStat(pPlayer, 8, tRecord.nMana << 8, 0);
-    STATLIST_SetUnitStat(pPlayer, 10, tRecord.nStamina << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_HITPOINTS, nLife, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_MANA, tRecord.nMana << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_STAMINA, tRecord.nStamina << 8, 0);
     int nDeltaX = tRecord.nDeltaX;
     int nDeltaY = tRecord.nDeltaY;
     if (nDeltaX > 0x80) nDeltaX -= 0x100;
@@ -3323,7 +3324,7 @@ void __fastcall sub_0045DC50_HandlePacket96(unsigned char* pPacket)
     {
         return;
     }
-    STATLIST_SetUnitStat(pPlayer, 10, tRecord.nStamina << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, STAT_STAMINA, tRecord.nStamina << 8, 0);
     int nDeltaX = tRecord.nDeltaX;
     int nDeltaY = tRecord.nDeltaY;
     if (nDeltaX > 0x80) nDeltaX -= 0x100;
@@ -3807,7 +3808,7 @@ void __fastcall sub_0045E6D0_Packet73(const D2GSPacketSrv73* pPacket)
     {
         UNITS_StoreOwnerTypeAndGUID(pMissile, pPacket->nUnitType, nUnitGUID);
         if (pPacket->nPierce)
-            STATLIST_SetUnitStat(pMissile, 0x148, pPacket->nPierce, 0);
+            STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, pPacket->nPierce, 0);
 
         MISSILE_SetCurrentFrame(pMissile, nCurrentFrame);
         pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissile->dwFrameCountPrecise >> 8) << 8;
@@ -4369,11 +4370,11 @@ void __fastcall sub_0045F190_SpawnMonsterPacket(D2PacketSpawnStrc* pPacket)
     sub_00470B70_ResetMonsterModeGfx(pUnit);
     if (!MONSTERS_GetHirelingTypeId(pUnit) || nUnitId != sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
     {
-        STATLIST_SetUnitStat(pUnit, 7, 0x8000, 0);
-        STATLIST_SetUnitStat(pUnit, 6, pPacket->nLife << 8, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_MAXHP, 0x8000, 0);
+        STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pPacket->nLife << 8, 0);
     }
     if (MONSTERS_GetHirelingTypeId(pUnit) && nMode == 1) pUnit->dwFlagEx &= ~0x40000;
-    STATLIST_SetUnitStat(pUnit, 0x148, (unsigned short)(nX + nY), 0);
+    STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, (unsigned short)(nX + nY), 0);
     if (sub_00411020_ReadBits(&tBuffer, 1)) UNITS_StoreOwnerTypeAndGUID(pUnit, 0, sub_00411020_ReadBits(&tBuffer, 31));
     if (sub_00411020_ReadBits(&tBuffer, 1))
     {

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2PlayerModes.h"
@@ -470,7 +471,7 @@ void __cdecl sub_00469000_HotkeyRunOn()
         return;
     if (pPlayer->dwAnimMode != PLRMODE_WALK)
         return;
-    if (!STATLIST_UnitGetStatValue(pPlayer, 10, 0))
+    if (!STATLIST_UnitGetStatValue(pPlayer, STAT_STAMINA, 0))
         return;
     sub_00480E70_SetUnitMode(pPlayer, 3);
     sub_00478590(0x53);

@@ -221,7 +221,7 @@ void __stdcall sub_005C0D70(D2UnitStrc* pItem, int nItemLevel, int nClassFirstSk
             D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
         }
         if (pStatList)
-            STATLIST_SetStatIfListIsValid(pStatList, 107, nItemLevel, nSkillId);
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_ITEM_SINGLESKILL, nItemLevel, nSkillId);
     }
 }
 

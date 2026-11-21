@@ -303,7 +303,7 @@ void __fastcall ACT1Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestAr
 
     if (ITEMS_FindQuestItem(pArg->pGame, pArg->pPlayer, 0x206D6468))
     {
-        if (STATLIST_GetUnitBaseStat(pArg->pPlayer, 0xC, 0) >= 8 && !QUESTRECORD_GetQuestState(pQuestFlags, 3, 0))
+        if (STATLIST_GetUnitBaseStat(pArg->pPlayer, STAT_LEVEL, 0) >= 8 && !QUESTRECORD_GetQuestState(pQuestFlags, 3, 0))
         {
             QUESTS_InitScrollTextChain(pQuest, pArg->pTextControl, nNpcId, 3);
         }

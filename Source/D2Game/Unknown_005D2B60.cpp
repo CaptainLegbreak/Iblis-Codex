@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -69,11 +70,11 @@ int __fastcall D2GAME_SKILLS_BloodMana_6FD025E0(D2UnitStrc* pUnit, int nManaCost
 {
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 114);
     const int nSkillId = sub_006260E0(pStatList);
-    if (STATLIST_UnitGetStatValue(pUnit, 6, 0) >= nManaCost)
+    if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >= nManaCost)
     {
-        STATLIST_AddUnitStat(pUnit, 6, -nManaCost, 0);
+        STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, -nManaCost, 0);
         D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-        if (STATLIST_UnitGetStatValue(pUnit, 6, 0) < (pSkillsTxtRecord->dwParam[4] << 8))
+        if (STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) < (pSkillsTxtRecord->dwParam[4] << 8))
         {
             pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 114);
             if (pStatList)
@@ -90,7 +91,7 @@ int __fastcall D2GAME_SKILLS_BloodMana_6FD025E0(D2UnitStrc* pUnit, int nManaCost
         D2Common_10474(pUnit, pStatList);
         STATLIST_FreeStatList(pStatList);
     }
-    STATLIST_SetUnitStat(pUnit, 6, 256, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 256, 0);
     return 0;
 }
 
@@ -151,11 +152,11 @@ static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
 // 0x005D3790
 static void __stdcall sub_005D3790_ProgressiveLeech(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
 {
-    const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxt = GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxt)
         return;
-    const int nItemLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+    const int nItemLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     const int nCurrentLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId), 1);
     const int nSkillLevel = nCurrentLevel > nItemLevel ? nCurrentLevel : nItemLevel;
     if (nSkillLevel <= 0)
@@ -200,7 +201,7 @@ void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, sgptDataTables->pProgressiveStates[i]);
             if (pStatList)
             {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                 D2SkillsTxt* pSkillsTxtRecord = nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount ? sub_0045C4B0_GetSkillsTxtRecord(nSkillId) : 0;
                 if (pSkillsTxtRecord)
                 {

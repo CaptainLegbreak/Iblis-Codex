@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2GameTypes.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -324,7 +325,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
         return;
     }
 
-    int nChance = STATLIST_UnitGetStatValue(pOwner, 0xA6, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0);
+    int nChance = STATLIST_UnitGetStatValue(pOwner, STAT_SKILL_PIERCE, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, STAT_ITEM_PIERCE, 0);
     if (!nChance)
     {
         return;
@@ -338,7 +339,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
     else
     {
-        nSeed = STATLIST_GetUnitBaseStat(pOwner, 0x148, 0);
+        nSeed = STATLIST_GetUnitBaseStat(pOwner, STAT_PIERCE_IDX, 0);
     }
 
     D2SeedStrc tSeed;
@@ -355,7 +356,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
         ++nPierce;
     }
 
-    STATLIST_SetUnitStat(pMissile, 0x148, nPierce, 0);
+    STATLIST_SetUnitStat(pMissile, STAT_PIERCE_IDX, nPierce, 0);
 }
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
@@ -431,7 +432,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);
         if (pStatList)
         {
-            nVelocityPercent = STATLIST_GetStatValue(pStatList, 0xA1, 0);
+            nVelocityPercent = STATLIST_GetStatValue(pStatList, STAT_SKILL_HANDOFATHENA, 0);
             nVelocity = DATATBLS_ApplyRatio(nVelocity, nVelocityPercent, 100);
         }
     }

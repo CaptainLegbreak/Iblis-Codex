@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -1672,7 +1673,7 @@ static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2G
         tItemDrop.nQuality = 2;
         tItemDrop.nItemLvl = ITEMS_GetItemLevelForNewItem(pPlayer, 0);
         D2UnitStrc* pNewItem = D2GAME_CreateItemEx_6FC4ED80(pGame, &tItemDrop, 0);
-        STATLIST_SetUnitStat(pNewItem, 0x46, 1, 0);
+        STATLIST_SetUnitStat(pNewItem, STAT_QUANTITY, 1, 0);
         UNITROOM_RefreshUnit(pNewItem);
         if (pNewItem)
         {
@@ -1794,8 +1795,8 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
         D2UnitStrc* pUnit = data.pUnitsArray[i];
         if (pUnit && (pUnit->dwUnitType == UNIT_MONSTER || pUnit->dwUnitType == UNIT_PLAYER) && !SUNIT_IsDead(pUnit))
         {
-            int nLife = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
-            STATLIST_AddUnitStat(pUnit, 6, (pArgs->nDamagePct * nLife / -100) << 8, 0);
+            int nLife = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >> 8;
+            STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, (pArgs->nDamagePct * nLife / -100) << 8, 0);
         }
     }
     UNITFINDS_FreeUnitFindData(&data);
@@ -1812,7 +1813,7 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
             missile.nTargetY = (j & 1) ? 5 * j : -5 * j;
             missile.pOwner = pSfx->pOwner;
             missile.nMissile = 62;
-            int nSkillLevel = STATLIST_UnitGetStatValue(pSfx->pOwner, 12, 0) / 5;
+            int nSkillLevel = STATLIST_UnitGetStatValue(pSfx->pOwner, STAT_LEVEL, 0) / 5;
             if (nSkillLevel < 1) nSkillLevel = 1;
             else if (nSkillLevel > 8) nSkillLevel = 8;
             missile.nSkillLevel = nSkillLevel;
@@ -2052,7 +2053,7 @@ static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D
         *pToHit = 0;
     }
 
-    const int nBonus = SKILLS_GetWeaponMasteryBonus(pUnit, pWeapon, pSkill, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 0x77, 0);
+    const int nBonus = SKILLS_GetWeaponMasteryBonus(pUnit, pWeapon, pSkill, 0) + STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, STAT_ITEM_TOHIT_PERCENT, 0);
     D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
     const int nToHit = *pToHit;
     *pToHit = nToHit + nToHit * (pSkillsTxtRecord->dwToHit + (nSkillLevel - 1) * pSkillsTxtRecord->dwLevToHit + nBonus) / 100;
@@ -2108,11 +2109,11 @@ static NOINLINE int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int 
 
         if (bTwoHanded)
         {
-            nStatValue = STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
+            nStatValue = STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
         }
         else
         {
-            nStatValue = STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+            nStatValue = STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
         }
         return nValue * nStatValue / 100;
     }
@@ -2142,9 +2143,9 @@ static __forceinline int OBJMODE_GetMinDamagePercentage(D2UnitStrc* pUnit, D2Uni
 
     if (bTwoHanded)
     {
-        return STATLIST_UnitGetStatValue(pUnit, 0x17, 0);
+        return STATLIST_UnitGetStatValue(pUnit, STAT_SECONDARY_MINDAMAGE, 0);
     }
-    return STATLIST_UnitGetStatValue(pUnit, 0x15, 0);
+    return STATLIST_UnitGetStatValue(pUnit, STAT_MINDAMAGE, 0);
 }
 
 // 0x005839B0
@@ -2165,7 +2166,7 @@ void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2Shrin
 
     const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->bCode];
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->hPlayer);
-    STATLIST_SetUnitStat(pOp->hPlayer, 0x0A, nMaxStamina, 0);
+    STATLIST_SetUnitStat(pOp->hPlayer, STAT_STAMINA, nMaxStamina, 0);
     const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->hPlayer);
     D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, sub_6FC77AB0);
     sub_006270B0(pStatList, 0x0A, 2 * nStatValue, 0);

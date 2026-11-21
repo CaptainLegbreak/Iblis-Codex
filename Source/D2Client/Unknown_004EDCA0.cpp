@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -158,7 +159,7 @@ static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, D2SkillsTxt
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
     {
-        int nBonus = STATLIST_UnitGetStatValue(pPlayer, 0x149, 0);
+        int nBonus = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_FIRE_MASTERY, 0);
         if (nBonus)
         {
             int nValue = *pValue1;
@@ -175,7 +176,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
     {
-        int nBonus = STATLIST_UnitGetStatValue(pPlayer, 0x14A, 0);
+        int nBonus = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_LTNG_MASTERY, 0);
         if (nBonus)
         {
             int nValue = *pValue1;

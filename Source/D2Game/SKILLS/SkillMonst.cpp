@@ -1186,7 +1186,7 @@ int __fastcall sub_005CCE80_ApplyFreezingSkillDamage(D2GameStrc* pGame, D2UnitSt
         damage.dwFrzLen = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 1);
         D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
         SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
-        if (!STATLIST_UnitGetStatValue(pTarget, 6, 0))
+        if (!STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0))
             damage.wResultFlags |= 2;
         SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pTarget, &damage);
         if (pSkillsTxt->wSrvOverlay > 0 && pSkillsTxt->wSrvOverlay <= sgptDataTables->nOverlayTxtRecordCount)

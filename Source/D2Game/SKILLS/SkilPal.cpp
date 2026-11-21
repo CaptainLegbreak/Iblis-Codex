@@ -609,7 +609,7 @@ int __fastcall SKILLS_SrvDo064_Sacrifice(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         memset(&damage, 0, sizeof(damage));
         damage.dwHitFlags |= 0x1000;
 
-        const int nBaseDamage = D2_MIN(STATLIST_UnitGetStatValue(pTarget, 6, 0), pDamage->dwPhysDamage);
+        const int nBaseDamage = D2_MIN(STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0), pDamage->dwPhysDamage);
 
         const int nDamage = DATATBLS_ApplyRatio(nBaseDamage, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel), 100);
         damage.dwPhysDamage = nDamage;
@@ -761,7 +761,7 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
             }
             }
             STATLIST_SetStat(pStatList, nStat, nValue, 0);
-            if (nStat == 68) STATLIST_SetStat(pStatList, 69, nValue, 0);
+            if (nStat == 68) STATLIST_SetStat(pStatList, STAT_OTHER_ANIMRATE, nValue, 0);
             ++pArgs->unk0x40;
         }
         else
@@ -782,8 +782,8 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
         }
     }
     UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkilPal.cpp", 413);
-    STATLIST_SetStat(pStatList, 350, pArgs->nSkillId, 0);
-    STATLIST_SetStat(pStatList, 351, pArgs->nSkillLevel, 0);
+    STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_SKILL, pArgs->nSkillId, 0);
+    STATLIST_SetStat(pStatList, STAT_MODIFIERLIST_LEVEL, pArgs->nSkillLevel, 0);
     if (pArgs->nPassiveState > 0)
     {
         D2StatListStrc* pPassive = STATLIST_GetStatListFromUnitAndState(pUnit, pArgs->nPassiveState);
@@ -1102,7 +1102,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             PATH_SetNewDistance(pPath, 20);
         }
     }
-    int nBonus = STATLIST_UnitGetStatValue(pUnit, 67, 0);
+    int nBonus = STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
     if (nBonus <= 50) nBonus = 50;
     PATH_SetVelocity(pPath, DATATBLS_ApplyRatio(nVelocity, sub_004C9460_GetSkillParam1(nSkillId) + nBonus, 100), ".\\SKILLS\\SkilPal.cpp", 816);
     D2Common_10142(pPath, pUnit, 0);
@@ -1473,8 +1473,8 @@ Drain:
   D2Common_10474(pTarget, i);
   STATLIST_FreeStatList(i);
  }
- int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, 12, 0);
- int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+ int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, STAT_LEVEL, 0);
+ int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
  if (nTargetLevel && nUnitLevel < nTargetLevel && !STATLIST_GetStatListFromUnitAndState(pTarget, 109))
  {
   int nTargetId = pTarget->dwUnitId;
@@ -1484,17 +1484,17 @@ Drain:
   {
    STATLIST_SetState(pSave, 109);
    D2COMMON_10475_PostStatToStatList(pTarget, pSave, 1);
-   int nHp = STATLIST_UnitGetStatValue(pTarget, 6, 0) >> 8;
+   int nHp = STATLIST_UnitGetStatValue(pTarget, STAT_HITPOINTS, 0) >> 8;
    int nMaxHp = STATLIST_GetMaxLifeFromUnit(pTarget) >> 8;
-   STATLIST_SetStatIfListIsValid(pSave, 176, nTargetLevel, 0);
-   STATLIST_SetStatIfListIsValid(pSave, 177, nMaxHp, 0);
+   STATLIST_SetStatIfListIsValid(pSave, STAT_CONVERSION_LEVEL, nTargetLevel, 0);
+   STATLIST_SetStatIfListIsValid(pSave, STAT_CONVERSION_MAXHP, nMaxHp, 0);
    int nNewHp = DATATBLS_ApplyRatio(nHp, nUnitLevel, nTargetLevel) << 8;
    int nNewMaxHp = DATATBLS_ApplyRatio(nMaxHp, nUnitLevel, nTargetLevel) << 8;
    if (nNewMaxHp < 1) nNewMaxHp = 1;
    nNewHp = (nNewHp > 1 ? nNewHp : 1) < nNewMaxHp ? (nNewHp > 1 ? nNewHp : 1) : nNewMaxHp;
-   STATLIST_SetUnitStat(pTarget, 12, nUnitLevel, 0);
-   STATLIST_SetUnitStat(pTarget, 6, nNewHp, 0);
-   STATLIST_SetUnitStat(pTarget, 7, nNewMaxHp, 0);
+   STATLIST_SetUnitStat(pTarget, STAT_LEVEL, nUnitLevel, 0);
+   STATLIST_SetUnitStat(pTarget, STAT_HITPOINTS, nNewHp, 0);
+   STATLIST_SetUnitStat(pTarget, STAT_MAXHP, nNewMaxHp, 0);
   }
  }
  return 1;

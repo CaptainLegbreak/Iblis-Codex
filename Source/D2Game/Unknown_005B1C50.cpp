@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
@@ -29,7 +30,7 @@ static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 {
 	const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
 	D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
-	const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+	const int nLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
 	const D2MonsterEquipmentStrc* pItemInfo = &gtAncientEquipment[nClassId - 540];
 
 	int nItemId;

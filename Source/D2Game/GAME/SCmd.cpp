@@ -3677,7 +3677,7 @@ void __fastcall SCMD_Send0x75_PartyRosterUpdate(D2UnitStrc* pLocalPlayer, D2Unit
     packet75.nHeader = 0x75u;
     const int nUnitGUID = !pOtherPlayer ? -1 : pOtherPlayer->dwUnitId;
     packet75.nUnitGUID = nUnitGUID;
-    packet75.nLevel = STATLIST_UnitGetStatValue(pOtherPlayer, 0xC, 0);
+    packet75.nLevel = STATLIST_UnitGetStatValue(pOtherPlayer, STAT_LEVEL, 0);
     packet75.nPartyId = SUNIT_GetPartyId(pOtherPlayer);
     packet75.nFlags = PLAYERLIST_GetFlags(pLocalPlayer, pOtherPlayer);
     packet75.unk0x0B = sub_6FCBA9D0(pLocalPlayer, pOtherPlayer);

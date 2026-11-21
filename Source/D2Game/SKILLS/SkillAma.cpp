@@ -79,14 +79,14 @@ static void __stdcall sub_005DAA40_ImpaleWearItem(D2GameStrc* pGame, int nChance
 
     if (ITEMS_CheckIfStackable(pItem))
     {
-        if (STATLIST_UnitGetStatValue(pItem, 0x46, 0) > 0 && (int)(sub_M401_RollUnitSeed(pUnit) % 100) < nChance)
+        if (STATLIST_UnitGetStatValue(pItem, STAT_QUANTITY, 0) > 0 && (int)(sub_M401_RollUnitSeed(pUnit) % 100) < nChance)
         {
             sub_6FD118C0(pGame, pUnit);
         }
     }
     else if (ITEMS_HasDurability(pItem) && (int)(sub_M401_RollUnitSeed(pUnit) % 100) < nChance)
     {
-        int nNewDurability = STATLIST_UnitGetStatValue(pItem, 0x48, 0) - nAmount;
+        int nNewDurability = STATLIST_UnitGetStatValue(pItem, STAT_DURABILITY, 0) - nAmount;
         if (nNewDurability < 0)
         {
             nNewDurability = 0;
@@ -94,7 +94,7 @@ static void __stdcall sub_005DAA40_ImpaleWearItem(D2GameStrc* pGame, int nChance
 
         if (nNewDurability)
         {
-            STATLIST_SetUnitStat(pItem, 0x48, nNewDurability, 0);
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, nNewDurability, 0);
             D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\SKILLS\\SkillAma.cpp", 0x9B), pItem, 1, 0x48, nNewDurability, 0);
         }
         else

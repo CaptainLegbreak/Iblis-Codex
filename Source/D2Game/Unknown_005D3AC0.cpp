@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -35,14 +36,14 @@ inline int SKILLS_GetProgressiveState(int nIndex)
 // 0x005D3680
 static void __stdcall sub_005D3680_ApplyProgressiveDamage(D2StatListStrc* pStatList, D2DamageStrc* pDamage, D2UnitStrc* pUnit)
 {
-    const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+    const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
     {
         return;
     }
 
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 351, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_LEVEL, 0);
     const int nMaxLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId), 1);
     if (nMaxLevel > nSkillLevel)
     {
@@ -93,7 +94,7 @@ void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
             D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, VOLATILE_DATATABLES->pProgressiveStates[i]);
             if (pStatList)
             {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, 350, 0);
+                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
                 if (nSkillId > 0 && nSkillId < VOLATILE_DATATABLES->nSkillsTxtRecordCount)
                 {
                     D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);

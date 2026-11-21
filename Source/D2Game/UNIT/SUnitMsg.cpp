@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Txt.h"
@@ -888,7 +889,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskHideOnUnit(pUnit))
         {
             sub_6FC3FC80(pClient, pUnit);
-            STATLIST_SetUnitStat(pUnit, 328, (unsigned short)(tCoords.nX + tCoords.nY), 0);
+            STATLIST_SetUnitStat(pUnit, STAT_PIERCE_IDX, (unsigned short)(tCoords.nX + tCoords.nY), 0);
             if (pUnit->dwClassId == 528)
                 sub_6FC3FAF0(pClient, pUnit->dwUnitId, AIGENERAL_GetMinionSpawnClassId(pUnit));
             D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -509,7 +510,7 @@ void __fastcall sub_005F39B0_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
             D2StatListStrc* pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pTarget ? 6 : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId);
             if (pStatList)
             {
-                STATLIST_SetStatIfListIsValid(pStatList, 80, 50 * (pGame->nDifficulty + 1), 0);
+                STATLIST_SetStatIfListIsValid(pStatList, STAT_ITEM_MAGICBONUS, 50 * (pGame->nDifficulty + 1), 0);
                 sub_006260B0(pStatList, nExpireFrame);
                 sub_005417D0_DirectDated(pGame, pTarget, 12, nExpireFrame, 0, 0);
                 D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);

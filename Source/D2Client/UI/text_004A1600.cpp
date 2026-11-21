@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2Structs.h"
@@ -1683,7 +1684,7 @@ static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
     }
 
     D2StatStrc aStats[0x20];
-    const int nCount = STATLIST_CopyStats(pUnit, 0x15C, aStats, 0x20);
+    const int nCount = STATLIST_CopyStats(pUnit, STAT_PASSIVE_WEAPONBLOCK, aStats, 0x20);
     int nBest = 0;
     for (i = 0; i < nCount; ++i)
     {

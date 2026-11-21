@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 struct Seed { unsigned int low, high; };
 struct MonStats { char unknown00[0x4C]; unsigned char alignment; char unknown4D[0xB1]; unsigned char elementMode[3]; unsigned char elementType[3]; unsigned char elementChance[3][3]; };
 struct MonsterData { MonStats* stats; };
@@ -44,7 +45,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
     int gameType = game->type != 0 || game->gameType != 0;
     int bonus = 0;
     if (!STATLIST_GetUnitAlignment(unit)) {
-        int players = STATLIST_UnitGetStatValue(unit, 100, 0);
+        int players = STATLIST_UnitGetStatValue(unit, STAT_MONSTER_PLAYERCOUNT, 0);
         if (players < 1) players = 1;
         bonus = sub_005A4F20_GetDifficultyScaledBonus(game, players);
     }
@@ -55,7 +56,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
         MonsterStatsInit init;
         memset(&init, 0, sizeof(init));
         const int classId = unit->classId;
-        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(unit, 12, 0), 8, &init);
+        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(unit, STAT_LEVEL, 0), 8, &init);
         minDamage = init.attack1Min + skill.minDamage;
         maxDamage = init.attack1Max + skill.maxDamage;
         toHit = init.toHit + skill.toHit;
@@ -67,7 +68,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
         MonsterStatsInit init;
         memset(&init, 0, sizeof(init));
         const int classId = unit->classId;
-        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(unit, 12, 0), 32, &init);
+        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(unit, STAT_LEVEL, 0), 32, &init);
         minDamage = skill.minDamage + init.skill1Min;
         maxDamage = skill.maxDamage + init.skill1Max;
         toHit = skill.toHit + init.toHit;
@@ -78,7 +79,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
         MonsterStatsInit init;
         memset(&init, 0, sizeof(init));
         const int classId = unit->classId;
-        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(unit, 12, 0), 16, &init);
+        DATATBLS_CalculateMonsterStatsByLevel(classId, gameType, difficulty, STATLIST_UnitGetStatValue(unit, STAT_LEVEL, 0), 16, &init);
         minDamage = init.attack2Min + skill.minDamage;
         maxDamage = init.attack2Max + skill.maxDamage;
         toHit = init.toHit + skill.toHit;
@@ -95,15 +96,15 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
         maxDamage += maxDamage * bonus / 128;
         toHit += toHit * bonus / 128;
     }
-    STATLIST_SetStatIfListIsValid(list, 21, minDamage, 0);
-    STATLIST_SetStatIfListIsValid(list, 22, maxDamage, 0);
-    STATLIST_SetStatIfListIsValid(list, 19, toHit, 0);
+    STATLIST_SetStatIfListIsValid(list, STAT_MINDAMAGE, minDamage, 0);
+    STATLIST_SetStatIfListIsValid(list, STAT_MAXDAMAGE, maxDamage, 0);
+    STATLIST_SetStatIfListIsValid(list, STAT_TOHIT, toHit, 0);
     for (int i = 0; i < 3; ++i) {
         if (record->elementMode[i] > 0 && mode == record->elementMode[i]) {
             if (record->elementChance[i][difficulty] > 0 && (record->elementChance[i][difficulty] >= 100 || (int)SEED_RollLimitedRandomNumber(&unit->seed, 100) < record->elementChance[i][difficulty])) {
             MonsterStatsInit init;
             memset(&init, 0, sizeof(init));
-            DATATBLS_CalculateMonsterStatsByLevel(sub_00451F60_GetClassId(unit), gameType, difficulty, STATLIST_UnitGetStatValue(unit, 12, 0), 64 + i, &init);
+            DATATBLS_CalculateMonsterStatsByLevel(sub_00451F60_GetClassId(unit), gameType, difficulty, STATLIST_UnitGetStatValue(unit, STAT_LEVEL, 0), 64 + i, &init);
             int minElement = init.elementMin;
             int maxElement = init.elementMax;
             int duration = init.elementDuration;
@@ -119,46 +120,46 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(Unit* unit, int mode)
             }
             switch (element) {
             case 1:
-                STATLIST_SetStatIfListIsValid(list, 48, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 49, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_FIREMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_FIREMAXDAM, maxElement, 0);
                 break;
             case 2:
-                STATLIST_SetStatIfListIsValid(list, 50, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 51, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_LIGHTMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_LIGHTMAXDAM, maxElement, 0);
                 break;
             case 3:
-                STATLIST_SetStatIfListIsValid(list, 52, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 53, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_MAGICMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_MAGICMAXDAM, maxElement, 0);
                 break;
             case 4:
-                STATLIST_SetStatIfListIsValid(list, 54, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 55, maxElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 56, duration, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_COLDMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_COLDMAXDAM, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_COLDLENGTH, duration, 0);
                 break;
             case 5:
-                STATLIST_SetStatIfListIsValid(list, 57, 10 * minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 58, 10 * maxElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 59, 2 * duration, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_POISONMINDAM, 10 * minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_POISONMAXDAM, 10 * maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_POISONLENGTH, 2 * duration, 0);
                 break;
             case 6:
-                STATLIST_SetStatIfListIsValid(list, 60, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 61, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_LIFEDRAINMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_LIFEDRAINMAXDAM, maxElement, 0);
                 break;
             case 7:
-                STATLIST_SetStatIfListIsValid(list, 62, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 63, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_MANADRAINMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_MANADRAINMAXDAM, maxElement, 0);
                 break;
             case 8:
-                STATLIST_SetStatIfListIsValid(list, 64, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 65, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_STAMDRAINMINDAM, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_STAMDRAINMAXDAM, maxElement, 0);
                 break;
             case 9:
-                STATLIST_SetStatIfListIsValid(list, 66, duration, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_STUNLENGTH, duration, 0);
                 break;
             case 11:
-                STATLIST_SetStatIfListIsValid(list, 316, minElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 317, maxElement, 0);
-                STATLIST_SetStatIfListIsValid(list, 315, duration, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_BURNINGMIN, minElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_BURNINGMAX, maxElement, 0);
+                STATLIST_SetStatIfListIsValid(list, STAT_FIRELENGTH, duration, 0);
                 break;
             }
         }

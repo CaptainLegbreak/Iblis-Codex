@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -130,8 +131,8 @@ void __fastcall sub_005A17E0_UModDamageBonus(D2UnitStrc* pUnit, int nUMod, int b
         }
     }
 
-    STATLIST_AddUnitStat(pUnit, 0x19, nDamage, 0);
-    STATLIST_AddUnitStat(pUnit, 0x77, nToHit, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_DAMAGEPERCENT, nDamage, 0);
+    STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
 }
 
 static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
@@ -152,7 +153,7 @@ void __fastcall sub_005A1910_ApplyVelocity(D2UnitStrc* pUnit, int nUnused1, int 
         if (pMonStatsTxtRecord && pMonStatsTxtRecord->nVelocity > 0)
         {
             const int nValue = 0x800 / pMonStatsTxtRecord->nVelocity - 0x80;
-            STATLIST_AddUnitStat(pUnit, 0x43, D2_MIN(D2_MAX(nValue, 10), 100), 0);
+            STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, D2_MIN(D2_MAX(nValue, 10), 100), 0);
         }
     }
 }
@@ -284,7 +285,7 @@ void __fastcall sub_005A2620_CastExplosion(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2MonStatsInitStrc monStatsInit;
     memset(&monStatsInit, 0, sizeof(monStatsInit));
     const int nMonsterId = pUnit->dwClassId;
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, nGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pUnit, 12, 0), 1, &monStatsInit);
+    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, nGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 1, &monStatsInit);
     D2DifficultyLevelsTxt* pDifficulty = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
     if (!pDifficulty) return;
     int nDamage = DATATBLS_ApplyRatio(monStatsInit.nMaxHP, pDifficulty->nMonsterCEDamagePercent, 100);

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -523,9 +524,9 @@ static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned
     }
     case 0x13:
     {
-        if (nGold > 0 && nGold <= STATLIST_UnitGetStatValue(pPlayer, 0xF, 0))
+        if (nGold > 0 && nGold <= STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDBANK, 0))
         {
-            if (STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) + nGold <= UNITS_GetInventoryGoldLimit(pPlayer))
+            if (STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0) + nGold <= UNITS_GetInventoryGoldLimit(pPlayer))
             {
                 ITEMS_HandleGoldTransaction(pGame, pPlayer, nGold);
                 PLRTRADE_AddGold(pPlayer, 0xF, -nGold);
@@ -539,10 +540,10 @@ static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned
     }
     case 0x14:
     {
-        if (nGold > 0 && nGold <= STATLIST_UnitGetStatValue(pPlayer, 0xE, 0))
+        if (nGold > 0 && nGold <= STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0))
         {
             const unsigned int nStashGoldLimit = UNITS_GetStashGoldLimit(pPlayer);
-            const unsigned int nGoldBank = STATLIST_UnitGetStatValue(pPlayer, 0xF, 0);
+            const unsigned int nGoldBank = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLDBANK, 0);
             if (nGoldBank + nGold > nStashGoldLimit)
             {
                 if (nGoldBank < nStashGoldLimit)
@@ -780,7 +781,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
             continue;
         }
 
-        if (pRecord->nOp == 28 && pItemsTxtRecord->nQuest && pItemsTxtRecord->nQuestDiffCheck && STATLIST_UnitGetStatValue(pItem, 356, 0) < pGame->nDifficulty)
+        if (pRecord->nOp == 28 && pItemsTxtRecord->nQuest && pItemsTxtRecord->nQuestDiffCheck && STATLIST_UnitGetStatValue(pItem, STAT_QUESTITEMDIFFICULTY, 0) < pGame->nDifficulty)
         {
             continue;
         }
@@ -1251,7 +1252,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
   int level=0;
   if(out->nLvl) level=out->nLvl;
   else {
-   if(out->nPLvl) level=CubePercentage(STATLIST_UnitGetStatValue(player,12,0),out->nPLvl,100);
+   if(out->nPLvl) level=CubePercentage(STATLIST_UnitGetStatValue(player,STAT_LEVEL,0),out->nPLvl,100);
    if(out->nILvl) level+=CubePercentage(inputs[index].nItemLevel,out->nILvl,100);
   }
   level=CUBE_MIN(CUBE_MAX(level,1),DATATBLS_GetMaxLevel(0));
@@ -1344,17 +1345,17 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
   if(out->wItemFlags&0x200) {
    if(ITEMS_CheckIfStackable(current) && out->nQuantity>0) {
     int n=ITEMS_GetTotalMaxStack(current);if(n>=out->nQuantity)n=out->nQuantity;
-    STATLIST_SetUnitStat(current,70,n,0);
+    STATLIST_SetUnitStat(current,STAT_QUANTITY,n,0);
    }
    if(ITEMS_CheckItemFlag(current,0x100,0x504,gszPlrTradeCpp)) sub_0055F900_EquipItemRefresh(game,player,current);
    else {
-    int max=STATLIST_UnitGetStatValue(current,73,0);
-    if(STATLIST_GetUnitBaseStat(current,72,0)<max)STATLIST_SetUnitStat(current,72,max,0);
+    int max=STATLIST_UnitGetStatValue(current,STAT_MAXDURABILITY,0);
+    if(STATLIST_GetUnitBaseStat(current,STAT_DURABILITY,0)<max)STATLIST_SetUnitStat(current,STAT_DURABILITY,max,0);
    }
   }
   if(out->wItemFlags&0x400)D2GAME_RechargeItem_6FC4BD50(game,player,current);
   if(out->wItemFlags&2) {
-   if(out->nQuantity && !STATLIST_UnitGetStatValue(current,194,0) && !(ITEMS_GetItemFlags(current)&0x800)) {
+   if(out->nQuantity && !STATLIST_UnitGetStatValue(current,STAT_ITEM_NUMSOCKETS,0) && !(ITEMS_GetItemFlags(current)&0x800)) {
     int n=sub_0062BC20(current);if(n>=out->nQuantity)n=out->nQuantity;
     switch(ITEMS_GetItemQuality(current)) {
      case ITEMQUAL_MAGIC:case ITEMQUAL_TEMPERED:if(n>3)n=3;break;
@@ -1364,7 +1365,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
    }
   } else if(out->nQuantity && ITEMS_CheckIfStackable(current)) {
    int n=ITEMS_GetTotalMaxStack(current);if(n>=out->nQuantity)n=out->nQuantity;
-   STATLIST_SetUnitStat(current,70,n,0);
+   STATLIST_SetUnitStat(current,STAT_QUANTITY,n,0);
   }
  }
  }
@@ -1764,7 +1765,7 @@ static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2
     ptTradeRecord->pItemTrade = 0;
     ptTradeRecord->nGoldInTrade = 0;
     ptTradeRecord->nNextUpdateTick = 0;
-    ptTradeRecord->nGoldInTradeOtherPlayer = STATLIST_UnitGetStatValue(pPlayer, 0xE, 0);
+    ptTradeRecord->nGoldInTradeOtherPlayer = STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0);
     pPlayerData->hTrade = ptTradeRecord;
     return true;
     }
@@ -2359,13 +2360,13 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
         D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
         if (pTrade->nGoldInTrade)
         {
-            if (STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) < pTrade->nGoldInTrade)
+            if (STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0) < pTrade->nGoldInTrade)
             {
                 PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
                 return;
             }
 
-            if ((unsigned int)(STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0) + pTrade->nGoldInTrade) > (unsigned int)UNITS_GetInventoryGoldLimit(pInteractPlayer))
+            if ((unsigned int)(STATLIST_UnitGetStatValue(pInteractPlayer, STAT_GOLD, 0) + pTrade->nGoldInTrade) > (unsigned int)UNITS_GetInventoryGoldLimit(pInteractPlayer))
             {
                 PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
                 D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA2D), 0xA);
@@ -2379,13 +2380,13 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
         D2PlayerTradeStrc* pTrade = pInteractPlayerData->hTrade;
         if (pTrade->nGoldInTrade)
         {
-            if (STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0) < pTrade->nGoldInTrade)
+            if (STATLIST_UnitGetStatValue(pInteractPlayer, STAT_GOLD, 0) < pTrade->nGoldInTrade)
             {
                 PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
                 return;
             }
 
-            if ((unsigned int)(STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) + pTrade->nGoldInTrade) > (unsigned int)UNITS_GetInventoryGoldLimit(pPlayer))
+            if ((unsigned int)(STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0) + pTrade->nGoldInTrade) > (unsigned int)UNITS_GetInventoryGoldLimit(pPlayer))
             {
                 PLRTRADE_ResetTrade(pGame, pPlayer, pInteractPlayer, pPlayerData, pInteractPlayerData);
                 D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA41), 9);
@@ -2446,7 +2447,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
             D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
             if (pTrade->nGoldInTrade)
             {
-                if (STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) >= pTrade->nGoldInTrade)
+                if (STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0) >= pTrade->nGoldInTrade)
                 {
                     PLRTRADE_AddGold(pPlayer, 0xE, -pTrade->nGoldInTrade);
                 }
@@ -2456,7 +2457,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
             pTrade = pInteractPlayerData->hTrade;
             if (pTrade->nGoldInTrade)
             {
-                if (STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0) >= pTrade->nGoldInTrade)
+                if (STATLIST_UnitGetStatValue(pInteractPlayer, STAT_GOLD, 0) >= pTrade->nGoldInTrade)
                 {
                     PLRTRADE_AddGold(pInteractPlayer, 0xE, -pTrade->nGoldInTrade);
                 }
@@ -2612,7 +2613,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
             }
             case 8:
             {
-                if (nGold > (unsigned int)STATLIST_UnitGetStatValue(pPlayer, 0xE, 0))
+                if (nGold > (unsigned int)STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0))
                 {
                     if (!sub_00597A20_IsBusy(pGame, pPlayer) && !sub_00597A20_IsBusy(pGame, pInteractPlayer))
                     {
@@ -2622,7 +2623,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                 else
                 {
                     const unsigned int nInventoryGoldLimit = UNITS_GetInventoryGoldLimit(pInteractPlayer);
-                    const unsigned int nCurrentGold = STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0);
+                    const unsigned int nCurrentGold = STATLIST_UnitGetStatValue(pInteractPlayer, STAT_GOLD, 0);
                     if (nCurrentGold + nGold > nInventoryGoldLimit)
                     {
                         nGold = nInventoryGoldLimit - nCurrentGold;
