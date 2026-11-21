@@ -1,6 +1,7 @@
 #include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -425,12 +426,6 @@ int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel);
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
-enum D2C_Y09CloakConstants
-{
-    STAT_MODIFIERLIST_SKILL = 350,
-    STAT_MODIFIERLIST_LEVEL = 351,
-};
-
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 
 int __fastcall SKILLS_AuraCallback_CloakOfShadows(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit); // 0x005D6520
@@ -440,7 +435,6 @@ void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet
 enum D2C_Z09St26Constants
 {
     EVENTTYPE_REMOVESTATE = 0x0C,
-    STAT_MANA = 8,
 };
 
 void __fastcall sub_6FCBD120(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x00553C70
@@ -465,7 +459,6 @@ void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUni
 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
 
-#define UNIT_MONSTER 1
 
 #define SKILLSFLAGINDEX_INTOWN 8
 
@@ -590,6 +583,12 @@ void __fastcall sub_0056C8E0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nElem
 void __stdcall sub_005D3790_ProgressiveLeech(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3790
 
 void __stdcall sub_005D3880_ProgressiveElemental(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3880
+
+static int __stdcall sub_005D3320_ApplyChargeState(D2GameStrc* pGame, int nSkillId, int nSkillLevel, int nAuraState, int nAuraStat, D2UnitStrc* pUnit);
+
+int __fastcall SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
+D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nUnitSize); // 0x005D2F80
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -1183,6 +1182,7 @@ static int __stdcall sub_005D3320_ApplyChargeState(D2GameStrc* pGame, int nSkill
     return 1;
 }
 
+// 0x005D3490
 int __fastcall SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
@@ -1274,8 +1274,6 @@ static void __stdcall sub_005D3680_ApplyProgressiveDamage(D2StatListStrc* pStatL
         UNITS_SetOverlay(pTarget, pSkillsTxtRecord->wTgtOverlay, 0);
     }
 }
-
-D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nUnitSize); // 0x005D2F80
 
 // 0x005D3880
 void __stdcall sub_005D3880_ProgressiveElemental(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
