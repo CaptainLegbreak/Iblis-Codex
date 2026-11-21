@@ -114,7 +114,7 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
-int __fastcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
+int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
 
 struct D2UnitStrc;
 
@@ -205,7 +205,7 @@ static __declspec(noinline) int __stdcall ITEMS_DecodeItemBitstreamCompact(D2Uni
 
 typedef char check_D2RunesTxt_size[sizeof(D2RunesTxt) == 0x120 ? 1 : -1];
 
-unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
+int __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 
 D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables(); // 0x00639CB0
 
@@ -278,7 +278,7 @@ int __stdcall ITEMS_CheckIfAutoBeltable(D2InventoryStrc* pInventory, D2UnitStrc*
     return 0;
 }
 
-static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inl(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -307,7 +307,7 @@ int __fastcall sub_00628D30_GetChargedSkillsCost(D2UnitStrc* pItem, int nBaseCos
             const int nCharges = pStat[i].nValue & 0xFF;
             if (nCharges < nMaxCharges)
             {
-                D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+                D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord_Inl(nSkillId);
                 if (pSkillsTxtRecord)
                 {
                     int nChargeCost;
@@ -535,7 +535,7 @@ unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pS
     return nMask;
 }
 
-static __forceinline int ITEMS_CheckIfSocketableByItemId(int nItemId)
+static __forceinline int ITEMS_CheckIfSocketableByItemIdForceInl(int nItemId)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
     if (pItemsTxtRecord)
@@ -546,11 +546,11 @@ static __forceinline int ITEMS_CheckIfSocketableByItemId(int nItemId)
     return 0;
 }
 
-static __forceinline int ITEMS_CheckIfSocketable(D2UnitStrc* pItem)
+static __forceinline int ITEMS_CheckIfSocketableForceInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
-        return ITEMS_CheckIfSocketableByItemId(pItem->dwClassId);
+        return ITEMS_CheckIfSocketableByItemIdForceInl(pItem->dwClassId);
     }
 
     return 0;
@@ -560,7 +560,7 @@ static __forceinline int ITEMS_CheckIfSocketable(D2UnitStrc* pItem)
 static int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem)
 {
     int nSocketedItems = 0;
-    if (!ITEMS_CheckIfSocketable(pItem))
+    if (!ITEMS_CheckIfSocketableForceInl(pItem))
     {
         return 0;
     }
@@ -923,7 +923,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
         pSocketFiller = INVENTORY_GetNextItem(pSocketFiller);
     }
 
-    const int nSockets = ITEMS_GetSockets(pItem);
+    const int nSockets = (unsigned char)ITEMS_GetSockets(pItem);
     if (nSockets != nSocketedItems)
     {
         return 0;
@@ -983,7 +983,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
     return 0;
 }
 
-inline int ITEMS_CheckIfSocketable_Inl(D2UnitStrc* pItem)
+inline int ITEMS_CheckIfSocketableAlt_Inl(D2UnitStrc* pItem)
 {
     if (pItem && (!pItem ? 6 : pItem->dwUnitType) == 4)
     {
@@ -1221,7 +1221,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
             return sub_00600C20(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
         }
         default:
-            if (ITEMS_CheckIfSocketable_Inl(pItem) && sub_0062BC20(pItem) > 0 && ITEMS_CheckItemFlag_Inl(pItem, 0x800))
+            if (ITEMS_CheckIfSocketableAlt_Inl(pItem) && sub_0062BC20(pItem) > 0 && ITEMS_CheckItemFlag_Inl(pItem, 0x800))
             {
                 D2InventoryStrc* pInventory = pItem->pInventory;
                 D2UnitStrc* pInventoryItem = INVENTORY_GetFirstItem(pInventory);
@@ -1552,7 +1552,7 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
         }
     }
 
-    const int nLevelReq = ITEMS_GetLevelRequirement(pItem, pUnit);
+    const int nLevelReq = sub_0062B5B0(pItem, pUnit);
     if (nLevelReq != -1 && STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0) < nLevelReq)
     {
         bLevelReqMet = 0;
