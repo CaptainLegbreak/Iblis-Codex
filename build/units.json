@@ -68082,6 +68082,16 @@
      "name": "AITHINK_TargetCallback_PutridDefiler"
     },
     {
+     "va": "0x005EFB80",
+     "length": 362,
+     "name": "?AITHINK_Fn007_Brute@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005EFCF0",
+     "length": 298,
+     "name": "?AITHINK_Fn002_Skeleton@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005EFF50",
      "length": 389
     },
@@ -68167,6 +68177,19 @@
      "name": "AITHINK_TargetCallback_Vulture"
     },
     {
+     "va": "0x005F3730",
+     "length": 547,
+     "name": "?AITHINK_Fn024_Mosquito@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F3960",
+     "length": 65
+    },
+    {
+     "va": "0x005F39B0",
+     "length": 2900
+    },
+    {
      "va": "0x005F4510",
      "length": 830,
      "name": "?AITHINK_Fn026_Arach@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68224,6 +68247,11 @@
      "name": "?AITHINK_Fn040_MaggotEgg@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F6630",
+     "length": 28,
+     "name": "@sub_005F6630@12"
+    },
+    {
      "va": "0x005F6650",
      "length": 349,
      "name": "?AITHINK_Fn043_FoulCrowNest@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68246,6 +68274,11 @@
      "va": "0x005F6CA0",
      "length": 379,
      "name": "?AITHINK_Fn047_FlyingScimitar@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F6E20",
+     "length": 50,
+     "name": "?sub_005F6E20_GetPercentOver100@@YIHPAUD2Record5F6E20Strc@@@Z"
     },
     {
      "va": "0x005F6E60",
@@ -68324,6 +68357,11 @@
      "va": "0x005F99A0",
      "length": 215,
      "name": "?AITHINK_TargetCallback_FetishShaman@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005F9A80",
+     "length": 617,
+     "name": "?AITHINK_Fn065_FetishShaman@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005F9CF0",
@@ -68877,50 +68915,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EFB80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005EFB80",
-     "length": 362,
-     "name": "?AITHINK_Fn007_Brute@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005EFCF0",
-     "length": 298,
-     "name": "?AITHINK_Fn002_Skeleton@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005F3730",
-     "length": 547,
-     "name": "?AITHINK_Fn024_Mosquito@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005F3960",
-     "length": 65
-    },
-    {
-     "va": "0x005F39B0",
-     "length": 2900
-    },
-    {
-     "va": "0x005F6630",
-     "length": 28,
-     "name": "@sub_005F6630@12"
-    },
-    {
-     "va": "0x005F6E20",
-     "length": 50,
-     "name": "?sub_005F6E20_GetPercentOver100@@YIHPAUD2Record5F6E20Strc@@@Z"
-    },
-    {
-     "va": "0x005F9A80",
-     "length": 617,
-     "name": "?AITHINK_Fn065_FetishShaman@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
