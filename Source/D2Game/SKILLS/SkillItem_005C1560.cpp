@@ -5,7 +5,11 @@
 #include "D2DataTbls.h"
 struct D2UnitStrc;
 
-struct D2MagicAffixIndexAndPtrStrc { int nAffixId; D2MagicAffixTxt* pMagicAffixRecord; };
+struct D2MagicAffixIndexAndPtrStrc
+{
+    int nAffixId;
+    D2MagicAffixTxt* pMagicAffixRecord;
+};
 
 struct D2RareAffixTxt
 {
