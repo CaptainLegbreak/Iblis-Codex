@@ -52705,6 +52705,14 @@
     {
      "va": "0x00540DF0",
      "length": 106
+    },
+    {
+     "va": "0x005415E0",
+     "length": 109
+    },
+    {
+     "va": "0x005416B0",
+     "length": 276
     }
    ],
    "flags": [
@@ -52736,34 +52744,6 @@
      "length": 23,
      "name": "@sub_00541860@4"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005415E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005415E0",
-     "length": 109
-    },
-    {
-     "va": "0x005416B0",
-     "length": 276
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
