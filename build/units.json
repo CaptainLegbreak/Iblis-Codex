@@ -11928,6 +11928,10 @@
      "length": 331
     },
     {
+     "va": "0x0043AAB0",
+     "length": 328
+    },
+    {
      "va": "0x0043B520",
      "length": 398,
      "name": "?sub_0043B520_OnCharSelect@@YGHH@Z"
@@ -11936,6 +11940,11 @@
      "va": "0x0043B6B0",
      "length": 229,
      "name": "?sub_0043B6B0_JoinSelected@@YGHH@Z"
+    },
+    {
+     "va": "0x0043B9F0",
+     "length": 1356,
+     "name": "?sub_0043B9F0_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
     },
     {
      "va": "0x0043E660",
@@ -12087,35 +12096,6 @@
      "length": 872,
      "name": "?sub_0043C180_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043AAB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043AAB0",
-     "length": 328
-    },
-    {
-     "va": "0x0043B9F0",
-     "length": 1356,
-     "name": "?sub_0043B9F0_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
