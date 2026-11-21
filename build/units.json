@@ -31805,6 +31805,10 @@
      "va": "0x004BBE70",
      "length": 128,
      "name": "Slot01"
+    },
+    {
+     "va": "0x004BC0A0",
+     "length": 190
     }
    ]
   },
@@ -31845,16 +31849,6 @@
      "va": "0x004BC190",
      "length": 5,
      "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BC0A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BC0A0",
-     "length": 190
     }
    ]
   },
