@@ -43718,7 +43718,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -43728,7 +43728,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -43738,13 +43738,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56644,7 +56643,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56654,7 +56653,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56664,13 +56663,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56715,7 +56713,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56725,7 +56723,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56735,13 +56733,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56826,7 +56823,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56836,7 +56833,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56846,13 +56843,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56897,7 +56893,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56907,7 +56903,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56917,13 +56913,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -64436,7 +64431,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -64446,7 +64441,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -64456,13 +64451,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],

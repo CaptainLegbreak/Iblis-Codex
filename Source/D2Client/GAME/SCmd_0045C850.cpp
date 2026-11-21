@@ -4,6 +4,8 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2StormTypes.h"
+#include "D2ClientMenus.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007A7430 (gtTimedBox_007A742C.nValue)
@@ -72,12 +74,6 @@ enum D2C_CA2Constants
     GRID_SIZE = 48,
 };
 
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    char unk0x04[0x24];
-    unsigned short nClientFlags;
-};
 
 struct D2GfxNodeStrc
 {
@@ -110,12 +106,6 @@ struct D2SortEntryStrc
     unsigned char nFlag[4];
 };
 
-struct D2HotkeyStrc
-{
-    unsigned char nCommand[4];
-    unsigned short nKey;
-    unsigned char unk0x06[4];
-};
 
 struct D2HotkeyCommandStrc
 {
@@ -724,22 +714,22 @@ void __stdcall sub_0046A840_HotkeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
-        if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && *(int*)gtHotkeys_007A6F90[i].nCommand != 0xFFFF
-            && *(int*)gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && *(int*)gtHotkeys_007A6F90[i].nCommand <= 0xDF
-            && gtHotkeyCommands_00712698[*(int*)gtHotkeys_007A6F90[i].nCommand].pfnCommand)
+        if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && gtHotkeys_007A6F90[i].nCommand != 0xFFFF
+            && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && gtHotkeys_007A6F90[i].nCommand <= 0xDF
+            && gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
         {
             if (gtHotkeys_007A6F90[i].nKey == VK_F4 && (GetKeyState(VK_MENU) & 0x8000))
             {
                 return;
             }
 
-            if (gnGlobal_007A7418 == 2 && !gtHotkeyCommands_00712698[*(int*)gtHotkeys_007A6F90[i].nCommand].nModeFlag)
+            if (gnGlobal_007A7418 == 2 && !gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
             {
                 return;
             }
 
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gtHotkeyCommands_00712698[*(int*)gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
-            gtHotkeyCommands_00712698[*(int*)gtHotkeys_007A6F90[i].nCommand].pfnCommand();
+            D2_ASSERT(!IsBadCodePtr((FARPROC)gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
+            gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);

@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
+#include "D2ClientTypes.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -127,12 +128,6 @@ void __cdecl sub_K04_EmitUse(D2UnitStrc* pUnit);
 
 
 
-struct D2UnitTargetStrc
-{
-    int nParam1;
-    int nParam2;
-    int unk0x08[5];
-};
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
@@ -924,11 +919,11 @@ void __fastcall sub_00480EF0_MoveToPosition(D2UnitStrc* pUnit, int nX, int nY, i
             break;
 
         case UNIT_MONSTER:
-            tTarget.unk0x08[1] = 1;
+            tTarget.unk0x0C[0] = 1;
             break;
         }
-        tTarget.unk0x08[2] = 100;
-        tTarget.unk0x08[3] = 15;
+        tTarget.unk0x0C[1] = 100;
+        tTarget.unk0x0C[2] = 15;
         sub_00480C10_DispatchUnitCommand(nCommand, pUnit, &tTarget, 0);
     }
     else
