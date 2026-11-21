@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -1520,7 +1521,7 @@ static int __stdcall sub_004E9160_GetAttackRateValues(D2UnitStrc* pUnit, D2UnitS
     if (!pItem && pUnit->pInventory)
         pItem = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
-    if (pItem && ITEMS_GetItemType(pItem) == 38)
+    if (pItem && ITEMS_GetItemType(pItem) == ITEMTYPE_MISSILE_POTION)
     {
         *pValue1 = 0;
         *pValue2 = 0;

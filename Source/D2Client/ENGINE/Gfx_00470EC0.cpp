@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Constants.h"
@@ -117,7 +118,7 @@ int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
     }
 
     int nCelDirection = nDirection;
-    if (nUnitType == UNIT_ITEM && ITEMS_GetItemType(pUnit) == 4)
+    if (nUnitType == UNIT_ITEM && ITEMS_GetItemType(pUnit) == ITEMTYPE_GOLD)
     {
         const unsigned int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
         if (nGold < 100)

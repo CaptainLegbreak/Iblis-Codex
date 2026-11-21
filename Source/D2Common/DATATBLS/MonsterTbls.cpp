@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -1583,7 +1584,7 @@ void __cdecl DATATBLS_CreateItemTypeTreasureClasses()
                         {
                             D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(j);
                             if (pItemsTxtRecord && !pItemsTxtRecord->nQuest && pItemsTxtRecord->nSpawnable && ITEMS_CheckItemTypeIdByItemId(j, i)
-                                && (i == 38 || !ITEMS_CheckItemTypeIdByItemId(j, 38))
+                                && (i == 38 || !ITEMS_CheckItemTypeIdByItemId(j, ITEMTYPE_MISSILE_POTION))
                                 && pItemsTxtRecord->nLevel > nLevel - 3 && pItemsTxtRecord->nLevel <= nLevel)
                             {
                                 TableRow* pTypeRecord = sub_00555C90_GetTableRow(pItemsTxtRecord->wType[0]);

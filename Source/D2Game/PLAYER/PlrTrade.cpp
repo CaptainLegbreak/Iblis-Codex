@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -1921,7 +1922,7 @@ static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* p
 // 0x00567070
 static __declspec(noinline) void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem)
 {
-    if (ITEMS_GetItemType(pDupeItem) == 7)
+    if (ITEMS_GetItemType(pDupeItem) == ITEMTYPE_PLAYER_BODY_PART)
     {
         ITEMS_SetEarName(pDupeItem, ITEMS_GetEarName(pItem));
         ITEMS_SetEarLevel(pDupeItem, ITEMS_GetEarLevel(pItem));

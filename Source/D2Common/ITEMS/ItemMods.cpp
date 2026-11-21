@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Common.h"
@@ -1485,12 +1486,12 @@ int __stdcall ITEMMODS_CanItemBeHighQuality(D2UnitStrc* pItem, const D2QualityIt
 
     const int nItemType = ITEMS_GetItemType(pItem);
 
-    if (pQualityItemsTxtRecord->nWeapon && ITEMSIsA(pItem, 45) && nItemType != 26 && nItemType != 27 && nItemType != 35 && nItemType != 24 && nItemType != 25)
+    if (pQualityItemsTxtRecord->nWeapon && ITEMSIsA(pItem, 45) && nItemType != ITEMTYPE_STAFF && nItemType != ITEMTYPE_BOW && nItemType != ITEMTYPE_CROSSBOW && nItemType != ITEMTYPE_SCEPTER && nItemType != ITEMTYPE_WAND)
     {
         return 1;
     }
 
-    if (pQualityItemsTxtRecord->nArmor && ITEMSIsA(pItem, 50) && nItemType != 2 && nItemType != 15 && nItemType != 16 && nItemType != 19)
+    if (pQualityItemsTxtRecord->nArmor && ITEMSIsA(pItem, 50) && nItemType != ITEMTYPE_SHIELD && nItemType != ITEMTYPE_BOOTS && nItemType != ITEMTYPE_GLOVES && nItemType != ITEMTYPE_BELT)
     {
         return 1;
     }

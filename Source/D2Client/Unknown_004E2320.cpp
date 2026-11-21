@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -1175,7 +1176,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
     D2CombinedStatsStrc tCombined;
     D2StatStrc aStats[511];
 
-    if (ITEMS_GetItemType(pUnit) == 11)
+    if (ITEMS_GetItemType(pUnit) == ITEMTYPE_ELIXIR)
     {
         sub_004E5E90_BuildFileIndexStatText(pUnit, pOut, gaFileIndexText_0072D6C0);
         return;
@@ -1757,7 +1758,7 @@ static __declspec(noinline) int __stdcall sub_004E8EC0_GetAttackRatingValues(D2U
     if (!pItem && pUnit->pInventory)
         pItem = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
-    if (pItem && ITEMS_GetItemType(pItem) == 38)
+    if (pItem && ITEMS_GetItemType(pItem) == ITEMTYPE_MISSILE_POTION)
     {
         *pValue1 = 0;
         *pValue2 = 0;

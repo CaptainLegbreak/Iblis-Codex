@@ -950,7 +950,7 @@ static void __stdcall sub_6FC802F0(D2GameStrc* pGame, int nBodyloc, D2UnitStrc* 
 
     sub_0063BE30(pInventory, nBodyloc);
 
-    if (ITEMS_GetItemType(hItem) == 0x13)
+    if (ITEMS_GetItemType(hItem) == ITEMTYPE_BELT)
     {
         sub_6FC45930(pGame, pUnit, 0);
     }

@@ -1,5 +1,6 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
+#include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
@@ -774,7 +775,7 @@ void __cdecl sub_004B1E80_OpenTimedDialog36()
 // 0x004B1F80
 static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
 {
-    if (ITEMS_GetItemType(pItem) == 4)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
         return 0;
     if (!sub_0062E660(pItem))
         return 0;

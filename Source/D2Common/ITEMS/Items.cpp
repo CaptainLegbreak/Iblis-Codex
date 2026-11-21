@@ -3649,7 +3649,7 @@ int __stdcall ITEMS_GetQuestFromItemId(int nItemId)
 {
     struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    if (!ITEMS_CheckItemTypeIdByItemId(nItemId, 50) && !ITEMS_CheckItemTypeIdByItemId(nItemId, 45))
+    if (!ITEMS_CheckItemTypeIdByItemId(nItemId, ITEMTYPE_ANY_ARMOR) && !ITEMS_CheckItemTypeIdByItemId(nItemId, ITEMTYPE_WEAPON))
     {
         return 0;
     }
@@ -4385,9 +4385,9 @@ int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* hItem)
     const int nUnitType = hItem ? hItem->dwUnitType : UNIT_INVALID;
     if (!(nUnitType == 4 && ITEMS_GetItemTypeFromItemId(hItem->dwClassId) == 4)
         && !sub_T03_CheckItemFlag(hItem, 0x1000)
-        && ITEMS_GetItemType(hItem) != 7
-        && ITEMS_GetItemType(hItem) != 5
-        && ITEMS_GetItemType(hItem) != 6
+        && ITEMS_GetItemType(hItem) != ITEMTYPE_PLAYER_BODY_PART
+        && ITEMS_GetItemType(hItem) != ITEMTYPE_BOW_QUIVER
+        && ITEMS_GetItemType(hItem) != ITEMTYPE_CROSSBOW_QUIVER
         && !ITEMS_CheckItemFlag(hItem, 0x100, 0x12F7, ".\\ITEMS\\Items.cpp")
         && !(ITEMS_GetItemFlags(hItem) & 0x1000000)
         && !sub_0062A2B0_GetCompactSave(hItem))

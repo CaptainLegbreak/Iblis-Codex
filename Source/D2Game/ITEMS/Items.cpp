@@ -1070,10 +1070,10 @@ static void __stdcall ITEMS_AssignLegacySpecialProperties(D2GameStrc* pGame, D2U
 {
     switch (ITEMS_GetItemType(pItem))
     {
-    case 13:
+    case ITEMTYPE_CHARM:
         ITEMS_AssignCharmAffixes(pItemDrop, pItem);
         break;
-    case 40:
+    case ITEMTYPE_BODY_PART:
     {
         int nItemIndex = pItemDrop->nItemIndex;
         if (pItemDrop->pUnit)
@@ -1084,7 +1084,7 @@ static void __stdcall ITEMS_AssignLegacySpecialProperties(D2GameStrc* pGame, D2U
         ITEMS_SetFileIndex(pItem, nItemIndex);
         break;
     }
-    case 7:
+    case ITEMTYPE_PLAYER_BODY_PART:
     {
         int nItemIndex = pItemDrop->nItemIndex;
         if (pItemDrop->pUnit)
@@ -1096,10 +1096,10 @@ static void __stdcall ITEMS_AssignLegacySpecialProperties(D2GameStrc* pGame, D2U
         ITEMS_SetItemFlag(pItem, 0x10000, 1);
         break;
     }
-    case 22:
+    case ITEMTYPE_SCROLL:
         ITEMS_AssignSuffix(pItem, ITEMS_FindBookRecordIndex(pItem, 1), 0);
         break;
-    case 18:
+    case ITEMTYPE_BOOK:
         ITEMS_AssignSuffix(pItem, ITEMS_FindBookRecordIndex(pItem, 0), 0);
         break;
     default:
@@ -1574,7 +1574,7 @@ static __forceinline void ITEMS_SetGoldStat(D2UnitStrc* pUnit, int nStat, int nV
 // 0x00557AB0
 int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int bQuestItem)
 {
-    if (ITEMS_GetItemType(*ppItem) == 4)
+    if (ITEMS_GetItemType(*ppItem) == ITEMTYPE_GOLD)
     {
         int nQuantity = 1;
         if (pItemDrop)
@@ -1687,7 +1687,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
                 STATLIST_SetUnitStat(*ppItem, STAT_QUANTITY, nQuantity, 0);
             }
 
-            if (ITEMS_GetItemType(*ppItem) == 11)
+            if (ITEMS_GetItemType(*ppItem) == ITEMTYPE_ELIXIR)
             {
                 sub_0065E8E0_InitItemFileIndex(*ppItem);
             }
@@ -2245,7 +2245,7 @@ void __cdecl sub_00558990_Nop()
 // 0x005589A0
 static void sub_005589A0_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
-    if (pPlayer && pItem && ITEMS_GetItemType(pItem) == 4)
+    if (pPlayer && pItem && ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
     {
         int nGoldBonus = STATLIST_UnitGetItemStatOrSkillStatValue(pPlayer, STAT_ITEM_GOLDBONUS, 0) + 100;
         D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pPlayer);
@@ -2841,7 +2841,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
         ITEMS_SetItemFlag(pItem, 0x100, sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x100));
         ITEMS_SetItemFlag(pItem, 0x20000, sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x20000));
 
-        if (ITEMS_GetItemType(pItem) == 4)
+        if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
         {
             D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 14, pItemDrop->nQuantity);
         }
@@ -2856,7 +2856,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
         STATLIST_SetUnitStat(pItem, STAT_MAXDURABILITY, pItemDrop->nMaxDur, 0);
     }
 
-    if (ITEMS_GetItemType(pItem) == 7)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_PLAYER_BODY_PART)
     {
         if (pItemDrop->bForce)
         {

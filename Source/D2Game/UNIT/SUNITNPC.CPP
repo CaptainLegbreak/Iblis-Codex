@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -2876,7 +2877,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
     int keep=1;
     if (ITEMS_GetItemQuality(item)==ITEMQUAL_INFERIOR) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
     if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSource_006E15F0)) keep=0;
-    if (ITEMS_GetItemType(item)==7) keep=0;
+    if (ITEMS_GetItemType(item)==ITEMTYPE_PLAYER_BODY_PART) keep=0;
     if (ITEMS_CheckItemFlag(item,0x1000000,0x50D,gszNpcSource_006E15F0)) keep=0;
     if (ITEMS_CheckItemFlag(item,0x400000,0x511,gszNpcSource_006E15F0)) keep=0;
     if (sub_0055F590_CheckItem(item,gszNpcSource_006E15F0,0x513)) keep=0;

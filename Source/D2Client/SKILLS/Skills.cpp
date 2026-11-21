@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -1417,7 +1418,7 @@ int __fastcall sub_004C60A0_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nAr
     }
 
     nMissile = ITEMS_GetMissileType(pItem);
-    if (ITEMS_GetItemType(pItem) == 0x26)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_MISSILE_POTION)
     {
         sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);
         sub_004CDC30(pUnit, nMissile, 0, 0, nX, nY, nSkillId, 1, 0);
@@ -2074,13 +2075,13 @@ static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2Cli
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     D2UnitStrc* pRightHand = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (pRightHand && (!ITEMS_CanBeEquipped(pRightHand) || ITEMS_GetItemType(pRightHand) == 0x26))
+    if (pRightHand && (!ITEMS_CanBeEquipped(pRightHand) || ITEMS_GetItemType(pRightHand) == ITEMTYPE_MISSILE_POTION))
     {
         pRightHand = NULL;
     }
 
     D2UnitStrc* pLeftHand = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (pLeftHand && (!ITEMS_CanBeEquipped(pLeftHand) || ITEMS_GetItemType(pLeftHand) == 0x26))
+    if (pLeftHand && (!ITEMS_CanBeEquipped(pLeftHand) || ITEMS_GetItemType(pLeftHand) == ITEMTYPE_MISSILE_POTION))
     {
         pLeftHand = NULL;
     }

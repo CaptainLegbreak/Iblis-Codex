@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
@@ -186,7 +187,7 @@ void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry)
 
 static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
 {
-    if (ITEMS_GetItemType(pItem) == 4)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
         return 0;
     if (!sub_0062E660(pItem))
         return 0;
@@ -233,7 +234,7 @@ int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int bService, in
     *pCost = 0;
     if (!pItem)
         return 0;
-    if (ITEMS_GetItemType(pItem) == 4)
+    if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
         return 0;
     int nStringId = 0;
     if (bService)
@@ -360,7 +361,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
     }
     else
     {
-        if (ITEMS_GetItemType(pItem) == 4)
+        if (ITEMS_GetItemType(pItem) == ITEMTYPE_GOLD)
             return 0;
         if (bCheckTick && GetTickCount() - gnGlobal_007C0DF1 < 0x1F4)
             return 0;

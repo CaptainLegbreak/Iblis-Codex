@@ -1,3 +1,4 @@
+#include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -2623,7 +2624,7 @@ int __stdcall D2Common_11024(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* 
     }
 
     D2SkillsTxt* pSkillsTxtRecord = pSkill->pSkillsTxt;
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 48)
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], ITEMTYPE_THROWN_WEAPON)
         || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
