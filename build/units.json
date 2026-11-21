@@ -50465,6 +50465,21 @@
      "name": "sub_6FCCF9D0"
     },
     {
+     "va": "0x005DED00",
+     "length": 28,
+     "name": "AITACTICS_RunToTargetUnitWithFlags"
+    },
+    {
+     "va": "0x005DED20",
+     "length": 26,
+     "name": "AITACTICS_RunToTargetUnit"
+    },
+    {
+     "va": "0x005DED40",
+     "length": 77,
+     "name": "sub_6FCD0410"
+    },
+    {
      "va": "0x005DEDE0",
      "length": 97,
      "name": "AITACTICS_RunToTargetCoordinates"
@@ -50483,6 +50498,16 @@
      "va": "0x005DEF30",
      "length": 67,
      "name": "AITACTICS_WalkToTargetCoordinatesNoSteps"
+    },
+    {
+     "va": "0x005DEF80",
+     "length": 38,
+     "name": "AITACTICS_WalkToTargetUnitWithSteps"
+    },
+    {
+     "va": "0x005DEFB0",
+     "length": 38,
+     "name": "AITACTICS_RunToTargetUnitWithSteps"
     }
    ]
   },
@@ -70071,31 +70096,6 @@
    "file": "Source/D2Game/Ai/AiThink4.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005DED00",
-     "length": 28,
-     "name": "AITACTICS_RunToTargetUnitWithFlags"
-    },
-    {
-     "va": "0x005DED20",
-     "length": 26,
-     "name": "AITACTICS_RunToTargetUnit"
-    },
-    {
-     "va": "0x005DED40",
-     "length": 77,
-     "name": "sub_6FCD0410"
-    },
-    {
-     "va": "0x005DEF80",
-     "length": 38,
-     "name": "AITACTICS_WalkToTargetUnitWithSteps"
-    },
-    {
-     "va": "0x005DEFB0",
-     "length": 38,
-     "name": "AITACTICS_RunToTargetUnitWithSteps"
-    },
     {
      "va": "0x005E0070",
      "length": 225,
