@@ -229,7 +229,7 @@ void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit);            
 
 D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6); // 0x00466360
 
-static __declspec(noinline) int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit);
+__declspec(noinline) int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit);
 
 struct D2InventoryStrc;
 
@@ -682,24 +682,7 @@ int __fastcall sub_00464860_IsUnitDead(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context sub_00463D90_SetPlayerUnit
-void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit)
-{
-    if (gpPlayerUnit_007A6A70)
-    {
-        sub_00453DE0();
-    }
-
-    if (pUnit)
-    {
-        sub_006488A0_SetDirection(pUnit->pDynamicPath, 0);
-        gnCharClass_007A0522 = (unsigned char)CUNIT_GetUnitClassId(pUnit);
-        sub_0044BEA0_SetValue(0);
-        sub_00453D90_RunSequenceA();
-    }
-
-    gpPlayerUnit_007A6A70 = pUnit;
-}
+void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
 void __fastcall sub_004643F0_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId)
 {

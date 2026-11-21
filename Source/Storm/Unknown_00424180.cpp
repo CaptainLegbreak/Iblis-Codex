@@ -268,22 +268,7 @@ static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(D2StormQueueS
     return 0;
 }
 
-// build: context sub_004225C0_DivUInt
-static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c)
-{
-    a.SetCount(b.Count());
-    unsigned __int64 nData = 0;
-    unsigned int i = b.Count();
-    while (i)
-    {
-        --i;
-        nData = nData * 0x100000000ui64 + b[i];
-        a[i] = (unsigned int)(nData / c);
-        nData %= c;
-    }
-    a.sub_00422140_Trim();
-    *pRemainder = (unsigned int)nData;
-}
+void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c); // 0x004225C0
 
 // 0x00422750
 static __declspec(noinline) int sub_00422750_IsOne(D2StormQueueStrc& a)
@@ -375,31 +360,9 @@ static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueSt
     a.SetCount(i);
 }
 
-// build: context sub_00422FC0_SubUInt
-static void __stdcall sub_00422FC0_SubUInt(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int c)
-{
-    unsigned __int64 nBorrow = ~(unsigned __int64)c + 1;
-    unsigned int i = 0;
-    for (; b.IsUsed(i); i++)
-    {
-        nBorrow += b[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
+void __stdcall sub_00422FC0_SubUInt(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int c); // 0x00422FC0
 
-// build: context sub_00423100_Sub
-static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c)
-{
-    unsigned __int64 nBorrow = 0;
-    unsigned int i = 0;
-    for (; b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nBorrow += (unsigned __int64)b[i] - c[i];
-        a[i] = ExtractLowPartSx(nBorrow);
-    }
-    a.SetCount(i);
-}
+void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c); // 0x00423100
 
 // 0x004234B0
 static __declspec(noinline) void sub_004234B0_FromStr(D2StormQueueStrc& a, const char* szString)

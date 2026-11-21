@@ -54,16 +54,7 @@ int __cdecl sub_00518C70_StartLogging(int nMode, int nValue)
     return nResult;
 }
 
-// build: context sub_00518D40_Log
-void __cdecl sub_00518D40_Log(const char* szFormat, ...)
-{
-    char szBuffer[0x200];
-    EnterCriticalSection(&gBnLogLock_00881860);
-    _vsnprintf(szBuffer, sizeof(szBuffer), szFormat, (char*)(&szFormat + 1));
-    szBuffer[sizeof(szBuffer) - 1] = 0;
-    SLogWrite(sub_00518C30_GetLog().hLog, szBuffer);
-    LeaveCriticalSection(&gBnLogLock_00881860);
-}
+void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
 
 // 0x00518EC0
 static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)

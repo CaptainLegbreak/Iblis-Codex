@@ -104,42 +104,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     return INVENTORY_GetItemCount(pInventory) < ITEMS_GetSockets(pItem);
 }
 
-// build: context sub_004844A0_DrawBodyLocPlacement
-static void sub_004844A0_DrawBodyLocPlacement(D2InventoryStrc* pInventory)
-{
-    if (gdwGlobal_007BCBF0 == 1 && sub_00468730() < gnGlobal_0071146C / 2)
-    {
-        return;
-    }
-    if (sub_00468740() >= gnGlobal_00711470 - 0x27)
-    {
-        return;
-    }
-    if (sub_00468730() < gnGlobal_0071146C / 2)
-    {
-        gnGlobal_007BCC20 = 0;
-        return;
-    }
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (!pCursorItem || !gdwGlobal_007BCBE8)
-    {
-        return;
-    }
-    unsigned char nWidth;
-    unsigned char nHeight;
-    ITEMS_GetDimensions(pCursorItem, &nWidth, &nHeight, szCmnItemsH_006D9B90, 0x6DC);
-    int nColor;
-    if ((ITEMS_CheckBodyLocation(pCursorItem, gnGlobal_007BCC20) && ITEMS_CheckRequirements(pCursorItem, sub_00463DD0_GetPlayerUnit(), 0, 0, 0, 0))
-        || sub_004843E0_CanSocketInto(INVENTORY_GetItemFromBodyLoc(pInventory, gnGlobal_007BCC20), pCursorItem))
-    {
-        nColor = 1;
-    }
-    else
-    {
-        nColor = 0;
-    }
-    sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[gnGlobal_007BCC20], nColor);
-}
+void sub_004844A0_DrawBodyLocPlacement(D2InventoryStrc* pInventory); // 0x004844A0
 
 // build: context sub_004845A0_DrawOtherHandFrame
 static __forceinline void sub_004845A0_DrawOtherHandFrame(D2InvCompGridStrc* pCompGrid)

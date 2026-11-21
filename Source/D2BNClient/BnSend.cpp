@@ -1642,49 +1642,7 @@ int __fastcall sub_0051DBF0_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned i
     return 1;
 }
 
-// build: context sub_0051C7E0_ReceiveThread
-unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
-{
-    char aBuffer[0x2000];
-    int nResult = 1;
-    if (InterlockedIncrement(&gnReceiveThreads_00881BF4) > 1)
-    {
-        InterlockedDecrement(&gnReceiveThreads_00881BF4);
-        return 1;
-    }
-    while (!InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0) && !gbReady_00881BF8)
-        Sleep(10);
-    unsigned long dwLastTick = GetTickCount();
-    int nUsed = 0;
-    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-    while (pSafeSock && !pSafeSock->bStopping && !InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
-    {
-        const int bReady = FOG_SOCKET_Select(pSafeSock);
-        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-        if (!pSafeSock || pSafeSock->bStopping || InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
-            break;
-        if (bReady)
-        {
-            const int nReceived = FOG_SOCKET_Receive(pSafeSock, &aBuffer[nUsed], sizeof(aBuffer) - nUsed);
-            if (nReceived <= 0)
-            {
-                sub_00520AD0_SetDisconnected();
-                nResult = 0;
-                break;
-            }
-            nUsed = sub_0051C760_SplitPackets((unsigned char*)aBuffer, nReceived + nUsed);
-        }
-        const unsigned long dwTick = GetTickCount();
-        if (dwTick - dwLastTick >= 180000)
-        {
-            sub_0051C5C0_SendPacket(0, 0, 0);
-            dwLastTick = dwTick;
-        }
-        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-    }
-    InterlockedDecrement(&gnReceiveThreads_00881BF4);
-    return nResult;
-}
+unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C7E0
 
 // 0x0051DC80
 void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)

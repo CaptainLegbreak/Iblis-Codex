@@ -948,12 +948,7 @@ unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit)
     return 0x80;
 }
 
-// build: context PARTYSCREEN_PlayerLeftParty
-void __fastcall PARTYSCREEN_PlayerLeftParty(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure)
-{
-    PARTY_IteratePartyMembers(pGame, SUNIT_GetPartyId(pPlayer1), PARTYSCREEN_PartyIterate_PlayerLeftParty, pPlayer1);
-    PARTY_LeaveParty(pGame, pPlayer1);
-}
+void __fastcall PARTYSCREEN_PlayerLeftParty(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure); // 0x005A5D20
 
 // 0x005A5FF0
 void __fastcall PARTYSCREEN_RefreshPartyRelationsAfterLeave(D2GameStrc* pGame, D2UnitStrc* pPlayer)

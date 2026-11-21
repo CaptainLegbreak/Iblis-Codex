@@ -72,21 +72,7 @@ void __cdecl sub_00467A00()
     gdwGlobal_00711F94 = 0x13;
 }
 
-// build: context sub_00467A10
-D2UnitStrc* __cdecl sub_00467A10()
-{
-    if (gdwGlobal_007A6A94)
-    {
-        D2UnitStrc* pUnit = sub_00463990(gnSelectedUnitId_007A6A78, gnSelectedUnitType_007A6A8C);
-        if (pUnit && sub_00466870(pUnit, 0, 0, 0))
-        {
-            return pUnit;
-        }
-        gdwGlobal_007A6A98 = 0;
-        gdwGlobal_007A6A94 = 0;
-    }
-    return 0;
-}
+D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 
 #include "gen/data/Source/D2Client/Unknown_00466DC0.inc"
 

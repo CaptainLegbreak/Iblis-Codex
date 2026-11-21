@@ -139,28 +139,7 @@ static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsi
         sub_0046EFD0_DrawFramedBox(gnGlobal_007A2858 - nAltWidth / 2 + nX - 5, nY - gnGlobal_007A285C, nAltWidth + 0xA, nHeight, gbGlobal_007BF034, 2);
 }
 
-// build: context sub_0049AF60_DrawButtonHint
-static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsigned short nString2, int nCenterX, int nUnused, int nY1, int nY2, int nColor)
-{
-    if (!nString2)
-    {
-        sub_0049AAF0_DrawTextFrame(0, nString1, nCenterX, 0);
-        {
-            const int nTextX = sub_0049AAA0_GetCenteredStringX(nString1, nCenterX);
-            sub_00502320(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, 0);
-        }
-        return;
-    }
-    sub_0049AAF0_DrawTextFrame(nString2, nString1, nCenterX, 1);
-    {
-        const int nTextX = sub_0049AAA0_GetCenteredStringX(nString1, nCenterX);
-        sub_00502320(D2LANG_GetStringFromTblIndex(nString1), nTextX + gnGlobal_007A2858, nY1 - gnGlobal_007A285C, nColor, 0);
-    }
-    {
-        const int nTextX = sub_0049AAA0_GetCenteredStringX(nString2, nCenterX);
-        sub_00502320(D2LANG_GetStringFromTblIndex(nString2), nTextX + gnGlobal_007A2858, nY2 - gnGlobal_007A285C, nColor, 0);
-    }
-}
+void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsigned short nString2, int nCenterX, int nUnused, int nY1, int nY2, int nColor); // 0x0049AF60
 
 static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
 {

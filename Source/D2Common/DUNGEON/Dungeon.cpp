@@ -1677,13 +1677,6 @@ int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int 
     return nMin + ITEMS_RollLimitedRandomNumber(&pItem->pSeed, nMax - nMin + 1);
 }
 
-// build: context DRLGACTIVATE_GetRoomsAllocationStats
-void __fastcall DRLGACTIVATE_GetRoomsAllocationStats(int* pOutStatsClientAllocatedRooms, int* pOutStatsClientFreedRooms, int* pOutStatsAllocatedRooms, int* pOutStatsFreedRooms)
-{
-    *pOutStatsClientAllocatedRooms = gStatsClientAllocatedRooms;
-    *pOutStatsClientFreedRooms = gStatsClientFreedRooms;
-    *pOutStatsAllocatedRooms = gStatsAllocatedRooms;
-    *pOutStatsFreedRooms = gStatsFreedRooms;
-}
+void __fastcall DRLGACTIVATE_GetRoomsAllocationStats(int* pOutStatsClientAllocatedRooms, int* pOutStatsClientFreedRooms, int* pOutStatsAllocatedRooms, int* pOutStatsFreedRooms); // 0x0061B8F0
 
 #include "gen/data/Source/D2Common/DUNGEON/Dungeon.inc"

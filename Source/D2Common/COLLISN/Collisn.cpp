@@ -1152,49 +1152,6 @@ void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY
     }
 }
 
-// build: context COLLISION_SetMaskWithPattern
-// @ref 0x0064EA90
-void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask)
-{
-    switch (nCollisionPattern)
-    {
-    case 1:
-        sub_0064DC80(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DDB0(pRoom, nX, nY, MASK_NO_PATH);
-        }
-        break;
-
-    case 2:
-        sub_0064DDF0(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DC80(pRoom, nX, nY, MASK_NO_PATH);
-        }
-        break;
-
-    case 3:
-        sub_0064DC80(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DDB0(pRoom, nX, nY, MASK_PET);
-        }
-        break;
-
-    case 4:
-        sub_0064DDF0(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DC80(pRoom, nX, nY, MASK_PET);
-        }
-        break;
-
-    case 5:
-        sub_0064DC80(pRoom, nX, nY, nMask);
-        break;
-    }
-}
 
 // @ref 0x0064EBA0
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask)
@@ -1218,52 +1175,6 @@ void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int 
     }
 }
 
-// build: context COLLISION_ResetMaskWithPattern
-// @ref 0x0064EC10
-void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask)
-{
-    if (pRoom)
-    {
-    switch (nCollisionPattern)
-    {
-    case 1:
-        sub_0064DA40(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DB70(pRoom, nX, nY, MASK_NO_PATH);
-        }
-        break;
-
-    case 2:
-        sub_0064DBC0(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DA40(pRoom, nX, nY, MASK_NO_PATH);
-        }
-        break;
-
-    case 3:
-        sub_0064DA40(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DB70(pRoom, nX, nY, MASK_PET);
-        }
-        break;
-
-    case 4:
-        sub_0064DBC0(pRoom, nX, nY, nMask);
-        if (nMask)
-        {
-            sub_0064DA40(pRoom, nX, nY, MASK_PET);
-        }
-        break;
-
-    case 5:
-        sub_0064DA40(pRoom, nX, nY, nMask);
-        break;
-    }
-    }
-}
 
 // 0x0064DE30
 void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, int nMask)

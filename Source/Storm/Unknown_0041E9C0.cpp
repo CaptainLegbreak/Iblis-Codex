@@ -1529,12 +1529,7 @@ extern "C" LimbCell* __fastcall sub_00420FE0_LastCell(SequenceView* sequence)
     return 0;
 }
 
-// build: context sub_0044B210_StoreSlots
-extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second)
-{
-    gSlotFirst = first;
-    gSlotSecond = second;
-}
+extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second); // 0x0044B210
 
 extern "C" int __cdecl sub_004549C0_IsEnabled()
 {

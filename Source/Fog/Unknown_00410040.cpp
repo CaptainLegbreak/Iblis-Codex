@@ -316,16 +316,7 @@ int __stdcall sub_004111A0_GetLowestSetBit(unsigned int nValue)
     return -1;
 }
 
-// build: context sub_00411280_ResetRecords
-void __cdecl sub_00411280_ResetRecords()
-{
-    for (unsigned int i = 0; i < gnRecordCount_007768A4; ++i)
-    {
-        gaRecords_0075E8A8[i].nFirst = 0;
-        gaRecords_0075E8A8[i].nSecond = 0;
-    }
-    gnTickAtReset_007768A0 = GetTickCount();
-}
+void __cdecl sub_00411280_ResetRecords(); // 0x00411280
 
 // 0x004113C0
 void __fastcall sub_004113C0(char* szString, int nLength)

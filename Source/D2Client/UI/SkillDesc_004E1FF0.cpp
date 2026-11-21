@@ -1958,38 +1958,7 @@ void __fastcall sub_004EA010_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc*
     sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
-// build: context sub_004EAD60_DrawWeaponPhysElemDamage
-void __fastcall sub_004EAD60_DrawWeaponPhysElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
-{
-    if (!pSkill)
-    {
-        return;
-    }
-
-    if (!pSkillsTxt)
-    {
-        return;
-    }
-
-    int nMin = 0;
-    int nMax = 0;
-    int nColor = sub_004E6FB0_GetETypeColor(pSkillsTxt->nEType);
-    sub_004E9660_AddScaledWeaponDamage(pUnit, &nMin, &nMax, 0, &nColor, pSkill, pSkillsTxt->nSrcDam);
-    nMin += SKILLS_GetMinPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
-    nMax += SKILLS_GetMaxPhysDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 0) >> 8;
-    if (pSkillsTxt->nEType == 5)
-    {
-        const int nLength = SKILLS_GetElementalLength(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);
-        nMin += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-        nMax += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-    }
-    else
-    {
-        nMin += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-        nMax += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-    }
-    sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
-}
+void __fastcall sub_004EAD60_DrawWeaponPhysElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight); // 0x004EAD60
 
 void __fastcall sub_004EAE70_DrawPhysWeaponElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
@@ -2724,47 +2693,6 @@ int __fastcall sub_004F38D0_ParamMissile(D2UnitStrc* pUnit, int nSkillId, int nS
     return 1;
 }
 
-// build: context sub_004F21B0_GetCltMissileId
-int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = 0;
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        pSkillsTxtRecord = &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    if (!pSkillsTxtRecord)
-    {
-        return -1;
-    }
-
-    if (pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks_006CE268[2 & 7] && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount)
-    {
-        if (pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount)
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState);
-            if (pStatList)
-            {
-                int nIndex = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
-                if (nIndex > 1)
-                {
-                    if (nIndex >= 3)
-                    {
-                        nIndex = 3;
-                    }
-                }
-                else
-                {
-                    nIndex = 1;
-                }
-
-                return pSkillsTxtRecord->wCltMissile[nIndex];
-            }
-        }
-    }
-
-    return pSkillsTxtRecord->wCltMissile[1];
-}
 
 // 0x004F4110
 int __fastcall sub_004F4110_GetSkillParam5(int nSkillId)

@@ -111,15 +111,15 @@ struct Obj006260B0 { unsigned char bUnknown00[0x10]; unsigned int dwFlags10; uns
 
 void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pStatList); // 0x00626C00
 
-static int __stdcall sub_00626110_CopyStats(D2StatListStrc* pStatList, int nStatId, D2StatStrc* pBuffer, int nBufferSize);
+int __stdcall sub_00626110_CopyStats(D2StatListStrc* pStatList, int nStatId, D2StatStrc* pBuffer, int nBufferSize);
 
 extern "C" const char gszStatListSourceFile[];
 
 void __fastcall sub_00626920_UpdateStatValue(D2StatListStrc* pStatListEx, int nLayer_StatId, int nValue, D2UnitStrc* pUnit); // 0x00626920
 
-static int __stdcall sub_00624ED0_GetBaseStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
+int __stdcall sub_00624ED0_GetBaseStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
 
-static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
+int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 
@@ -2626,19 +2626,6 @@ void __stdcall D2Common_10469(D2UnitStrc* pUnit)
     while (pPrevious);
 }
 
-// build: context STATLIST_RemoveAllStats
-void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList)
-{
-    if (!pStatList)
-    {
-        return;
-    }
-
-    while (pStatList->Stats.nStatCount > 0)
-    {
-        sub_006270B0(pStatList, pStatList->Stats.pStat->nStat, 0, pStatList->Stats.pStat->nLayer);
-    }
-}
 
 // 0x006276C0
 void __stdcall D2Common_10525(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)

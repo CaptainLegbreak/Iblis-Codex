@@ -248,26 +248,7 @@ void __fastcall sub_0067D6D0(D2DrlgRoomStrc* pRoom)
     pRoom->pOutdoor = pOutdoor;
 }
 
-// build: context sub_0067D710
-void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom)
-{
-    sub_0066EEA0(pRoom);
-
-    D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
-    sub_0066EDB0(pRoom, &pOutdoor->tGrid14, &pOutdoor->pTileTypeGrid, 0, 0);
-    sub_0066ECE0(pRoom, &pOutdoor->tGrid14, 0, 0, 0);
-    sub_0066ECE0(pRoom, &pOutdoor->tGrid28, 0, 0, 0);
-    sub_0066EEE0(pRoom);
-    sub_0066EC10(pRoom, &pOutdoor->tGrid14, &pOutdoor->pTileTypeGrid, 0, 0, 0);
-    sub_0066EC10(pRoom, &pOutdoor->tGrid28, 0, 0, 0, 0);
-
-    D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
-    pTileGrid->nTileWalls = pTileGrid->nWalls;
-    pTileGrid->nTileFloors = pTileGrid->nFloors;
-    pTileGrid->nTileRoofs = pTileGrid->nShadows;
-
-    sub_0066CCB0(pRoom);
-}
+void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom); // 0x0067D710
 
 // 0x0067D7A0
 unsigned int __fastcall sub_0067D7A0(D2DrlgRoomStrc* pRoom)

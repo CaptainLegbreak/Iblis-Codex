@@ -424,27 +424,9 @@ static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
     LeaveCriticalSection(&gBasePathLock_00779068);
 }
 
-// build: context sub_00415940_PathPresent
-static __declspec(noinline) int sub_00415940_PathPresent(const char* szPath)
-{
-    return ~(GetFileAttributesA(szPath) >> 4) & 1;
-}
+int sub_00415940_PathPresent(const char* szPath); // 0x00415940
 
-// build: context sub_00415A80_BuildPath
-static void __stdcall sub_00415A80_BuildPath(int bStripPath, const char* szName, char* szOut)
-{
-    if (!gszBasePath_00778F28[0])
-        sub_004158E0_InitBasePath();
-    if (bStripPath)
-    {
-        const char* szSlash = SStrChrR(szName, 0x5C);
-        if (szSlash)
-            szName = szSlash + 1;
-    }
-    char szBuffer[0x104];
-    wsprintfA(szBuffer, gszPathJoinFormat_006CE200, gszBasePath_00778F28, szName);
-    _fullpath(szOut, szBuffer, 0x104);
-}
+void __stdcall sub_00415A80_BuildPath(int bStripPath, const char* szName, char* szOut); // 0x00415A80
 
 // 0x00416FB0
 static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, D2StormFileRecStrc* pFile)

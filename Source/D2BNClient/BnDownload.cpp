@@ -534,12 +534,7 @@ static __declspec(noinline) int __stdcall sub_0051E5F0_RecvAll(unsigned int nSoc
     return 1;
 }
 
-// build: context D2CMPResetTileCacheHits
-extern "C" void __cdecl D2CMPResetTileCacheHits()
-{
-    gnValue_0088CB10 = 0;
-    gnValue_0088CB0C = 0;
-}
+extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 
 // 0x0051E640
 static __declspec(noinline) unsigned long sub_0051E640_GetFileSizeIfTimeMatches(const char* szFile, const __int64* pFileTime)

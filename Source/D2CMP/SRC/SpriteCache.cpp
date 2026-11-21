@@ -298,9 +298,9 @@ extern "C" const char gszCharsDir_006DCC34[];                                   
 
 extern "C" const char gszSpriteCacheSourceFile[];                                                           // 0x006E364C
 
-__declspec(noinline) static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
+__declspec(noinline) int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
 
-static void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
+void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
 
 D2SpriteCacheNodeStrc* __fastcall sub_005FFC40_SpriteCacheAlloc(D2SpriteCacheStrc* pCache, unsigned int nSize, unsigned int nKey, int bLocked); // 0x005FFC40
 
@@ -1631,50 +1631,7 @@ static __forceinline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pCont
     return 1;
 }
 
-// build: context sub_006000B0_LoadConvertedEntry
-static void __stdcall sub_006000B0_LoadConvertedEntry(int nDirection, unsigned int nFrames, char* szName, int bDC6, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile, char* szPath)
-{
-    if (!pFile || !pContext)
-    {
-        return;
-    }
-
-    if (!SpriteCache_ShouldConvert(pContext, nDirection, nFrames))
-    {
-        return;
-    }
-
-    unsigned int const tArg1 = nFrames * 2;
-    const unsigned int nConverted = sub_00600D30_CanConvertDirections(nFrames, tArg1);
-    pContext->nDirection = (unsigned int)pFile->nDirections > 1 ? (nConverted << 6) / (unsigned int)pFile->nDirections : 1;
-
-    if (sub_0060ACE0_GfxHashFind(&gCmpBlockTableB, pContext, &nDirection, &nFrames, pFile))
-    {
-        return;
-    }
-
-    D2_ASSERT(nDirection == 1, 0x686);
-    D2_ASSERT(nFrames > 1, 0x687);
-
-    if (!*szName && !sub_005FE2B0_BuildGfxName(pContext, szName))
-    {
-        return;
-    }
-
-    if (!*szPath && !sub_005FE610_BuildGfxPath(szName, pContext, szPath))
-    {
-        return;
-    }
-
-    if (bDC6)
-    {
-        sub_005FFFA0_LoadDC6CacheEntry(pFile, nDirection, nFrames, szPath, pContext);
-    }
-    else
-    {
-        sub_005FFE90_LoadDC6Entry(pFile, nDirection, nFrames, szPath, pContext);
-    }
-}
+void __stdcall sub_006000B0_LoadConvertedEntry(int nDirection, unsigned int nFrames, char* szName, int bDC6, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile, char* szPath); // 0x006000B0
 
 static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc* context, char* name, char* path)
 {

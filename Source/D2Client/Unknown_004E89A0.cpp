@@ -231,48 +231,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt
     }
 }
 
-// build: context sub_004E72D0_GetElemDamage
-
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt_H* pSkillsTxt, int nSkillLevel)
-{
-    int nMin;
-    int nMax;
-    if (pSkillsTxt->nEType == 5)
-    {
-        const int nLength = SKILLS_GetElementalLength(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);
-        *pType = 2;
-        nMin = SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-        nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-    }
-    else
-    {
-        nMin = SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-        nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-    }
-
-    if (pType)
-    {
-        switch (pSkillsTxt->nEType)
-        {
-        case 1:
-            *pType = 1;
-            break;
-        case 2:
-            *pType = 9;
-            break;
-        case 3:
-        case 4:
-            *pType = 3;
-            break;
-        case 5:
-            *pType = 2;
-            break;
-        }
-    }
-
-    *pMin += nMin;
-    *pMax += nMax;
-}
+void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt_H* pSkillsTxt, int nSkillLevel); // 0x004E72D0
 
 // 0x004E73E0
 static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
@@ -629,63 +588,9 @@ static int __stdcall sub_004E81C0_AppendLabelValueLabels(Unicode* wszOut, unsign
     return 1;
 }
 
-// build: context sub_004E82A0_AppendSecondsTwentieths
+int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue); // 0x004E82A0
 
-static int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    const int nTenths = nValue * 20 / 3;
-    int nWhole = nTenths / 10;
-    const int nFraction = nTenths % 10;
-    if (nWhole < 1)
-        nWhole = 1;
-    if (nWhole || nFraction)
-    {
-        int szText_[8]; char* const szText = (char*)szText_;
-        if (nFraction)
-            wsprintfA(szText, szFmtDecimal_006DBE94, nWhole, nFraction);
-        else
-            wsprintfA(szText, gszFormatD_006D57BC, nWhole);
-        sub_00526320_ToUnicode(wszText, szText, 32);
-    }
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(nWhole == 1 ? 0x10C0 : 0x10B6));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// build: context sub_004E83E0_AppendSecondsThirds
-
-static int __stdcall sub_004E83E0_AppendSecondsThirds(Unicode* wszOut, unsigned short wStr, int nValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    const int nTenths = nValue * 10 / 3;
-    int nWhole = nTenths / 10;
-    const int nFraction = nTenths % 10;
-    if (nWhole < 1)
-        nWhole = 1;
-    if (nWhole || nFraction)
-    {
-        int szText_[8]; char* const szText = (char*)szText_;
-        if (nFraction)
-            wsprintfA(szText, szFmtDecimal_006DBE94, nWhole, nFraction);
-        else
-            wsprintfA(szText, gszFormatD_006D57BC, nWhole);
-        sub_00526320_ToUnicode(wszText, szText, 32);
-    }
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(nWhole == 1 ? 0x10C0 : 0x10B6));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004E83E0_AppendSecondsThirds(Unicode* wszOut, unsigned short wStr, int nValue); // 0x004E83E0
 
 // 0x004E84F0
 static int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut)
@@ -1260,38 +1165,9 @@ static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt_
     return 0;
 }
 
-// build: context sub_004EDCA0_AddElemDamageOverTime
+int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nSkillId, int nSkillLevel); // 0x004EDCA0
 
-static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nSkillId, int nSkillLevel)
-{
-    const int nLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 0);
-    const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * nLength >> 8;
-    const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) * nLength >> 8;
-    sub_004EDB30_AddSeconds(nLength, 0x2B0E, 0, wszText);
-    sub_004EC140_AddElemRange(wszText, nMin, 0, nMax, pSkillsTxt->nEType);
-    return 1;
-}
-
-// build: context sub_004EDDD0_AddAttackInfo
-
-static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt_H* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
-{
-    if (sub_0044DCC0())
-    {
-        sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
-        sub_004EC220_AddSkillElemDamage(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt, 0);
-        sub_004EC2E0_AddPhysDamage(0, pUnit, wszText, nSkillId, nSkillLevel, 0);
-        sub_004EC510_AddToHit(wszText, pUnit, nSkillId, nSkillLevel);
-        return 1;
-    }
-
-    int nMin = 0;
-    int nMax = 0;
-    int nType;
-    sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nType, pSkillsTxt, nSkillLevel);
-    sub_004E80F0_AppendLabelRange(0x10A0, wszText, 0, nMin, nMax, 0);
-    return 1;
-}
+int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt_H* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
 
 static __forceinline void AppendString(Unicode* wszText, unsigned short nString)
 {

@@ -164,22 +164,7 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
     return pDest;
 }
 
-// build: context sub_005263E0
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength)
-{
-    int nLength = 0;
-    for (int i = 0; pSource[i].wChar; ++i)
-    {
-        if (nLength >= nMaxLength - 1)
-            break;
-        const int nUnits = sub_00526190_UnicodeCharToUtf8(pSource[i], &szDest[nLength]);
-        if (nUnits == -1)
-            break;
-        nLength += nUnits;
-    }
-    szDest[nLength] = 0;
-    return szDest;
-}
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 // 0x00526430
 int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount)

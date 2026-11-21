@@ -210,52 +210,7 @@ static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
     return nPlay;
 }
 
-// build: context sub_00418140_DdaGetPosition
-int __stdcall sub_00418140_DdaGetPosition(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)
-{
-    int bResult = 0;
-    unsigned int nSize = 0;
-    unsigned int nPlayed = 0;
-    EnterCriticalSection(&gBasePathLock_00779068);
-    D2StormFileRecStrc* pRec;
-    if (sub_00415950_GetFileRec(hFile, &pRec))
-    {
-        D2StormStreamStrc* pStream;
-        for (pStream = gDdaList_00708384.Head(); pStream; pStream = pStream->f_0.Next())
-        {
-            if (pStream->pFile == pRec)
-                break;
-        }
-        if (!pStream)
-        {
-            sub_0041C340_SetLastError(0x85100072);
-        }
-        else
-        {
-            nSize = pStream->nSize;
-            const int nState = pStream->nState;
-            if (nState == 4)
-            {
-                sub_0041C340_SetLastError(0x85100072);
-            }
-            else
-            {
-                bResult = 1;
-                if (nState != 0 && nState != 1)
-                {
-                    sub_00415760_UpdatePlayed(pStream);
-                    nPlayed = pStream->nPlayed;
-                }
-            }
-        }
-    }
-    if (pnPlayed)
-        *pnPlayed = nPlayed;
-    if (pnSize)
-        *pnSize = nSize;
-    LeaveCriticalSection(&gBasePathLock_00779068);
-    return bResult;
-}
+int __stdcall sub_00418140_DdaGetPosition(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize); // 0x00418140
 
 // 0x00419790
 static D2StormRequestStrc* __stdcall sub_00419790_QueueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)

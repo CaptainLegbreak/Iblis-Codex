@@ -98,75 +98,9 @@ D2UnitStrc* __fastcall sub_004639B0_FindServerSideUnit(unsigned int nUnitId, int
     return sub_00463940_FindUnitInTable(nUnitId & 0x7F, nUnitId, &gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitType);
 }
 
-// build: context sub_004639D0_GetOwnerUnit
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit)
-{
-    D2_ASSERT(pUnit, 0x83);
-    if (UNIT_HasFlagEx(pUnit, 0x400))
-    {
-        const int nOwnerType = pUnit->dwOwnerType;
-        const unsigned int nOwnerGUID = pUnit->dwOwnerGUID;
-        if (nOwnerType == 3)
-        {
-            return sub_004639B0_FindServerSideUnit(nOwnerGUID, nOwnerType);
-        }
-        return sub_00463990(nOwnerGUID, nOwnerType);
-    }
-    return 0;
-}
+D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-// build: context sub_00463A50_AddUnitToTable
-static __declspec(noinline) int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit)
-{
-    if (UNIT_HasFlag(pUnit, 0x200000))
-    {
-        if (sub_004639B0_FindServerSideUnit(pUnit->dwUnitId, pUnit->dwUnitType))
-        {
-            return 0;
-        }
-        D2_ASSERT(!sub_004639B0_FindServerSideUnit(pUnit->dwUnitId, pUnit->dwUnitType), 0x9C);
-    }
-    else
-    {
-        if (sub_00463990(pUnit->dwUnitId, pUnit->dwUnitType))
-        {
-            return 0;
-        }
-        D2_ASSERT(!sub_00463990(pUnit->dwUnitId, pUnit->dwUnitType), 0xA5);
-    }
-
-    sub_004CC160(pUnit, 1);
-
-    const unsigned int nUnitId = pUnit->dwUnitId;
-    const int nHash = nUnitId & 0x7F;
-    D2UnitStrc** ppTable;
-    if (UNIT_HasFlag(pUnit, 0x200000))
-    {
-        ppTable = &gpUnitHashTable_007A5270[pUnit->dwUnitType * 0x80];
-    }
-    else
-    {
-        ppTable = &gpUnitHashTable_007A5E70[pUnit->dwUnitType * 0x80];
-    }
-
-    D2UnitStrc* pPrev = 0;
-    D2UnitStrc* pNext = ppTable[nHash];
-    while (pNext && pNext->dwUnitId > nUnitId)
-    {
-        pPrev = pNext;
-        pNext = pNext->pListNext;
-    }
-
-    pUnit->pListNext = pNext;
-    if (pPrev)
-    {
-        pPrev->pListNext = pUnit;
-        return 1;
-    }
-
-    ppTable[nHash] = pUnit;
-    return 1;
-}
+int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit); // 0x00463A50
 
 void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit)
 {

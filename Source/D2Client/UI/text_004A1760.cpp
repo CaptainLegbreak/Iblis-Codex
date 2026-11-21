@@ -831,13 +831,7 @@ extern "C" void __cdecl sub_004B2250_InitializeControls()
     gB27_00727216 = 3;
 }
 
-// build: context sub_005173D3_ExchangeRecordHandler
-extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27RecordHandler handler)
-{
-    B27RecordHandler previous = gB27_00881834;
-    gB27_00881834 = handler;
-    return previous;
-}
+extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27RecordHandler handler); // 0x005173D3
 
 extern "C" void __fastcall sub_00535780_SetPlayers(unsigned int count)
 {

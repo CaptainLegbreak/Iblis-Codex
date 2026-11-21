@@ -658,37 +658,7 @@ static int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut)
     return 1;
 }
 
-// build: context sub_004E85C0_AppendManaCost
-static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue)
-{
-    short nMana = pSkillsTxt->wMana;
-    if (!nMana && !pSkillsTxt->wLevelMana)
-        return 0;
-
-    if (nValue)
-        return sub_004E84F0_AppendManaValue(nValue, wszOut);
-
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
-    if (!pSkillDescTxt)
-        return 0;
-
-    nSkillId = pSkillDescTxt->wStrMana;
-    const int nShift = pSkillsTxt->nManaShift;
-    const int nLevelMana = pSkillsTxt->wLevelMana;
-    const int nLevelCost = nLevelMana << nShift;
-    int nCost = ((nLevel - 1) * nLevelMana + nMana) << nShift;
-    const int nMinCost = pSkillsTxt->wMinMana << 8;
-    if (nMinCost > nCost)
-        nCost = nMinCost;
-
-    if (pSkillsTxt->nManaShift == 8 || nLevelCost > 0x100 || nCost > 0x1900)
-        return sub_004E79E0_AppendLabelValue(wszOut, (unsigned short)nSkillId, nCost >> 8, 0);
-
-    if (nMultiplier <= 10)
-        return sub_004E7B90_AppendLabelDecimal((unsigned short)nSkillId, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
-
-    return sub_004E7A90_AppendScaledValue(wszOut, 0, nCost, (unsigned short)nSkillId, 0x1506, nMultiplier);
-}
+int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue); // 0x004E85C0
 
 // 0x004EC090
 static void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nMonsterId, int nPercent, int nBonus)

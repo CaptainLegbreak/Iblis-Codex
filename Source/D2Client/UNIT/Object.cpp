@@ -484,44 +484,7 @@ static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
         pUnit->dwFlags &= ~2;
 }
 
-// build: context sub_004BCB20_StepDoorFrame
-static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
-{
-    const int nMode = pUnit->dwAnimMode;
-    const int nFrameCnt = pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode];
-    if (nMode == 1)
-    {
-        const int nLastFrame = nFrameCnt - 0x100;
-        int nFrame = pUnit->nSeqCurrentFramePrecise;
-        if (nFrame == nLastFrame)
-        {
-            sub_004BCA90_FinishDoorMode(pUnit);
-            return;
-        }
-        nFrame += pUnit->wAnimSpeed;
-        pUnit->nSeqCurrentFramePrecise = nFrame;
-        if (nFrame > nLastFrame)
-            pUnit->nSeqCurrentFramePrecise = nLastFrame;
-        return;
-    }
-
-    if (nMode == 3)
-    {
-        const int nFrame = pUnit->nSeqCurrentFramePrecise;
-        if (nFrame <= 0)
-        {
-            sub_004BCA90_FinishDoorMode(pUnit);
-            return;
-        }
-        if (pUnit->wAnimSpeed > nFrame)
-            pUnit->nSeqCurrentFramePrecise = 0;
-        else
-            pUnit->nSeqCurrentFramePrecise = nFrame - pUnit->wAnimSpeed;
-        return;
-    }
-
-    D2_ASSERT(0, 0x155);
-}
+void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit); // 0x004BCB20
 
 static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
 {

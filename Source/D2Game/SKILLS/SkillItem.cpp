@@ -3172,76 +3172,8 @@ D2MonEquipTxt* __fastcall sub_005D30A0_GetMonEquipTxtRecord(int nMonsterId)
     return &sgptDataTables->pMonEquipTxt[pMonStatsTxtRecord->nMonEquipTxtRecordId];
 }
 
-// build: context SKILLS_SrvSt22_PsychicHammer
-int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTargetUnit)
-    {
-        return 0;
-    }
+int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D30F0
 
-    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-    if (DUNGEON_IsRoomInTown(pUnitRoom))
-    {
-        return 0;
-    }
-
-    D2ActiveRoomStrc* pTargetRoom = UNITS_GetRoom(pTargetUnit);
-    if (DUNGEON_IsRoomInTown(pTargetRoom))
-    {
-        return 0;
-    }
-
-    if (pTargetUnit->dwUnitType != UNIT_PLAYER && pTargetUnit->dwUnitType != UNIT_MONSTER)
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// build: context SKILLS_GetProgressiveSkillMissileId
-int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = 0;
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        pSkillsTxtRecord = &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    if (!pSkillsTxtRecord)
-    {
-        return -1;
-    }
-
-    if (pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7] && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount)
-    {
-        if (pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount)
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState);
-            if (pStatList)
-            {
-                int nIndex = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
-                if (nIndex > 1)
-                {
-                    if (nIndex >= 3)
-                    {
-                        nIndex = 3;
-                    }
-                }
-                else
-                {
-                    nIndex = 1;
-                }
-
-                return (&pSkillsTxtRecord->wSrvMissile)[nIndex];
-            }
-        }
-    }
-
-    return pSkillsTxtRecord->wSrvMissileA;
-}
 
 // 0x005DC5C0
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY)

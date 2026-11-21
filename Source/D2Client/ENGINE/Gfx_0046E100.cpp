@@ -628,38 +628,7 @@ void __stdcall sub_0047BA80_StepChatIndex(int nDelta)
     }
 }
 
-// build: context sub_0047E9A0_DrawSlots
-void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
-{
-    int nSlots = 8;
-    if (!bDraw)
-    {
-        return;
-    }
-    if (gbSmallPanel_007BC978)
-    {
-        nSlots = 7;
-    }
-    for (int i = 0; i < nSlots; ++i)
-    {
-        if (gnSlotState_007BC8F8[i] == 1)
-        {
-            D2CelContextStrc tContext;
-            memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = gpSlotCells_007BC964;
-            tContext.nFrame = gnSlotFrame_007BC918[i] + 1;
-            sub_004F6480(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
-        }
-        else
-        {
-            D2CelContextStrc tContext;
-            memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = gpSlotCells_007BC964;
-            tContext.nFrame = gnSlotFrame_007BC918[i];
-            sub_004F6480(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
-        }
-    }
-}
+void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
 
 // 0x00480000
 int __stdcall sub_00480000_SendWardenPacket(const void* pData, int nSize)

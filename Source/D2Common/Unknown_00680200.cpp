@@ -175,73 +175,7 @@ static __declspec(noinline) void DRLGOUTDESR_PlaceFillsInCanyon(D2DrlgLevelStrc*
     DRLGOUTDESR_PlacePresetVariants(nLevelPrestIds2, 2, 1, pLevel);
 }
 
-// build: context DRLGOUTDESR_InitAct2OutdoorLevel
-void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
-    DRLGOUTPLACE_PlaceAct1245OutdoorBorders(pLevel);
-
-    switch (pLevel->eLevelId)
-    {
-    case LEVEL_ROCKYWASTE:
-        DRLGOUTDESR_PlaceDesertTransitionToTown(pLevel);
-        DRLGOUTDESR_PlaceBorders(pLevel);
-        DRLGOUTDESR_AddExits(pLevel);
-        DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
-        sub_0067F6F0_PlaceRockyWasteVariants(pLevel);
-        break;
-
-    case LEVEL_DRYHILLS:
-        DRLGOUTDESR_PlaceCliffs(pLevel);
-        DRLGOUTDESR_PlaceBorders(pLevel);
-        DRLGOUTDESR_AddExits(pLevel);
-        DRLGOUTDOORS_SpawnAct12Waypoint(pLevel);
-        DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
-        sub_0067F740_PlaceDryHillsVariants(pLevel);
-        break;
-
-    case LEVEL_FAROASIS:
-        DRLGOUTDESR_PlaceCliffs(pLevel);
-        DRLGOUTDESR_PlaceBorders(pLevel);
-        DRLGOUTDESR_AddExits(pLevel);
-        sub_0067F7A0_PlaceFarOasisVariants(pLevel);
-        DRLGOUTDOORS_SpawnAct12Waypoint(pLevel);
-        DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
-        DRLGOUTDESR_PlaceFillsInFarOasis(pLevel);
-        break;
-
-    case LEVEL_LOSTCITY:
-        DRLGOUTDESR_PlaceCliffs(pLevel);
-        DRLGOUTDESR_PlaceBorders(pLevel);
-        DRLGOUTDESR_AddExits(pLevel);
-        DRLGOUTDESR_PlaceRuinsInLostCity(pLevel);
-        DRLGOUTDOORS_SpawnAct12Waypoint(pLevel);
-        DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
-        DRLGOUTDESR_PlaceFillsInLostCity(pLevel);
-        break;
-
-    case LEVEL_VALLEYOFSNAKES:
-        DRLGOUTDESR_AddExits(pLevel);
-        break;
-
-    case LEVEL_CANYONOFTHEMAGI:
-        DRLGOUTDESR_PlaceTombEntriesInCanyon(pLevel);
-        DRLGOUTDESR_PlaceBorders(pLevel);
-        DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
-        DRLGOUTDESR_PlaceFillsInCanyon(pLevel);
-        break;
-
-    case LEVEL_PANDEMONIUMRUN2:
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 4, 4, 0x18A, -1, 0);
-        DRLGOUTDESR_PlaceBorders(pLevel);
-        DRLGOUTDESR_PlaceFillsInCanyon(pLevel);
-        DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
-        break;
-
-    default:
-        return;
-    }
-}
+void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel); // 0x0067F980
 
 // 0x0067FC70
 static __declspec(noinline) int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)

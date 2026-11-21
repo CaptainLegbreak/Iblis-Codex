@@ -315,7 +315,7 @@ unsigned char gabBeltHotkey_007BEFB0[1]; // 0x007BEFB0
 
 static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int nX, int nY);
 
-static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
+void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
 
 static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState);
 
@@ -1655,115 +1655,12 @@ void __cdecl sub_0049C3D0_DrawPartyPanel()
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x102F), gnGlobal_007A2858 + 0x125, 0x182 - gnGlobal_007A285C, 0, 1);
 }
 
-// build: context sub_00499E50_DrawPanelQuad
-void __cdecl sub_00499E50_DrawPanelQuad()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpPanelQuadCel_007BF018;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
-    tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + 256, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
-    tContext.nFrame = 2;
-    sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_007A285C + gnGlobal_00711470 - 48, -1, 5, 0);
-    tContext.nFrame = 3;
-    sub_004F6480(&tContext, gnGlobal_007A2858 + 256, gnGlobal_007A285C + gnGlobal_00711470 - 48, -1, 5, 0);
-}
 
-// build: context sub_004A9E60_AssignHotkey
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
-{
-    for (int i = 0; i < 60; ++i)
-    {
-        const int nX = gtHotkeySlots_007C0300.nX[i];
-        const int nY = gtHotkeySlots_007C0300.nY[i];
-        const int nMouseX = sub_00468730();
-        const int nMouseY = sub_00468740();
-        if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
-        {
-            if (gnHotkeySkill_007C06C8[nHotkey] != -1)
-            {
-                sub_004786A0_SendDwords2(0x51, (nHotkey << 16) + 0xFFFF, -1);
-            }
+void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
 
-            gnHotkeySkill_007C06C8[nHotkey] = gtHotkeySlots_007C0300.nSkill[i];
-            if (!gbGlobal_007C07FC)
-            {
-                gbHotkeyLeft_007C07B8[nHotkey] = 0;
-            }
-            else
-            {
-                gbHotkeyLeft_007C07B8[nHotkey] = 1;
-            }
-            gnHotkeyOwner_007C0768[nHotkey] = gtHotkeySlots_007C0300.f_2D0[i];
-            sub_004786A0_SendDwords2(0x51, (nHotkey << 16) + (gbHotkeyLeft_007C07B8[nHotkey] ? 0x8000 : 0) + gnHotkeySkill_007C06C8[nHotkey], gnHotkeyOwner_007C0768[nHotkey]);
+void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
 
-            for (int j = 0; j < 16; ++j)
-            {
-                if (gnHotkeySkill_007C06C8[nHotkey] == gnHotkeySkill_007C06C8[j] && gnHotkeyOwner_007C0768[nHotkey] == gnHotkeyOwner_007C0768[j] && nHotkey != j)
-                {
-                    gnHotkeySkill_007C06C8[j] = -1;
-                    gbHotkeyLeft_007C07B8[j] = -1;
-                    gnHotkeyOwner_007C0768[j] = -1;
-                    sub_004786A0_SendDwords2(0x51, (j << 16) + 0xFFFF, -1);
-                }
-            }
-        }
-    }
-}
-
-// build: context sub_004AAAE0_DrawPagedPanel
-void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pCellFile;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 320, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
-    tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 64, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
-    tContext.nFrame = 2;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 320, gnGlobal_007A285C + gnGlobal_00711470 - 48, -1, 5, 0);
-    tContext.nFrame = 3;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 64, gnGlobal_007A285C + gnGlobal_00711470 - 48, -1, 5, 0);
-    tContext.nFrame = 4 * nPage;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 320, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
-    tContext.nFrame = 4 * nPage + 1;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 64, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
-    tContext.nFrame = 4 * nPage + 2;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 320, gnGlobal_007A285C + gnGlobal_00711470 - 48, -1, 5, 0);
-    tContext.nFrame = 4 * nPage + 3;
-    sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 64, gnGlobal_007A285C + gnGlobal_00711470 - 48, -1, 5, 0);
-}
-
-// build: context sub_004AB530_DrawTabCel
-void __cdecl sub_004AB530_DrawTabCel()
-{
-    int nX = gnTabTable_00724CE4[gbGlobal_007A0522][gnGlobal_00724BEC];
-    if (nX == -149)
-    {
-        gnTabSelection_00724CE0 = 1;
-    }
-    else if (nX == -220)
-    {
-        gnTabSelection_00724CE0 = 2;
-    }
-    else if (nX == -305)
-    {
-        gnTabSelection_00724CE0 = 3;
-    }
-    nX += gnGlobal_0071146C - gnGlobal_007A2858;
-
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
-    tContext.nFrame = (gbGlobal_007C0C38 != 0) + 10;
-    tContext.nDirection = 0;
-    sub_004F6480(&tContext, nX, gnGlobal_007A285C + gnGlobal_00711470 - 63, -1, 5, 0);
-}
+void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
 
 // 0x004BE340
 int __fastcall sub_004BE340_CountLinesInView(D2TextPanelStrc* pPanel)

@@ -69,26 +69,4 @@ void __stdcall sub_004A6310_ToggleMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// build: context sub_004A6350_CommandMsgHandler
-void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (sub_0044DA30())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    switch (pMsg->wParamHigh)
-    {
-    case 1:
-        sub_004A6260_UpdateKeyState(0x101);
-        break;
-    case 2:
-        sub_004A6260_UpdateKeyState(0x102);
-        break;
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
+void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x004A6350

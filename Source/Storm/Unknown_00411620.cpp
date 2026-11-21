@@ -193,17 +193,7 @@ static unsigned int sub_A21_FreeListIndex(unsigned int nSize)
     return nIndex;
 }
 
-// build: context sub_004119B0_CalcBlockSize
-static __declspec(noinline) void __stdcall sub_004119B0_CalcBlockSize(unsigned int* pTotal, unsigned int* pPadding, int* pbLarge, int* pbSentinel, unsigned int nSize)
-{
-    *pbLarge = gnFlag2_00776CBC || nSize > 0xFE87;
-    *pbSentinel = gnFlag0_007784C4 && !*pbLarge;
-    if (*pbLarge)
-        nSize = 4;
-    nSize += (*pbSentinel ? 2 : 0) + sizeof(D2SMemBlockStrc);
-    *pTotal = nSize + ((0 - nSize) & 7);
-    *pPadding = *pTotal - nSize;
-}
+void __stdcall sub_004119B0_CalcBlockSize(unsigned int* pTotal, unsigned int* pPadding, int* pbLarge, int* pbSentinel, unsigned int nSize); // 0x004119B0
 
 // 0x00411A50
 static __declspec(noinline) void __stdcall sub_00411A50_InitBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock, unsigned int nSize, unsigned int nPadding, unsigned char nFlags)
@@ -342,62 +332,7 @@ static __declspec(noinline) void __stdcall sub_00411C70_SplitBlock(unsigned int*
     *pPadding += nRemain;
 }
 
-// build: context sub_00411DC0_RebuildFreeLists
-static __declspec(noinline) void sub_00411DC0_RebuildFreeLists(D2SMemHeapStrc* pHeap)
-{
-    D2SMemBlockStrc** apTail[9];
-    apTail[0] = &pHeap->apFree[0];
-    apTail[1] = &pHeap->apFree[1];
-    apTail[2] = &pHeap->apFree[2];
-    apTail[3] = &pHeap->apFree[3];
-    apTail[4] = &pHeap->apFree[4];
-    apTail[5] = &pHeap->apFree[5];
-    apTail[6] = &pHeap->apFree[6];
-    apTail[7] = &pHeap->apFree[7];
-    apTail[8] = &pHeap->apFree[8];
-    D2SMemBlockStrc* pPrev = 0;
-    for (D2SMemBlockStrc* pBlock = pHeap->pFirst; pBlock != pHeap->pEnd; pBlock = (D2SMemBlockStrc*)((char*)pBlock + pBlock->wSize))
-    {
-        if (!(pBlock->nFlags & SMEM_BLOCK_FREE))
-            continue;
-        pBlock->pNextFree = 0;
-        if (pPrev)
-        {
-            unsigned short wPrevSize = pPrev->wSize;
-            unsigned int nPrevSize = wPrevSize;
-            if (pBlock == (D2SMemBlockStrc*)((char*)pPrev + nPrevSize))
-            {
-                unsigned short wSize = pBlock->wSize;
-                unsigned int nMerged = wSize + nPrevSize;
-                if (nMerged <= 0xFFFF)
-                {
-                    pPrev->wSize = wSize + pPrev->wSize;
-                    continue;
-                }
-            }
-            unsigned int nIndex = sub_A21_FreeListIndex(nPrevSize);
-            *apTail[nIndex] = pPrev;
-            apTail[nIndex] = &pPrev->pNextFree;
-        }
-        pPrev = pBlock;
-    }
-    if (pPrev)
-    {
-        unsigned int nIndex = sub_A21_FreeListIndex(pPrev->wSize);
-        *apTail[nIndex] = pPrev;
-        apTail[nIndex] = &pPrev->pNextFree;
-    }
-    *apTail[0] = 0;
-    *apTail[1] = 0;
-    *apTail[2] = 0;
-    *apTail[3] = 0;
-    *apTail[4] = 0;
-    *apTail[5] = 0;
-    *apTail[6] = 0;
-    *apTail[7] = 0;
-    *apTail[8] = 0;
-    pHeap->nFragments = 0;
-}
+void sub_00411DC0_RebuildFreeLists(D2SMemHeapStrc* pHeap); // 0x00411DC0
 
 // 0x00411F00
 D2SMemHeapStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2SMemHeapStrc** ppLink)
@@ -938,32 +873,6 @@ static __declspec(noinline) void* __stdcall sub_00412F30_ReAlloc(int* pLockIndex
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags); // 0x00413020
 
-// build: context SMemAlloc
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags)
-{
-    if (!gbHeapInitialized_007788D0)
-    {
-        sub_00411CD0_InitHeaps();
-        if (!gbHeapInitialized_007788D0)
-            sub_00411620_FatalError(0x8510007D, szSMemAlloc_006CEDCC, -1);
-    }
-    unsigned int dwId = sub_00411670_GetCallerId(nLine, szFile);
-    EnterCriticalSection(&gaFreeBlockLocks_00776CC0[dwId & 0xFF]);
-    int nLockIndex = dwId & 0xFF;
-    D2SMemHeapStrc* pFound;
-    for (pFound = gapFreeBlocks_007768B8[nLockIndex]; pFound; pFound = pFound->pNext)
-    {
-        if (pFound->dwId == dwId)
-            break;
-    }
-    D2SMemHeapStrc* pHeap = pFound ? pFound : sub_004117F0_CreateHeap(nLine, dwId, nLockIndex, 0x1000, 0x1000, 0x10000, szFile);
-    void* pResult = sub_00412E40_HeapAlloc(pHeap, dwFlags, &nLockIndex, nSize);
-    if (nLockIndex != -1)
-        LeaveCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);
-    if (gpFreeBlockSweep_007788C8 && gpFreeBlockSweep_007788C8 != pHeap)
-        sub_00412000_ReleaseFreeBlocks();
-    return pResult;
-}
 
 // 0x00413250
 void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned int nSize)

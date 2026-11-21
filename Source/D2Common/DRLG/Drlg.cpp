@@ -1026,30 +1026,7 @@ D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgS
     return DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
 }
 
-// build: context sub_0066D960_FindTilePresetEntry
-int __stdcall sub_0066D960_FindTilePresetEntry(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor)
-{
-    for (int i = 0; i < 37; ++i)
-    {
-        if (gDrlgRoomTileLevelRanges_006EEFC8[i].nLevelId == nLevelId)
-        {
-            const int nTileStyle = (nPackedTileInformation >> 20) & 0x3F;
-            const int nTileSequence = (nPackedTileInformation >> 8) & 0xFF;
-
-            for (int j = gDrlgRoomTileLevelRanges_006EEFC8[i].nArrayStartId; j <= gDrlgRoomTileLevelRanges_006EEFC8[i].nArrayEndId; ++j)
-            {
-                if (nTileStyle == gDrlgRoomTilePresetUnits_006EF188[j].nTileStyle
-                    && nTileSequence == gDrlgRoomTilePresetUnits_006EF188[j].nTileSequence
-                    && bIsRightWallWithDoor == gDrlgRoomTilePresetUnits_006EF188[j].bIsRightWallWithDoor)
-                {
-                    return j;
-                }
-            }
-        }
-    }
-
-    return -1;
-}
+int __stdcall sub_0066D960_FindTilePresetEntry(int nLevelId, unsigned int nPackedTileInformation, int bIsRightWallWithDoor); // 0x0066D960
 
 // 0x00642D10
 void __fastcall DRLG_SetLevelPositionAndSize(D2DrlgStrc* pDrlg,D2DrlgLevelStrc* pLevel)

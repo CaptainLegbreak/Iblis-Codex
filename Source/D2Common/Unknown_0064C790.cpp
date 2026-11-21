@@ -49,27 +49,7 @@ static void __stdcall sub_6FD411F0(D2RoomCollisionGridStrc* pCollisionGrid, int 
     }
 }
 
-// build: context sub_0064C580_ClearTileCollisionFlags
-static void __stdcall sub_0064C580_ClearTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
-{
-    if (pCollisionGrid && pCollisionGrid->pCollisionMask)
-    {
-        unsigned char* pFlags = sub_00604CE0(pTileLibraryEntry);
-        const int nWidth = pCollisionGrid->pRoomCoords.nSubtileWidth;
-        const int nCappedY = nY > 0 ? nY : 0;
-        const int nCappedX = nX > 0 ? nX : 0;
-        unsigned char* pTmp = &pFlags[5 * (nY - nCappedY + 4) - nX];
-        int nIndex = nWidth * nCappedY;
-        for (int nYCounter = nCappedY; nYCounter < nY + 5; ++nYCounter)
-        {
-            unsigned short* pCollisionMask = &pCollisionGrid->pCollisionMask[nIndex];
-            for (int nXCounter = nCappedX; nXCounter < nX + 5; ++nXCounter)
-                pCollisionMask[nXCounter] &= ~pTmp[nXCounter];
-            pTmp -= 5;
-            nIndex += nWidth;
-        }
-    }
-}
+void __stdcall sub_0064C580_ClearTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0064C580
 
 // build: context sub_0064C640_SetTileCollisionFlags
 static void __stdcall sub_0064C640_SetTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)

@@ -480,17 +480,7 @@ __forceinline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
     }
 }
 
-// build: context sub_6FC6A150
-D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
-    {
-        return 0;
-    }
-
-    return sub_6FC68D70(pGame, pUnit, D2Common_11063(pRoom, nMonsterId), nAnimMode, a5, nFlags);
-}
+D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
 
 // 0x005B24E0
 int __fastcall sub_6FC6A230(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags)

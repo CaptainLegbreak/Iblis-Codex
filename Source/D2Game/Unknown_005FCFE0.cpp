@@ -602,40 +602,7 @@ static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc* pGame, D2UnitStrc*
     return AIBAAL_GetRandomArrayIndex_Inline(aiParams, 16, pUnit, 1);
 }
 
-// build: context sub_005FC1C0_RollBaalMeleeAiParam
-static __declspec(noinline) int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int bNotCollidingWithWall, D2UnitStrc* pUnit)
-{
-    int aiParams[16] = { 0, 50, 0, 0, 0, 0, 0, 0, 20, 30, 150, 10, 10, 70, 40, 0 };
-
-    if (!pGame->nDifficulty)
-    {
-        aiParams[1] = 75;
-        aiParams[13] = 45;
-    }
-
-    if (UNITS_GetCurrentLifePercentage(pTarget) < 33)
-    {
-        aiParams[10] += 50;
-    }
-
-    aiParams[1] += 100 - UNITS_GetCurrentLifePercentage(pUnit);
-
-    if (STATES_CheckState(pTarget, STATE_COLD))
-    {
-        aiParams[8] = 0;
-        aiParams[13] = 0;
-        aiParams[11] = 0;
-    }
-
-    if (!bNotCollidingWithWall)
-    {
-        aiParams[11] = 0;
-        aiParams[13] = 0;
-        aiParams[12] = 0;
-    }
-
-    return AIBAAL_GetRandomArrayIndex_M282Inline(aiParams, 16, pUnit, 1);
-}
+int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int bNotCollidingWithWall, D2UnitStrc* pUnit); // 0x005FC1C0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 int __stdcall PATH_GetY(void* pPath); // 0x00648900
@@ -696,13 +663,6 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
     if (bNotCollidingWithWall)
         return AIBAAL_RollRandomAiParamForNonCollidingUnit(pGame, pAiControl, pUnit, pTarget, nCount, bInMediumRange, bInFarRange, bInCloseRange, nMax);
     return sub_005FC300_RollUberAiParam(pGame, pTarget, nCount, bInMediumRange, bInFarRange, pUnit);
-}
-// build: context sub_005FC450_Shim
-
-// calling-convention shim (not game code)
-int __stdcall sub_005FC450_Shim(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nCount, int bMedium, int bFar, int bClose, int nMax, D2UnitStrc* pUnit)
-{
-    return AIBAAL_RollRandomAiParamForNonCollidingUnit(pGame, pAiControl, pUnit, pTarget, nCount, bMedium, bFar, bClose, nMax);
 }
 
 typedef int(__fastcall* CULLFN)(D2UnitStrc*, D2UnitStrc*);

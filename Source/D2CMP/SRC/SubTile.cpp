@@ -244,27 +244,7 @@ static __declspec(noinline) int sub_0060D7E0_HasTransparentDiamondPixel(const un
     return 0;
 }
 
-// build: context sub_0060DB60_MapBlock
-void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* pSrc, D2CmpTileBlockStrc* pDst, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap)
-{
-    D2_ASSERT(pSrc, 0x1EC);
-    D2_ASSERT(pDst, 0x1ED);
-    D2_ASSERT(pfnMap, 0x1EE);
-    D2_ASSERT(pSrc->nFlags & 8, 0x1EF);
-    for (int i = 0; i < pSrc->nSubs; ++i)
-    {
-        const D2CmpSubTileRecordStrc* pSrcSub = &pSrc->pSubs[i];
-        D2CmpSubTileRecordStrc* pDstSub = &pDst->pSubs[i];
-        pDstSub->tHeader = pSrcSub->tHeader;
-        pDstSub->ptData = 0;
-        if (pSrcSub->ptData)
-        {
-            sub_0060DA80_MapSubTile(tColor, pfnMap, pDstSub, pSrcSub);
-            if (pDstSub->tHeader.nFlags & 4)
-                pDst->nFlags |= 0x10;
-        }
-    }
-}
+void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* pSrc, D2CmpTileBlockStrc* pDst, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap); // 0x0060DB60
 
 // 0x0060D840
 static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc)

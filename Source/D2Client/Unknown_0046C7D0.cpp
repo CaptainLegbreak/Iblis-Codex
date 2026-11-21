@@ -92,26 +92,7 @@ static __forceinline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
     }
 }
 
-// build: context sub_0046C720_FindNearestTarget
-static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
-{
-    D2UnitStrc* pNearest = 0;
-    for (int i = 0; i < 8; ++i)
-    {
-        D2UnitStrc* pTarget = gpAiTargets_007A7470[i];
-        if (pTarget && pTarget->dwAnimMode && pTarget->dwAnimMode != 12)
-        {
-            const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
-            if (nDistance < *pDistance)
-            {
-                pNearest = gpAiTargets_007A7470[i];
-                *pDistance = nDistance;
-            }
-        }
-    }
-
-    return pNearest;
-}
+D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance); // 0x0046C720
 
 static void __stdcall sub_0046C770_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
@@ -401,83 +382,7 @@ static void __stdcall sub_0046D070_AiType4(D2UnitStrc* pTarget, D2UnitStrc* pUni
     }
 }
 
-// build: context sub_0046D110_AiType5
-static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    const int nMode = pUnit->dwAnimMode;
-    if (nMode == 12 || nMode == 0)
-    {
-        return;
-    }
-
-    if (nDistance < 2 && sub_0046CBF0_IsSamePosition(pTarget, pUnit))
-    {
-        sub_0046CAB0_CommandMode8(pUnit);
-        return;
-    }
-
-    if (nMode != 1)
-    {
-        return;
-    }
-
-    if (nDistance < 4)
-    {
-        sub_0046C7D0_StepAwayFromUnit(pUnit, 6, 1, 0, pTarget);
-        return;
-    }
-
-    D2UnitStrc* pFound = 0;
-    int nFoundDistance = 0;
-    if (nDistance > 7)
-    {
-        sub_0046C570_FindRoomUnit(pUnit, &pFound, &nFoundDistance, sub_0046C660_CheckTarget2);
-    }
-
-    int* pState = sub_004AE170(pUnit);
-    D2SeedStrc* pSeed = &pUnit->pSeed;
-    if (!pState)
-    {
-        AI_SetTimer_Inline(pUnit, 32);
-        sub_0046CB40_CommandMode7(pUnit);
-        return;
-    }
-
-    if (pFound && nDistance > 7 && !*pState)
-    {
-        sub_0046C770_CommandOnUnit(0, 6, pUnit, pFound);
-        *pState = 1;
-        return;
-    }
-
-    if (*pState)
-    {
-        const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
-        if (nRoll < 20)
-        {
-            *pState = 0;
-        }
-
-        AI_SetTimer_Inline(pUnit, 32);
-        sub_0046CB40_CommandMode7(pUnit);
-        return;
-    }
-
-    const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
-    if (nRoll < 75)
-    {
-        AI_SetTimer_Inline(pUnit, 30);
-        sub_0046CB40_CommandMode7(pUnit);
-        return;
-    }
-
-    sub_0046C960_StepRandom(5, 1, 0, pUnit);
-}
+void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0046D110
 
 // 0x0046D280
 static void __stdcall sub_0046D280_AiType6(unsigned int nDistance, D2UnitStrc* pUnit, D2UnitStrc* pTarget)

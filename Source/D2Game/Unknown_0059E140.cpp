@@ -149,26 +149,6 @@ void __fastcall ACT2Q7_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-// build: context ACT2Q7_Callback11_ScrollMessage
-void __fastcall ACT2Q7_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    if (pQuestArg->nNPCNo != MONSTER_ACT2GUARD4)
-    {
-        return;
-    }
-
-    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pQuestArg->pGame->nDifficulty];
-    if (nMessageIndex == 59 || nMessageIndex == 60)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q7, QFLAG_PRIMARYGOALDONE);
-        pQuestData->pCallback[2] = ACT2Q7_Callback02_NpcDeactivate;
-    }
-    else
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q7, 0);
-    }
-}
 
 // 0x0059E330
 void __fastcall ACT2Q7_InitQuestData(D2QuestDataStrc* pQuestData)

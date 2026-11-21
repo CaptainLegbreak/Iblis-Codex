@@ -20,12 +20,7 @@
 // build: context sub_00425350_IsPrime
 // build: context sub_00423DC0_Div
 // build: context sub_00423100_Sub
-// build: context sub_00422D00_Shl
-
-inline void* operator new(unsigned int, void* pWhere) throw()
-{
-    return pWhere;
-}
+void* operator new(unsigned int, void* pWhere) throw(); // 0x00422D00
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 

@@ -359,62 +359,6 @@ static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D
     return PATH_RayTrace(tPoint, pGameCoord, pDynamicPath);
 }
 
-// build: context sub_6FDAA720
-int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo)
-{
-    D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
-    const int nDistMax = pPathInfo->nDistMax;
-    int nbPathPoints = pDynamicPath->dwPathPoints;
-    D2PathPointStrc tLastSegmentEndCoord = pPathInfo->tStartCoord;
-    const int nDirectionOffset = pDynamicPath->nDirOffset;
-    {
-        const D2PathPointStrc tTargetCoord = pPathInfo->tTargetCoord;
-        int nPrevDirection = 0xFF;
-        int bSegmentEndAlreadyAdded = 0;
-
-        D2PathPointStrc tCurCoords = tLastSegmentEndCoord;
-        int nCurDistance;
-        for (nCurDistance = 0; nCurDistance < nDistMax; nCurDistance += 1)
-        {
-            if (tCurCoords.X == tTargetCoord.X && tCurCoords.Y == tTargetCoord.Y)
-            {
-                break;
-            }
-
-            bSegmentEndAlreadyAdded = 0;
-            int nDirections[3];
-            PATH_GetDirections_6FDAB790(nDirections, tLastSegmentEndCoord, tTargetCoord);
-            nDirections[0] = (nDirections[0] + nDirectionOffset) & 7;
-            nDirections[1] = (nDirections[1] + nDirectionOffset) & 7;
-            nDirections[2] = (nDirections[2] + nDirectionOffset) & 7;
-            int nDirection;
-            if (!sub_6FDAA880(tLastSegmentEndCoord, nDirections, &nDirection, pPathInfo) || ((nDirection - 4) & 7) == nPrevDirection)
-            {
-                break;
-            }
-
-            tCurCoords.X += gatDirectionToOffset[nDirection].nX;
-            tCurCoords.Y += gatDirectionToOffset[nDirection].nY;
-            if (nDirection != nPrevDirection)
-            {
-                pDynamicPath->PathPoints[nbPathPoints] = tLastSegmentEndCoord;
-                nbPathPoints += 1;
-                bSegmentEndAlreadyAdded = 1;
-            }
-            tLastSegmentEndCoord = tCurCoords;
-            nPrevDirection = nDirection;
-        }
-
-        if (!bSegmentEndAlreadyAdded && nCurDistance != 0)
-        {
-            pDynamicPath->PathPoints[nbPathPoints] = tLastSegmentEndCoord;
-            nbPathPoints += 1;
-        }
-    }
-
-    pDynamicPath->dwPathPoints = nbPathPoints;
-    return nbPathPoints;
-}
 
 int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo)
 {

@@ -118,47 +118,9 @@ static __forceinline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStr
     return true;
 }
 
-// build: context sub_004047D0_GetDebugDirectory
-static bool sub_004047D0_GetDebugDirectory(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeaderStrc* pHeader)
-{
-    const int nKind = sub_00404730_GetImageKind(pHeader);
-    if (!nKind)
-    {
-        return false;
-    }
-    *pRva = 0;
-    *pSize = -1;
-    unsigned long nRva;
-    unsigned long nSize;
-    if (nKind == 2)
-    {
-        const D2ImageOptionalHeader64Strc* pHeader64 = (const D2ImageOptionalHeader64Strc*)pHeader;
-        if (pHeader64->NumberOfRvaAndSizes <= 6)
-        {
-            return false;
-        }
-        nRva = pHeader64->DataDirectory[6].VirtualAddress;
-        nSize = pHeader64->DataDirectory[6].Size;
-    }
-    else
-    {
-        if (pHeader->NumberOfRvaAndSizes <= 6)
-        {
-            return false;
-        }
-        nRva = pHeader->DataDirectory[6].VirtualAddress;
-        nSize = pHeader->DataDirectory[6].Size;
-    }
-    *pSize = nSize;
-    *pRva = nRva;
-    return (!nRva && !nSize) || (nRva && sub_00404850_IsAtLeast1C(*pSize));
-}
+bool sub_004047D0_GetDebugDirectory(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeaderStrc* pHeader); // 0x004047D0
 
-// build: context sub_00404850_IsAtLeast1C
-BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue)
-{
-    return nValue >= 0x1C;
-}
+BOOLEAN __stdcall sub_00404850_IsAtLeast1C(unsigned int nValue); // 0x00404850
 
 // 0x00404860
 static void sub_00404860_SetNb10Info(D2CrashModuleStrc* pModule, const D2CvNb10Strc* pCv)
@@ -173,42 +135,9 @@ static void sub_00404890_CopyRsdsGuid(D2CrashModuleStrc* pModule, const D2CvRsds
     pModule->tGuid = pCv->tGuid;
 }
 
-// build: context sub_004048C0_ReadCodeView
-static bool sub_004048C0_ReadCodeView(const unsigned long* pCv, D2CrashModuleStrc* pModule, unsigned int nSize)
-{
-    if (nSize < 4)
-    {
-        return false;
-    }
-    if (IsBadReadPtr(pCv, nSize))
-    {
-        return false;
-    }
-    if (*pCv == 0x3031424E)
-    {
-        return sub_00404F80_ReadNb10(pModule, (const D2CvNb10Strc*)pCv);
-    }
-    if (*pCv == 0x53445352)
-    {
-        return sub_00404FF0_ReadRsds((const D2CvRsdsStrc*)pCv, pModule);
-    }
-    return false;
-}
+bool sub_004048C0_ReadCodeView(const unsigned long* pCv, D2CrashModuleStrc* pModule, unsigned int nSize); // 0x004048C0
 
-// build: context sub_00404900_FindCodeView
-static bool __stdcall sub_00404900_FindCodeView(const D2ImageDosHeaderStrc* pImage, const D2ImageDebugDirStrc* pDirs, D2CrashModuleStrc* pModule, unsigned long nSize)
-{
-    const unsigned int nCount = nSize / sizeof(D2ImageDebugDirStrc);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        const unsigned long* pData = (const unsigned long*)((const char*)pImage + pDirs[i].AddressOfRawData);
-        if (pDirs[i].Type == 2 && sub_004048C0_ReadCodeView(pData, pModule, pDirs[i].SizeOfData))
-        {
-            return true;
-        }
-    }
-    return false;
-}
+bool __stdcall sub_00404900_FindCodeView(const D2ImageDosHeaderStrc* pImage, const D2ImageDebugDirStrc* pDirs, D2CrashModuleStrc* pModule, unsigned long nSize); // 0x00404900
 
 // build: context sub_004049A0_ReadImageInfo
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage)
@@ -430,30 +359,7 @@ bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
     return false;
 }
 
-// build: context sub_00404DC0_EnumModulesToolhelp
-static __declspec(noinline) bool sub_00404DC0_EnumModulesToolhelp(void* pContext)
-{
-    void* hSnapshot = CreateToolhelp32Snapshot(8, 0);
-    if (hSnapshot == (void*)-1)
-    {
-        return false;
-    }
-    __declspec(align(8)) D2ModuleEntry32Strc tEntry;
-    tEntry.dwSize = 0x428;
-    if (Module32FirstW(hSnapshot, &tEntry))
-    {
-        do
-        {
-            if (!sub_00404AB0_VisitModule(pContext, (const D2ImageDosHeaderStrc*)tEntry.modBaseAddr, tEntry.szModule, -1))
-            {
-                break;
-            }
-            tEntry.dwSize = 0x428;
-        } while (Module32NextW(hSnapshot, &tEntry));
-    }
-    CloseHandle(hSnapshot);
-    return true;
-}
+bool sub_00404DC0_EnumModulesToolhelp(void* pContext); // 0x00404DC0
 
 // build: context D2_NtCurrentTeb
 __forceinline D2TebStrc* D2_NtCurrentTeb()
@@ -461,43 +367,6 @@ __forceinline D2TebStrc* D2_NtCurrentTeb()
     return (D2TebStrc*)__readfsdword(0x18);
 }
 
-// build: context sub_00404E60_EnumLoadedModules
-bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext)
-{
-    if (!GetModuleHandleW(L"ntdll.dll"))
-    {
-        return false;
-    }
-    __try
-    {
-        D2LdrDataStrc* pLdr = D2_NtCurrentTeb()->ProcessEnvironmentBlock->Ldr;
-        D2ListEntryStrc* pHead = &pLdr->InMemoryOrderModuleList;
-        for (D2ListEntryStrc* pLink = pHead->Flink; pLink != pHead; pLink = pLink->Flink)
-        {
-            D2LdrEntryStrc* pEntry = (D2LdrEntryStrc*)((char*)pLink - 8);
-            if (!sub_00404AB0_VisitModule(pContext, (const D2ImageDosHeaderStrc*)pEntry->DllBase, pEntry->FullDllName.Buffer, pEntry->FullDllName.Length))
-            {
-                break;
-            }
-        }
-    }
-    __except (1)
-    {
-    }
-    return true;
-}
+bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext); // 0x00404E60
 
-// build: context sub_00404F20_EnumModules
-static bool sub_00404F20_EnumModules(D2CrashModuleListStrc* pList)
-{
-    bool bResult = sub_00404C60_EnumModulesPsapi(pList);
-    if (!bResult)
-    {
-        bResult = sub_00404DC0_EnumModulesToolhelp(pList);
-        if (!bResult)
-        {
-            return sub_00404E60_EnumLoadedModules(pList);
-        }
-    }
-    return bResult;
-}
+bool sub_00404F20_EnumModules(D2CrashModuleListStrc* pList); // 0x00404F20

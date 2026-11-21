@@ -1093,12 +1093,6 @@ static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int n
     }
 }
 
-// build: context sub_Emit_006C6990
-
-int __stdcall sub_Emit_006C6990(const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nSize, int* pWidth, int* pHeight, int* pBitDepth)
-{
-    return DecodePcxMem(pWidth, pData, nDataSize, pPalette, pPixels, nSize, pHeight, pBitDepth) + 2;
-}
 
 void __fastcall ResetDictionaryContext(D2BitOutputStrc* pState, unsigned char** ppOutput)
 {

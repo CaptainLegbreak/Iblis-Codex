@@ -450,7 +450,7 @@ extern D2InvRectStrc gRect_007BCBB0; // 0x007BCBB0
 
 extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
 
-static __declspec(noinline) void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nY, unsigned char nWidth, unsigned char nHeight, int nColor);
+__declspec(noinline) void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nY, unsigned char nWidth, unsigned char nHeight, int nColor);
 
 char* __stdcall ITEMS_GetEarName(D2UnitStrc* pItem); // 0x00628340
 
@@ -931,20 +931,7 @@ static void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid,
     sub_00468040(pGrid->nGridLeft + nX, pGrid->nGridTop + nColor);
 }
 
-// build: context sub_00483A70_DrawSlotFrame
-static void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
-{
-    if (nColor == 2)
-    {
-        return;
-    }
-    const int nLeft = pCompGrid->rect.nLeft;
-    const int nTop = pCompGrid->rect.nTop;
-    if (nLeft >= 0 && nLeft < gnAutomapWidth_007A5220 && nTop >= 0 && nTop < gnAutomapHeight_007A521C)
-    {
-        sub_0046EFD0_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabColors_007BCAD8[nColor], 0);
-    }
-}
+void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor); // 0x00483A70
 
 static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem)
 {
@@ -1271,42 +1258,6 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     return INVENTORY_GetItemCount(pInventory) < ITEMS_GetSockets(pItem);
 }
 
-// build: context sub_004844A0_DrawBodyLocPlacement
-static void sub_004844A0_DrawBodyLocPlacement(D2InventoryStrc* pInventory)
-{
-    if (gdwGlobal_007BCBF0 == 1 && sub_00468730() < gnGlobal_0071146C / 2)
-    {
-        return;
-    }
-    if (sub_00468740() >= gnGlobal_00711470 - 0x27)
-    {
-        return;
-    }
-    if (sub_00468730() < gnGlobal_0071146C / 2)
-    {
-        gnGlobal_007BCC20 = 0;
-        return;
-    }
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (!pCursorItem || !gdwGlobal_007BCBE8)
-    {
-        return;
-    }
-    unsigned char nWidth;
-    unsigned char nHeight;
-    ITEMS_GetDimensions(pCursorItem, &nWidth, &nHeight, szCmnItemsH_006D9B90, 0x6DC);
-    int nColor;
-    if ((ITEMS_CheckBodyLocation(pCursorItem, gnGlobal_007BCC20) && ITEMS_CheckRequirements(pCursorItem, sub_00463DD0_GetPlayerUnit(), 0, 0, 0, 0))
-        || sub_004843E0_CanSocketInto(INVENTORY_GetItemFromBodyLoc(pInventory, gnGlobal_007BCC20), pCursorItem))
-    {
-        nColor = 1;
-    }
-    else
-    {
-        nColor = 0;
-    }
-    sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[gnGlobal_007BCC20], nColor);
-}
 
 static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
 {
@@ -1398,11 +1349,7 @@ static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS*
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// build: context sub_E05_Emit_00486E60
-void __stdcall sub_E05_Emit_00486E60(SMSGHANDLER_PARAMS* pMsg)
-{
-    sub_00486E60_ClickOutsidePanel(pMsg->nYpos, pMsg, pMsg->nXpos);
-}
+void __stdcall sub_E05_Emit_00486E60(SMSGHANDLER_PARAMS* pMsg); // 0x00486E60
 
 void __stdcall sub_00486EF0_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -1795,37 +1742,7 @@ static void sub_00488E10_SelectButtonByKey(int nKey)
     gaNpcButtons_007BC9E0[3].bActive = gaNpcButtons_007BC9E0[3].nKey == nKey;
 }
 
-// build: context sub_00488F10_OpenTradeFromButton
-void __cdecl sub_00488F10_OpenTradeFromButton()
-{
-    if (!sub_004888C0_CanUseCursor())
-    {
-        return;
-    }
-    sub_00487BE0_ResetButtons();
-    const int nButton = gnGlobal_007BCC40;
-    if (nButton >= 0 && nButton < gnButtonCount_00722160 && gaNpcButtons_007BC9E0[nButton].nTextId != 0x276F)
-    {
-        sub_00488E10_SelectButtonByKey(gnGlobal_007BCC44);
-        gdwGlobal_007BCBF0 = gaNpcButtons_007BC9E0[nButton].nMode;
-        sub_00468040(gaNpcButtons_007BC9E0[nButton].nArg, 0);
-    }
-    int nUnitId;
-    if (sub_004B3230_GetTickPair(&nUnitId))
-    {
-        D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
-        if (pUnit)
-        {
-            const int nX = sub_00468730();
-            const int nY = sub_00468740();
-            if (nX >= gGrid_007BCB58.nGridLeft && nX <= gGrid_007BCB58.nGridRight && nY >= gGrid_007BCB58.nGridTop && nY <= gGrid_007BCB58.nGridBottom)
-            {
-                sub_00487000_UpdateGridHover(pUnit, pUnit->pInventory, 0, nX, nY, gnSelectedTab_007BCC04, &gGrid_007BCB58);
-                gnGlobal_00721E38 = 0;
-            }
-        }
-    }
-}
+void __cdecl sub_00488F10_OpenTradeFromButton(); // 0x00488F10
 
 static int sub_00489430_IsOverButtonA(int nX, int nY)
 {
@@ -2119,29 +2036,11 @@ static D2UnitStrc* sub_00486770_FindSetItem(D2InventoryStrc* pInventory, int nSe
     return 0;
 }
 
-// build: context sub_E05_Emit_004844A0
-void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText, int nSetItemId)
-{
-    for (int i = 0; i < 11; ++i)
-    {
-        INVENTORY_GetItemFromBodyLoc(pInventory, i);
-    }
-    sub_004844A0_DrawBodyLocPlacement(pInventory);
-    sub_004865D0_AppendBookCharges(pText);
-    sub_00486770_FindSetItem(pInventory, nSetItemId);
-}
+void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText, int nSetItemId); // 0x004844A0
 
-// build: context sub_E05_Emit_00486860
-int __cdecl sub_E05_Emit_00486860()
-{
-    return sub_00486860_IsOverWeaponSwapTab(sub_00468730(), sub_00468740());
-}
+int __cdecl sub_E05_Emit_00486860(); // 0x00486860
 
-// build: context sub_E05_Emit_00489FB0
-int __cdecl sub_E05_Emit_00489FB0(int nX, int nY)
-{
-    return sub_00489FB0_IsOverButtonC(nX, nY);
-}
+int __cdecl sub_E05_Emit_00489FB0(int nX, int nY); // 0x00489FB0
 
 // 0x00484C90
 static __declspec(noinline) int sub_00484C90_FormatEarName(Unicode* pText, D2UnitStrc* pItem)

@@ -9,25 +9,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, unsigned short nLayer); // 0x00627260
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, unsigned short nLayer); // 0x00625480
 
-// build: context sub_005C5F10_AddLifeAndGetGain
-static __declspec(noinline) int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue)
-{
-    if (nValue > 0)
-    {
-        int nNewHp = nValue + STATLIST_UnitGetStatValue(pUnit, 6, 0);
-        const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
-        if (nNewHp > nMaxHp)
-        {
-            nValue += nMaxHp - nNewHp;
-            nNewHp = nMaxHp;
-        }
-
-        STATLIST_SetUnitStat(pUnit, 6, nNewHp, 0);
-        return nValue;
-    }
-
-    return 0;
-}
+int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue); // 0x005C5F10
 
 static __forceinline int sub_IsBloodGolem(D2UnitStrc* pUnit)
 {

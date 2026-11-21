@@ -1,4 +1,3 @@
-#include "D2Path.h"
 // Functional replacement for the function at 0x0055A6D0, not the original code: only the ordinary build (tools/link.py) uses it.
 // The other functions in this file are copies that give it its callees and their calling conventions; the build links their verified definitions instead.
 
@@ -120,6 +119,12 @@ struct D2DataTablesStrc
     char unk0x000[0xBF8];
     D2ItemTypesTxt* pItemTypesTxt;
     int nItemTypesTxtRecordCount;
+};
+
+struct D2CoordStrc
+{
+    int nX;
+    int nY;
 };
 
 struct D2ActiveRoomStrc;

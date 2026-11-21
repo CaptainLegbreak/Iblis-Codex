@@ -1246,13 +1246,7 @@ int __stdcall sub_00431A40_SetMode2(int nArg)
     return 1;
 }
 
-// build: context sub_00436CF0
-void __cdecl sub_00436CF0()
-{
-    const Unicode* pText1 = sub_004FDD90_GetEditText(gpEdit_007799CC);
-    const Unicode* pText2 = sub_004FDD90_GetEditText(gpEdit_007799D0);
-    sub_004F96F0_ControlClearState(gpControl_007799D4, (sub_00526800(pText1) > 0) | (sub_00526800(pText2) > 0));
-}
+void __cdecl sub_00436CF0(); // 0x00436CF0
 
 // 0x00431A60
 int __fastcall sub_00431A60_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)

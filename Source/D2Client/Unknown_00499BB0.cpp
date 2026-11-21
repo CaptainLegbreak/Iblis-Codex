@@ -147,73 +147,7 @@ static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pI
     return 0;
 }
 
-// build: context sub_00498A90_UseBeltSlot
-static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift)
-{
-    if (!sub_0044DCC0())
-    {
-        bShift = 0;
-    }
-
-    if (INVENTORY_GetCursorItem(pInventory))
-    {
-        return;
-    }
-
-    if (sub_004538D0(9))
-    {
-        return;
-    }
-
-    D2Block1 tBlock1;
-    const int nClass = UNITS_GetInventoryRecordId(pPlayer, 0, sub_0044DCC0());
-    sub_0065C1F0(nClass, gnUiRecordRow_007A5218, &tBlock1);
-    D2UnitStrc* pItem = INVENTORY_GetItemFromBeltSlot(pInventory, nSlot);
-    if (!pItem)
-    {
-        return;
-    }
-
-    const int nClassId = pItem->dwClassId;
-    D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nClassId);
-    D2_ASSERT(pItemsTxt, 0xA64);
-    if (sub_00498A20_CheckState(pPlayer, pItem, pItemsTxt) != 1)
-    {
-        return;
-    }
-
-    if (sub_004C2240(pItem))
-    {
-        return;
-    }
-
-    sub_004786D0_SendDwords3(0x26, pItem->dwUnitId, bShift, 0);
-    sub_004C21F0(pItem);
-    if (bShift)
-    {
-        const int nPetId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
-        if (nPetId != -1)
-        {
-            if (ITEMSIsA(pItem, 0x4C) || ITEMSIsA(pItem, 0x51) || ITEMSIsA(pItem, 0x50))
-            {
-                sub_004CBDE0_PlayEventSound(nPetId, 1, 0x54);
-            }
-            else
-            {
-                sub_004CBDE0_PlayEventSound(nPetId, 1, 0x55);
-            }
-            gnBeltHover_007BEF94 = 0;
-            return;
-        }
-
-        sub_004B9A00(sub_004C1E20_GetItemUseSound(pItem), 0, 0, 0, 0);
-        gnBeltHover_007BEF94 = 0;
-        return;
-    }
-
-    sub_004B9A00(sub_004C1E20_GetItemUseSound(pItem), 0, 0, 0, 0);
-    gnBeltHover_007BEF94 = 0;
-}
+void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift); // 0x00498A90
 
 static void sub_00498C10_BeltHotkey(int nSlot)
 {

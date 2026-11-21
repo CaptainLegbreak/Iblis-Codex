@@ -1231,14 +1231,7 @@ D2StormExportTableSyncStrc::TSExportTableSync()
     InitializeCriticalSection(&m_cs);
 }
 
-// build: context sub_00451290
-void __cdecl sub_00451290()
-{
-    if (ghLngModule_007A070C)
-        FreeLibrary(ghLngModule_007A070C);
-    gxGlobal_007A0708 = 0;
-    ghLngModule_007A070C = 0;
-}
+void __cdecl sub_00451290(); // 0x00451290
 
 // 0x00451330
 int __cdecl sub_00451330()

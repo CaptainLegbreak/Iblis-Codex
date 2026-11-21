@@ -321,16 +321,7 @@ int __fastcall sub_00508FE0_GlideStartDraw(int bClear, unsigned char nRed, unsig
     return 1;
 }
 
-// build: context sub_00509300_GlideSetPalette
-void __fastcall sub_00509300_GlideSetPalette(const tagPALETTEENTRY* pPalette)
-{
-    if (gbGlidePaletteTable_0087EFC8)
-    {
-        for (int i = 0; i < 256; ++i)
-            gaGlidePalette_0087EBA0[i] = ((((0xFF << 8) + pPalette[i].peRed) << 8) + pPalette[i].peGreen << 8) + pPalette[i].peBlue;
-        gpfGlideTexDownloadTable_0087EB40(2, gaGlidePalette_0087EBA0);
-    }
-}
+void __fastcall sub_00509300_GlideSetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
 
 // 0x0050BEF0
 void __fastcall sub_0050BEF0_GlideDebugDraw(const unsigned int* pLight, const unsigned int* pPlayerLight, int nPosX, int nPosY)
@@ -342,103 +333,9 @@ void __fastcall sub_0050BEF0_GlideDebugDraw(const unsigned int* pLight, const un
     sub_0050BE20_GlideDebugRefresh();
 }
 
-// build: context sub_0050BF50_GlideDrawBox
-void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode)
-{
-    D2GlideSpriteVertexStrc vertices[4];
-    const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138);
-    const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138);
-    if (nX1 == nX2)
-        return;
-    const int nY1 = D2_MIN(D2_MAX(nYStart, 0), gnScreenHeight_007C913C);
-    const int nY2 = D2_MIN(D2_MAX(nYEnd, 0), gnScreenHeight_007C913C);
-    if (nY2 == nY1)
-        return;
-    D2_ASSERT(nY2 > nY1, 0x29);
-    sub_005094B0_GlideSetState(2);
-    sub_00509500_GlideSetCombine(4);
-    gpfGlideMask_0087EB8C(0);
-    vertices[0].x = (float)nX1;
-    vertices[0].y = (float)nY1;
-    vertices[0].oow = 1.0f;
-    vertices[0].sow = 0.0f;
-    vertices[0].tow = 0.0f;
-    vertices[1].x = (float)nX1;
-    vertices[1].y = (float)nY2;
-    vertices[1].oow = 1.0f;
-    vertices[1].sow = 0.0f;
-    vertices[1].tow = 0.0f;
-    vertices[2].x = (float)nX2;
-    vertices[2].y = (float)nY2;
-    vertices[2].oow = 1.0f;
-    vertices[2].sow = 0.0f;
-    vertices[2].tow = 0.0f;
-    vertices[3].x = (float)nX2;
-    vertices[3].y = (float)nY1;
-    vertices[3].oow = 1.0f;
-    vertices[3].sow = 0.0f;
-    vertices[3].tow = 0.0f;
-    unsigned int dwRGBA = sub_005093F0_GlidePaletteColor((unsigned char)dwColor) & 0xFFFFFF00;
-    switch (nDrawMode)
-    {
-    case 0:
-        dwRGBA += 0x40;
-        break;
-    case 1:
-        dwRGBA += 0x80;
-        break;
-    case 2:
-        dwRGBA += 0xC0;
-        break;
-    default:
-        dwRGBA += 0xFF;
-        break;
-    }
-    gpfGlideConstantColor_0087EFA0(dwRGBA);
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
-    gpfGlideMask_0087EB8C(1);
-}
+void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 
-// build: context sub_0050C0F0_GlideDrawBoxAlpha
-void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
-{
-    D2GlideSpriteVertexStrc vertices[4];
-    const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138);
-    const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138);
-    if (nX1 == nX2)
-        return;
-    const int nY1 = D2_MIN(D2_MAX(nYStart, 0), gnScreenHeight_007C913C);
-    const int nY2 = D2_MIN(D2_MAX(nYEnd, 0), gnScreenHeight_007C913C);
-    if (nY2 == nY1)
-        return;
-    D2_ASSERT(nY2 > nY1, 0x61);
-    sub_005094B0_GlideSetState(2);
-    sub_00509500_GlideSetCombine(4);
-    gpfGlideMask_0087EB8C(0);
-    vertices[0].x = (float)nX1;
-    vertices[0].y = (float)nY1;
-    vertices[0].oow = 1.0f;
-    vertices[0].sow = 0.0f;
-    vertices[0].tow = 0.0f;
-    vertices[1].x = (float)nX1;
-    vertices[1].y = (float)nY2;
-    vertices[1].oow = 1.0f;
-    vertices[1].sow = 0.0f;
-    vertices[1].tow = 0.0f;
-    vertices[2].x = (float)nX2;
-    vertices[2].y = (float)nY2;
-    vertices[2].oow = 1.0f;
-    vertices[2].sow = 0.0f;
-    vertices[2].tow = 0.0f;
-    vertices[3].x = (float)nX2;
-    vertices[3].y = (float)nY1;
-    vertices[3].oow = 1.0f;
-    vertices[3].sow = 0.0f;
-    vertices[3].tow = 0.0f;
-    gpfGlideConstantColor_0087EFA0(sub_005093F0_GlidePaletteColor((unsigned char)dwColor) & 0xFFFFFF00 | nAlpha);
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
-    gpfGlideMask_0087EB8C(1);
-}
+void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x0050C0F0
 
 // 0x0050FD10
 void __cdecl sub_0050FD10_GlideDrawVideoFrame()

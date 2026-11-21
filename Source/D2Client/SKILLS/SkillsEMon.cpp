@@ -125,34 +125,7 @@ static int __stdcall sub_004F0590_CreateCltMissileRequest(int nMissile, int nSki
     return 1;
 }
 
-// build: context sub_004F0650_CltSkillMissileFan
-int __fastcall sub_004F0650_CltSkillMissileFan(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordInline(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    const int nMissileA = pSkillsTxtRecord->wCltMissileA;
-    if (nMissileA >= 0 && nMissileA < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        sub_004F0590_CreateCltMissileRequest(nMissileA, nSkillId, nSkillLevel, 0, pUnit);
-    }
-
-    const int nMissileB = pSkillsTxtRecord->wCltMissileB;
-    if (nMissileB >= 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
-    {
-        const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel);
-        sub_004F04F0_CreateMissileFan(nMissileB, nSkillId, nSkillLevel, nCount, pUnit);
-    }
-    return 1;
-}
+int __fastcall sub_004F0650_CltSkillMissileFan(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004F0650
 
 // 0x004F0F30
 int __fastcall sub_004F0F30_CltSkillMonMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

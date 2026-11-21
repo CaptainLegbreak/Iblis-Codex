@@ -1275,38 +1275,7 @@ static void __stdcall sub_005D3680_ApplyProgressiveDamage(D2StatListStrc* pStatL
     }
 }
 
-// build: context SKILLS_FindUseableCorpse
-D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nUnitSize)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    const int nX = UNITS_GetXPositionInline(pUnit);
-    const int nY = UNITS_GetYPositionInline(pUnit);
-
-    D2UnitFindArgStrc unitFindArg;
-    memset(&unitFindArg, 0, sizeof(unitFindArg));
-    unitFindArg.nFlags = 0x1002;
-    unitFindArg.pUnit = pUnit;
-    unitFindArg.nX = nX;
-    unitFindArg.nY = nY;
-    unitFindArg.nSize = nUnitSize;
-
-    D2UnitFindDataStrc unitFindData;
-    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, &unitFindData, pRoom, nX, nY, nUnitSize, 0, &unitFindArg);
-    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(&unitFindData);
-
-    for (int i = 0; i < unitFindData.nIndex; ++i)
-    {
-        D2UnitStrc* pResult = unitFindData.pUnitsArray[i];
-        if (UNITS_IsCorpseUseable(pResult) && SUNIT_AreUnitsHostile(pGame, pUnit, pResult))
-        {
-            UNITFINDS_FreeUnitFindData(&unitFindData);
-            return pResult;
-        }
-    }
-
-    UNITFINDS_FreeUnitFindData(&unitFindData);
-    return 0;
-}
+D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nUnitSize); // 0x005D2F80
 
 // 0x005D3880
 void __stdcall sub_005D3880_ProgressiveElemental(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)

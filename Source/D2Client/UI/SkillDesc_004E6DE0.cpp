@@ -220,7 +220,7 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-static __declspec(noinline) void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel);
+__declspec(noinline) void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel);
 
 int __stdcall SKILLS_GetConcentrationDamageBonus(D2UnitStrc* pUnit, int nSkillId); // 0x006461D0
 
@@ -1032,39 +1032,7 @@ static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
     return pOther;
 }
 
-// build: context sub_004E9300_MergeWeaponPair
-static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
-{
-    if (!UNITS_CanDualWield(pUnit))
-        return 0;
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (!pInventory)
-        return 0;
-
-    D2UnitStrc* pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
-    if (!pWeapon)
-        return 0;
-
-    int nBodyLoc = ITEMS_GetBodyLocation(pWeapon);
-    D2UnitStrc* pOther = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc == 4 ? 5 : 4);
-    if (pOther && pOther != pWeapon)
-    {
-        if (ITEMSIsA(pOther, 45))
-        {
-            if (ITEMS_CanBeEquipped(pWeapon) && ITEMS_CanBeEquipped(pOther))
-            {
-                STATLIST_MergeStatLists(pUnit, pOther, 0);
-                STATLIST_MergeStatLists(pUnit, pWeapon, 1);
-                return pWeapon;
-            }
-        }
-    }
-
-    if (ITEMS_CanBeEquipped(pWeapon))
-        STATLIST_MergeStatLists(pUnit, pWeapon, 1);
-    return pWeapon;
-}
+D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit); // 0x004E9300
 
 // build: context sub_004E93A0_EvaluateForEachWeapon
 static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValue2, int nArg3, int* pValue3, int* pValue4, int nArg6, D2SkillStrc* pSkill, SKILLWEAPONFN pfnEvaluate, int nArg9, D2UnitStrc* pUnit, int nLevel)

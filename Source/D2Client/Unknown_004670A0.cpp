@@ -323,46 +323,7 @@ adjust:
     return 0;
 }
 
-// build: context sub_00467250_CheckDoorSideA
-static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwAnimMode)
-    {
-        return 0;
-    }
-
-    D2CoordStrc tPlayer;
-    D2CoordStrc tOther;
-    D2CoordStrc tUnit;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer)
-    {
-        UNITS_GetCoords(pPlayer, &tPlayer);
-    }
-    else
-    {
-        tPlayer.nX = 0;
-        tPlayer.nY = 0;
-    }
-    UNITS_GetCoords(pOther, &tOther);
-    UNITS_GetCoords(pUnit, &tUnit);
-
-    if (UNITS_GetObjectTxtRecordFromObject(pUnit)->nSide == 1)
-    {
-        if (((unsigned int)tUnit.nY > tOther.nY && (unsigned int)tUnit.nY < tPlayer.nY) || ((unsigned int)tUnit.nY < tOther.nY && (unsigned int)tUnit.nY > tPlayer.nY))
-        {
-            return 0;
-        }
-    }
-    else
-    {
-        if (((unsigned int)tUnit.nX < tOther.nX && (unsigned int)tUnit.nX > tPlayer.nX) || ((unsigned int)tUnit.nX > tOther.nX && (unsigned int)tUnit.nX < tPlayer.nX))
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
+int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit); // 0x00467250
 
 // 0x00467310
 static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc* pUnit)

@@ -46,23 +46,7 @@ extern int gnSlotY_007BC8B8[]; // 0x007BC8B8
 extern int gaSlotKind_007BC8D8[]; // 0x007BC8D8
 extern int gnSlotFrame_007BC918[]; // 0x007BC918
 
-// build: context sub_0047B3B0_CompareCommand
-static int __stdcall sub_0047B3B0_CompareCommand(const char* szCommand, const char* szInput)
-{
-    if (strlen(szInput) < strlen(szCommand))
-        return -1;
-    size_t nLength = strlen(szCommand);
-    while (nLength)
-    {
-        --nLength;
-        const int nDiff = toupper(*szInput) - toupper(*szCommand);
-        if (nDiff)
-            return (nDiff > 0) * 2 - 1;
-        ++szInput;
-        ++szCommand;
-    }
-    return 0;
-}
+int __stdcall sub_0047B3B0_CompareCommand(const char* szCommand, const char* szInput); // 0x0047B3B0
 
 static int sub_0047C100(char* szInput, const char* szCommand)
 {

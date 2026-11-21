@@ -2030,42 +2030,7 @@ void __fastcall AITHINK_Fn098_Smith(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 
-// build: context AITHINK_Fn121_MinionSpawner
-void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
-    D2UnitStrc* pTarget = pAiTickParam->pTarget;
-    if (pAiControl->dwAiParam[1] >= pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
-    {
-        return;
-    }
-
-    if (pAiTickParam->nTargetDistance > pMonStatsTxt->wAiParam[3][pGame->nDifficulty])
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[1][pGame->nDifficulty]);
-        return;
-    }
-
-    if (pGame->dwGameFrame < pAiControl->dwAiParam[0])
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[1][pGame->nDifficulty]);
-        return;
-    }
-
-    D2MinionSpawnerAiCallbackArgStrc arg;
-    arg.nMinions = 0;
-    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_MinionSpawner, 1);
-    if (pMonStatsTxt->nSkill[0] >= 0 && arg.nMinions < pMonStatsTxt->wAiParam[1][pGame->nDifficulty])
-    {
-        pAiControl->dwAiParam[0] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[2][pGame->nDifficulty];
-        ++pAiControl->dwAiParam[1];
-        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
-        return;
-    }
-
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[1][pGame->nDifficulty]);
-}
+void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E2BD0
 
 // 0x005E3900
 void __fastcall sub_6FCE34B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
@@ -5557,71 +5522,7 @@ void __fastcall sub_005EDC00_SetAiParams12(D2GameStrc* pGame, D2AiControlStrc* p
     pAiControl->dwAiParam[2] = nParam2;
 }
 
-// build: context AITHINK_Fn110_Vines
-void __fastcall AITHINK_Fn110_Vines(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
-    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
-    int nDistance = 0;
-    int bCombat = 0;
-    if (!pOwner)
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
-        return;
-    }
-
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(pGame, pMonStatsTxt, 4) && D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 3, 0, 0, 6))
-    {
-        return;
-    }
-
-    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
-    {
-        if (!sub_005E45D0(pGame, pUnit, 0, pOwner, 0, pAiTickParam, 0, 6))
-        {
-            AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 2));
-        }
-        return;
-    }
-
-    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
-    if (nDistance >= AI_PARAM(pGame, pMonStatsTxt, 1))
-    {
-        pTarget = 0;
-    }
-
-    if (sub_005E45D0(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 0, 6))
-    {
-        return;
-    }
-
-    if (pTarget)
-    {
-        if (STATES_CheckState(pTarget, STATE_POISON) || STATLIST_UnitGetStatValue(pTarget, STAT_POISONRESIST, 0) == 100)
-        {
-            sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, 3), 0);
-            return;
-        }
-
-        if (bCombat)
-        {
-            if (pMonStatsTxt->nSkill[0] >= 0 && AI_PARAM(pGame, pMonStatsTxt, 0) + pAiControl->dwAiParam[1] < pGame->dwGameFrame)
-            {
-                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
-                pAiControl->dwAiParam[1] = pGame->dwGameFrame;
-                return;
-            }
-        }
-        else
-        {
-            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
-            return;
-        }
-    }
-
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 2));
-}
+void __fastcall AITHINK_Fn110_Vines(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EC6C0
 
 // 0x005EDF70
 int __fastcall sub_005EDF70_TryRoomSteps(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -6413,43 +6314,7 @@ void __fastcall AITHINK_Fn013_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
 }
 
-// build: context AITHINK_Fn137_PutridDefiler
-void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2UnitStrc* pTarget = pAiTickParam->pTarget;
-    const int nDistance = pAiTickParam->nTargetDistance;
-    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
-    if (pTarget && pAiTickParam->bCombat)
-    {
-        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-        return;
-    }
-
-    D2PutridDefilerAiCallbackArgStrc arg;
-    arg.unk0x00 = 0;
-    arg.nMaxDistance = 25;
-    D2UnitStrc* pVictim = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_PutridDefiler, 1);
-    if (pVictim)
-    {
-        if (UNITS_IsInMeleeRange(pUnit, pVictim, 0))
-        {
-            AITACTICS_UseSkill(pGame, pUnit, MONMODE_SKILL1, SKILL_IMPREGNATE, pVictim, 0, 0);
-        }
-        else
-        {
-            AITACTICS_WalkToTargetUnit(pGame, pUnit, pVictim);
-        }
-        return;
-    }
-
-    if (nDistance < AI_GetParamValue(pGame, pMonStatsTxt, 0))
-    {
-        sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_GetParamValue(pGame, pMonStatsTxt, 1), 0);
-        return;
-    }
-
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
-}
+void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EFA90
 
 // 0x005F1750
 void __fastcall sub_005F1750(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)

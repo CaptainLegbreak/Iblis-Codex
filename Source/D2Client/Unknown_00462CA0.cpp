@@ -256,20 +256,7 @@ static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit)
     sub_004654C0_SetUnitPosition(pUnit, tCoords.nX, tCoords.nY, 0);
 }
 
-// build: context sub_00461010_ResetPlayerState
-static void sub_00461010_ResetPlayerState(D2UnitStrc* pUnit)
-{
-    sub_004C1E30();
-    sub_00649F70(pUnit, 0);
-    sub_00464810(pUnit);
-    if (pUnit)
-        pUnit->dwFlags &= ~4;
-    if (!STATES_CheckState(pUnit, STATE_PLAYERBODY) && pUnit)
-        pUnit->dwFlags &= ~2;
-    sub_0046ECE0_PruneGfxNodes(pUnit);
-    sub_0046F020_FillGfxEntries(pUnit, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0, 0);
-}
+void sub_00461010_ResetPlayerState(D2UnitStrc* pUnit); // 0x00461010
 
 static void __stdcall sub_00461070_RequestSkillString(D2UnitStrc* pUnit, int nIndex)
 {
@@ -330,28 +317,7 @@ static int __stdcall sub_00461180_RefreshSkillRef(int* pUseState, D2UnitStrc* pU
     return 1;
 }
 
-// build: context sub_004611F0_ReleaseUsedSkill
-static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit)
-{
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-        return;
-
-    const int nFlags = SKILLS_GetFlags(pSkill);
-    if (nFlags & 1)
-    {
-        SKILLS_SetFlags(pSkill, nFlags | 2);
-        sub_004C68F0(pUnit);
-        return;
-    }
-
-    if (bKeep)
-        return;
-
-    const int bFlag = pUnit ? (pUnit->dwFlags >> 6) & 1 : 0;
-    if (!bFlag)
-        sub_004C68F0(pUnit);
-}
+void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit); // 0x004611F0
 
 static void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd)
 {

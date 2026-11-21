@@ -1144,44 +1144,6 @@ int __fastcall sub_004496B0_OnJoinChannel(int nA, int nB, int nC, const char* sz
     return 1;
 }
 
-// build: context sub_00448370_OnChannelTalk
-int __stdcall sub_00448370_OnChannelTalk(const char* szSender, const char* szMessage)
-{
-    char szName[0x100];
-    char szTitle[0x100];
-    char szOut[0x100];
-    sub_00447560_SplitName(szSender, szTitle, szName);
-    if (sub_00611560_GetSquelchList()->IsSquelched(szSender) || sub_00611560_GetSquelchList()->IsFiltered(szMessage))
-        return 1;
-
-    int nPrefix = 4;
-    int nColor = 0;
-    for (D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34; pUser; pUser = pUser->pNext)
-    {
-        if (!strcmp(pUser->szName, szSender))
-        {
-            if (pUser->dwFlags & 2)
-                nPrefix = 0;
-            else if (pUser->dwFlags & 1)
-                nPrefix = nColor = 3;
-            else if (pUser->dwFlags & 8)
-                nPrefix = nColor = 3;
-            break;
-        }
-    }
-    if (strlen(szName))
-    {
-        if (strlen(szTitle))
-            sprintf(szOut, "%s%s", szTitle, szName);
-        else
-            strcpy(szOut, szName);
-        sub_004481B0_PrintNamedLine(szMessage, nPrefix, szOut, nColor);
-    }
-    else
-    {
-        sub_004481B0_PrintNamedLine(szMessage, nPrefix, szSender, nColor);
-    }
-    return 1;
-}
+int __stdcall sub_00448370_OnChannelTalk(const char* szSender, const char* szMessage); // 0x00448370
 
 #include "gen/data/Source/D2Multi/Src/ComCallback_00446D90.inc"

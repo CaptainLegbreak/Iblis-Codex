@@ -57,35 +57,4 @@ int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsig
     return nCount;
 }
 
-// build: context sub_0060D5B0_MapSubTileColors
-void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor)
-{
-    D2_ASSERT(pDst, 0x82);
-    D2_ASSERT(pSrc, 0x83);
-    D2_ASSERT(pSrc->ptData, 0x84);
-    pDst->tHeader = pSrc->tHeader;
-    pDst->tHeader.nFlags &= ~1;
-    pDst->ptData = 0;
-    pDst->tHeader.nLength = 0;
-    int nCount = pSrc->tHeader.nLength / 3;
-    D2_ASSERT(nCount, 0x8E);
-    D2_ASSERT(nCount < 0x10000, 0x8F);
-    pDst->ptData = (unsigned char*)FOG_Alloc(nCount, szSubTileFile, 0x90, 0);
-    D2_ASSERT(pDst->ptData, 0x91);
-    memset(pDst->ptData, 0, nCount);
-    pDst->tHeader.nFlags |= 1;
-    pDst->tHeader.nLength = (unsigned short)nCount;
-    const unsigned char* pIn = pSrc->ptData;
-    unsigned char* pOut = pDst->ptData;
-    for (int i = 0; i < nCount; i++)
-    {
-        unsigned char nIndex = 0;
-        if (pIn[0] != tTransparent.nRed || pIn[1] != tTransparent.nGreen || pIn[2] != tTransparent.nBlue)
-        {
-            nIndex = pfnMapColor(pIn[0], pIn[1], pIn[2]);
-            D2_ASSERT(nIndex, 0xA1);
-        }
-        *pOut++ = nIndex;
-        pIn += 3;
-    }
-}
+void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor); // 0x0060D5B0
