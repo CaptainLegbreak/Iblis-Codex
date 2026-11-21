@@ -1749,7 +1749,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UNIT/Player_00460830.cpp": {
+  "Source/D2Client/UNIT/Player.cpp": {
    "bytes": 100,
    "definitions": 3,
    "externs": [],
@@ -42251,7 +42251,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Player_00460830.cpp",
+   "file": "Source/D2Client/UNIT/Player.cpp",
    "fill": 9,
    "form": "declared",
    "fwd": null,
@@ -42303,7 +42303,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Player_00460830.cpp",
+   "file": "Source/D2Client/UNIT/Player.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnStringCount_00711EF0 = ",
@@ -42328,7 +42328,7 @@
    "cname": "gData_00711EF4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Player_00460830.cpp",
+   "file": "Source/D2Client/UNIT/Player.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00711EF4_t gData_00711EF4; // 0x00711EF4",
    "head": "extern \"C\" struct d2data_00711EF4_t gData_00711EF4 = ",
