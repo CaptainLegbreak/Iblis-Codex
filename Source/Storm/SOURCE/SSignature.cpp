@@ -1072,23 +1072,5 @@ int __stdcall sub_00424F90_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA)
     return sub_00424B00_BigOp(pResult, pA, &pResult->tStack);
 }
 
-// 0x00426180
-void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource)
-{
-    pDest->nSize = pSource->nSize;
-    pDest->nUsed = pSource->nUsed;
-    pDest->ppTable = (D2StormEventHandlerStrc**)SMemAlloc(pDest->nSize * sizeof(D2StormEventHandlerStrc*), gszSEvtCpp, 0x3E, 0);
-    for (unsigned int i = 0; i < pSource->nSize; i++)
-    {
-        D2StormEventHandlerStrc** ppNext = &pDest->ppTable[i];
-        for (D2StormEventHandlerStrc* pHandler = pSource->ppTable[i]; pHandler; pHandler = pHandler->pNext)
-        {
-            *ppNext = (D2StormEventHandlerStrc*)SMemAlloc(sizeof(D2StormEventHandlerStrc), gszSEvtCpp, 0x45, 0);
-            SMemCopy(*ppNext, pHandler, sizeof(D2StormEventHandlerStrc));
-            ppNext = &(*ppNext)->pNext;
-        }
-        *ppNext = 0;
-    }
-}
 
 #include "gen/data/Source/Storm/SOURCE/SSignature.inc"

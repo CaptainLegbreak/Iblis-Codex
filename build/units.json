@@ -6716,11 +6716,6 @@
      "va": "0x00424F90",
      "length": 24,
      "name": "sub_00424F90_BigOp"
-    },
-    {
-     "va": "0x00426180",
-     "length": 144,
-     "name": "sub_00426180_CopyHandlerTable"
     }
    ]
   },
@@ -8702,6 +8697,11 @@
    "file": "Source/Storm/SOURCE/SEVT.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00426180",
+     "length": 144,
+     "name": "sub_00426180_CopyHandlerTable"
+    },
     {
      "va": "0x00426210",
      "length": 95,
