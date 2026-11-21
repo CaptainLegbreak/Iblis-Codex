@@ -2,16 +2,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M74ClawViperConstants
 {
-    MONMODE_ATTACK1 = 4,
-    MONMODE_ATTACK2 = 5,
     STATE_BLUE = 90,
     STATE_RED = 91,
 };

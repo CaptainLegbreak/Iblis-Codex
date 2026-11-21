@@ -2,12 +2,12 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2PlayerModes.h"
 
 struct D2PlayerDataStrc;
 
 enum D2C_ResultFlagsConstants
 {
-    PLRMODE_RUN = 3,
     STATE_UNINTERRUPTABLE = 0x36,
 };
 

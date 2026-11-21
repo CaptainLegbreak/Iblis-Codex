@@ -2,16 +2,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M422FingerMageAi
 {
-    MONMODE_ATTACK1 = 4,
-    MONMODE_WALK = 5,
     STATE_TERROR = 84,
     FINGERMAGE_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     FINGERMAGE_AI_PARAM_CAST_CHANCE_PCT = 1,
@@ -126,7 +120,7 @@ void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             return;
         }
 
-        sub_005DF7D0(pGame, pUnit, pTarget, MONMODE_WALK, 0);
+        sub_005DF7D0(pGame, pUnit, pTarget, MONMODE_ATTACK2, 0);
         return;
     }
 

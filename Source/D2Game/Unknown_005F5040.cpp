@@ -2,20 +2,11 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M144BatDemonAi
 {
     STAT_HPREGEN = 74,
-    MONMODE_ATTACK1 = 4,
-    MONMODE_ATTACK2 = 5,
-    MONMODE_SKILL2 = 9,
-    MONMODE_SKILL3 = 10,
-    MONMODE_SKILL4 = 11,
     BATDEMON_AI_PARAM_HURT_PCT = 0,
     BATDEMON_AI_PARAM_DISENGAGE_ON_HIT_CHANCE_PCT = 1,
     BATDEMON_AI_PARAM_ATTACK_CHANCE_PCT = 2,

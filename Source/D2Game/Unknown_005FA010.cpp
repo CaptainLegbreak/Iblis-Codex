@@ -3,12 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
-
+#include "D2MonModes.h"
 
 struct D2VileMotherAiCallbackArgStrc
 {
@@ -23,7 +18,6 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 enum D2C_M101VileMotherConstants
 {
     UNIT_ALIGNMENT_EVIL = 0,
-    MONMODE_ATTACK1 = 4,
     MONSTER_VILECHILD1 = 301,
 };
 

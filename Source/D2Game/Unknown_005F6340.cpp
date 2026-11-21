@@ -2,15 +2,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M84PinHeadAi
 {
-    MONMODE_ATTACK1 = 4,
     PINHEAD_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     PINHEAD_AI_PARAM_ATTACK_STALL_DURATION = 1,
     PINHEAD_AI_PARAM_APPROACH_CHANCE_PCT = 2,
