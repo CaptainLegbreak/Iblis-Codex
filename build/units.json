@@ -68346,6 +68346,16 @@
      "name": "?ACT4Q1_AttachCompletionSoundToPlayers@@YIXPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x005B45E0",
+     "length": 135,
+     "name": "?sub_005B45E0_ACT4Q2_SpawnPortalToAct5@@YAXPAUD2QuestArgStrc@@PAUD2Act4Quest2Strc@@@Z"
+    },
+    {
+     "va": "0x005B4670",
+     "length": 273,
+     "name": "?ACT4Q2_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005B4A30",
      "length": 69,
      "name": "?sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -68354,6 +68364,11 @@
      "va": "0x005B4B60",
      "length": 125,
      "name": "?sub_005B4B60_SpawnDiablo@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHPAUD2Act4Quest2Strc@@@Z"
+    },
+    {
+     "va": "0x005B4BE0",
+     "length": 305,
+     "name": "?ACT4Q2_SpawnDiablo@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x005B4D20",
@@ -68370,6 +68385,11 @@
      "length": 228
     },
     {
+     "va": "0x005B4F90",
+     "length": 86,
+     "name": "?ACT4Q2_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005B5030",
      "length": 66,
      "name": "?ACT4Q2_Callback14_PlayerJoinedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -68380,9 +68400,22 @@
      "name": "?ACT4Q2_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x005B5140",
+     "length": 207
+    },
+    {
+     "va": "0x005B5210",
+     "length": 25,
+     "name": "@sub_005B5210_ReadQuestFlag@4"
+    },
+    {
      "va": "0x005B5230",
      "length": 169,
      "name": "?ACT4Q2_KillAllMonstersInCS@@YGXPAUD2GameStrc@@PAUD2Act4Quest2Strc@@@Z"
+    },
+    {
+     "va": "0x005B52E0",
+     "length": 472
     },
     {
      "va": "0x005B54C0",
@@ -68398,6 +68431,18 @@
      "va": "0x005B5620",
      "length": 1,
      "name": "?sub_005B5620_Return@@YAXXZ"
+    },
+    {
+     "va": "0x005B5630",
+     "length": 256
+    },
+    {
+     "va": "0x005B5730",
+     "length": 24
+    },
+    {
+     "va": "0x005B5750",
+     "length": 182
     },
     {
      "va": "0x005B5810",
@@ -68449,83 +68494,6 @@
      "length": 106,
      "name": "?ACT3Q6_SetObjectModes@@YIXPAUD2GameStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q2_005B45E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B45E0",
-     "length": 135,
-     "name": "?sub_005B45E0_ACT4Q2_SpawnPortalToAct5@@YAXPAUD2QuestArgStrc@@PAUD2Act4Quest2Strc@@@Z"
-    },
-    {
-     "va": "0x005B4670",
-     "length": 273,
-     "name": "?ACT4Q2_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B4F90",
-     "length": 86,
-     "name": "?ACT4Q2_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B5210",
-     "length": 25,
-     "name": "@sub_005B5210_ReadQuestFlag@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q2_005B4BE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B4BE0",
-     "length": 305,
-     "name": "?ACT4Q2_SpawnDiablo@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B5730",
-     "length": 24
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q2_005B5140.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B5140",
-     "length": 207
-    },
-    {
-     "va": "0x005B52E0",
-     "length": 472
-    },
-    {
-     "va": "0x005B5630",
-     "length": 256
-    },
-    {
-     "va": "0x005B5750",
-     "length": 182
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
