@@ -5324,24 +5324,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a5q4_0058B0B0.cpp": {
-   "bytes": 1568,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q4_0058B0B0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a5q4_0058B900.cpp": {
-   "bytes": 48,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q4_0058B900.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a5q5_0058C210.cpp": {
    "bytes": 1764,
    "definitions": 1,
@@ -8092,6 +8074,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a5q4.cpp": {
+   "bytes": 1616,
+   "definitions": 3,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a5q4_0058B0B0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -107652,7 +107643,7 @@
    "cname": "gData_00734AC8",
    "declared": true,
    "decorated": "?gpAct5Q4NpcMessages@@3UD2NPCMessageTableStrc@@A",
-   "file": "Source/D2Game/Quests/a5q4_0058B0B0.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00734AC8_t gData_00734AC8; // 0x00734AC8",
    "head": "extern \"C\" struct d2data_00734AC8_t gData_00734AC8 = ",
@@ -107669,7 +107660,7 @@
    "cname": "gData_006E1B98",
    "declared": true,
    "decorated": "_gszA1Q2SourceFile",
-   "file": "Source/D2Game/Quests/a5q4_0058B900.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006E1B98[24]; // 0x006E1B98",
@@ -107700,7 +107691,7 @@
    "cname": "gData_00737180",
    "declared": true,
    "decorated": "_gnAct1Quest2NpcIndices",
-   "file": "Source/D2Game/Quests/a5q4_0058B900.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_00737180[6]; // 0x00737180",

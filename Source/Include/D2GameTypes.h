@@ -14,6 +14,7 @@ struct D2MinionListStrc;
 struct D2MapAIStrc;
 struct D2AiCmdStrc;
 struct D2AiControlStrc;
+struct D2TextHeaderStrc;
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -151,11 +152,12 @@ struct D2QuestArgStrc
     int nEvent; // 0x04
     D2UnitStrc* pTarget; // 0x08
     D2UnitStrc* pPlayer; // 0x0C
-    void* pTextControl; // 0x10
+    unsigned int unk0x10; // 0x10
     union
     {
         int nOldLevel; // 0x14
         unsigned short nNPCNo; // 0x14
+        D2TextHeaderStrc* pTextControl; // 0x14
     };
     union
     {
