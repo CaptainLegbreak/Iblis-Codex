@@ -62831,9 +62831,58 @@
      "length": 489
     },
     {
+     "va": "0x005AE1F0",
+     "length": 523
+    },
+    {
+     "va": "0x005AE400",
+     "length": 127,
+     "name": "MISSMODE_SrvDo02_PlagueJavelin_PoisonJavelin_PoisonTrap"
+    },
+    {
+     "va": "0x005AE480",
+     "length": 149,
+     "name": "?MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AE680",
+     "length": 252,
+     "name": "MISSMODE_SrvDo06_MoltenBoulder_FireWallMaker"
+    },
+    {
+     "va": "0x005AE780",
+     "length": 284,
+     "name": "MISSMODE_SrvDo07_GuidedArrow_BoneSpirit"
+    },
+    {
+     "va": "0x005AE940",
+     "length": 280,
+     "name": "MISSMODE_SrvDo09_BatLightningBolt"
+    },
+    {
      "va": "0x005AEA60",
      "length": 243,
      "name": "?sub_005AEA60_SpawnBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AEB60",
+     "length": 319,
+     "name": "MISSMODE_SrvDo11_FingerMageSpider"
+    },
+    {
+     "va": "0x005AECA0",
+     "length": 250,
+     "name": "MISSMODE_SrvDo12_DiabWallMaker"
+    },
+    {
+     "va": "0x005AEF70",
+     "length": 177,
+     "name": "MISSMODE_SrvDo14_GrimWard"
+    },
+    {
+     "va": "0x005AF030",
+     "length": 315,
+     "name": "MISSMODE_SrvDo15_FrozenOrb"
     },
     {
      "va": "0x005AF240",
@@ -62846,9 +62895,43 @@
      "name": "?MISSMODE_SrvDo20_BladeCreeper@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005AF590",
+     "length": 142,
+     "name": "?MISSMODE_SrvDo21_Distraction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF620",
+     "length": 357,
+     "name": "MISSMODE_SrvDo22_LightningTrailingJavelin"
+    },
+    {
+     "va": "0x005AF790",
+     "length": 229,
+     "name": "MISSMODE_SrvDo23_24_SuccFireBall_FirestormMaker"
+    },
+    {
      "va": "0x005AF880",
      "length": 251,
      "name": "?sub_005AF880_SpawnBySkillMask@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF980",
+     "length": 163,
+     "name": "?MISSMODE_SrvDo26_Vines_PlagueVines@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AFA30",
+     "length": 332,
+     "name": "MISSMODE_SrvDo27_Tornado"
+    },
+    {
+     "va": "0x005B0010",
+     "length": 474
+    },
+    {
+     "va": "0x005B03E0",
+     "length": 183,
+     "name": "MISSMODE_SrvDo32_TigerFury"
     },
     {
      "va": "0x005B07A0",
@@ -62859,6 +62942,16 @@
      "va": "0x005B0870",
      "length": 200,
      "name": "sub_005B0870"
+    },
+    {
+     "va": "0x005B0A40",
+     "length": 88,
+     "name": "?MISSMODE_SrvDo36_BaalFxControl@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B0AA0",
+     "length": 281,
+     "name": "?sub_005B0AA0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B0D70",
@@ -64345,105 +64438,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AE1F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005AE1F0",
-     "length": 523
-    },
-    {
-     "va": "0x005AE400",
-     "length": 127,
-     "name": "MISSMODE_SrvDo02_PlagueJavelin_PoisonJavelin_PoisonTrap"
-    },
-    {
-     "va": "0x005AE480",
-     "length": 149,
-     "name": "?MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AE680",
-     "length": 252,
-     "name": "MISSMODE_SrvDo06_MoltenBoulder_FireWallMaker"
-    },
-    {
-     "va": "0x005AE780",
-     "length": 284,
-     "name": "MISSMODE_SrvDo07_GuidedArrow_BoneSpirit"
-    },
-    {
-     "va": "0x005AE940",
-     "length": 280,
-     "name": "MISSMODE_SrvDo09_BatLightningBolt"
-    },
-    {
-     "va": "0x005AEB60",
-     "length": 319,
-     "name": "MISSMODE_SrvDo11_FingerMageSpider"
-    },
-    {
-     "va": "0x005AECA0",
-     "length": 250,
-     "name": "MISSMODE_SrvDo12_DiabWallMaker"
-    },
-    {
-     "va": "0x005AEF70",
-     "length": 177,
-     "name": "MISSMODE_SrvDo14_GrimWard"
-    },
-    {
-     "va": "0x005AF030",
-     "length": 315,
-     "name": "MISSMODE_SrvDo15_FrozenOrb"
-    },
-    {
-     "va": "0x005AF590",
-     "length": 142,
-     "name": "?MISSMODE_SrvDo21_Distraction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AF620",
-     "length": 357,
-     "name": "MISSMODE_SrvDo22_LightningTrailingJavelin"
-    },
-    {
-     "va": "0x005AF790",
-     "length": 229,
-     "name": "MISSMODE_SrvDo23_24_SuccFireBall_FirestormMaker"
-    },
-    {
-     "va": "0x005AF980",
-     "length": 163,
-     "name": "?MISSMODE_SrvDo26_Vines_PlagueVines@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AFA30",
-     "length": 332,
-     "name": "MISSMODE_SrvDo27_Tornado"
-    },
-    {
-     "va": "0x005B0010",
-     "length": 474
-    },
-    {
-     "va": "0x005B03E0",
-     "length": 183,
-     "name": "MISSMODE_SrvDo32_TigerFury"
-    },
-    {
-     "va": "0x005B0A40",
-     "length": 88,
-     "name": "?MISSMODE_SrvDo36_BaalFxControl@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B0AA0",
-     "length": 281,
-     "name": "?sub_005B0AA0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
