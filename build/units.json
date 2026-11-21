@@ -34572,6 +34572,19 @@
      "va": "0x004D1820",
      "length": 106,
      "name": "?sub_004D1820_SpawnSubMissile@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D3070",
+     "length": 70,
+     "name": "?sub_004D3070_CltDoOwnerStep@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D63E0",
+     "length": 344
+    },
+    {
+     "va": "0x004D6820",
+     "length": 985
     }
    ]
   },
@@ -34629,25 +34642,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D3070.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004D3070",
-     "length": 70,
-     "name": "?sub_004D3070_CltDoOwnerStep@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004D63E0",
-     "length": 344
-    },
-    {
-     "va": "0x004D6820",
-     "length": 985
-    }
    ]
   },
   {
