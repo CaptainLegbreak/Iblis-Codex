@@ -58731,6 +58731,10 @@
      "name": "?sub_005C4430_SetNecroPetComponents@@YIXPAUD2UnitStrc@@0HH@Z"
     },
     {
+     "va": "0x005C4470",
+     "length": 1386
+    },
+    {
      "va": "0x005C49E0",
      "length": 274,
      "name": "?D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
@@ -58754,6 +58758,10 @@
      "va": "0x005C5100",
      "length": 325,
      "name": "SKILLS_SrvDo056_Golem"
+    },
+    {
+     "va": "0x005C5250",
+     "length": 479
     },
     {
      "va": "0x005C5430",
@@ -68508,34 +68516,6 @@
      "va": "0x005C5F50",
      "length": 650
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillNec_005C4470.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C4470",
-     "length": 1386
-    },
-    {
-     "va": "0x005C5250",
-     "length": 479
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
