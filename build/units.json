@@ -59796,11 +59796,6 @@
      "name": "?ACT5Q6_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x0058DC60",
-     "length": 141,
-     "name": "?ACT5Q6_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
      "va": "0x0058DCF0",
      "length": 63,
      "name": "?ACT5Q6_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -59840,6 +59835,11 @@
      "va": "0x0058D8B0",
      "length": 144,
      "name": "?sub_0058D8B0@@YIHPAUGame@@PAUUnit@@PAX@Z"
+    },
+    {
+     "va": "0x0058DC60",
+     "length": 141,
+     "name": "?ACT5Q6_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x0058DD30",

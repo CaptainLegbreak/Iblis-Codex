@@ -242,6 +242,8 @@ void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); /
 
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
 // 0x0058D7D0
 int __fastcall sub_0058D7D0_ACT5Q6_UnitIterate_SpawnObject(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -279,6 +281,32 @@ int __fastcall sub_0058D8B0(Game* game, Unit* unit, void* unused)
     if (quest->state == 2) sub_0065C360(flags, QUEST_FLAGS_ID, 2);
     else if (quest->state == 3) sub_0065C360(flags, QUEST_FLAGS_ID, 3);
     return 0;
+}
+
+// 0x0058DC60
+void __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 40, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 40, 1) == 1)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    if (!nLevelId || DRLG_GetActNoFromLevelId(nLevelId) != 4)
+    {
+        return;
+    }
+
+    QUESTRECORD_SetQuestState(pQuestFlags, 40, 0);
+    QUESTRECORD_SetQuestState(pQuestFlags, 40, 13);
+    CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 384), 5, pGame->nDifficulty);
 }
 
 // 0x0058DD30
