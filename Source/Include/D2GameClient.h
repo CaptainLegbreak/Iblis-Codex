@@ -83,7 +83,8 @@ struct D2ClientStrc
     };
     unsigned int dwLastPacketTick; // 0x3D8
     D2HotkeySkillStrc HotkeySkills[16]; // 0x3DC
-    unsigned short unk0x45C; // 0x45C
+    unsigned char bSwitchWeapon; // 0x45C
+    unsigned char unk0x45D; // 0x45D
     unsigned short nGuildFlags; // 0x45E
     unsigned int unk0x460; // 0x460
     int unk0x464[7]; // 0x464
