@@ -64839,17 +64839,6 @@
      "name": "ACT1Q1_Callback00_NpcActivate"
     },
     {
-     "va": "0x005901E0",
-     "length": 10,
-     "name": "@sub_005901E0@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q1_00590080.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00590080",
      "length": 92,
      "name": "?ACT1Q1_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -64870,6 +64859,11 @@
      "name": "?ACT1Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005901E0",
+     "length": 10,
+     "name": "@sub_005901E0@4"
+    },
+    {
      "va": "0x005901F0",
      "length": 63,
      "name": "?ACT1Q1_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -64879,17 +64873,6 @@
      "length": 46,
      "name": "?ACT1Q1_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     },
-    {
-     "va": "0x00590690",
-     "length": 137,
-     "name": "?ACT1Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q1_00590260.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00590260",
      "length": 513,
@@ -64901,20 +64884,19 @@
      "name": "?ACT1Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x00590720",
-     "length": 226,
-     "name": "?ACT1Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q1_00590620.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00590620",
      "length": 102,
      "name": "?sub_00590620_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00590690",
+     "length": 137,
+     "name": "?ACT1Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00590720",
+     "length": 226,
+     "name": "?ACT1Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },

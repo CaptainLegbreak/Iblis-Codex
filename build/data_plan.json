@@ -5379,20 +5379,11 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a1q1.cpp": {
-   "bytes": 24,
-   "definitions": 1,
+   "bytes": 1592,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q1_00590260.cpp": {
-   "bytes": 1568,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q1_00590260.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -107986,7 +107977,7 @@
    "cname": "gData_007366B0",
    "declared": true,
    "decorated": "?gpAct1Q1NpcMessages@@3UD2NPCMessageTableStrc@@A",
-   "file": "Source/D2Game/Quests/a1q1_00590260.cpp",
+   "file": "Source/D2Game/Quests/a1q1.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007366B0_t gData_007366B0; // 0x007366B0",
    "head": "extern \"C\" struct d2data_007366B0_t gData_007366B0 = ",
