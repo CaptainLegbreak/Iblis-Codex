@@ -336,7 +336,7 @@ static void sub_0061DD00_InitPortalLevels(D2LevelDefBin* pLevelDefBin)
     gnPortalLevels_0096C9F8 = 0;
     for (int i = 0; i < sgptDataTables->nLevelsTxtRecordCount; ++i)
     {
-        if (pLevelDefBin[i].unk0x8C)
+        if (pLevelDefBin[i].dwPortal)
         {
             ++gnPortalLevels_0096C9F8;
         }
@@ -349,7 +349,7 @@ static void sub_0061DD00_InitPortalLevels(D2LevelDefBin* pLevelDefBin)
     int nPortalIndex = 0;
     for (int i = 0; i < sgptDataTables->nLevelsTxtRecordCount; ++i)
     {
-        if (pLevelDefBin[i].unk0x8C)
+        if (pLevelDefBin[i].dwPortal)
         {
             D2_ASSERT(nPortalIndex < gnPortalLevels_0096C9F8, 0x177);
             gpPortalLevels_0096C9F4[nPortalIndex] = i;
