@@ -80594,6 +80594,11 @@
      "name": "INVENTORY_FreeInventory"
     },
     {
+     "va": "0x0063AD50",
+     "length": 53,
+     "name": "INVENTORY_CompareWithItemsParentInventory"
+    },
+    {
      "va": "0x0063AD90",
      "length": 59,
      "name": "INVENTORY_RemoveItemFromInventory"
@@ -80607,6 +80612,16 @@
      "va": "0x0063AF70",
      "length": 90,
      "name": "?sub_0063AF70_LinkGridItem@@YGXPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063B2C0",
+     "length": 31,
+     "name": "INVENTORY_GetFirstItem"
+    },
+    {
+     "va": "0x0063B2E0",
+     "length": 31,
+     "name": "INVENTORY_GetLastItem"
     },
     {
      "va": "0x0063B300",
@@ -80664,6 +80679,11 @@
      "name": "?sub_0063B9C0_Nop@@YAXXZ"
     },
     {
+     "va": "0x0063B9D0",
+     "length": 331,
+     "name": "?INVENTORY_CanItemBePlaced@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HHHPAPAU2@PAIE@Z"
+    },
+    {
      "va": "0x0063BCB0",
      "length": 8,
      "name": "?sub_0063BCB0_AlwaysOne@@YGHHHHH@Z"
@@ -80708,6 +80728,10 @@
      "name": "?INVENTORY_CheckEquipmentForWeaponByClass@@YGHPAUD2InventoryStrc@@H@Z"
     },
     {
+     "va": "0x0063BEF0",
+     "length": 149
+    },
+    {
      "va": "0x0063BF90",
      "length": 179
     },
@@ -80730,6 +80754,26 @@
      "va": "0x0063C180",
      "length": 84,
      "name": "INVENTORY_SetCursorItem"
+    },
+    {
+     "va": "0x0063C1E0",
+     "length": 31,
+     "name": "INVENTORY_GetCursorItem"
+    },
+    {
+     "va": "0x0063C200",
+     "length": 227,
+     "name": "?INVENTORY_FindBackPackItemForStack@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@PAU1@1@Z"
+    },
+    {
+     "va": "0x0063C2F0",
+     "length": 189,
+     "name": "?INVENTORY_FindEquippedItemForStack@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@PAU1@1@Z"
+    },
+    {
+     "va": "0x0063C3B0",
+     "length": 251,
+     "name": "?INVENTORY_FindFillableBook@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@PAU1@1@Z"
     },
     {
      "va": "0x0063C4B0",
@@ -80757,6 +80801,11 @@
      "name": "?INVENTORY_HasSimilarPotionInBelt@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0063C600",
+     "length": 399,
+     "name": "?INVENTORY_GetFreeBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@PAH@Z"
+    },
+    {
      "va": "0x0063C790",
      "length": 91,
      "name": "?INVENTORY_PlaceItemInFreeBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
@@ -80766,14 +80815,34 @@
      "length": 182
     },
     {
+     "va": "0x0063C8F0",
+     "length": 180,
+     "name": "?INVENTORY_GetEquippedShield@@YGHPAUD2InventoryStrc@@PAPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063CB00",
+     "length": 101,
+     "name": "?INVENTORY_IsItemBodyLocFree@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x0063CB70",
      "length": 49,
      "name": "INVENTORY_RemoveInventoryItems"
     },
     {
+     "va": "0x0063CBB0",
+     "length": 31,
+     "name": "INVENTORY_GetTradeInventory"
+    },
+    {
      "va": "0x0063CBD0",
      "length": 81,
      "name": "INVENTORY_FreeTradeInventory"
+    },
+    {
+     "va": "0x0063CC30",
+     "length": 58,
+     "name": "INVENTORY_CheckForItemInTradeInventory"
     },
     {
      "va": "0x0063CC70",
@@ -80791,6 +80860,11 @@
      "name": "_sub_0063CD40@4"
     },
     {
+     "va": "0x0063CD60",
+     "length": 31,
+     "name": "INVENTORY_GetItemCount"
+    },
+    {
      "va": "0x0063CD80",
      "length": 217,
      "name": "?INVENTORY_GetBackPackItemByType@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
@@ -80801,8 +80875,33 @@
      "name": "?INVENTORY_GetEquippedItemByType@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
     },
     {
+     "va": "0x0063CF30",
+     "length": 221,
+     "name": "?INVENTORY_GetEquippedItemByCode@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
+    },
+    {
      "va": "0x0063D010",
      "length": 221
+    },
+    {
+     "va": "0x0063D190",
+     "length": 56,
+     "name": "sub_0063D190_SetLeftItemGUID"
+    },
+    {
+     "va": "0x0063D2B0",
+     "length": 138,
+     "name": "?INVENTORY_UpdateWeaponGUIDOnRemoval@@YGXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063D430",
+     "length": 28,
+     "name": "INVENTORY_SetOwnerId"
+    },
+    {
+     "va": "0x0063D450",
+     "length": 32,
+     "name": "INVENTORY_GetOwnerId"
     },
     {
      "va": "0x0063D470",
@@ -80815,9 +80914,19 @@
      "name": "INVENTORY_FreeCorpse"
     },
     {
+     "va": "0x0063D570",
+     "length": 31,
+     "name": "INVENTORY_GetFirstCorpse"
+    },
+    {
      "va": "0x0063D590",
      "length": 81,
      "name": "sub_0063D590_FreeCorpses"
+    },
+    {
+     "va": "0x0063D5F0",
+     "length": 31,
+     "name": "INVENTORY_GetCorpseCount"
     },
     {
      "va": "0x0063D610",
@@ -80865,9 +80974,34 @@
      "name": "?sub_0063DBC0_PairIsWieldable@@YAHPAUD2UnitStrc@@00@Z"
     },
     {
+     "va": "0x0063DFA0",
+     "length": 42,
+     "name": "INVENTORY_GetNextItem"
+    },
+    {
+     "va": "0x0063DFD0",
+     "length": 33,
+     "name": "INVENTORY_UnitIsItem"
+    },
+    {
+     "va": "0x0063E000",
+     "length": 28,
+     "name": "INVENTORY_GetItemGUID"
+    },
+    {
+     "va": "0x0063E020",
+     "length": 43,
+     "name": "INVENTORY_GetItemNodePage"
+    },
+    {
      "va": "0x0063E060",
      "length": 5,
      "name": "?sub_0063E060_AlwaysZero@@YGHH@Z"
+    },
+    {
+     "va": "0x0063E070",
+     "length": 63,
+     "name": "INVENTORY_IsItemInInventory"
     },
     {
      "va": "0x0063E0B0",
@@ -80875,9 +81009,29 @@
      "name": "INVENTORY_RemoveAllItems"
     },
     {
+     "va": "0x0063E100",
+     "length": 185,
+     "name": "?INVENTORY_CopyUnitItemsToTradeInventory@@YAHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0063E1C0",
      "length": 281,
      "name": "?INVENTORY_CanItemBePlacedInInventory@@YGHPAUD2UnitStrc@@0PAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x0063E2E0",
+     "length": 138,
+     "name": "?INVENTORY_CanItemBePlacedInTradeInventory@@YGHPAUD2UnitStrc@@PAUD2InventoryStrc@@0@Z"
+    },
+    {
+     "va": "0x0063E370",
+     "length": 274,
+     "name": "?INVENTORY_CanItemsBeTraded@@YGHPAXPAUD2UnitStrc@@1PAH@Z"
+    },
+    {
+     "va": "0x0063E490",
+     "length": 122,
+     "name": "?INVENTORY_GetSecondWieldingWeapon@@YGXPAUD2UnitStrc@@PAUD2InventoryStrc@@PAPAU1@H@Z"
     },
     {
      "va": "0x0063E7A0",
@@ -81064,166 +81218,6 @@
      "va": "0x0063A800",
      "length": 1,
      "name": "?sub_0063A800_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063AD50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0063AD50",
-     "length": 53,
-     "name": "INVENTORY_CompareWithItemsParentInventory"
-    },
-    {
-     "va": "0x0063B2C0",
-     "length": 31,
-     "name": "INVENTORY_GetFirstItem"
-    },
-    {
-     "va": "0x0063B2E0",
-     "length": 31,
-     "name": "INVENTORY_GetLastItem"
-    },
-    {
-     "va": "0x0063B9D0",
-     "length": 331,
-     "name": "?INVENTORY_CanItemBePlaced@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HHHPAPAU2@PAIE@Z"
-    },
-    {
-     "va": "0x0063BEF0",
-     "length": 149
-    },
-    {
-     "va": "0x0063C1E0",
-     "length": 31,
-     "name": "INVENTORY_GetCursorItem"
-    },
-    {
-     "va": "0x0063C200",
-     "length": 227,
-     "name": "?INVENTORY_FindBackPackItemForStack@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@PAU1@1@Z"
-    },
-    {
-     "va": "0x0063C2F0",
-     "length": 189,
-     "name": "?INVENTORY_FindEquippedItemForStack@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@PAU1@1@Z"
-    },
-    {
-     "va": "0x0063C3B0",
-     "length": 251,
-     "name": "?INVENTORY_FindFillableBook@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@PAU1@1@Z"
-    },
-    {
-     "va": "0x0063C600",
-     "length": 399,
-     "name": "?INVENTORY_GetFreeBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@PAH@Z"
-    },
-    {
-     "va": "0x0063C8F0",
-     "length": 180,
-     "name": "?INVENTORY_GetEquippedShield@@YGHPAUD2InventoryStrc@@PAPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063CB00",
-     "length": 101,
-     "name": "?INVENTORY_IsItemBodyLocFree@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x0063CBB0",
-     "length": 31,
-     "name": "INVENTORY_GetTradeInventory"
-    },
-    {
-     "va": "0x0063CC30",
-     "length": 58,
-     "name": "INVENTORY_CheckForItemInTradeInventory"
-    },
-    {
-     "va": "0x0063CD60",
-     "length": 31,
-     "name": "INVENTORY_GetItemCount"
-    },
-    {
-     "va": "0x0063CF30",
-     "length": 221,
-     "name": "?INVENTORY_GetEquippedItemByCode@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
-    },
-    {
-     "va": "0x0063D190",
-     "length": 56,
-     "name": "sub_0063D190_SetLeftItemGUID"
-    },
-    {
-     "va": "0x0063D2B0",
-     "length": 138,
-     "name": "?INVENTORY_UpdateWeaponGUIDOnRemoval@@YGXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063D430",
-     "length": 28,
-     "name": "INVENTORY_SetOwnerId"
-    },
-    {
-     "va": "0x0063D450",
-     "length": 32,
-     "name": "INVENTORY_GetOwnerId"
-    },
-    {
-     "va": "0x0063D570",
-     "length": 31,
-     "name": "INVENTORY_GetFirstCorpse"
-    },
-    {
-     "va": "0x0063D5F0",
-     "length": 31,
-     "name": "INVENTORY_GetCorpseCount"
-    },
-    {
-     "va": "0x0063DFA0",
-     "length": 42,
-     "name": "INVENTORY_GetNextItem"
-    },
-    {
-     "va": "0x0063DFD0",
-     "length": 33,
-     "name": "INVENTORY_UnitIsItem"
-    },
-    {
-     "va": "0x0063E000",
-     "length": 28,
-     "name": "INVENTORY_GetItemGUID"
-    },
-    {
-     "va": "0x0063E020",
-     "length": 43,
-     "name": "INVENTORY_GetItemNodePage"
-    },
-    {
-     "va": "0x0063E070",
-     "length": 63,
-     "name": "INVENTORY_IsItemInInventory"
-    },
-    {
-     "va": "0x0063E100",
-     "length": 185,
-     "name": "?INVENTORY_CopyUnitItemsToTradeInventory@@YAHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063E2E0",
-     "length": 138,
-     "name": "?INVENTORY_CanItemBePlacedInTradeInventory@@YGHPAUD2UnitStrc@@PAUD2InventoryStrc@@0@Z"
-    },
-    {
-     "va": "0x0063E370",
-     "length": 274,
-     "name": "?INVENTORY_CanItemsBeTraded@@YGHPAXPAUD2UnitStrc@@1PAH@Z"
-    },
-    {
-     "va": "0x0063E490",
-     "length": 122,
-     "name": "?INVENTORY_GetSecondWieldingWeapon@@YGXPAUD2UnitStrc@@PAUD2InventoryStrc@@PAPAU1@H@Z"
     }
    ]
   },

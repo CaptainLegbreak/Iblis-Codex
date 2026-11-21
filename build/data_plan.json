@@ -6070,8 +6070,8 @@
    "state": "included"
   },
   "Source/D2Common/INVENTORY/Inventory.cpp": {
-   "bytes": 2392,
-   "definitions": 4,
+   "bytes": 2416,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/INVENTORY/Inventory.inc",
@@ -6084,15 +6084,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/INVENTORY/Inventory_0063AFD0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/INVENTORY/Inventory_0063AD50.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/INVENTORY/Inventory_0063C2F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -127046,7 +127037,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/INVENTORY/Inventory_0063AD50.cpp",
+   "file": "Source/D2Common/INVENTORY/Inventory.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo = ",
