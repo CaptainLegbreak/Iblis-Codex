@@ -63007,9 +63007,33 @@
      "name": "AITHINK_SetAiControlParams"
     },
     {
+     "va": "0x005B0F50",
+     "length": 154,
+     "name": "?sub_005B0F50_OpenDoorInReach@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005B10E0",
+     "length": 92,
+     "name": "sub_005B10E0_AiTickPreChecks"
+    },
+    {
      "va": "0x005B1140",
      "length": 176,
      "name": "sub_005B1140_BossTauntOnSight"
+    },
+    {
+     "va": "0x005B11F0",
+     "length": 485
+    },
+    {
+     "va": "0x005B14E0",
+     "length": 236,
+     "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005B1740",
+     "length": 313,
+     "name": "?sub_005B1740@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005B23C0",
@@ -64833,36 +64857,6 @@
     {
      "va": "0x005EF320",
      "length": 701
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B0F50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B0F50",
-     "length": 154,
-     "name": "?sub_005B0F50_OpenDoorInReach@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005B10E0",
-     "length": 92,
-     "name": "sub_005B10E0_AiTickPreChecks"
-    },
-    {
-     "va": "0x005B11F0",
-     "length": 485
-    },
-    {
-     "va": "0x005B14E0",
-     "length": 236,
-     "name": "?D2GAME_AI_SpecialState02_6FCD1660@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005B1740",
-     "length": 313,
-     "name": "?sub_005B1740@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
