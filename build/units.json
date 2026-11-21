@@ -1877,11 +1877,6 @@
      "va": "0x004C5420",
      "length": 79,
      "name": "?sub_004C5420_RequestAtTarget@@YIPAUD2UnitStrc@@PAU1@HHH@Z"
-    },
-    {
-     "va": "0x004C54F0",
-     "length": 290,
-     "name": "?sub_004C54F0_CanThrow@@YIHPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -11616,6 +11611,11 @@
      "name": "?sub_004C5390_EnlargeVector@@YIXPAH0@Z"
     },
     {
+     "va": "0x004C54F0",
+     "length": 290,
+     "name": "?sub_004C54F0_CanThrow@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004C5620",
      "length": 96,
      "name": "sub_004C5620_SetSpeedToTarget"
@@ -14395,16 +14395,6 @@
      "name": "?sub_00476B10_CreateView@@YAPAUObj004DCF10@@XZ"
     },
     {
-     "va": "0x00476EA0",
-     "length": 259,
-     "name": "sub_00476EA0_LoadPalShift"
-    },
-    {
-     "va": "0x00476FB0",
-     "length": 127,
-     "name": "?sub_00476FB0@@YAXXZ"
-    },
-    {
      "va": "0x00477030",
      "length": 33,
      "name": "?sub_00477030_FindPalShiftNode@@YIPAUD2PalShiftNodeStrc@@H@Z"
@@ -15039,11 +15029,6 @@
      "name": "sub_004790B0_FindNodeValues"
     },
     {
-     "va": "0x004794B0",
-     "length": 228,
-     "name": "sub_004794B0_FreeRosterLists"
-    },
-    {
      "va": "0x0047AD10",
      "length": 67,
      "name": "sub_0047AD10_ResetSelectionMsg"
@@ -15535,11 +15520,6 @@
      "name": "?sub_00497300_DrawKeyBindingPopup@@YAXXZ"
     },
     {
-     "va": "0x0049DB10",
-     "length": 170,
-     "name": "sub_0049DB10_CloneStringList"
-    },
-    {
      "va": "0x004A17D0",
      "length": 151,
      "name": "sub_004A17D0"
@@ -15774,11 +15754,6 @@
      "va": "0x00451330",
      "length": 202,
      "name": "?sub_00451330@@YAHXZ"
-    },
-    {
-     "va": "0x00451400",
-     "length": 67,
-     "name": "?sub_00451400_AddRecordChunk@@YAXXZ"
     },
     {
      "va": "0x00451940",
@@ -16518,6 +16493,11 @@
      "va": "0x00451260",
      "length": 39,
      "name": "?sub_00451260_RegisterLngArgument@@YAHXZ"
+    },
+    {
+     "va": "0x00451400",
+     "length": 67,
+     "name": "?sub_00451400_AddRecordChunk@@YAXXZ"
     },
     {
      "va": "0x004514B0",
@@ -17789,11 +17769,6 @@
      "va": "0x00476A80",
      "length": 61,
      "name": "sub_00476A80_SetTimedState"
-    },
-    {
-     "va": "0x00476E30",
-     "length": 101,
-     "name": "sub_00476E30_LoadGreenBlood"
     }
    ]
   },
@@ -19516,6 +19491,11 @@
      "va": "0x00478A90",
      "length": 31,
      "name": "?sub_00478A90_FindRosterPet@@YIPAUD2RosterPetNodeStrc@@H@Z"
+    },
+    {
+     "va": "0x00478AB0",
+     "length": 85,
+     "name": "?sub_00478AB0_RemoveType7@@YIXHH@Z"
     },
     {
      "va": "0x00478B10",
@@ -21652,6 +21632,11 @@
      "name": "sub_004DA990_FindGfxUtilNode"
     },
     {
+     "va": "0x004DA9C0",
+     "length": 55,
+     "name": "?sub_004DA9C0_FreeNodeList@@YIXPAPAUD2GfxNodeStrc@@PAH@Z"
+    },
+    {
      "va": "0x004DAA00",
      "length": 102,
      "name": "?sub_004DAA00_GetModeArg@@YIHPAUD2UnitStrc@@HH@Z"
@@ -21748,6 +21733,11 @@
      "va": "0x004DB360",
      "length": 520,
      "name": "?sub_004DB360_GetCompTransparency@@YIHPAUD2UnitStrc@@HPAHH@Z"
+    },
+    {
+     "va": "0x004DB570",
+     "length": 254,
+     "name": "sub_004DB570_GetBodyLocItemShift"
     },
     {
      "va": "0x004DB7B0",
@@ -22349,11 +22339,6 @@
      "name": "sub_004795F0_SortRosterByName"
     },
     {
-     "va": "0x0047B2E0",
-     "length": 196,
-     "name": "sub_0047B2E0_CloseChatInput"
-    },
-    {
      "va": "0x0047BA80",
      "length": 80,
      "name": "sub_0047BA80_StepChatIndex"
@@ -22362,21 +22347,6 @@
      "va": "0x00480000",
      "length": 18,
      "name": "sub_00480000_SendWardenPacket"
-    },
-    {
-     "va": "0x004800C0",
-     "length": 28,
-     "name": "sub_004800C0_WardenAlloc"
-    },
-    {
-     "va": "0x004800E0",
-     "length": 28,
-     "name": "sub_004800E0_WardenFree"
-    },
-    {
-     "va": "0x00480100",
-     "length": 79,
-     "name": "sub_00480100_SetWardenBuffer"
     },
     {
      "va": "0x00480420",
@@ -23394,54 +23364,49 @@
   {
    "file": "Source/D2Client/GAME/PalShift.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
+    {
+     "va": "0x00476E30",
+     "length": 101,
+     "name": "sub_00476E30_LoadGreenBlood"
+    },
+    {
+     "va": "0x00476EA0",
+     "length": 259,
+     "name": "sub_00476EA0_LoadPalShift"
+    },
+    {
+     "va": "0x00476FB0",
+     "length": 127,
+     "name": "?sub_00476FB0@@YAXXZ"
+    },
     {
      "va": "0x00477060",
      "length": 257
+    },
+    {
+     "va": "0x00477170",
+     "length": 767
     },
     {
      "va": "0x00477470",
      "length": 180,
      "name": "?sub_00477470_InitPalShifts@@YAXXZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/PalShift_00477170.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00477170",
-     "length": 767
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -23613,16 +23578,6 @@
      "va": "0x004781D0",
      "length": 379,
      "name": "?NET_D2GS_CLIENT_Send_0x6C@@YIXH@Z"
-    },
-    {
-     "va": "0x00478A00",
-     "length": 31,
-     "name": "?sub_00478A00@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00478AB0",
-     "length": 85,
-     "name": "?sub_00478AB0_RemoveType7@@YIXHH@Z"
     }
    ],
    "flags": [
@@ -23763,6 +23718,11 @@
      "va": "0x00478950",
      "length": 163,
      "name": "?ARCHIVE_LoadCellFileWithFileSize@@YIPAUD2CelFileStrc@@PBDPAIH@Z"
+    },
+    {
+     "va": "0x00478A00",
+     "length": 31,
+     "name": "?sub_00478A00@@YIXPAX@Z"
     }
    ],
    "flags": [
@@ -23883,6 +23843,11 @@
      "va": "0x00479470",
      "length": 51,
      "name": "?sub_00479470_FreeCorpses@@YAXPAUD2RosterUnitStrc@@@Z"
+    },
+    {
+     "va": "0x004794B0",
+     "length": 228,
+     "name": "sub_004794B0_FreeRosterLists"
     },
     {
      "va": "0x004795A0",
@@ -24400,6 +24365,21 @@
      "name": "?sub_00480040_CallServiceWithHashName@@YGXPBEHH@Z"
     },
     {
+     "va": "0x004800C0",
+     "length": 28,
+     "name": "sub_004800C0_WardenAlloc"
+    },
+    {
+     "va": "0x004800E0",
+     "length": 28,
+     "name": "sub_004800E0_WardenFree"
+    },
+    {
+     "va": "0x00480100",
+     "length": 79,
+     "name": "sub_00480100_SetWardenBuffer"
+    },
+    {
      "va": "0x00480150",
      "length": 102,
      "name": "sub_00480150_TakeWardenBuffer"
@@ -24503,6 +24483,11 @@
      "va": "0x0047B090",
      "length": 588,
      "name": "?sub_0047B090_InitChatIme@@YAXXZ"
+    },
+    {
+     "va": "0x0047B2E0",
+     "length": 196,
+     "name": "sub_0047B2E0_CloseChatInput"
     },
     {
      "va": "0x0047B4E0",
@@ -26550,6 +26535,11 @@
      "name": "?sub_0049DAE0_AdjustTextPos@@YIXPAUD2TextBoxPosStrc@@PAUD2TextPointStrc@@@Z"
     },
     {
+     "va": "0x0049DB10",
+     "length": 170,
+     "name": "sub_0049DB10_CloneStringList"
+    },
+    {
      "va": "0x0049E250",
      "length": 35
     },
@@ -26837,11 +26827,6 @@
      "va": "0x00496990",
      "length": 378,
      "name": "?sub_00496990_FreePanelCels@@YAXXZ"
-    },
-    {
-     "va": "0x00496CF0",
-     "length": 222,
-     "name": "?sub_00496CF0_ValidateActiveSkills@@YAXXZ"
     },
     {
      "va": "0x00497270",
@@ -27147,6 +27132,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00496CF0",
+     "length": 222,
+     "name": "?sub_00496CF0_ValidateActiveSkills@@YAXXZ"
+    },
+    {
      "va": "0x00496DD0",
      "length": 418,
      "name": "?sub_00496DD0_GetSmoothedOrbValue@@YAHH@Z"
@@ -27281,11 +27271,6 @@
      "name": "?sub_00499E30_SetBlackColour@@YAXXZ"
     },
     {
-     "va": "0x0049A580",
-     "length": 181,
-     "name": "?sub_0049A580_DrawPlayerName@@YAXXZ"
-    },
-    {
      "va": "0x0049C0A0",
      "length": 76,
      "name": "?sub_0049C0A0_LoadPartyCels@@YAXXZ"
@@ -27304,11 +27289,6 @@
      "va": "0x004BE340",
      "length": 206,
      "name": "sub_004BE340_CountLinesInView"
-    },
-    {
-     "va": "0x004DA000",
-     "length": 99,
-     "name": "sub_004DA000_ResetGfxMotion"
     }
    ],
    "flags": [
@@ -27616,6 +27596,11 @@
      "va": "0x0049A510",
      "length": 111,
      "name": "?sub_0049A510_DrawPartyButtons@@YAXXZ"
+    },
+    {
+     "va": "0x0049A580",
+     "length": 181,
+     "name": "?sub_0049A580_DrawPlayerName@@YAXXZ"
     },
     {
      "va": "0x0049A640",
@@ -33144,11 +33129,6 @@
      "name": "sub_004D93B0_SendPositionEvent"
     },
     {
-     "va": "0x004DA080",
-     "length": 48,
-     "name": "sub_004DA080_FreeGfxMotion"
-    },
-    {
      "va": "0x004DA0D0",
      "length": 28,
      "name": "sub_004DA0D0_GetGfxMotionField38"
@@ -34363,11 +34343,6 @@
      "va": "0x004DAAB0",
      "length": 138,
      "name": "sub_004DAAB0_GetArmorComponents"
-    },
-    {
-     "va": "0x004DB570",
-     "length": 254,
-     "name": "sub_004DB570_GetBodyLocItemShift"
     },
     {
      "va": "0x004DC190",
@@ -36187,9 +36162,19 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004DA000",
+     "length": 99,
+     "name": "sub_004DA000_ResetGfxMotion"
+    },
+    {
      "va": "0x004DA070",
      "length": 5,
      "name": "?sub_004DA070_GetGfxMotion@@YIPAUD2GfxMotionStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004DA080",
+     "length": 48,
+     "name": "sub_004DA080_FreeGfxMotion"
     },
     {
      "va": "0x004DA700",
@@ -36200,11 +36185,6 @@
      "va": "0x004DA790",
      "length": 331,
      "name": "?sub_004DA790_InitModeTokens@@YAXXZ"
-    },
-    {
-     "va": "0x004DA9C0",
-     "length": 55,
-     "name": "?sub_004DA9C0_FreeNodeList@@YIXPAPAUD2GfxNodeStrc@@PAH@Z"
     },
     {
      "va": "0x004DAD20",
@@ -36330,11 +36310,6 @@
      "name": "?sub_004DCA20_Forward@@YIHPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004DCF30",
-     "length": 53,
-     "name": "?sub_004DCF30@@YIXPAUD2ViewStrc@@@Z"
-    },
-    {
      "va": "0x004DDDF0",
      "length": 1,
      "name": "?sub_004DDDF0@@YAXXZ"
@@ -36421,6 +36396,11 @@
      "va": "0x004DCF10",
      "length": 24,
      "name": "@sub_004DCF10@4"
+    },
+    {
+     "va": "0x004DCF30",
+     "length": 53,
+     "name": "?sub_004DCF30@@YIXPAUD2ViewStrc@@@Z"
     }
    ]
   },

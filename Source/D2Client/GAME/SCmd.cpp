@@ -5011,17 +5011,3 @@ void __fastcall sub_00476A80_SetTimedState(int nArg0, int nArg1, int nArg2, int 
     }
 }
 
-// 0x00476E30
-void __cdecl sub_00476E30_LoadGreenBlood()
-{
-    void* hFile;
-    if (ARCHIVE_OpenFile(0, "Data\\Global\\Monsters\\GreenBlood.dat", &hFile, 1))
-    {
-        void* pBuffer = FOG_Alloc(0x100, ".\\GAME\\PalShift.cpp", 0x52, 0);
-        gpGlobal_007BB384 = pBuffer;
-        memset(pBuffer, 0, 0x100);
-        ARCHIVE_ReadFileToBuffer(0, hFile, pBuffer, 0x100);
-        ARCHIVE_CloseFile(0, hFile);
-    }
-}
-

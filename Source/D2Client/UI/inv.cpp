@@ -686,7 +686,6 @@ int gnSentBytes_007A6AF8; // 0x007A6AF8
 
 int gnSentPackets_007A6B00; // 0x007A6B00
 
-D2RosterEntryStrc* gpRosterListB_007BB5C4; // 0x007BB5C4
 
 int gdwGlobal_007BB5EC; // 0x007BB5EC
 
@@ -743,48 +742,6 @@ void __fastcall sub_004790B0_FindNodeValues(int nId, int* pValueA, int* pValueB)
     }
     *pValueA = 0;
     *pValueB = 0;
-}
-
-// 0x004794B0
-void __cdecl sub_004794B0_FreeRosterLists()
-{
-    D2RosterEntryStrc* pEntry = gpRosterListA_007BB5C0;
-    while (pEntry)
-    {
-        D2RosterEntryStrc* pNext = pEntry->pNext;
-        sub_004DC2B0(pEntry->pResource);
-        pEntry->pResource = 0;
-        D2RosterSubStrc* pSub = pEntry->pSubList;
-        while (pSub)
-        {
-            D2RosterSubStrc* pSubNext = pSub->pNext;
-            FOG_Free(pSub, ".\\GAME\\Roster.cpp", 0x110, 0);
-            pSub = pSubNext;
-        }
-        pEntry->pSubList = 0;
-        FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x14D, 0);
-        pEntry = pNext;
-    }
-    gpRosterListA_007BB5C0 = 0;
-
-    pEntry = gpRosterListB_007BB5C4;
-    while (pEntry)
-    {
-        D2RosterEntryStrc* pNext = pEntry->pNext;
-        sub_004DC2B0(pEntry->pResource);
-        pEntry->pResource = 0;
-        D2RosterSubStrc* pSub = pEntry->pSubList;
-        while (pSub)
-        {
-            D2RosterSubStrc* pSubNext = pSub->pNext;
-            FOG_Free(pSub, ".\\GAME\\Roster.cpp", 0x110, 0);
-            pSub = pSubNext;
-        }
-        pEntry->pSubList = 0;
-        FOG_Free(pEntry, ".\\GAME\\Roster.cpp", 0x159, 0);
-        pEntry = pNext;
-    }
-    gpRosterListB_007BB5C4 = 0;
 }
 
 // 0x0047AD10
@@ -3267,21 +3224,6 @@ void __cdecl sub_00497300_DrawKeyBindingPopup()
         sub_00526700(wszText, wszKey);
     }
     sub_00502280_SetPopUpText(wszText, gnGlobal_0071146C / 2 - 0x91, gnGlobal_00711470 - 0x17, 0, 1);
-}
-
-// 0x0049DB10
-D2ClientStringListStrc* __fastcall sub_0049DB10_CloneStringList(D2ClientStringListStrc* pSource)
-{
-    D2ClientStringListStrc* pCopy = (D2ClientStringListStrc*)FOG_Alloc(0x26, ".\\UI\\text.cpp", 0x9D0, 0);
-    memset(pCopy, 0, 0x26);
-    for (int i = 0; i < pSource->nCount; ++i)
-    {
-        pCopy->pStrings[i] = (Unicode*)FOG_Alloc((sub_00526800(pSource->pStrings[i]) + 1) * sizeof(Unicode), ".\\UI\\text.cpp", 0x9D4, 0);
-        sub_005267E0(pCopy->pStrings[i], pSource->pStrings[i]);
-    }
-    pCopy->nCount = pSource->nCount;
-    *(int*)pCopy->f_1A = *(int*)pSource->f_1A;
-    return pCopy;
 }
 
 // 0x004A17D0

@@ -2372,17 +2372,6 @@ void __fastcall sub_004D93B0_SendPositionEvent(D2UnitStrc* pUnit)
     D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0);
 }
 
-// 0x004DA080
-void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        FOG_Free(pMotion, ".\\ENGINE\\Particle.cpp", 100, 0);
-        sub_0046F070_SetGfxMotion(pUnit, 0);
-    }
-}
-
 // 0x004DA0D0
 int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit)
 {

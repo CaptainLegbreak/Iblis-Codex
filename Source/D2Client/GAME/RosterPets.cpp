@@ -127,6 +127,8 @@ static int gnGlobal_007C0280;                                                   
 
 static T0045FED0* gpTimer_007C0E54;                                                                 // 0x007C0E54
 
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 // 0x0045FED0
 void __stdcall sub_0045FED0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -198,6 +200,26 @@ int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGr
         return 0x50;
     }
     return (int)(sub_0040B330_Cos(gnGlobal_007129CC * 128 / 30) * 80.0);
+}
+
+
+// 0x00478AB0
+void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey)
+{
+    D2RosterPetNodeStrc* pPrev = 0;
+    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nType == 7 && pNode->nKey == nKey)
+        {
+            if (pPrev)
+                pPrev->pNext = pNode->pNext;
+            else
+                gpRosterPets_007BB5BC = pNode->pNext;
+            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0x59, 0);
+            return;
+        }
+        pPrev = pNode;
+    }
 }
 
 // 0x0047ACA0

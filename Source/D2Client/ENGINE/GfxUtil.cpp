@@ -545,6 +545,13 @@ int __fastcall sub_004DBF20_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY);
 
 unsigned int gdwFadeTick_007C89CC; // 0x007C89CC
 
+struct D2GfxNodeStrc
+{
+    int unk0x00[3];
+    D2GfxNodeStrc* pNext;
+};
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
 // 0x0046C570
 int __fastcall sub_0046C570_ForEachUnitInAdjacentRooms(D2UnitStrc* pUnit, void* pArg1, void* pArg2, UNITCALLBACKFN pfnCallback)
 {
@@ -993,6 +1000,21 @@ static __forceinline D2MonStatsTxt* GFXUTIL_GetMonStatsTxtRecord(int nMonsterId)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
     return 0;
+}
+
+
+// 0x004DA9C0
+void __fastcall sub_004DA9C0_FreeNodeList(D2GfxNodeStrc** ppHead, int* pBytes)
+{
+    D2GfxNodeStrc* pNode = *ppHead;
+    while (pNode)
+    {
+        D2GfxNodeStrc* pNext = pNode->pNext;
+        FOG_Free(pNode, ".\\ENGINE\\GfxUtil.cpp", 0xA8, 0);
+        *pBytes -= sizeof(D2GfxNodeStrc);
+        pNode = pNext;
+    }
+    *ppHead = 0;
 }
 
 // 0x004DAA00
@@ -1745,6 +1767,56 @@ static __forceinline D2InventoryStrc* GetCompInventoryInline(D2UnitStrc* pUnit)
 {
     int nOut;
     return sub_0046DB30_GetCompInventory(pUnit, &nOut);
+}
+
+
+// 0x004DB570
+int __fastcall sub_004DB570_GetBodyLocItemShift(D2UnitStrc* pUnit, int nBodyLoc, int nDefault)
+{
+    if (nBodyLoc >= 16)
+    {
+        return nDefault;
+    }
+
+    if (pUnit && !sub_0046D9F0_TestUnit(pUnit))
+    {
+        D2InventoryStrc* pInventory;
+        D2UnitStrc* pOwner;
+        if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+        {
+            pInventory = pOwner->pInventory;
+        }
+        else
+        {
+            pInventory = pUnit->pInventory;
+        }
+
+        if (pInventory)
+        {
+            D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, nBodyLoc);
+            if (!pItem && nBodyLoc != 1 && sub_0064F420_HasBodyLocFallback(nBodyLoc))
+            {
+                pItem = sub_0063C050_GetBodyLocItem(pInventory, 1);
+            }
+
+            if (pItem && !ITEMS_CheckItemFlag(pItem, 0x100, 0x656, ".\\ENGINE\\GfxUtil.cpp") && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x657, ".\\ENGINE\\GfxUtil.cpp"))
+            {
+                if (ITEMS_GetAltGfx(pItem) == 0x2074696C)
+                {
+                    return 0;
+                }
+
+                unsigned char nShift;
+                const int nResult = sub_0062C100(pUnit, pItem, &nShift, 0);
+                if (nResult)
+                {
+                    return nResult;
+                }
+            }
+        }
+    }
+
+    return nDefault;
 }
 
 // 0x004DB7B0

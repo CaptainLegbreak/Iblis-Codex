@@ -872,6 +872,33 @@ void __stdcall sub_00480040_CallServiceWithHashName(const unsigned char* pHash, 
     gpService_007BC998->pfnCall(szName, nArg2, nArg3, &tTime, -1, -1);
 }
 
+
+// 0x004800C0
+void* __stdcall sub_004800C0_WardenAlloc(int nSize)
+{
+    return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x274, 0);
+}
+
+
+// 0x004800E0
+void __stdcall sub_004800E0_WardenFree(void* pMemory)
+{
+    SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x27B, 0);
+}
+
+
+// 0x00480100
+void __stdcall sub_00480100_SetWardenBuffer(const void* pData, unsigned int nSize)
+{
+    if (gpWardenBuffer_007BC988)
+    {
+        SMemFree(gpWardenBuffer_007BC988, ".\\WARDEN\\WardenClient.cpp", 0x283, 0);
+    }
+    gpWardenBuffer_007BC988 = SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x284, 0);
+    gnWardenBufferSize_007BC98C = nSize;
+    sub_0041D2A0_MemCopy(gpWardenBuffer_007BC988, pData, nSize);
+}
+
 // 0x00480150
 bool __stdcall sub_00480150_TakeWardenBuffer(void* pDst, unsigned int* pSize)
 {

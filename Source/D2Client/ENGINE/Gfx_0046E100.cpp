@@ -609,36 +609,6 @@ D2RosterUnitStrc* __stdcall sub_004795F0_SortRosterByName(D2RosterUnitStrc* pLis
     return pSorted;
 }
 
-// 0x0047B2E0
-void __cdecl sub_0047B2E0_CloseChatInput()
-{
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtChatHandlers_00712F4C, 4);
-    if (gbChatInputOpen_007BB5E1)
-    {
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtChatInputHandlers_00712FA8, 7);
-        T0046E1B0* hImc = ImmGetContext(sub_004F59A0());
-        if (hImc)
-        {
-            ImmSetOpenStatus(hImc, 0);
-            if (gnLanguageId_007BB5DC == 7 || gnLanguageId_007BB5DC == 12)
-            {
-                unsigned long nConversion;
-                unsigned long nSentence;
-                ImmGetConversionStatus(hImc, &nConversion, &nSentence);
-                ImmSetConversionStatus(hImc, 0, nSentence);
-            }
-            ImmReleaseContext(sub_004F59A0(), hImc);
-        }
-        gwChatText_007BB5F8 = 0;
-        gwChatText_007BC850 = 0;
-        if (gpChatBuffer_007BB5F4)
-        {
-            FOG_Free(gpChatBuffer_007BB5F4, ".\\UI\\chat.cpp", 0x29D, 0);
-            gpChatBuffer_007BB5F4 = 0;
-        }
-    }
-}
-
 // 0x0047BA80
 void __stdcall sub_0047BA80_StepChatIndex(int nDelta)
 {
@@ -695,30 +665,6 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
 int __stdcall sub_00480000_SendWardenPacket(const void* pData, int nSize)
 {
     return sub_00478830_SendPacket66(pData, nSize);
-}
-
-// 0x004800C0
-void* __stdcall sub_004800C0_WardenAlloc(int nSize)
-{
-    return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x274, 0);
-}
-
-// 0x004800E0
-void __stdcall sub_004800E0_WardenFree(void* pMemory)
-{
-    SMemFree(pMemory, ".\\WARDEN\\WardenClient.cpp", 0x27B, 0);
-}
-
-// 0x00480100
-void __stdcall sub_00480100_SetWardenBuffer(const void* pData, unsigned int nSize)
-{
-    if (gpWardenBuffer_007BC988)
-    {
-        SMemFree(gpWardenBuffer_007BC988, ".\\WARDEN\\WardenClient.cpp", 0x283, 0);
-    }
-    gpWardenBuffer_007BC988 = SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x284, 0);
-    gnWardenBufferSize_007BC98C = nSize;
-    sub_0041D2A0_MemCopy(gpWardenBuffer_007BC988, pData, nSize);
 }
 
 // 0x00480420

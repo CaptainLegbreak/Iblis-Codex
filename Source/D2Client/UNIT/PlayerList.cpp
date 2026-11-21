@@ -128,20 +128,6 @@ void __fastcall sub_004DC510_InitGfxData(D2UnitStrc* pUnit)
     }
 }
 
-// 0x004DCF30
-void __fastcall sub_004DCF30(D2ViewStrc* pView)
-{
-    if (pView->pCells)
-    {
-        FOG_Free(pView->pCells, ".\\GAME\\Wall2.cpp", 0x55, 0);
-    }
-
-    pView->pCells = 0;
-    pView->nField0xEAB0 = 0;
-    pView->nField0xEA9C = 0;
-    pView->nField0x38 = 0;
-}
-
 // 0x004DDDF0
 void __cdecl sub_004DDDF0()
 {

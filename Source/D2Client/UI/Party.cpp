@@ -100,6 +100,11 @@ int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
 void __stdcall sub_0049A690_DrawRosterButtons(D2RosterUnitStrc* pRow); // 0x0049A690
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
 
+extern "C" size_t __cdecl strlen(const char* szString);
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
+int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
+
 // 0x00499FC0
 static __declspec(noinline) void __stdcall sub_00499FC0_DrawPanelCel(void* pCellFile, int nX, int nFrame, int nY)
 {
@@ -278,6 +283,31 @@ void __cdecl sub_0049A510_DrawPartyButtons()
         sub_004A7080(gnGlobal_007A2858 + 0xE3, 0x21 - gnGlobal_007A285C, gnGlobal_007A2858 + 0x118, D2LANG_GetStringFromTblIndex(0x1038), 2);
     }
     sub_00502EF0(1);
+}
+
+
+// 0x0049A580
+void __cdecl sub_0049A580_DrawPlayerName()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+        return;
+    const char* szName = sub_0047A210(pPlayer);
+    if (!szName)
+        return;
+    unsigned int nLen = sub_005262A0_Utf8CountChars(szName, strlen(szName)) + 1;
+    if (nLen > 11)
+    {
+        if (nLen >= 14)
+            sub_00502EF0(6);
+        else
+            sub_00502EF0(0);
+    }
+    Unicode* wszName = (Unicode*)FOG_Alloc(sizeof(Unicode) * nLen, ".\\UI\\Party.cpp", 0x211, 0);
+    sub_00526320_ToUnicode(wszName, szName, nLen);
+    sub_004A7080(gnGlobal_007A2858 + 0x14, 0x1F - gnGlobal_007A285C, gnGlobal_007A2858 + 0xBE, wszName, 0);
+    sub_00502EF0(0);
+    FOG_Free(wszName, ".\\UI\\Party.cpp", 0x21A, 0);
 }
 
 // 0x0049A640

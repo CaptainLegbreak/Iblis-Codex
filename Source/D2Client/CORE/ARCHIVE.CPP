@@ -5,6 +5,9 @@ extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, const char* szPath); // 0x00601340
 
+int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 // 0x004788B0
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType)
 {
@@ -28,3 +31,12 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, u
     CelFileNormalize((D2CelFileStrc*)pFile, &pCellFile, ".\\CORE\\ARCHIVE.CPP", 0x6B, -1, szPath);
     return pCellFile;
 }
+
+// 0x00478A00
+void __fastcall sub_00478A00(void* pCel)
+{
+    CelFileFreeHardware((D2CelFileStrc*)pCel);
+    if (pCel)
+        FOG_Free(pCel, ".\\CORE\\ARCHIVE.CPP", 0x7A, 0);
+}
+

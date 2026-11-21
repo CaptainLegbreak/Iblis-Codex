@@ -197,6 +197,41 @@ static int ORB_AbsValue(int nValue)
     return nValue < 0 ? -nValue : nValue;
 }
 
+
+int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
+int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
+void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
+void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
+D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
+D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
+void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
+
+// 0x00496CF0
+void __cdecl sub_00496CF0_ValidateActiveSkills()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+    D2SkillStrc* pSkill = UNITS_GetLeftSkill(pPlayer);
+    if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
+    {
+        SKILLS_RemoveSkill(pPlayer, SKILLS_GetSkillIdFromSkill(pSkill, ".\\UI\\panel.cpp", 0x289), ".\\UI\\panel.cpp", 0x289);
+        SKILLS_SetLeftActiveSkill(pPlayer, 0, -1);
+        pSkill = UNITS_GetLeftSkill(pPlayer);
+    }
+    sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, 0x75, gnGlobal_00711470, 1);
+    pSkill = UNITS_GetRightSkill(pPlayer);
+    if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
+    {
+        SKILLS_RemoveSkill(pPlayer, SKILLS_GetSkillIdFromSkill(pSkill, ".\\UI\\panel.cpp", 0x294), ".\\UI\\panel.cpp", 0x294);
+        SKILLS_SetRightActiveSkill(pPlayer, 0, -1);
+        pSkill = UNITS_GetRightSkill(pPlayer);
+    }
+    sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, gnGlobal_0071146C - 0xA5, gnGlobal_00711470, 0);
+}
+
 // 0x00496DD0
 static int sub_00496DD0_GetSmoothedOrbValue(int nStatId)
 {
@@ -1203,30 +1238,7 @@ void __cdecl sub_00499E30_SetBlackColour()
 {
     gbGlobal_007BF034 = D2Win_10034_MixRGB(0, 0, 0);
 }
-
-// 0x0049A580
-void __cdecl sub_0049A580_DrawPlayerName()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-        return;
-    const char* szName = sub_0047A210(pPlayer);
-    if (!szName)
-        return;
-    unsigned int nLen = sub_005262A0_Utf8CountChars(szName, strlen(szName)) + 1;
-    if (nLen > 11)
-    {
-        if (nLen >= 14)
-            sub_00502EF0(6);
-        else
-            sub_00502EF0(0);
-    }
-    Unicode* wszName = (Unicode*)FOG_Alloc(sizeof(Unicode) * nLen, ".\\UI\\Party.cpp", 0x211, 0);
-    sub_00526320_ToUnicode(wszName, szName, nLen);
-    sub_004A7080(gnGlobal_007A2858 + 0x14, 0x1F - gnGlobal_007A285C, gnGlobal_007A2858 + 0xBE, wszName, 0);
-    sub_00502EF0(0);
-    FOG_Free(wszName, ".\\UI\\Party.cpp", 0x21A, 0);
-}
+void __cdecl sub_0049A580_DrawPlayerName(); // 0x0049A580
 
 // 0x0049C0A0
 void __cdecl sub_0049C0A0_LoadPartyCels()
@@ -1426,17 +1438,4 @@ int __fastcall sub_004BE340_CountLinesInView(D2TextPanelStrc* pPanel)
     }
 
     return nLineCount;
-}
-
-// 0x004DA000
-void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (!pMotion)
-    {
-        pMotion = (D2GfxMotionStrc*)FOG_Alloc(sizeof(D2GfxMotionStrc), ".\\ENGINE\\Particle.cpp", 72, 0);
-        D2_ASSERT(pMotion, 74);
-    }
-    memset(pMotion, 0, sizeof(D2GfxMotionStrc));
-    sub_0046F070_SetGfxMotion(pUnit, pMotion);
 }

@@ -52,6 +52,18 @@ static int s_nCollision_007C8A0C;
 
 static unsigned int s_nPlayerY_007C8A10;
 
+struct D2ViewStrc
+{
+    char unk0x00[0x38];
+    int nField0x38;
+    char unk0x3C[0xEA60];
+    int nField0xEA9C;
+    char unk0xEAA0[8];
+    void* pCells;
+    char unk0xEAAC[4];
+    int nField0xEAB0;
+};
+
 // 0x004DCE60
 static void sub_004DCE60_ResizeWallCells(D2WallCtxStrc* pCtx)
 {
@@ -133,3 +145,18 @@ extern "C" __declspec(dllexport) void __fastcall sub_004DCF10(Obj004DCF10* pObj)
     pObj->dwValue38 = 0;
     pObj->dwValueEAA8 = 0;
 }
+
+// 0x004DCF30
+void __fastcall sub_004DCF30(D2ViewStrc* pView)
+{
+    if (pView->pCells)
+    {
+        FOG_Free(pView->pCells, ".\\GAME\\Wall2.cpp", 0x55, 0);
+    }
+
+    pView->pCells = 0;
+    pView->nField0xEAB0 = 0;
+    pView->nField0xEA9C = 0;
+    pView->nField0x38 = 0;
+}
+
