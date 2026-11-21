@@ -5574,7 +5574,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/SKILLS/SkillNec_005C35C0.cpp": {
+  "Source/D2Game/SKILLS/SkillNec.cpp": {
    "bytes": 556,
    "definitions": 3,
    "externs": [],
@@ -116095,7 +116095,7 @@
    "cname": "gData_00741940",
    "declared": true,
    "decorated": "?gaNecroSkeletonComponents_00741940@@3QBUD2NecroSkeletonComponentStrc@@B",
-   "file": "Source/D2Game/SKILLS/SkillNec_005C35C0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00741940_t gData_00741940; // 0x00741940",
    "head": "extern \"C\" struct d2data_00741940_t gData_00741940 = ",
@@ -116833,7 +116833,7 @@
    "cname": "gData_006E304C",
    "declared": true,
    "decorated": "?gnBonePrisonOffsetX_006E304C@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillNec_005C35C0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E304C[12]; // 0x006E304C",
    "head": "extern \"C\" const int gData_006E304C[12] = ",
@@ -116863,7 +116863,7 @@
    "cname": "gData_006E307C",
    "declared": true,
    "decorated": "?gnBonePrisonOffsetY_006E307C@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillNec_005C35C0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E307C[12]; // 0x006E307C",
    "head": "extern \"C\" const int gData_006E307C[12] = ",

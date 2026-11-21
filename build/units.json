@@ -58667,6 +58667,20 @@
      "name": "?sub_005C3420_ValidTarget@@YIHPAUGame@@PAUUnit@@1@Z"
     },
     {
+     "va": "0x005C35C0",
+     "length": 469
+    },
+    {
+     "va": "0x005C37A0",
+     "length": 29,
+     "name": "?sub_005C37A0_ApplyAiCurseDivisor@@YAHEH@Z"
+    },
+    {
+     "va": "0x005C37C0",
+     "length": 502,
+     "name": "?SKILLS_SrvDo030_Curse@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005C39C0",
      "length": 306,
      "name": "sub_6FD0B9F0"
@@ -58692,9 +58706,29 @@
      "name": "sub_6FD0C060"
     },
     {
+     "va": "0x005C3F20",
+     "length": 418,
+     "name": "?SKILLS_SrvDo061_Confuse@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005C40D0",
      "length": 176,
      "name": "?sub_005C40D0@@YIXPAUUnit@@0@Z"
+    },
+    {
+     "va": "0x005C4300",
+     "length": 204,
+     "name": "?sub_005C4300_SetSkeletonComponents@@YGXPAUD2UnitStrc@@H0H@Z"
+    },
+    {
+     "va": "0x005C43D0",
+     "length": 88,
+     "name": "?sub_005C43D0_SetMageComponents@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x005C4430",
+     "length": 56,
+     "name": "?sub_005C4430_SetNecroPetComponents@@YIXPAUD2UnitStrc@@0HH@Z"
     },
     {
      "va": "0x005C49E0",
@@ -58731,6 +58765,11 @@
      "length": 491
     },
     {
+     "va": "0x005C5BC0",
+     "length": 316,
+     "name": "?sub_005C5BC0_SpawnBonePrisonPet@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHH@Z"
+    },
+    {
      "va": "0x005C5E60",
      "length": 170,
      "name": "SKILLS_SrvDo063_PoisonExplosion"
@@ -58739,6 +58778,10 @@
      "va": "0x005C5F10",
      "length": 60,
      "name": "?sub_005C5F10_AddLifeAndGetGain@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C61E0",
+     "length": 388
     },
     {
      "va": "0x005C6370",
@@ -68460,55 +68503,6 @@
     {
      "va": "0x005C5F50",
      "length": 650
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillNec_005C35C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C35C0",
-     "length": 469
-    },
-    {
-     "va": "0x005C37A0",
-     "length": 29,
-     "name": "?sub_005C37A0_ApplyAiCurseDivisor@@YAHEH@Z"
-    },
-    {
-     "va": "0x005C37C0",
-     "length": 502,
-     "name": "?SKILLS_SrvDo030_Curse@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005C3F20",
-     "length": 418,
-     "name": "?SKILLS_SrvDo061_Confuse@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005C4300",
-     "length": 204,
-     "name": "?sub_005C4300_SetSkeletonComponents@@YGXPAUD2UnitStrc@@H0H@Z"
-    },
-    {
-     "va": "0x005C43D0",
-     "length": 88,
-     "name": "?sub_005C43D0_SetMageComponents@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005C4430",
-     "length": 56,
-     "name": "?sub_005C4430_SetNecroPetComponents@@YIXPAUD2UnitStrc@@0HH@Z"
-    },
-    {
-     "va": "0x005C5BC0",
-     "length": 316,
-     "name": "?sub_005C5BC0_SpawnBonePrisonPet@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHH@Z"
-    },
-    {
-     "va": "0x005C61E0",
-     "length": 388
     }
    ]
   },
