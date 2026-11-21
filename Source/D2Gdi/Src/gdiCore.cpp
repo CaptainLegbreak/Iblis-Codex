@@ -1,8 +1,6 @@
 #include "D2Gdi.h"
+#include "D2SysTypes.h"
 
-struct D2CriticalSectionStrc;
-
-struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern void* gpArg1_007C9148; // 0x007C9148

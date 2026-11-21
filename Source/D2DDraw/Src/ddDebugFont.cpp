@@ -1,13 +1,12 @@
 #include "D2DDraw.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2LevelTxt.h"
 #include "D2ClientMenus.h"
 
 struct D2PlayerDataStrc;
 struct D2TextHeaderStrc;
 struct D2SetsTxt { char unk0x000[0x128]; };
-struct D2SetItemsTxt { char unk0x000[0x1B8]; };
-struct D2UniqueItemsTxt { char unk0x000[0x14C]; };
 
 enum
 {
