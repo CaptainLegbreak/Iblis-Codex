@@ -15757,6 +15757,10 @@
      "name": "?sub_0044E200_InitGameState@@YAXXZ"
     },
     {
+     "va": "0x00450ED0",
+     "length": 120
+    },
+    {
      "va": "0x00451330",
      "length": 202,
      "name": "?sub_00451330@@YAHXZ"
@@ -16304,16 +16308,6 @@
      "va": "0x004511D0",
      "length": 21,
      "name": "??1D2StormExportTableSyncStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00450ED0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00450ED0",
-     "length": 120
     }
    ]
   },
