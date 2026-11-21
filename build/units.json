@@ -17671,6 +17671,11 @@
      "length": 562
     },
     {
+     "va": "0x0045F9F0",
+     "length": 68,
+     "name": "?sub_0045F9F0_FreePacketBuffer@@YIXPAX@Z"
+    },
+    {
      "va": "0x0045FC60",
      "length": 180,
      "name": "?sub_0045FC60_DrawLoadingTexts@@YAXXZ"
@@ -18499,11 +18504,6 @@
      "va": "0x0045C4F0",
      "length": 36,
      "name": "?sub_0045C4F0_GetItemStatCostTxtRecord@@YIPAUD2ItemStatCostTxt@@H@Z"
-    },
-    {
-     "va": "0x0045F9F0",
-     "length": 68,
-     "name": "?sub_0045F9F0_FreePacketBuffer@@YIXPAX@Z"
     },
     {
      "va": "0x00460170",
