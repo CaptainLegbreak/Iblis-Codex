@@ -1026,13 +1026,22 @@ static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int 
     }
 }
 
-static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom2, int nTileType, unsigned int nPackedTileInformation, int nX, int nY, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgTileDataStrc* pTileData)
+static __forceinline bool TileTypeIsAWallWithDoor(int nTileType)
 {
+    return nTileType == 9 || nTileType == 8;
+}
+
+static __declspec(noinline) void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY);
+
+// 0x0066E740
+static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY)
+{
+    int nNewTileType;
     const int nRemapIndex = gnWallRemapIndices_006EF620[nTileType];
 
     if (pTileData->dwFlags & 1)
     {
-        if (pTileData->nTileType == 9 || pTileData->nTileType == 8)
+        if (TileTypeIsAWallWithDoor(pTileData->nTileType))
         {
             DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom1, pTileData, pTileData->nTileType, nX);
         }
@@ -1043,9 +1052,9 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
     if (!(nPackedTileInformation & 0x80))
     {
         int bRemap = 0;
-        if (nTileType != 9 && nTileType != 8)
+        if (!TileTypeIsAWallWithDoor(nTileType))
         {
-            if ((pTileData->nTileType == 9 || pTileData->nTileType == 8) && (nX - pDrlgRoom2->pDrlgCoord.nPosX == 0 || nY - pDrlgRoom2->pDrlgCoord.nPosY == 0))
+            if (TileTypeIsAWallWithDoor(pTileData->nTileType) && (nX - pDrlgRoom2->pDrlgCoord.nPosX == 0 || nY - pDrlgRoom2->pDrlgCoord.nPosY == 0))
             {
                 return;
             }
@@ -1055,7 +1064,8 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
 
         if (bRemap || nX - pDrlgRoom1->pDrlgCoord.nPosX != 0 && nY - pDrlgRoom1->pDrlgCoord.nPosY != 0)
         {
-            if (nRemapIndex < 0 || pTileData->nTileType > 7)
+            const bool bIsTileTypeANormalWallOrFloor = pTileData->nTileType <= 7;
+            if (nRemapIndex < 0 || !bIsTileTypeANormalWallOrFloor)
             {
                 if (nRemapIndex != -1)
                 {
@@ -1064,31 +1074,36 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
             }
             else
             {
-                nTileType = gnWallTileTypeRemap_006EF578[nRemapIndex][pTileData->nTileType - 1];
+                const int nWallIdx = pTileData->nTileType - 1;
+                nNewTileType = gnWallTileTypeRemap_006EF578[nRemapIndex][nWallIdx];
+                goto TileTypeChosen;
             }
         }
     }
 
-    if (pTileData->nTileType == 3)
+    nNewTileType = nTileType;
+
+TileTypeChosen:
+    if (pTileData->nTileType != 3)
     {
-        if (nTileType != 3)
+        if (nNewTileType == 3)
         {
-            pTileData->pNext->dwFlags |= 8;
-            sub_0064C860(pDrlgRoom2->pRoom, pTileData->pNext, 0);
+            pTileData->dwFlags |= 0xC008;
+            sub_0064C860(pDrlgRoom2->pRoom, pTileData, 0);
+            DRLGROOMTILE_AddLinkedTileData(pMemPool, nPackedTileInformation, nX, nY, pDrlgRoom1, 3);
         }
     }
-    else if (nTileType == 3)
+    else if (nNewTileType != 3)
     {
-        pTileData->dwFlags |= 0xC008;
-        sub_0064C860(pDrlgRoom2->pRoom, pTileData, 0);
-        DRLGROOMTILE_AddLinkedTileData(pMemPool, nPackedTileInformation, nX, nY, pDrlgRoom1, 3);
+        pTileData->pNext->dwFlags |= 8;
+        sub_0064C860(pDrlgRoom2->pRoom, pTileData->pNext, 0);
     }
 
     const int bBlankFloor = pTileData->nTileType == 0 && sub_00604B90_GetTileStyle(pTileData->pTile) == 30 && sub_00604C50_GetTileSequence(pTileData->pTile) == 0;
-    if (nTileType != pTileData->nTileType || bBlankFloor)
+    if (nNewTileType != pTileData->nTileType || bBlankFloor)
     {
-        D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom2, nTileType, nPackedTileInformation);
-        pTileData->nTileType = nTileType;
+        D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom2, nNewTileType, nPackedTileInformation);
+        pTileData->nTileType = nNewTileType;
 
         if (pTileCache != pTileData->pTile && pDrlgRoom2->pRoom)
         {
@@ -1101,14 +1116,14 @@ static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgR
     DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom1, pTileData, pTileData->nTileType, nX);
 }
 
-// build: context DRLGROOMTILE_GetCreateLinkedTileData
-static void __stdcall DRLGROOMTILE_GetCreateLinkedTileData(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, int nTileType, unsigned int nPackedTileInformation, int nY, int nX)
+// 0x0066E940
+static void __stdcall DRLGROOMTILE_GetCreateLinkedTileData(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, int nTileType, unsigned int nPackedTileInformation, int nX, int nY)
 {
     D2DrlgRoomStrc* pLinkedRoom = 0;
     D2DrlgTileDataStrc* pLinkedTileData = DRLGROOMTILE_GetLinkedTileData(nTileType == 0, nX, nY, &pLinkedRoom, pDrlgRoom, nPackedTileInformation);
     if (pLinkedTileData)
     {
-        DRLGROOMTILE_LinkedTileDataManager(pMemPool, pLinkedRoom, nTileType, nPackedTileInformation, nX, nY, pDrlgRoom, pLinkedTileData);
+        DRLGROOMTILE_LinkedTileDataManager(pMemPool, pDrlgRoom, pLinkedRoom, pLinkedTileData, nTileType, nPackedTileInformation, nX, nY);
     }
     else
     {

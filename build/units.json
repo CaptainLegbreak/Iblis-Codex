@@ -86989,6 +86989,14 @@
      "name": "?DRLGROOMTILE_AddLinkedTileData@@YGPAUD2DrlgTileDataStrc@@PAXIHHPAUD2DrlgRoomStrc@@H@Z"
     },
     {
+     "va": "0x0066E740",
+     "length": 505
+    },
+    {
+     "va": "0x0066E940",
+     "length": 101
+    },
+    {
      "va": "0x0066E9B0",
      "length": 596
     },
@@ -87065,54 +87073,6 @@
     {
      "va": "0x0066ECE0",
      "length": 199
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066E740.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066E740",
-     "length": 505
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066E940.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066E940",
-     "length": 101
     }
    ],
    "flags": [
