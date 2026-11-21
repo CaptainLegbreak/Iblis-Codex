@@ -59,19 +59,9 @@ extern "C" int __cdecl sub_00489840_ModeInGroup()
     return 0;
 }
 
-// build: context sub_004A3000_ResetFlag
-extern "C" void __cdecl sub_004A3000_ResetFlag()
-{
-    if (gB27_007BF298 == 1)
-        gB27_007BF298 = 0;
-}
+extern "C" void __cdecl sub_004A3000_ResetFlag(); // 0x004A3000
 
-// build: context sub_004A3100_SetPacketValue
-extern "C" void __fastcall sub_004A3100_SetPacketValue(unsigned int value)
-{
-    gB27_007C025F = 1;
-    gB27_007C0265 = value;
-}
+extern "C" void __fastcall sub_004A3100_SetPacketValue(unsigned int value); // 0x004A3100
 
 extern "C" void __cdecl sub_004B2250_InitializeControls()
 {
