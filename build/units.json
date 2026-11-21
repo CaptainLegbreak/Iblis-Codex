@@ -69483,6 +69483,10 @@
      "va": "0x005D0C40",
      "length": 298,
      "name": "?SKILLS_ApplyRedemptionEffect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
+    },
+    {
+     "va": "0x005D0E90",
+     "length": 489
     }
    ]
   },
@@ -69606,30 +69610,6 @@
      "va": "0x005D0D70",
      "length": 288
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005D0E90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D0E90",
-     "length": 489
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
