@@ -1,4 +1,5 @@
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 
 struct D2StormListStrc
 {
@@ -13,15 +14,6 @@ struct D2StormEntryGrowArrayStrc
     D2StormEntryArrayStrc tArray;
 
     ~D2StormEntryGrowArrayStrc();
-};
-
-struct D2StormHashChunkStrc
-{
-    D2StormEntryArrayStrc tArray;
-    D2StormSlotLinkStrc f_10;
-
-    ~D2StormHashChunkStrc();
-    static void operator delete(void* pMemory);
 };
 
 struct D2Storm603530ArrayStrc
@@ -89,16 +81,6 @@ struct D2Storm603570Strc
     D2Storm603570ListStrc tList;
 
     D2Storm603570Strc();
-};
-
-struct D2GameHashTableReuseStrc
-{
-    char unk0x00[0x28];
-    D2StormListEStrc m_reuseList;
-    int unk0x34;
-    D2StormListEStrc m_chunkList;
-
-    void sub_00603E50_DeleteLists();
 };
 
 struct D2Storm603ED0Strc

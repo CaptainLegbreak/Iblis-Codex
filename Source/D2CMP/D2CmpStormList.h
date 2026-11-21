@@ -183,7 +183,7 @@ struct D2StormSlotListStrc
     {
         Link(pNode)->Unlink();
     }
-    void UnlinkAll();                                       // 0x00602640
+    void UnlinkAll() throw();                               // 0x00602640
     char* sub_00602260_RawNext(char* pNode);
     void sub_006026E0_ChangeLinkOffset(int nLinkOffset);
 };
@@ -198,6 +198,7 @@ struct D2StormNodeListStrc
         m_linkoffset = 0;
         InitializeTerminator();
     }
+    D2StormNodeListStrc(const D2StormNodeListStrc& source);                                                 // 0x00603F90
     ~D2StormNodeListStrc()
     {
         UnlinkAll();
@@ -340,9 +341,8 @@ struct D2StormSlotArrayStrc
     void sub_00603850_SetCount(unsigned int nCount);
 };
 
-struct D2StormSlotGrowArrayStrc
+struct D2StormSlotGrowArrayStrc : D2StormSlotArrayStrc
 {
-    D2StormSlotArrayStrc m_array;                           // 0x00
 
 // build: symbol ??1D2StormSlotGrowArrayStrc@@QAE@XZ 0x00603240
     ~D2StormSlotGrowArrayStrc() throw();

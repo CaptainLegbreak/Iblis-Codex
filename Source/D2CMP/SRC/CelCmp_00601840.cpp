@@ -2,15 +2,13 @@
 #include "D2CmpCelFile.h"
 #include "D2CmpTypes.h"
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CelStrc;
-struct D2StormEntry38Strc;
 struct D2CmpCelContextStrc;
 struct D2CelEntryStrc;
-struct D2StormHashObjectStrc;
-struct D2GameHashTableStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue);
@@ -27,44 +25,6 @@ struct D2CelEntryStrc : D2StormNodeStrc
     int nArg6;
     int nArg7;
     void* pData;
-};
-
-struct D2StormHashObjectStrc
-{
-    unsigned int f_0;
-    D2StormSlotLinkStrc m_linktoslot;
-    D2StormSlotLinkStrc f_C;
-    int f_14;
-};
-
-struct D2StormEntry38Strc : D2StormHashObjectStrc
-{
-    unsigned int dwFlags;
-    int nType;
-    int nData;
-    unsigned int nCount;
-    unsigned int nDirections;
-    D2StormNodeListStrc tList;
-
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, "delete", -1, 0);
-    }
-};
-
-struct D2GameHashTableStrc
-{
-    virtual void InternalDelete(D2StormEntry38Strc* pNode);                                                 // 0x006036D0
-    virtual D2StormEntry38Strc* InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags); // 0x00603610
-    virtual ~D2GameHashTableStrc();                                                                         // 0x00603460
-    virtual void Destroy();
-    D2StormSlotListStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormSlotArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    void sub_00602800_InternalClear(int bWarn);                                                             // 0x00602800
 };
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();

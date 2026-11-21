@@ -1,9 +1,9 @@
 #include "D2CMP.h"
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)){sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 
-struct D2StormEntry38Strc;
 struct D2ChatStormLinkStrc;
 struct D2ChatStormLinkAStrc;
 struct D2ChatStormLinkBStrc;
@@ -24,7 +24,6 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2GameHashTableStrc;
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned); // 0x006829C0
@@ -32,20 +31,6 @@ extern const char gszCelCmp[]; // 0x006E5DD0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
-
-struct D2GameHashTableStrc
-{
-    D2StormSlotListStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormSlotArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    virtual void InternalDelete(D2StormEntry38Strc* pNode);                                                 // 0x006036D0
-    virtual D2StormEntry38Strc* InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags); // 0x00603610
-    virtual ~D2GameHashTableStrc();                                                                         // 0x00603460
-    virtual void Destroy();                                                                                 // 0x00603780
-    void sub_00602800_InternalClear(int bWarn);
-};
 
 void* __stdcall SMemAlloc(unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x00413020
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0

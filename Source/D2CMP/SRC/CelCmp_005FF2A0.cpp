@@ -3,10 +3,10 @@
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
 #include "D2CmpStormList.h"
+#include "D2CmpStormHash.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SpriteCacheNodeStrc;
-struct D2StormEntry38Strc;
 struct D2CriticalSectionStrc;
 struct D2SpriteCacheStrc;
 struct D2CmpCacheKeyStrc;
@@ -41,8 +41,6 @@ struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct D2CelEntryStrc;
-struct D2GameHashTableStrc;
-struct D2GameDataTableStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -121,24 +119,6 @@ struct D2CelEntryStrc : D2StormNodeStrc
     int nArg6;
     int nArg7;
     void* pData;
-};
-
-struct D2GameHashTableStrc
-{
-    char unk0x04[0x24];
-
-    virtual ~D2GameHashTableStrc();                                                                         // 0x00603460
-    D2StormEntry38Strc* sub_006030E0_InternalFind(unsigned int nHashVal, const int& tKey);                 // 0x006030E0
-};
-
-struct D2GameDataTableStrc : D2GameHashTableStrc
-{
-    char unk0x28[0x1C];
-    int f_44;
-    unsigned int m_sequence;
-    int m_wrapped;
-
-    unsigned int sub_00603280_GenerateHandle();
 };
 
 // 0x005FE000
