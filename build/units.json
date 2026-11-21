@@ -78917,7 +78917,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/SRC/FastCmp_00604AA0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "rank": 0,
    "functions": [
     {
@@ -78966,9 +78966,18 @@
      "name": "UpdateD2TransparencyTable"
     },
     {
+     "va": "0x00606A10",
+     "length": 239
+    },
+    {
      "va": "0x00606B00",
      "length": 66,
      "name": "?sub_00606B00_RemapRleCell@@YIXPAUD2GfxCellStrc@@PBE@Z"
+    },
+    {
+     "va": "0x00606B50",
+     "length": 434,
+     "name": "?sub_00606B50_CompressCellFile@@YIXPAUD2CellFileStrc@@0P6GEEEE@ZUD2CmpColorStrc@@@Z"
     },
     {
      "va": "0x00606D40",
@@ -78986,9 +78995,17 @@
      "name": "sub_00606E40_BlitBlendMapped"
     },
     {
+     "va": "0x00607060",
+     "length": 648
+    },
+    {
      "va": "0x006072F0",
      "length": 392,
      "name": "sub_006072F0_BlitDoubleMapped"
+    },
+    {
+     "va": "0x00607480",
+     "length": 504
     },
     {
      "va": "0x00607680",
@@ -78996,9 +79013,17 @@
      "name": "sub_00607680_BlitMapped"
     },
     {
+     "va": "0x006077C0",
+     "length": 420
+    },
+    {
      "va": "0x00607970",
      "length": 532,
      "name": "sub_00607970_BlitBlendMapped"
+    },
+    {
+     "va": "0x00607B90",
+     "length": 644
     },
     {
      "va": "0x00607E20",
@@ -79006,14 +79031,26 @@
      "name": "sub_00607E20_BlitMapped"
     },
     {
+     "va": "0x00607F60",
+     "length": 420
+    },
+    {
      "va": "0x00608110",
      "length": 452,
      "name": "sub_00608110_BlitBlend"
     },
     {
+     "va": "0x006082E0",
+     "length": 568
+    },
+    {
      "va": "0x00608520",
      "length": 17,
      "name": "?D2CMPToggleCelDrawMode@@YAHXZ"
+    },
+    {
+     "va": "0x00608540",
+     "length": 1194
     },
     {
      "va": "0x006089F0",
@@ -79345,69 +79382,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/FastCmp.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00606A10",
-     "length": 239
-    },
-    {
-     "va": "0x00607060",
-     "length": 648
-    },
-    {
-     "va": "0x00607480",
-     "length": 504
-    },
-    {
-     "va": "0x006077C0",
-     "length": 420
-    },
-    {
-     "va": "0x00607B90",
-     "length": 644
-    },
-    {
-     "va": "0x00607F60",
-     "length": 420
-    },
-    {
-     "va": "0x006082E0",
-     "length": 568
-    },
-    {
-     "va": "0x00608540",
-     "length": 1194
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/FastCmp_00606B50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00606B50",
-     "length": 434,
-     "name": "?sub_00606B50_CompressCellFile@@YIXPAUD2CellFileStrc@@0P6GEEEE@ZUD2CmpColorStrc@@@Z"
-    }
    ]
   },
   {
@@ -90340,6 +90314,11 @@
      "name": "?sub_0065A620_FindUnitInAdjacentRooms@@YGPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
+     "va": "0x0065A6B0",
+     "length": 85,
+     "name": "?sub_0065A6B0_IsAreaNearRoomEdge@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
+    },
+    {
      "va": "0x0065A710",
      "length": 115
     },
@@ -90347,6 +90326,16 @@
      "va": "0x0065A790",
      "length": 110,
      "name": "UNITFINDS_GetTestedUnitsFromRoom"
+    },
+    {
+     "va": "0x0065A800",
+     "length": 243,
+     "name": "?UNITFINDS_GetNearestTestedUnit@@YGPAUD2UnitStrc@@PAU1@HHHP6IH00@Z@Z"
+    },
+    {
+     "va": "0x0065A900",
+     "length": 80,
+     "name": "?sub_0065A900_GrowUnitsArray@@YAXPAUD2UnitFindDataStrc@@@Z"
     },
     {
      "va": "0x0065A950",
@@ -90361,52 +90350,11 @@
     {
      "va": "0x0065AA40",
      "length": 560
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/UnitFinds_0065A6B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065A6B0",
-     "length": 85,
-     "name": "?sub_0065A6B0_IsAreaNearRoomEdge@@YAHPAUD2ActiveRoomStrc@@HHH@Z"
     },
-    {
-     "va": "0x0065A800",
-     "length": 243,
-     "name": "?UNITFINDS_GetNearestTestedUnit@@YGPAUD2UnitStrc@@PAU1@HHHP6IH00@Z@Z"
-    },
-    {
-     "va": "0x0065A900",
-     "length": 80,
-     "name": "?sub_0065A900_GrowUnitsArray@@YAXPAUD2UnitFindDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/UnitFinds_0065AC70.cpp",
-   "rank": 1,
-   "functions": [
     {
      "va": "0x0065AC70",
      "length": 323
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -92270,6 +92218,10 @@
      "name": "?sub_0066B1F0_GetFirstWarpRoom@@YAPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x0066B2B0",
+     "length": 300
+    },
+    {
      "va": "0x0066B7F0",
      "length": 1,
      "name": "?sub_0066B7F0_Nop@@YAXXZ"
@@ -92475,30 +92427,6 @@
     {
      "va": "0x0066AE70",
      "length": 80
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgWarp_0066B2B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066B2B0",
-     "length": 300
     }
    ],
    "flags": [

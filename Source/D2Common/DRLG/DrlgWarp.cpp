@@ -2,21 +2,34 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2DrlgTiles.h"
+
 struct D2ActiveRoomStrc;
 
 struct D2DrlgStrc;
+
 struct D2DrlgListEntryStrc;
+
 struct D2DrlgListOwnerStrc;
+
 struct D2DrlgWarpStrc;
+
 struct D2LevelDefBin;
+
 struct D2RoomTileStrc;
+
 union D2SeedStrc;
+
 struct D2PresetUnitStrc;
+
 struct D2ObjectsTxt;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2DrlgRoomStrc
@@ -39,7 +52,6 @@ struct D2DrlgRoomStrc
     unsigned char unk_50[0xC];
     D2PresetUnitStrc* pPresetUnits;
 };
-
 
 struct D2DrlgLevelStrc
 {
@@ -75,6 +87,7 @@ struct D2DrlgListOwnerStrc
 };
 
 unsigned int __fastcall sub_006C9A38(const char* szString); // 0x006C9A38
+
 D2ActiveRoomStrc* __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlgRoom); // 0x0061B730
 
 struct D2DrlgStrc
@@ -84,6 +97,7 @@ struct D2DrlgStrc
 };
 
 int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066AEC0
+
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
 
 struct D2LvlWarpTxt
@@ -99,35 +113,27 @@ struct D2DrlgWarpStrc
     D2DrlgWarpStrc* pNext;
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x68];
-    int dwWarp[8];
-    char unk0x88[0x08];
-    int dwPosition;
-};
-
-struct D2RoomTileStrc
-{
-    D2DrlgRoomStrc* pDrlgRoom;
-    D2RoomTileStrc* pNext;
-    int bEnabled;
-    void* unk0x0C;
-    D2LvlWarpTxt* pLvlWarpTxtRecord;
-};
-
-
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 
-
-
 unsigned int __fastcall DRLGROOM_CheckWaypointFlags(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BAA0
+
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
+
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
+
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
 D2PresetUnitStrc* __fastcall DRLGROOM_GetPresetUnits(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BFA0
+
 void __fastcall sub_00678AD0_CreateLevelConnections(D2DrlgStrc* pDrlg); // 0x00678AD0
+
+static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevelStrc* pLevel, int* pX, int* pY);
+
+static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel);
+
+D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY);
 
 // 0x0066A290
 void __cdecl sub_0066A290_AssertFail()
@@ -161,6 +167,37 @@ static __forceinline int sub_0066A890_CompareCodes(const char* szA, const char* 
     return *(const int*)(szA + 4) == *(const int*)(szB + 4);
 }
 
+// 0x0066AB00
+D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel, int* pDestinationLevel, D2LvlWarpTxt** ppLvlWarpTxtRecord)
+{
+    for (D2RoomTileStrc* pSourceRoomTile = pDrlgRoom->pRoomTiles; pSourceRoomTile; pSourceRoomTile = pSourceRoomTile->pNext)
+    {
+        if (pSourceRoomTile->pLvlWarpTxtRecord->dwLevelId == nSourceLevel)
+        {
+            D2DrlgRoomStrc* pDestinationRoom = (D2DrlgRoomStrc*)pSourceRoomTile->pUnused;
+            for (D2RoomTileStrc* pDestinationRoomTile = pDestinationRoom->pRoomTiles; pDestinationRoomTile; pDestinationRoomTile = pDestinationRoomTile->pNext)
+            {
+                if (pDestinationRoomTile->pUnused == pDrlgRoom)
+                {
+                    *pDestinationLevel = pDestinationRoomTile->pLvlWarpTxtRecord->dwLevelId;
+                    *ppLvlWarpTxtRecord = pDestinationRoomTile->pLvlWarpTxtRecord;
+
+                    if (!pDestinationRoom->pRoom)
+                    {
+                        DRLGACTIVATE_InitializeRoomEx(pDestinationRoom);
+                    }
+
+                    return pDestinationRoom->pRoom;
+                }
+            }
+
+            return 0;
+        }
+    }
+
+    return 0;
+}
+
 // 0x0066AC30
 static __forceinline D2ActiveRoomStrc* sub_0066AC30_GetActiveRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
@@ -168,10 +205,116 @@ static __forceinline D2ActiveRoomStrc* sub_0066AC30_GetActiveRoom(D2DrlgRoomStrc
     return pDrlgRoom->pRoom;
 }
 
+static __forceinline int* sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
+{
+    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
+    {
+        D2_ASSERT(pDrlgWarp->nLevel, 418);
+        if (nLevelId == pDrlgWarp->nLevel)
+        {
+            return pDrlgWarp->nWarp;
+        }
+    }
+    return DATATBLS_GetLevelDefRecord(nLevelId)->dwWarp;
+}
+
+// 0x0066AD80
+static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
+{
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    {
+        if (DRLGROOM_CheckWaypointFlags(pDrlgRoom))
+        {
+            DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
+            for (D2PresetUnitStrc* pPresetUnit = pDrlgRoom->pPresetUnits; pPresetUnit; pPresetUnit = pPresetUnit->pNext)
+            {
+                if (pPresetUnit->nUnitType == 2 && pPresetUnit->nIndex < 573 && (DATATBLS_GetObjectsTxtRecord(pPresetUnit->nIndex)->nSubClass & 0x40))
+                {
+                    *pX = pDrlgRoom->nTileXPos + pPresetUnit->nXpos / 5;
+                    *pY = pDrlgRoom->nTileYPos + pPresetUnit->nYpos / 5;
+                    return pDrlgRoom;
+                }
+            }
+            return pDrlgRoom;
+        }
+    }
+    return 0;
+}
+
+// 0x0066AEC0
+int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
+{
+    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
+    {
+        if (!pDrlgWarp->nLevel)
+        {
+            sub_00408A60(&gszEmptyAssertText, sub_00408090(), 418);
+            exit(-1);
+        }
+
+        if (nLevelId == pDrlgWarp->nLevel)
+        {
+            return pDrlgWarp->nWarp;
+        }
+    }
+
+    return DATATBLS_GetLevelDefRecord(nLevelId)->dwWarp;
+}
+
 // 0x0066AF10
 int* __fastcall sub_0066AF10_GetWarpIdArray(D2DrlgLevelStrc* pLevel)
 {
     return DRLGWARP_GetWarpIdArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
+}
+
+// 0x0066AF30
+int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId)
+{
+    return DRLGWARP_GetWarpIdArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId)[nWarpId];
+}
+
+inline int DRLGWARP_GetWarpDestinationFromArrayInline(D2DrlgLevelStrc* pLevel, unsigned char nWarpId)
+{
+    return DRLGWARP_GetWarpIdArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId)[nWarpId];
+}
+
+// 0x0066AF50
+D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromWarpIdAndDirection(D2DrlgLevelStrc* pLevel, unsigned char nWarpId, char szDirection)
+{
+    return DATATBLS_GetLvlWarpTxtRecordFromLevelIdAndDirection(DRLGWARP_GetWarpDestinationFromArrayInline(pLevel, nWarpId), szDirection);
+}
+
+// 0x0066AF80
+D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromUnit(D2DrlgRoomStrc* pDrlgRoom, D2UnitStrc* pUnit)
+{
+    D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles;
+    int nClassId;
+
+    if (!pUnit)
+    {
+        nClassId = -1;
+    }
+    else
+    {
+        nClassId = pUnit->dwClassId;
+    }
+
+    while (pRoomTile)
+    {
+        if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == (unsigned char)nClassId)
+        {
+            if (pRoomTile->bEnabled)
+            {
+                return pRoomTile->pLvlWarpTxtRecord;
+            }
+
+            return 0;
+        }
+
+        pRoomTile = pRoomTile->pNext;
+    }
+
+    return 0;
 }
 
 // 0x0066AFB0
@@ -220,239 +363,6 @@ int __fastcall sub_M117_Emit_0066A870(const char* szText, D2DrlgRoomStrc* pDrlgR
     return n;
 }
 
-// 0x0066AB00
-D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel, int* pDestinationLevel, D2LvlWarpTxt** ppLvlWarpTxtRecord)
-{
-    for (D2RoomTileStrc* pSourceRoomTile = pDrlgRoom->pRoomTiles; pSourceRoomTile; pSourceRoomTile = pSourceRoomTile->pNext)
-    {
-        if (pSourceRoomTile->pLvlWarpTxtRecord->dwLevelId == nSourceLevel)
-        {
-            D2DrlgRoomStrc* pDestinationRoom = pSourceRoomTile->pDrlgRoom;
-            for (D2RoomTileStrc* pDestinationRoomTile = pDestinationRoom->pRoomTiles; pDestinationRoomTile; pDestinationRoomTile = pDestinationRoomTile->pNext)
-            {
-                if (pDestinationRoomTile->pDrlgRoom == pDrlgRoom)
-                {
-                    *pDestinationLevel = pDestinationRoomTile->pLvlWarpTxtRecord->dwLevelId;
-                    *ppLvlWarpTxtRecord = pDestinationRoomTile->pLvlWarpTxtRecord;
-
-                    if (!pDestinationRoom->pRoom)
-                    {
-                        DRLGACTIVATE_InitializeRoomEx(pDestinationRoom);
-                    }
-
-                    return pDestinationRoom->pRoom;
-                }
-            }
-
-            return 0;
-        }
-    }
-
-    return 0;
-}
-
-// 0x0066AEC0
-int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
-{
-    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
-    {
-        if (!pDrlgWarp->nLevel)
-        {
-            sub_00408A60(&gszEmptyAssertText, sub_00408090(), 418);
-            exit(-1);
-        }
-
-        if (nLevelId == pDrlgWarp->nLevel)
-        {
-            return pDrlgWarp->nWarp;
-        }
-    }
-
-    return DATATBLS_GetLevelDefRecord(nLevelId)->dwWarp;
-}
-
-inline int DRLGWARP_GetWarpDestinationFromArrayInline(D2DrlgLevelStrc* pLevel, unsigned char nWarpId)
-{
-    return DRLGWARP_GetWarpIdArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId)[nWarpId];
-}
-
-// 0x0066AF50
-D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromWarpIdAndDirection(D2DrlgLevelStrc* pLevel, unsigned char nWarpId, char szDirection)
-{
-    return DATATBLS_GetLvlWarpTxtRecordFromLevelIdAndDirection(DRLGWARP_GetWarpDestinationFromArrayInline(pLevel, nWarpId), szDirection);
-}
-
-// 0x0066AF80
-D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromUnit(D2DrlgRoomStrc* pDrlgRoom, D2UnitStrc* pUnit)
-{
-    D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles;
-    int nClassId;
-
-    if (!pUnit)
-    {
-        nClassId = -1;
-    }
-    else
-    {
-        nClassId = pUnit->dwClassId;
-    }
-
-    while (pRoomTile)
-    {
-        if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == (unsigned char)nClassId)
-        {
-            if (pRoomTile->bEnabled)
-            {
-                return pRoomTile->pLvlWarpTxtRecord;
-            }
-
-            return 0;
-        }
-
-        pRoomTile = pRoomTile->pNext;
-    }
-
-    return 0;
-}
-
-static __forceinline int* sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
-{
-    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
-    {
-        D2_ASSERT(pDrlgWarp->nLevel, 418);
-        if (nLevelId == pDrlgWarp->nLevel)
-        {
-            return pDrlgWarp->nWarp;
-        }
-    }
-    return DATATBLS_GetLevelDefRecord(nLevelId)->dwWarp;
-}
-
-// 0x0066AD80
-static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
-{
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
-    {
-        if (DRLGROOM_CheckWaypointFlags(pDrlgRoom))
-        {
-            DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
-            for (D2PresetUnitStrc* pPresetUnit = pDrlgRoom->pPresetUnits; pPresetUnit; pPresetUnit = pPresetUnit->pNext)
-            {
-                if (pPresetUnit->nUnitType == 2 && pPresetUnit->nIndex < 573 && (DATATBLS_GetObjectsTxtRecord(pPresetUnit->nIndex)->nSubClass & 0x40))
-                {
-                    *pX = pDrlgRoom->nTileXPos + pPresetUnit->nXpos / 5;
-                    *pY = pDrlgRoom->nTileYPos + pPresetUnit->nYpos / 5;
-                    return pDrlgRoom;
-                }
-            }
-            return pDrlgRoom;
-        }
-    }
-    return 0;
-}
-
-static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
-{
-    D2_ASSERT(pLevel, 318);
-    D2_ASSERT(pLevel->ptRoomFirst, 319);
-    int nRand = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, pLevel->nRooms);
-    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
-    for (int i = nRand; i; --i)
-    {
-        pDrlgRoom = pDrlgRoom->pDrlgRoomNext;
-    }
-    return pDrlgRoom;
-}
-
-// 0x0066B1F0
-static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
-{
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
-    {
-        if (pDrlgRoom->dwFlags & 0xFF0)
-        {
-            int nFlags = 0x10;
-            unsigned char nCounter = 0;
-            do
-            {
-                if ((nFlags & pDrlgRoom->dwFlags) && sub_0066AEC0(pLevel->pDrlg, pLevel->eLevelId)[nCounter] != -1)
-                {
-                    return pDrlgRoom;
-                }
-                nFlags *= 2;
-                ++nCounter;
-            }
-            while (nFlags & 0xFF0);
-        }
-    }
-    return 0;
-}
-
-D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY)
-{
-    D2LevelDefBin* pLevelDefBinRecord = 0;
-    D2DrlgLevelStrc* pLevel = 0;
-    D2DrlgRoomStrc* pDrlgRoom = 0;
-
-    pLevelDefBinRecord = DATATBLS_GetLevelDefRecord(nLevelId);
-    *pX = -1;
-    *pY = -1;
-
-    pLevel = DRLG_GetLevel(pDrlg, nLevelId);
-    if (!pLevel->ptRoomFirst)
-    {
-        DRLG_InitLevel(pLevel);
-    }
-
-    if (pLevelDefBinRecord->dwPosition)
-    {
-        if (nTileIndex == 13)
-        {
-            pDrlgRoom = DRLGWARP_GetWaypointRoomExFromLevel(pLevel, pX, pY);
-            DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
-            return pDrlgRoom->pRoom;
-        }
-
-        pDrlgRoom = pLevel->sub_0066AC40_GetTileRoom(nTileIndex, pX, pY);
-        DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
-        return pDrlgRoom->pRoom;
-    }
-
-    pDrlgRoom = DRLGWARP_GetWaypointRoomExFromLevel(pLevel, pX, pY);
-    if (!pDrlgRoom)
-    {
-        pDrlgRoom = sub_0066B1F0_GetFirstWarpRoom(pLevel);
-        if (!pDrlgRoom)
-        {
-            pDrlgRoom = DRLG_GetRoomExFromLevelAndCoordinates(pLevel, pLevel->nWidth / 2 + pLevel->nPosX - 2, pLevel->nHeight / 2 + pLevel->nPosY - 2);
-            if (!pDrlgRoom)
-            {
-                pDrlgRoom = sub_0066AE70_GetRandomRoom(pLevel);
-            }
-        }
-    }
-
-    if (pDrlgRoom)
-    {
-        if (*pX == -1 || *pY == -1)
-        {
-            *pX = pDrlgRoom->nTileXPos + pDrlgRoom->nTileWidth / 2;
-            *pY = pDrlgRoom->nTileYPos + pDrlgRoom->nTileHeight / 2;
-        }
-
-        DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
-        return pDrlgRoom->pRoom;
-    }
-
-    return 0;
-}
-
-// 0x0066AF30
-int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId)
-{
-    return DRLGWARP_GetWarpIdArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId)[nWarpId];
-}
-
 // 0x0066B010
 D2PresetUnitStrc* __fastcall sub_0066B010_FindPresetTile(D2DrlgRoomStrc* pDrlgRoom)
 {
@@ -466,11 +376,6 @@ D2PresetUnitStrc* __fastcall sub_0066B010_FindPresetTile(D2DrlgRoomStrc* pDrlgRo
     }
 
     return pPreset;
-}
-
-// 0x0066B7F0
-void __cdecl sub_0066B7F0_Nop()
-{
 }
 
 static __forceinline int FindVis(D2DrlgStrc* pDrlg,int nLevel,int nOther,int nIndex)
@@ -511,4 +416,109 @@ void __fastcall sub_0066B030_InitializeConnectedLevels(D2DrlgStrc* pDrlg,int unu
   pPreset=DRLGROOM_GetPresetUnits(pRoom2);
   while(pPreset && pPreset->nUnitType!=5)pPreset=pPreset->pNext;
  }
+}
+
+static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
+{
+    D2_ASSERT(pLevel, 318);
+    D2_ASSERT(pLevel->ptRoomFirst, 319);
+    int nRand = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, pLevel->nRooms);
+    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
+    while (nRand)
+    {
+        pDrlgRoom = pDrlgRoom->pDrlgRoomNext;
+        --nRand;
+    }
+    return pDrlgRoom;
+}
+
+// 0x0066B1F0
+static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
+{
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    {
+        if (pDrlgRoom->dwFlags & 0xFF0)
+        {
+            int nFlags = 0x10;
+            unsigned char nCounter = 0;
+            do
+            {
+                if ((nFlags & pDrlgRoom->dwFlags) && sub_0066AEC0(pLevel->pDrlg, pLevel->eLevelId)[nCounter] != -1)
+                {
+                    return pDrlgRoom;
+                }
+                nFlags *= 2;
+                ++nCounter;
+            }
+            while (nFlags & 0xFF0);
+        }
+    }
+    return 0;
+}
+
+// 0x0066B2B0
+D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY)
+{
+    D2LevelDefBin* pLevelDefBinRecord = 0;
+    D2DrlgLevelStrc* pLevel = 0;
+    D2DrlgRoomStrc* pDrlgRoom = 0;
+
+    pLevelDefBinRecord = DATATBLS_GetLevelDefRecord(nLevelId);
+    *pX = -1;
+    *pY = -1;
+
+    pLevel = DRLG_GetLevel(pDrlg, nLevelId);
+    if (!pLevel->ptRoomFirst)
+    {
+        DRLG_InitLevel(pLevel);
+    }
+
+    if (pLevelDefBinRecord->dwPosition)
+    {
+        if (nTileIndex == 13)
+        {
+            pDrlgRoom = DRLGWARP_GetWaypointRoomExFromLevel(pLevel, pX, pY);
+            DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
+            return pDrlgRoom->pRoom;
+        }
+
+        pDrlgRoom = pLevel->sub_0066AC40_GetTileRoom(nTileIndex, pX, pY);
+        DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
+        return pDrlgRoom->pRoom;
+    }
+
+    pDrlgRoom = DRLGWARP_GetWaypointRoomExFromLevel(pLevel, pX, pY);
+    if (!pDrlgRoom)
+    {
+        pDrlgRoom = sub_0066B1F0_GetFirstWarpRoom(pLevel);
+        if (!pDrlgRoom)
+        {
+            const int nX = pLevel->nWidth / 2 + pLevel->nPosX - 2;
+            const int nY = pLevel->nHeight / 2 + pLevel->nPosY - 2;
+            pDrlgRoom = DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
+            if (!pDrlgRoom)
+            {
+                pDrlgRoom = sub_0066AE70_GetRandomRoom(pLevel);
+            }
+        }
+    }
+
+    if (pDrlgRoom)
+    {
+        if (*pX == -1 || *pY == -1)
+        {
+            *pX = pDrlgRoom->nTileXPos + pDrlgRoom->nTileWidth / 2;
+            *pY = pDrlgRoom->nTileYPos + pDrlgRoom->nTileHeight / 2;
+        }
+
+        DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
+        return pDrlgRoom->pRoom;
+    }
+
+    return 0;
+}
+
+// 0x0066B7F0
+void __cdecl sub_0066B7F0_Nop()
+{
 }
