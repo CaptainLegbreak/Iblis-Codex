@@ -96,59 +96,6 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
-// 0x005F6220
-void __fastcall AITHINK_Fn038_MaggotLarva(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    D2UnitStrc* pTarget = pAiTickParam->pTarget;
-    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
-    if (pAiTickParam->bCombat)
-    {
-        if (pAiControl->dwAiParam[0] || AI_RollPercentage(pUnit) >= AI_GetParam(pGame, pMonStatsTxt, 0))
-        {
-            pAiControl->dwAiParam[0] = 0;
-            AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 1));
-        }
-        else
-        {
-            pAiControl->dwAiParam[0] = 1;
-            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-        }
-        return;
-    }
-
-    pAiControl->dwAiParam[0] = 0;
-    if (AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 2))
-    {
-        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 1);
-        return;
-    }
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 3));
-}
-
-// 0x005F77C0
-D2UnitStrc* __fastcall AITHINK_FindTargetForMephisto(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pFallbackTarget)
-{
-    D2MephistoAiCallbackArgStrc arg = {};
-    arg.unk0x04 = 0x7FFFFFFF;
-    arg.unk0x10 = 0x7FFFFFFF;
-    arg.unk0x18 = 0x7FFFFFFF;
-
-    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_Mephisto, 1);
-
-    if (arg.unk0x0C && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 1))
-    {
-        return arg.unk0x0C;
-    }
-
-    if (arg.unk0x14 && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxtRecord, 2))
-    {
-        return arg.unk0x0C;
-    }
-
-    return pFallbackTarget;
-}
-
 // 0x005F7F10
 void __fastcall sub_005F7F10_SpawnRandomMinion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner)
 {
@@ -173,31 +120,6 @@ void __fastcall sub_005F7F10_SpawnRandomMinion(D2GameStrc* pGame, D2UnitStrc* pU
     }
 }
 
-// 0x005FAA90
-void __fastcall AITHINK_Fn072_DoomKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2UnitStrc* pTarget = pAiTickParam->pTarget;
-    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
-    if (pAiTickParam->bCombat)
-    {
-        if (AI_ROLL_PERCENT(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 0))
-        {
-            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-            return;
-        }
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 1));
-        return;
-    }
-
-    if (AI_ROLL_PERCENT(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 2))
-    {
-        sub_6FCD0410(pGame, pUnit, pTarget, 7);
-        return;
-    }
-
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 3));
-}
-
 // 0x005FB650
 int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -215,22 +137,4 @@ int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* p
         }
     }
     return pMonsterRegion->nTrapVariant;
-}
-
-// 0x005FBA60
-void __fastcall AITHINK_Fn087_TrapMelee(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    D2UnitStrc* pTarget = pAiTickParam->pTarget;
-    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
-    if (pAiTickParam->bCombat)
-    {
-        if (AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 0))
-        {
-            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-            return;
-        }
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 1));
-        return;
-    }
-    AITACTICS_IdleInNeutralMode(pGame, pUnit, 40);
 }

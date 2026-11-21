@@ -44594,6 +44594,10 @@
      "name": "?sub_0052C260_SendGameInit@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
     },
     {
+     "va": "0x0052C320",
+     "length": 15
+    },
+    {
      "va": "0x0052C330",
      "length": 174,
      "name": "SrvVerifyCreateNewGame"
@@ -47673,7 +47677,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0052C170.cpp",
+   "file": "Source/D2Game/GAME/Game_0052C170.cpp",
    "rank": 1,
    "functions": [
     {
@@ -47697,7 +47701,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0052C210.cpp",
+   "file": "Source/D2Game/GAME/Game_0052C210.cpp",
    "rank": 0,
    "functions": [
     {
@@ -47716,30 +47720,6 @@
      "length": 151,
      "name": "?sub_0052C280_InitGameSeed@@YAXPAUD2GameStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0052C320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0052C320",
-     "length": 15
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -48796,7 +48776,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00534330.cpp",
+   "file": "Source/D2Game/PLAYER/PlrSave_00534330.cpp",
    "rank": 0,
    "functions": [
     {
@@ -49829,6 +49809,11 @@
      "va": "0x0053AFB0",
      "length": 27,
      "name": "?sub_0053AFB0_EnsureAct@@YIXPAUD2GameStrc@@E@Z"
+    },
+    {
+     "va": "0x0053AFD0",
+     "length": 44,
+     "name": "?LEVEL_RemoveAllUnits@@YIXPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -49836,11 +49821,6 @@
    "file": "Source/D2Game/Unknown_0053AFD0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0053AFD0",
-     "length": 44,
-     "name": "?LEVEL_RemoveAllUnits@@YIXPAUD2GameStrc@@@Z"
-    },
     {
      "va": "0x0053B090",
      "length": 77,
@@ -49867,14 +49847,20 @@
      "name": "?sub_0053B1A0_SendToClient@@YAXHPAXH@Z"
     },
     {
-     "va": "0x0053B1B0",
-     "length": 81,
-     "name": "?sub_6FC3C640@@YIHHFFPBD@Z"
-    },
-    {
      "va": "0x0053B210",
      "length": 8,
      "name": "?sub_0057F070_PLRMODE_ModeCheck_Death@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/GAME/SCmd_0053B1B0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0053B1B0",
+     "length": 81,
+     "name": "?sub_6FC3C640@@YIHHFFPBD@Z"
     }
    ]
   },
@@ -51107,6 +51093,11 @@
      "name": "?EVENT_IterateEvents@@YIXPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x005415A0",
+     "length": 62,
+     "name": "EVENT_GetEventFrame"
+    },
+    {
      "va": "0x005415E0",
      "length": 109
     },
@@ -51140,11 +51131,6 @@
    "file": "Source/D2Game/Unknown_005415A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005415A0",
-     "length": 62,
-     "name": "EVENT_GetEventFrame"
-    },
     {
      "va": "0x00541860",
      "length": 23,
@@ -51870,7 +51856,13 @@
      "va": "0x00547390",
      "length": 15,
      "name": "@sub_00547390@8"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/OBJECTS/objrgn_005474C0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005474C0",
      "length": 288,
@@ -52609,7 +52601,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00548010.cpp",
+   "file": "Source/D2Game/PLAYER/PlrMsg_00548010.cpp",
    "rank": 1,
    "functions": [
     {
@@ -53129,7 +53121,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00555E00.cpp",
+   "file": "Source/D2Game/ITEMS/Items_00555E00.cpp",
    "rank": 0,
    "functions": [
     {
@@ -54577,11 +54569,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00570420",
-     "length": 259,
-     "name": "?sub_6FD14F70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
-    },
-    {
      "va": "0x00570590",
      "length": 233,
      "name": "?sub_6FD10250@@YIPAUD2StatListStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
@@ -54595,10 +54582,6 @@
      "va": "0x00570870",
      "length": 12,
      "name": "?sub_00570870_ForwardToLivingPlayers@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00570880",
-     "length": 454
     },
     {
      "va": "0x00570A50",
@@ -54640,13 +54623,28 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005706D0.cpp",
+   "file": "Source/D2Game/SKILLS/Skills_00570420.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00570420",
+     "length": 259,
+     "name": "?sub_6FD14F70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/PLAYER/PlrEval.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x005706D0",
      "length": 379,
      "name": "?PLAYERSTATS_SetStatsForStartingAct@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
+    },
+    {
+     "va": "0x00570880",
+     "length": 454
     }
    ]
   },
@@ -54834,6 +54832,11 @@
      "name": "?PLRINTRO_GetNpcIntroFlag@@YIHPAUD2PlrIntroStrc@@H@Z"
     },
     {
+     "va": "0x00572520",
+     "length": 15,
+     "name": "@sub_00572520@8"
+    },
+    {
      "va": "0x00572530",
      "length": 16,
      "name": "?PLRINTRO_CopyNpcIntroFlagsToBuffer@@YIXPAUD2PlrIntroStrc@@PAE@Z"
@@ -54857,17 +54860,6 @@
      "va": "0x00572620",
      "length": 146,
      "name": "?PLRINTRO_Destroy@@YIXPAUD2GameStrc@@PAUD2PlrIntroStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00572520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00572520",
-     "length": 15,
-     "name": "@sub_00572520@8"
     }
    ]
   },
@@ -55049,6 +55041,10 @@
      "name": "MONSTER_SetVelocityAndPosition"
     },
     {
+     "va": "0x00573780",
+     "length": 322
+    },
+    {
      "va": "0x00573C00",
      "length": 176,
      "name": "sub_00573C00_ResetMonsterModesInLevel"
@@ -55061,7 +55057,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005736A0.cpp",
+   "file": "Source/D2Game/MONSTER/Monster_005736A0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -55075,10 +55071,6 @@
    "file": "Source/D2Game/Unknown_00573780.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x00573780",
-     "length": 322
-    },
     {
      "va": "0x005739D0",
      "length": 260
@@ -55104,7 +55096,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00573930.cpp",
+   "file": "Source/D2Game/MONSTER/Monster_00573930.cpp",
    "rank": 0,
    "functions": [
     {
@@ -55380,7 +55372,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00574250.cpp",
+   "file": "Source/D2Game/MONSTER/Monster_00574250.cpp",
    "rank": 1,
    "functions": [
     {
@@ -56454,6 +56446,11 @@
      "va": "0x00581220",
      "length": 38,
      "name": "?D2GAME_EVENTS_Callback_6FC81BD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x005A7F00",
+     "length": 99,
+     "name": "?sub_005A7F00_ExpireHover@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -56921,7 +56918,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00581680.cpp",
+   "file": "Source/D2Game/OBJECTS/ObjMode_00581680.cpp",
    "rank": 0,
    "functions": [
     {
@@ -56964,6 +56961,10 @@
      "va": "0x005920D0",
      "length": 96,
      "name": "?ACT1Q4_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00592130",
+     "length": 113
     },
     {
      "va": "0x005921B0",
@@ -58563,7 +58564,13 @@
      "va": "0x0058FB80",
      "length": 94,
      "name": "?ACT1Q0_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a1q1_0058FBE0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0058FBE0",
      "length": 96,
@@ -58577,16 +58584,6 @@
      "va": "0x0058FC90",
      "length": 134,
      "name": "?ACT1Q1_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059ACA0",
-     "length": 154,
-     "name": "ACT2Q4_ActiveFilterCallback"
-    },
-    {
-     "va": "0x0059E2C0",
-     "length": 103,
-     "name": "ACT2Q7_ActiveFilterCallback"
     }
    ]
   },
@@ -58890,17 +58887,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00592130.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00592130",
-     "length": 113
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00593260.cpp",
+   "file": "Source/D2Game/Quests/a1q4_00593260.cpp",
    "rank": 1,
    "functions": [
     {
@@ -59151,6 +59138,10 @@
      "name": "?sub_005994F0_ACT2Q1_IsDoneOrInactive@@YI_NPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x00599700",
+     "length": 75
+    },
+    {
      "va": "0x00599A20",
      "length": 1,
      "name": "?sub_00599A20_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -59171,6 +59162,10 @@
      "name": "?OBJECTS_OperateFunction40_HoradricScrollChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
+     "va": "0x00599CF0",
+     "length": 246
+    },
+    {
      "va": "0x00599DF0",
      "length": 232,
      "name": "?OBJECTS_OperateFunction39_HoradricCubeChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -59189,6 +59184,10 @@
      "va": "0x00599F00",
      "length": 1,
      "name": "?sub_00599F00_OBJECTS_InitFunction32@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x00599F10",
+     "length": 62
     },
     {
      "va": "0x00599F50",
@@ -59424,6 +59423,11 @@
      "va": "0x00594830",
      "length": 82,
      "name": "?ACT1Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00594890",
+     "length": 204,
+     "name": "?ACT1Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x00594960",
@@ -59734,16 +59738,11 @@
      "va": "0x005947E0",
      "length": 76,
      "name": "?sub_005947E0_IsUnitGUIDInList@@YGHPAUD2Act1Quest5Strc@@HH@Z"
-    },
-    {
-     "va": "0x00594890",
-     "length": 204,
-     "name": "?ACT1Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00595B20.cpp",
+   "file": "Source/D2Game/Quests/a1q6_00595B20.cpp",
    "rank": 0,
    "functions": [
     {
@@ -59957,6 +59956,11 @@
      "name": "?ACT2Q1_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x00598910",
+     "length": 105,
+     "name": "?sub_00598910@@YI_NPAUQuest@@HPAUUnit@@PAUFlags@@1@Z"
+    },
+    {
      "va": "0x00598990",
      "length": 66,
      "name": "?ACT2Q1_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -60023,11 +60027,6 @@
      "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     },
     {
-     "va": "0x00598910",
-     "length": 105,
-     "name": "?sub_00598910@@YI_NPAUQuest@@HPAUUnit@@PAUFlags@@1@Z"
-    },
-    {
      "va": "0x00598980",
      "length": 5,
      "name": "?ACT3Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -60066,16 +60065,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00599700.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00599700",
-     "length": 75
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a2q2.cpp",
    "rank": 0,
    "functions": [
@@ -60102,6 +60091,16 @@
      "va": "0x00599B30",
      "length": 157,
      "name": "?ACT2Q2_Callback05_ItemDropped@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059E630",
+     "length": 529,
+     "name": "?ACT2Q2_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
+    {
+     "va": "0x0059E850",
+     "length": 273,
+     "name": "?sub_0059E850@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x0059E970",
@@ -60132,41 +60131,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00599CF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00599CF0",
-     "length": 246
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00599F10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00599F10",
-     "length": 62
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00599FB0.cpp",
+   "file": "Source/D2Game/Quests/a2q3_00599FB0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -60197,10 +60162,6 @@
      "va": "0x0059AD40",
      "length": 5,
      "name": "?ACT3Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059ADB0",
-     "length": 165
     }
    ]
   },
@@ -60224,6 +60185,15 @@
    "file": "Source/D2Game/Quests/a2q4.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0059ACA0",
+     "length": 154,
+     "name": "ACT2Q4_ActiveFilterCallback"
+    },
+    {
+     "va": "0x0059ADB0",
+     "length": 165
+    },
     {
      "va": "0x0059AEF0",
      "length": 86,
@@ -60335,43 +60305,17 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0059BBC0.cpp",
-   "rank": 1,
+   "file": "Source/D2Game/Quests/a2q5.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x0059BBC0",
      "length": 225
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0059BD10.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0059BD10",
      "length": 87
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q5.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0059BD70",
      "length": 251,
@@ -60465,7 +60409,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0059C3C0.cpp",
+   "file": "Source/D2Game/Quests/a2q6_0059C3C0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -60514,18 +60458,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0059DFD0.cpp",
+   "file": "Source/D2Game/Quests/a2q6_0059DFD0.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x0059DFD0",
      "length": 138,
      "name": "?ACT2Q6_ActivateTomb@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@PAPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0059E630",
-     "length": 529,
-     "name": "?ACT2Q2_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     }
    ]
   },
@@ -60542,6 +60481,15 @@
      "va": "0x0059E0E0",
      "length": 86,
      "name": "?ACT2Q7_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059E140",
+     "length": 343
+    },
+    {
+     "va": "0x0059E2C0",
+     "length": 103,
+     "name": "ACT2Q7_ActiveFilterCallback"
     },
     {
      "va": "0x0059E330",
@@ -60566,30 +60514,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0059E140.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059E140",
-     "length": 343
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0059E2B0.cpp",
    "rank": 0,
    "functions": [
@@ -60608,17 +60532,6 @@
      "va": "0x0059E4A0",
      "length": 5,
      "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0059E850.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059E850",
-     "length": 273,
-     "name": "?sub_0059E850@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
@@ -61540,6 +61453,10 @@
      "name": "MONSTERUNIQUE_UMod37_Fanatic"
     },
     {
+     "va": "0x005A1370",
+     "length": 642
+    },
+    {
      "va": "0x005A2530",
      "length": 179
     },
@@ -61668,11 +61585,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0059F8E0",
-     "length": 30,
-     "name": "?MISSILES_Free@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x0059F900",
      "length": 58,
      "name": "?sub_0059F900_ApplyMissileDamage@@YGXPAUD2UnitStrc@@0H0@Z"
@@ -61708,6 +61620,11 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x0059F8E0",
+     "length": 30,
+     "name": "?MISSILES_Free@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0059FA30",
      "length": 1185
     }
@@ -61731,10 +61648,6 @@
    "file": "Source/D2Game/Unknown_0059FEE0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0059FEE0",
-     "length": 271
-    },
     {
      "va": "0x005A0030",
      "length": 12,
@@ -61829,6 +61742,16 @@
      "va": "0x005A0E40",
      "length": 64,
      "name": "?sub_005A0E40_IncreaseMonsterLevelAndExperience@@YIXPAUD2UnitStrc@@PAX1@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MISSILES/Missiles_0059FEE0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0059FEE0",
+     "length": 271
     }
    ]
   },
@@ -61953,7 +61876,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A0760.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A0760.cpp",
    "rank": 1,
    "functions": [
     {
@@ -62293,10 +62216,6 @@
     {
      "va": "0x005A1230",
      "length": 76
-    },
-    {
-     "va": "0x005A1370",
-     "length": 642
     }
    ],
    "flags": [
@@ -62350,7 +62269,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A1650.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A1650.cpp",
    "rank": 1,
    "functions": [
     {
@@ -62410,15 +62329,27 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005A29A0",
-     "length": 506,
-     "name": "?MONSTERUNIQUE_CastLightUniqueMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005A3040",
      "length": 100,
      "name": "?MONSTERUNIQUE_ApplyElementalDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A29A0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005A29A0",
+     "length": 506,
+     "name": "?MONSTERUNIQUE_CastLightUniqueMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MISSILES/MissMode_005A9E10.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005A9E10",
      "length": 380,
@@ -62459,11 +62390,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005A3EF0",
-     "length": 773,
-     "name": "?MONSTERUNIQUE_CastSuicideExplodeMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x005A4350",
      "length": 15,
      "name": "?MONSTERUNIQUE_ExecuteUModModeStartCallbacks@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -62487,7 +62413,24 @@
      "va": "0x005A43B0",
      "length": 36,
      "name": "?sub_005A43B0_OwnerMissileHook@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A3EF0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005A3EF0",
+     "length": 773,
+     "name": "?MONSTERUNIQUE_CastSuicideExplodeMissile@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterEval.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005A4EE0",
      "length": 15,
@@ -62527,7 +62470,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A4440.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A4440.cpp",
    "rank": 1,
    "functions": [
     {
@@ -62572,7 +62515,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A49B0.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -62596,7 +62539,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A4F50.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterEval_005A4F50.cpp",
    "rank": 1,
    "functions": [
     {
@@ -62620,19 +62563,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A5690.cpp",
-   "rank": 1,
+   "file": "Source/D2Game/PLAYER/PartyScreen.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x005A5690",
      "length": 188
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PartyScreen.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005A5750",
      "length": 82,
@@ -62713,7 +62650,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A61F0.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterMode_005A61F0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -62734,17 +62671,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A7F00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A7F00",
-     "length": 99,
-     "name": "?sub_005A7F00_ExpireHover@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
    ]
   },
   {
@@ -63136,19 +63062,31 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005B0CD0",
-     "length": 35,
-     "name": "?AITHINK_Fn001_100_Idle_Buffy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
+     "va": "0x005B13E0",
+     "length": 252,
+     "name": "?sub_005B13E0_AiMeleeWalkTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Ai/AiThink4_005B0D00.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005B0D00",
      "length": 85,
      "name": "?AITHINK_TargetCallback_Panther@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Ai/AiThink_005B0CD0.cpp",
+   "rank": 0,
+   "functions": [
     {
-     "va": "0x005B13E0",
-     "length": 252,
-     "name": "?sub_005B13E0_AiMeleeWalkTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "va": "0x005B0CD0",
+     "length": 35,
+     "name": "?AITHINK_Fn001_100_Idle_Buffy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
@@ -63793,6 +63731,11 @@
      "name": "?ACT4Q3_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005B5A20",
+     "length": 101,
+     "name": "?sub_005B5A20_InitHellforge@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x005B5A90",
      "length": 105,
      "name": "?ACT4Q3_Callback04_ItemPickedUp@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -63913,17 +63856,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B5A20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B5A20",
-     "length": 101,
-     "name": "?sub_005B5A20_InitHellforge@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005B6710.cpp",
    "rank": 1,
    "functions": [
@@ -64033,6 +63965,10 @@
      "name": "?ACT3Q1_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005B73A0",
+     "length": 95
+    },
+    {
      "va": "0x005B7580",
      "length": 76,
      "name": "?ACT3Q1_UnitIterate_AddStatPointReward@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -64117,10 +64053,6 @@
    "file": "Source/D2Game/Unknown_005B73A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005B73A0",
-     "length": 95
-    },
     {
      "va": "0x005B7610",
      "length": 5,
@@ -64258,19 +64190,20 @@
      "name": "?sub_005B8500_IsSewerStairsClosed@@YIHPAUD2GameStrc@@@Z"
     },
     {
-     "va": "0x005B85E0",
-     "length": 115,
-     "name": "?sub_005B85E0_OpenSewerStairs@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B8750",
-     "length": 18,
-     "name": "?sub_005B8750_LacksKhalimFlail@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x005B8B00",
      "length": 29,
      "name": "?sub_005B8B00_AddFlailsDropped@@YIXPAUD2GameStrc@@H@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a3q3_005B85E0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005B85E0",
+     "length": 115,
+     "name": "?sub_005B85E0_OpenSewerStairs@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B8BF0",
@@ -64280,7 +64213,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B8530.cpp",
+   "file": "Source/D2Game/Quests/a3q2_005B8530.cpp",
    "rank": 1,
    "functions": [
     {
@@ -64318,6 +64251,11 @@
    "file": "Source/D2Game/Quests/a3q3.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B8750",
+     "length": 18,
+     "name": "?sub_005B8750_LacksKhalimFlail@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
     {
      "va": "0x005B9090",
      "length": 160,
@@ -64398,6 +64336,11 @@
      "name": "?sub_005B9C80_ClearBossSpawned@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005B9CD0",
+     "length": 111,
+     "name": "?ACT3Q3_SetAltarMode@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x005B9D40",
      "length": 67,
      "name": "?OBJECTS_InitFunction39_GidbinnAltar@@YIXPAUD2ObjInitFnStrc@@@Z"
@@ -64429,17 +64372,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B9CD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B9CD0",
-     "length": 111,
-     "name": "?ACT3Q3_SetAltarMode@@YIXPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a3q4.cpp",
    "rank": 0,
    "functions": [
@@ -64457,6 +64389,11 @@
      "va": "0x005BA0B0",
      "length": 184,
      "name": "?ACT3Q4_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005BA2F0",
+     "length": 39,
+     "name": "?sub_005BA2F0_UpdatePartyQuestState@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005BA320",
@@ -64510,7 +64447,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B9ED0.cpp",
+   "file": "Source/D2Game/Quests/a3q4_005B9ED0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -64530,18 +64467,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005BA2F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BA2F0",
-     "length": 39,
-     "name": "?sub_005BA2F0_UpdatePartyQuestState@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005BAE20.cpp",
+   "file": "Source/D2Game/Quests/a3q5_005BAE20.cpp",
    "rank": 0,
    "functions": [
     {
@@ -64657,19 +64583,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005BC020.cpp",
-   "rank": 1,
+   "file": "Source/D2Game/Quests/a3q6.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x005BC020",
      "length": 284
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q6.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005BC140",
      "length": 75,
@@ -65355,14 +65275,6 @@
    "rank": 1,
    "functions": [
     {
-     "va": "0x005C0F90",
-     "length": 706
-    },
-    {
-     "va": "0x005C2540",
-     "length": 127
-    },
-    {
      "va": "0x005C25C0",
      "length": 379
     }
@@ -65380,6 +65292,34 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Game/ITEMS/Items_005C0F90.cpp",
+   "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x005C0F90",
+     "length": 706
+    },
+    {
+     "va": "0x005C2540",
+     "length": 127
+    }
    ]
   },
   {
@@ -65462,7 +65402,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C2970.cpp",
+   "file": "Source/D2Game/ITEMS/Items_005C2970.cpp",
    "rank": 1,
    "functions": [
     {
@@ -65472,7 +65412,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C2AD0.cpp",
+   "file": "Source/D2Game/ITEMS/Items_005C2AD0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -65893,10 +65833,6 @@
     {
      "va": "0x005C8CA0",
      "length": 397
-    },
-    {
-     "va": "0x005C9220",
-     "length": 97
     }
    ],
    "flags": [
@@ -65919,6 +65855,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x005C9220",
+     "length": 97
+    },
+    {
      "va": "0x005C9420",
      "length": 82
     },
@@ -65926,6 +65866,14 @@
      "va": "0x005C9800",
      "length": 240,
      "name": "SKILLS_SrvDo020_StaticField"
+    },
+    {
+     "va": "0x005C9D90",
+     "length": 260
+    },
+    {
+     "va": "0x005C9EA0",
+     "length": 398
     },
     {
      "va": "0x005CA030",
@@ -65952,34 +65900,6 @@
      "length": 241,
      "name": "SKILLS_EventFunc03_ShiverArmor"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C9D90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C9D90",
-     "length": 260
-    },
-    {
-     "va": "0x005C9EA0",
-     "length": 398
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -66197,7 +66117,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005CDA00.cpp",
+   "file": "Source/D2Game/SKILLS/SkillMonst_005CDA00.cpp",
    "rank": 1,
    "functions": [
     {
@@ -66871,7 +66791,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005D7EA0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar_005D7EA0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -66899,6 +66819,11 @@
      "va": "0x005D8760",
      "length": 29,
      "name": "?SKILLS_SrvSt34_FindItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D8B10",
+     "length": 352,
+     "name": "?sub_005D8B10@@YIHPAUGame@@PAUUnit@@1HH@Z"
     },
     {
      "va": "0x005D8E00",
@@ -67058,18 +66983,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005D8B10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D8B10",
-     "length": 352,
-     "name": "?sub_005D8B10@@YIHPAUGame@@PAUUnit@@1HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D8C70.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar_005D8C70.cpp",
    "rank": 0,
    "functions": [
     {
@@ -67104,6 +67018,10 @@
      "va": "0x005DB020",
      "length": 295,
      "name": "?SKILLS_SrvSt10_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DBC60",
+     "length": 488
     }
    ]
   },
@@ -67139,10 +67057,6 @@
     {
      "va": "0x005DBA40",
      "length": 529
-    },
-    {
-     "va": "0x005DBC60",
-     "length": 488
     }
    ],
    "flags": [
@@ -67171,7 +67085,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005DC1E0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillAma_005DC1E0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -67617,6 +67531,11 @@
      "va": "0x005E6AE0",
      "length": 760,
      "name": "?sub_6FCE69A0@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E6E80",
+     "length": 101,
+     "name": "?sub_005E6E80@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
     },
     {
      "va": "0x005E6EF0",
@@ -68132,6 +68051,16 @@
      "name": "?AITHINK_Fn037_SkeletonBow@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F6220",
+     "length": 282,
+     "name": "?AITHINK_Fn038_MaggotLarva@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F6340",
+     "length": 493,
+     "name": "?AITHINK_Fn039_PinHead@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F6530",
      "length": 242,
      "name": "?AITHINK_Fn040_MaggotEgg@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -68276,6 +68205,11 @@
      "length": 174
     },
     {
+     "va": "0x005FBA60",
+     "length": 148,
+     "name": "?AITHINK_Fn087_TrapMelee@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005FC830",
      "length": 33,
      "name": "AIBAAL_CountLivingMinions"
@@ -68283,7 +68217,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005DEFE0.cpp",
+   "file": "Source/D2Game/Ai/AiTatics_005DEFE0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68307,7 +68241,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005DF140.cpp",
+   "file": "Source/D2Game/Ai/AiTatics_005DF140.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68447,13 +68381,7 @@
      "va": "0x005E0040",
      "length": 22,
      "name": "?QUESTSFX_ShenkTheOverseer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E0060.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005E0060",
      "length": 1,
@@ -68599,7 +68527,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E2FF0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E2FF0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68623,7 +68551,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E4AC0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E4AC0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68647,7 +68575,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E6320.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E6320.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68668,17 +68596,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E6E80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E6E80",
-     "length": 101,
-     "name": "?sub_005E6E80@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
-    }
    ]
   },
   {
@@ -68704,7 +68621,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005EC8C0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005EC8C0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68728,7 +68645,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005ECEE0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005ECEE0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68738,7 +68655,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005ED2A0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005ED2A0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68815,7 +68732,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005F0B00.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005F0B00.cpp",
    "rank": 0,
    "functions": [
     {
@@ -68891,50 +68808,35 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005F6220",
-     "length": 282,
-     "name": "?AITHINK_Fn038_MaggotLarva@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "va": "0x005F7F10",
+     "length": 253,
+     "name": "?sub_005F7F10_SpawnRandomMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
+    {
+     "va": "0x005FB650",
+     "length": 98,
+     "name": "?sub_005FB650_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Ai/AiThink4_005F77C0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005F77C0",
      "length": 230,
      "name": "?AITHINK_FindTargetForMephisto@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2MonStatsTxt@@1@Z"
     },
     {
-     "va": "0x005F7F10",
-     "length": 253,
-     "name": "?sub_005F7F10_SpawnRandomMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
      "va": "0x005FAA90",
      "length": 231,
      "name": "?AITHINK_Fn072_DoomKnight@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005FB650",
-     "length": 98,
-     "name": "?sub_005FB650_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005FBA60",
-     "length": 148,
-     "name": "?AITHINK_Fn087_TrapMelee@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005F6340.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F6340",
-     "length": 493,
-     "name": "?AITHINK_Fn039_PinHead@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F78B0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005F78B0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68982,7 +68884,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005FA010.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005FA010.cpp",
    "rank": 0,
    "functions": [
     {
@@ -69004,7 +68906,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005FA380.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005FA380.cpp",
    "rank": 0,
    "functions": [
     {
@@ -69015,7 +68917,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005FA710.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005FA710.cpp",
    "rank": 1,
    "functions": [
     {
@@ -69039,7 +68941,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005FAB80.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005FAB80.cpp",
    "rank": 0,
    "functions": [
     {
@@ -69050,7 +68952,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005FB2A0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005FB2A0.cpp",
    "rank": 0,
    "functions": [
     {

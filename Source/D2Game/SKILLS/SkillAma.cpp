@@ -365,3 +365,120 @@ int __fastcall sub_005DAE30_InitializeMeleeTargets(D2GameStrc* pGame, D2UnitStrc
     SKILLS_SetParam3(pSkill, nRange);
     return 1;
 }
+struct D2StaticPathStrc;
+
+int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc*, D2UnitStrc*, int*, int*); // 0x0056D2C0
+
+void __fastcall SKILLS_EnlargeVector(int*, int*); // 0x0056D370
+
+void __fastcall SKILLS_MakeShortPerpendicularVector(int*, int*); // 0x0056D3B0
+
+D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
+
+int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
+
+int __stdcall SKILLS_GetParam1(D2SkillStrc*); // 0x006444A0
+
+int __stdcall SKILLS_GetParam2(D2SkillStrc*); // 0x006444D0
+
+int __stdcall SKILLS_GetParam3(D2SkillStrc*); // 0x00644500
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
+
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc*, D2UnitStrc*); // 0x00620C10
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
+
+void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc*, int); // 0x005DB6A0
+
+int __fastcall sub_004F4110_GetSkillParam5(int); // 0x004F4110
+
+void __fastcall sub_0056E210(D2UnitStrc*, int); // 0x0056E210
+
+int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
+
+int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit); // 0x0056E510
+
+void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
+
+int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
+
+// 0x005DBC60
+int __fastcall SKILLS_SrvDo013_Fend_Zeal_Fury(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    const int nAuraRange = SKILLS_GetMeleeSearchRange(pUnit);
+    const int nTargetGUID = SKILLS_GetParam3(pSkill);
+    D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam2(pSkill), nTargetGUID);
+    if (!pTarget || !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+    {
+        pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nAuraRange, 0x20003, nTargetGUID, 0);
+        if (!pTarget)
+        {
+            return 0;
+        }
+    }
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
+    if (damage.wResultFlags & 1)
+    {
+        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+        if (pSkillsTxtRecord->nEType > 0)
+        {
+            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
+            if (damage.dwConvPct > 0)
+            {
+                damage.nConvType = pSkillsTxtRecord->nEType;
+            }
+            D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
+        }
+    }
+
+    unsigned char& nSrcDam = *(unsigned char*)&nSkillLevel;
+    nSrcDam = pSkillsTxtRecord->nSrcDam;
+    if (!nSrcDam)
+    {
+        nSrcDam = 0x80;
+    }
+
+    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 4);
+
+    const int nAttacksRemaining = SKILLS_GetParam1(pSkill) - 1;
+    SKILLS_SetParam1(pSkill, nAttacksRemaining);
+    if (nAttacksRemaining <= 0)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pNextTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nAuraRange, 0x20003, !pTarget ? -1 : pTarget->dwUnitId, 0);
+    if (!pNextTarget)
+    {
+        return 0;
+    }
+
+    SKILLS_SetParam2(pSkill, !pNextTarget ? 6 : pNextTarget->dwUnitType);
+    SKILLS_SetParam3(pSkill, !pNextTarget ? -1 : pNextTarget->dwUnitId);
+    sub_0056E210(pUnit, sub_004EFC20_GetSkillParam2(nSkillId));
+    return 0;
+}
+

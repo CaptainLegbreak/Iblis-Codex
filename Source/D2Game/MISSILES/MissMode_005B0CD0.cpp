@@ -7,7 +7,6 @@ struct D2LevelsTxt;
 struct D2PantherAiCallbackArgStrc;
 struct D2AiCallback11ArgStrc;
 
-
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -48,41 +47,6 @@ int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, u
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
-
-// 0x005B0CD0
-void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    if (UNITS_GetRoom(pUnit))
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 200);
-    }
-}
-
-// 0x005B0D00
-D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
-{
-    D2PantherAiCallbackArgStrc* pArg = (D2PantherAiCallbackArgStrc*)pCallbackArg;
-
-    if (!pTarget || pTarget->dwUnitType != UNIT_MONSTER || pUnit == pTarget)
-    {
-        return 0;
-    }
-
-    if (sub_00463860(pUnit) != sub_00463860(pTarget) || MONSTERS_IsDead(pTarget))
-    {
-        return 0;
-    }
-
-    const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
-    if (nDistance >= pArg->nDistance)
-    {
-        return 0;
-    }
-
-    pArg->pTarget = pTarget;
-    pArg->nDistance = nDistance;
-    return 0;
-}
 
 // 0x005B13E0
 int __fastcall sub_005B13E0_AiMeleeWalkTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)

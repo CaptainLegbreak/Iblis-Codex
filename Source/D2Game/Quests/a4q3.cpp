@@ -199,6 +199,40 @@ int __fastcall ACT4Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+#define PREFIX
+
+#define QUEST_ID 24
+
+#define STATE_A 13
+
+#define STATE_B 2
+
+#define STATE_C 3
+
+#define FALLBACK_MODE 3
+
+#define ITERATE_STATE 2
+
+// 0x005B5A20
+void __fastcall sub_005B5A20_InitHellforge(D2ObjInitFnStrc* pOp)
+{
+    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pOp->pGame, QUEST_ID);
+    if (pQuest && pQuest->bNotIntro)
+    {
+        D2Act4Quest3Strc* pEx = (D2Act4Quest3Strc*)pQuest->pQuestDataEx;
+        UNITS_ChangeAnimMode(pOp->pObject, pEx->nHellforgeMode);
+        if (pQuest->fLastState != STATE_A && pQuest->fLastState != STATE_B && pQuest->fLastState != STATE_C)
+        {
+            pQuest->dwFlags &= 0xFFFFFF00;
+            QUESTS_UnitIterate(pQuest, ITERATE_STATE, 0, ACT4Q3_UnitIterate_StatusCyclerEx, true);
+        }
+    }
+    else
+    {
+        UNITS_ChangeAnimMode(pOp->pObject, FALLBACK_MODE);
+    }
+}
+
 // 0x005B5A90
 void __fastcall ACT4Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

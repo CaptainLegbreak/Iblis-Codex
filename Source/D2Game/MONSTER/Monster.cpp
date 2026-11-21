@@ -63,6 +63,55 @@ int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMo
     return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
 }
 
+union D2SeedStrc;
+
+struct D2MonsterDataStrc;
+
+struct D2ComponentVariantStrc;
+
+struct D2MonRegDataStrc;
+
+int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+
+void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nParam); // 0x00540E60
+
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nFrame, int nParam1, int nParam2); // 0x005417D0
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
+static inline int GetValidMonsterClass(int nClassId)
+{
+    if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
+        return nClassId;
+    return -1;
+}
+
+// 0x00573780
+void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+    if (!pUnit) return;
+    if (pUnit->dwAnimMode == 1)
+    {
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+        EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 2, 0, 0);
+    }
+    else if (pUnit->dwAnimMode == 12 || pUnit->dwAnimMode == 0)
+    {
+        return;
+    }
+    switch (GetValidMonsterClass(sub_00463860(pUnit)))
+    {
+    case 110:
+    case 118:
+    case 136:
+    case 247:
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+        EVENT_SetEvent(pGame, pUnit, 2, pGame->dwGameFrame + 2, 0, 0);
+        break;
+    }
+}
+
 // 0x00573C00
 void __fastcall sub_00573C00_ResetMonsterModesInLevel(D2GameStrc* pGame, int nClassId1, int nClassId2, int nLevelId)
 {

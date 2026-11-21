@@ -118,7 +118,7 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
     D2GAME_AssignSkill_6FD13800(pUnit, 0, gAuraEnchantTable_0073BF68[nIndex].nSkillId, -1);
 }
 
-#include "gen/data/Source/D2Game/Unknown_005A1650.inc"
+#include "gen/data/Source/D2Game/MONSTER/MonsterUnique_005A1650.inc"
 #include "D2Txt.h"
 #include "D2TxtTables.h"
 

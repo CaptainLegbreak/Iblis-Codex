@@ -9,7 +9,6 @@
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc*, D2UnitStrc*, int*, int*); // 0x0056D2C0
@@ -229,77 +228,4 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
         sub_0056E210(pUnit, sub_004F4110_GetSkillParam5(nSkillId));
     }
     return 1;
-}
-
-// 0x005DBC60
-int __fastcall SKILLS_SrvDo013_Fend_Zeal_Fury(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    const int nAuraRange = SKILLS_GetMeleeSearchRange(pUnit);
-    const int nTargetGUID = SKILLS_GetParam3(pSkill);
-    D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam2(pSkill), nTargetGUID);
-    if (!pTarget || !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
-    {
-        pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nAuraRange, 0x20003, nTargetGUID, 0);
-        if (!pTarget)
-        {
-            return 0;
-        }
-    }
-
-    D2DamageStrc damage;
-    memset(&damage, 0, sizeof(damage));
-    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
-    if (damage.wResultFlags & 1)
-    {
-        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
-        if (pSkillsTxtRecord->nEType > 0)
-        {
-            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
-            if (damage.dwConvPct > 0)
-            {
-                damage.nConvType = pSkillsTxtRecord->nEType;
-            }
-            D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
-        }
-    }
-
-    unsigned char& nSrcDam = *(unsigned char*)&nSkillLevel;
-    nSrcDam = pSkillsTxtRecord->nSrcDam;
-    if (!nSrcDam)
-    {
-        nSrcDam = 0x80;
-    }
-
-    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
-    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 4);
-
-    const int nAttacksRemaining = SKILLS_GetParam1(pSkill) - 1;
-    SKILLS_SetParam1(pSkill, nAttacksRemaining);
-    if (nAttacksRemaining <= 0)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pNextTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nAuraRange, 0x20003, !pTarget ? -1 : pTarget->dwUnitId, 0);
-    if (!pNextTarget)
-    {
-        return 0;
-    }
-
-    SKILLS_SetParam2(pSkill, !pNextTarget ? 6 : pNextTarget->dwUnitType);
-    SKILLS_SetParam3(pSkill, !pNextTarget ? -1 : pNextTarget->dwUnitId);
-    sub_0056E210(pUnit, sub_004EFC20_GetSkillParam2(nSkillId));
-    return 0;
 }

@@ -264,6 +264,115 @@ void __fastcall ACT2Q2_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2Que
     }
 }
 
+D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
+
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
+
+bool __fastcall sub_0059AC80_ACT2Q3_IsAltarDestroyed(D2QuestDataStrc* pQuest);                              // 0x0059AC80
+
+// 0x0059E630
+bool __fastcall ACT2Q2_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    if (!QUESTRECORD_GetQuestState(pFlags, 7, 0))
+    {
+        *pStatus = 0;
+        return true;
+    }
+
+    if (QUESTRECORD_GetQuestState(pFlags, 10, 0) || QUESTRECORD_GetQuestState(pFlags, 10, 1))
+    {
+        if (!QUESTRECORD_GetQuestState(pFlags, 14, 0))
+        {
+            *pStatus = QUESTRECORD_GetQuestState(pFlags, 10, 10) ? 5 : 6;
+            return true;
+        }
+
+        *pStatus = QUESTRECORD_GetQuestState(pFlags, 10, 13) ? 13 : 11;
+        return true;
+    }
+
+    *pStatus = 0;
+
+    D2UnitStrc* pHoradricScroll = ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' 1rt');
+    D2UnitStrc* pBaseStaff = ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' fsm');
+    D2UnitStrc* pBox = ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' xob');
+    D2UnitStrc* pAmulet = ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' piv');
+    D2UnitStrc* pCubedStaff = ITEMS_FindQuestItem(pQuest->pGame, pPlayer, ' tsh');
+    const int bLeaveTown = QUESTRECORD_GetQuestState(pFlags, 10, 3);
+
+    if (pBaseStaff && pBox && pAmulet)
+    {
+        if (QUESTRECORD_GetQuestState(pFlags, 10, 6))
+        {
+            *pStatus = 3;
+        }
+        else
+        {
+            *pStatus = bLeaveTown ? 2 : 4;
+        }
+
+        return true;
+    }
+
+    if (pCubedStaff)
+    {
+        *pStatus = QUESTRECORD_GetQuestState(pFlags, 10, 10) ? 5 : 6;
+        return true;
+    }
+
+    if (pHoradricScroll && !QUESTRECORD_GetQuestState(pFlags, 10, 3))
+    {
+        *pStatus = 1;
+        return true;
+    }
+
+    D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)pQuest->pQuestDataEx;
+    if (pQuestDataEx->bCubeDropped && !pQuestDataEx->nHoradricCubes || !pQuestDataEx->nAmulets && sub_0059AC80_ACT2Q3_IsAltarDestroyed(pQuest) || pQuestDataEx->bHoradricScrollDropped && !pQuestDataEx->nBaseStaffs)
+    {
+        *pStatus = 9;
+    }
+
+    if (bLeaveTown)
+    {
+        *pStatus = 2;
+        return true;
+    }
+
+    if (pAmulet || pBaseStaff || pBox)
+    {
+        *pStatus = 4;
+    }
+
+    return true;
+}
+
+extern "C" const char gszA2Q2SourceFile[];                                                                  // 0x006E211C
+
+// 0x0059E850
+void __fastcall sub_0059E850(D2QuestDataStrc* q,D2QuestArgStrc* arg)
+{
+    D2BitBufferStrc* flags=PLAYER_GetQuestFlags(arg->pGame,arg->pPlayer);
+    D2UnitStrc* base=ITEMS_FindQuestItem(arg->pGame,arg->pPlayer,' fsm');
+    D2UnitStrc* box=ITEMS_FindQuestItem(arg->pGame,arg->pPlayer,' xob');
+    D2UnitStrc* amulet=ITEMS_FindQuestItem(arg->pGame,arg->pPlayer,' piv');
+    D2UnitStrc* staff=ITEMS_FindQuestItem(arg->pGame,arg->pPlayer,' tsh');
+    D2Act2Quest2Strc* ex=(D2Act2Quest2Strc*)q->pQuestDataEx;
+    if(base) ++ex->nBaseStaffs;
+    if(amulet) ++ex->nAmulets;
+    if(box) ++ex->nHoradricCubes;
+    if(staff) ++ex->nCubedStaffs;
+    if(!QUESTRECORD_GetQuestState(flags,10,0))
+    {
+        D2QuestDataStrc* duriel=QUESTS_GetQuestData(arg->pGame,13);
+        if(duriel && duriel->bNotIntro && !((D2Act2Quest6Strc*)duriel->pQuestDataEx)->bDurielLairTombOpen && !ITEMS_FindQuestItem(arg->pGame,arg->pPlayer,' tsh') && (!base || !box || !amulet))
+        {
+            if(!base) QUESTRECORD_ClearQuestState(flags,10,5);
+            if(!box) QUESTRECORD_ClearQuestState(flags,10,6);
+            if(!amulet) QUESTRECORD_ClearQuestState(flags,10,4);
+        }
+    }
+}
+
 // 0x0059E970
 void __fastcall ACT2Q2_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

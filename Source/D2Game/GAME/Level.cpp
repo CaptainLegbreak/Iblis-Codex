@@ -371,3 +371,43 @@ void __fastcall sub_0053AFB0_EnsureAct(D2GameStrc* pGame, unsigned char nAct)
         sub_0053AC70_AllocAct(pGame, nAct);
     }
 }
+struct D2MonsterDataStrc;
+
+struct D2GSPacketSrvB1;
+
+void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
+
+void __fastcall OBJECTS_RemoveAll(D2GameStrc* pGame); // 0x00552A40
+
+void __fastcall PLAYER_RemoveAllPlayers(D2GameStrc* pGame); // 0x00534A50
+
+void __fastcall ITEMS_RemoveAll(D2GameStrc* pGame); // 0x00557F10
+
+void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame); // 0x0059F840
+
+void __fastcall sub_00555770_RemoveAllTiles(D2GameStrc* pGame); // 0x00555770
+
+void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
+
+int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize); // 0x0052B330
+
+#pragma pack(push, 1)
+struct D2GSPacketSrvB1
+{
+    unsigned char nHeader;
+    char szGameName[48];
+    unsigned short nClientCount;
+    unsigned short nGameId;
+};
+
+// 0x0053AFD0
+void __fastcall LEVEL_RemoveAllUnits(D2GameStrc* pGame)
+{
+    MONSTER_RemoveAll(pGame);
+    OBJECTS_RemoveAll(pGame);
+    PLAYER_RemoveAllPlayers(pGame);
+    ITEMS_RemoveAll(pGame);
+    MISSILES_RemoveAll(pGame);
+    sub_00555770_RemoveAllTiles(pGame);
+}
+

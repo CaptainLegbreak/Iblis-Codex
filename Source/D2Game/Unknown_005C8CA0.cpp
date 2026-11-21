@@ -10,13 +10,6 @@ struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2SkillsTxt;
 
-
-
-
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
@@ -131,29 +124,4 @@ int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
 
     sub_005C8C10_StopInferno(pGame, pUnit);
     return 1;
-}
-
-// 0x005C9220
-int __fastcall sub_005C9220_SrvStTargetNotInTown(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return 0;
-    }
-
-    int nX;
-    int nY;
-    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
-    if (!pTargetRoom)
-    {
-        return 0;
-    }
-
-    return !DUNGEON_IsRoomInTown(pTargetRoom);
 }

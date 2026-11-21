@@ -29,27 +29,6 @@ struct Unit00541860 {
     Data00541860* pData;
 };
 
-// 0x005415A0
-int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent)
-{
-    D2EventTimerStrc* pEventTimer = SUNIT_GetTimerFromUnit(pUnit);
-    int nEventFrame = 0;
-    while (pEventTimer)
-    {
-        D2EventTimerStrc* pNext = pEventTimer->pNext;
-        if (pEventTimer->nEventType == nEvent)
-        {
-            const int nFrame = pEventTimer->nExpireFrame;
-            if (nFrame > 0 && (nFrame < nEventFrame || !nEventFrame))
-            {
-                nEventFrame = nFrame;
-            }
-        }
-        pEventTimer = pNext;
-    }
-    return nEventFrame;
-}
-
 // 0x00541860
 extern "C" __declspec(dllexport) unsigned int __fastcall sub_00541860(Unit00541860* pUnit) {
     if (pUnit && pUnit->nType == 1 && pUnit->pData) {

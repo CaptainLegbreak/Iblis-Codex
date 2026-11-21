@@ -20,12 +20,6 @@ struct D2MonsterDataStrc;
 struct Unit005A4EE0;
 struct StatValue;
 
-
-
-
-
-
-
 struct D2MonStatsInitStrc
 {
     int nMinHP;
@@ -43,7 +37,6 @@ struct D2MonStatsInitStrc
     int nElMaxD;
     int nElDur;
 };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -128,59 +121,6 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-// 0x005A3EF0
-void __fastcall MONSTERUNIQUE_CastSuicideExplodeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecordFromUnit(pUnit);
-    const int nDifficulty = pGame->nDifficulty;
-    const int nColdLength = pMonStatsTxtRecord->wAiParam[0][nDifficulty];
-
-    int nGameType;
-    if (pGame->nGameType || pGame->dwGameType)
-    {
-        nGameType = 1;
-    }
-    else
-    {
-        nGameType = 0;
-    }
-
-    D2MonStatsInitStrc monStatsInit;
-    memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(!pUnit ? -1 : pUnit->dwClassId, nGameType, nDifficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 8, &monStatsInit);
-
-    const int nDamage = (SEED_RollLimitedRandomNumber(&pUnit->pSeed, monStatsInit.nA1MaxD - monStatsInit.nA1MinD) + monStatsInit.nA1MinD) << 8;
-
-    D2DamageStrc damage;
-    memset(&damage, 0, sizeof(damage));
-    damage.wResultFlags |= 8;
-    damage.dwPhysDamage = nDamage;
-
-    D2UnitStrc* pMissile;
-    if (nColdLength == 1)
-    {
-        damage.dwFireDamage = nDamage;
-        pMissile = sub_6FD11420(pGame, MISSILE_SUICIDEFIREEXPLODE, pUnit, 0, 1, 0, 0, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 1);
-    }
-    else if (nColdLength >= 2)
-    {
-        damage.dwColdDamage = nDamage;
-        damage.dwColdLen = nColdLength;
-        pMissile = sub_6FD11420(pGame, MISSILE_SUICIDEICEEXPLODE, pUnit, 0, 1, 0, 0, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 1);
-    }
-    else
-    {
-        pMissile = sub_6FD11420(pGame, MISSILE_SUICIDECORPSEEXPLODE, pUnit, 0, 1, 0, 0, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 1);
-    }
-
-    const int nX = CLIENTS_GetUnitXInline(pUnit);
-    const int nY = CLIENTS_GetUnitYInline(pUnit);
-    if (pMissile)
-    {
-        SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pMissile, nX, nY, pMonStatsTxtRecord->wAiParam[3][pGame->nDifficulty], &damage, 0, 0, 0, 0x581);
     }
 }
 
@@ -277,21 +217,4 @@ void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUn
     {
         sub_005A4270_ExecuteUModCallbacks(pGame, pMissile, 5, pUnit);
     }
-}
-
-// 0x005A4EE0
-extern "C" __declspec(dllexport) int __fastcall sub_005A4EE0(Unit005A4EE0* pUnit) {
-    if (pUnit) {
-        int nType = pUnit->nType;
-        if (nType == 1) {
-            return nType;
-        }
-    }
-    return 0;
-}
-
-// 0x005A5470
-unsigned short __fastcall sub_005A5470(Game* game,Unit* attacker,Unit* defender,StatValue stat,int ignoredRange)
-{
-    return sub_0057EC10(game,attacker,defender,stat.value,RANGE_OVERRIDE);
 }

@@ -7,16 +7,11 @@
 struct D2PlayerDataStrc;
 struct D2Act3Quest5Strc;
 
-
-
-
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
-
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
-
 
 typedef int (__fastcall* QUESTITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -28,39 +23,6 @@ void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgS
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nUnitType, void* pData, QUESTITERATE pfnCallback);
 int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 int __fastcall ACT3Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
-
-// 0x005B73A0
-int __fastcall ACT3Q1_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) == 1)
-    {
-        return 0;
-    }
-
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 1) == 1)
-    {
-        return 0;
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 15);
-    if (pQuestData)
-    {
-        switch (pQuestData->fState)
-        {
-        case 2:
-            QUESTRECORD_SetQuestState(pQuestFlags, 17, 2);
-            break;
-
-        case 3:
-            QUESTRECORD_SetQuestState(pQuestFlags, 17, 2);
-            break;
-        }
-    }
-
-    return 0;
-}
 
 // 0x005B7610
 void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)

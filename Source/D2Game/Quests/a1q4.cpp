@@ -591,6 +591,31 @@ int __fastcall ACT1Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     return 0;
 }
 
+// 0x00592130
+int __fastcall sub_00592130_SyncQuest4(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
+{
+    D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestRecord, 4, 0) == 1 || QUESTRECORD_GetQuestState(pQuestRecord, 4, 1) == 1)
+    {
+        return 0;
+    }
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+    if (pQuestData->fState == 2)
+    {
+        QUESTRECORD_SetQuestState(pQuestRecord, 4, 2);
+        return 0;
+    }
+    if (pQuestData->fState >= 3 && pQuestData->fState <= 5)
+    {
+        QUESTRECORD_SetQuestState(pQuestRecord, 4, 3);
+    }
+    return 0;
+}
+
 // 0x005921B0
 void __fastcall ACT1Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

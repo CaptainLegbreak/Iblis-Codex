@@ -4,8 +4,6 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 
-
-
 #define STAT_ENERGY 1
 #define STAT_DEXTERITY 2
 #define STAT_VITALITY 3

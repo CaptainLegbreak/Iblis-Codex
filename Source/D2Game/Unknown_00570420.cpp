@@ -89,48 +89,6 @@ unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x00
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
 void __fastcall sub_0053E8D0_SendPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 
-// 0x00570420
-void __fastcall sub_6FD14F70(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay)
-{
-    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
-    {
-        return;
-    }
-
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType == UNIT_MONSTER && !MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_UNIQUE) && !MONSTERS_IsBoss(0, pUnit))
-    {
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nDelay);
-        int nFrame = pGame->dwGameFrame;
-        if (!pStatList)
-        {
-            const int nUnitGUID = pUnit->dwUnitId;
-            const int nUnitType = pUnit->dwUnitType;
-            nFrame += 100;
-            pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nFrame, nUnitType, nUnitGUID);
-            if (pStatList)
-            {
-                EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nFrame, 0, 0);
-                STATLIST_SetState(pStatList, STATE_STUNNED);
-                STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
-                D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-                STATES_ToggleState(pUnit, STATE_STUNNED, 1);
-            }
-        }
-        else
-        {
-            nFrame += nDelay;
-            D2COMMON_10476(pStatList, nFrame);
-            EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nFrame, 0, 0);
-        }
-
-        D2ModeChangeStrc modeChange;
-        MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_NEUTRAL, &modeChange);
-        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
-        pUnit->dwFlags &= ~UNITFLAG_DOUPDATE;
-    }
-}
-
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -203,41 +161,6 @@ void __stdcall sub_M113_Emit_00570870(D2GameStrc* pGame, D2UnitStrc* pFirst, D2U
 int __cdecl sub_00570E10_GetStateMaskCount()
 {
     return (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
-}
-
-// 0x00570880
-void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
-{
- int classId;
- if(!unit) classId=-1; else classId=unit->dwClassId;
- int previousLevel=STATLIST_GetUnitBaseStat(unit,STAT_LEVEL,0);
- int level=DATATBLS_GetCurrentLevelFromExp(classId,STATLIST_UnitGetStatValue(unit,STAT_EXPERIENCE,0));
- STATLIST_SetUnitStat(unit,STAT_LEVEL,level,0);
- STATLIST_SetUnitStat(unit,STAT_NEXTEXP,DATATBLS_GetLevelThreshold(classId,level),0);
- int gained=level-previousLevel;
- if(gained>0) {
-  D2CharStatsTxt* record=(classId>=0 && classId<sgptDataTables->nCharStatsTxtRecordCount)?&sgptDataTables->pCharStatsTxt[classId]:0;
-  int life=STATLIST_GetUnitBaseStat(unit,STAT_MAXHP,0)+((record->lifePerLevel*gained)<<6);
-  STATLIST_SetUnitStat(unit,STAT_MAXHP,life,0);
-  int maxLife=STATLIST_GetMaxLifeFromUnit(unit);
-  if(STATLIST_UnitGetStatValue(unit,STAT_HITPOINTS,0)>0) STATLIST_SetUnitStat(unit,STAT_HITPOINTS,maxLife,0);
-  int mana=STATLIST_GetUnitBaseStat(unit,STAT_MAXMANA,0)+((record->manaPerLevel*gained)<<6);
-  STATLIST_SetUnitStat(unit,STAT_MAXMANA,mana,0);
-  int maxMana=sub_00625D60(unit);
-  STATLIST_SetUnitStat(unit,STAT_MANA,maxMana,0);
-  int stamina=STATLIST_GetUnitBaseStat(unit,STAT_MAXSTAMINA,0)+((record->staminaPerLevel*gained)<<6);
-  STATLIST_SetUnitStat(unit,STAT_MAXSTAMINA,stamina,0);
-  int maxStamina=STATLIST_GetMaxStaminaFromUnit(unit);
-  STATLIST_SetUnitStat(unit,STAT_STAMINA,maxStamina,0);
-  STATLIST_AddUnitStat(unit,STAT_STATPTS,record->statPerLevel*gained,0);
-  STATLIST_AddUnitStat(unit,STAT_SKILLPTS,gained,0);
-  sub_00536850_UpdateLevel(game,unit,level);
-  SUNIT_AttachSound(unit,2,unit);
-  SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)sub_00570850_Forward,unit);
-  sub_0055F500_RefreshItemStatLists(game,unit);
-  D2GAME_UpdatePlayerItems_6FC4BB90(game,unit,1);
-  if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->nGameId,sub_00622150_GetLevelInfo(unit,classId,level));
- }
 }
 
 // 0x00570A50

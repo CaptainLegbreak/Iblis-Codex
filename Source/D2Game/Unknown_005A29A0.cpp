@@ -22,17 +22,7 @@ union D2SeedStrc;
 struct D2MonLvlTxt;
 struct D2MonUModTxt;
 
-
-
-
-
-
-
-
-
-
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -52,7 +42,6 @@ enum D2C_H16ElemConstants
     MONLVL_DM = 6,
     STAT_LEVEL = 12,
 };
-
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
@@ -113,123 +102,6 @@ static D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInline(D2UnitStrc* pUnit)
     }
 
     return 0;
-}
-
-// 0x005A29A0
-void __fastcall MONSTERUNIQUE_CastLightUniqueMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    static const int nYOffsets[] = { -1, 0, 1, 0 };                                                       // 0x006E2178
-    static const int nXOffsets[] = { 0, 1, 0, -1 };                                                       // 0x006E2188
-
-    if (!bUnique)
-    {
-        return;
-    }
-
-    D2MonsterDataStrc* pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
-    const int nLastFrame = !pMonsterData ? 0 : pMonsterData->dwDurielFlag;
-
-    int nFrameDiff = pGame->dwGameFrame - nLastFrame;
-    if (nFrameDiff < 0)
-    {
-        nFrameDiff = -nFrameDiff;
-    }
-
-    if (nFrameDiff < 10)
-    {
-        pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
-        if (pMonsterData)
-        {
-            pMonsterData->nTypeFlag &= ~MONTYPEFLAG_LIGHTNINGUNIQUE;
-        }
-        return;
-    }
-
-    pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
-    if (pMonsterData)
-    {
-        pMonsterData->dwDurielFlag = pGame->dwGameFrame;
-    }
-
-    pMonsterData = MONSTERUNIQUE_GetMonsterDataInline(pUnit);
-    if (pMonsterData)
-    {
-        pMonsterData->nTypeFlag |= MONTYPEFLAG_LIGHTNINGUNIQUE;
-    }
-
-    int nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0) / 2;
-    if (nSkillLevel < 1)
-    {
-        nSkillLevel = 1;
-    }
-
-    D2MissileStrc missileParams = {};
-    missileParams.dwFlags = 0x21;
-    missileParams.pOwner = pUnit;
-    missileParams.nX = UNITS_GetXPositionInline(pUnit);
-    missileParams.nY = UNITS_GetYPositionInline(pUnit);
-    missileParams.nSkillLevel = nSkillLevel;
-    missileParams.nMissile = MISSILE_LIGHTUNIQUE;
-    missileParams.pInitFunc = SKILLS_MissileInit_ChargedBolt;
-
-    const int nBaseX = UNITS_GetXPositionInline(pUnit);
-    const int nBaseY = UNITS_GetYPositionInline(pUnit);
-    for (int i = 0; i < 4; ++i)
-    {
-        const int nX = nBaseX + nXOffsets[i];
-        const int nY = nBaseY + nYOffsets[i];
-        for (int j = 0; j < 2; ++j)
-        {
-            missileParams.nInitArg = j;
-            missileParams.nTargetX = nX;
-            missileParams.nTargetY = nY;
-            MISSILES_CreateMissileFromParams(pGame, &missileParams);
-        }
-    }
-}
-
-// 0x005A9E10
-int __fastcall MISSMODE_SrvHit44_ExplodingJavelin(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)
-{
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
-    if (!pMissilesTxtRecord)
-    {
-        return 1;
-    }
-
-    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
-    int nRange = pMissilesTxtRecord->dwHitPar[0];
-    if (!nRange)
-    {
-        const int nSkillId = MISSILE_GetSkill(pMissile);
-        const int nLevel = MISSILE_GetLevel(pMissile);
-        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-        if (!pSkillsTxtRecord)
-        {
-            return 1;
-        }
-
-        nRange = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nLevel);
-        if (nRange < 1)
-        {
-            nRange = 1;
-        }
-    }
-
-    const int nX = UNITS_GetXPositionInline(pMissile);
-    const int nY = UNITS_GetYPositionInline(pMissile);
-
-    D2DamageStrc damage = {};
-    MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &damage);
-    damage.wResultFlags |= pMissilesTxtRecord->wResultFlags;
-    damage.dwHitFlags |= pMissilesTxtRecord->dwHitFlags;
-
-    if (sub_6FD10200(pGame, pOwner, nX, nY, nRange, &damage, 0))
-    {
-        return 1;
-    }
-
-    return 3;
 }
 
 static inline D2MissilesTxt* MONUNIQUE_GetMissilesTxtRecord_Inline(int nMissileId)
