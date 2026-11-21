@@ -4,6 +4,7 @@
 #include "D2Check.h"
 #include "D2Path.h"
 
+struct Unicode;
 struct D2UnitStrc;
 struct D2GameStrc;
 struct D2ClientStrc;
@@ -56,7 +57,7 @@ struct D2PlayerDataStrc
     int nSwitchRightSkillFlags; // 0x88
     int nSwitchLeftSkillFlags; // 0x8C
     int nWeaponGUID; // 0x90
-    unsigned char unk0x94[0x4]; // 0x94
+    int unk0x94; // 0x94
     D2LifeSyncStrc* pPartyLifeList; // 0x98
     D2ClientStrc* pClient; // 0x9C
     unsigned char nPositionHistoryIndex; // 0xA0
@@ -88,7 +89,11 @@ struct D2MonsterDataStrc
         D2AiControlStrc* pAiControl; // 0x28
         unsigned short nClientFlags; // 0x28 (client side)
     };
-    D2AiParamStrc* pAiParam; // 0x2C
+    union
+    {
+        D2AiParamStrc* pAiParam; // 0x2C
+        Unicode* wszMonName; // 0x2C (client side)
+    };
     D2MonsterInteractStrc* pMonInteract; // 0x30
     unsigned char unk0x34[0x28]; // 0x34
 };
@@ -118,7 +123,7 @@ struct D2QuestDataStrc
     QUESTCALLBACK pCallback[15]; // 0xA0
     void* pNPCMessages; // 0xDC
     int eFilter; // 0xE0
-    unsigned char unk0xE4[0x4]; // 0xE4
+    int eFilter2; // 0xE4
     QUESTSTATUSFILTER pfStatusFilter; // 0xE8
     QUESTACTIVEFILTER pfActiveFilter; // 0xEC
     QUESTSEQFILTER pfSeqFilter; // 0xF0
