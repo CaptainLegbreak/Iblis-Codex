@@ -65715,11 +65715,6 @@
      "va": "0x005B7F90",
      "length": 68,
      "name": "?ACT3Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005B7FF0",
-     "length": 39,
-     "name": "?ACT3Q2_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
@@ -65742,6 +65737,11 @@
    "file": "Source/D2Game/Quests/a3q2.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B7FF0",
+     "length": 39,
+     "name": "?ACT3Q2_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
     {
      "va": "0x005B8020",
      "length": 60,
