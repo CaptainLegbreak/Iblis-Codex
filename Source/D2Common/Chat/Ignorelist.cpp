@@ -530,11 +530,8 @@ struct D2CommonStringEntryNodeStrc
     static void operator delete(void* pMemory);
 };
 
-struct D2StormSlotList0060EDB0Strc
+struct D2StormSlotList0060EDB0Strc : D2CommonStormSlotListAStrc
 {
-    int m_linkoffset;
-    D2CommonStormSlotLinkStrc m_terminator;
-
     ~D2StormSlotList0060EDB0Strc();
 };
 
@@ -928,6 +925,11 @@ typedef TSHashTable<MappingEntryNode, HASHKEY_STRI> D2CommonStormHashTableBStrc;
 // build: symbol ??1?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@UAE@XZ 0x0060FD90
 // build: symbol ??1?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@UAE@XZ 0x00610550
 
+struct D2CommonStormSlotListCStrc : D2CommonStormSlotListBStrc
+{
+    ~D2CommonStormSlotListCStrc();
+};
+
 template <> class TSHashTable<StringEntryNode, HASHKEY_STRI>
 {
 public:
@@ -940,9 +942,9 @@ public:
     virtual void sub_00610020_VirtSlot3();                                                                  // 0x00610020
     static void operator delete(void* pMemory);
 
-    D2CommonStormSlotListAStrc m_fulllist;
+    D2StormSlotList0060EDB0Strc m_fulllist;
     unsigned int m_fullnessIndicator;
-    D2CommonStormSlotArrayAStrc m_slotlistarray;
+    D2CommonStormSlotArrayAViewStrc m_slotlistarray;
     unsigned int m_slotmask;
 
     TSHashTable();
@@ -976,9 +978,9 @@ public:
     virtual void sub_006107D0_VirtSlot3();                                                                  // 0x006107D0
     static void operator delete(void* pMemory);
 
-    D2CommonStormSlotListBStrc m_fulllist;
+    D2CommonStormSlotListCStrc m_fulllist;
     unsigned int m_fullnessIndicator;
-    D2CommonStormSlotArrayBStrc m_slotlistarray;
+    D2CommonStormSlotGrowArrayBStrc m_slotlistarray;
     unsigned int m_slotmask;
 
     TSHashTable();
@@ -1116,34 +1118,11 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
 
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset);
 
-#define D2_STORM_UNLINK_TERMINATOR(pThis)                                                                   \
-    if ((pThis)->m_prevlink)                                                                                \
-    {                                                                                                       \
-        D2CommonStormPlainLinkStrc* pNext;                                                                  \
-        if ((int)(pThis)->m_next < 0)                                                                       \
-        {                                                                                                   \
-            pNext = (D2CommonStormPlainLinkStrc*)~(unsigned int)(pThis)->m_next;                           \
-        }                                                                                                   \
-        else                                                                                                \
-        {                                                                                                   \
-            int nLinkOffset = -1;                                                                           \
-            if (nLinkOffset < 0)                                                                            \
-            {                                                                                               \
-                nLinkOffset = (char*)(pThis) - (pThis)->m_prevlink->m_next;                                 \
-            }                                                                                               \
-            pNext = (D2CommonStormPlainLinkStrc*)((pThis)->m_next + nLinkOffset);                          \
-        }                                                                                                   \
-        pNext->m_prevlink = (pThis)->m_prevlink;                                                            \
-        (pThis)->m_prevlink->m_next = (pThis)->m_next;                                                      \
-        (pThis)->m_prevlink = 0;                                                                            \
-        (pThis)->m_next = 0;                                                                                \
-    }
 
 struct D2CommonStormPlainLinkStrc;
 
 struct D2CommonStormListGStrc;
 
-struct D2CommonStormSlotListCStrc;
 
 struct D2CommonStormSlotListDStrc;
 
@@ -1165,27 +1144,13 @@ struct D2CommonStormListGStrc
     D2CommonStormPlainLinkStrc m_terminator;
 };
 
-struct D2CommonStormSlotListCStrc
+struct D2CommonStormSlotListDStrc : D2CommonStormSlotListAStrc
 {
-    int m_linkoffset;
-    D2CommonStormPlainLinkStrc m_terminator;
-
-    ~D2CommonStormSlotListCStrc();
-};
-
-struct D2CommonStormSlotListDStrc
-{
-    int m_linkoffset;
-    D2CommonStormPlainLinkStrc m_terminator;
-
     ~D2CommonStormSlotListDStrc();
 };
 
-struct D2CommonStormSlotListEStrc
+struct D2CommonStormSlotListEStrc : D2CommonStormSlotListBStrc
 {
-    int m_linkoffset;
-    D2CommonStormPlainLinkStrc m_terminator;
-
     ~D2CommonStormSlotListEStrc();
 };
 
@@ -1867,7 +1832,6 @@ char* D2CommonStormHashTableAStrc::sub_0060ED70_DeleteNext(D2CommonStringEntryNo
 // 0x0060EDB0
 D2StormSlotList0060EDB0Strc::~D2StormSlotList0060EDB0Strc()
 {
-    ((D2CommonStormSlotListAStrc*)this)->UnlinkAll();
 }
 
 // 0x0060EDF0
@@ -1997,9 +1961,6 @@ inline void D2CommonStringEntryNodeStrc::operator delete(void* pMemory)
 // 0x0060F190
 D2CommonStormSlotListCStrc::~D2CommonStormSlotListCStrc()
 {
-    ((D2CommonStormSlotListBStrc*)this)->UnlinkAll();
-    D2CommonStormPlainLinkStrc* pThis = &m_terminator;
-    D2_STORM_UNLINK_TERMINATOR(pThis)
 }
 
 // 0x0060F1D0
@@ -2035,9 +1996,6 @@ char* D2CommonStormListAStrc::sub_0060F270_DeleteNode(D2CommonStringEntryNodeStr
 // 0x0060F2C0
 D2CommonStormSlotListDStrc::~D2CommonStormSlotListDStrc()
 {
-    ((D2CommonStormSlotListAStrc*)this)->UnlinkAll();
-    D2CommonStormPlainLinkStrc* pThis = &m_terminator;
-    D2_STORM_UNLINK_TERMINATOR(pThis)
 }
 
 // 0x0060F300
@@ -2120,9 +2078,6 @@ D2CommonStormSlotArrayAStrc::~D2CommonStormSlotArrayAStrc()
 // 0x0060F690
 D2CommonStormSlotListEStrc::~D2CommonStormSlotListEStrc()
 {
-    ((D2CommonStormSlotListBStrc*)this)->UnlinkAll();
-    D2CommonStormPlainLinkStrc* pThis = &m_terminator;
-    D2_STORM_UNLINK_TERMINATOR(pThis)
 }
 
 // 0x0060F6D0
