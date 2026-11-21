@@ -41923,8 +41923,22 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FB1B0.cpp",
+   "file": "Source/D2Win/Src/D2WinTextBox.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004FB1B0",
@@ -41932,103 +41946,24 @@
      "name": "?sub_004FB1B0_ApplyPalette@@YAXXZ"
     },
     {
-     "va": "0x004FB5A0",
-     "length": 248,
-     "name": "?sub_004FB5A0_SetTextBoxLineGap@@YAXH@Z"
-    },
-    {
-     "va": "0x004FBAB0",
-     "length": 117,
-     "name": "?D2Win_10055@@YIHPAUD2WinTextBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FBB30",
-     "length": 90
-    },
-    {
-     "va": "0x004FBD70",
-     "length": 80,
-     "name": "?sub_004FBD70_SetControlStateWithChild@@YIXPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x004FBDC0",
-     "length": 32,
-     "name": "?sub_004FBDC0_Unsupported@@YAXXZ"
-    },
-    {
-     "va": "0x004FC2F0",
-     "length": 253,
-     "name": "?TEXTBOX_HandleMouseDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004FC7A0",
-     "length": 434,
-     "name": "?D2Win_10042_TEXTBOX_Create@@YIPAUD2WinTextBoxStrc@@HHHHHHPAUD2CelFileStrc@@P6GHPAUSMSGHANDLER_PARAMS@@@ZIPAH3@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinPalette.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004FB1E0",
-     "length": 665
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_004FB500.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FB500",
-     "length": 136,
-     "name": "?D2Win_10028@@YGHPBD0@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinTextBox.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x004FB480",
      "length": 128,
      "name": "?D2Win_10177@@YIHE@Z"
     },
     {
+     "va": "0x004FB5A0",
+     "length": 248,
+     "name": "?sub_004FB5A0_SetTextBoxLineGap@@YAXH@Z"
+    },
+    {
      "va": "0x004FB6A0",
      "length": 158,
      "name": "?D2Win_10047@@YIHPAUD2WinTextBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FB790",
+     "length": 224,
+     "name": "?sub_004FB790@@YIHPAUD2WinTextBoxStrc@@PBUUnicode@@HH@Z"
     },
     {
      "va": "0x004FB870",
@@ -42061,6 +41996,15 @@
      "name": "?D2Win_10053@@YIHPAUD2WinTextBoxStrc@@H@Z"
     },
     {
+     "va": "0x004FBAB0",
+     "length": 117,
+     "name": "?D2Win_10055@@YIHPAUD2WinTextBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FBB30",
+     "length": 90
+    },
+    {
      "va": "0x004FBC20",
      "length": 87,
      "name": "?D2Win_10056@@YIXPAUD2WinTextBoxStrc@@H@Z"
@@ -42069,6 +42013,26 @@
      "va": "0x004FBD20",
      "length": 71,
      "name": "?D2Win_10061@@YIHPAUD2WinTextBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FBD70",
+     "length": 80,
+     "name": "?sub_004FBD70_SetControlStateWithChild@@YIXPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x004FBDC0",
+     "length": 32,
+     "name": "?sub_004FBDC0_Unsupported@@YAXXZ"
+    },
+    {
+     "va": "0x004FC2F0",
+     "length": 253,
+     "name": "?TEXTBOX_HandleMouseDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004FC5A0",
+     "length": 58,
+     "name": "@sub_004FC5A0_GetMaxSteps@4"
     },
     {
      "va": "0x004FC5E0",
@@ -42104,6 +42068,15 @@
      "va": "0x004FC760",
      "length": 58,
      "name": "?D2Win_10203_TEXTBOX@@YIHPAUD2WinTextBoxStrc@@@Z"
+    },
+    {
+     "va": "0x004FC7A0",
+     "length": 434,
+     "name": "?D2Win_10042_TEXTBOX_Create@@YIPAUD2WinTextBoxStrc@@HHHHHHPAUD2CelFileStrc@@P6GHPAUSMSGHANDLER_PARAMS@@@ZIPAH3@Z"
+    },
+    {
+     "va": "0x004FC9B0",
+     "length": 648
     },
     {
      "va": "0x004FCC40",
@@ -42149,6 +42122,16 @@
      "length": 151,
      "name": "sub_6F8AA140"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Src/D2WinPalette.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004FB1E0",
+     "length": 665
+    }
    ],
    "flags": [
     "/nologo",
@@ -42166,13 +42149,13 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FB790.cpp",
+   "file": "Source/D2Win/Unknown_004FB500.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x004FB790",
-     "length": 224,
-     "name": "?sub_004FB790@@YIHPAUD2WinTextBoxStrc@@PBUUnicode@@HH@Z"
+     "va": "0x004FB500",
+     "length": 136,
+     "name": "?D2Win_10028@@YGHPBD0@Z"
     }
    ],
    "flags": [
@@ -42396,17 +42379,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC5A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FC5A0",
-     "length": 58,
-     "name": "@sub_004FC5A0_GetMaxSteps@4"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
    "rank": 0,
    "functions": [
@@ -42590,30 +42562,6 @@
      "length": 104,
      "name": "?POPUP_HandleMouseButtonInput@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC9B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004FC9B0",
-     "length": 648
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
