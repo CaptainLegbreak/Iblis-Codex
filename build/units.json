@@ -10893,6 +10893,76 @@
      "name": "?sub_00437B90_FreeCache@@YAXXZ"
     },
     {
+     "va": "0x0043A730",
+     "length": 174,
+     "name": "?sub_0043A730_UpdateButtons@@YAXXZ"
+    },
+    {
+     "va": "0x0043A7E0",
+     "length": 30,
+     "name": "?sub_0043A7E0_ResetRealmScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043A9A0",
+     "length": 33,
+     "name": "?sub_0043A9A0_CopyName@@YGHH@Z"
+    },
+    {
+     "va": "0x0043AD10",
+     "length": 155,
+     "name": "?sub_0043AD10_RequestCharList@@YAXPAD@Z"
+    },
+    {
+     "va": "0x0043ADB0",
+     "length": 114,
+     "name": "?sub_0043ADB0_UseName@@YIXPAD@Z"
+    },
+    {
+     "va": "0x0043B080",
+     "length": 1039,
+     "name": "?sub_0043B080_InitCharSelectScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043B490",
+     "length": 47,
+     "name": "?sub_0043B490_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B800",
+     "length": 15,
+     "name": "?sub_0043B800_ClearFuncTable@@YAXXZ"
+    },
+    {
+     "va": "0x0043B810",
+     "length": 11,
+     "name": "?sub_0043B810_SetFlag@@YAXXZ"
+    },
+    {
+     "va": "0x0043B850",
+     "length": 50,
+     "name": "?sub_0043B850_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B890",
+     "length": 65,
+     "name": "?sub_0043B890_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B8E0",
+     "length": 85,
+     "name": "sub_0043B8E0_OnTick"
+    },
+    {
+     "va": "0x0043B940",
+     "length": 88,
+     "name": "sub_0043B940_OnTick"
+    },
+    {
+     "va": "0x0043C530",
+     "length": 10,
+     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
+    },
+    {
      "va": "0x0043F8C0",
      "length": 109,
      "name": "?sub_0043F8C0_ResetLaunchState@@YAXXZ"
@@ -12053,82 +12123,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043A730.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043A730",
-     "length": 174,
-     "name": "?sub_0043A730_UpdateButtons@@YAXXZ"
-    },
-    {
-     "va": "0x0043A7E0",
-     "length": 30,
-     "name": "?sub_0043A7E0_ResetRealmScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043A9A0",
-     "length": 33,
-     "name": "?sub_0043A9A0_CopyName@@YGHH@Z"
-    },
-    {
-     "va": "0x0043AD10",
-     "length": 155,
-     "name": "?sub_0043AD10_RequestCharList@@YAXPAD@Z"
-    },
-    {
-     "va": "0x0043ADB0",
-     "length": 114,
-     "name": "?sub_0043ADB0_UseName@@YIXPAD@Z"
-    },
-    {
-     "va": "0x0043B080",
-     "length": 1039,
-     "name": "?sub_0043B080_InitCharSelectScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043B490",
-     "length": 47,
-     "name": "?sub_0043B490_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B800",
-     "length": 15,
-     "name": "?sub_0043B800_ClearFuncTable@@YAXXZ"
-    },
-    {
-     "va": "0x0043B810",
-     "length": 11,
-     "name": "?sub_0043B810_SetFlag@@YAXXZ"
-    },
-    {
-     "va": "0x0043B850",
-     "length": 50,
-     "name": "?sub_0043B850_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B890",
-     "length": 65,
-     "name": "?sub_0043B890_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B8E0",
-     "length": 85,
-     "name": "sub_0043B8E0_OnTick"
-    },
-    {
-     "va": "0x0043B940",
-     "length": 88,
-     "name": "sub_0043B940_OnTick"
-    },
-    {
-     "va": "0x0043C530",
-     "length": 10,
-     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
-    }
    ]
   },
   {
