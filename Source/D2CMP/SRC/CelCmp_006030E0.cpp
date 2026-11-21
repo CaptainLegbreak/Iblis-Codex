@@ -1,16 +1,7 @@
+#include "D2StormLink.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    char* Next()
-    {
-        return (int)m_next > 0 ? m_next : 0;
-    }
-};
 
 struct D2StormListAStrc
 {

@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 struct D2FileStrc;
 struct D2Cache00610840Strc;
 struct D2Cache00610CA0Strc;
@@ -11,16 +12,6 @@ struct D2CacheList00610840Strc;
 struct D2CacheLink00610CA0Strc;
 struct D2CacheList00610CA0Strc;
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-};
 
 struct D2StormSlotListStrc
 {
