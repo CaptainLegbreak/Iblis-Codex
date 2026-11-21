@@ -9,14 +9,23 @@
 #include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2TileLibraryEntryStrc;
+
 struct D2AutomapCellStrc;
+
 struct D2AutomapLayerStrc;
+
 struct D2DrlgLevelStrc;
+
 struct D2AutomapRoomStrc;
+
 struct D2MonStatsTxt;
+
 struct D2MonStats2Txt;
+
 struct D2AutomapSaveStrc;
+
 struct D2AutomapRecordStrc;
 
 struct D2AutomapLayerStrc
@@ -31,20 +40,35 @@ struct D2AutomapLayerStrc
 };
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __fastcall sub_00457640(int bForce); // 0x00457640
+
 void __cdecl sub_00470290_FreeHashedFiles(); // 0x00470290
+
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
+
 int __cdecl sub_00492C10(); // 0x00492C10
+
 void __stdcall sub_005FDE10_FreeCelPool(int bFree); // 0x005FDE10
+
 void __stdcall sub_005FFE30_FreeTileCache(int bFree); // 0x005FFE30
+
 extern int gnGlobal_0071146C; // 0x0071146C
+
 extern int gnGlobal_00711470; // 0x00711470
+
 extern int gdwGlobal_007A5150; // 0x007A5150
-extern D2AutomapLayerStrc* gpAutomapNodes_007A5160; // 0x007A5160
-extern D2AutomapLayerStrc* gpAutomapContext_007A5164; // 0x007A5164
-extern int gnRevealSkip_007A51A4; // 0x007A51A4
+
+D2AutomapLayerStrc* gpAutomapNodes_007A5160; // 0x007A5160
+
+D2AutomapLayerStrc* gpAutomapContext_007A5164; // 0x007A5164
+
+int gnRevealSkip_007A51A4; // 0x007A51A4
+
 extern int gnMiniMapY_007A51D8; // 0x007A51D8
+
 extern int gdwGlobal_007A51E0; // 0x007A51E0
 
 struct D2AutomapRoomStrc
@@ -57,47 +81,78 @@ struct D2AutomapRoomStrc
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 void* __stdcall sub_00642750_GetAutomapLevelType(int nLevelId); // 0x00642750
+
 int __stdcall TileGetType(D2TileLibraryEntryStrc* pTile); // 0x00604B60
+
 int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
+
 int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
+
 int __fastcall DATATBLS_GetAutomapCellId(void* pAutomapLevelType, int nAutomapTileType, int nStyle, int nSequence); // 0x0061FFF0
+
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
+
 int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
 D2AutomapRoomStrc* __fastcall sub_0061AAE0_GetAutomapRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
+
 D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x006196A0
+
 void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot); // 0x00458DC0
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
+
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
+
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern int gbRevealAutomap_007A51A0; // 0x007A51A0
+
+int gbRevealAutomap_007A51A0; // 0x007A51A0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void* __cdecl sub_00457F40_OpenAutomapFile(); // 0x00457F40
+
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
+
 int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
+
 unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
+
 int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
+
 void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int* pCount); // 0x00458440
+
 void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells); // 0x00458470
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 extern D2AutomapRecordStrc* gpAutomapRecord_007A0638; // 0x007A0638
-extern void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
-extern int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
-void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
 
 void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
+
+extern int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+
+void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
 
 int gdwAutoMapFade_007A51A8; // 0x007A51A8
 
@@ -122,6 +177,23 @@ int gnMiniMapX_007A51DC; // 0x007A51DC
 int gnGlobal_007A51EC; // 0x007A51EC
 
 int gnGlobal_007A51F0; // 0x007A51F0
+
+struct D2ActiveRoomStrc;
+
+
+static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo);
+
+void __cdecl sub_00459020_UpdateAutomapReveal();
+
+int gnPlayerX_007A5200; // 0x007A5200
+
+int gnPlayerY_007A51F8; // 0x007A51F8
+
+int gnLastX_007A51FC; // 0x007A51FC
+
+int gnLastY_007A51F4; // 0x007A51F4
+
+void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom);
 
 // 0x00457420
 void __fastcall sub_00457420_FreeCaches(int bFree)
@@ -204,91 +276,6 @@ int __fastcall sub_004576F0(int nFade)
     return nFade;
 }
 
-// 0x00458440
-void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int* pCount)
-{
-    if (!pCells)
-    {
-        return;
-    }
-    sub_00458440_CountCells(pCells->pPrev, pCount);
-    if (!pCells->fSaved)
-    {
-        *pCount += 6;
-    }
-    sub_00458440_CountCells(pCells->pNext, pCount);
-}
-
-// 0x00458470
-void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells)
-{
-    if (!pCells)
-    {
-        return;
-    }
-    sub_00458470_StoreCells(pCells->pPrev);
-    if (!pCells->fSaved)
-    {
-        unsigned short* pBuffer = (unsigned short*)gpAutomapSaveBuffer_007A5154;
-        *pBuffer = pCells->nCellNo;
-        ++pBuffer;
-        *pBuffer = pCells->xPixel;
-        ++pBuffer;
-        *pBuffer = pCells->yPixel;
-        ++pBuffer;
-        gpAutomapSaveBuffer_007A5154 = pBuffer;
-    }
-    sub_00458470_StoreCells(pCells->pNext);
-}
-
-// 0x00459140
-void __cdecl sub_00459140_Refresh()
-{
-    gnRevealSkip_007A51A4 = 2;
-}
-
-// 0x0045A5C0
-void __cdecl sub_0045A5C0_FreeAutomap()
-{
-    sub_004584C0_ResetA();
-    sub_00458680_ResetB();
-    for (int i = 0; i < 4; ++i)
-    {
-        if (gpAutomapCels_007A5168[i])
-        {
-            sub_00478A00(gpAutomapCels_007A5168[i]);
-        }
-        gpAutomapCels_007A5168[i] = 0;
-    }
-    D2AutomapLayerStrc* pLayer = gpAutomapNodes_007A5160;
-    while (pLayer)
-    {
-        D2AutomapLayerStrc* pFree = pLayer;
-        pLayer = pLayer->pNext;
-        FOG_Free(pFree, ".\\UI\\automap.cpp", 0xC06, 0);
-    }
-    gpAutomapNodes_007A5160 = 0;
-    gpAutomapContext_007A5164 = 0;
-}
-
-// 0x0045A620
-void __cdecl sub_0045A620_InitAutomapColors()
-{
-    gnAutomapColors_007A51B0[0] = D2Win_10034_MixRGB(0, 0, 0xFF);
-    gnAutomapColors_007A51B0[1] = D2Win_10034_MixRGB(0xFF, 0, 0);
-    gnAutomapColors_007A51B0[2] = D2Win_10034_MixRGB(0xFF, 0, 0xFF);
-    gnAutomapColors_007A51B0[3] = D2Win_10034_MixRGB(0, 0xFF, 0);
-    gnAutomapColors_007A51B0[4] = D2Win_10034_MixRGB(0x44, 0x70, 0x74);
-    gnAutomapColors_007A51B0[5] = D2Win_10034_MixRGB(0x48, 0xA0, 0x34);
-    gnAutomapColors_007A51B0[6] = D2Win_10034_MixRGB(0xF4, 0xF4, 0xF4);
-    gnAutomapColors_007A51B0[7] = D2Win_10034_MixRGB(0x80, 0x80, 0x80);
-    gnAutomapColors_007A51B0[8] = D2Win_10034_MixRGB(0xF4, 0xF4, 0);
-    gnAutomapColors_007A51B0[9] = D2Win_10034_MixRGB(0, 0, 0xFF);
-    gnAutomapColors_007A51B0[10] = D2Win_10034_MixRGB(0, 0xFF, 0);
-}
-
-int gbRevealAutomap_007A51A0; // 0x007A51A0
-
 // 0x00457CF0
 static void __stdcall sub_00457CF0_RevealAutomapTile(D2DrlgTileDataStrc* pTileData, D2AutomapRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
 {
@@ -323,32 +310,6 @@ static void __stdcall sub_00457CF0_RevealAutomapTile(D2DrlgTileDataStrc* pTileDa
     pCell->xPixel = nX;
     pCell->yPixel = nY;
     sub_00457B00(pCell, ppRoot);
-}
-
-// 0x00458F40
-void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
-{
-    unsigned int nCount = 0;
-    D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
-    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        D2DrlgTileDataStrc* pTileData = &pTiles[i];
-        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
-        {
-            sub_00457CF0_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
-        }
-    }
-    pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        D2DrlgTileDataStrc* pTileData = &pTiles[i];
-        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
-        {
-            sub_00457CF0_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
-        }
-    }
-    sub_00458DC0_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
 }
 
 // 0x00457E80
@@ -498,6 +459,43 @@ static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
     sub_004069A0_CloseFile(hFile);
 }
 
+// 0x00458440
+void __fastcall sub_00458440_CountCells(D2AutomapCellStrc* pCells, unsigned int* pCount)
+{
+    if (!pCells)
+    {
+        return;
+    }
+    sub_00458440_CountCells(pCells->pPrev, pCount);
+    if (!pCells->fSaved)
+    {
+        *pCount += 6;
+    }
+    sub_00458440_CountCells(pCells->pNext, pCount);
+}
+
+// 0x00458470
+void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells)
+{
+    if (!pCells)
+    {
+        return;
+    }
+    sub_00458470_StoreCells(pCells->pPrev);
+    if (!pCells->fSaved)
+    {
+        unsigned short* pBuffer = (unsigned short*)gpAutomapSaveBuffer_007A5154;
+        *pBuffer = pCells->nCellNo;
+        ++pBuffer;
+        *pBuffer = pCells->xPixel;
+        ++pBuffer;
+        *pBuffer = pCells->yPixel;
+        ++pBuffer;
+        gpAutomapSaveBuffer_007A5154 = pBuffer;
+    }
+    sub_00458470_StoreCells(pCells->pNext);
+}
+
 void __cdecl sub_004584C0()
 {
     D2AutomapLayerStrc* pLayer = gpAutomapContext_007A5164;
@@ -550,8 +548,6 @@ void __cdecl sub_004584C0()
     if (tSave.pExtras)
         FOG_Free(tSave.pExtras, ".\\UI\\automap.cpp", 0x50C, 0);
 }
-
-D2AutomapLayerStrc* gpAutomapContext_007A5164; // 0x007A5164
 
 void __stdcall sub_00457E40_AddAutomapCell(unsigned short nCellNo, unsigned short xPixel, unsigned short yPixel, D2AutomapCellStrc** ppRoot, unsigned int fSaved)
 {
@@ -701,18 +697,6 @@ void __cdecl sub_00458750()
     sub_004069A0_CloseFile(hFile);
 }
 
-D2AutomapLayerStrc* gpAutomapNodes_007A5160; // 0x007A5160
-
-int gnRevealSkip_007A51A4; // 0x007A51A4
-
-int gnPlayerX_007A5200; // 0x007A5200
-
-int gnPlayerY_007A51F8; // 0x007A51F8
-
-int gnLastX_007A51FC; // 0x007A51FC
-
-int gnLastY_007A51F4; // 0x007A51F4
-
 // 0x00458D40
 static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo)
 {
@@ -743,6 +727,32 @@ static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo)
     }
 
     return pLayer;
+}
+
+// 0x00458F40
+void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer)
+{
+    unsigned int nCount = 0;
+    D2AutomapRoomStrc* pRoom = sub_0061AAE0_GetAutomapRoom(pActiveRoom);
+    D2DrlgTileDataStrc* pTiles = sub_00619660_GetFloorTiles(pActiveRoom, &nCount);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        D2DrlgTileDataStrc* pTileData = &pTiles[i];
+        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
+        {
+            sub_00457CF0_RevealAutomapTile(pTileData, pRoom, &pLayer->pFloors);
+        }
+    }
+    pTiles = sub_006196A0_GetWallTiles(pActiveRoom, &nCount);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        D2DrlgTileDataStrc* pTileData = &pTiles[i];
+        if (!(pTileData->dwFlags & 8) && ((pTileData->dwFlags & 0x20000) || gbRevealAutomap_007A51A0 || bRevealAll))
+        {
+            sub_00457CF0_RevealAutomapTile(pTileData, pRoom, &pLayer->pWalls);
+        }
+    }
+    sub_00458DC0_RevealRoomObjects(pActiveRoom, &pLayer->pObjects);
 }
 
 // 0x00459020
@@ -788,16 +798,6 @@ void __cdecl sub_00459020_UpdateAutomapReveal()
         if (nLayerNo == DATATBLS_GetLevelDefRecord(DUNGEON_GetLevelIdFromRoom(ppRoomList[i]))->dwLayer)
             sub_00458F40_RevealRoomTiles(ppRoomList[i], 0, pLayer);
     }
-}
-
-void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom)
-{
-    const int nPrevLayerNo = gpAutomapContext_007A5164 ? gpAutomapContext_007A5164->nLayerNo : -1;
-    D2ActiveRoomStrc* pActiveRoom = pRoom;
-    D2AutomapLayerStrc* pLayer = sub_00458D40_InitAutomapLayer(DATATBLS_GetLevelDefRecord(DUNGEON_GetLevelIdFromRoom(pActiveRoom))->dwLayer);
-    sub_00458F40_RevealRoomTiles(pActiveRoom, 1, pLayer);
-    if (nPrevLayerNo != -1)
-        sub_00458D40_InitAutomapLayer(nPrevLayerNo);
 }
 
 void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY)
@@ -893,6 +893,63 @@ next:
 
     if (nPrevLayerNo != -1)
         sub_00458D40_InitAutomapLayer(nPrevLayerNo);
+}
+
+// 0x00459140
+void __cdecl sub_00459140_Refresh()
+{
+    gnRevealSkip_007A51A4 = 2;
+}
+
+// 0x00459150
+void __stdcall sub_00459150_RevealRoomCallback(D2ActiveRoomStrc* pRoom)
+{
+    const int nPrevLayerNo = gpAutomapContext_007A5164 ? gpAutomapContext_007A5164->nLayerNo : -1;
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    D2AutomapLayerStrc* pLayer = sub_00458D40_InitAutomapLayer(DATATBLS_GetLevelDefRecord(nLevelId)->dwLayer);
+    sub_00458F40_RevealRoomTiles(pRoom, 1, pLayer);
+    if (nPrevLayerNo != -1)
+        sub_00458D40_InitAutomapLayer(nPrevLayerNo);
+}
+
+// 0x0045A5C0
+void __cdecl sub_0045A5C0_FreeAutomap()
+{
+    sub_004584C0_ResetA();
+    sub_00458680_ResetB();
+    for (int i = 0; i < 4; ++i)
+    {
+        if (gpAutomapCels_007A5168[i])
+        {
+            sub_00478A00(gpAutomapCels_007A5168[i]);
+        }
+        gpAutomapCels_007A5168[i] = 0;
+    }
+    D2AutomapLayerStrc* pLayer = gpAutomapNodes_007A5160;
+    while (pLayer)
+    {
+        D2AutomapLayerStrc* pFree = pLayer;
+        pLayer = pLayer->pNext;
+        FOG_Free(pFree, ".\\UI\\automap.cpp", 0xC06, 0);
+    }
+    gpAutomapNodes_007A5160 = 0;
+    gpAutomapContext_007A5164 = 0;
+}
+
+// 0x0045A620
+void __cdecl sub_0045A620_InitAutomapColors()
+{
+    gnAutomapColors_007A51B0[0] = D2Win_10034_MixRGB(0, 0, 0xFF);
+    gnAutomapColors_007A51B0[1] = D2Win_10034_MixRGB(0xFF, 0, 0);
+    gnAutomapColors_007A51B0[2] = D2Win_10034_MixRGB(0xFF, 0, 0xFF);
+    gnAutomapColors_007A51B0[3] = D2Win_10034_MixRGB(0, 0xFF, 0);
+    gnAutomapColors_007A51B0[4] = D2Win_10034_MixRGB(0x44, 0x70, 0x74);
+    gnAutomapColors_007A51B0[5] = D2Win_10034_MixRGB(0x48, 0xA0, 0x34);
+    gnAutomapColors_007A51B0[6] = D2Win_10034_MixRGB(0xF4, 0xF4, 0xF4);
+    gnAutomapColors_007A51B0[7] = D2Win_10034_MixRGB(0x80, 0x80, 0x80);
+    gnAutomapColors_007A51B0[8] = D2Win_10034_MixRGB(0xF4, 0xF4, 0);
+    gnAutomapColors_007A51B0[9] = D2Win_10034_MixRGB(0, 0, 0xFF);
+    gnAutomapColors_007A51B0[10] = D2Win_10034_MixRGB(0, 0xFF, 0);
 }
 
 #include "gen/data/Source/D2Client/UI/automap_00457420.inc"

@@ -18147,6 +18147,10 @@
      "name": "?sub_00459140_Refresh@@YAXXZ"
     },
     {
+     "va": "0x00459150",
+     "length": 74
+    },
+    {
      "va": "0x0045A5C0",
      "length": 93,
      "name": "?sub_0045A5C0_FreeAutomap@@YAXXZ"
@@ -18568,30 +18572,6 @@
      "va": "0x0045AB60",
      "length": 304,
      "name": "?sub_0045AB60_DrawAutomapPartyMember@@YAXPAUD2StoredUnitRecordStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/automap_00459150.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00459150",
-     "length": 74
     }
    ],
    "flags": [
