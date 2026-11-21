@@ -116,14 +116,6 @@ void __fastcall sub_004781D0(int bAnimate)
         gnProgress_007BB3B4 = (nChunks << 8) / nChunks;
 }
 
-// 0x00478A00
-void __fastcall sub_00478A00(void* pCel)
-{
-    CelFileFreeHardware((D2CelFileStrc*)pCel);
-    if (pCel)
-        FOG_Free(pCel, ".\\CORE\\ARCHIVE.CPP", 0x7A, 0);
-}
-
 // 0x00478AB0
 void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey)
 {

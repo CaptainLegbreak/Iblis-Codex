@@ -23595,11 +23595,6 @@
      "name": "?NET_D2GS_CLIENT_Send_0x6C@@YIXH@Z"
     },
     {
-     "va": "0x00478A00",
-     "length": 31,
-     "name": "?sub_00478A00@@YIXPAX@Z"
-    },
-    {
      "va": "0x00478AB0",
      "length": 85,
      "name": "?sub_00478AB0_RemoveType7@@YIXHH@Z"
@@ -23743,6 +23738,11 @@
      "va": "0x00478950",
      "length": 163,
      "name": "?ARCHIVE_LoadCellFileWithFileSize@@YIPAUD2CelFileStrc@@PBDPAIH@Z"
+    },
+    {
+     "va": "0x00478A00",
+     "length": 31,
+     "name": "?sub_00478A00@@YIXPAX@Z"
     }
    ],
    "flags": [
