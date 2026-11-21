@@ -1,54 +1,16 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
+#include "D2Structs.h"
 
 struct D2DrlgOutdoorInfoStrc;
 struct D2PresetPairStrc;
 struct D2DrlgOutRectStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2OutdoorColumnFilesStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int nFlags;
-    union
-    {
-        struct
-        {
-            D2DrlgGridStrc pGrid[3];
-        };
-        struct
-        {
-            D2DrlgGridStrc tGrid04;
-            unsigned char unk_18[0x14];
-            D2DrlgGridStrc tGridFlags;
-        };
-    };
-    char unk0x040[0x1C];
-    int nGridWidth;
-    int nHeight;
-};
 
-struct D2SeedStrc
-{
-    unsigned int dwLow;
-    unsigned int dwHigh;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char pad_after_outdoor[428];
-    D2SeedStrc tSeed;
-};
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
@@ -158,9 +120,9 @@ void __fastcall sub_M127_Emit_0067FCD0(int nValue, D2DrlgOutRectStrc* pRect, D2D
 
 static __forceinline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
 {
-    unsigned __int64 nSeed = pSeed->dwHigh + 0x6AC690C5i64 * pSeed->dwLow;
-    pSeed->dwHigh = (unsigned int)(nSeed >> 32);
-    pSeed->dwLow = (unsigned int)nSeed;
+    unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)nSeed;
     return nSeed;
 }
 
@@ -177,9 +139,9 @@ static __forceinline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimi
 static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
-    const int nFlag = pOutdoor->nFlags & 4;
-    const int nLimit = pOutdoor->nHeight - 2;
-    const int nStart = RollLimitedInline(&pLevel->tSeed, nLimit);
+    const int nFlag = pOutdoor->dwFlags & 4;
+    const int nLimit = pOutdoor->nGridHeight - 2;
+    const int nStart = RollLimitedInline(&pLevel->pSeed, nLimit);
     for (int i = 0; i < nLimit; ++i)
     {
         const int nRow = (i + nStart) % nLimit + 1;
@@ -192,9 +154,9 @@ static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D
         }
         if (!sub_00674200_IsValid(pLevel, nCheckColumn, nRow))
             continue;
-        if ((sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn, nRow) & 0xF0000) != 0x30000)
+        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nRow) & 0xF0000) != 0x30000)
             continue;
-        if ((sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn + 1, nRow) & 0xF0000) != 0x30000)
+        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nRow) & 0xF0000) != 0x30000)
             continue;
         sub_006743C0_PlacePreset(pLevel, nColumn, nRow, 28, 1, 0);
         sub_006743C0_PlacePreset(pLevel, nColumn + 1, nRow, 28, 2 + (nFlag != 0), 0);
@@ -206,10 +168,10 @@ static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D
 void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
 {
     D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
-    for (int nRow = 0; nRow < pOutdoor->nHeight; ++nRow)
+    for (int nRow = 0; nRow < pOutdoor->nGridHeight; ++nRow)
     {
-        int nFlags = sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn, nRow);
-        int nType = sub_0067C570_GetGrid(&pOutdoor->tGrid04, nColumn, nRow);
+        int nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nRow);
+        int nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn, nRow);
         int nFile;
         if (nType)
         {
@@ -222,8 +184,8 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             nFile = (nFlags & 0x100) ? 0 : 3;
         sub_006743C0_PlacePreset(pLevel, nColumn, nRow, 26, nFile, 0);
 
-        nFlags = sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn + 1, nRow);
-        nType = sub_0067C570_GetGrid(&pOutdoor->tGrid04, nColumn + 1, nRow);
+        nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nRow);
+        nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn + 1, nRow);
         if (nType)
         {
             if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
@@ -235,6 +197,6 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             nFile = (nFlags & 0x100) ? 0 : 3;
         sub_006743C0_PlacePreset(pLevel, nColumn + 1, nRow, 27, nFile, 0);
     }
-    if (pOutdoor->nFlags & 0x14)
+    if (pOutdoor->dwFlags & 0x14)
         sub_0067FD20_PlacePair(nColumn, pLevel);
 }

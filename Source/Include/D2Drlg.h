@@ -70,17 +70,35 @@ struct D2DrlgGridStrc
     int nFlags; // 0x10
 };
 
+struct D2DrlgVertexStrc
+{
+    int nPosX; // 0x00
+    int nPosY; // 0x04
+    unsigned char nDirection; // 0x08
+    unsigned char unk0x09; // 0x09
+    unsigned short unk0x0A; // 0x0A
+    unsigned int dwFlags; // 0x0C
+    D2DrlgVertexStrc* pNext; // 0x10
+};
+
 struct D2DrlgOutdoorInfoStrc
 {
     unsigned int dwFlags; // 0x00
     D2DrlgGridStrc pGrid[4]; // 0x04
-    int unk0x54; // 0x54
-    int nRoomData; // 0x58
-    int nGridWidth; // 0x5C
-    int nGridHeight; // 0x60
+    union // 0x54
+    {
+        struct
+        {
+            int unk0x54; // 0x54
+            int nRoomData; // 0x58
+            int nGridWidth; // 0x5C
+            int nGridHeight; // 0x60
+        };
+        D2DrlgCoordStrc tCoords;
+    };
     D2DrlgVertexStrc* pVertex; // 0x64
     D2DrlgVertexStrc* pRoads[6]; // 0x68
-    int unk0x80[120]; // 0x80
+    D2DrlgVertexStrc pVertices[24]; // 0x80
     int nVertices; // 0x260
     D2DrlgOrthStrc* pRoomData; // 0x264
 };
@@ -227,6 +245,7 @@ struct D2ActiveRoomStrc
 D2_CHECK_SIZE(D2DrlgTileInfoStrc, 0xC);
 D2_CHECK_SIZE(D2DrlgCoordStrc, 0x10);
 D2_CHECK_SIZE(D2DrlgCoordsStrc, 0x20);
+D2_CHECK_SIZE(D2DrlgVertexStrc, 0x14);
 D2_CHECK_SIZE(D2DrlgGridStrc, 0x14);
 D2_CHECK_SIZE(D2DrlgOutdoorInfoStrc, 0x268);
 D2_CHECK_SIZE(D2DrlgRoomStrc, 0xEC);

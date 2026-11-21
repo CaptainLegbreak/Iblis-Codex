@@ -1,30 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int field_10;
-};
-struct D2DrlgOutdoorInfoStrc
-{
-    int nFlags;
-    D2DrlgGridStrc tGrid04;
-    char pad_after_grid04[20];
-    D2DrlgGridStrc tGridFlags;
-    char pad_after_grid_flags[32];
-    int nHeight;
-};
-struct D2DrlgLevelStrc
-{
-    char pad_00[20];
-    D2DrlgOutdoorInfoStrc* pOutdoor;
-    char pad_after_outdoor[428];
-    D2SeedStrc tSeed;
-};
 struct D2OutdoorColumnFilesStrc
 {
     int nLeft;
@@ -62,10 +39,10 @@ static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D
 // 0x0067FD20
 static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoor;
-    const int bBridge = pOutdoor->nFlags & 4;
-    const int nRowRange = pOutdoor->nHeight - 2;
-    const int nRand = SEED_RollLimitedRandomNumber_Inline(&pLevel->tSeed, nRowRange);
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
+    const int bBridge = pOutdoor->dwFlags & 4;
+    const int nRowRange = pOutdoor->nGridHeight - 2;
+    const int nRand = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nRowRange);
     for (int i = 0; i < nRowRange; ++i)
     {
         const int nY = (nRand + i) % nRowRange + 1;
@@ -81,8 +58,8 @@ static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLeve
             if (!sub_00674200_IsValid(pLevel, nColumn + 2, nY))
                 continue;
         }
-        if ((sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn, nY) & 0xF0000) == 0x30000
-            && (sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn + 1, nY) & 0xF0000) == 0x30000)
+        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nY) & 0xF0000) == 0x30000
+            && (sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nY) & 0xF0000) == 0x30000)
         {
             sub_006743C0_PlacePreset(pLevel, nColumn, nY, 28, 1, 0);
             sub_006743C0_PlacePreset(pLevel, nColumn + 1, nY, 28, bBridge ? 3 : 2, 0);
@@ -94,11 +71,11 @@ static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLeve
 // build: context sub_0067FE90_PlaceColumns
 void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoor;
-    for (int nRow = 0; nRow < pOutdoor->nHeight; ++nRow)
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
+    for (int nRow = 0; nRow < pOutdoor->nGridHeight; ++nRow)
     {
-        int nFlags = sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn, nRow);
-        int nType = sub_0067C570_GetGrid(&pOutdoor->tGrid04, nColumn, nRow);
+        int nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nRow);
+        int nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn, nRow);
         int nFile;
         if (nType)
         {
@@ -111,8 +88,8 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             nFile = (nFlags & 0x100) ? 0 : 3;
         sub_006743C0_PlacePreset(pLevel, nColumn, nRow, 26, nFile, 0);
 
-        nFlags = sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn + 1, nRow);
-        nType = sub_0067C570_GetGrid(&pOutdoor->tGrid04, nColumn + 1, nRow);
+        nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nRow);
+        nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn + 1, nRow);
         if (nType)
         {
             if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
@@ -124,6 +101,6 @@ void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
             nFile = (nFlags & 0x100) ? 0 : 3;
         sub_006743C0_PlacePreset(pLevel, nColumn + 1, nRow, 27, nFile, 0);
     }
-    if (pOutdoor->nFlags & 0x14)
+    if (pOutdoor->dwFlags & 0x14)
         sub_0067FD20_PlacePair(nColumn, pLevel);
 }

@@ -1,6 +1,8 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 struct D2CoordStrc;
 struct D2DrlgVertexStrc;
@@ -11,63 +13,10 @@ struct D2Act5CornerPresetStrc;
 struct D2Act5TypeRangeStrc;
 struct D2Act5LevelPresetStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int unk0x00;
-    D2DrlgGridStrc tGrid04;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int unk0x24;
-    int unk0x28;
-    D2DrlgGridStrc tGrid2C;
-    int unk0x40;
-    int unk0x44;
-    int unk0x48;
-    int unk0x4C;
-    int unk0x50;
-    int unk0x54;
-    int unk0x58;
-    int nWidth;
-    int nHeight;
-    D2DrlgVertexStrc* pVertex;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int nSizeX;
-    int nSizeY;
-    char unk0x2C[0x1A4];
-    int eLevelId;
-};
 
 struct D2LvlPrestRecordStrc
 {
@@ -157,7 +106,7 @@ static const D2Act5CornerPresetStrc gAct5CornerPresets[3] =
 // build: context DRLGACT5_PlaceCornerPresets
 static void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     for (int i = 0; i < 3; ++i)
     {
         const D2Act5CornerPresetStrc* pEntry = &gAct5CornerPresets[i];
@@ -166,11 +115,11 @@ static void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel)
             int nPresetId;
             int nX;
             int nY;
-            if (pLevel->nSizeX > pLevel->nSizeY)
+            if (pLevel->nWidth > pLevel->nHeight)
             {
                 nPresetId = pEntry->nPresetWide;
                 sub_0061F0B0(nPresetId);
-                nX = pEntry->f_8 ? pInfo->nWidth - 2 : 0;
+                nX = pEntry->f_8 ? pInfo->nGridWidth - 2 : 0;
                 nY = 2;
             }
             else
@@ -178,7 +127,7 @@ static void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel)
                 nPresetId = pEntry->nPresetTall;
                 sub_0061F0B0(nPresetId);
                 nX = 2;
-                nY = pEntry->f_8 ? pInfo->nHeight - 2 : 0;
+                nY = pEntry->f_8 ? pInfo->nGridHeight - 2 : 0;
             }
             DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPresetId, pEntry->nArg, 0);
         }
@@ -190,7 +139,7 @@ static void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel)
 // 0x0067DB00
 static int __stdcall sub_0067DB00(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, D2DrlgLevelStrc* pLevel, int nPresetId)
 {
-    if (DRLGGRID_GetGridEntry(&pInfo->tGrid2C, nX, nY) & 0x400)
+    if (DRLGGRID_GetGridEntry(&pInfo->pGrid[2], nX, nY) & 0x400)
     {
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPresetId, (pLevel->eLevelId == 110) ? 1 : -1, 0);
         return 1;
@@ -201,9 +150,9 @@ static int __stdcall sub_0067DB00(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, 
 // 0x0067DB50
 void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
 
-    for (int nX = 0; nX < pInfo->nWidth; ++nX)
+    for (int nX = 0; nX < pInfo->nGridWidth; ++nX)
     {
         if (sub_0067DB00(pInfo, nX, 0, pLevel, 0x38D))
         {
@@ -211,8 +160,8 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
         }
     }
 
-    int nBottom = pInfo->nHeight - 2;
-    for (int nX = 0; nX < pInfo->nWidth; ++nX)
+    int nBottom = pInfo->nGridHeight - 2;
+    for (int nX = 0; nX < pInfo->nGridWidth; ++nX)
     {
         if (sub_0067DB00(pInfo, nX, nBottom, pLevel, 0x38C))
         {
@@ -220,7 +169,7 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
         }
     }
 
-    for (int nY = 0; nY < pInfo->nHeight; ++nY)
+    for (int nY = 0; nY < pInfo->nGridHeight; ++nY)
     {
         if (sub_0067DB00(pInfo, 0, nY, pLevel, 0x38E))
         {
@@ -228,8 +177,8 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
         }
     }
 
-    int nRight = pInfo->nWidth - 2;
-    for (int nY = 0; nY < pInfo->nHeight; ++nY)
+    int nRight = pInfo->nGridWidth - 2;
+    for (int nY = 0; nY < pInfo->nGridHeight; ++nY)
     {
         if (sub_0067DB00(pInfo, nRight, nY, pLevel, 0x38B))
         {
@@ -241,9 +190,9 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
 // build: context sub_0067DCA0
 static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
-    DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, pInfo->nWidth - 2, pInfo->nHeight - 4, 0x400, 0);
-    DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, pInfo->nWidth - 2, pInfo->nHeight - 3, 0x400, 0);
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
+    DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], pInfo->nGridWidth - 2, pInfo->nGridHeight - 4, 0x400, 0);
+    DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], pInfo->nGridWidth - 2, pInfo->nGridHeight - 3, 0x400, 0);
 }
 
 // 0x0067DCE0
@@ -255,7 +204,7 @@ int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel)
 // build: context sub_0067DCF0
 void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     D2DrlgVertexStrc* pVertex = pInfo->pVertex;
     D2DrlgVertexStrc* pNext = pVertex->pNext;
     int nSize = sub_0067DCE0(pLevel);
@@ -285,7 +234,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
                 nX += 2 * nDirX;
                 nY += 2 * nDirY;
                 DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPresetId, -1, 0);
-                DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nX, nY, 1, 0);
+                DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nX, nY, 1, 0);
             }
         }
 
@@ -295,15 +244,15 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
             int nMaxY = pVertex->nPosY > pNext->nPosY ? pVertex->nPosY : pNext->nPosY;
             int nMarkX = (nMaxX - 4 * nAbsDirX) & ~1;
             int nMarkY = (nMaxY - 4 * nAbsDirY) & ~1;
-            DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nMarkX, nMarkY, 0x400, 0);
-            DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nMarkX + 2 * nAbsDirX, nMarkY + 2 * nAbsDirY, 0x400, 0);
+            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nMarkX, nMarkY, 0x400, 0);
+            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nMarkX + 2 * nAbsDirX, nMarkY + 2 * nAbsDirY, 0x400, 0);
         }
 
         int nCornerPresetId = DRLGOUTDOOR_00675600(2 * nDirX, 2 * nDirY, 2 * nNextDirX, 2 * nNextDirY, nSize);
         if (nCornerPresetId)
         {
             DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nNextX, nNextY, nCornerPresetId, -1, 0);
-            DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nNextX, nNextY, 1, 0);
+            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nNextX, nNextY, 1, 0);
         }
 
         pVertex = pNext;
@@ -327,9 +276,9 @@ static const D2CoordStrc gAct5WallSteps[12] =
 // build: context sub_0067DEF0
 void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
-    int nRight = pInfo->nWidth - 2;
-    int nBottom = pInfo->nHeight - 2;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
+    int nRight = pInfo->nGridWidth - 2;
+    int nBottom = pInfo->nGridHeight - 2;
     int bTundra = pLevel->eLevelId == 117;
     int nKindBase = bTundra ? 0x3BD : 0x371;
     int nPresetBase = bTundra ? 0x3C9 : 0x37D;
@@ -338,7 +287,7 @@ void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
 
     while (nX != 0 || nY != nBottom)
     {
-        int nKind = DRLGGRID_GetGridEntry(&pInfo->tGrid04, nX, nY) - nKindBase;
+        int nKind = DRLGGRID_GetGridEntry(&pInfo->pGrid[0], nX, nY) - nKindBase;
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nKind + nPresetBase, -1, 0);
         nX += 2 * gAct5WallSteps[nKind].nX;
         nY += 2 * gAct5WallSteps[nKind].nY;
@@ -414,13 +363,13 @@ static void sub_0067E0E0(D2DrlgLevelStrc* pLevel)
         return;
     }
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     D2DrlgOutPlaceCtxStrc tCtx;
     memset(&tCtx, 0, sizeof(tCtx));
     tCtx.pLevel = pLevel;
     tCtx.pUnk54 = &pInfo->unk0x54;
-    tCtx.pGrid04 = &pInfo->tGrid04;
-    tCtx.pGrid2C = &pInfo->tGrid2C;
+    tCtx.pGrid04 = &pInfo->pGrid[0];
+    tCtx.pGrid2C = &pInfo->pGrid[2];
     tCtx.pfnTest = sub_0067E080;
     tCtx.pfn2C = sub_00674160;
     tCtx.pfn30 = sub_006741A0;
@@ -452,7 +401,7 @@ static const D2Act5LevelPresetStrc gAct5LevelPresets[15] =
 
 void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
 {
-    int bTall = pLevel->nSizeX < pLevel->nSizeY;
+    int bTall = pLevel->nWidth < pLevel->nHeight;
     for (int i = 0; i < 15; ++i)
     {
         const D2Act5LevelPresetStrc* pEntry = &gAct5LevelPresets[i];
@@ -503,7 +452,7 @@ static void sub_0067E4B0(D2DrlgLevelStrc* ptLevelData)
         exit(-1);
     }
 
-    D2DrlgOutdoorInfoStrc* pInfo = ptLevelData->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = ptLevelData->pOutdoors;
     if (!pInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 627);
@@ -517,8 +466,8 @@ static void sub_0067E4B0(D2DrlgLevelStrc* ptLevelData)
         exit(-1);
     }
 
-    int nX = pInfo->nWidth - pRecord->nSizeX / 8;
-    int nY = pInfo->nHeight - pRecord->nSizeY / 8;
+    int nX = pInfo->nGridWidth - pRecord->nSizeX / 8;
+    int nY = pInfo->nGridHeight - pRecord->nSizeY / 8;
     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(ptLevelData, nX, nY, 0x370, -1, 0);
     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(ptLevelData, nX, nY - 2, 0x380, -1, 0);
 }
@@ -526,7 +475,7 @@ static void sub_0067E4B0(D2DrlgLevelStrc* ptLevelData)
 // 0x0067E560
 void __stdcall sub_0067E560(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     if (!pInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 650);
@@ -541,7 +490,7 @@ void __stdcall sub_0067E560(D2DrlgLevelStrc* pLevel)
     }
 
     int nStep = pRecord->nSizeX / 8;
-    int nX = pInfo->nWidth - nStep;
+    int nX = pInfo->nGridWidth - nStep;
     for (int i = 0; i < 15; ++i)
     {
         if (nX < 0)

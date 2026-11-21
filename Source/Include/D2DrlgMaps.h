@@ -37,17 +37,6 @@ struct D2DrlgTileDataStrc
     int nPopTick; // 0x2C
 };
 
-struct D2DrlgVertexStrc
-{
-    int nPosX; // 0x00
-    int nPosY; // 0x04
-    unsigned char nDirection; // 0x08
-    unsigned char unk0x09; // 0x09
-    unsigned short unk0x0A; // 0x0A
-    unsigned int dwFlags; // 0x0C
-    D2DrlgVertexStrc* pNext; // 0x10
-};
-
 struct D2DrlgFileStrc
 {
     int nSubstMethod; // 0x00
@@ -123,7 +112,6 @@ struct D2TileLibraryEntryStrc
 };
 
 D2_CHECK_SIZE(D2DrlgTileDataStrc, 0x30);
-D2_CHECK_SIZE(D2DrlgVertexStrc, 0x14);
 D2_CHECK_SIZE(D2DrlgFileStrc, 0x5C);
 D2_CHECK_SIZE(D2DrlgMapStrc, 0x58);
 D2_CHECK_SIZE(D2DrlgOrthStrc, 0x18);

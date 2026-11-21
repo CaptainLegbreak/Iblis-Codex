@@ -1,50 +1,11 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int unk0x000;
-    D2DrlgGridStrc tGrid04;
-    D2DrlgGridStrc tGrid18;
-    D2DrlgGridStrc tGrid2C;
-    D2DrlgGridStrc tGrid40;
-    D2DrlgCoordsStrc tCoords;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-};
 
 struct T00681490
 {
@@ -115,7 +76,7 @@ static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, uns
 }
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
-int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY); // 0x0066B980
+int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY); // 0x0066B980
 
 static __declspec(noinline) int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode);
 
@@ -127,8 +88,8 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
         return 1;
     }
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
-    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->tGrid2C, nX, nY) & 0x200))
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
+    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->pGrid[2], nX, nY) & 0x200))
     {
         return 0;
     }
