@@ -1,71 +1,39 @@
-struct sub_006BE470_Strc;
+#include "D2QServer.h"
 
 struct sub_006BE510_Guard;
 
 struct sub_006BE530_LockRef;
 
-struct sub_006BF170_Object;
-
-struct sub_006BE470_Strc
-{
-    char unk_000[0x86C];
-    int nState;
-};
-
-typedef struct _RTL_CRITICAL_SECTION CRITICAL_SECTION;
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION* lpCriticalSection);
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);
 
 struct sub_006BE510_Guard
 {
-    CRITICAL_SECTION* pCriticalSection;
+    D2CriticalSectionStrc* pCriticalSection;
 
-    sub_006BE510_Guard* sub_006BE510_Enter(CRITICAL_SECTION* pCs);
+    sub_006BE510_Guard* sub_006BE510_Enter(D2CriticalSectionStrc* pCs);
 };
 
-typedef struct _RTL_CRITICAL_SECTION* LPCRITICAL_SECTION;
-
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(LPCRITICAL_SECTION lpCriticalSection);
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);
 
 struct sub_006BE530_LockRef
 {
-    LPCRITICAL_SECTION pCriticalSection;
+    D2CriticalSectionStrc* pCriticalSection;
 };
 
-struct sub_006BF170_Object
-{
-    int nHandle;
-};
+void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* pServer); // 0x006C2110
 
-void __fastcall sub_006C2110(sub_006BF170_Object* pObject); // 0x006C2110
-
-void __fastcall sub_006C33D0_Stop(sub_006BF170_Object* pObject); // 0x006C33D0
-
-struct sub_006BEA70_Client
-{
-    char unk_000[0x5BC];
-    sub_006BEA70_Client* pNext;
-};
-
-struct sub_006BEA70_Server
-{
-    char unk_000[0x854];
-    char cs[0x1C];
-    sub_006BEA70_Client** ppBuckets;
-    char unk_874[8];
-    int nBuckets;
-};
+void __fastcall sub_006C33D0_Stop(D2QueueServerStrc* pServer); // 0x006C33D0
 
 // 0x006BE470
-int __stdcall sub_006BE470_IsActive(sub_006BE470_Strc* pThis)
+int __stdcall sub_006BE470_IsActive(D2QueueServerStrc* pServer)
 {
-    if (!pThis)
+    if (!pServer)
         return 0;
-    return pThis->nState == 1 || pThis->nState == 2;
+    return pServer->nState == 1 || pServer->nState == 2;
 }
 
 // 0x006BE510
-sub_006BE510_Guard* sub_006BE510_Guard::sub_006BE510_Enter(CRITICAL_SECTION* pCs)
+sub_006BE510_Guard* sub_006BE510_Guard::sub_006BE510_Enter(D2CriticalSectionStrc* pCs)
 {
     pCriticalSection = pCs;
     EnterCriticalSection(pCs);
@@ -79,26 +47,26 @@ void __fastcall sub_006BE530_Leave(sub_006BE530_LockRef* pLock)
 }
 
 // 0x006BEA70
-int __stdcall sub_006BEA70_CountBucket(sub_006BEA70_Server* pServer, int nBucket)
+int __stdcall sub_006BEA70_CountBucket(D2QueueServerStrc* pServer, int nBucket)
 {
-    if (nBucket >= pServer->nBuckets)
+    if (nBucket >= pServer->nQueueCount)
         return -1;
 
     int nCount = 0;
-    EnterCriticalSection((CRITICAL_SECTION*)pServer->cs);
-    for (sub_006BEA70_Client* pClient = pServer->ppBuckets[nBucket]; pClient; pClient = pClient->pNext)
+    EnterCriticalSection(&pServer->tLock);
+    for (D2MessageStrc* pMessage = pServer->ppMsgHeads[nBucket]; pMessage; pMessage = pMessage->pNext)
         ++nCount;
-    LeaveCriticalSection((CRITICAL_SECTION*)pServer->cs);
+    LeaveCriticalSection(&pServer->tLock);
     return nCount;
 }
 
 // 0x006BF170
-void __fastcall sub_006BF170_Dispatch(sub_006BF170_Object* pObject)
+void __fastcall sub_006BF170_Dispatch(D2QueueServerStrc* pServer)
 {
-    if (pObject->nHandle)
-        sub_006C2110(pObject);
+    if (pServer->bAltSend)
+        sub_006C2110_StopServerThreads(pServer);
     else
-        sub_006C33D0_Stop(pObject);
+        sub_006C33D0_Stop(pServer);
 }
 
 // 0x006BF250
