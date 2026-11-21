@@ -4225,32 +4225,13 @@
    "static_definitions": 3
   },
   "Source/D2Game/Quests/QUESTS.CPP": {
-   "bytes": 313,
-   "definitions": 6,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/QUESTS.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/QUESTS_00545D80.CPP": {
-   "bytes": 36,
-   "definitions": 2,
+   "bytes": 1241,
+   "definitions": 10,
    "externs": [
     "extern \"C\" void __cdecl ACT1Intro_InitQuestData(); // 0x0058FA20",
     "extern \"C\" void __cdecl ACT2Intro_InitQuestData(); // 0x005985D0",
     "extern \"C\" void __cdecl ACT3Intro_InitQuestData(); // 0x005B6E60",
-    "extern \"C\" void __cdecl sub_0058EA50_InitQuestCallbacks(); // 0x0058EA50"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/QUESTS_00545D80.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/QUESTS_00546270.CPP": {
-   "bytes": 892,
-   "definitions": 2,
-   "externs": [
+    "extern \"C\" void __cdecl sub_0058EA50_InitQuestCallbacks(); // 0x0058EA50",
     "extern \"C\" void __cdecl ACT1Q0_InitQuestData(); // 0x0058FB80",
     "extern \"C\" void __cdecl ACT1Q1_InitQuestData(); // 0x00590720",
     "extern \"C\" void __cdecl ACT1Q2_InitQuestData(); // 0x00591210",
@@ -4289,7 +4270,7 @@
     "extern \"C\" void __cdecl sub_0059D5B0(); // 0x0059D5B0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/QUESTS_00546270.inc",
+   "include": "gen/data/Source/D2Game/Quests/QUESTS.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -96486,7 +96467,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/QUESTS_00545D80.CPP",
+   "file": "Source/D2Game/Quests/QUESTS.CPP",
    "fill": 4,
    "form": "declared",
    "fwd": null,
@@ -96586,7 +96567,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/QUESTS_00545D80.CPP",
+   "file": "Source/D2Game/Quests/QUESTS.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnQuestIntroTableCount_007318AC = ",
@@ -96611,7 +96592,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/QUESTS_00546270.CPP",
+   "file": "Source/D2Game/Quests/QUESTS.CPP",
    "fill": 37,
    "form": "declared",
    "fwd": null,
@@ -97029,7 +97010,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/QUESTS_00546270.CPP",
+   "file": "Source/D2Game/Quests/QUESTS.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnQuestInitTableCount_00731888 = ",
