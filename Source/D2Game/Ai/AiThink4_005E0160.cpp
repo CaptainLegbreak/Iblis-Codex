@@ -5,18 +5,16 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-#define MONMODE_ATTACK1 4
+
 struct D2CoordListStrc;
 struct D2MonStatsTxt;
 union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2PlayerDataStrc;
 struct D2PetMoveStrc;
-
-
-
 
 struct D2MonStatsTxt
 {
@@ -28,11 +26,7 @@ struct D2MonStatsTxt
     char unk_188[0x20];
 };
 
-
-
 extern D2DataTablesStrc* gpDataTables; // 0x00744304
-
-
 
 int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x005DDFC0
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080

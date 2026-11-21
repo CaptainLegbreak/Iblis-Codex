@@ -3,17 +3,12 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
+#include "D2MonModes.h"
 
 struct D2MonStats2Txt;
 
-
 enum D2C_M408CorruptArcherAi
 {
-    MONMODE_ATTACK1 = 4,
     CORRUPTARCHER_AI_PARAM_APPROACH_CHANCE_PCT = 0,
     CORRUPTARCHER_AI_PARAM_SHOOT_CHANCE_PCT = 1,
     CORRUPTARCHER_AI_PARAM_STALL_DURATION = 2,

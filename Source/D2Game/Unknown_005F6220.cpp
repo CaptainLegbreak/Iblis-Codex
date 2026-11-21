@@ -7,6 +7,7 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2GameStrc.h"
+#include "D2MonModes.h"
 
 struct D2MephistoAiCallbackArgStrc
 {
@@ -24,8 +25,6 @@ struct D2MephistoAiCallbackArgStrc
 
 enum D2C_J11AiConstants
 {
-    MONMODE_ATTACK1 = 4,
-    MONMODE_SKILL1 = 8,
     LEVEL_AI_TRAPARROW_RANDOM = 40,
     UNITFLAG_J11_SPAWNED = 0x4000000,
     STATE_J11_SPAWNED = 184,

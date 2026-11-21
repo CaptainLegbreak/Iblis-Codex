@@ -8,6 +8,7 @@
 #include "D2Constants.h"
 #include "D2Path.h"
 #include "D2GameAux.h"
+#include "D2PlayerModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -84,10 +85,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
 
 static __declspec(noinline) int __stdcall AI_GetRandomArrayIndex(int* pArray, int nArraySize, D2UnitStrc* pUnit);
-
-#define PLRMODE_DEATH 0
-
-#define PLRMODE_DEAD 17
 
 #define PATHTYPE_TOWARD 2
 
@@ -1011,7 +1008,6 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  }
  return false;
 }
-
 
 static __forceinline unsigned int RollSeed(D2SeedStrc* s) {
  unsigned __int64 value=(unsigned __int64)0x6AC690C5*s->nLowSeed+s->nHighSeed;

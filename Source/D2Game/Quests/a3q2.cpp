@@ -6,6 +6,7 @@
 #include "D2GameObjs.h"
 #include "D2GameTypes.h"
 
+#include "D2ObjModes.h"
 #define QFLAG_REWARDGRANTED 0
 
 #define QFLAG_STARTED 2
@@ -15,8 +16,6 @@
 #define MONSTER_CAIN3 245
 
 #define UNIT_OBJECT 2
-
-#define OBJMODE_OPENED 2
 
 #define ITEMQUAL_NORMAL 2
 

@@ -6,6 +6,7 @@
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
+#include "D2PlayerModes.h"
 
 enum D2C_M244AiBaalConstants
 {
@@ -145,8 +146,6 @@ static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitSt
     return nTotalScore;
 }
 
-#define PLRMODE_DEATH 0
-#define PLRMODE_DEAD 17
 #define PATHTYPE_TOWARD 2
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

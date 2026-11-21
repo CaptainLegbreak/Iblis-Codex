@@ -18,6 +18,7 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2QuestData.h"
+#include "D2PlayerModes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -1088,12 +1089,6 @@ static void sub_0052D310_DeleteInactiveItems(D2GameStrc* pGame);
 static void sub_0052D440_UpdateAllClients(D2GameStrc* pGame);
 
 static void sub_0052D720_UpdateFrameRate(D2GameStrc* pGame);
-
-#define PLRMODE_DEATH 0
-
-#define PLRMODE_NEUTRAL 1
-
-#define PLRMODE_DEAD 17
 
 #define EVENTTYPE_STATREGEN 3
 

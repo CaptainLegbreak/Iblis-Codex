@@ -10,6 +10,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
+#include "D2MonModes.h"
 
 #define STAT_HITPOINTS 6
 
@@ -145,8 +146,6 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId);
 
 #define UNIT_TYPES 6
 
-#define MONMODE_SEQUENCE 14
-
 #define COLLIDE_MASK_PLAYER_PATH 0x1C09
 
 union D2SeedStrc;
@@ -220,7 +219,6 @@ enum D2C_F39Constants
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_NOXP = 0x4000000,
     DAMAGERESULTFLAG_WILLDIE = 2,
-    MONMODE_SKILL1 = 8,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
     STAT_ATTACKRATE = 0x44,

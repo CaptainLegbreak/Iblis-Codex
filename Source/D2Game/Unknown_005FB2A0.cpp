@@ -4,16 +4,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M84QuillMotherAi
 {
-    MONMODE_ATTACK1 = 4,
     QUILLMOTHER_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     QUILLMOTHER_AI_PARAM_APPROACH_CHANCE_PCT = 1,
     QUILLMOTHER_AI_PARAM_MELEE_STALL_DURATION = 2,

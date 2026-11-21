@@ -12,6 +12,9 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2Constants.h"
+#include "D2ObjModes.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define UNIT_MONSTER 1
 
@@ -32,12 +35,6 @@
 #define OBJECT_FIRE_SMALL 160
 
 #define OBJECT_FIRE_LARGE 162
-
-#define OBJMODE_NEUTRAL 0
-
-#define OBJMODE_OPERATING 1
-
-#define OBJMODE_OPENED 2
 
 #define EVENTTYPE_ENDANIM 1
 
@@ -451,14 +448,6 @@ static unsigned char s_nHitClassCounter_0088CAD0; // 0x0088CAD0
 
 #define STAT_DAMAGE_VS_MONTYPE 180
 
-#define PLRMODE_DEATH 0
-
-#define PLRMODE_DEAD 17
-
-#define MONMODE_DEATH 0
-
-#define MONMODE_DEAD 12
-
 #define MONSTATSFLAGINDEX_KILLABLE 15
 
 #define MONSTATS2FLAGINDEX_OBJCOL 18
@@ -688,7 +677,6 @@ struct D2PlayerDataStrc;
 
 enum D2C_ResultFlagsConstants
 {
-    PLRMODE_RUN = 3,
     STATE_UNINTERRUPTABLE = 0x36,
 };
 

@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2LevelTxt.h"
+#include "D2MonModes.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define SKILL_INFERNO 41
@@ -31,7 +32,6 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 
 enum D2C_M80PantherJavelinAi
 {
-    MONMODE_ATTACK1 = 4,
     PANTHERJAVELIN_AI_PARAM_APPROACH_CHANCE_PCT = 0,
     PANTHERJAVELIN_AI_PARAM_THROW_CHANCE_PCT = 1,
     PANTHERJAVELIN_AI_PARAM_GROUP_DISTANCE = 2,

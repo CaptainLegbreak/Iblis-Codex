@@ -3,17 +3,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-
-
-
+#include "D2MonModes.h"
 
 enum D2C_M230QuillRatAi
 {
-    MONMODE_ATTACK1 = 4,
-    MONMODE_ATTACK2 = 5,
     QUILLRAT_AI_PARAM_ACTIVATE_DISTANCE = 0,
     QUILLRAT_AI_PARAM_SHOOT_CHANCE_PCT = 1,
     QUILLRAT_AI_PARAM_WALK_DISTANCE = 3,

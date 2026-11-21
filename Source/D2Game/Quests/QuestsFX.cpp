@@ -9,6 +9,7 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -65,8 +66,6 @@ enum D2C_P11QuestsFxConstants
 {
     OBJECT_COMPELLINGORB_STAIRS = 386,
     MISSILE_ORBMIST = 0x170,
-    OBJMODE_NEUTRAL = 0,
-    OBJMODE_OPERATING = 1,
     EVENTTYPE_ENDANIM = 1,
 };
 

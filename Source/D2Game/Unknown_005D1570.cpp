@@ -11,6 +11,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
+#include "D2MonModes.h"
 
 enum D2C_F39Constants
 {
@@ -23,7 +24,6 @@ enum D2C_F39Constants
     UNITFLAG_NOXP = 0x4000000,
     DAMAGERESULTFLAG_SUCCESSFULHIT = 1,
     DAMAGERESULTFLAG_WILLDIE = 2,
-    MONMODE_SKILL1 = 8,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
     STAT_ATTACKRATE = 0x44,
@@ -38,7 +38,6 @@ enum D2C_F39Constants
     MONSTER_FETISHBLOW3 = 0x18E,
     MONSTER_FETISHBLOW4 = 0x18F,
     MONSTER_FETISHBLOW5 = 0x190,
-    MONMODE_SEQUENCE = 14,
     UNITFLAG_NOTC = 0x20000,
     EVENTTYPE_ENDANIM = 1,
     STAT_MAXHP = 7,
@@ -53,7 +52,6 @@ enum D2C_F39Constants
 };
 
 struct D2MonsterRegionStrc;
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

@@ -7,6 +7,8 @@
 #include "D2GameTypes.h"
 #include "D2Constants.h"
 #include "D2GameStrc.h"
+#include "D2PlayerModes.h"
+#include "D2ItemModes.h"
 
 struct D2ClientStrc;
 
@@ -85,7 +87,6 @@ struct D2UnitStrc;
 struct D2GameStrc;
 
 struct D2DataTablesStrc;
-
 
 // Item-location checks of the game object (defined with the quest code); called with the game in ECX.
 struct D2GameItemChecks
@@ -610,16 +611,9 @@ struct D2BuyItemPacketStrc
 
 int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId, int nItemId, int nItemMode, int nTransactionType, int nCost, int bMultibuy); // 0x00577F30
 
-#define PLRMODE_WALK 2
-
-#define PLRMODE_RUN 3
-
-#define PLRMODE_DEAD 17
-
 #define STAT_GOLDLOST 0xAF
 
 #define STATE_INFERNO 12
-
 
 #define BODYLOC_BELT 8
 

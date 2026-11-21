@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 union D2SeedStrc;
@@ -14,11 +15,6 @@ struct D2PlayerCountBonusStrc;
 struct D2MonsterDataStrc;
 struct D2SkillsTxt;
 struct D2OblivionKnightAiCallbackArgStrc;
-
-
-
-
-
 
 struct D2PlayerCountBonusStrc
 {
@@ -38,11 +34,6 @@ enum D2C_CorruptRogueAIParams
     CORRUPTROGUE_AI_PARAM_RUN_CHANCE_PCT = 4,
 };
 
-enum D2C_M85RogueConstants
-{
-    MONMODE_ATTACK1 = 4,
-};
-
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc* pGame, D2PlayerCountBonusStrc* pPlayerCountBonus, D2ActiveRoomStrc* pRoom, D2UnitStrc* pMonster); // 0x00573930
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
@@ -50,10 +41,6 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 int __fastcall AITACTICS_RunToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEFB0
-
-
-
-
 
 struct D2OblivionKnightAiCallbackArgStrc
 {

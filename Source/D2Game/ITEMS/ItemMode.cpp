@@ -11,6 +11,7 @@
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
+#include "D2ItemModes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 

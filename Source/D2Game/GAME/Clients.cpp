@@ -7,6 +7,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2GameServer.h"
+#include "D2PlayerModes.h"
 
 #pragma intrinsic(strcpy)
 
@@ -23,8 +24,7 @@
 #define STAT_LEVEL 0x0C
 #define PREVIEW_COPY_SIZE 0x0B
 #define PREVIEW_MAX_LEVEL_INDEX 98
-#define PLRMODE_DEATH 0
-#define PLRMODE_DEAD 0x11
+
 #define CLIENTSAVEFLAG_HARDCORE 0x04
 #define CLIENTSAVEFLAG_DEAD 0x08
 #define CLIENTSAVEFLAG_INVALID_1 0x01

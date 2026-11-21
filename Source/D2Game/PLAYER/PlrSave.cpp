@@ -15,6 +15,8 @@
 #include "D2UnitData.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2PlayerModes.h"
+#include "D2ItemModes.h"
 
 #pragma function(memset)
 
@@ -47,10 +49,6 @@
 #define ACT_II 1
 
 #define ACT_III 2
-
-#define PLRMODE_WALK 2
-
-#define PLRMODE_RUN 3
 
 #define EVENTTYPE_REMOVESTATE 12
 
@@ -115,8 +113,6 @@
 #define NUM_DIFFICULTIES 3
 
 #define PLRSAVE2ERROR_BAD_PLAYERINTRO 11
-
-#define PLRMODE_NEUTRAL 1
 
 struct D2CorpseStrc;
 
@@ -768,8 +764,6 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
 #define UNITFLAG_ISVALIDTARGET 0x08
 
 #define UNITFLAG_INITSEEDSET 0x10
-
-#define PLRMODE_DEAD 0x11
 
 #define EVENTTYPE_FREEHOVER 3
 

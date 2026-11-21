@@ -7,14 +7,12 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2UnitData.h"
+#include "D2MonModes.h"
+#include "D2ItemModes.h"
 
 #define UNITFLAG_TARGETABLE 0x00000002
 
 #define UNITFLAG_ISVALIDTARGET 0x00000008
-
-#define MONMODE_DEATH 0
-
-#define MONMODE_GETHIT 3
 
 #define STAT_ITEM_ARMOR_PERCENT 16
 
@@ -35,8 +33,6 @@
 #define MISSILE_CORPSEPOISONCLOUD 155
 
 #define MISSILE_COLDUNIQUE 194
-
-#define MONMODE_SKILL1 8
 
 #define UNIT_ALIGNMENT_EVIL 0
 

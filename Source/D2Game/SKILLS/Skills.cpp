@@ -14,6 +14,8 @@
 #include "D2GameObjs.h"
 #include "D2GameRecords.h"
 #include "D2Skills.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 
@@ -333,9 +335,7 @@ typedef char H15_CheckSkillsCount[(int)&((D2DataTablesStrc*)0)->nSkillsTxtRecord
 
 enum
 {
-    MONMODE_DEAD = 12,
     UNITFLAG_TARGETABLE = 0x00000002,
-    PLRMODE_TOWNNEUTRAL = 5,
     SKILLSFLAGINDEX_INTOWN = 8,
     SKILLSFLAGINDEX_TARGETABLEONLY = 20,
     SKILLSFLAGINDEX_TARGETCORPSE = 24,
@@ -705,12 +705,6 @@ void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 
-enum
-{
-    PLRMODE_ATTACK1 = 7,
-    MONMODE_ATTACK1 = 4,
-};
-
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570
 
 void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
@@ -741,7 +735,6 @@ void __fastcall sub_005D5220_DischargeProgressiveSkills(D2GameStrc* pGame, D2Uni
 
 unsigned int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
-
 typedef int (__fastcall* SKILLDOFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
 typedef int (__fastcall* SKILLSTARTFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
@@ -754,9 +747,6 @@ void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nExpireFrame);       
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
-
-#define PLRMODE_SEQUENCE 18
-
 #define STATE_SKILLDELAY 121
 
 #define EVENTTYPE_REMOVESTATE 12
@@ -764,7 +754,6 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 #define SKILLSFLAGINDEX_DECQUANT 0
 
 #define SKILLSFLAGINDEX_LOB 1
-
 
 #define SKILLSFLAGINDEX2_USEMANAONDO (32 + 5)
 

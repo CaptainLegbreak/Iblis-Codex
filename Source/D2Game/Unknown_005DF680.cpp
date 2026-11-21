@@ -3,19 +3,14 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2MonModes.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
-#define MONMODE_WALK 2
-#define MONMODE_RUN 15
 #define STATE_DECREPIFY 60
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2ModeChangeStrc;
-
-
-
-
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUnit); // 0x005A61F0

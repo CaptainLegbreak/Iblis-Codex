@@ -12,6 +12,7 @@
 #include "D2Records.h"
 #include "D2Path.h"
 #include "D2ItemsWorld.h"
+#include "D2ItemModes.h"
 
 struct D2ClientStrc;
 

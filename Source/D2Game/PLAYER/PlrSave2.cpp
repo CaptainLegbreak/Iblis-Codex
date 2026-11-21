@@ -9,6 +9,9 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2PlayerModes.h"
+#include "D2ObjModes.h"
+#include "D2ItemModes.h"
 
 struct D2ClientStrc;
 
@@ -37,16 +40,6 @@ struct D2InventoryStrc;
 #define UNITFLAG_HASTXTMSG 0x00000100
 
 #define UNITFLAG_DOUPDATE 0x00000001
-
-#define PLRMODE_NEUTRAL 1
-
-#define PLRMODE_TOWNNEUTRAL 5
-
-#define OBJMODE_OPERATING 1
-
-#define OBJMODE_OPENED 2
-
-#define OBJMODE_SPECIAL1 3
 
 #define LEVEL_HARROGATH 109
 

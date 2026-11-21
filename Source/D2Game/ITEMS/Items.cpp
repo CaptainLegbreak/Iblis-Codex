@@ -10,6 +10,7 @@
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
+#include "D2ItemModes.h"
 
 struct D2ClientStrc;
 
@@ -142,8 +143,6 @@ void __fastcall sub_6FC80A30(D2GameStrc*,D2UnitStrc*); // 0x00580310
 #define UNIT_PLAYER 0
 
 #define UNIT_MONSTER 1
-
-#define IMODE_SOCKETED 6
 
 #define STAT_LEVEL 12
 
@@ -485,7 +484,6 @@ int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame); // 0x00535790
 int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005408E0
 
 int __stdcall ITEMS_CheckItemTypeIfThrowable(int nItemType); // 0x00628860
-
 
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem); // 0x0062BEB0
 

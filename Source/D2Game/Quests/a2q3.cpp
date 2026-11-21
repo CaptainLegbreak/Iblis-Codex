@@ -6,6 +6,7 @@
 #include "D2QuestData.h"
 #include "D2Path.h"
 #include "D2GameObjs.h"
+#include "D2ObjModes.h"
 
 #define QUEST_A1Q4_CAIN 4
 
@@ -232,7 +233,6 @@ enum D2QuestConstants
     QUESTSTATEFLAG_A2Q6 = 14,
     QUESTSTATEFLAG_A2Q7 = 30,
     QFLAG_PRIMARYGOALDONE = 13,
-    OBJMODE_OPENED = 2,
     MONSTER_WARRIV2 = 175,
     MONSTER_ATMA = 176,
     MONSTER_DROGNAN = 177,

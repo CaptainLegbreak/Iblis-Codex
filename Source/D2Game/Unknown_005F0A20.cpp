@@ -6,9 +6,9 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2GameAux.h"
+#include "D2MonModes.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-#define MONMODE_SKILL1 8
 #define EVENTTYPE_AITHINK 0
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 union D2SeedStrc;
@@ -18,7 +18,6 @@ struct D2TargetNodeStrc;
 
 enum D2C_AiThink005F0A20
 {
-    MONMODE_ATTACK1 = 4,
     AI_PARAM_ESCAPE_CHANCE_PCT = 0,
     AI_PARAM_IDLE_FRAMES = 1,
     AI_PARAM_ATTACK_CHANCE_PCT = 2,
@@ -27,11 +26,6 @@ enum D2C_AiThink005F0A20
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
-
-enum D2C_M101SandLeaperConstants
-{
-    MONMODE_ATTACK2 = 5,
-};
 
 void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0

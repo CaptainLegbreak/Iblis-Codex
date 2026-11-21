@@ -5,18 +5,13 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
-#define MONMODE_DEATH 0
-#define MONMODE_NEUTRAL 1
+#include "D2MonModes.h"
+
 #define EVENTTYPE_MONUMOD 7
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
-
-
-
-
-
 
 struct D2MonStatsTxt
 {
@@ -28,8 +23,6 @@ struct D2MonStatsTxt
     short nElMaxD;
     char unk0x122[0x1A8 - 0x122];
 };
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

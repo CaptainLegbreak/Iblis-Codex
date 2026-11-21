@@ -15,14 +15,11 @@
 #include "D2Constants.h"
 #include "D2GameTypes.h"
 #include "D2Win32Types.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_OBJECT 2
-
-#define OBJMODE_NEUTRAL 0
-
-#define OBJMODE_OPENED 2
 
 #define OBJECT_FLIES 103
 
@@ -31,8 +28,6 @@
 #define EVENTTYPE_MODECHANGE 0
 
 #define EVENTTYPE_STATREGEN 3
-
-#define OBJMODE_OPERATING 1
 
 #define OBJECTS_CONSTANT_00552AB0 2
 

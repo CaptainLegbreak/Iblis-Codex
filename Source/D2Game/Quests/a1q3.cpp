@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -26,8 +27,6 @@
 #define QUESTSTATEFLAG_A1Q3 3
 
 #define QUEST_A1Q3_MALUS 3
-
-#define OBJMODE_OPENED 2
 
 #define LEVEL_ROGUEENCAMPMENT 1
 
@@ -143,7 +142,6 @@ struct D2GameStrc;
 
 struct D2UnitStrc;
 
-
 extern "C" const unsigned int gnAct1Quest3NpcIndices[]; // 0x00737630
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
@@ -151,7 +149,6 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-
 
 int __fastcall QUESTS_GetGlobalState(D2GameStrc* pGame, int nQuestId, int nState);                          // 0x00544760
 

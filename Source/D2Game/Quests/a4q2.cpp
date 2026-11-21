@@ -9,6 +9,7 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2DataTbls.h"
+#include "D2ObjModes.h"
 
 #define QUEST_A4Q2_DIABLO 23
 
@@ -23,10 +24,6 @@
 #define QFLAG_ENTERAREA 4
 
 #define QFLAG_COMPLETEDBEFORE 15
-
-#define OBJMODE_OPERATING 1
-
-#define OBJMODE_OPENED 2
 
 struct D2PlayerDataStrc;
 

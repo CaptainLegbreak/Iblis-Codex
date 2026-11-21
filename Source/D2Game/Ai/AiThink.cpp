@@ -7,6 +7,8 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2LevelTxt.h"
+#include "D2MonModes.h"
+#include "D2PlayerModes.h"
 
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 
@@ -15,8 +17,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define STATE_INVIS 0x92
-
-#define MONMODE_ATTACK1 4
 
 #define SKILL_MINIONSPAWNER 0x12E
 
@@ -54,7 +54,6 @@ extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 typedef void (__fastcall* AiFn)(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*);
 
-
 struct D2AiTickStrc { D2AiControlStrc* control; int unk04[6]; void* monstats; void* monstats2; };
 
 struct D2AiTableStrc { int unk00; AiFn init; AiFn function; AiFn alternate; };
@@ -82,10 +81,6 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*); // 0x005B0CD0
-
-
-
-
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 
@@ -141,7 +136,6 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
 
-
 struct D2BaalThroneAiCallbackArgStrc { D2UnitStrc* pTarget1; int nDistance1; D2UnitStrc* pTarget2; int nDistance2; int unk_10[6]; };
 
 extern const int gnBaalThroneSuperUniqueIds[]; // 0x006E3528
@@ -189,10 +183,6 @@ void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); /
 struct D2AiBaalTargetArgsStrc;
 
 #define UNIT_PLAYER 0
-
-#define PLRMODE_DEATH 0
-
-#define PLRMODE_DEAD 17
 
 #define PATHTYPE_TOWARD 2
 
@@ -326,8 +316,6 @@ void __fastcall sub_005E5730_InitOwnerOffset(D2GameStrc* pGame, D2UnitStrc* pUni
         pAiControl->dwAiParam[2] = SEED_RollRandomNumber(&pUnit->pSeed) % 100;
     }
 }
-
-
 
 // 0x005E8F20
 D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*))

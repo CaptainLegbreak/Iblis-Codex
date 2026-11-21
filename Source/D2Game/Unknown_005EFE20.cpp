@@ -3,21 +3,14 @@
 #include "D2Path.h"
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
+#include "D2MonModes.h"
 
-#define MONMODE_ATTACK1 4
-#define MONMODE_ATTACK2 5
 #define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
 union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2SandRaiderAiCallbackArgStrc;
 struct D2DataTables;
 struct D2GreaterMummyAiCallbackArgStrc;
-
-
-
-
-
-
 
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90

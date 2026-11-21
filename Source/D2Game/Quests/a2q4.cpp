@@ -8,6 +8,7 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2GameTypes.h"
+#include "D2ObjModes.h"
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -28,8 +29,6 @@
 #define LEVEL_PALACECELLARLEV3 54
 
 #define OBJECT_EUNUCH_HAREM_BLOCKER 318
-
-#define OBJMODE_OPERATING 1
 
 #define EVENTTYPE_ENDANIM 1
 
@@ -55,9 +54,6 @@ struct D2Act2Quest5Strc;
 
 struct D2Act2Quest2Strc;
 
-
-
-
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
@@ -66,12 +62,8 @@ typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId
 
 typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-
-
 enum D2C_M11A2Q4Constants
 {
-    OBJMODE_NEUTRAL = 0,
-    OBJMODE_OPENED = 2,
     QUEST_A2Q4_HORAZONTOME = 11,
     QUESTSTATEFLAG_A2Q4 = 12,
     QFLAG_REWARDPENDING = 1,
@@ -127,8 +119,6 @@ int __fastcall ACT2Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 int __fastcall ACT2Q4_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059ADB0
 
-
-
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
@@ -174,7 +164,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
-
 
 enum
 {
@@ -823,7 +812,6 @@ static __forceinline D2BitBufferStrc* QUESTS_GetQuestFlags(D2GameStrc* pGame, D2
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
-
 
 // 0x0059F0C0
 void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)

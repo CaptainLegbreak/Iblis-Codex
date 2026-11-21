@@ -13,6 +13,7 @@
 #include "D2GameServer.h"
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -25,8 +26,6 @@
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-
-#define MONMODE_NEUTRAL 1
 
 #define STAT_MANA 8
 
@@ -72,8 +71,6 @@ struct D2UnkFieldsStrc
 
 enum D2MiscConstants
 {
-    MONMODE_DEATH = 0,
-    MONMODE_GETHIT = 3,
     EVENTTYPE_MONUMOD = 7,
     SKILL_MONTELEPORT = 184,
     MONSTER_SANDLEAPER1 = 78,

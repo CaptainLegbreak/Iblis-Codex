@@ -11,10 +11,11 @@
 #include "D2ItemsWorld.h"
 #include "D2GameTypes.h"
 #include "D2GameRecords.h"
+#include "D2ObjModes.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define OBJMODE_OPENED 2
 
 #define EVENTTYPE_FREEHOVER 6
 
@@ -38,8 +39,6 @@
 
 #define ITEMTYPE_GEM 20
 
-#define OBJMODE_SPECIAL1 3
-
 #define STAT_HITPOINTS 6
 
 #define STAT_MANA 8
@@ -49,10 +48,6 @@
 #define UNIT_MONSTER 1
 
 #define UNIT_TILE 5
-
-#define PLRMODE_DEAD 17
-
-#define MONMODE_DEAD 12
 
 #define STAT_STAMINA 10
 
@@ -367,8 +362,6 @@ int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp
 
 enum
 {
-    OBJMODE_NEUTRAL = 0,
-    OBJMODE_OPERATING = 1,
     EVENTTYPE_ENDANIM = 1,
     LEVEL_PALACECELLARLEV3 = 54,
     LEVEL_ARCANESANCTUARY = 74,
@@ -527,10 +520,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 
 #define UNIT_INVALID 6
 
-#define OBJMODE_NEUTRAL 0
-
-#define OBJMODE_OPERATING 1
-
 #define EVENTTYPE_ENDANIM 1
 
 #define EVENTTYPE_ACTIVESTATE 5
@@ -572,7 +561,6 @@ void __fastcall sub_6FC3F060(D2ClientStrc* pClient, unsigned char a2, int a3, un
 void __fastcall sub_6FC3F550(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D900
 
 extern "C" const char gszObjModeSourceFile_006E1970[]; // 0x006E1970
-
 
 struct D2ObjOperateStrc { D2GameStrc* game; D2UnitStrc* object; D2UnitStrc* player; };
 
@@ -633,8 +621,6 @@ struct D2RoomCoordListStrc;
 #define UNITFLAG_TARGETABLE 2
 
 #define MONSTER_FLYINGSCIMITAR 234
-
-#define MONMODE_WALK 2
 
 #define STAT_LEVEL 12
 
@@ -723,7 +709,6 @@ unsigned char __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit);
 void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pClient);                       // 0x00571740
 
 D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwCode, int nItemQuality); // 0x00585970
-
 
 int __fastcall OBJECTS_OperateFunction27_TeleportPad(D2ObjOperateFnStrc* pOp, int nOperate);
 

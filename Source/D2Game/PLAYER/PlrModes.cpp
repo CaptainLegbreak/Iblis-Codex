@@ -5,6 +5,8 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2Txt.h"
+#include "D2PlayerModes.h"
+#include "D2ItemModes.h"
 
 #define EVENTTYPE_ENDANIM 1
 
@@ -17,8 +19,6 @@
 #define STATE_PLAYERBODY 7
 
 #define UNIT_MONSTER 1
-
-#define PLRMODE_NEUTRAL 1
 
 #define ITEMTYPE_WEAPON 45
 

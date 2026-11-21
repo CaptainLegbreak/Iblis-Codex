@@ -5,12 +5,13 @@
 #include "D2GameTypes.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2MonModes.h"
 
 #define MONTYPEFLAG_UNIQUE 8
 #define STATE_STUNNED 0x15
 #define STATE_UNINTERRUPTABLE 0x36
 #define EVENTTYPE_REMOVESTATE 0x0C
-#define MONMODE_NEUTRAL 1
+
 #define UNITFLAG_DOUPDATE 1
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
 #define D2_MAX(a,b) ((a)>(b)?(a):(b))

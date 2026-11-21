@@ -11,6 +11,8 @@
 #include "D2GameServer.h"
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
+#include "D2ObjModes.h"
+#include "D2ItemModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -19,8 +21,6 @@
 #define QUEST_A2Q4_HORAZONTOME 11
 
 #define QUEST_A3Q1_LAMESENTOME 15
-
-#define OBJMODE_OPENED 2
 
 #define UNIT_PLAYER 0
 

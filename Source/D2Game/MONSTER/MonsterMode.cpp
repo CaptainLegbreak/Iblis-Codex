@@ -9,6 +9,7 @@
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2MonModes.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -16,10 +17,6 @@
 
 enum D2C_P08MonsterConstants
 {
-    MONMODE_DEATH = 0,
-    MONMODE_GETHIT = 3,
-    MONMODE_SKILL1 = 8,
-    MONMODE_DEAD = 12,
     MONLVL_DM = 6,
     STAT_LEVEL = 12,
     STAT_DAMAGERESIST = 36,
@@ -110,8 +107,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
-
-#define MONMODE_NEUTRAL 1
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -265,14 +260,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 struct D2DynamicPathStrc;
 
 #define UNIT_MONSTER 1
-
-#define MONMODE_DEATH 0
-
-#define MONMODE_GETHIT 3
-
-#define MONMODE_DEAD 12
-
-#define MONMODE_SEQUENCE 14
 
 #define STATE_UNINTERRUPTABLE 54
 
@@ -489,16 +476,6 @@ void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit);               
 #define UNITEVENT_DEATH 13
 
 #define EVENTTYPE_AITHINK 2
-
-#define MONMODE_WALK 2
-
-#define MONMODE_BLOCK 6
-
-#define MONMODE_SKILL3 10
-
-#define MONMODE_SKILL4 11
-
-#define MONMODE_RUN 15
 
 // build: ob1
 

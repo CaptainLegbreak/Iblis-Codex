@@ -11,6 +11,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2LevelTxt.h"
+#include "D2MonModes.h"
 
 #define STATEMASK_REMHIT 6
 
@@ -300,7 +301,6 @@ enum D2C_F39Constants
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_NOXP = 0x4000000,
     DAMAGERESULTFLAG_WILLDIE = 2,
-    MONMODE_SKILL1 = 8,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
     STATE_FETISHAURA = 0x19,
@@ -314,7 +314,6 @@ enum D2C_F39Constants
     MONSTER_FETISHBLOW3 = 0x18E,
     MONSTER_FETISHBLOW4 = 0x18F,
     MONSTER_FETISHBLOW5 = 0x190,
-    MONMODE_SEQUENCE = 14,
     UNITFLAG_NOTC = 0x20000,
     STAT_MAXHP = 7,
     STAT_MANA = 8,
