@@ -57176,9 +57176,38 @@
      "name": "?sub_0057A8E0_AddStatDamage@@YGHHHHHHHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0057A950",
+     "length": 37,
+     "name": "?sub_0057A950_DrainLife@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0057A980",
+     "length": 115,
+     "name": "?SUNITDMG_AddLeechedLife@@YGHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0057AA00",
+     "length": 92,
+     "name": "?SUNITDMG_AddLeechedMana@@YGHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0057AA60",
+     "length": 53,
+     "name": "?sub_0057AA60_DrainMana@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0057AAA0",
+     "length": 55,
+     "name": "?sub_0057AAA0_DrainStamina@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x0057AAE0",
      "length": 357,
      "name": "?sub_0057AAE0_ApplyStun@@YGXPAUD2UnitStrc@@H0@Z"
+    },
+    {
+     "va": "0x0057AC50",
+     "length": 302
     },
     {
      "va": "0x0057AD80",
@@ -57438,6 +57467,10 @@
      "name": "?SUNITDMG_AddExperienceForHireling@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
+     "va": "0x0057E990",
+     "length": 287
+    },
+    {
      "va": "0x0057EAB0",
      "length": 96,
      "name": "?SUNITDMG_AddExperience@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
@@ -57512,61 +57545,6 @@
      "length": 131,
      "name": "sub_6FC78B20"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0057A950.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0057A950",
-     "length": 37,
-     "name": "?sub_0057A950_DrainLife@@YAXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057A980",
-     "length": 115,
-     "name": "?SUNITDMG_AddLeechedLife@@YGHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057AA00",
-     "length": 92,
-     "name": "?SUNITDMG_AddLeechedMana@@YGHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057AA60",
-     "length": 53,
-     "name": "?sub_0057AA60_DrainMana@@YAHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057AAA0",
-     "length": 55,
-     "name": "?sub_0057AAA0_DrainStamina@@YAHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0057AC50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057AC50",
-     "length": 302
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -57809,30 +57787,6 @@
      "length": 387,
      "name": "?SKILLS_SrvDo119_DruidSummon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0057E990.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057E990",
-     "length": 287
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
