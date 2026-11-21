@@ -1,5 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2StormLink.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct HWND__;
@@ -25,30 +26,6 @@ struct D2StormArrayBStrc;
 struct D2StormQueueArrayStrc;
 struct D2StormQueueStrc;
 struct D2StormBigStrc;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* pPrevious;
-    char* pNext;
-    D2StormLinkStrc* NextLink(int nOffset)
-    {
-        if ((int)pNext < 0)
-            return (D2StormLinkStrc*)~(unsigned int)pNext;
-        if (nOffset < 0)
-            nOffset = (char*)this - pPrevious->pNext;
-        return (D2StormLinkStrc*)(pNext + nOffset);
-    }
-    void Unlink()
-    {
-        if (pPrevious)
-        {
-            NextLink(-1)->pPrevious = pPrevious;
-            pPrevious->pNext = pNext;
-            pPrevious = 0;
-            pNext = 0;
-        }
-    }
-};
 
 struct D2StormNodeListStrc
 {
@@ -558,29 +535,29 @@ void __cdecl sub_00601B50_Empty()
 // 0x004204F0
 char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
 {
-    return (int)pLink->pNext > 0 ? pLink->pNext : 0;
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
 char* __fastcall sub_00601C60_LinkNext(D2StormLinkStrc* pLink)
 {
-    return (int)pLink->pNext > 0 ? pLink->pNext : 0;
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
 char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
 {
-    return (int)pLink->pNext > 0 ? pLink->pNext : 0;
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
 void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
 {
-    pList->m_terminator.pPrevious = &pList->m_terminator;
-    pList->m_terminator.pNext = (char*)~(unsigned int)&pList->m_terminator;
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
 void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
 {
-    pList->m_terminator.pPrevious = &pList->m_terminator;
-    pList->m_terminator.pNext = (char*)~(unsigned int)&pList->m_terminator;
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
 // 0x00420A70

@@ -23,6 +23,10 @@ struct D2StormLinkStrc
     {
         return (int)m_next <= 0 ? 0 : m_next;
     }
+    char* Prev()
+    {
+        return m_prevlink->m_prevlink->Next();
+    }
     void Unlink()
     {
         if (m_prevlink)
@@ -33,6 +37,8 @@ struct D2StormLinkStrc
             m_next = 0;
         }
     }
+    void sub_0041C650(); // 0x0041C650
+    D2StormLinkStrc* sub_00426930_NextLink(int nLinkOffset); // 0x00426930
 };
 
 D2_CHECK_SIZE(D2StormLinkStrc, 0x8);
