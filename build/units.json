@@ -76440,14 +76440,29 @@
      "name": "?sub_0060F020_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
     },
     {
+     "va": "0x0060F050",
+     "length": 32,
+     "name": "?sub_0060F050_ConstructList@@YIXPAUD2CommonStormListGStrc@@PBU1@@Z"
+    },
+    {
      "va": "0x0060F070",
      "length": 39,
      "name": "?0D2CommonStormListFStrc"
     },
     {
+     "va": "0x0060F150",
+     "length": 8,
+     "name": "?sub_0060F150_Clear@D2CommonStormHashTableBStrc@@QAEXXZ"
+    },
+    {
      "va": "0x0060F160",
      "length": 43,
      "name": "?_GD2CommonStringEntryNodeStrc"
+    },
+    {
+     "va": "0x0060F190",
+     "length": 60,
+     "name": "??1D2CommonStormSlotListCStrc@@QAE@XZ"
     },
     {
      "va": "0x0060F1D0",
@@ -76465,6 +76480,11 @@
      "name": "sub_0060F270_DeleteNode"
     },
     {
+     "va": "0x0060F2C0",
+     "length": 60,
+     "name": "??1D2CommonStormSlotListDStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0060F300",
      "length": 96,
      "name": "?_GD2CommonStormSlotListBStrc"
@@ -76480,6 +76500,11 @@
      "name": "sub_0060F390_ReallocData"
     },
     {
+     "va": "0x0060F4E0",
+     "length": 32,
+     "name": "?sub_0060F4E0_ConstructList@@YIXPAUD2CommonStormListGStrc@@PBU1@@Z"
+    },
+    {
      "va": "0x0060F500",
      "length": 11,
      "name": "?sub_0060F500_VirtSlot10@D2CommonIgnoreListStrc@@UAEXXZ"
@@ -76493,6 +76518,11 @@
      "va": "0x0060F610",
      "length": 128,
      "name": "??1D2CommonStormSlotArrayAStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060F690",
+     "length": 60,
+     "name": "??1D2CommonStormSlotListEStrc@@QAE@XZ"
     },
     {
      "va": "0x0060F6D0",
@@ -76527,6 +76557,21 @@
      "va": "0x0060FAD0",
      "length": 70,
      "name": "sub_0060FAD0_Reserve"
+    },
+    {
+     "va": "0x0060FBE0",
+     "length": 90,
+     "name": "sub_0060FBE0_RemoveAlias"
+    },
+    {
+     "va": "0x0060FE30",
+     "length": 9,
+     "name": "??0D2CommonStormZeroAStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060FE40",
+     "length": 9,
+     "name": "??0D2CommonStormZeroBStrc@@QAE@XZ"
     },
     {
      "va": "0x0060FE50",
@@ -76667,57 +76712,6 @@
      "va": "0x0061A270",
      "length": 74,
      "name": "DUNGEON_AllocDrlgDelete"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F050.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060F050",
-     "length": 32,
-     "name": "?sub_0060F050_ConstructList@@YIXPAUD2CommonStormListGStrc@@PBU1@@Z"
-    },
-    {
-     "va": "0x0060F150",
-     "length": 8,
-     "name": "?sub_0060F150_Clear@D2CommonStormHashTableBStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0060F190",
-     "length": 60,
-     "name": "??1D2CommonStormSlotListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060F2C0",
-     "length": 60,
-     "name": "??1D2CommonStormSlotListDStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060F4E0",
-     "length": 32,
-     "name": "?sub_0060F4E0_ConstructList@@YIXPAUD2CommonStormListGStrc@@PBU1@@Z"
-    },
-    {
-     "va": "0x0060F690",
-     "length": 60,
-     "name": "??1D2CommonStormSlotListEStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060FBE0",
-     "length": 90,
-     "name": "sub_0060FBE0_RemoveAlias"
-    },
-    {
-     "va": "0x0060FE30",
-     "length": 9,
-     "name": "??0D2CommonStormZeroAStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060FE40",
-     "length": 9,
-     "name": "??0D2CommonStormZeroBStrc@@QAE@XZ"
     }
    ]
   },

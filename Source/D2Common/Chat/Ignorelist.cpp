@@ -48,8 +48,6 @@ struct D2StormSlotLink0060EDB0Strc;
 
 struct D2StormSlotList0060EDB0Strc;
 
-struct D2StormLinkStrc;
-
 struct D2StormListAStrc;
 
 struct D2StormListArrayStrc;
@@ -98,27 +96,27 @@ struct D2Object00610D30Strc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-struct D2StormLinkStrc
+struct D2CommonStormSlotLinkStrc
 {
-    D2StormLinkStrc* m_prevlink;
+    D2CommonStormSlotLinkStrc* m_prevlink;
     char* m_next;
 
-    D2StormLinkStrc()
+    D2CommonStormSlotLinkStrc()
     {
         m_prevlink = 0;
         m_next = 0;
     }
-    ~D2StormLinkStrc()
+    ~D2CommonStormSlotLinkStrc()
     {
         Unlink();
     }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
+    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
     {
         if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
+            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
         if (nLinkOffset < 0)
             nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
+        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
     }
     char* Next()
     {
@@ -326,48 +324,6 @@ struct D2ChatStormListFStrc
     D2ChatStormListFStrc();
 };
 
-struct D2CommonStormSlotLinkStrc
-{
-    D2CommonStormSlotLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2CommonStormSlotLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    ~D2CommonStormSlotLinkStrc()
-    {
-        Unlink();
-    }
-    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    char* MaskNext()
-    {
-        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
 struct D2CommonStormSlotListAStrc
 {
     int m_linkoffset;
@@ -479,8 +435,8 @@ struct D2CommonStormSlotListBStrc
 struct D2CommonMappingEntryNodeBaseStrc
 {
     unsigned int f_0;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
+    D2CommonStormSlotLinkStrc m_linktoslot;
+    D2CommonStormSlotLinkStrc f_C;
     D2StormHashKeyStrIStrc f_14;
 
     ~D2CommonMappingEntryNodeBaseStrc();                                                                    // 0x0060EA10
@@ -501,8 +457,8 @@ struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
 struct D2CommonStringEntryNodeStrc
 {
     unsigned int f_0;
-    D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
+    D2CommonStormSlotLinkStrc m_linktoslot;
+    D2CommonStormSlotLinkStrc f_C;
     D2StormHashKeyStrIStrc f_14;
 
     ~D2CommonStringEntryNodeStrc();                                                                         // 0x0060EAE0
@@ -553,11 +509,11 @@ struct Link { Link* previous; char* next; Link() { previous=0; next=0; } };
 struct D2StormListAStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
-    D2StormLinkStrc* Link(char* pNode)
+    D2CommonStormSlotLinkStrc* Link(char* pNode)
     {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
+        return pNode ? (D2CommonStormSlotLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
     }
     char* Head()
     {
@@ -837,11 +793,11 @@ struct D2Object00610D30Strc
 struct D2CommonStormListAStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
-    D2StormLinkStrc* Link(char* pNode)
+    D2CommonStormSlotLinkStrc* Link(char* pNode)
     {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
+        return pNode ? (D2CommonStormSlotLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
     }
     void InitializeTerminator()
     {
@@ -850,7 +806,7 @@ struct D2CommonStormListAStrc
     }
 // build: symbol ?UnlinkAll@D2CommonStormListAStrc@@QAEXXZ 0x0060E820
     void UnlinkAll();
-    D2StormLinkStrc* sub_0060E450_Link(char* pNode);
+    D2CommonStormSlotLinkStrc* sub_0060E450_Link(char* pNode);
     void sub_0060E470_InitLinkField(int nLinkOffset);
     void sub_0060E490_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
     char* sub_0060E540_RawNext(char* pNode);
@@ -864,11 +820,11 @@ struct D2CommonStormListAStrc
 struct D2CommonStormListBStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
-    D2StormLinkStrc* Link(char* pNode)
+    D2CommonStormSlotLinkStrc* Link(char* pNode)
     {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
+        return pNode ? (D2CommonStormSlotLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
     }
     void InitializeTerminator()
     {
@@ -878,7 +834,7 @@ struct D2CommonStormListBStrc
 // build: symbol ?UnlinkAll@D2CommonStormListBStrc@@QAEXXZ 0x0060ECB0
     void UnlinkAll();
     void sub_0060E5B0_InitLinkField(int nLinkOffset);
-    D2StormLinkStrc* sub_0060E630_Link(char* pNode);
+    D2CommonStormSlotLinkStrc* sub_0060E630_Link(char* pNode);
     char* sub_0060E7C0_Next(char* pNode);
     void sub_0060E890_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
     char* sub_0060E940_RawNext(char* pNode);
@@ -890,7 +846,7 @@ struct D2CommonStormListBStrc
 struct D2CommonStormListCStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
     D2CommonStormListCStrc(const D2CommonStormListCStrc& source);
 };
@@ -898,7 +854,7 @@ struct D2CommonStormListCStrc
 struct D2CommonStormListDStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
     D2CommonStormListDStrc(const D2CommonStormListDStrc& source);
 };
@@ -906,7 +862,7 @@ struct D2CommonStormListDStrc
 struct D2CommonStormListEStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
     D2CommonStormListEStrc(const D2CommonStormListEStrc& source);
 };
@@ -914,7 +870,7 @@ struct D2CommonStormListEStrc
 struct D2CommonStormListFStrc
 {
     int m_linkoffset;
-    D2StormLinkStrc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
     D2CommonStormListFStrc(const D2CommonStormListFStrc& source);
 };
@@ -957,6 +913,7 @@ public:
     char* sub_0060ED70_DeleteNext(D2CommonStringEntryNodeStrc* pNode);
     void sub_0060EB70_InternalClear(int bWarn);                                                             // 0x0060EB70
     D2CommonStringEntryNodeStrc* sub_0060F590_InternalFind(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key);
+    D2CommonStringEntryNodeStrc* sub_0060F8B0_Ptr(const char* szKey);                                       // 0x0060F8B0
     void sub_0060ED60_Clear();
 };
 
@@ -975,6 +932,7 @@ public:
     TSHashTable();
     char* sub_0060EC00_Next(char* pNode);
     void sub_0060EE60_InternalClear(int bWarn);                                                             // 0x0060EE60
+    void sub_0060F150_Clear();
 };
 
 class ChatIgnoreList;
@@ -1027,6 +985,9 @@ public:
     virtual void sub_0060DE00_SetEnabled(int bEnabled);                                                     // 0x0060DE00
     virtual void sub_0060F500_VirtSlot10();                                                                 // 0x0060F500
     virtual ~IgnoreList();                                                                                  // 0x00610AA0
+    void sub_0060DFF0_NormalizeKey(const char* szName, char* szOut, int nSize);                             // 0x0060DFF0
+    int sub_0060F0A0_Save();                                                                                // 0x0060F0A0
+    int sub_0060FD50_Contains(const char* szKey);
 };
 
 PROFHOOKFN gpfnProfHook; // 0x0096BC28
@@ -1085,6 +1046,93 @@ struct D2StormDeadListStrc
 char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
 
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset);
+
+#define D2_STORM_UNLINK_TERMINATOR(pThis)                                                                   \
+    if ((pThis)->m_prevlink)                                                                                \
+    {                                                                                                       \
+        D2CommonStormPlainLinkStrc* pNext;                                                                  \
+        if ((int)(pThis)->m_next < 0)                                                                       \
+        {                                                                                                   \
+            pNext = (D2CommonStormPlainLinkStrc*)~(unsigned int)(pThis)->m_next;                           \
+        }                                                                                                   \
+        else                                                                                                \
+        {                                                                                                   \
+            int nLinkOffset = -1;                                                                           \
+            if (nLinkOffset < 0)                                                                            \
+            {                                                                                               \
+                nLinkOffset = (char*)(pThis) - (pThis)->m_prevlink->m_next;                                 \
+            }                                                                                               \
+            pNext = (D2CommonStormPlainLinkStrc*)((pThis)->m_next + nLinkOffset);                          \
+        }                                                                                                   \
+        pNext->m_prevlink = (pThis)->m_prevlink;                                                            \
+        (pThis)->m_prevlink->m_next = (pThis)->m_next;                                                      \
+        (pThis)->m_prevlink = 0;                                                                            \
+        (pThis)->m_next = 0;                                                                                \
+    }
+
+struct D2CommonStormPlainLinkStrc;
+
+struct D2CommonStormListGStrc;
+
+struct D2CommonStormSlotListCStrc;
+
+struct D2CommonStormSlotListDStrc;
+
+struct D2CommonStormSlotListEStrc;
+
+struct D2CommonStormZeroAStrc;
+
+struct D2CommonStormZeroBStrc;
+
+struct D2CommonStormPlainLinkStrc
+{
+    D2CommonStormPlainLinkStrc* m_prevlink;
+    char* m_next;
+};
+
+struct D2CommonStormListGStrc
+{
+    int m_linkoffset;
+    D2CommonStormPlainLinkStrc m_terminator;
+};
+
+struct D2CommonStormSlotListCStrc
+{
+    int m_linkoffset;
+    D2CommonStormPlainLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListCStrc();
+};
+
+struct D2CommonStormSlotListDStrc
+{
+    int m_linkoffset;
+    D2CommonStormPlainLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListDStrc();
+};
+
+struct D2CommonStormSlotListEStrc
+{
+    int m_linkoffset;
+    D2CommonStormPlainLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListEStrc();
+};
+
+struct D2CommonStormZeroAStrc
+{
+    int m_value;
+
+    D2CommonStormZeroAStrc();
+};
+
+struct D2CommonStormZeroBStrc
+{
+    int m_value;
+
+    D2CommonStormZeroBStrc();
+};
 
 // 0x0060E0B0
 char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
@@ -1203,7 +1251,7 @@ static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nA
 // build: symbol ??_7?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62B4
 // build: symbol ??_7?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62C8
 // 0x0060E450
-D2StormLinkStrc* D2CommonStormListAStrc::sub_0060E450_Link(char* pNode)
+D2CommonStormSlotLinkStrc* D2CommonStormListAStrc::sub_0060E450_Link(char* pNode)
 {
     return Link(pNode);
 }
@@ -1218,9 +1266,9 @@ void D2CommonStormListAStrc::sub_0060E470_InitLinkField(int nLinkOffset)
 // 0x0060E490
 void D2CommonStormListAStrc::sub_0060E490_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
 {
-    D2StormLinkStrc* pLink = Link(pNode);
+    D2CommonStormSlotLinkStrc* pLink = Link(pNode);
     pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
+    D2CommonStormSlotLinkStrc* pExistingLink = Link(pExistingNode);
     switch (nLinkType)
     {
     case 1:
@@ -1230,7 +1278,7 @@ void D2CommonStormListAStrc::sub_0060E490_LinkNode(char* pNode, int nLinkType, c
         pExistingLink->m_next = pNode;
         break;
     default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+        D2CommonStormSlotLinkStrc* pPrevLink = pExistingLink->m_prevlink;
         pLink->m_prevlink = pPrevLink;
         pLink->m_next = pPrevLink->m_next;
         pPrevLink->m_next = pNode;
@@ -1290,7 +1338,7 @@ void D2ChatStormListBStrc::sub_0060E610_Reset()
 }
 
 // 0x0060E630
-D2StormLinkStrc* D2CommonStormListBStrc::sub_0060E630_Link(char* pNode)
+D2CommonStormSlotLinkStrc* D2CommonStormListBStrc::sub_0060E630_Link(char* pNode)
 {
     return Link(pNode);
 }
@@ -1369,9 +1417,9 @@ inline void D2CommonStormSlotListAStrc::UnlinkAll()
 // 0x0060E890
 void D2CommonStormListBStrc::sub_0060E890_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
 {
-    D2StormLinkStrc* pLink = Link(pNode);
+    D2CommonStormSlotLinkStrc* pLink = Link(pNode);
     pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
+    D2CommonStormSlotLinkStrc* pExistingLink = Link(pExistingNode);
     switch (nLinkType)
     {
     case 1:
@@ -1381,7 +1429,7 @@ void D2CommonStormListBStrc::sub_0060E890_LinkNode(char* pNode, int nLinkType, c
         pExistingLink->m_next = pNode;
         break;
     default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+        D2CommonStormSlotLinkStrc* pPrevLink = pExistingLink->m_prevlink;
         pLink->m_prevlink = pPrevLink;
         pLink->m_next = pPrevLink->m_next;
         pPrevLink->m_next = pNode;
@@ -1599,6 +1647,20 @@ void __fastcall sub_0060F020_ConstructDeadList(D2StormDeadListStrc* pList) {
  new(pList) D2StormDeadListStrc;
 }
 
+// 0x0060F050
+void __fastcall sub_0060F050_ConstructList(D2CommonStormListGStrc* pList, const D2CommonStormListGStrc* pSource)
+{
+    if (pList)
+    {
+        D2CommonStormPlainLinkStrc* pLink = &pList->m_terminator;
+        pLink->m_prevlink = 0;
+        pLink->m_next = 0;
+        pList->m_linkoffset = pSource->m_linkoffset;
+        pList->m_terminator.m_prevlink = &pList->m_terminator;
+        pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+    }
+}
+
 // 0x0060F070
 D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& source)
 {
@@ -1607,11 +1669,25 @@ D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& sou
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
+// 0x0060F150
+void D2CommonStormHashTableBStrc::sub_0060F150_Clear()
+{
+    sub_0060EE60_InternalClear(0);
+}
+
 // 0x0060F160
 inline void D2CommonStringEntryNodeStrc::operator delete(void* pMemory)
 {
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
+}
+
+// 0x0060F190
+D2CommonStormSlotListCStrc::~D2CommonStormSlotListCStrc()
+{
+    ((D2CommonStormSlotListBStrc*)this)->UnlinkAll();
+    D2CommonStormPlainLinkStrc* pThis = &m_terminator;
+    D2_STORM_UNLINK_TERMINATOR(pThis)
 }
 
 // 0x0060F1D0
@@ -1642,6 +1718,14 @@ char* D2CommonStormListAStrc::sub_0060F270_DeleteNode(D2CommonStringEntryNodeStr
     pNode->~D2CommonStringEntryNodeStrc();
     SMemFree(pNode, gszTypeNameStringEntryNode_0074364C, -2, 0);
     return pNext;
+}
+
+// 0x0060F2C0
+D2CommonStormSlotListDStrc::~D2CommonStormSlotListDStrc()
+{
+    ((D2CommonStormSlotListAStrc*)this)->UnlinkAll();
+    D2CommonStormPlainLinkStrc* pThis = &m_terminator;
+    D2_STORM_UNLINK_TERMINATOR(pThis)
 }
 
 // 0x0060F300
@@ -1680,6 +1764,20 @@ void D2CommonStormSlotArrayAStrc::sub_0060F390_ReallocData(unsigned int nAlloc)
     }
 }
 
+// 0x0060F4E0
+void __fastcall sub_0060F4E0_ConstructList(D2CommonStormListGStrc* pList, const D2CommonStormListGStrc* pSource)
+{
+    if (pList)
+    {
+        D2CommonStormPlainLinkStrc* pLink = &pList->m_terminator;
+        pLink->m_prevlink = 0;
+        pLink->m_next = 0;
+        pList->m_linkoffset = pSource->m_linkoffset;
+        pList->m_terminator.m_prevlink = &pList->m_terminator;
+        pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+    }
+}
+
 // 0x0060F500
 void D2CommonIgnoreListStrc::sub_0060F500_VirtSlot10()
 {
@@ -1705,6 +1803,14 @@ D2CommonStormSlotArrayAStrc::~D2CommonStormSlotArrayAStrc()
         f_8[i].~D2CommonStormSlotListAStrc();
     if (f_8)
         SMemFree(f_8, gszTypeNameStringEntryList_0074366C, -2, 0);
+}
+
+// 0x0060F690
+D2CommonStormSlotListEStrc::~D2CommonStormSlotListEStrc()
+{
+    ((D2CommonStormSlotListBStrc*)this)->UnlinkAll();
+    D2CommonStormPlainLinkStrc* pThis = &m_terminator;
+    D2_STORM_UNLINK_TERMINATOR(pThis)
 }
 
 // 0x0060F6D0
@@ -1860,6 +1966,38 @@ void D2CommonStormSlotArrayBStrc::sub_0060FAD0_Reserve(unsigned int nCount, int 
         }
         sub_0060F720_ReallocData(nCount);
     }
+}
+
+// 0x0060FBE0
+int D2CommonIgnoreListStrc::sub_0060FBE0_RemoveAlias(const char* szName)
+{
+    if (szName && *szName && sub_0060DDF0_IsEnabled())
+    {
+        D2CommonStringEntryNodeStrc* pNode = m_table2.sub_0060F8B0_Ptr(szName);
+        if (pNode)
+        {
+            m_table2.sub_0060E6E0_UnlinkNode(pNode);
+            sub_0060F0A0_Save();
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    return 0;
+}
+
+// 0x0060FE30
+D2CommonStormZeroAStrc::D2CommonStormZeroAStrc()
+{
+    m_value = 0;
+}
+
+// 0x0060FE40
+D2CommonStormZeroBStrc::D2CommonStormZeroBStrc()
+{
+    m_value = 0;
 }
 
 void D2StormArray408Strc::sub_0051D6A0_Clear()
