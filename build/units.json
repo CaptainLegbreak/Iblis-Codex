@@ -50289,6 +50289,10 @@
      "name": "?PLAYER_RestoreWeaponStats@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00537230",
+     "length": 265
+    },
+    {
      "va": "0x00537340",
      "length": 569,
      "name": "SUNITPROXY_UpdateNpcsOnActChange"
@@ -50697,30 +50701,6 @@
      "length": 123,
      "name": "?AITHINK_TargetCallback_Regurgitator@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00537230.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00537230",
-     "length": 265
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
