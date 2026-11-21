@@ -66799,6 +66799,10 @@
      "name": "sub_005C1260"
     },
     {
+     "va": "0x005C12F0",
+     "length": 525
+    },
+    {
      "va": "0x005C18E0",
      "length": 81,
      "name": "ITEMS_RollMagicAffixes"
@@ -67021,30 +67025,6 @@
     {
      "va": "0x005C25C0",
      "length": 379
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C12F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C12F0",
-     "length": 525
     }
    ],
    "flags": [
