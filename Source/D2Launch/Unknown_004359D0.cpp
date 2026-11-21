@@ -1,34 +1,5 @@
 #include "D2Launch.h"
-
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x68];
-    int (__fastcall* pfnSlot68)();
-};
-
-#pragma pack(push, 1)
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x01F];
-    char nByte1F;
-    char unk0x020[0x17];
-    char nByte37;
-    char unk0x038[0x6D];
-    unsigned int adwSecret[6];
-    char unk0x0BD[0x168];
-    D2FuncTable_0077ABF0Strc* pFuncTable;
-    char unk0x229[0x1C];
-    char nByte245;
-    char unk0x246[0x117];
-    char bRegistryMode;
-    char nStartMode;
-    char bIntroPlayed;
-    char unk0x360[1];
-    char nByte361;
-    char unk0x362[0x1F];
-    char nByte381;
-};
-#pragma pack(pop)
+#include "D2MultiTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
