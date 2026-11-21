@@ -109,10 +109,6 @@ extern const D2MazeLevelIdStrc gnAct2SewerRadamentIds[4];                       
 
 extern const D2MazeLevelIdStrc gnAct2SewerChestIds[4];                                      // 0x006EFDE8
 
-static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddSpecialPreset(D2DrlgLevelStrc* pLevel, int nDirection, int nLvlPrestId, int nFile);
-
-static void __stdcall DRLGMAZE_ScanReplaceSpecialPreset(D2DrlgLevelStrc* pLevel, const D2MazeLevelIdStrc* pMazeInit, int* pRand);
-
 D2DrlgRoomStrc* __fastcall DRLGMAZE_GetFreeLocationForRoomWest(D2DrlgLevelStrc* pLevel); // 0x00672460
 
 static __declspec(noinline) void DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(D2DrlgLevelStrc* pLevel);
