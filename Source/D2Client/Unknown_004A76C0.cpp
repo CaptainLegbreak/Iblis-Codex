@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -111,30 +112,6 @@ struct D2PointsTextStrc
     Unicode w0, w1, w2, w3, w4, w5, w6, w7, w8, w9;
 };
 
-enum D2C_StatIds
-{
-    STAT_STATPTS = 4,
-    STAT_HITPOINTS = 6,
-    STAT_MAXHP = 7,
-    STAT_MANA = 8,
-    STAT_MAXMANA = 9,
-    STAT_STAMINA = 10,
-    STAT_MAXSTAMINA = 11,
-    STAT_LEVEL = 12,
-    STAT_EXPERIENCE = 13,
-    STAT_NEXTEXP = 30,
-    STAT_ARMORCLASS = 31,
-    STAT_MAGICRESIST = 37,
-    STAT_MAXMAGICRESIST = 38,
-    STAT_FIRERESIST = 39,
-    STAT_MAXFIRERESIST = 40,
-    STAT_LIGHTRESIST = 41,
-    STAT_MAXLIGHTRESIST = 42,
-    STAT_COLDRESIST = 43,
-    STAT_MAXCOLDRESIST = 44,
-    STAT_POISONRESIST = 45,
-    STAT_MAXPOISONRESIST = 46,
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -256,7 +233,7 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     if (nX >= gnGlobal_007A2858 && nX <= gnGlobal_0071146C / 2 - 1 && nY >= gnGlobal_007A285C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x31)
     {
-        if (STATLIST_GetUnitBaseStat(sub_00463DD0_GetPlayerUnit(), 4, 0))
+        if (STATLIST_GetUnitBaseStat(sub_00463DD0_GetPlayerUnit(), STAT_STATPTS, 0))
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -296,7 +273,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     if (nX >= gnGlobal_007A2858 && nX <= gnGlobal_0071146C / 2 - 1 && nY >= gnGlobal_007A285C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x31)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (STATLIST_GetUnitBaseStat(pPlayer, 4, 0))
+        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -304,7 +281,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
                 gtSlots_00724A48[i].bActive = 0;
                 if (nY > nSlotY - 0x1F6 && nY < nSlotY - 0x1E0 && nX > gtSlots_00724A48[i].nX + gnGlobal_007A2858 && nX < gtSlots_00724A48[i].nX + gnGlobal_007A2858 + 0x28)
                 {
-                    int nCount = STATLIST_UnitGetStatValue(pPlayer, 4, 0);
+                    int nCount = STATLIST_UnitGetStatValue(pPlayer, STAT_STATPTS, 0);
                     if (GetKeyState(0x10) < 0)
                         nCount = 1;
                     else if (!nCount)
@@ -396,7 +373,7 @@ static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
 
     D2StatStrc aStats[0x20];
     int i = 0;
-    const int nCount = STATLIST_CopyStats(pUnit, 0x15C, aStats, 0x20);
+    const int nCount = STATLIST_CopyStats(pUnit, STAT_PASSIVE_WEAPONBLOCK, aStats, 0x20);
     int nBest = 0;
     for (; i < nCount; ++i)
     {
@@ -1247,7 +1224,7 @@ void __cdecl sub_004AC690_DrawSkillPanel()
     gnGlobal_007C0C4C = 1;
     sub_004AAAE0_DrawPagedPanel(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile, gnGlobal_00724BEC);
     sub_004AACE0_DrawSkillTreeTexts();
-    if (STATLIST_GetUnitBaseStat(pPlayer, 5, 0) > 0)
+    if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) > 0)
     {
         gnGlobal_007C0C40 = 1;
         gnGlobal_007C0C44 = 1;
