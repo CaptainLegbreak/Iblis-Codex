@@ -65153,11 +65153,6 @@
      "name": "ACT3Q4_Callback13_PlayerStartedGame"
     },
     {
-     "va": "0x005BB210",
-     "length": 483,
-     "name": "ACT3Q5_Callback11_ScrollMessage"
-    },
-    {
      "va": "0x005BC5A0",
      "length": 356,
      "name": "ACT3Q6_Callback11_ScrollMessage"
@@ -66179,6 +66174,11 @@
      "va": "0x005BB120",
      "length": 237,
      "name": "?ACT3Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005BB210",
+     "length": 483,
+     "name": "ACT3Q5_Callback11_ScrollMessage"
     },
     {
      "va": "0x005BB400",
