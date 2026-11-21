@@ -2604,23 +2604,10 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/dialog_004B7B40.cpp": {
+  "Source/D2Client/UI/dialog.cpp": {
    "bytes": 180,
    "definitions": 6,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004B7610(); // 0x004B7610",
-    "extern \"C\" void __cdecl sub_004B7270_DialogMouseMotion(); // 0x004B7270",
-    "extern \"C\" void __cdecl sub_004B72E0_OnLButtonUp(); // 0x004B72E0",
-    "extern \"C\" void __cdecl sub_004B73E0(); // 0x004B73E0",
-    "extern \"C\" void __cdecl sub_004B75D0_OnDialogKey(); // 0x004B75D0",
-    "extern \"C\" void __cdecl sub_004B76D0_TimedCallbackMsg(); // 0x004B76D0",
-    "extern \"C\" void __cdecl sub_004B7770_Previous1(); // 0x004B7770",
-    "extern \"C\" void __cdecl sub_004B77F0_Next1(); // 0x004B77F0",
-    "extern \"C\" void __cdecl sub_004B7870_Previous2(); // 0x004B7870",
-    "extern \"C\" void __cdecl sub_004B78F0_Next2(); // 0x004B78F0",
-    "extern \"C\" void __cdecl sub_004B79D0_DialogEnterMsg(); // 0x004B79D0",
-    "extern \"C\" void __cdecl sub_004B7A90_DialogKeyDownMsg(); // 0x004B7A90"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/dialog_004B7B40.inc",
    "lang": "cpp",
@@ -62457,7 +62444,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
+   "file": "Source/D2Client/UI/dialog.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
@@ -62508,8 +62495,8 @@
     [
      8,
      "0x004B7610",
-     "queue_function",
-     "sub_004B7610",
+     "owner",
+     "sub_004B7610_Wheel",
      0,
      "func"
     ]
@@ -62527,7 +62514,7 @@
    "cname": "gData_007273F0",
    "declared": true,
    "decorated": "?gaMsgHandlers_007273F0@@3PAUD2MsgHandlerEntryStrc@@A",
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
+   "file": "Source/D2Client/UI/dialog.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007273F0_t gData_007273F0; // 0x007273F0",
    "head": "extern \"C\" struct d2data_007273F0_t gData_007273F0 = ",
@@ -62544,7 +62531,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
+   "file": "Source/D2Client/UI/dialog.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnGlobal_007273F4 = ",
@@ -62569,7 +62556,7 @@
    "cname": "gData_007273F8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
+   "file": "Source/D2Client/UI/dialog.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007273F8_t gData_007273F8; // 0x007273F8",
    "head": "extern \"C\" struct d2data_007273F8_t gData_007273F8 = ",
@@ -62578,7 +62565,7 @@
     [
      0,
      "0x004B75D0",
-     "names.json",
+     "owner",
      "sub_004B75D0_OnDialogKey",
      0,
      "func"
@@ -62595,7 +62582,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
+   "file": "Source/D2Client/UI/dialog.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnGlobal_00727400 = ",
@@ -62620,7 +62607,7 @@
    "cname": "gData_00727404",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
+   "file": "Source/D2Client/UI/dialog.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00727404_t gData_00727404; // 0x00727404",
    "head": "extern \"C\" struct d2data_00727404_t gData_00727404 = ",
@@ -62629,7 +62616,7 @@
     [
      0,
      "0x004B75D0",
-     "names.json",
+     "owner",
      "sub_004B75D0_OnDialogKey",
      0,
      "func"
@@ -62637,7 +62624,7 @@
     [
      12,
      "0x004B72E0",
-     "names.json",
+     "owner",
      "sub_004B72E0_OnLButtonUp",
      0,
      "func"
@@ -62645,15 +62632,15 @@
     [
      24,
      "0x004B73E0",
-     "queue_function",
-     "sub_004B73E0",
+     "owner",
+     "sub_004B73E0_OnLButtonDown",
      0,
      "func"
     ],
     [
      36,
      "0x004B72E0",
-     "names.json",
+     "owner",
      "sub_004B72E0_OnLButtonUp",
      0,
      "func"
@@ -62661,15 +62648,15 @@
     [
      48,
      "0x004B73E0",
-     "queue_function",
-     "sub_004B73E0",
+     "owner",
+     "sub_004B73E0_OnLButtonDown",
      0,
      "func"
     ],
     [
      60,
      "0x004B7870",
-     "source",
+     "owner",
      "sub_004B7870_Previous2",
      0,
      "func"
@@ -62677,7 +62664,7 @@
     [
      72,
      "0x004B78F0",
-     "source",
+     "owner",
      "sub_004B78F0_Next2",
      0,
      "func"
@@ -62685,7 +62672,7 @@
     [
      84,
      "0x004B7770",
-     "source",
+     "owner",
      "sub_004B7770_Previous1",
      0,
      "func"
@@ -62693,7 +62680,7 @@
     [
      96,
      "0x004B77F0",
-     "source",
+     "owner",
      "sub_004B77F0_Next1",
      0,
      "func"
@@ -62701,7 +62688,7 @@
     [
      108,
      "0x004B79D0",
-     "names.json",
+     "owner",
      "sub_004B79D0_DialogEnterMsg",
      0,
      "func"
@@ -62709,7 +62696,7 @@
     [
      120,
      "0x004B76D0",
-     "names.json",
+     "source",
      "sub_004B76D0_TimedCallbackMsg",
      0,
      "func"
@@ -62717,7 +62704,7 @@
     [
      132,
      "0x004B7A90",
-     "names.json",
+     "owner",
      "sub_004B7A90_DialogKeyDownMsg",
      0,
      "func"
@@ -62725,7 +62712,7 @@
     [
      144,
      "0x004B7270",
-     "names.json",
+     "owner",
      "sub_004B7270_DialogMouseMotion",
      0,
      "func"

@@ -31781,6 +31781,10 @@
      "name": "?sub_004B75D0_OnDialogKey@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004B7610",
+     "length": 178
+    },
+    {
      "va": "0x004B7770",
      "length": 122
     },
@@ -31797,60 +31801,6 @@
      "length": 124
     },
     {
-     "va": "0x004B7BC0",
-     "length": 58,
-     "name": "?sub_004B7BC0_InitDialog@@YAXPAUD2ClientDialogStrc@@@Z"
-    },
-    {
-     "va": "0x004B7EB0",
-     "length": 356,
-     "name": "sub_004B7EB0_CreateDialog"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/dialog_004B7610.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B7610",
-     "length": 178
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/dialog_004B7970.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x004B7970",
      "length": 83,
      "name": "?sub_004B7970_IsDialogKey@@YAHPAUD2ClientDialogStrc@@H@Z"
@@ -31864,13 +31814,7 @@
      "va": "0x004B7A90",
      "length": 175,
      "name": "?sub_004B7A90_DialogKeyDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004B7B40",
      "length": 11,
@@ -31882,6 +31826,11 @@
      "name": "?sub_004B7B50@@YAXXZ"
     },
     {
+     "va": "0x004B7BC0",
+     "length": 58,
+     "name": "?sub_004B7BC0_InitDialog@@YAXPAUD2ClientDialogStrc@@@Z"
+    },
+    {
      "va": "0x004B7C00",
      "length": 93,
      "name": "?sub_004B7C00_AddWidget@@YIXPAUD2ClientDialogStrc@@PAXHH@Z"
@@ -31890,6 +31839,11 @@
      "va": "0x004B7C60",
      "length": 102,
      "name": "?sub_004B7C60@@YAXXZ"
+    },
+    {
+     "va": "0x004B7EB0",
+     "length": 356,
+     "name": "sub_004B7EB0_CreateDialog"
     },
     {
      "va": "0x004B8020",
