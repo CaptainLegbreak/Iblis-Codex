@@ -8,6 +8,7 @@
 #include "D2TxtTables.h"
 #include "D2Primitives.h"
 #include "D2TxtItems.h"
+#include "D2Txt.h"
 
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 
@@ -169,75 +170,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-struct D2ItemsTxt
-{
-    char unk0x00[128];
-    unsigned int dwCode;
-    unsigned int dwNormCode;
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-    unsigned int dwAlternateGfx;
-    char unk0x94[44];
-    unsigned int dwWeapClass;
-    unsigned int dwWeapClass2Hand;
-    unsigned char unk_C8[0x8];
-    int dwMaxAc;
-    unsigned int dwGambleCost;
-    int dwSpeed;
-    unsigned int dwBitField1;
-    unsigned int dwCost;
-    unsigned int dwMinStack;
-    unsigned int dwMaxStack;
-    unsigned char unk_EC[0x4];
-    int dwGemOffset;
-    unsigned char unk_F4[0x6];
-    unsigned short wMissileType;
-    char unk0xFC[1];
-    unsigned char nLevel;
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-    unsigned char nMinMisDam;
-    unsigned char nMaxMisDam;
-    unsigned char n2HandMinDam;
-    unsigned char n2HandMaxDam;
-    unsigned char nRangeAdder;
-    char unk0x105[1];
-    short nStrBonus;
-    short nDexBonus;
-    unsigned short wReqStr;
-    unsigned short wReqDex;
-    unsigned char unk_10E[0x1];
-    unsigned char nInvWidth;
-    unsigned char nInvHeight;
-    unsigned char unk_111[0x1];
-    unsigned char nDurability;
-    unsigned char nNoDurability;
-    unsigned char unk_114[0x1];
-    unsigned char nComponent;
-    char unk0x116[6];
-    unsigned char n2Handed;
-    unsigned char nUseable;
-    short wType[2];
-    char unk0x122[7];
-    unsigned char nUnique;
-    unsigned char nQuest;
-    char unk0x12B[7];
-    unsigned char nStackable;
-    unsigned char unk_133[0x1];
-    unsigned char nSpellIcon;
-    unsigned char nDurWarning;
-    unsigned char nQuantityWarning;
-    unsigned char nHasInv;
-    unsigned char nGemSockets;
-    char unk0x139[3];
-    unsigned char nHitClass;
-    unsigned char n1or2Handed;
-    unsigned char unk_13E[0x3];
-    unsigned char nTransform;
-    unsigned char nInvTrans;
-    unsigned char unk_143[0x65];
-};
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
@@ -375,16 +307,6 @@ extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 unsigned int __stdcall ITEMS_GetNormalCode(D2UnitStrc* pItem); // 0x006287D0
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
-
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-    unsigned char nSaveBits[2];
-    char pad0x1B[0x01];
-    int dwSaveAdd[2];
-    int dwSaveParamBits[2];
-};
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
@@ -953,9 +875,9 @@ unsigned int __stdcall ITEMS_GetAltGfx(D2UnitStrc* hItem)
 
     const D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(hItem->dwClassId);
     D2_ASSERT(pItemsTxtRecord, 1579);
-    if (pItemsTxtRecord->dwAlternateGfx)
+    if (pItemsTxtRecord->dwAltCode2)
     {
-        return pItemsTxtRecord->dwAlternateGfx;
+        return pItemsTxtRecord->dwAltCode2;
     }
     else
     {
@@ -1228,7 +1150,7 @@ int __stdcall ITEMS_CheckIfUseable(D2UnitStrc* pItem)
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem->dwClassId);
         D2_ASSERT(pItemsTxtRecord, 2500);
 
-        return pItemsTxtRecord->nUseable;
+        return pItemsTxtRecord->bFlag0x11D;
     }
 
     return 0;
@@ -2252,9 +2174,9 @@ int __stdcall sub_M231_Emit_00629370(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 // 0x0062AC80
 static void __stdcall ITEMS_ReadStatFromItemBitstream(D2BitBufferStrc* pBuffer, D2StatListStrc* pStatList, D2ItemStatCostTxt* pItemStatCostTxtRecord, int nStatId, unsigned int dwVersion, int n109)
 {
-    int nParamBits = pItemStatCostTxtRecord->dwSaveParamBits[n109];
-    int nSaveBits = pItemStatCostTxtRecord->nSaveBits[n109];
-    int nSaveAdd = pItemStatCostTxtRecord->dwSaveAdd[n109];
+    int nParamBits = (&pItemStatCostTxtRecord->nSaveParamBits)[n109];
+    int nSaveBits = (&pItemStatCostTxtRecord->nSaveBits)[n109];
+    int nSaveAdd = (&pItemStatCostTxtRecord->dwSaveAdd)[n109];
     int nParam = 0;
 
     switch (nStatId)
