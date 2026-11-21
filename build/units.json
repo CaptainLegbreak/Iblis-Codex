@@ -34181,6 +34181,14 @@
      "length": 417
     },
     {
+     "va": "0x004CF9B0",
+     "length": 707
+    },
+    {
+     "va": "0x004D2610",
+     "length": 334
+    },
+    {
      "va": "0x004D47F0",
      "length": 192
     }
@@ -34397,34 +34405,6 @@
      "va": "0x004D7E00",
      "length": 435
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004CF9B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CF9B0",
-     "length": 707
-    },
-    {
-     "va": "0x004D2610",
-     "length": 334
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
