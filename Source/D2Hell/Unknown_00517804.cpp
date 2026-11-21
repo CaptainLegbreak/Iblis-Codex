@@ -1,4 +1,4 @@
-#include "Bnclient.h"
+#include "D2Hell.h"
 
 #include "D2SysTypes.h"
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
@@ -39,4 +39,4 @@ void __fastcall sub_00517804_GetMessage(unsigned int id,char* dest,unsigned int 
  SStrCopy(dest,gFallback_006DEBCC,size);
 }
 
-#include "gen/data/Source/Bnclient/Unknown_00517804.inc"
+#include "gen/data/Source/D2Hell/Unknown_00517804.inc"

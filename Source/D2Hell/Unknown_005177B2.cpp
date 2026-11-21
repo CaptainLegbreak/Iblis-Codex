@@ -1,4 +1,4 @@
-#include "Bnclient.h"
+#include "D2Hell.h"
 
 #include "D2SysTypes.h"
 

@@ -4,15 +4,11 @@
 #include "D2BnCryptTypes.h"
 #include "D2Win32Base.h"
 
-struct D2CriticalSectionStrc;
 struct D2LangByteRangeStrc;
 struct D2SrpSha1ContextStrc;
 struct Unicode;
 
-Unicode* __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" int __cdecl rand(); // 0x00687461
@@ -20,7 +16,6 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 extern "C" void* __cdecl bsearch(const void* pKey, const void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfCompare)(const void*, const void*)); // 0x006881B1
 extern D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
-extern unsigned short* gpCharMapIndex_00882B2C; // 0x00882B2C
 int __cdecl sub_0051BCF0_SendBuffer(); // 0x0051BCF0
 int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight); // 0x00527AE0
 int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0

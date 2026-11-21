@@ -1,4 +1,4 @@
-#include "D2Win.h"
+#include "D2Hell.h"
 
 struct D2StartupInfoAStrc
 {

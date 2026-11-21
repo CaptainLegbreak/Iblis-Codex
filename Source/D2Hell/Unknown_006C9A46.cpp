@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Hell.h"
 
 const char* __fastcall sub_006C9AFF_FindLastCharacter(const char* text, char character); // 0x006C9AFF
 

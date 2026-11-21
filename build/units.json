@@ -7506,7 +7506,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00421100.cpp",
+   "file": "Source/Storm/Unknown_00421100.cpp",
    "rank": 1,
    "functions": [
     {
@@ -44518,7 +44518,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_00516D8B.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "rank": 0,
    "functions": [
     {
@@ -44567,7 +44567,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_00516E46.cpp",
+   "file": "Source/D2Hell/Unknown_00516E46.cpp",
    "rank": 1,
    "functions": [
     {
@@ -44645,7 +44645,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_00516F14.cpp",
+   "file": "Source/D2Hell/Unknown_00516F14.cpp",
    "rank": 1,
    "functions": [
     {
@@ -45291,7 +45291,7 @@
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_005177B2.cpp",
+   "file": "Source/D2Hell/Unknown_005177B2.cpp",
    "rank": 1,
    "functions": [
     {
@@ -45318,7 +45318,7 @@
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00517804.cpp",
    "rank": 0,
    "functions": [
     {
@@ -48712,7 +48712,7 @@
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_00527A50.cpp",
+   "file": "Source/D2Lang/Unknown_00527A50.cpp",
    "rank": 1,
    "functions": [
     {
@@ -49831,7 +49831,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0052B330.cpp",
+   "file": "Source/D2Net/Unknown_0052B330.cpp",
    "rank": 1,
    "functions": [
     {
@@ -93377,7 +93377,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C9A46.cpp",
+   "file": "Source/D2Hell/Unknown_006C9A46.cpp",
    "rank": 1,
    "functions": [
     {

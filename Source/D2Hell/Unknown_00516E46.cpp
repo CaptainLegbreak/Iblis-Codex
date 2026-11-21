@@ -1,4 +1,4 @@
-#include "D2Win.h"
+#include "D2Hell.h"
 
 typedef unsigned long DWORD;
 extern "C" __declspec(dllimport) DWORD __stdcall GetLastError(void);

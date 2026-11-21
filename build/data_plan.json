@@ -3788,12 +3788,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Bnclient/Unknown_00517804.cpp": {
+  "Source/D2Hell/Unknown_00517804.cpp": {
    "bytes": 140,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Bnclient/Unknown_00517804.inc",
+   "include": "gen/data/Source/D2Hell/Unknown_00517804.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -88459,7 +88459,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Bnclient/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00517804.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2MessageList gMessages_0072FA14 = ",
@@ -88535,7 +88535,7 @@
    "cname": "gData_0072FA20",
    "declared": false,
    "decorated": null,
-   "file": "Source/Bnclient/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00517804.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20; // 0x0072FA20",
    "head": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20 = ",

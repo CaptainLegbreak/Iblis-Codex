@@ -1,4 +1,4 @@
-#include "D2Win.h"
+#include "D2Hell.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60

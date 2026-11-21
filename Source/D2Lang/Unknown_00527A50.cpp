@@ -1,4 +1,14 @@
-#include "Bnclient.h"
+#include "D2Lang.h"
+
+struct Unicode
+{
+    unsigned short wChar;
+
+    operator unsigned short() const
+    {
+        return wChar;
+    }
+};
 
 extern unsigned short gnCharMapCount_00882B20;                                                              // 0x00882B20
 unsigned char gnLeadByteRangeCount_00882B22;                                                                // 0x00882B22

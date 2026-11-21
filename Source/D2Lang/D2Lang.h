@@ -27,3 +27,9 @@ struct D2LangCharMapEntryStrc
 };
 
 typedef unsigned int size_t;
+
+Unicode* __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
+extern "C" void* __cdecl bsearch(const void* pKey, const void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfCompare)(const void*, const void*)); // 0x006881B1
+extern D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
+extern unsigned short* gpCharMapIndex_00882B2C; // 0x00882B2C
+int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight); // 0x00527AE0
