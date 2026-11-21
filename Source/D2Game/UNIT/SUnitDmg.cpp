@@ -424,7 +424,6 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
-
 void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A43A0
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
@@ -556,6 +555,18 @@ int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
 void __fastcall QUESTS_ParseKill(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker); // 0x00543A30
+
+int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int bExpansion); // 0x00622720
+
+int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
+
+void __fastcall sub_005347C0_Stub6(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nChance, int nRand, const char* szText); // 0x005347C0
+
+int __fastcall SUNITDMG_GetWeaponBlock(D2UnitStrc* pUnit); // 0x0057DCA0
+
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
+
+static __declspec(noinline) int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid); // 0x0057DD60
 
 static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
@@ -2759,6 +2770,105 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D
     }
 
     sub_0057CA80_AddCombatRecord(pGame, pAttacker, pDefender, pDamage);
+}
+
+// build: context SUNITDMG_ApplyDodge
+static __declspec(noinline) int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid)
+{
+
+    if (pDefender)
+    {
+        if (pDefender->dwUnitType == 0 && (pDefender->dwAnimMode == 3 || pDefender->dwAnimMode == 2)
+            || pDefender->dwUnitType == 1 && (pDefender->dwAnimMode == 15 || pDefender->dwAnimMode == 2))
+        {
+            const int nEvade = STATLIST_UnitGetStatValue(pDefender, 340, 0);
+            if (nEvade > 0)
+            {
+                const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
+                sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nEvade, nRand, "evades");
+                if (nRand < nEvade)
+                {
+                    return 4;
+                }
+            }
+
+            return 0;
+        }
+    }
+
+    const int nWeaponBlock = SUNITDMG_GetWeaponBlock(pDefender);
+    if (nWeaponBlock > 0)
+    {
+        int nWeaponClassId = 0;
+        COMPOSIT_GetWeaponClassId(pDefender, pDefender->pInventory, &nWeaponClassId, -1, 1);
+        if (nWeaponClassId == 13)
+        {
+            const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
+            sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nWeaponBlock, nRand, "block");
+            if (nRand < nWeaponBlock)
+            {
+                return 5;
+            }
+        }
+    }
+
+    if (bAvoid)
+    {
+        const int nAvoid = STATLIST_UnitGetStatValue(pDefender, 339, 0);
+        if (nAvoid > 0)
+        {
+            const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
+            sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nAvoid, nRand, "avoids");
+            if (nRand < nAvoid)
+            {
+                return 3;
+            }
+        }
+    }
+    else
+    {
+        const int nDodge = STATLIST_UnitGetStatValue(pDefender, 338, 0);
+        if (nDodge > 0)
+        {
+            const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
+            sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nDodge, nRand, "dodges");
+            if (nRand < nDodge)
+            {
+                return 2;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x0057DFB0
+int __fastcall SUNITDMG_ApplyBlockOrDodge(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid, int bBlock)
+{
+    if (!bBlock)
+    {
+        return SUNITDMG_ApplyDodge(pAttacker, pDefender, bAvoid);
+    }
+
+    int nBlockChance = UNITS_GetBlockRate(pDefender, pGame->bExpansion);
+    if (nBlockChance <= 0)
+    {
+        return SUNITDMG_ApplyDodge(pAttacker, pDefender, bAvoid);
+    }
+
+    if (pDefender && pDefender->dwUnitType == 0 && UNITS_IsInMovingMode(pDefender) && pDefender->dwAnimMode != 2)
+    {
+        nBlockChance /= 3;
+    }
+
+    const int nRand = (unsigned int)SEED_RollRandomNumber(&pDefender->pSeed) % 100;
+    sub_005347C0_Stub6(SUNIT_GetGameFromUnit(pAttacker), pAttacker, pDefender, nBlockChance, nRand, "blocks");
+    if (nRand >= nBlockChance)
+    {
+        return SUNITDMG_ApplyDodge(pAttacker, pDefender, bAvoid);
+    }
+
+    return 1;
 }
 
 // 0x0057E240

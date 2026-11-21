@@ -58151,6 +58151,10 @@
      "name": "?SUNITDMG_AllocCombat@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@E@Z"
     },
     {
+     "va": "0x0057DFB0",
+     "length": 222
+    },
+    {
      "va": "0x0057E240",
      "length": 42,
      "name": "SUNITDMG_RollDamage"
@@ -58688,31 +58692,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057DFB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057DFB0",
-     "length": 222
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
