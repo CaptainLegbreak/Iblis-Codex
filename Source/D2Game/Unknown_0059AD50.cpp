@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -24,7 +25,6 @@ enum
     QFLAG_PRIMARYGOALDONE = 13,
     QFLAG_COMPLETEDNOW = 14,
     QFLAG_COMPLETEDBEFORE = 15,
-    MONSTER_DROGNAN = 177,
     A2Q4_ITERATE_DEACTIVATE = 2,
 };
 

@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -44,12 +45,6 @@ struct D2MapAIStrc;
 #define UNIT_ALIGNMENT_GOOD 2
 
 #define UNIT_NUM_ALIGNMENT 3
-
-#define MONSTER_HYDRA1 351
-
-#define MONSTER_HYDRA2 352
-
-#define MONSTER_HYDRA3 353
 
 #define STATE_ALIGNMENT 105
 

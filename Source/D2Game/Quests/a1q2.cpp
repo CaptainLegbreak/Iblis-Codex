@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
@@ -142,11 +143,6 @@ enum D2C_F33QuestConstants
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A5Q6 = 40,
     QFLAG_CUSTOM6 = 10,
-    MONSTER_CHARSI = 154,
-    MONSTER_KASHYA = 150,
-    MONSTER_AKARA = 148,
-    MONSTER_CAIN5 = 265,
-    MONSTER_TYRAEL3 = 521,
     OBJMODE_NEUTRAL = 0,
     OBJMODE_OPERATING = 1,
     OBJMODE_OPENED = 2,

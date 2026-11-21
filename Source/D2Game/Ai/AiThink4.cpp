@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2ItemsWorld.h"
@@ -19,8 +20,6 @@ struct D2GameStrc;
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define MONSTER_DEMONHOLE 711
 
 #define MONMODE_SKILL1 8
 
@@ -232,29 +231,6 @@ enum
 enum
 {
     STATE_BLOODLUST = 141,
-};
-
-enum
-{
-    MONSTER_FALLEN1 = 19,
-    MONSTER_FALLENSHAMAN1 = 58,
-    MONSTER_FETISH1 = 141,
-    MONSTER_ZEALOT1 = 235,
-    MONSTER_CANTOR1 = 238,
-    MONSTER_DOOMKNIGHT1 = 310,
-    MONSTER_FETISHBLOW1 = 396,
-    MONSTER_WAKEOFDESTRUCTION = 410,
-    MONSTER_CHARGEBOLTSENTRY = 411,
-    MONSTER_LIGHTNINGSENTRY = 412,
-    MONSTER_BLADECREEPER = 413,
-    MONSTER_INFERNOSENTRY = 415,
-    MONSTER_DEATHSENTRY = 416,
-    MONSTER_MINION1 = 453,
-    MONSTER_SUICIDEMINION1 = 461,
-    MONSTER_IMP1 = 492,
-    MONSTER_UBERMEPHISTO = 704,
-    MONSTER_UBERDIABLO = 705,
-    MONSTER_UBERBAAL = 709,
 };
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
@@ -763,8 +739,6 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531
 
 void __fastcall sub_0053DFF0(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
 
-#define MONSTER_SUCKERNEST1 334
-
 #define MONMODE_ATTACK2 5
 
 struct Obj00648AD0;
@@ -783,7 +757,6 @@ int __fastcall sub_005FD350_SpawnNearby(int nMonsterId, D2ActiveRoomStrc* pRoom,
 
 enum D2C_F41AiThinkConstants
 {
-    MONSTER_EVILHUT = 528,
 };
 
 struct D2HighPriestAiCallbackArgStrc
@@ -988,12 +961,6 @@ enum D2C_M86FallenShamanAi
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F1380
 
-enum D2C_M69AiConstants
-{
-    MONSTER_CROWNEST1 = 206,
-    MONSTER_SARCOPHAGUS = 228,
-};
-
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove);   // 0x0056DEB0
 
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
@@ -1029,11 +996,6 @@ enum D2C_M236SuccubusWitchAi
 int __fastcall AITACTICS_WalkToTargetCoordinatesNoSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005DEF30
 
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
-
-enum
-{
-    MONSTER_DREHYAICED = 0x20F,
-};
 
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract); // 0x00572DC0
 

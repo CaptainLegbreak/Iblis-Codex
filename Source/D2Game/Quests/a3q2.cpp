@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -13,8 +14,6 @@
 #define QFLAG_STARTED 2
 
 #define QFLAG_CUSTOM3 7
-
-#define MONSTER_CAIN3 245
 
 #define UNIT_OBJECT 2
 

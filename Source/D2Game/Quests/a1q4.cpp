@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Txt.h"
@@ -27,10 +28,6 @@
 #define QFLAG_COMPLETEDNOW 14
 
 #define QFLAG_COMPLETEDBEFORE 15
-
-#define MONSTER_AKARA 148
-
-#define MONSTER_CAIN1 146
 
 #define LINE_ITEM_PICKED 1222
 
@@ -248,8 +245,6 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
 void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00597030
 
-
-#define MONSTER_CAIN5 0x109
 
 #define ITEM_RING 0x206E6972
 

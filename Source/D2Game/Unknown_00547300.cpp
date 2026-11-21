@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -32,15 +33,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 enum
 {
-    MONSTER_SKELETON1 = 0,
-    MONSTER_ZOMBIE1 = 5,
-    MONSTER_MUMMY1 = 96,
-    MONSTER_SK_ARCHER1 = 170,
-    MONSTER_FLYINGSCIMITAR = 234,
-    MONSTER_SKMAGE_POIS1 = 274,
-    MONSTER_SKMAGE_COLD1 = 379,
-    MONSTER_SKMAGE_FIRE1 = 383,
-    MONSTER_SKMAGE_LTNG1 = 387,
     ACT_II = 1,
 };
 

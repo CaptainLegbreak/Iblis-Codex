@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2LevelTxt.h"
 #include "D2Constants.h"
@@ -110,8 +111,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define MONSTER_BONEWALL 344
 
 #define UNITFLAG_NOTC 0x00020000
 

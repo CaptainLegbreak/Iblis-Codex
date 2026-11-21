@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -50,8 +51,6 @@ enum
     QUESTSTATEFLAG_A2Q7 = 30,
     QUESTSTATEFLAG_A2Q8 = 31,
     QFLAG_PRIMARYGOALDONE = 13,
-    MONSTER_ACT2GUARD4 = 0x179,
-    MONSTER_ACT2GUARD5 = 0x17A,
 };
 
 extern "C" const char gszA2Q7SourceFile[];                                                                  // 0x006E20B4

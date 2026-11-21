@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -10,11 +11,6 @@
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define SKILLSFLAGINDEX_AURA 5
-#define MONSTER_ROGUEHIRE 271
-#define MONSTER_ACT2HIRE 338
-#define MONSTER_ACT3HIRE 359
-#define MONSTER_ACT5HIRE1 560
-#define MONSTER_ACT5HIRE2 561
 #define STAT_LEVEL 12
 union D2SeedStrc;
 struct D2MonStatsTxt;

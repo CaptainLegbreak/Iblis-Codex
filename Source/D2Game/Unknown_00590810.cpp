@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
@@ -14,7 +15,6 @@
 #define QFLAG_COMPLETEDBEFORE 15
 #define ACT_III 2
 #define QUESTSTATEFLAG_A1Q2 2
-#define MONSTER_KASHYA 150
 struct Obj00590810;
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;

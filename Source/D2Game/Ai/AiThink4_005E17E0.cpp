@@ -1,8 +1,8 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
@@ -17,7 +17,6 @@ enum D2C_P11AiConstants
     EVENTTYPE_AITHINK = 2,
     STATE_POISON = 2,
     STAT_POISONRESIST = 45,
-    MONSTER_VILEMOTHER1 = 0x12A,
     MONSTATSFLAGINDEX_INTERACT = 9,
     STATE_TERROR = 0x38,
 };

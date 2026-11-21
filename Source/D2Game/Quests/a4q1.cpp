@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -283,8 +284,6 @@ int __stdcall sub_00604BC0_GetTileFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
 unsigned short __stdcall sub_0064CB30_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
 
 struct D2GameStrc;
-
-#define MONSTER_TENTACLEHEAD1 261
 
 #define MONSTATSFLAGINDEX_SETBOSS 4
 

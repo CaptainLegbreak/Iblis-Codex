@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameObjs.h"
@@ -58,12 +59,6 @@
 #define MONTYPEFLAG_OTHER 1
 
 #define ACT_III 2
-
-#define MONSTER_JERHYN 0xC9
-
-#define MONSTER_ACT2GUARD2 0x14B
-
-#define MONSTER_FETISH11 0x197
 
 #define MONSTATSFLAGINDEX_FLYING 14
 
@@ -513,10 +508,6 @@ struct D2QuestDataStrc;
 #define QUEST_A2Q5_SUMMONER 12
 
 #define OBJECT_INVISIBLE_OBJECT 61
-
-#define MONSTER_RADAMENT 229
-
-#define MONSTER_SUMMONER 250
 
 #define MAX_QUEST_STATUS 41
 

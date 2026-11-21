@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -22,8 +23,6 @@
 #define QUEST_A5Q4_NIHLATHAK 34
 
 #define OBJECT_PERMANENT_TOWN_PORTAL 60
-
-#define MONSTER_DREHYA 512
 
 #define EVENTTYPE_MONUMOD 7
 
@@ -212,11 +211,6 @@ enum D2C_F33QuestConstants
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A5Q6 = 40,
     QFLAG_CUSTOM6 = 10,
-    MONSTER_CHARSI = 154,
-    MONSTER_KASHYA = 150,
-    MONSTER_AKARA = 148,
-    MONSTER_CAIN5 = 265,
-    MONSTER_TYRAEL3 = 521,
     EVENTTYPE_ENDANIM = 1,
     EVENTTYPE_QUESTFN = 7,
     STAT_LEVEL = 12,

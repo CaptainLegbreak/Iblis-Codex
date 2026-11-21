@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameObjs.h"
@@ -452,10 +453,6 @@ static unsigned char s_nHitClassCounter_0088CAD0; // 0x0088CAD0
 #define MONSTATSFLAGINDEX_KILLABLE 15
 
 #define MONSTATS2FLAGINDEX_OBJCOL 18
-
-#define MONSTER_BARRICADEDOOR1 432
-
-#define MONSTER_BARRICADEDOOR2 433
 
 struct D2DifficultyLevelsTxt;
 

@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -31,14 +32,6 @@
 #define UNITFLAGEX_TELEPORTED 0x10000
 
 #define UNITFLAG_TARGETABLE 0x00000002
-
-#define MONSTER_TRAP_FIREBOLT 0x146
-
-#define MONSTER_TRAP_POISONCLOUD 0x149
-
-#define MONSTER_TRAP_LIGHTNING 0x14A
-
-#define MONSTER_TRAP_NOVA 0x171
 
 #define ITEMTYPE_GEM 20
 
@@ -618,8 +611,6 @@ struct D2RoomCoordListStrc;
 #define EVENTTYPE_TRAP 4
 
 #define UNITFLAG_TARGETABLE 2
-
-#define MONSTER_FLYINGSCIMITAR 234
 
 #define STAT_LEVEL 12
 

@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -20,8 +21,6 @@
 #define STAT_SECONDARY_MINDAMAGE 23
 
 #define STAT_SECONDARY_MAXDAMAGE 24
-
-#define MONSTER_ROGUEHIRE 271
 
 #define MISSILE_MONSTERCORPSEEXPLODE 117
 
@@ -225,12 +224,6 @@ enum D2C_M187TrapConstants
     STAT_POISONMINDAM = 57,
     STAT_POISONMAXDAM = 58,
     STAT_POISONLENGTH = 59,
-    MONSTER_TRAP_FIREBOLT = 326,
-    MONSTER_TRAP_HORZMISSILE = 327,
-    MONSTER_TRAP_VERTMISSILE = 328,
-    MONSTER_TRAP_POISONCLOUD = 329,
-    MONSTER_TRAP_LIGHTNING = 330,
-    MONSTER_TRAP_NOVA = 369,
 };
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -280,7 +273,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
 struct D2SkillsTxt;
 
 typedef void(__fastcall* CurseCallbackFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel);
-
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {

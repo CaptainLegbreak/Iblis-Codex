@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -67,9 +68,6 @@ enum D2C_M11A2Q4Constants
     QFLAG_CUSTOM3 = 7,
     QFLAG_CUSTOM4 = 8,
     QFLAG_PRIMARYGOALDONE = 13,
-    MONSTER_DROGNAN = 177,
-    MONSTER_JERHYN = 201,
-    MONSTER_ACT2GUARD2 = 331,
     OBJECT_PERMANENT_TOWN_PORTAL = 60,
 };
 

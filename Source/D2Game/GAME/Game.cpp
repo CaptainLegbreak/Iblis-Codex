@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -1146,26 +1147,6 @@ struct D2GSPacketSrv8C;
 
 struct D2GSPacketSrv8E;
 
-enum D2C_MonsterIds
-{
-    MONSTER_GHEED = 147,
-    MONSTER_AKARA = 148,
-    MONSTER_CHARSI = 154,
-    MONSTER_DROGNAN = 177,
-    MONSTER_FARA = 178,
-    MONSTER_ELZIX = 199,
-    MONSTER_LYSANDER = 202,
-    MONSTER_ASHEARA = 252,
-    MONSTER_HRATLI = 253,
-    MONSTER_ALKOR = 254,
-    MONSTER_ORMUS = 255,
-    MONSTER_HALBU = 257,
-    MONSTER_JAMELLA = 405,
-    MONSTER_LARZUK = 511,
-    MONSTER_DREHYA = 512,
-    MONSTER_MALAH = 513,
-    MONSTER_NIHLATHAK = 514,
-};
 
 enum D2C_MonStatsTxtFlagIndices
 {
