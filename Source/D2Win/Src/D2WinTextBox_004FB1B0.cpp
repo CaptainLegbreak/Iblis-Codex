@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2Win32Types.h"
 #include "D2StormTypes.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnMouseY_007D55A8 (gMousePosition_6F8FE234.y)
@@ -13,53 +14,10 @@ struct D2WinControl004FBB30Strc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2WinControlStrc
-{
-    int eType;
-    char unk0x04[0x8C];
-    D2WinControlStrc* pChild;
-};
 
 void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 
-struct D2WinTextBoxStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    void* pfDraw;
-    void* pfInitialize;
-    void* pfHandleMouseDown;
-    void* pfHandleMouseUp;
-    void* pfHandleCharInput;
-    void* pfHandleVirtualKeyInput;
-    int (__stdcall* field_34)(SMSGHANDLER_PARAMS* pMsg);
-    void* pfShouldMouseInputBeHandled;
-    void* pNext;
-    int field_40;
-    int field_44;
-    void* pFirstLine;
-    void* pLastLine;
-    void* pCurrentLine;
-    int nNumLines;
-    int nLine;
-    unsigned int dwTextBoxFlags;
-    int nCurrentLine;
-    int nNumColumns;
-    int unk0x68[10];
-    D2WinScrollBarStrc* pScrollBar;
-    int eFont;
-    int field_98;
-    int field_9C;
-    int field_A0;
-    int field_A4;
-    int field_A8;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -107,9 +65,10 @@ void __fastcall sub_004FBD70_SetControlStateWithChild(D2WinControlStrc* pControl
     sub_004F9740(pControl, bSet);
     D2_ASSERT(pControl, 0x320);
     D2_ASSERT(pControl->eType == 4, 0x321);
-    if (pControl->pChild)
+    D2WinScrollBarStrc* pScrollBar = ((D2WinTextBoxStrc*)pControl)->pScrollBar;
+    if (pScrollBar)
     {
-        sub_004F9740(pControl->pChild, bSet);
+        sub_004F9740((D2WinControlStrc*)pScrollBar, bSet);
     }
 }
 
@@ -172,13 +131,13 @@ static void sub_004FB5A0_SetTextBoxLineGap(int nFont)
 int __fastcall D2Win_10055(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x290);
-    D2_ASSERT(ptTextData->eType == 4, 0x291);
+    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x291);
 
     sub_00502EF0(ptTextData->eFont);
-    const int nHeight = ptTextData->nHeight - 2 * ptTextData->field_44;
+    const int nHeight = ptTextData->controlHeader.nHeight - 2 * ptTextData->unk0x44;
     sub_004FB5A0_SetTextBoxLineGap(ptTextData->eFont);
-    const int nLineHeight = D2Win_10125() + ptTextData->field_A8;
-    return (nHeight - nLineHeight) / (nLineHeight + ptTextData->field_A4) + 1;
+    const int nLineHeight = D2Win_10125() + ptTextData->unk0xA8;
+    return (nHeight - nLineHeight) / (nLineHeight + ptTextData->unk0xA4) + 1;
 }
 
 // 0x004FC2F0
@@ -186,19 +145,19 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinTextBoxStrc* pTextBox = (D2WinTextBoxStrc*)pMsg->hWnd;
     D2_ASSERT(pTextBox, 0x4D0);
-    D2_ASSERT(pTextBox->eType == 4, 0x4D1);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x4D1);
 
-    if (!(pTextBox->dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->dwFlags & gdwBitMasks_006CE268[0]) || pTextBox->nNumLines < 1)
+    if (!(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[0]) || pTextBox->nNumLines < 1)
     {
         return 0;
     }
 
     if (pTextBox->dwTextBoxFlags & 1)
     {
-        const int nY = pTextBox->nHeight - pTextBox->nImageY + gnMouseY_007D55A8;
+        const int nY = pTextBox->controlHeader.nHeight - pTextBox->controlHeader.nImageY + gnMouseY_007D55A8;
         sub_00502EF0(pTextBox->eFont);
         sub_004FB5A0_SetTextBoxLineGap(pTextBox->eFont);
-        pTextBox->nCurrentLine = pTextBox->nLine + (nY - pTextBox->field_44) / (D2Win_10125() + pTextBox->field_A8);
+        pTextBox->nCurrentLine = pTextBox->nLine + (nY - pTextBox->unk0x44) / (D2Win_10125() + pTextBox->unk0xA8);
         if (pTextBox->dwTextBoxFlags & 8)
         {
             pTextBox->nCurrentLine = D2_MIN(D2_MAX(pTextBox->nCurrentLine, 0), pTextBox->nNumLines - 1);
@@ -209,9 +168,9 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
         }
     }
 
-    if (pTextBox->field_34)
+    if (pTextBox->controlHeader.field_34)
     {
-        return pTextBox->field_34(pMsg);
+        return pTextBox->controlHeader.field_34(pMsg);
     }
     return 0;
 }
@@ -253,26 +212,26 @@ D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWid
         dwTextBoxFlags |= 0x20;
     }
 
-    pTextBox->eType = 4;
-    pTextBox->dwFlags |= gdwBitMasks_006CE268[0];
-    pTextBox->dwFlags |= gdwBitMasks_006CE268[2];
-    pTextBox->pCellFile = pCellFile;
-    pTextBox->nImageX = nX;
-    pTextBox->nImageY = nY;
-    pTextBox->nWidth = nWidth;
-    pTextBox->nHeight = nHeight;
+    pTextBox->controlHeader.eType = 4;
+    pTextBox->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
+    pTextBox->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
+    pTextBox->controlHeader.pCellFile = pCellFile;
+    pTextBox->controlHeader.nImageX = nX;
+    pTextBox->controlHeader.nImageY = nY;
+    pTextBox->controlHeader.nWidth = nWidth;
+    pTextBox->controlHeader.nHeight = nHeight;
     pTextBox->dwTextBoxFlags = dwTextBoxFlags;
-    pTextBox->field_40 = nInsetX;
-    pTextBox->field_44 = nInsetY;
-    pTextBox->pfDraw = TEXTBOX_Draw;
-    pTextBox->pfHandleMouseDown = TEXTBOX_HandleMouseDown;
-    pTextBox->pfHandleMouseUp = 0;
-    pTextBox->pfHandleCharInput = 0;
+    pTextBox->unk0x40 = nInsetX;
+    pTextBox->unk0x44 = nInsetY;
+    pTextBox->controlHeader.pfDraw = (D2WinControlFn)TEXTBOX_Draw;
+    pTextBox->controlHeader.pfHandleMouseDown = TEXTBOX_HandleMouseDown;
+    pTextBox->controlHeader.pfHandleMouseUp = 0;
+    pTextBox->controlHeader.pfHandleCharInput = 0;
     const bool bVirtualKey = (dwTextBoxFlags & 1) != 0;
-    pTextBox->pfHandleVirtualKeyInput = bVirtualKey ? TEXTBOX_HandleVirtualKeyInput : 0;
-    pTextBox->field_34 = pfCallback;
+    pTextBox->controlHeader.pfHandleVirtualKeyInput = bVirtualKey ? TEXTBOX_HandleVirtualKeyInput : 0;
+    pTextBox->controlHeader.field_34 = pfCallback;
     pTextBox->nCurrentLine = -1;
-    pTextBox->pNext = 0;
+    pTextBox->controlHeader.pNext = 0;
     pTextBox->pCurrentLine = 0;
     pTextBox->pFirstLine = 0;
     pTextBox->pLastLine = 0;
@@ -283,20 +242,20 @@ D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWid
     if (pFontInfo)
     {
         pTextBox->eFont = pFontInfo[0];
-        pTextBox->field_98 = pFontInfo[1];
+        pTextBox->unk0x98 = pFontInfo[1];
     }
     else
     {
         pTextBox->eFont = 1;
-        pTextBox->field_98 = 0;
+        pTextBox->unk0x98 = 0;
     }
 
     sub_004FB5A0_SetTextBoxLineGap(pTextBox->eFont);
-    pTextBox->field_A8 = gnTextBoxLineGap_0072DE90;
+    pTextBox->unk0xA8 = gnTextBoxLineGap_0072DE90;
 
     if (dwTextBoxFlags & 4)
     {
-        pTextBox->pCellFile = 0;
+        pTextBox->controlHeader.pCellFile = 0;
         int nScrollX;
         if (pScrollBarRect)
         {
