@@ -4177,20 +4177,11 @@
    "state": "included"
   },
   "Source/D2Game/PLAYER/PlrSave.cpp": {
-   "bytes": 84,
-   "definitions": 1,
+   "bytes": 120,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrSave.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/PLAYER/PlrSave_005317B0.cpp": {
-   "bytes": 36,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/PLAYER/PlrSave_005317B0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -94658,7 +94649,7 @@
    "cname": "gData_006E09C4",
    "declared": true,
    "decorated": "_gszSaveOpenError_006E09C4",
-   "file": "Source/D2Game/PLAYER/PlrSave_005317B0.cpp",
+   "file": "Source/D2Game/PLAYER/PlrSave.cpp",
    "fill": 36,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006E09C4[36]; // 0x006E09C4",

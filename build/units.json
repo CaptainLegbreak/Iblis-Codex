@@ -50547,6 +50547,10 @@
      "name": "?PLRSAVE_CreateAndPlaceLegacyCorpseItem@@YGHPAUD2GameStrc@@PAUD2SavedItemStrc@@PAPAUD2UnitStrc@@PAHPAU3@@Z"
     },
     {
+     "va": "0x00531520",
+     "length": 427
+    },
+    {
      "va": "0x005316D0",
      "length": 113,
      "name": "D2GAME_SAVE_SerializeItem_6FC89AD0"
@@ -50555,6 +50559,10 @@
      "va": "0x00531750",
      "length": 82,
      "name": "?sub_00531750_CountInventoryItems@@YAGPAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x005317B0",
+     "length": 1016
     },
     {
      "va": "0x00531BB0",
@@ -50580,6 +50588,19 @@
      "length": 904
     },
     {
+     "va": "0x00532240",
+     "length": 249
+    },
+    {
+     "va": "0x00532340",
+     "length": 181,
+     "name": "?sub_00532340_SaveToClient@@YGXHPAUD2GameStrc@@PAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00532400",
+     "length": 280
+    },
+    {
      "va": "0x00532520",
      "length": 83,
      "name": "?sub_00532520_AttachPlayerToClient@@YGXPAUD2GameStrc@@PAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
@@ -50595,6 +50616,19 @@
      "name": "?PLRSAVE_CreateNewPlayer@@YGHPAUD2GameStrc@@PAUD2ClientStrc@@PAPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00532690",
+     "length": 1354
+    },
+    {
+     "va": "0x00532BE0",
+     "length": 140
+    },
+    {
+     "va": "0x00532C70",
+     "length": 144,
+     "name": "D2GAME_SAVE_ReadWaypointData_6FC8AD50"
+    },
+    {
      "va": "0x00532D00",
      "length": 140,
      "name": "?sub_00532D00_ReadPlayerIntro@@YIHPAUD2UnitStrc@@PBUD2PlrIntroSaveStrc@@HPAH@Z"
@@ -50603,6 +50637,10 @@
      "va": "0x00532D90",
      "length": 9,
      "name": "?sub_00532D90_ClearValue@@YAHPAH@Z"
+    },
+    {
+     "va": "0x00532DA0",
+     "length": 206
     },
     {
      "va": "0x00532F30",
@@ -50623,6 +50661,14 @@
      "name": "?sub_005337F0_ReadItems@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEHHHPAH@Z"
     },
     {
+     "va": "0x00533850",
+     "length": 333
+    },
+    {
+     "va": "0x005339A0",
+     "length": 178
+    },
+    {
      "va": "0x00533A60",
      "length": 13,
      "name": "?sub_00533A60_CalcValue@@YIHHH@Z"
@@ -50636,6 +50682,19 @@
      "va": "0x00533BF0",
      "length": 119,
      "name": "?PLRSAVE_ConvertLegacyHirelingExperience@@YIIPAUD2GameStrc@@GI@Z"
+    },
+    {
+     "va": "0x00533C70",
+     "length": 753
+    },
+    {
+     "va": "0x00533F70",
+     "length": 173,
+     "name": "sub_00533F70_ReadHotkeySection"
+    },
+    {
+     "va": "0x00534020",
+     "length": 770
     },
     {
      "va": "0x005343A0",
@@ -50658,6 +50717,41 @@
      "name": "?D2GAME_SAVE_GetUnitDataFromFile_6FC8CB40@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PBDHPAPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
+     "va": "0x00534630",
+     "length": 24,
+     "name": "D2GAME_10029_SAVE_WriteFileInterface"
+    },
+    {
+     "va": "0x00534650",
+     "length": 45,
+     "name": "sub_00534650_GetServerUnitFromFirstGame"
+    },
+    {
+     "va": "0x00534680",
+     "length": 63,
+     "name": "sub_00534680_GetActFromFirstGame"
+    },
+    {
+     "va": "0x00534730",
+     "length": 86,
+     "name": "sub_00534730_ActLookupInFirstGame"
+    },
+    {
+     "va": "0x005348C0",
+     "length": 165,
+     "name": "PLAYER_Create"
+    },
+    {
+     "va": "0x00534F10",
+     "length": 100,
+     "name": "PLAYER_CreateStartItemsFromCharStatsTxt"
+    },
+    {
+     "va": "0x00534F80",
+     "length": 210,
+     "name": "PLAYER_SynchronizeItemsToClient"
+    },
+    {
      "va": "0x00535060",
      "length": 80,
      "name": "PLAYER_IsBusy"
@@ -50668,9 +50762,24 @@
      "name": "?PLAYER_ResetBusyState@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005350F0",
+     "length": 208,
+     "name": "sub_6FC7BEC0"
+    },
+    {
+     "va": "0x005352C0",
+     "length": 226,
+     "name": "sub_6FC7BFC0"
+    },
+    {
      "va": "0x005353F0",
      "length": 56,
      "name": "?PLAYER_GetUniqueIdFromPlayerData@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00535610",
+     "length": 148,
+     "name": "sub_6FC7C3A0"
     },
     {
      "va": "0x00535B10",
@@ -50693,9 +50802,19 @@
      "name": "?PLAYER_RestoreWeaponStats@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00537340",
+     "length": 569,
+     "name": "SUNITPROXY_UpdateNpcsOnActChange"
+    },
+    {
      "va": "0x00537580",
      "length": 255,
      "name": "SUNITPROXY_OnClientRemovedFromGame"
+    },
+    {
+     "va": "0x00537680",
+     "length": 54,
+     "name": "SUNITPROXY_UpdateGambleInventory"
     },
     {
      "va": "0x00538C60",
@@ -50703,9 +50822,19 @@
      "name": "sub_6FC33F90"
     },
     {
+     "va": "0x00538CE0",
+     "length": 287,
+     "name": "CLIENTS_AttachSaveFile"
+    },
+    {
      "va": "0x0053A420",
      "length": 212,
      "name": "sub_0053A420_RebuildPlayerWithClass"
+    },
+    {
+     "va": "0x0053A770",
+     "length": 169,
+     "name": "LEVEL_RemoveUnitsExceptClientPlayer"
     },
     {
      "va": "0x0053A820",
@@ -50806,211 +50935,6 @@
      "va": "0x005EB7F0",
      "length": 192,
      "name": "sub_005EB7F0_IsStateGroupActive"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_00531520.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00531520",
-     "length": 427
-    },
-    {
-     "va": "0x00532BE0",
-     "length": 140
-    },
-    {
-     "va": "0x00532DA0",
-     "length": 206
-    },
-    {
-     "va": "0x00533850",
-     "length": 333
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_005317B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005317B0",
-     "length": 1016
-    },
-    {
-     "va": "0x00532240",
-     "length": 249
-    },
-    {
-     "va": "0x00532C70",
-     "length": 144,
-     "name": "D2GAME_SAVE_ReadWaypointData_6FC8AD50"
-    },
-    {
-     "va": "0x00533F70",
-     "length": 173,
-     "name": "sub_00533F70_ReadHotkeySection"
-    },
-    {
-     "va": "0x00534630",
-     "length": 24,
-     "name": "D2GAME_10029_SAVE_WriteFileInterface"
-    },
-    {
-     "va": "0x00534650",
-     "length": 45,
-     "name": "sub_00534650_GetServerUnitFromFirstGame"
-    },
-    {
-     "va": "0x00534680",
-     "length": 63,
-     "name": "sub_00534680_GetActFromFirstGame"
-    },
-    {
-     "va": "0x00534730",
-     "length": 86,
-     "name": "sub_00534730_ActLookupInFirstGame"
-    },
-    {
-     "va": "0x005348C0",
-     "length": 165,
-     "name": "PLAYER_Create"
-    },
-    {
-     "va": "0x00534F10",
-     "length": 100,
-     "name": "PLAYER_CreateStartItemsFromCharStatsTxt"
-    },
-    {
-     "va": "0x00534F80",
-     "length": 210,
-     "name": "PLAYER_SynchronizeItemsToClient"
-    },
-    {
-     "va": "0x005350F0",
-     "length": 208,
-     "name": "sub_6FC7BEC0"
-    },
-    {
-     "va": "0x005352C0",
-     "length": 226,
-     "name": "sub_6FC7BFC0"
-    },
-    {
-     "va": "0x00535610",
-     "length": 148,
-     "name": "sub_6FC7C3A0"
-    },
-    {
-     "va": "0x00537340",
-     "length": 569,
-     "name": "SUNITPROXY_UpdateNpcsOnActChange"
-    },
-    {
-     "va": "0x00537680",
-     "length": 54,
-     "name": "SUNITPROXY_UpdateGambleInventory"
-    },
-    {
-     "va": "0x00538CE0",
-     "length": 287,
-     "name": "CLIENTS_AttachSaveFile"
-    },
-    {
-     "va": "0x0053A770",
-     "length": 169,
-     "name": "LEVEL_RemoveUnitsExceptClientPlayer"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_00532340.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00532340",
-     "length": 181,
-     "name": "?sub_00532340_SaveToClient@@YGXHPAUD2GameStrc@@PAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_00532400.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00532400",
-     "length": 280
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_00532690.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00532690",
-     "length": 1354
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_005339A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005339A0",
-     "length": 178
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_00533C70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00533C70",
-     "length": 753
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave_00534020.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00534020",
-     "length": 770
     }
    ]
   },
