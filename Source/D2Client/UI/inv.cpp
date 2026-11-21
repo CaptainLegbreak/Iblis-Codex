@@ -1,4 +1,5 @@
 #include <D2UnitData.h>
+#include "D2DataTbls.h"
 #include "D2StormTypes.h"
 #include "D2ClientTypes.h"
 #include "D2StatIds.h"
@@ -215,15 +216,6 @@ struct D2ItemStatCostTxt
     char unk0x00[0x144];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBCC];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0xBD4 - 0xBD0];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x18];
-    int nPetTypeTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
