@@ -25539,6 +25539,20 @@
     {
      "va": "0x00488F10",
      "length": 322
+    },
+    {
+     "va": "0x0048B680",
+     "length": 305,
+     "name": "?sub_0048B680_MercPanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0048BA50",
+     "length": 389,
+     "name": "?sub_0048BA50_MercPanelHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0048BC10",
+     "length": 361
     }
    ],
    "flags": [
@@ -25759,26 +25773,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_0048B680.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0048B680",
-     "length": 305,
-     "name": "?sub_0048B680_MercPanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0048BA50",
-     "length": 389,
-     "name": "?sub_0048BA50_MercPanelHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0048BC10",
-     "length": 361
-    }
    ]
   },
   {
