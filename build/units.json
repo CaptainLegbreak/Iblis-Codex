@@ -15316,22 +15316,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0044C790.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044C790",
-     "length": 141,
-     "name": "?sub_0044C790_Update@@YAXXZ"
-    },
-    {
-     "va": "0x0044C820",
-     "length": 41,
-     "name": "_sub_0044C820_ConfigureOrDefer"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/Game_0044C990.cpp",
    "rank": 0,
    "functions": [
@@ -15399,6 +15383,93 @@
      "length": 212,
      "name": "?sub_0044EEC0_CheckConnectionTimeouts@@YAXXZ"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Client/GAME/Game_0044D080.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0044C5E0",
+     "length": 179
+    },
+    {
+     "va": "0x0044D080",
+     "length": 24,
+     "name": "?sub_0044D080_PushState@@YAHXZ"
+    },
+    {
+     "va": "0x0044D100",
+     "length": 529,
+     "name": "?sub_0044D100_ShowBetaScreens@@YGHH@Z"
+    },
+    {
+     "va": "0x0044D390",
+     "length": 78,
+     "name": "?sub_0044D390_GetTextX@@YIHGH@Z"
+    },
+    {
+     "va": "0x0044D3E0",
+     "length": 299,
+     "name": "?sub_0044D3E0_DrawOverlayA@@YAXXZ"
+    },
+    {
+     "va": "0x0044D550",
+     "length": 36,
+     "name": "?sub_0044D550_Shutdown@@YAHXZ"
+    },
+    {
+     "va": "0x0044D580",
+     "length": 17,
+     "name": "?sub_0044D580_ApplyConfig219@@YIXPAUD2ConfigStrc@@@Z"
+    },
+    {
+     "va": "0x0044D5A0",
+     "length": 67,
+     "name": "?sub_0044D5A0_ApplyConfigAct@@YIXPAUD2ConfigStrc@@@Z"
+    },
+    {
+     "va": "0x0044D5F0",
+     "length": 96,
+     "name": "?sub_0044D5F0_ApplyConfigGame@@YIXPAUD2ConfigStrc@@@Z"
+    },
+    {
+     "va": "0x0044D650",
+     "length": 45,
+     "name": "?sub_0044D650_ApplyConfigAddr4F@@YIXPAUD2ConfigStrc@@@Z"
+    },
+    {
+     "va": "0x0044D680",
+     "length": 42,
+     "name": "?sub_0044D680_ApplyConfigAddr67@@YIXPAUD2ConfigStrc@@@Z"
+    },
+    {
+     "va": "0x0044D6B0",
+     "length": 113,
+     "name": "?sub_0044D6B0_ApplyConfigClass@@YIXPAUD2ConfigStrc@@@Z"
+    },
+    {
+     "va": "0x0044D890",
+     "length": 101
+    },
+    {
+     "va": "0x0044EFA0",
+     "length": 945
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -15554,6 +15625,16 @@
      "va": "0x0044C750",
      "length": 63,
      "name": "?sub_0044C750_InitRooms@@YAXXZ"
+    },
+    {
+     "va": "0x0044C790",
+     "length": 141,
+     "name": "?sub_0044C790_Update@@YAXXZ"
+    },
+    {
+     "va": "0x0044C820",
+     "length": 41,
+     "name": "_sub_0044C820_ConfigureOrDefer"
     },
     {
      "va": "0x0044C850",
@@ -15740,93 +15821,6 @@
      "length": 44,
      "name": "?sub_004538D0@@YIHI@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Game_0044D080.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044C5E0",
-     "length": 179
-    },
-    {
-     "va": "0x0044D080",
-     "length": 24,
-     "name": "?sub_0044D080_PushState@@YAHXZ"
-    },
-    {
-     "va": "0x0044D100",
-     "length": 529,
-     "name": "?sub_0044D100_ShowBetaScreens@@YGHH@Z"
-    },
-    {
-     "va": "0x0044D390",
-     "length": 78,
-     "name": "?sub_0044D390_GetTextX@@YIHGH@Z"
-    },
-    {
-     "va": "0x0044D3E0",
-     "length": 299,
-     "name": "?sub_0044D3E0_DrawOverlayA@@YAXXZ"
-    },
-    {
-     "va": "0x0044D550",
-     "length": 36,
-     "name": "?sub_0044D550_Shutdown@@YAHXZ"
-    },
-    {
-     "va": "0x0044D580",
-     "length": 17,
-     "name": "?sub_0044D580_ApplyConfig219@@YIXPAUD2ConfigStrc@@@Z"
-    },
-    {
-     "va": "0x0044D5A0",
-     "length": 67,
-     "name": "?sub_0044D5A0_ApplyConfigAct@@YIXPAUD2ConfigStrc@@@Z"
-    },
-    {
-     "va": "0x0044D5F0",
-     "length": 96,
-     "name": "?sub_0044D5F0_ApplyConfigGame@@YIXPAUD2ConfigStrc@@@Z"
-    },
-    {
-     "va": "0x0044D650",
-     "length": 45,
-     "name": "?sub_0044D650_ApplyConfigAddr4F@@YIXPAUD2ConfigStrc@@@Z"
-    },
-    {
-     "va": "0x0044D680",
-     "length": 42,
-     "name": "?sub_0044D680_ApplyConfigAddr67@@YIXPAUD2ConfigStrc@@@Z"
-    },
-    {
-     "va": "0x0044D6B0",
-     "length": 113,
-     "name": "?sub_0044D6B0_ApplyConfigClass@@YIXPAUD2ConfigStrc@@@Z"
-    },
-    {
-     "va": "0x0044D890",
-     "length": 101
-    },
-    {
-     "va": "0x0044EFA0",
-     "length": 945
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
