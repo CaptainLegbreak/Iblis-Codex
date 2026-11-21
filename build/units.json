@@ -36333,6 +36333,26 @@
      "va": "0x004ED530",
      "length": 53,
      "name": "?sub_004ED530_HasOnlyBonusLevels@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004ED570",
+     "length": 1189
+    },
+    {
+     "va": "0x004F1A30",
+     "length": 586
+    },
+    {
+     "va": "0x004F21B0",
+     "length": 171
+    },
+    {
+     "va": "0x004F28A0",
+     "length": 321
+    },
+    {
+     "va": "0x004F2BE0",
+     "length": 494
     }
    ],
    "flags": [
@@ -36505,46 +36525,6 @@
     {
      "va": "0x004EC280",
      "length": 90
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004ED570",
-     "length": 1189
-    },
-    {
-     "va": "0x004F1A30",
-     "length": 586
-    },
-    {
-     "va": "0x004F21B0",
-     "length": 171
-    },
-    {
-     "va": "0x004F28A0",
-     "length": 321
-    },
-    {
-     "va": "0x004F2BE0",
-     "length": 494
     }
    ],
    "flags": [
