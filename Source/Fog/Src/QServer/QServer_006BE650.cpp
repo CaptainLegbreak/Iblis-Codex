@@ -15,7 +15,6 @@ struct D2QTable006BF1F0Strc;
 struct D2MaskKeyStrc;
 struct D2MaskPairStrc;
 struct D2MaskPairListStrc;
-struct D2ServerClientStrc;
 
 extern "C" int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x0040B3C0
 void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...); // 0x006BE300
@@ -145,16 +144,7 @@ struct D2MaskPairListStrc
     int __thiscall sub_006BF660_HasMaskedKey(unsigned int nMask);
 };
 
-struct D2ServerClientStrc
-{
-    char unk0x00[0x18];
-    unsigned int f_18;
-    char unk0x1C[0x08];
-    unsigned long f_24;
-    unsigned int nPending;
-    D2CriticalSectionStrc lock;
-};
-static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient);
+static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2QClientStrc* pClient);
 
 // 0x006BE650
 static void sub_006BE650_FreeClient(D2QClient006BE650Strc* ptClient)
@@ -385,22 +375,22 @@ int __thiscall D2MaskPairListStrc::sub_006BF660_HasMaskedKey(unsigned int nMask)
 #include "gen/data/Source/Fog/Src/QServer/QServer_006BE650.inc"
 
 // 0x006C00A0
-static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient)
+static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2QClientStrc* pClient)
 {
     const unsigned long dwTick = GetTickCount();
-    D2CriticalSectionStrc* pLock = &pClient->lock;
+    D2CriticalSectionStrc* pLock = &pClient->tLock;
     EnterCriticalSection(pLock);
     pClient->nPending += nBytes;
     LeaveCriticalSection(pLock);
     if (pClient->nPending > 1000)
     {
-        return pTable->sub_006BF660_CheckAddress(pClient->f_18) != 0;
+        return pTable->sub_006BF660_CheckAddress(pClient->nAddress) != 0;
     }
 
-    if (dwTick - pClient->f_24 > 1000)
+    if (dwTick - pClient->nTick24 > 1000)
     {
         EnterCriticalSection(pLock);
-        pClient->f_24 = dwTick;
+        pClient->nTick24 = dwTick;
         if (pClient->nPending >= 200)
         {
             pClient->nPending -= 200;
@@ -416,12 +406,12 @@ static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsi
     return 1;
 }
 
-unsigned int __stdcall sub_E4F1_Emit_006C00A0(D2QueueServerStrc* pTable, D2ServerClientStrc* pClient, unsigned int nBytes)
+unsigned int __stdcall sub_E4F1_Emit_006C00A0(D2QueueServerStrc* pTable, D2QClientStrc* pClient, unsigned int nBytes)
 {
     if (sub_006C00A0_AccountTraffic(pTable, nBytes, pClient))
     {
         return 0;
     }
 
-    return pClient->f_18;
+    return pClient->nAddress;
 }

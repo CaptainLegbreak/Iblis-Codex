@@ -1,12 +1,6 @@
 #include "D2SysTypes.h"
 #include "D2QServer.h"
-struct D2ClientNodeStrc { int client; D2ClientNodeStrc* next; unsigned char pad[0x10]; unsigned int address; };
 struct D2MessageStrc { int client; unsigned char data[0x5B0]; int size; unsigned long tick; D2MessageStrc* next; };
-struct D2ServerClientStrc {
-    int client; unsigned char pad4[0x14]; unsigned int address; unsigned char pad1C[4]; int context;
-    unsigned long lastTick; unsigned int nPending; D2CriticalSectionStrc lock;
-    unsigned char pad44[0xA8-0x44]; int readBytes; unsigned int padAC; unsigned char buffer[0x5B4];
-};
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
@@ -24,21 +18,21 @@ extern const char gszAssert_006CC837[]; // 0x006CC837
 extern const char gszFile_006FC460[]; // 0x006FC460
 extern const char gszHack_006FC4A8[]; // 0x006FC4A8
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszAssert_006CC837, sub_00408090(), line); exit(-1); }
-static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc*, unsigned int, D2ServerClientStrc*);
-static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc*, unsigned int, D2ServerClientStrc*); // 0x006C00A0
+static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc*, unsigned int, D2QClientStrc*);
+static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc*, unsigned int, D2QClientStrc*); // 0x006C00A0
 // 0x006C00A0
-static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient)
+static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2QClientStrc* pClient)
 {
     const unsigned long dwTick = GetTickCount();
-    D2CriticalSectionStrc* pLock = &pClient->lock;
+    D2CriticalSectionStrc* pLock = &pClient->tLock;
     EnterCriticalSection(pLock);
     pClient->nPending += nBytes;
     LeaveCriticalSection(pLock);
     if (pClient->nPending > 1000)
-        return pTable->sub_006BF660_CheckAddress(pClient->address) != 0;
-    if (dwTick - pClient->lastTick > 1000) {
+        return pTable->sub_006BF660_CheckAddress(pClient->nAddress) != 0;
+    if (dwTick - pClient->nTick24 > 1000) {
         EnterCriticalSection(pLock);
-        pClient->lastTick = dwTick;
+        pClient->nTick24 = dwTick;
         if (pClient->nPending >= 200) pClient->nPending -= 200;
         else pClient->nPending = 0;
         LeaveCriticalSection(pLock);
@@ -53,37 +47,37 @@ static void __stdcall sub_006C0770_BanClient(D2QueueServerStrc* table, int clien
     if (!table->bEnabled) return;
     unsigned int bucket = table->nMask & client;
     EnterCriticalSection(&table->pLocks[bucket]);
-    D2ClientNodeStrc* node = table->ppNodes[bucket];
+    D2QClientStrc* node = table->ppClients[bucket];
     unsigned int address = 0;
     while (node) {
-        if (node->client == client) { address = node->address; break; }
-        node = node->next;
+        if (node->iId == client) { address = node->nAddress; break; }
+        node = node->pNext;
     }
     LeaveCriticalSection(&table->pLocks[bucket]);
     sub_006C0420_CloseClient(table, client, file, line);
     if (address) sub_006BFEA0_RecordAddress(table, file, address, line);
 }
 // 0x006C08A0
-void __fastcall sub_006C08A0_Dispatch(D2QueueServerStrc* server, D2ServerClientStrc* client)
+void __fastcall sub_006C08A0_Dispatch(D2QueueServerStrc* server, D2QClientStrc* client)
 {
     int start = 0, consumed = 0, queue = 0, charge = 0;
     while (server->pfnProcess) {
-        EnterCriticalSection(&client->lock);
-        int count = client->readBytes;
-        LeaveCriticalSection(&client->lock);
-        int result = server->pfnProcess(client->buffer, count, &consumed, &start, &queue, &charge, client->client, client->context, client->address);
+        EnterCriticalSection(&client->tLock);
+        int count = client->iReadBytes;
+        LeaveCriticalSection(&client->tLock);
+        int result = server->pfnProcess(client->pBuffer, count, &consumed, &start, &queue, &charge, client->iId, client->nContext, client->nAddress);
         switch (result) {
         case 2:
             if (server->bEnabled && !sub_006C00A0_AccountTraffic(server, charge, client)) {
-                sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", inet_ntoa(client->address));
-                sub_006C0770_BanClient(server, client->client, gszFile_006FC460, 0x649);
+                sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to sQSSpamCheck in QSrvProcessMsg", inet_ntoa(client->nAddress));
+                sub_006C0770_BanClient(server, client->iId, gszFile_006FC460, 0x649);
                 return;
             }
             break;
         case 3: return;
         case 4:
-            sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", inet_ntoa(client->address));
-            sub_006C0770_BanClient(server, client->client, gszFile_006FC460, 0x635);
+            sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  User at %s banned due to PACKET_INVALID in QSrvProcessMsg", inet_ntoa(client->nAddress));
+            sub_006C0770_BanClient(server, client->iId, gszFile_006FC460, 0x635);
             return;
         }
         if (result != 5) {
@@ -97,14 +91,14 @@ void __fastcall sub_006C08A0_Dispatch(D2QueueServerStrc* server, D2ServerClientS
             } else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x66D, 0);
             int size = consumed - start;
             if (size > 0) {
-                EnterCriticalSection(&client->lock);
-                memcpy(message->data, client->buffer + start, size);
-                LeaveCriticalSection(&client->lock);
+                EnterCriticalSection(&client->tLock);
+                memcpy(message->data, client->pBuffer + start, size);
+                LeaveCriticalSection(&client->tLock);
             } else *(unsigned char*)message = 0;
             message->size = size;
             message->tick = GetTickCount();
             message->next = 0;
-            message->client = client->client;
+            message->client = client->iId;
             D2_ASSERT(queue < server->nQueueCount, 0x6A1);
             EnterCriticalSection(&server->tLock);
             D2MessageStrc* tail = server->ppMsgTails[queue];
@@ -113,11 +107,11 @@ void __fastcall sub_006C08A0_Dispatch(D2QueueServerStrc* server, D2ServerClientS
             server->ppMsgTails[queue] = message;
             LeaveCriticalSection(&server->tLock);
         }
-        EnterCriticalSection(&client->lock);
-        client->readBytes -= consumed;
-        D2_ASSERT(client->readBytes + consumed <= 0x5B4, 0x6AD);
-        memmove(client->buffer, client->buffer + consumed, client->readBytes);
-        LeaveCriticalSection(&client->lock);
+        EnterCriticalSection(&client->tLock);
+        client->iReadBytes -= consumed;
+        D2_ASSERT(client->iReadBytes + consumed <= 0x5B4, 0x6AD);
+        memmove(client->pBuffer, client->pBuffer + consumed, client->iReadBytes);
+        LeaveCriticalSection(&client->tLock);
         start = 0; consumed = 0; queue = 0; charge = 0;
     }
 }

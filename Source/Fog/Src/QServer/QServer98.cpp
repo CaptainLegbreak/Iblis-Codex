@@ -3,15 +3,9 @@
 
 struct D2QAddressArg;
 struct D2CriticalSectionStrc;
-struct D2SocketNodeStrc;
 struct D2SocketSetStrc;
 struct D2TimevalStrc;
 struct D2SocketAddressStrc;
-
-struct D2QClientStrc
-{
-    unsigned int nId;
-};
 
 typedef void (__fastcall* D2QAcceptCallback)(T006BE350* pServer, unsigned int nId, const char* szFile, int nLine);
 
@@ -32,16 +26,10 @@ static __declspec(noinline) void __stdcall sub_006C3440_AddClient(T006BE350* pSe
 
 #include "D2SysTypes.h"
 
-struct D2SocketNodeStrc {
-    int id; D2SocketNodeStrc* next; int unknown8[2]; int socket;
-    char unknown14[0x18]; D2CriticalSectionStrc lock; char unknown44[0x64];
-    unsigned int received; int unknownAC; char data[0x5b4];
-};
-
 
 struct D2SocketSetStrc { unsigned int count; int sockets[64]; };
 
-struct D2TimevalStrc { int seconds; int micros; };
+
 
 struct D2SocketAddressStrc { unsigned int familyPort; unsigned int address; unsigned int rest[2]; };
 
@@ -52,16 +40,16 @@ extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitThread(
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void*);
 extern unsigned int __security_cookie; // 0x00749DE0
 void __fastcall sub_006BE700_UpdateServer(D2QueueServerStrc*); // 0x006BE700
-void __fastcall sub_006BE640_AddReference(D2QueueServerStrc*,D2SocketNodeStrc*); // 0x006BE640
-void __fastcall sub_006C0360_ReleaseReference(D2QueueServerStrc*,D2SocketNodeStrc*); // 0x006C0360
-D2SocketNodeStrc* __fastcall sub_006BE5B0_FindSocket(D2QueueServerStrc*,int); // 0x006BE5B0
+void __fastcall sub_006BE640_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
+void __fastcall sub_006C0360_ReleaseReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006C0360
+D2QClientStrc* __fastcall sub_006BE5B0_FindSocket(D2QueueServerStrc*,int); // 0x006BE5B0
 int __fastcall sub_006BE9F0_CheckRecordThreshold(D2QueueServerStrc*,unsigned int*); // 0x006BE9F0
 int __fastcall sub_006C0800_BanByAddress(D2QueueServerStrc*,unsigned int*,const char*,int); // 0x006C0800
 int __fastcall sub_006BFFA0_CheckAddress(D2QueueServerStrc*,unsigned int*); // 0x006BFFA0
 void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc*,const char*,unsigned int,int); // 0x006BFEA0
-D2SocketNodeStrc* __fastcall sub_006BFB70_AddSocket(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
+D2QClientStrc* __fastcall sub_006BFB70_AddSocket(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*,int,const char*,int); // 0x006C0420
-void __fastcall sub_006C08A0_ProcessReceived(D2QueueServerStrc*,D2SocketNodeStrc*); // 0x006C08A0
+void __fastcall sub_006C08A0_ProcessReceived(D2QueueServerStrc*,D2QClientStrc*); // 0x006C08A0
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 void __fastcall sub_00407F90_ThreadHookNop1(unsigned int nId); // 0x00407F90
 int __stdcall sub_006B0186_Select(int,D2SocketSetStrc*,void*,D2SocketSetStrc*,D2TimevalStrc*); // 0x006B0186
@@ -98,7 +86,7 @@ void __fastcall sub_Emit_006C3440(T006BE350* pServer, unsigned int s, unsigned i
 // 0x006C3470
 void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
 {
-    D2SocketNodeStrc* nodes[64];
+    D2QClientStrc* nodes[64];
     D2SocketSetStrc readSet, errorSet;
     D2TimevalStrc timeout;
     int addressLength;
@@ -110,8 +98,8 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
         sub_006BE700_UpdateServer(server);
         EnterCriticalSection(&server->tLock);
         readSet.count = 0; errorSet.count = 0;
-        D2SocketNodeStrc* node = server->ppSockets[bucket];
-        while (node && skip--) node = node->next;
+        D2QClientStrc* node = server->ppClients[bucket];
+        while (node && skip--) node = node->pNext;
         for (int i=0; i<64; ++i)
         {
             if(i>=server->nClients) break;
@@ -119,40 +107,40 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
             {
                 skip=0;
                 do {
-                    node=server->ppSockets[bucket];
+                    node=server->ppClients[bucket];
                     if (++bucket==server->nBucketCount) bucket=0;
                 } while (!node);
             }
-            D2CriticalSectionStrc* lock=&node->lock;
+            D2CriticalSectionStrc* lock=&node->tLock;
             EnterCriticalSection(lock);
-            if (node->socket != -1)
+            if (node->iSocket != -1)
             {
                 sub_006BE640_AddReference(server,node);
                 nodes[count++]=node;
-                if(readSet.count<64) readSet.sockets[readSet.count++]=node->socket;
-                if(errorSet.count<64) errorSet.sockets[errorSet.count++]=node->socket;
+                if(readSet.count<64) readSet.sockets[readSet.count++]=node->iSocket;
+                if(errorSet.count<64) errorSet.sockets[errorSet.count++]=node->iSocket;
                 ++skip;
             }
-            node=node->next;
+            node=node->pNext;
             LeaveCriticalSection(lock);
         }
-        timeout.seconds=0; timeout.micros=100000/(server->nClients/64+1);
+        timeout.tv_sec=0; timeout.tv_usec=100000/(server->nClients/64+1);
         LeaveCriticalSection(&server->tLock);
         for(int j=0;j<count;++j)
         {
             node=nodes[j];
-            EnterCriticalSection(&node->lock);
-            if(node->socket==-1)
+            EnterCriticalSection(&node->tLock);
+            if(node->iSocket==-1)
             {
                 unsigned int k;
                 for(k=0;k<readSet.count;++k) {
-                    if(readSet.sockets[k]==node->socket) {
+                    if(readSet.sockets[k]==node->iSocket) {
                         for(;k<readSet.count-1;++k) readSet.sockets[k]=readSet.sockets[k+1];
                         --readSet.count; break;
                     }
                 }
                 for(k=0;k<errorSet.count;++k) {
-                    if(errorSet.sockets[k]==node->socket) {
+                    if(errorSet.sockets[k]==node->iSocket) {
                         for(;k<errorSet.count-1;++k) errorSet.sockets[k]=errorSet.sockets[k+1];
                         --errorSet.count; break;
                     }
@@ -165,7 +153,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
         }
         int selected=sub_006B0186_Select(64,&readSet,0,&errorSet,&timeout);
         for(int j=0;j<count;++j) {
-            node=nodes[j]; LeaveCriticalSection(&node->lock);
+            node=nodes[j]; LeaveCriticalSection(&node->tLock);
             sub_006C0360_ReleaseReference(server,node);
         }
         if(!selected) {
@@ -178,7 +166,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
         if(selected==-1) continue;
         for(int j=-1;j<count;++j)
         {
-            int socket=j==-1 ? server->nListener : nodes[j]->socket;
+            int socket=j==-1 ? server->nListener : nodes[j]->iSocket;
             if(sub_006B0180_IsSocketSet(socket,&errorSet) || !sub_006B0180_IsSocketSet(socket,&readSet)) continue;
             if(socket==server->nListener)
             {
@@ -217,7 +205,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                     }
                     else {
                         node=sub_006BFB70_AddSocket(server,accepted,buffers.address.address);
-                        if(server->pfnOnNewClient) server->pfnOnNewClient(server,node->id,gszSource_006FCB1C,0x91);
+                        if(server->pfnOnNewClient) server->pfnOnNewClient(server,node->iId,gszSource_006FCB1C,0x91);
                     }
                     LeaveCriticalSection(&server->tLock);
                     bDone=1;
@@ -227,18 +215,18 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                 EnterCriticalSection(&server->tLock);
                 node=sub_006BE5B0_FindSocket(server,socket);
                 if(node) {
-                    EnterCriticalSection(&node->lock);
+                    EnterCriticalSection(&node->tLock);
                     int received=0;
-                    if(node->received<=0x5b4) received=sub_006B0174_Receive(socket,node->data+node->received,0x5b4-node->received,0);
-                    LeaveCriticalSection(&node->lock);
+                    if(node->nReadBytes<=0x5b4) received=sub_006B0174_Receive(socket,(char*)node->pBuffer+node->nReadBytes,0x5b4-node->nReadBytes,0);
+                    LeaveCriticalSection(&node->tLock);
                     if(received!=-1) {
                         if(received) {
-                            EnterCriticalSection(&node->lock); node->received+=received; LeaveCriticalSection(&node->lock);
+                            EnterCriticalSection(&node->tLock); node->nReadBytes+=received; LeaveCriticalSection(&node->tLock);
                             sub_006C08A0_ProcessReceived(server,node); SetEvent(server->hEvent);
                         }
-                        else sub_006C0420_CloseClient(server,node->id,gszSource_006FCB1C,0x192);
+                        else sub_006C0420_CloseClient(server,node->iId,gszSource_006FCB1C,0x192);
                     }
-                    else sub_006C0420_CloseClient(server,node->id,gszSource_006FCB1C,0x192);
+                    else sub_006C0420_CloseClient(server,node->iId,gszSource_006FCB1C,0x192);
                 }
                 else sub_006B0174_Receive(socket,buffers.discard,0x5b4,0);
                 LeaveCriticalSection(&server->tLock);

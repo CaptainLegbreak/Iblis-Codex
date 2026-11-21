@@ -26,7 +26,6 @@ struct D2HashNode006BEC00Strc;
 struct D2HashTable006BEC00Strc;
 struct D2HashNodeStrc;
 struct D2HashTableStrc;
-struct D2SocketNodeStrc;
 struct D2SocketTableStrc;
 struct D2HashNode006BEF40Strc;
 struct D2HashTable006BEF40Strc;
@@ -41,8 +40,6 @@ struct D2QServerConfigStrc;
 struct D2AddressRecordStrc;
 struct D2ConnectionNodeStrc;
 struct D2ConnectionTableStrc;
-struct D2ClientNodeStrc;
-struct D2SrvClientStrc;
 
 extern int gdwGlobal_00970E50; // 0x00970E50
 extern char gData_007C90C8[]; // 0x007C90C8
@@ -206,20 +203,12 @@ struct D2HashTableStrc
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc); // 0x006B013E
 unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 
-struct D2SocketNodeStrc
-{
-    void* key;
-    D2SocketNodeStrc* next;
-    unsigned int reserved08[2];
-    unsigned int socket;
-};
-
 struct D2SocketTableStrc
 {
     unsigned int reserved00[3];
     unsigned int mask;
     unsigned int reserved10;
-    D2SocketNodeStrc** buckets;
+    D2QClientStrc** buckets;
     unsigned int reserved18;
     D2CriticalSectionStrc* locks;
 };
@@ -377,21 +366,11 @@ struct D2ConnectionTableStrc
 void __fastcall QSrvCloseRemoteConnection(D2ConnectionTableStrc* pTable, int nClient, const char* pFile, int nLine); // 0x006C0420
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
-struct D2ClientNodeStrc { int client; D2ClientNodeStrc* next; unsigned char pad[0x10]; unsigned int address; };
-
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, const char* file, int line); // 0x006C0420
 void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
 
-struct D2SrvClientStrc
-{
-    int unk0x00;
-    D2SrvClientStrc* pNext;
-    int unk0x08;
-    int bClosed;
-};
-
-int __fastcall sub_006C2C70(D2QueueServerStrc* pServer, D2SrvClientStrc* pClient, char* pData, int nSize); // 0x006C2C70
-int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2SrvClientStrc* pClient, char* pData, int nSize); // 0x006C3410
+int __fastcall sub_006C2C70(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C2C70
+int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C3410
 
 // 0x006B1C00
 int __cdecl sub_006B1C00()
@@ -697,19 +676,19 @@ unsigned int __stdcall sub_006BEE90_GetPeerAddress(D2SocketTableStrc* table, voi
 {
     const unsigned int index = table->mask & (unsigned int)key;
     EnterCriticalSection(&table->locks[index]);
-    D2SocketNodeStrc* node = table->buckets[index];
+    D2QClientStrc* node = table->buckets[index];
     while (node)
     {
-        if (node->key == key)
+        if (node->pKey == key)
         {
-            const unsigned int socket = node->socket;
+            const unsigned int socket = node->nSocket;
             LeaveCriticalSection(&table->locks[index]);
             char address[16];
             int length = sizeof(address);
             getpeername(socket, address, &length);
             return *(unsigned int*)(address + 4);
         }
-        node = node->next;
+        node = node->pNext;
     }
     LeaveCriticalSection(&table->locks[index]);
     return 0;
@@ -902,16 +881,16 @@ void __stdcall sub_006C0770_BanClient(D2QueueServerStrc* table, int client, cons
         return;
     unsigned int bucket = table->nMask & client;
     EnterCriticalSection(&table->pLocks[bucket]);
-    D2ClientNodeStrc* node = table->ppNodes[bucket];
+    D2QClientStrc* node = table->ppClients[bucket];
     unsigned int address = 0;
     while (node)
     {
-        if (node->client == client)
+        if (node->iId == client)
         {
-            address = node->address;
+            address = node->nAddress;
             break;
         }
-        node = node->next;
+        node = node->pNext;
     }
     LeaveCriticalSection(&table->pLocks[bucket]);
     sub_006C0420_CloseClient(table, client, file, line);
@@ -930,7 +909,7 @@ int __stdcall sub_006BFAD0_BroadcastToAllClients(D2QueueServerStrc* pServer, cha
     for (unsigned int i = 0; i < pServer->nBuckets; ++i)
     {
         EnterCriticalSection(&pServer->pLocks[i]);
-        D2SrvClientStrc* pClient = pServer->ppBuckets[i];
+        D2QClientStrc* pClient = pServer->ppClients[i];
         do
         {
             if (!pClient)
@@ -938,7 +917,7 @@ int __stdcall sub_006BFAD0_BroadcastToAllClients(D2QueueServerStrc* pServer, cha
                 break;
             }
 
-            if (!pClient->bClosed)
+            if (!pClient->bClosing)
             {
                 if (pServer->bAltSend)
                 {

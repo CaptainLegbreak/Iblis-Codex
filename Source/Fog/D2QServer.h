@@ -1,13 +1,11 @@
 #pragma once
-// Fog queue server (QServer*.cpp): the server record. The client, node and lock records it points to are still
-// private to the units.
+// Fog queue server (QServer*.cpp): the server and client records.
 
 #include "D2SysTypes.h"
+#include "D2NetTypes.h"
+#include "Fog.h"
 
 struct D2QueueServerStrc;
-struct D2SrvClientStrc;
-struct D2ClientNodeStrc;
-struct D2SocketNodeStrc;
 struct D2QClientStrc;
 struct D2QLockStrc;
 struct D2QServerIpNodeStrc;
@@ -16,11 +14,103 @@ struct D2QServerNodeStrc;
 struct D2MessageStrc;
 struct D2AddressRecordStrc;
 struct D2ServerNode006BE980Strc;
+struct D2QWriteNodeStrc;
+struct D2QNodeStrc;
 
 typedef void (__fastcall* D2AddressCallback)(unsigned int, const char*, int);
 typedef int (__fastcall* D2MessageCallback)(unsigned char*, int, int*, int*, int*, int*, int, int, unsigned int);
 typedef void (__fastcall* D2NewClientFn)(D2QueueServerStrc*, int, const char*, int);
 typedef void (__fastcall* D2QRemoveCallback)(D2QueueServerStrc* pServer, int nClientId, const char* szFile, int nLine);
+
+struct D2QClientStrc
+{
+    union
+    {
+        unsigned int nId;                                   // 0x000
+        int iId;
+        void* pKey;
+    };
+    union
+    {
+        D2QClientStrc* pNext;                               // 0x004
+        int f_4;
+    };
+    long nRefCount;                                         // 0x008
+    int bClosing;                                           // 0x00C
+    union
+    {
+        void* hSocket;                                      // 0x010
+        unsigned int nSocket;
+        int iSocket;
+    };
+    int nSlot;                                              // 0x014
+    unsigned int nAddress;                                  // 0x018
+    D2QClientStrc* pNextByAddress;                          // 0x01C
+    int nContext;                                           // 0x020
+    union
+    {
+        unsigned long nTick24;                              // 0x024
+        int nPending24;
+    };
+    union
+    {
+        unsigned int nPending;                              // 0x028
+        int nQueued;
+    };
+    union
+    {
+        struct
+        {
+            D2CriticalSectionStrc tLock;                    // 0x02C
+            union
+            {
+                D2QOverlappedStrc tRead;                    // 0x044
+                struct
+                {
+                    int unk0x044[5];
+                    int bEnabled;                           // 0x058
+                };
+            };
+            union
+            {
+                D2QOverlappedStrc tWrite;                   // 0x05C
+                struct
+                {
+                    int unk0x05C[5];
+                    int nState;                             // 0x070
+                };
+            };
+        };
+        char cs[0x48];                                      // 0x02C
+    };
+    union
+    {
+        D2QWriteNodeStrc* pWriteQueue;                      // 0x074
+        D2QNodeStrc* pNodes;
+        int nValue74;
+    };
+    D2SockAddrInStrc tLocalAddr;                            // 0x078
+    D2SockAddrInStrc tPeerAddr;                             // 0x088
+    unsigned int nCreateTime;                               // 0x098
+    unsigned int nLastTick;                                 // 0x09C
+    unsigned int nTick3;                                    // 0x0A0
+    unsigned int nTick4;                                    // 0x0A4
+    union
+    {
+        unsigned int nReadBytes;                            // 0x0A8
+        int iReadBytes;
+    };
+    unsigned long nBytesRead;                               // 0x0AC
+    union
+    {
+        unsigned char pBuffer[0x5B4];                       // 0x0B0
+        struct
+        {
+            unsigned char unk0x0B0[0x50C];
+            D2QClientStrc* pNextQueued;                     // 0x5BC
+        };
+    };
+};
 
 struct D2QueueServerStrc
 {
@@ -29,24 +119,14 @@ struct D2QueueServerStrc
     unsigned int nBuckets;                                  // 0x008
     unsigned int nMask;                                     // 0x00C
     unsigned int nIpBuckets;                                // 0x010
-    union
-    {
-        D2SrvClientStrc** ppBuckets;                        // 0x014
-        D2ClientNodeStrc** ppNodes;
-        D2SocketNodeStrc** ppSockets;
-        D2QClientStrc** ppClients;
-    };
+    D2QClientStrc** ppClients;                              // 0x014
     int nBucketCount;                                       // 0x018
     union
     {
         D2CriticalSectionStrc* pLocks;                      // 0x01C
         D2QLockStrc* pClientLocks;
     };
-    union
-    {
-        D2ClientNodeStrc** ppAddrNodes;                     // 0x020
-        D2QClientStrc** ppAddressBuckets;
-    };
+    D2QClientStrc** ppAddressBuckets;                       // 0x020
     int unk0x024;                                           // 0x024
     D2CriticalSectionStrc tAddressLock;                     // 0x028
     union

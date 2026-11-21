@@ -37,21 +37,6 @@ struct D2QIpCountStrc
     D2QIpCountStrc* pNext;
 };
 
-struct D2QClientStrc
-{
-    unsigned int nId;
-    D2QClientStrc* pNextClient;
-    long nRefCount;
-    char unk_0C[0x0C];
-    unsigned int nAddress;
-    D2QClientStrc* pNextByAddress;
-    char unk_20[0x0C];
-    char cs[0x48];
-    D2QNodeStrc* pNodes;
-    char unk_78[0x20];
-    unsigned int nCreateTime;
-};
-
 
 static __declspec(noinline) int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey);
 
@@ -102,7 +87,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
             break;
         }
         pPrev = pClient;
-        pClient = pClient->pNextClient;
+        pClient = pClient->pNext;
     }
 
     if (!pClient)
@@ -119,13 +104,13 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
 
     if (pClient != pServer->ppClients[nBucket])
     {
-        pPrev->pNextClient = pClient->pNextClient;
+        pPrev->pNext = pClient->pNext;
     }
     else
     {
-        pServer->ppClients[nBucket] = pClient->pNextClient;
+        pServer->ppClients[nBucket] = pClient->pNext;
     }
-    pClient->pNextClient = 0;
+    pClient->pNext = 0;
     LeaveCriticalSection((CRITICAL_SECTION*)&pServer->pClientLocks[nBucket]);
 
     D2_ASSERT(nClientId == pClient->nId, 0x3E0);
@@ -184,9 +169,9 @@ static __declspec(noinline) void sub_006BE650_DestroyClient(D2QClientStrc* pClie
 
 static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)
 {
-    if (pClient->pNextClient)
+    if (pClient->pNext)
     {
-        sub_006BE300_Nop("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNextClient);
+        sub_006BE300_Nop("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
     }
     D2QNodeStrc* pNode = pClient->pNodes;
     while (pNode)
