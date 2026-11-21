@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -16,35 +17,6 @@ struct D2MissileStrc;
 
 
 
-struct D2SkillsTxt
-{
-    char unk_000[0x04];
-    unsigned char nFlags[4];
-    char unk_008[0x4C];
-    short wAuraStat;
-    char unk_056[0x2A];
-    short wAuraState;
-    char unk_082[0x66];
-    union
-    {
-        struct
-        {
-            short wCltMissile[4];
-        };
-        struct
-        {
-            unsigned char unk_E8[0x2];
-            short wCltMissileA;
-            short wCltMissileB;
-            short wCltMissileC;
-        };
-    };
-    char unk0x0F0[0x1E];
-    short wPrgSound;
-    char unk0x110[0x4];
-    unsigned int dwCltCalc[3];
-    char unk0x120[0x11C];
-};
 
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
@@ -257,13 +229,13 @@ int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId)
 
 	if (pSkillsTxtRecord->nFlags[0] & gbSkillFlagMask_006CE270)
 	{
-		if (pSkillsTxtRecord->wAuraState >= 0 && pSkillsTxtRecord->wAuraState < sgptDataTables->nStatesTxtRecordCount
-			&& pSkillsTxtRecord->wAuraStat >= 0 && pSkillsTxtRecord->wAuraStat < sgptDataTables->nItemStatCostTxtRecordCount)
+		if (pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount
+			&& pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount)
 		{
-			D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->wAuraState);
+			D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState);
 			if (pStatList)
 			{
-				int nIndex = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat, 0);
+				int nIndex = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
 				nIndex = D2_MIN(D2_MAX(nIndex, 1), 3);
 				return pSkillsTxtRecord->wCltMissile[nIndex];
 			}

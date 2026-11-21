@@ -3,6 +3,8 @@
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ClientUi.h"
+#include "D2TxtItems.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -10,11 +12,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 struct D2InventoryStrc;
 
-struct D2GemsTxt
-{
-    char unk0x00[0x20];
-    char szLetter[6];
-};
 
 struct D2SpeedNameStrc
 {
@@ -30,13 +27,6 @@ struct D2ItemTypeNameStrc
 };
 #pragma pack(pop)
 
-struct D2InvCompGridStrc
-{
-    D2InvRectStrc rect;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned short pad0x12;
-};
 
 struct UBuf
 {

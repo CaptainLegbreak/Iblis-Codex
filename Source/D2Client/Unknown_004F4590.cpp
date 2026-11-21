@@ -1,15 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
-struct D2SkillsTxt
-{
-    unsigned char unk_000[0x102];
-    short wDoSoundA;
-    short wDoSoundB;
-    unsigned char unk_106[0x136];
-};
 
 void __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int a3, int a4, int a5); // 0x004B9A00
 

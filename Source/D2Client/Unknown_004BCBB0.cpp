@@ -2,49 +2,14 @@
 #include "D2TxtItems.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
+#include "D2GameObjs.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 struct D2GfxLightStrc;
 
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    unsigned char nInteractType;
-    char unk0x05[0x0B];
-    int bPermanent;
-    int unk0x14;
-    char unk0x18[0x20];
-};
 
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0xC4];
-    unsigned char nSelectable[8];
-    char unk0x0CC[0xD8 - 0xCC];
-    int dwFrameCnt[8];
-    char unk0x0F8[0x108 - 0xF8];
-    unsigned char nCycleAnim[8];
-    unsigned char nLit[8];
-    unsigned char nBlocksLight[8];
-    unsigned char nHasCollision[8];
-    unsigned char nIsAttackable0;
-    unsigned char nStart[8];
-    unsigned char nOrderFlag[8];
-    unsigned char nEnvEffect;
-    unsigned char nIsDoor;
-    char unk0x13B[0x164 - 0x13B];
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    char unk0x167[0x16F - 0x167];
-    unsigned char nShrineFunction;
-    char unk0x170[0x194 - 0x170];
-    int n194;
-    char unk0x198[0x1B4 - 0x198];
-    unsigned char nClientFn;
-    unsigned char nOverlay;
-};
 
 
 struct D2ShrineHandlerStrc
@@ -210,16 +175,16 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
         nMode = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
         const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nMode);
         D2_ASSERT(nTownLevelId <= 0xFF, 0x95);
-        pUnit->pObjectData->nInteractType = nTownLevelId;
+        pUnit->pObjectData->InteractType = nTownLevelId;
         break;
     }
     case 0x3C:
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
         if (nLevelId == 0x26)
-            pUnit->pObjectData->nInteractType = 4;
+            pUnit->pObjectData->InteractType = 4;
         else if (nLevelId == 4)
-            pUnit->pObjectData->nInteractType = 0x26;
+            pUnit->pObjectData->InteractType = 0x26;
         break;
     }
     }
@@ -332,9 +297,9 @@ static __declspec(noinline) void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUni
             if (pTxt->nOrderFlag[2] == 1)
                 pUnit->dwFlags |= 0x100000;
 
-            if (pTxt->n194)
+            if (pTxt->dwParm[7])
             {
-                if (pTxt->n194 == 0xFF)
+                if (pTxt->dwParm[7] == 0xFF)
                     sub_0046C320_SpawnAroundUnit(pUnit, 0x153, 4);
                 else
                     sub_0046C320_SpawnAroundUnit(pUnit, 0x97, 4);
@@ -537,7 +502,7 @@ static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
 // 0x004BD6B0
 void __fastcall sub_004BD6B0_SetShrine(D2UnitStrc* pUnit)
 {
-    UNITS_SetShrineTxtRecordInObjectData(pUnit, DATATBLS_GetShrinesTxtRecord(pUnit->pObjectData->nInteractType));
+    UNITS_SetShrineTxtRecordInObjectData(pUnit, DATATBLS_GetShrinesTxtRecord(pUnit->pObjectData->InteractType));
     sub_004BD650_InitShrine(pUnit);
 }
 
