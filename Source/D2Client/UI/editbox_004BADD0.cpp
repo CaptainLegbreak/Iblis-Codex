@@ -1,5 +1,7 @@
 #include "D2Unicode.h"
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
 void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
 
 #pragma pack(push, 2)
@@ -138,8 +140,30 @@ SpinnerImplementation::~SpinnerImplementation()
     sub_00478A00(pCellFile);
 }
 
+// 0x004BC1C0
+int __stdcall sub_00646000_AlwaysZero(int nUnused)
+{
+    return 0;
+}
+
 // 0x004BC1F0
 SpinnerWrapper::~SpinnerWrapper()
 {
     delete pImpl;
+}
+
+void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
+{
+}
+
+void __stdcall sub_006460C0_Empty(int nUnused)
+{
+}
+
+void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
+{
+}
+
+void __stdcall sub_006460E0_Empty(int nUnused)
+{
 }
