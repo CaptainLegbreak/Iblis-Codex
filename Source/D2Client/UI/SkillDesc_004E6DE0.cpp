@@ -5,57 +5,174 @@
 #include "D2Records.h"
 
 struct D2SkillsTxt;
+
 struct D2SkillDescTxt;
 
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 const wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 wchar_t* __fastcall sub_00526700(wchar_t* pDest, const wchar_t* pSource); // 0x00526700
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
+
 void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength); // 0x00526320
+
 void __cdecl sub_005269D0(int nBufferSize, wchar_t* pBuffer, const wchar_t* pFormat, ...); // 0x005269D0
+
 extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
+
 extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
 
-
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
+
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
+
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
+
 int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644D50
+
 int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644E40
+
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
+
 int __stdcall SKILLS_EvaluateSkillDescFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646D00
+
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
+
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
+
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
+
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
+
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
+
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
+
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
+
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
+
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
+
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
+
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
+
 int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId); // 0x00626070
+
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
+
 int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
+
 short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
+
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
+
 int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
+
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
+
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
 typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem);
 
 static int sub_004E83B0_AppendSkillDescStrLong(wchar_t* wszOut, int nSkillId);
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
+extern "C" const char szFmtPlusDec_006DBE9C[]; // 0x006DBE9C
+
+extern "C" const char szFmtDec_006DBE94[]; // 0x006DBE94
+
+__declspec(noinline) static int __stdcall sub_004E73E0_FormatSignedInt(wchar_t* wszText, int bPrefixSign, int nValue);
+
+__declspec(noinline) static int __stdcall sub_004E7430_FormatSignedDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
+
+static int sub_004E7480_FormatIntOrDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
+
+int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem);
+
+static unsigned short sub_004E6DE0_GetSkillDescStrLong(int nSkillId);
+
+static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt);
+
+static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt);
+
+static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
+
+static int sub_004E6FB0_GetETypeColor(int nEType);
+
+int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor);
+
+static int __stdcall sub_004E73E0_FormatSignedInt(wchar_t* wszText, int bPrefixSign, int nValue);
+
+static int __stdcall sub_004E7430_FormatSignedDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
+
+static int __stdcall sub_004E7650_AppendFrameRange(wchar_t* wszOut, unsigned short wStr, int nMinFrames, int nMaxFrames);
+
+static int __stdcall sub_004E77A0_AppendScaledRange(wchar_t* wszOut, unsigned short wStr1, unsigned short wStr2, int nMaxValue, int nMultiplier, int nMinValue);
+
+static int __stdcall sub_004E7930_AppendFormattedValue(int nValue, unsigned short wStr, wchar_t* wszOut);
+
+static int __stdcall sub_004E79E0_AppendLabelValue(unsigned short wStr, int bPrefixSign, wchar_t* wszOut, int nValue);
+
+static int __stdcall sub_004E7A90_AppendScaledValue(unsigned short wStr1, unsigned short wStr2, int nMultiplier, wchar_t* wszOut, int bPrefixSign, int nValue);
+
+static int __stdcall sub_004E7B90_AppendLabelDecimal(unsigned short wStr, wchar_t* wszOut, int bPrefixSign, int nValue, int nFraction);
+
+static int __stdcall sub_004E7C30_AppendValueLabel(unsigned short wStr, int bPrefixSign, wchar_t* wszOut, int nValue);
+
+static int __stdcall sub_004E7CE0_AppendValueTwoLabels(unsigned short wStr1, unsigned short wStr2, int bPrefixSign, wchar_t* wszOut, int nValue);
+
+static int __stdcall sub_004E7DB0_AppendValueCountLabel(int nStr1, int nStr2, int bPrefixSign, wchar_t* wszOut, int nValue);
+
+static int __stdcall sub_004E7E70_AppendLabelValueLabel(unsigned short wStr1, unsigned short wStr2, int bPrefixSign, wchar_t* wszOut, int nValue);
+
+static int __stdcall sub_004E7F40_AppendLabelRangeLabel(wchar_t* wszOut, int bPrefixSign, unsigned short wStr2, unsigned short wStr1, int nMin, int nMax);
+
+static int __stdcall sub_004E8020_AppendLabelsRange(wchar_t* wszOut, int bPrefixSign, unsigned short wStr1, unsigned short wStr2, int nMin, int nMax);
+
+static int __stdcall sub_004E80F0_AppendLabelRange(wchar_t* wszOut, int bSeparator, int bPrefixSign, unsigned short wStr, int nMin, int nMax);
+
+static int __stdcall sub_004E81C0_AppendLabelValueLabels(unsigned short wStr1, unsigned short wStr2, unsigned short wStr3, int bPrefixSign, wchar_t* wszOut, int nValue);
+
+static int __stdcall sub_004E84F0_AppendManaValue(int nValue, wchar_t* wszOut);
+
+static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, unsigned char nType);
+
+static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pValue1, int* pValue2, int nLevel, D2SkillStrc* pSkill);
+
+static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit);
+
+static int __stdcall sub_004E94E0_AttackRatingForEachWeapon(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pValue3, int* pValue4, D2SkillStrc* pSkill, int nLevel);
+
+void __fastcall sub_004E9510_SkillDescAttackRating(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4);
+
+void __fastcall sub_004E95C0_SkillDescAttackRatingOffhand(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nLevel, int* pValue1, int* pValue2, int* pValue3, int* pValue4);
+
+int __fastcall sub_004E9610_WeaponDamageCallback(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
+
+static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, D2UnitStrc* pItem, int* pColor, D2SkillStrc* pSkill, int nRatio);
+
+static int sub_004E7480_FormatIntOrDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction);
+
+int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem);
 
 static D2SkillsTxt* sub_H14_GetSkillsTxtRecord(int nSkillId)
 {
@@ -170,6 +287,7 @@ static int sub_004E6FB0_GetETypeColor(int nEType)
     return 0;
 }
 
+// 0x004E7120
 int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor)
 {
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
@@ -195,31 +313,20 @@ int __stdcall sub_004E7120_AddProgressiveDamage(D2UnitStrc* pUnit, int* pMinDama
                                 if (nCharges > 0)
                                 {
                                     D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
-                                    if (pSkillDescTxt)
-                                    {
-                                        if (nCharges > 1)
-                                        {
-                                            if (nCharges >= 3)
-                                                nCharges = 3;
-                                        }
-                                        else
-                                        {
-                                            nCharges = 1;
-                                        }
-
-                                        *pMinDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMin[nCharges - 1], nSkillId, nSkillLevel);
-                                        *pMaxDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMax[nCharges - 1], nSkillId, nSkillLevel);
-                                        unsigned char nColor = pSkillDescTxt->nPrgDamElem[nCharges - 1];
-                                        if (nColor > 0)
-                                        {
-                                            if (nColor < 13)
-                                                *pColor = sub_004E6FB0_GetETypeColor(nColor);
-                                        }
-                                    }
-                                    else
+                                    if (!pSkillDescTxt)
                                     {
                                         *pMinDamage += SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
                                         *pMaxDamage += SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) >> 8;
+                                    }
+                                    else
+                                    {
+                                        const int nIndex = D2_MIN(D2_MAX(nCharges, 1), 3);
+
+                                        *pMinDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMin[nIndex - 1], nSkillId, nSkillLevel);
+                                        *pMaxDamage += SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDescTxt->dwProgDmgMax[nIndex - 1], nSkillId, nSkillLevel);
+                                        const unsigned char* pElem = pSkillDescTxt->nPrgDamElem;
+                                        if (pElem[nIndex - 1] > 0 && pElem[nIndex - 1] < 13)
+                                            *pColor = sub_004E6FB0_GetETypeColor(pElem[nIndex - 1]);
                                     }
                                 }
                             }
@@ -256,6 +363,7 @@ static __declspec(noinline) int __stdcall sub_004E7430_FormatSignedDecimal(wchar
     return 1;
 }
 
+// 0x004E7480
 static int sub_004E7480_FormatIntOrDecimal(wchar_t* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     if (!nValue && !nFraction)
@@ -834,6 +942,7 @@ static int __stdcall sub_004E8EC0_GetAttackRatingValues(D2UnitStrc* pUnit, D2Uni
     return 1;
 }
 
+// 0x004E8FE0
 int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem)
 {
     return sub_004E8EC0_GetAttackRatingValues(pUnit, pItem, pValue1, pValue2, nLevel, pSkill);

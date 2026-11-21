@@ -2,42 +2,151 @@
 #include "D2Primitives.h"
 #include "D2Structs.h"
 #include "D2Unicode.h"
+
+#pragma pack(push, 1)
+
+struct D2NpcChoiceStrc
+{
+    unsigned short wId;
+    char bQuest;
+    int nQuestState;
+    int nQuestId;
+    int nClass;
+};
+
+struct D2NpcEntryStrc
+{
+    char unk0x00[0x05];
+    D2NpcChoiceStrc* pChoices;
+    int nChoices;
+    int nSelected;
+};
+
+#pragma pack(pop)
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+
+int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
+
+extern D2NpcChoiceStrc gaNpcChoices_00725CB0[];                                                             // 0x00725CB0
+
 struct D2BitBufferStrc;
+
 struct D2GameStrc;
+
 struct D2UnitStrc;
 
-
 extern int gdwGlobal_007C0DB0;                                                                              // 0x007C0DB0
+
 extern "C" const char gszNpcMenuFile_006DA630[];                                                            // 0x006DA630
+
 extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);            // 0x006CC468
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);                        // 0x00625480
+
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 D2UnitStrc* __cdecl sub_004B1620_GetInteractNpc();                                                          // 0x004B1620
+
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
+
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
+
 int __cdecl sub_00489870();                                                                                 // 0x00489870
+
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit);                               // 0x004521C0
+
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
+
 int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void (__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*)); // 0x0062FE60
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
+
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
+
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
+
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
+
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
+
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 
 static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem); // 0x004B1F80
 
-// 0x004B1F80
+static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+// 0x004B1680
+void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry)
+{
+    int* const pnSelected = &pEntry->nSelected;
+    int nTries = 10;
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
+
+    do
+    {
+        --nTries;
+        *pnSelected = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, pEntry->nChoices);
+        if (*pnSelected >= 2)
+        {
+            if (pEntry->pChoices[*pnSelected].nClass == nClass || pEntry->pChoices[*pnSelected].nClass == 7)
+            {
+                if (!pEntry->pChoices[*pnSelected].bQuest)
+                {
+                    return;
+                }
+
+                if (QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43, pEntry->pChoices[*pnSelected].nQuestId, 0) == pEntry->pChoices[*pnSelected].nQuestState)
+                {
+                    if (pEntry->pChoices == gaNpcChoices_00725CB0 && pEntry->pChoices[*pnSelected].wId == 0xFF
+                        && QUESTRECORD_GetQuestState(gpQuestFlags_007C0D47, 12, 13) == 1)
+                    {
+                        *pnSelected = 2;
+                    }
+                    return;
+                }
+            }
+        }
+    }
+    while (nTries);
+
+    *pnSelected = 2;
+}
+
 static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
 {
     if (ITEMS_GetItemType(pItem) == 4)
@@ -82,7 +191,6 @@ static int GetClassIdOrNone(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
-// 0x004B2AD0
 int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pCost, Unicode* pText, int nMaxLength)
 {
     *pCost = 0;

@@ -1,11 +1,7 @@
+#include "D2StormTypes.h"
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
-
-struct Unicode;
-class UIWidget;
-class EditBoxImplementation;
-class SpinnerImplementation;
 
 class UIWidget
 {
@@ -25,6 +21,37 @@ public:
 
     int unk0x04;
 };
+
+class ButtonImplementation : public UIWidget
+{
+public:
+    virtual void sub_004BAC60_SetUnk24(int nValue);
+};
+
+class ButtonWrapper : public UIWidget
+{
+public:
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual void sub_004BAF10_SetUnk24(int nValue);
+
+    ButtonImplementation* pImpl;
+};
+
+struct Unicode;
+
+class UIWidget;
+
+class EditBoxImplementation;
+
+class SpinnerImplementation;
 
 class EditBoxImplementation : public UIWidget
 {
@@ -73,9 +100,106 @@ public:
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
+
+struct D2MouseMessageStrc
+{
+    char unk_00[0xC];
+    unsigned short nX;
+    unsigned short nY;
+};
+
+struct D2ButtonPairStrc
+{
+    char unk_00[0x10];
+    int nFirstX;
+    int nFirstY;
+    int nSecondX;
+    int nSecondY;
+    int unk_20;
+    int nHeight;
+    int nWidth;
+    int unk_2C;
+    int f_30;
+    int bFirst;
+    int bSecond;
+    void (__cdecl* pCallback)();
+    int unk_40;
+    unsigned long nTick;
+    int unk_48;
+    int bInvoking;
+};
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
+
+extern "C" void _ReadWriteBarrier(void);
+
+#pragma intrinsic(_ReadWriteBarrier)
+
+// 0x004BAE60
+int ButtonWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot02(pMsg);
+}
+
+// 0x004BAE70
+int ButtonWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot03(pMsg);
+}
+
+// 0x004BAE80
+int ButtonWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot04(pMsg);
+}
+
+// 0x004BAE90
+int ButtonWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot05(pMsg);
+}
+
+// 0x004BAEB0
+int ButtonWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot06(pMsg);
+}
+
+// 0x004BAEC0
+int ButtonWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot08(pMsg);
+}
+
+// 0x004BAED0
+int ButtonWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot07(pMsg);
+}
+
+// 0x004BAEE0
+int ButtonWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot09(pMsg);
+}
+
+// 0x004BAEF0
+int ButtonWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+{
+    return pImpl->MsgSlot10(pMsg);
+}
+
+// 0x004BAF10
+void ButtonWrapper::sub_004BAF10_SetUnk24(int nValue)
+{
+    pImpl->sub_004BAC60_SetUnk24(nValue);
+}
 
 // 0x004BB530
 void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
@@ -84,6 +208,12 @@ void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
     const int nLength = sub_00526800(pText);
     *(int*)unk0x36 = nLength;
     *(int*)unk0x3A = nLength;
+}
+
+// 0x004BB960
+int __stdcall sub_00646000_AlwaysZero(int nUnused)
+{
+    return 0;
 }
 
 // 0x004BBE70
@@ -105,12 +235,6 @@ void SpinnerImplementation::Slot01()
     sub_004F6480(&tContext, nDownX, nDownY, -1, 5, 0);
 }
 
-// 0x004BB960
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
-{
-    return 0;
-}
-
 void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
 {
 }
@@ -125,4 +249,46 @@ void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
 
 void __stdcall sub_006460E0_Empty(int nUnused)
 {
+}
+
+static __forceinline int sub_004BC0A0_IsInFirst(D2ButtonPairStrc* pButtons, D2MouseMessageStrc* pMessage)
+{
+    const int nX = pMessage->nX;
+    const int nY = pMessage->nY;
+    return nX > pButtons->nFirstX && nX < pButtons->nFirstX + pButtons->nWidth
+        && nY > pButtons->nFirstY - pButtons->nHeight && nY <= pButtons->nFirstY;
+}
+
+static __forceinline int sub_004BC0A0_IsInSecond(D2ButtonPairStrc* pButtons, D2MouseMessageStrc* pMessage)
+{
+    const int nX = pMessage->nX;
+    const int nY = pMessage->nY;
+    return nX > pButtons->nSecondX && nX < pButtons->nSecondX + pButtons->nWidth
+        && nY > pButtons->nSecondY - pButtons->nHeight && nY < pButtons->nSecondY;
+}
+
+// 0x004BC0A0
+int __fastcall sub_004BC0A0_HandlePress(D2ButtonPairStrc* pButtons, int nUnused, D2MouseMessageStrc* pMessage)
+{
+    pButtons->f_30 = 1;
+    if (sub_004BC0A0_IsInFirst(pButtons, pMessage))
+    {
+        pButtons->nTick = GetTickCount();
+        pButtons->bFirst = 1;
+        pButtons->bInvoking = 1;
+        pButtons->pCallback();
+        pButtons->bInvoking = 0;
+        return 1;
+    }
+    _ReadWriteBarrier();
+    if (sub_004BC0A0_IsInSecond(pButtons, pMessage))
+    {
+        pButtons->nTick = GetTickCount();
+        pButtons->bSecond = 1;
+        pButtons->bInvoking = 1;
+        pButtons->pCallback();
+        pButtons->bInvoking = 0;
+        return 1;
+    }
+    return 0;
 }

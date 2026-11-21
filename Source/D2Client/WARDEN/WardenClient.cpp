@@ -55,6 +55,7 @@ struct D2InvRectStrc;
 
 class WardenModule;
 
+
 struct D2ClientSlotObjStrc;
 
 
@@ -324,11 +325,15 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 struct D2ClientSlotObjStrc
 {
-    virtual void Slot0();
+    virtual void Slot0(int* pValue, int nSize);
     virtual void Slot1();
     virtual void Slot2(int nArg1, int nArg2, int* pOut);
     virtual void Slot3(int nArg);
 };
+
+struct D2WardenIfaceStrc;
+
+typedef D2ClientSlotObjStrc* (__fastcall* WARDENCREATEFN)(D2WardenIfaceStrc* pIface);
 
 class WardenModule
 {
@@ -350,7 +355,7 @@ public:
     int unk0x04;
     int nImports;
     D2ClientSlotObjStrc* pObj;
-    void* f_10;
+    WARDENCREATEFN pfnCreate;
 };
 
 struct D2Warden47F930Strc
@@ -486,6 +491,9 @@ int __fastcall sub_004803C0_InitWarden(int nValue);
 
 bool __stdcall sub_00480020_LoadModuleByKey(const unsigned char* pModuleKey, const unsigned char* pRc4Key);
 
+
+
+extern D2WardenIfaceStrc gWardenIface_00721C98; // 0x00721C98
 
 
 // 0x00479230
@@ -712,7 +720,7 @@ WardenModule::WardenModule()
     unk0x04 = 0;
     nImports = 0;
     pObj = 0;
-    f_10 = 0;
+    pfnCreate = 0;
 }
 
 // 0x0047FBE0
@@ -805,8 +813,8 @@ static int __stdcall sub_0047FC70_LoadModule(const unsigned char* pData, const u
         delete pWarden;
         return 0;
     }
-    pWarden->f_10 = pWarden->sub_004E0700_GetProc(1);
-    if (!pWarden->f_10)
+    pWarden->pfnCreate = (WARDENCREATEFN)pWarden->sub_004E0700_GetProc(1);
+    if (!pWarden->pfnCreate)
     {
         pWarden->~WardenModule();
         SMemFree(pModule, ".\\WARDEN\\WardenClient.cpp", 0x1AA, 0);
@@ -928,6 +936,26 @@ void __cdecl sub_004801D0_UnloadWarden()
         delete gpSlotHolder_007BC990;
     }
     gpSlotHolder_007BC990 = 0;
+}
+
+
+// 0x00480230
+void __cdecl sub_00480230()
+{
+    while (gpPendingWarden_007BC994)
+    {
+        if (gpSlotHolder_007BC990)
+        {
+            gpSlotHolder_007BC990->pObj->Slot1();
+            gpSlotHolder_007BC990->~WardenModule();
+            delete gpSlotHolder_007BC990;
+        }
+        gpSlotHolder_007BC990 = gpPendingWarden_007BC994;
+        gpPendingWarden_007BC994 = 0;
+        gpSlotHolder_007BC990->pObj = gpSlotHolder_007BC990->pfnCreate(&gWardenIface_00721C98);
+        int nValue = gnWardenIfaceValue_00721C94;
+        gpSlotHolder_007BC990->pObj->Slot0(&nValue, 4);
+    }
 }
 
 // 0x00480320

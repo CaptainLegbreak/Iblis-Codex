@@ -496,7 +496,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-#include "gen/data/Source/D2Client/Unknown_004A1760.inc"
+#include "gen/data/Source/D2Client/UI/text_004A1760.inc"
 
 int gnQuestCount_007BF2A0; // 0x007BF2A0
 

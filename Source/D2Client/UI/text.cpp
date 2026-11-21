@@ -7,36 +7,67 @@
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
 struct D2MsgHandlerEntryStrc;
+
 struct Unicode;
+
 struct D2ClientTabStrc;
+
 struct D2TextListNodeStrc;
+
 struct D2TextListStrc;
+
 struct D2TextFieldA4Strc;
+
 struct D2TextWidthStrc;
+
 struct D2TextStateStrc;
+
 struct D2TextBoxPosStrc;
+
 struct D2TextPointStrc;
+
 struct UnicodeChar;
+
 struct D2GSPacketSrv26;
+
 struct D2CommonChatIgnoreListStrc;
+
 struct T00479230;
+
 class D2ListBoxViewStrc;
+
 struct D2ClientTextDataStrc;
+
 struct D2UnitStrc;
+
 struct D2CommonIgnoreListStrc;
+
 struct T0044CB60;
+
 struct SMSGHANDLER_PARAMS;
+
 struct ByteRecord;
+
 struct PacketWords;
+
 struct PacketShorts;
+
 struct Digest;
+
 struct HashState;
+
 struct Member;
+
 struct ClassRecord;
+
 struct ClassTableView;
+
 struct UnitView;
+
 class ListBoxImplementation;
+
 class UIWidget;
+
 class ListBoxWrapper;
 
 struct D2TextListNodeStrc
@@ -55,23 +86,41 @@ struct D2TextListStrc
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
+
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+
 void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab); // 0x00487A10
+
 void __cdecl sub_00487ED0_SetupPanelButtons(); // 0x00487ED0
+
 int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
+
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+
 extern int gnGlobal_00711470; // 0x00711470
+
 extern D2ClientTabStrc gaTabs_0072211A[]; // 0x0072211A
+
 extern int gnGlobal_007BCAF0; // 0x007BCAF0
+
 extern int gnGlobal_007BCBEC; // 0x007BCBEC
+
 extern int gdwGlobal_007BCBF0; // 0x007BCBF0
+
 extern int gnGlobal_007BCC08; // 0x007BCC08
+
 extern int gnGlobal_007BCC40; // 0x007BCC40
+
 extern int gnGlobal_007BCE30; // 0x007BCE30
+
 extern int gnGlobal_007BEECC; // 0x007BEECC
 
 struct D2TextFieldA4Strc
@@ -89,6 +138,7 @@ struct D2TextWidthStrc
 };
 
 #pragma pack(push, 2)
+
 struct D2TextStateStrc
 {
     char unk0x00[0x16];
@@ -96,6 +146,7 @@ struct D2TextStateStrc
 };
 
 #pragma pack(pop)
+
 struct D2TextBoxPosStrc
 {
     char unk0x00[0x04];
@@ -111,10 +162,15 @@ struct D2TextPointStrc
 };
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
 int __cdecl sub_004F59A0(); // 0x004F59A0
+
 void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
+
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+
 extern int gbStarted_007BF27C; // 0x007BF27C
+
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers_00722600[]; // 0x00722600
 
 struct UnicodeChar : Unicode
@@ -136,19 +192,33 @@ struct D2GSPacketSrv26
 };
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, Unicode* wszDest, int nDest); // 0x006CC29C
+
 extern "C" unsigned int __cdecl strlen(const char* szString);
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
+
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
+
 Unicode* __fastcall sub_00452300_StripStringAndNextChar(Unicode* pText); // 0x00452300
+
 int __fastcall sub_0047A170_TestNotFlag4(int nUnitId); // 0x0047A170
+
 void __fastcall sub_0048BBE0_SetNameText(const Unicode* wszName, int nUnused, int nArg); // 0x0048BBE0
+
 void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 extern "C" Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...); // 0x005269D0
+
 char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x00622150
+
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
+
 extern int gnGameFrame_007BF20E; // 0x007BF20E
+
 static __declspec(noinline) bool sub_0049E250_IsLanguageCompatible(int nLangId);
 
 struct T0044CB60
@@ -158,6 +228,7 @@ struct T0044CB60
 };
 
 #pragma pack(push, 2)
+
 struct T00479230
 {
     T0044CB60* pFirst;
@@ -176,6 +247,7 @@ struct T00479230
 };
 
 #pragma pack(pop)
+
 class D2ListBoxViewStrc
 {
 public:
@@ -183,23 +255,40 @@ public:
 };
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+
 void __fastcall sub_00467430(void* pRect); // 0x00467430
+
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+
 void __stdcall sub_0049D4D0_FreeTextList(void* pList); // 0x0049D4D0
+
 void __cdecl sub_0049FE10(); // 0x0049FE10
+
 T0044CB60* __stdcall sub_004A0320_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
+
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
+
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
+
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
+
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
 T00479230* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
+
 void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); // 0x00661210
+
 void __stdcall sub_006612A0(int nHandle); // 0x006612A0
+
 extern unsigned int gdwTextEndTick_007BF1AC; // 0x007BF1AC
-extern D2ClientDialogStrc* gpListDialog_007BF1B0; // 0x007BF1B0
+
+D2ClientDialogStrc* gpListDialog_007BF1B0; // 0x007BF1B0
 
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
@@ -253,21 +342,33 @@ public:
 };
 
 extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
+
 extern int gnGlobal_007BF1C8; // 0x007BF1C8
+
 extern char gtTextList_007BF1E4[]; // 0x007BF1E4
+
 extern char gtTextList_007BF1EA[]; // 0x007BF1EA
+
 extern char gtTextList_007BF1F0[]; // 0x007BF1F0
+
 extern unsigned short gwTextStringId_007BF212; // 0x007BF212
+
 extern int gnHintId_007BF260; // 0x007BF260
+
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
 extern int gnGlobal_0071146C; // 0x0071146C
+
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
 void __cdecl sub_0044DA40(); // 0x0044DA40
 
 void __cdecl sub_0049FA10_DrawPanelFrame(); // 0x0049FA10
+
 void __stdcall sub_0049FBA0_OpenTextPanel(int bFlag); // 0x0049FBA0
+
 extern D2ClientTextDataStrc* gpTextData_007BF228; // 0x007BF228
+
 extern int gnGlobal_007BF254; // 0x007BF254
 
 struct ByteRecord
@@ -278,6 +379,7 @@ struct ByteRecord
 };
 
 #pragma pack(push, 1)
+
 struct PacketWords
 {
     char prefix[1];
@@ -297,6 +399,7 @@ struct PacketShorts
 };
 
 #pragma pack(pop)
+
 struct Digest
 {
     unsigned int a;
@@ -418,20 +521,34 @@ typedef char Member_size[sizeof(Member)==0x2?1:-1];
 typedef char ClassRecord_size[sizeof(ClassRecord)==0x1A8?1:-1];
 
 extern "C" ByteRecord* gRecords_007BC9A0;
+
 extern "C" int gRecordCount_007BC9A4;
+
 extern "C" unsigned int gValue_007BF254; // 0x007BF254
+
 extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
+
 extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
+
 extern "C" HashState gStates_00882760[];
+
 extern "C" ClassTableView* gClassTable_00744304;
+
 static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText);
+
 static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit);
+
 int __cdecl sub_004A0030_DialogCallback(); // 0x004A0030
+
 void __fastcall sub_004B7C00_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC); // 0x004B7C00
+
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
+
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
+
 void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
+
 void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
     int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C); // 0x004B85F0
 
@@ -444,6 +561,7 @@ struct D2ClientServiceStrc
     char unk0x00[0xD0];
     int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
 };
+
 struct D2ClientStringListStrc
 {
     Unicode* pStrings[6];
@@ -451,7 +569,95 @@ struct D2ClientStringListStrc
     unsigned char f_1A[4];
     unsigned char unk0x1E[8];
 };
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
+
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
+
+#pragma pack(push, 2)
+
+struct D2ListBoxLineStrc
+{
+    __forceinline D2ListBoxLineStrc()
+    {
+    }
+
+    Unicode wszText0[0x400];
+    Unicode f_800[0x400];
+    Unicode f_1000[0x400];
+    Unicode f_1800[0x400];
+    Unicode f_2000[0x400];
+    Unicode wszText5[0x400];
+    short nFlags;
+    int unk0x3002;
+    int nData;
+    int unk0x300A;
+};
+
+#pragma pack(pop)
+
+
+#pragma pack(push, 2)
+
+class ListBoxImplementation : public UIWidget
+{
+public:
+    ListBoxImplementation(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18,
+        int nCallback, bool bLargeFont);
+    virtual void Slot01();
+
+    D2ListBoxLineStrc aLines[0x80];
+    int f_180708;
+    int f_18070C;
+    int nRectWidth;
+    int nRectHeight;
+    int nLineHeight;
+    int f_18071C;
+    int bTopPressed;
+    int bBottomPressed;
+    int bRowsPressed;
+    int nPressY;
+    int f_180730;
+    int nCallbackRow;
+    int nSelectedIndex;
+    int unk0x18073C;
+    int nArg14;
+    int nArg18;
+    unsigned short nEntryCount;
+    int pfnCallback;
+    int f_18074E;
+    int unk0x180752;
+    int unk0x180756;
+    int nX;
+    int nY;
+    int f_180762;
+    int nScrollStep;
+    int nArg10;
+    int nRepeatTicks;
+    int nState;
+};
+
+#pragma pack(pop)
+
+unsigned long gnGlobal_007BF22C; // 0x007BF22C
+
+unsigned char gnGlobal_007BF23A; // 0x007BF23A
+
+T00479230* gpTextBox_007BF0A4; // 0x007BF0A4
+
+T00479230* gpTextBox_007BF1A8; // 0x007BF1A8
+
+int gnTextBoxX_007BF1D0; // 0x007BF1D0
+
+int gnTextBoxY_007BF1D4; // 0x007BF1D4
+
+int gbTextSound_007BF230; // 0x007BF230
+
+void* gpCelFile_007BF26C; // 0x007BF26C
+
+void* gpCelFile_007BF270; // 0x007BF270
+
+void* gpCelFile_007BF274; // 0x007BF274
 
 // 0x00491940
 void __cdecl sub_00491940_ResetNpcPanel()
@@ -523,8 +729,6 @@ void __cdecl sub_004939B0_LoadPopupHireling()
         gbGlobal_007BEEE4 = 1;
     }
 }
-
-unsigned long gnGlobal_007BF22C; // 0x007BF22C
 
 // 0x0049D2E0
 int __fastcall sub_0049D2E0_IsAsciiChar(const unsigned short* pChar)
@@ -600,10 +804,6 @@ void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
     sub_00502EF0(nOldFont);
 }
 
-#include "gen/data/Source/D2Client/UI/text.inc"
-
-unsigned char gnGlobal_007BF23A; // 0x007BF23A
-
 // 0x0049DA30
 void __fastcall sub_0049DA30(D2UnitStrc* pUnit)
 {
@@ -655,7 +855,6 @@ void __fastcall sub_0049DAE0_AdjustTextPos(D2TextBoxPosStrc* pBox, D2TextPointSt
     pPoint->nY -= 50;
     pPoint->nY -= pBox->nRows * 15 + 3;
 }
-
 
 // 0x0049DB10
 D2ClientStringListStrc* __fastcall sub_0049DB10_CloneStringList(D2ClientStringListStrc* pSource)
@@ -801,16 +1000,6 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
     }
 }
 
-T00479230* gpTextBox_007BF0A4; // 0x007BF0A4
-
-T00479230* gpTextBox_007BF1A8; // 0x007BF1A8
-
-int gnTextBoxX_007BF1D0; // 0x007BF1D0
-
-int gnTextBoxY_007BF1D4; // 0x007BF1D4
-
-int gbTextSound_007BF230; // 0x007BF230
-
 static void sub_0049D370_FreeTextLines(T0044CB60* pLine)
 {
     while (pLine)
@@ -916,7 +1105,6 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const c
     return true;
 }
 
-// 0x0049F410
 static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -965,12 +1153,6 @@ void __cdecl sub_0049F960_ResetTextBox()
         gbTextSound_007BF230 = 0;
     }
 }
-
-void* gpCelFile_007BF26C; // 0x007BF26C
-
-void* gpCelFile_007BF270; // 0x007BF270
-
-void* gpCelFile_007BF274; // 0x007BF274
 
 // 0x0049FE10
 void __cdecl sub_0049FE10()
@@ -1073,8 +1255,6 @@ extern "C" void __fastcall sub_00524280_InitializeDigest(unsigned int index)
     state->lowCount = 0;
     state->highCount = 0;
 }
-
-D2ClientDialogStrc* gpListDialog_007BF1B0; // 0x007BF1B0
 
 // build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
 // 0x004A0050
@@ -1198,3 +1378,64 @@ extern "C" void __fastcall sub_004A28A0_AcceptShortPacket(const PacketShorts* pa
         break;
     }
 }
+
+// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
+// build: symbol ??_7ListBoxImplementation@@6B@ 0x006DAAEC
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004BF650
+ListBoxImplementation::ListBoxImplementation(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14,
+    int nArg18, int nCallback, bool bLargeFont)
+{
+    f_180708 = nX;
+    f_18070C = nY;
+    nRectWidth = nWidth;
+    nRectHeight = nHeight;
+    nCallbackRow = -1;
+    nSelectedIndex = -1;
+    this->nArg14 = nArg14;
+    this->nArg18 = nArg18;
+    f_18071C = 0;
+    bRowsPressed = 0;
+    bTopPressed = 0;
+    bBottomPressed = 0;
+    nState = 0;
+    f_180730 = 0;
+    nEntryCount = 0;
+    for (int n = 0; n < 0x80; n++)
+    {
+        aLines[n].wszText0[0].wChar = 0;
+        aLines[n].f_800[0].wChar = 0;
+        aLines[n].f_1000[0].wChar = 0;
+        aLines[n].f_1800[0].wChar = 0;
+        aLines[n].f_2000[0].wChar = 0;
+        aLines[n].wszText5[0].wChar = 0;
+        aLines[n].nFlags = 0;
+        aLines[n].nData = 0;
+        aLines[n].unk0x300A = 1;
+        aLines[n].unk0x3002 = 0;
+    }
+    pfnCallback = nCallback;
+    this->nArg10 = nArg10;
+    this->nX = f_180708 + nRectWidth - 0x12;
+    this->nY = f_18070C + 0x10;
+    nScrollStep = 0xE;
+    if (nRectHeight < 0x20)
+    {
+        f_180762 = 1;
+    }
+    else
+    {
+        f_180762 = (nRectHeight - 0x10) / 12 - 1;
+    }
+    f_18074E = 1;
+    if (D2GFX_GetResolutionMode() == 2)
+    {
+        nLineHeight = bLargeFont ? 0x1C : 0x12;
+    }
+    else
+    {
+        nLineHeight = 0x12;
+    }
+}
+
+#include "gen/data/Source/D2Client/UI/text.inc"

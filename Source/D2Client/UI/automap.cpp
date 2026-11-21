@@ -1385,25 +1385,6 @@ void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue)
     }
 }
 
-// 0x00480230
-void __cdecl sub_00480230()
-{
-    while (gpPendingWarden_007BC994)
-    {
-        if (gpSlotHolder_007BC990)
-        {
-            gpSlotHolder_007BC990->pObj->Slot1();
-            gpSlotHolder_007BC990->~WardenModule();
-            delete gpSlotHolder_007BC990;
-        }
-        gpSlotHolder_007BC990 = gpPendingWarden_007BC994;
-        gpPendingWarden_007BC994 = 0;
-        gpSlotHolder_007BC990->pObj = gpSlotHolder_007BC990->pfnCreate(&gWardenIface_00721C98);
-        int nValue = gnWardenIfaceValue_00721C94;
-        gpSlotHolder_007BC990->pObj->Slot0(&nValue, 4);
-    }
-}
-
 // 0x00480C10
 int __fastcall sub_00480C10_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg)
 {
