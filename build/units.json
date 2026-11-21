@@ -63842,6 +63842,10 @@
      "name": "?sub_005A7F70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A8030",
+     "length": 755
+    },
+    {
      "va": "0x005A8330",
      "length": 170,
      "name": "sub_6FC63940"
@@ -63855,6 +63859,10 @@
      "va": "0x005A8670",
      "length": 192,
      "name": "?sub_6FC64E90@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A8730",
+     "length": 113
     }
    ]
   },
@@ -64317,34 +64325,6 @@
      "length": 99,
      "name": "?sub_005A7F00_ExpireHover@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A8030.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A8030",
-     "length": 755
-    },
-    {
-     "va": "0x005A8730",
-     "length": 113
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
