@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameServer.h"
+#include "D2Txt.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -13,19 +14,6 @@ struct D2UnkMonCreateStrc;
 struct D2MonStatsTxt;
 struct D2UnkMonCreateStrc3;
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    char pad0x04[0x08];
-    unsigned char nMonStatsFlags;
-    char pad0x0D[0x19];
-    short wMinion[2];
-    char pad0x2A[0x02];
-    unsigned char nPartyMin;
-    unsigned char nPartyMax;
-    char pad0x2E[0x1A8 - 0x2E];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -89,9 +77,9 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
     const int nBaseId = sub_00463830_GetBaseIdFromMonsterId(nMonsterId);
     if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount || nBaseId != MONSTER_TENTACLEHEAD1)
     {
-        if (pMonStatsTxtRecord->nMonStatsFlags & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS])
+        if (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS])
         {
-            AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
+            AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
         }
 
         int nMinionIndex = 0;
@@ -105,7 +93,7 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
         for (int i = 0; i < nMinions; ++i)
         {
             D2UnitStrc* pMonster = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, pMonStatsTxtRecord->wMinion[nMinionIndex], 1, 4, 0x40);
-            if (pMonster && (pMonStatsTxtRecord->nMonStatsFlags & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS]))
+            if (pMonster && (pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_SETBOSS]))
             {
                 AIGENERAL_SetOwnerData(pGame, pMonster, sub_00451F50_GetUnitGUID(pUnit), 1, 0, 0);
                 AIGENERAL_AllocMinionList(pGame, pUnit, pMonster);
@@ -120,7 +108,7 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
     }
     else
     {
-        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
+        AIGENERAL_SetOwnerData(pGame, pUnit, !pUnit ? -1 : pUnit->dwUnitId, 1, 1, pMonStatsTxtRecord->nMonStatsFlags[0] & gdwBitMasks[MONSTATSFLAGINDEX_BOSSXFER]);
         const int nMinions = sub_004CC790_RollRange(&pUnit->pSeed, pMonStatsTxtRecord->nPartyMin, pMonStatsTxtRecord->nPartyMax);
         const unsigned int bNonWaterSpawn = ~((unsigned int)nFlags >> 2) & 1;
         sub_005B2570_SpawnMinionsAround(pGame, pUnit, pMonStatsTxtRecord->wMinion[0], 1, nMinions, bNonWaterSpawn, 0x40);

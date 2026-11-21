@@ -5,6 +5,7 @@
 #include "D2Drlg.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2GameTypes.h"
 
 #define QUEST_A2Q4_HORAZONTOME 11
 #define LEVEL_PALACECELLARLEV3 54
@@ -32,18 +33,6 @@ typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    int unk0x10;
-    unsigned short nNPCNo;
-    unsigned short unk0x16;
-    unsigned short nMessageIndex;
-    unsigned short unk0x1A;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

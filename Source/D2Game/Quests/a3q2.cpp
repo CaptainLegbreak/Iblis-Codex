@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2GameTypes.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_STARTED 2
 #define QFLAG_CUSTOM3 7
@@ -37,24 +38,7 @@ typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId,
 
 typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    unsigned short nNPCNo;
-    unsigned short unk0x16;
-    unsigned short nMessageIndex;
-    unsigned short unk0x1A;
-};
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc* pGame); // 0x005438B0

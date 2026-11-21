@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -20,32 +21,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    union
-    {
-        struct
-        {
-            D2TextHeaderStrc* pTextControl;
-            unsigned int dw18;
-        };
-        struct
-        {
-            int nNPCNo;
-            int nMessageIndex;
-        };
-        struct
-        {
-            int nOldLevel;
-            int nNewLevel;
-        };
-    };
-};
 
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 
@@ -197,7 +172,7 @@ void __fastcall QUESTS_NPCMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dw
     tArgs.pGame = pGame;
     tArgs.nEvent = QUESTEVENT_SCROLLMESSAGE;
     tArgs.pPlayer = pPlayer;
-    tArgs.nNPCNo = 0;
+    tArgs.nOldLevel = 0;
     if (dwNPCGUID == -1)
     {
         tArgs.pTarget = 0;
@@ -207,10 +182,10 @@ void __fastcall QUESTS_NPCMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dw
         tArgs.pTarget = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, dwNPCGUID);
         if (tArgs.pTarget)
         {
-            tArgs.nNPCNo = tArgs.pTarget->dwClassId;
+            tArgs.nOldLevel = tArgs.pTarget->dwClassId;
         }
     }
-    tArgs.nMessageIndex = nMessage;
+    tArgs.nNewLevel = nMessage;
     QUESTS_EventCallback(true, true, &tArgs);
 }
 
