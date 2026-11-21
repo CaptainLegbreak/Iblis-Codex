@@ -1294,6 +1294,18 @@ enum D2C_M75ThornHulkConstants
 
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent);                       // 0x005415A0
 
+enum D2C_M408CorruptArcherAi
+{
+    CORRUPTARCHER_AI_PARAM_APPROACH_CHANCE_PCT = 0,
+    CORRUPTARCHER_AI_PARAM_SHOOT_CHANCE_PCT = 1,
+    CORRUPTARCHER_AI_PARAM_STALL_DURATION = 2,
+    CORRUPTARCHER_AI_PARAM_RUN_CHANCE_PCT = 3,
+    CORRUPTARCHER_AI_PARAM_ALWAYS_RUN_DISTANCE = 4,
+    CORRUPTARCHER_AI_PARAM_USE_SKILL_2_CHANCE_PCT = 5,
+    CORRUPTARCHER_AI_PARAM_USE_SKILL_3_CHANCE_PCT = 6,
+    CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE = 7,
+};
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -8966,6 +8978,84 @@ void __fastcall AITHINK_Fn034_Andariel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
 
     sub_005DE190_SetAiParam(pUnit, 1, 0, 0);
     AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+}
+
+// 0x005F5A20
+void __fastcall AITHINK_Fn035_CorruptArcher(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTickTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    D2UnitStrc* pTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
+    if (!pTarget)
+    {
+        if ((int)(AI_RollSeed(pSeed) % 100) < 50)
+        {
+            sub_005DF7D0(pGame, pUnit, pTickTarget, 3, 0);
+            return;
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_STALL_DURATION));
+        return;
+    }
+
+    if (!bCombat && sub_6FCF2E70(pUnit))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    if (nDistance < 6 && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_RUN_CHANCE_PCT))
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
+        if (sub_005DF140_Escape(pGame, pUnit, pTarget, 12, 1))
+        {
+            return;
+        }
+    }
+
+    if (AI_GetParam(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE) > 0 && nDistance > AI_GetParam(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE)
+        && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, 10, 0);
+        AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE));
+        return;
+    }
+
+    if (nDistance > AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_ALWAYS_RUN_DISTANCE))
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
+        AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_ALWAYS_RUN_DISTANCE));
+        return;
+    }
+
+    if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_SHOOT_CHANCE_PCT))
+    {
+        if (pMonStatsTxt->nSkill[1] >= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_USE_SKILL_2_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[2] >= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_USE_SKILL_3_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pTarget, 0, 0);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[0] >= 0)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_STALL_DURATION));
 }
 
 // 0x005F5D50
