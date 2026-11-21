@@ -49,6 +49,10 @@ int __stdcall BUTTON_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);                   
 
 int __stdcall BUTTON_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg);                                       // 0x005011F0
 
+void __fastcall D2SOUND_10039(const char* szFile);                                                          // 0x00514EC0
+
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+
 // 0x00500C20
 static __declspec(noinline) int sub_00500C20_IsPointInButton(D2WinButtonStrc* pButton, int nX, int nY)
 {
@@ -311,4 +315,151 @@ int __fastcall BUTTON_OnMouseWheelScrolled(D2WinButtonStrc* ptBtnData, int nMous
     }
 
     return 0;
+}
+
+// 0x005009D0
+void __fastcall BUTTON_SetText(D2WinButtonStrc* pButton, int eFont, const Unicode* wszText, int nTextColor)
+{
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x84);
+    pButton->eFont = eFont;
+    pButton->nTextColor = nTextColor;
+    sub_005267E0((Unicode*)pButton->wszText, wszText);
+}
+
+// 0x00500A20
+void __fastcall BUTTON_SetTextWithStringId(D2WinButtonStrc* ptBtnData, int eFont, unsigned short nStringId, int nTextColor)
+{
+    D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0x96);
+    ptBtnData->eFont = eFont;
+    ptBtnData->nTextColor = nTextColor;
+    sub_005267E0((Unicode*)ptBtnData->wszText, D2LANG_GetStringFromTblIndex(nStringId));
+}
+
+// 0x00500A70
+void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* ptBtnData, int nX, int nY, int nWidth, int nHeight)
+{
+    D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0xAB);
+    ptBtnData->controlHeader.nImageX = nX;
+    ptBtnData->controlHeader.nImageY = nY;
+    ptBtnData->controlHeader.nWidth = nWidth;
+    ptBtnData->controlHeader.nHeight = nHeight;
+}
+
+// 0x00501090
+int __stdcall BUTTON_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x1FD);
+    if (!(pButton->controlHeader.dwFlags & gdwBitMasks[2]) || !(pButton->controlHeader.dwFlags & gdwBitMasks[0]))
+        return 0;
+    if (pButton->dwButtonFlags & 2)
+    {
+        pButton->bIsPressed = pButton->bIsPressed == 0;
+        pButton->bIsCallbackPending = pButton->bIsCallbackPending == 0;
+    }
+    else
+    {
+        if (pButton->bIsPressed && pButton->bIsCallbackPending)
+            return 1;
+        pButton->bIsPressed = 1;
+        pButton->bIsCallbackPending = 1;
+    }
+    if (!(pButton->dwButtonFlags & 4))
+        D2SOUND_10039("data\\global\\sfx\\cursor\\button.wav");
+    if ((pButton->dwButtonFlags & 3) && pButton->controlHeader.field_34)
+    {
+        D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x221);
+        pButton->controlHeader.field_34(pMsg);
+    }
+    return 1;
+}
+
+// 0x00501150
+int __stdcall BUTTON_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x232);
+    int nResult = 0;
+    pButton->controlHeader.dwFlags |= gdwBitMasks[1];
+    if (!(pButton->controlHeader.dwFlags & gdwBitMasks[2]) || !(pButton->controlHeader.dwFlags & gdwBitMasks[0]))
+    {
+        pButton->controlHeader.dwFlags &= gdwInvBitMasks[1];
+        return 0;
+    }
+    if (!(pButton->dwButtonFlags & 3))
+    {
+        pButton->bIsPressed = 0;
+        if (pButton->bIsCallbackPending && pButton->controlHeader.field_34)
+        {
+            D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x243);
+            nResult = pButton->controlHeader.field_34(pMsg);
+        }
+        pButton->bIsCallbackPending = 0;
+    }
+    pButton->controlHeader.dwFlags &= gdwInvBitMasks[1];
+    return nResult;
+}
+
+// 0x005011F0
+int __stdcall BUTTON_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x259);
+    int nResult = 0;
+    if (pMsg->uMessage != 0x102 && pButton->nActivationVirtualKey == pMsg->wParam && pButton->controlHeader.pfHandleMouseDown)
+    {
+        pButton->nActivationCounter = 1;
+        D2_ASSERT(gnWinCallbackDepth_007D55C4 > 0, 0x263);
+        nResult = pButton->controlHeader.pfHandleMouseDown(pMsg);
+        if (pButton->controlHeader.pfHandleMouseUp)
+        {
+            SMSGHANDLER_PARAMS msg;
+            msg.hWnd = pMsg->hWnd;
+            ++gnWinCallbackDepth_007D55C4;
+            pButton->controlHeader.pfHandleMouseUp(&msg);
+            --gnWinCallbackDepth_007D55C4;
+        }
+    }
+    return nResult;
+}
+
+// 0x00500930
+int __fastcall BUTTON_Destroy(D2WinButtonStrc* ptBtnData)
+{
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0x59);
+    return CONTROL_RemoveFromList(&ptBtnData->controlHeader);
+}
+
+// 0x00500960
+int __fastcall BUTTON_IsPressed(D2WinButtonStrc* ptBtnData)
+{
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0x65);
+    return ptBtnData->bIsPressed && ptBtnData->bIsCallbackPending ? 1 : 0;
+}
+
+// 0x00500AB0
+void __fastcall BUTTON_SimulateClick(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinButtonStrc* ptBtnData = (D2WinButtonStrc*)pMsg->hWnd;
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0xBC);
+    if (ptBtnData->controlHeader.pfHandleMouseDown)
+    {
+        ptBtnData->nActivationCounter = 1;
+        ptBtnData->controlHeader.pfHandleMouseDown(pMsg);
+        if (ptBtnData->controlHeader.pfHandleMouseUp)
+        {
+            SMSGHANDLER_PARAMS tMsg;
+            tMsg.hWnd = pMsg->hWnd;
+            ++gnWinCallbackDepth_007D55C4;
+            ptBtnData->controlHeader.pfHandleMouseUp(&tMsg);
+            --gnWinCallbackDepth_007D55C4;
+        }
+    }
+}
+
+// 0x00500BF0
+void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId)
+{
+    D2_ASSERT(pButton->controlHeader.eType == D2WIN_BUTTON, 0x100);
+    pButton->nStringId = nStringId;
 }

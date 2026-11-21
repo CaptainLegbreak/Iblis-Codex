@@ -163,46 +163,9 @@ void __fastcall sub_004FDA50_2(D2WinTimerStrc* ptTimerData)
 
 
 
-// 0x00500930
-int __fastcall BUTTON_Destroy(D2WinButtonStrc* ptBtnData)
-{
-    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0x59);
-    return CONTROL_RemoveFromList(&ptBtnData->controlHeader);
-}
 
-// 0x00500960
-int __fastcall BUTTON_IsPressed(D2WinButtonStrc* ptBtnData)
-{
-    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0x65);
-    return ptBtnData->bIsPressed && ptBtnData->bIsCallbackPending ? 1 : 0;
-}
 
-// 0x00500AB0
-void __fastcall BUTTON_SimulateClick(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinButtonStrc* ptBtnData = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0xBC);
-    if (ptBtnData->controlHeader.pfHandleMouseDown)
-    {
-        ptBtnData->nActivationCounter = 1;
-        ptBtnData->controlHeader.pfHandleMouseDown(pMsg);
-        if (ptBtnData->controlHeader.pfHandleMouseUp)
-        {
-            SMSGHANDLER_PARAMS tMsg;
-            tMsg.hWnd = pMsg->hWnd;
-            ++gnWinCallbackDepth_007D55C4;
-            ptBtnData->controlHeader.pfHandleMouseUp(&tMsg);
-            --gnWinCallbackDepth_007D55C4;
-        }
-    }
-}
 
-// 0x00500BF0
-void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId)
-{
-    D2_ASSERT(pButton->controlHeader.eType == D2WIN_BUTTON, 0x100);
-    pButton->nStringId = nStringId;
-}
 
 // 0x005015F0
 void __stdcall D2Win_10116()
