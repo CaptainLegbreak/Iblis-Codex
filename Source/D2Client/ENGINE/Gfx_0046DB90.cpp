@@ -135,7 +135,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 
-extern D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
+D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
 
 int gbPreloadForce_007A8920; // 0x007A8920
 
@@ -177,17 +177,23 @@ static int sub_0046E8D0_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex);
 
 static int sub_0046E980_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex);
 
-static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId);
 
 static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int nMode, int bLoadNow, D2MonCofInfoStrc* pInfo);
 
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);
 
-static void sub_00470070_PreloadRoomUnits(int bAsync);
 
 void __fastcall sub_00470350_PreloadTick(int bAsync);
 
 void __cdecl sub_00470B10_PreloadForce();
+
+static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex);
+
+static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex);
+
+static void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit);
+
+static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode);
 
 inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
 {
@@ -383,6 +389,7 @@ static int __stdcall sub_0046E690_FindGfxNode(int nId, D2GfxListNodeStrc** ppNod
     return 1;
 }
 
+// 0x0046E740
 static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
 {
     int nId = 0;
@@ -415,14 +422,13 @@ static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStr
         return 0;
     }
 
-    D2GfxListNodeStrc* pNode;
-    if (sub_0046E690_FindGfxNode(nId, &pNode, pValue, pUnit, nIndex))
+    if (sub_0046E690_FindGfxNode(nId, (D2GfxListNodeStrc**)&pValue, pValue, pUnit, nIndex))
     {
         D2GfxListNodeStrc* pNewNode = (D2GfxListNodeStrc*)FOG_Alloc(sizeof(D2GfxListNodeStrc), ".\\ENGINE\\Gfx.cpp", 0x434, 0);
         D2_ASSERT(pNewNode, 0x435);
         memset(pNewNode, 0, sizeof(D2GfxListNodeStrc));
 
-        D2HashedFileStrc* pTable = !sub_0046D9F0_TestUnit(pUnit) ? &gtHashedFile_007A8100 : &gtHashedFile_007A78F0;
+        D2HashedFileStrc* pTable = !sub_0046D9F0_GetConvertedUnitType(pUnit) ? &gtHashedFile_007A8100 : &gtHashedFile_007A78F0;
         D2HashedFileEntryStrc* pEntry = sub_0046DC40_FindHashedEntry(pTable, szPath);
         if (!pEntry)
         {
@@ -434,7 +440,8 @@ static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStr
         }
 
         pNewNode->nMode = nIndex;
-        pNewNode->nId = nId;
+        int& nNodeId = pNewNode->nId;
+        nNodeId = nId;
         pNewNode->pFileEntry = pEntry;
         pNewNode->pNext = pGfxData->pList;
         pGfxData->pList = pNewNode;
@@ -527,8 +534,6 @@ void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nIndex)
     wsprintfA(szPath, gszPathFormat_006D4124, szDataGlobal_006D4118, gaszHashedFileNames_006D6C30[nIndex]);
     sub_0046DDF0_LoadHashedFile(&gtHashedFile_007A78F0, szPath);
 }
-
-
 
 // 0x0046F490
 static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId)
@@ -661,6 +666,75 @@ static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRec
     }
 }
 
+// build: context CLIENT_GetMonStats2TxtRecord
+static __forceinline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
+        {
+            return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+        }
+    }
+    return 0;
+}
+
+// build: context sub_0046C140_TestMonModeFlag
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode)
+{
+    D2MonStats2Txt* pMonStats2TxtRecord = CLIENT_GetMonStats2TxtRecord(nMonsterId);
+    if (!pMonStats2TxtRecord)
+    {
+        return 0;
+    }
+    return pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7];
+}
+
+// 0x0046F9E0
+static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
+{
+    int nUnitType;
+    int nClassId;
+    int nMode;
+
+    int nTypeValue = 6;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+    }
+
+    nUnitType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClassId = nClassValue;
+    nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x498);
+    const int nConvertedMode = nMode;
+    if (nIndex == 0xE)
+    {
+        nIndex = nConvertedMode;
+    }
+
+    if (!sub_0046C140_TestMonModeFlag(nClassId, nIndex))
+    {
+        return;
+    }
+
+    if (nIndex == 0xC)
+    {
+        sub_0046EC80_FreeGfxNodes(pUnit);
+        sub_0046F020_FillGfxEntries(pUnit, 0);
+        sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
+        return;
+    }
+
+    if (nIndex == 0xE)
+    {
+        nIndex = nConvertedMode;
+    }
+    sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
+}
+
 // build: context sub_0046F870_LoadMonsterCofs
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
 {
@@ -688,50 +762,6 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
             sub_0046F650_LoadMonsterCof(pMonStatsTxtRecord, nMode, bLoadNow, &tInfo);
         }
     }
-}
-
-// build: context sub_0046F9E0_LoadMonsterModeGfx
-static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
-{
-    int nUnitType;
-    int nClassId;
-    int nMode;
-
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x498);
-    const int nConvertedMode = nMode;
-    if (nIndex == 0xE)
-    {
-        nIndex = nConvertedMode;
-    }
-
-    if (!sub_0046C140_CheckMonStats2ModeFlag(nClassId, nIndex))
-    {
-        return;
-    }
-
-    if (nIndex == 0xC)
-    {
-        sub_0046EC80_FreeGfxNodes(pUnit);
-        sub_0046F020_FillGfxEntries(pUnit, 0);
-        sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
-        return;
-    }
-
-    if (nIndex == 0xE)
-    {
-        nIndex = nConvertedMode;
-    }
-    sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
 }
 
 // 0x0046FA80
@@ -924,6 +954,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     }
 }
 
+// 0x0046FEB0
 static void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* pUnit)
 {
     const int nId = sub_0046DAC0_GetItemClassId(pUnit);
@@ -951,6 +982,7 @@ static void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* p
     }
 }
 
+// 0x0046FF50
 static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)
 {
     int nAnimMode;
@@ -967,7 +999,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile_006D6C1C, 0x751);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x751);
     if (gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode])
     {
         return;
@@ -1070,8 +1102,6 @@ static void sub_00470070_PreloadRoomUnits(int bAsync)
         }
     }
 }
-
-
 
 static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
 {
@@ -1218,6 +1248,12 @@ void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit)
         }
         break;
     }
+}
+
+int __stdcall sub_M389_Emit_0046FEB0(int bAsync, D2UnitStrc* pUnit)
+{
+    sub_0046FEB0_PreloadMonsterModes(bAsync, pUnit);
+    return 0x3B;
 }
 
 #include "gen/data/Source/D2Client/ENGINE/Gfx_0046DB90.inc"

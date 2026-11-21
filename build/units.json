@@ -21739,6 +21739,10 @@
      "name": "?sub_0046E690_FindGfxNode@@YGHHPAPAUD2GfxListNodeStrc@@PAHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x0046E740",
+     "length": 388
+    },
+    {
      "va": "0x0046E8D0",
      "length": 173,
      "name": "?sub_0046E8D0_LoadMonsterGfx@@YAHPAUD2UnitStrc@@H@Z"
@@ -21768,6 +21772,11 @@
      "name": "?sub_0046F650_LoadMonsterCof@@YGXPAUD2MonStatsTxt@@HHPAUD2MonCofInfoStrc@@@Z"
     },
     {
+     "va": "0x0046F9E0",
+     "length": 155,
+     "name": "?sub_0046F9E0_LoadMonsterModeGfx@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x0046FA80",
      "length": 218,
      "name": "?sub_0046FA80_LoadGfxNode@@YIPAXPAUD2UnitStrc@@HH@Z"
@@ -21779,6 +21788,16 @@
     {
      "va": "0x0046FDA0",
      "length": 257
+    },
+    {
+     "va": "0x0046FEB0",
+     "length": 156,
+     "name": "?sub_0046FEB0_PreloadMonsterModes@@YGXHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046FF50",
+     "length": 228,
+     "name": "?sub_0046FF50_PreloadPlayerMode@@YGXHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00470070",
@@ -21991,45 +22010,6 @@
      "length": 616,
      "name": "?sub_0046E300_DrawUnitOverlays@@YGXPAUD2UnitStrc@@IHHHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_0046E740.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046E740",
-     "length": 388
-    },
-    {
-     "va": "0x0046F9E0",
-     "length": 155,
-     "name": "?sub_0046F9E0_LoadMonsterModeGfx@@YAXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0046FEB0",
-     "length": 156,
-     "name": "?sub_0046FEB0_PreloadMonsterModes@@YGXHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046FF50",
-     "length": 228,
-     "name": "?sub_0046FF50_PreloadPlayerMode@@YGXHPAUD2UnitStrc@@H@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
