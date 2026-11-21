@@ -6077,9 +6077,11 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/MonsterTbls.cpp": {
-   "bytes": 704,
-   "definitions": 99,
-   "externs": [],
+   "bytes": 1028,
+   "definitions": 102,
+   "externs": [
+    "extern \"C\" char gData_006ED5B4[]; // 0x006ED5B4"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/MonsterTbls.inc",
    "lang": "cpp",
@@ -6173,17 +6175,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_0064FC60.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DATATBLS/MonsterTbls_006510C0.cpp": {
-   "bytes": 324,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" char gData_006ED5B4[]; // 0x006ED5B4"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DATATBLS/MonsterTbls_006510C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -133164,7 +133155,7 @@
    "cname": "gData_00745A10",
    "declared": true,
    "decorated": "_gaszChestNames",
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_006510C0.cpp",
+   "file": "Source/D2Common/DATATBLS/MonsterTbls.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_00745A10[3]; // 0x00745A10",
    "head": "extern \"C\" const char* const gData_00745A10[3] = ",
@@ -133219,7 +133210,7 @@
    "cname": "gData_00745A1C",
    "declared": true,
    "decorated": "_gaszDifficultySuffixes",
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_006510C0.cpp",
+   "file": "Source/D2Common/DATATBLS/MonsterTbls.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_00745A1C[3]; // 0x00745A1C",
    "head": "extern \"C\" const char* const gData_00745A1C[3] = ",
@@ -133274,7 +133265,7 @@
    "cname": "gData_00745A28",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_006510C0.cpp",
+   "file": "Source/D2Common/DATATBLS/MonsterTbls.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00745A28_t gData_00745A28; // 0x00745A28",
    "head": "extern \"C\" struct d2data_00745A28_t gData_00745A28 = ",

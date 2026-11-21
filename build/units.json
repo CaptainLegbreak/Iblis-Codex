@@ -81314,6 +81314,11 @@
      "name": "?DATATBLS_UnloadShrinesTxt@@YIXXZ"
     },
     {
+     "va": "0x006510C0",
+     "length": 129,
+     "name": "DATATBLS_GetMonsterChainInfo"
+    },
+    {
      "va": "0x00651210",
      "length": 9865,
      "name": "DATATBLS_LoadMonStatsTxt"
@@ -81324,6 +81329,16 @@
      "name": "?DATATBLS_CalculateMonsterStatsByLevel@@YGHHHHHFPAUD2MonStatsInitStrc@@@Z"
     },
     {
+     "va": "0x00653DB0",
+     "length": 98,
+     "name": "?sub_00653DB0@@YIXPAXPBDI@Z"
+    },
+    {
+     "va": "0x00653E20",
+     "length": 44,
+     "name": "?sub_00653E20@@YAXXZ"
+    },
+    {
      "va": "0x00653E50",
      "length": 58,
      "name": "?sub_00653E50_RollRandomUniqueNameString@@YIPBUUnicode@@PAUD2UnitStrc@@H@Z"
@@ -81332,6 +81347,21 @@
      "va": "0x00653E90",
      "length": 52,
      "name": "?DATATBLS_RollRandomUniqueTitleString@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00653F90",
+     "length": 125,
+     "name": "?DATATBLS_NewTreasureClassEx@@YIPAUD2TCExShortStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00654010",
+     "length": 97,
+     "name": "?DATATBLS_ReallocTCExInfo@@YIXPAUD2TCExShortStrc@@H@Z"
+    },
+    {
+     "va": "0x00654080",
+     "length": 55,
+     "name": "?sub_00654080@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
     },
     {
      "va": "0x006540C0",
@@ -81388,9 +81418,23 @@
      "name": "?DATATBLS_LoadSuperUniquesTxt@@YIXPAX@Z"
     },
     {
+     "va": "0x00655720",
+     "length": 2958
+    },
+    {
+     "va": "0x00656390",
+     "length": 162,
+     "name": "DATATBLS_GetNextHirelingTxtRecordFromNameId"
+    },
+    {
      "va": "0x00656440",
      "length": 139,
      "name": "DATATBLS_GetNextHirelingTxtRecordFromClassId"
+    },
+    {
+     "va": "0x006564D0",
+     "length": 165,
+     "name": "DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty"
     },
     {
      "va": "0x00656580",
@@ -81412,6 +81456,16 @@
      "length": 4755
     },
     {
+     "va": "0x00658460",
+     "length": 192,
+     "name": "DATATBLS_CheckNestedMonsterTypes"
+    },
+    {
+     "va": "0x00658520",
+     "length": 431,
+     "name": "?DATATBLS_LoadMonTypeTxt@@YIXPAX@Z"
+    },
+    {
      "va": "0x00658720",
      "length": 3492,
      "name": "DATATBLS_LoadMonPropTxt"
@@ -81420,6 +81474,11 @@
      "va": "0x00659500",
      "length": 1124,
      "name": "DATATBLS_LoadMonLvlTxt"
+    },
+    {
+     "va": "0x00659990",
+     "length": 124,
+     "name": "?DATATBLS_MonPresetPlaceLinker@@YIXPADPAUD2MonPresetTxt@@HHHH@Z"
     },
     {
      "va": "0x00659A10",
@@ -81440,6 +81499,26 @@
      "va": "0x0065A190",
      "length": 297,
      "name": "?DATATBLS_UnloadSomeMonsterTxts@@YIXXZ"
+    },
+    {
+     "va": "0x0065A2C0",
+     "length": 206,
+     "name": "?sub_0065A2C0@@YAXXZ"
+    },
+    {
+     "va": "0x0065A390",
+     "length": 89,
+     "name": "?sub_0065A390@@YGXPAX@Z"
+    },
+    {
+     "va": "0x0065A3F0",
+     "length": 7,
+     "name": "?DATATBLS_LoadTreasureClassExTxt@@YIXPAX@Z"
+    },
+    {
+     "va": "0x0065A400",
+     "length": 391,
+     "name": "DATATBLS_LoadSomeMonsterTxts"
     }
    ]
   },
@@ -84328,91 +84407,6 @@
      "va": "0x00650840",
      "length": 205,
      "name": "?D2Common_10226@@YGHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_006510C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006510C0",
-     "length": 129,
-     "name": "DATATBLS_GetMonsterChainInfo"
-    },
-    {
-     "va": "0x00653DB0",
-     "length": 98,
-     "name": "?sub_00653DB0@@YIXPAXPBDI@Z"
-    },
-    {
-     "va": "0x00653E20",
-     "length": 44,
-     "name": "?sub_00653E20@@YAXXZ"
-    },
-    {
-     "va": "0x00653F90",
-     "length": 125,
-     "name": "?DATATBLS_NewTreasureClassEx@@YIPAUD2TCExShortStrc@@PBD@Z"
-    },
-    {
-     "va": "0x00654010",
-     "length": 97,
-     "name": "?DATATBLS_ReallocTCExInfo@@YIXPAUD2TCExShortStrc@@H@Z"
-    },
-    {
-     "va": "0x00654080",
-     "length": 55,
-     "name": "?sub_00654080@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
-    },
-    {
-     "va": "0x00655720",
-     "length": 2958
-    },
-    {
-     "va": "0x00656390",
-     "length": 162,
-     "name": "DATATBLS_GetNextHirelingTxtRecordFromNameId"
-    },
-    {
-     "va": "0x006564D0",
-     "length": 165,
-     "name": "DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty"
-    },
-    {
-     "va": "0x00658460",
-     "length": 192,
-     "name": "DATATBLS_CheckNestedMonsterTypes"
-    },
-    {
-     "va": "0x00658520",
-     "length": 431,
-     "name": "?DATATBLS_LoadMonTypeTxt@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00659990",
-     "length": 124,
-     "name": "?DATATBLS_MonPresetPlaceLinker@@YIXPADPAUD2MonPresetTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x0065A2C0",
-     "length": 206,
-     "name": "?sub_0065A2C0@@YAXXZ"
-    },
-    {
-     "va": "0x0065A390",
-     "length": 89,
-     "name": "?sub_0065A390@@YGXPAX@Z"
-    },
-    {
-     "va": "0x0065A3F0",
-     "length": 7,
-     "name": "?DATATBLS_LoadTreasureClassExTxt@@YIXPAX@Z"
-    },
-    {
-     "va": "0x0065A400",
-     "length": 391,
-     "name": "DATATBLS_LoadSomeMonsterTxts"
     }
    ]
   },
