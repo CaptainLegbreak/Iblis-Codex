@@ -434,7 +434,9 @@ struct D2Act3Quest4Strc
     unsigned char bTalkedToCainOnce; // 0x09
     unsigned char bTalkedToCainTwice; // 0x0A
     unsigned char bTalkedToMeshif; // 0x0B
-    int unk0x0C; // 0x0C
+    unsigned char unk0x0C; // 0x0C
+    unsigned char unk0x0D; // 0x0D
+    unsigned short unk0x0E; // 0x0E
     int nGoldenBirdsInGame; // 0x10
     unsigned char bJadeFigurineDropped; // 0x14
     unsigned char bPlayerDroppedWithItem; // 0x15

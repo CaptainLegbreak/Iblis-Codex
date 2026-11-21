@@ -71331,6 +71331,10 @@
      "name": "?ACT3Q4_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x005BA320",
+     "length": 889
+    },
+    {
      "va": "0x005BA6A0",
      "length": 260,
      "name": "?ACT3Q4_Callback04_ItemPickedUp@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -71386,30 +71390,6 @@
      "length": 39,
      "name": "?sub_005BA2F0_UpdatePartyQuestState@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q4_005BA320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005BA320",
-     "length": 889
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
