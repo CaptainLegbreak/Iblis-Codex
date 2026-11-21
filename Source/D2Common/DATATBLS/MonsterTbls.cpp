@@ -196,7 +196,11 @@ struct TableRow
 };
 
 
-struct D2ItemDataTbl { int nItemsTxtRecordCount; D2ItemsTxt* pItemsTxt; };
+struct D2ItemDataTbl
+{
+    int nItemsTxtRecordCount;
+    D2ItemsTxt* pItemsTxt;
+};
 
 typedef char check_TableRow_size[sizeof(TableRow) == 0xE4 ? 1 : -1];
 
@@ -230,7 +234,12 @@ struct D2TreasureClassExTxt
     int nProb[10];
 };
 
-struct D2UniqueItemsTxt { char unk0x00[0x28]; unsigned int dwBaseItemCode; char unk0x2C[0x14C - 0x2C]; };
+struct D2UniqueItemsTxt
+{
+    char unk0x00[0x28];
+    unsigned int dwBaseItemCode;
+    char unk0x2C[0x14C - 0x2C];
+};
 
 
 typedef char check_D2TreasureClassExTxt_size[sizeof(D2TreasureClassExTxt) == 0x2E0 ? 1 : -1];

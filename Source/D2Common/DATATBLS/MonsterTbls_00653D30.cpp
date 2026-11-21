@@ -20,19 +20,45 @@ struct D2MonRecord0C;
 
 struct D2MonItemPercentDataTbl;
 
-struct D2TCExShortStrc { unsigned short nGroup; short nLevel; char unk0x04[0x28 - 4]; void* pInfo; };
+struct D2TCExShortStrc
+{
+    unsigned short nGroup;
+    short nLevel;
+    char unk0x04[0x28 - 4];
+    void* pInfo;
+};
 
-struct D2SuperUniquesTxt { char unk[0x34]; };
+struct D2SuperUniquesTxt
+{
+    char unk[0x34];
+};
 
-struct D2NpcTxt { unsigned int dwNpc; char unk[0x4C - 4]; };
+struct D2NpcTxt
+{
+    unsigned int dwNpc;
+    char unk[0x4C - 4];
+};
 
-struct D2MonSoundsTxt { char unk[0x94]; };
+struct D2MonSoundsTxt
+{
+    char unk[0x94];
+};
 
-struct D2MonItemPercentTxt { int nValue; };
+struct D2MonItemPercentTxt
+{
+    int nValue;
+};
 
-struct D2MonRecord0C { char unk[0xC]; };
+struct D2MonRecord0C
+{
+    char unk[0xC];
+};
 
-struct D2MonItemPercentDataTbl { int nMonItemPercentTxtRecordCount; D2MonItemPercentTxt* pMonItemPercentTxt; };
+struct D2MonItemPercentDataTbl
+{
+    int nMonItemPercentTxtRecordCount;
+    D2MonItemPercentTxt* pMonItemPercentTxt;
+};
 
 extern void* gpMonTable_96BDC4; // 0x0096BDC4
 

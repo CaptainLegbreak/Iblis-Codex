@@ -20,10 +20,24 @@ struct D2HirelingTxt
 extern D2HirelingTxt* gpHirelingTxt_0096BDD0; // 0x0096BDD0
 extern int gaHirelingIndex_0096BDD8[2][256]; // 0x0096BDD8
 
-struct D2BinFieldStrc { const char* name; int type,length,offset; void* lookup; };
+struct D2BinFieldStrc
+{
+    const char* name;
+    int type,length,offset;
+    void* lookup;
+};
 
 
-struct D2MonEquipTxt { short monster,level; char onInit; char unk05[3]; unsigned int item[3]; char location[3]; char modifier[3]; char unk1A[2]; };
+struct D2MonEquipTxt
+{
+    short monster,level;
+    char onInit;
+    char unk05[3];
+    unsigned int item[3];
+    char location[3];
+    char modifier[3];
+    char unk1A[2];
+};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

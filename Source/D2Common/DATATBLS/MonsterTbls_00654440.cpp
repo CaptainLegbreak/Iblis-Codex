@@ -48,7 +48,12 @@ struct D2TreasureClassExTxt
 };
 
 
-struct D2UniqueItemsTxt { char unk0x00[0x28]; unsigned int dwBaseItemCode; char unk0x2C[0x14C - 0x2C]; };
+struct D2UniqueItemsTxt
+{
+    char unk0x00[0x28];
+    unsigned int dwBaseItemCode;
+    char unk0x2C[0x14C - 0x2C];
+};
 
 typedef char check_D2TCExInfoStrc_size[sizeof(D2TCExInfoStrc) == 0x1C ? 1 : -1];
 typedef char check_D2TCExShortStrc_size[sizeof(D2TCExShortStrc) == 0x2C ? 1 : -1];
@@ -131,7 +136,10 @@ static int sub_00654410_NextIntToken(char** ppString, char chSeparator)
     return atoi(szToken);
 }
 
-struct D2TCExRecordArgStrc { D2TCExShortStrc* pRecord; };
+struct D2TCExRecordArgStrc
+{
+    D2TCExShortStrc* pRecord;
+};
 static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord, int nProb, char* szText);
 static int __declspec(noinline) __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord, int nProb, char* szText);
 
