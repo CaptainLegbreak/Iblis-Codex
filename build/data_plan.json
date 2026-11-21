@@ -4781,8 +4781,8 @@
    "state": "included"
   },
   "Source/D2Game/MISSILES/MissMode.cpp": {
-   "bytes": 864,
-   "definitions": 7,
+   "bytes": 1008,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl MISSMODE_SrvDo01_BasicMissile(); // 0x005B0BC0",
     "extern \"C\" void __cdecl MISSMODE_SrvDo18_TowerChestSpawner(); // 0x005AF300",
@@ -4958,15 +4958,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005A8030.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005AAA90.cpp": {
-   "bytes": 144,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005AAA90.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -111159,7 +111150,7 @@
    "cname": "gData_006E2550",
    "declared": true,
    "decorated": "?gnMeteorSubmissileOffsetsX_006E2550@@3QBHB",
-   "file": "Source/D2Game/Unknown_005AAA90.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E2550[18]; // 0x006E2550",
    "head": "extern \"C\" const int gData_006E2550[18] = ",
@@ -111189,7 +111180,7 @@
    "cname": "gData_006E2598",
    "declared": true,
    "decorated": "?gnMeteorSubmissileOffsetsY_006E2598@@3QBHB",
-   "file": "Source/D2Game/Unknown_005AAA90.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E2598[18]; // 0x006E2598",
    "head": "extern \"C\" const int gData_006E2598[18] = ",

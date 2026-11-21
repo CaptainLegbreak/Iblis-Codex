@@ -62499,6 +62499,16 @@
      "name": "MISSMODE_SrvHit13_GlacialSpike_HellMeteorDown"
     },
     {
+     "va": "0x005AAA90",
+     "length": 274,
+     "name": "?MISSMODE_CreateMeteor_MoltenBoulderSubmissiles@@YGXPAUD2GameStrc@@HHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AABB0",
+     "length": 398,
+     "name": "?MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005AAD40",
      "length": 205,
      "name": "MISSMODE_SrvHit15_SpiderGooLay"
@@ -64410,22 +64420,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AAA90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005AAA90",
-     "length": 274,
-     "name": "?MISSMODE_CreateMeteor_MoltenBoulderSubmissiles@@YGXPAUD2GameStrc@@HHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AABB0",
-     "length": 398,
-     "name": "?MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
    ]
   },
   {

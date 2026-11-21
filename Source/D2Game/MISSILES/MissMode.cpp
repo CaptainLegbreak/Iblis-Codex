@@ -694,6 +694,8 @@ void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
 
 void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 
+static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc* pGame, int nMissileId, int nRange, int nStep, D2UnitStrc* pMissile);
+
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
 {
@@ -2246,6 +2248,121 @@ int __fastcall MISSMODE_SrvHit13_GlacialSpike_HellMeteorDown(D2GameStrc* pGame, 
     return 3;
 }
 
+// 0x005AAA90
+static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc* pGame, int nMissileId, int nRange, int nStep, D2UnitStrc* pMissile)
+{
+    if (nMissileId < 0)
+    {
+        return;
+    }
+
+    const int nX = CLIENTS_GetUnitXInline(pMissile);
+    const int nY = CLIENTS_GetUnitYInline(pMissile);
+
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
+    const int nSkill = MISSILE_GetSkill(pMissile);
+    const int nSkillLevel = MISSILE_GetLevel(pMissile);
+
+    D2MissileStrc missileParams = {};
+    missileParams.dwFlags = 1;
+    if (nRange > 0)
+    {
+        missileParams.dwFlags = 0x8001;
+        missileParams.nRange = nRange;
+    }
+
+    missileParams.nSkill = nSkill;
+    missileParams.pOwner = pOwner;
+    missileParams.nSkillLevel = nSkillLevel;
+    missileParams.nMissile = nMissileId;
+
+    if (nStep < 1)
+    {
+        nStep = 1;
+    }
+
+    for (int i = 0; i < 18; i += nStep)
+    {
+        missileParams.nX = nX + gnMeteorSubmissileOffsetsX_006E2550[i];
+        missileParams.nY = nY + gnMeteorSubmissileOffsetsY_006E2598[i];
+        MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    }
+}
+
+static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x005AABB0
+int __fastcall MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    D2MissilesTxt* pMissilesTxtRecord = MISSILE_GetMissilesTxtRecord_Inline(pMissile);
+    if (!pMissilesTxtRecord)
+    {
+        return 1;
+    }
+
+    const int nSkillId = MISSILE_GetSkill(pMissile);
+    const int nLevel = MISSILE_GetLevel(pMissile);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord_Inline(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 1;
+    }
+
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
+    if (!pOwner)
+    {
+        return 1;
+    }
+
+    const int nX = CLIENTS_GetUnitX(pMissile);
+    const int nY = CLIENTS_GetUnitY(pMissile);
+
+    int nRange = pMissilesTxtRecord->dwHitPar[0];
+    if (nRange <= 0)
+    {
+        nRange = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nLevel);
+        if (nRange < 1)
+        {
+            nRange = 1;
+        }
+    }
+
+    D2DamageStrc damage = {};
+    MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &damage);
+
+    damage.dwHitFlags |= pMissilesTxtRecord->dwHitFlags;
+    damage.wResultFlags |= pMissilesTxtRecord->wResultFlags;
+
+    int nResult = 1;
+    if (!sub_6FD10200(pGame, pOwner, nX, nY, nRange, &damage, 0))
+    {
+        nResult = 3;
+    }
+
+    const short nHitSubMissile = pMissilesTxtRecord->wHitSubMissile[0];
+    if (nHitSubMissile >= 0)
+    {
+        const int nMissileRange = sub_004CC7C0_GetSkillMissileRange(nSkillId, nLevel);
+        int nParam = pMissilesTxtRecord->dwHitPar[1];
+        if (nParam < 1)
+        {
+            nParam = 1;
+        }
+
+        MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(pGame, nHitSubMissile, nMissileRange, nParam, pMissile);
+    }
+
+    return nResult;
+}
+
 // 0x005AAD40
 int __fastcall MISSMODE_SrvHit15_SpiderGooLay(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
@@ -2656,16 +2773,6 @@ int __fastcall MISSMODE_SrvHit25_PantherPotGreen(D2GameStrc* pGame, D2UnitStrc* 
 
     MISSMODE_CreatePantherPotGreenSubmissiles(pGame, pOwner, pUnit, pMissilesTxtRecord->wHitSubMissile[0], MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), nHitPar);
     return 3;
-}
-
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
 }
 
 // 0x005AB8D0
@@ -3263,47 +3370,6 @@ int __fastcall MISSMODE_SrvHit45_LightningTrailingJavelin(D2GameStrc* pGame, D2U
 
     sub_6FD14260(pGame, pMissilesTxtRecord->dwHitPar[0], &missileParams);
     return 1;
-}
-
-// 0x005AAA90
-static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc* pGame, int nMissileId, int nRange, int nStep, D2UnitStrc* pMissile)
-{
-    if (nMissileId < 0)
-    {
-        return;
-    }
-
-    const int nX = CLIENTS_GetUnitXInline(pMissile);
-    const int nY = CLIENTS_GetUnitYInline(pMissile);
-
-    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
-    const int nSkill = sub_0064A280(pMissile);
-    const int nSkillLevel = sub_0064A210(pMissile);
-
-    D2MissileStrc missileParams = {};
-    missileParams.dwFlags = 1;
-    if (nRange > 0)
-    {
-        missileParams.dwFlags = 0x8001;
-        missileParams.nRange = nRange;
-    }
-
-    missileParams.nSkill = nSkill;
-    missileParams.pOwner = pOwner;
-    missileParams.nSkillLevel = nSkillLevel;
-    missileParams.nMissile = nMissileId;
-
-    if (nStep < 1)
-    {
-        nStep = 1;
-    }
-
-    for (int i = 0; i < 18; i += nStep)
-    {
-        missileParams.nX = nX + gnMeteorSubmissileOffsetsX_006E2550[i];
-        missileParams.nY = nY + gnMeteorSubmissileOffsetsY_006E2598[i];
-        MISSILES_CreateMissileFromParams(pGame, &missileParams);
-    }
 }
 
 // 0x005AC550
@@ -6063,6 +6129,70 @@ int __fastcall sub_005ADA80_Shim(D2UnitStrc* pMissile)
 int __stdcall sub_K13_Emit_005A94C0(D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY, int nMaxDistanceSq, int nX, int nY)
 {
     return sub_005A94C0_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
+}
+
+// build: context sub_005AC550_MISSMODE_SrvHit_MoltenBoulder
+int __fastcall sub_005AC550_MISSMODE_SrvHit_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+{
+    D2MissilesTxt* pMissilesTxtRecord = MISSILE_GetMissilesTxtRecord_Inline(pMissile);
+    if (!pMissilesTxtRecord)
+    {
+        return 1;
+    }
+
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
+    if (!pOwner)
+    {
+        return 1;
+    }
+
+    if (pUnit && (pUnit->dwUnitType != UNIT_MONSTER || !sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, MONSTATS2FLAGINDEX_LARGE)))
+    {
+        return 2;
+    }
+
+    const int nX = CLIENTS_GetUnitX(pMissile);
+    const int nY = CLIENTS_GetUnitY(pMissile);
+
+    int nResult = 1;
+
+    D2DamageStrc damage = {};
+    MISSMODE_FillDamageParams(pGame, pOwner, pMissile, pUnit, &damage);
+
+    int nRange = pMissilesTxtRecord->dwHitPar[0];
+    if (nRange <= 0)
+    {
+        const int nSkillId = MISSILE_GetSkill(pMissile);
+        const int nLevel = MISSILE_GetLevel(pMissile);
+        D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+        if (!pSkillsTxtRecord)
+        {
+            return 1;
+        }
+
+        nRange = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nLevel);
+        if (nRange < 1)
+        {
+            nRange = 1;
+        }
+    }
+
+    damage.dwHitFlags |= pMissilesTxtRecord->dwHitFlags;
+    damage.wResultFlags |= pMissilesTxtRecord->wResultFlags;
+
+    if (!sub_6FD10200(pGame, pOwner, nX, nY, nRange, &damage, 0))
+    {
+        nResult = 3;
+    }
+
+    int nParam = pMissilesTxtRecord->dwHitPar[1];
+    if (nParam < 1)
+    {
+        nParam = 1;
+    }
+
+    MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(pGame, pMissilesTxtRecord->wHitSubMissile[0], nRange, nParam, pMissile);
+    return nResult;
 }
 
 #include "gen/data/Source/D2Game/MISSILES/MissMode.inc"
