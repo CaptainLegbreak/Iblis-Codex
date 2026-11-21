@@ -63427,22 +63427,6 @@
      "name": "?ACT5Q3_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x0058A980",
-     "length": 43,
-     "name": "?sub_6FCB53D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0058AAB0",
-     "length": 264,
-     "name": "?ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q3_0058A0A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0058A0A0",
      "length": 107,
      "name": "?ACT5Q3_ApplyResistanceReward@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -63461,6 +63445,16 @@
      "va": "0x0058A270",
      "length": 47,
      "name": "?ACT5Q3_UnitIterate_CheckForDefrostPotion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058A2A0",
+     "length": 85,
+     "name": "?sub_0058A2A0_HasDefrostPotion@@YAHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0058A300",
+     "length": 260,
+     "name": "?ACT5Q3_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     },
     {
      "va": "0x0058A410",
@@ -63498,6 +63492,11 @@
      "name": "?ACT5Q3_InitializeDrehyaPortalCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0058A980",
+     "length": 43,
+     "name": "?sub_6FCB53D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0058A9B0",
      "length": 25,
      "name": "?sub_0058A9B0_SetDrehyaSpecialModeInTown@@YIXPAUD2GameStrc@@@Z"
@@ -63521,6 +63520,11 @@
      "va": "0x0058AA50",
      "length": 81,
      "name": "?OBJECTS_InitFunction74_FrozenAnya@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0058AAB0",
+     "length": 264,
+     "name": "?ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x0058BC00",
@@ -63558,6 +63562,10 @@
      "name": "?ACT5Q6_IsWorldStoneChamberClosed@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0058EAC0",
+     "length": 253
+    },
+    {
      "va": "0x0058FD20",
      "length": 39,
      "name": "?sub_0058FD20_ACT1Q1_SetRespecRewardPending@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -63571,22 +63579,6 @@
      "va": "0x00591790",
      "length": 126,
      "name": "?ACT1Q3_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q3_0058A2A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058A2A0",
-     "length": 85,
-     "name": "?sub_0058A2A0_HasDefrostPotion@@YAHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0058A300",
-     "length": 260,
-     "name": "?ACT5Q3_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     }
    ]
   },
@@ -64184,30 +64176,6 @@
      "length": 101,
      "name": "?sub_0058EA50_InitQuestCallbacks@@YIXPAUD2QuestData0058EA50Strc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q3_0058EAC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058EAC0",
-     "length": 253
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
