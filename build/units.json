@@ -58976,6 +58976,25 @@
      "name": "?sub_00574410_SendPetUpdate@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2PetUpdateStrc@@@Z"
     },
     {
+     "va": "0x00574450",
+     "length": 229,
+     "name": "?sub_00574450_KillPet@@YAXPAUD2GameStrc@@H@Z"
+    },
+    {
+     "va": "0x00574540",
+     "length": 42,
+     "name": "?sub_00574540_GetPetListFromPetType@@YGPAUD2PetListStrc@@PAUD2PlayerPetStrc@@H@Z"
+    },
+    {
+     "va": "0x00574570",
+     "length": 337
+    },
+    {
+     "va": "0x005746D0",
+     "length": 221,
+     "name": "?PLAYERPETS_FreePetsFromPlayerData@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005747B0",
      "length": 92,
      "name": "?sub_6FC7D9D0@@YAHPAUD2UnitStrc@@H@Z"
@@ -58986,9 +59005,28 @@
      "name": "?sub_00574810_GetPetMaxFromPetType@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00574850",
+     "length": 217,
+     "name": "?sub_00574850_RemovePetFromList@@YGXPAUD2PetListStrc@@HHPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x00574930",
      "length": 115,
      "name": "?PLAYERPETS_PlayerIterate_UpdateClient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00574A20",
+     "length": 130,
+     "name": "?PLAYERPETS_GetPetTypeFromPetGUID@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00574AB0",
+     "length": 282
+    },
+    {
+     "va": "0x00574BD0",
+     "length": 136,
+     "name": "?PLAYERPETS_GetPetInfoFromPetGUID@@YIPAUD2PetInfoStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00574C60",
@@ -59001,106 +59039,19 @@
      "name": "?sub_00574CC0_RelocatePet@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     },
     {
-     "va": "0x00574EC0",
-     "length": 113,
-     "name": "?sub_6FC7E8B0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@HH@Z"
-    },
-    {
-     "va": "0x005752B0",
-     "length": 197,
-     "name": "?sub_6FC7D5F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x00575850",
-     "length": 161,
-     "name": "?sub_6FC7D150@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x00575A80",
-     "length": 98,
-     "name": "sub_00575A80_InitPetTypeMax"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00574450.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00574450",
-     "length": 229,
-     "name": "?sub_00574450_KillPet@@YAXPAUD2GameStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00574540.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00574540",
-     "length": 42,
-     "name": "?sub_00574540_GetPetListFromPetType@@YGPAUD2PetListStrc@@PAUD2PlayerPetStrc@@H@Z"
-    },
-    {
-     "va": "0x005746D0",
-     "length": 221,
-     "name": "?PLAYERPETS_FreePetsFromPlayerData@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00574850",
-     "length": 217,
-     "name": "?sub_00574850_RemovePetFromList@@YGXPAUD2PetListStrc@@HHPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00574570.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00574570",
-     "length": 337
-    },
-    {
-     "va": "0x00575900",
-     "length": 380,
-     "name": "?sub_6FC7DF40@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00574A20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00574A20",
-     "length": 130,
-     "name": "?PLAYERPETS_GetPetTypeFromPetGUID@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00574BD0",
-     "length": 136,
-     "name": "?PLAYERPETS_GetPetInfoFromPetGUID@@YIPAUD2PetInfoStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
      "va": "0x00574D90",
      "length": 69,
      "name": "?sub_00574D90_RelocatePetList@@YGXPAUD2GameStrc@@PAUD2PetListStrc@@PAUD2ActiveRoomStrc@@HH@Z"
+    },
+    {
+     "va": "0x00574DE0",
+     "length": 213,
+     "name": "PLAYERPETS_IteratePets"
+    },
+    {
+     "va": "0x00574EC0",
+     "length": 113,
+     "name": "?sub_6FC7E8B0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@HH@Z"
     },
     {
      "va": "0x00574F40",
@@ -59113,9 +59064,23 @@
      "name": "?sub_00574F80@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00575070",
+     "length": 108
+    },
+    {
      "va": "0x005750E0",
      "length": 189,
      "name": "?PLAYERPETS_RemovePet@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005751A0",
+     "length": 268,
+     "name": "?sub_6FC7D470@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x005752B0",
+     "length": 197,
+     "name": "?sub_6FC7D5F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x00575380",
@@ -59128,36 +59093,6 @@
      "name": "?PLAYERPETS_UpdatePetsForOwnerMove@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x00575720",
-     "length": 296,
-     "name": "?sub_00575720_RemoveGroupPets@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00575BC0",
-     "length": 174,
-     "name": "?sub_00575BC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00574AB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00574AB0",
-     "length": 282
-    },
-    {
-     "va": "0x00574DE0",
-     "length": 213,
-     "name": "PLAYERPETS_IteratePets"
-    },
-    {
-     "va": "0x005751A0",
-     "length": 268,
-     "name": "?sub_6FC7D470@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
      "va": "0x00575590",
      "length": 160,
      "name": "?sub_00575590_RemoveDeadPets@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2PlayerPetStrc@@@Z"
@@ -59168,9 +59103,34 @@
      "name": "?sub_6FC7E640@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00575720",
+     "length": 296,
+     "name": "?sub_00575720_RemoveGroupPets@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00575850",
+     "length": 161,
+     "name": "?sub_6FC7D150@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00575900",
+     "length": 380,
+     "name": "?sub_6FC7DF40@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00575A80",
+     "length": 98,
+     "name": "sub_00575A80_InitPetTypeMax"
+    },
+    {
      "va": "0x00575AF0",
      "length": 197,
      "name": "PLAYERPETS_AllocPetList"
+    },
+    {
+     "va": "0x00575BC0",
+     "length": 174,
+     "name": "?sub_00575BC0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00575C70",
@@ -59178,58 +59138,14 @@
      "name": "?sub_00575C70_AppendPet@@YGHPAUD2UnitStrc@@PAUD2PetInfoStrc@@0PAUD2PetListStrc@@PAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x00575D90",
+     "length": 245
+    },
+    {
      "va": "0x00575E90",
      "length": 270,
      "name": "?PLAYERPETS_AddPetWithInfo@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HPAUD2PetInfoStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00575070.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00575070",
-     "length": 108
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00575D90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00575D90",
-     "length": 245
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
