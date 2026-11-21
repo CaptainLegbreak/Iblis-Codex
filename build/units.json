@@ -49953,6 +49953,16 @@
      "length": 241
     },
     {
+     "va": "0x005DEAD0",
+     "length": 142,
+     "name": "?AITACTICS_UseSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@EH1HH@Z"
+    },
+    {
+     "va": "0x005DEB60",
+     "length": 274,
+     "name": "?AITACTICS_MoveToTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHHEE@Z"
+    },
+    {
      "va": "0x005DECA0",
      "length": 93,
      "name": "?AITACTICS_WalkToTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
@@ -69036,22 +69046,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DEAD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DEAD0",
-     "length": 142,
-     "name": "?AITACTICS_UseSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@EH1HH@Z"
-    },
-    {
-     "va": "0x005DEB60",
-     "length": 274,
-     "name": "?AITACTICS_MoveToTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHHEE@Z"
-    }
    ]
   },
   {

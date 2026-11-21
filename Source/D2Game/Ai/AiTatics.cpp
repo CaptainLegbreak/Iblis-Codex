@@ -163,6 +163,25 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags); // 0x005DEB60
 
+#define UNIT_INVALID 6
+
+#define UNIT_MONSTER 1
+
+#define MONMODE_WALK 2
+
+#define MONMODE_RUN 15
+
+#define STATE_DECREPIFY 60
+
+#define EVENTTYPE_AITHINK 2
+
+union D2SeedStrc;
+
+enum D2C_Y10UseSkillConstants
+{
+    UNITFLAG_SKSRVDOFUNC = 0x40,
+};
+
 // 0x00530F30
 void __fastcall sub_00530F30_SetGlobal(int nValue)
 {
@@ -744,6 +763,122 @@ D2UnitStrc* __fastcall sub_005DE9D0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pU
     }
     AITACTICS_IdleInline(pGame, pUnit, 20);
     return 0;
+}
+
+// 0x005DEAD0
+int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY)
+{
+    if (nMode >= 16)
+    {
+        return 0;
+    }
+
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nMode, &modeChange);
+    UNITS_SetUsedSkill(pUnit, SKILLS_GetSkillById(pUnit, nSkillId, -1));
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+    }
+
+    PATH_SetStepNum(pUnit->pDynamicPath, 1);
+
+    modeChange.pTargetUnit = pTarget;
+    modeChange.nX = nX;
+    modeChange.nY = nY;
+
+    if (D2GAME_ModeChange_6FC65220(pGame, &modeChange, 0))
+    {
+        return 1;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+    return 0;
+}
+
+inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+inline int AI_RollPercentage(D2UnitStrc* pUnit)
+{
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pAiControl;
+    }
+
+    return 0;
+}
+
+// 0x005DEB60
+int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags)
+{
+    int nNewMode = nMode;
+
+    if (nMode == MONMODE_RUN && STATES_CheckState(pUnit, STATE_DECREPIFY))
+    {
+        D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(pUnit);
+        nNewMode = MONMODE_WALK;
+    }
+
+    PATH_SetStepNum(pUnit->pDynamicPath, bStep);
+
+    D2ModeChangeStrc modeChange;
+    MONSTERMODE_GetModeChangeInfo(pUnit, nNewMode, &modeChange);
+
+    if (pTarget)
+    {
+        modeChange.pTargetUnit = pTarget;
+    }
+    else
+    {
+        modeChange.nX = nX;
+        modeChange.nY = nY;
+    }
+
+    int nResult = D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    if (!nResult)
+    {
+        if (nFlags & 4)
+        {
+            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+        }
+
+        if (nFlags & 1)
+        {
+            D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
+            if (pAiControl)
+            {
+                AIUTIL_ToggleAiControlFlag(pAiControl, 0x40, 1);
+            }
+        }
+
+        if (nFlags & 2)
+        {
+            nResult = 1;
+            if (AI_RollPercentage(pUnit) < 70)
+            {
+                AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
+            }
+            else
+            {
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            }
+        }
+    }
+
+    return nResult;
 }
 
 // 0x005DECA0
