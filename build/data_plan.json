@@ -4524,8 +4524,8 @@
    "state": "included"
   },
   "Source/D2Game/UNIT/SUnitDmg.cpp": {
-   "bytes": 616,
-   "definitions": 3,
+   "bytes": 744,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/SUnitDmg.inc",
@@ -4538,15 +4538,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/SUnitDmg_0057CE30.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/UNIT/SUnitDmg_0057D4F0.cpp": {
-   "bytes": 128,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/UNIT/SUnitDmg_0057D4F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -102906,7 +102897,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057D4F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -102958,7 +102949,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057D4F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnBodyLocWeightCount_00732BC8 = ",
@@ -102983,7 +102974,7 @@
    "cname": "gData_00732BCC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057D4F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00732BCC_t gData_00732BCC; // 0x00732BCC",
    "head": "extern \"C\" struct d2data_00732BCC_t gData_00732BCC = ",
