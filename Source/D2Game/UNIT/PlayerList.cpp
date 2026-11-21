@@ -1,9 +1,8 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
-
-#define STATE_PLAYERBODY 7
 
 struct D2PlayerListStrc;
 

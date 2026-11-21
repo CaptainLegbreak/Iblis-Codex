@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -76,8 +77,6 @@ struct D2UnkFieldsStrc
 enum D2MiscConstants
 {
     EVENTTYPE_MONUMOD = 7,
-    STATE_FREEZE = 1,
-    STATE_BLAZE = 13,
     ELEMTYPE_NONE = 0,
     ELEMTYPE_FIRE = 1,
     ELEMTYPE_LTNG = 2,
@@ -756,8 +755,6 @@ int __fastcall MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod(D2Ga
 int __fastcall MISSMODE_SrvDo33_VineRecyclerDelay(D2GameStrc* pGame, D2UnitStrc* pMissile);
 
 #define MONSTATSFLAGINDEX_OPENDOORS 3
-
-#define STATE_STUNNED 21
 
 #define UNIT_MONSTER 1
 

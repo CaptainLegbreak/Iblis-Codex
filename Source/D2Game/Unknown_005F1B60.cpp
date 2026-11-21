@@ -1,14 +1,10 @@
+#include "D2StateIds.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
 
-enum D2C_M74ClawViperConstants
-{
-    STATE_BLUE = 90,
-    STATE_RED = 91,
-};
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -673,10 +674,6 @@ static int __stdcall SUNITDMG_ComputeExperienceGain(D2GameStrc* pGame, int nAtta
 
 struct D2PlayerDataStrc;
 
-enum D2C_ResultFlagsConstants
-{
-    STATE_UNINTERRUPTABLE = 0x36,
-};
 
 int __fastcall SUNITDMG_IsHitSuccessful(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int bMissile); // 0x0057D9B0
 

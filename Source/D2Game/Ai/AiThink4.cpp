@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -228,10 +229,6 @@ enum
     MONTYPEFLAG_CHAMPION = 0x04,
 };
 
-enum
-{
-    STATE_BLOODLUST = 141,
-};
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {
@@ -400,8 +397,6 @@ enum D2C_F42AiConstants
     UNITFLAG_NOTC = 0x00020000,
     UNITFLAG_NOXP = 0x04000000,
 
-    STATE_POISON = 2,
-    STATE_INFERNO = 12,
     STATE_BAALTOSTAIRS_INVIS = 0x92,
     STAT_HITPOINTS = 6,
     STAT_POISONRESIST = 45,
@@ -541,7 +536,6 @@ enum D2C_V04AiBaalConstants
     STAT_MAGICMAXDAM = 0x35,
     STAT_COLDMAXDAM = 0x37,
     STAT_POISONMAXDAM = 0x3A,
-    STATE_COLD = 0x0B,
 };
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(D2UnitStrc* pUnit, int nX, int nY);             // 0x005DC480
@@ -755,9 +749,6 @@ struct D2PetInfoStrc;
 
 int __fastcall sub_005FD350_SpawnNearby(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5); // 0x005FD350
 
-enum D2C_F41AiThinkConstants
-{
-};
 
 struct D2HighPriestAiCallbackArgStrc
 {

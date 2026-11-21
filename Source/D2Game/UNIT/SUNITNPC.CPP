@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -44,10 +45,6 @@ struct D2UnitStrc;
 #define STAT_STAMINA 10
 
 #define STAT_GOLD 14
-
-#define STATE_FREEZE 1
-
-#define STATE_POISON 2
 
 #define IFLAG_IDENTIFIED 0x00000010
 

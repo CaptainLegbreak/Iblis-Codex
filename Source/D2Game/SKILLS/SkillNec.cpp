@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -376,9 +377,6 @@ struct D2NecroSkeletonComponentStrc;
 
 enum D2SkillNecConstants
 {
-    STATE_DIMVISION = 23,
-    STATE_TAUNT = 27,
-    STATE_TERROR = 56,
     AISPECIALSTATE_DIMVISION = 10,
     AISPECIALSTATE_TERROR = 11,
     AISPECIALSTATE_TAUNT = 12,

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
@@ -35,7 +36,6 @@ enum D2C_P08MonsterConstants
     STAT_POISONLENGTH = 59,
     STAT_MANADRAINMINDAM = 62,
     STAT_MANADRAINMAXDAM = 63,
-    STATE_FREEZE = 1,
     MISSILE_NOVA = 90,
     EVENTTYPE_MONUMOD = 7,
 };
@@ -260,8 +260,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 struct D2DynamicPathStrc;
 
 #define UNIT_MONSTER 1
-
-#define STATE_UNINTERRUPTABLE 54
 
 #define PATHTYPE_ASTAR 1
 

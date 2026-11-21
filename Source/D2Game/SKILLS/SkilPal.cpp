@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -62,7 +63,6 @@ struct D2DataTablesStrc;
 
 enum D2C_F39Constants
 {
-    STATE_BLAZE = 13,
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_SKSRVDOFUNC = 0x40,
     UNITFLAG_NOXP = 0x4000000,
@@ -70,11 +70,8 @@ enum D2C_F39Constants
     DAMAGERESULTFLAG_WILLDIE = 2,
     MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
-    STATE_FETISHAURA = 0x19,
     UNITFLAG_NOTC = 0x20000,
     EVENTTYPE_ENDANIM = 1,
-    STATE_NOMANAREGEN = 0x55,
-    STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
 };
 
@@ -344,7 +341,6 @@ void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); //
 
 enum D2C_J10SkillPalConstants
 {
-    STATE_REDEEMED = 0x63,
     UNITFLAG_TARGETABLE = 0x00000002,
     UNITFLAG_CANBEATTACKED = 0x00000004,
 };
@@ -446,8 +442,6 @@ typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 #define UNIT_PLAYER 0
-
-#define STATE_HOLYSHIELD 101
 
 #define MONMODE_ATTACK2 5
 

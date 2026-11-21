@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
@@ -11,10 +12,6 @@
 #include "D2GameAux.h"
 #include "D2PlayerModes.h"
 
-enum D2C_M244AiBaalConstants
-{
-    STATE_COLD = 0x0B,
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

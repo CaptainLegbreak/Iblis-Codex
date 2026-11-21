@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -26,8 +27,6 @@ struct D2MapAIStrc;
 
 #define UNITFLAG_HASEVENTSOUND 0x400
 
-#define STATE_PLAYERBODY 7
-
 #define EVENTTYPE_MODECHANGE 0
 
 #define EVENTTYPE_ENDANIM 1
@@ -45,8 +44,6 @@ struct D2MapAIStrc;
 #define UNIT_ALIGNMENT_GOOD 2
 
 #define UNIT_NUM_ALIGNMENT 3
-
-#define STATE_ALIGNMENT 105
 
 #define STAT_ALIGNMENT 172
 

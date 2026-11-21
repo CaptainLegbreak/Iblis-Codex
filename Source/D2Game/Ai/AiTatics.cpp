@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -54,7 +55,6 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x00
 
 enum D2C_F41AiTacticsConstants
 {
-    STATE_DECREPIFY = 60,
     EVENTTYPE_AITHINK = 2,
     EVENTTYPE_FREEHOVER = 6,
     UNITFLAG_HASTXTMSG = 0x100,
@@ -164,8 +164,6 @@ int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Un
 #define MONMODE_WALK 2
 
 #define MONMODE_RUN 15
-
-#define STATE_DECREPIFY 60
 
 #define EVENTTYPE_AITHINK 2
 

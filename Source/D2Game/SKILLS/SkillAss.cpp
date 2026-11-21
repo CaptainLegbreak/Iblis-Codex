@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -437,7 +438,6 @@ void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet
 
 enum D2C_Z09St26Constants
 {
-    STATE_INFERNO = 0x0C,
     EVENTTYPE_REMOVESTATE = 0x0C,
     STAT_MANA = 8,
 };

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -5,7 +6,6 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 
-#define STATE_BLAZE 13
 #define STAT_MODIFIERLIST_SKILL 350
 #define STAT_MODIFIERLIST_LEVEL 351
 struct D2SkillsTxt;

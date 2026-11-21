@@ -760,11 +760,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
      (unsigned int)lSeed)
 #define SKILL_LEFTHANDSWING 5
 #define SOUND_MALUS_PICKUP 36
-#define STATE_CORPSE_NODRAW 104
-#define STATE_CORPSE_NOSELECT 118
-#define STATE_DEATH_DELAY 92
-#define STATE_SHATTER 107
-#define STATE_SKILL_MOVE 18
 #define STATLIST_FLAG_EXP 0x800
 #define STAT_DURABILITY 72
 #define STAT_EXPERIENCE 13

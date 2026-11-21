@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -30,10 +31,6 @@ struct D2InventoryStrc;
 #define MAX_QUEST_STATUS 42
 
 #define QFLAG_UPDATEQUESTLOG 12
-
-#define STATE_HEALTHPOT 100
-
-#define STATE_MANAPOT 106
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -608,8 +605,6 @@ int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc*
 
 #define PLRMODE_DEAD 17
 
-#define STATE_INFERNO 12
-
 #define BODYLOC_BELT 8
 
 #define EVENTTYPE_AITHINK 2
@@ -745,11 +740,6 @@ struct D2WarpDelayStrc
     int nDelay;
 };
 
-enum
-{
-    STATE_UNINTERRUPTABLE = 54,
-    STATE_SYNC_WARPED = 108,
-};
 
 extern const D2WarpDelayStrc gWarpDelays_006E1064[3]; // 0x006E1064
 

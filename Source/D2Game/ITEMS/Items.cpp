@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -364,8 +365,6 @@ static void ITEMS_ClearAffixesAndFileIndex(D2UnitStrc** ppItem);
 #define EVENTTYPE_STATREGEN 3
 
 #define IFLAG_RUNEWORD 0x4000000
-
-#define STATE_RUNEWORD 171
 
 struct D2StaticPathStrc;
 

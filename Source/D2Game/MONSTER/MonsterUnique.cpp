@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
@@ -45,8 +46,6 @@
 #define MONTYPEFLAG_RESURRECTED 8
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define STATE_UNINTERRUPTABLE 54
 
 #define UNITFLAG_NOXP 0x04000000
 

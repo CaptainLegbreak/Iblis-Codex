@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -6,8 +7,6 @@
 #include "D2MonModes.h"
 
 #define UNIT_PLAYER 0
-#define STATE_HOLYSHIELD 101
-
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 #define HITFLAG_SMITE 2
 #define HITCLASS_SMITE 0x65

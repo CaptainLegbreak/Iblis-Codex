@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -8,8 +9,6 @@
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
 
-#define STATE_BLAZE 0x0D
-#define STATE_SPIDERLAY 0x16
 struct D2ModeChangeStrc;
 struct D2MonStatsTxt;
 struct D2MissilesTxt;
@@ -24,7 +23,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 enum D2C_Q05MonsterConstants
 {
     EVENTTYPE_AITHINK = 2,
-    STATE_STUNNED = 21,
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

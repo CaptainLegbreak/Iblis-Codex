@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
@@ -17,7 +18,6 @@ enum D2C_M96ObjEvalConstants
     STAT_HITPOINTS = 6,
     STAT_LEVEL = 12,
     STAT_ARMORCLASS = 31,
-    STATE_UNINTERRUPTABLE = 54,
     COLLIDE_MASK_PLAYER_FLYING = 0x804,
     DAMAGERESULTFLAG_SUCCESSFULHIT = 1,
     DAMAGERESULTFLAG_GETHIT = 4,

@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -18,8 +19,6 @@
 #define CLIENTFLAGEX_PLAYER_UNIT_ALIVE 1
 #define UNIT_MONSTER 1
 #define STAT_LEVEL 12
-#define STATE_FREEZE 1
-#define STATE_UNINTERRUPTABLE 54
 #define EVENTTYPE_AITHINK 2
 #define EVENTTYPE_STATREGEN 3
 #define EVENTTYPE_TRAP 4

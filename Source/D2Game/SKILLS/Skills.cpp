@@ -1,3 +1,4 @@
+#include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2LevelIds.h"
@@ -29,13 +30,9 @@
 
 #define STAT_DAMAGEPERCENT 25
 
-#define STATE_UNINTERRUPTABLE 0x36
-
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
 #define STAT_MANA 8
-
-#define STATE_BLOOD_MANA 114
 
 #define STATE_BLOODMANA 114
 
@@ -507,8 +504,6 @@ int __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId
 
 #define SKILLSRVDO_SHAPESHIFT 116
 
-#define STATE_NOMANAREGEN 85
-
 #define STAT_MODIFIERLIST_SKILL 350
 
 #define STAT_MODIFIERLIST_LEVEL 351
@@ -750,8 +745,6 @@ D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                         
 void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nExpireFrame);                                // 0x006260B0
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
-
-#define STATE_SKILLDELAY 121
 
 #define EVENTTYPE_REMOVESTATE 12
 
