@@ -81555,14 +81555,104 @@
      "name": "UNITS_IsAtEndOfFrameCycle"
     },
     {
+     "va": "0x00621F90",
+     "length": 194,
+     "name": "?UNITS_AllocPlayerData@@YGXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00622150",
+     "length": 71,
+     "name": "UNITS_GetPlayerName"
+    },
+    {
+     "va": "0x006221E0",
+     "length": 66,
+     "name": "UNITS_SetPlayerPortalFlags"
+    },
+    {
+     "va": "0x00622230",
+     "length": 63,
+     "name": "UNITS_GetPlayerPortalFlags"
+    },
+    {
+     "va": "0x00622270",
+     "length": 67,
+     "name": "UNITS_GetNameOffsetFromObject"
+    },
+    {
+     "va": "0x006222C0",
+     "length": 63,
+     "name": "UNITS_GetObjectPortalFlags"
+    },
+    {
+     "va": "0x00622300",
+     "length": 66,
+     "name": "UNITS_SetObjectPortalFlags"
+    },
+    {
+     "va": "0x00622350",
+     "length": 72,
+     "name": "UNITS_CheckObjectPortalFlag"
+    },
+    {
      "va": "0x006223A0",
      "length": 74,
      "name": "UNITS_GetOverlayHeight"
     },
     {
+     "va": "0x00622DC0",
+     "length": 22,
+     "name": "UNITS_IsInMovingModeEx"
+    },
+    {
      "va": "0x00622DE0",
      "length": 139,
      "name": "UNITS_GetHealingCost"
+    },
+    {
+     "va": "0x00622E90",
+     "length": 3,
+     "name": "UNITS_MergeDualWieldWeaponStatLists"
+    },
+    {
+     "va": "0x00623300",
+     "length": 76,
+     "name": "?UNITS_SetSwitchLeftSkill@@YGXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00623350",
+     "length": 76,
+     "name": "?UNITS_SetSwitchRightSkill@@YGXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x006233A0",
+     "length": 100,
+     "name": "?UNITS_SetWeaponGUID@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x006234C0",
+     "length": 39,
+     "name": "UNITS_SetTimerArg"
+    },
+    {
+     "va": "0x006234F0",
+     "length": 39,
+     "name": "UNITS_GetTimerArg"
+    },
+    {
+     "va": "0x00623520",
+     "length": 71,
+     "name": "UNITS_AllocStaticPath"
+    },
+    {
+     "va": "0x00623570",
+     "length": 37,
+     "name": "UNITS_FreeStaticPath"
+    },
+    {
+     "va": "0x00623600",
+     "length": 81,
+     "name": "?UNITS_IsCorpseUseable@@YGHPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -81724,88 +81814,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/UNITS/Units_00621F90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00621F90",
-     "length": 194,
-     "name": "?UNITS_AllocPlayerData@@YGXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Units_00622150.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00622150",
-     "length": 71,
-     "name": "UNITS_GetPlayerName"
-    },
-    {
-     "va": "0x006221E0",
-     "length": 66,
-     "name": "UNITS_SetPlayerPortalFlags"
-    },
-    {
-     "va": "0x00622230",
-     "length": 63,
-     "name": "UNITS_GetPlayerPortalFlags"
-    },
-    {
-     "va": "0x00622270",
-     "length": 67,
-     "name": "UNITS_GetNameOffsetFromObject"
-    },
-    {
-     "va": "0x006222C0",
-     "length": 63,
-     "name": "UNITS_GetObjectPortalFlags"
-    },
-    {
-     "va": "0x00622300",
-     "length": 66,
-     "name": "UNITS_SetObjectPortalFlags"
-    },
-    {
-     "va": "0x00622350",
-     "length": 72,
-     "name": "UNITS_CheckObjectPortalFlag"
-    },
-    {
-     "va": "0x00622DC0",
-     "length": 22,
-     "name": "UNITS_IsInMovingModeEx"
-    },
-    {
-     "va": "0x00622E90",
-     "length": 3,
-     "name": "UNITS_MergeDualWieldWeaponStatLists"
-    },
-    {
-     "va": "0x006234C0",
-     "length": 39,
-     "name": "UNITS_SetTimerArg"
-    },
-    {
-     "va": "0x006234F0",
-     "length": 39,
-     "name": "UNITS_GetTimerArg"
-    },
-    {
-     "va": "0x00623520",
-     "length": 71,
-     "name": "UNITS_AllocStaticPath"
-    },
-    {
-     "va": "0x00623570",
-     "length": 37,
-     "name": "UNITS_FreeStaticPath"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Common/UNITS/Units_006229F0.cpp",
    "rank": 1,
    "functions": [
@@ -81839,32 +81847,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Units_00623300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00623300",
-     "length": 76,
-     "name": "?UNITS_SetSwitchLeftSkill@@YGXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x00623350",
-     "length": 76,
-     "name": "?UNITS_SetSwitchRightSkill@@YGXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x006233A0",
-     "length": 100,
-     "name": "?UNITS_SetWeaponGUID@@YGXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00623600",
-     "length": 81,
-     "name": "?UNITS_IsCorpseUseable@@YGHPAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
