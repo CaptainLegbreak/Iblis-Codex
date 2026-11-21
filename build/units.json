@@ -27571,161 +27571,7 @@
     {
      "va": "0x0049E3A0",
      "length": 541
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049D5A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0049D5A0",
-     "length": 825
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049DA50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049DA50",
-     "length": 8,
-     "name": "?sub_0049DA50_ClearFlag@@YAXXZ"
     },
-    {
-     "va": "0x0049DBC0",
-     "length": 113,
-     "name": "?sub_0049DBC0_AddToHistory@@YIXPAUD2TextNodeStrc@@@Z"
-    },
-    {
-     "va": "0x0049E340",
-     "length": 71,
-     "name": "?sub_0049E340_FillListBox@@YAXXZ"
-    },
-    {
-     "va": "0x0049E7E0",
-     "length": 13,
-     "name": "?sub_0049E7E0_SetTextCallback@@YIXP6IHPAXHH@Z0@Z"
-    },
-    {
-     "va": "0x0049E8B0",
-     "length": 53,
-     "name": "?sub_0049E8B0_GetTextUnit@@YAPAUD2UnitStrc@@XZ"
-    },
-    {
-     "va": "0x0049F8C0",
-     "length": 49,
-     "name": "?sub_0049F8C0_ClearHoverText@@YIXPAUD2HoverClearPacketStrc@@@Z"
-    },
-    {
-     "va": "0x0049F910",
-     "length": 72,
-     "name": "?sub_0049F910_GetTextString@@YIPBUUnicode@@G@Z"
-    },
-    {
-     "va": "0x0049FF00",
-     "length": 1,
-     "name": "?sub_0049FF00@@YAXXZ"
-    },
-    {
-     "va": "0x0049FF90",
-     "length": 109,
-     "name": "?sub_0049FF90_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
-    },
-    {
-     "va": "0x004A0000",
-     "length": 12,
-     "name": "?sub_004A0000@@YAHXZ"
-    },
-    {
-     "va": "0x004A0010",
-     "length": 21,
-     "name": "?sub_004A0010_FreeTextLists@@YAXXZ"
-    },
-    {
-     "va": "0x004A01E0",
-     "length": 27,
-     "name": "?sub_004A01E0_ClearListFlags@@YAXXZ"
-    },
-    {
-     "va": "0x004A02F0",
-     "length": 37,
-     "name": "?sub_004A02F0_ToggleListDialogUI@@YAXXZ"
-    },
-    {
-     "va": "0x004A0880",
-     "length": 57,
-     "name": "?sub_004A0880_CloseTextUnit@@YAXXZ"
-    },
-    {
-     "va": "0x004A08C0",
-     "length": 305,
-     "name": "?sub_004A08C0_CloseText@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049E280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0049E280",
-     "length": 128,
-     "name": "?sub_0049E280_ConvertHoverText@@YA_NHPBDPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x0049E5C0",
-     "length": 537
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0049FBA0",
      "length": 619
@@ -27988,6 +27834,140 @@
     {
      "va": "0x004BF2F0",
      "length": 306
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/text_0049D5A0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0049D5A0",
+     "length": 825
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/text_0049DA50.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0049DA50",
+     "length": 8,
+     "name": "?sub_0049DA50_ClearFlag@@YAXXZ"
+    },
+    {
+     "va": "0x0049DBC0",
+     "length": 113,
+     "name": "?sub_0049DBC0_AddToHistory@@YIXPAUD2TextNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0049E340",
+     "length": 71,
+     "name": "?sub_0049E340_FillListBox@@YAXXZ"
+    },
+    {
+     "va": "0x0049E7E0",
+     "length": 13,
+     "name": "?sub_0049E7E0_SetTextCallback@@YIXP6IHPAXHH@Z0@Z"
+    },
+    {
+     "va": "0x0049E8B0",
+     "length": 53,
+     "name": "?sub_0049E8B0_GetTextUnit@@YAPAUD2UnitStrc@@XZ"
+    },
+    {
+     "va": "0x0049F8C0",
+     "length": 49,
+     "name": "?sub_0049F8C0_ClearHoverText@@YIXPAUD2HoverClearPacketStrc@@@Z"
+    },
+    {
+     "va": "0x0049F910",
+     "length": 72,
+     "name": "?sub_0049F910_GetTextString@@YIPBUUnicode@@G@Z"
+    },
+    {
+     "va": "0x0049FF00",
+     "length": 1,
+     "name": "?sub_0049FF00@@YAXXZ"
+    },
+    {
+     "va": "0x0049FF90",
+     "length": 109,
+     "name": "?sub_0049FF90_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
+    },
+    {
+     "va": "0x004A0000",
+     "length": 12,
+     "name": "?sub_004A0000@@YAHXZ"
+    },
+    {
+     "va": "0x004A0010",
+     "length": 21,
+     "name": "?sub_004A0010_FreeTextLists@@YAXXZ"
+    },
+    {
+     "va": "0x004A01E0",
+     "length": 27,
+     "name": "?sub_004A01E0_ClearListFlags@@YAXXZ"
+    },
+    {
+     "va": "0x004A02F0",
+     "length": 37,
+     "name": "?sub_004A02F0_ToggleListDialogUI@@YAXXZ"
+    },
+    {
+     "va": "0x004A0880",
+     "length": 57,
+     "name": "?sub_004A0880_CloseTextUnit@@YAXXZ"
+    },
+    {
+     "va": "0x004A08C0",
+     "length": 305,
+     "name": "?sub_004A08C0_CloseText@@YAHXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/text_0049E280.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0049E280",
+     "length": 128,
+     "name": "?sub_0049E280_ConvertHoverText@@YA_NHPBDPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x0049E5C0",
+     "length": 537
     }
    ],
    "flags": [
