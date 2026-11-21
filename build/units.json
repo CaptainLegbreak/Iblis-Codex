@@ -26925,30 +26925,6 @@
      "name": "?sub_00497920_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
     },
     {
-     "va": "0x00498930",
-     "length": 235
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/panel_00497A40.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00497A40",
      "length": 524
     },
@@ -26965,6 +26941,10 @@
      "va": "0x004983D0",
      "length": 606,
      "name": "?sub_004983D0_DrawControlPanelFrame@@YAXH@Z"
+    },
+    {
+     "va": "0x00498930",
+     "length": 235
     },
     {
      "va": "0x00498A90",
