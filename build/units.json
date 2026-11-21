@@ -30981,6 +30981,11 @@
      "name": "??0EditBoxWrapper@@QAE@HHHHHGHH@Z"
     },
     {
+     "va": "0x004BC1D0",
+     "length": 5,
+     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+    },
+    {
      "va": "0x004BC480",
      "length": 122,
      "name": "??0SpinnerWrapper@@QAE@HHHH@Z"
@@ -31418,17 +31423,6 @@
      "va": "0x004BF8C0",
      "length": 40,
      "name": "?_GListBoxImplementation"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004BC1D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BC1D0",
-     "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
     }
    ]
   },
