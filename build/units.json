@@ -36310,11 +36310,6 @@
      "name": "?sub_004DCA20_Forward@@YIHPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004DCF30",
-     "length": 53,
-     "name": "?sub_004DCF30@@YIXPAUD2ViewStrc@@@Z"
-    },
-    {
      "va": "0x004DDDF0",
      "length": 1,
      "name": "?sub_004DDDF0@@YAXXZ"
@@ -36401,6 +36396,11 @@
      "va": "0x004DCF10",
      "length": 24,
      "name": "@sub_004DCF10@4"
+    },
+    {
+     "va": "0x004DCF30",
+     "length": 53,
+     "name": "?sub_004DCF30@@YIXPAUD2ViewStrc@@@Z"
     }
    ]
   },
