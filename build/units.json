@@ -79298,6 +79298,10 @@
      "name": "DATATBLS_UnloadUniqueItemsTxt"
     },
     {
+     "va": "0x00634DC0",
+     "length": 6502
+    },
+    {
      "va": "0x00636730",
      "length": 59,
      "name": "DATATBLS_UnloadSets_SetItemsTxt"
@@ -79500,16 +79504,6 @@
    "link": [
     "/OPT:REF",
     "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00634DC0",
-     "length": 6502
-    }
    ]
   },
   {
