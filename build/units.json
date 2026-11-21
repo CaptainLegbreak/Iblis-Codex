@@ -80560,6 +80560,16 @@
      "name": "?sub_0063A810_UnlinkPair@@YAXPAUD2InventoryPairStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0063A8A0",
+     "length": 111,
+     "name": "?sub_0063A8A0_CheckGridCellsFree@@YGHPAUD2InventoryGridStrc@@HHEE@Z"
+    },
+    {
+     "va": "0x0063A910",
+     "length": 86,
+     "name": "?sub_0063A910_FillGridCells@@YGXPAUD2InventoryGridStrc@@HHEEPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0063A970",
      "length": 347,
      "name": "?sub_0063A970_UnlinkGrid@@YGXPAUD2InventoryGridStrc@@HPAUD2UnitStrc@@@Z"
@@ -80589,6 +80599,66 @@
      "name": "INVENTORY_RemoveItemFromInventory"
     },
     {
+     "va": "0x0063AF20",
+     "length": 79,
+     "name": "?sub_0063AF20_LinkItem@@YAXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063AF70",
+     "length": 90,
+     "name": "?sub_0063AF70_LinkGridItem@@YGXPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063B300",
+     "length": 53,
+     "name": "?INVENTORY_CanItemBePlacedAtPos@@YGHPAUD2InventoryGridStrc@@HHEE@Z"
+    },
+    {
+     "va": "0x0063B490",
+     "length": 174,
+     "name": "?INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
+    },
+    {
+     "va": "0x0063B540",
+     "length": 155,
+     "name": "?sub_0063B540_FindFreePositionRightToLeft@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
+    },
+    {
+     "va": "0x0063B5E0",
+     "length": 59,
+     "name": "?sub_0063B5E0_FindFreePositionHeight1@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+    },
+    {
+     "va": "0x0063B620",
+     "length": 186,
+     "name": "?INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
+    },
+    {
+     "va": "0x0063B6E0",
+     "length": 161,
+     "name": "?INVENTORY_FindFreePositionTopLeftToBottomRight@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
+    },
+    {
+     "va": "0x0063B790",
+     "length": 59,
+     "name": "?sub_0063B790_FindFreePositionHeight3@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+    },
+    {
+     "va": "0x0063B7D0",
+     "length": 59,
+     "name": "?sub_0063B7D0_FindFreePosition2x2@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+    },
+    {
+     "va": "0x0063B810",
+     "length": 59,
+     "name": "?sub_0063B810_FindFreePositionOther@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
+    },
+    {
+     "va": "0x0063B850",
+     "length": 245,
+     "name": "?INVENTORY_GetFreePosition@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HPAH2E@Z"
+    },
+    {
      "va": "0x0063B9C0",
      "length": 1,
      "name": "?sub_0063B9C0_Nop@@YAXXZ"
@@ -80599,9 +80669,29 @@
      "name": "?sub_0063BCB0_AlwaysOne@@YGHHHHH@Z"
     },
     {
+     "va": "0x0063BCC0",
+     "length": 48,
+     "name": "?INVENTORY_PlaceItemAtInventoryPage@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HHHHE@Z"
+    },
+    {
+     "va": "0x0063BCF0",
+     "length": 3,
+     "name": "?INVENTORY_Return@@YGXPBDHPAUD2InventoryStrc@@HHHHE@Z"
+    },
+    {
      "va": "0x0063BD00",
      "length": 3,
      "name": "sub_0063BD00_Return"
+    },
+    {
+     "va": "0x0063BD10",
+     "length": 156,
+     "name": "?INVENTORY_GetItemFromInventoryPage@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HHPAH1HE@Z"
+    },
+    {
+     "va": "0x0063BDB0",
+     "length": 45,
+     "name": "?INVENTORY_PlaceItemInBodyLoc@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0063BDE0",
@@ -80613,8 +80703,18 @@
      "name": "sub_0063BE30_Return"
     },
     {
+     "va": "0x0063BE40",
+     "length": 162,
+     "name": "?INVENTORY_CheckEquipmentForWeaponByClass@@YGHPAUD2InventoryStrc@@H@Z"
+    },
+    {
      "va": "0x0063BF90",
      "length": 179
+    },
+    {
+     "va": "0x0063C050",
+     "length": 180,
+     "name": "?sub_0063C050_GetBodyLocItem@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     },
     {
      "va": "0x0063C110",
@@ -80634,12 +80734,32 @@
     {
      "va": "0x0063C4B0",
      "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+     "name": "?sub_0063C4B0_AlwaysZero@@YGHH@Z"
+    },
+    {
+     "va": "0x0063C4C0",
+     "length": 39,
+     "name": "?sub_0063C4C0_PlaceItemInBeltSlot@@YAHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0063C4F0",
+     "length": 92,
+     "name": "?INVENTORY_PlaceItemInBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0063C550",
      "length": 3,
      "name": "sub_0063C550_Return"
+    },
+    {
+     "va": "0x0063C560",
+     "length": 156,
+     "name": "?INVENTORY_HasSimilarPotionInBelt@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063C790",
+     "length": 91,
+     "name": "?INVENTORY_PlaceItemInFreeBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063C830",
@@ -80669,6 +80789,25 @@
      "va": "0x0063CD40",
      "length": 20,
      "name": "_sub_0063CD40@4"
+    },
+    {
+     "va": "0x0063CD80",
+     "length": 217,
+     "name": "?INVENTORY_GetBackPackItemByType@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
+    },
+    {
+     "va": "0x0063CE60",
+     "length": 197,
+     "name": "?INVENTORY_GetEquippedItemByType@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
+    },
+    {
+     "va": "0x0063D010",
+     "length": 221
+    },
+    {
+     "va": "0x0063D470",
+     "length": 104,
+     "name": "?INVENTORY_CreateCorpseForPlayer@@YGXPAUD2InventoryStrc@@HHH@Z"
     },
     {
      "va": "0x0063D4E0",
@@ -80724,6 +80863,11 @@
      "va": "0x0063DBC0",
      "length": 454,
      "name": "?sub_0063DBC0_PairIsWieldable@@YAHPAUD2UnitStrc@@00@Z"
+    },
+    {
+     "va": "0x0063E060",
+     "length": 5,
+     "name": "?sub_0063E060_AlwaysZero@@YGHH@Z"
     },
     {
      "va": "0x0063E0B0",
@@ -80920,156 +81064,6 @@
      "va": "0x0063A800",
      "length": 1,
      "name": "?sub_0063A800_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063A8A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0063A8A0",
-     "length": 111,
-     "name": "?sub_0063A8A0_CheckGridCellsFree@@YGHPAUD2InventoryGridStrc@@HHEE@Z"
-    },
-    {
-     "va": "0x0063A910",
-     "length": 86,
-     "name": "?sub_0063A910_FillGridCells@@YGXPAUD2InventoryGridStrc@@HHEEPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063AF20",
-     "length": 79,
-     "name": "?sub_0063AF20_LinkItem@@YAXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063AF70",
-     "length": 90,
-     "name": "?sub_0063AF70_LinkGridItem@@YGXPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063B300",
-     "length": 53,
-     "name": "?INVENTORY_CanItemBePlacedAtPos@@YGHPAUD2InventoryGridStrc@@HHEE@Z"
-    },
-    {
-     "va": "0x0063B490",
-     "length": 174,
-     "name": "?INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
-    },
-    {
-     "va": "0x0063B540",
-     "length": 155,
-     "name": "?sub_0063B540_FindFreePositionRightToLeft@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
-    },
-    {
-     "va": "0x0063B5E0",
-     "length": 59,
-     "name": "?sub_0063B5E0_FindFreePositionHeight1@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
-    },
-    {
-     "va": "0x0063B620",
-     "length": 186,
-     "name": "?INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
-    },
-    {
-     "va": "0x0063B6E0",
-     "length": 161,
-     "name": "?INVENTORY_FindFreePositionTopLeftToBottomRight@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
-    },
-    {
-     "va": "0x0063B790",
-     "length": 59,
-     "name": "?sub_0063B790_FindFreePositionHeight3@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
-    },
-    {
-     "va": "0x0063B7D0",
-     "length": 59,
-     "name": "?sub_0063B7D0_FindFreePosition2x2@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
-    },
-    {
-     "va": "0x0063B810",
-     "length": 59,
-     "name": "?sub_0063B810_FindFreePositionOther@@YGHPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAH2EE@Z"
-    },
-    {
-     "va": "0x0063B850",
-     "length": 245,
-     "name": "?INVENTORY_GetFreePosition@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HPAH2E@Z"
-    },
-    {
-     "va": "0x0063BCC0",
-     "length": 48,
-     "name": "?INVENTORY_PlaceItemAtInventoryPage@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HHHHE@Z"
-    },
-    {
-     "va": "0x0063BCF0",
-     "length": 3,
-     "name": "?INVENTORY_Return@@YGXPBDHPAUD2InventoryStrc@@HHHHE@Z"
-    },
-    {
-     "va": "0x0063BD10",
-     "length": 156,
-     "name": "?INVENTORY_GetItemFromInventoryPage@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HHPAH1HE@Z"
-    },
-    {
-     "va": "0x0063BDB0",
-     "length": 45,
-     "name": "?INVENTORY_PlaceItemInBodyLoc@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0063BE40",
-     "length": 162,
-     "name": "?INVENTORY_CheckEquipmentForWeaponByClass@@YGHPAUD2InventoryStrc@@H@Z"
-    },
-    {
-     "va": "0x0063C050",
-     "length": 180,
-     "name": "?sub_0063C050_GetBodyLocItem@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
-    },
-    {
-     "va": "0x0063C4C0",
-     "length": 39,
-     "name": "?sub_0063C4C0_PlaceItemInBeltSlot@@YAHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0063C4F0",
-     "length": 92,
-     "name": "?INVENTORY_PlaceItemInBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0063C560",
-     "length": 156,
-     "name": "?INVENTORY_HasSimilarPotionInBelt@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063C790",
-     "length": 91,
-     "name": "?INVENTORY_PlaceItemInFreeBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0063CD80",
-     "length": 217,
-     "name": "?INVENTORY_GetBackPackItemByType@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
-    },
-    {
-     "va": "0x0063CE60",
-     "length": 197,
-     "name": "?INVENTORY_GetEquippedItemByType@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@HPAU1@@Z"
-    },
-    {
-     "va": "0x0063D010",
-     "length": 221
-    },
-    {
-     "va": "0x0063D470",
-     "length": 104,
-     "name": "?INVENTORY_CreateCorpseForPlayer@@YGXPAUD2InventoryStrc@@HHH@Z"
-    },
-    {
-     "va": "0x0063E060",
-     "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
     }
    ]
   },
