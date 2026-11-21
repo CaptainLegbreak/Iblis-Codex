@@ -1,4 +1,3 @@
-#include "D2DrlgPresets.h"
 // Functional replacement for the function at 0x00677880, not the original code: only the ordinary build (tools/link.py) uses it.
 // The other functions in this file are copies that give it its callees and their calling conventions; the build links their verified definitions instead.
 
@@ -762,6 +761,16 @@ struct D2DrlgLinkStrc
     int nLevel;
     int nLevelLink;
     int nLevelLinkEx;
+};
+
+struct D2DrlgLevelLinkDataStrc
+{
+    D2SeedStrc pSeed;
+    D2DrlgCoordStrc pLevelCoord[15];
+    D2DrlgLinkStrc* pLink;
+    int nRand[4][15];
+    int nIteration;
+    int nCurrentLevel;
 };
 
 struct D2DrlgWarpStrc;
