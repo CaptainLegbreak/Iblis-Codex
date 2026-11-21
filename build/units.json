@@ -40411,6 +40411,11 @@
      "name": "?sub_005090A0_SetGlobal@@YIXH@Z"
     },
     {
+     "va": "0x005090B0",
+     "length": 218,
+     "name": "sub_005090B0_GlideSetGamma"
+    },
+    {
      "va": "0x00509190",
      "length": 6,
      "name": "sub_00509190"
@@ -40426,9 +40431,19 @@
      "name": "?sub_005091E0_GlideSwapBuffers@@YAHXZ"
     },
     {
+     "va": "0x00509210",
+     "length": 211,
+     "name": "sub_00509210_GlideGetBackBuffer"
+    },
+    {
      "va": "0x005092F0",
      "length": 16,
      "name": "?sub_005092F0_GlideGetScreenSize@@YIXPAH0@Z"
+    },
+    {
+     "va": "0x00509300",
+     "length": 227,
+     "name": "sub_00509300_GlideSetPalette"
     },
     {
      "va": "0x005093F0",
@@ -40486,9 +40501,22 @@
      "name": "?sub_00509660_SetGlobal@@YIXH@Z"
     },
     {
+     "va": "0x00509670",
+     "length": 1016
+    },
+    {
      "va": "0x00509A70",
      "length": 41,
      "name": "?sub_00509A70_GlideClearAndSwap@@YAXXZ"
+    },
+    {
+     "va": "0x00509AA0",
+     "length": 177
+    },
+    {
+     "va": "0x00509B60",
+     "length": 92,
+     "name": "sub_00509B60_GlideOpenSmackCutscene"
     },
     {
      "va": "0x00509BC0",
@@ -40504,6 +40532,11 @@
      "va": "0x00509E90",
      "length": 76,
      "name": "?sub_00509E90_GlideOpenWindow@@YIHPAXH@Z"
+    },
+    {
+     "va": "0x00509EE0",
+     "length": 132,
+     "name": "sub_00509EE0_GlidePauseSurface"
     },
     {
      "va": "0x00509F70",
@@ -40531,6 +40564,21 @@
      "name": "?sub_0050A110_ReleaseTexSlots@@YIXPAUD2GlideTexSlotStrc@@@Z"
     },
     {
+     "va": "0x0050C3A0",
+     "length": 233,
+     "name": "sub_0050C3A0_GlideUtilDiamond"
+    },
+    {
+     "va": "0x0050C490",
+     "length": 328,
+     "name": "sub_0050C490_GlideUtilRect"
+    },
+    {
+     "va": "0x0050C630",
+     "length": 80,
+     "name": "sub_0050C630_GlideUtilPoint"
+    },
+    {
      "va": "0x00510140",
      "length": 6,
      "name": "sub_00510140"
@@ -40551,6 +40599,16 @@
      "name": "sub_00510380"
     },
     {
+     "va": "0x00511660",
+     "length": 183,
+     "name": "sub_00511660_DDrawOpenSmackCutscene"
+    },
+    {
+     "va": "0x00511970",
+     "length": 268,
+     "name": "sub_00511970_DDrawGetBackBuffer"
+    },
+    {
      "va": "0x005123A0",
      "length": 3,
      "name": "sub_005123A0"
@@ -40559,6 +40617,11 @@
      "va": "0x005126F0",
      "length": 3,
      "name": "sub_005126F0"
+    },
+    {
+     "va": "0x00512E80",
+     "length": 66,
+     "name": "sub_00512E80_DDrawUtilPoint"
     },
     {
      "va": "0x00513AE0",
@@ -40669,6 +40732,33 @@
      "va": "0x0051EA70",
      "length": 6,
      "name": "sub_0051EA70"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Glide/Unknown_0050BF50.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0050BF50",
+     "length": 414,
+     "name": "sub_0050BF50_GlideDrawBox"
+    },
+    {
+     "va": "0x0050C0F0",
+     "length": 378,
+     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Glide/Unknown_0050CD40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0050CD40",
+     "length": 141,
+     "name": "sub_0050CD40_GlideShadowTileDraw"
     }
    ]
   },
@@ -44027,116 +44117,6 @@
      "length": 238,
      "name": "sub_005136F0_BlitBinkFrame"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glCore_005090B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005090B0",
-     "length": 218,
-     "name": "sub_005090B0_GlideSetGamma"
-    },
-    {
-     "va": "0x00509210",
-     "length": 211,
-     "name": "sub_00509210_GlideGetBackBuffer"
-    },
-    {
-     "va": "0x00509B60",
-     "length": 92,
-     "name": "sub_00509B60_GlideOpenSmackCutscene"
-    },
-    {
-     "va": "0x00509EE0",
-     "length": 132,
-     "name": "sub_00509EE0_GlidePauseSurface"
-    },
-    {
-     "va": "0x0050C3A0",
-     "length": 233,
-     "name": "sub_0050C3A0_GlideUtilDiamond"
-    },
-    {
-     "va": "0x0050C490",
-     "length": 328,
-     "name": "sub_0050C490_GlideUtilRect"
-    },
-    {
-     "va": "0x0050C630",
-     "length": 80,
-     "name": "sub_0050C630_GlideUtilPoint"
-    },
-    {
-     "va": "0x0050CD40",
-     "length": 141,
-     "name": "sub_0050CD40_GlideShadowTileDraw"
-    },
-    {
-     "va": "0x00511660",
-     "length": 183,
-     "name": "sub_00511660_DDrawOpenSmackCutscene"
-    },
-    {
-     "va": "0x00511970",
-     "length": 268,
-     "name": "sub_00511970_DDrawGetBackBuffer"
-    },
-    {
-     "va": "0x00512E80",
-     "length": 66,
-     "name": "sub_00512E80_DDrawUtilPoint"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glCore_00509300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00509300",
-     "length": 227,
-     "name": "sub_00509300_GlideSetPalette"
-    },
-    {
-     "va": "0x0050BF50",
-     "length": 414,
-     "name": "sub_0050BF50_GlideDrawBox"
-    },
-    {
-     "va": "0x0050C0F0",
-     "length": 378,
-     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glCore_00509670.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00509670",
-     "length": 1016
-    },
-    {
-     "va": "0x00509AA0",
-     "length": 177
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

@@ -27,10 +27,8 @@ extern int gnScreenWidth_007C9138;                                              
 extern int gbRenderPaused_007C9144;                                                                         // 0x007C9144
 extern unsigned char* gpScreenBuffer_007C9154;                                                              // 0x007C9154
 void (__stdcall* gpfGlideDrawVertexArrayContiguous_0087EAC4)(int nMode, int nCount, void* pVertices, int nStride);        // 0x0087EAC4
-extern void (__stdcall* gpfGlideTexDownloadTable_0087EB40)(int nType, void* pData);                         // 0x0087EB40
 extern void (__stdcall* gpfGlideBufferClear_0087EB88)(unsigned int dwColor, unsigned int nAlpha, unsigned int nDepth); // 0x0087EB88
 void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable);                                                       // 0x0087EB8C
-unsigned int gaGlidePalette_0087EBA0[256];                                                                  // 0x0087EBA0
 extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor);                              // 0x0087EFA0
 extern int gnGlideState_0087EFD8;                                                                           // 0x0087EFD8
 extern int gnGlideState_0087EFDC;                                                                           // 0x0087EFDC
@@ -54,23 +52,6 @@ extern unsigned int gnDDrawBinkX_008816BC;                                      
 extern D2BinkStrc* gpDDrawBink_008816C0;                                                                    // 0x008816C0
 extern unsigned int gnDDrawBinkFlags_008816C8;                                                              // 0x008816C8
 extern int gbDDrawBinkDone_008816CC;                                                                        // 0x008816CC
-
-// 0x00509300
-void __fastcall sub_00509300_GlideSetPalette(const tagPALETTEENTRY* pPalette)
-{
-    if (gbGlidePaletteTable_0087EFC8)
-    {
-        for (int i = 0; i < 256; ++i)
-        {
-            unsigned int dwColor = 0xFF;
-            dwColor = (dwColor << 8) + pPalette[i].peRed;
-            dwColor = (dwColor << 8) + pPalette[i].peGreen;
-            dwColor = (dwColor << 8) + pPalette[i].peBlue;
-            gaGlidePalette_0087EBA0[i] = dwColor;
-        }
-        gpfGlideTexDownloadTable_0087EB40(2, gaGlidePalette_0087EBA0);
-    }
-}
 
 // 0x0050BF50
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode)

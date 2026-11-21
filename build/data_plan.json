@@ -3621,8 +3621,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 16,
-   "definitions": 4,
+   "bytes": 92,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glCore.inc",
@@ -3848,15 +3848,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2DDraw/Src/ddCore.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Glide/Src/glCore_00509670.cpp": {
-   "bytes": 76,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Src/glCore_00509670.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -86628,7 +86619,7 @@
    "cname": "gData_006DD480",
    "declared": true,
    "decorated": "?gszInsufficientTextureMemory_006DD480@@3QBDB",
-   "file": "Source/D2Glide/Src/glCore_00509670.cpp",
+   "file": "Source/D2Glide/Src/glCore.cpp",
    "fill": 76,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006DD480[76]; // 0x006DD480",
