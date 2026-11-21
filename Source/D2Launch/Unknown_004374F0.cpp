@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
 

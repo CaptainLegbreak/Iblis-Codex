@@ -1,7 +1,6 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 
 struct D2WinTextBoxStrc;
-typedef unsigned short Unicode;
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __cdecl sub_00430B40(); // 0x00430B40
 void __cdecl sub_00437BF0_CreateControls(); // 0x00437BF0

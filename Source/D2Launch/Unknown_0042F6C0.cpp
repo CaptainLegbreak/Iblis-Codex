@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 
 void __cdecl sub_0042F3F0_DestroyControls();                                                                // 0x0042F3F0
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg);                                            // 0x004FA470

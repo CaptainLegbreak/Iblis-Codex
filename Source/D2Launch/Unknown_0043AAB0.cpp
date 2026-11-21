@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 #include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -8,8 +8,6 @@ struct D2FileTimeStrc;
 struct UnicodeChar;
 struct D2StatusStrc;
 struct D2FuncTable_0077ABF0Strc;
-
-struct D2FileTimeStrc { unsigned int dwLowDateTime; unsigned int dwHighDateTime; };
 
 extern "C" unsigned int __cdecl strlen(const char* sz);
 extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile); // 0x006CC1D8
@@ -391,4 +389,4 @@ int __fastcall sub_0043B9F0_HandleStatus(D2StatusStrc* pStatus)
     return 0;
 }
 
-#include "gen/data/Source/D2Client/Unknown_0043AAB0.inc"
+#include "gen/data/Source/D2Launch/Unknown_0043AAB0.inc"

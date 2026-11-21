@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 #include "D2Unicode.h"
 
 #pragma pack(push, 1)
@@ -145,4 +145,4 @@ void __cdecl sub_00435E10()
     ShowText(D2LANG_GetStringFromTblIndex(nString), sub_0042FDD0);
 }
 
-#include "gen/data/Source/D2Client/Unknown_00435E10.inc"
+#include "gen/data/Source/D2Launch/Unknown_00435E10.inc"

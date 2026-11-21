@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 #include "D2Unicode.h"
 
 struct Unicode;
@@ -298,7 +298,7 @@ int __fastcall sub_00434A00_Join(const char* szGameName, unsigned short wFlags, 
     }
 }
 
-#include "gen/data/Source/D2Client/Unknown_00434A00.inc"
+#include "gen/data/Source/D2Launch/Unknown_00434A00.inc"
 struct D2WinControlStrc;
 
 D2WinControlStrc* gpEdit_00779334; // 0x00779334

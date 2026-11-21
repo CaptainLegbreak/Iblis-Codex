@@ -12,6 +12,68 @@ struct D2LaunchCharInfoStrc;
 struct D2LaunchFuncsStrc;
 struct D2WinControlStrc;
 struct Unicode;
+struct D2ConfigStrc;
+struct D2LaunchRecordStrc;
+struct SMSGHANDLER_PARAMS;
+D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
+D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
+char* __fastcall sub_00430B50_GetSlotName(int nIndex); // 0x00430B50
+const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
+extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
+extern "C" const char gszSpace_006FFC44[]; // 0x006FFC44
+extern "C" const char* const gapszSkyPalette_006D3A08[2]; // 0x006D3A08
+extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
+extern D2WinControlStrc* gpControl_007799F4; // 0x007799F4
+extern D2WinControlStrc* gpControl_00779B60; // 0x00779B60
+extern D2WinControlStrc* gpControl_00779C68; // 0x00779C68
+extern D2WinControlStrc* gpControl_00779C80; // 0x00779C80
+extern D2WinControlStrc* gpControl_00779D90; // 0x00779D90
+extern D2WinControlStrc* gpControl_00779D94; // 0x00779D94
+extern D2WinControlStrc* gpEdit_007795A8; // 0x007795A8
+extern D2WinControlStrc* gpEdit_007799CC; // 0x007799CC
+extern D2WinControlStrc* gpEdit_007799D0; // 0x007799D0
+extern D2WinControlStrc* gpPasswordEdit_007799BC; // 0x007799BC
+extern D2WinControlStrc* gpPasswordEdit_007799C0; // 0x007799C0
+extern D2WinControlStrc* gpPasswordEdit_007799C4; // 0x007799C4
+extern D2WinControlStrc* gpPasswordEdit_007799C8; // 0x007799C8
+extern char gszOldPassword_00779550[]; // 0x00779550
+extern int ganRowValues_007799FC[]; // 0x007799FC
+extern int gdwGlobal_00779974; // 0x00779974
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
+int __cdecl sub_00430BC0_HasSaveFiles(); // 0x00430BC0
+int __cdecl sub_004F9050(); // 0x004F9050
+int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
+int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
+int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
+int __stdcall sub_004334D0_CloseBox(int nArg); // 0x004334D0
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+void __cdecl sub_0042F480_Reset(); // 0x0042F480
+void __cdecl sub_0042F6E0(); // 0x0042F6E0
+void __cdecl sub_0042FDD0(); // 0x0042FDD0
+void __cdecl sub_004301A0(); // 0x004301A0
+void __cdecl sub_00436AD0_UpdateStatus(); // 0x00436AD0
+void __cdecl sub_0043B080(); // 0x0043B080
+void __cdecl sub_0043B820_Clear(); // 0x0043B820
+void __cdecl sub_0043B9A0(); // 0x0043B9A0
+void __cdecl sub_0043C4F0(); // 0x0043C4F0
+void __cdecl sub_004FA550(); // 0x004FA550
+void __cdecl sub_004FAD70(); // 0x004FAD70
+void __cdecl sub_00524E40(); // 0x00524E40
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
+void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
+void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+void __fastcall sub_005148F0_SetChannelValue(int nValue); // 0x005148F0
+void __stdcall D2Win_10004(int nResolution); // 0x004F9060
+void __stdcall D2Win_10029(int a1); // 0x004FA410
+void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame); // 0x004F5D90
+void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
+void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
+struct D2StatusStrc
+{
+    int nCode;
+    int nArg;
+};
 
 D2CelFileStrc* __fastcall sub_004FA9B0_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0

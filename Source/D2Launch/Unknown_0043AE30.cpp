@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 #include "D2MultiTypes.h"
 
 struct D2WinTextBoxStrc;
@@ -84,4 +84,4 @@ void __cdecl sub_0043AE30_InitCharList()
     }
 }
 
-#include "gen/data/Source/D2Client/Unknown_0043AE30.inc"
+#include "gen/data/Source/D2Launch/Unknown_0043AE30.inc"

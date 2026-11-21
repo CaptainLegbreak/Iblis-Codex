@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
 
@@ -7,11 +7,6 @@ struct Unicode;
 struct D2LaunchControlTemplateStrc;
 struct D2FuncTable_0077ABF0Strc;
 
-struct D2LaunchControlTemplateStrc
-{
-    char unk0x00[0x30];
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -19,7 +14,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* szRootPathName, unsigned long* pnSectorsPerCluster, unsigned long* pnBytesPerSector, unsigned long* pnFreeClusters, unsigned long* pnTotalClusters); // 0x006CC270
 int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 unsigned int __stdcall sub_00414150_HashPath(const char* szPath); // 0x00414150
-int __stdcall SStrLen(const char* szString); // 0x00413750
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 void __cdecl sub_00432100_CreateLoginScreen(); // 0x00432100
 void __cdecl sub_004325B0_CreateScreen(); // 0x004325B0
@@ -309,7 +303,7 @@ int __stdcall sub_00436910_CreateAccountOk(int nArg)
     return 1;
 }
 
-#include "gen/data/Source/D2Client/Unknown_00434E00.inc"
+#include "gen/data/Source/D2Launch/Unknown_00434E00.inc"
 
 // 0x00436C10
 static int sub_00436C10_CheckAtAndDot(const char* szText)
@@ -321,7 +315,7 @@ static int sub_00436C10_CheckAtAndDot(const char* szText)
     if (pAt)
     {
         const char* pDot = SStrChr(pAt, '.');
-        if (pDot && pAt > szText && pDot > pAt + 1 && SStrLen(szText) > pDot - szText + 1)
+        if (pDot && pAt > szText && pDot > pAt + 1 && (int)SStrLen(szText) > pDot - szText + 1)
             bValid = 1;
     }
     return bValid;

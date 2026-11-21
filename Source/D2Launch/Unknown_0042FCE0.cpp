@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 

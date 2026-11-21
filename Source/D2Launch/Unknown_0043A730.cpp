@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 #include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -27,14 +27,6 @@ void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0043A730_UpdateButtons(); // 0x0043A730
 extern int gnLaunchMode_007795EC; // 0x007795EC
 extern int gbFlag_00779C6C; // 0x00779C6C
-
-struct D2CharSelCacheStrc
-{
-    unsigned int dwHash;
-    void* pData;
-    unsigned int dwExpireTick;
-    D2CharSelCacheStrc* pNext;
-};
 
 struct D2FuncTable_0077ABF0Strc
 {

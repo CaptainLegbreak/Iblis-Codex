@@ -1,4 +1,4 @@
-#include "D2Client.h"
+#include "D2Launch.h"
 
 struct D2FuncTable_0077ABF0Strc
 {
