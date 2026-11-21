@@ -69701,6 +69701,26 @@
      "length": 348
     },
     {
+     "va": "0x005F6530",
+     "length": 242,
+     "name": "?AITHINK_Fn040_MaggotEgg@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F6650",
+     "length": 349,
+     "name": "?AITHINK_Fn043_FoulCrowNest@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F67B0",
+     "length": 598,
+     "name": "?AITHINK_Fn044_Duriel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F6A10",
+     "length": 349,
+     "name": "?AITHINK_Fn045_Sarcophagus@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F7240",
      "length": 143,
      "name": "?AITHINK_TargetCallback_ZakarumPriest@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -71002,32 +71022,6 @@
      "va": "0x005F6340",
      "length": 493,
      "name": "?AITHINK_Fn039_PinHead@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F6530.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F6530",
-     "length": 242,
-     "name": "?AITHINK_Fn040_MaggotEgg@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005F6650",
-     "length": 349,
-     "name": "?AITHINK_Fn043_FoulCrowNest@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005F67B0",
-     "length": 598,
-     "name": "?AITHINK_Fn044_Duriel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005F6A10",
-     "length": 349,
-     "name": "?AITHINK_Fn045_Sarcophagus@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
