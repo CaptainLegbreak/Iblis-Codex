@@ -48650,6 +48650,11 @@
      "name": "?sub_0055E8E0_InitItemDrop@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
+     "va": "0x0055E9B0",
+     "length": 376,
+     "name": "sub_6FC48940"
+    },
+    {
      "va": "0x0055EB30",
      "length": 497,
      "name": "sub_6FC48D50"
@@ -55021,11 +55026,6 @@
      "va": "0x0055A550",
      "length": 374,
      "name": "?sub_0055A550_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
-    },
-    {
-     "va": "0x0055E9B0",
-     "length": 376,
-     "name": "sub_6FC48940"
     },
     {
      "va": "0x0056A370",
