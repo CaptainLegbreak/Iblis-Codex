@@ -79947,6 +79947,11 @@
      "name": "DUNGEON_ToggleRoomTilesEnableFlag"
     },
     {
+     "va": "0x006195A0",
+     "length": 113,
+     "name": "DUNGEON_GetWarpTileFromRoomAndSourceLevelId"
+    },
+    {
      "va": "0x00619620",
      "length": 56,
      "name": "DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit"
@@ -79997,6 +80002,35 @@
      "name": "?DUNGEON_AllocRoom@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgActStrc@@PAUD2DrlgRoomStrc@@PAUD2DrlgCoordsStrc@@PAUD2DrlgRoomTilesStrc@@HI@Z"
     },
     {
+     "va": "0x00619970",
+     "length": 122,
+     "name": "DUNGEON_DoRoomsTouchOrOverlap"
+    },
+    {
+     "va": "0x006199F0",
+     "length": 96,
+     "name": "DUNGEON_AreTileCoordinatesInsideRoom"
+    },
+    {
+     "va": "0x00619A50",
+     "length": 177
+    },
+    {
+     "va": "0x00619B60",
+     "length": 111,
+     "name": "DUNGEON_GetAdjacentRoomByTileCoordinates"
+    },
+    {
+     "va": "0x00619BD0",
+     "length": 109,
+     "name": "DUNGEON_CallRoomCallback"
+    },
+    {
+     "va": "0x00619C40",
+     "length": 186,
+     "name": "D2Common_10052"
+    },
+    {
      "va": "0x00619D70",
      "length": 33,
      "name": "DUNGEON_GetRGB_IntensityFromRoom"
@@ -80007,9 +80041,19 @@
      "name": "?sub_00619DA0_ActLookup@@YGPAUD2ActRoom00619DA0Strc@@PAUD2Act00619DA0Strc@@HH@Z"
     },
     {
+     "va": "0x00619DF0",
+     "length": 89,
+     "name": "DUNGEON_AreSubtileCoordinatesInsideRoom"
+    },
+    {
      "va": "0x00619E50",
      "length": 68,
      "name": "DUNGEON_FindActSpawnLocation"
+    },
+    {
+     "va": "0x00619EA0",
+     "length": 56,
+     "name": "DUNGEON_GetFirstUnitInRoom"
     },
     {
      "va": "0x00619EE0",
@@ -80121,6 +80165,11 @@
      "length": 25
     },
     {
+     "va": "0x0061A460",
+     "length": 99,
+     "name": "D2Common_10073"
+    },
+    {
      "va": "0x0061A4D0",
      "length": 51,
      "name": "D2Common_10074"
@@ -80149,6 +80198,31 @@
      "va": "0x0061A700",
      "length": 139,
      "name": "?DUNGEON_RemoveClientFromRoom@@YGXPAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0061A790",
+     "length": 72,
+     "name": "D2Common_10081_GetTileCountFromRoom"
+    },
+    {
+     "va": "0x0061A7E0",
+     "length": 87,
+     "name": "sub_0061A7E0_HasEntryMissingFrom"
+    },
+    {
+     "va": "0x0061A840",
+     "length": 158,
+     "name": "?DUNGEON_FreeRoom@@YIXPAXPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061A8E0",
+     "length": 43,
+     "name": "?sub_0061A8E0_ClearRoomField08@@YIXPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061A910",
+     "length": 220,
+     "name": "DUNGEON_RemoveRoomFromAct"
     },
     {
      "va": "0x0061A9F0",
@@ -80206,6 +80280,11 @@
      "name": "D2Common_10084"
     },
     {
+     "va": "0x0061AB70",
+     "length": 55,
+     "name": "?DUNGEON_GetTownLevelIdFromActNo@@YGHE@Z"
+    },
+    {
      "va": "0x0061ABB0",
      "length": 53,
      "name": "D2Common_10087"
@@ -80251,9 +80330,24 @@
      "name": "DUNGEON_GetRoomCoordList"
     },
     {
+     "va": "0x0061AD70",
+     "length": 190,
+     "name": "DUNGEON_GetPortalLevelArrayFromPortalFlags"
+    },
+    {
+     "va": "0x0061AE30",
+     "length": 69,
+     "name": "DUNGEON_GetPortalFlagFromLevelId"
+    },
+    {
      "va": "0x0061AE80",
      "length": 48,
      "name": "DUNGEON_GetTownLevelIdFromAct"
+    },
+    {
+     "va": "0x0061AEB0",
+     "length": 28,
+     "name": "?DUNGEON_GetHoradricStaffTombLevelId@@YGHPAUD2DrlgActStrc@@@Z"
     },
     {
      "va": "0x0061AED0",
@@ -80279,6 +80373,26 @@
      "va": "0x0061AFA0",
      "length": 37,
      "name": "_sub_0061AFA0@8"
+    },
+    {
+     "va": "0x0061AFD0",
+     "length": 130,
+     "name": "DUNGEON_FreeAct"
+    },
+    {
+     "va": "0x0061B060",
+     "length": 196,
+     "name": "DUNGEON_FindActSpawnLocationEx"
+    },
+    {
+     "va": "0x0061B130",
+     "length": 49,
+     "name": "D2Common_10095"
+    },
+    {
+     "va": "0x0061B390",
+     "length": 245,
+     "name": "sub_0061B390_WalkLevels"
     },
     {
      "va": "0x00627B70",
@@ -80319,138 +80433,6 @@
      "va": "0x0065E9E0",
      "length": 98,
      "name": "?ITEMMODS_RollRandomValueInRange@@YIHPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DUNGEON/Dungeon_006195A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006195A0",
-     "length": 113,
-     "name": "DUNGEON_GetWarpTileFromRoomAndSourceLevelId"
-    },
-    {
-     "va": "0x00619970",
-     "length": 122,
-     "name": "DUNGEON_DoRoomsTouchOrOverlap"
-    },
-    {
-     "va": "0x006199F0",
-     "length": 96,
-     "name": "DUNGEON_AreTileCoordinatesInsideRoom"
-    },
-    {
-     "va": "0x00619A50",
-     "length": 177
-    },
-    {
-     "va": "0x00619B60",
-     "length": 111,
-     "name": "DUNGEON_GetAdjacentRoomByTileCoordinates"
-    },
-    {
-     "va": "0x00619BD0",
-     "length": 109,
-     "name": "DUNGEON_CallRoomCallback"
-    },
-    {
-     "va": "0x00619C40",
-     "length": 186,
-     "name": "D2Common_10052"
-    },
-    {
-     "va": "0x00619DF0",
-     "length": 89,
-     "name": "DUNGEON_AreSubtileCoordinatesInsideRoom"
-    },
-    {
-     "va": "0x00619EA0",
-     "length": 56,
-     "name": "DUNGEON_GetFirstUnitInRoom"
-    },
-    {
-     "va": "0x0061A7E0",
-     "length": 87,
-     "name": "sub_0061A7E0_HasEntryMissingFrom"
-    },
-    {
-     "va": "0x0061A8E0",
-     "length": 43,
-     "name": "?sub_0061A8E0_ClearRoomField08@@YIXPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061A910",
-     "length": 220,
-     "name": "DUNGEON_RemoveRoomFromAct"
-    },
-    {
-     "va": "0x0061AD70",
-     "length": 190,
-     "name": "DUNGEON_GetPortalLevelArrayFromPortalFlags"
-    },
-    {
-     "va": "0x0061AFD0",
-     "length": 130,
-     "name": "DUNGEON_FreeAct"
-    },
-    {
-     "va": "0x0061B060",
-     "length": 196,
-     "name": "DUNGEON_FindActSpawnLocationEx"
-    },
-    {
-     "va": "0x0061B130",
-     "length": 49,
-     "name": "D2Common_10095"
-    },
-    {
-     "va": "0x0061B390",
-     "length": 245,
-     "name": "sub_0061B390_WalkLevels"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DUNGEON/Dungeon_0061A460.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061A460",
-     "length": 99,
-     "name": "D2Common_10073"
-    },
-    {
-     "va": "0x0061A790",
-     "length": 72,
-     "name": "D2Common_10081_GetTileCountFromRoom"
-    },
-    {
-     "va": "0x0061AE30",
-     "length": 69,
-     "name": "DUNGEON_GetPortalFlagFromLevelId"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DUNGEON/Dungeon_0061A840.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061A840",
-     "length": 158,
-     "name": "?DUNGEON_FreeRoom@@YIXPAXPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061AB70",
-     "length": 55,
-     "name": "?DUNGEON_GetTownLevelIdFromActNo@@YGHE@Z"
-    },
-    {
-     "va": "0x0061AEB0",
-     "length": 28,
-     "name": "?DUNGEON_GetHoradricStaffTombLevelId@@YGHPAUD2DrlgActStrc@@@Z"
     }
    ]
   },

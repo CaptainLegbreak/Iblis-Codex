@@ -6456,9 +6456,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/DUNGEON/Dungeon_006195A0.cpp": {
-   "bytes": 16,
-   "definitions": 1,
+  "Source/D2Common/DUNGEON/Dungeon.cpp": {
+   "bytes": 36,
+   "definitions": 2,
    "externs": [
     "extern \"C\" void __cdecl DRLGACTIVATE_RoomExSetStatus_ClientInRoom(); // 0x0061B2C0",
     "extern \"C\" void __cdecl DRLGACTIVATE_RoomExSetStatus_ClientInSight(); // 0x0061B2D0",
@@ -6467,15 +6467,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DUNGEON/Dungeon_006195A0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DUNGEON/Dungeon_0061A840.cpp": {
-   "bytes": 20,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DUNGEON/Dungeon_0061A840.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -123104,7 +123095,7 @@
    "cname": "gData_00744384",
    "declared": true,
    "decorated": "?gpfnLevelNodeHandlers_00744384@@3QBQ6IXPAUD2CommonLevelNodeStrc@@@ZB",
-   "file": "Source/D2Common/DUNGEON/Dungeon_006195A0.cpp",
+   "file": "Source/D2Common/DUNGEON/Dungeon.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const LEVELNODEFN gData_00744384[4]; // 0x00744384",
@@ -123168,7 +123159,7 @@
    "cname": "gData_006E7D1C",
    "declared": true,
    "decorated": "?gnTownLevelIds_006E7D1C@@3QBHB",
-   "file": "Source/D2Common/DUNGEON/Dungeon_0061A840.cpp",
+   "file": "Source/D2Common/DUNGEON/Dungeon.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E7D1C[5]; // 0x006E7D1C",
    "head": "extern \"C\" const int gData_006E7D1C[5] = ",
