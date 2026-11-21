@@ -1141,6 +1141,11 @@ enum D2C_M394IzualAi
 
 void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame);                                                 // 0x005B4390
 
+enum D2C_M144UberIzualAi
+{
+    COLLIDE_MASK_BARRIER = 6,
+};
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -8015,6 +8020,92 @@ void __fastcall AITHINK_Fn055_Izual(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     }
 
     if (pAiControl->dwAiParam[2] <= 0 && (int)(ITEMS_RollRandomNumber(pSeed) % 100) >= AI_GetParam(pGame, pMonStatsTxt, IZUAL_AI_PARAM_ATTACK_CHANCE_PCT))
+    {
+        pAiControl->dwAiParam[2] = 0;
+        if (pMonStatsTxt->nSkill[0] < 0 || !AI_RollChance(pGame, pSeed, pMonStatsTxt, IZUAL_AI_PARAM_NOVA_IN_MELEE_CHANCE_PCT))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->nAIdel[pGame->nDifficulty]);
+        }
+        else
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, nX, nY);
+            pAiControl->dwAiParam[1] = AI_GetParam(pGame, pMonStatsTxt, IZUAL_AI_PARAM_POST_NOVA_DOLDRUMS);
+            pAiControl->dwAiParam[2] = AI_GetParam(pGame, pMonStatsTxt, IZUAL_AI_PARAM_NUM_SWINGS);
+        }
+        return;
+    }
+
+    if (pAiControl->dwAiParam[2] > 0)
+    {
+        --pAiControl->dwAiParam[2];
+    }
+
+    AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+}
+
+// 0x005F8C80
+void __fastcall AITHINK_Fn144_UberIzual(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    const int nX = AI_GetUnitX(pTarget);
+    const int nY = AI_GetUnitY(pTarget);
+
+    if (pMonStatsTxt->nSkill[1] >= 0)
+    {
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(pMonStatsTxt->nSkill[1]);
+        if (pSkillsTxtRecord && pSkillsTxtRecord->nAuraState >= 0 && !STATES_CheckState(pUnit, pSkillsTxtRecord->nAuraState))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], 0, 0, 0);
+            return;
+        }
+    }
+
+    if (UNITS_TestCollisionWithUnit(pUnit, pTarget, COLLIDE_MASK_BARRIER))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], 0, nX, nY);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[1])
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, pAiControl->dwAiParam[1]);
+        pAiControl->dwAiParam[1] = 0;
+        return;
+    }
+
+    if (!bCombat)
+    {
+        if (pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance < 10 && pAiControl->dwAiParam[2] <= 0 && AI_RollChance(pGame, pSeed, pMonStatsTxt, IZUAL_AI_PARAM_NOVA_AT_RANGE_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, nX, nY);
+            pAiControl->dwAiParam[1] = AI_GetParam(pGame, pMonStatsTxt, IZUAL_AI_PARAM_POST_NOVA_DOLDRUMS);
+            pAiControl->dwAiParam[2] = AI_GetParam(pGame, pMonStatsTxt, IZUAL_AI_PARAM_NUM_SWINGS);
+            return;
+        }
+
+        if (pAiControl->dwAiParam[2] <= 0 && !AI_RollChance(pGame, pSeed, pMonStatsTxt, IZUAL_AI_PARAM_ENGAGE_CHANCE_PCT))
+        {
+            if (nTargetDistance > 10)
+            {
+                D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 6, 9);
+            }
+            else
+            {
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->nAIdel[pGame->nDifficulty]);
+            }
+            return;
+        }
+
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[2] <= 0 && !AI_RollChance(pGame, pSeed, pMonStatsTxt, IZUAL_AI_PARAM_ATTACK_CHANCE_PCT))
     {
         pAiControl->dwAiParam[2] = 0;
         if (pMonStatsTxt->nSkill[0] < 0 || !AI_RollChance(pGame, pSeed, pMonStatsTxt, IZUAL_AI_PARAM_NOVA_IN_MELEE_CHANCE_PCT))
