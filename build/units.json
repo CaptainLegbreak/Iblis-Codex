@@ -63016,11 +63016,6 @@
      "name": "ACT4Q2_ActiveFilterCallback"
     },
     {
-     "va": "0x005B49C0",
-     "length": 111,
-     "name": "ACT4Q2_UnitIterate_AttachCompletionSound"
-    },
-    {
      "va": "0x005B4FF0",
      "length": 55,
      "name": "sub_005B4FF0_ActivateHarrogathWaypoint"
@@ -65251,6 +65246,11 @@
      "va": "0x005B4670",
      "length": 273,
      "name": "?ACT4Q2_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B49C0",
+     "length": 111,
+     "name": "ACT4Q2_UnitIterate_AttachCompletionSound"
     },
     {
      "va": "0x005B4A30",
