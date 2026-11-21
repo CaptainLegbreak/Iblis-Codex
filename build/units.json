@@ -58740,6 +58740,10 @@
      "name": "?D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
+     "va": "0x005C4B00",
+     "length": 455
+    },
+    {
      "va": "0x005C4CD0",
      "length": 55,
      "name": "?SKILLS_SrvDo032_PoisonDagger@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -58767,6 +58771,10 @@
      "va": "0x005C5430",
      "length": 398,
      "name": "?sub_005C5430_MoveRevivedTarget@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C55C0",
+     "length": 248
     },
     {
      "va": "0x005C56C0",
@@ -68516,34 +68524,6 @@
      "va": "0x005C5F50",
      "length": 650
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillNec_005C4B00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C4B00",
-     "length": 455
-    },
-    {
-     "va": "0x005C55C0",
-     "length": 248
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

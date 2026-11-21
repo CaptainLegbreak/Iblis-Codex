@@ -465,6 +465,21 @@ void __stdcall ITEMS_GetAllowedBodyLocations(D2UnitStrc*, unsigned char*, unsign
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc*); // 0x0064C370
 
+
+void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+
+void __fastcall D2GAME_SetSummonResistance_6FD0C2E0(D2UnitStrc* pUnit, D2UnitStrc* pPet); // 0x005C40D0
+
+void __fastcall sub_005C4430_SetNecroPetComponents(D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel); // 0x005C4430
+
+int __fastcall SKILLS_SrvSt21_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
+static int __stdcall sub_005C5430_MoveRevivedTarget(D2GameStrc* pGame, D2UnitStrc* pTarget);
+
+static void __stdcall sub_005C55C0_InitializeRevivedMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMonster, int nSkillId, int nSkillLevel);
+
+int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
 static __forceinline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
 {
     const int nTop = pClickRect->nY;
@@ -1501,6 +1516,58 @@ int __fastcall D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(D2GameStrc* pGame, D2Un
     return 1;
 }
 
+// 0x005C4B00
+int __fastcall SKILLS_SrvDo031_RaiseSkeleton_Mage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SummonArgStrc summonArg;
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (pTarget && D2COMMON_11017_CheckUnitIfConsumeable(pTarget, 0))
+    {
+        sub_005C2FF0_DamagePaladinCaster(pGame, pUnit, nSkillId, nSkillLevel);
+
+        D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+        if (pSkillsTxtRecord)
+        {
+            int nSpawnMode;
+            const int nMonsterId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 0, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+            if (nMonsterId >= 0)
+            {
+                const int nPetType = (signed char)pSkillsTxtRecord->nPetType;
+                if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
+                {
+                    const int nX = CLIENTS_GetUnitX(pTarget);
+                    const int nY = CLIENTS_GetUnitY(pTarget);
+                    DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pTarget), !pTarget ? 6 : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId);
+                    SUNIT_RemoveUnit(pGame, pTarget);
+                    memset(&summonArg, 0, sizeof(summonArg));
+                    summonArg.nHcIdx = nMonsterId;
+                    summonArg.nAiSpecialState = 0;
+                    summonArg.nMonMode = nSpawnMode;
+                    summonArg.dwFlags = 1;
+                    summonArg.pOwner = pUnit;
+                    summonArg.pPosition.nX = nX;
+                    summonArg.pPosition.nY = nY;
+                    summonArg.nPetType = nPetType;
+                    summonArg.nPetMax = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPetMax, nSkillId, nSkillLevel);
+
+                    D2UnitStrc* pPet = D2GAME_SummonPet_6FD14430(pGame, &summonArg);
+                    if (pPet)
+                    {
+                        D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
+                        sub_005C4430_SetNecroPetComponents(pUnit, pPet, nSkillId, nSkillLevel);
+                        D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
+                        D2GAME_SetSummonResistance_6FD0C2E0(pUnit, pPet);
+                        D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pUnit->dwNodeIndex);
+                        return 1;
+                    }
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
 // 0x005C4CD0
 int __fastcall SKILLS_SrvDo032_PoisonDagger(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1707,13 +1774,14 @@ static int __stdcall sub_005C5430_MoveRevivedTarget(D2GameStrc* pGame, D2UnitStr
     return sub_6FCBDFE0(pGame, pTarget, pRoom, tCoords.nX, tCoords.nY, 0, 0);
 }
 
+// 0x005C55C0
 static void __stdcall sub_005C55C0_InitializeRevivedMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMonster, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (nSkillId)
     {
         AIGENERAL_SetOwnerData(pGame, pMonster, !pUnit ? -1 : pUnit->dwUnitId, !pUnit ? UNIT_INVALID : pUnit->dwUnitType, 0, 0);
-        AIUTIL_SetOwnerGUIDAndType(pMonster, pUnit);
+        AIUTIL_SetOwnerGUIDAndType(pMonster, (pUnit));
         D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 2, 0);
         EVENT_SetEvent(pGame, pMonster, 2, pGame->dwGameFrame + 15, 0, 0);
         sub_005543B0_AssignAlignment(pMonster, 2, 0);
