@@ -1,13 +1,5 @@
 #include "D2DDraw.h"
-
-struct D2DDrawSmackStrc
-{
-    D2SmackStrc* hSmack;
-    unsigned char nType;
-    unsigned char unk0x05[3];
-    int nX;
-    int nY;
-};
+#include "D2GfxTypes.h"
 
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
 
@@ -15,7 +7,7 @@ extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack
 
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
 
-void __fastcall sub_00513330_DDrawCloseSmacker(D2DDrawSmackStrc* pRecord);                                      // 0x00513330
+void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 unsigned char gabRemapTable_008815B0[256];                                                                  // 0x008815B0
 
@@ -25,7 +17,7 @@ int gbRemapValid_008816B4;                                                      
 
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 
-static void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect, unsigned int nRows);
+static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -57,7 +49,7 @@ static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned ch
 }
 
 // 0x00513380
-static void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect, unsigned int nRows)
+static void __stdcall sub_00513380_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     if (!gpRemapSource_008816B0)
         return;
@@ -73,13 +65,13 @@ static void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect
     }
 }
 
-void __fastcall sub_005135F0_DDrawPlaySmacker(D2DDrawSmackStrc* pRecord)
+void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
 {
     switch (pRecord->nType)
     {
     case 's':
     {
-        D2SmackStrc* hSmack = pRecord->hSmack;
+        D2SmackStrc* hSmack = pRecord->pSmack;
         if (!hSmack)
             return;
         if (!SmackWait(hSmack))

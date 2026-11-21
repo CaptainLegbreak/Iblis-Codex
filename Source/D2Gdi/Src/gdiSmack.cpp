@@ -2,29 +2,19 @@
 #include "D2GfxTypes.h"
 #include "D2Win32Types.h"
 
-struct D2GdiSmackStrc;
-
-struct D2GdiSmackStrc
-{
-    D2SmackStrc* hSmack;
-    unsigned char nType;
-    unsigned char unk0x05[3];
-    int nX;
-    int nY;
-};
 
 extern "C" __declspec(dllimport) void __stdcall SmackClose(D2SmackStrc* hSmack); // 0x006CC608
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack); // 0x006CC5F8
 extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack); // 0x006CC5FC
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack); // 0x006CC600
-void __fastcall sub_006C9640_GdiCloseSmacker(D2GdiSmackStrc* pRecord); // 0x006C9640
+void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord); // 0x006C9640
 extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
 extern unsigned char gaGdiSmackPaletteMap_0098A178[256]; // 0x0098A178
 extern int gbRemapValid_0098A27C; // 0x0098A27C
 extern unsigned char gabGamePalette_007C8CC8[]; // 0x007C8CC8
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gbRenderPaused_007C9144; // 0x007C9144
-static void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows);
+static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" __declspec(dllimport) D2SmackStrc* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
@@ -36,17 +26,17 @@ int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPAL
 static unsigned char* gpGdiSmackBuffer_0098A278; // 0x0098A278
 
 // 0x006C9640
-void __fastcall sub_006C9640_GdiCloseSmacker(D2GdiSmackStrc* pRecord)
+void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord)
 {
     if (gpGdiSmackBuffer_0098A278)
     {
         FOG_Free(gpGdiSmackBuffer_0098A278, ".\\Src\\gdiSmack.cpp", 0xF0, 0);
         gpGdiSmackBuffer_0098A278 = 0;
     }
-    if (pRecord->nType == 's' && pRecord->hSmack)
+    if (pRecord->nType == 's' && pRecord->pSmack)
     {
-        SmackClose(pRecord->hSmack);
-        pRecord->hSmack = 0;
+        SmackClose(pRecord->pSmack);
+        pRecord->pSmack = 0;
     }
     pRecord->nType = 0;
 }
@@ -61,7 +51,7 @@ static inline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned ch
 }
 
 // 0x006C9690
-static void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows)
+static void __stdcall sub_006C9690_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     unsigned char* pSrc = gpGdiSmackBuffer_0098A278;
     unsigned char* pDst = (pRect->nY - nRows) * gnScreenWidth_007C9138 + pRect->nX + gpScreenBuffer_007C9154;
@@ -78,26 +68,26 @@ static void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, 
 unsigned char gaGdiSmackPaletteMap_0098A178[256]; // 0x0098A178
 
 // 0x006C9710
-void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2GdiSmackStrc* pSmack, unsigned char nType)
+void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
 {
     pSmack->nType = nType;
     switch (nType)
     {
     case 's':
     {
-        if (pSmack->hSmack)
+        if (pSmack->pSmack)
         {
             return;
         }
         D2SmackStrc* hSmack = SmackOpen(szFile, 0xFE000, -1);
-        pSmack->hSmack = hSmack;
+        pSmack->pSmack = hSmack;
         if (!hSmack)
         {
             break;
         }
         gpGdiSmackBuffer_0098A278 = (unsigned char*)FOG_Alloc(hSmack->nWidth * hSmack->nHeight, ".\\Src\\gdiSmack.cpp", 67, 0);
         memset(gpGdiSmackBuffer_0098A278, 0, hSmack->nWidth * hSmack->nHeight);
-        SmackToBuffer(pSmack->hSmack, 0, 0, hSmack->nWidth, hSmack->nHeight, gpGdiSmackBuffer_0098A278, 0);
+        SmackToBuffer(pSmack->pSmack, 0, 0, hSmack->nWidth, hSmack->nHeight, gpGdiSmackBuffer_0098A278, 0);
         gbRemapValid_0098A27C = 0;
         return;
     }
@@ -142,22 +132,22 @@ void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2GdiSmackStrc
         gpGdiSmackBuffer_0098A278 = 0;
     }
 
-    if (pSmack->nType == 's' && pSmack->hSmack)
+    if (pSmack->nType == 's' && pSmack->pSmack)
     {
-        SmackClose(pSmack->hSmack);
-        pSmack->hSmack = 0;
+        SmackClose(pSmack->pSmack);
+        pSmack->pSmack = 0;
     }
     pSmack->nType = 0;
 }
 
 // 0x006C9900
-void __fastcall sub_006C9900_GdiPlaySmacker(D2GdiSmackStrc* pRecord)
+void __fastcall sub_006C9900_GdiPlaySmacker(D2SmackRecordStrc* pRecord)
 {
     switch (pRecord->nType)
     {
     case 's':
     {
-        D2SmackStrc* hSmack = pRecord->hSmack;
+        D2SmackStrc* hSmack = pRecord->pSmack;
         if (!hSmack)
             return;
         if (!SmackWait(hSmack))

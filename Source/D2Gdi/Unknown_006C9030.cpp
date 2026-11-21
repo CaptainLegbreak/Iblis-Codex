@@ -1,4 +1,4 @@
-struct D2RectStrc { int left, top, right, bottom; };
+#include "D2Win32Base.h"
 struct D2CoordPairStrc { int x, y; };
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -9,7 +9,7 @@ static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x006C9030
-void __fastcall sub_006C9030_DrawRect(D2RectStrc* pRect, int nColor)
+void __fastcall sub_006C9030_DrawRect(tagRECT* pRect, int nColor)
 {
     const int nLeft = pRect->left;
     D2_ASSERT(nLeft <= pRect->right, 0x142);

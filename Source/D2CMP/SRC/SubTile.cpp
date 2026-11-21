@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2GfxTypes.h"
 #include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -10,7 +11,6 @@ struct D2CmpSubTileHeaderStrc;
 struct D2CmpSubTileRecordStrc;
 struct D2CmpColorStrc;
 struct D2CmpTileBlockStrc;
-struct D2RgbTripleStrc;
 struct D2RgbKeyStrc;
 struct D2CmpRGBStrc;
 struct D2CmpPaletteStrc;
@@ -31,8 +31,6 @@ void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileRecordStrc*, const uns
 static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
 static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData);
 static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
-
-struct D2RgbTripleStrc { unsigned char nRed, nGreen, nBlue; };
 
 struct D2RgbKeyStrc { unsigned char bytes[4]; };
 

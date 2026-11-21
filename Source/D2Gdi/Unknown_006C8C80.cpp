@@ -1,7 +1,6 @@
 #include "D2Gdi.h"
 #include "D2Win32Base.h"
 
-struct D2RectStrc;
 struct tagPOINT;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -10,13 +9,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern int gnScreenHeight_007C913C; // 0x007C913C
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
 void __fastcall sub_006C90E0_GdiUtilFilledRect(tagRECT* pRect, unsigned char nColor); // 0x006C90E0
 void __stdcall sub_006C9220_ClearBuffer(int bPartial); // 0x006C9220
 
@@ -94,53 +86,53 @@ void __fastcall sub_006C8C80_GdiDrawLine(int nX1, int nY1, int nX2, int nY2, uns
 }
 
 // 0x006C90E0
-void __fastcall sub_006C90E0_FillRect(D2RectStrc* pRect, int nColor)
+void __fastcall sub_006C90E0_FillRect(tagRECT* pRect, int nColor)
 {
-    D2_ASSERT(pRect->nLeft <= pRect->nRight, 0x15E);
-    D2_ASSERT(pRect->nTop <= pRect->nBottom, 0x15F);
+    D2_ASSERT(pRect->left <= pRect->right, 0x15E);
+    D2_ASSERT(pRect->top <= pRect->bottom, 0x15F);
 
-    if (pRect->nRight < 0)
+    if (pRect->right < 0)
     {
         return;
     }
 
-    if (pRect->nLeft >= gnScreenWidth_007C9138)
+    if (pRect->left >= gnScreenWidth_007C9138)
     {
         return;
     }
 
-    if (pRect->nBottom < 0)
+    if (pRect->bottom < 0)
     {
         return;
     }
 
-    if (pRect->nTop >= gnScreenHeight_007C913C)
+    if (pRect->top >= gnScreenHeight_007C913C)
     {
         return;
     }
 
-    if (pRect->nLeft < 0)
+    if (pRect->left < 0)
     {
-        pRect->nLeft = 0;
+        pRect->left = 0;
     }
 
-    if (pRect->nRight >= gnScreenWidth_007C9138)
+    if (pRect->right >= gnScreenWidth_007C9138)
     {
-        pRect->nRight = gnScreenWidth_007C9138 - 1;
+        pRect->right = gnScreenWidth_007C9138 - 1;
     }
 
-    if (pRect->nTop < 0)
+    if (pRect->top < 0)
     {
-        pRect->nTop = 0;
+        pRect->top = 0;
     }
 
-    if (pRect->nBottom >= gnScreenHeight_007C913C)
+    if (pRect->bottom >= gnScreenHeight_007C913C)
     {
-        pRect->nBottom = gnScreenHeight_007C913C - 1;
+        pRect->bottom = gnScreenHeight_007C913C - 1;
     }
 
-    unsigned int nWidth = pRect->nRight - pRect->nLeft;
-    int nHeight = pRect->nBottom - pRect->nTop;
+    unsigned int nWidth = pRect->right - pRect->left;
+    int nHeight = pRect->bottom - pRect->top;
 
     if (!nWidth)
     {
@@ -152,7 +144,7 @@ void __fastcall sub_006C90E0_FillRect(D2RectStrc* pRect, int nColor)
         return;
     }
 
-    unsigned char* pDst = &gpScreenBuffer_007C9154[pRect->nTop * gnScreenWidth_007C9138 + pRect->nLeft];
+    unsigned char* pDst = &gpScreenBuffer_007C9154[pRect->top * gnScreenWidth_007C9138 + pRect->left];
     while (nHeight--)
     {
         if (nWidth > 0)

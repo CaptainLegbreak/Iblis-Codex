@@ -1,9 +1,5 @@
-struct D2StormLinkStrc;
+#include "D2StormLink.h"
 struct D2StormListStrc;
-
-struct D2StormLinkStrc {D2StormLinkStrc* m_prevlink;
- char* m_next;
-};
 
 struct D2StormListStrc {
  int m_linkoffset;

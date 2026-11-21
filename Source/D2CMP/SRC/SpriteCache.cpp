@@ -1,4 +1,6 @@
 #include "D2CMP.h"
+#include "D2CmpTiles.h"
+#include "D2CmpCelFile.h"
 #include "D2GameTypes.h"
 #include "D2WinTypes.h"
 #include "D2CmpTypes.h"
@@ -31,9 +33,7 @@ struct D2CmpCacheKeyStrc;
 
 struct D2CmpCacheListEntryStrc;
 
-struct D2CelStrc;
 
-struct D2CelFileStrc;
 
 struct D2CmpCelContextStrc;
 
@@ -47,7 +47,6 @@ struct D2CmpTileLibraryStrc;
 
 struct D2CmpBlockTableAStrc;
 
-struct D2CmpBlockTableBStrc;
 
 struct D2CmpValueObjStrc;
 
@@ -105,29 +104,6 @@ extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
 
-struct D2CelStrc
-{
-    int bFlip;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    unsigned int nDataSize;
-    D2CelBlockStrc* pBlockPixelData;
-    unsigned int nLength;
-};
-
-struct D2CelFileStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    int nFormat;
-    int nTermination;
-    int nDirections;
-    int nCelsPerDirection;
-    D2CelStrc* pCels[1];
-};
-
 void __fastcall sub_00608D60_DrawCelShadowLines(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
 void __fastcall sub_0060CFA0_AddTileToTable(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
@@ -136,12 +112,6 @@ struct D2CmpBlockTableAStrc
 {
     unsigned char data[0x1000];
     void sub_0060B130_Destroy();                                                                            // 0x0060B130
-};
-
-struct D2CmpBlockTableBStrc
-{
-    unsigned char data[0x10000];
-    void sub_0060AB70_Destroy();                                                                            // 0x0060AB70
 };
 
 struct D2CmpValueObjStrc

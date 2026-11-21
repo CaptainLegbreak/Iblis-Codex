@@ -1,5 +1,5 @@
+#include "D2CmpTypes.h"
 struct D2CelStrc;
-struct D2CmpCelContextStrc { char unknown0[60]; D2CelStrc* cel; };
 int __stdcall sub_006001F0_ValidateContext(D2CmpCelContextStrc*, int, int); // 0x006001F0
 int __stdcall sub_006018C0(D2CelStrc*); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc*); // 0x006018F0
@@ -39,7 +39,7 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
 void __fastcall sub_005121A0_DrawClipped(D2CmpCelContextStrc* context, int x, int y, int top, int rows, int index)
 {
     if (!sub_006001F0_ValidateContext(context, 0, 1)) return;
-    if (sub_00511E10_IsCelOffScreen(context->cel, x, y, 0)) return;
+    if (sub_00511E10_IsCelOffScreen(context->pCel, x, y, 0)) return;
     int screenHeight = gnHeight_007C913C;
     CelDrawEx(context, x, y, gnClip_0088129C, gnClip_008812A0, gpPixels_007C9154, screenHeight, gnWidth_007C9138, 0, sub_00511D70_GetCapsValue(index, &rows), top, rows, 0);
 }

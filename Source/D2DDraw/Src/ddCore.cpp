@@ -1,4 +1,5 @@
 #include "D2DDraw.h"
+#include "D2Win32Base.h"
 #include "D2DDrawTypes.h"
 #include "D2GlideTypes.h"
 
@@ -236,14 +237,6 @@ extern tagPALETTEENTRY gaDDrawPalette_007C8CC8[256];                            
 static int gnScreenWidth2_00881258;                                                                         // 0x00881258
 
 static int gnScreenHeight2_00881254;                                                                        // 0x00881254
-
-struct D2RectStrc
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
 
 unsigned char gPaletteEntries_007C8CCC[1];                                                                  // 0x007C8CCC
 
@@ -562,7 +555,7 @@ int __fastcall sub_00511870_EndScene()
     {
         if (gpDDrawSurface_00881280 && gpDDrawBackSurface_0088127C && gpDDrawSurface_00881280 != gpDDrawBackSurface_0088127C)
         {
-            D2RectStrc tRect;
+            tagRECT tRect;
             tRect.left = 0;
             tRect.top = 0;
             tRect.right = gnScreenWidth_007C9138;
@@ -579,7 +572,7 @@ int __fastcall sub_00511870_EndScene()
     }
     else if (gpDDrawSurface_00881280)
     {
-        D2RectStrc tRect;
+        tagRECT tRect;
         tRect.left = 0;
         tRect.top = 0;
         tRect.right = gnScreenWidth_007C9138;

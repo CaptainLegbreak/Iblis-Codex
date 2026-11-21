@@ -3,7 +3,6 @@
 #define PAL_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2PalRgba00605AA0Strc;
 struct D2HslStrc;
 struct D2PalRgbaStrc;
 struct D2ColorBlockStrc;
@@ -14,14 +13,6 @@ typedef unsigned char (__stdcall* MapFn)(unsigned char nRed, unsigned char nGree
 
 unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x006056D0
 extern int gbPaletteLoaded_008E9934; // 0x008E9934
-
-struct D2PalRgba00605AA0Strc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
 
 unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
@@ -122,7 +113,7 @@ int __stdcall sub_006057A0_MapColors(const unsigned char* pSource, unsigned char
 // 0x00605AA0
 void __stdcall sub_00605AA0_BuildMultiplyTable(unsigned char* pTables)
 {
-    const D2PalRgba00605AA0Strc* pPalette = (const D2PalRgba00605AA0Strc*)pTables;
+    const D2PalRgbaStrc* pPalette = (const D2PalRgbaStrc*)pTables;
     for (int i = 0; i < 256; ++i)
     {
         for (int j = 0; j < 256; ++j)

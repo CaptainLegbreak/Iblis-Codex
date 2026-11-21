@@ -1,3 +1,4 @@
+#include "D2Win32Base.h"
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -5,35 +6,33 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CoordPairStrc { int nX; int nY; };
-struct D2RectStrc { int nLeft; int nTop; int nRight; int nBottom; };
-
 static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor);
 static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor); // 0x006C8DA0
 
 // 0x006C8F70
-void __fastcall sub_006C8F70_RectDiamond(D2RectStrc* pRect, int nValue)
+void __fastcall sub_006C8F70_RectDiamond(tagRECT* pRect, int nValue)
 {
-    D2_ASSERT(pRect->nLeft <= pRect->nRight, 0x126);
-    int nBottom = pRect->nBottom;
-    D2_ASSERT(pRect->nTop <= nBottom, 0x127);
+    D2_ASSERT(pRect->left <= pRect->right, 0x126);
+    int nBottom = pRect->bottom;
+    D2_ASSERT(pRect->top <= nBottom, 0x127);
 
-    unsigned int nWidth = pRect->nRight - pRect->nLeft;
-    unsigned int nHeight = nBottom - pRect->nTop;
+    unsigned int nWidth = pRect->right - pRect->left;
+    unsigned int nHeight = nBottom - pRect->top;
     if (!nWidth || !nHeight)
         return;
 
     D2CoordPairStrc ptTop;
     D2CoordPairStrc ptLeft;
     D2CoordPairStrc ptBottom;
-    ptTop.nX = pRect->nLeft + (nWidth >> 1);
+    ptTop.nX = pRect->left + (nWidth >> 1);
     D2CoordPairStrc ptRight;
-    ptTop.nY = pRect->nTop;
-    ptRight.nX = pRect->nRight;
-    ptRight.nY = pRect->nTop + (nHeight >> 1);
-    ptBottom.nX = pRect->nLeft + (nWidth >> 1);
+    ptTop.nY = pRect->top;
+    ptRight.nX = pRect->right;
+    ptRight.nY = pRect->top + (nHeight >> 1);
+    ptBottom.nX = pRect->left + (nWidth >> 1);
     ptBottom.nY = nBottom;
-    ptLeft.nX = pRect->nLeft;
-    ptLeft.nY = pRect->nTop + (nHeight >> 1);
+    ptLeft.nX = pRect->left;
+    ptLeft.nY = pRect->top + (nHeight >> 1);
 
     sub_006C8DA0_DrawLine(&ptTop, &ptRight, nValue);
     sub_006C8DA0_DrawLine(&ptRight, &ptBottom, nValue);

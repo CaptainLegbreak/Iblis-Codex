@@ -2,19 +2,10 @@
 
 #define PAL_SATURATE(x) ((unsigned int)(x) < 255 ? (x) : 255)
 
-struct D2PalRgba006059B0Strc;
 struct D2HslStrc;
 struct D2PalRgbaStrc;
 
 unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
-
-struct D2PalRgba006059B0Strc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
 
 // 0x00605880
 void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
@@ -61,7 +52,7 @@ void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
 // 0x006059B0
 void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pTables)
 {
-    const D2PalRgba006059B0Strc* pPalette = (const D2PalRgba006059B0Strc*)pTables;
+    const D2PalRgbaStrc* pPalette = (const D2PalRgbaStrc*)pTables;
     for (int i = 0; i < 256; ++i)
     {
         for (int j = 0; j < 256; ++j)
