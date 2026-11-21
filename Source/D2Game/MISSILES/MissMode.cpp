@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -73,7 +74,6 @@ struct D2UnkFieldsStrc
 enum D2MiscConstants
 {
     EVENTTYPE_MONUMOD = 7,
-    SKILL_MONTELEPORT = 184,
     MONSTER_SANDLEAPER1 = 78,
     STATE_FREEZE = 1,
     STATE_BLAZE = 13,

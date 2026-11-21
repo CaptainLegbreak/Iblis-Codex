@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -8,7 +9,6 @@
 #include "D2MonModes.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-#define SKILL_INFERNO 41
 #define SKILLSFLAGINDEX_AURA 5
 #define MONSTER_ROGUEHIRE 271
 #define MONSTER_ACT2HIRE 338
