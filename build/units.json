@@ -15879,6 +15879,14 @@
      "va": "0x00456550",
      "length": 135,
      "name": "?sub_00456550_LoadLoadingScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0045C3E0",
+     "length": 75
+    },
+    {
+     "va": "0x0045C520",
+     "length": 251
     }
    ],
    "flags": [
@@ -19036,34 +19044,6 @@
      "length": 47,
      "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0045C3E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0045C3E0",
-     "length": 75
-    },
-    {
-     "va": "0x0045C520",
-     "length": 251
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
