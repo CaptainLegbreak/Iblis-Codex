@@ -1079,6 +1079,20 @@ enum D2C_MummyAIParams
     MUMMY_AI_PARAM_STALL_DURATION = 4,
 };
 
+enum D2C_M86CorruptLancerAi
+{
+    CORRUPTLANCER_AI_PARAM_APPROACH_CHANCE_PCT = 0,
+    CORRUPTLANCER_AI_PARAM_ATTACK_CHANCE_PCT = 1,
+    CORRUPTLANCER_AI_PARAM_STALL_DURATION = 2,
+    CORRUPTLANCER_AI_PARAM_RUN_CHANCE_PCT = 3,
+    CORRUPTLANCER_AI_PARAM_ALWAYS_RUN_DISTANCE = 4,
+    CORRUPTLANCER_AI_PARAM_USE_SKILL_1_CHANCE_PCT = 5,
+    CORRUPTLANCER_AI_PARAM_USE_SKILL_2_CHANCE_PCT = 6,
+    CORRUPTLANCER_AI_PARAM_USE_SKILL_3_CHANCE_PCT = 7,
+};
+
+int __fastcall AITACTICS_RunToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEFB0
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -6998,6 +7012,71 @@ void __fastcall AITHINK_Fn033_HellMeteor(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 1));
+}
+
+// 0x005F5D50
+void __fastcall AITHINK_Fn036_CorruptLancer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    if (pAiTickParam->nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_ALWAYS_RUN_DISTANCE))
+    {
+        PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nSteps);
+        sub_005DE190_SetAiParam(pUnit, 13, 100, 0);
+        AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nSteps);
+        pAiControl->dwAiParam[0] = 1;
+        return;
+    }
+
+    if (bCombat)
+    {
+        if (!pAiControl->dwAiParam[0] && !((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_ATTACK_CHANCE_PCT)))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_STALL_DURATION));
+            return;
+        }
+
+        pAiControl->dwAiParam[0] = 0;
+
+        if (pMonStatsTxt->nSkill[0] >= 0 && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_USE_SKILL_1_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        }
+        else if (pMonStatsTxt->nSkill[1] >= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_USE_SKILL_2_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+        }
+        else if (pMonStatsTxt->nSkill[2] >= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_USE_SKILL_3_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pTarget, 0, 0);
+        }
+        else
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        }
+        return;
+    }
+
+    if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_APPROACH_CHANCE_PCT))
+    {
+        PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nSteps);
+
+        if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_RUN_CHANCE_PCT))
+        {
+            sub_005DE190_SetAiParam(pUnit, 13, 100, 0);
+            AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nSteps);
+            return;
+        }
+
+        AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, 3);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_STALL_DURATION));
 }
 
 // 0x005F6530
