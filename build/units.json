@@ -15761,6 +15761,16 @@
      "length": 120
     },
     {
+     "va": "0x00451170",
+     "length": 37,
+     "name": "??0D2StormExportTableSimpleStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x004511F0",
+     "length": 47,
+     "name": "??0D2StormExportTableSyncStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00451330",
      "length": 202,
      "name": "?sub_00451330@@YAHXZ"
@@ -16308,22 +16318,6 @@
      "va": "0x004511D0",
      "length": 21,
      "name": "??1D2StormExportTableSyncStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00451170.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00451170",
-     "length": 37,
-     "name": "??0D2StormExportTableSimpleStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x004511F0",
-     "length": 47,
-     "name": "??0D2StormExportTableSyncStrc@@QAE@XZ"
     }
    ]
   },
