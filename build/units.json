@@ -36307,6 +36307,11 @@
      "name": "?sub_004E9870_DrawTwoTexts@@YIXPBUUnicode@@0HHHHH@Z"
     },
     {
+     "va": "0x004EB940",
+     "length": 238,
+     "name": "?sub_004EB940_DrawWeaponDamageWithParam@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
      "va": "0x004EDA20",
      "length": 93,
      "name": "?sub_004EDA20_RefreshSkills@@YIXPAUD2UnitStrc@@@Z"
@@ -37324,31 +37329,6 @@
     {
      "va": "0x004EB830",
      "length": 259
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EB940.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EB940",
-     "length": 238,
-     "name": "?sub_004EB940_DrawWeaponDamageWithParam@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
     }
    ],
    "flags": [
