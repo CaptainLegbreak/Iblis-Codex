@@ -93,15 +93,40 @@ D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDr
 
 void __fastcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, unsigned int nPackedTileInformation, int nX, int nY, int nTileType); // 0x0066D9E0
 
-struct Tile { char pad0[0x20]; Tile* next; char f_24[0xC]; };
+struct Tile
+{
+    char pad0[0x20];
+    Tile* next;
+    char f_24[0xC];
+};
 
-struct T0066E090 { char pad0[0x10]; int count; char pad14[0x10]; Tile* tiles; int capacity; };
+struct T0066E090
+{
+    char pad0[0x10];
+    int count;
+    char pad14[0x10];
+    Tile* tiles;
+    int capacity;
+};
 
-struct Drlg { char pad0[0x478]; void* pool; };
+struct Drlg
+{
+    char pad0[0x478];
+    void* pool;
+};
 
-struct Level { char pad0[0x1B4]; Drlg* drlg; };
+struct Level
+{
+    char pad0[0x1B4];
+    Drlg* drlg;
+};
 
-struct Room { char pad0[0x54]; T0066E090* grid; Level* level; };
+struct Room
+{
+    char pad0[0x54];
+    T0066E090* grid;
+    Level* level;
+};
 
 void __fastcall sub_0040B480(void*,void*,const char*,int,int); // 0x0040B480
 
