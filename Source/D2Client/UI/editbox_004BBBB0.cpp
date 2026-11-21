@@ -3,16 +3,27 @@
 #include "D2Unicode.h"
 
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);                         // 0x00413020
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
+
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
+
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+
 int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
+
 int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+
 extern D2ButtonStringStrc gaButtonStrings_007275A8[];                                                       // 0x007275A8
 
 class UIWidget
@@ -323,11 +334,34 @@ EditBoxWrapper::EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int 
     pImpl = new EditBoxImplementation(nX, nY, nTextWidth, nHeight, nArg10, nMaxLength, nArg18, nFont);
 }
 
+// 0x004BC1D0
+int __stdcall sub_00646000_AlwaysZero(int nUnused)
+{
+    return 0;
+}
+
 // 0x004BC480
 SpinnerWrapper::SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C)
 {
     pImpl = new SpinnerImplementation(nX, nY, bHorizontal, nArg0C);
 }
 
-#include "gen/data/Source/D2Client/UI/editbox_004BBBB0.inc"
 struct D2CelFileStrc;
+
+void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
+{
+}
+
+void __stdcall sub_006460C0_Empty(int nUnused)
+{
+}
+
+void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
+{
+}
+
+void __stdcall sub_006460E0_Empty(int nUnused)
+{
+}
+
+#include "gen/data/Source/D2Client/UI/editbox_004BBBB0.inc"

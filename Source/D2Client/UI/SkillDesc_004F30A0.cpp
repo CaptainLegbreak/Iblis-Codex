@@ -4,54 +4,130 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2Structs.h"
+#include "D2GameTypes.h"
+
 struct D2UnitStrc;
 
 typedef wchar_t Unicode;
 
-
-
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
+
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC
+
 extern "C" const char szFmtRange_006D9D70[];                                                                // 0x006D9D70
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
+
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
+
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+
 void __fastcall sub_0042F530_ClearUnicode(Unicode* pChar);                                                  // 0x0042F530
+
 void __stdcall sub_00403040_VectorConstructor(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnConstructor)(Unicode*)); // 0x00403040
+
 void __fastcall sub_004521C0_PrefixLevelText(Unicode* wszText, int nLevel);                                // 0x004521C0
+
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+
 int __cdecl sub_0044DCA0_GetGameType();                                                                     // 0x0044DCA0
+
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                          // 0x0046ACE0
+
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);                                        // 0x004A89D0
+
 int __fastcall sub_004A9A90_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9A90
+
 int __fastcall sub_004A9AE0_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9AE0
+
 int __fastcall sub_004A9B30_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B30
+
 int __fastcall sub_004A9B80_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B80
+
 void __stdcall sub_004ED3F0_DrawHintText(int nArg1, int nStringIndex); // 0x004ED3F0
+
 int __stdcall sub_004ECF50_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nBonusMin, int nBonusMax); // 0x004ECF50
+
 int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel); // 0x004ED150
+
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                   // 0x00611D30
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
+
 int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);            // 0x00644D50
+
 int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);            // 0x00644E40
+
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag);       // 0x00644F20
+
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+
 int __stdcall SKILLS_EvaluateSkillDescFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646D00
+
 unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId);                                   // 0x0064B0C0
+
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
+
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
+
+static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
+
+static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
+
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+struct D2StaticPathStrc;
+
+struct D2GfxLightStrc;
+
+struct D2SkillsTxt;
+
+union D2SeedStrc;
+
+struct D2MissilesTxt;
+
+struct D2MonStats2Txt;
+
+struct D2MissileStrc;
+
+extern const unsigned int gdwBitMasks[32]; // 0x006CE268
+
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+
+void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+
+int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
+
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
+
+int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
+
+typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
+
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
+
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
+
+void __fastcall sub_004C7480_CreateSpread(D2UnitStrc* pUnit, D2MissileStrc* pMissileParams, int nArg1, int nArg2);
+
+D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);
 
 static __forceinline int ApplyPercent(int nValue, int nPercent)
 {
@@ -109,7 +185,6 @@ static inline int SkillParam_0D0(int nSkillId, int nLevel)
     return pSkillsTxt->dwParam[0] + (nLevel - 1) * pSkillsTxt->dwParam[1];
 }
 
-static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
 static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType)
 {
     switch (nEType)
@@ -839,7 +914,6 @@ static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode*
     return sub_004EC540_AddElemRatePerSecond(nString, wszText, nMinRate, nMaxRate);
 }
 
-static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
 static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;
@@ -1719,6 +1793,192 @@ int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2
 
     default:
         return 0;
+    }
+
+    return 1;
+}
+
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+// 0x004F30A0
+int __fastcall sub_004F30A0_TargetPrgOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    int nOverlay;
+    int nSound;
+    D2StatListStrc* pStatList;
+    if ((pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7])
+        && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount
+        && pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount
+        && (pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState)) != 0)
+    {
+        const int nLevel = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
+        const int nBonus = MIN(MAX(nLevel, 1), 3) - 1;
+        nOverlay = pSkillsTxtRecord->wPrgOverlay + nBonus;
+        nSound = pSkillsTxtRecord->wPrgSound + nBonus;
+    }
+    else
+    {
+        nOverlay = pSkillsTxtRecord->wPrgOverlay;
+        nSound = pSkillsTxtRecord->wPrgSound;
+    }
+
+    sub_00470390(pTarget, nOverlay, 2, 0, 0, 0, 0, 0);
+    sub_004B9A00(nSound, pUnit, 0, 0, 0);
+    return 1;
+}
+
+// 0x004F31A0
+int __fastcall sub_004F31A0_PrgOverlay(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nOverlay;
+    int nSound;
+    D2StatListStrc* pStatList;
+    if ((pSkillsTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7])
+        && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount
+        && pSkillsTxtRecord->wAuraStat[0] >= 0 && pSkillsTxtRecord->wAuraStat[0] < sgptDataTables->nItemStatCostTxtRecordCount
+        && (pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState)) != 0)
+    {
+        const int nLevel = STATLIST_GetStatValue(pStatList, pSkillsTxtRecord->wAuraStat[0], 0);
+        const int nBonus = MIN(MAX(nLevel, 1), 3) - 1;
+        nOverlay = pSkillsTxtRecord->wPrgOverlay + nBonus;
+        nSound = pSkillsTxtRecord->wPrgSound + nBonus;
+    }
+    else
+    {
+        nOverlay = pSkillsTxtRecord->wPrgOverlay;
+        nSound = pSkillsTxtRecord->wPrgSound;
+    }
+
+    sub_00470390(pUnit, nOverlay, 2, 0, 0, 0, 0, 0);
+    sub_004B9A00(nSound, pUnit, 0, 0, 0);
+    return 1;
+}
+
+// 0x004F3A60
+int __fastcall sub_004F3A60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nMonsterId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissile = pSkillsTxtRecord->wCltMissileA;
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (!nX)
+    {
+        return 0;
+    }
+
+    if (!nY)
+    {
+        return 0;
+    }
+
+    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nMonsterId);
+    if (!pMonStats2TxtRecord)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 0x2021;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nTargetX = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) + nX - 1;
+    tMissileParams.nTargetY = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3) + nY - 1;
+    tMissileParams.nX = nX;
+    tMissileParams.nY = nY;
+    tMissileParams.nSkill = nSkillId;
+    tMissileParams.nSkillLevel = nSkillLevel;
+    tMissileParams.nMissile = nMissile;
+
+    if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[2])
+    {
+        sub_004C7480_CreateSpread(pUnit, &tMissileParams, 0, 1);
+    }
+    else if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[3])
+    {
+        sub_004C7480_CreateSpread(pUnit, &tMissileParams, 3, 3);
+        const short nSubMissile = sub_0046ACE0(nMissile)->wSubMissile[0];
+        if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
+        {
+            tMissileParams.nMissile = nSubMissile;
+            sub_004C7480_CreateSpread(pUnit, &tMissileParams, 2, 4);
+        }
+    }
+    else
+    {
+        sub_004C7480_CreateSpread(pUnit, &tMissileParams, 2, 2);
+        const short nSubMissile = sub_0046ACE0(nMissile)->wSubMissile[1];
+        if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
+        {
+            tMissileParams.nMissile = nSubMissile;
+            sub_004C7480_CreateSpread(pUnit, &tMissileParams, 1, 3);
+        }
+    }
+
+    tMissileParams.nY = nY;
+    tMissileParams.nX = nX;
+
+    D2UnitStrc* pMissile = 0;
+    const int nMissileB = pSkillsTxtRecord->wCltMissileB;
+    if (nMissileB > 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
+    {
+        tMissileParams.nMissile = nMissileB;
+        pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    }
+
+    const int nMissileC = pSkillsTxtRecord->wCltMissileC;
+    if (nMissileC > 0 && nMissileC < sgptDataTables->nMissilesTxtRecordCount)
+    {
+        tMissileParams.nSkillLevel = 2;
+        tMissileParams.nMissile = nMissileC;
+        sub_004CD540_CreateMissile(&tMissileParams);
+    }
+
+    if (!sub_004648F0_GetPathTargetUnit(pUnit) && pMissile)
+    {
+        const short nSound = pSkillsTxtRecord->wTgtSound;
+        if (nSound > 0)
+        {
+            sub_004B9A00(nSound, pMissile, 0, 0, 0);
+        }
     }
 
     return 1;

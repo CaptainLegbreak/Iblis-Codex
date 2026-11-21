@@ -1399,7 +1399,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0044B8A0.cpp": {
+  "Source/D2Client/GAME/Game_0044B8A0.cpp": {
    "bytes": 160,
    "definitions": 4,
    "externs": [
@@ -1410,7 +1410,7 @@
     "extern \"C\" void __cdecl sub_0044F360(); // 0x0044F360"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0044B8A0.inc",
+   "include": "gen/data/Source/D2Client/GAME/Game_0044B8A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2327,7 +2327,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004A5060.cpp": {
+  "Source/D2Client/UI/text_004A5060.cpp": {
    "bytes": 86,
    "definitions": 3,
    "externs": [
@@ -2337,7 +2337,7 @@
     "extern \"C\" char gaEntries_00724268[]; // 0x00724268"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004A5060.inc",
+   "include": "gen/data/Source/D2Client/UI/text_004A5060.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2947,8 +2947,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc_004ED570.cpp": {
-   "bytes": 216,
-   "definitions": 3,
+   "bytes": 532,
+   "definitions": 10,
    "externs": [
     "extern \"C\" void __cdecl sub_004E9D20_DrawWeaponAndSkillDamage(); // 0x004E9D20",
     "extern \"C\" void __cdecl sub_004EA010_DrawSkillWeaponLine(); // 0x004EA010",
@@ -2995,7 +2995,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004EDC30.cpp": {
+  "Source/D2Client/UI/SkillDesc_004EA010.cpp": {
    "bytes": 20,
    "definitions": 1,
    "externs": [],
@@ -3010,15 +3010,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004F1430.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_004F1A30.cpp": {
-   "bytes": 316,
-   "definitions": 7,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004F1A30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -31729,7 +31720,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLaunchState_0070EE4C = ",
@@ -31754,7 +31745,7 @@
    "cname": "gData_0070EE54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54; // 0x0070EE54",
    "head": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54 = ",
@@ -31812,7 +31803,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0070EE8C = ",
@@ -31837,7 +31828,7 @@
    "cname": "gData_0070EE90",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE90_t gData_0070EE90; // 0x0070EE90",
    "head": "extern \"C\" struct d2data_0070EE90_t gData_0070EE90 = ",
@@ -55953,7 +55944,7 @@
    "cname": "gData_007246D8",
    "declared": true,
    "decorated": "?gaSliderButtons_007246D8@@3PAUD2SliderButtonStrc@@A",
-   "file": "Source/D2Client/Unknown_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_004A5060.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007246D8_t gData_007246D8; // 0x007246D8",
    "head": "extern \"C\" struct d2data_007246D8_t gData_007246D8 = ",
@@ -55998,7 +55989,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_004A5060.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gnScreenWidth_0071146C = ",
@@ -56023,7 +56014,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_004A5060.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ClientListEntryStrc* gpListEntries_00724264 = ",
@@ -78434,7 +78425,7 @@
    "cname": "gData_006DBF38",
    "declared": true,
    "decorated": "?gnVelocityBonus_006DBF38@@3QBHB",
-   "file": "Source/D2Client/Unknown_004EDC30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DBF38[5]; // 0x006DBF38",
    "head": "extern \"C\" const int gData_006DBF38[5] = ",
@@ -78589,7 +78580,7 @@
    "cname": "gData_006DBFA8",
    "declared": true,
    "decorated": "?gaSprayOffsetX_006DBFA8@@3QBHB",
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DBFA8[8]; // 0x006DBFA8",
    "head": "extern \"C\" const int gData_006DBFA8[8] = ",
@@ -78619,7 +78610,7 @@
    "cname": "gData_006DBFC8",
    "declared": true,
    "decorated": "?gaSprayOffsetY_006DBFC8@@3QBHB",
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DBFC8[8]; // 0x006DBFC8",
    "head": "extern \"C\" const int gData_006DBFC8[8] = ",
@@ -78649,7 +78640,7 @@
    "cname": "gData_006DC1E8",
    "declared": true,
    "decorated": "?gnDirectionOffsetY_006DC1E8@@3QBHB",
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DC1E8[8]; // 0x006DC1E8",
@@ -78680,7 +78671,7 @@
    "cname": "gData_006DC208",
    "declared": true,
    "decorated": "?gnDirectionOffsetX_006DC208@@3QBHB",
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DC208[8]; // 0x006DC208",
@@ -78711,7 +78702,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnChargedBoltTurnEvery_0072D98C = ",
@@ -78736,7 +78727,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnChargedBoltTurnBase_0072D990 = ",
@@ -78761,7 +78752,7 @@
    "cname": "gData_0072D994",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004ED570.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072D994_t gData_0072D994; // 0x0072D994",
    "head": "extern \"C\" struct d2data_0072D994_t gData_0072D994 = ",

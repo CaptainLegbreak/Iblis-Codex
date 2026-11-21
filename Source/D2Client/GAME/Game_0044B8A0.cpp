@@ -144,7 +144,7 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
     return nResult;
 }
 
-#include "gen/data/Source/D2Client/Unknown_0044B8A0.inc"
+#include "gen/data/Source/D2Client/GAME/Game_0044B8A0.inc"
 
 unsigned short __stdcall SFileGetLocale()
 {

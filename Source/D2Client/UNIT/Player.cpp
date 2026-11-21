@@ -11,6 +11,7 @@
 #include "D2StormLink.h"
 #include "D2ClientTypes.h"
 #include "D2PlayerModes.h"
+#include "D2Drlg.h"
 
 struct D2SkillStrc;
 
@@ -310,7 +311,6 @@ void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nVa
 
 void __fastcall sub_00473C90_SetGlobal(int nValue);                                                         // 0x00473C90
 
-
 D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey);                                             // 0x00478E40
 
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
@@ -381,7 +381,6 @@ void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);            
 
 int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                      // 0x00641530
 
-
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);                   // 0x006439B0
 
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);               // 0x00643CE0
@@ -420,7 +419,6 @@ void __fastcall sub_00460930_SetUnitLightRadius(D2UnitStrc* pUnit, int nValue); 
 
 void __fastcall sub_004609A0_SetUnitLightColor(D2UnitStrc* pUnit, int nValue); // 0x004609A0
 
-
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
@@ -451,10 +449,7 @@ struct D2ClientEntryStrc;
 
 struct D2UnitTargetStrc;
 
-
 int __fastcall sub_00464600_CanStartMode(D2UnitStrc* pUnit, int nArg); // 0x00464600
-
-
 
 void __stdcall DUNGEON_InitRoomTileAnimation(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2); // 0x0061AF10
 
@@ -510,13 +505,6 @@ int __fastcall sub_00464600_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
 static void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd);
 
-
-static void __stdcall sub_00460830_SetStateAndSync(int bSync, D2UnitStrc* pUnit, int nState); // 0x00460830
-
-static void sub_00460DE0_UpdateRoomPosition(D2UnitStrc* pUnit); // 0x00460DE0
-
-static void sub_00460E70_UpdateRoomState(D2UnitStrc* pUnit); // 0x00460E70
-
 static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit); // 0x00460F10
 
 static void sub_00461010_ResetPlayerState(D2UnitStrc* pUnit); // 0x00461010
@@ -525,15 +513,7 @@ static int __stdcall sub_00461180_RefreshSkillRef(int* pUseState, D2UnitStrc* pU
 
 static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit); // 0x004611F0
 
-
-
-static void sub_00461010_ResetPlayerState(D2UnitStrc* pUnit);
-
 static int __stdcall sub_004610C0_CheckSkillUse(D2SkillStrc** ppSkill, int* pUseState, D2UnitStrc* pUnit);
-
-static int __stdcall sub_00461180_RefreshSkillRef(int* pUseState, D2UnitStrc* pUnit, D2SkillRefStrc* pRef);
-
-static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit);
 
 static int __stdcall sub_00461840_WalkTo(int nMode, D2UnitStrc* pUnit, int nX, int nY);
 
@@ -555,8 +535,6 @@ static int sub_00462BA0_CmdRightSkill(D2PlayerCmdStrc* pCmd);
 
 static int sub_00462C20_CmdRightSkillMove(D2PlayerCmdStrc* pCmd);
 
-static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit);
-
 static void __stdcall sub_00461070_RequestSkillString(D2UnitStrc* pUnit, int nIndex);
 
 static int sub_00461160_CheckCommandSkill(D2PlayerCmdStrc* pCmd, int* pUseState);
@@ -564,8 +542,6 @@ static int sub_00461160_CheckCommandSkill(D2PlayerCmdStrc* pCmd, int* pUseState)
 static inline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 
 static inline int __fastcall UNITS_GetYPosition(D2UnitStrc* pUnit); // 0x0045AE20
-
-static void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd);
 
 static void __stdcall sub_00461890_OperateObject(int nObjectId, D2PlayerCmdStrc* pCmd);
 
@@ -577,8 +553,6 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
 
 static int sub_004621D0_PrepareCommand(D2PlayerCmdStrc* pCmd);
 
-static int __stdcall sub_004623C0_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd);
-
 static void sub_004625B0_ExecuteCommand(D2PlayerCmdStrc* pCmd);
 
 D2UnitStrc* gpEmitUnit_E06;
@@ -588,6 +562,12 @@ D2PlayerCmdStrc* gpEmitCmd_E06;
 D2SkillRefStrc* gpEmitRef_E06;
 
 int gnEmitArg_E06;
+
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+
+void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
 inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
@@ -822,6 +802,35 @@ static void __stdcall sub_00460830_SetStateAndSync(int bSync, D2UnitStrc* pUnit,
     UNIT_GETY(pUnit, nY);
     if (nX && nY)
         sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);
+}
+
+// 0x004608C0
+void __cdecl sub_004608C0_RefreshAdjacentPlayers()
+{
+    if (!sub_00463DE0_GetPlayerUnit())
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    if (!pRoom)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
+        {
+            if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) == UNIT_MONSTER && STATES_CheckState(pUnit, STATE_DOPPLEZON))
+            {
+                sub_00470610_Refresh(pUnit, 0);
+            }
+        }
+    }
 }
 
 // 0x004609F0
@@ -1934,8 +1943,6 @@ static inline D2MonStatsTxt* E06_GetUnitMonStatsTxt(D2UnitStrc* pUnit)
     return 0;
 }
 
-
-
 // 0x00462370
 static void sub_00462370_ResumeWalk(D2PlayerCmdStrc* pCmd)
 {
@@ -2575,6 +2582,5 @@ int __fastcall sub_00463830_GetBaseIdFromMonsterId(int nMonsterId)
     }
     return nMonsterId;
 }
-
 
 #include "gen/data/Source/D2Client/UNIT/Player.inc"
