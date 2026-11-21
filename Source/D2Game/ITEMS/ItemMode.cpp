@@ -6502,51 +6502,6 @@ void __fastcall sub_6FC90C20(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     }
 }
 
-// 0x00568640
-void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    int nUnitType;
-    int nUnitGUID;
-    if (!SUNIT_GetInteractInfo(pPlayer, &nUnitType, &nUnitGUID) || nUnitType != 0)
-    {
-        return;
-    }
-
-    D2UnitStrc* pOtherPlayer = SUNIT_GetServerUnit(pGame, 0, nUnitGUID);
-    if (!pOtherPlayer)
-    {
-        return;
-    }
-
-    SUNIT_ResetInteractInfo(pPlayer);
-
-    if (!SUNIT_GetInteractInfo(pOtherPlayer, &nUnitType, &nUnitGUID) || nUnitType != 0)
-    {
-        return;
-    }
-
-    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
-    if (nUnitGUID != nPlayerGUID)
-    {
-        return;
-    }
-
-    UNITS_GetPlayerData(pPlayer)->dwTradeState = 9;
-    EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
-
-    sub_6FC90AE0(pGame, pPlayer, 0);
-    sub_6FC90AE0(pGame, pOtherPlayer, 1);
-
-    PLRTRADE_Free(pGame, pPlayer);
-    PLRTRADE_Free(pGame, pOtherPlayer);
-
-    D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xC2F), 0xC);
-    SUNIT_ResetInteractInfo(pOtherPlayer);
-
-    UNITS_GetPlayerData(pOtherPlayer)->dwTradeState = 9;
-    EVENT_SetEvent(pGame, pOtherPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
-}
-
 // 0x00568DC0
 unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nGUID)
 {
