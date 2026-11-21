@@ -76416,6 +76416,10 @@
      "name": "?sub_0060F500_VirtSlot10@D2CommonIgnoreListStrc@@UAEXXZ"
     },
     {
+     "va": "0x0060F510",
+     "length": 128
+    },
+    {
      "va": "0x0060F590",
      "length": 119,
      "name": "?sub_0060F590_InternalFind@D2CommonStormHashTableAStrc@@QAEPAUD2CommonStringEntryNodeStrc@@IABUD2StormHashKeyStrIStrc@@@Z"
@@ -76444,6 +76448,10 @@
      "va": "0x0060F870",
      "length": 51,
      "name": "?sub_0060F870_Translate@D2CommonIgnoreListStrc@@UAEHPBDPADH@Z"
+    },
+    {
+     "va": "0x0060F8B0",
+     "length": 128
     },
     {
      "va": "0x0060F930",
@@ -76534,6 +76542,16 @@
      "name": "?_GD2CommonStormSlotArrayAStrc"
     },
     {
+     "va": "0x00610000",
+     "length": 20,
+     "name": "?sub_00610000_Clear@D2CommonStormSlotArrayAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00610020",
+     "length": 40,
+     "name": "?sub_00610020_VirtSlot3@D2CommonStormHashTableAStrc@@UAEXXZ"
+    },
+    {
      "va": "0x00610050",
      "length": 43,
      "name": "?_GD2CommonStormHashTableAStrc"
@@ -76608,6 +76626,16 @@
      "name": "?_GD2CommonStormSlotArrayBStrc"
     },
     {
+     "va": "0x006107B0",
+     "length": 20,
+     "name": "?Clear@D2CommonStormSlotArrayBStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x006107D0",
+     "length": 40,
+     "name": "?sub_006107D0_VirtSlot3@D2CommonStormHashTableBStrc@@UAEXXZ"
+    },
+    {
      "va": "0x00610800",
      "length": 43,
      "name": "?_GD2CommonStormHashTableBStrc"
@@ -76669,6 +76697,16 @@
      "va": "0x00611320",
      "length": 435,
      "name": "?sub_00611320_StoreAccountAlias@D2CommonIgnoreListStrc@@UAEHPADH@Z"
+    },
+    {
+     "va": "0x006114E0",
+     "length": 122,
+     "name": "?sub_006114E0_CreateIgnoreList@@YAXXZ"
+    },
+    {
+     "va": "0x00611560",
+     "length": 130,
+     "name": "?sub_00611560_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
     },
     {
      "va": "0x00611620",
@@ -76836,84 +76874,6 @@
      "length": 184,
      "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F510.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060F510",
-     "length": 128
-    },
-    {
-     "va": "0x0060F8B0",
-     "length": 128
-    },
-    {
-     "va": "0x00610000",
-     "length": 20,
-     "name": "?sub_00610000_Clear@D2CommonStormSlotArrayAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00610020",
-     "length": 40,
-     "name": "?sub_00610020_VirtSlot3@D2CommonStormHashTableAStrc@@UAEXXZ"
-    },
-    {
-     "va": "0x006107D0",
-     "length": 40,
-     "name": "?sub_006107D0_VirtSlot3@D2CommonStormHashTableBStrc@@UAEXXZ"
-    },
-    {
-     "va": "0x006114E0",
-     "length": 122,
-     "name": "?sub_006114E0_CreateIgnoreList@@YAXXZ"
-    },
-    {
-     "va": "0x00611560",
-     "length": 130,
-     "name": "?sub_00611560_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_006107B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006107B0",
-     "length": 20,
-     "name": "?Clear@D2CommonStormSlotArrayBStrc@@QAEXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
    ]
   },
   {
