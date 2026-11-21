@@ -51,7 +51,7 @@ double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue)
 }
 
 // 0x00605080
-static __declspec(noinline) void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
+static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
 {
     for (int i = 0; i < 256; ++i)
     {
@@ -88,7 +88,7 @@ static __declspec(noinline) void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2
     }
 }
 
-static __declspec(noinline) void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl)
+static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl)
 {
     D2PalRgbaStrc tRgb[256];
 

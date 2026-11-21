@@ -57,8 +57,8 @@ int __stdcall sub_00601950_CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 int __stdcall shim_7(D2CelStrc* pCel, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
 int __stdcall shim_6(int nOffsetX, int nOffsetY, int nTextureWidth, int* pX, int* pY, int* pArg3, int* pArg4, int* pArg5, int* pArg6);
-static __declspec(noinline) int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo);
-static __declspec(noinline) void __stdcall sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
+static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo);
+static void __stdcall sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
 static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg1, int nArg2);
 static __declspec(noinline) int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6);
 
@@ -151,7 +151,7 @@ done:
     pInfo->fV1 = 1.0f;
 }
 
-static __declspec(noinline)
+static
 // 0x006B6680
 unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
 {

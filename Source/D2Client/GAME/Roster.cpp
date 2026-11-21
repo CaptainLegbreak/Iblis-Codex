@@ -210,11 +210,11 @@ typedef char check_size_owner[(sizeof(D2OwnerStrc_004CA990) == 0x7C) ? 1 : -1];
 
 struct D2StoredUnitRecordStrc;
 
-static __declspec(noinline) D2RosterGroupStrc* sub_00479770_GetOrAddGroup(unsigned short wId);
+static D2RosterGroupStrc* sub_00479770_GetOrAddGroup(unsigned short wId);
 
 extern "C" const char szRosterCpp_006D7268[]; // 0x006D7268
 
-static __declspec(noinline) void sub_00479800_MoveGroupMembers(D2RosterGroupStrc* pGroup);
+static void sub_00479800_MoveGroupMembers(D2RosterGroupStrc* pGroup);
 
 D2StoredUnitRecordStrc* __cdecl sub_00479320_GetPlayerRosterUnit();
 

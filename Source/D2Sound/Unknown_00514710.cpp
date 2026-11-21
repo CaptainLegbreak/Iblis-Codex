@@ -25,7 +25,7 @@ extern int gnChannelTableSel_008817A4;                                          
 extern int gbChannelTableInit_008817A8;                                                                     // 0x008817A8
 
 // 0x00514710
-static __declspec(noinline) D2SoundChannelEntryStrc* sub_00514710_GetChannelEntry(int nIndex)
+static D2SoundChannelEntryStrc* sub_00514710_GetChannelEntry(int nIndex)
 {
     if (!gbChannelTableInit_008817A8)
     {

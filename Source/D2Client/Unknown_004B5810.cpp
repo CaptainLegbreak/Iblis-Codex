@@ -169,7 +169,7 @@ static __forceinline SelectionState* GetSelectionState(int line)
 }
 
 // 0x004B7100
-static __declspec(noinline) void __cdecl sub_004B7100_Select(int step, SelectionState* state)
+static void __cdecl sub_004B7100_Select(int step, SelectionState* state)
 {
     if (state->activeCount > 1)
     {

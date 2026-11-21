@@ -388,7 +388,7 @@ static int sub_00415930_GetArchiveRec(void* hArchive, D2StormArchiveRecStrc** pp
 static D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex); // 0x004155B0
 static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned char nPlatform, D2StormArchiveRecStrc* pArchive, const char* szName); // 0x004155D0
 static int __stdcall sub_00415B00_FindDiskFile(unsigned int nFlags, const char* szName, char* szOut); // 0x00415B00
-static __declspec(noinline) int __stdcall sub_00417F10_FindFile(void* hArchive, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, D2StormBlockStrc** ppBlock, char* szFoundPath);
+static int __stdcall sub_00417F10_FindFile(void* hArchive, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, D2StormBlockStrc** ppBlock, char* szFoundPath);
 void __cdecl sub_00415B90_InitCryptTable(); // 0x00415B90
 
 struct D2StormListBaseStrc
@@ -836,7 +836,7 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
     return nBest;
 }
 
-static __declspec(noinline) int sub_00415940_PathPresent(const char* szPath)
+static int sub_00415940_PathPresent(const char* szPath)
 {
     return ~(GetFileAttributesA(szPath) >> 4) & 1;
 }

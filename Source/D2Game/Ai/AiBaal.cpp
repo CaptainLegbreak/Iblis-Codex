@@ -73,7 +73,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
 
-static __declspec(noinline) int __stdcall AI_GetRandomArrayIndex(int* pArray, int nArraySize, D2UnitStrc* pUnit);
+static int __stdcall AI_GetRandomArrayIndex(int* pArray, int nArraySize, D2UnitStrc* pUnit);
 
 #define PATHTYPE_TOWARD 2
 
@@ -85,7 +85,7 @@ struct D2PlayerCountBonusStrc;
 
 struct D2AiCmdStrc;
 
-__declspec(noinline) static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
+static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
@@ -97,7 +97,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType); // 0x00
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3); // 0x00649970
 
-__declspec(noinline) static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit);
+static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit);
 
 struct D2PlayerCountBonusStrc
 {
@@ -114,13 +114,13 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pUnit, D
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-__declspec(noinline) static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
-__declspec(noinline) static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit);
+static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit);
 
-__declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax); // 0x005FC450
+static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax); // 0x005FC450
 
-__declspec(noinline) static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc*, D2UnitStrc*, int, int, int, D2UnitStrc*);
+static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc*, D2UnitStrc*, int, int, int, D2UnitStrc*);
 
 int __stdcall PATH_GetY(void* pPath); // 0x00648900
 
@@ -134,7 +134,7 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
-__declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
+static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
 
 static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
 
@@ -204,7 +204,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
-__declspec(noinline) static bool __stdcall sub_005FC860_SummonClone(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*); // 0x005FC860
+static bool __stdcall sub_005FC860_SummonClone(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*); // 0x005FC860
 
 struct D2GameStrc;
 
@@ -241,7 +241,7 @@ inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 }
 
 // 0x005FBB00
-static __declspec(noinline) int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
+static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
 {
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
 
@@ -692,7 +692,7 @@ static __forceinline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int 
 }
 
 // 0x005FC1C0
-static __declspec(noinline) int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int bNotCollidingWithWall, D2UnitStrc* pUnit)
+static int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int bNotCollidingWithWall, D2UnitStrc* pUnit)
 {
     int aiParams[16] = { 0, 50, 0, 0, 0, 0, 0, 0, 20, 30, 150, 10, 10, 70, 40, 0 };
 

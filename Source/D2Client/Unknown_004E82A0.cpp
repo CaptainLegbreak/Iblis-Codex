@@ -5,7 +5,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 
-__declspec(noinline) static int __stdcall sub_004E82A0_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue);
+static int __stdcall sub_004E82A0_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue);
 
 // 0x004E82A0
 static int __stdcall sub_004E82A0_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue)

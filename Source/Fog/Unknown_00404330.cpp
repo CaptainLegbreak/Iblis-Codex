@@ -83,7 +83,7 @@ bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
 }
 
 // 0x00404DC0
-static __declspec(noinline) bool sub_00404DC0_EnumModulesToolhelp(void* pContext)
+static bool sub_00404DC0_EnumModulesToolhelp(void* pContext)
 {
     void* hSnapshot = CreateToolhelp32Snapshot(8, 0);
     if (hSnapshot == (void*)-1)

@@ -34,8 +34,8 @@ struct D2PathRayStrc;
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
-static __declspec(noinline) void __stdcall sub_00675EB0_PlaceCoord(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
-static __declspec(noinline) void __stdcall sub_00675F80_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
+static void __stdcall sub_00675EB0_PlaceCoord(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
+static void __stdcall sub_00675F80_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
 
 
 
@@ -82,7 +82,7 @@ struct D2OffsetPosStrc
     int nDir;
 };
 
-static __declspec(noinline) int sub_00677870_IsYGreater(const D2PosStrc* pPos1, const D2PosStrc* pPos2);
+static int sub_00677870_IsYGreater(const D2PosStrc* pPos1, const D2PosStrc* pPos2);
 
 struct D2UnkPathStrc
 {
@@ -814,7 +814,7 @@ void __fastcall sub_M293_Emit_00677640(D2DrlgLevelStrc* pLevel, int nLevelId)
 }
 
 // 0x006777D0
-static __declspec(noinline) void __stdcall sub_006777D0_OffsetByDirection(const D2PosStrc* pBase, int nDir, int nA, int nB, D2OffsetPosStrc* pOut)
+static void __stdcall sub_006777D0_OffsetByDirection(const D2PosStrc* pBase, int nDir, int nA, int nB, D2OffsetPosStrc* pOut)
 {
     int nDx = 0;
     int nDy = 0;

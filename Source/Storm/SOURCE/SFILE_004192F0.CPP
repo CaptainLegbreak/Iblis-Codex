@@ -122,12 +122,12 @@ const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 char* __stdcall sub_00414310(const char* szString); // 0x00414310
 void sub_00415B90_InitCryptTable(); // 0x00415B90
-static unsigned int __declspec(noinline) __stdcall sub_00415330_HashString(unsigned int nHashType, const char* szString);
+static unsigned int __stdcall sub_00415330_HashString(unsigned int nHashType, const char* szString);
 static int sub_00415930_GetArchiveRec(void* hArchive, D2StormArchiveRecStrc** ppRec); // 0x00415930
 static D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex); // 0x004155B0
 static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned char nPlatform, D2StormArchiveRecStrc* pArchive, const char* szName); // 0x004155D0
 static int __stdcall sub_00415B00_FindDiskFile(unsigned int nFlags, const char* szName, char* szOut); // 0x00415B00
-static __declspec(noinline) int __stdcall sub_00417F10_FindFile(void* hArchive, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, D2StormBlockStrc** ppBlock, char* szFoundPath);
+static int __stdcall sub_00417F10_FindFile(void* hArchive, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, D2StormBlockStrc** ppBlock, char* szFoundPath);
 int __cdecl sub_00418B50(); // 0x00418B50
 int __stdcall sub_004198D0(void* pArg); // 0x004198D0
 int __fastcall sub_0041B6B0_LoadArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive); // 0x0041B6B0
@@ -163,7 +163,7 @@ static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, D2Sto
 }
 
 // 0x004155B0
-static __declspec(noinline) D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
+static D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
 {
     return &pArchive->pBlockTable[pArchive->pHashTable[nHashIndex].nBlockIndex];
 }
@@ -197,7 +197,7 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
 }
 
 // 0x00415940
-static __declspec(noinline) int sub_00415940_PathPresent(const char* szPath)
+static int sub_00415940_PathPresent(const char* szPath)
 {
     return ~(GetFileAttributesA(szPath) >> 4) & 1;
 }

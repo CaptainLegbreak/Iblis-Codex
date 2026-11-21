@@ -8,7 +8,7 @@
 
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
-static __declspec(noinline) int PATH_AStar_TargetLocationHasEnoughRoom(D2PathInfoStrc* pPathInfo);
+static int PATH_AStar_TargetLocationHasEnoughRoom(D2PathInfoStrc* pPathInfo);
 
 // 0x0067B740
 static int PATH_AStar_TargetLocationHasEnoughRoom(D2PathInfoStrc* pPathInfo)

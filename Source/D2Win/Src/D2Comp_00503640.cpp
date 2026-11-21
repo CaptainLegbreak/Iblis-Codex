@@ -53,7 +53,7 @@ extern int gnSelectedCelFileFrame_0087E858;                                     
 #define COF_PAD 0x20
 #define TOKEN_CHAR(c) ((char)(c) == COF_PAD ? 0 : (char)(c))
 
-static __declspec(noinline) void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
+static void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
 {
     if (!pSrc[0])
     {
@@ -82,7 +82,7 @@ static __declspec(noinline) void sub_005031D0_CopyTokenPadded(char* pDst, const 
     pDst[3] = COF_PAD;
 }
 
-static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(const char* szPath, unsigned int* pnSize)
+static D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(const char* szPath, unsigned int* pnSize)
 {
     D2CofDataStrc* pCofData = (D2CofDataStrc*)sub_00517079_LoadFile(sub_004FAC80(), szPath, pnSize, ".\\Src\\D2Comp.cpp", 0x3EB);
     D2_ASSERT(pCofData, 0x3EC);
@@ -90,7 +90,7 @@ static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(co
     return pCofData;
 }
 
-static __declspec(noinline) D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -119,7 +119,7 @@ static __declspec(noinline) D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(uns
     return pNode;
 }
 
-static __declspec(noinline) void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
+static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
 {
     D2_ASSERT(nClass < 25, 0x488);
     D2_ASSERT(nMode < gnModeTokens_0072E0B4, 0x489);
@@ -161,7 +161,7 @@ static __declspec(noinline) void __stdcall sub_005034B0_BuildCofPath(unsigned in
     }
 }
 
-static __declspec(noinline) D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
 {
     D2_ASSERT(pGfxInfo, 0x4B0);
     for (D2CofInfoStrc* pCofInfo = pGfxInfo->pCofInfo; pCofInfo; pCofInfo = pCofInfo->pNext)
@@ -175,7 +175,7 @@ static __declspec(noinline) D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStr
 }
 
 // 0x00503640
-static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     char szPath[260];
 

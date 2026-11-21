@@ -510,7 +510,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __declspec(noinline)
+static
 // 0x0058C5C0
 void __stdcall ACT5Q5_RewardPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -1039,7 +1039,7 @@ static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2
 }
 
 // 0x0058D0C0
-static __declspec(noinline) void sub_0058D0C0_SetAncientStatueMode(D2Act5Quest5Strc* pQuestDataEx, D2ObjInitFnStrc* pOp)
+static void sub_0058D0C0_SetAncientStatueMode(D2Act5Quest5Strc* pQuestDataEx, D2ObjInitFnStrc* pOp)
 {
     D2UnitStrc* pObject = pOp->pObject;
     int nIndex;

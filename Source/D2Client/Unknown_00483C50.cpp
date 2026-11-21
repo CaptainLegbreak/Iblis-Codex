@@ -177,7 +177,7 @@ int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
+static int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
 {
     if (nX > gGrid_007BCB18.nGridLeft && nX < gGrid_007BCB18.nGridRight && nY >= gGrid_007BCB18.nGridTop && nY <= gGrid_007BCB18.nGridBottom)
     {
@@ -212,7 +212,7 @@ static int sub_00483B40_IsInCubeGrid(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
+static int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
 {
     if (nX >= gGrid_007BCB70.nGridLeft && nX < gGrid_007BCB70.nGridRight && nY >= gGrid_007BCB70.nGridTop && nY <= gGrid_007BCB70.nGridBottom)
     {
@@ -251,7 +251,7 @@ static void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
     }
 }
 
-static __declspec(noinline) void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem);
+static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem);
 
 // 0x00483C50
 static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem)

@@ -246,7 +246,7 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
 }
 
 static void sub_00422C60_SetOne(D2StormQueueStrc& a); // 0x00422C60
-static __declspec(noinline) void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void sub_00422C60_SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);

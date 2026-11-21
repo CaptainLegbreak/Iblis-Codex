@@ -794,7 +794,7 @@ int __fastcall sub_0067A4A0_TestPathPoints(D2PathInfoStrc* pPathInfo)
 }
 
 // 0x0067A5D0
-static __declspec(noinline) const int* __stdcall sub_0067A5D0_GetNeighborsSequence(int nBase, int nDirection)
+static const int* __stdcall sub_0067A5D0_GetNeighborsSequence(int nBase, int nDirection)
 {
     return dword_6FDD1BE0[(nDirection - nBase) & 7];
 }

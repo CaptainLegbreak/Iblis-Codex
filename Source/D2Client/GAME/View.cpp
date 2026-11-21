@@ -572,7 +572,7 @@ static bool sbBaseSet; // 0x007B956C
 
 static int gnBaseGuard; // 0x007B9574
 
-__declspec(noinline) static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer);
+static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer);
 
 
 struct Obj004DCF10

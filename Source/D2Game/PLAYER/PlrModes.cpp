@@ -309,9 +309,9 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
-static __declspec(noinline) int EVENTS_HpRegen(D2UnitStrc* pUnit); // 0x00580610
+static int EVENTS_HpRegen(D2UnitStrc* pUnit); // 0x00580610
 
-static __declspec(noinline) void EVENTS_StaminaRegen(D2UnitStrc* pUnit); // 0x00580500
+static void EVENTS_StaminaRegen(D2UnitStrc* pUnit); // 0x00580500
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
@@ -383,7 +383,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 void __fastcall sub_0057F240_EmitWalk(D2UnitStrc* pPlayer);
 
-static __declspec(noinline) int sub_0057F240_DrainRunStamina(D2UnitStrc* pPlayer);
+static int sub_0057F240_DrainRunStamina(D2UnitStrc* pPlayer);
 
 static void __stdcall sub_0057FF70_RestoreWeapon(D2GameStrc* pGame, unsigned char nBodyLoc, D2UnitStrc* pPlayer); // 0x0057FF70
 
@@ -1558,7 +1558,7 @@ static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord_Inline(int n
 }
 
 // 0x00580500
-static __declspec(noinline) void EVENTS_StaminaRegen(D2UnitStrc* pUnit)
+static void EVENTS_StaminaRegen(D2UnitStrc* pUnit)
 {
     int nStamina = STATLIST_UnitGetStatValue(pUnit, STAT_STAMINA, 0);
     int nShift = 8;
@@ -1626,7 +1626,7 @@ unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit)
 }
 
 // 0x00580610
-static __declspec(noinline) int EVENTS_HpRegen(D2UnitStrc* pUnit)
+static int EVENTS_HpRegen(D2UnitStrc* pUnit)
 {
     const int nHpRegen = STATLIST_UnitGetStatValue(pUnit, STAT_HPREGEN, 0);
     if (!nHpRegen)
@@ -1667,7 +1667,7 @@ static __declspec(noinline) int EVENTS_HpRegen(D2UnitStrc* pUnit)
 }
 
 // 0x005806F0
-static __declspec(noinline) void EVENTS_ManaRegen(D2UnitStrc* pUnit)
+static void EVENTS_ManaRegen(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {

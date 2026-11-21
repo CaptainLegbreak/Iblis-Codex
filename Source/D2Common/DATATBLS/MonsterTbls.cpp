@@ -873,7 +873,7 @@ struct D2TCExRecordArgStrc
     D2TCExShortStrc* pRecord;
 };
 
-static int __declspec(noinline) __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord, int nProb, char* szText); // 0x00654440
+static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord, int nProb, char* szText); // 0x00654440
 
 // 0x00640EE0
 void __fastcall DATATBLS_UnloadObjectsTxt()

@@ -86,8 +86,8 @@ extern "C" int __cdecl isalpha(int); // 0x00686DA5
 extern "C" int __cdecl isdigit(int); // 0x00686F0F
 extern "C" int __cdecl isspace(int); // 0x00687006
 extern "C" int __cdecl isalnum(int); // 0x006870FB
-static __declspec(noinline) const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserContextStrc* pCalc, const char* szExpression, FOGCalcExpressionParserTokenType* pOutTokenType, int* pTokenAssociatedValue, CalcGetKeyWordToNumber_t pfnFunctionNameToId, CalcGetLinkerIndex_t pfnLinkParse);
-static __declspec(noinline) FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue);
+static const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserContextStrc* pCalc, const char* szExpression, FOGCalcExpressionParserTokenType* pOutTokenType, int* pTokenAssociatedValue, CalcGetKeyWordToNumber_t pfnFunctionNameToId, CalcGetLinkerIndex_t pfnLinkParse);
+static FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue);
 
 #include "D2SysTypes.h"
 
@@ -240,7 +240,7 @@ static const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserC
     }
 }
 
-__declspec(noinline)
+
 // 0x006C1820
 static int __stdcall sub_006C1820_GetOperandCount(
     unsigned char nToken, CalcGetFunctionParameterCount_t pfnGetOperandCount, int nFunctionId)

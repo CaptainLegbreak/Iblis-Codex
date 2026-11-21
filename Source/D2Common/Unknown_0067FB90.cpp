@@ -136,7 +136,7 @@ static __forceinline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimi
 }
 
 // @ref 0x0067FD20
-static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
+static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
     const int nFlag = pOutdoor->dwFlags & 4;

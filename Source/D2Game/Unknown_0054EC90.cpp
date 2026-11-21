@@ -59,7 +59,7 @@ static __forceinline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
     return nMonsterId;
 }
 
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, unsigned char nMin, unsigned char nMax, int nMonsterId);
+static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, unsigned char nMin, unsigned char nMax, int nMonsterId);
 static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, unsigned char nMin, unsigned char nMax, int nMonsterId); // 0x0054DF80
 // 0x0054DF80
 static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, unsigned char nMin, unsigned char nMax, int nMonsterId)
@@ -116,7 +116,7 @@ static void __stdcall sub_0054E1E0_SpawnChampionMinions(D2RoomCoordListStrc* pCo
     }
 }
 
-static __declspec(noinline) int sub_0054EBC0_CanPopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);
+static int sub_0054EBC0_CanPopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);
 static int sub_0054EBC0_CanPopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x0054EBC0
 // 0x0054EBC0
 static int sub_0054EBC0_CanPopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)

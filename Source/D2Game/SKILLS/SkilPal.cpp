@@ -1244,7 +1244,7 @@ static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed,int nRange)
 }
 
 // 0x005CFD20
-static __declspec(noinline) int __cdecl sub_005CFD20_RangeRoll(D2UnitStrc* pUnit)
+static int __cdecl sub_005CFD20_RangeRoll(D2UnitStrc* pUnit)
 {
     int nMinimum;
     int nMaximum;

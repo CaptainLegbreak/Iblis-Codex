@@ -5,7 +5,7 @@ struct D2AdpcmHeaderStrc;
 extern "C" int __cdecl abs(int);
 
 // 0x0041DA30
-static __declspec(noinline) void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
+static void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
 {
     switch (nCmpLevel)
     {

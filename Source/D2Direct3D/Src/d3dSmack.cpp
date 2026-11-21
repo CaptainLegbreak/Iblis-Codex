@@ -58,7 +58,7 @@ void __fastcall sub_006B1F40_SetBlendMode(int nState); // 0x006B1F40
 
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
 
-static __declspec(noinline) void __stdcall sub_006B9EB0_CopyBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch);
+static void __stdcall sub_006B9EB0_CopyBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch);
 
 extern "C" const char gszUnlockFailed_006FC284[]; // 0x006FC284
 
@@ -66,7 +66,7 @@ extern "C" const char gszLockFailed_006FC2A4[]; // 0x006FC2A4
 
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 
-static __declspec(noinline) void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, unsigned char* pDst, int nPitch);
+static void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, unsigned char* pDst, int nPitch);
 
 extern "C" __declspec(dllimport) void* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
 

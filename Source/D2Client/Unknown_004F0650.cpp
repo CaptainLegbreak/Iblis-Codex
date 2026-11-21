@@ -9,7 +9,7 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 void __stdcall shim_1(void* p1, void* p2);
 
 // build: context sub_004F0590_CreateCltMissileRequest
-static __declspec(noinline) void __stdcall sub_004F0590_CreateCltMissileRequest(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel, int a5)
+static void __stdcall sub_004F0590_CreateCltMissileRequest(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel, int a5)
 {
 
     pUnit->dwFlags = 0;
@@ -18,7 +18,7 @@ static __declspec(noinline) void __stdcall sub_004F0590_CreateCltMissileRequest(
 }
 
 // build: context sub_004F04F0_CreateMissileFan
-static __declspec(noinline) void __stdcall sub_004F04F0_CreateMissileFan(D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
+static void __stdcall sub_004F04F0_CreateMissileFan(D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
 {
 
     pUnit->dwFlags = 0;

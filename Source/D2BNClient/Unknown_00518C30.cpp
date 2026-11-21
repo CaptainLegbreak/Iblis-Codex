@@ -23,7 +23,7 @@ struct D2BnLogStrc
 };
 
 extern unsigned int* gpCacheTable_00881888; // 0x00881888
-static __declspec(noinline) void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey);
+static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey);
 unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, const char* szString); // 0x00518FA0
 
 // build: symbol ?$S1@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C

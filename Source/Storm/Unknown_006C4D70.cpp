@@ -49,7 +49,7 @@ unsigned int __stdcall sub_00413800(char*, const char*, unsigned int); // 0x0041
 extern "C" char* __cdecl strstr(const char*, const char*);
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void*, unsigned int, char*, int);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*, const char*, ...);
-static __declspec(noinline) void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigned int error, const char* context);
+static void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigned int error, const char* context);
 
 struct D2CmdNodeStrc
 {
@@ -208,7 +208,7 @@ void __fastcall EmitCommandError(D2ErrorCallback callback, unsigned int error, c
     sub_006C3E10_ReportCommandError(callback, error + 1, context + 1);
 }
 
-static __declspec(noinline)
+static
 // 0x006C5150
 int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, tagPALETTEENTRY* palette)
 {

@@ -296,7 +296,7 @@ void __fastcall sub_005D40F0_RingMissileInit(D2UnitStrc* pMissile, int nInitSeed
 
 void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSeed); // 0x005D4680
 
-static __declspec(noinline) void __stdcall SKILLS_CreateChargedBoltMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId, int nX, int nY, int nSkillId, int nSkillLevel, int nStep, int nLowSeed); // 0x005D4150
+static void __stdcall SKILLS_CreateChargedBoltMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId, int nX, int nY, int nSkillId, int nSkillLevel, int nStep, int nLowSeed); // 0x005D4150
 
 void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3AC0
 
@@ -1601,7 +1601,7 @@ void __fastcall sub_005D40F0_RingMissileInit(D2UnitStrc* pMissile, int nLowSeed)
 }
 
 // 0x005D4150
-static __declspec(noinline) void __stdcall SKILLS_CreateChargedBoltMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId, int nX, int nY, int nSkillId, int nSkillLevel, int nStep, int nLowSeed)
+static void __stdcall SKILLS_CreateChargedBoltMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId, int nX, int nY, int nSkillId, int nSkillLevel, int nStep, int nLowSeed)
 {
     D2SeedStrc tSeed;
     SEED_InitLowSeed(&tSeed, nLowSeed);

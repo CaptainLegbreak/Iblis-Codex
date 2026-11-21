@@ -36,7 +36,7 @@ D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_TakeNode(D2FloorPoolStrc* pList); 
 
 static __declspec(noinline) void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc* pNode);
 
-__declspec(noinline) D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_Unlink(D2FloorPoolStrc* pList, int nIndex);
+D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_Unlink(D2FloorPoolStrc* pList, int nIndex);
 
 #define RELEASE(p) if (p) { p->lpVtbl->Release((D2ComObject006BB640Strc*)p); p = 0; }
 
@@ -495,7 +495,7 @@ void __cdecl sub_006BB640_ReleaseSurfaces()
 }
 
 // 0x006BB6B0
-static __declspec(noinline) void sub_006BB6B0_DecodeTile(const unsigned char* source, unsigned char* destination)
+static void sub_006BB6B0_DecodeTile(const unsigned char* source, unsigned char* destination)
 {
     int rows = 32;
     unsigned char* row = destination;

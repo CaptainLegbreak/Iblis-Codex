@@ -16,9 +16,9 @@ typedef char QueueSizeCheck[(sizeof(D2EventTimerQueueStrc)==0xA20)?1:-1];
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern void __fastcall sub_6FCBDE90(D2UnitStrc*, int); // 0x005544B0
 
-__declspec(noinline) static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
+static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-__declspec(noinline) static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
+static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
 
 static __forceinline D2EventTimerStrc** sub_6FC353D0(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
 {
@@ -32,7 +32,7 @@ static __forceinline D2EventTimerStrc** sub_6FC353D0(D2GameStrc* pGame, int nUni
 }
 
 // 0x00540CD0
-static __declspec(noinline) void sub_6FC34890(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
+static void sub_6FC34890(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
 {
     D2EventTimerQueueStrc* pTimerQueue = pGame->pTimerQueue;
     if (pTimer->nFlags & EVENTFLAG_0x1)
@@ -134,7 +134,7 @@ void __fastcall EVENTS_DeleteAll(D2GameStrc* pGame, D2UnitStrc* pUnit)
 #include "gen/data/Source/D2Game/GAME/Event_00540CD0.inc"
 
 // 0x00540BB0
-static __declspec(noinline) D2EventTimerSlabListStrc* sub_00540BB0_AllocateSlab(D2GameStrc* pGame)
+static D2EventTimerSlabListStrc* sub_00540BB0_AllocateSlab(D2GameStrc* pGame)
 {
     D2EventTimerSlabListStrc* pSlab = (D2EventTimerSlabListStrc*)sub_0040B430_Alloc(pGame->pMemoryPool, sizeof(D2EventTimerSlabListStrc), ".\\GAME\\Event.cpp", 169, 0);
     if (!pSlab)
@@ -152,7 +152,7 @@ static __declspec(noinline) D2EventTimerSlabListStrc* sub_00540BB0_AllocateSlab(
 }
 
 // 0x00540C30
-static __declspec(noinline) D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue)
+static D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue)
 {
     D2EventTimerSlabListStrc* pSlab = pQueue->pSlabListHead;
     while (pSlab)
@@ -174,7 +174,7 @@ static __declspec(noinline) D2EventTimerStrc* __stdcall sub_00540C30_AllocateTim
 }
 
 // 0x00540DF0
-static __declspec(noinline) D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2EventTimerQueueStrc* pQueue = pGame->pTimerQueue;
     D2EventTimerStrc* pTimer = sub_00540C30_AllocateTimer(pGame, pQueue);

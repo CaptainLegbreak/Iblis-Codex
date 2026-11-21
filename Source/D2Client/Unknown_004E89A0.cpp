@@ -175,7 +175,7 @@ static __forceinline int SkillParam_0D0(int nSkillId, int nLevel)
     return pSkillsTxt->dwParam[0] + (nLevel - 1) * pSkillsTxt->dwParam[1];
 }
 
-static __declspec(noinline) unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
+static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
 // 0x004E6F60
 static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType)
 {
@@ -234,7 +234,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt
 void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt_H* pSkillsTxt, int nSkillLevel); // 0x004E72D0
 
 // 0x004E73E0
-static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
+static int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
 {
     int szText_[8]; char* const szText = (char*)szText_;
     if (bPrefixSign && nValue >= 0)
@@ -246,7 +246,7 @@ static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(Unicode* 
 }
 
 // 0x004E7430
-static __declspec(noinline) int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
+static int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     int szText_[8]; char* const szText = (char*)szText_;
     if (bPrefixSign && nValue >= 0)
@@ -851,7 +851,7 @@ static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode*
     return sub_004EC540_AddElemRatePerSecond(nString, wszText, nMinRate, nMaxRate);
 }
 
-static __declspec(noinline) int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
+static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
 // 0x004EC6F0
 static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText)
 {

@@ -922,7 +922,7 @@ int __stdcall sub_004DA6B0_TestMotionFlags(D2UnitStrc* pUnit)
 }
 
 // 0x004DA720
-static __declspec(noinline) void sub_004DA720_CopyCompCode(D2CompCodeStrc* pDst, const char* pSrc)
+static void sub_004DA720_CopyCompCode(D2CompCodeStrc* pDst, const char* pSrc)
 {
     if (!pSrc[0])
     {

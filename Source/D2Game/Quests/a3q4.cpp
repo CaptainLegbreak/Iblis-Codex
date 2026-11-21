@@ -127,7 +127,7 @@ void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* pQuestRe
 
 void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x005BA0B0
 
-__declspec(noinline) static int __stdcall sub_005BA2F0_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer);
+static int __stdcall sub_005BA2F0_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
 #define QUEST_A3Q3_GIDBINN 0x11
 

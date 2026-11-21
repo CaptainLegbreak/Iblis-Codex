@@ -107,7 +107,7 @@ int __fastcall sub_005A0280_GetChampionUMod(D2UnitStrc* pUnit)
 }
 
 // 0x005A02E0
-static __declspec(noinline) void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
+static void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
 {
     const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)

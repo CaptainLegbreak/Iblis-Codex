@@ -1570,7 +1570,7 @@ struct D2GSPacketSrvAE
 
 struct D2PacketTarget3FStrc;
 
-static __declspec(noinline) int __stdcall sub_0053CC40_ShouldSendMinionLifeUpdate(D2UnitStrc*, D2UnitStrc*, int);
+static int __stdcall sub_0053CC40_ShouldSendMinionLifeUpdate(D2UnitStrc*, D2UnitStrc*, int);
 
 static int __stdcall SCMD_ShouldSendPartyLifeUpdate(D2UnitStrc* pUnit, int nLifePercentage, int nLevelId, D2UnitStrc* pPlayer); // 0x0053CC90
 

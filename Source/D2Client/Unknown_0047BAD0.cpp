@@ -83,7 +83,7 @@ struct D2MenuItemStrc
 int __cdecl sub_00514CC0(); // 0x00514CC0
 int __cdecl sub_00514CF0(); // 0x00514CF0
 int __cdecl sub_00514D20(); // 0x00514D20
-static __declspec(noinline) unsigned int __stdcall sub_0047CC90_ValueToSlider(D2MenuItemStrc* pItem, unsigned int nValue, unsigned int nMin, unsigned int nMax);
+static unsigned int __stdcall sub_0047CC90_ValueToSlider(D2MenuItemStrc* pItem, unsigned int nValue, unsigned int nMin, unsigned int nMax);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -168,7 +168,7 @@ static const char* sub_0047BD60_GetAccountPart(const char* szName)
     return szName;
 }
 
-static __declspec(noinline) void sub_0047BD80_CopyCharPart(char* szDest, const char* szSource)
+static void sub_0047BD80_CopyCharPart(char* szDest, const char* szSource)
 {
     if (*szSource != 0x2A)
     {

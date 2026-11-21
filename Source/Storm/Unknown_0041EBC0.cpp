@@ -203,7 +203,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileN
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
 extern T0041FA40* gapSLogBuckets_00779298[4]; // 0x00779298
-static __declspec(noinline) T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog);
+static T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog);
 static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex);
 
 // 0x0041EBC0

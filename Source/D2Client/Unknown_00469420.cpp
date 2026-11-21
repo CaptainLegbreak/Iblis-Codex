@@ -16,7 +16,7 @@ extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS];                            
 int __fastcall sub_00469AE0_IsValidKey(unsigned short nKey);                                                // 0x00469AE0
 
 // 0x00469420
-static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
+static int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
 {
     switch (nKey)
     {

@@ -28,7 +28,7 @@ struct D2DrlgRouteNodeStrc
     D2DrlgRouteNodeStrc* pParent;
 };
 
-static __declspec(noinline) D2DrlgRouteNodeStrc* __stdcall sub_00681560(D2DrlgRouteNodeStrc* pNode, D2DrlgRouteNodeStrc** ppStart);
+static D2DrlgRouteNodeStrc* __stdcall sub_00681560(D2DrlgRouteNodeStrc* pNode, D2DrlgRouteNodeStrc** ppStart);
 
 // build: symbol ?DRLGOUTDOORS_CalculatePathCoordinates@@YAXPAUD2DrlgLevelStrc@@PAUD2DrlgVertexStrc@@1@Z 0x00680CC0
 static void DRLGOUTDOORS_CalculatePathCoordinates(D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pVertex1, D2DrlgVertexStrc* pVertex2)

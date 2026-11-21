@@ -91,7 +91,7 @@ static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer,
     }
 }
 static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile); // 0x004154B0
-static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, D2StormFileRecStrc* pFile, unsigned int nOffset);
+static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, D2StormFileRecStrc* pFile, unsigned int nOffset);
 // 0x00415560
 static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, D2StormFileRecStrc* pFile, unsigned int nOffset)
 {

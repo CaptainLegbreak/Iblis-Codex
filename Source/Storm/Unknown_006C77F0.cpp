@@ -1,6 +1,6 @@
 #include "Storm.h"
-static __declspec(noinline) int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
-static __declspec(noinline) int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
+static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
+static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
 
 struct z_stream
 {

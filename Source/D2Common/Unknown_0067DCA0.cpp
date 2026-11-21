@@ -11,7 +11,7 @@ struct D2CoordStrc;
 
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int nOperation); // 0x0067C4F0
-static __declspec(noinline) void sub_0067DCA0(D2DrlgLevelStrc* pLevel);
+static void sub_0067DCA0(D2DrlgLevelStrc* pLevel);
 
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570

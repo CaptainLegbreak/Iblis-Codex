@@ -99,7 +99,7 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg); // 0x004DCE10
 void __stdcall sub_004CB2C0_ReleaseMonsterSfx(D2UnitStrc* pUnit);
-__declspec(noinline) void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
+void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
 
 
 void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
@@ -320,7 +320,7 @@ void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int 
     }
 }
 
-static __declspec(noinline) unsigned int sub_004CAB30_ReadSoundTick(D2UnitStrc* pUnit)
+static unsigned int sub_004CAB30_ReadSoundTick(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xCBB);
     return pUnit->dwSfxTicks;
@@ -776,7 +776,7 @@ static void sub_004CB950_PlayFleeSound(D2UnitStrc* pUnit)
     gnSfxTick_007C88BC = sub_0044DB00();
 }
 
-__declspec(noinline) void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta)
+void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta)
 {
     const int nType = sub_004CA320_GetUnitSndType(pUnit);
     D2_ASSERT(pUnit, 0xCFD);
@@ -1188,7 +1188,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x004CACE0
-static __declspec(noinline) D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int nX, int nY)
+static D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
@@ -1206,7 +1206,7 @@ static __declspec(noinline) D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2A
 }
 
 // 0x004CAD60
-static __declspec(noinline) int sub_004CAD60_GetTileMaterial(D2DrlgTileDataStrc* pTileData)
+static int sub_004CAD60_GetTileMaterial(D2DrlgTileDataStrc* pTileData)
 {
     D2TileLibraryEntryStrc* pTile = pTileData->pTile;
     if (pTile)
@@ -1634,7 +1634,7 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 }
 
 // 0x004CC910
-static __declspec(noinline) int sub_004CC910_GetSpawnDelay(D2UnitStrc* pMissile)
+static int sub_004CC910_GetSpawnDelay(D2UnitStrc* pMissile)
 {
     const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
     if (nFrames < 125)

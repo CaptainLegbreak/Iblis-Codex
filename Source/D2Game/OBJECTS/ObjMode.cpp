@@ -278,7 +278,7 @@ void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nCell); // 0x0
 
 void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet); // 0x006287B0
 
-__declspec(noinline) static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2GameStrc* pGame, D2UnitStrc* pPlayer);
+static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -323,7 +323,7 @@ D2StatListStrc* __fastcall sub_00582800_ApplyShrineCurse(D2UnitStrc* pUnit, D2Un
 
 void __fastcall sub_6FC77AB0(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x00583A40
 
-static __declspec(noinline) int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int nValue, D2UnitStrc* pUnit); // 0x00583840
+static int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int nValue, D2UnitStrc* pUnit); // 0x00583840
 
 struct D2SkillContext00583BF0Strc
 {
@@ -543,7 +543,7 @@ unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 
 int __stdcall SUNIT_Dummy_00582AC0(D2UnitStrc* pUnit, int nValue);
 
-static __declspec(noinline) void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2UnitStrc* pWeapon); // 0x00583740
+static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2UnitStrc* pWeapon); // 0x00583740
 
 int __fastcall D2GAME_RemoveItemIfOnCursor_6FC49760(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x0055EEA0
 
@@ -637,7 +637,7 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pFind); // 0x0065A
 
 int __fastcall sub_00582710_IsLivingUnit(D2UnitStrc* unit, void* unused); // 0x00582710
 
-#define NOINLINE __declspec(noinline)
+#define NOINLINE
 
 struct D2InventoryStrc;
 
@@ -2908,7 +2908,7 @@ int __fastcall OBJMODE_ObeliskPowerUp_IncreaseHitpoints(D2GameStrc* pGame, D2Uni
 }
 
 // 0x00585240
-static __declspec(noinline) int __stdcall sub_00585240_ApplyObeliskPowerUp(D2GameStrc* pGame, unsigned char nSubType, D2UnitStrc* pPlayer)
+static int __stdcall sub_00585240_ApplyObeliskPowerUp(D2GameStrc* pGame, unsigned char nSubType, D2UnitStrc* pPlayer)
 {
     if (nSubType < gnObeliskPowerUps_00732FAC)
     {

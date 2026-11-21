@@ -110,7 +110,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(cons
 
 extern D2WinControlStrc* gpControl_0077B098; // 0x0077B098
 
-static __declspec(noinline) int sub_00446D30_GetUserRank(D2MultiChannelUserStrc* pUser);
+static int sub_00446D30_GetUserRank(D2MultiChannelUserStrc* pUser);
 
 void __cdecl sub_0043D990_ActivateEdit(); // 0x0043D990
 
@@ -309,7 +309,7 @@ static int sub_00446D30_GetUserRank(D2MultiChannelUserStrc* pUser)
 }
 
 // 0x00446D60
-static __declspec(noinline) int sub_00446D60_Classify(int code) {
+static int sub_00446D60_Classify(int code) {
  switch(code) {
  case 0:
  case 1:
@@ -324,7 +324,7 @@ static __declspec(noinline) int sub_00446D60_Classify(int code) {
 int __fastcall EmitClassify(int code) { return sub_00446D60_Classify(code); }
 
 // 0x00447390
-static __declspec(noinline) int sub_00447390_CompareNames(const char* szNameA, const char* szNameB)
+static int sub_00447390_CompareNames(const char* szNameA, const char* szNameB)
 {
     const char* szA = strchr(szNameA, '*');
     if (!szA)

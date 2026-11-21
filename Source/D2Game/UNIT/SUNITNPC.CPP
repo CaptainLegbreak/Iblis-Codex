@@ -2165,7 +2165,7 @@ void __fastcall D2GAME_NPC_IdentifyAllItems_6FCC9C90(D2GameStrc* pGame, D2UnitSt
 }
 
 // 0x00578610
-static __declspec(noinline) int __stdcall sub_00578610_IsCursorItem(unsigned int nItemGUID, D2UnitStrc* pUnit)
+static int __stdcall sub_00578610_IsCursorItem(unsigned int nItemGUID, D2UnitStrc* pUnit)
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (pInventory)

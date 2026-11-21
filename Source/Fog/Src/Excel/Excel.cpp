@@ -359,7 +359,7 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError); // 0x006BD3C0
 
-static __declspec(noinline) void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew);
+static void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew);
 
 struct D2BinFileStrc
 {
@@ -375,7 +375,7 @@ int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChar
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
-__declspec(noinline) static int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries);
+static int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries);
 
 extern "C" const char gszEmptyAssertText;                                                    // 0x006CC837
 
@@ -499,7 +499,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_006BCDE0(Obj006BCDE0
 }
 
 // 0x006BCDF0
-static __declspec(noinline) unsigned int __stdcall sub_006BCDF0_HashName(const char* szName)
+static unsigned int __stdcall sub_006BCDF0_HashName(const char* szName)
 {
     return SStrHash(szName, 0, 0);
 }

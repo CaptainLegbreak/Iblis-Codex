@@ -524,11 +524,11 @@ D2UnitStrc* __fastcall ITEMS_Duplicate(D2GameStrc* pGame, D2UnitStrc* pItem, D2U
 
 int __fastcall sub_6FC4B9D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FB10
 
-static __declspec(noinline) int __stdcall sub_6FC83D00(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00548A80
+static int __stdcall sub_6FC83D00(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00548A80
 
-static __declspec(noinline) int __stdcall sub_6FC83C60(unsigned short nX, unsigned short nY, D2UnitStrc* pUnit, int nMaxDistance); // 0x00548EF0
+static int __stdcall sub_6FC83C60(unsigned short nX, unsigned short nY, D2UnitStrc* pUnit, int nMaxDistance); // 0x00548EF0
 
-static __declspec(noinline) int __stdcall sub_00548F80_CheckTargetUnit(int nMaxDistance, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID);
+static int __stdcall sub_00548F80_CheckTargetUnit(int nMaxDistance, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID);
 
 #pragma pack(push, 1)
 struct D2GSPacketClt20
@@ -550,7 +550,7 @@ void __fastcall sub_0055DF00_RecalcItemStates(D2GameStrc* pGame, D2UnitStrc* pUn
 
 void __fastcall sub_0055F500_RefreshItemStatLists(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0055F500
 
-static __declspec(noinline) int __stdcall sub_0054D130_TakeMercItemToCursor(D2GameStrc* pGame, D2UnitStrc* pMerc, D2UnitStrc* pPlayer, int nBodyLoc);
+static int __stdcall sub_0054D130_TakeMercItemToCursor(D2GameStrc* pGame, D2UnitStrc* pMerc, D2UnitStrc* pPlayer, int nBodyLoc);
 
 struct D2NetPacketRecStrc;
 
@@ -558,7 +558,7 @@ struct D2BuyItemPacketStrc;
 
 int __stdcall sub_00626090(D2StatListStrc* pStatList); // 0x00626090
 
-static __declspec(noinline) unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit);
+static unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit);
 
 void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile); // 0x005550B0
 
@@ -580,7 +580,7 @@ int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc
 
 int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x00641530
 
-__declspec(noinline) static void __stdcall sub_00548A50_ChangeModeAndSetInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID);
+static void __stdcall sub_00548A50_ChangeModeAndSetInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID);
 
 struct D2NetPacketRecStrc { int unk_00; int unk_04; char szName[16]; };
 
@@ -621,7 +621,7 @@ int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc*
 
 #define MONSTATSFLAGINDEX_INTERACT 9
 
-static __declspec(noinline) int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nUnitType, int nUnitGUID, int bCheckRange); // 0x00549BA0
+static int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nUnitType, int nUnitGUID, int bCheckRange); // 0x00549BA0
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
@@ -791,7 +791,7 @@ void __fastcall sub_0054CC30_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit
 
 struct D2PacketTableStrc;
 
-static __declspec(noinline) int __stdcall sub_00549570_CheckWaypointObject(D2GameStrc* pGame, unsigned short nLevelId, D2UnitStrc* pUnit, int nObjectGUID);
+static int __stdcall sub_00549570_CheckWaypointObject(D2GameStrc* pGame, unsigned short nLevelId, D2UnitStrc* pUnit, int nObjectGUID);
 
 typedef int (__fastcall* PacketCallback)(D2GameStrc*,D2UnitStrc*,unsigned char*,int);
 
@@ -1310,14 +1310,14 @@ static __forceinline int PLRMSG_GetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x00548A50
-static __declspec(noinline) void __stdcall sub_00548A50_ChangeModeAndSetInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
+static void __stdcall sub_00548A50_ChangeModeAndSetInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
 {
     StartModeID(pGame, pPlayer, 0, 3, nUnitType, nUnitGUID, 0);
     sub_00641F20_SetPlayerModeState(pPlayer, nInteractSkill, nUnitType, nUnitGUID);
 }
 
 // 0x00548A80
-static __declspec(noinline) int __stdcall sub_6FC83D00(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+static int __stdcall sub_6FC83D00(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
     if (DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit))) == DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pTarget))))
     {
@@ -1564,7 +1564,7 @@ int __stdcall sub_00548ED0_SelectBelowSix(unsigned int nValue)
 }
 
 // 0x00548EF0
-static __declspec(noinline) int __stdcall sub_6FC83C60(unsigned short nX, unsigned short nY, D2UnitStrc* pUnit, int nMaxDistance)
+static int __stdcall sub_6FC83C60(unsigned short nX, unsigned short nY, D2UnitStrc* pUnit, int nMaxDistance)
 {
     const int nUnitX = PLRMSG_GetUnitX(pUnit);
     const int nUnitY = PLRMSG_GetUnitY(pUnit);
@@ -1593,7 +1593,7 @@ static __declspec(noinline) int __stdcall sub_6FC83C60(unsigned short nX, unsign
 }
 
 // 0x00548F80
-static __declspec(noinline) int __stdcall sub_00548F80_CheckTargetUnit(int nMaxDistance, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
+static int __stdcall sub_00548F80_CheckTargetUnit(int nMaxDistance, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
 {
     D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
     if (!pTarget)
@@ -1639,7 +1639,7 @@ static __forceinline int sub_005490C0_CheckName(const char* szName)
 }
 
 // 0x00549220
-static __declspec(noinline) int __stdcall sub_00549220_CheckOwnedItem(int nItemGUID, D2GameStrc* pGame, D2UnitStrc* pUnit)
+static int __stdcall sub_00549220_CheckOwnedItem(int nItemGUID, D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2_ASSERT(pGame, 1192);
 
@@ -1687,7 +1687,7 @@ static int __stdcall sub_005492C0_IsHandBodyLocFree(D2UnitStrc* pUnit, int nBody
 }
 
 // 0x00549350
-static __declspec(noinline) int __stdcall sub_6FC86520(int nItemGUID, D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static int __stdcall sub_6FC86520(int nItemGUID, D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     D2_ASSERT(pGame, 1283);
 
@@ -1772,7 +1772,7 @@ int __fastcall sub_K10_EmitIsHandBodyLocFree(D2UnitStrc* pUnit, int nBodyLoc)
 }
 
 // 0x00549490
-static __declspec(noinline) int sub_00549490_CheckSkillAllocation(D2UnitStrc* pUnit, int nSkillId)
+static int sub_00549490_CheckSkillAllocation(D2UnitStrc* pUnit, int nSkillId)
 {
     if (nSkillId < 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1805,7 +1805,7 @@ static __forceinline int sub_005494E0_CheckSkillLevel(D2UnitStrc* pUnit, int nSk
 }
 
 // 0x00549520
-static __declspec(noinline) int __stdcall sub_00549520_CheckOrificeObject(int nItemGUID, unsigned short nState, D2GameStrc* pGame, D2UnitStrc* pUnit, int nObjectGUID)
+static int __stdcall sub_00549520_CheckOrificeObject(int nItemGUID, unsigned short nState, D2GameStrc* pGame, D2UnitStrc* pUnit, int nObjectGUID)
 {
     const int nResult = sub_00548F80_CheckTargetUnit(50, pGame, pUnit, 2, nObjectGUID);
     if (nResult)
@@ -1851,7 +1851,7 @@ static __forceinline int PLRMSG_J07_GetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x00549570
-static __declspec(noinline) int __stdcall sub_00549570_CheckWaypointObject(D2GameStrc* pGame, unsigned short nLevelId, D2UnitStrc* pUnit, int nObjectGUID)
+static int __stdcall sub_00549570_CheckWaypointObject(D2GameStrc* pGame, unsigned short nLevelId, D2UnitStrc* pUnit, int nObjectGUID)
 {
     D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, nObjectGUID);
     if (!pObject)
@@ -1918,7 +1918,7 @@ static __declspec(noinline) int __stdcall sub_00549570_CheckWaypointObject(D2Gam
 }
 
 // 0x005496F0
-static __declspec(noinline) int __stdcall sub_6FC82D10(D2GameStrc* pGame, int nPacketSize, unsigned short* pX, unsigned short* pY, D2UnitStrc* pUnit, void* pPacket)
+static int __stdcall sub_6FC82D10(D2GameStrc* pGame, int nPacketSize, unsigned short* pX, unsigned short* pY, D2UnitStrc* pUnit, void* pPacket)
 {
     *pX = 0;
     *pY = 0;
@@ -1975,7 +1975,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x01_Walk_6FC82CB0(D2GameStrc* pGame, D2
 }
 
 // 0x00549830
-static __declspec(noinline) int __stdcall sub_00549830_ReadTargetUnitPacket(D2GameStrc* pGame, int nPacketSize, int* pUnitType, int* pUnitGUID, D2UnitStrc* pUnit, void* pPacket)
+static int __stdcall sub_00549830_ReadTargetUnitPacket(D2GameStrc* pGame, int nPacketSize, int* pUnitType, int* pUnitGUID, D2UnitStrc* pUnit, void* pPacket)
 {
     *pUnitType = 0;
     *pUnitGUID = 0;
@@ -2052,7 +2052,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x04_RunToEntity_6FC830F0(D2GameStrc* pG
 }
 
 // 0x00549960
-static __declspec(noinline) D2SkillStrc* __stdcall sub_6FC83450(D2SkillStrc* pSkill, D2UnitStrc* pUnit)
+static D2SkillStrc* __stdcall sub_6FC83450(D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
     D2SkillStrc* pUsedSkill = pSkill;
     if (!SKILLS_GetSkillIdFromSkill(pSkill, ".\\PLAYER\\PlrMsg.cpp", 1804))
@@ -2126,7 +2126,7 @@ void __fastcall sub_00549A60_SendCantDoThat(D2UnitStrc* pUnit)
 }
 
 // 0x00549AD0
-static __declspec(noinline) int __stdcall sub_6FC83340(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY)
+static int __stdcall sub_6FC83340(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY)
 {
     if (!pUnit || pUnit->dwAnimMode == 0 || pUnit->dwAnimMode == 17)
     {
@@ -4087,7 +4087,7 @@ static __forceinline int sub_E03_PlrGetUnitY(D2UnitStrc* pUnit)
 }
 
 // 0x0054C430
-static __declspec(noinline) int __stdcall sub_0054C430_CommandMerc(int nParam1, int nParam2, int nCommand, D2GameStrc* pGame, D2UnitStrc* pUnit, int nMercGUID)
+static int __stdcall sub_0054C430_CommandMerc(int nParam1, int nParam2, int nCommand, D2GameStrc* pGame, D2UnitStrc* pUnit, int nMercGUID)
 {
     D2UnitStrc* pMerc = SUNIT_GetServerUnit(pGame, 1, nMercGUID);
     if (!pMerc)

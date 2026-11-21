@@ -288,24 +288,24 @@ int __stdcall FOG_GetLinkIndex(void* pLink, unsigned int dwCode, int bLogError);
 
 static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned short nButton, D2UnitStrc* pPlayer, int nUnitGUID, int nGold); // 0x00564D50
 
-static __declspec(noinline) int sub_00564FD0_CountCubeItems(D2InventoryStrc* pInventory); // 0x00564FD0
+static int sub_00564FD0_CountCubeItems(D2InventoryStrc* pInventory); // 0x00564FD0
 
-static __declspec(noinline) int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory); // 0x005658C0
+static int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory); // 0x005658C0
 
-static __declspec(noinline) void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton); // 0x00566AE0
+static void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton); // 0x00566AE0
 
-static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566B30
+static bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566B30
 
 void __fastcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, int nUnused, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData); // 0x00567020
 
-static __declspec(noinline) void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem); // 0x00567070
+static void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem); // 0x00567070
 
 static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x005670E0
 
-static __declspec(noinline) int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver); // 0x005672D0
+static int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver); // 0x005672D0
 
 
-static __declspec(noinline) void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer); // 0x00567C70
+static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer); // 0x00567C70
 
 void __fastcall sub_00568D10_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00568D10
 
@@ -593,7 +593,7 @@ static int __stdcall sub_00564F30_RemoveCubeInputs(D2GameStrc* pGame, D2UnitStrc
 }
 
 // 0x00564FD0
-static __declspec(noinline) int sub_00564FD0_CountCubeItems(D2InventoryStrc* pInventory)
+static int sub_00564FD0_CountCubeItems(D2InventoryStrc* pInventory)
 {
     int nCount = 0;
     D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
@@ -1149,7 +1149,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
 }
 
 // 0x005658C0
-static __declspec(noinline) int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory)
+static int __stdcall sub_005658C0_CheckCubeInputs(D2GameStrc* pGame, D2CubeItemStrc* pCubeItem, D2CubeMainTxt* pCubeMainTxtRecord, D2InventoryStrc* pInventory)
 {
     if (!pInventory || !pCubeMainTxtRecord)
     {
@@ -1732,7 +1732,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
 }
 
 // 0x00566AE0
-static __declspec(noinline) void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton)
+static void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned short nButton)
 {
     switch (nButton)
     {
@@ -1754,7 +1754,7 @@ static __declspec(noinline) void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame
 }
 
 // 0x00566B30
-static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (!pPlayerData->hTrade)
@@ -1920,7 +1920,7 @@ static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* p
 }
 
 // 0x00567070
-static __declspec(noinline) void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem)
+static void __stdcall sub_00567070_CopyEarData(int bHardcore, D2UnitStrc* pItem, D2UnitStrc* pDupeItem)
 {
     if (ITEMS_GetItemType(pDupeItem) == ITEMTYPE_PLAYER_BODY_PART)
     {
@@ -2000,7 +2000,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
 }
 
 // 0x005672D0
-static __declspec(noinline) int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver)
+static int __stdcall sub_005672D0_CanPickUpTradeItems(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pReceiver)
 {
     D2UnitStrc* pItem = INVENTORY_GetFirstItem(pOwner->pInventory);
     while (pItem)

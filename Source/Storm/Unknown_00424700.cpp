@@ -283,7 +283,7 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
 }
 
 // 0x00422CC0
-static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void sub_00422CC0_SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }

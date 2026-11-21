@@ -190,7 +190,7 @@ extern D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern int gbPreloadForce_007A8920; // 0x007A8920
 extern int gdwGlobal_007A8928; // 0x007A8928
-__declspec(noinline) static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit);
+static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit);
 
 D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nWeaponClass, int nIndex); // 0x0046E5A0
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0

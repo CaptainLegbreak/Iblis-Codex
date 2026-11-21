@@ -3,7 +3,7 @@
 struct D2DrlgCoordStrc { int nPosX,nPosY,nWidth,nHeight; };
 
 // 0x00675DE0
-static __declspec(noinline) void __fastcall sub_00675DE0_Place(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
+static void __fastcall sub_00675DE0_Place(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
  switch(side) {
  case 0:
   dst->nPosX=src->nPosX;

@@ -325,7 +325,7 @@ static __forceinline int sub_H12_UnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __declspec(noinline) void sub_004AE400_CastRandomCurse(D2UnitStrc* pUnit)
+static void sub_004AE400_CastRandomCurse(D2UnitStrc* pUnit)
 {
     const int nIndex = sub_H12_SeedStep(&pUnit->pSeed) % 5;
     D2_ASSERT(nIndex < 5, 0x174);
@@ -342,7 +342,7 @@ static __declspec(noinline) void sub_004AE400_CastRandomCurse(D2UnitStrc* pUnit)
     }
 }
 
-static __declspec(noinline) void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
+static void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
 {
     switch (nEvent)
     {

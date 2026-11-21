@@ -69,7 +69,7 @@ static __forceinline bool GetDebugDirectoryEntry(const D2ImageDataDirStrc* pDir,
     return (!tDir.VirtualAddress && !tDir.Size) || (tDir.VirtualAddress && sub_00404850_IsAtLeast1C(*pSize));
 }
 
-__declspec(noinline) static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pRva, unsigned long* pSize);
+static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pRva, unsigned long* pSize);
 // 0x004047D0
 static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pRva, unsigned long* pSize)
 {

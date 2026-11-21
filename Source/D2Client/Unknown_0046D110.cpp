@@ -129,7 +129,7 @@ static __forceinline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
 
 // 0x0046C720
 // build: context sub_0046C720_FindNearestTarget
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
+static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
 {
     D2UnitStrc* pNearest = 0;
     D2UnitStrc** ppSlot = gpAiTargets_007A7470;
@@ -311,7 +311,7 @@ static void sub_0046CB40_CommandMode7(D2UnitStrc* pUnit)
 }
 
 // 0x0046CBD0
-static __declspec(noinline) void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks)
+static void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks)
 {
     if (nTicks >= 200)
     {

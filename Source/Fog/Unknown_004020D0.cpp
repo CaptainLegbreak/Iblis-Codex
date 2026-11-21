@@ -26,7 +26,7 @@ static __forceinline bool sub_EnsureSymbolEngine()
     return true;
 }
 
-static __declspec(noinline) bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char* szFile, unsigned long* pLineNumber);
+static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char* szFile, unsigned long* pLineNumber);
 
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()

@@ -24,7 +24,7 @@ void __cdecl sub_00401A60_UnlockSymbols()
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-static __declspec(noinline) unsigned __int64 __stdcall sub_00402460_LoadModule(void* hFile, const char* szImageName,
+static unsigned __int64 __stdcall sub_00402460_LoadModule(void* hFile, const char* szImageName,
     const char* szModuleName, unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll);
 
 // 0x00402460

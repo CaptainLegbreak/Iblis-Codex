@@ -186,7 +186,7 @@ static int gbStreamsPaused_00779044;                                            
 static unsigned int gnStreamChunk_00779038;                                                                 // 0x00779038
 
 // 0x00415950
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
 {
     *ppRec = (D2StormFileRecStrc*)hFile;
     return 1;

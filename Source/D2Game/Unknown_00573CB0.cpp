@@ -94,7 +94,7 @@ static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
     pSeed->nLowSeed=(unsigned int)nSeed;
     return nSeed;
 }
-static __declspec(noinline)
+static
 // 0x00573CB0
 void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom,int nSeed,D2UnitStrc* pMonster)
 {

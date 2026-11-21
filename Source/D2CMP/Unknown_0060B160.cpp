@@ -12,10 +12,10 @@ struct D2CmpByteMapArgStrc
 {
     D2CmpByteMapStrc* p;
 };
-static __declspec(noinline) void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapArgStrc tInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward);
+static void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapArgStrc tInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward);
 
 // 0x0060B160
-static __declspec(noinline) void __stdcall sub_0060B160_Copy(D2BitBufferInitStrc* dst,const D2BitBufferInitStrc* src) {
+static void __stdcall sub_0060B160_Copy(D2BitBufferInitStrc* dst,const D2BitBufferInitStrc* src) {
  dst->pBuffer=src->pBuffer;
  dst->pCurrent=src->pCurrent;
  dst->nBits=src->nBits;

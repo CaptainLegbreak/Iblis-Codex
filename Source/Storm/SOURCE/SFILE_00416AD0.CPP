@@ -26,7 +26,7 @@ int __stdcall SMemFree(void*, const char*, int, unsigned int); // 0x00412650
 void __stdcall SMemCopy(void*, const void*, unsigned int); // 0x0041D2A0
 int __stdcall sub_00415240_Explode(void*, const void*, unsigned int); // 0x00415240
 int __stdcall sub_0041E720_Decompress(void*, unsigned int*, const void*, unsigned int, const char*); // 0x0041E720
-__declspec(noinline) static void sub_004152D0_DecryptBlock(unsigned int*, unsigned int, unsigned int);
+static void sub_004152D0_DecryptBlock(unsigned int*, unsigned int, unsigned int);
 // 0x004152D0
 static void sub_004152D0_DecryptBlock(unsigned int* data, unsigned int bytes, unsigned int key)
 {
@@ -40,7 +40,7 @@ static void sub_004152D0_DecryptBlock(unsigned int* data, unsigned int bytes, un
         key = ((~key << 21) + 0x11111111) | (key >> 11);
     }
 }
-__declspec(noinline) static int __stdcall sub_004154B0_ReadAt(unsigned int, unsigned int*, void*, unsigned int, const char*, unsigned long*, void*);
+static int __stdcall sub_004154B0_ReadAt(unsigned int, unsigned int*, void*, unsigned int, const char*, unsigned long*, void*);
 // 0x004154B0
 static int __stdcall sub_004154B0_ReadAt(unsigned int offset, unsigned int* filePos, void* buffer, unsigned int size, const char* name, unsigned long* read, void* handle)
 {

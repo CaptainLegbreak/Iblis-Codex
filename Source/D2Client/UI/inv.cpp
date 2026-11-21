@@ -501,7 +501,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 extern D2AuxLevelEntryStrc gaAuxLevelEntries_00721D98[]; // 0x00721D98
 extern int gbQuestTimerActive_007BCC10; // 0x007BCC10
 extern D2CelFileStrc* gpHoradricCel_007BCC1C; // 0x007BCC1C
-static __declspec(noinline) void __stdcall sub_00485240_GetItemDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit, int nStatMin, int nStatMax, int* pnMin, int* pnMax, int* pbModified);
+static void __stdcall sub_00485240_GetItemDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit, int nStatMin, int nStatMax, int* pnMin, int* pnMax, int* pbModified);
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __fastcall sub_004521C0_SetTextColor(Unicode* pText, int nColor); // 0x004521C0
 int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625560
@@ -895,7 +895,7 @@ extern "C" void __cdecl sub_00483340_SetByteFlag7BC9D8()
 }
 
 // 0x00484A70
-static __declspec(noinline) const Unicode* sub_00484A70_GetClassNameText(unsigned int nClass)
+static const Unicode* sub_00484A70_GetClassNameText(unsigned int nClass)
 {
     if (nClass < 7)
     {
@@ -1185,7 +1185,7 @@ static __forceinline void sub_00486640_AppendStrings(Unicode* pText)
 }
 
 // 0x00486820
-static __declspec(noinline) int __stdcall sub_00486820_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nHeight)
+static int __stdcall sub_00486820_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nHeight)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
@@ -1693,7 +1693,7 @@ void __cdecl sub_K04_EmitForward(int nArg1, int nArg2, int nArg3, int nArg4, int
 }
 
 // 0x00487DA0
-static __declspec(noinline) void sub_00487DA0_SetButtonD(int nButton)
+static void sub_00487DA0_SetButtonD(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0x276F;
     gaPanelButtons_007BC9E0[nButton].nCel = 1;
@@ -1703,7 +1703,7 @@ static __declspec(noinline) void sub_00487DA0_SetButtonD(int nButton)
 }
 
 // 0x00487DE0
-static __declspec(noinline) void sub_00487DE0_SetButtonC(int nButton)
+static void sub_00487DE0_SetButtonC(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0xD0A;
     gaPanelButtons_007BC9E0[nButton].nCel = 4;
@@ -1719,7 +1719,7 @@ void __cdecl sub_M214_Emit_00487ED0()
 }
 
 // 0x00487E20
-static __declspec(noinline) void sub_00487E20_SetButtonA(int nButton)
+static void sub_00487E20_SetButtonA(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0xD07;
     gaPanelButtons_007BC9E0[nButton].nCel = 2;
@@ -1729,7 +1729,7 @@ static __declspec(noinline) void sub_00487E20_SetButtonA(int nButton)
 }
 
 // 0x00487E60
-static __declspec(noinline) void sub_00487E60_SetButtonB(int nButton)
+static void sub_00487E60_SetButtonB(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0xD08;
     gaPanelButtons_007BC9E0[nButton].nCel = 3;
@@ -1739,7 +1739,7 @@ static __declspec(noinline) void sub_00487E60_SetButtonB(int nButton)
 }
 
 // 0x00487EA0
-static __declspec(noinline) void sub_00487EA0_ClearButton(int nButton)
+static void sub_00487EA0_ClearButton(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0;
     gaPanelButtons_007BC9E0[nButton].nCel = 1;

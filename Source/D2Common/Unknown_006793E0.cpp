@@ -74,7 +74,7 @@ struct D2PathIDAStarNodeStrc
 };
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
-static __declspec(noinline) int PATH_IDAStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathIDAStarNodeStrc* pNode);
+static int PATH_IDAStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathIDAStarNodeStrc* pNode);
 
 struct D2DrlgCoordsStrc
 {
@@ -117,9 +117,9 @@ struct D2PathFoWallContextStrc
 
 extern const int gaIdaStar_PointCacheHashMaskX[128]; // 0x006F1998
 extern const int gaIdaStar_PointCacheHashMaskY[128]; // 0x006F1B98
-static __declspec(noinline) D2PathFoWallNodeStrc* __stdcall PATH_AStar_PopBestScoreForVisit(D2PathFoWallContextStrc* pContext);
-static __declspec(noinline) int PATH_AStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathFoWallNodeStrc* pNode);
-static __declspec(noinline) int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
+static D2PathFoWallNodeStrc* __stdcall PATH_AStar_PopBestScoreForVisit(D2PathFoWallContextStrc* pContext);
+static int PATH_AStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathFoWallNodeStrc* pNode);
+static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
 
 struct D2PathMovStrc
 {

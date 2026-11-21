@@ -27,7 +27,7 @@ struct D2PathIDAStarContextStrc
 typedef char chkIdaCount_M125[(int)&((D2PathIDAStarContextStrc*)0)->nNodesCount == 0x6274 ? 1 : -1];
 
 // 0x0067A590
-static __declspec(noinline) D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode(D2PathIDAStarContextStrc* pContext)
+static D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode(D2PathIDAStarContextStrc* pContext)
 {
     if (pContext->nNodesCount == 900)
     {

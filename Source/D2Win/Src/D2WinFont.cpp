@@ -132,15 +132,15 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 
 typedef unsigned int size_t;
 
-__declspec(noinline) static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText);
+static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText);
 
 static int sub_00501910_GetTextLineWidth(const Unicode* pText);
 
-static __declspec(noinline) void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered);
+static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered);
 
 static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText);
 
-static __declspec(noinline) void __stdcall sub_00501C30_DrawFontText(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode);
+static void __stdcall sub_00501C30_DrawFontText(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode);
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -158,7 +158,7 @@ static int shim_2;
 
 void __stdcall shim_1(int nLength, int nY, int nWidth, int nPalette, int bCentered);
 
-__declspec(noinline) static int sub_005019C0_GetTextHeight(const Unicode* pText);
+static int sub_005019C0_GetTextHeight(const Unicode* pText);
 
 __declspec(noinline) static void __stdcall sub_00501A80_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nPalette, int bCentered);
 
@@ -170,7 +170,7 @@ unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsign
 
 extern unsigned char gnTooltipColor_00841EC4; // 0x00841EC4
 
-static __declspec(noinline) void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, int bCentre, const Unicode* pText, int nX);
+static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, int bCentre, const Unicode* pText, int nX);
 
 extern "C" const char gszFormatMonsterIndicators_006DCA10[];                                                // 0x006DCA10
 
@@ -370,7 +370,7 @@ void __fastcall sub_Emit_00501840(const Unicode* pText, int* pWidth, int nExtra)
 }
 
 // 0x00501910
-static __declspec(noinline) int sub_00501910_GetTextLineWidth(const Unicode* pText)
+static int sub_00501910_GetTextLineWidth(const Unicode* pText)
 {
     D2_ASSERT(pText, 572);
     int nWidth = 0;
@@ -402,7 +402,7 @@ void __fastcall sub_M388_Emit_00501910(const Unicode* pText, int* pWidth, int nE
 }
 
 // 0x005019C0
-static __declspec(noinline) int sub_005019C0_GetTextHeight(const Unicode* pText)
+static int sub_005019C0_GetTextHeight(const Unicode* pText)
 {
     D2_ASSERT(pText, 606);
 
@@ -776,7 +776,7 @@ static int sub_00501840_IsColorCode(unsigned short wChar)
     return wChar == 0xFF;
 }
 
-static __declspec(noinline) void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, int bCentre, const Unicode* pText, int nX)
+static void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, int bCentre, const Unicode* pText, int nX)
 {
     const int nLength = sub_00526800(pText);
     int nCount = 0;

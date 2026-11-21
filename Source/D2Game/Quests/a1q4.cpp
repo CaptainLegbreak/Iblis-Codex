@@ -1006,7 +1006,7 @@ void __fastcall ACT1Q4_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
 }
 
 // 0x00592BD0
-static __declspec(noinline) void ACT1Q4_ResetInifussTree(D2QuestDataStrc* pQuestData)
+static void ACT1Q4_ResetInifussTree(D2QuestDataStrc* pQuestData)
 {
     D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
 

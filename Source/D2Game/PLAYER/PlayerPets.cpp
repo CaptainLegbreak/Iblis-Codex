@@ -67,7 +67,7 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 
 void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet); // 0x005750E0
 
-static __declspec(noinline) int sub_6FC7D9D0(D2UnitStrc* pPlayer, int nPetType);
+static int sub_6FC7D9D0(D2UnitStrc* pPlayer, int nPetType);
 
 void __fastcall D2GAME_PACKETS_SendPacket0x81_6FC3E160(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName); // 0x0053CB80
 

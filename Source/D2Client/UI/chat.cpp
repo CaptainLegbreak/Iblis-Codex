@@ -126,7 +126,7 @@ int __cdecl sub_0047AA30_HasClassOverride()
 }
 
 // 0x0047AD60
-static __declspec(noinline) void sub_0047AD60_RefreshCandidates(HIMC hImc)
+static void sub_0047AD60_RefreshCandidates(HIMC hImc)
 {
     unsigned long nListCount;
     unsigned long nSize = ImmGetCandidateListCountA(hImc, &nListCount);

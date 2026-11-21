@@ -10,7 +10,7 @@ extern "C" __declspec(dllimport) int __stdcall ReleaseDC(void* hWnd, void* hDC);
 void* gpBufferBits_007C9154;        // 0x007C9154
 void* ghBufferBitmap_0098A164;        // 0x0098A164
 
-static __declspec(noinline) void sub_006C7B00_CreateBackBuffer(int nResolution);
+static void sub_006C7B00_CreateBackBuffer(int nResolution);
 
 // 0x006C7B00
 static void sub_006C7B00_CreateBackBuffer(int nResolution)

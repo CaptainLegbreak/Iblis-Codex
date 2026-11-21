@@ -253,15 +253,15 @@ void __fastcall sub_0051FAB0_HandleDownloadEvent(int nType, int nSubType, unsign
 
 extern "C" const char gszRecvToBufferFailed_006DF380[]; // 0x006DF380
 
-static __declspec(noinline) void __stdcall sub_0051E440_WriteFileWithTime(const void* pData, unsigned int nSize, const char* szFile, const D2FileTimeStrc* pFileTime);
+static void __stdcall sub_0051E440_WriteFileWithTime(const void* pData, unsigned int nSize, const char* szFile, const D2FileTimeStrc* pFileTime);
 
-static __declspec(noinline) int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, unsigned int nSize);
+static int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, unsigned int nSize);
 
-static __declspec(noinline) unsigned long sub_0051E640_GetFileSizeIfTimeMatches(const char* szFile, const __int64* pFileTime);
+static unsigned long sub_0051E640_GetFileSizeIfTimeMatches(const char* szFile, const __int64* pFileTime);
 
-static __declspec(noinline) int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize);
+static int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize);
 
-static __declspec(noinline) int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, unsigned int nOffset, unsigned int nTotal, int nType);
+static int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, unsigned int nOffset, unsigned int nTotal, int nType);
 
 D2BnDnsArgsStrc gDnsArgs_00881BE8; // 0x00881BE8
 
@@ -298,7 +298,7 @@ int __stdcall sub_004192F0_OpenArchiveFile(void*, const char*, unsigned int, voi
 
 void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int); // 0x00413020
 
-static __declspec(noinline) void __fastcall sub_0051E920_ExtractFile(const char* member, void* archive, const char* destination);
+static void __fastcall sub_0051E920_ExtractFile(const char* member, void* archive, const char* destination);
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
 
@@ -456,7 +456,7 @@ int __fastcall sub_0051E3D0_SendPacket33(const char* szText, int nValue)
 }
 
 // 0x0051E440
-static __declspec(noinline) void __stdcall sub_0051E440_WriteFileWithTime(const void* pData, unsigned int nSize, const char* szFile, const D2FileTimeStrc* pFileTime)
+static void __stdcall sub_0051E440_WriteFileWithTime(const void* pData, unsigned int nSize, const char* szFile, const D2FileTimeStrc* pFileTime)
 {
     unsigned long nWritten;
     void* hFile = sub_00406960_CreateFile(szFile, 0x40000000, 0, 0, 2, 0x80, 0);
@@ -522,7 +522,7 @@ extern "C" int __cdecl sub_0051E5E0_IsPendingCountPositive()
 }
 
 // 0x0051E5F0
-static __declspec(noinline) int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, unsigned int nSize)
+static int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, unsigned int nSize)
 {
     for (unsigned int nRead = 0; nSize > nRead; )
     {
@@ -537,7 +537,7 @@ static __declspec(noinline) int __stdcall sub_0051E5F0_RecvAll(unsigned int nSoc
 extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 
 // 0x0051E640
-static __declspec(noinline) unsigned long sub_0051E640_GetFileSizeIfTimeMatches(const char* szFile, const __int64* pFileTime)
+static unsigned long sub_0051E640_GetFileSizeIfTimeMatches(const char* szFile, const __int64* pFileTime)
 {
     void* hFile = sub_00406960_CreateFile(szFile, 0x80000000, 3, 0, 3, 0x8000000, 0);
     if (hFile == (void*)-1)
@@ -698,7 +698,7 @@ int __cdecl sub_0051EAA0_HasName()
 }
 
 // 0x0051EAB0
-static __declspec(noinline) int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize)
+static int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, int nType, int nFlags, char** ppBuffer, unsigned int nSize)
 {
     *ppBuffer = (char*)SMemAlloc(nSize, gszBnDownloadFile_006DF338, 0x385, 8);
     for (unsigned int nRead = 0; nRead < nSize; )
@@ -731,7 +731,7 @@ static __declspec(noinline) int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int
 }
 
 // 0x0051EBB0
-static __declspec(noinline) int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, unsigned int nOffset, unsigned int nTotal, int nType)
+static int __stdcall sub_0051EBB0_RecvToFile(unsigned int nSocket, const char* szFile, const D2FileTimeStrc* pFileTime, unsigned int nOffset, unsigned int nTotal, int nType)
 {
     char szBuffer[0x5B4];
     unsigned long nWritten;

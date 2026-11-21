@@ -1016,7 +1016,7 @@ static void sub_00516070_ResetSound(D2SoundStrc* pSound)
 }
 
 // 0x005160D0
-__declspec(noinline) void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound)
+void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound)
 {
     D2_ASSERT(pSound, 0x211);
     EnterCriticalSection(&gSoundLock_0088174C);

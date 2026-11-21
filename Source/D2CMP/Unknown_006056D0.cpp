@@ -191,7 +191,7 @@ void __stdcall sub_00605E60_BuildLightenTables(unsigned char* pData)
     }
 }
 
-static __declspec(noinline) void sub_00604DF0_RgbToHsl(const unsigned char* pRgb, D2HslStrc* pHsl)
+static void sub_00604DF0_RgbToHsl(const unsigned char* pRgb, D2HslStrc* pHsl)
 {
     for (unsigned int i = 0; i < 256; ++i)
     {
@@ -245,7 +245,7 @@ static __declspec(noinline) void sub_00604DF0_RgbToHsl(const unsigned char* pRgb
     }
 }
 
-static __declspec(noinline) void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
+static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
 {
     for (int i = 0; i < 256; ++i)
     {
@@ -281,7 +281,7 @@ static __declspec(noinline) void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2
 }
 
 // 0x00606890
-static __declspec(noinline) void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl)
+static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl)
 {
     D2PalRgbaStrc tRgb[256];
 

@@ -508,7 +508,7 @@ static void* gpCelInvChar6Tab_007BCE84;                                         
 
 static int gbGlobal_007BCE90;                                                                               // 0x007BCE90
 
-static __declspec(noinline) void __stdcall sub_00484B10_AppendEtherealSocketed(D2UnitStrc* pItem, Unicode* pText)
+static void __stdcall sub_00484B10_AppendEtherealSocketed(D2UnitStrc* pItem, Unicode* pText)
 {
     int bEthereal = 0;
     unsigned int wszLabel[8];
@@ -546,7 +546,7 @@ static __declspec(noinline) void __stdcall sub_00484B10_AppendEtherealSocketed(D
     }
 }
 
-static __declspec(noinline) void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem, Unicode* pText)
+static void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -564,7 +564,7 @@ static __declspec(noinline) void __stdcall sub_00484DB0_AppendQuantity(D2ItemsTx
     }
 }
 
-static __declspec(noinline) void __stdcall sub_00484E90_AppendDurability(D2UnitStrc* pItem, Unicode* pText)
+static void __stdcall sub_00484E90_AppendDurability(D2UnitStrc* pItem, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -596,7 +596,7 @@ static __declspec(noinline) void __stdcall sub_00484E90_AppendDurability(D2UnitS
     }
 }
 
-static __declspec(noinline) void __stdcall sub_00484FF0_AppendNumberLine(int nValue, Unicode* pText)
+static void __stdcall sub_00484FF0_AppendNumberLine(int nValue, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -610,7 +610,7 @@ static __declspec(noinline) void __stdcall sub_00484FF0_AppendNumberLine(int nVa
     sub_00526700(pText, pColorEnd);
 }
 
-static __declspec(noinline) void __stdcall sub_004850A0_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
+static void __stdcall sub_004850A0_AppendReqStr(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -630,7 +630,7 @@ static __declspec(noinline) void __stdcall sub_004850A0_AppendReqStr(D2ItemsTxt*
     sub_00526700(pText, pColorEnd);
 }
 
-static __declspec(noinline) void __stdcall sub_00485170_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
+static void __stdcall sub_00485170_AppendReqDex(D2ItemsTxt* pItemsTxt, int nBonus, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -650,7 +650,7 @@ static __declspec(noinline) void __stdcall sub_00485170_AppendReqDex(D2ItemsTxt*
     sub_00526700(pText, pColorEnd);
 }
 
-static __declspec(noinline) void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, Unicode* pText)
+static void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -693,7 +693,7 @@ static __declspec(noinline) void __stdcall sub_00485D40_AppendThrowDamage(D2Unit
     sub_00526700(pText, pColorEnd);
 }
 
-static __declspec(noinline) void __stdcall sub_00486100_AppendStackQuantity(D2UnitStrc* pItem, Unicode* pText)
+static void __stdcall sub_00486100_AppendStackQuantity(D2UnitStrc* pItem, Unicode* pText)
 {
     UNum10 wszNumber;
     unsigned int szNumber[3];
@@ -710,7 +710,7 @@ static __declspec(noinline) void __stdcall sub_00486100_AppendStackQuantity(D2Un
     }
 }
 
-static __declspec(noinline) void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
+static void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
     int nBlock = STATLIST_UnitGetStatValue(pItem, STAT_TOBLOCK, 0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -749,7 +749,7 @@ static __declspec(noinline) void __stdcall sub_00485BE0_AppendBlockChance(Unicod
     sub_00526700(pText, W(wszBlock));
 }
 
-static __declspec(noinline) void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
+static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
 {
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
@@ -804,7 +804,7 @@ static __declspec(noinline) void __stdcall sub_004861D0_AppendAttackSpeed(Unicod
 }
 
 // build: context sub_00486370_AppendItemFormulaText
-static __declspec(noinline) void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* pRecord, Unicode* pBuffer)
+static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* pRecord, Unicode* pBuffer)
 {
     if (!pItem || !pRecord || !pRecord->nDescType)
     {
@@ -877,7 +877,7 @@ static __declspec(noinline) void __stdcall sub_00486370_AppendItemFormulaText(D2
     }
 }
 
-static __declspec(noinline) void sub_004865D0_AppendBookCharges(Unicode* pText)
+static void sub_004865D0_AppendBookCharges(Unicode* pText)
 {
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     D2_ASSERT(ITEMSIsA(gdwGlobal_007BCBF4, 0x35), 0xC43);
@@ -887,7 +887,7 @@ static __declspec(noinline) void sub_004865D0_AppendBookCharges(Unicode* pText)
 }
 
 // build: context sub_00486670_AppendSocketedGemLetters
-static __declspec(noinline) void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
+static void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
 {
     D2InventoryStrc* pInventory = pItem->pInventory;
     if (!pInventory)
@@ -942,7 +942,7 @@ static int __stdcall sub_00486820_IsMouseInBox(int nLeft, int nBottom, int nWidt
     return 0;
 }
 
-static __declspec(noinline) int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
+static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
 {
     if (nX >= gaCompGrids_007BCC58[5].rect.nLeft && nX <= gaCompGrids_007BCC58[5].rect.nRight && nY >= gaCompGrids_007BCC58[5].rect.nTop - 0x18 && nY < gaCompGrids_007BCC58[5].rect.nTop)
     {
@@ -956,7 +956,7 @@ static __declspec(noinline) int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
 }
 
 // build: context sub_0048CEA0_AppendItemSetName
-static __declspec(noinline) void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Unicode* pText)
+static void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Unicode* pText)
 {
     unsigned int wszName[0x20];
     memset(wszName, 0, sizeof(wszName));

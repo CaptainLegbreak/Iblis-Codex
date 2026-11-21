@@ -59,7 +59,7 @@ static __forceinline int sub_00527A50_FindIndex(const D2LangCharMapEntryStrc* pM
 }
 
 // 0x00527A50
-static __declspec(noinline) int sub_00527A50_MapCodePageChar(unsigned short wChar)
+static int sub_00527A50_MapCodePageChar(unsigned short wChar)
 {
     if (wChar < 0x20)
         return wChar;

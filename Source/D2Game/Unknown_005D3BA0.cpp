@@ -37,7 +37,7 @@ inline int SKILLS_GetProgressiveState(int nIndex)
     return sgptDataTables->pProgressiveStates[nIndex];
 }
 
-static __declspec(noinline) void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage);
+static void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage);
 
 // 0x005D3970
 static void __stdcall sub_6FCF5BC0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)

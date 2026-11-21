@@ -210,7 +210,7 @@ static inline int Log2Ceil(int nValue)
 }
 
 // 0x004091B0
-static __declspec(noinline) int sub_004091B0_GetPoolIndex(int nSize)
+static int sub_004091B0_GetPoolIndex(int nSize)
 {
     if (nSize <= 0x10)
     {

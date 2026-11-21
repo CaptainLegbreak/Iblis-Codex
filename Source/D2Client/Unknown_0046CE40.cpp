@@ -72,7 +72,7 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, 
     sub_004AFF60_MonsterCommand(nCommand, pUnit, &tCommand);
 }
 
-static __declspec(noinline) void sub_0046CE40_AiType3(D2UnitStrc* pUnit);
+static void sub_0046CE40_AiType3(D2UnitStrc* pUnit);
 
 // 0x0046CE40
 static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)

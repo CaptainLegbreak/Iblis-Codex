@@ -113,7 +113,7 @@ int gnNpcSoundActive_007C0DB4;                                                  
 int gnNpcSoundHandle_007C0DB8;                                                                              // 0x007C0DB8
 extern int gnGlobal_007C0DD0;                                                                               // 0x007C0DD0
 
-static __declspec(noinline) void sub_004B1640_SetNpcInteract(D2UnitStrc* pRecord)
+static void sub_004B1640_SetNpcInteract(D2UnitStrc* pRecord)
 {
     if (pRecord)
     {
@@ -158,7 +158,7 @@ static int __stdcall sub_004B19A0_RunNpcQuestHandlers(int nNpcId, D2BitBufferStr
     return nResult;
 }
 
-static __declspec(noinline) bool sub_004B1A10_IsSpecialNpc(int nClassId)
+static bool sub_004B1A10_IsSpecialNpc(int nClassId)
 {
     if (nClassId == 0x92 || nClassId == 0x20F || nClassId == 0x219 || nClassId == 0x21A || nClassId == 0x21B
         || nClassId == 0x209 || nClassId == 0x10A || nClassId == 0x17A || nClassId == 0xFB || nClassId == 0x179
@@ -167,7 +167,7 @@ static __declspec(noinline) bool sub_004B1A10_IsSpecialNpc(int nClassId)
     return false;
 }
 
-static __declspec(noinline) int sub_004B2E30_FindNpcIndex(D2UnitStrc* pRecord)
+static int sub_004B2E30_FindNpcIndex(D2UnitStrc* pRecord)
 {
     if (!pRecord)
         return -1;
@@ -244,7 +244,7 @@ static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
     return 1;
 }
 
-static __declspec(noinline) void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen);
+static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen);
 
 // 0x004B66B0
 static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)

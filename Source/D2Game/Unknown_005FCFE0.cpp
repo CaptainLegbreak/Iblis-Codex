@@ -46,7 +46,7 @@ inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-__declspec(noinline) static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
+static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs);
 
 // 0x005FBB00
 static int __stdcall sub_005FBB00_GetUberTargetScore(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2AiBaalTargetArgsStrc* pArgs)
@@ -174,7 +174,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-__declspec(noinline) static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit);
+static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit);
 // 0x005FBDD0
 static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCount, D2AiBaalTargetArgsStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit)
 {
@@ -359,7 +359,7 @@ static __forceinline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int 
     return nDefaultValue;
 }
 
-__declspec(noinline) static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
 // 0x005FC070
 static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
@@ -398,7 +398,7 @@ static __forceinline int AIBAAL_GetSkillId_Inline(D2SkillStrc* pSkill)
     return SKILLS_GetSkillIdFromSkill(pSkill, szAiBaalCpp_006E3580, 0x131);
 }
 
-__declspec(noinline) static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit);
+static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit);
 
 // 0x005FC0C0
 static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit)
@@ -431,7 +431,7 @@ static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit)
     return sub_005FC070_CheckPrimeEvilSkill(pUnit, UNITS_GetLeftSkill(pUnit));
 }
 
-__declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax); // 0x005FC450
+static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax); // 0x005FC450
 
 // build: context AIBAAL_RollRandomAiParamForNonCollidingUnit
 static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, int bInCloseRange, int nMax)
@@ -562,7 +562,7 @@ static __forceinline int AIBAAL_GetRandomArrayIndex_Inline(int* pArray, int nArr
     return nDefaultValue;
 }
 
-__declspec(noinline) static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc*, D2UnitStrc*, int, int, int, D2UnitStrc*);
+static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc*, D2UnitStrc*, int, int, int, D2UnitStrc*);
 // 0x005FC300
 static int __stdcall sub_005FC300_RollUberAiParam(D2GameStrc* pGame, D2UnitStrc* pTarget, int nCount, int bInMediumRange, int bInFarRange, D2UnitStrc* pUnit)
 {
@@ -626,7 +626,7 @@ static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
     default: return pUnit->pDynamicPath ? PATH_GetY(pUnit->pDynamicPath) : 0;
     }
 }
-__declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
+static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
 // 0x005FC630
 static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)
 {

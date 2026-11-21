@@ -206,7 +206,7 @@ static __forceinline unsigned int RollPercent(Unit* unit)
 }
 
 // 0x0064A850
-static __declspec(noinline) int __stdcall sub_0064A850_CheckCritical(Unit* unit, Unit* item)
+static int __stdcall sub_0064A850_CheckCritical(Unit* unit, Unit* item)
 {
     int chance = sub_00625480_GetStat(unit, 337, 0);
     if ((int)RollPercent(unit) < chance)
@@ -230,7 +230,7 @@ static __declspec(noinline) int __stdcall sub_0064A850_CheckCritical(Unit* unit,
 }
 
 // 0x0064A930
-static __declspec(noinline) void sub_0064A930_AddElements(Damage* damage, Unit* unit, int shift)
+static void sub_0064A930_AddElements(Damage* damage, Unit* unit, int shift)
 {
     damage->fireMin += sub_00625480_GetStat(unit, 48, 0) << shift;
     damage->fireMax += sub_00625480_GetStat(unit, 49, 0) << shift;
@@ -259,7 +259,7 @@ static __declspec(noinline) void sub_0064A930_AddElements(Damage* damage, Unit* 
 }
 
 // 0x0064AA60
-static __declspec(noinline) void sub_0064AA60_ScaleElements(Damage* damage, int factor)
+static void sub_0064AA60_ScaleElements(Damage* damage, int factor)
 {
     if (factor != 128)
     {
@@ -284,7 +284,7 @@ static __declspec(noinline) void sub_0064AA60_ScaleElements(Damage* damage, int 
 }
 
 // 0x0064ABA0
-static __declspec(noinline) int sub_0064ABA0_ElementBonus(Unit* unit, int kind, int amount)
+static int sub_0064ABA0_ElementBonus(Unit* unit, int kind, int amount)
 {
     int bonus;
     switch (kind)

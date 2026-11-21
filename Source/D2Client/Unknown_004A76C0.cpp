@@ -1243,7 +1243,7 @@ void __cdecl sub_004AC690_DrawSkillPanel()
 }
 
 // 0x004A8CF0
-static __declspec(noinline) int __stdcall sub_004A8CF0_IsMouseInRect(int nX, int nWidth, int nY, int nHeight)
+static int __stdcall sub_004A8CF0_IsMouseInRect(int nX, int nWidth, int nY, int nHeight)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();

@@ -494,7 +494,7 @@ int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill);                
 
 void __stdcall sub_006272B0_UnitStatListCall(D2UnitStrc* pUnit, int nType, int nValue, int n0);             // 0x006272B0
 
-static __declspec(noinline) int __stdcall sub_0056BEC0_UseChargedSkillCharge(D2GameStrc*, D2SkillStrc*, int, D2UnitStrc*);
+static int __stdcall sub_0056BEC0_UseChargedSkillCharge(D2GameStrc*, D2SkillStrc*, int, D2UnitStrc*);
 
 int __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel);
 

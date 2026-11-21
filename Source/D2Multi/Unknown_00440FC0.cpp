@@ -38,7 +38,7 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 extern D2WinControlStrc* gpChatTextBox_0077BD8C; // 0x0077BD8C
 extern char gszLastWhisperer_0077B0D0[]; // 0x0077B0D0
-static __declspec(noinline) int __stdcall sub_0043E6E0_CompareCommand(const char* szText, const char* szCommand);
+static int __stdcall sub_0043E6E0_CompareCommand(const char* szText, const char* szCommand);
 
 struct D2LaunchGameEntryStrc
 {

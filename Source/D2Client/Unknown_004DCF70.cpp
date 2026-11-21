@@ -53,7 +53,7 @@ extern s32 __stdcall sub_00648900_PathY(Path*); // 0x00648900
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-static __declspec(noinline) void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit);
+static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit);
 
 s32 gVar_007C8A08_X; // 0x007C8A08
 
@@ -62,7 +62,7 @@ s32 gVar_007C8A0C_Level; // 0x007C8A0C
 s32 gVar_007C8A10_Y; // 0x007C8A10
 
 // 0x004DCF70
-static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
+static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
     y-=FIELD(s32,context,0xEA6C);
@@ -74,7 +74,7 @@ static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32
 }
 
 // 0x004DCFA0
-static __declspec(noinline) void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
+static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -99,7 +99,7 @@ static __declspec(noinline) void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context
 }
 
 // 0x004DD060
-static __declspec(noinline) s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
+static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
 {
     if(gVar_0072A968_Mode)
     {
@@ -133,7 +133,7 @@ static __declspec(noinline) s32 __stdcall sub_004DD060_Occludes(Room* room,Tile*
 }
 
 // @ref 0x004DD180
-static __declspec(noinline) void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile)
+static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -199,7 +199,7 @@ void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile
 void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile); // 0x004DD460
 
 // @ref 0x004DD550
-static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -219,7 +219,7 @@ static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell,Room
 }
 
 // 0x004DD6E0
-static __declspec(noinline) void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
+static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -327,7 +327,7 @@ s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
 #include "gen/data/Source/D2Client/Unknown_004DCF70.inc"
 
 // 0x004DD600
-static __declspec(noinline) void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
+static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;

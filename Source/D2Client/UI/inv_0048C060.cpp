@@ -337,17 +337,17 @@ typedef int (__fastcall *D2BodyClickFn)(D2UnitStrc*,D2InventoryStrc*,int);
 
 extern D2BodyClickFn gaBodyClick_00721E58[]; // 0x00721E58
 
-__declspec(noinline) int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY);
+int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY);
 
-__declspec(noinline) static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY);
+static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY);
 
-__declspec(noinline) static int sub_00486DA0_IsOverGoldButton(int nX, int nY);
+static int sub_00486DA0_IsOverGoldButton(int nX, int nY);
 
-__declspec(noinline) int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY);
+int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY);
 
-__declspec(noinline) static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, int nX);
+static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, int nX);
 
-static __declspec(noinline) const Unicode* sub_00484A70_GetClassNameText(unsigned int nClass)
+static const Unicode* sub_00484A70_GetClassNameText(unsigned int nClass)
 {
     if (nClass < 7)
     {
@@ -376,7 +376,7 @@ static __declspec(noinline) const Unicode* sub_00484A70_GetClassNameText(unsigne
     exit(-1);
 }
 
-static __declspec(noinline) int sub_00484C90_FormatEarName(D2UnitStrc* pItem, Unicode* pText)
+static int sub_00484C90_FormatEarName(D2UnitStrc* pItem, Unicode* pText)
 {
     if (ITEMS_CheckItemFlag(pItem, 0x1000000, 0x6EA, ".\\UI\\inv.cpp"))
     {
@@ -405,7 +405,7 @@ static __declspec(noinline) int sub_00484C90_FormatEarName(D2UnitStrc* pItem, Un
     return 0;
 }
 
-static __declspec(noinline) int __stdcall sub_00484D30_FormatEarNameTo(D2UnitStrc* pItem, Unicode* pOut, const Unicode* pFormat)
+static int __stdcall sub_00484D30_FormatEarNameTo(D2UnitStrc* pItem, Unicode* pOut, const Unicode* pFormat)
 {
     if (ITEMS_CheckItemFlag(pItem, 0x1000000, 0x70B, ".\\UI\\inv.cpp"))
     {

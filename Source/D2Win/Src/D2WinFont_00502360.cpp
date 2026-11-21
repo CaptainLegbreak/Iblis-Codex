@@ -56,7 +56,7 @@ extern D2FontCache* gpFontCache_00841D88; // 0x00841D88
 extern int gnFontSize_0072DFFC; // 0x0072DFFC
 extern D2FontSlot gaFonts_00841DB0[]; // 0x00841DB0
 
-static __declspec(noinline) int FONT_GetMaxLineWidth(const Unicode* pStr); // 0x00501840
+static int FONT_GetMaxLineWidth(const Unicode* pStr); // 0x00501840
 
 // build: context FONT_GetMaxLineWidth
 static int FONT_GetMaxLineWidth(const Unicode* pStr)
@@ -101,7 +101,7 @@ static int FONT_GetMaxLineWidth(const Unicode* pStr)
     return nCur;
 }
 
-static __declspec(noinline) int FONT_GetFirstLineWidth(const Unicode* pStr); // 0x00501910
+static int FONT_GetFirstLineWidth(const Unicode* pStr); // 0x00501910
 
 // build: context FONT_GetFirstLineWidth
 static int FONT_GetFirstLineWidth(const Unicode* pStr)
@@ -135,7 +135,7 @@ static int FONT_GetFirstLineWidth(const Unicode* pStr)
     return nWidth;
 }
 
-static __declspec(noinline) void __fastcall sub_00501C30(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode); // 0x00501C30
+static void __fastcall sub_00501C30(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode); // 0x00501C30
 
 static __forceinline int FONT_IsCodeChar(Unicode wChar)
 {

@@ -139,7 +139,7 @@ int D2StormQueueStrc::sub_00420DB0_InRange(unsigned int nIndex) const
 }
 
 // 0x004212D0
-__declspec(noinline) unsigned int D2StormQueueStrc::sub_004212D0_Get(unsigned int nIndex) const
+unsigned int D2StormQueueStrc::sub_004212D0_Get(unsigned int nIndex) const
 {
     return sub_00420DB0_InRange(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
 }

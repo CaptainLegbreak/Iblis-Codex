@@ -247,7 +247,7 @@ static __forceinline int FindCharIndex(unsigned short wChar)
 }
 
 // build: context sub_00527A50_MapCodePageChar
-static __declspec(noinline) int sub_00527A50_MapCodePageChar(unsigned short wChar)
+static int sub_00527A50_MapCodePageChar(unsigned short wChar)
 {
     if (wChar < 0x20)
     {

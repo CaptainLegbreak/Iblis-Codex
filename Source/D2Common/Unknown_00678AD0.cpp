@@ -247,11 +247,11 @@ static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, 
     }
 }
 
-static __declspec(noinline) void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg);
-static __declspec(noinline) void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg);
 static __declspec(noinline) void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg);
-static __declspec(noinline) void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg);
-static __declspec(noinline) void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg);
 
 static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg); // 0x00677750
 static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg); // 0x00677790

@@ -622,7 +622,7 @@ void __cdecl sub_004FBDC0_Unsupported()
 }
 
 // 0x004FBE90
-static __declspec(noinline) int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox)
+static int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x393);
     D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x394);

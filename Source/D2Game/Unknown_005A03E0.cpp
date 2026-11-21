@@ -233,7 +233,7 @@ static __forceinline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
     return RollRandomInline(pSeed) & (nMax - 1);
 }
 
-static __declspec(noinline) void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
+static void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
 {
     const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)

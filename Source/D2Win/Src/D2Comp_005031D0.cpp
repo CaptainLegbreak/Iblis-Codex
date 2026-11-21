@@ -191,7 +191,7 @@ void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
 int gnItems_0087D834; // 0x0087D834
 
 // 0x005031D0
-static __declspec(noinline) void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
+static void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
 {
     if (!pSrc[0])
     {
@@ -221,14 +221,14 @@ static __declspec(noinline) void sub_005031D0_CopyTokenPadded(char* pDst, const 
 }
 
 // 0x00503220
-static __declspec(noinline) D2CofDataStrc* sub_00503220_CheckCofData(D2CofDataStrc* pCofData)
+static D2CofDataStrc* sub_00503220_CheckCofData(D2CofDataStrc* pCofData)
 {
     D2_ASSERT(pCofData, 0x3DD);
     return pCofData;
 }
 
 // 0x00503250
-static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(const char* szPath, unsigned int* pnSize)
+static D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(const char* szPath, unsigned int* pnSize)
 {
     D2CofDataStrc* pCofData = (D2CofDataStrc*)sub_00517079_LoadFile(sub_004FAC80(), szPath, pnSize, ".\\Src\\D2Comp.cpp", 0x3EB);
     D2_ASSERT(pCofData, 0x3EC);
@@ -237,7 +237,7 @@ static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(co
 }
 
 // 0x005032B0
-static __declspec(noinline) unsigned char* __stdcall sub_005032B0_GetLayerOrder(int nDirection, int nFrame, D2CofDataStrc* pCofData)
+static unsigned char* __stdcall sub_005032B0_GetLayerOrder(int nDirection, int nFrame, D2CofDataStrc* pCofData)
 {
     D2_ASSERT(pCofData, 0x400);
     const int nFrames = pCofData->nFramesPerDirection;
@@ -247,7 +247,7 @@ static __declspec(noinline) unsigned char* __stdcall sub_005032B0_GetLayerOrder(
 }
 
 // build: context sub_00503340_GetCofNode
-static __declspec(noinline) D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -282,7 +282,7 @@ static __declspec(noinline) D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(uns
 }
 
 // 0x005034B0
-static __declspec(noinline) void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
+static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
 {
     D2_ASSERT(nClass < 25, 0x488);
     D2_ASSERT(nMode < gnModeTokens_0072E0B4, 0x489);
@@ -325,7 +325,7 @@ static __declspec(noinline) void __stdcall sub_005034B0_BuildCofPath(unsigned in
 }
 
 // 0x005035F0
-static __declspec(noinline) D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
 {
     D2_ASSERT(pGfxInfo, 0x4B0);
     for (D2CofInfoStrc* pCofInfo = pGfxInfo->pCofInfo; pCofInfo; pCofInfo = pCofInfo->pNext)
@@ -338,7 +338,7 @@ static __declspec(noinline) D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStr
     return 0;
 }
 
-static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     char szPath[260];
 
@@ -434,7 +434,7 @@ static __declspec(noinline) void __stdcall sub_005038A0_SetupGfxData(D2Composite
 }
 
 // 0x00503920
-static __declspec(noinline) unsigned char __stdcall sub_00503920_DirectionSlot(unsigned int nDirections, unsigned char nDirection)
+static unsigned char __stdcall sub_00503920_DirectionSlot(unsigned int nDirections, unsigned char nDirection)
 {
     D2_ASSERT(nDirection < 64, 0x576);
     const unsigned char nIndex = gaDirectionIndex_006DCA60[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
@@ -443,7 +443,7 @@ static __declspec(noinline) unsigned char __stdcall sub_00503920_DirectionSlot(u
 }
 
 // 0x00503970
-static __declspec(noinline) int __stdcall sub_00503970_CountLayerCels(D2CofDataStrc* pCofData, const unsigned char* pLayerOrder, int* pMaxHeight, unsigned char nDirection, int nFrame, D2CompositeUnitStrc* pCompositeUnit)
+static int __stdcall sub_00503970_CountLayerCels(D2CofDataStrc* pCofData, const unsigned char* pLayerOrder, int* pMaxHeight, unsigned char nDirection, int nFrame, D2CompositeUnitStrc* pCompositeUnit)
 {
     D2_ASSERT(pCompositeUnit, 0x587);
     int nCount = 0;
@@ -632,7 +632,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
 }
 
 // 0x00504040
-static __declspec(noinline) int sub_00504040_LoadUnitCof(D2CompositeUnitStrc* ptCompositeUnit)
+static int sub_00504040_LoadUnitCof(D2CompositeUnitStrc* ptCompositeUnit)
 {
     D2_ASSERT(ptCompositeUnit, 0x81A);
 
@@ -660,7 +660,7 @@ static __declspec(noinline) int sub_00504040_LoadUnitCof(D2CompositeUnitStrc* pt
 int __stdcall sub_00504AF0_GetWeaponClass(unsigned int nUnitIndex, const unsigned char* pComponents); // 0x00504AF0
 
 // 0x00504D60
-static __declspec(noinline) void sub_00504D60_FixComponent(int nComponent, unsigned char* pComponent)
+static void sub_00504D60_FixComponent(int nComponent, unsigned char* pComponent)
 {
     if ((nComponent == 1 || nComponent == 2 || nComponent == 3 || nComponent == 4) && *pComponent > 3)
     {

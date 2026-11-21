@@ -106,7 +106,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
     }
 }
 
-static __declspec(noinline) void sub_00473090_InitParticle(D2SeedStrc* pSeed);
+static void sub_00473090_InitParticle(D2SeedStrc* pSeed);
 
 // 0x00473090
 static void sub_00473090_InitParticle(D2SeedStrc* pSeed)

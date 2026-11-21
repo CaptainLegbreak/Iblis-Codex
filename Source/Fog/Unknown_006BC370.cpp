@@ -12,7 +12,7 @@ struct QSocket { char pad00[0x110]; NetData* net; };
 
 
 void __fastcall sub_0040DBD0_FreeNet(NetData*); // 0x0040DBD0
-static __declspec(noinline) void __stdcall sub_006BC370_FreeNet(QSocket* socket);
+static void __stdcall sub_006BC370_FreeNet(QSocket* socket);
 
 struct sub_006BC560_Strc
 {

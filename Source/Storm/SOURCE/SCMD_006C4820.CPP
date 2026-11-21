@@ -253,7 +253,7 @@ extern "C" char* __cdecl strstr(const char*, const char*);
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void*, unsigned int, char*, int);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*, const char*, ...);
 
-static __declspec(noinline)
+static
 
 // build: context sub_006C3E10_ReportCommandError
 void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigned int error, const char* context)
@@ -302,7 +302,7 @@ const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
 #define OPTION_MAX(a, b) ((a) < (b) ? (b) : (a))
 
-__declspec(noinline) static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
+static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
 
 // build: context sub_006C4A00_ParseOptionString
 static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError)
@@ -367,14 +367,14 @@ static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, Option
 
 typedef int (__stdcall* OptionCallbackToken)(const char* szToken);
 
-static __declspec(noinline) int __stdcall sub_006C4BC0_HandleToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
+static int __stdcall sub_006C4BC0_HandleToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char*, unsigned int, unsigned int, void*, unsigned int, unsigned int, void*);
 extern "C" __declspec(dllimport) unsigned int __stdcall GetFileSize(void*, unsigned int*);
 extern "C" __declspec(dllimport) int __stdcall ReadFile(void*, void*, unsigned int, unsigned int*, void*);
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
 int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionContextStrc* pContext, OptionStrc** ppOption, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError); // 0x006C4EC0
 
-static __declspec(noinline)
+static
 
 // build: context sub_006C3F50_ReadCommandFile
 int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* arg1, OptionStrc** arg2, OptionCallbackToken arg3, D2ErrorCallback callback)

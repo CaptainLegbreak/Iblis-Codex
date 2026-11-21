@@ -13,7 +13,7 @@ struct D2StormArrayAStrc
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
 // 0x00422FC0
-static __declspec(noinline) void __stdcall sub_00422FC0_SubFromBig(D2StormArrayAStrc* pSrc, D2StormArrayAStrc* pDst, unsigned int nValue)
+static void __stdcall sub_00422FC0_SubFromBig(D2StormArrayAStrc* pSrc, D2StormArrayAStrc* pDst, unsigned int nValue)
 {
     unsigned __int64 nAcc = ~(unsigned __int64)nValue + 1;
     unsigned int nIndex = 0;

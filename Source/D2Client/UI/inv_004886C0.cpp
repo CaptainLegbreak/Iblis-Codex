@@ -434,7 +434,7 @@ void __stdcall sub_004917C0_OnGridClickMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-static __declspec(noinline) int sub_00483B40_IsInRect(int nX, int nY)
+static int sub_00483B40_IsInRect(int nX, int nY)
 {
     if (sub_0044DCC0())
     {
@@ -452,7 +452,7 @@ static __declspec(noinline) int sub_00483B40_IsInRect(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483BA0_IsInRect(int nX, int nY)
+static int sub_00483BA0_IsInRect(int nX, int nY)
 {
     if (sub_0044DCC0())
     {

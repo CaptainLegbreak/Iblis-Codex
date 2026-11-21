@@ -59,7 +59,7 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithField(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms); // 0x0064E810
 
-static __declspec(noinline) int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts); // 0x00556240
+static int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts); // 0x00556240
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -576,7 +576,7 @@ static int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc*
 }
 
 // 0x00556360
-static __declspec(noinline) void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
+static void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pItemsTxtRecord, 0x1C9);
@@ -589,7 +589,7 @@ static __declspec(noinline) void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
 }
 
 // 0x005563D0
-static __declspec(noinline) void sub_005563D0_SetWeaponDamage(D2UnitStrc* pItem)
+static void sub_005563D0_SetWeaponDamage(D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pItemsTxtRecord, 0x1DB);
@@ -634,7 +634,7 @@ void sub_A04_Emit_00557AB0(D2UnitStrc** ppItem, int bWeapon)
 }
 
 // 0x005564A0
-static __declspec(noinline) unsigned int ITEMS_HasUniqueBeenDroppedAlready(D2GameStrc* pGame, int nUniqueItemId)
+static unsigned int ITEMS_HasUniqueBeenDroppedAlready(D2GameStrc* pGame, int nUniqueItemId)
 {
     if (!pGame)
     {

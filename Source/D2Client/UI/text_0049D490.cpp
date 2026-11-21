@@ -172,7 +172,7 @@ extern D2CoordStrc gtHoverOffset_007BF214; // 0x007BF214
 
 extern int gnHoverRectCount_007BF224; // 0x007BF224
 
-__declspec(noinline) bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
+bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
 
 void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 
@@ -468,7 +468,7 @@ int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
 
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
-static __declspec(noinline) int sub_004A47C0_GetButtonAt(int nX, int nY);
+static int sub_004A47C0_GetButtonAt(int nX, int nY);
 
 int gnGlobal_007BF298; // 0x007BF298
 
@@ -1770,7 +1770,7 @@ static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
 }
 
 // 0x004A47C0
-static __declspec(noinline) int sub_004A47C0_GetButtonAt(int nX, int nY)
+static int sub_004A47C0_GetButtonAt(int nX, int nY)
 {
     unsigned int i;
     for (i = 0; i < 3; ++i)
@@ -1798,7 +1798,7 @@ static int sub_004A47F0_IsInList(int nX, int nY)
 }
 
 // 0x004A4860
-static __declspec(noinline) int sub_004A4860_IsOnUpArrow(int nX, int nY)
+static int sub_004A4860_IsOnUpArrow(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1810,7 +1810,7 @@ static __declspec(noinline) int sub_004A4860_IsOnUpArrow(int nX, int nY)
 }
 
 // 0x004A48B0
-static __declspec(noinline) int sub_004A48B0_IsOnDownArrow(int nX, int nY)
+static int sub_004A48B0_IsOnDownArrow(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1822,7 +1822,7 @@ static __declspec(noinline) int sub_004A48B0_IsOnDownArrow(int nX, int nY)
 }
 
 // 0x004A4900
-static __declspec(noinline) int sub_004A4900_IsAboveThumb(int nX, int nY)
+static int sub_004A4900_IsAboveThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1833,7 +1833,7 @@ static __declspec(noinline) int sub_004A4900_IsAboveThumb(int nX, int nY)
 }
 
 // 0x004A4950
-static __declspec(noinline) int sub_004A4950_IsOnThumb(int nX, int nY)
+static int sub_004A4950_IsOnThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -1844,7 +1844,7 @@ static __declspec(noinline) int sub_004A4950_IsOnThumb(int nX, int nY)
 }
 
 // 0x004A49A0
-static __declspec(noinline) int sub_004A49A0_IsBelowThumb(int nX, int nY)
+static int sub_004A49A0_IsBelowThumb(int nX, int nY)
 {
     if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
     {
@@ -2712,7 +2712,7 @@ static __forceinline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nCla
 }
 
 // 0x004A7300
-static __declspec(noinline) int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
+static int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {

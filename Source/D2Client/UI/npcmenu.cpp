@@ -321,7 +321,7 @@ extern int g007C0D8E; // 0x007C0D8E
 extern int g007C0D96; // 0x007C0D96
 extern int g007C0DE1; // 0x007C0DE1
 extern int g007C0DE5; // 0x007C0DE5
-static __declspec(noinline) int sub_004B2E30_FindNpcIndex(D2NpcRecordStrc* pRecord);
+static int sub_004B2E30_FindNpcIndex(D2NpcRecordStrc* pRecord);
 
 struct UnicodeChar : Unicode
 {
@@ -572,7 +572,7 @@ D2UnitStrc* __cdecl sub_004B1620_GetInteractNpc()
 }
 
 // 0x004B1640
-static __declspec(noinline) void sub_004B1640_SetNpcInteract(D2NpcRecordStrc* pRecord)
+static void sub_004B1640_SetNpcInteract(D2NpcRecordStrc* pRecord)
 {
     if (pRecord)
     {
@@ -658,7 +658,7 @@ static int __stdcall sub_004B19A0_RunNpcQuestHandlers(int nNpcId, D2BitBufferStr
 }
 
 // 0x004B1A10
-static __declspec(noinline) bool sub_004B1A10_IsSpecialNpc(int nClassId)
+static bool sub_004B1A10_IsSpecialNpc(int nClassId)
 {
     if (nClassId == 0x92 || nClassId == 0x20F || nClassId == 0x219 || nClassId == 0x21A || nClassId == 0x21B
         || nClassId == 0x209 || nClassId == 0x10A || nClassId == 0x17A || nClassId == 0xFB || nClassId == 0x179
@@ -694,7 +694,7 @@ static __forceinline D2UnitStrc* NPC_GetInteractUnit_Inline()
 }
 
 // build: context sub_004B1C80_GetNpcDialogPos
-static __declspec(noinline) int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords)
+static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords)
 {
     if (NPC_GetInteractUnit_Inline())
     {
@@ -1090,7 +1090,7 @@ int __cdecl sub_004B2E20_IsQuestActive()
 }
 
 // 0x004B2E30
-static __declspec(noinline) int sub_004B2E30_FindNpcIndex(D2NpcRecordStrc* pRecord)
+static int sub_004B2E30_FindNpcIndex(D2NpcRecordStrc* pRecord)
 {
     if (!pRecord)
         return -1;

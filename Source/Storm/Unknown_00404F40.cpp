@@ -25,7 +25,7 @@ struct D2ImageOptionalHeader32Strc
     D2ImageDataDirStrc DataDirectory[16];
 };
 
-static __declspec(noinline) void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader32Strc* pHeader);
+static void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader32Strc* pHeader);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall VirtualQuery(const void* pAddress, D2MemoryBasicInfoStrc* pBuffer, unsigned long nLength); // 0x006CC244
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
@@ -158,7 +158,7 @@ void __cdecl operator delete(void* pMemory);
 void* __cdecl operator new(size_t nSize);
 
 // 0x00404F40
-static __declspec(noinline) void __stdcall sub_00404F40_GetDebugDirectory64(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader64Strc* pHeader)
+static void __stdcall sub_00404F40_GetDebugDirectory64(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader64Strc* pHeader)
 {
     if (pHeader->NumberOfRvaAndSizes > 6)
     {
@@ -831,7 +831,7 @@ int __stdcall sub_K01_Emit_00406190(void* hModule, const char* szName, void** pp
 }
 
 // 0x00406470
-static __declspec(noinline) int sub_00406470_OpenServiceHandles(void** phService, void** phManager)
+static int sub_00406470_OpenServiceHandles(void** phService, void** phManager)
 {
     *phService = 0;
     *phManager = 0;

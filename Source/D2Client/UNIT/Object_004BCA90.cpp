@@ -101,7 +101,7 @@ char __cdecl sub_004A3110_GetFlag025F(); // 0x004A3110
 char __cdecl sub_004A3120_IsQuestUnitPresent(); // 0x004A3120
 void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY); // 0x004A3150
 
-__declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
+void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
 
 static void __stdcall sub_004BC580_UpdateLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue)
 {
@@ -506,7 +506,7 @@ void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit)
 }
 
 // 0x004BCB20
-static __declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
+static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
 {
     const int nMode = pUnit->dwAnimMode;
     const int nFrameCnt = pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode];

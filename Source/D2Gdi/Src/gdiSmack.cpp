@@ -24,7 +24,7 @@ extern int gbRemapValid_0098A27C; // 0x0098A27C
 extern unsigned char gabGamePalette_007C8CC8[]; // 0x007C8CC8
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gbRenderPaused_007C9144; // 0x007C9144
-static __declspec(noinline) void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows);
+static void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" __declspec(dllimport) D2SmackStrc* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604

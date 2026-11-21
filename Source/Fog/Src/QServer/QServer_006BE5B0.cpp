@@ -94,9 +94,9 @@ struct D2Server006BE890Strc
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-static __declspec(noinline) int __cdecl sub_006BF180_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D2InAddrStrc* pAddress);
+static int __cdecl sub_006BF180_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D2InAddrStrc* pAddress);
 
-static __declspec(noinline) int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey);
+static int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey);
 
 extern unsigned int gaMaskTable_0074C3F0[]; // 0x0074C3F0
 
@@ -120,9 +120,9 @@ struct D2MaskPairListStrc
     int __thiscall sub_006BF660_HasMaskedKey(unsigned int nMask);
 };
 
-static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2QClientStrc* pClient);
+static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2QClientStrc* pClient);
 
-__declspec(noinline) static int sub_006BF260_ExpireNodes(D2QueueServerStrc* pServer);
+static int sub_006BF260_ExpireNodes(D2QueueServerStrc* pServer);
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -144,7 +144,7 @@ struct sub_006BF320_Server
     char cs[0x18];
 };
 
-static __declspec(noinline) void sub_006BF320_FreePending(sub_006BF320_Server* pServer);
+static void sub_006BF320_FreePending(sub_006BF320_Server* pServer);
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* lpAddend);
 
@@ -160,9 +160,9 @@ const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x00
 
 long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 
-static __declspec(noinline) void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId);
+static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId);
 
-static __declspec(noinline) void sub_006BE650_DestroyClient(D2QClientStrc* pClient);
+static void sub_006BE650_DestroyClient(D2QClientStrc* pClient);
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -190,7 +190,7 @@ extern const char gszFile_006FC460[]; // 0x006FC460
 
 extern const char gszHack_006FC4A8[]; // 0x006FC4A8
 
-static __declspec(noinline) void __stdcall sub_006C0770_BanClient(D2QueueServerStrc*, int, const char*, int);
+static void __stdcall sub_006C0770_BanClient(D2QueueServerStrc*, int, const char*, int);
 
 unsigned int gnLastHackListLog_00989C34; // 0x00989C34
 

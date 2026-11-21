@@ -76,7 +76,7 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static __declspec(noinline) int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile);
+static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile);
 
 // 0x004CD310
 static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile)

@@ -107,7 +107,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
-__declspec(noinline) static int sub_004E6FB0_GetETypeColor(int nEType);
+static int sub_004E6FB0_GetETypeColor(int nEType);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -137,10 +137,10 @@ struct D2UnitStrc;
 
 extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC
 
-static __declspec(noinline) int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, Unicode* wszText, int nMin, int nMax);
+static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, Unicode* wszText, int nMin, int nMax);
 
 
-static __declspec(noinline) int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel);
+static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel);
 
 static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
 {
@@ -287,7 +287,7 @@ static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int*
     *pMaxDamage += nMax * nRatio / 128;
 }
 
-static __declspec(noinline) void __stdcall sub_004E96E0_DrawDamageRange(int nMin, int nMax, int nColor, int nY, int nLeft, int nRight)
+static void __stdcall sub_004E96E0_DrawDamageRange(int nMin, int nMax, int nColor, int nY, int nLeft, int nRight)
 {
     if (nMin >= nMax)
     {

@@ -255,7 +255,7 @@ static char gszSLogTime_007792B0[0x40]; // 0x007792B0
 
 static unsigned long gdwSLogLastTick_007792F0; // 0x007792F0
 
-static __declspec(noinline) void sub_0041FA40_FlushLog(T0041FA40* pLog)
+static void sub_0041FA40_FlushLog(T0041FA40* pLog)
 {
     unsigned long dwWritten;
     if (pLog->nUsed)
@@ -267,7 +267,7 @@ static __declspec(noinline) void sub_0041FA40_FlushLog(T0041FA40* pLog)
     }
 }
 
-static __declspec(noinline) T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog)
+static T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog)
 {
     if (!hLog)
     {
@@ -319,14 +319,14 @@ static __declspec(noinline) void sub_0041FB40_AppendIndent(T0041FA40* pLog)
     }
 }
 
-static __declspec(noinline) void sub_0041FB80_AppendNewline(T0041FA40* pLog)
+static void sub_0041FB80_AppendNewline(T0041FA40* pLog)
 {
     SMemCopy(pLog->szBuffer + pLog->nUsed, gszSLogNewline_006CFF08, 3);
     pLog->nUsed += 2;
 }
 
 // 0x0041FBA0
-static __declspec(noinline) void __stdcall sub_0041FBA0_AppendTimestamp(int bText, T0041FA40* pLog)
+static void __stdcall sub_0041FBA0_AppendTimestamp(int bText, T0041FA40* pLog)
 {
     if (!pLog->f_18)
         return;
@@ -352,7 +352,7 @@ static __declspec(noinline) void __stdcall sub_0041FBA0_AppendTimestamp(int bTex
     sub_0041FB40_AppendIndent(pLog);
 }
 
-static __declspec(noinline) void sub_0041FC80_UnlinkLog(T0041FA40* pLog, unsigned long nIndex)
+static void sub_0041FC80_UnlinkLog(T0041FA40* pLog, unsigned long nIndex)
 {
     T0041FA40** ppNext = &gapSLogBuckets_00779298[nIndex];
     for (T0041FA40* p = *ppNext; p; p = *ppNext)
@@ -368,7 +368,7 @@ static __declspec(noinline) void sub_0041FC80_UnlinkLog(T0041FA40* pLog, unsigne
     LeaveCriticalSection(&gaSLogLocks_00779238[nIndex]);
 }
 
-static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex)
+static void sub_0041FCE0_UnlockLog(unsigned long nIndex)
 {
     LeaveCriticalSection(&gaSLogLocks_00779238[nIndex]);
 }
@@ -561,7 +561,7 @@ void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
 }
 
 // 0x00420A70
-static __declspec(noinline) int __stdcall sub_00420A70_RegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+static int __stdcall sub_00420A70_RegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
     VALIDATEBEGIN;
     VALIDATE(pHandler);

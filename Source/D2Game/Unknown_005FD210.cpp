@@ -22,7 +22,7 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 int __stdcall shim_1(void* p1, void* p2);
 
 // build: context sub_005FBDD0
-static __declspec(noinline) D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, void* pArgs, AIBAAL_CullFn pfCull)
+static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pMax, int* pCount, void* pArgs, AIBAAL_CullFn pfCull)
 {
 
     int a = shim_1(&pGame, &pMax);
@@ -36,7 +36,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame
 }
 
 // build: context sub_005FC630
-static __declspec(noinline) int __stdcall sub_005FC630(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)
+static int __stdcall sub_005FC630(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)
 {
 
     pTarget->dwUnitType = 0;

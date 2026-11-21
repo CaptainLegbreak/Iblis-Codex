@@ -229,7 +229,7 @@ void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit);            
 
 D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pArg2, unsigned char* pArg3, int nArg4, int nArg5, int nArg6); // 0x00466360
 
-__declspec(noinline) int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit);
+int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit);
 
 struct D2InventoryStrc;
 
@@ -884,7 +884,7 @@ void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUni
     sub_00465E80_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId & 0x7F);
 }
 
-static __declspec(noinline) D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit)
+static D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit)
 {
     if (!sub_00463A50_AddUnitToTable(pUnit))
     {
@@ -1172,7 +1172,7 @@ D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY
     return sub_00465FD0_InitUnit(gnPresetUnitId_00711F30, nClassId, nY, nUnitType, nArg, 0, pUnit, nX);
 }
 
-static __declspec(noinline) void sub_004656C0_ClassEffects(D2UnitStrc* pUnit, int nClassId)
+static void sub_004656C0_ClassEffects(D2UnitStrc* pUnit, int nClassId)
 {
     switch (nClassId)
     {

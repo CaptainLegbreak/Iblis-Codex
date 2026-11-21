@@ -872,7 +872,7 @@ static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
     return *(char*)pTextBox;
 }
 
-static __declspec(noinline) int __stdcall sub_004A0770(T00479230* pTextBox, int bIgnore)
+static int __stdcall sub_004A0770(T00479230* pTextBox, int bIgnore)
 {
     if (bIgnore)
     {
@@ -925,7 +925,7 @@ static __declspec(noinline) int __stdcall sub_004A0770(T00479230* pTextBox, int 
     return 1;
 }
 
-static __declspec(noinline) int sub_0049D9A0_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
+static int sub_0049D9A0_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
 {
     if (!pTextBox->nScroll)
         pTextBox->nScroll = 1;

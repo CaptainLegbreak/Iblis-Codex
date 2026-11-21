@@ -23,7 +23,7 @@ void __fastcall sub_6FC61190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonsterEqui
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
-static __declspec(noinline) void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit);
+static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit);
 
 // 0x005B1C50
 static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)

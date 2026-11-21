@@ -17,7 +17,7 @@ static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode)
     *ppNode = pNext;
 }
 
-static __declspec(noinline) void sub_004578B0_PivotPrev(D2AutomapCellStrc** ppNode);
+static void sub_004578B0_PivotPrev(D2AutomapCellStrc** ppNode);
 
 // 0x004578B0
 static void sub_004578B0_PivotPrev(D2AutomapCellStrc** ppNode)

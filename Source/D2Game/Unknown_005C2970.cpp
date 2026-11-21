@@ -34,7 +34,7 @@ static __forceinline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSee
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-static __declspec(noinline) int __stdcall sub_005C2970_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);
+static int __stdcall sub_005C2970_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);
 
 // 0x005C2970
 static int __stdcall sub_005C2970_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)

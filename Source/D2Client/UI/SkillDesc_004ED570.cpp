@@ -36,7 +36,7 @@ D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc*); // 0x0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
 
 // 0x004E6E30
-static __declspec(noinline) unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
+static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     D2SkillDescTxt* pSkillDescTxtRecord = 0;
@@ -49,7 +49,7 @@ static __declspec(noinline) unsigned short sub_004E6E30_GetSkillDescAltStr(int n
     return pSkillDescTxtRecord->wStrAlt;
 }
 
-static __declspec(noinline) void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue); // 0x004E9940
+static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue); // 0x004E9940
 
 // build: context sub_004E9940_DrawNumberCentered
 static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue)

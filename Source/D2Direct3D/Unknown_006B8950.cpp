@@ -35,7 +35,7 @@ void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 #define D3D_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
 #define D2ASSERT(c,l) if(!(c)) { sub_00408A60(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
-__declspec(noinline) static void __stdcall sub_006B7FD0_Viewport(int,volatile D2RectStrc*,int*,int);
+static void __stdcall sub_006B7FD0_Viewport(int,volatile D2RectStrc*,int*,int);
 static void __stdcall sub_006B7FD0_Viewport(int,volatile D2RectStrc*,int*,int); // 0x006B7FD0
 // 0x006B7FD0
 static void __stdcall sub_006B7FD0_Viewport(int nSide, D2RectStrc* pRect, int* pOffset, int bFlag)
@@ -80,7 +80,7 @@ static void __stdcall sub_006B7FD0_Viewport(int nSide, D2RectStrc* pRect, int* p
         break;
     }
 }
-__declspec(noinline) static int __stdcall sub_006B87A0_Flat(D2TileStrc*,int,int,U32*,int,U8);
+static int __stdcall sub_006B87A0_Flat(D2TileStrc*,int,int,U32*,int,U8);
 static int __stdcall sub_006B87A0_Flat(D2TileStrc*,int,int,U32*,int,U8); // 0x006B87A0
 
 // build: context sub_006B87A0_Flat
@@ -108,7 +108,7 @@ static int __stdcall sub_006B87A0_Flat(D2TileStrc* tile,int x,int y,U32* light,i
  }
  return result;
 }
-__declspec(noinline) static int __stdcall sub_006B8950_Lit(int,D2TileStrc*,int,int,U32*,U8);
+static int __stdcall sub_006B8950_Lit(int,D2TileStrc*,int,int,U32*,U8);
 static int __stdcall sub_006B8950_Lit(int,D2TileStrc*,int,int,U32*,U8); // 0x006B8950
 // 0x006B8950
 static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int nPosX, int nPosY, U32* pLight, U8 nAlpha)
@@ -200,7 +200,7 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
 
     return nResult;
 }
-__declspec(noinline) static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc*,int,int,U32*,int,U8);
+static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc*,int,int,U32*,int,U8);
 static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc*,int,int,U32*,int,U8); // 0x006B8DF0
 
 // build: context sub_006B8DF0_AlphaWall

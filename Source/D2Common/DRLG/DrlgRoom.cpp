@@ -131,9 +131,9 @@ void __fastcall DRLGROOM_AllocDrlgOrthsForRooms(D2DrlgRoomStrc* pDrlgRoom1, D2Dr
 
 void __fastcall sub_0066B670(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2);
 
-static __declspec(noinline) int sub_0066B6A0(D2DrlgOrthStrc*, D2DrlgOrthStrc*); // 0x0066B6A0
+static int sub_0066B6A0(D2DrlgOrthStrc*, D2DrlgOrthStrc*); // 0x0066B6A0
 
-static __declspec(noinline) void __stdcall sub_0066B720(D2DrlgOrthStrc**, D2DrlgOrthStrc*); // 0x0066B720
+static void __stdcall sub_0066B720(D2DrlgOrthStrc**, D2DrlgOrthStrc*); // 0x0066B720
 
 static int sub_0066B6A0(D2DrlgOrthStrc* pDrlgOrth1, D2DrlgOrthStrc* pDrlgOrth2);
 

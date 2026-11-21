@@ -178,7 +178,7 @@ static __forceinline void* CharSelCache_FindData(unsigned int dwHash, int nTick)
 }
 
 // 0x0043AD10
-static __declspec(noinline) void sub_0043AD10_RequestCharList(char* szName)
+static void sub_0043AD10_RequestCharList(char* szName)
 {
     sub_00438EA0_FreeCharList();
     gdwGlobal_00779DB8 = 0;
@@ -239,7 +239,7 @@ D2WinControlStrc* gpControl_00779D98; // 0x00779D98
 
 D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
 
-static __declspec(noinline) int sub_00437A20_FindSlotName(const char* szName)
+static int sub_00437A20_FindSlotName(const char* szName)
 {
     int i = 0;
     char* szSlot;
@@ -450,12 +450,12 @@ int __stdcall sub_0043B940_OnTick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0043C530
-static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)
+static long sub_0051DC70_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
 
-static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -463,7 +463,7 @@ static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int n
     return nValue + 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
+static int sub_0051DD20_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -471,7 +471,7 @@ static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
     return cLower - 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD40_MapKeyChar(unsigned char cChar)
+static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap_006DF238[cChar];
 }

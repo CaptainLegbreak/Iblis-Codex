@@ -298,7 +298,7 @@ extern "C" const char gszCharsDir_006DCC34[];                                   
 
 extern "C" const char gszSpriteCacheSourceFile[];                                                           // 0x006E364C
 
-__declspec(noinline) int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
+int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
 
 void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
 
@@ -314,9 +314,9 @@ int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDir
 
 D2CmpGfxHashEntryStrc* __fastcall sub_0060ADC0_GfxHashAdd(void* pMemPool, D2CmpBlockTableBStrc* pHash, D2CmpSpriteEntryStrc* pEntry, D2CmpSpriteContextStrc* pContext, D2CmpSpriteFileStrc* pFile); // 0x0060ADC0
 
-__declspec(noinline) static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
+static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
 
-static __declspec(noinline) int __stdcall sub_005FF760_LoadDCCFrames(D2CmpSpriteContextStrc* pContext, int nDirection, int nFrames, const char* szName, D2CmpSpriteFileStrc* pFile, D2CmpSpriteEntryStrc* pEntry);
+static int __stdcall sub_005FF760_LoadDCCFrames(D2CmpSpriteContextStrc* pContext, int nDirection, int nFrames, const char* szName, D2CmpSpriteFileStrc* pFile, D2CmpSpriteEntryStrc* pEntry);
 
 struct D2CmpGfxHashStrc;
 
@@ -389,7 +389,7 @@ int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x0040693
 
 int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 
-static __declspec(noinline) SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*, char*, char*);
+static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*, char*, char*);
 
 static D2SpriteCacheNodeStrc* __stdcall sub_005FF0F0_SpriteCachePopHead(int bLocked, D2SpriteCacheStrc* pCache); // 0x005FF0F0
 
@@ -517,7 +517,7 @@ static __forceinline int SpriteCache_CopyName(char* szDst, const char* szSrc)
     return 1;
 }
 
-static __declspec(noinline) int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut)
+static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut)
 {
     switch (pContext->nType)
     {
@@ -595,7 +595,7 @@ static __forceinline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* 
     return 1;
 }
 
-static __declspec(noinline) int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut)
+static int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut)
 {
     int bCompressed;
 
@@ -712,7 +712,7 @@ Fail:
 }
 
 // 0x005FEC90
-static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
+static void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
 {
     char szName[0x104];
     char szPath[0x104];

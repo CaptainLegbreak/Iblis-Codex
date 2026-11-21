@@ -18,7 +18,7 @@ extern SymGetModuleInfo64Fn gpfnSymGetModuleInfo64_0098A684;                    
 extern bool gbSymInitialized_0098A6B0;                                                                      // 0x0098A6B0
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
 
-static __declspec(noinline) bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, unsigned long* pdwBase, char* szModule);
+static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, unsigned long* pdwBase, char* szModule);
 
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()

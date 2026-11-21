@@ -409,7 +409,7 @@ static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUni
         pUnit->dwFlags &= ~0x20;
 }
 
-static __declspec(noinline) void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
+static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);
 
 // 0x004BCF60
 static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget)

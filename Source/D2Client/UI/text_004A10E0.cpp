@@ -50,7 +50,7 @@ extern int gnTextLeft_007BF278; // 0x007BF278
 static int gnHandlersSet_007BF27C; // 0x007BF27C
 
 // 0x0049D370
-static __declspec(noinline) void sub_0049D370_FreeTextLines(D2TextRowStrc* pLine)
+static void sub_0049D370_FreeTextLines(D2TextRowStrc* pLine)
 {
     while (pLine)
     {

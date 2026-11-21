@@ -7,7 +7,7 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" const char szFmtD_006D57BC[];                                                                    // 0x006D57BC
 extern "C" const char szFmtRange_006D9D70[];                                                                // 0x006D9D70
 
-static __declspec(noinline) void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, wchar_t* wszText, int bUseFormat, int nMinDamage, int nMaxDamage);
+static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, wchar_t* wszText, int bUseFormat, int nMinDamage, int nMaxDamage);
 // 0x004E74A0
 static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, wchar_t* wszText, int bUseFormat, int nMinDamage, int nMaxDamage)
 {

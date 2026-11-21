@@ -76,9 +76,9 @@ extern D2MazeRoomFn const gpfnMazeGetBarracksEntryRoom[3]; // 0x006F0468
 
 static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom); // 0x006709B0
 
-static __declspec(noinline) int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection); // 0x00672340
+static int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection); // 0x00672340
 
-static __declspec(noinline) void __stdcall DRLGMAZE_InitBasicMazeLayout(int nRoomsPerDirection, D2DrlgLevelStrc* pLevel);
+static void __stdcall DRLGMAZE_InitBasicMazeLayout(int nRoomsPerDirection, D2DrlgLevelStrc* pLevel);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -92,7 +92,7 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgM
 
 static __declspec(noinline) int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom, int nDirection, D2DrlgRoomStrc* pNewRoomEx);
 
-static __declspec(noinline) D2DrlgRoomStrc* DRLGMAZE_GetFreeLocationForRoomSouth(D2DrlgLevelStrc* pLevel);
+static D2DrlgRoomStrc* DRLGMAZE_GetFreeLocationForRoomSouth(D2DrlgLevelStrc* pLevel);
 
 static __forceinline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed);
 
@@ -104,7 +104,7 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddSpecialPreset(int nDirection, int n
 
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_InitRoomFixedPreset(D2DrlgRoomStrc* pDrlgRoom, int nDirection, int nLvlPrestId, int nFile, int bUseInitPreset);
 
-static __declspec(noinline) void __stdcall DRLGMAZE_ScanReplaceSpecialPreset(D2DrlgLevelStrc* pLevel, const D2MazeLevelIdStrc* pMazeInit, int* pRand);
+static void __stdcall DRLGMAZE_ScanReplaceSpecialPreset(D2DrlgLevelStrc* pLevel, const D2MazeLevelIdStrc* pMazeInit, int* pRand);
 
 extern const D2MazeLevelIdStrc gnAct2SewerPrevIds[4];                                       // 0x006EFCE8
 
@@ -118,7 +118,7 @@ extern const D2MazeLevelIdStrc gnAct2SewerChestIds[4];                          
 
 D2DrlgRoomStrc* __fastcall DRLGMAZE_GetFreeLocationForRoomWest(D2DrlgLevelStrc* pLevel); // 0x00672460
 
-static __declspec(noinline) void DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(D2DrlgLevelStrc* pLevel);
+static void DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(D2DrlgLevelStrc* pLevel);
 
 static int sub_00670810(D2DrlgLevelStrc* pLevel);
 
@@ -1019,7 +1019,7 @@ void __fastcall DRLGMAZE_PlaceArcaneSanctuary(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x00672340
-static __declspec(noinline) int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection)
+static int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection)
 {
     if (!MAZE_IsPresetUnset(pDrlgRoom))
     {
@@ -1048,7 +1048,7 @@ static __declspec(noinline) int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2Drl
     return bResult;
 }
 
-static void __declspec(noinline) __stdcall sub_006738C0(D2DrlgMapStrc* pDrlgMap, int nPickedFile, D2DrlgLevelStrc* pLevel)
+static void __stdcall sub_006738C0(D2DrlgMapStrc* pDrlgMap, int nPickedFile, D2DrlgLevelStrc* pLevel)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
     if (nPickedFile != -1)

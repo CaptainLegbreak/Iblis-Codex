@@ -799,7 +799,7 @@ static __forceinline void SKILLCLT_SetCastState(D2UnitStrc* pUnit)
 }
 
 // 0x004C5710
-static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
+static int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
 {
     int nMode = 7;
     D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
@@ -922,7 +922,7 @@ D2UnitStrc* __fastcall sub_004C57B0_FireMissileAtTarget(int nMissile, D2UnitStrc
 }
 
 // 0x004C58A0
-static __declspec(noinline) int sub_004C58A0_CheckTarget(D2UnitStrc* pUnit, int nSkillId)
+static int sub_004C58A0_CheckTarget(D2UnitStrc* pUnit, int nSkillId)
 {
     D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
@@ -1176,7 +1176,7 @@ int __fastcall sub_U04_Emit_00641930(D2ActiveRoomStrc** ppRooms, int nCount, int
     return -1;
 }
 
-static __declspec(noinline) int sub_004C5BD0_IsPointNearRoom(D2ActiveRoomStrc* pRoom, int nX, int nY, int nRadius)
+static int sub_004C5BD0_IsPointNearRoom(D2ActiveRoomStrc* pRoom, int nX, int nY, int nRadius)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
@@ -1431,7 +1431,7 @@ int __fastcall sub_004C60A0_ThrowWeapon(D2UnitStrc* pUnit, int nSkillId, int nAr
 }
 
 // 0x004C6140
-static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID, int nSkillLevel, D2UnitStrc* pUnit, int nSkillId)
+static int __stdcall sub_004C6140_StartSkill(int nOwnerGUID, int nSkillLevel, D2UnitStrc* pUnit, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLCLT_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -2067,7 +2067,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
 }
 
 // 0x004C6DE0
-static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2ClientSkillArgsStrc* pArgs, D2UnitStrc* pUnit)
+static void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2ClientSkillArgsStrc* pArgs, D2UnitStrc* pUnit)
 {
     if (pArgs->nSkillId != 0)
     {

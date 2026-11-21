@@ -184,7 +184,7 @@ int __fastcall sub_00431050_ShowCredits(int nUnused); // 0x00431050
 
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 
-static __declspec(noinline) unsigned char sub_004313A0_GetFlagIndex(unsigned char nFlags);
+static unsigned char sub_004313A0_GetFlagIndex(unsigned char nFlags);
 
 struct D2WinMsgStrc
 {

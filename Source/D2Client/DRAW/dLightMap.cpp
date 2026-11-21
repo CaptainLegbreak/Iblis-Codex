@@ -190,7 +190,7 @@ int gnPathStepMode_007B0A64; // 0x007B0A64
 
 int gnPathStepRatio_007A8A4C; // 0x007A8A4C
 
-static __declspec(noinline) void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint);
+static void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint);
 
 
 extern D2LightCellStrc gLightGrid_007B0E68[][48]; // 0x007B0E68
@@ -205,7 +205,7 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 
 void __fastcall sub_00474550_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int a6); // 0x00474550
 
-static __declspec(noinline) void sub_00474C00_BlendLightCell(int nCol, int nRow);
+static void sub_00474C00_BlendLightCell(int nCol, int nRow);
 
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
@@ -224,17 +224,17 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern int gnGlobal_00712B8C;                                                                               // 0x00712B8C
 
-static __declspec(noinline) void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX);
+static void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX);
 
 
-static __declspec(noinline) void sub_00474A70_BuildOverrideWindow(D2R01LightStrc* pLight);
+static void sub_00474A70_BuildOverrideWindow(D2R01LightStrc* pLight);
 
 
 
 
 static unsigned char sub_00474A30_IsCellBlocked(int nX, int nY);
 
-static __declspec(noinline) void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
+static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
 
 #pragma function(memset)
 
@@ -277,11 +277,11 @@ static void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoC
 
 static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
 
-static __declspec(noinline) void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp);
+static void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp);
 
 static void sub_004750F0_BuildLightMask(D2R01LightStrc* pLight);
 
-static __declspec(noinline) void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight);
+static void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight);
 
 int gnLightsReleased_007B5670; // 0x007B5670
 
@@ -521,7 +521,7 @@ void __stdcall sub_R01_Emit_00474C00(int nRow, int nColA, int nColB)
 }
 
 // 0x004744B0
-static __declspec(noinline) void __stdcall sub_004744B0_FillLightGrid(int nX0, int nY0, int nX1, unsigned int nColor, int nY1)
+static void __stdcall sub_004744B0_FillLightGrid(int nX0, int nY0, int nX1, unsigned int nColor, int nY1)
 {
     for (int nY = nY0; nY <= nY1; ++nY)
     {
@@ -621,7 +621,7 @@ void __cdecl sub_00474790_ClearLightGrid()
 }
 
 // 0x004747C0
-static __declspec(noinline) void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX)
+static void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX)
 {
     const int nGridX = (nX >> 3) - gnCellOriginX_007B0A54;
     if ((unsigned int)nGridX > 0x2F)
@@ -687,7 +687,7 @@ void __stdcall sub_W04_Emit_00474B50(D2R01LightStrc* pPoint, int nX, int nY)
 }
 
 // 0x004748D0
-static __declspec(noinline) void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp)
+static void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp)
 {
     int nRadius = pLight->nRadius;
     if ((unsigned int)(nRadius - 1) > 0xFE)
@@ -779,7 +779,7 @@ void __stdcall sub_P08_Emit_004747C0(D2P08LightSourceStrc* pSource, int nX, int 
 }
 
 // 0x00474A70
-static __declspec(noinline) void sub_00474A70_BuildOverrideWindow(D2R01LightStrc* pLight)
+static void sub_00474A70_BuildOverrideWindow(D2R01LightStrc* pLight)
 {
     const int nStartX = pLight->nX - (pLight->nX & 7) - pLight->nRadius;
     const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
@@ -799,7 +799,7 @@ static __declspec(noinline) void sub_00474A70_BuildOverrideWindow(D2R01LightStrc
 }
 
 // 0x00474B50
-static __declspec(noinline) void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint)
+static void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint)
 {
     int nDx = pPoint->nX - nX;
     int nDy = pPoint->nY - nY;
@@ -863,7 +863,7 @@ void __stdcall sub_R01_Emit_004748D0(D2R01LightStrc* pLight, int nMode)
 }
 
 // 0x00474C00
-static __declspec(noinline) void sub_00474C00_BlendLightCell(int nCol, int nRow)
+static void sub_00474C00_BlendLightCell(int nCol, int nRow)
 {
     int nValue1;
     int nValue2;
@@ -1034,7 +1034,7 @@ static __forceinline unsigned char sub_K01_GetGridCellByte(int nX, int nY)
 }
 
 // 0x004750F0
-static __declspec(noinline) void sub_004750F0_BuildLightMask(D2R01LightStrc* pLight)
+static void sub_004750F0_BuildLightMask(D2R01LightStrc* pLight)
 {
     if (pLight->nRadius <= 0 || pLight->nRadius >= 0x100)
     {
@@ -1174,7 +1174,7 @@ static void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight)
 }
 
 // 0x004755A0
-static __declspec(noinline) void __stdcall sub_004755A0_UpdateLight(int nLevel, D2R01LightStrc* pLight)
+static void __stdcall sub_004755A0_UpdateLight(int nLevel, D2R01LightStrc* pLight)
 {
     if (!pLight->bFixed && pLight->nUnitType != 6)
     {

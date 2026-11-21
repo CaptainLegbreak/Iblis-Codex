@@ -508,7 +508,7 @@ D2WinControlStrc* gpControl_007795B4; // 0x007795B4
 D2WinControlStrc* gpControl_007795C8; // 0x007795C8
 
 // 0x00431E70
-static __declspec(noinline) void sub_00431E70_SetModeFlags(char nMode)
+static void sub_00431E70_SetModeFlags(char nMode)
 {
     gpLaunchRecord_007795D4->nMode = nMode;
     gpLaunchRecord_007795D4->nFlag085 = 0;

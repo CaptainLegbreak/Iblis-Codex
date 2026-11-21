@@ -8,7 +8,7 @@ extern "C" char* __cdecl strchr(const char* szString, int nChar);
 void __fastcall sub_00654D50();
 
 // 0x00668510
-static __declspec(noinline) void sub_00668510_MakeCode(const char* szText, char* szCode)
+static void sub_00668510_MakeCode(const char* szText, char* szCode)
 {
     if (!szText[0])
     {

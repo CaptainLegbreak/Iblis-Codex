@@ -74,7 +74,7 @@ static const char* sub_0047BD60_GetAccountPart(const char* szName)
 }
 
 // 0x0047BD80
-static __declspec(noinline) void sub_0047BD80_CopyCharPart(const char* szSource, char* szDest)
+static void sub_0047BD80_CopyCharPart(const char* szSource, char* szDest)
 {
     if (*szSource != 0x2A)
     {

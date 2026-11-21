@@ -66,7 +66,7 @@ static __forceinline unsigned int SEED_RollRandomNumber_Wild(D2SeedStrc* pSeed)
 }
 
 // 0x0067FC70
-static __declspec(noinline) int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
+static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     for (int nY = 0; nY < pOutdoors->nGridHeight; ++nY)
@@ -146,7 +146,7 @@ static __forceinline BOOL sub_00680040_IsVertexBlocking(D2DrlgVertexStrc* pDrlgV
     return 0;
 }
 
-static __declspec(noinline) void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel);
+static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel);
 
 // 0x00680070
 static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
@@ -208,7 +208,7 @@ static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x006803D0
-static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
     {
@@ -264,7 +264,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2Drlg
 }
 
 // 0x006804E0
-static __declspec(noinline) void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel)
+static void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel)
 {
     if (SEED_RollRandomNumber_Wild(&pLevel->pSeed) & 3)
     {
@@ -283,7 +283,7 @@ static __declspec(noinline) void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCo
 }
 
 // 0x00680580
-static __declspec(noinline) void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
 {
     switch (pLevel->eLevelId)
     {

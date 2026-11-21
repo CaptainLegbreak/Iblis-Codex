@@ -63,7 +63,7 @@ struct WallContext
     u32 count;
 };
 
-static __declspec(noinline) void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile);
+static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile);
 
 struct D2GridCellStrc
 {
@@ -76,13 +76,13 @@ struct D2GridCellStrc
 };
 
 extern int gnGlobal_0071146C; // 0x0071146C
-static __declspec(noinline) void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode);
+static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode);
 extern void* gpGlobal_007A0634; // 0x007A0634
 unsigned char __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB); // 0x0061C0B0
 void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
 
-static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
+static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
     y-=FIELD(s32,context,0xEA6C);
@@ -93,7 +93,7 @@ static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32
     return y<size;
 }
 
-static __declspec(noinline) void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
+static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -117,7 +117,7 @@ static __declspec(noinline) void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context
     last->next=node;
 }
 
-static __declspec(noinline) s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
+static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
 {
     if(gVar_0072A968_Mode)
     {
@@ -216,7 +216,7 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* roo
 }
 
 // @ref 0x004DD350
-static __declspec(noinline) void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -252,7 +252,7 @@ static __declspec(noinline) void __stdcall sub_004DD350_AddUpper(Cell* cell,Room
 }
 
 // @ref 0x004DD460
-static __declspec(noinline) void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -287,7 +287,7 @@ static __declspec(noinline) void __stdcall sub_004DD460_AddRoof(Cell* cell,Room*
 }
 
 // @ref 0x004DD550
-static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -309,7 +309,7 @@ static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell,Room
 }
 
 // @ref 0x004DD600
-static __declspec(noinline) void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
+static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -339,7 +339,7 @@ static __declspec(noinline) void __stdcall sub_004DD600_AddSpecial(Cell* cell,Co
     last->next=node;
 }
 
-static __declspec(noinline) void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
+static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;

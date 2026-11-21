@@ -22,7 +22,7 @@ D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2U
 int __stdcall shim_1(void* p1, void* p2);
 
 // build: context sub_005D8100
-static __declspec(noinline) int __stdcall sub_005D8100(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId)
+static int __stdcall sub_005D8100(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId)
 {
 
     pUnit->dwUnitType = 0;

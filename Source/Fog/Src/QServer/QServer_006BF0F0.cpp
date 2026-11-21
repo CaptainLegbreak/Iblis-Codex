@@ -27,7 +27,7 @@ struct D2QServer006BF0F0Strc
     unsigned int nBuckets;
 };
 
-static __declspec(noinline) void sub_006BF0F0_FreeAll(D2QServer006BF0F0Strc* pServer);
+static void sub_006BF0F0_FreeAll(D2QServer006BF0F0Strc* pServer);
 
 // 0x006BF0F0
 static void sub_006BF0F0_FreeAll(D2QServer006BF0F0Strc* pServer)

@@ -19,7 +19,7 @@ struct sub_006BC2C0_Strc
     int bClosing;
 };
 
-static __declspec(noinline) void sub_006BC2C0_SetClosing(sub_006BC2C0_Strc* pThis);
+static void sub_006BC2C0_SetClosing(sub_006BC2C0_Strc* pThis);
 // 0x006BC2C0
 static void sub_006BC2C0_SetClosing(sub_006BC2C0_Strc* pThis)
 {

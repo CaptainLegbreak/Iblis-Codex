@@ -287,7 +287,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nAr
 
 #pragma pack(pop)
 
-static __declspec(noinline) void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit);
+static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit);
 
 void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket);
 
@@ -328,7 +328,7 @@ void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket);
 D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket);
 
 // 0x004C0F20
-static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0F20_CreateWorldItem(unsigned short nX, unsigned short nY, int bNotify, D2ItemPacket9CStrc* pPacket, D2ItemSaveStrc* pItemSave)
+static D2UnitStrc* __stdcall sub_004C0F20_CreateWorldItem(unsigned short nX, unsigned short nY, int bNotify, D2ItemPacket9CStrc* pPacket, D2ItemSaveStrc* pItemSave)
 {
     D2ItemSaveStrc tItemSave;
     const int nSize = pPacket->nSize - 8;
@@ -357,7 +357,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0F20_CreateWorldItem(u
 }
 
 // 0x004C0FF0
-static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(unsigned short nX, unsigned short nY, int bNotify, D2ItemPacket9DStrc* pPacket, D2ItemSaveStrc* pItemSave)
+static D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(unsigned short nX, unsigned short nY, int bNotify, D2ItemPacket9DStrc* pPacket, D2ItemSaveStrc* pItemSave)
 {
     D2ItemSaveStrc tItemSave;
     const int nSize = pPacket->nSize - 0x0D;
@@ -456,7 +456,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
 }
 
 // 0x004C1290
-static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (!pUnit || !pItem || !pUnit->pInventory)
         return;
@@ -526,7 +526,7 @@ static int sub_004C16D0_GetItemDropSound(D2UnitStrc* pItem, int* pDelay)
 }
 
 // 0x004C18B0
-static __declspec(noinline) void sub_004C18B0_PlayDropSound(D2UnitStrc* pItem)
+static void sub_004C18B0_PlayDropSound(D2UnitStrc* pItem)
 {
     int nDelay = 0x0C;
     const int nSound = sub_004C16D0_GetItemDropSound(pItem, &nDelay);
@@ -599,7 +599,7 @@ void __fastcall sub_004C1910_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pR
 }
 
 // 0x004C1C20
-static __declspec(noinline) void sub_004C1C20_SetWeaponClass(D2UnitStrc* pItem, unsigned char nType)
+static void sub_004C1C20_SetWeaponClass(D2UnitStrc* pItem, unsigned char nType)
 {
     const int nWeaponClass = ITEMS_GetWeaponClassId(pItem);
     if (nType == 4)

@@ -186,11 +186,11 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType);         
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg);                                         // 0x004DCE10
 
 void __stdcall sub_004CB2C0_ReleaseMonsterSfx(D2UnitStrc* pUnit);
-__declspec(noinline) void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
+void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
 
 #define UNIT_INVALID 6
 
-static __declspec(noinline) int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
+static int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit)
 {
     int nType;
     int nClass;
@@ -209,7 +209,7 @@ static __declspec(noinline) int sub_004CA2C0_GetUnitSndClassId(D2UnitStrc* pUnit
     return nClass;
 }
 
-static __declspec(noinline) int sub_004CA320_GetUnitSndType(D2UnitStrc* pUnit)
+static int sub_004CA320_GetUnitSndType(D2UnitStrc* pUnit)
 {
     int nType;
     int nClass;

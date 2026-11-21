@@ -231,7 +231,7 @@ static __forceinline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, i
 }
 
 // 0x005D1D70
-static __declspec(noinline) void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int level, int skill)
+static void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int level, int skill)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)
@@ -251,7 +251,7 @@ static __declspec(noinline) void __stdcall sub_005D1D70_ApplyAura(Unit* owner, U
 }
 
 // 0x005D1E10
-static __declspec(noinline) void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, Game* game, Unit* target)
+static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, Game* game, Unit* target)
 {
     SkillRecord* record = 0;
     if (skill >= 0 && skill < gVar_00744304->skillCount)

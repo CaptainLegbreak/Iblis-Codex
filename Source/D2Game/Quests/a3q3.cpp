@@ -450,7 +450,7 @@ void __fastcall ACT3Q3_InitQuestData(D2QuestDataStrc* pQuestData)
 }
 
 // 0x005B9930
-static __declspec(noinline) void sub_005B9930_QUESTS_SpawnQuestMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Act3Quest3Strc* pQuestDataEx)
+static void sub_005B9930_QUESTS_SpawnQuestMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Act3Quest3Strc* pQuestDataEx)
 {
     pQuestDataEx->bBossIsSpawning = 1;
     D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueGroup(pGame, pRoom, 0, 0x197, 1, 0, 0, 1);

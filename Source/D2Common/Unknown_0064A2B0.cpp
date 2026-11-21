@@ -33,7 +33,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-static __declspec(noinline) int sub_0064ABA0_GetElementMasteryBonus(int nAmount, int nElement, D2UnitStrc* pUnit);
+static int sub_0064ABA0_GetElementMasteryBonus(int nAmount, int nElement, D2UnitStrc* pUnit);
 int __stdcall D2Common_11033(int nLevel, int nParam, int nMax); // 0x00645B20
 int __stdcall MISSILE_GetMinDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064AF20
 int __stdcall MISSILE_GetMaxDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064AFF0

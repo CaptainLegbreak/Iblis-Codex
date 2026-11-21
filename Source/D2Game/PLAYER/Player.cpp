@@ -196,7 +196,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer);     // 0x00627260
 
-__declspec(noinline) static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitStrc* pKiller, D2UnitStrc* pPlayer);
+static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitStrc* pKiller, D2UnitStrc* pPlayer);
 
 void __fastcall PLAYER_Destroy(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 

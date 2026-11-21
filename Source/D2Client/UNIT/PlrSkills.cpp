@@ -124,7 +124,7 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fF
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-static __declspec(noinline) int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
+static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
 {
     int nUnitType = UNIT_INVALID;
     if (pUnit)
@@ -226,7 +226,7 @@ static __forceinline int GetThirdsTier(int nValue, int nTotal)
 }
 
 // 0x004D8660
-static __declspec(noinline) void __stdcall sub_004D8660_OverlayVariants(D2UnitStrc* pUnit, int nOverlay)
+static void __stdcall sub_004D8660_OverlayVariants(D2UnitStrc* pUnit, int nOverlay)
 {
     if (nOverlay == -1)
         return;
@@ -992,7 +992,7 @@ void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9AD0
-static __declspec(noinline) void sub_004D9AD0_ResetTransform(D2UnitStrc* pUnit)
+static void sub_004D9AD0_ResetTransform(D2UnitStrc* pUnit)
 {
     sub_0046F000_ResetGfx(pUnit);
     if (pUnit)

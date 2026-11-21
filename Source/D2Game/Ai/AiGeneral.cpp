@@ -794,7 +794,7 @@ inline void AIGENERAL_SetOwnerData_Inl(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 // 0x0058F530
-static __declspec(noinline) void __stdcall sub_0058F530_LinkMinions(D2UnitStrc* pUnit, D2AiControlStrc* pAiControl)
+static void __stdcall sub_0058F530_LinkMinions(D2UnitStrc* pUnit, D2AiControlStrc* pAiControl)
 {
     D2MinionListStrc* pList = pAiControl->pMinionList;
     if (!pList)
@@ -829,7 +829,7 @@ static __declspec(noinline) void __stdcall sub_0058F530_LinkMinions(D2UnitStrc* 
 }
 
 // 0x0058F660
-static __declspec(noinline) void sub_0058F660_ReleaseMinions(D2AiControlStrc* pAiControl)
+static void sub_0058F660_ReleaseMinions(D2AiControlStrc* pAiControl)
 {
     D2MinionListStrc* pMinionList = pAiControl->pMinionList;
     D2GameStrc* pGame = pAiControl->pGame;

@@ -123,9 +123,9 @@ static __forceinline bool sub_EnsureSymbolEngine()
     return true;
 }
 
-static __declspec(noinline) bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, char* szModule, unsigned long* pdwBase);
-static __declspec(noinline) bool __stdcall sub_00401F10_GetSymbolFromAddr(char* szName, unsigned long dwAddress, unsigned long* pdwDisplacement);
-static __declspec(noinline) bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char* szFile, unsigned long* pLineNumber);
+static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, char* szModule, unsigned long* pdwBase);
+static bool __stdcall sub_00401F10_GetSymbolFromAddr(char* szName, unsigned long dwAddress, unsigned long* pdwDisplacement);
+static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char* szFile, unsigned long* pLineNumber);
 
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()
@@ -249,7 +249,7 @@ static __forceinline const char* CRASH_GetFileName(const char* szPath)
     return pLast ? pLast + 1 : szPath;
 }
 
-static __declspec(noinline) bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2SymbolInfoStrc* pInfo);
+static bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2SymbolInfoStrc* pInfo);
 // 0x00405250
 static bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2SymbolInfoStrc* pInfo)
 {
@@ -287,7 +287,7 @@ extern const char gszPaddingFormat[]; // 0x006FFC48
 extern const char gszSymbolFormat[]; // 0x006FFC4C
 extern const char gszStringFormat[]; // 0x006FFC58
 extern const char gszSourceFormat[]; // 0x006FFC5C
-static __declspec(noinline) void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output);
+static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output);
 
 // 0x00402D60
 static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output)

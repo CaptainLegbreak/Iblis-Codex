@@ -534,7 +534,7 @@ void __cdecl sub_00437BF0_CreateControls()
 }
 
 // 0x00437F60
-static __declspec(noinline) Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)
+static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)
 {
     switch (nClass)
     {
@@ -558,7 +558,7 @@ static __declspec(noinline) Unicode* sub_00437F60_GetClassName(Unicode* pBuffer,
 }
 
 // 0x00438030
-static __declspec(noinline) int sub_00438030_IsNotListedCode(int nValue)
+static int sub_00438030_IsNotListedCode(int nValue)
 {
     switch (nValue)
     {
@@ -573,7 +573,7 @@ static __declspec(noinline) int sub_00438030_IsNotListedCode(int nValue)
 }
 
 // 0x004380B0
-static __declspec(noinline) unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime)
+static unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime)
 {
     long nNow;
     const unsigned int nTime = _time32(&nNow);
@@ -793,7 +793,7 @@ int __stdcall sub_00439DF0_OnScroll(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-static __declspec(noinline) void sub_00437CB0_SelectNamedSlot(const char* szName)
+static void sub_00437CB0_SelectNamedSlot(const char* szName)
 {
     if (!gbFlag_00779C6C)
         return;
@@ -812,7 +812,7 @@ next:
 }
 
 // 0x0043A1F0
-static __declspec(noinline) void sub_0043A1F0_ShowConnectError(int nError)
+static void sub_0043A1F0_ShowConnectError(int nError)
 {
     int nStringId;
     switch (nError)

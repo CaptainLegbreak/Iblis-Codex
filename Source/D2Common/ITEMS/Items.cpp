@@ -453,11 +453,11 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 
 extern char* gpszDefaultString; // 0x007446E4
 
-static __declspec(noinline) int sub_0062A2F0_IsPlainQuality(int nQuality);
+static int sub_0062A2F0_IsPlainQuality(int nQuality);
 
 inline D2ItemDataStrc* ITEMS_GetItemDataInl(D2UnitStrc* pItem);
 
-static __declspec(noinline) void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat);
+static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat);
 
 struct D2WeaponClassCodeStrc
 {
@@ -764,7 +764,7 @@ typedef int BOOL;
 
 extern "C" const char gszItemsSourceFile_006E1150[]; // 0x006E1150
 
-static __declspec(noinline) int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem);
+static int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem);
 
 #define IFLAG_NEWITEM 0x00080000
 
@@ -776,7 +776,7 @@ void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int
 
 int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bCheckForHeader, int bGamble, int* pSocketedItems, unsigned int dwVersion); // 0x0062CBE0
 
-static __declspec(noinline) int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bCheckForHeader, unsigned int dwVersion);
+static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bCheckForHeader, unsigned int dwVersion);
 
 typedef char check_D2RunesTxt_size[sizeof(D2RunesTxt) == 0x120 ? 1 : -1];
 
@@ -1921,7 +1921,7 @@ static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pS
 }
 
 // 0x00629370
-static __declspec(noinline) int __stdcall sub_00629370_GetGambleCost(int nLevel, D2UnitStrc* pItem)
+static int __stdcall sub_00629370_GetGambleCost(int nLevel, D2UnitStrc* pItem)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(DATATBLS_GetItemIdFromItemCode(ITEMS_GetNormalCode(pItem)));
     D2_ASSERT(pItemsTxtRecord, 2842);
@@ -2648,7 +2648,7 @@ static int sub_0062A2B0_GetCompactSave(D2UnitStrc* pItem)
 }
 
 // 0x0062A2F0
-static __declspec(noinline) int sub_0062A2F0_IsPlainQuality(int nQuality)
+static int sub_0062A2F0_IsPlainQuality(int nQuality)
 {
     switch (nQuality)
     {
@@ -4500,7 +4500,7 @@ void __stdcall sub_K14_EmitReadStat(D2BitBufferStrc* pBuffer, D2StatListStrc* pS
 }
 
 // 0x0062C9F0
-static __declspec(noinline) void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat)
+static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat)
 {
     int nItemId;
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(ITEMS_GetBaseCode(pItem), &nItemId);
@@ -4561,7 +4561,7 @@ static __forceinline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecordInl(int 
     return 0;
 }
 
-__declspec(noinline) int __fastcall sub_00627AF0_HasSkillDesc(int nSkillId)
+int __fastcall sub_00627AF0_HasSkillDesc(int nSkillId)
 {
     if (D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordInl(nSkillId))
     {
@@ -7038,7 +7038,7 @@ static __forceinline unsigned short ITEMS_GetRunewordStringIdInl(D2UnitStrc* pIt
     return pRunesTxtRecord ? pRunesTxtRecord->wStringId : 0xFFFF;
 }
 
-__declspec(noinline) unsigned short __stdcall ITEMS_GetRarePrefixId(D2UnitStrc* pItem)
+unsigned short __stdcall ITEMS_GetRarePrefixId(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -7047,7 +7047,7 @@ __declspec(noinline) unsigned short __stdcall ITEMS_GetRarePrefixId(D2UnitStrc* 
     return 0;
 }
 
-__declspec(noinline) unsigned short __stdcall ITEMS_GetRareSuffixId(D2UnitStrc* pItem)
+unsigned short __stdcall ITEMS_GetRareSuffixId(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -7056,7 +7056,7 @@ __declspec(noinline) unsigned short __stdcall ITEMS_GetRareSuffixId(D2UnitStrc* 
     return 0;
 }
 
-static __declspec(noinline) int __stdcall sub_0062A900_GetSocketedItemCount(D2UnitStrc* pItem)
+static int __stdcall sub_0062A900_GetSocketedItemCount(D2UnitStrc* pItem)
 {
     int nCount = 0;
 

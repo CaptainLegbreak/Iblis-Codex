@@ -25,7 +25,7 @@ struct FOGExpressionParserContextStrc
     int nPendingOps;
     int nPendingParameters;
 };
-static __declspec(noinline) unsigned char* __stdcall DATATBLS_Evaluate_HandleNewOp(unsigned char* pASTBufferPos, unsigned char* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, D2CalcOperandCountFn pfnGetFunctionParametersCount, int nTokenAssociatedValue);
+static unsigned char* __stdcall DATATBLS_Evaluate_HandleNewOp(unsigned char* pASTBufferPos, unsigned char* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, D2CalcOperandCountFn pfnGetFunctionParametersCount, int nTokenAssociatedValue);
 
 union FOGASTNodeStrc
 {
@@ -33,8 +33,8 @@ union FOGASTNodeStrc
     unsigned char nRawValue;
 };
 
-static __declspec(noinline) FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue);
-static __declspec(noinline) FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue);
+static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushRawConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue);
+static FOGASTNodeStrc* __stdcall DATATBLS_ExpressionBuffer_PushCallbackConstant(FOGASTNodeStrc* pExpressionBufferPos, FOGASTNodeStrc* pExpressionBufferStart, int szBufferSize, FOGExpressionParserContextStrc* pCalc, int nValue);
 
 // 0x006C0B80
 static void sub_006C0B80(Fog64IntStack* s, int value)
@@ -236,7 +236,7 @@ Done:
     return 0;
 }
 
-__declspec(noinline)
+
 // 0x006C1820
 static int __stdcall sub_006C1820_GetOperandCount(
     unsigned char nToken, D2CalcOperandCountFn pfnGetOperandCount, int nFunctionId)

@@ -229,7 +229,7 @@ void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit); // 0x004BCB20
 
 // 0x004BCBB0
 
-static __declspec(noinline) void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
+static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
 {
     D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
     int nMode = pUnit->dwAnimMode;

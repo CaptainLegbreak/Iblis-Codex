@@ -230,7 +230,7 @@ void D2StormHuffTreeStrc::sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem)
 }
 
 // 0x0041DA30
-static __declspec(noinline) void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
+static void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
 {
     switch (nCmpLevel)
     {

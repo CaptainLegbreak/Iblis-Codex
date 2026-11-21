@@ -59,7 +59,7 @@ extern "C" void __stdcall sub_006277F0_RemoveOwnerStat(D2UnitStrc* pOwner, D2Uni
 extern "C" const char gszInventorySource_006EA918;
 
 // 0x0063A130
-static __declspec(noinline) int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
+static int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
     unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
     if (!pStatFlags)
@@ -302,7 +302,7 @@ static __forceinline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
     return 0;
 }
 
-static __declspec(noinline) void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
+static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)
@@ -348,7 +348,7 @@ static __declspec(noinline) void __cdecl sub_0063A810_UnlinkPair(D2InventoryPair
     pExtra->pPreviousItem = 0;
 }
 
-static __declspec(noinline) void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
+static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)

@@ -196,7 +196,7 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
 }
 
 // 0x004BCA90
-static __declspec(noinline) void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
+static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
 {
     const int nMode = pUnit->dwAnimMode;
     if (nMode == 3)
@@ -224,7 +224,7 @@ static __declspec(noinline) void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
 }
 
 // build: context sub_004BCB20_StepDoorFrame
-static __declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
+static void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
 {
     const int nMode = pUnit->dwAnimMode;
     const int nFrameCnt = pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode];
@@ -263,7 +263,7 @@ static __declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
 }
 
 // 0x004BCBB0
-static __declspec(noinline) void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
+static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
 {
     D2ObjectsTxt* pTxt = pUnit->pObjectData->pObjectTxt;
     int nMode = pUnit->dwAnimMode;

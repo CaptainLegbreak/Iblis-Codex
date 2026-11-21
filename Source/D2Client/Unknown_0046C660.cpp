@@ -59,7 +59,7 @@ int __fastcall sub_0046C660_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pT
 }
 
 // 0x0046C720
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
+static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
 {
     D2UnitStrc* pNearest = 0;
     D2UnitStrc** ppSlot = gpAiTargets_007A7470;

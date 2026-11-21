@@ -28,7 +28,7 @@ void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __stdcall sub_006B8950_Lit(int,D2TileLibraryEntryStrc*,int,int,const unsigned int*,unsigned char); // 0x006B8950
-__declspec(noinline) static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc*,int,int,const unsigned int*,int,unsigned char);
+static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc*,int,int,const unsigned int*,int,unsigned char);
 // 0x006B87A0
 static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc* pTile, int nX, int nY, const unsigned int* pLight, int nPanels, unsigned char nAlpha)
 {
@@ -85,7 +85,7 @@ static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileLibraryEntryStrc* pTil
     return nDrawn;
 }
 
-__declspec(noinline) static int __stdcall sub_006B8DF0_AlphaWall(D2TileLibraryEntryStrc*,int,int,const unsigned int*,int,unsigned char);
+static int __stdcall sub_006B8DF0_AlphaWall(D2TileLibraryEntryStrc*,int,int,const unsigned int*,int,unsigned char);
 static int __stdcall sub_006B8DF0_AlphaWall(D2TileLibraryEntryStrc*,int,int,const unsigned int*,int,unsigned char); // 0x006B8DF0
 
 // build: context sub_006B8DF0_AlphaWall

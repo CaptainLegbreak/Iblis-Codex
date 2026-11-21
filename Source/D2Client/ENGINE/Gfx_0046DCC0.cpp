@@ -53,7 +53,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2StateOwnerStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
-static __declspec(noinline) void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay);
+static void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay);
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
@@ -87,7 +87,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
-static __declspec(noinline) unsigned int sub_0046DB90_HashName(const char* szName)
+static unsigned int sub_0046DB90_HashName(const char* szName)
 {
     D2_ASSERT(strlen(szName) < 8, 0x79);
     const unsigned int nHash = SStrHash(szName, 1, 0);
@@ -98,7 +98,7 @@ static __declspec(noinline) unsigned int sub_0046DB90_HashName(const char* szNam
 }
 
 // 0x0046DBF0
-static __declspec(noinline) void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest)
+static void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest)
 {
     const int nPathLength = strlen(szPath);
     if (szPath[nPathLength - 4] == 0x2E)

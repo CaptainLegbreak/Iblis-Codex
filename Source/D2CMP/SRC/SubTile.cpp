@@ -28,9 +28,9 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
 
 unsigned char* __stdcall sub_0060D6F0_MapPixels(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
 void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
-static __declspec(noinline) void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
-static __declspec(noinline) int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData);
-static __declspec(noinline) void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
+static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
+static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData);
+static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
 
 struct D2RgbTripleStrc { unsigned char nRed, nGreen, nBlue; };
 
@@ -39,7 +39,7 @@ struct D2RgbKeyStrc { unsigned char bytes[4]; };
 typedef char D2RgbKeyMustBeFourBytes[(sizeof(D2RgbKeyStrc) == 4) ? 1 : -1];
 
 typedef unsigned char (__stdcall* D2PaletteFn)(unsigned char, unsigned char, unsigned char);
-static __declspec(noinline) unsigned char* __stdcall sub_0060D6F0_ConvertPixels(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert);
+static unsigned char* __stdcall sub_0060D6F0_ConvertPixels(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert);
 
 struct D2CmpPaletteStrc
 {
@@ -213,7 +213,7 @@ int __fastcall sub_0060D7C0_IsBlockEmpty(const unsigned char* pData)
 }
 
 // 0x0060D7E0
-static __declspec(noinline) int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
+static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
 {
     int y = 0;
     int nOffset = 14;
@@ -378,7 +378,7 @@ void __fastcall sub_M92_Emit_0060D7E0(D2CmpSubTileRecordStrc* pRecord)
 }
 
 // @ref 0x0060D7E0
-static __declspec(noinline) int sub_0060D7E0_HasTransparent(const unsigned char* pData)
+static int sub_0060D7E0_HasTransparent(const unsigned char* pData)
 {
     int nOffset = 14;
     int nWidth = 4;

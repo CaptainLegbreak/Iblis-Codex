@@ -267,7 +267,7 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
 }
 
 // 0x00422C60
-static __declspec(noinline) void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void sub_00422C60_SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
@@ -275,7 +275,7 @@ static __declspec(noinline) void sub_00422C60_SetOne(D2StormQueueStrc& a)
 }
 
 // 0x00422CC0
-static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void sub_00422CC0_SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -424,7 +424,7 @@ static void __stdcall sub_00422B00_Set2Exp(D2StormQueueStrc& a, unsigned int nEx
 }
 
 // 0x00422FC0
-static __declspec(noinline) void __stdcall sub_00422FC0_SubUInt(const D2StormQueueStrc* pSrc, D2StormQueueStrc* pDst, unsigned int nValue)
+static void __stdcall sub_00422FC0_SubUInt(const D2StormQueueStrc* pSrc, D2StormQueueStrc* pDst, unsigned int nValue)
 {
     unsigned __int64 nAcc = ~(unsigned __int64)nValue + 1;
     unsigned int nIndex = 0;
@@ -649,12 +649,12 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQu
 }
 
 // 0x00421440
-static __declspec(noinline) int sub_00421440_IsEven(const D2StormQueueStrc& a)
+static int sub_00421440_IsEven(const D2StormQueueStrc& a)
 {
     return !a.Count() || !(a[0] & 1);
 }
 
-static __declspec(noinline) void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a);
+static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a);
 // 0x004255E0
 static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a)
 {

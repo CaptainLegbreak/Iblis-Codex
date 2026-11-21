@@ -76,13 +76,13 @@ void __cdecl sub_005239C0_UnlockCDKeys(); // 0x005239C0
 int __fastcall sub_00520520_SetState(int nState); // 0x00520520
 
 // 0x0051DC70
-static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)
+static long sub_0051DC70_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
 
 // 0x0051DD10
-static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -91,7 +91,7 @@ static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int n
 }
 
 // 0x0051DD20
-static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
+static int sub_0051DD20_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -100,7 +100,7 @@ static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
 }
 
 // 0x0051DD40
-static __declspec(noinline) int sub_0051DD40_MapKeyChar(unsigned char cChar)
+static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap_006DF238[cChar];
 }

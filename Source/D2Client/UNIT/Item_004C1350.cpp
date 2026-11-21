@@ -92,10 +92,10 @@ static __forceinline D2InventoryStrc* GetInventory(D2UnitStrc* p)
     return 0;
 }
 
-static void __declspec(noinline) __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce);
-static void __declspec(noinline) sub_004C1160_SaveSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState);
-static void __declspec(noinline) sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState);
-static void __declspec(noinline) __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem);
+static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce);
+static void sub_004C1160_SaveSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState);
+static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState);
+static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem);
 
 static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce)
 {
@@ -291,7 +291,7 @@ static __forceinline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
     return (pUnit->dwFlags >> 9) & 1;
 }
 
-static __declspec(noinline) void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit);
+static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit);
 
 // 0x004C1350
 static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)

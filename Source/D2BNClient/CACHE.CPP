@@ -236,7 +236,7 @@ static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, co
 }
 
 // 0x00519110
-static __declspec(noinline) int __stdcall sub_00519110_FindHashEntry(const char* szName, unsigned int dwLocale)
+static int __stdcall sub_00519110_FindHashEntry(const char* szName, unsigned int dwLocale)
 {
     unsigned int dwHash = sub_00518FA0_HashString(0, szName);
     unsigned int dwNameA = sub_00518FA0_HashString(1, szName);
@@ -289,7 +289,7 @@ static void sub_005191D0_DeleteHashEntries(const char* szName)
 }
 
 // 0x00519220
-static __declspec(noinline) void sub_00519220_GetCacheFilePath(char* szPath)
+static void sub_00519220_GetCacheFilePath(char* szPath)
 {
     D2_ASSERT(SHGetFolderPathA(0, 0x23, 0, 0, szPath) == 0, 0x112);
     sub_00413800(szPath, "\\Blizzard Entertainment", 0x104);

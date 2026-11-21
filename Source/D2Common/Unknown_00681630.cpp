@@ -81,7 +81,7 @@ static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, uns
     return gPathTurns[(unsigned char)(nDirection - nBase) & 3];
 }
 
-static __declspec(noinline) int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode);
+static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode);
 
 // 0x006815C0
 static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode)
@@ -108,7 +108,7 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
     return 1;
 }
 
-static __declspec(noinline) T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppRoot);
+static T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppRoot);
 
 // 0x00681560
 static T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppRoot)
@@ -136,7 +136,7 @@ static T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppRoot)
     return pNode;
 }
 
-static __declspec(noinline) T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
+static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
 
 // 0x00681630
 static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)

@@ -166,7 +166,7 @@ struct D2StatReduceRec
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-static __declspec(noinline) int sub_0057BDD0_ReduceByStat(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, int nValue);
+static int sub_0057BDD0_ReduceByStat(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, int nValue);
 
 struct Unit
 {
@@ -525,15 +525,15 @@ int __fastcall SUNITDMG_GetWeaponBlock(D2UnitStrc* pUnit); // 0x0057DCA0
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
-static __declspec(noinline) int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid); // 0x0057DD60
+static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid); // 0x0057DD60
 
-static __declspec(noinline) void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nPoisonDamage, int nPoisonLength);
+static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nPoisonDamage, int nPoisonLength);
 
-static __declspec(noinline) void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nBurnDamage, int nBurnLength);
+static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nBurnDamage, int nBurnLength);
 
-static __declspec(noinline) void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFreezeLength, D2UnitStrc* pDefender);
+static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFreezeLength, D2UnitStrc* pDefender);
 
-static __declspec(noinline) void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2UnitStrc* pAttacker, D2GameStrc* pGame, D2DamageStrc* pDamage);
+static void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2UnitStrc* pAttacker, D2GameStrc* pGame, D2DamageStrc* pDamage);
 
 static void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender);
 
@@ -598,9 +598,9 @@ struct D2ResistTableEntryStrc
     int nAbsorbStatId;
 };
 
-static __declspec(noinline) int __cdecl sub_0057BF10_AbsorbDamage(D2DamageContextStrc* pContext, D2ResistTableEntryStrc* pEntry, int nValue);
+static int __cdecl sub_0057BF10_AbsorbDamage(D2DamageContextStrc* pContext, D2ResistTableEntryStrc* pEntry, int nValue);
 
-static __declspec(noinline) int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
+static int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
 
 typedef int (__fastcall* DAMAGECALLBACK)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 
@@ -756,7 +756,7 @@ void __fastcall sub_M120_Emit_0057A950(D2UnitStrc* pUnit, int nDrain)
 }
 
 // 0x0057A980
-static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedLife(D2UnitStrc* pUnit, int nLifeLeeched)
+static int __stdcall SUNITDMG_AddLeechedLife(D2UnitStrc* pUnit, int nLifeLeeched)
 {
     if (nLifeLeeched <= 0)
     {
@@ -787,7 +787,7 @@ static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedLife(D2UnitStrc* pU
 }
 
 // 0x0057AA00
-static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedMana(D2UnitStrc* pUnit, int nManaLeeched)
+static int __stdcall SUNITDMG_AddLeechedMana(D2UnitStrc* pUnit, int nManaLeeched)
 {
     if (nManaLeeched <= 0)
     {
@@ -808,7 +808,7 @@ static __declspec(noinline) int __stdcall SUNITDMG_AddLeechedMana(D2UnitStrc* pU
 }
 
 // 0x0057AA60
-static __declspec(noinline) int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nDrain)
+static int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nDrain)
 {
     if (nDrain <= 0)
     {
@@ -826,7 +826,7 @@ static __declspec(noinline) int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nD
 }
 
 // 0x0057AAA0
-static __declspec(noinline) int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int nDrain)
+static int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int nDrain)
 {
     if (nDrain <= 0)
     {
@@ -861,7 +861,7 @@ static __forceinline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
 }
 
 // 0x0057AAE0
-static __declspec(noinline) void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender)
+static void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLength, D2UnitStrc* pDefender)
 {
     if (nStunLength <= 0)
     {
@@ -1006,7 +1006,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
 }
 
 // 0x0057AF00
-static __declspec(noinline) int sub_0057AF00_IsMonsterWithoutDeadCol(D2UnitStrc* pUnit)
+static int sub_0057AF00_IsMonsterWithoutDeadCol(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != UNIT_MONSTER)
@@ -1034,7 +1034,7 @@ int __fastcall SUNITDMG_GetColdEffect(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x0057AF80
-static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, int nColdLength, D2UnitStrc* pDefender)
+static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, int nColdLength, D2UnitStrc* pDefender)
 {
     if (nColdLength <= 0)
     {
@@ -1554,7 +1554,7 @@ static int sub_0057BDD0_ReduceByStat(D2StatReduceCtx* pCtx, D2StatReduceRec* pRe
 }
 
 // 0x0057BE00
-static __declspec(noinline) int __cdecl sub_0057BE00_Resistance(Context* c,Record* r)
+static int __cdecl sub_0057BE00_Resistance(Context* c,Record* r)
 {
     int resistance=0;
     if(r->resistanceStat!=-1)
@@ -1646,7 +1646,7 @@ int __fastcall sub_Emit_0057BDD0(D2StatReduceCtx* pCtx, D2StatReduceRec* pRec, i
     return n + sub_0057BDD0_ReduceByStat(pCtx, pRec + 1, n);
 }
 
-static __declspec(noinline) int __cdecl sub_0057BF10_Absorb(Record* r,Context* c,int amount)
+static int __cdecl sub_0057BF10_Absorb(Record* r,Context* c,int amount)
 {
     if(r->absorbPercentStat!=-1)
     {
@@ -1670,7 +1670,7 @@ static __declspec(noinline) int __cdecl sub_0057BF10_Absorb(Record* r,Context* c
 }
 
 // 0x0057BF80
-static __declspec(noinline) int __stdcall sub_0057BF80_Apply(int ignore,Context* c,Record* r)
+static int __stdcall sub_0057BF80_Apply(int ignore,Context* c,Record* r)
 {
     int* field=&FIELD(c->damage,r->damageOffset);
     int amount=*field;
@@ -1699,7 +1699,7 @@ static __declspec(noinline) int __stdcall sub_0057BF80_Apply(int ignore,Context*
 }
 
 // 0x0057C060
-static __declspec(noinline) int __cdecl sub_0057C060_Scale(Context* c)
+static int __cdecl sub_0057C060_Scale(Context* c)
 {
     if(c->attacker && c->defender && c->attacker!=c->defender)
     {
@@ -1729,7 +1729,7 @@ static __declspec(noinline) int __cdecl sub_0057C060_Scale(Context* c)
 }
 
 // 0x0057C140
-static __declspec(noinline) void __cdecl sub_0057C140_Durations(Context* c)
+static void __cdecl sub_0057C140_Durations(Context* c)
 {
     if(FIELD(c->damage,48)>0 || FIELD(c->damage,52)>0)
     {

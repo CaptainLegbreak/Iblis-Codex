@@ -109,7 +109,7 @@ static int* __stdcall sub_00540B70_GetSlot(D2Unk00540B70Owner* pOwner, int nType
 }
 
 // 0x00540BB0
-static __declspec(noinline) D2EventTimerSlabListStrc* sub_00540BB0_AllocateSlab(D2GameStrc* pGame)
+static D2EventTimerSlabListStrc* sub_00540BB0_AllocateSlab(D2GameStrc* pGame)
 {
     D2EventTimerSlabListStrc* pSlab = (D2EventTimerSlabListStrc*)sub_0040B430_Alloc(pGame->pMemoryPool, sizeof(D2EventTimerSlabListStrc), ".\\GAME\\Event.cpp", 169, 0);
     if (!pSlab)
@@ -126,7 +126,7 @@ static __declspec(noinline) D2EventTimerSlabListStrc* sub_00540BB0_AllocateSlab(
     return pSlab;
 }
 
-static __declspec(noinline) D2EventTimerStrc* sub_00540DF0_InitializeTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static D2EventTimerStrc* sub_00540DF0_InitializeTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2EventTimerStrc* pTimer = sub_00540C30_AllocateTimer(pGame, pGame->pTimerQueue);
     pTimer->pUnit = pUnit;
@@ -141,7 +141,7 @@ static __declspec(noinline) D2EventTimerStrc* sub_00540DF0_InitializeTimer(D2Gam
     return pTimer;
 }
 
-static __declspec(noinline) void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType)
+static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType)
 {
     if (nEventType >= 15)
         return;
@@ -161,7 +161,7 @@ static __declspec(noinline) void __stdcall sub_005415E0_InsertInfinite(EventTime
     *ppFirst = pTimer;
 }
 
-static __declspec(noinline) void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame)
+static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame)
 {
     if (nEventType >= 15)
         return;
@@ -210,7 +210,7 @@ static __forceinline void sub_00540C10_PushFreeTimer(D2EventTimerStrc* pTimer, D
 }
 
 // 0x00540C30
-static __declspec(noinline) D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue)
+static D2EventTimerStrc* __stdcall sub_00540C30_AllocateTimer(D2GameStrc* pGame, D2EventTimerQueueStrc* pQueue)
 {
     D2EventTimerSlabListStrc* pSlab = pQueue->pSlabListHead;
     while (pSlab)

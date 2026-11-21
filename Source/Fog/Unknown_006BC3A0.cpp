@@ -26,7 +26,7 @@ extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);          
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x006829C0
 void __fastcall sub_006C1FF0_QueuePacket(void* pQueue, unsigned char* pData, int nLength);                  // 0x006C1FF0
 
-__declspec(noinline) static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLength, D2NetConnectionStrc* pConn);
+static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLength, D2NetConnectionStrc* pConn);
 
 static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLength, D2NetConnectionStrc* pConn); // 0x006BC150
 
@@ -88,7 +88,7 @@ int __fastcall sub_0040D880(unsigned); // 0x0040D880
 int __fastcall FOG_SOCKET_Select(NetData* net); // 0x0040DDF0
 unsigned __fastcall FOG_SOCKET_Receive(NetData* net,unsigned char* data,unsigned length); // 0x0040DC60
 void __fastcall sub_0040E0B0_GetStatus(NetData* net,int* error,int* status); // 0x0040E0B0
-static __declspec(noinline) void __stdcall sub_006BC310_CloseSocket(D2NetConnectionStrc* socket);
+static void __stdcall sub_006BC310_CloseSocket(D2NetConnectionStrc* socket);
 static void __stdcall sub_006BC310_CloseSocket(D2NetConnectionStrc* socket); // 0x006BC310
 // 0x006BC310
 static void __stdcall sub_006BC310_CloseSocket(D2NetConnectionStrc* socket)

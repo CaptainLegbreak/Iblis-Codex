@@ -52,7 +52,7 @@ __forceinline int UNITS_GetYInline(D2UnitStrc* pUnit)
     }
 }
 
-__declspec(noinline)
+
 // 0x004C80D0
 static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY)
 {

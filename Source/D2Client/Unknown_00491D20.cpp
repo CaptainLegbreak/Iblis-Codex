@@ -72,8 +72,8 @@ static unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
 static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable); // 0x004843E0
 static void __stdcall sub_00486BD0_GetItemCell(unsigned int nX, unsigned int nY, int* pOutX, int* pOutY, D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid); // 0x00486BD0
 int __cdecl sub_00486B30_IsNpcStateA(); // 0x00486B30
-static __declspec(noinline) int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable);
-static __declspec(noinline) void __stdcall sub_00486BD0_GetItemCell(unsigned int nX, unsigned int nY, int* pOutX, int* pOutY, D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid);
+static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable);
+static void __stdcall sub_00486BD0_GetItemCell(unsigned int nX, unsigned int nY, int* pOutX, int* pOutY, D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid);
 
 // 0x004843E0
 static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable)
@@ -452,7 +452,7 @@ extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
 typedef int (__fastcall *D2BodyClickFn)(D2UnitStrc*,D2InventoryStrc*,int);
 extern D2BodyClickFn gaBodyClick_00721E58[]; // 0x00721E58
 
-__declspec(noinline) int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY);
+int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY);
 int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY); // 0x00483AB0
 // 0x00483AB0
 int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
@@ -464,7 +464,7 @@ int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
     return 0;
 }
 
-__declspec(noinline) static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY);
+static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY);
 static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY); // 0x00486860
 // 0x00486860
 static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
@@ -480,7 +480,7 @@ static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
     return 0;
 }
 
-__declspec(noinline) static int sub_00486DA0_IsOverGoldButton(int nX, int nY);
+static int sub_00486DA0_IsOverGoldButton(int nX, int nY);
 static int sub_00486DA0_IsOverGoldButton(int nX, int nY); // 0x00486DA0
 // 0x00486DA0
 static int sub_00486DA0_IsOverGoldButton(int nX, int nY)
@@ -513,7 +513,7 @@ int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY)
     return 1;
 }
 
-__declspec(noinline) static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, int nX);
+static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, int nX);
 static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, int nX); // 0x00486E60
 // 0x00486E60
 static void __stdcall sub_00486E60_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, int nX)

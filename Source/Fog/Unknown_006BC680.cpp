@@ -27,7 +27,7 @@ struct sub_006BC680_Object
     int bPending;
 };
 
-static __declspec(noinline) void sub_006BC2C0(sub_006BC680_Object* pObject);
+static void sub_006BC2C0(sub_006BC680_Object* pObject);
 
 // 0x006BC2C0
 static void sub_006BC2C0(sub_006BC680_Object* pObject)

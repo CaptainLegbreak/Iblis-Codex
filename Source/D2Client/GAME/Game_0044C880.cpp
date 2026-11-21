@@ -775,7 +775,7 @@ int __cdecl sub_0044BFE0()
     return gdwGlobal_007A066C != 0;
 }
 
-static __declspec(noinline) unsigned short __cdecl sub_0044BEC0_GetClickFlags_static()
+static unsigned short __cdecl sub_0044BEC0_GetClickFlags_static()
 {
     int nFlags = 0;
     if (gdwGlobal_007A065C)

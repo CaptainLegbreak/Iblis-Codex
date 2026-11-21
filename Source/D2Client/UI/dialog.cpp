@@ -463,7 +463,7 @@ extern "C" void __stdcall sub_004B7770_Previous1(Message* message)
     sub_004B7100_Select(state, -1);
 }
 
-static __declspec(noinline) void __cdecl sub_004B7100_Select(SelectionState* state, int step)
+static void __cdecl sub_004B7100_Select(SelectionState* state, int step)
 {
     if (state->activeCount > 1)
     {

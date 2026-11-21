@@ -281,7 +281,7 @@ int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
+static int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
 {
     if (nX > gGrid_007BCB18.nGridLeft && nX < gGrid_007BCB18.nGridRight && nY >= gGrid_007BCB18.nGridTop && nY <= gGrid_007BCB18.nGridBottom)
     {
@@ -317,7 +317,7 @@ static int sub_00483B40_IsInCubeGrid(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
+static int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
 {
     if (nX >= gGrid_007BCB70.nGridLeft && nX < gGrid_007BCB70.nGridRight && nY >= gGrid_007BCB70.nGridTop && nY <= gGrid_007BCB70.nGridBottom)
     {
@@ -1370,7 +1370,7 @@ void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText
 
 static int gnGlobal_007BCC48; // 0x007BCC48
 
-__declspec(noinline) void __cdecl sub_00487990_ResetHover()
+void __cdecl sub_00487990_ResetHover()
 {
     gnGlobal_00721E3C = -1;
     gnGlobal_00721E40 = -1;

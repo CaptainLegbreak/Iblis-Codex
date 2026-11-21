@@ -7,7 +7,7 @@ struct D2MessageSourceStrc;
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void* hInstance, unsigned int uId, char* buffer, int length); // 0x006CC46C
 void* __fastcall sub_0041BEF0_GetExeModule(); // 0x0041BEF0
 extern const char* gpszMessageFallback_006CF2F4[]; // 0x006CF2F4
-__declspec(noinline) static const char* sub_0041C170_GetMessageText(int nIndex);
+static const char* sub_0041C170_GetMessageText(int nIndex);
 
 struct D2MessageSourceStrc { unsigned short facility, padding; void* module; D2MessageSourceStrc* next; };
 

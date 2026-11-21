@@ -653,7 +653,7 @@ int __stdcall sub_0043A0D0_ListKeyDown(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-static __declspec(noinline) int sub_00437A20_FindSlotName(const char* szName)
+static int sub_00437A20_FindSlotName(const char* szName)
 {
     int i = 0;
     char* szSlot;

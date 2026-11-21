@@ -94,7 +94,7 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int id); // 0x0045C4B0
 int __fastcall sub_00479150_FindRosterIndex(int unitId); // 0x00479150
 extern const unsigned char gnSkillMask_006CE26C; // 0x006CE26C
 
-static __declspec(noinline) D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit);
+static D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit);
 
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
@@ -165,7 +165,7 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __declspec(noinline) int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit)
+static int sub_00463A50_AddUnitToTable(D2UnitStrc* pUnit)
 {
     if (UNIT_HasFlag(pUnit, 0x200000))
     {
@@ -823,7 +823,7 @@ int __fastcall sub_00464EC0_CheckSkillOwner(D2UnitStrc* unit, D2UnitStrc* target
 }
 
 // 0x00465F20
-static __declspec(noinline) D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit)
+static D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit)
 {
     if (!sub_00463A50_AddUnitToTable(pUnit))
     {

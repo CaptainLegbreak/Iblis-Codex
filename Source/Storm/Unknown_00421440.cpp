@@ -200,7 +200,7 @@ static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pR
     *pRemainder = (unsigned int)nData;
 }
 
-static __declspec(noinline) int sub_00422780_IsZero(D2StormQueueStrc& a)
+static int sub_00422780_IsZero(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;
@@ -218,14 +218,14 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static __declspec(noinline) void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void sub_00422C60_SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
     a.m_array.f_8[a.m_start] = 1;
 }
 
-static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void sub_00422CC0_SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -344,7 +344,7 @@ static void __stdcall sub_004221F0_AddUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static __declspec(noinline) int sub_00422750_IsOne(D2StormQueueStrc& a)
+static int sub_00422750_IsOne(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     const D2StormQueueStrc& tRead = a;
@@ -401,7 +401,7 @@ static void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b,
     tStack.nUsed -= 2;
 }
 
-static __declspec(noinline) void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
 {
     D2StormQueueStrc& tProduct = tStack.f_0[tStack.nUsed++];
     sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
@@ -529,7 +529,7 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc& tStack, D2StormQu
 }
 
 // 0x00421440
-static __declspec(noinline) int sub_00421440_IsEven(const D2StormQueueStrc& a)
+static int sub_00421440_IsEven(const D2StormQueueStrc& a)
 {
     return !a.Count() || !(a[0] & 1);
 }

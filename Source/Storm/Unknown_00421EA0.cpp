@@ -495,7 +495,7 @@ static __declspec(noinline) void sub_004235F0_ToBinary(D2StormArrayBStrc* pOut, 
 }
 
 // 0x00423770
-static __declspec(noinline) void sub_00423770_ToStream(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
+static void sub_00423770_ToStream(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn)
 {
     sub_004235F0_ToBinary(pOut, pIn);
     sub_00421BD0_AppendLength(pOut, pOut->f_4);

@@ -213,7 +213,7 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern "C" const char gszMonsterAISourceFile[]; // 0x006E1560
 
-static __declspec(noinline) int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit);
+static int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit);
 
 struct D2HirelingInitStrc
 {

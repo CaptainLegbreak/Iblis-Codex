@@ -36,7 +36,7 @@ static void* gpWorkBuffer_0077920C;                                             
 static unsigned long gdwWorkBufferOwner_00779210;                                                           // 0x00779210
 static D2CriticalSectionStrc gtWorkBufferLock_00779214;                                                     // 0x00779214
 
-static __declspec(noinline) void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared);
+static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared);
 static __declspec(noinline) void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer);
 
 // 0x0041E440

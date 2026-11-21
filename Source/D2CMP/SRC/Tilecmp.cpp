@@ -87,7 +87,7 @@ struct D2Block0060A050Strc;
 
 struct D2BlockSet0060A050Strc;
 
-static __declspec(noinline) void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY);
+static void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY);
 
 struct D2Block0060A050Strc
 {
@@ -104,7 +104,7 @@ struct D2BlockSet0060A050Strc
     D2Block0060A050Strc* pBlocks;
 };
 
-static __declspec(noinline) int sub_0060A050_Serialize(unsigned char* pOut, D2BlockSet0060A050Strc* pSet);
+static int sub_0060A050_Serialize(unsigned char* pOut, D2BlockSet0060A050Strc* pSet);
 
 static int __stdcall sub_00609940_HasOtherColor(D2CmpColorStrc tColor, const unsigned char* pData);
 
@@ -258,7 +258,7 @@ void __stdcall sub_00609670_FreeTileList(D2CmpTileListStrc* pList)
 }
 
 // 0x00609770
-static __declspec(noinline) int __stdcall sub_00609770_IsUniformBlock(D2CmpTileStrc* pTile, const unsigned char* pPixels, int nPitch)
+static int __stdcall sub_00609770_IsUniformBlock(D2CmpTileStrc* pTile, const unsigned char* pPixels, int nPitch)
 {
     const unsigned char nFlags = pTile->nType;
     if (nFlags & 2)
@@ -423,7 +423,7 @@ void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned c
 }
 
 // 0x00609BF0
-static __declspec(noinline) void sub_00609BF0_CopyTileNode(D2CmpSubTileRecordStrc* pSub, D2CmpTileNodeStrc* pNode)
+static void sub_00609BF0_CopyTileNode(D2CmpSubTileRecordStrc* pSub, D2CmpTileNodeStrc* pNode)
 {
     pSub->nX = pNode->nX;
     pSub->nY = pNode->nY;

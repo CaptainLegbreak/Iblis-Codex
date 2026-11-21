@@ -74,7 +74,7 @@ static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pCon
     return 1;
 }
 
-__declspec(noinline) static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
+static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
 
 // 0x005FE2B0
 static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut)
@@ -170,7 +170,7 @@ static __forceinline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* 
 }
 
 // build: context sub_005FE610_BuildGfxPath
-static __declspec(noinline) int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut)
+static int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut)
 {
     int bCompressed;
 
@@ -288,7 +288,7 @@ Fail:
 }
 
 // 0x005FEC90
-static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
+static void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
 {
     char szName[0x104];
     char szPath[0x104];
@@ -382,7 +382,7 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
     return pFrame;
 }
 
-__declspec(noinline) static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
+static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry);
 // 0x005FEC50
 static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
 {
@@ -402,7 +402,7 @@ static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2
     return 0;
 }
 
-static __declspec(noinline) int __fastcall sub_005FF760_LoadDCCFrames(const char* szName, D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, int nDirection, int nFrames, D2CmpSpriteEntryStrc* pEntry);
+static int __fastcall sub_005FF760_LoadDCCFrames(const char* szName, D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, int nDirection, int nFrames, D2CmpSpriteEntryStrc* pEntry);
 
 // calling-convention shim (not game code)
 static int __fastcall sub_005FF760_LoadDCCFrames(const char* szName, D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, int nDirection, int nFrames, D2CmpSpriteEntryStrc* pEntry)
@@ -686,7 +686,7 @@ int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead
 int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 
-static __declspec(noinline) SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*, char*, char*);
+static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*, char*, char*);
 
 // 0x005FE990
 static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc* context, char* name, char* path)

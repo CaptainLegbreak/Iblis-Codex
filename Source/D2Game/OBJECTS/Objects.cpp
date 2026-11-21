@@ -267,7 +267,7 @@ enum
 
 D2UnitStrc* __fastcall sub_0054F180_SelectAndSpawnObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused); // 0x0054F180
 
-static __declspec(noinline) int __stdcall sub_005502F0_CanPlace(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY);
+static int __stdcall sub_005502F0_CanPlace(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY);
 
 struct D2ObjGroupTxt
 {
@@ -610,7 +610,7 @@ struct Unit00552D60 {
     Data00552D60* pData;
 };
 
-__declspec(noinline) void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
+void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
 
 int __stdcall sub_00643880_AlwaysOne(int nArg)
 {
@@ -760,7 +760,7 @@ inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
 }
 
 // 0x0054F180
-__declspec(noinline) D2UnitStrc* __fastcall sub_0054F180_SelectAndSpawnObject(
+D2UnitStrc* __fastcall sub_0054F180_SelectAndSpawnObject(
     D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nUnused)
 {
     unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(hRoom));
@@ -1010,7 +1010,7 @@ static __forceinline U32 Limited(Seed* seed,int maximum)
 }
 
 // 0x0054F770
-static __declspec(noinline) int __stdcall sub_0054F770_Select(Game* game,U32 level,Room* room,unsigned char category)
+static int __stdcall sub_0054F770_Select(Game* game,U32 level,Room* room,unsigned char category)
 {
     if (!category || category > N4)
         category = N2;
@@ -2689,7 +2689,7 @@ unsigned char __fastcall sub_00552AB0()
 }
 
 // 0x00552AC0
-static __declspec(noinline) void __cdecl sub_00552AC0_Class(Unit* unit)
+static void __cdecl sub_00552AC0_Class(Unit* unit)
 {
     int id;
     if (!unit)

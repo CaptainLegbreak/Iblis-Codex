@@ -130,7 +130,7 @@ static __forceinline int DATATBLS_CubeInputFindUniqueOrSet(D2CubeInputItemStrc* 
     return 1;
 }
 
-static __declspec(noinline) int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItemStrc* pCubeInput, char* szInput);
+static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItemStrc* pCubeInput, char* szInput);
 
 // 0x00668600
 static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItemStrc* pCubeInput, char* szInput)
