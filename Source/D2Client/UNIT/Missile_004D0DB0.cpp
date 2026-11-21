@@ -65,6 +65,12 @@ int __stdcall MISSILE_GetTargetY(D2UnitStrc*); // 0x0064A780
 
 D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc*,int,int); // 0x0065A620
 
+int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
+
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -188,6 +194,45 @@ int __fastcall sub_004D0DB0_CltHitBurst(D2UnitStrc* pMissile, D2UnitStrc* pHitUn
     return 1;
 }
 
+static __forceinline int sub_CanHitUnit(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 1;
+    }
+
+    if (pUnit->dwUnitType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    const int nClassId = pUnit->dwClassId;
+    return sub_004638A0_CheckMonStats2Flag(nClassId, 0xB);
+}
+
+// 0x004D0E00
+int __fastcall sub_004D0E00_CltHitBurstSub(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (!pMissilesTxtRecord)
+    {
+        return 1;
+    }
+
+    if (sub_CanHitUnit(pHitUnit))
+    {
+        if (pMissilesTxtRecord->wCltHitSubMissile[0] >= 0)
+        {
+            sub_004CDB40_SubmitRequest(sub_004639D0_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltHitSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+        }
+
+        sub_004D0B90_SpawnHitBurst(pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->dwCltHitPar[1], pMissilesTxtRecord->wCltHitSubMissile[1], pMissilesTxtRecord->wCltHitSubMissile[2], pMissile);
+        return 1;
+    }
+
+    return 0;
+}
+
 inline D2MissilesTxt* SKILLS_GetMissilesTxtRecordChecked(int nMissileId)
 {
     if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
@@ -304,7 +349,6 @@ void __fastcall sub_004D6130_CltDoRandomSubMissile3(D2UnitStrc* pMissile)
 
     sub_004D30C0_CltDoCommon(pMissile);
 }
-
 
 static void __stdcall sub_004D2520_SpawnBaalBolt(int nX, int nY, D2UnitStrc* pMissile)
 {
