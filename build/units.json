@@ -25559,48 +25559,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00482E00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00482E00",
-     "length": 44,
-     "name": "?sub_00482E00_ArchiveFilePresent@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00482E30",
-     "length": 180,
-     "name": "?sub_00482E30_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
-    },
-    {
-     "va": "0x00482EF0",
-     "length": 1033
-    },
-    {
-     "va": "0x004834E0",
-     "length": 204
-    },
-    {
-     "va": "0x004839D0",
-     "length": 159
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_00483A70.cpp",
    "rank": 1,
    "functions": [
@@ -25840,9 +25798,56 @@
    ]
   },
   {
+   "file": "Source/D2Client/UI/inv_00485EE0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00485EE0",
+     "length": 544,
+     "name": "?sub_00485EE0_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/inv_004844A0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00482E00",
+     "length": 44,
+     "name": "?sub_00482E00_ArchiveFilePresent@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00482E30",
+     "length": 180,
+     "name": "?sub_00482E30_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
+    },
+    {
+     "va": "0x00482EF0",
+     "length": 1033
+    },
+    {
+     "va": "0x004834E0",
+     "length": 204
+    },
+    {
+     "va": "0x004839D0",
+     "length": 159
+    },
     {
      "va": "0x004844A0",
      "length": 245
@@ -25908,31 +25913,6 @@
     {
      "va": "0x0048D1D0",
      "length": 2465
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_00485EE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00485EE0",
-     "length": 544,
-     "name": "?sub_00485EE0_AppendDefense@@YGXPAUD2UnitStrc@@0PAUUnicode@@@Z"
     }
    ],
    "flags": [
