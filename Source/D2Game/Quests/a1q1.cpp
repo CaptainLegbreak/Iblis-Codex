@@ -234,8 +234,8 @@ void __fastcall ACT1Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuest, D2Quest
 
         QUESTRECORD_SetQuestState(pQuestFlags, pQuest->eFilter, 0);
         QUESTRECORD_ClearQuestState(pQuestFlags, pQuest->eFilter, 1);
-        QUESTRECORD_SetQuestState(pQuestFlags, *(int*)pQuest->unk0xE4, 0xD);
-        QUESTRECORD_SetQuestState(pQuestFlags, *(int*)pQuest->unk0xE4, 1);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuest->eFilter2, 0xD);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuest->eFilter2, 1);
         QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuest->eFilter);
         STATLIST_AddUnitStat(pArg->pPlayer, 5, 1, 0);
         QUESTS_AddPlayerGUID(&pQuest->tPlayerGUIDs, !pArg->pPlayer ? -1 : pArg->pPlayer->dwUnitId);
@@ -574,7 +574,7 @@ void __fastcall ACT1Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     D2Act1Quest1Strc* pQuestDataEx = (D2Act1Quest1Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest1Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q1.cpp", 750, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A1Q1;
-    *(int*)pQuestData->unk0xE4 = 0x29;
+    pQuestData->eFilter2 = 0x29;
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT1Q1_ActiveFilterCallback;
