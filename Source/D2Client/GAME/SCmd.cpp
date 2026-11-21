@@ -9,118 +9,226 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2StormTypes.h"
+#include "D2Path.h"
+#include "D2ClientMenus.h"
+
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define SKILLSFLAGINDEX_PROGRESSIVE 2
+
 #define STAT_HITPOINTS 6
+
 struct D2SkillsTxt;
+
 struct D2GameStrc;
+
 struct D2RunesTxt;
+
 struct D2CinematicPacketStrc;
+
 struct D2GSPacketSrv45;
+
 struct D2GSPacketSrv4F;
+
 struct D2GSPacketSrv54;
+
 struct D2GSPacketSrv5E;
+
 struct D2GSPacketSrv66;
+
 struct D2GSPacketSrv77;
+
 struct D2GSPacketSrv89;
+
 struct D2GSPacketSrv8F;
+
 struct Unicode;
+
 struct D2WinMsgStrc;
+
 struct D2UnitFlagsStrc;
+
 struct D2GSPacketSrv0C;
+
 struct D2GSPacketSrv0E;
+
 struct D2GSPacketSrv0F;
+
 struct D2GSPacketSrv17;
+
 struct D2GSPacketSrv4C;
+
 struct D2GSPacketSrv4D;
+
 struct D2GSPacketSrv67;
+
 struct D2GSPacketSrv68;
+
 struct D2GSPacketSrv69;
+
 struct D2GSPacketSrv6A;
+
 struct D2GSPacketSrv6B;
+
 struct D2GSPacketSrv6C;
+
 struct D2ClientPacket7Strc;
+
 struct D2ClientPacket6Strc;
+
 struct D2SaveChunkPacketStrc;
+
 struct D2ErrorPacketStrc;
+
 struct D2GSPacketSrv01;
+
 struct D2GSPacketSrv03;
+
 struct D2PlayerDataStrc;
+
 struct D2GSPacketSrv09;
+
 struct D2GSPacketSrv0A;
+
 struct D2GSPacketSrv0B;
+
 struct D2GSPacketSrv51;
+
 struct D2ItemStatCostTxt;
+
 struct D2GSPacketSrv0D;
+
 struct D2ClientUnitUpdateStrc;
+
 struct D2GSPacketSrv16;
+
 struct D2GSPacketSrv93;
+
 struct D2GSPacketSrv27Strc;
+
 struct D2GSPacketSrv3E;
+
 struct D2GSPacketSrv42Strc;
+
 struct D2GSPacketSrv74Strc;
+
 struct D2GSPacketSrv7DStrc;
+
 struct D2GSPacketSrv82;
+
 struct D2GSPacketSrvA8;
+
 struct D2GSPacketSrvAA;
+
 struct D2GSPacketSrv10;
+
 struct D2UnitDropItemsPacketStrc;
+
 struct D2GSPacketSrv11;
+
 struct D2GSPacketSrv28;
+
 struct D2GSPacketSrv62;
+
 struct D2GSPacketSrvA4;
+
 struct D2GSPacketSrv21;
+
 struct D2SkillLevelEntryStrc;
+
 struct D2GSPacketSrv94;
+
 struct D2GSPacketSrv22;
+
 struct D2GSPacketSrv23;
+
 struct D2GSPacketSrv99;
+
 struct D2PacketRecord11Strc;
+
 struct D2UnitStatPacketStrc;
+
 struct D2PlayerStatPacketStrc;
+
 struct D2UnitStatPacket2Strc;
+
 struct D2SkillPacketStrc;
+
 struct D2Packet18RecordStrc;
+
 struct D2Packet95RecordStrc;
+
 struct D2Packet96RecordStrc;
+
 struct D2PacketBufferStrc;
+
 struct D2PacketTableEntryStrc;
+
 struct D2GSPacketCoordinateStrc;
+
 struct D2GSPacketSrv2C;
+
 struct D2GSPacketSrv59;
+
 struct D2GSPacketSrv5B;
+
 struct D2GSPacketSrv5C;
+
 struct D2GSPacketSrv92;
+
 struct D2GSPacketSrv5F;
+
 struct D2GSPacketSrv61;
+
 struct D2GSPacketSrv65;
+
 struct D2GSPacketSrv75;
+
 struct D2GSPacketSrv79;
+
 struct D2GSPacketSrv7A;
+
 struct D2GSPacketSrv7B;
+
 struct D2GSPacketSrv7E;
+
 struct D2GSPacketSrv7F;
+
 struct D2GSPacketSrv90;
+
 struct D2GSPacketSrv8B;
+
 struct D2GSPacketSrv8C;
+
 struct D2GSPacketSrv8D;
+
 struct D2GSPacketSrv8E;
+
 struct D2GSPacketSrv9B;
+
 struct D2GSPacketSrv97;
+
 struct D2GSPacketSrvA6;
+
 struct D2GSPacketSrvA7;
+
 struct D2GSPacketSrvA9;
+
 union D2SeedStrc;
+
 struct D2GSPacketSrv73;
+
 struct D2MissileStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
@@ -301,59 +409,107 @@ struct D2ClientPacket6Strc
     unsigned char nUnitGUID2;
     unsigned char nUnitGUID3;
 };
+
 extern "C" __declspec(dllimport) void __stdcall PostQuitMessage(int nExitCode); // 0x006CC4A4
+
 extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, int wParam, int lParam); // 0x006CC488
+
 extern "C" __declspec(dllimport) int __stdcall PeekMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax, unsigned int nRemove); // 0x006CC480
+
 extern "C" __declspec(dllimport) int __stdcall GetMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax); // 0x006CC484
+
 extern "C" __declspec(dllimport) int __stdcall TranslateAcceleratorA(void* hWnd, void* hAccTable, D2WinMsgStrc* pMsg); // 0x006CC4A8
+
 extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const D2WinMsgStrc* pMsg); // 0x006CC47C
+
 extern "C" __declspec(dllimport) int __stdcall DispatchMessageA(const D2WinMsgStrc* pMsg); // 0x006CC478
+
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int nMilliseconds); // 0x006CC258
+
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
+
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+
 void __cdecl sub_00466FE0(); // 0x00466FE0
+
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
+
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
+
 void __cdecl sub_0044C060_Refresh(); // 0x0044C060
+
 void __cdecl sub_00466FF0(); // 0x00466FF0
+
 void __cdecl sub_004A01E0_ClearListFlags(); // 0x004A01E0
+
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
 int __cdecl sub_004F59A0(); // 0x004F59A0
+
 int __stdcall SMsgRegisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420BF0
+
 int __stdcall SMsgRegisterKeyDown(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C10
+
 int __stdcall SMsgRegisterKeyUp(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C30
+
 int __stdcall SMsgRegisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C50
+
 int __stdcall SMsgUnregisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C70
+
 int __stdcall SMsgUnregisterKeyDown(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C90
+
 int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420CB0
+
 int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420CD0
+
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
+
 void __stdcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
+
 void __fastcall sub_004B1240_UsePacket7(D2ClientPacket7Strc* pPacket); // 0x004B1240
+
 void __fastcall sub_0049F8C0_UsePacket6(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
+
 extern int gdwGlobal_007A0664; // 0x007A0664
+
 extern int gdwGlobal_007A065C; // 0x007A065C
+
 extern int gdwGlobal_007A0654; // 0x007A0654
+
 extern int gdwGlobal_007A0670; // 0x007A0670
+
 extern int gdwGlobal_007A0658; // 0x007A0658
+
 extern void* gxGlobal_007A0708; // 0x007A0708
+
 extern Unicode gxGlobal_007A2C80[80]; // 0x007A2C80
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
+
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
 void __cdecl sub_00477DA0(); // 0x00477DA0
+
 void __fastcall sub_004A40D0_StorePacket52(void* pPacket); // 0x004A40D0
+
 
 #pragma pack(push, 1)
 struct D2SaveChunkPacketStrc
@@ -364,19 +520,25 @@ struct D2SaveChunkPacketStrc
     unsigned int nTotal;
     unsigned char aData[1];
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2ErrorPacketStrc
 {
     unsigned char f_0;
     int nCode;
 };
-
 #pragma pack(pop)
 
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __cdecl sub_0045C520_SaveCharFile(); // 0x0045C520
+
 void __fastcall sub_0044E380_ShowLoadingMessage(int nError); // 0x0044E380
+
 extern int gdwGlobal_007A0618; // 0x007A0618
 
 #pragma pack(push, 1)
@@ -388,7 +550,9 @@ struct D2GSPacketSrv01
     unsigned char nExpansion;
     unsigned char nLadder;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv03
 {
     unsigned char nHeader;
@@ -397,17 +561,24 @@ struct D2GSPacketSrv03
     unsigned short nTownLevelId;
     unsigned int nObjectSeed;
 };
-
 #pragma pack(pop)
 
 void __fastcall sub_0044DC70_SetDifficulty(unsigned char nDifficulty); // 0x0044DC70
+
 void __fastcall sub_0044DC80(unsigned char nValue); // 0x0044DC80
+
 void __fastcall sub_0044DC90(int nValue); // 0x0044DC90
+
 void __fastcall sub_0047A9A0_SetClientFlags(int nFlags); // 0x0047A9A0
+
 void __cdecl sub_00456970_InitUI(); // 0x00456970
+
 void __fastcall sub_0044E100_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsigned int dwObjectSeed, int nTownLevelId); // 0x0044E100
+
 extern int gdwGlobal_007A061C; // 0x007A061C
+
 extern int gnValue_007A0624; // 0x007A0624
+
 void __fastcall sub_00470B10_PreloadForceAct(int nAct); // 0x00470B10
 
 #pragma pack(push, 1)
@@ -420,21 +591,27 @@ struct D2GSPacketSrv09
     unsigned short nPosX;
     unsigned short nPosY;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv0A
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     unsigned int dwUnitGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv0B
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     unsigned int dwUnitGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv51
 {
     unsigned char nHeader;
@@ -446,20 +623,30 @@ struct D2GSPacketSrv51
     unsigned char unk0x0C;
     unsigned char nInteractType;
 };
-
 #pragma pack(pop)
 
 void __cdecl sub_0044C880(); // 0x0044C880
+
 extern int gdwGlobal_007A0620; // 0x007A0620
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 int __cdecl sub_0044C870(); // 0x0044C870
+
 D2UnitStrc* __fastcall sub_004661C0_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5); // 0x004661C0
+
 void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
+
 D2UnitStrc* __fastcall sub_00466300_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType); // 0x00466300
+
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
+
 void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 void __fastcall sub_00463D90(int nArg); // 0x00463D90
+
 void __cdecl sub_0046F360_Empty(); // 0x0046F360
 
 enum D2C_F23Constants
@@ -594,29 +781,53 @@ struct D2GSPacketSrvAA
 };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
+
 extern void* gpGlobal_007BB384; // 0x007BB384
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
+
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x00411030
+
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
+
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
 int __cdecl sub_0044DA30(); // 0x0044DA30
+
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
 void __fastcall sub_00462F60(D2GSPacketSrv74Strc* pPacket); // 0x00462F60
+
 int __cdecl sub_00463DF0(); // 0x00463DF0
+
 void __fastcall sub_0047A270_SetPortalIds(int nOwnerGUID, int nPortalGUID0, int nPortalGUID1); // 0x0047A270
+
 void __fastcall sub_0047A690(int nUnitGUID, unsigned char nLifePct); // 0x0047A690
+
 void __fastcall sub_004A1600(D2GSPacketSrv27Strc* pPacket); // 0x004A1600
+
 void __fastcall sub_004BDFE0_SetObjectName(D2UnitStrc* pUnit, const char* szName); // 0x004BDFE0
+
 void __fastcall sub_004C1F30(unsigned int nA, unsigned char nB, unsigned int nC, unsigned int nD, unsigned short nE); // 0x004C1F30
+
 void __fastcall sub_004C2050(D2GSPacketSrv42Strc* pPacket); // 0x004C2050
+
 void __fastcall sub_004C2270(D2GSPacketSrv7DStrc* pPacket); // 0x004C2270
+
 void __fastcall sub_004C7990(D2UnitStrc* pUnit, int nA, int nB, unsigned char nC); // 0x004C7990
+
 int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+
 void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B20
+
 int __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, int nStatId, int nValue, int nLayer); // 0x004D9D70
+
 void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
+
 D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
 struct D2GSPacketSrv10
@@ -640,22 +851,39 @@ struct D2UnitDropItemsPacketStrc
 };
 
 unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
+
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
+
 void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
+
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
+
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+
 void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
+
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
+
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
+
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
+
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
+
 void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
+
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
+
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
+
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection); // 0x006488A0
+
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
 unsigned char* __fastcall sub_004AC740_GetMonsterBytes(D2UnitStrc* pUnit); // 0x004AC740
+
 void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005449E0
 
 #pragma pack(push, 1)
@@ -666,7 +894,9 @@ struct D2GSPacketSrv11
     int nUnitId;
     unsigned short wOverlay;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv28
 {
     unsigned char nHeader;
@@ -675,20 +905,26 @@ struct D2GSPacketSrv28
     unsigned char nArg;
     unsigned char pBuffer[1];
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv62
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     int nUnitId;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrvA4
 {
     unsigned char nHeader;
     unsigned short wMonsterId;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv21
 {
     unsigned char nHeader;
@@ -698,13 +934,17 @@ struct D2GSPacketSrv21
     unsigned short wSkillId;
     unsigned char nSkillLevel;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2SkillLevelEntryStrc
 {
     unsigned short wSkillId;
     unsigned char nSkillLevel;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv94
 {
     unsigned char nHeader;
@@ -712,7 +952,9 @@ struct D2GSPacketSrv94
     int nUnitId;
     D2SkillLevelEntryStrc pEntries[1];
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv22
 {
     unsigned char nHeader;
@@ -723,7 +965,9 @@ struct D2GSPacketSrv22
     unsigned char unk0x0A;
     unsigned char bSkip;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv23
 {
     unsigned char nHeader;
@@ -733,7 +977,9 @@ struct D2GSPacketSrv23
     unsigned short wSkillId;
     int nOwnerGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv99
 {
     unsigned char nHeader;
@@ -745,26 +991,39 @@ struct D2GSPacketSrv99
     int f_A;
     unsigned short wArg5;
 };
-
 #pragma pack(pop)
 
 void __fastcall sub_00464E50_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg); // 0x00464E50
+
 void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
+
 void __fastcall sub_004B5320_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
+
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
+
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
+
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
+
 extern "C" void __cdecl sub_004AA8F0_ClearValue7C0C3C(); // 0x004AA8F0
+
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
+
 void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nQuantity); // 0x00645120
+
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
+
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
+
 int __fastcall sub_004CA200_Forward(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004CA200
+
 void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags); // 0x004654C0
+
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
+
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648C30
+
 void __fastcall sub_0044DB40(int nDelay); // 0x0044DB40
-extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 
 #pragma pack(push, 1)
 struct D2PacketRecord11Strc
@@ -772,13 +1031,19 @@ struct D2PacketRecord11Strc
     unsigned char nHeader;
     unsigned char nUnitType;
     unsigned char unk0x02;
-    int nUnitId;
+    union
+    {
+        int nUnitId;
+        unsigned long dwUnitId;
+    };
     unsigned char unk0x07;
     unsigned char unk0x08;
     unsigned char unk0x09;
     unsigned char unk0x0A;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2UnitStatPacketStrc
 {
     unsigned char nHeader;
@@ -791,7 +1056,9 @@ struct D2UnitStatPacketStrc
         unsigned int nDword;
     };
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2PlayerStatPacketStrc
 {
     unsigned char nHeader;
@@ -812,7 +1079,9 @@ struct D2PlayerStatPacketStrc
         };
     };
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2UnitStatPacket2Strc
 {
     unsigned char nHeader;
@@ -820,12 +1089,14 @@ struct D2UnitStatPacket2Strc
     unsigned char nStat;
     int nValue;
 };
-
 #pragma pack(pop)
 
 void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
+
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+
 void __fastcall sub_004C1C10(D2UnitStrc* pUnit); // 0x004C1C10
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 #pragma pack(push, 1)
@@ -842,10 +1113,10 @@ struct D2SkillPacketStrc
     int nX;
     int nY;
 };
-
 #pragma pack(pop)
 
 void __fastcall sub_004C6930_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, unsigned char nMode); // 0x004C6930
+
 void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nMode);
 
 #pragma pack(push, 1)
@@ -862,7 +1133,9 @@ struct D2Packet18RecordStrc
     unsigned char nDeltaX;
     unsigned char nDeltaY;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2Packet95RecordStrc
 {
     unsigned char nHeader;
@@ -874,7 +1147,9 @@ struct D2Packet95RecordStrc
     unsigned char nDeltaX;
     unsigned char nDeltaY;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2Packet96RecordStrc
 {
     unsigned char nHeader;
@@ -884,7 +1159,6 @@ struct D2Packet96RecordStrc
     unsigned char nDeltaX;
     unsigned char nDeltaY;
 };
-
 #pragma pack(pop)
 
 typedef void (__fastcall* D2PacketHandlerFn)(unsigned char* pPacket);
@@ -893,19 +1167,30 @@ struct D2PacketTableEntryStrc
 {
     D2PacketHandlerFn pfnHandler;
     int nSize;
-    void* f_8;
+    void* pfnAltHandler;
 };
+
 void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
+
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(D2UnitStrc* pUnit); // 0x00464770
+
 void __fastcall sub_004647A0_SetPacketBuffer(D2UnitStrc* pUnit, D2PacketBufferStrc* pBuffer); // 0x004647A0
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
 extern D2PacketTableEntryStrc gtPacketTable_007114D0[]; // 0x007114D0
-extern int gnPacketBytes_007A6AF4; // 0x007A6AF4
-extern int gnPacketBlocks_007A6AFC; // 0x007A6AFC
-extern int gnLargePacketBlocks_007A6B04; // 0x007A6B04
-extern unsigned char gnLastPacketId_007A5234; // 0x007A5234
+
+int gnPacketBytes_007A6AF4; // 0x007A6AF4
+
+int gnPacketBlocks_007A6AFC; // 0x007A6AFC
+
+int gnLargePacketBlocks_007A6B04; // 0x007A6B04
+
+unsigned char gnLastPacketId_007A5234; // 0x007A5234
+
 extern "C" const char szSCmdCppFile_006D69E4[];
-extern int gnGlobal_007A5230;
+
+int gnGlobal_007A5230; // 0x007A5230
 
 #pragma pack(push, 1)
 struct D2GSPacketCoordinateStrc
@@ -920,10 +1205,10 @@ struct D2GSPacketCoordinateStrc
     unsigned short wArg5;
     unsigned short wArg6;
 };
-
 #pragma pack(pop)
 
 int __fastcall sub_004CA230_Forward(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6);
+
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
 #pragma pack(push, 1)
@@ -934,7 +1219,9 @@ struct D2GSPacketSrv2C
     int dwUnitGUID;
     unsigned short nSoundEvent;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv59
 {
     unsigned char nHeader;
@@ -944,7 +1231,9 @@ struct D2GSPacketSrv59
     unsigned short nPosX;
     unsigned short nPosY;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv5B
 {
     unsigned char nHeader;
@@ -959,39 +1248,51 @@ struct D2GSPacketSrv5B
     unsigned short unk0x20;
     char szText[1];
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv5C
 {
     unsigned char nHeader;
     int dwPlayerGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv92
 {
     unsigned char nHeader;
     unsigned char nUnitType;
     int nUnitGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv5F
 {
     unsigned char nHeader;
     int nPortalFlags;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv61
 {
     unsigned char nHeader;
     unsigned char unk0x01;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv65
 {
     unsigned char nHeader;
     int dwUnitId;
     unsigned short unk0x05;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv75
 {
     unsigned char nHeader;
@@ -1001,14 +1302,18 @@ struct D2GSPacketSrv75
     unsigned short nFlags;
     unsigned short unk0x0B;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv79
 {
     unsigned char nHeader;
     unsigned char nOwnerGUID;
     int dwGold;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv7A
 {
     unsigned char nHeader;
@@ -1018,7 +1323,9 @@ struct D2GSPacketSrv7A
     int unk0x05;
     int unk0x09;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv7B
 {
     unsigned char nHeader;
@@ -1026,13 +1333,17 @@ struct D2GSPacketSrv7B
     unsigned short wSkill;
     int nItemGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv7E
 {
     unsigned char nHeader;
     unsigned char unk0x001[4];
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv7F
 {
     unsigned char nHeader;
@@ -1041,7 +1352,9 @@ struct D2GSPacketSrv7F
     int nUnitGUID;
     unsigned short nLevelId;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv90
 {
     unsigned char nHeader;
@@ -1049,14 +1362,18 @@ struct D2GSPacketSrv90
     int dwPosX;
     int dwPosY;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv8B
 {
     unsigned char nHeader;
     int nUnitGUID;
     unsigned char bParty;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv8C
 {
     unsigned char nHeader;
@@ -1064,14 +1381,18 @@ struct D2GSPacketSrv8C
     int dwPlayerGUID2;
     unsigned short nFlags;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv8D
 {
     unsigned char nHeader;
     int dwPlayerGUID;
     unsigned short nPartyGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv8E
 {
     unsigned char nHeader;
@@ -1079,19 +1400,25 @@ struct D2GSPacketSrv8E
     int dwPlayerGUID;
     int dwCorpseGUID;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv9B
 {
     unsigned char nHeader;
     unsigned short unk0x01;
     unsigned short unk0x03;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrv97
 {
     unsigned char nHeader;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrvA6
 {
     unsigned char nHeader;
@@ -1100,7 +1427,9 @@ struct D2GSPacketSrvA6
     unsigned short nRecordId;
     unsigned char pRecord[1];
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrvA7
 {
     unsigned char nHeader;
@@ -1108,7 +1437,9 @@ struct D2GSPacketSrvA7
     int nUnitId;
     unsigned char nState;
 };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
 struct D2GSPacketSrvA9
 {
     unsigned char nHeader;
@@ -1116,39 +1447,68 @@ struct D2GSPacketSrvA9
     int nUnitId;
     unsigned char nState;
 };
-
 #pragma pack(pop)
 
 void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
+
 D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName); // 0x00466200
+
 void __fastcall sub_0047A6F0_AddRosterUnit(int nUnitId, int nClassId, const char* szName, unsigned short wLevel, unsigned short wPartyId, int nUnused, int nPartyFlags, unsigned short wGuildFlags, const char* szGuildTag, const char* szGuildName); // 0x0047A6F0
+
 void __fastcall sub_0047A8B0_RemoveRosterUnit(int nPlayerGUID); // 0x0047A8B0
+
 void __fastcall sub_004C23E0_RemoveEquippedItems(D2UnitStrc* pUnit); // 0x004C23E0
+
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags); // 0x006221E0
+
 void __fastcall sub_004B9320_PlayCinematicFromPacket(const D2CinematicPacketStrc* pPacket); // 0x004B9320
+
 void __cdecl sub_0047F1D0_LoadResolution(); // 0x0047F1D0
+
 void __fastcall sub_00479B10_SetKillCount(int nUnitId, unsigned short nValue); // 0x00479B10
+
 void __fastcall sub_0047A850_UpdateRosterUnit(int nUnitId, unsigned short wPartyId, unsigned short wLevel, int nUnused, int nPartyFlags); // 0x0047A850
+
 void __fastcall sub_004B90D0(int nGold, unsigned char nOwner); // 0x004B90D0
+
 void __fastcall sub_00478B10_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
+
 void __fastcall sub_00478C90_DropPetEntry(int nKey); // 0x00478C90
+
 void __fastcall sub_004AA0C0_SetSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
+
 void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nAct); // 0x0046F310
+
 void __fastcall sub_0047A0D0_SetLifeAndLevel(int nUnitId, int nLife, unsigned short wLevelId); // 0x0047A0D0
+
 void __fastcall sub_00479010_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg); // 0x00479010
+
 void __fastcall sub_0047A100_SetPosition(int nUnitId, int nX, int nY); // 0x0047A100
+
 void __fastcall sub_0047A350_SetPartyFlags(int nUnitId, unsigned char nFlags); // 0x0047A350
+
 void __fastcall sub_0047A370_SetPvpFlags(int nUnitId1, int nUnitId2, unsigned short wFlags); // 0x0047A370
+
 void __fastcall sub_0047A330_SetPartyId(int nUnitId, unsigned short wPartyId); // 0x0047A330
+
 void __fastcall sub_0047A3D0_AddCorpse(int nUnitId, int nCorpseId); // 0x0047A3D0
+
 void __fastcall sub_0047A490_DropCorpseEntry(int nUnitId, int nCorpseId); // 0x0047A490
+
 void __fastcall sub_004B6980_SetNpcMenuState(unsigned short wValue, int nValue); // 0x004B6980
+
 extern "C" void __cdecl sub_0048A700(); // 0x0048A700
+
 void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRecord); // 0x00639CC0
+
 void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState); // 0x004D9F40
+
 void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState); // 0x004D9C30
+
 void __cdecl sub_00473CA0_Empty(); // 0x00473CA0
+
 void __cdecl sub_004B3290_ResetSlots(); // 0x004B3290
+
 void __fastcall sub_004B92B0_StorePacketText(const D2GSPacketSrv5E* pPacket); // 0x004B92B0
 
 struct D2GSPacketSrv73
@@ -1170,11 +1530,17 @@ struct D2GSPacketSrv73
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId); // 0x00621CC0
+
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
+
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
 void __fastcall sub_004B8CF0(const D2GSPacketSrv77* pPacket); // 0x004B8CF0
+
 void __fastcall sub_004B9330_UniqueEvent(const D2GSPacketSrv89* pPacket); // 0x004B9330
+
 void __fastcall sub_0044CDB0_StorePong(const D2GSPacketSrv8F* pPacket); // 0x0044CDB0
 
 int gdwGlobal_007A2D20; // 0x007A2D20
@@ -1182,6 +1548,643 @@ int gdwGlobal_007A2D20; // 0x007A2D20
 int gdwGlobal_007A2D24; // 0x007A2D24
 
 int gdwGlobal_007A2D28; // 0x007A2D28
+
+struct D2ClientSightPacketStrc;
+
+struct D2GSPacketSrvAE;
+
+void __fastcall sub_0044E380_SetConnectionError(int nError);
+
+#pragma pack(push, 1)
+struct D2ClientSightPacketStrc
+{
+    unsigned char unk0x00;
+    unsigned short nX;
+    unsigned short nY;
+    unsigned char nLevelId;
+};
+#pragma pack(pop)
+
+extern "C" void __stdcall DUNGEON_SetClientIsInSight(void* pAct, int nLevelId, int nX, int nY, void* pRoom); // 0x0061A070
+
+extern "C" void __stdcall DUNGEON_UnsetClientIsInSight(void* pAct, int nLevelId, int nX, int nY, void* pRoom); // 0x0061A0C0
+
+#pragma pack(push, 1)
+struct D2GSPacketSrvAE
+{
+    unsigned char nHeader;
+    unsigned short nLength;
+    unsigned char pData[1];
+};
+#pragma pack(pop)
+
+void __fastcall sub_004802E0(unsigned char* pData, int nLength); // 0x004802E0
+
+int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+
+void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
+
+extern int gnGlobal_007A2858; // 0x007A2858
+
+extern int gnGlobal_0071146C; // 0x0071146C
+
+extern int gnGlobal_007A285C; // 0x007A285C
+
+extern int gnGlobal_007A5254; // 0x007A5254
+
+static void sub_0045C620_ReceiveSaveChunk(D2SaveChunkPacketStrc* pPacket);
+
+#define gnGlobal_007A7430 (gtTimedBox_007A742C.nValue)
+
+#define gnGlobal_007A7434 (gtTimedBox_007A742C.nColor[0])
+
+#define gnGlobal_007A7435 (gtTimedBox_007A742C.nColor[1])
+
+#define gnGlobal_007A7436 (gtTimedBox_007A742C.nColor[2])
+
+struct D2StaticPathStrc;
+
+struct D2MonsterDataStrc;
+
+struct D2GfxNodeStrc;
+
+struct D2SortEntryStrc;
+
+struct D2HotkeyStrc;
+
+struct D2HotkeyCommandStrc;
+
+struct D2ByteRecordStrc;
+
+struct D2PacketRecord6Strc;
+
+struct D2PacketRecord7Strc;
+
+struct D2PacketRecord8Strc;
+
+struct D2PacketRecord13Strc;
+
+struct D2PacketRecord15Strc;
+
+struct D2PacketRecord21Strc;
+
+struct D2GSPacket5AStrc;
+
+struct D2GSPacket81Strc;
+
+struct D2GSPacket91Strc;
+
+struct D2Packet81ArgsStrc;
+
+struct D2ClientTimedBoxStrc;
+
+enum D2C_CA2Constants
+{
+    LEVEL_8 = 8,
+    LEVEL_107 = 107,
+    LEVEL_108 = 108,
+    MODE_2 = 2,
+    VK_MENU = 0x12,
+    VK_F4 = 0x73,
+    NUM_HOTKEYS = 114,
+    NUM_HOTKEY_COMMANDS = 0x39,
+    GRID_SIZE = 48,
+};
+
+struct D2GfxNodeStrc
+{
+    int nType;
+    int nId;
+    int nValue;
+    char unk0x0C[0x98];
+    D2GfxNodeStrc* pNext;
+};
+
+struct D2GfxDataStrc
+{
+    char unk0x00[0x2C];
+    D2GfxNodeStrc* pNodeList2C;
+};
+
+struct D2TileRectStrc
+{
+    int unk0x00;
+    int nX;
+    int nY;
+    int nWidth;
+    int nHeight;
+};
+
+struct D2SortEntryStrc
+{
+    int nKey;
+    unsigned char unk0x04[2];
+    unsigned char nFlag[4];
+};
+
+struct D2HotkeyCommandStrc
+{
+    void (__cdecl* pfnCommand)();
+    int unk0x04;
+    int nModeFlag;
+};
+
+struct D2ByteRecordStrc
+{
+    char unk0x00[0x25];
+    unsigned char nValue0;
+    unsigned char nValue1;
+    unsigned char f_27;
+};
+
+struct D2GridCellStrc
+{
+    unsigned char unk0x00[4];
+    unsigned char nValue0;
+    unsigned char nValue1;
+    unsigned char f_6;
+    unsigned char nValue3;
+};
+
+struct D2PacketRecord6Strc
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned char unk0x03;
+    unsigned char unk0x04;
+    unsigned char unk0x05;
+};
+
+struct D2PacketRecord7Strc
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned char unk0x03;
+    unsigned char unk0x04;
+    unsigned char unk0x05;
+    unsigned char unk0x06;
+};
+
+struct D2PacketRecord8Strc
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned char unk0x03;
+    unsigned char unk0x04;
+    unsigned char unk0x05;
+    unsigned char unk0x06;
+    unsigned char unk0x07;
+};
+
+
+struct D2PacketRecord13Strc
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned char unk0x03;
+    unsigned char unk0x04;
+    unsigned char unk0x05;
+    unsigned char unk0x06;
+    unsigned char unk0x07;
+    unsigned char unk0x08;
+    unsigned char unk0x09;
+    unsigned char unk0x0A;
+    unsigned char unk0x0B;
+    unsigned char unk0x0C;
+};
+
+struct D2PacketRecord15Strc
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned char unk0x03;
+    unsigned char unk0x04;
+    unsigned char unk0x05;
+    unsigned char unk0x06;
+    unsigned char unk0x07;
+    unsigned char unk0x08;
+    unsigned char unk0x09;
+    unsigned char unk0x0A;
+    unsigned char unk0x0B;
+    unsigned char unk0x0C;
+    unsigned char unk0x0D;
+    unsigned char unk0x0E;
+};
+
+struct D2PacketRecord21Strc
+{
+    unsigned char nHeader;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned char unk0x03;
+    unsigned char unk0x04;
+    unsigned char unk0x05;
+    unsigned char unk0x06;
+    unsigned char unk0x07;
+    unsigned char unk0x08;
+    unsigned char unk0x09;
+    unsigned char unk0x0A;
+    unsigned char unk0x0B;
+    unsigned char unk0x0C;
+    unsigned char unk0x0D;
+    unsigned char unk0x0E;
+    unsigned char unk0x0F;
+    unsigned char unk0x10;
+    unsigned char unk0x11;
+    unsigned char unk0x12;
+    unsigned char unk0x13;
+    unsigned char unk0x14;
+};
+
+struct D2GSPacket5AStrc
+{
+    int nData00;
+    int nData04;
+    int nData08;
+    int nData0C;
+    int nData10;
+    int f_14;
+    int nData18;
+    int nData1C;
+    int nData20;
+    int nData24;
+};
+
+struct D2GSPacket81Strc
+{
+    unsigned char nHeader;
+    unsigned char nByte01;
+    unsigned short nWord02;
+    int nArg04;
+    int nArg08;
+    int nArg0C;
+    int nArg10;
+};
+
+struct D2GSPacket91Strc
+{
+    unsigned short nData00;
+    unsigned short nData02;
+    unsigned short nData04;
+    unsigned short nData06;
+    unsigned short nData08;
+    unsigned short nData0A;
+    unsigned short nData0C;
+    unsigned short nData0E;
+    unsigned short nData10;
+    unsigned short nData12;
+    unsigned short f_14;
+    unsigned short nData16;
+    unsigned short nData18;
+};
+
+
+
+extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
+
+extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
+
+void __fastcall sub_0049EB10(D2GSPacket5AStrc* pPacket); // 0x0049EB10
+
+void __fastcall sub_004B6390(D2PacketRecord15Strc* pPacket); // 0x004B6390
+
+void __fastcall sub_004C4620(D2PacketRecord8Strc* pPacket); // 0x004C4620
+
+void __fastcall sub_004C2020(D2PacketRecord13Strc* pPacket); // 0x004C2020
+
+void __fastcall sub_004C1BF0(D2PacketRecord11Strc* pPacket); // 0x004C1BF0
+
+void __fastcall sub_004B9210(D2PacketRecord15Strc* pPacket); // 0x004B9210
+
+void __fastcall sub_004B3240(D2PacketRecord7Strc* pPacket); // 0x004B3240
+
+void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket); // 0x004C0550
+
+void __fastcall sub_004A2CB0_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
+
+void __fastcall sub_004B3510(D2GSPacket91Strc* pPacket); // 0x004B3510
+
+void __fastcall sub_004BDF30(D2PacketRecord7Strc* pPacket); // 0x004BDF30
+
+void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket); // 0x0049CF90
+
+void __fastcall sub_004B9010(D2PacketRecord21Strc* pPacket); // 0x004B9010
+
+void __fastcall sub_00478BB0(int nKey, int nArg, int nType, int nValue, D2Packet81ArgsStrc* pArgs); // 0x00478BB0
+
+void __fastcall sub_004C51B0(D2PacketRecord6Strc* pPacket); // 0x004C51B0
+
+void __fastcall sub_004B3380(D2PacketRecord6Strc* pPacket); // 0x004B3380
+
+void __cdecl sub_0044DA70(); // 0x0044DA70
+
+void __stdcall sub_00619EE0(D2ActiveRoomStrc* pRoom); // 0x00619EE0
+
+void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
+void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+
+int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
+
+D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+
+void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
+
+int __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
+
+extern int gnGlobal_007A5248; // 0x007A5248
+
+extern int gnGlobal_007A5258; // 0x007A5258
+
+extern int gnGlobal_007A6B08; // 0x007A6B08
+
+extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS]; // 0x007A6F90
+
+extern D2HotkeyCommandStrc gtHotkeyCommands_00712698[]; // 0x00712698
+
+extern int gnGlobal_007A7418; // 0x007A7418
+
+extern int gnGlobal_007A7460; // 0x007A7460
+
+extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
+
+
+extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
+
+extern unsigned char gRowTable_007B5C10[][0x100]; // 0x007B5C10
+
+extern int gnGlobal_007B8D10; // 0x007B8D10
+
+extern int gnSentBytes_007A6AF8; // 0x007A6AF8
+
+extern int gnSentPackets_007A6B00; // 0x007A6B00
+
+struct D2StatListStrc;
+
+struct D2UnitStrc;
+
+struct D2GSPacketSrv26;
+
+struct D2EnvironmentPacketStrc;
+
+struct D2GSPacketSrv9C;
+
+struct D2GSPacketSrv9D;
+
+struct D2PacketSpawnStrc;
+
+struct D2MonStatsTxt;
+
+struct D2MonStats2Txt;
+
+struct D2UnitSpawnExtraStrc;
+
+struct D2UnitSpawnStrc;
+
+struct D2GSPacketSrv0DStrc;
+
+extern "C"
+__declspec(noreturn)
+void __cdecl exit(int nCode); // 0x00681E09
+
+
+#pragma pack(push, 1)
+struct D2SkillEndPacketStrc
+{
+    unsigned char nHeader;
+    unsigned char nUnitType;
+    int nUnitId;
+    unsigned short nSkillId;
+};
+#pragma pack(pop)
+
+void __fastcall sub_004CA000(D2UnitStrc* pUnit, int nSkillId); // 0x004CA000
+
+void __fastcall sub_004C8B80_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
+
+void __fastcall sub_004C9420(D2UnitStrc* pUnit, int nSkillId); // 0x004C9420
+
+void __stdcall sub_00639DB0_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
+
+struct D2GSPacketSrv26
+{
+    unsigned char nHeader;
+    unsigned char nType;
+    unsigned char nLang;
+    unsigned char nUnitType;
+    int nUnitId;
+    unsigned char nColor;
+    unsigned char nSubType;
+    char szName[0x10];
+};
+
+struct D2ChatMessageStrc
+{
+    unsigned char nHeader;
+    unsigned char nType;
+    unsigned char f_2;
+    unsigned char nUnitType;
+    int nUnitId;
+    unsigned char nColor;
+    unsigned char nSubType;
+    char szName[0x10];
+    char szText[0x100];
+};
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+#pragma pack(push, 1)
+struct D2EnvironmentPacketStrc
+{
+    unsigned char nHeader;
+    int nIndex;
+    int nTicks;
+    unsigned char bEclipse;
+};
+#pragma pack(pop)
+
+extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
+
+void __cdecl sub_004646C0_UpdateObjectsForPeriod(); // 0x004646C0
+
+struct D2GSPacketSrv9C
+{
+    unsigned char nHeader;
+    unsigned char nAction;
+    unsigned char nPacketSize;
+    unsigned char nComponent;
+    int nItemId;
+    unsigned char pBitstream[244];
+};
+
+struct D2GSPacketSrv9D
+{
+    unsigned char nHeader;
+    unsigned char nAction;
+    unsigned char nPacketSize;
+    unsigned char nComponent;
+    unsigned char pItemId[4];
+    unsigned char nOwnerType;
+    unsigned char nUnitId[4];
+    unsigned char pBitstream[0xF4];
+};
+
+void __fastcall sub_004C20B0_ItemToCursor9C(D2GSPacketSrv9C* pPacket); // 0x004C20B0
+
+void __fastcall sub_004C2340_ItemToCursor9D(D2GSPacketSrv9D* pPacket); // 0x004C2340
+
+void __fastcall sub_004C25B0(D2GSPacketSrv9C* pPacket); // 0x004C25B0
+
+void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket); // 0x004C2650
+
+void __fastcall sub_004C26F0_ItemDropped9C(D2GSPacketSrv9C* pPacket); // 0x004C26F0
+
+void __fastcall sub_004C2810(D2GSPacketSrv9C* pPacket); // 0x004C2810
+
+void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket); // 0x004C2AD0
+
+void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket); // 0x004C2C80
+
+void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket); // 0x004C2E90
+
+void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket); // 0x004C3070
+
+void __fastcall sub_004C3380_RemoveBodyItem9D(D2GSPacketSrv9D* pPacket); // 0x004C3380
+
+void __fastcall sub_004C3920_BodyPacket9D(D2GSPacketSrv9D* pPacket); // 0x004C3920
+
+void __fastcall sub_004C3B00(D2GSPacketSrv9D* pPacket); // 0x004C3B00
+
+void __fastcall sub_004C3B30_UpdateItemFromPacket9C(D2GSPacketSrv9C* pPacket); // 0x004C3B30
+
+void __fastcall sub_004C3C00_ItemToMerc9C(D2GSPacketSrv9C* pPacket); // 0x004C3C00
+
+void __fastcall sub_004C40D0_BeltPacket2_9C(D2GSPacketSrv9C* pPacket); // 0x004C40D0
+
+void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket); // 0x004C4130
+
+void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket); // 0x004C42A0
+
+void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket); // 0x004C45C0
+
+void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket); // 0x004C4740
+
+void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket); // 0x004C4990
+
+void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket); // 0x004C4AA0
+
+D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket); // 0x004C4C70
+
+#pragma pack(push, 1)
+struct D2PacketSpawnStrc
+{
+    unsigned char nHeader; unsigned int nUnitId; short nClassId;
+    unsigned short nX, nY; unsigned char nLife, nLength; unsigned char aData[1];
+};
+#pragma pack(pop)
+
+struct D2UnitSpawnExtraStrc { int nFlags, nUniqueId; };
+
+struct D2UnitSpawnStrc { unsigned int nUnitId; int nClassId, nX, nY; D2UnitSpawnExtraStrc tExtra; int nMode; };
+
+int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
+
+int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
+
+D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc*, unsigned char*, unsigned char*, unsigned short, int, int); // 0x00466360
+
+void __fastcall sub_00477170_LoadPalShift(int); // 0x00477170
+
+D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
+
+void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
+
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc*, int, int); // 0x006257D0
+
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
+
+void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); // 0x00627150
+
+int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc*); // 0x0063EE90
+
+#pragma pack(push, 1)
+struct D2GSPacketSrv0DStrc
+{
+    unsigned char nHeader;
+    unsigned char nUnitType;
+    int dwUnitId;
+    unsigned char unk0x06;
+    unsigned short nX;
+    unsigned short nY;
+    unsigned char unk0x0B;
+    unsigned char nLife;
+};
+#pragma pack(pop)
+
+
+void __fastcall sub_0045D3E0_RefreshItemStats(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
+
+void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
+
+static void sub_0045D3B0_SendUnitStatus(D2UnitStrc* pUnit); // 0x0045D3B0
+
+
+static unsigned char* gpSaveBuffer_007A5224; // 0x007A5224
+
+static unsigned int gnSaveBufferSize_007A5228; // 0x007A5228
+
+static void sub_0045C6D0_HandleErrorPacket(D2ErrorPacketStrc* pPacket);
+
+void __fastcall sub_0045C850_HandleSystemPacket(unsigned char* pPacket, int nSize);
+
+int gdwGlobal_007A0524; // 0x007A0524
+
+static void sub_0045D3B0_SendUnitStatus(D2UnitStrc* pUnit);
+
+static void __stdcall sub_0045D4B0_OnStatChanged(int nValue, int nStat, D2UnitStrc* pUnit);
+
+void __fastcall sub_0045D780_HandlePlayerStatPacket(D2PlayerStatPacketStrc* pPacket);
+
+void __fastcall sub_0045D880_HandleUnitStatPacket2(D2UnitStatPacket2Strc* pPacket);
+
+void __fastcall sub_0045D540_HandleUnitStatPacket(D2UnitStatPacketStrc* pPacket);
+
+void __fastcall sub_0045F7B0_ProcessPackets(unsigned char* pData, int nSize);
+
+int gnGlobal_007B8D14; // 0x007B8D14
+
+int gnGlobal_007B8D18; // 0x007B8D18
+
+int gnGlobal_007B8D1C; // 0x007B8D1C
+
+int gnGlobal_007B9534; // 0x007B9534
+
+static void sub_0045D900_ReadPacket18(unsigned char* pData, D2Packet18RecordStrc* pRecord);
+
+void __fastcall sub_0045D9B0_HandlePacket18(unsigned char* pPacket);
+
+static void sub_0045DA90_ReadPacket95(unsigned char* pData, D2Packet95RecordStrc* pRecord);
+
+void __fastcall sub_0045DB20_HandlePacket95(unsigned char* pPacket);
+
+static void sub_0045DBE0_ReadPacket96(unsigned char* pData, D2Packet96RecordStrc* pRecord);
+
+void __fastcall sub_0045DC50_HandlePacket96(unsigned char* pPacket);
+
+static D2PacketBufferStrc* sub_0045F610_GrowPacketBuffer(D2UnitStrc* pUnit);
+
+static void __stdcall sub_0045F730_QueuePacket(unsigned char* pPacket, int nLength, D2UnitStrc* pUnit);
 
 // build: context sub_0044C5E0_ActivateMsg
 void __stdcall sub_0044C5E0_ActivateMsg(SMSGHANDLER_PARAMS* pMsg)
@@ -1374,6 +2377,24 @@ void __stdcall sub_00452510_ShowPopUpText(const Unicode* wszText, int nX, int nY
     sub_005022F0_ShowPopUpText(wszText, nX, nY, nArg);
 }
 
+// 0x0045C300
+unsigned int __fastcall sub_0045C300_ReadVarUnsigned(D2BitBufferStrc* pBuffer)
+{
+    if (!sub_00411020_ReadBits(pBuffer, 1))
+        return sub_00411020_ReadBits(pBuffer, 8);
+    if (!sub_00411020_ReadBits(pBuffer, 1))
+        return sub_00411020_ReadBits(pBuffer, 0x10);
+    return sub_00411020_ReadBits(pBuffer, 0x20);
+}
+
+// 0x0045C340
+unsigned int __fastcall sub_0045C340_ReadVarUnsigned16(D2BitBufferStrc* pBuffer)
+{
+    if (!sub_00411020_ReadBits(pBuffer, 1))
+        return sub_00411020_ReadBits(pBuffer, 8);
+    return sub_00411020_ReadBits(pBuffer, 0x10);
+}
+
 // 0x0045C430
 void __fastcall sub_0045C430_SetUnitFlagEx(D2UnitFlagsStrc* pUnit, unsigned int dwFlag, int bSet)
 {
@@ -1386,6 +2407,266 @@ void __fastcall sub_0045C430_SetUnitFlagEx(D2UnitFlagsStrc* pUnit, unsigned int 
     }
 }
 
+// 0x0045C4E0
+int __cdecl sub_0045C4E0_GetSkillsTxtRecordCount()
+{
+    return sgptDataTables->nSkillsTxtRecordCount;
+}
+
+// 0x0045C620
+static void sub_0045C620_ReceiveSaveChunk(D2SaveChunkPacketStrc* pPacket)
+{
+    if (gpSaveBuffer_007A5224 && pPacket->bFirst)
+    {
+        FOG_Free(gpSaveBuffer_007A5224, ".\\GAME\\SCmd.cpp", 0x5B, 0);
+        gpSaveBuffer_007A5224 = 0;
+        gnSaveBufferSize_007A5228 = 0;
+    }
+
+    if (!gpSaveBuffer_007A5224)
+        gpSaveBuffer_007A5224 = (unsigned char*)FOG_Alloc(pPacket->nTotal, ".\\GAME\\SCmd.cpp", 0x62, 0);
+
+    unsigned int nSize = gnSaveBufferSize_007A5228;
+    unsigned char* pDest = gpSaveBuffer_007A5224 + nSize;
+    const unsigned char* pSource = pPacket->aData;
+    for (int i = 0; i < pPacket->nLength; i++)
+        pDest[i] = pSource[i];
+
+    gnSaveBufferSize_007A5228 += pPacket->nLength;
+    if (pPacket->nTotal == gnSaveBufferSize_007A5228)
+    {
+        sub_0045C520_SaveCharFile();
+        FOG_Free(gpSaveBuffer_007A5224, ".\\GAME\\SCmd.cpp", 0x71, 0);
+        gpSaveBuffer_007A5224 = 0;
+        gnSaveBufferSize_007A5228 = 0;
+    }
+}
+
+// 0x0045C6D0
+static void sub_0045C6D0_HandleErrorPacket(D2ErrorPacketStrc* pPacket)
+{
+    switch (pPacket->nCode)
+    {
+    case 1: sub_0044E380_SetConnectionError(0); return;
+    case 2: sub_0044E380_SetConnectionError(1); return;
+    case 3: sub_0044E380_SetConnectionError(2); return;
+    case 4: sub_0044E380_SetConnectionError(3); return;
+    case 5: sub_0044E380_SetConnectionError(4); return;
+    case 6: sub_0044E380_SetConnectionError(5); return;
+    case 7: sub_0044E380_SetConnectionError(0x0A); return;
+    case 8: sub_0044E380_SetConnectionError(0x0B); return;
+    case 9: sub_0044E380_SetConnectionError(0x0C); return;
+    case 10: sub_0044E380_SetConnectionError(0x0D); return;
+    case 11: sub_0044E380_SetConnectionError(0x0E); return;
+    case 12: sub_0044E380_SetConnectionError(0x0F); return;
+    case 13: sub_0044E380_SetConnectionError(0x10); return;
+    case 14: sub_0044E380_SetConnectionError(0x11); return;
+    case 15: sub_0044E380_SetConnectionError(0x12); return;
+    case 16: sub_0044E380_SetConnectionError(0x13); return;
+    case 17: sub_0044E380_SetConnectionError(0x14); return;
+    case 18: sub_0044E380_SetConnectionError(0x15); return;
+    case 19: sub_0044E380_SetConnectionError(0x16); return;
+    case 20: sub_0044E380_SetConnectionError(0x17); return;
+    case 21: sub_0044E380_SetConnectionError(0x18); return;
+    case 24: sub_0044E380_SetConnectionError(0x1A); return;
+    case 23: sub_0044E380_SetConnectionError(0x19); return;
+    case 26: sub_0044E380_SetConnectionError(0x1C); return;
+    case 25: sub_0044E380_SetConnectionError(0x1B); return;
+    }
+    sub_0044E380_SetConnectionError(9);
+}
+
+// 0x0045C850
+void __fastcall sub_0045C850_HandleSystemPacket(unsigned char* pPacket, int nSize)
+{
+    if (nSize == -1)
+        return;
+
+    switch (pPacket[0])
+    {
+    case 0xAF:
+        gdwGlobal_007A0618 = 1;
+        return;
+    case 0xB0:
+        gdwGlobal_007A0618 = 0;
+        return;
+    case 0xB3:
+        sub_0045C620_ReceiveSaveChunk((D2SaveChunkPacketStrc*)pPacket);
+        return;
+    case 0xB4:
+        sub_0045C6D0_HandleErrorPacket((D2ErrorPacketStrc*)pPacket);
+        return;
+    }
+}
+
+// 0x0045C8B0
+void __fastcall sub_0045C8B0_GamePacket01_GameFlags(D2GSPacketSrv01* pPacket)
+{
+    const unsigned int dwArenaFlags = pPacket->dwArenaFlags;
+    sub_0044DC70_SetDifficulty(pPacket->nDifficulty);
+    sub_0044DC80(pPacket->nExpansion);
+    sub_0044DC90(pPacket->nLadder);
+    sub_0047A9A0_SetClientFlags(dwArenaFlags);
+    sub_00456970_InitUI();
+}
+
+// 0x0045C8E0
+void __fastcall sub_0045C8E0_GamePacket03_LoadAct(D2GSPacketSrv03* pPacket)
+{
+    sub_0044E100_LoadAct(pPacket->nAct, pPacket->dwGameSeed, pPacket->nObjectSeed, pPacket->nTownLevelId);
+}
+
+// 0x0045C900
+void __fastcall sub_0045C900_GamePacketIgnored(void* pPacket)
+{
+}
+
+// 0x0045C910
+void __fastcall sub_0045C910_GamePacket02(void* pPacket)
+{
+    sub_00477DA0();
+}
+
+// 0x0045C920
+int __cdecl sub_0045C920_GetPlayerActNo()
+{
+    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    if (pRoom)
+        return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
+    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x527);
+    exit(-1);
+}
+
+// 0x0045C960
+int __fastcall sub_0045C960_GetUnitActNo(D2UnitStrc* pUnit)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (pRoom)
+        return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
+    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x538);
+    exit(-1);
+}
+
+// 0x0045C9A0
+void __fastcall sub_0045C9A0_GamePacket04_LoadDone(void* pPacket)
+{
+    gdwGlobal_007A061C = 1;
+    gnValue_007A0624 = 0;
+    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
+    if (pRoom)
+    {
+        sub_00470B10_PreloadForceAct(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+        {
+            pPlayer->pPlayerData->nState = 0;
+            pPlayer->pPlayerData->nMode = 0;
+            pPlayer->pPlayerData->nArg1 = 0;
+            pPlayer->pPlayerData->nArg2 = 0;
+        }
+    }
+    else
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x527);
+        exit(-1);
+    }
+}
+
+// 0x0045CA30
+void __fastcall sub_0045CA30_GamePacket05_UnloadDone(void* pPacket)
+{
+    sub_0044C880();
+    sub_00409B80(0);
+    gdwGlobal_007A061C = 0;
+    gnValue_007A0624 = 1;
+    gdwGlobal_007A0524 = GetTickCount();
+}
+
+// 0x0045CA60
+void __fastcall sub_0045CA60_GamePacket06_LogoutDone(void* pPacket)
+{
+    if (gdwGlobal_007A0610 == 7 || gdwGlobal_007A0610 == 9)
+    {
+        if (!sub_0044C870())
+            sub_0044E380_ShowLoadingMessage(8);
+    }
+    if ((gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3) && gdwGlobal_007A061C)
+        sub_0044E380_ShowLoadingMessage(7);
+    gdwGlobal_007A0620 = 1;
+}
+
+// 0x0045CAB0
+void __fastcall sub_0045CAB0_SetClientSight(D2ClientSightPacketStrc* pPacket)
+{
+    unsigned short nX = pPacket->nX;
+    unsigned short nY = pPacket->nY;
+    if (!gpDrlgAct_007A0634)
+    {
+        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x58A);
+        exit(-1);
+    }
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    void* pRoom = pPlayer ? UNITS_GetRoom(pPlayer) : 0;
+    DUNGEON_SetClientIsInSight(gpDrlgAct_007A0634, pPacket->nLevelId, nX, nY, pRoom);
+}
+
+// 0x0045CB20
+void __fastcall sub_0045CB20_ClearClientSight(D2ClientSightPacketStrc* pPacket)
+{
+    unsigned short nX = pPacket->nX;
+    unsigned short nY = pPacket->nY;
+    if (!gpDrlgAct_007A0634)
+    {
+        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x59E);
+        exit(-1);
+    }
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    void* pRoom = pPlayer ? UNITS_GetRoom(pPlayer) : 0;
+    DUNGEON_UnsetClientIsInSight(gpDrlgAct_007A0634, pPacket->nLevelId, nX, nY, pRoom);
+}
+
+// 0x0045CB90
+void __fastcall sub_0045CB90_GamePacket09_AssignWarp(D2GSPacketSrv09* pPacket)
+{
+    const int nUnitGUID = pPacket->dwUnitGUID;
+    const unsigned short nX = pPacket->nPosX;
+    const unsigned short nY = pPacket->nPosY;
+    D2UnitStrc* pUnit = sub_004661C0_AllocClientUnit(nUnitGUID, pPacket->unk0x06, nX, nY, pPacket->nUnitType, 0);
+    if (pUnit && pUnit->dwUnitType == 1)
+        sub_00470B70_ResetMonsterModeGfx(pUnit);
+}
+
+// 0x0045CBD0
+void __fastcall sub_0045CBD0_GamePacket51_AssignObject(D2GSPacketSrv51* pPacket)
+{
+    sub_00466300_CreateObjectUnit(pPacket->dwUnitGUID, pPacket->nObject, pPacket->nPosX, pPacket->nPosY, pPacket->nUnitType, 0, pPacket->unk0x0C, pPacket->nInteractType);
+}
+
+// 0x0045CC00
+void __fastcall sub_0045CC00_GamePacket52(void* pPacket)
+{
+    sub_004A40D0_StorePacket52(pPacket);
+}
+
+// 0x0045CC10
+void __fastcall sub_0045CC10_GamePacket0A_RemoveObject(D2GSPacketSrv0A* pPacket)
+{
+    const int nUnitGUID = pPacket->dwUnitGUID;
+    if (pPacket->nUnitType == 1 && nUnitGUID == sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
+        return;
+    sub_00465EE0_RemoveClientSideUnit(nUnitGUID, pPacket->nUnitType);
+}
+
+// 0x0045CC50
+void __fastcall sub_0045CC50_GamePacket0B_Handshake(D2GSPacketSrv0B* pPacket)
+{
+    const int nUnitGUID = pPacket->dwUnitGUID;
+    D2UnitStrc* pUnit = sub_00463990(nUnitGUID, pPacket->nUnitType);
+    if (pUnit)
+        sub_00463D90((int)pUnit);
+    sub_0046F360_Empty();
+}
+
 // 0x0045CC70
 void __fastcall sub_0045CC70_UnitPacket0C(D2UnitStrc* pUnit, const D2GSPacketSrv0C* pPacket)
 {
@@ -1393,6 +2674,21 @@ void __fastcall sub_0045CC70_UnitPacket0C(D2UnitStrc* pUnit, const D2GSPacketSrv
     args[0] = pPacket->nHitClass;
     args[1] = pPacket->nLife;
     sub_00480C10_UnitEvent(pPacket->unk0x06, pUnit, args, 1);
+}
+
+// 0x0045CCC0
+void __fastcall sub_0045CCC0(D2UnitStrc* pUnit, const D2GSPacketSrv0D* pPacket)
+{
+    const int nUnitGUID = *(const int*)pPacket->dwUnitGUID;
+    int args[7];
+    args[0] = *(const unsigned short*)pPacket->nX;
+    args[1] = *(const unsigned short*)pPacket->nY;
+    args[2] = pPacket->nHitType;
+    sub_00480C10_UnitEvent(pPacket->nHitClass, pUnit, args, 1);
+    if (pPacket->nUnitType == UNIT_PLAYER)
+    {
+        sub_0047A690(nUnitGUID, pPacket->nUnitLifePct);
+    }
 }
 
 // 0x0045CD10
@@ -1411,6 +2707,16 @@ void __fastcall sub_0045CD40(D2UnitStrc* pUnit, const D2GSPacketSrv0F* pPacket)
     args[0] = *(const unsigned short*)pPacket->nDestPosX;
     args[1] = *(const unsigned short*)pPacket->nDestPosY;
     args[2] = pPacket->unk0x0B;
+    sub_004804E0_SetPosition(pUnit, *(const unsigned short*)pPacket->nCurrentPosX, *(const unsigned short*)pPacket->nCurrentPosY, 0, 0, 0);
+    sub_00480C10_UnitEvent(pPacket->nFlags, pUnit, args, 1);
+}
+
+// 0x0045CD90
+void __fastcall sub_0045CD90_UnitPacket10(D2UnitStrc* pUnit, const D2GSPacketSrv10* pPacket)
+{
+    int args[7];
+    args[0] = pPacket->nTargetType;
+    args[1] = *(const int*)pPacket->dwTargetGUID;
     sub_004804E0_SetPosition(pUnit, *(const unsigned short*)pPacket->nCurrentPosX, *(const unsigned short*)pPacket->nCurrentPosY, 0, 0, 0);
     sub_00480C10_UnitEvent(pPacket->nFlags, pUnit, args, 1);
 }
@@ -1500,604 +2806,6 @@ void __fastcall sub_0045CFB0_UnitPacket6C(D2UnitStrc* pUnit, const D2GSPacketSrv
     sub_00480C10_UnitEvent(pPacket->unk0x05, pUnit, args, 1);
 }
 
-// 0x0045D260
-void __fastcall sub_0045D260_UnitPacket17(D2UnitStrc* pUnit, const D2GSPacketSrv17* pPacket)
-{
-    if (pUnit != sub_00463DD0_GetPlayerUnit())
-    {
-        D2_ASSERT(pUnit, 0x841);
-
-        int args[7];
-        unsigned short pos[2];
-        pos[0] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x08;
-        pos[1] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x0A;
-        args[0] = pPacket->unk0x06 >> 1;
-        args[1] = (int)pos;
-        sub_00480C10_UnitEvent(pPacket->unk0x07, pUnit, args, 1);
-    }
-}
-
-// 0x0045DE50
-void __fastcall sub_0045DE50_CopyPacket7(const D2ClientPacket7Strc* pPacket)
-{
-    D2ClientPacket7Strc tPacket = *pPacket;
-    sub_004B1240_UsePacket7(&tPacket);
-}
-
-// 0x0045DF00
-void __fastcall sub_0045DF00_UnitPacket4C(D2UnitStrc* pUnit, const D2GSPacketSrv4C* pPacket)
-{
-    if (pUnit)
-    {
-        int args[7] = {};
-        args[0] = *(const unsigned short*)pPacket->unk0x06;
-        args[2] = pPacket->unk0x09;
-        args[3] = *(const int*)pPacket->unk0x0A;
-        args[4] = pPacket->unk0x08;
-        args[1] = -1;
-        sub_00480C10_UnitEvent(0x16, pUnit, args, 1);
-    }
-}
-
-// 0x0045DF60
-void __fastcall sub_0045DF60_UnitPacket4D(D2UnitStrc* pUnit, const D2GSPacketSrv4D* pPacket)
-{
-    if (pUnit)
-    {
-        int args[7] = {};
-        args[0] = *(const int*)pPacket->unk0x06;
-        args[2] = *(const unsigned short*)pPacket->unk0x0B;
-        args[3] = *(const unsigned short*)pPacket->unk0x0D;
-        args[4] = pPacket->unk0x0A;
-        args[1] = -1;
-        sub_00480C10_UnitEvent(0x15, pUnit, args, 1);
-    }
-}
-
-// 0x0045E050
-void __fastcall sub_0045E050_CopyPacket6(const D2ClientPacket6Strc* pPacket)
-{
-    D2ClientPacket6Strc tPacket = *pPacket;
-    sub_0049F8C0_UsePacket6(&tPacket);
-}
-
-// 0x0045C300
-unsigned int __fastcall sub_0045C300_ReadVarUnsigned(D2BitBufferStrc* pBuffer)
-{
-    if (!sub_00411020_ReadBits(pBuffer, 1))
-        return sub_00411020_ReadBits(pBuffer, 8);
-    if (!sub_00411020_ReadBits(pBuffer, 1))
-        return sub_00411020_ReadBits(pBuffer, 0x10);
-    return sub_00411020_ReadBits(pBuffer, 0x20);
-}
-
-// 0x0045C340
-unsigned int __fastcall sub_0045C340_ReadVarUnsigned16(D2BitBufferStrc* pBuffer)
-{
-    if (!sub_00411020_ReadBits(pBuffer, 1))
-        return sub_00411020_ReadBits(pBuffer, 8);
-    return sub_00411020_ReadBits(pBuffer, 0x10);
-}
-
-// 0x0045C4E0
-int __cdecl sub_0045C4E0_GetSkillsTxtRecordCount()
-{
-    return sgptDataTables->nSkillsTxtRecordCount;
-}
-
-// 0x0045C900
-void __fastcall sub_0045C900_GamePacketIgnored(void* pPacket)
-{
-}
-
-// 0x0045C910
-void __fastcall sub_0045C910_GamePacket02(void* pPacket)
-{
-    sub_00477DA0();
-}
-
-// 0x0045C920
-int __cdecl sub_0045C920_GetPlayerActNo()
-{
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
-    if (pRoom)
-        return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x527);
-    exit(-1);
-}
-
-// 0x0045C960
-int __fastcall sub_0045C960_GetUnitActNo(D2UnitStrc* pUnit)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom)
-        return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x538);
-    exit(-1);
-}
-
-// 0x0045CC00
-void __fastcall sub_0045CC00_GamePacket52(void* pPacket)
-{
-    sub_004A40D0_StorePacket52(pPacket);
-}
-
-static unsigned char* gpSaveBuffer_007A5224; // 0x007A5224
-
-static unsigned int gnSaveBufferSize_007A5228; // 0x007A5228
-
-// 0x0045C620
-static void sub_0045C620_ReceiveSaveChunk(D2SaveChunkPacketStrc* pPacket)
-{
-    if (gpSaveBuffer_007A5224 && pPacket->bFirst)
-    {
-        FOG_Free(gpSaveBuffer_007A5224, ".\\GAME\\SCmd.cpp", 0x5B, 0);
-        gpSaveBuffer_007A5224 = 0;
-        gnSaveBufferSize_007A5228 = 0;
-    }
-
-    if (!gpSaveBuffer_007A5224)
-        gpSaveBuffer_007A5224 = (unsigned char*)FOG_Alloc(pPacket->nTotal, ".\\GAME\\SCmd.cpp", 0x62, 0);
-
-    unsigned int nSize = gnSaveBufferSize_007A5228;
-    unsigned char* pDest = gpSaveBuffer_007A5224 + nSize;
-    const unsigned char* pSource = pPacket->aData;
-    for (int i = 0; i < pPacket->nLength; i++)
-        pDest[i] = pSource[i];
-
-    gnSaveBufferSize_007A5228 += pPacket->nLength;
-    if (pPacket->nTotal == gnSaveBufferSize_007A5228)
-    {
-        sub_0045C520_SaveCharFile();
-        FOG_Free(gpSaveBuffer_007A5224, ".\\GAME\\SCmd.cpp", 0x71, 0);
-        gpSaveBuffer_007A5224 = 0;
-        gnSaveBufferSize_007A5228 = 0;
-    }
-}
-
-static void sub_0045C6D0_HandleErrorPacket(D2ErrorPacketStrc* pPacket)
-{
-    switch (pPacket->nCode)
-    {
-    case 1: sub_0044E380_ShowLoadingMessage(0); return;
-    case 2: sub_0044E380_ShowLoadingMessage(1); return;
-    case 3: sub_0044E380_ShowLoadingMessage(2); return;
-    case 4: sub_0044E380_ShowLoadingMessage(3); return;
-    case 5: sub_0044E380_ShowLoadingMessage(4); return;
-    case 6: sub_0044E380_ShowLoadingMessage(5); return;
-    case 7: sub_0044E380_ShowLoadingMessage(0x0A); return;
-    case 8: sub_0044E380_ShowLoadingMessage(0x0B); return;
-    case 9: sub_0044E380_ShowLoadingMessage(0x0C); return;
-    case 10: sub_0044E380_ShowLoadingMessage(0x0D); return;
-    case 11: sub_0044E380_ShowLoadingMessage(0x0E); return;
-    case 12: sub_0044E380_ShowLoadingMessage(0x0F); return;
-    case 13: sub_0044E380_ShowLoadingMessage(0x10); return;
-    case 14: sub_0044E380_ShowLoadingMessage(0x11); return;
-    case 15: sub_0044E380_ShowLoadingMessage(0x12); return;
-    case 16: sub_0044E380_ShowLoadingMessage(0x13); return;
-    case 17: sub_0044E380_ShowLoadingMessage(0x14); return;
-    case 18: sub_0044E380_ShowLoadingMessage(0x15); return;
-    case 19: sub_0044E380_ShowLoadingMessage(0x16); return;
-    case 20: sub_0044E380_ShowLoadingMessage(0x17); return;
-    case 21: sub_0044E380_ShowLoadingMessage(0x18); return;
-    case 24: sub_0044E380_ShowLoadingMessage(0x1A); return;
-    case 23: sub_0044E380_ShowLoadingMessage(0x19); return;
-    case 26: sub_0044E380_ShowLoadingMessage(0x1C); return;
-    case 25: sub_0044E380_ShowLoadingMessage(0x1B); return;
-    }
-    sub_0044E380_ShowLoadingMessage(9);
-}
-
-void __fastcall sub_0045C850_HandleSystemPacket(unsigned char* pPacket, int nSize)
-{
-    if (nSize == -1)
-        return;
-
-    switch (pPacket[0])
-    {
-    case 0xAF:
-        gdwGlobal_007A0618 = 1;
-        return;
-    case 0xB0:
-        gdwGlobal_007A0618 = 0;
-        return;
-    case 0xB3:
-        sub_0045C620_ReceiveSaveChunk((D2SaveChunkPacketStrc*)pPacket);
-        return;
-    case 0xB4:
-        sub_0045C6D0_HandleErrorPacket((D2ErrorPacketStrc*)pPacket);
-        return;
-    }
-}
-
-// 0x0045C8B0
-void __fastcall sub_0045C8B0_GamePacket01_GameFlags(D2GSPacketSrv01* pPacket)
-{
-    const unsigned int dwArenaFlags = pPacket->dwArenaFlags;
-    sub_0044DC70_SetDifficulty(pPacket->nDifficulty);
-    sub_0044DC80(pPacket->nExpansion);
-    sub_0044DC90(pPacket->nLadder);
-    sub_0047A9A0_SetClientFlags(dwArenaFlags);
-    sub_00456970_InitUI();
-}
-
-// 0x0045C8E0
-void __fastcall sub_0045C8E0_GamePacket03_LoadAct(D2GSPacketSrv03* pPacket)
-{
-    sub_0044E100_LoadAct(pPacket->nAct, pPacket->dwGameSeed, pPacket->nObjectSeed, pPacket->nTownLevelId);
-}
-
-// 0x0045C9A0
-void __fastcall sub_0045C9A0_GamePacket04_LoadDone(void* pPacket)
-{
-    gdwGlobal_007A061C = 1;
-    gnValue_007A0624 = 0;
-    D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
-    if (pRoom)
-    {
-        sub_00470B10_PreloadForceAct(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
-        {
-            pPlayer->pPlayerData->nState = 0;
-            pPlayer->pPlayerData->nMode = 0;
-            pPlayer->pPlayerData->nArg1 = 0;
-            pPlayer->pPlayerData->nArg2 = 0;
-        }
-    }
-    else
-    {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x527);
-        exit(-1);
-    }
-}
-
-int gdwGlobal_007A0524; // 0x007A0524
-
-// 0x0045CA30
-void __fastcall sub_0045CA30_GamePacket05_UnloadDone(void* pPacket)
-{
-    sub_0044C880();
-    sub_00409B80(0);
-    gdwGlobal_007A061C = 0;
-    gnValue_007A0624 = 1;
-    gdwGlobal_007A0524 = GetTickCount();
-}
-
-// 0x0045CA60
-void __fastcall sub_0045CA60_GamePacket06_LogoutDone(void* pPacket)
-{
-    if (gdwGlobal_007A0610 == 7 || gdwGlobal_007A0610 == 9)
-    {
-        if (!sub_0044C870())
-            sub_0044E380_ShowLoadingMessage(8);
-    }
-    if ((gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3) && gdwGlobal_007A061C)
-        sub_0044E380_ShowLoadingMessage(7);
-    gdwGlobal_007A0620 = 1;
-}
-
-// 0x0045CB90
-void __fastcall sub_0045CB90_GamePacket09_AssignWarp(D2GSPacketSrv09* pPacket)
-{
-    const int nUnitGUID = pPacket->dwUnitGUID;
-    const unsigned short nX = pPacket->nPosX;
-    const unsigned short nY = pPacket->nPosY;
-    D2UnitStrc* pUnit = sub_004661C0_AllocClientUnit(nUnitGUID, pPacket->unk0x06, nX, nY, pPacket->nUnitType, 0);
-    if (pUnit && pUnit->dwUnitType == 1)
-        sub_00470B70_ResetMonsterModeGfx(pUnit);
-}
-
-// 0x0045CBD0
-void __fastcall sub_0045CBD0_GamePacket51_AssignObject(D2GSPacketSrv51* pPacket)
-{
-    sub_00466300_CreateObjectUnit(pPacket->dwUnitGUID, pPacket->nObject, pPacket->nPosX, pPacket->nPosY, pPacket->nUnitType, 0, pPacket->unk0x0C, pPacket->nInteractType);
-}
-
-// 0x0045CC10
-void __fastcall sub_0045CC10_GamePacket0A_RemoveObject(D2GSPacketSrv0A* pPacket)
-{
-    const int nUnitGUID = pPacket->dwUnitGUID;
-    if (pPacket->nUnitType == 1 && nUnitGUID == sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
-        return;
-    sub_00465EE0_RemoveClientSideUnit(nUnitGUID, pPacket->nUnitType);
-}
-
-// 0x0045CC50
-void __fastcall sub_0045CC50_GamePacket0B_Handshake(D2GSPacketSrv0B* pPacket)
-{
-    const int nUnitGUID = pPacket->dwUnitGUID;
-    D2UnitStrc* pUnit = sub_00463990(nUnitGUID, pPacket->nUnitType);
-    if (pUnit)
-        sub_00463D90((int)pUnit);
-    sub_0046F360_Empty();
-}
-
-// 0x0045CCC0
-void __fastcall sub_0045CCC0(D2UnitStrc* pUnit, const D2GSPacketSrv0D* pPacket)
-{
-    const int nUnitGUID = *(const int*)pPacket->dwUnitGUID;
-    int args[7];
-    args[0] = *(const unsigned short*)pPacket->nX;
-    args[1] = *(const unsigned short*)pPacket->nY;
-    args[2] = pPacket->nHitType;
-    sub_00480C10_UnitEvent(pPacket->nHitClass, pUnit, args, 1);
-    if (pPacket->nUnitType == UNIT_PLAYER)
-    {
-        sub_0047A690(nUnitGUID, pPacket->nUnitLifePct);
-    }
-}
-
-// 0x0045D2E0
-void __fastcall sub_0045D2E0_Packet16(const D2GSPacketSrv16* pPacket)
-{
-    D2_ASSERT(pPacket->nNumUpdates, 2133);
-
-    const D2ClientUnitUpdateStrc* pUpdate = pPacket->unitUpdate;
-    for (int i = 0; i < pPacket->nNumUpdates; ++i)
-    {
-        unsigned short nX = *(const unsigned short*)pUpdate->nX;
-        unsigned short nY = *(const unsigned short*)pUpdate->nY;
-        D2UnitStrc* pUnit = sub_00463990(*(const int*)pUpdate->nUnitGUID, pUpdate->nUnitType);
-        if (pUnit)
-        {
-            sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);
-        }
-        ++pUpdate;
-    }
-}
-
-// 0x0045DD10
-void __fastcall sub_0045DD10_Packet93(const D2GSPacketSrv93* pPacket)
-{
-    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
-    int nValue = pPacket->unk0x05;
-    if (nValue > 0x80)
-        nValue -= 0x100;
-    const int nB = pPacket->unk0x06;
-    const char nC = pPacket->unk0x07;
-
-    D2UnitStrc* pUnit = sub_00463990(nUnitGUID, UNIT_PLAYER);
-    if (pUnit)
-    {
-        sub_004C7990(pUnit, nValue, nB, nC);
-    }
-}
-
-// 0x0045E0A0
-void __fastcall sub_0045E0A0_Packet27(const D2GSPacketSrv27Strc* pPacket)
-{
-    D2GSPacketSrv27Strc tPacket = *pPacket;
-    sub_004A1600(&tPacket);
-}
-
-// 0x0045E130
-void __fastcall sub_0045E130_Packet3E(D2GSPacketSrv3E* pPacket)
-{
-    D2BitBufferStrc tBuffer;
-    BITMANIP_Initialize(&tBuffer, pPacket->pBuffer, pPacket->nSize - 2);
-
-    unsigned int nA;
-    if (!sub_00411020_ReadBits(&tBuffer, 1))
-        nA = sub_00411020_ReadBits(&tBuffer, 8);
-    else if (!sub_00411020_ReadBits(&tBuffer, 1))
-        nA = sub_00411020_ReadBits(&tBuffer, 16);
-    else
-        nA = sub_00411020_ReadBits(&tBuffer, 32);
-
-    const unsigned char nB = sub_00411020_ReadBits(&tBuffer, 1);
-    const unsigned int nC = sub_00411020_ReadBits(&tBuffer, 9);
-
-    unsigned int nD;
-    if (!sub_00411020_ReadBits(&tBuffer, 1))
-        nD = sub_00411020_ReadBits(&tBuffer, 8);
-    else if (!sub_00411020_ReadBits(&tBuffer, 1))
-        nD = sub_00411020_ReadBits(&tBuffer, 16);
-    else
-        nD = sub_00411020_ReadBits(&tBuffer, 32);
-
-    unsigned short nE;
-    if (!sub_00411020_ReadBits(&tBuffer, 1))
-        nE = sub_00411020_ReadBits(&tBuffer, 8);
-    else
-        nE = sub_00411020_ReadBits(&tBuffer, 16);
-
-    sub_004C1F30(nA, nB, nC, nD, nE);
-}
-
-// 0x0045E270
-void __fastcall sub_0045E270_Packet42(const D2GSPacketSrv42Strc* pPacket)
-{
-    D2GSPacketSrv42Strc tPacket = *pPacket;
-    sub_004C2050(&tPacket);
-}
-
-// 0x0045E7B0
-void __fastcall sub_0045E7B0_Packet74(const D2GSPacketSrv74Strc* pPacket)
-{
-    D2GSPacketSrv74Strc tPacket = *pPacket;
-    sub_00462F60(&tPacket);
-}
-
-// 0x0045E930
-void __fastcall sub_0045E930_Packet7D(const D2GSPacketSrv7DStrc* pPacket)
-{
-    D2GSPacketSrv7DStrc tPacket = *pPacket;
-    sub_004C2270(&tPacket);
-}
-
-// 0x0045E9D0
-void __fastcall sub_0045E9D0_Packet82(const D2GSPacketSrv82* pPacket)
-{
-    const int nOwnerGUID = *(const int*)pPacket->dwOwnerGUID;
-    const int nPortalGUID0 = *(const int*)pPacket->dwPortalGUID0;
-    const int nPortalGUID1 = *(const int*)pPacket->dwPortalGUID1;
-
-    D2UnitStrc* pPortal = sub_00463990(nPortalGUID0, UNIT_OBJECT);
-    if (pPortal)
-    {
-        sub_004BDFE0_SetObjectName(pPortal, pPacket->szOwnerName);
-    }
-
-    if (nPortalGUID1 != -1)
-    {
-        pPortal = sub_00463990(nPortalGUID1, UNIT_OBJECT);
-        if (pPortal)
-        {
-            sub_004BDFE0_SetObjectName(pPortal, pPacket->szOwnerName);
-        }
-        sub_0047A270_SetPortalIds(nOwnerGUID, nPortalGUID0, nPortalGUID1);
-    }
-}
-
-// 0x0045EE20
-void __fastcall sub_0045EE20_PacketA8(D2GSPacketSrvA8* pPacket)
-{
-    D2UnitStrc* pUnit = sub_00463990(*(const int*)pPacket->nUnitId, pPacket->nUnitType);
-    if (!pUnit)
-        return;
-
-    const int nState = pPacket->nState;
-    sub_004D9B20_BeginState(pUnit, nState);
-
-    D2BitBufferStrc tBuffer;
-    BITMANIP_Initialize(&tBuffer, pPacket->pStream, pPacket->nSize - 8);
-    int nPrev = 0;
-    int nStatId = sub_00411020_ReadBits(&tBuffer, 9);
-    while (nStatId < STAT_ID_END)
-    {
-        if (nStatId < 0 || nStatId >= sgptDataTables->nItemStatCostTxtRecordCount)
-            return;
-        D2ItemStatCostTxt* pItemStatCostTxtRecord = &sgptDataTables->pItemStatCostTxt[nStatId];
-        if (!pItemStatCostTxtRecord)
-            return;
-        if (pItemStatCostTxtRecord->nSendBits <= 0)
-            return;
-
-        int nLayer = 0;
-        if (pItemStatCostTxtRecord->nSendParamBits > 0)
-            nLayer = (unsigned short)BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendParamBits);
-
-        int nValue;
-        if (pItemStatCostTxtRecord->nSendBits < 32 && pItemStatCostTxtRecord->nItemStatFlags[ITEMSTATCOSTFLAGINDEX_SIGNED >> 3] & gdwBitMasks[ITEMSTATCOSTFLAGINDEX_SIGNED & 7])
-            nValue = BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendBits);
-        else
-            nValue = sub_00411020_ReadBits(&tBuffer, pItemStatCostTxtRecord->nSendBits);
-
-        nPrev = sub_004D9D70_SetStateStat(pUnit, nPrev, nState, nStatId, nValue, nLayer);
-        nStatId = sub_00411020_ReadBits(&tBuffer, 9);
-    }
-
-    sub_004D9E60_StartClientState(pUnit, nState);
-}
-
-// 0x0045EFA0
-void __fastcall sub_0045EFA0_PacketAA(D2GSPacketSrvAA* pPacket)
-{
-    D2UnitStrc* pUnit = sub_00463990(*(const int*)pPacket->nUnitId, pPacket->nUnitType);
-    if (!pUnit)
-        return;
-
-    D2BitBufferStrc tBuffer;
-    BITMANIP_Initialize(&tBuffer, pPacket->pStream, pPacket->nSize - 7);
-    int nState = sub_00411020_ReadBits(&tBuffer, 8);
-    while (nState < STATE_ID_END)
-    {
-        sub_004D9B20_BeginState(pUnit, nState);
-        if (sub_00411020_ReadBits(&tBuffer, 1))
-        {
-            int nPrev = 0;
-            int nStatId = sub_00411020_ReadBits(&tBuffer, 9);
-            while (nStatId < STAT_ID_END)
-            {
-                if (nStatId < 0 || nStatId >= sgptDataTables->nItemStatCostTxtRecordCount)
-                    return;
-                D2ItemStatCostTxt* pItemStatCostTxtRecord = &sgptDataTables->pItemStatCostTxt[nStatId];
-                if (!pItemStatCostTxtRecord)
-                    return;
-                if (pItemStatCostTxtRecord->nSendBits <= 0)
-                    return;
-
-                int nLayer = 0;
-                if (pItemStatCostTxtRecord->nSendParamBits > 0)
-                    nLayer = (unsigned short)BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendParamBits);
-
-                int nValue;
-                if (pItemStatCostTxtRecord->nSendBits < 32 && pItemStatCostTxtRecord->nItemStatFlags[ITEMSTATCOSTFLAGINDEX_SIGNED >> 3] & gdwBitMasks[ITEMSTATCOSTFLAGINDEX_SIGNED & 7])
-                    nValue = BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendBits);
-                else
-                    nValue = sub_00411020_ReadBits(&tBuffer, pItemStatCostTxtRecord->nSendBits);
-
-                nPrev = sub_004D9D70_SetStateStat(pUnit, nPrev, nState, nStatId, nValue, nLayer);
-                nStatId = sub_00411020_ReadBits(&tBuffer, 9);
-            }
-        }
-        sub_004D9E60_StartClientState(pUnit, nState);
-        nState = sub_00411020_ReadBits(&tBuffer, 8);
-    }
-}
-
-// 0x004689D0
-void __cdecl sub_004689D0_ShowHelpOnce()
-{
-    if (sub_0044DA30())
-        return;
-    if (sub_00463DF0())
-        return;
-
-    sub_00455F20(0x21, 2, 0);
-    unsigned long dwValue;
-    if (!SRegLoadValue("Diablo II", "Help Menu", 1, &dwValue) || !dwValue)
-    {
-        dwValue = 1;
-        SRegSaveValue("Diablo II", "Help Menu", 1, dwValue);
-    }
-}
-
-// 0x0046B4A0
-void __cdecl sub_0046B4A0_RequestNearMonster()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-        return;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (!pRoom)
-        return;
-    D2UnitStrc* pMonster = sub_0065A620_FindUnitInAdjacentRooms(pRoom, UNIT_MONSTER, 0x20E);
-    if (!pMonster)
-        return;
-
-    const int nX = CLIENTS_GetUnitX(pMonster);
-    const int nY = CLIENTS_GetUnitY(pMonster);
-    sub_004CDB40_SubmitRequest(pPlayer, 0x25E, nX, nY, 0, 1);
-    sub_004CDB40_SubmitRequest(pPlayer, 0x25B, nX, nY, 0, 1);
-    pMonster->dwFlagEx |= 0x40000;
-}
-
-// 0x00476E30
-void __cdecl sub_00476E30_LoadGreenBlood()
-{
-    void* hFile;
-    if (ARCHIVE_OpenFile(0, "Data\\Global\\Monsters\\GreenBlood.dat", &hFile, 1))
-    {
-        void* pBuffer = FOG_Alloc(0x100, ".\\GAME\\PalShift.cpp", 0x52, 0);
-        gpGlobal_007BB384 = pBuffer;
-        memset(pBuffer, 0, 0x100);
-        ARCHIVE_ReadFileToBuffer(0, hFile, pBuffer, 0x100);
-        ARCHIVE_CloseFile(0, hFile);
-    }
-}
-
-// 0x0045CD90
-void __fastcall sub_0045CD90_UnitPacket10(D2UnitStrc* pUnit, const D2GSPacketSrv10* pPacket)
-{
-    int args[7];
-    args[0] = pPacket->nTargetType;
-    args[1] = *(const int*)pPacket->dwTargetGUID;
-    sub_004804E0_SetPosition(pUnit, *(const unsigned short*)pPacket->nCurrentPosX, *(const unsigned short*)pPacket->nCurrentPosY, 0, 0, 0);
-    sub_00480C10_UnitEvent(pPacket->nFlags, pUnit, args, 1);
-}
-
 // 0x0045D010
 void __fastcall sub_0045D010_UnitPacket6D(D2UnitStrc* pUnit, const unsigned char* p)
 {
@@ -2112,79 +2820,6 @@ void __fastcall sub_0045D010_UnitPacket6D(D2UnitStrc* pUnit, const unsigned char
     sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);
     STATLIST_SetUnitStat(pUnit, 0x148, STATLIST_GetUnitBaseStat(pUnit, 0x148, 0) + 1, 0);
     sub_00480C10_UnitEvent(7, pUnit, args, 1);
-}
-
-// 0x0045E400
-void __fastcall sub_0045E400_Packet57(const unsigned char* p)
-{
-    const int nId = *(const int*)(p + 1);
-    const unsigned short n6 = *(const unsigned short*)(p + 6);
-    const unsigned short n8 = *(const unsigned short*)(p + 8);
-    const unsigned short nA = *(const unsigned short*)(p + 0xA);
-    const unsigned short nC = *(const unsigned short*)(p + 0xC);
-    if (p[5] == 1)
-    {
-        D2UnitStrc* pUnit = sub_00463990(nId, 1);
-        if (pUnit)
-        {
-            sub_004AC780_SetMonsterWord(pUnit, n6);
-            unsigned char* pBytes = sub_004AC740_GetMonsterBytes(pUnit);
-            pBytes[0] = (unsigned char)n8;
-            pBytes[1] = (unsigned char)(n8 >> 8);
-            pBytes[2] = (unsigned char)nA;
-            if (nC)
-            {
-                sub_004AC810_ToggleMonsterFlag(pUnit, 4, 1);
-            }
-            sub_004AC810_ToggleMonsterFlag(pUnit, 8, 1);
-            sub_004AD020_RefreshMonster(pUnit);
-        }
-    }
-}
-
-// 0x00462F60
-void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
-{
-    if (!pPacket->bActive)
-        return;
-    D2UnitStrc* pUnit = sub_00463990(*(int*)pPacket->nUnitId, 0);
-    if (!pUnit)
-        return;
-    if (!sub_00464820_IsDeadOrDying(pUnit))
-        sub_00480E70_SetUnitMode(pUnit, 0);
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
-    {
-        D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
-        if (!pOther)
-            return;
-        D2DynamicPathStrc* pPath = pOther->pDynamicPath;
-        PATH_SetMoveTestCollisionMask(pPath, 0);
-        sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
-        PATH_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
-    }
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
-    while (pItem)
-    {
-        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
-        if (INVENTORY_GetItemNodePage(pItem) == 3)
-        {
-            pItem = INVENTORY_UnitIsItem(pItem);
-            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
-            sub_0046F280_ClearGfxBytes(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
-            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
-            D2_ASSERT(pRemoved, 0xAC8);
-            D2_ASSERT(pRemoved == pItem, 0xAC9);
-            sub_004C0EC0_UpdateItemLink(pItem, pUnit, 0, 0);
-            sub_0063BE30(pInventory, ITEMS_GetBodyLocation(pItem));
-            sub_00470610_Refresh(pUnit, 0);
-            const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
-            const int nUnitId = !pItem ? -1 : pItem->dwUnitId;
-            sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
-        }
-        pItem = pNext;
-    }
 }
 
 // 0x0045D0A0
@@ -2212,22 +2847,6 @@ void __fastcall sub_0045D0E0_UnitPacketNop(D2UnitStrc* pUnit, const unsigned cha
 {
 }
 
-// 0x0045D130
-void __fastcall sub_0045D130_PacketNop(const unsigned char* pPacket)
-{
-}
-
-// 0x0045D140
-void __fastcall sub_0045D140_PacketNop(const unsigned char* pPacket)
-{
-}
-
-// 0x0045D150
-void __fastcall sub_0045D150_PacketNop(const unsigned char* pPacket)
-{
-}
-
-// 0x00581A10
 void __fastcall sub_00581A10_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
     QUESTS_ObjectEvents(pGame, pObject);
@@ -2246,111 +2865,19 @@ void __fastcall sub_0045D0F0_Packet11(const D2GSPacketSrv11* pPacket)
     }
 }
 
-// 0x0045D370
-void __fastcall sub_0045D370_Packet28(const D2GSPacketSrv28* pPacket)
+// 0x0045D130
+void __fastcall sub_0045D130_PacketNop(const unsigned char* pPacket)
 {
-    sub_004B6DD0_NpcInteractPacket(pPacket->nUnitType, pPacket->nUnitId, (unsigned char*)pPacket->pBuffer, pPacket->nArg);
 }
 
-// 0x0045D390
-void __fastcall sub_0045D390_Packet62(const D2GSPacketSrv62* pPacket)
+// 0x0045D140
+void __fastcall sub_0045D140_PacketNop(const unsigned char* pPacket)
 {
-    sub_004B5320_OnUnitRemoved(pPacket->nUnitType, pPacket->nUnitId);
 }
 
-// 0x0045D3A0
-void __fastcall sub_0045D3A0_Packet29(const unsigned char* pPacket)
+// 0x0045D150
+void __fastcall sub_0045D150_PacketNop(const unsigned char* pPacket)
 {
-    sub_004B2620(pPacket + 1);
-}
-
-// 0x0045D760
-void __fastcall sub_0045D760_PacketA4(const D2GSPacketSrvA4* pPacket)
-{
-    const unsigned short wMonsterId = pPacket->wMonsterId;
-    if (wMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        sub_0046F870_LoadMonsterCofs(wMonsterId, 0);
-    }
-}
-
-// 0x0045DCD0
-void __fastcall sub_0045DCD0_Packet21_AssignSkill(const D2GSPacketSrv21* pPacket)
-{
-    const unsigned short wSkillId = pPacket->wSkillId;
-    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
-    if (pUnit)
-    {
-        SKILLS_AssignSkill(pUnit, wSkillId, pPacket->nSkillLevel, pPacket->bRemove, ".\\GAME\\SCmd.cpp", 2700);
-        sub_004AA8F0_ClearValue7C0C3C();
-    }
-}
-
-// 0x0045DD60
-void __fastcall sub_0045DD60_Packet94_AssignSkills(const D2GSPacketSrv94* pPacket)
-{
-    const int nUnitId = pPacket->nUnitId;
-    const unsigned char nCount = pPacket->nCount;
-    const D2SkillLevelEntryStrc* pEntry = pPacket->pEntries;
-    D2UnitStrc* pUnit = sub_00463990(nUnitId, 0);
-    if (pUnit)
-    {
-        for (int i = 0; i < nCount; ++i)
-        {
-            SKILLS_AssignSkill(pUnit, pEntry->wSkillId, pEntry->nSkillLevel, 0, ".\\GAME\\SCmd.cpp", 2743);
-            ++pEntry;
-        }
-    }
-}
-
-// 0x0045DDB0
-void __fastcall sub_0045DDB0_Packet22_SetSkillQuantity(const D2GSPacketSrv22* pPacket)
-{
-    if (pPacket->bSkip)
-    {
-        return;
-    }
-    const unsigned short wSkillId = pPacket->wSkillId;
-    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, 0);
-    if (pUnit)
-    {
-        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, wSkillId, -1);
-        D2_ASSERT(pSkill, 2774);
-        SKILLS_SetQuantity(pSkill, pPacket->nQuantity);
-    }
-}
-
-// 0x0045DE10
-void __fastcall sub_0045DE10_Packet23_SetActiveSkill(const D2GSPacketSrv23* pPacket)
-{
-    const unsigned short wSkillId = pPacket->wSkillId;
-    const int nOwnerGUID = pPacket->nOwnerGUID;
-    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, 0);
-    if (pUnit)
-    {
-        if (pPacket->bLeft)
-        {
-            SKILLS_SetLeftActiveSkill(pUnit, wSkillId, nOwnerGUID);
-        }
-        else
-        {
-            SKILLS_SetRightActiveSkill(pUnit, wSkillId, nOwnerGUID);
-        }
-    }
-}
-
-// 0x0045DE80
-void __fastcall sub_0045DE80_Packet99(const D2GSPacketSrv99* pPacket)
-{
-    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
-    if (pUnit)
-    {
-        D2UnitStrc* pTarget = sub_00463990(pPacket->f_A, pPacket->nTargetType);
-        if (pTarget)
-        {
-            sub_004CA200_Forward(pUnit, pPacket->f_6, pPacket->nArg3, (int)pTarget, pPacket->wArg5);
-        }
-    }
 }
 
 // 0x0045D160
@@ -2366,7 +2893,7 @@ void __fastcall sub_0045D160(const unsigned char* pPacket)
     if (pRoom)
     {
         pUnit->nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-        pUnit->pDrlgAct = gpGlobal_007A0634;
+        pUnit->pDrlgAct = gpDrlgAct_007A0634;
         if (pUnit->pDynamicPath)
         {
             if (pUnit->dwUnitType == 0)
@@ -2391,14 +2918,71 @@ void __fastcall sub_0045D160(const unsigned char* pPacket)
     }
 }
 
+// 0x0045D260
+void __fastcall sub_0045D260_UnitPacket17(D2UnitStrc* pUnit, const D2GSPacketSrv17* pPacket)
+{
+    if (pUnit != sub_00463DD0_GetPlayerUnit())
+    {
+        D2_ASSERT(pUnit, 0x841);
+
+        int args[7];
+        unsigned short pos[2];
+        pos[0] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x08;
+        pos[1] = *(const unsigned short*)*(const unsigned short*)pPacket->unk0x0A;
+        args[0] = pPacket->unk0x06 >> 1;
+        args[1] = (int)pos;
+        sub_00480C10_UnitEvent(pPacket->unk0x07, pUnit, args, 1);
+    }
+}
+
+// 0x0045D2E0
+void __fastcall sub_0045D2E0_Packet16(const D2GSPacketSrv16* pPacket)
+{
+    D2_ASSERT(pPacket->nNumUpdates, 2133);
+
+    const D2ClientUnitUpdateStrc* pUpdate = pPacket->unitUpdate;
+    for (int i = 0; i < pPacket->nNumUpdates; ++i)
+    {
+        unsigned short nX = *(const unsigned short*)pUpdate->nX;
+        unsigned short nY = *(const unsigned short*)pUpdate->nY;
+        D2UnitStrc* pUnit = sub_00463990(*(const int*)pUpdate->nUnitGUID, pUpdate->nUnitType);
+        if (pUnit)
+        {
+            sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);
+        }
+        ++pUpdate;
+    }
+}
+
+// 0x0045D370
+void __fastcall sub_0045D370_Packet28(const D2GSPacketSrv28* pPacket)
+{
+    sub_004B6DD0_NpcInteractPacket(pPacket->nUnitType, pPacket->nUnitId, (unsigned char*)pPacket->pBuffer, pPacket->nArg);
+}
+
+// 0x0045D390
+void __fastcall sub_0045D390_Packet62(const D2GSPacketSrv62* pPacket)
+{
+    sub_004B5320_OnUnitRemoved(pPacket->nUnitType, pPacket->nUnitId);
+}
+
+// 0x0045D3A0
+void __fastcall sub_0045D3A0_Packet29(const unsigned char* pPacket)
+{
+    sub_004B2620(pPacket + 1);
+}
+
+// 0x0045D3B0
 static void sub_0045D3B0_SendUnitStatus(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
+        const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+        const int nUnitId = pUnit->dwUnitId;
         D2PacketRecord11Strc tPacket;
         tPacket.nHeader = 0x47;
-        tPacket.nUnitType = (unsigned char)pUnit->dwUnitType;
-        tPacket.nUnitId = pUnit->dwUnitId;
+        tPacket.nUnitType = (unsigned char)nUnitType;
+        tPacket.nUnitId = nUnitId;
         sub_004C1BC0(&tPacket, 0);
     }
 }
@@ -2432,44 +3016,134 @@ static void __stdcall sub_0045D4B0_OnStatChanged(int nValue, int nStat, D2UnitSt
     }
 }
 
+// 0x0045D540
 void __fastcall sub_0045D540_HandleUnitStatPacket(D2UnitStatPacketStrc* pPacket)
 {
     int bAdd = 0;
     int nValue;
+    int nStat;
     switch (pPacket->nHeader)
     {
     case 0x9E:
         nValue = pPacket->nByte;
+        nStat = pPacket->nStat;
         break;
     case 0xA0:
         nValue = pPacket->nDword;
+        nStat = pPacket->nStat;
         break;
     case 0xA1:
         nValue = pPacket->nByte;
         bAdd = 1;
+        nStat = pPacket->nStat;
         break;
     case 0xA2:
         bAdd = 1;
 
     case 0x9F:
         nValue = pPacket->nWord;
+        nStat = pPacket->nStat;
         break;
     default:
         return;
     }
 
-    const int nStat = pPacket->nStat;
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, 1);
+    if (pUnit)
+    {
+        if (nStat == 0xC)
+            sub_0045D3B0_SendUnitStatus(pUnit);
+
+        if (bAdd)
+            STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
+        else
+            STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
+    }
+}
+
+static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+// 0x0045D5E0
+void __fastcall sub_0045D5E0_SkillPacket(D2SkillPacketStrc* pPacket)
+{
+    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2UnitStrc* pTarget = sub_00463990(pPacket->dwTargetId, pPacket->nTargetType);
+    const int nX = pPacket->nX;
+    const int nY = pPacket->nY;
+    const short nSkillId = pPacket->wSkillId;
+    const short nSkillLevel = pPacket->f_4;
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return;
+    }
+
+    if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PROGRESSIVE >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PROGRESSIVE & 7])
+    {
+        sub_004C6AC0_DoSkill(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
+    }
+    else
+    {
+        sub_004C6930_DoSkillPrgFunc(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
+    }
+}
+
+static __forceinline D2SkillsTxt* GetSkillRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    return 0;
+}
+
+// 0x0045D6A0
+void __fastcall sub_0045D6A0_EndPacketSkill(D2SkillEndPacketStrc* pPacket)
+{
+    D2UnitStrc* pUnit;
+    const int nUnitType = pPacket->nUnitType;
+    const int nUnitId = pPacket->nUnitId;
+    const unsigned short nSkillId = pPacket->nSkillId;
+    pUnit = sub_00463990(nUnitId, nUnitType);
     if (!pUnit)
         return;
+    D2SkillsTxt* pSkill = GetSkillRecord(nSkillId);
+    if (!pSkill)
+        return;
+    switch (pSkill->wSrvDoFunc)
+    {
+    case 67:
+        sub_004CA000(pUnit, nSkillId);
+        break;
+    case 77:
+    case 78:
+        sub_004C8B80_ResetLeapCollision(pUnit);
+        break;
+    case 76:
+        sub_004C9420(pUnit, nSkillId);
+        break;
+    }
+    sub_00639DB0_ToggleState(pUnit, 18, 0);
+}
 
-    if (nStat == 0xC)
-        sub_0045D3B0_SendUnitStatus(pUnit);
-
-    if (bAdd)
-        STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
-    else
-        STATLIST_SetUnitStat(pUnit, nStat, nValue, 0);
+// 0x0045D760
+void __fastcall sub_0045D760_PacketA4(const D2GSPacketSrvA4* pPacket)
+{
+    const unsigned short wMonsterId = pPacket->wMonsterId;
+    if (wMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        sub_0046F870_LoadMonsterCofs(wMonsterId, 0);
+    }
 }
 
 // 0x0045D780
@@ -2530,45 +3204,6 @@ void __fastcall sub_0045D880_HandleUnitStatPacket2(D2UnitStatPacket2Strc* pPacke
     }
 }
 
-static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-    return 0;
-}
-
-// 0x0045D5E0
-void __fastcall sub_0045D5E0_SkillPacket(D2SkillPacketStrc* pPacket)
-{
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
-    if (!pUnit)
-    {
-        return;
-    }
-
-    D2UnitStrc* pTarget = sub_00463990(pPacket->dwTargetId, pPacket->nTargetType);
-    const int nX = pPacket->nX;
-    const int nY = pPacket->nY;
-    const short nSkillId = pPacket->wSkillId;
-    const short nSkillLevel = pPacket->f_4;
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return;
-    }
-
-    if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_PROGRESSIVE >> 3] & gdwBitMasks[SKILLSFLAGINDEX_PROGRESSIVE & 7])
-    {
-        sub_004C6AC0_DoSkill(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
-    }
-    else
-    {
-        sub_004C6930_DoSkillPrgFunc(pUnit, pTarget, nSkillId, nSkillLevel, nX, nY, pPacket->nMode);
-    }
-}
-
 // 0x0045D8C0
 static __declspec(noinline) void __stdcall sub_0045D8C0_AddSignedByteOffsets(short nBaseY, short* pX, short* pY, short nBaseX, unsigned char nDY, unsigned char nDX)
 {
@@ -2590,8 +3225,6 @@ void __fastcall sub_U05_Emit_0045D8C0(unsigned char* pBytes, short* pBase, short
     sub_0045D8C0_AddSignedByteOffsets(pBase[3], &pOut[2], &pOut[3], pBase[2], pBytes[3], pBytes[2]);
 }
 
-int gnGlobal_007A5230; // 0x007A5230
-
 // 0x0045D900
 static void sub_0045D900_ReadPacket18(unsigned char* pData, D2Packet18RecordStrc* pRecord)
 {
@@ -2609,6 +3242,34 @@ static void sub_0045D900_ReadPacket18(unsigned char* pData, D2Packet18RecordStrc
     pRecord->nDeltaY = sub_00411020_ReadBits(&tBuffer, 8);
 }
 
+// 0x0045D9B0
+void __fastcall sub_0045D9B0_HandlePacket18(unsigned char* pPacket)
+{
+    D2Packet18RecordStrc tRecord;
+    sub_0045D900_ReadPacket18(pPacket, &tRecord);
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+    int nLife = tRecord.nLife << 8;
+    STATLIST_SetUnitStat(pPlayer, 6, nLife, 0);
+    STATLIST_SetUnitStat(pPlayer, 8, tRecord.nMana << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, 10, tRecord.nStamina << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, 0x4A, tRecord.nValue07, 0);
+    STATLIST_SetUnitStat(pPlayer, 0x1A, tRecord.nValue08, 0);
+    int nDeltaX = tRecord.nDeltaX;
+    int nDeltaY = tRecord.nDeltaY;
+    if (nDeltaX > 0x80) nDeltaX -= 0x100;
+    if (nDeltaY > 0x80) nDeltaY -= 0x100;
+    sub_004804E0_SetPosition(pPlayer, tRecord.nX, tRecord.nY, 0, (unsigned short)(tRecord.nX + nDeltaX), (unsigned short)(tRecord.nY + nDeltaY));
+    if (nLife && pPlayer->dwAnimMode == 0x11)
+    {
+        sub_00480E70_SetUnitMode(pPlayer, 5);
+        sub_004647D0_UpdateAttackableFlag(pPlayer);
+    }
+}
+
 // 0x0045DA90
 static void sub_0045DA90_ReadPacket95(unsigned char* pData, D2Packet95RecordStrc* pRecord)
 {
@@ -2622,6 +3283,32 @@ static void sub_0045DA90_ReadPacket95(unsigned char* pData, D2Packet95RecordStrc
     pRecord->nY = sub_00411020_ReadBits(&tBuffer, 16);
     pRecord->nDeltaX = sub_00411020_ReadBits(&tBuffer, 8);
     pRecord->nDeltaY = sub_00411020_ReadBits(&tBuffer, 8);
+}
+
+// 0x0045DB20
+void __fastcall sub_0045DB20_HandlePacket95(unsigned char* pPacket)
+{
+    D2Packet95RecordStrc tRecord;
+    sub_0045DA90_ReadPacket95(pPacket, &tRecord);
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+    int nLife = tRecord.nLife << 8;
+    STATLIST_SetUnitStat(pPlayer, 6, nLife, 0);
+    STATLIST_SetUnitStat(pPlayer, 8, tRecord.nMana << 8, 0);
+    STATLIST_SetUnitStat(pPlayer, 10, tRecord.nStamina << 8, 0);
+    int nDeltaX = tRecord.nDeltaX;
+    int nDeltaY = tRecord.nDeltaY;
+    if (nDeltaX > 0x80) nDeltaX -= 0x100;
+    if (nDeltaY > 0x80) nDeltaY -= 0x100;
+    sub_004804E0_SetPosition(pPlayer, tRecord.nX, tRecord.nY, 0, (unsigned short)(tRecord.nX + nDeltaX), (unsigned short)(tRecord.nY + nDeltaY));
+    if (nLife && pPlayer->dwAnimMode == 0x11)
+    {
+        sub_00480E70_SetUnitMode(pPlayer, 5);
+        sub_004647D0_UpdateAttackableFlag(pPlayer);
+    }
 }
 
 // 0x0045DBE0
@@ -2655,195 +3342,106 @@ void __fastcall sub_0045DC50_HandlePacket96(unsigned char* pPacket)
     sub_004804E0_SetPosition(pPlayer, tRecord.nX, tRecord.nY, 0, (unsigned short)(tRecord.nX + nDeltaX), (unsigned short)(tRecord.nY + nDeltaY));
 }
 
-// 0x0045F610
-static D2PacketBufferStrc* sub_0045F610_GrowPacketBuffer(D2UnitStrc* pUnit)
+// 0x0045DCD0
+void __fastcall sub_0045DCD0_Packet21_AssignSkill(const D2GSPacketSrv21* pPacket)
 {
-    if (!gnGlobal_007A5230)
+    const unsigned short wSkillId = pPacket->wSkillId;
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
+    if (pUnit)
     {
-        for (int i = 0; i < 0xAF; ++i)
+        SKILLS_AssignSkill(pUnit, wSkillId, pPacket->nSkillLevel, pPacket->bRemove, ".\\GAME\\SCmd.cpp", 2700);
+        sub_004AA8F0_ClearValue7C0C3C();
+    }
+}
+
+// 0x0045DD10
+void __fastcall sub_0045DD10_Packet93(const D2GSPacketSrv93* pPacket)
+{
+    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
+    int nValue = pPacket->unk0x05;
+    if (nValue > 0x80)
+        nValue -= 0x100;
+    const int nB = pPacket->unk0x06;
+    const char nC = pPacket->unk0x07;
+
+    D2UnitStrc* pUnit = sub_00463990(nUnitGUID, UNIT_PLAYER);
+    if (pUnit)
+    {
+        sub_004C7990(pUnit, nValue, nB, nC);
+    }
+}
+
+// 0x0045DD60
+void __fastcall sub_0045DD60_Packet94_AssignSkills(const D2GSPacketSrv94* pPacket)
+{
+    const int nUnitId = pPacket->nUnitId;
+    const unsigned char nCount = pPacket->nCount;
+    const D2SkillLevelEntryStrc* pEntry = pPacket->pEntries;
+    D2UnitStrc* pUnit = sub_00463990(nUnitId, 0);
+    if (pUnit)
+    {
+        for (int i = 0; i < nCount; ++i)
         {
-            if (gtPacketTable_007114D0[i].f_8 && gtPacketTable_007114D0[i].nSize > gnGlobal_007A5230)
-            {
-                gnGlobal_007A5230 = gtPacketTable_007114D0[i].nSize;
-            }
+            SKILLS_AssignSkill(pUnit, pEntry->wSkillId, pEntry->nSkillLevel, 0, ".\\GAME\\SCmd.cpp", 2743);
+            ++pEntry;
         }
-        gnGlobal_007A5230 += 5;
     }
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
-    if (!pBuffer)
-    {
-        pBuffer = (D2PacketBufferStrc*)FOG_Alloc(0x10, ".\\GAME\\SCmd.cpp", 0x1266, 0);
-        memset(pBuffer, 0, 0x10);
-        sub_004647A0_SetPacketBuffer(pUnit, pBuffer);
-    }
-    int nNewMax = pBuffer->nMax + 5;
-    unsigned char* pData = (unsigned char*)FOG_Alloc(gnGlobal_007A5230 * nNewMax, ".\\GAME\\SCmd.cpp", 0x126B, 0);
-    memset(pData, 0, gnGlobal_007A5230 * nNewMax);
-    if (pBuffer->pData)
-    {
-        memcpy(pData, pBuffer->pData, pBuffer->nMax * gnGlobal_007A5230);
-        FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x126F, 0);
-    }
-    pBuffer->nMax = nNewMax;
-    pBuffer->pData = pData;
-    return pBuffer;
 }
 
-// 0x0045F730
-static void __stdcall sub_0045F730_QueuePacket(unsigned char* pPacket, int nLength, D2UnitStrc* pUnit)
+// 0x0045DDB0
+void __fastcall sub_0045DDB0_Packet22_SetSkillQuantity(const D2GSPacketSrv22* pPacket)
 {
-    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
-    if (!pBuffer || pBuffer->nCount + 1 == pBuffer->nMax)
-    {
-        pBuffer = sub_0045F610_GrowPacketBuffer(pUnit);
-    }
-    D2_ASSERT(nLength <= gnGlobal_007A5230, 0x127F);
-    memcpy(pBuffer->pData + pBuffer->nCount * gnGlobal_007A5230, pPacket, nLength);
-    ++pBuffer->nCount;
-}
-
-void __fastcall sub_0045F7B0_ProcessPackets(unsigned char* pData, int nSize)
-{
-    if (nSize == -1)
+    if (pPacket->bSkip)
     {
         return;
     }
-    int nRemaining = nSize;
-    unsigned char* pPacket = pData;
-    GetTickCount();
-    if (nSize > 500)
+    const unsigned short wSkillId = pPacket->wSkillId;
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, 0);
+    if (pUnit)
     {
-        ++gnLargePacketBlocks_007A6B04;
-    }
-    while (nRemaining > 0)
-    {
-        unsigned char nId = *pPacket;
-        int nPacketSize;
-        if (!sub_0052B920(pPacket, nSize, &nPacketSize))
-        {
-            return;
-        }
-        unsigned short nLength = (unsigned short)nPacketSize;
-        D2_ASSERT(nId < 0xAF, 0x1449);
-        D2PacketTableEntryStrc* pEntry = &gtPacketTable_007114D0[nId];
-        if (pEntry->nSize != -1)
-        {
-            D2_ASSERT(nLength == pEntry->nSize, 0x1450);
-        }
-        if (pEntry->nSize == -1 || nLength == pEntry->nSize)
-        {
-            if (pEntry->f_8)
-            {
-                int nUnitId;
-                int nUnitType;
-                switch (nId)
-                {
-                case 0x67: case 0x68: case 0x69: case 0x6A: case 0x6B: case 0x6C: case 0x6D:
-                    nUnitId = *(int*)(pPacket + 1);
-                    nUnitType = 1;
-                    break;
-                default:
-                    nUnitId = *(int*)(pPacket + 2);
-                    nUnitType = pPacket[1];
-                    break;
-                }
-                D2UnitStrc* pUnit = sub_00463990(nUnitId, nUnitType);
-                if (pUnit)
-                {
-                    sub_0045F730_QueuePacket(pPacket, nLength, pUnit);
-                }
-            }
-            switch (nId)
-            {
-            case 0x0D:
-                if (pPacket[1] == 1)
-                {
-                    sub_00463990(*(int*)(pPacket + 2), 1);
-                }
-                break;
-            case 0x18:
-            {
-                D2Packet18RecordStrc tRecord;
-                sub_0045D900_ReadPacket18(pPacket, &tRecord);
-                break;
-            }
-            case 0x95:
-            {
-                D2Packet95RecordStrc tRecord;
-                sub_0045DA90_ReadPacket95(pPacket, &tRecord);
-                break;
-            }
-            case 0x96:
-            {
-                D2Packet96RecordStrc tRecord;
-                sub_0045DBE0_ReadPacket96(pPacket, &tRecord);
-                break;
-            }
-            }
-            if (pEntry->pfnHandler)
-            {
-                pEntry->pfnHandler(pPacket);
-            }
-        }
-        gnPacketBytes_007A6AF4 += nLength;
-        nRemaining -= nLength;
-        pPacket += nLength;
-        gnLastPacketId_007A5234 = nId;
-    }
-    ++gnPacketBlocks_007A6AFC;
-}
-
-// 0x0045D9B0
-void __fastcall sub_0045D9B0_HandlePacket18(unsigned char* pPacket)
-{
-    D2Packet18RecordStrc tRecord;
-    sub_0045D900_ReadPacket18(pPacket, &tRecord);
-    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
-    if (!pPlayer)
-    {
-        return;
-    }
-    int nLife = tRecord.nLife << 8;
-    STATLIST_SetUnitStat(pPlayer, 6, nLife, 0);
-    STATLIST_SetUnitStat(pPlayer, 8, tRecord.nMana << 8, 0);
-    STATLIST_SetUnitStat(pPlayer, 10, tRecord.nStamina << 8, 0);
-    STATLIST_SetUnitStat(pPlayer, 0x4A, tRecord.nValue07, 0);
-    STATLIST_SetUnitStat(pPlayer, 0x1A, tRecord.nValue08, 0);
-    int nDeltaX = tRecord.nDeltaX;
-    int nDeltaY = tRecord.nDeltaY;
-    if (nDeltaX > 0x80) nDeltaX -= 0x100;
-    if (nDeltaY > 0x80) nDeltaY -= 0x100;
-    sub_004804E0_SetPosition(pPlayer, tRecord.nX, tRecord.nY, 0, (unsigned short)(tRecord.nX + nDeltaX), (unsigned short)(tRecord.nY + nDeltaY));
-    if (nLife && pPlayer->dwAnimMode == 0x11)
-    {
-        sub_00480E70_SetUnitMode(pPlayer, 5);
-        sub_004647D0_UpdateAttackableFlag(pPlayer);
+        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, wSkillId, -1);
+        D2_ASSERT(pSkill, 2774);
+        SKILLS_SetQuantity(pSkill, pPacket->nQuantity);
     }
 }
 
-// 0x0045DB20
-void __fastcall sub_0045DB20_HandlePacket95(unsigned char* pPacket)
+// 0x0045DE10
+void __fastcall sub_0045DE10_Packet23_SetActiveSkill(const D2GSPacketSrv23* pPacket)
 {
-    D2Packet95RecordStrc tRecord;
-    sub_0045DA90_ReadPacket95(pPacket, &tRecord);
-    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
-    if (!pPlayer)
+    const unsigned short wSkillId = pPacket->wSkillId;
+    const int nOwnerGUID = pPacket->nOwnerGUID;
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, 0);
+    if (pUnit)
     {
-        return;
+        if (pPacket->bLeft)
+        {
+            SKILLS_SetLeftActiveSkill(pUnit, wSkillId, nOwnerGUID);
+        }
+        else
+        {
+            SKILLS_SetRightActiveSkill(pUnit, wSkillId, nOwnerGUID);
+        }
     }
-    int nLife = tRecord.nLife << 8;
-    STATLIST_SetUnitStat(pPlayer, 6, nLife, 0);
-    STATLIST_SetUnitStat(pPlayer, 8, tRecord.nMana << 8, 0);
-    STATLIST_SetUnitStat(pPlayer, 10, tRecord.nStamina << 8, 0);
-    int nDeltaX = tRecord.nDeltaX;
-    int nDeltaY = tRecord.nDeltaY;
-    if (nDeltaX > 0x80) nDeltaX -= 0x100;
-    if (nDeltaY > 0x80) nDeltaY -= 0x100;
-    sub_004804E0_SetPosition(pPlayer, tRecord.nX, tRecord.nY, 0, (unsigned short)(tRecord.nX + nDeltaX), (unsigned short)(tRecord.nY + nDeltaY));
-    if (nLife && pPlayer->dwAnimMode == 0x11)
+}
+
+// 0x0045DE50
+void __fastcall sub_0045DE50_CopyPacket7(const D2ClientPacket7Strc* pPacket)
+{
+    D2ClientPacket7Strc tPacket = *pPacket;
+    sub_004B1240_UsePacket7(&tPacket);
+}
+
+// 0x0045DE80
+void __fastcall sub_0045DE80_Packet99(const D2GSPacketSrv99* pPacket)
+{
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
+    if (pUnit)
     {
-        sub_00480E70_SetUnitMode(pPlayer, 5);
-        sub_004647D0_UpdateAttackableFlag(pPlayer);
+        D2UnitStrc* pTarget = sub_00463990(pPacket->f_A, pPacket->nTargetType);
+        if (pTarget)
+        {
+            sub_004CA200_Forward(pUnit, pPacket->f_6, pPacket->nArg3, (int)pTarget, pPacket->wArg5);
+        }
     }
 }
 
@@ -2855,10 +3453,244 @@ void __fastcall sub_0045DEC0(const D2GSPacketCoordinateStrc* pPacket)
         sub_004CA230_Forward(pUnit,pPacket->f_6,pPacket->nArg3,pPacket->wArg4,pPacket->wArg5,pPacket->wArg6);
 }
 
+// 0x0045DF00
+void __fastcall sub_0045DF00_UnitPacket4C(D2UnitStrc* pUnit, const D2GSPacketSrv4C* pPacket)
+{
+    if (pUnit)
+    {
+        int args[7] = {};
+        args[0] = *(const unsigned short*)pPacket->unk0x06;
+        args[2] = pPacket->unk0x09;
+        args[3] = *(const int*)pPacket->unk0x0A;
+        args[4] = pPacket->unk0x08;
+        args[1] = -1;
+        sub_00480C10_UnitEvent(0x16, pUnit, args, 1);
+    }
+}
+
+// 0x0045DF60
+void __fastcall sub_0045DF60_UnitPacket4D(D2UnitStrc* pUnit, const D2GSPacketSrv4D* pPacket)
+{
+    if (pUnit)
+    {
+        int args[7] = {};
+        args[0] = *(const int*)pPacket->unk0x06;
+        args[2] = *(const unsigned short*)pPacket->unk0x0B;
+        args[3] = *(const unsigned short*)pPacket->unk0x0D;
+        args[4] = pPacket->unk0x0A;
+        args[1] = -1;
+        sub_00480C10_UnitEvent(0x15, pUnit, args, 1);
+    }
+}
+
+// 0x0045DFC0
+void __fastcall sub_0045DFC0_Packet26_Chat(const D2GSPacketSrv26* pPacket)
+{
+    D2ChatMessageStrc tMessage;
+    const char* szName = pPacket->szName;
+    tMessage.nHeader = pPacket->nHeader;
+    tMessage.nType = pPacket->nType;
+    tMessage.f_2 = pPacket->nLang;
+    tMessage.nUnitType = pPacket->nUnitType;
+    tMessage.nUnitId = pPacket->nUnitId;
+    tMessage.nColor = pPacket->nColor;
+    tMessage.nSubType = pPacket->nSubType;
+    SStrCopy(tMessage.szName, szName, 0x10);
+    szName += SStrLen(szName) + 1;
+    SStrCopy(tMessage.szText, szName, 0x100);
+    sub_0049F490_PrintChatMessage(&tMessage);
+}
+
+// 0x0045E050
+void __fastcall sub_0045E050_CopyPacket6(const D2ClientPacket6Strc* pPacket)
+{
+    D2ClientPacket6Strc tPacket = *pPacket;
+    sub_0049F8C0_UsePacket6(&tPacket);
+}
+
+// 0x0045E070
+void __fastcall sub_0045E070_Packet5A(const D2GSPacket5AStrc* pPacket)
+{
+    D2GSPacket5AStrc tPacket = *pPacket;
+    sub_0049EB10(&tPacket);
+}
+
+// 0x0045E0A0
+void __fastcall sub_0045E0A0_Packet27(const D2GSPacketSrv27Strc* pPacket)
+{
+    D2GSPacketSrv27Strc tPacket = *pPacket;
+    sub_004A1600(&tPacket);
+}
+
+// 0x0045E0D0
+void __fastcall sub_0045E0D0_Packet2A(const D2PacketRecord15Strc* pPacket)
+{
+    D2PacketRecord15Strc tPacket = *pPacket;
+    sub_004B6390(&tPacket);
+}
+
 // 0x0045E110
 void __fastcall sub_0045E110_Packet2C(const D2GSPacketSrv2C* pPacket)
 {
     sub_004CBDE0_PlayEventSound(pPacket->dwUnitGUID, pPacket->nUnitType, pPacket->nSoundEvent);
+}
+
+// 0x0045E130
+void __fastcall sub_0045E130_Packet3E(D2GSPacketSrv3E* pPacket)
+{
+    D2BitBufferStrc tBuffer;
+    BITMANIP_Initialize(&tBuffer, pPacket->pBuffer, pPacket->nSize - 2);
+
+    unsigned int nA;
+    if (!sub_00411020_ReadBits(&tBuffer, 1))
+        nA = sub_00411020_ReadBits(&tBuffer, 8);
+    else if (!sub_00411020_ReadBits(&tBuffer, 1))
+        nA = sub_00411020_ReadBits(&tBuffer, 16);
+    else
+        nA = sub_00411020_ReadBits(&tBuffer, 32);
+
+    const unsigned char nB = sub_00411020_ReadBits(&tBuffer, 1);
+    const unsigned int nC = sub_00411020_ReadBits(&tBuffer, 9);
+
+    unsigned int nD;
+    if (!sub_00411020_ReadBits(&tBuffer, 1))
+        nD = sub_00411020_ReadBits(&tBuffer, 8);
+    else if (!sub_00411020_ReadBits(&tBuffer, 1))
+        nD = sub_00411020_ReadBits(&tBuffer, 16);
+    else
+        nD = sub_00411020_ReadBits(&tBuffer, 32);
+
+    unsigned short nE;
+    if (!sub_00411020_ReadBits(&tBuffer, 1))
+        nE = sub_00411020_ReadBits(&tBuffer, 8);
+    else
+        nE = sub_00411020_ReadBits(&tBuffer, 16);
+
+    sub_004C1F30(nA, nB, nC, nD, nE);
+}
+
+// 0x0045E220
+void __fastcall sub_0045E220_Packet3F(const D2PacketRecord8Strc* pPacket)
+{
+    D2PacketRecord8Strc tPacket = *pPacket;
+    sub_004C4620(&tPacket);
+}
+
+// 0x0045E240
+void __fastcall sub_0045E240_Packet40(const D2PacketRecord13Strc* pPacket)
+{
+    D2PacketRecord13Strc tPacket = *pPacket;
+    sub_004C2020(&tPacket);
+}
+
+// 0x0045E270
+void __fastcall sub_0045E270_Packet42(const D2GSPacketSrv42Strc* pPacket)
+{
+    D2GSPacketSrv42Strc tPacket = *pPacket;
+    sub_004C2050(&tPacket);
+}
+
+// 0x0045E290
+void __fastcall sub_0045E290_Packet45(const D2GSPacketSrv45* pPacket)
+{
+}
+
+// 0x0045E2A0
+void __fastcall sub_0045E2A0_Packet47(const D2PacketRecord11Strc* pPacket)
+{
+    D2PacketRecord11Strc tPacket = *pPacket;
+    sub_004C1BC0(&tPacket, 1);
+}
+
+// 0x0045E2D0
+void __fastcall sub_0045E2D0_Packet48(const D2PacketRecord11Strc* pPacket)
+{
+    D2PacketRecord11Strc tPacket = *pPacket;
+    sub_004C1BF0(&tPacket);
+}
+
+// 0x0045E300
+void __fastcall sub_0045E300_InitializeEnvironment(D2EnvironmentPacketStrc* pPacket)
+{
+    const int nIndex = pPacket->nIndex;
+    const int nTicks = pPacket->nTicks;
+    if (gpDrlgAct_007A0634 == sub_00463DD0_GetPlayerUnit()->pDrlgAct)
+    {
+        ENVIRONMENT_InitializeEnvironment(gpDrlgAct_007A0634, sub_004646A0_GetPlayerRoom(), nIndex, nTicks, pPacket->bEclipse);
+        sub_004646C0_UpdateObjectsForPeriod();
+
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (pPlayer)
+        {
+            D2PacketRecord11Strc tPacket;
+            const int nUnitType = !pPlayer ? 6 : pPlayer->dwUnitType;
+            tPacket.nUnitType = (unsigned char)nUnitType;
+            tPacket.dwUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
+            tPacket.nHeader = 0x47;
+            sub_004C1BC0(&tPacket, 0);
+        }
+    }
+}
+
+// 0x0045E370
+void __fastcall sub_0045E370_Packet50(const D2PacketRecord15Strc* pPacket)
+{
+    D2PacketRecord15Strc tPacket = *pPacket;
+    sub_004B9210(&tPacket);
+}
+
+// 0x0045E3B0
+void __fastcall sub_0045E3B0_Packet54(const D2GSPacketSrv54* pPacket)
+{
+    sub_00473CA0_Empty();
+}
+
+// 0x0045E3C0
+void __fastcall sub_0045E3C0_Packet4F(const D2GSPacketSrv4F* pPacket)
+{
+    sub_004B3290_ResetSlots();
+}
+
+// 0x0045E3D0
+void __fastcall sub_0045E3D0_Packet4E(const D2PacketRecord7Strc* pPacket)
+{
+    D2PacketRecord7Strc tPacket = *pPacket;
+    sub_004B3240(&tPacket);
+}
+
+// 0x0045E400
+void __fastcall sub_0045E400_Packet57(const unsigned char* p)
+{
+    const int nId = *(const int*)(p + 1);
+    const unsigned short n6 = *(const unsigned short*)(p + 6);
+    const unsigned short n8 = *(const unsigned short*)(p + 8);
+    const unsigned short nA = *(const unsigned short*)(p + 0xA);
+    const unsigned short nC = *(const unsigned short*)(p + 0xC);
+    if (p[5] == 1)
+    {
+        D2UnitStrc* pUnit = sub_00463990(nId, 1);
+        if (pUnit)
+        {
+            sub_004AC780_SetMonsterWord(pUnit, n6);
+            unsigned char* pBytes = sub_004AC740_GetMonsterBytes(pUnit);
+            pBytes[0] = (unsigned char)n8;
+            pBytes[1] = (unsigned char)(n8 >> 8);
+            pBytes[2] = (unsigned char)nA;
+            if (nC)
+            {
+                sub_004AC810_ToggleMonsterFlag(pUnit, 4, 1);
+            }
+            sub_004AC810_ToggleMonsterFlag(pUnit, 8, 1);
+            sub_004AD020_RefreshMonster(pUnit);
+        }
+    }
+}
+
+// 0x0045E490
+void __fastcall sub_0045E490_Packet58(const D2PacketRecord7Strc* pPacket)
+{
+    D2PacketRecord7Strc tPacket = *pPacket;
+    sub_004C0550(&tPacket);
 }
 
 // 0x0045E4C0
@@ -2881,6 +3713,26 @@ void __fastcall sub_0045E530_Packet5C(const D2GSPacketSrv5C* pPacket)
     sub_0047A8B0_RemoveRosterUnit(pPacket->dwPlayerGUID);
 }
 
+// 0x0045E540
+void __fastcall sub_0045E540_Packet5D(const D2PacketRecord6Strc* pPacket)
+{
+    D2PacketRecord6Strc tPacket = *pPacket;
+    sub_004A2CB0_HandleQuestEvent(1, &tPacket);
+}
+
+// 0x0045E570
+void __fastcall sub_0045E570_Packet5E(const D2GSPacketSrv5E* pPacket)
+{
+    sub_004B92B0_StorePacketText(pPacket);
+}
+
+// 0x0045E580
+void __fastcall sub_0045E580_Packet91(const D2GSPacket91Strc* pPacket)
+{
+    D2GSPacket91Strc tPacket = *pPacket;
+    sub_004B3510(&tPacket);
+}
+
 // 0x0045E5B0
 void __fastcall sub_0045E5B0_Packet92(const D2GSPacketSrv92* pPacket)
 {
@@ -2901,11 +3753,26 @@ void __fastcall sub_0045E5D0_Packet5F(const D2GSPacketSrv5F* pPacket)
     UNITS_SetPlayerPortalFlags(pPlayer, nPortalFlags);
 }
 
+// 0x0045E610
+void __fastcall sub_0045E610_Packet60(const D2PacketRecord7Strc* pPacket)
+{
+    D2PacketRecord7Strc tPacket = *pPacket;
+    D2_ASSERT(sub_00463DE0_GetPlayerUnit(), 3361);
+    sub_004BDF30(&tPacket);
+}
+
 // 0x0045E660
 void __fastcall sub_0045E660_Packet61(const D2GSPacketSrv61* pPacket)
 {
     sub_004B9320_PlayCinematicFromPacket((const D2CinematicPacketStrc*)pPacket);
     sub_0047F1D0_LoadResolution();
+}
+
+// 0x0045E670
+void __fastcall sub_0045E670_Packet63(const D2PacketRecord21Strc* pPacket)
+{
+    D2PacketRecord21Strc tPacket = *pPacket;
+    sub_0049CF90(&tPacket);
 }
 
 // 0x0045E6B0
@@ -2914,10 +3781,74 @@ void __fastcall sub_0045E6B0_Packet65(const D2GSPacketSrv65* pPacket)
     sub_00479B10_SetKillCount(pPacket->dwUnitId, pPacket->unk0x05);
 }
 
+// 0x0045E6C0
+void __fastcall sub_0045E6C0_Packet66(const D2GSPacketSrv66* pPacket)
+{
+}
+
+// 0x0045E6D0
+void __fastcall sub_0045E6D0_Packet73(const D2GSPacketSrv73* pPacket)
+{
+    const int nX = *(const int*)pPacket->nX;
+    const int nY = *(const int*)pPacket->nY;
+    const int nFirstX = *(const int*)pPacket->nFirstX;
+    const int nFirstY = *(const int*)pPacket->nFirstY;
+    const unsigned short nCurrentFrame = *(const unsigned short*)pPacket->nCurrentFrame;
+    const unsigned short nMissileId = *(const unsigned short*)pPacket->nMissileId;
+    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
+
+    D2UnitStrc* pOwner = sub_00463DE0_GetPlayerUnit();
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.pOwner = pOwner;
+    tMissileParams.dwFlags = 0x40000001;
+    tMissileParams.nX = nX;
+    tMissileParams.nY = nY;
+    tMissileParams.nSkillLevel = pPacket->nLevel;
+    tMissileParams.nMissile = nMissileId;
+    if (nFirstX && nFirstY)
+    {
+        tMissileParams.dwFlags = 0x40000021;
+        tMissileParams.nTargetX = nFirstX;
+        tMissileParams.nTargetY = nFirstY;
+    }
+
+    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
+    if (pMissile)
+    {
+        UNITS_StoreOwnerTypeAndGUID(pMissile, pPacket->nUnitType, nUnitGUID);
+        if (pPacket->nPierce)
+            STATLIST_SetUnitStat(pMissile, 0x148, pPacket->nPierce, 0);
+
+        MISSILE_SetCurrentFrame(pMissile, nCurrentFrame);
+        pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissile->dwFrameCountPrecise >> 8) << 8;
+    }
+}
+
+// 0x0045E7B0
+void __fastcall sub_0045E7B0_Packet74(const D2GSPacketSrv74Strc* pPacket)
+{
+    D2GSPacketSrv74Strc tPacket = *pPacket;
+    sub_00462F60(&tPacket);
+}
+
 // 0x0045E7E0
 void __fastcall sub_0045E7E0_Packet75(const D2GSPacketSrv75* pPacket)
 {
     sub_0047A850_UpdateRosterUnit(pPacket->nUnitGUID, pPacket->nPartyId, pPacket->nLevel, pPacket->nFlags, pPacket->unk0x0B);
+}
+
+// 0x0045E800
+void __fastcall sub_0045E800_Packet77(const D2GSPacketSrv77* pPacket)
+{
+    sub_004B8CF0(pPacket);
+}
+
+// 0x0045E810
+void __fastcall sub_0045E810_Packet78(const D2PacketRecord21Strc* pPacket)
+{
+    D2PacketRecord21Strc tPacket = *pPacket;
+    sub_004B9010(&tPacket);
 }
 
 // 0x0045E850
@@ -2940,6 +3871,16 @@ void __fastcall sub_0045E860_Packet7A(const D2GSPacketSrv7A* pPacket)
     }
 }
 
+// 0x0045E890
+void __fastcall sub_0045E890_Packet81(const D2GSPacket81Strc* pPacket)
+{
+    D2Packet81ArgsStrc tArgs;
+    tArgs.nArg0C = pPacket->nArg0C;
+    tArgs.nArg10 = pPacket->nArg10;
+    tArgs.nZero = 0;
+    sub_00478BB0(pPacket->nArg08, pPacket->nArg04, pPacket->nByte01, pPacket->nWord02, &tArgs);
+}
+
 // 0x0045E8D0
 void __fastcall sub_0045E8D0_Packet7B(const D2GSPacketSrv7B* pPacket)
 {
@@ -2951,6 +3892,20 @@ void __fastcall sub_0045E8D0_Packet7B(const D2GSPacketSrv7B* pPacket)
         nSkillId = -1;
     }
     sub_004AA0C0_SetSlot(pPacket->nSlot, nSkillId, nHand != 0, pPacket->nItemGUID);
+}
+
+// 0x0045E910
+void __fastcall sub_0045E910_Packet7C(const D2PacketRecord6Strc* pPacket)
+{
+    D2PacketRecord6Strc tPacket = *pPacket;
+    sub_004C51B0(&tPacket);
+}
+
+// 0x0045E930
+void __fastcall sub_0045E930_Packet7D(const D2GSPacketSrv7DStrc* pPacket)
+{
+    D2GSPacketSrv7DStrc tPacket = *pPacket;
+    sub_004C2270(&tPacket);
 }
 
 // 0x0045E970
@@ -2979,6 +3934,43 @@ void __fastcall sub_0045E990_Packet7F(const D2GSPacketSrv7F* pPacket)
 void __fastcall sub_0045E9C0_Packet90(const D2GSPacketSrv90* pPacket)
 {
     sub_0047A100_SetPosition(pPacket->dwGUID, pPacket->dwPosX, pPacket->dwPosY);
+}
+
+// 0x0045E9D0
+void __fastcall sub_0045E9D0_Packet82(const D2GSPacketSrv82* pPacket)
+{
+    const int nOwnerGUID = *(const int*)pPacket->dwOwnerGUID;
+    const int nPortalGUID0 = *(const int*)pPacket->dwPortalGUID0;
+    const int nPortalGUID1 = *(const int*)pPacket->dwPortalGUID1;
+
+    D2UnitStrc* pPortal = sub_00463990(nPortalGUID0, UNIT_OBJECT);
+    if (pPortal)
+    {
+        sub_004BDFE0_SetObjectName(pPortal, pPacket->szOwnerName);
+    }
+
+    if (nPortalGUID1 != -1)
+    {
+        pPortal = sub_00463990(nPortalGUID1, UNIT_OBJECT);
+        if (pPortal)
+        {
+            sub_004BDFE0_SetObjectName(pPortal, pPacket->szOwnerName);
+        }
+        sub_0047A270_SetPortalIds(nOwnerGUID, nPortalGUID0, nPortalGUID1);
+    }
+}
+
+// 0x0045EA30
+void __fastcall sub_0045EA30_Packet89(const D2GSPacketSrv89* pPacket)
+{
+    sub_004B9330_UniqueEvent(pPacket);
+}
+
+// 0x0045EA40
+void __fastcall sub_0045EA40_Packet8A(const D2PacketRecord6Strc* pPacket)
+{
+    D2PacketRecord6Strc tPacket = *pPacket;
+    sub_004B3380(&tPacket);
 }
 
 // 0x0045EA60
@@ -3027,6 +4019,130 @@ void __fastcall sub_0045EAD0_Packet97(const D2GSPacketSrv97* pPacket)
     sub_0048A700();
 }
 
+// 0x0045EB00
+void __fastcall sub_0045EB00_Packet8F(const D2GSPacketSrv8F* pPacket)
+{
+    sub_0044CDB0_StorePong(pPacket);
+}
+
+// 0x0045EB10
+void __fastcall sub_0045EB10_Packet9C_ItemActionWorld(const D2GSPacketSrv9C* pPacket)
+{
+    D2GSPacketSrv9C tPacket = *pPacket;
+    D2GSPacketSrv9C* pCopy = &tPacket;
+    switch (pCopy->nAction)
+    {
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 0x11:
+    case 0x13:
+    case 0x14:
+    case 0x15:
+    case 0x16:
+    case 0x17:
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xF6D);
+        exit(-1);
+    case 0:
+        sub_004C25B0(pCopy);
+        break;
+    case 1:
+        sub_004C2650_ItemOnCursor9C(pCopy);
+        break;
+    case 2:
+        sub_004C26F0_ItemDropped9C(pCopy);
+        break;
+    case 3:
+        sub_004C2810(pCopy);
+        break;
+    case 4:
+        sub_004C2AD0_ItemToStorage9C(pCopy);
+        break;
+    case 0xA:
+        sub_004C3B30_UpdateItemFromPacket9C(pCopy);
+        break;
+    case 0xD:
+        sub_004C40D0_BeltPacket2_9C(pCopy);
+        break;
+    case 0xE:
+        sub_004C4130_ItemToBelt9C(pCopy);
+        break;
+    case 0xF:
+        sub_004C42A0_ItemFromBelt9C(pCopy);
+        break;
+    case 0x10:
+        sub_004C45C0_BeltPacket9C(pCopy);
+        break;
+    case 0x12:
+        sub_004C20B0_ItemToCursor9C(pCopy);
+        break;
+    case 0xB:
+    case 0xC:
+        sub_004C3C00_ItemToMerc9C(pCopy);
+        break;
+    }
+}
+
+// 0x0045EC70
+void __fastcall sub_0045EC70_Packet9D_ItemActionOwned(const D2GSPacketSrv9D* pPacket)
+{
+    D2GSPacketSrv9D tPacket = *pPacket;
+    D2GSPacketSrv9D* pCopy = &tPacket;
+    switch (pCopy->nAction)
+    {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 0xA:
+    case 0xB:
+    case 0xC:
+    case 0xD:
+    case 0xE:
+    case 0xF:
+    case 0x10:
+    case 0x12:
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFB7);
+        exit(-1);
+    case 5:
+        sub_004C2C80(pCopy);
+        break;
+    case 6:
+        sub_004C2E90(pCopy);
+        break;
+    case 7:
+        sub_004C3070(pCopy);
+        break;
+    case 8:
+        sub_004C3380_RemoveBodyItem9D(pCopy);
+        break;
+    case 9:
+        sub_004C3920_BodyPacket9D(pCopy);
+        break;
+    case 0x17:
+        sub_004C3B00(pCopy);
+        break;
+    case 0x11:
+        sub_004C4740(pCopy);
+        break;
+    case 0x13:
+        sub_004C4990_ItemToSocket9D(pCopy);
+        break;
+    case 0x14:
+        sub_004C4AA0(pCopy);
+        break;
+    case 0x15:
+        sub_004C4C70(pCopy);
+        break;
+    case 0x16:
+        sub_004C2340_ItemToCursor9D(pCopy);
+        break;
+    }
+}
+
 // 0x0045EDC0
 void __fastcall sub_0045EDC0_PacketA6(const D2GSPacketSrvA6* pPacket)
 {
@@ -3048,6 +4164,47 @@ void __fastcall sub_0045EDE0_PacketA7(const D2GSPacketSrvA7* pPacket)
     }
 }
 
+// 0x0045EE20
+void __fastcall sub_0045EE20_PacketA8(D2GSPacketSrvA8* pPacket)
+{
+    D2UnitStrc* pUnit = sub_00463990(*(const int*)pPacket->nUnitId, pPacket->nUnitType);
+    if (!pUnit)
+        return;
+
+    const int nState = pPacket->nState;
+    sub_004D9B20_BeginState(pUnit, nState);
+
+    D2BitBufferStrc tBuffer;
+    BITMANIP_Initialize(&tBuffer, pPacket->pStream, pPacket->nSize - 8);
+    int nPrev = 0;
+    int nStatId = sub_00411020_ReadBits(&tBuffer, 9);
+    while (nStatId < STAT_ID_END)
+    {
+        if (nStatId < 0 || nStatId >= sgptDataTables->nItemStatCostTxtRecordCount)
+            return;
+        D2ItemStatCostTxt* pItemStatCostTxtRecord = &sgptDataTables->pItemStatCostTxt[nStatId];
+        if (!pItemStatCostTxtRecord)
+            return;
+        if (pItemStatCostTxtRecord->nSendBits <= 0)
+            return;
+
+        int nLayer = 0;
+        if (pItemStatCostTxtRecord->nSendParamBits > 0)
+            nLayer = (unsigned short)BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendParamBits);
+
+        int nValue;
+        if (pItemStatCostTxtRecord->nSendBits < 32 && pItemStatCostTxtRecord->nItemStatFlags[ITEMSTATCOSTFLAGINDEX_SIGNED >> 3] & gdwBitMasks[ITEMSTATCOSTFLAGINDEX_SIGNED & 7])
+            nValue = BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendBits);
+        else
+            nValue = sub_00411020_ReadBits(&tBuffer, pItemStatCostTxtRecord->nSendBits);
+
+        nPrev = sub_004D9D70_SetStateStat(pUnit, nPrev, nState, nStatId, nValue, nLayer);
+        nStatId = sub_00411020_ReadBits(&tBuffer, 9);
+    }
+
+    sub_004D9E60_StartClientState(pUnit, nState);
+}
+
 // 0x0045EF60
 void __fastcall sub_0045EF60_PacketA9(const D2GSPacketSrvA9* pPacket)
 {
@@ -3060,89 +4217,50 @@ void __fastcall sub_0045EF60_PacketA9(const D2GSPacketSrvA9* pPacket)
     }
 }
 
-// 0x0045E290
-void __fastcall sub_0045E290_Packet45(const D2GSPacketSrv45* pPacket)
+// 0x0045EFA0
+void __fastcall sub_0045EFA0_PacketAA(D2GSPacketSrvAA* pPacket)
 {
-}
+    D2UnitStrc* pUnit = sub_00463990(*(const int*)pPacket->nUnitId, pPacket->nUnitType);
+    if (!pUnit)
+        return;
 
-// 0x0045E3B0
-void __fastcall sub_0045E3B0_Packet54(const D2GSPacketSrv54* pPacket)
-{
-    sub_00473CA0_Empty();
-}
-
-// 0x0045E3C0
-void __fastcall sub_0045E3C0_Packet4F(const D2GSPacketSrv4F* pPacket)
-{
-    sub_004B3290_ResetSlots();
-}
-
-// 0x0045E570
-void __fastcall sub_0045E570_Packet5E(const D2GSPacketSrv5E* pPacket)
-{
-    sub_004B92B0_StorePacketText(pPacket);
-}
-
-// 0x0045E6C0
-void __fastcall sub_0045E6C0_Packet66(const D2GSPacketSrv66* pPacket)
-{
-}
-
-// 0x0045E6D0
-void __fastcall sub_0045E6D0_Packet73(const D2GSPacketSrv73* pPacket)
-{
-    const int nX = *(const int*)pPacket->nX;
-    const int nY = *(const int*)pPacket->nY;
-    const int nFirstX = *(const int*)pPacket->nFirstX;
-    const int nFirstY = *(const int*)pPacket->nFirstY;
-    const unsigned short nCurrentFrame = *(const unsigned short*)pPacket->nCurrentFrame;
-    const unsigned short nMissileId = *(const unsigned short*)pPacket->nMissileId;
-    const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
-
-    D2UnitStrc* pOwner = sub_00463DE0_GetPlayerUnit();
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.pOwner = pOwner;
-    tMissileParams.dwFlags = 0x40000001;
-    tMissileParams.nX = nX;
-    tMissileParams.nY = nY;
-    tMissileParams.nSkillLevel = pPacket->nLevel;
-    tMissileParams.nMissile = nMissileId;
-    if (nFirstX && nFirstY)
+    D2BitBufferStrc tBuffer;
+    BITMANIP_Initialize(&tBuffer, pPacket->pStream, pPacket->nSize - 7);
+    int nState = sub_00411020_ReadBits(&tBuffer, 8);
+    while (nState < STATE_ID_END)
     {
-        tMissileParams.dwFlags = 0x40000021;
-        tMissileParams.nTargetX = nFirstX;
-        tMissileParams.nTargetY = nFirstY;
+        sub_004D9B20_BeginState(pUnit, nState);
+        if (sub_00411020_ReadBits(&tBuffer, 1))
+        {
+            int nPrev = 0;
+            int nStatId = sub_00411020_ReadBits(&tBuffer, 9);
+            while (nStatId < STAT_ID_END)
+            {
+                if (nStatId < 0 || nStatId >= sgptDataTables->nItemStatCostTxtRecordCount)
+                    return;
+                D2ItemStatCostTxt* pItemStatCostTxtRecord = &sgptDataTables->pItemStatCostTxt[nStatId];
+                if (!pItemStatCostTxtRecord)
+                    return;
+                if (pItemStatCostTxtRecord->nSendBits <= 0)
+                    return;
+
+                int nLayer = 0;
+                if (pItemStatCostTxtRecord->nSendParamBits > 0)
+                    nLayer = (unsigned short)BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendParamBits);
+
+                int nValue;
+                if (pItemStatCostTxtRecord->nSendBits < 32 && pItemStatCostTxtRecord->nItemStatFlags[ITEMSTATCOSTFLAGINDEX_SIGNED >> 3] & gdwBitMasks[ITEMSTATCOSTFLAGINDEX_SIGNED & 7])
+                    nValue = BITMANIP_ReadSigned(&tBuffer, pItemStatCostTxtRecord->nSendBits);
+                else
+                    nValue = sub_00411020_ReadBits(&tBuffer, pItemStatCostTxtRecord->nSendBits);
+
+                nPrev = sub_004D9D70_SetStateStat(pUnit, nPrev, nState, nStatId, nValue, nLayer);
+                nStatId = sub_00411020_ReadBits(&tBuffer, 9);
+            }
+        }
+        sub_004D9E60_StartClientState(pUnit, nState);
+        nState = sub_00411020_ReadBits(&tBuffer, 8);
     }
-
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
-    if (pMissile)
-    {
-        UNITS_StoreOwnerTypeAndGUID(pMissile, pPacket->nUnitType, nUnitGUID);
-        if (pPacket->nPierce)
-            STATLIST_SetUnitStat(pMissile, 0x148, pPacket->nPierce, 0);
-
-        MISSILE_SetCurrentFrame(pMissile, nCurrentFrame);
-        pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissile->dwFrameCountPrecise >> 8) << 8;
-    }
-}
-
-// 0x0045E800
-void __fastcall sub_0045E800_Packet77(const D2GSPacketSrv77* pPacket)
-{
-    sub_004B8CF0(pPacket);
-}
-
-// 0x0045EA30
-void __fastcall sub_0045EA30_Packet89(const D2GSPacketSrv89* pPacket)
-{
-    sub_004B9330_UniqueEvent(pPacket);
-}
-
-// 0x0045EB00
-void __fastcall sub_0045EB00_Packet8F(const D2GSPacketSrv8F* pPacket)
-{
-    sub_0044CDB0_StorePong(pPacket);
 }
 
 // 0x0045F120
@@ -3161,3 +4279,749 @@ void __fastcall sub_0045F120_HandleLifePacket(unsigned char* pPacket)
     else
         sub_0047A690(*(int*)(pPacket + 2), pPacket[6] * 100 / 128);
 }
+
+int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
+{
+    if (!nValue)
+    {
+        return 0;
+    }
+    __asm
+    {
+        bsr eax, nValue
+        inc eax
+        mov nValue, eax
+    }
+    return nValue;
+}
+
+// build: context Log2Ceil
+static __forceinline int Log2Ceil(int nValue)
+{
+    return nValue < 3 ? 1 : sub_00409000_GetBitWidth(nValue - 1);
+}
+
+// build: context GetMonStats2TxtRecordFromMonsterId
+static __forceinline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
+{
+    if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount) return 0;
+    int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+    if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
+    {
+        return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+    }
+    return 0;
+}
+
+// build: context GetItemStatCostTxtRecord
+static __forceinline D2ItemStatCostTxt* GetItemStatCostTxtRecord(int nStatId)
+{
+    if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return &sgptDataTables->pItemStatCostTxt[nStatId];
+    }
+    return 0;
+}
+
+// 0x0045F190
+void __fastcall sub_0045F190_SpawnMonsterPacket(D2PacketSpawnStrc* pPacket)
+{
+    unsigned int nUnitId = pPacket->nUnitId;
+    unsigned short nX = pPacket->nX;
+    unsigned short nY = pPacket->nY;
+    short nClassId = pPacket->nClassId;
+    D2BitBufferStrc tBuffer;
+    unsigned char aComponents[16];
+    unsigned char aMods[9];
+    BITMANIP_Initialize(&tBuffer, pPacket->aData, pPacket->nLength - 13);
+    unsigned char nMode = (unsigned char)sub_00411020_ReadBits(&tBuffer, 4);
+    unsigned char* pComponents = 0;
+    if (sub_00411020_ReadBits(&tBuffer, 1))
+    {
+        D2MonStats2Txt* pRecord = GetMonStats2TxtRecordFromMonsterId(nClassId);
+        if (!pRecord) return;
+        pComponents = aComponents;
+        for (int i = 0; i < 16; ++i)
+            aComponents[i] = (unsigned char)sub_00411020_ReadBits(&tBuffer, Log2Ceil(pRecord->nComponentChoiceCounts[i]));
+    }
+    unsigned char* pMods = 0;
+    unsigned short nFlags = 0;
+    int nUniqueId = -1;
+    int nSpecial = 0;
+    unsigned short nPalette = 0;
+    if (sub_00411020_ReadBits(&tBuffer, 1))
+    {
+        nFlags = sub_00411020_ReadBits(&tBuffer, 1) ? 4 : 0;
+        nFlags |= sub_00411020_ReadBits(&tBuffer, 1) ? 8 : 0;
+        nFlags |= sub_00411020_ReadBits(&tBuffer, 1) ? 2 : 0;
+        nFlags |= sub_00411020_ReadBits(&tBuffer, 1) ? 16 : 0;
+        nFlags |= sub_00411020_ReadBits(&tBuffer, 1) ? 64 : 0;
+        if (nFlags & 2) nSpecial = (unsigned short)BITMANIP_ReadSigned(&tBuffer, 16);
+        for (int i = 0; i < 9; ++i) aMods[i] = 0;
+        pMods = aMods;
+        int nModIndex = 0;
+        for (unsigned char nMod = (unsigned char)sub_00411020_ReadBits(&tBuffer, 8); nMod; nMod = (unsigned char)sub_00411020_ReadBits(&tBuffer, 8))
+            aMods[nModIndex++] = nMod;
+        nPalette = (unsigned char)sub_00411020_ReadBits(&tBuffer, 16);
+        if (sub_00411020_ReadBits(&tBuffer, 1)) nUniqueId = sub_00411020_ReadBits(&tBuffer, 32);
+    }
+    D2UnitSpawnStrc tSpawn;
+    memset(&tSpawn, 0, sizeof(tSpawn));
+    tSpawn.nUnitId = nUnitId;
+    tSpawn.nClassId = nClassId;
+    tSpawn.nX = nX;
+    tSpawn.nY = nY;
+    tSpawn.tExtra.nFlags = nFlags;
+    tSpawn.tExtra.nUniqueId = nUniqueId;
+    tSpawn.nMode = nMode;
+    sub_00477170_LoadPalShift(nClassId);
+    D2UnitStrc* pUnit = sub_00466360_AddClientMonster(&tSpawn, pComponents, pMods, nPalette, nSpecial, 0);
+    if (!pUnit) return;
+    sub_00470B70_ResetMonsterModeGfx(pUnit);
+    if (!MONSTERS_GetHirelingTypeId(pUnit) || nUnitId != sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
+    {
+        STATLIST_SetUnitStat(pUnit, 7, 0x8000, 0);
+        STATLIST_SetUnitStat(pUnit, 6, pPacket->nLife << 8, 0);
+    }
+    if (MONSTERS_GetHirelingTypeId(pUnit) && nMode == 1) pUnit->dwFlagEx &= ~0x40000;
+    STATLIST_SetUnitStat(pUnit, 0x148, (unsigned short)(nX + nY), 0);
+    if (sub_00411020_ReadBits(&tBuffer, 1)) UNITS_StoreOwnerTypeAndGUID(pUnit, 0, sub_00411020_ReadBits(&tBuffer, 31));
+    if (sub_00411020_ReadBits(&tBuffer, 1))
+    {
+        D2StatListStrc* pStatList = 0;
+        for (int nStat = sub_00411020_ReadBits(&tBuffer, 9); nStat < 511; nStat = sub_00411020_ReadBits(&tBuffer, 9))
+        {
+            D2ItemStatCostTxt* pRecord = GetItemStatCostTxtRecord(nStat);
+            if (!pRecord || pRecord->nSendBits <= 0) return;
+            int nLayer = 0;
+            if (pRecord->nSendParamBits > 0) nLayer = (unsigned short)BITMANIP_ReadSigned(&tBuffer, pRecord->nSendParamBits);
+            int nValue;
+            if (pRecord->nSendBits < 32 && (pRecord->nItemStatFlags[0] & (unsigned char)gdwBitMasks[1]))
+                nValue = BITMANIP_ReadSigned(&tBuffer, pRecord->nSendBits);
+            else
+                nValue = sub_00411020_ReadBits(&tBuffer, pRecord->nSendBits);
+            if (!pStatList)
+            {
+                pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pUnit, 0, 0x40);
+                if (!pStatList)
+                {
+                    pStatList = STATLIST_AllocStatList(0, 0x40, 0, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
+                    STATLIST_SetState(pStatList, 0);
+                    D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+                }
+            }
+            if (pStatList) STATLIST_SetStatIfListIsValid(pStatList, nStat, nValue, nLayer);
+        }
+    }
+}
+
+// 0x0045F5F0
+void __fastcall sub_0045F5F0_GamePacketAE(D2GSPacketSrvAE* pPacket)
+{
+    if (gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3)
+        sub_004802E0(pPacket->pData, pPacket->nLength);
+}
+
+// 0x0045F610
+static D2PacketBufferStrc* sub_0045F610_GrowPacketBuffer(D2UnitStrc* pUnit)
+{
+    if (!gnGlobal_007A5230)
+    {
+        for (int i = 0; i < 0xAF; ++i)
+        {
+            if (gtPacketTable_007114D0[i].pfnAltHandler && gtPacketTable_007114D0[i].nSize > gnGlobal_007A5230)
+            {
+                gnGlobal_007A5230 = gtPacketTable_007114D0[i].nSize;
+            }
+        }
+        gnGlobal_007A5230 += 5;
+    }
+    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
+    if (!pBuffer)
+    {
+        pBuffer = (D2PacketBufferStrc*)FOG_Alloc(0x10, ".\\GAME\\SCmd.cpp", 0x1266, 0);
+        memset(pBuffer, 0, 0x10);
+        sub_004647A0_SetPacketBuffer(pUnit, pBuffer);
+    }
+    int nNewMax = pBuffer->nMax + 5;
+    unsigned char* pData = (unsigned char*)FOG_Alloc(gnGlobal_007A5230 * nNewMax, ".\\GAME\\SCmd.cpp", 0x126B, 0);
+    memset(pData, 0, gnGlobal_007A5230 * nNewMax);
+    if (pBuffer->pData)
+    {
+        memcpy(pData, pBuffer->pData, pBuffer->nMax * gnGlobal_007A5230);
+        FOG_Free(pBuffer->pData, ".\\GAME\\SCmd.cpp", 0x126F, 0);
+    }
+    pBuffer->nMax = nNewMax;
+    pBuffer->pData = pData;
+    return pBuffer;
+}
+
+// 0x0045F730
+static void __stdcall sub_0045F730_QueuePacket(unsigned char* pPacket, int nLength, D2UnitStrc* pUnit)
+{
+    D2PacketBufferStrc* pBuffer = sub_00464770_GetPacketBuffer(pUnit);
+    if (!pBuffer || pBuffer->nCount + 1 == pBuffer->nMax)
+    {
+        pBuffer = sub_0045F610_GrowPacketBuffer(pUnit);
+    }
+    D2_ASSERT(nLength <= gnGlobal_007A5230, 0x127F);
+    memcpy(pBuffer->pData + pBuffer->nCount * gnGlobal_007A5230, pPacket, nLength);
+    ++pBuffer->nCount;
+}
+
+static __forceinline void sub_0045F7B0_FindStoppedPlayer(const unsigned char* pPacket)
+{
+    const int nUnitId = *(const int*)(pPacket + 2);
+    __assume((nUnitId | 1) != 0);
+    if (pPacket[1] == 1)
+    {
+        sub_00463990(nUnitId, 1);
+    }
+}
+
+// 0x0045F7B0
+void __fastcall sub_0045F7B0_ProcessPackets(unsigned char* pData, int nSize)
+{
+    if (nSize == -1)
+    {
+        return;
+    }
+
+    int nRemaining = nSize;
+    unsigned char* pPacket = pData;
+    GetTickCount();
+    if (nSize > 500)
+    {
+        ++gnLargePacketBlocks_007A6B04;
+    }
+
+    while (nRemaining > 0)
+    {
+        unsigned char nId = *pPacket;
+        int nPacketSize;
+        int nUnitId;
+        int nUnitType;
+        if (!sub_0052B920(pPacket, nSize, &nPacketSize))
+        {
+            return;
+        }
+
+        unsigned short nLength = (unsigned short)nPacketSize;
+        D2_ASSERT(nId < 0xAF, 0x1449);
+        D2PacketTableEntryStrc* pEntry = &gtPacketTable_007114D0[nId];
+        if (pEntry->nSize != -1)
+        {
+            D2_ASSERT(nLength == pEntry->nSize, 0x1450);
+        }
+
+        if (pEntry->nSize == -1 || nLength == pEntry->nSize)
+        {
+            if (pEntry->pfnAltHandler)
+            {
+                switch (nId)
+                {
+                case 0x67: case 0x68: case 0x69: case 0x6A: case 0x6B: case 0x6C: case 0x6D:
+                    nUnitId = *(int*)(pPacket + 1);
+                    nUnitType = 1;
+                    break;
+                default:
+                    nUnitId = *(int*)(pPacket + 2);
+                    nUnitType = pPacket[1];
+                    break;
+                }
+
+                D2UnitStrc* pUnit = sub_00463990(nUnitId, nUnitType);
+                if (pUnit)
+                {
+                    sub_0045F730_QueuePacket(pPacket, nLength, pUnit);
+                }
+            }
+
+            switch (nId)
+            {
+            case 0x18:
+            {
+                D2Packet18RecordStrc tRecord;
+                sub_0045D900_ReadPacket18(pPacket, &tRecord);
+                break;
+            }
+            case 0x95:
+            {
+                D2Packet95RecordStrc tRecord;
+                sub_0045DA90_ReadPacket95(pPacket, &tRecord);
+                break;
+            }
+            case 0x96:
+            {
+                D2Packet96RecordStrc tRecord;
+                sub_0045DBE0_ReadPacket96(pPacket, &tRecord);
+                break;
+            }
+            case 0x0D:
+                sub_0045F7B0_FindStoppedPlayer(pPacket);
+                break;
+            }
+
+            if (pEntry->pfnHandler)
+            {
+                pEntry->pfnHandler(pPacket);
+            }
+        }
+
+        gnPacketBytes_007A6AF4 += nLength;
+        nRemaining -= nLength;
+        pPacket += nLength;
+        gnLastPacketId_007A5234 = nId;
+    }
+
+    ++gnPacketBlocks_007A6AFC;
+}
+
+// 0x0045FC60
+void __cdecl sub_0045FC60_DrawLoadingTexts()
+{
+    const int nOldFont = sub_00502EF0(1);
+    sub_004A7080(gnGlobal_0071146C / 2 - 0x84, 0xBE - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
+    if (sub_00408F20_HasExpansionMpq())
+        sub_004A7080(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
+    else
+        sub_004A7080(gnGlobal_0071146C / 2 - 0x84, 0xCD - gnGlobal_007A285C, gnGlobal_007A2858 + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
+    sub_00502EF0(nOldFont);
+}
+
+// 0x0045FF70
+void __stdcall sub_0045FF70_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnGlobal_007A5254 = 1;
+    gnGlobal_007A5248 = 0;
+    sub_0044DA70();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x0045FFB0
+void __stdcall sub_0045FFB0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnGlobal_007A5254 = 0;
+}
+
+// 0x004603E0
+void __stdcall sub_004603E0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnGlobal_007A5258 = 1;
+    gnGlobal_007A5248 = 0;
+    sub_0044DA70();
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x00460730
+void __fastcall sub_00460730_SetMonsterClientFlags(D2UnitStrc* pUnit, unsigned short nFlags, int bSet)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        if (bSet)
+        {
+            pUnit->pMonsterData->nClientFlags |= nFlags;
+        }
+        else
+        {
+            pUnit->pMonsterData->nClientFlags &= ~nFlags;
+        }
+    }
+}
+
+// 0x00462F60
+void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
+{
+    if (!pPacket->bActive)
+        return;
+    D2UnitStrc* pUnit = sub_00463990(*(int*)pPacket->nUnitId, 0);
+    if (!pUnit)
+        return;
+    if (!sub_00464820_IsDeadOrDying(pUnit))
+        sub_00480E70_SetUnitMode(pUnit, 0);
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    {
+        D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
+        if (!pOther)
+            return;
+        D2DynamicPathStrc* pPath = pOther->pDynamicPath;
+        PATH_SetMoveTestCollisionMask(pPath, 0);
+        sub_00649190_SetPathMode(pOther, 5);
+        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
+        PATH_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
+    }
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
+    while (pItem)
+    {
+        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
+        if (INVENTORY_GetItemNodePage(pItem) == 3)
+        {
+            pItem = INVENTORY_UnitIsItem(pItem);
+            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+            sub_0046F280_ClearGfxBytes(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
+            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+            D2_ASSERT(pRemoved, 0xAC8);
+            D2_ASSERT(pRemoved == pItem, 0xAC9);
+            sub_004C0EC0_UpdateItemLink(pItem, pUnit, 0, 0);
+            sub_0063BE30(pInventory, ITEMS_GetBodyLocation(pItem));
+            sub_00470610_Refresh(pUnit, 0);
+            const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
+            const int nUnitId = !pItem ? -1 : pItem->dwUnitId;
+            sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
+        }
+        pItem = pNext;
+    }
+}
+
+// 0x00463C00
+void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, unsigned char nNewMode)
+{
+    int nOld = nOldMode;
+    int nNew = nNewMode;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nOld != nNew)
+    {
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+        if (pRoom)
+        {
+            if (nNew == MODE_2)
+            {
+                sub_00619EE0(pRoom);
+            }
+            else if (nOld == MODE_2)
+            {
+                DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
+            }
+            D2Common_10214(pUnit);
+        }
+    }
+}
+
+inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x00463EE0
+int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
+{
+    D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1419);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2TileRectStrc* pRect = sub_00619620(pRoom, pUnit);
+    if (!pRect)
+    {
+        return 0;
+    }
+
+    int nUnitX = UNITS_GetXPositionInline(pUnit);
+    int nUnitY = UNITS_GetYPositionInline(pUnit);
+    sub_00643260(&nUnitX, &nUnitY);
+
+    const int nLeft = pRect->nX + nUnitX;
+    const int nTop = pRect->nY + nUnitY;
+    if (nX >= nLeft && nY >= nTop && nX <= nLeft + pRect->nWidth && nY <= nTop + pRect->nHeight)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004689D0
+void __cdecl sub_004689D0_ShowHelpOnce()
+{
+    if (sub_0044DA30())
+        return;
+    if (sub_00463DF0())
+        return;
+
+    sub_00455F20(0x21, 2, 0);
+    unsigned long dwValue;
+    if (!SRegLoadValue("Diablo II", "Help Menu", 1, &dwValue) || !dwValue)
+    {
+        dwValue = 1;
+        SRegSaveValue("Diablo II", "Help Menu", 1, dwValue);
+    }
+}
+
+// build: context sub_00467EF0_MsgHandler
+void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->wParam == 2)
+    {
+        gnGlobal_007A6B08 = 0;
+        sub_004F59F0(0);
+    }
+    else
+    {
+        gnGlobal_007A6B08 = 0;
+    }
+    pMsg->lResult = 0;
+    pMsg->bReturn = 0;
+}
+
+// 0x00469450
+int __cdecl sub_00469450_CompareEntries(const void* pA, const void* pB)
+{
+    const D2SortEntryStrc* pLeft = (const D2SortEntryStrc*)pA;
+    const D2SortEntryStrc* pRight = (const D2SortEntryStrc*)pB;
+    if (pLeft->nKey < pRight->nKey)
+    {
+        return -1;
+    }
+    if (pLeft->nKey > pRight->nKey)
+    {
+        return 1;
+    }
+    if (*(const int*)pLeft->nFlag)
+    {
+        return *(const int*)pRight->nFlag ? 0 : -1;
+    }
+    return *(const int*)pRight->nFlag ? 1 : 0;
+}
+
+// 0x0046A840
+void __stdcall sub_0046A840_HotkeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->lParam & 0x40000000)
+    {
+        return;
+    }
+
+    for (int i = 0; i < NUM_HOTKEYS; ++i)
+    {
+        if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && gtHotkeys_007A6F90[i].nCommand != 0xFFFF
+            && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && gtHotkeys_007A6F90[i].nCommand <= 0xDF
+            && gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
+        {
+            if (gtHotkeys_007A6F90[i].nKey == VK_F4 && (GetKeyState(VK_MENU) & 0x8000))
+            {
+                return;
+            }
+
+            if (gnGlobal_007A7418 == 2 && !gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
+            {
+                return;
+            }
+
+            D2_ASSERT(!IsBadCodePtr((FARPROC)gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
+            gtHotkeyCommands_00712698[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+}
+
+// 0x0046B4A0
+void __cdecl sub_0046B4A0_RequestNearMonster()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+        return;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+        return;
+    D2UnitStrc* pMonster = sub_0065A620_FindUnitInAdjacentRooms(pRoom, UNIT_MONSTER, 0x20E);
+    if (!pMonster)
+        return;
+
+    const int nX = CLIENTS_GetUnitX(pMonster);
+    const int nY = CLIENTS_GetUnitY(pMonster);
+    sub_004CDB40_SubmitRequest(pPlayer, 0x25E, nX, nY, 0, 1);
+    sub_004CDB40_SubmitRequest(pPlayer, 0x25B, nX, nY, 0, 1);
+    pMonster->dwFlagEx |= 0x40000;
+}
+
+// 0x0046BDD0
+int __fastcall sub_0046BDD0_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
+{
+    switch (DUNGEON_GetLevelIdFromRoom(pRoom))
+    {
+    case LEVEL_8:
+        return sub_0046BD50_GetPulseColor(pRed, pGreen, pBlue);
+
+    case LEVEL_107:
+    case LEVEL_108:
+        if (gnGlobal_007A7460 && gnGlobal_007129D0 == -1)
+        {
+            *pRed = 0xFF;
+            *pGreen = 0x40;
+            *pBlue = 0x30;
+            return 0xA0;
+        }
+        return 0;
+
+    default:
+        *pRed = gnGlobal_007A7434;
+        *pGreen = gnGlobal_007A7435;
+        *pBlue = gnGlobal_007A7436;
+        return gnGlobal_007A7430;
+    }
+}
+
+// 0x0046E150
+void __fastcall sub_0046E150_SetGfxNodeValue(D2UnitStrc* pUnit, int nId, int nValue)
+{
+    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2_ASSERT(pGfxData, 510);
+
+    for (D2GfxNodeStrc* pNode = pGfxData->pNodeList2C; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nId == nId)
+        {
+            D2_ASSERT(pNode->nType == 1, 517);
+            pNode->nValue = nValue;
+        }
+    }
+}
+
+// 0x00474390
+void __fastcall sub_00474390_SetRecordBytes(D2ByteRecordStrc* pRecord, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2)
+{
+    D2_ASSERT(pRecord, 359);
+    pRecord->nValue0 = nValue0;
+    pRecord->nValue1 = nValue1;
+    pRecord->f_27 = nValue2;
+}
+
+// 0x00474550
+void __fastcall sub_00474550_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int bLevelLight)
+{
+    unsigned char nRed = 0;
+    unsigned char nGreen = 0;
+    unsigned char nBlue = 0;
+    int nIntensity;
+
+    if (bLevelLight)
+    {
+        nIntensity = sub_0046BDD0_GetLevelLight(pRoom, &nRed, &nGreen, &nBlue);
+        if (nRed || nGreen || nBlue)
+        {
+            goto out;
+        }
+    }
+
+    unsigned char nRoomIntensity;
+    sub_00619D70(pRoom, &nRoomIntensity, &nRed, &nGreen, &nBlue);
+    nIntensity = nRoomIntensity;
+    if (!nRed && !nGreen && !nBlue)
+    {
+        sub_0061C0B0(gpDrlgAct_007A0634, &nRed, &nGreen, &nBlue);
+        nIntensity = sub_0061C0E0(gpDrlgAct_007A0634);
+    }
+
+out:
+    *pIntensity = nIntensity;
+    *pRed = nRed;
+    *pGreen = nGreen;
+    *pBlue = nBlue;
+}
+
+// 0x00475AA0
+void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3)
+{
+    int nCellX = (nX >> 3) - gnGlobal_007B0A54;
+    int nCellY = (nY >> 3) - gnGlobal_007B0A58;
+
+    if (nCellX < 0)
+    {
+        nCellX = 0;
+    }
+    else if (nCellX > GRID_SIZE - 1)
+    {
+        nCellX = GRID_SIZE - 1;
+    }
+
+    if (nCellY < 0)
+    {
+        nCellY = 0;
+    }
+    else if (nCellY > GRID_SIZE - 1)
+    {
+        nCellY = GRID_SIZE - 1;
+    }
+
+    D2GridCellStrc* pCell = &gtGridCells_007B0E68[nCellY * GRID_SIZE + nCellX];
+    *pValue0 = pCell->nValue0;
+    if (gnGlobal_00712B8C)
+    {
+        *pValue1 = pCell->nValue1;
+        *pValue2 = pCell->f_6;
+        *pValue3 = pCell->nValue3;
+    }
+}
+
+// 0x00475D30
+unsigned char** __stdcall sub_00475D30_BuildRampTable(unsigned int nSize, int nSteps)
+{
+    unsigned char** ppTable = (unsigned char**)sub_00517993_VirtualAlloc(nSize * nSize * nSteps * sizeof(unsigned char*));
+    unsigned char** ppEntry = ppTable;
+    for (int i = 0; i < nSize; ++i)
+    {
+        for (int j = 0; j < nSize; ++j)
+        {
+            const int nStep = ((j - i) << 16) / nSteps;
+            int nValue = i << 16;
+            for (unsigned int k = 0; k < nSteps; ++k)
+            {
+                *ppEntry = gRowTable_007B5C10[(unsigned char)(nValue / 0x10000)];
+                ++ppEntry;
+                nValue += nStep;
+            }
+        }
+    }
+    return ppTable;
+}
+
+// 0x00476A80
+void __fastcall sub_00476A80_SetTimedState(int nArg0, int nArg1, int nArg2, int nArg3)
+{
+    if (nArg2)
+    {
+        gnGlobal_007B8D10 = GetTickCount();
+        gnGlobal_007B8D14 = nArg1;
+        gnGlobal_007B8D18 = nArg2;
+        gnGlobal_007B8D1C = nArg3;
+        gnGlobal_007B9534 = nArg0;
+    }
+}
+
+// 0x00476E30
+void __cdecl sub_00476E30_LoadGreenBlood()
+{
+    void* hFile;
+    if (ARCHIVE_OpenFile(0, "Data\\Global\\Monsters\\GreenBlood.dat", &hFile, 1))
+    {
+        void* pBuffer = FOG_Alloc(0x100, ".\\GAME\\PalShift.cpp", 0x52, 0);
+        gpGlobal_007BB384 = pBuffer;
+        memset(pBuffer, 0, 0x100);
+        ARCHIVE_ReadFileToBuffer(0, hFile, pBuffer, 0x100);
+        ARCHIVE_CloseFile(0, hFile);
+    }
+}
+
