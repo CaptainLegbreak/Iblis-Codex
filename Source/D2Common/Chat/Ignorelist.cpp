@@ -69,16 +69,6 @@ struct D2CommonStringEntryNodeStrc;
 
 struct D2StormSlotList0060EDB0Strc;
 
-struct D2StormListAStrc;
-
-struct D2StormListArrayStrc;
-
-struct D2StormNamedNodeStrc;
-
-struct D2StormNameKeyStrc;
-
-struct D2StormHashTable0060F1D0Strc;
-
 struct D2CommonStormSlotArrayAStrc;
 
 struct D2CommonStormSlotArrayAViewStrc;
@@ -444,6 +434,14 @@ struct D2CommonStormSlotListBStrc
         InitializeTerminator();
     }
     ~D2CommonStormSlotListBStrc();
+    char* MaskHead()
+    {
+        return m_terminator.MaskNext();
+    }
+    char* RawNext(char* pNode)
+    {
+        return Link(pNode)->m_next;
+    }
     char* Head()
     {
         return m_terminator.Next();
@@ -540,68 +538,6 @@ struct D2StormSlotList0060EDB0Strc : D2CommonStormSlotListAStrc
 };
 
 struct Link { Link* previous; char* next; Link() { previous=0; next=0; } };
-
-struct D2StormListAStrc
-{
-    int m_linkoffset;
-    D2CommonStormSlotLinkStrc m_terminator;
-
-    D2CommonStormSlotLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2CommonStormSlotLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    char* Head()
-    {
-        return m_terminator.MaskNext();
-    }
-    char* RawNext(char* pNode)
-    {
-        return Link(pNode)->m_next;
-    }
-};
-
-struct D2StormListArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormListAStrc* m_data;
-    unsigned int m_chunk;
-};
-
-struct D2StormNamedNodeStrc
-{
-    unsigned int m_hashval;
-    unsigned char unk_04[0x10];
-    const char* m_key;
-};
-
-struct D2StormNameKeyStrc
-{
-    char* m_str;
-
-    D2StormNameKeyStrc(const char* szString)
-    {
-        m_str = sub_00414310(szString);
-    }
-    // 0x0060DD90
-    ~D2StormNameKeyStrc()
-    {
-        if (m_str)
-            SMemFree(m_str, "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h", 0x5E4, 0);
-    }
-};
-
-struct D2StormHashTable0060F1D0Strc
-{
-    void* m_vtable;
-    D2StormListAStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormListArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    char* sub_0060F1D0_Ptr(unsigned int nHashVal, const D2StormNameKeyStrc& tKey);
-    char* sub_0060F510_Ptr(const char* szKey);
-};
 
 struct D2CommonStormSlotArrayAStrc
 {
@@ -1013,6 +949,7 @@ public:
     char* sub_0060EC00_Next(char* pNode);
     void sub_0060EE60_InternalClear(int bWarn);                                                             // 0x0060EE60
     void sub_0060F150_Clear();
+    D2CommonMappingEntryNodeStrc* sub_0060F1D0_InternalFind(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key);
     D2CommonMappingEntryNodeStrc* sub_0060F510_Ptr(const char* szKey);                                      // 0x0060F510
     void InternalLinkNode(D2CommonMappingEntryNodeStrc* pNode, unsigned int nHashVal)
     {
@@ -1342,8 +1279,6 @@ struct D2Cache00610CA0Strc
 };
 
 void __fastcall sub_006108D0_GrowListArray(D2Cache00610CA0Strc* pCache); // 0x006108D0
-
-
 
 inline void __cdecl operator delete(void* pMemory, void* pWhere) throw()
 {
@@ -1992,14 +1927,13 @@ D2CommonStormSlotListCStrc::~D2CommonStormSlotListCStrc()
 }
 
 // 0x0060F1D0
-char* D2StormHashTable0060F1D0Strc::sub_0060F1D0_Ptr(unsigned int nHashVal, const D2StormNameKeyStrc& tKey)
+D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_0060F1D0_InternalFind(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key)
 {
-    for (char* pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].Head(); (int)pNode > 0; pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].RawNext(pNode))
+    for (char* pNode = m_slotlistarray[nHashVal & m_slotmask].MaskHead(); (int)pNode > 0; pNode = m_slotlistarray[nHashVal & m_slotmask].RawNext(pNode))
     {
-        if (((D2StormNamedNodeStrc*)pNode)->m_hashval == nHashVal && !SStrCmpI(((D2StormNamedNodeStrc*)pNode)->m_key, tKey.m_str, 0x7FFFFFFF))
-        {
-            return pNode;
-        }
+        D2CommonMappingEntryNodeStrc* pEntry = (D2CommonMappingEntryNodeStrc*)pNode;
+        if (pEntry->f_0 == nHashVal && !SStrCmpI(pEntry->f_14.m_str, key.m_str, 0x7FFFFFFF))
+            return pEntry;
     }
     return 0;
 }
@@ -2083,9 +2017,9 @@ void D2CommonIgnoreListStrc::sub_0060F500_VirtSlot10()
 }
 
 // 0x0060F510
-char* D2StormHashTable0060F1D0Strc::sub_0060F510_Ptr(const char* szKey)
+D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_0060F510_Ptr(const char* szKey)
 {
-    return sub_0060F1D0_Ptr(SStrHash(szKey, 0, 0), D2StormNameKeyStrc(szKey));
+    return sub_0060F1D0_InternalFind(SStrHash(szKey, 0, 0), D2StormHashKeyStrIStrc(szKey));
 }
 
 // 0x0060F590
