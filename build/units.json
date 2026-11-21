@@ -47889,6 +47889,10 @@
      "name": "sub_0051D810_SetCount"
     },
     {
+     "va": "0x0051DA30",
+     "length": 445
+    },
+    {
      "va": "0x0051DF90",
      "length": 35,
      "name": "?BNNEWS_DecodeCDKey26Char@@YIHPBDPAX11@Z"
@@ -47903,30 +47907,6 @@
      "va": "0x0051D860",
      "length": 459
     }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNNews_0051DA30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051DA30",
-     "length": 445
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
