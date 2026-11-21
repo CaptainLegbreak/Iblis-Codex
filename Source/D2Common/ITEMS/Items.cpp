@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2ItemModes.h"

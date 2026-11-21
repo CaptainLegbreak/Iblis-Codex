@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"

@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
@@ -603,12 +604,6 @@ unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient);               
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(int bExpansion, int nAct, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x00656580
-
-#define MONSTER_KASHYA 150
-
-#define MONSTER_GREIZ 198
-
-#define MONSTER_ASHEARA 252
 
 void __fastcall sub_00578AE0_FillGambleIfMissing(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer, D2NpcRecordStrc* pNpcRecord); // 0x00578AE0
 

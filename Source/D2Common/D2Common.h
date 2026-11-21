@@ -338,9 +338,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define MONSTATSFLAGINDEX_BOSS 6
 #define MONSTATSFLAGINDEX_FLYING 14
 #define MONSTATSFLAGINDEX_OPENDOORS 3
-#define MONSTER_ACT5HIRE1 560
-#define MONSTER_ACT5HIRE2 561
-#define MONSTER_WRAITH1 38
 #define NUM_ENVIRONMENT_CYCLES 6
 #define NUM_GRID_BODYLOCS 11
 #define NUM_TIME_RATES 3

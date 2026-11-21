@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -212,20 +213,6 @@ int __fastcall ACT5Q6_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
 #define QFLAG_CUSTOM6 10
 
-#define MONSTER_LARZUK 511
-
-#define MONSTER_DREHYA 512
-
-#define MONSTER_MALAH 513
-
-#define MONSTER_CAIN6 520
-
-#define MONSTER_TYRAEL3 521
-
-#define MONSTER_ANCIENTSTATUE1 537
-
-#define MONSTER_ANCIENTSTATUE3 539
-
 struct D2GSPacketSrv5D
 {
     unsigned char nHeader;
@@ -251,10 +238,6 @@ enum D2C_F33QuestConstants
     QUESTSTATEFLAG_A1Q2 = 2,
     QUESTSTATEFLAG_A1Q3 = 3,
     QUESTSTATEFLAG_A1Q4 = 4,
-    MONSTER_CHARSI = 154,
-    MONSTER_KASHYA = 150,
-    MONSTER_AKARA = 148,
-    MONSTER_CAIN5 = 265,
     OBJMODE_NEUTRAL = 0,
     OBJMODE_OPERATING = 1,
     OBJMODE_OPENED = 2,

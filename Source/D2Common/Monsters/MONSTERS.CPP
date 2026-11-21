@@ -1,3 +1,4 @@
+#include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
@@ -51,8 +52,6 @@ extern "C" const char text_006CC837[]; // 0x006CC837
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
-#define MONSTER_SANDLEAPER1 78
-
 #define MONSTATSFLAGINDEX_PRIMEEVIL 7
 
 #define MONSTATSFLAGINDEX_LUNDEAD 11
@@ -60,16 +59,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 #define MONSTATSFLAGINDEX_HUNDEAD 12
 
 #define MONSTATSFLAGINDEX_DEMON 13
-
-#define MONSTER_ROGUEHIRE 271
-
-#define MONSTER_ACT2HIRE 338
-
-#define MONSTER_ACT3HIRE 359
-
-#define MONSTER_ACT5HIRE1 560
-
-#define MONSTER_ACT5HIRE2 561
 
 struct D2ItemsTxt;
 
