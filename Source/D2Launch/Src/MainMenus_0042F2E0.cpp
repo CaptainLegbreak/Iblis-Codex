@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 #include "D2Unicode.h"
 struct D2ConfigStrc;
 struct D2FileTimeStrc;
@@ -6,44 +7,6 @@ struct D2LaunchRecordStrc;
 struct D2LaunchSlotStrc;
 struct D2MenuListStrc;
 
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk_00[0x40];
-    D2MenuListStrc* (__fastcall* pfnGetMenuList)(int nArg);
-    unsigned char unk_44[0x3C];
-    void (__fastcall* pfnSlot80)(int* pValue);
-};
-
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x19];
-    char aState19[4];
-    char aWord1D[2];
-    char unk0x01F[0x18];
-    char szName[0x10];
-    char unk0x047[0x76];
-    char szCharName[0x18];
-    char nByteD5;
-    char unk0x0D6[0x17];
-    char aDataED[0x101];
-    char nClass;
-    char aFlags1EF[2];
-    char unk0x1F1[0x18];
-    char aState209[4];
-    char unk0x20D[0x16];
-    char bFlag223;
-    char unk0x224[9];
-    char nByte22D;
-    char unk0x22E[0x130];
-    char nByte35E;
-    char unk0x35F[0x42];
-    char aData3A1[0x10];
-    char aData3B1[0x10];
-    char nByte3C1;
-    char nByte3C2;
-    char unk0x3C3[8];
-    char aWord3CB[2];
-};
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
@@ -974,12 +937,12 @@ void __cdecl sub_004365B0_CreateCharacter()
         sub_00433460_ShowMessage(D2LANG_GetStringFromTblIndex(0x142D), sub_0042F3F0_DestroyControls);
         return;
     }
-    if (gpLaunchRecord_007795D4->nClass == 6 || gpLaunchRecord_007795D4->nClass == 5)
+    if (gpLaunchRecord_007795D4->nMode == 6 || gpLaunchRecord_007795D4->nMode == 5)
         *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF |= 0x20;
     const Unicode* pText = sub_004FDD90_GetEditText(gpNameEdit_0077934C);
     sub_005263E0(szName, pText, 0x100);
-    sprintf(gpLaunchRecord_007795D4->szCharName, gszStringFormat_006FFC58, szName);
-    gpLaunchRecord_007795D4->nByteD5 = 0;
+    sprintf((gpLaunchRecord_007795D4->szPassword + 0x18), gszStringFormat_006FFC58, szName);
+    gpLaunchRecord_007795D4->szPassword[0x30] = 0;
     if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 0x20)
         gbFlag_00779984 = 1;
     if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
@@ -990,8 +953,8 @@ void __cdecl sub_004365B0_CreateCharacter()
     if (gnLaunchMode_007795EC == 0)
     {
         sub_0042F480_Reset();
-        sub_0043C540(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0(gpLaunchRecord_007795D4->szCharName);
+        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
         gpLaunchRecord_007795D4->nByte35E = 1;
         *(int*)gpLaunchRecord_007795D4->aState19 = 0;
         gnLaunchState_007795E8 = 1;
@@ -1006,8 +969,8 @@ void __cdecl sub_004365B0_CreateCharacter()
     {
         sub_0042F480_Reset();
         sub_0043C6A0(0);
-        sub_0043C540(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0(gpLaunchRecord_007795D4->szCharName);
+        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
         gpLaunchRecord_007795D4->nByte35E = 3;
         gnLaunchState_007795E8 = 1;
         *(int*)gpLaunchRecord_007795D4->aState209 = 4;
@@ -1022,8 +985,8 @@ void __cdecl sub_004365B0_CreateCharacter()
         sub_0042F480_Reset();
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
-        sub_0043C540(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->aDataED, *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
-        sub_0043C6B0(gpLaunchRecord_007795D4->szCharName);
+        sub_0043C540((gpLaunchRecord_007795D4->szPassword + 0x18), gpLaunchRecord_007795D4->nMode, (gpLaunchRecord_007795D4->szPassword + 0x48), *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF);
+        sub_0043C6B0((gpLaunchRecord_007795D4->szPassword + 0x18));
         gpLaunchRecord_007795D4->nByte3C1 = 1;
         SMemCopy(gpLaunchRecord_007795D4->aData3A1, gabDefault_006D4D88, 0x10);
         SMemZero(gpLaunchRecord_007795D4->aData3B1, 0x10);
@@ -1031,7 +994,7 @@ void __cdecl sub_004365B0_CreateCharacter()
         *(unsigned short*)gpLaunchRecord_007795D4->aWord3CB = *(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF;
         gpLaunchRecord_007795D4->nByte35E = 4;
         gpLaunchRecord_007795D4->nByte22D = 0;
-        gpLaunchRecord_007795D4->nByteD5 = 0;
+        gpLaunchRecord_007795D4->szPassword[0x30] = 0;
         gnLaunchState_007795E8 = 3;
         *(int*)gpLaunchRecord_007795D4->aState209 = 4;
         if (*(unsigned short*)gpLaunchRecord_007795D4->aFlags1EF & 4)
