@@ -94,6 +94,7 @@ struct D2StormFixedListStrc
     D2StormLinkStrc m_terminator;
     D2StormLinkStrc* Link(char* pNode) { return pNode ? (D2StormLinkStrc*)pNode : &m_terminator; }
     void sub_006C4180_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
+    char* sub_006C44C0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 struct sub_006C4250
@@ -336,7 +337,13 @@ static int __stdcall sub_006C4BC0_HandleToken(const char* szToken, OptionContext
 struct D2StormCmdDefStrc
 {
     D2StormLinkStrc tLink;
-    char unk0x08[0x10];
+    char unk0x08[0x38];
+
+    D2StormCmdDefStrc()
+    {
+        tLink.m_prevlink = 0;
+        tLink.m_next = 0;
+    }
 
     ~D2StormCmdDefStrc()
     {
@@ -409,6 +416,18 @@ void D2StormListStrc::UnlinkAll()
 
 // 0x006C4480
 void D2FogUnlinkStrc::sub_006C4480_Unlink() { tLink.Unlink(); }
+
+inline void* operator new(unsigned int, void* pMemory) throw() { return pMemory; }
+
+// 0x006C44C0
+char* D2StormFixedListStrc::sub_006C44C0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    void* pMemory = SMemAlloc(sizeof(D2StormCmdDefStrc) + nExtraBytes, gszTypeNameCmdDef_0074C47C, -2, nFlags | 8);
+    D2StormCmdDefStrc* pRecord = pMemory ? new (pMemory) D2StormCmdDefStrc : 0;
+    if (nLinkType)
+        sub_006C4180_LinkNode((char*)pRecord, nLinkType, 0);
+    return (char*)pRecord;
+}
 
 // build: symbol ??_GCMDDEF@@* 0x006C4520
 inline void CMDDEF::operator delete(void* pMemory)
