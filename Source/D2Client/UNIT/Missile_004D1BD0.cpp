@@ -1,20 +1,15 @@
 #include "D2Client.h"
 #include "D2GameTypes.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
+#include "D2DataTbls.h"
+#include "D2Path.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
-struct D2MissilesTxtStrc;
-struct D2SkillsTxtStrc;
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
@@ -27,33 +22,8 @@ int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-struct D2MissilesTxtStrc
-{
-    char pad0[0x1E];
-    short nMin;
-    short nMax;
-    char pad1[0x1A4 - 0x22];
-};
 
-struct D2SkillsTxtStrc
-{
-    char pad0[0x138];
-    int nCalc1;
-    int nCalc2;
-    char pad1[0x23C - 0x140];
-};
 
-struct D2DataTablesStrc
-{
-    char pad0[0xB64];
-    D2MissilesTxtStrc* pMissilesTxt;
-    char padB68[4];
-    int nMissilesTxtRecordCount;
-    char padB70[0xB98 - 0xB70];
-    D2SkillsTxtStrc* pSkillsTxt;
-    char padB9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
@@ -167,7 +137,7 @@ int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUni
 void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
 {
     struct { int nValue1; int nLevel; D2UnitStrc* pOwner; int nRange; } tLocal;
-    D2MissilesTxtStrc* pMissilesTxt;
+    D2MissilesTxt* pMissilesTxt;
     if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
     {
         pMissilesTxt = &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
@@ -176,21 +146,21 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
     {
         pMissilesTxt = 0;
     }
-    if (!pMissilesTxt || pMissilesTxt->nMin < 0)
+    if (!pMissilesTxt || pMissilesTxt->wCltSubMissile[0] < 0)
     {
         sub_004CD390_CltDoDefault(pMissile);
         return;
     }
 
-    int nMin = pMissilesTxt->nMin;
+    int nMin = pMissilesTxt->wCltSubMissile[0];
     tLocal.nRange = nMin;
-    if (nMin < pMissilesTxt->nMax)
+    if (nMin < pMissilesTxt->wCltSubMissile[1])
     {
-        tLocal.nRange = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxt->nMax - nMin + 1) + nMin;
+        tLocal.nRange = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxt->wCltSubMissile[1] - nMin + 1) + nMin;
     }
 
     int nSkillId = MISSILE_GetSkill(pMissile);
-    D2SkillsTxtStrc* pSkillsTxt;
+    D2SkillsTxt* pSkillsTxt;
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
         pSkillsTxt = &sgptDataTables->pSkillsTxt[nSkillId];
@@ -207,8 +177,8 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
 
     tLocal.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
     tLocal.nLevel = MISSILE_GetLevel(pMissile);
-    tLocal.nValue1 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->nCalc1, nSkillId, tLocal.nLevel);
-    int nValue2 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->nCalc2, nSkillId, tLocal.nLevel);
+    tLocal.nValue1 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->dwCalc[0], nSkillId, tLocal.nLevel);
+    int nValue2 = SKILLS_EvaluateSkillFormula(tLocal.pOwner, pSkillsTxt->dwCalc[1], nSkillId, tLocal.nLevel);
     if (nValue2 && tLocal.nValue1 > 0)
     {
         D2UnitStrc* pTarget = sub_004CE320(pMissile, tLocal.nValue1, nValue2, tLocal.nRange);

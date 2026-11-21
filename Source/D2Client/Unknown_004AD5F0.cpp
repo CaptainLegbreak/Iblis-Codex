@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 #define UNIT_MONSTER 1
 #define FIELD_OFFSET(T,F) ((unsigned long)&(((T*)0)->F))
@@ -27,38 +28,12 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount); // 0x0046C320
 
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    void(__fastcall* pInitFunc)(D2UnitStrc* pMissile);
-    int pInitArgs;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
-void __fastcall sub_004E2ED0_VolleyCallback(D2UnitStrc* pMissile); // 0x004E2ED0
+void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
 
@@ -221,7 +196,7 @@ static void __stdcall sub_004AD6E0_StateMissileBurst(int nSkillLevel, D2UnitStrc
     tMissile.nSkillLevel = nSkillLevel;
     tMissile.nMissile = nMissile;
     if (nMissile != 0x141)
-        tMissile.pInitFunc = sub_004E2ED0_VolleyCallback;
+        tMissile.pInitFunc = sub_004E2ED0_InitCappedChargedPath;
     int anDX[4] = { 0, 1, 0, -1 };
     int anDY[4] = { -1, 0, 1, 0 };
     for (int i = 0; i < 4; ++i)
@@ -232,7 +207,7 @@ static void __stdcall sub_004AD6E0_StateMissileBurst(int nSkillLevel, D2UnitStrc
         const int nY = anDY[i] + nUnitY;
         for (int j = 0; j < 2; ++j)
         {
-            tMissile.pInitArgs = j;
+            tMissile.nInitArg = j;
             tMissile.nTargetX = nX;
             tMissile.nTargetY = nY;
             sub_004CD540_CreateMissile(&tMissile);

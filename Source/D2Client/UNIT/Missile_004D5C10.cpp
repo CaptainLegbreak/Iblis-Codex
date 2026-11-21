@@ -1,27 +1,12 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x1E];
-    short wSubMissile[3];
-    char unk0x24[0x34];
-    int dwParam[5];
-    char unk0x6C[0x1A4 - 0x6C];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x64];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0xDC];
-    unsigned int dwCalc[4];
-    char unk0x154[0x23C - 0x154];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -67,7 +52,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 void __fastcall sub_004D5C10_CltDo_Volcano(D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
-    if (!pMissilesTxtRecord || pMissilesTxtRecord->wSubMissile[0] < 0)
+    if (!pMissilesTxtRecord || pMissilesTxtRecord->wCltSubMissile[0] < 0)
     {
         sub_004CD390_CltDoDefault(pMissile);
         return;
@@ -84,17 +69,17 @@ void __fastcall sub_004D5C10_CltDo_Volcano(D2UnitStrc* pMissile)
     const int nLevel = MISSILE_GetLevel(pMissile);
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
 
-    int nAuraRange = pMissilesTxtRecord->dwParam[1];
+    int nAuraRange = pMissilesTxtRecord->dwCltParam[1];
     if (nAuraRange <= 0)
     {
         const int nCalc = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nLevel);
         nAuraRange = (nCalc >= 1) ? nCalc : 1;
     }
 
-    int nFrames = pMissilesTxtRecord->dwParam[0];
+    int nFrames = pMissilesTxtRecord->dwCltParam[0];
     if (nFrames <= 0)
     {
-        nFrames = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc[0], nSkillId, nLevel);
+        nFrames = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc[3], nSkillId, nLevel);
         if (nFrames < 1)
         {
             nFrames = 1;
@@ -102,7 +87,7 @@ void __fastcall sub_004D5C10_CltDo_Volcano(D2UnitStrc* pMissile)
     }
 
     const int nRemainingFrames = MISSILE_GetRemainingFrames(pMissile);
-    if (nRemainingFrames > pMissilesTxtRecord->dwParam[2] && nRemainingFrames < pMissilesTxtRecord->dwParam[3] && !(nRemainingFrames % nFrames))
+    if (nRemainingFrames > pMissilesTxtRecord->dwCltParam[2] && nRemainingFrames < pMissilesTxtRecord->dwCltParam[3] && !(nRemainingFrames % nFrames))
     {
         D2SeedStrc* pSeed = &pMissile->pSeed;
         SEED_InitLowSeed(pSeed, MISSILE_GetTargetX(pMissile));
@@ -110,7 +95,7 @@ void __fastcall sub_004D5C10_CltDo_Volcano(D2UnitStrc* pMissile)
         nX += CLIENTS_GetUnitX(pMissile);
         const int nY = CLIENTS_GetUnitY(pMissile) + SEED_RollLimitedRandomNumber(pSeed, 2 * nAuraRange + 1) - nAuraRange;
         MISSILE_SetTargetX(pMissile, SEED_GetLowSeed(pSeed));
-        sub_004CDC30(pMissile, pMissilesTxtRecord->wSubMissile[0], 0, 0, nX, nY, MISSILE_GetSkill(pMissile), nLevel, pMissilesTxtRecord->dwParam[4]);
+        sub_004CDC30(pMissile, pMissilesTxtRecord->wCltSubMissile[0], 0, 0, nX, nY, MISSILE_GetSkill(pMissile), nLevel, pMissilesTxtRecord->dwCltParam[4]);
     }
 
     sub_004D30C0_CltDoCommon(pMissile);

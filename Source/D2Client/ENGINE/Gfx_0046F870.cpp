@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2CelContext.h"
+#include "D2ClientGfx.h"
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
@@ -19,36 +21,8 @@ struct D2GfxRecordStrc;
 struct D2GfxNodeStrc;
 
 
-struct D2HashedFileEntryStrc
-{
-    D2HashedFileEntryStrc* pNext;
-    unsigned int nFlags;
-    int nSize;
-    union
-    {
-        char szName[8];
-        unsigned int dwName[2];
-    };
-    unsigned char* pData;
-    int nUnk0x18;
-};
 
-struct D2HashedFileStrc
-{
-    int f_0;
-    unsigned char* pData;
-    unsigned int nSize;
-    D2HashedFileEntryStrc* f_C[0x200];
-};
 
-struct D2GfxListNodeStrc
-{
-    int nMode;
-    int nId;
-    D2HashedFileEntryStrc* f_8;
-    int f_C;
-    D2GfxListNodeStrc* pNext;
-};
 
 struct D2GfxDataStrc
 {
@@ -87,17 +61,7 @@ struct D2MonStats2Txt
 };
 
 
-struct D2GfxLayerHeaderStrc
-{
-    unsigned char nLayers;
-};
 
-struct D2CelContextStrc
-{
-    char unk0x00[0x34];
-    int nUnk0x34;
-    char unk0x38[0x48 - 0x38];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -216,7 +180,7 @@ D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* 
     char szName[0x104] = { 0 };
     sub_0046DBF0_GetBaseName(szPath, szName);
     _strlwr(szName);
-    for (D2HashedFileEntryStrc* pEntry = pTable->f_C[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
+    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
     {
         if (*(unsigned int*)&szName[0] == pEntry->dwName[0] && *(unsigned int*)&szName[4] == pEntry->dwName[1])
         {
@@ -247,8 +211,8 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
 
         D2_ASSERT(pEntry->pData[2] <= 0x40, 0xEC);
         const unsigned int nBucket = sub_0046DB90_HashName(szName);
-        pEntry->pNext = pTable->f_C[nBucket];
-        pTable->f_C[nBucket] = pEntry;
+        pEntry->pNext = pTable->pEntries[nBucket];
+        pTable->pEntries[nBucket] = pEntry;
         gdwGlobal_007A8918 += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
         return pEntry;
     }
@@ -264,7 +228,7 @@ static int sub_0046E610_RemoveGfxNode(D2UnitStrc* pUnit, D2HashedFileEntryStrc* 
     D2GfxListNodeStrc* pPrev = 0;
     for (D2GfxListNodeStrc* pNode = pGfxData->pList; pNode; pNode = pNode->pNext)
     {
-        if (pNode->f_8 == pEntry)
+        if (pNode->pFileEntry == pEntry)
         {
             D2GfxListNodeStrc* pNext = pNode->pNext;
             FOG_Free(pNode, gszGfxFile_006D6C1C, 0x3D0, 0);
@@ -306,7 +270,7 @@ static int __stdcall sub_0046E690_FindGfxNode(int nId, D2GfxListNodeStrc** ppNod
 
             *ppNode = 0;
             *pValue = sub_0046E570_GetNodeValue(pUnit, nMode);
-            D2_ASSERT(sub_0046E610_RemoveGfxNode(pUnit, pNode->f_8), 0x406);
+            D2_ASSERT(sub_0046E610_RemoveGfxNode(pUnit, pNode->pFileEntry), 0x406);
             return 1;
         }
     }
@@ -366,7 +330,7 @@ static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStr
 
         pNewNode->nMode = nIndex;
         pNewNode->nId = nId;
-        pNewNode->f_8 = pEntry;
+        pNewNode->pFileEntry = pEntry;
         pNewNode->pNext = pGfxData->pList;
         pGfxData->pList = pNewNode;
     }
@@ -548,7 +512,7 @@ static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRec
                     {
                         if (!sub_006001F0(&tContext, 1, 1))
                         {
-                            tContext.nUnk0x34 = 0;
+                            tContext.nArg34 = 0;
                             sub_006004E0_LoadSprite(&tContext);
                         }
                     }
@@ -569,7 +533,7 @@ static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRec
                 {
                     if (!sub_006001F0(&tContext, 1, 1))
                     {
-                        tContext.nUnk0x34 = 0;
+                        tContext.nArg34 = 0;
                         sub_006004E0_LoadSprite(&tContext);
                     }
                 }

@@ -5,6 +5,9 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
+#include "D2DataTbls.h"
+#include "D2Txt.h"
+#include "D2TxtItems.h"
 
 #define UNIT_ITEM 4
 struct D2StaticPathStrc;
@@ -25,94 +28,8 @@ struct D2DifficultyLevelsTxt;
 
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x02];
-    unsigned char nFlags[8];
-    char unk0x00C[0x0A];
-    unsigned char nSeqInput;
-    unsigned char unk_17[0x2D];
-    unsigned char nPrgDamage;
-    char unk0x045[0x0F];
-    short wAuraStat[6];
-    unsigned char unk_60[0x4];
-    int dwAuraRangeCalc;
-    unsigned char unk_68[0x18];
-    short nAuraState;
-    char unk0x082[0x66];
-    union
-    {
-        struct
-        {
-            short wCltMissile[4];
-        };
-        struct
-        {
-            unsigned char unk_E8[0x2];
-            short wCltMissileA;
-            short wCltMissileB;
-        };
-    };
-    short wCltMissileD;
-    char unk0x0F2[0x1A];
-    short wPrgOverlay;
-    short wPrgSound;
-    short wCltOverlayA;
-    char unk0x112[0x02];
-    int dwCltCalc[3];
-    char unk0x120[0x18];
-    int dwCalc[4];
-    int dwParam[8];
-    unsigned char unk_168[0x2C];
-    short wSkillDesc;
-    char unk0x196[0xA6];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-    unsigned char unk_08[0x10];
-    short wSubMissile[3];
-    unsigned char unk_1E[0x78];
-    short wRange;
-    char unk0x98[0x10C];
-};
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xA4];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    char unk0x172[0x906];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0xE0];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x1C];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x04];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-    unsigned char unk_BC4[0x8];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x5C];
-    int nMonTypeTxtRecordCount;
-    int unk0xC38;
-    D2MonTypeTxt* pMonTypeTxt;
-};
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -240,18 +157,6 @@ struct D2MonTypeTxt
     int unk0x00[3];
 };
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-    char unk0x19[0x25];
-    unsigned short wDescGrp;
-    char unk0x40[0x14];
-    unsigned char nOp;
-    unsigned char nOpParam;
-    unsigned short wOpBase;
-    char unk0x58[0x144 - 0x58];
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -265,20 +170,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); // 0x006277E0
 void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x14];
-    short wMonSound;
-    char unk0x016[0x15A];
-    short nSkill[8];
-    char unk0x180[0x28];
-};
 
-struct D2MonSoundsTxt
-{
-    char unk0x00[0x44];
-    int dwSkill[4];
-};
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromSoundId(int nSoundId); // 0x00656F90
@@ -887,7 +779,7 @@ int __fastcall sub_004E3D70_OwnerMissileEvent(int nEvent, D2UnitStrc* pUnit, D2U
         return 0;
     }
 
-    if (!(sub_0046ACE0(pMissileUnit->dwClassId)->nFlags[1] & gnBitMasks_006CE268[1]))
+    if (!(sub_0046ACE0(pMissileUnit->dwClassId)->nMissileFlags[1] & gnBitMasks_006CE268[1]))
     {
         return 0;
     }
@@ -1755,7 +1647,7 @@ void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int dwTick)
 // 0x004E4640
 D2MonTypeTxt* __fastcall sub_004E4640_GetMonTypeTxtRecord(int nMonType)
 {
-    if (nMonType >= 0 && nMonType < sgptDataTables->nMonTypeTxtRecordCount)
+    if (nMonType >= 0 && nMonType < sgptDataTables->unk0xC34)
         return &sgptDataTables->pMonTypeTxt[nMonType];
     return sgptDataTables->pMonTypeTxt;
 }

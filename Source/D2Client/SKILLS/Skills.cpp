@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2LevelTxt.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -126,40 +127,7 @@ int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit); // 0x004C54F0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    unsigned char nCharClass;
-    char unk0x00D[0xE8 - 0x0D];
-    short wAuraFunc;
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    unsigned char unk_F0[0x2];
-    short wStartFunc;
-    char unk0x0F4[0x08];
-    short wStartSound;
-    short wStartSoundClass;
-    char unk0x100[0x06];
-    short wCastOverlay;
-    char unk0x108[0x1A];
-    short wItemStartSound;
-    short wItemCastOverlay;
-    unsigned char unk_126[0x22];
-    int dwParam[8];
-    unsigned char unk_168[0x27];
-    unsigned char nLineOfSight;
-    char unk0x190[0x23C - 0x190];
-};
 
-struct D2MonStats2Txt
-{
-    unsigned int dwId;
-    unsigned char nFlags[4];
-    unsigned char unk_08[0x3];
-    char nType;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -188,28 +156,6 @@ void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirectio
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    union
-    {
-        unsigned char nMissileFlags[4];
-        unsigned char nFlags[4];
-    };
-    char unk0x08[0x30];
-    int dwParam[5];
-    unsigned char unk_4C[0xE4];
-    unsigned char nLight;
-    unsigned char nFlicker;
-    unsigned char nRGB[3];
-    unsigned char unk_135[0x4E];
-    unsigned char nCollideType;
-    unsigned char nCollision;
-    char unk0x185[0x05];
-    unsigned char nSize;
-    char unk0x18B[0x19];
-};
 
 struct D2AnimSeqTxt
 {
@@ -250,13 +196,6 @@ void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); //
 void __fastcall sub_004BA840(void* pUnitSfx); // 0x004BA840
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    unsigned int dwCode;
-    char unk0x014[0x1A8 - 0x14];
-};
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
@@ -1241,7 +1180,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
         }
     }
 
-    short nSound = pSkillsTxtRecord->wStartSound;
+    short nSound = pSkillsTxtRecord->wStSound;
     if (nOwnerGUID != -1 && pSkillsTxtRecord->wItemStartSound > 0)
     {
         nSound = pSkillsTxtRecord->wItemStartSound;
@@ -1797,7 +1736,7 @@ int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, 
             return 0;
         }
         D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pTarget->dwClassId);
-        if (!pMissilesTxtRecord || pMissilesTxtRecord->nFlags[0] & gdwBitMasks[1])
+        if (!pMissilesTxtRecord || pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[1])
         {
             return 0;
         }
@@ -1837,7 +1776,7 @@ int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, 
         if (pTarget->dwUnitType == 1)
         {
             D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pTarget->dwClassId);
-            if (!pMonStatsTxtRecord || pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+            if (!pMonStatsTxtRecord || pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
             {
                 return 0;
             }
