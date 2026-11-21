@@ -1511,25 +1511,6 @@ void __fastcall sub_0058FD20_ACT1Q1_SetRespecRewardPending(D2GameStrc* pGame, D2
     QUESTRECORD_SetQuestState(pQuestFlags, 0x29, 1);
 }
 
-// 0x0058FD50
-void __fastcall sub_0058FD50_ACT1Q1_SetRespecRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    QUESTRECORD_SetQuestState(pQuestFlags, 0x29, 0);
-    QUESTRECORD_ClearQuestState(pQuestFlags, 0x29, 1);
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 0x29, 0x0F))
-    {
-        D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x1E);
-        D2_ASSERT(pQuestData, 0xE1);
-
-        pQuestData->bActive = 0;
-
-        QUESTS_DebugOutput(pGame, "deactivated respec quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q1.cpp", 0xE5);
-    }
-}
-
 // 0x00591790
 void __fastcall ACT1Q3_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
