@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2StormLink.h"
 
 #define STORM_DELETEOP static void operator delete(void* pMemory) { if (pMemory) SMemFree(pMemory, "delete", -1, 0); }
 
@@ -22,7 +23,6 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2StormLinkStrc;
 struct D2StormListBaseStrc;
 struct Node;
 struct List;
@@ -33,9 +33,6 @@ struct D2StormListStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
-
-struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
- char* m_next; };
 
 struct D2StormListBaseStrc {
  int m_linkoffset;

@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 struct D2ChatStormLinkStrc;
 struct D2ChatStormLinkAStrc;
 struct D2ChatStormLinkBStrc;
@@ -18,7 +19,6 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2StormLinkStrc;
 struct D2StormListBaseStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
@@ -260,9 +260,6 @@ struct D2CommonStormHashTableAStrc
     void sub_0060EB70_InternalClear(int bWarn);
     void sub_0060ED60_Clear();
 };
-
-struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
- char* m_next; };
 
 struct D2StormListBaseStrc {
  int m_linkoffset;

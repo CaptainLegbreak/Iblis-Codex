@@ -1,6 +1,7 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
+#include "D2StormLink.h"
 
 #define STORM_LOOKUP2_MIX(a, b, c) \
 { \
@@ -24,7 +25,6 @@ struct D2MemoryStatusStrc;
 struct D2OsVersionInfoStrc;
 struct D2CriticalSectionStrc;
 struct D2StormBufferInfoStrc;
-struct D2StormLinkStrc;
 struct D2StormFixedListStrc;
 struct D2Storm415140Strc;
 struct D2SFileRecordViewStrc;
@@ -169,42 +169,6 @@ extern unsigned short gwValue_0077905C; // 0x0077905C
 void __cdecl sub_004158E0_InitBasePath(); // 0x004158E0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    D2StormLinkStrc* sub_0040F4F0_NextLink(int nLinkOffset);
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    D2StormLinkStrc* sub_00416770_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_004168C0_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00416930_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00416970_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_004169B0_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_0041C3A0_NextLink(int nLinkOffset);
-    void sub_00417E50();
-};
 
 struct Link {
     Link* previous;

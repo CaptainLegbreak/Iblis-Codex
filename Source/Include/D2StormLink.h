@@ -37,6 +37,14 @@ struct D2StormLinkStrc
             m_next = 0;
         }
     }
+    D2StormLinkStrc* sub_0040F4F0_NextLink(int nLinkOffset); // 0x0040F4F0
+    D2StormLinkStrc* sub_00416770_NextLink(int nLinkOffset); // 0x00416770
+    D2StormLinkStrc* sub_004168C0_NextLink(int nLinkOffset); // 0x004168C0
+    D2StormLinkStrc* sub_00416930_NextLink(int nLinkOffset); // 0x00416930
+    D2StormLinkStrc* sub_00416970_NextLink(int nLinkOffset); // 0x00416970
+    D2StormLinkStrc* sub_004169B0_NextLink(int nLinkOffset); // 0x004169B0
+    D2StormLinkStrc* sub_0041C3A0_NextLink(int nLinkOffset); // 0x0041C3A0
+    void sub_00417E50(); // 0x00417E50
     void sub_0041C650(); // 0x0041C650
     D2StormLinkStrc* sub_00426930_NextLink(int nLinkOffset); // 0x00426930
     int sub_005174AA_Next(); // 0x005174AA

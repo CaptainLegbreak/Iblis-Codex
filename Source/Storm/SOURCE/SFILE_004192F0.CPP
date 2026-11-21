@@ -1,11 +1,11 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
+#include "D2StormLink.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2StormFileRecStrc;
 struct D2CriticalSectionStrc;
-struct D2StormLinkStrc;
 struct D2StormFixedListStrc;
 struct D2StormBlockStrc;
 
@@ -16,17 +16,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szName, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwDisposition, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
 extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMethod); // 0x006CC1AC
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-};
 
 struct D2StormFixedListStrc
 {
