@@ -17946,22 +17946,6 @@
      "name": "?sub_00453910_CanSetUIVar@@YAHHH@Z"
     },
     {
-     "va": "0x00455F20",
-     "length": 989,
-     "name": "?sub_00455F20@@YIHIIH@Z"
-    },
-    {
-     "va": "0x00456300",
-     "length": 581,
-     "name": "?sub_00456300_CloseUIVars@@YIHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/ui_00453A90.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00453A90",
      "length": 8,
      "name": "?sub_00453A90_GetUIVarUnchecked@@YIHH@Z"
@@ -18025,6 +18009,16 @@
      "va": "0x00454880",
      "length": 226,
      "name": "?sub_00454880_GetHoverRect@@YIHPAUD2RectStrc@@@Z"
+    },
+    {
+     "va": "0x00455F20",
+     "length": 989,
+     "name": "?sub_00455F20@@YIHIIH@Z"
+    },
+    {
+     "va": "0x00456300",
+     "length": 581,
+     "name": "?sub_00456300_CloseUIVars@@YIHHH@Z"
     },
     {
      "va": "0x00456D80",
