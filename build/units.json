@@ -34981,6 +34981,14 @@
      "name": "?sub_004C8890_EndLeapPath@@YGXPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004C8970",
+     "length": 514
+    },
+    {
+     "va": "0x004C8B80",
+     "length": 221
+    },
+    {
      "va": "0x004C8C60",
      "length": 295,
      "name": "?sub_004C8C60_SkillCltDoLeap@@YIHPAUD2UnitStrc@@HH@Z"
@@ -34994,59 +35002,11 @@
      "va": "0x004C8ED0",
      "length": 393,
      "name": "?sub_004C8ED0_SkillCltDoLeapAttack@@YIHPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/SkillsBar_004C8970.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C8970",
-     "length": 514
     },
     {
      "va": "0x004C9120",
      "length": 504
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/SkillsBar_004C8B80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C8B80",
-     "length": 221
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
