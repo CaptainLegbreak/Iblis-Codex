@@ -1175,15 +1175,13 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Multi/Src/ComCallback_00447740.cpp": {
-   "bytes": 224,
-   "definitions": 1,
+  "Source/D2Multi/Src/ComCallback_00446D90.cpp": {
+   "bytes": 308,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl sub_00446D20_AlwaysOne(); // 0x00446D20",
     "extern \"C\" void __cdecl sub_00447700_OnMessage(); // 0x00447700",
     "extern \"C\" void __cdecl sub_00447730(); // 0x00447730",
-    "extern \"C\" void __cdecl sub_004480D0_OnUserUpdate(); // 0x004480D0",
-    "extern \"C\" void __cdecl sub_00448370_OnChannelTalk(); // 0x00448370",
     "extern \"C\" void __cdecl sub_004484E0_PrintChannelText3(); // 0x004484E0",
     "extern \"C\" void __cdecl sub_00448540_PrintChannelText1(); // 0x00448540",
     "extern \"C\" void __cdecl sub_004485A0_PrintFormattedText(); // 0x004485A0",
@@ -1192,21 +1190,10 @@
     "extern \"C\" void __cdecl sub_00448920_OnWhisper(); // 0x00448920",
     "extern \"C\" void __cdecl sub_00448AD0_OnWhisperSent(); // 0x00448AD0",
     "extern \"C\" void __cdecl sub_00449330_OnMessage(); // 0x00449330",
-    "extern \"C\" void __cdecl sub_004493C0_OnUserJoin(); // 0x004493C0",
-    "extern \"C\" void __cdecl sub_00449690_OnMessage(); // 0x00449690",
-    "extern \"C\" void __cdecl sub_004496B0_OnJoinChannel(); // 0x004496B0"
+    "extern \"C\" void __cdecl sub_00449690_OnMessage(); // 0x00449690"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Src/ComCallback_00447740.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Multi/Src/ComCallback_00447BB0.cpp": {
-   "bytes": 84,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Multi/Src/ComCallback_00447BB0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3617,17 +3604,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp": {
-   "bytes": 440,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Src/D2WinTextBox_004FBC80.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Win/Src/D2WinTextBox_004FC960.cpp": {
-   "bytes": 60,
-   "definitions": 2,
+   "bytes": 500,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2WinTextBox_004FC960.inc",
@@ -31357,7 +31335,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00447740.cpp",
+   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
    "fill": 56,
    "form": "declared",
    "fwd": null,
@@ -31394,7 +31372,7 @@
     [
      8,
      "0x004493C0",
-     "names.json",
+     "owner",
      "sub_004493C0_OnUserJoin",
      0,
      "func"
@@ -31418,7 +31396,7 @@
     [
      20,
      "0x00448370",
-     "names.json",
+     "source",
      "sub_00448370_OnChannelTalk",
      0,
      "func"
@@ -31434,7 +31412,7 @@
     [
      28,
      "0x004496B0",
-     "names.json",
+     "owner",
      "sub_004496B0_OnJoinChannel",
      0,
      "func"
@@ -31450,7 +31428,7 @@
     [
      36,
      "0x004480D0",
-     "source",
+     "owner",
      "sub_004480D0_OnUserUpdate",
      0,
      "func"
@@ -31821,7 +31799,7 @@
    "cname": "gData_006CE298",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00447BB0.cpp",
+   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006CE298_t gData_006CE298; // 0x006CE298",
    "head": "extern \"C\" const struct d2data_006CE298_t gData_006CE298 = ",
@@ -31838,7 +31816,7 @@
    "cname": "gData_006CE318",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback_00447BB0.cpp",
+   "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006CE318_t gData_006CE318; // 0x006CE318",
    "head": "extern \"C\" const struct d2data_006CE318_t gData_006CE318 = ",
@@ -85262,7 +85240,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
+   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2EmblemColorStrc gaEmblemColorRGB1_0072E19C[10] = ",
@@ -85324,7 +85302,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
+   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2EmblemColorStrc gaEmblemColorRGB2_0072E1BC[10] = ",

@@ -13522,6 +13522,21 @@
      "name": "sub_00445300_LoadLvlRest"
     },
     {
+     "va": "0x00446780",
+     "length": 67,
+     "name": "?sub_00446780_OpenJoinScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004467D0",
+     "length": 57,
+     "name": "?sub_004467D0_OpenCreateScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x00446950",
+     "length": 18,
+     "name": "?sub_00446950_Refresh@@YGHH@Z"
+    },
+    {
      "va": "0x00446CA0",
      "length": 79,
      "name": "?sub_00446CA0_PlayTempSmack@@YAHXZ"
@@ -13532,8 +13547,28 @@
      "name": "?sub_00446D00_SetText@@YAHPBD@Z"
     },
     {
+     "va": "0x00446D20",
+     "length": 8,
+     "name": "?sub_00446D20_AlwaysOne@@YGHHH@Z"
+    },
+    {
      "va": "0x00446D30",
      "length": 46
+    },
+    {
+     "va": "0x00446D60",
+     "length": 46,
+     "name": "?sub_00446D60_Classify@@YAHH@Z"
+    },
+    {
+     "va": "0x00447390",
+     "length": 89,
+     "name": "?sub_00447390_CompareNames@@YAHPBD0@Z"
+    },
+    {
+     "va": "0x00447400",
+     "length": 342,
+     "name": "sub_00447400_SetNamedValue"
     },
     {
      "va": "0x00447560",
@@ -13541,9 +13576,18 @@
      "name": "sub_00447560_SplitName"
     },
     {
+     "va": "0x004477A0",
+     "length": 207,
+     "name": "?sub_004477A0_Refresh@@YAXXZ"
+    },
+    {
      "va": "0x00447A90",
      "length": 18,
      "name": "?sub_00447A90_OnActivate@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00448C70",
+     "length": 444
     },
     {
      "va": "0x00449320",
@@ -13660,32 +13704,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ComCallback_00446780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446780",
-     "length": 67,
-     "name": "?sub_00446780_OpenJoinScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004467D0",
-     "length": 57,
-     "name": "?sub_004467D0_OpenCreateScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00446950",
-     "length": 18,
-     "name": "?sub_00446950_Refresh@@YGHH@Z"
-    },
-    {
-     "va": "0x00446D20",
-     "length": 8,
-     "name": "?sub_00446D20_AlwaysOne@@YGHHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Unknown_00446880.cpp",
    "rank": 0,
    "functions": [
@@ -13747,96 +13765,18 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ComCallback_00446D60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446D60",
-     "length": 46,
-     "name": "?sub_00446D60_Classify@@YAHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00446D90",
      "length": 1042
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_004471B0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004471B0",
      "length": 478,
      "name": "?sub_004471B0_UpdateUserText@@YAXPAUD2ChannelUserStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447390.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00447390",
-     "length": 89,
-     "name": "?sub_00447390_CompareNames@@YAHPBD0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447400.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00447400",
-     "length": 342,
-     "name": "sub_00447400_SetNamedValue"
     },
-    {
-     "va": "0x004477A0",
-     "length": 207,
-     "name": "?sub_004477A0_Refresh@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447740.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00447740",
      "length": 86,
@@ -13848,33 +13788,26 @@
      "name": "?sub_00447A10_Pump@@YAHXZ"
     },
     {
-     "va": "0x00447FD0",
-     "length": 122
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447AB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00447AB0",
      "length": 79,
      "name": "?sub_00447AB0_AddChatLine@@YGHPBDH@Z"
+    },
+    {
+     "va": "0x00447BB0",
+     "length": 1050
+    },
+    {
+     "va": "0x00447FD0",
+     "length": 122
+    },
+    {
+     "va": "0x004480D0",
+     "length": 113
+    },
+    {
+     "va": "0x004481F0",
+     "length": 377,
+     "name": "?sub_004481F0_PrintOwnLine@@YIXPBD@Z"
     },
     {
      "va": "0x00449350",
@@ -13970,89 +13903,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447BB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00447BB0",
-     "length": 1050
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_004480D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004480D0",
-     "length": 113
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_004481F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004481F0",
-     "length": 377,
-     "name": "?sub_004481F0_PrintOwnLine@@YIXPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00448C70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00448C70",
-     "length": 444
-    }
    ]
   },
   {
@@ -41862,67 +41712,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FD970",
-     "length": 84,
-     "name": "TIMER_HandleVirtualKeyInput"
-    },
-    {
-     "va": "0x00504270",
-     "length": 121,
-     "name": "D2Win_10154"
-    },
-    {
-     "va": "0x00504370",
-     "length": 51,
-     "name": "sub_00504370_LookupPairValue"
-    },
-    {
-     "va": "0x005043B0",
-     "length": 29,
-     "name": "sub_005043B0_ReleaseToPool"
-    },
-    {
-     "va": "0x00504D30",
-     "length": 45,
-     "name": "D2Win_10159"
-    },
-    {
-     "va": "0x00505160",
-     "length": 51,
-     "name": "D2Win_10148"
-    },
-    {
-     "va": "0x005051A0",
-     "length": 89,
-     "name": "D2Win_10149"
-    },
-    {
-     "va": "0x00505200",
-     "length": 48,
-     "name": "D2Win_10150"
-    },
-    {
-     "va": "0x005052B0",
-     "length": 51,
-     "name": "D2Win_10152"
-    },
-    {
-     "va": "0x005052F0",
-     "length": 51,
-     "name": "D2Win_10153"
-    },
-    {
-     "va": "0x00505330",
-     "length": 47,
-     "name": "D2Win_10155"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Win/Unknown_004FBE90.cpp",
    "rank": 0,
    "functions": [
@@ -41954,57 +41743,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FD830",
-     "length": 41,
-     "name": "?sub_004FD830_2@@YIXPAUD2WinTimerStrc@@@Z"
-    },
-    {
-     "va": "0x004FD9D0",
-     "length": 115,
-     "name": "?TIMER_Create@@YIPAUD2WinTimerStrc@@IP6GHPAUSMSGHANDLER_PARAMS@@@Z@Z"
-    },
-    {
-     "va": "0x004FDA50",
-     "length": 41,
-     "name": "?sub_004FDA50_2@@YIXPAUD2WinTimerStrc@@@Z"
-    },
-    {
-     "va": "0x004FDCC0",
-     "length": 62,
-     "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x005042F0",
-     "length": 118,
-     "name": "?D2Win_10143@@YIHPAUD2CompositeUnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00505100",
-     "length": 68,
-     "name": "?D2Win_10146@@YGXXZ"
-    },
-    {
-     "va": "0x00505230",
-     "length": 48,
-     "name": "?D2Win_10169@@YGHPAUD2CompositeUnitStrc@@@Z"
-    },
-    {
-     "va": "0x00505260",
-     "length": 75,
-     "name": "?D2Win_10151@@YGXPAUD2CompositeUnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005055D0",
-     "length": 106,
-     "name": "?sub_005055D0_ApplyPalette@@YIXXZ"
-    }
    ]
   },
   {
@@ -42103,6 +41841,112 @@
      "va": "0x005087A0",
      "length": 274,
      "name": "POPUP_Draw"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004FD830",
+     "length": 41,
+     "name": "?sub_004FD830_2@@YIXPAUD2WinTimerStrc@@@Z"
+    },
+    {
+     "va": "0x004FD970",
+     "length": 84,
+     "name": "TIMER_HandleVirtualKeyInput"
+    },
+    {
+     "va": "0x004FD9D0",
+     "length": 115,
+     "name": "?TIMER_Create@@YIPAUD2WinTimerStrc@@IP6GHPAUSMSGHANDLER_PARAMS@@@Z@Z"
+    },
+    {
+     "va": "0x004FDA50",
+     "length": 41,
+     "name": "?sub_004FDA50_2@@YIXPAUD2WinTimerStrc@@@Z"
+    },
+    {
+     "va": "0x004FDCC0",
+     "length": 62,
+     "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
+    },
+    {
+     "va": "0x00504270",
+     "length": 121,
+     "name": "D2Win_10154"
+    },
+    {
+     "va": "0x005042F0",
+     "length": 118,
+     "name": "?D2Win_10143@@YIHPAUD2CompositeUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00504370",
+     "length": 51,
+     "name": "sub_00504370_LookupPairValue"
+    },
+    {
+     "va": "0x005043B0",
+     "length": 29,
+     "name": "sub_005043B0_ReleaseToPool"
+    },
+    {
+     "va": "0x00504D30",
+     "length": 45,
+     "name": "D2Win_10159"
+    },
+    {
+     "va": "0x00505100",
+     "length": 68,
+     "name": "?D2Win_10146@@YGXXZ"
+    },
+    {
+     "va": "0x00505160",
+     "length": 51,
+     "name": "D2Win_10148"
+    },
+    {
+     "va": "0x005051A0",
+     "length": 89,
+     "name": "D2Win_10149"
+    },
+    {
+     "va": "0x00505200",
+     "length": 48,
+     "name": "D2Win_10150"
+    },
+    {
+     "va": "0x00505230",
+     "length": 48,
+     "name": "?D2Win_10169@@YGHPAUD2CompositeUnitStrc@@@Z"
+    },
+    {
+     "va": "0x00505260",
+     "length": 75,
+     "name": "?D2Win_10151@@YGXPAUD2CompositeUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005052B0",
+     "length": 51,
+     "name": "D2Win_10152"
+    },
+    {
+     "va": "0x005052F0",
+     "length": 51,
+     "name": "D2Win_10153"
+    },
+    {
+     "va": "0x00505330",
+     "length": 47,
+     "name": "D2Win_10155"
+    },
+    {
+     "va": "0x005055D0",
+     "length": 106,
+     "name": "?sub_005055D0_ApplyPalette@@YIXXZ"
     }
    ]
   },
