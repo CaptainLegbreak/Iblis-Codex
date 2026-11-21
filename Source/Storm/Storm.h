@@ -104,7 +104,6 @@ extern const char gszEmpty_006CC837[]; // 0x006CC837
 extern const char gszSBmpSource[]; // 0x006FCC58
 extern const char gszTypeBreakCmd_007088D8[]; // 0x007088D8
 extern const char* const z_errmsg[10]; // 0x006D3848
-extern const char* gaszCpuVendorNames_00708004[]; // 0x00708004
 extern const int gaADPCMIndexTable_006CFCB8[]; // 0x006CFCB8
 extern const int gaADPCMStepTable_006CFD38[]; // 0x006CFD38
 extern const unsigned char gCharacterClass_0074C5C8[]; // 0x0074C5C8
@@ -131,13 +130,10 @@ extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
 extern unsigned short gwLocale_0077905C; // 0x0077905C
 extern void* ghDbgHelp_0098A680; // 0x0098A680
 extern void* ghProcess_0074C6F0; // 0x0074C6F0
-int __cdecl sub_0040E250_GetCpuVendor(); // 0x0040E250
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall deflate(z_stream* strm, int flush); // 0x00428C60
 int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
 int __stdcall GetCmdIndex(const char* s); // 0x00405570
-unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
-unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned int dwMoveMethod); // 0x004165A0
 void __stdcall SErrSetLastError(unsigned int); // 0x0041C340
 void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
@@ -173,7 +169,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define Z_STREAM_END    1
 #define Z_STREAM_ERROR  (-2)
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-#define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
 
 typedef char* va_list;

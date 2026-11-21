@@ -66,6 +66,7 @@ struct T006BE350
     int bSecondWorker;
     void* aThreads2[4];
     unsigned long aThreadIds2[4];
+    int bStopAccept2[4];
 
     int __thiscall sub_006BE980_Refresh(unsigned int nKey);                                                 // 0x006BE980
     int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress);                                        // 0x006BF660
@@ -814,4 +815,51 @@ unsigned int __fastcall sub_006C3120_Start(T006BE350* pServer, int nPort)
     }
 
     return s;
+}
+
+// 0x006C30D0
+int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeout)
+{
+    if (!pServer->bInitialized)
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            if (pServer->aListenSockets[i] != -1)
+            {
+                sub_006C2D70(pServer, i, nTimeout);
+            }
+        }
+    }
+    return 1;
+}
+
+extern "C" __declspec(dllimport) unsigned int __stdcall WaitForMultipleObjects(unsigned int,void* const*,int,unsigned int);
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
+
+// 0x006C2110
+void __fastcall sub_006C2110_StopServerThreads(T006BE350* server)
+{
+ void* handles[8];
+ EnterCriticalSection(&server->tLock);
+ int count=0;
+ for(int i=0;i<4;++i) {
+  if(server->hAcceptThreads[i]) handles[count++]=server->hAcceptThreads[i];
+  server->bStopAccept[i]=1;
+  if(server->bSecondWorker && server->aThreads2[i]) handles[count++]=server->aThreads2[i];
+  server->bStopAccept2[i]=1;
+ }
+ LeaveCriticalSection(&server->tLock);
+ if(count>0) WaitForMultipleObjects(count,handles,1,1000);
+ for(int i=0;i<4;++i) {
+  if(server->hAcceptThreads[i]) {
+   CloseHandle(server->hAcceptThreads[i]);
+   server->hAcceptThreads[i]=0;
+   server->aThreadIds[i]=0;
+  }
+  if(server->bSecondWorker && server->aThreads2[i]) {
+   CloseHandle(server->aThreads2[i]);
+   server->aThreads2[i]=0;
+   server->aThreadIds2[i]=0;
+  }
+ }
 }

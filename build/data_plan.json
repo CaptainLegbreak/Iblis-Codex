@@ -25,18 +25,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_00401640.cpp": {
-   "bytes": 12,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_00401640.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Fog/Unknown_004016A0.cpp": {
-   "bytes": 192,
-   "definitions": 5,
+  "Source/Fog/Src/ErrorManager_004016A0.cpp": {
+   "bytes": 264,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl sub_0042E590_SetOwner(); // 0x0042E590",
     "extern \"C\" void __cdecl sub_0042E5A0_Nop(); // 0x0042E5A0",
@@ -46,7 +37,7 @@
     "extern \"C\" void __cdecl sub_0044B420_Shutdown(); // 0x0044B420"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_004016A0.inc",
+   "include": "gen/data/Source/Fog/Src/ErrorManager_004016A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -215,15 +206,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_00407A80.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_00407A80.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Fog/Unknown_004082E0.cpp": {
    "bytes": 224,
    "definitions": 11,
@@ -280,12 +262,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_0040EA00.cpp": {
+  "Source/Fog/Unknown_0040EA00.cpp": {
    "bytes": 20,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0040EA00.inc",
+   "include": "gen/data/Source/Fog/Unknown_0040EA00.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -6747,20 +6729,11 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SCMD.CPP": {
-   "bytes": 16,
-   "definitions": 1,
+   "bytes": 28,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SCMD.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_006C4EC0.cpp": {
-   "bytes": 12,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006C4EC0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -7219,7 +7192,7 @@
    "cname": "gData_006FF988",
    "declared": true,
    "decorated": "_gszMainThread_006FF988",
-   "file": "Source/Fog/Unknown_00401640.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FF988[12]; // 0x006FF988",
@@ -7250,7 +7223,7 @@
    "cname": "gData_006CCA6C",
    "declared": true,
    "decorated": "_gtKnownFolderId_006CCA6C",
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2GuidStrc gData_006CCA6C; // 0x006CCA6C",
    "head": "extern \"C\" const D2GuidStrc gData_006CCA6C = ",
@@ -7321,7 +7294,7 @@
    "cname": "gData_006FF994",
    "declared": true,
    "decorated": "_gszInternalCheckHost_006FF994",
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 36,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FF994[36]; // 0x006FF994",
@@ -7352,7 +7325,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 13,
    "form": "declared",
    "fwd": null,
@@ -7581,7 +7554,7 @@
    "cname": "gData_007065BC",
    "declared": false,
    "decorated": null,
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007065BC_t gData_007065BC; // 0x007065BC",
    "head": "extern \"C\" struct d2data_007065BC_t gData_007065BC = ",
@@ -7607,7 +7580,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 32,
    "form": "declared",
    "fwd": null,
@@ -8650,7 +8623,7 @@
    "cname": "gData_00706618",
    "declared": true,
    "decorated": "?gaszLanguageNames_00706618@@3QBQBDB",
-   "file": "Source/Fog/Unknown_00407A80.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_00706618[15]; // 0x00706618",
@@ -9432,7 +9405,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_0040EA00.cpp",
+   "file": "Source/Fog/Unknown_0040EA00.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": null,
@@ -157411,7 +157384,7 @@
    "cname": "gData_006FCC4C",
    "declared": true,
    "decorated": "_gszCmdWhitespace_006FCC4C",
-   "file": "Source/Storm/Unknown_006C4EC0.cpp",
+   "file": "Source/Storm/SOURCE/SCMD.CPP",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FCC4C[12]; // 0x006FCC4C",

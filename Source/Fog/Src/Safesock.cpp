@@ -34,6 +34,16 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 extern "C" const char gszUnknownUpper_006CCED8[];                                                           // 0x006CCED8
 char gszResolvedHostIP_0075D040[256];                                                                       // 0x0075D040
 
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+
+extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
+
+extern "C" int __stdcall closesocket(unsigned int nSocket); // 0x006B012C
+
 // 0x0040D8E0
 FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName, int bNonBlocking)
 {
@@ -124,4 +134,34 @@ FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber,
         pSafeSock->hThread = CreateThread(0, 0, pThreadProc, lpParameter, 0, &pSafeSock->nThreadId);
     }
     return pSafeSock;
+}
+
+// 0x0040DBD0
+void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock)
+{
+    EnterCriticalSection(&pSafeSock->tCriticalSection);
+    pSafeSock->bStopping = 1;
+    LeaveCriticalSection(&pSafeSock->tCriticalSection);
+    if (pSafeSock->hThread)
+    {
+        WaitForSingleObject(pSafeSock->hThread, 5000);
+    }
+    if (pSafeSock->hThread)
+    {
+        CloseHandle(pSafeSock->hThread);
+        pSafeSock->hThread = 0;
+    }
+    if (pSafeSock->nSocket != (unsigned int)-1)
+    {
+        const unsigned int nSocket = pSafeSock->nSocket;
+        pSafeSock->nSocket = (unsigned int)-1;
+        pSafeSock->bConnected = 0;
+        if (closesocket(nSocket) == -1)
+        {
+            pSafeSock->nWSALastError = WSAGetLastError();
+            pSafeSock->nFogErrorCode = 5;
+        }
+    }
+    DeleteCriticalSection(&pSafeSock->tCriticalSection);
+    FOG_Free(pSafeSock, ".\\Src\\Safesock.cpp", 387, 0);
 }

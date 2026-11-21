@@ -479,13 +479,6 @@ typedef void* (__stdcall* CreateToolhelp32SnapshotFn)(unsigned long dwFlags, uns
 
 typedef int (__stdcall* Module32Fn)(void* hSnapshot, D2ToolhelpModuleEntryStrc* pEntry);
 
-struct D2PsapiModuleInfoStrc
-{
-    unsigned int nBase;
-    unsigned int nSize;
-    void* pEntryPoint;
-};
-
 typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
 
 typedef unsigned long (__stdcall* GetModuleNameFn)(void* hProcess, void* hModule, char* szName, unsigned long nSize);
@@ -1561,35 +1554,6 @@ int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize)
     return 1;
 }
 
-// 0x0040DBD0
-void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock)
-{
-    EnterCriticalSection(&pSafeSock->tCriticalSection);
-    pSafeSock->bStopping = 1;
-    LeaveCriticalSection(&pSafeSock->tCriticalSection);
-    if (pSafeSock->hThread)
-    {
-        WaitForSingleObject(pSafeSock->hThread, 5000);
-    }
-    if (pSafeSock->hThread)
-    {
-        CloseHandle(pSafeSock->hThread);
-        pSafeSock->hThread = 0;
-    }
-    if (pSafeSock->nSocket != (unsigned int)-1)
-    {
-        const unsigned int nSocket = pSafeSock->nSocket;
-        pSafeSock->nSocket = (unsigned int)-1;
-        pSafeSock->bConnected = 0;
-        if (closesocket(nSocket) == -1)
-        {
-            pSafeSock->nWSALastError = WSAGetLastError();
-            pSafeSock->nFogErrorCode = 5;
-        }
-    }
-    DeleteCriticalSection(&pSafeSock->tCriticalSection);
-    FOG_Free(pSafeSock, ".\\Src\\Safesock.cpp", 387, 0);
-}
 
 // 0x0040E080
 char* __fastcall sub_0040E080_AddressToString(int nAddress)

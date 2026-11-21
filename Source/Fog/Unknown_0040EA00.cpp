@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "Fog.h"
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
@@ -209,4 +209,4 @@ void __cdecl sub_0040EA00_WriteProcessorReport()
     }
 }
 
-#include "gen/data/Source/Storm/Unknown_0040EA00.inc"
+#include "gen/data/Source/Fog/Unknown_0040EA00.inc"

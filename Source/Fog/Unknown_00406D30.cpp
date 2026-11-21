@@ -1,4 +1,6 @@
-#include "Storm.h"
+#include "Fog.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
@@ -13,7 +15,6 @@ int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szPathA, const char* s
 unsigned int __stdcall sub_00413800(char* dest, const char* source, unsigned int limit); // 0x00413800
 size_t __stdcall SStrLen(const char* szString);                                                             // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hwnd, int csidl, void* hToken, unsigned long dwFlags, char* pszPath); // 0x006CC43C

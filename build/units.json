@@ -2,17 +2,242 @@
  "note": "compilation units in link order; flags only where a unit differs from config.json flags; rank 0 units take precedence over rank 1 units for a function both define; ltcg units are compiled /GL and linked /LTCG",
  "units": [
   {
-   "file": "Source/Fog/Unknown_00401000.cpp",
-   "rank": 1,
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x00401000",
      "length": 11
+    },
+    {
+     "va": "0x00401100",
+     "length": 237,
+     "name": "?sub_00401100_Open@Report@crashy@@QAE_NPBD@Z"
+    },
+    {
+     "va": "0x00401480",
+     "length": 185,
+     "name": "?sub_00401480_GetStackRange@@YGEPAPAXPAKPBX@Z"
+    },
+    {
+     "va": "0x00401540",
+     "length": 256,
+     "name": "?sub_00401540_GetThreadStack@@YGEPAKK00@Z"
+    },
+    {
+     "va": "0x00401640",
+     "length": 50,
+     "name": "?sub_00401640_GetThreadName@@YG_NHPAD@Z"
+    },
+    {
+     "va": "0x004016A0",
+     "length": 5,
+     "name": "?sub_004016A0_StartDbgHelpThread@@YAXXZ"
+    },
+    {
+     "va": "0x004016C0",
+     "length": 120,
+     "name": "sub_004016C0_IsInternalCheckLoopback"
+    },
+    {
+     "va": "0x00401A70",
+     "length": 143,
+     "name": "sub_00401A70_SetMiniDumpThreadName"
+    },
+    {
+     "va": "0x00403040",
+     "length": 39,
+     "name": "?_H"
+    },
+    {
+     "va": "0x00403070",
+     "length": 142,
+     "name": "sub_00403070_DumpThread"
+    },
+    {
+     "va": "0x00403FA0",
+     "length": 108,
+     "name": "?sub_00403FA0_CopyPathIfHasDirectory@@YG_NPBDPADI@Z"
+    },
+    {
+     "va": "0x00404010",
+     "length": 153,
+     "name": "?sub_00404010_CopyFileName@@YG_NPBDPADI@Z"
+    },
+    {
+     "va": "0x004040B0",
+     "length": 80,
+     "name": "?sub_004040B0_SetErrorDirectory@@YA_NPAD@Z"
+    },
+    {
+     "va": "0x00404110",
+     "length": 64,
+     "name": "?sub_00404110_StrLCopy@@YAIPADPBDI@Z"
+    },
+    {
+     "va": "0x004041F0",
+     "length": 31,
+     "name": "?sub_004041F0_FormatText@@YAHPADIPBDZZ"
+    },
+    {
+     "va": "0x00404450",
+     "length": 149,
+     "name": "?sub_00404450_CopyFileUtf8@@YG_NPBD0@Z"
+    },
+    {
+     "va": "0x004044F0",
+     "length": 111,
+     "name": "?sub_004044F0_GetTempPathUtf8@@YA_NPAD@Z"
+    },
+    {
+     "va": "0x004045F0",
+     "length": 99,
+     "name": "sub_004045F0_UseUtf8Path"
+    },
+    {
+     "va": "0x00404E60",
+     "length": 181,
+     "name": "sub_00404E60_EnumLoadedModules"
+    },
+    {
+     "va": "0x004059D0",
+     "length": 126,
+     "name": "sub_004059D0_RunModeInterface"
+    },
+    {
+     "va": "0x00405F00",
+     "length": 305,
+     "name": "SaveCmdLine"
+    },
+    {
+     "va": "0x00406040",
+     "length": 327,
+     "name": "MoveBetaSettingsToRelease"
+    },
+    {
+     "va": "0x004061C0",
+     "length": 376,
+     "name": "sub_004061C0_DenyProcessAccess"
+    },
+    {
+     "va": "0x00406650",
+     "length": 131,
+     "name": "sub_00406650_StartServiceDispatcher"
+    },
+    {
+     "va": "0x004067C0",
+     "length": 11,
+     "name": "?sub_004067C0_SetBasePathToCurrent@@YAHXZ"
+    },
+    {
+     "va": "0x004067D0",
+     "length": 146,
+     "name": "sub_004067D0_GetKnownFolderPathA"
+    },
+    {
+     "va": "0x004068E0",
+     "length": 8,
+     "name": "sub_004068E0"
+    },
+    {
+     "va": "0x00406900",
+     "length": 34,
+     "name": "sub_00406900"
+    },
+    {
+     "va": "0x00406930",
+     "length": 8,
+     "name": "sub_00406930"
+    },
+    {
+     "va": "0x00406940",
+     "length": 22,
+     "name": "?sub_00406940_mpqSetFilePointer@@YIHPAXJPAJH@Z"
+    },
+    {
+     "va": "0x00406A10",
+     "length": 261,
+     "name": "sub_00406A10_CreateDirectoryTree"
+    },
+    {
+     "va": "0x00406C40",
+     "length": 217,
+     "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
+    },
+    {
+     "va": "0x00406DE0",
+     "length": 622,
+     "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x00407260",
+     "length": 16,
+     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+    },
+    {
+     "va": "0x00407370",
+     "length": 208,
+     "name": "sub_00407370_JulianDay"
+    },
+    {
+     "va": "0x00407570",
+     "length": 319,
+     "name": "?sub_00407570_DeleteOldDatedLogs@@YIXPBD@Z"
+    },
+    {
+     "va": "0x004076B0",
+     "length": 684,
+     "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
+    },
+    {
+     "va": "0x00407980",
+     "length": 16,
+     "name": "?sub_00407980_ReportPrint@@YIXPAXPBD@Z"
+    },
+    {
+     "va": "0x00407990",
+     "length": 129,
+     "name": "sub_00407990_FindOwnerProcess"
+    },
+    {
+     "va": "0x00407A80",
+     "length": 838,
+     "name": "?sub_00407A80_WriteInspectorHeader@Report@crashy@@QAE_NXZ"
+    },
+    {
+     "va": "0x00407F20",
+     "length": 77,
+     "name": "?sub_00407F20_ExitHandler@@YAXXZ"
+    },
+    {
+     "va": "0x00407F80",
+     "length": 1,
+     "name": "?sub_00407F80_ThreadHookNop2@@YIXIPAX@Z"
+    },
+    {
+     "va": "0x00407F90",
+     "length": 1,
+     "name": "?sub_00407F90_ThreadHookNop1@@YIXI@Z"
+    },
+    {
+     "va": "0x00407FC0",
+     "length": 40,
+     "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
+    },
+    {
+     "va": "0x004088C0",
+     "length": 56,
+     "name": "sub_004088C0_ReportNestedError"
+    },
+    {
+     "va": "0x00413740",
+     "length": 1,
+     "name": "?sub_00413740_Nop@@YAXXZ"
     }
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00401010.cpp",
+   "file": "Source/Fog/Unknown_00401010.cpp",
    "rank": 0,
    "functions": [
     {
@@ -95,42 +320,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00404110.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401100",
-     "length": 237,
-     "name": "?sub_00401100_Open@Report@crashy@@QAE_NPBD@Z"
-    },
-    {
-     "va": "0x00403FA0",
-     "length": 108,
-     "name": "?sub_00403FA0_CopyPathIfHasDirectory@@YG_NPBDPADI@Z"
-    },
-    {
-     "va": "0x004040B0",
-     "length": 80,
-     "name": "?sub_004040B0_SetErrorDirectory@@YA_NPAD@Z"
-    },
-    {
-     "va": "0x00404110",
-     "length": 64,
-     "name": "?sub_00404110_StrLCopy@@YAIPADPBDI@Z"
-    },
-    {
-     "va": "0x004041F0",
-     "length": 31,
-     "name": "?sub_004041F0_FormatText@@YAHPADIPBDZZ"
-    },
-    {
-     "va": "0x004044F0",
-     "length": 111,
-     "name": "?sub_004044F0_GetTempPathUtf8@@YA_NPAD@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00401220.cpp",
    "rank": 1,
    "functions": [
@@ -141,7 +330,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00402820.cpp",
+   "file": "Source/Fog/Unknown_00402820.cpp",
    "rank": 0,
    "functions": [
     {
@@ -515,16 +704,6 @@
      "name": "sub_00409810_PoolFreeLarge"
     },
     {
-     "va": "0x0040A620",
-     "length": 450,
-     "name": "FOG_AsyncDataLoadFileEx"
-    },
-    {
-     "va": "0x0040AA80",
-     "length": 115,
-     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
-    },
-    {
      "va": "0x0040B1B0",
      "length": 167,
      "name": "sub_0040B1B0"
@@ -596,44 +775,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_004088C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004088C0",
-     "length": 56,
-     "name": "sub_004088C0_ReportNestedError"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401480.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401480",
-     "length": 185,
-     "name": "?sub_00401480_GetStackRange@@YGEPAPAXPAKPBX@Z"
-    },
-    {
-     "va": "0x00401540",
-     "length": 256,
-     "name": "?sub_00401540_GetThreadStack@@YGEPAKK00@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401640.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401640",
-     "length": 50,
-     "name": "?sub_00401640_GetThreadName@@YG_NHPAD@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00401680.cpp",
    "rank": 0,
    "functions": [
@@ -701,92 +842,6 @@
      "va": "0x0040F570",
      "length": 14,
      "name": "sub_0040F570"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004016A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004016A0",
-     "length": 5,
-     "name": "?sub_004016A0_StartDbgHelpThread@@YAXXZ"
-    },
-    {
-     "va": "0x004016C0",
-     "length": 120,
-     "name": "sub_004016C0_IsInternalCheckLoopback"
-    },
-    {
-     "va": "0x00401A70",
-     "length": 143,
-     "name": "sub_00401A70_SetMiniDumpThreadName"
-    },
-    {
-     "va": "0x00403040",
-     "length": 39,
-     "name": "?_H"
-    },
-    {
-     "va": "0x00403070",
-     "length": 142,
-     "name": "sub_00403070_DumpThread"
-    },
-    {
-     "va": "0x004045F0",
-     "length": 99,
-     "name": "sub_004045F0_UseUtf8Path"
-    },
-    {
-     "va": "0x00404E60",
-     "length": 181,
-     "name": "sub_00404E60_EnumLoadedModules"
-    },
-    {
-     "va": "0x004059D0",
-     "length": 126,
-     "name": "sub_004059D0_RunModeInterface"
-    },
-    {
-     "va": "0x00405F00",
-     "length": 305,
-     "name": "SaveCmdLine"
-    },
-    {
-     "va": "0x00406040",
-     "length": 327,
-     "name": "MoveBetaSettingsToRelease"
-    },
-    {
-     "va": "0x004061C0",
-     "length": 376,
-     "name": "sub_004061C0_DenyProcessAccess"
-    },
-    {
-     "va": "0x00406650",
-     "length": 131,
-     "name": "sub_00406650_StartServiceDispatcher"
-    },
-    {
-     "va": "0x004067D0",
-     "length": 146,
-     "name": "sub_004067D0_GetKnownFolderPathA"
-    },
-    {
-     "va": "0x00406A10",
-     "length": 261,
-     "name": "sub_00406A10_CreateDirectoryTree"
-    },
-    {
-     "va": "0x00407370",
-     "length": 208,
-     "name": "sub_00407370_JulianDay"
-    },
-    {
-     "va": "0x00407990",
-     "length": 129,
-     "name": "sub_00407990_FindOwnerProcess"
     }
    ]
   },
@@ -1516,7 +1571,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00402C60.cpp",
+   "file": "Source/Fog/Unknown_00402C60.cpp",
    "rank": 0,
    "functions": [
     {
@@ -1567,22 +1622,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00404010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00404010",
-     "length": 153,
-     "name": "?sub_00404010_CopyFileName@@YG_NPBDPADI@Z"
-    },
-    {
-     "va": "0x00404450",
-     "length": 149,
-     "name": "?sub_00404450_CopyFileUtf8@@YG_NPBD0@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00404100.cpp",
    "rank": 0,
    "functions": [
@@ -1609,7 +1648,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00404330.cpp",
+   "file": "Source/Fog/Unknown_00404330.cpp",
    "rank": 0,
    "functions": [
     {
@@ -1643,7 +1682,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004047D0.cpp",
+   "file": "Source/Fog/Unknown_004047D0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -2492,83 +2531,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004067C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004067C0",
-     "length": 11,
-     "name": "?sub_004067C0_SetBasePathToCurrent@@YAHXZ"
-    },
-    {
-     "va": "0x004068E0",
-     "length": 8,
-     "name": "sub_004068E0"
-    },
-    {
-     "va": "0x00406900",
-     "length": 34,
-     "name": "sub_00406900"
-    },
-    {
-     "va": "0x00406930",
-     "length": 8,
-     "name": "sub_00406930"
-    },
-    {
-     "va": "0x00406940",
-     "length": 22,
-     "name": "?sub_00406940_mpqSetFilePointer@@YIHPAXJPAJH@Z"
-    },
-    {
-     "va": "0x00406C40",
-     "length": 217,
-     "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
-    },
-    {
-     "va": "0x00406DE0",
-     "length": 622,
-     "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x00407260",
-     "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
-    },
-    {
-     "va": "0x00407570",
-     "length": 319,
-     "name": "?sub_00407570_DeleteOldDatedLogs@@YIXPBD@Z"
-    },
-    {
-     "va": "0x004076B0",
-     "length": 684,
-     "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
-    },
-    {
-     "va": "0x00407F80",
-     "length": 1,
-     "name": "?sub_00407F80_ThreadHookNop2@@YIXIPAX@Z"
-    },
-    {
-     "va": "0x00407F90",
-     "length": 1,
-     "name": "?sub_00407F90_ThreadHookNop1@@YIXI@Z"
-    },
-    {
-     "va": "0x00407FC0",
-     "length": 40,
-     "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
-    },
-    {
-     "va": "0x00413740",
-     "length": 1,
-     "name": "?sub_00413740_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00406D30.cpp",
+   "file": "Source/Fog/Unknown_00406D30.cpp",
    "rank": 0,
    "functions": [
     {
@@ -2676,33 +2639,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00407980.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00407980",
-     "length": 16,
-     "name": "?sub_00407980_ReportPrint@@YIXPAXPBD@Z"
-    },
-    {
-     "va": "0x00407F20",
-     "length": 77,
-     "name": "?sub_00407F20_ExitHandler@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00407A80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00407A80",
-     "length": 838,
-     "name": "?sub_00407A80_WriteInspectorHeader@Report@crashy@@QAE_NXZ"
-    }
    ]
   },
   {
@@ -2820,7 +2756,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00408A60.cpp",
+   "file": "Source/Fog/Src/ErrorManager_00408A60.cpp",
    "rank": 0,
    "functions": [
     {
@@ -3082,6 +3018,11 @@
      "name": "?sub_0040A550_AsyncDataGetEventSlot@@YAPAUAsyncDataEventSlot@@XZ"
     },
     {
+     "va": "0x0040A620",
+     "length": 450,
+     "name": "FOG_AsyncDataLoadFileEx"
+    },
+    {
      "va": "0x0040A7F0",
      "length": 95,
      "name": "?FOG_AsyncDataTestLoaded@@YIHPAUAsyncData@@@Z"
@@ -3110,6 +3051,11 @@
      "va": "0x0040AA40",
      "length": 59,
      "name": "?FOG_AsyncDataGetBufferSize@@YIIPAUAsyncData@@@Z"
+    },
+    {
+     "va": "0x0040AA80",
+     "length": 115,
+     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
     },
     {
      "va": "0x0040AB00",
@@ -3264,11 +3210,6 @@
      "length": 664
     },
     {
-     "va": "0x0040DBD0",
-     "length": 144,
-     "name": "?FOG_SOCKET_Destroy@@YIXPAUFSafeSock@@@Z"
-    },
-    {
      "va": "0x0040E080",
      "length": 36,
      "name": "?sub_0040E080_AddressToString@@YIPADH@Z"
@@ -3340,11 +3281,16 @@
      "va": "0x0040D8E0",
      "length": 747,
      "name": "?FOG_SOCKET_ConnectEx@@YIPAUFSafeSock@@PADHP6GKPAX@Z1PBDH@Z"
+    },
+    {
+     "va": "0x0040DBD0",
+     "length": 144,
+     "name": "?FOG_SOCKET_Destroy@@YIXPAUFSafeSock@@@Z"
     }
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0040DDD0.cpp",
+   "file": "Source/Fog/Unknown_0040DDD0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -3431,7 +3377,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0040EA00.cpp",
+   "file": "Source/Fog/Unknown_0040EA00.cpp",
    "rank": 1,
    "functions": [
     {
@@ -4419,7 +4365,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0040EDE0.cpp",
+   "file": "Source/Fog/Unknown_0040EDE0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -5701,6 +5647,10 @@
     {
      "va": "0x004157C0",
      "length": 283
+    },
+    {
+     "va": "0x0041A550",
+     "length": 806
     }
    ],
    "flags": [
@@ -5963,7 +5913,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00419760.cpp",
+   "file": "Source/Storm/SOURCE/SFILE_00419760.cpp",
    "rank": 0,
    "functions": [
     {
@@ -6143,30 +6093,6 @@
      "length": 71,
      "name": "?sub_0041AA80_SetWindowFlag@@YGXPAXH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041A550.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041A550",
-     "length": 806
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -6736,11 +6662,6 @@
      "va": "0x00424F90",
      "length": 24,
      "name": "sub_00424F90_BigOp"
-    },
-    {
-     "va": "0x00426180",
-     "length": 144,
-     "name": "sub_00426180_CopyHandlerTable"
     }
    ]
   },
@@ -8722,6 +8643,11 @@
    "file": "Source/Storm/SOURCE/SEVT.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00426180",
+     "length": 144,
+     "name": "sub_00426180_CopyHandlerTable"
+    },
     {
      "va": "0x00426210",
      "length": 95,
@@ -91061,6 +90987,10 @@
      "va": "0x006BCAC0",
      "length": 114,
      "name": "?sub_006BCAC0_ResetDataArray@@YIXPAUD2DataArrayStrc@@@Z"
+    },
+    {
+     "va": "0x006BCC90",
+     "length": 41
     }
    ]
   },
@@ -91104,16 +91034,6 @@
     {
      "va": "0x006BCD50",
      "length": 75
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BCC90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BCC90",
-     "length": 41
     }
    ]
   },
@@ -91422,19 +91342,13 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006C2110.cpp",
+   "file": "Source/Fog/Src/QServer/QServerNT.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x006C2110",
      "length": 358
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C2280",
      "length": 302
@@ -91472,19 +91386,13 @@
      "length": 152
     },
     {
-     "va": "0x006C3120",
-     "length": 569
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006C30D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x006C30D0",
      "length": 73,
-     "name": "?sub_006C30D0_ServiceSlots@@YIHPAUD2Object006C30D0Strc@@H@Z"
+     "name": "?sub_006C30D0_ServiceSlots@@YIHPAUD2QueueServerStrc@@H@Z"
+    },
+    {
+     "va": "0x006C3120",
+     "length": 569
     }
    ]
   },
@@ -91531,54 +91439,6 @@
      "va": "0x006C3B50",
      "length": 352
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C3CB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3CB0",
-     "length": 97
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C3D20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3D20",
-     "length": 116
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -91670,8 +91530,16 @@
      "length": 16
     },
     {
+     "va": "0x006C4CA0",
+     "length": 70
+    },
+    {
      "va": "0x006C4CF0",
      "length": 124
+    },
+    {
+     "va": "0x006C4DC0",
+     "length": 134
     }
    ],
    "flags": [
@@ -91744,6 +91612,22 @@
     {
      "va": "0x006C47B0",
      "length": 106
+    },
+    {
+     "va": "0x006C4A00",
+     "length": 444
+    },
+    {
+     "va": "0x006C4BC0",
+     "length": 216
+    },
+    {
+     "va": "0x006C4EC0",
+     "length": 202
+    },
+    {
+     "va": "0x006C50B0",
+     "length": 29
     },
     {
      "va": "0x006C7A60",
@@ -91999,29 +91883,17 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x006C3CB0",
+     "length": 97
+    },
+    {
+     "va": "0x006C3D20",
+     "length": 116
+    },
+    {
      "va": "0x006C4820",
      "length": 350
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4980.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C4980",
      "length": 123
@@ -92040,50 +91912,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4A00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4A00",
-     "length": 444
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4BC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4BC0",
-     "length": 216
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4CA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4CA0",
-     "length": 70
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -92115,98 +91943,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C4DC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4DC0",
-     "length": 134
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C4EC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4EC0",
-     "length": 202
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C50B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C50B0",
-     "length": 29
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C50D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C50D0",
-     "length": 117
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006C5210.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C5210",
-     "length": 700
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SBMP_006C54D0.CPP",
    "rank": 1,
    "functions": [
@@ -92228,6 +91964,14 @@
    "file": "Source/Storm/SOURCE/SBMP.CPP",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x006C50D0",
+     "length": 117
+    },
+    {
+     "va": "0x006C5210",
+     "length": 700
+    },
     {
      "va": "0x006C5730",
      "length": 254

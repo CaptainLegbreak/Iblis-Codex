@@ -46,6 +46,7 @@ extern D2StormBreakCmdListStrc gtSEvtBreakCmdList_007088E8;                     
 
 static long gnSEvtDispatchDepth_007792FC;                                                                   // 0x007792FC
 
+void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLine, unsigned int nFlags);    // 0x00413020
 
 void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource); // 0x00426180
@@ -54,6 +55,25 @@ void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2S
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 
+
+// 0x00426180
+void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource)
+{
+    pDest->nSize = pSource->nSize;
+    pDest->nUsed = pSource->nUsed;
+    pDest->ppTable = (D2StormEventHandlerStrc**)SMemAlloc(pDest->nSize * sizeof(D2StormEventHandlerStrc*), gszSEvtCpp, 0x3E, 0);
+    for (unsigned int i = 0; i < pSource->nSize; i++)
+    {
+        D2StormEventHandlerStrc** ppNext = &pDest->ppTable[i];
+        for (D2StormEventHandlerStrc* pHandler = pSource->ppTable[i]; pHandler; pHandler = pHandler->pNext)
+        {
+            *ppNext = (D2StormEventHandlerStrc*)SMemAlloc(sizeof(D2StormEventHandlerStrc), gszSEvtCpp, 0x45, 0);
+            SMemCopy(*ppNext, pHandler, sizeof(D2StormEventHandlerStrc));
+            ppNext = &(*ppNext)->pNext;
+        }
+        *ppNext = 0;
+    }
+}
 
 // 0x00426210
 static void __cdecl sub_00426210_DeleteHandlerTable(D2StormHandlerTableStrc* pTable)
@@ -413,3 +433,4 @@ int __stdcall SEvtPopState(unsigned int nType, unsigned int nSubType)
     LeaveCriticalSection(&gtSEvtLock);
     return bResult;
 }
+

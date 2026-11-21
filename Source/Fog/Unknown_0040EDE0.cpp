@@ -1,4 +1,6 @@
-#include "Storm.h"
+#include "Fog.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);

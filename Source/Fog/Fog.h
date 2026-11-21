@@ -168,6 +168,8 @@ struct D2LargeIntegerStrc
     int f_4;
 };
 
+#ifndef D2_MEMORY_BASIC_INFO_STRC
+#define D2_MEMORY_BASIC_INFO_STRC
 struct D2MemoryBasicInfoStrc
 {
     void* BaseAddress;
@@ -178,6 +180,7 @@ struct D2MemoryBasicInfoStrc
     unsigned long Protect;
     unsigned long Type;
 };
+#endif
 
 struct D2OverlappedStrc
 {
@@ -265,6 +268,174 @@ struct D2SNameNodeStrc
 };
 
 #include "D2Win32Types.h"
+
+// System, CPU and symbol-helper declarations of the Fog system units.
+extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile); // 0x006CC1C4
+extern "C" __declspec(dllimport) int __stdcall GetComputerNameA(char* szBuffer, unsigned long* pnSize); // 0x006CC1D8
+extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* pSystemTime); // 0x006CC1D4
+extern bool gbSymInitialized_0098A6B0; // 0x0098A6B0
+extern const char* gaszCpuVendorNames_00708004[]; // 0x00708004
+extern void* ghDbgHelp_0098A680; // 0x0098A680
+extern void* ghProcess_0074C6F0; // 0x0074C6F0
+int __cdecl sub_0040E250_GetCpuVendor(); // 0x0040E250
+int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
+unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
+unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
+extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned int dwMoveMethod); // 0x004165A0
+#define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
+typedef int (__stdcall* SymCleanupFn)(void* hProcess);
+
+struct D2Storm408ElemStrc
+{
+    char unk0x00[0x408];
+};
+
+extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* lp, unsigned int ucb); // 0x006CC238
+extern "C" __declspec(dllimport) int __stdcall IsBadStringPtrA(const char* lpsz, unsigned int ucchMax); // 0x006CC2D0
+extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned int nCodePage, unsigned long dwFlags, const wchar_t* wszSource, int nSource, char* szDest, int nDest, const char* szDefaultChar, int* pbUsedDefaultChar); // 0x006CC194
+extern "C" __declspec(dllimport) unsigned long __stdcall ResumeThread(void* hThread); // 0x006CC28C
+extern "C" __declspec(dllimport) unsigned long __stdcall SuspendThread(void* hThread); // 0x006CC288
+extern "C" __declspec(dllimport) void __stdcall RtlCaptureContext(D2ThreadContextStrc* pContext); // 0x006CC290
+extern "C" __declspec(dllimport) void* __stdcall OpenThread(unsigned long dwDesiredAccess, int bInheritHandle, unsigned long dwThreadId); // 0x006CC27C
+typedef unsigned char BOOLEAN;
+
+struct D2ImageDataDirStrc
+{
+    unsigned long VirtualAddress;
+    unsigned long Size;
+};
+
+struct D2ImageFileHeaderStrc
+{
+    unsigned short Machine;
+    unsigned short NumberOfSections;
+    unsigned long TimeDateStamp;
+    unsigned long PointerToSymbolTable;
+    unsigned long NumberOfSymbols;
+    unsigned short SizeOfOptionalHeader;
+    unsigned short Characteristics;
+};
+
+struct D2ImageOptionalHeaderStrc
+{
+    unsigned short Magic;
+    unsigned char unk0x02[0x36];
+    unsigned long SizeOfImage;
+    unsigned char unk0x3C[0x20];
+    unsigned long NumberOfRvaAndSizes;
+    D2ImageDataDirStrc DataDirectory[16];
+};
+
+struct D2ImageOptionalHeader64Strc
+{
+    unsigned short Magic;
+    unsigned char unk0x02[0x6A];
+    unsigned long NumberOfRvaAndSizes;
+    D2ImageDataDirStrc DataDirectory[16];
+};
+
+struct D2ImageNtHeadersStrc
+{
+    unsigned long Signature;
+    D2ImageFileHeaderStrc FileHeader;
+    D2ImageOptionalHeaderStrc OptionalHeader;
+};
+
+struct D2ImageDosHeaderStrc
+{
+    unsigned short e_magic;
+    unsigned short e_unk02[25];
+    unsigned short e_res2[4];
+    long e_lfanew;
+};
+
+struct D2ImageDebugDirStrc
+{
+    unsigned long Characteristics;
+    unsigned long TimeDateStamp;
+    unsigned short MajorVersion;
+    unsigned short MinorVersion;
+    unsigned long Type;
+    unsigned long SizeOfData;
+    unsigned long AddressOfRawData;
+    unsigned long PointerToRawData;
+};
+
+struct D2CvNb10Strc
+{
+    unsigned long dwCvSignature;
+    unsigned long dwOffset;
+    unsigned long dwSignature;
+    unsigned long dwAge;
+    char szPdbName[4];
+};
+
+struct D2ModuleStrc
+{
+    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
+};
+struct D2ModuleEntry32Strc
+{
+    unsigned long dwSize;
+    unsigned long th32ModuleID;
+    unsigned long th32ProcessID;
+    unsigned long GlblcntUsage;
+    unsigned long ProccntUsage;
+    D2ModuleStrc* modBaseAddr;
+    unsigned long modBaseSize;
+    void* hModule;
+    wchar_t szModule[256];
+    wchar_t szExePath[260];
+};
+struct D2PsapiModuleInfoStrc
+{
+    union
+    {
+        D2ModuleStrc* lpBaseOfDll;
+        unsigned int nBase;
+    };
+    union
+    {
+        unsigned long SizeOfImage;
+        unsigned int nSize;
+    };
+    union
+    {
+        void* EntryPoint;
+        void* pEntryPoint;
+    };
+};
+
+bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext); // 0x00404E60
+extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
+extern "C" __declspec(dllimport) void* __stdcall LoadLibraryW(const wchar_t* szFileName); // 0x006CC294
+extern "C" int __stdcall Module32FirstW(void* hSnapshot, D2ModuleEntry32Strc* pEntry); // 0x006B15AE
+extern "C" int __stdcall Module32NextW(void* hSnapshot, D2ModuleEntry32Strc* pEntry); // 0x006B15B4
+typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
+typedef unsigned long (__stdcall* GetModuleBaseNameWFn)(void* hProcess, void* hModule, wchar_t* wszName, unsigned long nSize);
+typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
+
+struct D2StormArray408Strc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    D2Storm408ElemStrc* f_8;
+    unsigned int f_C;
+
+    D2StormArray408Strc* sub_0051D2C0_InitBase();
+    unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
+    void sub_0051D570_FreeData();
+    void sub_0051D5D0_ReallocData(unsigned int nCount);
+    void sub_0051D670_FreeData();
+    D2StormArray408Strc* sub_0051D690_Init();
+    void sub_0051D6A0_Clear();
+    D2StormArray408Strc* sub_0051D720_Init();
+    void sub_0051D730_FreeData();
+    D2Storm408ElemStrc* sub_0051D7A0_New();
+    void ReserveInline(unsigned int nCount, int bRound);
+};
 
 typedef unsigned char FOGASTType;
 
