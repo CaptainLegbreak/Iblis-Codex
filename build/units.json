@@ -21784,6 +21784,10 @@
      "va": "0x00470610",
      "length": 193,
      "name": "?sub_00470610_Refresh@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00470B70",
+     "length": 192
     }
    ],
    "flags": [
@@ -22059,30 +22063,6 @@
     {
      "va": "0x004709A0",
      "length": 357
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/Gfx_00470B70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00470B70",
-     "length": 192
     }
    ],
    "flags": [
