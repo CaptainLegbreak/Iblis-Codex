@@ -27075,6 +27075,11 @@
      "name": "sub_004A18C0_KeyDownMsgHandler"
     },
     {
+     "va": "0x004A2390",
+     "length": 53,
+     "name": "_sub_004A2390_ResetGlobals"
+    },
+    {
      "va": "0x004A26B0",
      "length": 60,
      "name": "sub_004A26B0_OpenPanel"
@@ -28228,17 +28233,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004A2390.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A2390",
-     "length": 53,
-     "name": "_sub_004A2390_ResetGlobals"
-    }
    ]
   },
   {
