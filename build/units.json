@@ -76497,6 +76497,26 @@
      "name": "sub_0060FE90_NewNode"
     },
     {
+     "va": "0x0060FEF0",
+     "length": 170,
+     "name": "sub_0060FEF0_InternalNew"
+    },
+    {
+     "va": "0x0060FFA0",
+     "length": 34,
+     "name": "sub_0060FFA0_InternalDelete"
+    },
+    {
+     "va": "0x0060FFD0",
+     "length": 43,
+     "name": "?_GD2CommonStormSlotArrayAStrc"
+    },
+    {
+     "va": "0x00610050",
+     "length": 43,
+     "name": "?_GD2CommonStormHashTableAStrc"
+    },
+    {
      "va": "0x00610080",
      "length": 5,
      "name": "??1D2CommonStormSlotGrowArrayBStrc@@QAE@XZ"
@@ -76515,6 +76535,11 @@
      "va": "0x006100B0",
      "length": 247,
      "name": "sub_006100B0_SetCount"
+    },
+    {
+     "va": "0x00610380",
+     "length": 287,
+     "name": "sub_00610380_IsListed"
     },
     {
      "va": "0x006104A0",
@@ -76537,6 +76562,26 @@
      "name": "?sub_00610630@List@@QAEPAUNode@@HII@Z"
     },
     {
+     "va": "0x00610690",
+     "length": 56,
+     "name": "sub_00610690_InternalDelete"
+    },
+    {
+     "va": "0x006106D0",
+     "length": 173,
+     "name": "sub_006106D0_InternalNew"
+    },
+    {
+     "va": "0x00610780",
+     "length": 43,
+     "name": "?_GD2CommonStormSlotArrayBStrc"
+    },
+    {
+     "va": "0x00610800",
+     "length": 43,
+     "name": "?_GD2CommonStormHashTableBStrc"
+    },
+    {
      "va": "0x00610830",
      "length": 9,
      "name": "?sub_00610830_SetCountForward@D2CommonStormSlotArrayBStrc@@QAEXI@Z"
@@ -76552,9 +76597,24 @@
      "name": "?0D2CommonStormHashTableBStrc"
     },
     {
+     "va": "0x00610BE0",
+     "length": 191,
+     "name": "sub_00610BE0_InternalNewNode"
+    },
+    {
      "va": "0x00610D30",
      "length": 43,
      "name": "?sub_00610D30@D2Object00610D30Strc@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x00610DF0",
+     "length": 191,
+     "name": "sub_00610DF0_InternalNewNode"
+    },
+    {
+     "va": "0x00610EB0",
+     "length": 210,
+     "name": "sub_00610EB0_Add"
     },
     {
      "va": "0x00610F90",
@@ -76846,72 +76906,6 @@
     "/Ob2",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060FEF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060FEF0",
-     "length": 170,
-     "name": "sub_0060FEF0_InternalNew"
-    },
-    {
-     "va": "0x0060FFA0",
-     "length": 34,
-     "name": "sub_0060FFA0_InternalDelete"
-    },
-    {
-     "va": "0x0060FFD0",
-     "length": 43,
-     "name": "?_GD2CommonStormSlotArrayAStrc"
-    },
-    {
-     "va": "0x00610050",
-     "length": 43,
-     "name": "?_GD2CommonStormHashTableAStrc"
-    },
-    {
-     "va": "0x00610380",
-     "length": 287,
-     "name": "sub_00610380_IsListed"
-    },
-    {
-     "va": "0x00610690",
-     "length": 56,
-     "name": "sub_00610690_InternalDelete"
-    },
-    {
-     "va": "0x006106D0",
-     "length": 173,
-     "name": "sub_006106D0_InternalNew"
-    },
-    {
-     "va": "0x00610780",
-     "length": 43,
-     "name": "?_GD2CommonStormSlotArrayBStrc"
-    },
-    {
-     "va": "0x00610800",
-     "length": 43,
-     "name": "?_GD2CommonStormHashTableBStrc"
-    },
-    {
-     "va": "0x00610BE0",
-     "length": 191,
-     "name": "sub_00610BE0_InternalNewNode"
-    },
-    {
-     "va": "0x00610DF0",
-     "length": 191,
-     "name": "sub_00610DF0_InternalNewNode"
-    },
-    {
-     "va": "0x00610EB0",
-     "length": 210,
-     "name": "sub_00610EB0_Add"
-    }
    ]
   },
   {

@@ -6036,8 +6036,8 @@
    "state": "included"
   },
   "Source/D2Common/Chat/Ignorelist.cpp": {
-   "bytes": 2972,
-   "definitions": 5,
+   "bytes": 3004,
+   "definitions": 6,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -6052,17 +6052,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Chat/Ignorelist_0060F0A0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Chat/Ignorelist_0060FEF0.cpp": {
-   "bytes": 32,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Chat/Ignorelist_0060FEF0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -122507,7 +122496,7 @@
    "cname": "gData_0074362C",
    "declared": true,
    "decorated": "_gszTypeNameMappingEntryNode_0074362C",
-   "file": "Source/D2Common/Chat/Ignorelist_0060FEF0.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
    "fill": 32,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0074362C_t gData_0074362C; // 0x0074362C",

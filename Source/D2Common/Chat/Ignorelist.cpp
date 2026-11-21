@@ -395,6 +395,28 @@ struct D2CommonStormSlotListAStrc
         }
     }
     __declspec(noinline) void UnlinkAll();
+    void LinkNode(char* pNode, int nLinkType, char* pExistingNode)
+    {
+        D2CommonStormSlotLinkStrc* pLink = Link(pNode);
+        pLink->Unlink();
+        D2CommonStormSlotLinkStrc* pExistingLink = Link(pExistingNode);
+        switch (nLinkType)
+        {
+        case 1:
+            pLink->m_prevlink = pExistingLink;
+            pLink->m_next = pExistingLink->m_next;
+            pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
+            pExistingLink->m_next = pNode;
+            break;
+        default:
+            D2CommonStormSlotLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+            pLink->m_prevlink = pPrevLink;
+            pLink->m_next = pPrevLink->m_next;
+            pPrevLink->m_next = pNode;
+            pExistingLink->m_prevlink = pLink;
+            break;
+        }
+    }
     void sub_006C4290(char* pNode)
     {
         Link(pNode)->Unlink();
@@ -622,6 +644,7 @@ struct D2CommonStormSlotArrayAStrc
     void sub_0060F6D0_Reserve(unsigned int nCount, int bRound);
     void sub_0060F9D0_SetCount(unsigned int nCount);
     void sub_00610090_SetCountForward(unsigned int nCount);
+    static void operator delete(void* pMemory);
 };
 
 struct D2CommonStormSlotArrayAViewStrc : D2CommonStormSlotArrayAStrc
@@ -681,6 +704,7 @@ struct D2CommonStormSlotArrayBStrc
     void sub_0060FAD0_Reserve(unsigned int nCount, int bRound);
     void sub_006100B0_SetCount(unsigned int nCount);
     void sub_00610830_SetCountForward(unsigned int nCount);
+    static void operator delete(void* pMemory);
 };
 
 struct D2CommonStormSlotGrowArrayBStrc : D2CommonStormSlotArrayBStrc
@@ -931,14 +955,21 @@ typedef TSHashTable<MappingEntryNode, HASHKEY_STRI> D2CommonStormHashTableBStrc;
 
 // build: symbol ??0?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@QAE@XZ 0x006104A0
 // build: symbol ??0?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@QAE@XZ 0x00610B30
+// build: symbol ??1?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@UAE@XZ 0x0060FD90
+// build: symbol ??1?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@UAE@XZ 0x00610550
 
 template <> class TSHashTable<StringEntryNode, HASHKEY_STRI>
 {
 public:
+    explicit TSHashTable(int nEmitTag)
+    {
+    }
     virtual void sub_0060FFA0_InternalDelete(D2CommonStringEntryNodeStrc* pNode);                             // 0x0060FFA0
     virtual D2CommonStringEntryNodeStrc* sub_0060FEF0_InternalNew(D2CommonStormSlotListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags); // 0x0060FEF0
     virtual ~TSHashTable();                                                                                 // 0x0060FD90
     virtual void sub_00610020_VirtSlot3();                                                                  // 0x00610020
+    static void operator delete(void* pMemory);
+
     D2CommonStormSlotListAStrc m_fulllist;
     unsigned int m_fullnessIndicator;
     D2CommonStormSlotArrayAStrc m_slotlistarray;
@@ -954,15 +985,22 @@ public:
     D2CommonStringEntryNodeStrc* sub_0060F8B0_Ptr(const char* szKey);                                       // 0x0060F8B0
     D2CommonStringEntryNodeStrc* sub_00610D60_New(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags); // 0x00610D60
     void sub_0060ED60_Clear();
+    int sub_00610840(unsigned int nSlot);                                                                   // 0x00610840
+    D2CommonStringEntryNodeStrc* sub_00610BE0_InternalNewNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 template <> class TSHashTable<MappingEntryNode, HASHKEY_STRI>
 {
 public:
+    explicit TSHashTable(int nEmitTag)
+    {
+    }
     virtual void sub_00610690_InternalDelete(D2CommonMappingEntryNodeStrc* pNode);                             // 0x00610690
     virtual D2CommonMappingEntryNodeStrc* sub_006106D0_InternalNew(D2CommonStormSlotListBStrc* pList, unsigned int nExtraBytes, unsigned int nFlags); // 0x006106D0
     virtual ~TSHashTable();                                                                                 // 0x00610550
     virtual void sub_006107D0_VirtSlot3();                                                                  // 0x006107D0
+    static void operator delete(void* pMemory);
+
     D2CommonStormSlotListBStrc m_fulllist;
     unsigned int m_fullnessIndicator;
     D2CommonStormSlotArrayBStrc m_slotlistarray;
@@ -979,6 +1017,8 @@ public:
     }
     void sub_006108D0_GrowListArray();
     D2CommonMappingEntryNodeStrc* sub_00611170_New(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags); // 0x00611170
+    int sub_00610CA0(unsigned int nSlot);                                                                   // 0x00610CA0
+    D2CommonMappingEntryNodeStrc* sub_00610DF0_InternalNewNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 class ChatIgnoreList;
@@ -1201,6 +1241,38 @@ struct D2StormLinkStrc;
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);
 
 char* __stdcall sub_00414200_StrLower(char* szString); // 0x00414200
+
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
+
+struct D2StormLinkStrc
+{
+    D2StormLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2StormLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+    D2StormLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2StormLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2StormLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
 
 // build: symbol ??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z 0x0060DCB0
 // build: symbol ??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z 0x0060E130
@@ -2289,6 +2361,40 @@ D2CommonStringEntryNodeStrc* D2CommonStormListAStrc::sub_0060FE90_NewNode(int nL
     return pNode;
 }
 
+// build: symbol ??_G?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z 0x00610050
+// build: symbol ??_G?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z 0x00610800
+// build: symbol ??_GD2CommonStormSlotArrayAStrc@@QAEPAXI@Z 0x0060FFD0
+// build: symbol ??_GD2CommonStormSlotArrayBStrc@@QAEPAXI@Z 0x00610780
+// 0x0060FEF0
+D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::sub_0060FEF0_InternalNew(D2CommonStormSlotListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    void* pMemory = SMemAlloc(sizeof(D2CommonStringEntryNodeStrc) + nExtraBytes, gszTypeNameStringEntryNode_0074364C, -2, nFlags | 8);
+    D2CommonStringEntryNodeStrc* pNode = new (pMemory) D2CommonStringEntryNodeStrc;
+    pList->LinkNode((char*)pNode, 1, 0);
+    return pNode;
+}
+
+// 0x0060FFA0
+void D2CommonStormHashTableAStrc::sub_0060FFA0_InternalDelete(D2CommonStringEntryNodeStrc* pNode)
+{
+    pNode->~D2CommonStringEntryNodeStrc();
+    SMemFree(pNode, gszTypeNameStringEntryNode_0074364C, -2, 0);
+}
+
+// 0x0060FFD0
+inline void D2CommonStormSlotArrayAStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
+// 0x00610050
+inline void D2CommonStormHashTableAStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
 // 0x00610080
 D2CommonStormSlotGrowArrayBStrc::~D2CommonStormSlotGrowArrayBStrc()
 {
@@ -2329,6 +2435,24 @@ void D2CommonStormSlotArrayBStrc::sub_006100B0_SetCount(unsigned int nCount)
             f_8[i].~D2CommonStormSlotListBStrc();
     }
     f_4 = nCount;
+}
+
+// 0x00610380
+int D2CommonIgnoreListStrc::sub_00610380_IsListed(const char* szName)
+{
+    if (!szName || !*szName || !sub_0060DDF0_IsEnabled())
+        return 0;
+    char szAlias[0x100] = "";
+    char szNormalized[0x100] = "";
+    sub_0060DE30_Normalize(szName, szNormalized, 0x100);
+    sub_0060F870_Translate(szNormalized, szAlias, 0x100);
+    if (!szAlias[0])
+        sub_0060DEA0_NormalizeAlias(szName, szAlias, 0x100);
+    if (szAlias[0] && sub_0060FD50_Contains(szAlias))
+        return 1;
+    if (szNormalized[0] && sub_0060FD50_Contains(szNormalized))
+        return 1;
+    return 0;
 }
 
 // 0x006104A0
@@ -2375,6 +2499,36 @@ Node* List::sub_00610630(int linkType,unsigned extra,unsigned flags)
     return node;
 }
 
+// 0x00610690
+void D2CommonStormHashTableBStrc::sub_00610690_InternalDelete(D2CommonMappingEntryNodeStrc* pNode)
+{
+    pNode->~D2CommonMappingEntryNodeStrc();
+    SMemFree(pNode, gszTypeNameMappingEntryNode_0074362C, -2, 0);
+}
+
+// 0x006106D0
+D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_006106D0_InternalNew(D2CommonStormSlotListBStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    void* pMemory = SMemAlloc(sizeof(D2CommonMappingEntryNodeStrc) + nExtraBytes, gszTypeNameMappingEntryNode_0074362C, -2, nFlags | 8);
+    D2CommonMappingEntryNodeStrc* pNode = new (pMemory) D2CommonMappingEntryNodeStrc;
+    pList->LinkNode((char*)pNode, 1, 0);
+    return pNode;
+}
+
+// 0x00610780
+inline void D2CommonStormSlotArrayBStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
+// 0x00610800
+inline void D2CommonStormHashTableBStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
 // 0x00610830
 void D2CommonStormSlotArrayBStrc::sub_00610830_SetCountForward(unsigned int nCount)
 {
@@ -2414,6 +2568,19 @@ D2CommonStormHashTableBStrc::TSHashTable()
         m_slotlistarray.f_8[i].ChangeLinkOffset(4);
 }
 
+// 0x00610BE0
+D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::sub_00610BE0_InternalNewNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    unsigned int nSlot = nHashVal & m_slotmask;
+    if (sub_00610840(nSlot))
+        nSlot = nHashVal & m_slotmask;
+    D2CommonStringEntryNodeStrc* pNode = sub_0060FEF0_InternalNew(&m_slotlistarray[nSlot], nExtraBytes, nFlags);
+    m_fulllist.LinkNode((char*)pNode, 2, 0);
+    pNode->f_0 = nHashVal;
+    pNode->f_14 = key;
+    return pNode;
+}
+
 // 0x00610D30
 void* D2Object00610D30Strc::sub_00610D30(unsigned int nFlags)
 {
@@ -2421,6 +2588,36 @@ void* D2Object00610D30Strc::sub_00610D30(unsigned int nFlags)
     if (nFlags & 1)
         operator delete(this);
     return this;
+}
+
+// 0x00610DF0
+D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_00610DF0_InternalNewNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    unsigned int nSlot = nHashVal & m_slotmask;
+    if (sub_00610CA0(nSlot))
+        nSlot = nHashVal & m_slotmask;
+    D2CommonMappingEntryNodeStrc* pNode = sub_006106D0_InternalNew(&m_slotlistarray[nSlot], nExtraBytes, nFlags);
+    m_fulllist.LinkNode((char*)pNode, 2, 0);
+    pNode->f_0 = nHashVal;
+    pNode->f_14 = key;
+    return pNode;
+}
+
+// 0x00610EB0
+int D2CommonIgnoreListStrc::sub_00610EB0_Add(const char* szName)
+{
+    if (!szName || !*szName || !sub_0060DDF0_IsEnabled())
+        return 0;
+    char szKey[0x100] = "";
+    sub_0060DFF0_NormalizeKey(szName, szKey, 0x100);
+    if (!szKey[0])
+        return 0;
+    if (!m_table.sub_0060F8B0_Ptr(szKey))
+    {
+        m_table.sub_00610D60_New(szKey, 0, 0);
+        sub_0060DF10_OnAdded(szKey);
+    }
+    return 1;
 }
 
 // 0x00610F90
@@ -2670,6 +2867,18 @@ void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, i
         pRoom->pDrlgDelete = pDrlgDelete;
         pRoom->pAct->bHasPendingRoomDeletions = 1;
     }
+}
+
+void sub_F45_EmitHashTables(void* pTableA, void* pTableB)
+{
+    new (pTableA) D2CommonStormHashTableAStrc(0);
+    new (pTableB) D2CommonStormHashTableBStrc(0);
+}
+
+void sub_F45_EmitSlotArrays(D2CommonStormSlotArrayAStrc* pArrayA, D2CommonStormSlotArrayBStrc* pArrayB)
+{
+    delete pArrayA;
+    delete pArrayB;
 }
 
 #include "gen/data/Source/D2Common/Chat/Ignorelist.inc"
