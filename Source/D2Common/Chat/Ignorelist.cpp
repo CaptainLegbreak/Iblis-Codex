@@ -3,11 +3,11 @@
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
+extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
 
-char* __stdcall sub_00414310(const char* szString);                                                             // 0x00414310
+__declspec(nothrow) char* __stdcall sub_00414310(const char* szString);                                                             // 0x00414310
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+extern "C" int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
 struct D2StormHashKeyStrIAStrc
 {
@@ -67,7 +67,6 @@ struct D2CommonMappingEntryNodeStrc;
 
 struct D2CommonStringEntryNodeStrc;
 
-struct D2StormSlotLink0060EDB0Strc;
 
 struct D2StormSlotList0060EDB0Strc;
 
@@ -531,42 +530,12 @@ struct D2CommonStringEntryNodeStrc
     static void operator delete(void* pMemory);
 };
 
-struct D2StormSlotLink0060EDB0Strc
-{
-    D2StormSlotLink0060EDB0Strc* m_prevlink;
-    char* m_next;
-
-    ~D2StormSlotLink0060EDB0Strc()
-    {
-        Unlink();
-    }
-    D2StormSlotLink0060EDB0Strc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormSlotLink0060EDB0Strc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormSlotLink0060EDB0Strc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
 struct D2StormSlotList0060EDB0Strc
 {
     int m_linkoffset;
-    D2StormSlotLink0060EDB0Strc m_terminator;
+    D2CommonStormSlotLinkStrc m_terminator;
 
     ~D2StormSlotList0060EDB0Strc();
-    void UnlinkAll();                                                                                       // 0x0060E820
 };
 
 struct Link { Link* previous; char* next; Link() { previous=0; next=0; } };
@@ -640,7 +609,7 @@ struct D2CommonStormSlotArrayAStrc
     {
         return f_8[nIndex];
     }
-    unsigned int sub_0060E2A0_CalcChunkSize(unsigned int nCount);                                           // 0x0060E2A0
+    __declspec(noinline) unsigned int sub_0060E2A0_CalcChunkSize(unsigned int nCount);
     void sub_0060F390_ReallocData(unsigned int nAlloc);                                                     // 0x0060F390
     void sub_0060F6D0_Reserve(unsigned int nCount, int bRound);
     void sub_0060F9D0_SetCount(unsigned int nCount);
@@ -700,7 +669,7 @@ struct D2CommonStormSlotArrayBStrc
     {
         return f_8[nIndex];
     }
-    unsigned int sub_0060E300_CalcChunkSize(unsigned int nCount);                                           // 0x0060E300
+    __declspec(noinline) unsigned int sub_0060E300_CalcChunkSize(unsigned int nCount);
     void sub_0060F720_ReallocData(unsigned int nAlloc);                                                     // 0x0060F720
     void sub_0060FAD0_Reserve(unsigned int nCount, int bRound);
     void sub_006100B0_SetCount(unsigned int nCount);
@@ -831,7 +800,7 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 
 int __fastcall DRLGROOM_GetWarpDestinationLevel(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel); // 0x0066BAC0
 
-void* __stdcall sub_00413020(unsigned,const char*,int,unsigned); // 0x00413020
+extern "C" void* __stdcall sub_00413020(unsigned,const char*,int,unsigned); // 0x00413020
 
 extern "C" const char mappingName[]; // 0x0074362C
 
@@ -1102,7 +1071,7 @@ struct D2CommonStormListAStrc;
 
 struct D2CommonStormListBStrc;
 
-void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
+extern "C" void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 
 extern "C" const char gszTypeNameMappingEntryNode_0074362C[]; // 0x0074362C
 
@@ -1240,13 +1209,13 @@ extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode);   
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
 
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
+extern "C" unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);
 
-char* __stdcall sub_00414200_StrLower(char* szString); // 0x00414200
+extern "C" char* __stdcall sub_00414200_StrLower(char* szString); // 0x00414200
 
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
+__declspec(nothrow) void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
 struct D2Cache00610840Strc;
 
@@ -1503,6 +1472,34 @@ void D2ChatStormListBStrc::sub_0060E270_InitializeTerminator()
 char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
 {
     return pNode + nLinkOffset;
+}
+
+// 0x0060E2A0
+inline __declspec(noinline) unsigned int D2CommonStormSlotArrayAStrc::sub_0060E2A0_CalcChunkSize(unsigned int nCount)
+{
+    if (nCount < 0x15)
+    {
+        unsigned int nResult = nCount;
+        while (nResult & (nResult - 1))
+            nResult &= nResult - 1;
+        return nResult < 1 ? 1 : nResult;
+    }
+    f_C = 0x15;
+    return 0x15;
+}
+
+// 0x0060E300
+inline __declspec(noinline) unsigned int D2CommonStormSlotArrayBStrc::sub_0060E300_CalcChunkSize(unsigned int nCount)
+{
+    if (nCount < 0x15)
+    {
+        unsigned int nResult = nCount;
+        while (nResult & (nResult - 1))
+            nResult &= nResult - 1;
+        return nResult < 1 ? 1 : nResult;
+    }
+    f_C = 0x15;
+    return 0x15;
 }
 
 // 0x0060E360
@@ -1870,7 +1867,7 @@ char* D2CommonStormHashTableAStrc::sub_0060ED70_DeleteNext(D2CommonStringEntryNo
 // 0x0060EDB0
 D2StormSlotList0060EDB0Strc::~D2StormSlotList0060EDB0Strc()
 {
-    UnlinkAll();
+    ((D2CommonStormSlotListAStrc*)this)->UnlinkAll();
 }
 
 // 0x0060EDF0

@@ -75977,6 +75977,20 @@
   {
    "file": "Source/D2Common/Chat/Ignorelist.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc"
+   ],
    "functions": [
     {
      "va": "0x0060DC70",
