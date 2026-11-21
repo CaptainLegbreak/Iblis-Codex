@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 struct D2DrlgMapStrc;
 struct D2DrlgOrthStrc;
@@ -10,46 +11,9 @@ struct D2DrlgVertexStrc;
 struct D2DrlgStrc;
 
 
-struct D2DrlgGridStrc
-{
-    int unk_00[5];
-};
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    void* pRoomData;
-    int nRoomData;
-    int nGridWidth;
-    int nGridHeight;
-    D2DrlgVertexStrc* pVertex;
-    char unk_068[0x1FC];
-    D2DrlgOrthStrc* pOrth;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk_000[5];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    int unk_018;
-    D2DrlgCoordStrc pLevelCoords;
-    char unk_02C[0x188];
-    D2DrlgStrc* pDrlg;
-    char unk_1B8[0x08];
-    int nLevelType;
-    D2SeedStrc pSeed;
-    char unk_1CC[0x04];
-    int eLevelId;
-};
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 D2DrlgMapStrc* __fastcall DRLGPRESET_AllocDrlgMap(D2DrlgLevelStrc* pLevel, int nLvlPrestId, D2DrlgCoordStrc* pDrlgCoord, D2SeedStrc* pSeed); // 0x00666ED0
@@ -58,21 +22,7 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgM
 D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50); // 0x0067D540
 static __declspec(noinline) void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned char pad0x09[3];
-    int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgStrc
-{
-    char unk_000[0x478];
-    void* pMempool;
-};
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight); // 0x0067CB80
 void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pDrlgOrth); // 0x0067D050
@@ -220,7 +170,7 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
 
-    pOutdoors->pRoomData = 0;
+    pOutdoors->unk0x54 = 0;
     pOutdoors->nRoomData = 0;
     pOutdoors->nGridWidth = pLevel->pLevelCoords.nWidth / 8;
     pOutdoors->nGridHeight = pLevel->pLevelCoords.nHeight / 8;
@@ -234,7 +184,7 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
 
     unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->eLevelId);
 
-    DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pOrth);
+    DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pRoomData);
     sub_00675080_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
 
     if (pLevel->eLevelId == 134)

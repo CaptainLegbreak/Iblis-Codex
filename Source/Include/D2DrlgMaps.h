@@ -78,7 +78,11 @@ struct D2DrlgMapStrc
 
 struct D2DrlgOrthStrc
 {
-    D2DrlgRoomStrc* pRoom; // 0x00
+    union // 0x00
+    {
+        D2DrlgRoomStrc* pRoom;
+        D2DrlgLevelStrc* pLevel;
+    };
     int nDirection; // 0x04
     int bPreset; // 0x08
     int bInit; // 0x0C

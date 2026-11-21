@@ -2,6 +2,7 @@
 #include "D2Path.h"
 #include "D2Drlg.h"
 #include "D2DrlgPresets.h"
+#include "D2DrlgTiles.h"
 
 
 
@@ -48,12 +49,6 @@ struct D2DrlgTileDataStrc
 
 
 
-struct D2DrlgTileGridStrc
-{
-    D2DrlgTileLinkStrc* pMapLinks;
-    char unk0x04[0x10];
-    D2DrlgRoomTilesStrc pTiles;
-};
 
 
 union D2PackedFloorStrc

@@ -3,6 +3,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2DrlgPresets.h"
+#include "D2DrlgTiles.h"
 #pragma function(memset)
 
 struct D2DrlgCoordStrc;
@@ -47,12 +48,6 @@ struct D2DrlgLogicalRoomInfoStrc
 
 
 
-struct D2DrlgTileGridStrc
-{
-    D2DrlgTileLinkStrc* pMapLinks;
-    char unk0x04[0x10];
-    D2DrlgRoomTilesStrc pTiles;
-};
 
 
 union D2PackedFloorStrc

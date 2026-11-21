@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2DrlgPresets.h"
 
 struct D2DrlgVertexStrc;
 struct D2DrlgOutdoorInfoStrc;
@@ -10,41 +12,9 @@ struct D2DrlgLevelLinkDataStrc;
 struct D2CoordStrc;
 struct D2MotionPathStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int field_10;
-};
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int field_00;
-    D2DrlgGridStrc pGrid[3];
-    char pad_40[0x24];
-    D2DrlgVertexStrc* pVertex;
-};
 
-struct D2DrlgLevelStrc
-{
-    char pad_000[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char pad_018[0x1C0 - 0x18];
-    int nLevelType;
-    char pad_1C4[0x0C];
-    int eLevelId;
-};
 extern int gaDesertBorderIds_006F112C[][2]; // 0x006F112C
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nPickedFile, int bFlag); // 0x006743C0
@@ -54,35 +24,8 @@ void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* p
 int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgLinkStrc
-{
-    void* pfLinker;
-    int nLevel;
-    int nLevelLink;
-    int nLevelLinkEx;
-};
 
-struct D2DrlgLevelLinkDataStrc
-{
-    D2SeedStrc pSeed;
-    D2DrlgCoordStrc pLevelCoord[15];
-    D2DrlgLinkStrc* pLink;
-    int nRand[4][15];
-    int nIteration;
-    int nCurrentLevel;
-};
-
-struct D2PathPointStrc { unsigned short nX, nY; };
-
-struct D2CoordStrc { int nX, nY; };
 
 struct D2MotionPathStrc
 {
@@ -567,7 +510,7 @@ int __fastcall sub_00676650_LinkStepDirectionSideSized(D2DrlgLevelLinkDataStrc* 
 // 0x00678E30
 int __fastcall sub_00678E30_UpdateMotion(D2MotionPathStrc* pPath)
 {
-    if (pPath->tStart.nX == pPath->tTarget.nX && pPath->tStart.nY == pPath->tTarget.nY)
+    if (pPath->tStart.X == pPath->tTarget.X && pPath->tStart.Y == pPath->tTarget.Y)
     {
         pPath->tDirectionVector.nX = 0;
         pPath->tDirectionVector.nY = 0;
@@ -584,12 +527,12 @@ int __fastcall sub_00678E30_UpdateMotion(D2MotionPathStrc* pPath)
     pPath->tVelocity.nX = (pPath->tDirectionVector.nX * pPath->nSpeed) >> 8;
     pPath->tVelocity.nY = (pPath->tDirectionVector.nY * pPath->nSpeed) >> 8;
     const int nVelocityX = pPath->tVelocity.nX < 0 ? -pPath->tVelocity.nX : pPath->tVelocity.nX;
-    unsigned short nTargetCoordinate = pPath->tTarget.nX;
-    const int nDiffX = (int)pPath->tStart.nX - nTargetCoordinate;
+    unsigned short nTargetCoordinate = pPath->tTarget.X;
+    const int nDiffX = (int)pPath->tStart.X - nTargetCoordinate;
     const int nDeltaX = (nDiffX < 0 ? -nDiffX : nDiffX) << 16;
     const int nVelocityY = pPath->tVelocity.nY < 0 ? -pPath->tVelocity.nY : pPath->tVelocity.nY;
-    nTargetCoordinate = pPath->tTarget.nY;
-    const int nDiffY = (int)pPath->tStart.nY - nTargetCoordinate;
+    nTargetCoordinate = pPath->tTarget.Y;
+    const int nDiffY = (int)pPath->tStart.Y - nTargetCoordinate;
     const int nDeltaY = nDiffY < 0 ? -nDiffY : nDiffY;
     return (nVelocityX <= nDeltaX || nVelocityY <= (nDeltaY << 16)) ? 1 : 0;
 }

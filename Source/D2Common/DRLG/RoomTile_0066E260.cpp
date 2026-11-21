@@ -7,6 +7,7 @@
 #include "D2TxtTables.h"
 #include "D2DrlgPresets.h"
 #include "D2DrlgRooms.h"
+#include "D2DrlgTiles.h"
 
 struct D2DrlgTileDataStrc;
 
@@ -37,25 +38,7 @@ union D2C_PackedTileInformation
     };
 };
 
-struct D2RoomTileStrc
-{
-    void* pUnused;
-    D2RoomTileStrc* pNext;
-    int unk0x08;
-    D2DrlgTileDataStrc* pUnselectedTiles;
-    D2LvlWarpTxt* pLvlWarpTxtRecord;
-    D2DrlgTileDataStrc* pSelectedTiles;
-};
 
-struct D2DrlgTileGridStrc
-{
-    D2DrlgTileLinkStrc* pMapLinks;
-    void* pAnimTiles;
-    int nWalls;
-    int nFloors;
-    int nShadows;
-    D2DrlgRoomTilesStrc pTiles;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

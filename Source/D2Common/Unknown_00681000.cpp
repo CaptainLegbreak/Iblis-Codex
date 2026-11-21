@@ -1,62 +1,16 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 struct D2DrlgVertexStrc;
 struct D2DrlgOrthStrc;
 struct D2DrlgOutdoorInfoStrc;
 struct D2DrlgRouteNodeStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOrthStrc
-{
-    D2DrlgLevelStrc* pLevel;
-    int nDirection;
-    int bInit;
-    int unk0x0C;
-    void* pBox;
-    D2DrlgOrthStrc* pNext;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[3];
-    char unk0x040[0x1C];
-    int nGridWidth;
-    int nGridHeight;
-    char unk0x064[0x4];
-    D2DrlgVertexStrc* pPathStarts[6];
-    D2DrlgVertexStrc pVertices[24];
-    int nVertices;
-    D2DrlgOrthStrc* pRoomData;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char unk0x18[0x4];
-    int nPosX;
-    int nPosY;
-    char unk0x24[0x1AC];
-    int eLevelId;
-};
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200

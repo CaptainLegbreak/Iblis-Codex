@@ -8,6 +8,7 @@ struct D2DrlgTileDataStrc;
 struct D2DrlgTileLinkStrc;
 struct D2LvlWarpTxt;
 struct D2RoomTileStrc;
+struct D2DrlgRoomTilesStrc;
 struct D2DrlgTileGridStrc;
 struct D2LevelDefBin;
 
@@ -21,6 +22,16 @@ struct D2RoomTileStrc
     D2DrlgTileDataStrc* pSelectedTiles; // 0x14
 };
 
+struct D2DrlgRoomTilesStrc
+{
+    D2DrlgTileDataStrc* pWallTiles; // 0x00
+    int nWalls; // 0x04
+    D2DrlgTileDataStrc* pFloorTiles; // 0x08
+    int nFloors; // 0x0C
+    D2DrlgTileDataStrc* pRoofTiles; // 0x10
+    int nRoofs; // 0x14
+};
+
 struct D2DrlgTileGridStrc
 {
     D2DrlgTileLinkStrc* pMapLinks; // 0x00
@@ -28,12 +39,19 @@ struct D2DrlgTileGridStrc
     int nWalls; // 0x08
     int nFloors; // 0x0C
     int nShadows; // 0x10
-    int unk0x14; // 0x14
-    int nTileWalls; // 0x18
-    D2DrlgTileDataStrc* pFloorTiles; // 0x1C
-    int nTileFloors; // 0x20
-    D2DrlgTileDataStrc* pRoofTiles; // 0x24
-    int nTileRoofs; // 0x28
+    union // 0x14
+    {
+        struct
+        {
+            int unk0x14; // 0x14
+            int nTileWalls; // 0x18
+            D2DrlgTileDataStrc* pFloorTiles; // 0x1C
+            int nTileFloors; // 0x20
+            D2DrlgTileDataStrc* pRoofTiles; // 0x24
+            int nTileRoofs; // 0x28
+        };
+        D2DrlgRoomTilesStrc pTiles;
+    };
 };
 
 struct D2LevelDefBin
@@ -62,5 +80,6 @@ struct D2LevelDefBin
 };
 
 D2_CHECK_SIZE(D2RoomTileStrc, 0x18);
+D2_CHECK_SIZE(D2DrlgRoomTilesStrc, 0x18);
 D2_CHECK_SIZE(D2DrlgTileGridStrc, 0x2C);
 D2_CHECK_SIZE(D2LevelDefBin, 0x9C);

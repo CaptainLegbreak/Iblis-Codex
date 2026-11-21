@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2Path.h"
+#include "D2DrlgTiles.h"
 
 struct D2DrlgMapStrc;
 struct D2DrlgTileDataStrc;
@@ -45,16 +46,6 @@ struct D2DrlgPresetLevelStrc
 {
     D2DrlgMapStrc* pDrlgMap; // 0x00
     int nDirection; // 0x04
-};
-
-struct D2DrlgRoomTilesStrc
-{
-    D2DrlgTileDataStrc* pWallTiles; // 0x00
-    int nWalls; // 0x04
-    D2DrlgTileDataStrc* pFloorTiles; // 0x08
-    int nFloors; // 0x0C
-    D2DrlgTileDataStrc* pRoofTiles; // 0x10
-    int nRoofs; // 0x14
 };
 
 struct D2DrlgTileLinkStrc
@@ -131,7 +122,6 @@ struct D2PathInfoStrc
 D2_CHECK_SIZE(D2DrlgPresetInfoStrc, 0x8);
 D2_CHECK_SIZE(D2DrlgPresetRoomStrc, 0xF8);
 D2_CHECK_SIZE(D2DrlgPresetLevelStrc, 0x8);
-D2_CHECK_SIZE(D2DrlgRoomTilesStrc, 0x18);
 D2_CHECK_SIZE(D2DrlgTileLinkStrc, 0xC);
 D2_CHECK_SIZE(D2DrlgLevelLinkDataStrc, 0x1F4);
 D2_CHECK_SIZE(D2DrlgLinkStrc, 0x10);

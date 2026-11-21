@@ -3,6 +3,8 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DrlgTiles.h"
+#include "D2Drlg.h"
+#include "D2DrlgPresets.h"
 
 #define DRLGTYPE_OUTDOOR 3
 #define DRLGTYPE_PRESET 2
@@ -25,61 +27,9 @@ struct D2UnkPathStrc2;
 struct D2PathTestStrc;
 struct D2PathRayStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int field_10;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc tGrid04;
-    char pad_after_grid[20];
-    D2DrlgGridStrc tGridFlags;
-    char pad_after_flags[28];
-    int nGridWidth;
-    int nGridHeight;
-    unsigned char unk_64[0x200];
-    D2DrlgOrthStrc* pRoomData;
-};
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgLevelStrc
-{
-    int nDrlgType;
-    char unk0x004[0x10];
-    D2DrlgOutdoorInfoStrc* pOutdoor;
-    char unk0x018[0x04];
-    union
-    {
-        struct
-        {
-            D2DrlgCoordStrc pLevelCoords;
-        };
-        struct
-        {
-            int nPosX;
-            int nPosY;
-            int nWidth;
-            int nHeight;
-        };
-    };
-    char unk0x02C[0x188];
-    D2DrlgStrc* pDrlg;
-    unsigned char unk_1B8[0x18];
-    int eLevelId;
-};
 
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
@@ -88,23 +38,7 @@ static __declspec(noinline) void __stdcall sub_00675EB0_PlaceCoord(D2DrlgCoordSt
 static __declspec(noinline) void __stdcall sub_00675F80_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
 
 
-struct D2DrlgLinkStrc
-{
-    void* pfLinker;
-    int nLevel;
-    int nLevelLink;
-    int nLevelLinkEx;
-};
 
-struct D2DrlgLevelLinkDataStrc
-{
-    D2SeedStrc pSeed;
-    D2DrlgCoordStrc pLevelCoord[15];
-    D2DrlgLinkStrc* pLink;
-    int nRand[4][15];
-    int nIteration;
-    int nCurrentLevel;
-};
 
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
@@ -128,11 +62,6 @@ extern D2DrlgLinkStrc gAct4OutdoorDrlgLink[15]; // 0x006F0C00
 extern D2DrlgLinkStrc gAct4ChaosSanctumDrlgLink[15]; // 0x006F0CF0
 extern const D2UnkOutdoorStrc3 stru_6FDD06C0[15]; // 0x006F1258
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x450];
-    unsigned char nDifficulty;
-};
 
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BB0
 int __fastcall DRLG_GetDirectionFromCoordinates(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2); // 0x00642240
@@ -242,7 +171,7 @@ int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
 // 0x00675670
 void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoor;
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
     const D2CoordStrc aOffsets[4][2] = {
         {{  0,  0 }, {  1,  1 }},
         {{  1,  0 }, { -1,  1 }},
@@ -269,11 +198,11 @@ void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel)
 
         int i = nX;
         int j = nY;
-        while (!(DRLGGRID_GetGridEntry(&pOutdoor->tGridFlags, nX, j) & 1))
+        while (!(DRLGGRID_GetGridEntry(&pOutdoor->pGrid[2], nX, j) & 1))
         {
-            while (!(DRLGGRID_GetGridEntry(&pOutdoor->tGridFlags, i, j) & 1))
+            while (!(DRLGGRID_GetGridEntry(&pOutdoor->pGrid[2], i, j) & 1))
             {
-                DRLGGRID_AlterGridFlag(&pOutdoor->tGridFlags, i, j, 0x100, 0);
+                DRLGGRID_AlterGridFlag(&pOutdoor->pGrid[2], i, j, 0x100, 0);
                 i += nDirX;
             }
             j += nDirY;
@@ -850,7 +779,7 @@ void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nI
 {
     if (pLevel->nDrlgType == DRLGTYPE_OUTDOOR)
     {
-        D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
+        D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
         for (int i = 0; i < 15; ++i)
         {
             if (pLevel->eLevelId == stru_6FDD06C0[i].nLevelId || !stru_6FDD06C0[i].nLevelId)
@@ -873,7 +802,7 @@ struct D2ActiveRoomStrc;
 // 0x00677640
 static __forceinline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     D2DrlgLevelStrc* pWarpLevel = DRLG_GetLevel(pLevel->pDrlg, nLevelId);
     const int nDirection = DRLG_GetDirectionFromCoordinates(&pLevel->pLevelCoords, &pWarpLevel->pLevelCoords);
     DRLGROOM_AddOrth(&pOutdoors->pRoomData, pWarpLevel, nDirection, pWarpLevel->nDrlgType == DRLGTYPE_PRESET);
