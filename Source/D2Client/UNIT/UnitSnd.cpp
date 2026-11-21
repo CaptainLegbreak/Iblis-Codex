@@ -169,7 +169,7 @@ static D2MonSoundsTxt* sub_004CA410_GetMonSoundsRecord(D2UnitStrc* pUnit)
     if (nClass >= sgptDataTables->nMonStatsTxtRecordCount)
         return DATATBLS_GetMonSoundsTxtRecordFromSoundId(0);
 
-    if (pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_MONSTER)
         return DATATBLS_GetMonSoundsTxtRecordFromMonsterId(nClass);
 
     if (sub_004AE3A0_IsSuperUniqueMonster(pUnit))
@@ -929,7 +929,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
     }
 
     sub_004A0200_SetSpeechHoverText(pUnit, nSpeech);
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
         sub_004CB9C0_Request(pUnit, nEvent);
 }
 

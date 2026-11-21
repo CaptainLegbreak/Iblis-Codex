@@ -489,7 +489,7 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
             {
                 for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
                 {
-                    if (pUnit->dwUnitType == 0)
+                    if (pUnit->dwUnitType == UNIT_PLAYER)
                     {
                         sub_005B9930_QUESTS_SpawnQuestMonster(pGame, pRoom, pQuestDataEx);
                         pQuestData->pCallback[8] = ACT3Q3_Callback08_MonsterKilled;

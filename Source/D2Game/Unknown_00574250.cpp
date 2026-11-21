@@ -43,7 +43,7 @@ static __declspec(noinline) void __stdcall sub_00573CB0(D2GameStrc* pGame, D2Act
 
 static __forceinline D2MonsterDataStrc* MONSTER_GetMonsterData(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         return pUnit->pMonsterData;
     }

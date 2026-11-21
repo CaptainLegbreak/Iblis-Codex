@@ -111,14 +111,14 @@ static D2MissilesTxt* GetUnitMissilesTxt_Inline(D2UnitStrc* pUnit)
 
 static int GetUnitXPosition_Inline(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->nXPos;
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
 static int GetUnitYPosition_Inline(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->nYPos;
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }

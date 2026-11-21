@@ -263,7 +263,7 @@ int __fastcall SKILLS_SrvSt42_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         return 0;
     }
 
-    if (!pUnit || pUnit->dwUnitType != 0)
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER)
     {
         D2DamageStrc damage;
         memset(&damage, 0, sizeof(damage));

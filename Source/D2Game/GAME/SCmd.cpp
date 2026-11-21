@@ -2693,7 +2693,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc
         return;
     }
 
-    if (!pClient && pUnit->dwUnitType == 1)
+    if (!pClient && pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
         if (!pOwner)
@@ -3102,7 +3102,7 @@ void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2Unit
     tPacket.packet7F = tZero7F;
     tPacket.packet7F.nHeader = 0x7F;
 
-    if (hUnit->dwUnitType == 0)
+    if (hUnit->dwUnitType == UNIT_PLAYER)
     {
         tPacket.packet7F.bIsPlayer = 1;
     }

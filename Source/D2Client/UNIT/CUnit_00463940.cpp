@@ -417,7 +417,7 @@ static void sub_00465E80_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType
                 pPrev->pListNext = pUnit->pListNext;
             }
 
-            if (pUnit->dwUnitType == 4)
+            if (pUnit->dwUnitType == UNIT_ITEM)
             {
                 sub_004879D0(pUnit);
             }
@@ -797,7 +797,7 @@ static inline int sub_00464EC0_GetUnitId(D2UnitStrc* pUnit)
 int __fastcall sub_00464EC0_CheckSkillOwner(D2UnitStrc* unit, D2UnitStrc* target)
 {
     int enabled = 0;
-    if (unit && target && (sub_00464EC0_GetUnitType(unit) == 0 || target->dwUnitType == 1))
+    if (unit && target && (sub_00464EC0_GetUnitType(unit) == 0 || target->dwUnitType == UNIT_MONSTER))
     {
         D2SkillStrc* skill = UNITS_GetLeftSkill(unit);
         if (skill)

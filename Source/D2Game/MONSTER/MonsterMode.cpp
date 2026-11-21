@@ -1212,7 +1212,7 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2Mode
         D2UnitStrc* pTarget = pModeChange->pTargetUnit;
         if (pTarget)
         {
-            if (pTarget->dwUnitType != 0)
+            if (pTarget->dwUnitType != UNIT_PLAYER)
             {
                 D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pTarget);
                 if (STATES_CheckStateMaskExpOnUnit(pTarget))
@@ -1232,7 +1232,7 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2Mode
                 }
             }
 
-            if (pTarget && pTarget->dwUnitType == 0)
+            if (pTarget && pTarget->dwUnitType == UNIT_PLAYER)
             {
                 D2BitBufferStrc* pQuestFlags = sub_00543520(pGame, pTarget);
                 if (pQuestFlags && QUESTRECORD_GetQuestState(pQuestFlags, pMonStatsTxtRecord->nTCQuestId, 15) != 1
@@ -1617,7 +1617,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
     while (pTarget)
     {
-        if (pTarget->dwUnitType == 0 && pTarget->dwAnimMode != 17 && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
+        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != 17 && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
@@ -1817,7 +1817,7 @@ int __fastcall MONSTERMODE_StartNeutral(D2GameStrc* pGame, D2ModeChangeStrc* pMo
             return 1;
         }
 
-        if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+        if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
         {
             D2MonStatsTxt* pMonStatsTxtRecord = (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
             if (pMonStatsTxtRecord)
@@ -2092,7 +2092,7 @@ int __fastcall sub_6FC64E60(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
 // 0x005A78A0
 const D2MonModeCallbackTableStrc* __fastcall MONSTERMODE_GetCallbackTableRecord(D2UnitStrc* pUnit, int nMode)
 {
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

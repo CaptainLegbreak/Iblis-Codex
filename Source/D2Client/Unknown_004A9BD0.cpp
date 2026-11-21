@@ -357,7 +357,7 @@ void __cdecl sub_004ABF10_ClearSkillStates()
 // 0x004AC730
 D2MonsterDataStrc* __fastcall sub_004AC730_MonsterDataOf(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return pUnit->pMonsterData;
     return 0;
 }

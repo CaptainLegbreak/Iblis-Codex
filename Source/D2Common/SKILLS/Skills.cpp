@@ -1486,7 +1486,7 @@ static __declspec(noinline) BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(
 // 0x006440F0
 static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
-    if (!pUnit || pUnit->dwUnitType != 0 || pSkill->pSkillsTxt->wStartMana <= 0
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER || pSkill->pSkillsTxt->wStartMana <= 0
         || STATLIST_UnitGetStatValue(pUnit, 8, 0) >= (int)pSkill->pSkillsTxt->wStartMana << 8 || STATES_CheckState(pUnit, 0xC))
     {
         return 1;
@@ -1527,7 +1527,7 @@ static int __stdcall SKILLS_GetBonusSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* p
     nSkillLevel += SKILLS_GetShrineSkillLevelBonus(pUnit);
     nSkillLevel += STATLIST_UnitGetStatValue(pUnit, 127, (unsigned short)0);
 
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         const int nClassId = pUnit->dwClassId;
         if (pSkillsTxtRecord->nCharClass == nClassId)
@@ -2037,7 +2037,7 @@ static int __stdcall sub_00644C20(D2UnitStrc* pUnit, int bMin)
 {
     int nDamage;
 
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         nDamage = STATLIST_UnitGetStatValue(pUnit, 2, 0) + STATLIST_UnitGetStatValue(pUnit, 0, 0) - 20;
     }
@@ -2404,7 +2404,7 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
                     const int nClass = pStatesTxtRecord->wGfxClass;
                     *pClass = nClass;
 
-                    if (pUnit->dwUnitType == 1)
+                    if (pUnit->dwUnitType == UNIT_MONSTER)
                     {
                         const int nMode = *pMode;
                         *pMode = (nClass == 6 && nMode == 4) ? 12 : gnShapeshiftMonModes_006EB308[nMode];
@@ -2418,7 +2418,7 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
                     const int nMonsterId = pStatesTxtRecord->wGfxClass;
                     *pClass = nMonsterId;
 
-                    if (pUnit->dwUnitType == 0)
+                    if (pUnit->dwUnitType == UNIT_PLAYER)
                     {
                         *pMode = D2Common_11014_ConvertShapeShiftedMode(*pMode, nMonsterId);
                     }
@@ -2488,7 +2488,7 @@ int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
     }
 
     nRange = (COMPOSIT_IsWeaponBowOrXBow(pUnit) != 0) + 1;
-    if (pUnit && pUnit->dwUnitType == 0 && nRange != 1 && STATES_CheckStateMaskOnUnit(pUnit, 38))
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && nRange != 1 && STATES_CheckStateMaskOnUnit(pUnit, 38))
     {
         return 1;
     }
@@ -2504,7 +2504,7 @@ static __declspec(noinline) int __stdcall sub_006454C0_IsSelectableCorpse(int bD
         return 0;
     }
 
-    if (pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }
@@ -3020,7 +3020,7 @@ int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* p
         return 0;
     }
 
-    if (pUnit->dwUnitType != 0)
+    if (pUnit->dwUnitType != UNIT_PLAYER)
     {
         nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 157, 0);
         if (nValue > 0)
@@ -3316,7 +3316,7 @@ void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, in
     }
 
     D2UnitStrc* pBoots = INVENTORY_GetItemFromBodyLoc(pInventory, 9);
-    if (pBoots && pBoots->dwUnitType == 4)
+    if (pBoots && pBoots->dwUnitType == UNIT_ITEM)
     {
         D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pBoots ? -1 : pBoots->dwClassId);
         if (pItemsTxtRecord)
@@ -4023,11 +4023,11 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
         memset(pSkill, 0x00, sizeof(D2SkillStrc));
         pSkill->pSkillsTxt = pSkillsTxtRecord;
 
-        if (pUnit->dwUnitType == 1)
+        if (pUnit->dwUnitType == UNIT_MONSTER)
         {
             pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nMonAnim;
         }
-        else if (pUnit->dwUnitType == 0 && pUnit->dwClassId == 6 && nSkillId == 5)
+        else if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwClassId == 6 && nSkillId == 5)
         {
             pSkill->dwSkillMode = 16;
         }
@@ -4059,7 +4059,7 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
     }
 
     const int nSkillLevel = pSkill->nSkillLevel;
-    if (nSkillLevel < sub_004AA8B0_GetSkillMaxLevel(nSkillId) || pUnit->dwUnitType == 1)
+    if (nSkillLevel < sub_004AA8B0_GetSkillMaxLevel(nSkillId) || pUnit->dwUnitType == UNIT_MONSTER)
     {
         pSkill->nSkillLevel = nSkillLevel + 1;
     }
@@ -4160,7 +4160,7 @@ static __forceinline void SKILLS_RemoveChargedSkill(D2UnitStrc* pUnit, D2SkillLi
 // 0x00647320
 void __stdcall sub_00647320_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, int nSkillLevel, int nCharges, int bRemove)
 {
-    if (!pUnit || pUnit->dwUnitType != 0)
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER)
     {
         return;
     }
@@ -4452,7 +4452,7 @@ static __declspec(noinline) BOOL sub_6FDB1070(D2UnitStrc* pUnit, D2SkillStrc* pS
 
 static __forceinline BOOL U04_IsPlayerUnit(D2UnitStrc* pUnit)
 {
-    return pUnit && pUnit->dwUnitType == 0;
+    return pUnit && pUnit->dwUnitType == UNIT_PLAYER;
 }
 
 // 0x006478F0
@@ -4653,7 +4653,7 @@ int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
     if (BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 9))
     {
         int nDamage;
-        if (pUnit && pUnit->dwUnitType == 0)
+        if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         {
             nDamage = STATLIST_UnitGetStatValue(pUnit, 2, 0) + STATLIST_UnitGetStatValue(pUnit, 0, 0) - 20;
         }

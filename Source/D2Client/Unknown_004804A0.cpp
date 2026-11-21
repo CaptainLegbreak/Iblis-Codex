@@ -90,7 +90,7 @@ void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, u
         else
         {
             nTolerance = 15;
-            if (pUnit->dwUnitType == 1)
+            if (pUnit->dwUnitType == UNIT_MONSTER)
             {
                 switch (CLIENT_GetAnimModeInline(pUnit))
                 {
@@ -169,7 +169,7 @@ void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, u
         return;
     }
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         sub_00463180_UpdatePathAndMove(pUnit, pNewRoom, nX, nY);
     }

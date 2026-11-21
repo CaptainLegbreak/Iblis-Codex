@@ -380,7 +380,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 
 inline unsigned char MONSTER_GetComponent10(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nComponent[10];
     }
@@ -390,7 +390,7 @@ inline unsigned char MONSTER_GetComponent10(D2UnitStrc* pUnit)
 
 inline unsigned char MONSTER_GetComponent11(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nComponent[11];
     }

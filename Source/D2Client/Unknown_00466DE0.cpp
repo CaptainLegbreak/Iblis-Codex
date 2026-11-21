@@ -193,7 +193,7 @@ int gdwGlobal_007A6AA0; // 0x007A6AA0
 // 0x00467000
 static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
-    if (pUnit && pUnit->dwUnitType == 5
+    if (pUnit && pUnit->dwUnitType == UNIT_TILE
         && sub_00463EE0_IsPointInTileRect(pUnit, nX1, tY1.nValue)
         && sub_00463EE0_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)

@@ -85,7 +85,7 @@ void __fastcall sub_0053B140_WriteVarLength16(D2BitBufferStrc* pBuffer, unsigned
 // 0x0053B180
 int* __fastcall sub_0053B180_GetMonsterDataField3C(D2UnitStrc* pUnit)
 {
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

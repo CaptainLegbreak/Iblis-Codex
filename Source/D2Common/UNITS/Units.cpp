@@ -2009,7 +2009,7 @@ void __stdcall UNITS_GetFrameMetrics(D2UnitStrc* pUnit, int* pFrame, int* pFrame
         return;
     }
 
-    if (pUnit->dwUnitType == 2)
+    if (pUnit->dwUnitType == UNIT_OBJECT)
     {
         *pFrame = pUnit->nSeqCurrentFramePrecise;
         *pFrameCount = pUnit->pObjectData->pObjectTxt->dwFrameCnt[pUnit->dwAnimMode];
@@ -3788,14 +3788,14 @@ int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        if (pUnit->dwUnitType == 0)
+        if (pUnit->dwUnitType == UNIT_PLAYER)
         {
             if (D2UnitStrc* pItem = D2Common_10434(pUnit, 0))
                 return ITEMS_GetHitClassFromItem(pItem);
             else
                 return 1;
         }
-        else if (pUnit->dwUnitType == 1)
+        else if (pUnit->dwUnitType == UNIT_MONSTER)
         {
             if (D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId))
                 return pMonStats2TxtRecord->nHitClass;
@@ -4218,7 +4218,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
         return 1;
 
     case 1:
-        if (ptUnit->dwUnitType == 0 && STATES_IsUnitShapeShifted(ptUnit))
+        if (ptUnit->dwUnitType == UNIT_PLAYER && STATES_IsUnitShapeShifted(ptUnit))
         {
             switch (nMode)
             {

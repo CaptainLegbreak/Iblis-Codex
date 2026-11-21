@@ -1373,7 +1373,7 @@ int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
 // 0x004E6560
 void __fastcall sub_004E6560_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nArg1, int nArg2)
 {
-    if (!pItem || pItem->dwUnitType != 4)
+    if (!pItem || pItem->dwUnitType != UNIT_ITEM)
     {
         return;
     }

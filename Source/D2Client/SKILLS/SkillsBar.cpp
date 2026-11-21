@@ -573,7 +573,7 @@ int __fastcall sub_004C8D90_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, i
         if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
             return sub_004C7630(pUnit, pTarget);
 
-        if (!pUnit || pUnit->dwUnitType != 1)
+        if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
             sub_004CB9C0_Request(pUnit, 0x13);
 
         return 0;

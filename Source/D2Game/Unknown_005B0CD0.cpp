@@ -68,7 +68,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitS
 {
     D2PantherAiCallbackArgStrc* pArg = (D2PantherAiCallbackArgStrc*)pCallbackArg;
 
-    if (!pTarget || pTarget->dwUnitType != 1 || pUnit == pTarget)
+    if (!pTarget || pTarget->dwUnitType != UNIT_MONSTER || pUnit == pTarget)
     {
         return 0;
     }

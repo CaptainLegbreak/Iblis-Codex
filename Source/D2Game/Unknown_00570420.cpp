@@ -329,7 +329,7 @@ static void sub_00570B60_AddVitalityPoints(D2UnitStrc* pUnit, int nPoints)
 // 0x00570C80
 void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (!pUnit || pUnit->dwUnitType != 0)
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER)
     {
         return;
     }

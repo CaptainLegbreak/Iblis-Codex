@@ -150,7 +150,7 @@ int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
 
     SKILLS_SetParam1(pSkill, 1);
 
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         sub_6FCBD120(pGame, pUnit, 1);
     }

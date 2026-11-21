@@ -1158,7 +1158,7 @@ void __fastcall sub_6FC7E640(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 // 0x00575720
 static void __stdcall sub_00575720_RemoveGroupPets(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType)
 {
-    if (!pPlayer || pPlayer->dwUnitType != 0)
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
     {
         return;
     }

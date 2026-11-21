@@ -531,7 +531,7 @@ void __fastcall sub_004B3C20(int nValue)
     if (sub_00463DD0_GetPlayerUnit())
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
             pPlayer->pPlayerData->nMode = 0;
@@ -567,7 +567,7 @@ void __fastcall sub_004B3C20(int nValue)
 
     if (pUnit)
     {
-        if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
         {
             pUnit->pMonsterData->nClientFlags &= ~1;
         }
@@ -946,7 +946,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     if (!pUnit)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
             pPlayer->pPlayerData->nMode = 0;

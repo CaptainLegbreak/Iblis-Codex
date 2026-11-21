@@ -170,7 +170,7 @@ static __declspec(noinline) void __stdcall sub_005416B0_InsertDated(D2UnitStrc* 
     }
     if (nExpireFrame <= pGame->dwGameFrame)
         nExpireFrame = pGame->dwGameFrame + 1;
-    if (pUnit && pUnit->dwUnitType == 1 && nEventType == 2)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nEventType == 2)
     {
         if (sub_00639DF0_CheckState(pUnit, 54))
             sub_6FCBDE90(pUnit, 0);

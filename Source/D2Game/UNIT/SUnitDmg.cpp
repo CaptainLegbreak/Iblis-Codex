@@ -889,7 +889,7 @@ static __declspec(noinline) void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pA
         return;
     }
 
-    if (pDefender && pDefender->dwUnitType == 1)
+    if (pDefender && pDefender->dwUnitType == UNIT_MONSTER)
     {
         if (MONSTERUNIQUE_CheckMonTypeFlag(pDefender, 8) && (int)(sub_I19_RollSeedInline(&pAttacker->pSeed) % 100) < 90)
         {
@@ -1065,7 +1065,7 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
     D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 11);
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
     int nColdEffect;
-    if (!pDefender || pDefender->dwUnitType != 1)
+    if (!pDefender || pDefender->dwUnitType != UNIT_MONSTER)
     {
         nColdEffect = -50;
     }
@@ -1088,7 +1088,7 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
         return;
     }
 
-    if (pDefender && pDefender->dwUnitType == 1 && nColdEffect < 0)
+    if (pDefender && pDefender->dwUnitType == UNIT_MONSTER && nColdEffect < 0)
     {
         const int nColdDivisor = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty)->dwMonsterColdDiv;
         if (nColdDivisor)
@@ -1120,7 +1120,7 @@ static __declspec(noinline) void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* p
         EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
     }
 
-    if ((int)(sub_I19_RollSeedInline(&pDefender->pSeed) % 100) < 20 && pDefender && pDefender->dwUnitType == 1
+    if ((int)(sub_I19_RollSeedInline(&pDefender->pSeed) % 100) < 20 && pDefender && pDefender->dwUnitType == UNIT_MONSTER
         && !sub_004638A0_CheckMonStats2Flag(pDefender->dwClassId, 0x13))
     {
         STATES_ToggleState(pDefender, 0x6B, 1);
@@ -1146,7 +1146,7 @@ void __fastcall SUNITDMG_RemoveFreezeState(D2UnitStrc* pUnit, int nState, D2Stat
     STATES_ToggleState(pUnit, nState, 0);
     SUNIT_SetCombatMode(SUNIT_GetGameFromUnit(pUnit), pUnit, 1);
 
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return;
     }
@@ -1157,7 +1157,7 @@ void __fastcall SUNITDMG_RemoveFreezeState(D2UnitStrc* pUnit, int nState, D2Stat
         return;
     }
 
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
         if (pMonStatsTxtRecord)
@@ -1827,7 +1827,7 @@ void __fastcall sub_0057C1E0_Total(Game* game,Unit* attacker,Unit* defender,Dama
 // build: context SUNITDMG_GetMonStatsTxtRecordFromUnit
 static __forceinline D2MonStatsTxt* SUNITDMG_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
     }
@@ -1880,7 +1880,7 @@ static void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2UnitStrc*
     pDamage->dwLifeLeech *= 64;
     pDamage->dwManaLeech *= 64;
 
-    if (pAttacker && pAttacker->dwUnitType == 0)
+    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER)
     {
         D2GameStrc* pAttackerGame = SUNIT_GetGameFromUnit(pAttacker);
         D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pAttackerGame->nDifficulty);
@@ -1894,7 +1894,7 @@ static void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2UnitStrc*
             pDamage->dwManaLeech /= pDifficultyLevelsTxtRecord->dwManaStealDiv;
         }
     }
-    else if (!pAttacker || pAttacker->dwUnitType != 1 || !MONSTERS_GetHirelingTypeId(pAttacker))
+    else if (!pAttacker || pAttacker->dwUnitType != UNIT_MONSTER || !MONSTERS_GetHirelingTypeId(pAttacker))
     {
         if (sub_0057C420_GetConvertedUnitType(pAttacker))
         {
@@ -1993,7 +1993,7 @@ void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker,
 
     if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pDefender)))
     {
-        if (!pAttacker || pAttacker->dwUnitType != 1)
+        if (!pAttacker || pAttacker->dwUnitType != UNIT_MONSTER)
         {
             pDamage->wResultFlags &= (unsigned short)~2;
             return;
@@ -2315,7 +2315,7 @@ static int __stdcall sub_0057CB00(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int 
         return 1;
     }
 
-    if (pUnit && pUnit->dwUnitType == 1 && !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 3))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 3))
     {
         return 1;
     }
@@ -2524,7 +2524,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
 {
     if (UNITS_GetRoom(pUnit) && DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
     {
-        if (!pAttacker || pAttacker->dwUnitType != 1)
+        if (!pAttacker || pAttacker->dwUnitType != UNIT_MONSTER)
         {
             return;
         }
@@ -2980,7 +2980,7 @@ int __stdcall SUNITDMG_RollAndCompareValues(D2UnitStrc* pUnit, int* pFirstValue,
 // 0x0057D810
 static void SUNITDMG_PreventMonsterHeal(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
-    if (pAttacker && pAttacker->dwUnitType == 0 && (pDefender ? pDefender->dwUnitType : 6) == 1 && STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 117, 0))
+    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER && (pDefender ? pDefender->dwUnitType : 6) == 1 && STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 117, 0))
     {
         if (pDefender->dwClassId >= 704 && pDefender->dwClassId <= 709)
         {
@@ -3003,7 +3003,7 @@ static void SUNITDMG_PreventMonsterHeal(D2UnitStrc* pAttacker, D2UnitStrc* pDefe
 // 0x0057D8A0
 static void __stdcall sub_0057D8A0_ApplyTargetDefenseModifiers(int* pAttackRate, int* pDefense, D2UnitStrc* pDefender, D2UnitStrc* pAttacker)
 {
-    if (STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 115, 0) && pDefender && pDefender->dwUnitType == 1
+    if (STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 115, 0) && pDefender && pDefender->dwUnitType == UNIT_MONSTER
         && !MONSTERUNIQUE_CheckMonTypeFlag(pDefender, 10) && !MONSTERS_IsBoss(0, pDefender) && !MONSTERS_GetHirelingTypeId(pDefender))
     {
         *pDefense = 0;
@@ -3012,7 +3012,7 @@ static void __stdcall sub_0057D8A0_ApplyTargetDefenseModifiers(int* pAttackRate,
     int nFractionalTargetAc = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 116, 0);
     if (nFractionalTargetAc > 0)
     {
-        if (pDefender && (pDefender->dwUnitType == 0 || pDefender->dwUnitType == 1
+        if (pDefender && (pDefender->dwUnitType == UNIT_PLAYER || pDefender->dwUnitType == UNIT_MONSTER
             && (MONSTERS_IsBoss(0, pDefender) || MONSTERUNIQUE_CheckMonTypeFlag(pDefender, 2) || MONSTERS_GetHirelingTypeId(pDefender))))
         {
             nFractionalTargetAc /= 2;
@@ -3044,7 +3044,7 @@ static inline int I13_GetUnitType(D2UnitStrc* pUnit)
 
 static inline D2MonStatsTxt* I13_GetMonStatsTxtRecord(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         return DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
     }
@@ -3252,7 +3252,7 @@ int __fastcall sub_0057DCA0_Emit(int nArg, D2UnitStrc* pUnit)
 static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bAvoid)
 {
     int nResult = 0;
-    if (pDefender && pDefender->dwUnitType == 0)
+    if (pDefender && pDefender->dwUnitType == UNIT_PLAYER)
     {
         if (pDefender->dwAnimMode == 3 || pDefender->dwAnimMode == 2)
         {
@@ -3391,7 +3391,7 @@ int __fastcall SUNITDMG_ApplyBlockOrDodge(D2GameStrc* pGame, D2UnitStrc* pAttack
         return SUNITDMG_ApplyDodge(pAttacker, pDefender, bAvoid);
     }
 
-    if (pDefender && pDefender->dwUnitType == 0 && UNITS_IsInMovingMode(pDefender) && pDefender->dwAnimMode != 2)
+    if (pDefender && pDefender->dwUnitType == UNIT_PLAYER && UNITS_IsInMovingMode(pDefender) && pDefender->dwAnimMode != 2)
     {
         nBlockChance /= 3;
     }

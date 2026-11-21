@@ -239,7 +239,7 @@ int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int
         return 0;
     }
 
-    if (!pItem || pItem->dwUnitType != 4 || !pUnit->pInventory)
+    if (!pItem || pItem->dwUnitType != UNIT_ITEM || !pUnit->pInventory)
     {
         return 0;
     }

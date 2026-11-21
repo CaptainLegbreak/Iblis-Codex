@@ -178,7 +178,7 @@ int __stdcall DATATBLS_GetDirFromOverlayTxt(int nOverlayId)
 // 0x006647C0
 int __stdcall D2COMMON_11068_GetCompInfo(D2UnitStrc* pMonster, int nComponent)
 {
-    if (!pMonster || pMonster->dwUnitType != 1)
+    if (!pMonster || pMonster->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

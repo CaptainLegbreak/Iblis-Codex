@@ -1075,11 +1075,11 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             return;
         }
 
-        if (pMonStatsTxtRecord->nSkill[5] > 0 && (STATLIST_GetMaxLifeFromUnit(pTarget) > STATLIST_GetMaxManaFromUnit(pTarget) || pTarget->dwUnitType != 0))
+        if (pMonStatsTxtRecord->nSkill[5] > 0 && (STATLIST_GetMaxLifeFromUnit(pTarget) > STATLIST_GetMaxManaFromUnit(pTarget) || pTarget->dwUnitType != UNIT_PLAYER))
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[5], pMonStatsTxtRecord->nSkill[5], pTarget, 0, 0);
         }
-        else if (pMonStatsTxtRecord->nSkill[6] > 0 && pTarget->dwUnitType == 0)
+        else if (pMonStatsTxtRecord->nSkill[6] > 0 && pTarget->dwUnitType == UNIT_PLAYER)
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[6], pMonStatsTxtRecord->nSkill[6], pTarget, 0, 0);
         }

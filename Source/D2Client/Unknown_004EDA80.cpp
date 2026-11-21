@@ -194,7 +194,7 @@ static D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
 
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
     {
         return pUnit->pStaticPath->nXPos;
     }
@@ -203,7 +203,7 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 
 static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
     {
         return pUnit->pStaticPath->nYPos;
     }
@@ -535,7 +535,7 @@ int __fastcall sub_004F2870_TargetIsPlayerOrMonster(D2UnitStrc* pUnit, int nSkil
         return 0;
     }
 
-    if (pTarget->dwUnitType == 1 || pTarget->dwUnitType == 0)
+    if (pTarget->dwUnitType == UNIT_MONSTER || pTarget->dwUnitType == UNIT_PLAYER)
     {
         return 1;
     }

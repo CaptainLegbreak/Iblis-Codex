@@ -999,7 +999,7 @@ int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
     *pSize = 0;
 
     int nResult;
-    if (!pPlayer || pPlayer->dwUnitType != 0)
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
     {
         nResult = 2;
         goto LABEL_FAIL;

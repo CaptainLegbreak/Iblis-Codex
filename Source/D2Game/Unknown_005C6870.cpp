@@ -33,7 +33,7 @@ static __declspec(noinline) int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit
 
 static __forceinline int sub_IsBloodGolem(D2UnitStrc* pUnit)
 {
-    return pUnit && pUnit->dwUnitType == 1 && (!pUnit ? -1 : pUnit->dwClassId) == 290;
+    return pUnit && pUnit->dwUnitType == UNIT_MONSTER && (!pUnit ? -1 : pUnit->dwClassId) == 290;
 }
 
 // 0x005C6870

@@ -55,7 +55,7 @@ int __fastcall MISSILE_GetCalcParamValue(int nParamId, void* pUserData); // 0x00
 // 0x0064A2B0
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames)
 {
-    if (pMissile && pMissile->dwUnitType == 3 && pMissile->pMissileData)
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
     {
         nTotalFrames = D2_MIN(D2_MAX(nTotalFrames, -32768), 32767);
         pMissile->pMissileData->nTotalFrames = nTotalFrames;
@@ -65,7 +65,7 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames)
 // 0x0064A330
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame)
 {
-    if (pMissile && pMissile->dwUnitType == 3 && pMissile->pMissileData)
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
     {
         nCurrentFrame = D2_MIN(D2_MAX(nCurrentFrame, -32768), 32767);
         pMissile->pMissileData->nCurrentFrame = nCurrentFrame;
@@ -96,7 +96,7 @@ static __forceinline unsigned int GetUnitId(D2UnitStrc* pUnit)
 // 0x0064A470
 int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
-    if (pMissile && pUnit && pMissile->dwUnitType == 3)
+    if (pMissile && pUnit && pMissile->dwUnitType == UNIT_MISSILE)
     {
         D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecordInline(pMissile->dwClassId);
         if (pMissilesTxtRecord && pMissilesTxtRecord->nMissileFlags[0 >> 3] & gdwBitMasks[0 & 7])
@@ -115,7 +115,7 @@ int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 // 0x0064A5F0
 void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame)
 {
-    if (pMissile && pMissile->dwUnitType == 3 && pMissile->pMissileData)
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
     {
         nActivateFrame = D2_MIN(D2_MAX(nActivateFrame, -32768), 32767);
         pMissile->pMissileData->nActivateFrame = nActivateFrame;
@@ -125,7 +125,7 @@ void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame
 // 0x0064A690
 void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed)
 {
-    if (pMissile && pMissile->dwUnitType == 3)
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
     {
         pMissile->wAnimSpeed = D2_MIN(D2_MAX(nAnimSpeed, -32768), 32767);
     }

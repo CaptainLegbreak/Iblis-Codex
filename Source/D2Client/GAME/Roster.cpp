@@ -1180,7 +1180,7 @@ char* __fastcall sub_0047A1F0_GetNameEx(int nUnitId)
 char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x5DB);
-    D2_ASSERT(pUnit->dwUnitType == 0, 0x5DC);
+    D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0x5DC);
     D2StoredUnitRecordStrc* pRec = sub_004792E0_FindRosterUnit(pUnit->dwUnitId);
     if (!pRec)
     {

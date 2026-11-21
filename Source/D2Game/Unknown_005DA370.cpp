@@ -115,7 +115,7 @@ static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
 
 static __forceinline int sub_I16_IsMonster(D2UnitStrc* pUnit)
 {
-    return pUnit->dwUnitType == 1;
+    return pUnit->dwUnitType == UNIT_MONSTER;
 }
 
 // build: context sub_005D9F70_SetLeapVelocity

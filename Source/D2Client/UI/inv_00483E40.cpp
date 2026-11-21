@@ -615,7 +615,7 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
     Next:
         pNode = INVENTORY_GetNextItem(pNode);
     }
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         return;
     }

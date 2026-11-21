@@ -2227,7 +2227,7 @@ int __fastcall SKILLS_SrvDo042_DragonTalon(D2GameStrc* pGame, D2UnitStrc* pUnit,
         int nLevel = nSkillLevel + nTargetLevel - STATLIST_UnitGetStatValue(pTarget, 0x0C, 0);
         nLevel = MIN(MAX(nLevel, 1), nSkillLevel);
 
-        if (pTarget->dwUnitType == 0 || MONSTERS_GetHirelingTypeId(pTarget))
+        if (pTarget->dwUnitType == UNIT_PLAYER || MONSTERS_GetHirelingTypeId(pTarget))
         {
             nChance = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nLevel);
         }

@@ -2761,7 +2761,7 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
     {
         return;
     }
-    if (pUnit->dwUnitType == 4)
+    if (pUnit->dwUnitType == UNIT_ITEM)
     {
         const unsigned char nBodyLoc = ITEMS_GetBodyLocation(pUnit);
         if (nBodyLoc == 11 || nBodyLoc == 12)

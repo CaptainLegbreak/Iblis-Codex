@@ -465,7 +465,7 @@ void __cdecl sub_00469000_HotkeyRunOn()
         return;
     if (sub_00463DF0())
         return;
-    if (pPlayer->dwUnitType != 0)
+    if (pPlayer->dwUnitType != UNIT_PLAYER)
         return;
     if (pPlayer->dwAnimMode != 2)
         return;
@@ -563,7 +563,7 @@ void __cdecl sub_004691C0_HotkeyRunOff()
         return;
     if (sub_0044BE90())
         return;
-    if (pPlayer->dwUnitType != 0)
+    if (pPlayer->dwUnitType != UNIT_PLAYER)
         return;
     if (pPlayer->dwAnimMode != 3)
         return;

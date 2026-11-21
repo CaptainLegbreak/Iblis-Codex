@@ -168,7 +168,7 @@ static __forceinline int GetY(D2UnitStrc* pUnit)
 
 static __forceinline D2AiParamStrc* GetAiParam(D2UnitStrc* pUnit)
 {
-    return pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData ? pUnit->pMonsterData->pAiParam : 0;
+    return pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData ? pUnit->pMonsterData->pAiParam : 0;
 }
 
 // 0x005E5C50

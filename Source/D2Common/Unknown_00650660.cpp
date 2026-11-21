@@ -410,7 +410,7 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
     pPath->nCollidedWithMask = 0;
     *pSteps = 0;
 
-    const BOOL bRepath = pUnit && pUnit->dwUnitType == 1 && (pPath->dwFlags & 0x10);
+    const BOOL bRepath = pUnit && pUnit->dwUnitType == UNIT_MONSTER && (pPath->dwFlags & 0x10);
     if (!pPath->tVelocityVector.nX && !pPath->tVelocityVector.nY)
     {
         pPath->dwPathPoints = 0;
@@ -544,7 +544,7 @@ __declspec(noinline) static BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestR
 static BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
 {
     D2UnitStrc* pUnit = pPath->pUnit;
-    if (pUnit && pUnit->dwUnitType == 3)
+    if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
     {
         if (PATH_IsZeroPoint(tDest))
         {
@@ -604,7 +604,7 @@ static BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPoi
     D2PathPointStrc tCurrentPos;
     tCurrentPos.X = pPath->tGameCoords.wPosX;
     tCurrentPos.Y = pPath->tGameCoords.wPosY;
-    if (pPath->pUnit && pPath->pUnit->dwUnitType == 3)
+    if (pPath->pUnit && pPath->pUnit->dwUnitType == UNIT_MISSILE)
     {
         if (PATH_IsZeroPoint(tDest))
         {

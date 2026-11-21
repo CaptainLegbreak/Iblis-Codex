@@ -283,14 +283,14 @@ void __fastcall ACT5Q3_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitS
 
 static __forceinline int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nX;
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
 static __forceinline int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
+    if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
         return pUnit->pStaticPath->tGameCoords.nY;
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
@@ -436,7 +436,7 @@ static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData
 // 0x00589340
 static void sub_00589340_RemoveNihlathakInTown(D2QuestDataStrc* pQuestData, D2UnitStrc* pNihlathak)
 {
-    D2MonsterInteractStrc* pMonInteract = pNihlathak && pNihlathak->dwUnitType == 1 && pNihlathak->pMonsterData ? pNihlathak->pMonsterData->pMonInteract : 0;
+    D2MonsterInteractStrc* pMonInteract = pNihlathak && pNihlathak->dwUnitType == UNIT_MONSTER && pNihlathak->pMonsterData ? pNihlathak->pMonsterData->pMonInteract : 0;
     if (MONSTERAI_HasInteractUnit(pMonInteract))
     {
         sub_00573180(pQuestData->pGame, pNihlathak, 0, 0);
@@ -464,7 +464,7 @@ static void sub_005893E0_RemoveTownNpcs(D2QuestDataStrc* pQuestData)
         D2UnitStrc* pDrehya = SUNIT_GetServerUnit(pQuestData->pGame, 1, pQuestDataEx->nDrehyaMonsterInTownGUID);
         if (pDrehya)
         {
-            D2MonsterInteractStrc* pMonInteract = pDrehya->dwUnitType == 1 && pDrehya->pMonsterData ? pDrehya->pMonsterData->pMonInteract : 0;
+            D2MonsterInteractStrc* pMonInteract = pDrehya->dwUnitType == UNIT_MONSTER && pDrehya->pMonsterData ? pDrehya->pMonsterData->pMonInteract : 0;
             if (MONSTERAI_HasInteractUnit(pMonInteract))
             {
                 sub_00573180(pQuestData->pGame, pDrehya, 0, 0);

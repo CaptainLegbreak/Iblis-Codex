@@ -123,7 +123,7 @@ static __forceinline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDi
 static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile)
 {
     int nPierce = 0;
-    if (pOwner && pOwner->dwUnitType != 0 && pOwner->dwUnitType != 1)
+    if (pOwner && pOwner->dwUnitType != UNIT_PLAYER && pOwner->dwUnitType != UNIT_MONSTER)
     {
         return;
     }
@@ -141,7 +141,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
 
     int nSeed;
-    if (pOwner && pOwner->dwUnitType == 0 && sub_00463DD0_GetPlayerUnit() != pOwner)
+    if (pOwner && pOwner->dwUnitType == UNIT_PLAYER && sub_00463DD0_GetPlayerUnit() != pOwner)
     {
         nChance = 100;
         nSeed = 0;

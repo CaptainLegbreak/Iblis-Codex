@@ -650,7 +650,7 @@ NEXT_TEXT:;
     int anNumber[0x20];
     D2ZeroDwordStrc aText[0x40];
     Unicode* wszText = (Unicode*)aText;
-    if (pPlayer && pPlayer->dwUnitType == 0)
+    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
     {
         D2CharStatsTxt* pCharStatsTxtRecord = sub_CharStatsTxtRecord(pPlayer->dwClassId);
         sub_004A7080(gnGlobal_007A2858 + 0xC1, gnGlobal_007A285C + gnGlobal_00711470 - 0x1C7, gnGlobal_007A2858 + 0x136, (const Unicode*)pCharStatsTxtRecord->wszClassName, 0);
@@ -701,7 +701,7 @@ NEXT_TEXT:;
         {
             nValue >>= 8;
             D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
-            if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode != 0x11 && (unsigned int)nValue <= 1)
+            if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11 && (unsigned int)nValue <= 1)
             {
                 nValue = 1;
             }

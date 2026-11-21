@@ -3238,7 +3238,7 @@ int __fastcall sub_004B1050_GetMonsterValue(D2UnitStrc* pUnit, char* pNotFound, 
 {
     *pNotFound = 1;
     *pValue = -1;
-    if (pUnit->dwUnitType == 1 && pUnit->pMonsterData && pUnit->pMonsterData->nUnk0x3C != -1)
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nUnk0x3C != -1)
     {
         *pValue = pUnit->pMonsterData->nUnk0x3C;
         *pNotFound = 0;

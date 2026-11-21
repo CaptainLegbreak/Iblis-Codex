@@ -657,7 +657,7 @@ inline int MONSTERS_GetBaseIdInl(int nMonsterId)
 
 inline unsigned char MONSTERS_GetComponent10Inl(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nComponent[10];
     }
@@ -690,7 +690,7 @@ inline int CLIENTS_GetUnitYInl(D2UnitStrc* pUnit)
 
 inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInl(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->pAiControl;
     }
@@ -701,7 +701,7 @@ inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInl(D2UnitStrc* pUnit)
 
 inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInl(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         return pUnit->pMonsterData;
     }
@@ -849,7 +849,7 @@ static void __stdcall sub_00541FE0_SaveSpecialMonsterParameters(D2GameStrc* pGam
         }
     }
 
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         const int nBaseId = MONSTERS_GetBaseIdInl(pUnit->dwClassId);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -1018,7 +1018,7 @@ static void __stdcall sub_005421A0_CompressInactiveMonster(D2GameStrc* pGame, D2
 
 inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* unit)
 {
-    if (unit && unit->dwUnitType == 1 && unit->pMonsterData) return unit->pMonsterData->pAiControl;
+    if (unit && unit->dwUnitType == UNIT_MONSTER && unit->pMonsterData) return unit->pMonsterData->pAiControl;
     return 0;
 }
 
@@ -1325,7 +1325,7 @@ inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordFromMonsterIdInl(int nMonst
 // 0x00542E10
 static void __stdcall sub_00542E10_CompressInactiveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         sub_005421A0_CompressInactiveMonster(pGame, pUnit);
         return;
@@ -1576,7 +1576,7 @@ static void __stdcall sub_005431F0_CompressMonsterIfNeeded(D2GameStrc* pGame, D2
     if (UNIT_HasFlag(pUnit, 0x80000000))
     {
         D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
-        if (pOwner && pOwner->dwUnitType == 0)
+        if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
         {
             bUnk = sub_6FC7D5F0(pGame, pOwner, pUnit);
         }
@@ -1628,7 +1628,7 @@ void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc
     const int nClassId = pUnit->dwClassId;
     bCompress = 0;
 
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         sub_005431F0_CompressMonsterIfNeeded(pGame, pUnit);
         return;

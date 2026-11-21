@@ -185,7 +185,7 @@ static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nId)
 // build: context AIGENERAL_GetAiControlFromUnit
 static __forceinline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData) return pUnit->pMonsterData->pAiControl;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) return pUnit->pMonsterData->pAiControl;
     return 0;
 }
 

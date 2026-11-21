@@ -214,7 +214,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 
 static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, int nY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
-    if (pUnit && pUnit->dwUnitType == 5
+    if (pUnit && pUnit->dwUnitType == UNIT_TILE
         && sub_00463EE0_IsPointInTileRect(pUnit, nX1, nY1)
         && sub_00463EE0_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)
@@ -424,7 +424,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
     D2UnitFindCallback pfnTest = 0;
     if (SKILLS_GetSkillIdFromSkill(pSkill, ".\\GAME\\Select.cpp", 0x301) == 0x5A)
     {
-        if (pUnit && pUnit->dwUnitType == 4)
+        if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
         {
             const int nClassId = pUnit->dwClassId;
             if (ITEMS_IsMetalItem(nClassId))
@@ -480,7 +480,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             if (UNIT_HasFlag(pTarget, 4))
             {
                 if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
-                    || (pTarget->dwUnitType == 1 && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
+                    || (pTarget->dwUnitType == UNIT_MONSTER && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {
                     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
@@ -525,7 +525,7 @@ D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitSt
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pUnit)
     {
-        if (pUnit->dwUnitType == 0 && sub_00464820_IsDeadOrDying(pUnit))
+        if (pUnit->dwUnitType == UNIT_PLAYER && sub_00464820_IsDeadOrDying(pUnit))
         {
             return pUnit;
         }

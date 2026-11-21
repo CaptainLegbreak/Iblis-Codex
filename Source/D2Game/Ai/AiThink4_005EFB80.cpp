@@ -504,7 +504,7 @@ void __fastcall sub_005F39B0_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
 
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 337 - pGame->dwGameFrame % 337);
 
-        if (pTarget && pTarget->dwUnitType == 0 && !SUNIT_IsDead(pTarget))
+        if (pTarget && pTarget->dwUnitType == UNIT_PLAYER && !SUNIT_IsDead(pTarget))
         {
             const int nExpireFrame = pGame->dwGameFrame + 1728000;
             D2StatListStrc* pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pTarget ? 6 : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId);

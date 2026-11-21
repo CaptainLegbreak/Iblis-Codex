@@ -130,7 +130,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 
 static int __stdcall sub_6FDAA880(D2PathPointStrc tPoint, int* pTestDir, int* pDirection, D2PathInfoStrc* pPathInfo)
 {
-    D2_ASSERT(((pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == 0) || (pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == 1)) != 0, 52);
+    D2_ASSERT(((pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pPathInfo->pDynamicPath->pUnit && pPathInfo->pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 52);
 
     const int nCollisionMask = pPathInfo->nCollisionMask;
     D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
@@ -337,7 +337,7 @@ static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D
 {
     D2PathPointStrc tPoint;
 
-    D2_ASSERT(((pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 0) || (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 1)) != 0, 324);
+    D2_ASSERT(((pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER)) != 0, 324);
     D2_ASSERT(pDynamicPath->eType != 4, 325);
     D2_ASSERT(pGameCoord->X != 0, 326);
     D2_ASSERT(pGameCoord->Y != 0, 327);
@@ -1202,7 +1202,7 @@ static int PATH_FindNonCollidingTargetPoint(D2PathInfoStrc* pInfo, D2PathMovStrc
     const int nCollisionMask = pInfo->nCollisionMask;
     const int nCollisionPattern = pInfo->nCollisionPattern;
     D2ActiveRoomStrc* pRoom = pInfo->pStartRoom;
-    D2_ASSERT((pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == 0) || (pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == 1), 290);
+    D2_ASSERT((pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER) || (pInfo->pDynamicPath->pUnit && pInfo->pDynamicPath->pUnit->dwUnitType == UNIT_MONSTER), 290);
 
     pMov->bReachedDeadEnd = 0;
     if (!PATH_TestNewTargetPoint(pMov, pRoom, nCollisionPattern, nCollisionMask))

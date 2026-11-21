@@ -1785,7 +1785,7 @@ void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, in
 // 0x00648CF0
 void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
 {
-    D2_ASSERT(!(ptPath->pUnit && ptPath->pUnit->dwUnitType == 0 && eType == 2), 0x861);
+    D2_ASSERT(!(ptPath->pUnit && ptPath->pUnit->dwUnitType == UNIT_PLAYER && eType == 2), 0x861);
 
     int nFlag = gaPathTypeFlags_006EB690[eType];
     if ((nFlag & 0x2000) && !(ptPath->dwFlags & 0x4000))

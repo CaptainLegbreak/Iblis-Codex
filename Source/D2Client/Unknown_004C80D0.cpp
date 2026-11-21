@@ -112,7 +112,7 @@ static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc*
         }
     }
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
         sub_004CB9C0_Request(pUnit, 19);
     return 0;
 }

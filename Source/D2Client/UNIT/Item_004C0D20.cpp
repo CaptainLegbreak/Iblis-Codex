@@ -321,7 +321,7 @@ void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket)
     INVENTORY_Return(".\\UNIT\\Item.cpp", 1231, pInventory, tItemSave.nX, tItemSave.nY, nInventoryRecordId, 1, nPage);
     sub_00487990_ResetHover();
 
-    if (pOwner->dwUnitType == 0)
+    if (pOwner->dwUnitType == UNIT_PLAYER)
     {
         sub_0063BEF0_GetLeftWeapon(pOwner->pInventory);
     }

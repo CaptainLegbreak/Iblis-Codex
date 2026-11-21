@@ -2557,7 +2557,7 @@ void __fastcall sub_0045C9A0_GamePacket04_LoadDone(void* pPacket)
     {
         sub_00470B10_PreloadForceAct(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
             pPlayer->pPlayerData->nMode = 0;
@@ -2632,7 +2632,7 @@ void __fastcall sub_0045CB90_GamePacket09_AssignWarp(D2GSPacketSrv09* pPacket)
     const unsigned short nX = pPacket->nPosX;
     const unsigned short nY = pPacket->nPosY;
     D2UnitStrc* pUnit = sub_004661C0_AllocClientUnit(nUnitGUID, pPacket->unk0x06, nX, nY, pPacket->nUnitType, 0);
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         sub_00470B70_ResetMonsterModeGfx(pUnit);
 }
 
@@ -2896,12 +2896,12 @@ void __fastcall sub_0045D160(const unsigned char* pPacket)
         pUnit->pDrlgAct = gpDrlgAct_007A0634;
         if (pUnit->pDynamicPath)
         {
-            if (pUnit->dwUnitType == 0)
+            if (pUnit->dwUnitType == UNIT_PLAYER)
             {
                 D2Common_10214(pUnit);
                 PATH_SetMoveTestCollisionMask(pUnit->pDynamicPath, 0x1C09);
             }
-            else if (pUnit->dwUnitType == 1 && !MONSTERS_IsDead(pUnit))
+            else if (pUnit->dwUnitType == UNIT_MONSTER && !MONSTERS_IsDead(pUnit))
             {
                 PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x100);
             }

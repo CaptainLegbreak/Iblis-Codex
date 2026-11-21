@@ -109,7 +109,7 @@ D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nA
     }
 
     D2UnitStrc* pOwner = pUnit;
-    if (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER)
     {
         pOwner = sub_004639D0_GetOwnerUnit(pUnit);
         if (!pOwner)
@@ -140,7 +140,7 @@ D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc* pUnit, int nArg0, int nOffsetX, 
     }
 
     D2UnitStrc* pOwner = pUnit;
-    if (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER)
     {
         pOwner = sub_004639D0_GetOwnerUnit(pUnit);
         if (!pOwner)
@@ -191,7 +191,7 @@ D2UnitStrc* __fastcall sub_004CDD10_SubmitTargetRequest(D2UnitStrc* pUnit, int n
     }
 
     D2UnitStrc* pOwner = pUnit;
-    if (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER)
     {
         pOwner = sub_004639D0_GetOwnerUnit(pUnit);
         if (!pOwner)

@@ -95,7 +95,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
 {
     if (!bForce && pUnit && (pUnit->dwFlagEx & 0x40000))
         return;
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode == 0x11 && !STATES_CheckState(pUnit, 7))
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 0x11 && !STATES_CheckState(pUnit, 7))
         return;
     if (!bForce && pUnit && pUnit->dwUnitType > 0 && pUnit->dwUnitType <= 2)
     {
@@ -117,7 +117,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     if (bPerspective)
     {
         int bOrder = 0;
-        if (pUnit && pUnit->dwUnitType == 2)
+        if (pUnit && pUnit->dwUnitType == UNIT_OBJECT)
         {
             D2ObjectsTxt* pObjectsRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
             if (pObjectsRecord->nOrderFlag[UNITS_GetAnimOrSeqMode(pUnit)] == 2)

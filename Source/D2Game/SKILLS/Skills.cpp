@@ -1537,7 +1537,7 @@ static __forceinline int GetClassId(D2UnitStrc* pUnit)
 // 0x0056C700
 int __fastcall D2GAME_CheckSkillIfUnitsClassSkill_6FD11B50(D2UnitStrc* pUnit, int nSkillId)
 {
-    if (pUnit && pUnit->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
         D2SkillsTxt* pSkillsTxtRecord = GetSkillsTxtRecord(nSkillId);
         if (pSkillsTxtRecord)
@@ -1775,7 +1775,7 @@ int __fastcall SKILLS_SrvSt03_Unsummon(D2GameStrc* game, D2UnitStrc* unit, int s
         return 0;
     if (!unit)
         return 0;
-    if (unit->dwUnitType != 0)
+    if (unit->dwUnitType != UNIT_PLAYER)
         return 0;
     if (AIGENERAL_GetMinionOwner(target) != unit)
         return 0;
@@ -1939,7 +1939,7 @@ int __fastcall sub_6FD13330(D2GameStrc* pGame, D2UnitStrc* pUnit, int a5, int nS
 
 inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->pAiControl;
     }
@@ -3030,7 +3030,7 @@ D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse)
     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord(nState);
     if (!pStatesTxtRecord)
         return 0;
-    if (pTarget && pTarget->dwUnitType == 1)
+    if (pTarget && pTarget->dwUnitType == UNIT_MONSTER)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = 0;
         if (pTarget->dwClassId >= 0 && pTarget->dwClassId < sgptDataTables->nMonStatsTxtRecordCount)

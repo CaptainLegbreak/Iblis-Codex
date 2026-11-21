@@ -372,7 +372,7 @@ static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCost
     }
 
     nValue >>= pRecord->nValShift;
-    if (nStatId == 122 && pUnit && pUnit->dwUnitType == 4 && ITEMSIsA(pUnit, 57))
+    if (nStatId == 122 && pUnit && pUnit->dwUnitType == UNIT_ITEM && ITEMSIsA(pUnit, 57))
         nValue += 50;
 
     return nValue;
@@ -912,7 +912,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
             break;
 
         D2UnitStrc* pPlayer = pUnit;
-        if (!pPlayer || pPlayer->dwUnitType != 0)
+        if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
             pPlayer = sub_00463DD0_GetPlayerUnit();
 
         const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
@@ -1192,7 +1192,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
             STATLIST_MergeBaseStats(pMerged, pExtra);
     }
 
-    if (pUnit && pUnit->dwUnitType == 4 && pUnit->pInventory)
+    if (pUnit && pUnit->dwUnitType == UNIT_ITEM && pUnit->pInventory)
     {
         D2UnitStrc* pSocketed = INVENTORY_GetFirstItem(pUnit->pInventory);
         while (pSocketed)
@@ -1267,7 +1267,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
         }
     }
 
-    if (pUnit && pUnit->dwUnitType == 4)
+    if (pUnit && pUnit->dwUnitType == UNIT_ITEM)
     {
         const int nClassId = pUnit->dwClassId;
         D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nClassId);

@@ -923,7 +923,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     if (pTarget) {
         if (UNITS_IsInMeleeRange(pUnit, pTarget, 0)) {
-            if (pUnit->dwUnitType == 0) return sub_6FD150A0(pGame, pUnit, pTarget);
+            if (pUnit->dwUnitType == UNIT_PLAYER) return sub_6FD150A0(pGame, pUnit, pTarget);
             SUNIT_SetCombatMode(pGame, pUnit, 1);
             UNITS_SetUsedSkill(pUnit, 0);
             const int nMonsterId = sub_00463900_GetValidMonsterId(sub_00463860(pUnit));
@@ -946,7 +946,7 @@ int __fastcall sub_005CF6B0_StartCharge(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
     SKILLS_SetParam4(pSkill, 7);
     int nVelocity = 256;
-    if (pUnit->dwUnitType == 0) {
+    if (pUnit->dwUnitType == UNIT_PLAYER) {
         D2CharStatsTxt* pRecord = sub_004833E0_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pRecord) nVelocity = pRecord->nRunSpeed << 8;
     } else {
@@ -1005,7 +1005,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     if (nFlags & 1)
     {
         int nRange = 0;
-        if (pUnit && pUnit->dwUnitType == 1 && (nFlags & 2)) nRange = 3;
+        if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && (nFlags & 2)) nRange = 3;
         if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, nRange))
         {
             SKILLS_SetFlags(pSkill, 0);
@@ -1025,7 +1025,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             }
             else
             {
-                if (!pUnit || pUnit->dwUnitType != 1 || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 436 || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 441)
+                if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 436 || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 441)
                 {
                     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
                     EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 1, 0, 0);
@@ -1063,12 +1063,12 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         }
     }
     int nRange = 0;
-    if (pUnit && pUnit->dwUnitType == 1) nRange = 3;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER) nRange = 3;
     if (UNITS_IsInMeleeRange(pUnit, pTarget, nRange) && !SUNIT_IsDead(pUnit))
     {
         D2DamageStrc damage;
         memset(&damage, 0, sizeof(damage));
-        if (pUnit && pUnit->dwUnitType == 0)
+        if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         {
             damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0) | 8;
         }
@@ -1080,7 +1080,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             if (damage.dwConvPct > 0) damage.nConvType = pRecord->nEType;
         }
         D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
-        if (pUnit && pUnit->dwUnitType == 1)
+        if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         {
             int nMode;
             switch (sub_00463900_GetValidMonsterId(pUnit->dwClassId))
@@ -1433,7 +1433,7 @@ int __fastcall SKILLS_AuraCallback_HolyFreeze(D2AuraCallbackStrc* pAuraCallback,
     D2GameStrc* pGame = pAuraCallback->pGame;
     D2UnitStrc* pOwner = pAuraCallback->pOwner;
     D2DamageAuraParamStrc* pArgs = (D2DamageAuraParamStrc*)pAuraCallback->pArgs;
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit->dwClassId);
         if (!pMonStatsTxtRecord)

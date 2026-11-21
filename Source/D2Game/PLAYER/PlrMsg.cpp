@@ -1274,7 +1274,7 @@ int __fastcall sub_6FC82360(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int bSkipHpC
 
 static __forceinline D2MonsterInteractStrc* PLRMSG_GetMonInteract(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->pMonInteract;
     }
@@ -2693,7 +2693,7 @@ MalformedChat:
     D2GSPacketSrv26Args args;
     args.pPacket26 = &packet26;
     args.pPacket15 = &packet15;
-    args.nUnitId = pUnit && pUnit->dwUnitType == 0 ? pUnit->dwUnitId : -1;
+    args.nUnitId = pUnit && pUnit->dwUnitType == UNIT_PLAYER ? pUnit->dwUnitId : -1;
     GAME_ForEachIngameClient(pGame, pCallback, &args);
     if (packet26.nMessageType == 2)
     {
@@ -5018,13 +5018,13 @@ int __fastcall D2GAME_PACKET_Handler_6FC89320(D2GameStrc* pGame,D2UnitStrc* pUni
 // 0x0054D8A0
 void __fastcall D2GAME_PLRMSG_Last_6FC89450(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
-    const bool bDefenderIsPlayer = pDefender && pDefender->dwUnitType == 0;
+    const bool bDefenderIsPlayer = pDefender && pDefender->dwUnitType == UNIT_PLAYER;
     D2_ASSERT(bDefenderIsPlayer, 0x19B4);
 
-    if (pAttacker && pAttacker->dwUnitType == 1)
+    if (pAttacker && pAttacker->dwUnitType == UNIT_MONSTER)
     {
         D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pAttacker);
-        if (pOwner && pOwner->dwUnitType == 0)
+        if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
         {
             pAttacker = pOwner;
         }

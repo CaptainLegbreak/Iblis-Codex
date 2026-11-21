@@ -959,7 +959,7 @@ void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* ptUnit)
         break;
     }
 
-    if (ptUnit->dwUnitType == 4)
+    if (ptUnit->dwUnitType == UNIT_ITEM)
     {
         ITEMS_SetItemFlag(ptUnit, 0x20, 0);
         ITEMS_SetItemFlag(ptUnit, 0x2000, 0);
@@ -1719,11 +1719,11 @@ int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
     if (pUnit)
     {
         D2UnitStrc* pOwner = 0;
-        if (pUnit->dwUnitType == 1)
+        if (pUnit->dwUnitType == UNIT_MONSTER)
         {
             pOwner = AIGENERAL_GetMinionOwner(pUnit);
         }
-        else if (pUnit->dwUnitType == 3)
+        else if (pUnit->dwUnitType == UNIT_MISSILE)
         {
             pOwner = SUNIT_GetOwner_Inline(pGame, pUnit);
         }
@@ -1751,7 +1751,7 @@ int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
         return 0;
     }
 
-    if (pUnit && pUnit->dwUnitType == 0 && i && i->dwUnitType == 0)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && i && i->dwUnitType == UNIT_PLAYER)
     {
         return PLAYERLIST_CheckFlag(pUnit, i, 8);
     }
@@ -2267,7 +2267,7 @@ static __forceinline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit) { return !pUnit ?
 
 static __forceinline unsigned short SUNIT_GetPartyId_Inline(D2UnitStrc* pPlayer)
 {
-    if (pPlayer && pPlayer->pGame && pPlayer->dwUnitType == 0)
+    if (pPlayer && pPlayer->pGame && pPlayer->dwUnitType == UNIT_PLAYER)
         return PARTY_GetPartyIdForUnitOwner(pPlayer->pGame, pPlayer);
     return 0xFFFF;
 }
@@ -2275,7 +2275,7 @@ static __forceinline unsigned short SUNIT_GetPartyId_Inline(D2UnitStrc* pPlayer)
 // 0x00554DE0
 int __fastcall SUNIT_AreUnitsAligned(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 {
-    if (pUnit1 && pUnit1->dwUnitType == 1)
+    if (pUnit1 && pUnit1->dwUnitType == UNIT_MONSTER)
     {
         D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit1);
         if (pOwner)
@@ -2345,7 +2345,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomSt
         return 0;
     }
 
-    if (hUnit->dwUnitType == 0)
+    if (hUnit->dwUnitType == UNIT_PLAYER)
     {
         D2ClientStrc* pClient = UnitGetClient(hUnit, ".\\UNIT\\SUnit.cpp", 0xC3C);
         D2DrlgCoordsStrc tDrlgCoords;
@@ -2418,7 +2418,7 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* ptGame,D2UnitStrc* hUnit,D2U
     D2CoordStrc point;
     point.nX = CLIENTS_GetUnitX(pDestination);
     point.nY = CLIENTS_GetUnitY(pDestination);
-    D2_ASSERT(hUnit->dwUnitType == 0,348);
+    D2_ASSERT(hUnit->dwUnitType == UNIT_PLAYER,348);
     D2ActiveRoomStrc* pFreeRoom = COLLISION_GetFreeCoordinates(pTargetRoom,&point,UNITS_GetUnitSizeX(hUnit),0x1C09,1);
     if (!pFreeRoom) return;
     int nOldLevel = DUNGEON_GetLevelIdFromRoom(pOldRoom);

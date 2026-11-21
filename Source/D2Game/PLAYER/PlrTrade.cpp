@@ -2138,7 +2138,7 @@ int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
             {
                 nResult = 0;
             }
-            if (pItem && pItem->dwUnitType == 4)
+            if (pItem && pItem->dwUnitType == UNIT_ITEM)
             {
                 int nClassId = pItem->dwClassId;
                 D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
@@ -2215,7 +2215,7 @@ void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pCurrent);
         pNext = INVENTORY_GetNextItem(pCurrent);
-        if (pItem && pItem->dwUnitType == 4)
+        if (pItem && pItem->dwUnitType == UNIT_ITEM)
         {
             if (pItem->dwAnimMode == 0)
             {
@@ -2228,7 +2228,7 @@ void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pUnit->pInventory);
-    if (pCursorItem && pCursorItem->dwUnitType == 4)
+    if (pCursorItem && pCursorItem->dwUnitType == UNIT_ITEM)
     {
         INVENTORY_AddItemToTradeInventory(pUnit->pInventory, pCursorItem);
         ITEMS_SetItemCMDFlag(pCursorItem, 1, 1);

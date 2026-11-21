@@ -269,7 +269,7 @@ int __fastcall sub_00464F70_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarg
     if (pUnit && pTarget)
     {
         const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
-        if (!nUnitType || !pTarget->dwUnitType || pTarget->dwUnitType == 1)
+        if (!nUnitType || !pTarget->dwUnitType || pTarget->dwUnitType == UNIT_MONSTER)
         {
             D2SkillStrc* pLeftSkill = UNITS_GetLeftSkill(pUnit);
             if (pLeftSkill)
@@ -283,7 +283,7 @@ int __fastcall sub_00464F70_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarg
             if (SKILLCLT_HasFlag26(UNITS_GetRightSkill(pUnit), 2952) || bLeft)
             {
                 int nTargetId = pTarget->dwUnitId;
-                if (pTarget->dwUnitType != 1 || (nTargetId = sub_00479150_FindRosterIndex(nTargetId)) != -1)
+                if (pTarget->dwUnitType != UNIT_MONSTER || (nTargetId = sub_00479150_FindRosterIndex(nTargetId)) != -1)
                 {
                     return sub_0047A520(pUnit->dwUnitId, nTargetId) != 0;
                 }
@@ -579,7 +579,7 @@ int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther)
             return 0;
         }
 
-        if (pUnit && pUnit->dwUnitType == 0 && pOther && pOther->dwUnitType == 1
+        if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pOther && pOther->dwUnitType == UNIT_MONSTER
             && sub_00479150_FindRosterIndex(pOther->dwUnitId) != -1 && !sub_00464EC0_CheckSkillOwner(pUnit, pOther))
         {
             return 0;
@@ -639,7 +639,7 @@ int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 
     if (nUnitType == 0 && nOtherType == 0)
     {
-        if (pOther && pOther->dwUnitType == 0 && sub_00464820_IsDeadOrDying(pOther) && sub_0047A4F0_TestFlag1(nUnitId, pOther->dwUnitId))
+        if (pOther && pOther->dwUnitType == UNIT_PLAYER && sub_00464820_IsDeadOrDying(pOther) && sub_0047A4F0_TestFlag1(nUnitId, pOther->dwUnitId))
         {
             return 1;
         }
@@ -836,7 +836,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
     if(sub_00464310_CheckMonsterSkillSelect(pUnit,pPlayer))
     {
         if(!pUnit) return 0;
-        if(UNIT_HasFlag(pUnit,2) || (pUnit->dwUnitType==1 && sub_00464820_IsDeadOrDying(pUnit) && sub_00451F30(pUnit,4))) bSelectable=1;
+        if(UNIT_HasFlag(pUnit,2) || (pUnit->dwUnitType==UNIT_MONSTER && sub_00464820_IsDeadOrDying(pUnit) && sub_00451F30(pUnit,4))) bSelectable=1;
     }
     else
     {
@@ -910,7 +910,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
         D2RectStrc tRect;
         UNITS_GetShiftedFrameMetrics(pUnit,&nFrame,&nFrameCount);
         tRect.nBottom=tRect.nRight=tRect.nTop=tRect.nLeft=0;
-        if(pUnit->dwUnitType==0 && pUnit->dwClassId==4 && pUnit->dwAnimMode==18) return 1;
+        if(pUnit->dwUnitType==UNIT_PLAYER && pUnit->dwClassId==4 && pUnit->dwAnimMode==18) return 1;
         if(bAllComponents)
         {
             for(unsigned int nComponent=0;nComponent<16;++nComponent)

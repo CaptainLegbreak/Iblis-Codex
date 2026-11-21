@@ -124,7 +124,7 @@ int __fastcall ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker(D2GameStrc* pGame,
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
-    if (unit && unit->dwUnitType==1 && unit->pMonsterData) return unit->pMonsterData->interact;
+    if (unit && unit->dwUnitType==UNIT_MONSTER && unit->pMonsterData) return unit->pMonsterData->interact;
     return 0;
 }
 

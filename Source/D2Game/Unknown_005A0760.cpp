@@ -49,7 +49,7 @@ D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueI
 // build: context MonsterDataOf
 static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData;
     }
@@ -59,7 +59,7 @@ static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 // build: context UModsOf
 static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nMonUmod;
     }
@@ -69,7 +69,7 @@ static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
 // build: context HasMonTypeFlag
 static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nTypeFlag & nFlag;
     }
@@ -79,7 +79,7 @@ static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 // build: context SetMonTypeFlag
 static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return;
     }
@@ -127,7 +127,7 @@ static __forceinline int CountUModsTo(unsigned char* pUMods)
 // build: context TestMonTypeFlag
 static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
     {
         return 1;
     }
@@ -138,7 +138,7 @@ static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag
 static __forceinline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = 0;
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         pMonsterData = pUnit->pMonsterData;
     }
@@ -451,7 +451,7 @@ static int __stdcall MONSTERUNIQUE_RollNonChampionUMod(D2GameStrc* pGame, D2Unit
 // 0x005A0120
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 {
-    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == 1) ? pUnit->pMonsterData : 0;
+    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData)
     {
         return 0;

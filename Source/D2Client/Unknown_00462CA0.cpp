@@ -477,7 +477,7 @@ static void sub_004619E0_InteractWithTarget(D2PlayerCmdStrc* pCmd, int nTargetId
 
     sub_00481030(pCmd->nMode, pCmd->pPlayer, 0, nTargetId, 0);
     D2UnitStrc* pPlayer = pCmd->pPlayer;
-    if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
     {
         pPlayer->pPlayerData->nState = 1;
         pPlayer->pPlayerData->nMode = 0x13;
@@ -686,7 +686,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
 
     nRange = 5;
 check_range:
-    if (pTarget && pTarget->dwUnitType == 1)
+    if (pTarget && pTarget->dwUnitType == UNIT_MONSTER)
     {
         D2MonStatsTxt* pMonStatsTxt = E06_GetUnitMonStatsTxt(pTarget);
         if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]) && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[0]))
@@ -699,7 +699,7 @@ check_range:
             const int nY = CLIENTS_GetUnitY(pUnit);
             sub_00478700_SendCommand(0x59, nType, nId, CLIENTS_GetUnitX(pCmd->pTarget), nY);
             pUnit = pCmd->pTarget;
-            if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+            if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
                 pUnit->pMonsterData->nClientFlags |= 1;
             sub_00480E70_SetState(pCmd->pTarget, 1);
         }
@@ -713,7 +713,7 @@ check_range:
 
     sub_00481030(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
     D2UnitStrc* pPlayer = pCmd->pPlayer;
-    if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
+    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
     {
         pPlayer->pPlayerData->nState = 1;
         pPlayer->pPlayerData->nMode = 0x13;
@@ -724,28 +724,28 @@ check_range:
 
 static inline int E06_GetPlayerMode(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
         return pUnit->pPlayerData->nMode;
     return 0;
 }
 
 static inline int E06_GetPlayerModeArg1(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
         return pUnit->pPlayerData->nArg1;
     return 0;
 }
 
 static inline int E06_GetPlayerModeArg2(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
         return pUnit->pPlayerData->nArg2;
     return 0;
 }
 
 static inline void E06_ClearPlayerMode(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         pUnit->pPlayerData->nState = 0;
         pUnit->pPlayerData->nMode = 0;
@@ -822,7 +822,7 @@ static int sub_004621D0_PrepareCommand(D2PlayerCmdStrc* pCmd)
 static void sub_00462370_ResumeWalk(D2PlayerCmdStrc* pCmd)
 {
     D2UnitStrc* pPlayer = pCmd->pPlayer;
-    if (!pPlayer || pPlayer->dwUnitType != 0)
+    if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
         return;
 
     if (sub_004648F0_GetTargetUnit(pPlayer))
@@ -880,7 +880,7 @@ static int __stdcall sub_004623C0_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc
     pCmd->nX = nX + nDX;
     pCmd->nY = nY + nDY;
     const unsigned int dwTick = sub_0044DA90();
-    if (pUnit->dwUnitType == 0 && (pCmd->dwFlags & 8))
+    if (pUnit->dwUnitType == UNIT_PLAYER && (pCmd->dwFlags & 8))
     {
         switch (pUnit->dwAnimMode)
         {
@@ -950,7 +950,7 @@ static void sub_004625B0_ExecuteCommand(D2PlayerCmdStrc* pCmd)
         }
     }
 
-    if (pTarget->dwUnitType != 1 || !sub_00464820_IsDeadOrDying(pTarget) || (pSkillsTxt->nFlags[3] & gdwBitMasks[0]))
+    if (pTarget->dwUnitType != UNIT_MONSTER || !sub_00464820_IsDeadOrDying(pTarget) || (pSkillsTxt->nFlags[3] & gdwBitMasks[0]))
         goto with_target;
 
 no_target:
@@ -1332,7 +1332,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* room
 // 0x00463810
 const Unicode* __fastcall sub_00463810_GetMonsterName(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
         return pUnit->pMonsterData->wszMonName;
     return 0;
 }

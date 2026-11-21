@@ -191,7 +191,7 @@ void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor)
 // 0x004637F0
 unsigned char* __fastcall sub_004637F0_GetMonsterComponents(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->nComponent;
     }

@@ -146,14 +146,14 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
 
     if (ITEMSIsA(pItem, 0x14))
     {
-        D2_ASSERT(pUnit->dwUnitType == 4, 0x30);
+        D2_ASSERT(pUnit->dwUnitType == UNIT_ITEM, 0x30);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         ITEMMODS_AssignProperty(2, NULL, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else if (ITEMSIsA(pItem, 0x4A))
     {
-        D2_ASSERT(pUnit->dwUnitType == 4, 0x3A);
+        D2_ASSERT(pUnit->dwUnitType == UNIT_ITEM, 0x3A);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         ITEMMODS_AssignProperty(5, pUnit, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
@@ -168,7 +168,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         return;
     }
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         D2UnitStrc* pLeftHand = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
         if (UNITS_CanDualWield(pUnit))
@@ -391,7 +391,7 @@ void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket)
                 const int nRecordId = UNITS_GetInventoryRecordId(pPlayer, nPage, sub_0044DCC0());
                 INVENTORY_Return(".\\UNIT\\Item.cpp", 0x456, pPlayer->pInventory, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), nRecordId, 1, nPage);
                 sub_00487990_ResetHover();
-                if (pPlayer->dwUnitType == 0)
+                if (pPlayer->dwUnitType == UNIT_PLAYER)
                 {
                     INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
                 }
@@ -477,7 +477,7 @@ void __fastcall sub_004C2C80_ItemFromStorage9D(D2GSPacketSrv9D* pPacket)
     const int nRecordId = UNITS_GetInventoryRecordId(pUnit, nPage, sub_0044DCC0());
     INVENTORY_Return(".\\UNIT\\Item.cpp", 0x4CF, pInventory, tItemSave.nX, tItemSave.nY, nRecordId, 1, nPage);
     sub_00487990_ResetHover();
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
     }
@@ -690,7 +690,7 @@ static void __stdcall sub_004C3F60_BeltItemToCursor(D2GSPacketSrv9C* pPacket, D2
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     D2_ASSERT(pInventory, 0x8AB);
 
-    if (pPlayer->dwUnitType == 0)
+    if (pPlayer->dwUnitType == UNIT_PLAYER)
     {
         INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
     }
@@ -818,7 +818,7 @@ void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket)
     sub_0063C550_Return(pInventory, tItemSave.nX);
     sub_00498D60();
     sub_00498D50(tItemSave.nX, 0);
-    if (pPlayer->dwUnitType == 0)
+    if (pPlayer->dwUnitType == UNIT_PLAYER)
     {
         INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
     }
@@ -897,7 +897,7 @@ void __stdcall sub_004C44D0_ItemFromBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStr
     D2_ASSERT(pRemoved, 0x98F);
     D2_ASSERT(pRemoved == pItem, 0x990);
 
-    if (pPlayer->dwUnitType == 0)
+    if (pPlayer->dwUnitType == UNIT_PLAYER)
     {
         INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
     }
@@ -1029,7 +1029,7 @@ static void __stdcall sub_004C3760_ItemFromBody9D(D2GSPacketSrv9D* pPacket, D2It
         return;
     }
 
-    D2_ASSERT(pUnit->dwUnitType == 0, 0x6ED);
+    D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0x6ED);
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     D2_ASSERT(pInventory, 0x6EF);
@@ -1044,7 +1044,7 @@ static void __stdcall sub_004C3760_ItemFromBody9D(D2GSPacketSrv9D* pPacket, D2It
     D2_ASSERT(pRemoved, 0x6F7);
     D2_ASSERT(pRemoved == pItem, 0x6F8);
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
     }

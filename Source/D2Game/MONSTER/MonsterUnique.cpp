@@ -731,7 +731,7 @@ static int sub_005A3610_IsWideMissile(int nMissileId)
 // 0x005A3610
 void __fastcall sub_005A3610_SpawnSideMissiles(D2GameStrc* pGame, D2UnitStrc* pMissile, int nUnused, int nArg)
 {
-    if (!nArg || !pMissile || pMissile->dwUnitType != 3)
+    if (!nArg || !pMissile || pMissile->dwUnitType != UNIT_MISSILE)
     {
         return;
     }
@@ -799,7 +799,7 @@ void __fastcall sub_005A3610_SpawnSideMissiles(D2GameStrc* pGame, D2UnitStrc* pM
         nDeltaX = 0;
     }
 
-    if (pOwner->dwUnitType == 1)
+    if (pOwner->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)
@@ -811,7 +811,7 @@ void __fastcall sub_005A3610_SpawnSideMissiles(D2GameStrc* pGame, D2UnitStrc* pM
     sub_6FD11420(pGame, nMissileId, pOwner, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), 0, 0, nArg - nDeltaY, nY + nDeltaX, 0);
     sub_6FD11420(pGame, nMissileId, pOwner, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), 0, 0, nArg + nDeltaY, nY - nDeltaX, 0);
 
-    if (pOwner->dwUnitType == 1)
+    if (pOwner->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)

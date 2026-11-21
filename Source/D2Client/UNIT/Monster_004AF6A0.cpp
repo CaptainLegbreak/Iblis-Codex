@@ -441,7 +441,7 @@ static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit)
         return 0;
     }
 
-    if (pUnit->dwUnitType != 1)
+    if (pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }
@@ -712,11 +712,11 @@ int __fastcall sub_004B11F0_CheckStatus(D2UnitStrc* pUnit)
         return 0;
     if (!UNITS_CanSwitchAI(pUnit->dwClassId))
         return 0;
-    if (pUnit->dwUnitType == 1)
+    if (pUnit->dwUnitType == UNIT_MONSTER)
     {
         if (sub_004AC7E0(pUnit, 8))
             return 0;
-        if (pUnit->dwUnitType == 1 && sub_004AC7E0(pUnit, 2))
+        if (pUnit->dwUnitType == UNIT_MONSTER && sub_004AC7E0(pUnit, 2))
             return 0;
     }
     return 1;

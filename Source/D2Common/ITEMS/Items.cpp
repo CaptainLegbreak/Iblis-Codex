@@ -803,7 +803,7 @@ static void __stdcall sub_0062B450_GetSocketedStatBonus(int nStatId, int* pValue
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)
 {
-    if (pItem && pItem->dwUnitType == 4)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
         D2ItemDataStrc* pItemData = (D2ItemDataStrc*)sub_0040B430(pMemPool, sizeof(D2ItemDataStrc), ".\\ITEMS\\Items.cpp", 210, 0);
         D2_ASSERT(pItemData, 213);
@@ -1051,7 +1051,7 @@ void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSe
 // 0x00628110
 unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem)
 {
-    if (pItem && pItem->dwUnitType == 4 && pItem->pItemData)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
         return pItem->pItemData->dwItemFlags;
     return 0;
 }
@@ -1197,7 +1197,7 @@ char* __stdcall ITEMS_GetEarName(D2UnitStrc* pItem)
 // 0x00628370
 void __stdcall ITEMS_SetEarName(D2UnitStrc* pItem, char* szName)
 {
-    if (!pItem || pItem->dwUnitType != 4)
+    if (!pItem || pItem->dwUnitType != UNIT_ITEM)
     {
         return;
     }
@@ -1715,7 +1715,7 @@ int __fastcall sub_00628830_Shim(D2UnitStrc* item, D2UnitStrc* player)
 int __stdcall ITEMS_CheckIfAutoBeltable(D2InventoryStrc* pInventory, D2UnitStrc* hItem)
 {
     D2_ASSERT(hItem, 0x9A6);
-    D2_ASSERT(hItem->dwUnitType == 4, 0x9A7);
+    D2_ASSERT(hItem->dwUnitType == UNIT_ITEM, 0x9A7);
     int nClassId = hItem->dwClassId;
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
     D2_ASSERT(pItemsTxtRecord, 0x9A9);
@@ -2011,7 +2011,7 @@ int __stdcall ITEMS_GetMaxStack(int nItemId)
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* hItem)
 {
     D2_ASSERT(hItem, 3418);
-    D2_ASSERT(hItem->dwUnitType == 4, 3419);
+    D2_ASSERT(hItem->dwUnitType == UNIT_ITEM, 3419);
 
     int nMaxStack = ITEMS_GetMaxStack(hItem->dwClassId) + STATLIST_UnitGetStatValue(hItem, 254, 0);
     if (nMaxStack >= 511)
@@ -2036,7 +2036,7 @@ int __stdcall ITEMS_GetSpawnStackFromItemId(int nItemId)
 int __stdcall ITEMS_GetSpawnStack(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 3451);
-    D2_ASSERT(pItem->dwUnitType == 4, 3452);
+    D2_ASSERT(pItem->dwUnitType == UNIT_ITEM, 3452);
 
     return ITEMS_GetSpawnStackFromItemId(pItem->dwClassId);
 }
@@ -2055,7 +2055,7 @@ int __stdcall ITEMS_GetMinStackFromItemId(int nItemId)
 int __stdcall ITEMS_GetMinStack(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 3475);
-    D2_ASSERT(pItem->dwUnitType == 4, 3476);
+    D2_ASSERT(pItem->dwUnitType == UNIT_ITEM, 3476);
 
     return ITEMS_GetMinStackFromItemId(pItem->dwClassId);
 }
@@ -2199,7 +2199,7 @@ int __stdcall ITEMS_GetGemApplyTypeFromItemId(int nItemId)
 int __stdcall ITEMS_GetGemApplyType(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 3901);
-    D2_ASSERT(pItem->dwUnitType == 4, 3902);
+    D2_ASSERT(pItem->dwUnitType == UNIT_ITEM, 3902);
 
     return ITEMS_GetGemApplyTypeFromItemId(pItem->dwClassId);
 }
@@ -2449,7 +2449,7 @@ unsigned int __stdcall ITEMS_GetTransmogrifyFromItemId(int nItemId)
 unsigned int __stdcall ITEMS_GetTransmogrify(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 4450);
-    D2_ASSERT(pItem->dwUnitType == 4, 4451);
+    D2_ASSERT(pItem->dwUnitType == UNIT_ITEM, 4451);
 
     return ITEMS_GetTransmogrifyFromItemId(pItem->dwClassId);
 }
@@ -2484,7 +2484,7 @@ int __stdcall ITEMS_IsNotQuestItem(D2UnitStrc* pItem)
 unsigned char __stdcall ITEMS_GetHitClassFromItem(D2UnitStrc* hItem)
 {
     D2_ASSERT(hItem, 0x118F);
-    D2_ASSERT(hItem->dwUnitType == 4, 0x1190);
+    D2_ASSERT(hItem->dwUnitType == UNIT_ITEM, 0x1190);
 
     const D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(hItem->dwClassId);
     D2_ASSERT(pItemsTxtRecord, 0x1192);
@@ -2522,7 +2522,7 @@ int __stdcall sub_M88_Emit_0062A2F0(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 
 inline int ITEMS_CheckIfSocketable_Inl(D2UnitStrc* pItem)
 {
-    if (pItem && pItem->dwUnitType == 4)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
         if (D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem->dwClassId))
         {
@@ -2535,7 +2535,7 @@ inline int ITEMS_CheckIfSocketable_Inl(D2UnitStrc* pItem)
 
 inline unsigned int ITEMS_CheckItemFlag_Inl(D2UnitStrc* pItem, unsigned int dwFlag)
 {
-    if (pItem->dwUnitType == 4 && pItem->pItemData)
+    if (pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
         return pItem->pItemData->dwItemFlags & dwFlag;
     }
@@ -2545,7 +2545,7 @@ inline unsigned int ITEMS_CheckItemFlag_Inl(D2UnitStrc* pItem, unsigned int dwFl
 
 inline D2ItemDataStrc* ITEMS_GetItemData_Inl(D2UnitStrc* pItem)
 {
-    return (pItem && pItem->dwUnitType == 4 && pItem->pItemData) ? pItem->pItemData : 0;
+    return (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData) ? pItem->pItemData : 0;
 }
 
 inline int ITEMS_GetItemQuality_Inl(D2UnitStrc* pItem)
@@ -3683,7 +3683,7 @@ int __stdcall ITEMS_GetQuestFromItemId(int nItemId)
 int __stdcall ITEMS_GetQuest(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 1932);
-    D2_ASSERT(pItem->dwUnitType == 4, 1933);
+    D2_ASSERT(pItem->dwUnitType == UNIT_ITEM, 1933);
 
     return ITEMS_GetQuestFromItemId(pItem->dwClassId);
 }
@@ -3819,14 +3819,14 @@ int __fastcall sub_0062A900_Shim(D2UnitStrc* pItem)
 static __forceinline void GetDimensions(D2UnitStrc* item, unsigned char* width, unsigned char* height, const char* file, int line) {
     *width = 0;
     *height = 0;
-    if (item && item->dwUnitType == 4) {
+    if (item && item->dwUnitType == UNIT_ITEM) {
         D2ItemsTxt* txt = DATATBLS_GetItemsTxtRecord(!item ? -1 : item->dwClassId);
         if (txt) { *width = txt->nInvWidth; *height = txt->nInvHeight; }
     }
 }
 
 static __forceinline D2ItemDataStrc* GetData(D2UnitStrc* item) {
-    return (item && item->dwUnitType == 4 && item->pItemData) ? item->pItemData : 0;
+    return (item && item->dwUnitType == UNIT_ITEM && item->pItemData) ? item->pItemData : 0;
 }
 
 static __forceinline unsigned int GetQuality(D2UnitStrc* item) {
@@ -3869,7 +3869,7 @@ static void ITEMS_GetDimensionsInl(D2UnitStrc* pItem, unsigned char* pWidth, uns
     *pWidth = 0;
     *pHeight = 0;
 
-    if (pItem && pItem->dwUnitType == 4)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
         const D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         if (pItemsTxtRecord)
@@ -3894,7 +3894,7 @@ static void ITEMS_SetOrRemoveFlagInl(unsigned int* pFlags, unsigned int nFlag, i
 
 static void ITEMS_SetItemFlagInl(D2UnitStrc* pItem, unsigned int dwFlag, int bSet)
 {
-    if (pItem && pItem->dwUnitType == 4 && pItem->pItemData)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
         ITEMS_SetOrRemoveFlagInl(&pItem->pItemData->dwItemFlags, dwFlag, bSet);
     }
@@ -4368,7 +4368,7 @@ int __stdcall sub_0062C590(D2UnitStrc* pItem)
 
 static inline D2ItemDataStrc* sub_T03_GetItemData(D2UnitStrc* pItem)
 {
-    if (pItem && pItem->dwUnitType == 4)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
         return pItem->pItemData;
     return 0;
 }

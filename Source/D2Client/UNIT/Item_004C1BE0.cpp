@@ -78,14 +78,14 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
 
     if (ITEMSIsA(pItem, 0x14))
     {
-        D2_ASSERT(pUnit->dwUnitType == 4, 0x30);
+        D2_ASSERT(pUnit->dwUnitType == UNIT_ITEM, 0x30);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
     }
     else if (ITEMSIsA(pItem, 0x4A))
     {
-        D2_ASSERT(pUnit->dwUnitType == 4, 0x3A);
+        D2_ASSERT(pUnit->dwUnitType == UNIT_ITEM, 0x3A);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         sub_0065FEC0_ItemApplyProps(5, pUnit, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
@@ -100,7 +100,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         return;
     }
 
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
     {
         D2UnitStrc* pLeftHand = INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
         if (UNITS_CanDualWield(pUnit))
@@ -203,7 +203,7 @@ static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponen
         return;
 
     sub_0063D2B0_DetachItem(pUnit->pInventory, pItem);
-    if (pUnit->dwUnitType == 0)
+    if (pUnit->dwUnitType == UNIT_PLAYER)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
     ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp");
@@ -338,7 +338,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
         if (pItem && ITEMS_GetItemQuality(pItem) == 5 && !ITEMS_CheckItemFlag(pItem, 0x100, 0x247, ".\\UNIT\\Item.cpp")
             && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x248, ".\\UNIT\\Item.cpp"))
         {
-            if (pUnit->dwUnitType == 0)
+            if (pUnit->dwUnitType == UNIT_PLAYER)
                 INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
             ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp");
@@ -350,7 +350,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     sub_004C1200_RestoreSkillState(pUnit, &tState);
     if (bChanged)
     {
-        if (pUnit->dwUnitType == 0)
+        if (pUnit->dwUnitType == UNIT_PLAYER)
         {
             sub_0046F950(pUnit);
             sub_00470610_Refresh(pUnit, 0);

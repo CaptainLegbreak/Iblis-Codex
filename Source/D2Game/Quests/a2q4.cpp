@@ -609,7 +609,7 @@ struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 
 static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
-    if (unit && unit->dwUnitType==1 && unit->pMonsterData) return unit->pMonsterData->pMonInteract;
+    if (unit && unit->dwUnitType==UNIT_MONSTER && unit->pMonsterData) return unit->pMonsterData->pMonInteract;
     return 0;
 }
 
@@ -841,7 +841,7 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* p
 
 static __forceinline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
         return pUnit->pMonsterData->pMonInteract;
     }

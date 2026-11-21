@@ -261,7 +261,7 @@ D2UnitStrc* __fastcall AITHINK_GetTargetForUberMinion(D2GameStrc* pGame, D2UnitS
                 && !SUNIT_IsDead(pPlayer)
                 && (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pPlayer, nX, nY) < 1020)
             {
-                D2_ASSERT(pPlayer && pPlayer->dwUnitType == 0, 5117);
+                D2_ASSERT(pPlayer && pPlayer->dwUnitType == UNIT_PLAYER, 5117);
                 const int nClassChance[7] = { 35, 40, 30, 20, 0, 25, 10 };
                 const int nClass = pPlayer->dwClassId;
                 const unsigned int nRoll = ITEMS_RollRandomNumber(&pUnit->pSeed);

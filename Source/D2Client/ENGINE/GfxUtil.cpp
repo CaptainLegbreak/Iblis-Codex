@@ -584,8 +584,8 @@ int __fastcall sub_0046C600_NearestUnitCallback(D2UnitStrc* pUnit, D2UnitStrc* p
 {
     if (pUnit != pOther && pOther)
     {
-        if (pOther->dwUnitType == 0
-            || pOther->dwUnitType == 1 && pOther->dwClassId != 149 && pOther->dwClassId != 556)
+        if (pOther->dwUnitType == UNIT_PLAYER
+            || pOther->dwUnitType == UNIT_MONSTER && pOther->dwClassId != 149 && pOther->dwClassId != 556)
         {
             if (!sub_00464820_IsDeadOrDying(pUnit))
             {
@@ -656,7 +656,7 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
 // 0x004AC810
 void __fastcall sub_004AC810_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
         if (pMonsterData)

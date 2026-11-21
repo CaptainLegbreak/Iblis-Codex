@@ -841,7 +841,7 @@ void __stdcall sub_00460060_DrawPanelCels(int nFrame1, int nFrame2)
 // 0x00460780
 void __fastcall sub_00460780_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int nArg1, int nArg2)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         pUnit->pPlayerData->nState = 1;
         pUnit->pPlayerData->nMode = nMode;
@@ -1696,7 +1696,7 @@ D2WardenClientM114Strc::D2WardenClientM114Strc() : pServices(gapWardenServices_0
 // 0x00480400
 int __fastcall sub_00480400_GetPlayerField150(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         return pUnit->pPlayerData->nState;
     }

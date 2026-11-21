@@ -102,7 +102,7 @@ static __forceinline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
 // 0x00467470
 int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg)
 {
-    if (pUnit && pUnit->dwUnitType == 4
+    if (pUnit && pUnit->dwUnitType == UNIT_ITEM
         && ITEMS_IsMetalItem(UNITS_GetClassIdInline(pUnit)))
     {
         return 1;

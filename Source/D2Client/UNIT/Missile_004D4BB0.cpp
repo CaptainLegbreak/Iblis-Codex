@@ -72,7 +72,7 @@ void __fastcall sub_004D4BB0_CltDoObjectSpawn(D2UnitStrc* pMissile)
         {
             if (!pUnit)
                 break;
-            if (pUnit->dwUnitType == 2 && (unsigned int)pUnit->dwClassId >= 0x11 && (unsigned int)pUnit->dwClassId < 0x16)
+            if (pUnit->dwUnitType == UNIT_OBJECT && (unsigned int)pUnit->dwClassId >= 0x11 && (unsigned int)pUnit->dwClassId < 0x16)
             {
                 if (pMissilesTxtRecord->wCltSubMissile[0] > 0)
                 {

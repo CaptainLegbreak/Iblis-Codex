@@ -658,7 +658,7 @@ int __fastcall sub_00464600_CanStartMode(D2UnitStrc* pUnit, int nArg)
         return 0;
     }
 
-    if (pUnit->dwUnitType != 0)
+    if (pUnit->dwUnitType != UNIT_PLAYER)
     {
         return 0;
     }
