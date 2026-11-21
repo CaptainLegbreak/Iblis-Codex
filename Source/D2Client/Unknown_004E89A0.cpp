@@ -1,4 +1,5 @@
 #include "D2Txt.h"
+#include "D2Records.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -31,19 +32,6 @@ struct D2SkillsTxt_H
     char unk0x1DD[0x5F];
 };
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x10];
-    unsigned short wStrMana;
-    char unk0x12[0x2A];
-    short wDescMissile[3];
-    unsigned char nDescLine[17];
-    char unk0x53[0x1];
-    unsigned short wDescTextA[17];
-    unsigned short wDescTextB[17];
-    int dwDescCalcA[17];
-    int dwDescCalcB[17];
-};
 
 
 struct D2DifficultyLevelsTxt

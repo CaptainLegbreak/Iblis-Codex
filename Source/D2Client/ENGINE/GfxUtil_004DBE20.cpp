@@ -4,6 +4,7 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2TxtTables.h"
+#include "D2CelContext.h"
 struct D2GfxDataStrc;
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
@@ -23,29 +24,6 @@ struct D2OverlayTxt;
 union D2CompCodeStrc;
 
 
-struct D2CelContextStrc
-{
-    int nArg0;
-    unsigned char nFlags;
-    unsigned char nComponent;
-    short unk0x06;
-    int nType;
-    int nClass;
-    int nMode;
-    int nOverlay;
-    int nArg18;
-    int nArg1C;
-    unsigned int dwToken;
-    unsigned int dwModeToken;
-    unsigned int dwCode;
-    const char* szName;
-    int nFrames;
-    int nArg34;
-    int unk0x38;
-    D2CelStrc* pCel;
-    int nArg40;
-    int unk0x44;
-};
 
 struct D2CompEntryListStrc
 {
@@ -464,8 +442,8 @@ found:
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode)
 {
     pToken->nArg34 = nArg34;
-    pToken->nArg40 = nArg40;
-    pToken->nArg0 = nArg0;
+    pToken->nDirection = nArg40;
+    pToken->nFrame = nArg0;
     pToken->nComponent = nComponent;
     return sub_004DB7B0_ResolveUnitCelContext(pUnit, pToken, nMode, pItemId);
 }
@@ -523,8 +501,8 @@ found:
 
 int __fastcall sub_004DBCF0_FillMonsterCelContextEx(D2CelContextStrc* pToken, int nArg40, int nArg0, unsigned char nComponent, int nMode, unsigned int dwCode0, D2CompEntryListStrc* pList, D2MonCompInfoStrc* pClassInfo, D2CompArgStrc* pArgRec, int nRow)
 {
-    pToken->nArg40 = nArg40;
-    pToken->nArg0 = nArg0;
+    pToken->nDirection = nArg40;
+    pToken->nFrame = nArg0;
     pToken->nComponent = nComponent;
     return sub_004DBB80_FillMonsterCelContext(pList, dwCode0, pToken, nMode, pClassInfo, pArgRec, nRow);
 }
@@ -538,8 +516,8 @@ int __fastcall sub_004DBD30_GetComponentsMaxHeight(D2UnitStrc* pUnit, unsigned c
         D2_ASSERT(nComponent < 0x10, 0x59D);
         D2CelContextStrc tToken;
         memset(&tToken, 0, sizeof(tToken));
-        tToken.nArg40 = nArg40;
-        tToken.nArg0 = nArg0;
+        tToken.nDirection = nArg40;
+        tToken.nFrame = nArg0;
         tToken.nArg34 = 0;
         tToken.nComponent = nComponent;
         int nItemId;
@@ -573,9 +551,9 @@ void __fastcall sub_004DBEA0_GetUnitCelSize(D2UnitStrc* pUnit, int nArg40, int n
 {
     D2CelContextStrc tToken;
     memset(&tToken, 0, sizeof(tToken));
-    tToken.nArg0 = nArg0;
+    tToken.nFrame = nArg0;
     tToken.nArg34 = 0;
-    tToken.nArg40 = nArg40;
+    tToken.nDirection = nArg40;
     tToken.nComponent = 1;
     if (sub_004DB7B0_ResolveUnitCelContext(pUnit, &tToken, -1, &nArg0) && sub_006001F0(&tToken, 0, 1) && tToken.pCel)
     {

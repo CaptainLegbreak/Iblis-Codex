@@ -2,6 +2,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
+#include "D2CelContext.h"
+#include "D2TxtTables.h"
+#include "D2ClientGfx.h"
 #define GFX_MODE_KEEP 0x11
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HashedFileEntryStrc;
@@ -32,18 +35,6 @@ struct D2GfxNodeTargetStrc
     };
 };
 
-struct D2GfxListNodeStrc
-{
-    int nMode;
-    int nId;
-    union
-    {
-        D2GfxNodeTargetStrc* pTarget;
-        D2HashedFileEntryStrc* f_8;
-    };
-    char unk0x0C[0x4];
-    D2GfxListNodeStrc* pNext;
-};
 
 struct D2UnitOverlayStrc
 {
@@ -73,19 +64,7 @@ struct D2GfxDataStrc
     int nUnk0x38;
 };
 
-struct D2HashedFileStrc
-{
-    int f_0;
-    unsigned char* pData;
-    unsigned int nSize;
-    D2HashedFileEntryStrc* f_C[0x200];
-};
 
-struct D2MonGfxCacheStrc
-{
-    int f_0[20];
-    int aPending[20];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -109,34 +88,7 @@ extern char gData_007A7490[0x460]; // 0x007A7490
 extern int gdwGlobal_007A8910; // 0x007A8910
 extern int gdwGlobal_007A891C; // 0x007A891C
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    unsigned char nFlags;
-    unsigned char nComponent;
-    short unk0x06;
-    int nType;
-    int nClass;
-    int nMode;
-    int nUnk0x14;
-    int unk0x18[7];
-    union
-    {
-        void* pCellFile;
-        int nArg34;
-    };
-    int unk0x38;
-    D2CelStrc* pCel;
-    int nArg40;
-    int nFlags44;
-};
 
-struct D2OverlayTxt
-{
-    char unk0x00[0x7C];
-    unsigned char nTrans;
-    char unk0x7D[7];
-};
 
 struct D2RosterPetStrc
 {
@@ -205,12 +157,6 @@ extern unsigned int gnWardenBufferSize_007BC98C; // 0x007BC98C
 typedef unsigned long DWORD;
 
 
-struct D2GfxLayerHeaderStrc
-{
-    unsigned char nCount;
-    unsigned char unk0x01;
-    unsigned char nArg;
-};
 
 struct D2MonStatsTxt
 {
@@ -246,11 +192,6 @@ extern int gbPreloadForce_007A8920; // 0x007A8920
 extern int gdwGlobal_007A8928; // 0x007A8928
 __declspec(noinline) static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit);
 
-struct D2HashedFileEntryStrc
-{
-    char unk0x00[0x14];
-    void* pData;
-};
 D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nWeaponClass, int nIndex); // 0x0046E5A0
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
@@ -519,7 +460,7 @@ void __fastcall sub_0046E1B0_DrawUnitOverlays(D2UnitStrc* pUnit, int nOverlay, i
                 }
                 D2CelContextStrc tContext;
                 memset(&tContext, 0, sizeof(tContext));
-                tContext.nUnk0x14 = nOverlay;
+                tContext.nOverlay = nOverlay;
                 int nOut;
                 if (!sub_004DBB50_InitCelContext(&tContext, 0, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, 1, -1))
                 {
@@ -872,7 +813,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     unsigned char* pOrder = sub_004DB110_GetLayerOrder(pLayer, tArg.nA, 0);
     D2_ASSERT(pOrder, 0x6D6);
     tArg.nIndex = 0;
-    while (tArg.nIndex < pHeader->nCount)
+    while (tArg.nIndex < pHeader->nLayers)
     {
         const int nLayer = pOrder[tArg.nIndex];
         D2_ASSERT(nLayer < 0x10, 0x6DD);
@@ -916,7 +857,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x70A);
-    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock_007A80FC[nClass].f_0[nMode])
+    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock_007A80FC[nClass].nModeFlags[nMode])
     {
         return;
     }
@@ -925,7 +866,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
         if (sub_0046FB60_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
             gpPoolBlock_007A80FC[nClass].aPending[nMode] = 0;
-            gpPoolBlock_007A80FC[nClass].f_0[nMode] = 0;
+            gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
@@ -934,7 +875,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gpPoolBlock_007A80FC[nClass].f_0[nMode] = 1;
+        gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -984,7 +925,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x751);
-    if (gaPlayerGfxCache_007A7490[nClass].f_0[nMode])
+    if (gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode])
     {
         return;
     }
@@ -993,7 +934,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
         if (sub_0046FB60_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
             gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 0;
-            gaPlayerGfxCache_007A7490[nClass].f_0[nMode] = 0;
+            gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
@@ -1002,7 +943,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gaPlayerGfxCache_007A7490[nClass].f_0[nMode] = 1;
+        gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -1079,7 +1020,7 @@ void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent
         pNode = pNode->pNext;
     }
 
-    if (!pNode || !pNode->f_8->pData)
+    if (!pNode || !pNode->pFileEntry->pData)
     {
         return;
     }
@@ -1135,12 +1076,12 @@ int __fastcall sub_00470860_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int 
         pNode = pNode->pNext;
     }
 
-    if (!pNode || !pNode->f_8->pData)
+    if (!pNode || !pNode->pFileEntry->pData)
     {
         return 0;
     }
 
-    D2GfxBoundsStrc* ptGfxInfo = (D2GfxBoundsStrc*)sub_004DB040_identity(pNode->f_8->pData);
+    D2GfxBoundsStrc* ptGfxInfo = (D2GfxBoundsStrc*)sub_004DB040_identity(pNode->pFileEntry->pData);
     D2_ASSERT(ptGfxInfo, 0xDA4);
 
     if (nX < ptGfxInfo->nLeft + nOriginX - 16 || nX >= ptGfxInfo->nRight + nOriginX + 16)
