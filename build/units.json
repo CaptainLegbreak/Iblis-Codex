@@ -67333,6 +67333,11 @@
      "name": "?SKILLS_SrvDo073_BlessedHammer@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D1080",
+     "length": 61,
+     "name": "?sub_005D1080_GetThornsPercent@@YAHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x005D10C0",
      "length": 161,
      "name": "SKILLS_ApplyThornsDamage"
@@ -67341,6 +67346,16 @@
      "va": "0x005D1170",
      "length": 269,
      "name": "?SKILLS_SrvDo125_WakeOfDestruction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D1320",
+     "length": 39,
+     "name": "?sub_005D1320_ResetUnitEvents@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005D1350",
+     "length": 537,
+     "name": "?SKILLS_SrvDo126_ImpInferno@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D1800",
@@ -67356,6 +67371,21 @@
      "va": "0x005D19D0",
      "length": 223,
      "name": "?sub_6FD01010@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
+    },
+    {
+     "va": "0x005D1BF0",
+     "length": 55,
+     "name": "?sub_005D1BF0_ResurrectMonster@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D1C30",
+     "length": 157,
+     "name": "?sub_005D1C30_CreateMissileVolley@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x005D1D70",
+     "length": 152,
+     "name": "?sub_005D1D70_ApplyAura@@YGXPAUUnit@@0HH@Z"
     },
     {
      "va": "0x005D2090",
@@ -67922,42 +67952,6 @@
     {
      "va": "0x005D0E90",
      "length": 489
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D1080.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D1080",
-     "length": 61,
-     "name": "?sub_005D1080_GetThornsPercent@@YAHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005D1320",
-     "length": 39,
-     "name": "?sub_005D1320_ResetUnitEvents@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D1350",
-     "length": 537,
-     "name": "?SKILLS_SrvDo126_ImpInferno@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D1BF0",
-     "length": 55,
-     "name": "?sub_005D1BF0_ResurrectMonster@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D1C30",
-     "length": 157,
-     "name": "?sub_005D1C30_CreateMissileVolley@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x005D1D70",
-     "length": 152,
-     "name": "?sub_005D1D70_ApplyAura@@YGXPAUUnit@@0HH@Z"
     }
    ]
   },
