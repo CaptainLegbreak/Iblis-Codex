@@ -67818,6 +67818,11 @@
      "name": "SKILLS_SrvSt29_Sacrifice"
     },
     {
+     "va": "0x005CE8E0",
+     "length": 265,
+     "name": "?SKILLS_SrvDo064_Sacrifice@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005CEDC0",
      "length": 590
     },
@@ -67912,17 +67917,6 @@
     {
      "va": "0x005D0E90",
      "length": 489
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CE8E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CE8E0",
-     "length": 265,
-     "name": "?SKILLS_SrvDo064_Sacrifice@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },

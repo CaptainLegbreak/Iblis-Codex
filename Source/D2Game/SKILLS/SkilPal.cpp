@@ -436,8 +436,6 @@ void __stdcall sub_00649050(D2DynamicPathStrc*); // 0x00649050
 
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
 
-
-
 void __fastcall SKILLS_CurseStateCallback_BasicAura(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005CEC50
 
 int __stdcall sub_005CEC90_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent); // 0x005CEC90
@@ -459,6 +457,12 @@ extern int __fastcall sub_00483360_ApplyRatio(int,int,int); // 0x00483360
 extern void __stdcall sub_00644560_SetParameter(D2SkillStrc*,int); // 0x00644560
 
 extern void __fastcall sub_0057DBF0_AllocateCombat(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2DamageStrc*,int); // 0x0057DBF0
+
+typedef char chk_D2DamageStrc_size[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
+
+typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
+
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -564,6 +568,41 @@ int __fastcall SKILLS_SrvSt29_Sacrifice(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 0x80);
+    return 1;
+}
+
+// 0x005CE8E0
+int __fastcall SKILLS_SrvDo064_Sacrifice(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);
+    D2DamageStrc damage;
+    if (pDamage)
+    {
+        memset(&damage, 0, sizeof(damage));
+        damage.dwHitFlags |= 0x1000;
+
+        const int nBaseDamage = D2_MIN(STATLIST_UnitGetStatValue(pTarget, 6, 0), pDamage->dwPhysDamage);
+
+        const int nDamage = DATATBLS_ApplyRatio(nBaseDamage, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel), 100);
+        damage.dwPhysDamage = nDamage;
+        damage.dwDmgTotal = nDamage;
+        SUNITDMG_ExecuteEvents(pGame, pUnit, pUnit, 0, &damage);
+        SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pUnit, &damage);
+        SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+    }
+
     return 1;
 }
 
