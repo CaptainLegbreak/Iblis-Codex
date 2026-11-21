@@ -6755,28 +6755,14 @@
    "state": "included"
   },
   "Source/D2Common/SKILLS/Skills.cpp": {
-   "bytes": 2004,
-   "definitions": 10,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/SKILLS/Skills.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/SKILLS/Skills_006449F0.cpp": {
-   "bytes": 180,
-   "definitions": 3,
+   "bytes": 2184,
+   "definitions": 13,
    "externs": [
-    "extern \"C\" void __cdecl sub_006436E0_Min(); // 0x006436E0",
-    "extern \"C\" void __cdecl sub_006436F0_Max(); // 0x006436F0",
     "extern \"C\" void __cdecl sub_00643700_SkillCalcGetRandomNumberInRange(); // 0x00643700",
-    "extern \"C\" void __cdecl sub_00643740_SkillCalcMissileParam(); // 0x00643740",
-    "extern \"C\" void __cdecl sub_00643770_ItemCalcStatParam(); // 0x00643770",
-    "extern \"C\" void __cdecl sub_00646C00(); // 0x00646C00",
-    "extern \"C\" void __cdecl sub_00646C60_SkillCalcNestedParam(); // 0x00646C60"
+    "extern \"C\" void __cdecl sub_00646C00(); // 0x00646C00"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/SKILLS/Skills_006449F0.inc",
+   "include": "gen/data/Source/D2Common/SKILLS/Skills.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -132018,7 +132004,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/SKILLS/Skills_006449F0.cpp",
+   "file": "Source/D2Common/SKILLS/Skills.cpp",
    "fill": 14,
    "form": "declared",
    "fwd": null,
@@ -132106,7 +132092,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/SKILLS/Skills_006449F0.cpp",
+   "file": "Source/D2Common/SKILLS/Skills.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnSkillsCalcFunctions = ",
@@ -132131,7 +132117,7 @@
    "cname": "gData_007457B0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/SKILLS/Skills_006449F0.cpp",
+   "file": "Source/D2Common/SKILLS/Skills.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007457B0_t gData_007457B0; // 0x007457B0",
    "head": "extern \"C\" struct d2data_007457B0_t gData_007457B0 = ",
