@@ -580,7 +580,19 @@ static void __stdcall sub_0057AAE0_ApplyStun(D2UnitStrc* pAttacker, int nStunLen
 
 static void __stdcall SUNITDMG_ApplyColdState(D2UnitStrc* pAttacker, int nColdLength, D2UnitStrc* pDefender);
 
-static void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2GameStrc* pGame, D2UnitStrc* pAttacker, D2DamageStrc* pDamage);
+enum D2C_EventTypes { EVENTTYPE_AITHINK = 2, EVENTTYPE_REMOVESTATE = 12 };
+
+extern "C" void _ReadWriteBarrier(void);
+
+#pragma intrinsic(_ReadWriteBarrier)
+
+struct D2InventoryStrc;
+
+
+
+static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc* pGame, D2UnitStrc* pDefender);
+
+void __fastcall sub_0057D4F0_ExecuteMeleeDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nUnused);
 
 static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
@@ -1038,6 +1050,90 @@ void __fastcall SUNITDMG_RemoveFreezeState(D2UnitStrc* pUnit, int nState, D2Stat
     }
 }
 
+// 0x0057B230
+static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFreezeLength, D2UnitStrc* pDefender)
+{
+    if (nFreezeLength <= 0)
+    {
+        return;
+    }
+
+    int nDefenderType = 6;
+    if (pDefender)
+    {
+        nDefenderType = pDefender->dwUnitType;
+    }
+
+    switch (nDefenderType)
+    {
+    case 0:
+        SUNITDMG_ApplyColdState(pAttacker, nFreezeLength, pDefender);
+        return;
+
+    case 1:
+        if (STATES_CheckState(pDefender, 0x36))
+        {
+            return;
+        }
+
+        if (MONSTERS_IsBoss(DATATBLS_GetMonStatsTxtRecord(!pDefender ? -1 : pDefender->dwClassId), pDefender) || MONSTERUNIQUE_CheckMonTypeFlag(pDefender, 8u))
+        {
+            SUNITDMG_ApplyColdState(pAttacker, nFreezeLength, pDefender);
+            return;
+        }
+
+        if (MONSTERS_GetHirelingTypeId(pDefender))
+        {
+            SUNITDMG_ApplyColdState(pAttacker, nFreezeLength, pDefender);
+            return;
+        }
+        break;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 1);
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
+    if (SUNITDMG_GetColdEffect(pGame, pDefender) >= 0)
+    {
+        return;
+    }
+
+    if ((!pDefender ? 6 : pDefender->dwUnitType) == 1)
+    {
+        const unsigned char v_nDifficulty_544 = pGame->nDifficulty;
+        const int nFreezeDivisor = DATATBLS_GetDifficultyLevelsTxtRecord(v_nDifficulty_544)->dwMonsterFreezeDiv;
+        D2_ASSERT(nFreezeDivisor, 0x254);
+        nFreezeLength /= nFreezeDivisor;
+    }
+
+    int nExpireFrame = pGame->dwGameFrame + nFreezeLength;
+    if (!pStatList)
+    {
+        STATES_ToggleState(pDefender, 1, 1);
+
+        D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2u, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
+        STATLIST_SetState(pNewStatList, 1u);
+        STATLIST_SetStatRemoveCallback(pNewStatList, SUNITDMG_RemoveFreezeState);
+        D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
+    }
+    else
+    {
+        const int nStatListExpireFrame = STATLIST_GetExpireFrame(pStatList);
+        if (nStatListExpireFrame < nExpireFrame)
+        {
+            STATLIST_SetExpireFrame(pStatList, nExpireFrame);
+        }
+        else
+        {
+            nExpireFrame = nStatListExpireFrame;
+        }
+    }
+
+    EVENT_SetEvent(pGame, pDefender, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
+    D2_ASSERT((pDefender ? pDefender->dwUnitType : 6) == 1, 0x276);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pDefender, EVENTTYPE_AITHINK, 0);
+    EVENT_SetEvent(pGame, pDefender, EVENTTYPE_AITHINK, pGame->dwGameFrame + nFreezeLength + 1, 0, 0);
+}
+
 // 0x0057B630
 static void __stdcall sub_0057B630_AddDemonDamage(D2UnitStrc* pAttacker, D2UnitStrc* pTarget, D2UnkDamageRecordStrc* pRecord)
 {
@@ -1078,91 +1174,6 @@ void __stdcall sub_A08_EmitDamageHelpers(D2UnitStrc* pAttacker, D2UnitStrc* pDef
     pDamage->dwEnDmgPct = sub_0057A880_AddRolledDamage(pAttacker, a, b, c, pDamage->dwEnDmgPct, d);
     sub_0057B660_AddUndeadDamagePercent(pDamage, pAttacker, pDefender);
     sub_0057B660_AddUndeadDamagePercent(pDamage, pDefender, pAttacker);
-}
-
-// build: context SUNITDMG_ApplyFreezeState
-// 0x0057B230
-static __declspec(noinline) void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFreezeLength, D2UnitStrc* pDefender)
-{
-    if (nFreezeLength <= 0)
-    {
-        return;
-    }
-
-    int nDefenderType = 6;
-    if (pDefender)
-    {
-        nDefenderType = pDefender->dwUnitType;
-    }
-
-    switch (nDefenderType)
-    {
-    case 0:
-        SUNITDMG_ApplyColdState(pAttacker, nFreezeLength, pDefender);
-        return;
-
-    case 1:
-        if (STATES_CheckState(pDefender, 0x36))
-        {
-            return;
-        }
-
-        if (MONSTERS_IsBoss(DATATBLS_GetMonStatsTxtRecord(!pDefender ? -1 : pDefender->dwClassId), pDefender) || MONSTERUNIQUE_CheckMonTypeFlag(pDefender, 8))
-        {
-            SUNITDMG_ApplyColdState(pAttacker, nFreezeLength, pDefender);
-            return;
-        }
-
-        if (MONSTERS_GetHirelingTypeId(pDefender))
-        {
-            SUNITDMG_ApplyColdState(pAttacker, nFreezeLength, pDefender);
-            return;
-        }
-        break;
-    }
-
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 1);
-    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pAttacker);
-    if (SUNITDMG_GetColdEffect(pGame, pDefender) >= 0)
-    {
-        return;
-    }
-
-    if ((!pDefender ? 6 : pDefender->dwUnitType) == 1)
-    {
-        const unsigned char v_nDifficulty_544 = pGame->nDifficulty;
-        const int nFreezeDivisor = DATATBLS_GetDifficultyLevelsTxtRecord(v_nDifficulty_544)->dwMonsterFreezeDiv;
-        D2_ASSERT(nFreezeDivisor, 0x254);
-        nFreezeLength /= nFreezeDivisor;
-    }
-
-    int nExpireFrame = pGame->dwGameFrame + nFreezeLength;
-    if (!pStatList)
-    {
-        STATES_ToggleState(pDefender, 1, 1);
-
-        D2StatListStrc* pNewStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pAttacker ? 6 : pAttacker->dwUnitType, !pAttacker ? -1 : pAttacker->dwUnitId);
-        STATLIST_SetState(pNewStatList, 1);
-        STATLIST_SetStatRemoveCallback(pNewStatList, SUNITDMG_RemoveFreezeState);
-        D2COMMON_10475_PostStatToStatList(pDefender, pNewStatList, 1);
-    }
-    else
-    {
-        const int nStatListExpireFrame = STATLIST_GetExpireFrame(pStatList);
-        if (nStatListExpireFrame < nExpireFrame)
-        {
-            STATLIST_SetExpireFrame(pStatList, nExpireFrame);
-        }
-        else
-        {
-            nExpireFrame = nStatListExpireFrame;
-        }
-    }
-
-    EVENT_SetEvent(pGame, pDefender, 12, nExpireFrame, 0, 0);
-    D2_ASSERT((pDefender ? pDefender->dwUnitType : 6) == 1, 0x276);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pDefender, 2, 0);
-    EVENT_SetEvent(pGame, pDefender, 2, pGame->dwGameFrame + nFreezeLength + 1, 0, 0);
 }
 
 static __forceinline D2MonStatsTxt* U01_GetMonStatsTxtRecord(int nMonsterId)
@@ -2142,6 +2153,56 @@ static void sub_0057CEC0_SetHitClassIfUnset(D2DamageStrc* pDamage)
     }
 }
 
+// 0x0057D3D0
+static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc* pGame, D2UnitStrc* pDefender)
+{
+    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER)
+    {
+        D2UnitStrc* pItem = sub_6FC7C7B0(pAttacker);
+        if (pItem)
+        {
+            sub_00559E30_DecreaseDurability(pGame, pAttacker, pItem);
+        }
+    }
+
+    D2InventoryStrc* pInventory;
+    if (pDefender && pDefender->dwUnitType == UNIT_PLAYER && (pInventory = pDefender->pInventory) != 0)
+    {
+        D2UnitStrc* pItems[7] = {};
+        int nTotalWeight = 0;
+        for (int i = 0; i < gnBodyLocWeightCount_00732BC8; ++i)
+        {
+            D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocWeights_00732B90[i].nBodyLoc);
+            if (pItem && ITEMSIsA(pItem, 0x32))
+            {
+                pItems[i] = pItem;
+                nTotalWeight += gaBodyLocWeights_00732B90[i].nWeight;
+            }
+        }
+
+        if (nTotalWeight > 0)
+        {
+            int nIndex = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, gnBodyLocWeightCount_00732BC8);
+            int nWeight = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, nTotalWeight);
+            do
+            {
+                if (pItems[nIndex])
+                {
+                    if (nWeight < gaBodyLocWeights_00732B90[nIndex].nWeight)
+                    {
+                        sub_00559E30_DecreaseDurability(pGame, pDefender, pItems[nIndex]);
+                        break;
+                    }
+                    nWeight -= gaBodyLocWeights_00732B90[nIndex].nWeight;
+                }
+                _ReadWriteBarrier();
+                nIndex = (nIndex + 1) % gnBodyLocWeightCount_00732BC8;
+            }
+            while (nWeight >= 0);
+        }
+    }
+}
+
 static __forceinline int SUNITDMG_IsInDeathMode(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType != UNIT_OBJECT)
@@ -2163,58 +2224,6 @@ static __forceinline int SUNITDMG_IsInDeathMode(D2UnitStrc* pUnit)
         }
     }
     return 0;
-}
-
-static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc* pGame, D2UnitStrc* pDefender)
-{
-    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER)
-    {
-        D2UnitStrc* pWeapon = sub_6FC7C7B0(pAttacker);
-        if (pWeapon)
-        {
-            sub_00559E30_DecreaseDurability(pGame, pAttacker, pWeapon);
-        }
-    }
-
-    if (!pDefender || pDefender->dwUnitType != UNIT_PLAYER || !pDefender->pInventory)
-    {
-        return;
-    }
-
-    D2InventoryStrc* pInventory = pDefender->pInventory;
-    D2UnitStrc* pItems[7] = {};
-    int nTotal = 0;
-    for (int i = 0; i < gnBodyLocWeightCount_00732BC8; ++i)
-    {
-        D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocWeights_00732B90[i].nBodyLoc);
-        if (pItem && ITEMSIsA(pItem, 0x32))
-        {
-            nTotal += gaBodyLocWeights_00732B90[i].nWeight;
-            pItems[i] = pItem;
-        }
-    }
-
-    if (nTotal <= 0)
-    {
-        return;
-    }
-
-    int nIndex = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, gnBodyLocWeightCount_00732BC8);
-    int nRoll = ITEMS_RollLimitedRandomNumber(&pDefender->pSeed, nTotal);
-    do
-    {
-        if (pItems[nIndex])
-        {
-            if (nRoll < gaBodyLocWeights_00732B90[nIndex].nWeight)
-            {
-                sub_00559E30_DecreaseDurability(pGame, pDefender, pItems[nIndex]);
-                return;
-            }
-            nRoll -= gaBodyLocWeights_00732B90[nIndex].nWeight;
-        }
-        nIndex = (nIndex + 1) % gnBodyLocWeightCount_00732BC8;
-    }
-    while (nRoll >= 0);
 }
 
 // 0x0057D4F0

@@ -58029,6 +58029,10 @@
      "name": "?SUNITDMG_RemoveFreezeState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x0057B230",
+     "length": 491
+    },
+    {
      "va": "0x0057B630",
      "length": 37,
      "name": "?sub_0057B630_AddDemonDamage@@YGXPAUD2UnitStrc@@0PAUD2UnkDamageRecordStrc@@@Z"
@@ -58118,6 +58122,10 @@
      "va": "0x0057CEC0",
      "length": 26,
      "name": "?sub_0057CEC0_SetHitClassIfUnset@@YAXPAUD2DamageStrc@@@Z"
+    },
+    {
+     "va": "0x0057D3D0",
+     "length": 278
     },
     {
      "va": "0x0057D4F0",
@@ -58402,34 +58410,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057B230.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x0057B230",
-     "length": 491
-    },
-    {
-     "va": "0x0057D3D0",
-     "length": 278
-    }
    ]
   },
   {
