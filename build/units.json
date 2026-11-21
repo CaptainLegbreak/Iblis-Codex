@@ -80614,6 +80614,10 @@
      "name": "?sub_0063AF70_LinkGridItem@@YGXPAUD2InventoryStrc@@PAUD2InventoryGridStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0063AFD0",
+     "length": 567
+    },
+    {
      "va": "0x0063B2C0",
      "length": 31,
      "name": "INVENTORY_GetFirstItem"
@@ -80987,6 +80991,10 @@
      "name": "?sub_0063D900_FindCode@@YAHII@Z"
     },
     {
+     "va": "0x0063DA70",
+     "length": 259
+    },
+    {
      "va": "0x0063DB90",
      "length": 40,
      "name": "?sub_0063DB90_SelectValue@@YGHHH@Z"
@@ -80995,6 +81003,14 @@
      "va": "0x0063DBC0",
      "length": 454,
      "name": "?sub_0063DBC0_PairIsWieldable@@YAHPAUD2UnitStrc@@00@Z"
+    },
+    {
+     "va": "0x0063DD90",
+     "length": 196
+    },
+    {
+     "va": "0x0063DE60",
+     "length": 309
     },
     {
      "va": "0x0063DFA0",
@@ -81282,42 +81298,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063AFD0.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x0063AFD0",
-     "length": 567
-    },
-    {
-     "va": "0x0063DA70",
-     "length": 259
-    },
-    {
-     "va": "0x0063DD90",
-     "length": 196
-    },
-    {
-     "va": "0x0063DE60",
-     "length": 309
-    }
    ]
   },
   {
