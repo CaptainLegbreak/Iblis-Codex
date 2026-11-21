@@ -30392,6 +30392,10 @@
     {
      "va": "0x004B3870",
      "length": 898
+    },
+    {
+     "va": "0x004B5640",
+     "length": 452
     }
    ],
    "flags": [
@@ -30440,16 +30444,6 @@
     {
      "va": "0x004B4FD0",
      "length": 366
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B5640.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B5640",
-     "length": 452
     }
    ]
   },
