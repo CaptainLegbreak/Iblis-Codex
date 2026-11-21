@@ -76,6 +76,10 @@ bool __fastcall ACT2Q5_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
 int __fastcall sub_0059C6C0_ACT2Q6_UpdateRewardFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused); // 0x0059C6C0
 void __fastcall ACT2Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059C920
 
+int __fastcall ACT2Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059BCB0
+
+int __fastcall ACT2Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059BD10
+
 // 0x0059BF70
 void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -269,6 +273,34 @@ void __fastcall ACT2Q5_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestDataEx->unk0x01 = 0;
     pQuestDataEx->bStatusTimerStarted = 0;
     pQuestDataEx->pRoom = 0;
+}
+
+// 0x0059C330
+void __fastcall ACT2Q5_OnSummonerActivated(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 12);
+    if (!pQuestData || pQuestData->bNotIntro != 1)
+    {
+        return;
+    }
+
+    D2Act2Quest5Strc* pQuestDataEx = (D2Act2Quest5Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestDataEx->unk0x01)
+    {
+        pQuestDataEx->unk0x01 = 1;
+    }
+
+    if (!pQuestData->fState)
+    {
+        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q5.cpp", 0x238);
+    }
+
+    if (pQuestData->fLastState < 2)
+    {
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 2, 0, ACT2Q5_UnitIterate_StatusCyclerEx, 1);
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q5_UnitIterate_UpdateQuestStateFlags);
+    }
 }
 
 // 0x0059C650
