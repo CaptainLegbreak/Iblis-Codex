@@ -117,7 +117,7 @@ D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
 T00481720* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
 char* __fastcall sub_0040E080_AddressToString(int nAddress); // 0x0040E080
 char* __fastcall sub_00430B50_GetSlotName(int nIndex); // 0x00430B50
-char* __stdcall sub_004141E0_StrUpper(char* szString); // 0x004141E0
+char* __stdcall SStrUpper(char* szString); // 0x004141E0
 const char* __fastcall sub_0047A1F0(int nIndex); // 0x0047A1F0
 const char* __fastcall sub_0047A210(D2UnitStrc* pUnit); // 0x0047A210
 const char* __fastcall sub_0047A210_GetPartyName(D2UnitStrc* pUnit); // 0x0047A210
@@ -646,7 +646,7 @@ int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit); // 0x00622D00
 int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
 int __stdcall WINDOW_GetState(); // 0x004F6070
-int __stdcall sub_004198D0(void* pArg); // 0x004198D0
+int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 int __stdcall sub_00420320_RegisterHandlers(void* pContext); // 0x00420320
 int __stdcall sub_004334D0_CloseBox(int nArg); // 0x004334D0
 int __stdcall sub_004DA0B0_GetUnitGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0

@@ -9,8 +9,8 @@ extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x00
 extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
-int __stdcall sub_00414930_GetRegistryRoot(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+int __stdcall SRegGetBaseKey(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern "C" const char gszFmtUnsigned_006CEF68[]; // 0x006CEF68
 
@@ -24,9 +24,9 @@ static int __stdcall sub_00414B00_SRegLoadEntry(const char* szKeyName, const cha
     szKey[0] = 0;
     if (!(nFlags & 0x10))
     {
-        sub_00414930_GetRegistryRoot(nFlags, szKey, 0x104);
+        SRegGetBaseKey(nFlags, szKey, 0x104);
     }
-    sub_00413800(szKey, szKeyName, 0x104);
+    SStrPack(szKey, szKeyName, 0x104);
     if (!(nFlags & 4))
     {
         nError = RegOpenKeyExA((void*)0x80000001, szKey, 0, 0x20019, &hKey);

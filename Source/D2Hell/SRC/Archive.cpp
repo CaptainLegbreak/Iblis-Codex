@@ -50,8 +50,8 @@ static int __stdcall sub_00517128_FindArchive(const char* filename,int priority,
  char* end=path;
  while(*end && SStrChr(end+1,'\\')) end=SStrChr(end+1,'\\');
  *end=0;
- sub_00413800(path,"\\",0x7FFFFFFF);
- sub_00413800(path,filename,0x7FFFFFFF);
+ SStrPack(path,"\\",0x7FFFFFFF);
+ SStrPack(path,filename,0x7FFFFFFF);
  if(SFileOpenArchive(path,priority,2,outHandle)) return 1;
  unsigned long length=GetLogicalDriveStringsA(260,drives);
  if(!length || length>260) return 0;
@@ -62,7 +62,7 @@ static int __stdcall sub_00517128_FindArchive(const char* filename,int priority,
   while(*current++) {}
   if(GetDriveTypeA(root)==5 && GetVolumeInformationA(root,0,0,0,0,0,0,0)) {
    SStrCopy(path,root,0x7FFFFFFF);
-   sub_00413800(path,filename,0x7FFFFFFF);
+   SStrPack(path,filename,0x7FFFFFFF);
    if(SFileOpenArchive(path,priority,2,outHandle)) return 1;
   }
  }
@@ -92,7 +92,7 @@ static void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const ch
     {
         pLastBackslash[1] = 0;
     }
-    sub_00413800(szOutPath, szFileName, 0x7FFFFFFF);
+    SStrPack(szOutPath, szFileName, 0x7FFFFFFF);
     if (SFileOpenArchive(szOutPath, nPriority, nFlags, &hArchive))
     {
         return hArchive;

@@ -86,8 +86,8 @@ struct T0041D340
     unsigned int aState[5];
     unsigned char f_1C[64];
 
-    void sub_00425D90_Init();                                                                               // 0x00425D90
-    void sub_00425DD0_Update(const unsigned char* pData, unsigned int nLen);                                // 0x00425DD0
+    void Initialize();                                                                               // 0x00425D90
+    void Append(const unsigned char* pData, unsigned int nLen);                                // 0x00425DD0
     void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
 };
 
@@ -194,7 +194,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 int __stdcall SUniConvertUTF16to8(char* pDest, unsigned int nDestSize, const unsigned short* pSrc, unsigned int nSrcLength, unsigned int* pDestWritten, unsigned int* pSrcRead); // 0x006C7130
 
-int __stdcall sub_006C7960_ToWide(unsigned short* pDst, const char* szSrc, unsigned int nCount); // 0x006C7960
+int __stdcall SUniConvertWinToUTF16(unsigned short* pDst, const char* szSrc, unsigned int nCount); // 0x006C7960
 
 void* gnChannelList_008818C8;                                                                               // 0x008818C8
 
@@ -599,7 +599,7 @@ struct D2BnUpgradePacketStrc
 
 extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID(void);                    // 0x006CC354
 
-char* __stdcall sub_004141E0_StrUpper(char* szString);                                                      // 0x004141E0
+char* __stdcall SStrUpper(char* szString);                                                      // 0x004141E0
 
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
@@ -1124,7 +1124,7 @@ int __fastcall sub_0051AF40_ChatCommand(const char* szText)
     }
 
     unsigned short wszText[0x200];
-    unsigned int nLength = sub_006C7960_ToWide(wszText, szText, 0x1FF);
+    unsigned int nLength = SUniConvertWinToUTF16(wszText, szText, 0x1FF);
     if (!nLength)
     {
         return 0;
@@ -1648,8 +1648,8 @@ unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C
 void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
 {
     T0041D340 tContext;
-    tContext.sub_00425D90_Init();
-    tContext.sub_00425DD0_Update(pData, nLength);
+    tContext.Initialize();
+    tContext.Append(pData, nLength);
     tContext.sub_00425F00_Final(pDigest);
 }
 
@@ -1765,9 +1765,9 @@ int __fastcall sub_00521F60_SendLogon(const char* szName, const char* szPassword
     SStrCopy(gszAccountName_00882540, szName, 0x100);
     sub_0041D300_ZeroMemory(&gtLoginRecord_00882680, sizeof(gtLoginRecord_00882680));
     SStrCopy(szNameUpper, szName, 0x100);
-    sub_004141E0_StrUpper(szNameUpper);
+    SStrUpper(szNameUpper);
     SStrCopy(szPasswordUpper, szPassword, 0x100);
-    sub_004141E0_StrUpper(szPasswordUpper);
+    SStrUpper(szPasswordUpper);
     gtBigPair_0088273C.sub_005286D0_InitLogin(&gtLoginRecord_00882680, szNameUpper, szPasswordUpper);
     sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord_00882680.abPublic, sizeof(tPacket.abPublic));
     unsigned int nLength = SStrCopy(tPacket.szName, szName, 0x100);
@@ -1797,9 +1797,9 @@ int __fastcall sub_00522130_SendCreateAccount(const char* szName, const char* sz
     char szPasswordUpper[0x100];
     char szNameUpper[0x100];
     SStrCopy(szNameUpper, szName, 0x100);
-    sub_004141E0_StrUpper(szNameUpper);
+    SStrUpper(szNameUpper);
     SStrCopy(szPasswordUpper, szPassword, 0x100);
-    sub_004141E0_StrUpper(szPasswordUpper);
+    SStrUpper(szPasswordUpper);
     gtBigPair_0088273C.sub_00528660_MakeVerifier(szNameUpper, szPasswordUpper, tPacket.abSalt, tPacket.abVerifier);
     unsigned int nLength = SStrCopy(tPacket.szName, szName, 0x7FFFFFFF);
     sub_0051C5C0_SendPacket(0x52, &tPacket, nLength + 0x41);
@@ -1816,11 +1816,11 @@ int __fastcall sub_005221F0_ChangePasswordProof(const char* szAccountName, const
     gdwGlobal_00882538 = 0;
     sub_0041D300_ZeroMemory(&gtLoginRecord_00882680, sizeof(gtLoginRecord_00882680));
     SStrCopy(szAccountUpper, szAccountName, 0x100);
-    sub_004141E0_StrUpper(szAccountUpper);
+    SStrUpper(szAccountUpper);
     SStrCopy(szOldUpper, szOldPassword, 0x100);
-    sub_004141E0_StrUpper(szOldUpper);
+    SStrUpper(szOldUpper);
     SStrCopy(szNewUpper, szNewPassword, 0x100);
-    sub_004141E0_StrUpper(szNewUpper);
+    SStrUpper(szNewUpper);
     gtBigPair_0088273C.sub_00528660_MakeVerifier(szAccountUpper, szNewUpper, gabNewVerifier_00882640, &gabNewVerifier_00882640[0x20]);
     gtBigPair_0088273C.sub_005286D0_InitLogin(&gtLoginRecord_00882680, szAccountUpper, szOldUpper);
     sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord_00882680.abPublic, sizeof(tPacket.abPublic));

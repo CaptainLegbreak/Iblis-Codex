@@ -154,7 +154,7 @@ int __stdcall sub_00421530(void* hLeft, void* hRight)
 }
 
 // 0x00421550
-void __stdcall sub_00421550_ToUnsigned(void* hBig, unsigned int* pnResult)
+void __stdcall SBigToUnsigned(void* hBig, unsigned int* pnResult)
 {
     TO_UNSIGNED(pnResult, (D2StormBigBufferStrc*)hBig);
 }

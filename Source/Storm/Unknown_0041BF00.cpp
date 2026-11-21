@@ -11,7 +11,7 @@ extern int gbSLogDebugOutput_007790AC;  // 0x007790AC
 #define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(ERROR_INVALID); return 0; }
 // 0x0041BF00
-int __stdcall sub_0041BF00(unsigned int nOption, void* pOutput, unsigned int* pSize)
+int __stdcall StormSetOption(unsigned int nOption, void* pOutput, unsigned int* pSize)
 {
     VALIDATEBEGIN;
     VALIDATE(pOutput);

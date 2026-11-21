@@ -37,7 +37,7 @@ struct D2Storm4168F0Strc
 };
 
 // 0x00420AB0
-static __declspec(noinline) int __stdcall sub_00420AB0_UnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
+static __declspec(noinline) int __stdcall InternalUnregister(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
     if (!sub_004209E0_FindWndRec(hWnd))
     {
@@ -49,25 +49,25 @@ static __declspec(noinline) int __stdcall sub_00420AB0_UnregisterHandler(unsigne
 // 0x00420C70
 int __stdcall SMsgUnregisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420AB0_UnregisterHandler(0x534D5348, hWnd, nId, pHandler);
+    return InternalUnregister(0x534D5348, hWnd, nId, pHandler);
 }
 
 // 0x00420C90
 int __stdcall SMsgUnregisterKeyDown(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420AB0_UnregisterHandler(0x534D5349, hWnd, nId, pHandler);
+    return InternalUnregister(0x534D5349, hWnd, nId, pHandler);
 }
 
 // 0x00420CB0
 int __stdcall SMsgUnregisterKeyUp(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420AB0_UnregisterHandler(0x534D534A, hWnd, nId, pHandler);
+    return InternalUnregister(0x534D534A, hWnd, nId, pHandler);
 }
 
 // 0x00420CD0
 int __stdcall SMsgUnregisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler)
 {
-    return sub_00420AB0_UnregisterHandler(0x534D5347, hWnd, nId, pHandler);
+    return InternalUnregister(0x534D5347, hWnd, nId, pHandler);
 }
 
 // calling-convention shim (not game code)

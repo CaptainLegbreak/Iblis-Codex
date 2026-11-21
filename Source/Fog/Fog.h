@@ -80,7 +80,7 @@ int __stdcall sub_006B0144_GetSockAddr(unsigned int s, D2SockAddrInStrc* pAddr, 
 int __stdcall sub_006B018C_GetSockAddr(unsigned int s, D2SockAddrInStrc* pAddr, int* pAddrLen); // 0x006B018C
 unsigned int __cdecl sub_00410A80_GetTime(); // 0x00410A80
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 unsigned short __stdcall sub_006B019E(unsigned short nValue); // 0x006B019E
 void __cdecl sub_00409020_LogPoolError(const char* szFormat, ...); // 0x00409020
 void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0

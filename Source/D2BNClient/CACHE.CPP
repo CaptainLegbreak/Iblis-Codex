@@ -47,7 +47,7 @@ extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuff
 
 extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x006CC1AC
 
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
@@ -292,11 +292,11 @@ static void sub_005191D0_DeleteHashEntries(const char* szName)
 static void sub_00519220_GetCacheFilePath(char* szPath)
 {
     D2_ASSERT(SHGetFolderPathA(0, 0x23, 0, 0, szPath) == 0, 0x112);
-    sub_00413800(szPath, "\\Blizzard Entertainment", 0x104);
+    SStrPack(szPath, "\\Blizzard Entertainment", 0x104);
     CreateDirectoryA(szPath, 0);
-    sub_00413800(szPath, "\\Diablo II", 0x104);
+    SStrPack(szPath, "\\Diablo II", 0x104);
     CreateDirectoryA(szPath, 0);
-    sub_00413800(szPath, "\\bncache.dat", 0x104);
+    SStrPack(szPath, "\\bncache.dat", 0x104);
 }
 
 // 0x005192A0

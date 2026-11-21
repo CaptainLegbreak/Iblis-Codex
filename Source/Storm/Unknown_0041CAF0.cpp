@@ -1,6 +1,6 @@
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
 extern "C" char* __cdecl strpbrk(const char* szString, const char* szCharSet);                              // 0x00686990
 extern "C" const char gszTypeNameEnd_006CF32C[];                                                           // 0x006CF32C
 extern "C" const char gszOpenParen_006CF328[];                                                             // 0x006CF328
@@ -26,14 +26,14 @@ static int __stdcall sub_0041C1F0_FormatTypeName(const char* szName, char* szOut
     *p = 0;
     for (p--; p >= szOut && *p == '_'; p--)
         *p = 0;
-    sub_00413800(szOut, gszOpenParen_006CF328, nSize);
-    sub_00413800(szOut, szName, nSize);
-    sub_00413800(szOut, gszCloseParen_006CF324, nSize);
+    SStrPack(szOut, gszOpenParen_006CF328, nSize);
+    SStrPack(szOut, szName, nSize);
+    SStrPack(szOut, gszCloseParen_006CF324, nSize);
     return 1;
 }
 
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void* hInstance, unsigned int uId, char* buffer, int length); // 0x006CC46C
-void* __cdecl sub_0041BEF0_GetExeModule(); // 0x0041BEF0
+void* __cdecl StormGetInstance(); // 0x0041BEF0
 extern char gszMessageBuffer_00779100[256]; // 0x00779100
 extern const char* gpszMessageFallback_006CF2F4[]; // 0x006CF2F4
 
@@ -42,7 +42,7 @@ static const char* sub_0041C170_GetMessageText(int nIndex); // 0x0041C170
 // 0x0041C170
 static const char* sub_0041C170_GetMessageText(int nIndex)
 {
-    if (LoadStringA(sub_0041BEF0_GetExeModule(), nIndex + 0x5100, gszMessageBuffer_00779100, 256))
+    if (LoadStringA(StormGetInstance(), nIndex + 0x5100, gszMessageBuffer_00779100, 256))
         return gszMessageBuffer_00779100;
     return gpszMessageFallback_006CF2F4[nIndex];
 }
@@ -63,7 +63,7 @@ void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 void __cdecl sub_0041C1E0_UnlockErrorState(); // 0x0041C1E0
 void __cdecl sub_0041C160_DebugBreak(); // 0x0041C160
 void __stdcall sub_0041C360_SetSuppress(int); // 0x0041C360
-int __stdcall sub_0041C430_FormatError(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
+int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
 void __stdcall SMemZero(void*,unsigned int); // 0x0041D300
 char* __stdcall SStrChrR(const char*,char); // 0x004134D0
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
@@ -107,7 +107,7 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nL
     if(SStrChrR(szModuleName,'.')) *SStrChrR(szModuleName,'.')=0;
     char szError[0x100];
     szError[0]=0;
-    sub_0041C430_FormatError(nErrorCode,szError,0x100);
+    SErrGetErrorStr(nErrorCode,szError,0x100);
     if(!szError[0]) wsprintfA(szError,sub_0041C170_GetMessageText(0),(unsigned short)nErrorCode,nErrorCode);
     const char* szName=szFile;
     char szTypeName[0x100];

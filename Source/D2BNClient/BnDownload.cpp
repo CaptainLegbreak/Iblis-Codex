@@ -154,7 +154,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 
-int __stdcall sub_004198D0(void* pArg); // 0x004198D0
+int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 
 int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
 
@@ -529,11 +529,11 @@ static int __stdcall sub_0051E490_ExtractArchiveDll(void* hArchive, char* szPath
     }
     else
     {
-        sub_00413800(szPath, szFile, 0x104);
+        SStrPack(szPath, szFile, 0x104);
         char* pExtension = strrchr(szPath, '.');
         if (pExtension)
             *pExtension = 0;
-        sub_00413800(szPath, ".dll", 0x104);
+        SStrPack(szPath, ".dll", 0x104);
         if (SFileOpenFileEx(hArchive, szPath + nLength, 0, &hFile))
         {
             unsigned int nSize = sub_00416370_StormGetFileSize(hFile, 0);
@@ -554,7 +554,7 @@ static int __stdcall sub_0051E490_ExtractArchiveDll(void* hArchive, char* szPath
         }
     }
     if (hFile)
-        sub_004198D0(hFile);
+        SFileCloseFile(hFile);
     return bResult;
 }
 
@@ -683,7 +683,7 @@ static void __fastcall sub_0051E920_ExtractFile(const char* member, void* archiv
         }
     }
     SMemFree(data, gszBnDownloadFile_006DF338, 0x592, 0);
-    sub_004198D0(source);
+    SFileCloseFile(source);
 }
 
 // build: context sub_0051E920_Shim
@@ -917,7 +917,7 @@ int __fastcall sub_0051ED00_ApplyPatches(int* pResult)
                 }
             }
             SMemFree(pBuffer, ".\\BnDownload.cpp", 1320, 0);
-            sub_004198D0(hFile);
+            SFileCloseFile(hFile);
         }
         SFileCloseArchive(hArchive);
 
@@ -1354,7 +1354,7 @@ void __fastcall sub_0051FAB0_HandleDownloadEvent(int nType, int nSubType, unsign
                 sub_0051A480_DebugLog("<ERROR: Failed to read game locale file!>");
             else
             {
-                sub_004198D0(hFile);
+                SFileCloseFile(hFile);
                 D2BnExtraWorkPacketStrc packet;
                 memset(&packet, 0, sizeof(packet));
                 packet.wType = 1;

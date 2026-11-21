@@ -26,7 +26,7 @@ struct AsyncData
     AsyncData* pNextPostponedPriorityChange;
 };
 
-void __stdcall sub_0041AA80_SetWindowFlag(void* hWnd, int nValue); // 0x0041AA80
+void __stdcall SFilePrioritizeRequest(void* hWnd, int nValue); // 0x0041AA80
 
 struct AsyncDataEventSlot
 {
@@ -103,7 +103,7 @@ void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
     else if (nPriority != pAsyncData->nPriority)
     {
         pAsyncData->nPriority = nPriority;
-        sub_0041AA80_SetWindowFlag(pAsyncData->ptBuffer, nPriority);
+        SFilePrioritizeRequest(pAsyncData->ptBuffer, nPriority);
     }
 }
 
@@ -124,7 +124,7 @@ void __fastcall FOG_AsyncDataHandlePriorityChanges(int bPostpone)
             pNext = p->pNextPostponedPriorityChange;
             if (p->nPriority != p->nPreviousPriority)
             {
-                sub_0041AA80_SetWindowFlag(p->ptBuffer, p->nPriority);
+                SFilePrioritizeRequest(p->ptBuffer, p->nPriority);
             }
             p->dwFlags &= ~8;
             p->nPreviousPriority = 0;
@@ -366,7 +366,7 @@ void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData)
 
     if (!FOG_AsyncDataTestLoaded(pAsyncData))
     {
-        sub_0041AA80_SetWindowFlag(pAsyncData->ptBuffer, 1);
+        SFilePrioritizeRequest(pAsyncData->ptBuffer, 1);
         D2_ASSERT(!WaitForSingleObject(pAsyncData->pEventSlot->hEvent, 0xFFFFFFFF), 584);
         sub_0040A4C0_AsyncDataFinish(pAsyncData);
     }

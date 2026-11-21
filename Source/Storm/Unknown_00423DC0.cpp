@@ -264,9 +264,9 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a);
+static __declspec(noinline) void SetZero(D2StormQueueStrc& a);
 // 0x00422CC0
-static void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -295,7 +295,7 @@ static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x00422E70
-static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
+static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -334,7 +334,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
     if (nDCount > nCCount)
     {
         b.CopyFrom(c);
-        sub_00422CC0_SetZero(a);
+        SetZero(a);
         return;
     }
     if (nDCount <= 1)
@@ -384,7 +384,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
             sub_00423100_Sub(tRem, tRem, tDiv);
         }
     }
-    sub_00422E70_Shr(b, tRem, nShift);
+    Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
     __assume(3 <= tStack.nUsed);
     tStack.nUsed -= 3;

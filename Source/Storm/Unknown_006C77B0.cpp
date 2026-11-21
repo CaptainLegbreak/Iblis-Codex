@@ -12,7 +12,7 @@ static __declspec(noinline) int sub_006C7790_SkipUtf8Continuation(const unsigned
 }
 
 // 0x006C77B0
-int __stdcall sub_006C77B0_PreviousUtf8Boundary(const unsigned char* text, int index)
+int __stdcall SUniFindUTF8ChrStart(const unsigned char* text, int index)
 {
     return sub_006C7790_SkipUtf8Continuation(text, index, -1);
 }

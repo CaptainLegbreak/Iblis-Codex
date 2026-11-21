@@ -385,14 +385,14 @@ static int __stdcall sub_0041DA60_CompressADPCM(int nOutSize, const short* pIn, 
     return pOut - pOutStart;
 }
 
-void __fastcall sub_0041E360_SCompADPCMCompressMono(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+void __fastcall ImaAdpcmMonoCompress(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
     *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
 }
 
-void __fastcall sub_0041E3C0_SCompADPCMCompressStereo(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+void __fastcall ImaAdpcmStereoCompress(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);

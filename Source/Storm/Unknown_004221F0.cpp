@@ -270,7 +270,7 @@ static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(D2StormQueueS
 void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c); // 0x004225C0
 
 // 0x00422750
-static __declspec(noinline) int sub_00422750_IsOne(D2StormQueueStrc& a)
+static __declspec(noinline) int IsOne(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     const D2StormQueueStrc& tRead = a;
@@ -278,7 +278,7 @@ static __declspec(noinline) int sub_00422750_IsOne(D2StormQueueStrc& a)
 }
 
 // 0x00422780
-static __declspec(noinline) int sub_00422780_IsZero(D2StormQueueStrc& a)
+static __declspec(noinline) int IsZero(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;
@@ -298,7 +298,7 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
 }
 
 // 0x00422B00
-static void __stdcall sub_00422B00_Set2Exp(D2StormQueueStrc& a, unsigned int nExponent)
+static void __stdcall Set2Exp(D2StormQueueStrc& a, unsigned int nExponent)
 {
     unsigned int i = 0;
     for (; i < nExponent / 32; i++)
@@ -308,7 +308,7 @@ static void __stdcall sub_00422B00_Set2Exp(D2StormQueueStrc& a, unsigned int nEx
 }
 
 // 0x00422C60
-static void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
@@ -316,7 +316,7 @@ static void sub_00422C60_SetOne(D2StormQueueStrc& a)
 }
 
 // 0x00422CC0
-static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static __declspec(noinline) void SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -345,7 +345,7 @@ static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x00422E70
-static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
+static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -387,9 +387,9 @@ static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x004234B0
-static void sub_004234B0_FromStr(D2StormQueueStrc& a, const char* szString)
+static void FromStr(D2StormQueueStrc& a, const char* szString)
 {
-    sub_00422CC0_SetZero(a);
+    SetZero(a);
     while (*szString)
     {
         sub_004227A0_MulUInt(a, a, 10);
@@ -399,7 +399,7 @@ static void sub_004234B0_FromStr(D2StormQueueStrc& a, const char* szString)
 }
 
 // 0x00423540
-static void __stdcall sub_00423540_FromUInt(D2StormQueueStrc& a, unsigned int nValue)
+static void __stdcall FromUnsigned(D2StormQueueStrc& a, unsigned int nValue)
 {
     a[0u] = nValue;
     a.SetCount(1);
@@ -437,13 +437,13 @@ void __stdcall SBigDec(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 // 0x00423870
 void __stdcall SBigFromStr(D2StormBigStrc* pBig, const char* szString)
 {
-    sub_004234B0_FromStr(pBig->tPrimary, szString);
+    FromStr(pBig->tPrimary, szString);
 }
 
 // 0x004238B0
 void __stdcall SBigFromUnsigned(D2StormBigStrc* pBig, unsigned int nValue)
 {
-    sub_00423540_FromUInt(pBig->tPrimary, nValue);
+    FromUnsigned(pBig->tPrimary, nValue);
 }
 
 // 0x004238D0
@@ -455,31 +455,31 @@ void __stdcall SBigInc(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 // 0x00423910
 int __stdcall SBigIsOne(D2StormBigStrc* pBig)
 {
-    return sub_00422750_IsOne(pBig->tPrimary);
+    return IsOne(pBig->tPrimary);
 }
 
 // 0x00423930
 int __stdcall SBigIsZero(D2StormBigStrc* pBig)
 {
-    return sub_00422780_IsZero(pBig->tPrimary);
+    return IsZero(pBig->tPrimary);
 }
 
 // 0x00423A20
 void __stdcall SBigSet2Exp(D2StormBigStrc* pBig, unsigned int nExponent)
 {
-    sub_00422B00_Set2Exp(pBig->tPrimary, nExponent);
+    Set2Exp(pBig->tPrimary, nExponent);
 }
 
 // 0x00423A40
 void __stdcall SBigSetOne(D2StormBigStrc* pBig)
 {
-    sub_00422C60_SetOne(pBig->tPrimary);
+    SetOne(pBig->tPrimary);
 }
 
 // 0x00423A60
 void __stdcall SBigSetZero(D2StormBigStrc* pBig)
 {
-    sub_00422CC0_SetZero(pBig->tPrimary);
+    SetZero(pBig->tPrimary);
 }
 
 // 0x00423A80
@@ -491,7 +491,7 @@ void __stdcall SBigShl(D2StormBigStrc* pResult, D2StormBigStrc* pA, unsigned int
 // 0x00423AA0
 void __stdcall SBigShr(D2StormBigStrc* pResult, D2StormBigStrc* pA, unsigned int nShift)
 {
-    sub_00422E70_Shr(pResult->tPrimary, pA->tPrimary, nShift);
+    Shr(pResult->tPrimary, pA->tPrimary, nShift);
 }
 
 // 0x00423AC0
@@ -533,7 +533,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
     if (nDCount > nCCount)
     {
         b.CopyFrom(c);
-        sub_00422CC0_SetZero(a);
+        SetZero(a);
         return;
     }
     if (nDCount <= 1)
@@ -572,7 +572,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
             sub_00423100_Sub(tRem, tRem, tDiv);
         }
     }
-    sub_00422E70_Shr(b, tRem, nShift);
+    Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
     tStack.nUsed -= 3;
 }
@@ -592,7 +592,7 @@ static void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b,
         a.CopyFrom(c);
         tNext.CopyFrom(b);
     }
-    while (!sub_00422780_IsZero(tNext))
+    while (!IsZero(tNext))
     {
         sub_00423DC0_Div(a, tRem, a, tNext, tStack);
         a.CopyFrom(tNext);

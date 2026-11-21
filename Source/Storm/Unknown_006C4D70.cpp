@@ -43,13 +43,13 @@ int __stdcall sub_006C4D70_FindValue(int nKey); // 0x006C4D70
 extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
 extern const char gszPercentS_006FFC58[]; // 0x006FFC58
 extern const char gszNewline_006FFCB0[]; // 0x006FFCB0
-void* __cdecl sub_0041BEF0_GetExeModule(); // 0x0041BEF0
+void* __cdecl StormGetInstance(); // 0x0041BEF0
 unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
-unsigned int __stdcall sub_00413800(char*, const char*, unsigned int); // 0x00413800
+unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
 extern "C" char* __cdecl strstr(const char*, const char*);
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void*, unsigned int, char*, int);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*, const char*, ...);
-static void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigned int error, const char* context);
+static void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const char* context);
 
 struct D2CmdNodeStrc
 {
@@ -101,13 +101,13 @@ int __stdcall sub_006C4E50_RegisterArgList(D2CmdArg006C4E50Strc* pArgs, unsigned
 }
 
 // 0x006C4F90
-int __stdcall sub_006C4F90_GetBool(int nKey)
+int __stdcall SCmdGetBool(int nKey)
 {
     return sub_006C4D70_FindValue(nKey) != 0;
 }
 
 // 0x006C3E10
-static void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigned int error, const char* context)
+static void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const char* context)
 {
     D2ErrorReportStrc report;
     report.callback = callback;
@@ -133,7 +133,7 @@ static void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, 
         return;
     }
     format[0] = 0;
-    LoadStringA(sub_0041BEF0_GetExeModule(), resource, format, 256);
+    LoadStringA(StormGetInstance(), resource, format, 256);
     if (!format[0])
         SStrCopy(format, gszErrorDefaults_006FCC24[index], 256);
     if (strstr(format, gszPercentS_006FFC58))
@@ -141,7 +141,7 @@ static void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, 
     else
         SStrCopy(message, format, 256);
     if (message[0])
-        sub_00413800(message, gszNewline_006FFCB0, 256);
+        SStrPack(message, gszNewline_006FFCB0, 256);
     SErrSetLastError(error);
     report.error = error;
     report.context = context;
@@ -197,7 +197,7 @@ int __stdcall SCmdProcess(char* szCommandLine, int bSkipFirst, void* pfnExtra, D
 
     if (pfnError && !bResult)
     {
-        sub_006C3E10_ReportCommandError(pfnError, 0x8510006D, &gszEmptyAssertText);
+        GenerateError(pfnError, 0x8510006D, &gszEmptyAssertText);
     }
 
     return nValid ? bResult : 0;
@@ -205,7 +205,7 @@ int __stdcall SCmdProcess(char* szCommandLine, int bSkipFirst, void* pfnExtra, D
 
 void __fastcall EmitCommandError(D2ErrorCallback callback, unsigned int error, const char* context)
 {
-    sub_006C3E10_ReportCommandError(callback, error + 1, context + 1);
+    GenerateError(callback, error + 1, context + 1);
 }
 
 static

@@ -3,7 +3,7 @@ struct D2CriticalSectionStrc;
 struct D2FogBlockStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-void __cdecl sub_00411CD0_InitHeaps(); // 0x00411CD0
+void __cdecl SMemInitialize(); // 0x00411CD0
 extern int gbHeapInitialized_007788D0; // 0x007788D0
 
 
@@ -73,7 +73,7 @@ int __cdecl sub_00411DA0_GetHeap()
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
     }
     return gbHeapInitialized_007788D0;
 }

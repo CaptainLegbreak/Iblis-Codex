@@ -474,7 +474,7 @@ char gszText_00799294[4]; // 0x00799294
 
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 
-unsigned int __stdcall sub_00414150_HashPath(const char* szPath);                                           // 0x00414150
+unsigned int __stdcall SStrHashHT(const char* szPath);                                           // 0x00414150
 
 extern "C" int __cdecl isalnum(int c);                                                                      // 0x006870FB
 
@@ -1059,7 +1059,7 @@ static int __stdcall sub_0043E860_FindHashedWord(char* szText, unsigned int nHas
 
         const unsigned char c = (szText + i)[nLength];
         (szText + i)[nLength] = 0;
-        const unsigned int nValue = sub_00414150_HashPath(szText + i);
+        const unsigned int nValue = SStrHashHT(szText + i);
         (szText + i)[nLength] = c;
         if (nValue == nHash)
             return 1;

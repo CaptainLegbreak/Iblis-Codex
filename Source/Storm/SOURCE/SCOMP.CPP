@@ -153,9 +153,9 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
 
 int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
 
-unsigned int __cdecl sub_0041DEC0_ReadMemory(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource); // 0x0041DEC0
+unsigned int __cdecl PkwareBufferRead(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource); // 0x0041DEC0
 
-void __cdecl sub_0041DF00_WriteMemory(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink); // 0x0041DF00
+void __cdecl PkwareBufferWrite(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink); // 0x0041DF00
 
 extern "C" unsigned int __cdecl sub_006B01B0_Explode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam); // 0x006B01B0
 
@@ -302,10 +302,10 @@ int __cdecl sub_00412240_DestroyHeaps()
     return 1;
 }
 
-int __fastcall sub_0041D7D0_VerifySignature(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize); // 0x0041D7D0
+int __fastcall SSignatureVerify(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize); // 0x0041D7D0
 
 // 0x0041DF40
-void __fastcall sub_0041DF40_CompressImplode(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int* pType, int nLevel)
+void __fastcall PkwareCompress(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int* pType, int nLevel)
 {
     char* pWork = (char*)SMemAlloc(0x8DD8, ".\\SOURCE\\SCOMP.CPP", 0x440, 0);
     D2StormCompParamStrc tParam;
@@ -322,14 +322,14 @@ void __fastcall sub_0041DF40_CompressImplode(char* pDst, unsigned int* pDstLen, 
         nDictSize = 0x1000;
     else
         nDictSize = nSrcLen < 0x600 ? 0x400 : 0x800;
-    sub_006B0870_Implode(sub_0041DEC0_ReadMemory, sub_0041DF00_WriteMemory, pWork, &tParam, &nType, &nDictSize);
+    sub_006B0870_Implode(PkwareBufferRead, PkwareBufferWrite, pWork, &tParam, &nType, &nDictSize);
     SMemFree(pWork, ".\\SOURCE\\SCOMP.CPP", 0x467, 0);
     *pDstLen = tParam.nDstPos;
     *pType = 0;
 }
 
 // 0x0041E000
-void __fastcall sub_0041E000_DecompressExplode(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int nUnused)
+void __fastcall PkwareDecompress(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int nUnused)
 {
     char* pWork = (char*)SMemAlloc(0x3134, ".\\SOURCE\\SCOMP.CPP", 0x47B, 0);
     D2StormCompParamStrc tParam;
@@ -339,7 +339,7 @@ void __fastcall sub_0041E000_DecompressExplode(char* pDst, unsigned int* pDstLen
     tParam.pSrc = pSrc;
     tParam.nSrcPos = 0;
     tParam.nSrcSize = nSrcLen;
-    sub_006B01B0_Explode(sub_0041DEC0_ReadMemory, sub_0041DF00_WriteMemory, pWork, &tParam);
+    sub_006B01B0_Explode(PkwareBufferRead, PkwareBufferWrite, pWork, &tParam);
     SMemFree(pWork, ".\\SOURCE\\SCOMP.CPP", 0x48D, 0);
     *pDstLen = tParam.nDstPos;
 }
@@ -401,7 +401,7 @@ static int __stdcall sub_0041E100_compress2(unsigned char* dest, unsigned long* 
 }
 
 // 0x0041E1F0
-void __fastcall sub_0041E1F0_SCompZlibCompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int* pnResult, int nLevel)
+void __fastcall ZlibCompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int* pnResult, int nLevel)
 {
     int nZLevel;
     switch (nLevel)
@@ -458,7 +458,7 @@ static int __stdcall sub_0041E250_uncompress(unsigned char* dest, unsigned long*
 }
 
 // 0x0041E340
-int __fastcall sub_0041E340_SCompZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int nUnused)
+int __fastcall ZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int nUnused)
 {
     return sub_0041E250_uncompress(pOut, pOutSize, pIn, nInSize);
 }
@@ -616,7 +616,7 @@ static int __stdcall sub_0041DA60_CompressADPCM(int nOutSize, const short* pIn, 
 }
 
 // 0x0041E360
-void __fastcall sub_0041E360_SCompADPCMCompressMono(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+void __fastcall ImaAdpcmMonoCompress(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
@@ -749,13 +749,13 @@ static int __stdcall sub_0041DCE0_DecompressADPCM(short* pOut, int nInLength, un
 }
 
 // 0x0041E3A0
-void __fastcall sub_0041E3A0_SCompADPCMDecompressMono(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
+void __fastcall ImaAdpcmMonoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
 {
     *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 1);
 }
 
 // 0x0041E3C0
-void __fastcall sub_0041E3C0_SCompADPCMCompressStereo(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+void __fastcall ImaAdpcmStereoCompress(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
 {
     unsigned char nLevel;
     sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
@@ -763,7 +763,7 @@ void __fastcall sub_0041E3C0_SCompADPCMCompressStereo(unsigned char* pvOutBuffer
 }
 
 // 0x0041E400
-void __fastcall sub_0041E400_SCompADPCMDecompressStereo(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
+void __fastcall ImaAdpcmStereoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
 {
     *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 2);
 }
@@ -785,7 +785,7 @@ static unsigned long gdwWorkBufferOwner_00779210; // 0x00779210
 static D2CriticalSectionStrc gtWorkBufferLock_00779214; // 0x00779214
 
 // 0x0041E440
-static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared)
+static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared)
 {
     EnterCriticalSection(&gtWorkBufferLock_00779214);
     const unsigned long dwThreadId = GetCurrentThreadId();
@@ -836,13 +836,13 @@ static void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer)
 int __stdcall sub_M01_Emit_0041E440(unsigned int nSize)
 {
     int bShared;
-    void* pBuffer = sub_0041E440_AllocWorkBuffer(nSize, &bShared);
+    void* pBuffer = s_AllocDecompressBuffer(nSize, &bShared);
     sub_0041E510_FreeWorkBuffer(bShared, pBuffer);
     return 1;
 }
 
 // 0x0041E8C0
-extern "C" int __cdecl sub_0041E8C0_ReleaseBuffer()
+extern "C" int __cdecl SCompDestroy()
 {
     if (gSCompBuffer_0077920C.pMemory)
     {

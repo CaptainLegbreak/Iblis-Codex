@@ -531,7 +531,7 @@ static int sub_00482E00_ArchiveFilePresent(const char* szFile)
     void* hFile;
     if (!SFileOpenFileEx(0, szFile, 0, &hFile))
         return 0;
-    sub_004198D0(hFile);
+    SFileCloseFile(hFile);
     return 1;
 }
 

@@ -45,7 +45,7 @@ static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, D2Sto
 }
 
 // 0x00415BB0
-int __stdcall sub_00415BB0_CheckAuthentication(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6)
+int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6)
 {
     if (!nArg3 && !nArg5)
     {
@@ -143,7 +143,7 @@ unsigned int __stdcall sub_00415D50_ChecksumFile(const char* szFileName)
 }
 
 // 0x00415EE0
-extern "C" int __stdcall sub_00415EE0(int nValue)
+extern "C" int __stdcall SFileDdaInitialize(int nValue)
 {
     VALIDATEBEGIN;
     VALIDATE(nValue);

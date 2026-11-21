@@ -7,7 +7,7 @@
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
-__declspec(nothrow) char* __stdcall sub_00414310(const char* szString);                                                             // 0x00414310
+__declspec(nothrow) char* __stdcall SStrDup(const char* szString);                                                             // 0x00414310
 
 extern "C" int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
@@ -162,7 +162,7 @@ struct D2StormHashKeyStrIStrc
     }
     D2StormHashKeyStrIStrc(const char* szString)
     {
-        m_str = sub_00414310(szString);
+        m_str = SStrDup(szString);
     }
     // 0x0060DD90
     ~D2StormHashKeyStrIStrc()
@@ -174,7 +174,7 @@ struct D2StormHashKeyStrIStrc
     {
         if (m_str)
             SMemFree(m_str, "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h", 0x5E9, 0);
-        m_str = sub_00414310(source.m_str);
+        m_str = SStrDup(source.m_str);
         return *this;
     }
 };
@@ -1008,7 +1008,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString);
 
-extern "C" char* __stdcall sub_00414200_StrLower(char* szString); // 0x00414200
+extern "C" char* __stdcall SStrLower(char* szString); // 0x00414200
 
 __declspec(nothrow) void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
@@ -1032,7 +1032,7 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize);                       
 
 const char* __stdcall SStrChrR(const char* szString, char nChar);                                                     // 0x004134D0
 
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize);                          // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize);                          // 0x00413800
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 
@@ -1042,7 +1042,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 // 0x0060DC70
 D2StormHashKeyStrIAStrc::D2StormHashKeyStrIAStrc(const char* szString)
 {
-    m_str = sub_00414310(szString);
+    m_str = SStrDup(szString);
 }
 
 // 0x0060DC90
@@ -1057,7 +1057,7 @@ D2StormHashKeyStrIAStrc& D2StormHashKeyStrIAStrc::operator=(const D2StormHashKey
 {
     if (m_str)
         SMemFree(m_str, "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h", 0x5E9, 0);
-    m_str = sub_00414310(source.m_str);
+    m_str = SStrDup(source.m_str);
     return *this;
 }
 
@@ -1070,7 +1070,7 @@ char* D2StormHashKeyStrIAStrc::sub_0060DCF0_GetString()
 // 0x0060DD00
 D2StormHashKeyStrIBStrc::D2StormHashKeyStrIBStrc(const char* szString)
 {
-    m_str = sub_00414310(szString);
+    m_str = SStrDup(szString);
 }
 
 // build: symbol ??_GChatIgnoreList@@UAEPAXI@Z 0x0060DD60
@@ -1155,7 +1155,7 @@ D2StormHashKeyStrIBStrc& D2StormHashKeyStrIBStrc::operator=(const D2StormHashKey
 {
     if (m_str)
         SMemFree(m_str, "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h", 0x5E9, 0);
-    m_str = sub_00414310(source.m_str);
+    m_str = SStrDup(source.m_str);
     return *this;
 }
 
@@ -1912,7 +1912,7 @@ int D2CommonIgnoreListStrc::sub_0060DF10_OnAdded(const char* szLine)
     int bResult = 0;
     char szBuffer[0x100];
     SStrCopy(szBuffer, szLine, sizeof(szBuffer));
-    sub_00413800(szBuffer, gszNewline_006FFCB0, sizeof(szBuffer));
+    SStrPack(szBuffer, gszNewline_006FFCB0, sizeof(szBuffer));
     m_pFile = fopen(szFileName, "at+");
     if (m_pFile)
     {
@@ -2121,12 +2121,12 @@ int D2CommonIgnoreListStrc::sub_0060FC40_VirtSlot5(const char* szName)
         char szLower[0x100];
         char szKey[0x100];
         SStrCopy(szLower, szName, 0x7FFFFFFF);
-        sub_00414200_StrLower(szLower);
+        SStrLower(szLower);
         for (char* pNode = (char*)((((int)m_table2.m_fulllist.m_terminator.m_next <= 0) - 1) & (int)m_table2.m_fulllist.m_terminator.m_next);
              (int)pNode > 0; pNode = m_table2.sub_0060EAA0_Next(pNode))
         {
             SStrCopy(szKey, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str, 0x7FFFFFFF);
-            sub_00414200_StrLower(szKey);
+            SStrLower(szKey);
             if (strstr(szLower, szKey))
                 return 1;
         }
@@ -2631,7 +2631,7 @@ int D2CommonIgnoreListStrc::sub_00610F90_AddAlias(const char* szName)
         m_table2.sub_00610D60_New(szName, 0, 0);
         char szLine[0x100] = "";
         szLine[0] = '!';
-        sub_00413800(szLine, szName, sizeof(szLine));
+        SStrPack(szLine, szName, sizeof(szLine));
         sub_0060DF10_OnAdded(szLine);
     }
 
@@ -2690,7 +2690,7 @@ D2CommonIgnoreListStrc::IgnoreList()
     char* pSep = (char*)SStrChrR(szPath, 0x5C);
     if (pSep)
         pSep[1] = 0;
-    sub_00413800(szPath, "ignorelist", 0x104);
+    SStrPack(szPath, "ignorelist", 0x104);
     SStrCopy(szFileName, szPath, 0x104);
 
     unsigned long dwEnabled = 1;
@@ -2750,8 +2750,8 @@ int D2CommonIgnoreListStrc::sub_00611320_StoreAccountAlias(char* szRaw, int nRaw
 
     char szMapped[0x100] = "";
     szMapped[0] = '*';
-    sub_00413800(szMapped, szAccount, sizeof(szMapped));
-    pNode->pMapped = sub_00414310(szMapped);
+    SStrPack(szMapped, szAccount, sizeof(szMapped));
+    pNode->pMapped = SStrDup(szMapped);
     return 1;
 }
 

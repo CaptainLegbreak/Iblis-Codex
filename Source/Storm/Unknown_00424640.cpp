@@ -47,7 +47,7 @@ struct D2StormBigStrc
 int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormRecordStackStrc* pStack);
 
 // 0x00424640
-static void __stdcall sub_00424640_BigPow(D2StormQueueStrc* pResult, D2StormQueueStrc* pBase, unsigned int nExp, D2StormRecordStackStrc* pStack)
+static void __stdcall Pow(D2StormQueueStrc* pResult, D2StormQueueStrc* pBase, unsigned int nExp, D2StormRecordStackStrc* pStack)
 {
     unsigned int nBit = nExp;
     while (nBit & (nBit - 1))
@@ -83,5 +83,5 @@ static void __stdcall sub_00424640_BigPow(D2StormQueueStrc* pResult, D2StormQueu
 // 0x00424F50
 void __stdcall SBigPow(D2StormBigStrc* pResult, D2StormBigStrc* pBase, unsigned int nExp)
 {
-    sub_00424640_BigPow(&pResult->tQueue, &pBase->tQueue, nExp, &pResult->tStack);
+    Pow(&pResult->tQueue, &pBase->tQueue, nExp, &pResult->tStack);
 }

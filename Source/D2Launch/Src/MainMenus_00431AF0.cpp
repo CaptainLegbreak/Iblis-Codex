@@ -49,7 +49,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void*, unsi
 extern "C" unsigned int __cdecl strlen(const char*);
 void __cdecl sub_0042F800(); // 0x0042F800
 void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
-unsigned int __stdcall sub_00413800(char*, const char*, unsigned int); // 0x00413800
+unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
 void __cdecl sub_00430400_PollSlot4C(); // 0x00430400
 void __stdcall sub_004FA590(D2LaunchDoneFn); // 0x004FA590
 void __cdecl sub_004336C0_ShowMainMenu(); // 0x004336C0
@@ -397,8 +397,8 @@ int __cdecl sub_00433810_ShowTerms()
     sub_0042F800();
     sub_00525260(szLanguage, 2);
     SStrCopy(szFileName, gszTosPrefix, 128);
-    sub_00413800(szFileName, szLanguage, 128);
-    sub_00413800(szFileName, gszTextExt, 128);
+    SStrPack(szFileName, szLanguage, 128);
+    SStrPack(szFileName, gszTextExt, 128);
     gpFuncTable->pfnRequest(szFileName, strlen(szFileName));
     sub_004FA590(sub_00430400_PollSlot4C);
     if (gnCancelled) { sub_0042F3F0_DestroyControls(); return 0; }

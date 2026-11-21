@@ -154,7 +154,7 @@ struct D2StormHuffTreeStrc
   D2StormHuffItemStrc* item=head->next->prev;
   return (int)item>0?item:0;
  }
-    void sub_0041EF20_BuildTree(unsigned char nCmpType);
+    void BuildTree(unsigned char nCmpType);
     D2StormHuffItemStrc* AllocateItem(unsigned int nLinkType)
     {
         D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.m_terminator.Next();
@@ -192,7 +192,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileN
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
 extern T0041FA40* gapSLogBuckets_00779298[4]; // 0x00779298
-static T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog);
+static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog);
 static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex);
 
 // 0x0041EBC0
@@ -235,7 +235,7 @@ unsigned int D2StormHuffTreeStrc::sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* i
 }
 
 // 0x0041EF20
-void D2StormHuffTreeStrc::sub_0041EF20_BuildTree(unsigned char nCmpType)
+void D2StormHuffTreeStrc::BuildTree(unsigned char nCmpType)
 {
     D2StormHuffItemStrc* pItem;
     while ((pItem = (D2StormHuffItemStrc*)tItemList.m_terminator.Next()) != 0)
@@ -295,7 +295,7 @@ void D2StormHuffTreeStrc::sub_0041EF20_BuildTree(unsigned char nCmpType)
 static unsigned long gnSLogLastHandle_00779230; // 0x00779230
 
 // 0x0041FA80
-static T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog)
+static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog)
 {
     if (!hLog)
     {
@@ -357,7 +357,7 @@ int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** p
     void* hLog = (void*)++gnSLogLastHandle_00779230;
     *phLog = hLog;
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 1, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 1, hLog);
     if (!pLog)
     {
         *phLog = 0;

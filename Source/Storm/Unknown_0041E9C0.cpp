@@ -153,13 +153,13 @@ struct D2StormHuffTreeStrc
     int unk0x04;
     unsigned int unk0x08[0xC19];
     D2StormHuffItemStrc* pItemsByValue[0x102];
-    void sub_0041EF20_BuildTree(unsigned char nCmpType);                                                    // 0x0041EF20
+    void BuildTree(unsigned char nCmpType);                                                    // 0x0041EF20
     unsigned int sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* pInput);                                      // 0x0041EBC0
-    void sub_0041F510_InsertBranch(unsigned int nValue);                                                    // 0x0041F510
+    void AddSymbol(unsigned int nValue);                                                    // 0x0041F510
     void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);                                               // 0x0041F350
-    unsigned int sub_0041F740_Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
+    unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
     void sub_0041D9E0_EncodeOne(D2StormHuffOutputStrc* pOutput, unsigned int nValue);                       // 0x0041D9E0
-    unsigned int sub_0041F850_Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
+    unsigned int Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
 };
 
 struct D2StormHuffOutputStrc
@@ -525,14 +525,14 @@ D2StormHuffDecTreeStrc::~D2StormHuffDecTreeStrc()
 }
 
 // 0x0041F740
-unsigned int D2StormHuffTreeStrc::sub_0041F740_Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput)
+unsigned int D2StormHuffTreeStrc::Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput)
 {
     if (!nOutputSize)
     {
         return 0;
     }
     unsigned char nType = pInput->Get8Bits();
-    sub_0041EF20_BuildTree(nType);
+    BuildTree(nType);
     bIsCmp0 = nType == 0;
     unsigned char* pbOut = (unsigned char*)pOutput;
     for (;;)
@@ -541,7 +541,7 @@ unsigned int D2StormHuffTreeStrc::sub_0041F740_Decompress(void* pOutput, unsigne
         if (nValue == 0x101)
         {
             nValue = pInput->Get8Bits();
-            sub_0041F510_InsertBranch(nValue);
+            AddSymbol(nValue);
             if (!bIsCmp0)
             {
                 sub_0041F350_IncWeights(pItemsByValue[nValue]);
@@ -578,9 +578,9 @@ void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
 }
 
 // 0x0041F850
-unsigned int D2StormHuffTreeStrc::sub_0041F850_Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
+unsigned int D2StormHuffTreeStrc::Compress(D2StormHuffOutputStrc* pOutput, void* pvIn, int cbIn, unsigned char nCmpType)
 {
-    sub_0041EF20_BuildTree(nCmpType);
+    BuildTree(nCmpType);
     bIsCmp0 = nCmpType == 0;
     pOutput->sub_0041D950_PutBits(nCmpType, 8);
     unsigned char* pbIn = (unsigned char*)pvIn;
@@ -592,7 +592,7 @@ unsigned int D2StormHuffTreeStrc::sub_0041F850_Compress(D2StormHuffOutputStrc* p
         {
             sub_0041D9E0_EncodeOne(pOutput, 0x101);
             pOutput->sub_0041D950_PutBits(nValue, 8);
-            sub_0041F510_InsertBranch(nValue);
+            AddSymbol(nValue);
             if (!bIsCmp0)
             {
                 sub_0041F350_IncWeights(pItemsByValue[nValue]);
@@ -638,7 +638,7 @@ static __declspec(noinline) void sub_0041FA40_FlushLog(T0041FA40* pLog)
 }
 
 // 0x0041FA80
-static T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog)
+static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog)
 {
     if (!hLog)
     {
@@ -751,7 +751,7 @@ static __declspec(noinline) void sub_0041FCE0_UnlockLog(unsigned long nIndex)
 void __stdcall SLogClose(void* hLog)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         sub_0041FA40_FlushLog(pLog);
@@ -764,7 +764,7 @@ void __stdcall SLogClose(void* hLog)
 void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     for (unsigned long nOffset = 0; nOffset < nSize; nOffset += 8)
@@ -815,7 +815,7 @@ void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
 void __stdcall SLogFlush(void* hLog)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         sub_0041FA40_FlushLog(pLog);
@@ -839,7 +839,7 @@ void __cdecl SLogFlushAll()
 void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     pLog->nUsed = pLog->nPended;
@@ -853,10 +853,10 @@ void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
 }
 
 // 0x004200E0
-int __stdcall sub_004200E0_SLogSetAbsIndent(void* hLog, int nIndent)
+int __stdcall SLogSetAbsIndent(void* hLog, int nIndent)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return 0;
     int nOld = pLog->nIndent;
@@ -866,10 +866,10 @@ int __stdcall sub_004200E0_SLogSetAbsIndent(void* hLog, int nIndent)
 }
 
 // 0x00420120
-int __stdcall sub_00420120_SLogSetIndent(void* hLog, int nDelta)
+int __stdcall SLogSetIndent(void* hLog, int nDelta)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return 0;
     int nOld = pLog->nIndent;
@@ -879,10 +879,10 @@ int __stdcall sub_00420120_SLogSetIndent(void* hLog, int nDelta)
 }
 
 // 0x00420160
-void __stdcall sub_00420160_SLogSetTimestamp(void* hLog, int bTimestamp)
+void __stdcall SLogSetTimestamp(void* hLog, int bTimestamp)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         pLog->f_18 = bTimestamp;
@@ -894,7 +894,7 @@ void __stdcall sub_00420160_SLogSetTimestamp(void* hLog, int bTimestamp)
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     sub_0041FBA0_AppendTimestamp(1, pLog);
@@ -1274,7 +1274,7 @@ void D2TSListStrc::sub_00420750_UnlinkAll()
 void* gdwGlobal_007792F4; // 0x007792F4
 
 // 0x00420A10
-static __declspec(noinline) void sub_00420A10_UnregisterWindow(void* hWnd)
+static __declspec(noinline) void DeleteWindow(void* hWnd)
 {
     if (hWnd == gdwGlobal_007792F4)
     {
@@ -1341,7 +1341,7 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
     }
     if (uMsg == 0x82)
     {
-        sub_00420A10_UnregisterWindow(hWnd);
+        DeleteWindow(hWnd);
     }
     if (pbUseResult)
     {
@@ -1359,7 +1359,7 @@ static int sub_00420AE0_UnregisterAllWindows()
 {
     while (D2StormWndRecStrc* pRec = (D2StormWndRecStrc*)gWndRecList_00708860.Head())
     {
-        sub_00420A10_UnregisterWindow(pRec->hWnd);
+        DeleteWindow(pRec->hWnd);
     }
     return 1;
 }

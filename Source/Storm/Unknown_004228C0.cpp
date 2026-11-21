@@ -120,7 +120,7 @@ struct D2StormHandlePairStrc
     void* hFirst;
     void* hSecond;
 
-    void sub_00426070_CallBoth(int nArg1, int nArg2, int nArg3, int nArg4);
+    void Prepare(int nArg1, int nArg2, int nArg3, int nArg4);
 };
 
 struct D2StormListAStrc
@@ -151,7 +151,7 @@ static void __stdcall sub_004228C0_Not(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x004239E0
-void __stdcall sub_004239E0_BigNot(D2StormBigStrc* pResult, D2StormBigStrc* pA)
+void __stdcall SBigNot(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 {
     sub_004228C0_Not(pResult->tPrimary, pA->tPrimary);
 }
@@ -197,7 +197,7 @@ static void __stdcall sub_00422440_And(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x004237B0
-void __stdcall sub_004237B0_BigAnd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+void __stdcall SBigAnd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     sub_00422440_And(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
@@ -213,7 +213,7 @@ static void __stdcall sub_004229D0_Or(D2StormQueueStrc& a, const D2StormQueueStr
 }
 
 // 0x00423A00
-void __stdcall sub_00423A00_BigOr(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+void __stdcall SBigOr(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     sub_004229D0_Or(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
@@ -229,7 +229,7 @@ static void __stdcall sub_00423250_Xor(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x00423D60
-void __stdcall sub_00423D60_BigXor(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+void __stdcall SBigXor(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     sub_00423250_Xor(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
@@ -258,7 +258,7 @@ int D2StormHandleStrc::sub_00426050_Call(int nArg1, int nArg2)
 }
 
 // 0x00426070
-void D2StormHandlePairStrc::sub_00426070_CallBoth(int nArg1, int nArg2, int nArg3, int nArg4)
+void D2StormHandlePairStrc::Prepare(int nArg1, int nArg2, int nArg3, int nArg4)
 {
     sub_00423850(hFirst, nArg1, nArg2);
     sub_00423850(hSecond, nArg3, nArg4);

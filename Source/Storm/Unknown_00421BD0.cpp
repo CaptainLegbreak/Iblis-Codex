@@ -90,7 +90,7 @@ struct T0041D340
     unsigned int aState[5];
     unsigned char f_1C[64];
 
-    void sub_00425DD0_Update(const unsigned char* pData, unsigned int nLen);
+    void Append(const unsigned char* pData, unsigned int nLen);
 };
 
 
@@ -375,7 +375,7 @@ void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned 
 }
 
 // 0x00425DD0
-void T0041D340::sub_00425DD0_Update(const unsigned char* pData, unsigned int nLen)
+void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
 {
     unsigned int nUsed = (unsigned int)nBitCount >> 3 & 0x3F;
     nBitCount += (unsigned __int64)nLen * 8;

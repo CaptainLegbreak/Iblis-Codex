@@ -3485,17 +3485,17 @@
     {
      "va": "0x00413F30",
      "length": 532,
-     "name": "sub_00413F30_HashLookup2"
+     "name": "bjhash"
     },
     {
      "va": "0x004141E0",
      "length": 19,
-     "name": "sub_004141E0_StrUpper"
+     "name": "SStrUpper"
     },
     {
      "va": "0x00414200",
      "length": 19,
-     "name": "sub_00414200_StrLower"
+     "name": "SStrLower"
     },
     {
      "va": "0x00414260",
@@ -3520,12 +3520,12 @@
     {
      "va": "0x004151D0",
      "length": 51,
-     "name": "sub_004151D0_ReadBuffer"
+     "name": "DecompressLzw_BufferRead"
     },
     {
      "va": "0x00415210",
      "length": 39,
-     "name": "sub_00415210_WriteBuffer"
+     "name": "DecompressLzw_BufferWrite"
     },
     {
      "va": "0x004152D0",
@@ -3544,7 +3544,7 @@
     {
      "va": "0x004154B0",
      "length": 172,
-     "name": "?sub_004154B0_ReadAt@@YGHPAIPAXIPBDPAKI1@Z"
+     "name": "?ReadFileChecked@@YGHPAIPAXIPBDPAKI1@Z"
     },
     {
      "va": "0x00415560",
@@ -3624,7 +3624,7 @@
     {
      "va": "0x00415FA0",
      "length": 131,
-     "name": "?sub_00415FA0_GetArchiveInfo@@YGHPAXPAH1@Z"
+     "name": "?SFileGetArchiveInfo@@YGHPAXPAH1@Z"
     },
     {
      "va": "0x00416030",
@@ -3633,7 +3633,7 @@
     {
      "va": "0x004160A0",
      "length": 66,
-     "name": "sub_004160A0_GetBasePath"
+     "name": "SFileGetBasePath"
     },
     {
      "va": "0x004160F0",
@@ -3661,7 +3661,7 @@
     {
      "va": "0x00416320",
      "length": 80,
-     "name": "?sub_00416320_GetFileSize@@YGHPAXPAH@Z"
+     "name": "?SFileGetFileCompressedSize@@YGHPAXPAH@Z"
     },
     {
      "va": "0x00416400",
@@ -4006,12 +4006,12 @@
     {
      "va": "0x004181F0",
      "length": 223,
-     "name": "?sub_004181F0_DdaGetVolume@@YGHPAXPAH1@Z"
+     "name": "?SFileDdaGetVolume@@YGHPAXPAH1@Z"
     },
     {
      "va": "0x004182D0",
      "length": 187,
-     "name": "?sub_004182D0_DdaSetVolume@@YGHPAXHH@Z"
+     "name": "?SFileDdaSetVolume@@YGHPAXHH@Z"
     },
     {
      "va": "0x00418470",
@@ -4111,7 +4111,7 @@
     {
      "va": "0x00418E90",
      "length": 38,
-     "name": "?sub_00418E90_ReleaseArchive@@YIXPAUD2StormArchiveRecStrc@@@Z"
+     "name": "?RemoveArchiveRef@@YIXPAUD2StormArchiveRecStrc@@@Z"
     },
     {
      "va": "0x00418EC0",
@@ -4156,12 +4156,12 @@
     {
      "va": "0x0041AF60",
      "length": 235,
-     "name": "?sub_0041AF60_StormLoadFile@@YGHPAXPBDPAPAXPAIIH0H@Z"
+     "name": "?SFileLoadFileEx2@@YGHPAXPBDPAPAXPAIIH0H@Z"
     },
     {
      "va": "0x0041BEF0",
      "length": 9,
-     "name": "?sub_0041BEF0_GetExeModule@@YAPAXXZ"
+     "name": "?StormGetInstance@@YAPAXXZ"
     },
     {
      "va": "0x0041C0E0",
@@ -4301,7 +4301,7 @@
     {
      "va": "0x00425D90",
      "length": 49,
-     "name": "?sub_00425D90_Init@D2StormHashCtxStrc@@QAEXXZ"
+     "name": "?Initialize@D2StormHashCtxStrc@@QAEXXZ"
     },
     {
      "va": "0x00426920",
@@ -4940,7 +4940,7 @@
     {
      "va": "0x00411CD0",
      "length": 97,
-     "name": "?sub_00411CD0_InitHeaps@@YAXXZ"
+     "name": "?SMemInitialize@@YAXXZ"
     },
     {
      "va": "0x004158E0",
@@ -5064,12 +5064,12 @@
     {
      "va": "0x0041DF40",
      "length": 186,
-     "name": "sub_0041DF40_CompressImplode"
+     "name": "PkwareCompress"
     },
     {
      "va": "0x0041E000",
      "length": 119,
-     "name": "sub_0041E000_DecompressExplode"
+     "name": "PkwareDecompress"
     },
     {
      "va": "0x0041E080",
@@ -5089,7 +5089,7 @@
     {
      "va": "0x0041E1F0",
      "length": 93,
-     "name": "?sub_0041E1F0_SCompZlibCompress@@YIXPAEPAKPBEKPAHH@Z"
+     "name": "?ZlibCompress@@YIXPAEPAKPBEKPAHH@Z"
     },
     {
      "va": "0x0041E250",
@@ -5099,27 +5099,27 @@
     {
      "va": "0x0041E340",
      "length": 24,
-     "name": "?sub_0041E340_SCompZlibDecompress@@YIHPAEPAKPBEKH@Z"
+     "name": "?ZlibDecompress@@YIHPAEPAKPBEKH@Z"
     },
     {
      "va": "0x0041E360",
      "length": 55,
-     "name": "?sub_0041E360_SCompADPCMCompressMono@@YIXPAEPAHPBFH1H@Z"
+     "name": "?ImaAdpcmMonoCompress@@YIXPAEPAHPBFH1H@Z"
     },
     {
      "va": "0x0041E3A0",
      "length": 30,
-     "name": "?sub_0041E3A0_SCompADPCMDecompressMono@@YIXPAFPAIPAEHH@Z"
+     "name": "?ImaAdpcmMonoDecompress@@YIXPAFPAIPAEHH@Z"
     },
     {
      "va": "0x0041E3C0",
      "length": 55,
-     "name": "?sub_0041E3C0_SCompADPCMCompressStereo@@YIXPAEPAHPBFH1H@Z"
+     "name": "?ImaAdpcmStereoCompress@@YIXPAEPAHPBFH1H@Z"
     },
     {
      "va": "0x0041E400",
      "length": 30,
-     "name": "?sub_0041E400_SCompADPCMDecompressStereo@@YIXPAFPAIPAEHH@Z"
+     "name": "?ImaAdpcmStereoDecompress@@YIXPAFPAIPAEHH@Z"
     },
     {
      "va": "0x0041E420",
@@ -5129,7 +5129,7 @@
     {
      "va": "0x0041E440",
      "length": 206,
-     "name": "?sub_0041E440_AllocWorkBuffer@@YAPAXIPAH@Z"
+     "name": "?s_AllocDecompressBuffer@@YAPAXIPAH@Z"
     },
     {
      "va": "0x0041E510",
@@ -5139,7 +5139,7 @@
     {
      "va": "0x0041E8C0",
      "length": 43,
-     "name": "_sub_0041E8C0_ReleaseBuffer"
+     "name": "_SCompDestroy"
     },
     {
      "va": "0x0041E930",
@@ -5404,7 +5404,7 @@
     {
      "va": "0x00414150",
      "length": 131,
-     "name": "sub_00414150_HashPath"
+     "name": "SStrHashHT"
     },
     {
      "va": "0x00415240",
@@ -5469,7 +5469,7 @@
     {
      "va": "0x00414310",
      "length": 79,
-     "name": "?sub_00414310@@YGPADPBD@Z"
+     "name": "?SStrDup@@YGPADPBD@Z"
     },
     {
      "va": "0x00414370",
@@ -5499,12 +5499,12 @@
     {
      "va": "0x00414C70",
      "length": 282,
-     "name": "?sub_00414C70_SRegSaveEntry@@YGHPBD0IKPBEK@Z"
+     "name": "?InternalSaveEntry@@YGHPBD0IKPBEK@Z"
     },
     {
      "va": "0x00414D90",
      "length": 72,
-     "name": "?sub_00414D90_RegDeleteValue@@YGHPBD0I@Z"
+     "name": "?SRegDeleteValue@@YGHPBD0I@Z"
     },
     {
      "va": "0x00415000",
@@ -5648,7 +5648,7 @@
     {
      "va": "0x00418140",
      "length": 169,
-     "name": "?sub_00418140_DdaGetPosition@@YGHPAXPAI1@Z"
+     "name": "?SFileDdaGetPos@@YGHPAXPAI1@Z"
     }
    ]
   },
@@ -5687,7 +5687,7 @@
     {
      "va": "0x00415BB0",
      "length": 414,
-     "name": "?sub_00415BB0_CheckAuthentication@@YGHPAXPAIHHHH@Z"
+     "name": "?SFileAuthenticateArchiveEx@@YGHPAXPAIHHHH@Z"
     },
     {
      "va": "0x00415D50",
@@ -5697,7 +5697,7 @@
     {
      "va": "0x00415EE0",
      "length": 42,
-     "name": "_sub_00415EE0@4"
+     "name": "_SFileDdaInitialize@4"
     }
    ]
   },
@@ -5734,7 +5734,7 @@
     {
      "va": "0x00418B80",
      "length": 24,
-     "name": "sub_00418B80_FileQueryDirect"
+     "name": "SFileFileExists"
     },
     {
      "va": "0x0041BEB0",
@@ -5754,12 +5754,12 @@
     {
      "va": "0x0041C2C0",
      "length": 45,
-     "name": "sub_0041C2C0_SetOwner"
+     "name": "SErrPrepareAppFatal"
     },
     {
      "va": "0x0041C2F0",
      "length": 66,
-     "name": "sub_0041C2F0_RegisterMsgSource"
+     "name": "SErrRegisterMessageSource"
     }
    ]
   },
@@ -5906,7 +5906,7 @@
     {
      "va": "0x00418390",
      "length": 92,
-     "name": "?sub_00418390_FileQuery@@YGHPAXPBDH@Z"
+     "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
     }
    ]
   },
@@ -5931,12 +5931,12 @@
     {
      "va": "0x00419760",
      "length": 36,
-     "name": "?sub_00419760_ReleaseFile@@YAXPAUD2StormFileRecStrc@@@Z"
+     "name": "?RemoveFileRef@@YAXPAUD2StormFileRecStrc@@@Z"
     },
     {
      "va": "0x004198D0",
      "length": 166,
-     "name": "?sub_004198D0@@YGHPAX@Z"
+     "name": "?SFileCloseFile@@YGHPAX@Z"
     },
     {
      "va": "0x00419A80",
@@ -5946,7 +5946,7 @@
     {
      "va": "0x00419BD0",
      "length": 33,
-     "name": "?sub_00419BD0@@YAXPAUD2StormAudioStreamStrc@@@Z"
+     "name": "?RemoveStreamRef@@YAXPAUD2StormAudioStreamStrc@@@Z"
     }
    ]
   },
@@ -6083,7 +6083,7 @@
     {
      "va": "0x0041A8F0",
      "length": 63,
-     "name": "?sub_0041A8F0_SetWindowNodeValue@@YAXHPAX@Z"
+     "name": "?MarkRequestPriority@@YAXHPAX@Z"
     },
     {
      "va": "0x0041A930",
@@ -6103,7 +6103,7 @@
     {
      "va": "0x0041AA80",
      "length": 71,
-     "name": "?sub_0041AA80_SetWindowFlag@@YGXPAXH@Z"
+     "name": "?SFilePrioritizeRequest@@YGXPAXH@Z"
     }
    ]
   },
@@ -6307,7 +6307,7 @@
     {
      "va": "0x0041BF00",
      "length": 180,
-     "name": "?sub_0041BF00@@YGHIPAXPAI@Z"
+     "name": "?StormSetOption@@YGHIPAXPAI@Z"
     }
    ]
   },
@@ -6318,7 +6318,7 @@
     {
      "va": "0x0041BFC0",
      "length": 252,
-     "name": "?sub_0041BFC0@@YGHIPBXI@Z"
+     "name": "?StormGetOption@@YGHIPBXI@Z"
     }
    ]
   },
@@ -6339,12 +6339,12 @@
     {
      "va": "0x0041CA80",
      "length": 107,
-     "name": "?sub_0041CA80_Destroy@@YAHXZ"
+     "name": "?SErrDestroy@@YAHXZ"
     },
     {
      "va": "0x0041CFB0",
      "length": 90,
-     "name": "?sub_0041CFB0_DisplayErrorFmt@@YAHHPBDHHH0ZZ"
+     "name": "?SErrDisplayErrorFmt@@YAHHPBDHHH0ZZ"
     },
     {
      "va": "0x0041D010",
@@ -6413,7 +6413,7 @@
     {
      "va": "0x0041C900",
      "length": 184,
-     "name": "sub_0041C900_AddHandler"
+     "name": "SErrRegisterHandler"
     },
     {
      "va": "0x0041D1E0",
@@ -6443,7 +6443,7 @@
     {
      "va": "0x0041D590",
      "length": 316,
-     "name": "?sub_0041D590_SignBuffer@@YIHPADPAIPBXI2H2H@Z"
+     "name": "?SSignatureGenerate@@YIHPADPAIPBXI2H2H@Z"
     },
     {
      "va": "0x0041D6D0",
@@ -6468,12 +6468,12 @@
     {
      "va": "0x0041DEC0",
      "length": 52,
-     "name": "sub_0041DEC0_ReadMemory"
+     "name": "PkwareBufferRead"
     },
     {
      "va": "0x0041DF00",
      "length": 49,
-     "name": "sub_0041DF00_WriteMemory"
+     "name": "PkwareBufferWrite"
     },
     {
      "va": "0x0041E900",
@@ -6503,12 +6503,12 @@
     {
      "va": "0x0041F510",
      "length": 397,
-     "name": "sub_0041F510_InsertBranch"
+     "name": "AddSymbol"
     },
     {
      "va": "0x0041F9E0",
      "length": 82,
-     "name": "sub_0041F9E0_DecompressHuffman"
+     "name": "HuffmanDecompress"
     },
     {
      "va": "0x00420290",
@@ -6653,7 +6653,7 @@
     {
      "va": "0x004237D0",
      "length": 48,
-     "name": "sub_004237D0_CopyQueue"
+     "name": "SBigCopy"
     },
     {
      "va": "0x00424E40",
@@ -6668,12 +6668,12 @@
     {
      "va": "0x00424F70",
      "length": 28,
-     "name": "sub_00424F70_BigOp"
+     "name": "SBigRand"
     },
     {
      "va": "0x00424F90",
      "length": 24,
-     "name": "sub_00424F90_BigOp"
+     "name": "SBigSquare"
     }
    ]
   },
@@ -6770,7 +6770,7 @@
     {
      "va": "0x004260A0",
      "length": 190,
-     "name": "?sub_004260A0_PowModBuffer@D2StormHandlePairStrc@@QAEXPAXI@Z"
+     "name": "?Process@D2StormHandlePairStrc@@QAEXPAXI@Z"
     }
    ],
    "flags": [
@@ -6897,12 +6897,12 @@
     {
      "va": "0x0041F740",
      "length": 268,
-     "name": "sub_0041F740_Decompress"
+     "name": "Decompress"
     },
     {
      "va": "0x0041F850",
      "length": 197,
-     "name": "?sub_0041F850_Compress@D2StormHuffTreeStrc@@QAEIPAUD2StormHuffOutputStrc@@PAXHE@Z"
+     "name": "?Compress@D2StormHuffTreeStrc@@QAEIPAUD2StormHuffOutputStrc@@PAXHE@Z"
     },
     {
      "va": "0x0041F920",
@@ -6927,7 +6927,7 @@
     {
      "va": "0x0041FA80",
      "length": 188,
-     "name": "?sub_0041FA80_LockLog@@YGPAUD2SLogStrc@@PAKHPAX@Z"
+     "name": "?LockLog@@YGPAUD2SLogStrc@@PAKHPAX@Z"
     },
     {
      "va": "0x0041FB40",
@@ -6982,17 +6982,17 @@
     {
      "va": "0x004200E0",
      "length": 52,
-     "name": "?sub_004200E0_SLogSetAbsIndent@@YGHPAXH@Z"
+     "name": "?SLogSetAbsIndent@@YGHPAXH@Z"
     },
     {
      "va": "0x00420120",
      "length": 55,
-     "name": "?sub_00420120_SLogSetIndent@@YGHPAXH@Z"
+     "name": "?SLogSetIndent@@YGHPAXH@Z"
     },
     {
      "va": "0x00420160",
      "length": 41,
-     "name": "?sub_00420160_SLogSetTimestamp@@YGXPAXH@Z"
+     "name": "?SLogSetTimestamp@@YGXPAXH@Z"
     },
     {
      "va": "0x00420190",
@@ -7052,7 +7052,7 @@
     {
      "va": "0x00420A10",
      "length": 89,
-     "name": "?sub_00420A10_UnregisterWindow@@YAXPAX@Z"
+     "name": "?DeleteWindow@@YAXPAX@Z"
     },
     {
      "va": "0x00420AE0",
@@ -7194,7 +7194,7 @@
     {
      "va": "0x0041F980",
      "length": 89,
-     "name": "sub_0041F980"
+     "name": "HuffmanCompress"
     },
     {
      "va": "0x0041FBA0",
@@ -7315,7 +7315,7 @@
     {
      "va": "0x00420220",
      "length": 111,
-     "name": "?sub_00420220_SLogDestroy@@YAXXZ"
+     "name": "?SLogDestroy@@YAXXZ"
     },
     {
      "va": "0x004202A0",
@@ -7366,7 +7366,7 @@
     {
      "va": "0x004209E0",
      "length": 36,
-     "name": "?sub_004209E0_FindById@@YIPAUD2StormIdNodeStrc@@H@Z"
+     "name": "?FindWindow@@YIPAUD2StormIdNodeStrc@@H@Z"
     }
    ]
   },
@@ -7377,7 +7377,7 @@
     {
      "va": "0x00420AB0",
      "length": 42,
-     "name": "?sub_00420AB0_UnregisterHandler@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
+     "name": "?InternalUnregister@@YGHIPAUHWND__@@IP6GHPAX@Z@Z"
     },
     {
      "va": "0x00420BF0",
@@ -7494,7 +7494,7 @@
     {
      "va": "0x00421550",
      "length": 18,
-     "name": "?sub_00421550_ToUnsigned@@YGXPAXPAI@Z"
+     "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
     },
     {
      "va": "0x00421680",
@@ -7849,7 +7849,7 @@
     {
      "va": "0x00422710",
      "length": 49,
-     "name": "?sub_00422710_IsOdd@@YAHPAUD2StormQueueStrc@@@Z"
+     "name": "?IsOdd@@YAHPAUD2StormQueueStrc@@@Z"
     },
     {
      "va": "0x00423770",
@@ -7904,7 +7904,7 @@
     {
      "va": "0x00425DD0",
      "length": 165,
-     "name": "sub_00425DD0_Update"
+     "name": "Append"
     },
     {
      "va": "0x00425E80",
@@ -7985,12 +7985,12 @@
     {
      "va": "0x00422750",
      "length": 40,
-     "name": "?sub_00422750_IsOne@@YAHAAUD2StormQueueStrc@@@Z"
+     "name": "?IsOne@@YAHAAUD2StormQueueStrc@@@Z"
     },
     {
      "va": "0x00422780",
      "length": 21,
-     "name": "?sub_00422780_IsZero@@YAHAAUD2StormQueueStrc@@@Z"
+     "name": "?IsZero@@YAHAAUD2StormQueueStrc@@@Z"
     },
     {
      "va": "0x004227A0",
@@ -8000,32 +8000,32 @@
     {
      "va": "0x00422B00",
      "length": 339,
-     "name": "?sub_00422B00_Set2Exp@@YGXAAUD2StormQueueStrc@@I@Z"
+     "name": "?Set2Exp@@YGXAAUD2StormQueueStrc@@I@Z"
     },
     {
      "va": "0x00422C60",
      "length": 88,
-     "name": "?sub_00422C60_SetOne@@YAXAAUD2StormQueueStrc@@@Z"
+     "name": "?SetOne@@YAXAAUD2StormQueueStrc@@@Z"
     },
     {
      "va": "0x00422CC0",
      "length": 63,
-     "name": "?sub_00422CC0_SetZero@@YAXAAUD2StormQueueStrc@@@Z"
+     "name": "?SetZero@@YAXAAUD2StormQueueStrc@@@Z"
     },
     {
      "va": "0x00422E70",
      "length": 330,
-     "name": "?sub_00422E70_Shr@@YGXAAUD2StormQueueStrc@@ABU1@I@Z"
+     "name": "?Shr@@YGXAAUD2StormQueueStrc@@ABU1@I@Z"
     },
     {
      "va": "0x004234B0",
      "length": 53,
-     "name": "?sub_004234B0_FromStr@@YAXAAUD2StormQueueStrc@@PBD@Z"
+     "name": "?FromStr@@YAXAAUD2StormQueueStrc@@PBD@Z"
     },
     {
      "va": "0x00423540",
      "length": 173,
-     "name": "?sub_00423540_FromUInt@@YGXAAUD2StormQueueStrc@@I@Z"
+     "name": "?FromUnsigned@@YGXAAUD2StormQueueStrc@@I@Z"
     },
     {
      "va": "0x00423800",
@@ -8206,22 +8206,22 @@
     {
      "va": "0x004237B0",
      "length": 25,
-     "name": "?sub_004237B0_BigAnd@@YGXPAUD2StormBigStrc@@00@Z"
+     "name": "?SBigAnd@@YGXPAUD2StormBigStrc@@00@Z"
     },
     {
      "va": "0x004239E0",
      "length": 21,
-     "name": "?sub_004239E0_BigNot@@YGXPAUD2StormBigStrc@@0@Z"
+     "name": "?SBigNot@@YGXPAUD2StormBigStrc@@0@Z"
     },
     {
      "va": "0x00423A00",
      "length": 25,
-     "name": "?sub_00423A00_BigOr@@YGXPAUD2StormBigStrc@@00@Z"
+     "name": "?SBigOr@@YGXPAUD2StormBigStrc@@00@Z"
     },
     {
      "va": "0x00423D60",
      "length": 25,
-     "name": "?sub_00423D60_BigXor@@YGXPAUD2StormBigStrc@@00@Z"
+     "name": "?SBigXor@@YGXPAUD2StormBigStrc@@00@Z"
     },
     {
      "va": "0x00425FE0",
@@ -8241,7 +8241,7 @@
     {
      "va": "0x00426070",
      "length": 44,
-     "name": "sub_00426070_CallBoth"
+     "name": "Prepare"
     },
     {
      "va": "0x00426930",
@@ -8460,7 +8460,7 @@
     {
      "va": "0x00424640",
      "length": 185,
-     "name": "?sub_00424640_BigPow@@YGXPAUD2StormQueueStrc@@0IPAUD2StormRecordStackStrc@@@Z"
+     "name": "?Pow@@YGXPAUD2StormQueueStrc@@0IPAUD2StormRecordStackStrc@@@Z"
     },
     {
      "va": "0x00424F50",
@@ -8658,7 +8658,7 @@
     {
      "va": "0x00426180",
      "length": 144,
-     "name": "sub_00426180_CopyHandlerTable"
+     "name": "CopyIdHashTable"
     },
     {
      "va": "0x00426210",

@@ -43,7 +43,7 @@ struct D2LangCharRangeStrc
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 Unicode* __fastcall sub_00526740(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526740
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pSubstring); // 0x00526940
-int __stdcall sub_006C7410_Utf8ToUtf16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead); // 0x006C7410
+int __stdcall SUniConvertUTF8to16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead); // 0x006C7410
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
@@ -610,7 +610,7 @@ Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc,
     unsigned int nWritten;
     unsigned short wszBuffer[0x400];
 
-    if (sub_006C7410_Utf8ToUtf16(wszBuffer, 0x3FF, (const unsigned char*)szSrc, strlen(szSrc) + 1, &nWritten, 0))
+    if (SUniConvertUTF8to16(wszBuffer, 0x3FF, (const unsigned char*)szSrc, strlen(szSrc) + 1, &nWritten, 0))
     {
         nWritten = 0;
     }

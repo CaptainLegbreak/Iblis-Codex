@@ -40,9 +40,9 @@ static void sub_004152D0_DecryptBlock(unsigned int* data, unsigned int bytes, un
         key = ((~key << 21) + 0x11111111) | (key >> 11);
     }
 }
-static int __stdcall sub_004154B0_ReadAt(unsigned int, unsigned int*, void*, unsigned int, const char*, unsigned long*, void*);
+static int __stdcall ReadFileChecked(unsigned int, unsigned int*, void*, unsigned int, const char*, unsigned long*, void*);
 // 0x004154B0
-static int __stdcall sub_004154B0_ReadAt(unsigned int offset, unsigned int* filePos, void* buffer, unsigned int size, const char* name, unsigned long* read, void* handle)
+static int __stdcall ReadFileChecked(unsigned int offset, unsigned int* filePos, void* buffer, unsigned int size, const char* name, unsigned long* read, void* handle)
 {
     int retry = 0;
     for (;;) {
@@ -76,7 +76,7 @@ unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileStrc* file, unsigned i
     if (!size) return 0;
     if ((file->block->flags & 0xFF00) && !file->offsetsLoaded) {
         unsigned long tableRead = 0;
-        if (!sub_004154B0_ReadAt(file->block->offset, &file->archive->filePos, file->offsets, 4 * file->blockCount + 4, file->archive->name, &tableRead, file->archive->handle)) return 0;
+        if (!ReadFileChecked(file->block->offset, &file->archive->filePos, file->offsets, 4 * file->blockCount + 4, file->archive->name, &tableRead, file->archive->handle)) return 0;
         if (file->block->flags & 0x10000)
             sub_004152D0_DecryptBlock(file->offsets, tableRead, file->key - 1);
         for (unsigned int i = 0; i < file->blockCount; ++i) {
@@ -94,7 +94,7 @@ unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileStrc* file, unsigned i
     if (file->block->flags & 0xFF00)
         packed = (unsigned char*)SMemAlloc(packedSize + 4, gszSFileCpp_006CF084, 0x382, 0);
     unsigned long bytesRead = 0;
-    sub_004154B0_ReadAt(file->block->offset + packedOffset, &file->archive->filePos, packed, packedSize, file->archive->name, &bytesRead, file->archive->handle);
+    ReadFileChecked(file->block->offset + packedOffset, &file->archive->filePos, packed, packedSize, file->archive->name, &bytesRead, file->archive->handle);
     unsigned int result = size;
     if (bytesRead < packedSize) {
         if (file->block->flags & 0xFF00) {

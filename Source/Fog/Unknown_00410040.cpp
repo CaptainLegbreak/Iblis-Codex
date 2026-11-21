@@ -188,7 +188,7 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
 
     if (nArg3 == 1)
     {
-        sub_00413800(szBuffer, gszNewline_006FFCB0, sizeof(szBuffer));
+        SStrPack(szBuffer, gszNewline_006FFCB0, sizeof(szBuffer));
     }
 
     unsigned int nExtraBytes = SStrLen(szPrefix) + 1;
