@@ -172,8 +172,6 @@ extern "C" const char* __cdecl sub_00408090();                                  
 
 static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId);
 
-struct D2MessageStrc { int client; unsigned char data[0x5B0]; int size; unsigned long tick; D2MessageStrc* next; };
-
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, const char* file, int line); // 0x006C0420
 
 void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
@@ -755,25 +753,25 @@ void __fastcall sub_006C08A0_Dispatch(D2QueueServerStrc* server, D2QClientStrc* 
             if (server->pFreeMessages) {
                 EnterCriticalSection(&server->tLock);
                 message = server->pFreeMessages;
-                if (message) server->pFreeMessages = message->next;
+                if (message) server->pFreeMessages = message->pNext;
                 else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x664, 0);
                 LeaveCriticalSection(&server->tLock);
             } else message = (D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc), gszFile_006FC460, 0x66D, 0);
             int size = consumed - start;
             if (size > 0) {
                 EnterCriticalSection(&client->tLock);
-                memcpy(message->data, client->pBuffer + start, size);
+                memcpy(message->aData, client->pBuffer + start, size);
                 LeaveCriticalSection(&client->tLock);
             } else *(unsigned char*)message = 0;
-            message->size = size;
-            message->tick = GetTickCount();
-            message->next = 0;
-            message->client = client->iId;
+            message->nSize = size;
+            message->nTick = GetTickCount();
+            message->pNext = 0;
+            message->nClient = client->iId;
             D2_ASSERT(queue < server->nQueueCount, 0x6A1);
             EnterCriticalSection(&server->tLock);
             D2MessageStrc* tail = server->ppMsgTails[queue];
             if (!tail) server->ppMsgHeads[queue] = message;
-            else tail->next = message;
+            else tail->pNext = message;
             server->ppMsgTails[queue] = message;
             LeaveCriticalSection(&server->tLock);
         }

@@ -11,7 +11,7 @@ struct D2MessageStrc;
 struct D2QWriteNodeStrc;
 
 typedef void (__fastcall* D2AddressCallback)(unsigned int, const char*, int);
-typedef int (__fastcall* D2MessageCallback)(unsigned char*, int, int*, int*, int*, int*, int, int, unsigned int);
+typedef int (__fastcall* D2MessageCallback)(const unsigned char*, int, int*, int*, int*, int*, int, int, unsigned int);
 typedef void (__fastcall* D2NewClientFn)(D2QueueServerStrc*, int, const char*, int);
 typedef int (__fastcall* D2QServerHandler)(D2QueueServerStrc* pServer, char* pData, int nSize);
 typedef void (__fastcall* D2QRemoveCallback)(D2QueueServerStrc* pServer, int nClientId, const char* szFile, int nLine);
@@ -148,10 +148,32 @@ struct D2QClientStrc
     };
 };
 
+// One queued message (0x5C0 bytes): the server's per-queue lists at 0x870/0x874 and the free list at 0x878.
+struct D2MessageStrc
+{
+    union
+    {
+        int nClient;                                        // 0x000
+        int nId;
+    };
+    unsigned char aData[0x5B0];                             // 0x004
+    int nSize;                                              // 0x5B4
+    union
+    {
+        unsigned int dwTick;                                // 0x5B8
+        unsigned long nTick;
+    };
+    D2MessageStrc* pNext;                                   // 0x5BC
+};
+
 struct D2QueueServerStrc
 {
     int bAltSend;                                           // 0x000
-    int unk0x004;                                           // 0x004
+    union
+    {
+        int unk0x004;                                       // 0x004
+        unsigned int nNextId;
+    };
     unsigned int nBuckets;                                  // 0x008
     unsigned int nMask;                                     // 0x00C
     unsigned int nIpBuckets;                                // 0x010
@@ -173,7 +195,11 @@ struct D2QueueServerStrc
     int nState;                                             // 0x86C
     D2MessageStrc** ppMsgHeads;                             // 0x870
     D2MessageStrc** ppMsgTails;                             // 0x874
-    D2MessageStrc* pFreeMessages;                           // 0x878
+    union
+    {
+        D2MessageStrc* pFreeMessages;                       // 0x878
+        D2QClientStrc* pFreeClients;
+    };
     int nQueueCount;                                        // 0x87C
     int nClients;                                           // 0x880
     int nLimit;                                             // 0x884

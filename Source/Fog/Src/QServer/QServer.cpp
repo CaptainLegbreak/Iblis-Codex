@@ -375,93 +375,13 @@ int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2QClientStrc* pCli
 
 struct D2QueueServerStrc;
 
-struct D2QPacketStrc;
 
-struct D2AddressRefStrc;
-
-struct D2QPacketStrc { int id; unsigned char data[0x5B0]; int size; unsigned int tick; D2QPacketStrc* next; };
 
 typedef int (__fastcall *D2PacketParser)(const unsigned char*,int,int*,int*,int*,int*,int,int,int);
-
-struct T006BE350
-{
-    int nMode;
-    unsigned int nextId;
-    int unknown08;
-    unsigned int mask;
-    unsigned int modulus;
-    union
-    {
-        D2QClientStrc** clients;
-        void* p014;
-    };
-    int unknown18;
-    union
-    {
-        D2CriticalSectionStrc* locks;
-        D2CriticalSectionStrc* pLocks;
-    };
-    union
-    {
-        D2QClientStrc** addressClients;
-        void* p020;
-    };
-    int unknown24;
-    union
-    {
-        D2CriticalSectionStrc addressLock;
-        D2CriticalSectionStrc tLock028;
-    };
-    union
-    {
-        D2AddressRefStrc** addressRefs;
-        void* p040;
-    };
-    char unk0x044[0x84C - 0x44];
-    D2QServerNodeStrc* pChain84C;
-    char unk0x850[0x04];
-    union
-    {
-        D2CriticalSectionStrc lock;
-        D2CriticalSectionStrc idLock;
-        D2CriticalSectionStrc tLock854;
-    };
-    int nState;
-    union
-    {
-        D2QPacketStrc** heads;
-        void* p870;
-    };
-    union
-    {
-        D2QPacketStrc** tails;
-        void* p874;
-    };
-    union
-    {
-        D2QPacketStrc* freePackets;
-        D2QClientStrc* f_878;
-    };
-    int channelCount;
-    int count;
-    unsigned char unk_884[0x8];
-    D2QServerNodeStrc* pChain88C;
-    int n890;
-    D2CriticalSectionStrc tLock894;
-    D2QServerNodeStrc** ppBuckets;
-    unsigned int f_8B0;
-    D2CriticalSectionStrc tLock8B4;
-    char unk0x8CC[0xB90 - 0x8CC];
-    unsigned int aSockets[4];
-    unsigned char unk_BA0[0x20];
-    D2PacketParser parser;
-};
 
 extern const char gszQServerSource[]; // 0x006FC460
 
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
-
-struct D2AddressRefStrc { unsigned int address,count; D2AddressRefStrc* next; };
 
 extern const char gszQServerPrefix[]; // 0x006FC47C
 
@@ -469,7 +389,7 @@ long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 
 void __cdecl sub_006BE300_Log(const char* prefix,const char* format,...); // 0x006BE300
 
-static int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int* address); // 0x006BF180
+static int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address); // 0x006BF180
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
 
@@ -477,17 +397,17 @@ int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
 extern "C" int __stdcall WSACleanup(void); // 0x006B0138
 
-void __stdcall sub_006BE3C0_Shutdown(T006BE350* pServer); // 0x006BE3C0
+void __stdcall sub_006BE3C0_Shutdown(D2QueueServerStrc* pServer); // 0x006BE3C0
 
-void __stdcall sub_006BFAD0_Notify(T006BE350* pServer, int a2, int a3); // 0x006BFAD0
+void __stdcall sub_006BFAD0_Notify(D2QueueServerStrc* pServer, int a2, int a3); // 0x006BFAD0
 
-void __fastcall sub_006C2110_StopServerThreads(T006BE350* pServer); // 0x006C2110
+void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* pServer); // 0x006C2110
 
-void __fastcall sub_006C33D0_Stop(T006BE350* pServer); // 0x006C33D0
+void __fastcall sub_006C33D0_Stop(D2QueueServerStrc* pServer); // 0x006C33D0
 
-static void sub_006BF320_FreeChain(T006BE350* pServer);
+static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer);
 
-static void sub_006BF0F0_FreeBuckets(T006BE350* pServer);
+static void sub_006BF0F0_FreeBuckets(D2QueueServerStrc* pServer);
 
 extern const char gszLogTag_006FC4A8[]; // 0x006FC4A8
 
@@ -975,34 +895,34 @@ int __stdcall sub_006BF0C0_GetValue(void* pContainer, int nKey)
 }
 
 // 0x006BF370
-int __stdcall FOG_10175(T006BE350* server,const unsigned char* buffer,int size,int id)
+int __stdcall FOG_10175(D2QueueServerStrc* server,const unsigned char* buffer,int size,int id)
 {
  int consumed=0;
  int unknown1=0;
  int channel=0;
  int unknown2=0;
- int result=server->parser(buffer,size,&unknown1,&consumed,&channel,&unknown2,0,0,0);
+ int result=server->pfnProcess(buffer,size,&unknown1,&consumed,&channel,&unknown2,0,0,0);
  if(result!=2 && result!=1) return 0;
- D2QPacketStrc* packet;
- if(server->freePackets) {
-  EnterCriticalSection(&server->lock);
-  packet=server->freePackets;
-  if(packet) server->freePackets=packet->next;
-  else packet=(D2QPacketStrc*)FOG_Alloc(sizeof(D2QPacketStrc),gszQServerSource,2569,0);
-  LeaveCriticalSection(&server->lock);
- } else packet=(D2QPacketStrc*)FOG_Alloc(sizeof(D2QPacketStrc),gszQServerSource,2578,0);
- sub_006829C0_Copy(packet->data,buffer+consumed,size-consumed);
- packet->size=size-consumed;
- packet->tick=GetTickCount();
- packet->next=0;
- packet->id=id;
- if(channel<server->channelCount) {
-  EnterCriticalSection(&server->lock);
-  D2QPacketStrc* last=server->tails[channel];
-  if(!last) server->heads[channel]=packet;
-  else last->next=packet;
-  server->tails[channel]=packet;
-  LeaveCriticalSection(&server->lock);
+ D2MessageStrc* packet;
+ if(server->pFreeMessages) {
+  EnterCriticalSection(&server->tLock);
+  packet=server->pFreeMessages;
+  if(packet) server->pFreeMessages=packet->pNext;
+  else packet=(D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc),gszQServerSource,2569,0);
+  LeaveCriticalSection(&server->tLock);
+ } else packet=(D2MessageStrc*)FOG_Alloc(sizeof(D2MessageStrc),gszQServerSource,2578,0);
+ sub_006829C0_Copy(packet->aData,buffer+consumed,size-consumed);
+ packet->nSize=size-consumed;
+ packet->dwTick=GetTickCount();
+ packet->pNext=0;
+ packet->nId=id;
+ if(channel<server->nQueueCount) {
+  EnterCriticalSection(&server->tLock);
+  D2MessageStrc* last=server->ppMsgTails[channel];
+  if(!last) server->ppMsgHeads[channel]=packet;
+  else last->pNext=packet;
+  server->ppMsgTails[channel]=packet;
+  LeaveCriticalSection(&server->tLock);
  }
  return 1;
 }
@@ -1273,34 +1193,34 @@ int __stdcall sub_006BFAD0_BroadcastToAllClients(D2QueueServerStrc* pServer, cha
 
 // build: context sub_006BF180_ReferenceAddress
 static
-int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int* address)
+int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address)
 {
  unsigned int value=*address;
- unsigned int bucket=value%server->modulus;
- D2AddressRefStrc* entry=server->addressRefs[bucket];
+ unsigned int bucket=value%server->nIpBuckets;
+ D2QIpCountStrc* entry=server->ppIpCounts[bucket];
  while(entry) {
-  if(entry->address==value) {
-   ++entry->count;
+  if(entry->nAddress==value) {
+   ++entry->nCount;
    return 1;
   }
-  entry=entry->next;
+  entry=entry->pNext;
  }
- entry=(D2AddressRefStrc*)FOG_Alloc(sizeof(D2AddressRefStrc),gszQServerSource,2329,0);
- entry->address=value;
- entry->count=1;
- entry->next=server->addressRefs[bucket];
- server->addressRefs[bucket]=entry;
+ entry=(D2QIpCountStrc*)FOG_Alloc(sizeof(D2QIpCountStrc),gszQServerSource,2329,0);
+ entry->nAddress=value;
+ entry->nCount=1;
+ entry->pNext=server->ppIpCounts[bucket];
+ server->ppIpCounts[bucket]=entry;
  return 1;
 }
 
 // 0x006BFB70
-D2QClientStrc* __fastcall QSrvAddClient(T006BE350* server,unsigned int socket,unsigned int address)
+D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int socket,unsigned int address)
 {
  D2QClientStrc* client=(D2QClientStrc*)FOG_Alloc(sizeof(D2QClientStrc),gszQServerSource,571,0);
  memset(client,0,sizeof(D2QClientStrc));
- EnterCriticalSection(&server->idLock);
- unsigned int id=++server->nextId;
- LeaveCriticalSection(&server->idLock);
+ EnterCriticalSection(&server->tLock);
+ unsigned int id=++server->nNextId;
+ LeaveCriticalSection(&server->tLock);
  client->nId=id;
  client->nSocket=socket;
  client->nAddress=address;
@@ -1309,21 +1229,21 @@ D2QClientStrc* __fastcall QSrvAddClient(T006BE350* server,unsigned int socket,un
  unsigned int tick=sub_00410A80_GetTimeSeconds();
  client->nCreateTime=tick;client->nLastTick=tick;client->nTick3=tick;client->nTick4=tick;
  InitializeCriticalSection(&client->tLock);
- unsigned int bucket=id&server->mask;
- EnterCriticalSection(&server->locks[bucket]);
- client->pNext=server->clients[bucket];
- server->clients[bucket]=client;
- LeaveCriticalSection(&server->locks[bucket]);
- EnterCriticalSection(&server->addressLock);
- unsigned int addressBucket=address&server->mask;
- client->pNextByAddress=server->addressClients[addressBucket];
- server->addressClients[addressBucket]=client;
- LeaveCriticalSection(&server->addressLock);
- EnterCriticalSection(&server->idLock);
+ unsigned int bucket=id&server->nMask;
+ EnterCriticalSection(&server->pLocks[bucket]);
+ client->pNext=server->ppClients[bucket];
+ server->ppClients[bucket]=client;
+ LeaveCriticalSection(&server->pLocks[bucket]);
+ EnterCriticalSection(&server->tAddressLock);
+ unsigned int addressBucket=address&server->nMask;
+ client->pNextByAddress=server->ppAddressBuckets[addressBucket];
+ server->ppAddressBuckets[addressBucket]=client;
+ LeaveCriticalSection(&server->tAddressLock);
+ EnterCriticalSection(&server->tLock);
  sub_006BF180_ReferenceAddress(server,&address);
  InterlockedIncrement(&client->nRefCount);
- ++server->count;
- LeaveCriticalSection(&server->idLock);
+ ++server->nClients;
+ LeaveCriticalSection(&server->tLock);
  sub_006BE300_Log(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
  return client;
 }
@@ -1384,41 +1304,41 @@ static int sub_006C0140_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey,
 }
 
 // build: context sub_006BF320_FreeChain
-static void sub_006BF320_FreeChain(T006BE350* pServer)
+static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer)
 {
-    EnterCriticalSection(&pServer->tLock854);
-    D2QServerNodeStrc* pNode = pServer->pChain84C;
+    EnterCriticalSection(&pServer->tLock);
+    D2QServerNodeStrc* pNode = pServer->pHead;
     while (pNode)
     {
         D2QServerNodeStrc* pNext = pNode->pNext;
         FOG_Free(pNode, gszQServerFile_006FC460, 0x9B0, 0);
         pNode = pNext;
     }
-    pServer->pChain84C = 0;
-    LeaveCriticalSection(&pServer->tLock854);
+    pServer->pHead = 0;
+    LeaveCriticalSection(&pServer->tLock);
 }
 
 // build: context sub_006BF0F0_FreeBuckets
-static void sub_006BF0F0_FreeBuckets(T006BE350* pServer)
+static void sub_006BF0F0_FreeBuckets(D2QueueServerStrc* pServer)
 {
-    EnterCriticalSection(&pServer->tLock894);
-    for (unsigned int i = 0; i < pServer->f_8B0; ++i)
+    EnterCriticalSection(&pServer->tRecordLock);
+    for (unsigned int i = 0; i < pServer->nRecordBuckets; ++i)
     {
-        D2QServerNodeStrc* pNode = pServer->ppBuckets[i];
+        D2QServerNodeStrc* pNode = pServer->ppRecords[i];
         while (pNode)
         {
             D2QServerNodeStrc* pNext = pNode->pNext;
             FOG_Free(pNode, gszQServerFile_006FC460, 0x8BE, 0);
             pNode = pNext;
         }
-        pServer->ppBuckets[i] = 0;
+        pServer->ppRecords[i] = 0;
     }
-    pServer->n890 = 0;
-    LeaveCriticalSection(&pServer->tLock894);
+    pServer->nRecordCount = 0;
+    LeaveCriticalSection(&pServer->tRecordLock);
 }
 
 // 0x006C0170
-int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
+int __stdcall sub_006C0170_DestroyServer(D2QueueServerStrc* pServer, int a2, int a3)
 {
     if (!pServer)
         return 1;
@@ -1428,7 +1348,7 @@ int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
 
     if (pServer->nState != 1 && pServer->nState != 2)
     {
-        if (pServer->nMode)
+        if (pServer->bAltSend)
             sub_006C2110_StopServerThreads(pServer);
         else
             sub_006C33D0_Stop(pServer);
@@ -1440,39 +1360,39 @@ int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
 
     for (int i = 0; i < 4; ++i)
     {
-        if (pServer->aSockets[i] != -1)
+        if (pServer->aListenSockets[i] != -1)
         {
-            sub_0040D880(pServer->aSockets[i]);
-            pServer->aSockets[i] = -1;
+            sub_0040D880(pServer->aListenSockets[i]);
+            pServer->aListenSockets[i] = -1;
         }
     }
 
     WSACleanup();
-    DeleteCriticalSection(&pServer->tLock854);
-    DeleteCriticalSection(&pServer->tLock894);
-    DeleteCriticalSection(&pServer->tLock8B4);
+    DeleteCriticalSection(&pServer->tLock);
+    DeleteCriticalSection(&pServer->tRecordLock);
+    DeleteCriticalSection(&pServer->tClientLock);
 
-    while (pServer->f_878)
+    while (pServer->pFreeClients)
     {
-        D2QClientStrc* pNext = pServer->f_878->pNextQueued;
-        FOG_Free(pServer->f_878, gszQServerFile_006FC460, 0x183, 0);
-        pServer->f_878 = pNext;
+        D2QClientStrc* pNext = pServer->pFreeClients->pNextQueued;
+        FOG_Free(pServer->pFreeClients, gszQServerFile_006FC460, 0x183, 0);
+        pServer->pFreeClients = pNext;
     }
 
-    while (pServer->pChain88C)
+    while (pServer->pFreeRecords)
     {
-        D2QServerNodeStrc* pNext = pServer->pChain88C->pNext;
-        FOG_Free(pServer->pChain88C, gszQServerFile_006FC460, 0x189, 0);
-        pServer->pChain88C = pNext;
+        D2QServerNodeStrc* pNext = pServer->pFreeRecords->pNext;
+        FOG_Free(pServer->pFreeRecords, gszQServerFile_006FC460, 0x189, 0);
+        pServer->pFreeRecords = pNext;
     }
 
-    FOG_Free(pServer->p870, gszQServerFile_006FC460, 0x18D, 0);
-    FOG_Free(pServer->p874, gszQServerFile_006FC460, 0x18E, 0);
-    FOG_Free(pServer->p040, gszQServerFile_006FC460, 0x192, 0);
-    FOG_Free(pServer->ppBuckets, gszQServerFile_006FC460, 0x193, 0);
-    FOG_Free(pServer->p020, gszQServerFile_006FC460, 0x195, 0);
-    DeleteCriticalSection(&pServer->tLock028);
-    FOG_Free(pServer->p014, gszQServerFile_006FC460, 0x198, 0);
+    FOG_Free(pServer->ppMsgHeads, gszQServerFile_006FC460, 0x18D, 0);
+    FOG_Free(pServer->ppMsgTails, gszQServerFile_006FC460, 0x18E, 0);
+    FOG_Free(pServer->ppIpCounts, gszQServerFile_006FC460, 0x192, 0);
+    FOG_Free(pServer->ppRecords, gszQServerFile_006FC460, 0x193, 0);
+    FOG_Free(pServer->ppAddressBuckets, gszQServerFile_006FC460, 0x195, 0);
+    DeleteCriticalSection(&pServer->tAddressLock);
+    FOG_Free(pServer->ppClients, gszQServerFile_006FC460, 0x198, 0);
 
     for (int i = 0; i < gnLockCount_0074C3E0; ++i)
         DeleteCriticalSection(&pServer->pLocks[i]);
