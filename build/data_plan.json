@@ -5617,7 +5617,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/SKILLS/SkillMonst_005CBD10.cpp": {
+  "Source/D2Game/SKILLS/SkillMonst.cpp": {
    "bytes": 60,
    "definitions": 1,
    "externs": [],
@@ -117134,7 +117134,7 @@
    "cname": "gData_006E31EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CBD10.cpp",
+   "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006E31EC_t gData_006E31EC; // 0x006E31EC",
    "head": "extern \"C\" const struct d2data_006E31EC_t gData_006E31EC = ",

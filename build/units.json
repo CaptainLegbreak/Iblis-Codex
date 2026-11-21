@@ -69196,6 +69196,16 @@
      "name": "?SKILLS_SrvSt48_SwarmMove@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CBD10",
+     "length": 235,
+     "name": "SKILLS_SrvSt49_Nest_EvilHutSpawner"
+    },
+    {
+     "va": "0x005CBE00",
+     "length": 293,
+     "name": "SKILLS_SrvDo091_Nest_EvilHutSpawner"
+    },
+    {
      "va": "0x005CC050",
      "length": 383
     },
@@ -69219,6 +69229,11 @@
      "name": "?sub_005CC3B0_EndInfernoAnim@@YAHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005CC440",
+     "length": 158,
+     "name": "?SKILLS_SetInfernoFrame@@YIXPAUD2SkillsTxt@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005CC4E0",
      "length": 426,
      "name": "?SKILLS_SrvDo095_MonInferno@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -69234,9 +69249,19 @@
      "name": "?SKILLS_SrvDo096_ZakarumHeal_Bestow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CC960",
+     "length": 424,
+     "name": "SKILLS_ResurrectUnit"
+    },
+    {
      "va": "0x005CCB10",
      "length": 356,
      "name": "?SKILLS_SrvDo097_Resurrect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CCD10",
+     "length": 365,
+     "name": "?sub_005CCD10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CCE80",
@@ -69247,6 +69272,16 @@
      "length": 356
     },
     {
+     "va": "0x005CD110",
+     "length": 170,
+     "name": "?SKILLS_MissileInit_DiabWall@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005CD1C0",
+     "length": 246,
+     "name": "?SKILLS_SrvDo102_DiabWall@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005CD2C0",
      "length": 186,
      "name": "?SKILLS_SrvSt54_DiabRun@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -69255,6 +69290,26 @@
      "va": "0x005CD380",
      "length": 582,
      "name": "?SKILLS_SrvDo103_DiabRun@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CD5D0",
+     "length": 206,
+     "name": "SKILLS_SrvDo104_DiabPrison"
+    },
+    {
+     "va": "0x005CDDD0",
+     "length": 304,
+     "name": "SKILLS_RollMonFrenzyDamage"
+    },
+    {
+     "va": "0x005CE670",
+     "length": 277,
+     "name": "SKILLS_SrvDo111_FetishAura"
+    },
+    {
+     "va": "0x005CEC50",
+     "length": 52,
+     "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     }
    ]
   },
@@ -69280,67 +69335,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CBD10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CBD10",
-     "length": 235,
-     "name": "SKILLS_SrvSt49_Nest_EvilHutSpawner"
-    },
-    {
-     "va": "0x005CBE00",
-     "length": 293,
-     "name": "SKILLS_SrvDo091_Nest_EvilHutSpawner"
-    },
-    {
-     "va": "0x005CC440",
-     "length": 158,
-     "name": "?SKILLS_SetInfernoFrame@@YIXPAUD2SkillsTxt@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005CC960",
-     "length": 424,
-     "name": "SKILLS_ResurrectUnit"
-    },
-    {
-     "va": "0x005CCD10",
-     "length": 365,
-     "name": "?sub_005CCD10@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CD110",
-     "length": 170,
-     "name": "?SKILLS_MissileInit_DiabWall@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005CD1C0",
-     "length": 246,
-     "name": "?SKILLS_SrvDo102_DiabWall@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CD5D0",
-     "length": 206,
-     "name": "SKILLS_SrvDo104_DiabPrison"
-    },
-    {
-     "va": "0x005CDDD0",
-     "length": 304,
-     "name": "SKILLS_RollMonFrenzyDamage"
-    },
-    {
-     "va": "0x005CE670",
-     "length": 277,
-     "name": "SKILLS_SrvDo111_FetishAura"
-    },
-    {
-     "va": "0x005CEC50",
-     "length": 52,
-     "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
-    }
    ]
   },
   {
