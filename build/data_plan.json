@@ -2436,7 +2436,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004A3FE0.cpp": {
+  "Source/D2Client/UI/text_004A3FE0.cpp": {
    "bytes": 236,
    "definitions": 5,
    "externs": [
@@ -2448,7 +2448,7 @@
     "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004A3FE0.inc",
+   "include": "gen/data/Source/D2Client/UI/text_004A3FE0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -55630,7 +55630,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A3FE0.cpp",
+   "file": "Source/D2Client/UI/text_004A3FE0.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
@@ -55700,7 +55700,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A3FE0.cpp",
+   "file": "Source/D2Client/UI/text_004A3FE0.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
@@ -55810,7 +55810,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A3FE0.cpp",
+   "file": "Source/D2Client/UI/text_004A3FE0.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
@@ -55880,7 +55880,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A3FE0.cpp",
+   "file": "Source/D2Client/UI/text_004A3FE0.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -56182,7 +56182,7 @@
    "cname": "gData_00724810",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A3FE0.cpp",
+   "file": "Source/D2Client/UI/text_004A3FE0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00724810_t gData_00724810; // 0x00724810",
    "head": "extern \"C\" struct d2data_00724810_t gData_00724810 = ",
