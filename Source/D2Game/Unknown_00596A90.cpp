@@ -2,21 +2,13 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 
 
 
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int unk0x04;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    int unk0x10;
-    D2TextHeaderStrc* pTextControl;
-};
 
 #define MONSTER_NAVI 0x10A
 

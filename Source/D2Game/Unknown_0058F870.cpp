@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2GameTypes.h"
 
 #define MONSTER_AKARA 148
 #define MONSTER_DROGNAN 177
@@ -31,34 +32,6 @@ struct D2PlayerDataStrc;
 struct D2Act2Quest4Strc;
 struct D2Act1Quest1Strc;
 
-struct D2QuestArgStrc
-{
-    union
-    {
-        D2GameStrc* game;
-        D2GameStrc* pGame;
-    };
-    int event;
-    D2UnitStrc* pTarget;
-    union
-    {
-        D2UnitStrc* player;
-        D2UnitStrc* pPlayer;
-    };
-    unsigned int unknown10;
-    union
-    {
-        int npcId;
-        D2TextHeaderStrc* pTextControl;
-        unsigned short nNPCNo;
-    };
-    union
-    {
-        unsigned short message;
-        unsigned short nMessageIndex;
-    };
-    unsigned char unk_1A[0x2];
-};
 
 
 
@@ -101,20 +74,20 @@ void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D
 // 0x0058F870
 void __fastcall sub_0058F870_ScrollMessage(D2QuestDataStrc* quest, D2QuestArgStrc* arg)
 {
-    int npc = arg->npcId;
-    unsigned short message = arg->message;
+    int npc = arg->nOldLevel;
+    unsigned short message = arg->nMessageIndex;
     switch (npc) {
     case 148:
-        if (message == 11 || message == 12) PLRINTRO_SetQuestIntroFlag(arg->player, arg->game, npc);
+        if (message == 11 || message == 12) PLRINTRO_SetQuestIntroFlag(arg->pPlayer, arg->pGame, npc);
         break;
     case 147:
-        if (message == 45 || message == 46) PLRINTRO_SetQuestIntroFlag(arg->player, arg->game, npc);
+        if (message == 45 || message == 46) PLRINTRO_SetQuestIntroFlag(arg->pPlayer, arg->pGame, npc);
         break;
     case 154:
-        if (message == 36 || message == 37) PLRINTRO_SetQuestIntroFlag(arg->player, arg->game, npc);
+        if (message == 36 || message == 37) PLRINTRO_SetQuestIntroFlag(arg->pPlayer, arg->pGame, npc);
         break;
     case 150:
-        if (message == 24 || message == 25) PLRINTRO_SetQuestIntroFlag(arg->player, arg->game, npc);
+        if (message == 24 || message == 25) PLRINTRO_SetQuestIntroFlag(arg->pPlayer, arg->pGame, npc);
         break;
     }
 }
