@@ -4102,21 +4102,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2BNClient/CACHE_005193E0.CPP": {
-   "bytes": 4,
-   "definitions": 1,
+  "Source/D2BNClient/CACHE.CPP": {
+   "bytes": 68,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/CACHE_005193E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2BNClient/CACHE_00519920.CPP": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/CACHE_00519920.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -90145,7 +90136,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2BNClient/CACHE_005193E0.CPP",
+   "file": "Source/D2BNClient/CACHE.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern void* ghCacheFile_0072FB78 = ",
@@ -90171,7 +90162,7 @@
    "cname": "gData_006DEEC0",
    "declared": true,
    "decorated": "?gszCorruptFile_006DEEC0@@3QBDB",
-   "file": "Source/D2BNClient/CACHE_00519920.CPP",
+   "file": "Source/D2BNClient/CACHE.CPP",
    "fill": 64,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006DEEC0[64]; // 0x006DEEC0",

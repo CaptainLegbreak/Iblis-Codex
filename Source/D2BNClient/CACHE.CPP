@@ -1,21 +1,292 @@
 #include "D2BNClient.h"
+#include "D2GameTypes.h"
+#include "D2SysTypes.h"
+#include "D2Primitives.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* szFileName); // 0x006CC1A0
+
 extern "C" __declspec(dllimport) int __stdcall CreateDirectoryA(const char* szPathName, void* pSecurityAttributes); // 0x006CC1B8
+
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int nFolder, void* hToken, unsigned long dwFlags, char* szPath); // 0x006CC43C
+
 void __cdecl sub_00519300_FreeCache(); // 0x00519300
+
 int __cdecl sub_005193E0_LoadCache(); // 0x005193E0
-extern void* ghCacheFile_0072FB78; // 0x0072FB78
+
+static void* ghCacheFile_0072FB78; // 0x0072FB78
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-extern D2CriticalSectionStrc gCacheLock_00881894; // 0x00881894
+
+D2CriticalSectionStrc gCacheLock_00881894;                                                                  // 0x00881894
+
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
+extern "C" int __cdecl toupper(int nChar);                                                                  // 0x00685385
+
+extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void* hFile, unsigned long* pFileSizeHigh); // 0x006CC2F0
+
+extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x006CC1A4
+
+extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x006CC1AC
+
+unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x00413800
+
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
+
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                         // 0x0041C340
+
+void __cdecl sub_00518D40_Log(const char* szFormat, ...);                                                   // 0x00518D40
+
+void __cdecl sub_00519000_InitCryptTable();
+
+void __cdecl sub_005192A0_DeleteCacheFile();                                                                // 0x005192A0
+
+struct D2CacheHeaderStrc
+{
+    unsigned int dwMagic;
+    unsigned int dwHeaderSize;
+    unsigned int dwFileSize;
+    unsigned int unk0x0C;
+    unsigned int dwHashOffset;
+    unsigned int dwBlockOffset;
+    unsigned int nHashTableSize;
+    unsigned int nBlockTableSize;
+    unsigned int dwHeaderCrc;
+    unsigned int dwHashCrc;
+    unsigned int dwBlockCrc;
+};
+
+struct D2CacheBlockEntryStrc
+{
+    unsigned int dwOffset;
+    unsigned int dwSize;
+    unsigned int dwDataSize;
+    unsigned int dwFlags;
+};
+
+struct D2CacheRecordStrc
+{
+    unsigned int dwSize;
+    unsigned int unk0x04;
+    unsigned int unk0x08;
+    unsigned int dwCrc;
+    unsigned int dwDataCrc;
+    unsigned int unk0x14;
+    D2FileTimeStrc tLastAccess;
+    D2FileTimeStrc tFileTime;
+    D2FileTimeStrc tCreated;
+    D2FileTimeStrc tStale;
+    D2FileTimeStrc tExpiry;
+    char szName[0x104];
+};
+
+extern unsigned int gdwCacheCrcTable_0072FB80[];                                                            // 0x0072FB80
+
+static D2CacheHeaderStrc* gpCacheHeader_00881880; // 0x00881880
+
+static D2CacheBlockEntryStrc* gpCacheBlockTable_00881884; // 0x00881884
+
+static unsigned int* gpCacheCryptTable_00881888; // 0x00881888
+
+static D2CacheHashEntryStrc* gpCacheHashTable_0088188C; // 0x0088188C
+
+int gbCacheLoaded_00881890; // 0x00881890
+
+extern unsigned __int64 gqwCacheFileTime_008818AC; // 0x008818AC
+
+extern unsigned long gdwCacheTimeTick_008818B4; // 0x008818B4
+
+extern unsigned int gnCacheTimeSeconds_008818B8; // 0x008818B8
+
+extern const char gszCacheFile_006DEE70[]; // 0x006DEE70
+
+extern const char gszCorruptFile_006DEEC0[]; // 0x006DEEC0
+
+extern const char gszCorruptCache_006DEF00[]; // 0x006DEF00
+
+#define CACHE_CRC32(dwCrc, pBytes, nCount) \
+    dwCrc = 0xFFFFFFFF; \
+    for (; nCount; --nCount, ++pBytes) \
+        dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
+    dwCrc = ~dwCrc
+
+#define VALIDATEBEGIN int nValid = -1
+
+#define VALIDATE(x) nValid &= (x) ? -1 : 0
+
+#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
+
+extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2);
+
+extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
+
+void* __stdcall sub_00413020_Alloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+
+void __cdecl sub_005198C0_ResetCache(); // 0x005198C0
+
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+
+extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
+
+extern "C" __declspec(dllimport) long __stdcall CompareFileTime(const D2FileTimeStrc* pFileTime1, const D2FileTimeStrc* pFileTime2); // 0x006CC390
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
+extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2SystemTimeStrc* pSystemTime, void* pFileTime); // 0x006CC26C
+
+static void sub_00519220_GetCacheFilePath(char* szPath);
+
+// build: context sub_00518DE0_Crc32
+static unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
+{
+    VALIDATEBEGIN;
+    VALIDATE(pData || !nSize);
+    D2_ASSERT(pData || !nSize, 0x91);
+    VALIDATEEND;
+
+    const unsigned char* pBytes = (const unsigned char*)pData;
+    unsigned int dwCrc;
+    CACHE_CRC32(dwCrc, pBytes, nSize);
+    return dwCrc;
+}
+
+// build: context sub_00518E60_DecryptBlock
+static void sub_00518E60_DecryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
+{
+    unsigned int dwSeed = 0xEEEEEEEE;
+    nLength >>= 2;
+    while (nLength-- != 0)
+    {
+        dwSeed += gpCacheCryptTable_00881888[0x400 + (dwKey & 0xFF)];
+        *pData ^= dwKey + dwSeed;
+        unsigned int ch = *pData++;
+        dwSeed = ch + dwSeed + (dwSeed << 5) + 3;
+        dwKey = ((~dwKey << 0x15) + 0x11111111) | (dwKey >> 0x0B);
+    }
+}
+
+// build: context sub_00518EC0_EncryptBlock
+static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
+{
+    unsigned int dwSeed = 0xEEEEEEEE;
+    unsigned int nCount = nLength >> 2;
+    if (nCount != 0)
+    {
+        const unsigned int* pTable = gpCacheCryptTable_00881888;
+        do
+        {
+            --nCount;
+            unsigned int ch = *pData;
+            dwSeed += pTable[0x400 + (dwKey & 0xFF)];
+            *pData = ch ^ (dwKey + dwSeed);
+            dwSeed = ch + dwSeed + (dwSeed << 5) + 3;
+            dwKey = ((~dwKey << 0x15) + 0x11111111) | (dwKey >> 0x0B);
+            ++pData;
+        } while (nCount != 0);
+    }
+}
+
+// build: context sub_00518F30_GetCacheFileTime
+static D2FileTimeStrc* sub_00518F30_GetCacheFileTime(unsigned int nSeconds)
+{
+    if (nSeconds != gnCacheTimeSeconds_008818B8 || GetTickCount() != gdwCacheTimeTick_008818B4)
+    {
+        D2SystemTimeStrc tSystemTime;
+        GetSystemTime(&tSystemTime);
+        SystemTimeToFileTime(&tSystemTime, &gqwCacheFileTime_008818AC);
+        gqwCacheFileTime_008818AC += (unsigned __int64)nSeconds * 10000000;
+        gnCacheTimeSeconds_008818B8 = nSeconds;
+        gdwCacheTimeTick_008818B4 = GetTickCount();
+    }
+    return (D2FileTimeStrc*)&gqwCacheFileTime_008818AC;
+}
+
+// build: context sub_00518FA0_HashString
+static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, const char* szString)
+{
+    unsigned int dwSeed1 = 0x7FED7FED;
+    unsigned int dwSeed2 = 0xEEEEEEEE;
+    while (szString && *szString)
+    {
+        char ch = (char)toupper(*szString++);
+        dwSeed1 = gpCacheCryptTable_00881888[(nHashType << 8) + ch] ^ (dwSeed1 + dwSeed2);
+        dwSeed2 = ch + dwSeed1 + dwSeed2 + (dwSeed2 << 5) + 3;
+    }
+    return dwSeed1;
+}
+
+// build: context sub_00519110_FindHashEntry
+static __declspec(noinline) int __stdcall sub_00519110_FindHashEntry(const char* szName, unsigned int dwLocale)
+{
+    unsigned int dwHash = sub_00518FA0_HashString(0, szName);
+    unsigned int dwNameA = sub_00518FA0_HashString(1, szName);
+    unsigned int dwNameB = sub_00518FA0_HashString(2, szName);
+    unsigned int nSize = gpCacheHeader_00881880->nHashTableSize;
+    unsigned int dwIndex = dwHash & (nSize - 1);
+    D2CacheHashEntryStrc* pTable = gpCacheHashTable_0088188C;
+    unsigned int dwStart = dwIndex;
+    int nFallback = -1;
+
+    unsigned int dwBlock;
+    while ((dwBlock = pTable[dwIndex].dwBlockIndex) != (unsigned int)-1)
+    {
+        if (pTable[dwIndex].dwNameA == dwNameA && pTable[dwIndex].dwNameB == dwNameB && dwBlock != (unsigned int)-2)
+        {
+            if (pTable[dwIndex].dwLocale == dwLocale)
+                return dwIndex;
+            if (!pTable[dwIndex].dwLocale)
+                nFallback = dwIndex;
+        }
+
+        dwIndex = (dwIndex + 1) & (nSize - 1);
+        if (dwIndex == dwStart)
+            break;
+    }
+
+    return nFallback;
+}
+
+// build: context sub_H08_ClearBlockEntry
+static void sub_H08_ClearBlockEntry(D2CacheBlockEntryStrc* pBlockTable, unsigned int nBlock)
+{
+    pBlockTable[nBlock].dwDataSize = 0;
+    pBlockTable[nBlock].dwFlags = 0;
+}
+
+// build: context sub_005191D0_DeleteHashEntries
+static void sub_005191D0_DeleteHashEntries(const char* szName)
+{
+    int nIndex;
+    while ((nIndex = sub_00519110_FindHashEntry(szName, 0)) != -1)
+    {
+        unsigned int* pBlock = &gpCacheHashTable_0088188C[nIndex].dwBlockIndex;
+        if (*pBlock < gpCacheHeader_00881880->nBlockTableSize)
+        {
+            sub_H08_ClearBlockEntry(gpCacheBlockTable_00881884, *pBlock);
+        }
+        *pBlock = (unsigned int)-2;
+    }
+}
 
 // 0x00519220
 static __declspec(noinline) void sub_00519220_GetCacheFilePath(char* szPath)
@@ -44,60 +315,35 @@ void __cdecl sub_005192A0_DeleteCacheFile()
     DeleteFileA(szPath);
 }
 
-// 0x005198C0
-void __cdecl sub_005198C0_ResetCache()
-{
-    char szPath[260];
-
-    if (gnCacheValue_00881890)
-    {
-        sub_00519300_FreeCache();
-        sub_005192A0_DeleteCacheFile();
-    }
-
-    szPath[0] = 0;
-    sub_00519220_GetCacheFilePath(szPath);
-    DeleteFileA(szPath);
-    sub_005193E0_LoadCache();
-}
-
-void* gpCacheBuffer_00881880; // 0x00881880
-
-void* gpCacheBuffer_00881884; // 0x00881884
-
-unsigned int* gpCacheTable_00881888; // 0x00881888
-
-void* gpCacheBuffer_0088188C; // 0x0088188C
-
 // 0x00519300
 void __cdecl sub_00519300_FreeCache()
 {
     EnterCriticalSection(&gCacheLock_00881894);
-    gnCacheValue_00881890 = 0;
-    if (gpCacheBuffer_00881884)
+    gbCacheLoaded_00881890 = 0;
+    if (gpCacheBlockTable_00881884)
     {
-        SMemFree(gpCacheBuffer_00881884, ".\\CACHE.CPP", 0x155, 0);
-        gpCacheBuffer_00881884 = 0;
+        SMemFree(gpCacheBlockTable_00881884, ".\\CACHE.CPP", 0x155, 0);
+        gpCacheBlockTable_00881884 = 0;
     }
-    if (gpCacheBuffer_0088188C)
+    if (gpCacheHashTable_0088188C)
     {
-        SMemFree(gpCacheBuffer_0088188C, ".\\CACHE.CPP", 0x159, 0);
-        gpCacheBuffer_0088188C = 0;
+        SMemFree(gpCacheHashTable_0088188C, ".\\CACHE.CPP", 0x159, 0);
+        gpCacheHashTable_0088188C = 0;
     }
-    if (gpCacheBuffer_00881880)
+    if (gpCacheHeader_00881880)
     {
-        SMemFree(gpCacheBuffer_00881880, ".\\CACHE.CPP", 0x15D, 0);
-        gpCacheBuffer_00881880 = 0;
+        SMemFree(gpCacheHeader_00881880, ".\\CACHE.CPP", 0x15D, 0);
+        gpCacheHeader_00881880 = 0;
     }
     if (ghCacheFile_0072FB78 != (void*)-1)
     {
         CloseHandle(ghCacheFile_0072FB78);
         ghCacheFile_0072FB78 = (void*)-1;
     }
-    if (gpCacheTable_00881888)
+    if (gpCacheCryptTable_00881888)
     {
-        SMemFree(gpCacheTable_00881888, ".\\CACHE.CPP", 0x165, 0);
-        gpCacheTable_00881888 = 0;
+        SMemFree(gpCacheCryptTable_00881888, ".\\CACHE.CPP", 0x165, 0);
+        gpCacheCryptTable_00881888 = 0;
     }
     LeaveCriticalSection(&gCacheLock_00881894);
 }
@@ -110,3 +356,502 @@ int __fastcall sub_005193C0_FreeCachedFile(void* pData, unsigned int nSize)
     SMemFree(pData, ".\\CACHE.CPP", 0x16F, 0);
     return 1;
 }
+
+#pragma function(memset)
+
+// 0x005193E0
+int __cdecl sub_005193E0_LoadCache()
+{
+    char szPath[0x104];
+    unsigned long nTableRead;
+    unsigned long nFileSize;
+    unsigned long nHeaderRead;
+    D2CacheHeaderStrc* pHeader;
+
+    EnterCriticalSection(&gCacheLock_00881894);
+    if (gbCacheLoaded_00881890)
+    {
+        sub_00519300_FreeCache();
+    }
+
+    szPath[0] = 0;
+    sub_00519220_GetCacheFilePath(szPath);
+    ghCacheFile_0072FB78 = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
+    if (ghCacheFile_0072FB78 == (void*)-1)
+    {
+        sub_00519300_FreeCache();
+        LeaveCriticalSection(&gCacheLock_00881894);
+        return 0;
+    }
+
+    gpCacheCryptTable_00881888 = (unsigned int*)SMemAlloc(0x1400, ".\\CACHE.CPP", 0x193, 0);
+    sub_00519000_InitCryptTable();
+    gpCacheHeader_00881880 = (D2CacheHeaderStrc*)SMemAlloc(sizeof(D2CacheHeaderStrc), ".\\CACHE.CPP", 0x197, 8);
+    nFileSize = GetFileSize(ghCacheFile_0072FB78, 0);
+    if (nFileSize && nFileSize <= 0xA00000)
+    {
+        int nError;
+        unsigned int dwHeaderCrc;
+        unsigned int nHashSize;
+        unsigned int nBlockSize;
+        if (nFileSize < sizeof(D2CacheHeaderStrc))
+        {
+            nError = 1;
+            goto error;
+        }
+
+        ReadFile(ghCacheFile_0072FB78, gpCacheHeader_00881880, sizeof(D2CacheHeaderStrc), &nHeaderRead, 0);
+        if (nHeaderRead < sizeof(D2CacheHeaderStrc))
+        {
+            nError = 2;
+            goto error;
+        }
+
+        if (gpCacheHeader_00881880->dwMagic == 0x1A324E42)
+        {
+            goto create;
+        }
+
+        if (gpCacheHeader_00881880->dwMagic != 0x1A334E42)
+        {
+            nError = 3;
+            goto error;
+        }
+
+        dwHeaderCrc = gpCacheHeader_00881880->dwHeaderCrc;
+        {
+            unsigned int nCount = sizeof(D2CacheHeaderStrc);
+            gpCacheHeader_00881880->dwHeaderCrc = 0;
+            const unsigned char* pBytes = (const unsigned char*)gpCacheHeader_00881880;
+            unsigned int dwCrc;
+            CACHE_CRC32(dwCrc, pBytes, nCount);
+            if (dwHeaderCrc != dwCrc)
+            {
+                nError = 4;
+                goto error;
+            }
+        }
+        gpCacheHeader_00881880->dwHeaderCrc = dwHeaderCrc;
+
+        if (!gpCacheHeader_00881880->dwHashOffset || !gpCacheHeader_00881880->nHashTableSize)
+        {
+            nError = 5;
+            goto error;
+        }
+
+        if (!gpCacheHeader_00881880->dwBlockOffset || !gpCacheHeader_00881880->nBlockTableSize)
+        {
+            nError = 6;
+            goto error;
+        }
+
+        nHashSize = gpCacheHeader_00881880->nHashTableSize;
+        if (nHashSize < 0x400)
+        {
+            nHashSize = 0x400;
+        }
+        nHashSize *= sizeof(D2CacheHashEntryStrc);
+        if (gpCacheHeader_00881880->dwHashOffset + nHashSize > nFileSize)
+        {
+            nError = 7;
+            goto error;
+        }
+
+        gpCacheHashTable_0088188C = (D2CacheHashEntryStrc*)SMemAlloc(nHashSize, ".\\CACHE.CPP", 0x1CC, 8);
+        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwHashOffset, 0, 0);
+        ReadFile(ghCacheFile_0072FB78, gpCacheHashTable_0088188C, nHashSize, &nTableRead, 0);
+        if (nTableRead != nHashSize)
+        {
+            nError = 8;
+            goto error;
+        }
+
+        if (gpCacheHeader_00881880->dwHashCrc != sub_00518DE0_Crc32(gpCacheHashTable_0088188C, nHashSize))
+        {
+            nError = 9;
+            goto error;
+        }
+
+        sub_00518E60_DecryptBlock((unsigned int*)gpCacheHashTable_0088188C, nHashSize, sub_00518FA0_HashString(3, "(hash table)"));
+
+        nBlockSize = gpCacheHeader_00881880->nBlockTableSize;
+        if (nBlockSize < 0x400)
+        {
+            nBlockSize = 0x400;
+        }
+        nBlockSize *= sizeof(D2CacheBlockEntryStrc);
+        if (gpCacheHeader_00881880->dwBlockOffset + nBlockSize > nFileSize)
+        {
+            nError = 10;
+            goto error;
+        }
+
+        gpCacheBlockTable_00881884 = (D2CacheBlockEntryStrc*)SMemAlloc(nBlockSize, ".\\CACHE.CPP", 0x1E2, 8);
+        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwBlockOffset, 0, 0);
+        ReadFile(ghCacheFile_0072FB78, gpCacheBlockTable_00881884, nBlockSize, &nTableRead, 0);
+        if (nTableRead != nBlockSize)
+        {
+            nError = 11;
+            goto error;
+        }
+
+        if (gpCacheHeader_00881880->dwBlockCrc != sub_00518DE0_Crc32(gpCacheBlockTable_00881884, nBlockSize))
+        {
+            nError = 12;
+            goto error;
+        }
+
+        sub_00518E60_DecryptBlock((unsigned int*)gpCacheBlockTable_00881884, nBlockSize, sub_00518FA0_HashString(3, "(block table)"));
+        goto loaded;
+
+error:
+        sub_00518D40_Log("WARNING- cache file is invalid. Replacing with new cache file", nError);
+    }
+
+create:
+    if (!gbCacheLoaded_00881890)
+    {
+        if (gpCacheHashTable_0088188C)
+        {
+            SMemFree(gpCacheHashTable_0088188C, ".\\CACHE.CPP", 0x1FC, 0);
+        }
+        if (gpCacheBlockTable_00881884)
+        {
+            SMemFree(gpCacheBlockTable_00881884, ".\\CACHE.CPP", 0x1FE, 0);
+        }
+        sub_005192A0_DeleteCacheFile();
+        ghCacheFile_0072FB78 = CreateFileA(szPath, 0xC0000000, 0, 0, 4, 0x80, 0);
+        if (ghCacheFile_0072FB78 == (void*)-1)
+        {
+            sub_00519300_FreeCache();
+            LeaveCriticalSection(&gCacheLock_00881894);
+            return 0;
+        }
+
+        pHeader = gpCacheHeader_00881880;
+        memset(pHeader, 0, sizeof(D2CacheHeaderStrc));
+        pHeader->dwMagic = 0x1A334E42;
+        pHeader->dwHeaderSize = sizeof(D2CacheHeaderStrc);
+        gpCacheHashTable_0088188C = (D2CacheHashEntryStrc*)SMemAlloc(0x400 * sizeof(D2CacheHashEntryStrc), ".\\CACHE.CPP", 0x21C, 8);
+        gpCacheHeader_00881880->dwHashOffset = sizeof(D2CacheHeaderStrc);
+        gpCacheHeader_00881880->nHashTableSize = 0x400;
+        gpCacheHeader_00881880->dwFileSize = gpCacheHeader_00881880->dwFileSize > sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc) ? gpCacheHeader_00881880->dwFileSize : sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc);
+        for (int i = 0; i < 0x400; ++i)
+        {
+            gpCacheHashTable_0088188C[i].dwBlockIndex = (unsigned int)-1;
+        }
+
+        gpCacheBlockTable_00881884 = (D2CacheBlockEntryStrc*)SMemAlloc(0x400 * sizeof(D2CacheBlockEntryStrc), ".\\CACHE.CPP", 0x229, 8);
+        gpCacheHeader_00881880->dwBlockOffset = sizeof(D2CacheHeaderStrc) + 0x400 * sizeof(D2CacheHashEntryStrc);
+        gpCacheHeader_00881880->dwFileSize = gpCacheHeader_00881880->dwFileSize > sizeof(D2CacheHeaderStrc) + 0x400 * (sizeof(D2CacheHashEntryStrc) + sizeof(D2CacheBlockEntryStrc)) ? gpCacheHeader_00881880->dwFileSize : sizeof(D2CacheHeaderStrc) + 0x400 * (sizeof(D2CacheHashEntryStrc) + sizeof(D2CacheBlockEntryStrc));
+loaded:
+        gbCacheLoaded_00881890 = 1;
+    }
+
+    LeaveCriticalSection(&gCacheLock_00881894);
+    return 1;
+}
+
+#pragma intrinsic(memset)
+
+// 0x005198C0
+void __cdecl sub_005198C0_ResetCache()
+{
+    char szPath[260];
+
+    if (gbCacheLoaded_00881890)
+    {
+        sub_00519300_FreeCache();
+        sub_005192A0_DeleteCacheFile();
+    }
+
+    szPath[0] = 0;
+    sub_00519220_GetCacheFilePath(szPath);
+    DeleteFileA(szPath);
+    sub_005193E0_LoadCache();
+}
+
+// build: context sub_00519920_ReadEntry
+static __forceinline int sub_00519920_ReadEntry(const char* szName,D2FileTimeStrc* time,void** data,unsigned int* size,unsigned int block,int* pArchiveError,int* pFileError) {
+ D2CacheRecordStrc header;
+ unsigned long count; D2FileTimeStrc* tCreated;
+ memset(&header,0,sizeof(header));
+ if(gpCacheBlockTable_00881884[block].dwFlags&0xC0000000) {
+ SetFilePointer(ghCacheFile_0072FB78,gpCacheBlockTable_00881884[block].dwOffset,0,0);
+ ReadFile(ghCacheFile_0072FB78,&header,4,&count,0);
+ if(count!=4){*pArchiveError=2;return 0;}
+ if(header.dwSize!=sizeof(header)){*pArchiveError=3;return 0;}
+ ReadFile(ghCacheFile_0072FB78,(char*)&header+4,sizeof(header)-4,&count,0);
+ if(count!=sizeof(header)-4){*pArchiveError=4;return 0;}
+ unsigned int stored=header.dwCrc;header.dwCrc=0;
+ unsigned int crc=sub_00518DE0_Crc32(&header,sizeof(header));
+ if(stored!=crc){*pFileError=1;return 0;}header.dwCrc=stored;
+ }
+ if(_stricmp(szName,header.szName)){*pFileError=2;return 0;}
+ tCreated=(D2FileTimeStrc*)sub_00518F30_GetCacheFileTime(0);
+ if(CompareFileTime(tCreated,&header.tExpiry)>0){*pFileError=3;return 0;}
+ if(gpCacheBlockTable_00881884[block].dwDataSize>0x1000000){*pArchiveError=5;return 0;}
+ if(time)*time=header.tFileTime;
+ header.tLastAccess=*(D2FileTimeStrc*)sub_00518F30_GetCacheFileTime(0);
+ SetFilePointer(ghCacheFile_0072FB78,gpCacheBlockTable_00881884[block].dwOffset,0,0);
+ header.dwCrc=0;
+ header.dwCrc=sub_00518DE0_Crc32(&header,sizeof(header));
+ {unsigned int writeSize=header.dwSize;if(writeSize>sizeof(header))writeSize=sizeof(header);
+ unsigned long written;
+ WriteFile(ghCacheFile_0072FB78,&header,writeSize,&written,0);
+ if(written!=writeSize){*pArchiveError=6;return 0;}}
+ *data=sub_00413020_Alloc(gpCacheBlockTable_00881884[block].dwDataSize,gszCacheFile_006DEE70,0x2B5,0);
+ SetFilePointer(ghCacheFile_0072FB78,gpCacheBlockTable_00881884[block].dwOffset+header.dwSize,0,0);
+ ReadFile(ghCacheFile_0072FB78,*data,gpCacheBlockTable_00881884[block].dwDataSize,(unsigned long*)size,0);
+ if(*size!=gpCacheBlockTable_00881884[block].dwDataSize){*pArchiveError=7;return 0;}
+ if(header.dwDataCrc!=sub_00518DE0_Crc32(*data,*size)){*pFileError=4;return 0;}
+ return 1;
+}
+
+// 0x00519920
+int __fastcall sub_00519920_LoadCachedFile(const char* szName,D2FileTimeStrc* time,void** data,unsigned int* size) {
+ if(time){memset(time,0,sizeof(*time));} if(data)*data=0;if(size)*size=0;
+ if(!szName||!*szName||!data||!size||!gbCacheLoaded_00881890)return 0;
+ int archiveError=0,fileError=0;
+ EnterCriticalSection(&gCacheLock_00881894);
+ int index=sub_00519110_FindHashEntry(szName,0);
+ if(index==-1){LeaveCriticalSection(&gCacheLock_00881894);return 0;}
+ unsigned int block=gpCacheHashTable_0088188C[index].dwBlockIndex;
+ if(block>=gpCacheHeader_00881880->nBlockTableSize) archiveError=1;
+ else if(sub_00519920_ReadEntry(szName,time,data,size,block,&archiveError,&fileError)) goto unlock;
+ if(archiveError){sub_00518D40_Log(gszCorruptCache_006DEF00,archiveError);sub_005198C0_ResetCache();}
+ else {sub_00518D40_Log(gszCorruptFile_006DEEC0,szName,fileError);sub_005191D0_DeleteHashEntries(szName);}
+ if(*data){SMemFree(*data,gszCacheFile_006DEE70,0x2DE,0);*data=0;}*size=0;
+unlock: LeaveCriticalSection(&gCacheLock_00881894);return !fileError&&!archiveError;
+}
+
+// 0x00519DB0
+int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2)
+{
+    D2CacheRecordStrc tRecord;
+    D2CacheRecordStrc tOld;
+
+    if (!szName || !*szName || !pData || !nSize || !pFileTime || !nSeconds2 || !gbCacheLoaded_00881890 || nSize > 0x1000000)
+    {
+        return 0;
+    }
+
+    int nError = 0;
+    EnterCriticalSection(&gCacheLock_00881894);
+    sub_005191D0_DeleteHashEntries(szName);
+
+    const unsigned int nNeeded = nSize + 0x144;
+    unsigned int nBlock = 0;
+    while (nBlock < gpCacheHeader_00881880->nBlockTableSize)
+    {
+        if (!gpCacheBlockTable_00881884[nBlock].dwFlags && gpCacheBlockTable_00881884[nBlock].dwSize >= nNeeded)
+        {
+            break;
+        }
+        ++nBlock;
+    }
+
+    if (nBlock >= gpCacheHeader_00881880->nBlockTableSize)
+    {
+        for (nBlock = 0; nBlock < gpCacheHeader_00881880->nBlockTableSize; ++nBlock)
+        {
+            if (gpCacheBlockTable_00881884[nBlock].dwSize < nNeeded)
+            {
+                continue;
+            }
+
+            unsigned long nCount;
+            SetFilePointer(ghCacheFile_0072FB78, gpCacheBlockTable_00881884[nBlock].dwOffset, 0, 0);
+            memset(&tOld, 0, sizeof(tOld));
+            ReadFile(ghCacheFile_0072FB78, &tOld, 4, &nCount, 0);
+            if (nCount != 4 || tOld.dwSize != 0x144)
+            {
+                break;
+            }
+
+            ReadFile(ghCacheFile_0072FB78, &tOld.unk0x04, 0x140, &nCount, 0);
+            if (nCount != 0x140)
+            {
+                break;
+            }
+
+            if (CompareFileTime(sub_00518F30_GetCacheFileTime(0), &tOld.tStale) > 0)
+            {
+                break;
+            }
+        }
+    }
+
+    D2CacheHeaderStrc* pHeader = gpCacheHeader_00881880;
+    if (nBlock < pHeader->nBlockTableSize)
+    {
+        for (unsigned int i = 0; i < pHeader->nHashTableSize; ++i)
+        {
+            if (gpCacheHashTable_0088188C[i].dwBlockIndex == nBlock)
+            {
+                gpCacheHashTable_0088188C[i].dwBlockIndex = (unsigned int)-2;
+            }
+        }
+    }
+    else
+    {
+        if (nBlock >= 0x400)
+        {
+            nError = 0xB;
+            goto Fail;
+        }
+
+        gpCacheBlockTable_00881884[nBlock].dwOffset = pHeader->dwFileSize;
+        gpCacheBlockTable_00881884[nBlock].dwSize = nNeeded;
+        pHeader->dwFileSize += nNeeded;
+        pHeader->nBlockTableSize = nBlock + 1;
+    }
+
+    {
+        const unsigned int dwIndex = sub_00518FA0_HashString(0, szName);
+        const unsigned int dwNameA = sub_00518FA0_HashString(1, szName);
+        const unsigned int dwNameB = sub_00518FA0_HashString(2, szName);
+        unsigned int nSlot = dwIndex & (gpCacheHeader_00881880->nHashTableSize - 1);
+        const unsigned int nStart = nSlot;
+        D2CacheHashEntryStrc* pTable = gpCacheHashTable_0088188C;
+        unsigned int dwEntryBlock = pTable[nSlot].dwBlockIndex;
+        while (dwEntryBlock != (unsigned int)-1 && dwEntryBlock != (unsigned int)-2)
+        {
+            nSlot = (nSlot + 1) & (gpCacheHeader_00881880->nHashTableSize - 1);
+            if (nSlot == nStart)
+            {
+                break;
+            }
+            dwEntryBlock = pTable[nSlot].dwBlockIndex;
+        }
+
+        D2CacheHashEntryStrc* pEntry = &pTable[nSlot];
+        if (pEntry->dwBlockIndex != (unsigned int)-1 && pEntry->dwBlockIndex != (unsigned int)-2)
+        {
+            nError = 0xC;
+            goto Fail;
+        }
+
+        pEntry->dwNameA = dwNameA;
+        pEntry->dwNameB = dwNameB;
+        pEntry->dwBlockIndex = nBlock;
+        pEntry->dwLocale = 0;
+    }
+
+    {
+    unsigned long nCount;
+    gpCacheBlockTable_00881884[nBlock].dwDataSize = nSize;
+    gpCacheBlockTable_00881884[nBlock].dwFlags = 0xC0000000;
+
+    memset(&tRecord, 0, sizeof(tRecord));
+    tRecord.dwSize = 0x144;
+
+    const D2FileTimeStrc* pTime1 = sub_00518F30_GetCacheFileTime(0);
+    tRecord.tCreated.dwLowDateTime = pTime1->dwLowDateTime;
+    tRecord.tCreated.dwHighDateTime = pTime1->dwHighDateTime;
+    tRecord.tFileTime.dwLowDateTime = pFileTime->dwLowDateTime;
+    tRecord.tFileTime.dwHighDateTime = pFileTime->dwHighDateTime;
+    const D2FileTimeStrc* pTime2 = sub_00518F30_GetCacheFileTime(nSeconds1);
+    tRecord.tStale.dwLowDateTime = pTime2->dwLowDateTime;
+    tRecord.tStale.dwHighDateTime = pTime2->dwHighDateTime;
+    const D2FileTimeStrc* pTime3 = sub_00518F30_GetCacheFileTime(nSeconds2);
+    tRecord.tExpiry.dwLowDateTime = pTime3->dwLowDateTime;
+    tRecord.tExpiry.dwHighDateTime = pTime3->dwHighDateTime;
+    const D2FileTimeStrc* pTime4 = sub_00518F30_GetCacheFileTime(0);
+    tRecord.tLastAccess.dwLowDateTime = pTime4->dwLowDateTime;
+    tRecord.tLastAccess.dwHighDateTime = pTime4->dwHighDateTime;
+    strcpy(tRecord.szName, szName);
+    tRecord.dwDataCrc = sub_00518DE0_Crc32(pData, nSize);
+    {
+        unsigned int nLeft = sizeof(tRecord);
+        const unsigned char* pBytes = (const unsigned char*)&tRecord;
+        unsigned int dwCrc;
+        CACHE_CRC32(dwCrc, pBytes, nLeft);
+        tRecord.dwCrc = dwCrc;
+    }
+
+    SetFilePointer(ghCacheFile_0072FB78, gpCacheBlockTable_00881884[nBlock].dwOffset, 0, 0);
+    WriteFile(ghCacheFile_0072FB78, &tRecord, sizeof(tRecord), &nCount, 0);
+    if (nCount != sizeof(tRecord))
+    {
+        nError = 0xD;
+        goto Fail;
+    }
+
+    WriteFile(ghCacheFile_0072FB78, pData, nSize, &nCount, 0);
+    if (nCount != nSize)
+    {
+        nError = 0xE;
+        goto Fail;
+    }
+
+    {
+        unsigned int nHashCount = gpCacheHeader_00881880->nHashTableSize;
+        if (nHashCount < 0x400)
+        {
+            nHashCount = 0x400;
+        }
+        const unsigned int nHashBytes = nHashCount << 4;
+        unsigned int nBlockCount = gpCacheHeader_00881880->nBlockTableSize;
+        if (nBlockCount < 0x400)
+        {
+            nBlockCount = 0x400;
+        }
+        const unsigned int nBlockBytes = nBlockCount << 4;
+
+        unsigned int* pBuffer = (unsigned int*)SMemAlloc(nHashBytes > nBlockBytes ? nHashBytes : nBlockBytes, ".\\CACHE.CPP", 0x391, 0);
+        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwHashOffset, 0, 0);
+        memcpy(pBuffer, gpCacheHashTable_0088188C, nHashBytes);
+        sub_00518EC0_EncryptBlock(pBuffer, nHashBytes, sub_00518FA0_HashString(3, "(hash table)"));
+        gpCacheHeader_00881880->dwHashCrc = sub_00518DE0_Crc32(pBuffer, nHashBytes);
+        WriteFile(ghCacheFile_0072FB78, pBuffer, nHashBytes, &nCount, 0);
+        if (nCount != nHashBytes)
+        {
+            SMemFree(pBuffer, ".\\CACHE.CPP", 0x39D, 0);
+            nError = 0xF;
+            goto Fail;
+        }
+
+        SetFilePointer(ghCacheFile_0072FB78, gpCacheHeader_00881880->dwBlockOffset, 0, 0);
+        memcpy(pBuffer, gpCacheBlockTable_00881884, nBlockBytes);
+        sub_00518EC0_EncryptBlock(pBuffer, nBlockBytes, sub_00518FA0_HashString(3, "(block table)"));
+        gpCacheHeader_00881880->dwBlockCrc = sub_00518DE0_Crc32(pBuffer, nBlockBytes);
+        WriteFile(ghCacheFile_0072FB78, pBuffer, nBlockBytes, &nCount, 0);
+        SMemFree(pBuffer, ".\\CACHE.CPP", 0x3AB, 0);
+        if (nCount != nBlockBytes)
+        {
+            nError = 0x10;
+            goto Fail;
+        }
+    }
+
+    {
+        D2CacheHeaderStrc* pCacheHeader = gpCacheHeader_00881880;
+        pCacheHeader->dwHeaderCrc = 0;
+        unsigned int nLeft = sizeof(D2CacheHeaderStrc);
+        const unsigned char* pBytes = (const unsigned char*)pCacheHeader;
+        unsigned int dwCrc;
+        CACHE_CRC32(dwCrc, pBytes, nLeft);
+        pCacheHeader->dwHeaderCrc = dwCrc;
+    }
+
+    SetFilePointer(ghCacheFile_0072FB78, 0, 0, 0);
+    WriteFile(ghCacheFile_0072FB78, gpCacheHeader_00881880, sizeof(D2CacheHeaderStrc), &nCount, 0);
+    if (nCount != sizeof(D2CacheHeaderStrc))
+    {
+        nError = 0x11;
+        goto Fail;
+    }
+    }
+    goto Done;
+
+Fail:
+    sub_00518D40_Log("bncache.dat is corrupt (%d) - rebuilding archive", nError);
+    sub_005198C0_ResetCache();
+
+Done:
+    LeaveCriticalSection(&gCacheLock_00881894);
+    return nError == 0;
+}
+
+#include "gen/data/Source/D2BNClient/CACHE.inc"

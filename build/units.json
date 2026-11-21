@@ -47441,37 +47441,19 @@
      "name": "?sub_005193C0_FreeCachedFile@@YIHPAXI@Z"
     },
     {
-     "va": "0x005198C0",
-     "length": 86,
-     "name": "?sub_005198C0_ResetCache@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/CACHE_005193E0.CPP",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005193E0",
      "length": 1235,
      "name": "?sub_005193E0_LoadCache@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/CACHE_00519920.CPP",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x005198C0",
+     "length": 86,
+     "name": "?sub_005198C0_ResetCache@@YAXXZ"
+    },
     {
      "va": "0x00519920",
      "length": 1154
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/CACHE_00519DB0.CPP",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00519DB0",
      "length": 1725
