@@ -11,9 +11,6 @@ void __cdecl sub_004B4830_Rebuild(); // 0x004B4830
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 extern char gbGlobal_007C0C69; // 0x007C0C69
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
 
 int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70

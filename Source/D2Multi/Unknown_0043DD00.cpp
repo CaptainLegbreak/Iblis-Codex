@@ -2,9 +2,6 @@
 #include "D2Unicode.h"
 struct D2WinControlStrc;
 
-#pragma pack(push, 1)
-#pragma pack(pop)
-
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 #pragma intrinsic(strcat)

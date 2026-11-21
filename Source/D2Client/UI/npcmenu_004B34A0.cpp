@@ -11,9 +11,6 @@ struct D2NpcMonListPacketStrc
     unsigned short nMonIds[12];
 };
 
-#pragma pack(push, 2)
-#pragma pack(pop)
-
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
 
 class D2NpcTradeObjStrc

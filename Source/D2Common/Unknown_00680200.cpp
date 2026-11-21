@@ -12,9 +12,6 @@
 #define LEVEL_BLOODMOOR 2
 #define LEVEL_MOOMOOFARM 39
 
-#pragma pack(push, 4)
-#pragma pack(pop)
-
 struct D2DrlgStrc;
 
 

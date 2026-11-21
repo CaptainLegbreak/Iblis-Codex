@@ -4,8 +4,6 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
 
-#pragma pack(push, 4)
-#pragma pack(pop)
 struct D2StaticPathStrc { int unk0x00[3]; int nXPos; int nYPos; };
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);

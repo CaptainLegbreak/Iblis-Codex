@@ -176,9 +176,6 @@ struct D2NpcIndexStrc
 extern D2NpcQuestHandlerStrc gaNpcHandlers_007253E0[]; // 0x007253E0
 extern D2NpcIndexStrc gaNpcIndex_00726C48[]; // 0x00726C48
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
 
 class D2NpcTradeObjStrc

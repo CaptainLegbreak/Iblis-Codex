@@ -7,9 +7,6 @@ struct D2LaunchResultStrc
     int nResult;
 };
 
-#pragma pack(push, 1)
-#pragma pack(pop)
-
 struct D2LaunchLoginStrc
 {
     char szText0x00[0x10];

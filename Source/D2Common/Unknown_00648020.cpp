@@ -24,9 +24,6 @@ typedef int BOOL;
 
 
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 typedef int (__fastcall* PATH_FUNCTION)(D2PathInfoStrc* pPathInfo);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

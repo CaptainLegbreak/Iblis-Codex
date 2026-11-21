@@ -9,8 +9,6 @@ struct D2LaunchGameEntryStrc;
 struct D2LaunchGameListStrc;
 struct D2LaunchGameRecStrc;
 
-#pragma pack(push, 1)
-#pragma pack(pop)
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30

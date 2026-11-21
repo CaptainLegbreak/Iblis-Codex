@@ -58,10 +58,6 @@ struct SpinnerWrapper
     int sub_004BC330_ForwardSlot30(int nArg);
 };
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 inline unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;

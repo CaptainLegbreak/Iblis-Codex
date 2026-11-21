@@ -29,10 +29,6 @@ void __stdcall WINDOW_PlaySmacker(void* pContext); // 0x004F5E40
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210

@@ -9,9 +9,6 @@ struct D2SetsTxt { char unk0x000[0x128]; };
 struct D2SetItemsTxt { char unk0x000[0x1B8]; };
 struct D2UniqueItemsTxt { char unk0x000[0x14C]; };
 
-#pragma pack(push, 2)
-#pragma pack(pop)
-
 enum
 {
     NUM_HOTKEYS = 114,

@@ -7,9 +7,6 @@ struct D2MultiChannelUserStrc;
 struct Unicode;
 struct Character;
 
-#pragma pack(push, 1)
-#pragma pack(pop)
-
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 void __stdcall sub_004413E0_Enable(int bEnable); // 0x004413E0
 
