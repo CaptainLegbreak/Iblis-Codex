@@ -65153,11 +65153,6 @@
      "name": "ACT3Q4_Callback13_PlayerStartedGame"
     },
     {
-     "va": "0x005BC5A0",
-     "length": 356,
-     "name": "ACT3Q6_Callback11_ScrollMessage"
-    },
-    {
      "va": "0x005BD0D0",
      "length": 286,
      "name": "ACT3Q7_GetWandererCoordinates"
@@ -66308,6 +66303,11 @@
     {
      "va": "0x005BC3C0",
      "length": 470
+    },
+    {
+     "va": "0x005BC5A0",
+     "length": 356,
+     "name": "ACT3Q6_Callback11_ScrollMessage"
     },
     {
      "va": "0x005BC710",

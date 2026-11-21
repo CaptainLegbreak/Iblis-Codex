@@ -2418,55 +2418,6 @@ void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
-// 0x005BC5A0
-void __fastcall ACT3Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const unsigned short nNPCNo = pQuestArg->nNPCNo;
-    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
-    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 22, 11) && QUESTRECORD_GetQuestState(pQuestFlags, 22, 0))
-    {
-        return;
-    }
-
-    if (nNPCNo == 255 && nMessageIndex == 628)
-    {
-        if (QUESTS_GetGlobalState(pQuestArg->pGame, 17, 13) == 1)
-        {
-            QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q6.cpp", 463);
-        }
-        else
-        {
-            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q6.cpp", 467);
-        }
-
-        ((D2Act3Quest6Strc*)pQuestData->pQuestDataEx)->bOrmusActivated = 1;
-        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
-        return;
-    }
-
-    if (nMessageIndex == 658 || nMessageIndex == 657 || nMessageIndex == 659 || nMessageIndex == 660
-        || nMessageIndex == 661 || nMessageIndex == 662 || nMessageIndex == 663)
-    {
-        if (QUESTRECORD_GetQuestState(pQuestFlags, 22, 11))
-        {
-            if (QUESTRECORD_GetQuestState(pQuestFlags, 22, 13))
-            {
-                pQuestData->dwFlags &= 0xFFFFFF00;
-                QUESTS_UnitIterate(pQuestData, 13, 0, ACT3Q6_UnitIterate_StatusCyclerEx, false);
-                QUESTS_StateDebug(pQuestData, 7, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q6.cpp", 487);
-            }
-
-            QUESTRECORD_ClearQuestState(pQuestFlags, 22, 11);
-            QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-        }
-        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
-    }
-}
-
 // 0x005BD0D0
 int __fastcall ACT3Q7_GetWandererCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord)
 {
