@@ -42699,6 +42699,20 @@
   {
    "file": "Source/D2Win/Src/D2WinEditBox.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004FDC70",
@@ -42711,8 +42725,18 @@
      "name": "?sub_004FDE30_GetEditTextHeight@@YGHPBUUnicode@@PAUD2WinEditBoxStrc@@@Z"
     },
     {
+     "va": "0x004FDFF0",
+     "length": 860,
+     "name": "?sub_004FDFF0_GetCaretPosition@@YGXPAH0PAUD2WinEditBoxStrc@@@Z"
+    },
+    {
      "va": "0x004FE3B0",
      "length": 856
+    },
+    {
+     "va": "0x004FE770",
+     "length": 31,
+     "name": "?sub_004FE770@@YGHPAX0PBUCharacter@@@Z"
     },
     {
      "va": "0x004FE7C0",
@@ -42730,98 +42754,28 @@
      "name": "?D2Win_10074@@YIHPAUD2WinEditBoxStrc@@D@Z"
     },
     {
-     "va": "0x004FF5A0",
-     "length": 119,
-     "name": "?sub_004FF5A0@@YIHPAUD2WinEditBoxStrc@@PBUUnicode@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinEditBox_004FDFF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FDFF0",
-     "length": 860,
-     "name": "?sub_004FDFF0_GetCaretPosition@@YGXPAH0PAUD2WinEditBoxStrc@@@Z"
-    },
-    {
      "va": "0x004FF050",
      "length": 1353,
      "name": "?sub_004FF050_EditBoxKeyDown@@YIHPAUD2WinEditBoxStrc@@D@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinEditBox_004FE770.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
-     "va": "0x004FE770",
-     "length": 31,
-     "name": "?sub_004FE770@@YGHPAX0PBUCharacter@@@Z"
+     "va": "0x004FF5A0",
+     "length": 119,
+     "name": "?sub_004FF5A0@@YIHPAUD2WinEditBoxStrc@@PBUUnicode@@@Z"
+    },
+    {
+     "va": "0x004FF620",
+     "length": 1473
     },
     {
      "va": "0x004FFBF0",
      "length": 542
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinEditBox_004FF620.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FF620",
-     "length": 1473
     },
     {
      "va": "0x004FFE50",
      "length": 881,
      "name": "?sub_004FFE50_EditBoxDraw@@YIHPAUD2WinEditBoxStrc@@@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
