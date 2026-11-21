@@ -118,7 +118,7 @@ unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned short __stdcall sub_006BBF20_ReadPackedWord(const unsigned char* pData); // 0x006BBF20
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0043D990(); // 0x0043D990
-void __cdecl sub_0043E570(); // 0x0043E570
+int __cdecl sub_0043E570(); // 0x0043E570
 void __cdecl sub_0043E660_UpdateOkEnabled(); // 0x0043E660
 void __cdecl sub_0043EA20_Wait(); // 0x0043EA20
 void __cdecl sub_0043F8C0_ResetLaunchState(); // 0x0043F8C0

@@ -2118,6 +2118,16 @@
      "name": "sub_0042FEF0_FilterChar"
     },
     {
+     "va": "0x004301A0",
+     "length": 493,
+     "name": "?sub_004301A0@@YAXXZ"
+    },
+    {
+     "va": "0x00430390",
+     "length": 66,
+     "name": "?sub_00430390_CreateScreenControls@@YAXXZ"
+    },
+    {
      "va": "0x00430400",
      "length": 37,
      "name": "?sub_00430400_PollSlot4C@@YGHH@Z"
@@ -2176,6 +2186,11 @@
      "va": "0x004309B0",
      "length": 11,
      "name": "?sub_004309B0_ClearLaunchState@@YAXXZ"
+    },
+    {
+     "va": "0x00430A20",
+     "length": 210,
+     "name": "?sub_00430A20_FreeSlots@@YAHXZ"
     },
     {
      "va": "0x00430B80",
@@ -10953,22 +10968,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_004301A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004301A0",
-     "length": 493,
-     "name": "?sub_004301A0@@YAXXZ"
-    },
-    {
-     "va": "0x00430390",
-     "length": 66,
-     "name": "?sub_00430390_CreateScreenControls@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Launch/Src/CharSel_00430520.cpp",
    "rank": 0,
    "functions": [
@@ -10981,11 +10980,6 @@
      "va": "0x004306C0",
      "length": 98,
      "name": "?sub_004306C0_UpdateOk@@YAXXZ"
-    },
-    {
-     "va": "0x00430A20",
-     "length": 210,
-     "name": "?sub_00430A20_FreeSlots@@YAHXZ"
     },
     {
      "va": "0x00430B50",
@@ -11191,11 +11185,6 @@
      "va": "0x0043E130",
      "length": 65,
      "name": "?sub_0043E130_Reset@@YAXXZ"
-    },
-    {
-     "va": "0x0043E570",
-     "length": 114,
-     "name": "?sub_0043E570@@YAHXZ"
     },
     {
      "va": "0x0043EA20",
@@ -11998,6 +11987,10 @@
      "name": "?sub_004378D0_SubmitTexts@@YGHH@Z"
     },
     {
+     "va": "0x00437A20",
+     "length": 55
+    },
+    {
      "va": "0x00437CB0",
      "length": 74
     },
@@ -12137,30 +12130,6 @@
      "length": 10,
      "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_00437A20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00437A20",
-     "length": 55
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -12420,6 +12389,11 @@
      "va": "0x0043E4C0",
      "length": 163,
      "name": "?sub_0043E4C0_OnChatTime@@YIHIPBD@Z"
+    },
+    {
+     "va": "0x0043E570",
+     "length": 114,
+     "name": "?sub_0043E570@@YAHXZ"
     },
     {
      "va": "0x0043E5F0",
@@ -12951,7 +12925,7 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Unknown_0043DA50.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg_0043DA50.cpp",
    "rank": 0,
    "functions": [
     {
@@ -13365,7 +13339,7 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Unknown_004423B0.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg_004423B0.cpp",
    "rank": 1,
    "functions": [
     {
