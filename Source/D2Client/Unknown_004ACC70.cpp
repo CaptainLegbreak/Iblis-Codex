@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -11,13 +12,6 @@ struct D2MonsterDataStrc;
 struct D2MonStats2Txt;
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x16];
-    unsigned char nTypeFlag;
-    unsigned char unk_17[0x1];
-    int unknown18;
-};
 
 
 
@@ -86,7 +80,7 @@ void __fastcall sub_004ACD50_ClearMonsterField18(D2UnitStrc* unit, void* unused,
     {
         D2MonsterDataStrc* data = unit->pMonsterData;
         if (data)
-            data->unknown18 = 0;
+            data->dwDurielFlag = 0;
     }
 }
 
