@@ -10,6 +10,10 @@ original file.
 function, search by address or name, filter by module or state, and click through to its source file. The same page is
 `docs/index.html` in this repository and works offline.
 
+![Source shape: one cell per function in address order. Green sits in a whole file with its original name, blue in an original file still in pieces, amber in a placeholder file whose original is not known yet, purple needs a construct that forces code generation, red is not reconstructed yet, grey is runtime library code](docs/shape.svg)
+
+The second grid tracks how close the sources are to the original tree in form, not bytes. `tools/status.py` regenerates both grids and `STATUS.md` from the build data.
+
 ## Names
 
 Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://github.com/ThePhrozenKeep/D2MOO, MIT; see NOTICE-D2MOO.txt). Only names marked `blizzard` in names.csv are Blizzard's own; `d2moo` names are community names and `placeholder` names are addresses awaiting a name.
@@ -18,13 +22,13 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 
 | Path | Contents |
 |---|---|
-| `Source/<Module>/` | 2,577 compilation units, laid out like Blizzard's own source tree, defining 14,918 functions |
+| `Source/<Module>/` | 1,816 compilation units, laid out like Blizzard's own source tree, defining 14,918 functions |
 | `Source/<Module>/<Module>.h` | the declarations several files of a module share |
 | `Source/StandIns/` | functional replacements for the 9 functions that are not reconstructed yet, used only by the ordinary build (see Building) |
 | `CMakeLists.txt` | the sources as an ordinary CMake project (compiles the objects; see Building) |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |
-| `docs/` | the function grid (`grid.svg`) and its interactive viewer (`index.html`) |
-| `tools/` | setup and build scripts (Python 3.9+, standard library only) |
+| `docs/` | the function grid (`grid.svg`), the source shape grid (`shape.svg`) and the interactive viewer (`index.html`) |
+| `tools/` | setup, build and status scripts (Python 3.9+, standard library only) |
 | `names.csv` | every function's address, name and where the name comes from |
 | `STATUS.md` | what is verified, what is not yet, and which functions need non-original constructs |
 
