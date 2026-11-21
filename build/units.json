@@ -32939,6 +32939,86 @@
      "va": "0x004C1C20",
      "length": 33,
      "name": "?sub_004C1C20_SetWeaponClass@@YAXPAUD2UnitStrc@@E@Z"
+    },
+    {
+     "va": "0x004C20B0",
+     "length": 159,
+     "name": "?sub_004C20B0_ItemToCursor9C@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C2340",
+     "length": 158,
+     "name": "?sub_004C2340_ItemToCursor9D@@YIXPAUD2GSPacketSrv9D@@@Z"
+    },
+    {
+     "va": "0x004C2540",
+     "length": 103,
+     "name": "?sub_004C2540_PlaceItem@@YGXPAUD2UnitStrc@@GGHHE@Z"
+    },
+    {
+     "va": "0x004C25B0",
+     "length": 147,
+     "name": "?sub_004C25B0_ItemDropToGround9C@@YIXPAUD2ItemPacket9CStrc@@@Z"
+    },
+    {
+     "va": "0x004C2650",
+     "length": 156,
+     "name": "?sub_004C2650_ItemOnCursor9C@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C26F0",
+     "length": 279,
+     "name": "?sub_004C26F0_ItemDropped9C@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C2970",
+     "length": 339,
+     "name": "?sub_004C2970_PlaceItemAt@@YGXGEPAUD2UnitStrc@@0G@Z"
+    },
+    {
+     "va": "0x004C3E00",
+     "length": 339,
+     "name": "?sub_004C3E00_CursorItemToBelt@@YAXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C3F60",
+     "length": 363,
+     "name": "?sub_004C3F60_BeltItemToCursor@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C40D0",
+     "length": 90,
+     "name": "?sub_004C40D0_BeltPacket2_9C@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C4130",
+     "length": 358,
+     "name": "?sub_004C4130_ItemToBelt9C@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C42A0",
+     "length": 312,
+     "name": "?sub_004C42A0_ItemFromBelt9C@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C43E0",
+     "length": 236,
+     "name": "?sub_004C43E0_ItemToBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C44D0",
+     "length": 235,
+     "name": "?sub_004C44D0_ItemFromBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
+    },
+    {
+     "va": "0x004C45C0",
+     "length": 91,
+     "name": "?sub_004C45C0_BeltPacket9C@@YIXPAUD2GSPacketSrv9C@@@Z"
+    },
+    {
+     "va": "0x004C4990",
+     "length": 260,
+     "name": "?sub_004C4990_ItemToSocket9D@@YIXPAUD2GSPacketSrv9D@@@Z"
     }
    ]
   },
@@ -33083,92 +33163,6 @@
      "va": "0x004C4C70",
      "length": 1338,
      "name": "?sub_004C4C70@@YIPAUD2UnitStrc@@PAUD2GSPacketSrv9D@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C20B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C20B0",
-     "length": 159,
-     "name": "?sub_004C20B0_ItemToCursor9C@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C2340",
-     "length": 158,
-     "name": "?sub_004C2340_ItemToCursor9D@@YIXPAUD2GSPacketSrv9D@@@Z"
-    },
-    {
-     "va": "0x004C2540",
-     "length": 103,
-     "name": "?sub_004C2540_PlaceItem@@YGXPAUD2UnitStrc@@GGHHE@Z"
-    },
-    {
-     "va": "0x004C25B0",
-     "length": 147,
-     "name": "?sub_004C25B0_ItemDropToGround9C@@YIXPAUD2ItemPacket9CStrc@@@Z"
-    },
-    {
-     "va": "0x004C2650",
-     "length": 156,
-     "name": "?sub_004C2650_ItemOnCursor9C@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C26F0",
-     "length": 279,
-     "name": "?sub_004C26F0_ItemDropped9C@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C2970",
-     "length": 339,
-     "name": "?sub_004C2970_PlaceItemAt@@YGXGEPAUD2UnitStrc@@0G@Z"
-    },
-    {
-     "va": "0x004C3E00",
-     "length": 339,
-     "name": "?sub_004C3E00_CursorItemToBelt@@YAXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C3F60",
-     "length": 363,
-     "name": "?sub_004C3F60_BeltItemToCursor@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C40D0",
-     "length": 90,
-     "name": "?sub_004C40D0_BeltPacket2_9C@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C4130",
-     "length": 358,
-     "name": "?sub_004C4130_ItemToBelt9C@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C42A0",
-     "length": 312,
-     "name": "?sub_004C42A0_ItemFromBelt9C@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C43E0",
-     "length": 236,
-     "name": "?sub_004C43E0_ItemToBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C44D0",
-     "length": 235,
-     "name": "?sub_004C44D0_ItemFromBelt@@YGXPAUD2GSPacketSrv9C@@PAUD2ItemSaveStrc@@@Z"
-    },
-    {
-     "va": "0x004C45C0",
-     "length": 91,
-     "name": "?sub_004C45C0_BeltPacket9C@@YIXPAUD2GSPacketSrv9C@@@Z"
-    },
-    {
-     "va": "0x004C4990",
-     "length": 260,
-     "name": "?sub_004C4990_ItemToSocket9D@@YIXPAUD2GSPacketSrv9D@@@Z"
     }
    ]
   },
