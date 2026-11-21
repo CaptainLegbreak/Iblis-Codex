@@ -6051,12 +6051,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/ITEMS/Items_0062FFF0.cpp": {
-   "bytes": 20,
-   "definitions": 1,
+  "Source/D2Common/ITEMS/Items.cpp": {
+   "bytes": 284,
+   "definitions": 8,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/ITEMS/Items_0062FFF0.inc",
+   "include": "gen/data/Source/D2Common/ITEMS/Items.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -6986,15 +6986,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Net/SRC/Client.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/ITEMS/Items.cpp": {
-   "bytes": 264,
-   "definitions": 7,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/ITEMS/Items.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -125476,7 +125467,7 @@
    "cname": "gData_006E90B8",
    "declared": true,
    "decorated": "?gnItemSetStates_006E90B8@@3PAHA",
-   "file": "Source/D2Common/ITEMS/Items_0062FFF0.cpp",
+   "file": "Source/D2Common/ITEMS/Items.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E90B8[5]; // 0x006E90B8",
    "head": "extern \"C\" const int gData_006E90B8[5] = ",

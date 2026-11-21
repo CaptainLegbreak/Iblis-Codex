@@ -79992,6 +79992,10 @@
      "name": "?ITEMS_IsCharmUsable@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x0062FFF0",
+     "length": 4800
+    },
+    {
      "va": "0x006313E0",
      "length": 75,
      "name": "ITEMS_SerializeItemToBitstream"
@@ -80231,16 +80235,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_0062FFF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0062FFF0",
-     "length": 4800
-    }
    ]
   },
   {
