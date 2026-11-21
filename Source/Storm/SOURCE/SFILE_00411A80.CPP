@@ -957,7 +957,7 @@ int __stdcall sub_00418390_FileQuery(void* hArchive, const char* szFileName, int
 {
     VALIDATEBEGIN;
     VALIDATE(szFileName);
-    VALIDATE(*(const volatile char*)szFileName);
+    VALIDATE(*szFileName);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     sub_00415B90_InitCryptTable();

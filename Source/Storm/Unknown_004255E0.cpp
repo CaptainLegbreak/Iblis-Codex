@@ -626,7 +626,7 @@ static __declspec(noinline) int sub_00421440_IsEven(const D2StormQueueStrc& a)
     return !a.Count() || !(a[0] & 1);
 }
 
-static __declspec(noinline) void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* volatile pStack, D2StormQueueStrc& a);
+static __declspec(noinline) void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a);
 // 0x004255E0
 static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a)
 {

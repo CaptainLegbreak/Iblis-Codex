@@ -294,7 +294,7 @@ char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize)
     unsigned int nSize = 0;
     D2_ASSERT(SFileLoadFile("DATA\\GLOBAL\\gateways.txt", &pBuffer, &nSize, 0, 0), 0x1F9);
     unsigned int* const pOut = *(unsigned int* volatile*)&pSize;
-    *pOut = *(volatile unsigned int*)&nSize;
+    *pOut = nSize;
     return (char*)pBuffer;
 }
 
