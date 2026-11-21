@@ -1,5 +1,7 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CmpCache.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CmpTileStrc;
@@ -23,22 +25,7 @@ struct D2CmpPoolEntryStrc
 
 typedef void (__fastcall* D2TileFreeCallbackFn)(D2CmpTileStrc* pTile);
 
-struct D2LRUNodeStrc
-{
-    void* pData;
-    unsigned int nSize;
-};
 
-struct D2TileLibraryEntryStrc
-{
-    char unk0x00[0x48];
-    int nFileOffset;
-    unsigned int nSize;
-    int bCanLoad;
-    void* pData;
-    const char* szFilePath;
-    D2LRUNodeStrc* pNode;
-};
 
 struct D2TileLibraryStrc
 {
@@ -80,14 +67,14 @@ int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
         return 1;
     }
 
-    if (!pEntry->bCanLoad)
+    if (!pEntry->nBlocks)
     {
         return 0;
     }
 
     pEntry->pNode = sub_00609420(&gCmpPool, pEntry->nSize, pEntry);
-    pEntry->pData = pEntry->pNode->pData;
-    memset(pEntry->pData, 0, pEntry->nSize);
+    pEntry->pBlocks = (D2GlideTileStrc*)pEntry->pNode->pData;
+    memset(pEntry->pBlocks, 0, pEntry->nSize);
 
     void* hFile;
     if (!ARCHIVE_OpenFile(0, pEntry->szFilePath, &hFile, 0))
@@ -96,7 +83,7 @@ int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
     }
 
     sub_00516F14_SetFilePointer(0, hFile, pEntry->nFileOffset, 0, 0);
-    ARCHIVE_ReadFileToBuffer(0, hFile, pEntry->pData, pEntry->nSize);
+    ARCHIVE_ReadFileToBuffer(0, hFile, pEntry->pBlocks, pEntry->nSize);
     ARCHIVE_CloseFile(0, hFile);
     sub_0060A4C0_TileEntryLoaded(pEntry);
     return 1;
@@ -111,7 +98,7 @@ void __fastcall sub_005FE080_FreeTileLibraryBlocks(D2TileLibraryStrc* pLibrary)
         if (pEntry->pNode)
         {
             sub_006092D0_PoolFree(&gCmpPool, pEntry->pNode);
-            pEntry->pData = 0;
+            pEntry->pBlocks = 0;
             pEntry->pNode = 0;
         }
     }

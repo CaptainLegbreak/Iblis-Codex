@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2LevelTxt.h"
+#include "D2Records.h"
 
 struct D2ItemsTxt;
 struct D2CubeInputItemStrc;
@@ -19,23 +21,7 @@ struct D2CubeInputItemStrc
     unsigned short wSuffix[3];
 };
 
-struct D2UniqueItemsTxt
-{
-    char unk0x00[0x28];
-    unsigned int dwCode;
-    char unk0x2C[0x08];
-    unsigned char nLevel;
-    char unk0x35[0x117];
-};
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x28];
-    unsigned int dwCode;
-    char unk0x2C[0x04];
-    unsigned char nLevel;
-    char unk0x31[0x187];
-};
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" unsigned int __cdecl strlen(const char* szString);
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
@@ -173,13 +159,13 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
             if (nLinkId >= 0)
             {
                 int nItemId;
-                DATATBLS_GetItemRecordFromItemCode(gpSetItemsTxt_0096C848[nLinkId].dwCode, &nItemId);
+                DATATBLS_GetItemRecordFromItemCode(gpSetItemsTxt_0096C848[nLinkId].dwItemCode, &nItemId);
                 pInput->wFlags |= 8;
                 pInput->nType = 0xFC;
                 pInput->nQuality = 5;
                 pInput->wItemId = nLinkId + 1;
                 pInput->wItem = nItemId;
-                pInput->nLevel = gpSetItemsTxt_0096C848[nLinkId].nLevel;
+                pInput->nLevel = (unsigned char)gpSetItemsTxt_0096C848[nLinkId].wLvl;
             }
             return 0;
         }
