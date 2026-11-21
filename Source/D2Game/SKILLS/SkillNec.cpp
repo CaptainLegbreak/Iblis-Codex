@@ -534,6 +534,10 @@ static __forceinline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass
     return 0;
 }
 
+int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
+
+D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
+
 // 0x0057B7A0
 static __forceinline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
@@ -681,6 +685,38 @@ int __fastcall SKILLS_SrvSt19_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 
     return !DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget));
+}
+
+// 0x005C32A0
+int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (pTarget->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pTarget->dwAnimMode != 3)
+    {
+        return 0;
+    }
+
+    if (!ITEMS_IsMetalItem(pTarget->dwClassId))
+    {
+        return 0;
+    }
+
+    if (!ITEMS_CheckItemFlag(pTarget, 0x10, 256, ".\\SKILLS\\SkillNec.cpp"))
+    {
+        return 0;
+    }
+
+    return !STATLIST_GetOwner(pTarget, 0);
 }
 
 // 0x005C3300
