@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -2080,7 +2081,7 @@ static __declspec(noinline) D2SkillStrc* __stdcall sub_6FC83450(D2SkillStrc* pSk
         {
             if (!SKILLS_GetParam4(pSkill))
             {
-                pUsedSkill = SKILLS_GetSkillById(pUnit, 5, -1);
+                pUsedSkill = SKILLS_GetSkillById(pUnit, SKILL_LEFTHANDSWING, -1);
                 D2_ASSERT(pUsedSkill, 1829);
                 SKILLS_SetParam4(pSkill, 5);
             }
@@ -2154,7 +2155,7 @@ static __declspec(noinline) int __stdcall sub_6FC83340(D2GameStrc* pGame, D2Unit
 
     if (nSkillUseState > 0 && (nSkillUseState <= 2 || nSkillUseState == 4) && pSkillsTxtRecord->nFlags[3] & gdwBitMasks[4])
     {
-        pUsedSkill = SKILLS_GetSkillById(pUnit, 0, -1);
+        pUsedSkill = SKILLS_GetSkillById(pUnit, SKILL_ATTACK, -1);
         nSkillUseState = SKILLS_GetUseState(pUnit, pUsedSkill);
     }
 
@@ -2195,7 +2196,7 @@ static int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if (nUseState > 0 && (nUseState <= 2 || nUseState == 4) && pSkillsTxtRecord->nFlags[3] & gdwBitMasks[4])
     {
-        pSkill = SKILLS_GetSkillById(pUnit, 0, -1);
+        pSkill = SKILLS_GetSkillById(pUnit, SKILL_ATTACK, -1);
         nUseState = SKILLS_GetUseState(pUnit, pSkill);
     }
 

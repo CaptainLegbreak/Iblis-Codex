@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -514,8 +515,6 @@ void __fastcall CLIENTS_SetIronGolemItemGUID(D2ClientStrc* pClient, int nIronGol
 int __fastcall PLRSAVE2_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc** ppItem, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion); // 0x0056ACE0
 
 #define PLRSAVE2ERROR_BAD_IRONGOLEM 23
-
-#define SKILL_IRONGOLEM 90
 
 #pragma intrinsic(memcpy)
 
@@ -2097,7 +2096,7 @@ int __fastcall sub_6FC80EE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId
     }
     else
     {
-        if (pPlayer && UNIT_HasFlag(pPlayer, UNITFLAG_SKSRVDOFUNC) || nSkillId != 1 && nSkillId != 2)
+        if (pPlayer && UNIT_HasFlag(pPlayer, UNITFLAG_SKSRVDOFUNC) || nSkillId != SKILL_KICK && nSkillId != SKILL_THROW)
         {
             return (SUNIT_IsDead(pPlayer) != 0) + 1;
         }

@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
@@ -499,19 +500,19 @@ static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSki
     }
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, ".\\Ai\\AiBaal.cpp", 0x131);
-    if (nSkillId == 0x3B || nSkillId == 0x38)
+    if (nSkillId == SKILL_BLIZZARD || nSkillId == SKILL_METEOR)
     {
         return 1;
     }
 
-    if (nSkillId == 0x33)
+    if (nSkillId == SKILL_FIREWALL)
     {
         if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 3)
         {
             return 1;
         }
     }
-    else if (nSkillId == 0x1B)
+    else if (nSkillId == SKILL_IMMOLATIONARROW)
     {
         if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 7)
         {
@@ -534,19 +535,19 @@ static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit)
     if (pSkill)
     {
         const int nSkillId = AIBAAL_GetSkillId_Inline(pSkill);
-        if (nSkillId == 0x3B || nSkillId == 0x38)
+        if (nSkillId == SKILL_BLIZZARD || nSkillId == SKILL_METEOR)
         {
             return 1;
         }
 
-        if (nSkillId == 0x33)
+        if (nSkillId == SKILL_FIREWALL)
         {
             if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 3)
             {
                 return 1;
             }
         }
-        else if (nSkillId == 0x1B)
+        else if (nSkillId == SKILL_IMMOLATIONARROW)
         {
             if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 7)
             {
@@ -1039,20 +1040,20 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 12, 0);
         return;
     case 9:
-        AITACTICS_UseSkill(pGame, pUnit, 9, 315, pTarget, 0, 0);
+        AITACTICS_UseSkill(pGame, pUnit, 9, SKILL_BAALTENTACLE, pTarget, 0, 0);
         return;
     case 11:
-        SKILLS_AssignSkill(pUnit, 316, 1, 0, gszAiBaal, 0x452);
-        AITACTICS_UseSkill(pGame, pUnit, 10, 316, pTarget, 0, 0);
+        SKILLS_AssignSkill(pUnit, SKILL_BAALNOVA, 1, 0, gszAiBaal, 0x452);
+        AITACTICS_UseSkill(pGame, pUnit, 10, SKILL_BAALNOVA, pTarget, 0, 0);
         return;
     case 13:
-        AITACTICS_UseSkill(pGame, pUnit, 4, 318, pTarget, 0, 0);
+        AITACTICS_UseSkill(pGame, pUnit, 4, SKILL_BAALCOLDMISSILES, pTarget, 0, 0);
         return;
     case 10:
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 5, pTarget);
         return;
     case 12:
-        AITACTICS_UseSkill(pGame, pUnit, 8, 317, pTarget, 0, 0);
+        AITACTICS_UseSkill(pGame, pUnit, 8, SKILL_BAALINFERNO, pTarget, 0, 0);
         return;
     case 8:
         if (!pTarget)

@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Records.h"
 #include "D2DataTbls.h"
@@ -206,7 +207,7 @@ void __stdcall sub_005C0D70(D2UnitStrc* pItem, int nItemLevel, int nClassFirstSk
             const int nSkillRoll = RollSeed(ITEMS_GetItemSeed(pItem)) % 5;
             nSkillId = nClassFirstSkillId + 5 * (nItemLevel - 1) + nSkillRoll;
         }
-        while (nSkillId == 73 || nSkillId == nSkills[0] || nSkillId == nSkills[1] || nSkillId == nSkills[2]);
+        while (nSkillId == SKILL_POISONDAGGER || nSkillId == nSkills[0] || nSkillId == nSkills[1] || nSkillId == nSkills[2]);
         nSkills[i] = nSkillId;
         nItemLevel = 1;
         nRoll = RollSeed(ITEMS_GetItemSeed(pItem)) % 100;

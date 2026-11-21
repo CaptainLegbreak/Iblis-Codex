@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -708,7 +709,7 @@ void __fastcall sub_004D9260_StateClearCollision(D2UnitStrc* pUnit, int nState)
     }
 
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\UNIT\\PlrSkills.cpp", 759) != 167)
+    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\UNIT\\PlrSkills.cpp", 759) != SKILL_NEST)
     {
         return;
     }

@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -18,8 +19,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define STATE_INVIS 0x92
-
-#define SKILL_MINIONSPAWNER 0x12E
 
 struct D2AiTickStrc;
 
@@ -705,7 +704,7 @@ void __fastcall sub_005EF320_ThinkBaalThrone(D2GameStrc* pGame, D2UnitStrc* pUni
                 case 105: SUNITMSG_QueueMonsterPrecache(pUnit, 381); break;
                 }
             }
-            AITACTICS_UseSkill(pGame, pUnit, 10, 285, pUnit, 0, 0);
+            AITACTICS_UseSkill(pGame, pUnit, 10, SKILL_BAALCORPSEEXPLODE, pUnit, 0, 0);
             pTick->pAiControl->dwAiParam[1] |= 1;
             pTick->pAiControl->dwAiParam[2] = pGame->dwGameFrame + 250;
             sub_00553380_SetUnitFlag(pUnit, 16, 0);

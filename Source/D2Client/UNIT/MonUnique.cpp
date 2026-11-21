@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Client.h"
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
@@ -8,8 +9,8 @@ void __fastcall sub_004ACD70_AssignSkillB8(D2UnitStrc* pUnit, int nUnused, int b
 {
     if (bAssign)
     {
-        SKILLS_AssignSkill(pUnit, 0xB8, 1, 1, ".\\UNIT\\MonUnique.cpp", 0x157);
-        SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0xB8), 4);
+        SKILLS_AssignSkill(pUnit, SKILL_MONTELEPORT, 1, 1, ".\\UNIT\\MonUnique.cpp", 0x157);
+        SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_MONTELEPORT), 4);
     }
 }
 

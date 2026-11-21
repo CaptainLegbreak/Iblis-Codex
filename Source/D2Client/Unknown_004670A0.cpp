@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Client.h"
 #include "D2ItemsWorld.h"
 #include "D2Structs.h"
@@ -428,7 +429,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
 
     int nFlags = (pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) ? 0x3002 : 0x2003;
     D2UnitFindCallback pfnTest = 0;
-    if (SKILLS_GetSkillIdFromSkill(pSkill, ".\\GAME\\Select.cpp", 0x301) == 0x5A)
+    if (SKILLS_GetSkillIdFromSkill(pSkill, ".\\GAME\\Select.cpp", 0x301) == SKILL_IRONGOLEM)
     {
         if (pUnit && pUnit->dwUnitType == UNIT_ITEM && ITEMS_IsMetalItem(pUnit->dwClassId))
         {

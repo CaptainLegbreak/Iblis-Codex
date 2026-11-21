@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
@@ -1586,7 +1587,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
         if (nMonId == 0x11C && pUnit->dwAnimMode == 0xE)
         {
-            UNITS_SetUsedSkill(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0xD8));
+            UNITS_SetUsedSkill(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_QUEENDEATH));
         }
         else
         {

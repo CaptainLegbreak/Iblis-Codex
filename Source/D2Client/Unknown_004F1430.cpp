@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -123,7 +124,7 @@ inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 // 0x004F1430
 int __fastcall sub_004F1430_MissilesOnUnitsInRadius(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(285);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(SKILL_BAALCORPSEEXPLODE);
     int nSize;
     if (!pSkillsTxtRecord)
     {

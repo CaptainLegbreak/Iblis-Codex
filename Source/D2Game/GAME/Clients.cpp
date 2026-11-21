@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -1280,14 +1281,14 @@ void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameS
         D2UnitStrc* pIronGolemItem = SUNIT_GetServerUnit(pGame, 4, nIronGolemItemGUID);
         if (pIronGolemItem)
         {
-            D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, 0x5A);
+            D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, SKILL_IRONGOLEM);
             if (pSkill)
             {
                 const int nSkillLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
                 UNITS_SetXForStaticUnit(pIronGolemItem, CLIENTS_GetUnitX(pPlayer));
                 UNITS_SetYForStaticUnit(pIronGolemItem, CLIENTS_GetUnitY(pPlayer));
                 UNITS_SetTargetUnitForDynamicUnit(pPlayer, pIronGolemItem);
-                sub_0056F7F0(pGame, pPlayer, 0x5A, nSkillLevel, 1, 0, 0);
+                sub_0056F7F0(pGame, pPlayer, SKILL_IRONGOLEM, nSkillLevel, 1, 0, 0);
             }
         }
 

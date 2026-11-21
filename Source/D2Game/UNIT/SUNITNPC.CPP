@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
 #include "D2Structs.h"
@@ -244,9 +245,6 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
 
 void __fastcall sub_00576C30_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory); // 0x00576C30
 
-enum
-{
-};
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0
 
@@ -1414,7 +1412,7 @@ void __fastcall sub_00576E40_DecreaseSkillQuantity(D2UnitStrc* unit, int skillId
     if (!skill) return;
     int quantity = SKILLS_GetQuantity(skill) - decrement;
     if (quantity <= 0) {
-        if (UNITS_GetRightSkill(unit) == skill) D2GAME_AssignSkill_6FD13800(unit, 0, 0, -1);
+        if (UNITS_GetRightSkill(unit) == skill) D2GAME_AssignSkill_6FD13800(unit, 0, SKILL_ATTACK, -1);
         quantity = 0;
     }
     SKILLS_SetQuantity(skill, quantity);

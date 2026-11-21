@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -2094,7 +2095,7 @@ static NOINLINE int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int 
 
     case 0x13:
     {
-        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, 0, -1);
+        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, SKILL_ATTACK, -1);
         OBJMODE_GetToHitPercentage(&nStatValue, 1, pUnit, pSkill, pWeapon);
         return nValue * nStatValue / 100;
     }
@@ -3766,7 +3767,7 @@ int __fastcall OBJECTS_OperateFunction05_Barrel(D2ObjOperateFnStrc* pOp, int nOp
 
         if (pOp->hPlayer && pOp->hPlayer->dwUnitType == UNIT_PLAYER)
         {
-            D2SkillStrc* pSkill = SKILLS_GetSkillById(pOp->hPlayer, 1, -1);
+            D2SkillStrc* pSkill = SKILLS_GetSkillById(pOp->hPlayer, SKILL_KICK, -1);
             if (pSkill)
             {
                 UNITS_SetTargetUnitForDynamicUnit(pOp->hPlayer, pOp->hObject);

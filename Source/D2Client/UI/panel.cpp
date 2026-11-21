@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -396,7 +397,7 @@ void __cdecl sub_00496CF0_ValidateActiveSkills()
     if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
     {
         SKILLS_RemoveSkill(pPlayer, SKILLS_GetSkillIdFromSkill(pSkill, ".\\UI\\panel.cpp", 0x289), ".\\UI\\panel.cpp", 0x289);
-        SKILLS_SetLeftActiveSkill(pPlayer, 0, -1);
+        SKILLS_SetLeftActiveSkill(pPlayer, SKILL_ATTACK, -1);
         pSkill = UNITS_GetLeftSkill(pPlayer);
     }
     sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, 0x75, gnGlobal_00711470, 1);
@@ -404,7 +405,7 @@ void __cdecl sub_00496CF0_ValidateActiveSkills()
     if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
     {
         SKILLS_RemoveSkill(pPlayer, SKILLS_GetSkillIdFromSkill(pSkill, ".\\UI\\panel.cpp", 0x294), ".\\UI\\panel.cpp", 0x294);
-        SKILLS_SetRightActiveSkill(pPlayer, 0, -1);
+        SKILLS_SetRightActiveSkill(pPlayer, SKILL_ATTACK, -1);
         pSkill = UNITS_GetRightSkill(pPlayer);
     }
     sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, gnGlobal_0071146C - 0xA5, gnGlobal_00711470, 0);
