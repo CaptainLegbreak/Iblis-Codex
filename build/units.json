@@ -27808,7 +27808,7 @@
   },
   {
    "file": "Source/D2Client/UI/text_0049FBA0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x0049FBA0",
@@ -27817,6 +27817,11 @@
     {
      "va": "0x004A0320",
      "length": 689
+    },
+    {
+     "va": "0x004A0B30",
+     "length": 485,
+     "name": "?sub_004A0B30_DrawUnitHoverText@@YIXPAUD2UnitStrc@@@Z"
     }
    ],
    "flags": [
@@ -27878,31 +27883,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_004A0B30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A0B30",
-     "length": 485,
-     "name": "?sub_004A0B30_DrawUnitHoverText@@YIXPAUD2UnitStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
