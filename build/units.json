@@ -66597,9 +66597,17 @@
      "name": "?MONSTERUNIQUE_StealBeltItem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005A3250",
+     "length": 573
+    },
+    {
      "va": "0x005A3490",
      "length": 378,
      "name": "MONSTERUNIQUE_CastQueenPoisonCloudMissile"
+    },
+    {
+     "va": "0x005A3610",
+     "length": 443
     },
     {
      "va": "0x005A3840",
@@ -67182,34 +67190,6 @@
      "length": 380,
      "name": "?MISSMODE_SrvHit44_ExplodingJavelin@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterUnique_005A3250.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A3250",
-     "length": 573
-    },
-    {
-     "va": "0x005A3610",
-     "length": 443
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -69005,6 +68985,11 @@
      "name": "?sub_005E5730_InitOwnerOffset@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005E8F20",
+     "length": 590,
+     "name": "?AIBAAL_GetTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH2PAUD2AiBaalTargetArgsStrc@@P6IH11@Z@Z"
+    },
+    {
      "va": "0x005E9170",
      "length": 1492
     },
@@ -69026,20 +69011,6 @@
      "va": "0x005EF320",
      "length": 701
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -75443,17 +75414,6 @@
      "va": "0x005E8EB0",
      "length": 99,
      "name": "AITHINK_CullPotentialTargetsForDiablo"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink_005E8F20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E8F20",
-     "length": 590,
-     "name": "?AIBAAL_GetTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH2PAUD2AiBaalTargetArgsStrc@@P6IH11@Z@Z"
     }
    ]
   },
