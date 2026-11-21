@@ -271,6 +271,24 @@ static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc*
 
 static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX, int nY, D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
+struct D2ActiveRoomStrc;
+
+struct D2SkillStrc;
+
+int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY); // 0x00645CA0
+
+void __fastcall sub_6FD14F70(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay); // 0x00570420
+
+int __fastcall sub_6FD119C0(D2UnitStrc* pUnit); // 0x0056C4E0
+
+void __fastcall sub_6FC7D260(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4);
+
+int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
+static D2UnitStrc* __stdcall sub_005DA490_FindLeapAttackTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+
+static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit);
+
 // 0x005D80C0
 int __fastcall SKILLS_SrvSt33_FindPotion_GrimWard(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1221,159 +1239,6 @@ static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX,
     return 1;
 }
 
-int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = sub_I16_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
-
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
-    const int bMonster = nUnitType == 1;
-
-    const int nSkillFlags = SKILLS_GetFlags(pSkill);
-    if (nSkillFlags & 0x100)
-    {
-        if (sub_005DA120_Leap(pGame, pSkill, pUnit) && !bMonster)
-        {
-            D2DamageStrc damage;
-            memset(&damage, 0, sizeof(damage));
-            damage.wResultFlags = 9;
-            sub_6FD10200(pGame, pUnit, 0, 0, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel), &damage, 0);
-        }
-    }
-    else
-    {
-        if (nSkillFlags & 0x80)
-        {
-            return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
-        }
-
-        if (!bMonster)
-        {
-            SKILLS_SetFlags(pSkill, 0);
-        }
-    }
-
-    return 1;
-}
-
-static D2UnitStrc* __stdcall sub_005DA490_FindLeapAttackTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
-{
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (pTarget && !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
-    {
-        pTarget = 0;
-    }
-
-    if (!pTarget)
-    {
-        const int nUnitType = SKILLS_GetParam3(pSkill);
-        const int nUnitGUID = SKILLS_GetParam4(pSkill);
-        if (nUnitType != 6)
-        {
-            pTarget = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-        }
-
-        if (!pTarget)
-        {
-            pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, sub_6FD15460(pUnit), 0x20003, -1, 0);
-        }
-    }
-
-    if (pTarget)
-    {
-        SKILLS_SetParam3(pSkill, pTarget->dwUnitType);
-        SKILLS_SetParam4(pSkill, pTarget->dwUnitId);
-    }
-    else
-    {
-        SKILLS_SetParam3(pSkill, 6);
-    }
-
-    return pTarget;
-}
-
-static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
-{
-    D2SkillsTxt* pSkillsTxtRecord = sub_I16_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pDefender = sub_005DA490_FindLeapAttackTarget(pGame, pUnit, pSkill);
-    if (!pDefender)
-    {
-        return 0;
-    }
-
-    D2DamageStrc damage;
-    memset(&damage, 0, sizeof(damage));
-    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pDefender, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
-    if (damage.wResultFlags & 1)
-    {
-        damage.wResultFlags |= 8;
-        damage.dwHitClass = sub_00623C20(pUnit);
-        damage.dwHitFlags |= 0x20;
-        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-
-        if (pSkillsTxtRecord->nEType)
-        {
-            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
-            if (damage.dwConvPct > 0)
-            {
-                damage.nConvType = pSkillsTxtRecord->nEType;
-            }
-        }
-
-        D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
-
-        unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
-        if (!nSrcDam)
-        {
-            nSrcDam = 0x80;
-        }
-
-        SUNITDMG_AllocCombat(pGame, pUnit, pDefender, &damage, nSrcDam);
-        SUNITDMG_DrainItemDurability(pGame, pUnit, pDefender, 0);
-
-        if (pSkillsTxtRecord->wSrvOverlay > 0 && pSkillsTxtRecord->wSrvOverlay <= sgptDataTables->nOverlayTxtRecordCount)
-        {
-            UNITS_SetOverlay(pDefender, pSkillsTxtRecord->wSrvOverlay, 0);
-        }
-
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 0x15);
-        if (pStatList)
-        {
-            D2Common_10474(pDefender, pStatList);
-            STATLIST_FreeStatList(pStatList);
-        }
-    }
-
-    return 1;
-}
-
 int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
@@ -1530,4 +1395,242 @@ static __forceinline int sub_M392_GetUnitType(D2UnitStrc* pUnit)
     }
 
     return pUnit->dwUnitType;
+}
+
+// 0x005DA370
+int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = sub_I16_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+
+    const int bMonster = sub_M392_GetUnitType(pUnit) == 1;
+
+    const int nSkillFlags = SKILLS_GetFlags(pSkill);
+    if (nSkillFlags & 0x100)
+    {
+        if (sub_005DA120_Leap(pGame, pSkill, pUnit) && !bMonster)
+        {
+            D2DamageStrc damage;
+            memset(&damage, 0, sizeof(damage));
+            damage.wResultFlags = 9;
+            const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+            sub_6FD10200(pGame, pUnit, 0, 0, nDamage, &damage, 0);
+        }
+    }
+    else
+    {
+        if (nSkillFlags & 0x80)
+        {
+            return sub_005D9F70_SetLeapVelocity(pGame, pUnit, pSkill);
+        }
+
+        if (!bMonster)
+        {
+            SKILLS_SetFlags(pSkill, 0);
+        }
+    }
+
+    return 1;
+}
+
+// 0x005DA490
+static D2UnitStrc* __stdcall sub_005DA490_FindLeapAttackTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+{
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (pTarget && !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+    {
+        pTarget = 0;
+    }
+
+    if (!pTarget)
+    {
+        const int nUnitType = SKILLS_GetParam3(pSkill);
+        const int nUnitGUID = SKILLS_GetParam4(pSkill);
+        if (nUnitType != 6)
+        {
+            pTarget = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
+        }
+
+        if (!pTarget)
+        {
+            const int nRange = sub_6FD15460(pUnit);
+            pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nRange, 0x20003, -1, 0);
+        }
+    }
+
+    if (pTarget)
+    {
+        SKILLS_SetParam3(pSkill, !pTarget ? 6 : pTarget->dwUnitType);
+        SKILLS_SetParam4(pSkill, !pTarget ? -1 : pTarget->dwUnitId);
+    }
+    else
+    {
+        SKILLS_SetParam3(pSkill, 6);
+    }
+
+    return pTarget;
+}
+
+// 0x005DA540
+int __fastcall SKILLS_SrvSt41_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+
+    int nX;
+    int nY;
+    if (!SKILLS_CheckIfCanLeapTo(pUnit, pTarget, &nX, &nY))
+    {
+        if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+        {
+            sub_6FD150A0(pGame, pUnit, pTarget);
+            return 1;
+        }
+
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    const int nPattern = PATH_GetUnitCollisionPattern(pUnit);
+    COLLISION_SetMaskWithPattern(pRoom, nX, nY, nPattern, 0x80);
+
+    sub_6FCBDE90(pUnit, 1);
+    SKILLS_SetParam1(pSkill, nX);
+    SKILLS_SetParam2(pSkill, nY);
+
+    if (pTarget)
+    {
+        SKILLS_SetParam3(pSkill, !pTarget ? 6 : pTarget->dwUnitType);
+        SKILLS_SetParam4(pSkill, !pTarget ? -1 : pTarget->dwUnitId);
+    }
+    else
+    {
+        SKILLS_SetParam3(pSkill, 6);
+    }
+
+    SKILLS_SetFlags(pSkill, 0x1080);
+    STATES_ToggleState(pUnit, 0x12, 1);
+
+    if (pTarget && STATES_CheckState(pTarget, 0x36))
+    {
+        sub_6FD14F70(pGame, pUnit, pTarget, 100);
+    }
+
+    return 1;
+}
+
+// 0x005DA660
+static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId, int nSkillLevel, D2UnitStrc* pUnit)
+{
+    D2SkillsTxt* pSkillsTxtRecord = sub_I16_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pDefender = sub_005DA490_FindLeapAttackTarget(pGame, pUnit, pSkill);
+    if (!pDefender)
+    {
+        return 0;
+    }
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pDefender, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
+    if (damage.wResultFlags & 1)
+    {
+        damage.wResultFlags |= 8;
+        damage.dwHitClass = sub_00623C20(pUnit);
+        damage.dwHitFlags |= 0x20;
+        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+
+        if (pSkillsTxtRecord->nEType > 0)
+        {
+            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
+            if (damage.dwConvPct > 0)
+            {
+                damage.nConvType = pSkillsTxtRecord->nEType;
+            }
+        }
+
+        D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
+
+        unsigned char nSrcDam = pSkillsTxtRecord->nSrcDam;
+        if (!nSrcDam)
+        {
+            nSrcDam = 0x80;
+        }
+
+        SUNITDMG_AllocCombat(pGame, pUnit, pDefender, &damage, nSrcDam);
+        SUNITDMG_DrainItemDurability(pGame, pUnit, pDefender, 0);
+
+        if (pSkillsTxtRecord->wSrvOverlay > 0 && pSkillsTxtRecord->wSrvOverlay <= sgptDataTables->nOverlayTxtRecordCount)
+        {
+            UNITS_SetOverlay(pDefender, pSkillsTxtRecord->wSrvOverlay, 0);
+        }
+
+        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, 0x15);
+        if (pStatList)
+        {
+            D2Common_10474(pDefender, pStatList);
+            STATLIST_FreeStatList(pStatList);
+        }
+    }
+
+    return 1;
+}
+
+// 0x005DA8B0
+int __fastcall SKILLS_SrvSt65_Throw_LeftHandThrow(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!sub_6FD119C0(pUnit))
+    {
+        sub_6FC80A30(pGame, pUnit);
+        sub_6FC80E10(pGame, pUnit);
+        return 0;
+    }
+
+    return 1;
+}
+
+int __fastcall SKILLS_SrvDo004_Unsummon(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+        return 0;
+
+    sub_6FC7D260(pGame, pUnit, SKILLS_GetParam1(pSkill), 1);
+    return 1;
 }

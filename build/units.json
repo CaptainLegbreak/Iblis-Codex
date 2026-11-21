@@ -68571,6 +68571,31 @@
      "va": "0x005DA120",
      "length": 578,
      "name": "?sub_005DA120_Leap@@YGHPAUD2GameStrc@@PAUD2SkillStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005DA370",
+     "length": 277,
+     "name": "?SKILLS_SrvDo077_Leap@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DA490",
+     "length": 168,
+     "name": "?sub_005DA490_FindLeapAttackTarget@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x005DA540",
+     "length": 283,
+     "name": "?SKILLS_SrvSt41_LeapAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DA660",
+     "length": 383,
+     "name": "?sub_005DA660_LeapAttackHit@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005DA8B0",
+     "length": 52,
+     "name": "?SKILLS_SrvSt65_Throw_LeftHandThrow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -68646,37 +68671,6 @@
      "va": "0x005D8C70",
      "length": 400,
      "name": "?sub_005D8C70@@YIHPAUGame@@PAUUnit@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DA370.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DA370",
-     "length": 277,
-     "name": "?SKILLS_SrvDo077_Leap@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005DA490",
-     "length": 168,
-     "name": "?sub_005DA490_FindLeapAttackTarget@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x005DA540",
-     "length": 283,
-     "name": "?SKILLS_SrvSt41_LeapAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005DA660",
-     "length": 383,
-     "name": "?sub_005DA660_LeapAttackHit@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005DA8B0",
-     "length": 52,
-     "name": "?SKILLS_SrvSt65_Throw_LeftHandThrow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
