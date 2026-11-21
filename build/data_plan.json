@@ -2018,9 +2018,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/GAME/View_00476290.cpp": {
-   "bytes": 652,
-   "definitions": 2,
+  "Source/D2Client/GAME/View.cpp": {
+   "bytes": 776,
+   "definitions": 4,
    "externs": [
     "extern \"C\" char gData_007B5788[]; // 0x007B5788",
     "extern \"C\" char gData_007237A4[]; // 0x007237A4",
@@ -2049,21 +2049,11 @@
     "extern \"C\" char gData_00723E64[]; // 0x00723E64",
     "extern \"C\" char gtQuestTexts_00723A64[]; // 0x00723A64",
     "extern \"C\" char gtQuestTexts_00723C64[]; // 0x00723C64",
-    "extern \"C\" char gtQuestTexts_00723D24[]; // 0x00723D24"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/View_00476290.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/GAME/View_00476460.cpp": {
-   "bytes": 124,
-   "definitions": 2,
-   "externs": [
+    "extern \"C\" char gtQuestTexts_00723D24[]; // 0x00723D24",
     "extern \"C\" char gData_007B5680[]; // 0x007B5680"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/View_00476460.inc",
+   "include": "gen/data/Source/D2Client/GAME/View_00476290.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -46548,7 +46538,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/View_00476290.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2SeedStrc* gpClientSeed_00712C4C = ",
@@ -46582,7 +46572,7 @@
    "cname": "gData_00723F38",
    "declared": true,
    "decorated": "?gaQuestLookup_00723F38@@3PAUD2QuestLookupEntryStrc@@A",
-   "file": "Source/D2Client/GAME/View_00476290.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00723F38_t gData_00723F38; // 0x00723F38",
    "head": "extern \"C\" struct d2data_00723F38_t gData_00723F38 = ",
@@ -46816,7 +46806,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/View_00476460.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2SeedStrc* gpSkySeed_00712C50 = ",
@@ -46850,7 +46840,7 @@
    "cname": "gData_00712C54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/View_00476460.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00712C54_t gData_00712C54; // 0x00712C54",
    "head": "extern \"C\" struct d2data_00712C54_t gData_00712C54 = ",

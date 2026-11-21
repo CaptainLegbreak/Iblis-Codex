@@ -14573,6 +14573,20 @@
   {
    "file": "Source/D2Client/GAME/View.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x0044A980",
@@ -14744,6 +14758,20 @@
      "length": 248
     },
     {
+     "va": "0x00476290",
+     "length": 463,
+     "name": "?sub_00476290_DrawStarfield@@YAXXZ"
+    },
+    {
+     "va": "0x00476460",
+     "length": 1345
+    },
+    {
+     "va": "0x004769B0",
+     "length": 17,
+     "name": "?sub_004769B0_Toggle@@YAXXZ"
+    },
+    {
      "va": "0x004769D0",
      "length": 174,
      "name": "?sub_004769D0_UpdateShakeSound@@YAXH@Z"
@@ -14752,6 +14780,11 @@
      "va": "0x00476AC0",
      "length": 33,
      "name": "?sub_00476AC0_GetViewShift@@YIHPAH0@Z"
+    },
+    {
+     "va": "0x00476B10",
+     "length": 176,
+     "name": "?sub_00476B10_CreateView@@YAPAUObj004DCF10@@XZ"
     },
     {
      "va": "0x00476EA0",
@@ -14789,6 +14822,21 @@
      "name": "sub_0047E860_DrawCel"
     },
     {
+     "va": "0x004801C0",
+     "length": 9,
+     "name": "??0D2WardenClientM114Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00480400",
+     "length": 26,
+     "name": "?sub_00480400_GetPlayerField150@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004804D0",
+     "length": 12,
+     "name": "?sub_004804D0_GetPingScaled@@YAIXZ"
+    },
+    {
      "va": "0x00480B40",
      "length": 93,
      "name": "sub_00480B40_SendPacket"
@@ -14802,6 +14850,16 @@
      "va": "0x00487CA0",
      "length": 27,
      "name": "?sub_00487CA0_SetNpcState6@@YAHXZ"
+    },
+    {
+     "va": "0x00492BC0",
+     "length": 12,
+     "name": "?sub_00492BC0_GetPetTypeCount@@YAHXZ"
+    },
+    {
+     "va": "0x00492BD0",
+     "length": 51,
+     "name": "?sub_00492BD0_IsInPetIcon@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00492C10",
@@ -14872,6 +14930,16 @@
      "va": "0x00498D60",
      "length": 36,
      "name": "?sub_00498D60@@YAXXZ"
+    },
+    {
+     "va": "0x004A3070",
+     "length": 38,
+     "name": "?sub_004A3070_LookupValue@@YIHHH@Z"
+    },
+    {
+     "va": "0x004A3200",
+     "length": 19,
+     "name": "?sub_004A3200_ClearValues@@YIPAUD2QuestPanelValuesStrc@@PAU1@@Z"
     },
     {
      "va": "0x004B9640",
@@ -23840,92 +23908,6 @@
      "va": "0x00475EB0",
      "length": 51,
      "name": "?sub_00475EB0_FreeCels@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/View_00476290.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00476290",
-     "length": 463,
-     "name": "?sub_00476290_DrawStarfield@@YAXXZ"
-    },
-    {
-     "va": "0x004769B0",
-     "length": 17,
-     "name": "?sub_004769B0_Toggle@@YAXXZ"
-    },
-    {
-     "va": "0x004801C0",
-     "length": 9,
-     "name": "??0D2WardenClientM114Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00480400",
-     "length": 26,
-     "name": "?sub_00480400_GetPlayerField150@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004804D0",
-     "length": 12,
-     "name": "?sub_004804D0_GetPingScaled@@YAIXZ"
-    },
-    {
-     "va": "0x00492BC0",
-     "length": 12,
-     "name": "?sub_00492BC0_GetPetTypeCount@@YAHXZ"
-    },
-    {
-     "va": "0x00492BD0",
-     "length": 51,
-     "name": "?sub_00492BD0_IsInPetIcon@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A3070",
-     "length": 38,
-     "name": "?sub_004A3070_LookupValue@@YIHHH@Z"
-    },
-    {
-     "va": "0x004A3200",
-     "length": 19,
-     "name": "?sub_004A3200_ClearValues@@YIPAUD2QuestPanelValuesStrc@@PAU1@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/View_00476460.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00476460",
-     "length": 1345
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/View_00476B10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00476B10",
-     "length": 176,
-     "name": "?sub_00476B10_CreateView@@YAPAUObj004DCF10@@XZ"
     }
    ]
   },
