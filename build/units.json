@@ -79763,6 +79763,11 @@
      "name": "ITEMS_GetStaffMods"
     },
     {
+     "va": "0x0062BC20",
+     "length": 144,
+     "name": "?sub_0062BC20@@YGEPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0062BEB0",
      "length": 18,
      "name": "ITEMS_IsSocketFiller"
@@ -80169,17 +80174,6 @@
      "va": "0x0062C6A0",
      "length": 205,
      "name": "?ITEMS_IsPersonalizable@@YGHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_0062BC20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0062BC20",
-     "length": 144,
-     "name": "?sub_0062BC20@@YGEPAUD2UnitStrc@@@Z"
     }
    ]
   },

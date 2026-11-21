@@ -346,7 +346,13 @@ int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit); /
 
 inline int ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag);
 
+#define LEVEL_LOW 25
 
+#define LEVEL_HIGH 40
+
+int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem);
+
+unsigned char __stdcall ITEMS_GetAllowedGemSocketsFromItemId(int nItemId);
 
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)
@@ -2481,6 +2487,30 @@ int __stdcall ITEMS_GetStaffMods(D2UnitStrc* pItem)
     }
 
     return 7;
+}
+
+// 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem)
+{
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
+    {
+        D2ItemTypesTxt* pType = DATATBLS_GetItemTypesTxtRecord(ITEMS_GetItemType(pItem));
+        if (!pType)
+            return 0;
+        int nSockets = ITEMS_GetAllowedGemSocketsFromItemId(pItem->dwClassId);
+        int nLevel = ITEMS_GetItemLevel(pItem);
+        int nTypeSockets;
+        if (nLevel <= LEVEL_LOW)
+            nTypeSockets = pType->nMaxSock1;
+        else if (nLevel <= LEVEL_HIGH)
+            nTypeSockets = pType->nMaxSock25;
+        else
+            nTypeSockets = pType->nMaxSock40;
+        if (nSockets >= nTypeSockets)
+            nSockets = nTypeSockets;
+        return (unsigned char)nSockets;
+    }
+    return 0;
 }
 
 // 0x0062BEB0
