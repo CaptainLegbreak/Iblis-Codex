@@ -85,7 +85,7 @@ D2StormList00708420Strc::~D2StormList00708420Strc()
 }
 
 // 0x0041CA80
-int __cdecl sub_0041CA80_Destroy()
+int __cdecl SErrDestroy()
 {
     gHandlerList_00708420.sub_0041C9C0_DeleteAll();
     gnStormDword_007790EC = 0;
@@ -104,7 +104,7 @@ int __cdecl sub_0041CA80_Destroy()
 }
 
 // 0x0041CFB0
-int __cdecl sub_0041CFB0_DisplayErrorFmt(int code, const char* file, int line, int recoverable, int exitCode, const char* format, ...)
+int __cdecl SErrDisplayErrorFmt(int code, const char* file, int line, int recoverable, int exitCode, const char* format, ...)
 {
     char buffer[0x400];
     char* args = (char*)(&format + 1);

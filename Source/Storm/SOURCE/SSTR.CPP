@@ -9,7 +9,7 @@ double __cdecl sub_00414260_PowInt(double x, int nExp);
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 // 0x00414310
-char* __stdcall sub_00414310(const char* szString)
+char* __stdcall SStrDup(const char* szString)
 {
     VALIDATEBEGIN;
     VALIDATE(szString);

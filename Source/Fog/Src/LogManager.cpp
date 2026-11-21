@@ -1031,7 +1031,7 @@ void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize)
     {
         SStrCopy(szDirectory, szPath, nSize);
         sub_00406B20_AppendBackslash(szDirectory, nSize);
-        sub_00413800(szDirectory, "Diablo II\\GameLogs\\", nSize);
+        SStrPack(szDirectory, "Diablo II\\GameLogs\\", nSize);
         sub_00406A10_CreateDirectoryTree(szDirectory);
     }
 }

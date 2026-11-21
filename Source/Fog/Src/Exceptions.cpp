@@ -503,7 +503,7 @@ extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); /
 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
 void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 
@@ -888,7 +888,7 @@ void __fastcall sub_0040BCF0_DumpAnnotatedStack(void* hProcess, D2ThreadContextS
 
         int nBytes = i;
         for (i = (unsigned int)((16 - i) * 9) / 4 + 2; i > 0; i--)
-            sub_00413800(szLine, gszStackPad_006FFC44, 0x100);
+            SStrPack(szLine, gszStackPad_006FFC44, 0x100);
 
         int nLen = strlen(szLine);
         int j = nLen;
@@ -1453,7 +1453,7 @@ void __fastcall sub_0040D1C0_AppendCrashDump(unsigned long dwHeader0, unsigned l
     char szPath[0x104];
     T0040D1C0 tRecord;
     sub_0040F000_GetLogDirectory(szPath, 0x104);
-    sub_00413800(szPath, "Crashdump", 0x104);
+    SStrPack(szPath, "Crashdump", 0x104);
     _iobuf* pFile = fopen(szPath, "ab");
     if (pFile)
     {
@@ -1474,7 +1474,7 @@ int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize)
     unsigned long adwData[8];
 
     sub_0040F000_GetLogDirectory(szPath, 0x104);
-    sub_00413800(szPath, "Crashdump", 0x104);
+    SStrPack(szPath, "Crashdump", 0x104);
     if (GetFileAttributesA(szPath) == 0xFFFFFFFF)
     {
         return 0;

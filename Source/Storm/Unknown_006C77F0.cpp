@@ -1,5 +1,5 @@
 #include "Storm.h"
-static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
+static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
 static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
 
 struct z_stream
@@ -26,7 +26,7 @@ int __fastcall inflateEnd(z_stream* strm); // 0x0042B170
 
 // table stands for the original's register choice (count, source and the index in ebx/edi/esi); with a plain parameter they rotate
 // 0x006C77F0
-static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination)
+static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination)
 {
     if (!count)
     {
@@ -91,15 +91,15 @@ static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, 
 }
 
 // 0x006C7920
-int __stdcall sub_006C7920_FromWide(char* destination, const unsigned short* source, unsigned int count)
+int __stdcall SUniConvertUTF16ToMac(char* destination, const unsigned short* source, unsigned int count)
 {
-    return sub_006C77F0_ConvertFromWide(source, count, gWideTable_006FCFC0, destination);
+    return SUniConvertUTF16ToCP(source, count, gWideTable_006FCFC0, destination);
 }
 
 // 0x006C7940
-int __stdcall sub_006C7940_FromWide(char* destination, const unsigned short* source, unsigned int count)
+int __stdcall SUniConvertUTF16ToDos(char* destination, const unsigned short* source, unsigned int count)
 {
-    return sub_006C77F0_ConvertFromWide(source, count, gWideTable_006FD1C0, destination);
+    return SUniConvertUTF16ToCP(source, count, gWideTable_006FD1C0, destination);
 }
 
 // 0x006C78C0
@@ -132,7 +132,7 @@ static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned
 }
 
 // 0x006C7980
-int __stdcall sub_006C7980_TranslateB(unsigned short* pDest, const unsigned char* pSource, int nCount)
+int __stdcall SUniConvertMacToUTF16(unsigned short* pDest, const unsigned char* pSource, int nCount)
 {
     return sub_006C78C0_Translate(gawTranslateTable_006FCFC0, pDest, pSource, nCount);
 }

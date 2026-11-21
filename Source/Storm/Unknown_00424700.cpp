@@ -236,7 +236,7 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
 
 static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c); // 0x00422300
 static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422D00
-static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422E70
+static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422E70
 static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack); // 0x00423DC0
 
 // 0x00422300
@@ -283,7 +283,7 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
 }
 
 // 0x00422CC0
-static void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -310,7 +310,7 @@ static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x00422E70
-static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
+static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -350,7 +350,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
     if (nDCount > nCCount)
     {
         b.CopyFrom(c);
-        sub_00422CC0_SetZero(a);
+        SetZero(a);
         return;
     }
     if (nDCount <= 1)
@@ -399,14 +399,14 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
             sub_00423100_Sub(tRem, tRem, tDiv);
         }
     }
-    sub_00422E70_Shr(b, tRem, nShift);
+    Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
     __assume(3 <= tStack.nUsed);
     tStack.nUsed -= 3;
 }
 
 // 0x00424700
-void __stdcall sub_00424700_Rand(D2StormQueueStrc* pResult, D2StormQueueStrc* pModulus, D2StormQueueStrc* pSeed, D2StormBigStackStrc* pStack)
+void __stdcall Rand(D2StormQueueStrc* pResult, D2StormQueueStrc* pModulus, D2StormQueueStrc* pSeed, D2StormBigStackStrc* pStack)
 {
     D2StormQueueStrc& tMul = pStack->Alloc();
     D2StormQueueStrc& tTemp = pStack->Alloc();
@@ -438,12 +438,12 @@ void __stdcall sub_00424700_Rand(D2StormQueueStrc* pResult, D2StormQueueStrc* pM
     for (unsigned int k = 0; k < (nBits + 31) / 32; k++, nBits = pStack ? pModulus->Count() * 32 : pModulus->Count() * 32)
     {
         sub_004242C0_BigOp(&s, &s, &tMul, pStack);
-        sub_00422E70_Shr(tTemp, s, 16);
+        Shr(tTemp, s, 16);
         sub_00422300_Add(s, tTemp, s);
         s.SetCountInline(2);
         sub_00422D00_Shl(r, r, 32);
         sub_00422300_Add(r, r, s);
-        sub_00422E70_Shr(tTemp, s, 32);
+        Shr(tTemp, s, 32);
         sub_00422300_Add(r, r, tTemp);
     }
     sub_00423DC0_Div(tTemp, r, r, *pModulus, *pStack);

@@ -13,7 +13,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall SFileOpenArchive(const char*,int,unsigned int,void**); // 0x0041BA60
 unsigned int __stdcall SStrCopy(char*,const char*,unsigned int); // 0x004135D0
-unsigned int __stdcall sub_00413800(char*,const char*,unsigned int); // 0x00413800
+unsigned int __stdcall SStrPack(char*,const char*,unsigned int); // 0x00413800
 
 typedef int (__stdcall* ARCHIVE_ShowMessageFunctionPtr)();
 

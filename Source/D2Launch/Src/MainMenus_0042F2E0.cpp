@@ -761,7 +761,7 @@ extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* szR
 
 int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 
-unsigned int __stdcall sub_00414150_HashPath(const char* szPath); // 0x00414150
+unsigned int __stdcall SStrHashHT(const char* szPath); // 0x00414150
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
@@ -1034,7 +1034,7 @@ static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
     void* hFile;
     if (!SFileOpenFileEx(0, szFile, 0, &hFile))
         return 0;
-    sub_004198D0(hFile);
+    SFileCloseFile(hFile);
     return 1;
 }
 
@@ -1519,7 +1519,7 @@ void __cdecl sub_004334E0_PlayIntro()
     sub_00525260(szLanguage, 0);
     sprintf(szPath, "%s\\video\\%s\\D2x_Intro_%s.bik", gszDataLocal_006D41A8, szLanguage, szSize);
     if (SFileOpenFileEx(0, szPath, 0, &hFile))
-        sub_004198D0(hFile);
+        SFileCloseFile(hFile);
     else
         sprintf(szPath, "%s\\video\\%s\\D2x_Intro%s.bik", gszDataLocal_006D41A8, "ENG", szSize);
     sub_004F5D90_PlayVideo(szPath, nMode, 0);
@@ -2035,7 +2035,7 @@ static void sub_00432080_StoreAccountTexts(D2WinControlStrc* pAccountEdit, D2Win
     {
         const Unicode* pText = sub_004FDD90_GetEditText(pPasswordEdit);
         sub_00526F70(gpLaunchRecord_007795D4->szPassword, pText, 0x100);
-        gpLaunchRecord_007795D4->dwPasswordHash = sub_00414150_HashPath(gpLaunchRecord_007795D4->szPassword);
+        gpLaunchRecord_007795D4->dwPasswordHash = SStrHashHT(gpLaunchRecord_007795D4->szPassword);
         gpLaunchRecord_007795D4->nPasswordLength = SStrLen(gpLaunchRecord_007795D4->szPassword);
     }
 }

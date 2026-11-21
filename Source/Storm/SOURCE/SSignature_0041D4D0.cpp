@@ -38,7 +38,7 @@ struct D2StormHandlePairStrc
 
     D2StormHandlePairStrc();
     ~D2StormHandlePairStrc();
-    void sub_004260A0_PowModBuffer(void* pBuffer, unsigned int nSize);
+    void Process(void* pBuffer, unsigned int nSize);
 };
 
 // 0x0041D4D0
@@ -52,7 +52,7 @@ D2StormHandlePairStrc::~D2StormHandlePairStrc()
 }
 
 // 0x004260A0
-void D2StormHandlePairStrc::sub_004260A0_PowModBuffer(void* pBuffer, unsigned int nSize)
+void D2StormHandlePairStrc::Process(void* pBuffer, unsigned int nSize)
 {
     D2StormHandleStrc tInput;
     sub_00423850(tInput.hHandle, pBuffer, nSize);

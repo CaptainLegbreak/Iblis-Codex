@@ -306,7 +306,7 @@ int __stdcall sub_006C4CA0_FindValue(int nId)
 }
 
 // 0x006C4CF0
-int __cdecl sub_006C4CF0_FreeBuffers()
+int __cdecl SCmdDestroy()
 {
     for (int i = 0; i <= 1; ++i)
     {
@@ -327,7 +327,7 @@ int __cdecl sub_006C4CF0_FreeBuffers()
 }
 
 // 0x006C4DC0
-int __stdcall sub_006C4DC0_GetText(int nId, char* szBuffer, unsigned int nBufferSize)
+int __stdcall SCmdGetString(int nId, char* szBuffer, unsigned int nBufferSize)
 {
     if (szBuffer)
     {

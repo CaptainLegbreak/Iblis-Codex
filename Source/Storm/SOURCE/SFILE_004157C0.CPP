@@ -85,7 +85,7 @@ struct D2StormArchiveRecStrc
         tLink.m_next = 0;
     }
     ~D2StormArchiveRecStrc();                                                                                // 0x00418A50
-    void sub_0041B0B0_LoadAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
+    void ReadAdditionalAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
 };
 
 struct D2StormFileRecStrc
@@ -262,14 +262,14 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
 void __cdecl sub_004158E0_InitBasePath();                                                                   // 0x004158E0
 int __cdecl sub_00418B50();                                                                         // 0x00418B50
-void* __cdecl sub_0041BEF0_GetExeModule();                                                                  // 0x0041BEF0
+void* __cdecl StormGetInstance();                                                                  // 0x0041BEF0
 void __cdecl sub_0041A880_StartThread();                                                                    // 0x0041A880
 void __cdecl sub_00419C00_PumpStreams();
-int __stdcall sub_004198D0(void* pArg);                                                                     // 0x004198D0
+int __stdcall SFileCloseFile(void* pArg);                                                                     // 0x004198D0
 int __stdcall SFileCloseArchive(void* hMpq);                                                                // 0x00419A80
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
-int __stdcall sub_00415BB0_CheckAuthentication(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
+int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
 unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileRecStrc* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);
 
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
@@ -322,7 +322,7 @@ static inline char* EventHead()
 }
 
 // 0x004154B0
-static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile)
+static int __stdcall ReadFileChecked(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile)
 {
     int nRetry = 0;
     for (;;)
@@ -361,7 +361,7 @@ static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer
 {
     unsigned int nFilePos;
     unsigned long nRead = 0;
-    sub_004154B0_ReadAt(&nFilePos, pBuffer, nSize, pFile->szName, &nRead, nOffset, pFile->hFile);
+    ReadFileChecked(&nFilePos, pBuffer, nSize, pFile->szName, &nRead, nOffset, pFile->hFile);
     if (pnRead)
         *pnRead = nRead;
     return nRead == nSize;
@@ -517,7 +517,7 @@ extern D2StormRequestListStrc gRequestList_00708360;                            
 extern int gnValue_00708350;                                                                                // 0x00708350
 
 // 0x0041A450
-void __stdcall sub_0041A450_PickRequest(D2StormArchiveRecStrc* pLastArchive, unsigned int nLastOffset, D2StormRequestStrc** ppDue, D2StormRequestStrc** ppNear, int* pnDistance)
+void __stdcall CheckRequests(D2StormArchiveRecStrc* pLastArchive, unsigned int nLastOffset, D2StormRequestStrc** ppDue, D2StormRequestStrc** ppNear, int* pnDistance)
 {
     *ppDue = 0;
     *ppNear = 0;
@@ -569,7 +569,7 @@ void __stdcall sub_0041A450_PickRequest(D2StormArchiveRecStrc* pLastArchive, uns
 }
 
 // 0x0041A550
-unsigned long __stdcall sub_0041A550_ThreadProc(void* pParam)
+unsigned long __stdcall CdThreadProc(void* pParam)
 {
     D2StormArchiveRecStrc* pLastArchive = 0;
     unsigned int nLastOffset = 0;
@@ -590,7 +590,7 @@ unsigned long __stdcall sub_0041A550_ThreadProc(void* pParam)
         D2StormRequestStrc* pNear;
         int nDistance;
         D2StormRequestStrc* pDue;
-        sub_0041A450_PickRequest(pLastArchive, nLastOffset, &pDue, &pNear, &nDistance);
+        CheckRequests(pLastArchive, nLastOffset, &pDue, &pNear, &nDistance);
         D2StormRequestStrc* pRequest = pNear;
         if (!pRequest || nDistance > 1000)
         {

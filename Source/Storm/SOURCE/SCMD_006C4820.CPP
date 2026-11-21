@@ -69,7 +69,7 @@ static inline OptionStrc* OPTION_Next(OptionStrc* pLink)
 }
 
 // 0x006C3CB0
-static void __stdcall sub_006C3CB0_ParseBool(int* pLength, OptionStrc* pOption, const char* szString)
+static void __stdcall ConvertBool(int* pLength, OptionStrc* pOption, const char* szString)
 {
     int bValue;
     if (*szString == '-')
@@ -168,7 +168,7 @@ static int __stdcall sub_006C4820_ParseOption(const char* szString, int* pLength
     switch (pOption->dwFlags & 0x30000)
     {
     case 0:
-        sub_006C3CB0_ParseBool(pLength, pOption, szString);
+        ConvertBool(pLength, pOption, szString);
         break;
     case 0x10000:
         sub_006C3D20_ParseInteger(pOption, szString, pLength);
@@ -246,8 +246,8 @@ static int __stdcall sub_006C4980_ApplyOptions(OptionContextStrc* pContext, cons
 extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
 extern const char gszPercentS_006FFC58[]; // 0x006FFC58
 extern const char gszNewline_006FFCB0[]; // 0x006FFCB0
-void* __cdecl sub_0041BEF0_GetExeModule(); // 0x0041BEF0
-unsigned int __stdcall sub_00413800(char*, const char*, unsigned int); // 0x00413800
+void* __cdecl StormGetInstance(); // 0x0041BEF0
+unsigned int __stdcall SStrPack(char*, const char*, unsigned int); // 0x00413800
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern "C" char* __cdecl strstr(const char*, const char*);
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void*, unsigned int, char*, int);
@@ -255,8 +255,8 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*, const char*, ...);
 
 static
 
-// build: context sub_006C3E10_ReportCommandError
-void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigned int error, const char* context)
+// build: context GenerateError
+void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const char* context)
 {
     D2ErrorReportStrc report;
     report.callback = callback;
@@ -282,7 +282,7 @@ void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigne
         return;
     }
     format[0] = 0;
-    LoadStringA(sub_0041BEF0_GetExeModule(), resource, format, 256);
+    LoadStringA(StormGetInstance(), resource, format, 256);
     if (!format[0])
         SStrCopy(format, gszErrorDefaults_006FCC24[index], 256);
     if (strstr(format, gszPercentS_006FFC58))
@@ -290,7 +290,7 @@ void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, unsigne
     else
         SStrCopy(message, format, 256);
     if (message[0])
-        sub_00413800(message, gszNewline_006FFCB0, 256);
+        SStrPack(message, gszNewline_006FFCB0, 256);
     sub_0041C340_SetLastError(error);
     report.error = error;
     report.context = context;
@@ -302,10 +302,10 @@ const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
 #define OPTION_MAX(a, b) ((a) < (b) ? (b) : (a))
 
-static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
+static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
 
-// build: context sub_006C4A00_ParseOptionString
-static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError)
+// build: context ProcessFlags
+static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError)
 {
     char szBuffer[0x100];
     szBuffer[0] = 0;
@@ -333,7 +333,7 @@ static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, Option
         {
             if (pfnError)
             {
-                sub_006C3E10_ReportCommandError(pfnError, 0x85100065, szString);
+                GenerateError(pfnError, 0x85100065, szString);
             }
 
             return 0;
@@ -367,7 +367,7 @@ static int __stdcall sub_006C4A00_ParseOptionString(const char* szString, Option
 
 typedef int (__stdcall* OptionCallbackToken)(const char* szToken);
 
-static int __stdcall sub_006C4BC0_HandleToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
+static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char*, unsigned int, unsigned int, void*, unsigned int, unsigned int, void*);
 extern "C" __declspec(dllimport) unsigned int __stdcall GetFileSize(void*, unsigned int*);
 extern "C" __declspec(dllimport) int __stdcall ReadFile(void*, void*, unsigned int, unsigned int*, void*);
@@ -383,7 +383,7 @@ int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* 
     if (handle == (void*)-1)
     {
         if (callback)
-            sub_006C3E10_ReportCommandError(callback, 110, file);
+            GenerateError(callback, 110, file);
         return 0;
     }
     unsigned int size = GetFileSize(handle, 0);
@@ -403,8 +403,8 @@ extern "C" const char gszCmdWhitespace_006FCC4C[];                              
 extern "C" unsigned int __security_cookie;                                                                  // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie);                                   // 0x00681A48
 
-// build: context sub_006C4BC0_HandleToken
-static int __stdcall sub_006C4BC0_HandleToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError)
+// build: context ProcessToken
+static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, OptionStrc** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError)
 {
     if (*szToken == '@' && !nQuoted)
     {
@@ -414,7 +414,7 @@ static int __stdcall sub_006C4BC0_HandleToken(const char* szToken, OptionContext
     if (SStrChr("-/", *szToken) && !nQuoted)
     {
         pContext->pCurrent = 0;
-        return sub_006C4A00_ParseOptionString(szToken + 1, pContext, pfnError);
+        return ProcessFlags(szToken + 1, pContext, pfnError);
     }
 
     int nLength;
@@ -442,7 +442,7 @@ static int __stdcall sub_006C4BC0_HandleToken(const char* szToken, OptionContext
 
     if (pfnError)
     {
-        sub_006C3E10_ReportCommandError(pfnError, 0x85100065, szToken);
+        GenerateError(pfnError, 0x85100065, szToken);
     }
 
     return 0;
@@ -457,7 +457,7 @@ int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionCon
         int nQuoted = 0;
         char szToken[0x100];
         SStrTokenize(&pszNext, szToken, 0x100, gszCmdWhitespace_006FCC4C, &nQuoted);
-        if (szToken[0] && !sub_006C4BC0_HandleToken(szToken, pnState, pnContext, nQuoted, pfnCallback, pUserData))
+        if (szToken[0] && !ProcessToken(szToken, pnState, pnContext, nQuoted, pfnCallback, pUserData))
         {
             break;
         }

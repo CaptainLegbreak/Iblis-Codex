@@ -328,7 +328,7 @@ struct T0041D340
     unsigned int aState[5];
     unsigned char f_1C[64];
     unsigned char unk_5C[0x4];
-    void sub_00425DD0_Update(const unsigned char* pData, unsigned int nLen);
+    void Append(const unsigned char* pData, unsigned int nLen);
     void sub_00425F00_Final(unsigned char* pDigest);
 };
 
@@ -443,7 +443,7 @@ void D2StormQueueStrc::sub_00422080_TrimToStart()
 }
 
 // 0x00422710
-static __declspec(noinline) int sub_00422710_IsOdd(D2StormQueueStrc* pQueue)
+static __declspec(noinline) int IsOdd(D2StormQueueStrc* pQueue)
 {
     pQueue->sub_00422140_Trim();
     if (pQueue->Count() >= 1 && ((*pQueue)[0] & 1))
@@ -456,7 +456,7 @@ static __declspec(noinline) int sub_00422710_IsOdd(D2StormQueueStrc* pQueue)
 // 0x004238F0
 int __stdcall SBigIsOdd(D2StormBigStrc* pBig)
 {
-    return sub_00422710_IsOdd(&pBig->tQueue);
+    return IsOdd(&pBig->tQueue);
 }
 
 inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int nCount)
@@ -731,7 +731,7 @@ void __fastcall sub_004257F0_Sha1Round3(unsigned int a, unsigned int* b, unsigne
 }
 
 // 0x00425DD0
-void T0041D340::sub_00425DD0_Update(const unsigned char* pData, unsigned int nLen)
+void T0041D340::Append(const unsigned char* pData, unsigned int nLen)
 {
     unsigned int nUsed = (unsigned int)nBitCount >> 3 & 0x3F;
     nBitCount += (unsigned __int64)nLen * 8;
@@ -798,8 +798,8 @@ void T0041D340::sub_00425F00_Final(unsigned char* pDigest)
 {
     unsigned char aCount[8];
     sub_PutBE64(aCount, nBitCount);
-    sub_00425DD0_Update(gaSha1Padding_00708890, ((0xFFFFFFF7 - ((unsigned int)nBitCount >> 3)) & 0x3F) + 1);
-    sub_00425DD0_Update(aCount, 8);
+    Append(gaSha1Padding_00708890, ((0xFFFFFFF7 - ((unsigned int)nBitCount >> 3)) & 0x3F) + 1);
+    Append(aCount, 8);
     for (int i = 0; i < 5; i++)
     {
         unsigned int v = aState[i];

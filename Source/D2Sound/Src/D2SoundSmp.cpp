@@ -268,7 +268,7 @@ int gbSoundGlobalFocus_00881804; // 0x00881804
 
 extern "C" { int gdwGlobal_008817A0; } // 0x008817A0
 
-extern "C" int __stdcall sub_00415EE0(int nValue); // 0x00415EE0
+extern "C" int __stdcall SFileDdaInitialize(int nValue); // 0x00415EE0
 
 D2SoundStrc* __fastcall sub_00515530_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 
@@ -410,7 +410,7 @@ const char* __fastcall sub_00513ED0_GetDSoundErrorString(long hResult)
 extern "C" void __fastcall sub_00514780_CreateSoundChannel(int nArg)
 {
     gdwGlobal_008817A0 = nArg;
-    sub_00415EE0((int)sub_00513B50());
+    SFileDdaInitialize((int)sub_00513B50());
     gpSoundChannel_00881794 = sub_00515530_CreateSound(1, gdwGlobal_008817A0);
 }
 

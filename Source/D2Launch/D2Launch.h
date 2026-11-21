@@ -161,7 +161,7 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
-int __stdcall sub_004198D0(void* pArg); // 0x004198D0
+int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 int __stdcall sub_0042FF00_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FF00
 int __stdcall sub_0042FFE0(int nArg); // 0x0042FFE0
 int __stdcall sub_00431C90(int nArg); // 0x00431C90

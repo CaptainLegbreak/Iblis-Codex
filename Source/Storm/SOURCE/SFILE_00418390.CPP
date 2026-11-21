@@ -11,7 +11,7 @@ extern D2CriticalSectionStrc gBasePathLock_00779068;                            
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return nValid; }
 
 // 0x00418390
-int __stdcall sub_00418390_FileQuery(void* hArchive, const char* szFileName, int nFlags)
+int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags)
 {
     int nValid = (__int64)szFileName ? -1 : 0;
     VALIDATE(*szFileName);

@@ -415,8 +415,8 @@ struct D2StormHashCtxStrc
     unsigned int nState[5];
     unsigned char pBlock[64];
 
-    void sub_00425D90_Init();                                               // 0x00425D90
-    void sub_00425DD0_Update(const unsigned char* pData, unsigned int nLen); // 0x00425DD0
+    void Initialize();                                               // 0x00425D90
+    void Append(const unsigned char* pData, unsigned int nLen); // 0x00425DD0
     void sub_00425F00_Final(unsigned char* pDigest);                        // 0x00425F00
 };
 
@@ -646,19 +646,19 @@ static void __stdcall sub_0047F990_HashModule(const char* szName, unsigned char*
 {
     D2StormHashCtxStrc tCtx;
     char szBuffer[0x400];
-    tCtx.sub_00425D90_Init();
+    tCtx.Initialize();
     if (nSkip)
     {
-        tCtx.sub_00425DD0_Update(pData + nSkip, nSize - nSkip);
-        tCtx.sub_00425DD0_Update(pData, nSkip);
+        tCtx.Append(pData + nSkip, nSize - nSkip);
+        tCtx.Append(pData, nSkip);
     }
     else
     {
-        tCtx.sub_00425DD0_Update(pData, nSize);
+        tCtx.Append(pData, nSize);
     }
     SStrCopy(szBuffer, szName, 0x400);
-    sub_004141E0_StrUpper(szBuffer);
-    tCtx.sub_00425DD0_Update((const unsigned char*)szBuffer, SStrLen(szBuffer));
+    SStrUpper(szBuffer);
+    tCtx.Append((const unsigned char*)szBuffer, SStrLen(szBuffer));
     tCtx.sub_00425F00_Final(pDigest);
 }
 

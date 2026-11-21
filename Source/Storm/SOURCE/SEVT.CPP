@@ -56,7 +56,7 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLine, unsigned int nFlags);    // 0x00413020
 
-void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource); // 0x00426180
+void __stdcall CopyIdHashTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource); // 0x00426180
 
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
@@ -66,7 +66,7 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned int nId, void* pData);
 
 // 0x00426180
-void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource)
+void __stdcall CopyIdHashTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource)
 {
     pDest->nSize = pSource->nSize;
     pDest->nUsed = pSource->nUsed;
@@ -152,7 +152,7 @@ int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubType)
     if (pType)
     {
         D2StormHandlerTableStrc* pState = (D2StormHandlerTableStrc*)SMemAlloc(sizeof(D2StormHandlerTableStrc), gszSEvtCpp, 284, 0);
-        sub_00426180_CopyHandlerTable(pState, pType->pHandlers);
+        CopyIdHashTable(pState, pType->pHandlers);
         pState->pPrevState = pType->pHandlers;
         pType->pHandlers = pState;
         gbSEvtModified_007792F8 = 1;

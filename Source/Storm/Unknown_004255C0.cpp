@@ -200,7 +200,7 @@ static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pR
     *pRemainder = (unsigned int)nData;
 }
 
-static int sub_00422780_IsZero(D2StormQueueStrc& a)
+static int IsZero(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;
@@ -218,14 +218,14 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
     a.m_array.f_8[a.m_start] = 1;
 }
 
-static void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -252,7 +252,7 @@ static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueSt
     a.sub_00422140_Trim();
 }
 
-static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
+static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -288,7 +288,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
     if (nDCount > nCCount)
     {
         b.CopyFrom(c);
-        sub_00422CC0_SetZero(a);
+        SetZero(a);
         return;
     }
     if (nDCount <= 1)
@@ -327,7 +327,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
             sub_00423100_Sub(tRem, tRem, tDiv);
         }
     }
-    sub_00422E70_Shr(b, tRem, nShift);
+    Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
     tStack.nUsed -= 3;
 }
@@ -344,14 +344,14 @@ static void __stdcall sub_004221F0_AddUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static int sub_00422750_IsOne(D2StormQueueStrc& a)
+static int IsOne(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     const D2StormQueueStrc& tRead = a;
     return tRead.Count() == 1 && tRead[0] == 1;
 }
 
-static void __stdcall sub_00422B00_Set2Exp(D2StormQueueStrc& a, unsigned int nExponent)
+static void __stdcall Set2Exp(D2StormQueueStrc& a, unsigned int nExponent)
 {
     unsigned int i = 0;
     for (; i < nExponent / 32; i++)
@@ -372,7 +372,7 @@ static void __stdcall sub_00422FC0_SubUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423540_FromUInt(D2StormQueueStrc& a, unsigned int nValue)
+static void __stdcall FromUnsigned(D2StormQueueStrc& a, unsigned int nValue)
 {
     a[0u] = nValue;
     a.SetCount(1);
@@ -392,7 +392,7 @@ static void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b,
         a.CopyFrom(c);
         tNext.CopyFrom(b);
     }
-    while (!sub_00422780_IsZero(tNext))
+    while (!IsZero(tNext))
     {
         sub_00423DC0_Div(a, tRem, a, tNext, tStack);
         a.CopyFrom(tNext);
@@ -414,7 +414,7 @@ static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc&
     c.sub_00422140_Trim();
     if (!c.Count())
     {
-        sub_00422C60_SetOne(a);
+        SetOne(a);
         return;
     }
     D2StormQueueStrc& tQuot = tStack.f_0[tStack.nUsed++];
@@ -424,7 +424,7 @@ static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc&
     sub_004245F0_MulMod(tSquare, b, b, d, tStack);
     sub_004245F0_MulMod(tCube, tSquare, b, d, tStack);
     D2StormQueueStrc* aPowers[3] = { &b, &tSquare, &tCube };
-    sub_00422C60_SetOne(tWork);
+    SetOne(tWork);
     const D2StormQueueStrc& tExp = c;
     for (unsigned int i = c.Count(); i; i--)
     {
@@ -468,7 +468,7 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQu
     int bPrime = 1;
     a.sub_00422140_Trim();
     const D2StormQueueStrc& tRead = a;
-    if (sub_00422780_IsZero(a) || !(tRead[0] & 1))
+    if (IsZero(a) || !(tRead[0] & 1))
         bPrime = 0;
     for (unsigned int i = 0; bPrime && i < 171; i++)
     {
@@ -482,25 +482,25 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQu
         }
         else
         {
-            sub_00423540_FromUInt(tBase, (unsigned int)nPrime);
+            FromUnsigned(tBase, (unsigned int)nPrime);
             sub_00423DC0_Div(tWork, tOdd, a, tBase, *pStack);
-            bZero = sub_00422780_IsZero(tOdd);
+            bZero = IsZero(tOdd);
         }
-        if (bZero && !sub_00422750_IsOne(tWork))
+        if (bZero && !IsOne(tWork))
             bPrime = 0;
     }
     sub_00422FC0_SubUInt(tMinusOne, a, 1);
     tOdd.CopyFrom(tMinusOne);
     unsigned int nShift = sub_00421470_FindLowestSetBit(&tOdd);
     if (nShift)
-        sub_00422E70_Shr(tOdd, tOdd, nShift);
+        Shr(tOdd, tOdd, nShift);
     for (unsigned int i = 0; bPrime && i < 6; i++)
     {
-        sub_00423540_FromUInt(tBase, gaSBigSmallPrimes[i]);
+        FromUnsigned(tBase, gaSBigSmallPrimes[i]);
         if (sub_004212F0_Compare(&tBase, &a) >= 0)
             break;
         sub_00425150_PowMod(tWork, tBase, tOdd, a, *pStack);
-        if (!sub_00422750_IsOne(tWork) && sub_004212F0_Compare(&tWork, &tMinusOne))
+        if (!IsOne(tWork) && sub_004212F0_Compare(&tWork, &tMinusOne))
         {
             unsigned int j = 0;
             do
@@ -511,7 +511,7 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQu
                     break;
                 }
                 sub_004245F0_MulMod(tWork, tWork, tWork, a, *pStack);
-                if (sub_00422750_IsOne(tWork))
+                if (IsOne(tWork))
                 {
                     bPrime = 0;
                     break;
@@ -521,7 +521,7 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQu
     }
     for (unsigned int i = 0; bPrime && i < 1; i++)
     {
-        sub_00423540_FromUInt(tBase, gaSBigFermatBases[i]);
+        FromUnsigned(tBase, gaSBigFermatBases[i]);
         sub_00425150_PowMod(tWork, tBase, a, a, *pStack);
         if (sub_004212F0_Compare(&tWork, &tBase))
             bPrime = 0;
@@ -540,8 +540,8 @@ static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStr
     D2StormQueueStrc& tLow = pStack->f_0[pStack->nUsed++];
     D2StormQueueStrc& tHigh = pStack->f_0[pStack->nUsed++];
     D2StormQueueStrc& tWork = pStack->f_0[pStack->nUsed++];
-    sub_00422B00_Set2Exp(tLow, nBits - 2);
-    sub_00422B00_Set2Exp(tHigh, nBits - 1);
+    Set2Exp(tLow, nBits - 2);
+    Set2Exp(tHigh, nBits - 1);
     sub_00422300_Add(tHigh, tHigh, tLow);
     sub_00423DC0_Div(tWork, a, b, tLow, *pStack);
     sub_00422300_Add(a, a, tHigh);
@@ -553,11 +553,11 @@ static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStr
     {
         if (sub_00425350_IsPrime(pStack, a))
         {
-            if (sub_00422750_IsOne(c))
+            if (IsOne(c))
                 break;
             sub_00422FC0_SubUInt(tWork, a, 1);
             sub_00424180_Gcd(tWork, tWork, c, *pStack);
-            if (sub_00422750_IsOne(tWork))
+            if (IsOne(tWork))
                 break;
         }
         sub_004221F0_AddUInt(a, a, 2);
@@ -592,10 +592,10 @@ static void __stdcall sub_00424FB0_InvMod(D2StormQueueStrc& a, D2StormQueueStrc&
     D2StormQueueStrc& tRem = tStack.f_0[tStack.nUsed++];
     tNum.CopyFrom(b);
     tDen.CopyFrom(c);
-    sub_00422C60_SetOne(a);
-    sub_00422CC0_SetZero(tPrev);
+    SetOne(a);
+    SetZero(tPrev);
     int nSign = 1;
-    while (!sub_00422780_IsZero(tDen))
+    while (!IsZero(tDen))
     {
         sub_00423DC0_Div(tQuot, tRem, tNum, tDen, tStack);
         sub_004242C0_BigOp(&tQuot, &tQuot, &tPrev, &tStack);

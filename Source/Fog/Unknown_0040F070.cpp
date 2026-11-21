@@ -225,7 +225,7 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
             {
                 for (i = (16 - nLine) * 9 / 4 + 2; i; --i)
                 {
-                    sub_00413800(szLine, gszSpace_006FFC44, sizeof(szLine));
+                    SStrPack(szLine, gszSpace_006FFC44, sizeof(szLine));
                 }
 
                 const int nLen = strlen(szLine);

@@ -69,7 +69,7 @@ struct D2StormAudioStreamStrc {
 };
 
 // 0x00419760
-static void sub_00419760_ReleaseFile(D2StormFileRecStrc* pFile)
+static void RemoveFileRef(D2StormFileRecStrc* pFile)
 {
     if (pFile && !--pFile->nRefCount)
         delete pFile;
@@ -77,7 +77,7 @@ static void sub_00419760_ReleaseFile(D2StormFileRecStrc* pFile)
 
 void __fastcall sub_M126_Emit_00419760(int a, D2StormFileRecStrc* pFile, int nUnused)
 {
-    sub_00419760_ReleaseFile(pFile);
+    RemoveFileRef(pFile);
 }
 
 static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, D2StormArchiveRecStrc** ppRec)
@@ -93,7 +93,7 @@ static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFile
 }
 
 // 0x004198D0
-int __stdcall sub_004198D0(void* hFile)
+int __stdcall SFileCloseFile(void* hFile)
 {
     EnterCriticalSection(&gBasePathLock_00779068);
     D2StormFileRecStrc* pRec;
@@ -126,7 +126,7 @@ int __stdcall SFileCloseArchive(void* hArchive)
         {
             D2StormFileRecStrc* pFile;
             if (sub_00415950_GetFileRec(pRec->hParentFile, &pFile))
-                sub_004198D0(pRec->hParentFile);
+                SFileCloseFile(pRec->hParentFile);
         }
         else if (pHandle->pParent)
         {
@@ -143,10 +143,10 @@ int __stdcall SFileCloseArchive(void* hArchive)
 }
 
 // 0x00419BD0
-static inline void sub_00419BD0(D2StormAudioStreamStrc* stream)
+static inline void RemoveStreamRef(D2StormAudioStreamStrc* stream)
 {
     if (stream && --stream->nRefCount == 0)
         delete stream;
 }
 
-void __stdcall emit_release_00419BD0(D2StormAudioStreamStrc* stream) { sub_00419BD0(stream); }
+void __stdcall emit_release_00419BD0(D2StormAudioStreamStrc* stream) { RemoveStreamRef(stream); }

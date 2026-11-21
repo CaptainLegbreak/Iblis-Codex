@@ -9,8 +9,8 @@ unsigned long gdwStormOwnerThread_007790C8;                                     
 D2StormMsgSourceStrc* gpStormMsgSources_007790E8;                                                           // 0x007790E8
 
 int __cdecl sub_00418B50();                                                                         // 0x00418B50
-int __stdcall sub_00418390_FileQuery(void* hArchive, const char* szFileName, int nFlags);                  // 0x00418390
-void* __cdecl sub_0041BEF0_GetExeModule();                                                                  // 0x0041BEF0
+int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags);                  // 0x00418390
+void* __cdecl StormGetInstance();                                                                  // 0x0041BEF0
 void __cdecl sub_0041C1A0_LockErrorState();                                                                 // 0x0041C1A0
 void __cdecl sub_0041C1E0_UnlockErrorState();                                                               // 0x0041C1E0
 void __stdcall sub_0041C360_SetSuppress(int bSuppress);                                                     // 0x0041C360
@@ -23,9 +23,9 @@ void __stdcall SFileSetPlatform(unsigned char nValue)
 }
 
 // 0x00418B80
-int __stdcall sub_00418B80_FileQueryDirect(const char* szFileName)
+int __stdcall SFileFileExists(const char* szFileName)
 {
-    return sub_00418390_FileQuery(0, szFileName, sub_00418B50());
+    return SFileFileExistsEx(0, szFileName, sub_00418B50());
 }
 
 // 0x0041BEB0
@@ -52,12 +52,12 @@ void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility)
         ppSource = &(*ppSource)->pNext;
     *ppSource = (D2StormMsgSourceStrc*)HeapAlloc(GetProcessHeap(), 4, sizeof(D2StormMsgSourceStrc));
     (*ppSource)->wFacility = wFacility;
-    (*ppSource)->hModule = sub_0041BEF0_GetExeModule();
+    (*ppSource)->hModule = StormGetInstance();
     (*ppSource)->pNext = 0;
 }
 
 // 0x0041C2C0
-void __stdcall sub_0041C2C0_SetOwner(void* pOwnerA, void* pOwnerB)
+void __stdcall SErrPrepareAppFatal(void* pOwnerA, void* pOwnerB)
 {
     sub_0041C1A0_LockErrorState();
     gpStormOwnerA_007790C0 = pOwnerA;
@@ -67,7 +67,7 @@ void __stdcall sub_0041C2C0_SetOwner(void* pOwnerA, void* pOwnerB)
 }
 
 // 0x0041C2F0
-int __stdcall sub_0041C2F0_RegisterMsgSource(unsigned short wFacility, void* hModule, void* pReserved)
+int __stdcall SErrRegisterMessageSource(unsigned short wFacility, void* hModule, void* pReserved)
 {
     sub_0041C1A0_LockErrorState();
     D2StormMsgSourceStrc* pSource = (D2StormMsgSourceStrc*)HeapAlloc(GetProcessHeap(), 4, sizeof(D2StormMsgSourceStrc));

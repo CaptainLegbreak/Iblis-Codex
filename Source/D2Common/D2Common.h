@@ -38,7 +38,7 @@ D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOw
 D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine); // 0x006BD040
 D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine); // 0x006BD040
 D2TxtLinkStrc* __stdcall sub_006BD040_AllocBlock(const char* szFile, int nLine); // 0x006BD040
-char* __stdcall sub_00414310(const char* szString); // 0x00414310
+char* __stdcall SStrDup(const char* szString); // 0x00414310
 extern "C" SkillRecord* __fastcall sub_0045C4B0_GetSkillRecord(int); // 0x0045C4B0
 extern "C" Unit* __stdcall sub_00622830_GetWeapon(Unit*); // 0x00622830
 extern "C" Unit* __stdcall sub_00623990_GetWeaponSlot(Unit*, int); // 0x00623990
@@ -177,7 +177,7 @@ unsigned int __stdcall D2CMP_10079_GetTileFlags(D2TileLibraryEntryStrc* pTile); 
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 void __cdecl sub_0063D710_InitCodes(); // 0x0063D710
 void __fastcall DRLGACTIVATE_RoomExPropagateSetStatus(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus); // 0x0061B390
 void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags); // 0x0067CBF0

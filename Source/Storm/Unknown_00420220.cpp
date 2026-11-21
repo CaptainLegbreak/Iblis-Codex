@@ -31,7 +31,7 @@ extern D2CriticalSectionStrc gaSLogLocks_00779238[4];                           
 extern T0041FA40* gapSLogBuckets_00779298[4];                                                              // 0x00779298
 
 // 0x00420220
-void __cdecl sub_00420220_SLogDestroy()
+void __cdecl SLogDestroy()
 {
     SLogFlushAll();
     D2CriticalSectionStrc* pLock = gaSLogLocks_00779238;

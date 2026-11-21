@@ -107,7 +107,7 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
 
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 
-char* __fastcall sub_00411540_FormatNumber(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
+char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
 
 int __stdcall sub_00415F70(int nFlags); // 0x00415F70
 
@@ -117,7 +117,7 @@ int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 
 int __stdcall SFileSetIoErrorMode(int nValueA, int nValueB); // 0x004166B0
 
-int __stdcall sub_0041BFC0(unsigned int nOption, const void* pInput, unsigned int nSize); // 0x0041BFC0
+int __stdcall StormGetOption(unsigned int nOption, const void* pInput, unsigned int nSize); // 0x0041BFC0
 
 void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 
@@ -434,7 +434,7 @@ int __fastcall D2Win_10054(D2WinTextBoxStrc* pTextBox);                         
 
 void __cdecl sub_004301A0();                                                                                // 0x004301A0
 
-unsigned int __stdcall sub_00414150_HashPath(const char* szPath);                                           // 0x00414150
+unsigned int __stdcall SStrHashHT(const char* szPath);                                           // 0x00414150
 
 int __fastcall sub_00526590_Compare(const Unicode* pString1, const Unicode* pString2);                      // 0x00526590
 
@@ -605,10 +605,10 @@ void __fastcall sub_00406870_InitStorm(int nDirectFlags, int nValue)
     sub_00415F90_SetValue(nValue);
     gnStormDirectFlags_0074C82C = nDirectFlags;
     int nChunkSize = 0x8000;
-    sub_0041BFC0(2, &nChunkSize, 4);
+    StormGetOption(2, &nChunkSize, 4);
     int bEnable = 1;
-    sub_0041BFC0(1, &bEnable, 4);
-    sub_0041BFC0(3, &bEnable, 4);
+    StormGetOption(1, &bEnable, 4);
+    StormGetOption(3, &bEnable, 4);
 }
 
 // 0x00409020
@@ -624,12 +624,12 @@ void __cdecl sub_00409020_LogPoolError(const char* szFormat, ...)
     D2MemoryStatusStrc tStatus;
     GlobalMemoryStatus(&tStatus);
     char szNumber[0x20];
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total physical:     %s", sub_00411540_FormatNumber(szNumber, sizeof(szNumber), tStatus.dwTotalPhys));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available physical: %s", sub_00411540_FormatNumber(szNumber, sizeof(szNumber), tStatus.dwAvailPhys));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total page:         %s", sub_00411540_FormatNumber(szNumber, sizeof(szNumber), tStatus.dwTotalPageFile));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available page:     %s", sub_00411540_FormatNumber(szNumber, sizeof(szNumber), tStatus.dwAvailPageFile));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total virtual:      %s", sub_00411540_FormatNumber(szNumber, sizeof(szNumber), tStatus.dwTotalVirtual));
-    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available virtual:  %s", sub_00411540_FormatNumber(szNumber, sizeof(szNumber), tStatus.dwAvailVirtual));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total physical:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPhys));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available physical: %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPhys));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total page:         %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalPageFile));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available page:     %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailPageFile));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "total virtual:      %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwTotalVirtual));
+    sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "available virtual:  %s", Int64ToString(szNumber, sizeof(szNumber), tStatus.dwAvailVirtual));
     sub_00410660_LogWritePrefixed(&gszEmptyAssertText, &gszEmptyAssertText);
 }
 
@@ -1531,7 +1531,7 @@ static void sub_00432080_StoreAccountTexts(D2WinControlStrc* pAccountEdit, D2Win
     {
         const Unicode* pText = sub_004FDD90_GetEditText(pPasswordEdit);
         sub_00526F70(gpLaunchRecord_007795D4->szPassword, pText, 0x100);
-        gpLaunchRecord_007795D4->dwPasswordHash = sub_00414150_HashPath(gpLaunchRecord_007795D4->szPassword);
+        gpLaunchRecord_007795D4->dwPasswordHash = SStrHashHT(gpLaunchRecord_007795D4->szPassword);
         gpLaunchRecord_007795D4->nPasswordLength = SStrLen(gpLaunchRecord_007795D4->szPassword);
     }
 }

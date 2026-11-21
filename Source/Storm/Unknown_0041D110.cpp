@@ -24,7 +24,7 @@ void __cdecl sub_0041C1E0_UnlockErrorState();                                   
 extern D2StormFixedListStrc gHandlerList_00708420;                                                          // 0x00708420
 
 // 0x0041D110
-void __stdcall sub_0041D110_RemoveHandlers(int nValue)
+void __stdcall SErrUnregisterHandler(int nValue)
 {
     sub_0041C1A0_LockErrorState();
     char* pNode = gHandlerList_00708420.Head();

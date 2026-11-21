@@ -163,9 +163,9 @@ struct D2StormHashCtxStrc
     unsigned int nState[5];
     unsigned char pBlock[64];
 
-    void sub_00425D90_Init();                                                                               // 0x00425D90
+    void Initialize();                                                                               // 0x00425D90
     void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
-    void sub_00425DD0_Update(const void* pData, unsigned int nSize);                                        // 0x00425DD0
+    void Append(const void* pData, unsigned int nSize);                                        // 0x00425DD0
 };
 
 struct D2StormHashBufferStrc
@@ -231,8 +231,8 @@ struct D2StormHuffTreeStrc
     D2StormHuffTreeStrc();                                                                                  // 0x0041F950
     ~D2StormHuffTreeStrc();                                                                                 // 0x0041F6A0
     void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);                                               // 0x0041F350
-    unsigned int sub_0041F740_Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
-    void sub_0041F510_InsertBranch(unsigned int nValue);
+    unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
+    void AddSymbol(unsigned int nValue);
 };
 
 struct D2StormArrayAStrc
@@ -383,8 +383,8 @@ struct T0041D340
     unsigned int aState[5];
     unsigned char f_1C[64];
 
-    void sub_00425D90_Init();                                                                               // 0x00425D90
-    void sub_00425DD0_Update(const unsigned char* pData, unsigned int nLen);                                // 0x00425DD0
+    void Initialize();                                                                               // 0x00425D90
+    void Append(const unsigned char* pData, unsigned int nLen);                                // 0x00425DD0
     void sub_00425F00_Final(unsigned char* pDigest);                                                        // 0x00425F00
 };
 
@@ -497,7 +497,7 @@ inline void* operator new(unsigned int, void* pPlace) throw()
 }
 
 // 0x0041C900
-void __stdcall sub_0041C900_AddHandler(int nValue)
+void __stdcall SErrRegisterHandler(int nValue)
 {
     sub_0041C1A0_LockErrorState();
     D2StormHandlerNodeStrc* pNode = new (SMemAlloc(sizeof(D2StormHandlerNodeStrc), gszTypeNameHandler_00708434, -2, 0x8000008)) D2StormHandlerNodeStrc;
@@ -525,8 +525,8 @@ static __declspec(noinline) int __stdcall sub_0041D340_FindSignatureTag(const ch
 static __declspec(noinline) void __stdcall sub_0041D370_HashData(unsigned int nLen, const unsigned char* pData, unsigned char* pDigest)
 {
     T0041D340 tHash;
-    tHash.sub_00425D90_Init();
-    tHash.sub_00425DD0_Update(pData, nLen);
+    tHash.Initialize();
+    tHash.Append(pData, nLen);
     tHash.sub_00425F00_Final(pDigest);
 }
 
@@ -539,7 +539,7 @@ void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, uns
     (*ppBuffer)->nUsed = 0;
     (*ppBuffer)->nWindow = nSignSize + 4;
     (*ppBuffer)->pBuffer = (char*)SMemAlloc((*ppBuffer)->nWindow, ".\\SOURCE\\SSignature.cpp", 0x57, 8);
-    (*ppBuffer)->tHash.sub_00425D90_Init();
+    (*ppBuffer)->tHash.Initialize();
 }
 
 // 0x0041D420
@@ -549,9 +549,9 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
     if (nExtra >= 0)
     {
         if (pBuffer->nUsed > 0)
-            pBuffer->tHash.sub_00425DD0_Update(pBuffer->pBuffer, pBuffer->nUsed);
+            pBuffer->tHash.Append(pBuffer->pBuffer, pBuffer->nUsed);
         if (nExtra > 0)
-            pBuffer->tHash.sub_00425DD0_Update(pData, nExtra);
+            pBuffer->tHash.Append(pData, nExtra);
         SMemCopy(pBuffer->pBuffer, pData + nExtra, pBuffer->nWindow);
         pBuffer->nUsed = pBuffer->nWindow;
     }
@@ -560,7 +560,7 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
         int nOver = pBuffer->nUsed - pBuffer->nWindow + nSize;
         if (nOver > 0)
         {
-            pBuffer->tHash.sub_00425DD0_Update(pBuffer->pBuffer, nOver);
+            pBuffer->tHash.Append(pBuffer->pBuffer, nOver);
             pBuffer->nUsed -= nOver;
             SMemMove(pBuffer->pBuffer, pBuffer->pBuffer + nOver, pBuffer->nUsed);
         }
@@ -570,7 +570,7 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
 }
 
 // 0x0041D590
-int __fastcall sub_0041D590_SignBuffer(char* pData, unsigned int* pnSize, const void* pExponent, unsigned int nSignSize, const void* pModulus1, int nModulusSize1, const void* pModulus2, int nModulusSize2)
+int __fastcall SSignatureGenerate(char* pData, unsigned int* pnSize, const void* pExponent, unsigned int nSignSize, const void* pModulus1, int nModulusSize1, const void* pModulus2, int nModulusSize2)
 {
     unsigned int nOffset;
     if (!sub_0041D340_FindSignatureTag(pData, *pnSize, nSignSize, &nOffset))
@@ -663,7 +663,7 @@ void D2StormBitReaderStrc::sub_0041D900_Skip(unsigned int nBits)
 }
 
 // 0x0041DEC0
-unsigned int __cdecl sub_0041DEC0_ReadMemory(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource)
+unsigned int __cdecl PkwareBufferRead(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource)
 {
     unsigned int nAvail = pSource->nSize - pSource->nPos;
     unsigned int nSize = *pSize < nAvail ? *pSize : nAvail;
@@ -673,7 +673,7 @@ unsigned int __cdecl sub_0041DEC0_ReadMemory(char* pBuffer, unsigned int* pSize,
 }
 
 // 0x0041DF00
-void __cdecl sub_0041DF00_WriteMemory(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink)
+void __cdecl PkwareBufferWrite(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink)
 {
     unsigned int nAvail = pSink->nSize - pSink->nPos;
     unsigned int nSize = *pSize < nAvail ? *pSize : nAvail;
@@ -738,7 +738,7 @@ void D2StormNodeListAStrc::sub_0041ED90_LinkNode(char* pNode, unsigned int nLink
 }
 
 // 0x0041F510
-void D2StormHuffTreeStrc::sub_0041F510_InsertBranch(unsigned int nValue)
+void D2StormHuffTreeStrc::AddSymbol(unsigned int nValue)
 {
     D2StormHuffItemStrc* pFirst = (D2StormHuffItemStrc*)tItemList.Head();
     D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.Head();
@@ -766,11 +766,11 @@ void D2StormHuffTreeStrc::sub_0041F510_InsertBranch(unsigned int nValue)
 }
 
 // 0x0041F9E0
-void __fastcall sub_0041F9E0_DecompressHuffman(void* pOutput, unsigned int* pOutputSize, void* pInput, unsigned int nInputSize, int nUnused)
+void __fastcall HuffmanDecompress(void* pOutput, unsigned int* pOutputSize, void* pInput, unsigned int nInputSize, int nUnused)
 {
     D2StormHuffInputStrc tInput(pInput);
     D2StormHuffTreeStrc tTree;
-    *pOutputSize = tTree.sub_0041F740_Decompress(pOutput, *pOutputSize, &tInput);
+    *pOutputSize = tTree.Decompress(pOutput, *pOutputSize, &tInput);
 }
 
 // 0x00420290
@@ -1040,7 +1040,7 @@ void D2StormQueueStrc::sub_004220D0_SetCount(unsigned int nCount)
 }
 
 // 0x004237D0
-void __stdcall sub_004237D0_CopyQueue(D2StormQueueStrc* pDest, D2StormQueueStrc* pSource)
+void __stdcall SBigCopy(D2StormQueueStrc* pDest, D2StormQueueStrc* pSource)
 {
     if (pDest != pSource)
         pDest->m_array.sub_004215C0_Set(pSource->m_array.f_4, pSource->m_array.f_8);
@@ -1061,13 +1061,13 @@ int __stdcall SBigMul(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStr
 }
 
 // 0x00424F70
-int __stdcall sub_00424F70_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+int __stdcall SBigRand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     return sub_00424700_BigOp(pResult, pA, pB, &pResult->tStack);
 }
 
 // 0x00424F90
-int __stdcall sub_00424F90_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA)
+int __stdcall SBigSquare(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 {
     return sub_00424B00_BigOp(pResult, pA, &pResult->tStack);
 }

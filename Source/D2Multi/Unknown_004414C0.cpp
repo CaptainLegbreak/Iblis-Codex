@@ -10,7 +10,7 @@ struct Character;
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 void __stdcall sub_004413E0_Enable(int bEnable); // 0x004413E0
 
-unsigned int __stdcall sub_00414150_HashPath(const char* szPath); // 0x00414150
+unsigned int __stdcall SStrHashHT(const char* szPath); // 0x00414150
 extern "C" int __cdecl isalnum(int c); // 0x006870FB
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -59,7 +59,7 @@ static int __stdcall sub_0043E860_FindHashedWord(unsigned int nHash, int nLength
 
         const unsigned char c = szText[i + nLength];
         szText[i + nLength] = 0;
-        const unsigned int nValue = sub_00414150_HashPath(&szText[i]);
+        const unsigned int nValue = SStrHashHT(&szText[i]);
         szText[i + nLength] = c;
         if (nValue == nHash)
             return 1;

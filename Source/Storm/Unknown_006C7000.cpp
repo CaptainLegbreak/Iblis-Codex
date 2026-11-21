@@ -6,7 +6,7 @@ extern unsigned char gnUtf8Trailing_006FCCA0[]; // 0x006FCCA0
 extern unsigned int gnUtf8Offsets_006FCC88[]; // 0x006FCC88
 extern const unsigned char gaTrailingBytesForUtf8_006FCCA0[256]; // 0x006FCCA0
 extern const unsigned int gaOffsetsFromUtf8_006FCC88[6]; // 0x006FCC88
-static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
+static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
 extern const unsigned short gWideTable_006FCDC0[]; // 0x006FCDC0
 static int __stdcall sub_006C78C0_ConvertToWide(unsigned short*,const unsigned char*,unsigned int,const unsigned short*); // 0x006C78C0
 static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
@@ -226,7 +226,7 @@ int __stdcall SUniConvertUTF16to8(char* pDest, unsigned int nDestSize, const uns
 #include "gen/data/Source/Storm/Unknown_006C7000.inc"
 
 // 0x006C72F0
-int __stdcall sub_006C72F0_Utf16Length(const char* source, int maxLength, int* consumed)
+int __stdcall SUniConvertUTF8to16Len(const char* source, int maxLength, int* consumed)
 {
  if (!maxLength || !source) { if(consumed) *consumed=0; return -1; }
  const char* start=source;
@@ -255,7 +255,7 @@ int __stdcall sub_006C72F0_Utf16Length(const char* source, int maxLength, int* c
 }
 
 // 0x006C7410
-int __stdcall sub_006C7410_Utf8ToUtf16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead)
+int __stdcall SUniConvertUTF8to16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead)
 {
     const unsigned char* pSrcStart = pSrc;
     unsigned short* pDstStart = pDst;
@@ -334,7 +334,7 @@ done:
 }
 
 // 0x006C75B0
-int __stdcall sub_006C75B0_DecodeUtf8(const unsigned char* str, int* pLength)
+int __stdcall SUniSGetUTF8(const unsigned char* str, int* pLength)
 {
     if (pLength)
         *pLength = 0;
@@ -395,7 +395,7 @@ int __stdcall sub_006C75B0_DecodeUtf8(const unsigned char* str, int* pLength)
 }
 
 // 0x006C76C0
-unsigned char* __stdcall sub_006C76C0_EncodeUtf8(unsigned int code,unsigned char* out)
+unsigned char* __stdcall SUniSPutUTF8(unsigned int code,unsigned char* out)
 {
  if (out) {
  unsigned char finalByte=(unsigned char)code;
@@ -448,7 +448,7 @@ int __fastcall EmitSkipUtf8Continuation(int index, const unsigned char* text, in
 }
 
 // 0x006C77F0
-static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* table, char* destination)
+static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned int count, const unsigned short* table, char* destination)
 {
     if (!count)
     {
@@ -513,25 +513,25 @@ static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, 
 }
 
 // 0x006C7900
-int __stdcall sub_006C7900_FromWide(char* destination, const unsigned short* source, unsigned int count)
+int __stdcall SUniConvertUTF16ToWin(char* destination, const unsigned short* source, unsigned int count)
 {
-    return sub_006C77F0_ConvertFromWide(source, count, gWideTable_006FCDC0, destination);
+    return SUniConvertUTF16ToCP(source, count, gWideTable_006FCDC0, destination);
 }
 
 // 0x006C7920
-int __stdcall sub_006C7920_FromWide(char* pDest, const unsigned short* pSource, unsigned int nCount)
+int __stdcall SUniConvertUTF16ToMac(char* pDest, const unsigned short* pSource, unsigned int nCount)
 {
-    return sub_006C77F0_ConvertFromWide(pSource, nCount, gWideTable_006FCFC0, pDest);
+    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FCFC0, pDest);
 }
 
 // 0x006C7940
-int __stdcall sub_006C7940_FromWide(char* pDest, const unsigned short* pSource, unsigned int nCount)
+int __stdcall SUniConvertUTF16ToDos(char* pDest, const unsigned short* pSource, unsigned int nCount)
 {
-    return sub_006C77F0_ConvertFromWide(pSource, nCount, gWideTable_006FD1C0, pDest);
+    return SUniConvertUTF16ToCP(pSource, nCount, gWideTable_006FD1C0, pDest);
 }
 
 // 0x006C7960
-int __stdcall sub_006C7960_ToWide(unsigned short* destination,const unsigned char* source,unsigned int count) {
+int __stdcall SUniConvertWinToUTF16(unsigned short* destination,const unsigned char* source,unsigned int count) {
     return sub_006C78C0_ConvertToWide(destination,source,count,gWideTable_006FCDC0);
 }
 
@@ -565,7 +565,7 @@ static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned
 }
 
 // 0x006C7980
-int __stdcall sub_006C7980_TranslateB(unsigned short* pDest, const unsigned char* pSource, int nCount)
+int __stdcall SUniConvertMacToUTF16(unsigned short* pDest, const unsigned char* pSource, int nCount)
 {
     return sub_006C78C0_Translate(gawTranslateTable_006FCFC0, pDest, pSource, nCount);
 }
@@ -594,7 +594,7 @@ static int __stdcall sub_006C78C0_ConvertToWide(unsigned short* pDest, const uns
 }
 
 // 0x006C79A0
-int __stdcall sub_006C79A0_TranslateC(unsigned short* pDest, const unsigned char* pSource, int nCount)
+int __stdcall SUniConvertDosToUTF16(unsigned short* pDest, const unsigned char* pSource, int nCount)
 {
     return sub_006C78C0_ConvertToWide(pDest, pSource, nCount, gWideTable_006FD1C0);
 }

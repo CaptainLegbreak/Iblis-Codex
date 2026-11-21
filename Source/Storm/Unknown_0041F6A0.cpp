@@ -242,7 +242,7 @@ void __fastcall sub_0041F6A0_DestroyTree(D2StormHuffTreeStrc* pTree)
 }
 
 // 0x0041F980
-void __fastcall sub_0041F980(void* pvOutBuffer, int* pcbOutBuffer, void* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+void __fastcall HuffmanCompress(void* pvOutBuffer, int* pcbOutBuffer, void* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
 {
     TOutputStream os(pvOutBuffer, *pcbOutBuffer);
     THuffmannTree ht;
@@ -267,7 +267,7 @@ static void sub_0041FA40_FlushLog(T0041FA40* pLog)
     }
 }
 
-static T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog)
+static T0041FA40* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog)
 {
     if (!hLog)
     {
@@ -376,7 +376,7 @@ static void sub_0041FCE0_UnlockLog(unsigned long nIndex)
 void __stdcall SLogClose(void* hLog)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         sub_0041FA40_FlushLog(pLog);
@@ -388,7 +388,7 @@ void __stdcall SLogClose(void* hLog)
 void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     for (unsigned long nOffset = 0; nOffset < nSize; nOffset += 8)
@@ -438,7 +438,7 @@ void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
 void __stdcall SLogFlush(void* hLog)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         sub_0041FA40_FlushLog(pLog);
@@ -460,7 +460,7 @@ void __cdecl SLogFlushAll()
 void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     pLog->nUsed = pLog->nPended;
@@ -473,10 +473,10 @@ void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
     sub_0041FCE0_UnlockLog(nIndex);
 }
 
-int __stdcall sub_004200E0_SLogSetAbsIndent(void* hLog, int nIndent)
+int __stdcall SLogSetAbsIndent(void* hLog, int nIndent)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return 0;
     int nOld = pLog->nIndent;
@@ -485,10 +485,10 @@ int __stdcall sub_004200E0_SLogSetAbsIndent(void* hLog, int nIndent)
     return nOld;
 }
 
-int __stdcall sub_00420120_SLogSetIndent(void* hLog, int nDelta)
+int __stdcall SLogSetIndent(void* hLog, int nDelta)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return 0;
     int nOld = pLog->nIndent;
@@ -497,10 +497,10 @@ int __stdcall sub_00420120_SLogSetIndent(void* hLog, int nDelta)
     return nOld;
 }
 
-void __stdcall sub_00420160_SLogSetTimestamp(void* hLog, int bTimestamp)
+void __stdcall SLogSetTimestamp(void* hLog, int bTimestamp)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
         pLog->f_18 = bTimestamp;
@@ -511,7 +511,7 @@ void __stdcall sub_00420160_SLogSetTimestamp(void* hLog, int bTimestamp)
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...)
 {
     unsigned long nIndex;
-    T0041FA40* pLog = sub_0041FA80_LockLog(&nIndex, 0, hLog);
+    T0041FA40* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
     sub_0041FBA0_AppendTimestamp(1, pLog);

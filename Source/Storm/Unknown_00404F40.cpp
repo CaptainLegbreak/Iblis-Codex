@@ -34,7 +34,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags)
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 extern "C" const char gszNew_006CC82C[]; // 0x006CC82C
 int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
 struct D2IniEntryStrc
 {
@@ -379,7 +379,7 @@ void* __cdecl operator new(size_t nSize)
 static inline void sub_00405430_GetIniPath(char* szPath)
 {
     sub_00406B60_GetModuleDirectory(szPath, 0x104);
-    sub_00413800(szPath, "D2.ini", 0x104);
+    SStrPack(szPath, "D2.ini", 0x104);
 }
 
 void __stdcall sub_M114_Emit_00405430(char* szPath)
@@ -392,7 +392,7 @@ void __stdcall sub_00405450_LoadIniSettings(char* pSettings)
 {
     char szIni[0x104];
     sub_00406B60_GetModuleDirectory(szIni, 0x104);
-    sub_00413800(szIni, "D2.ini", 0x104);
+    SStrPack(szIni, "D2.ini", 0x104);
     for (int i = 0; i < sizeof(gaIniEntries_00705040) / sizeof(gaIniEntries_00705040[0]); i++)
     {
         char* pDest = pSettings + gaIniEntries_00705040[i].nOffset;
@@ -420,7 +420,7 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
     sub_00525260(&nLanguage, 3);
     if (sub_00406C40_GetBlizzardDataPath(szPath, 0x104))
     {
-        sub_00413800(szPath, "System Survey\\ProductData\\", 0x104);
+        SStrPack(szPath, "System Survey\\ProductData\\", 0x104);
         char* pEnd = szPath + SStrLen(szPath);
         unsigned int nRemain = szPath + sizeof(szPath) - pEnd;
         SStrCopy(pEnd, "D2DV\\locale", nRemain);
@@ -450,7 +450,7 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
         }
     }
     sub_00406B60_GetModuleDirectory(szExe, 0x400);
-    sub_00413800(szExe, "SystemSurvey.exe", 0x400);
+    SStrPack(szExe, "SystemSurvey.exe", 0x400);
     if (sub_00516DE1_Verify(szExe))
         sub_00516D8B_RunSurvey(szExe);
 }

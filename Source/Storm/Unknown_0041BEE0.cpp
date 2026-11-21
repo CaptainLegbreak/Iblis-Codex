@@ -30,12 +30,12 @@ struct D2CommonStormHashTableAStrc;
 struct D2StormListBaseStrc;
 struct D2StormList00708420Strc;
 
-void __cdecl sub_00411CD0_InitHeaps(); // 0x00411CD0
+void __cdecl SMemInitialize(); // 0x00411CD0
 void __cdecl SLogInitialize(); // 0x00420040
 extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 extern "C" const char gszCloseParen_006CF324[]; // 0x006CF324
 extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
 extern unsigned long gdwStormLastError_007790F4; // 0x007790F4
@@ -84,7 +84,7 @@ struct D2StormList00708420Strc : D2StormListBaseStrc
 // 0x0041BEE0
 void __cdecl sub_0041BEE0_InitStorm()
 {
-    sub_00411CD0_InitHeaps();
+    SMemInitialize();
     SLogInitialize();
     sub_00414360_CallThenSetFlag();
 }
@@ -106,9 +106,9 @@ static int __stdcall sub_0041C1F0_FormatTypeName(const char* szName, char* szOut
     *p = 0;
     for (p--; p >= szOut && *p == '_'; p--)
         *p = 0;
-    sub_00413800(szOut, " (", nSize);
-    sub_00413800(szOut, szName, nSize);
-    sub_00413800(szOut, gszCloseParen_006CF324, nSize);
+    SStrPack(szOut, " (", nSize);
+    SStrPack(szOut, szName, nSize);
+    SStrPack(szOut, gszCloseParen_006CF324, nSize);
     return 1;
 }
 

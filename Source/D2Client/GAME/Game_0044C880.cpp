@@ -191,7 +191,7 @@ int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0);  
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
-int __stdcall sub_0041C2F0_RegisterMsgSource(unsigned short wFacility, void* hModule, void* pReserved);     // 0x0041C2F0
+int __stdcall SErrRegisterMessageSource(unsigned short wFacility, void* hModule, void* pReserved);     // 0x0041C2F0
 
 int __cdecl sub_0044BBA0();                                                                                 // 0x0044BBA0
 
@@ -1256,7 +1256,7 @@ int __cdecl sub_00451330()
         }
     }
     gxGlobal_007A0708 = LoadAcceleratorsA(ghLngModule_007A070C, (const char*)0x64);
-    sub_0041C2F0_RegisterMsgSource(0xFFF, ghLngModule_007A070C, 0);
+    SErrRegisterMessageSource(0xFFF, ghLngModule_007A070C, 0);
     sub_005177B2_SetLoadStringFn(sub_004512C0_LoadString);
     return 1;
 }

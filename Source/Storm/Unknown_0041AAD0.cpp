@@ -57,7 +57,7 @@ static int sub_00415950_GetFileRec(void*,D2StormFileRecStrc**); // 0x00415950
 // 0x00415950
 static int sub_00415950_GetFileRec(void* hFile,D2StormFileRecStrc** out){*out=(D2StormFileRecStrc*)hFile;return 1;}
 // 0x004154B0
-static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile)
+static int __stdcall ReadFileChecked(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile)
 {
     int nRetry = 0;
     for (;;)
@@ -90,14 +90,14 @@ static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer,
         }
     }
 }
-static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile); // 0x004154B0
+static int __stdcall ReadFileChecked(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile); // 0x004154B0
 static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, D2StormFileRecStrc* pFile, unsigned int nOffset);
 // 0x00415560
 static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, D2StormFileRecStrc* pFile, unsigned int nOffset)
 {
     unsigned int nFilePos;
     unsigned long nRead = 0;
-    sub_004154B0_ReadAt(&nFilePos, pBuffer, nSize, pFile->szName, &nRead, nOffset, pFile->hFile);
+    ReadFileChecked(&nFilePos, pBuffer, nSize, pFile->szName, &nRead, nOffset, pFile->hFile);
     if (pnRead)
         *pnRead = nRead;
     return nRead == nSize;
@@ -194,7 +194,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
     return nMiddle + nTail + nHead;
 }
 // 0x00419790
-static D2StormRequestStrc* __stdcall sub_00419790_QueueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
+static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
 {
     int nValid = -1;
     nValid &= (pDest || pBuffer) ? -1 : 0;
@@ -229,7 +229,7 @@ static D2StormRequestStrc* __stdcall sub_00419790_QueueRequest(D2StormFileRecStr
         SetEvent(ghStormEvent_00779054);
     return pRequest;
 }
-static D2StormRequestStrc* __stdcall sub_00419790_QueueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback); // 0x00419790
+static D2StormRequestStrc* __stdcall IssueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback); // 0x00419790
 #define VALIDATEBEGIN int nValid = -1
 #define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define min(a,b) (((a) < (b)) ? (a) : (b))
@@ -323,7 +323,7 @@ int __stdcall sub_0041AAD0_StormReadFile(void* hFile,unsigned char* buffer,unsig
             int last = i == parts - 1;
             unsigned int offset = i * chunk;
             unsigned int n = min(chunk, count - offset);
-            request = sub_00419790_QueueRequest(file, pos + i * chunk, dest + offset, (unsigned int)dest, 0, 0, 0, n, 0x7FFFFFFF, !overlap, (int)(last ? event : 0), (overlap || !last) ? 1 : 0, last, last ? callback : 0);
+            request = IssueRequest(file, pos + i * chunk, dest + offset, (unsigned int)dest, 0, 0, 0, n, 0x7FFFFFFF, !overlap, (int)(last ? event : 0), (overlap || !last) ? 1 : 0, last, last ? callback : 0);
             if (!last)
                 total += n;
         }

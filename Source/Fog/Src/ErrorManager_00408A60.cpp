@@ -171,7 +171,7 @@ int __cdecl sub_00408F20_HasExpansionMpq()
         char szPath[0x104];
         s_bExpansionChecked_0074F0DC = 1;
         FOG_GetInstallPath(szPath, 0x104);
-        sub_00413800(szPath, gszExpansionMpq_006CD3A0, 0x104);
+        SStrPack(szPath, gszExpansionMpq_006CD3A0, 0x104);
         int bExists = FOG_FileExists(szPath);
         if (!bExists)
         {

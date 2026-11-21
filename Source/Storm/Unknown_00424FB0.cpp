@@ -225,8 +225,8 @@ static void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pR
     *pRemainder = (unsigned int)nData;
 }
 
-static int sub_00422780_IsZero(D2StormQueueStrc& a); // 0x00422780
-static __declspec(noinline) int sub_00422780_IsZero(D2StormQueueStrc& a)
+static int IsZero(D2StormQueueStrc& a); // 0x00422780
+static __declspec(noinline) int IsZero(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     return a.Count() == 0;
@@ -245,16 +245,16 @@ static void __stdcall sub_004227A0_MulUInt(D2StormQueueStrc& a, const D2StormQue
     a.SetCount(i);
 }
 
-static void sub_00422C60_SetOne(D2StormQueueStrc& a); // 0x00422C60
-static void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void SetOne(D2StormQueueStrc& a); // 0x00422C60
+static void SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
     a.m_array.f_8[a.m_start] = 1;
 }
 
-static void sub_00422CC0_SetZero(D2StormQueueStrc& a); // 0x00422CC0
-static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void SetZero(D2StormQueueStrc& a); // 0x00422CC0
+static __declspec(noinline) void SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -282,8 +282,8 @@ static void __stdcall sub_00422D00_Shl(D2StormQueueStrc& a, const D2StormQueueSt
     a.sub_00422140_Trim();
 }
 
-static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422E70
-static void __stdcall sub_00422E70_Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
+static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift); // 0x00422E70
+static void __stdcall Shr(D2StormQueueStrc& a, const D2StormQueueStrc& b, unsigned int nShift)
 {
     unsigned int nWords = nShift / 32;
     unsigned int nBits = nShift % 32;
@@ -321,7 +321,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
     if (nDCount > nCCount)
     {
         b.CopyFrom(c);
-        sub_00422CC0_SetZero(a);
+        SetZero(a);
         return;
     }
     if (nDCount <= 1)
@@ -360,7 +360,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
             sub_00423100_Sub(tRem, tRem, tDiv);
         }
     }
-    sub_00422E70_Shr(b, tRem, nShift);
+    Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
     tStack.nUsed -= 3;
 }
@@ -375,10 +375,10 @@ static void __stdcall sub_00424FB0_InvMod(D2StormQueueStrc& a, D2StormQueueStrc&
     D2StormQueueStrc& tRem = tStack.f_0[tStack.nUsed++];
     tNum.CopyFrom(b);
     tDen.CopyFrom(c);
-    sub_00422C60_SetOne(a);
-    sub_00422CC0_SetZero(tPrev);
+    SetOne(a);
+    SetZero(tPrev);
     int nSign = 1;
-    while (!sub_00422780_IsZero(tDen))
+    while (!IsZero(tDen))
     {
         sub_00423DC0_Div(tQuot, tRem, tNum, tDen, tStack);
         sub_004242C0_BigOp(&tQuot, &tQuot, &tPrev, &tStack);

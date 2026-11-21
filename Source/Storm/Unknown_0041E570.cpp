@@ -30,11 +30,11 @@ static void* gpWorkBuffer_0077920C;                                             
 static unsigned long gdwWorkBufferOwner_00779210;                                                           // 0x00779210
 static D2CriticalSectionStrc gtWorkBufferLock_00779214;                                                     // 0x00779214
 
-static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared);
+static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared);
 static __declspec(noinline) void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer);
 
 // 0x0041E440
-static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared)
+static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared)
 {
     EnterCriticalSection(&gtWorkBufferLock_00779214);
     const unsigned long dwThreadId = GetCurrentThreadId();
@@ -115,7 +115,7 @@ int __stdcall SCompCompress(unsigned char* pDest, unsigned int* pdwDestSize, uns
     int bShared = 0;
     unsigned char* pWork = 0;
     if (nCount >= 2 || (OVERLAP(pDest, pSrc, dwSrcSize) && nCount))
-        pWork = (unsigned char*)sub_0041E440_AllocWorkBuffer(dwSrcSize, &bShared);
+        pWork = (unsigned char*)s_AllocDecompressBuffer(dwSrcSize, &bShared);
 
     unsigned char* pIn = pSrc;
     unsigned int cbIn = dwSrcSize;

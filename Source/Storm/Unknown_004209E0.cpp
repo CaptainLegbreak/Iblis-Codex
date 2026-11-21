@@ -22,7 +22,7 @@ struct D2StormListStrc
 extern D2StormListStrc gIdList_00708860; // 0x00708860
 
 // 0x004209E0
-D2StormIdNodeStrc* __fastcall sub_004209E0_FindById(int nId)
+D2StormIdNodeStrc* __fastcall FindWindow(int nId)
 {
     for (D2StormIdNodeStrc* pNode = (D2StormIdNodeStrc*)gIdList_00708860.Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = pNode->pNext)
     {

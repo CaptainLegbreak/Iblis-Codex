@@ -1,7 +1,7 @@
 #include "Fog.h"
 
 int gdwGlobal_00992B1C;           // 0x00992B1C
-int __stdcall sub_004198D0(void* pArg);    // 0x004198D0
+int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 int gdwGlobal_0074C82C;           // 0x0074C82C
 extern "C" int __stdcall closesocket(unsigned int s);    // 0x006B012C
 extern "C" int __stdcall WSACleanup(void);    // 0x006B0138
@@ -27,7 +27,7 @@ int __cdecl sub_00405EF0()
 // 0x004068F0
 int __fastcall sub_004068F0(void* pArg)
 {
-    return sub_004198D0(pArg);
+    return SFileCloseFile(pArg);
 }
 
 // 0x00406D20

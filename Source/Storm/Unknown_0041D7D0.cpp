@@ -9,7 +9,7 @@ struct D2StormHashCtxStrc
     unsigned int nState[5];
     unsigned char pBlock[64];
 
-    void sub_00425D90_Init();                                                                               // 0x00425D90
+    void Initialize();                                                                               // 0x00425D90
 };
 
 struct D2StormHashBufferStrc
@@ -38,13 +38,13 @@ void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, uns
     (*ppBuffer)->nUsed = 0;
     (*ppBuffer)->nWindow = nSignSize + 4;
     (*ppBuffer)->pBuffer = (char*)SMemAlloc((*ppBuffer)->nWindow, ".\\SOURCE\\SSignature.cpp", 0x57, 8);
-    (*ppBuffer)->tHash.sub_00425D90_Init();
+    (*ppBuffer)->tHash.Initialize();
 }
 int __fastcall sub_0041D420_HashBuffered(void* pHash, const void* pData, int nSize); // 0x0041D420
 int __fastcall sub_0041D6D0_VerifyHashBuffer(void* pHash, const void* pSignature, int nSignatureSize); // 0x0041D6D0
 
 // 0x0041D7D0
-int __fastcall sub_0041D7D0_VerifySignature(const void* pData, int nSize, const void* pSignature, int nAlgorithm, int nSignatureSize, int nFlags)
+int __fastcall SSignatureVerify(const void* pData, int nSize, const void* pSignature, int nAlgorithm, int nSignatureSize, int nFlags)
 {
     D2StormHashBufferStrc* pHash;
     sub_0041D3B0_NewHashBuffer(&pHash, nAlgorithm, nFlags);

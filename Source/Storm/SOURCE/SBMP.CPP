@@ -173,13 +173,13 @@ static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader);
 
 static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, D2PaletteColorStrc* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
 
-static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride);
+static void __stdcall FlipImage(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride);
 
-static int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
+static int __stdcall DecodeBmpMem(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
 
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppOutput);
 
-static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode);
+static void __fastcall Output(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode);
 
 static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState);
 
@@ -187,7 +187,7 @@ static const char* sub_006C5EE0_FindExtension(const char* szPath);
 
 static __declspec(noinline) int sub_006C5F40_GetImageType(unsigned short signature);
 
-static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, int nSrcSize, int nWidth, int nBytesPerLine, int nPlanes);
+static void __stdcall UncompressPcxImage(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, int nSrcSize, int nWidth, int nBytesPerLine, int nPlanes);
 
 static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
 
@@ -214,7 +214,7 @@ int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSi
 
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 
-static void __cdecl sub_006C5B10_EncodeRow(unsigned char** ppDest, unsigned char** ppSource, int nCount);
+static void __cdecl CompressPcxRow(unsigned char** ppDest, unsigned char** ppSource, int nCount);
 
 
 
@@ -245,11 +245,11 @@ struct D2TgaSourceColorStrc
 
 static int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch);
 
-int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsigned char* pPixels, int nWidth, int nHeight, int nBits, int nPitch); // 0x006C6CB0
+int __stdcall SBmpSaveImageEx(char* szFile, unsigned char* pPalette, unsigned char* pPixels, int nWidth, int nHeight, int nBits, int nPitch); // 0x006C6CB0
 
 typedef void* (__stdcall* SBMPALLOCPROC)(unsigned int nSize);
 
-int __stdcall sub_004198D0(void* pArg); // 0x004198D0
+int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 
 int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
 
@@ -801,7 +801,7 @@ int __stdcall sub_006C5730_EmitCaller(int nUnused, const D2TgaFieldsStrc* pHeade
 }
 
 // 0x006C59C0
-static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride)
+static void __stdcall FlipImage(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride)
 {
     VALIDATEBEGIN;
     VALIDATE(pDst);
@@ -838,7 +838,7 @@ static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, cons
 // calling-convention shim (not game code)
 int __stdcall sub_006C60F0_Shim(const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nSize, int* pWidth, int* pHeight, unsigned int* pBitCount)
 {
-    return sub_006C60F0_DecodeBmp(pWidth, pHeight, pBitCount, pData, pPalette, pPixels, nSize) + 2;
+    return DecodeBmpMem(pWidth, pHeight, pBitCount, pData, pPalette, pPixels, nSize) + 2;
 }
 
 // 0x006C5A60
@@ -875,7 +875,7 @@ void __fastcall EmitCodeContext(unsigned char** ppOutput, D2BitOutputStrc* pStat
 }
 
 // 0x006C5A90
-static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode)
+static void __fastcall Output(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode)
 {
     pState->nBits |= nCode << pState->nBitCount;
     pState->nBitCount += pState->f_0;
@@ -904,7 +904,7 @@ int __stdcall sub_006C54D0_Emit(void* hFile, unsigned char* pBuffer, unsigned in
 }
 
 // 0x006C5B10
-static void __cdecl sub_006C5B10_EncodeRow(unsigned char** ppDest, unsigned char** ppSource, int nCount)
+static void __cdecl CompressPcxRow(unsigned char** ppDest, unsigned char** ppSource, int nCount)
 {
     do
     {
@@ -953,7 +953,7 @@ static int __fastcall EncodePcx256File(int width,int height,void* file,D2Palette
  unsigned char* encoded=(unsigned char*)sub_00413020_Alloc(height*nWidth*2,gszSource_006FCC58,0x4eb,0);
  unsigned char* source=pixels;
  unsigned char* dest=encoded;
- for(int row=0;row<height;++row) sub_006C5B10_EncodeRow(&dest,&source,nWidth);
+ for(int row=0;row<height;++row) CompressPcxRow(&dest,&source,nWidth);
  WriteFile(file,encoded,(unsigned)(dest-encoded),&writtenData,0);
  sub_00412650_Free(encoded,gszSource_006FCC58,0x4f2,0);
  D2PcxPaletteBlockStrc palette;
@@ -968,7 +968,7 @@ static int __fastcall EncodePcx256File(int width,int height,void* file,D2Palette
 }
 
 // 0x006C5CF0
-static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, int nSrcSize, int nWidth, int nBytesPerLine, int nPlanes)
+static void __stdcall UncompressPcxImage(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, int nSrcSize, int nWidth, int nBytesPerLine, int nPlanes)
 {
     unsigned char* pDstEnd = pDst + nLimit;
     const unsigned char* pSrcEnd = pSrc + nSrcSize;
@@ -1199,7 +1199,7 @@ static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pW
             nStride = nRowBytes - (nRowBytes & 3) + 4;
         }
 
-        sub_006C59C0_FlipRows(pBuffer, tInfoHeader.biHeight, pData, nBufferSize, nRowBytes, nStride);
+        FlipImage(pBuffer, tInfoHeader.biHeight, pData, nBufferSize, nRowBytes, nStride);
         SMemFree(pData, ".\\SOURCE\\SBMP.CPP", 0x20B, 0);
         if (nRead < tInfoHeader.biSizeImage)
         {
@@ -1216,7 +1216,7 @@ int __stdcall sub_Emit_006C5F70(void* hFile, unsigned char* pPalette, unsigned c
 }
 
 // 0x006C60F0
-static int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize)
+static int __stdcall DecodeBmpMem(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize)
 {
     unsigned char* pOut = pPalette;
     if (pWidth)
@@ -1263,7 +1263,7 @@ static int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned 
                 nStride = nRowWidth - (nRowWidth & 3) + 4;
             }
 
-            sub_006C59C0_FlipRows(pPixels, *(const int*)(pData + 0x16), pData + nOffset, nPixelsSize, nRowWidth, nStride);
+            FlipImage(pPixels, *(const int*)(pData + 0x16), pData + nOffset, nPixelsSize, nRowWidth, nStride);
         }
     }
 
@@ -1347,7 +1347,7 @@ static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pSta
     SMemZero(pState->f_28, 0x4E2C);
     int nCode = pState->nClearCode;
     pState->nNextCode = nCode + 2;
-    sub_006C5A90_EmitCode(pState, ppOutput, nCode);
+    Output(pState, ppOutput, nCode);
     int nWidth = pState->nInitialCodeWidth;
     pState->f_0 = nWidth;
     pState->nCodeMask = (1 << nWidth) - 1;
@@ -1400,7 +1400,7 @@ static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, 
     }
 
 lNotFound:
-    sub_006C5A90_EmitCode(pState, ppOutput, pState->unknown14[0]);
+    Output(pState, ppOutput, pState->unknown14[0]);
     if (pState->nNextCode < 4096)
     {
         ((int*)pState->f_28)[nIndex] = pState->nNextCode;
@@ -1426,7 +1426,7 @@ int __stdcall sub_006C5B60_Shim(int nHeight, int nWidth, void* hFile, D2PaletteS
 // calling-convention shim (not game code)
 void __cdecl sub_006C5B10_Shim(unsigned char** ppDest, unsigned char** ppSource, int nCount)
 {
-    sub_006C5B10_EncodeRow(ppDest, ppSource, nCount);
+    CompressPcxRow(ppDest, ppSource, nCount);
 }
 
 // 0x006C6470
@@ -1446,7 +1446,7 @@ int __fastcall CompressGifImage(int nSize, const unsigned char* pData, unsigned 
     tState.unknown14[1] = 1;
     tState.f_28 = SMemAlloc(0x4E2C, ".\\SOURCE\\SBMP.CPP", 0x388, 8);
     tState.unknown2C = (int)SMemAlloc(0x4E2C, ".\\SOURCE\\SBMP.CPP", 0x389, 8);
-    sub_006C5A90_EmitCode(&tState, &pOutput, tState.nClearCode);
+    Output(&tState, &pOutput, tState.nClearCode);
 
     while (nCount)
     {
@@ -1457,10 +1457,10 @@ int __fastcall CompressGifImage(int nSize, const unsigned char* pData, unsigned 
 
     if (!tState.unknown14[1])
     {
-        sub_006C5A90_EmitCode(&tState, &pOutput, tState.unknown14[0]);
+        Output(&tState, &pOutput, tState.unknown14[0]);
     }
 
-    sub_006C5A90_EmitCode(&tState, &pOutput, tState.unknown20);
+    Output(&tState, &pOutput, tState.unknown20);
     if (tState.nBitCount > 0)
     {
         ++tState.nBlockLength;
@@ -1571,7 +1571,7 @@ static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigne
         const int nDataSize = sub_00416370_StormGetFileSize(hFile, 0) - (nBits == 8 ? 0x300 : 0) - SFileSetFilePointer(hFile, 0, 0, 1);
         unsigned char* pData = (unsigned char*)SMemAlloc(nDataSize, ".\\SOURCE\\SBMP.CPP", 1131, 0);
         SFileReadFile(hFile, pData, nDataSize, 0, 0);
-        sub_006C5CF0_DecodeRle(pPixels, nPixelsSize, pData, nDataSize - (nBits == 8 ? 1 : 0), nWidth, header.nBytesPerLine, header.nPlanes);
+        UncompressPcxImage(pPixels, nPixelsSize, pData, nDataSize - (nBits == 8 ? 1 : 0), nWidth, header.nBytesPerLine, header.nPlanes);
         SMemFree(pData, ".\\SOURCE\\SBMP.CPP", 1140, 0);
     }
     else if (bPalette)
@@ -1632,7 +1632,7 @@ static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int n
             nLimit = nPixelsSize;
         }
 
-        sub_006C5CF0_DecodeRle(pPixels, nLimit, pData + 0x80, nDataSize - (nBits == 8 ? 0x301 : 0) - 0x80, nWidth, *(const unsigned short*)(pData + 0x42), pData[0x41]);
+        UncompressPcxImage(pPixels, nLimit, pData + 0x80, nDataSize - (nBits == 8 ? 0x301 : 0) - 0x80, nWidth, *(const unsigned short*)(pData + 0x42), pData[0x41]);
     }
 
     if (pPalette && nBits == 8)
@@ -1674,7 +1674,7 @@ int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, un
     switch (nType)
     {
     case 1:
-        return sub_006C60F0_DecodeBmp(pWidth, pHeight, (unsigned int*)pBitDepth, pData, pPalette, pPixels, nPixelsSize);
+        return DecodeBmpMem(pWidth, pHeight, (unsigned int*)pBitDepth, pData, pPalette, pPixels, nPixelsSize);
     case 2:
         return DecodePcxMem(pWidth, pData, nDataSize, pPalette, pPixels, nPixelsSize, pHeight, pBitDepth);
     case 3:
@@ -1715,12 +1715,12 @@ int __stdcall sub_006C6B70_LoadImage(const char* filename,unsigned char* palette
  case 2:result=DecodePcxFile(hFile,palette,pixels,capacity,width,height,bits);break;
  case 3:result=DecodeTgaFile(hFile,(D2PaletteColorStrc*)palette,pixels,(unsigned int*)width,capacity,(unsigned int*)height,(unsigned int*)bits);break;
  }
- sub_004198D0(hFile);
+ SFileCloseFile(hFile);
  return result;
 }
 
 // 0x006C6CB0
-int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsigned char* pPixels, int nWidth, int nHeight, int nBits, int nPitch)
+int __stdcall SBmpSaveImageEx(char* szFile, unsigned char* pPalette, unsigned char* pPixels, int nWidth, int nHeight, int nBits, int nPitch)
 {
     VALIDATEBEGIN;
     VALIDATE(szFile);
@@ -1820,7 +1820,7 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
     unsigned int nFileSize = sub_00416370_StormGetFileSize(hFile, 0);
     unsigned char* pFileData = (unsigned char*)SMemAlloc(nFileSize, gszSBmpSource, 0x5B6, 0);
     SFileReadFile(hFile, pFileData, nFileSize, 0, 0);
-    sub_004198D0(hFile);
+    SFileCloseFile(hFile);
 
     int bResult = 0;
     int nWidth;

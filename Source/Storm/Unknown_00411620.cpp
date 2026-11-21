@@ -27,7 +27,7 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                              // 0x0041D2A0
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
-void __cdecl sub_00411CD0_InitHeaps();                                                                      // 0x00411CD0
+void __cdecl SMemInitialize();                                                                      // 0x00411CD0
 void __cdecl sub_00411A20_InitPageSize();                                                                   // 0x00411A20
 void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink);                                         // 0x00411A80
 void __cdecl sub_00412000_ReleaseFreeBlocks();                                                              // 0x00412000
@@ -454,7 +454,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError("SMemFree()", -1, 0x8510007D);
@@ -486,7 +486,7 @@ unsigned int __stdcall SMemGetHeapByCaller(const char* szFile, int nLine)
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError("SMemGetHeapByCaller()", -1, 0x8510007D);
@@ -501,7 +501,7 @@ unsigned int __stdcall SMemGetHeapByPtr(void* pMemory)
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError("SMemGetHeapByPtr()", -1, 0x8510007D);
@@ -527,7 +527,7 @@ unsigned int __stdcall SMemGetSize(void* pMemory, const char* szFile, int nLine)
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError("SMemGetSize()", -1, 0x8510007D);
@@ -573,7 +573,7 @@ unsigned int __stdcall SMemHeapCreate(unsigned int dwOptions, unsigned int nInit
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError("SMemHeapCreate()", -1, 0x8510007D);
@@ -608,7 +608,7 @@ int __stdcall SMemHeapFree(unsigned int hHeap, unsigned int dwFlags, void* pMemo
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError("SMemHeapFree()", -1, 0x8510007D);
@@ -641,7 +641,7 @@ unsigned int __stdcall SMemHeapSize(unsigned int hHeap, unsigned int dwFlags, vo
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError("SMemHeapSize()", -1, 0x8510007D);
@@ -879,7 +879,7 @@ void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
             sub_00411620_FatalError(0x8510007D, "SMemHeapAlloc()", -1);
     }
@@ -910,7 +910,7 @@ void* __stdcall SMemHeapReAlloc(unsigned int hHeap, unsigned int dwFlags, void* 
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
             sub_00411620_FatalError(0x8510007D, "SMemHeapReAlloc()", -1);
     }
@@ -933,7 +933,7 @@ void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFil
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
             sub_00411620_FatalError(0x8510007D, "SMemReAlloc()", -1);
     }

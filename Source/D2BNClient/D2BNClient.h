@@ -68,7 +68,7 @@ int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned in
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
 int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** phLog); // 0x0041FD40
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 void __cdecl sub_00518C70_LogIndent(int nChannel, int nDelta); // 0x00518C70
 void __cdecl sub_00520AD0_SetDisconnected(); // 0x00520AD0
 void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock); // 0x0040DBD0

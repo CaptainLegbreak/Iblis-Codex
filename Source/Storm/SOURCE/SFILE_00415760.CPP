@@ -215,7 +215,7 @@ static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
 }
 
 // 0x00418140
-int __stdcall sub_00418140_DdaGetPosition(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)
+int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* pnSize)
 {
     int bResult = 0;
     unsigned int nSize = 0;
@@ -261,7 +261,7 @@ int __stdcall sub_00418140_DdaGetPosition(void* hFile, unsigned int* pnPlayed, u
     return bResult;
 }
 
-static D2StormRequestStrc* __stdcall sub_00419790_QueueRequest(unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback, D2StormFileRecStrc* pFile)
+static D2StormRequestStrc* __stdcall IssueRequest(unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback, D2StormFileRecStrc* pFile)
 {
     int bValid = (pDest || pBuffer) ? -1 : 0;
     if (!bValid)
@@ -361,7 +361,7 @@ void __cdecl sub_00419C00_PumpStreams()
                 if (nOver && nOver < nCount)
                     nCount -= nOver;
             }
-            sub_00419790_QueueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->f_C, pStream, nCount, 0, 0, 0, 1, 0, 0, pStream->pFile);
+            IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->f_C, pStream, nCount, 0, 0, 0, 1, 0, 0, pStream->pFile);
             pStream->pFile->nPosition += nCount;
             pStream->f_C += gnStreamChunk_00779038;
             if (pStream->f_C >= pStream->nBufferSize)
@@ -381,7 +381,7 @@ void __cdecl sub_00419C00_PumpStreams()
                 unsigned int nOver = (pStream->pFile->f_114->nBlockSize - 1) & (pStream->pFile->nPosition + nDone);
                 if (nOver && nOver < nDone)
                     nDone -= nOver;
-                sub_00419790_QueueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, 0, pStream, nDone, 0, 0, 0, 1, 0, 0, pStream->pFile);
+                IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, 0, pStream, nDone, 0, 0, 0, 1, 0, 0, pStream->pFile);
                 pStream->pFile->nPosition += nDone;
                 nIndex = 1;
             }
@@ -390,7 +390,7 @@ void __cdecl sub_00419C00_PumpStreams()
                 unsigned int nCount = gnStreamChunk_00779038;
                 if (nCount >= nTotal - nDone)
                     nCount = nTotal - nDone;
-                sub_00419790_QueueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, nDone, pStream, nCount, nIndex, 0, 0, 1, 0, 0, pStream->pFile);
+                IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, nDone, pStream, nCount, nIndex, 0, 0, 1, 0, 0, pStream->pFile);
                 ++nIndex;
                 pStream->pFile->nPosition += nCount;
             }

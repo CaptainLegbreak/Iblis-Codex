@@ -76,7 +76,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-int __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
+int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
 
 int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 
@@ -442,7 +442,7 @@ void __stdcall BNGatewayAccess::Load()
         sub_00518D40_Log("Obsolete gateway list (%d) - autodeleting", m_nVersion);
         m_bModified = 0;
         SaveAndUnload();
-        sub_00414D90_RegDeleteValue("Configuration", "Diablo II Battle.net gateways", 2);
+        SRegDeleteValue("Configuration", "Diablo II Battle.net gateways", 2);
     }
 
     if (!m_pGatewayList)

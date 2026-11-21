@@ -121,7 +121,7 @@ static void __stdcall sub_00422440_And(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x004237B0
-void __stdcall sub_004237B0_BigAnd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+void __stdcall SBigAnd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     sub_00422440_And(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
@@ -138,7 +138,7 @@ static void __stdcall sub_004229D0_Or(D2StormQueueStrc& a, const D2StormQueueStr
 }
 
 // 0x00423A00
-void __stdcall sub_00423A00_BigOr(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+void __stdcall SBigOr(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     sub_004229D0_Or(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
@@ -155,7 +155,7 @@ static void __stdcall sub_00423250_Xor(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x00423D60
-void __stdcall sub_00423D60_BigXor(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+void __stdcall SBigXor(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     sub_00423250_Xor(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }

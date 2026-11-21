@@ -78,7 +78,7 @@ void __cdecl sub_004451C0_UpdateLevelControls(); // 0x004451C0
 
 void __stdcall sub_004493E0_RemoveChannelUser(const char* szName); // 0x004493E0
 
-int __stdcall sub_0041C430_FormatError(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
+int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
 
 void __cdecl sub_00451400_AddRecordChunk(); // 0x00451400
 
@@ -628,7 +628,7 @@ int __fastcall sub_0044CCA0_CountLevels(int nValue, int nUnused, int nLimit)
 int __stdcall sub_004512C0_LoadString(int nId, char* szBuffer, unsigned int nSize)
 {
     D2_ASSERT(gbStringsLoaded_007A070C, 0x81);
-    if (!sub_0041C430_FormatError(nId, szBuffer, nSize))
+    if (!SErrGetErrorStr(nId, szBuffer, nSize))
     {
         SStrCopy(szBuffer, "Stupid Lng.cpp error.", nSize);
         return 0;

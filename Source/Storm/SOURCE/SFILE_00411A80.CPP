@@ -64,7 +64,7 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void* hModule, char* szFileName, unsigned long nSize); // 0x006CC1BC
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 extern unsigned long gnFlag2_00776CBC; // 0x00776CBC
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
 extern unsigned long gnFlag0_007784C4; // 0x007784C4
@@ -175,7 +175,7 @@ struct D2StormArchiveRecStrc
         tLink.m_next = 0;
     }
     ~D2StormArchiveRecStrc();                                                                                // 0x00418A50
-    void sub_0041B0B0_LoadAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
+    void ReadAdditionalAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
     static void operator delete(void* pMemory);
 };
 
@@ -363,16 +363,16 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
 void __cdecl sub_004158E0_InitBasePath(); // 0x004158E0
 int __cdecl sub_00418B50(); // 0x00418B50
-void* __cdecl sub_0041BEF0_GetExeModule(); // 0x0041BEF0
+void* __cdecl StormGetInstance(); // 0x0041BEF0
 void __cdecl sub_0041A880_StartThread(); // 0x0041A880
 void __cdecl sub_00419C00_PumpStreams();
-int __stdcall sub_004198D0(void* pArg); // 0x004198D0
+int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
-int __stdcall sub_00415BB0_CheckAuthentication(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
+int __stdcall SFileAuthenticateArchiveEx(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
 unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileRecStrc* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);
-void __stdcall sub_0041A450_PickRequest(D2StormArchiveRecStrc* pLastArchive, unsigned int nLastOffset, D2StormRequestStrc** ppDue, D2StormRequestStrc** ppNear, int* pnDistance); // 0x0041A450
+void __stdcall CheckRequests(D2StormArchiveRecStrc* pLastArchive, unsigned int nLastOffset, D2StormRequestStrc** ppDue, D2StormRequestStrc** ppNear, int* pnDistance); // 0x0041A450
 extern D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
 extern unsigned int* gpCryptTable_00779048; // 0x00779048
 extern int (__stdcall* gpfnReadErrorCallback_00779030)(const char* szName, unsigned long dwError, int nRetry); // 0x00779030
@@ -461,7 +461,7 @@ void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink)
 }
 
 // 0x00411CD0
-void __cdecl sub_00411CD0_InitHeaps()
+void __cdecl SMemInitialize()
 {
     if (!gbHeapInitialized_007788D0)
     {
@@ -486,7 +486,7 @@ void __cdecl sub_004158E0_InitBasePath()
     char* pSeparator = (char*)SStrChrR(gszBasePath_00778F28, '\\');
     if (pSeparator)
         *pSeparator = 0;
-    sub_00413800(gszBasePath_00778F28, "\\", 0x104);
+    SStrPack(gszBasePath_00778F28, "\\", 0x104);
 }
 
 unsigned short __stdcall SFileGetLocale()
@@ -952,8 +952,8 @@ Done:
     return bResult;
 }
 
-// build: context sub_00418390_FileQuery
-int __stdcall sub_00418390_FileQuery(void* hArchive, const char* szFileName, int nFlags)
+// build: context SFileFileExistsEx
+int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags)
 {
     VALIDATEBEGIN;
     VALIDATE(szFileName);

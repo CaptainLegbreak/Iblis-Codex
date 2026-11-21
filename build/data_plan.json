@@ -158532,10 +158532,10 @@
    "decorated": null,
    "externs": [
     "extern \"C\" void __cdecl Compress_huff(); // 0x0041F980",
-    "extern \"C\" void __cdecl sub_0041DF40_CompressImplode(); // 0x0041DF40",
-    "extern \"C\" void __cdecl sub_0041E1F0_SCompZlibCompress(); // 0x0041E1F0",
-    "extern \"C\" void __cdecl sub_0041E360_SCompADPCMCompressMono(); // 0x0041E360",
-    "extern \"C\" void __cdecl sub_0041E3C0_SCompADPCMCompressStereo(); // 0x0041E3C0"
+    "extern \"C\" void __cdecl PkwareCompress(); // 0x0041DF40",
+    "extern \"C\" void __cdecl ZlibCompress(); // 0x0041E1F0",
+    "extern \"C\" void __cdecl ImaAdpcmMonoCompress(); // 0x0041E360",
+    "extern \"C\" void __cdecl ImaAdpcmStereoCompress(); // 0x0041E3C0"
    ],
    "file": "Source/Storm/Unknown_0041E570.static.cpp",
    "fn_types": {},
@@ -158582,7 +158582,7 @@
      4,
      "0x0041E360",
      "names.json",
-     "sub_0041E360_SCompADPCMCompressMono",
+     "ImaAdpcmMonoCompress",
      0,
      "func"
     ],
@@ -158590,7 +158590,7 @@
      12,
      "0x0041E3C0",
      "names.json",
-     "sub_0041E3C0_SCompADPCMCompressStereo",
+     "ImaAdpcmStereoCompress",
      0,
      "func"
     ],
@@ -158606,7 +158606,7 @@
      28,
      "0x0041E1F0",
      "names.json",
-     "sub_0041E1F0_SCompZlibCompress",
+     "ZlibCompress",
      0,
      "func"
     ],
@@ -158614,7 +158614,7 @@
      36,
      "0x0041DF40",
      "names.json",
-     "sub_0041DF40_CompressImplode",
+     "PkwareCompress",
      0,
      "func"
     ]
@@ -158678,7 +158678,7 @@
      4,
      "0x0041E3A0",
      "owner",
-     "sub_0041E3A0_SCompADPCMDecompressMono",
+     "ImaAdpcmMonoDecompress",
      0,
      "func"
     ],
@@ -158686,7 +158686,7 @@
      12,
      "0x0041E400",
      "owner",
-     "sub_0041E400_SCompADPCMDecompressStereo",
+     "ImaAdpcmStereoDecompress",
      0,
      "func"
     ],
@@ -158694,7 +158694,7 @@
      20,
      "0x0041F9E0",
      "owner",
-     "sub_0041F9E0_DecompressHuffman",
+     "HuffmanDecompress",
      0,
      "func"
     ],
@@ -158702,7 +158702,7 @@
      28,
      "0x0041E340",
      "owner",
-     "sub_0041E340_SCompZlibDecompress",
+     "ZlibDecompress",
      0,
      "func"
     ],
@@ -158710,7 +158710,7 @@
      36,
      "0x0041E000",
      "owner",
-     "sub_0041E000_DecompressExplode",
+     "PkwareDecompress",
      0,
      "func"
     ]

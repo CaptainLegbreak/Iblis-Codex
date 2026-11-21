@@ -14,11 +14,11 @@ struct D2SCompDecompStrc
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                         // 0x0041C340
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                              // 0x0041D2A0
-void __fastcall sub_0041E000_DecompressExplode(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int nUnused); // 0x0041E000
-int __fastcall sub_0041E340_SCompZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int nUnused); // 0x0041E340
-void __fastcall sub_0041E3A0_SCompADPCMDecompressMono(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused); // 0x0041E3A0
-void __fastcall sub_0041E400_SCompADPCMDecompressStereo(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused); // 0x0041E400
-void __fastcall sub_0041F9E0_DecompressHuffman(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041F9E0
+void __fastcall PkwareDecompress(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int nUnused); // 0x0041E000
+int __fastcall ZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int nUnused); // 0x0041E340
+void __fastcall ImaAdpcmMonoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused); // 0x0041E3A0
+void __fastcall ImaAdpcmStereoDecompress(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused); // 0x0041E400
+void __fastcall HuffmanDecompress(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041F9E0
 
 // build: symbol _gtDecompTable_006CFEC4 0x006CFEC4
 #include "gen/data/Source/Storm/Unknown_0041E720.static/gtDecompTable_006CFEC4.inc"
@@ -36,11 +36,11 @@ static void* gpWorkBuffer_0077920C;                                             
 static unsigned long gdwWorkBufferOwner_00779210;                                                           // 0x00779210
 static D2CriticalSectionStrc gtWorkBufferLock_00779214;                                                     // 0x00779214
 
-static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared);
+static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared);
 static __declspec(noinline) void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer);
 
 // 0x0041E440
-static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared)
+static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared)
 {
     EnterCriticalSection(&gtWorkBufferLock_00779214);
     const unsigned long dwThreadId = GetCurrentThreadId();
@@ -127,7 +127,7 @@ int __stdcall SCompDecompress(void* pDest, unsigned int* pdwDestSize, unsigned c
     int bShared = 0;
     unsigned char* pWork = 0;
     if (nCount >= 2 || (OVERLAP((unsigned char*)pDest, pSrc, dwSrcSize) && nCount))
-        pWork = (unsigned char*)sub_0041E440_AllocWorkBuffer(dwDestSize, &bShared);
+        pWork = (unsigned char*)s_AllocDecompressBuffer(dwDestSize, &bShared);
 
     unsigned char* pIn = pSrc;
     unsigned int cbIn = dwSrcSize;

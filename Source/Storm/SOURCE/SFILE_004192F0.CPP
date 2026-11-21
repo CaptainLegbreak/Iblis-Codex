@@ -120,7 +120,7 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-char* __stdcall sub_00414310(const char* szString); // 0x00414310
+char* __stdcall SStrDup(const char* szString); // 0x00414310
 void sub_00415B90_InitCryptTable(); // 0x00415B90
 static unsigned int __stdcall sub_00415330_HashString(unsigned int nHashType, const char* szString);
 static int sub_00415930_GetArchiveRec(void* hArchive, D2StormArchiveRecStrc** ppRec); // 0x00415930
@@ -129,8 +129,8 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
 static int __stdcall sub_00415B00_FindDiskFile(unsigned int nFlags, const char* szName, char* szOut); // 0x00415B00
 static int __stdcall sub_00417F10_FindFile(void* hArchive, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, D2StormBlockStrc** ppBlock, char* szFoundPath);
 int __cdecl sub_00418B50(); // 0x00418B50
-int __stdcall sub_004198D0(void* pArg); // 0x004198D0
-int __fastcall sub_0041B6B0_LoadArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive); // 0x0041B6B0
+int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
+int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive); // 0x0041B6B0
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
 static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec);
 
@@ -329,7 +329,7 @@ static __forceinline int sub_004192F0_OpenDiskFile(const char* szFileName, unsig
         {
             D2StormFileRecStrc* pFile = (D2StormFileRecStrc*)gFileList_0070836C.sub_00418F20_NewNode(1, 0, 0);
             SStrCopy(pFile->szName, szFileName, 0x104);
-            pFile->szLocalPath = sub_00414310(szPath);
+            pFile->szLocalPath = SStrDup(szPath);
             pFile->hFile = hFile;
             pFile->nRefCount = 1;
             pFile->nCrc = 0;
@@ -440,7 +440,7 @@ static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFile
 }
 
 // 0x0041BCA0
-int __stdcall sub_0041BCA0_OpenArchiveInArchive(unsigned int hMpq, const char* szName, int nPriority, unsigned int nFlags, void** phArchive)
+int __stdcall SFileOpenFileAsArchive(unsigned int hMpq, const char* szName, int nPriority, unsigned int nFlags, void** phArchive)
 {
     void* hFile;
     if (!SFileOpenFileEx(hMpq, szName, sub_00418B50(), &hFile))
@@ -450,7 +450,7 @@ int __stdcall sub_0041BCA0_OpenArchiveInArchive(unsigned int hMpq, const char* s
     sub_00415950_GetFileRec(hFile, &pFile);
     if (pFile->hFile != INVALID_FILE_HANDLE)
     {
-        sub_004198D0(hFile);
+        SFileCloseFile(hFile);
         LeaveCriticalSection(&gBasePathLock_00779068);
         char szPath[0x104];
         sub_00415B00_FindDiskFile(sub_00418B50(), szName, szPath);
@@ -471,11 +471,11 @@ int __stdcall sub_0041BCA0_OpenArchiveInArchive(unsigned int hMpq, const char* s
         pArchive->pHeader = (D2StormMpqHeaderStrc*)SMemAlloc(sizeof(D2StormMpqHeaderStrc), gszSFileSourceFile_006CF084, 0x11AD, 0);
         pArchive->nArchiveOffset = pFile->pBlock->nOffset;
         pArchive->nArchiveLimit = pFile->pBlock->nFileSize + pFile->pBlock->nOffset;
-        sub_0041B6B0_LoadArchive(pArchive, nFlags, pArchive->nMode, phArchive);
+        s_OpenArchive(pArchive, nFlags, pArchive->nMode, phArchive);
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 1;
     }
-    sub_004198D0(hFile);
+    SFileCloseFile(hFile);
     sub_0041C340_SetLastError(0x3EE);
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 0;

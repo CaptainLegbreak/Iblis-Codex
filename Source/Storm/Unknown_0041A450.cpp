@@ -160,7 +160,7 @@ extern D2StormRequestStrc* gpCurrentRequest_0077902C; // 0x0077902C
 extern D2StormWindowNodeStrc* gpWindowNodeHead_00708368;
 
 // 0x0041A450
-void __stdcall sub_0041A450_PickRequest(D2StormArchive0041A450Strc* pLastArchive, unsigned int nLastOffset, D2StormRequest0041A450Strc** ppDue, D2StormRequest0041A450Strc** ppNear, int* pnDistance)
+void __stdcall CheckRequests(D2StormArchive0041A450Strc* pLastArchive, unsigned int nLastOffset, D2StormRequest0041A450Strc** ppDue, D2StormRequest0041A450Strc** ppNear, int* pnDistance)
 {
     *ppDue = 0;
     *ppNear = 0;
@@ -224,7 +224,7 @@ void __fastcall sub_0041A8D0_GetThread(unsigned long* pdwThreadId, void** phThre
 }
 
 // 0x0041A8F0
-static void sub_0041A8F0_SetWindowNodeValue(int nValue, void* hWnd)
+static void MarkRequestPriority(int nValue, void* hWnd)
 {
     if (!hWnd)
         return;
@@ -302,14 +302,14 @@ int __stdcall sub_0041A990_DdaClose(void* hFile)
 #include "gen/data/Source/Storm/Unknown_0041A450.inc"
 
 // 0x0041AA80
-void __stdcall sub_0041AA80_SetWindowFlag(void* hWnd, int nValue)
+void __stdcall SFilePrioritizeRequest(void* hWnd, int nValue)
 {
     VALIDATEBEGIN;
     VALIDATE(hWnd);
     VALIDATEENDVOID;
     if (nValid)
     {
-        sub_0041A8F0_SetWindowNodeValue(nValue > 0, hWnd);
+        MarkRequestPriority(nValue > 0, hWnd);
         if (nValue >= 1)
             SetEvent(ghStormEvent_00779054);
     }

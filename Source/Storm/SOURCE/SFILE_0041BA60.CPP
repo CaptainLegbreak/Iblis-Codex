@@ -48,7 +48,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __cdecl sub_004158E0_InitBasePath();                                                                   // 0x004158E0
 void __cdecl sub_00415B90_InitCryptTable();                                                                 // 0x00415B90
 int __stdcall sub_00415960_CheckVolume(const char* szPath);                                                 // 0x00415960
-int __fastcall sub_0041B6B0_LoadArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive); // 0x0041B6B0
+int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlags, int bKeepOnFail, void** phArchive); // 0x0041B6B0
 static __declspec(noinline) int sub_00415940_PathPresent(const char* szPath);                                // 0x00415940
 static __declspec(noinline) void __stdcall sub_00415A80_BuildPath(int bStripPath, const char* szName, char* szOut); // 0x00415A80
 
@@ -141,7 +141,7 @@ int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned in
     pArchive->nArchiveOffset = 0;
     pArchive->nArchiveLimit = GetFileSize(hFile, 0);
     pArchive->nRefs = 0;
-    const int nResult = sub_0041B6B0_LoadArchive(pArchive, dwFlags, nVolume, phMpq);
+    const int nResult = s_OpenArchive(pArchive, dwFlags, nVolume, phMpq);
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nResult;
 }

@@ -356,7 +356,7 @@ unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
 int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay); // 0x00407370
 
@@ -1393,7 +1393,7 @@ int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize)
     char szPath[0x104];
     if (SHGetFolderPathA(0, 0x1C, 0, 0, szPath) < 0)
         return 0;
-    sub_00413800(szPath, "\\Blizzard Entertainment", 0x7FFFFFFF);
+    SStrPack(szPath, "\\Blizzard Entertainment", 0x7FFFFFFF);
     if (!FOG_AppendBackslash(szPath, nSize))
         return 0;
     if (!sub_00406A10_CreateDirectoryTree(szPath))
@@ -1434,7 +1434,7 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
     if (sub_004067D0_GetKnownFolderPathA(szOutPath, nMaxLen))
     {
         sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
-        sub_00413800(szOutPath, "Diablo II", nMaxLen);
+        SStrPack(szOutPath, "Diablo II", nMaxLen);
     }
     else
     {
@@ -1443,7 +1443,7 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
             return false;
         }
         sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
-        sub_00413800(szOutPath, "Diablo II\\Save", nMaxLen);
+        SStrPack(szOutPath, "Diablo II\\Save", nMaxLen);
     }
     return true;
 }
@@ -1655,7 +1655,7 @@ void __fastcall sub_00407570_DeleteOldDatedLogs(const char* szPrefix)
     szDir[0] = 0;
     if (sub_0040C220_GetAppPath(szDir, 0x1000))
     {
-        sub_00413800(szDir, "\\", 0x1000);
+        SStrPack(szDir, "\\", 0x1000);
         sub_00406A10_CreateDirectoryTree(szDir);
     }
     int nYear = tTime.wYear;
@@ -1955,7 +1955,7 @@ int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
                 sub_00403070_DumpThread(pInput->dwThreadId,pThread,sub_00407980_ReportPrint,&report,0,0,nSkip);
             report.sub_00401380(gszMore4_006CD0C4);
             SStrCopy(gszProcessPath_0074E8C8,report.m_szText408,0x800);
-            sub_00413800(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
+            SStrPack(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
             if (sub_00402820_WriteMiniDump(gszProcessPath_0074E8C8,&gszEmptyAssertText,pInput->pException,0))
                 report.sub_00401220_AddFile(gszProcessPath_0074E8C8,false);
             report.sub_00401380(gszMore5_006CD09C);

@@ -34,7 +34,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-void __cdecl sub_00411CD0_InitHeaps(); // 0x00411CD0
+void __cdecl SMemInitialize(); // 0x00411CD0
 extern "C" const char szSMemFindNextBlock_006CED04[]; // 0x006CED04
 extern D2SMemHeapStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
@@ -164,7 +164,7 @@ int __stdcall SMemFindNextBlock(unsigned int hHeap, void* pMemory, void** ppBloc
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemFindNextBlock_006CED04, -1, 0x8510007D);
@@ -254,7 +254,7 @@ int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, D2SMemH
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemFindNextHeap_006CED18, -1, 0x8510007D);
@@ -723,7 +723,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemFree_006CED2C, -1, 0x8510007D);
@@ -754,7 +754,7 @@ unsigned int __stdcall SMemGetHeapByCaller(const char* szFile, int nLine)
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemGetHeapByCaller_006CED38, -1, 0x8510007D);
@@ -768,7 +768,7 @@ unsigned int __stdcall SMemGetHeapByPtr(void* pMemory)
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemGetHeapByPtr_006CED50, -1, 0x8510007D);
@@ -793,7 +793,7 @@ unsigned int __stdcall SMemGetSize(void* pMemory, const char* szFile, int nLine)
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemGetSize_006CED64, -1, 0x8510007D);
@@ -838,7 +838,7 @@ unsigned int __stdcall SMemHeapCreate(unsigned int dwOptions, unsigned int nInit
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemHeapCreate_006CED74, -1, 0x8510007D);
@@ -872,7 +872,7 @@ int __stdcall SMemHeapFree(unsigned int hHeap, unsigned int dwFlags, void* pMemo
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemHeapFree_006CED9C, -1, 0x8510007D);
@@ -904,7 +904,7 @@ unsigned int __stdcall SMemHeapSize(unsigned int hHeap, unsigned int dwFlags, vo
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
         {
             sub_004117A0_SetAndShowError(szSMemHeapSize_006CEDAC, -1, 0x8510007D);
@@ -1137,7 +1137,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
             sub_00411620_FatalError(0x8510007D, szSMemAlloc_006CEDCC, -1);
     }
@@ -1164,7 +1164,7 @@ void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
             sub_00411620_FatalError(0x8510007D, szSMemHeapAlloc_006CEDBC, -1);
     }
@@ -1194,7 +1194,7 @@ void* __stdcall SMemHeapReAlloc(unsigned int hHeap, unsigned int dwFlags, void* 
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
             sub_00411620_FatalError(0x8510007D, szSMemHeapReAlloc_006CEE08, -1);
     }
@@ -1216,7 +1216,7 @@ void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFil
 {
     if (!gbHeapInitialized_007788D0)
     {
-        sub_00411CD0_InitHeaps();
+        SMemInitialize();
         if (!gbHeapInitialized_007788D0)
             sub_00411620_FatalError(0x8510007D, szSMemReAlloc_006CEE1C, -1);
     }
@@ -1313,7 +1313,7 @@ Done:
 }
 
 // 0x00413800
-unsigned int __stdcall sub_00413800(char* dest, const char* source, unsigned int limit)
+unsigned int __stdcall SStrPack(char* dest, const char* source, unsigned int limit)
 {
  int valid=(__int64)dest?-1:0;
  valid&=source?-1:0;

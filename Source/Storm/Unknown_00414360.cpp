@@ -14,8 +14,8 @@ extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const 
 extern "C" __declspec(dllimport) long __stdcall RegDeleteValueA(void* hKey, const char* szValueName); // 0x006CC018
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
 extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
-int __stdcall sub_00414930_GetRegistryRoot(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
-unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+int __stdcall SRegGetBaseKey(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
+unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, const char* szValueName, unsigned long* lpReserved, unsigned long* lpType, unsigned char* lpData, unsigned long* lpcbData); // 0x006CC00C
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
@@ -25,7 +25,7 @@ extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, cons
 extern "C" __declspec(dllimport) long __stdcall RegFlushKey(void* hKey); // 0x006CC008
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 extern "C" const char gszEmptyString_006CC837; // 0x006CC837
-int __fastcall sub_00414990_SRegDeleteEntry(unsigned int nFlags, const char* szKeyName, const char* szValueName);
+int __fastcall InternalDeleteEntry(unsigned int nFlags, const char* szKeyName, const char* szValueName);
 
 struct D2StormQuadStrc {
  int n00,n04,n08,n0C;
@@ -46,7 +46,7 @@ extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
 extern "C" int __cdecl sub_0044BB80_ShutdownIfActive(); // 0x0044BB80
 
 // 0x00414990
-int __fastcall sub_00414990_SRegDeleteEntry(unsigned int nFlags, const char* szKeyName, const char* szValueName)
+int __fastcall InternalDeleteEntry(unsigned int nFlags, const char* szKeyName, const char* szValueName)
 {
     const char* szValue = szValueName;
     int bResult = 0;
@@ -55,9 +55,9 @@ int __fastcall sub_00414990_SRegDeleteEntry(unsigned int nFlags, const char* szK
     szKey[0] = 0;
     if (!(nFlags & 0x10))
     {
-        sub_00414930_GetRegistryRoot(nFlags, szKey, 0x104);
+        SRegGetBaseKey(nFlags, szKey, 0x104);
     }
-    sub_00413800(szKey, szKeyName, 0x104);
+    SStrPack(szKey, szKeyName, 0x104);
 
     long nUserError = 0;
     if ((nFlags & 5) != 4)
@@ -129,9 +129,9 @@ static int __stdcall sub_00414B00_SRegLoadEntry(const char* szKeyName, const cha
     szKey[0] = 0;
     if (!(nFlags & 0x10))
     {
-        sub_00414930_GetRegistryRoot(nFlags, szKey, 0x104);
+        SRegGetBaseKey(nFlags, szKey, 0x104);
     }
-    sub_00413800(szKey, szKeyName, 0x104);
+    SStrPack(szKey, szKeyName, 0x104);
     if (!(nFlags & 4))
     {
         nError = RegOpenKeyExA((void*)0x80000001, szKey, 0, 0x20019, &hKey);
@@ -241,15 +241,15 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 #include "gen/data/Source/Storm/Unknown_00414360.inc"
 
 // 0x00414C70
-static int __stdcall sub_00414C70_SRegSaveEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwType, const unsigned char* pData, unsigned long cbData)
+static int __stdcall InternalSaveEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwType, const unsigned char* pData, unsigned long cbData)
 {
     char szKey[0x104];
     szKey[0] = 0;
     if (!(nFlags & 0x10))
     {
-        sub_00414930_GetRegistryRoot(nFlags, szKey, 0x104);
+        SRegGetBaseKey(nFlags, szKey, 0x104);
     }
-    sub_00413800(szKey, szKeyName, 0x104);
+    SStrPack(szKey, szKeyName, 0x104);
     void* hKey;
     unsigned long nDisposition;
     long nError = RegCreateKeyExA((nFlags & 4) ? (void*)0x80000002 : (void*)0x80000001, szKey, 0, 0, 0, 0x20006, 0, &hKey, &nDisposition);
@@ -278,7 +278,7 @@ static int __stdcall sub_00414C70_SRegSaveEntry(const char* szKeyName, const cha
 }
 
 // 0x00414D90
-int __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags)
+int __stdcall SRegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags)
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
@@ -291,7 +291,7 @@ int __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szV
     VALIDATE(*szValueName);
     __assume((*szValueName) != 0);
     VALIDATEEND;
-    return sub_00414990_SRegDeleteEntry(nFlags, szKeyName, szValueName);
+    return InternalDeleteEntry(nFlags, szKeyName, szValueName);
 }
 
 // 0x00415000
@@ -312,7 +312,7 @@ int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsig
     {
         pData = &gszEmptyString_006CC837;
     }
-    return sub_00414C70_SRegSaveEntry(szKeyName, szValueName, nFlags, ((nFlags & 0x80) | 0x60) >> 5, (const unsigned char*)pData, nSize);
+    return InternalSaveEntry(szKeyName, szValueName, nFlags, ((nFlags & 0x80) | 0x60) >> 5, (const unsigned char*)pData, nSize);
 }
 
 // 0x00415070
@@ -331,7 +331,7 @@ int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, uns
     VALIDATE(szString);
     __assume((szString) != 0);
     VALIDATEEND;
-    return nValid ? sub_00414C70_SRegSaveEntry(szKeyName, szValueName, nFlags, 1, (const unsigned char*)szString, SStrLen(szString) + 1) : 0;
+    return nValid ? InternalSaveEntry(szKeyName, szValueName, nFlags, 1, (const unsigned char*)szString, SStrLen(szString) + 1) : 0;
 }
 
 // 0x004150E0
@@ -348,7 +348,7 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
     VALIDATE(*szValueName);
     __assume((*szValueName) != 0);
     VALIDATEEND;
-    return sub_00414C70_SRegSaveEntry(szKeyName, szValueName, nFlags, 4, (const unsigned char*)&dwValue, 4);
+    return InternalSaveEntry(szKeyName, szValueName, nFlags, 4, (const unsigned char*)&dwValue, 4);
 }
 
 // 0x00415160
