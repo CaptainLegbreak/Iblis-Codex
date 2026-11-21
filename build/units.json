@@ -53389,11 +53389,6 @@
      "name": "sub_6FC82270"
     },
     {
-     "va": "0x00548520",
-     "length": 139,
-     "name": "D2GAME_UpdateAttribute_6FC822D0"
-    },
-    {
      "va": "0x005490E0",
      "length": 98,
      "name": "sub_005490E0_CheckCursorItem"
@@ -53577,6 +53572,11 @@
      "va": "0x00548400",
      "length": 170,
      "name": "?sub_6FC821C0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@H@Z"
+    },
+    {
+     "va": "0x00548520",
+     "length": 139,
+     "name": "D2GAME_UpdateAttribute_6FC822D0"
     },
     {
      "va": "0x005485B0",
