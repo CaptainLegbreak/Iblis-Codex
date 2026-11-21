@@ -361,7 +361,7 @@ int __fastcall ACT2Q4_HasGuardMovedToEndPosition(D2GameStrc* pGame)
     if (pQuestData)
     {
         D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-        if (!*(unsigned char*)&pQuestDataEx->unk0x18 && !((unsigned char*)&pQuestDataEx->unk0x18)[1])
+        if (!pQuestDataEx->unk0x18 && !pQuestDataEx->unk0x19)
         {
             return pQuestDataEx->nHaremBlockerObjectMode == 2;
         }
@@ -382,13 +382,13 @@ int __fastcall ACT2Q4_GetGuardCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord
     }
 
     D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-    if (*(unsigned char*)&pQuestDataEx->unk0x18)
+    if (pQuestDataEx->unk0x18)
     {
         *pCoord = pQuestDataEx->pGuardCoords;
         return 1;
     }
 
-    if (((unsigned char*)&pQuestDataEx->unk0x18)[1])
+    if (pQuestDataEx->unk0x19)
     {
         *pCoord = pQuestDataEx->pGuardCoords;
         pCoord->nY -= 4;

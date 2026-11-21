@@ -271,7 +271,8 @@ struct D2Act2Quest4Strc
     unsigned char bJerhynCoordinatesStored; // 0x15
     unsigned char bPortalToCanyonOpen; // 0x16
     unsigned char unk0x17; // 0x17
-    unsigned short unk0x18; // 0x18
+    unsigned char unk0x18; // 0x18
+    unsigned char unk0x19; // 0x19
     unsigned char bPlayerCloseToHaremBlocker; // 0x1A
     unsigned char unk0x1B; // 0x1B
     int nPlayerCloseToHaremBlockerGUID; // 0x1C
