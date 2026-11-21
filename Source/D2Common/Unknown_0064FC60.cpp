@@ -843,6 +843,7 @@ void __cdecl sub_00651040_ComputeDepths()
         unsigned short nNext = gpChainTable_0096C6A8[i].wParent;
         int nDepth = 0;
         unsigned int nId = nNext;
+        // __assume: stands in for the original zero-extending the parent id twice (movzx then movzx ax)
         __assume(nId != 0x10000);
         do
         {

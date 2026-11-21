@@ -2795,6 +2795,7 @@ int __fastcall sub_006292F0_Shim(D2UnitStrc* pItem, int nDivisor)
 // 0x0062A370
 unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pSetItem, int bDontIgnoreInputItem)
 {
+    // volatile: stands in for the original loading the type and quality into eax before comparing
     if (!pPlayer || !pSetItem || *(volatile int*)&pSetItem->dwUnitType != UNIT_ITEM || !pSetItem->pItemData)
     {
         return 0;
