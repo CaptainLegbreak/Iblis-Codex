@@ -486,7 +486,7 @@ int __fastcall sub_00464230_SkillSelectProc3(D2UnitStrc* pPlayer, D2UnitStrc* pT
         return 0;
     if (!sub_004B11F0(pTarget))
         return 0;
-    const int nType = pTarget ? pTarget->dwUnitType : 6;
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nType != 1)
         return 0;
     int nClass = sub_00463860(pTarget);
@@ -821,14 +821,14 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
     const int nMode = pUnit->dwAnimMode;
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         if (nMode == 0 || nMode == 0x11)
         {
             return 1;
         }
         break;
 
-    case 1:
+    case UNIT_MONSTER:
         if (nMode == 0 || nMode == 0x0C)
         {
             return 1;

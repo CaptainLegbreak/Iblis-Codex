@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2MonCommandStrc;
 struct D2UnitStrc;
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -371,7 +372,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     for (int i = 0; i < 0x0B; ++i)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, i);
-        if (pItem && ITEMS_GetItemQuality(pItem) == 5 && !ITEMS_CheckItemFlag(pItem, 0x100, 0x247, ".\\UNIT\\Item.cpp")
+        if (pItem && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET && !ITEMS_CheckItemFlag(pItem, 0x100, 0x247, ".\\UNIT\\Item.cpp")
             && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x248, ".\\UNIT\\Item.cpp"))
         {
             ITEM_RemoveItemStats(pUnit, pItem);

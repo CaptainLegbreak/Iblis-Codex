@@ -1235,7 +1235,7 @@ void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameS
     SUNIT_Add(pPlayer, nX, nY, pGame, hRoom, 0);
     pClient->dwFlags &= ~1;
     const int nUnitGUID = pPlayer->dwUnitId;
-    const int nUnitType = (pPlayer ? pPlayer->dwUnitType : 6);
+    const int nUnitType = (pPlayer ? pPlayer->dwUnitType : UNIT_INVALID);
     D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, 1);
     D2GAME_PACKETS_SendPacket0x7E_6FC3F770(pClient, pGame->unk0xEC);
 

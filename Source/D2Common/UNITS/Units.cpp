@@ -1263,7 +1263,7 @@ void __stdcall sub_00620D80_SetMonsterAnimSpeed(D2UnitStrc* pUnit)
     }
     switch (pUnit->dwUnitType)
     {
-    case 1:
+    case UNIT_MONSTER:
     {
         D2MonStatsTxt* pMonStatsTxtRecord = 0;
         if (pUnit->dwClassId >= 0 && pUnit->dwClassId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -2058,10 +2058,10 @@ int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
     int bSequence = 0;
     switch (ptUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         if (ptUnit->dwAnimMode == 18)
             bSequence = 1;
-    case 1:
+    case UNIT_MONSTER:
         if (ptUnit->dwAnimMode == 14)
             break;
         if (bSequence)
@@ -2345,7 +2345,7 @@ int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit)
 // 0x00621F60
 int __stdcall UNITS_IsSoftMonster(D2UnitStrc* pUnit)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != UNIT_MONSTER)
         return 0;
 
@@ -2563,7 +2563,7 @@ int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
 // 0x00622520
 static __declspec(noinline) int sub_00622520_GetToHitFactor(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_PLAYER)
     {
         return 0;
@@ -2775,7 +2775,7 @@ D2UnitStrc* __stdcall UNITS_GetEquippedWeaponFromMonster(D2UnitStrc* pMonster)
     int bIsLeftHandItem;
     int nBodyLoc;
 
-    const int nType = pMonster ? pMonster->dwUnitType : 6;
+    const int nType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return 0;
@@ -2795,7 +2795,7 @@ int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* hUnit)
     if (!hUnit) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x11be); exit(-1); }
     int range;
     switch (hUnit->dwUnitType) {
-    case 1: {
+    case UNIT_MONSTER: {
         D2MonStats2Txt* record = UNITS_GetMonStats2TxtRecordFromMonsterId(hUnit->dwClassId);
         if (!record) goto fail;
         range = record->nSteps;
@@ -2806,7 +2806,7 @@ int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* hUnit)
         }
         break;
     }
-    case 0: {
+    case UNIT_PLAYER: {
         D2UnitStrc* weapon;
         int type, flags;
         if (!INVENTORY_GetEquippedWeapon(hUnit->pInventory, &weapon, &type, &flags)) {
@@ -3559,7 +3559,7 @@ int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc
     int nSizeX2 = 0;
     int nSizeY2 = 0;
 
-    const int nObjectType = pObject ? pObject->dwUnitType : 6;
+    const int nObjectType = pObject ? pObject->dwUnitType : UNIT_INVALID;
     if (nObjectType != 2)
     {
         return 0;

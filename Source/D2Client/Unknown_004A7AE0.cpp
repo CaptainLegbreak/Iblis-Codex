@@ -323,6 +323,7 @@ void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* skills,int owner,int cha
  int mouseY=sub_00468740_GetMouseY();
  int drawState,drawY;
  if(mouseX>=x && mouseX<=x+48) {
+  // volatile: the original reads y from its stack slot here
   drawY=*(int volatile*)&y;
   if(mouseY>=drawY-48 && mouseY<=drawY) {
    if(state==0)drawState=0;

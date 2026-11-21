@@ -1029,7 +1029,7 @@ static void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc
 // 0x0057AF00
 static __declspec(noinline) int sub_0057AF00_IsMonsterWithoutDeadCol(D2UnitStrc* pUnit)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != UNIT_MONSTER)
         return 0;
 
@@ -1262,7 +1262,7 @@ static void __stdcall SUNITDMG_ApplyFreezeState(D2UnitStrc* pAttacker, int nFree
     }
 
     EVENT_SetEvent(pGame, pDefender, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
-    D2_ASSERT((pDefender ? pDefender->dwUnitType : 6) == 1, 0x276);
+    D2_ASSERT((pDefender ? pDefender->dwUnitType : UNIT_INVALID) == 1, 0x276);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pDefender, EVENTTYPE_AITHINK, 0);
     EVENT_SetEvent(pGame, pDefender, EVENTTYPE_AITHINK, pGame->dwGameFrame + nFreezeLength + 1, 0, 0);
 }
@@ -1857,7 +1857,7 @@ static void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* pDefender, D2UnitStrc*
     }
 
     int nDrain;
-    const int nDefenderType = pDefender ? pDefender->dwUnitType : 6;
+    const int nDefenderType = pDefender ? pDefender->dwUnitType : UNIT_INVALID;
     if (nDefenderType != 1)
     {
         nDrain = 100;
@@ -2980,7 +2980,7 @@ int __stdcall SUNITDMG_RollAndCompareValues(D2UnitStrc* pUnit, int* pFirstValue,
 // 0x0057D810
 static void SUNITDMG_PreventMonsterHeal(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
-    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER && (pDefender ? pDefender->dwUnitType : 6) == 1 && STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 117, 0))
+    if (pAttacker && pAttacker->dwUnitType == UNIT_PLAYER && (pDefender ? pDefender->dwUnitType : UNIT_INVALID) == 1 && STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 117, 0))
     {
         if (pDefender->dwClassId >= 704 && pDefender->dwClassId <= 709)
         {
@@ -3039,7 +3039,7 @@ static void __stdcall sub_0057D8A0_ApplyTargetDefenseModifiers(int* pAttackRate,
 
 static inline int I13_GetUnitType(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 static inline D2MonStatsTxt* I13_GetMonStatsTxtRecord(D2UnitStrc* pUnit)
@@ -3662,9 +3662,9 @@ static __forceinline int GetReferenceX(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return unit->pStaticPath->nXPos;
     }
     return unit->pDynamicPath ? PATH_GetX(unit->pDynamicPath) : 0;
@@ -3674,9 +3674,9 @@ static __forceinline int GetReferenceY(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return unit->pStaticPath->nYPos;
     }
     return unit->pDynamicPath ? PATH_GetY(unit->pDynamicPath) : 0;
@@ -4073,7 +4073,7 @@ unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc*
 // 0x0057ED50
 void __fastcall sub_0057ED50_SetPlayerDataField154(D2UnitStrc* pUnit, int nValue)
 {
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         pUnit->pPlayerData->nMode = nValue;
     }

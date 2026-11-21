@@ -931,17 +931,17 @@ void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* ptUnit)
 
     switch (ptUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         STATLIST_SetUnitStat(ptUnit, 29, -1, 0);
         ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
         sub_0053FA90_ClearArenaUnitUpdate(pGame, ptUnit);
         return;
 
-    case 2:
+    case UNIT_OBJECT:
         ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
         return;
 
-    case 1:
+    case UNIT_MONSTER:
         ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
         if (UNIT_HasFlag(ptUnit, UNITFLAG_SUMMONER))
         {
@@ -951,10 +951,10 @@ void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* ptUnit)
         ptUnit->dwFlagEx &= ~UNITFLAGEX_TELEPORTED;
         return;
 
-    case 3:
+    case UNIT_MISSILE:
         return;
 
-    case 4:
+    case UNIT_ITEM:
         ptUnit->dwFlags &= ~UNITFLAG_SENDREFRESHMSG;
         break;
     }
@@ -1120,9 +1120,9 @@ __forceinline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1133,9 +1133,9 @@ __forceinline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1695,7 +1695,7 @@ int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit)
 // build: context sub_0044BE50
 inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 __forceinline D2UnitStrc* __fastcall SUNIT_GetOwner_Inline(D2GameStrc* pGame, D2UnitStrc* pUnit)

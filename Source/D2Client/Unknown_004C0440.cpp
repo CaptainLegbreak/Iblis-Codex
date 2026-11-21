@@ -81,6 +81,7 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
 {
     int bHit = 0;
     int n;
+    // volatile: the volatile read keeps the original's register for the count; no plain form found
     for (int i = 0; i < (n = *(volatile int*)&gnGlobal_007278FC); i++)
     {
         if (gaHotspots_00727902[i].bFlag0x25 && nX >= gaHotspots_00727902[i].nLeft && nX <= gaHotspots_00727902[i].nRight && nY >= gaHotspots_00727902[i].nTop && nY <= gaHotspots_00727902[i].nBottom)

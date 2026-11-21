@@ -268,7 +268,7 @@ int __fastcall sub_00464F70_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarg
     int bLeft = 0;
     if (pUnit && pTarget)
     {
-        const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+        const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         if (!nUnitType || !pTarget->dwUnitType || pTarget->dwUnitType == UNIT_MONSTER)
         {
             D2SkillStrc* pLeftSkill = UNITS_GetLeftSkill(pUnit);
@@ -371,7 +371,7 @@ void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit)
     {
         switch (pUnit->dwUnitType)
         {
-        case 0:
+        case UNIT_PLAYER:
             switch (!pServerUnit ? 0u : pServerUnit->dwAnimMode)
             {
             case 2:
@@ -442,7 +442,7 @@ void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit)
             }
             break;
 
-        case 1:
+        case UNIT_MONSTER:
             switch (nServerMode)
             {
             case 1:
@@ -535,14 +535,14 @@ static __forceinline int UNITS_IsDeadOrDying(D2UnitStrc* pUnit)
     const int nMode = pUnit->dwAnimMode;
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         if (nMode == 0 || nMode == 0x11)
         {
             return 1;
         }
         break;
 
-    case 1:
+    case UNIT_MONSTER:
         if (nMode == 0 || nMode == 0x0C)
         {
             return 1;
@@ -761,7 +761,7 @@ static int __stdcall sub_004642B0_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2Un
 // 0x00464310
 static int __stdcall sub_00464310_CheckMonsterSkillSelect(D2UnitStrc* pUnit, D2UnitStrc* pPlayer)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
         return 0;
 
@@ -782,14 +782,14 @@ __declspec(noinline) int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit
     const int nMode = pUnit->dwAnimMode;
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         if (nMode == 0 || nMode == 0x11)
         {
             return 1;
         }
         break;
 
-    case 1:
+    case UNIT_MONSTER:
         if (nMode == 0 || nMode == 0x0C)
         {
             return 1;

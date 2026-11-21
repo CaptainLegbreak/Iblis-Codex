@@ -66,7 +66,7 @@ static int __stdcall ARENA_TestFlag_Inlined(D2GameStrc* pGame, unsigned int nFla
 {
     D2ArenaStrc* pArena = pGame->pArenaCtrl;
     D2_ASSERT(pArena, 39);
-    const volatile unsigned int& fFlags = pArena->fFlags;
+    const volatile unsigned int& fFlags = pArena->fFlags; // volatile only reproduces the original reloading the flags at this test
     return (fFlags & nFlag) != 0;
 }
 

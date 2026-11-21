@@ -904,7 +904,7 @@ int __fastcall sub_0059DA10_ACT2Q6_OperateTombPortal(D2ObjOperateFnStrc* pOp, in
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q6_DURIEL);
     if (!pQuestData || pQuestData->bNotIntro != 1 || ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bDurielLairTombOpen)
     {
-        if (pOp->hObject && pOp->hObject->dwAnimMode == 2)
+        if (pOp->hObject && pOp->hObject->dwAnimMode == OBJMODE_OPENED)
         {
             D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
         }

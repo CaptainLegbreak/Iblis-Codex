@@ -205,7 +205,7 @@ extern "C" int __fastcall sub_005D1F70_Dispatch(Game* game, Unit* owner, int ski
             sub_005D1D70_ApplyAura(owner, target, level, skill);
             return 1;
         }
-        sub_005D1E10_Transform(owner, level, (*(int volatile*)&skill), game, target);
+        sub_005D1E10_Transform(owner, level, skill, game, target);
         return 1;
     }
     return 0;

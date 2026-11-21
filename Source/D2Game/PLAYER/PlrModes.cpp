@@ -676,9 +676,9 @@ static __forceinline int sub_F05_PlrGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
 
     default:
@@ -694,9 +694,9 @@ static __forceinline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
 
     default:
@@ -729,17 +729,17 @@ static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
     {
         switch (pPlayer->dwUnitType)
         {
-        case 0:
+        case UNIT_PLAYER:
             if (pPlayer->pPlayerData)
             {
                 return pPlayer->pPlayerData->nState;
             }
             break;
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
+        case UNIT_MONSTER:
+        case UNIT_OBJECT:
+        case UNIT_MISSILE:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             return 0;
         }
     }
@@ -1022,7 +1022,7 @@ static void __stdcall sub_0057F540_DropItemsOnCorpseOverflow(D2GameStrc* pGame, 
             }
             else
             {
-                D2_ASSERT(pItem->dwAnimMode == 1, 0x2A8);
+                D2_ASSERT(pItem->dwAnimMode == IMODE_EQUIP, 0x2A8);
                 sub_6FC802F0(pGame, nBodyLoc, pItem, pUnit);
             }
 
@@ -1130,7 +1130,7 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
   if(!hItem) continue;
   if(nBodyLoc==-1) sub_6FC803F0(pGame,hItem,pUnit);
   else {
-   D2_ASSERT(hItem->dwAnimMode==1,0x339);
+   D2_ASSERT(hItem->dwAnimMode==IMODE_EQUIP,0x339);
    sub_6FC802F0(pGame,nBodyLoc,hItem,pUnit);
   }
   ITEMS_SetInvPage(hItem,0);
@@ -1963,7 +1963,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
             {
                 PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
                 sub_6FC828D0(pPlayer, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), nAction == -2, pGame);
-                nResult = *(volatile int*)&nPathResult;
+                nResult = *(volatile int*)&nPathResult; // volatile only gives nPathResult the original's stack slot
             }
 
             if (nPathResult) sub_F05_SetInteractFlag(pPlayer, 0); else sub_F05_SetInteractFlag(pPlayer, 0);

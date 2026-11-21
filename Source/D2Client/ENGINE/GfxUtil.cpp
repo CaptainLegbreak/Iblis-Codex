@@ -10,6 +10,7 @@
 #include "D2TxtTables.h"
 #include "D2Records.h"
 #include "D2CelContext.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1115,7 +1116,7 @@ static void sub_004DABC0_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pTo
     if (pToken->nMode == 4)
     {
         const unsigned char nInvGfx = sub_006283F0_GetInvGfxIndex(pUnit);
-        if (ITEMS_CheckItemFlag(pUnit, 0x10, 0x196, ".\\ENGINE\\GfxUtil.cpp") && ITEMS_GetItemQuality(pUnit) == 5)
+        if (ITEMS_CheckItemFlag(pUnit, 0x10, 0x196, ".\\ENGINE\\GfxUtil.cpp") && ITEMS_GetItemQuality(pUnit) == ITEMQUAL_SET)
         {
             D2SetItemsTxt* pSet = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pUnit));
             if (pSet && pSet->szInvFile[0])
@@ -1133,7 +1134,7 @@ static void sub_004DABC0_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pTo
             }
         }
 
-        if (ITEMS_CheckItemFlag(pUnit, 0x10, 0x1AE, ".\\ENGINE\\GfxUtil.cpp") && ITEMS_GetItemQuality(pUnit) == 7)
+        if (ITEMS_CheckItemFlag(pUnit, 0x10, 0x1AE, ".\\ENGINE\\GfxUtil.cpp") && ITEMS_GetItemQuality(pUnit) == ITEMQUAL_UNIQUE)
         {
             const int nIndex = ITEMS_GetFileIndex(pUnit);
             if (nIndex > 0)
@@ -1168,7 +1169,7 @@ static void sub_004DABC0_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pTo
     if (pToken->nMode == 3)
     {
         pToken->szName = pItemsTxtRecord->szFlippyFile;
-        if (ITEMS_GetItemQuality(pUnit) == 7)
+        if (ITEMS_GetItemQuality(pUnit) == ITEMQUAL_UNIQUE)
         {
             if (ITEMS_GetFileIndex(pUnit) >= 0)
             {
@@ -1177,7 +1178,7 @@ static void sub_004DABC0_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pTo
                     pToken->szName = pUnique->szFlippyFile;
             }
         }
-        else if (ITEMS_GetItemQuality(pUnit) == 5)
+        else if (ITEMS_GetItemQuality(pUnit) == ITEMQUAL_SET)
         {
             D2SetItemsTxt* pSet = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pUnit));
             if (pSet && pSet->szFlippyFile[0])

@@ -47,7 +47,7 @@ int __fastcall sub_004C9320_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, i
     if (!pSkill || !pDynamicPath)
         return 0;
 
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     const int bPlayer = nUnitType == 0;
     const int nMask = bPlayer ? 0x80 : 0x100;
     const int nX = SKILLS_GetParam1(pSkill);

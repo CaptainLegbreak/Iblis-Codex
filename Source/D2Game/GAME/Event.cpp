@@ -135,7 +135,7 @@ static __declspec(noinline) D2EventTimerStrc* sub_00540DF0_InitializeTimer(D2Gam
         pTimer->pNext->pPrevious = pTimer;
     pTimer->pPrevious = 0;
     sub_00553970_SetTimer(pUnit, pTimer);
-    pTimer->nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    pTimer->nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     pTimer->nUnitGUID = pUnit ? pUnit->dwUnitId : -1;
     pTimer->nFlags &= ~2;
     return pTimer;
@@ -152,7 +152,7 @@ static __declspec(noinline) void __stdcall sub_005415E0_InsertInfinite(EventTime
     pTimer->nExpireFrame = -1;
     pTimer->dwEventCustomParam = nCustomParam;
     pTimer->pCallback = pCallback;
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     D2EventTimerStrc** ppFirst = &pGame->pTimerQueue->pInfinite[gaSlotRows_006E0B9C[nUnitType]];
     pTimer->pNextFreeEventTimer = *ppFirst;
     pTimer->pPreviousQueuedTimer = 0;

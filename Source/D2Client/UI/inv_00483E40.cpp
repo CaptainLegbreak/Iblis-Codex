@@ -11,6 +11,7 @@
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
 #include "D2TxtItems.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -685,9 +686,9 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
         int nX;
         switch (pItem->dwUnitType)
         {
-        case 2:
-        case 4:
-        case 5:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             nX = pItem->pStaticPath->nXPos;
             break;
         default:
@@ -704,9 +705,9 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
         int nY;
         switch (pItem->dwUnitType)
         {
-        case 2:
-        case 4:
-        case 5:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             nY = pItem->pStaticPath->nYPos;
             break;
         default:
@@ -1702,7 +1703,7 @@ static D2UnitStrc* sub_00486770_FindSetItem(D2InventoryStrc* pInventory, int nSe
     for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(pInventory); pNode; pNode = INVENTORY_GetNextItem(pNode))
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
-        if (ITEMS_GetItemQuality(pItem) == 5 && ITEMS_CheckItemFlag(pItem, 0x10, 0xCA1, szInvCpp_006D9BC0))
+        if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET && ITEMS_CheckItemFlag(pItem, 0x10, 0xCA1, szInvCpp_006D9BC0))
         {
             const unsigned char nPage = ITEMS_GetInvPage(pItem);
             if (nPage == 0 || nPage == 3 || nPage == 4 || nPage == 0xFF)

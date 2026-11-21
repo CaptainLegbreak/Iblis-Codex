@@ -12,9 +12,9 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return ((D2StaticPathStrc*)pUnit->pDynamicPath)->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
@@ -25,9 +25,9 @@ static __forceinline int UNITS_GetYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return ((D2StaticPathStrc*)pUnit->pDynamicPath)->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
@@ -40,6 +40,6 @@ void __fastcall sub_00548010_SendUnitPosition(D2UnitStrc* pUnit, D2ClientStrc* p
     const int nY = UNITS_GetYPosition(pUnit);
     const int nX = UNITS_GetXPosition(pUnit);
     const unsigned int nUnitGUID = (pUnit ? pUnit->dwUnitId : -1);
-    const int nUnitType = (pUnit ? pUnit->dwUnitType : 6);
+    const int nUnitType = (pUnit ? pUnit->dwUnitType : UNIT_INVALID);
     D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, a7);
 }

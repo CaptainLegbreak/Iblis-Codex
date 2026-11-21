@@ -221,7 +221,7 @@ void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
 
 static __forceinline D2AiControlStrc* GetAiControl(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == 1 && pUnit->pMonsterData)
         return pUnit->pMonsterData->pAiControl;
     return 0;
@@ -240,7 +240,7 @@ static __forceinline int GetUnitType(D2UnitStrc* pUnit)
 // 0x005DD330
 void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
         return;
     D2AiControlStrc* pAi = GetAiControl(pUnit);
@@ -322,10 +322,10 @@ static __forceinline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget
 
     switch (pTarget->dwUnitType)
     {
-    case 0:
-    case 1:
+    case UNIT_PLAYER:
+    case UNIT_MONSTER:
         return !SUNIT_IsDead(pTarget);
-    case 3:
+    case UNIT_MISSILE:
         return 1;
     }
     return 0;
@@ -337,7 +337,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
     D2UnitStrc* pTarget = 0;
     int nDistance = 0;
 
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return 0;

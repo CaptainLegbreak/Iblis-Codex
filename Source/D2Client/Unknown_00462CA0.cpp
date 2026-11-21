@@ -599,7 +599,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
     {
         switch (pTarget->dwUnitType)
         {
-        case 2:
+        case UNIT_OBJECT:
         {
             if (pCmd->dwFlags & 8)
                 return;
@@ -627,7 +627,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             }
             return;
         }
-        case 4:
+        case UNIT_ITEM:
         {
             if (pCmd->dwFlags & 8)
                 return;
@@ -644,7 +644,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             sub_0044BEF0();
             return;
         }
-        case 0:
+        case UNIT_PLAYER:
         {
             if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
@@ -655,7 +655,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             sub_00460780_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
             return;
         }
-        case 5:
+        case UNIT_TILE:
         {
             if (sub_0044DAA0() < sub_0044DAC0())
                 return;
@@ -671,7 +671,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             sub_0044DAD0(sub_0044DAA0() + 0x1F4);
             return;
         }
-        case 1:
+        case UNIT_MONSTER:
         {
             D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(pTarget ? pTarget->dwClassId : -1);
             if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]))
@@ -695,7 +695,7 @@ check_range:
                 D2Common_10153(pTarget->pDynamicPath);
             D2UnitStrc* pUnit = pCmd->pTarget;
             const int nId = pUnit ? pUnit->dwUnitId : -1;
-            const int nType = pUnit ? pUnit->dwUnitType : 6;
+            const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
             const int nY = CLIENTS_GetUnitY(pUnit);
             sub_00478700_SendCommand(0x59, nType, nId, CLIENTS_GetUnitX(pCmd->pTarget), nY);
             pUnit = pCmd->pTarget;
@@ -938,13 +938,13 @@ static void sub_004625B0_ExecuteCommand(D2PlayerCmdStrc* pCmd)
     {
         switch (pTarget->dwUnitType)
         {
-        case 2:
-        case 4:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
             if (!(pSkillsTxt->nFlags[3] & gdwBitMasks[3]))
                 goto no_target;
             bAuraTarget = 1;
             break;
-        case 5:
+        case UNIT_TILE:
             dwFlags |= 0x100;
             goto no_target;
         }
@@ -1237,8 +1237,8 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     {
         switch (pSelected->dwUnitType)
         {
-        case 2:
-        case 4:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
             tCmd.nX = CLIENTS_GetUnitX(pSelected);
             tCmd.nY = CLIENTS_GetUnitY(tCmd.pTarget);
             break;

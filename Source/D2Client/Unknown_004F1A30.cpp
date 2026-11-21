@@ -323,9 +323,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     int nX;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nX = pUnit->pStaticPath->nXPos;
         break;
     default:
@@ -340,9 +340,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     int nY;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nY = pUnit->pStaticPath->nYPos;
         break;
     default:
@@ -386,6 +386,7 @@ void __fastcall sub_004F2BE0_MissileInit_CurvingPath(D2UnitStrc* pMissile, int n
     const unsigned int nRoll = SEED_RollLowInline(&tSeed);
     pSeed->nHighSeed = tSeed.nHighSeed;
     pSeed->nLowSeed = tSeed.nLowSeed;
+    // volatile: the original reads the turn base from memory inside each sum
     int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_0072D990;
     for (int i = 0; i < nFrames; ++i)
     {

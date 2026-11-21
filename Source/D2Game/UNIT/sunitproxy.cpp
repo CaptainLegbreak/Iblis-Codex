@@ -9,6 +9,7 @@
 #include "D2GameClient.h"
 #include "D2DataTbls.h"
 #include "D2GameRecords.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -736,7 +737,7 @@ void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
   while(iter && count) {
    D2UnitStrc* item=INVENTORY_UnitIsItem(iter);
    iter=INVENTORY_GetNextItem(iter);
-   if(ITEMS_GetItemQuality(item)==4){sub_005766D0(npc,item,game,0);--count;}
+   if(ITEMS_GetItemQuality(item)==ITEMQUAL_MAGIC){sub_005766D0(npc,item,game,0);--count;}
   }
  }
  D2NpcEventStrc* event=record->pEvent;

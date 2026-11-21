@@ -75,6 +75,7 @@ static void __stdcall sub_005D3680_ApplyProgressiveDamage(D2StatListStrc* pStatL
     }
 }
 
+// volatile only reproduces the original reloading the table pointer at each access in this loop
 #define VOLATILE_DATATABLES (*(D2DataTablesStrc* volatile*)&sgptDataTables)
 
 // 0x005D3AC0

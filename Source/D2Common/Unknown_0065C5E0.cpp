@@ -202,7 +202,7 @@ int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkil
         *ppStatList = 0;
     }
 
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType != 4)
     {
         return 0;
@@ -252,7 +252,7 @@ int __stdcall ITEMMODS_GetItemCharges(D2UnitStrc* pItem, int nSkillId, int nSkil
 // 0x0065C940
 int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges)
 {
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType != 4)
     {
         return 0;

@@ -70,7 +70,7 @@ inline D2FP32_16 PATH_MakeCoord(unsigned int nPrecisionX, unsigned int nPrecisio
 
 inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 inline BOOL PATH_IsZeroPoint(D2PathPointStrc tPoint)

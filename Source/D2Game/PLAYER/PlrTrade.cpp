@@ -1356,8 +1356,8 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
    if(out->nQuantity && !STATLIST_UnitGetStatValue(current,194,0) && !(ITEMS_GetItemFlags(current)&0x800)) {
     int n=sub_0062BC20(current);if(n>=out->nQuantity)n=out->nQuantity;
     switch(ITEMS_GetItemQuality(current)) {
-     case 4:case 9:if(n>3)n=3;break;
-     case 5:case 6:case 7:case 8:if(n>1)n=1;break;
+     case ITEMQUAL_MAGIC:case ITEMQUAL_TEMPERED:if(n>3)n=3;break;
+     case ITEMQUAL_SET:case ITEMQUAL_RARE:case ITEMQUAL_UNIQUE:case ITEMQUAL_CRAFT:if(n>1)n=1;break;
     }
     if(n>0){ITEMS_SetItemFlag(current,0x800,1);ITEMS_AddSockets(current,n);}
    }
@@ -2121,9 +2121,9 @@ __forceinline int PLRTRADE_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -2134,9 +2134,9 @@ __forceinline int PLRTRADE_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -2256,7 +2256,7 @@ void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit
         pNext = INVENTORY_GetNextItem(pCurrent);
         if (pItem && pItem->dwUnitType == UNIT_ITEM)
         {
-            if (pItem->dwAnimMode == 0)
+            if (pItem->dwAnimMode == IMODE_STORED)
             {
                 ITEMMODE_ResetBookScrollSkillQuantity(pUnit, pItem);
             }

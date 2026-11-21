@@ -41,9 +41,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     default:
         if (pUnit->pDynamicPath) nResult = PATH_GetXPosition(pUnit->pDynamicPath); else nResult = 0;
         break;
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nResult = pUnit->pStaticPath->nXPos;
         break;
     }
@@ -58,9 +58,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     default:
         if (pUnit->pDynamicPath) nResult = PATH_GetYPosition(pUnit->pDynamicPath); else nResult = 0;
         break;
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nResult = pUnit->pStaticPath->nYPos;
         break;
     }

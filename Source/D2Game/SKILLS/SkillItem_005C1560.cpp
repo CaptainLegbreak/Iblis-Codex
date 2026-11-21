@@ -197,9 +197,9 @@ static short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequire
             {
                 switch (ITEMS_GetItemQuality(pItem))
                 {
-                case 6:
-                case 8:
-                case 9:
+                case ITEMQUAL_RARE:
+                case ITEMQUAL_CRAFT:
+                case ITEMQUAL_TEMPERED:
                     continue;
                 }
             }

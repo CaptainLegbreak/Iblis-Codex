@@ -32,9 +32,9 @@ static __forceinline int sub_F05_MsgGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
 
     default:
@@ -50,9 +50,9 @@ static __forceinline int sub_F05_MsgGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
 
     default:
@@ -139,7 +139,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
             const int nY = sub_F05_MsgGetUnitY(pUnit);
             const int nX = sub_F05_MsgGetUnitX(pUnit);
             const int nUnitGUID = (pUnit ? pUnit->dwUnitId : -1);
-            const int nUnitType = (pUnit ? pUnit->dwUnitType : 6);
+            const int nUnitType = (pUnit ? pUnit->dwUnitType : UNIT_INVALID);
             D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, 1);
             sub_00554670_UpdateClientsOnRoomChange(pGame, pUnit, 0);
         }

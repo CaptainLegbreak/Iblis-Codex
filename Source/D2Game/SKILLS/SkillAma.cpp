@@ -358,7 +358,7 @@ int __fastcall sub_005DAE30_InitializeMeleeTargets(D2GameStrc* pGame, D2UnitStrc
     if (nTargets >= nMaxTargets)
         nTargets = nMaxTargets;
     SKILLS_SetParam1(pSkill, nTargets);
-    int nTargetType = pTarget ? pTarget->dwUnitType : 6;
+    int nTargetType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     SKILLS_SetParam2(pSkill, nTargetType);
     nRange = pTarget ? pTarget->dwUnitId : -1;
     SKILLS_SetParam3(pSkill, nRange);

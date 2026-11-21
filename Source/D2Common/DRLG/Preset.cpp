@@ -1358,10 +1358,11 @@ void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
         DRLGANIM_AllocAnimationTileGrids(pDrlgRoom, pMaze->pMap->pLvlPrestTxtRecord->nAnimSpeed, pMaze->pWallGrid, nWallLayers, pMaze->pFloorGrid, nFloorLayers, &pMaze->pCellGrid);
     }
 
-    volatile D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
-    pTileGrid->nTileWalls = pTileGrid->nWalls;
-    pTileGrid->nTileFloors = pTileGrid->nFloors;
-    pTileGrid->nTileRoofs = pTileGrid->nShadows;
+    D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
+    D2DrlgRoomTilesStrc* pTiles = &pTileGrid->pTiles;
+    pTiles->nWalls = pTileGrid->nWalls;
+    pTiles->nFloors = pTileGrid->nFloors;
+    pTiles->nRoofs = pTileGrid->nShadows;
 
     if (pMaze->pMap->pLvlPrestTxtRecord->dwLogicals)
     {

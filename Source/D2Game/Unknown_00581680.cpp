@@ -47,7 +47,7 @@ static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2Uni
     UNITS_GetCoords(pObject, &tCoord);
     for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->ptRoomNext)
     {
-        const int nType = (i ? i->dwUnitType : 6);
+        const int nType = (i ? i->dwUnitType : UNIT_INVALID);
         const int nMode = (i ? i->dwAnimMode : 0);
         if (nType == UNIT_PLAYER && nMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pObject, i) <= pObjectsTxtRecord->dwParm[0] + 1)
         {

@@ -20,7 +20,7 @@ int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2)
 
     if (!(pDynamicPath->dwFlags & 0x10))
     {
-        const int nType = pUnit ? pUnit->dwUnitType : 6;
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         if (nType == 1 && !PATH_GetDistance(pUnit->pDynamicPath))
         {
             return 0;

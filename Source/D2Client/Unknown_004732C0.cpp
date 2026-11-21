@@ -184,6 +184,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
     if (gbWeatherSplash_007A8A14)
     {
         const float fAbs = (float)fabs(sub_0040B330_Cos(gnWeatherAngle_007A89C4));
+        // volatile: the original stores the absolute value and reloads it as a float
         fScale = *(float volatile*)&fAbs;
         fScale = fScale < 0.25f ? 0.25f : fScale;
     }

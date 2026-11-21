@@ -448,7 +448,7 @@ D2UnitStrc* __stdcall DUNGEON_GetWarpTileFromRoomAndSourceLevelId(D2ActiveRoomSt
     D2UnitStrc* pTile = pDestRoom->pUnitFirst;
     while (pTile)
     {
-        const int nType = pTile ? pTile->dwUnitType : 6;
+        const int nType = pTile ? pTile->dwUnitType : UNIT_INVALID;
         const int nClassId = pTile ? pTile->dwClassId : -1;
         if (nType == 5 && nClassId == nDestinationLevel)
             break;

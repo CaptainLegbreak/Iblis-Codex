@@ -4198,7 +4198,7 @@ void __fastcall sub_00570530_StatRemoveCallback(D2UnitStrc* pUnit, int nState, D
         return;
     }
 
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == 1)
     {
         AITHINK_ExecuteAiFn(pGame, pUnit, AIGENERAL_GetAiControlFromUnitInline(pUnit), 0);

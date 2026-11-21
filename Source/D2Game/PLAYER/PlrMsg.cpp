@@ -1306,9 +1306,9 @@ static __forceinline int PLRMSG_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1319,9 +1319,9 @@ static __forceinline int PLRMSG_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1719,7 +1719,7 @@ static __declspec(noinline) int __stdcall sub_6FC86520(int nItemGUID, D2GameStrc
     int nResult = 0;
     switch (pItem->dwAnimMode)
     {
-    case 3:
+    case IMODE_ONGROUND:
     {
         nResult = sub_6FC83D00(pPlayer, pItem);
         if (nResult)
@@ -1735,10 +1735,10 @@ static __declspec(noinline) int __stdcall sub_6FC86520(int nItemGUID, D2GameStrc
         }
         break;
     }
-    case 0:
-    case 1:
-    case 2:
-    case 4:
+    case IMODE_STORED:
+    case IMODE_EQUIP:
+    case IMODE_INBELT:
+    case IMODE_ONCURSOR:
         nResult = sub_00549220_CheckOwnedItem(nItemGUID, pGame, pPlayer);
         if (nResult)
         {
@@ -1847,9 +1847,9 @@ static __forceinline int PLRMSG_J07_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1860,9 +1860,9 @@ static __forceinline int PLRMSG_J07_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1891,9 +1891,9 @@ static __declspec(noinline) int __stdcall sub_00549570_CheckWaypointObject(D2Gam
     } tLocal;
     switch (pObject->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         tLocal.nX = pObject->pStaticPath->nXPos;
         break;
     default:
@@ -2111,9 +2111,9 @@ __forceinline int PLRMSG_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -2124,9 +2124,9 @@ __forceinline int PLRMSG_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -4083,9 +4083,9 @@ static __forceinline int sub_E03_PlrGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -4096,9 +4096,9 @@ static __forceinline int sub_E03_PlrGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -4957,7 +4957,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt_6FC88F80(D
         D2InventoryStrc* hInventory = pUnit->pInventory;
         D2_ASSERT(hInventory, 0x1821);
 
-        if (ITEMS_GetInvPage(hItem) || hItem->dwAnimMode != 0)
+        if (ITEMS_GetInvPage(hItem) || hItem->dwAnimMode != IMODE_STORED)
         {
             return 2;
         }

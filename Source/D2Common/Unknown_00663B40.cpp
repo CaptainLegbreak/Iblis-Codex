@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2ItemsWorld.h"
 
 
 
@@ -31,7 +32,7 @@ int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pIte
         return 0;
     }
 
-    if (!pUnit || !pItem || (!pItem ? 6 : pItem->dwUnitType) != 4 || ITEMS_GetItemQuality(pItem) != 5)
+    if (!pUnit || !pItem || (!pItem ? 6 : pItem->dwUnitType) != 4 || ITEMS_GetItemQuality(pItem) != ITEMQUAL_SET)
     {
         return 0;
     }

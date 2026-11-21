@@ -93,9 +93,9 @@ static __forceinline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -105,9 +105,9 @@ static __forceinline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -164,7 +164,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 
     switch (pUnit->dwUnitType)
     {
-    case 5:
+    case UNIT_TILE:
         if (!bSame)
         {
             DUNGEON_UpdateWarpRoomSelect(UNITS_GetRoom(pUnit), pUnit->dwClassId);
@@ -172,7 +172,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         }
         break;
 
-    case 2:
+    case UNIT_OBJECT:
         if (UnitIsDoor(pUnit) && pUnit->dwAnimMode != 4)
         {
             const unsigned int dwNow = GetTickCount();
@@ -186,7 +186,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         }
         break;
 
-    case 1:
+    case UNIT_MONSTER:
         if (!bSame)
         {
             const int nClassId = pUnit->dwClassId;

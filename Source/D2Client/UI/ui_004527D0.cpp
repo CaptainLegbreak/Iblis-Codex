@@ -8,6 +8,7 @@
 #include "D2GameObjs.h"
 #include "D2LevelTxt.h"
 #include "D2CelContext.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -481,22 +482,22 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
     int nColor = 0;
     switch (ITEMS_GetItemQuality(pUnit))
     {
-    case 6:
+    case ITEMQUAL_RARE:
         nColor = 9;
         break;
-    case 8:
+    case ITEMQUAL_CRAFT:
         nColor = 8;
         break;
-    case 9:
+    case ITEMQUAL_TEMPERED:
         nColor = 10;
         break;
-    case 4:
+    case ITEMQUAL_MAGIC:
         nColor = 3;
         break;
-    case 5:
+    case ITEMQUAL_SET:
         nColor = 2;
         break;
-    case 7:
+    case ITEMQUAL_UNIQUE:
         nColor = 4;
         break;
     default:
@@ -826,7 +827,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
     {
         return;
     }
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 5 && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 100)
     {
         return;
@@ -838,7 +839,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
 
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
     {
         Unicode wszName[0x80];
         int nPercent;
@@ -847,14 +848,14 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         D2Win_10130_DrawFramedTextEx(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
         return;
     }
-    case 4:
+    case UNIT_ITEM:
         if (gaUIVarStates_007A27C0[13])
         {
             return;
         }
         sub_004527D0(pUnit, 0, 0);
         return;
-    case 1:
+    case UNIT_MONSTER:
     {
         const int nClassId = pUnit->dwClassId;
         if (nClassId != 0x1A1 && nClassId != 0x1A2)
@@ -895,7 +896,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         gwszHoverName_007A2F38[0].wChar = 0;
         return;
     }
-    case 2:
+    case UNIT_OBJECT:
     {
         Unicode wszUnused[0x80];
         Unicode wszLine[0x100];
@@ -960,7 +961,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         D2Win_10129_DrawFramedText(pName, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
         return;
     }
-    case 5:
+    case UNIT_TILE:
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
         const int nClassId = pUnit->dwClassId;

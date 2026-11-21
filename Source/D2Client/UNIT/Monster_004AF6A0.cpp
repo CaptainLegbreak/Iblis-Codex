@@ -320,7 +320,7 @@ void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName,
 {
     wszName->wChar = 0;
 
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return;
@@ -454,9 +454,9 @@ static __forceinline int sub_J20_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         if (pUnit->pDynamicPath)
@@ -471,9 +471,9 @@ static __forceinline int sub_J20_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         if (pUnit->pDynamicPath)
@@ -503,7 +503,7 @@ static void sub_004AE400_CastRandomCurse(D2UnitStrc* pUnit)
 
 static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return;
@@ -621,7 +621,7 @@ static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit)
 // build: context sub_004AF4C0_UpdateMonsterFrame
 static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return;
@@ -713,7 +713,7 @@ static void sub_004AF4C0_UpdateMonsterFrame(D2UnitStrc* pUnit)
 // 0x004AF6A0
 static void sub_004AF6A0_MonsterAttackEvent(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return;
@@ -888,7 +888,7 @@ static __declspec(noinline) int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, 
 
 static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
         return;
 
@@ -923,9 +923,9 @@ static __forceinline int sub_J10_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         if (pUnit->pDynamicPath)
@@ -940,9 +940,9 @@ static __forceinline int sub_J10_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         if (pUnit->pDynamicPath)
@@ -1721,7 +1721,7 @@ int __fastcall sub_004B11F0_CheckStatus(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 0;
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
         return 0;
     if (!UNITS_CanSwitchAI(pUnit->dwClassId))
@@ -1856,9 +1856,9 @@ static __forceinline int sub_I20_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         if (pUnit->pDynamicPath)
@@ -1873,9 +1873,9 @@ static __forceinline int sub_I20_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         if (pUnit->pDynamicPath)
@@ -1889,7 +1889,7 @@ static __forceinline int sub_I20_UnitY(D2UnitStrc* pUnit)
 // 0x004B13A0
 void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return;

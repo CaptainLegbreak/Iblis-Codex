@@ -26,19 +26,19 @@ static int sub_00641930_IsPointNearRoom(D2ActiveRoomStrc* pRoom,int nX,int nY,in
 }
 // build: context GetX
 inline int GetX(D2UnitStrc* pUnit) {
- switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nXPos;}
+ switch(pUnit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nXPos;}
  return pUnit->pDynamicPath?PATH_GetXPosition(pUnit->pDynamicPath):0;
 }
 // build: context GetY
 inline int GetY(D2UnitStrc* pUnit) {
- switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nYPos;}
+ switch(pUnit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nYPos;}
  return pUnit->pDynamicPath?PATH_GetYPosition(pUnit->pDynamicPath):0;
 }
 // build: context D2_ABS
 inline int D2_ABS(int n) { return n < 0 ? -n : n; }
 // build: context IsTarget
 static __forceinline int IsTarget(D2UnitStrc* pUnit) {
- switch(pUnit ? pUnit->dwUnitType : 6) {
+ switch(pUnit ? pUnit->dwUnitType : UNIT_INVALID) {
  case 0: return pUnit->dwAnimMode!=0 && pUnit->dwAnimMode!=17;
  case 1: return pUnit->dwAnimMode!=0 && pUnit->dwAnimMode!=12;
  case 2: return 0;

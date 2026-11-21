@@ -1417,7 +1417,7 @@ static int __stdcall sub_005D02B0_CanConvertTarget(D2UnitStrc* pUnit, int nSkill
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (pSkillsTxtRecord && !MONSTERS_GetHirelingTypeId(pTarget))
     {
-        const int nType = pTarget ? pTarget->dwUnitType : 6;
+        const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
         if (nType == 1 && !STATLIST_GetUnitAlignment(pTarget) && sub_6FD15190(pTarget, 11))
         {
             const int nChance = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);

@@ -619,7 +619,7 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
 // 0x0046EE80
 int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
 {
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType != 4)
     {
         return 0;

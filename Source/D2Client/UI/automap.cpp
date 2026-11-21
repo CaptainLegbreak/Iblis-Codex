@@ -1390,15 +1390,15 @@ int __fastcall sub_00480C10_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit,
 {
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         return sub_00461250_QueueMove(nCommand, pUnit, pTarget, nArg);
-    case 1:
+    case UNIT_MONSTER:
         sub_004AFF60_MonsterCommand(nCommand, pUnit, pTarget);
         return 1;
-    case 2:
+    case UNIT_OBJECT:
         sub_004BD6D0_ObjectCommand(nCommand, pUnit, pTarget);
         return 1;
-    case 4:
+    case UNIT_ITEM:
         sub_004C1B80_ItemCommand(nCommand, pUnit, pTarget->nParam1, pTarget->nParam2);
         return 1;
     }

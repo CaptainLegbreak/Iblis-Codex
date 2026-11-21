@@ -141,7 +141,7 @@ static __forceinline void MONSTERS_GetFlagEx31(D2UnitStrc* pUnit, int* pResult)
 // 0x0063E860
 int __fastcall MONSTERS_CanBeInTown(D2UnitStrc* pMonster)
 {
-    const int nUnitType = pMonster ? pMonster->dwUnitType : 6;
+    const int nUnitType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return 0;
@@ -493,7 +493,7 @@ void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc* unit, int mode, unsig
 {
     if (mode || !difficulty)
         return;
-    const int nType = unit ? unit->dwUnitType : 6;
+    const int nType = unit ? unit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
         return;
     D2MonStatsTxt* record = DATATBLS_GetMonStatsTxtRecord(unit->dwClassId);
@@ -534,9 +534,9 @@ __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->tGameCoords.nX;
     default:
         if (pUnit->pDynamicPath)
@@ -551,9 +551,9 @@ __forceinline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->tGameCoords.nY;
     default:
         if (pUnit->pDynamicPath)

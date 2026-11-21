@@ -136,7 +136,7 @@ int __fastcall sub_005CD910(D2GameStrc* pGame,D2UnitStrc* pUnit,int nSkillId,int
     if (value<1) value=1;
     SKILLS_SetParam1(pSkill,value);
     SKILLS_SetParam2(pSkill,pTarget->dwUnitId);
-    const int type=(pTarget ? pTarget->dwUnitType : 6);
+    const int type=(pTarget ? pTarget->dwUnitType : UNIT_INVALID);
     SKILLS_SetParam3(pSkill,type);
     return 1;
 }
@@ -301,9 +301,9 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -313,9 +313,9 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

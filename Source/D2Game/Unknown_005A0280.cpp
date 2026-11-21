@@ -71,7 +71,7 @@ static __forceinline D2MonUModTxt* sub_M433_GetMonUModTxtRecord(int nUMod)
 // 0x005A0280
 int __fastcall sub_005A0280_GetChampionUMod(D2UnitStrc* pUnit)
 {
-    const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     D2MonsterDataStrc* pMonsterData = (nUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData)
     {
@@ -108,7 +108,7 @@ int __fastcall sub_005A0280_GetChampionUMod(D2UnitStrc* pUnit)
 // 0x005A02E0
 static __declspec(noinline) void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
 {
-    const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return;
@@ -303,7 +303,7 @@ static __forceinline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
 // 0x005A0320
 static void __stdcall sub_005A0320_MarkUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1)
     {
         D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, MONSTER_GetLevelId(pUnit));
@@ -492,7 +492,7 @@ static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitS
         return;
     }
 
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return;
@@ -775,7 +775,7 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2A
         return pMonster;
     }
 
-    const int nUnitType = pMonster ? pMonster->dwUnitType : 6;
+    const int nUnitType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return pMonster;
@@ -862,7 +862,7 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2A
 // 0x005A4850
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return;
@@ -890,7 +890,7 @@ void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc*
 // 0x005A48C0
 void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nUMod)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return;
@@ -917,7 +917,7 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
 // build: context sub_005A4940_PromoteToUnique
 void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return;
@@ -985,7 +985,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
     }
 
     pGame->nBossFlagList[nSuperUnique >> 3] |= gdwBitMasks[nSuperUnique & 7];
-    const int nUnitType = pMonster ? pMonster->dwUnitType : 6;
+    const int nUnitType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1)
     {
         D2MonsterDataStrc* pBossData = pMonster->pMonsterData;

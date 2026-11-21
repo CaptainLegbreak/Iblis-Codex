@@ -457,9 +457,9 @@ __forceinline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -470,9 +470,9 @@ __forceinline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -574,7 +574,7 @@ static void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2Unit
     {
         return;
     }
-    const int nCount = *(volatile int*)&sgptDataTables->nMonStatsTxtRecordCount;
+    const int nCount = *(volatile int*)&sgptDataTables->nMonStatsTxtRecordCount; // volatile only fixes where the original reads the count
     if (nMinion >= nCount)
     {
         return;
@@ -1006,7 +1006,7 @@ D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2UnkMonCreateStrc* pCrea
                 --nSteps;
             }
             const int nNext=nRadius+3;
-            *(int volatile*)&nRadius=nNext;
+            *(int volatile*)&nRadius=nNext; // volatile only keeps nRadius (and nSpawnY below) in memory, as the original does
             if(nStepX && nStepY && nFlags){if(nNext>nMaxRadius)break;}else{if(nNext>nMaxRadius)break;}
         }while(1);
     }

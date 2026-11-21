@@ -110,14 +110,14 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
     const int nMode = pUnit->dwAnimMode;
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         if (nMode == 0 || nMode == 0x11)
         {
             return 1;
         }
         break;
 
-    case 1:
+    case UNIT_MONSTER:
         if (nMode == 0 || nMode == 0x0C)
         {
             return 1;

@@ -73,13 +73,13 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
             int nComponent = 8;
             switch (!pUnit ? 6 : pUnit->dwUnitType)
             {
-            case 3:
+            case UNIT_MISSILE:
                 D2_ASSERT(pOwner->dwUnitType == UNIT_MONSTER, 425);
                 if (!pOwner->dwAnimMode || pOwner->dwAnimMode == 12)
                 {
                     return;
                 }
-            case 1:
+            case UNIT_MONSTER:
                 nComponent = 14;
                 break;
             }

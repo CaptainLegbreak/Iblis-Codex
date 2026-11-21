@@ -359,7 +359,7 @@ int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc*, int); // 0x0062A5D0
 
 int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc*, int); // 0x0062A620
 
-static __forceinline int GetUnitType(D2UnitStrc* unit) { return unit?unit->dwUnitType:6; }
+static __forceinline int GetUnitType(D2UnitStrc* unit) { return unit?unit->dwUnitType:UNIT_INVALID; }
 
 struct D2AiControlStrc;
 
@@ -2344,7 +2344,7 @@ int __fastcall SKILLITEM_EventFunc29_RestInPeace(D2GameStrc* pGame, int nEvent, 
 
 inline int UNIT_GetUnitType(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 static __forceinline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
@@ -2456,6 +2456,7 @@ int __fastcall sub_005C09E0_SkillItemEventFunc_Reanimate(D2GameStrc* pGame, int 
         if (sub_0044BE50(pAttacker) == UNIT_PLAYER)
         {
             const int nOwnerId = pAttacker->dwUnitId;
+            // volatile only makes these reloads come from the stack copies of the register parameters, as the original does
             D2UnitStrc* pEventUnit = static_cast<D2UnitStrc* const volatile&>(pUnit);
             D2GameStrc* pOwnerGame = static_cast<D2GameStrc* const volatile&>(pGame);
             SUNITEVENT_Register(pOwnerGame, pEventUnit, UNITEVENT_13, static_cast<unsigned short>(nSkillId), nOwnerId, sub_005C07A0_UnitEventCallback, 0, nOwnerId);
@@ -3274,10 +3275,10 @@ int __fastcall sub_005DC920_GetThreat(D2UnitStrc* pUnit)
 
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         return 14;
 
-    case 1:
+    case UNIT_MONSTER:
     {
         const int nClassId = pUnit->dwClassId;
         D2MonStatsTxt* pMonStatsTxtRecord = (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nClassId] : 0;
@@ -3331,9 +3332,9 @@ inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -3344,9 +3345,9 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

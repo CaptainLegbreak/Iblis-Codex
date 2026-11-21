@@ -21,6 +21,7 @@ static D2BeltsTxt* sub_00660C70(int nIndex)
 // 0x00660D10
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2InvRectStrc* pInvRect, int nBoxId)
 {
+    // volatile: the original computes the record index before the table check
     D2BeltsTxt* pBeltsTxtRecord = sub_00660C70(nIndex + 7 * static_cast<const volatile int&>(bHigherRes));
     const D2InvRectStrc* pBoxStats = &pBeltsTxtRecord->beltBoxes[nBoxId];
     BELTS_ASSERT(pBoxStats, 143);

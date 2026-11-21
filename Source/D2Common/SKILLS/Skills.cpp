@@ -2736,9 +2736,9 @@ inline int UNITS_GetXPositionInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
 
     default:
@@ -2754,9 +2754,9 @@ inline int UNITS_GetYPositionInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
 
     default:
@@ -4071,6 +4071,7 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
 // 0x00647280
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine)
 {
+    // volatile: the original loads the unit argument once, at entry
     D2UnitStrc* const pTheUnit = *(D2UnitStrc* volatile*)&pUnit;
     D2SkillStrc* pSkill = 0;
     if (!nSkillLevel)

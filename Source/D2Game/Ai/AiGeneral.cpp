@@ -351,7 +351,7 @@ static void sub_0058ED80_FreeAllAiCommands(D2GameStrc* pGame, D2AiControlStrc* p
 // 0x0058EDE0
 void __fastcall AIGENERAL_FreeAllAiCommands(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1 || !pUnit->pMonsterData)
     {
         return;
@@ -875,7 +875,7 @@ void __fastcall AIGENERAL_AllocCommandsForMinions(D2GameStrc* pGame, D2UnitStrc*
     }
 
     D2UnitStrc* pOwner = SUNIT_GetServerUnit(pAiControl->pGame, pAiControl->dwOwnerTypeEx, pAiControl->dwOwnerGUIDEx);
-    const int nOwnerType = pOwner ? pOwner->dwUnitType : 6;
+    const int nOwnerType = pOwner ? pOwner->dwUnitType : UNIT_INVALID;
     if (nOwnerType != 1)
     {
         return;

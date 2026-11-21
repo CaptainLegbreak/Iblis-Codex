@@ -384,9 +384,9 @@ inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->tGameCoords.nX;
 
     default:
@@ -402,9 +402,9 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->tGameCoords.nY;
 
     default:
@@ -852,7 +852,7 @@ int __fastcall ACT1Q4_UnitIterate_RemoveCainFromTristram(D2GameStrc* pGame, D2Un
         return 0;
     }
 
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (MONSTERAI_HasInteractUnit(nType == 1 ? MONSTERS_GetMonInteractInline(pUnit) : 0))
     {
         sub_00573180(pGame, pUnit, ACT1Q4_SendPacket0x5DToClient, 0);

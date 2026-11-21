@@ -380,6 +380,7 @@ D2R01LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nM
         }
         pLight->nX = (UNITS_GetPrecisionX(pUnit) >> 13) + 4;
         unsigned int nPrecisionY = UNITS_GetPrecisionY(pUnit);
+        // volatile: the original reads both arguments from their stack slots here
         unsigned char nNativeIntensity = *(volatile unsigned char*)&nIntensity;
         int nNativeMode = *(volatile int*)&nMode;
         pLight->nY = (nPrecisionY >> 13) + 4;
@@ -1296,9 +1297,9 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1309,9 +1310,9 @@ __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

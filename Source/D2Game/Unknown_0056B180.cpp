@@ -277,7 +277,7 @@ static __forceinline int UNIT_HasFlag_M195(D2UnitStrc* pUnit, unsigned int nFlag
 int __fastcall SKILLS_CheckAuraTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nAuraFilter)
 {
     D2UnitStrc* pAttacker = pUnit;
-    const int nType = pTarget ? pTarget->dwUnitType : 6;
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
 
     switch (nType)
     {

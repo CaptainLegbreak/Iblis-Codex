@@ -23,7 +23,7 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2: case 4: case 5: return unit->pStaticPath->nXPos;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return unit->pStaticPath->nXPos;
     }
     return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath) : 0;
 }
@@ -31,7 +31,7 @@ static __forceinline int UNITS_GetYPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2: case 4: case 5: return unit->pStaticPath->nYPos;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return unit->pStaticPath->nYPos;
     }
     return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath) : 0;
 }
@@ -71,7 +71,7 @@ int __fastcall sub_004F42E0_SkillStartMeleeTarget(D2UnitStrc* unit, int skillId,
     SKILLS_SetParam1(skill, count);
     int posY = UNITS_GetYPosition(target);
     D2Common_10216(unit->pDynamicPath, UNITS_GetXPosition(target), posY, 0);
-    int targetType = target ? target->dwUnitType : 6;
+    int targetType = target ? target->dwUnitType : UNIT_INVALID;
     SKILLS_SetParam2(skill, targetType);
     range = target ? target->dwUnitId : -1;
     SKILLS_SetParam3(skill, range);

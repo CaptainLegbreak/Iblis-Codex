@@ -927,7 +927,7 @@ void __fastcall sub_6FD0B250(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
     {
         SUNITEVENT_Unregister(SUNIT_GetGameFromUnit(pUnit), pUnit, 1, nState);
 
-        const int nType = pUnit ? pUnit->dwUnitType : 6;
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         if (nType == 1)
         {
             AITHINK_ExecuteAiFn(SUNIT_GetGameFromUnit(pUnit), pUnit, AIGENERAL_GetAiControlFromUnit(pUnit), 0);
@@ -940,7 +940,7 @@ void __fastcall sub_6FD0B250(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 // 0x005C3D50
 int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
-    const int nType = pTarget ? pTarget->dwUnitType : 6;
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return 0;
@@ -967,7 +967,7 @@ int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* p
 // 0x005D8510
 int __fastcall SKILLS_Callback_FindTargetForTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return 0;

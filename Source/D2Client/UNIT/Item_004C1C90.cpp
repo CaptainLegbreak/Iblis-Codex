@@ -8,6 +8,7 @@
 #include "D2TxtItems.h"
 #include "D2Path.h"
 
+#include "D2ItemsWorld.h"
 struct D2SkillStrc;
 
 struct D2UnitStrc;
@@ -309,7 +310,6 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
 #pragma pack(push, 1)
 
 #pragma pack(pop)
-
 
 static void __stdcall sub_004C1C90_RemoveBodyItem(D2UnitStrc* pItem, D2UnitStrc* pUnit);
 
@@ -662,9 +662,9 @@ static __forceinline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -675,9 +675,9 @@ static __forceinline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1119,8 +1119,8 @@ void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket)
     sub_0046F020_FillGfxEntries(pUnit, 0);
     switch (pUnit->dwUnitType)
     {
-    case 0:
-    case 1:
+    case UNIT_PLAYER:
+    case UNIT_MONSTER:
         break;
 
     default:
@@ -1259,7 +1259,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     for (int i = 0; i < 0x0B; ++i)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, i);
-        if (pItem && ITEMS_GetItemQuality(pItem) == 5 && !ITEMS_CheckItemFlag(pItem, 0x100, 0x247, ".\\UNIT\\Item.cpp")
+        if (pItem && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET && !ITEMS_CheckItemFlag(pItem, 0x100, 0x247, ".\\UNIT\\Item.cpp")
             && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x248, ".\\UNIT\\Item.cpp"))
         {
             if (pUnit->dwUnitType == UNIT_PLAYER)
@@ -1416,8 +1416,8 @@ void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
 
     switch (pUnit->dwUnitType)
     {
-    case 0:
-    case 1:
+    case UNIT_PLAYER:
+    case UNIT_MONSTER:
         break;
 
     default:

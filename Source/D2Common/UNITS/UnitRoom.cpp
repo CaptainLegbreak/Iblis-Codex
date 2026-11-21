@@ -227,9 +227,9 @@ void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit)
 
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
     {
         D2StaticPathStrc* pStaticPath = pUnit->pStaticPath;
         if (pStaticPath->pRoom)
@@ -329,11 +329,11 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* hUnit)
 
         switch (hUnit->dwUnitType)
         {
-        case 0:
+        case UNIT_PLAYER:
             DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
             break;
 
-        case 1:
+        case UNIT_MONSTER:
             if (STATLIST_GetUnitAlignment(hUnit) == 2)
             {
                 DUNGEON_DecreaseAlliedCountOfRoom(pRoom);

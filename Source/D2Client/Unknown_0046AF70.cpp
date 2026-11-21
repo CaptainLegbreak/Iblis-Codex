@@ -99,9 +99,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     int nX;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nX = pUnit->pStaticPath->nXPos;
         break;
     default:
@@ -116,9 +116,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     int nY;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nY = pUnit->pStaticPath->nYPos;
         break;
     default:

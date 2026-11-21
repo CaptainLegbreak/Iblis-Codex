@@ -102,8 +102,8 @@ int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit
     {
         switch (pTargetUnit->dwUnitType)
         {
-        case 0:
-        case 1:
+        case UNIT_PLAYER:
+        case UNIT_MONSTER:
             return 1;
         default:
             return 0;

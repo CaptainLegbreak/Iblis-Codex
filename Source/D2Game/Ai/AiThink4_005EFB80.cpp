@@ -316,7 +316,7 @@ static __forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 // 0x005F3960
 int __fastcall sub_005F3960_IsMonster76Alive(D2UnitStrc* pUnit)
 {
-    if ((pUnit ? pUnit->dwUnitType : 6) != 1)
+    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != 1)
     {
         return 0;
     }
@@ -338,9 +338,9 @@ static __forceinline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -351,9 +351,9 @@ static __forceinline int UNITS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

@@ -65,9 +65,9 @@ int __fastcall sub_005DB410_CreateMissileWall(D2GameStrc* pGame, D2UnitStrc* pUn
         int nUnitX;
         switch (pUnit->dwUnitType)
         {
-        case 2:
-        case 4:
-        case 5:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             nUnitX = pUnit->pStaticPath->nXPos;
             break;
         default:
@@ -78,9 +78,9 @@ int __fastcall sub_005DB410_CreateMissileWall(D2GameStrc* pGame, D2UnitStrc* pUn
         int nUnitY;
         switch (pUnit->dwUnitType)
         {
-        case 2:
-        case 4:
-        case 5:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             nUnitY = pUnit->pStaticPath->nYPos;
             break;
         default:

@@ -1018,9 +1018,9 @@ static __forceinline int CLIENTS_GetUnitXForceInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1031,9 +1031,9 @@ static __forceinline int CLIENTS_GetUnitYForceInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1695,9 +1695,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     int nX;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nX = pUnit->pStaticPath->nXPos;
         break;
     default:
@@ -1712,9 +1712,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     int nY;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nY = pUnit->pStaticPath->nYPos;
         break;
     default:
@@ -1758,7 +1758,7 @@ void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSe
     const unsigned int nRoll = SEED_RollLowInline(&tSeed);
     pSeed->nHighSeed = tSeed.nHighSeed;
     pSeed->nLowSeed = tSeed.nLowSeed;
-    int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_00741B10;
+    int nStep = nRoll % 3 + *(volatile int*)&gnChargedBoltTurnBase_00741B10; // volatile only reproduces the original re-reading the turn base at each use
     for (int i = 0; i < nFrames; ++i)
     {
         nDirection += nSign * nStep;
@@ -2292,9 +2292,9 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -2304,9 +2304,9 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -2757,7 +2757,7 @@ int __fastcall SKILLS_SrvSt26_BladeFury(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 // 0x005D6B60
 void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nItemLevel, int bCheckOnInit)
 {
-    const int nType = pPet ? pPet->dwUnitType : 6;
+    const int nType = pPet ? pPet->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_MONSTER)
     {
         return;
@@ -3066,7 +3066,7 @@ int __fastcall SKILLS_SrvDo050_DragonTail(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 // 0x005D72B0
 static int __stdcall sub_005D72B0_CanConvertTarget(D2UnitStrc* pOwner, int nChance, D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return 0;

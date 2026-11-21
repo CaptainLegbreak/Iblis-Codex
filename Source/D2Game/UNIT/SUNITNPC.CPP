@@ -246,9 +246,6 @@ void __fastcall sub_00576C30_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStr
 
 enum
 {
-    ITEMQUAL_INFERIOR = 1,
-    ITEMQUAL_NORMAL = 2,
-    ITEMQUAL_SUPERIOR = 3,
 };
 
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0
@@ -673,7 +670,7 @@ int gnNpcGUID_0088CAC4; // 0x0088CAC4
 // 0x00573B20
 void __fastcall sub_6FC61190(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterItemCodeStrc* pItemCode, int dwILvl, int dwQuality)
 {
-    const int nType = pMonster ? pMonster->dwUnitType : 6;
+    const int nType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return;
@@ -1026,7 +1023,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* hNPC, u
         {
             bValid = 1;
             pItem = D2GAME_CreateItemUnit_6FC501A0(hNPC, nItemId, ptGame, 4, nQuality, 0, 1, nItemLevel, 0, 0, 0);
-            if (ITEMS_GetItemQuality(pItem) == 1)
+            if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_INFERIOR)
             {
                 const char* szName = DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(pItem))->name;
                 if (!_stricmp(szName, "Cracked"))
@@ -2283,12 +2280,12 @@ static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed,int nMax)
 
 static __forceinline int UnitX(D2UnitStrc* pUnit)
 {
- switch(pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
+ switch(pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
 }
 
 static __forceinline int UnitY(D2UnitStrc* pUnit)
 {
- switch(pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
+ switch(pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
 }
 
 // 0x00578790
@@ -2683,6 +2680,7 @@ void __fastcall sub_00579090_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlay
     if (pTrade && pTrade->bTrader)
     {
         pTrade->bVendorInit = 0;
+        // volatile only makes these two reloads come from the stack copies of the register parameters, as the original does
         D2UnitStrc* const pStorePlayer = *(D2UnitStrc* volatile*)&pPlayer;
         D2GameStrc* const pStoreGame = *(D2GameStrc* volatile*)&pGame;
         D2GAME_NPC_FillStoreInventory_6FCC7100(pStoreGame, pStorePlayer, pNpc, pTrade);
@@ -2889,7 +2887,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
     const int vendorId=npc->dwClassId;
     int price=ITEMS_GetTransactionCost(player,item,ptGame->nDifficulty,sub_00543520(ptGame,player),vendorId,1);
     int keep=1;
-    if (ITEMS_GetItemQuality(item)==1) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
+    if (ITEMS_GetItemQuality(item)==ITEMQUAL_INFERIOR) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
     if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSource_006E15F0)) keep=0;
     if (ITEMS_GetItemType(item)==7) keep=0;
     if (ITEMS_CheckItemFlag(item,0x1000000,0x50D,gszNpcSource_006E15F0)) keep=0;
@@ -2971,12 +2969,12 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
 }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
- switch(unit->dwUnitType) { case 2:case 4:case 5:return unit->pStaticPath->nXPos; }
+ switch(unit->dwUnitType) { case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nXPos; }
  return unit->pDynamicPath?PATH_GetXPosition(unit->pDynamicPath):0;
 }
 
 static __forceinline int GetY(D2UnitStrc* unit) {
- switch(unit->dwUnitType) { case 2:case 4:case 5:return unit->pStaticPath->nYPos; }
+ switch(unit->dwUnitType) { case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nYPos; }
  return unit->pDynamicPath?PATH_GetYPosition(unit->pDynamicPath):0;
 }
 
@@ -3324,7 +3322,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
             int nSockets = sub_0062BC20(pOutput);
             switch (ITEMS_GetItemQuality(pOutput))
             {
-            case 4:
+            case ITEMQUAL_MAGIC:
                 if (nSockets >= 2)
                 {
                     nSockets = 2;
@@ -3332,11 +3330,11 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
                 nSockets = ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pOutput), nSockets) + 1;
                 break;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
+            case ITEMQUAL_SET:
+            case ITEMQUAL_RARE:
+            case ITEMQUAL_UNIQUE:
+            case ITEMQUAL_CRAFT:
+            case ITEMQUAL_TEMPERED:
                 if (nSockets >= 1)
                 {
                     nSockets = 1;

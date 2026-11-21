@@ -486,11 +486,6 @@ int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2U
 
 int __stdcall ITEMS_CheckItemTypeIfThrowable(int nItemType); // 0x00628860
 
-enum D2C_ItemQualities
-{
-    ITEMQUAL_MAGIC = 4,
-    ITEMQUAL_TEMPERED = 9,
-};
 
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem); // 0x0062BEB0
 
@@ -877,7 +872,7 @@ FailedUnique:
 
 __forceinline D2ItemsTxt* ITEMMODE_GetItemsTxtRecordOfItem_H10(D2UnitStrc* pItem)
 {
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType == 4)
     {
         return DATATBLS_GetItemsTxtRecord(pItem->dwClassId);
@@ -931,7 +926,7 @@ static int __stdcall ITEMS_AssignCharmAffixes(D2ItemDropStrc* pItemDrop, D2UnitS
 // 0x00556B60
 static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
-    if (ITEMS_GetItemQuality(pItem) < 2)
+    if (ITEMS_GetItemQuality(pItem) < ITEMQUAL_NORMAL)
     {
         return;
     }
@@ -1040,8 +1035,8 @@ static void ITEMS_MakeEthereal(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 
     switch (ITEMS_GetItemQuality(pItem))
     {
-    case 1:
-    case 5:
+    case ITEMQUAL_INFERIOR:
+    case ITEMQUAL_SET:
         return;
     }
 
@@ -1352,7 +1347,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
     }
 
-    if (!ITEMS_CanBeRare(*ppItem) && ITEMS_GetItemQuality(*ppItem) == 6)
+    if (!ITEMS_CanBeRare(*ppItem) && ITEMS_GetItemQuality(*ppItem) == ITEMQUAL_RARE)
     {
         ITEMS_SetItemQuality(*ppItem, 4);
     }
@@ -1370,7 +1365,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
     unsigned int nSeed;
     switch (ITEMS_GetItemQuality(*ppItem))
     {
-    case 1:
+    case ITEMQUAL_INFERIOR:
     {
         const unsigned int nLowSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
         if (!sub_005C2FB0_ApplyLowQuality(*ppItem, pItemDrop))
@@ -1379,11 +1374,11 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
         break;
     }
-    case 2:
+    case ITEMQUAL_NORMAL:
         ITEMS_AssignSpecialPropertiesForFormat(pGame, *ppItem, pItemDrop);
         break;
 
-    case 3:
+    case ITEMQUAL_SUPERIOR:
     {
         ITEMS_SetFileIndex(*ppItem, -1);
         const unsigned int nLowSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
@@ -1393,7 +1388,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
         break;
     }
-    case 6:
+    case ITEMQUAL_RARE:
         ITEMS_AssignRarePrefix(*ppItem, 0);
         ITEMS_AssignRareSuffix(*ppItem, 0);
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
@@ -1406,7 +1401,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
         break;
 
-    case 4:
+    case ITEMQUAL_MAGIC:
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
         if (!ITEMS_AssignDropMagicAffixes(pItemDrop, ppItem))
         {
@@ -1417,7 +1412,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
         break;
 
-    case 7:
+    case ITEMQUAL_UNIQUE:
         ITEMS_SetFileIndex(*ppItem, -1);
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
         if (!sub_005566B0_RollUniqueItem(pGame, *ppItem, pItemDrop))
@@ -1437,7 +1432,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
         break;
 
-    case 8:
+    case ITEMQUAL_CRAFT:
     {
         ITEMS_AssignRarePrefix(*ppItem, 0);
         ITEMS_AssignRareSuffix(*ppItem, 0);
@@ -1448,7 +1443,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
         break;
     }
-    case 9:
+    case ITEMQUAL_TEMPERED:
     {
         ITEMS_AssignRarePrefix(*ppItem, 0);
         ITEMS_AssignRareSuffix(*ppItem, 0);
@@ -1466,7 +1461,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
         }
         break;
     }
-    case 5:
+    case ITEMQUAL_SET:
         ITEMS_SetFileIndex(*ppItem, -1);
         nSeed = SEED_GetLowSeed(ITEMS_GetItemSeed(*ppItem));
         if (!sub_005C2940_RollSetItem(*ppItem, pItemDrop))
@@ -1502,9 +1497,9 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
 
     switch (ITEMS_GetItemQuality(*ppItem))
     {
-    case 1:
-    case 2:
-    case 3:
+    case ITEMQUAL_INFERIOR:
+    case ITEMQUAL_NORMAL:
+    case ITEMQUAL_SUPERIOR:
         ITEMS_RollDropSockets(pGame, *ppItem, pItemDrop);
         break;
     }
@@ -1513,13 +1508,13 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
     {
         switch (ITEMS_GetItemQuality(*ppItem))
         {
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 6:
-        case 8:
-        case 9:
+        case ITEMQUAL_INFERIOR:
+        case ITEMQUAL_NORMAL:
+        case ITEMQUAL_SUPERIOR:
+        case ITEMQUAL_MAGIC:
+        case ITEMQUAL_RARE:
+        case ITEMQUAL_CRAFT:
+        case ITEMQUAL_TEMPERED:
         {
             const int nAutoPrefix = pItemsTxtRecord->wAutoPrefix;
             if (nAutoPrefix)
@@ -1815,7 +1810,7 @@ void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 static inline int ITEMS_IsUniqueWithFileIndex(D2UnitStrc* pItem, int nFileIndex)
 {
-    return pItem && pItem->dwUnitType == UNIT_ITEM && ITEMS_GetItemQuality(pItem) == 7 && ITEMS_GetFileIndex(pItem) == nFileIndex;
+    return pItem && pItem->dwUnitType == UNIT_ITEM && ITEMS_GetItemQuality(pItem) == ITEMQUAL_UNIQUE && ITEMS_GetFileIndex(pItem) == nFileIndex;
 }
 
 // 0x00558070
@@ -1882,9 +1877,9 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1895,9 +1890,9 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
