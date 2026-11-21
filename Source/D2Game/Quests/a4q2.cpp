@@ -274,6 +274,16 @@ void __fastcall ACT4Q1_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
     SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT4Q1_UnitIterate_AttachCompletionSound);
 }
 
+// 0x005B4530
+bool __fastcall ACT4Q2_SeqCallback(D2QuestDataStrc* pQuestData)
+{
+    if (!pQuestData->fState && pQuestData->bNotIntro == 1)
+    {
+        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 145);
+    }
+    return 1;
+}
+
 // 0x005B45E0
 static void sub_005B45E0_ACT4Q2_SpawnPortalToAct5(D2QuestArgStrc* pQuestArg, D2Act4Quest2Strc* pQuestDataEx)
 {

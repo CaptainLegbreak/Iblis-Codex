@@ -1807,16 +1807,6 @@ void __fastcall ACT4Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     memset(pQuestDataEx, 0x00, sizeof(D2Act4Quest1Strc));
 }
 
-// 0x005B4530
-bool __fastcall ACT4Q2_SeqCallback(D2QuestDataStrc* pQuestData)
-{
-    if (!pQuestData->fState && pQuestData->bNotIntro == 1)
-    {
-        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 145);
-    }
-    return 1;
-}
-
 // 0x005B4560
 int __fastcall ACT4Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
