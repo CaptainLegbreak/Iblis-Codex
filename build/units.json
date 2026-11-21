@@ -44537,6 +44537,11 @@
      "name": "sub_0052BDC0"
     },
     {
+     "va": "0x0052BE20",
+     "length": 1,
+     "name": "?GAME_LogMessage@@YAXHPBDZZ"
+    },
+    {
      "va": "0x0052BE30",
      "length": 3,
      "name": "sub_0052BE30"
@@ -45466,17 +45471,6 @@
      "va": "0x0054C690",
      "length": 57,
      "name": "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052BE20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052BE20",
-     "length": 1,
-     "name": "?GAME_LogMessage@@YAXHPBDZZ"
     }
    ]
   },
