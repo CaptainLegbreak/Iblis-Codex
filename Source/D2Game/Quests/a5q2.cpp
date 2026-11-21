@@ -794,6 +794,50 @@ int __fastcall ACT5Q2_SpawnCagedWussies(D2QuestDataStrc* pQuestData, D2ObjInitFn
 	return nWussiesSpawned;
 }
 
+// 0x005886A0
+void __fastcall OBJECTS_InitFunction62_CagedWussie(D2ObjInitFnStrc* pOp)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q2_RESCUESOLDIERS);
+    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
+
+    if (!pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    if (pQuestData->fState < 2)
+    {
+        QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q2.cpp", 860);
+    }
+
+    if (!pQuestData->fLastState && pQuestDataEx->nKilledWussies < 5)
+    {
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
+    }
+
+    for (int nCounter = 0; nCounter < 3; ++nCounter)
+    {
+        if (!pQuestDataEx->bWussiesSpawned[nCounter])
+        {
+            for (int i = 0; i < nCounter; ++i)
+            {
+                if (pQuestDataEx->pWussieCoords[i].nX == pOp->nX && pQuestDataEx->pWussieCoords[i].nY == pOp->nY)
+                {
+                    return;
+                }
+            }
+
+            pQuestDataEx->pWussieCoords[nCounter].nX = pOp->nX;
+            pQuestDataEx->pWussieCoords[nCounter].nY = pOp->nY;
+            pQuestDataEx->nSpawnedWussies += ACT5Q2_SpawnCagedWussies(pQuestData, pOp, nCounter);
+            pQuestDataEx->bWussiesSpawned[nCounter] = 1;
+            pQuestDataEx->unk0x10E[nCounter] = 0;
+            return;
+        }
+    }
+}
+
 // 0x005887A0
 int __fastcall ACT5Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

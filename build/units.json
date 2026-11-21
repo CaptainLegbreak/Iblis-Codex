@@ -58908,11 +58908,6 @@
      "name": "ACT5Q2_ActiveFilterCallback"
     },
     {
-     "va": "0x005886A0",
-     "length": 251,
-     "name": "OBJECTS_InitFunction62_CagedWussie"
-    },
-    {
      "va": "0x00588C50",
      "length": 67,
      "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
@@ -59104,6 +59099,11 @@
     {
      "va": "0x00588600",
      "length": 146
+    },
+    {
+     "va": "0x005886A0",
+     "length": 251,
+     "name": "OBJECTS_InitFunction62_CagedWussie"
     },
     {
      "va": "0x005887A0",
