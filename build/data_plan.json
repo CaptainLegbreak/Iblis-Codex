@@ -2509,7 +2509,7 @@
    "state": "included",
    "static_definitions": 1
   },
-  "Source/D2Client/UI/npcmenu_004B34A0.cpp": {
+  "Source/D2Client/UI/npcmenu_004B2650.cpp": {
    "bytes": 87,
    "definitions": 2,
    "externs": [
@@ -61262,7 +61262,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B34A0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHandlerCount_007253DC = ",
@@ -61287,7 +61287,7 @@
    "cname": "gData_00726C6E",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B34A0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E; // 0x00726C6E",
    "head": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E = ",

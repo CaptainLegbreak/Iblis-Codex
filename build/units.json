@@ -29667,6 +29667,31 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004B18C0",
+     "length": 164,
+     "name": "?sub_004B18C0@@YIHPAXHH@Z"
+    },
+    {
+     "va": "0x004B1A80",
+     "length": 246,
+     "name": "?sub_004B1A80_OnSelectMessage@@YAHXZ"
+    },
+    {
+     "va": "0x004B1B80",
+     "length": 118,
+     "name": "?sub_004B1B80_SendNpcMessageFE@@YAHXZ"
+    },
+    {
+     "va": "0x004B1C00",
+     "length": 118,
+     "name": "?sub_004B1C00_SendNpcMessage152@@YAHXZ"
+    },
+    {
+     "va": "0x004B1C80",
+     "length": 205,
+     "name": "?sub_004B1C80_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
+    },
+    {
      "va": "0x004B2650",
      "length": 682
     },
@@ -29678,6 +29703,56 @@
     {
      "va": "0x004B3240",
      "length": 65
+    },
+    {
+     "va": "0x004B34A0",
+     "length": 81,
+     "name": "?sub_004B34A0@@YAHXZ"
+    },
+    {
+     "va": "0x004B3510",
+     "length": 79,
+     "name": "?sub_004B3510@@YIXPAUD2NpcMonListPacketStrc@@@Z"
+    },
+    {
+     "va": "0x004B3C20",
+     "length": 228,
+     "name": "?sub_004B3C20@@YIXH@Z"
+    },
+    {
+     "va": "0x004B3D40",
+     "length": 145,
+     "name": "?sub_004B3D40_NpcMenuTradeB@@YAHXZ"
+    },
+    {
+     "va": "0x004B3E10",
+     "length": 182,
+     "name": "?sub_004B3E10_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004B4380",
+     "length": 580,
+     "name": "?sub_004B4380_UpdateNpcInteract@@YAXXZ"
+    },
+    {
+     "va": "0x004B5C20",
+     "length": 64,
+     "name": "?sub_004B5C20_ClosePanel77@@YAHXZ"
+    },
+    {
+     "va": "0x004B6410",
+     "length": 35,
+     "name": "?sub_004B6410_InitHandler@@YAHXZ"
+    },
+    {
+     "va": "0x004B6980",
+     "length": 81,
+     "name": "?sub_004B6980_SetNpcMenuState@@YIXGH@Z"
+    },
+    {
+     "va": "0x004B6A30",
+     "length": 568,
+     "name": "?sub_004B6A30_NpcTextCallback@@YIHPAXHH@Z"
     }
    ],
    "flags": [
@@ -29913,87 +29988,6 @@
      "va": "0x004B52C0",
      "length": 89,
      "name": "?sub_004B52C0_NpcMenuAction01@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B34A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B18C0",
-     "length": 164,
-     "name": "?sub_004B18C0@@YIHPAXHH@Z"
-    },
-    {
-     "va": "0x004B1A80",
-     "length": 246,
-     "name": "?sub_004B1A80_OnSelectMessage@@YAHXZ"
-    },
-    {
-     "va": "0x004B1B80",
-     "length": 118,
-     "name": "?sub_004B1B80_SendNpcMessageFE@@YAHXZ"
-    },
-    {
-     "va": "0x004B1C00",
-     "length": 118,
-     "name": "?sub_004B1C00_SendNpcMessage152@@YAHXZ"
-    },
-    {
-     "va": "0x004B1C80",
-     "length": 205,
-     "name": "?sub_004B1C80_GetNpcDialogPos@@YAHPAUD2CoordStrc@@@Z"
-    },
-    {
-     "va": "0x004B34A0",
-     "length": 81,
-     "name": "?sub_004B34A0@@YAHXZ"
-    },
-    {
-     "va": "0x004B3510",
-     "length": 79,
-     "name": "?sub_004B3510@@YIXPAUD2NpcMonListPacketStrc@@@Z"
-    },
-    {
-     "va": "0x004B3C20",
-     "length": 228,
-     "name": "?sub_004B3C20@@YIXH@Z"
-    },
-    {
-     "va": "0x004B3D40",
-     "length": 145,
-     "name": "?sub_004B3D40_NpcMenuTradeB@@YAHXZ"
-    },
-    {
-     "va": "0x004B3E10",
-     "length": 182,
-     "name": "?sub_004B3E10_RefreshNpcEntries@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004B4380",
-     "length": 580,
-     "name": "?sub_004B4380_UpdateNpcInteract@@YAXXZ"
-    },
-    {
-     "va": "0x004B5C20",
-     "length": 64,
-     "name": "?sub_004B5C20_ClosePanel77@@YAHXZ"
-    },
-    {
-     "va": "0x004B6410",
-     "length": 35,
-     "name": "?sub_004B6410_InitHandler@@YAHXZ"
-    },
-    {
-     "va": "0x004B6980",
-     "length": 81,
-     "name": "?sub_004B6980_SetNpcMenuState@@YIXGH@Z"
-    },
-    {
-     "va": "0x004B6A30",
-     "length": 568,
-     "name": "?sub_004B6A30_NpcTextCallback@@YIHPAXHH@Z"
     }
    ]
   },
