@@ -4,6 +4,7 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2TxtItems.h"
+#include "D2GameRecords.h"
 
 // build: base-profile
 #define NULL 0
@@ -90,7 +91,6 @@ void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, vo
 
 void __stdcall sub_006BD230_AddLinkCode(D2TxtLinkStrc* pLinker, unsigned int dwCode); // 0x006BD230
 
-struct D2MagicAffixTxt { char unk[0x90]; };
 
 struct D2RareAffixTxt { char unk[0x48]; };
 
@@ -242,8 +242,10 @@ enum D2C_TxtFieldTypes
     TXTFIELD_NONE = 0,
     TXTFIELD_ASCII = 1,
     TXTFIELD_DWORD = 2,
+    TXTFIELD_WORD = 3,
     TXTFIELD_BYTE = 4,
     TXTFIELD_UNKNOWN3 = 11,
+    TXTFIELD_CODETOBYTE = 13,
     TXTFIELD_CODETOWORD = 15,
     TXTFIELD_NAMETODWORD = 19,
     TXTFIELD_CALCTODWORD = 25,
@@ -880,6 +882,85 @@ void __fastcall DATATBLS_UnloadUniqueItemsTxt()
     FOG_FreeLinker(gpUniqueItemsLinker);
     DATATBLS_UnloadBin(gpUniqueItemsTxt);
     gnUniqueitemsTxtRecordCount = 0;
+}
+
+// 0x00633730
+void __fastcall DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt(void* hArchive)
+{
+    D2MagicAffixTxt* pMagicSuffix;
+    D2MagicAffixTxt* pMagicPrefix;
+    D2MagicAffixTxt* pAutoMagic;
+
+    int nSuffixRecords;
+    int nPrefixRecords;
+    int nAutoMagicRecords;
+
+    D2BinFieldStrc pTbl[] =
+    {
+        { "name", TXTFIELD_ASCII, 31, 0, 0 },
+        { "spawnable", TXTFIELD_BYTE, 0, 84, 0 },
+        { "level", TXTFIELD_DWORD, 0, 88, 0 },
+        { "group", TXTFIELD_DWORD, 0, 92, 0 },
+        { gszTxtField_version, TXTFIELD_WORD, 0, 34, 0 },
+        { "divide", TXTFIELD_DWORD, 0, 132, 0 },
+        { "multiply", TXTFIELD_DWORD, 0, 136, 0 },
+        { "add", TXTFIELD_DWORD, 0, 140, 0 },
+        { "rare", TXTFIELD_BYTE, 0, 100, 0 },
+        { "maxlevel", TXTFIELD_DWORD, 0, 96, 0 },
+        { "levelreq", TXTFIELD_BYTE, 0, 101, 0 },
+        { "classspecific", TXTFIELD_CODETOBYTE, 0, 102, &sgtDataTables.pPlayerClassLinker },
+        { "class", TXTFIELD_CODETOBYTE, 0, 103, &sgtDataTables.pPlayerClassLinker },
+        { "classlevelreq", TXTFIELD_BYTE, 0, 104, 0 },
+        { "itype1", TXTFIELD_CODETOWORD, 0, 106, &sgtDataTables.pItemTypesLinker },
+        { "itype2", TXTFIELD_CODETOWORD, 0, 108, &sgtDataTables.pItemTypesLinker },
+        { "itype3", TXTFIELD_CODETOWORD, 0, 110, &sgtDataTables.pItemTypesLinker },
+        { "itype4", TXTFIELD_CODETOWORD, 0, 112, &sgtDataTables.pItemTypesLinker },
+        { "itype5", TXTFIELD_CODETOWORD, 0, 114, &sgtDataTables.pItemTypesLinker },
+        { "itype6", TXTFIELD_CODETOWORD, 0, 116, &sgtDataTables.pItemTypesLinker },
+        { "itype7", TXTFIELD_CODETOWORD, 0, 118, &sgtDataTables.pItemTypesLinker },
+        { "etype1", TXTFIELD_CODETOWORD, 0, 120, &sgtDataTables.pItemTypesLinker },
+        { "etype2", TXTFIELD_CODETOWORD, 0, 122, &sgtDataTables.pItemTypesLinker },
+        { "etype3", TXTFIELD_CODETOWORD, 0, 124, &sgtDataTables.pItemTypesLinker },
+        { "etype4", TXTFIELD_CODETOWORD, 0, 126, &sgtDataTables.pItemTypesLinker },
+        { "etype5", TXTFIELD_CODETOWORD, 0, 128, &sgtDataTables.pItemTypesLinker },
+        { "transformcolor", TXTFIELD_CODETOBYTE, 0, 86, &sgtDataTables.pColorsLinker },
+        { "frequency", TXTFIELD_BYTE, 0, 130, 0 },
+        { "mod1code", TXTFIELD_NAMETODWORD, 0, 36, &sgtDataTables.pPropertiesLinker },
+        { "mod1param", TXTFIELD_CALCTODWORD, 0, 40, (void*)DATATBLS_ItemParamLinker },
+        { "mod1min", TXTFIELD_DWORD, 0, 44, 0 },
+        { "mod1max", TXTFIELD_DWORD, 0, 48, 0 },
+        { "mod2code", TXTFIELD_NAMETODWORD, 0, 52, &sgtDataTables.pPropertiesLinker },
+        { "mod2param", TXTFIELD_CALCTODWORD, 0, 56, (void*)DATATBLS_ItemParamLinker },
+        { "mod2min", TXTFIELD_DWORD, 0, 60, 0 },
+        { "mod2max", TXTFIELD_DWORD, 0, 64, 0 },
+        { "mod3code", TXTFIELD_NAMETODWORD, 0, 68, &sgtDataTables.pPropertiesLinker },
+        { "mod3param", TXTFIELD_CALCTODWORD, 0, 72, (void*)DATATBLS_ItemParamLinker },
+        { "mod3min", TXTFIELD_DWORD, 0, 76, 0 },
+        { "mod3max", TXTFIELD_DWORD, 0, 80, 0 },
+        { gszTxtField_end, TXTFIELD_NONE, 0, 0, 0 },
+    };
+
+    pMagicSuffix = (D2MagicAffixTxt*)DATATBLS_CompileTxt(hArchive, "magicsuffix", pTbl, &nSuffixRecords, sizeof(D2MagicAffixTxt));
+    pMagicPrefix = (D2MagicAffixTxt*)DATATBLS_CompileTxt(hArchive, "magicprefix", pTbl, &nPrefixRecords, sizeof(D2MagicAffixTxt));
+    pAutoMagic = (D2MagicAffixTxt*)DATATBLS_CompileTxt(hArchive, "automagic", pTbl, &nAutoMagicRecords, sizeof(D2MagicAffixTxt));
+
+    sgtMagicItemModsDataTblDesc.nMagicAffixTxtRecordCount = nSuffixRecords + nPrefixRecords + nAutoMagicRecords;
+    sgtMagicItemModsDataTblDesc.pMagicAffixTxt = (D2MagicAffixTxt*)FOG_AllocPool(0, sizeof(D2MagicAffixTxt) * sgtMagicItemModsDataTblDesc.nMagicAffixTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 663, 0);
+
+    sgtMagicItemModsDataTblDesc.pMagicSuffix = sgtMagicItemModsDataTblDesc.pMagicAffixTxt;
+    memcpy(sgtMagicItemModsDataTblDesc.pMagicAffixTxt, pMagicSuffix, sizeof(D2MagicAffixTxt) * nSuffixRecords);
+    memcpy(sgtMagicItemModsDataTblDesc.pMagicPrefix = &sgtMagicItemModsDataTblDesc.pMagicSuffix[nSuffixRecords], pMagicPrefix, sizeof(D2MagicAffixTxt) * nPrefixRecords);
+    memcpy(sgtMagicItemModsDataTblDesc.pAutoMagic = &sgtMagicItemModsDataTblDesc.pMagicPrefix[nPrefixRecords], pAutoMagic, sizeof(D2MagicAffixTxt) * nAutoMagicRecords);
+
+    DATATBLS_UnloadBin(pMagicSuffix);
+    DATATBLS_UnloadBin(pMagicPrefix);
+    DATATBLS_UnloadBin(pAutoMagic);
+
+    void* pUnicode = 0;
+    for (int i = 0; i < sgtMagicItemModsDataTblDesc.nMagicAffixTxtRecordCount; ++i)
+    {
+        sgtMagicItemModsDataTblDesc.pMagicAffixTxt[i].wTblIndex = D2LANG_GetTblIndex(sgtMagicItemModsDataTblDesc.pMagicAffixTxt[i].szName, &pUnicode);
+    }
 }
 
 // 0x00636730
@@ -1710,3 +1791,4 @@ D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables()
 {
     return &sgtRuneWordsTblDesc;
 }
+

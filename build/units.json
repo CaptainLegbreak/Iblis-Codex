@@ -79253,6 +79253,11 @@
      "name": "DATATBLS_ItemParamLinker"
     },
     {
+     "va": "0x00633730",
+     "length": 1894,
+     "name": "?DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt@@YIXPAX@Z"
+    },
+    {
      "va": "0x00633EA0",
      "length": 40,
      "name": "DATATBLS_UnloadMagicSuffix_Prefix_AutomagicTxt"
@@ -79465,17 +79470,6 @@
      "va": "0x00639CB0",
      "length": 6,
      "name": "DATATBLS_GetRuneDataTables"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00633730.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00633730",
-     "length": 1894,
-     "name": "?DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt@@YIXPAX@Z"
     }
    ]
   },
