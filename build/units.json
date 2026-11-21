@@ -79873,6 +79873,11 @@
      "name": "ITEMS_GetClassOfClassSpecificItem"
     },
     {
+     "va": "0x0062C590",
+     "length": 261,
+     "name": "?sub_0062C590@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0062C6A0",
      "length": 205,
      "name": "?ITEMS_IsPersonalizable@@YGHPAUD2UnitStrc@@@Z"
@@ -79994,6 +79999,11 @@
     {
      "va": "0x0062FFF0",
      "length": 4800
+    },
+    {
+     "va": "0x006312B0",
+     "length": 299,
+     "name": "?ITEMS_SerializeItem@@YIHPAUD2UnitStrc@@PAUD2BitBufferStrc@@HHH@Z"
     },
     {
      "va": "0x006313E0",
@@ -80185,22 +80195,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_0062C590.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0062C590",
-     "length": 261,
-     "name": "?sub_0062C590@@YGHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x006312B0",
-     "length": 299,
-     "name": "?ITEMS_SerializeItem@@YIHPAUD2UnitStrc@@PAUD2BitBufferStrc@@HHH@Z"
-    }
    ]
   },
   {

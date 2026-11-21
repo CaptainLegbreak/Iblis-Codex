@@ -546,8 +546,14 @@ D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables();              
 
 #define ITEMS_WriteBitsInl(nBits, nData, pBuffer) ITEMS_WriteBitsRevInl(pBuffer, nData, nBits)
 
-
 #define ITEMS_WriteBitsCall(nBits, nData, pBuffer) ITEMS_WriteBitsCallInl(pBuffer, nData, nBits)
+
+static void __stdcall ITEMS_SerializeItemCompact(int bServer, D2UnitStrc* pItem, D2BitBufferStrc* pBuffer); // 0x0062AF80
+
+static int sub_0062A270_HasSocketedItem(D2UnitStrc* pItem);
+
+int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem);
+
 
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)
@@ -3222,54 +3228,58 @@ int __stdcall ITEMS_GetClassOfClassSpecificItem(D2UnitStrc* pItem)
     return 7;
 }
 
-int __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bSaveItemInv, int bGamble)
+inline int UNITS_IsExpansionChecked_Inl(D2UnitStrc* pUnit)
 {
-    unsigned int nItemFlags = ITEMS_GetItemFlagsInl(pItem);
-    nItemFlags = nItemFlags & ~IFLAG_INIT | IFLAG_JUSTSAVED;
-
-    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
-    D2_ASSERT(pItemsTxtRecord, 4832);
-
-    if (pItemsTxtRecord->nCompactSave)
+    if (pUnit)
     {
-        nItemFlags |= IFLAG_COMPACTSAVE;
+        const unsigned int flags = pUnit ? pUnit->dwFlagEx : 0;
+        return (flags >> 25) & 1;
     }
 
-    if (bGamble)
+    return 0;
+}
+
+// 0x0062C590
+int __stdcall sub_0062C590(D2UnitStrc* pItem)
+{
+    if (ITEMS_GetItemType_Inl(pItem) == 4 || ITEMS_CheckItemFlag_Inl(pItem, 0x1000))
     {
-        nItemFlags = nItemFlags & ~IFLAG_ETHEREAL | IFLAG_LOWQUALITY;
+        return 0;
     }
 
-    if (bServer)
+    const int nItemId = pItem->dwClassId;
+    if (!ITEMS_CheckBitField1Flag1(nItemId))
     {
-        BITMANIP_Write(pBuffer, 'MJ', 16);
-    }
-    else if (!(nItemFlags & IFLAG_IDENTIFIED))
-    {
-        nItemFlags &= ~IFLAG_SOCKETED;
-    }
-    BITMANIP_Write(pBuffer, nItemFlags, 32);
-
-    if (nItemFlags & IFLAG_COMPACTSAVE)
-    {
-        ITEMS_SerializeItemCompact(bServer, pItem, pBuffer);
-    }
-    else
-    {
-        ITEMS_SerializeItemComplete(pItem, pBuffer, bServer, bGamble);
+        return 0;
     }
 
-    if (!bGamble && bSaveItemInv && pItem->pInventory)
+    if (!UNITS_IsExpansionChecked_Inl(pItem) && ITEMS_CheckIfThrowable(pItem))
     {
-        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
-        {
-            D2UnitStrc* pChild = INVENTORY_UnitIsItem(i);
-            BITMANIP_GoToNextByte(pBuffer);
-            ITEMS_SerializeItem(pChild, pBuffer, bServer, bSaveItemInv, 0);
-        }
+        return 0;
     }
 
-    return BITMANIP_GetSize(pBuffer);
+    if (DATATBLS_GetItemsTxtRecord(nItemId)->nQuest && ITEMS_GetBaseCode(pItem) != ' gel')
+    {
+        return 0;
+    }
+
+    if (sub_0062A270_HasSocketedItem(pItem))
+    {
+        return 0;
+    }
+
+    if (ITEMS_CheckItemFlag(pItem, 0x800, 4807, ".\\ITEMS\\Items.cpp"))
+    {
+        return 0;
+    }
+
+    const int nQuality = ITEMS_GetItemQuality(pItem);
+    if (nQuality == 5 || nQuality == 4 || nQuality == 6 || nQuality == 8 || nQuality == 7 || nQuality == 9)
+    {
+        return 0;
+    }
+
+    return 1;
 }
 
 static inline D2ItemDataStrc* sub_T03_GetItemData(D2UnitStrc* pItem)
@@ -5216,6 +5226,57 @@ L_NO_RECORD:
             ITEMS_WriteBitsInl(9, 0x1FF, pBuffer);
         }
     }
+}
+
+// 0x006312B0
+int __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bSaveItemInv, int bGamble)
+{
+    unsigned int nItemFlags = ITEMS_GetItemFlagsInl(pItem);
+    nItemFlags = nItemFlags & ~IFLAG_INIT | IFLAG_JUSTSAVED;
+
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    D2_ASSERT(pItemsTxtRecord, 4832);
+
+    if (pItemsTxtRecord->nCompactSave)
+    {
+        nItemFlags |= IFLAG_COMPACTSAVE;
+    }
+
+    if (bGamble)
+    {
+        nItemFlags = nItemFlags & ~IFLAG_ETHEREAL | IFLAG_LOWQUALITY;
+    }
+
+    if (bServer)
+    {
+        BITMANIP_Write(pBuffer, 'MJ', 16);
+    }
+    else if (!(nItemFlags & IFLAG_IDENTIFIED))
+    {
+        nItemFlags &= ~IFLAG_SOCKETED;
+    }
+    BITMANIP_Write(pBuffer, nItemFlags, 32);
+
+    if (nItemFlags & IFLAG_COMPACTSAVE)
+    {
+        ITEMS_SerializeItemCompact(bServer, pItem, pBuffer);
+    }
+    else
+    {
+        ITEMS_SerializeItemComplete(pItem, pBuffer, bServer, bGamble);
+    }
+
+    if (!bGamble && bSaveItemInv && pItem->pInventory)
+    {
+        for (D2UnitStrc* i = INVENTORY_GetFirstItem(pItem->pInventory); i; i = INVENTORY_GetNextItem(i))
+        {
+            D2UnitStrc* pChild = INVENTORY_UnitIsItem(i);
+            BITMANIP_GoToNextByte(pBuffer);
+            ITEMS_SerializeItem(pChild, pBuffer, bServer, bSaveItemInv, 0);
+        }
+    }
+
+    return BITMANIP_GetSize(pBuffer);
 }
 
 // 0x006313E0
