@@ -67,7 +67,6 @@ struct D2CommonMappingEntryNodeStrc;
 
 struct D2CommonStringEntryNodeStrc;
 
-
 struct D2StormSlotList0060EDB0Strc;
 
 struct D2StormListAStrc;
@@ -1118,11 +1117,9 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
 
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset);
 
-
 struct D2CommonStormPlainLinkStrc;
 
 struct D2CommonStormListGStrc;
-
 
 struct D2CommonStormSlotListDStrc;
 
@@ -1439,7 +1436,6 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
     return pNode + nLinkOffset;
 }
 
-// 0x0060E2A0
 inline __declspec(noinline) unsigned int D2CommonStormSlotArrayAStrc::sub_0060E2A0_CalcChunkSize(unsigned int nCount)
 {
     if (nCount < 0x15)
@@ -1453,7 +1449,6 @@ inline __declspec(noinline) unsigned int D2CommonStormSlotArrayAStrc::sub_0060E2
     return 0x15;
 }
 
-// 0x0060E300
 inline __declspec(noinline) unsigned int D2CommonStormSlotArrayBStrc::sub_0060E300_CalcChunkSize(unsigned int nCount)
 {
     if (nCount < 0x15)
@@ -2353,6 +2348,13 @@ int D2CommonIgnoreListStrc::sub_0060FD50_Contains(const char* szKey)
     if (!sub_0060DDF0_IsEnabled())
         return 0;
     return m_table.sub_0060F8B0_Ptr(szKey) != 0;
+}
+
+// build: symbol ??_7?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62B4
+// 0x0060FD90
+D2CommonStormHashTableAStrc::~TSHashTable()
+{
+    sub_0060EB70_InternalClear(1);
 }
 
 // 0x0060FE30

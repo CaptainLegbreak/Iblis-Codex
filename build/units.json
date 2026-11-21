@@ -76490,6 +76490,10 @@
      "name": "sub_0060FD50_Contains"
     },
     {
+     "va": "0x0060FD90",
+     "length": 146
+    },
+    {
      "va": "0x0060FE30",
      "length": 9,
      "name": "??0D2CommonStormZeroAStrc@@QAE@XZ"
@@ -76866,30 +76870,6 @@
      "va": "0x00611560",
      "length": 130,
      "name": "?sub_00611560_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060FD90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060FD90",
-     "length": 146
     }
    ],
    "flags": [
