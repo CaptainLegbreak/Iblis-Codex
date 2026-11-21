@@ -57000,6 +57000,10 @@
      "length": 432
     },
     {
+     "va": "0x0056F7F0",
+     "length": 768
+    },
+    {
      "va": "0x0056FAF0",
      "length": 351
     },
@@ -57052,31 +57056,6 @@
      "length": 118,
      "name": "?SUNITDMG_RollSuckBloodDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HHPAUD2DamageStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_0056F7F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0056F7F0",
-     "length": 768
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
