@@ -79154,7 +79154,7 @@
     {
      "va": "0x006280A0",
      "length": 38,
-     "name": "_sub_006280A0@16"
+     "name": "?ITEMS_CheckItemFlag@@YGIPAUD2UnitStrc@@IHPBD@Z"
     },
     {
      "va": "0x006280D0",
@@ -79322,6 +79322,10 @@
      "name": "ITEMS_GetNormalCode"
     },
     {
+     "va": "0x00628830",
+     "length": 47
+    },
+    {
      "va": "0x00628860",
      "length": 54,
      "name": "ITEMS_CheckItemTypeIfThrowable"
@@ -79367,6 +79371,10 @@
      "name": "ITEMS_ComparePotionTypes"
     },
     {
+     "va": "0x00628BA0",
+     "length": 115
+    },
+    {
      "va": "0x00628C20",
      "length": 76,
      "name": "ITEMS_CheckIfUseable"
@@ -79380,6 +79388,18 @@
      "va": "0x00628CD0",
      "length": 84,
      "name": "ITEMS_IsQuestItem"
+    },
+    {
+     "va": "0x00628D30",
+     "length": 310
+    },
+    {
+     "va": "0x00628E70",
+     "length": 1148
+    },
+    {
+     "va": "0x006292F0",
+     "length": 125
     },
     {
      "va": "0x00629370",
@@ -79607,6 +79627,10 @@
      "name": "ITEMS_CanItemBeUsedForThrowSkill"
     },
     {
+     "va": "0x0062A370",
+     "length": 287
+    },
+    {
      "va": "0x0062A490",
      "length": 75,
      "name": "?ITEMS_GetSetItemsTxtRecordFromItem@@YGPAUD2SetItemsTxt@@PAUD2UnitStrc@@@Z"
@@ -79656,9 +79680,17 @@
      "name": "ITEMS_IsEthereal"
     },
     {
+     "va": "0x0062A900",
+     "length": 82
+    },
+    {
      "va": "0x0062A960",
      "length": 8,
      "name": "?sub_0062A960_ReadBits@@YAIPAUD2BitBufferStrc@@H@Z"
+    },
+    {
+     "va": "0x0062A970",
+     "length": 780
     },
     {
      "va": "0x0062AC80",
@@ -79736,6 +79768,10 @@
      "name": "?sub_0062BC20@@YGEPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0062BCB0",
+     "length": 324
+    },
+    {
      "va": "0x0062BE00",
      "length": 170
     },
@@ -79743,6 +79779,10 @@
      "va": "0x0062BEB0",
      "length": 18,
      "name": "ITEMS_IsSocketFiller"
+    },
+    {
+     "va": "0x0062BED0",
+     "length": 396
     },
     {
      "va": "0x0062C060",
@@ -79753,6 +79793,10 @@
      "va": "0x0062C0B0",
      "length": 74,
      "name": "ITEMS_GetClassOfClassSpecificItem"
+    },
+    {
+     "va": "0x0062C100",
+     "length": 1164
     },
     {
      "va": "0x0062C590",
@@ -79789,9 +79833,17 @@
      "name": "sub_0062E410"
     },
     {
+     "va": "0x0062E430",
+     "length": 414
+    },
+    {
      "va": "0x0062E5D0",
      "length": 132,
      "name": "?sub_0062E5D0_IsQuantityRepairable@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0062E660",
+     "length": 137
     },
     {
      "va": "0x0062E6F0",
@@ -79852,6 +79904,10 @@
      "va": "0x0062EA80",
      "length": 109,
      "name": "ITEMS_GetAllowedBodyLocations"
+    },
+    {
+     "va": "0x0062EAF0",
+     "length": 596
     },
     {
      "va": "0x0062ED50",
@@ -79965,82 +80021,6 @@
      "length": 57,
      "name": "STATES_CheckStateMaskCurseByStateId"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_00628830.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00628830",
-     "length": 47
-    },
-    {
-     "va": "0x00628BA0",
-     "length": 115
-    },
-    {
-     "va": "0x00628D30",
-     "length": 310
-    },
-    {
-     "va": "0x00628E70",
-     "length": 1148
-    },
-    {
-     "va": "0x006292F0",
-     "length": 125
-    },
-    {
-     "va": "0x0062A370",
-     "length": 287
-    },
-    {
-     "va": "0x0062A900",
-     "length": 82
-    },
-    {
-     "va": "0x0062A970",
-     "length": 780
-    },
-    {
-     "va": "0x0062BCB0",
-     "length": 324
-    },
-    {
-     "va": "0x0062BED0",
-     "length": 396
-    },
-    {
-     "va": "0x0062C100",
-     "length": 1164
-    },
-    {
-     "va": "0x0062E430",
-     "length": 414
-    },
-    {
-     "va": "0x0062E660",
-     "length": 137
-    },
-    {
-     "va": "0x0062EAF0",
-     "length": 596
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
