@@ -1,11 +1,11 @@
 #include "D2Direct3D.h"
+#include "D2CelContext.h"
+#include "D2D3DTypes.h"
 
 struct D2Direct3D006B7110Strc;
 struct D2VertexBufferDescStrc;
 struct D2Direct3DVtbl006B7110Strc;
 struct D2CelFileStrc;
-struct D2CelContext006B7090Strc;
-struct D2TextureInfo006B7090Strc;
 
 void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
 
@@ -49,45 +49,18 @@ extern D2D3DObjStrc* gpSpriteTextures_00970F1C[3]; // 0x00970F1C
 extern D2D3DObjStrc* gpSpriteSurfaces_00970F28[3]; // 0x00970F28
 extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
-struct D2CelContext006B7090Strc
-{
-    unsigned char unk_00[0x08];
-    int nUnitType;
-    int nClass;
-    int nMode;
-    unsigned char unk_14[0x18];
-    const char* szName;
-    unsigned char unk_30[0x0C];
-    D2CelFileStrc* pCelFile;
-};
-
-struct D2TextureInfo006B7090Strc
-{
-    D2CelContext006B7090Strc* pContext;
-    int nWidth;
-    int nHeight;
-    int nOffsetX;
-    int nOffsetY;
-    int nTextureWidth;
-    int nTextureHeight;
-    int nTextureSize;
-    float fU0;
-    float fU1;
-    float fV0;
-    float fV1;
-};
-int __stdcall sub_006001F0_Prepare(D2CelContext006B7090Strc* pContext, int a2, int a3); // 0x006001F0
-int __stdcall sub_006018C0_CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
-int __stdcall sub_006018F0_CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
-int __stdcall sub_00601920_CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
-int __stdcall sub_00601950_CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
+int __stdcall sub_006001F0_Prepare(D2CelContextStrc* pContext, int a2, int a3); // 0x006001F0
+int __stdcall sub_006018C0_CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall sub_006018F0_CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+int __stdcall sub_00601920_CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall sub_00601950_CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
-int __stdcall shim_7(D2CelFileStrc* pCelFile, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
+int __stdcall shim_7(D2CelStrc* pCel, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
 int __stdcall shim_6(int nOffsetX, int nOffsetY, int nTextureWidth, int* pX, int* pY, int* pArg3, int* pArg4, int* pArg5, int* pArg6);
-static __declspec(noinline) int __stdcall sub_006B5C80_LoadCelInfo(D2CelContext006B7090Strc* pContext, D2TextureInfo006B7090Strc* pInfo);
-static __declspec(noinline) void __stdcall sub_006B5CF0_SetTextureSize(D2TextureInfo006B7090Strc* pInfo);
-static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2TextureInfo006B7090Strc* pInfo, int nMode, int nArg1, int nArg2);
-static __declspec(noinline) int __stdcall sub_006B63F0_DrawTexture(D2TextureInfo006B7090Strc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6);
+static __declspec(noinline) int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo);
+static __declspec(noinline) void __stdcall sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
+static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg1, int nArg2);
+static __declspec(noinline) int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6);
 
 void* gpSpriteBuffer_00970F34; // 0x00970F34
 
@@ -131,29 +104,29 @@ void __cdecl sub_006B5B10_ReleaseSprites()
 }
 
 // 0x006B5C80
-static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContext006B7090Strc* pContext, D2TextureInfo006B7090Strc* pInfo)
+static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo)
 {
     if (!sub_006001F0_Prepare(pContext, 0, 1))
     {
         return 0;
     }
 
-    if (!pContext->pCelFile)
+    if (!pContext->pCel)
     {
-        sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pContext->nUnitType, pContext->nClass, pContext->nMode, pContext->szName);
+        sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pContext->nType, pContext->nClass, pContext->nMode, pContext->szName);
         return 0;
     }
 
     pInfo->pContext = pContext;
-    pInfo->nWidth = sub_006018C0_CelGetWidth(pContext->pCelFile);
-    pInfo->nOffsetX = sub_00601920_CelGetOffsetX(pContext->pCelFile);
-    pInfo->nHeight = sub_006018F0_CelGetHeight(pContext->pCelFile);
-    pInfo->nOffsetY = sub_00601950_CelGetOffsetY(pContext->pCelFile);
+    pInfo->nWidth = sub_006018C0_CelGetWidth(pContext->pCel);
+    pInfo->nOffsetX = sub_00601920_CelGetOffsetX(pContext->pCel);
+    pInfo->nHeight = sub_006018F0_CelGetHeight(pContext->pCel);
+    pInfo->nOffsetY = sub_00601950_CelGetOffsetY(pContext->pCel);
     return 1;
 }
 
 // 0x006B5CF0
-static void __stdcall sub_006B5CF0_SetTextureSize(D2TextureInfo006B7090Strc* pInfo)
+static void __stdcall sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo)
 {
     int nSize = 0x20;
     if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
@@ -168,10 +141,10 @@ static void __stdcall sub_006B5CF0_SetTextureSize(D2TextureInfo006B7090Strc* pIn
             }
         }
     }
-    pInfo->nTextureWidth = nSize;
-    pInfo->nTextureHeight = nSize;
+    pInfo->nTexWidth = nSize;
+    pInfo->nTexHeight = nSize;
 done:
-    pInfo->nTextureSize = pInfo->nTextureHeight * pInfo->nTextureWidth;
+    pInfo->nTexSize = pInfo->nTexHeight * pInfo->nTexWidth;
     pInfo->fU0 = 0.0f;
     pInfo->fU1 = 1.0f;
     pInfo->fV0 = 0.0f;
@@ -224,22 +197,22 @@ static __forceinline int sub_006B6700_IsOutsideScreen(int nX, int nY, D2GlideRec
 
 // build: context sub_006B5D40_UploadTexture
 // calling-convention shim (not game code)
-static int __stdcall sub_006B5D40_UploadTexture(D2TextureInfo006B7090Strc* pInfo, int nMode, int nArg1, int nArg2)
+static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg1, int nArg2)
 {
-    return shim_7(pInfo->pContext->pCelFile, pInfo->nWidth, pInfo->nHeight, nMode == 4 ? 1 : nMode, &nArg1, &nArg2);
+    return shim_7(pInfo->pContext->pCel, pInfo->nWidth, pInfo->nHeight, nMode == 4 ? 1 : nMode, &nArg1, &nArg2);
 }
 
 // build: context sub_006B63F0_DrawTexture
 // calling-convention shim (not game code)
-static int __stdcall sub_006B63F0_DrawTexture(D2TextureInfo006B7090Strc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6)
+static int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6)
 {
-    return shim_6(pInfo->nOffsetX, pInfo->nOffsetY, pInfo->nTextureWidth, &nX, &nY, &nArg3, &nArg4, &nArg5, &nArg6);
+    return shim_6(pInfo->nOffsetX, pInfo->nOffsetY, pInfo->nTexWidth, &nX, &nY, &nArg3, &nArg4, &nArg5, &nArg6);
 }
 
 // 0x006B7090
-int __fastcall sub_006B7090_DrawCel(D2CelContext006B7090Strc* pContext, int nX, int nY, int nArg)
+int __fastcall sub_006B7090_DrawCel(D2CelContextStrc* pContext, int nX, int nY, int nArg)
 {
-    D2TextureInfo006B7090Strc tInfo;
+    D2SpriteInfoStrc tInfo;
 
     sub_006B1F40_SetBlendMode(4);
     int nResult = sub_006B5C80_LoadCelInfo(pContext, &tInfo);

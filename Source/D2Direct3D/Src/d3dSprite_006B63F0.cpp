@@ -1,18 +1,5 @@
 #include "D2Direct3D.h"
-
-struct D2QuadSpriteStrc
-{
-    int unk_00[3];
-    int nOffsetX;
-    int nOffsetY;
-    int nWidth;
-    int nHeight;
-    int unk_1C;
-    float f_20;
-    float f_24;
-    float f_28;
-    float f_2C;
-};
+#include "D2D3DTypes.h"
 
 extern D2PaletteTableStrc* gpGlideState_007C9150; // 0x007C9150
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
@@ -25,24 +12,24 @@ void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 
-static __declspec(noinline) void __stdcall sub_006B63F0_DrawQuad(D2QuadSpriteStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
+static __declspec(noinline) void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
 
 // 0x006B63F0
-void __stdcall sub_006B63F0_DrawQuad(D2QuadSpriteStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
+void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
 {
     sub_006B1EA0_SetState(1);
     sub_006B2030_SetFilterMode(1);
 
     D2QuadRectStrc tRect;
     tRect.nX = pSprite->nOffsetX;
-    float fU0 = pSprite->f_20;
-    float fU1 = pSprite->f_24;
-    float fV0 = pSprite->f_28;
-    float fV1 = pSprite->f_2C;
+    float fU0 = pSprite->fU0;
+    float fU1 = pSprite->fU1;
+    float fV0 = pSprite->fV0;
+    float fV1 = pSprite->fV1;
 
     int bPerspective = sub_006B9830_GetPerspective();
-    tRect.nWidth = pSprite->nWidth;
-    tRect.nHeight = pSprite->nHeight;
+    tRect.nWidth = pSprite->nTexWidth;
+    tRect.nHeight = pSprite->nTexHeight;
     tRect.nY = pSprite->nOffsetY - tRect.nHeight;
     if (bPerspective && gnScale_00989748 != 256)
     {
@@ -118,7 +105,7 @@ void __stdcall sub_006B63F0_DrawQuad(D2QuadSpriteStrc* pSprite, int nX, int nY, 
 
 void __fastcall sub_006B63F0_Emit(int nX, int nY, unsigned int nColor, unsigned char nAlpha)
 {
-    D2QuadSpriteStrc tSprite;
+    D2SpriteInfoStrc tSprite;
     tSprite.nOffsetX = nX;
     sub_006B63F0_DrawQuad(&tSprite, nX, nY, nColor, 0, nAlpha, 0);
 }

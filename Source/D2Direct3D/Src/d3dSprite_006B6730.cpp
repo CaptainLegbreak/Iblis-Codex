@@ -1,23 +1,9 @@
 #include "D2Direct3D.h"
+#include "D2D3DTypes.h"
+#include "D2CelContext.h"
 #include "D2ClientTypes.h"
 
 struct D2CelStrc;
-
-struct D2D3DQuadSetupStrc
-{
-	D2GfxDataStrc* pData;
-	int nWidth;
-	int nHeight;
-	int nOffsetX;
-	int nOffsetY;
-	int nTexWidth;
-	int nTexHeight;
-	int nTexArea;
-	float fU0;
-	float fU1;
-	float fV0;
-	float fV1;
-};
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
@@ -36,13 +22,13 @@ void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int*
 extern D2VertexBufferStrc* gpVertexBuffer_00970F3C;                                                      // 0x00970F3C
 extern int gnVertexBufferPos_00970F40;                                                                      // 0x00970F40
 
-static int __declspec(noinline) sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2D3DQuadSetupStrc* pInfo);
-static void __declspec(noinline) sub_006B5CF0_SetTextureSize(D2D3DQuadSetupStrc* pInfo);
-static int __declspec(noinline) __stdcall sub_006B5D40_UploadSprite(D2D3DQuadSetupStrc* pInfo, int nType, unsigned char* pPalette, int nUnused); // 0x006B5D40
+static int __declspec(noinline) sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo);
+static void __declspec(noinline) sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
+static int __declspec(noinline) __stdcall sub_006B5D40_UploadSprite(D2SpriteInfoStrc* pInfo, int nType, unsigned char* pPalette, int nUnused); // 0x006B5D40
 static unsigned char __declspec(noinline) sub_006B6680_GetAlpha(int nDrawMode);
 
 // 0x006B5C80
-static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2D3DQuadSetupStrc* pInfo)
+static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo)
 {
 	if (!sub_006001F0(pData, 0, 1))
 	{
@@ -55,7 +41,7 @@ static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2D3DQuadSetupStrc* 
 		return 0;
 	}
 
-	pInfo->pData = pData;
+	pInfo->pContext = (D2CelContextStrc*)pData;
 	pInfo->nWidth = sub_006018C0(pData->pCel);
 	pInfo->nOffsetX = sub_00601920(pData->pCel);
 	pInfo->nHeight = sub_006018F0(pData->pCel);
@@ -64,7 +50,7 @@ static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2D3DQuadSetupStrc* 
 }
 
 // 0x006B5CF0
-static void sub_006B5CF0_SetTextureSize(D2D3DQuadSetupStrc* pInfo)
+static void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo)
 {
 	if (pInfo->nWidth <= 32 && pInfo->nHeight <= 32)
 	{
@@ -82,7 +68,7 @@ static void sub_006B5CF0_SetTextureSize(D2D3DQuadSetupStrc* pInfo)
 		pInfo->nTexHeight = 256;
 	}
 
-	pInfo->nTexArea = pInfo->nTexWidth * pInfo->nTexHeight;
+	pInfo->nTexSize = pInfo->nTexWidth * pInfo->nTexHeight;
 	pInfo->fU0 = 0.0f;
 	pInfo->fU1 = 1.0f;
 	pInfo->fV0 = 0.0f;
@@ -91,16 +77,16 @@ static void sub_006B5CF0_SetTextureSize(D2D3DQuadSetupStrc* pInfo)
 
 // build: context sub_006B5D40_UploadSprite
 // calling-convention shim (not game code)
-static int __stdcall sub_006B5D40_UploadSprite(D2D3DQuadSetupStrc* pInfo, int nType, unsigned char* pPalette, int nFlags)
+static int __stdcall sub_006B5D40_UploadSprite(D2SpriteInfoStrc* pInfo, int nType, unsigned char* pPalette, int nFlags)
 {
-	int nResult = sub_00601B10_GetCelPixels(pInfo->pData->pCel);
+	int nResult = sub_00601B10_GetCelPixels(pInfo->pContext->pCel);
 	if (nType == 4)
 	{
 		nType = 1;
 	}
 	pInfo->nWidth = nResult;
-	D2D3DQuadSetupStrc* pNext = (D2D3DQuadSetupStrc*)pInfo->pData;
-	nResult = sub_00601B10_GetCelPixels(pNext->pData->pCel);
+	D2SpriteInfoStrc* pNext = (D2SpriteInfoStrc*)pInfo->pContext;
+	nResult = sub_00601B10_GetCelPixels(pNext->pContext->pCel);
 	pNext->nWidth = nResult + nType;
 	return (int)pPalette + nFlags;
 }
@@ -148,7 +134,7 @@ static unsigned char sub_006B6680_GetAlpha(int nDrawMode)
 // 0x006B6730
 int __fastcall sub_006B6730_DrawFlatSprite(D2GfxDataStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
-	D2D3DQuadSetupStrc tInfo;
+	D2SpriteInfoStrc tInfo;
 	D2TLVertexStrc pVertices[4];
 	int nScreenX;
 	int nScreenY;
