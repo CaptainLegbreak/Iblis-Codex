@@ -56613,6 +56613,10 @@
      "name": "?sub_6FD10880@@YIHPAUD2AuraCallbackStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0056BEC0",
+     "length": 284
+    },
+    {
      "va": "0x0056BFE0",
      "length": 300,
      "name": "?sub_0056BFE0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -56985,30 +56989,6 @@
      "length": 27,
      "name": "D2GAME_STATES_SendStates_6FCC5F00"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_0056BEC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0056BEC0",
-     "length": 284
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
