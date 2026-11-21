@@ -197,6 +197,41 @@ static int ORB_AbsValue(int nValue)
     return nValue < 0 ? -nValue : nValue;
 }
 
+
+int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
+int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
+void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
+void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
+D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
+D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
+void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
+
+// 0x00496CF0
+void __cdecl sub_00496CF0_ValidateActiveSkills()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+    {
+        return;
+    }
+    D2SkillStrc* pSkill = UNITS_GetLeftSkill(pPlayer);
+    if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
+    {
+        SKILLS_RemoveSkill(pPlayer, SKILLS_GetSkillIdFromSkill(pSkill, ".\\UI\\panel.cpp", 0x289), ".\\UI\\panel.cpp", 0x289);
+        SKILLS_SetLeftActiveSkill(pPlayer, 0, -1);
+        pSkill = UNITS_GetLeftSkill(pPlayer);
+    }
+    sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, 0x75, gnGlobal_00711470, 1);
+    pSkill = UNITS_GetRightSkill(pPlayer);
+    if (pSkill && SKILLS_GetSkillLevel(pPlayer, pSkill, 1) <= 0)
+    {
+        SKILLS_RemoveSkill(pPlayer, SKILLS_GetSkillIdFromSkill(pSkill, ".\\UI\\panel.cpp", 0x294), ".\\UI\\panel.cpp", 0x294);
+        SKILLS_SetRightActiveSkill(pPlayer, 0, -1);
+        pSkill = UNITS_GetRightSkill(pPlayer);
+    }
+    sub_00496BE0_DrawSkillInfo(pPlayer, pSkill, gnGlobal_0071146C - 0xA5, gnGlobal_00711470, 0);
+}
+
 // 0x00496DD0
 static int sub_00496DD0_GetSmoothedOrbValue(int nStatId)
 {

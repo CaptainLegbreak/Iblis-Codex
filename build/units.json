@@ -26829,11 +26829,6 @@
      "name": "?sub_00496990_FreePanelCels@@YAXXZ"
     },
     {
-     "va": "0x00496CF0",
-     "length": 222,
-     "name": "?sub_00496CF0_ValidateActiveSkills@@YAXXZ"
-    },
-    {
      "va": "0x00497270",
      "length": 23,
      "name": "?sub_00497270_InitTextColorA@@YAXXZ"
@@ -27136,6 +27131,11 @@
    "file": "Source/D2Client/UI/panel.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00496CF0",
+     "length": 222,
+     "name": "?sub_00496CF0_ValidateActiveSkills@@YAXXZ"
+    },
     {
      "va": "0x00496DD0",
      "length": 418,
