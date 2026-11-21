@@ -2792,41 +2792,6 @@ void __fastcall sub_004DAAB0_GetArmorComponents(D2UnitStrc* pUnit, D2InventorySt
     memset(pComponents, 0, 6);
 }
 
-// 0x004DC190
-void __fastcall sub_004DC190_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    D2CltUnitEventStrc* pEvent = pUnit->pCltTimerList;
-    while (pEvent)
-    {
-        D2CltUnitEventStrc* pNext = pEvent->pNext;
-        if (pEvent->f_4 == nParam4 && pEvent->f_8 == nParam5)
-        {
-            if (pEvent->pPrevious)
-            {
-                pEvent->pPrevious->pNext = pEvent->pNext;
-            }
-            else
-            {
-                pUnit->pCltTimerList = pEvent->pNext;
-            }
-
-            if (pEvent->pNext)
-            {
-                pEvent->pNext->pPrevious = pEvent->pPrevious;
-            }
-
-            FOG_FreeServerMemory(sub_004DC0B0_GetUnitMemoryPool(pUnit), pEvent, ".\\UNIT\\CUnitEvent.cpp", 0x80, 0);
-        }
-
-        pEvent = pNext;
-    }
-}
-
 // build: context sub_004DC000_DrawFadeBox
 void __cdecl sub_004DC000_DrawFadeBox()
 {

@@ -3233,16 +3233,6 @@ extern "C" void __cdecl sub_004AA8F0_ClearValue7C0C3C()
     gnValue_007C0C3C = 0;
 }
 
-// 0x004ACD70
-void __fastcall sub_004ACD70_AssignSkillB8(D2UnitStrc* pUnit, int nUnused, int bAssign)
-{
-    if (bAssign)
-    {
-        SKILLS_AssignSkill(pUnit, 0xB8, 1, 1, ".\\UNIT\\MonUnique.cpp", 0x157);
-        SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0xB8), 4);
-    }
-}
-
 // 0x004B1050
 int __fastcall sub_004B1050_GetMonsterValue(D2UnitStrc* pUnit, char* pNotFound, int* pValue)
 {
