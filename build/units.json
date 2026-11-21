@@ -75396,6 +75396,14 @@
      "name": "sub_0060DE00_SetEnabled"
     },
     {
+     "va": "0x0060DE30",
+     "length": 107
+    },
+    {
+     "va": "0x0060DEA0",
+     "length": 97
+    },
+    {
      "va": "0x0060DF10",
      "length": 218,
      "name": "?sub_0060DF10_OnAdded@D2CommonIgnoreListStrc@@QAEHPBD@Z"
@@ -76186,34 +76194,6 @@
      "length": 74,
      "name": "DUNGEON_AllocDrlgDelete"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060DE30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060DE30",
-     "length": 107
-    },
-    {
-     "va": "0x0060DEA0",
-     "length": 97
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

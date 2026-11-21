@@ -1125,6 +1125,36 @@ void D2CommonIgnoreListStrc::sub_0060DE00_SetEnabled(int bEnabled)
     SRegSaveValue("Diablo II", "Persistent Ignore", 0, bEnabled);
 }
 
+// 0x0060DE30
+void D2CommonIgnoreListStrc::sub_0060DE30_Normalize(const char* szName, char* szOut, int nSize)
+{
+    unsigned int i = 0;
+    while (szName[i] != '*' && szName[i] && i <= 16 && i < nSize - 1)
+    {
+        szOut[i] = szName[i];
+        ++i;
+    }
+    szOut[i] = 0;
+}
+
+// 0x0060DEA0
+void D2CommonIgnoreListStrc::sub_0060DEA0_NormalizeAlias(const char* szName, char* szOut, int nSize)
+{
+    for (unsigned int i = 0; szName[i]; ++i)
+    {
+        if (szName[i] == '*')
+        {
+            unsigned int n = i;
+            for (; szName[n] && n - i <= 16 && n < nSize - 1; ++n)
+            {
+                szOut[n - i] = szName[n];
+            }
+            szOut[n] = 0;
+            return;
+        }
+    }
+}
+
 // 0x0060E0B0
 char* D2CommonStringEntryNodeStrc::sub_0060E0B0_GetKey()
 {
