@@ -2147,9 +2147,34 @@
      "name": "sub_0042F540_ShowMessageBox"
     },
     {
+     "va": "0x0042F6C0",
+     "length": 11,
+     "name": "?sub_0042F6C0_SetDone@@YAXXZ"
+    },
+    {
+     "va": "0x0042F790",
+     "length": 103,
+     "name": "?sub_0042F790_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0042FE60",
+     "length": 8,
+     "name": "?sub_0042FE60_FilterChar@@YGHPAXHPBD@Z"
+    },
+    {
      "va": "0x0042FEF0",
      "length": 9,
      "name": "sub_0042FEF0_FilterChar"
+    },
+    {
+     "va": "0x0042FF00",
+     "length": 8,
+     "name": "?sub_0042FF00_FilterChar@@YGHPAXHPBD@Z"
+    },
+    {
+     "va": "0x0042FFD0",
+     "length": 13,
+     "name": "?sub_0042FFD0_ShowAddress@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004301A0",
@@ -2469,9 +2494,34 @@
      "name": "?sub_00435030_ChangePasswordOk@@YGHH@Z"
     },
     {
+     "va": "0x00435200",
+     "length": 33,
+     "name": "?sub_00435200_RunSlot70@@YGHH@Z"
+    },
+    {
+     "va": "0x00435CD0",
+     "length": 56,
+     "name": "?sub_00435CD0_SelectMode0@@YGHH@Z"
+    },
+    {
+     "va": "0x00435D10",
+     "length": 23,
+     "name": "?sub_00435D10_SelectMode3@@YGHH@Z"
+    },
+    {
+     "va": "0x00435D30",
+     "length": 23,
+     "name": "?sub_00435D30_SelectMode1@@YGHH@Z"
+    },
+    {
      "va": "0x00435D50",
      "length": 39,
      "name": "sub_00435D50"
+    },
+    {
+     "va": "0x00435D80",
+     "length": 117,
+     "name": "?sub_00435D80_SelectMode2@@YGHH@Z"
     },
     {
      "va": "0x004361B0",
@@ -9571,34 +9621,14 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_0042E6D0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus_0042F2E0.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x0042E6D0",
      "length": 2175,
      "name": "?sub_0042E6D0_LoadFrontEndCells@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_0042F2E0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0042F2E0",
      "length": 130,
@@ -9718,6 +9748,28 @@
      "name": "?sub_00434790_JoinTcpIp@@YGHH@Z"
     },
     {
+     "va": "0x00434A00",
+     "length": 900
+    },
+    {
+     "va": "0x00434E00",
+     "length": 544,
+     "name": "?sub_00434E00_CheckFreeSpace@@YGHH@Z"
+    },
+    {
+     "va": "0x00435330",
+     "length": 584,
+     "name": "?sub_00435330_ShowLoginScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00435580",
+     "length": 1102
+    },
+    {
+     "va": "0x00435E10",
+     "length": 926
+    },
+    {
      "va": "0x004365B0",
      "length": 854,
      "name": "?sub_004365B0_CreateCharacter@@YAXXZ"
@@ -9731,6 +9783,30 @@
      "va": "0x00436AD0",
      "length": 316,
      "name": "?sub_00436AD0_UpdateStatus@@YAXXZ"
+    },
+    {
+     "va": "0x00436C10",
+     "length": 93,
+     "name": "?sub_00436C10_CheckAtAndDot@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00436CF0",
+     "length": 75
+    },
+    {
+     "va": "0x00436EB0",
+     "length": 99,
+     "name": "?sub_00436EB0_UpdateOkButton@@YAXXZ"
+    },
+    {
+     "va": "0x004371E0",
+     "length": 192,
+     "name": "?sub_004371E0_UpdatePasswordOk@@YAXXZ"
+    },
+    {
+     "va": "0x00437620",
+     "length": 229,
+     "name": "?sub_00437620_ConfirmText@@YGHH@Z"
     }
    ],
    "flags": [
@@ -9811,37 +9887,6 @@
      "va": "0x0042FF20",
      "length": 168,
      "name": "?sub_0042FF20_ShowLocalAddress@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0042F6C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042F6C0",
-     "length": 11,
-     "name": "?sub_0042F6C0_SetDone@@YAXXZ"
-    },
-    {
-     "va": "0x0042F790",
-     "length": 103,
-     "name": "?sub_0042F790_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0042FE60",
-     "length": 8,
-     "name": "?sub_0042FE60_FilterChar@@YGHPAXHPBD@Z"
-    },
-    {
-     "va": "0x0042FF00",
-     "length": 8,
-     "name": "?sub_0042FF00_FilterChar@@YGHPAXHPBD@Z"
-    },
-    {
-     "va": "0x0042FFD0",
-     "length": 13,
-     "name": "?sub_0042FFD0_ShowAddress@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
@@ -10882,6 +10927,76 @@
      "name": "?sub_00437B90_FreeCache@@YAXXZ"
     },
     {
+     "va": "0x0043A730",
+     "length": 174,
+     "name": "?sub_0043A730_UpdateButtons@@YAXXZ"
+    },
+    {
+     "va": "0x0043A7E0",
+     "length": 30,
+     "name": "?sub_0043A7E0_ResetRealmScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043A9A0",
+     "length": 33,
+     "name": "?sub_0043A9A0_CopyName@@YGHH@Z"
+    },
+    {
+     "va": "0x0043AD10",
+     "length": 155,
+     "name": "?sub_0043AD10_RequestCharList@@YAXPAD@Z"
+    },
+    {
+     "va": "0x0043ADB0",
+     "length": 114,
+     "name": "?sub_0043ADB0_UseName@@YIXPAD@Z"
+    },
+    {
+     "va": "0x0043B080",
+     "length": 1039,
+     "name": "?sub_0043B080_InitCharSelectScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043B490",
+     "length": 47,
+     "name": "?sub_0043B490_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B800",
+     "length": 15,
+     "name": "?sub_0043B800_ClearFuncTable@@YAXXZ"
+    },
+    {
+     "va": "0x0043B810",
+     "length": 11,
+     "name": "?sub_0043B810_SetFlag@@YAXXZ"
+    },
+    {
+     "va": "0x0043B850",
+     "length": 50,
+     "name": "?sub_0043B850_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B890",
+     "length": 65,
+     "name": "?sub_0043B890_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043B8E0",
+     "length": 85,
+     "name": "sub_0043B8E0_OnTick"
+    },
+    {
+     "va": "0x0043B940",
+     "length": 88,
+     "name": "sub_0043B940_OnTick"
+    },
+    {
+     "va": "0x0043C530",
+     "length": 10,
+     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
+    },
+    {
      "va": "0x0043F8C0",
      "length": 109,
      "name": "?sub_0043F8C0_ResetLaunchState@@YAXXZ"
@@ -11213,7 +11328,7 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_004341F0.cpp",
+   "file": "Source/D2Launch/Src/MainMenus_004341F0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -11344,119 +11459,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_00434A00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00434A00",
-     "length": 900
-    },
-    {
-     "va": "0x00435330",
-     "length": 584,
-     "name": "?sub_00435330_ShowLoginScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00435580",
-     "length": 1102
-    },
-    {
-     "va": "0x00436CF0",
-     "length": 75
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_00434E00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00434E00",
-     "length": 544,
-     "name": "?sub_00434E00_CheckFreeSpace@@YGHH@Z"
-    },
-    {
-     "va": "0x00436C10",
-     "length": 93,
-     "name": "?sub_00436C10_CheckAtAndDot@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00436EB0",
-     "length": 99,
-     "name": "?sub_00436EB0_UpdateOkButton@@YAXXZ"
-    },
-    {
-     "va": "0x004371E0",
-     "length": 192,
-     "name": "?sub_004371E0_UpdatePasswordOk@@YAXXZ"
-    },
-    {
-     "va": "0x00437620",
-     "length": 229,
-     "name": "?sub_00437620_ConfirmText@@YGHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_00435200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00435200",
-     "length": 33,
-     "name": "?sub_00435200_RunSlot70@@YGHH@Z"
-    },
-    {
-     "va": "0x00435CD0",
-     "length": 56,
-     "name": "?sub_00435CD0_SelectMode0@@YGHH@Z"
-    },
-    {
-     "va": "0x00435D10",
-     "length": 23,
-     "name": "?sub_00435D10_SelectMode3@@YGHH@Z"
-    },
-    {
-     "va": "0x00435D30",
-     "length": 23,
-     "name": "?sub_00435D30_SelectMode1@@YGHH@Z"
-    },
-    {
-     "va": "0x00435D80",
-     "length": 117,
-     "name": "?sub_00435D80_SelectMode2@@YGHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Launch/Unknown_004359D0.cpp",
    "rank": 0,
    "functions": [
@@ -11465,30 +11467,6 @@
      "length": 753,
      "name": "?sub_004359D0_RunFrontEnd@@YIHPAUD2LaunchRecordStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_00435E10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00435E10",
-     "length": 926
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -11946,6 +11924,14 @@
      "name": "?sub_00439AF0@@YIXPAUSMSGHANDLER_PARAMS@@H@Z"
     },
     {
+     "va": "0x0043A800",
+     "length": 331
+    },
+    {
+     "va": "0x0043AAB0",
+     "length": 328
+    },
+    {
      "va": "0x0043B520",
      "length": 398,
      "name": "?sub_0043B520_OnCharSelect@@YGHH@Z"
@@ -11954,6 +11940,11 @@
      "va": "0x0043B6B0",
      "length": 229,
      "name": "?sub_0043B6B0_JoinSelected@@YGHH@Z"
+    },
+    {
+     "va": "0x0043B9F0",
+     "length": 1356,
+     "name": "?sub_0043B9F0_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
     },
     {
      "va": "0x0043E660",
@@ -12082,106 +12073,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_0043A730.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043A730",
-     "length": 174,
-     "name": "?sub_0043A730_UpdateButtons@@YAXXZ"
-    },
-    {
-     "va": "0x0043A7E0",
-     "length": 30,
-     "name": "?sub_0043A7E0_ResetRealmScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043A9A0",
-     "length": 33,
-     "name": "?sub_0043A9A0_CopyName@@YGHH@Z"
-    },
-    {
-     "va": "0x0043AD10",
-     "length": 155,
-     "name": "?sub_0043AD10_RequestCharList@@YAXPAD@Z"
-    },
-    {
-     "va": "0x0043ADB0",
-     "length": 114,
-     "name": "?sub_0043ADB0_UseName@@YIXPAD@Z"
-    },
-    {
-     "va": "0x0043B080",
-     "length": 1039,
-     "name": "?sub_0043B080_InitCharSelectScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043B490",
-     "length": 47,
-     "name": "?sub_0043B490_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B800",
-     "length": 15,
-     "name": "?sub_0043B800_ClearFuncTable@@YAXXZ"
-    },
-    {
-     "va": "0x0043B810",
-     "length": 11,
-     "name": "?sub_0043B810_SetFlag@@YAXXZ"
-    },
-    {
-     "va": "0x0043B850",
-     "length": 50,
-     "name": "?sub_0043B850_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B890",
-     "length": 65,
-     "name": "?sub_0043B890_OnTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043B8E0",
-     "length": 85,
-     "name": "sub_0043B8E0_OnTick"
-    },
-    {
-     "va": "0x0043B940",
-     "length": 88,
-     "name": "sub_0043B940_OnTick"
-    },
-    {
-     "va": "0x0043C530",
-     "length": 10,
-     "name": "?sub_0051DC70_GetTime@@YAJPAJ@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043A800.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0043A800",
-     "length": 331
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Launch/Unknown_0043A9D0.cpp",
    "rank": 0,
    "functions": [
@@ -12205,35 +12096,6 @@
      "length": 872,
      "name": "?sub_0043C180_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043AAB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043AAB0",
-     "length": 328
-    },
-    {
-     "va": "0x0043B9F0",
-     "length": 1356,
-     "name": "?sub_0043B9F0_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -14125,7 +13987,7 @@
    ]
   },
   {
-   "file": "Source/D2MCPClient/Unknown_0044A1D0.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN_0044A1D0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -43671,6 +43533,16 @@
      "name": "sub_00518BA0_LogWrite"
     },
     {
+     "va": "0x00518C70",
+     "length": 207,
+     "name": "sub_00518C70_StartLogging"
+    },
+    {
+     "va": "0x00518D40",
+     "length": 158,
+     "name": "sub_00518D40_Log"
+    },
+    {
      "va": "0x0051BE80",
      "length": 23,
      "name": "sub_0051BE80_CompareExchange"
@@ -43835,6 +43707,11 @@
     {
      "va": "0x005226D0",
      "length": 678
+    },
+    {
+     "va": "0x006CB430",
+     "length": 12,
+     "name": "?__FtLog_00881878"
     }
    ]
   },
@@ -43939,27 +43816,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_00518C70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00518C70",
-     "length": 207,
-     "name": "sub_00518C70_StartLogging"
-    },
-    {
-     "va": "0x00518D40",
-     "length": 158,
-     "name": "sub_00518D40_Log"
-    },
-    {
-     "va": "0x006CB430",
-     "length": 12,
-     "name": "?__FtLog_00881878"
-    }
    ]
   },
   {

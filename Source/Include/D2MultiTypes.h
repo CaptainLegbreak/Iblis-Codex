@@ -152,13 +152,21 @@ struct D2LaunchRecordStrc
 {
     int unk0x00[6]; // 0x00
     unsigned char unk0x18; // 0x18
-    char aState19[4]; // 0x19
+    union
+    {
+        char aState19[4]; // 0x19
+        int nState19;
+    };
     char aWord1D[2]; // 0x1D
     char nByte1F; // 0x1F
     int unk0x20[5]; // 0x20
     unsigned short unk0x34; // 0x34
     unsigned char unk0x36; // 0x36
-    char szName[16]; // 0x37
+    union
+    {
+        char szName[16]; // 0x37
+        char nByte37;
+    };
     unsigned char unk0x47; // 0x47
     int unk0x48[15]; // 0x48
     unsigned char unk0x84; // 0x84
@@ -171,18 +179,59 @@ struct D2LaunchRecordStrc
     unsigned char nFlag08B; // 0x8B
     unsigned char unk0x8C; // 0x8C
     char szAccount[24]; // 0x8D
-    char szPassword[256]; // 0xA5
-    unsigned char unk0x1A5; // 0x1A5
-    unsigned short unk0x1A6; // 0x1A6
-    int unk0x1A8[17]; // 0x1A8
-    unsigned short unk0x1EC; // 0x1EC
-    char nMode; // 0x1EE
-    char aFlags1EF[2]; // 0x1EF
+    union
+    {
+        struct
+        {
+            char szPassword[256]; // 0xA5
+            unsigned char unk0x1A5; // 0x1A5
+            unsigned short unk0x1A6; // 0x1A6
+            int unk0x1A8[17]; // 0x1A8
+            unsigned short unk0x1EC; // 0x1EC
+        };
+        struct
+        {
+            unsigned int adwSecret[6]; // 0xA5
+            union
+            {
+                char szCharName[24]; // 0xBD
+                char szGameName[24];
+            };
+            union
+            {
+                char szDataD5[0x119]; // 0xD5
+                struct
+                {
+                    union
+                    {
+                        char nByteD5; // 0xD5
+                        char szGamePassword[24];
+                    };
+                    char aDataED[0x101]; // 0xED
+                };
+            };
+        };
+    };
+    union
+    {
+        char nMode; // 0x1EE
+        unsigned char nClass;
+    };
+    union
+    {
+        char aFlags1EF[2]; // 0x1EF
+        unsigned short wFlags1EF;
+    };
     unsigned char unk0x1F1; // 0x1F1
     unsigned short unk0x1F2; // 0x1F2
     int unk0x1F4[5]; // 0x1F4
     unsigned char unk0x208; // 0x208
-    char aState209[4]; // 0x209
+    union
+    {
+        char aState209[4]; // 0x209
+        unsigned int dwFlags209;
+        int nValue209;
+    };
     unsigned char unk0x20D; // 0x20D
     unsigned short unk0x20E; // 0x20E
     char nByte210; // 0x210
@@ -206,7 +255,11 @@ struct D2LaunchRecordStrc
     int unk0x248[69]; // 0x248
     unsigned char unk0x35C; // 0x35C
     char bRegistryMode; // 0x35D
-    char nByte35E; // 0x35E
+    union
+    {
+        char nByte35E; // 0x35E
+        char nStartMode;
+    };
     char bIntroPlayed; // 0x35F
     unsigned char unk0x360; // 0x360
     char nByte361; // 0x361
@@ -223,7 +276,11 @@ struct D2LaunchRecordStrc
     char nByte3C2; // 0x3C2
     unsigned int dwPasswordHash; // 0x3C3
     int nPasswordLength; // 0x3C7
-    char aWord3CB[2]; // 0x3CB
+    union
+    {
+        char aWord3CB[2]; // 0x3CB
+        unsigned short wFlags3CB;
+    };
 };
 #pragma pack(pop)
 

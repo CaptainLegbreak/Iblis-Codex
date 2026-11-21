@@ -1120,6 +1120,7 @@ void __cdecl sub_00522C20_ClearCryptState()
     sub_005241A0_ClearHashContexts();
 }
 
+// bEncrypt: the original reloads it from its stack slot on each SetKey call and frees ebx before that loop; a plain parameter stays in ebx.
 // 0x00522C30
 void __fastcall sub_00522C30_InitCipherKeys(const char* szKey, int nUnused, volatile int bEncrypt)
 {
