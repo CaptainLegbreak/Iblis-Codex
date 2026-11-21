@@ -180,7 +180,11 @@ struct D2CurseStrc
     int nStat; // 0x14
     int nStatValue; // 0x18
     int nState; // 0x1C
-    int unk0x20; // 0x20
+    union
+    {
+        int unk0x20; // 0x20
+        StatListRemoveFunc pStateRemoveCallback; // 0x20
+    };
 };
 
 struct D2PetInfoStrc
