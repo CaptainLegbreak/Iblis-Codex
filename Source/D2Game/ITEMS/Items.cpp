@@ -3634,30 +3634,6 @@ int __fastcall sub_0056A370_ReadQuestSection(D2GameStrc* pGame, D2UnitStrc* pPla
     return 0;
 }
 
-// 0x0056B6C0
-void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit)
-{
-    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
-    if (STATLIST_UnitGetStatValue(pUnit, 6, 0) > nMaxHp)
-    {
-        STATLIST_SetUnitStat(pUnit, 6, nMaxHp, 0);
-    }
-
-    const int nMaxMana = STATLIST_GetMaxManaFromUnit(pUnit);
-    if (STATLIST_UnitGetStatValue(pUnit, 8, 0) > nMaxMana)
-    {
-        STATLIST_SetUnitStat(pUnit, 8, nMaxMana, 0);
-    }
-
-    const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
-    if (STATLIST_UnitGetStatValue(pUnit, 10, 0) > nMaxStamina)
-    {
-        STATLIST_SetUnitStat(pUnit, 10, nMaxStamina, 0);
-    }
-
-    UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\Skills.cpp", 267);
-}
-
 // 0x0056C2D0
 int __fastcall sub_0056C2D0_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
 {
