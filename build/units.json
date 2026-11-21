@@ -80604,6 +80604,10 @@
      "name": "INVENTORY_RemoveItemFromInventory"
     },
     {
+     "va": "0x0063ADD0",
+     "length": 322
+    },
+    {
      "va": "0x0063AF20",
      "length": 79,
      "name": "?sub_0063AF20_LinkItem@@YAXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
@@ -80616,6 +80620,10 @@
     {
      "va": "0x0063AFD0",
      "length": 567
+    },
+    {
+     "va": "0x0063B210",
+     "length": 164
     },
     {
      "va": "0x0063B2C0",
@@ -80676,6 +80684,10 @@
      "va": "0x0063B850",
      "length": 245,
      "name": "?INVENTORY_GetFreePosition@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HPAH2E@Z"
+    },
+    {
+     "va": "0x0063B950",
+     "length": 103
     },
     {
      "va": "0x0063B9C0",
@@ -80912,6 +80924,10 @@
      "name": "sub_0063D190_SetLeftItemGUID"
     },
     {
+     "va": "0x0063D1D0",
+     "length": 214
+    },
+    {
      "va": "0x0063D2B0",
      "length": 138,
      "name": "?INVENTORY_UpdateWeaponGUIDOnRemoval@@YGXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
@@ -80989,6 +81005,10 @@
      "va": "0x0063D900",
      "length": 44,
      "name": "?sub_0063D900_FindCode@@YAHII@Z"
+    },
+    {
+     "va": "0x0063D930",
+     "length": 305
     },
     {
      "va": "0x0063DA70",
@@ -81258,46 +81278,6 @@
      "length": 1,
      "name": "?sub_0063A800_Nop@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063ADD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0063ADD0",
-     "length": 322
-    },
-    {
-     "va": "0x0063B210",
-     "length": 164
-    },
-    {
-     "va": "0x0063B950",
-     "length": 103
-    },
-    {
-     "va": "0x0063D1D0",
-     "length": 214
-    },
-    {
-     "va": "0x0063D930",
-     "length": 305
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
