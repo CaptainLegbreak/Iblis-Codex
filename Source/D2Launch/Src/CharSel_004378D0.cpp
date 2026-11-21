@@ -9,16 +9,69 @@ struct D2LaunchCharEntryStrc;
 struct D2LaunchCharSelectStrc;
 struct D2LaunchGameRecStrc;
 
+struct D2CompositeUnitStrc;
+struct D2CelFileStrc;
+
 struct D2LaunchCharEntryStrc
 {
-    char szName[0x100];
-    Unicode wszName[0x100];
-    char unk0x300[0x20];
-    unsigned char nType;
-    char unk0x321[0x03];
-    unsigned short wFlags;
-    char unk0x326[0x26];
-    D2LaunchCharEntryStrc* pNext;
+    char szName[0x100];                                     // 0x000
+    Unicode wszName[0x100];                                 // 0x100
+    unsigned char aFlags[16];                               // 0x300
+    unsigned char aColors[16];                              // 0x310
+    unsigned char nType;                                    // 0x320
+    unsigned char unk0x321;                                 // 0x321
+    union
+    {
+        unsigned short nLevel;                              // 0x322
+        short nWord322;
+    };
+    union
+    {
+        struct
+        {
+            union
+            {
+                unsigned short wFlags;                      // 0x324
+                short nWord324;
+            };
+            short nWord326;                                 // 0x326
+        };
+        int nFlags;                                         // 0x324
+    };
+    short nWord328;                                         // 0x328
+    char szCode32A[4];                                      // 0x32A
+    union
+    {
+        unsigned char nByte32E;                             // 0x32E
+        char cByte32E;
+    };
+    union
+    {
+        unsigned char nByte32F;                             // 0x32F
+        char cByte32F;
+    };
+    union
+    {
+        unsigned char nByte330;                             // 0x330
+        char cByte330;
+    };
+    char unk0x331[3];                                       // 0x331
+    int nState;                                             // 0x334
+    union
+    {
+        D2CompositeUnitStrc* pCompositeUnit;                // 0x338
+        D2CelFileStrc* pCellFile;
+        void* pAnim;
+    };
+    int unk0x33C;                                           // 0x33C
+    unsigned int nKeyLow;                                   // 0x340
+    unsigned int nKeyHigh;                                  // 0x344
+    union
+    {
+        unsigned int nExpireTime;                           // 0x348
+        int nFlag348;
+    };
+    D2LaunchCharEntryStrc* pNext;                           // 0x34C
 };
 
 struct D2LaunchCharSelectStrc

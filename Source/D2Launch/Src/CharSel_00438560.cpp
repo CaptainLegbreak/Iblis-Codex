@@ -31,12 +31,69 @@ static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)
 }
 
 struct D2WinControlStrc;
-struct D2LaunchCharEntryStrc {
-    char szName[0x100]; Unicode wszName[0x100];
-    unsigned char aBlock0x300[16],aBlock0x310[16];
-    unsigned char nType,pad321; unsigned short nLevel,wFlags;
-    char pad326[4],szTag[4]; unsigned char nFlag32E; char pad32F[5]; int nStatus; void* pAnim;
-    char pad33C[12]; unsigned int nExpire; D2LaunchCharEntryStrc* pNext;
+struct D2CompositeUnitStrc;
+struct D2CelFileStrc;
+
+struct D2LaunchCharEntryStrc
+{
+    char szName[0x100];                                     // 0x000
+    Unicode wszName[0x100];                                 // 0x100
+    unsigned char aFlags[16];                               // 0x300
+    unsigned char aColors[16];                              // 0x310
+    unsigned char nType;                                    // 0x320
+    unsigned char unk0x321;                                 // 0x321
+    union
+    {
+        unsigned short nLevel;                              // 0x322
+        short nWord322;
+    };
+    union
+    {
+        struct
+        {
+            union
+            {
+                unsigned short wFlags;                      // 0x324
+                short nWord324;
+            };
+            short nWord326;                                 // 0x326
+        };
+        int nFlags;                                         // 0x324
+    };
+    short nWord328;                                         // 0x328
+    char szCode32A[4];                                      // 0x32A
+    union
+    {
+        unsigned char nByte32E;                             // 0x32E
+        char cByte32E;
+    };
+    union
+    {
+        unsigned char nByte32F;                             // 0x32F
+        char cByte32F;
+    };
+    union
+    {
+        unsigned char nByte330;                             // 0x330
+        char cByte330;
+    };
+    char unk0x331[3];                                       // 0x331
+    int nState;                                             // 0x334
+    union
+    {
+        D2CompositeUnitStrc* pCompositeUnit;                // 0x338
+        D2CelFileStrc* pCellFile;
+        void* pAnim;
+    };
+    int unk0x33C;                                           // 0x33C
+    unsigned int nKeyLow;                                   // 0x340
+    unsigned int nKeyHigh;                                  // 0x344
+    union
+    {
+        unsigned int nExpireTime;                           // 0x348
+        int nFlag348;
+    };
+    D2LaunchCharEntryStrc* pNext;                           // 0x34C
 };
 extern int gnSelected_0070CC00; // 0x0070CC00
 extern int gnSelectionA_0070CC04; // 0x0070CC04
@@ -137,7 +194,7 @@ void __cdecl sub_00438560_Refresh()
             int row=index-gnTopRow_00779DC8;
             sub_005052B0_SetAnimX(entry->pAnim,0x221);
             sub_005052F0_SetAnimY(entry->pAnim,y);
-            if(entry->nStatus==1) {
+            if(entry->nState==1) {
                 sub_00505360_SetAnimFlags(entry->pAnim,0);
                 sub_004FD0B0_SetSprite(gpControl_00779D90,0x200,(void*)(gaSlotY_007799FC[row]-3));
                 sub_004F9740(gpControl_00779D90,1);
@@ -156,21 +213,21 @@ void __cdecl sub_00438560_Refresh()
             if(entry->wFlags&8) flags|=gdwBitMasks[4];else flags&=gdwInverseMasks[4];
             if(hardcore) flags|=gdwBitMasks[5];else flags&=gdwInverseMasks[5];
             sub_00505360_SetAnimFlags(entry->pAnim,flags);
-            if(entry->nStatus==2) {
+            if(entry->nState==2) {
                 sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2B3B),1,0,0);
                 goto VISIBLE_END;
             }
-            if(entry->nStatus!=0) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x3B0);exit(-1);}
+            if(entry->nState!=0) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x3B0);exit(-1);}
             char text[100];text[0]=0;
             Unicode className[100];
             const int bExpansion=entry->wFlags&32;
             const char* title=D2Win_10161(GetCharType(entry),(entry->wFlags>>8)&31,hardcore,bExpansion);
             if(title) strcat(text,title);
             strcat(text,entry->szName);
-            if(strlen(entry->szTag)) {
+            if(strlen(entry->szCode32A)) {
                 int length=strlen(text);
                 char* end=text+length;
-                sprintf(end,gszTagFormat,entry->szTag);
+                sprintf(end,gszTagFormat,entry->szCode32A);
             }
             D2Win_10046(gaRowControls_00779A20[row],text,hardcore?1:4);
             sub_00437F60_GetClassName(className,entry->nType);
@@ -183,8 +240,8 @@ void __cdecl sub_00438560_Refresh()
             sub_00526700(description,className);
             sub_004FC9B0_SetText(gaRowControls_00779A20[row],description,0,0,0);
             if(entry->wFlags&32) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2B45),2,0,0);
-            if(entry->nFlag32E) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2AAF),4,0,0);
-            unsigned int days=sub_004380B0_GetDaysLeft(entry->nExpire);
+            if(entry->nByte32E) sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2AAF),4,0,0);
+            unsigned int days=sub_004380B0_GetDaysLeft(entry->nExpireTime);
             if(gnLaunchMode_007795EC==1 && days<=60) {
                 int color=1;unsigned short str;
                 if(days==0) str=0x2B7E;

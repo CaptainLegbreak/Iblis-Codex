@@ -41,30 +41,69 @@ static int sub_00437D20_IsTestRealm(const Unicode* pName)
 
 struct D2CompositeUnitStrc;
 
+struct D2CompositeUnitStrc;
+struct D2CelFileStrc;
+
 struct D2LaunchCharEntryStrc
 {
-    char szTitle[0x100];
-    Unicode f_100[0x100];
-    unsigned char aFlags[16];
-    unsigned char aColors[16];
-    unsigned char nSel;
-    char unk0x321;
-    short nWord322;
-    short nWord324;
-    short nWord326;
-    short nWord328;
-    char szCode32A[4];
-    unsigned char nByte32E;
-    unsigned char nByte32F;
-    unsigned char nByte330;
-    char unk0x331[3];
-    int bShared;
-    D2CompositeUnitStrc* pCompositeUnit;
-    char unk0x33C[4];
-    unsigned int nKeyLow;
-    unsigned int nKeyHigh;
-    int nFlag348;
-    D2LaunchCharEntryStrc* pNext;
+    char szName[0x100];                                     // 0x000
+    Unicode wszName[0x100];                                 // 0x100
+    unsigned char aFlags[16];                               // 0x300
+    unsigned char aColors[16];                              // 0x310
+    unsigned char nType;                                    // 0x320
+    unsigned char unk0x321;                                 // 0x321
+    union
+    {
+        unsigned short nLevel;                              // 0x322
+        short nWord322;
+    };
+    union
+    {
+        struct
+        {
+            union
+            {
+                unsigned short wFlags;                      // 0x324
+                short nWord324;
+            };
+            short nWord326;                                 // 0x326
+        };
+        int nFlags;                                         // 0x324
+    };
+    short nWord328;                                         // 0x328
+    char szCode32A[4];                                      // 0x32A
+    union
+    {
+        unsigned char nByte32E;                             // 0x32E
+        char cByte32E;
+    };
+    union
+    {
+        unsigned char nByte32F;                             // 0x32F
+        char cByte32F;
+    };
+    union
+    {
+        unsigned char nByte330;                             // 0x330
+        char cByte330;
+    };
+    char unk0x331[3];                                       // 0x331
+    int nState;                                             // 0x334
+    union
+    {
+        D2CompositeUnitStrc* pCompositeUnit;                // 0x338
+        D2CelFileStrc* pCellFile;
+        void* pAnim;
+    };
+    int unk0x33C;                                           // 0x33C
+    unsigned int nKeyLow;                                   // 0x340
+    unsigned int nKeyHigh;                                  // 0x344
+    union
+    {
+        unsigned int nExpireTime;                           // 0x348
+        int nFlag348;
+    };
+    D2LaunchCharEntryStrc* pNext;                           // 0x34C
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -114,9 +153,9 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
     pEntry->nKeyLow = nKeyLow;
     pEntry->nKeyHigh = nKeyHigh;
     pEntry->nFlag348 = nFlag;
-    SStrCopy(pEntry->szTitle, szName, 0x7FFFFFFF);
+    SStrCopy(pEntry->szName, szName, 0x7FFFFFFF);
 
-    Unicode* pText = pEntry->f_100;
+    Unicode* pText = pEntry->wszName;
     if (szRealm)
     {
         Unicode::win2Unicode(pText, szRealm, 255);
@@ -150,7 +189,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
         }
     }
 
-    pEntry->nSel = *pData - 1;
+    pEntry->nType = *pData - 1;
     ++pData;
     {
         int i;
@@ -179,7 +218,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
     pEntry->nByte330 = pEntry->nByte330 == 0xFF ? 0 : pEntry->nByte330;
     strncpy(pEntry->szCode32A, (const char*)pData, 3);
 
-    unsigned char nSel = pEntry->nSel;
+    unsigned char nSel = pEntry->nType;
     int nMode = 5;
     if (pEntry->nWord324 & 4)
     {
@@ -187,7 +226,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
         {
             nSel = sub_F4B0_IsMaleClass(nSel) ? 9 : 8;
         }
-        else if (sub_00408F20_HasExpansionMpq() || pEntry->nSel < 5)
+        else if (sub_00408F20_HasExpansionMpq() || pEntry->nType < 5)
         {
             nMode = 1;
         }
@@ -207,7 +246,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
     }
 
     D2_ASSERT(pEntry->pCompositeUnit, 0x4BE);
-    pEntry->bShared = 0;
+    pEntry->nState = 0;
     D2Win_10149(pEntry->pCompositeUnit, 0);
     D2Win_10151(pEntry->pCompositeUnit, 0);
     D2Win_10143(pEntry->pCompositeUnit, 5);

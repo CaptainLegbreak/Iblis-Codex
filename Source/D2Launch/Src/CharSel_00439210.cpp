@@ -48,12 +48,69 @@ static int sub_00438030_IsNotListedCode(int nValue)
 }
 
 struct D2WinControlStrc;
-struct D2LaunchCharEntryStrc {
-    char szName[0x100]; Unicode wszName[0x100];
-    unsigned char aBlock0x300[16],aBlock0x310[16];
-    unsigned char nType,pad321; unsigned short nLevel,wFlags;
-    char pad326[4],szTag[10]; int nStatus; void* pAnim;
-    char pad33C[16]; D2LaunchCharEntryStrc* pNext;
+struct D2CompositeUnitStrc;
+struct D2CelFileStrc;
+
+struct D2LaunchCharEntryStrc
+{
+    char szName[0x100];                                     // 0x000
+    Unicode wszName[0x100];                                 // 0x100
+    unsigned char aFlags[16];                               // 0x300
+    unsigned char aColors[16];                              // 0x310
+    unsigned char nType;                                    // 0x320
+    unsigned char unk0x321;                                 // 0x321
+    union
+    {
+        unsigned short nLevel;                              // 0x322
+        short nWord322;
+    };
+    union
+    {
+        struct
+        {
+            union
+            {
+                unsigned short wFlags;                      // 0x324
+                short nWord324;
+            };
+            short nWord326;                                 // 0x326
+        };
+        int nFlags;                                         // 0x324
+    };
+    short nWord328;                                         // 0x328
+    char szCode32A[4];                                      // 0x32A
+    union
+    {
+        unsigned char nByte32E;                             // 0x32E
+        char cByte32E;
+    };
+    union
+    {
+        unsigned char nByte32F;                             // 0x32F
+        char cByte32F;
+    };
+    union
+    {
+        unsigned char nByte330;                             // 0x330
+        char cByte330;
+    };
+    char unk0x331[3];                                       // 0x331
+    int nState;                                             // 0x334
+    union
+    {
+        D2CompositeUnitStrc* pCompositeUnit;                // 0x338
+        D2CelFileStrc* pCellFile;
+        void* pAnim;
+    };
+    int unk0x33C;                                           // 0x33C
+    unsigned int nKeyLow;                                   // 0x340
+    unsigned int nKeyHigh;                                  // 0x344
+    union
+    {
+        unsigned int nExpireTime;                           // 0x348
+        int nFlag348;
+    };
+    D2LaunchCharEntryStrc* pNext;                           // 0x34C
 };
 extern int gnSelected_0070CC00; // 0x0070CC00
 extern int gnSelectionA_0070CC04; // 0x0070CC04
@@ -144,7 +201,7 @@ int __cdecl sub_00439210_Redraw()
     } while(entry);
     if(!entry) return 1;
     if(gpCurrent_00779DC0) {
-        if(!gpCurrent_00779DC0->nStatus) sub_005041B0_FreeAnim(gpCurrent_00779DC0->pAnim,1);
+        if(!gpCurrent_00779DC0->nState) sub_005041B0_FreeAnim(gpCurrent_00779DC0->pAnim,1);
         FOG_Free(gpCurrent_00779DC0,gszCharSelFile,0x5DE,0);
         gpCurrent_00779DC0=0;
     }
@@ -152,10 +209,10 @@ int __cdecl sub_00439210_Redraw()
     SMemCopy(gpCurrent_00779DC0,entry,0x350);
     gpCurrent_00779DC0->pNext=0;
     unsigned short statusText;
-    if(entry->nStatus==1) {
+    if(entry->nState==1) {
         sub_004FB6A0_ClearText(gpControl_00779B60);
         statusText=0x1419;
-    } else if(entry->nStatus==2) {
+    } else if(entry->nState==2) {
         sub_004FB6A0_ClearText(gpControl_00779B60);
         statusText=0x2B3B;
     } else goto BUILD_MODEL;
@@ -170,11 +227,11 @@ BUILD_MODEL:
         if(gpCurrent_00779DC0->wFlags&8) type=8+(sub_00438030_IsNotListedCode(type)!=0);
         else if(sub_00408F20_HasExpansionMpq() || gpCurrent_00779DC0->nType<5) mode=1;
     }
-    gpCurrent_00779DC0->pAnim=sub_005066C0_CreateCompositeUnit(type,mode,gpCurrent_00779DC0->aBlock0x300,gpCurrent_00779DC0->aBlock0x310);
+    gpCurrent_00779DC0->pAnim=sub_005066C0_CreateCompositeUnit(type,mode,gpCurrent_00779DC0->aFlags,gpCurrent_00779DC0->aColors);
     if(!gpCurrent_00779DC0->pAnim) {
-        for(int i=0;i<16;++i) {gpCurrent_00779DC0->aBlock0x300[i]=0;gpCurrent_00779DC0->aBlock0x310[i]=255;}
-        gpCurrent_00779DC0->aBlock0x300[1]=1;
-        gpCurrent_00779DC0->pAnim=sub_005066C0_CreateCompositeUnit(7,5,gpCurrent_00779DC0->aBlock0x300,gpCurrent_00779DC0->aBlock0x310);
+        for(int i=0;i<16;++i) {gpCurrent_00779DC0->aFlags[i]=0;gpCurrent_00779DC0->aColors[i]=255;}
+        gpCurrent_00779DC0->aFlags[1]=1;
+        gpCurrent_00779DC0->pAnim=sub_005066C0_CreateCompositeUnit(7,5,gpCurrent_00779DC0->aFlags,gpCurrent_00779DC0->aColors);
     }
     if(!gpCurrent_00779DC0->pAnim) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x619);exit(-1);}
     sub_005051A0_SetAnimField(gpCurrent_00779DC0->pAnim,0);
@@ -190,8 +247,8 @@ BUILD_MODEL:
     Unicode className[100];
     char text[100];
     sub_004FB6A0_ClearText(gpControl_00779B60);
-    if(strlen(gpCurrent_00779DC0->szTag)) {
-        sprintf(text,gszNameTagFormat,gpCurrent_00779DC0->szName,gpCurrent_00779DC0->szTag);
+    if(strlen(gpCurrent_00779DC0->szCode32A)) {
+        sprintf(text,gszNameTagFormat,gpCurrent_00779DC0->szName,gpCurrent_00779DC0->szCode32A);
         D2Win_10046(gpControl_00779B60,text,0);
     } else D2Win_10046(gpControl_00779B60,gpCurrent_00779DC0->szName,0);
     sub_004FB6A0_ClearText(gpControl_007799F0);
