@@ -34,7 +34,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Fog/Unknown_004016A0.cpp": {
+  "Source/Fog/Src/ErrorManager_004016A0.cpp": {
    "bytes": 192,
    "definitions": 5,
    "externs": [
@@ -46,7 +46,7 @@
     "extern \"C\" void __cdecl sub_0044B420_Shutdown(); // 0x0044B420"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/Fog/Unknown_004016A0.inc",
+   "include": "gen/data/Source/Fog/Src/ErrorManager_004016A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -7241,7 +7241,7 @@
    "cname": "gData_006CCA6C",
    "declared": true,
    "decorated": "_gtKnownFolderId_006CCA6C",
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2GuidStrc gData_006CCA6C; // 0x006CCA6C",
    "head": "extern \"C\" const D2GuidStrc gData_006CCA6C = ",
@@ -7312,7 +7312,7 @@
    "cname": "gData_006FF994",
    "declared": true,
    "decorated": "_gszInternalCheckHost_006FF994",
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 36,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FF994[36]; // 0x006FF994",
@@ -7343,7 +7343,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 13,
    "form": "declared",
    "fwd": null,
@@ -7572,7 +7572,7 @@
    "cname": "gData_007065BC",
    "declared": false,
    "decorated": null,
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007065BC_t gData_007065BC; // 0x007065BC",
    "head": "extern \"C\" struct d2data_007065BC_t gData_007065BC = ",
@@ -7598,7 +7598,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "fill": 32,
    "form": "declared",
    "fwd": null,

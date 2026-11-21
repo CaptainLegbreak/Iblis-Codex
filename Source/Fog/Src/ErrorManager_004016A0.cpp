@@ -1,21 +1,36 @@
 #include "Fog.h"
 #include "D2NetTypes.h"
 #include "D2FogTypes.h"
+#include "D2Primitives.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2HostentStrc;
+
 struct D2ThreadNameInfoStrc;
+
 struct D2UnicodeStringStrc;
+
 struct D2ListEntryStrc;
+
 struct D2LdrEntryStrc;
+
 struct D2LdrDataStrc;
+
 struct D2PebStrc;
+
 struct D2TebStrc;
+
 struct D2ModeIfaceStrc;
+
 struct D2ModeEntryStrc;
+
 struct D2ServiceTableEntryStrc;
+
 struct D2GuidStrc;
+
 struct D2SidAuthorityStrc;
+
 struct D2ProcessEntryStrc;
 
 void __cdecl sub_00402980_StartDbgHelpWorker(); // 0x00402980
@@ -129,65 +144,200 @@ typedef unsigned long (__stdcall* D2SetSecurityInfoFn)(void* hObject, int nObjec
 typedef void* HKEY;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" size_t __cdecl strlen(const char* szString);
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
+
 extern "C" double __cdecl floor(double x); // 0x00683080
+
 extern "C" unsigned long __readfsdword(unsigned long nOffset);
+
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+
 extern "C" __declspec(dllimport) int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006CC564
+
 extern "C" __declspec(dllimport) D2HostentStrc* __stdcall gethostbyname(const char* szName); // 0x006CC57C
+
 extern "C" __declspec(dllimport) int __stdcall WSACleanup(); // 0x006CC58C
+
 extern "C" __declspec(dllimport) int __stdcall IsDebuggerPresent(); // 0x006CC284
+
 extern "C" __declspec(dllimport) void __stdcall RaiseException(unsigned long dwCode, unsigned long dwFlags, unsigned long nArgs, const unsigned long* pArgs); // 0x006CC224
+
 extern "C" __declspec(dllimport) void* __stdcall GetModuleHandleW(const wchar_t* wszModuleName); // 0x006CC2DC
+
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyA(HKEY hKey, const char* szSubKey, HKEY* phResult); // 0x006CC040
+
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyA(HKEY hKey, const char* szSubKey, HKEY* phResult); // 0x006CC03C
+
 extern "C" __declspec(dllimport) long __stdcall RegEnumValueA(HKEY hKey, unsigned long dwIndex, char* szValueName, unsigned long* pcchValueName, unsigned long* pReserved, unsigned long* pType, unsigned char* pData, unsigned long* pcbData); // 0x006CC038
+
 extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(HKEY hKey, const char* szValueName, unsigned long dwReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
+
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(HKEY hKey); // 0x006CC030
+
 extern "C" __declspec(dllimport) long __stdcall RegDeleteKeyA(HKEY hKey, const char* szSubKey); // 0x006CC02C
+
 extern "C" __declspec(dllimport) int __stdcall SetCurrentDirectoryA(const char* szPath); // 0x006CC140
+
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
+
 extern "C" __declspec(dllimport) void* __stdcall FreeSid(void* pSid); // 0x006CC044
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetVersion(); // 0x006CC138
+
 extern "C" __declspec(dllimport) void* __stdcall OpenSCManagerA(const char* szMachineName, const char* szDatabaseName, unsigned long dwDesiredAccess); // 0x006CC028
+
 extern "C" __declspec(dllimport) void* __stdcall OpenServiceA(void* hSCManager, const char* szServiceName, unsigned long dwDesiredAccess); // 0x006CC04C
+
 extern "C" __declspec(dllimport) int __stdcall CloseServiceHandle(void* hSCObject); // 0x006CC01C
+
 extern "C" __declspec(dllimport) int __stdcall StartServiceCtrlDispatcherA(const D2ServiceTableEntryStrc* pServiceTable); // 0x006CC020
+
 extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned int nCodePage, unsigned long dwFlags, const wchar_t* wszSource, int nSource, char* szDest, int nDest, const char* szDefaultChar, int* pbUsedDefaultChar); // 0x006CC194
+
 extern "C" __declspec(dllimport) void __stdcall CoTaskMemFree(void* pMemory); // 0x006CC5F0
+
 extern "C" __declspec(dllimport) int __stdcall CreateDirectoryA(const char* szPathName, void* pSecurityAttributes); // 0x006CC1B8
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
+
 extern "C" int __stdcall Process32First(void* hSnapshot, D2ProcessEntryStrc* pEntry); // 0x006B1440
+
 extern "C" int __stdcall Process32Next(void* hSnapshot, D2ProcessEntryStrc* pEntry); // 0x006B143A
+
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
+
 void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nFrames, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6); // 0x00403100
+
 bool __fastcall sub_00404560_UseWidePath(wchar_t* wszPath); // 0x00404560
+
 int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
+
 void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** argv); // 0x004065E0
+
 extern "C" const char gszInternalCheckHost_006FF994[]; // 0x006FF994
+
 extern "C" const D2GuidStrc gtKnownFolderId_006CCA6C; // 0x006CCA6C
+
 extern const double gdDaysPerYear_006CCC08; // 0x006CCC08
+
 extern const double gdDaysPerMonth_006CCC10; // 0x006CCC10
+
 extern char gszServiceName_007065DC[]; // 0x007065DC
+
 extern D2ModeEntryStrc gaModeTable_00706554[]; // 0x00706554
+
 extern int gnMode_0074C704; // 0x0074C704
+
 extern void* gpModeContext_0074C718; // 0x0074C718
 
-// 0x004016A0
-void __cdecl sub_004016A0_StartDbgHelpThread()
+struct D2FileTimeStrc;
+
+struct D2FindDataStrc;
+
+struct D2Storm408ElemStrc;
+
+struct D2StormArray408Strc;
+
+int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
+
+extern int gdwGlobal_008F03C8; // 0x008F03C8
+
+int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
+
+int __stdcall sub_0041AAD0_StormReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
+
+int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
+
+struct D2FindDataStrc
 {
-    sub_00402980_StartDbgHelpWorker();
-}
+    unsigned long dwFileAttributes;
+    D2FileTimeStrc ftCreationTime;
+    D2FileTimeStrc ftLastAccessTime;
+    D2FileTimeStrc ftLastWriteTime;
+    unsigned long nFileSizeHigh;
+    unsigned long nFileSizeLow;
+    unsigned long dwReserved0;
+    unsigned long dwReserved1;
+    char cFileName[260];
+    char cAlternateFileName[14];
+};
+
+extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
+
+extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int nFolder, void* hToken, unsigned long dwFlags, char* szPath); // 0x006CC43C
+
+extern "C" __declspec(dllimport) int __stdcall MoveFileA(const char* szExisting, const char* szNew); // 0x006CC1D0
+
+extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData); // 0x006CC1CC
+
+extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData); // 0x006CC1C8
+
+extern "C" __declspec(dllimport) int __stdcall RemoveDirectoryA(const char* szPathName); // 0x006CC1C0
+
+extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
+
+extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
+
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
+unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
+
+int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay); // 0x00407370
+
+void __fastcall sub_00407440_JulianToDate(long nJulian, int* pYear, int* pMonth, int* pDay); // 0x00407440
+
+int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
+
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+
+extern "C" const char gszTypeNewsTableItem_0072FF8C[];
+
+const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
+
+void __stdcall sub_0040EA00_WriteProcessorReport(); // 0x0040EA00
+
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
+
+extern int gnOsKind_0074D890; // 0x0074D890
+
+extern float gfOsVersion_0074D894; // 0x0074D894
+
+void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
+
+void __cdecl sub_00410740_LogWritePrefixed00(const char* szPrefix, const char* szFormat, ...); // 0x00410740
+
+extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
+
+const char* __fastcall sub_00408000_StripSourcePath(const char* szFile); // 0x00408000
+
+void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
+
+extern int gdwGlobal_0074F0C8; // 0x0074F0C8
 
 D2ModeIfaceStrc* gpModeIface_0074C700; // 0x0074C700
 
 int gbD2ServerStopEvent_0074C720; // 0x0074C720
 
 char szSRegReadBuf[260]; // 0x0074C728
+
+unsigned long gdwTotalPhys_0074D898; // 0x0074D898
+
+// 0x004016A0
+void __cdecl sub_004016A0_StartDbgHelpThread()
+{
+    sub_00402980_StartDbgHelpWorker();
+}
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004016C0
@@ -439,6 +589,12 @@ int __cdecl sub_00406650_StartServiceDispatcher()
     return 0;
 }
 
+// 0x004067C0
+int __cdecl sub_004067C0_SetBasePathToCurrent()
+{
+    return SFileSetBasePath(".\\");
+}
+
 // 0x004067D0
 bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize)
 {
@@ -457,6 +613,35 @@ bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize)
     const int nResult = WideCharToMultiByte(0, 0x400, wszPath, -1, szPath, nSize, 0, &bUsedDefault);
     CoTaskMemFree(wszPath);
     return nResult && !bUsedDefault;
+}
+
+int __cdecl D2CMPToggleCelDrawMode()
+{
+    return gdwGlobal_008F03C8 = (gdwGlobal_008F03C8 == 0);
+}
+
+// 0x004068E0
+int __fastcall sub_004068E0(const char* szFileName, void** phFile)
+{
+    return sub_00419980(szFileName, phFile);
+}
+
+// 0x00406900
+int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6)
+{
+    return sub_0041AAD0_StormReadFile(hFile, pBuffer, nToRead, pnRead, pOverlapped, nArg6, nArg7);
+}
+
+// 0x00406930
+int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh)
+{
+    return sub_00416370_StormGetFileSize(hFile, pnSizeHigh);
+}
+
+// 0x00406940
+int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod)
+{
+    return SFileSetFilePointer(hFile, nOffset, pnOffsetHigh, nMethod);
 }
 
 // 0x00406A10
@@ -493,6 +678,153 @@ int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath)
     return bResult;
 }
 
+static int __fastcall FOG_AppendBackslash(char* szPath, int nSize)
+{
+    if (!szPath || !nSize)
+        return 0;
+    unsigned int nLen = SStrLen(szPath);
+    if (nLen <= 0 || szPath[nLen - 1] != '\\')
+    {
+        if (nLen + 1 == nSize)
+            return 0;
+        szPath[nLen] = '\\';
+        szPath[nLen + 1] = 0;
+    }
+    return 1;
+}
+
+// 0x00406C40
+int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize)
+{
+    char szPath[0x104];
+    if (SHGetFolderPathA(0, 0x1C, 0, 0, szPath) < 0)
+        return 0;
+    sub_00413800(szPath, "\\Blizzard Entertainment", 0x7FFFFFFF);
+    if (!FOG_AppendBackslash(szPath, nSize))
+        return 0;
+    if (!sub_00406A10_CreateDirectoryTree(szPath))
+        return 0;
+    SStrCopy(szOutPath, szPath, nSize);
+    return SStrLen(szOutPath) == SStrLen(szPath);
+}
+
+// 0x00406DE0
+int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szDst)
+{
+    char szDir[0x104];
+    SStrCopy(szDir, szDst, 0x7FFFFFFF);
+    char* pCut = strrchr(szDir, '\\') + 1;
+    char cSaved = *pCut;
+    *pCut = 0;
+    sub_00406A10_CreateDirectoryTree(szDir);
+    *pCut = cSaved;
+    if (MoveFileA(szSrc, szDst))
+        return 2;
+    unsigned long dwAttr = GetFileAttributesA(szSrc);
+    if (dwAttr == (unsigned long)-1)
+        return GetLastError() == 2 ? 2 : 1;
+    if (!(dwAttr & 0x10))
+        return 1;
+    dwAttr = GetFileAttributesA(szDst);
+    if (!(dwAttr & 0x10))
+        return 1;
+    if (dwAttr == (unsigned long)-1)
+    {
+        if (GetLastError() != 2)
+            return 1;
+        FOG_AppendBackslash(szDir, sizeof(szDir));
+        sub_00406A10_CreateDirectoryTree(szDir);
+    }
+    char szSrcFind[0x104];
+    char szDstFind[0x104];
+    int nResult = 0;
+    int nSrcLen = SStrPrintf(szSrcFind, 0x104, "%s\\*", szSrc) - 1;
+    int nDstLen = SStrPrintf(szDstFind, 0x104, "%s\\", szDst);
+    D2FindDataStrc tData;
+    void* hFind = FindFirstFileA(szSrcFind, &tData);
+    if (hFind != (void*)-1)
+    {
+        do
+        {
+            if (strcmp(tData.cFileName, ".") && strcmp(tData.cFileName, ".."))
+            {
+                SStrCopy(szSrcFind + nSrcLen, tData.cFileName, 0x104 - nSrcLen);
+                SStrCopy(szDstFind + nDstLen, tData.cFileName, 0x104 - nDstLen);
+                nResult |= sub_00406DE0_MoveDirectoryTree(szSrcFind, szDstFind);
+            }
+        } while (FindNextFileA(hFind, &tData));
+    }
+    FindClose(hFind);
+    RemoveDirectoryA(szSrc);
+    return nResult;
+}
+
+inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
+{
+    unsigned int nRemainder = nValue % nAlign;
+    if (nRemainder)
+        nValue += nAlign - nRemainder;
+    return nValue;
+}
+
+inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
+{
+    nCount += f_4;
+    if (nCount > f_0)
+    {
+        if (bRound)
+        {
+            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            nCount = RoundUpInline(nCount, nChunk);
+        }
+        sub_0051D5D0_ReallocData(nCount);
+    }
+}
+
+D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+    return this;
+}
+
+void __cdecl sub_0051D2D0_Nop()
+{
+}
+
+void __cdecl sub_0051D2E0_Nop()
+{
+}
+
+void __fastcall sub_0051D350_CopyElement(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
+{
+    if (pDst)
+        *pDst = *pSrc;
+}
+
+void D2StormArray408Strc::sub_0051D570_FreeData()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+void D2StormArray408Strc::sub_0051D670_FreeData()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+// 0x00407260
+D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+    f_C = 0;
+    return this;
+}
+
 // 0x00407370
 int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay)
 {
@@ -524,6 +856,122 @@ int __fastcall sub_00407370_JulianDay(int nYear, int nMonth, int nDay)
     return nJul;
 }
 
+// 0x00407570
+void __fastcall sub_00407570_DeleteOldDatedLogs(const char* szPrefix)
+{
+    D2SystemTimeStrc tTime;
+    char szDir[0x1000];
+    char szFile[0x1000];
+    GetLocalTime(&tTime);
+    szDir[0] = 0;
+    if (sub_0040C220_GetAppPath(szDir, 0x1000))
+    {
+        sub_00413800(szDir, "\\", 0x1000);
+        sub_00406A10_CreateDirectoryTree(szDir);
+    }
+    int nYear = tTime.wYear;
+    int nMonth = tTime.wMonth;
+    int nDay = tTime.wDay;
+    int nJulianDay = sub_00407370_JulianDay(nYear, nMonth, nDay) - 5;
+    for (int i = 0; i < 10; i++)
+    {
+        sub_00407440_JulianToDate(nJulianDay, &nYear, &nMonth, &nDay);
+        SStrPrintf(szFile, 0x1000, "%s%s%02d%02d%02d.txt", szDir, szPrefix, nYear % 100, nMonth, nDay);
+        DeleteFileA(szFile);
+        nJulianDay--;
+    }
+}
+
+void D2StormArray408Strc::sub_0051D6A0_Clear()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+}
+
+D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+    f_C = 0;
+    return this;
+}
+
+void D2StormArray408Strc::sub_0051D730_FreeData()
+{
+    if (f_8)
+        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+}
+
+D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
+{
+    ReserveInline(1, 1);
+    return &f_8[f_4++];
+}
+
+// 0x004076B0
+void __cdecl sub_004076B0_LogSystemInfo()
+{
+    D2SystemTimeStrc tTime;
+    unsigned long nSize;
+    char szPath[0x1000];
+    char szOs[0x1000];
+    char szComputer[0x40];
+
+    sub_00410610_WriteLogLine("------------------------------------------------------");
+    GetLocalTime(&tTime);
+    sub_00410610_WriteLogLine("%04d-%02d-%02d %02d:%02d:%02d", tTime.wYear, tTime.wMonth, tTime.wDay, tTime.wHour, tTime.wMinute, tTime.wSecond);
+
+    switch (gnOsKind_0074D890)
+    {
+    case 1:
+        memcpy(szOs, "Windows NT", sizeof("Windows NT"));
+        break;
+    case 2:
+        memcpy(szOs, "Windows 2000", sizeof("Windows 2000"));
+        break;
+    case 3:
+        memcpy(szOs, "Windows XP", sizeof("Windows XP"));
+        break;
+    case 4:
+        memcpy(szOs, "Windows .Net", sizeof("Windows .Net"));
+        break;
+    case 9:
+        memcpy(szOs, "MacOS", sizeof("MacOS"));
+        break;
+    case 10:
+        memcpy(szOs, "MacOS X", sizeof("MacOS X"));
+        break;
+    default:
+        memcpy(szOs, "unknown", sizeof("unknown"));
+        break;
+    }
+
+    sub_00410610_WriteLogLine("%s running under %s (Version %.3f)", "Diablo II", szOs, gfOsVersion_0074D894);
+    sub_0040EA00_WriteProcessorReport();
+    sub_00410610_WriteLogLine("Total Physical Memory: %.2fMB", (float)gdwTotalPhys_0074D898 / 1048576.0);
+
+    if (sub_0040C220_GetAppPath(szPath, sizeof(szPath)))
+    {
+        sub_00410610_WriteLogLine("Application Path: %s", szPath);
+    }
+
+    sub_00410610_WriteLogLine("Local IP: %s", FOG_GetHostIPAddress());
+
+    nSize = sizeof(szComputer);
+    if (!GetComputerNameA(szComputer, &nSize))
+    {
+        szComputer[0] = 0;
+    }
+
+    sub_00410610_WriteLogLine("Computer name: %s", szComputer);
+    sub_00410610_WriteLogLine("------------------------------------------------------");
+    sub_00410610_WriteLogLine(&gszEmptyAssertText);
+}
+
 // 0x00407990
 unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId)
 {
@@ -550,4 +998,48 @@ unsigned long __fastcall sub_00407990_FindOwnerProcess(unsigned long dwProcessId
     return dwParent;
 }
 
-#include "gen/data/Source/Fog/Unknown_004016A0.inc"
+// 0x00407F80
+void __fastcall sub_00407F80_ThreadHookNop2(unsigned int nId, void* hThread)
+{
+}
+
+// 0x00407F90
+void __fastcall sub_00407F90_ThreadHookNop1(unsigned int nId)
+{
+}
+
+// 0x00407FC0
+static void __stdcall sub_00407FC0_LogPrefixedText(const char* szPrefix, const char* szText, int bFlag)
+{
+    if (bFlag)
+    {
+        sub_004106B0_LogWritePrefixed0(szPrefix, gszPercentS_006FFC58, szText);
+    }
+    else
+    {
+        sub_00410740_LogWritePrefixed00(szPrefix, gszPercentS_006FFC58, szText);
+    }
+}
+
+void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, int bFlag)
+{
+    sub_00407FC0_LogPrefixedText(szPrefix, szText, bFlag);
+}
+
+// 0x004088C0
+int __fastcall sub_004088C0_ReportNestedError(const char* szFile, int nLine, const char* szMessage)
+{
+    if (gdwGlobal_0074F0C8)
+    {
+        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "\n***** ENCOUNTERED ERROR DURING ERROR HANDLING!!!\n%s,%d\n%s\n*****", sub_00408000_StripSourcePath(szFile), nLine, szMessage);
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00413740
+void __cdecl sub_00413740_Nop()
+{
+}
+
+#include "gen/data/Source/Fog/Src/ErrorManager_004016A0.inc"

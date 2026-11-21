@@ -596,17 +596,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_004088C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004088C0",
-     "length": 56,
-     "name": "sub_004088C0_ReportNestedError"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00401480.cpp",
    "rank": 0,
    "functions": [
@@ -705,7 +694,23 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_004016A0.cpp",
+   "file": "Source/Fog/Unknown_00401B00.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00401B00",
+     "length": 381,
+     "name": "?sub_00401B00_LoadDbgHelp@@YA_NXZ"
+    },
+    {
+     "va": "0x00401CB0",
+     "length": 279,
+     "name": "?sub_00401CB0_InitSymbols@@YA_NXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/Fog/Src/ErrorManager_004016A0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -769,9 +774,34 @@
      "name": "sub_00406650_StartServiceDispatcher"
     },
     {
+     "va": "0x004067C0",
+     "length": 11,
+     "name": "?sub_004067C0_SetBasePathToCurrent@@YAHXZ"
+    },
+    {
      "va": "0x004067D0",
      "length": 146,
      "name": "sub_004067D0_GetKnownFolderPathA"
+    },
+    {
+     "va": "0x004068E0",
+     "length": 8,
+     "name": "sub_004068E0"
+    },
+    {
+     "va": "0x00406900",
+     "length": 34,
+     "name": "sub_00406900"
+    },
+    {
+     "va": "0x00406930",
+     "length": 8,
+     "name": "sub_00406930"
+    },
+    {
+     "va": "0x00406940",
+     "length": 22,
+     "name": "?sub_00406940_mpqSetFilePointer@@YIHPAXJPAJH@Z"
     },
     {
      "va": "0x00406A10",
@@ -779,30 +809,64 @@
      "name": "sub_00406A10_CreateDirectoryTree"
     },
     {
+     "va": "0x00406C40",
+     "length": 217,
+     "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
+    },
+    {
+     "va": "0x00406DE0",
+     "length": 622,
+     "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x00407260",
+     "length": 16,
+     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+    },
+    {
      "va": "0x00407370",
      "length": 208,
      "name": "sub_00407370_JulianDay"
     },
     {
+     "va": "0x00407570",
+     "length": 319,
+     "name": "?sub_00407570_DeleteOldDatedLogs@@YIXPBD@Z"
+    },
+    {
+     "va": "0x004076B0",
+     "length": 684,
+     "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
+    },
+    {
      "va": "0x00407990",
      "length": 129,
      "name": "sub_00407990_FindOwnerProcess"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00401B00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401B00",
-     "length": 381,
-     "name": "?sub_00401B00_LoadDbgHelp@@YA_NXZ"
     },
     {
-     "va": "0x00401CB0",
-     "length": 279,
-     "name": "?sub_00401CB0_InitSymbols@@YA_NXZ"
+     "va": "0x00407F80",
+     "length": 1,
+     "name": "?sub_00407F80_ThreadHookNop2@@YIXIPAX@Z"
+    },
+    {
+     "va": "0x00407F90",
+     "length": 1,
+     "name": "?sub_00407F90_ThreadHookNop1@@YIXI@Z"
+    },
+    {
+     "va": "0x00407FC0",
+     "length": 40,
+     "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
+    },
+    {
+     "va": "0x004088C0",
+     "length": 56,
+     "name": "sub_004088C0_ReportNestedError"
+    },
+    {
+     "va": "0x00413740",
+     "length": 1,
+     "name": "?sub_00413740_Nop@@YAXXZ"
     }
    ]
   },
@@ -2492,82 +2556,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_004067C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004067C0",
-     "length": 11,
-     "name": "?sub_004067C0_SetBasePathToCurrent@@YAHXZ"
-    },
-    {
-     "va": "0x004068E0",
-     "length": 8,
-     "name": "sub_004068E0"
-    },
-    {
-     "va": "0x00406900",
-     "length": 34,
-     "name": "sub_00406900"
-    },
-    {
-     "va": "0x00406930",
-     "length": 8,
-     "name": "sub_00406930"
-    },
-    {
-     "va": "0x00406940",
-     "length": 22,
-     "name": "?sub_00406940_mpqSetFilePointer@@YIHPAXJPAJH@Z"
-    },
-    {
-     "va": "0x00406C40",
-     "length": 217,
-     "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
-    },
-    {
-     "va": "0x00406DE0",
-     "length": 622,
-     "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
-    },
-    {
-     "va": "0x00407260",
-     "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
-    },
-    {
-     "va": "0x00407570",
-     "length": 319,
-     "name": "?sub_00407570_DeleteOldDatedLogs@@YIXPBD@Z"
-    },
-    {
-     "va": "0x004076B0",
-     "length": 684,
-     "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
-    },
-    {
-     "va": "0x00407F80",
-     "length": 1,
-     "name": "?sub_00407F80_ThreadHookNop2@@YIXIPAX@Z"
-    },
-    {
-     "va": "0x00407F90",
-     "length": 1,
-     "name": "?sub_00407F90_ThreadHookNop1@@YIXI@Z"
-    },
-    {
-     "va": "0x00407FC0",
-     "length": 40,
-     "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
-    },
-    {
-     "va": "0x00413740",
-     "length": 1,
-     "name": "?sub_00413740_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00406D30.cpp",
    "rank": 0,
    "functions": [
@@ -2820,7 +2808,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00408A60.cpp",
+   "file": "Source/Fog/Src/ErrorManager_00408A60.cpp",
    "rank": 0,
    "functions": [
     {
