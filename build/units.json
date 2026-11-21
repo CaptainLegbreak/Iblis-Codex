@@ -65511,11 +65511,6 @@
      "name": "ACT3Q4_Callback14_PlayerJoinedGame"
     },
     {
-     "va": "0x005BAB60",
-     "length": 260,
-     "name": "ACT3Q4_Callback08_MonsterKilled"
-    },
-    {
      "va": "0x005BBE20",
      "length": 141,
      "name": "sub_005BBE20"
@@ -66096,6 +66091,11 @@
      "va": "0x005BAA70",
      "length": 240,
      "name": "?ACT3Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005BAB60",
+     "length": 260,
+     "name": "ACT3Q4_Callback08_MonsterKilled"
     },
     {
      "va": "0x005BAC70",

@@ -152,6 +152,8 @@ static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+
 // 0x005B9E70
 int __fastcall ACT3Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -499,6 +501,55 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
         QUESTS_StateDebug(pQuestData, 5, gszAct3Q5SourceFile, 634);
 
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005BAB60
+void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 852);
+
+    D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestData->bNotIntro || !pQuestDataEx->unk0x02 || !pQuestDataEx->unk0x0C)
+    {
+        return;
+    }
+
+    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+    if (pPlayer)
+    {
+        D2GameStrc* pGame = pQuestData->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0))
+        {
+            return;
+        }
+    }
+
+    pQuestArg->pTarget->dwDropItemCode = ' 43j';
+    int nItemLevel;
+    if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0))
+    {
+        pQuestData->pCallback[8] = 0;
+        pQuestDataEx->unk0x0C = 0;
+        pQuestDataEx->bJadeFigurineDropped = 1;
+        ++pQuestDataEx->nGoldenBirdsInGame;
+        if (pQuestData->fState < 1)
+        {
+            QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 879);
+        }
+
+        if (!pQuestData->fLastState)
+        {
+            QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q4_UnitIterate_StatusCyclerEx, true);
+            pQuestDataEx->unk0x02 = 0;
+            return;
+        }
+    }
+    else
+    {
+        pQuestDataEx->unk0x01 = 1;
+    }
+    pQuestDataEx->unk0x02 = 0;
 }
 
 // 0x005BAC70
