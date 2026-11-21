@@ -87113,31 +87113,11 @@
     {
      "va": "0x006BA830",
      "length": 236
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006BA920.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006BA920",
      "length": 122
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
