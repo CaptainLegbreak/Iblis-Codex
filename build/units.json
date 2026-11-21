@@ -50307,11 +50307,6 @@
      "name": "LEVEL_RemoveClientFromAdjacentRooms"
     },
     {
-     "va": "0x0053EC90",
-     "length": 83,
-     "name": "?D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1H@Z"
-    },
-    {
      "va": "0x0053ECF0",
      "length": 83,
      "name": "?D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1H@Z"
@@ -52202,6 +52197,11 @@
      "va": "0x0053EC20",
      "length": 103,
      "name": "D2GAME_SendP0x9C_ItemAction_GroundToCursor_6FC3E870"
+    },
+    {
+     "va": "0x0053EC90",
+     "length": 83,
+     "name": "?D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0@@YIXPAUD2ClientStrc@@PAUD2UnitStrc@@1H@Z"
     },
     {
      "va": "0x0053ED50",
