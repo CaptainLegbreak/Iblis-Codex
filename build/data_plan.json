@@ -337,8 +337,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE_00411A80.CPP": {
-   "bytes": 44,
-   "definitions": 2,
+   "bytes": 312,
+   "definitions": 5,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -380,24 +380,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00414360.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/SOURCE/SFILE_00415BB0.CPP": {
-   "bytes": 260,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SFILE_00415BB0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/SOURCE/SFILE_004172F0.CPP": {
-   "bytes": 8,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SFILE_004172F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -10006,7 +9988,7 @@
    "cname": "gData_006CEF78",
    "declared": true,
    "decorated": "_gabSignatureModulus_006CEF78",
-   "file": "Source/Storm/SOURCE/SFILE_00415BB0.CPP",
+   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006CEF78[0x100]; // 0x006CEF78",
    "head": "extern \"C\" const unsigned char gData_006CEF78[0x100] = ",
@@ -10036,7 +10018,7 @@
    "cname": "gData_006CF078",
    "declared": true,
    "decorated": "_gabSignatureExponent_006CF078",
-   "file": "Source/Storm/SOURCE/SFILE_00415BB0.CPP",
+   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006CF078[4]; // 0x006CF078",
    "head": "extern \"C\" const unsigned char gData_006CF078[4] = ",
@@ -10066,7 +10048,7 @@
    "cname": "gData_006CF07C",
    "declared": true,
    "decorated": "?gaSignatureKeys_006CF07C@@3QBUD2StormSignatureKeyStrc@@B",
-   "file": "Source/Storm/SOURCE/SFILE_004172F0.CPP",
+   "file": "Source/Storm/SOURCE/SFILE_00411A80.CPP",
    "fill": 1,
    "form": "declared",
    "fwd": "extern \"C\" const D2StormSignatureKeyStrc gData_006CF07C[1]; // 0x006CF07C",

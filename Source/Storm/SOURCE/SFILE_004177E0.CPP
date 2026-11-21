@@ -1,4 +1,6 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
+#include "D2StormLink.h"
 
 #define STORM_DELETEOP static void operator delete(void* pMemory) { if (pMemory) SMemFree(pMemory, "delete", -1, 0); }
 
@@ -22,26 +24,12 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2StormLinkStrc;
-struct D2StormListBaseStrc;
 struct Node;
 struct List;
 struct D2StormStreamOwnerStrc;
-struct D2StormAudioStreamStrc;
-struct D2StormFileRecStrc;
-struct D2StormListStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
-
-struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
- char* m_next; };
-
-struct D2StormListBaseStrc {
- int m_linkoffset;
- D2StormLinkStrc m_terminator;
- void sub_00417B40_Initialize();
-};
 
 void* __stdcall sub_00413020(unsigned,const char*,int,unsigned); // 0x00413020
 extern "C" const char eventName[]; // 0x007083D8
@@ -67,40 +55,6 @@ struct D2StormStreamOwnerStrc
     void* pLink[2];
     ~D2StormStreamOwnerStrc();
     STORM_DELETEOP
-};
-
-struct D2StormAudioStreamStrc
-{
-    void* pLink[2];
-    ~D2StormAudioStreamStrc();
-    STORM_DELETEOP
-};
-
-struct D2StormFileRecStrc
-{
-    void* pLink[2];
-    char szName[0x108];
-    ~D2StormFileRecStrc();
-    STORM_DELETEOP
-};
-
-struct D2StormArchiveRecStrc
-{
-    void* pLink[2];
-    char szName[0x104];
-    ~D2StormArchiveRecStrc();
-    STORM_DELETEOP
-};
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    void* m_prevlink;
-    char* m_next;
-    char* Head()
-    {
-        return (int)m_next > 0 ? m_next : 0;
-    }
 };
 
 extern D2StormListStrc gRequestList_00708360; // 0x00708360
@@ -317,6 +271,12 @@ unsigned int* gpCryptTable_00779048; // 0x00779048
 char* gpStormExplodeWork; // 0x0077903C
 
 unsigned char* gpStreamBuffer_00779050; // 0x00779050
+
+inline void D2StormAudioStreamStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
 
 // build: symbol ??1D2StormArchiveRecStrc@@QAE@XZ 0x00418A50
 // build: symbol ??1D2StormAudioStreamStrc@@QAE@XZ 0x004199A0

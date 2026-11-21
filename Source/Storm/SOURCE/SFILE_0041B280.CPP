@@ -1,6 +1,5 @@
 #include "D2SysTypes.h"
-struct D2StormArchiveRecStrc { char pad[0x110]; int nKind; };
-struct D2StormFileRecStrc { char pad[0x110]; int nKind; D2StormArchiveRecStrc* pArchive; char pad118[0x1c]; int ddaActive; char pad138[0xc]; int refs; };
+#include "D2SFileTypes.h"
 #pragma pack(push, 1)
 struct D2WaveFormatStrc { unsigned short format, channels; unsigned int samplesPerSec, avgBytesPerSec; unsigned short blockAlign, bitsPerSample, extraSize; };
 struct D2WaveHeaderStrc { unsigned int tag, size, type, dataOffset, flags; };
@@ -97,7 +96,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
     D2StormFileRecStrc* pFile;
     EnterCriticalSection(&gLock_00779068);
     if (!sub_00415950_GetFileRec(hFile, &pFile)) { LeaveCriticalSection(&gLock_00779068); return 0; }
-    if (pFile->ddaActive) sub_0041A990_DdaClose(hFile);
+    if (pFile->bDdaActive) sub_0041A990_DdaClose(hFile);
     if (!((gnFlags_00779058 | nFlags) & 1) && (pFile->nKind != -1 || !pFile->pArchive)) {
         sub_0041C340_SetLastError(0x8510006f);
         LeaveCriticalSection(&gLock_00779068);
@@ -168,9 +167,9 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
         node->ownsBuffer = ownsBuffer;
         node->silence = format.bitsPerSample == 8 ? 0x80 : 0;
         node->active = 1;
-        ++pFile->refs;
+        ++pFile->nRefCount;
         pBuffer->SetCurrentPosition(0);
-        pFile->ddaActive = 1;
+        pFile->bDdaActive = 1;
         LeaveCriticalSection(&gLock_00779068);
         sub_0041A880_StartThread();
         SetEvent(ghEvent_00779054);

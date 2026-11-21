@@ -1,221 +1,10 @@
 #include "D2GameTypes.h"
+#include "D2SFileTypes.h"
 #include "Storm.h"
 #include "D2StormTypes.h"
+#include "D2StormLink.h"
 #define INVALID_FILE_HANDLE ((void*)-1)
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    char* Prev()
-    {
-        return m_prevlink->m_prevlink->Next();
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct D2StormBlockStrc
-{
-    unsigned int nOffset;
-    unsigned int nPackedSize;
-
-    unsigned int nFileSize;
-    unsigned int dwFlags;
-    unsigned int unk0x10;
-    unsigned int unk0x14;
-    unsigned int nCrc;
-    unsigned int unk0x1C[4];
-
-    void sub_004156A0_ExpandEntries(unsigned int nCount);                                                    // 0x004156A0
-};
-
-struct D2StormFileRecStrc;
-
-struct D2StormArchiveRecStrc
-{
-    D2StormLinkStrc tLink;
-
-    char szName[0x104];
-    void* hFile;
-    int nMode;
-    int bNoDiskSearch;
-    int nPriority;
-    D2StormFileRecStrc* pCachedFile;
-    unsigned int nCachedOffset;
-    unsigned int nBlockSize;
-    unsigned char* pBlockBuffer;
-    unsigned int nCachedSize;
-    unsigned int nArchiveOffset;
-    unsigned int nArchiveLimit;
-    D2StormMpqHeaderStrc* pHeader;
-    D2StormBlockStrc* pBlockTable;
-    D2StormHashEntryStrc* pHashTable;
-    unsigned int nFilePos;
-    int bNested;
-    void* hNestedFile;
-    D2StormArchiveRecStrc* pPatch;
-    char szPrefix[0x104];
-    int nRefs;
-
-    D2StormArchiveRecStrc()
-    {
-        tLink.m_prevlink = 0;
-        tLink.m_next = 0;
-    }
-    ~D2StormArchiveRecStrc();                                                                                // 0x00418A50
-    void ReadAdditionalAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
-};
-
-struct D2StormFileRecStrc
-{
-    D2StormLinkStrc tLink;
-
-    char szName[0x108];
-    void* hFile;
-    D2StormArchiveRecStrc* pArchive;
-    D2StormBlockStrc* pBlock;
-    unsigned int nKey;
-    unsigned int nPosition;
-    int unk0x124;
-    unsigned int nBlocks;
-    unsigned int* pBlockOffsets;
-    int bOffsetsLoaded;
-    char pad0x134[0x10];
-    int nRequests;
-    unsigned int nCrc;
-    int bCrc;
-    int nCrcState;
-    unsigned int nCrcPos;
-};
-
-struct D2StormSoundBufferStrc
-{
-    virtual long __stdcall QueryInterface(const void* pIid, void** ppObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall GetCaps(void* pCaps) = 0;
-    virtual long __stdcall GetCurrentPosition(unsigned long* pnPlay, unsigned long* pnWrite) = 0;
-    virtual long __stdcall GetFormat(void* pFormat, unsigned long nSize, unsigned long* pnWritten) = 0;
-    virtual long __stdcall GetVolume(long* pnVolume) = 0;
-    virtual long __stdcall GetPan(long* pnPan) = 0;
-    virtual long __stdcall GetFrequency(unsigned long* pnFrequency) = 0;
-    virtual long __stdcall GetStatus(unsigned long* pnStatus) = 0;
-    virtual long __stdcall Initialize(void* pDirectSound, const void* pDesc) = 0;
-    virtual long __stdcall Lock(unsigned long nOffset, unsigned long nBytes, void** ppPtr1, unsigned long* pnBytes1, void** ppPtr2, unsigned long* pnBytes2, unsigned long nFlags) = 0;
-    virtual long __stdcall Play(unsigned long nReserved, unsigned long nPriority, unsigned long nFlags) = 0;
-    virtual long __stdcall SetCurrentPosition(unsigned long nPosition) = 0;
-    virtual long __stdcall SetFormat(const void* pFormat) = 0;
-    virtual long __stdcall SetVolume(long nVolume) = 0;
-    virtual long __stdcall SetPan(long nPan) = 0;
-    virtual long __stdcall SetFrequency(unsigned long nFrequency) = 0;
-    virtual long __stdcall Stop() = 0;
-    virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
-};
-
-struct D2StormStreamStrc
-{
-    D2StormLinkStrc tLink;
-
-    D2StormFileRecStrc* pFile;
-    unsigned int nWritePos;
-    int unk0x10;
-    int bRestart;
-    int nState;
-    unsigned int nCounter;
-    unsigned int nStart;
-    unsigned int nSize;
-    unsigned int nOffset;
-    unsigned int nPlayed;
-    unsigned int nWritten;
-    int nVolume;
-    int nPan;
-    D2StormSoundBufferStrc* pBuffer;
-    unsigned int nBufferSize;
-    int unk0x44;
-    unsigned char nFill;
-    char pad0x49[3];
-    int nRefs;
-};
-
-struct D2StormRequestStrc
-{
-    D2StormLinkStrc tLink;
-
-    void* hEvent;
-    D2StormFileRecStrc* pFile;
-    unsigned int nPosition;
-    unsigned int nFileOffset;
-    unsigned int nDueTime;
-    int nArg9;
-    unsigned char* pDest;
-    unsigned int nDestSize;
-    D2StormSoundBufferStrc* pBuffer;
-    unsigned int nBufferOffset;
-    D2StormStreamStrc* pStream;
-    unsigned int nBytes;
-    int bDelete;
-    unsigned int nRead;
-    D2StormRequestCallbackStrc* pCallback;
-
-    ~D2StormRequestStrc();                                                                                  // 0x0041A020
-};
-
-struct D2StormArchiveListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormArchiveRecStrc* Head()
-    {
-        return (D2StormArchiveRecStrc*)m_terminator.Next();
-    }
-    void LinkBefore(D2StormArchiveRecStrc* pNode, D2StormArchiveRecStrc* pExisting)
-    {
-        pNode->tLink.Unlink();
-        D2StormLinkStrc* pExistingLink = pExisting ? &pExisting->tLink : &m_terminator;
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pNode->tLink.m_prevlink = pPrevLink;
-        pNode->tLink.m_next = pPrevLink->m_next;
-        pPrevLink->m_next = (char*)pNode;
-        pExistingLink->m_prevlink = &pNode->tLink;
-    }
-};
-
-struct D2StormEventStrc
-{
-    D2StormLinkStrc tLink;
-    void* hEvent;
-};
-
-struct D2StormEventListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* sub_00419690_DeleteNode(char* pNode);                                                             // 0x00419690
-};
 
 typedef int (__stdcall* D2CryptAcquireContextFn)(unsigned int*, const char*, const char*, unsigned int, unsigned int);
 typedef int (__stdcall* D2CryptCreateHashFn)(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*);
@@ -371,6 +160,7 @@ static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer
 static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
 {
     EnterCriticalSection(&gBasePathLock_00779068);
+    // stands for a release-build assertion that a whole chunk fits in the sound buffer; without it the write-position sum below is evaluated in another order
     __assume(pRequest->pStream->nBufferSize - pRequest->nBufferOffset >= gnStreamChunk_00779038);
     unsigned long nLocked;
     unsigned char** const ppDest = &pRequest->pDest;
@@ -388,7 +178,6 @@ static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
     if (nCopy < nLocked)
         SMemFill(*ppDest + nCopy, nLocked - nCopy, pRequest->pStream->nFill);
     pRequest->pBuffer->Unlock(*ppDest, nLocked, 0, 0);
-    __assume(pRequest->nPosition - pRequest->pStream->nStart == 0 || pRequest->pStream->nWritten <= pRequest->nPosition - pRequest->pStream->nStart + nLocked);
     pRequest->pStream->nWritten = pRequest->nPosition - pRequest->pStream->nStart + nLocked;
     if (pRequest->pStream->nWritten > pRequest->pStream->nSize)
         pRequest->pStream->nCounter = pRequest->pStream->nWritten - pRequest->pStream->nSize;

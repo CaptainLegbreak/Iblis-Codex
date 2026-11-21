@@ -4943,9 +4943,54 @@
      "name": "?SMemInitialize@@YAXXZ"
     },
     {
+     "va": "0x00414150",
+     "length": 131,
+     "name": "SStrHashHT"
+    },
+    {
+     "va": "0x00415240",
+     "length": 129,
+     "name": "sub_00415240_Explode"
+    },
+    {
+     "va": "0x00415760",
+     "length": 93,
+     "name": "?sub_00415760_UpdatePlayed@@YAIPAUD2StormStreamStrc@@@Z"
+    },
+    {
      "va": "0x004158E0",
      "length": 65,
      "name": "?sub_004158E0_InitBasePath@@YAXXZ"
+    },
+    {
+     "va": "0x00415960",
+     "length": 286,
+     "name": "sub_00415960_CheckVolume"
+    },
+    {
+     "va": "0x00415BB0",
+     "length": 414,
+     "name": "?SFileAuthenticateArchiveEx@@YGHPAXPAIHHHH@Z"
+    },
+    {
+     "va": "0x00415D50",
+     "length": 361,
+     "name": "?sub_00415D50_ChecksumFile@@YGIPBD@Z"
+    },
+    {
+     "va": "0x00415EE0",
+     "length": 42,
+     "name": "_SFileDdaInitialize@4"
+    },
+    {
+     "va": "0x00415F70",
+     "length": 20,
+     "name": "sub_00415F70"
+    },
+    {
+     "va": "0x004172F0",
+     "length": 1152,
+     "name": "?SFileAuthenticateArchive@@YGHPAXPAI@Z"
     },
     {
      "va": "0x004177A0",
@@ -4965,6 +5010,11 @@
     {
      "va": "0x00417F10",
      "length": 556
+    },
+    {
+     "va": "0x00418140",
+     "length": 169,
+     "name": "?SFileDdaGetPos@@YGHPAXPAI1@Z"
     },
     {
      "va": "0x00418640",
@@ -5017,6 +5067,10 @@
      "name": "?_GD2StormFileRecStrc"
     },
     {
+     "va": "0x004192F0",
+     "length": 818
+    },
+    {
      "va": "0x00419690",
      "length": 106,
      "name": "sub_00419690_DeleteNode"
@@ -5025,6 +5079,64 @@
      "va": "0x00419700",
      "length": 82,
      "name": "sub_00419700_NewNode"
+    },
+    {
+     "va": "0x00419760",
+     "length": 36,
+     "name": "?RemoveFileRef@@YAXPAUD2StormFileRecStrc@@@Z"
+    },
+    {
+     "va": "0x004198D0",
+     "length": 166,
+     "name": "?SFileCloseFile@@YGHPAX@Z"
+    },
+    {
+     "va": "0x00419980",
+     "length": 28,
+     "name": "sub_00419980"
+    },
+    {
+     "va": "0x00419A80",
+     "length": 261,
+     "name": "?SFileCloseArchive@@YGHPAX@Z"
+    },
+    {
+     "va": "0x00419BD0",
+     "length": 33,
+     "name": "?RemoveStreamRef@@YAXPAUD2StormAudioStreamStrc@@@Z"
+    },
+    {
+     "va": "0x0041B050",
+     "length": 36,
+     "name": "SFileReadFile"
+    },
+    {
+     "va": "0x0041B080",
+     "length": 38,
+     "name": "SFileReadFileEx"
+    },
+    {
+     "va": "0x0041B650",
+     "length": 42,
+     "name": "SFileLoadFile"
+    },
+    {
+     "va": "0x0041B680",
+     "length": 42,
+     "name": "SFileLoadFileEx"
+    },
+    {
+     "va": "0x0041BA30",
+     "length": 38,
+     "name": "SFileDdaBegin"
+    },
+    {
+     "va": "0x0041BA60",
+     "length": 572
+    },
+    {
+     "va": "0x0041BCA0",
+     "length": 514
     }
    ]
   },
@@ -5398,47 +5510,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SFILE_00414150.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00414150",
-     "length": 131,
-     "name": "SStrHashHT"
-    },
-    {
-     "va": "0x00415240",
-     "length": 129,
-     "name": "sub_00415240_Explode"
-    },
-    {
-     "va": "0x00415960",
-     "length": 286,
-     "name": "sub_00415960_CheckVolume"
-    },
-    {
-     "va": "0x0041B050",
-     "length": 36,
-     "name": "SFileReadFile"
-    },
-    {
-     "va": "0x0041B080",
-     "length": 38,
-     "name": "SFileReadFileEx"
-    },
-    {
-     "va": "0x0041B650",
-     "length": 42,
-     "name": "SFileLoadFile"
-    },
-    {
-     "va": "0x0041BA30",
-     "length": 38,
-     "name": "SFileDdaBegin"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_004142A0.cpp",
    "rank": 1,
    "functions": [
@@ -5637,22 +5708,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SFILE_00415760.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00415760",
-     "length": 93,
-     "name": "?sub_00415760_UpdatePlayed@@YAIPAUD2StormStreamStrc@@@Z"
-    },
-    {
-     "va": "0x00418140",
-     "length": 169,
-     "name": "?SFileDdaGetPos@@YGHPAXPAI1@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SFILE_004157C0.CPP",
    "rank": 1,
    "functions": [
@@ -5678,48 +5733,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00415BB0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00415BB0",
-     "length": 414,
-     "name": "?SFileAuthenticateArchiveEx@@YGHPAXPAIHHHH@Z"
-    },
-    {
-     "va": "0x00415D50",
-     "length": 361,
-     "name": "?sub_00415D50_ChecksumFile@@YGIPBD@Z"
-    },
-    {
-     "va": "0x00415EE0",
-     "length": 42,
-     "name": "_SFileDdaInitialize@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00415F70.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00415F70",
-     "length": 20,
-     "name": "sub_00415F70"
-    },
-    {
-     "va": "0x00419980",
-     "length": 28,
-     "name": "sub_00419980"
-    },
-    {
-     "va": "0x0041B680",
-     "length": 42,
-     "name": "SFileLoadFileEx"
-    }
    ]
   },
   {
@@ -5812,17 +5825,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SFILE_004172F0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004172F0",
-     "length": 1152,
-     "name": "?SFileAuthenticateArchive@@YGHPAXPAI@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SFILE_004177E0.CPP",
    "rank": 0,
    "functions": [
@@ -5907,46 +5909,6 @@
      "va": "0x00418390",
      "length": 92,
      "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_004192F0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004192F0",
-     "length": 818
-    },
-    {
-     "va": "0x0041BCA0",
-     "length": 514
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00419760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00419760",
-     "length": 36,
-     "name": "?RemoveFileRef@@YAXPAUD2StormFileRecStrc@@@Z"
-    },
-    {
-     "va": "0x004198D0",
-     "length": 166,
-     "name": "?SFileCloseFile@@YGHPAX@Z"
-    },
-    {
-     "va": "0x00419A80",
-     "length": 261,
-     "name": "?SFileCloseArchive@@YGHPAX@Z"
-    },
-    {
-     "va": "0x00419BD0",
-     "length": 33,
-     "name": "?RemoveStreamRef@@YAXPAUD2StormAudioStreamStrc@@@Z"
     }
    ]
   },
@@ -6212,16 +6174,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_0041BA60.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041BA60",
-     "length": 572
-    }
    ]
   },
   {

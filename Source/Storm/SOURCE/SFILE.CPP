@@ -1,6 +1,8 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
+#include "D2StormLink.h"
 
 #define STORM_LOOKUP2_MIX(a, b, c) \
 { \
@@ -17,36 +19,19 @@
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2FileStrc;
-struct D2StormFileRecStrc;
-struct D2StormDdaNodeStrc;
 struct D2StormFileSubStrc;
 struct D2MemoryStatusStrc;
 struct D2OsVersionInfoStrc;
 struct D2CriticalSectionStrc;
 struct D2StormBufferInfoStrc;
-struct D2StormLinkStrc;
-struct D2StormFixedListStrc;
 struct D2Storm415140Strc;
 struct D2SFileRecordViewStrc;
 struct D2SFileOtherRecordViewStrc;
-struct D2StormBlockStrc;
-struct D2StormSoundBufferStrc;
-struct D2StormStreamStrc;
 struct D2StormRequestCallbackStrc;
-struct D2StormRequestStrc;
-struct D2StormArchiveListStrc;
-struct D2StormEventStrc;
-struct D2StormEventListStrc;
 struct D2StormCryptFuncsStrc;
 struct D2StormSignatureKeyStrc;
 struct D2StormBlockEntryStrc;
 struct D2StormQuadStrc;
-struct D2StormSoundBuffer;
-struct D2StormDdaLinkStrc;
-struct D2StormDdaListStrc;
-struct D2StormListStrc;
-struct D2Storm4167B0Strc;
-struct D2Storm4168F0Strc;
 struct D2Storm416A90Strc;
 struct PairStrc_00416810;
 struct PairStrc_00416890;
@@ -84,22 +69,14 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2StormListBaseStrc;
 struct D2StormList00418490Strc;
 struct D2StormList004185B0Strc;
-struct D2StormList00708354Strc;
-struct D2StormList00708360Strc;
-struct D2StormList0070836CStrc;
-struct D2StormList00708378Strc;
-struct D2StormList00708384Strc;
-struct D2StormNodeListStrc;
 struct D2StormHashBufferStrc;
 struct D2StormHuffOutputStrc;
 class THuffmannTree;
 struct D2StormHuffLinkSlotStrc;
 struct D2StormHuffTreeStrc;
 struct D2StormHashCtxStrc;
-struct D2StormAudioStreamStrc;
 struct D2StormHandlerStrc;
 struct D2StormWndRecStrc;
 struct D2StormNodeListBStrc;
@@ -170,91 +147,10 @@ void __cdecl sub_004158E0_InitBasePath(); // 0x004158E0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    D2StormLinkStrc* sub_0040F4F0_NextLink(int nLinkOffset);
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    D2StormLinkStrc* sub_00416770_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_004168C0_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00416930_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00416970_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_004169B0_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_0041C3A0_NextLink(int nLinkOffset);
-    void sub_00417E50();
-};
-
 struct Link {
     Link* previous;
     char* next;
     char* sub_00417770();
-};
-
-struct D2StormFixedListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    D2StormLinkStrc* sub_0040F880_Link(char* pNode);
-    void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
-    void sub_0040FC60_UnlinkNode(char* pNode);
-    D2StormLinkStrc* sub_00417A10_Link(char* pNode);
-    D2StormLinkStrc* sub_00417A50_Link(char* pNode);
-    D2StormLinkStrc* sub_00417B60_Link(char* pNode);
-    D2StormLinkStrc* sub_00417C50_Link(char* pNode);
-    D2StormLinkStrc* sub_00417D60_Link(char* pNode);
-    D2StormLinkStrc* sub_0041C560_Link(char* pNode);
-    void sub_00417A70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_00417B80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_00417C70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_00417D80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_004184B0_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    char* sub_00417B20_Next(char* pNode);
-    char* sub_00417D20_Next(char* pNode);
-    char* sub_00417E30_Next(char* pNode);
-    char* sub_0041C630_Next(char* pNode);
-    void sub_00417E90_UnlinkNode(char* pNode);
-    void sub_00418560_UnlinkNode(char* pNode);
-    void sub_004185F0_UnlinkNode(char* pNode);
-    void sub_00418660_UnlinkNode(char* pNode);
-    void sub_00418710_UnlinkNode(char* pNode);
-    void sub_0041C690_UnlinkNode(char* pNode);
-    char* sub_004185D0_RawNext(char* pNode);
-    char* sub_004186D0_RawNext(char* pNode);
-    char* sub_004186F0_RawNext(char* pNode);
-    char* sub_0041C700_RawNext(char* pNode);
-    char* sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419630_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419B90_DeleteNode(char* pNode);
-    char* sub_0041A2C0_DeleteNode(char* pNode);
-    char* sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_0041CA10_DeleteNode(char* pNode);
 };
 
 struct D2Storm415140Strc
@@ -282,276 +178,7 @@ struct D2SFileOtherRecordViewStrc
     int dwField4C;
 };
 
-struct D2StormBlockStrc
-{
-    unsigned int nOffset;
-    unsigned int nPackedSize;
-
-    unsigned int nFileSize;
-    unsigned int dwFlags;
-    unsigned int unk0x10;
-    unsigned int unk0x14;
-    unsigned int nCrc;
-    unsigned int unk0x1C[4];
-
-    void sub_004156A0_ExpandEntries(unsigned int nCount);                                                    // 0x004156A0
-};
-
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-struct D2StormArchiveRecStrc
-{
-    D2StormLinkStrc f_0;
-    union
-    {
-        struct
-        {
-            char szFileName[0x108];
-        };
-        struct
-        {
-            char szName[0x104];
-            void* hFile;
-        };
-    };
-    union
-    {
-        int nMode;
-        int nKind;
-    };
-    int bNoDiskSearch;
-    union
-    {
-        int nPriority;
-        int nInfo;
-    };
-    union
-    {
-        D2StormFileRecStrc* pCachedFile;
-        int nUnk0x11C;
-    };
-    unsigned int nCachedOffset;
-    unsigned int nBlockSize;
-    union
-    {
-        unsigned char* pBlockBuffer;
-        void* pBuffer0x128;
-    };
-    unsigned int f_12C;
-    unsigned int nArchiveOffset;
-    unsigned int nArchiveLimit;
-    union
-    {
-        D2StormMpqHeaderStrc* pHeader;
-        void* pBuffer0x138;
-    };
-    union
-    {
-        D2StormBlockStrc* pBlockTable;
-        void* pBuffer0x13C;
-    };
-    union
-    {
-        D2StormHashEntryStrc* f_140;
-        void* pBuffer0x140;
-    };
-    unsigned int nFilePos;
-    union
-    {
-        int bNested;
-        int nRefCount;
-    };
-    union
-    {
-        void* hNestedFile;
-        int bNoClose;
-    };
-    union
-    {
-        D2StormArchiveRecStrc* pPatch;
-        int bMapped;
-    };
-    char szPrefix[0x104];
-    int nRefs;
-    D2StormArchiveRecStrc()
-    {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
-    }
-    ~D2StormArchiveRecStrc();                                                                                // 0x00418A50
-    void ReadAdditionalAttributes(D2StormBlockStrc* pBlockTable, unsigned int nCount);                    // 0x0041B0B0
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, "delete", -1, 0);
-    }
-};
-
-struct D2StormFileRecStrc
-{
-    D2StormLinkStrc f_0;
-    union
-    {
-        struct
-        {
-            char szName[0x108];
-        };
-        struct
-        {
-            char name[260];
-            const char* fullName;
-        };
-        struct
-        {
-            unsigned char unk_08[0x104];
-            void* pBuffer0x10C;
-        };
-    };
-    union
-    {
-        void* hFile;
-        int nKind;
-    };
-    union
-    {
-        D2StormArchiveRecStrc* f_114;
-        int nValue;
-    };
-    union
-    {
-        D2StormBlockStrc* pBlock;
-        D2StormFileSubStrc* f_118;
-    };
-    unsigned int nKey;
-    unsigned int nPosition;
-    int unk0x124;
-    unsigned int nBlocks;
-    void* pBuffer0x12C;
-    int bOffsetsLoaded;
-    unsigned char unk_134[0x4];
-    void* pBuffer0x138;
-    int n13C;
-    int n140;
-    int nRequests;
-    unsigned int nCrc;
-    int bCrc;
-    int nCrcState;
-    unsigned int nCrcPos;
-    D2StormFileRecStrc();
-    ~D2StormFileRecStrc();
-};
-
-struct D2StormSoundBufferStrc
-{
-    virtual long __stdcall QueryInterface(const void* pIid, void** ppObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall GetCaps(void* pCaps) = 0;
-    virtual long __stdcall GetCurrentPosition(unsigned long* pnPlay, unsigned long* pnWrite) = 0;
-    virtual long __stdcall GetFormat(void* pFormat, unsigned long nSize, unsigned long* pnWritten) = 0;
-    virtual long __stdcall GetVolume(long* pnVolume) = 0;
-    virtual long __stdcall GetPan(long* pnPan) = 0;
-    virtual long __stdcall GetFrequency(unsigned long* pnFrequency) = 0;
-    virtual long __stdcall GetStatus(unsigned long* pnStatus) = 0;
-    virtual long __stdcall Initialize(void* pDirectSound, const void* pDesc) = 0;
-    virtual long __stdcall Lock(unsigned long nOffset, unsigned long nBytes, void** ppPtr1, unsigned long* pnBytes1, void** ppPtr2, unsigned long* pnBytes2, unsigned long nFlags) = 0;
-    virtual long __stdcall Play(unsigned long nReserved, unsigned long nPriority, unsigned long nFlags) = 0;
-    virtual long __stdcall SetCurrentPosition(unsigned long nPosition) = 0;
-    virtual long __stdcall SetFormat(const void* pFormat) = 0;
-    virtual long __stdcall SetVolume(long nVolume) = 0;
-    virtual long __stdcall SetPan(long nPan) = 0;
-    virtual long __stdcall SetFrequency(unsigned long nFrequency) = 0;
-    virtual long __stdcall Stop() = 0;
-    virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
-};
-
-struct D2StormStreamStrc
-{
-    D2StormLinkStrc f_0;
-
-    D2StormFileRecStrc* pFile;
-    unsigned int f_C;
-    int unk0x10;
-    int bRestart;
-    int nState;
-    unsigned int nCounter;
-    unsigned int nStart;
-    unsigned int nSize;
-    unsigned int nOffset;
-    unsigned int nPlayed;
-    unsigned int f_30;
-    int f_34;
-    int f_38;
-    D2StormSoundBufferStrc* pBuffer;
-    unsigned int nBufferSize;
-    int unk0x44;
-    unsigned char nFill;
-    char pad0x49[3];
-    int nRefs;
-};
-
-struct D2StormRequestStrc
-{
-    D2StormLinkStrc f_0;
-    void* hEvent;
-    D2StormFileRecStrc* pFile;
-    unsigned int nPosition;
-    unsigned int nFileOffset;
-    unsigned int nDueTime;
-    int nArg9;
-    unsigned char* pDest;
-    unsigned int f_24;
-    D2StormSoundBufferStrc* pBuffer;
-    unsigned int f_2C;
-    D2StormStreamStrc* pStream;
-    unsigned int nBytes;
-    int bDelete;
-    unsigned int nRead;
-    D2StormRequestCallbackStrc* pCallback;
-    ~D2StormRequestStrc();                                                                                  // 0x0041A020
-    D2StormRequestStrc()
-    {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
-    }
-    static void operator delete(void* pMemory);
-};
-
-struct D2StormArchiveListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormArchiveRecStrc* Head()
-    {
-        return (D2StormArchiveRecStrc*)m_terminator.Next();
-    }
-    // build: context D2StormArchiveListStrc::LinkBefore
-    void LinkBefore(D2StormArchiveRecStrc* pNode, D2StormArchiveRecStrc* pExisting)
-    {
-        pNode->f_0.Unlink();
-        D2StormLinkStrc* pExistingLink = pExisting ? &pExisting->f_0 : &m_terminator;
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pNode->f_0.m_prevlink = pPrevLink;
-        pNode->f_0.m_next = pPrevLink->m_next;
-        pPrevLink->m_next = (char*)pNode;
-        pExistingLink->m_prevlink = &pNode->f_0;
-    }
-};
-
-struct D2StormEventStrc
-{
-    D2StormLinkStrc f_0;
-    void* hEvent;
-};
-
-struct D2StormEventListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* sub_00419690_DeleteNode(char* pNode);                                                             // 0x00419690
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x006CC1AC
 extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x006CC1A4
@@ -616,83 +243,10 @@ struct D2StormFileSubStrc
     unsigned char unk_2C[0x4];
 };
 
-struct D2StormSoundBuffer
-{
-    virtual long __stdcall QueryInterface() = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall GetCaps() = 0;
-    virtual long __stdcall GetCurrentPosition() = 0;
-    virtual long __stdcall GetFormat() = 0;
-    virtual long __stdcall GetVolume(int* pnVolume) = 0;
-    virtual long __stdcall GetPan(int* pnPan) = 0;
-    virtual long __stdcall GetFrequency() = 0;
-    virtual long __stdcall GetStatus() = 0;
-    virtual long __stdcall Initialize() = 0;
-    virtual long __stdcall Lock() = 0;
-    virtual long __stdcall Play() = 0;
-    virtual long __stdcall SetCurrentPosition() = 0;
-    virtual long __stdcall SetFormat() = 0;
-    virtual long __stdcall SetVolume(int nVolume) = 0;
-    virtual long __stdcall SetPan(int nPan) = 0;
-};
-
-struct D2StormDdaLinkStrc
-{
-    D2StormDdaLinkStrc* m_prevlink;
-    D2StormDdaNodeStrc* m_next;
-
-    D2StormDdaNodeStrc* Next()
-    {
-        return (int)m_next > 0 ? m_next : 0;
-    }
-};
-
-struct D2StormDdaNodeStrc
-{
-    D2StormDdaLinkStrc f_0;
-    D2StormFileRecStrc* pFile;
-    char pad0C[0x28];
-    int f_34;
-    int f_38;
-    D2StormSoundBuffer* pBuffer;
-};
-
-struct D2StormDdaListStrc
-{
-    int m_linkoffset;
-    D2StormDdaLinkStrc m_terminator;
-
-    D2StormDdaNodeStrc* Head()
-    {
-        return m_terminator.Next();
-    }
-};
-
-extern D2StormDdaListStrc gDdaList_00708384; // 0x00708384
+extern D2StormStreamListStrc gDdaList_00708384; // 0x00708384
 extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, __int64* pCreation, __int64* pAccess, __int64* pWrite);
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
-struct D2Storm4167B0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4167B0Strc();
-};
-
-struct D2Storm4168F0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4168F0Strc();
-};
 
 struct PairStrc_00416810
 {
@@ -807,25 +361,10 @@ struct D2SFileArchiveM114Strc
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-struct D2StormListBaseStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
 struct D2StormList00418490Strc : D2StormListBaseStrc { int sub_00418490_IsEmpty(); };
 
 struct D2StormList004185B0Strc : D2StormListBaseStrc { int sub_004185B0_IsEmpty(); };
 
-struct D2StormList00708354Strc : D2StormListBaseStrc { void sub_00418900_UnlinkAll(); ~D2StormList00708354Strc(); };
-
-struct D2StormList00708360Strc : D2StormListBaseStrc { void sub_00418940_UnlinkAll(); ~D2StormList00708360Strc(); };
-
-struct D2StormList0070836CStrc : D2StormListBaseStrc { void sub_00418980_UnlinkAll(); ~D2StormList0070836CStrc(); };
-
-struct D2StormList00708378Strc : D2StormListBaseStrc { void sub_004189C0_UnlinkAll(); ~D2StormList00708378Strc(); };
-
-struct D2StormList00708384Strc : D2StormListBaseStrc { void sub_00418A00_UnlinkAll(); ~D2StormList00708384Strc(); };
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName); // 0x006CC228
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pThreadId); // 0x006CC250
@@ -833,18 +372,6 @@ extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, 
 extern "C" void __cdecl __debugbreak();
 unsigned long __stdcall CdThreadProc(void* pParam); // 0x0041A550
 void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility); // 0x0041C0F0
-
-struct D2StormNodeListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    void sub_0041EE40_UnlinkAll();
-};
 
 struct D2StormHashBufferStrc
 {
@@ -893,15 +420,6 @@ struct D2StormHashCtxStrc
 extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 extern void* ghStormThread_00779034; // 0x00779034
 extern int gnStormDirectFlags_00779058; // 0x00779058
-
-struct D2StormAudioStreamStrc
-{
-    D2StormLinkStrc f_0;
-    char unk0x08[0x48];
-
-    ~D2StormAudioStreamStrc();                                                                              // 0x004199A0
-    static void operator delete(void* pMemory);
-};
 
 struct D2StormHandlerStrc
 {
@@ -1412,7 +930,7 @@ static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize,
 // 0x004155B0
 static D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
 {
-    return &pArchive->pBlockTable[pArchive->f_140[nHashIndex].nBlockIndex];
+    return &pArchive->pBlockTable[pArchive->pHashTable[nHashIndex].nBlockIndex];
 }
 
 static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned char nPlatform, D2StormArchiveRecStrc* pArchive, const char* szName)
@@ -1422,7 +940,7 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
     const unsigned int nName2 = sub_00415330_HashString(2, szName);
     const unsigned int nMask = pArchive->pHeader->nHashEntries - 1;
     unsigned int nIndex = nMask & nHash;
-    D2StormHashEntryStrc* pEntry = &pArchive->f_140[nIndex];
+    D2StormHashEntryStrc* pEntry = &pArchive->pHashTable[nIndex];
     const unsigned int nStart = nIndex;
     int nBest = -1;
     while (pEntry->nBlockIndex != -1)
@@ -1437,7 +955,7 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
         nIndex = (nIndex + 1) & nMask;
         if (nIndex == nStart)
             break;
-        pEntry = &pArchive->f_140[nIndex];
+        pEntry = &pArchive->pHashTable[nIndex];
     }
     return nBest;
 }
@@ -1446,7 +964,7 @@ static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
 {
     EnterCriticalSection(&gBasePathLock_00779068);
     unsigned long nLocked;
-    if (pRequest->pBuffer->Lock(pRequest->f_2C, gnStreamChunk_00779038, (void**)&pRequest->pDest, &nLocked, 0, 0, 0) >= 0
+    if (pRequest->pBuffer->Lock(pRequest->nBufferOffset, gnStreamChunk_00779038, (void**)&pRequest->pDest, &nLocked, 0, 0, 0) >= 0
         && nLocked == gnStreamChunk_00779038)
     {
         unsigned int nCopy = nLocked;
@@ -1457,9 +975,9 @@ static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
             SMemFill(pRequest->pDest + nCopy, nLocked - nCopy, pRequest->pStream->nFill);
         pRequest->pBuffer->Unlock(pRequest->pDest, nLocked, 0, 0);
         const unsigned int nWritten = nLocked - pRequest->pStream->nStart;
-        pRequest->pStream->f_30 = nWritten + pRequest->nPosition;
-        if (pRequest->pStream->f_30 > pRequest->pStream->nSize)
-            pRequest->pStream->nCounter = pRequest->pStream->f_30 - pRequest->pStream->nSize;
+        pRequest->pStream->nWritten = nWritten + pRequest->nPosition;
+        if (pRequest->pStream->nWritten > pRequest->pStream->nSize)
+            pRequest->pStream->nCounter = pRequest->pStream->nWritten - pRequest->pStream->nSize;
         D2StormStreamStrc* pStream = pRequest->pStream;
         if (pStream->nState == 1)
         {
@@ -1531,16 +1049,16 @@ static int __stdcall sub_00415B00_FindDiskFile(unsigned int nFlags, const char* 
 // 0x00416FB0
 static unsigned int sub_00416FB0_LoadBlock(unsigned int nOffset, D2StormFileRecStrc* pFile)
 {
-    if (pFile->f_114->pCachedFile == pFile && pFile->f_114->nCachedOffset == nOffset)
-        return pFile->f_114->f_12C;
-    unsigned int nSize = pFile->f_114->nBlockSize;
+    if (pFile->pArchive->pCachedFile == pFile && pFile->pArchive->nCachedOffset == nOffset)
+        return pFile->pArchive->nCachedSize;
+    unsigned int nSize = pFile->pArchive->nBlockSize;
     D2StormBlockStrc* pBlock = pFile->pBlock;
     if (nOffset + nSize > pBlock->nFileSize && !(pBlock->dwFlags & 0xFF00))
         nSize = pBlock->nFileSize - nOffset;
-    pFile->f_114->pCachedFile = pFile;
-    pFile->f_114->nCachedOffset = nOffset;
-    pFile->f_114->f_12C = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->f_114->pBlockBuffer, nSize);
-    return pFile->f_114->f_12C;
+    pFile->pArchive->pCachedFile = pFile;
+    pFile->pArchive->nCachedOffset = nOffset;
+    pFile->pArchive->nCachedSize = sub_00416AD0_ReadBlocks(pFile, nOffset, pFile->pArchive->pBlockBuffer, nSize);
+    return pFile->pArchive->nCachedSize;
 }
 
 static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, D2StormFileRecStrc* pFile, unsigned int nPosition)
@@ -1556,15 +1074,15 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         pFile->nCrcState = 2;
     }
     unsigned int nHead = 0;
-    if (nPosition & (pFile->f_114->nBlockSize - 1))
+    if (nPosition & (pFile->pArchive->nBlockSize - 1))
     {
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
-        nHead = sub_00416FB0_LoadBlock(~(pFile->f_114->nBlockSize - 1) & nPosition, pFile);
+        nHead = sub_00416FB0_LoadBlock(~(pFile->pArchive->nBlockSize - 1) & nPosition, pFile);
         unsigned int nCopy = nSize;
-        if (nCopy >= pFile->f_114->nBlockSize - ((pFile->f_114->nBlockSize - 1) & nPosition))
-            nCopy = pFile->f_114->nBlockSize - ((pFile->f_114->nBlockSize - 1) & nPosition);
-        SMemCopy(pBuffer, pFile->f_114->pBlockBuffer + ((pFile->f_114->nBlockSize - 1) & nPosition), nCopy);
+        if (nCopy >= pFile->pArchive->nBlockSize - ((pFile->pArchive->nBlockSize - 1) & nPosition))
+            nCopy = pFile->pArchive->nBlockSize - ((pFile->pArchive->nBlockSize - 1) & nPosition);
+        SMemCopy(pBuffer, pFile->pArchive->pBlockBuffer + ((pFile->pArchive->nBlockSize - 1) & nPosition), nCopy);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
             sub_0041D810_Crc32(pBuffer, nCopy, &pFile->nCrc, 2);
@@ -1572,9 +1090,9 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         }
         pBuffer += nCopy;
         nSize -= nCopy;
-        if (nHead != pFile->f_114->nBlockSize || !nSize)
+        if (nHead != pFile->pArchive->nBlockSize || !nSize)
         {
-            const unsigned int nSkip = (pFile->f_114->nBlockSize - 1) & nPosition;
+            const unsigned int nSkip = (pFile->pArchive->nBlockSize - 1) & nPosition;
             if (nHead < nSkip)
                 return 0;
             return nCopy < nHead - nSkip ? nCopy : nHead - nSkip;
@@ -1587,7 +1105,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
     {
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
-        const unsigned int nAligned = ~(pFile->f_114->nBlockSize - 1) & nSize;
+        const unsigned int nAligned = ~(pFile->pArchive->nBlockSize - 1) & nSize;
         nMiddle = sub_00416AD0_ReadBlocks(pFile, nPosition, pBuffer, nAligned);
         if (pFile->bCrc && pFile->nCrcState == 2)
         {
@@ -1606,7 +1124,7 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
         if (pFile->bCrc && pFile->nCrcState != 1 && pFile->nCrcPos != nPosition)
             pFile->nCrcState = 1;
         nTail = sub_00416FB0_LoadBlock(nPosition, pFile);
-        SMemCopy(pBuffer, pFile->f_114->pBlockBuffer, nSize);
+        SMemCopy(pBuffer, pFile->pArchive->pBlockBuffer, nSize);
         if (nSize < nTail)
             nTail = nSize;
         if (pFile->bCrc && pFile->nCrcState == 2)
@@ -1809,7 +1327,7 @@ int __fastcall sub_00417F10_FindFile(void* hArchive, D2StormBlockStrc** ppBlock,
             }
         }
     }
-    while (pArchive && (pArchive = (D2StormArchiveRecStrc*)pArchive->f_0.Next()) != 0);
+    while (pArchive && (pArchive = (D2StormArchiveRecStrc*)pArchive->tLink.Next()) != 0);
     sub_0041C340_SetLastError(2);
     return 0;
 }
@@ -1851,11 +1369,11 @@ unsigned long __stdcall CdThreadProc(void* pParam)
                 continue;
             }
         }
-        pLastArchive = pRequest->pFile->f_114;
+        pLastArchive = pRequest->pFile->pArchive;
         nLastOffset = pRequest->nFileOffset;
         gpCurrentRequest_0077902C = pRequest;
         nLastTime = nNow;
-        pRequest->f_0.Unlink();
+        pRequest->tLink.Unlink();
         LeaveCriticalSection(&gBasePathLock_00779068);
         unsigned char* pDest = !gpCurrentRequest_0077902C->pBuffer ? gpCurrentRequest_0077902C->pDest : gpStreamBuffer_00779050;
         if (pDest)
@@ -1897,7 +1415,7 @@ unsigned long __stdcall CdThreadProc(void* pParam)
             D2StormFileRecStrc* pFile = gpCurrentRequest_0077902C->pFile;
             if (pFile->bCrc && pFile->nCrcState == 4 && pFile->nCrc != pFile->pBlock->nCrc)
                 SErrDisplayError(0x85100083, pFile->szName, -4, 0, 0, 1);
-            gpCurrentRequest_0077902C->pCallback->pfnDone(gpCurrentRequest_0077902C->f_24, gpCurrentRequest_0077902C->nRead + gpCurrentRequest_0077902C->pDest - gpCurrentRequest_0077902C->f_24, gpCurrentRequest_0077902C->pCallback);
+            gpCurrentRequest_0077902C->pCallback->pfnDone(gpCurrentRequest_0077902C->nDestSize, gpCurrentRequest_0077902C->nRead + gpCurrentRequest_0077902C->pDest - gpCurrentRequest_0077902C->nDestSize, gpCurrentRequest_0077902C->pCallback);
         }
         void* hEvent = gpCurrentRequest_0077902C->hEvent;
         EnterCriticalSection(&gBasePathLock_00779068);
@@ -1947,11 +1465,11 @@ int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlag
     SMemFree(pBuffer, ".\\SOURCE\\SFILE.CPP", 0x1106, 0);
     pArchive->nBlockSize = 0x200 << pArchive->pHeader->nSectorShift;
     pArchive->pBlockBuffer = (unsigned char*)SMemAlloc(pArchive->nBlockSize, ".\\SOURCE\\SFILE.CPP", 0x110B, 0);
-    pArchive->f_140 = (D2StormHashEntryStrc*)SMemAlloc(pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), ".\\SOURCE\\SFILE.CPP", 0x1114, 0);
+    pArchive->pHashTable = (D2StormHashEntryStrc*)SMemAlloc(pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), ".\\SOURCE\\SFILE.CPP", 0x1114, 0);
     unsigned long nRead;
-    ReadFileChecked(&pArchive->nFilePos, pArchive->f_140, pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), pArchive->szName, &nRead, pArchive->pHeader->nHashOffset + pArchive->nArchiveOffset, pArchive->hFile);
+    ReadFileChecked(&pArchive->nFilePos, pArchive->pHashTable, pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc), pArchive->szName, &nRead, pArchive->pHeader->nHashOffset + pArchive->nArchiveOffset, pArchive->hFile);
     unsigned int nKey = sub_00415330_HashString(3, "(hash table)");
-    sub_004152D0_DecryptBlock(nKey, (unsigned int*)pArchive->f_140, pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc));
+    sub_004152D0_DecryptBlock(nKey, (unsigned int*)pArchive->pHashTable, pArchive->pHeader->nHashEntries * sizeof(D2StormHashEntryStrc));
     pArchive->pBlockTable = (D2StormBlockStrc*)SMemAlloc(pArchive->pHeader->nBlockEntries * sizeof(D2StormBlockStrc), ".\\SOURCE\\SFILE.CPP", 0x1133, 0);
     ReadFileChecked(&pArchive->nFilePos, pArchive->pBlockTable, pArchive->pHeader->nBlockEntries << 4, pArchive->szName, &nRead, pArchive->pHeader->nBlockOffset + pArchive->nArchiveOffset, pArchive->hFile);
     nKey = sub_00415330_HashString(3, "(block table)");
@@ -1966,7 +1484,7 @@ int __fastcall s_OpenArchive(D2StormArchiveRecStrc* pArchive, unsigned int nFlag
         }
     }
     D2StormArchiveRecStrc* pExisting;
-    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (D2StormArchiveRecStrc*)pExisting->f_0.Next())
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (D2StormArchiveRecStrc*)pExisting->tLink.Next())
     {
         if (pExisting->nPriority <= pArchive->nPriority)
             break;
@@ -2015,8 +1533,8 @@ int __stdcall SFileOpenFileAsArchive(void* hMpq, const char* szName, int nPriori
     void* pMemory = SMemAlloc(sizeof(D2StormArchiveRecStrc), gszTypeNameArchiveRec_00708398, -2, 8);
     D2StormArchiveRecStrc* pArchive = pMemory ? new (pMemory) D2StormArchiveRecStrc : 0;
     SStrCopy(pArchive->szName, szName, 0x104);
-    pArchive->hFile = pFile->f_114->hFile;
-    pArchive->nMode = pFile->f_114->nMode;
+    pArchive->hFile = pFile->pArchive->hFile;
+    pArchive->nMode = pFile->pArchive->nMode;
     pArchive->bNoDiskSearch = (nFlags >> 2) & 1;
     pArchive->nPriority = nPriority;
     pArchive->nRefs = 0;
@@ -2255,8 +1773,8 @@ int __stdcall SFileDdaGetVolume(void* hFile, int* pnVolume, int* pnPan)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    D2StormDdaNodeStrc* pNode;
-    for (pNode = gDdaList_00708384.Head(); pNode; pNode = pNode->f_0.Next())
+    D2StormStreamStrc* pNode;
+    for (pNode = gDdaList_00708384.Head(); pNode; pNode = (D2StormStreamStrc*)pNode->tLink.Next())
     {
         if (pNode->pFile == pRec)
             break;
@@ -2267,14 +1785,14 @@ int __stdcall SFileDdaGetVolume(void* hFile, int* pnVolume, int* pnPan)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    if (pNode->f_34 == 0x7FFFFFFF)
-        pNode->pBuffer->GetVolume(&pNode->f_34);
-    if (pNode->f_38 == 0x7FFFFFFF)
-        pNode->pBuffer->GetPan(&pNode->f_38);
+    if (pNode->nVolume == 0x7FFFFFFF)
+        pNode->pBuffer->GetVolume((long*)&pNode->nVolume);
+    if (pNode->nPan == 0x7FFFFFFF)
+        pNode->pBuffer->GetPan((long*)&pNode->nPan);
     if (pnVolume)
-        *pnVolume = pNode->f_34;
+        *pnVolume = pNode->nVolume;
     if (pnPan)
-        *pnPan = pNode->f_38;
+        *pnPan = pNode->nPan;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
 }
@@ -2289,8 +1807,8 @@ int __stdcall SFileDdaSetVolume(void* hFile, int nVolume, int nPan)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    D2StormDdaNodeStrc* pNode;
-    for (pNode = gDdaList_00708384.Head(); pNode; pNode = pNode->f_0.Next())
+    D2StormStreamStrc* pNode;
+    for (pNode = gDdaList_00708384.Head(); pNode; pNode = (D2StormStreamStrc*)pNode->tLink.Next())
     {
         if (pNode->pFile == pRec)
             break;
@@ -2301,14 +1819,14 @@ int __stdcall SFileDdaSetVolume(void* hFile, int nVolume, int nPan)
         sub_0041C340_SetLastError(0x85100072);
         return 0;
     }
-    if (nVolume != 0x7FFFFFFF && nVolume != pNode->f_34)
+    if (nVolume != 0x7FFFFFFF && nVolume != pNode->nVolume)
     {
-        pNode->f_34 = nVolume;
+        pNode->nVolume = nVolume;
         pNode->pBuffer->SetVolume(nVolume);
     }
-    if (nPan != 0x7FFFFFFF && nPan != pNode->f_38)
+    if (nPan != 0x7FFFFFFF && nPan != pNode->nPan)
     {
-        pNode->f_38 = nPan;
+        pNode->nPan = nPan;
         pNode->pBuffer->SetPan(nPan);
     }
     LeaveCriticalSection(&gBasePathLock_00779068);
@@ -2559,7 +2077,7 @@ char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
 // 0x004167B0
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x004167F0
@@ -2614,7 +2132,7 @@ char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
 // 0x004168F0
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x004169F0
@@ -3407,11 +2925,11 @@ D2StormList00708384Strc::~D2StormList00708384Strc()
 // 0x00418E60
 D2StormFileRecStrc::D2StormFileRecStrc()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
     pBuffer0x10C = 0;
     hFile = (void*)-1;
-    f_114 = 0;
+    pArchive = 0;
     pBuffer0x12C = 0;
     pBuffer0x138 = 0;
 }
@@ -3445,7 +2963,7 @@ D2StormArchiveRecStrc::~D2StormArchiveRecStrc()
         if (pBuffer0x140)
             SMemFree(pBuffer0x140, ".\\SOURCE\\SFILE.CPP", 0x26A, 0);
     }
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x00418B50
@@ -3466,18 +2984,18 @@ D2StormFileRecStrc::~D2StormFileRecStrc()
 {
     if (hFile != (void*)-1)
         CloseHandle(hFile);
-    if (f_114)
-        f_114->nUnk0x11C = 0;
+    if (pArchive)
+        pArchive->nUnk0x11C = 0;
     if (pBuffer0x12C)
         SMemFree(pBuffer0x12C, ".\\SOURCE\\SFILE.CPP", 0x14B, 0);
     if (pBuffer0x138)
         SMemFree(pBuffer0x138, ".\\SOURCE\\SFILE.CPP", 0x14C, 0);
-    D2StormArchiveRecStrc* pArch = f_114;
+    D2StormArchiveRecStrc* pArch = pArchive;
     if (pArch && !--pArch->nRefCount)
         delete pArch;
     if (pBuffer0x10C)
         SMemFree(pBuffer0x10C, ".\\SOURCE\\SFILE.CPP", 0x14E, 0);
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x0041A880

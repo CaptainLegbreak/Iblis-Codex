@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
 #include "D2StormLink.h"
 #include "D2GameTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
@@ -25,56 +26,10 @@ struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct D2CriticalSectionStrc;
 struct D2StormLinkStrc;
-struct D2StormArchiveListStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-
-struct D2StormArchiveRecStrc
-{
-    D2StormLinkStrc f_0;
-    char szName[0x104];
-    void* hFile;
-    int nMode;
-    int bNoDiskSearch;
-    int nPriority;
-    char pad0x11C[0x148 - 0x11C];
-    int nRefCount;
-    void* hNestedFile;
-    D2StormArchiveRecStrc* pParent;
-    char szPrefix[0x104];
-    int nRefs;
-
-    D2StormArchiveRecStrc()
-    {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
-    }
-};
-
-struct D2StormArchiveListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormArchiveRecStrc* Head()
-    {
-        return (D2StormArchiveRecStrc*)m_terminator.Next();
-    }
-    void LinkBefore(D2StormArchiveRecStrc* pNode, D2StormArchiveRecStrc* pExisting)
-    {
-        pNode->f_0.Unlink();
-        D2StormLinkStrc* pExistingLink = &pExisting->f_0;
-        if (!pExisting)
-            pExistingLink = &m_terminator;
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pNode->f_0.m_prevlink = pPrevLink;
-        pNode->f_0.m_next = pPrevLink->m_next;
-        pPrevLink->m_next = (char*)pNode;
-        pExistingLink->m_prevlink = &pNode->f_0;
-    }
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
@@ -273,8 +228,10 @@ int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefi
     else
         *phArchive = 0;
     VALIDATE(szPrefix);
-    // stands for the original testing szPrefix and *szPrefix independently: with a plain read the null test of szPrefix is dropped
-    VALIDATE(*(const volatile char*)szPrefix);
+    // stands for the original keeping the null test of szPrefix when *szPrefix is validated next (a plain pair drops it)
+    __assume((szPrefix) != 0);
+    VALIDATE(*szPrefix);
+    __assume((*szPrefix) != 0);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     sub_00415B90_InitCryptTable();
@@ -296,12 +253,20 @@ int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefi
     pArchive->nRefCount = 1;
     ++pParent->nRefCount;
     D2StormArchiveRecStrc* pExisting;
-    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (D2StormArchiveRecStrc*)pExisting->f_0.Next())
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (D2StormArchiveRecStrc*)pExisting->tLink.Next())
     {
         if (pExisting->nPriority <= pArchive->nPriority)
             break;
     }
-    gArchiveList_00708354.LinkBefore(pArchive, pExisting);
+    pArchive->tLink.Unlink();
+    D2StormLinkStrc* pExistingLink = &pExisting->tLink;
+    if (!pExisting)
+        pExistingLink = &gArchiveList_00708354.m_terminator;
+    D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+    pArchive->tLink.m_prevlink = pPrevLink;
+    pArchive->tLink.m_next = pPrevLink->m_next;
+    pPrevLink->m_next = (char*)pArchive;
+    pExistingLink->m_prevlink = &pArchive->tLink;
     *phArchive = pArchive;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
