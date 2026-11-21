@@ -65083,11 +65083,6 @@
      "name": "?ACT4Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
-     "va": "0x005B6100",
-     "length": 457,
-     "name": "ACT4Q3_Callback11_ScrollMessage"
-    },
-    {
      "va": "0x005B62D0",
      "length": 358,
      "name": "ACT4Q3_Callback00_NpcActivate"
@@ -65440,6 +65435,11 @@
      "va": "0x005B6080",
      "length": 124,
      "name": "?ACT4Q3_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6100",
+     "length": 457,
+     "name": "ACT4Q3_Callback11_ScrollMessage"
     },
     {
      "va": "0x005B6440",
