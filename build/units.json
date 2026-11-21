@@ -48970,11 +48970,6 @@
      "name": "sub_6FC90C20"
     },
     {
-     "va": "0x005679E0",
-     "length": 278,
-     "name": "sub_6FC91050"
-    },
-    {
      "va": "0x00568640",
      "length": 282,
      "name": "PLRTRADE_StopAllPlayerInteractions"
@@ -55467,6 +55462,11 @@
      "va": "0x005678F0",
      "length": 233,
      "name": "?sPlayerRestoreInventoryCopy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005679E0",
+     "length": 278,
+     "name": "sub_6FC91050"
     },
     {
      "va": "0x00567B00",
