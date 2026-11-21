@@ -2995,7 +2995,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004EDC30.cpp": {
+  "Source/D2Client/UI/SkillDesc_004EA010.cpp": {
    "bytes": 20,
    "definitions": 1,
    "externs": [],
@@ -78434,7 +78434,7 @@
    "cname": "gData_006DBF38",
    "declared": true,
    "decorated": "?gnVelocityBonus_006DBF38@@3QBHB",
-   "file": "Source/D2Client/Unknown_004EDC30.cpp",
+   "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DBF38[5]; // 0x006DBF38",
    "head": "extern \"C\" const int gData_006DBF38[5] = ",

@@ -36629,6 +36629,36 @@
      "va": "0x004EDB30",
      "length": 252,
      "name": "?sub_004EDB30_AddSeconds@@YGHGHHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EDC30",
+     "length": 9,
+     "name": "?sub_004EDC30_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x004EDC40",
+     "length": 91,
+     "name": "?sub_004EDC40_AddElemDuration@@YGHPAUUnicode@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004EEF00",
+     "length": 1288
+    },
+    {
+     "va": "0x004EF410",
+     "length": 1403
+    },
+    {
+     "va": "0x004EFDF0",
+     "length": 607
+    },
+    {
+     "va": "0x004F0050",
+     "length": 264
+    },
+    {
+     "va": "0x004F0F10",
+     "length": 27
     }
    ],
    "flags": [
@@ -37021,56 +37051,6 @@
      "length": 93,
      "name": "?sub_004F2AC0_MissileInit@@YIXPAUD2UnitStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004EDC30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004EDC30",
-     "length": 9,
-     "name": "?sub_004EDC30_AddSecondsPlus@@YAHGHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x004EDC40",
-     "length": 91,
-     "name": "?sub_004EDC40_AddElemDuration@@YGHPAUUnicode@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004EEF00",
-     "length": 1288
-    },
-    {
-     "va": "0x004EF410",
-     "length": 1403
-    },
-    {
-     "va": "0x004EFDF0",
-     "length": 607
-    },
-    {
-     "va": "0x004F0050",
-     "length": 264
-    },
-    {
-     "va": "0x004F0F10",
-     "length": 27
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
