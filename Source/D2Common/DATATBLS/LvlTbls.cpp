@@ -1,6 +1,13 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
+#include "D2LevelTxt.h"
+#include "D2Records.h"
+#include "D2Skills.h"
+#include "D2TxtTables.h"
 
 #pragma intrinsic(strcpy)
 
@@ -21,7 +28,6 @@ struct D2BinFieldStrc;
 struct D2AutomapTxt;
 
 struct D2AutomapRandStrc;
-
 
 struct D2DataTablesStrc;
 
@@ -57,25 +63,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x8C];
-    int dwPortal;
-    int dwPosition;
-    int dwSaveMonsters;
-    int dwLOSDraw;
-};
-
 D2LevelDefBin* gpLevelDefBin; // 0x0096C890
-
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 
@@ -144,82 +132,7 @@ extern D2SeedStrc* gpAutomapSeed_00744504; // 0x00744504
 
 extern D2AutomapShortStrc* gpAutomap_0096CA28; // 0x0096CA28
 
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    int dwSkillMode;
-    int dwFlags;
-};
-
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x24];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-};
-
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x8];
-    int nRooms;
-    char unk0x0C[0x4];
-    D2DrlgRoomStrc* ptRoomFirst;
-    D2LvlMazeTxt* pMaze;
-    char unk0x18[0x19C];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0xC];
-    D2SeedStrc pSeed;
-    void* pBuild;
-    int eLevelId;
-};
-
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
-
-struct D2LevelsTxt
-{
-    char unk0x00[5 + 0x0];
-    unsigned char nRain;
-    unsigned char nMud;
-    unsigned char nNoPer;
-    char unk0x08[8];
-    short wMonLvl[3];
-    short wMonLvlEx[3];
-    char unk0x1C[0x220 - 0x1C - 0x0];
-};
-
-struct D2LvlPrestTxt
-{
-    char unk0x00[0x4];
-    int dwLevelId;
-    char unk0x08[0x1B0 - 0x4 - 4];
-};
-
-struct D2LvlWarpTxt
-{
-    int dwLevelId;
-    char unk0x04[0x2C - 4];
-    char szDirection[4];
-};
-
-struct D2LvlMazeTxt
-{
-    int dwLevelId;
-    char unk0x04[0x1C - 4];
-};
-
-struct D2LvlSubTxt
-{
-    int dwType;
-    char szFile[60];
-    char unk0x40[0x118];
-    int dwExpansion;
-};
-
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x4C];
-    int nGroups;
-};
 
 int gnLvlwarpTxtRecordCount; // 0x0096CA04
 
@@ -406,7 +319,7 @@ int __stdcall DATATBLS_GetMonsterLevelInArea(int nLevelId, unsigned char nDiffic
         return pLevelsTxtRecord->wMonLvlEx[nDifficulty];
     }
 
-    return pLevelsTxtRecord->wMonLvl[nDifficulty];
+    return (short)pLevelsTxtRecord->wMonLvl[nDifficulty];
 }
 
 // 0x0061DD00
@@ -415,7 +328,7 @@ static void sub_0061DD00_InitPortalLevels(D2LevelDefBin* pLevelDefBin)
     gnPortalLevels_0096C9F8 = 0;
     for (int i = 0; i < sgptDataTables->nLevelsTxtRecordCount; ++i)
     {
-        if (pLevelDefBin[i].dwPortal)
+        if (pLevelDefBin[i].unk0x8C)
         {
             ++gnPortalLevels_0096C9F8;
         }
@@ -428,7 +341,7 @@ static void sub_0061DD00_InitPortalLevels(D2LevelDefBin* pLevelDefBin)
     int nPortalIndex = 0;
     for (int i = 0; i < sgptDataTables->nLevelsTxtRecordCount; ++i)
     {
-        if (pLevelDefBin[i].dwPortal)
+        if (pLevelDefBin[i].unk0x8C)
         {
             D2_ASSERT(nPortalIndex < gnPortalLevels_0096C9F8, 0x177);
             gpPortalLevels_0096C9F4[nPortalIndex] = i;
@@ -796,7 +709,7 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
   sub_0061E4A0(row->szFile,gszDirectory_006E867C);
   if((expansion||!row->dwExpansion)&&(loadFiles||extra)) {
    DRLGPRESET_LoadDrlgFile(&gppLvlSubDrlgFiles[i],0,row->szFile);
-   if(!gppLvlSubDrlgFiles[i]->nGroups) {
+   if(!gppLvlSubDrlgFiles[i]->nSubstGroups) {
     sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x3c8);sub_00681E09_Exit(-1);
    }
   }
@@ -942,8 +855,8 @@ void __stdcall sub_M14_EmitAutomapLookups(const char* pAutomapRecord, int* pType
 // 0x0061FCF0
 void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
 {
+    D2AutomapTxt* pAutomapTxt = 0;
     D2AutomapShortStrc* pAutomap = 0;
-    D2AutomapTxt* pAutomapTxt;
     int nRecordCount;
 
     SEED_InitSeed(gpAutomapSeed_00744504);
