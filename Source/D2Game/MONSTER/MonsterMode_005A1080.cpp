@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -43,19 +44,7 @@ enum D2C_P08MonsterConstants
 
 
 
-struct D2MonStatsTxt
-{
-    char pad0x000[0x170];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-    char pad0x188[0x20];
-};
 
-struct D2MonStats2Txt
-{
-    char pad0x000[0x104];
-    unsigned char nModeFlags[2];
-};
 
 
 
@@ -502,7 +491,7 @@ void __fastcall sub_6FC63940(D2GameStrc* pGame, D2UnitStrc* pUnit)
     if (pUnit)
     {
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
-        if (pMonStats2TxtRecord ? pMonStats2TxtRecord->nModeFlags[MONMODE_SKILL1 >> 3] & gdwBitMasks[MONMODE_SKILL1 & 7] : 0)
+        if (pMonStats2TxtRecord ? pMonStats2TxtRecord->nModeEnabledWhenMovingFlags[MONMODE_SKILL1 >> 3] & gdwBitMasks[MONMODE_SKILL1 & 7] : 0)
         {
             nFlag = 101;
         }
@@ -535,7 +524,7 @@ void __fastcall sub_6FC63A30(D2GameStrc* pGame, D2UnitStrc* pUnit)
     if (pUnit)
     {
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
-        if (pMonStats2TxtRecord ? pMonStats2TxtRecord->nModeFlags[MONMODE_SKILL1 >> 3] & gdwBitMasks[MONMODE_SKILL1 & 7] : 0)
+        if (pMonStats2TxtRecord ? pMonStats2TxtRecord->nModeEnabledWhenMovingFlags[MONMODE_SKILL1 >> 3] & gdwBitMasks[MONMODE_SKILL1 & 7] : 0)
         {
             nFlag = 101;
         }

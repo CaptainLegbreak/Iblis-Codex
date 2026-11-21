@@ -7,6 +7,7 @@
 #include "D2Drlg.h"
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
@@ -34,24 +35,6 @@ struct D2ShrineTableStrc;
 struct D2GSPacketSrv58;
 struct D2ObeliskPowerUpStrc;
 
-struct D2ObjectsTxt
-{
-    char pad00[0xD8];
-    union
-    {
-        struct
-        {
-            unsigned int dwFrameCnt[8];
-        };
-        struct
-        {
-            unsigned char unk_D8[0x4];
-            unsigned int dwFrameCnt1;
-        };
-    };
-    unsigned char unk_F8[0x6F];
-    unsigned char nSubClass;
-};
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
@@ -91,35 +74,13 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    unsigned char unk_84[0x38];
-    unsigned int dwUpgradeCode;
-    unsigned char unk_C0[0x62];
-    unsigned char nSubType;
-    unsigned char unk_123[0x1];
-};
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pLastItem); // 0x0063CD80
 int __stdcall SUNIT_Dummy_00582AC0(D2UnitStrc* pUnit, int nValue);
 __declspec(noinline) static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x198];
-    int dwToHit;
-    int dwLevToHit;
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x3C];
-    int dwToHitFactor;
-    char unk0x40[0x84];
-};
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 
@@ -761,7 +722,7 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
                     break;
                 }
 
-                EVENT_SetEvent(pGame, hObject, 1, pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt1 >> 8) + 1, 0, 0);
+                EVENT_SetEvent(pGame, hObject, 1, pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + 1, 0, 0);
                 break;
             }
 

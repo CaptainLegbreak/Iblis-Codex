@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 struct D2MissilesTxt;
@@ -9,16 +10,6 @@ union D2SeedStrc;
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nMissileFlags;
-    unsigned char unk_05[0x8B];
-    unsigned int dwDmgCalc;
-    unsigned char unk_94[0x1A];
-    unsigned char nKnockBack;
-    char unk0x0AF[0x1A4 - 0xAF];
-};
 
 
 
@@ -146,11 +137,11 @@ void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile,
 
     if (!STATES_CheckState(pDefender, 0x36))
     {
-        if (pMissilesTxtRecord->nMissileFlags & gdwBitMasks[0])
+        if (pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[0])
         {
             pDamage->wResultFlags |= 4;
         }
-        else if (pMissilesTxtRecord->nMissileFlags & gdwBitMasks[1])
+        else if (pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[1])
         {
             pDamage->wResultFlags |= 0x4000;
         }
@@ -162,7 +153,7 @@ void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile,
     }
 
     unsigned int nBlockFlags = SUNITDMG_ApplyBlockOrDodge(pGame, pOwner, pDefender, 1, pDamage->dwPhysDamage != 0);
-    if (nBlockFlags & 0x1F && !(pMissilesTxtRecord->nMissileFlags & gdwBitMasks[0]) && !pMissilesTxtRecord->nKnockBack)
+    if (nBlockFlags & 0x1F && !(pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[0]) && !pMissilesTxtRecord->nKnockBack)
     {
         pDamage->wResultFlags = pDamage->wResultFlags & (unsigned short)~1 | 0x4000;
         nBlockFlags &= 0xFFFFFFE0;

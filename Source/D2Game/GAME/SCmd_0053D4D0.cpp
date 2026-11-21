@@ -7,6 +7,7 @@
 #include "D2UnitData.h"
 #include "D2Primitives.h"
 #include "D2GameClient.h"
+#include "D2GameRecords.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -36,12 +37,6 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); //
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-struct D2PacketDataStrc
-{
-    int nPacketSize;
-    unsigned char packetData[0x200];
-    D2PacketDataStrc* pNext;
-};
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

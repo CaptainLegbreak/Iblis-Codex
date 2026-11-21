@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2GameClient.h"
 
 #define WRITE_ITEM(pItem) { const int nSize = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pUnit, pItem, pData, nBufferSize - (pData - pBuffer), a4, a5, a6); if (nSize < 0) return -1; pData += nSize; if (!nSize && nItems > 0) --nItems; }
 #define PREPARE_ITEM(pItem) (ITEMS_SerializeItemToBitstream(pItem, tempBuffer, sizeof(tempBuffer), 1, 1, 0))
@@ -68,22 +69,6 @@ extern "C" int __cdecl fclose(_iobuf* pFile);
 int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 __declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
 
-struct D2ClientStrc
-{
-    int dwClientId;
-    char unk0x04[0x174];
-    int bUnlockCharacter;
-    D2SaveHeaderStrc* pSaveHeader;
-    int nSaveHeaderSize;
-    char unk0x184[0x8];
-    unsigned int nSaveChecksum;
-    char unk0x190[0x18];
-    D2GameStrc* pGame;
-    char unk0x1AC[0x228];
-    unsigned int dwFlags;
-    char unk0x3D8[0xD4];
-    D2ClientStrc* pNext;
-};
 
 int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient); // 0x00538590
 int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int a5, int a6, int a7); // 0x00538CE0
@@ -782,7 +767,7 @@ int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int 
             break;
         }
 
-        ptClient = ptClient->pNext;
+        ptClient = ptClient->pServerNext;
     }
 
     if (ptClient)

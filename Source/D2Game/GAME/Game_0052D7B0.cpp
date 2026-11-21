@@ -12,6 +12,8 @@
 #include "D2DrlgRooms.h"
 #include "D2GameServer.h"
 #include "D2GameClient.h"
+#include "D2GameRecords.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -119,14 +121,6 @@ struct D2ObjectRoomCoordStrc
     D2ObjectRoomCoordStrc* pNext;
 };
 
-struct D2ObjectControlStrc
-{
-    char unk0x0000[0x28];
-    int* pShrineSubTypeIds[8];
-    D2ObjectRegionStrc* pObjectRegion[1024];
-    char unk0x1048[0xC8];
-    D2ObjectRoomCoordStrc* pObjectRoomCoord;
-};
 
 struct D2GSPacketSrv53
 {
@@ -221,22 +215,6 @@ struct D2NpcEventStrc
     D2NpcEventStrc* pNext;
 };
 
-struct D2NpcRecordStrc
-{
-    int nNPC;
-    D2InventoryStrc* pInventory;
-    D2NpcGambleStrc* pGamble;
-    int bGambleInit;
-    int unk0x10;
-    D2NpcEventStrc* pEvent;
-    int unk0x18;
-    int bTrading;
-    unsigned char bVendorInit;
-    unsigned char unk0x21;
-    unsigned char unk0x22;
-    unsigned char bTrader;
-    char unk0x24[0x20];
-};
 
 struct D2NpcControlStrc
 {

@@ -3,6 +3,8 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 union D2SeedStrc;
@@ -15,17 +17,6 @@ struct D2ObjectControlStrc;
 
 
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0xC4];
-    unsigned char nHasCollision[8];
-    char unk0x0CC[0x04];
-    unsigned int dwSizeX;
-    unsigned int dwSizeY;
-    char unk_D8[0x162 - 0xD8];
-    unsigned char nXSpacing;
-    unsigned char nYSpacing;
-};
 
 typedef bool (__fastcall* OBJRGN_SpawnCheckFn)(D2GameStrc* pGame, int nLevelId, int nX, int nY);
 
@@ -42,10 +33,6 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
 
 
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
@@ -117,7 +104,7 @@ D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStr
     if (pUnit)
     {
         const int nMode = pUnit ? pUnit->dwAnimMode : 0;
-        if (pObjectsTxtRecord->nHasCollision[nMode])
+        if (pObjectsTxtRecord->nSelectable[nMode])
         {
             pUnit->dwFlags |= 2;
         }

@@ -9,15 +9,9 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
-struct D2PetTypeTxt
-{
-    unsigned int dwHcIdx;
-    unsigned char nPetFlags[4];
-    short wGroup;
-    char unk0x0A[0xD6];
-};
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

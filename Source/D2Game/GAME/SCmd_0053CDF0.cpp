@@ -1,13 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameClient.h"
+#include "D2GameRecords.h"
 
-struct D2PacketDataStrc
-{
-    int nPacketSize;
-    unsigned char packetData[0x200];
-    D2PacketDataStrc* pNext;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv7F

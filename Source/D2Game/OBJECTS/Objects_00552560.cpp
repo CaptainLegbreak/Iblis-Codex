@@ -5,20 +5,10 @@
 #include "D2Txt.h"
 #include "D2Drlg.h"
 #include "D2GameServer.h"
+#include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
 
-struct D2LevelsTxt
-{
-    char unk0x000[0xE5];
-    unsigned char nObjGroup[8];
-    unsigned char nObjPrb[8];
-    char unk0x0F5[0x11B];
-    unsigned int dwThemes;
-};
 
 struct D2ObjGroupTxt
 {

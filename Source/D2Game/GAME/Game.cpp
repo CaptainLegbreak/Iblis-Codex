@@ -8,6 +8,7 @@
 #include "D2GameClient.h"
 #include "D2Unicode.h"
 #include "D2GameStrc.h"
+#include "D2StormLink.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -220,33 +221,6 @@ char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    char* Next()
-    {
-        return (int)m_next > 0 ? m_next : 0;
-    }
-};
 
 struct D2StormListAStrc
 {

@@ -6,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2GameServer.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_OBJECT 2
@@ -127,11 +128,6 @@ int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLe
 extern D2CriticalSectionStrc gClientListLock_008846A8; // 0x008846A8
 extern D2CriticalSectionStrc gSrvClientListByNameLock_008846C0; // 0x008846C0
 
-struct D2ObjectControlStrc
-{
-    char unk0x00[0x48];
-    D2ObjectRegionStrc* pObjectRegion[1024];
-};
 
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 

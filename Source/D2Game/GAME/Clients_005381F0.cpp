@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameClient.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 
@@ -14,23 +15,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 
 
-struct D2ClientStrc
-{
-    unsigned int dwClientId;
-    int dwClientState;
-    unsigned char bAct;
-    char unk0x009[0x163];
-    int dwUnitType;
-    int dwUnitGUID;
-    D2UnitStrc* pPlayer;
-    char unk0x178[0x30];
-    D2GameStrc* pGame;
-    char unk0x1AC[4];
-    int unk0x1B0;
-    D2ActiveRoomStrc* hRoom;
-    char unk0x1B8[0x21C];
-    unsigned int dwFlags;
-};
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -206,7 +190,7 @@ void __fastcall sub_6FC33670(D2GameStrc* pGame, D2ClientStrc* pClient)
         D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pPlayer, 1, 1);
         sub_0055F4F0(pGame, pPlayer, 1);
     }
-    ++pClient->unk0x1B0;
+    ++pClient->nPlayerSyncCount;
     if (pClientRoom != pRoom)
     {
         const int nSourceLevelId = DUNGEON_GetLevelIdFromRoom(pClientRoom);
@@ -245,10 +229,10 @@ static void sub_M08_RemoveUnitFromRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
 void __fastcall sub_0053A2F0_ResetClientInAct(D2ClientStrc* pClient, int nAct)
 {
     D2_ASSERT(pClient, 2386);
-    pClient->bAct = nAct;
+    pClient->nClassId = nAct;
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    pClient->bAct = nAct;
+    pClient->nClassId = nAct;
     const int nX = M08_UNITS_GetXPositionInline(pPlayer);
     const int nY = M08_UNITS_GetYPositionInline(pPlayer);
     D2GameStrc* pGame = pClient->pGame;

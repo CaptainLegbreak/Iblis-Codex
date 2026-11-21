@@ -4,19 +4,12 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 struct D2DynamicPathStrc;
 struct D2HoverTextStrc;
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
 struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
-struct D2MonStatsTxt
-{
-    short unk_00;
-    short nBaseId;
-    char unk_04[0xA];
-    unsigned char nFlags;
-    char unk_0F[0x199];
-};
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText);                            // 0x006611A0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                      // 0x0064C040
@@ -173,7 +166,7 @@ __forceinline int GetY(D2UnitStrc* pUnit)
 }
 static __forceinline int HasCorpseExplosion(D2MonStatsTxt* pRecord)
 {
-    if (pRecord) return pRecord->nFlags & gdwBitMasks[4];
+    if (pRecord) return pRecord->nMonStatsFlags[2] & gdwBitMasks[4];
     return 0;
 }
 static __forceinline int GetValidBaseId(D2UnitStrc* pUnit)
