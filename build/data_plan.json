@@ -4987,7 +4987,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005ADF10.cpp": {
+  "Source/D2Game/MISSILES/MissMode_005ADF10.cpp": {
    "bytes": 476,
    "definitions": 4,
    "externs": [
@@ -5060,7 +5060,7 @@
     "extern \"C\" void __cdecl sub_005ADD20(); // 0x005ADD20"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005ADF10.inc",
+   "include": "gen/data/Source/D2Game/MISSILES/MissMode_005ADF10.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -111250,7 +111250,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005ADF10.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005ADF10.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnMissileSrvHitFnCount = ",
@@ -111275,7 +111275,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005ADF10.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005ADF10.cpp",
    "fill": 71,
    "form": "declared",
    "fwd": null,
@@ -111731,7 +111731,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005ADF10.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005ADF10.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnMissileSrvDmgFnCount_0073C95C = ",
@@ -111756,7 +111756,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005ADF10.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005ADF10.cpp",
    "fill": 46,
    "form": "declared",
    "fwd": null,
