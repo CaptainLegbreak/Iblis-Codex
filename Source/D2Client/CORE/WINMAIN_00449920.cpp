@@ -455,7 +455,7 @@ void __cdecl sub_0044C6E0_DrainPacketQueues()
     while (nLength != -1);
 }
 
-#include "gen/data/Source/D2Client/Unknown_00449920.inc"
+#include "gen/data/Source/D2Client/CORE/WINMAIN_00449920.inc"
 
 void* gpConnection_00798FB4; // 0x00798FB4
 
