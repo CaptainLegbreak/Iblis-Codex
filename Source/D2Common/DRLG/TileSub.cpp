@@ -1,31 +1,7 @@
 #include "D2Common.h"
+#include "D2DrlgMaps.h"
+#include "D2TxtTables.h"
 
-struct D2DrlgCoordStrc { int nPosX; int nPosY; int nWidth; int nHeight; };
-struct D2DrlgGridStrc { int* pCellsFlags; int* pCellsRowOffsets; int nWidth; int nHeight; int unk0x10; };
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x0C];
-    int nWidth;
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    void* pTileTypeLayer[4];
-    void* pWallLayer[4];
-    void* pFloorLayer[2];
-    void* pShadowLayer;
-    char unk0x48[0x04];
-    int nSubstGroups;
-};
-struct D2LvlSubTxt
-{
-    char unk0x00[0x04];
-    char szFile[0x4C];
-    D2DrlgFileStrc* pDrlgFile;
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pFloorGrid;
-    D2DrlgGridStrc pShadowGrid;
-};
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60

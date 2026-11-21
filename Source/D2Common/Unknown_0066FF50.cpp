@@ -1,65 +1,13 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgRooms.h"
+#include "D2TxtTables.h"
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgSubstGroupStrc
-{
-    D2DrlgCoordStrc tBox;
-    int field_10;
-    int field_14;
-};
 
-struct D2DrlgFileStrc
-{
-    int nSubstMethod;
-    int unk0x04;
-    int unk0x08;
-    int nWidth;
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    void* pTileTypeLayer[4];
-    void* pWallLayer[4];
-    void* pFloorLayer[2];
-    void* pShadowLayer;
-    int unk0x48;
-    int nSubstGroups;
-    D2DrlgSubstGroupStrc* pSubstGroups;
-};
 
-struct D2LvlSubTxt
-{
-    int dwType;
-    char szFile[60];
-    int dwCheckAll;
-    int dwBordType;
-    int dwDt1Mask;
-    int dwGridSize;
-    D2DrlgFileStrc* pDrlgFile;
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pFloorGrid;
-    D2DrlgGridStrc pShadowGrid;
-    int nProb[5];
-    int nTrials[5];
-    int nMax[5];
-    int unk0x158;
-};
 
 struct D2DrlgDrlgStrc
 {
@@ -67,29 +15,8 @@ struct D2DrlgDrlgStrc
     void* pMemPool;
 };
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgDrlgStrc* pDrlg;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x14];
-    D2SeedStrc pSeed;
-    char unk0x1C[0x18];
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-    char unk0x44[0x14];
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 
-struct D2DrlgOutdoorRoomStrc
-{
-    D2DrlgGridStrc pTileTypeGrid;
-};
 
 struct D2UnkOutdoorStrc2
 {
@@ -198,14 +125,14 @@ static int __stdcall sub_0066FE00_TestSubstGroupTiles(int nX, int nY, D2UnkOutdo
 void __stdcall sub_0066FF50(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord)
 {
     D2DrlgRoomStrc* pDrlgRoom = pOutdoor->pDrlgRoom;
-    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMemPool;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
     D2DrlgFileStrc* pDrlgFile = pLvlSubTxtRecord->pDrlgFile;
 
     for (int nGroup = 0; nGroup < pDrlgFile->nSubstGroups; ++nGroup)
     {
         D2DrlgSubstGroupStrc* pSubstGroup = &pDrlgFile->pSubstGroups[nGroup];
-        const int nWidth = pDrlgRoom->nTileWidth - pSubstGroup->tBox.nWidth + 1;
-        const int nHeight = pDrlgRoom->nTileHeight - pSubstGroup->tBox.nHeight + 1;
+        const int nWidth = pDrlgRoom->pDrlgCoord.nWidth - pSubstGroup->tBox.nWidth + 1;
+        const int nHeight = pDrlgRoom->pDrlgCoord.nHeight - pSubstGroup->tBox.nHeight + 1;
         if (nWidth > 0 && nHeight > 0)
         {
             switch (pDrlgFile->nSubstMethod)
@@ -233,7 +160,7 @@ void __stdcall sub_0066FF50(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxt
                             const int nRoll = SEED_RollLimitedRandomNumber(&pDrlgRoom->pSeed, 100);
                             if (pLvlSubTxtRecord->nProb[pOutdoor->nSubTheme] < nRoll)
                             {
-                                const int nPick = SEED_RollLimitedRandomNumber(&pDrlgRoom->pSeed, pSubstGroup->field_14);
+                                const int nPick = SEED_RollLimitedRandomNumber(&pDrlgRoom->pSeed, pSubstGroup->nSubstGroup);
                                 sub_0066FAD0(pMemPool, nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, (pSubstGroup->tBox.nWidth + 1) * (nPick + 1));
                             }
                         }

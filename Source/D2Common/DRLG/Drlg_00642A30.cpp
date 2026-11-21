@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 typedef unsigned int size_t;
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                    // 0x00681EF0
@@ -8,64 +10,16 @@ extern "C" const char* __cdecl sub_00408090();                                  
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
-struct D2CmpTileProjectStrc;
 struct D2CmpTileStrc;
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x00C];
-    D2CmpTileProjectStrc* pTiles[32];
-    char unk0x08C[0x450 - 0x08C];
-    unsigned char nDifficulty;
-    char unk0x451[0x478 - 0x451];
-    void* pMempool;
-    D2DrlgLevelStrc* pLevel;
-    unsigned char nAct;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x08];
-    D2DrlgRoomStrc** ppRoomsNear;
-    char unk0x0C[0x24 - 0x0C];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int nRoomsNear;
-    char unk0x30[0x34 - 0x30];
-    D2DrlgCoordsStrc pDrlgCoord;
-    unsigned char fRoomStatus;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x00C];
-    int bActive;
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x014[0x1AC - 0x014];
-    D2DrlgLevelStrc* pNextLevel;
-    char unk0x1B0[0x1B4 - 0x1B0];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x1D0 - 0x1B8];
-    int eLevelId;
-    int dwInactiveFrames;
-};
 
-struct D2DrlgTileDataStrc
-{
-    char unk0x00[0x30];
-};
 
-int __stdcall TileLibraryGetTiles(D2CmpTileProjectStrc** ppProjects, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles); // 0x00604AE0
+int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppProjects, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles); // 0x00604AE0
 void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry); // 0x0066DDE0
-int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY);                  // 0x0066B980
+int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY);                  // 0x0066B980
 int __fastcall sub_006427A0_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY);                   // 0x006427A0
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
 D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId);                               // 0x00642AE0
@@ -156,7 +110,7 @@ void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelt
 {
     pLevel->bActive += nDelta;
     pLevel->bActive = pLevel->bActive <= 0 ? 0 : pLevel->bActive;
-    pLevel->dwInactiveFrames = 10;
+    pLevel->unk0x1D4 = 10;
 
     int* pVisLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
     for (int i = 0; i < 8; ++i)
@@ -167,7 +121,7 @@ void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelt
             D2DrlgLevelStrc* pVisLevel = DRLG_InlineGetLevel(pLevel->pDrlg, nVisLevelId);
             pVisLevel->bActive += nDelta;
             pVisLevel->bActive = pVisLevel->bActive <= 0 ? 0 : pVisLevel->bActive;
-            pVisLevel->dwInactiveFrames = 10;
+            pVisLevel->unk0x1D4 = 10;
         }
     }
 }

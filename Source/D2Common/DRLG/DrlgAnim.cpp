@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
 
 
 
@@ -13,20 +14,6 @@ struct D2DrlgAnimTileGridStrc
     D2DrlgAnimTileGridStrc* pNext;
 };
 
-struct D2DrlgTileGridStrc
-{
-    void* pMapLinks;
-    D2DrlgAnimTileGridStrc* pAnimTiles;
-    int nWalls;
-    int nFloors;
-    int nShadows;
-    D2DrlgTileDataStrc* pWallTiles;
-    int nWallTiles;
-    D2DrlgTileDataStrc* pFloorTiles;
-    int nFloorTiles;
-    D2DrlgTileDataStrc* pRoofTiles;
-    int nRoofTiles;
-};
 
 
 
@@ -44,7 +31,7 @@ char* __cdecl sub_00407310_Sprintf(char* szDest, const char* szFormat, ...);    
 extern "C" const char gszDrlgAnimSourceFile[];                                                              // 0x006EEF08
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-int __stdcall TileLibraryGetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
+int __stdcall TileLibraryGetTiles(D2TileLibraryHeaderStrc** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
 int __stdcall TileGetRarity(D2TileLibraryEntryStrc* hTile); // 0x00604C20
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry, int nTileType); // 0x0066DC50
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitFloorTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DEF0
@@ -101,7 +88,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
             pDrlgAnimTileGrid->ppMapTileData = (D2DrlgTileDataStrc**)FOG_AllocPool(pMemPool, nFrames * sizeof(D2DrlgTileDataStrc*), gszDrlgAnimSourceFile, 161, 0);
             memset(pDrlgAnimTileGrid->ppMapTileData, 0x00, nFrames * sizeof(D2DrlgTileDataStrc*));
             pDrlgAnimTileGrid->nAnimationSpeed = nAnimationSpeed;
-            pDrlgAnimTileGrid->pNext = pDrlgRoom->ptDrlgTiles->pAnimTiles;
+            pDrlgAnimTileGrid->pNext = (D2DrlgAnimTileGridStrc*)pDrlgRoom->ptDrlgTiles->pAnimTiles;
             pDrlgRoom->ptDrlgTiles->pAnimTiles = pDrlgAnimTileGrid;
 
             unsigned int nEntryIndex;
@@ -162,7 +149,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
 void __fastcall DRLGANIM_AllocAnimationTileGrids(D2DrlgRoomStrc* pRoom, int nAnimationSpeed, D2DrlgGridStrc* pWallGrid, int nWalls, D2DrlgGridStrc* pFloorGrid, int nFloors, D2DrlgGridStrc* pShadowGrid)
 {
     D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
-    DRLGANIM_AllocAnimationTileGrid(pRoom, nAnimationSpeed, pTileGrid->pWallTiles, pTileGrid->nWalls, pWallGrid, nWalls);
+    DRLGANIM_AllocAnimationTileGrid(pRoom, nAnimationSpeed, pTileGrid->pTiles.pWallTiles, pTileGrid->nWalls, pWallGrid, nWalls);
     DRLGANIM_AllocAnimationTileGrid(pRoom, nAnimationSpeed, pTileGrid->pFloorTiles, pTileGrid->nFloors, pFloorGrid, nFloors);
     DRLGANIM_AllocAnimationTileGrid(pRoom, nAnimationSpeed, pTileGrid->pRoofTiles, pTileGrid->nShadows, pShadowGrid, 1);
 }

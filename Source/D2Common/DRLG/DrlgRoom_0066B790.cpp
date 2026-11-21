@@ -1,16 +1,8 @@
 #include "D2Common.h"
 #include "D2DrlgTiles.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
-struct D2DrlgOrthStrc
-{
-    void* pTarget;
-    int nDirection;
-    int bPreset;
-    int bInit;
-    D2DrlgCoordStrc* pBox;
-    D2DrlgOrthStrc* pNext;
-};
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 static __declspec(noinline) int sub_0066B6A0(D2DrlgOrthStrc*, D2DrlgOrthStrc*); // 0x0066B6A0
@@ -106,7 +98,7 @@ void __fastcall DRLGROOM_AddOrth(D2DrlgOrthStrc** ppDrlgOrth, D2DrlgLevelStrc* p
 {
     D2DrlgOrthStrc* pNew = (D2DrlgOrthStrc*)sub_0040B430(pLevel->pDrlg->pMempool, sizeof(D2DrlgOrthStrc), ".\\DRLG\\DrlgRoom.cpp", 351, 0);
     memset(pNew, 0, sizeof(D2DrlgOrthStrc));
-    pNew->pTarget = pLevel;
+    pNew->pLevel = pLevel;
     pNew->nDirection = nDirection;
     pNew->bPreset = bIsPreset;
     pNew->bInit = 0;

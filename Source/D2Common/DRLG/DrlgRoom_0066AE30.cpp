@@ -1,92 +1,28 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2TxtTables.h"
 
 struct D2DrlgVertexStrc;
 struct D2RoomDataStrc;
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    char unk0x054[0x10];
-    D2DrlgVertexStrc* pVertex;
-    D2DrlgVertexStrc* pPathStarts[6];
-    char pVertices[4][0x78];
-    int nVertices;
-    D2RoomDataStrc* pRoomData;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMempool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char unk0x018[0x04];
-    D2DrlgCoordStrc pLevelCoords;
-    char unk0x02C[0x188];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x08];
-    int nLevelType;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x28];
-    unsigned int dwFlags;
-    char unk0x2C[0x24];
-    unsigned int dwDT1Mask;
-    char unk0x54[0x04];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    char unk0x5C[0x0C];
-    D2TileLibraryHeaderStrc* pTiles;
-};
 
 struct D2LvlTypesTxt
 {
     char szFile[32][60];
 };
 
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x14];
-    int nWallLayers;
-};
 
-struct D2LvlSubTxt
-{
-    char unk0x00[0x50];
-    D2DrlgFileStrc* pDrlgFile;
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pFloorGrid;
-    D2DrlgGridStrc pShadowGrid;
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);                               // 0x00681EF0
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY);  // 0x00642630
-void __fastcall DRLGROOM_FreeRoomData(void* pMemPool, D2RoomDataStrc* pRoomData);                           // 0x0066B530
+void __fastcall DRLGROOM_FreeRoomData(void* pMemPool, D2DrlgOrthStrc* pDrlgOrth);                           // 0x0066B530
 int __fastcall DRLG_GetRectanglesManhattanDistanceAndCheckNotOverlapping(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nMaxDistance, int* pDistanceX, int* pDistanceY); // 0x0066B800
 void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile);                                       // 0x00668300
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pDrlgGrid, int nX, int nY, int nFlag, int nOperation); // 0x0067C4F0
@@ -204,13 +140,13 @@ void __fastcall DRLGOUTDOORS_FreeOutdoorInfo(D2DrlgLevelStrc* pLevel, int bKeepR
 
     for (int i = 0; i < 6; ++i)
     {
-        DRLGVER_FreeVertices(pMemPool, &pOutdoors->pPathStarts[i]);
+        DRLGVER_FreeVertices(pMemPool, &pOutdoors->pRoads[i]);
     }
 
-    memset(pOutdoors->pVertices[0], 0, 0x78);
-    memset(pOutdoors->pVertices[1], 0, 0x78);
-    memset(pOutdoors->pVertices[2], 0, 0x78);
-    memset(pOutdoors->pVertices[3], 0, 0x78);
+    memset(&pOutdoors->pVertices[0], 0, 0x78);
+    memset(&pOutdoors->pVertices[6], 0, 0x78);
+    memset(&pOutdoors->pVertices[12], 0, 0x78);
+    memset(&pOutdoors->pVertices[18], 0, 0x78);
 
     pOutdoors->nVertices = 0;
 

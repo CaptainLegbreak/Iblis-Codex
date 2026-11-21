@@ -1,34 +1,16 @@
 #include "D2Path.h"
 #include "D2DrlgTiles.h"
 #include "D2Drlg.h"
+#include "D2DrlgPresets.h"
+
+typedef int (__fastcall* DRLGLINKFN)(D2DrlgLevelLinkDataStrc* pLevelLinkData);
 
 struct D2DrlgOrthStrc;
 
-struct D2DrlgPresetInfoStrc
-{
-    int unk0x00;
-    int nDirection;
-};
 
 struct D2DrlgLevelLinkDataStrc;
 
-struct D2DrlgLinkStrc
-{
-    int (__fastcall* pfLinker)(D2DrlgLevelLinkDataStrc* pLevelLinkData);
-    int nLevel;
-    int nLevelLink;
-    int nLevelLinkEx;
-};
 
-struct D2DrlgLevelLinkDataStrc
-{
-    D2SeedStrc pSeed;
-    D2DrlgCoordStrc pLevelCoord[15];
-    D2DrlgLinkStrc* pLink;
-    int nRand[4][15];
-    int nIteration;
-    int nCurrentLevel;
-};
 
 struct D2DrlgWarpStrc;
 
@@ -115,7 +97,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
         pLevelLinkData.nIteration = nCounter;
         pLevelLinkData.nCurrentLevel = pLink->nLevel;
 
-        if (!pLink->pfLinker(&pLevelLinkData))
+        if (!((DRLGLINKFN)pLink->pfLinker)(&pLevelLinkData))
         {
             pLevelLinkData.nRand[2][nCounter] = -1;
             pLevelLinkData.nRand[3][nCounter] = -1;
