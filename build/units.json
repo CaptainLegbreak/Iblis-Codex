@@ -69225,6 +69225,16 @@
      "name": "?SKILLS_SrvDo152_DiabLight@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CC840",
+     "length": 273,
+     "name": "?SKILLS_SrvDo096_ZakarumHeal_Bestow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CCB10",
+     "length": 356,
+     "name": "?SKILLS_SrvDo097_Resurrect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005CCE80",
      "length": 284
     },
@@ -69351,22 +69361,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillMonst_005CC840.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CC840",
-     "length": 273,
-     "name": "?SKILLS_SrvDo096_ZakarumHeal_Bestow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CCB10",
-     "length": 356,
-     "name": "?SKILLS_SrvDo097_Resurrect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
    ]
   },
   {
