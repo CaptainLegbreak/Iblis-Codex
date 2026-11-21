@@ -66936,6 +66936,39 @@
      "va": "0x005DC920",
      "length": 67,
      "name": "?sub_005DC920_GetThreat@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005FCF30",
+     "length": 168,
+     "name": "sub_005FCF30"
+    },
+    {
+     "va": "0x005FD0F0",
+     "length": 269,
+     "name": "?AIBAAL_SpawnUberBaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005FD200",
+     "length": 3,
+     "name": "AITHINK_Fn145_UberBaal"
+    },
+    {
+     "va": "0x005FD350",
+     "length": 285
+    },
+    {
+     "va": "0x005FD9C0",
+     "length": 80,
+     "name": "sub_005FD9C0_SelectSkillTarget"
+    },
+    {
+     "va": "0x005FDA10",
+     "length": 100
+    },
+    {
+     "va": "0x005FDCA0",
+     "length": 189,
+     "name": "?SKILLITEM_CastSkillOnTarget@@YIHPAUD2UnitStrc@@HH0H@Z"
     }
    ]
   },
@@ -71234,45 +71267,6 @@
     {
      "va": "0x005FCB60",
      "length": 972
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005FCF30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FCF30",
-     "length": 168,
-     "name": "sub_005FCF30"
-    },
-    {
-     "va": "0x005FD0F0",
-     "length": 269,
-     "name": "?AIBAAL_SpawnUberBaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005FD200",
-     "length": 3,
-     "name": "AITHINK_Fn145_UberBaal"
-    },
-    {
-     "va": "0x005FD350",
-     "length": 285
-    },
-    {
-     "va": "0x005FD9C0",
-     "length": 80,
-     "name": "sub_005FD9C0_SelectSkillTarget"
-    },
-    {
-     "va": "0x005FDA10",
-     "length": 100
-    },
-    {
-     "va": "0x005FDCA0",
-     "length": 189,
-     "name": "?SKILLITEM_CastSkillOnTarget@@YIHPAUD2UnitStrc@@HH0H@Z"
     }
    ]
   },
