@@ -196,7 +196,6 @@ struct D2GfxLightStrc;
 
 struct D2UnitSfxNodeStrc;
 
-
 int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile);
 
 void __fastcall sub_004742D0_ResetLightSize(D2GfxLightStrc* pLight, int nSize);
@@ -220,6 +219,18 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                   
 #define SPAWN_FLAGS 0x2001
 
 #define COLLISION_MASK 0x45
+
+typedef void (__fastcall* D2CltDoFunc)(D2UnitStrc* pMissile);
+
+extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268
+
+extern D2CltDoFunc gpfnCltDoFuncs_0072A398[];                                                               // 0x0072A398
+
+void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);                           // 0x00474290
+
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+
+int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 
 static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
@@ -774,6 +785,45 @@ int __fastcall sub_004D2C10_CltHitSubMissile(D2UnitStrc* pMissile)
     }
 
     return 1;
+}
+
+
+
+static void sub_004CD1C0_FlickerLight(D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (pMissile->nSeqCurrentFramePrecise & 0x300)
+        return;
+    D2GfxLightStrc* pLight = pMissile->pLight;
+    if (!pLight)
+        return;
+    if (sub_00474350_GetLightSize(pLight) < pMissilesTxtRecord->nLight)
+        return;
+    sub_00474290(pLight, ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nFlicker) + pMissilesTxtRecord->nLight);
+}
+
+// 0x004D2C70
+void __fastcall sub_004D2C70_CltDoMissile(D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
+    if (!pMissilesTxtRecord)
+    {
+        sub_004CD390_CltDoDefault(pMissile);
+        return;
+    }
+    if (pMissilesTxtRecord->nFlicker)
+        sub_004CD1C0_FlickerLight(pMissile);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
+    if (!pRoom)
+        pRoom = sub_00463740_FindRoomAtPoint(0, UNITS_GetUnitXPosition(pMissile), UNITS_GetUnitYPosition(pMissile));
+    if (!(pMissilesTxtRecord->nMissileFlags[10 >> 3] & gdwBitMasks[10 & 7]) && DUNGEON_IsRoomInTown(pRoom))
+    {
+        sub_004CD390_CltDoDefault(pMissile);
+        return;
+    }
+    const short nCltDoFunc = pMissilesTxtRecord->wCltDoFunc;
+    if (nCltDoFunc > 0 && nCltDoFunc < gnCltDoFuncs_0072A34C)
+        gpfnCltDoFuncs_0072A398[nCltDoFunc](pMissile);
 }
 
 // 0x004D55C0
