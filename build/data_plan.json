@@ -2476,14 +2476,10 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/useitem_004BFA70.cpp": {
+  "Source/D2Client/UI/useitem.cpp": {
    "bytes": 216,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl sub_004BFA30_MouseMoveMsg(); // 0x004BFA30",
-    "extern \"C\" void __cdecl sub_004BFC50(); // 0x004BFC50",
-    "extern \"C\" void __cdecl sub_004BFDB0_BreakMsg(); // 0x004BFDB0",
-    "extern \"C\" void __cdecl sub_004C0150_OnPanelClose(); // 0x004C0150",
     "extern \"C\" void __cdecl sub_004C04E0_OnHotspotClick(); // 0x004C04E0"
    ],
    "fn_types": {},
@@ -63048,7 +63044,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/useitem_004BFA70.cpp",
+   "file": "Source/D2Client/UI/useitem.cpp",
    "fill": 18,
    "form": "declared",
    "fwd": null,
@@ -63107,16 +63103,16 @@
     [
      20,
      "0x004BFC50",
-     "queue_function",
-     "sub_004BFC50",
+     "owner",
+     "sub_004BFC50_OnClick",
      0,
      "func"
     ],
     [
      32,
      "0x004BFC50",
-     "queue_function",
-     "sub_004BFC50",
+     "owner",
+     "sub_004BFC50_OnClick",
      0,
      "func"
     ],
@@ -63131,7 +63127,7 @@
     [
      56,
      "0x004BFA30",
-     "names.json",
+     "owner",
      "sub_004BFA30_MouseMoveMsg",
      0,
      "func"
@@ -63139,7 +63135,7 @@
     [
      68,
      "0x004C0150",
-     "names.json",
+     "owner",
      "sub_004C0150_OnPanelClose",
      0,
      "func"
@@ -63147,7 +63143,7 @@
     [
      80,
      "0x004C0150",
-     "names.json",
+     "owner",
      "sub_004C0150_OnPanelClose",
      0,
      "func"
@@ -63155,7 +63151,7 @@
     [
      92,
      "0x004BFDB0",
-     "names.json",
+     "owner",
      "sub_004BFDB0_BreakMsg",
      0,
      "func"

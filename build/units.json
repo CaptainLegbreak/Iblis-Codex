@@ -31333,6 +31333,11 @@
      "name": "sub_004BFA30_MouseMoveMsg"
     },
     {
+     "va": "0x004BFA70",
+     "length": 117,
+     "name": "?sub_004BFA70_ToggleUseMode@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004BFC50",
      "length": 343,
      "name": "?sub_004BFC50_OnClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -31343,9 +31348,18 @@
      "name": "sub_004BFDB0_BreakMsg"
     },
     {
+     "va": "0x004BFDD0",
+     "length": 687
+    },
+    {
      "va": "0x004C0080",
      "length": 1,
      "name": "?sub_004C0080_Return@@YAXXZ"
+    },
+    {
+     "va": "0x004C0090",
+     "length": 107,
+     "name": "?sub_004C0090_CloseUseItemPanel@@YAXXZ"
     },
     {
      "va": "0x004C0100",
@@ -32097,26 +32111,6 @@
      "va": "0x004BEE30",
      "length": 83,
      "name": "??0D2ListBoxLineStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/useitem_004BFA70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BFA70",
-     "length": 117,
-     "name": "?sub_004BFA70_ToggleUseMode@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BFDD0",
-     "length": 687
-    },
-    {
-     "va": "0x004C0090",
-     "length": 107,
-     "name": "?sub_004C0090_CloseUseItemPanel@@YAXXZ"
     }
    ]
   },
