@@ -6227,15 +6227,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a3q5.cpp": {
-   "bytes": 1568,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q5.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Unknown_005BAFD0.cpp": {
    "bytes": 32,
    "definitions": 1,
@@ -8110,6 +8101,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiTatics.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a3q5.cpp": {
+   "bytes": 1568,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a3q5.inc",
    "lang": "cpp",
    "state": "included"
   }

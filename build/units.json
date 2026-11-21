@@ -44852,9 +44852,19 @@
      "length": 693
     },
     {
+     "va": "0x0050E370",
+     "length": 607,
+     "name": "?sub_0050E370_GlideDrawSmackFrame@@YGXHPAUD2GlideSmackStrc@@H@Z"
+    },
+    {
      "va": "0x0050E5D0",
      "length": 532,
      "name": "?sub_0050E5D0_GlideDecodeSmacker@@YIXPBDPAUD2GlideSmackStrc@@E@Z"
+    },
+    {
+     "va": "0x0050E7F0",
+     "length": 145,
+     "name": "?sub_0050E7F0_GlidePlaySmacker@@YIXPAUD2GlideSmackStrc@@@Z"
     },
     {
      "va": "0x0050EAE0",
@@ -44890,22 +44900,6 @@
      "va": "0x0050F870",
      "length": 66,
      "name": "?sub_0050F870_GlideBlocksInit@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSmack_0050E370.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050E370",
-     "length": 607,
-     "name": "?sub_0050E370_GlideDrawSmackFrame@@YGXHPAUD2GlideSmackStrc@@H@Z"
-    },
-    {
-     "va": "0x0050E7F0",
-     "length": 145,
-     "name": "?sub_0050E7F0_GlidePlaySmacker@@YIXPAUD2GlideSmackStrc@@@Z"
     }
    ]
   },
@@ -71760,6 +71754,10 @@
      "length": 102
     },
     {
+     "va": "0x005BB480",
+     "length": 199
+    },
+    {
      "va": "0x005BB550",
      "length": 234,
      "name": "?ACT3Q5_SpawnCouncil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -71829,16 +71827,6 @@
      "va": "0x005BBBA0",
      "length": 96,
      "name": "?OBJECTS_InitFunction60_CompellingOrb@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q5_005BB480.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005BB480",
-     "length": 199
     }
    ]
   },
