@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CompositeUnitStrc;
@@ -13,17 +14,6 @@ struct ComAdStrc;
 struct Unicode
 {
     unsigned short wChar;
-};
-
-struct D2WinControlInitStrc
-{
-    char data[0x30];
-};
-
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x4C];
-    int (__fastcall* pfnSlot4C)();
 };
 
 struct D2LaunchNameNodeStrc
@@ -106,31 +96,6 @@ extern D2WinControlStrc* gpNamesButton_0077BD08; // 0x0077BD08
 extern D2LaunchNameNodeStrc* gpNameList_0077BDB4; // 0x0077BDB4
 extern D2WinControlStrc* gpCreateButton_00798C28; // 0x00798C28
 
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x8D];
-    union
-    {
-        char szName0x8D[0x30];
-        char szText0x8D[0x10];
-    };
-};
-
-struct D2MultiChannelUserStrc
-{
-    int nUnk0x00;
-    char szName[0x32];
-    char szText[0x50];
-    unsigned char nClass;
-    char unk0x87[0x15];
-    D2CompositeUnitStrc* f_9C;
-    int nValue0xA0;
-    int unk0xA4;
-    int nValue0xA8;
-    int unk0xAC;
-    D2MultiChannelUserStrc* pNext;
-};
-
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
 int __fastcall sub_00440CA0(const char* szName, char* szA, char* szB, char* szC); // 0x00440CA0
@@ -171,14 +136,6 @@ extern char gszName_00798CD4[]; // 0x00798CD4
 extern int gnPendingValueA_00798CE4; // 0x00798CE4
 extern int gnPendingValueB_00798CE8; // 0x00798CE8
 extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x14];
-    int (__fastcall* pfn0x14)(void* pBuffer);
-    char unk0x18[0x50];
-    int (__fastcall* pfn0x68)();
-};
 
 class D2SquelchListStrc
 {
@@ -600,7 +557,7 @@ static void __stdcall sub_00443D10_SetPendingName(int nA, int nB, const char* sz
 // 0x00445A80
 void __fastcall sub_00445A80_ShowProfileDialog(const char* szText, int nA, int nB)
 {
-    const char* szName = gpCharInfo_0077BBD8->szName0x8D;
+    const char* szName = gpCharInfo_0077BBD8->szText0x8D;
     char szA[12];
     char szB[44];
     char szC[204];
@@ -701,9 +658,9 @@ void __cdecl sub_00448050_ClearSelectedUser()
 {
     if (gpSelectedChannelUser_00798F48)
     {
-        D2_ASSERT(gpSelectedChannelUser_00798F48->f_9C, 0x85A);
-        const unsigned int nFlags = D2Win_10155(gpSelectedChannelUser_00798F48->f_9C);
-        D2Win_10156(gpSelectedChannelUser_00798F48->f_9C, nFlags & gdwInvBitMasks[10]);
+        D2_ASSERT((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, 0x85A);
+        const unsigned int nFlags = D2Win_10155((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite);
+        D2Win_10156((D2CompositeUnitStrc*)gpSelectedChannelUser_00798F48->pComposite, nFlags & gdwInvBitMasks[10]);
         gpSelectedChannelUser_00798F48 = 0;
         gnSelectedLine_0070EC1C = -1;
     }

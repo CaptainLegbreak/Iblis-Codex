@@ -1,17 +1,12 @@
-struct D2HellStormLinkStrc;
+#include "D2StormLink.h"
+
 struct D2HellStormListStrc;
 struct S;
-
-struct D2HellStormLinkStrc
-{
-    D2HellStormLinkStrc* m_prevlink;
-    char* m_next;
-};
 
 struct D2HellStormListStrc
 {
     int m_linkoffset;
-    D2HellStormLinkStrc m_terminator;
+    D2StormLinkStrc m_terminator;
 
     void sub_005175E3_Initialize();
 };

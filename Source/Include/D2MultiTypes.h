@@ -290,7 +290,11 @@ struct D2FuncTable_0077ABF0Strc
     void* (__fastcall* pfnSlot04)(void); // 0x04
     void (__fastcall* pfnSlot08)(char*, char*); // 0x08
     int (__fastcall* pfnSlot0C)(void); // 0x0C
-    void (__fastcall* pfnSlot10)(void); // 0x10
+    union
+    {
+        void (__fastcall* pfnSlot10)(void); // 0x10
+        int (__fastcall* pfnSlot10Result)(void);
+    };
     int unk0x14[5]; // 0x14
     int (__fastcall* pfnSlot28)(D2StatusStrc*); // 0x28
     int unk0x2C[5]; // 0x2C
@@ -307,7 +311,11 @@ struct D2FuncTable_0077ABF0Strc
     int unk0x74[3]; // 0x74
     void (__fastcall* pfnSlot80)(int*); // 0x80
     int unk0x84[5]; // 0x84
-    D2FuncRecordStrc* (__cdecl* pfnGetRecord)(void); // 0x98
+    union
+    {
+        D2FuncRecordStrc* (__cdecl* pfnGetRecord)(void); // 0x98
+        int (__fastcall* pfnSlot98)(void);
+    };
     void (__fastcall* pfnSlot9C)(char*, char*, char*); // 0x9C
     int (__fastcall* pfnSlotA0)(int*); // 0xA0
     int unk0xA4[4]; // 0xA4

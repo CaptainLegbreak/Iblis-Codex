@@ -1,7 +1,8 @@
+#include "D2StormLink.h"
+
 void* __stdcall SMemAlloc(unsigned int,const char*,int,unsigned int);
 int __stdcall SMemFree(void*,const char*,int,unsigned int);
 extern const char gszRecordType_0072F9FC[];
-struct D2StormLinkStrc {D2StormLinkStrc* m_prevlink; char* m_next;};
 struct D2StormRecordStrc {
  D2StormLinkStrc tLink;
  int unk0x08;

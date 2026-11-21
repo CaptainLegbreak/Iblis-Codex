@@ -5,6 +5,8 @@
 #include "D2ClientMenus.h"
 #include "D2BnCryptTypes.h"
 #include "D2NetTypes.h"
+#include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -227,9 +229,7 @@ extern "C" int __fastcall sub_00520C20_GetSlotB(unsigned char nSlot); // 0x00520
 
 struct D2SetsTxt { char unk0x000[0x128]; };
 
-struct D2SetItemsTxt { char unk0x000[0x1B8]; };
 
-struct D2UniqueItemsTxt { char unk0x000[0x14C]; };
 
 enum
 {

@@ -2,6 +2,7 @@
 #include "D2MultiTypes.h"
 #include "D2StormTypes.h"
 #include "D2Unicode.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -37,13 +38,6 @@ struct D2MsgRecordChunkStrc
     int nCount;
     int nUnk0x1F44;
     D2MsgRecordChunkStrc* pNext;
-};
-
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    SMSGHANDLER pfnHandler;
 };
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -668,7 +662,7 @@ void __fastcall sub_00451DB0_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntrySt
     D2_ASSERT(hWnd, 0x153);
     for (unsigned int i = 0; i < nCount; i++)
     {
-        sub_00451C70_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, pTable[i].pfnHandler);
+        sub_00451C70_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
     }
 }
 

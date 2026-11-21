@@ -1,5 +1,6 @@
 #include "D2Launch.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -23,38 +24,6 @@ extern void* gapRowControlsX_00779B40[]; // 0x00779B40
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern int gdwGlobal_00779DC4; // 0x00779DC4
 extern int gnTopRow_00779DC8; // 0x00779DC8
-
-#pragma pack(push, 1)
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x8D];
-    char szAccount[0x18];
-    char szPassword[0x100];
-};
-
-#pragma pack(pop)
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x08];
-    void (__fastcall* pfnSlot08)(char* szAccount, char* szPassword);
-    char unk0x0C[0x04];
-    int (__fastcall* pfnSlot10)();
-    char unk0x14[0x14];
-    int (__fastcall* pfnSlot28)(D2StatusStrc* pStatus);
-    char unk0x2C[0x1C];
-    int (__fastcall* pfnSlot48)(int* pValue);
-    int (__fastcall* pfnSlot4C)();
-    unsigned char unk_50[0x10];
-    void (__fastcall* pfnSlot60)(char* szAccount, char* szPassword);
-    void (__fastcall* pfnSlot64)(int* pValue);
-    int (__fastcall* pfnSlot68)();
-    char unk0x6C[0x2C];
-    int (__fastcall* pfnSlot98)();
-    void (__fastcall* pfnSlot9C)(char* szAccount, char* szOldPassword, char* szPassword);
-    void (__fastcall* pfnSlotA0)(int* pValue);
-    char unk0xA4[0x10];
-    int (__fastcall* pfnSlotB4)();
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -252,7 +221,7 @@ int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int 
         if (sub_00436EA0())
         {
             D2MCPClientCloseMCP();
-            gpFuncTable_0077ABF0->pfnSlot10();
+            gpFuncTable_0077ABF0->pfnSlot10Result();
             sub_004336C0();
             return 0;
         }
@@ -290,7 +259,7 @@ int __cdecl sub_0043BF60()
     OutputDebugStringA("------------------\nConnect to Battle.net\n------------------\n");
     D2MCPClientCloseMCP();
 
-    if (!gpFuncTable_0077ABF0->pfnSlot10())
+    if (!gpFuncTable_0077ABF0->pfnSlot10Result())
     {
         D2StatusStrc tStatus;
         s_bConnecting_0077AC0C = 0;
@@ -307,7 +276,7 @@ int __cdecl sub_0043BF60()
     {
         gdwGlobal_007795F4 = 1;
         sub_0042F880_DestroyControls();
-        gpFuncTable_0077ABF0->pfnSlot10();
+        gpFuncTable_0077ABF0->pfnSlot10Result();
         s_bConnecting_0077AC0C = 0;
         return 0;
     }
@@ -331,7 +300,7 @@ int __cdecl sub_0043BF60()
                 SRegSaveValue("Diablo II", "UseCmdLine", 0, 1);
                 SRegSaveValue("Diablo II", "Skip To Open", 0, bSkipToOpen);
                 D2Win_CloseSpriteCache();
-                gpFuncTable_0077ABF0->pfnSlot10();
+                gpFuncTable_0077ABF0->pfnSlot10Result();
                 s_bConnecting_0077AC0C = 0;
                 sub_00517ED0(gpFuncTable_0077ABF0->pfnSlot98());
                 TerminateProcess(GetCurrentProcess(), 0);
@@ -349,7 +318,7 @@ int __cdecl sub_0043BF60()
         }
         else
         {
-            gpFuncTable_0077ABF0->pfnSlot10();
+            gpFuncTable_0077ABF0->pfnSlot10Result();
             s_bConnecting_0077AC0C = 0;
             sub_004336C0();
             return 0;
