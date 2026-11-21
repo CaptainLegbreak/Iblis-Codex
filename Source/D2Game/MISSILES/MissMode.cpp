@@ -775,6 +775,20 @@ int __fastcall sub_005B1650_AiTickTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
 int __fastcall sub_005B13E0_AiMeleeWalkTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B13E0
 
+struct SynCoord;
+
+struct SynStatic;
+
+struct SynUnit;
+
+struct SynCoord { int nX; int nY; };
+
+struct SynStatic { char unk0[0x0C]; SynCoord tGameCoords; };
+
+struct SynUnit { int dwUnitType; char unk4[0x28]; union { SynStatic* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
+
+int __stdcall sub_00620510_UNITS_GetUnitSizeX(SynUnit* pUnit); // 0x00620510
+
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
 {
@@ -6635,6 +6649,108 @@ int __fastcall SKILLS_SrvSt05_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSki
     }
 
     return SUNIT_GetTargetUnit(pGame, pUnit) != 0;
+}
+
+
+
+// 0x005DC380
+int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource)
+{
+    int nXDiff = MISSMODE_GetUnitX(pTarget) - MISSMODE_GetUnitX(pSource);
+    int nYDiff = MISSMODE_GetUnitY(pTarget) - MISSMODE_GetUnitY(pSource);
+    if (nXDiff < 0)
+    {
+        nXDiff = -nXDiff;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = -nYDiff;
+    }
+
+    const int nSize = UNITS_GetUnitSizeX(pTarget);
+    nXDiff -= nSize;
+    nYDiff -= nSize;
+    if (nXDiff < 0)
+    {
+        nXDiff = 0;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = 0;
+    }
+
+    if (nXDiff > nYDiff)
+    {
+        return (nYDiff + 2 * nXDiff) / 2;
+    }
+
+    return (nXDiff + 2 * nYDiff) / 2;
+}
+
+static __forceinline int synh_GetUnitX(SynUnit* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline int synh_GetUnitY(SynUnit* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// build: context DistanceWithSize
+static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
+{
+    int nXDiff = synh_GetUnitX(pUnit) - nX;
+    int nYDiff = synh_GetUnitY(pUnit) - nY;
+    if (nXDiff < 0)
+    {
+        nXDiff = -nXDiff;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = -nYDiff;
+    }
+
+    const int nSize = ((unsigned int)sub_00620510_UNITS_GetUnitSizeX(pUnit) >> 1) + 1;
+    nXDiff -= nSize;
+    nYDiff -= nSize;
+    if (nXDiff < 0)
+    {
+        nXDiff = 0;
+    }
+    if (nYDiff < 0)
+    {
+        nYDiff = 0;
+    }
+
+    if (nXDiff > nYDiff)
+    {
+        return (nYDiff + 2 * nXDiff) / 2;
+    }
+
+    return (nXDiff + 2 * nYDiff) / 2;
+}
+
+// 0x005DC480
+int __fastcall sub_005DC480_Distance(SynUnit* pUnit, int nX, int nY)
+{
+    return DistanceWithSize(nX, nY, pUnit);
 }
 
 // 0x005DC530
