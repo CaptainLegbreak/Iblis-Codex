@@ -69514,6 +69514,10 @@
      "name": "AITHINK_TargetCallback_PutridDefiler"
     },
     {
+     "va": "0x005EFF50",
+     "length": 389
+    },
+    {
      "va": "0x005F02C0",
      "length": 1000,
      "name": "?AITHINK_Fn006_Fallen@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -69622,6 +69626,10 @@
      "va": "0x005F85C0",
      "length": 1002,
      "name": "?AITHINK_Fn053_Summoner@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F9270",
+     "length": 530
     },
     {
      "va": "0x005F9950",
@@ -70429,34 +70437,6 @@
     {
      "va": "0x005F2B10",
      "length": 920
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005EFF50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EFF50",
-     "length": 389
-    },
-    {
-     "va": "0x005F9270",
-     "length": 530
     }
    ],
    "flags": [
