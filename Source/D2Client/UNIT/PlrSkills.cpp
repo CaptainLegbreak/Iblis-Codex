@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -34,28 +35,6 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __fastcall sub_004C9060_DrawRotated(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
 
-struct D2StatesTxt
-{
-    unsigned short wState;
-    short wOverlay[4];
-    short wCastOverlay;
-    short wRemoveOverlay;
-    short wPrgOverlay;
-    unsigned char nStateFlags[8];
-    short wStat;
-    short wSetFunc;
-    short wRemFunc;
-    unsigned short wGroup;
-    unsigned char nColorPri;
-    unsigned char nColorShift;
-    unsigned char nLightRGB[3];
-    unsigned char pad0x25;
-    short wOnSound;
-    short wOffSound;
-    unsigned char unk_2A[0xE];
-    short wSkill;
-    short wMissile;
-};
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 void __fastcall sub_0046F000_ResetGfx(D2UnitStrc* pUnit); // 0x0046F000
@@ -468,7 +447,7 @@ void __fastcall sub_004D8A60_StateOverlays(D2UnitStrc* pUnit, int nState)
     if (!pTxt)
         return;
 
-    const int nCast = GetOverlay(pTxt->wCastOverlay);
+    const int nCast = GetOverlay((short)pTxt->wCastOverlay);
     const int nOverlay1 = GetOverlay(pTxt->wOverlay[0]);
     const int nOverlay2 = GetOverlay(pTxt->wOverlay[1]);
     const int nOverlay3 = GetOverlay(pTxt->wOverlay[2]);
@@ -514,7 +493,7 @@ void __fastcall sub_004D8B90_StateTier4(D2UnitStrc* pUnit, int nState)
 
     const int nValue = STATLIST_GetStatValue(pStatList, 0x84, 0);
     const int nTotal = STATLIST_GetStatValue(pStatList, 0x85, 0);
-    const int nCast = GetOverlay(pTxt->wCastOverlay);
+    const int nCast = GetOverlay((short)pTxt->wCastOverlay);
     const int nOverlay1 = GetOverlay(pTxt->wOverlay[0]);
     const int nOverlay2 = GetOverlay(pTxt->wOverlay[1]);
     const int nOverlay3 = GetOverlay(pTxt->wOverlay[2]);
@@ -940,7 +919,7 @@ void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    int nCastOverlay = pStatesTxtRecord->wCastOverlay >= 0 ? pStatesTxtRecord->wCastOverlay : -1;
+    int nCastOverlay = (short)pStatesTxtRecord->wCastOverlay >= 0 ? (short)pStatesTxtRecord->wCastOverlay : -1;
     int nOverlay1 = pStatesTxtRecord->wOverlay[0] >= 0 ? pStatesTxtRecord->wOverlay[0] : -1;
     int nOverlay2 = pStatesTxtRecord->wOverlay[1] >= 0 ? pStatesTxtRecord->wOverlay[1] : -1;
     const int bMask = STATES_CheckStateMaskAuraByStateId(nState);
@@ -1110,9 +1089,9 @@ void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState)
     {
         sub_004D97F0_UpdateStateColor(pUnit);
     }
-    if (pTxt->wRemoveOverlay >= 0)
+    if ((short)pTxt->wRemoveOverlay >= 0)
     {
-        int nOverlay = pTxt->wRemoveOverlay;
+        int nOverlay = (short)pTxt->wRemoveOverlay;
         if (nOverlay != -1)
         {
             nOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay));

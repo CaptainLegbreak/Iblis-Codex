@@ -24,7 +24,15 @@ struct D2MotionVectorStrc
 
 struct D2GfxMotionStrc
 {
-    unsigned int dwFlags; // 0x00
+    union
+    {
+        unsigned int dwFlags; // 0x00
+        struct
+        {
+            unsigned char nFlags0 : 5; // 0x00
+            unsigned char bFlag5 : 1; // 0x00
+        };
+    };
     D2MotionVectorStrc tA; // 0x04
     D2MotionVectorStrc tB; // 0x10
     D2MotionVectorStrc tD; // 0x1C
@@ -41,7 +49,11 @@ struct D2GfxListNodeStrc
 {
     int nMode; // 0x00
     int nId; // 0x04
-    D2GfxNodeTargetStrc* pTarget; // 0x08
+    union
+    {
+        D2GfxNodeTargetStrc* pTarget; // 0x08
+        D2HashedFileEntryStrc* pFileEntry; // 0x08
+    };
     int unk0x0C; // 0x0C
     D2GfxListNodeStrc* pNext; // 0x10
 };

@@ -4,32 +4,16 @@
 #include "D2Drlg.h"
 #include "D2ClientTypes.h"
 #include "D2ClientGfx.h"
+#include "D2CelContext.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 typedef unsigned long DWORD;
 
 struct D2GfxLayerStrc;
 
-struct D2CelContextStrc
-{
-    int unk0x00[13];
-    int nArg34;
-    int unk0x38[3];
-    int nFlags44;
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x18];
-    short wMonStatsEx;
-    char unk0x01A[0x18E];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0xF0];
-    unsigned char aModeFlags[0x44];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -223,7 +207,7 @@ static void __stdcall sub_0046FEB0_PreloadMonsterModes(int bAsync, D2UnitStrc* p
     for (unsigned int i = 0; i < gnCofModeCount_00712B00; ++i)
     {
         const unsigned int nMode = gaCofModes_00712AC4[i];
-        if (pMonStats2->aModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7])
+        if (pMonStats2->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7])
         {
             sub_0046FDA0_PreloadMonsterMode(bAsync, pUnit, nMode);
         }

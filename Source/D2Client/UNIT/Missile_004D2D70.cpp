@@ -1,30 +1,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2DynamicPathStrc;
 struct D2StatListStrc;
 struct D2GfxLightStrc;
 
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags;
-    char unk0x05[0x05];
-    short wCltHitFunc;
-    char unk0x0C[0x06];
-    short wProgSfx;
-    short wHitSound;
-    short wCltSubMissile;
-    char unk0x18[0x16E];
-    unsigned char bHitShift;
-    unsigned char bAlwaysOwnerHit;
-    unsigned char bApplyState;
-    unsigned char nStateDuration;
-    char unk0x18A[0x02];
-    unsigned char bEndOnNoTarget;
-    char unk0x18D[0x17];
-};
 
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
@@ -100,7 +82,7 @@ static int sub_004CD310_UseMissileCharge(D2UnitStrc* pMissile)
     int nResult = 3;
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(sub_0064A3E0(pMissile));
 
-    if (!(pMissilesTxtRecord->nFlags & gbChargeMissileMask_006CE270))
+    if (!(pMissilesTxtRecord->nMissileFlags[0] & gbChargeMissileMask_006CE270))
         return nResult;
     const int nValue = STATLIST_UnitGetStatValue(pMissile, 328, 0);
     if (nValue)
@@ -117,7 +99,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
 {
     const int nMissileId = pMissile ? pMissile->dwClassId : -1;
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(nMissileId);
-    const int nSubMissile = pMissilesTxtRecord->wCltSubMissile;
+    const int nSubMissile = (short)pMissilesTxtRecord->wExplosionMissile;
     D2UnitStrc* pSubMissile;
     int nResult = 3;
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
@@ -126,7 +108,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
     {
         if (pTarget)
         {
-            if (pMissilesTxtRecord->bApplyState && STATES_CheckState(pTarget, 0x56))
+            if (pMissilesTxtRecord->nNextHit && STATES_CheckState(pTarget, 0x56))
                 return 0;
 
             if (MISSILE_CheckUnitIfOwner(pMissile, pTarget))
@@ -136,23 +118,23 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
             if (!UNITS_TestFlagBit(pTarget, 2))
                 return 0;
 
-            if (pOwner && !sub_00465C60_CheckUnitPair(pOwner, pTarget) && !pMissilesTxtRecord->bAlwaysOwnerHit)
+            if (pOwner && !sub_00465C60_CheckUnitPair(pOwner, pTarget) && !pMissilesTxtRecord->nCollideFriend)
                 return 0;
         }
 
-        if (pOwner && pTarget && (pMissilesTxtRecord->nFlags & gbChargeMissileMask_006CE270) && (unsigned int)pOwner->dwUnitType <= 1)
+        if (pOwner && pTarget && (pMissilesTxtRecord->nMissileFlags[0] & gbChargeMissileMask_006CE270) && (unsigned int)pOwner->dwUnitType <= 1)
         {
             if (STATES_CheckState(pOwner, 0x45) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0))
                 nResult = sub_004CD310_UseMissileCharge(pMissile);
         }
 
-        if ((pTarget || bArg || pMissilesTxtRecord->bEndOnNoTarget) && (nResult & 2))
+        if ((pTarget || bArg || pMissilesTxtRecord->nAlwaysExplode) && (nResult & 2))
         {
-            if (pMissilesTxtRecord->bApplyState && pTarget)
+            if (pMissilesTxtRecord->nNextHit && pTarget)
             {
                 const int nId = pTarget->dwUnitId;
                 const int nType = pTarget->dwUnitType;
-                D2StatListStrc* pStatList = STATLIST_AllocStatList(0, 2, pMissilesTxtRecord->nStateDuration, nType, nId);
+                D2StatListStrc* pStatList = STATLIST_AllocStatList(0, 2, pMissilesTxtRecord->nNextDelay, nType, nId);
                 if (pStatList)
                 {
                     STATLIST_SetState(pStatList, 0x56);
@@ -175,7 +157,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
             if (nHitSound >= 0)
                 sub_004B9A00(nHitSound, pMissile, 0, 0, 0);
 
-            if (pMissilesTxtRecord->wCltSubMissile >= 0 && nSubMissile != -1)
+            if ((short)pMissilesTxtRecord->wExplosionMissile >= 0 && nSubMissile != -1)
             {
                 pSubMissile = sub_004CDBA0_SubmitOwnerRequest(pMissile, nSubMissile, 0, 0, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
                 if (pSubMissile)
@@ -191,10 +173,10 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
             }
         }
 
-        if (pTarget && !pMissilesTxtRecord->bHitShift)
+        if (pTarget && !pMissilesTxtRecord->nCollideKill)
             return 0;
 
-        const short nProgSfx = pMissilesTxtRecord->wProgSfx;
+        const short nProgSfx = pMissilesTxtRecord->wTravelSound;
         if (nProgSfx >= 0)
         {
             void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pMissile, nProgSfx);

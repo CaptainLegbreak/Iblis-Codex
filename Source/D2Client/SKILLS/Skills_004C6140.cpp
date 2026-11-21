@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 #define SKILLSFLAGINDEX_LOB 1
 #define SKILLSFLAGINDEX_PRGSTACK 7
@@ -14,74 +15,8 @@ struct D2StaticPathStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x0B];
-    char nType;
-};
 
-struct D2SkillsTxt
-{
-    int skillId;
-    union
-    {
-        unsigned char nFlags[8];
-        unsigned char flags[8];
-    };
-    unsigned char nCharClass;
-    unsigned char unk_0D[0x3];
-    unsigned char animation;
-    unsigned char unk_11[0x43];
-    short wProgressiveStat;
-    char unk0x056[0x2A];
-    short wProgressiveState;
-    char unk0x082[0x66];
-    union
-    {
-        short wAuraFunc;
-        short clientMissile;
-        short wCltMissile;
-    };
-    char unk0x0EA[0x08];
-    short wStartFunc;
-    short clientDo;
-    short wCltPrgFunc[3];
-    short wStartSound;
-    short wStartSoundClass;
-    union
-    {
-        short sound;
-        short wDoSound;
-    };
-    unsigned char unk_102[0x4];
-    short wCastOverlay;
-    union
-    {
-        short targetOverlay;
-        short wTgtOverlay;
-    };
-    union
-    {
-        short targetSound;
-        short wTgtSound;
-    };
-    unsigned char unk_10C[0x16];
-    short wItemStartSound;
-    short wItemCastOverlay;
-    unsigned char unk_126[0x46];
-    short clientDoSecondary;
-    unsigned char unk_16E[0x21];
-    unsigned char nLineOfSight;
-    unsigned int delay;
-    char pad194[0xa8];
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x10];
-    unsigned int dwCode;
-    char unk0x014[0x1A8 - 0x14];
-};
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
@@ -445,7 +380,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
     }
 
     short nSound;
-    nSound = pSkillsTxtRecord->wStartSound;
+    nSound = pSkillsTxtRecord->wStSound;
     if (nOwnerGUID != -1 && pSkillsTxtRecord->wItemStartSound > 0)
     {
         nSound = pSkillsTxtRecord->wItemStartSound;
@@ -480,7 +415,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
 
     short nClassSound;
     nClassSound = pSkillsTxtRecord->wStartSoundClass;
-    if ((nOwnerGUID == -1 || pSkillsTxtRecord->wItemStartSound <= 0) && nClassSound > 0 && (!pUnit ? 6 : pUnit->dwUnitType) == 0 && (!pUnit ? -1 : pUnit->dwClassId) == pSkillsTxtRecord->nCharClass)
+    if ((nOwnerGUID == -1 || pSkillsTxtRecord->wItemStartSound <= 0) && nClassSound > 0 && (!pUnit ? 6 : pUnit->dwUnitType) == 0 && (!pUnit ? -1 : pUnit->dwClassId) == (unsigned char)pSkillsTxtRecord->nCharClass)
     {
         if (BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 13))
         {
@@ -735,7 +670,7 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
  if(!skill)return 0;
  if(skill->clientDo<0 || skill->clientDo>=gnClientDoCount)return 0;
  int result=0;
- if(skill->clientMissile>0){
+ if(skill->wAuraFunc>0){
   int x=0,y=0,targetX=0,targetY=0;
   if(mode){
    sub_004C52E0_GetTargetPosition(unit,&x,&y);
@@ -747,9 +682,9 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
    }
   }
   D2UnitStrc* missile;
-  if(skill->flags[0] & (unsigned char)gdwBitMasks[1])
-   missile=sub_004CDC30(unit,skill->clientMissile,x,y,targetX,targetY,skillId,skillLevel,0);
-  else missile=sub_004C57B0_FireMissileAtTarget(skill->clientMissile,unit,skillId,skillLevel,x,y,targetX,targetY);
+  if(skill->nFlags[0] & (unsigned char)gdwBitMasks[1])
+   missile=sub_004CDC30(unit,skill->wAuraFunc,x,y,targetX,targetY,skillId,skillLevel,0);
+  else missile=sub_004C57B0_FireMissileAtTarget(skill->wAuraFunc,unit,skillId,skillLevel,x,y,targetX,targetY);
   if(missile)result=1;
   if(unit)unit->dwFlags|=0x40;
  }
@@ -764,19 +699,19 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
  void* resource=D2Common_10958(unit,0);
  if(resource)sub_004743D0_ReleaseOverlayResource(resource);
  if(!result)return 0;
- if(skill->sound>0)sub_004B9A00(skill->sound,unit,0,0,0);
- if(skill->targetSound>0){
+ if(skill->wDoSound>0)sub_004B9A00(skill->wDoSound,unit,0,0,0);
+ if(skill->wTgtSound>0){
   D2UnitStrc* target=sub_004648F0_GetPathTargetUnit(unit);
-  if(target)sub_004B9A00(skill->targetSound,target,0,0,0);
+  if(target)sub_004B9A00(skill->wTgtSound,target,0,0,0);
  }
- if(skill->targetOverlay>0){
+ if(skill->wTgtOverlay>0){
   D2UnitStrc* target=sub_004648F0_GetPathTargetUnit(unit);
-  if(target)sub_00470390(target,skill->targetOverlay,2,0,0,0,0,0);
+  if(target)sub_00470390(target,skill->wTgtOverlay,2,0,0,0,0,0);
  }
- int delay=SKILLS_EvaluateSkillFormula(unit,skill->delay,skillId,skillLevel);
+ int delay=SKILLS_EvaluateSkillFormula(unit,skill->dwDelay,skillId,skillLevel);
  if(delay>0 && sub_00463DD0_GetPlayerUnit()==unit){
   if(delay>12)delay=12;
-  if(skill->animation!=18 || !(unit->dwSeqFrame & 0xffffff00))
+  if(skill->nAnim!=18 || !(unit->dwSeqFrame & 0xffffff00))
    sub_0044CE40(sub_0044DA90()+delay);
  }
  return 1;
@@ -805,17 +740,17 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
         return;
     }
 
-    if (pSkillsTxtRecord->wProgressiveState < 0 || pSkillsTxtRecord->wProgressiveState >= sgptDataTables->nStatesTxtRecordCount)
+    if (pSkillsTxtRecord->nAuraState < 0 || pSkillsTxtRecord->nAuraState >= sgptDataTables->nStatesTxtRecordCount)
     {
         return;
     }
 
-    if (pSkillsTxtRecord->wProgressiveStat < 0 || pSkillsTxtRecord->wProgressiveStat >= sgptDataTables->nItemStatCostTxtRecordCount)
+    if (pSkillsTxtRecord->wAuraStat[0] < 0 || pSkillsTxtRecord->wAuraStat[0] >= sgptDataTables->nItemStatCostTxtRecordCount)
     {
         return;
     }
 
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->wProgressiveState);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, pSkillsTxtRecord->nAuraState);
     if (!pStatList)
     {
         pStatList = STATLIST_AllocStatList(0, 0, 0, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
@@ -824,9 +759,9 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
             return;
         }
 
-        sub_006252D0(pStatList, pSkillsTxtRecord->wProgressiveState);
+        sub_006252D0(pStatList, pSkillsTxtRecord->nAuraState);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-        STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wProgressiveStat, nCharges, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wAuraStat[0], nCharges, 0);
     }
 
     int nTargetX;
@@ -856,29 +791,29 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
         {
             if (gpfnClientSkillDoFuncs_00727BA8[pSkillsTxtRecord->wCltPrgFunc[i]])
             {
-                STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wProgressiveStat, i + 1, 0);
+                STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wAuraStat[0], i + 1, 0);
                 gpfnClientSkillDoFuncs_00727BA8[pSkillsTxtRecord->wCltPrgFunc[i]](pUnit, nSkillId, nSkillLevel);
             }
         }
 
-        STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wProgressiveStat, nCharges + 1, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, pSkillsTxtRecord->wAuraStat[0], nCharges + 1, 0);
     }
 
     const short nFunc = pSkillsTxtRecord->wCltPrgFunc[nCharges];
     if (nFunc >= 0 && nFunc < gnClientSkillDoFuncs_00727DB0)
     {
-        if (pSkillsTxtRecord->wCltMissile > 0)
+        if (pSkillsTxtRecord->wAuraFunc > 0)
         {
             if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_LOB >> 3] & gdwBitMasks[SKILLSFLAGINDEX_LOB & 7])
             {
                 int nMissileX;
                 int nMissileY;
                 sub_004C52E0_GetTargetPosition(pUnit, &nMissileX, &nMissileY);
-                sub_004CDC30(pUnit, pSkillsTxtRecord->wCltMissile, 0, 0, nMissileX, nMissileY, nSkillId, nSkillLevel, 0);
+                sub_004CDC30(pUnit, pSkillsTxtRecord->wAuraFunc, 0, 0, nMissileX, nMissileY, nSkillId, nSkillLevel, 0);
             }
             else
             {
-                sub_004C5420_RequestAtTarget(pUnit, pSkillsTxtRecord->wCltMissile, nSkillId, nSkillLevel);
+                sub_004C5420_RequestAtTarget(pUnit, pSkillsTxtRecord->wAuraFunc, nSkillId, nSkillLevel);
             }
 
             pUnit->dwFlags |= 0x40;

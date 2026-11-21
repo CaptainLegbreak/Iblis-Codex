@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Path.h"
 #include "D2UnitData.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -14,36 +15,6 @@ struct D2StaticPathStrc;
 struct D2DirectionArgStrc;
 struct D2DifficultyLevelsTxt;
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    char unk0x004[8];
-    unsigned char nFlags[4];
-    char unk0x010[0x08];
-    short wMonStatsEx;
-    char unk0x01A[0x18];
-    short wVelocity;
-    char unk0x034[0x19];
-    unsigned char nMode4D;
-    unsigned char unk_4E[0x8];
-    short wAiParam[8][3];
-    unsigned char unk_86[0x24];
-    short wLevel[3];
-    char unk0x0B0[0x94];
-    short wResDm[3];
-    short wResMa[3];
-    short wResFi[3];
-    short wResLi[3];
-    short wResCo[3];
-    short wResPo[3];
-    char unk0x168[0x08];
-    short wSkill[8];
-    char nSkillMode[8];
-    char unk0x188[0x10];
-    char nSkLvl[8];
-    char unk0x1A0[0x08];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
@@ -52,12 +23,6 @@ unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); //
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x12C];
-};
 
 typedef char I07_check_unit_a[(I07_OFFSET(D2UnitStrc, pSeed) == 0x20 && I07_OFFSET(D2UnitStrc, pDynamicPath) == 0x2C) ? 1 : -1];
 
@@ -323,7 +288,7 @@ static __forceinline D2MonStats2Txt* sub_F4B0_GetMonStats2TxtFromMonsterId(int n
 static __forceinline unsigned int MONSTERS_GetFlagInline(D2UnitStrc* pUnit, int nFlag)
 {
     D2MonStatsTxt* pRecord=sub_F4B0_GetMonStatsTxt(pUnit->dwClassId);
-    if (pRecord) return pRecord->nFlags[nFlag>>3]&gdwBitMasks[nFlag&7];
+    if (pRecord) return pRecord->nMonStatsFlags[nFlag>>3]&gdwBitMasks[nFlag&7];
     return 0;
 }
 
@@ -354,7 +319,7 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     int nDifficulty = sub_0044DCD0_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 0x1F0);
     STATLIST_AllocStatListEx(pUnit,0,0,0);
-    STATLIST_SetUnitStat(pUnit,12,pMonStats->wLevel[nDifficulty],0);
+    STATLIST_SetUnitStat(pUnit,12,pMonStats->nLevel[nDifficulty],0);
     STATLIST_SetUnitStat(pUnit,0x44,100,0);
     STATLIST_SetUnitStat(pUnit,0x43,75,0);
     STATLIST_SetUnitStat(pUnit,0x45,100,0);
@@ -369,8 +334,8 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     STATLIST_SetUnitStat(pUnit,6,0x6400,0);
     PATH_AllocDynamicPath(0,pRoom,nX,nY,pUnit,1);
     D2DynamicPathStrc* pPath=pUnit->pDynamicPath;
-    PATH_SetVelocity(pPath,pMonStats->wVelocity<<8,gszMonsterFile_006DA5C8,0x208);
-    if (!pUnit->pInventory && ((pMonStats->nFlags[1]&gdwBitMasks[1]) || nClassId==0x123 || nClassId==0x165 || nClassId==0x1A1 || nClassId==0x1A2))
+    PATH_SetVelocity(pPath,pMonStats->nVelocity<<8,gszMonsterFile_006DA5C8,0x208);
+    if (!pUnit->pInventory && ((pMonStats->nMonStatsFlags[1]&gdwBitMasks[1]) || nClassId==0x123 || nClassId==0x165 || nClassId==0x1A1 || nClassId==0x1A2))
         pUnit->pInventory=INVENTORY_AllocInventory(0,pUnit);
     UNITS_ChangeAnimMode(pUnit,nMode);
     if (MONSTERS_IsDead(pUnit) && !(pMonStats2->nFlags[2]&gdwBitMasks[3]))
@@ -393,10 +358,10 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     int nSkillBonus=pDiff->nMonsterSkillBonus;
     for (int i=0;i<8;++i)
     {
-        if(pMonStats->wSkill[i]>=0 && pMonStats->nSkLvl[i]>0)
+        if(pMonStats->nSkill[i]>=0 && pMonStats->nSkLvl[i]>0)
         {
-            SKILLS_AssignSkill(pUnit,pMonStats->wSkill[i],pMonStats->nSkLvl[i]+nSkillBonus,1,gszMonsterFile_006DA5C8,0x23F);
-            sub_00644340_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit,pMonStats->wSkill[i]),pMonStats->nSkillMode[i]);
+            SKILLS_AssignSkill(pUnit,pMonStats->nSkill[i],pMonStats->nSkLvl[i]+nSkillBonus,1,gszMonsterFile_006DA5C8,0x23F);
+            sub_00644340_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit,pMonStats->nSkill[i]),(char)pMonStats->nSkillMode[i]);
         }
     }
     sub_0063EBC0(pUnit,nSkillBonus);
@@ -458,9 +423,9 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
         return;
     }
 
-    PATH_SetVelocity(pPath, pMonStatsTxtRecord->wVelocity << 8, ".\\UNIT\\Monster.cpp", 0x2B8);
+    PATH_SetVelocity(pPath, pMonStatsTxtRecord->nVelocity << 8, ".\\UNIT\\Monster.cpp", 0x2B8);
     sub_00649FF0(pUnit, 0);
-    if ((pMonStatsTxtRecord->nFlags[9 >> 3] & gdwBitMasks[9 & 7]) && !pUnit->pInventory)
+    if ((pMonStatsTxtRecord->nMonStatsFlags[9 >> 3] & gdwBitMasks[9 & 7]) && !pUnit->pInventory)
     {
         pUnit->pInventory = INVENTORY_AllocInventory(0, pUnit);
     }
@@ -517,13 +482,13 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
     pUnit->pSkills = SKILLS_AllocSkillList(0);
     for (int i = 0; i < 8; ++i)
     {
-        if (pMonStatsTxtRecord->wSkill[i] >= 0)
+        if (pMonStatsTxtRecord->nSkill[i] >= 0)
         {
-            SKILLS_AssignSkill(pUnit, pMonStatsTxtRecord->wSkill[i], pMonStatsTxtRecord->nSkLvl[i], 0, ".\\UNIT\\Monster.cpp", 0x2EA);
+            SKILLS_AssignSkill(pUnit, pMonStatsTxtRecord->nSkill[i], pMonStatsTxtRecord->nSkLvl[i], 0, ".\\UNIT\\Monster.cpp", 0x2EA);
         }
     }
 
-    if (!(pMonStatsTxtRecord->nFlags[8 >> 3] & gdwBitMasks[8 & 7]))
+    if (!(pMonStatsTxtRecord->nMonStatsFlags[8 >> 3] & gdwBitMasks[8 & 7]))
     {
         PATH_SetDirection(pPath, (unsigned int)sub_I07_SeedRoll(&pUnit->pSeed) & 0x3F);
     }

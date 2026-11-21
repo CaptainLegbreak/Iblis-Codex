@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
 #include "D2TxtTables.h"
+#include "D2ClientGfx.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -11,11 +12,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-struct D2GfxMotionStrc
-{
-    unsigned char nFlags0 : 5;
-    unsigned char bFlag5 : 1;
-};
 
 struct D2GfxNodeStrc
 {

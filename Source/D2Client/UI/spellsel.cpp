@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 
@@ -24,13 +25,6 @@ struct D2SpellSelSlotsStrc
 #pragma pack(pop)
 
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x05];
-    char nListRow;
-    unsigned char nListPool;
-    char unk0x07[0x120 - 0x07];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
@@ -129,7 +123,7 @@ void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int 
             {
                 if (bItem)
                     continue;
-                if (nRow != pSkillDescTxt->nListRow)
+                if (nRow != (char)pSkillDescTxt->nListRow)
                     continue;
             }
             else if (!bItem)

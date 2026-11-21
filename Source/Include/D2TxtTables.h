@@ -106,7 +106,20 @@ struct D2BooksTxt
 struct D2OverlayTxt
 {
     unsigned short wOverlay; // 0x00
-    char szFilename[130]; // 0x02
+    union
+    {
+        char szFilename[130]; // 0x02
+        struct
+        {
+            char unk0x02[0x7A]; // 0x02
+            unsigned char nTrans; // 0x7C
+            unsigned char nRed; // 0x7D
+            unsigned char nGreen; // 0x7E
+            unsigned char nBlue; // 0x7F
+            unsigned char nNumDirections; // 0x80
+            unsigned char nLocalBlood; // 0x81
+        };
+    };
 };
 
 struct D2MonUModTxt

@@ -9,6 +9,7 @@ struct D2RosterInfoStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
 struct D2WeatherSplashStrc;
+struct T00473470;
 struct Unicode;
 struct D2ClientSoundStrc;
 struct SMSGHANDLER_PARAMS;
@@ -85,7 +86,11 @@ struct D2WeatherStrc
     int nLastParticle; // 0x110
     int nCount; // 0x114
     int unk0x118; // 0x118
-    D2WeatherSplashStrc* pRecords; // 0x11C
+    union
+    {
+        D2WeatherSplashStrc* pRecords; // 0x11C
+        T00473470* pParticles; // 0x11C
+    };
 };
 
 struct D2SoundNodeStrc

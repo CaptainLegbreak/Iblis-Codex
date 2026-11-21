@@ -4,6 +4,8 @@
 #include "D2LevelTxt.h"
 #include "D2ClientGame.h"
 #include "D2Records.h"
+#include "D2Path.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -29,87 +31,8 @@ struct D2ItemsTxt;
 struct D2PathPointStrc;
 struct D2ScatterRateStrc;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x58];
-    int dwAuraRangeCalc;
-    unsigned char unk_68[0x82];
-    short wCltMissileA;
-    short wCltMissileB;
-    char unk0xEE[0x26];
-    int dwCltCalc[3];
-    unsigned char unk_120[0x2];
-    short wItemCastSound;
-    short wItemCastOverlay;
-    unsigned char unk_126[0x12];
-    int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x12];
-    short wTravelSound;
-    char unk0x14[0x0A];
-    union
-    {
-        struct
-        {
-            short wCltSubMissile[3];
-        };
-        struct
-        {
-            short wSubMissile1;
-            short wSubMissile2;
-            short wSubMissile3;
-        };
-    };
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    short wProgOverlay;
-    int dwParam[5];
-    char unk0x4C[0x0C];
-    union
-    {
-        struct
-        {
-            int dwCltParam[5];
-        };
-        struct
-        {
-            int nParam1;
-            int nParam2;
-        };
-    };
-    int dwCltHitPar[3];
-    char unk0x78[0x1E];
-    short wRange;
-    unsigned char unk_98[0x94];
-    unsigned char nCltSrcTown;
-    char unk0x12D[0x08];
-    unsigned char nInitSteps;
-    unsigned char nActivate;
-    unsigned char nLoopAnim;
-    char unk0x138[0x40];
-    unsigned char nAnimLen;
-    char unk0x179[0x07];
-    unsigned char nSubLoop;
-    unsigned char nSubStart;
-    unsigned char nSubStop;
-    char unk0x183[0x02];
-    unsigned char nClientCol;
-    char unk0x186[0x1E];
-};
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -261,17 +184,7 @@ struct D2CltRateStrc
     int nValue;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x116];
-    unsigned char nArmorComp[6];
-};
 
 extern const D2CltRateStrc gaCltRates_006DB848[6]; // 0x006DB848
 extern const int gaQuadOffsetY_006DB7D0[4]; // 0x006DB7D0
@@ -316,11 +229,6 @@ void __fastcall sub_004CE140_SpawnRingAround(D2UnitStrc* pMissile, int nArg1, in
 D2UnitStrc* __fastcall sub_004639B0_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 struct D2CltMissileFindArgStrc
 {
@@ -410,7 +318,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -423,7 +331,7 @@ __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }
@@ -533,7 +441,7 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
 
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -546,7 +454,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
 
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -595,9 +503,9 @@ int __fastcall sub_004CA060(D2UnitStrc* pUnit, int nSkillId, int nArg, D2UnitStr
         }
     }
 
-    if (pSkillsTxtRecord->wItemCastSound >= 0)
+    if (pSkillsTxtRecord->wItemStartSound >= 0)
     {
-        sub_004B9A00(pSkillsTxtRecord->wItemCastSound, pUnit, 0, 0, 0);
+        sub_004B9A00(pSkillsTxtRecord->wItemStartSound, pUnit, 0, 0, 0);
     }
 
     if (pSkillsTxtRecord->wItemCastOverlay >= 0 && pSkillsTxtRecord->wItemCastOverlay < sgptDataTables->nOverlayTxtRecordCount)
@@ -819,9 +727,9 @@ void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile)
     }
 
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile->dwClassId);
-    if (pMissilesTxtRecord && pMissilesTxtRecord->wTravelSound >= 0)
+    if (pMissilesTxtRecord && (short)pMissilesTxtRecord->wTravelSound >= 0)
     {
-        void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pMissile, pMissilesTxtRecord->wTravelSound);
+        void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pMissile, (short)pMissilesTxtRecord->wTravelSound);
         if (pUnitSfx)
         {
             sub_004BA790_ReleaseUnitSfx(pUnitSfx, pMissile, 0);
@@ -1430,7 +1338,7 @@ void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile)
     for (;;)
     {
         const int bActive = sub_0064A380_GetRemainingFrames(pMissile) <= sub_0064A640(pMissile);
-        if (bActive && sub_0064A3B0_GetElapsedFrames(pMissile) > pMissilesTxtRecord->nInitSteps)
+        if (bActive && sub_0064A3B0_GetElapsedFrames(pMissile) > pMissilesTxtRecord->nCanDestroy)
             pMissile->dwFlagEx &= ~0x40000;
         if (!sub_004DA6B0_TestMotionFlags(pMissile))
         {
@@ -1628,7 +1536,7 @@ void __fastcall sub_004D38D0_CltDoTimedSubMissile(D2UnitStrc* pMissile)
         return;
     }
 
-    if (sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nInitSteps && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nCanDestroy && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
     {
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));
@@ -1996,7 +1904,7 @@ void __fastcall sub_004D44B0_CltDoBurst(D2UnitStrc* pMissile)
 void __fastcall sub_004D4590_CltDoCopySubMissile(D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
-    if (pMissilesTxtRecord && pMissilesTxtRecord->wCltSubMissile[0] >= 0 && sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nInitSteps && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
+    if (pMissilesTxtRecord && pMissilesTxtRecord->wCltSubMissile[0] >= 0 && sub_0064A3B0_GetElapsedFrames(pMissile) >= pMissilesTxtRecord->nCanDestroy && sub_006505C0_TestPathFlag8(pMissile->pDynamicPath))
     {
         int nX = CLIENTS_GetUnitX(pMissile);
         int nY = CLIENTS_GetUnitY(pMissile);
@@ -2163,18 +2071,18 @@ void __fastcall sub_004D5310_CltDoSubMissiles(D2UnitStrc* pMissile)
     }
 
     const int nFrame = sub_0064A3B0_GetElapsedFrames(pMissile);
-    if (pMissilesTxt->wSubMissile1 > 0 && nFrame > 10)
+    if (pMissilesTxt->wCltSubMissile[0] > 0 && nFrame > 10)
     {
-        sub_004CE850_SpawnPeriodicMissile(pOwner, pMissile, pMissilesTxt->wSubMissile1, nFrame, sub_004CC950_GetSubMissileCount(pMissilesTxt, nFrame));
+        sub_004CE850_SpawnPeriodicMissile(pOwner, pMissile, pMissilesTxt->wCltSubMissile[0], nFrame, sub_004CC950_GetSubMissileCount(pMissilesTxt, nFrame));
     }
 
-    const int nPeriod = pMissilesTxt->nParam1 < 1 ? 1 : pMissilesTxt->nParam1;
-    if (pMissilesTxt->wSubMissile2 > 0 && !(nFrame % nPeriod))
+    const int nPeriod = pMissilesTxt->dwCltParam[0] < 1 ? 1 : pMissilesTxt->dwCltParam[0];
+    if (pMissilesTxt->wCltSubMissile[1] > 0 && !(nFrame % nPeriod))
     {
-        sub_004CE530_SpawnSubMissile(pOwner, pMissilesTxt->wSubMissile2, 0x14, pMissile);
+        sub_004CE530_SpawnSubMissile(pOwner, pMissilesTxt->wCltSubMissile[1], 0x14, pMissile);
     }
 
-    const int nParam = pMissilesTxt->nParam2;
+    const int nParam = pMissilesTxt->dwCltParam[1];
     if (nParam > 0 && nFrame == 90)
     {
         const int nA = nParam / 3;
@@ -2183,9 +2091,9 @@ void __fastcall sub_004D5310_CltDoSubMissiles(D2UnitStrc* pMissile)
         sub_00476A80_StartTiming(8, nTimeA, nTimeB, nTimeA);
     }
 
-    if (pMissilesTxt->wSubMissile3 > 0 && (unsigned int)(nFrame - 0x74) <= 0xC6)
+    if (pMissilesTxt->wCltSubMissile[2] > 0 && (unsigned int)(nFrame - 0x74) <= 0xC6)
     {
-        sub_004CECC0(pOwner, pMissile, pMissilesTxt->wSubMissile3, nFrame);
+        sub_004CECC0(pOwner, pMissile, pMissilesTxt->wCltSubMissile[2], nFrame);
     }
 
     sub_004D30C0_CltDoCommon(pMissile);

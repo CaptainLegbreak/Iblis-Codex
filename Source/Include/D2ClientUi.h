@@ -106,8 +106,8 @@ struct D2OptionEntryStrc
     unsigned int nValue; // 0x124
     int bEnabled; // 0x128
     char szValueCels[4][260]; // 0x12C
-    void* pCel; // 0x53C
-    void* pValueCels[4]; // 0x540
+    D2CelFileStrc* pCel; // 0x53C
+    D2CelFileStrc* pValueCels[4]; // 0x540
 };
 
 struct D2DialogLineStrc

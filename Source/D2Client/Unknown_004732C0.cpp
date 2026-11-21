@@ -1,34 +1,11 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientGame.h"
 struct D2ActiveRoomStrc;
 
 
 
-struct D2WeatherDropStrc
-{
-    short bActive;
-    short unk0x02;
-    int nX;
-    int nY;
-    int nYEnd;
-    int nParam;
-    int nParam2;
-    int nFrame;
-    int bDrop;
-    int nType;
-    unsigned char nColor;
-    unsigned char nAlpha;
-    short unk0x26;
-};
 
-struct D2WeatherStrc
-{
-    char unk0x000[0x110];
-    int nLastParticle;
-    int nCount;
-    char unk0x118[0x04];
-    D2WeatherDropStrc* pParticles;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -143,7 +120,7 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
         return;
     }
 
-    D2WeatherDropStrc* pParticle = &gpWeather_007A8A04->pParticles[(short)(nRecord >> 0x10)];
+    T00473470* pParticle = &gpWeather_007A8A04->pParticles[(short)(nRecord >> 0x10)];
     pParticle->bDrop = 0;
     pParticle->nX = sub_00472280(pSeed, 0, gnGlobal_0071146C);
     pParticle->nYEnd = sub_00472280(pSeed, 0x28, gnGlobal_00711470 - 0x57);
@@ -215,7 +192,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
         fScale = (float)(gfPhaseLevel_007A89A0 * (double)0.15f + (double)0.85f);
     }
 
-    D2WeatherDropStrc* pParticle = gpWeather_007A8A04->pParticles;
+    T00473470* pParticle = gpWeather_007A8A04->pParticles;
     for (int i = 0; i <= gpWeather_007A8A04->nLastParticle; ++i, ++pParticle)
     {
         if (!pParticle->bActive)

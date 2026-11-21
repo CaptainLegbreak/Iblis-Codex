@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define UNIT_MONSTER 1
 #define FIELD_OFFSET(T,F) ((unsigned long)&(((T*)0)->F))
@@ -18,12 +19,6 @@ struct UnitView;
 struct TablesView;
 
 
-struct D2MonsterDataStrc
-{
-    char pad0x00[0x16];
-    unsigned short nTypeFlag;
-    int nSpawnCount;
-};
 
 void __fastcall sub_0046F170_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
@@ -170,12 +165,12 @@ void __fastcall sub_004AD5F0_StateOverlayOrSpawn(D2UnitStrc* pUnit, int nState, 
     }
     else if (pUnit->dwAnimMode == MONMODE_DEAD)
     {
-        if ((unsigned int)SEED_RollRandomNumberForceInline(&pUnit->pSeed) % 100 == 0 && pMonsterData->nSpawnCount < 100)
+        if ((unsigned int)SEED_RollRandomNumberForceInline(&pUnit->pSeed) % 100 == 0 && (int)pMonsterData->dwDurielFlag < 100)
         {
             CLIENTS_GetUnitX(pUnit);
             CLIENTS_GetUnitY(pUnit);
             sub_0046C320_SpawnAroundUnit(pUnit, 0xE3, 4);
-            pMonsterData->nSpawnCount += 4;
+            pMonsterData->dwDurielFlag += 4;
         }
     }
 }

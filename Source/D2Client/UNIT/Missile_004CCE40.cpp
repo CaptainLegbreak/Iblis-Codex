@@ -4,32 +4,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 
 
 
-typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[7];
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 
 
@@ -143,7 +123,7 @@ int __fastcall sub_004CCE40_HitSpiralGrid(D2UnitStrc* pMissile, D2UnitStrc* pUni
     tMissileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
     if (pMissilesTxtRecord->dwCltHitPar[1])
     {
-        tMissileParams.pInitFunc = sub_004E2ED0_VolleyCallback;
+        tMissileParams.pInitFunc = (MissileInitFunc)sub_004E2ED0_VolleyCallback;
     }
     sub_004C71F0(pMissilesTxtRecord->dwCltHitPar[0], &tMissileParams);
     return 1;

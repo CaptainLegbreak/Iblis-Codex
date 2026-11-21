@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 #include "D2ClientGfx.h"
 
 #define UNIT_INVALID 6
@@ -39,28 +40,7 @@ void __fastcall sub_004D85C0_SkillSeqDo0(D2UnitStrc* pUnit, int nArg); // 0x004D
 D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
-typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[7];
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 struct D2CltMissileSpawnArgStrc
 {

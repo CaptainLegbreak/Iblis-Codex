@@ -2,6 +2,8 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Txt.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 union D2SeedStrc;
@@ -13,51 +15,6 @@ struct D2MissileScanArgStrc;
 struct D2MissileScanStateStrc;
 struct D2SkillsTxt;
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x0A];
-    short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wSound;
-    unsigned char unk_20[0x4];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    short wProgOverlay;
-    unsigned char unk_36[0x2];
-    int dwParam[5];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    int dwCltHitPar[3];
-    char unk0x78[0x1E];
-    short wRange;
-    short wLevRange;
-    unsigned char nVel;
-    unsigned char nVelLev;
-    unsigned char nMaxVel;
-    char unk0x09D;
-    short wAccel;
-    char unk0x0A0[0x90];
-    unsigned char nLight;
-    unsigned char nFlicker;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nCanDestroy;
-    unsigned char nActivate;
-    char unk0x137[0x41];
-    unsigned char nAnimLen;
-    char unk0x179[0x07];
-    unsigned char nSubLoop;
-    unsigned char nSubStart;
-    unsigned char nSubStop;
-    char unk0x183[0x1E];
-    unsigned char nAnimSpeed;
-    char unk0x1A2[0x02];
-};
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
 
@@ -134,33 +91,7 @@ void __stdcall MISSILE_SetOwner(D2UnitStrc* pMissile, D2UnitStrc* pOwner); // 0x
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 static __declspec(noinline) void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile);
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nXPos;
-            int nYPos;
-        };
-        struct
-        {
-            int nX;
-            int nY;
-        };
-    };
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
@@ -202,16 +133,6 @@ struct D2MissileScanStateStrc
     D2MissileScanArgStrc* pScanArg;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    char unk0x054[0x10];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0xD0];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
@@ -270,7 +191,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
 
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(MISSILE_GetClassId(pMissile));
-    if (!(pMissilesTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7]))
+    if (!(pMissilesTxtRecord->nMissileFlags[2 >> 3] & gdwBitMasks[2 & 7]))
     {
         return;
     }
@@ -377,7 +298,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         : (pMissilesTxtRecord->nVel + (pMissilesTxtRecord->nVelLev * pMissileParams->nSkillLevel) / 8) << 8;
 
     int nVelocityPercent = 100;
-    if (pMissileParams->pOwner && (pMissilesTxtRecord->nFlags[3 >> 3] & gdwBitMasks[3 & 7])
+    if (pMissileParams->pOwner && (pMissilesTxtRecord->nMissileFlags[3 >> 3] & gdwBitMasks[3 & 7])
         && STATES_CheckState(pMissileParams->pOwner, 0x57))
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);
@@ -579,7 +500,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 
     if (pMissilesTxtRecord->wTravelSound)
     {
-        const int nSound = pMissilesTxtRecord->wTravelSound;
+        const int nSound = (short)pMissilesTxtRecord->wTravelSound;
         if (nSound)
         {
             sub_004B9A00(nSound, pMissile, 0, 0, 0);
@@ -839,14 +760,14 @@ void __fastcall sub_004CE850_SpawnPeriodicMissile(D2UnitStrc* pOwner, D2UnitStrc
         return;
     }
 
-    if (pMissilesTxtRecord->wSound > 0)
+    if (pMissilesTxtRecord->wCltSubMissile[0] > 0)
     {
-        sub_004CE650_SpawnScatterMissiles(pOwner, pUnit, pMissilesTxtRecord->wSound, nLevel);
+        sub_004CE650_SpawnScatterMissiles(pOwner, pUnit, pMissilesTxtRecord->wCltSubMissile[0], nLevel);
     }
 
-    if (pMissilesTxtRecord->wProgOverlay > 0 && nFrame == 315)
+    if (pMissilesTxtRecord->wProgSound > 0 && nFrame == 315)
     {
-        sub_004B9A00_PlayOverlay(pMissilesTxtRecord->wProgOverlay, pOwner, 0, 0, 0);
+        sub_004B9A00_PlayOverlay(pMissilesTxtRecord->wProgSound, pOwner, 0, 0, 0);
     }
 
     if (nFrame % 2 != 0)
@@ -1126,7 +1047,7 @@ static __forceinline int GetX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         if (pUnit->pDynamicPath)
             return PATH_GetXPosition(pUnit->pDynamicPath);
@@ -1141,7 +1062,7 @@ static __forceinline int GetY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         if (pUnit->pDynamicPath)
             return PATH_GetYPosition(pUnit->pDynamicPath);

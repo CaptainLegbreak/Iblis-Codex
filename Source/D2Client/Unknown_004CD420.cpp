@@ -2,37 +2,11 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 struct D2GfxLightStrc;
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    unsigned char nLightRadius;
-    char unk0x51[0x03];
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
@@ -422,7 +396,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 
     if (gnValue_0072A348 && !(pMissileParams->dwFlags & 0x4000))
     {
-        if (pMissilesTxtRecord->nLight || pMissileParams->nLightRadius)
+        if (pMissilesTxtRecord->nLight || (unsigned char)pMissileParams->nLightRadius)
         {
             sub_00464930_FreeLight(pMissile);
             pMissile->pLight = sub_00474160_MakeLightEntry(pMissile, 1, pMissilesTxtRecord->nLight, 0xFF,
@@ -436,7 +410,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 
     if (pMissileParams->pInitFunc)
     {
-        pMissileParams->pInitFunc(pMissile, pMissileParams->pInitArgs);
+        pMissileParams->pInitFunc(pMissile, pMissileParams->nInitArg);
     }
 
     if (pMissilesTxtRecord->wTravelSound)
