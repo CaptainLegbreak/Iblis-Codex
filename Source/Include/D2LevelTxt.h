@@ -106,11 +106,6 @@ struct D2DifficultyLevelsTxt
     int unk0x38; // 0x38
     int nMonsterCEDamagePercent; // 0x3C
     int dwStaticFieldMin; // 0x40
-    int nGambleRare; // 0x44
-    int nGambleSet; // 0x48
-    int nGambleUnique; // 0x4C
-    int nGambleUber; // 0x50
-    int nGambleUltra; // 0x54
 };
 
 struct D2UniqueItemsTxt
@@ -118,8 +113,7 @@ struct D2UniqueItemsTxt
     short wId; // 0x00
     char szName[32]; // 0x02
     unsigned short wTblIndex; // 0x22
-    unsigned short wVersion; // 0x24
-    unsigned short unk0x26; // 0x26
+    int unk0x24; // 0x24
     unsigned int dwCode; // 0x28
     unsigned char nUniqueItemFlags[4]; // 0x2C
     int nRarity; // 0x30
@@ -261,7 +255,7 @@ struct D2PetTypeTxt
 
 D2_CHECK_SIZE(D2LevelsTxt, 0x220);
 D2_CHECK_SIZE(D2LvlPrestTxt, 0x1B0);
-D2_CHECK_SIZE(D2DifficultyLevelsTxt, 0x58);
+D2_CHECK_SIZE(D2DifficultyLevelsTxt, 0x44);
 D2_CHECK_SIZE(D2UniqueItemsTxt, 0x14C);
 D2_CHECK_SIZE(D2SuperUniquesTxt, 0x34);
 D2_CHECK_SIZE(D2HirelingTxt, 0x118);

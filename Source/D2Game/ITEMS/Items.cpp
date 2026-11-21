@@ -803,7 +803,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
   for(int i=0;i<sgptDataTables->nUniqueItemsTxtRecordCount;++i)
   {
    D2UniqueItemsTxt* pRecord=&sgptDataTables->pUniqueItemsTxt[i];
-   if(pRecord->wVersion<100)
+   if(*(unsigned short*)&pRecord->unk0x24<100)
    {
     if(pRecord->nUniqueItemFlags[0]&gdwBitMasks[0])
     {
@@ -830,7 +830,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
  int nSelected=-1;
  for(int i=0;i<sgptDataTables->nUniqueItemsTxtRecordCount;++i,++pUnique)
  {
-  if(pUnique->wVersion>=100 && nFormat<100) continue;
+  if(*(unsigned short*)&pUnique->unk0x24>=100 && nFormat<100) continue;
   if(!(pUnique->nUniqueItemFlags[0]&gdwBitMasks[0]) || pItemsTxtRecord->dwCode!=pUnique->dwCode) continue;
   if(!*pnGameType && !pGame->dwGameType && (pUnique->nUniqueItemFlags[0]&gdwBitMasks[3])) continue;
   if(*(short*)&pUnique->nLevel>ITEMS_GetItemLevel(pItem)) continue;
