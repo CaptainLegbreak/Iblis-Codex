@@ -63491,9 +63491,34 @@
      "name": "?sub_005940A0_ACT1Q4_RemovePlayerGUID@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00594360",
+     "length": 79,
+     "name": "ACT1Q4_GetCainPortalInTownCoordinates"
+    },
+    {
      "va": "0x00594630",
      "length": 159,
      "name": "?sub_00594630_QuestGoldDrop@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005946D0",
+     "length": 33,
+     "name": "sub_005946D0_SetA1Q4Unk0xB0"
+    },
+    {
+     "va": "0x00596BC0",
+     "length": 128,
+     "name": "ACT1Q7_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005985B0",
+     "length": 15,
+     "name": "sub_005985B0_StatusFilterCallback"
+    },
+    {
+     "va": "0x00598780",
+     "length": 40,
+     "name": "ACT2Q0_ActiveFilterCallback"
     },
     {
      "va": "0x005994F0",
@@ -63514,6 +63539,16 @@
      "va": "0x00599BF0",
      "length": 18,
      "name": "?sub_00599BF0_HasNoHoradricStaff@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00599C10",
+     "length": 220,
+     "name": "?OBJECTS_OperateFunction40_HoradricScrollChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x00599DF0",
+     "length": 232,
+     "name": "?OBJECTS_OperateFunction39_HoradricCubeChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
      "va": "0x00599EE0",
@@ -63541,9 +63576,29 @@
      "name": "?ACT2Q3_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x0059A040",
+     "length": 105,
+     "name": "?ACT2Q3_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059A0B0",
+     "length": 72,
+     "name": "?ACT2Q3_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x0059A100",
      "length": 108,
      "name": "?ACT2Q3_UnitIterate_UpdateClient@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059A170",
+     "length": 75,
+     "name": "ACT2Q3_UnitIterate_SendPacket0x53ToClient"
+    },
+    {
+     "va": "0x0059A1C0",
+     "length": 165,
+     "name": "ACT2Q3_ActiveFilterCallback"
     },
     {
      "va": "0x0059A350",
@@ -63561,6 +63616,50 @@
      "name": "?sub_0059A3F0@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
     },
     {
+     "va": "0x0059A480",
+     "length": 102,
+     "name": "?sub_0059A480_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059A4F0",
+     "length": 127,
+     "name": "?ACT2Q3_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059A570",
+     "length": 95,
+     "name": "?sub_0059A570_StartDarknessForPlayer@@YGXPAUD2UnitStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059A5D0",
+     "length": 165
+    },
+    {
+     "va": "0x0059A680",
+     "length": 124,
+     "name": "?ACT2Q3_UnitIterate_SetRewardPending@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059A700",
+     "length": 43,
+     "name": "?ACT2Q3_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059A730",
+     "length": 54,
+     "name": "?ACT2Q3_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059A770",
+     "length": 97,
+     "name": "?ACT2Q3_UnitIterate_DetermineViperAmuletDropCount@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059A7E0",
+     "length": 1086,
+     "name": "?OBJECTS_OperateFunction24_TaintedSunAltar@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
      "va": "0x0059AC20",
      "length": 31,
      "name": "?sub_0059AC20_ACT2Q3_IsDoneOrInactive@@YI_NPAUD2GameStrc@@@Z"
@@ -63569,6 +63668,30 @@
      "va": "0x0059AC40",
      "length": 55,
      "name": "?sub_0059AC40@@YIXPAUD2GameStrc@@E@Z"
+    },
+    {
+     "va": "0x0059BB40",
+     "length": 113,
+     "name": "ACT2Q5_ActiveFilterCallback"
+    },
+    {
+     "va": "0x0059BE70",
+     "length": 248,
+     "name": "ACT2Q5_UnitIterate_SetPrimaryGoalDone"
+    },
+    {
+     "va": "0x0059DF30",
+     "length": 31,
+     "name": "ACT2Q6_UnitIterate_CheckDistanceToTyrael"
+    },
+    {
+     "va": "0x0059E4B0",
+     "length": 126,
+     "name": "ACT2Q8_ActiveFilterCallback"
+    },
+    {
+     "va": "0x0059EBE0",
+     "length": 412
     },
     {
      "va": "0x0059ED80",
@@ -63776,87 +63899,6 @@
      "va": "0x0059D870",
      "length": 349,
      "name": "?ACT2Q6_Timer_UpdateObjects@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q3_00594360.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00594360",
-     "length": 79,
-     "name": "ACT1Q4_GetCainPortalInTownCoordinates"
-    },
-    {
-     "va": "0x005946D0",
-     "length": 33,
-     "name": "sub_005946D0_SetA1Q4Unk0xB0"
-    },
-    {
-     "va": "0x00596BC0",
-     "length": 128,
-     "name": "ACT1Q7_ActiveFilterCallback"
-    },
-    {
-     "va": "0x005985B0",
-     "length": 15,
-     "name": "sub_005985B0_StatusFilterCallback"
-    },
-    {
-     "va": "0x00598780",
-     "length": 40,
-     "name": "ACT2Q0_ActiveFilterCallback"
-    },
-    {
-     "va": "0x00599C10",
-     "length": 220,
-     "name": "?OBJECTS_OperateFunction40_HoradricScrollChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x00599DF0",
-     "length": 232,
-     "name": "?OBJECTS_OperateFunction39_HoradricCubeChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x0059A170",
-     "length": 75,
-     "name": "ACT2Q3_UnitIterate_SendPacket0x53ToClient"
-    },
-    {
-     "va": "0x0059A1C0",
-     "length": 165,
-     "name": "ACT2Q3_ActiveFilterCallback"
-    },
-    {
-     "va": "0x0059A480",
-     "length": 102,
-     "name": "?sub_0059A480_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0059A7E0",
-     "length": 1086,
-     "name": "?OBJECTS_OperateFunction24_TaintedSunAltar@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x0059BB40",
-     "length": 113,
-     "name": "ACT2Q5_ActiveFilterCallback"
-    },
-    {
-     "va": "0x0059BE70",
-     "length": 248,
-     "name": "ACT2Q5_UnitIterate_SetPrimaryGoalDone"
-    },
-    {
-     "va": "0x0059DF30",
-     "length": 31,
-     "name": "ACT2Q6_UnitIterate_CheckDistanceToTyrael"
-    },
-    {
-     "va": "0x0059E4B0",
-     "length": 126,
-     "name": "ACT2Q8_ActiveFilterCallback"
     }
    ]
   },
@@ -64456,77 +64498,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a2q3_0059A040.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059A040",
-     "length": 105,
-     "name": "?ACT2Q3_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059A0B0",
-     "length": 72,
-     "name": "?ACT2Q3_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059A4F0",
-     "length": 127,
-     "name": "?ACT2Q3_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059A570",
-     "length": 95,
-     "name": "?sub_0059A570_StartDarknessForPlayer@@YGXPAUD2UnitStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0059A680",
-     "length": 124,
-     "name": "?ACT2Q3_UnitIterate_SetRewardPending@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059A700",
-     "length": 43,
-     "name": "?ACT2Q3_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0059A730",
-     "length": 54,
-     "name": "?ACT2Q3_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059A770",
-     "length": 97,
-     "name": "?ACT2Q3_UnitIterate_DetermineViperAmuletDropCount@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q3_0059A5D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059A5D0",
-     "length": 165
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0059AD40.cpp",
    "rank": 0,
    "functions": [
@@ -65082,30 +65053,6 @@
      "length": 273,
      "name": "?sub_0059E850@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q3_0059EBE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059EBE0",
-     "length": 412
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
