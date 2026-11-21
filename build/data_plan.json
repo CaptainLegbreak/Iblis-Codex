@@ -2019,7 +2019,6 @@
     "extern \"C\" void __cdecl sub_0047AA60_OnImeComposition(); // 0x0047AA60",
     "extern \"C\" void __cdecl sub_0047ACA0_ResetSelectionMsg2(); // 0x0047ACA0",
     "extern \"C\" void __cdecl sub_0047AD10_ResetSelectionMsg(); // 0x0047AD10",
-    "extern \"C\" void __cdecl sub_0047AE00(); // 0x0047AE00",
     "extern \"C\" void __cdecl sub_0047B070_SetHandled(); // 0x0047B070",
     "extern \"C\" void __cdecl sub_0047BC70_LowClickMsg(); // 0x0047BC70",
     "extern \"C\" void __cdecl sub_0047BCA0_ChatKeyDown(); // 0x0047BCA0",
@@ -47207,7 +47206,7 @@
     [
      8,
      "0x0047AE00",
-     "source",
+     "owner",
      "sub_0047AE00",
      0,
      "func"
