@@ -65822,11 +65822,6 @@
      "name": "sub_005C3D50_IsValidTerrorTarget"
     },
     {
-     "va": "0x005C6BF0",
-     "length": 86,
-     "name": "sub_005C6BF0_GetConvertedMode"
-    },
-    {
      "va": "0x005D8510",
      "length": 90,
      "name": "SKILLS_Callback_FindTargetForTaunt"
@@ -67096,6 +67091,11 @@
      "va": "0x005C6A80",
      "length": 367,
      "name": "SKILLS_SrvDo115_Vines"
+    },
+    {
+     "va": "0x005C6BF0",
+     "length": 86,
+     "name": "sub_005C6BF0_GetConvertedMode"
     },
     {
      "va": "0x005C6CB0",
