@@ -368,6 +368,14 @@ static __forceinline D2UnitStrc* INVENTORY_GetBodyLocItemInline(D2InventoryStrc*
 
 D2UnitStrc* __stdcall INVENTORY_GetEquippedItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
+struct D2DynamicPathStrc;
+
+int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
+
+int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0
+
+D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInventory, int nGridX, int nGridY, int* pX, int* pY, int nInventoryRecordId, unsigned char nPage);
+
 // 0x0063A110
 int __fastcall STATES_GetNumberOfStateFlags()
 {
@@ -2862,6 +2870,31 @@ D2UnitStrc* __stdcall sub_0063D010_GetInventoryItemByCode(D2InventoryStrc* pInve
     return 0;
 }
 
+// 0x0063D0F0
+int __stdcall INVENTORY_GetSetItemEquipCountByFileIndex(D2InventoryStrc* inventory,int fileIndex)
+{
+ if (!inventory) return 0;
+ if (inventory->dwSignature != 0x1020304) return 0;
+ D2InventoryGridStrc* grid=INVENTORY_GetGrid(inventory,0,&gBodyLocInventoryGridInfo);
+ if (!grid) return 0;
+ int count=0;
+ for (D2UnitStrc* item=grid->pItem;item;) {
+  if (ITEMS_GetItemQuality(item)==5 && ITEMS_GetFileIndex(item)==fileIndex) {
+   unsigned int x;
+   if (item->dwUnitType==2 || (item->dwUnitType>3 && item->dwUnitType<=5)) x=item->pStaticPath->tGameCoords.nX;
+   else x=item->pDynamicPath ? PATH_GetXPosition(item->pDynamicPath):0;
+   if (x<11) ++count;
+  }
+  if (item->dwUnitType!=4) return count;
+  D2ItemDataStrc* data=item->pItemData;
+  if (!data) return count;
+  D2ItemExtraDataStrc* extra=&data->pExtraData;
+  if (!extra) return count;
+  item=extra->pNextGridItem;
+ }
+ return count;
+}
+
 // 0x0063D190
 void __fastcall sub_0063D190_SetLeftItemGUID(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet)
 {
@@ -2930,6 +2963,70 @@ void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, 
     {
         INVENTORY_SetLeftItemGUIDInline(pInventory, pWeapon, 1);
     }
+}
+
+inline BOOL INVENTORY_ValidateBodyLoc(int nBodyLoc);
+
+inline D2UnitStrc* INVENTORY_GetItemFromBodyLocInl(D2InventoryStrc* pInventory, int nBodyLoc)
+{
+    if (!pInventory)
+    {
+        return 0;
+    }
+    if (pInventory->dwSignature != 0x1020304)
+    {
+        return 0;
+    }
+    if (!INVENTORY_ValidateBodyLoc(nBodyLoc))
+    {
+        return 0;
+    }
+
+    D2InventoryGridStrc* pInventoryGrid = INVENTORY_GetGrid(pInventory, INVGRID_BODYLOC, &gBodyLocInventoryGridInfo);
+    if (!pInventoryGrid)
+    {
+        return 0;
+    }
+
+    return pInventoryGrid->ppItems[nBodyLoc];
+}
+
+// 0x0063D340
+int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory)
+{
+    D2UnitStrc* pLeftHandItem = INVENTORY_GetItemFromBodyLocInl(pInventory, BODYLOC_LARM);
+    D2UnitStrc* pRightHandItem = INVENTORY_GetItemFromBodyLocInl(pInventory, BODYLOC_RARM);
+    if (pLeftHandItem)
+    {
+        if (pRightHandItem)
+        {
+            if (ITEMS_Is1Or2Handed(pPlayer, pLeftHandItem) || ITEMS_Is1Or2Handed(pPlayer, pRightHandItem))
+            {
+                return 1;
+            }
+
+            if (ITEMS_CheckWeaponIfTwoHanded(pLeftHandItem) || ITEMS_CheckWeaponIfTwoHanded(pRightHandItem))
+            {
+                return 2;
+            }
+        }
+        else
+        {
+            if (ITEMS_CheckWeaponIfTwoHanded(pLeftHandItem) || ITEMS_Is1Or2Handed(pPlayer, pLeftHandItem))
+            {
+                return 2;
+            }
+        }
+    }
+    else if (pRightHandItem)
+    {
+        if (ITEMS_CheckWeaponIfTwoHanded(pRightHandItem) || ITEMS_Is1Or2Handed(pPlayer, pRightHandItem))
+        {
+            return 2;
+        }
+    }
+
+    return -1;
 }
 
 // 0x0063D430

@@ -80899,6 +80899,10 @@
      "length": 221
     },
     {
+     "va": "0x0063D0F0",
+     "length": 157
+    },
+    {
      "va": "0x0063D190",
      "length": 56,
      "name": "sub_0063D190_SetLeftItemGUID"
@@ -80907,6 +80911,10 @@
      "va": "0x0063D2B0",
      "length": 138,
      "name": "?INVENTORY_UpdateWeaponGUIDOnRemoval@@YGXPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063D340",
+     "length": 236
     },
     {
      "va": "0x0063D430",
@@ -81362,20 +81370,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063D0F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0063D0F0",
-     "length": 157
-    },
-    {
-     "va": "0x0063D340",
-     "length": 236
-    }
    ]
   },
   {
