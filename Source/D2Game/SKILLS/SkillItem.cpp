@@ -309,6 +309,23 @@ static void sub_005BE1C0_SKILLITEM_ClearTargetingItems(D2UnitStrc* pUnit);
 
 int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY);
 
+enum D2C_J10SkillItemConstants
+{
+    MONTYPEFLAG_UNIQUE_CHAMPION = 12,
+    SKILL_HOWL = 130,
+    DAMAGERESULTFLAG_GETHIT = 4,
+    DAMAGEHITFLAG_0x20 = 0x20,
+    SKILLSFLAGINDEX_ITEMTGTDO = 29,
+};
+
+int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax);                                     // 0x00472210
+
+int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                   // 0x0045C3E0
+
+D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
+
+void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSkillId, int nDuration, int nParam); // 0x005DDD00
+
 // 0x005BE130
 int __fastcall SKILLITEM_pSpell01_Initializer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
 {
@@ -1149,6 +1166,40 @@ int __stdcall sub_005BF960_StatCallback_Knockback(D2UnitStrc* pUnit, D2UnitStrc*
     return 1;
 }
 
+// 0x005BFA10
+int __fastcall SKILLITEM_EventFunc08_Howl(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker || !pUnit)
+    {
+        return 0;
+    }
+
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    if (MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_UNIQUE_CHAMPION))
+    {
+        return 0;
+    }
+
+    const int nChance = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (nChance <= 0)
+    {
+        return 0;
+    }
+
+    if (sub_00472210_SeedRollMasked(&pAttacker->pSeed, 128) >= nChance)
+    {
+        return 0;
+    }
+
+    AIUTIL_ApplyTerrorCurseState(pGame, pAttacker, pUnit, SKILL_HOWL, 20, 20);
+    return 1;
+}
+
 // 0x005BFAA0
 int __fastcall SKILLITEM_EventFunc09_Stupidity(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
@@ -1506,6 +1557,166 @@ int __fastcall SKILLITEM_EventFunc19_Slow(D2GameStrc* pGame, int nEvent, D2UnitS
     sub_006270B0(pStatList, STAT_ATTACKRATE, -nSlowValue, 0);
     sub_006270B0(pStatList, STAT_OTHER_ANIMRATE, -nSlowValue, 0);
     UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillItem.cpp", 2186);
+    return 1;
+}
+
+static __forceinline unsigned int SEED_RollRandomNumber32(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    return (unsigned int)lSeed;
+}
+
+// 0x005C0470
+int __fastcall SKILLITEM_EventFunc20_SkillOnAttackHitKill(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker)
+    {
+        return 0;
+    }
+
+    const int nChance = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (nChance <= 0)
+    {
+        return 0;
+    }
+
+    const int nLayer = (unsigned short)nSkillId;
+    const int nTriggeredSkillId = nLayer >> sgptDataTables->nStuff;
+    const int nTriggeredSkillLevel = nLayer & sgptDataTables->nShiftedStuff;
+    if (pDamage && !(pDamage->dwHitFlags & DAMAGEHITFLAG_0x20))
+    {
+        return 0;
+    }
+
+    if ((int)(SEED_RollRandomNumber32(&pAttacker->pSeed) % 100) >= nChance)
+    {
+        return 0;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nTriggeredSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_ITEMTGTDO >> 3] & gdwBitMasks[SKILLSFLAGINDEX_ITEMTGTDO & 7])
+    {
+        if (pUnit)
+        {
+            SKILLITEM_CastSkillOnTarget(pUnit, nTriggeredSkillId, nTriggeredSkillLevel, pUnit, 0);
+            return 1;
+        }
+    }
+    else
+    {
+        if (pUnit)
+        {
+            SKILLITEM_CastSkillOnTarget(pAttacker, nTriggeredSkillId, nTriggeredSkillLevel, pUnit, 1);
+            return 1;
+        }
+
+        SKILLITEM_CastSkillOnPosition(pAttacker, nTriggeredSkillId, nTriggeredSkillLevel, D2COMMON_10175_PathGetFirstPointX(pAttacker->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(pAttacker->pDynamicPath), 1);
+    }
+
+    return 1;
+}
+
+// 0x005C05A0
+int __fastcall SKILLITEM_EventFunc21_SkillOnGetHit(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker)
+    {
+        return 0;
+    }
+
+    const int nChance = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (nChance <= 0)
+    {
+        return 0;
+    }
+
+    const int nLayer = (unsigned short)nSkillId;
+    const int nTriggeredSkillId = nLayer >> sgptDataTables->nStuff;
+    const int nTriggeredSkillLevel = nLayer & sgptDataTables->nShiftedStuff;
+    if (!pDamage)
+    {
+        return 0;
+    }
+
+    if (!(pDamage->wResultFlags & DAMAGERESULTFLAG_GETHIT))
+    {
+        return 0;
+    }
+
+    if (ITEMS_RollLimitedRandomNumber(&pAttacker->pSeed, 100) >= nChance)
+    {
+        return 0;
+    }
+
+    if (!sub_0045C4B0_GetSkillsTxtRecord(nTriggeredSkillId))
+    {
+        return 0;
+    }
+
+    if (!pUnit)
+    {
+        SKILLITEM_CastSkillOnPosition(pAttacker, nTriggeredSkillId, nTriggeredSkillLevel, D2COMMON_10175_PathGetFirstPointX(pAttacker->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(pAttacker->pDynamicPath), 0);
+    }
+    else
+    {
+        SKILLITEM_CastSkillOnTarget(pAttacker, nTriggeredSkillId, nTriggeredSkillLevel, pUnit, 0);
+    }
+
+    return 1;
+}
+
+static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+// 0x005C0670
+int __fastcall SKILLITEM_EventFunc30_SkillOnDeathLevelup(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker)
+    {
+        return 0;
+    }
+
+    const int nChance = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (nChance <= 0)
+    {
+        return 0;
+    }
+
+    const int nLayer = (unsigned short)nSkillId;
+    const int nTriggeredSkillId = nLayer >> sgptDataTables->nStuff;
+    const int nTriggeredSkillLevel = nLayer & sgptDataTables->nShiftedStuff;
+    if ((int)(SEED_RollRandomNumber32(&pAttacker->pSeed) % 100) >= nChance)
+    {
+        return 0;
+    }
+
+    if (!SKILLS_GetSkillsTxtRecord(nTriggeredSkillId))
+    {
+        return 0;
+    }
+
+    if (!pUnit)
+    {
+        SKILLITEM_CastSkillOnPosition(pAttacker, nTriggeredSkillId, nTriggeredSkillLevel, D2COMMON_10175_PathGetFirstPointX(pAttacker->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(pAttacker->pDynamicPath), 0);
+    }
+    else
+    {
+        SKILLITEM_CastSkillOnTarget(pAttacker, nTriggeredSkillId, nTriggeredSkillLevel, pUnit, 0);
+    }
+
     return 1;
 }
 

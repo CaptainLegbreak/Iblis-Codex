@@ -67918,6 +67918,11 @@
      "length": 166
     },
     {
+     "va": "0x005BFA10",
+     "length": 139,
+     "name": "?SKILLITEM_EventFunc08_Howl@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+    },
+    {
      "va": "0x005BFAA0",
      "length": 258
     },
@@ -67950,6 +67955,21 @@
      "va": "0x005C0310",
      "length": 348,
      "name": "SKILLITEM_EventFunc19_Slow"
+    },
+    {
+     "va": "0x005C0470",
+     "length": 295,
+     "name": "?SKILLITEM_EventFunc20_SkillOnAttackHitKill@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C05A0",
+     "length": 203,
+     "name": "?SKILLITEM_EventFunc21_SkillOnGetHit@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C0670",
+     "length": 241,
+     "name": "?SKILLITEM_EventFunc30_SkillOnDeathLevelup@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
      "va": "0x005C32A0",
@@ -68153,32 +68173,6 @@
      "va": "0x005D1280",
      "length": 157,
      "name": "SKILLS_SrvSt59_ImpInferno"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005BFA10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BFA10",
-     "length": 139,
-     "name": "?SKILLITEM_EventFunc08_Howl@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
-    },
-    {
-     "va": "0x005C0470",
-     "length": 295,
-     "name": "?SKILLITEM_EventFunc20_SkillOnAttackHitKill@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
-    },
-    {
-     "va": "0x005C05A0",
-     "length": 203,
-     "name": "?SKILLITEM_EventFunc21_SkillOnGetHit@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
-    },
-    {
-     "va": "0x005C0670",
-     "length": 241,
-     "name": "?SKILLITEM_EventFunc30_SkillOnDeathLevelup@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     }
    ]
   },
