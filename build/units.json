@@ -91006,6 +91006,11 @@
      "name": "DRLGROOMTILE_InitTileData"
     },
     {
+     "va": "0x0066DEF0",
+     "length": 75,
+     "name": "DRLGROOMTILE_InitFloorTileData"
+    },
+    {
      "va": "0x0066DF40",
      "length": 279,
      "name": "DRLGROOMTILE_InitShadowTileData"
@@ -91131,6 +91136,10 @@
      "name": "?DRLGROOMTILE_InitializeTileDataFlags@@YGXIHPAUD2DrlgRoomStrc@@PAUD2DrlgTileDataStrc@@HH@Z"
     },
     {
+     "va": "0x0066DC50",
+     "length": 397
+    },
+    {
      "va": "0x0066E160",
      "length": 94,
      "name": "?DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord@@YGXHPAUD2RoomTileStrc@@@Z"
@@ -91139,6 +91148,11 @@
      "va": "0x0066E1C0",
      "length": 152,
      "name": "?DRLGROOMTILE_AddWarp@@YGHHHPAUD2DrlgRoomStrc@@IH@Z"
+    },
+    {
+     "va": "0x0066E260",
+     "length": 241,
+     "name": "?DRLGROOMTILE_LoadWallWarpTiles@@YGXPAUD2DrlgTileDataStrc@@IHPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0066E360",
@@ -91161,41 +91175,13 @@
      "name": "?DRLGROOMTILE_AddLinkedTileData@@YGPAUD2DrlgTileDataStrc@@PAXIHHPAUD2DrlgRoomStrc@@H@Z"
     },
     {
+     "va": "0x0066E9B0",
+     "length": 596
+    },
+    {
      "va": "0x0066EC10",
      "length": 193,
      "name": "?DRLGROOMTILE_LoadInitRoomTiles@@YIXPAUD2DrlgRoomStrc@@PAUD2DrlgGridStrc@@1HHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066DC50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066DC50",
-     "length": 397
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066DEF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066DEF0",
-     "length": 75,
-     "name": "DRLGROOMTILE_InitFloorTileData"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066E260.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066E260",
-     "length": 241,
-     "name": "?DRLGROOMTILE_LoadWallWarpTiles@@YGXPAUD2DrlgTileDataStrc@@IHPAUD2DrlgRoomStrc@@@Z"
     }
    ]
   },
@@ -91245,16 +91231,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066E9B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066E9B0",
-     "length": 596
-    }
    ]
   },
   {
@@ -91636,6 +91612,11 @@
      "name": "?DRLGMAZE_PlaceAct1Barracks@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x00673320",
+     "length": 516,
+     "name": "?DRLGMAZE_PlaceAct4Lava@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x00673530",
      "length": 187,
      "name": "?DRLGMAZE_PlaceAct5IceStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -91665,49 +91646,29 @@
   {
    "file": "Source/D2Common/DRLG/Maze_00670EB0.cpp",
    "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x00670EB0",
      "length": 164
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_006714D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006714D0",
      "length": 995
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -91756,17 +91717,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00673320.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00673320",
-     "length": 516,
-     "name": "?DRLGMAZE_PlaceAct4Lava@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
    ]
   },
   {

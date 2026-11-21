@@ -1,7 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2TxtTables.h"
@@ -38,33 +37,75 @@ union D2C_PackedTileInformation
     };
 };
 
-
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[];                                   // 0x006EF188
+
 extern const D2CoordStrc gWarpTileOffsets_006EF554[4];                                                     // 0x006EF554
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
+
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
+
 int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId);                                              // 0x004E6C50
+
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);                                            // 0x00643310
+
 void __fastcall sub_0064C860(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileData, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0064C860
+
 int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId); // 0x0066AF30
+
 D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromWarpIdAndDirection(D2DrlgLevelStrc* pLevel, unsigned char nWarpId, char nDirection); // 0x0066AF50
+
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY);                   // 0x0066B980
+
 int __fastcall DRLGROOM_AreXYInsideCoordinatesOrOnBorder(D2DrlgCoordStrc* pDrlgCoord, int nX, int nY);      // 0x0066B9D0
+
 void __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY); // 0x0066BF30
+
 D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDrlgRoom, int nType, unsigned int nPackedTileInformation); // 0x0066D820
+
 void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DDE0
+
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitFloorTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DEF0
+
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitShadowTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DF40
+
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                // 0x0067C570
 
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry, int nTileType); // 0x0066DC50
+
+static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileData, int nX, int nTileType, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nY); // 0x0066D9E0
+
+struct D2PresetUnitStrc;
+
+static void __stdcall DRLGROOMTILE_InitializeTileDataFlags(unsigned int nTileFlags, int nY, D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nType, int nX); // 0x0066DB20
+
+static void __stdcall DRLGROOMTILE_LoadWallWarpTiles(D2DrlgTileDataStrc* pTileData, unsigned int nPackedTileInformation, int nTileType, D2DrlgRoomStrc* pDrlgRoom); // 0x0066E260
+
+static void __stdcall DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord(int nTileType, D2RoomTileStrc* pWarpTile);
+
+static int __stdcall DRLGROOMTILE_AddWarp(int nX, int nTileType, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nY);
+
+static void __stdcall DRLGROOMTILE_LoadFloorWarpTiles(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY, int nTileType, unsigned int nPackedTileInformation);
+
+static D2DrlgTileDataStrc* __stdcall sub_0066E4C0_FindLinkedTileInRoom(D2DrlgRoomStrc* pNearRoom, int bFloor, int nX, int nY, unsigned int nPackedTileInformation);
+
+static D2DrlgTileDataStrc* __stdcall DRLGROOMTILE_GetLinkedTileData(int bFloor, int nX, int nY, D2DrlgRoomStrc** ppDrlgRoom, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation);
+
+static D2DrlgTileDataStrc* __stdcall DRLGROOMTILE_AddLinkedTileData(void* pMemPool, unsigned int nPackedTileInformation, int nX, int nY, D2DrlgRoomStrc* pDrlgRoom, int nTileType);
+
+void __fastcall DRLGROOMTILE_LoadInitRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pTileTypeGrid, int bCheckCoordinatesValidity, int bKillEdgeX, int bKillEdgeY);
+
+static void __stdcall DRLGROOMTILE_GetCreateLinkedTileData(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, int nTileType, unsigned int nPackedTileInformation, int nX, int nY); // 0x0066E940
+
+static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int nY, int bFillBlanks, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nTileType);
 
 static __forceinline D2DrlgTileDataStrc* sub_B04_InitFloorTileDataInline(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
@@ -85,8 +126,6 @@ static __forceinline D2DrlgTileDataStrc* sub_B04_InitFloorTileDataInline(D2DrlgR
     DRLGROOMTILE_InitTileData(pDrlgRoom, pTileData, nX, nY, nPackedTileInformation, pTileLibraryEntry);
     return pTileData;
 }
-
-static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileData, int nX, int nTileType, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nY); // 0x0066D9E0
 
 // build: context DRLGROOMTILE_AddTilePresetUnits
 static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileData, int nX, int nTileType, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nY)
@@ -238,7 +277,20 @@ static void __stdcall DRLGROOMTILE_InitializeTileDataFlags(unsigned int nTileFla
     }
 }
 
-// build: context DRLGROOMTILE_InitWallTileData
+static void __stdcall sub_0066DC10(D2DrlgTileDataStrc* pTileData, D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+{
+    pTileData->nPosX = nX - pDrlgRoom->pDrlgCoord.nPosX;
+    pTileData->nPosY = nY - pDrlgRoom->pDrlgCoord.nPosY;
+
+    nY += 1;
+    DUNGEON_GameTileToClientCoords(&nX, &nY);
+
+    nY += 40;
+    pTileData->nWidth = nX;
+    pTileData->nHeight = nY;
+}
+
+// 0x0066DC50
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry, int nTileType)
 {
     D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
@@ -255,14 +307,7 @@ D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDr
 
     ++pTileGrid->nWalls;
 
-    int nPosY = nY + 1;
-    int nPosX = nX;
-    pTileData->nPosX = nX - pDrlgRoom->pDrlgCoord.nPosX;
-    pTileData->nPosY = nY - pDrlgRoom->pDrlgCoord.nPosY;
-    DUNGEON_GameTileToClientCoords(&nPosX, &nPosY);
-    pTileData->nWidth = nPosX;
-    pTileData->nHeight = nPosY + 40;
-
+    sub_0066DC10(pTileData, pDrlgRoom, nX, nY);
     pTileData->pTile = pTileLibraryEntry;
     pTileData->nTileType = nTileType;
     pTileData->dwFlags = 0;
@@ -275,7 +320,9 @@ D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDr
 
     if (nTileType == 3)
     {
-        DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom, DRLGROOMTILE_InitWallTileData(pDrlgRoom, ppTileData, nX, nY, nPackedTileInformation, DRLGROOMTILE_GetTileCache(pDrlgRoom, 4, nPackedTileInformation), 4), 4, nX);
+        D2TileLibraryEntryStrc* pNorthCornerTile = DRLGROOMTILE_GetTileCache(pDrlgRoom, 4, nPackedTileInformation);
+        D2DrlgTileDataStrc* pNorthCornerTileData = DRLGROOMTILE_InitWallTileData(pDrlgRoom, ppTileData, nX, nY, nPackedTileInformation, pNorthCornerTile, 4);
+        DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom, pNorthCornerTileData, 4, nX);
     }
 
     return pTileData;
@@ -325,12 +372,11 @@ static int __stdcall DRLGROOMTILE_AddWarp(int nX, int nTileType, D2DrlgRoomStrc*
     return 0;
 }
 
-static void __stdcall DRLGROOMTILE_LoadWallWarpTiles(D2DrlgTileDataStrc* pTileData, unsigned int nPackedTileInformation, int nTileType, D2DrlgRoomStrc* pDrlgRoom); // 0x0066E260
-
-// build: context DRLGROOMTILE_LoadWallWarpTiles
+// 0x0066E260
 static void __stdcall DRLGROOMTILE_LoadWallWarpTiles(D2DrlgTileDataStrc* pTileData, unsigned int nPackedTileInformation, int nTileType, D2DrlgRoomStrc* pDrlgRoom)
 {
     const unsigned char nTileSequence = (unsigned char)(nPackedTileInformation >> 8);
+    D2DrlgCoordStrc* const pCoord = &pDrlgRoom->pDrlgCoord;
     D2RoomTileStrc* pWarpTile = pDrlgRoom->pRoomTiles;
     const int nDestinationLevelId = DRLGWARP_GetWarpDestinationFromArray(pDrlgRoom->ptDrlgLevel, (nPackedTileInformation >> 20) & 0x3F);
     while (pWarpTile && pWarpTile->pLvlWarpTxtRecord->dwLevelId != nDestinationLevelId)
@@ -340,25 +386,30 @@ static void __stdcall DRLGROOMTILE_LoadWallWarpTiles(D2DrlgTileDataStrc* pTileDa
 
     D2_ASSERT(pWarpTile, 689);
 
-    if (nTileSequence != 0 && nTileSequence != 4 || DRLGROOMTILE_AddWarp(pTileData->nPosX + pDrlgRoom->pDrlgCoord.nPosX, nTileType, pDrlgRoom, nPackedTileInformation, pDrlgRoom->pDrlgCoord.nPosY + pTileData->nPosY))
+    if (nTileSequence == 0 || nTileSequence == 4)
     {
-        DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord(nTileType, pWarpTile);
-
-        pTileData->pNext = pWarpTile->pUnselectedTiles;
-        pWarpTile->pUnselectedTiles = pTileData;
-
-        D2LvlWarpTxt* pWarpDef = pWarpTile->pLvlWarpTxtRecord;
-        D2_ASSERT(pWarpDef, 715);
-
-        if (pWarpDef->dwLitVersion)
+        if (!DRLGROOMTILE_AddWarp(pTileData->nPosX + pCoord->nPosX, nTileType, pDrlgRoom, nPackedTileInformation, pCoord->nPosY + pTileData->nPosY))
         {
-            const unsigned int nLitPackedTileInformation = (pWarpDef->dwTiles << 8) | nPackedTileInformation;
-            D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, nTileType, nLitPackedTileInformation);
-            D2DrlgTileDataStrc* pLitTileData = DRLGROOMTILE_InitWallTileData(pDrlgRoom, &pWarpTile->pSelectedTiles, pTileData->nPosX + pDrlgRoom->pDrlgCoord.nPosX, pDrlgRoom->pDrlgCoord.nPosY + pTileData->nPosY, nLitPackedTileInformation, pTileCache, nTileType);
-            if (pLitTileData)
-            {
-                pLitTileData->dwFlags |= 8;
-            }
+            return;
+        }
+    }
+
+    DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord(nTileType, pWarpTile);
+
+    pTileData->pNext = pWarpTile->pUnselectedTiles;
+    pWarpTile->pUnselectedTiles = pTileData;
+
+    D2LvlWarpTxt* pWarpDef = pWarpTile->pLvlWarpTxtRecord;
+    D2_ASSERT(pWarpDef, 715);
+
+    if (pWarpDef->dwLitVersion)
+    {
+        const unsigned int nLitPackedTileInformation = (pWarpDef->dwTiles << 8) | nPackedTileInformation;
+        D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, nTileType, nLitPackedTileInformation);
+        D2DrlgTileDataStrc* pLitTileData = DRLGROOMTILE_InitWallTileData(pDrlgRoom, &pWarpTile->pSelectedTiles, pTileData->nPosX + pCoord->nPosX, pCoord->nPosY + pTileData->nPosY, nLitPackedTileInformation, pTileCache, nTileType);
+        if (pLitTileData)
+        {
+            pLitTileData->dwFlags |= 8;
         }
     }
 }
@@ -525,6 +576,120 @@ static D2DrlgTileDataStrc* __stdcall DRLGROOMTILE_AddLinkedTileData(void* pMemPo
     return pTileData;
 }
 
+// 0x0066E9B0
+static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int nY, int bFillBlanks, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nTileType)
+{
+    const unsigned char nTileStyle = (unsigned char)((nPackedTileInformation >> 20) & 0x3F);
+    const unsigned char nTileSequence = (unsigned char)(nPackedTileInformation >> 8);
+
+    if ((nTileType == 11 || nTileType == 10) && nTileStyle >= 8)
+    {
+        return;
+    }
+
+    if (nTileType == 0 && nTileStyle == 30 && (nTileSequence == 0 || nTileSequence == 1))
+    {
+        nPackedTileInformation |= 0x80000000;
+    }
+
+    const unsigned int bHidden = nPackedTileInformation & 0x80000000;
+    if (bHidden)
+    {
+        switch (nTileType)
+        {
+        case 10:
+        case 11:
+            if (nTileStyle < 8)
+            {
+                DRLGROOMTILE_AddWarp(nX, nTileType, pDrlgRoom, nPackedTileInformation, nY);
+                DRLGROOMTILE_LoadFloorWarpTiles(pDrlgRoom, nX, nY, nTileType, nPackedTileInformation);
+            }
+            return;
+
+        case 8:
+        case 9:
+            switch (pDrlgRoom->ptDrlgLevel->eLevelId)
+            {
+            case 111:
+            case 112:
+            case 117:
+                break;
+
+            default:
+                DRLGROOMTILE_AddTilePresetUnits(0, nX, nTileType, pDrlgRoom, nPackedTileInformation, nY);
+                return;
+            }
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    if (nPackedTileInformation & 4)
+    {
+        if (nPackedTileInformation & 2)
+        {
+            if (nTileStyle == 30 && (nTileSequence == 0 || nTileSequence == 1))
+            {
+                nPackedTileInformation &= ~0x80;
+            }
+
+            DRLGROOMTILE_GetCreateLinkedTileData(pMemPool, pDrlgRoom, 0, nPackedTileInformation, nX, nY);
+            return;
+        }
+
+        if (nPackedTileInformation & 1)
+        {
+            DRLGROOMTILE_GetCreateLinkedTileData(pMemPool, pDrlgRoom, nTileType, nPackedTileInformation, nX, nY);
+            return;
+        }
+
+        if ((nPackedTileInformation & 0x8000000) && !bHidden)
+        {
+            DRLGROOMTILE_GetCreateLinkedTileData(pMemPool, pDrlgRoom, 13, nPackedTileInformation, nX, nY);
+            return;
+        }
+    }
+
+    if (nPackedTileInformation & 2)
+    {
+        sub_B04_InitFloorTileDataInline(pDrlgRoom, 0, nX, nY, nPackedTileInformation, DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, nPackedTileInformation));
+    }
+    else if (bFillBlanks && DRLGROOM_AreXYInsideCoordinates(&pDrlgRoom->pDrlgCoord, nX, nY))
+    {
+        D2C_PackedTileInformation nBlankTileInformation;
+        nBlankTileInformation.nPackedValue = (nPackedTileInformation & ~0x80) | 0x80000000;
+
+        D2TileLibraryEntryStrc* pTileCache;
+        if (pDrlgRoom->ptDrlgLevel->eLevelId != 74)
+        {
+            pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, 0x1E00000);
+        }
+        else
+        {
+            pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, 0x1E00100);
+        }
+
+        sub_B04_InitFloorTileDataInline(pDrlgRoom, 0, nX, nY, nBlankTileInformation.nPackedValue, pTileCache);
+    }
+
+    if (nPackedTileInformation & 1)
+    {
+        D2TileLibraryEntryStrc* pWallTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, nTileType, nPackedTileInformation);
+        D2DrlgTileDataStrc* pWallTileData = DRLGROOMTILE_InitWallTileData(pDrlgRoom, 0, nX, nY, nPackedTileInformation, pWallTileCache, nTileType);
+        if ((nTileType == 11 || nTileType == 10) && pDrlgRoom->ptDrlgLevel->eLevelId != 133)
+        {
+            DRLGROOMTILE_LoadWallWarpTiles(pWallTileData, nPackedTileInformation, nTileType, pDrlgRoom);
+        }
+    }
+
+    if (nPackedTileInformation & 0x8000000)
+    {
+        DRLGROOMTILE_InitShadowTileData(pDrlgRoom, 0, nX, nY, nPackedTileInformation, DRLGROOMTILE_GetTileCache(pDrlgRoom, 13, nPackedTileInformation));
+    }
+}
+
 static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom2, int nTileType, unsigned int nPackedTileInformation, int nX, int nY, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgTileDataStrc* pTileData)
 {
     const int nRemapIndex = gnWallRemapIndices_006EF620[nTileType];
@@ -612,118 +777,6 @@ static void __stdcall DRLGROOMTILE_GetCreateLinkedTileData(void* pMemPool, D2Drl
     else
     {
         DRLGROOMTILE_AddLinkedTileData(pMemPool, nPackedTileInformation, nX, nY, pDrlgRoom, nTileType);
-    }
-}
-
-static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int nY, int bFillBlanks, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nTileType)
-{
-    const unsigned char nTileStyle = (unsigned char)((nPackedTileInformation >> 20) & 0x3F);
-    const unsigned char nTileSequence = (unsigned char)(nPackedTileInformation >> 8);
-
-    if ((nTileType == 11 || nTileType == 10) && nTileStyle >= 8)
-    {
-        return;
-    }
-
-    if (nTileType == 0 && nTileStyle == 30 && (nTileSequence == 0 || nTileSequence == 1))
-    {
-        nPackedTileInformation |= 0x80000000;
-    }
-
-    const unsigned int bHidden = nPackedTileInformation & 0x80000000;
-    if (bHidden)
-    {
-        switch (nTileType)
-        {
-        case 10:
-        case 11:
-            if (nTileStyle < 8)
-            {
-                DRLGROOMTILE_AddWarp(nX, nTileType, pDrlgRoom, nPackedTileInformation, nY);
-                DRLGROOMTILE_LoadFloorWarpTiles(pDrlgRoom, nX, nY, nTileType, nPackedTileInformation);
-            }
-            return;
-
-        case 8:
-        case 9:
-            switch (pDrlgRoom->ptDrlgLevel->eLevelId)
-            {
-            case 111:
-            case 112:
-            case 117:
-                break;
-
-            default:
-                DRLGROOMTILE_AddTilePresetUnits(0, nX, nTileType, pDrlgRoom, nPackedTileInformation, nY);
-                return;
-            }
-            break;
-
-        default:
-            break;
-        }
-    }
-
-    if (nPackedTileInformation & 4)
-    {
-        if (nPackedTileInformation & 2)
-        {
-            if (nTileStyle == 30 && (nTileSequence == 0 || nTileSequence == 1))
-            {
-                nPackedTileInformation &= ~0x80;
-            }
-
-            DRLGROOMTILE_GetCreateLinkedTileData(pMemPool, pDrlgRoom, 0, nPackedTileInformation, nY, nX);
-            return;
-        }
-
-        if (nPackedTileInformation & 1)
-        {
-            DRLGROOMTILE_GetCreateLinkedTileData(pMemPool, pDrlgRoom, nTileType, nPackedTileInformation, nY, nX);
-            return;
-        }
-
-        if ((nPackedTileInformation & 0x8000000) && !bHidden)
-        {
-            DRLGROOMTILE_GetCreateLinkedTileData(pMemPool, pDrlgRoom, 13, nPackedTileInformation, nY, nX);
-            return;
-        }
-    }
-
-    if (nPackedTileInformation & 2)
-    {
-        sub_B04_InitFloorTileDataInline(pDrlgRoom, 0, nX, nY, nPackedTileInformation, DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, nPackedTileInformation));
-    }
-    else if (bFillBlanks && DRLGROOM_AreXYInsideCoordinates(&pDrlgRoom->pDrlgCoord, nX, nY))
-    {
-        D2C_PackedTileInformation nBlankTileInformation;
-        nBlankTileInformation.nPackedValue = (nPackedTileInformation & ~0x80) | 0x80000000;
-
-        D2TileLibraryEntryStrc* pTileCache;
-        if (pDrlgRoom->ptDrlgLevel->eLevelId != 74)
-        {
-            pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, 0x1E00000);
-        }
-        else
-        {
-            pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, 0x1E00100);
-        }
-
-        sub_B04_InitFloorTileDataInline(pDrlgRoom, 0, nX, nY, nBlankTileInformation.nPackedValue, pTileCache);
-    }
-
-    if (nPackedTileInformation & 1)
-    {
-        D2DrlgTileDataStrc* pWallTileData = DRLGROOMTILE_InitWallTileData(pDrlgRoom, 0, nX, nY, nPackedTileInformation, DRLGROOMTILE_GetTileCache(pDrlgRoom, nTileType, nPackedTileInformation), nTileType);
-        if ((nTileType == 11 || nTileType == 10) && pDrlgRoom->ptDrlgLevel->eLevelId != 133)
-        {
-            DRLGROOMTILE_LoadWallWarpTiles(pWallTileData, nPackedTileInformation, nTileType, pDrlgRoom);
-        }
-    }
-
-    if (nPackedTileInformation & 0x8000000)
-    {
-        DRLGROOMTILE_InitShadowTileData(pDrlgRoom, 0, nX, nY, nPackedTileInformation, DRLGROOMTILE_GetTileCache(pDrlgRoom, 13, nPackedTileInformation));
     }
 }
 
