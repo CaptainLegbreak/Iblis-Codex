@@ -6036,22 +6036,13 @@
    "state": "included"
   },
   "Source/D2Common/Chat/Ignorelist.cpp": {
-   "bytes": 2820,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Chat/Ignorelist.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Chat/Ignorelist_0060E560.cpp": {
-   "bytes": 152,
-   "definitions": 3,
+   "bytes": 2972,
+   "definitions": 5,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Chat/Ignorelist_0060E560.inc",
+   "include": "gen/data/Source/D2Common/Chat/Ignorelist.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -122396,7 +122387,7 @@
    "cname": "gData_0074364C",
    "declared": true,
    "decorated": "_gszTypeNameStringEntryNode_0074364C",
-   "file": "Source/D2Common/Chat/Ignorelist_0060E560.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
    "fill": 32,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0074364C_t gData_0074364C; // 0x0074364C",
@@ -122425,7 +122416,7 @@
    "cname": "gData_0074366C",
    "declared": true,
    "decorated": "_gszTypeNameStringEntryList_0074366C",
-   "file": "Source/D2Common/Chat/Ignorelist_0060E560.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
    "fill": 64,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0074366C_t gData_0074366C; // 0x0074366C",
@@ -122454,7 +122445,7 @@
    "cname": "gData_007436AC",
    "declared": true,
    "decorated": "_gszTypeNameMappingEntryList_007436AC",
-   "file": "Source/D2Common/Chat/Ignorelist_0060E560.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
    "fill": 56,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_007436AC[56]; // 0x007436AC",

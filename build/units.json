@@ -76221,6 +76221,11 @@
      "name": "sub_0060E540_RawNext"
     },
     {
+     "va": "0x0060E560",
+     "length": 72,
+     "name": "sub_0060E560_sub_006C4290"
+    },
+    {
      "va": "0x0060E5B0",
      "length": 22,
      "name": "sub_0060E5B0_InitLinkField"
@@ -76306,6 +76311,11 @@
      "name": "sub_0060E940_RawNext"
     },
     {
+     "va": "0x0060E960",
+     "length": 72,
+     "name": "sub_0060E960_sub_006C4290"
+    },
+    {
      "va": "0x0060E9B0",
      "length": 39,
      "name": "?0D2CommonStormListCStrc"
@@ -76360,6 +76370,11 @@
      "length": 60
     },
     {
+     "va": "0x0060EDF0",
+     "length": 63,
+     "name": "?_GD2CommonMappingEntryNodeStrc"
+    },
+    {
      "va": "0x0060EE30",
      "length": 5,
      "name": "?sub_0060EE30_Destroy@D2CommonStringEntryNodeStrc@@QAEXXZ"
@@ -76380,14 +76395,44 @@
      "name": "sub_0060EF30_ChangeLinkOffset"
     },
     {
+     "va": "0x0060EF60",
+     "length": 90,
+     "name": "sub_0060EF60_DeleteNode"
+    },
+    {
+     "va": "0x0060EFC0",
+     "length": 96,
+     "name": "?_GD2CommonStormSlotListAStrc"
+    },
+    {
      "va": "0x0060F070",
      "length": 39,
      "name": "?0D2CommonStormListFStrc"
     },
     {
+     "va": "0x0060F160",
+     "length": 43,
+     "name": "?_GD2CommonStringEntryNodeStrc"
+    },
+    {
      "va": "0x0060F1D0",
      "length": 119,
      "name": "?sub_0060F1D0_Ptr@D2StormHashTable0060F1D0Strc@@QAEPADIABUD2StormNameKeyStrc@@@Z"
+    },
+    {
+     "va": "0x0060F270",
+     "length": 68,
+     "name": "sub_0060F270_DeleteNode"
+    },
+    {
+     "va": "0x0060F300",
+     "length": 96,
+     "name": "?_GD2CommonStormSlotListBStrc"
+    },
+    {
+     "va": "0x0060F390",
+     "length": 325,
+     "name": "sub_0060F390_ReallocData"
     },
     {
      "va": "0x0060F500",
@@ -76398,6 +76443,11 @@
      "va": "0x0060F6D0",
      "length": 70,
      "name": "sub_0060F6D0_Reserve"
+    },
+    {
+     "va": "0x0060F720",
+     "length": 325,
+     "name": "sub_0060F720_ReallocData"
     },
     {
      "va": "0x0060F930",
@@ -76422,6 +76472,21 @@
      "va": "0x0060FE50",
      "length": 20,
      "name": "??0D2CommonStormZero6105F0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060FE70",
+     "length": 20,
+     "name": "??0D2CommonStormZeroFE70Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060FE90",
+     "length": 85,
+     "name": "sub_0060FE90_NewNode"
+    },
+    {
+     "va": "0x006100A0",
+     "length": 16,
+     "name": "?sub_006100A0_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     },
     {
      "va": "0x006100B0",
@@ -76522,77 +76587,6 @@
      "va": "0x0061A270",
      "length": 74,
      "name": "DUNGEON_AllocDrlgDelete"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060E560.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060E560",
-     "length": 72,
-     "name": "sub_0060E560_sub_006C4290"
-    },
-    {
-     "va": "0x0060E960",
-     "length": 72,
-     "name": "sub_0060E960_sub_006C4290"
-    },
-    {
-     "va": "0x0060EDF0",
-     "length": 63,
-     "name": "?_GD2CommonMappingEntryNodeStrc"
-    },
-    {
-     "va": "0x0060EF60",
-     "length": 90,
-     "name": "sub_0060EF60_DeleteNode"
-    },
-    {
-     "va": "0x0060EFC0",
-     "length": 96,
-     "name": "?_GD2CommonStormSlotListAStrc"
-    },
-    {
-     "va": "0x0060F160",
-     "length": 43,
-     "name": "?_GD2CommonStringEntryNodeStrc"
-    },
-    {
-     "va": "0x0060F270",
-     "length": 68,
-     "name": "sub_0060F270_DeleteNode"
-    },
-    {
-     "va": "0x0060F300",
-     "length": 96,
-     "name": "?_GD2CommonStormSlotListBStrc"
-    },
-    {
-     "va": "0x0060F390",
-     "length": 325,
-     "name": "sub_0060F390_ReallocData"
-    },
-    {
-     "va": "0x0060F720",
-     "length": 325,
-     "name": "sub_0060F720_ReallocData"
-    },
-    {
-     "va": "0x0060FE70",
-     "length": 20,
-     "name": "??0D2CommonStormZero6105F0Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060FE90",
-     "length": 85,
-     "name": "sub_0060FE90_NewNode"
-    },
-    {
-     "va": "0x006100A0",
-     "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     }
    ]
   },
