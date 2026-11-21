@@ -1,75 +1,10 @@
 #include "D2Unicode.h"
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
+#include "D2StormTypes.h"
+#include "D2WinControls.h"
 struct D2CelFileStrc;
 struct D2CelStrc;
 struct D2WinControlStrc;
 
-typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
-typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    D2WinControlFn pfDraw;
-    D2WinControlFn pfInitialize;
-    D2WinMsgHandler pfHandleMouseDown;
-    D2WinMsgHandler pfHandleMouseUp;
-    D2WinMsgHandler pfHandleCharInput;
-    D2WinMsgHandler pfHandleVirtualKeyInput;
-    D2WinMsgHandler field_34;
-    D2WinControlFn pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
-
-struct D2WinTextBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int field_40;
-    int field_44;
-    void* pFirstLine;
-    void* pLastLine;
-    void* pCurrentLine;
-    int nNumLines;
-    int nLine;
-    int dwTextBoxFlags;
-    int nCurrentLine;
-    int nNumColumns;
-    int unk0x68[5];
-    int unk0x7C[5];
-};
 
 struct D2WinImageClickRectStrc;
 
@@ -81,106 +16,7 @@ struct D2WinImage2Strc
     D2WinImageClickRectStrc* pClickRect;
 };
 
-struct D2WinImageStrc
-{
-    D2WinControlStrc controlHeader;
-    int nFrame;
-    int eDrawMode;
-    D2WinImageClickRectStrc* pClickRect;
-    int field_4C;
-    int field_50;
-};
-
-struct D2WinEditBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int field_40;
-    int field_44;
-    int field_48;
-    int field_4C;
-    int field_50;
-    int field_54;
-    int nTextLength;
-    Unicode wszText[256];
-    int field_25C;
-    unsigned int dwEditBoxFlags;
-    int field_264;
-    int field_268;
-    void* field_26C;
-    int eFont;
-    int nTextColor;
-    D2WinEditBoxStrc* pNext;
-    D2WinEditBoxStrc* pPreviousEditBox;
-    int field_280;
-};
-
 struct D2AnimatedImageDescriptor;
-
-struct D2WinAnimImageStrc
-{
-    D2WinControlStrc controlHeader;
-    D2AnimatedImageDescriptor* pAnimatedImageDescriptor;
-    unsigned int nAnimSpeed;
-    unsigned long dwStartTickCount;
-    unsigned int nFrame;
-    int nAnimType;
-    int eDrawMode;
-    D2WinMsgHandler field_58;
-    int bIsRunning;
-};
-
-struct D2WinButtonStrc
-{
-    D2WinControlStrc controlHeader;
-    unsigned int dwButtonFlags;
-    int bIsPressed;
-    int bIsCallbackPending;
-    int nActivationCounter;
-    int nActivationVirtualKey;
-    int nIsPressedFrameOffset;
-    int field_58;
-    int nBaseFrame;
-    int eFont;
-    Unicode wszText[256];
-    int nTextColor;
-    D2WinMsgHandler pfUpdateHoverState;
-    int isButtonHovered;
-    int nStringId;
-};
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    unsigned short nImageIndex;
-};
-
-struct D2CompositeUnitStrc
-{
-    unsigned int dwFlags;
-    unsigned char unk0x04;
-    unsigned char unk0x05;
-    unsigned char unk0x06;
-    unsigned char unk0x07;
-    unsigned int unk0x08;
-    unsigned int unk0x0C;
-    unsigned int unk0x10;
-    int nX;
-    int nY;
-    char unk0x1C[0xA8];
-    D2CompositeUnitStrc* pNext;
-    D2CompositeUnitStrc* unk0xC8;
-    Unicode unk0xCC[64];
-    Unicode unk0x14C[64];
-    Unicode unk0x1CC[16];
-    Unicode unk0x1EC[32];
-    unsigned int unk0x22C;
-    unsigned int unk0x230;
-};
 
 struct D2CompPairStrc
 {
@@ -353,9 +189,9 @@ int __stdcall EDITBOX_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
     D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
     D2_ASSERT(pEditBox, 0x739);
     D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x73A);
-    if (pEditBox->field_280)
+    if (pEditBox->bMouseSelecting)
     {
-        pEditBox->field_280 = 0;
+        pEditBox->bMouseSelecting = 0;
         return 1;
     }
     return 0;
@@ -446,7 +282,7 @@ void __fastcall BUTTON_SetText(D2WinButtonStrc* pButton, int eFont, const Unicod
     D2_ASSERT(pButton->controlHeader.eType == 6, 0x84);
     pButton->eFont = eFont;
     pButton->nTextColor = nTextColor;
-    sub_005267E0(pButton->wszText, wszText);
+    sub_005267E0((Unicode*)pButton->wszText, wszText);
 }
 
 // 0x00500A20
@@ -455,7 +291,7 @@ void __fastcall BUTTON_SetTextWithStringId(D2WinButtonStrc* ptBtnData, int eFont
     D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0x96);
     ptBtnData->eFont = eFont;
     ptBtnData->nTextColor = nTextColor;
-    sub_005267E0(ptBtnData->wszText, D2LANG_GetStringFromTblIndex(nStringId));
+    sub_005267E0((Unicode*)ptBtnData->wszText, D2LANG_GetStringFromTblIndex(nStringId));
 }
 
 // 0x00500A70
@@ -588,12 +424,12 @@ void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int
 void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* a2, const Unicode* a3, const Unicode* a4, const Unicode* a5, int a6, int a7)
 {
     D2_ASSERT(hCompositeUnit, 0x8A8);
-    sub_005267E0(hCompositeUnit->unk0xCC, a2);
-    sub_005267E0(hCompositeUnit->unk0x14C, a3);
-    sub_005267E0(hCompositeUnit->unk0x1CC, a4);
-    sub_005267E0(hCompositeUnit->unk0x1EC, a5);
-    hCompositeUnit->unk0x22C = a6;
-    hCompositeUnit->unk0x230 = a7;
+    sub_005267E0((Unicode*)hCompositeUnit->wszAccountName, a2);
+    sub_005267E0((Unicode*)hCompositeUnit->wszCharName, a3);
+    sub_005267E0((Unicode*)hCompositeUnit->wszGuildTag, a4);
+    sub_005267E0((Unicode*)hCompositeUnit->wszRealmName, a5);
+    hCompositeUnit->nCharLevel = a6;
+    hCompositeUnit->dwProductCode = a7;
 }
 
 // 0x00504370
@@ -634,14 +470,14 @@ void __stdcall D2Win_10149(D2CompositeUnitStrc* ptUnit, unsigned char nValue)
 {
     D2_ASSERT(ptUnit, 0xD57);
     const int nLow = nValue > 0 ? nValue : 0;
-    ptUnit->unk0x04 = nLow < ptUnit->unk0x05 ? (nValue > 0 ? nValue : 0) : ptUnit->unk0x05;
+    ptUnit->nDirection = nLow < ptUnit->nDirections ? (nValue > 0 ? nValue : 0) : ptUnit->nDirections;
 }
 
 // 0x00505200
 unsigned char __stdcall D2Win_10150(D2CompositeUnitStrc* ptUnit)
 {
     D2_ASSERT(ptUnit, 0xD61);
-    return ptUnit->unk0x05;
+    return ptUnit->nDirections;
 }
 
 // 0x005052B0
