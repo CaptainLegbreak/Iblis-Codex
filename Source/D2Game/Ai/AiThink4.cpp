@@ -846,6 +846,7 @@ D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc*, int); //
 
 void __fastcall AITHINK_SelectHirelingAction(D2GameStrc*, D2UnitStrc*, int, int, D2UnitStrc*, D2SeedStrc*); // 0x005E4D30
 
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -1354,6 +1355,99 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGa
     }
 
     return 0;
+}
+
+// 0x005E27A0
+void __fastcall AITHINK_Fn120_Overseer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nTargetDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+
+    ACT5Q1_OnSiegeBossActivated(pGame, pUnit);
+
+    D2UnitStrc* pMinion = AITACTICS_GetTargetMinion(pGame, pUnit);
+    if (pMonStatsTxt->nSkill[0] >= 0 && sub_6FCF2E70(pUnit) && pGame->dwGameFrame > pAiControl->dwAiParam[0]
+        && pMinion && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[0]))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pMinion, 0, 0);
+        pAiControl->dwAiParam[0] = pGame->dwGameFrame + AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_RALLY_SPELL_TIMER);
+        return;
+    }
+
+    if (bCombat && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_ATTACK_CHANCE_PCT))
+    {
+        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_ATTACK_2_OR_1_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+        }
+        else
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        }
+        return;
+    }
+
+    D2NihlathakOverseerAiCallbackArgStrc arg;
+    arg.nMaxDistance = 576;
+    arg.nDistantMaxDistance = 400;
+    arg.nMaxLifePercentage = 50;
+    arg.pTarget = 0;
+    arg.pDistantTarget = 0;
+    arg.nCounter = 0;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_Overseer_Nihlathak, 1);
+
+    D2UnitStrc* pHealTarget = arg.pTarget;
+    D2UnitStrc* pDistantTarget = arg.pDistantTarget;
+    int nCounter = arg.nCounter;
+
+    if (pMonStatsTxt->nSkill[1] >= 0 && pHealTarget && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_HEAL_CHANCE_PCT) && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[1]))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pHealTarget, 0, 0);
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[2] && pDistantTarget && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_WHIP_CHANCE_PCT)
+        && STATLIST_GetUnitAlignment(pUnit) != UNIT_ALIGNMENT_GOOD && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[2]))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pDistantTarget, 0, 0);
+        return;
+    }
+
+    if (nCounter)
+    {
+        if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE) - AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_ZONE))
+        {
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE) - nTargetDistance, 0);
+            return;
+        }
+
+        if (nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_ZONE) + AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE))
+        {
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+            return;
+        }
+
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50)
+        {
+            sub_005DF7D0(pGame, pUnit, pTarget, 5, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    if (AI_ROLL_PERCENT(pSeed) < 60)
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
 // 0x005E2B70
@@ -5053,5 +5147,6 @@ void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, vo
 // build: context ?SKILLS_GetMissilesTxtRecord@@YAPAUD2MissilesTxt@@H@Z
 // build: context ?GetAuraStateStatList@@YAPAUD2StatListStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@@Z
 // build: context ?AI_ClampChance@@YAHH@Z
+
 
 #include "gen/data/Source/D2Game/Ai/AiThink4.inc"

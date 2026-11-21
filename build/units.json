@@ -69280,6 +69280,11 @@
      "name": "?AITHINK_TargetCallback_Overseer_Nihlathak@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005E27A0",
+     "length": 961,
+     "name": "?AITHINK_Fn120_Overseer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E2B70",
      "length": 95,
      "name": "?AITHINK_TargetCallback_MinionSpawner@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -70062,17 +70067,6 @@
      "va": "0x005F00E0",
      "length": 468,
      "name": "?AITHINK_Fn005_BloodHawk@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E27A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E27A0",
-     "length": 961,
-     "name": "?AITHINK_Fn120_Overseer@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
