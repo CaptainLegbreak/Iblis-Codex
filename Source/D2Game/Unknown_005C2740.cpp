@@ -2,7 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-struct D2SetItemsTxt { short nId; char unk_02[0x26]; unsigned int dwItemCode; };
+#include "D2Records.h"
 struct D2SetsTxt { int unk_00; unsigned short wVersion; char unk_06[6]; int nItemCount; char unk_10[0x100]; D2SetItemsTxt* pSetItems[6]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
@@ -73,7 +73,7 @@ int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem)
             {
                 if (pItemsTxt->dwCode == pSet->pSetItems[j]->dwItemCode)
                 {
-                    nFileIndex = pSet->pSetItems[j]->nId;
+                    nFileIndex = pSet->pSetItems[j]->wSetItemId;
                     break;
                 }
             }
