@@ -62817,6 +62817,10 @@
      "name": "MISSMODE_SrvDo07_GuidedArrow_BoneSpirit"
     },
     {
+     "va": "0x005AE8A0",
+     "length": 155
+    },
+    {
      "va": "0x005AE940",
      "length": 280,
      "name": "MISSMODE_SrvDo09_BatLightningBolt"
@@ -64426,16 +64430,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AE8A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005AE8A0",
-     "length": 155
-    }
    ]
   },
   {
