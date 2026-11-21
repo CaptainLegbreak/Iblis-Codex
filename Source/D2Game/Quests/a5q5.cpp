@@ -261,6 +261,41 @@ static void __stdcall ACT5Q5_RewardPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 void __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058DC60
 
+#define LEVEL_HARROGATH 109
+
+void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
+
+enum D2C_F33QuestConstants
+{
+    LEVEL_ROGUEENCAMPMENT = 1,
+    LEVEL_TRISTRAM = 38,
+    LEVEL_HALLSOFDEATHSCALLING = 123,
+    QUEST_A1Q2_BLOODRAVEN = 2,
+    QUEST_A1Q3_MALUS = 3,
+    QUEST_A1Q4_CAIN = 4,
+    QUEST_A1Q5_COUNTESS = 5,
+    QUEST_A5Q6_BAAL = 36,
+    QUESTSTATEFLAG_A1Q2 = 2,
+    QUESTSTATEFLAG_A1Q3 = 3,
+    QUESTSTATEFLAG_A1Q4 = 4,
+    QUESTSTATEFLAG_A5Q6 = 40,
+    QFLAG_CUSTOM6 = 10,
+    MONSTER_CHARSI = 154,
+    MONSTER_KASHYA = 150,
+    MONSTER_AKARA = 148,
+    MONSTER_CAIN5 = 265,
+    MONSTER_TYRAEL3 = 521,
+    OBJMODE_NEUTRAL = 0,
+    OBJMODE_OPERATING = 1,
+    OBJMODE_OPENED = 2,
+    OBJMODE_SPECIAL1 = 3,
+    MONMODE_NEUTRAL = 1,
+    EVENTTYPE_ENDANIM = 1,
+    EVENTTYPE_QUESTFN = 7,
+    ITEMQUAL_NORMAL = 2,
+    MONSTATSFLAGINDEX_ZOO = 22,
+};
+
 // 0x0058BEC0
 static bool sub_0058BEC0_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGUID)
 {
@@ -728,6 +763,73 @@ void __fastcall ACT5Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     {
         pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 13, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
+    }
+}
+
+// 0x0058CBA0
+void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
+    const int nNewLevel = pQuestArg->nNewLevel;
+    if (pQuestArg->nOldLevel == LEVEL_HARROGATH)
+    {
+        QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
+        if (!pQuestData->bNotIntro)
+        {
+            return;
+        }
+
+        if (pQuestData->fState == 2)
+        {
+            D2UnitStrc* pPlayer = pQuestArg->pPlayer;
+            D2GameStrc* pGame = pQuestArg->pGame;
+            D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) == 1)
+            {
+                return;
+            }
+
+            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 899);
+            if (pQuestData->fLastState != 1)
+            {
+                pQuestData->dwFlags &= 0xFFFFFF00;
+                QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
+            }
+
+            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
+        }
+    }
+
+    if (nNewLevel == LEVEL_ROCKYSUMMIT)
+    {
+        unsigned char bUpdate = 0;
+        if (pQuestData->fLastState < 2 && pQuestData->fState > 2)
+        {
+            pQuestData->dwFlags &= 0xFFFFFF00;
+            QUESTS_UnitIterate(pQuestData, 2, 0, ACT5Q5_UnitIterate_StatusCyclerEx, 1);
+            bUpdate = 1;
+        }
+
+        if (pQuestData->fState < 3)
+        {
+            QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q5.cpp", 919);
+            bUpdate = 1;
+        }
+
+        if (bUpdate)
+        {
+            SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT5Q5_UnitIterate_UpdateQuestStateFlags);
+        }
+
+        if (!pQuestDataEx->bAncientsDefeated && pQuestDataEx->bSummitDoorInitialized)
+        {
+            D2UnitStrc* pSummitDoor = SUNIT_GetServerUnit(pQuestData->pGame, UNIT_OBJECT, pQuestDataEx->nSummitDoorGUID);
+            if (pSummitDoor && pQuestDataEx->nSummitDoorObjectMode == OBJMODE_NEUTRAL)
+            {
+                pQuestDataEx->nSummitDoorObjectMode = OBJMODE_OPENED;
+                UNITS_ChangeAnimMode(pSummitDoor, OBJMODE_OPERATING);
+            }
+        }
     }
 }
 

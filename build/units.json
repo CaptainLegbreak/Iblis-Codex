@@ -58580,11 +58580,6 @@
      "name": "sub_0058BF40_ActivateAncientStatues"
     },
     {
-     "va": "0x0058CBA0",
-     "length": 325,
-     "name": "ACT5Q5_Callback03_ChangedLevel"
-    },
-    {
      "va": "0x0058D030",
      "length": 91,
      "name": "sub_0058D030_FindAncientMonsterByClassId"
@@ -58722,6 +58717,11 @@
      "va": "0x0058C9A0",
      "length": 498,
      "name": "?ACT5Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058CBA0",
+     "length": 325,
+     "name": "ACT5Q5_Callback03_ChangedLevel"
     },
     {
      "va": "0x0058CD30",
