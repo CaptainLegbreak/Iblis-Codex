@@ -34006,6 +34006,10 @@
      "name": "?sub_004CB460_UpdateModeSound@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004CB6A0",
+     "length": 447
+    },
+    {
      "va": "0x004CB860",
      "length": 47,
      "name": "?sub_004CB860_PlayHitClassSound@@YAXPAUD2UnitStrc@@@Z"
@@ -34034,6 +34038,10 @@
      "va": "0x004CC410",
      "length": 412,
      "name": "?sub_004CC410_PlayHitSound@@YGXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004CC5B0",
+     "length": 466
     }
    ]
   },
@@ -34223,34 +34231,6 @@
     {
      "va": "0x004CAF60",
      "length": 522
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitSnd_004CB6A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CB6A0",
-     "length": 447
-    },
-    {
-     "va": "0x004CC5B0",
-     "length": 466
     }
    ],
    "flags": [
