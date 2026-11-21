@@ -11,7 +11,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 
-void* __stdcall sub_00601B10_GetCelPixels(D2CelStrc* pCel); // 0x00601B10
+void* __stdcall CelGetHardwareData(D2CelStrc* pCel); // 0x00601B10
 
 void __fastcall sub_00509460_GlideSelectTmuState(int nTmu); // 0x00509460
 
@@ -111,7 +111,7 @@ int __cdecl sub_00509650();                                                     
 
 void __fastcall sub_0050A110_GlideFreeCelData(void* pData);                                                 // 0x0050A110
 
-void __stdcall sub_00601A30_StorePixelFreeHandler(PixelDataFreeCallback pfnCallback); // 0x00601A30
+void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
 
 extern D2GrTexInfoStrc gGlideSmackTexInfoA_0072F680;                                                        // 0x0072F680
 
@@ -187,10 +187,10 @@ static int sub_0050A260_GlideTexInfoInit(D2CelContextStrc* pContext, D2GlideTexI
     D2_ASSERT(pContext->pCel, 0xCE);
 
     pInfo->pContext = pContext;
-    pInfo->nWidth = sub_006018C0(pContext->pCel);
-    pInfo->nOffsetX = sub_00601920(pContext->pCel);
-    pInfo->nHeight = sub_006018F0(pContext->pCel);
-    pInfo->nOffsetY = sub_00601950(pContext->pCel);
+    pInfo->nWidth = CelGetWidth(pContext->pCel);
+    pInfo->nOffsetX = CelGetOffsetX(pContext->pCel);
+    pInfo->nHeight = CelGetHeight(pContext->pCel);
+    pInfo->nOffsetY = CelGetOffsetY(pContext->pCel);
     return 1;
 }
 
@@ -291,7 +291,7 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
     D2CelStrc* pCell = pInfo->pContext->pCel;
     D2_ASSERT(pCell, 0x12D);
 
-    D2GlideTexSlotStrc* pSlots = (D2GlideTexSlotStrc*)sub_00601B10_GetCelPixels(pCell);
+    D2GlideTexSlotStrc* pSlots = (D2GlideTexSlotStrc*)CelGetHardwareData(pCell);
     const int nRequested = nType;
     if (nType == 4)
         nType = 1;
@@ -620,7 +620,7 @@ static inline int sub_0050AC90_IsOutsideScreen(int nX, int nY, D2GlideRectViewSt
 // calling-convention shim (not game code)
 static int __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsigned char* pPalette, int nArg2, int nArg3)
 {
-	int nResult = (int)sub_00601B10_GetCelPixels(pInfo->pContext->pCel);
+	int nResult = (int)CelGetHardwareData(pInfo->pContext->pCel);
 	pInfo->nTexSize = nResult;
 	return nResult + (int)pPalette + nArg2 + nArg3 + pInfo->nWidth;
 }
@@ -1063,7 +1063,7 @@ void __cdecl sub_0050B7B0_GlideInitSprites()
     D2_ASSERT(!gpGlideSpriteBufferB_0087F0CC, 0x4B);
     gpGlideSpriteBufferA_0087F0C8 = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glSprite.cpp", 0x4C, 0);
     gpGlideSpriteBufferB_0087F0CC = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glSprite.cpp", 0x4D, 0);
-    sub_00601A30_StorePixelFreeHandler(sub_0050A110_GlideFreeCelData);
+    CelSetHardwareFreeCallback(sub_0050A110_GlideFreeCelData);
     gbGlideSpriteFlag_0087EFF0 = 0;
     gbGlideMultiTmu_0087EFF4 = gnGlideTmuCount_0087EFB4 > 1;
     if (gnGlideTmuCount_0087EFB4 > 1 && !sub_00509650())

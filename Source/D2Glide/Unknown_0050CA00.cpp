@@ -31,7 +31,7 @@ void __fastcall sub_0050DC30_GlideSetVertexColor(D2GlideSpriteVertexStrc* pVerte
 int __cdecl sub_0050DD30_GlideIsPerspective();                                                               // 0x0050DD30
 void __fastcall sub_0050DD60_ProjectToScreen(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);          // 0x0050DD60
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);                                   // 0x0050FBD0
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
 
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, tagRECT* pRect, int nScreenPanels, int* pOffset);
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, tagRECT* pRect, int nScreenPanels, int* pOffset); // 0x0050C690

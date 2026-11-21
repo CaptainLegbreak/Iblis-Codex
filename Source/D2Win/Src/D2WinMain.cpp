@@ -60,7 +60,7 @@ void __cdecl sub_004F9870_DrawFontCaches(); // 0x004F9870
 
 void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
 
-void __stdcall sub_005FFE30_FreeTileCache(int bFree); // 0x005FFE30
+void __stdcall D2CMPSpriteCacheDestroy(int bFree); // 0x005FFE30
 
 void* ghMainWindow_6F8FE23C; // 0x007D55AC
 
@@ -381,7 +381,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-void __stdcall sub_005FE280_LoadCompressedDataFlag(int bCompress); // 0x005FE280
+void __stdcall D2CMPSetNoCompress(int bCompress); // 0x005FE280
 
 int gdwGlobal_007D5590; // 0x007D5590
 
@@ -705,7 +705,7 @@ int __stdcall D2Win_CloseSpriteCache()
 {
     dword_6F8FE26C = 0;
     ghMainWindow_6F8FE23C = 0;
-    sub_005FFE30_FreeTileCache(1);
+    D2CMPSpriteCacheDestroy(1);
     WINDOW_Destroy();
     return 1;
 }
@@ -890,7 +890,7 @@ void __stdcall D2Win_10004(int nResolution)
 
     if (nResolution == 1)
     {
-        sub_005FFE30_FreeTileCache(1);
+        D2CMPSpriteCacheDestroy(1);
     }
 
     WINDOW_EndCutScene(nResolution);
@@ -912,7 +912,7 @@ int __stdcall sub_004F90A0_SwitchResolution(int nResolution)
     }
 
     gnResolution_6F8FE248 = nResolution;
-    sub_005FFE30_FreeTileCache(1);
+    D2CMPSpriteCacheDestroy(1);
     if (!WINDOW_Resize(nResolution, 0))
     {
         sub_00410610_WriteLogLine("Failed to resize window... this is fatal!");
@@ -2014,7 +2014,7 @@ void __stdcall sub_004FA4F0_MouseLeaveMsg(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress)
 {
     gdwGlobal_007D5590 = nRenderMode;
-    sub_005FE280_LoadCompressedDataFlag(bCompress);
+    D2CMPSetNoCompress(bCompress);
     return D2GFX_Initialize(hInstance, D2Win_MAINWINDOW_WndProc_6F8AD9B0, nRenderMode, bWindowed);
 }
 

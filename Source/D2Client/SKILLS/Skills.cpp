@@ -98,7 +98,7 @@ T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
 
 void __fastcall sub_00481840_SetCacheMax(unsigned int nSize); // 0x00481840
 
-void __stdcall sub_005FE120_InitCelPool(void* pMemPool, int nArg); // 0x005FE120
+void __stdcall D2CMPTileCacheInit(void* pMemPool, int nArg); // 0x005FE120
 
 void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
 
@@ -572,7 +572,7 @@ void __fastcall sub_00457300_InitGfxCaches(void* pMemPool, int bCelPool)
     if (bCelPool)
     {
         nRest -= 0x600000;
-        sub_005FE120_InitCelPool(pMemPool, 0x600000);
+        D2CMPTileCacheInit(pMemPool, 0x600000);
     }
     nRest -= 0x200000;
     unsigned int nMaxSize = D2_MIN(D2_MAX(nRest / 3, 0x1800000u), 0x4000000u);

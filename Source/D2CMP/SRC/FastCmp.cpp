@@ -190,7 +190,7 @@ int gdwGlobal_008F03C8; // 0x008F03C8
 static void __stdcall sub_00606A10_EncodeRleCell(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize);
 
 // 0x00604AA0
-void __stdcall sub_00604AA0_ClearMatchingSlot(int* pSlots, char* pEntry)
+void __stdcall TileLibraryReleaseProject(int* pSlots, char* pEntry)
 {
     if (pEntry)
     {
@@ -232,7 +232,7 @@ double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue)
 }
 
 // 0x006051F0
-void __stdcall sub_006051F0_FreeIfSet(void* pMemory)
+void __stdcall DestroyD2Palette(void* pMemory)
 {
     if (pMemory)
         sub_005179A4_FreeVirtualMemory(pMemory);
@@ -248,13 +248,13 @@ void __stdcall PaletteSetTransparency(unsigned int nColor)
 }
 
 // 0x006056C0
-void __stdcall sub_006056C0_SetGlobal(int nValue)
+void __stdcall PaletteTestBackground(int nValue)
 {
     gnGlobal_008E9028 = nValue;
 }
 
 // 0x00605840
-void __stdcall sub_00605840_SetGlobal(int nValue)
+void __stdcall PaletteFixBlack(int nValue)
 {
     gnGlobal_008E9D3C = nValue;
 }
@@ -1558,7 +1558,7 @@ void __fastcall sub_006089F0_BuildRemap(int nPitch)
 }
 
 // 0x00608C00
-void __stdcall sub_00608C00_RemapRegion(unsigned char* pBuffer, int nPitch)
+void __stdcall CmpDoLensEffect(unsigned char* pBuffer, int nPitch)
 {
     unsigned char* pRow = pBuffer;
     int nBase = 0;

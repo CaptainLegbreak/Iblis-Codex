@@ -30,7 +30,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
 extern const unsigned char gaDirection8To4_006E5DA0[]; // 0x006E5DA0
 
@@ -111,21 +111,21 @@ void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, cons
 
 void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord); // 0x0060DB20
 
-void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize);
+void __stdcall TileProjectSerialize(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize);
 
 static void sub_00609AA0_SplitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels);
 
-void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels);
+void __stdcall TileAddAddFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels);
 
 static int sub_00609FD0_GetPackedSize(D2CmpTileLibraryStrc* pLibrary);
 
 void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
 
 
-void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor);
+void __stdcall TileProjectConvert24To8(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor);
 
 // 0x00600CB0
-int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt)
+int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt)
 {
     D2_ASSERT(nDirection < nDirections, 0x1A0);
 
@@ -163,7 +163,7 @@ void __stdcall sub_00605D20_BuildTintTables(unsigned char* pData)
         for (int i = 0; i < 256; ++i)
         {
             const int nValue = pData[4 * i];
-            pData[0x6B727 + 256 * j + i] = sub_00605210_FindNearestColor(pData, 256,
+            pData[0x6B727 + 256 * j + i] = GetClosestColor(pData, 256,
                 (unsigned char)(pData[0x6B603 + 3 * j] * nValue / 255),
                 (unsigned char)(pData[0x6B604 + 3 * j] * nValue / 255),
                 (unsigned char)(pData[0x6B605 + 3 * j] * nValue / 255));
@@ -235,7 +235,7 @@ D2TileRecordStrc* __stdcall TileListCreate(int nFirst, int nSecond)
 }
 
 // 0x00609670
-void __stdcall sub_00609670_FreeTileList(D2CmpTileListStrc* pList)
+void __stdcall TileListDestroy(D2CmpTileListStrc* pList)
 {
     D2_ASSERT(pList, 0x80);
     D2CmpTileStrc* pTile = pList->pFirst;
@@ -285,7 +285,7 @@ static int __stdcall sub_00609770_IsUniformBlock(D2CmpTileStrc* pTile, const uns
 }
 
 // 0x00609810
-void __stdcall sub_00609810_AddTileBlock(D2CmpTileStrc* pTile, unsigned char* pPixels, int nPitch, int nX, int nY)
+void __stdcall TileAddAddSubTile(D2CmpTileStrc* pTile, unsigned char* pPixels, int nPitch, int nX, int nY)
 {
     D2_ASSERT(pTile, 0x100);
     D2_ASSERT(pPixels, 0x101);
@@ -402,7 +402,7 @@ static void sub_00609AA0_SplitFloorTile(D2CmpTileStrc* pTile, const unsigned cha
 }
 
 // 0x00609B90
-void __stdcall sub_00609B90_InitFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels)
+void __stdcall TileAddAddFloorTile(D2CmpTileStrc* pTile, const unsigned char* pPixels)
 {
     D2_ASSERT(pTile, 0x1C3);
     D2_ASSERT(pPixels, 0x1C4);
@@ -475,7 +475,7 @@ static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2Cmp
 }
 
 // 0x00609D60
-int __stdcall sub_00609D60_BuildTileLibrary(D2CmpTileListStrc* pList, D2CmpTileLibraryStrc** ppLibrary)
+int __stdcall TileListCreateProject(D2CmpTileListStrc* pList, D2CmpTileLibraryStrc** ppLibrary)
 {
     D2_ASSERT(pList, 0x224);
     if (!pList->nCount)
@@ -634,7 +634,7 @@ static unsigned int sub_0060A050(unsigned char * pDstBuf, D2CmpTileBlockStrc * p
 }
 
 // 0x0060A0F0
-void __stdcall sub_0060A0F0_PackTileLibrary(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize)
+void __stdcall TileProjectSerialize(D2CmpTileLibraryStrc* pLibrary, unsigned char** ppData, int* pnSize)
 {
     D2_ASSERT(pLibrary, 0x2D9);
     D2_ASSERT(ppData, 0x2DA);
@@ -785,7 +785,7 @@ static void __stdcall sub_0060A650_MapSubTileRecord(D2CmpSubTileRecordStrc* pDst
 }
 
 // 0x0060A750
-void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor)
+void __stdcall TileProjectConvert24To8(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor)
 {
     D2_ASSERT(pSrc, 0x44F);
     D2_ASSERT(pSrc->dwFlags & 1, 0x450);

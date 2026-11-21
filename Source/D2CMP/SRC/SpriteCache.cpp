@@ -331,7 +331,7 @@ extern void* __stdcall CelGetHandle(D2CmpSpriteContextStrc*); // 0x00601840
 
 void __fastcall sub_005FF5B0_SpriteCacheTouchNode(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode); // 0x005FF5B0
 
-int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
+int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
 
 #define SPRITE_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -439,7 +439,7 @@ void __fastcall sub_005FE000_StoreTileFreeCallback(void* pfnCallback)
 }
 
 // 0x005FE070
-void __cdecl sub_005FE070()
+void __cdecl D2CMPTileFreeAsyncLoads()
 {
     sub_006093E0_PoolFreeAll(&gCmpPool);
 }
@@ -775,13 +775,13 @@ static void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2C
 }
 
 // 0x005FEE00
-void __cdecl sub_005FEE00_DestroyBlockTableB()
+void __cdecl D2CMPSpriteCacheDumpHashTableStats()
 {
     gCmpBlockTableB.sub_0060AB70_Destroy();
 }
 
 // 0x005FEE10
-unsigned int __cdecl sub_005FEE10_GetTileCacheTotalSize()
+unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory()
 {
     EnterCriticalSection(&gCmpTileCache.tLock);
     const unsigned int nTotalSize = gCmpTileCache.nTotalSize;
@@ -790,13 +790,13 @@ unsigned int __cdecl sub_005FEE10_GetTileCacheTotalSize()
 }
 
 // 0x005FEE40
-int __cdecl sub_005FEE40()
+int __cdecl D2CMPSpriteCacheGetMaxMemory()
 {
     return gdwGlobal_0089DB64;
 }
 
 // 0x005FEE50
-void __cdecl sub_005FEE50_DestroyBlockTableA()
+void __cdecl D2CMPCelDataCacheDumpHashTableStats()
 {
     gCmpBlockTableA.sub_0060B130_Destroy();
 }
@@ -1023,7 +1023,7 @@ static void sub_005FF1B0_SpriteCacheUnlinkNode(D2SpriteCacheStrc* pCache, D2Spri
     ptBlock->pPrev = 0;
 }
 
-int __cdecl sub_005FF2A0_CountPendingEntries()
+int __cdecl D2CMPSpriteNumAsyncLoads()
 {
     int nCount = 0;
     for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
@@ -1759,7 +1759,7 @@ int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)
         unsigned int frameDirection = (unsigned int)context->nDirection * directions;
         const int directionFlags = *(unsigned char*)&context->dwFlags & 4;
         frameDirection >>= 6;
-        unsigned int direction = sub_00600CB0_ConvertDirection(frameDirection, directions, count, directionFlags);
+        unsigned int direction = CelConvertDir(frameDirection, directions, count, directionFlags);
         if (file->directions > 1)
             direction = (direction << 6) / file->directions;
         else
@@ -1977,21 +1977,21 @@ void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int 
     sub_00608D60_DrawCelShadowLines(pCel, pBuffer + nY * nPitch + nStart, nStart, nClipLeft, nClipRight, nPitch, nSkip, nLines, nTable, nColor);
 }
 
-int __stdcall sub_006018F0(D2CelStrc* pCel)
+int __stdcall CelGetHeight(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 0x589);
 
     return pCel->nHeight;
 }
 
-int __stdcall sub_00601920(D2CelStrc* pCel)
+int __stdcall CelGetOffsetX(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 0x597);
 
     return pCel->nXOffset;
 }
 
-int __stdcall sub_00601950(D2CelStrc* pCel)
+int __stdcall CelGetOffsetY(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 0x5A5);
 

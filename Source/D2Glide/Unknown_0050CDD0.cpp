@@ -30,7 +30,7 @@ void __fastcall sub_0050DC30_GlideSetVertexColor(D2GlideSpriteVertexStrc* pVerte
 int __cdecl sub_0050DD30_GlideIsPerspective();                                                               // 0x0050DD30
 void __fastcall sub_0050DD60_ProjectToScreen(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);          // 0x0050DD60
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);                                   // 0x0050FBD0
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
 
 // build: context sub_0050C690_GlideGetDrawRect
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, tagRECT* pRect, int* pOffset, int nScreenPanels)
@@ -125,7 +125,7 @@ int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStrc* pTil
 static int __stdcall sub_0050D410_GlideTileDrawAlpha(int nPosX, int nPosY, D2GfxLightStrc* pLight, unsigned char nAlpha, D2TileLibraryEntryStrc* pTile, int nScreenPanels)
 {
     int nResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         sub_005094B0_GlideSetState(1);
         if (nAlpha == 0xFF)
@@ -162,7 +162,7 @@ int __fastcall sub_0050D490_GlideTileDrawTrans(D2TileLibraryEntryStrc* pTile, in
 int __fastcall sub_0050D4C0_GlideTileDrawLit(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)
 {
     int nResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         sub_005094B0_GlideSetState(1);
         sub_00509500_GlideSetCombine(1);

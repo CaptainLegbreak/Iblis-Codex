@@ -29,8 +29,8 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 void __cdecl sub_00468310_UpdateCursor();                                                                // 0x00468310
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
-unsigned int __stdcall sub_006018C0(D2CelStrc* pCel);                                                        // 0x006018C0
-unsigned int __stdcall sub_006018F0(D2CelStrc* pCel);                                                       // 0x006018F0
+unsigned int __stdcall CelGetWidth(D2CelStrc* pCel);                                                        // 0x006018C0
+unsigned int __stdcall CelGetHeight(D2CelStrc* pCel);                                                       // 0x006018F0
 int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C
@@ -94,8 +94,8 @@ void __cdecl sub_004684C0()
         if (sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
             D2_ASSERT(tContext.pCel, 0x27D);
-            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - sub_006018C0(tContext.pCel) / 2 + gnGlobal_007A6AB4,
-                gnGlobal_007A6AAC - sub_006018F0(tContext.pCel) / 2);
+            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - CelGetWidth(tContext.pCel) / 2 + gnGlobal_007A6AB4,
+                gnGlobal_007A6AAC - CelGetHeight(tContext.pCel) / 2);
         }
     }
     else
@@ -120,8 +120,8 @@ void __cdecl sub_004685C0_PaintCursorItem()
         if (sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
             D2_ASSERT(tContext.pCel, 0x2BB);
-            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - sub_006018C0(tContext.pCel) / 2 + gnGlobal_007A6AB4,
-                gnGlobal_007A6AAC - sub_006018F0(tContext.pCel) / 2);
+            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - CelGetWidth(tContext.pCel) / 2 + gnGlobal_007A6AB4,
+                gnGlobal_007A6AAC - CelGetHeight(tContext.pCel) / 2);
         }
     }
     else

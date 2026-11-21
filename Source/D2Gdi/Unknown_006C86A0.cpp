@@ -4,10 +4,10 @@
 
 struct D2CelStrc;
 
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
-int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 void __stdcall CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nOriginX, int nModeWidth, unsigned char* pBuffer, int nHeight, int nWidth, int nArg9, unsigned char* pCaps, int nSkipTop, int nDrawHeight, int nArg13); // 0x00601650
 extern int gnScreenHeight_007C913C; // 0x007C913C
 
@@ -38,8 +38,8 @@ int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
 
 static int __stdcall sub_006C86A0_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
-    int nWidth = sub_006018C0(pCel);
-    int nHeight = sub_006018F0(pCel);
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
     if (bCenter)
     {
         nX -= nHeight;
@@ -47,10 +47,10 @@ static int __stdcall sub_006C86A0_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
         nHeight >>= 1;
     }
 
-    nX += sub_00601920(pCel);
+    nX += CelGetOffsetX(pCel);
     if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
     {
-        int nTop = sub_00601950(pCel) + nY;
+        int nTop = CelGetOffsetY(pCel) + nY;
         if (nTop >= 0 && nTop - nHeight < gnScreenHeight_007C913C)
             return 0;
     }
@@ -74,8 +74,8 @@ void __fastcall sub_006C86A0_DrawImageRows(D2CelContextStrc* pContext, int nX, i
 
 static int __stdcall sub_006C85A0_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
-    int nWidth = sub_006018C0(pCel);
-    int nHeight = sub_006018F0(pCel);
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
     if (bCenter)
     {
         nX -= nHeight;
@@ -83,10 +83,10 @@ static int __stdcall sub_006C85A0_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
         nHeight >>= 1;
     }
 
-    nX += sub_00601920(pCel);
+    nX += CelGetOffsetX(pCel);
     if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
     {
-        nY += sub_00601950(pCel);
+        nY += CelGetOffsetY(pCel);
         if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
             return 0;
     }

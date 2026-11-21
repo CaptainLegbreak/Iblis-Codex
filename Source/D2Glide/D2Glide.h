@@ -54,11 +54,11 @@ extern void* gapGlideTileStripA_0072F350[10]; // 0x0072F350
 extern void* gapGlideTileStripB_0072F378[10]; // 0x0072F378
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
-int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __cdecl sub_00509AA0_GlideSuspend(); // 0x00509AA0
 void __fastcall sub_0050DBE0_GlideSetVertexShade(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade); // 0x0050DBE0

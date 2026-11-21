@@ -52,7 +52,7 @@ static D2TileRecordStrc* sub_00600710_FindTileRecord(const char* szName)
 }
 
 // 0x00600760
-D2TileLibraryHashStrc* __stdcall sub_00600760_GetTileHashBlock(const char* szName)
+D2TileLibraryHashStrc* __stdcall D2CMPGetFindTile(const char* szName)
 {
     D2TileRecordStrc* pRecord = sub_00600710_FindTileRecord(szName);
     if (pRecord)

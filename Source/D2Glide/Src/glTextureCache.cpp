@@ -304,7 +304,7 @@ void __fastcall sub_0050ECB0_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bF
 int __fastcall sub_0050FAD0_GlideBindFloorTexture(D2TileLibraryEntryStrc* pTile)
 {
     int bResult = 0;
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         D2_ASSERT(pTile->nCacheIndex >= 0, 0xD8);
         int nTexAddress;

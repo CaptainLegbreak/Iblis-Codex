@@ -32,7 +32,7 @@ void __fastcall sub_0040AB00_FreeAsyncData(D2AsyncLoadStrc* pAsync); // 0x0040AB
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-PixelDataFreeCallback __fastcall sub_00601A40(struct D2CmpGfxHashStrc* pHash); // 0x00601A40
+PixelDataFreeCallback __fastcall CelGetHardwareFreeCallback(struct D2CmpGfxHashStrc* pHash); // 0x00601A40
 
 struct D2CmpGfxFrameStrc
 {
@@ -145,7 +145,7 @@ void __fastcall sub_0060A9D0_Remove(D2CmpGfxHashStrc* pHash, int nUnused, void* 
     {
         if (pInfo->bHardware)
         {
-            PixelDataFreeCallback pfnFree = sub_00601A40(pHash);
+            PixelDataFreeCallback pfnFree = CelGetHardwareFreeCallback(pHash);
             char* pData = (char*)FOG_AsyncDataGetBuffer(pAsync);
             D2_ASSERT(pData, 0x5F);
             unsigned int nOffset = 0;

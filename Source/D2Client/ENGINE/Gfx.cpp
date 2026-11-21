@@ -165,8 +165,8 @@ void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nCla
 int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0046E300_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
@@ -648,7 +648,7 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
     int nOut;
     const int bReady = sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, nSize, 0, &nOut, 1, -1)
         && sub_006001F0(&tContext, 0, 1)
-        && sub_004DAB40_CheckCel(tContext.pCel, nX, nY + sub_006018F0(tContext.pCel), 0);
+        && sub_004DAB40_CheckCel(tContext.pCel, nX, nY + CelGetHeight(tContext.pCel), 0);
     if (!bReady)
     {
         return 0;
@@ -660,8 +660,8 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
     {
         nDrawMode = 1;
     }
-    sub_004F6480(&tContext, nX, nY + sub_006018F0(tContext.pCel), -1, nDrawMode, nPalette);
-    sub_0046E300_DrawUnitOverlays(pItem, 0xFF, 0, nX + ((unsigned int)sub_006018C0(tContext.pCel) >> 1), nY + ((unsigned int)sub_006018F0(tContext.pCel) >> 1), 0);
+    sub_004F6480(&tContext, nX, nY + CelGetHeight(tContext.pCel), -1, nDrawMode, nPalette);
+    sub_0046E300_DrawUnitOverlays(pItem, 0xFF, 0, nX + ((unsigned int)CelGetWidth(tContext.pCel) >> 1), nY + ((unsigned int)CelGetHeight(tContext.pCel) >> 1), 0);
     return 1;
 }
 

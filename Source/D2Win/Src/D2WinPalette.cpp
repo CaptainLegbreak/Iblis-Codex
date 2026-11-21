@@ -13,7 +13,7 @@ struct D2TransPaletteStrc
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
-unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue); // 0x00605210
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue); // 0x00605210
 void __cdecl sub_004FB010_SetPaletteTables(); // 0x004FB010
 void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x0040B3C0
@@ -37,7 +37,7 @@ extern unsigned char gDarkBlendPalette_00831B68[65536]; // 0x00831B68
 // 0x004FB180
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
-    return sub_00605210_FindNearestColor((const unsigned char*)gRGBAPalette_0081E668, 0x100, nRed, nGreen, nBlue);
+    return GetClosestColor((const unsigned char*)gRGBAPalette_0081E668, 0x100, nRed, nGreen, nBlue);
 }
 
 // 0x004FB1E0

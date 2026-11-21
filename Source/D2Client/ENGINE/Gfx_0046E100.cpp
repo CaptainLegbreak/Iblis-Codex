@@ -947,8 +947,8 @@ void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent
     if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, PATH_GetDirection(pPath), pUnit->nSeqCurrentFramePrecise >> 8, &nOut, nComponent, -1) && sub_006001F0(&tContext, 0, 1))
     {
         D2_ASSERT(tContext.pCel, 0xD7A);
-        *pOffsetX = sub_00601920(tContext.pCel);
-        *pOffsetY = sub_00601950(tContext.pCel);
+        *pOffsetX = CelGetOffsetX(tContext.pCel);
+        *pOffsetY = CelGetOffsetY(tContext.pCel);
     }
 }
 

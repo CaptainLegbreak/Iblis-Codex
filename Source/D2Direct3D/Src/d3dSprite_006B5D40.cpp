@@ -94,13 +94,13 @@ int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x0060
 
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
 
-int __stdcall sub_006018C0(D2CelStrc* cel); // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
 
-int __stdcall sub_006018F0(D2CelStrc* cel); // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* cel); // 0x006018F0
 
-int __stdcall sub_00601920(D2CelStrc* cel); // 0x00601920
+int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920
 
-int __stdcall sub_00601950(D2CelStrc* cel); // 0x00601950
+int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
 
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 
@@ -151,7 +151,7 @@ static void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 
-int __stdcall sub_00601B10_GetCelPixels(D2CelStrc* pCel);                                                  // 0x00601B10
+int __stdcall CelGetHardwareData(D2CelStrc* pCel);                                                  // 0x00601B10
 
 void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);                  // 0x006B9860
 
@@ -197,10 +197,10 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
         return 0;
     }
     info->pContext = context;
-    info->nWidth = sub_006018C0(context->pCel);
-    info->nOffsetX = sub_00601920(context->pCel);
-    info->nHeight = sub_006018F0(context->pCel);
-    info->nOffsetY = sub_00601950(context->pCel);
+    info->nWidth = CelGetWidth(context->pCel);
+    info->nOffsetX = CelGetOffsetX(context->pCel);
+    info->nHeight = CelGetHeight(context->pCel);
+    info->nOffsetY = CelGetOffsetY(context->pCel);
     return 1;
 }
 
@@ -603,10 +603,10 @@ static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pI
 	}
 
 	pInfo->pContext = (D2CelContextStrc*)pData;
-	pInfo->nWidth = sub_006018C0(pData->pCel);
-	pInfo->nOffsetX = sub_00601920(pData->pCel);
-	pInfo->nHeight = sub_006018F0(pData->pCel);
-	pInfo->nOffsetY = sub_00601950(pData->pCel);
+	pInfo->nWidth = CelGetWidth(pData->pCel);
+	pInfo->nOffsetX = CelGetOffsetX(pData->pCel);
+	pInfo->nHeight = CelGetHeight(pData->pCel);
+	pInfo->nOffsetY = CelGetOffsetY(pData->pCel);
 	return 1;
 }
 
@@ -615,14 +615,14 @@ static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pI
 // calling-convention shim (not game code)
 static int __stdcall sub_006B5D40_UploadSprite(D2SpriteInfoStrc* pInfo, int nType, unsigned char* pPalette, int nFlags)
 {
-	int nResult = sub_00601B10_GetCelPixels(pInfo->pContext->pCel);
+	int nResult = CelGetHardwareData(pInfo->pContext->pCel);
 	if (nType == 4)
 	{
 		nType = 1;
 	}
 	pInfo->nWidth = nResult;
 	D2SpriteInfoStrc* pNext = (D2SpriteInfoStrc*)pInfo->pContext;
-	nResult = sub_00601B10_GetCelPixels(pNext->pContext->pCel);
+	nResult = CelGetHardwareData(pNext->pContext->pCel);
 	pNext->nWidth = nResult + nType;
 	return (int)pPalette + nFlags;
 }

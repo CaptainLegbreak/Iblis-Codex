@@ -6719,7 +6719,7 @@ void __stdcall sub_005776E0(D2UnitStrc* pUnit)
 }
 
 // 0x00604A30
-void __stdcall sub_00604A30_StoreTileFreeHandler(void* pfnCallback)
+void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
 {
     sub_005FE000_StoreTileFreeCallback(pfnCallback);
 }

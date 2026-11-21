@@ -637,7 +637,7 @@ extern int __fastcall FOG_AsyncDataTestLoaded(AsyncData*); // 0x0040A7F0
 extern void* __stdcall CelGetHandle(D2CmpSpriteContextStrc*); // 0x00601840
 extern HashNode* __fastcall sub_0060ACE0_GfxHashFind(HashTable*, D2CmpSpriteContextStrc*, unsigned int*, unsigned int*, SpriteFile*); // 0x0060ACE0
 extern void __fastcall sub_005FF5B0_SpriteCacheTouchNode(SpriteCache*, void*); // 0x005FF5B0
-int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
+int __stdcall CelConvertDir(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
 #define SPRITE_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern HashTable gFileHash_0088CB20; // 0x0088CB20
 extern SpriteCache gFileCache_0088DB20; // 0x0088DB20
@@ -718,8 +718,8 @@ static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*
     return file;
 }
 
-// build: context sub_006001F0_LoadSprite
-int __stdcall sub_006001F0_LoadSprite(D2CmpSpriteContextStrc* context, int async, int flags)
+// build: context D2CMPSpriteValidate
+int __stdcall D2CMPSpriteValidate(D2CmpSpriteContextStrc* context, int async, int flags)
 {
     if (!context)
         return 0;
@@ -753,7 +753,7 @@ int __stdcall sub_006001F0_LoadSprite(D2CmpSpriteContextStrc* context, int async
                 unsigned int frameDirection = (unsigned int)context->nDirection * directions;
                 const int directionFlags = *(unsigned char*)&context->dwFlags & 4;
                 frameDirection >>= 6;
-                unsigned int direction = sub_00600CB0_ConvertDirection(frameDirection, directions, count, directionFlags);
+                unsigned int direction = CelConvertDir(frameDirection, directions, count, directionFlags);
                 if (file->directions > 1)
                     direction = (direction << 6) / file->directions;
                 else

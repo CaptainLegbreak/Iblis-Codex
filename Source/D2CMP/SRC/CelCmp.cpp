@@ -1851,7 +1851,7 @@ D2LRUNodeStrc* __fastcall sub_00609420(D2CmpPoolStrc* pPool, unsigned int nSize,
 void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
 
 // 0x005FDE10
-void __stdcall sub_005FDE10_FreeCelPool(int bFree)
+void __stdcall D2CMPTileCacheDestroy(int bFree)
 {
     if (gbCmpPoolInitialized)
     {
@@ -1891,7 +1891,7 @@ int __fastcall sub_005FDF80_GetTileLibrarySize(const char* szFilePath)
 }
 
 // 0x005FE120
-void __stdcall sub_005FE120_InitCelPool(void* pMemPool, int nArg)
+void __stdcall D2CMPTileCacheInit(void* pMemPool, int nArg)
 {
     gnCmpPoolArg = nArg;
     memset(&gCmpPool, 0, sizeof(gCmpPool));
@@ -1961,7 +1961,7 @@ void __fastcall sub_005FF630_ResizeCacheEntry(D2CmpCacheStrc* pCache, D2CmpCache
 }
 
 // 0x005FFE30
-void __stdcall sub_005FFE30_FreeTileCache(int bFree)
+void __stdcall D2CMPSpriteCacheDestroy(int bFree)
 {
     if (bFree && gCmpTileCache.bActive)
     {
@@ -1980,7 +1980,7 @@ void __stdcall sub_005FFE30_FreeTileCache(int bFree)
 }
 
 // 0x00600960
-D2TileLibraryHeaderStrc* __stdcall sub_00600960_FindTileLibrary(D2TileLibraryEntryStrc* pTile)
+D2TileLibraryHeaderStrc* __stdcall D2CMPFindTileProject(D2TileLibraryEntryStrc* pTile)
 {
     for (D2TileRecordStrc* pRecord = gpTileRecords; pRecord; pRecord = pRecord->pPrev)
     {
@@ -2139,7 +2139,7 @@ void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile,
 }
 
 // 0x00601410
-void __stdcall sub_00601410_CelFileFree(D2CelFileStrc* pCelFile)
+void __stdcall CelFileFreeSerialized(D2CelFileStrc* pCelFile)
 {
     D2_ASSERT(pCelFile, 0x40D);
     FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
@@ -2264,7 +2264,7 @@ D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
 }
 
 // 0x00601980
-char* __stdcall sub_00601980(D2CelStrc* pCel)
+char* __stdcall CelGetControlData(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 0x5B4);
     return pCel->data;
@@ -3422,7 +3422,7 @@ void D2StormSlotArrayStrc::sub_00603850_SetCount(unsigned int nCount)
 }
 
 // 0x006039C0
-void __stdcall sub_006039C0(unsigned int hCelList)
+void __stdcall CelCompressDestroy(unsigned int hCelList)
 {
     int hLock;
     D2StormEntry38Strc* pList = gCelListTable.Lock(hCelList, &hLock, 0);
@@ -4071,7 +4071,7 @@ void __fastcall sub_005FDE50(void* pEntry)
 }
 
 // 0x005FDEA0
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
 {
     if (pEntry->pNode)
     {
@@ -4117,7 +4117,7 @@ void __fastcall sub_005FE080_FreeTileLibraryBlocks(D2TileLibraryStrc* pLibrary)
 }
 
 // 0x005FE280
-void __stdcall sub_005FE280_LoadCompressedDataFlag(int bAllowCompressed)
+void __stdcall D2CMPSetNoCompress(int bAllowCompressed)
 {
     SRegLoadValue("Diablo II", "CompressedData", 1, (unsigned long*)&gbCmpCompressedDataMode);
     if (!bAllowCompressed)

@@ -20,9 +20,9 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
 
-int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel);                                                                 // 0x006018C0
 
-int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
 extern D2ButtonStringStrc gaButtonStrings_007275A8[];                                                       // 0x007275A8
 
@@ -264,8 +264,8 @@ ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int 
     this->nX = nX;
     this->nY = nY;
     unk0x24 = 0;
-    nHeight = sub_006018F0(pCel);
-    nWidth = sub_006018C0(pCel);
+    nHeight = CelGetHeight(pCel);
+    nWidth = CelGetWidth(pCel);
 }
 
 // 0x004BB0F0

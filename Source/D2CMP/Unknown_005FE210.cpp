@@ -28,7 +28,7 @@ struct D2CmpDC6CacheEntryStrc
 };
 
 // 0x005FE210
-void __stdcall Palette24BitTo8BitImage(char* output,int allowCompressed,const char* format,va_list args)
+void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* format,va_list args)
 {
     vsprintf(output,format,args);
     const char* suffix=(allowCompressed!=DISABLED && extensions.enabled!=DISABLED)?extensions.compressed:extensions.standard;

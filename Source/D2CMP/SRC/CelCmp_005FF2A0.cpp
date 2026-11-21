@@ -109,13 +109,13 @@ void __fastcall sub_005FE000_StoreTileFreeCallback(void* pfnCallback)
 }
 
 // 0x005FE070
-void __cdecl sub_005FE070()
+void __cdecl D2CMPTileFreeAsyncLoads()
 {
     sub_006093E0_PoolFreeAll(&gCmpPool);
 }
 
 // 0x005FEE10
-unsigned int __cdecl sub_005FEE10_GetTileCacheTotalSize()
+unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory()
 {
     EnterCriticalSection(&gCmpTileCache.tLock);
     const unsigned int nTotalSize = gCmpTileCache.nTotalSize;
@@ -126,7 +126,7 @@ unsigned int __cdecl sub_005FEE10_GetTileCacheTotalSize()
 D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
 // 0x005FF2A0
-int __cdecl sub_005FF2A0_CountPendingEntries()
+int __cdecl D2CMPSpriteNumAsyncLoads()
 {
     int nCount = 0;
     for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
@@ -230,7 +230,7 @@ void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int 
 }
 
 // 0x006018F0
-int __stdcall sub_006018F0(D2CelStrc* pCel)
+int __stdcall CelGetHeight(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 0x589);
 
@@ -238,7 +238,7 @@ int __stdcall sub_006018F0(D2CelStrc* pCel)
 }
 
 // 0x00601920
-int __stdcall sub_00601920(D2CelStrc* pCel)
+int __stdcall CelGetOffsetX(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 0x597);
 
@@ -246,7 +246,7 @@ int __stdcall sub_00601920(D2CelStrc* pCel)
 }
 
 // 0x00601950
-int __stdcall sub_00601950(D2CelStrc* pCel)
+int __stdcall CelGetOffsetY(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 0x5A5);
 
@@ -302,7 +302,7 @@ D2TileLibraryHashStrc* __fastcall sub_0060A440_CreateTileHashBlock(D2CmpTileLibr
 PixelDataFreeCallback gpfnPixelDataFree; // 0x008E8CB8
 
 // 0x006018C0
-int __stdcall sub_006018C0(D2CelStrc* pCel)
+int __stdcall CelGetWidth(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 1403);
 
@@ -318,19 +318,19 @@ int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pFile)
 }
 
 // 0x00601A30
-void __stdcall sub_00601A30_StorePixelFreeHandler(PixelDataFreeCallback pfnCallback)
+void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback)
 {
     gpfnPixelDataFree = pfnCallback;
 }
 
 // 0x00601A40
-PixelDataFreeCallback __stdcall sub_00601A40()
+PixelDataFreeCallback __stdcall CelGetHardwareFreeCallback()
 {
     return gpfnPixelDataFree;
 }
 
 // 0x00601B10
-void* __stdcall sub_00601B10_GetCelPixels(D2CelStrc* pCel)
+void* __stdcall CelGetHardwareData(D2CelStrc* pCel)
 {
     D2_ASSERT(pCel, 1578);
 

@@ -4,7 +4,7 @@
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
 extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack);                         // 0x006CC5FC
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
-unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 extern unsigned char* gpScreenBuffer_007C9154;                                                              // 0x007C9154
 unsigned char gabRemapTable_008815B0[256];                                                                  // 0x008815B0
@@ -55,7 +55,7 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
             {
                 for (int i = 0; i < 256; ++i)
                 {
-                    gabRemapTable_008815B0[i] = sub_00605210_FindNearestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
+                    gabRemapTable_008815B0[i] = GetClosestColor(gabGamePalette_007C8CC8, 256, hSmack->aPalette[i].nRed, hSmack->aPalette[i].nGreen, hSmack->aPalette[i].nBlue);
                 }
                 gbRemapValid_008816B4 = 1;
             }

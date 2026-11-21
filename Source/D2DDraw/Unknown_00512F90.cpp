@@ -2,7 +2,7 @@
 #include "D2GlideTypes.h"
 #include "D2DrlgMaps.h"
 
-int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
 int __cdecl sub_00512700_DDrawGetBlendedShadows(); // 0x00512700
 
 // 0x00512F90
@@ -10,7 +10,7 @@ int __fastcall sub_00512F90_DrawWallTile(D2TileLibraryEntryStrc* pTile, int nPos
 {
     int bDrawn = 0;
 
-    if (sub_005FDEA0(pTile, 1, 0))
+    if (D2CMPTileValidate(pTile, 1, 0))
     {
         int nMinX = -32;
         int nMaxX = gnScreenWidth_007C9138;

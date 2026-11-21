@@ -10,7 +10,7 @@ struct T00604DB0 { double value[1]; };
 
 enum { VALUE_SLOT_INDEX = 0 };
 
-unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 extern int gnSquareTable_008E9034[511]; // 0x008E9034
 extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x006CC1AC
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -107,7 +107,7 @@ static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc*
     sub_00605080_HslToRgb(pHsl, tRgb);
     for (unsigned int i = 0; i < 256; ++i)
     {
-        pTables[0x3400 + i] = sub_00605210_FindNearestColor(pTables, 256, tRgb[i].nRed, tRgb[i].nGreen, tRgb[i].nBlue);
+        pTables[0x3400 + i] = GetClosestColor(pTables, 256, tRgb[i].nRed, tRgb[i].nGreen, tRgb[i].nBlue);
     }
 }
 
@@ -117,7 +117,7 @@ void __cdecl sub_M386_Emit_00606890(int nUnused, unsigned char* pTables, D2HslSt
 }
 
 // 0x00605210
-unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2)
+unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2)
 {
     unsigned int nBestDistance = 0xFFFFFFFF;
     unsigned int nBest = 0;
@@ -137,7 +137,7 @@ unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPale
 }
 
 // 0x00605280
-unsigned char __stdcall sub_00605280_FindFarthestPaletteIndex(unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue)
+unsigned char __stdcall GetFurthestColor(unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue)
 {
     unsigned int nBest = 0;
     unsigned int nBestIndex = 0;
@@ -215,7 +215,7 @@ void __stdcall sub_00605DE0_BuildDarkenTables(unsigned char* pData)
     {
         for (unsigned int j = 0; j < 256; ++j)
         {
-            pData[0x400 + i * 256 + j] = sub_00605210_FindNearestColor(pData, 256,
+            pData[0x400 + i * 256 + j] = GetClosestColor(pData, 256,
                 pData[j * 4 + 0] * (i + 1) >> 5,
                 pData[j * 4 + 1] * (i + 1) >> 5,
                 pData[j * 4 + 2] * (i + 1) >> 5);

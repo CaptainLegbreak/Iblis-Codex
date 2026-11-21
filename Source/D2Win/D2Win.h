@@ -77,9 +77,9 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 int __stdcall sub_004FE710_EditBoxMouseDownAlt(SMSGHANDLER_PARAMS* pMsg); // 0x004FE710
 int __stdcall sub_00504A20_CheckItemType(int nItemType, int nCheckType); // 0x00504A20
 int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3); // 0x006001F0
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
-int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 unsigned char* __fastcall sub_005038D0_GetComponentPalette(int nColor); // 0x005038D0
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610

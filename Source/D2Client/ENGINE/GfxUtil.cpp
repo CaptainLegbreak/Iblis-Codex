@@ -265,9 +265,9 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __fastcall sub_00513C50_SetSoundEnviron(D2SoundEnvironStrc* pEnviron); // 0x00513C50
 
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -1080,10 +1080,10 @@ void __fastcall sub_004DAA70_GetItemMode(D2UnitStrc* pUnit, int* pMode)
 // 0x004DAB40
 int __fastcall sub_004DAB40_IsCelOnScreen(D2CelStrc* pCel, int nX, int nY, int bFlag)
 {
-    int nHeight = sub_006018F0(pCel);
-    int nBottom = sub_00601950(pCel) + nY;
-    int nLeft = sub_00601920(pCel) + nX;
-    int nWidth = sub_006018C0(pCel);
+    int nHeight = CelGetHeight(pCel);
+    int nBottom = CelGetOffsetY(pCel) + nY;
+    int nLeft = CelGetOffsetX(pCel) + nX;
+    int nWidth = CelGetWidth(pCel);
     if (bFlag)
     {
         nLeft -= nHeight;
@@ -1604,13 +1604,13 @@ static void sub_004DB290_ConvertDirection(int nSrcDirCount, int nDirCount, unsig
         if (nDirCount == 4)
         {
             const unsigned int nIndex = *(unsigned int*)pDirection * 8 >> 6;
-            *pDirection = (unsigned int)sub_00600CB0_ConvertDirection(nIndex, 8, nDirCount, 0) * 64 / 8;
+            *pDirection = (unsigned int)CelConvertDir(nIndex, 8, nDirCount, 0) * 64 / 8;
         }
     }
     else if (nSrcDirCount == 16 && nDirCount == 8)
     {
         const unsigned int nIndex = *(unsigned int*)pDirection * 16 >> 6;
-        *pDirection = (unsigned int)sub_00600CB0_ConvertDirection(nIndex, 16, nDirCount, 0) * 64 / 16;
+        *pDirection = (unsigned int)CelConvertDir(nIndex, 16, nDirCount, 0) * 64 / 16;
     }
 }
 
@@ -2063,7 +2063,7 @@ int __fastcall sub_004DBD30_GetComponentsMaxHeight(D2UnitStrc* pUnit, unsigned c
         int nItemId;
         if (sub_004DB7B0_ResolveUnitCelContext(pUnit, &tToken, -1, &nItemId) && sub_006001F0(&tToken, 0, 1) && tToken.pCel)
         {
-            const int nHeight = sub_00601950(tToken.pCel) - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit);
+            const int nHeight = CelGetOffsetY(tToken.pCel) - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit);
             if (nHeight > *pMax)
                 *pMax = nHeight;
             ++nCount;
@@ -2097,8 +2097,8 @@ void __fastcall sub_004DBEA0_GetUnitCelSize(D2UnitStrc* pUnit, int nArg40, int n
     tToken.nComponent = 1;
     if (sub_004DB7B0_ResolveUnitCelContext(pUnit, &tToken, -1, &nArg0) && sub_006001F0(&tToken, 0, 1) && tToken.pCel)
     {
-        *pWidth = sub_006018C0(tToken.pCel);
-        *pHeight = sub_006018F0(tToken.pCel);
+        *pWidth = CelGetWidth(tToken.pCel);
+        *pHeight = CelGetHeight(tToken.pCel);
     }
 }
 

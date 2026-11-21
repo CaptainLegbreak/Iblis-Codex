@@ -112,7 +112,7 @@ class BNGatewayAccess
 {
 public:
     void __stdcall UpdateGatewaysFromIni(char* szText);                                                     // 0x00518850
-    void __stdcall SaveAndUnload();                                                                         // 0x00517ED0
+    void __stdcall Unload();                                                                         // 0x00517ED0
 
 private:
     int unk0x00[9];
@@ -944,7 +944,7 @@ int __fastcall sub_0051ED00_ApplyPatches(int* pResult)
     }
     *pRun = 0;
 
-    gBnGatewayAccess_00881838.SaveAndUnload();
+    gBnGatewayAccess_00881838.Unload();
 
     if (!sub_0051E9D0_RunProgramList(szRunList, szModuleDir))
     {
@@ -1385,7 +1385,7 @@ void __fastcall sub_0051FAB0_HandleDownloadEvent(int nType, int nSubType, unsign
         SStrCopy(szText, (const char*)pData, nLength + 1);
         gBnGatewayAccess_00881838.UpdateGatewaysFromIni(szText);
         SMemFree(szText, gszBnDownloadFile_006DF338, 0x245, 0);
-        gBnGatewayAccess_00881838.SaveAndUnload();
+        gBnGatewayAccess_00881838.Unload();
         break;
     }
     }

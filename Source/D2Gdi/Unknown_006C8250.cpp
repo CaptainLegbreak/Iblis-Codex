@@ -7,10 +7,10 @@ struct D2CelStrc;
 struct D2ClipRectStrc;
 struct D2ClipResultStrc;
 extern int gnWideWidth_0098A16C; // 0x0098A16C
-int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
-int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 extern int gnScreenHeight_007C913C; // 0x007C913C
 static int __stdcall sub_006C8310_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter);
 
@@ -97,8 +97,8 @@ void __fastcall sub_006C82D0_SetResolution(int nMode)
 // 0x006C8310
 static int __stdcall sub_006C8310_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
-    int nWidth = sub_006018C0(pCel);
-    int nHeight = sub_006018F0(pCel);
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
     if (bCenter)
     {
         nX -= nHeight;
@@ -106,10 +106,10 @@ static int __stdcall sub_006C8310_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
         nHeight >>= 1;
     }
 
-    nX += sub_00601920(pCel);
+    nX += CelGetOffsetX(pCel);
     if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
     {
-        nY += sub_00601950(pCel);
+        nY += CelGetOffsetY(pCel);
         if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
             return 0;
     }
@@ -126,20 +126,20 @@ static
 // 0x006C8380
 int __stdcall sub_006C8380_ClipCel(D2CelStrc* cel, int x, int y, const D2ClipRectStrc* clip, D2ClipResultStrc* result)
 {
-    int width = sub_006018C0(cel);
-    int height = sub_006018F0(cel);
+    int width = CelGetWidth(cel);
+    int height = CelGetHeight(cel);
     int left = clip->left > 0 ? clip->left : 0;
     int right = clip->right < gnSurfaceWidth_007C9138 ? clip->right : gnSurfaceWidth_007C9138;
     if (left > right)
         return 1;
-    x += sub_00601920(cel);
+    x += CelGetOffsetX(cel);
     if (x >= right || x + width < left)
         return 1;
     int top = clip->top > 0 ? clip->top : 0;
     int bottom = clip->bottom < gnSurfaceHeight_007C913C ? clip->bottom : gnSurfaceHeight_007C913C;
     if (top > bottom)
         return 1;
-    y += sub_00601950(cel);
+    y += CelGetOffsetY(cel);
     if (y < top || y - height > bottom)
         return 1;
     result->left = left;
@@ -167,8 +167,8 @@ int __fastcall EmitClipCel(const D2ClipRectStrc* clip, D2CelStrc* cel, int x, in
 
 static int __stdcall sub_006C85A0_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
-    int nWidth = sub_006018C0(pCel);
-    int nHeight = sub_006018F0(pCel);
+    int nWidth = CelGetWidth(pCel);
+    int nHeight = CelGetHeight(pCel);
     if (bCenter)
     {
         nX -= nHeight;
@@ -176,10 +176,10 @@ static int __stdcall sub_006C85A0_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
         nHeight >>= 1;
     }
 
-    nX += sub_00601920(pCel);
+    nX += CelGetOffsetX(pCel);
     if (nX < gnScreenWidth_007C9138 && nWidth + nX >= 0)
     {
-        nY += sub_00601950(pCel);
+        nY += CelGetOffsetY(pCel);
         if (nY >= 0 && nY - nHeight < gnScreenHeight_007C913C)
             return 0;
     }
