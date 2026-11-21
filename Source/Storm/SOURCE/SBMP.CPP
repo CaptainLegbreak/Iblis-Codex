@@ -115,6 +115,14 @@ struct D2CopyStackArg { unsigned int value; };
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 
 
+struct D2BmpRgbQuadStrc
+{
+    unsigned char rgbBlue;
+    unsigned char rgbGreen;
+    unsigned char rgbRed;
+    unsigned char rgbReserved;
+};
+
 struct D2BmpFileHeaderStrc
 {
     unsigned short bfType;
@@ -771,7 +779,7 @@ static int sub_006C5F40_GetImageType(unsigned short signature)
 // 0x006C5F70
 static int __stdcall DecodeBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth)
 {
-    unsigned char aColors[0x400];
+    D2BmpRgbQuadStrc aColors[256];
     D2BmpFileHeaderStrc tFileHeader;
     D2BmpInfoHeaderStrc tInfoHeader;
 
@@ -813,9 +821,9 @@ static int __stdcall DecodeBmpFile(unsigned char* pPalette, int* pWidth, void* h
 
         for (int i = 0; i < 256; ++i)
         {
-            pPalette[4 * i + 0] = aColors[4 * i + 2];
-            pPalette[4 * i + 1] = aColors[4 * i + 1];
-            pPalette[4 * i + 2] = aColors[4 * i + 0];
+            pPalette[4 * i + 0] = aColors[i].rgbRed;
+            pPalette[4 * i + 1] = aColors[i].rgbGreen;
+            pPalette[4 * i + 2] = aColors[i].rgbBlue;
             pPalette[4 * i + 3] = 0;
         }
     }
