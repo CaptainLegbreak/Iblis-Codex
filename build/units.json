@@ -57300,6 +57300,11 @@
      "name": "?sub_005643C0_TASK_UnlockQueueSlot@@YAXPAUD2TaskStrc@@@Z"
     },
     {
+     "va": "0x00564400",
+     "length": 90,
+     "name": "?TASK_QueueIncrement@@YAXPAUD2TaskStrc@@PAHH@Z"
+    },
+    {
      "va": "0x00564870",
      "length": 17,
      "name": "?sub_00564870_TASK_InitializeClock@@YGXXZ"
@@ -57356,68 +57361,17 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00564400.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00564400",
-     "length": 90,
-     "name": "?TASK_QueueIncrement@@YAXPAUD2TaskStrc@@PAHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00564460.cpp",
+   "file": "Source/D2Game/GAME/Task_00564460.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x00564460",
      "length": 381
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Task_005645E0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005645E0",
      "length": 651
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Task_00564A00.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00564A00",
      "length": 286
