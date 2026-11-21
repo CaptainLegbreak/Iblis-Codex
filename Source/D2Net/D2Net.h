@@ -30,3 +30,5 @@ struct D2NetPacketRecStrc
 };
 
 #include "D2SysTypes.h"
+
+int __fastcall NET_IsLocalConnection(); // 0x0052B7E0

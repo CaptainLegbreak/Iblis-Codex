@@ -848,18 +848,18 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00434A00.cpp": {
+  "Source/D2Launch/Unknown_00434A00.cpp": {
    "bytes": 8,
    "definitions": 2,
    "externs": [
     "extern \"C\" char gData_007089BC[]; // 0x007089BC"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00434A00.inc",
+   "include": "gen/data/Source/D2Launch/Unknown_00434A00.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00434E00.cpp": {
+  "Source/D2Launch/Unknown_00434E00.cpp": {
    "bytes": 1776,
    "definitions": 2,
    "externs": [
@@ -885,16 +885,16 @@
     "extern \"C\" void __cdecl sub_00435D10_SelectMode3(); // 0x00435D10"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00434E00.inc",
+   "include": "gen/data/Source/D2Launch/Unknown_00434E00.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00435E10.cpp": {
+  "Source/D2Launch/Unknown_00435E10.cpp": {
    "bytes": 20,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00435E10.inc",
+   "include": "gen/data/Source/D2Launch/Unknown_00435E10.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1058,21 +1058,21 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0043AAB0.cpp": {
+  "Source/D2Launch/Unknown_0043AAB0.cpp": {
    "bytes": 124,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0043AAB0.inc",
+   "include": "gen/data/Source/D2Launch/Unknown_0043AAB0.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0043AE30.cpp": {
+  "Source/D2Launch/Unknown_0043AE30.cpp": {
    "bytes": 8,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0043AE30.inc",
+   "include": "gen/data/Source/D2Launch/Unknown_0043AE30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3788,12 +3788,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Bnclient/Unknown_00517804.cpp": {
+  "Source/D2Hell/Unknown_00517804.cpp": {
    "bytes": 140,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Bnclient/Unknown_00517804.inc",
+   "include": "gen/data/Source/D2Hell/Unknown_00517804.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -6782,12 +6782,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_006C8250.cpp": {
+  "Source/D2Gdi/Unknown_006C8250.cpp": {
    "bytes": 36,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006C8250.inc",
+   "include": "gen/data/Source/D2Gdi/Unknown_006C8250.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -19689,7 +19689,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00434A00.cpp",
+   "file": "Source/D2Launch/Unknown_00434A00.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern void* gpGlobal_0070B738 = ",
@@ -19723,7 +19723,7 @@
    "cname": "gData_0070B73C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00434A00.cpp",
+   "file": "Source/D2Launch/Unknown_00434A00.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B73C_t gData_0070B73C; // 0x0070B73C",
    "head": "extern \"C\" struct d2data_0070B73C_t gData_0070B73C = ",
@@ -19740,7 +19740,7 @@
    "cname": "gData_0070B6B0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00434E00.cpp",
+   "file": "Source/D2Launch/Unknown_00434E00.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B6B0_t gData_0070B6B0; // 0x0070B6B0",
    "head": "extern \"C\" struct d2data_0070B6B0_t gData_0070B6B0 = ",
@@ -19782,7 +19782,7 @@
    "cname": "gData_0070B740",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00434E00.cpp",
+   "file": "Source/D2Launch/Unknown_00434E00.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070B740_t gData_0070B740; // 0x0070B740",
    "head": "extern \"C\" struct d2data_0070B740_t gData_0070B740 = ",
@@ -20168,7 +20168,7 @@
    "cname": "gData_006D4D88",
    "declared": true,
    "decorated": "_gabDefault_006D4D88",
-   "file": "Source/D2Client/Unknown_00435E10.cpp",
+   "file": "Source/D2Launch/Unknown_00435E10.cpp",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006D4D88[20]; // 0x006D4D88",
@@ -20771,7 +20771,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0043AAB0.cpp",
+   "file": "Source/D2Launch/Unknown_0043AAB0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLogonRetries_0070CC4C = ",
@@ -20796,7 +20796,7 @@
    "cname": "gData_0070CC50",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0043AAB0.cpp",
+   "file": "Source/D2Launch/Unknown_0043AAB0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CC50_t gData_0070CC50; // 0x0070CC50",
    "head": "extern \"C\" struct d2data_0070CC50_t gData_0070CC50 = ",
@@ -21054,7 +21054,7 @@
    "cname": "gData_006D3A08",
    "declared": true,
    "decorated": "_gapszSkyPalette_006D3A08",
-   "file": "Source/D2Client/Unknown_0043AE30.cpp",
+   "file": "Source/D2Launch/Unknown_0043AE30.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006D3A08[2]; // 0x006D3A08",
    "head": "extern \"C\" const char* const gData_006D3A08[2] = ",
@@ -88459,7 +88459,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Bnclient/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00517804.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2MessageList gMessages_0072FA14 = ",
@@ -88535,7 +88535,7 @@
    "cname": "gData_0072FA20",
    "declared": false,
    "decorated": null,
-   "file": "Source/Bnclient/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00517804.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20; // 0x0072FA20",
    "head": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20 = ",
@@ -157721,7 +157721,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006C8250.cpp",
+   "file": "Source/D2Gdi/Unknown_006C8250.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
@@ -157752,7 +157752,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006C8250.cpp",
+   "file": "Source/D2Gdi/Unknown_006C8250.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned long gdwGdiDebugTextColor_0074C5C0 = ",
