@@ -53588,8 +53588,22 @@
      "length": 438
     },
     {
+     "va": "0x00541FE0",
+     "length": 437,
+     "name": "?sub_00541FE0_SaveSpecialMonsterParameters@@YGXPAUD2GameStrc@@PAUD2InactiveMonsterNodeStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005421A0",
+     "length": 842,
+     "name": "?sub_005421A0_CompressInactiveMonster@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005429B0",
      "length": 263
+    },
+    {
+     "va": "0x00542E10",
+     "length": 619
     },
     {
      "va": "0x00543080",
@@ -53600,28 +53614,6 @@
      "va": "0x00543140",
      "length": 175,
      "name": "?SUNITINACTIVE_DeleteSingleListNode@@YIXPAUD2GameStrc@@GGE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitInactive_00541FE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00541FE0",
-     "length": 437,
-     "name": "?sub_00541FE0_SaveSpecialMonsterParameters@@YGXPAUD2GameStrc@@PAUD2InactiveMonsterNodeStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitInactive_005421A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005421A0",
-     "length": 842,
-     "name": "?sub_005421A0_CompressInactiveMonster@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -53651,31 +53643,6 @@
      "va": "0x00542B40",
      "length": 716
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitInactive_00542E10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00542E10",
-     "length": 619
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/GS"
    ]
   },
   {
