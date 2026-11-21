@@ -205,59 +205,215 @@ int __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, 
 
 int __stdcall sub_00625B70_CheckStatFlag(D2UnitStrc* pUnit, int nState); // 0x00625B70
 
-struct Data00627DF0 { unsigned char bUnknown00[0x10]; unsigned int dwValue10; };
+struct Data00627DF0
+{
+    unsigned char bUnknown00[0x10];
+    unsigned int dwValue10;
+};
 
-struct Unit00627DF0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00627DF0* pData; };
+struct Unit00627DF0
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00627DF0* pData;
+};
 
-struct Data00627EA0 { unsigned int dwValue00; };
+struct Data00627EA0
+{
+    unsigned int dwValue00;
+};
 
-struct Unit00627EA0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00627EA0* pData; };
+struct Unit00627EA0
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00627EA0* pData;
+};
 
-struct Data00627EF0 { unsigned char bUnknown00[0x38]; unsigned short wValues38[1]; };
+struct Data00627EF0
+{
+    unsigned char bUnknown00[0x38];
+    unsigned short wValues38[1];
+};
 
-struct Unit00627EF0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00627EF0* pData; };
+struct Unit00627EF0
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00627EF0* pData;
+};
 
-struct Data00627F20 { unsigned char bUnknown00[0x36]; unsigned short wValue36; };
+struct Data00627F20
+{
+    unsigned char bUnknown00[0x36];
+    unsigned short wValue36;
+};
 
-struct Unit00627F20 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00627F20* pData; };
+struct Unit00627F20
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00627F20* pData;
+};
 
-struct Data00627F50 { unsigned char bUnknown00[0x36]; unsigned short wValue36; };
+struct Data00627F50
+{
+    unsigned char bUnknown00[0x36];
+    unsigned short wValue36;
+};
 
-struct Unit00627F50 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00627F50* pData; };
+struct Unit00627F50
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00627F50* pData;
+};
 
-struct Data00627FB0 { unsigned char bUnknown00[0x3E]; unsigned short wValues3E[1]; };
+struct Data00627FB0
+{
+    unsigned char bUnknown00[0x3E];
+    unsigned short wValues3E[1];
+};
 
-struct Unit00627FB0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00627FB0* pData; };
+struct Unit00627FB0
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00627FB0* pData;
+};
 
-struct Data00627FE0 { unsigned char bUnknown00[0x32]; unsigned short wValue32; };
+struct Data00627FE0
+{
+    unsigned char bUnknown00[0x32];
+    unsigned short wValue32;
+};
 
-struct Unit00627FE0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00627FE0* pData; };
+struct Unit00627FE0
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00627FE0* pData;
+};
 
-struct Data00628040 { unsigned char bUnknown00[0x34]; unsigned short wValue34; };
+struct Data00628040
+{
+    unsigned char bUnknown00[0x34];
+    unsigned short wValue34;
+};
 
-struct Unit00628040 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00628040* pData; };
+struct Unit00628040
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00628040* pData;
+};
 
-struct Data00628070 { unsigned char bUnknown00[0x34]; unsigned short wValue34; };
+struct Data00628070
+{
+    unsigned char bUnknown00[0x34];
+    unsigned short wValue34;
+};
 
-struct Unit00628070 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00628070* pData; };
+struct Unit00628070
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00628070* pData;
+};
 
-struct Data006280A0 { unsigned char bUnknown00[0x18]; unsigned int dwFlags18; };
+struct Data006280A0
+{
+    unsigned char bUnknown00[0x18];
+    unsigned int dwFlags18;
+};
 
-struct Unit006280A0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data006280A0* pData; };
+struct Unit006280A0
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data006280A0* pData;
+};
 
-struct Data00628140 { unsigned char bUnknown00[0x14]; unsigned int dwFlags14; };
+struct Data00628140
+{
+    unsigned char bUnknown00[0x14];
+    unsigned int dwFlags14;
+};
 
-struct Unit00628140 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00628140* pData; };
+struct Unit00628140
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00628140* pData;
+};
 
-struct Data00628250 { unsigned char bUnknown00[0x45]; char cValue45; };
+struct Data00628250
+{
+    unsigned char bUnknown00[0x45];
+    char cValue45;
+};
 
-struct Unit00628250 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00628250* pData; };
+struct Unit00628250
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00628250* pData;
+};
 
 int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode); // 0x00633680
 
-struct Data00629EA0 { unsigned char bUnknown00[0x1C]; unsigned int dwValue1C; unsigned int dwValue20; };
+struct Data00629EA0
+{
+    unsigned char bUnknown00[0x1C];
+    unsigned int dwValue1C;
+    unsigned int dwValue20;
+};
 
-struct Unit00629EA0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00629EA0* pData; };
+struct Unit00629EA0
+{
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int dwUnknown10;
+    Data00629EA0* pData;
+};
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 

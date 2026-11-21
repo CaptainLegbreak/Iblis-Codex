@@ -31,11 +31,25 @@ struct D2ActiveRoomStrc;
 
 struct D2AiControlStrc;
 
-struct D2MonsterDataStrc { void* pMonstatsTxt; unsigned char nComponent[16]; char pad14[0x14]; D2AiControlStrc* pAiControl; };
+struct D2MonsterDataStrc
+{
+    void* pMonstatsTxt;
+    unsigned char nComponent[16];
+    char pad14[0x14];
+    D2AiControlStrc* pAiControl;
+};
 
-struct D2ItemDataStrc { char pad00[0x24]; int dwActionStamp; };
+struct D2ItemDataStrc
+{
+    char pad00[0x24];
+    int dwActionStamp;
+};
 
-struct D2ObjectDataStrc { void* pObjectsTxt; unsigned char InteractType; };
+struct D2ObjectDataStrc
+{
+    void* pObjectsTxt;
+    unsigned char InteractType;
+};
 
 struct D2InactiveMonsterNodeStrc
 {
@@ -80,17 +94,57 @@ struct D2InactiveUnitNodeStrc
     D2InactiveUnitNodeStrc* pNext;
 };
 
-struct D2InactiveItemNodeStrc { D2InactiveItemNodeStrc* pNext; int nFrame; char pad08[4]; unsigned short nBitstreamSize; unsigned char pBitstream[1]; };
+struct D2InactiveItemNodeStrc
+{
+    D2InactiveItemNodeStrc* pNext;
+    int nFrame;
+    char pad08[4];
+    unsigned short nBitstreamSize;
+    unsigned char pBitstream[1];
+};
 
-struct D2InactiveUnitListStrc { int nX,nY; D2InactiveItemNodeStrc* pInactiveItems; D2InactiveMonsterNodeStrc* pInactiveMonsters; D2InactiveUnitNodeStrc* pInactiveUnits; D2InactiveUnitListStrc* pNext; };
+struct D2InactiveUnitListStrc
+{
+    int nX,nY;
+    D2InactiveItemNodeStrc* pInactiveItems;
+    D2InactiveMonsterNodeStrc* pInactiveMonsters;
+    D2InactiveUnitNodeStrc* pInactiveUnits;
+    D2InactiveUnitListStrc* pNext;
+};
 
-struct D2GameStrc { char pad00[0x1C]; void* pMemoryPool; char pad20[0x88]; int dwGameFrame; char padAC[0x2C]; D2InactiveUnitListStrc* pInactiveUnitList[5]; int padEC; void* pMonReg[1]; };
+struct D2GameStrc
+{
+    char pad00[0x1C];
+    void* pMemoryPool;
+    char pad20[0x88];
+    int dwGameFrame;
+    char padAC[0x2C];
+    D2InactiveUnitListStrc* pInactiveUnitList[5];
+    int padEC;
+    void* pMonReg[1];
+};
 
-struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileXPos,nTileYPos,nTileWidth,nTileHeight; };
+struct D2DrlgCoordsStrc
+{
+    int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileXPos,nTileYPos,nTileWidth,nTileHeight;
+};
 
-struct D2CoordStrc { int nX,nY; };
+struct D2CoordStrc
+{
+    int nX,nY;
+};
 
-struct D2ItemSaveStrc { int nClassId; unsigned short nX,nY; unsigned char bMode,nPad09; unsigned short nPad0A; unsigned int dwFlags; unsigned char nStorePage,nBodyloc; unsigned short nPad12; int nItemFileIndex; };
+struct D2ItemSaveStrc
+{
+    int nClassId;
+    unsigned short nX,nY;
+    unsigned char bMode,nPad09;
+    unsigned short nPad0A;
+    unsigned int dwFlags;
+    unsigned char nStorePage,nBodyloc;
+    unsigned short nPad12;
+    int nItemFileIndex;
+};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 
