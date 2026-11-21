@@ -18246,6 +18246,10 @@
      "name": "?sub_00460830_SetStateAndSync@@YGXHHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004608C0",
+     "length": 111
+    },
+    {
      "va": "0x004609F0",
      "length": 500
     },
@@ -19201,30 +19205,6 @@
      "length": 174,
      "name": "?sub_00460680_RunOkCancel@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004608C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004608C0",
-     "length": 111
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
