@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -24,33 +26,7 @@ struct D2MissileDataStrc
 };
 
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    unsigned char unk_08[0x30];
-    int dwParam[5];
-    int dwSrvCalcParam[3];
-    int dwCltParam[5];
-    int dwHitPar[3];
-    int dwDmgPar[2];
-    char unk0x80[0x16];
-    short nRange;
-    short nLevRange;
-    char unk0x9A[0x10A];
-};
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0x60];
-    char* pMissCode;
-    unsigned int nMissCodeSize;
-    unsigned char unk_68[0xAFC];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -232,21 +208,21 @@ int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOw
     goto Done;
     case 9: nResult = pMissilesTxtRecord->dwCltParam[4];
     goto Done;
-    case 10: nResult = pMissilesTxtRecord->dwSrvCalcParam[0];
+    case 10: nResult = pMissilesTxtRecord->dwHitPar[0];
     goto Done;
-    case 11: nResult = pMissilesTxtRecord->dwSrvCalcParam[1];
+    case 11: nResult = pMissilesTxtRecord->dwHitPar[1];
     goto Done;
-    case 12: nResult = pMissilesTxtRecord->dwSrvCalcParam[2];
+    case 12: nResult = pMissilesTxtRecord->dwHitPar[2];
     goto Done;
-    case 13: nResult = pMissilesTxtRecord->dwHitPar[0];
+    case 13: nResult = pMissilesTxtRecord->dwCltHitPar[0];
     goto Done;
-    case 14: nResult = pMissilesTxtRecord->dwHitPar[1];
+    case 14: nResult = pMissilesTxtRecord->dwCltHitPar[1];
     goto Done;
-    case 15: nResult = pMissilesTxtRecord->dwHitPar[2];
+    case 15: nResult = pMissilesTxtRecord->dwCltHitPar[2];
     goto Done;
-    case 16: nResult = pMissilesTxtRecord->dwDmgPar[0];
+    case 16: nResult = pMissilesTxtRecord->dwDmgParam[0];
     goto Done;
-    case 17: nResult = pMissilesTxtRecord->dwDmgPar[1];
+    case 17: nResult = pMissilesTxtRecord->dwDmgParam[1];
     goto Done;
     case 18: nResult = nLevel;
     goto Done;
@@ -268,7 +244,7 @@ int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOw
     goto Done;
     case 27: nResult = MISSILE_GetMaxDamage(pMissile, pOwner, nMissileId, nLevel);
     goto Done;
-    case 28: nResult = pMissilesTxtRecord->nLevRange * nLevel + pMissilesTxtRecord->nRange;
+    case 28: nResult = pMissilesTxtRecord->wLevRange * nLevel + pMissilesTxtRecord->wRange;
     goto Done;
     case 29: nResult = pMissilesTxtRecord->dwParam[0] + (nLevel - 1) * pMissilesTxtRecord->dwParam[1];
     goto Done;
@@ -286,17 +262,17 @@ int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOw
     goto Done;
     case 36: nResult = D2Common_11033(nLevel, pMissilesTxtRecord->dwCltParam[2], pMissilesTxtRecord->dwCltParam[3]);
     goto Done;
-    case 37: nResult = pMissilesTxtRecord->dwSrvCalcParam[0] + (nLevel - 1) * pMissilesTxtRecord->dwSrvCalcParam[1];
+    case 37: nResult = pMissilesTxtRecord->dwHitPar[0] + (nLevel - 1) * pMissilesTxtRecord->dwHitPar[1];
     goto Done;
-    case 38: nResult = D2Common_11033(nLevel, pMissilesTxtRecord->dwSrvCalcParam[0], pMissilesTxtRecord->dwSrvCalcParam[1]);
+    case 38: nResult = D2Common_11033(nLevel, pMissilesTxtRecord->dwHitPar[0], pMissilesTxtRecord->dwHitPar[1]);
     goto Done;
-    case 39: nResult = pMissilesTxtRecord->dwHitPar[0] + (nLevel - 1) * pMissilesTxtRecord->dwHitPar[1];
+    case 39: nResult = pMissilesTxtRecord->dwCltHitPar[0] + (nLevel - 1) * pMissilesTxtRecord->dwCltHitPar[1];
     goto Done;
-    case 40: nResult = D2Common_11033(nLevel, pMissilesTxtRecord->dwHitPar[0], pMissilesTxtRecord->dwHitPar[1]);
+    case 40: nResult = D2Common_11033(nLevel, pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->dwCltHitPar[1]);
     goto Done;
-    case 41: nResult = pMissilesTxtRecord->dwDmgPar[0] + (nLevel - 1) * pMissilesTxtRecord->dwDmgPar[1];
+    case 41: nResult = pMissilesTxtRecord->dwDmgParam[0] + (nLevel - 1) * pMissilesTxtRecord->dwDmgParam[1];
     goto Done;
-    case 42: nResult = D2Common_11033(nLevel, pMissilesTxtRecord->dwDmgPar[0], pMissilesTxtRecord->dwDmgPar[1]);
+    case 42: nResult = D2Common_11033(nLevel, pMissilesTxtRecord->dwDmgParam[0], pMissilesTxtRecord->dwDmgParam[1]);
     goto Done;
     }
 
@@ -367,7 +343,7 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
     pMissileCalc.nMissileId = nMissileId;
     pMissileCalc.nMissileLevel = nLevel;
 
-    return DATATBLS_CalcEvaluateExpression(&sgptDataTables->pMissCode[nCalc], sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpMissileCalcFunctions_00745828, gnMissileCalcFunctions_00745848, &pMissileCalc);
+    return DATATBLS_CalcEvaluateExpression((char*)sgptDataTables->pMissCode + nCalc, sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpMissileCalcFunctions_00745828, gnMissileCalcFunctions_00745848, &pMissileCalc);
 }
 
 #include "gen/data/Source/D2Common/Unknown_0064A2B0.inc"

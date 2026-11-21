@@ -3,6 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
+#include "D2Records.h"
 
 #define D2_NORETURN __declspec(noreturn)
 #define Min(a,b) ((a) < (b) ? (a) : (b))
@@ -24,26 +26,9 @@ struct D2SkillsTxt;
 
 
 
-struct D2MagicAffixTxt
-{
-    unsigned char pad00[0x65];
-    unsigned char levelReq;
-    unsigned char pad66;
-    unsigned char characterClass;
-    unsigned char classLevelReq;
-};
 
 struct D2UniqueItemsTxt { unsigned char pad00[0x36]; short levelReq; };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x2C];
-    short nSetId;
-    unsigned char nSetItemMask;
-    unsigned char unk_2F[0x3];
-    short levelReq;
-    unsigned char unk_34[0x184];
-};
 
 
 
@@ -305,7 +290,7 @@ unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pS
                 D2SetItemsTxt* pRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
                 if (pRecord && pRecord->nSetId == pSetItemsTxtRecord->nSetId)
                 {
-                    nMask |= 1 << pRecord->nSetItemMask;
+                    nMask |= 1 << (unsigned char)pRecord->nSetItems;
                 }
             }
         }

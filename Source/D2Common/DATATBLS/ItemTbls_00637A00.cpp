@@ -1,6 +1,7 @@
 #include "D2Txt.h"
 #include "D2Common.h"
 #include "D2Records.h"
+#include "D2DataTbls.h"
 struct D2BinFieldStrc;
 struct D2OpStatDataStrc;
 struct D2ItemStatCostTxt;
@@ -36,22 +37,7 @@ struct D2GambleTxt
 };
 
 
-struct D2GambleDataTbl
-{
-    int nGambleTxtRecordCount;
-    unsigned int* pGambleSelection;
-    int pGambleChooseLimit[100];
-};
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0x94];
-    D2TxtLinkStrc* pItemsLinker;
-    char unk0x098[0xD94];
-    D2ItemsTxt* pItemsTxt;
-    char unk0xE30[0x50];
-    D2GambleDataTbl pGambleDataTables;
-};
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
@@ -271,7 +257,7 @@ void __fastcall DATATBLS_LoadGambleTxt(void* hArchive)
 
     if (sgtDataTables.pGambleDataTables.nGambleTxtRecordCount)
     {
-        sgtDataTables.pGambleDataTables.pGambleSelection = (unsigned int*)FOG_AllocPool(0, sizeof(unsigned int) * sgtDataTables.pGambleDataTables.nGambleTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 0x7DB, 0);
+        sgtDataTables.pGambleDataTables.pGambleSelection = (int*)FOG_AllocPool(0, sizeof(unsigned int) * sgtDataTables.pGambleDataTables.nGambleTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 0x7DB, 0);
         for (int i = 0; i < sgtDataTables.pGambleDataTables.nGambleTxtRecordCount; ++i)
         {
             const unsigned int dwItemCode = pGambleTxt[i].dwItemCode;

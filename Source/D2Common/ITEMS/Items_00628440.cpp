@@ -1,6 +1,7 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2TxtTables.h"
+#include "D2DataTbls.h"
 typedef char check_int_width[(sizeof(int) == 4) ? 1 : -1];
 typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 
@@ -14,30 +15,6 @@ struct D2MonLvlTxt
 
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC];
-    D2StatesTxt* pStatesTxt;
-    char unk0x0C0[0x04];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAA8];
-    D2MonLvlTxt* pMonLvlTxt;
-    int nMonLvlTxtRecordCount;
-    char unk0xB78[0x20];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x20];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-    char unk0xBCC[0x1C];
-    D2PetTypeTxt* pPetTypeTxt;
-    char unk0xBEC[0x04];
-    int nPetTypeTxtRecordCount;
-    char unk0xBF4[0x04];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-};
 
 typedef char check_states_size[(sizeof(D2StatesTxt) == 0x3C) ? 1 : -1];
 typedef char check_monlvl_size[(sizeof(D2MonLvlTxt) == 0x78) ? 1 : -1];
@@ -45,7 +22,6 @@ typedef char check_skills_size[(sizeof(D2SkillsTxt) == 0x23C) ? 1 : -1];
 typedef char check_charstats_size[(sizeof(D2CharStatsTxt) == 0xC4) ? 1 : -1];
 typedef char check_pettype_size[(sizeof(D2PetTypeTxt) == 0xE0) ? 1 : -1];
 typedef char check_itemtypes_size[(sizeof(D2ItemTypesTxt) == 0xE4) ? 1 : -1];
-typedef char check_datatables_size[(sizeof(D2DataTablesStrc) == 0xC00) ? 1 : -1];
 
 extern "C" D2DataTablesStrc* sgptDataTables; // 0x00744304
 
