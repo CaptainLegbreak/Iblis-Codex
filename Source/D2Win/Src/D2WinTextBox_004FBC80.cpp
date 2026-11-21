@@ -64,23 +64,7 @@ extern int gnSquelchCelFileFrameCount_0087E848;                                 
 extern D2CelFileStrc* ghSelectedCelFile_0087E850;                                                           // 0x0087E850
 extern int gnSelectedCelFileFrameCount_0087E854;                                                            // 0x0087E854
 
-// 0x004FBC80
-void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
-{
-    D2_ASSERT(pTextBox, 0x2EF);
-    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x2F0);
-    D2_ASSERT((nColumn >= 0) && (nColumn < pTextBox->nNumColumns), 0x2F2);
-    pTextBox->unk0x68[nColumn] = a3;
-}
 
-// 0x004FBCD0
-void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
-{
-    D2_ASSERT(ptTextData, 0x2FC);
-    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x2FD);
-    D2_ASSERT(nColumn >= 0, 0x2FF);
-    ptTextData->unk0x7C[nColumn] = a3;
-}
 
 
 

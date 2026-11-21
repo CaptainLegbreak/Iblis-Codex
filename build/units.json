@@ -42010,6 +42010,16 @@
      "name": "?D2Win_10056@@YIXPAUD2WinTextBoxStrc@@H@Z"
     },
     {
+     "va": "0x004FBC80",
+     "length": 77,
+     "name": "D2Win_10059"
+    },
+    {
+     "va": "0x004FBCD0",
+     "length": 72,
+     "name": "D2Win_10060"
+    },
+    {
      "va": "0x004FBD20",
      "length": 71,
      "name": "?D2Win_10061@@YIHPAUD2WinTextBoxStrc@@@Z"
@@ -42075,6 +42085,11 @@
      "name": "?D2Win_10042_TEXTBOX_Create@@YIPAUD2WinTextBoxStrc@@HHHHHHPAUD2CelFileStrc@@P6GHPAUSMSGHANDLER_PARAMS@@@ZIPAH3@Z"
     },
     {
+     "va": "0x004FC960",
+     "length": 80,
+     "name": "?D2Win_10043_TEXTBOX_Destroy@@YIHPAUD2WinTextBoxStrc@@@Z"
+    },
+    {
      "va": "0x004FC9B0",
      "length": 648
     },
@@ -42106,6 +42121,11 @@
      "va": "0x004FCFF0",
      "length": 108,
      "name": "?D2Win_10046@@YIXPAUD2WinControlStrc@@PBDH@Z"
+    },
+    {
+     "va": "0x004FD060",
+     "length": 12,
+     "name": "?D2Win_10044@@YIXPAUD2WinControlStrc@@PBUUnicode@@@Z"
     },
     {
      "va": "0x004FD470",
@@ -42177,16 +42197,6 @@
    "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004FBC80",
-     "length": 77,
-     "name": "D2Win_10059"
-    },
-    {
-     "va": "0x004FBCD0",
-     "length": 72,
-     "name": "D2Win_10060"
-    },
     {
      "va": "0x004FD970",
      "length": 84,
@@ -42282,16 +42292,6 @@
    "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004FC960",
-     "length": 80,
-     "name": "?D2Win_10043_TEXTBOX_Destroy@@YIHPAUD2WinTextBoxStrc@@@Z"
-    },
-    {
-     "va": "0x004FD060",
-     "length": 12,
-     "name": "?D2Win_10044@@YIXPAUD2WinControlStrc@@PBUUnicode@@@Z"
-    },
     {
      "va": "0x004FD830",
      "length": 41,

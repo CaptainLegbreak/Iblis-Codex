@@ -202,6 +202,12 @@ int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Uni
 static int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox);
 
 
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl);                                           // 0x004F9310
+
+void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);                                         // 0x004FB6A0
+
+void __fastcall sub_00507EE0(void* pArg);                                                                   // 0x00507EE0
+
 // 0x004FB1B0
 void __cdecl sub_004FB1B0_ApplyPalette()
 {
@@ -1175,6 +1181,41 @@ D2CharStrc* __fastcall sub_6F8AA140(unsigned short wChar)
     }
 
     return pFontCache->pCharInfo + 31;
+}
+
+// 0x004FBC80
+void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
+{
+    D2_ASSERT(pTextBox, 0x2EF);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x2F0);
+    D2_ASSERT((nColumn >= 0) && (nColumn < pTextBox->nNumColumns), 0x2F2);
+    pTextBox->unk0x68[nColumn] = a3;
+}
+
+// 0x004FBCD0
+void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
+{
+    D2_ASSERT(ptTextData, 0x2FC);
+    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x2FD);
+    D2_ASSERT(nColumn >= 0, 0x2FF);
+    ptTextData->unk0x7C[nColumn] = a3;
+}
+
+// 0x004FC960
+int __fastcall D2Win_10043_TEXTBOX_Destroy(D2WinTextBoxStrc* ptTextData)
+{
+    D2_ASSERT(ptTextData, 0xCB);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xCC);
+    if (ptTextData->pScrollBar)
+        sub_00507EE0(ptTextData->pScrollBar);
+    sub_004FB6A0_ClearText(&ptTextData->controlHeader);
+    return CONTROL_RemoveFromList(&ptTextData->controlHeader);
+}
+
+// 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText)
+{
+    sub_004FC9B0_SetText(pControl, pText, 4, 0, 0);
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinTextBox.inc"

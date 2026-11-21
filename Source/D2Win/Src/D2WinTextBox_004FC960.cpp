@@ -104,22 +104,7 @@ D2CompositeUnitStrc* gpCompositeUnitList_0087E838;                              
 D2WinPopUpStrc* gpPopUp_0087E974;                                                                           // 0x0087E974
 
 
-// 0x004FC960
-int __fastcall D2Win_10043_TEXTBOX_Destroy(D2WinTextBoxStrc* ptTextData)
-{
-    D2_ASSERT(ptTextData, 0xCB);
-    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xCC);
-    if (ptTextData->pScrollBar)
-        sub_00507EE0(ptTextData->pScrollBar);
-    sub_004FB6A0_ClearText(&ptTextData->controlHeader);
-    return CONTROL_RemoveFromList(&ptTextData->controlHeader);
-}
 
-// 0x004FD060
-void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText)
-{
-    sub_004FC9B0_SetText(pControl, pText, 4, 0, 0);
-}
 
 // 0x004FD830
 void __fastcall sub_004FD830_2(D2WinTimerStrc* ptTimerData)
