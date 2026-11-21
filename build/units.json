@@ -67349,6 +67349,10 @@
      "name": "sub_005DCEE0_FindPlayerTargetInAdjacentRooms"
     },
     {
+     "va": "0x005DCF70",
+     "length": 162
+    },
+    {
      "va": "0x005DD020",
      "length": 46,
      "name": "sub_6FCF20E0"
@@ -67357,6 +67361,10 @@
      "va": "0x005DD050",
      "length": 86,
      "name": "?sub_005DD050_FindTargetAmongMinions@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
+    },
+    {
+     "va": "0x005DD0B0",
+     "length": 130
     },
     {
      "va": "0x005DD140",
@@ -67371,6 +67379,10 @@
      "va": "0x005DD230",
      "length": 27,
      "name": "@sub_005DD230@12"
+    },
+    {
+     "va": "0x005DD250",
+     "length": 40
     },
     {
      "va": "0x005DD290",
@@ -67388,6 +67400,10 @@
      "name": "?AIUTIL_CheckIfMonsterUsesSkill@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x005DD330",
+     "length": 56
+    },
+    {
      "va": "0x005DD370",
      "length": 264
     },
@@ -67399,6 +67415,10 @@
      "va": "0x005DD510",
      "length": 244,
      "name": "?AIUTIL_ShouldUseAlternativeTarget@@YGHPAPAUD2UnitStrc@@PAHPAU1@H2@Z"
+    },
+    {
+     "va": "0x005DD610",
+     "length": 472
     },
     {
      "va": "0x005DDC30",
@@ -67456,46 +67476,6 @@
      "length": 70,
      "name": "?sub_005DCA20_IsHostile@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiUtil_005DCF70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005DCF70",
-     "length": 162
-    },
-    {
-     "va": "0x005DD0B0",
-     "length": 130
-    },
-    {
-     "va": "0x005DD250",
-     "length": 40
-    },
-    {
-     "va": "0x005DD330",
-     "length": 56
-    },
-    {
-     "va": "0x005DD610",
-     "length": 472
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

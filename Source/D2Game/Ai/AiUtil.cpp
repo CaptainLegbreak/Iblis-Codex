@@ -1,5 +1,7 @@
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 #include "D2Game.h"
 #include "D2Drlg.h"
 #include "D2UnitData.h"
@@ -12,8 +14,6 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
-#include "D2PlayerModes.h"
-#include "D2MonModes.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 
@@ -118,7 +118,12 @@ struct D2UbersAiCallbackArgStrc
     int nDiabloMinions;
 };
 
-struct Obj005DD220 { unsigned int dwUnknown00; unsigned int dwUnknown04; unsigned short wFlags08; };
+struct Obj005DD220
+{
+    unsigned int dwUnknown00;
+    unsigned int dwUnknown04;
+    unsigned short wFlags08;
+};
 
 struct Obj005DD230 {
     unsigned int dwUnknown00;
@@ -213,6 +218,7 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 
 int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x005DDFC0
+
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
@@ -344,7 +350,6 @@ void __fastcall sub_6FCF20E0(D2UnitStrc* pUnit, void* pArg, void* ppUnit); // 0x
 
 D2UnitStrc* __stdcall sub_005DCEE0_FindPlayerTargetInAdjacentRooms(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfCallback); // 0x005DCEE0
 
-
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);       // 0x005A7C20
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange);  // 0x005A7E60
@@ -362,6 +367,20 @@ int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);                  
 void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask);                   // 0x00648CE0
 
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+
+struct D2GameStrc;
+
+#define ROOM_HAS_CLIENTS(pRoom) ((pRoom)->nNumClients & (pRoom)->nNumClients)
+
+int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
+
+static D2UnitStrc* __stdcall AIUTIL_FindTargetInAdjacentRooms(D2GameStrc* pGame, void* pCallbackArg, AIUTIL_TargetCallback pfCallback, D2UnitStrc* pUnit);
+
+static D2UnitStrc* __stdcall sub_005DD050_FindTargetAmongMinions(D2GameStrc* pGame, void* pCallbackArg, AIUTIL_TargetCallback pfCallback, D2UnitStrc* pUnit);
+
+static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, int* pTargetDistance, D2UnitStrc* pAlternativeTarget, int nAlternativeDistance, D2UnitStrc* pUnit);
+
+D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange);
 
 // 0x005DC360
 int __fastcall sub_005DC360_GetMonsterVision(D2UnitStrc* pUnit)
@@ -879,6 +898,46 @@ D2UnitStrc* __stdcall sub_005DCEE0_FindPlayerTargetInAdjacentRooms(D2GameStrc* p
     return 0;
 }
 
+// 0x005DCF70
+static D2UnitStrc* __stdcall sub_005DCF70_FindTargetInAdjacentActiveRooms(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfCallback)
+{
+    if (!pUnit || pUnit->dwUnitType < 0 || pUnit->dwUnitType > 1)
+    {
+        return 0;
+    }
+
+    if (SUNIT_IsDead(pUnit))
+    {
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        if (!DUNGEON_IsRoomInTown(ppRoomList[i]) && ROOM_HAS_CLIENTS(ppRoomList[i]))
+        {
+            for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
+            {
+                D2UnitStrc* pResult = pfCallback(pGame, pUnit, pTarget, pCallbackArg);
+                if (pResult)
+                {
+                    return pResult;
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
 // 0x005DD020
 void __fastcall sub_6FCF20E0(D2UnitStrc* pUnit, void* pArg, void* ppUnit)
 {
@@ -969,6 +1028,29 @@ static D2UnitStrc* __stdcall sub_005DD050_FindTargetAmongMinions(D2GameStrc* pGa
     return pTarget;
 }
 
+// 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfFallbackCallback, int nCallbackId)
+{
+    const int nType = gAiTargetSearchTable_006E3300[nCallbackId].nType;
+    AIUTIL_TargetCallback pfCallback = gAiTargetSearchTable_006E3300[nCallbackId].pfCallback ? gAiTargetSearchTable_006E3300[nCallbackId].pfCallback : pfFallbackCallback;
+    if (!pfCallback)
+    {
+        return 0;
+    }
+
+    switch (nType)
+    {
+    case 1:
+        return sub_005DCEE0_FindPlayerTargetInAdjacentRooms(pGame, pUnit, pCallbackArg, pfCallback);
+    case 2:
+        return sub_005DCF70_FindTargetInAdjacentActiveRooms(pGame, pUnit, pCallbackArg, pfCallback);
+    case 3:
+        return sub_005DD050_FindTargetAmongMinions(pGame, pCallbackArg, pfCallback, pUnit);
+    default:
+        return AIUTIL_FindTargetInAdjacentRooms(pGame, pCallbackArg, pfCallback, pUnit);
+    }
+}
+
 // 0x005DD140
 D2UnitStrc* __fastcall AIUTIL_TargetCallback_Ubers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -1033,6 +1115,21 @@ extern "C" __declspec(dllexport) void __fastcall sub_005DD230(Obj005DD230* pObj,
     } else {
         pObj->wFlags08 &= ~wMask;
     }
+}
+
+// 0x005DD250
+void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
+{
+    D2AiControlStrc* pAiControl;
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER) {
+        D2MonsterDataStrc* m = pUnit->pMonsterData;
+        if (m) { pAiControl = m->pAiControl; }
+        else pAiControl = 0;
+    } else pAiControl = 0;
+    if (bSet)
+        pAiControl->nAiFlags |= 0x20;
+    else
+        pAiControl->nAiFlags &= ~0x20;
 }
 
 D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId)
@@ -1108,6 +1205,43 @@ int __fastcall AIUTIL_CheckIfMonsterUsesSkill(D2UnitStrc* pUnit, int nSkillId)
     }
 
     return 0;
+}
+
+static inline D2AiControlStrc* GetAiControl(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == 1 && pUnit->pMonsterData)
+        return pUnit->pMonsterData->pAiControl;
+    return 0;
+}
+
+static inline int GetUnitType(D2UnitStrc* pUnit)
+{
+    int nUnitType = 6;
+    if (pUnit)
+    {
+        nUnitType = pUnit->dwUnitType;
+    }
+    return nUnitType;
+}
+
+// 0x005DD330
+void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+        return;
+    D2AiControlStrc* pAi = GetAiControl(pUnit);
+    if (pOwner)
+    {
+        pAi->dwOwnerGUID = pOwner->dwUnitId;
+        pAi->dwOwnerType = GetUnitType(pOwner);
+    }
+    else
+    {
+        pAi->dwOwnerGUID = -1;
+        pAi->dwOwnerType = 1;
+    }
 }
 
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
@@ -1291,7 +1425,7 @@ static inline int AIUTIL_IsOverrideTargetValid_Inline(D2UnitStrc* pTarget)
     return 0;
 }
 
-// build: context AIUTIL_ResolveTargetOverride
+// 0x005DD610
 static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseEligibilityCheck, D2UnitStrc** ppUnit, int* pDistance, D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pTarget = 0;
@@ -1358,11 +1492,10 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
 
     case 3:
     {
-        const int nAlignment = sub_006259B0_GetStateStat(pUnit);
-        const int nRoll = sub_00472210_SeedRollMasked(&pUnit->pSeed, 2);
+        const int nAlignment = STATLIST_GetUnitAlignment(pUnit);
         if (nAlignment == 1)
         {
-            if (nRoll)
+            if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
             {
                 sub_005543B0_AssignAlignment(pUnit, 2, 1);
             }
@@ -1371,7 +1504,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
                 sub_005543B0_AssignAlignment(pUnit, 0, 1);
             }
         }
-        else if (nRoll)
+        else if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
         {
             if (nAlignment == 0)
             {
@@ -1384,10 +1517,10 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         }
 
         D2AiTargetArgsStrc arg;
-        arg.pTarget = 0;
-        arg.nDistance = 0x7FFFFFFF;
         if (!bUseEligibilityCheck)
         {
+            arg.pTarget = 0;
+            arg.nDistance = 0x7FFFFFFF;
             const int nUnk = D2Common_10095(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
             arg.tSearch.bCheckTargetCollision = bCheckCollision;
             arg.tSearch.nMaxDistance = 35;
@@ -1398,6 +1531,8 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         }
         else
         {
+            arg.pTarget = 0;
+            arg.nDistance = 0x7FFFFFFF;
             arg.tEligible.pAlternativeTarget = 0;
             arg.tEligible.nAlternativeDistance = 0x7FFFFFFF;
             AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 6);
@@ -1538,7 +1673,6 @@ void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pUni
     EVENT_SetEvent(pGame, pTarget, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
 }
 
-// 0x005DDFC0
 // 0x005E6800
 bool __fastcall sub_005E6800_InitHomeCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pAiTickParam)
 {
