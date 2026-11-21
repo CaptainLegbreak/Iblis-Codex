@@ -86560,6 +86560,20 @@
   {
    "file": "Source/D2Common/SKILLS/Skills_00644180.cpp",
    "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x00644180",
@@ -86574,6 +86588,14 @@
      "length": 593
     },
     {
+     "va": "0x00646280",
+     "length": 468
+    },
+    {
+     "va": "0x00646460",
+     "length": 1920
+    },
+    {
      "va": "0x00646D60",
      "length": 435
     },
@@ -86585,48 +86607,6 @@
      "va": "0x00647D00",
      "length": 248
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/SKILLS/Skills_00646280.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00646280",
-     "length": 468
-    },
-    {
-     "va": "0x00646460",
-     "length": 1920
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
