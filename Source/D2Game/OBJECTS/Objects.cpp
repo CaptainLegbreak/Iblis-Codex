@@ -1108,11 +1108,11 @@ void __fastcall OBJECTS_InitFunction28_GoldPlaceHolder(D2ObjInitFnStrc* pOp)
     pCoord.nX = pOp->nX;
     pCoord.nY = pOp->nY;
 
-    const int nCounter = (unsigned int)ITEMS_RollRandomNumberForceInline(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed) % 9 + 1;
+    const int nCounter = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) % 9 + 1;
     for (int i = 0; i < nCounter; ++i)
     {
-        const int nOffsetX = (unsigned int)ITEMS_RollRandomNumberForceInline(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed) & 3;
-        const int nOffsetY = (unsigned int)ITEMS_RollRandomNumberForceInline(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed) & 3;
+        const int nOffsetX = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
+        const int nOffsetY = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) & 3;
         D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(pOp->pRoom, pCoord.nX + nOffsetX, pCoord.nY + nOffsetY);
         if (pRoom == pOp->pRoom)
         {
@@ -1176,11 +1176,11 @@ void __stdcall sub_0054FB30_Nop()
 // 0x0054FB40
 void __fastcall OBJECTS_InitFunction22_Fire(D2ObjInitFnStrc* pOp)
 {
-    if (((D2ObjectsTxt*)pOp->pObjectTxt)->nMode[2])
+    if (pOp->pObjectTxt->nMode[2])
     {
         if (!pOp->pObject || !pOp->pObject->dwAnimMode)
         {
-            if (!((D2ObjectsTxt*)pOp->pObjectTxt)->nMode[0])
+            if (!pOp->pObjectTxt->nMode[0])
             {
                 UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
             }
@@ -1202,9 +1202,9 @@ void __fastcall OBJECTS_InitFunction02_Urn(D2ObjInitFnStrc* pOp)
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pOp->pRoom);
     D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(nLevelId);
     unsigned char nInteractType = 0;
-    const int nRoll = (unsigned int)ITEMS_RollRandomNumberForceInline(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed) % 100;
+    const int nRoll = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) % 100;
     if (nRoll < (unsigned short)((short)pLevelsTxtRecord->wMonLvl[0] / 8 + 5))
-        nInteractType = OBJECTS_RollRandomNumber(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed, 1, 9);
+        nInteractType = OBJECTS_RollRandomNumber(&pOp->pObjectregion->pSeed, 1, 9);
 
     pOp->pObject->pObjectData->InteractType = nInteractType;
 }
@@ -1213,7 +1213,7 @@ void __fastcall OBJECTS_InitFunction02_Urn(D2ObjInitFnStrc* pOp)
 void __fastcall OBJECTS_InitFunction27_GooPile(D2ObjInitFnStrc* pOp)
 {
     unsigned char nInteractType = 0;
-    const int nRoll = (unsigned int)ITEMS_RollRandomNumberForceInline(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed) % 1000;
+    const int nRoll = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) % 1000;
     if (nRoll < 333)
         nInteractType = 3;
 
@@ -1227,9 +1227,9 @@ void __fastcall OBJECTS_InitFunction03_Chest(D2ObjInitFnStrc* pOp)
     unsigned char nInteractType = pOp->pObject->pObjectData->InteractType;
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pOp->pRoom);
     D2LevelsTxt* pLevelsTxtRecord = DATATBLS_GetLevelsTxtRecord(nLevelId);
-    if (((D2ObjectsTxt*)pOp->pObjectTxt)->nLockable)
+    if (pOp->pObjectTxt->nLockable)
     {
-        const int nRoll = (unsigned int)ITEMS_RollRandomNumberForceInline(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed) % 100;
+        const int nRoll = (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) % 100;
         if (nRoll < (short)pLevelsTxtRecord->wMonLvl[0] / 2 + 8)
             nInteractType |= 0x80;
         else
@@ -1239,7 +1239,7 @@ void __fastcall OBJECTS_InitFunction03_Chest(D2ObjInitFnStrc* pOp)
     {
         nInteractType &= 0x7F;
     }
-    SEED_InitLowSeed(&pOp->pObject->pSeed, (unsigned int)ITEMS_RollRandomNumberForceInline(&((D2ObjectControlStrc*)pOp->pObjectregion)->pSeed) % 65534 + 1);
+    SEED_InitLowSeed(&pOp->pObject->pSeed, (unsigned int)ITEMS_RollRandomNumberForceInline(&pOp->pObjectregion->pSeed) % 65534 + 1);
     pOp->pObject->pObjectData->InteractType = nInteractType;
 }
 
@@ -1267,7 +1267,7 @@ void __fastcall OBJECTS_InitFunction59_VileDogAfterglow(D2ObjInitFnStrc* pOp)
 
     UNITS_ChangeAnimMode(pOp->pObject, 1);
     EVENT_SetEvent(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 27, 0, 0);
-    EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (((D2ObjectsTxt*)pOp->pObjectTxt)->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+    EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (pOp->pObjectTxt->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
 }
 
 // 0x0054FE70
@@ -1278,7 +1278,7 @@ void __fastcall OBJECTS_InitFunction12_PermanentPortal(D2ObjInitFnStrc* pOp)
     {
         UNITS_ChangeAnimMode(pOp->pObject, 1);
         UNITS_BlockCollisionPath(pOp->pObject, pOp->pRoom, pOp->nX, pOp->nY);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (((D2ObjectsTxt*)pOp->pObjectTxt)->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+        EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (pOp->pObjectTxt->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
     }
 
     const int nTombLevelId = DUNGEON_GetHoradricStaffTombLevelId(pOp->pGame->pAct[1]);
@@ -2758,7 +2758,7 @@ int __fastcall OBJECTS_GetUnitIdFromTimerArg(D2UnitStrc* pUnit)
 // 0x00552B30
 void __fastcall OBJECTS_InitFunction16_Well(D2ObjInitFnStrc* pOp)
 {
-    pOp->pObject->pObjectData->InteractType = 2 * (unsigned char)((D2ObjectsTxt*)pOp->pObjectTxt)->dwParm[WELL_PARAM];
+    pOp->pObject->pObjectData->InteractType = 2 * (unsigned char)pOp->pObjectTxt->dwParm[WELL_PARAM];
 }
 
 static inline int UNITS_GetAnimMode(Unit* pUnit)

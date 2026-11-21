@@ -46,7 +46,6 @@ struct D2NpcGambleStrc
     D2InventoryStrc* pInventory; // 0x00
     int dwGUID; // 0x04
     D2NpcGambleStrc* pNext; // 0x08
-    int bSelected; // 0x0C
 };
 
 struct D2ObjectRegionStrc
@@ -75,7 +74,7 @@ struct D2UnkMonCreateStrc
     int nUnitGUID; // 0x14
     int nX; // 0x18
     int nY; // 0x1C
-    int unk0x20; // 0x20
+    int nMaxSearchRings; // 0x20
     short nFlags; // 0x24
     unsigned short unk0x26; // 0x26
 };
@@ -113,7 +112,7 @@ struct D2ServerCallbackFunctions
 };
 
 D2_CHECK_SIZE(D2ArenaStrc, 0x10);
-D2_CHECK_SIZE(D2NpcGambleStrc, 0x10);
+D2_CHECK_SIZE(D2NpcGambleStrc, 0x0C);
 D2_CHECK_SIZE(D2ObjectRegionStrc, 0x90);
 D2_CHECK_SIZE(D2UnkMonCreateStrc, 0x28);
 D2_CHECK_SIZE(D2ServerCallbackFunctions, 0x58);

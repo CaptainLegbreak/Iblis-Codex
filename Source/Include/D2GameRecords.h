@@ -9,6 +9,10 @@ struct D2InventoryStrc;
 struct D2NpcEventStrc;
 struct D2NpcGambleStrc;
 struct D2NpcVendorChainStrc;
+struct D2ItemCacheStrc;
+struct D2MercDataStrc;
+struct D2NpcItemProxyStrc;
+struct D2NpcTradeDataStrc;
 struct D2UnitStrc;
 struct D2UnitFindArgStrc;
 struct D2ItemSaveStrc;
@@ -46,33 +50,78 @@ struct D2ItemSaveStrc
     int nItemFileIndex; // 0x14
 };
 
+struct D2MercDataStrc
+{
+    unsigned short nMercName; // 0x00
+    unsigned short unk0x02; // 0x02
+    int dwSeed; // 0x04
+    int bHired; // 0x08
+    int bAvailable; // 0x0C
+};
+
+struct D2NpcItemProxyStrc
+{
+    D2ItemCacheStrc* pItemCache; // 0x00
+    int nItems; // 0x04
+    unsigned int* pPermCache; // 0x08
+    int nPerms; // 0x0C
+};
+
+struct D2NpcTradeDataStrc
+{
+    unsigned char bVendorInit; // 0x00
+    unsigned char bHireInit; // 0x01
+    unsigned char nAct; // 0x02
+    unsigned char bTrader; // 0x03
+    unsigned char bRepair; // 0x04
+    unsigned char bVendor; // 0x05
+    unsigned char unk0x06; // 0x06
+    unsigned char bRefreshInventory; // 0x07
+    unsigned int dwTicks; // 0x08
+    D2NpcItemProxyStrc tProxy; // 0x0C
+};
+
 struct D2NpcRecordStrc
 {
     int nNPC; // 0x00
     D2InventoryStrc* pInventory; // 0x04
     D2NpcGambleStrc* pGamble; // 0x08
     int bGambleInit; // 0x0C
-    void* pMercData; // 0x10
+    D2MercDataStrc* pMercData; // 0x10
     D2NpcEventStrc* pEvent; // 0x14
     D2NpcVendorChainStrc* pVendorChain; // 0x18
     int bTrading; // 0x1C
-    unsigned char bVendorInit; // 0x20
-    unsigned char bInitialized; // 0x21
-    unsigned char nAct; // 0x22
-    unsigned char bTrader; // 0x23
-    unsigned char bRepair; // 0x24
-    unsigned char bVendor; // 0x25
-    unsigned char unk0x26; // 0x26
-    unsigned char bRefreshInventory; // 0x27
-    unsigned int dwTicks; // 0x28
-    void* pItemCache; // 0x2C
-    int nPerms; // 0x30
     union
     {
-        void* pPermCache; // 0x34
-        int* pPermStoreItems; // 0x34
+        struct
+        {
+            unsigned char bVendorInit; // 0x20
+            unsigned char bInitialized; // 0x21
+            unsigned char nAct; // 0x22
+            unsigned char bTrader; // 0x23
+            unsigned char bRepair; // 0x24
+            unsigned char bVendor; // 0x25
+            unsigned char unk0x26; // 0x26
+            unsigned char bRefreshInventory; // 0x27
+            unsigned int dwTicks; // 0x28
+            union
+            {
+                struct
+                {
+                    void* pItemCache; // 0x2C
+                    int nPerms; // 0x30
+                    union
+                    {
+                        void* pPermCache; // 0x34
+                        int* pPermStoreItems; // 0x34
+                    };
+                    int nPermStoreItems; // 0x38
+                };
+                D2NpcItemProxyStrc tProxy; // 0x2C
+            };
+        };
+        D2NpcTradeDataStrc tTrade; // 0x20
     };
-    int nPermStoreItems; // 0x38
     int unk0x3C; // 0x3C
     int dwNPCGUID; // 0x40
 };
@@ -114,6 +163,9 @@ struct D2MagicAffixTxt
 
 D2_CHECK_SIZE(D2UnitFindArgStrc, 0x38);
 D2_CHECK_SIZE(D2ItemSaveStrc, 0x18);
+D2_CHECK_SIZE(D2MercDataStrc, 0x10);
+D2_CHECK_SIZE(D2NpcItemProxyStrc, 0x10);
+D2_CHECK_SIZE(D2NpcTradeDataStrc, 0x1C);
 D2_CHECK_SIZE(D2NpcRecordStrc, 0x44);
 D2_CHECK_SIZE(D2PacketDataStrc, 0x208);
 D2_CHECK_SIZE(D2MagicAffixTxt, 0x90);

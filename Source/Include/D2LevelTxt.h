@@ -116,7 +116,7 @@ struct D2UniqueItemsTxt
     int unk0x24; // 0x24
     unsigned int dwCode; // 0x28
     unsigned char nUniqueItemFlags[4]; // 0x2C
-    int unk0x30; // 0x30
+    int nRarity; // 0x30
     unsigned char nLevel; // 0x34
     unsigned char unk0x35; // 0x35
     unsigned short unk0x36; // 0x36

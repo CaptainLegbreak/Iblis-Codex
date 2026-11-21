@@ -838,7 +838,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
   gUniqueSelections[nCount].nIndex=i;
   gUniqueSelections[nCount].nRarity=nTotalRarity;
   ++nCount;
-  nTotalRarity+=pUnique->unk0x30<1?1:pUnique->unk0x30;
+  nTotalRarity+=pUnique->nRarity<1?1:pUnique->nRarity;
  }
  if(nCount<=0)
  {

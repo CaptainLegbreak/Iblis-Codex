@@ -949,8 +949,8 @@ D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2UnkMonCreateStrc* pCrea
     if (!&pRoom->pSeed)
         return 0;
     int nRadius,nMaxRadius;
-    if(pCreate->unk0x20<0) nRadius=0; else nRadius=3;
-    if(!nRadius) nMaxRadius=0; else nMaxRadius=3*pCreate->unk0x20;
+    if(pCreate->nMaxSearchRings<0) nRadius=0; else nRadius=3;
+    if(!nRadius) nMaxRadius=0; else nMaxRadius=3*pCreate->nMaxSearchRings;
     {
     int nSpawnY=0,nSpawnX=0;
     if(pRecord2->nSpawnCol==1 && !(pCreate->nMonsterId>=0x102 && pCreate->nMonsterId<=0x107) && pCreate->nMonsterId!=0x99)
@@ -1050,7 +1050,7 @@ D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc* pGame, D2Active
     monCreate.nMonsterId = nMonsterId;
     monCreate.nAnimMode = nAnimMode;
     monCreate.pRoom = pRoom;
-    monCreate.unk0x20 = a8;
+    monCreate.nMaxSearchRings = a8;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = pCoordList;
     monCreate.nFlags = nFlags;
@@ -1069,7 +1069,7 @@ D2UnitStrc* __fastcall sub_005B3090_SpawnAtPosition(D2GameStrc* pGame, D2ActiveR
     monCreate.pGame = pGame;
     monCreate.pRoom = pRoom;
     monCreate.pRoomCoordList = 0;
-    monCreate.unk0x20 = -1;
+    monCreate.nMaxSearchRings = -1;
     monCreate.nFlags = nFlags;
     monCreate.nX = nX;
     monCreate.nY = nY;
@@ -1084,7 +1084,7 @@ D2UnitStrc* __fastcall sub_005B30E0_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveR
     monCreate.nMonsterId = nMonsterId;
     monCreate.nAnimMode = nAnimMode;
     monCreate.pRoom = pRoom;
-    monCreate.unk0x20 = a8;
+    monCreate.nMaxSearchRings = a8;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = 0;
     monCreate.nFlags = nFlags;
@@ -1103,7 +1103,7 @@ D2UnitStrc* __fastcall sub_005B3130_SpawnOwned(D2GameStrc* pGame, void* pRoom, i
     tRequest.pGame = pGame;
     tRequest.pRoom = (D2ActiveRoomStrc*)pRoom;
     tRequest.pRoomCoordList = 0;
-    tRequest.unk0x20 = a5;
+    tRequest.nMaxSearchRings = a5;
     tRequest.nFlags = a7;
     tRequest.nX = a1;
     tRequest.nY = a2;
@@ -1135,7 +1135,7 @@ int __fastcall sub_005B31B0_SpawnMinionsAt(D2GameStrc* pGame, D2UnitStrc* pOwner
         monCreate.pGame = pGame;
         monCreate.pRoomCoordList = 0;
         monCreate.pRoom = pRoom;
-        monCreate.unk0x20 = a5;
+        monCreate.nMaxSearchRings = a5;
         monCreate.nFlags = nFlags;
         monCreate.nX = nX;
         monCreate.nY = nY;
@@ -1203,7 +1203,7 @@ int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* 
             monCreate.nUnitGUID = 0;
             monCreate.nMonsterId = nClassId;
             monCreate.nAnimMode = nAnimMode;
-            monCreate.unk0x20 = -1;
+            monCreate.nMaxSearchRings = -1;
             monCreate.pGame = pGame;
             monCreate.pRoomCoordList = 0;
             monCreate.pRoom = pRoom;
@@ -1220,7 +1220,7 @@ int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* 
             monCreate.nUnitGUID = 0;
             monCreate.nMonsterId = nClassId;
             monCreate.nAnimMode = nAnimMode;
-            monCreate.unk0x20 = -1;
+            monCreate.nMaxSearchRings = -1;
             monCreate.pGame = pGame;
             monCreate.pRoomCoordList = 0;
             monCreate.pRoom = pRoom;
@@ -1300,7 +1300,7 @@ int __fastcall MONSTERSPAWN_SpawnRandomMonsterForLevel(D2GameStrc* pGame, D2Acti
     monCreate.nAnimMode = 1;
     monCreate.pRoom = pRoom;
     monCreate.pRoomCoordList = 0;
-    monCreate.unk0x20 = 5;
+    monCreate.nMaxSearchRings = 5;
     monCreate.pGame = pGame;
     monCreate.nFlags = 0;
     monCreate.nX = nX;

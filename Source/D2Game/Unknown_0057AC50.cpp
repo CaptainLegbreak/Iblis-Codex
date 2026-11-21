@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2LevelTxt.h"
 struct D2StatListStrc;
 
 
@@ -11,18 +12,6 @@ struct D2StatListStrc;
 struct D2MonsterDataStrc
 {
     D2MonStatsTxt* pMonstatsTxt;
-};
-
-
-
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x14];
-    int dwMonsterFreezeDiv;
-    int dwMonsterColdDiv;
-    char unk0x1C[0x0C];
-    int dwLifeStealDiv;
-    int dwManaStealDiv;
 };
 
 
