@@ -1,17 +1,27 @@
 #include "D2Direct3D.h"
 #include "D2GlideTypes.h"
+#include "D2D3DTypes.h"
 
 struct D2SurfaceStrc;
+
 struct D2SurfaceVtableStrc;
+
 struct D2SubtileEntryStrc;
+
 struct D2SubtileSetStrc;
+
 struct D2Node006BABD0Strc;
+
 struct D2List006BABD0Strc;
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 struct D2SurfaceVtableStrc { void* unknown[31]; int (__stdcall* SetPalette)(D2SurfaceStrc*, void*); };
@@ -39,6 +49,14 @@ struct D2List006BABD0Strc
     unsigned char unk_10[8];
     D2Node006BABD0Strc* pNodes18;
 };
+
+static __declspec(noinline) void sub_006BAB30_Append(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode);
+
+static __declspec(noinline) void sub_006BAB30_AppendTail(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode);
+
+__declspec(noinline) D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex);
+
+D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_TakeNode(D2SubtilePoolStrc* pList); // 0x006BABD0
 
 // 0x006BA9A0
 int __fastcall sub_006BA9A0_Init(D2SubtilePoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
@@ -84,8 +102,6 @@ int __fastcall sub_006BA9A0_Init(D2SubtilePoolStrc* pPool, unsigned int nBase, u
 	return pPool->nCapacity * nUnit + nBase;
 }
 
-#include "gen/data/Source/D2Direct3D/Src/d3dSubtileCache.inc"
-
 // 0x006BAAC0
 void __fastcall sub_006BAAC0_SetSubtilePalette(D2SubtileSetStrc* textures, void* palette)
 {
@@ -100,6 +116,24 @@ void __fastcall sub_006BAAC0_SetSubtilePalette(D2SubtileSetStrc* textures, void*
 }
 
 // 0x006BAB30
+static void sub_006BAB30_Append(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)
+{
+    if (!pList->pInUseFirst)
+    {
+        pList->pInUseFirst = pNode;
+        pList->pInUseLast = pNode;
+        return;
+    }
+    pList->pInUseLast->pNext = pNode;
+    pNode->pPrev = pList->pInUseLast;
+    pList->pInUseLast = pNode;
+}
+
+void __cdecl sub_006BAB30_EmitCaller(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)
+{
+    sub_006BAB30_Append(pList, pNode);
+}
+
 static void sub_006BAB30_AppendInUse(D2SubtilePoolStrc* pPool, D2SubtilePoolEntryStrc* pEntry)
 {
 	if (!pPool->pInUseFirst)
@@ -230,7 +264,148 @@ static int sub_006BAC50_Alloc(D2SubtilePoolStrc* pPool)
 	return pEntry->nIndex + 1;
 }
 
+static void sub_006BAB30_AppendTail(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)
+{
+    if (!pList->pInUseFirst)
+    {
+        pList->pInUseFirst = pNode;
+        pList->pInUseLast = pNode;
+        return;
+    }
+    pList->pInUseLast->pNext = pNode;
+    pNode->pPrev = pList->pInUseLast;
+    pList->pInUseLast = pNode;
+}
+
+// build: context sub_006BABD0_Unlink
+D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex)
+{
+    D2SubtilePoolEntryStrc* pHead = pList->pInUseFirst;
+    if (!pHead)
+        return 0;
+
+    D2SubtilePoolEntryStrc* pNode = &pList->pEntries[nIndex];
+    if (pNode == pHead)
+    {
+        pList->pInUseFirst = pHead->pNext;
+        if (pHead->pNext)
+            pHead->pNext->pPrev = 0;
+        else
+            pList->pInUseLast = 0;
+        pHead->pNext = 0;
+        pHead->pPrev = 0;
+        return pHead;
+    }
+
+    if (pNode == pList->pInUseLast)
+    {
+        pList->pInUseLast = pNode->pPrev;
+        pList->pInUseLast->pNext = 0;
+    }
+    else
+    {
+        pNode->pPrev->pNext = pNode->pNext;
+        pNode->pNext->pPrev = pNode->pPrev;
+    }
+    pNode->pNext = 0;
+    pNode->pPrev = 0;
+    return pNode;
+}
+
+// 0x006BACB0
+void __fastcall sub_006BACB0_MoveToTail(D2SubtilePoolStrc* pList, int nIndex)
+{
+    if (pList->nInUse > 1)
+    {
+        LRU_ASSERT(nIndex, 199);
+        LRU_ASSERT(nIndex <= pList->nCapacity, 200);
+        LRU_ASSERT(nIndex >= 1, 201);
+        sub_006BAB30_AppendTail(pList, sub_006BABD0_Unlink(pList, nIndex - 1));
+    }
+}
+
+static __forceinline D2SubtilePoolEntryStrc* TakeNode(D2SubtilePoolStrc* pList)
+{
+    D2SubtilePoolEntryStrc* pNode = pList->pInUseFirst;
+    if (!pNode)
+    {
+        return 0;
+    }
+
+    D2SubtilePoolEntryStrc* pNewHead = pNode->pNext;
+    pList->pInUseFirst = pNewHead;
+    if (pNewHead)
+    {
+        pNewHead->pPrev = 0;
+    }
+    else
+    {
+        pList->pInUseLast = 0;
+    }
+
+    pNode->pNext = 0;
+    pNode->pPrev = 0;
+    return pNode;
+}
+
 // 0x006BAD10
+void __fastcall sub_006BAD10_ReleaseOldestNode(D2SubtilePoolStrc* pList)
+{
+    if (pList->nInUse)
+    {
+        D2SubtilePoolEntryStrc* pNode = TakeNode(pList);
+        if (pNode)
+        {
+            if (pNode->pOwner)
+            {
+                pNode->pOwner->nCacheIndex = 0;
+                pNode->pOwner = 0;
+            }
+            if (!pList->pSpareFirst)
+            {
+                pList->pSpareFirst = pNode;
+                pList->pSpareLast = pNode;
+            }
+            else
+            {
+                pList->pSpareLast->pNext = pNode;
+                pNode->pPrev = pList->pSpareLast;
+                pList->pSpareLast = pNode;
+            }
+        }
+        --pList->nInUse;
+    }
+}
+
+// 0x006BAD70
+void __fastcall sub_006BAD70_MoveNode(D2SubtilePoolStrc* pList)
+{
+    if (pList->nInUse)
+    {
+        D2SubtilePoolEntryStrc* pNode = sub_006BABD0_TakeNode(pList);
+        if (pNode)
+        {
+            if (pNode->pOwner)
+            {
+                pNode->pOwner->nCacheIndex = 0;
+                pNode->pOwner = 0;
+            }
+            if (!pList->pSpareFirst)
+            {
+                pList->pSpareFirst = pNode;
+                pList->pSpareLast = pNode;
+            }
+            else
+            {
+                pList->pSpareLast->pNext = pNode;
+                pNode->pPrev = pList->pSpareLast;
+                pList->pSpareLast = pNode;
+            }
+        }
+        --pList->nInUse;
+    }
+}
+
 void __fastcall sub_006BAD10_ReleaseOldest(D2SubtilePoolStrc* pPool)
 {
 	if (pPool->nInUse)
@@ -292,7 +467,6 @@ void __fastcall sub_006BADC0_Destroy(D2SubtilePoolStrc* pPool, int bReleaseAll)
 	memset(pPool, 0, sizeof(D2SubtilePoolStrc));
 }
 
-// 0x006BAF00
 int __fastcall sub_006BAF00_AllocOrEvict(D2SubtilePoolStrc* pPool)
 {
 	int nId = sub_006BAC50_Alloc(pPool);
@@ -303,3 +477,5 @@ int __fastcall sub_006BAF00_AllocOrEvict(D2SubtilePoolStrc* pPool)
 	}
 	return nId;
 }
+
+#include "gen/data/Source/D2Direct3D/Src/d3dSubtileCache.inc"

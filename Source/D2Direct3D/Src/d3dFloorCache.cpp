@@ -2,14 +2,21 @@
 #include "D2DrlgMaps.h"
 
 struct D2SurfaceStrc;
+
 struct D2SurfaceVtableStrc;
+
 struct D2FloorEntryStrc;
+
 struct D2FloorSetStrc;
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 struct D2SurfaceVtableStrc { void* unknown[31]; int (__stdcall* SetPalette)(D2SurfaceStrc*, void*); };
@@ -23,6 +30,10 @@ struct D2FloorSetStrc { int count; char unknown[20]; D2FloorEntryStrc* entries; 
 void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 
 D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_TakeNode(D2FloorPoolStrc* pList); // 0x006BB1F0
+
+static __declspec(noinline) void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc* pNode);
+
+__declspec(noinline) D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_Unlink(D2FloorPoolStrc* pList, int nIndex);
 
 // 0x006BAFC0
 int __fastcall sub_006BAFC0_Init(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
@@ -67,8 +78,6 @@ int __fastcall sub_006BAFC0_Init(D2FloorPoolStrc* pPool, unsigned int nBase, uns
 	pPool->pSpareLast = &pPool->pEntries[pPool->nCapacity - 1];
 	return pPool->nCapacity * nUnit + nBase;
 }
-
-#include "gen/data/Source/D2Direct3D/Src/d3dFloorCache.inc"
 
 // 0x006BB0E0
 void __fastcall sub_006BB0E0_SetFloorPalette(D2FloorSetStrc* textures, void* palette)
@@ -161,6 +170,55 @@ static D2FloorPoolEntryStrc* sub_006BB1C0_PopSpare(D2FloorPoolStrc* pPool)
 	return pEntry;
 }
 
+// 0x006BB1F0
+D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_TakeNode(D2FloorPoolStrc* pList, int nIndex)
+{
+    D2FloorPoolEntryStrc* pHead = pList->pInUseFirst;
+    if (!pHead)
+    {
+        return 0;
+    }
+    D2FloorPoolEntryStrc* pNode = &pList->pEntries[nIndex];
+    if (pNode == pHead)
+    {
+        pList->pInUseFirst = pHead->pNext;
+        if (pList->pInUseFirst)
+        {
+            pList->pInUseFirst->pPrev = 0;
+        }
+        else
+        {
+            pList->pInUseLast = 0;
+        }
+        pHead->pNext = 0;
+        pHead->pPrev = 0;
+        return pHead;
+    }
+    if (pNode == pList->pInUseLast)
+    {
+        pList->pInUseLast = pList->pInUseLast->pPrev;
+        pList->pInUseLast->pNext = 0;
+    }
+    else
+    {
+        pNode->pPrev->pNext = pNode->pNext;
+        pNode->pNext->pPrev = pNode->pPrev;
+    }
+    pNode->pNext = 0;
+    pNode->pPrev = 0;
+    return pNode;
+}
+
+int __fastcall sub_006BAFC0_Init(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit);
+
+static void sub_006BB150_AppendInUse(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry);
+
+static void sub_006BB170_AppendSpare(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry);
+
+static D2FloorPoolEntryStrc* sub_006BB190_PopInUse(D2FloorPoolStrc* pPool);
+
+static D2FloorPoolEntryStrc* sub_006BB1C0_PopSpare(D2FloorPoolStrc* pPool);
+
 // 0x006BB270
 static int sub_006BB270_Alloc(D2FloorPoolStrc* pPool)
 {
@@ -174,6 +232,72 @@ static int sub_006BB270_Alloc(D2FloorPoolStrc* pPool)
 	++pPool->nInUse;
 	return pEntry->nIndex + 1;
 }
+
+void __fastcall sub_006BB330_ReleaseOldest(D2FloorPoolStrc* pPool);
+
+void __fastcall sub_006BB3E0_Destroy(D2FloorPoolStrc* pPool, int bReleaseAll);
+
+static void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc* pNode)
+{
+    if (!pList->pInUseFirst)
+    {
+        pList->pInUseFirst = pNode;
+        pList->pInUseLast = pNode;
+        return;
+    }
+    pList->pInUseLast->pNext = pNode;
+    pNode->pPrev = pList->pInUseLast;
+    pList->pInUseLast = pNode;
+}
+
+// build: context sub_006BB1F0_Unlink
+D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_Unlink(D2FloorPoolStrc* pList, int nIndex)
+{
+    D2FloorPoolEntryStrc* pHead = pList->pInUseFirst;
+    if (!pHead)
+        return 0;
+
+    D2FloorPoolEntryStrc* pNode = &pList->pEntries[nIndex];
+    if (pNode == pHead)
+    {
+        pList->pInUseFirst = pHead->pNext;
+        if (pHead->pNext)
+            pHead->pNext->pPrev = 0;
+        else
+            pList->pInUseLast = 0;
+        pHead->pNext = 0;
+        pHead->pPrev = 0;
+        return pHead;
+    }
+
+    if (pNode == pList->pInUseLast)
+    {
+        pList->pInUseLast = pNode->pPrev;
+        pList->pInUseLast->pNext = 0;
+    }
+    else
+    {
+        pNode->pPrev->pNext = pNode->pNext;
+        pNode->pNext->pPrev = pNode->pPrev;
+    }
+    pNode->pNext = 0;
+    pNode->pPrev = 0;
+    return pNode;
+}
+
+// 0x006BB2D0
+void __fastcall sub_006BB2D0_MoveToTail(D2FloorPoolStrc* pList, int nIndex)
+{
+    if (pList->nInUse > 1)
+    {
+        LRU_ASSERT(nIndex, 199);
+        LRU_ASSERT(nIndex <= pList->nCapacity, 200);
+        LRU_ASSERT(nIndex >= 1, 201);
+        sub_006BB150_AppendTail(pList, sub_006BB1F0_Unlink(pList, nIndex - 1));
+    }
+}
+
+static int sub_006BB270_Alloc(D2FloorPoolStrc* pPool);
 
 // 0x006BB330
 void __fastcall sub_006BB330_ReleaseOldest(D2FloorPoolStrc* pPool)
@@ -266,7 +390,6 @@ void __fastcall sub_006BB3E0_Destroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 	memset(pPool, 0, sizeof(D2FloorPoolStrc));
 }
 
-// 0x006BB520
 int __fastcall sub_006BB520_AllocOrEvict(D2FloorPoolStrc* pPool)
 {
 	int nId = sub_006BB270_Alloc(pPool);
@@ -277,3 +400,5 @@ int __fastcall sub_006BB520_AllocOrEvict(D2FloorPoolStrc* pPool)
 	}
 	return nId;
 }
+
+#include "gen/data/Source/D2Direct3D/Src/d3dFloorCache.inc"
