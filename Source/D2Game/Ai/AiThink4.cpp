@@ -860,6 +860,20 @@ void __fastcall AITHINK_Fn062_TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
 void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam);
 
+#define MON_FLAG 9
+
+#define ATTACK_MODE 4
+
+#define WALK_CHANCE 20
+
+#define WALK_DISTANCE 3
+
+#define IDLE_FRAMES 10
+
+struct D2AiControlStrc;
+
+struct D2MissilesTxt;
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -2272,6 +2286,46 @@ void __fastcall D2GAME_AI_SpecialState09_6FCE7C40(D2GameStrc* pGame, D2UnitStrc*
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
+static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+static __forceinline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecord(nMonsterId);
+    if (pMonStatsTxtRecord)
+    {
+        return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+    }
+    return 0;
+}
+
+static int AI_RollPercentage(D2UnitStrc* pUnit)
+{
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+// 0x005E8020
+void __fastcall sub_005E8020_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+{
+    D2UnitStrc* pTarget = pTick->pTarget;
+    if (pTick->bCombat && !CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, MON_FLAG)
+        && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, ATTACK_MODE))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, ATTACK_MODE, pTarget);
+        return;
+    }
+    if (AI_RollPercentage(pUnit) < WALK_CHANCE)
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, WALK_DISTANCE);
+    else
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, IDLE_FRAMES);
+}
+
 // 0x005E80E0
 void __fastcall D2GAME_AI_SpecialState11_6FCE7E20(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -2753,11 +2807,6 @@ void __fastcall AITHINK_SpawnUberDiabloMinion(D2GameStrc* pGame, D2UnitStrc* pUn
 // 0x005E9DF0
 void __fastcall AITHINK_Fn147_UberDiablo(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
-}
-
-static int AI_RollPercentage(D2UnitStrc* pUnit)
-{
-    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
 }
 
 // 0x005E9E00

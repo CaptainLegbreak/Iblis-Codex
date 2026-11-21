@@ -69412,6 +69412,11 @@
      "name": "D2GAME_AI_SpecialState09_6FCE7C40"
     },
     {
+     "va": "0x005E8020",
+     "length": 190,
+     "name": "?sub_005E8020_Think@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E80E0",
      "length": 89,
      "name": "?D2GAME_AI_SpecialState11_6FCE7E20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
@@ -70374,17 +70379,6 @@
      "va": "0x005E7AC0",
      "length": 336,
      "name": "?AITHINK_Fn060_GoodNpcRanged@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E8020.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E8020",
-     "length": 190,
-     "name": "?sub_005E8020_Think@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
