@@ -1005,19 +1005,6 @@ void __cdecl sub_00476AF0_ClearGlobals()
     gnGlobal_007B8D20 = 0;
 }
 
-// 0x00478A50
-void __cdecl sub_00478A50_FreeRosterPets()
-{
-    D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
-    while (pPet)
-    {
-        D2RosterPetStrc* pNext = pPet->pNext;
-        FOG_Free(pPet, ".\\GAME\\RosterPets.cpp", 0x2F, 0);
-        pPet = pNext;
-    }
-    gpRosterPets_007BB5BC = 0;
-}
-
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
 {
     const int nOld = sub_00502EF0(1);

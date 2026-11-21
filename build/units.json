@@ -16835,11 +16835,6 @@
      "va": "0x00476AF0",
      "length": 18,
      "name": "?sub_00476AF0_ClearGlobals@@YAXXZ"
-    },
-    {
-     "va": "0x00478A50",
-     "length": 51,
-     "name": "?sub_00478A50_FreeRosterPets@@YAXXZ"
     }
    ],
    "flags": [
@@ -19486,6 +19481,11 @@
      "va": "0x0046BD50",
      "length": 113,
      "name": "sub_0046BD50_GetPulseColor"
+    },
+    {
+     "va": "0x00478A50",
+     "length": 51,
+     "name": "?sub_00478A50_FreeRosterPets@@YAXXZ"
     },
     {
      "va": "0x00478A90",
