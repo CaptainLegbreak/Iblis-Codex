@@ -21637,6 +21637,11 @@
      "name": "sub_004DA990_FindGfxUtilNode"
     },
     {
+     "va": "0x004DA9C0",
+     "length": 55,
+     "name": "?sub_004DA9C0_FreeNodeList@@YIXPAPAUD2GfxNodeStrc@@PAH@Z"
+    },
+    {
      "va": "0x004DAA00",
      "length": 102,
      "name": "?sub_004DAA00_GetModeArg@@YIHPAUD2UnitStrc@@HH@Z"
@@ -36180,11 +36185,6 @@
      "va": "0x004DA790",
      "length": 331,
      "name": "?sub_004DA790_InitModeTokens@@YAXXZ"
-    },
-    {
-     "va": "0x004DA9C0",
-     "length": 55,
-     "name": "?sub_004DA9C0_FreeNodeList@@YIXPAPAUD2GfxNodeStrc@@PAH@Z"
     },
     {
      "va": "0x004DAD20",

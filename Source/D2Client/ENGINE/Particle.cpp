@@ -93,20 +93,6 @@ void __cdecl sub_004DA790_InitModeTokens()
     }
 }
 
-// 0x004DA9C0
-void __fastcall sub_004DA9C0_FreeNodeList(D2GfxNodeStrc** ppHead, int* pBytes)
-{
-    D2GfxNodeStrc* pNode = *ppHead;
-    while (pNode)
-    {
-        D2GfxNodeStrc* pNext = pNode->pNext;
-        FOG_Free(pNode, ".\\ENGINE\\GfxUtil.cpp", 0xA8, 0);
-        *pBytes -= sizeof(D2GfxNodeStrc);
-        pNode = pNext;
-    }
-    *ppHead = 0;
-}
-
 // 0x004DAD20
 void __fastcall sub_004DAD20_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
 {

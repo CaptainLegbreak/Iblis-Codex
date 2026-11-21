@@ -545,6 +545,13 @@ int __fastcall sub_004DBF20_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY);
 
 unsigned int gdwFadeTick_007C89CC; // 0x007C89CC
 
+struct D2GfxNodeStrc
+{
+    int unk0x00[3];
+    D2GfxNodeStrc* pNext;
+};
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
 // 0x0046C570
 int __fastcall sub_0046C570_ForEachUnitInAdjacentRooms(D2UnitStrc* pUnit, void* pArg1, void* pArg2, UNITCALLBACKFN pfnCallback)
 {
@@ -993,6 +1000,21 @@ static __forceinline D2MonStatsTxt* GFXUTIL_GetMonStatsTxtRecord(int nMonsterId)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
     return 0;
+}
+
+
+// 0x004DA9C0
+void __fastcall sub_004DA9C0_FreeNodeList(D2GfxNodeStrc** ppHead, int* pBytes)
+{
+    D2GfxNodeStrc* pNode = *ppHead;
+    while (pNode)
+    {
+        D2GfxNodeStrc* pNext = pNode->pNext;
+        FOG_Free(pNode, ".\\ENGINE\\GfxUtil.cpp", 0xA8, 0);
+        *pBytes -= sizeof(D2GfxNodeStrc);
+        pNode = pNext;
+    }
+    *ppHead = 0;
 }
 
 // 0x004DAA00
