@@ -417,6 +417,8 @@ struct D2GSPacketSrv2C
 
 void __fastcall SCMD_SendPacket0x2C(D2ClientStrc* pClient, D2GSPacketSrv2C* pPacket); // 0x0053D780
 
+void __fastcall MONSTERAI_RemoveInteractInfoFor(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterInteractStrc* pMonInteract); // 0x00572E00
+
 // 0x005715A0
 void __fastcall sub_6FCC5F20(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
@@ -981,35 +983,6 @@ void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer
 {
     D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
     sub_00410B50(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
-}
-
-// 0x00572E00
-void __fastcall MONSTERAI_RemoveInteractInfoFor(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterInteractStrc* pMonInteract)
-{
-    if (!pMonInteract)
-    {
-        return;
-    }
-
-    D2InteractInfoStrc* pPrevious = 0;
-    for (D2InteractInfoStrc* pInteractInfo = pMonInteract->pInteractInfo; pInteractInfo; pInteractInfo = pInteractInfo->pNext)
-    {
-        if (pInteractInfo->pUnit == pMonster)
-        {
-            if (pInteractInfo == pMonInteract->pInteractInfo)
-            {
-                pMonInteract->pInteractInfo = pInteractInfo->pNext;
-            }
-            else
-            {
-                pPrevious->pNext = pInteractInfo->pNext;
-            }
-            FOG_FreeServerMemory(pGame->pMemoryPool, pInteractInfo, ".\\MONSTER\\MonsterAI.cpp", 553, 0);
-            return;
-        }
-
-        pPrevious = pInteractInfo;
-    }
 }
 
 // 0x00573750

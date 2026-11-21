@@ -527,6 +527,35 @@ extern "C" __declspec(dllexport) int __fastcall sub_00572DE0(List00572DE0* pList
     return 0;
 }
 
+// 0x00572E00
+void __fastcall MONSTERAI_RemoveInteractInfoFor(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterInteractStrc* pMonInteract)
+{
+    if (!pMonInteract)
+    {
+        return;
+    }
+
+    D2InteractInfoStrc* pPrevious = 0;
+    for (D2InteractInfoStrc* pInteractInfo = pMonInteract->pInteractInfo; pInteractInfo; pInteractInfo = pInteractInfo->pNext)
+    {
+        if (pInteractInfo->pUnit == pMonster)
+        {
+            if (pInteractInfo == pMonInteract->pInteractInfo)
+            {
+                pMonInteract->pInteractInfo = pInteractInfo->pNext;
+            }
+            else
+            {
+                pPrevious->pNext = pInteractInfo->pNext;
+            }
+            FOG_FreeServerMemory(pGame->pMemoryPool, pInteractInfo, ".\\MONSTER\\MonsterAI.cpp", 553, 0);
+            return;
+        }
+
+        pPrevious = pInteractInfo;
+    }
+}
+
 // 0x00572E60
 void __fastcall sub_6FC61AB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract)
 {
