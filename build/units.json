@@ -71375,9 +71375,23 @@
      "name": "?ACT3Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x005B9930",
+     "length": 47,
+     "name": "?sub_005B9930_QUESTS_SpawnQuestMonster@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2QuestExStrc@@@Z"
+    },
+    {
      "va": "0x005B9960",
      "length": 24,
      "name": "?sub_005B9960_IsBossSpawning@@YIEPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005B9AE0",
+     "length": 96,
+     "name": "?sub_005B9AE0_OBJECTS_InitQuestSpawnPoint@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005B9B40",
+     "length": 269
     },
     {
      "va": "0x005B9C50",
@@ -71393,22 +71407,6 @@
      "va": "0x005B9D40",
      "length": 67,
      "name": "?OBJECTS_InitFunction39_GidbinnAltar@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q3_005B9930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B9930",
-     "length": 47,
-     "name": "?sub_005B9930_QUESTS_SpawnQuestMonster@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2QuestExStrc@@@Z"
-    },
-    {
-     "va": "0x005B9AE0",
-     "length": 96,
-     "name": "?sub_005B9AE0_OBJECTS_InitQuestSpawnPoint@@YIXPAUD2ObjInitFnStrc@@@Z"
     }
    ]
   },
@@ -71434,16 +71432,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q3_005B9B40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B9B40",
-     "length": 269
-    }
    ]
   },
   {
