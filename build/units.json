@@ -87424,6 +87424,10 @@
      "length": 111
     },
     {
+     "va": "0x00672810",
+     "length": 967
+    },
+    {
      "va": "0x006735F0",
      "length": 711
     },
@@ -87556,30 +87560,6 @@
      "va": "0x00670E70",
      "length": 53
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00672810.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00672810",
-     "length": 967
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

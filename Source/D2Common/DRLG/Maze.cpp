@@ -83,7 +83,6 @@ D2DrlgMapStrc* __fastcall DRLGPRESET_AllocDrlgMap(D2DrlgLevelStrc* pLevel, int n
 
 D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom); // 0x00667ED0
 
-
 static __declspec(noinline) int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom, int nDirection, D2DrlgRoomStrc* pNewRoomEx);
 
 static __declspec(noinline) D2DrlgRoomStrc* DRLGMAZE_GetFreeLocationForRoomSouth(D2DrlgLevelStrc* pLevel);
@@ -98,9 +97,25 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddSpecialPreset(int nDirection, int n
 
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_InitRoomFixedPreset(D2DrlgRoomStrc* pDrlgRoom, int nDirection, int nLvlPrestId, int nFile, int bUseInitPreset);
 
-
 static __declspec(noinline) void __stdcall DRLGMAZE_ScanReplaceSpecialPreset(D2DrlgLevelStrc* pLevel, const D2MazeLevelIdStrc* pMazeInit, int* pRand);
 
+extern const D2MazeLevelIdStrc gnAct2SewerPrevIds[4];                                       // 0x006EFCE8
+
+extern const D2MazeLevelIdStrc gnAct2SewerNextIds[4];                                       // 0x006EFD28
+
+extern const D2MazeLevelIdStrc gnAct2SewerWaypointIds[4];                                   // 0x006EFD68
+
+extern const D2MazeLevelIdStrc gnAct2SewerRadamentIds[4];                                   // 0x006EFDA8
+
+extern const D2MazeLevelIdStrc gnAct2SewerChestIds[4];                                      // 0x006EFDE8
+
+static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddSpecialPreset(D2DrlgLevelStrc* pLevel, int nDirection, int nLvlPrestId, int nFile);
+
+static void __stdcall DRLGMAZE_ScanReplaceSpecialPreset(D2DrlgLevelStrc* pLevel, const D2MazeLevelIdStrc* pMazeInit, int* pRand);
+
+D2DrlgRoomStrc* __fastcall DRLGMAZE_GetFreeLocationForRoomWest(D2DrlgLevelStrc* pLevel); // 0x00672460
+
+static __declspec(noinline) void DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(D2DrlgLevelStrc* pLevel);
 
 // 0x006738C0
 static void __stdcall sub_006738C0(D2DrlgMapStrc* pDrlgMap, int nPickedFile, D2DrlgLevelStrc* pLevel);
@@ -933,6 +948,66 @@ static void __stdcall DRLGMAZE_ScanReplaceSpecialPreset(D2DrlgLevelStrc* pLevel,
     }
 }
 
+static __forceinline D2DrlgRoomStrc* MAZE_AddAdjacentMazeRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection)
+{
+    D2DrlgRoomStrc* pNewRoomEx = DRLGMAZE_PlaceAdjacentPresetRoomInline(pDrlgRoom, nDirection, 1);
+    if (pNewRoomEx)
+    {
+        sSetChamberPreset(1, pDrlgRoom);
+        sSetChamberPreset(1, pNewRoomEx);
+    }
+    return pNewRoomEx;
+}
+
+// 0x00672810
+static void DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(D2DrlgLevelStrc* pLevel)
+{
+    const int nDirection = (2 * (MAZE_RollSeed(&pLevel->pSeed) & 1)) | 1;
+    int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
+
+    switch (pLevel->eLevelId)
+    {
+    case 47:
+    {
+        D2DrlgRoomStrc* pDrlgRoom = DRLGMAZE_GetFreeLocationForRoomSouth(pLevel);
+        pDrlgRoom = MAZE_AddAdjacentMazeRoom(pDrlgRoom, 1);
+        pDrlgRoom = MAZE_AddAdjacentMazeRoom(pDrlgRoom, 1);
+        DRLGMAZE_InitRoomFixedPreset(pDrlgRoom, 0, 333, 0, 1);
+
+        pDrlgRoom = DRLGMAZE_GetFreeLocationForRoomWest(pLevel);
+        pDrlgRoom = MAZE_AddAdjacentMazeRoom(pDrlgRoom, 2);
+        pDrlgRoom = MAZE_AddAdjacentMazeRoom(pDrlgRoom, 2);
+        pDrlgRoom = DRLGMAZE_InitRoomFixedPreset(pDrlgRoom, nDirection, 336, 0, 1);
+        D2DrlgRoomStrc* pLastRoomEx = DRLGMAZE_PlaceAdjacentPresetRoomInline(pDrlgRoom, nDirection, 0);
+        if (pLastRoomEx)
+        {
+            sSetChamberPreset(1, pLastRoomEx);
+        }
+
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerNextIds[nRand], &nRand);
+        break;
+    }
+    case 48:
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerPrevIds[nRand], &nRand);
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerWaypointIds[nRand], &nRand);
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerNextIds[nRand], &nRand);
+        break;
+
+    case 49:
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerPrevIds[nRand], &nRand);
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerRadamentIds[nRand], &nRand);
+        break;
+
+    case 65:
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerPrevIds[nRand], &nRand);
+        DRLGMAZE_ScanReplaceSpecialPreset(pLevel, &gnAct2SewerChestIds[nRand], &nRand);
+        break;
+
+    default:
+        break;
+    }
+}
+
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -1031,6 +1106,11 @@ void __fastcall DRLGMAZE_RollAct_1_2_3_BasicPresets(D2DrlgLevelStrc* pLevel)
         ++nIndex;
         nIndex -= nIndex / 15 * 15;
     }
+}
+
+void __fastcall sub_Emit_00672810(D2DrlgLevelStrc* pLevel)
+{
+    DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(pLevel);
 }
 
 #include "gen/data/Source/D2Common/DRLG/Maze.inc"
