@@ -11990,6 +11990,10 @@
      "name": "?sub_00439AF0@@YIXPAUSMSGHANDLER_PARAMS@@H@Z"
     },
     {
+     "va": "0x0043A800",
+     "length": 331
+    },
+    {
      "va": "0x0043B520",
      "length": 398,
      "name": "?sub_0043B520_OnCharSelect@@YGHH@Z"
@@ -12108,30 +12112,6 @@
     {
      "va": "0x00438560",
      "length": 1384
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0043A800.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0043A800",
-     "length": 331
     }
    ],
    "flags": [

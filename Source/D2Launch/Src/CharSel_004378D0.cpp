@@ -297,7 +297,6 @@ static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
 
 static int sub_00437D20_IsTestRealm(const Unicode* pName);
 
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -447,6 +446,38 @@ D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);               
 void __cdecl sub_0043B9A0();                                                                                // 0x0043B9A0
 
 static int sub_00437A20_FindSlotName(const char* szName);
+
+struct D2WinTextBoxStrc;
+
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
+
+int __cdecl sub_00430B40(); // 0x00430B40
+
+void __cdecl sub_00437BF0_CreateControls(); // 0x00437BF0
+
+void __cdecl sub_0043A650_Refresh(); // 0x0043A650
+
+int __stdcall D2Win_10033(D2WinControlStrc* a1, int a2); // 0x004FA470
+
+int __fastcall D2Win_10062(D2WinTextBoxStrc* pTextBox, int a2, int a3); // 0x004FB740
+
+void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
+
+D2WinControlStrc* gpNameControl_007799E8;        // 0x007799E8
+
+D2WinControlStrc* gpControl_007799EC;        // 0x007799EC
+
+extern char gData_00779A40[]; // 0x00779A40
+
+D2WinControlStrc* gpControl_00779C74;        // 0x00779C74
+
+D2WinControlStrc* gpControl_00779C7C;        // 0x00779C7C
+
+D2WinControlStrc* gpControl_00779D88;        // 0x00779D88
+
+D2WinControlStrc* gpControl_00779D9C;        // 0x00779D9C
+
+void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
 
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -1275,6 +1306,49 @@ void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode)
     sub_00434A00_Join(pEntry, pEntry->wFlags, pEntry->nType, szName);
 }
 
+// 0x0043A800
+void __cdecl sub_0043A800()
+{
+    if (gnLaunchMode_007795EC == 1)
+    {
+        if (sub_00408F20_HasExpansionMpq())
+        {
+            sub_00437BF0_CreateControls();
+        }
+        else
+        {
+            gpControl_007799EC = sub_0042F3A0_CreateFromTemplate(0x73);
+            D2Win_10033(gpControl_007799EC, 1);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_007799EC, 1);
+            gpControl_00779C7C = sub_0042F3A0_CreateFromTemplate(0x74);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C7C, 1);
+            gpControl_00779D9C = sub_0042F3A0_CreateFromTemplate(0x75);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D9C, 1);
+            gpNameControl_007799E8 = sub_0042F3A0_CreateFromTemplate(0x76);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpNameControl_007799E8, 1);
+            gpControl_00779D88 = sub_0042F3A0_CreateFromTemplate(0x77);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779D88, 1);
+            gpControl_00779C74 = sub_0042F3A0_CreateFromTemplate(0x78);
+            D2Win_10030_CONTROL_ToggleFourthFlag(gpControl_00779C74, 1);
+        }
+
+        sub_004FC9B0_SetText(gpControl_00779C7C, D2LANG_GetStringFromTblIndex(0x2B31), 0, 0, 0);
+        D2Win_10062((D2WinTextBoxStrc*)gpControl_00779D9C, -6, 0);
+        for (int i = 0; ; ++i)
+        {
+            char* szName = i < sub_00430B40() ? sub_00430B50_GetSlotName(i) : 0;
+            if (!szName) { break; }
+            D2Win_10045(gpNameControl_007799E8, szName);
+            if (!SStrCmpI(gData_00779A40, szName, 0x7FFFFFFF))
+            {
+                D2Win_10050_TEXTBOX_SetLine((D2WinTextBoxStrc*)gpNameControl_007799E8, i);
+            }
+        }
+        sub_0043A650_Refresh();
+    }
+    gbFlag_00779C6C = 1;
+}
+
 // 0x0043B520
 int __stdcall sub_0043B520_OnCharSelect(int nArg)
 {
@@ -1590,8 +1664,6 @@ int __stdcall sub_004434E0_DecrementEditValue(int nArg)
     sub_004FFE10_SetTextA(gpEditBox_00798C3C, gszValue_0070EBD0);
     return 1;
 }
-
-void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
 
 // 0x004437E0
 void __cdecl sub_004437E0_UpdateButtonState()
