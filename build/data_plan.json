@@ -280,12 +280,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_0040EA00.cpp": {
+  "Source/Fog/Unknown_0040EA00.cpp": {
    "bytes": 20,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_0040EA00.inc",
+   "include": "gen/data/Source/Fog/Unknown_0040EA00.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9423,7 +9423,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_0040EA00.cpp",
+   "file": "Source/Fog/Unknown_0040EA00.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": null,

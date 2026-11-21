@@ -12,7 +12,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00401010.cpp",
+   "file": "Source/Fog/Unknown_00401010.cpp",
    "rank": 0,
    "functions": [
     {
@@ -2492,7 +2492,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004067C0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004067C0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -2568,7 +2568,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00406D30.cpp",
+   "file": "Source/Fog/Unknown_00406D30.cpp",
    "rank": 0,
    "functions": [
     {
@@ -3344,7 +3344,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0040DDD0.cpp",
+   "file": "Source/Fog/Unknown_0040DDD0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -3431,7 +3431,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0040EA00.cpp",
+   "file": "Source/Fog/Unknown_0040EA00.cpp",
    "rank": 1,
    "functions": [
     {
@@ -4419,7 +4419,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_0040EDE0.cpp",
+   "file": "Source/Fog/Unknown_0040EDE0.cpp",
    "rank": 1,
    "functions": [
     {

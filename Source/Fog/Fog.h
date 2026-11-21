@@ -266,6 +266,48 @@ struct D2SNameNodeStrc
 
 #include "D2Win32Types.h"
 
+// System, CPU and symbol-helper declarations of the Fog system units.
+extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile); // 0x006CC1C4
+extern "C" __declspec(dllimport) int __stdcall GetComputerNameA(char* szBuffer, unsigned long* pnSize); // 0x006CC1D8
+extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* pSystemTime); // 0x006CC1D4
+extern bool gbSymInitialized_0098A6B0; // 0x0098A6B0
+extern const char* gaszCpuVendorNames_00708004[]; // 0x00708004
+extern void* ghDbgHelp_0098A680; // 0x0098A680
+extern void* ghProcess_0074C6F0; // 0x0074C6F0
+int __cdecl sub_0040E250_GetCpuVendor(); // 0x0040E250
+int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
+unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
+unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned int dwMoveMethod); // 0x004165A0
+#define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
+typedef int (__stdcall* SymCleanupFn)(void* hProcess);
+
+struct D2Storm408ElemStrc
+{
+    char unk0x00[0x408];
+};
+
+struct D2StormArray408Strc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    D2Storm408ElemStrc* f_8;
+    unsigned int f_C;
+
+    D2StormArray408Strc* sub_0051D2C0_InitBase();
+    unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
+    void sub_0051D570_FreeData();
+    void sub_0051D5D0_ReallocData(unsigned int nCount);
+    void sub_0051D670_FreeData();
+    D2StormArray408Strc* sub_0051D690_Init();
+    void sub_0051D6A0_Clear();
+    D2StormArray408Strc* sub_0051D720_Init();
+    void sub_0051D730_FreeData();
+    D2Storm408ElemStrc* sub_0051D7A0_New();
+    void ReserveInline(unsigned int nCount, int bRound);
+};
+
 typedef unsigned char FOGASTType;
 
 typedef unsigned char FOGCalcExpressionParserTokenType;
