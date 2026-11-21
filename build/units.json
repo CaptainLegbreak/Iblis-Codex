@@ -25370,6 +25370,11 @@
      "name": "?sub_00486370_AppendItemFormulaText@@YGXPAUD2UnitStrc@@PAUD2ItemFormulaRecordStrc@@PAUUnicode@@@Z"
     },
     {
+     "va": "0x00486670",
+     "length": 255,
+     "name": "?sub_00486670_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00486BD0",
      "length": 318
     },
@@ -25642,31 +25647,6 @@
     {
      "va": "0x00491AD0",
      "length": 577
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/inv_00486670.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00486670",
-     "length": 255,
-     "name": "?sub_00486670_AppendSocketedGemLetters@@YGXPAUUnicode@@PAUD2UnitStrc@@@Z"
     }
    ],
    "flags": [
