@@ -245,7 +245,6 @@ Unicode gwszRealmNames_00779DF0[7][0x100];                                      
 
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
-
 #pragma intrinsic(strcat, strlen)
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
@@ -296,10 +295,8 @@ extern D2WinControlStrc* gpControl_00779DD0;                                    
 
 static __declspec(noinline) Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
 
-
 static __declspec(noinline) int sub_00437D20_IsTestRealm(const Unicode* pName);
 
-static int sub_00437D20_IsTestRealm(const Unicode* pName);
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -343,7 +340,6 @@ static __declspec(noinline) int __stdcall sub_00438AD0_AddCharEntry(const char* 
 
 #pragma intrinsic(strlen)
 
-
 extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData);
 
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData);
@@ -356,11 +352,7 @@ char gszCharName_00779B68[256];                                                 
 
 int gnCharCount_00779DE0;                                                                                   // 0x00779DE0
 
-
-
-
 __declspec(noinline) static int sub_00438030_IsNotListedCode(int nValue);
-
 
 extern int gnSelected_0070CC00; // 0x0070CC00
 
@@ -450,6 +442,12 @@ int __cdecl sub_00439210_Redraw(); // 0x00439210
 
 extern "C" int __stdcall sub_0043A460_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 
+D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);                                           // 0x0042F430
+
+void __cdecl sub_0043B9A0();                                                                                // 0x0043B9A0
+
+static __declspec(noinline) int sub_00437A20_FindSlotName(const char* szName);
+
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004378D0
@@ -479,6 +477,26 @@ int __stdcall sub_004378D0_SubmitTexts(int nArg)
     }
 
     sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+    return 0;
+}
+
+// 0x00437A20
+static int sub_00437A20_FindSlotName(const char* szName)
+{
+    for (int i = 0; ; ++i)
+    {
+        char* szSlot = i < sub_00430B40() ? sub_00430B50_GetSlotName(i) : 0;
+        if (!szSlot)
+        {
+            break;
+        }
+
+        if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
+        {
+            return 1;
+        }
+    }
+
     return 0;
 }
 
@@ -992,7 +1010,6 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
     gdwGlobal_00779DA4 = 1;
     return 1;
 }
-
 
 void __stdcall sub_0043AAB0(const char* szName, unsigned char* pPacket, int bFlag)
 {
@@ -1743,6 +1760,63 @@ int __stdcall sub_00446890_SendChatLine(int nArg)
         return sub_004428D0_SendChatText(szText, 0);
     }
     return 1;
+}
+
+int __cdecl sub_0043A2B0_InitRealmScreen()
+{
+    unsigned short nStringId;
+    gnState_00779DAC = 0;
+    if (gnLaunchMode_007795EC == 1)
+    {
+        sub_00434060();
+        const int nCount = sub_00430B40();
+        if (nCount != -1)
+        {
+            if (nCount != 0)
+            {
+                D2WinControlStrc* pControl = sub_0042F430_CreateControl(0x7A);
+                sub_004FD830(pControl);
+                sub_004FDA50(pControl);
+                gpControl_00779DD0 = sub_0042F430_CreateControl(0x94);
+                gpCharSelectText_00779DD4 = sub_0042F430_CreateControl(0x95);
+                sub_0042F430_CreateControl(0x69);
+                gpControl_00779D98 = sub_0042F430_CreateControl(0x6B);
+                gpControl_00779D8C = sub_0042F430_CreateControl(0x6C);
+                sub_004FC9B0_SetText(sub_0042F430_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
+
+                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gData_00779A40, 0x100) || !sub_00437A20_FindSlotName(gData_00779A40))
+                {
+                    D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
+                    const int nIndex = pRecord->nIndex;
+                    SStrCopy(gData_00779A40, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
+                    SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
+                    if (!sub_00437A20_FindSlotName(gData_00779A40))
+                    {
+                        const char* szFirst = sub_00430B40() > 0 ? sub_00430B50_GetSlotName(0) : 0;
+                        SStrCopy(gData_00779A40, szFirst, 0x7FFFFFFF);
+                        SRegSaveString("Diablo II", "Preferred Realm", 0, gData_00779A40);
+                    }
+                }
+            }
+            else
+            {
+                sub_0043B9A0();
+                nStringId = 0x14AA;
+                goto fail;
+            }
+        }
+        else
+        {
+            sub_0043B9A0();
+            nStringId = 0x14E3;
+            goto fail;
+        }
+    }
+    return 1;
+
+fail:
+    sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
+    return 0;
 }
 
 #include "gen/data/Source/D2Launch/Src/CharSel_004378D0.inc"

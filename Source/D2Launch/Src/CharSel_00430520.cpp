@@ -354,27 +354,6 @@ void __cdecl sub_004306C0_UpdateOk()
         sub_004F96F0_ControlClearState(gpControl_00779594, bOk);
 }
 
-// 0x00430A20
-int __cdecl sub_00430A20_FreeSlots()
-{
-    if (!gppSlots_00779988)
-        return 1;
-    for (int i = 0; i < gdwGlobal_0077998C; i++)
-    {
-        D2LaunchSlotStrc* pSlot = gppSlots_00779988[i];
-        if (pSlot)
-        {
-            D2_ASSERT(pSlot->pData, 0x1139);
-            sub_0040B3C0(pSlot->pData, ".\\Src\\MainMenus.cpp", 0x113A, 0);
-            D2_ASSERT(gppSlots_00779988[i]->szName, 0x113B);
-            sub_0040B3C0(gppSlots_00779988[i]->szName, ".\\Src\\MainMenus.cpp", 0x113C, 0);
-            sub_0040B3C0(gppSlots_00779988[i], ".\\Src\\MainMenus.cpp", 0x113E, 0);
-        }
-    }
-    sub_0040B3C0(gppSlots_00779988, ".\\Src\\MainMenus.cpp", 0x1141, 0);
-    gppSlots_00779988 = 0;
-    return 1;
-}
 
 // 0x00430B50
 char* __fastcall sub_00430B50_GetSlotName(int nIndex)
@@ -1121,26 +1100,6 @@ void __cdecl sub_0043E130_Reset()
     }
 }
 
-// 0x0043E570
-int __cdecl sub_0043E570()
-{
-    D2ChatMessageStrc* pMessage = (D2ChatMessageStrc*)FOG_Alloc(sizeof(D2ChatMessageStrc), ".\\Src\\ChatDlg.cpp", 0xC1D, 0);
-    memset(pMessage, 0, sizeof(D2ChatMessageStrc));
-    if (pMessage)
-    {
-        pMessage->szText = 0;
-        pMessage->nColor = 0;
-        pMessage->bClear = 1;
-        EnterCriticalSection(&gtChatLock_0077AE28);
-        if (gpChatQueueHead_0077BDAC)
-            gpChatQueueTail_0077BDB0->pNext = pMessage;
-        else
-            gpChatQueueHead_0077BDAC = pMessage;
-        gpChatQueueTail_0077BDB0 = pMessage;
-        LeaveCriticalSection(&gtChatLock_0077AE28);
-    }
-    return 1;
-}
 
 // 0x0043EA20
 void __cdecl sub_0043EA20_Wait()

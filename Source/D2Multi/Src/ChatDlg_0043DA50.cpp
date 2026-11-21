@@ -1,4 +1,7 @@
 #include "D2Multi.h"
+#include "D2StormTypes.h"
+#include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define CREATE_CELL_FILE sub_0043DC50_CreateChatCellFile
@@ -7,23 +10,6 @@ struct D2StartupInfoAStrc;
 struct D2ProcessInformationStrc;
 struct D2LaunchCharInfoStrc;
 
-typedef unsigned short Unicode;
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x10];
-    void (__fastcall* pfn0x10)();
-    char unk0x14[0x40];
-    void (__fastcall* pfn0x54)(char* szName, char* szTitle, int nA, char* szRealm, int nFlags);
-    void (__fastcall* pfn0x58)();
-    char unk0x5C[0x0C];
-    int (__fastcall* pfn0x68)();
-    void (__fastcall* pfn0x6C)(void* pContext, int bFailed);
-    char f_70[0x34];
-    const char* (__fastcall* pfn0xA4)(void* pContext);
-    void (__fastcall* pfn0xA8)(void (__fastcall* pfnA)(void* pA, void* pB), void (__cdecl* pfnB)());
-    void (__fastcall* pfn0xAC)();
-};
 
 struct D2StartupInfoAStrc
 {
@@ -67,42 +53,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
 
-struct D2WinControlInitStrc
-{
-    int nType;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int field_14;
-    int nStringId;
-    D2CelFileStrc** ppCellFile;
-    int field_20;
-    int field_24;
-    int field_28;
-    int field_2C;
-};
-
-#pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0xBD];
-    char szName0xBD[0x131];
-    unsigned char nValue0x1EE;
-    char wFlags[2];
-    char unk0x1F1[0x34];
-    D2LaunchFuncsStrc* f_225;
-    char unk0x229[0x04];
-    char szRealm0x22D[0x131];
-    char nType0x35E;
-    char unk0x35F[0x02];
-    char szText0x361[0x40];
-    char szText0x3A1[0x10];
-    char szText0x3B1[0x1A];
-    char wFlags0x3CB[2];
-};
-
-#pragma pack(pop)
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
@@ -275,7 +225,7 @@ static void __cdecl sub_0043DC50_CreateChatCellFile(D2LaunchCharInfoStrc* pInfo)
     const unsigned short wFlags = *(unsigned short*)pInfo->wFlags0x3CB;
     if ((wFlags & 4) && !(wFlags & 8) && (sub_00408F20_HasExpansionMpq() || pInfo->nValue0x1EE < 5))
         nMode = 1;
-    gpChatCellFile_0077BBFC = (D2CelFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, pInfo->szText0x3B1);
+    gpChatCellFile_0077BBFC = (D2CelFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, (char*)&pInfo->unk0x3B1);
     if (gpChatCellFile_0077BBFC)
     {
         sub_005052B0(gpChatCellFile_0077BBFC, 0x42);
@@ -299,7 +249,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     gnLaunchMode_0077BBE4 = 0;
     gbDone_0077BDA0 = 0;
     gdwGlobal_0077BBF8 = 1;
-    gpLaunchFuncs_0077B09C = pInfo->f_225;
+    gpLaunchFuncs_0077B09C = *(D2LaunchFuncsStrc**)((char*)pInfo + 0x225);
     D2_ASSERT(gpLaunchFuncs_0077B09C, 3303);
     if (!gpLaunchFuncs_0077B09C->pfn0x68())
         gbDone_0077BDA0 = 4;
@@ -308,11 +258,11 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     sub_0043CC30_LoadFrontEndCels();
     sub_004F9160_SetLoopValue(gnLoopValueOut_0077BC14);
     gpChatTextBox_0077BD8C = 0;
-    if (gpCharInfo_0077BBD8->szText0x361[0])
+    if (gpCharInfo_0077BBD8->szRealm0x361[0])
         BACKGROUND_SetCellFile(gpChatBackground_0077BC04);
     else
         BACKGROUND_SetCellFile(gpCellFile_0077BC08);
-    if (gpCharInfo_0077BBD8->szText0x361[0])
+    if (gpCharInfo_0077BBD8->szRealm0x361[0])
     {
         for (int i = 0; i < 17; i++)
             gpChatControl_0077B058[i] = CONTROL_Create(&gatChatControlInits_0070CE50[i]);
@@ -324,7 +274,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
         CREATE_CELL_FILE(pInfo);
     }
     gpChatTextBox_0077BD8C = CONTROL_Create(&gtControlInit_0070D240);
-    if (gpCharInfo_0077BBD8->szText0x361[0])
+    if (gpCharInfo_0077BBD8->szRealm0x361[0])
     {
         gpChatEdit_0077BD94 = CONTROL_Create(&gtControlInit_0070D270);
         sub_004FDAD0_SetKeyCallback(gpChatEdit_0077BD94, sub_0043F9B0_EditKey);
@@ -380,9 +330,9 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
         int nFlags = 0;
         if (*(unsigned short*)pInfo->wFlags & 0x20)
             nFlags = 1;
-        if (gpCharInfo_0077BBD8->szText0x361[0])
+        if (gpCharInfo_0077BBD8->szRealm0x361[0])
             nFlags |= 2;
-        gpLaunchFuncs_0077B09C->pfn0x54(pInfo->szName0xBD, szTitle, 0x25, pInfo->szText0x361, nFlags);
+        gpLaunchFuncs_0077B09C->pfn0x54(pInfo->szName0xBD, szTitle, 0x25, pInfo->szRealm0x361, nFlags);
     }
     else
     {
@@ -393,15 +343,15 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     {
         sub_00449E50_SetValue(0);
         InitializeCriticalSection(&gtChatLock_0077AE28);
-        if (!gpCharInfo_0077BBD8->szText0x361[0])
-            gpLaunchFuncs_0077B09C->pfn0xA8(sub_0043E4C0, sub_0043E570);
+        if (!gpCharInfo_0077BBD8->szRealm0x361[0])
+            gpLaunchFuncs_0077B09C->pfn0xA8(sub_0043E4C0, (void (__cdecl*)())sub_0043E570);
         sub_004FA590_RunLoop(sub_00441500);
         if (sub_00449E40())
         {
             sub_0044AA80_SendPacket13();
             sub_00449E50_SetValue(0);
         }
-        if (!gpCharInfo_0077BBD8->szText0x361[0])
+        if (!gpCharInfo_0077BBD8->szRealm0x361[0])
             gpLaunchFuncs_0077B09C->pfn0xAC();
         DeleteCriticalSection(&gtChatLock_0077AE28);
         gpLaunchFuncs_0077B09C->pfn0x58();
@@ -441,7 +391,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
             sub_004F95C0_ControlDestroy(&gpChatControl_0077B058[k]);
         gpChatControl_0077B058[k] = 0;
     }
-    if (!gpCharInfo_0077BBD8->szText0x361[0])
+    if (!gpCharInfo_0077BBD8->szRealm0x361[0])
     {
         for (int m = 0; m <= 1; m++)
         {
@@ -465,4 +415,4 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     return 1;
 }
 
-#include "gen/data/Source/D2Multi/Unknown_0043DA50.inc"
+#include "gen/data/Source/D2Multi/Src/ChatDlg_0043DA50.inc"

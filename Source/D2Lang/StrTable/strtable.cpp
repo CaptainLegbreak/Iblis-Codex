@@ -152,6 +152,18 @@ static D2TblHeaderStrc* sghExpansionStringTable;                                
 
 static int gnStringTableRefs_008829D8;                                                                      // 0x008829D8
 
+struct Unicode;
+
+char gszLanguage_008829F8[256]; // 0x008829F8
+
+static D2StrCacheNodeStrc* s_pStringCache_008829B0; // 0x008829B0
+
+int gnTableLanguage_008829EC; // 0x008829EC
+
+bool gbTableLanguageInitialized_008829F0; // 0x008829F0
+
+wchar_t gwszEmptyString_008829E8[2]; // 0x008829E8
+
 // 0x00524810
 int __cdecl sub_00524810_OpenArchives()
 {
@@ -198,6 +210,22 @@ void __cdecl sub_005248E0_CloseArchives()
     }
 }
 
+// 0x00524930
+const Unicode* __fastcall sub_00524930(D2TblHeaderStrc* pTable, void* pIndex, unsigned short nIndex)
+{
+    unsigned short nCount = pTable->nNumElements;
+    unsigned short* pIndices = (unsigned short*)(pTable + 1);
+    D2TblNodeStrc* pNodes = (D2TblNodeStrc*)&pIndices[nCount];
+    if (nIndex >= nCount) nIndex = 500;
+    int nEntry = pIndices[nIndex];
+    D2_ASSERT(nEntry < pTable->nHashTableSize, 0x102);
+    D2_ASSERT((unsigned char*)&pNodes[nEntry] < (unsigned char*)pTable + pTable->dwFileSize, 0x106);
+    D2_ASSERT(pNodes[nEntry].bUsed == 1, 0x107);
+    const Unicode* const* pString = &((const Unicode**)pIndex)[nEntry];
+    D2_ASSERT(*pString, 0x109);
+    return ((const Unicode**)pIndex)[nEntry];
+}
+
 // 0x005249C0
 static __forceinline void sub_005249C0_FreeTable(void* pTable)
 {
@@ -209,10 +237,6 @@ void __fastcall sub_M129_Emit_005249C0(void* pTable1, void* pTable2)
     sub_005249C0_FreeTable(pTable1);
     sub_005249C0_FreeTable(pTable2);
 }
-
-char gszLanguage_008829F8[256]; // 0x008829F8
-
-static D2StrCacheNodeStrc* s_pStringCache_008829B0; // 0x008829B0
 
 // 0x005249E0
 unsigned int __stdcall sub_005249E0(const char* szKey, unsigned int nTableSize)
@@ -228,10 +252,6 @@ unsigned int __stdcall sub_005249E0(const char* szKey, unsigned int nTableSize)
     }
     return nHash % nTableSize;
 }
-
-int gnTableLanguage_008829EC; // 0x008829EC
-
-bool gbTableLanguageInitialized_008829F0; // 0x008829F0
 
 // 0x00524A30
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex)
@@ -304,8 +324,6 @@ static unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char*
 
 	return 0xFFFF;
 }
-
-wchar_t gwszEmptyString_008829E8[2]; // 0x008829E8
 
 // 0x00524D30
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText)

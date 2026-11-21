@@ -105,3 +105,27 @@ int __fastcall sub_00520580_TakeState(D2BnStateStrc* pState)
     LeaveCriticalSection(&gMessageLock_00882004);
     return 1;
 }
+
+// 0x00520210
+int __fastcall sub_00520210_QueueMessage(int nId, const void* pData, unsigned int nLength)
+{
+    D2BnMessageStrc* pMessage = (D2BnMessageStrc*)FOG_Alloc(sizeof(D2BnMessageStrc), szBnMessQueueFile_006DF78C, 0x37, 0);
+    if (nLength > 0x120)
+        nLength = 0x120;
+    if (nLength)
+        memcpy(pMessage->szText, pData, nLength);
+    else
+        pMessage->szText[0] = 0;
+    pMessage->nLength = nLength;
+    pMessage->nId = nId;
+    pMessage->pNext = 0;
+    D2_ASSERT(nLength <= 0x120, 0x44);
+    EnterCriticalSection(&gMessageLock_00882004);
+    if (!gpMessageHead_00882020)
+        gpMessageHead_00882020 = pMessage;
+    else
+        gpMessageTail_00882024->pNext = pMessage;
+    gpMessageTail_00882024 = pMessage;
+    LeaveCriticalSection(&gMessageLock_00882004);
+    return 1;
+}

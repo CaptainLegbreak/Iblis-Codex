@@ -1,22 +1,106 @@
-#include "Bnclient.h"
+#include "D2Primitives.h"
+#include "D2BNClient.h"
 #include "D2BnCryptTypes.h"
+
+typedef unsigned int size_t;
+
+extern "C" size_t __cdecl strlen(const char* szString);
+
+#pragma intrinsic(strlen)
+
+struct D2BnClientIdReplyStrc
+{
+    unsigned int dwRegistrationVersion;
+    unsigned int dwRegistrationAuthority;
+    unsigned int dwClientId;
+    unsigned int f_C;
+};
+
+struct D2BnStartVersioningStrc
+{
+    D2FileTimeStrc tFileTime;
+    char szFileName[4];
+};
+
+int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
+int __cdecl sub_00518C70_StartLogging(int nMode, int nValue);                                               // 0x00518C70
+
+void __cdecl sub_00518D40_Log(const char* szFormat, ...);                                                   // 0x00518D40
+
+void __fastcall sub_0051A540_SetValue(int nValue);                                                          // 0x0051A540
+
+int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize);           // 0x0051C5C0
+
+int __fastcall sub_0051E3B0_SetCheckRevisionValue(const char* szValue);                                    // 0x0051E3B0
+
+void __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
+
+int __fastcall sub_00520210_QueueMessage(int nId, const void* pData, unsigned int nLength);                // 0x00520210
+
+int __fastcall sub_005204A0_SetError(int nError);                                                           // 0x005204A0
+
+extern "C" const char szConfiguration_006DEC7C[];                                                           // 0x006DEC7C
+
+extern int gdwGlobal_0072FFA8;                                                                              // 0x0072FFA8
+
+int gdwGlobal_008822A0; // 0x008822A0
+
+int gdwGlobal_008822A4; // 0x008822A4
+
+int gdwGlobal_00882318;                                                                                     // 0x00882318
+
+int gdwGlobal_00882350;                                                                                     // 0x00882350
+
+int gdwGlobal_0088236C;                                                                                     // 0x0088236C
+
+int gdwGlobal_0088239C;                                                                                     // 0x0088239C
+
+extern "C" int __cdecl rand(); // 0x00687461
+
+extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
+
+int __cdecl sub_0051BCF0_SendBuffer(); // 0x0051BCF0
+
+int __fastcall sub_0051E370_SetText(const char* szText, int nLength); // 0x0051E370
+
+int __fastcall sub_00520520_SetState(int nState); // 0x00520520
+
+int __fastcall sub_00520550_SetStateArg(void* pArg); // 0x00520550
+
+int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
+
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define CHECK(p,line) if(!(p)){sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 
 struct D2BigPowModStrc;
+
 struct D2BnReportStrc;
+
 struct D2BnTokenReplyStrc;
+
 struct D2BnAuthInfoStrc;
+
 struct D2BigLoginRecordStrc;
+
 struct D2BnAccountLogonStrc;
+
 struct D2BigPairStrc;
+
 struct D2IdeaUserKeyStrc;
+
 struct D2CipherKeyView;
-extern int gdwGlobal_0072FFA8; // 0x0072FFA8
-extern "C" int gnSlotArrayA_00882128[94]; // 0x00882128
+
+int gnSlotArrayA_00882128[94]; // 0x00882128
+
 extern "C" int gnSlotArrayB_008822A8[94]; // 0x008822A8
+
 extern "C" int gnFlag_00882528; // 0x00882528
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
-int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
 
 struct D2BnReportStrc
 {
@@ -26,12 +110,16 @@ struct D2BnReportStrc
     char szText[1];
 };
 
-extern "C" const char szConfiguration_006DEC7C[]; // 0x006DEC7C
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
+
 void __fastcall sub_0051BDC0_SetReply(const void* pData, unsigned int nSize); // 0x0051BDC0
+
 void __fastcall sub_0051BE20_SetReply(const void* pData, unsigned int nSize); // 0x0051BE20
+
 void __fastcall sub_0051BD60_SetReply(const void* pData, unsigned int nSize); // 0x0051BD60
+
 int __fastcall sub_005202F0_QueueText(int nId, const char* szText); // 0x005202F0
+
 int __fastcall sub_00520630_SetText(const char* szText); // 0x00520630
 
 struct D2BnTokenReplyStrc
@@ -41,18 +129,31 @@ struct D2BnTokenReplyStrc
 };
 
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
+
 int __fastcall sub_005224C0_CheckServerProof(const unsigned char* pServerProof); // 0x005224C0
+
 void __cdecl sub_005224F0_ClearPassword(); // 0x005224F0
+
 int __fastcall sub_005223F0_SendUpgradeProof(unsigned int nServerToken); // 0x005223F0
+
 int __cdecl sub_005224E0(); // 0x005224E0
+
 int __fastcall sub_005223A0(int bFlag); // 0x005223A0
+
 int __fastcall sub_00522310_SendChangeProof(const unsigned char* pSalt, const unsigned char* pServerKey); // 0x00522310
+
 int __cdecl sub_00522050_SendAccountLogon(); // 0x00522050
+
 void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize); // 0x0051AB30
+
 void __fastcall sub_0051B3E0_SetSizedReply(const void* pData, unsigned int nSize); // 0x0051B3E0
+
 void __fastcall sub_0051B820_SetReply(const void* pData, unsigned int nSize); // 0x0051B820
+
 void __fastcall sub_0051CA80_SetFlag(int nValue); // 0x0051CA80
+
 int __fastcall sub_0051E3D0_SendPacket33(const char* szText, int nCode); // 0x0051E3D0
+
 int __fastcall sub_0051D860_ParseNewsInfo(const void* pData); // 0x0051D860
 
 struct D2BnAuthInfoStrc
@@ -63,20 +164,31 @@ struct D2BnAuthInfoStrc
     D2FileTimeStrc tFileTime;
     char szFileName[4];
 };
-void __fastcall sub_0051A540_SetValue(int nValue); // 0x0051A540
+
 void __fastcall sub_0051A560_SetValue(int nValue); // 0x0051A560
-int __fastcall sub_0051E3B0_SetCheckRevisionValue(const char* szValue); // 0x0051E3B0
+
 int __fastcall sub_0051EA80_SetArchiveName(const char* szName); // 0x0051EA80
+
 extern int gnGlobal_008823B0; // 0x008823B0
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
 int __fastcall sub_005220B0_SendLogonProof(const unsigned char* pSalt, const unsigned char* pServerKey); // 0x005220B0
+
 extern "C" long __cdecl _time32(long* pTime);
+
 extern "C" int __cdecl tolower(int nChar);
+
 extern const char gacCDKeyMap_006DF238[];
+
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName); // 0x006CC144
+
 extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName); // 0x006CC148
+
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
+
 extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID(void); // 0x006CC354
+
 extern "C" const char gszKernel32_006CD6E4[]; // 0x006CD6E4
 
 struct D2BnAccountLogonStrc
@@ -86,26 +198,43 @@ struct D2BnAccountLogonStrc
 };
 
 extern D2BigLoginRecordStrc gtLoginRecord_00882680; // 0x00882680
+
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
+
 void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
+
 void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
 
 extern unsigned char gabNewVerifier_00882640[0x40]; // 0x00882640
+
 extern D2BigPairStrc gtBigPair_0088273C; // 0x0088273C
+
 extern unsigned char gaSubstitutionBox_006DFF20[30][16]; // 0x006DFF20
+
 extern unsigned char gaCdKeyCharMap_006E0100[256]; // 0x006E0100
+
 unsigned int __fastcall sub_005225E0(unsigned int nWords, unsigned int nMultiplier, const unsigned int* pSource, unsigned int* pDest, unsigned int nCarry); // 0x005225E0
+
 void __fastcall sub_00522650(const char* szKey, unsigned char* pOut); // 0x00522650
+
 void __stdcall sub_00522980(unsigned int* pKey); // 0x00522980
+
 __declspec(noinline) static unsigned int __fastcall sub_005226D0_PermuteKeyBits(int nUnused, unsigned int* pKey);
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 void __fastcall sub_00524280_InitHashContext(int nIndex); // 0x00524280
+
 void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest); // 0x00524200
+
 void __fastcall sub_00524780_SetKey(int nIndex, int bEncrypt, const D2IdeaUserKeyStrc* pUserKey); // 0x00524780
+
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
+
 extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
 struct D2CipherKeyView {
@@ -113,8 +242,31 @@ struct D2CipherKeyView {
 };
 
 void __fastcall sub_005241C0_GetDigest(int,void*); // 0x005241C0
+
 void __fastcall sub_00524760_CipherBlock(int,const unsigned short*,unsigned short*); // 0x00524760
+
 static __declspec(noinline) unsigned int sub_00523280_CountTerminatedBytes(unsigned int maxLength, unsigned int length, const unsigned char* data);
+
+int gdwGlobal_00882528; // 0x00882528
+
+int gdwGlobal_008823F0; // 0x008823F0
+
+int gdwGlobal_008823FC; // 0x008823FC
+
+char gData_00882428[256]; // 0x00882428
+
+int gnGlobal_008823EC; // 0x008823EC
+
+char gszAccountName_00882540[0x100]; // 0x00882540
+
+int gdwGlobal_00882538; // 0x00882538
+
+// 0x00520660
+int __fastcall sub_00520660_HandleReply0F(const void* pData, unsigned int nSize)
+{
+    sub_00520210_QueueMessage(0, pData, nSize);
+    return 1;
+}
 
 // 0x00520B30
 int __cdecl sub_00520B30_ResetReplies()
@@ -128,16 +280,6 @@ int __cdecl sub_00520B30_ResetReplies()
     sub_00520520_SetState(0);
     return 1;
 }
-
-// 0x00520BF0
-int __fastcall sub_00520BF0_IsReplyReceived(unsigned char nReply)
-{
-    return gnSlotArrayA_00882128[nReply];
-}
-
-int gnSlotArrayA_00882128[94]; // 0x00882128
-
-int gdwGlobal_00882528; // 0x00882528
 
 // 0x00520B70
 int __fastcall sub_00520B70_WaitForReply(unsigned char nReply)
@@ -157,6 +299,109 @@ int __fastcall sub_00520B70_WaitForReply(unsigned char nReply)
         }
         Sleep(10);
     }
+    return 1;
+}
+
+// 0x00520BF0
+int __fastcall sub_00520BF0_IsReplyReceived(unsigned char nReply)
+{
+    return gnSlotArrayA_00882128[nReply];
+}
+
+// 0x00520C50
+int __fastcall sub_00520C50_HandleReply2A(const int* pData, unsigned int nSize)
+{
+    gdwGlobal_00882350 = pData[0];
+    return 1;
+}
+
+// 0x00520C60
+int __fastcall sub_00520C60_HandleReply3D(const int* pData, unsigned int nSize)
+{
+    gdwGlobal_008822A4 = pData[0];
+    gdwGlobal_0088239C = 1;
+    return 1;
+}
+
+// 0x00520C80
+int __fastcall sub_00520C80_HandleReply31(const int* pData, unsigned int nSize)
+{
+    gdwGlobal_008822A0 = pData[0];
+    gdwGlobal_0088236C = 1;
+    if (!gdwGlobal_008822A0)
+        sub_005204A0_SetError(0xE);
+    return 1;
+}
+
+// 0x00520CB0
+int __fastcall sub_00520CB0_HandleClientId(const D2BnClientIdReplyStrc* pData, unsigned int nSize)
+{
+    if (!pData || nSize < 0x10)
+    {
+        sub_00518D40_Log("ERROR BDClientId: invalid response");
+        return 0;
+    }
+
+    unsigned int nRegistrationVersion = pData->dwRegistrationVersion;
+    unsigned int nRegistrationAuthority = pData->dwRegistrationAuthority;
+    unsigned int nClientId = pData->dwClientId;
+    unsigned int nClientToken = pData->f_C;
+    SRegSaveValue(szConfiguration_006DEC7C, "Registration Version", 2, nRegistrationVersion);
+    SRegSaveValue(szConfiguration_006DEC7C, "Registration Authority", 2, nRegistrationAuthority);
+    SRegSaveValue(szConfiguration_006DEC7C, "Client ID", 2, nClientId);
+    SRegSaveValue(szConfiguration_006DEC7C, "Client Token", 2, nClientToken);
+    sub_00518C70_StartLogging(2, 4);
+    sub_00518D40_Log("client acknowledged");
+    sub_00518C70_StartLogging(2, -4);
+    return 1;
+}
+
+// 0x00520D50
+int __fastcall sub_00520D50_HandleReply28(const int* pData, unsigned int nSize)
+{
+    sub_0051A540_SetValue(pData[0]);
+    return 1;
+}
+
+// 0x00520D60
+int __fastcall sub_00520D60_HandleReply1C(const int* pData, unsigned int nSize)
+{
+    if (!pData[0])
+        gdwGlobal_00882318 = 1;
+    return 1;
+}
+
+// 0x00520D70
+int __fastcall sub_00520D70_HandleLogonAck(const int* pData, unsigned int nSize)
+{
+    sub_0051A540_SetValue(pData[1]);
+    sub_00518C70_StartLogging(2, 4);
+    sub_00518D40_Log("logon acknowledged");
+    sub_00518C70_StartLogging(2, -4);
+    return 1;
+}
+
+// 0x00520DA0
+int __fastcall sub_00520DA0_HandleReply29(const int* pData, unsigned int nSize)
+{
+    gdwGlobal_0072FFA8 = pData[0] == 0;
+    return 1;
+}
+
+// 0x00520F60
+int __fastcall sub_00520F60_HandleStartVersioning(const D2BnStartVersioningStrc* pData, unsigned int nSize)
+{
+    const char* szFileName = pData->szFileName;
+    if (sizeof(D2FileTimeStrc) + strlen(szFileName) + 1 < nSize)
+        sub_0051E3B0_SetCheckRevisionValue(szFileName + strlen(szFileName) + 1);
+    sub_0051F910_Report(0x80000001, 3, 0, 0, &pData->tFileTime, szFileName, 0);
+    return 1;
+}
+
+// 0x00520FC0
+int __fastcall sub_00520FC0_HandleReply25(const void* pData, unsigned int nSize)
+{
+    sub_0051C5C0_SendPacket(0x25, pData, nSize);
     return 1;
 }
 
@@ -181,13 +426,6 @@ int __fastcall sub_005210D0_SetReply(const void* pData, unsigned int nSize)
     return 1;
 }
 
-// 0x005211D0
-int __fastcall sub_005211D0_SetReply(const void* pData, unsigned int nSize)
-{
-    sub_0051BD60_SetReply(pData, nSize);
-    return 1;
-}
-
 // 0x005210F0
 int __fastcall sub_005210F0_ShowText(const void* pData, unsigned int nSize)
 {
@@ -208,13 +446,12 @@ int __fastcall sub_00521110_Report(const void* pData, unsigned int nSize)
     return 1;
 }
 
-int gdwGlobal_008822A0; // 0x008822A0
-
-int gdwGlobal_008822A4; // 0x008822A4
-
-int gdwGlobal_008823F0; // 0x008823F0
-
-int gdwGlobal_008823FC; // 0x008823FC
+// 0x005211D0
+int __fastcall sub_005211D0_SetReply(const void* pData, unsigned int nSize)
+{
+    sub_0051BD60_SetReply(pData, nSize);
+    return 1;
+}
 
 // 0x005211E0
 int __fastcall sub_005211E0_QueryAdUrl(const void* pData, unsigned int nSize)
@@ -234,6 +471,155 @@ int __fastcall sub_005211F0_LogonRealmEx(const void* pData, unsigned int nSize)
 int __fastcall sub_00521200_ReadUserData(const void* pData, unsigned int nSize)
 {
     sub_0051B820_SetReply(pData, nSize);
+    return 1;
+}
+
+// 0x00521210
+int __fastcall sub_00521210_NewsInfo(const void* pData, unsigned int nSize)
+{
+    return sub_0051D860_ParseNewsInfo(pData);
+}
+
+static int BNAUTH_IsValidAuthInfo(const unsigned char* pData, unsigned int nSize)
+{
+    if (nSize < 0x16)
+        return 0;
+    if (pData[nSize - 1])
+        return 0;
+    unsigned int nCount = 0;
+    for (unsigned int i = 0x14; i < nSize - 1; ++i)
+    {
+        if (!pData[i])
+            ++nCount;
+    }
+    if (nCount != 1)
+        return 0;
+    return 1;
+}
+
+// 0x00521220
+int __fastcall sub_00521220_HandleAuthInfo(const unsigned char* pData, unsigned int nSize)
+{
+    if (!BNAUTH_IsValidAuthInfo(pData, nSize))
+        return 0;
+
+    const D2BnAuthInfoStrc* pInfo = (const D2BnAuthInfoStrc*)pData;
+    D2FileTimeStrc tFileTime = pInfo->tFileTime;
+    unsigned int nLogonType = pInfo->dwLogonType;
+    unsigned int nServerToken = pInfo->f_4;
+    const char* szFileName = pInfo->szFileName;
+    const char* szValue = szFileName + SStrLen(szFileName) + 1;
+    sub_0051A540_SetValue(nServerToken);
+    sub_0051A560_SetValue(nLogonType);
+    sub_0051E3B0_SetCheckRevisionValue(szValue);
+    sub_0051EA80_SetArchiveName(&gszEmptyAssertText);
+    sub_0051F910_Report(0x80000001, 3, 0, 0, &tFileTime, szFileName, 0);
+    return 1;
+}
+
+static int BNAUTH_IsValidAuthCheck(const unsigned char* pData, unsigned int nSize)
+{
+    if (nSize < 5)
+        return 0;
+    if (pData[nSize - 1])
+        return 0;
+    unsigned int nCount = 0;
+    for (unsigned int i = 4; i < nSize - 1; ++i)
+    {
+        if (!pData[i])
+            ++nCount;
+    }
+    if (nCount != 0)
+        return 0;
+    return 1;
+}
+
+// 0x005212D0
+int __fastcall sub_005212D0_HandleAuthCheck(const unsigned char* pData, unsigned int nSize)
+{
+    if (!BNAUTH_IsValidAuthCheck(pData, nSize))
+    {
+        sub_0051A480_DebugLog("INVALID: AuthCheck");
+        return 0;
+    }
+
+    unsigned int nResult = *(const unsigned int*)pData;
+    unsigned int nCode = nResult & 0xFF0F;
+    const char* szInfo = (const char*)pData + 4;
+
+    switch (nCode)
+    {
+    case 0:
+    case 0x100:
+    case 0x102:
+        sub_0051BCF0_SendBuffer();
+        break;
+    }
+
+    gData_00882428[0] = 0;
+    gnGlobal_008823B0 = 0;
+    SRegSaveData("Patch", "Patches", 0x82, &gszEmptyAssertText, 1);
+
+    switch (nCode)
+    {
+    case 0x100:
+    {
+        char szPatches[0x100];
+        unsigned int nLength = SStrCopy(szPatches, szInfo, 0xFE) + 1;
+        szPatches[nLength] = 0;
+        ++nLength;
+        sub_0051E370_SetText(szPatches, nLength);
+        SRegSaveData("Patch", "Patches", 0x82, szPatches, nLength);
+        D2FileTimeStrc tFileTime;
+        tFileTime.dwLowDateTime = 0;
+        tFileTime.dwHighDateTime = 0;
+        sub_0051F910_Report(0x80000002, 2, 0, 0, &tFileTime, szPatches, 0);
+        gnGlobal_008823EC = 0;
+        sub_0051A480_DebugLog("Downloading Upgrade");
+        break;
+    }
+    case 0:
+        gnGlobal_008823B0 = 1;
+        gnGlobal_008823EC = 1;
+        sub_0051A480_DebugLog("User has latest version and a valid cdkey");
+        break;
+    case 0x101:
+        sub_005204A0_SetError(1);
+        gnGlobal_008823EC = 0;
+        sub_0051A480_DebugLog("User has unknown version");
+        break;
+    case 0x102:
+        sub_005204A0_SetError(1);
+        gnGlobal_008823EC = 0;
+        sub_0051A480_DebugLog("User must revert to an older version");
+        break;
+    case 0x200:
+    {
+        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 7 : 3);
+        sub_0051A480_DebugLog("User has an invalid cdkey (%ld)", (nResult >> 4) & 0xF);
+        break;
+    }
+    case 0x203:
+    {
+        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 9 : 5);
+        sub_0051A480_DebugLog("CD Key is for another product (%ld)", (nResult >> 4) & 0xF);
+        break;
+    }
+    case 0x202:
+    {
+        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 8 : 4);
+        sub_0051A480_DebugLog("CD Key is disabled (%ld)", (nResult >> 4) & 0xF);
+        break;
+    }
+    case 0x201:
+    {
+        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 10 : 6);
+        SStrCopy(gData_00882428, szInfo, 0x100);
+        sub_00520550_SetStateArg(gData_00882428);
+        sub_0051A480_DebugLog("CD Key is in use by %s (%ld)", gData_00882428, (nResult >> 4) & 0xF);
+        break;
+    }
+    }
     return 1;
 }
 
@@ -286,6 +672,40 @@ int __fastcall sub_005215B0_AuthAccountCreate(const void* pData, unsigned int nS
     }
     gdwGlobal_008823F0 = 1;
     return 1;
+}
+
+// 0x005216B0
+int __fastcall sub_005216B0_AuthAccountLogon(const void* pData, unsigned int nSize)
+{
+    if (nSize < 0x44)
+    {
+        sub_0051A480_DebugLog("INVALID: AuthAccountLogon");
+        return 0;
+    }
+
+    switch (*(const int*)pData)
+    {
+    case 0:
+        sub_0051A480_DebugLog("Logon requires proof");
+        return sub_005220B0_SendLogonProof((const unsigned char*)pData + 4, (const unsigned char*)pData + 0x24);
+    case 1:
+        sub_0051A480_DebugLog("Logon failed: Account unknown");
+        sub_005204A0_SetError(0x0D);
+        gdwGlobal_0072FFA8 = 1;
+        return 1;
+    case 5:
+        sub_0051A480_DebugLog("Logon requires upgrade");
+        if (!sub_005223A0(1))
+        {
+            sub_005204A0_SetError(0x12);
+            return 0;
+        }
+        return 1;
+    default:
+        sub_0051A480_DebugLog("Logon failed: Unknown result");
+        sub_005204A0_SetError(0x12);
+        return 0;
+    }
 }
 
 // 0x00521760
@@ -468,195 +888,6 @@ int __fastcall sub_00521AE0_RequiredWork(const void* pData, unsigned int nSize)
     return 1;
 }
 
-#include "gen/data/Source/Bnclient/Unknown_00520B30.inc"
-
-// 0x00521210
-int __fastcall sub_00521210_NewsInfo(const void* pData, unsigned int nSize)
-{
-    return sub_0051D860_ParseNewsInfo(pData);
-}
-
-static int BNAUTH_IsValidAuthInfo(const unsigned char* pData, unsigned int nSize)
-{
-    if (nSize < 0x16)
-        return 0;
-    if (pData[nSize - 1])
-        return 0;
-    unsigned int nCount = 0;
-    for (unsigned int i = 0x14; i < nSize - 1; ++i)
-    {
-        if (!pData[i])
-            ++nCount;
-    }
-    if (nCount != 1)
-        return 0;
-    return 1;
-}
-
-// 0x00521220
-int __fastcall sub_00521220_HandleAuthInfo(const unsigned char* pData, unsigned int nSize)
-{
-    if (!BNAUTH_IsValidAuthInfo(pData, nSize))
-        return 0;
-
-    const D2BnAuthInfoStrc* pInfo = (const D2BnAuthInfoStrc*)pData;
-    D2FileTimeStrc tFileTime = pInfo->tFileTime;
-    unsigned int nLogonType = pInfo->dwLogonType;
-    unsigned int nServerToken = pInfo->f_4;
-    const char* szFileName = pInfo->szFileName;
-    const char* szValue = szFileName + SStrLen(szFileName) + 1;
-    sub_0051A540_SetValue(nServerToken);
-    sub_0051A560_SetValue(nLogonType);
-    sub_0051E3B0_SetCheckRevisionValue(szValue);
-    sub_0051EA80_SetArchiveName(&gszEmptyAssertText);
-    sub_0051F910_Report(0x80000001, 3, 0, 0, &tFileTime, szFileName, 0);
-    return 1;
-}
-
-char gData_00882428[256]; // 0x00882428
-
-int gnGlobal_008823EC; // 0x008823EC
-
-static int BNAUTH_IsValidAuthCheck(const unsigned char* pData, unsigned int nSize)
-{
-    if (nSize < 5)
-        return 0;
-    if (pData[nSize - 1])
-        return 0;
-    unsigned int nCount = 0;
-    for (unsigned int i = 4; i < nSize - 1; ++i)
-    {
-        if (!pData[i])
-            ++nCount;
-    }
-    if (nCount != 0)
-        return 0;
-    return 1;
-}
-
-// 0x005212D0
-int __fastcall sub_005212D0_HandleAuthCheck(const unsigned char* pData, unsigned int nSize)
-{
-    if (!BNAUTH_IsValidAuthCheck(pData, nSize))
-    {
-        sub_0051A480_DebugLog("INVALID: AuthCheck");
-        return 0;
-    }
-
-    unsigned int nResult = *(const unsigned int*)pData;
-    unsigned int nCode = nResult & 0xFF0F;
-    const char* szInfo = (const char*)pData + 4;
-
-    switch (nCode)
-    {
-    case 0:
-    case 0x100:
-    case 0x102:
-        sub_0051BCF0_SendBuffer();
-        break;
-    }
-
-    gData_00882428[0] = 0;
-    gnGlobal_008823B0 = 0;
-    SRegSaveData("Patch", "Patches", 0x82, &gszEmptyAssertText, 1);
-
-    switch (nCode)
-    {
-    case 0x100:
-    {
-        char szPatches[0x100];
-        unsigned int nLength = SStrCopy(szPatches, szInfo, 0xFE) + 1;
-        szPatches[nLength] = 0;
-        ++nLength;
-        sub_0051E370_SetText(szPatches, nLength);
-        SRegSaveData("Patch", "Patches", 0x82, szPatches, nLength);
-        D2FileTimeStrc tFileTime;
-        tFileTime.dwLowDateTime = 0;
-        tFileTime.dwHighDateTime = 0;
-        sub_0051F910_Report(0x80000002, 2, 0, 0, &tFileTime, szPatches, 0);
-        gnGlobal_008823EC = 0;
-        sub_0051A480_DebugLog("Downloading Upgrade");
-        break;
-    }
-    case 0:
-        gnGlobal_008823B0 = 1;
-        gnGlobal_008823EC = 1;
-        sub_0051A480_DebugLog("User has latest version and a valid cdkey");
-        break;
-    case 0x101:
-        sub_005204A0_SetError(1);
-        gnGlobal_008823EC = 0;
-        sub_0051A480_DebugLog("User has unknown version");
-        break;
-    case 0x102:
-        sub_005204A0_SetError(1);
-        gnGlobal_008823EC = 0;
-        sub_0051A480_DebugLog("User must revert to an older version");
-        break;
-    case 0x200:
-    {
-        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 7 : 3);
-        sub_0051A480_DebugLog("User has an invalid cdkey (%ld)", (nResult >> 4) & 0xF);
-        break;
-    }
-    case 0x203:
-    {
-        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 9 : 5);
-        sub_0051A480_DebugLog("CD Key is for another product (%ld)", (nResult >> 4) & 0xF);
-        break;
-    }
-    case 0x202:
-    {
-        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 8 : 4);
-        sub_0051A480_DebugLog("CD Key is disabled (%ld)", (nResult >> 4) & 0xF);
-        break;
-    }
-    case 0x201:
-    {
-        sub_00520520_SetState(((nResult >> 4) & 0xF) ? 10 : 6);
-        SStrCopy(gData_00882428, szInfo, 0x100);
-        sub_00520550_SetStateArg(gData_00882428);
-        sub_0051A480_DebugLog("CD Key is in use by %s (%ld)", gData_00882428, (nResult >> 4) & 0xF);
-        break;
-    }
-    }
-    return 1;
-}
-
-// 0x005216B0
-int __fastcall sub_005216B0_AuthAccountLogon(const void* pData, unsigned int nSize)
-{
-    if (nSize < 0x44)
-    {
-        sub_0051A480_DebugLog("INVALID: AuthAccountLogon");
-        return 0;
-    }
-
-    switch (*(const int*)pData)
-    {
-    case 0:
-        sub_0051A480_DebugLog("Logon requires proof");
-        return sub_005220B0_SendLogonProof((const unsigned char*)pData + 4, (const unsigned char*)pData + 0x24);
-    case 1:
-        sub_0051A480_DebugLog("Logon failed: Account unknown");
-        sub_005204A0_SetError(0x0D);
-        gdwGlobal_0072FFA8 = 1;
-        return 1;
-    case 5:
-        sub_0051A480_DebugLog("Logon requires upgrade");
-        if (!sub_005223A0(1))
-        {
-            sub_005204A0_SetError(0x12);
-            return 0;
-        }
-        return 1;
-    default:
-        sub_0051A480_DebugLog("Logon failed: Unknown result");
-        sub_005204A0_SetError(0x12);
-        return 0;
-    }
-}
-
 // 0x00521B40
 static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)
 {
@@ -722,8 +953,6 @@ unsigned int __cdecl sub_00521BA0_GetUILanguageId()
     return GetSystemDefaultLangID();
 }
 
-char gszAccountName_00882540[0x100]; // 0x00882540
-
 // 0x00522050
 int __cdecl sub_00522050_SendAccountLogon()
 {
@@ -734,29 +963,6 @@ int __cdecl sub_00522050_SendAccountLogon()
     return 1;
 }
 
-// 0x00522500
-unsigned int __fastcall sub_00522500_GetNibble(const unsigned int* pKey, unsigned int nIndex)
-{
-    const int nShift = (nIndex & 7) * 4;
-    return (pKey[3 - (nIndex >> 3)] & (0xF << nShift)) >> nShift;
-}
-
-// 0x00522570
-unsigned int __fastcall sub_00522570_GetBit(const unsigned int* pKey, unsigned int nIndex)
-{
-    const int nShift = nIndex & 0x1F;
-    return (pKey[3 - (nIndex >> 5)] & (1 << nShift)) >> nShift;
-}
-
-// 0x00522C20
-void __cdecl sub_00522C20_ClearCryptState()
-{
-    sub_00524740_ClearKeySchedules();
-    sub_005241A0_ClearHashContexts();
-}
-
-int gdwGlobal_00882538; // 0x00882538
-
 // 0x005223A0
 int __fastcall sub_005223A0_SendAccountUpgrade(int bRetry)
 {
@@ -766,6 +972,13 @@ int __fastcall sub_005223A0_SendAccountUpgrade(int bRetry)
     gtBigPair_0088273C.sub_00528660_MakeVerifier(gtLoginRecord_00882680.szName, gtLoginRecord_00882680.szPassword, gabNewVerifier_00882640, gabNewVerifier_00882640 + 0x20);
     sub_0051C5C0_SendPacket(0x57, 0, 0);
     return 1;
+}
+
+// 0x00522500
+unsigned int __fastcall sub_00522500_GetNibble(const unsigned int* pKey, unsigned int nIndex)
+{
+    const int nShift = (nIndex & 7) * 4;
+    return (pKey[3 - (nIndex >> 3)] & (0xF << nShift)) >> nShift;
 }
 
 inline unsigned int GetNibble(const unsigned int* pKey, unsigned int nIndex)
@@ -788,6 +1001,13 @@ void __fastcall sub_00522530_SetNibble(unsigned int* pKey, unsigned int nIndex, 
     const int nShift = (nIndex & 7) * 4;
     const unsigned int nWord = 3 - (nIndex >> 3);
     pKey[nWord] = (pKey[nWord] & ~(0xF << nShift)) | ((nValue & 0xF) << nShift);
+}
+
+// 0x00522570
+unsigned int __fastcall sub_00522570_GetBit(const unsigned int* pKey, unsigned int nIndex)
+{
+    const int nShift = nIndex & 0x1F;
+    return (pKey[3 - (nIndex >> 5)] & (1 << nShift)) >> nShift;
 }
 
 // 0x005225A0
@@ -891,6 +1111,13 @@ void __fastcall sub_00522BC0_FillRandomBytes(char* szBuffer, int nSize)
     }
     srand(_time32(0));
     szBuffer[nSize - 1] = 0;
+}
+
+// 0x00522C20
+void __cdecl sub_00522C20_ClearCryptState()
+{
+    sub_00524740_ClearKeySchedules();
+    sub_005241A0_ClearHashContexts();
 }
 
 // 0x00522C30
@@ -1001,3 +1228,5 @@ unsigned int __fastcall CountTerminatedBytesContext(unsigned int length, const u
 {
     return sub_00523280_CountTerminatedBytes(maxLength, length, data);
 }
+
+#include "gen/data/Source/D2BNClient/BnDownload_00520660.inc"

@@ -31,6 +31,7 @@ int __fastcall sub_005202F0_QueueText(int nId, const char* szText); // 0x005202F
 class BNGatewayAccess
 {
 public:
+    const char* __stdcall DNS(int nGateway);                                                                 // 0x00518040
     void __stdcall Load();                                                                                   // 0x005186D0
     int unk0x00;
     int unk0x04;
@@ -318,7 +319,7 @@ int __fastcall sub_00521B00(unsigned char nId, const void* pData, int nSize)
     return nResult;
 }
 
-#include "gen/data/Source/D2BNClient/Unknown_0051BEB0.inc"
+#include "gen/data/Source/D2BNClient/BnSend_0051BEB0.inc"
 
 // 0x0051C6C0
 void __fastcall sub_0051C6C0_QueueTextLines(const char* szText)

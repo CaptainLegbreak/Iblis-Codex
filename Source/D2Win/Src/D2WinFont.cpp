@@ -68,7 +68,7 @@ D2CelFileStrc* ghMonsterIndicators_00841DA4;                                    
 
 extern D2FontCacheStrc gFontCache_00841DA8[14];                                                             // 0x00841DA8
 
-extern unsigned int gdwLastShiftedTickCount_00841EC0;                                                       // 0x00841EC0
+unsigned int gdwLastShiftedTickCount_00841EC0;                                                              // 0x00841EC0
 
 bool gbKoreanFonts_00841EC6;                                                                                // 0x00841EC6
 
@@ -91,7 +91,6 @@ struct T0044CB60;
 struct D2GfxDataStrc;
 
 struct Unicode;
-
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
@@ -135,7 +134,6 @@ typedef unsigned int size_t;
 
 __declspec(noinline) static int sub_00501840_GetMultiLineTextWidth(const Unicode* pText);
 
-
 static int sub_00501910_GetTextLineWidth(const Unicode* pText);
 
 static __declspec(noinline) void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered);
@@ -168,14 +166,23 @@ extern unsigned int gaFontCharValidBits_006DC9B8[8]; // 0x006DC9B8
 
 static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, int nWidth, int nGlobalPaletteShift, int bCentered);
 
-
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 
 extern unsigned char gnTooltipColor_00841EC4; // 0x00841EC4
 
-
-
 static __declspec(noinline) void __stdcall sub_00501A80_DrawTextLine(int nY, int nWidth, int nShift, int bCentre, const Unicode* pText, int nX);
+
+extern "C" const char gszFormatMonsterIndicators_006DCA10[];                                                // 0x006DCA10
+
+static void __stdcall sub_005013A0(int nFont, char* pBuffer, int nLength);
+
+static void __stdcall sub_00501490_BuildFontPath(int nFont, char* pBuffer, int nLength);
+
+static void sub_6F8A9E90(int nFont);
+
+int __fastcall sub_00502EF0(int nFontSize);
+
+void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);              // 0x0040B430
 
 // 0x005013A0
 static void __stdcall sub_005013A0(int nFont, char* pBuffer, int nLength)
@@ -1006,6 +1013,16 @@ D2SplittedTextStrc* __stdcall sub_005028E0_AllocSplitTextLine(const Unicode* wsz
     return pSplitText;
 }
 
+// 0x00502C40
+int* __fastcall sub_00502C40_ClearTable(int* pTable)
+{
+    for (int i = 0; i < 0x200; ++i)
+    {
+        pTable[i] = 0;
+    }
+    return pTable;
+}
+
 // 0x00502C60
 void __fastcall D2Win_10115_FONT()
 {
@@ -1093,6 +1110,7 @@ void __fastcall D2Win_10115_FONT()
     sub_00526320_ToUnicode(gwszMonsterCode_008426DC, szFile, 2);
 }
 
+// 0x00502EF0
 int __fastcall sub_00502EF0(int nFontSize)
 {
     const int nOldFont = gnCurrentFont_0072DFFC;
@@ -1101,46 +1119,134 @@ int __fastcall sub_00502EF0(int nFontSize)
     if (nOldFont == nFontSize)
     {
         gFontCache_00841DA8[nFontSize].dwShiftedTickCount = dwShiftedTickCount;
+        return nOldFont;
     }
-    else
+
+    gnCurrentFont_0072DFFC = nFontSize;
+
+    if (!gFontCache_00841DA8[nFontSize].pCellFile)
     {
-        gnCurrentFont_0072DFFC = nFontSize;
+        char szFile[0x50];
+        sub_005013A0(nFontSize, szFile, 0x4F);
+        gFontCache_00841DA8[nFontSize].pCellFile = ARCHIVE_LoadCellFile(szFile, 0);
+        sub_6F8A9E90(nFontSize);
+        gFontCache_00841DA8[nFontSize].dwShiftedTickCount = dwShiftedTickCount;
+    }
 
-        if (!gFontCache_00841DA8[nFontSize].pCellFile)
+    if (dwShiftedTickCount - gdwLastShiftedTickCount_00841EC0 > 600)
+    {
+        gdwLastShiftedTickCount_00841EC0 = dwShiftedTickCount;
+
+        for (int i = 0; i < 14; ++i)
         {
-            char szFile[0x50];
-            sub_005013A0(nFontSize, szFile, 0x4F);
-            gFontCache_00841DA8[nFontSize].pCellFile = ARCHIVE_LoadCellFile(szFile, 0);
-            sub_6F8A9E90(nFontSize);
-            gFontCache_00841DA8[nFontSize].dwShiftedTickCount = dwShiftedTickCount;
-        }
-
-        if (dwShiftedTickCount - gdwLastShiftedTickCount_00841EC0 > 600)
-        {
-            gdwLastShiftedTickCount_00841EC0 = dwShiftedTickCount;
-
-            for (int i = 0; i < 14; ++i)
+            D2FontCacheStrc* pFont = &gFontCache_00841DA8[i];
+            if (i != nFontSize && dwShiftedTickCount - pFont->dwShiftedTickCount > 240 && pFont->pCellFile)
             {
-                D2FontCacheStrc* pFont = &gFontCache_00841DA8[i];
-                if (i != nFontSize && dwShiftedTickCount - pFont->dwShiftedTickCount > 240 && pFont->pCellFile)
-                {
-                    ARCHIVE_FreeCellFile(pFont->pCellFile);
-                    pFont->pCellFile = 0;
-                }
+                ARCHIVE_FreeCellFile(pFont->pCellFile);
+                pFont->pCellFile = 0;
             }
         }
+    }
 
-        gpFontCache_00841D88 = &gFontCache_00841DA8[nFontSize];
+    gpFontCache_00841D88 = &gFontCache_00841DA8[nFontSize];
 
-        if (gbKoreanFonts_00841EC6)
-        {
-            gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
-            if (nFontSize != 13)
-                gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA100;
-        }
+    if (gbKoreanFonts_00841EC6)
+    {
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA140;
+        if (nFontSize == 13)
+            return nOldFont;
+        gpfGetCharInfo_00841DA0 = (D2CharStrc* (__fastcall*)(int))sub_6F8AA100;
     }
 
     return nOldFont;
+}
+
+// 0x00503000
+void __stdcall D2Win_10124()
+{
+    const int nSavedFont = gnCurrentFont_0072DFFC;
+    int nFont = gnCurrentFont_0072DFFC;
+
+    if (!sub_00526800(gwszFramedText_00841EC8))
+    {
+        return;
+    }
+
+    int nWidth;
+    int nHeight;
+    int nX;
+    int nY;
+    int nScreenWidth;
+    int nScreenHeight;
+    int nRest = 0;
+    for (;;)
+    {
+        nWidth = sub_00501840_GetMultiLineTextWidth(gwszFramedText_00841EC8) + 8;
+        nHeight = sub_005019C0_GetTextHeight(gwszFramedText_00841EC8);
+
+        nX = gnFramedTextX_008426C8;
+        if (gnFramedTextAlign_008426D4 == 1)
+        {
+            nX = gnFramedTextX_008426C8 - (nWidth >> 1);
+        }
+
+        nY = gnFramedTextY_008426CC + 2;
+        WINDOW_GetDimensions(&nScreenWidth, &nScreenHeight);
+
+        if (nHeight <= nScreenHeight - 10)
+        {
+            break;
+        }
+
+        if (nFont == 1)
+        {
+            sub_00502EF0(0);
+            nFont = 0;
+        }
+        else
+        {
+            if (gnCurrentFont_0072DFFC)
+            {
+                break;
+            }
+
+            sub_00502EF0(6);
+            nFont = 6;
+        }
+    }
+
+    nX = D2_MIN(D2_MAX(nX, 0), nScreenWidth - nWidth);
+    nY = D2_MIN(D2_MAX(nY, nHeight - 5), nScreenHeight - 5);
+
+    if (gnFramedTextRectColor_008426D8)
+    {
+        if (!gnTooltipColor_00841EC4)
+        {
+            gnTooltipColor_00841EC4 = sub_004FB180_FindPaletteIndex(0x50, 0, 0);
+        }
+
+        const int nFill = nWidth * gnFramedTextRectColor_008426D8 >> 7;
+        const int nRight = nFill + nX;
+        ((void (__stdcall*)(int, int, int, int, unsigned char, int))D2GFX_DrawBox)(nX, nY - nHeight, nRight, nY, gnTooltipColor_00841EC4, 1);
+
+        nRest = nWidth - nFill;
+        if (nRest)
+        {
+            D2GFX_DrawBox(nRight, nY - nHeight, nRight + nRest, nY, 0, 2);
+        }
+    }
+    else
+    {
+        D2GFX_DrawBox(nX, nY - nHeight, nX + nWidth, nY, 0, 2);
+    }
+
+    FONT_DrawString(gwszFramedText_00841EC8, nX, nY - gnFontMetric3_0072E008 * gFontCache_00841DA8[gnCurrentFont_0072DFFC].pFontInfo[1]->nHeight / 10, nWidth,
+                            gnFramedTextColor_008426D0, 1);
+
+    if (nFont != nSavedFont)
+    {
+        sub_00502EF0(nSavedFont);
+    }
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinFont.inc"

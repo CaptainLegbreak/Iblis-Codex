@@ -2534,4 +2534,25 @@ void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord)
 
 struct D2WinControlStrc;
 
+// 0x0043E570
+int __cdecl sub_0043E570()
+{
+    D2ChatMessageStrc* pMessage = (D2ChatMessageStrc*)FOG_Alloc(sizeof(D2ChatMessageStrc), ".\\Src\\ChatDlg.cpp", 0xC1D, 0);
+    memset(pMessage, 0, sizeof(D2ChatMessageStrc));
+    if (pMessage)
+    {
+        pMessage->szText = 0;
+        pMessage->nColor = 0;
+        pMessage->bClear = 1;
+        EnterCriticalSection(&gtChatLock_0077AE28);
+        if (gpChatQueueHead_0077BDAC)
+            gpChatQueueTail_0077BDB0->pNext = pMessage;
+        else
+            gpChatQueueHead_0077BDAC = pMessage;
+        gpChatQueueTail_0077BDB0 = pMessage;
+        LeaveCriticalSection(&gtChatLock_0077AE28);
+    }
+    return 1;
+}
+
 #include "gen/data/Source/D2Multi/Src/ChatDlg.inc"

@@ -538,39 +538,6 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
-// 0x00507900
-int __fastcall ACCOUNTLIST_RemoveEntry(D2WinAccountListStrc* ptListData, const char* szText)
-{
-    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x90);
-
-    D2WinAccountListDataStrc* pPrevious = 0;
-    for (D2WinAccountListDataStrc* pData = ptListData->pDataList; pData; pData = pData->pNext)
-    {
-        if (!strcmp(pData->szText, szText))
-        {
-            if (ptListData->pSelectedDataEntry == pData)
-            {
-                ptListData->pSelectedDataEntry = 0;
-            }
-
-            if (pPrevious)
-            {
-                pPrevious->pNext = pData->pNext;
-            }
-            else
-            {
-                ptListData->pDataList = pData->pNext;
-            }
-
-            FOG_Free(pData, ".\\Src\\D2WinAccountList.cpp", 0xA7, 0);
-            return 1;
-        }
-
-        pPrevious = pData;
-    }
-
-    return 0;
-}
 
 // 0x00507DC0
 int __fastcall PROGRESSBAR_Draw(D2WinControlStrc* pControl)

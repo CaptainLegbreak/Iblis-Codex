@@ -239,34 +239,6 @@ int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
-// 0x005088C0
-void __stdcall POPUP_Create()
-{
-    if (gpPopUp_0087E974)
-    {
-        CONTROL_RemoveFromList(&gpPopUp_0087E974->controlHeader);
-        gpPopUp_0087E974 = 0;
-    }
-    D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)FOG_Alloc(sizeof(D2WinPopUpStrc), ".\\Src\\D2WinPopup.cpp", 0x29, 0);
-    memset(pPopUp, 0, sizeof(D2WinPopUpStrc));
-    pPopUp->controlHeader.eType = D2WIN_POPUP;
-    pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
-    pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
-    pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[3];
-    pPopUp->controlHeader.nImageX = gMousePosition_6F8FE234.x;
-    pPopUp->controlHeader.nImageY = gMousePosition_6F8FE234.y;
-    pPopUp->controlHeader.pfDraw = POPUP_Draw;
-    pPopUp->controlHeader.pfInitialize = sub_00508710;
-    pPopUp->controlHeader.pNext = 0;
-    pPopUp->controlHeader.pfHandleMouseDown = 0;
-    pPopUp->controlHeader.pfHandleMouseUp = 0;
-    pPopUp->controlHeader.pfHandleCharInput = 0;
-    pPopUp->controlHeader.pfHandleVirtualKeyInput = 0;
-    pPopUp->controlHeader.field_34 = 0;
-    pPopUp->nCurrentLine = -1;
-    CONTROL_AppendToList(&pPopUp->controlHeader);
-    gpPopUp_0087E974 = pPopUp;
-}
 
 // 0x00507F20
 int __fastcall SCROLLBAR_SetMaxSteps(D2WinScrollBarStrc* ptScrollbarData, int nMaxSteps)

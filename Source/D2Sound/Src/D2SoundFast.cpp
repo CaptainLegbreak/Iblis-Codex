@@ -106,6 +106,8 @@ int gnChannelValue_00881798; // 0x00881798
 
 int gbChannelFlag_0088179C; // 0x0088179C
 
+void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound); // 0x005160D0
+
 // 0x00514040
 void __cdecl sub_00514040_Nothing()
 {
@@ -318,4 +320,29 @@ void __cdecl sub_00515020_FadeOutWaves()
                 sub_00515C60_StartFade(gapWaveSlots_008817DC[i], 0, 200);
         }
     }
+}
+
+// 0x00515070
+void __cdecl sub_00515070_FreeWaveSlots()
+{
+    if (!gbWaveSlotsInit_008817FC)
+        return;
+    for (int i = 0; i < 8; ++i)
+        sub_00515EE0_StopSound(gapWaveSlots_008817DC[i]);
+    for (int i = 0; i < 8; ++i)
+    {
+        sub_005160D0_DestroySound(gapWaveSlots_008817DC[i]);
+        gapWaveSlots_008817DC[i] = 0;
+    }
+    while (gpWaveList_00881800)
+    {
+        D2WaveStrc* pNext = gpWaveList_00881800->pNext;
+        void* pData = gpWaveList_00881800->pData;
+        if (pData)
+            FOG_Free(pData, ".\\Src\\D2SoundFast.cpp", 0x62, 0);
+        FOG_Free(gpWaveList_00881800, ".\\Src\\D2SoundFast.cpp", 0x63, 0);
+        gpWaveList_00881800 = pNext;
+    }
+    gbWaveSlotsInit_008817FC = 0;
+    DeleteCriticalSection(&gWaveLock_008817C4);
 }

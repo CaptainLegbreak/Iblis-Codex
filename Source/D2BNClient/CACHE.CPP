@@ -235,7 +235,7 @@ static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, co
     return dwSeed1;
 }
 
-// build: context sub_00519110_FindHashEntry
+// 0x00519110
 static __declspec(noinline) int __stdcall sub_00519110_FindHashEntry(const char* szName, unsigned int dwLocale)
 {
     unsigned int dwHash = sub_00518FA0_HashString(0, szName);
