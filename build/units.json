@@ -24407,6 +24407,20 @@
   {
    "file": "Source/D2Client/WARDEN/WardenClient.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x00479230",
@@ -24424,9 +24438,79 @@
      "name": "sub_0047E090"
     },
     {
+     "va": "0x0047F8B0",
+     "length": 11,
+     "name": "?sub_0047F8B0_SwapBytes@@YIXPAE0@Z"
+    },
+    {
+     "va": "0x0047F930",
+     "length": 13,
+     "name": "??0D2Warden47F930Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x0047F940",
+     "length": 5,
+     "name": "??1D2WardenModuleHolderAStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0047F990",
+     "length": 132,
+     "name": "?sub_0047F990_HashModule@@YGXPBDPAEPBEII@Z"
+    },
+    {
+     "va": "0x0047FA20",
+     "length": 408,
+     "name": "?sub_0047FA20_VerifyModuleSignature@@YGHPBDPAEPBE2IIII@Z"
+    },
+    {
+     "va": "0x0047FBC0",
+     "length": 19,
+     "name": "??0WardenModule@@QAE@XZ"
+    },
+    {
+     "va": "0x0047FBE0",
+     "length": 5,
+     "name": "??1D2WardenModuleHolderBStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0047FBF0",
+     "length": 19,
+     "name": "?sub_0047FBF0_WardenAlloc@@YIPAXI@Z"
+    },
+    {
+     "va": "0x0047FC10",
+     "length": 19,
+     "name": "?sub_0047FC10_WardenFree@@YIXPAX@Z"
+    },
+    {
+     "va": "0x0047FC30",
+     "length": 9,
+     "name": "??0Library@NWardenClient@@QAE@XZ"
+    },
+    {
      "va": "0x0047FC40",
      "length": 42,
      "name": "?_GWardenModule"
+    },
+    {
+     "va": "0x0047FC70",
+     "length": 610,
+     "name": "?sub_0047FC70_LoadModule@@YGHPBE0I@Z"
+    },
+    {
+     "va": "0x0047FEE0",
+     "length": 202,
+     "name": "?sub_0047FEE0_LoadModuleByKey@@YGHPBE0@Z"
+    },
+    {
+     "va": "0x00480020",
+     "length": 26,
+     "name": "?sub_00480020_LoadModuleByKey@@YG_NPBE0@Z"
+    },
+    {
+     "va": "0x00480040",
+     "length": 122,
+     "name": "?sub_00480040_CallServiceWithHashName@@YGXPBEHH@Z"
     },
     {
      "va": "0x00480150",
@@ -24437,6 +24521,11 @@
      "va": "0x00480320",
      "length": 28,
      "name": "?sub_00480320_CallHolderSlot3@@YIXH@Z"
+    },
+    {
+     "va": "0x004803C0",
+     "length": 58,
+     "name": "?sub_004803C0_InitWarden@@YIHH@Z"
     },
     {
      "va": "0x004922A0",
@@ -24839,6 +24928,15 @@
      "name": "?sub_0047AA30_HasClassOverride@@YAHXZ"
     },
     {
+     "va": "0x0047AD60",
+     "length": 148,
+     "name": "?sub_0047AD60_RefreshCandidates@@YAXPAX@Z"
+    },
+    {
+     "va": "0x0047AE00",
+     "length": 520
+    },
+    {
      "va": "0x0047B010",
      "length": 86,
      "name": "?sub_0047B010_IsImeLanguage@@YA_NXZ"
@@ -24878,41 +24976,6 @@
      "va": "0x0047AA60",
      "length": 570,
      "name": "?sub_0047AA60_OnImeComposition@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/chat_0047AD60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047AD60",
-     "length": 148,
-     "name": "?sub_0047AD60_RefreshCandidates@@YAXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/chat_0047AE00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0047AE00",
-     "length": 520
     }
    ],
    "flags": [
@@ -25669,52 +25732,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/WARDEN/WardenClient_0047F8B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047F8B0",
-     "length": 11,
-     "name": "?sub_0047F8B0_SwapBytes@@YIXPAE0@Z"
-    },
-    {
-     "va": "0x0047F930",
-     "length": 13,
-     "name": "??0D2Warden47F930Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x0047F940",
-     "length": 5,
-     "name": "??1D2WardenModuleHolderAStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0047FBC0",
-     "length": 19,
-     "name": "??0WardenModule@@QAE@XZ"
-    },
-    {
-     "va": "0x0047FBE0",
-     "length": 5,
-     "name": "??1D2WardenModuleHolderBStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0047FBF0",
-     "length": 19,
-     "name": "?sub_0047FBF0_WardenAlloc@@YIPAXI@Z"
-    },
-    {
-     "va": "0x0047FC10",
-     "length": 19,
-     "name": "?sub_0047FC10_WardenFree@@YIXPAX@Z"
-    },
-    {
-     "va": "0x0047FC30",
-     "length": 9,
-     "name": "??0Library@NWardenClient@@QAE@XZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_0047F950.cpp",
    "rank": 0,
    "functions": [
@@ -25723,81 +25740,6 @@
      "length": 58,
      "name": "?sub_0047F950_CheckBlockSignature@@YGHPBD0PAH0@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/WARDEN/WardenClient_0047FA20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047F990",
-     "length": 132,
-     "name": "?sub_0047F990_HashModule@@YGXPBDPAEPBEII@Z"
-    },
-    {
-     "va": "0x0047FA20",
-     "length": 408,
-     "name": "?sub_0047FA20_VerifyModuleSignature@@YGHPBDPAEPBE2IIII@Z"
-    },
-    {
-     "va": "0x0047FEE0",
-     "length": 202,
-     "name": "?sub_0047FEE0_LoadModuleByKey@@YGHPBE0@Z"
-    },
-    {
-     "va": "0x00480020",
-     "length": 26,
-     "name": "?sub_00480020_LoadModuleByKey@@YG_NPBE0@Z"
-    },
-    {
-     "va": "0x00480040",
-     "length": 122,
-     "name": "?sub_00480040_CallServiceWithHashName@@YGXPBEHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/WARDEN/WardenClient_0047FC70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047FC70",
-     "length": 610,
-     "name": "?sub_0047FC70_LoadModule@@YGHPBE0I@Z"
-    },
-    {
-     "va": "0x004803C0",
-     "length": 58,
-     "name": "?sub_004803C0_InitWarden@@YIHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -31807,6 +31749,10 @@
      "name": "?sub_004B75D0_OnDialogKey@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004B7610",
+     "length": 178
+    },
+    {
      "va": "0x004B7770",
      "length": 122
     },
@@ -31823,60 +31769,6 @@
      "length": 124
     },
     {
-     "va": "0x004B7BC0",
-     "length": 58,
-     "name": "?sub_004B7BC0_InitDialog@@YAXPAUD2ClientDialogStrc@@@Z"
-    },
-    {
-     "va": "0x004B7EB0",
-     "length": 356,
-     "name": "sub_004B7EB0_CreateDialog"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/dialog_004B7610.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B7610",
-     "length": 178
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/dialog_004B7970.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x004B7970",
      "length": 83,
      "name": "?sub_004B7970_IsDialogKey@@YAHPAUD2ClientDialogStrc@@H@Z"
@@ -31890,13 +31782,7 @@
      "va": "0x004B7A90",
      "length": 175,
      "name": "?sub_004B7A90_DialogKeyDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/dialog_004B7B40.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004B7B40",
      "length": 11,
@@ -31908,6 +31794,11 @@
      "name": "?sub_004B7B50@@YAXXZ"
     },
     {
+     "va": "0x004B7BC0",
+     "length": 58,
+     "name": "?sub_004B7BC0_InitDialog@@YAXPAUD2ClientDialogStrc@@@Z"
+    },
+    {
      "va": "0x004B7C00",
      "length": 93,
      "name": "?sub_004B7C00_AddWidget@@YIXPAUD2ClientDialogStrc@@PAXHH@Z"
@@ -31916,6 +31807,11 @@
      "va": "0x004B7C60",
      "length": 102,
      "name": "?sub_004B7C60@@YAXXZ"
+    },
+    {
+     "va": "0x004B7EB0",
+     "length": 356,
+     "name": "sub_004B7EB0_CreateDialog"
     },
     {
      "va": "0x004B8020",
