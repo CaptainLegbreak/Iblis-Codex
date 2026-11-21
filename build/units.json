@@ -95196,27 +95196,7 @@
     {
      "va": "0x006BE5B0",
      "length": 129
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BE650.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006BE650",
      "length": 98
@@ -95238,12 +95218,36 @@
      "length": 94
     },
     {
+     "va": "0x006BF260",
+     "length": 177
+    },
+    {
+     "va": "0x006BF320",
+     "length": 78
+    },
+    {
      "va": "0x006BF660",
      "length": 81
     },
     {
+     "va": "0x006BFCD0",
+     "length": 462
+    },
+    {
+     "va": "0x006BFFA0",
+     "length": 244
+    },
+    {
      "va": "0x006C00A0",
      "length": 153
+    },
+    {
+     "va": "0x006C0360",
+     "length": 64
+    },
+    {
+     "va": "0x006C08A0",
+     "length": 732
     }
    ],
    "flags": [
@@ -95367,58 +95371,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/QServer/QServer_006BF260.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF260",
-     "length": 177
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BF320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF320",
-     "length": 78
-    },
-    {
-     "va": "0x006BFCD0",
-     "length": 462
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Fog/Src/QServer/QServer_006BF500.cpp",
    "rank": 1,
    "functions": [
@@ -95446,54 +95398,6 @@
      "va": "0x006BF580",
      "length": 101
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BFFA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BFFA0",
-     "length": 244
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006C0360.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C0360",
-     "length": 64
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -95529,30 +95433,6 @@
      "length": 145,
      "name": "?sub_006C0800_BanByAddress@@YIHPAUD2QueueServerStrc@@PAIPBDH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006C08A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C08A0",
-     "length": 732
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
