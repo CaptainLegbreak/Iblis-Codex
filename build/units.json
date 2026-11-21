@@ -11888,6 +11888,27 @@
      "length": 74
     },
     {
+     "va": "0x00437D20",
+     "length": 524,
+     "name": "?sub_00437D20_IsTestRealm@@YAHPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x004380F0",
+     "length": 1124
+    },
+    {
+     "va": "0x00438AD0",
+     "length": 970
+    },
+    {
+     "va": "0x00438F70",
+     "length": 298
+    },
+    {
+     "va": "0x00439210",
+     "length": 1381
+    },
+    {
      "va": "0x00439AF0",
      "length": 131,
      "name": "?sub_00439AF0@@YIXPAUSMSGHANDLER_PARAMS@@H@Z"
@@ -12029,31 +12050,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Src/CharSel_00437D20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00437D20",
-     "length": 524,
-     "name": "?sub_00437D20_IsTestRealm@@YAHPBUUnicode@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Launch/Src/CharSel_00437F60.cpp",
    "rank": 0,
    "functions": [
@@ -12120,108 +12116,12 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Src/CharSel_004380F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004380F0",
-     "length": 1124
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Launch/Src/CharSel_00438560.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x00438560",
      "length": 1384
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_00438AD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00438AD0",
-     "length": 970
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_00438F70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00438F70",
-     "length": 298
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_00439210.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00439210",
-     "length": 1381
     }
    ],
    "flags": [
