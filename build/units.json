@@ -76139,7 +76139,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0060DC90.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist_0060DC90.cpp",
    "rank": 0,
    "functions": [
     {
@@ -76180,7 +76180,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0060DDB0.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist_0060DDB0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -76191,7 +76191,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0060DE30.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist_0060DE30.cpp",
    "rank": 1,
    "functions": [
     {
@@ -76219,7 +76219,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0060DF10.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist_0060DF10.cpp",
    "rank": 0,
    "functions": [
     {
