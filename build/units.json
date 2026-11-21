@@ -76679,6 +76679,11 @@
      "name": "?sub_00610D30@D2Object00610D30Strc@@QAEPAXI@Z"
     },
     {
+     "va": "0x00610D60",
+     "length": 136,
+     "name": "?sub_00610D60_New@D2CommonStormHashTableAStrc@@QAEPAUD2CommonStringEntryNodeStrc@@PBDII@Z"
+    },
+    {
      "va": "0x00610DF0",
      "length": 191,
      "name": "sub_00610DF0_InternalNewNode"
@@ -76879,31 +76884,6 @@
      "length": 184,
      "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_00610D60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00610D60",
-     "length": 136,
-     "name": "?sub_00610D60_New@D2CommonStormHashTableAStrc@@QAEPAUD2CommonStringEntryNodeStrc@@PBDII@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
    ]
   },
   {

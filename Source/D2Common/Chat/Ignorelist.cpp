@@ -2784,6 +2784,13 @@ void* D2Object00610D30Strc::sub_00610D30(unsigned int nFlags)
     return this;
 }
 
+// 0x00610D60
+D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::sub_00610D60_New(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    D2StormHashKeyStrIStrc key(szKey);
+    return sub_00610BE0_InternalNewNode(SStrHash(szKey, 0, 0), key, nExtraBytes, nFlags);
+}
+
 // 0x00610DF0
 D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_00610DF0_InternalNewNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags)
 {
