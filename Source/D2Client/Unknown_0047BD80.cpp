@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2ClientUi.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2ChatTextStrc;
@@ -25,11 +26,6 @@ struct D2ChatMessageStrc
     D2ChatTextStrc tText;
 };
 
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x14];
-    void(__fastcall* pfnResign)(const char* szInput);
-};
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" size_t __cdecl strlen(const char* sz);
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
@@ -97,28 +93,7 @@ extern unsigned short gwChatHistoryCount_007BB5E4; // 0x007BB5E4
 extern Unicode gawszChatHistory_007BB840[8][257]; // 0x007BB840
 extern Unicode gwszChatLine_007BB638[]; // 0x007BB638
 
-struct D2OptionHeaderStrc
-{
-    int nCount;
-};
 
-struct D2OptionEntryStrc
-{
-    int nKind;
-    int bExpansionOnly;
-    char unk0x008[4];
-    char f_C[0x104];
-    int (__cdecl* pfnEnabled)();
-    void (__fastcall* pfnChanged)(D2OptionEntryStrc* pEntry, int nArg);
-    void (__fastcall* pfnLoad)(D2OptionEntryStrc* pEntry, int nArg);
-    void (__fastcall* pfnInit)(D2OptionEntryStrc* pEntry, int nArg);
-    unsigned int nValues;
-    unsigned int nValue;
-    char unk0x128[4];
-    char szValueCels[4][0x104];
-    void* pCel;
-    void* pValueCels[4];
-};
 
 struct D2CelContextStrc
 {
