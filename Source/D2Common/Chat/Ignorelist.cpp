@@ -13,7 +13,9 @@ struct D2StormHashKeyStrIAStrc
     char* m_str;
 
     D2StormHashKeyStrIAStrc(const char* szString);
+    ~D2StormHashKeyStrIAStrc();
     D2StormHashKeyStrIAStrc& operator=(const D2StormHashKeyStrIAStrc& source);
+    char* sub_0060DCF0_GetString();
 };
 
 struct D2StormHashKeyStrIBStrc
@@ -863,10 +865,7 @@ struct _iobuf;
 class ChatIgnoreList
 {
 public:
-    ChatIgnoreList()
-    {
-    }
-    ChatIgnoreList(int nEmitTag);
+    ChatIgnoreList();
     virtual int sub_00610EB0_Add(const char* szName) = 0;
     virtual int sub_0060FB20_Remove(const char* szName) = 0;
     virtual int sub_00610380_IsListed(const char* szName) = 0;
@@ -878,10 +877,7 @@ public:
     virtual int sub_0060DDF0_IsEnabled() = 0;
     virtual void sub_0060DE00_SetEnabled(int bEnabled) = 0;
     virtual void sub_0060F500_VirtSlot10() = 0;
-    // 0x0060DD50
-    virtual ~ChatIgnoreList()
-    {
-    }
+    virtual ~ChatIgnoreList();
     static void operator delete(void* pMemory);
 };
 
@@ -908,6 +904,7 @@ public:
     virtual void sub_0060DE00_SetEnabled(int bEnabled);                                                     // 0x0060DE00
     virtual void sub_0060F500_VirtSlot10();                                                                 // 0x0060F500
     virtual ~IgnoreList();                                                                                  // 0x00610AA0
+    void sub_0060DDE0_CloseFile();
     void sub_0060DE30_Normalize(const char* szName, char* szOut, int nSize);                                // 0x0060DE30
     void sub_0060DEA0_NormalizeAlias(const char* szName, char* szOut, int nSize);                           // 0x0060DEA0
     int sub_0060DF10_OnAdded(const char* szLine);                                                           // 0x0060DF10
@@ -1065,6 +1062,13 @@ D2StormHashKeyStrIAStrc::D2StormHashKeyStrIAStrc(const char* szString)
     m_str = sub_00414310(szString);
 }
 
+// 0x0060DC90
+D2StormHashKeyStrIAStrc::~D2StormHashKeyStrIAStrc()
+{
+    if (m_str)
+        SMemFree(m_str, "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h", 0x5E4, 0);
+}
+
 // 0x0060DCB0
 D2StormHashKeyStrIAStrc& D2StormHashKeyStrIAStrc::operator=(const D2StormHashKeyStrIAStrc& source)
 {
@@ -1074,14 +1078,16 @@ D2StormHashKeyStrIAStrc& D2StormHashKeyStrIAStrc::operator=(const D2StormHashKey
     return *this;
 }
 
+// 0x0060DCF0
+char* D2StormHashKeyStrIAStrc::sub_0060DCF0_GetString()
+{
+    return m_str;
+}
+
 // 0x0060DD00
 D2StormHashKeyStrIBStrc::D2StormHashKeyStrIBStrc(const char* szString)
 {
     m_str = sub_00414310(szString);
-}
-
-D2CommonChatIgnoreListStrc::ChatIgnoreList(int nEmitTag)
-{
 }
 
 // build: symbol ??_GChatIgnoreList@@UAEPAXI@Z 0x0060DD60
@@ -1090,11 +1096,63 @@ inline void D2CommonChatIgnoreListStrc::operator delete(void* pMemory)
     SMemFree(pMemory, "delete", -1, 0);
 }
 
+// 0x0060DD50
+D2CommonChatIgnoreListStrc::~ChatIgnoreList()
+{
+}
+
+// 0x0060DDD0
+D2CommonChatIgnoreListStrc::ChatIgnoreList()
+{
+}
+
+// 0x0060DDE0
+void D2CommonIgnoreListStrc::sub_0060DDE0_CloseFile()
+{
+    fclose(m_pFile);
+}
+
+// 0x0060DDF0
+int D2CommonIgnoreListStrc::sub_0060DDF0_IsEnabled()
+{
+    return m_bEnabled;
+}
+
 // 0x0060DE00
 void D2CommonIgnoreListStrc::sub_0060DE00_SetEnabled(int bEnabled)
 {
     m_bEnabled = bEnabled;
     SRegSaveValue("Diablo II", "Persistent Ignore", 0, bEnabled);
+}
+
+// 0x0060DE30
+void D2CommonIgnoreListStrc::sub_0060DE30_Normalize(const char* szName, char* szOut, int nSize)
+{
+    unsigned int i = 0;
+    while (szName[i] != '*' && szName[i] && i <= 16 && i < nSize - 1)
+    {
+        szOut[i] = szName[i];
+        ++i;
+    }
+    szOut[i] = 0;
+}
+
+// 0x0060DEA0
+void D2CommonIgnoreListStrc::sub_0060DEA0_NormalizeAlias(const char* szName, char* szOut, int nSize)
+{
+    for (unsigned int i = 0; szName[i]; ++i)
+    {
+        if (szName[i] == '*')
+        {
+            unsigned int n = i;
+            for (; szName[n] && n - i <= 16 && n < nSize - 1; ++n)
+            {
+                szOut[n - i] = szName[n];
+            }
+            szOut[n] = 0;
+            return;
+        }
+    }
 }
 
 // 0x0060E0B0
@@ -1464,6 +1522,7 @@ D2CommonStormListDStrc::D2CommonStormListDStrc(const D2CommonStormListDStrc& sou
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
+// 0x0060DDB0
 void __cdecl sub_0060DDB0()
 {
     delete gpIgnoreList_0096BC20;
@@ -1859,6 +1918,7 @@ void D2CommonStormSlotArrayBStrc::sub_0060F720_ReallocData(unsigned int nAlloc)
     }
 }
 
+// 0x0060DF10
 int D2CommonIgnoreListStrc::sub_0060DF10_OnAdded(const char* szLine)
 {
     if (!szLine || !*szLine || !sub_0060DDF0_IsEnabled())
@@ -1879,6 +1939,7 @@ int D2CommonIgnoreListStrc::sub_0060DF10_OnAdded(const char* szLine)
     return bResult;
 }
 
+// 0x0060DFF0
 int D2CommonIgnoreListStrc::sub_0060DFF0_NormalizeKey(const char* szName, char* szOut, int nSize)
 {
     D2_ASSERT(szOut, 416);

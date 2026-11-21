@@ -14292,7 +14292,7 @@
   ["0x0066DEF0", 75, "verified", "DRLGROOMTILE_InitFloorTileData"],
   ["0x0066DF40", 279, "verified", "DRLGROOMTILE_InitShadowTileData"],
   ["0x0066E060", 47, "verified", "DRLGROOMTILE_InitTileShadow"],
-  ["0x0066E090", 165, "verified", "?sub_0066E090@@YIXPAURoom@@@Z"],
+  ["0x0066E090", 165, "verified", "?sub_0066E090@@YIXPAUD2DrlgRoomStrc@@@Z"],
   ["0x0066E140", 20, "verified", "sub_0066E140_GetModeChar"],
   ["0x0066E160", 94, "verified", "?DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord@@YGXHPAUD2RoomTileStrc@@@Z"],
   ["0x0066E1C0", 152, "verified", "?DRLGROOMTILE_AddWarp@@YGHHHPAUD2DrlgRoomStrc@@IH@Z"],

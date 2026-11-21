@@ -127,8 +127,8 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
         if (wszName)
         {
             const int nLength = sub_00526800(wszName);
-            pMonster->pMonsterData->pAiParam = (D2AiParamStrc*)FOG_Alloc((nLength + 1) * sizeof(Unicode), ".\\Monsters\\MONSTERS.CPP", 195, 0);
-            sub_005267E0((Unicode*)pMonster->pMonsterData->pAiParam, wszName);
+            pMonster->pMonsterData->wszMonName = (Unicode*)FOG_Alloc((nLength + 1) * sizeof(Unicode), ".\\Monsters\\MONSTERS.CPP", 195, 0);
+            sub_005267E0(pMonster->pMonsterData->wszMonName, wszName);
         }
     }
 }

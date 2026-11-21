@@ -53606,8 +53606,16 @@
      "name": "?sub_005421A0_CompressInactiveMonster@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005424F0",
+     "length": 1216
+    },
+    {
      "va": "0x005429B0",
      "length": 263
+    },
+    {
+     "va": "0x00542B40",
+     "length": 716
     },
     {
      "va": "0x00542E10",
@@ -53622,34 +53630,6 @@
      "va": "0x00543140",
      "length": 175,
      "name": "?SUNITINACTIVE_DeleteSingleListNode@@YIXPAUD2GameStrc@@GGE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitInactive_005424F0.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x005424F0",
-     "length": 1216
-    },
-    {
-     "va": "0x00542B40",
-     "length": 716
     }
    ]
   },
@@ -75356,9 +75336,19 @@
      "name": "?0D2StormHashKeyStrIAStrc"
     },
     {
+     "va": "0x0060DC90",
+     "length": 25,
+     "name": "??1D2StormHashKeyStrIAStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0060DCB0",
      "length": 50,
      "name": "?4D2StormHashKeyStrIAStrc"
+    },
+    {
+     "va": "0x0060DCF0",
+     "length": 3,
+     "name": "?sub_0060DCF0_GetString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0060DD00",
@@ -75366,14 +75356,62 @@
      "name": "?0D2StormHashKeyStrIBStrc"
     },
     {
+     "va": "0x0060DD50",
+     "length": 7,
+     "name": "??1D2CommonChatIgnoreListStrc@@UAE@XZ"
+    },
+    {
      "va": "0x0060DD60",
      "length": 40,
      "name": "?_GD2CommonChatIgnoreListStrc"
     },
     {
+     "va": "0x0060DD90",
+     "length": 25,
+     "name": "??1D2StormHashKeyStrIStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060DDB0",
+     "length": 30,
+     "name": "?sub_0060DDB0@@YAXXZ"
+    },
+    {
+     "va": "0x0060DDD0",
+     "length": 9,
+     "name": "??0D2CommonChatIgnoreListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060DDE0",
+     "length": 11,
+     "name": "?sub_0060DDE0_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0060DDF0",
+     "length": 7,
+     "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
+    },
+    {
      "va": "0x0060DE00",
      "length": 34,
      "name": "sub_0060DE00_SetEnabled"
+    },
+    {
+     "va": "0x0060DE30",
+     "length": 107
+    },
+    {
+     "va": "0x0060DEA0",
+     "length": 97
+    },
+    {
+     "va": "0x0060DF10",
+     "length": 218,
+     "name": "?sub_0060DF10_OnAdded@D2CommonIgnoreListStrc@@QAEHPBD@Z"
+    },
+    {
+     "va": "0x0060DFF0",
+     "length": 184,
+     "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
     },
     {
      "va": "0x0060E0B0",
@@ -76155,102 +76193,6 @@
      "va": "0x0061A270",
      "length": 74,
      "name": "DUNGEON_AllocDrlgDelete"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DC90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DC90",
-     "length": 25,
-     "name": "??1D2StormHashKeyStrIAStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DCF0",
-     "length": 3,
-     "name": "?sub_0060DCF0_GetString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x0060DD50",
-     "length": 7,
-     "name": "??1D2CommonChatIgnoreListStrc@@UAE@XZ"
-    },
-    {
-     "va": "0x0060DD90",
-     "length": 25,
-     "name": "??1D2StormHashKeyStrIBStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DDD0",
-     "length": 9,
-     "name": "??0D2CommonChatIgnoreListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DDE0",
-     "length": 11,
-     "name": "?sub_0060DDE0_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0060DDF0",
-     "length": 7,
-     "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DDB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DDB0",
-     "length": 30,
-     "name": "?sub_0060DDB0@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DE30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060DE30",
-     "length": 107
-    },
-    {
-     "va": "0x0060DEA0",
-     "length": 97
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DF10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DF10",
-     "length": 218,
-     "name": "?sub_0060DF10_OnAdded@D2CommonIgnoreListStrc@@QAEHPBD@Z"
-    },
-    {
-     "va": "0x0060DFF0",
-     "length": 184,
-     "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
     }
    ]
   },
@@ -79174,7 +79116,7 @@
     {
      "va": "0x006280A0",
      "length": 38,
-     "name": "_sub_006280A0@16"
+     "name": "?ITEMS_CheckItemFlag@@YGIPAUD2UnitStrc@@IHPBD@Z"
     },
     {
      "va": "0x006280D0",
@@ -79342,6 +79284,10 @@
      "name": "ITEMS_GetNormalCode"
     },
     {
+     "va": "0x00628830",
+     "length": 47
+    },
+    {
      "va": "0x00628860",
      "length": 54,
      "name": "ITEMS_CheckItemTypeIfThrowable"
@@ -79387,6 +79333,10 @@
      "name": "ITEMS_ComparePotionTypes"
     },
     {
+     "va": "0x00628BA0",
+     "length": 115
+    },
+    {
      "va": "0x00628C20",
      "length": 76,
      "name": "ITEMS_CheckIfUseable"
@@ -79400,6 +79350,18 @@
      "va": "0x00628CD0",
      "length": 84,
      "name": "ITEMS_IsQuestItem"
+    },
+    {
+     "va": "0x00628D30",
+     "length": 310
+    },
+    {
+     "va": "0x00628E70",
+     "length": 1148
+    },
+    {
+     "va": "0x006292F0",
+     "length": 125
     },
     {
      "va": "0x00629370",
@@ -79627,6 +79589,10 @@
      "name": "ITEMS_CanItemBeUsedForThrowSkill"
     },
     {
+     "va": "0x0062A370",
+     "length": 287
+    },
+    {
      "va": "0x0062A490",
      "length": 75,
      "name": "?ITEMS_GetSetItemsTxtRecordFromItem@@YGPAUD2SetItemsTxt@@PAUD2UnitStrc@@@Z"
@@ -79676,9 +79642,17 @@
      "name": "ITEMS_IsEthereal"
     },
     {
+     "va": "0x0062A900",
+     "length": 82
+    },
+    {
      "va": "0x0062A960",
      "length": 8,
      "name": "?sub_0062A960_ReadBits@@YAIPAUD2BitBufferStrc@@H@Z"
+    },
+    {
+     "va": "0x0062A970",
+     "length": 780
     },
     {
      "va": "0x0062AC80",
@@ -79756,6 +79730,10 @@
      "name": "?sub_0062BC20@@YGEPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0062BCB0",
+     "length": 324
+    },
+    {
      "va": "0x0062BE00",
      "length": 170
     },
@@ -79763,6 +79741,10 @@
      "va": "0x0062BEB0",
      "length": 18,
      "name": "ITEMS_IsSocketFiller"
+    },
+    {
+     "va": "0x0062BED0",
+     "length": 396
     },
     {
      "va": "0x0062C060",
@@ -79773,6 +79755,10 @@
      "va": "0x0062C0B0",
      "length": 74,
      "name": "ITEMS_GetClassOfClassSpecificItem"
+    },
+    {
+     "va": "0x0062C100",
+     "length": 1164
     },
     {
      "va": "0x0062C590",
@@ -79809,9 +79795,17 @@
      "name": "sub_0062E410"
     },
     {
+     "va": "0x0062E430",
+     "length": 414
+    },
+    {
      "va": "0x0062E5D0",
      "length": 132,
      "name": "?sub_0062E5D0_IsQuantityRepairable@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0062E660",
+     "length": 137
     },
     {
      "va": "0x0062E6F0",
@@ -79872,6 +79866,10 @@
      "va": "0x0062EA80",
      "length": 109,
      "name": "ITEMS_GetAllowedBodyLocations"
+    },
+    {
+     "va": "0x0062EAF0",
+     "length": 596
     },
     {
      "va": "0x0062ED50",
@@ -79985,82 +79983,6 @@
      "length": 57,
      "name": "STATES_CheckStateMaskCurseByStateId"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_00628830.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00628830",
-     "length": 47
-    },
-    {
-     "va": "0x00628BA0",
-     "length": 115
-    },
-    {
-     "va": "0x00628D30",
-     "length": 310
-    },
-    {
-     "va": "0x00628E70",
-     "length": 1148
-    },
-    {
-     "va": "0x006292F0",
-     "length": 125
-    },
-    {
-     "va": "0x0062A370",
-     "length": 287
-    },
-    {
-     "va": "0x0062A900",
-     "length": 82
-    },
-    {
-     "va": "0x0062A970",
-     "length": 780
-    },
-    {
-     "va": "0x0062BCB0",
-     "length": 324
-    },
-    {
-     "va": "0x0062BED0",
-     "length": 396
-    },
-    {
-     "va": "0x0062C100",
-     "length": 1164
-    },
-    {
-     "va": "0x0062E430",
-     "length": 414
-    },
-    {
-     "va": "0x0062E660",
-     "length": 137
-    },
-    {
-     "va": "0x0062EAF0",
-     "length": 596
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -81314,6 +81236,11 @@
      "name": "?DATATBLS_UnloadShrinesTxt@@YIXXZ"
     },
     {
+     "va": "0x006510C0",
+     "length": 129,
+     "name": "DATATBLS_GetMonsterChainInfo"
+    },
+    {
      "va": "0x00651210",
      "length": 9865,
      "name": "DATATBLS_LoadMonStatsTxt"
@@ -81324,6 +81251,26 @@
      "name": "?DATATBLS_CalculateMonsterStatsByLevel@@YGHHHHHFPAUD2MonStatsInitStrc@@@Z"
     },
     {
+     "va": "0x00653D30",
+     "length": 37,
+     "name": "sub_00653D30"
+    },
+    {
+     "va": "0x00653D60",
+     "length": 78,
+     "name": "DATATBLS_SetVelocityInMonStatsTxtRecord"
+    },
+    {
+     "va": "0x00653DB0",
+     "length": 98,
+     "name": "?sub_00653DB0@@YIXPAXPBDI@Z"
+    },
+    {
+     "va": "0x00653E20",
+     "length": 44,
+     "name": "?sub_00653E20@@YAXXZ"
+    },
+    {
      "va": "0x00653E50",
      "length": 58,
      "name": "?sub_00653E50_RollRandomUniqueNameString@@YIPBUUnicode@@PAUD2UnitStrc@@H@Z"
@@ -81332,6 +81279,21 @@
      "va": "0x00653E90",
      "length": 52,
      "name": "?DATATBLS_RollRandomUniqueTitleString@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00653F90",
+     "length": 125,
+     "name": "?DATATBLS_NewTreasureClassEx@@YIPAUD2TCExShortStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00654010",
+     "length": 97,
+     "name": "?DATATBLS_ReallocTCExInfo@@YIXPAUD2TCExShortStrc@@H@Z"
+    },
+    {
+     "va": "0x00654080",
+     "length": 55,
+     "name": "?sub_00654080@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
     },
     {
      "va": "0x006540C0",
@@ -81358,9 +81320,33 @@
      "name": "?sub_00654410_NextIntToken@@YAHPAPADD@Z"
     },
     {
+     "va": "0x00654440",
+     "length": 911
+    },
+    {
      "va": "0x006547D0",
      "length": 1396,
      "name": "?sub_006547D0@@YGXPAX@Z"
+    },
+    {
+     "va": "0x00654D50",
+     "length": 127,
+     "name": "sub_00654D50"
+    },
+    {
+     "va": "0x00654DD0",
+     "length": 44,
+     "name": "DATATBLS_GetTreasureClassExRecordFromName"
+    },
+    {
+     "va": "0x00654E00",
+     "length": 97,
+     "name": "DATATBLS_GetTreasureClassExRecordFromIdAndLevel"
+    },
+    {
+     "va": "0x00654E70",
+     "length": 5,
+     "name": "sub_00654E70"
     },
     {
      "va": "0x00654EF0",
@@ -81378,9 +81364,29 @@
      "name": "DATATBLS_LoadMonItemPercentTxt"
     },
     {
+     "va": "0x00654FC0",
+     "length": 12,
+     "name": "DATATBLS_UnloadMonItemPercentTxt"
+    },
+    {
+     "va": "0x00654FD0",
+     "length": 6,
+     "name": "DATATBLS_GetMonItemPercentDataTables"
+    },
+    {
+     "va": "0x00654FE0",
+     "length": 79,
+     "name": "DATATBLS_GetMonItemPercentTxtRecord"
+    },
+    {
      "va": "0x00655030",
      "length": 618,
      "name": "DATATBLS_LoadMonUModTxt"
+    },
+    {
+     "va": "0x006552A0",
+     "length": 53,
+     "name": "sub_006552A0"
     },
     {
      "va": "0x006552E0",
@@ -81388,9 +81394,47 @@
      "name": "?DATATBLS_LoadSuperUniquesTxt@@YIXPAX@Z"
     },
     {
+     "va": "0x006556A0",
+     "length": 51,
+     "name": "sub_006556A0"
+    },
+    {
+     "va": "0x006556E0",
+     "length": 33,
+     "name": "DATATBLS_GetSuperUniquesTxtRecord"
+    },
+    {
+     "va": "0x00655710",
+     "length": 6,
+     "name": "DATATBLS_GetSuperUniquesTxtRecordCount"
+    },
+    {
+     "va": "0x00655720",
+     "length": 2958
+    },
+    {
+     "va": "0x006562B0",
+     "length": 51,
+     "name": "sub_006562B0"
+    },
+    {
+     "va": "0x006562F0",
+     "length": 156
+    },
+    {
+     "va": "0x00656390",
+     "length": 162,
+     "name": "DATATBLS_GetNextHirelingTxtRecordFromNameId"
+    },
+    {
      "va": "0x00656440",
      "length": 139,
      "name": "DATATBLS_GetNextHirelingTxtRecordFromClassId"
+    },
+    {
+     "va": "0x006564D0",
+     "length": 165,
+     "name": "DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty"
     },
     {
      "va": "0x00656580",
@@ -81403,13 +81447,62 @@
      "name": "DATATBLS_LoadNpcTxt"
     },
     {
+     "va": "0x006568F0",
+     "length": 12,
+     "name": "sub_006568F0_FreeNpcTable"
+    },
+    {
+     "va": "0x00656900",
+     "length": 45,
+     "name": "DATATBLS_GetNpcTxtRecord"
+    },
+    {
      "va": "0x00656930",
      "length": 1573,
      "name": "DATATBLS_LoadMonSoundsTxt"
     },
     {
+     "va": "0x00656F60",
+     "length": 37,
+     "name": "sub_00656F60_FreeMonSoundsTable"
+    },
+    {
+     "va": "0x00656F90",
+     "length": 46,
+     "name": "DATATBLS_GetMonSoundsTxtRecordFromSoundId"
+    },
+    {
+     "va": "0x00656FC0",
+     "length": 75,
+     "name": "DATATBLS_GetMonSoundsTxtRecordFromMonsterId"
+    },
+    {
+     "va": "0x00657010",
+     "length": 396
+    },
+    {
      "va": "0x006571A0",
      "length": 4755
+    },
+    {
+     "va": "0x00658440",
+     "length": 27,
+     "name": "DATATBLS_UnloadMonTypeTxt"
+    },
+    {
+     "va": "0x00658460",
+     "length": 192,
+     "name": "DATATBLS_CheckNestedMonsterTypes"
+    },
+    {
+     "va": "0x00658520",
+     "length": 431,
+     "name": "?DATATBLS_LoadMonTypeTxt@@YIXPAX@Z"
+    },
+    {
+     "va": "0x006586D0",
+     "length": 72,
+     "name": "sub_006586D0"
     },
     {
      "va": "0x00658720",
@@ -81417,9 +81510,24 @@
      "name": "DATATBLS_LoadMonPropTxt"
     },
     {
+     "va": "0x006594D0",
+     "length": 37,
+     "name": "sub_006594D0"
+    },
+    {
      "va": "0x00659500",
      "length": 1124,
      "name": "DATATBLS_LoadMonLvlTxt"
+    },
+    {
+     "va": "0x00659970",
+     "length": 26,
+     "name": "sub_00659970"
+    },
+    {
+     "va": "0x00659990",
+     "length": 124,
+     "name": "?DATATBLS_MonPresetPlaceLinker@@YIXPADPAUD2MonPresetTxt@@HHHH@Z"
     },
     {
      "va": "0x00659A10",
@@ -81427,9 +81535,29 @@
      "name": "DATATBLS_LoadMonPresetTxt"
     },
     {
+     "va": "0x00659AF0",
+     "length": 80,
+     "name": "sub_00659AF0"
+    },
+    {
+     "va": "0x00659B40",
+     "length": 59,
+     "name": "DATATBLS_GetMonPresetTxtActSection"
+    },
+    {
+     "va": "0x00659B80",
+     "length": 48,
+     "name": "DATATBLS_MapSuperUniqueId"
+    },
+    {
      "va": "0x00659BB0",
      "length": 117,
      "name": "DATATBLS_LoadSoundsTxt"
+    },
+    {
+     "va": "0x00659C30",
+     "length": 37,
+     "name": "sub_00659C30"
     },
     {
      "va": "0x00659C60",
@@ -81437,9 +81565,48 @@
      "name": "DATATBLS_LoadMonSeqTxt"
     },
     {
+     "va": "0x00659DE0",
+     "length": 76,
+     "name": "sub_00659DE0"
+    },
+    {
+     "va": "0x00659E30",
+     "length": 40,
+     "name": "sub_00659E30"
+    },
+    {
+     "va": "0x00659E60",
+     "length": 774
+    },
+    {
+     "va": "0x0065A170",
+     "length": 26,
+     "name": "sub_0065A170"
+    },
+    {
      "va": "0x0065A190",
      "length": 297,
      "name": "?DATATBLS_UnloadSomeMonsterTxts@@YIXXZ"
+    },
+    {
+     "va": "0x0065A2C0",
+     "length": 206,
+     "name": "?sub_0065A2C0@@YAXXZ"
+    },
+    {
+     "va": "0x0065A390",
+     "length": 89,
+     "name": "?sub_0065A390@@YGXPAX@Z"
+    },
+    {
+     "va": "0x0065A3F0",
+     "length": 7,
+     "name": "?DATATBLS_LoadTreasureClassExTxt@@YIXPAX@Z"
+    },
+    {
+     "va": "0x0065A400",
+     "length": 391,
+     "name": "DATATBLS_LoadSomeMonsterTxts"
     }
    ]
   },
@@ -84332,91 +84499,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_006510C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006510C0",
-     "length": 129,
-     "name": "DATATBLS_GetMonsterChainInfo"
-    },
-    {
-     "va": "0x00653DB0",
-     "length": 98,
-     "name": "?sub_00653DB0@@YIXPAXPBDI@Z"
-    },
-    {
-     "va": "0x00653E20",
-     "length": 44,
-     "name": "?sub_00653E20@@YAXXZ"
-    },
-    {
-     "va": "0x00653F90",
-     "length": 125,
-     "name": "?DATATBLS_NewTreasureClassEx@@YIPAUD2TCExShortStrc@@PBD@Z"
-    },
-    {
-     "va": "0x00654010",
-     "length": 97,
-     "name": "?DATATBLS_ReallocTCExInfo@@YIXPAUD2TCExShortStrc@@H@Z"
-    },
-    {
-     "va": "0x00654080",
-     "length": 55,
-     "name": "?sub_00654080@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
-    },
-    {
-     "va": "0x00655720",
-     "length": 2958
-    },
-    {
-     "va": "0x00656390",
-     "length": 162,
-     "name": "DATATBLS_GetNextHirelingTxtRecordFromNameId"
-    },
-    {
-     "va": "0x006564D0",
-     "length": 165,
-     "name": "DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty"
-    },
-    {
-     "va": "0x00658460",
-     "length": 192,
-     "name": "DATATBLS_CheckNestedMonsterTypes"
-    },
-    {
-     "va": "0x00658520",
-     "length": 431,
-     "name": "?DATATBLS_LoadMonTypeTxt@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00659990",
-     "length": 124,
-     "name": "?DATATBLS_MonPresetPlaceLinker@@YIXPADPAUD2MonPresetTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x0065A2C0",
-     "length": 206,
-     "name": "?sub_0065A2C0@@YAXXZ"
-    },
-    {
-     "va": "0x0065A390",
-     "length": 89,
-     "name": "?sub_0065A390@@YGXPAX@Z"
-    },
-    {
-     "va": "0x0065A3F0",
-     "length": 7,
-     "name": "?DATATBLS_LoadTreasureClassExTxt@@YIXPAX@Z"
-    },
-    {
-     "va": "0x0065A400",
-     "length": 391,
-     "name": "DATATBLS_LoadSomeMonsterTxts"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Common/Unknown_00651150.cpp",
    "rank": 1,
    "functions": [
@@ -84424,218 +84506,6 @@
      "va": "0x00651150",
      "length": 192
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00653D30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00653D30",
-     "length": 37,
-     "name": "sub_00653D30"
-    },
-    {
-     "va": "0x00653D60",
-     "length": 78,
-     "name": "DATATBLS_SetVelocityInMonStatsTxtRecord"
-    },
-    {
-     "va": "0x00654D50",
-     "length": 127,
-     "name": "sub_00654D50"
-    },
-    {
-     "va": "0x00654DD0",
-     "length": 44,
-     "name": "DATATBLS_GetTreasureClassExRecordFromName"
-    },
-    {
-     "va": "0x00654E00",
-     "length": 97,
-     "name": "DATATBLS_GetTreasureClassExRecordFromIdAndLevel"
-    },
-    {
-     "va": "0x00654E70",
-     "length": 5,
-     "name": "sub_00654E70"
-    },
-    {
-     "va": "0x00654FC0",
-     "length": 12,
-     "name": "DATATBLS_UnloadMonItemPercentTxt"
-    },
-    {
-     "va": "0x00654FD0",
-     "length": 6,
-     "name": "DATATBLS_GetMonItemPercentDataTables"
-    },
-    {
-     "va": "0x00654FE0",
-     "length": 79,
-     "name": "DATATBLS_GetMonItemPercentTxtRecord"
-    },
-    {
-     "va": "0x006552A0",
-     "length": 53,
-     "name": "sub_006552A0"
-    },
-    {
-     "va": "0x006556A0",
-     "length": 51,
-     "name": "sub_006556A0"
-    },
-    {
-     "va": "0x006556E0",
-     "length": 33,
-     "name": "DATATBLS_GetSuperUniquesTxtRecord"
-    },
-    {
-     "va": "0x00655710",
-     "length": 6,
-     "name": "DATATBLS_GetSuperUniquesTxtRecordCount"
-    },
-    {
-     "va": "0x006562B0",
-     "length": 51,
-     "name": "sub_006562B0"
-    },
-    {
-     "va": "0x006568F0",
-     "length": 12,
-     "name": "sub_006568F0_FreeNpcTable"
-    },
-    {
-     "va": "0x00656900",
-     "length": 45,
-     "name": "DATATBLS_GetNpcTxtRecord"
-    },
-    {
-     "va": "0x00656F60",
-     "length": 37,
-     "name": "sub_00656F60_FreeMonSoundsTable"
-    },
-    {
-     "va": "0x00656F90",
-     "length": 46,
-     "name": "DATATBLS_GetMonSoundsTxtRecordFromSoundId"
-    },
-    {
-     "va": "0x00656FC0",
-     "length": 75,
-     "name": "DATATBLS_GetMonSoundsTxtRecordFromMonsterId"
-    },
-    {
-     "va": "0x00657010",
-     "length": 396
-    },
-    {
-     "va": "0x00658440",
-     "length": 27,
-     "name": "DATATBLS_UnloadMonTypeTxt"
-    },
-    {
-     "va": "0x006586D0",
-     "length": 72,
-     "name": "sub_006586D0"
-    },
-    {
-     "va": "0x006594D0",
-     "length": 37,
-     "name": "sub_006594D0"
-    },
-    {
-     "va": "0x00659970",
-     "length": 26,
-     "name": "sub_00659970"
-    },
-    {
-     "va": "0x00659AF0",
-     "length": 80,
-     "name": "sub_00659AF0"
-    },
-    {
-     "va": "0x00659B40",
-     "length": 59,
-     "name": "DATATBLS_GetMonPresetTxtActSection"
-    },
-    {
-     "va": "0x00659B80",
-     "length": 48,
-     "name": "DATATBLS_MapSuperUniqueId"
-    },
-    {
-     "va": "0x00659C30",
-     "length": 37,
-     "name": "sub_00659C30"
-    },
-    {
-     "va": "0x00659DE0",
-     "length": 76,
-     "name": "sub_00659DE0"
-    },
-    {
-     "va": "0x00659E30",
-     "length": 40,
-     "name": "sub_00659E30"
-    },
-    {
-     "va": "0x0065A170",
-     "length": 26,
-     "name": "sub_0065A170"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00654440.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00654440",
-     "length": 911
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_006562F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006562F0",
-     "length": 156
-    },
-    {
-     "va": "0x00659E60",
-     "length": 774
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -86919,6 +86789,15 @@
      "name": "DRLGLOGIC_AllocCoordLists"
     },
     {
+     "va": "0x0066CDA0",
+     "length": 63
+    },
+    {
+     "va": "0x0066CDE0",
+     "length": 79,
+     "name": "sub_0066CDE0"
+    },
+    {
      "va": "0x0066CE30",
      "length": 127,
      "name": "DRLGLOGIC_GetRoomCoordListIndex"
@@ -86959,28 +86838,6 @@
      "length": 51
     }
    ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgLogic_0066CDA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066CDA0",
-     "length": 63
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgLogic_0066CDE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066CDE0",
-     "length": 79,
-     "name": "sub_0066CDE0"
-    }
-   ],
-   "ltcg": true
   },
   {
    "file": "Source/D2Common/Unknown_0066D290.cpp",
@@ -87053,9 +86910,22 @@
      "name": "?sub_0066D960_FindTilePresetEntry@@YGHHIH@Z"
     },
     {
+     "va": "0x0066D9E0",
+     "length": 307
+    },
+    {
+     "va": "0x0066DB20",
+     "length": 236,
+     "name": "?DRLGROOMTILE_InitializeTileDataFlags@@YGXIHPAUD2DrlgRoomStrc@@PAUD2DrlgTileDataStrc@@HH@Z"
+    },
+    {
      "va": "0x0066DC10",
      "length": 60,
      "name": "sub_0066DC10"
+    },
+    {
+     "va": "0x0066DC50",
+     "length": 397
     },
     {
      "va": "0x0066DDE0",
@@ -87080,12 +86950,68 @@
     {
      "va": "0x0066E090",
      "length": 165,
-     "name": "?sub_0066E090@@YIXPAURoom@@@Z"
+     "name": "?sub_0066E090@@YIXPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0066E160",
+     "length": 94,
+     "name": "?DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord@@YGXHPAUD2RoomTileStrc@@@Z"
+    },
+    {
+     "va": "0x0066E1C0",
+     "length": 152,
+     "name": "?DRLGROOMTILE_AddWarp@@YGHHHPAUD2DrlgRoomStrc@@IH@Z"
+    },
+    {
+     "va": "0x0066E260",
+     "length": 241,
+     "name": "?DRLGROOMTILE_LoadWallWarpTiles@@YGXPAUD2DrlgTileDataStrc@@IHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0066E360",
+     "length": 351,
+     "name": "?DRLGROOMTILE_LoadFloorWarpTiles@@YGXPAUD2DrlgRoomStrc@@HHHI@Z"
+    },
+    {
+     "va": "0x0066E4C0",
+     "length": 183,
+     "name": "?sub_0066E4C0_FindLinkedTileInRoom@@YGPAUD2DrlgTileDataStrc@@PAUD2DrlgRoomStrc@@HHHI@Z"
+    },
+    {
+     "va": "0x0066E580",
+     "length": 93,
+     "name": "?DRLGROOMTILE_GetLinkedTileData@@YGPAUD2DrlgTileDataStrc@@HHHPAPAUD2DrlgRoomStrc@@PAU2@I@Z"
     },
     {
      "va": "0x0066E5E0",
      "length": 54,
      "name": "?sub_0066E5E0_NewTileLink@@YGPAUD2DrlgTileLinkStrc@@PAXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0066E620",
+     "length": 273,
+     "name": "?DRLGROOMTILE_AddLinkedTileData@@YGPAUD2DrlgTileDataStrc@@PAXIHHPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0066E740",
+     "length": 505
+    },
+    {
+     "va": "0x0066E940",
+     "length": 101
+    },
+    {
+     "va": "0x0066E9B0",
+     "length": 596
+    },
+    {
+     "va": "0x0066EC10",
+     "length": 193,
+     "name": "?DRLGROOMTILE_LoadInitRoomTiles@@YIXPAUD2DrlgRoomStrc@@PAUD2DrlgGridStrc@@1HHH@Z"
+    },
+    {
+     "va": "0x0066ECE0",
+     "length": 199
     },
     {
      "va": "0x0066EDB0",
@@ -87142,141 +87068,6 @@
      "length": 160,
      "name": "DRLGROOMTILE_FreeRoom"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066D9E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066D9E0",
-     "length": 307
-    },
-    {
-     "va": "0x0066ECE0",
-     "length": 199
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066DB20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066DB20",
-     "length": 236,
-     "name": "?DRLGROOMTILE_InitializeTileDataFlags@@YGXIHPAUD2DrlgRoomStrc@@PAUD2DrlgTileDataStrc@@HH@Z"
-    },
-    {
-     "va": "0x0066DC50",
-     "length": 397
-    },
-    {
-     "va": "0x0066E160",
-     "length": 94,
-     "name": "?DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord@@YGXHPAUD2RoomTileStrc@@@Z"
-    },
-    {
-     "va": "0x0066E1C0",
-     "length": 152,
-     "name": "?DRLGROOMTILE_AddWarp@@YGHHHPAUD2DrlgRoomStrc@@IH@Z"
-    },
-    {
-     "va": "0x0066E260",
-     "length": 241,
-     "name": "?DRLGROOMTILE_LoadWallWarpTiles@@YGXPAUD2DrlgTileDataStrc@@IHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0066E360",
-     "length": 351,
-     "name": "?DRLGROOMTILE_LoadFloorWarpTiles@@YGXPAUD2DrlgRoomStrc@@HHHI@Z"
-    },
-    {
-     "va": "0x0066E4C0",
-     "length": 183,
-     "name": "?sub_0066E4C0_FindLinkedTileInRoom@@YGPAUD2DrlgTileDataStrc@@PAUD2DrlgRoomStrc@@HHHI@Z"
-    },
-    {
-     "va": "0x0066E580",
-     "length": 93,
-     "name": "?DRLGROOMTILE_GetLinkedTileData@@YGPAUD2DrlgTileDataStrc@@HHHPAPAUD2DrlgRoomStrc@@PAU2@I@Z"
-    },
-    {
-     "va": "0x0066E620",
-     "length": 273,
-     "name": "?DRLGROOMTILE_AddLinkedTileData@@YGPAUD2DrlgTileDataStrc@@PAXIHHPAUD2DrlgRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x0066E9B0",
-     "length": 596
-    },
-    {
-     "va": "0x0066EC10",
-     "length": 193,
-     "name": "?DRLGROOMTILE_LoadInitRoomTiles@@YIXPAUD2DrlgRoomStrc@@PAUD2DrlgGridStrc@@1HHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066E740.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066E740",
-     "length": 505
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066E940.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066E940",
-     "length": 101
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -87436,7 +87227,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/DRLG/Maze_00670810.cpp",
+   "file": "Source/D2Common/DRLG/Maze.cpp",
    "rank": 0,
    "functions": [
     {
@@ -87445,30 +87236,24 @@
      "name": "sub_00670810"
     },
     {
+     "va": "0x00670860",
+     "length": 19,
+     "name": "?DRLGMAZE_SetRoomSize@@YAXPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
      "va": "0x00670880",
      "length": 216,
      "name": "sub_00670880"
     },
     {
+     "va": "0x00670960",
+     "length": 14,
+     "name": "DRLGMAZE_HasMapDS1"
+    },
+    {
      "va": "0x00670970",
      "length": 36,
      "name": "DRLGMAZE_SetPickedFileAndPresetId"
-    },
-    {
-     "va": "0x00673B10",
-     "length": 31,
-     "name": "DRLGMAZE_InitLevelData"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670860.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00670860",
-     "length": 19,
-     "name": "?DRLGMAZE_SetRoomSize@@YAXPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x006709A0",
@@ -87486,49 +87271,26 @@
      "name": "?DRLGMAZE_ReplaceRoomPreset@@YGPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@HHHH@Z"
     },
     {
-     "va": "0x006719F0",
-     "length": 2379
-    },
-    {
-     "va": "0x00672340",
-     "length": 156,
-     "name": "?DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom@@YAHPAUD2DrlgRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x00672420",
-     "length": 55,
-     "name": "?DRLGMAZE_GetFreeLocationForRoomEast@@YIPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x00672E50",
-     "length": 76,
-     "name": "?sub_00672E50@@YIXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00670960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00670960",
-     "length": 14,
-     "name": "DRLGMAZE_HasMapDS1"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00670C70",
      "length": 249
+    },
+    {
+     "va": "0x00670D70",
+     "length": 107,
+     "name": "?DRLGMAZE_PlaceAdjacentPresetRoom@@YGPAUD2DrlgRoomStrc@@PAU1@HH@Z"
     },
     {
      "va": "0x00670DE0",
      "length": 133,
      "name": "?DRLGMAZE_InitRoomFixedPreset@@YGPAUD2DrlgRoomStrc@@PAU1@HHHH@Z"
+    },
+    {
+     "va": "0x00670E70",
+     "length": 53
+    },
+    {
+     "va": "0x00670EB0",
+     "length": 164
     },
     {
      "va": "0x00670F60",
@@ -87539,12 +87301,40 @@
      "length": 260
     },
     {
+     "va": "0x00671320",
+     "length": 268,
+     "name": "?DRLGMAZE_FillBlankMazeSpaces@@YGXPAUD2DrlgLevelStrc@@HPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x00671430",
+     "length": 149,
+     "name": "?DRLGMAZE_PlaceAct5LavaPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x006714D0",
+     "length": 995
+    },
+    {
      "va": "0x006718C0",
      "length": 290
     },
     {
+     "va": "0x006719F0",
+     "length": 2379
+    },
+    {
+     "va": "0x00672340",
+     "length": 156,
+     "name": "?DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom@@YAHPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
      "va": "0x006723E0",
      "length": 58
+    },
+    {
+     "va": "0x00672420",
+     "length": 55,
+     "name": "?DRLGMAZE_GetFreeLocationForRoomEast@@YIPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00672460",
@@ -87555,47 +87345,8 @@
      "length": 58
     },
     {
-     "va": "0x006735F0",
-     "length": 711
-    },
-    {
-     "va": "0x006738C0",
-     "length": 413
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670D70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00670D70",
-     "length": 107,
-     "name": "?DRLGMAZE_PlaceAdjacentPresetRoom@@YGPAUD2DrlgRoomStrc@@PAU1@HH@Z"
-    },
-    {
-     "va": "0x00671320",
-     "length": 268,
-     "name": "?DRLGMAZE_FillBlankMazeSpaces@@YGXPAUD2DrlgLevelStrc@@HPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x00671430",
-     "length": 149,
-     "name": "?DRLGMAZE_PlaceAct5LavaPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
+     "va": "0x006724E0",
+     "length": 111
     },
     {
      "va": "0x00672550",
@@ -87618,6 +87369,10 @@
      "name": "?sub_006727A0@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x00672810",
+     "length": 967
+    },
+    {
      "va": "0x00672BE0",
      "length": 476,
      "name": "?DRLGMAZE_PlaceAct2TombStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -87626,6 +87381,11 @@
      "va": "0x00672DC0",
      "length": 138,
      "name": "?DRLGMAZE_PlaceAct2LairStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x00672E50",
+     "length": 76,
+     "name": "?sub_00672E50@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00672EA0",
@@ -87668,6 +87428,14 @@
      "name": "?DRLGMAZE_PlaceAct5IceStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x006735F0",
+     "length": 711
+    },
+    {
+     "va": "0x006738C0",
+     "length": 413
+    },
+    {
      "va": "0x00673A60",
      "length": 138,
      "name": "?sub_00673A60@@YGXPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
@@ -87676,117 +87444,16 @@
      "va": "0x00673AF0",
      "length": 27,
      "name": "?DRLGMAZE_RollBasicPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670E70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00670E70",
-     "length": 53
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670EB0.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00670EB0",
-     "length": 164
     },
     {
-     "va": "0x006714D0",
-     "length": 995
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_006724E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006724E0",
-     "length": 111
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00672810.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00672810",
-     "length": 967
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00673B30.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00673B10",
+     "length": 31,
+     "name": "DRLGMAZE_InitLevelData"
+    },
     {
      "va": "0x00673B30",
      "length": 1197
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
