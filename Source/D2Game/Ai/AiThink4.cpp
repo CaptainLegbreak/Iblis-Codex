@@ -1070,6 +1070,15 @@ enum D2C_ScarabAIParams
     SCARAB_AI_PARAM_COMMAND_CHANCE_PCT = 4,
 };
 
+enum D2C_MummyAIParams
+{
+    MUMMY_AI_PARAM_AWAKE_DISTANCE = 0,
+    MUMMY_AI_PARAM_APPROACH_CHANCE_PCT = 1,
+    MUMMY_AI_PARAM_ATTACK_CHANCE_PCT = 2,
+    MUMMY_AI_PARAM_ATTACK_1_OR_2_CHANCE_PCT = 3,
+    MUMMY_AI_PARAM_STALL_DURATION = 4,
+};
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -6559,6 +6568,74 @@ void __fastcall AITHINK_Fn020_Scarab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     {
         pAiControl->dwAiParam[0] = 0;
     }
+}
+
+static __forceinline int SEED_RollPercentageHalves(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    nHighSeed = (unsigned int)(lSeed >> 32);
+    nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = nHighSeed;
+    pSeed->nLowSeed = nLowSeed;
+    return nLowSeed % 100;
+}
+
+static __forceinline int SEED_RollPercentageFrom(D2SeedStrc* pSeed, unsigned int nLowSeed, unsigned int nHighSeed)
+{
+    const unsigned __int64 lSeed = nHighSeed + 0x6AC690C5i64 * nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed % 100;
+}
+
+// 0x005F2850
+void __fastcall AITHINK_Fn021_Mummy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int nDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (sub_6FCF2E70(pUnit) && !bCombat)
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    if (nDistance > pMonStatsTxt->wAiParam[MUMMY_AI_PARAM_AWAKE_DISTANCE][pGame->nDifficulty])
+    {
+        if (AI_RollPercentage(pUnit) < pMonStatsTxt->wAiParam[MUMMY_AI_PARAM_APPROACH_CHANCE_PCT][pGame->nDifficulty])
+        {
+            AITACTICS_WalkCloseToUnit(pGame, pUnit, 3);
+        }
+        else
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[MUMMY_AI_PARAM_STALL_DURATION][pGame->nDifficulty]);
+        }
+        return;
+    }
+
+    if (bCombat)
+    {
+        unsigned int nLowSeed;
+        unsigned int nHighSeed;
+        if (SEED_RollPercentageHalves(&pUnit->pSeed, nLowSeed, nHighSeed) < pMonStatsTxt->wAiParam[MUMMY_AI_PARAM_ATTACK_CHANCE_PCT][pGame->nDifficulty])
+        {
+            if (SEED_RollPercentageFrom(&pUnit->pSeed, nLowSeed, nHighSeed) < pMonStatsTxt->wAiParam[MUMMY_AI_PARAM_ATTACK_1_OR_2_CHANCE_PCT][pGame->nDifficulty])
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            }
+            else
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+            }
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[MUMMY_AI_PARAM_STALL_DURATION][pGame->nDifficulty]);
+    }
+
+    AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 
 // 0x005F2A00

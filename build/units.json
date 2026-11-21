@@ -69556,6 +69556,10 @@
      "name": "?AITHINK_Fn020_Scarab@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F2850",
+     "length": 420
+    },
+    {
      "va": "0x005F2A00",
      "length": 260,
      "name": "AITHINK_TargetCallback_GreaterMummy"
@@ -70562,31 +70566,6 @@
      "va": "0x005F2460",
      "length": 209
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F2850.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F2850",
-     "length": 420
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
