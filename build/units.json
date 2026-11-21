@@ -86385,25 +86385,19 @@
      "length": 108
     },
     {
-     "va": "0x0063EC70",
-     "length": 328,
-     "name": "?D2Common_11063@@YGHPAUD2ActiveRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x0063EE10",
-     "length": 115,
-     "name": "?sub_0063EE10@@YGXPAUUnit@@PAH1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Monsters/MONSTERS_0063E8D0.CPP",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0063E8D0",
      "length": 107,
      "name": "MONSTERS_IsSandLeaper"
+    },
+    {
+     "va": "0x0063E940",
+     "length": 77,
+     "name": "MONSTERS_IsDemon"
+    },
+    {
+     "va": "0x0063E990",
+     "length": 89,
+     "name": "MONSTERS_IsUndead"
     },
     {
      "va": "0x0063E9F0",
@@ -86419,22 +86413,15 @@
      "va": "0x0063EA70",
      "length": 325,
      "name": "MONSTERS_GetSpawnMode_XY"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Monsters/MONSTERS_0063E940.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0063E940",
-     "length": 77,
-     "name": "MONSTERS_IsDemon"
     },
     {
-     "va": "0x0063E990",
-     "length": 89,
-     "name": "MONSTERS_IsUndead"
+     "va": "0x0063EBD0",
+     "length": 145
+    },
+    {
+     "va": "0x0063EC70",
+     "length": 328,
+     "name": "?D2Common_11063@@YGHPAUD2ActiveRoomStrc@@H@Z"
     },
     {
      "va": "0x0063EDC0",
@@ -86442,19 +86429,14 @@
      "name": "MONSTERS_IsPrimeEvil"
     },
     {
+     "va": "0x0063EE10",
+     "length": 115,
+     "name": "?sub_0063EE10@@YGXPAUUnit@@PAH1@Z"
+    },
+    {
      "va": "0x0063EE90",
      "length": 91,
      "name": "MONSTERS_GetHirelingTypeId"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Monsters/MONSTERS_0063EBD0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0063EBD0",
-     "length": 145
     },
     {
      "va": "0x0063EEF0",
@@ -86464,20 +86446,6 @@
      "va": "0x0063EFA0",
      "length": 1761
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -93561,6 +93529,21 @@
      "length": 572
     },
     {
+     "va": "0x00674730",
+     "length": 481,
+     "name": "?DRLGOUTDOORS_SpawnOutdoorLevelPreset@@YIHPAUD2DrlgLevelStrc@@HHHD@Z"
+    },
+    {
+     "va": "0x00674920",
+     "length": 590,
+     "name": "?sub_00674920_PlaceRandomPreset@@YIHPAUD2DrlgLevelStrc@@HH@Z"
+    },
+    {
+     "va": "0x00674B70",
+     "length": 708,
+     "name": "?DRLGOUTDOORS_SpawnAct12Waypoint@@YIXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x00674E40",
      "length": 561,
      "name": "?DRLGOUTDOORS_SpawnAct12Shrines@@YIXPAUD2DrlgLevelStrc@@H@Z"
@@ -93571,70 +93554,23 @@
      "name": "?sub_00675080_ScaleAndMergeVertices@@YAXPAXPAPAUD2DrlgVertexStrc@@@Z"
     },
     {
+     "va": "0x006750F0",
+     "length": 410
+    },
+    {
      "va": "0x00675290",
      "length": 8,
      "name": "?sub_00675290_GetOutdoorValue@@YIHPAUD2DrlgLevelStrc@@H@Z"
+    },
+    {
+     "va": "0x00675360",
+     "length": 348
     },
     {
      "va": "0x006757E0",
      "length": 110,
      "name": "?sub_006757E0_GetLevelStyle@@YIHPAUD2DrlgLevelStrc@@_N@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Outdoors_00674730.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00674730",
-     "length": 481,
-     "name": "?DRLGOUTDOORS_SpawnOutdoorLevelPreset@@YIHPAUD2DrlgLevelStrc@@HHHD@Z"
-    },
-    {
-     "va": "0x00674B70",
-     "length": 708,
-     "name": "?DRLGOUTDOORS_SpawnAct12Waypoint@@YIXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Outdoors_00674920.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00674920",
-     "length": 590,
-     "name": "?sub_00674920_PlaceRandomPreset@@YIHPAUD2DrlgLevelStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Outdoors_006750F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006750F0",
-     "length": 410
-    },
-    {
-     "va": "0x00675360",
-     "length": 348
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -94697,9 +94633,18 @@
      "name": "sub_0067E0E0"
     },
     {
+     "va": "0x0067E160",
+     "length": 166,
+     "name": "sub_0067E160"
+    },
+    {
      "va": "0x0067E210",
      "length": 48,
      "name": "?sub_0067E210_PlaceShiftedPreset@@YAHPAUD2DrlgLevelStrc@@HH@Z"
+    },
+    {
+     "va": "0x0067E240",
+     "length": 612
     },
     {
      "va": "0x0067E4B0",
@@ -94710,6 +94655,10 @@
      "va": "0x0067E560",
      "length": 147,
      "name": "sub_0067E560"
+    },
+    {
+     "va": "0x0067E600",
+     "length": 88
     }
    ]
   },
@@ -94748,65 +94697,6 @@
     {
      "va": "0x0067DCF0",
      "length": 509
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutSiege_0067E160.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0067E160",
-     "length": 166,
-     "name": "sub_0067E160"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutSiege_0067E240.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067E240",
-     "length": 612
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutSiege_0067E600.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067E600",
-     "length": 88
     }
    ],
    "flags": [
