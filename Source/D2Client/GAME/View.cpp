@@ -11,41 +11,74 @@
 #include "D2ClientGame.h"
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2ClientListNodeStrc;
+
 struct D2StaticPathStrc;
+
 struct D2ClientUnitPointStrc;
+
 struct D2MapAIStrc;
+
 struct D2ClientPacket11Strc;
+
 struct D2ClientPacket19Strc;
+
 struct D2ClientListLinkStrc;
+
 struct D2ClientOffsetListAStrc;
+
 struct D2ClientOffsetListBStrc;
+
 struct D2ClientNodeListStrc;
+
 struct D2PlayerDataStrc;
+
 struct D2ClientUnitViewStrc;
+
 struct D2ClientRecordStrc;
+
 struct D2ClientEntryStrc;
+
 struct D2ClientTimedBoxStrc;
+
 struct D2ClientViewStrc;
+
 struct D2ClientArrayStrc;
+
 struct T0044A980;
+
 struct D2DrlgCoordsStrc;
+
 struct D2MissileStrc;
+
 struct D2RosterPetStrc;
+
 struct D2TimedHintEntryStrc;
+
 struct D2TimedHintNodeStrc;
+
 struct D2HintCursorStrc;
+
 struct D2PalShiftNodeStrc;
+
 union D2SeedStrc;
+
 struct D2CelContextStrc;
+
 struct D2DataTablesStrc;
+
 struct D2UnitStrc;
+
 struct D2ActiveRoomStrc;
+
 struct D2PresetUnitStrc;
+
 struct D2ViewStrc;
+
 struct D2CacheStatsStrc;
 
 struct D2ClientPacket11Strc
@@ -103,7 +136,6 @@ struct D2ClientNodeListStrc
     void sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
 };
 
-
 struct D2ClientUnitViewStrc
 {
     int dwUnitType;
@@ -155,42 +187,79 @@ struct T0044A980
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
 D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey); // 0x00478E40
+
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+
 void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
+
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
+
 int __cdecl sub_00468730(); // 0x00468730
+
 int __cdecl sub_00468740(); // 0x00468740
+
 int __cdecl sub_0044BE90(); // 0x0044BE90
+
 void __cdecl sub_00497300(); // 0x00497300
+
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 int __cdecl sub_004942D0_GetHelpMenuSetting(); // 0x004942D0
+
 void __cdecl sub_00495030_DrawKeyHelp(); // 0x00495030
+
 extern void* gpGlobal_00798FB4; // 0x00798FB4
+
 extern void* gpGlobal_007A5240; // 0x007A5240
+
 extern int gnGlobal_007A2858; // 0x007A2858
+
 extern int gnGlobal_007A285C; // 0x007A285C
+
 extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
+
 extern void* gpGlobal_007BC964; // 0x007BC964
+
 extern void* gpGlobal_007BEEEC; // 0x007BEEEC
+
 extern int gnGlobal_007BEEFC; // 0x007BEEFC
+
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
+
 extern void* gpGlobal_007C02DC; // 0x007C02DC
+
 extern void* gpGlobal_007C02E0; // 0x007C02E0
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern T0044A980* gpPalShiftEntries_007B9578; // 0x007B9578
+
 extern int gnGlobal_007B957C; // 0x007B957C
-extern void* gpGlobal_007BB384; // 0x007BB384
+
+void* gpGlobal_007BB384; // 0x007BB384
+
 extern void* gpGlobal_007BEEF0; // 0x007BEEF0
+
 extern int gnGlobal_0071146C; // 0x0071146C
+
 extern int gnGlobal_00711470; // 0x00711470
 
 enum D2C_W10Constants
@@ -218,33 +287,56 @@ struct D2TimedHintEntryStrc
     int nState;
 };
 
-
-
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
+
 extern int gdwGlobal_007A520C; // 0x007A520C
+
 extern int gdwGlobal_007A5208; // 0x007A5208
+
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
+
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
+
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit); // 0x00464810
+
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
+
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
+
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
+
 void __fastcall sub_004DCD40_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
+
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
+
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
+
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
+
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
+
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
+
 void __stdcall DUNGEON_ClientSubileDrawPositionToGameCoords(int nX, int nY, int* pX, int* pY); // 0x00643400
+
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
+
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
+
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
+
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
+
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
 struct D2ViewStrc
@@ -257,6 +349,7 @@ struct D2ViewStrc
     void* pLerpData;
     void* pLerpTable;
     void* pLerpRows;
+    unsigned int dwDrawFlags;
 };
 
 struct D2PalShiftNodeStrc
@@ -284,56 +377,107 @@ struct D2CacheStatsStrc
 };
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __cdecl sub_00475EB0_FreeCels(); // 0x00475EB0
+
 void __fastcall sub_004DCF30(D2ViewStrc* pView); // 0x004DCF30
+
 int __cdecl sub_0045AE90(); // 0x0045AE90
+
 void __fastcall sub_004DDB70_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
+
 extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
+
 extern "C" int gnModeValue_00712CCC; // 0x00712CCC
-extern int gnGlobal_007B8D2C; // 0x007B8D2C
+
+int gnGlobal_007B8D2C; // 0x007B8D2C
+
 extern int gnGlobal_007B9534; // 0x007B9534
-extern unsigned char** gppLerpRows_007B953C; // 0x007B953C
+
+unsigned char** gppLerpRows_007B953C;        // 0x007B953C
+
 extern int gnGlobal_007BB3AC; // 0x007BB3AC
+
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+
 extern D2CelFileStrc* sghPentagram; // 0x0087E96C
+
 extern unsigned char gabBeltHotkey_007BEFB0[]; // 0x007BEFB0
+
 extern int gnBeltHover_007BEF94; // 0x007BEF94
+
 extern D2UnitStrc* gpBeltItemA_007BEFA8; // 0x007BEFA8
-extern int gnGlobal_007BEECC; // 0x007BEECC
+
+static int gnGlobal_007BEECC; // 0x007BEECC
+
 extern unsigned char gnTextColorRed_007BEFBA; // 0x007BEFBA
+
 extern unsigned char gabBeltColors_007BEF6C[4]; // 0x007BEF6C
+
 extern int gnGlobal_00721E3C; // 0x00721E3C
+
 extern int gnGlobal_00721E40; // 0x00721E40
+
 extern int gnGlobal_00721E44; // 0x00721E44
+
 extern int gnGlobal_00721E48; // 0x00721E48
+
 extern int gnGlobal_00721E4C; // 0x00721E4C
+
 extern int gnGlobal_00721E50; // 0x00721E50
+
 extern int gdwGlobal_007BCBE4; // 0x007BCBE4
+
 extern int gdwGlobal_007BCBE8; // 0x007BCBE8
+
 extern int gdwGlobal_007BCBF0; // 0x007BCBF0
+
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
+
 extern int gdwGlobal_007BCBF8; // 0x007BCBF8
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
+
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
+
 int __fastcall sub_004B9B20(int nHandle); // 0x004B9B20
+
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
+
 void __fastcall sub_004BA840(int nHandle); // 0x004BA840
-extern int gnGlobal_007B8D10; // 0x007B8D10
+
+int gnGlobal_007B8D10; // 0x007B8D10
+
 extern int gnGlobal_007B8D14; // 0x007B8D14
+
 extern int gnGlobal_007B8D18; // 0x007B8D18
+
 extern int gnGlobal_007B8D1C; // 0x007B8D1C
-extern int gnGlobal_007B8D20; // 0x007B8D20
-extern int gnGlobal_007B9538; // 0x007B9538
+
+int gnGlobal_007B8D20; // 0x007B8D20
+
+int gnGlobal_007B9538; // 0x007B9538
+
 extern D2SeedStrc* gpClientSeed_00712C4C; // 0x00712C4C
+
 extern int gnStarFieldHeight_007A521C; // 0x007A521C
+
 extern int gnStarFieldWidth_007A5220; // 0x007A5220
-extern unsigned char gaStarShades_007B8D24[8]; // 0x007B8D24
-extern int gaStarX_007B8D30[256]; // 0x007B8D30
-extern int gaStarY_007B57E8[256]; // 0x007B57E8
-extern unsigned char gaStarColor_007B5688[256]; // 0x007B5688
-extern int gaStarSpeed_007B9130[256]; // 0x007B9130
+
+unsigned char gaStarShades_007B8D24[8]; // 0x007B8D24
+
+int gaStarX_007B8D30[256]; // 0x007B8D30
+
+int gaStarY_007B57E8[256]; // 0x007B57E8
+
+unsigned char gaStarColor_007B5688[256]; // 0x007B5688
+
+int gaStarSpeed_007B9130[256]; // 0x007B9130
+
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 static void sub_004769D0_UpdateShakeSound(int nIntensity);
@@ -345,6 +489,113 @@ int gnGlobal_007BEF08; // 0x007BEF08
 char gData_007B9580[7680]; // 0x007B9580
 
 int gnGlobal_007BB380; // 0x007BB380
+
+#define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
+    (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
+
+union D2SeedStrc;
+
+struct D2QuestLookupEntryStrc;
+
+struct D2QuestPanelValuesStrc;
+
+struct D2WardenClientM114Strc;
+
+void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
+
+void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
+
+int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
+
+void __stdcall sub_00476190_ResetStar(int nStar, int bRespawn);
+
+struct D2QuestLookupEntryStrc
+{
+    int nKey;
+    int nValue;
+    int unk0x08;
+    int unk0x0C;
+};
+
+#pragma pack(push, 1)
+
+struct D2QuestPanelValuesStrc
+{
+    char unk0x00[0x7];
+    int nValues[0x96];
+};
+
+#pragma pack(pop)
+
+extern void* const gapWardenServices_006D8E68[7]; // 0x006D8E68
+
+extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
+
+struct D2WardenClientM114Strc
+{
+    void* const* pServices;
+    D2WardenClientM114Strc();
+};
+
+int gbStarsInit_007B955C; // 0x007B955C
+
+unsigned long gdwStarTick_007B57E0; // 0x007B57E0
+
+extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
+
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                               // 0x004788B0
+
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
+
+extern int gdwGlobal_007A0620;                                                                               // 0x007A0620
+
+extern int gnAutomapWidth_007A5220;                                                                          // 0x007A5220
+
+extern D2SeedStrc* gpSkySeed_00712C50;                                                                       // 0x00712C50
+
+static int gnSummitScroll_007B9568;                                                                          // 0x007B9568
+
+static D2CelFileStrc* gpSummitCel_007B9554;                                                                  // 0x007B9554
+
+static D2CelFileStrc* gpCloudCel_007B9558;                                                                   // 0x007B9558
+
+static bool gbCloudsInit_007B9560;                                                                           // 0x007B9560
+
+static int gaCloudY_007B5790[10];                                                                            // 0x007B5790
+
+static int gaCloudSpeed_007B57B8[10];                                                                        // 0x007B57B8
+
+static int gaCloudX_007B5BE8[10];                                                                            // 0x007B5BE8
+
+static int snBaseX; // 0x007B9570
+
+static bool sbBaseSet; // 0x007B956C
+
+static int gnBaseGuard; // 0x007B9574
+
+__declspec(noinline) static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer);
+
+
+struct Obj004DCF10
+{
+    unsigned int flags;
+    tagRECT rect;
+    unsigned char beforeRows[0x18];
+    void* rows;
+    void* data;
+    void* table;
+    unsigned char unusedTail[0xEABC - 0x38];
+};
+
+typedef char Obj004DCF10Size[(sizeof(Obj004DCF10) == 0xEABC) ? 1 : -1];
+
+#define SYN_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+void __fastcall sub_004DDDF0(void* rows, void* data); // 0x004DDDF0
+
+extern "C" void __fastcall sub_004DCF10(Obj004DCF10*); // 0x004DCF10
+
+int gnGlobal_007B9530;        // 0x007B9530
 
 static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, int nLinkOffset)
 {
@@ -725,10 +976,6 @@ void __fastcall sub_0046BC10_HintAndMissile(D2UnitStrc* pUnit)
     sub_004CD540_CreateMissile(&tMissileParams);
 }
 
-int gnGlobal_007B8D20; // 0x007B8D20
-
-int gnGlobal_007B9538; // 0x007B9538
-
 void* gpLerpTable_007B9540; // 0x007B9540
 
 void* gpLerpTable_007B9544; // 0x007B9544
@@ -738,8 +985,6 @@ void* gpLerpTable_007B954C; // 0x007B954C
 void* gpLerpTable_007B9550; // 0x007B9550
 
 D2PalShiftNodeStrc* gpPalShiftList_007B957C; // 0x007B957C
-
-void* gpGlobal_007BB384; // 0x007BB384
 
 int gbCacheStats_007BB3A4; // 0x007BB3A4
 
@@ -955,7 +1200,328 @@ void __stdcall sub_00476190_ResetStar(int nStar, int bRespawn)
     gaStarColor_007B5688[nStar] = gaStarShades_007B8D24[STARS_Roll(pSeed) & 7];
 }
 
-int gnGlobal_007B8D2C; // 0x007B8D2C
+// 0x00476290
+void __cdecl sub_00476290_DrawStarfield()
+{
+    if (!gbStarsInit_007B955C)
+    {
+        SEED_InitSeed(gpClientSeed_00712C4C);
+        SEED_InitLowSeed(gpClientSeed_00712C4C, SEED_GetRandomValue(gnGlobal_007B8D10));
+
+        for (int nShade = 0; nShade < 8; ++nShade)
+        {
+            const int nBase = nShade * 0x80 / 7 + 0x80;
+            D2SeedStrc* pSeed = gpClientSeed_00712C4C;
+            unsigned __int64 lSeed;
+            int nRed = (STARS_ROLL(pSeed, lSeed) & 0x3F) + nBase - 0x20;
+            if (nRed > 0xFF)
+                nRed = 0xFF;
+            int nGreen = (STARS_ROLL(pSeed, lSeed) & 0x3F) + nBase - 0x20;
+            if (nGreen > 0xFF)
+                nGreen = 0xFF;
+            int nBlue = (STARS_ROLL(pSeed, lSeed) & 0x3F) + nBase - 0x20;
+            if (nBlue > 0xFF)
+                nBlue = 0xFF;
+            gaStarShades_007B8D24[nShade] = sub_004FB180_FindPaletteIndex(nRed, nGreen, nBlue);
+        }
+
+        for (int i = 0; i < 256; ++i)
+            sub_00476190_ResetStar(i, 0);
+
+        gbStarsInit_007B955C = 1;
+    }
+
+    for (int i = 0; i < 256; ++i)
+        D2GFX_DrawLine(gaStarX_007B8D30[i], gaStarY_007B57E8[i], gaStarX_007B8D30[i], gaStarY_007B57E8[i], gaStarColor_007B5688[i], 0xFF);
+
+    const unsigned long dwTick = GetTickCount();
+    if (dwTick - gdwStarTick_007B57E0 > 40)
+    {
+        for (int i = 0; i < 256; ++i)
+        {
+            gaStarX_007B8D30[i] += gaStarSpeed_007B9130[i];
+            if (gaStarX_007B8D30[i] < 0)
+                sub_00476190_ResetStar(i, 1);
+        }
+        gdwStarTick_007B57E0 = dwTick;
+    }
+}
+
+int gnGlobal_007B9564; // 0x007B9564
+
+// 0x00476460
+static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer)
+{
+    if (gdwGlobal_007A0620)
+    {
+        return;
+    }
+
+    if (!(gnBaseGuard & 1)) {
+        gnBaseGuard |= 1;
+        snBaseX = UNITS_GetClientCoordX(pPlayer);
+    }
+    if (!sbBaseSet)
+    {
+        sbBaseSet = true;
+        snBaseX = 0x274F;
+    }
+
+    gnSummitScroll_007B9568 = UNITS_GetClientCoordX(pPlayer) - snBaseX;
+    const int nPos = gnSummitScroll_007B9568 / 8;
+    const int nOffset = nPos % 256;
+    int nFrame = nPos / 256 % 4;
+    while (nFrame < 0)
+    {
+        nFrame += 4;
+    }
+    nFrame %= 4;
+    const int nX = -nOffset;
+
+    if (!gpSummitCel_007B9554)
+    {
+        char szPath[260];
+        strcpy(szPath, "data\\global\\ui\\summit01");
+        gpSummitCel_007B9554 = sub_004788B0(szPath, 0);
+    }
+
+    if (!gpCloudCel_007B9558)
+    {
+        char szPath[260];
+        strcpy(szPath, "data\\global\\ui\\cloud01");
+        gpCloudCel_007B9558 = sub_004788B0(szPath, 0);
+    }
+
+    D2GfxDataStrc tGfxData = {};
+    if (gpSummitCel_007B9554)
+    {
+        tGfxData.pCellFile = gpSummitCel_007B9554;
+        tGfxData.nFrame = nFrame;
+        TEXTURE_CelDraw(&tGfxData, nX, 0x100, -1, 5, 0);
+        const int nFrame1 = (nFrame + 1) % 4;
+        tGfxData.nFrame = nFrame1;
+        TEXTURE_CelDraw(&tGfxData, nX + 0x100, 0x100, -1, 5, 0);
+        const int nFrame2 = (nFrame + 2) % 4;
+        tGfxData.nFrame = nFrame2;
+        TEXTURE_CelDraw(&tGfxData, nX + 0x200, 0x100, -1, 5, 0);
+        const int nFrame3 = (nFrame + 3) % 4;
+        tGfxData.nFrame = nFrame3;
+        TEXTURE_CelDraw(&tGfxData, nX + 0x300, 0x100, -1, 5, 0);
+        if (nX > 0)
+        {
+            tGfxData.nFrame = nFrame3;
+            TEXTURE_CelDraw(&tGfxData, nX - 0x100, 0x100, -1, 5, 0);
+        }
+
+        tGfxData.nFrame = nFrame + 4;
+        TEXTURE_CelDraw(&tGfxData, nX, 0x200, -1, 5, 0);
+        tGfxData.nFrame = nFrame1 + 4;
+        TEXTURE_CelDraw(&tGfxData, nX + 0x100, 0x200, -1, 5, 0);
+        tGfxData.nFrame = nFrame2 + 4;
+        TEXTURE_CelDraw(&tGfxData, nX + 0x200, 0x200, -1, 5, 0);
+        tGfxData.nFrame = nFrame3 + 4;
+        TEXTURE_CelDraw(&tGfxData, nX + 0x300, 0x200, -1, 5, 0);
+        if (nX > 0)
+        {
+            tGfxData.nFrame = nFrame3 + 4;
+            TEXTURE_CelDraw(&tGfxData, nX - 0x100, 0x200, -1, 5, 0);
+        }
+
+        if (D2GFX_GetResolutionMode() == 2)
+        {
+            tGfxData.nFrame = nFrame + 8;
+            TEXTURE_CelDraw(&tGfxData, nX, 0x300, -1, 5, 0);
+            tGfxData.nFrame = nFrame1 + 8;
+            TEXTURE_CelDraw(&tGfxData, nX + 0x100, 0x300, -1, 5, 0);
+            tGfxData.nFrame = nFrame2 + 8;
+            TEXTURE_CelDraw(&tGfxData, nX + 0x200, 0x300, -1, 5, 0);
+            tGfxData.nFrame = nFrame3 + 8;
+            TEXTURE_CelDraw(&tGfxData, nX + 0x300, 0x300, -1, 5, 0);
+            if (nX > 0)
+            {
+                tGfxData.nFrame = nFrame3 + 8;
+                TEXTURE_CelDraw(&tGfxData, nX - 0x100, 0x300, -1, 5, 0);
+            }
+        }
+    }
+
+    if (gpCloudCel_007B9558)
+    {
+        D2SeedStrc* pSeed;
+        unsigned __int64 lSeed;
+        int i;
+        if (!gbCloudsInit_007B9560)
+        {
+            SEED_InitSeed(gpSkySeed_00712C50);
+            SEED_InitLowSeed(gpSkySeed_00712C50, SEED_GetRandomValue(GetTickCount()));
+            pSeed = gpSkySeed_00712C50;
+            for (i = 0; i < 10; ++i)
+            {
+                gaCloudX_007B5BE8[i] = SEED_RollLimitedRandomNumber(pSeed, gnAutomapWidth_007A5220 << 4);
+                gaCloudY_007B5790[i] = SUMMIT_ROLL(pSeed, lSeed) % 250;
+                gaCloudSpeed_007B57B8[i] = (SUMMIT_ROLL(pSeed, lSeed) & 0xF) + 8;
+            }
+            gbCloudsInit_007B9560 = true;
+        }
+        else
+        {
+            pSeed = gpSkySeed_00712C50;
+        }
+
+        for (i = 0; i < 10; ++i)
+        {
+            gaCloudX_007B5BE8[i] += gaCloudSpeed_007B57B8[i];
+            if (gaCloudX_007B5BE8[i] > (gnAutomapWidth_007A5220 + 0x170) << 4)
+            {
+                gaCloudX_007B5BE8[i] = -0x1700;
+                gaCloudY_007B5790[i] = SUMMIT_ROLL(pSeed, lSeed) % 300;
+            }
+        }
+
+        for (i = 0; i < 10; ++i)
+        {
+            tGfxData.pCellFile = gpCloudCel_007B9558;
+            tGfxData.nFrame = 0;
+            nFrame = gaCloudX_007B5BE8[i] / 16;
+            TEXTURE_CelDraw(&tGfxData, nFrame, gaCloudY_007B5790[i], 0xDDDDDDDD, 3, 0);
+            tGfxData.nFrame = 1;
+            TEXTURE_CelDraw(&tGfxData, nFrame + 0x100, gaCloudY_007B5790[i], 0xDDDDDDDD, 3, 0);
+        }
+    }
+}
+
+struct D2TileLightCtxStrc;
+
+struct D2CellGridViewStrc
+{
+    void __thiscall sub_004DF510_DrawCellNodes();                                                            // 0x004DF510
+};
+
+int __stdcall D2GFX_CheckPerspective();                                                                      // 0x004F51D0
+
+int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                        // 0x006203B0
+
+int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
+
+int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
+
+void __cdecl sub_004DED20_UpdateRoomColor();                                                                 // 0x004DED20
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
+
+void __cdecl sub_00476290_DrawStarfield();                                                                   // 0x00476290
+
+void __fastcall sub_00478A00(void* pCel);                                                                    // 0x00478A00
+
+void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx);                                  // 0x004DF480
+
+void __fastcall sub_004DED10(void* pArg);                                                                    // 0x004DED10
+
+void __cdecl sub_00473C00_DrawWeatherLayers();                                                               // 0x00473C00
+
+void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
+
+void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
+
+void __cdecl sub_00475B20_DebugDrawLights();                                                                 // 0x00475B20
+
+void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
+
+void __cdecl sub_004DC000_DrawFadeBox();                                                                     // 0x004DC000
+
+extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
+
+void __fastcall sub_00476BC0(D2ViewStrc* pView)
+{
+    if (!pView->tRect.right && !pView->tRect.bottom)
+    {
+        return;
+    }
+
+    SCALE_UpdateFactor();
+    gdwGlobal_007B57E4 = sub_004F65E0();
+    if (D2GFX_CheckPerspective())
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        int nX = UNITS_GetPrecisionX(pPlayer);
+        int nY = UNITS_GetPrecisionY(pPlayer);
+        int nOffsetX = 0;
+        int nOffsetY = 0;
+        if (gnGlobal_007B9534)
+        {
+            nOffsetX = gnGlobal_007B9538 << 16;
+            nOffsetY = gnGlobal_007B8D20 << 16;
+            DUNGEON_ClientToGameSubtileCoords(&nOffsetX, &nOffsetY);
+            nX += nOffsetX;
+            nY += nOffsetY;
+        }
+        SCALE_SetPerspectiveScale(nX, nY);
+    }
+
+    const int nTick = sub_0044DB00();
+    if (nTick > gdwLightTick_007B9530)
+    {
+        gdwLightTick_007B9530 = nTick;
+        sub_00475800_RunLightPass();
+    }
+
+    sub_004DED20_UpdateRoomColor();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 74)
+    {
+        sub_00476290_DrawStarfield();
+    }
+
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 120)
+    {
+        sub_00476460_DrawSummitBackdrop(pPlayer);
+    }
+    else
+    {
+        if (gpSummitCel_007B9554)
+        {
+            sub_00478A00(gpSummitCel_007B9554);
+            gpSummitCel_007B9554 = 0;
+        }
+        if (gpCloudCel_007B9558)
+        {
+            sub_00478A00(gpCloudCel_007B9558);
+            gpCloudCel_007B9558 = 0;
+        }
+    }
+
+    if (pView->dwDrawFlags & gdwBitMasks[0])
+    {
+        sub_004DF480_UpdateAllTileLights((D2TileLightCtxStrc*)pView);
+    }
+    sub_004DED10(pView);
+    sub_00473C00_DrawWeatherLayers();
+    if (pView->dwDrawFlags & gdwBitMasks[3])
+    {
+        ((D2CellGridViewStrc*)pView)->sub_004DF510_DrawCellNodes();
+    }
+    sub_004DF1C0(pView);
+    if (pView->dwDrawFlags & gdwBitMasks[1])
+    {
+        sub_004DEA70(pView);
+    }
+    if (gnGlobal_007B9564)
+    {
+        sub_00475B20_DebugDrawLights();
+    }
+    SCALE_SetDefaultFactor();
+    sub_00473910_UpdateWeather();
+    sub_004DC000_DrawFadeBox();
+}
+
+// 0x004769B0
+void __cdecl sub_004769B0_Toggle()
+{
+    gnGlobal_007B9564 = gnGlobal_007B9564 == 0;
+}
 
 // 0x004769D0
 static void sub_004769D0_UpdateShakeSound(int nIntensity)
@@ -1025,6 +1591,31 @@ int __fastcall sub_00476AC0_GetViewShift(int* pX, int* pY)
     *pX = gnGlobal_007B9538;
     *pY = gnGlobal_007B8D20;
     return 1;
+}
+
+// 0x00476B10
+Obj004DCF10* __cdecl sub_00476B10_CreateView()
+{
+    SYN_ASSERT(gppLerpRows_007B953C, 0x119);
+    SYN_ASSERT(gpLerpTable_007B9540, 0x11A);
+    SYN_ASSERT(gpLerpTable_007B9544, 0x11B);
+
+    Obj004DCF10* view = static_cast<Obj004DCF10*>(FOG_Alloc(sizeof(Obj004DCF10), ".\\GAME\\View.cpp", 0x11D, 0));
+    SetRect(&view->rect, 0, 0, 0, 0);
+
+    void* const rows = gppLerpRows_007B953C;
+    void* const data = gpLerpTable_007B9540;
+    void* const table = gpLerpTable_007B9544;
+
+    view->flags = 0;
+    view->rows = rows;
+    view->data = data;
+    view->table = table;
+    sub_004DDDF0(rows, data);
+    sub_004DCF10(view);
+    view->flags |= 1;
+    gnGlobal_007B9530 = 0;
+    return view;
 }
 
 // 0x00476EA0
@@ -1149,6 +1740,30 @@ void __stdcall sub_0047E860_DrawCel(int nFrame, int nX, int nY)
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
 }
 
+
+static int gnPopupX_007BEED4; // 0x007BEED4
+
+// 0x004801C0
+D2WardenClientM114Strc::D2WardenClientM114Strc() : pServices(gapWardenServices_006D8E68)
+{
+}
+
+// 0x00480400
+int __fastcall sub_00480400_GetPlayerField150(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    {
+        return pUnit->pPlayerData->nState;
+    }
+    return 0;
+}
+
+// 0x004804D0
+unsigned int __cdecl sub_004804D0_GetPingScaled()
+{
+    return (sub_0044CE60_GetPing() + 0x32) >> 7;
+}
+
 // 0x00480B40
 void __fastcall sub_00480B40_SendPacket(int nHeader, int nUnused, int nArg1, int nArg2, int nUnused2)
 {
@@ -1195,6 +1810,31 @@ int __cdecl sub_00487CA0_SetNpcState6()
         return 0;
     gdwGlobal_007BCBF0 = 6;
     return 1;
+}
+
+// 0x00492BC0
+int __cdecl sub_00492BC0_GetPetTypeCount()
+{
+    return sgptDataTables->nPetTypeTxtRecordCount;
+}
+
+static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
+{
+    return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
+}
+
+// 0x00492BD0
+int __fastcall sub_00492BD0_IsInPetIcon(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    return gnGlobal_007BEECC != 2 && InBox(nX, nY, gnPopupX_007BEED4, gnPopupX_007BEED4 + 0x2E, 0x18, 0x18 + 0x24);
+}
+
+void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
+{
+    gnGlobal_007BEECC = nMode;
+    gnPopupX_007BEED4 = nPopupX;
 }
 
 // 0x00492C10
@@ -1478,6 +2118,29 @@ void __cdecl sub_00498D60()
     gdwGlobal_007BEFAC = 0;
 }
 
+// 0x004A3070
+int __fastcall sub_004A3070_LookupValue(int nUnused, int nKey)
+{
+    for (unsigned int i = 0; i < 0x29; ++i)
+    {
+        if (gaQuestLookup_00723F38[i].nKey == nKey)
+        {
+            return gaQuestLookup_00723F38[i].nValue;
+        }
+    }
+    return 0x2A;
+}
+
+// 0x004A3200
+D2QuestPanelValuesStrc* __fastcall sub_004A3200_ClearValues(D2QuestPanelValuesStrc* pValues)
+{
+    for (int i = 0; i < 0x96; ++i)
+    {
+        pValues->nValues[i] = 0;
+    }
+    return pValues;
+}
+
 // 0x004B9640
 int __fastcall sub_004B9640_CountHintsForOwner(int nOwnerId)
 {
@@ -1540,9 +2203,10 @@ void __fastcall sub_004DC580_DrawUnitClickCross(D2UnitStrc* pUnit)
     D2GFX_DrawBox(nBoxX, nBoxY, nBoxX + 4, nBoxY + 4, 0xFF, DRAW_MODE_5);
 }
 
-// 0x00507140
 void __stdcall LIST_UnloadPentspinCellfile()
 {
     ARCHIVE_FreeCellFile(sghPentagram);
     sghPentagram = 0;
 }
+
+#include "gen/data/Source/D2Client/GAME/View.inc"

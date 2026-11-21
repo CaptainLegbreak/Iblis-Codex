@@ -1836,22 +1836,11 @@
    "state": "included"
   },
   "Source/D2Client/UI/CmdTbl.cpp": {
-   "bytes": 140,
-   "definitions": 4,
+   "bytes": 812,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_00468940_SetUIVar2(); // 0x00468940",
     "extern \"C\" void __cdecl sub_0046A840_HotkeyMsgHandler(); // 0x0046A840",
-    "extern \"C\" void __cdecl sub_0046A940_DispatchHotkey(); // 0x0046A940"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/CmdTbl.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/CmdTbl_00469C20.cpp": {
-   "bytes": 672,
-   "definitions": 1,
-   "externs": [
     "extern \"C\" void __cdecl D2Win_10168_WINMAIN_CreateScreenshot(); // 0x004FA7A0",
     "extern \"C\" void __cdecl sub_00468950_SetUIVar1(); // 0x00468950",
     "extern \"C\" void __cdecl sub_00468960_SetUIVar22(); // 0x00468960",
@@ -1900,20 +1889,17 @@
     "extern \"C\" void __cdecl sub_00469060_ToggleAlwaysRun(); // 0x00469060",
     "extern \"C\" void __cdecl sub_00469080_HotkeySetValue(); // 0x00469080",
     "extern \"C\" void __cdecl sub_00469090_HotkeyUiVarOff(); // 0x00469090",
-    "extern \"C\" void __cdecl sub_004690A0_HotkeyCmd4(); // 0x004690A0",
     "extern \"C\" void __cdecl sub_004690B0_HotkeyEscape(); // 0x004690B0",
     "extern \"C\" void __cdecl sub_00469100_HotkeyPrevSkill(); // 0x00469100",
     "extern \"C\" void __cdecl sub_00469120_HotkeyNextSkill(); // 0x00469120",
     "extern \"C\" void __cdecl sub_00469140_HotkeyResetSounds(); // 0x00469140",
     "extern \"C\" void __cdecl sub_00469170_HotkeyPetUi(); // 0x00469170",
-    "extern \"C\" void __cdecl sub_004691B0_HotkeyClearListFlags(); // 0x004691B0",
     "extern \"C\" void __cdecl sub_004691C0_HotkeyRunOff(); // 0x004691C0",
-    "extern \"C\" void __cdecl sub_00469200_HotkeyClearValue(); // 0x00469200",
     "extern \"C\" void __cdecl sub_00469210_HotkeyUiVarOn(); // 0x00469210",
     "extern \"C\" void __cdecl sub_00493840_TogglePopup(); // 0x00493840"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/CmdTbl_00469C20.inc",
+   "include": "gen/data/Source/D2Client/UI/CmdTbl.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2018,9 +2004,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/GAME/View_00476290.cpp": {
-   "bytes": 652,
-   "definitions": 2,
+  "Source/D2Client/GAME/View.cpp": {
+   "bytes": 776,
+   "definitions": 4,
    "externs": [
     "extern \"C\" char gData_007B5788[]; // 0x007B5788",
     "extern \"C\" char gData_007237A4[]; // 0x007237A4",
@@ -2049,21 +2035,11 @@
     "extern \"C\" char gData_00723E64[]; // 0x00723E64",
     "extern \"C\" char gtQuestTexts_00723A64[]; // 0x00723A64",
     "extern \"C\" char gtQuestTexts_00723C64[]; // 0x00723C64",
-    "extern \"C\" char gtQuestTexts_00723D24[]; // 0x00723D24"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/View_00476290.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/GAME/View_00476460.cpp": {
-   "bytes": 124,
-   "definitions": 2,
-   "externs": [
+    "extern \"C\" char gtQuestTexts_00723D24[]; // 0x00723D24",
     "extern \"C\" char gData_007B5680[]; // 0x007B5680"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/View_00476460.inc",
+   "include": "gen/data/Source/D2Client/GAME/View_00476290.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -44153,7 +44129,7 @@
     [
      32,
      "0x0046A940",
-     "source",
+     "owner",
      "sub_0046A940_DispatchHotkey",
      0,
      "func"
@@ -44161,7 +44137,7 @@
     [
      44,
      "0x0046A940",
-     "source",
+     "owner",
      "sub_0046A940_DispatchHotkey",
      0,
      "func"
@@ -44231,7 +44207,7 @@
     [
      8,
      "0x0046A940",
-     "source",
+     "owner",
      "sub_0046A940_DispatchHotkey",
      0,
      "func"
@@ -44239,7 +44215,7 @@
     [
      20,
      "0x0046A940",
-     "source",
+     "owner",
      "sub_0046A940_DispatchHotkey",
      0,
      "func"
@@ -44396,7 +44372,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/CmdTbl_00469C20.cpp",
+   "file": "Source/D2Client/UI/CmdTbl.cpp",
    "fill": 56,
    "form": "declared",
    "fwd": null,
@@ -44744,7 +44720,7 @@
     [
      432,
      "0x00469200",
-     "names.json",
+     "owner",
      "sub_00469200_HotkeyClearValue",
      0,
      "func"
@@ -44768,7 +44744,7 @@
     [
      452,
      "0x004690A0",
-     "names.json",
+     "owner",
      "sub_004690A0_HotkeyCmd4",
      0,
      "func"
@@ -44792,7 +44768,7 @@
     [
      488,
      "0x004691B0",
-     "names.json",
+     "owner",
      "sub_004691B0_HotkeyClearListFlags",
      0,
      "func"
@@ -46548,7 +46524,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/View_00476290.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2SeedStrc* gpClientSeed_00712C4C = ",
@@ -46582,7 +46558,7 @@
    "cname": "gData_00723F38",
    "declared": true,
    "decorated": "?gaQuestLookup_00723F38@@3PAUD2QuestLookupEntryStrc@@A",
-   "file": "Source/D2Client/GAME/View_00476290.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00723F38_t gData_00723F38; // 0x00723F38",
    "head": "extern \"C\" struct d2data_00723F38_t gData_00723F38 = ",
@@ -46816,7 +46792,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/View_00476460.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2SeedStrc* gpSkySeed_00712C50 = ",
@@ -46850,7 +46826,7 @@
    "cname": "gData_00712C54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/View_00476460.cpp",
+   "file": "Source/D2Client/GAME/View.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00712C54_t gData_00712C54; // 0x00712C54",
    "head": "extern \"C\" struct d2data_00712C54_t gData_00712C54 = ",

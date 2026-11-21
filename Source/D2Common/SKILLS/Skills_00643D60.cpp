@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Skills.h"
+#include "D2Txt.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -11,39 +12,6 @@ struct D2SkillsTxt;
 
 typedef int BOOL;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x02];
-    unsigned char nFlags[8];
-    char nCharClass;
-    unsigned char unk_0D[0x7];
-    signed char nRange;
-    unsigned char unk_15[0x3];
-    short nITypeA[3];
-    short nITypeB[3];
-    short nETypeA[2];
-    char unk0x028[0x06];
-    short wSrvDoFunc;
-    unsigned char unk_30[0x118];
-    int dwParam[8];
-    unsigned char unk_168[0x1C];
-    short wStartMana;
-    short unk0x186;
-    unsigned char nManaShift;
-    char unk0x189;
-    short wMana;
-    short wLevelMana;
-    short unk0x18E;
-    unsigned int dwDelay;
-    char unk0x194[0x48];
-    unsigned char nEType;
-    char unk0x1DD[0x4B];
-    unsigned char nRestrict;
-    char unk0x229;
-    short nState[3];
-    char unk0x230[0x0C];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -705,7 +673,7 @@ int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
         return 0;
     }
 
-    int nRange = pSkill->pSkillsTxt->nRange;
+    int nRange = pSkill->pSkillsTxt->nAuraTargetState;
     if (nRange != 3)
     {
         return nRange;
