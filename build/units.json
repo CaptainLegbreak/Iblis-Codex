@@ -15525,11 +15525,6 @@
      "name": "?sub_00497300_DrawKeyBindingPopup@@YAXXZ"
     },
     {
-     "va": "0x0049DB10",
-     "length": 170,
-     "name": "sub_0049DB10_CloneStringList"
-    },
-    {
      "va": "0x004A17D0",
      "length": 151,
      "name": "sub_004A17D0"
@@ -26538,6 +26533,11 @@
      "va": "0x0049DAE0",
      "length": 36,
      "name": "?sub_0049DAE0_AdjustTextPos@@YIXPAUD2TextBoxPosStrc@@PAUD2TextPointStrc@@@Z"
+    },
+    {
+     "va": "0x0049DB10",
+     "length": 170,
+     "name": "sub_0049DB10_CloneStringList"
     },
     {
      "va": "0x0049E250",

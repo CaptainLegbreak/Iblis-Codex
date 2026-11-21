@@ -439,6 +439,20 @@ unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
 
 unsigned char gbGlobal_007BEEE4; // 0x007BEEE4
 
+struct D2ClientServiceStrc
+{
+    char unk0x00[0xD0];
+    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+};
+struct D2ClientStringListStrc
+{
+    Unicode* pStrings[6];
+    unsigned short nCount;
+    unsigned char f_1A[4];
+    unsigned char unk0x1E[8];
+};
+extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
+
 // 0x00491940
 void __cdecl sub_00491940_ResetNpcPanel()
 {
@@ -640,6 +654,22 @@ void __fastcall sub_0049DAE0_AdjustTextPos(D2TextBoxPosStrc* pBox, D2TextPointSt
     pPoint->nX -= pBox->wWidth / 2;
     pPoint->nY -= 50;
     pPoint->nY -= pBox->nRows * 15 + 3;
+}
+
+
+// 0x0049DB10
+D2ClientStringListStrc* __fastcall sub_0049DB10_CloneStringList(D2ClientStringListStrc* pSource)
+{
+    D2ClientStringListStrc* pCopy = (D2ClientStringListStrc*)FOG_Alloc(0x26, ".\\UI\\text.cpp", 0x9D0, 0);
+    memset(pCopy, 0, 0x26);
+    for (int i = 0; i < pSource->nCount; ++i)
+    {
+        pCopy->pStrings[i] = (Unicode*)FOG_Alloc((sub_00526800(pSource->pStrings[i]) + 1) * sizeof(Unicode), ".\\UI\\text.cpp", 0x9D4, 0);
+        sub_005267E0(pCopy->pStrings[i], pSource->pStrings[i]);
+    }
+    pCopy->nCount = pSource->nCount;
+    *(int*)pCopy->f_1A = *(int*)pSource->f_1A;
+    return pCopy;
 }
 
 // 0x0049E250
