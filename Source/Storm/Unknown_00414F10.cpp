@@ -122,6 +122,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
     __assume((*szKeyName) != 0);

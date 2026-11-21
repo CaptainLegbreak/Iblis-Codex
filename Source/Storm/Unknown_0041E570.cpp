@@ -87,6 +87,7 @@ int __stdcall SCompCompress(unsigned char* pDest, unsigned int* pdwDestSize, uns
 {
     VALIDATEBEGIN;
     VALIDATE(pDest);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume(pDest != 0);
     VALIDATE(pdwDestSize);
     __assume(pdwDestSize != 0);
