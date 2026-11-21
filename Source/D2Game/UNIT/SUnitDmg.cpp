@@ -11,6 +11,7 @@
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2Constants.h"
 
 #define UNIT_MONSTER 1
 
@@ -677,11 +678,25 @@ static int sub_0057AA60_DrainMana(D2UnitStrc* pUnit, int nDrain);
 
 static int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int nDrain);
 
-static void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nPoisonDamage, int nPoisonLength);
-
 void __fastcall SUNITDMG_DistributeExperience(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender);
 
 void __fastcall SUNITDMG_AddExperience(D2GameStrc* pGame, D2UnitStrc* pUnit, int nExperienceBonus);
+
+static int __stdcall SUNITDMG_ComputeExperienceGain(D2GameStrc* pGame, int nAttackerLevel, D2UnitStrc* pAttacker, int nDefenderLevel, int nDefenderExperience);
+
+struct D2PlayerDataStrc;
+
+enum D2C_ResultFlagsConstants
+{
+    PLRMODE_RUN = 3,
+    STATE_UNINTERRUPTABLE = 0x36,
+};
+
+int __fastcall SUNITDMG_IsHitSuccessful(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int bMissile); // 0x0057D9B0
+
+int __fastcall sub_005A4EE0_IsMonster(D2UnitStrc* pUnit); // 0x005A4EE0
+
+void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel);
 
 static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
@@ -3896,6 +3911,174 @@ void __fastcall SUNITDMG_AddExperience(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     }
 }
 
+// 0x0057EB10
+void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel)
+{
+    if (!pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
+    {
+        return;
+    }
+
+    const int nLevel = STATLIST_GetUnitBaseStat(pUnit, STAT_LEVEL, 0);
+    if (nTargetLevel <= nLevel)
+    {
+        return;
+    }
+
+    if ((!pUnit ? 6 : pUnit->dwUnitType) == UNIT_PLAYER)
+    {
+        const int nClassId = pUnit->dwClassId;
+        const unsigned int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+        const unsigned int nThreshold = DATATBLS_GetLevelThreshold(nClassId, nTargetLevel);
+        if (nThreshold > nExperience)
+        {
+            SUNITDMG_AddExperienceForPlayer(pGame, pUnit, nLevel, nThreshold - nExperience);
+        }
+        return;
+    }
+
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner || (!pOwner ? 6 : pOwner->dwUnitType) != UNIT_PLAYER || nLevel >= DATATBLS_GetMaxLevel(0))
+    {
+        return;
+    }
+
+    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pOwner, !pUnit ? -1 : pUnit->dwUnitId);
+    if (!pPetInfo)
+    {
+        return;
+    }
+
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pPetInfo->nHirelingId, nLevel);
+    if (!pHirelingTxtRecord)
+    {
+        return;
+    }
+
+    const int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+    SUNITDMG_AddExperienceForHireling(pGame, pOwner, pUnit, nLevel, MONSTERS_GetHirelingExpForNextLevel(nTargetLevel, pHirelingTxtRecord->dwExpPerLvl) - nExperience);
+}
+
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+    return pUnit->dwUnitType;
+}
+
+// 0x0057EC10
+unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset)
+{
+    int nFlags = 0;
+
+    if (!pAttacker || !pDefender)
+    {
+        return 0;
+    }
+
+    if (pAttacker->dwUnitType != UNIT_PLAYER && pAttacker->dwUnitType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    if (pDefender->dwUnitType != UNIT_PLAYER && pDefender->dwUnitType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    if (!SUNIT_AreUnitsHostile(pGame, pAttacker, pDefender))
+    {
+        return 0;
+    }
+
+    switch (pDefender->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        if (pDefender->dwAnimMode == PLRMODE_RUN)
+        {
+            nFlags = 1;
+        }
+        break;
+
+    case UNIT_MONSTER:
+        if (!sub_005A4EE0_IsMonster(pDefender))
+        {
+            return 0;
+        }
+        break;
+    }
+
+    int nRange = sub_0044BE50(pAttacker) == UNIT_MONSTER ? 3 : 1;
+    if (nRangeOffset)
+    {
+        nRange -= UNITS_GetMeleeRange(pAttacker) + nRangeOffset;
+    }
+
+    if (!UNITS_IsInMeleeRange(pAttacker, pDefender, nRange))
+    {
+        return 0;
+    }
+
+    if (!(nFlags & 1))
+    {
+        if (SUNITDMG_IsHitSuccessful(pAttacker, pDefender, nStatValue, 0))
+        {
+            nFlags |= 1;
+        }
+    }
+
+    if (nFlags & 1)
+    {
+        const int nBlock = SUNITDMG_ApplyBlockOrDodge(pGame, pAttacker, pDefender, 0, 1);
+        if (nBlock & 2)
+        {
+            nFlags |= 0x100;
+        }
+        if (nBlock & 4)
+        {
+            nFlags |= 0x80;
+        }
+        if (nBlock & 0x10)
+        {
+            nFlags |= 0x8000;
+        }
+        if (nBlock & 1)
+        {
+            nFlags |= 0x10;
+        }
+        if (nBlock)
+        {
+            nFlags &= 0xFFFE;
+        }
+    }
+
+    if (nFlags & 0x10)
+    {
+        nFlags &= 0xFFFE;
+    }
+
+    if (nFlags & 1)
+    {
+        if (!STATES_CheckState(pDefender, STATE_UNINTERRUPTABLE))
+        {
+            nFlags |= 4;
+        }
+    }
+
+    return nFlags;
+}
+
+// 0x0057ED50
+void __fastcall sub_0057ED50_SetPlayerDataField154(D2UnitStrc* pUnit, int nValue)
+{
+    if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
+    {
+        pUnit->pPlayerData->nMode = nValue;
+    }
+}
+
 // 0x0057F390
 void __fastcall sub_0057F390_DropCorpseGold(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pDeadBody, int nGold, int nUnused)
 {
@@ -4130,55 +4313,6 @@ int __fastcall sub_6FC78B20(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned short
     int nResult = 1;
     OBJECTS_OperateHandler(pGame, pUnit, nObjectType, nObjectGUID, &nResult);
     return nResult;
-}
-
-// build: context SUNITDMG_SetExperienceForTargetLevel
-void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel)
-{
-    int nClassId;
-    if (!pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
-    {
-        return;
-    }
-
-    const int nLevel = STATLIST_GetUnitBaseStat(pUnit, STAT_LEVEL, 0);
-    if (nTargetLevel <= nLevel)
-    {
-        return;
-    }
-
-    if (pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        nClassId = pUnit->dwClassId;
-        const unsigned int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
-        const unsigned int nThreshold = DATATBLS_GetLevelThreshold(nClassId, nTargetLevel);
-        if (nThreshold > nExperience)
-        {
-            SUNITDMG_AddExperienceForPlayer(pGame, pUnit, nLevel, nThreshold - nExperience);
-        }
-        return;
-    }
-
-    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
-    if (!pOwner || pOwner->dwUnitType != UNIT_PLAYER || nLevel >= DATATBLS_GetMaxLevel(0))
-    {
-        return;
-    }
-
-    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pOwner, pUnit->dwUnitId);
-    if (!pPetInfo)
-    {
-        return;
-    }
-
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pPetInfo->nHirelingId, nLevel);
-    if (!pHirelingTxtRecord)
-    {
-        return;
-    }
-
-    const int nExperience = STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
-    SUNITDMG_AddExperienceForHireling(pGame, pOwner, pUnit, nLevel, MONSTERS_GetHirelingExpForNextLevel(nTargetLevel, pHirelingTxtRecord->dwExpPerLvl) - nExperience);
 }
 
 struct D2StatListStrc;

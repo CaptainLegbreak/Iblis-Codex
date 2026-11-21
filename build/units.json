@@ -57476,6 +57476,19 @@
      "name": "?SUNITDMG_AddExperience@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x0057EB10",
+     "length": 244
+    },
+    {
+     "va": "0x0057EC10",
+     "length": 311
+    },
+    {
+     "va": "0x0057ED50",
+     "length": 23,
+     "name": "?sub_0057ED50_SetPlayerDataField154@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x0057F390",
      "length": 128,
      "name": "sub_0057F390_DropCorpseGold"
@@ -57786,45 +57799,6 @@
      "va": "0x005C7390",
      "length": 387,
      "name": "?SKILLS_SrvDo119_DruidSummon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0057EB10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057EB10",
-     "length": 244
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0057EC10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0057EC10",
-     "length": 311
-    },
-    {
-     "va": "0x0057ED50",
-     "length": 23,
-     "name": "?sub_0057ED50_SetPlayerDataField154@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
