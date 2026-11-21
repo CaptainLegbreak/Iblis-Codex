@@ -872,6 +872,13 @@ void __stdcall sub_00480040_CallServiceWithHashName(const unsigned char* pHash, 
     gpService_007BC998->pfnCall(szName, nArg2, nArg3, &tTime, -1, -1);
 }
 
+
+// 0x004800C0
+void* __stdcall sub_004800C0_WardenAlloc(int nSize)
+{
+    return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x274, 0);
+}
+
 // 0x00480150
 bool __stdcall sub_00480150_TakeWardenBuffer(void* pDst, unsigned int* pSize)
 {

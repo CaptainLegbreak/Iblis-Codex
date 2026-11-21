@@ -667,12 +667,6 @@ int __stdcall sub_00480000_SendWardenPacket(const void* pData, int nSize)
     return sub_00478830_SendPacket66(pData, nSize);
 }
 
-// 0x004800C0
-void* __stdcall sub_004800C0_WardenAlloc(int nSize)
-{
-    return SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x274, 0);
-}
-
 // 0x004800E0
 void __stdcall sub_004800E0_WardenFree(void* pMemory)
 {

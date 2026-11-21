@@ -22354,11 +22354,6 @@
      "name": "sub_00480000_SendWardenPacket"
     },
     {
-     "va": "0x004800C0",
-     "length": 28,
-     "name": "sub_004800C0_WardenAlloc"
-    },
-    {
      "va": "0x004800E0",
      "length": 28,
      "name": "sub_004800E0_WardenFree"
@@ -24378,6 +24373,11 @@
      "va": "0x00480040",
      "length": 122,
      "name": "?sub_00480040_CallServiceWithHashName@@YGXPBEHH@Z"
+    },
+    {
+     "va": "0x004800C0",
+     "length": 28,
+     "name": "sub_004800C0_WardenAlloc"
     },
     {
      "va": "0x00480150",
