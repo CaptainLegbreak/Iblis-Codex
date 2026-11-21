@@ -31,7 +31,6 @@ struct T004013C0;
 
 struct D2PacketUnitRecordStrc;
 
-
 struct D2AreaScanFindStrc;
 
 struct D2SkillsTxt;
@@ -84,7 +83,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
 struct T004013C0
 {
     char unk0x00[0x0C];
@@ -117,7 +115,6 @@ struct D2PacketUnitRecordStrc
 };
 
 #pragma pack(pop)
-
 
 struct D2AreaScanFindStrc
 {
@@ -443,7 +440,6 @@ extern "C" int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2); // 0x
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
-
 void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
 int __fastcall sub_004C5E20_CountCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit); // 0x004C5E20
@@ -455,7 +451,6 @@ extern const int gaRingTargetX_006DACC0[64]; // 0x006DACC0
 struct D2PetTypeTxt;
 
 struct D2SkillDescTxt;
-
 
 int __fastcall sub_00479150_GetOwnerId(int nUnitId); // 0x00479150
 
@@ -520,8 +515,26 @@ static int __stdcall sub_004C6140_StartSkill(int nOwnerGUID, int nSkillLevel, D2
 int __fastcall sub_004C6660_StartSkillWrapper(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nOwnerGUID);
 
 int __stdcall ITEMS_CanItemBeUsedForThrowSkill(D2UnitStrc* pItem); // 0x0062A310
+
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
+
+int __fastcall sub_004C9D70(D2UnitStrc* pUnit); // 0x004C9D70
+
+void __fastcall sub_004CB6A0_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CB6A0
+
+void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
+
+void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
+
+void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
+
+D2UnitStrc* __fastcall sub_004C5EB0_ScanFind(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
+
+int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+
+int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId); // 0x00463900
 
 // 0x00436E90
 int __stdcall sub_00436E90_AlwaysOne(int nArg)
@@ -646,7 +659,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     }
     return 0;
 }
-
 
 // 0x004C54F0
 int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit)
@@ -1840,7 +1852,6 @@ int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit)
     return sub_004C6680_SkillDo(pUnit, nSkillId, nLevel, 0);
 }
 
-
 // 0x004C6930
 void __fastcall sub_004C6930_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, unsigned char nMode)
 {
@@ -2155,8 +2166,6 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-
-
 // 0x004C7000
 static void __stdcall sub_004C7000_SpawnRing(D2MissileStrc* pAltParams, D2MissileStrc* pParams)
 {
@@ -2322,7 +2331,6 @@ void __fastcall sub_004C7470_SetMissileDirection(D2UnitStrc* pMissile, int nDire
     sub_006488A0_SetDirection(pMissile->pDynamicPath, nDirection);
 }
 
-
 static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
@@ -2466,7 +2474,6 @@ int __fastcall sub_004C7700(D2UnitStrc* pMissile, int nMissile, int nCount, int 
     return 1;
 }
 
-
 // 0x004C7890
 void __fastcall sub_004C7890(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
@@ -2506,7 +2513,6 @@ void __fastcall sub_004C7950(D2UnitStrc* pUnit)
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
     }
 }
-
 
 static __forceinline D2SkillDescTxt* SKILLCLT_GetSkillDescTxtRecord(int nSkillDesc)
 {
@@ -2961,6 +2967,125 @@ int __fastcall sub_004C9D70(D2UnitStrc* pUnit)
         }
     }
     return 7;
+}
+
+static __forceinline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return pUnit->dwUnitType;
+    }
+    return 6;
+}
+
+static __forceinline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return pUnit->dwUnitId;
+    }
+    return -1;
+}
+
+// 0x004C9DB0
+int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    const int nFlags = SKILLS_GetFlags(pSkill);
+    int nFrameCount = 15;
+    if (DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit))
+    {
+        nFrameCount = DATATBLS_GetSeqFrameCount(pUnit);
+    }
+
+    const int nEventFrame = sub_004C9D70(pUnit);
+    if (pUnit && (pUnit->dwUnitType == UNIT_PLAYER || pUnit->dwUnitType == UNIT_MONSTER) && pUnit->nActionFrame == 3)
+    {
+        sub_004CB6A0_PlayAttackSound(pUnit, pUnit->dwAnimMode, 0);
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = 0;
+    const int nTargetType = SKILLS_GetParam1(pSkill);
+    const int nTargetId = SKILLS_GetParam2(pSkill);
+    if (nTargetType != 6)
+    {
+        pTarget = sub_00463990(nTargetId, nTargetType);
+    }
+
+    if (nFlags & 1)
+    {
+        if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+        {
+            SKILLS_SetFlags(pSkill, 0);
+            UNITS_SetAnimationFrame(pUnit, nEventFrame + 1);
+            pUnit->dwFrameCountPrecise = nFrameCount << 8;
+            return 1;
+        }
+
+        if (nFlags & 2)
+        {
+            D2UnitStrc* pFound = sub_004C5EB0_ScanFind(pUnit, 0, 0, 3, 3, nTargetId, 0);
+            if (pFound && UNITS_IsInMeleeRange(pUnit, pFound, 0))
+            {
+                SKILLS_SetFlags(pSkill, 0);
+                SKILLS_SetParam1(pSkill, sub_GetUnitTypeChecked(pFound));
+                SKILLS_SetParam2(pSkill, sub_GetUnitGUIDChecked(pFound));
+                return 1;
+            }
+
+            SKILLS_SetFlags(pSkill, 0);
+            if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+            {
+                switch (sub_00463900_GetValidMonsterId(sub_00463860(pUnit)))
+                {
+                case 0x1B4:
+                case 0x1B9:
+                    return 1;
+                }
+            }
+
+            pUnit->dwFrameCountPrecise = 0x100;
+            return 1;
+        }
+
+        if ((pUnit->dwSeqFrame >> 8) >= nEventFrame)
+        {
+            UNITS_SetAnimationFrame(pUnit, 0);
+            pUnit->dwFrameCountPrecise = nFrameCount << 8;
+            SKILLS_SetFlags(pSkill, 1);
+        }
+
+        pUnit->dwFlags &= ~0x40;
+        int nState = SKILLS_GetParam3(pSkill);
+        if (nState < 2)
+        {
+            ++nState;
+        }
+        SKILLS_SetParam3(pSkill, nState);
+        return 1;
+    }
+
+    SKILLS_SetFlags(pSkill, 0);
+    SKILLS_SetParam1(pSkill, 0);
+    SKILLS_SetParam2(pSkill, 0);
+    pUnit->dwFrameCountPrecise = (nFrameCount - (pUnit->dwSeqFrame >> 8)) << 8;
+    if (!pTarget)
+    {
+        pTarget = sub_004C5EB0_ScanFind(pUnit, 0, 0, 3, 3, -1, 0);
+        if (!pTarget)
+        {
+            return 0;
+        }
+    }
+
+    D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
+    return 1;
 }
 
 // 0x004CA000

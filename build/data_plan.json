@@ -897,7 +897,6 @@
     "extern \"C\" void __cdecl sub_004C9490_MissileAroundUnit(); // 0x004C9490",
     "extern \"C\" void __cdecl sub_004C95E0_MissileAtTargetPos(); // 0x004C95E0",
     "extern \"C\" void __cdecl sub_004C97C0(); // 0x004C97C0",
-    "extern \"C\" void __cdecl sub_004C9DB0_SkillCltDo(); // 0x004C9DB0",
     "extern \"C\" void __cdecl sub_004CA030_TickEvent(); // 0x004CA030",
     "extern \"C\" void __cdecl sub_004E0A30_CltDoClearSeqSpeed(); // 0x004E0A30",
     "extern \"C\" void __cdecl sub_004E0C60_CltDoResetActionFrame(); // 0x004E0C60",
@@ -64149,7 +64148,7 @@
     [
      148,
      "0x004C9DB0",
-     "source",
+     "owner",
      "sub_004C9DB0_SkillCltDo",
      0,
      "func"

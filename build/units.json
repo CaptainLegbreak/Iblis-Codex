@@ -11783,6 +11783,10 @@
      "name": "?sub_004C9D70@@YIHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004C9DB0",
+     "length": 587
+    },
+    {
      "va": "0x004CA000",
      "length": 44,
      "name": "?sub_004CA000@@YIXPAUD2UnitStrc@@H@Z"
@@ -33869,30 +33873,6 @@
      "length": 47,
      "name": "?sub_004CA030_TickEvent@@YIHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/Skills_004C9DB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C9DB0",
-     "length": 587
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
