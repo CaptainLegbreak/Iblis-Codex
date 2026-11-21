@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
@@ -69,10 +70,6 @@ struct D2MessageListStrc;
 struct D2GSPacketSrv27;
 
 struct D2MonStatsTxt;
-
-struct D2InteractionStrc;
-
-struct D2InteractionListStrc;
 
 struct D2MercDataStrc;
 
@@ -158,20 +155,6 @@ struct Node00572DE0 { int nId; unsigned int dwUnknown04; Node00572DE0* pNext; };
 
 struct List00572DE0 { Node00572DE0* pHead; };
 
-struct D2MonsterDataStrc
-{
-    D2MonStatsTxt* pMonstatsTxt;
-    unsigned char nComponent[16];
-    unsigned char unk_14[0x1C];
-    union
-    {
-        D2MonsterInteractStrc* pMonInteract;
-        D2InteractionListStrc* pInteractions;
-    };
-    int nAiValue;
-    int nAiState;
-};
-
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 void __fastcall sub_6FC3F340(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
@@ -229,18 +212,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern "C" const char gszMonsterAISourceFile[]; // 0x006E1560
 
 static __declspec(noinline) int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit);
-
-struct D2InteractionStrc
-{
-    D2UnitStrc* pUnit;
-    int nState;
-    D2InteractionStrc* pNext;
-};
-
-struct D2InteractionListStrc
-{
-    D2InteractionStrc* pFirst;
-};
 
 struct D2MercDataStrc
 {
@@ -581,12 +552,12 @@ void __fastcall sub_6FC61AB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
 
 static __forceinline int GetUnitType(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
 
-inline D2InteractionListStrc* GetInteractions(D2UnitStrc* pUnit)
+inline D2MonsterInteractStrc* GetInteractions(D2UnitStrc* pUnit)
 {
     if (GetUnitType(pUnit) == 1)
     {
         D2MonsterDataStrc* pData = pUnit->pMonsterData;
-        return !pData ? 0 : pData->pInteractions;
+        return !pData ? 0 : pData->pMonInteract;
     }
     return 0;
 }
@@ -594,14 +565,14 @@ inline D2InteractionListStrc* GetInteractions(D2UnitStrc* pUnit)
 // 0x00572EA0
 void __fastcall sub_00572EA0_AdvanceInteraction(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
-    D2InteractionListStrc* pList = GetInteractions(pUnit);
-    D2InteractionStrc* pEntry = pList->pFirst;
+    D2MonsterInteractStrc* pList = GetInteractions(pUnit);
+    D2InteractInfoStrc* pEntry = pList->pInteractInfo;
     while (pEntry)
     {
         if (pEntry->pUnit == pTarget)
         {
-            if (pEntry->nState == 1)
-                pEntry->nState = 2;
+            if (pEntry->nInteract == 1)
+                pEntry->nInteract = 2;
             return;
         }
         pEntry = pEntry->pNext;
@@ -611,12 +582,12 @@ void __fastcall sub_00572EA0_AdvanceInteraction(D2UnitStrc* pUnit, D2UnitStrc* p
 // 0x00572EE0
 int __fastcall sub_00572EE0_IsInteractionReady(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
-    D2InteractionListStrc* pList = GetInteractions(pUnit);
-    D2InteractionStrc* pEntry = pList->pFirst;
+    D2MonsterInteractStrc* pList = GetInteractions(pUnit);
+    D2InteractInfoStrc* pEntry = pList->pInteractInfo;
     while (pEntry)
     {
         if (pEntry->pUnit == pTarget)
-            return pEntry->nState == 2;
+            return pEntry->nInteract == 2;
         pEntry = pEntry->pNext;
     }
     return 0;
@@ -810,7 +781,7 @@ static __forceinline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnitInline(
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
-        return pUnit->pMonsterData->pMonstatsTxt;
+        return (D2MonStatsTxt*)pUnit->pMonsterData->pMonstatsTxt;
     }
 
     return 0;
