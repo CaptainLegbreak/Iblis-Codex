@@ -2567,6 +2567,13 @@ D2CommonStormHashTableAStrc::TSHashTable()
         m_slotlistarray.f_8[i].ChangeLinkOffset(4);
 }
 
+// build: symbol ??_7?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@6B@ 0x006E62C8
+// 0x00610550
+D2CommonStormHashTableBStrc::~TSHashTable()
+{
+    sub_0060EE60_InternalClear(1);
+}
+
 // 0x006105F0
 D2CommonStormZero6105F0Strc::D2CommonStormZero6105F0Strc() : n0x04(0), n0x08(0), n0x0C(0), n0x10(0), n0x14(0)
 {

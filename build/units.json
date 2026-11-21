@@ -76574,6 +76574,10 @@
      "name": "?0D2CommonStormHashTableAStrc"
     },
     {
+     "va": "0x00610550",
+     "length": 146
+    },
+    {
      "va": "0x006105F0",
      "length": 20,
      "name": "??0D2CommonStormZero6105F0Strc@@QAE@XZ"
@@ -76870,30 +76874,6 @@
      "va": "0x00611560",
      "length": 130,
      "name": "?sub_00611560_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_00610550.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00610550",
-     "length": 146
     }
    ],
    "flags": [
