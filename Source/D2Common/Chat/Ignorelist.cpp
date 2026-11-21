@@ -1860,6 +1860,7 @@ void D2CommonStormSlotArrayBStrc::sub_0060F720_ReallocData(unsigned int nAlloc)
     }
 }
 
+// 0x0060DF10
 int D2CommonIgnoreListStrc::sub_0060DF10_OnAdded(const char* szLine)
 {
     if (!szLine || !*szLine || !sub_0060DDF0_IsEnabled())
@@ -1880,6 +1881,7 @@ int D2CommonIgnoreListStrc::sub_0060DF10_OnAdded(const char* szLine)
     return bResult;
 }
 
+// 0x0060DFF0
 int D2CommonIgnoreListStrc::sub_0060DFF0_NormalizeKey(const char* szName, char* szOut, int nSize)
 {
     D2_ASSERT(szOut, 416);
