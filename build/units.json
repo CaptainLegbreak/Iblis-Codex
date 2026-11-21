@@ -61910,11 +61910,6 @@
      "name": "?ACT2Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
-     "va": "0x0059BD70",
-     "length": 251,
-     "name": "?ACT2Q5_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
      "va": "0x0059BF80",
      "length": 73,
      "name": "?ACT2Q5_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -61982,6 +61977,11 @@
    "file": "Source/D2Game/Quests/a2q5.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0059BD70",
+     "length": 251,
+     "name": "?ACT2Q5_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
     {
      "va": "0x0059BF70",
      "length": 5,

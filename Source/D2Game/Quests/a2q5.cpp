@@ -80,6 +80,49 @@ int __fastcall ACT2Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 int __fastcall ACT2Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059BD10
 
+#define QUESTSTATEFLAG_A2Q5 13
+
+#define QFLAG_REWARDPENDING 1
+
+void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544720
+
+void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); // 0x00545200
+
+#define QFLAG_REWARDGRANTED 0
+
+void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
+
+void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget); // 0x00545780
+
+// 0x0059BD70
+void __fastcall ACT2Q5_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
+    if (nMessageIndex == 427 || nMessageIndex == 424 || nMessageIndex == 419 || nMessageIndex == 423
+        || nMessageIndex == 422 || nMessageIndex == 426 || nMessageIndex == 429 || nMessageIndex == 425
+        || nMessageIndex == 421 || nMessageIndex == 420 || nMessageIndex == 428)
+    {
+        D2GameStrc* pGame = pQuestArg->pGame;
+        D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
+        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_REWARDPENDING))
+        {
+            if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_PRIMARYGOALDONE))
+            {
+                *(unsigned char*)&pQuestData->dwFlags = 0;
+                QUESTS_UnitIterate(pQuestData, 13, 0, ACT2Q5_UnitIterate_StatusCyclerEx, 1);
+                QUESTS_SetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A2Q5, QFLAG_PRIMARYGOALDONE);
+                QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q5.cpp", 244);
+            }
+
+            QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
+            QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_REWARDGRANTED);
+            QUESTRECORD_ClearQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q5, QFLAG_REWARDPENDING);
+        }
+
+        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
+    }
+}
+
 // 0x0059BF70
 void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
