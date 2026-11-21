@@ -1,10 +1,5 @@
 #include "D2GameTypes.h"
-
-struct T0041FA40
-{
-    void* hLog;
-    T0041FA40* pNext;
-};
+#include "Storm.h"
 
 struct D2WinMsgStrc
 {

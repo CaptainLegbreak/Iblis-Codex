@@ -9,7 +9,6 @@ struct D2ConfigStrc;
 struct D2PoolSystemStrc;
 struct D2ImageDataDirStrc;
 struct D2ImageOptionalHeader64Strc;
-struct D2ImageOptionalHeader32Strc;
 struct D2FloatSaveStrc;
 struct D2StackFrameStrc;
 struct D2IniEntryStrc;
@@ -17,15 +16,7 @@ struct Character;
 struct D2CmdArgStrc;
 struct D2ComInterfaceStrc;
 
-struct D2ImageOptionalHeader32Strc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x5A];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
-
-static void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader32Strc* pHeader);
+static void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeaderStrc* pHeader);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall VirtualQuery(const void* pAddress, D2MemoryBasicInfoStrc* pBuffer, unsigned long nLength); // 0x006CC244
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
@@ -175,7 +166,7 @@ void __fastcall sub_G02_Emit_00404F40(const D2ImageOptionalHeader64Strc* pHeader
 }
 
 // 0x00404F60
-static void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader32Strc* pHeader)
+static void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeaderStrc* pHeader)
 {
     if (pHeader->NumberOfRvaAndSizes > 6)
     {
@@ -185,7 +176,7 @@ static void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, uns
     }
 }
 
-void __fastcall DebugDirectory32Context(const D2ImageOptionalHeader32Strc* pHeader, unsigned long* pOut)
+void __fastcall DebugDirectory32Context(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pOut)
 {
     sub_00404F60_GetDebugDirectory32(&pOut[1], &pOut[0], pHeader);
     sub_00404F60_GetDebugDirectory32(&pOut[3], &pOut[2], pHeader + 1);

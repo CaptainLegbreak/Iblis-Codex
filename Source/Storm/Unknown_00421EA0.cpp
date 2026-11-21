@@ -1,3 +1,4 @@
+#include "D2StormAutoLink.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
@@ -9,7 +10,6 @@ struct D2StormQueueStrc;
 struct D2StormBigStrc;
 struct D2StormRecordStackStrc;
 struct D2StormArrayBStrc;
-struct D2StormLinkStrc;
 struct D2StormBreakCmdStrc;
 struct D2GameLinkStrc;
 struct D2StormListAStrc;
@@ -165,35 +165,6 @@ struct D2StormBigStrc
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn); // 0x00421CB0
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    ~D2StormLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
 
 struct D2StormBreakCmdStrc
 {

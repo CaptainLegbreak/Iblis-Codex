@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2StormAutoLink.h"
 
 #define ZLIB_VERSION    "1.2.8"
 #define Z_VERSION_ERROR (-6)
@@ -6,7 +7,6 @@
 #define MIN_MATCH       3
 #define FINISH_STATE    666
 
-struct D2StormLinkStrc;
 struct D2StormBreakCmdListStrc;
 struct D2StormListAStrc;
 struct D2StormListFixedArrayStrc;
@@ -22,39 +22,6 @@ int __stdcall SMemFree(void* pLocation, const char* szLogFileName, int nLogLine,
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0
 extern const char gszTypeSGameData_0070F56C[]; // 0x0070F56C
 extern const char gszTypeExplicitList_0070F584[]; // 0x0070F584
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    ~D2StormLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
 
 struct D2StormBreakCmdListStrc
 {

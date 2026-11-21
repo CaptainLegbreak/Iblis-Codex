@@ -1,3 +1,4 @@
+#include "Storm.h"
 // Altered from the original zlib source.
 #define OFF 1
 #define PUP(a) *++(a)
@@ -13,13 +14,6 @@ typedef enum
     LENS,
     DISTS
 } codetype;
-
-struct code
-{
-    unsigned char op;
-    unsigned char bits;
-    unsigned short val;
-};
 
 struct z_stream
 {

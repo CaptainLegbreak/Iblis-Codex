@@ -1,7 +1,7 @@
 #include "Storm.h"
+#include "D2StormAutoLink.h"
 #include "D2StormTypes.h"
 
-struct D2StormLinkStrc;
 
 struct D2StormNodeListStrc;
 
@@ -66,40 +66,6 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
 int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubtype); // 0x00426370
 
 extern unsigned int gaCrc32Table_00708448[256]; // 0x00708448
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc() : m_prevlink(0), m_next(0)
-    {
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    D2StormLinkStrc* sub_0041E900_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_004203F0_NextLink(int nLinkOffset);
-};
 
 struct D2StormNodeListStrc
 {

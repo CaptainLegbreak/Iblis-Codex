@@ -1,5 +1,5 @@
 #pragma once
-// Storm's intrusive lists and growable arrays as the cel loader (CelCmp*.cpp) uses them: the link, the list kinds
+// Storm's intrusive lists and growable arrays as the cel loader (CelCmp*.cpp) uses them: the list kinds
 // (slot, node, E, A lists) and the slot and entry arrays.
 
 struct D2StormEntry38Strc;
@@ -8,48 +8,7 @@ struct D2CelEntryStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;                            // 0x00
-    char* m_next;                                           // 0x04
-
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    ~D2StormLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    D2StormLinkStrc* sub_00601BC0_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00601C30_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00601D30_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_0060E170_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_0060E1C0_NextLink(int nLinkOffset);
-};
+#include "D2StormAutoLink.h"
 
 struct D2StormNodeStrc
 {
