@@ -1,5 +1,5 @@
-#include "D2Common.h"
 #include "D2Txt.h"
+#include "D2Common.h"
 #include "D2Records.h"
 struct D2BinFieldStrc;
 struct D2OpStatDataStrc;

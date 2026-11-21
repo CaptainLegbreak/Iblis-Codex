@@ -290,13 +290,20 @@ struct D2MissilesTxt
     unsigned char unk0x12D[0x3]; // 0x12D
     unsigned char nLight; // 0x130
     unsigned char nFlicker; // 0x131
-    unsigned char nRed; // 0x132
-    unsigned char nGreen; // 0x133
-    unsigned char nBlue; // 0x134
+    union
+    {
+        struct
+        {
+            unsigned char nRed; // 0x132
+            unsigned char nGreen; // 0x133
+            unsigned char nBlue; // 0x134
+        };
+        unsigned char nRGB[3]; // 0x132
+    };
     unsigned char nCanDestroy; // 0x135
     unsigned char nActivate; // 0x136
     unsigned char nLoopAnim; // 0x137
-    unsigned char unk0x138[0x40]; // 0x138
+    char szCelFile[64]; // 0x138
     unsigned char nAnimLen; // 0x178
     unsigned char unk0x179[0x3]; // 0x179
     int nRandFrames; // 0x17C
@@ -333,7 +340,11 @@ struct D2MonStatsTxt
     unsigned short wDescStr; // 0x08
     unsigned char unk0x0A[0x2]; // 0x0A
     unsigned char nMonStatsFlags[4]; // 0x0C
-    unsigned int dwCode; // 0x10
+    union
+    {
+        unsigned int dwCode; // 0x10
+        char szCode[4]; // 0x10
+    };
     short wMonSound; // 0x14
     short wUMonSound; // 0x16
     short wMonStatsEx; // 0x18
@@ -582,10 +593,17 @@ struct D2SkillsTxt
     unsigned int dwSumSkCalc[5]; // 0xD0
     short wSumUMod; // 0xE4
     short wSumOverlay; // 0xE6
-    short wAuraFunc; // 0xE8
-    short wCltMissileA; // 0xEA
-    short wCltMissileB; // 0xEC
-    short wCltMissileC; // 0xEE
+    union
+    {
+        struct
+        {
+            short wAuraFunc; // 0xE8
+            short wCltMissileA; // 0xEA
+            short wCltMissileB; // 0xEC
+            short wCltMissileC; // 0xEE
+        };
+        short wCltMissile[4]; // 0xE8
+    };
     short wCltMissileD; // 0xF0
     short wStartFunc; // 0xF2
     short clientDo; // 0xF4
@@ -594,7 +612,7 @@ struct D2SkillsTxt
     short wStartSoundClass; // 0xFE
     short wDoSound; // 0x100
     short wDoSoundA; // 0x102
-    unsigned char unk0x104[0x2]; // 0x104
+    short wDoSoundB; // 0x104
     short wCastOverlay; // 0x106
     short wTgtOverlay; // 0x108
     short wTgtSound; // 0x10A
