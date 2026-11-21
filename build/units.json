@@ -69636,6 +69636,10 @@
      "name": "AITHINK_Fn136_BaalTaunt"
     },
     {
+     "va": "0x005EF820",
+     "length": 232
+    },
+    {
      "va": "0x005EFA50",
      "length": 57,
      "name": "AITHINK_TargetCallback_PutridDefiler"
@@ -69671,6 +69675,10 @@
      "name": "sub_005F4FD0"
     },
     {
+     "va": "0x005F56D0",
+     "length": 348
+    },
+    {
      "va": "0x005F7240",
      "length": 143,
      "name": "?AITHINK_TargetCallback_ZakarumPriest@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -69684,6 +69692,10 @@
      "va": "0x005F81C0",
      "length": 3,
      "name": "AITHINK_Fn146_UberMephisto"
+    },
+    {
+     "va": "0x005F81D0",
+     "length": 135
     },
     {
      "va": "0x005F9950",
@@ -69704,6 +69716,18 @@
      "va": "0x005FAE40",
      "length": 183,
      "name": "?AITHINK_TargetCallback_OblivionKnight@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005FB410",
+     "length": 401
+    },
+    {
+     "va": "0x005FB900",
+     "length": 174
+    },
+    {
+     "va": "0x005FB9B0",
+     "length": 174
     },
     {
      "va": "0x005FC830",
@@ -70525,50 +70549,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005EF820.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EF820",
-     "length": 232
-    },
-    {
-     "va": "0x005F56D0",
-     "length": 348
-    },
-    {
-     "va": "0x005F81D0",
-     "length": 135
-    },
-    {
-     "va": "0x005FB410",
-     "length": 401
-    },
-    {
-     "va": "0x005FB900",
-     "length": 174
-    },
-    {
-     "va": "0x005FB9B0",
-     "length": 174
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
