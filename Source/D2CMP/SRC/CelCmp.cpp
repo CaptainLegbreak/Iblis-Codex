@@ -4017,4 +4017,40 @@ int __fastcall sub_00600C60_CallFree(void* pMemory)
     return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
 }
 
+// 0x006045B0
+int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
+{
+    D2StormSlotListStrc* const& pListArray = m_slotlistarray.f_8;
+    if (m_slotmask >= 0x3FF)
+    {
+        return 0;
+    }
+
+    if (m_fullnessIndicator > 3)
+    {
+        m_fullnessIndicator -= 3;
+    }
+    else
+    {
+        m_fullnessIndicator = 0;
+    }
+
+    D2StormSlotLinkStrc* const pTerminator = &pListArray[nSlot].m_terminator;
+    char* const pHead = (int)pTerminator->m_next <= 0 ? 0 : pTerminator->m_next;
+    for (char* pEntry = pHead; (int)pEntry > 0; )
+    {
+        ++m_fullnessIndicator;
+        if (m_fullnessIndicator > 13)
+        {
+            m_fullnessIndicator = 0;
+            sub_00603C80_GrowListArray();
+            return 1;
+        }
+
+        pEntry = pListArray[nSlot].Link(pEntry)->m_next;
+    }
+
+    return 0;
+}
+
 #include "gen/data/Source/D2CMP/SRC/CelCmp.inc"

@@ -70290,6 +70290,10 @@
      "name": "sub_00604440_Grow"
     },
     {
+     "va": "0x006045B0",
+     "length": 144
+    },
+    {
      "va": "0x00604840",
      "length": 37,
      "name": "sub_00604840_NewHandle"
@@ -71204,30 +71208,6 @@
      "length": 27,
      "name": "?Destroy@D2GameHashTableReuseStrc@@UAEXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_006045B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006045B0",
-     "length": 144
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
