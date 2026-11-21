@@ -33209,6 +33209,11 @@
      "name": "?sub_004D34E0_CltDoParamCall@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004D3540",
+     "length": 233,
+     "name": "?sub_004D3540_CltDoSubLoop@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004D37F0",
      "length": 222,
      "name": "?sub_004D37F0_CltDoCommon3@@YIXPAUD2UnitStrc@@@Z"
@@ -34630,17 +34635,6 @@
      "va": "0x004D3460",
      "length": 114,
      "name": "?sub_004D3460_CltDoFollowUp@@YIXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D3540.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004D3540",
-     "length": 233,
-     "name": "?sub_004D3540_CltDoSubLoop@@YIXPAUD2UnitStrc@@@Z"
     }
    ]
   },
