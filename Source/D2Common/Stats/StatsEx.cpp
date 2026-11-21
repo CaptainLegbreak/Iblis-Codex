@@ -139,6 +139,8 @@ void __stdcall D2Common_ExpireStatList_6FDB6E30(D2StatListStrc* pStatList);     
 
 #define UNITS_IsType(pUnit, nType) ((pUnit) && (pUnit)->dwUnitType == (nType))
 
+static D2StatsArrayStrc* sub_00624F40_GetStatsArray(D2StatListExStrc* pStatList);                           // 0x00624F40
+
 static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
@@ -1731,6 +1733,102 @@ void __fastcall sub_00626CF0_FreeExtendedStatList(D2StatListStrc* pStatList)
     if (pStatList && STATLIST_IsExtended(pStatList))
     {
         D2Common_STATLIST_FreeStatListImpl_6FDB7050(pStatList);
+    }
+}
+
+static __declspec(noinline) D2StatsArrayStrc* sub_00624F40_GetStatsArray(D2StatListExStrc* pStatList)
+{
+    if (pStatList->dwFlags & 0x80000000)
+        return &pStatList->FullStats;
+    return &pStatList->Stats;
+}
+
+// 0x00626E10
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListExStrc* pStatList, int bResetFlag)
+{
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
+    if (!pStatListEx || !(pStatListEx->dwFlags & 0x80000000))
+        return;
+
+    D2Common_ExpireStatList_6FDB6E30(pStatList);
+
+    for (D2StatListStrc* pParent = pStatListEx; pParent; pParent = pParent->pParent)
+    {
+        if (pStatList == pParent)
+            return;
+    }
+
+    if (pStatList->dwFlags & 4)
+        pStatListEx->dwFlags |= 2;
+
+    if (pStatList->dwFlags & 0x2000)
+    {
+        pStatList->pPrevLink = pStatListEx->pMyStats;
+        if (pStatListEx->pMyStats)
+            pStatListEx->pMyStats->pNextLink = pStatList;
+        pStatList->pNextLink = 0;
+        pStatListEx->pMyStats = pStatList;
+        pStatList->pParent = pStatListEx;
+        pStatList->pUnit = pUnit;
+        return;
+    }
+
+    D2StatListStrc* pLastList = pStatListEx->pMyLastList;
+    pStatList->pPrevLink = pLastList;
+    if (pLastList)
+        pLastList->pNextLink = pStatList;
+    pStatList->pParent = pStatListEx;
+    pStatListEx->pMyLastList = pStatList;
+    pStatList->pUnit = pUnit;
+
+    D2UnitStrc* pOwner = 0;
+    if (STATLIST_IsExtended(pStatList))
+        pOwner = pStatList->pOwner;
+
+    if (STATLIST_IsExtended(pStatList) && (pStatList->dwFlags & 0x20000000))
+    {
+        int aStats[16];
+        D2StatsArrayStrc* pStatsArray = sub_00624F40_GetStatsArray(pStatList);
+        D2StatStrc* pStat = pStatsArray->pStat;
+        D2StatStrc* pEnd = &pStat[pStatsArray->nStatCount];
+        int nCount = 0;
+        for (; pStat < pEnd; ++pStat)
+        {
+            const int nPacked = pStat->nPackedValue;
+            D2ItemStatCostTxt* pRecord = ITEMS_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
+            if (pRecord && pRecord->bHasOpApplyingToItem)
+                aStats[nCount++] = nPacked;
+        }
+
+        for (int i = 0; i < nCount; ++i)
+        {
+            const int nPacked = aStats[i];
+            D2ItemStatCostTxt* pRecord = sub_0045C4F0_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
+            if (pRecord)
+                sub_006266C0_UpdateStatOps(pStatList, nPacked, pRecord, 0);
+        }
+    }
+
+    const unsigned int dwListFlags = pStatList->dwFlags;
+    D2StatsArrayStrc* pStatsArray = (dwListFlags & 0x80000000) ? &pStatList->FullStats : &pStatList->Stats;
+    D2StatStrc* pStat = pStatsArray->pStat;
+    D2StatStrc* pEnd = &pStat[pStatsArray->nStatCount];
+    if (bResetFlag)
+    {
+        pStatList->dwFlags = dwListFlags & ~0x40000000;
+        for (; pStat < pEnd; ++pStat)
+            sub_00626920_UpdateStatValue(pStatListEx, pStat->nPackedValue, pStat->nValue, pOwner);
+    }
+    else
+    {
+        pStatList->dwFlags = dwListFlags | 0x40000000;
+        for (; pStat < pEnd; ++pStat)
+        {
+            const int nPacked = pStat->nPackedValue;
+            D2ItemStatCostTxt* pRecord = ITEMS_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
+            if (pRecord && !(pRecord->nItemStatFlags[2 >> 3] & gdwBitMasks_006CE268[2 & 7]))
+                sub_00626920_UpdateStatValue(pStatListEx, nPacked, pStat->nValue, pOwner);
+        }
     }
 }
 

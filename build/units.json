@@ -78713,6 +78713,10 @@
      "name": "?sub_00626CF0_FreeExtendedStatList@@YIXPAUD2StatListStrc@@@Z"
     },
     {
+     "va": "0x00626E10",
+     "length": 539
+    },
+    {
      "va": "0x00627030",
      "length": 125,
      "name": "?STATLIST_AddStat@@YGXPAUD2StatListStrc@@HHG@Z"
@@ -79014,30 +79018,6 @@
     {
      "va": "0x00626D40",
      "length": 202
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00626E10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00626E10",
-     "length": 539
     }
    ],
    "flags": [
