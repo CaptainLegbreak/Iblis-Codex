@@ -58953,11 +58953,6 @@
      "name": "ACT5Q5_ActiveFilterCallback"
     },
     {
-     "va": "0x0058DE30",
-     "length": 111,
-     "name": "ACT5Q6_UnitIterate_AttachCompletionSound"
-    },
-    {
      "va": "0x0058F9B0",
      "length": 15,
      "name": "ACT1Intro_StatusFilterCallback"
@@ -59860,6 +59855,11 @@
      "va": "0x0058DD30",
      "length": 88,
      "name": "?Q36_CompleteQuestAndSetStatus@@YGXPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2BitBufferStrc@@@Z"
+    },
+    {
+     "va": "0x0058DE30",
+     "length": 111,
+     "name": "ACT5Q6_UnitIterate_AttachCompletionSound"
     },
     {
      "va": "0x0058DEA0",
