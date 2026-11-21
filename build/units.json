@@ -71868,6 +71868,11 @@
      "name": "AITACTICS_RunToTargetUnitWithSteps"
     },
     {
+     "va": "0x005E0070",
+     "length": 225,
+     "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005E0390",
      "length": 105,
      "name": "sub_005E0390"
@@ -71876,6 +71881,21 @@
      "va": "0x005E0400",
      "length": 45,
      "name": "AITHINK_Fn084_BoneWall"
+    },
+    {
+     "va": "0x005E1720",
+     "length": 177,
+     "name": "?AITHINK_TargetCallback_SiegeBeast@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005E26D0",
+     "length": 202,
+     "name": "?AITHINK_TargetCallback_Overseer_Nihlathak@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005E2B70",
+     "length": 95,
+     "name": "?AITHINK_TargetCallback_MinionSpawner@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005E2FD0",
@@ -71913,9 +71933,42 @@
      "name": "sub_005E6860_HomeCommandStep"
     },
     {
+     "va": "0x005E7540",
+     "length": 69,
+     "name": "AITHINK_Fn041_Towner"
+    },
+    {
+     "va": "0x005E7F80",
+     "length": 160,
+     "name": "D2GAME_AI_SpecialState09_6FCE7C40"
+    },
+    {
      "va": "0x005E80E0",
      "length": 89,
      "name": "?D2GAME_AI_SpecialState11_6FCE7E20@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E8340",
+     "length": 313,
+     "name": "D2GAME_AI_SpecialState12_6FCE81B0"
+    },
+    {
+     "va": "0x005E8480",
+     "length": 168,
+     "name": "sub_005E8480"
+    },
+    {
+     "va": "0x005E8530",
+     "length": 727,
+     "name": "?AIBAAL_GetTargetScore@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2AiBaalTargetArgsStrc@@@Z"
+    },
+    {
+     "va": "0x005E8810",
+     "length": 1684
+    },
+    {
+     "va": "0x005E9750",
+     "length": 1663
     },
     {
      "va": "0x005E9DD0",
@@ -71933,9 +71986,32 @@
      "name": "?AITHINK_Fn042_Vendor@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005E9E60",
+     "length": 173
+    },
+    {
+     "va": "0x005E9F10",
+     "length": 361,
+     "name": "AITHINK_Fn099_TrappedSoul"
+    },
+    {
+     "va": "0x005EA080",
+     "length": 175,
+     "name": "AITHINK_Fn088_7TIllusion"
+    },
+    {
+     "va": "0x005EA130",
+     "length": 341
+    },
+    {
      "va": "0x005EA290",
      "length": 28,
      "name": "sub_005EA290"
+    },
+    {
+     "va": "0x005EA2B0",
+     "length": 282,
+     "name": "?AITHINK_AssasinSentryHasLostTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@H@Z"
     },
     {
      "va": "0x005EA3D0",
@@ -71948,13 +72024,74 @@
      "name": "sub_005EA510"
     },
     {
+     "va": "0x005EA540",
+     "length": 595,
+     "name": "?AITHINK_Fn102_BladeCreeper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005EA7A0",
+     "length": 467,
+     "name": "?AITHINK_Fn103_InvisoPet@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005EA980",
+     "length": 405
+    },
+    {
      "va": "0x005EAB20",
      "length": 196,
      "name": "?AITHINK_ShadowMasterCheckTargetPetType@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
     },
     {
+     "va": "0x005EABF0",
+     "length": 344
+    },
+    {
      "va": "0x005EAD50",
      "length": 421
+    },
+    {
+     "va": "0x005EAF00",
+     "length": 74,
+     "name": "sub_005EAF00_ShadowWarriorSkillLevel"
+    },
+    {
+     "va": "0x005EAF50",
+     "length": 71,
+     "name": "sub_005EAF50"
+    },
+    {
+     "va": "0x005EAFA0",
+     "length": 1140
+    },
+    {
+     "va": "0x005EB420",
+     "length": 99,
+     "name": "sub_005EB420_ShadowMasterSkillLevel"
+    },
+    {
+     "va": "0x005EB490",
+     "length": 298,
+     "name": "?sub_005EB490@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005EB5C0",
+     "length": 136,
+     "name": "sub_005EB5C0"
+    },
+    {
+     "va": "0x005EB6D0",
+     "length": 279,
+     "name": "?AITHINK_TargetCallback_ShadowMaster@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005EB8B0",
+     "length": 180,
+     "name": "sub_005EB8B0_ShadowMasterUseSkill"
+    },
+    {
+     "va": "0x005EB970",
+     "length": 3364
     },
     {
      "va": "0x005EC6A0",
@@ -71962,9 +72099,27 @@
      "name": "sub_005EC6A0"
     },
     {
+     "va": "0x005ECBC0",
+     "length": 77,
+     "name": "?sub_005ECBC0_RavenWalkToUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1EH@Z"
+    },
+    {
      "va": "0x005EDC00",
      "length": 54,
      "name": "sub_005EDC00_SetAiParams12"
+    },
+    {
+     "va": "0x005EDF70",
+     "length": 202,
+     "name": "sub_005EDF70_TryRoomSteps"
+    },
+    {
+     "va": "0x005EE3C0",
+     "length": 511
+    },
+    {
+     "va": "0x005EE5D0",
+     "length": 1222
     },
     {
      "va": "0x005EF1F0",
@@ -71982,14 +72137,84 @@
      "name": "AITHINK_TargetCallback_BaalToStairs"
     },
     {
+     "va": "0x005EF620",
+     "length": 235,
+     "name": "AITHINK_Fn138_BaalToStairs"
+    },
+    {
+     "va": "0x005EF710",
+     "length": 263,
+     "name": "AITHINK_Fn136_BaalTaunt"
+    },
+    {
+     "va": "0x005EFA50",
+     "length": 57,
+     "name": "AITHINK_TargetCallback_PutridDefiler"
+    },
+    {
      "va": "0x005F06B0",
      "length": 73,
      "name": "AITHINK_TargetCallback_SandRaider"
     },
     {
+     "va": "0x005F1380",
+     "length": 177,
+     "name": "?AITHINK_TargetCallback_FallenShaman@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005F1750",
+     "length": 165,
+     "name": "sub_005F1750"
+    },
+    {
+     "va": "0x005F2A00",
+     "length": 260,
+     "name": "AITHINK_TargetCallback_GreaterMummy"
+    },
+    {
+     "va": "0x005F30F0",
+     "length": 122,
+     "name": "AITHINK_TargetCallback_Vulture"
+    },
+    {
+     "va": "0x005F4FD0",
+     "length": 100,
+     "name": "sub_005F4FD0"
+    },
+    {
+     "va": "0x005F7240",
+     "length": 143,
+     "name": "?AITHINK_TargetCallback_ZakarumPriest@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005F7700",
+     "length": 181,
+     "name": "AITHINK_TargetCallback_Mephisto"
+    },
+    {
      "va": "0x005F81C0",
      "length": 3,
      "name": "AITHINK_Fn146_UberMephisto"
+    },
+    {
+     "va": "0x005F9950",
+     "length": 76,
+     "name": "D2GAME_AI_SpecialState04_6FCDC170"
+    },
+    {
+     "va": "0x005F99A0",
+     "length": 215,
+     "name": "?AITHINK_TargetCallback_FetishShaman@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005F9CF0",
+     "length": 305,
+     "name": "AITHINK_Fn066_SandMaggotQueen"
+    },
+    {
+     "va": "0x005FAE40",
+     "length": 183,
+     "name": "?AITHINK_TargetCallback_OblivionKnight@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005FC830",
@@ -72174,82 +72399,6 @@
      "va": "0x005E0060",
      "length": 1,
      "name": "?sub_005E0060_QuestsFxEmpty@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E0070.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E0070",
-     "length": 225,
-     "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005E1720",
-     "length": 177,
-     "name": "?AITHINK_TargetCallback_SiegeBeast@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005E26D0",
-     "length": 202,
-     "name": "?AITHINK_TargetCallback_Overseer_Nihlathak@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005E2B70",
-     "length": 95,
-     "name": "?AITHINK_TargetCallback_MinionSpawner@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005EA2B0",
-     "length": 282,
-     "name": "?AITHINK_AssasinSentryHasLostTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@H@Z"
-    },
-    {
-     "va": "0x005EA540",
-     "length": 595,
-     "name": "?AITHINK_Fn102_BladeCreeper@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005EA7A0",
-     "length": 467,
-     "name": "?AITHINK_Fn103_InvisoPet@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005EB490",
-     "length": 298,
-     "name": "?sub_005EB490@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005EB6D0",
-     "length": 279,
-     "name": "?AITHINK_TargetCallback_ShadowMaster@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005ECBC0",
-     "length": 77,
-     "name": "?sub_005ECBC0_RavenWalkToUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1EH@Z"
-    },
-    {
-     "va": "0x005F1380",
-     "length": 177,
-     "name": "?AITHINK_TargetCallback_FallenShaman@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005F7240",
-     "length": 143,
-     "name": "?AITHINK_TargetCallback_ZakarumPriest@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005F99A0",
-     "length": 215,
-     "name": "?AITHINK_TargetCallback_FetishShaman@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005FAE40",
-     "length": 183,
-     "name": "?AITHINK_TargetCallback_OblivionKnight@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     }
    ]
   },
@@ -72819,122 +72968,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiThink4_005E7540.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E7540",
-     "length": 69,
-     "name": "AITHINK_Fn041_Towner"
-    },
-    {
-     "va": "0x005E7F80",
-     "length": 160,
-     "name": "D2GAME_AI_SpecialState09_6FCE7C40"
-    },
-    {
-     "va": "0x005E8340",
-     "length": 313,
-     "name": "D2GAME_AI_SpecialState12_6FCE81B0"
-    },
-    {
-     "va": "0x005E8480",
-     "length": 168,
-     "name": "sub_005E8480"
-    },
-    {
-     "va": "0x005E9F10",
-     "length": 361,
-     "name": "AITHINK_Fn099_TrappedSoul"
-    },
-    {
-     "va": "0x005EA080",
-     "length": 175,
-     "name": "AITHINK_Fn088_7TIllusion"
-    },
-    {
-     "va": "0x005EAF00",
-     "length": 74,
-     "name": "sub_005EAF00_ShadowWarriorSkillLevel"
-    },
-    {
-     "va": "0x005EAF50",
-     "length": 71,
-     "name": "sub_005EAF50"
-    },
-    {
-     "va": "0x005EB420",
-     "length": 99,
-     "name": "sub_005EB420_ShadowMasterSkillLevel"
-    },
-    {
-     "va": "0x005EB5C0",
-     "length": 136,
-     "name": "sub_005EB5C0"
-    },
-    {
-     "va": "0x005EB8B0",
-     "length": 180,
-     "name": "sub_005EB8B0_ShadowMasterUseSkill"
-    },
-    {
-     "va": "0x005EDF70",
-     "length": 202,
-     "name": "sub_005EDF70_TryRoomSteps"
-    },
-    {
-     "va": "0x005EF620",
-     "length": 235,
-     "name": "AITHINK_Fn138_BaalToStairs"
-    },
-    {
-     "va": "0x005EF710",
-     "length": 263,
-     "name": "AITHINK_Fn136_BaalTaunt"
-    },
-    {
-     "va": "0x005EFA50",
-     "length": 57,
-     "name": "AITHINK_TargetCallback_PutridDefiler"
-    },
-    {
-     "va": "0x005F1750",
-     "length": 165,
-     "name": "sub_005F1750"
-    },
-    {
-     "va": "0x005F2A00",
-     "length": 260,
-     "name": "AITHINK_TargetCallback_GreaterMummy"
-    },
-    {
-     "va": "0x005F30F0",
-     "length": 122,
-     "name": "AITHINK_TargetCallback_Vulture"
-    },
-    {
-     "va": "0x005F4FD0",
-     "length": 100,
-     "name": "sub_005F4FD0"
-    },
-    {
-     "va": "0x005F7700",
-     "length": 181,
-     "name": "AITHINK_TargetCallback_Mephisto"
-    },
-    {
-     "va": "0x005F9950",
-     "length": 76,
-     "name": "D2GAME_AI_SpecialState04_6FCDC170"
-    },
-    {
-     "va": "0x005F9CF0",
-     "length": 305,
-     "name": "AITHINK_Fn066_SandMaggotQueen"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005E7590.cpp",
    "rank": 0,
    "functions": [
@@ -73016,41 +73049,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiThink4_005E8530.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E8530",
-     "length": 727,
-     "name": "?AIBAAL_GetTargetScore@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2AiBaalTargetArgsStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E8810.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E8810",
-     "length": 1684
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005E8EB0.cpp",
    "rank": 0,
    "functions": [
@@ -73058,110 +73056,6 @@
      "va": "0x005E8EB0",
      "length": 99,
      "name": "AITHINK_CullPotentialTargetsForDiablo"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E9750.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E9750",
-     "length": 1663
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005E9E60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E9E60",
-     "length": 173
-    },
-    {
-     "va": "0x005EA130",
-     "length": 341
-    },
-    {
-     "va": "0x005EABF0",
-     "length": 344
-    },
-    {
-     "va": "0x005EE5D0",
-     "length": 1222
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EA980.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EA980",
-     "length": 405
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EAFA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EAFA0",
-     "length": 1140
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EB970.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EB970",
-     "length": 3364
     }
    ]
   },
@@ -73250,30 +73144,6 @@
      "length": 342,
      "name": "?sub_005EE260_Think@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiThink4_005EE3C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005EE3C0",
-     "length": 511
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
