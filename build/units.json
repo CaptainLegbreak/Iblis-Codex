@@ -31465,62 +31465,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004BAE60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BAE60",
-     "length": 14,
-     "name": "MsgSlot02"
-    },
-    {
-     "va": "0x004BAE70",
-     "length": 14,
-     "name": "MsgSlot03"
-    },
-    {
-     "va": "0x004BAE80",
-     "length": 14,
-     "name": "MsgSlot04"
-    },
-    {
-     "va": "0x004BAE90",
-     "length": 14,
-     "name": "MsgSlot05"
-    },
-    {
-     "va": "0x004BAEB0",
-     "length": 14,
-     "name": "MsgSlot06"
-    },
-    {
-     "va": "0x004BAEC0",
-     "length": 14,
-     "name": "MsgSlot08"
-    },
-    {
-     "va": "0x004BAED0",
-     "length": 14,
-     "name": "MsgSlot07"
-    },
-    {
-     "va": "0x004BAEE0",
-     "length": 14,
-     "name": "MsgSlot09"
-    },
-    {
-     "va": "0x004BAEF0",
-     "length": 14,
-     "name": "MsgSlot10"
-    },
-    {
-     "va": "0x004BAF10",
-     "length": 14,
-     "name": "sub_004BAF10_SetUnk24"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004BAEA0.cpp",
    "rank": 0,
    "functions": [
@@ -31744,27 +31688,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/editbox_004BB530.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BB530",
-     "length": 41,
-     "name": "sub_004BB530_Slot14"
-    },
-    {
-     "va": "0x004BB960",
-     "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
-    },
-    {
-     "va": "0x004BBE70",
-     "length": 128,
-     "name": "Slot01"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/editbox_004BB5E0.cpp",
    "rank": 0,
    "functions": [
@@ -31817,6 +31740,77 @@
      "va": "0x004BBFB0",
      "length": 154,
      "name": "?sub_004BBFB0@SpinnerImplementation@@UAEHXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/editbox_004BB530.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004BAE60",
+     "length": 14,
+     "name": "MsgSlot02"
+    },
+    {
+     "va": "0x004BAE70",
+     "length": 14,
+     "name": "MsgSlot03"
+    },
+    {
+     "va": "0x004BAE80",
+     "length": 14,
+     "name": "MsgSlot04"
+    },
+    {
+     "va": "0x004BAE90",
+     "length": 14,
+     "name": "MsgSlot05"
+    },
+    {
+     "va": "0x004BAEB0",
+     "length": 14,
+     "name": "MsgSlot06"
+    },
+    {
+     "va": "0x004BAEC0",
+     "length": 14,
+     "name": "MsgSlot08"
+    },
+    {
+     "va": "0x004BAED0",
+     "length": 14,
+     "name": "MsgSlot07"
+    },
+    {
+     "va": "0x004BAEE0",
+     "length": 14,
+     "name": "MsgSlot09"
+    },
+    {
+     "va": "0x004BAEF0",
+     "length": 14,
+     "name": "MsgSlot10"
+    },
+    {
+     "va": "0x004BAF10",
+     "length": 14,
+     "name": "sub_004BAF10_SetUnk24"
+    },
+    {
+     "va": "0x004BB530",
+     "length": 41,
+     "name": "sub_004BB530_Slot14"
+    },
+    {
+     "va": "0x004BB960",
+     "length": 5,
+     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
+    },
+    {
+     "va": "0x004BBE70",
+     "length": 128,
+     "name": "Slot01"
     }
    ]
   },
