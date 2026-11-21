@@ -292,6 +292,86 @@ struct D2Storm408ElemStrc
     char unk0x00[0x408];
 };
 
+extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* lp, unsigned int ucb); // 0x006CC238
+extern "C" __declspec(dllimport) int __stdcall IsBadStringPtrA(const char* lpsz, unsigned int ucchMax); // 0x006CC2D0
+extern "C" __declspec(dllimport) int __stdcall WideCharToMultiByte(unsigned int nCodePage, unsigned long dwFlags, const wchar_t* wszSource, int nSource, char* szDest, int nDest, const char* szDefaultChar, int* pbUsedDefaultChar); // 0x006CC194
+extern "C" __declspec(dllimport) unsigned long __stdcall ResumeThread(void* hThread); // 0x006CC28C
+extern "C" __declspec(dllimport) unsigned long __stdcall SuspendThread(void* hThread); // 0x006CC288
+extern "C" __declspec(dllimport) void __stdcall RtlCaptureContext(D2ThreadContextStrc* pContext); // 0x006CC290
+extern "C" __declspec(dllimport) void* __stdcall OpenThread(unsigned long dwDesiredAccess, int bInheritHandle, unsigned long dwThreadId); // 0x006CC27C
+typedef unsigned char BOOLEAN;
+
+struct D2ImageDataDirStrc
+{
+    unsigned long VirtualAddress;
+    unsigned long Size;
+};
+
+struct D2ImageFileHeaderStrc
+{
+    unsigned short Machine;
+    unsigned short NumberOfSections;
+    unsigned long TimeDateStamp;
+    unsigned long PointerToSymbolTable;
+    unsigned long NumberOfSymbols;
+    unsigned short SizeOfOptionalHeader;
+    unsigned short Characteristics;
+};
+
+struct D2ImageOptionalHeaderStrc
+{
+    unsigned short Magic;
+    unsigned char unk0x02[0x36];
+    unsigned long SizeOfImage;
+    unsigned char unk0x3C[0x20];
+    unsigned long NumberOfRvaAndSizes;
+    D2ImageDataDirStrc DataDirectory[16];
+};
+
+struct D2ImageOptionalHeader64Strc
+{
+    unsigned short Magic;
+    unsigned char unk0x02[0x6A];
+    unsigned long NumberOfRvaAndSizes;
+    D2ImageDataDirStrc DataDirectory[16];
+};
+
+struct D2ImageNtHeadersStrc
+{
+    unsigned long Signature;
+    D2ImageFileHeaderStrc FileHeader;
+    D2ImageOptionalHeaderStrc OptionalHeader;
+};
+
+struct D2ImageDosHeaderStrc
+{
+    unsigned short e_magic;
+    unsigned short e_unk02[25];
+    unsigned short e_res2[4];
+    long e_lfanew;
+};
+
+struct D2ImageDebugDirStrc
+{
+    unsigned long Characteristics;
+    unsigned long TimeDateStamp;
+    unsigned short MajorVersion;
+    unsigned short MinorVersion;
+    unsigned long Type;
+    unsigned long SizeOfData;
+    unsigned long AddressOfRawData;
+    unsigned long PointerToRawData;
+};
+
+struct D2CvNb10Strc
+{
+    unsigned long dwCvSignature;
+    unsigned long dwOffset;
+    unsigned long dwSignature;
+    unsigned long dwAge;
+    char szPdbName[4];
+};
+
 struct D2ModuleStrc
 {
     bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
