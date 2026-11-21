@@ -57989,6 +57989,21 @@
      "name": "?SUNITDMG_CheckMonType@@YIHHH@Z"
     },
     {
+     "va": "0x0057A880",
+     "length": 84,
+     "name": "?sub_0057A880_AddRolledDamage@@YGHPAUD2UnitStrc@@HHHHH@Z"
+    },
+    {
+     "va": "0x0057A8E0",
+     "length": 109,
+     "name": "?sub_0057A8E0_AddStatDamage@@YGHHHHHHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0057AAE0",
+     "length": 357,
+     "name": "?sub_0057AAE0_ApplyStun@@YGXPAUD2UnitStrc@@H0@Z"
+    },
+    {
      "va": "0x0057AD80",
      "length": 76,
      "name": "?SUNITDMG_RemoveShatterState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
@@ -58004,6 +58019,11 @@
      "name": "?SUNITDMG_GetColdEffect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0057AF80",
+     "length": 485,
+     "name": "?SUNITDMG_ApplyColdState@@YGXPAUD2UnitStrc@@H0@Z"
+    },
+    {
      "va": "0x0057B170",
      "length": 177,
      "name": "?SUNITDMG_RemoveFreezeState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
@@ -58012,6 +58032,16 @@
      "va": "0x0057B630",
      "length": 37,
      "name": "?sub_0057B630_AddDemonDamage@@YGXPAUD2UnitStrc@@0PAUD2UnkDamageRecordStrc@@@Z"
+    },
+    {
+     "va": "0x0057B660",
+     "length": 62,
+     "name": "?sub_0057B660_AddUndeadDamagePercent@@YAXPAUD2DamageStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x0057B6A0",
+     "length": 247,
+     "name": "?sub_0057B6A0_AddMonTypeDamagePercent@@YGXPAUD2UnitStrc@@PAUD2DamageStrc@@0@Z"
     },
     {
      "va": "0x0057BDD0",
@@ -58053,9 +58083,28 @@
      "name": "?sub_0057CA80_AddCombatRecord@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x0057CB00",
+     "length": 296
+    },
+    {
+     "va": "0x0057CC30",
+     "length": 123,
+     "name": "?sub_0057CC30_OpenBarricadeObject@@YGXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0057CCB0",
+     "length": 375,
+     "name": "?SUNITDMG_KillMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    },
+    {
      "va": "0x0057CE30",
      "length": 107,
      "name": "?SUNITDMG_GetHitClass@@YAIPAUD2DamageStrc@@I@Z"
+    },
+    {
+     "va": "0x0057CEA0",
+     "length": 21,
+     "name": "?sub_0057CEA0_ApplyHitClass@@YAXPAUD2DamageStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0057CEC0",
@@ -58229,61 +58278,6 @@
      "va": "0x00584540",
      "length": 131,
      "name": "sub_6FC78B20"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057A880.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0057A880",
-     "length": 84,
-     "name": "?sub_0057A880_AddRolledDamage@@YGHPAUD2UnitStrc@@HHHHH@Z"
-    },
-    {
-     "va": "0x0057A8E0",
-     "length": 109,
-     "name": "?sub_0057A8E0_AddStatDamage@@YGHHHHHHHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0057AAE0",
-     "length": 357,
-     "name": "?sub_0057AAE0_ApplyStun@@YGXPAUD2UnitStrc@@H0@Z"
-    },
-    {
-     "va": "0x0057AF80",
-     "length": 485,
-     "name": "?SUNITDMG_ApplyColdState@@YGXPAUD2UnitStrc@@H0@Z"
-    },
-    {
-     "va": "0x0057B660",
-     "length": 62,
-     "name": "?sub_0057B660_AddUndeadDamagePercent@@YAXPAUD2DamageStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0057B6A0",
-     "length": 247,
-     "name": "?sub_0057B6A0_AddMonTypeDamagePercent@@YGXPAUD2UnitStrc@@PAUD2DamageStrc@@0@Z"
-    },
-    {
-     "va": "0x0057CB00",
-     "length": 296
-    },
-    {
-     "va": "0x0057CC30",
-     "length": 123,
-     "name": "?sub_0057CC30_OpenBarricadeObject@@YGXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057CCB0",
-     "length": 375,
-     "name": "?SUNITDMG_KillMonster@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
-    },
-    {
-     "va": "0x0057CEA0",
-     "length": 21,
-     "name": "?sub_0057CEA0_ApplyHitClass@@YAXPAUD2DamageStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
