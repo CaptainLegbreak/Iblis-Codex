@@ -170,9 +170,19 @@
      "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
     },
     {
+     "va": "0x00406D30",
+     "length": 161,
+     "name": "?SFILE_GetSaveGamePath@@YA_NPADI@Z"
+    },
+    {
      "va": "0x00406DE0",
      "length": 622,
      "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x00407050",
+     "length": 513,
+     "name": "?sub_00407050_GetSavePath@@YIHPADH@Z"
     },
     {
      "va": "0x00407260",
@@ -2572,22 +2582,6 @@
      "va": "0x00443C10",
      "length": 8,
      "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/ErrorManager_00406D30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00406D30",
-     "length": 161,
-     "name": "?SFILE_GetSaveGamePath@@YA_NPADI@Z"
-    },
-    {
-     "va": "0x00407050",
-     "length": 513,
-     "name": "?sub_00407050_GetSavePath@@YIHPADH@Z"
     }
    ]
   },

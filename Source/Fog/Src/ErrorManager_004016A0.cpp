@@ -63,6 +63,7 @@ public:
     char m_aszLines[16][0x400];
 };
 }
+
 extern "C" __declspec(dllimport) void __stdcall RtlCaptureContext(D2ThreadContextStrc* pContext);             // 0x006CC290
 
 extern "C" __declspec(dllimport) void* __stdcall OpenThread(unsigned long dwDesiredAccess, int bInheritHandle, unsigned long dwThreadId); // 0x006CC27C
@@ -471,6 +472,17 @@ extern const char* const gaszLanguageNames_00706618[];                          
 
 extern "C" const char gszUnknownUpper_006CCED8[];                                                           // 0x006CCED8
 
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
+bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
+
+int __fastcall sub_00406B20_AppendBackslash(char* szPath, size_t nSize);                                // 0x00406B20
+
+int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szPathA, const char* szPathB);                         // 0x00406DE0
+
+
+int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
+
 // 0x00401000
 static int __cdecl sub_00401000_LocalTime(tm* pTm, const __int64* pTime)
 {
@@ -607,6 +619,16 @@ static bool __stdcall sub_00401640_GetThreadName(int threadId,char* output) {
  if(gdwGlobal_00992B1C==threadId) strncpy_s(output,OUTPUT_SIZE,gszMainThread_006FF988,(unsigned int)-1);
  else output[0]=0;
  return true;
+}
+
+bool __fastcall EmitThreadName(int threadId,char* output) {
+ return sub_00401640_GetThreadName(threadId,output);
+}
+
+// 0x00401680
+int __cdecl sub_00401680()
+{
+    return gdwGlobal_00992B1C;
 }
 
 int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nSkipFrames)
@@ -1287,6 +1309,52 @@ int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize)
     return SStrLen(szOutPath) == SStrLen(szPath);
 }
 
+static bool AppendPathSeparator_Inl(char* szPath, size_t nSize)
+{
+    if (!nSize)
+    {
+        return false;
+    }
+    const size_t nLength = SStrLen(szPath);
+    if (nLength > 0 && szPath[nLength - 1] == '\\')
+    {
+        return true;
+    }
+    if (nLength + 1 == nSize)
+    {
+        return false;
+    }
+    szPath[nLength] = '\\';
+    szPath[nLength + 1] = 0;
+    return true;
+}
+
+// 0x00406D30
+static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
+{
+    char szPath[0x104];
+    if (!nMaxLen)
+    {
+        return false;
+    }
+    D2_ASSERT(szOutPath, 68);
+    if (sub_004067D0_GetKnownFolderPathA(szOutPath, nMaxLen))
+    {
+        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
+        sub_00413800(szOutPath, "Diablo II", nMaxLen);
+    }
+    else
+    {
+        if (SHGetFolderPathA(0, 5, 0, 0, szPath))
+        {
+            return false;
+        }
+        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
+        sub_00413800(szOutPath, "Diablo II\\Save", nMaxLen);
+    }
+    return true;
+}
+
 // 0x00406DE0
 int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szDst)
 {
@@ -1336,6 +1404,55 @@ int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szD
     FindClose(hFind);
     RemoveDirectoryA(szSrc);
     return nResult;
+}
+
+// 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize)
+{
+    char szSavePath[0x104];
+    char szNewPath[0x104];
+    szPath[0] = 0;
+    if (!SRegLoadString("Diablo II", "NewSavePath", 1, szPath, nSize) && GetLastError() == 2
+        && SRegLoadString("Diablo II", "Save Path", 0, szSavePath, 0x104))
+    {
+        const size_t nLength = strlen(szSavePath);
+        if (szSavePath[nLength - 1] == '\\')
+        {
+            szSavePath[nLength - 1] = 0;
+        }
+        const unsigned long dwAttributes = GetFileAttributesA(szSavePath);
+        if (dwAttributes != (unsigned long)-1 && (dwAttributes & 0x10))
+        {
+            if (sub_00406D30(szNewPath, 0x104))
+            {
+                if (sub_00406DE0_MoveDirectoryTree(szSavePath, szNewPath) == 1)
+                {
+                    SStrCopy(szPath, szSavePath, nSize);
+                }
+                else
+                {
+                    AppendPathSeparator_Inl(szNewPath, 0x104);
+                    SRegSaveString("Diablo II", "NewSavePath", 1, szNewPath);
+                    SStrCopy(szPath, szNewPath, nSize);
+                }
+            }
+        }
+    }
+    if (GetFileAttributesA(szPath) == (unsigned long)-1)
+    {
+        szPath[0] = 0;
+    }
+    if (!szPath[0])
+    {
+        sub_00406D30(szPath, nSize);
+        AppendPathSeparator_Inl(szPath, nSize);
+        SRegSaveString("Diablo II", "NewSavePath", 1, szPath);
+    }
+    if (!AppendPathSeparator_Inl(szPath, nSize))
+    {
+        return 0;
+    }
+    return sub_00406A10_CreateDirectoryTree(szPath);
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
@@ -1711,16 +1828,6 @@ int __fastcall sub_004088C0_ReportNestedError(const char* szFile, int nLine, con
 // 0x00413740
 void __cdecl sub_00413740_Nop()
 {
-}
-
-bool __fastcall EmitThreadName(int threadId,char* output) {
- return sub_00401640_GetThreadName(threadId,output);
-}
-
-// 0x00401680
-int __cdecl sub_00401680()
-{
-    return gdwGlobal_00992B1C;
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager_004016A0.inc"
