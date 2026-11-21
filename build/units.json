@@ -55273,6 +55273,11 @@
      "length": 137
     },
     {
+     "va": "0x005530F0",
+     "length": 97,
+     "name": "?sub_005530F0_RemoveFromUnitList@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00553160",
      "length": 22,
      "name": "?sub_00553160_RoomHasClients@@YAHPAUD2UnitStrc@@@Z"
@@ -55291,6 +55296,11 @@
      "va": "0x00553380",
      "length": 72,
      "name": "SUNIT_AttachSound"
+    },
+    {
+     "va": "0x005533D0",
+     "length": 189,
+     "name": "?SUNIT_InitializeAnimation@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00553490",
@@ -55346,6 +55356,11 @@
      "va": "0x00553F00",
      "length": 33,
      "name": "sub_6FCBD3A0"
+    },
+    {
+     "va": "0x00553F30",
+     "length": 223,
+     "name": "?SUNIT_FillUnitInfo@@YIXPAUD2UnitStrc@@PAUD2UnitInfoStrc@@@Z"
     },
     {
      "va": "0x00554010",
@@ -55442,6 +55457,16 @@
      "name": "SUNIT_GetInteractUnit"
     },
     {
+     "va": "0x00554D20",
+     "length": 187,
+     "name": "?SUNIT_CanAllyBeTargetedBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    },
+    {
+     "va": "0x00554EA0",
+     "length": 518,
+     "name": "?sub_6FCBDFE0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHH@Z"
+    },
+    {
      "va": "0x005550B0",
      "length": 374
     },
@@ -55449,6 +55474,16 @@
      "va": "0x00555230",
      "length": 720,
      "name": "?SUNIT_AllocUnitData@@YIPAUD2UnitStrc@@HHHHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@DHI@Z"
+    },
+    {
+     "va": "0x00555500",
+     "length": 118,
+     "name": "?sub_00555500_ClearPlayerInteraction@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00555580",
+     "length": 124,
+     "name": "?sub_00555580_DetachUnit@@YIXPAUD2UnitStrc@@PAUD2GameStrc@@H@Z"
     },
     {
      "va": "0x00555600",
@@ -55470,6 +55505,11 @@
      "name": "SUNIT_SpawnPresetUnit"
     },
     {
+     "va": "0x005559A0",
+     "length": 308,
+     "name": "?SUNIT_SpawnPresetUnitsInRoom@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
      "va": "0x00555AE0",
      "length": 423,
      "name": "?SUNIT_RemoveAllItemsFromInventory@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -55478,52 +55518,6 @@
      "va": "0x00555CC0",
      "length": 13,
      "name": "?sub_00555CC0_GetItemsTxtCount@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnit_005530F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005530F0",
-     "length": 97,
-     "name": "?sub_005530F0_RemoveFromUnitList@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005533D0",
-     "length": 189,
-     "name": "?SUNIT_InitializeAnimation@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00553F30",
-     "length": 223,
-     "name": "?SUNIT_FillUnitInfo@@YIXPAUD2UnitStrc@@PAUD2UnitInfoStrc@@@Z"
-    },
-    {
-     "va": "0x00554D20",
-     "length": 187,
-     "name": "?SUNIT_CanAllyBeTargetedBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
-    },
-    {
-     "va": "0x00554EA0",
-     "length": 518,
-     "name": "?sub_6FCBDFE0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHH@Z"
-    },
-    {
-     "va": "0x00555500",
-     "length": 118,
-     "name": "?sub_00555500_ClearPlayerInteraction@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00555580",
-     "length": 124,
-     "name": "?sub_00555580_DetachUnit@@YIXPAUD2UnitStrc@@PAUD2GameStrc@@H@Z"
-    },
-    {
-     "va": "0x005559A0",
-     "length": 308,
-     "name": "?SUNIT_SpawnPresetUnitsInRoom@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x005564D0",
