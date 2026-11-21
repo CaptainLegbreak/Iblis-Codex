@@ -262,7 +262,11 @@ struct D2StormStreamStrc
 struct D2StormRequestStrc
 {
     D2StormLinkStrc tLink;                      // 0x00
-    void* hEvent;                               // 0x08
+    union
+    {
+        void* hEvent;                           // 0x08
+        int nUser;
+    };
     D2StormFileRecStrc* pFile;                  // 0x0C
     unsigned int nPosition;                     // 0x10
     unsigned int nFileOffset;                   // 0x14

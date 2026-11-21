@@ -1,5 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2SFileTypes.h"
 
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
@@ -10,123 +11,15 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);              
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 
-struct D2StormArchiveRecStrc
-{
-
-    char pad00[0x124];
-    unsigned int nBlockSize;
-};
-
-struct D2StormFileRecStrc
-{
-
-    char pad00[0x110];
-    int hFile;
-    D2StormArchiveRecStrc* f_114;
-    unsigned int* pBlock;
-    int unk0x11C;
-    unsigned int nPosition;
-    char pad124[0x20];
-    int nRequests;
-};
-
-struct D2StormSoundBufferStrc
-{
-    virtual long __stdcall QueryInterface(const void* pIid, void** ppObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall GetCaps(void* pCaps) = 0;
-    virtual long __stdcall GetCurrentPosition(unsigned long* pnPlay, unsigned long* pnWrite) = 0;
-    virtual long __stdcall GetFormat(void* pFormat, unsigned long nSize, unsigned long* pnWritten) = 0;
-    virtual long __stdcall GetVolume(long* pnVolume) = 0;
-    virtual long __stdcall GetPan(long* pnPan) = 0;
-    virtual long __stdcall GetFrequency(unsigned long* pnFrequency) = 0;
-    virtual long __stdcall GetStatus(unsigned long* pnStatus) = 0;
-    virtual long __stdcall Initialize(void* pDirectSound, const void* pDesc) = 0;
-    virtual long __stdcall Lock(unsigned long nOffset, unsigned long nBytes, void** ppPtr1, unsigned long* pnBytes1, void** ppPtr2, unsigned long* pnBytes2, unsigned long nFlags) = 0;
-    virtual long __stdcall Play(unsigned long nReserved, unsigned long nPriority, unsigned long nFlags) = 0;
-    virtual long __stdcall SetCurrentPosition(unsigned long nPosition) = 0;
-    virtual long __stdcall SetFormat(const void* pFormat) = 0;
-    virtual long __stdcall SetVolume(long nVolume) = 0;
-    virtual long __stdcall SetPan(long nPan) = 0;
-    virtual long __stdcall SetFrequency(unsigned long nFrequency) = 0;
-    virtual long __stdcall Stop() = 0;
-    virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
-};
-
-struct D2StormStreamStrc;
-
-struct D2StormStreamLinkStrc
-{
-    D2StormStreamLinkStrc* m_prevlink;
-    D2StormStreamStrc* m_next;
-
-    D2StormStreamStrc* Next()
-    {
-        return (int)m_next > 0 ? m_next : 0;
-    }
-};
-
-struct D2StormStreamStrc
-{
-    D2StormStreamLinkStrc f_0;
-
-    D2StormFileRecStrc* pFile;
-    unsigned int f_C;
-    int unk0x10;
-    int bRestart;
-    int nState;
-    unsigned int nCounter;
-    unsigned int nStart;
-    unsigned int nSize;
-    unsigned int nOffset;
-    unsigned int nPlayed;
-    unsigned int f_30;
-    int f_34;
-    int f_38;
-    D2StormSoundBufferStrc* pBuffer;
-    unsigned int nBufferSize;
-    int unk0x44;
-    unsigned char nFill;
-    char pad49[3];
-    int nRefs;
-};
 
 struct D2StormStreamListStrc
 {
     int m_linkoffset;
-    D2StormStreamLinkStrc m_terminator;
+    D2StormLinkStrc m_terminator;
 
     D2StormStreamStrc* Head()
     {
-        return m_terminator.Next();
-    }
-};
-
-struct D2StormRequestStrc
-{
-    D2StormRequestLinkStrc f_0;
-
-    int nUser;
-    D2StormFileRecStrc* pFile;
-    unsigned int nPosition;
-    unsigned int nFileOffset;
-    unsigned int nDueTime;
-    int nArg9;
-    void* pDest;
-    unsigned int f_24;
-    D2StormSoundBufferStrc* pBuffer;
-    unsigned int f_2C;
-    D2StormStreamStrc* pStream;
-    unsigned int nBytes;
-    int nArg11;
-    unsigned int nRead;
-    void* pCallback;
-
-    D2StormRequestStrc()
-    {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
+        return (D2StormStreamStrc*)m_terminator.Next();
     }
 };
 
@@ -138,18 +31,18 @@ inline void* operator new(unsigned int, void* pWhere) throw()
 struct D2StormRequestListStrc
 {
     int m_linkoffset;
-    D2StormRequestLinkStrc m_terminator;
+    D2StormLinkStrc m_terminator;
 
-    D2StormRequestLinkStrc* Link(char* pNode)
+    D2StormLinkStrc* Link(char* pNode)
     {
-        return pNode ? (D2StormRequestLinkStrc*)pNode : &m_terminator;
+        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
     // build: context D2StormRequestListStrc::LinkNode
     void LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
     {
-        D2StormRequestLinkStrc* pLink = Link(pNode);
+        D2StormLinkStrc* pLink = Link(pNode);
         pLink->Unlink();
-        D2StormRequestLinkStrc* pExistingLink = Link(pExistingNode);
+        D2StormLinkStrc* pExistingLink = Link(pExistingNode);
         switch (nLinkType)
         {
         case 1:
@@ -159,7 +52,7 @@ struct D2StormRequestListStrc
             pExistingLink->m_next = pNode;
             break;
         default:
-            D2StormRequestLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+            D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
             pLink->m_prevlink = pPrevLink;
             pLink->m_next = pPrevLink->m_next;
             pPrevLink->m_next = pNode;
@@ -203,7 +96,7 @@ static unsigned int sub_00415760_UpdatePlayed(D2StormStreamStrc* pStream)
     unsigned long nWrite = 0;
     if (pStream->pBuffer->GetCurrentPosition(&nPlay, &nWrite) < 0)
         return -1;
-    unsigned int nWritten = pStream->f_30;
+    unsigned int nWritten = pStream->nWritten;
     int nAhead = nWritten % pStream->nBufferSize - nPlay;
     if (nAhead <= 0)
         nAhead += pStream->nBufferSize;
@@ -225,7 +118,7 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
     if (sub_00415950_GetFileRec(hFile, &pRec))
     {
         D2StormStreamStrc* pStream;
-        for (pStream = gDdaList_00708384.Head(); pStream; pStream = pStream->f_0.Next())
+        for (pStream = gDdaList_00708384.Head(); pStream; pStream = (D2StormStreamStrc*)pStream->tLink.Next())
         {
             if (pStream->pFile == pRec)
                 break;
@@ -274,19 +167,19 @@ static D2StormRequestStrc* __stdcall IssueRequest(unsigned int nPosition, void* 
     pRequest->nUser = nUser;
     pRequest->pFile = pFile;
     pRequest->nPosition = nPosition;
-    if (pFile->hFile == -1)
-        nPosition = (nPosition >> 1) + *pFile->pBlock;
+    if (pFile->nKind == -1)
+        nPosition = (nPosition >> 1) + *pFile->pBlockWords;
     pRequest->nFileOffset = nPosition;
     pRequest->nDueTime = GetTickCount() + nDelay;
     pRequest->nArg9 = nArg9;
-    pRequest->pDest = pDest;
-    pRequest->f_24 = nDestSize;
+    pRequest->pDest = (unsigned char*)pDest;
+    pRequest->nDestSize = nDestSize;
     pRequest->pBuffer = pBuffer;
-    pRequest->f_2C = nBufferOffset;
+    pRequest->nBufferOffset = nBufferOffset;
     pRequest->pStream = pStream;
     pRequest->nBytes = nBytes;
-    pRequest->nArg11 = nArg11;
-    pRequest->pCallback = pCallback;
+    pRequest->bDelete = nArg11;
+    pRequest->pCallback = (D2StormRequestCallbackStrc*)pCallback;
     pFile->nRequests += 1;
     if (pStream)
         pStream->nRefs += 1;
@@ -300,14 +193,14 @@ void __cdecl sub_00419C00_PumpStreams()
 {
     if (gbStreamsPaused_00779044)
         return;
-    for (D2StormStreamStrc* pStream = DdaHead(); (int)pStream > 0; pStream = pStream->f_0.m_next)
+    for (D2StormStreamStrc* pStream = DdaHead(); (int)pStream > 0; pStream = (D2StormStreamStrc*)pStream->tLink.m_next)
     {
         if (pStream->nState == 3 || (pStream->nState == 2 && pStream->pFile->nPosition >= pStream->nStart + pStream->nSize))
         {
             if (pStream->bRestart)
             {
                 pStream->pFile->nPosition = pStream->nStart;
-                pStream->f_30 = 0;
+                pStream->nWritten = 0;
                 pStream->nCounter = 0;
             }
             else
@@ -321,22 +214,22 @@ void __cdecl sub_00419C00_PumpStreams()
                     pStream->nState = 4;
                     continue;
                 }
-                if ((nPlay - pStream->f_C) % pStream->nBufferSize >= gnStreamChunk_00779038)
+                if ((nPlay - pStream->nWritePos) % pStream->nBufferSize >= gnStreamChunk_00779038)
                 {
                     unsigned int nCount = gnStreamChunk_00779038;
-                    if (nCount >= pStream->nBufferSize - pStream->f_C)
-                        nCount = pStream->nBufferSize - pStream->f_C;
+                    if (nCount >= pStream->nBufferSize - pStream->nWritePos)
+                        nCount = pStream->nBufferSize - pStream->nWritePos;
                     void* pLocked = 0;
                     unsigned long nLocked = nCount;
-                    if (pStream->pBuffer->Lock(pStream->f_C, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
+                    if (pStream->pBuffer->Lock(pStream->nWritePos, nCount, &pLocked, &nLocked, 0, 0, 0) >= 0)
                     {
                         SMemFill(pLocked, nLocked, pStream->nFill);
                         pStream->pBuffer->Unlock(pLocked, nLocked, 0, 0);
-                        pStream->f_30 += nLocked;
+                        pStream->nWritten += nLocked;
                         pStream->nCounter += nLocked;
-                        pStream->f_C += nLocked;
-                        if (pStream->f_C >= pStream->nBufferSize)
-                            pStream->f_C -= pStream->nBufferSize;
+                        pStream->nWritePos += nLocked;
+                        if (pStream->nWritePos >= pStream->nBufferSize)
+                            pStream->nWritePos -= pStream->nBufferSize;
                     }
                 }
                 pStream->nState = 3;
@@ -347,9 +240,9 @@ void __cdecl sub_00419C00_PumpStreams()
             unsigned int nPlay = sub_00415760_UpdatePlayed(pStream);
             if (nPlay == -1)
                 continue;
-            if ((nPlay - pStream->f_C) % pStream->nBufferSize < gnStreamChunk_00779038)
+            if ((nPlay - pStream->nWritePos) % pStream->nBufferSize < gnStreamChunk_00779038)
                 continue;
-            unsigned int nCount = pStream->nBufferSize - pStream->f_C;
+            unsigned int nCount = pStream->nBufferSize - pStream->nWritePos;
             if (gnStreamChunk_00779038 < nCount)
                 nCount = gnStreamChunk_00779038;
             unsigned int nLeft = pStream->nSize + pStream->nStart - pStream->pFile->nPosition;
@@ -357,15 +250,15 @@ void __cdecl sub_00419C00_PumpStreams()
                 nCount = nLeft;
             if (gbAlignReads_007790A4)
             {
-                unsigned int nOver = (pStream->pFile->f_114->nBlockSize - 1) & (pStream->pFile->nPosition + nCount);
+                unsigned int nOver = (pStream->pFile->pArchive->nBlockSize - 1) & (pStream->pFile->nPosition + nCount);
                 if (nOver && nOver < nCount)
                     nCount -= nOver;
             }
-            IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->f_C, pStream, nCount, 0, 0, 0, 1, 0, 0, pStream->pFile);
+            IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, pStream->nWritePos, pStream, nCount, 0, 0, 0, 1, 0, 0, pStream->pFile);
             pStream->pFile->nPosition += nCount;
-            pStream->f_C += gnStreamChunk_00779038;
-            if (pStream->f_C >= pStream->nBufferSize)
-                pStream->f_C -= pStream->nBufferSize;
+            pStream->nWritePos += gnStreamChunk_00779038;
+            if (pStream->nWritePos >= pStream->nBufferSize)
+                pStream->nWritePos -= pStream->nBufferSize;
         }
         else if (pStream->nState == 0)
         {
@@ -378,7 +271,7 @@ void __cdecl sub_00419C00_PumpStreams()
             if (gbAlignReads_007790A4)
             {
                 nDone = gnStreamChunk_00779038 < nTotal ? gnStreamChunk_00779038 : nTotal;
-                unsigned int nOver = (pStream->pFile->f_114->nBlockSize - 1) & (pStream->pFile->nPosition + nDone);
+                unsigned int nOver = (pStream->pFile->pArchive->nBlockSize - 1) & (pStream->pFile->nPosition + nDone);
                 if (nOver && nOver < nDone)
                     nDone -= nOver;
                 IssueRequest(pStream->pFile->nPosition, 0, 0, pStream->pBuffer, 0, pStream, nDone, 0, 0, 0, 1, 0, 0, pStream->pFile);
@@ -395,7 +288,7 @@ void __cdecl sub_00419C00_PumpStreams()
                 pStream->pFile->nPosition += nCount;
             }
             pStream->nState = 1;
-            pStream->f_C = nDone % pStream->nBufferSize;
+            pStream->nWritePos = nDone % pStream->nBufferSize;
         }
     }
 }
