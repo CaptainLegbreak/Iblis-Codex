@@ -84245,6 +84245,10 @@
      "name": "DATATBLS_CompareItemStatCostDescs"
     },
     {
+     "va": "0x00637A00",
+     "length": 3011
+    },
+    {
      "va": "0x006385D0",
      "length": 87,
      "name": "DATATBLS_UnloadItemStatCostTxt"
@@ -84263,6 +84267,11 @@
      "va": "0x00638AC0",
      "length": 30,
      "name": "DATATBLS_CompareGambleTxtRecords"
+    },
+    {
+     "va": "0x00638AE0",
+     "length": 411,
+     "name": "?DATATBLS_LoadGambleTxt@@YIXPAX@Z"
     },
     {
      "va": "0x00638C80",
@@ -84348,21 +84357,6 @@
     {
      "va": "0x00634DC0",
      "length": 6502
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00637A00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00637A00",
-     "length": 3011
-    },
-    {
-     "va": "0x00638AE0",
-     "length": 411,
-     "name": "?DATATBLS_LoadGambleTxt@@YIXPAX@Z"
     }
    ]
   },
