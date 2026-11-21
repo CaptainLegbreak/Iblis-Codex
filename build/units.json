@@ -37041,30 +37041,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004EDEA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EDEA0",
-     "length": 4180
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004F0650.cpp",
    "rank": 1,
    "functions": [
@@ -37188,9 +37164,24 @@
    ]
   },
   {
+   "file": "Source/D2Client/SKILLS/SkillsNec.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004F3F50",
+     "length": 93,
+     "name": "?sub_004F3F50_CheckNecromancerSkill@@YIHPAXHH@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/SkillDesc_004F30A0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004EDEA0",
+     "length": 4180
+    },
     {
      "va": "0x004F30A0",
      "length": 249,
@@ -37205,17 +37196,6 @@
      "va": "0x004F3A60",
      "length": 540,
      "name": "?sub_004F3A60@@YIHPAUD2UnitStrc@@HHHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/SkillsNec.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F3F50",
-     "length": 93,
-     "name": "?sub_004F3F50_CheckNecromancerSkill@@YIHPAXHH@Z"
     }
    ]
   },
