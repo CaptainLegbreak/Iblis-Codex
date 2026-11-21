@@ -29811,7 +29811,49 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/npcmenu_004B2E70.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B3870.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B1680",
+     "length": 287
+    },
+    {
+     "va": "0x004B3870",
+     "length": 898
+    },
+    {
+     "va": "0x004B5640",
+     "length": 452
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/npcmenu_004B4FD0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B4FD0",
+     "length": 366
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/npcmenu_004B4830.cpp",
    "rank": 0,
    "functions": [
     {
@@ -29960,6 +30002,10 @@
      "name": "?sub_004B4730_NpcMenuTalk@@YAHXZ"
     },
     {
+     "va": "0x004B4830",
+     "length": 1210
+    },
+    {
      "va": "0x004B4CF0",
      "length": 177,
      "name": "?sub_004B4CF0_NpcMenuReturn@@YAHXZ"
@@ -29989,24 +30035,6 @@
      "length": 89,
      "name": "?sub_004B52C0_NpcMenuAction01@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B3870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B1680",
-     "length": 287
-    },
-    {
-     "va": "0x004B3870",
-     "length": 898
-    },
-    {
-     "va": "0x004B5640",
-     "length": 452
-    }
    ],
    "flags": [
     "/nologo",
@@ -30021,40 +30049,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B4830.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B4830",
-     "length": 1210
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B4FD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B4FD0",
-     "length": 366
-    }
    ]
   },
   {
