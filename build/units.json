@@ -65093,11 +65093,6 @@
      "name": "?ACT4Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
-     "va": "0x005B4A80",
-     "length": 224,
-     "name": "ACT4Q2_UnitIterate_WarpToTownEndGame"
-    },
-    {
      "va": "0x005B4DF0",
      "length": 72,
      "name": "?ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -65276,6 +65271,11 @@
      "va": "0x005B4A30",
      "length": 69,
      "name": "?sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005B4A80",
+     "length": 224,
+     "name": "ACT4Q2_UnitIterate_WarpToTownEndGame"
     },
     {
      "va": "0x005B4B60",
