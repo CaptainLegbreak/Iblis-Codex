@@ -584,17 +584,6 @@ void __fastcall FOG_FreeServerMemory(void*, void*, const char*, int, int); // 0x
 
 D2GambleDataTbl* __fastcall sub_00638CC0_GetGambleRecord(); // 0x00638CC0
 
-struct D2DifficultyLevelsGambleStrc
-{
-    int nGambleRare;
-    int nGambleSet;
-    int nGambleUnique;
-    int nGambleUber;
-    int nGambleUltra;
-};
-
-#define DIFFICULTY_GAMBLE(pDifficulty) ((D2DifficultyLevelsGambleStrc*)((pDifficulty) + 1))
-
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
@@ -2325,7 +2314,7 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* 
  if(!pGamble) return;
  D2DifficultyLevelsTxt* pDifficulty = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
  if(!pDifficulty) return;
- int nQualityChance = DIFFICULTY_GAMBLE(pDifficulty)->nGambleRare+DIFFICULTY_GAMBLE(pDifficulty)->nGambleSet+DIFFICULTY_GAMBLE(pDifficulty)->nGambleUnique;
+ int nQualityChance = pDifficulty->nGambleRare+pDifficulty->nGambleSet+pDifficulty->nGambleUnique;
  if(!gnRingId) DATATBLS_GetItemRecordFromItemCode(0x206E6972,&gnRingId);
  if(!gnAmuletId) DATATBLS_GetItemRecordFromItemCode(0x20756D61,&gnAmuletId);
  D2NpcGambleStrc* pNpcGamble = (D2NpcGambleStrc*)FOG_AllocPool(pGame->pMemoryPool,0xC,gszNpcSourceFile,0xD94,0);
@@ -2352,15 +2341,15 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* 
    nItemId=gnRingId;
    if(nItems) nItemId=gnAmuletId;
   }
-  nItemId = sub_005786A0_RollGambleUpgrade(nItemId,DIFFICULTY_GAMBLE(pDifficulty)->nGambleUber,DIFFICULTY_GAMBLE(pDifficulty)->nGambleUltra,pGame,nItemLevel);
+  nItemId = sub_005786A0_RollGambleUpgrade(nItemId,pDifficulty->nGambleUber,pDifficulty->nGambleUltra,pGame,nItemLevel);
   int nQuality = 4;
   if(nQualityChance>0)
   {
    int nRoll=(int)(RollSeed(pSeed)%100000);
    if(nRoll<nQualityChance)
    {
-    if(nRoll<DIFFICULTY_GAMBLE(pDifficulty)->nGambleUnique) nQuality=7;
-    else if(nRoll<DIFFICULTY_GAMBLE(pDifficulty)->nGambleUnique+DIFFICULTY_GAMBLE(pDifficulty)->nGambleSet) nQuality=5;
+    if(nRoll<pDifficulty->nGambleUnique) nQuality=7;
+    else if(nRoll<pDifficulty->nGambleUnique+pDifficulty->nGambleSet) nQuality=5;
     else nQuality=6;
    }
   }
