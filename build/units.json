@@ -67902,6 +67902,11 @@
      "name": "?SKILLITEM_ActivateAura@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
     },
     {
+     "va": "0x005BF5D0",
+     "length": 152,
+     "name": "SKILLITEM_DeactivateAura"
+    },
+    {
      "va": "0x005BF670",
      "length": 163,
      "name": "SKILLITEM_EventFunc06_AttackerTakesDamage"
@@ -67988,47 +67993,6 @@
      "name": "?SKILLITEM_EventFunc30_SkillOnDeathLevelup@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
-     "va": "0x005C32A0",
-     "length": 85,
-     "name": "?SKILLS_SrvSt20_IronGolem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CF8C0",
-     "length": 57,
-     "name": "?sub_005CF8C0_GetSeqEventFrame@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D2140",
-     "length": 97,
-     "name": "?SKILLS_CanImpregnateTarget@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005D30A0",
-     "length": 68,
-     "name": "?sub_005D30A0_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
-    },
-    {
-     "va": "0x005DC5C0",
-     "length": 118,
-     "name": "?AIUTIL_GetDistanceToCoordinates@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005DC920",
-     "length": 67,
-     "name": "?sub_005DC920_GetThreat@@YIHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005BF5D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005BF5D0",
-     "length": 152,
-     "name": "SKILLITEM_DeactivateAura"
-    },
-    {
      "va": "0x005C0770",
      "length": 44,
      "name": "SKILLITEM_EventFunc29_RestInPeace"
@@ -68067,6 +68031,11 @@
      "va": "0x005C2FF0",
      "length": 120,
      "name": "sub_005C2FF0_DamagePaladinCaster"
+    },
+    {
+     "va": "0x005C32A0",
+     "length": 85,
+     "name": "?SKILLS_SrvSt20_IronGolem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005C34B0",
@@ -68154,9 +68123,34 @@
      "name": "SKILLS_GetMonFrenzySequenceFrame"
     },
     {
+     "va": "0x005CF8C0",
+     "length": 57,
+     "name": "?sub_005CF8C0_GetSeqEventFrame@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005D1280",
      "length": 157,
      "name": "SKILLS_SrvSt59_ImpInferno"
+    },
+    {
+     "va": "0x005D2140",
+     "length": 97,
+     "name": "?SKILLS_CanImpregnateTarget@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x005D30A0",
+     "length": 68,
+     "name": "?sub_005D30A0_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
+    },
+    {
+     "va": "0x005DC5C0",
+     "length": 118,
+     "name": "?AIUTIL_GetDistanceToCoordinates@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005DC920",
+     "length": 67,
+     "name": "?sub_005DC920_GetThreat@@YIHPAUD2UnitStrc@@@Z"
     }
    ]
   },
