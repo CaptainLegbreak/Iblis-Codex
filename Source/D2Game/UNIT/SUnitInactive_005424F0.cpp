@@ -1,14 +1,23 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
+
 struct D2ShrinesTxt;
+
 struct D2SpawnAreaStrc;
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
+
 extern "C" const char gszEmptyAssertText[]; // 0x006CC837
+
 #define D2_ASSERT(x,line) do { if (!(x)) { sub_00408A60(gszEmptyAssertText,sub_00408090(),line); exit(-1); } } while(0)
+
 struct D2DynamicPathStrc;
+
 struct D2MinionListStrc;
 
 struct D2MapAIStrc
@@ -17,11 +26,17 @@ struct D2MapAIStrc
 };
 
 struct D2InventoryStrc;
+
 struct D2ActiveRoomStrc;
+
 struct D2AiControlStrc;
+
 struct D2MonsterDataStrc { void* pMonstatsTxt; unsigned char nComponent[16]; char pad14[0x14]; D2AiControlStrc* pAiControl; };
+
 struct D2ItemDataStrc { char pad00[0x24]; int dwActionStamp; };
+
 struct D2ObjectDataStrc { void* pObjectsTxt; unsigned char InteractType; };
+
 struct D2InactiveMonsterNodeStrc
 {
     int nX;
@@ -64,25 +79,128 @@ struct D2InactiveUnitNodeStrc
     int nUnitId,nFrame; unsigned char nInteractType; char pad29[3]; unsigned int nDropItemCode;
     D2InactiveUnitNodeStrc* pNext;
 };
+
 struct D2InactiveItemNodeStrc { D2InactiveItemNodeStrc* pNext; int nFrame; char pad08[4]; unsigned short nBitstreamSize; unsigned char pBitstream[1]; };
+
 struct D2InactiveUnitListStrc { int nX,nY; D2InactiveItemNodeStrc* pInactiveItems; D2InactiveMonsterNodeStrc* pInactiveMonsters; D2InactiveUnitNodeStrc* pInactiveUnits; D2InactiveUnitListStrc* pNext; };
+
 struct D2GameStrc { char pad00[0x1C]; void* pMemoryPool; char pad20[0x88]; int dwGameFrame; char padAC[0x2C]; D2InactiveUnitListStrc* pInactiveUnitList[5]; int padEC; void* pMonReg[1]; };
+
 struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileXPos,nTileYPos,nTileWidth,nTileHeight; };
+
 struct D2CoordStrc { int nX,nY; };
+
 struct D2ItemSaveStrc { int nClassId; unsigned short nX,nY; unsigned char bMode,nPad09; unsigned short nPad0A; unsigned int dwFlags; unsigned char nStorePage,nBodyloc; unsigned short nPad12; int nItemFileIndex; };
+
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
+
 extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
+
 extern int gnInactiveCmdParam1_007314C0; // 0x007314C0
+
 extern int gnInactiveNoXpParam2_007314C4; // 0x007314C4
+
 extern int gnInactiveNoTcParam2_007314C8; // 0x007314C8
 
 void __fastcall AIGENERAL_SetAiControlParam(D2UnitStrc* pMonster, int nIndex, int nParamValue);              // 0x0058EC00
+
 D2AiCmdStrc* __fastcall AIGENERAL_SetCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EFA0
+
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit);                                        // 0x0058F000
+
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2);                // 0x00666120
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer);      // 0x00627260
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
+
+__declspec(noinline) static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* pGame, D2InactiveMonsterNodeStrc* pNode, D2UnitStrc* pUnit);
+
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
+
+void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);              // 0x00619730
+
+int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
+
+D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, unsigned int* pSize, unsigned int dwVersion); // 0x00558CB0
+
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner);                    // 0x0063ABD0
+
+int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage);       // 0x0063B210
+
+void __fastcall D2GAME_ITEMS_UpdateStatList_6FC4BC00(D2GameStrc* pGame, D2UnitStrc* pSocketable, D2UnitStrc* pItem); // 0x0055FE60
+
+extern "C" const char gszSUnitInactiveSourceFile_006E0BC8[];                                                         // 0x006E0BC8
+
+__declspec(noinline) static void __stdcall sub_005418C0_TakeInactiveListNode(D2InactiveUnitNodeStrc** ppUnitNode, D2InactiveItemNodeStrc** ppItemNode, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);
+
+__declspec(noinline) static D2UnitStrc* __stdcall sub_00541990_RestoreInactiveItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2InactiveItemNodeStrc* pItemNode);
+
+__declspec(noinline) static void __stdcall sub_00541AC0_RestoreInactiveItems(D2ActiveRoomStrc* pRoom, D2GameStrc* pGame, D2InactiveItemNodeStrc* pItemNode);
+
+void* __fastcall sub_0040B430(void*,int,const char*,int,int); // 0x0040B430
+
+int __fastcall ACT4Q2_IsChaosSanctumCleared(D2GameStrc*); // 0x005B5210
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
+
+void __fastcall SUNIT_Restore(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int); // 0x00554A30
+
+void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc*,D2MinionListStrc*); // 0x0058F350
+
+D2UnitStrc* __fastcall sub_005B30E0_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags); // 0x005B30E0
+
+D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned short nNameSeed, int bChampion, int bSuperUnique, short nBossHcIdx, unsigned char* pUMods); // 0x005A4440
+
+D2UnitStrc* __fastcall sub_6FC6FDC0(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned char*); // 0x005A46E0
+
+int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
+
+void __fastcall D2Common_10136(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nSize, unsigned short nMask, D2ActiveRoomStrc** ppRoom); // 0x0064E840
+
+void __fastcall AIGENERAL_SetAiControlInfo(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nOwnerGUID, unsigned int nOwnerType, int bSetFlag1, int bSetFlag2, D2MinionListStrc* pMinionList); // 0x0058F4D0
+
+void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int); // 0x005B0E00
+
+void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
+
+unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc*); // 0x005A0120
+
+void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
+
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc*,unsigned char,int); // 0x005543B0
+
+void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(void**,int,int,int,int,int,D2UnitStrc*); // 0x00547ED0
+
+void __fastcall DRLGPRESET_FreeMapAI(void*,D2MapAIStrc*); // 0x00666130
+
+D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005557D0
+
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int); // 0x00640E90
+
+int __stdcall UNITS_IsShrine(D2UnitStrc*); // 0x00621B00
+
+D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId); // 0x006414B0
+
+void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord); // 0x00621BB0
+
+void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
+
+void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
+
+unsigned char __fastcall sub_00552AA0_GetRegenerateMax(D2ObjectsTxt*); // 0x00552AA0
+
+unsigned char __fastcall sub_00552AB0(); // 0x00552AB0
+
+__declspec(noinline) static D2InactiveUnitListStrc* __stdcall sub_00541D20_GetListNodeFromActAndCoordinates(D2GameStrc* pGame, int nAct, int nX, int nY, int bAllocNewNode);
+
+__declspec(noinline) static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc*,D2ActiveRoomStrc*);
+
+void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc*,D2ActiveRoomStrc*); // 0x00542B40
 
 inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
 {
@@ -113,9 +231,6 @@ inline void MONSTERS_SetComponentInl(D2UnitStrc* pUnit, int nComponent, unsigned
         pUnit->pMonsterData->nComponent[nComponent] = nValue;
     }
 }
-
-__declspec(noinline) static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* pGame, D2InactiveMonsterNodeStrc* pNode, D2UnitStrc* pUnit);
-static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* pGame, D2InactiveMonsterNodeStrc* pNode, D2UnitStrc* pUnit); // 0x00541E20
 
 // build: context sub_00541E20_RestoreSpecialMonsterParameters
 static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* pGame, D2InactiveMonsterNodeStrc* pNode, D2UnitStrc* pUnit)
@@ -198,20 +313,6 @@ static void __stdcall sub_00541E20_RestoreSpecialMonsterParameters(D2GameStrc* p
     }
 }
 
-void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);              // 0x00619730
-int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
-D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, unsigned int* pSize, unsigned int dwVersion); // 0x00558CB0
-D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner);                    // 0x0063ABD0
-int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage);       // 0x0063B210
-void __fastcall D2GAME_ITEMS_UpdateStatList_6FC4BC00(D2GameStrc* pGame, D2UnitStrc* pSocketable, D2UnitStrc* pItem); // 0x0055FE60
-extern "C" const char gszSUnitInactiveSourceFile_006E0BC8[];                                                         // 0x006E0BC8
-
-__declspec(noinline) static void __stdcall sub_005418C0_TakeInactiveListNode(D2InactiveUnitNodeStrc** ppUnitNode, D2InactiveItemNodeStrc** ppItemNode, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);
-static void __stdcall sub_005418C0_TakeInactiveListNode(D2InactiveUnitNodeStrc** ppUnitNode, D2InactiveItemNodeStrc** ppItemNode, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x005418C0
-// 0x005418C0
 static void __stdcall sub_005418C0_TakeInactiveListNode(D2InactiveUnitNodeStrc** ppUnitNode, D2InactiveItemNodeStrc** ppItemNode, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
     *ppUnitNode = 0;
@@ -249,9 +350,6 @@ static void __stdcall sub_005418C0_TakeInactiveListNode(D2InactiveUnitNodeStrc**
     }
 }
 
-__declspec(noinline) static D2UnitStrc* __stdcall sub_00541990_RestoreInactiveItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2InactiveItemNodeStrc* pItemNode);
-static D2UnitStrc* __stdcall sub_00541990_RestoreInactiveItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2InactiveItemNodeStrc* pItemNode); // 0x00541990
-// 0x00541990
 static D2UnitStrc* __stdcall sub_00541990_RestoreInactiveItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2InactiveItemNodeStrc* pItemNode)
 {
     D2ItemSaveStrc tItemSave;
@@ -302,9 +400,6 @@ static D2UnitStrc* __stdcall sub_00541990_RestoreInactiveItem(D2GameStrc* pGame,
     return pItem;
 }
 
-__declspec(noinline) static void __stdcall sub_00541AC0_RestoreInactiveItems(D2ActiveRoomStrc* pRoom, D2GameStrc* pGame, D2InactiveItemNodeStrc* pItemNode);
-static void __stdcall sub_00541AC0_RestoreInactiveItems(D2ActiveRoomStrc* pRoom, D2GameStrc* pGame, D2InactiveItemNodeStrc* pItemNode); // 0x00541AC0
-// 0x00541AC0
 static void __stdcall sub_00541AC0_RestoreInactiveItems(D2ActiveRoomStrc* pRoom, D2GameStrc* pGame, D2InactiveItemNodeStrc* pItemNode)
 {
     while (pItemNode)
@@ -319,36 +414,6 @@ static void __stdcall sub_00541AC0_RestoreInactiveItems(D2ActiveRoomStrc* pRoom,
         pItemNode = pNext;
     }
 }
-
-void* __fastcall sub_0040B430(void*,int,const char*,int,int); // 0x0040B430
-int __fastcall ACT4Q2_IsChaosSanctumCleared(D2GameStrc*); // 0x005B5210
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
-void __fastcall SUNIT_Restore(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int); // 0x00554A30
-void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc*,D2MinionListStrc*); // 0x0058F350
-D2UnitStrc* __fastcall sub_005B30E0_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags); // 0x005B30E0
-D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned short nNameSeed, int bChampion, int bSuperUnique, short nBossHcIdx, unsigned char* pUMods); // 0x005A4440
-D2UnitStrc* __fastcall sub_6FC6FDC0(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned char*); // 0x005A46E0
-int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
-void __fastcall D2Common_10136(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nSize, unsigned short nMask, D2ActiveRoomStrc** ppRoom); // 0x0064E840
-void __fastcall AIGENERAL_SetAiControlInfo(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nOwnerGUID, unsigned int nOwnerType, int bSetFlag1, int bSetFlag2, D2MinionListStrc* pMinionList); // 0x0058F4D0
-void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int); // 0x005B0E00
-void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
-unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc*); // 0x005A0120
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
-void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc*,unsigned char,int); // 0x005543B0
-void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(void**,int,int,int,int,int,D2UnitStrc*); // 0x00547ED0
-void __fastcall DRLGPRESET_FreeMapAI(void*,D2MapAIStrc*); // 0x00666130
-D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005557D0
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int); // 0x00640E90
-int __stdcall UNITS_IsShrine(D2UnitStrc*); // 0x00621B00
-D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId); // 0x006414B0
-void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord); // 0x00621BB0
-void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
-void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
-unsigned char __fastcall sub_00552AA0_GetRegenerateMax(D2ObjectsTxt*); // 0x00552AA0
-unsigned char __fastcall sub_00552AB0(); // 0x00552AB0
-__declspec(noinline) static D2InactiveUnitListStrc* __stdcall sub_00541D20_GetListNodeFromActAndCoordinates(D2GameStrc* pGame, int nAct, int nX, int nY, int bAllocNewNode);
-static D2InactiveUnitListStrc* __stdcall sub_00541D20_GetListNodeFromActAndCoordinates(D2GameStrc* pGame, int nAct, int nX, int nY, int bAllocNewNode); // 0x00541D20
 
 // build: context sub_00541D20_GetListNodeFromActAndCoordinates
 static D2InactiveUnitListStrc* __stdcall sub_00541D20_GetListNodeFromActAndCoordinates(D2GameStrc* pGame, int nAct, int nX, int nY, int bAllocNewNode)
@@ -400,13 +465,13 @@ static D2InactiveUnitListStrc* __stdcall sub_00541D20_GetListNodeFromActAndCoord
 
     return pCurrent;
 }
+
 inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* unit)
 {
     if (unit && unit->dwUnitType == 1 && unit->pMonsterData) return unit->pMonsterData->pAiControl;
     return 0;
 }
-__declspec(noinline) static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc*,D2ActiveRoomStrc*);
-static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc*,D2ActiveRoomStrc*); // 0x005424F0
+
 // 0x005424F0
 static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom)
 {
@@ -529,19 +594,19 @@ cleanup:
     }
 }
 
-void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc*,D2ActiveRoomStrc*); // 0x00542B40
-
-// build: context SUNITINACTIVE_RestoreInactiveUnits
+// 0x00542B40
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom)
 {
     sub_005424F0_RestoreInactiveMonsters(pGame,pRoom);
-    D2InactiveUnitNodeStrc* node = 0;
+    D2InactiveUnitNodeStrc* next = 0;
     D2InactiveItemNodeStrc* items = 0;
-    sub_005418C0_TakeInactiveListNode(&node,&items,pGame,pRoom);
+    sub_005418C0_TakeInactiveListNode(&next,&items,pGame,pRoom);
     sub_00541AC0_RestoreInactiveItems(pRoom,pGame,items);
-    while (node)
+    while (next)
     {
-        D2InactiveUnitNodeStrc* next = node->pNext;
+        D2InactiveUnitNodeStrc* node = next;
+        next = node->pNext;
+        const int mode = node->nMode;
         const int type = node->nUnitType;
         D2UnitStrc* unit = 0;
         if (node->nUnitFlagsEx & 0x100)
@@ -562,12 +627,14 @@ void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoo
                     break;
                 }
             }
-            FOG_FreeServerMemory(pGame->pMemoryPool,node,gszSUnitInactiveSourceFile_006E0BC8,0x15C,0);
+            FOG_FreeServerMemory(pGame->pMemoryPool,node,".\\UNIT\\SUnitInactive.cpp",0x15C,0);
         }
         else
         {
-            if (type != 1) unit = SUNIT_CreatePresetUnit(pGame,pRoom,type,node->nClassId,node->nX,node->nY,node->nMode,node->nUnitFlags);
-            if (type == 2)
+            if (type != 1) unit = SUNIT_CreatePresetUnit(pGame,pRoom,type,node->nClassId,node->nX,node->nY,mode,node->nUnitFlags);
+            switch (type)
+            {
+            case 2:
             {
                 D2_ASSERT(unit,0x170);
                 D2ObjectsTxt* obj = DATATBLS_GetObjectsTxtRecord(unit->dwClassId);
@@ -585,8 +652,8 @@ void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoo
                 else if (obj->nSubClass & 0x20)
                 {
                     const unsigned char maximum = sub_00552AA0_GetRegenerateMax(obj);
-                    unsigned char charges = node->nInteractType;
-                    if (charges < maximum)
+                    unsigned char charges;
+                    if (node->nInteractType < maximum)
                     {
                         const int period = obj->dwParm[0];
                         D2_ASSERT(period,0x18B);
@@ -597,13 +664,14 @@ void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoo
                             charges = (unsigned char)(steps + node->nInteractType);
                             if (charges > maximum) charges = maximum;
                             unit->dwAnimMode = sub_00552AB0() - charges / obj->dwParm[2];
-                            if (unit->dwAnimMode > 2)
+                            if ((unsigned int)unit->dwAnimMode > 2)
                             {
                                 unit->dwAnimMode = 0;
                                 unit->pObjectData->InteractType = maximum;
                                 goto objectDone;
                             }
                         }
+                        else charges = node->nInteractType;
                         unit->pObjectData->InteractType = charges;
                         if (charges < maximum && maximum - charges > 0)
                         {
@@ -624,10 +692,11 @@ void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoo
                     unit->bSparkChest = (unsigned char)node->nFrame;
                     if (node->nDropItemCode) unit->dwDropItemCode = node->nDropItemCode;
                 }
+                break;
+            }
             }
 objectDone:
-            FOG_FreeServerMemory(pGame->pMemoryPool,node,gszSUnitInactiveSourceFile_006E0BC8,0x1C3,0);
+            FOG_FreeServerMemory(pGame->pMemoryPool,node,".\\UNIT\\SUnitInactive.cpp",0x1C3,0);
         }
-        node = next;
     }
 }
