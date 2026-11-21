@@ -1,29 +1,4 @@
-#include "D2StormLink.h"
-
-struct D2StormSlotLinkStrc
-{
-    D2StormSlotLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormSlotLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormSlotLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormSlotLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
+#include "D2CmpStormList.h"
 
 struct D2StormListStrc
 {
@@ -31,45 +6,7 @@ struct D2StormListStrc
     D2StormLinkStrc m_terminator;
 };
 
-struct D2StormListEStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_00602D20_DeleteAll();                                                                          // 0x00602D20
-    void sub_00603B60_DeleteAll();                                                                          // 0x00603B60
-};
-
-struct D2StormSlotListStrc;
 struct D2StormEntry38Strc;
-
-struct D2StormSlotArrayStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormSlotListStrc* f_8;
-    unsigned int f_C;
-
-    ~D2StormSlotArrayStrc();                                                                                // 0x00603060
-    void sub_00603760_Clear();
-};
-
-struct D2StormEntryArrayStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormEntry38Strc* f_8;
-    unsigned int f_C;
-
-    ~D2StormEntryArrayStrc();                                                                               // 0x00603140
-};
-
-struct D2StormSlotGrowArrayStrc
-{
-    D2StormSlotArrayStrc tArray;
-
-    ~D2StormSlotGrowArrayStrc();
-};
 
 struct D2StormEntryGrowArrayStrc
 {
@@ -180,7 +117,7 @@ struct D2Storm603F70Strc
 };
 
 // 0x00603240
-D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc()
+D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc() throw()
 {
 }
 
@@ -192,7 +129,6 @@ D2StormEntryGrowArrayStrc::~D2StormEntryGrowArrayStrc()
 // 0x006032C0
 D2StormHashChunkStrc::~D2StormHashChunkStrc()
 {
-    f_10.Unlink();
 }
 
 // 0x00603500

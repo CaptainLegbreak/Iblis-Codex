@@ -1,26 +1,7 @@
-#include "D2StormLink.h"
+#include "D2CmpStormList.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-
-struct D2StormListAStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    char* RawNext(char* pNode)
-    {
-        return Link(pNode)->m_next;
-    }
-};
 
 struct D2StormListArrayStrc
 {

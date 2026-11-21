@@ -2,6 +2,7 @@
 #include "D2GameTypes.h"
 #include "D2DrlgMaps.h"
 #include "D2CmpTypes.h"
+#include "D2CmpStormList.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -28,7 +29,6 @@ struct D2FindTileEntryStrc;
 struct Cell;
 struct CellTable;
 struct Unit;
-struct D2StormLinkStrc;
 struct D2StormListStrc;
 struct D2Storm4167B0Strc;
 struct D2Storm4168F0Strc;
@@ -135,14 +135,8 @@ struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct R0052E0F0;
 struct R00601DC0;
-struct D2StormNodeStrc;
-struct D2StormNodeListStrc;
-struct D2StormListEStrc;
 struct D2StormListEArrayStrc;
 struct D2StormHashTableEStrc;
-struct D2StormSlotLinkStrc;
-struct D2StormSlotListStrc;
-struct D2StormSlotArrayStrc;
 struct D2StormHashNodeStrc;
 struct D2GameHashTableStrc;
 struct CriticalSection;
@@ -151,7 +145,6 @@ struct D2StormChunkLinkStrc;
 struct D2StormCtorLinkStrc;
 struct D2SGameDataStrc;
 struct D2StormGameArrayStrc;
-struct D2StormListAStrc;
 struct D2StormChunkListStrc;
 struct sub_0044F9F0;
 struct D2StormList0044FB30Strc;
@@ -338,45 +331,6 @@ struct Unit { int type; char pad4[0xC]; int mode; };
 extern "C" const char emptyAssert; // 0x006CC837
 
 enum { REQUIRED_TYPE = 6 };
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    D2StormLinkStrc* sub_0060E170_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_0060E1C0_NextLink(int nLinkOffset);
-    ~D2StormLinkStrc()
-    {
-        Unlink();
-    }
-};
 
 struct D2StormListStrc
 {
@@ -906,52 +860,6 @@ struct R00601DC0
 
 int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 
-struct D2StormNodeStrc
-{
-    D2StormLinkStrc f_0;
-};
-
-struct D2StormNodeListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-    D2StormLinkStrc* Link(D2StormNodeStrc* pNode)
-    {
-        return pNode ? &pNode->f_0 : &m_terminator;
-    }
-    D2StormLinkStrc* sub_00601FA0_Link(D2StormNodeStrc* pNode);
-    void sub_00601FC0_LinkNode(D2StormNodeStrc* pNode, int nLinkType, D2StormNodeStrc* pExistingNode);
-    char* sub_00602070_Next(D2StormNodeStrc* pNode);
-    void sub_00602190_UnlinkNode(D2StormNodeStrc* pNode);
-    void sub_00602BF0_DeleteAll();                                                                          // 0x00602BF0
-};
-
-struct D2StormListEStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    D2StormLinkStrc* sub_00602110_Link(char* pNode);
-    D2StormLinkStrc* sub_00602280_Link(char* pNode);
-    void sub_006022F0_InitLinkField(int nLinkOffset);
-    char* sub_00602310_Next(char* pNode);
-    void sub_00602350_InitLinkField(int nLinkOffset);
-    void sub_006024E0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
-    void sub_00603F50_CopyLinkOffset(const D2StormListEStrc* pSource);
-    void sub_00603FC0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
-    void sub_0060E370_CopyLinkOffset(const D2StormListEStrc* pSource);
-    void sub_0060E390_CopyLinkOffset(const D2StormListEStrc* pSource);
-};
-
 struct D2StormListEArrayStrc
 {
     unsigned int f_0;
@@ -972,105 +880,6 @@ struct D2StormHashTableEStrc
 
     unsigned int sub_0060E1F0_SlotIndex(unsigned int nHashVal);
     unsigned int sub_0060E210_SlotIndex(unsigned int nHashVal);
-};
-
-struct D2StormSlotLinkStrc
-{
-    D2StormSlotLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormSlotLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    ~D2StormSlotLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormSlotLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormSlotLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormSlotLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-};
-
-struct D2StormSlotListStrc
-{
-    int m_linkoffset;
-    D2StormSlotLinkStrc m_terminator;
-
-    D2StormSlotListStrc()
-    {
-        m_linkoffset = 0xDDDDDDDD;
-        InitializeTerminator();
-    }
-    ~D2StormSlotListStrc()
-    {
-        UnlinkAll();
-    }
-    D2StormSlotLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormSlotLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    void ChangeLinkOffset(int nLinkOffset)
-    {
-        if (nLinkOffset != m_linkoffset)
-        {
-            UnlinkAll();
-            m_linkoffset = nLinkOffset;
-            InitializeTerminator();
-        }
-    }
-    void LinkToTail(char* pNode)
-    {
-
-        D2StormSlotLinkStrc* pLink = Link(pNode);
-        pLink->Unlink();
-        D2StormSlotLinkStrc* pExistingLink = Link(0);
-        D2StormSlotLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-    }
-    void UnlinkAll();                                                                                       // 0x00602640
-};
-
-struct D2StormSlotArrayStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormSlotListStrc* f_8;
-    unsigned int f_C;
-
-    void sub_00603300_SetCount(unsigned int nCount);                                                        // 0x00603300
 };
 
 struct D2StormHashNodeStrc
@@ -1152,15 +961,6 @@ struct D2StormGameArrayStrc
     unsigned int f_C;
 
     ~D2StormGameArrayStrc();
-};
-
-struct D2StormListAStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormListAStrc();
-    void UnlinkAll();
 };
 
 struct D2StormChunkListStrc
