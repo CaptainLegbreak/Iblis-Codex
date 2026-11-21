@@ -951,51 +951,6 @@ void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     }
 }
 
-// 0x00590980
-void __fastcall ACT1Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const unsigned short nNPCNo = pQuestArg->nNPCNo;
-    const unsigned short nMessageIndex = pQuestArg->nMessageIndex;
-    D2UnitStrc* pPlayer = pQuestArg->pPlayer;
-    D2GameStrc* pGame = pQuestArg->pGame;
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    if (nNPCNo != MONSTER_KASHYA)
-    {
-        return;
-    }
-
-    if (nMessageIndex == 81)
-    {
-        ((D2Act1Quest2Strc*)pQuestData->pQuestDataEx)->bKashyaActivated = 1;
-        QUESTS_StateDebug(pQuestData, 2, gszA1Q2SourceFile, 192);
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, UNIT_PLAYER, 0, ACT1Q2_UnitIterate_UpdateQuestStateFlags);
-        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
-    }
-    else if (nMessageIndex == 92)
-    {
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
-        {
-            return;
-        }
-
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE) && pQuestData->fState != 5)
-        {
-            pQuestData->dwFlags &= 0xFFFFFF00;
-            QUESTS_UnitIterate(pQuestData, 13, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 0);
-            QUESTS_StateDebug(pQuestData, 5, gszA1Q2SourceFile, 205);
-            D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 206);
-            pQuestData->pfSeqFilter(pQuestData);
-        }
-
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED);
-        QUESTRECORD_ClearQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING);
-        QUESTS_UpdatePlayerFlags(pQuestData->pGame, pQuestArg->pPlayer);
-        QUESTS_AddPlayerGUID(&pQuestData->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-        D2GAME_NPC_AssignMercenary_6FCCB520(pQuestData->pGame, pQuestArg->pPlayer, MONSTER_KASHYA);
-        QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
-    }
-}
-
 // 0x00590B10
 void __fastcall ACT1Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
