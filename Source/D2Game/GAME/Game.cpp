@@ -5486,16 +5486,6 @@ void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameS
     SUNIT_IterateLivingPlayers(pGame, sub_0053DF50, &packet8E);
 }
 
-// 0x0053F4B0
-void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int nUnused, unsigned int nFlags, unsigned char nTemplate)
-{
-    D2ArenaStrc* pArena = (D2ArenaStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ArenaStrc), ".\\GAME\\Arena.cpp", 50, 0);
-    memset(pArena, 0, sizeof(D2ArenaStrc));
-    pGame->pArenaCtrl = pArena;
-    pArena->fFlags = nFlags & 0x3179C7;
-    pArena->nTemplate = nTemplate;
-}
-
 // 0x00540000
 void __fastcall PARTY_FreePartyControl(D2GameStrc* ptGame)
 {

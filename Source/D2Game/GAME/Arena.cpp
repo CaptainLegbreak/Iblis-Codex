@@ -35,6 +35,18 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
+// 0x0053F4B0
+void __fastcall ARENA_AllocArena(D2GameStrc* pGame, int nUnused, unsigned int nFlags, unsigned char nTemplate)
+{
+    D2ArenaStrc* pArena = (D2ArenaStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ArenaStrc), ".\\GAME\\Arena.cpp", 50, 0);
+    memset(pArena, 0, sizeof(D2ArenaStrc));
+    pGame->pArenaCtrl = pArena;
+    pArena->fFlags = nFlags & 0x3179C7;
+    pArena->nTemplate = nTemplate;
+}
+
 // 0x0053F500
 void __fastcall ARENA_FreeArena(D2GameStrc* pGame)
 {
