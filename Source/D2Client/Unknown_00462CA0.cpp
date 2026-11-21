@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2UnitData.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -25,22 +26,7 @@ extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int nState;
-    int nMode;
-    int nArg1;
-    int nArg2;
-};
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    unsigned short nClientFlags;
-    unsigned char unk_2A[0x2];
-    const Unicode* wszName;
-};
 
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];
@@ -1347,7 +1333,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* room
 const Unicode* __fastcall sub_00463810_GetMonsterName(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
-        return pUnit->pMonsterData->wszName;
+        return pUnit->pMonsterData->wszMonName;
     return 0;
 }
 

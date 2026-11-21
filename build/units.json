@@ -11664,6 +11664,11 @@
      "name": "?sub_004C5E20_CountCallback@@YIHPAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004C5E30",
+     "length": 53,
+     "name": "sub_004C5E30_ScanCount"
+    },
+    {
      "va": "0x004C5E70",
      "length": 61,
      "name": "?sub_004C5E70_FindCallback@@YIHPAXPAUD2UnitStrc@@@Z"
@@ -11679,6 +11684,10 @@
      "name": "?sub_004C5F70_CheckThrowStart@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004C5FA0",
+     "length": 113
+    },
+    {
      "va": "0x004C6020",
      "length": 8,
      "name": "?sub_004C6020_AlwaysOne@@YGHH@Z"
@@ -11689,9 +11698,31 @@
      "name": "?sub_004C60A0_ThrowWeapon@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004C6140",
+     "length": 1312
+    },
+    {
+     "va": "0x004C6660",
+     "length": 22,
+     "name": "?sub_004C6660_StartSkillWrapper@@YIHPAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x004C6680",
+     "length": 621
+    },
+    {
      "va": "0x004C68F0",
      "length": 63,
      "name": "?sub_004C68F0_DoUsedSkill@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C6930",
+     "length": 399,
+     "name": "?sub_004C6930_DoSkillPrgFunc@@YIXPAUD2UnitStrc@@0HHHHE@Z"
+    },
+    {
+     "va": "0x004C6AC0",
+     "length": 796
     },
     {
      "va": "0x004C6DE0",
@@ -11702,6 +11733,21 @@
      "va": "0x004C6EB0",
      "length": 134,
      "name": "?sub_004C6EB0_StartSkillOnUnit@@YIHPAUD2UnitStrc@@PAUD2ClientSkillArgsStrc@@@Z"
+    },
+    {
+     "va": "0x004C6F40",
+     "length": 190,
+     "name": "?sub_004C6F40_StartSkillAtPos@@YIHPAUD2UnitStrc@@PAUD2ClientSkillArgsStrc@@@Z"
+    },
+    {
+     "va": "0x004C7000",
+     "length": 200,
+     "name": "?sub_004C7000_SpawnRing@@YGXPAUD2MissileStrc@@0@Z"
+    },
+    {
+     "va": "0x004C70D0",
+     "length": 282,
+     "name": "?sub_004C70D0_StartUnitEffect@@YIXPAUD2UnitStrc@@0HHHHH@Z"
     },
     {
      "va": "0x004C71F0",
@@ -11744,9 +11790,17 @@
      "name": "?sub_004C7700@@YIHPAUD2UnitStrc@@HHHHH@Z"
     },
     {
+     "va": "0x004C7890",
+     "length": 184
+    },
+    {
      "va": "0x004C7950",
      "length": 63,
      "name": "?sub_004C7950@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C7990",
+     "length": 396
     },
     {
      "va": "0x004C7B20",
@@ -23148,6 +23202,10 @@
      "name": "?sub_00474140_ToggleFlag@@YAXXZ"
     },
     {
+     "va": "0x00474160",
+     "length": 292
+    },
+    {
      "va": "0x00474290",
      "length": 60,
      "name": "?sub_00474290_SetLightSize@@YIXPAUD2LightStrc@@H@Z"
@@ -23186,6 +23244,10 @@
      "length": 373
     },
     {
+     "va": "0x00474790",
+     "length": 36
+    },
+    {
      "va": "0x004747C0",
      "length": 263,
      "name": "?sub_004747C0_AddGridLight@@YGXHEEEHH@Z"
@@ -23216,9 +23278,32 @@
      "name": "?sub_00474C00_BlendLightCell@@YAXHH@Z"
     },
     {
+     "va": "0x00474D70",
+     "length": 881
+    },
+    {
+     "va": "0x004750F0",
+     "length": 808,
+     "name": "?sub_004750F0_BuildLightMask@@YAXPAUD2R01LightStrc@@@Z"
+    },
+    {
+     "va": "0x00475420",
+     "length": 379
+    },
+    {
+     "va": "0x004755A0",
+     "length": 297,
+     "name": "?sub_004755A0_UpdateLight@@YGXHPAUD2R01LightStrc@@@Z"
+    },
+    {
      "va": "0x00475780",
      "length": 120,
      "name": "?sub_00475780_GetIndicatorLevel@@YAHXZ"
+    },
+    {
+     "va": "0x00475800",
+     "length": 201,
+     "name": "?sub_00475800_RunLightPass@@YAXXZ"
     },
     {
      "va": "0x004758D0",
@@ -23360,103 +23445,6 @@
      "length": 6,
      "name": "sub_004A8A20"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/DRAW/dLightMap_00474160.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00474160",
-     "length": 292
-    },
-    {
-     "va": "0x00474790",
-     "length": 36
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/DRAW/dLightMap_00474D70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00474D70",
-     "length": 881
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/DRAW/dLightMap_004750F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004750F0",
-     "length": 808,
-     "name": "?sub_004750F0_BuildLightMask@@YAXPAUD2R01LightStrc@@@Z"
-    },
-    {
-     "va": "0x004755A0",
-     "length": 297,
-     "name": "?sub_004755A0_UpdateLight@@YGXHPAUD2R01LightStrc@@@Z"
-    },
-    {
-     "va": "0x00475800",
-     "length": 201,
-     "name": "?sub_00475800_RunLightPass@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/DRAW/dLightMap_00475420.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00475420",
-     "length": 379
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -34153,112 +34141,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/Skills_004C5E30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C5E30",
-     "length": 53,
-     "name": "sub_004C5E30_ScanCount"
-    },
-    {
-     "va": "0x004C6660",
-     "length": 22,
-     "name": "?sub_004C6660_StartSkillWrapper@@YIHPAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x004C6930",
-     "length": 399,
-     "name": "?sub_004C6930_DoSkillPrgFunc@@YIXPAUD2UnitStrc@@0HHHHE@Z"
-    },
-    {
-     "va": "0x004C7000",
-     "length": 200,
-     "name": "?sub_004C7000_SpawnRing@@YGXPAUD2MissileStrc@@0@Z"
-    },
-    {
-     "va": "0x004C70D0",
-     "length": 282,
-     "name": "?sub_004C70D0_StartUnitEffect@@YIXPAUD2UnitStrc@@0HHHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/Skills_004C5FA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C5FA0",
-     "length": 113
-    },
-    {
-     "va": "0x004C7890",
-     "length": 184
-    },
-    {
-     "va": "0x004C7990",
-     "length": 396
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/Skills_004C6140.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C6140",
-     "length": 1312
-    },
-    {
-     "va": "0x004C6680",
-     "length": 621
-    },
-    {
-     "va": "0x004C6AC0",
-     "length": 796
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/Skills_004C6F40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C6F40",
-     "length": 190,
-     "name": "?sub_004C6F40_StartSkillAtPos@@YIHPAUD2UnitStrc@@PAUD2ClientSkillArgsStrc@@@Z"
-    }
    ]
   },
   {

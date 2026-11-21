@@ -5,36 +5,11 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2ClientGame.h"
+#include "D2UnitData.h"
+#include "D2Txt.h"
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    unsigned char nTypeFlags;
-};
 
-struct D2MonStatsTxt
-{
-    short unk0x000;
-    short nBaseId;
-    char unk0x004[0x14];
-    short wMonStatsEx;
-    char unk0x01A[0x0C];
-    short wSpawnId;
-    char unk0x028[0x17C];
-    unsigned char nSpawnType;
-    char unk0x1A5[0x3];
-};
 
-struct D2MonStats2Txt
-{
-    int dwId;
-    unsigned char nFlags[4];
-    char unk0x008[0x3];
-    unsigned char nValue0B;
-    char unk0x00C[0xF8];
-    unsigned char nModeFlags[16];
-    char unk0x114[0x20];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -176,7 +151,7 @@ static __declspec(noinline) int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, 
         {
             D2MonStats2Txt* pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
             if (pMonStats2Txt)
-                return pMonStats2Txt->nModeFlags[nIndex >> 3] & gdwBitMasks[nIndex & 7];
+                return pMonStats2Txt->nModeEnabledWhenMovingFlags[nIndex >> 3] & gdwBitMasks[nIndex & 7];
         }
     }
     return 0;
@@ -204,7 +179,7 @@ static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pU
         return;
     }
 
-    const int nMissile = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId)->nValue0B + 0x10F;
+    const int nMissile = (unsigned char)UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId)->nType + 0x10F;
     memset(&tMissile, 0, sizeof(tMissile));
     tMissile.dwFlags = 0x2020;
     tMissile.pOwner = pUnit;
@@ -332,7 +307,7 @@ static __forceinline int sub_n5b_Distance(int nDelta)
 static __forceinline int sub_n5b_IsTypeFlag1(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
-        return pUnit->pMonsterData->nTypeFlags & 1;
+        return pUnit->pMonsterData->nClientFlags & 1;
     return 0;
 }
 
@@ -669,10 +644,10 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (!pDeadMonStatsTxt)
             return;
 
-        switch (pDeadMonStatsTxt->nSpawnType)
+        switch (pDeadMonStatsTxt->nSplEndDeath)
         {
         case 1:
-            if (pDeadMonStatsTxt->wSpawnId >= 0 && pDeadMonStatsTxt->wSpawnId < sgptDataTables->nMonStatsTxtRecordCount)
+            if (pDeadMonStatsTxt->wMinion[0] >= 0 && pDeadMonStatsTxt->wMinion[0] < sgptDataTables->nMonStatsTxtRecordCount)
             {
                 D2UnitStrc* pSpawned = sub_00466730_SpawnPresetUnit(nValue, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 1, 0);
                 if (pSpawned)
@@ -680,7 +655,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
                 pSpawned->dwLastHitClass = pUnit->dwLastHitClass;
                 sub_00480E70_SetUnitMode(pSpawned, 0);
-                sub_004AEDD0(pUnit, pDeadMonStatsTxt->wSpawnId);
+                sub_004AEDD0(pUnit, pDeadMonStatsTxt->wMinion[0]);
             }
             break;
         }

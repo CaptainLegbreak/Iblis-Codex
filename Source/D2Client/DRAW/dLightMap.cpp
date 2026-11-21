@@ -1,25 +1,40 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2Path.h"
 
 #pragma intrinsic(abs)
 
 #define LIGHT_MAX_SIZE 18
+
 #define LIGHT_SIZE_SHIFT 3
+
 #define LIGHT_TYPE_2 2
+
 #define INDICATOR_HOLD_MS 2000
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define LIGHT_MIN(a, b) ((a) < (b) ? (a) : (b))
+
 #define LIGHT_ABS(x) ((x) >= 0 ? (x) : -(x))
+
 #define LIGHT_CELL(v, r, c) { v = gdwLightOverrideRows_007ACA50[r][c]; if (!v) { v = gdwLightMapRows_007A8A50[r][c]; } }
 
 struct D2UnitRefStrc;
+
 struct D2LightCellStrc;
-struct D2LightStrc;
+
+
 struct D2P08LightSourceStrc;
+
 struct D2R01LightStrc;
+
 struct D2GridCellStrc;
-struct D2PathPointStrc;
+
+
 struct D2UnitStrc;
+
 struct D2DrlgCoordsStrc;
 
 struct D2UnitRefStrc
@@ -42,71 +57,96 @@ struct D2LightCellStrc
     unsigned char nBlue;
 };
 
-
 D2UnitStrc* __fastcall sub_004639B0_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 extern int gbFlag_00712B8C; // 0x00712B8C
+
 extern int gnCellOriginX_007B0A54; // 0x007B0A54
+
 extern int gnCellOriginY_007B0A58; // 0x007B0A58
 
-struct D2LightStrc
-{
-    char unk0x00[0x0C];
-    int nType;
-    int nX;
-    int nY;
-    int nUnk0x18;
-    int nUnk0x1C;
-    int nUnk0x20;
-    int nUnk0x24;
-    D2LightStrc* pNext;
-    int nUnk0x2C;
-    void* pData;
-};
 
 typedef void (__fastcall* ACTCALLBACKFN)(D2ActiveRoomStrc* pRoom);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 int __cdecl sub_004F5210(); // 0x004F5210
+
 int __cdecl sub_004CCF30(); // 0x004CCF30
+
 int __cdecl sub_0044DAE0(); // 0x0044DAE0
+
 void __stdcall D2GFX_DebugDraw(unsigned int* pLight, unsigned int* pPlayerLight, int nXPos, int nYPos); // 0x004F68B0
+
 void __stdcall DUNGEON_SetActCallbackFunc(D2DrlgActStrc* pAct, ACTCALLBACKFN pActCallbackFunction); // 0x0061AF60
+
 void __fastcall sub_00475930_ActCallback(D2ActiveRoomStrc* pRoom); // 0x00475930
+
 void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
+
 unsigned char* __stdcall sub_00475B80_BuildLerpTable(unsigned int nCount, int nSteps); // 0x00475B80
+
 unsigned char** __stdcall sub_00475C40_BuildLerpRowTable(unsigned int nCount, int nSteps); // 0x00475C40
+
 unsigned char** __stdcall sub_00475D30_BuildRampTable(unsigned int nSize, int nSteps); // 0x00475D30
+
 extern unsigned int gdwLightMap_007A8A50[]; // 0x007A8A50
+
 extern unsigned int gdwLightGrid_007B0E68[]; // 0x007B0E68
+
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
+
 extern unsigned char gRowTable_007B5C10[][0x100]; // 0x007B5C10
+
 extern unsigned char** gppLerpRows_007B953C; // 0x007B953C
+
 extern unsigned char* gpLerpTable_007B9540; // 0x007B9540
+
 extern unsigned char* gpLerpTable_007B9544; // 0x007B9544
+
 extern unsigned char** gppRampTable_007B954C; // 0x007B954C
+
 extern unsigned char* gpLerpTable_007B9550; // 0x007B9550
+
 extern int gdwGlobal_007BB384; // 0x007BB384
+
 void __stdcall sub_004F5230(void* pArg); // 0x004F5230
+
 extern int gdwGlobal_00712CCC; // 0x00712CCC
+
 extern int gdwGlobal_007BB38C; // 0x007BB38C
+
 extern int gdwGlobal_007BB3B4; // 0x007BB3B4
+
 extern int gdwGlobal_00712F04; // 0x00712F04
+
 extern int gdwGlobal_007BC9B0; // 0x007BC9B0
+
 extern int gdwGlobal_007BC9B4; // 0x007BC9B4
+
 extern int gdwGlobal_007BC99C; // 0x007BC99C
+
 extern int gdwGlobal_007BC9BC; // 0x007BC9BC
+
 extern int gdwGlobal_007BF024; // 0x007BF024
+
 extern int gdwGlobal_007BF1F6; // 0x007BF1F6
 
 struct D2GridCellStrc
 {
-    unsigned char unk0x00[4];
+    unsigned int nFlag;
     unsigned char nValue0;
     unsigned char nValue1;
     unsigned char f_6;
@@ -121,55 +161,148 @@ struct D2P08LightSourceStrc
     unsigned char nBlue;
 };
 
-extern unsigned int gdwReciprocals_007B0A68[0x100]; // 0x007B0A68
+unsigned int gdwReciprocals_007B0A68[0x100]; // 0x007B0A68
+
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
 
-extern D2LightCellStrc gaCells_007B0E68[0x30][0x30]; // 0x007B0E68
-extern unsigned int gdwLightOverrideRows_007ACA50[][64]; // 0x007ACA50
-extern D2LightStrc* gpLights_007B5668; // 0x007B5668
+D2LightCellStrc gaCells_007B0E68[0x30][0x30]; // 0x007B0E68
 
-struct D2PathPointStrc
-{
-    char unk0x00[0x10];
-    int nX;
-    int nY;
-};
+unsigned int gdwLightOverrideRows_007ACA50[64][64]; // 0x007ACA50
+
+static D2R01LightStrc* gpLights_007B5668; // 0x007B5668
+
 
 extern "C" int __cdecl abs(int nValue);
-extern int gnPathStepSignX_007B0A50; // 0x007B0A50
-extern int gnPathStepSignY_007A8A48; // 0x007A8A48
+
+int gnPathStepSignX_007B0A50; // 0x007B0A50
+
+int gnPathStepSignY_007A8A48; // 0x007A8A48
+
 static __forceinline unsigned char sub_00474A30_IsCellBlocked(int nX, int nY);
+
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-extern int gnGlobal_007B0A5C; // 0x007B0A5C
-extern int gnGlobal_007B0A60; // 0x007B0A60
-extern int gnPathStepMode_007B0A64; // 0x007B0A64
-extern int gnPathStepRatio_007A8A4C; // 0x007A8A4C
-static __declspec(noinline) void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2PathPointStrc* pPoint);
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileX;
-    int nTileY;
-    int nTileWidth;
-    int nTileHeight;
-};
+int gnGlobal_007B0A5C;                                                                                      // 0x007B0A5C
 
-extern D2LightCellStrc gLightGrid_007B0E68[][48]; // 0x007B0E68
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
-void __fastcall sub_00474550_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int a6); // 0x00474550
-
-static __declspec(noinline) void sub_00474C00_BlendLightCell(int nCol, int nRow);
+int gnGlobal_007B0A60;                                                                                      // 0x007B0A60
 
 int gnPathStepMode_007B0A64; // 0x007B0A64
 
 int gnPathStepRatio_007A8A4C; // 0x007A8A4C
+
+static __declspec(noinline) void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint);
+
+
+extern D2LightCellStrc gLightGrid_007B0E68[][48]; // 0x007B0E68
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
+
+void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
+
+void __fastcall sub_00474550_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int a6); // 0x00474550
+
+static __declspec(noinline) void sub_00474C00_BlendLightCell(int nCol, int nRow);
+
+
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+unsigned int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
+
+unsigned int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
+
+
+
+int gnLightsAllocated_007B566C; // 0x007B566C
+
+
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+
+extern int gnGlobal_00712B8C;                                                                               // 0x00712B8C
+
+static __declspec(noinline) void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX);
+
+
+static __declspec(noinline) void sub_00474A70_BuildOverrideWindow(D2R01LightStrc* pLight);
+
+
+
+
+static unsigned char sub_00474A30_IsCellBlocked(int nX, int nY);
+
+static __declspec(noinline) void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
+
+#pragma function(memset)
+
+struct D2ActiveRoomStrc;
+
+struct D2DynamicPathStrc;
+
+
+
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
+
+unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
+
+int __fastcall sub_00474080_GetDistance(int nDX, int nDY);                                                  // 0x00474080
+
+void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
+
+void __stdcall sub_00474610_UpdateLightGrid(int nArg);                                                                      // 0x00474610
+
+void __cdecl sub_004756D0_ScanGridCollision();                                                              // 0x004756D0
+
+int __cdecl sub_00475780_GetIndicatorLevel();                                                               // 0x00475780
+
+extern int gnGlobal_007B0A54;                                                                               // 0x007B0A54
+
+extern int gnGlobal_007B0A58;                                                                               // 0x007B0A58
+
+int gnLightCount_007B5674;                                                                                  // 0x007B5674
+
+static unsigned int __stdcall sub_004740D0_ApproxDistance(int nB, int nA);
+
+static void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp);
+
+static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight);
+
+static __declspec(noinline) void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp);
+
+static void sub_004750F0_BuildLightMask(D2R01LightStrc* pLight);
+
+static __declspec(noinline) void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight);
+
+int gnLightsReleased_007B5670; // 0x007B5670
+
+int gnIndicatorLevel_007B567C; // 0x007B567C
+
+unsigned long gdwIndicatorTick_007B5678; // 0x007B5678
+
+int gdwGlobal_007BB388; // 0x007BB388
+
+int gdwGlobal_007BCC48; // 0x007BCC48
+
+
+void __stdcall sub_00474610_UpdateLightGrid(int bReset);
+
+unsigned int gdwLightMapRows_007A8A50[64][64]; // 0x007A8A50
+
+static void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight);
+
+static void __stdcall sub_004755A0_UpdateLight(int nLevel, D2R01LightStrc* pLight);
+
+void __cdecl sub_00475800_RunLightPass();
 
 // 0x004740D0
 static __declspec(noinline) unsigned int __stdcall sub_004740D0_ApproxDistance(int nB, int nA)
@@ -183,8 +316,6 @@ static __declspec(noinline) unsigned int __stdcall sub_004740D0_ApproxDistance(i
 
     return (unsigned int)(nAbsB * 0x3D7 + nAbsA * 0x197) >> 10;
 }
-
-D2LightCellStrc gaCells_007B0E68[0x30][0x30]; // 0x007B0E68
 
 // 0x00474120
 static __forceinline D2UnitStrc* sub_00474120_FindUnitFromRef(D2UnitRefStrc* pRef)
@@ -206,6 +337,76 @@ void __cdecl sub_00474140_ToggleFlag()
     gbFlag_00712B8C = !gbFlag_00712B8C;
 }
 
+static inline int UNITS_IsServerSide(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlags >> 21) & 1;
+    }
+    return 0;
+}
+
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+    return pUnit->dwUnitType;
+}
+
+// 0x00474160
+D2R01LightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+{
+    if (nRadius > 0)
+    {
+        if (nRadius >= 18)
+        {
+            nRadius = 18;
+        }
+
+        ++gnLightsAllocated_007B566C;
+
+        D2R01LightStrc* pLight = (D2R01LightStrc*)FOG_Alloc(sizeof(D2R01LightStrc), ".\\DRAW\\dLightMap.cpp", 255, 0);
+        pLight->nUnitType = sub_0044BE50(pUnit);
+        pLight->nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
+        if (UNITS_IsServerSide(pUnit))
+        {
+            pLight->f_8 = 1;
+        }
+        else
+        {
+            pLight->f_8 = 0;
+        }
+        pLight->nX = (UNITS_GetPrecisionX(pUnit) >> 13) + 4;
+        unsigned int nPrecisionY = UNITS_GetPrecisionY(pUnit);
+        unsigned char nNativeIntensity = *(volatile unsigned char*)&nIntensity;
+        int nNativeMode = *(volatile int*)&nMode;
+        pLight->nY = (nPrecisionY >> 13) + 4;
+        pLight->nRadius = nRadius << 3;
+        pLight->nTargetRadius = nRadius << 3;
+        pLight->nIntensity = nNativeIntensity;
+        pLight->nRed = nRed;
+        pLight->nGreen = nGreen;
+        pLight->nMode = nNativeMode;
+        pLight->bFixed = 0;
+        pLight->nBlue = nBlue;
+        pLight->pNext = gpLights_007B5668;
+        pLight->bMaskReady = 0;
+        if (nNativeMode == 2)
+        {
+            pLight->pMask = (unsigned int*)FOG_Alloc(((2 * nRadius + 1) * (2 * nRadius + 1)) << 2, ".\\DRAW\\dLightMap.cpp", 278, 0);
+        }
+        else
+        {
+            pLight->pMask = 0;
+        }
+        gpLights_007B5668 = pLight;
+        return pLight;
+    }
+    return 0;
+}
+
 int __fastcall sub_M119_Emit_00474120(D2UnitRefStrc* pRef, int nX, int nY)
 {
     int n = (int)sub_00474120_FindUnitFromRef(pRef);
@@ -213,20 +414,8 @@ int __fastcall sub_M119_Emit_00474120(D2UnitRefStrc* pRef, int nX, int nY)
     return n;
 }
 
-#include "gen/data/Source/D2Client/DRAW/dLightMap.inc"
-
-D2LightStrc* gpLights_007B5668; // 0x007B5668
-
-int gnLightsReleased_007B5670; // 0x007B5670
-
-int gnIndicatorLevel_007B567C; // 0x007B567C
-
-unsigned long gdwIndicatorTick_007B5678; // 0x007B5678
-
-unsigned int gdwReciprocals_007B0A68[0x100]; // 0x007B0A68
-
 // 0x00474290
-void __fastcall sub_00474290_SetLightSize(D2LightStrc* pLight, int nSize)
+void __fastcall sub_00474290_SetLightSize(D2R01LightStrc* pLight, int nSize)
 {
     if (nSize > 0)
     {
@@ -235,12 +424,12 @@ void __fastcall sub_00474290_SetLightSize(D2LightStrc* pLight, int nSize)
             nSize = LIGHT_MAX_SIZE;
         }
         D2_ASSERT(pLight, 0x131);
-        pLight->nUnk0x1C = nSize * 8;
+        pLight->nTargetRadius = nSize * 8;
     }
 }
 
 // 0x004742D0
-void __fastcall sub_004742D0_ResetLightSize(D2LightStrc* pLight, int nSize)
+void __fastcall sub_004742D0_ResetLightSize(D2R01LightStrc* pLight, int nSize)
 {
     if (nSize > 0)
     {
@@ -253,30 +442,26 @@ void __fastcall sub_004742D0_ResetLightSize(D2LightStrc* pLight, int nSize)
         {
             nSize = LIGHT_MAX_SIZE;
         }
-        pLight->nUnk0x18 = nSize * 8;
-        pLight->nUnk0x1C = nSize * 8;
-        if (pLight->nType == LIGHT_TYPE_2)
+        pLight->nRadius = nSize * 8;
+        pLight->nTargetRadius = nSize * 8;
+        if (pLight->nMode == LIGHT_TYPE_2)
         {
-            pLight->nUnk0x2C = 0;
-            if (pLight->pData)
+            pLight->bMaskReady = 0;
+            if (pLight->pMask)
             {
-                FOG_Free(pLight->pData, ".\\DRAW\\dLightMap.cpp", 0x14A, 0);
+                FOG_Free(pLight->pMask, ".\\DRAW\\dLightMap.cpp", 0x14A, 0);
             }
-            pLight->pData = 0;
+            pLight->pMask = 0;
         }
     }
 }
 
 // 0x00474350
-int __fastcall sub_00474350_GetLightSize(D2LightStrc* pLight)
+int __fastcall sub_00474350_GetLightSize(D2R01LightStrc* pLight)
 {
     D2_ASSERT(pLight, 0x155);
-    return pLight->nUnk0x18 >> LIGHT_SIZE_SHIFT;
+    return pLight->nRadius >> LIGHT_SIZE_SHIFT;
 }
-
-int gdwGlobal_007BB388; // 0x007BB388
-
-int gdwGlobal_007BCC48; // 0x007BCC48
 
 // 0x00474380
 int __cdecl sub_00474380()
@@ -285,14 +470,14 @@ int __cdecl sub_00474380()
 }
 
 // 0x004743D0
-void __fastcall sub_004743D0_ReleaseOverlayResource(D2LightStrc* pLight)
+void __fastcall sub_004743D0_ReleaseOverlayResource(D2R01LightStrc* pLight)
 {
     if (!pLight)
     {
         return;
     }
-    D2LightStrc* pPrev = 0;
-    D2LightStrc* pCurrent = gpLights_007B5668;
+    D2R01LightStrc* pPrev = 0;
+    D2R01LightStrc* pCurrent = gpLights_007B5668;
     while (pCurrent)
     {
         if (pCurrent == pLight)
@@ -311,21 +496,21 @@ void __fastcall sub_004743D0_ReleaseOverlayResource(D2LightStrc* pLight)
     {
         gpLights_007B5668 = pCurrent->pNext;
     }
-    if (pLight->pData)
+    if (pLight->pMask)
     {
-        FOG_Free(pLight->pData, ".\\DRAW\\dLightMap.cpp", 0x181, 0);
+        FOG_Free(pLight->pMask, ".\\DRAW\\dLightMap.cpp", 0x181, 0);
     }
     FOG_Free(pLight, ".\\DRAW\\dLightMap.cpp", 0x183, 0);
     gnLightsReleased_007B5670 += 1;
 }
 
 // 0x00474470
-void __fastcall sub_00474470_ResetLight(D2LightStrc* pLight)
+void __fastcall sub_00474470_ResetLight(D2R01LightStrc* pLight)
 {
     D2_ASSERT(pLight, 0x18D);
-    pLight->nUnk0x20 = 1;
-    pLight->nUnk0x1C = 0;
-    D2_ASSERT(pLight->nType != LIGHT_TYPE_2, 0x190);
+    pLight->bFixed = 1;
+    pLight->nTargetRadius = 0;
+    D2_ASSERT(pLight->nMode != LIGHT_TYPE_2, 0x190);
 }
 
 void __stdcall sub_R01_Emit_00474C00(int nRow, int nColA, int nColB)
@@ -424,6 +609,16 @@ void __stdcall sub_00474610_UpdateLightGrid(int bClear)
     }
 }
 
+// 0x00474790
+void __cdecl sub_00474790_ClearLightGrid()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (pPlayer)
+        UNITS_GetRoom(pPlayer);
+
+    sub_004744B0_FillLightGrid(0, 0, 0x2F, 0, 0x2F);
+}
+
 // 0x004747C0
 static __declspec(noinline) void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX)
 {
@@ -484,19 +679,11 @@ int __stdcall sub_W04_Emit_004740D0(int nX, int nY, int nDx, int nDy)
     return sub_004740D0_ApproxDistance(nB, nA) + nX;
 }
 
-void __stdcall sub_W04_Emit_00474B50(D2PathPointStrc* pPoint, int nX, int nY)
+void __stdcall sub_W04_Emit_00474B50(D2R01LightStrc* pPoint, int nX, int nY)
 {
     sub_00474B50_SetupStepDirection(nX, nY, pPoint);
     sub_00474B50_SetupStepDirection(nY, nX, pPoint);
 }
-
-int gnPathStepSignX_007B0A50; // 0x007B0A50
-
-int gnPathStepSignY_007A8A48; // 0x007A8A48
-
-unsigned int gdwLightMapRows_007A8A50[64][64]; // 0x007A8A50
-
-unsigned int gdwLightOverrideRows_007ACA50[64][64]; // 0x007ACA50
 
 // 0x004748D0
 static __declspec(noinline) void __stdcall sub_004748D0_AddAreaLight(D2R01LightStrc* pLight, int bNoClamp)
@@ -611,7 +798,7 @@ static __declspec(noinline) void sub_00474A70_BuildOverrideWindow(D2R01LightStrc
 }
 
 // 0x00474B50
-static __declspec(noinline) void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2PathPointStrc* pPoint)
+static __declspec(noinline) void __stdcall sub_00474B50_SetupStepDirection(int nX, int nY, D2R01LightStrc* pPoint)
 {
     int nDx = pPoint->nX - nX;
     int nDy = pPoint->nY - nY;
@@ -708,6 +895,356 @@ static __declspec(noinline) void sub_00474C00_BlendLightCell(int nCol, int nRow)
     }
 }
 
+static unsigned int __stdcall sub_004740D0_ApproxDistanceInl(int nB, int nA)
+{
+    const int nAbsA = abs(nA);
+    const int nAbsB = abs(nB);
+    if (nAbsA >= nAbsB)
+    {
+        return (unsigned int)(nAbsA * 0x3D7 + nAbsB * 0x197) >> 10;
+    }
+
+    return (unsigned int)(nAbsB * 0x3D7 + nAbsA * 0x197) >> 10;
+}
+
+// 0x00474D70
+static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight)
+{
+    if (pLight->nRadius <= 0 || pLight->nRadius >= 0x100)
+    {
+        return;
+    }
+
+    const int nStartX = pLight->nX - (pLight->nX & 7) - pLight->nRadius;
+    const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
+    const int nSpan = (pLight->nRadius * 2) >> 3;
+    const int nCellStartX = nStartX >> 3;
+    if (nCellStartX > gnGlobal_007B0A5C || nCellStartX + nSpan + 1 < gnCellOriginX_007B0A54)
+    {
+        return;
+    }
+
+    const int nCellStartY = nStartY >> 3;
+    if (nCellStartY > gnGlobal_007B0A60 || nCellStartY + nSpan + 1 < gnCellOriginY_007B0A58)
+    {
+        return;
+    }
+
+    memset(gdwLightMapRows_007A8A50, 0, 0x1000);
+    const int nRadCells = pLight->nRadius >> 3;
+    const int nCellX = pLight->nX >> 3;
+    const int nCellY = pLight->nY >> 3;
+    sub_00474A70_BuildOverrideWindow(pLight);
+
+    int nHi = 0x20 + 2;
+    for (int k = 2; k <= nRadCells; ++k, ++nHi)
+    {
+        const int nLo = 0x20 - k;
+        const int nTopX = (nCellX + k) * 8 + 4;
+        const int nTopY = (nCellY + k) * 8 + 4;
+        const int nBotX = (nCellX - k) * 8 + 4;
+        const int nBotY = (nCellY - k) * 8 + 4;
+        for (int m = 0; m <= k; ++m)
+        {
+            const int nUpX = (nCellX + m) * 8 + 4;
+            const int nUpY = (nCellY + m) * 8 + 4;
+            const int nDnX = (nCellX - m) * 8 + 4;
+            const int nDnY = (nCellY - m) * 8 + 4;
+            sub_00474B50_SetupStepDirection(nDnX, nBotY, pLight);
+            sub_00474C00_BlendLightCell(0x20 - m, nLo);
+            sub_00474B50_SetupStepDirection(nUpX, nBotY, pLight);
+            sub_00474C00_BlendLightCell(0x20 + m, nLo);
+            sub_00474B50_SetupStepDirection(nDnX, nTopY, pLight);
+            sub_00474C00_BlendLightCell(0x20 - m, nHi);
+            sub_00474B50_SetupStepDirection(nUpX, nTopY, pLight);
+            sub_00474C00_BlendLightCell(0x20 + m, nHi);
+            sub_00474B50_SetupStepDirection(nTopX, nDnY, pLight);
+            sub_00474C00_BlendLightCell(nHi, 0x20 - m);
+            sub_00474B50_SetupStepDirection(nTopX, nUpY, pLight);
+            sub_00474C00_BlendLightCell(nHi, 0x20 + m);
+            sub_00474B50_SetupStepDirection(nBotX, nDnY, pLight);
+            sub_00474C00_BlendLightCell(nLo, 0x20 - m);
+            sub_00474B50_SetupStepDirection(nBotX, nUpY, pLight);
+            sub_00474C00_BlendLightCell(nLo, 0x20 + m);
+        }
+    }
+
+    const int nScale = (pLight->nIntensity << 0x10) / pLight->nRadius;
+    const int nOffset = 0x20 - (pLight->nRadius >> 3);
+    for (int j = 0; j <= nSpan; ++j)
+    {
+        const int nY = nStartY + j * 8;
+        const int nDiffY = pLight->nY - nY;
+        const int nDy = LIGHT_ABS(nDiffY);
+        int nX = nStartX;
+        for (int i = 0; i <= nSpan; ++i)
+        {
+            const int nMask = gdwLightMapRows_007A8A50[nOffset + j][nOffset + i];
+            if (nMask < 0x10)
+            {
+                const int nDiffX = pLight->nX - nX;
+                const int nDx = LIGHT_ABS(nDiffX);
+                int nValue = (int)(pLight->nRadius - sub_004740D0_ApproxDistanceInl(nDy, nDx)) * nScale >> 0x10;
+                nValue = nValue * (8 - (nMask >> 1)) >> 3;
+                if (nValue > 0)
+                {
+                    sub_004747C0_AddGridLight(nValue, pLight->nRed, pLight->nGreen, pLight->nBlue, nY, nX);
+                }
+            }
+            nX += 8;
+        }
+    }
+}
+
+void __stdcall sub_E4F1_Emit_00474D70(int nLevel, D2R01LightStrc* pLight)
+{
+    if (!pLight->nMode && nLevel > 1)
+    {
+        sub_00474D70_AddBlendedAreaLight(pLight);
+        return;
+    }
+
+    pLight->nRadius = 0;
+}
+
+static __forceinline unsigned char sub_K01_GetGridCellByte(int nX, int nY)
+{
+    const int nGridX = (nX >> 3) - gnGlobal_007B0A54;
+    if (nGridX < 0)
+    {
+        return 1;
+    }
+    if (nGridX >= 0x30)
+    {
+        return 1;
+    }
+
+    const int nGridY = (nY >> 3) - gnGlobal_007B0A58;
+    if (nGridY < 0)
+    {
+        return 1;
+    }
+    if (nGridY >= 0x30)
+    {
+        return 1;
+    }
+
+    return (unsigned char)gtGridCells_007B0E68[nGridY * 48 + nGridX].nFlag;
+}
+
+// 0x004750F0
+static __declspec(noinline) void sub_004750F0_BuildLightMask(D2R01LightStrc* pLight)
+{
+    if (pLight->nRadius <= 0 || pLight->nRadius >= 0x100)
+    {
+        return;
+    }
+
+    const int nSpan = (pLight->nRadius * 2) >> 3;
+    memset(gdwLightMapRows_007A8A50, 0, 0x1000);
+    const int nRadCells = pLight->nRadius >> 3;
+    const int nCellX = pLight->nX >> 3;
+    const int nCellY = pLight->nY >> 3;
+    if (pLight->nUnitType == 6)
+    {
+        return;
+    }
+
+    D2UnitStrc* pUnit = pLight->f_8 ? sub_004639B0_FindServerSideUnit(pLight->nUnitId, pLight->nUnitType)
+                                            : sub_00463990(pLight->nUnitId, pLight->nUnitType);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2_ASSERT(pRoom, 0x414);
+
+    const int nBaseX = CLIENTS_GetUnitX(pUnit) - 0x20;
+    const int nBaseY = CLIENTS_GetUnitY(pUnit) - 0x20;
+    for (int j = 0; j < 0x40; ++j)
+    {
+        for (int i = 0; i < 0x40; ++i)
+        {
+            gdwLightOverrideRows_007ACA50[j][i] = COLLISION_CheckMask(pRoom, i + nBaseX, j + nBaseY, 0x22) ? 0x10 : 0;
+        }
+    }
+
+    int nHi = 0x20 + 2;
+    for (int k = 2; k <= nRadCells; ++k, ++nHi)
+    {
+        const int nLo = 0x20 - k;
+        const int nTopX = (nCellX + k) * 8 + 4;
+        const int nTopY = (nCellY + k) * 8 + 4;
+        const int nBotX = (nCellX - k) * 8 + 4;
+        const int nBotY = (nCellY - k) * 8 + 4;
+        for (int m = 0; m <= k; ++m)
+        {
+            const int nUpX = (nCellX + m) * 8 + 4;
+            const int nUpY = (nCellY + m) * 8 + 4;
+            const int nDnX = (nCellX - m) * 8 + 4;
+            const int nDnY = (nCellY - m) * 8 + 4;
+            sub_00474B50_SetupStepDirection(nDnX, nBotY, pLight);
+            sub_00474C00_BlendLightCell(0x20 - m, nLo);
+            sub_00474B50_SetupStepDirection(nUpX, nBotY, pLight);
+            sub_00474C00_BlendLightCell(0x20 + m, nLo);
+            sub_00474B50_SetupStepDirection(nDnX, nTopY, pLight);
+            sub_00474C00_BlendLightCell(0x20 - m, nHi);
+            sub_00474B50_SetupStepDirection(nUpX, nTopY, pLight);
+            sub_00474C00_BlendLightCell(0x20 + m, nHi);
+            sub_00474B50_SetupStepDirection(nTopX, nDnY, pLight);
+            sub_00474C00_BlendLightCell(nHi, 0x20 - m);
+            sub_00474B50_SetupStepDirection(nTopX, nUpY, pLight);
+            sub_00474C00_BlendLightCell(nHi, 0x20 + m);
+            sub_00474B50_SetupStepDirection(nBotX, nDnY, pLight);
+            sub_00474C00_BlendLightCell(nLo, 0x20 - m);
+            sub_00474B50_SetupStepDirection(nBotX, nUpY, pLight);
+            sub_00474C00_BlendLightCell(nLo, 0x20 + m);
+        }
+    }
+
+    D2_ASSERT(!pLight->bMaskReady, 0x454);
+    D2_ASSERT(pLight->pMask, 0x455);
+
+    const int nOffset = 0x20 - (pLight->nRadius >> 3);
+    unsigned int* pDst = pLight->pMask;
+    for (int y = 0; y <= nSpan; ++y)
+    {
+        for (int x = 0; x <= nSpan; ++x)
+        {
+            *pDst++ = gdwLightMapRows_007A8A50[nOffset + y][nOffset + x];
+        }
+    }
+
+    pLight->bMaskReady = 1;
+}
+
+// 0x00475420
+static void sub_00475420_AddMaskedAreaLight(D2R01LightStrc* pLight)
+{
+    if (pLight->nRadius <= 0 || pLight->nRadius >= 0x100)
+    {
+        return;
+    }
+
+    const int nStartX = pLight->nX - (pLight->nX & 7) - pLight->nRadius;
+    const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
+    const int nSpan = (pLight->nRadius * 2) >> 3;
+    int nCell = nStartX >> 3;
+    if (nCell > gnGlobal_007B0A5C || nCell + nSpan + 1 < gnGlobal_007B0A54)
+    {
+        return;
+    }
+
+    nCell = nStartY >> 3;
+    if (nCell > gnGlobal_007B0A60 || nCell + nSpan + 1 < gnGlobal_007B0A58)
+    {
+        return;
+    }
+
+    D2_ASSERT(pLight->pMask, 0x47E);
+    D2_ASSERT(pLight->bMaskReady, 0x47F);
+
+    const int nScale = (pLight->nIntensity << 0x10) / pLight->nRadius;
+    int* pMask = (int*)pLight->pMask;
+    for (int j = 0; j <= nSpan; ++j)
+    {
+        const int nY = nStartY + 8 * j;
+        const int nDiffY = pLight->nY - nY;
+        const int nDy = LIGHT_ABS(nDiffY);
+        for (int i = 0; i <= nSpan; ++i)
+        {
+            const int nX = nStartX + 8 * i;
+            const int nMaskValue = *pMask;
+            if (nMaskValue < 0x10)
+            {
+                const int nDiffX = pLight->nX - nX;
+                const int nDx = LIGHT_ABS(nDiffX);
+                int nValue = (pLight->nRadius - sub_00474080_GetDistance(nDx, nDy)) * nScale >> 0x10;
+                nValue = nValue * (8 - (nMaskValue >> 1)) >> 3;
+                if (nValue > 0)
+                {
+                    sub_004747C0_AddGridLight(nValue, pLight->nRed, pLight->nGreen, pLight->nBlue, nY, nX);
+                }
+            }
+            ++pMask;
+        }
+    }
+}
+
+// 0x004755A0
+static __declspec(noinline) void __stdcall sub_004755A0_UpdateLight(int nLevel, D2R01LightStrc* pLight)
+{
+    if (!pLight->bFixed && pLight->nUnitType != 6)
+    {
+        D2UnitStrc* pUnit = pLight->f_8 ? sub_004639B0_FindServerSideUnit(pLight->nUnitId, pLight->nUnitType)
+                                                : sub_00463990(pLight->nUnitId, pLight->nUnitType);
+        if (pUnit)
+        {
+            const int nPrecX = UNITS_GetPrecisionX(pUnit);
+            const int nPrecY = UNITS_GetPrecisionY(pUnit);
+            pLight->nX = (nPrecX >> 0xD) + 4;
+            pLight->nY = (nPrecY >> 0xD) + 4;
+        }
+    }
+
+    if (pLight->nTargetRadius != pLight->nRadius)
+    {
+        if (pLight->nMode == 2)
+        {
+            pLight->bMaskReady = 0;
+            if (pLight->pMask)
+            {
+                FOG_Free(pLight->pMask, ".\\DRAW\\dLightMap.cpp", 0x4CC, 0);
+            }
+            pLight->pMask = 0;
+        }
+
+        if (pLight->nTargetRadius > pLight->nRadius)
+        {
+            pLight->nRadius += 8;
+        }
+        else
+        {
+            pLight->nRadius -= 8;
+        }
+    }
+
+    if (pLight->nRadius >= 0x100)
+    {
+        pLight->nRadius = 0xF8;
+    }
+
+    if (pLight->bFixed && pLight->nRadius <= 0)
+    {
+        sub_004743D0_ReleaseOverlayResource(pLight);
+        return;
+    }
+
+    if (!pLight->nMode && nLevel > 1)
+    {
+        sub_00474D70_AddBlendedAreaLight(pLight);
+        return;
+    }
+
+    if (pLight->nMode == 2)
+    {
+        if (!pLight->bMaskReady)
+        {
+            if (!pLight->pMask)
+            {
+                const int nSide = 2 * (pLight->nRadius >> 3) + 1;
+                pLight->pMask = (unsigned int*)FOG_Alloc(nSide * nSide * sizeof(unsigned int), ".\\DRAW\\dLightMap.cpp", 0x4F1, 0);
+            }
+            sub_004750F0_BuildLightMask(pLight);
+        }
+        sub_00475420_AddMaskedAreaLight(pLight);
+        return;
+    }
+
+    sub_004748D0_AddAreaLight(pLight, nLevel);
+}
+
 // 0x00475780
 int __cdecl sub_00475780_GetIndicatorLevel()
 {
@@ -755,6 +1292,56 @@ low:
     return nLevel;
 }
 
+__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x00475800
+void __cdecl sub_00475800_RunLightPass()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    const int nX = CLIENTS_GetUnitXInline(pPlayer);
+    const int nY = CLIENTS_GetUnitYInline(pPlayer);
+    gnGlobal_007B0A54 = nX - 0x18;
+    gnGlobal_007B0A58 = nY - 0x18;
+    gnGlobal_007B0A5C = gnGlobal_007B0A54 + 0x30;
+    gnGlobal_007B0A60 = gnGlobal_007B0A58 + 0x30;
+    sub_00474610_UpdateLightGrid(0);
+    sub_004756D0_ScanGridCollision();
+    const int nLevel = sub_00475780_GetIndicatorLevel();
+    gnLightCount_007B5674 = 0;
+    D2R01LightStrc* pLight = gpLights_007B5668;
+    while (pLight)
+    {
+        ++gnLightCount_007B5674;
+        D2R01LightStrc* pNext = pLight->pNext;
+        sub_004755A0_UpdateLight(nLevel, pLight);
+        pLight = pNext;
+    }
+}
+
 void sub_M241_Emit_00474D70(D2R01LightStrc* pLight)
 {
     sub_00474A70_BuildOverrideWindow(pLight);
@@ -763,13 +1350,13 @@ void sub_M241_Emit_00474D70(D2R01LightStrc* pLight)
 // 0x004758D0
 void __cdecl sub_004758D0_FreeAllLights()
 {
-    D2LightStrc* pLight = gpLights_007B5668;
+    D2R01LightStrc* pLight = gpLights_007B5668;
     while (pLight)
     {
-        D2LightStrc* pNext = pLight->pNext;
-        if (pLight->pData)
+        D2R01LightStrc* pNext = pLight->pNext;
+        if (pLight->pMask)
         {
-            FOG_Free(pLight->pData, ".\\DRAW\\dLightMap.cpp", 1405, 0);
+            FOG_Free(pLight->pMask, ".\\DRAW\\dLightMap.cpp", 1405, 0);
         }
         FOG_Free(pLight, ".\\DRAW\\dLightMap.cpp", 1407, 0);
         pLight = pNext;
@@ -781,7 +1368,7 @@ void __cdecl sub_004758D0_FreeAllLights()
 // 0x00475B20
 void __cdecl sub_00475B20_DebugDrawLights()
 {
-    D2LightStrc* pLight = gpLights_007B5668;
+    D2R01LightStrc* pLight = gpLights_007B5668;
     D2GFX_DebugDraw(gdwLightMap_007A8A50, gdwLightGrid_007B0E68, pLight->nX, pLight->nY);
 }
 
@@ -952,3 +1539,5 @@ int __cdecl sub_004A8A20()
 {
     return 7;
 }
+
+#include "gen/data/Source/D2Client/DRAW/dLightMap.inc"
