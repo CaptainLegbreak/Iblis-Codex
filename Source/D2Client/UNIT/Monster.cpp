@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -1243,10 +1244,10 @@ static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit)
     tMissile.dwFlags = 0x20;
     switch (nMissile)
     {
-    case 0x3F:
-    case 0x40:
-    case 0x41:
-    case 0x42:
+    case MISSILE_MUMMY1:
+    case MISSILE_MUMMY2:
+    case MISSILE_MUMMY3:
+    case MISSILE_MUMMY4:
         tMissile.dwFlags = 0x34;
         tMissile.nVelocity = 2;
         break;
@@ -1273,14 +1274,14 @@ static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit)
         tMissile.nTargetY = CLIENTS_GetUnitY(pTarget);
     }
 
-    if (nMissile == 0xEE || nMissile == 0xEF)
+    if (nMissile == MISSILE_PANTHERPOTORANGE || nMissile == MISSILE_PANTHERPOTGREEN)
     {
         if (pTarget)
         {
             sub_004CDC30(pUnit, nMissile, 0, 0, 0, 0, 0, 1, 0);
         }
     }
-    else if (nMissile == 0x196)
+    else if (nMissile == MISSILE_CATAPULTCHARGEDBALL_ON)
     {
         sub_004AE3C0(pUnit);
         sub_004AE400_CastRandomCurse(pUnit);
@@ -1622,9 +1623,9 @@ static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pU
         tMissile.pOwner = pUnit;
         tMissile.pOrigin = pUnit;
         tMissile.nSkillLevel = 1;
-        tMissile.nMissile = 0x1AB;
+        tMissile.nMissile = MISSILE_SUICIDEFIREEXPLODE;
         sub_004CD540_CreateMissile(&tMissile);
-        tMissile.nMissile = 0x1AA;
+        tMissile.nMissile = MISSILE_SUICIDECORPSEEXPLODE;
         sub_004CD540_CreateMissile(&tMissile);
         return;
     }
@@ -1637,7 +1638,7 @@ static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pU
     tMissile.nSkillLevel = 1;
     tMissile.nMissile = nMissile;
     sub_004CD540_CreateMissile(&tMissile);
-    tMissile.nMissile = 0x113;
+    tMissile.nMissile = MISSILE_ICEBREAKSMOKE;
     sub_004CD540_CreateMissile(&tMissile);
 }
 

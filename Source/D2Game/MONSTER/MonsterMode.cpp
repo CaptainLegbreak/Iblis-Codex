@@ -1781,7 +1781,7 @@ int __fastcall sub_005A6FF0_MonsterDeath(D2GameStrc* pGame, D2ModeChangeStrc* pM
     {
         int nX = GetX(pUnit);
         int nY = GetY(pUnit);
-        D2UnitStrc* pMissile = sub_6FD11420(pGame, 117, pUnit, 0, 1, 0, 0, nX, nY, 1);
+        D2UnitStrc* pMissile = sub_6FD11420(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
         if (!pMissile) return 1;
         D2DifficultyLevelsTxt* pDifficulty = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
         if (!pDifficulty) return 1;

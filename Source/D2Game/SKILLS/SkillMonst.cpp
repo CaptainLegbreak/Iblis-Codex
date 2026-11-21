@@ -1580,7 +1580,7 @@ int __fastcall SKILLS_SrvDo110_Hireable_RogueMissile(D2GameStrc* pGame, D2UnitSt
     }
 
     int nMissileId = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nSkillLevel);
-    if (nMissileId && nMissileId != 0x1F)
+    if (nMissileId && nMissileId != MISSILE_BOLT)
     {
         if (sub_0046ACE0(nMissileId))
         {

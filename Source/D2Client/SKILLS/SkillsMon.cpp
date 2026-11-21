@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -470,7 +471,7 @@ int __fastcall sub_004E26C0_StreamAtTarget(D2UnitStrc* pUnit, int nSkillId, int 
     tMissileParams.nY = nTargetY;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = 0xBF;
+    tMissileParams.nMissile = MISSILE_CURSECENTER;
     D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
     if (!pMissile)
     {
@@ -941,7 +942,7 @@ int __fastcall sub_004F3530_LightAtTarget(D2UnitStrc* pUnit, int nSkillId, int n
     tMissileParams.nY = nY;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nMissile = 0xBF;
+    tMissileParams.nMissile = MISSILE_CURSECENTER;
     D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
     if (!pMissile)
     {

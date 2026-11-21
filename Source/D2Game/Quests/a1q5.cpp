@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -973,7 +974,7 @@ void __stdcall ACT1Q5_SpawnTowerChestMissiles(D2QuestDataStrc* pQuestData, D2Act
             {
                 pQuestDataEx->bDeathMissilesCreated = 1;
 
-                D2UnitStrc* pMissile = D2GAME_CreateMissile_6FD115E0(pQuestData->pGame, pTrapFirebolt, 0, 1, 0x14C, CLIENTS_GetUnitXInline(pObject), CLIENTS_GetUnitYInline(pObject));
+                D2UnitStrc* pMissile = D2GAME_CreateMissile_6FD115E0(pQuestData->pGame, pTrapFirebolt, 0, 1, MISSILE_TOWERCHESTSPAWNER, CLIENTS_GetUnitXInline(pObject), CLIENTS_GetUnitYInline(pObject));
                 if (pMissile)
                 {
                     MISSILE_SetTargetX(pMissile, pQuestDataEx->nObjectGUIDs[i]);

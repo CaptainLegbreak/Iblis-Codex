@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -449,7 +450,7 @@ int __fastcall sub_004CF250_CltHitBurst(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
         return 1;
     }
 
-    sub_004CEF50_SpawnBurst(pMissile, pMissilesTxtRecord->dwCltHitPar[0], 0x109, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), pMissilesTxtRecord->dwCltHitPar[1], 1);
+    sub_004CEF50_SpawnBurst(pMissile, pMissilesTxtRecord->dwCltHitPar[0], MISSILE_FIREEXPLOSION2, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), pMissilesTxtRecord->dwCltHitPar[1], 1);
     return 1;
 }
 

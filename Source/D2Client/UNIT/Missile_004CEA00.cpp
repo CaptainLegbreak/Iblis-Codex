@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -258,7 +259,7 @@ static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int 
         tParams.dwFlags = 0x524;
         tParams.pOwner = pOwner;
         tParams.pOrigin = pMissile;
-        tParams.nMissile = 0x1C8;
+        tParams.nMissile = MISSILE_MOLTENBOULDER_FLYINGROCKS;
         tParams.nVelocity = nVelocity;
         tParams.nSkill = nSkill;
         tParams.nSkillLevel = nLevel;
@@ -515,7 +516,7 @@ void __fastcall sub_004D7930_CltDoBaalStormMissile(D2UnitStrc* pMissile)
         tParams.dwFlags=2;
         tParams.pOrigin=pMissile;
         tParams.nTargetY=nTargetY;
-        tParams.nMissile=626;
+        tParams.nMissile=MISSILE_BAALFX_SPIRIT_1;
         tParams.nSkill=MISSILE_GetSkill(pMissile);
         tParams.nSkillLevel=MISSILE_GetLevel(pMissile);
         D2UnitStrc* pNewMissile=sub_004CD540_CreateMissile(&tParams);

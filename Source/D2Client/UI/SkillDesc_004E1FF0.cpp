@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
@@ -652,7 +653,7 @@ int __fastcall sub_004E2C20_WeaponOrSkillMissile(D2UnitStrc* pUnit, int nSkillId
     }
 
     const int nMissile = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nSkillLevel);
-    if (nMissile && nMissile != 0x1F)
+    if (nMissile && nMissile != MISSILE_BOLT)
     {
         if (DATATBLS_GetMissilesTxtRecordInline_J03(nMissile))
         {
@@ -2338,7 +2339,7 @@ int __fastcall sub_004F0160_SoundMissile(D2UnitStrc* pUnit, int nSkillId, int nS
         sub_004B9A00(nSound, 0, 0, 0, 0);
     }
 
-    sub_004C5470_CreateMissileToTarget(pUnit, 0x222, nSkillId, nSkillLevel);
+    sub_004C5470_CreateMissileToTarget(pUnit, MISSILE_BAAL_TAUNT_CONTROL, nSkillId, nSkillLevel);
     return 1;
 }
 

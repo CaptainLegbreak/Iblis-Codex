@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2ItemTypes.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -269,7 +270,7 @@ D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
             tParams.nTargetY = nSpawnY + 2 * nDeltaY;
             tParams.nVelocity = 3;
             tParams.nSkillLevel = nSkillLevel;
-            tParams.nMissile = 0x8F;
+            tParams.nMissile = MISSILE_SPIDERGOOLAY;
             pMissile = sub_004CD540_CreateMissile(&tParams);
             sub_004B9A00(0x726, pUnit, 0, 0, 0);
         }

@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -118,7 +119,7 @@ void __fastcall sub_004D8260_CltDoMissileSpray(D2UnitStrc* pMissile)
         tParams.nTargetY = nY + nOffsetY;
         tParams.nSkill = MISSILE_GetSkill(pMissile);
         tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-        tParams.nMissile = 0x21E;
+        tParams.nMissile = MISSILE_ANCIENT_DEATH_CLOUD;
         sub_004CD540_CreateMissile(&tParams);
     }
 

@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -866,8 +867,8 @@ void __fastcall sub_004D65E0_CltDoOffsetMissileTimer(D2UnitStrc* pMissile)
 void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
 {
     const int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordChecked(0x17B);
-    sub_004D1300_SpawnScattered(10, 0x17C, pMissile);
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordChecked(MISSILE_IZUAL_CONTROL);
+    sub_004D1300_SpawnScattered(10, MISSILE_IZUAL_MIST_LOOP, pMissile);
     if (nRemaining < pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[0] && nRemaining > pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[1])
     {
         D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
@@ -884,7 +885,7 @@ void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
             tParams.nTargetY = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 10) - 5 + CLIENTS_GetUnitY(pOwner);
             tParams.nSkill = MISSILE_GetSkill(pMissile);
             tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-            tParams.nMissile = 0x17E;
+            tParams.nMissile = MISSILE_IZUAL_LIGHTNING;
             D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
             if (pNew)
             {
@@ -900,7 +901,7 @@ void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
 
 static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMissile)
 {
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(0x176);
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(MISSILE_HFFRAGMENT1);
     int aOffsetX[14] = { -4, 2, 4, -3, -2, 3, 5, -3, -5, 5, -6, -1, 0, 6 };
     int aOffsetY[14] = { 6, 4, -4, -2, 1, 7, 0, 3, -4, -3, 4, -5, 5, -3 };
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
@@ -909,7 +910,7 @@ static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMis
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x8102;
-    tParams.nMissile = 0x176;
+    tParams.nMissile = MISSILE_HFFRAGMENT1;
     tParams.pOwner = pOwner;
     tParams.pOrigin = pMissile;
     tParams.nSkill = MISSILE_GetSkill(pMissile);

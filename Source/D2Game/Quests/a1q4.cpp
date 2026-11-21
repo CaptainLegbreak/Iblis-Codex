@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -2127,7 +2128,7 @@ void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2Un
 
     QUESTS_TriggerFX(pGame, 3);
 
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(338);
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(MISSILE_HORADRICSTAFF);
     const int nTicks = (pMissilesTxtRecord->wRange - 75) / 20;
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 13);

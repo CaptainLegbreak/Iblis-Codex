@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -660,7 +661,7 @@ static void __stdcall sub_0058C8D0_SpawnStatueMissile(D2QuestArgStrc* pQuestArg,
 
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 0x420;
-    missileParams.nMissile = 541;
+    missileParams.nMissile = MISSILE_ANCIENT_DEATH_CENTER;
     missileParams.pOwner = pQuestArg->pTarget;
     missileParams.pOrigin = pQuestArg->pTarget;
     missileParams.nTargetX = UNITS_GetXPositionInline(pObject);

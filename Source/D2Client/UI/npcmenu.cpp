@@ -1,5 +1,6 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
+#include "D2MissileIds.h"
 #include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -463,7 +464,7 @@ void __fastcall sub_004AD510_StateEffect(D2UnitStrc* pUnit, int nState, int bFla
     {
         if (!pUnit || !pUnit->dwAnimMode)
         {
-            sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0x5A, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(0x5A, 0));
+            sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0x5A, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_NOVA, 0));
         }
     }
 
@@ -485,7 +486,7 @@ void __fastcall sub_004AD510_StateEffect(D2UnitStrc* pUnit, int nState, int bFla
     }
     if (nState == 0x12)
     {
-        sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0xC2, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(0x77, 0));
+        sub_004C70D0_StartUnitEffect(pUnit, pUnit, 0xC2, -1, 0, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), DATATBLS_GetMissileVelocityFromMissilesTxt(MISSILE_FROSTNOVA, 0));
     }
 }
 
