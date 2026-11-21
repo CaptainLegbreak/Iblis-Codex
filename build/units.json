@@ -87541,18 +87541,16 @@
      "name": "?sub_006BCAC0_ResetDataArray@@YIXPAUD2DataArrayStrc@@@Z"
     },
     {
-     "va": "0x006BCC90",
-     "length": 41
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/DataArrays_006BCB40.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x006BCB40",
      "length": 199
+    },
+    {
+     "va": "0x006BCC90",
+     "length": 41
+    },
+    {
+     "va": "0x006BCCC0",
+     "length": 15
     },
     {
      "va": "0x006BCCD0",
@@ -87572,16 +87570,6 @@
     {
      "va": "0x006BCD50",
      "length": 75
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/DataArrays_006BCCC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BCCC0",
-     "length": 15
     }
    ]
   },
