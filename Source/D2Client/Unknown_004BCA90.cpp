@@ -8,6 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2ClientTypes.h"
 #include "D2GameObjs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SEED_STEP_HIFIRST(pSeed, nOut) { const unsigned __int64 lSeed_ = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; (pSeed)->nHighSeed = (unsigned int)(lSeed_ >> 32); (pSeed)->nLowSeed = (unsigned int)lSeed_; nOut = (unsigned int)lSeed_; }
@@ -22,35 +23,6 @@ struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0xC4];
-    unsigned char nSelectable[8];
-    char unk0x0CC[0xD8 - 0xCC];
-    int dwFrameCnt[8];
-    char unk0x0F8[0x108 - 0xF8];
-    unsigned char nCycleAnim[8];
-    unsigned char nLit[8];
-    unsigned char nBlocksLight[8];
-    unsigned char nHasCollision[8];
-    unsigned char nIsAttackable0;
-    unsigned char nStart[8];
-    unsigned char nOrderFlag[8];
-    unsigned char nEnvEffect;
-    unsigned char nIsDoor;
-    char unk0x13B[0x164 - 0x13B];
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    char unk0x167[0x16F - 0x167];
-    unsigned char nShrineFunction;
-    char unk0x170[0x194 - 0x170];
-    int n194;
-    char unk0x198[0x1B4 - 0x198];
-    unsigned char nClientFn;
-    unsigned char nOverlay;
-    unsigned char unk_1B6[0x2];
-};
 
 struct D2ShrineHandlerStrc
 {
@@ -320,9 +292,9 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
             if (pTxt->nOrderFlag[2] == 1)
                 pUnit->dwFlags |= 0x100000;
 
-            if (pTxt->n194)
+            if (pTxt->dwParm[7])
             {
-                if (pTxt->n194 == 0xFF)
+                if (pTxt->dwParm[7] == 0xFF)
                     sub_0046C320_SpawnAroundUnit(pUnit, 0x153, 4);
                 else
                     sub_0046C320_SpawnAroundUnit(pUnit, 0x97, 4);
@@ -703,7 +675,7 @@ char __fastcall sub_004BD860_TimedSpecial(D2UnitStrc* pUnit)
         sub_00470610_Refresh(pUnit, 0);
     }
 
-    if (pUnit->dwAnimMode == 3 && pUnit->nSeqCurrentFramePrecise >= pUnit->pObjectData->pObjectTxt->dwFrameCnt[3] - 0x100)
+    if (pUnit->dwAnimMode == 3 && pUnit->nSeqCurrentFramePrecise >= (int)pUnit->pObjectData->pObjectTxt->dwFrameCnt[3] - 0x100)
     {
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);
@@ -737,7 +709,7 @@ char __fastcall sub_004BD900_TimedSpecialRandom(D2UnitStrc* pUnit)
     }
 
     const unsigned int nMode = pUnit->dwAnimMode;
-    if ((nMode == 3 || nMode == 4) && pUnit->nSeqCurrentFramePrecise >= pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode] - 0x100)
+    if ((nMode == 3 || nMode == 4) && pUnit->nSeqCurrentFramePrecise >= (int)pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode] - 0x100)
     {
         pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);

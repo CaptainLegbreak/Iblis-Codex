@@ -41,7 +41,11 @@ struct D2GfxListNodeStrc
 {
     int nMode; // 0x00
     int nId; // 0x04
-    D2GfxNodeTargetStrc* pTarget; // 0x08
+    union
+    {
+        D2GfxNodeTargetStrc* pTarget; // 0x08
+        D2HashedFileEntryStrc* pFileEntry; // 0x08
+    };
     int unk0x0C; // 0x0C
     D2GfxListNodeStrc* pNext; // 0x10
 };

@@ -6,6 +6,8 @@
 #include "D2LevelTxt.h"
 #include "D2CmpTypes.h"
 #include "D2ClientGfx.h"
+#include "D2Txt.h"
+#include "D2TxtTables.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -178,24 +180,6 @@ struct D2SoundEnvironStrc
     float fAirAbsorb;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x2C];
-    unsigned int dwPrgCalc[3];
-    char unk0x044[0x10];
-    short wAuraStat[6];
-    char unk0x060[0x20];
-    short nAuraState;
-    char unk0x082[0x68];
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    char unk0x0F0[0x48];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -220,34 +204,9 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x10];
-    unsigned int dwCode;
-    char unk0x014[0x1A8 - 0x14];
-};
 
-struct D2OverlayTxt
-{
-    char unk0x00[0x80];
-    unsigned char nNumDirections;
-    unsigned char nLocalBlood;
-    unsigned short pad0x82;
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0xE8];
-    unsigned char nModeFlags[4];
-    unsigned char unk_EC[0x8];
-    unsigned char nModeDirections[16];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x1A0];
-    unsigned char nNumDirections;
-};
 
 extern int gdwGlobal_007A8928; // 0x007A8928
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -258,11 +217,6 @@ int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x151];
-    unsigned char nModeEnabled[16];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
@@ -337,12 +291,6 @@ typedef char check_PartialLookupRecord_second[offsetof(PartialLookupRecord, seco
 
 typedef char check_PartialLookupHeader_records[offsetof(PartialLookupHeader, records) == 0x1C ? 1 : -1];
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x12C];
-    unsigned char nTransparent;
-    unsigned char nTransTbl;
-};
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);
 int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit);
@@ -939,7 +887,7 @@ int __fastcall sub_004DAE60_UnitSupportsMode(D2UnitStrc* pUnit, int nMode)
     case UNIT_MONSTER:
     {
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
-        if (pMonStats2TxtRecord && (pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7]))
+        if (pMonStats2TxtRecord && (pMonStats2TxtRecord->unk0xE8[nMode >> 3] & gdwBitMasks[nMode & 7]))
         {
             return 1;
         }

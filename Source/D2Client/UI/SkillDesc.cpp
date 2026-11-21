@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2Txt.h"
 
 struct Unicode;
 struct UnicodeChar;
@@ -17,19 +18,6 @@ struct UnicodeChar : Unicode
 };
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    unsigned char unk_02[0xA];
-    unsigned char nCharClass;
-    unsigned char unk_0D[0x12B];
-    unsigned int dwCalc;
-    char unk0x13C[0x69];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
@@ -708,7 +696,7 @@ void __fastcall sub_004EAA30_DrawOtherHandDamage(D2UnitStrc* pUnit, D2SkillStrc*
 // 0x004EB240
 void __fastcall sub_004EB240_DrawSkillWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
-    const int nBonus = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc, pSkillsTxt->nSkillId, nSkillLevel);
+    const int nBonus = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[0], pSkillsTxt->nSkillId, nSkillLevel);
     sub_004E99F0_DrawWeaponDamage(pUnit, pSkill, pSkillsTxt, nSkillLevel, sub_004EA4A0_WeaponDamageCallback2, nBonus, 0, nLeft, nY, nRight, 1);
 }
 
@@ -909,7 +897,7 @@ int __stdcall sub_004ED480_HasClassSkill(D2UnitStrc* pUnit)
     for (; nSkillId < pTables->nSkillsTxtRecordCount; ++nSkillId)
     {
         D2SkillsTxt* pRecord = GetSkillsRecord(pTables, nSkillId);
-        if (pRecord && pRecord->nCharClass == (unsigned char)sub_00451F60_UnitClassId(pUnit))
+        if (pRecord && (unsigned char)pRecord->nCharClass == (unsigned char)sub_00451F60_UnitClassId(pUnit))
         {
             D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
             if (pSkill && SKILLS_GetSkillLevel(pUnit, pSkill, 0))

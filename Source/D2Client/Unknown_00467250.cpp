@@ -1,61 +1,20 @@
 #include "D2Client.h"
 #include "D2ItemsWorld.h"
 #include "D2Structs.h"
+#include "D2GameRecords.h"
+#include "D2Path.h"
+#include "D2Txt.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
 
-struct D2CoordStrc
-{
-    unsigned int nX;
-    unsigned int nY;
-};
-
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x06];
-    unsigned char nFlags6;
-    unsigned char nFlags7;
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    char unk0x10[0x4C - 0x10];
-    unsigned char nAlign;
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-};
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x13C];
-    unsigned char nSide;
-};
 
-struct D2UnitFindArgStrc
-{
-    int nFlags;
-    int unk0x04;
-    D2UnitStrc* pUnit;
-    int nX;
-    int nY;
-    int nSize;
-    char unk0x18[0x38 - 0x18];
-};
+
 
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 
@@ -244,7 +203,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
             {
                 D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
                 if (pMonStats2TxtRecord
-                    && !(pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+                    && !(pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
                     && pMonStatsTxtRecord->nAlign != 1
                     && (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[1]))
                 {
@@ -393,14 +352,14 @@ static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc*
 
     if (UNITS_GetObjectTxtRecordFromObject(pUnit)->nSide == 1)
     {
-        if (!((tUnit.nY > tOther.nY && tUnit.nY < tPlayer.nY) || (tUnit.nY < tOther.nY && tUnit.nY > tPlayer.nY)))
+        if (!(((unsigned int)tUnit.nY > tOther.nY && (unsigned int)tUnit.nY < tPlayer.nY) || ((unsigned int)tUnit.nY < tOther.nY && (unsigned int)tUnit.nY > tPlayer.nY)))
         {
             return 1;
         }
     }
     else
     {
-        if (!((tUnit.nX < tOther.nX && tUnit.nX > tPlayer.nX) || (tUnit.nX > tOther.nX && tUnit.nX < tPlayer.nX)))
+        if (!(((unsigned int)tUnit.nX < tOther.nX && (unsigned int)tUnit.nX > tPlayer.nX) || ((unsigned int)tUnit.nX > tOther.nX && (unsigned int)tUnit.nX < tPlayer.nX)))
         {
             return 1;
         }
@@ -435,14 +394,14 @@ static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc*
 
     if (pObjectsTxtRecord->nSide == 1)
     {
-        if ((tOther.nY > tUnit.nY && tUnit.nY > tPlayer.nY) || (tOther.nY < tUnit.nY && tUnit.nY < tPlayer.nY))
+        if ((tOther.nY > (unsigned int)tUnit.nY && (unsigned int)tUnit.nY > tPlayer.nY) || (tOther.nY < (unsigned int)tUnit.nY && (unsigned int)tUnit.nY < tPlayer.nY))
         {
             return 1;
         }
     }
     else
     {
-        if ((tOther.nX < tUnit.nX && tUnit.nX < tPlayer.nX) || (tOther.nX > tUnit.nX && tUnit.nX > tPlayer.nX))
+        if ((tOther.nX < (unsigned int)tUnit.nX && (unsigned int)tUnit.nX < tPlayer.nX) || (tOther.nX > (unsigned int)tUnit.nX && (unsigned int)tUnit.nX > tPlayer.nX))
         {
             return 1;
         }
@@ -461,7 +420,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
 {
     if (pUnit)
     {
-        if ((pSkillsTxtRecord->nFlags7 & gdwBitMasks[0]) && sub_00464820_IsDeadOrDying(pUnit))
+        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) && sub_00464820_IsDeadOrDying(pUnit))
         {
             return pUnit;
         }
@@ -470,7 +429,7 @@ static D2UnitStrc* __stdcall sub_00467490_FindSkillTarget(D2SkillStrc* pSkill, D
         *pnY = CLIENT_GetUnitYInline(pUnit);
     }
 
-    int nFlags = (pSkillsTxtRecord->nFlags7 & gdwBitMasks[0]) ? 0x3002 : 0x2003;
+    int nFlags = (pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) ? 0x3002 : 0x2003;
     D2UnitFindCallback pfnTest = 0;
     if (SKILLS_GetSkillIdFromSkill(pSkill, ".\\GAME\\Select.cpp", 0x301) == 0x5A)
     {
@@ -529,7 +488,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
             D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);
             if (UNIT_HasFlag(pTarget, 4))
             {
-                if (!(pSkillsTxtRecord->nFlags6 & gdwBitMasks[4])
+                if (!(pSkillsTxtRecord->nFlags[2] & gdwBitMasks[4])
                     || (pTarget->dwUnitType == 1 && sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, 6))
                     || sub_00465C60_CheckUnitPair(pUnit, pTarget))
                 {
@@ -580,7 +539,7 @@ D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitSt
             return pUnit;
         }
 
-        if ((pSkillsTxtRecord->nFlags7 & gdwBitMasks[0]) || !sub_00464820_IsDeadOrDying(pUnit))
+        if ((pSkillsTxtRecord->nFlags[3] & gdwBitMasks[0]) || !sub_00464820_IsDeadOrDying(pUnit))
         {
             goto skip;
         }
@@ -607,7 +566,7 @@ skip:
         return pUnit;
     }
 
-    const int nFlags6 = pSkillsTxtRecord->nFlags6;
+    const int nFlags6 = pSkillsTxtRecord->nFlags[2];
     if (nFlags6 & gdwBitMasks[6])
     {
         return sub_00467490_FindSkillTarget(pSkill, pUnit, pnX, pnY, pSkillsTxtRecord);
