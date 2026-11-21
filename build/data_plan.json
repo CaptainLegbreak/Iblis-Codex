@@ -6600,7 +6600,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/INVENTORY/Inventory_0063C2F0.cpp": {
+  "Source/D2Common/INVENTORY/Inventory_0063AD50.cpp": {
    "bytes": 24,
    "definitions": 1,
    "externs": [],
@@ -127616,7 +127616,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/INVENTORY/Inventory_0063C2F0.cpp",
+   "file": "Source/D2Common/INVENTORY/Inventory_0063AD50.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo = ",

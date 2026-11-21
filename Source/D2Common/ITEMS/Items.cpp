@@ -8,87 +8,165 @@
 #include "D2TxtTables.h"
 #include "D2Primitives.h"
 #include "D2TxtItems.h"
+
 #define STAT_ITEM_INDESCTRUCTIBLE 152
+
 #define IFLAG_IDENTIFIED 0x00000010
+
 #define NODEPAGE_STORAGE 1
+
 #define NODEPAGE_EQUIP 3
+
 #define INVPAGE_CUBE 3
+
 #define INVPAGE_NULL 255
+
 #define ITEMTYPE_SCROLL 22
+
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
+
 #define IFLAG_ETHEREAL 0x00400000
+
 #define BODYLOC_NONE 0
+
 #define STATEMASK_CURSE 11
+
 #define UNITFLAGEX_ISSHAPESHIFTED_BIT 3
+
 #define ITEMTYPE_QUEST 39
+
 #define STAT_ITEM_NUMSOCKETS 194
+
 #define IFLAG_ISEAR 0x00010000
+
 #define IFLAG_COMPACTSAVE_LOWQUALITY 0x02200000
+
 #define STAT_QUANTITY 0x46
+
 #define STAT_ITEM_THROWABLE 0x7D
+
 #define BODYLOC_SWRARM 11
+
 #define BODYLOC_SWLARM 12
+
 #define ITEMVERSION 0x60
+
 #define IFLAG_NOSELL 0x00001000
+
 #define ITEMTYPE_SOCKET_FILLER 0x35
+
 #define NUMBER_OF_PLAYERCLASSES 7
+
 #define WEAPONCLASS_HTH 0
+
 #define STAT_DEXTERITY 2
+
 #define STAT_LEVEL 12
 
 struct D2InventoryStrc;
+
 struct D2ItemDataStrc;
+
 struct D2ItemsTxt;
+
 struct D2BooksTxt;
+
 union D2SeedStrc;
+
 struct D2RunesTxt;
+
 struct D2RuneDataTbl;
+
 struct Data00627DF0;
+
 struct Unit00627DF0;
+
 struct Data00627EA0;
+
 struct Unit00627EA0;
+
 struct Data00627EF0;
+
 struct Unit00627EF0;
+
 struct Data00627F20;
+
 struct Unit00627F20;
+
 struct Data00627F50;
+
 struct Unit00627F50;
+
 struct Data00627FB0;
+
 struct Unit00627FB0;
+
 struct Data00627FE0;
+
 struct Unit00627FE0;
+
 struct Data00628040;
+
 struct Unit00628040;
+
 struct Data00628070;
+
 struct Unit00628070;
+
 struct Data006280A0;
+
 struct Unit006280A0;
+
 struct Data00628140;
+
 struct Unit00628140;
+
 struct Data00628250;
+
 struct Unit00628250;
+
 struct D2ItemSaveStrc;
+
 struct Data00629EA0;
+
 struct Unit00629EA0;
+
 struct D2StatesTxt;
+
 struct D2MagicAffixTxt;
+
 struct D2UniqueItemsTxt;
+
 struct D2SetItemsTxt;
+
 struct D2GemsTxt;
+
 struct D2ItemStatCostTxt;
+
 struct D2UnitStrc;
+
 struct D2DataTablesStrc;
+
 struct D2BitBufferStrc;
+
 struct D2ItemTypesTxt;
+
 struct D2WeaponClassCodeStrc;
+
 struct D2StatStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 struct D2ItemsTxt
@@ -161,23 +239,37 @@ struct D2ItemsTxt
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
+
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
+
 unsigned int __stdcall ITEMS_GetItemTypeFromItemId(unsigned int dwItemId); // 0x00628700
+
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
+
 D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex); // 0x006374B0
+
 int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem); // 0x0063AAF0
+
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
+
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
+
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
+
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 
 extern D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
+
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
+
 int __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bSaveItemInv, int bGamble); // 0x006312B0
+
 int __stdcall sub_00625B70_CheckStatFlag(D2UnitStrc* pUnit, int nState); // 0x00625B70
 
 struct Data00627DF0 { unsigned char bUnknown00[0x10]; unsigned int dwValue10; };
@@ -237,28 +329,51 @@ struct Unit00629EA0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknow
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
+
 D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
+
 D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
+
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
+
 unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
+
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
+
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStat, int nLayer); // 0x00625500
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
+
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
+
 int __fastcall sub_0062B5B0(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062B5B0
+
 unsigned int __stdcall ITEMS_GetWeaponClassCode(D2UnitStrc* pItem); // 0x00628500
+
 void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory, char* szPath, int* pWeaponClassCode, int a8, int a9); // 0x0064F5B0
+
 int __stdcall DATATBLS_GetAnimDataInfo(char* szPath, int* pOutLength, int* pOutAnimSpeed, int* pOutFirstFrameTagged); // 0x0066AA80
+
 int __stdcall sub_0062AE20(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave, unsigned int dwVersion); // 0x0062AE20
+
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
+
 void __stdcall ITEMS_GetAllowedBodyLocations(D2UnitStrc* pItem, unsigned char* pBodyLoc1, unsigned char* pBodyLoc2); // 0x0062EA80
+
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pPlayer, int bEquipping, int* a4, int* a5, int* a6); // 0x0062EAF0
+
 unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
+
 unsigned int* __stdcall D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(D2UnitStrc* pUnit); // 0x00625BE0
+
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
+
 unsigned int __stdcall ITEMS_GetNormalCode(D2UnitStrc* pItem); // 0x006287D0
+
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 struct D2ItemStatCostTxt
@@ -272,11 +387,17 @@ struct D2ItemStatCostTxt
 };
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
+
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
+
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
+
 extern char* gpszDefaultString; // 0x007446E4
+
 static __declspec(noinline) int sub_0062A2F0_IsPlainQuality(int nQuality);
+
 static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat);
 
 struct D2WeaponClassCodeStrc
@@ -286,16 +407,30 @@ struct D2WeaponClassCodeStrc
 };
 
 extern D2WeaponClassCodeStrc gWeaponClassTable[]; // 0x007446A0
+
 extern unsigned int gnWeaponClassTableCount; // 0x007446E0
+
 int __stdcall ITEMS_IsNotQuestItemByItemId(int nItemId); // 0x00629D40
+
 int __stdcall INVENTORY_HasSimilarPotionInBelt(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C560
 
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
+
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
+
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
+
 int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062BA60
 
 inline int ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag);
+
+#ifdef MOVED_TEST
+
+#define ITEM_GAP 20
+
+#else
+
+#endif
 
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)
@@ -638,6 +773,12 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage)
     {
         pItemData->nInvPage = nPage;
     }
+}
+
+// 0x006282A0
+unsigned char __stdcall sub_006282A0_GetCellOverlap(D2UnitStrc* pItem) {
+ if(D2ItemDataStrc* pItemData=ITEMS_GetItemData(pItem)) return pItemData->nCellOverlap;
+ return 0xFF;
 }
 
 // 0x006282D0
@@ -2045,8 +2186,6 @@ int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* hItem)
     return (nLength << 8) / (nAnimSpeed * nSpeed / 100);
 }
 
-#include "gen/data/Source/D2Common/ITEMS/Items.inc"
-
 inline D2SetItemsTxt* ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem)
 {
     const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
@@ -3127,3 +3266,5 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
 
     return 0;
 }
+
+#include "gen/data/Source/D2Common/ITEMS/Items.inc"
