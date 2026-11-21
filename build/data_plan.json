@@ -4856,8 +4856,8 @@
    "state": "included"
   },
   "Source/D2Game/MONSTER/MonsterMode.cpp": {
-   "bytes": 592,
-   "definitions": 9,
+   "bytes": 668,
+   "definitions": 10,
    "externs": [
     "extern \"C\" void __cdecl sub_0056D790_DispatchAuraCallback(); // 0x0056D790",
     "extern \"C\" void __cdecl sub_0056FCB0(); // 0x0056FCB0",
@@ -4946,15 +4946,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005A4200.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005A8030.cpp": {
-   "bytes": 76,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005A8030.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5403,8 +5394,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillDruid.cpp": {
-   "bytes": 112,
-   "definitions": 5,
+   "bytes": 144,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005C7F10.inc",
@@ -5435,15 +5426,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005CD910.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005D1080.cpp": {
-   "bytes": 32,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005D1080.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -111006,7 +110988,7 @@
    "cname": "gData_0073C6D0",
    "declared": true,
    "decorated": "?gbModeReset_0073C6D0@@3PAEA",
-   "file": "Source/D2Game/Unknown_005A8030.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
    "fill": 76,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0073C6D0_t gData_0073C6D0; // 0x0073C6D0",
@@ -116645,7 +116627,7 @@
    "cname": "gData_006E3254",
    "declared": true,
    "decorated": "?gnVolleyOffsetX_006E3254@@3QBHB",
-   "file": "Source/D2Game/Unknown_005D1080.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3254[4]; // 0x006E3254",
    "head": "extern \"C\" const int gData_006E3254[4] = ",
@@ -116675,7 +116657,7 @@
    "cname": "gData_006E3264",
    "declared": true,
    "decorated": "?gnVolleyOffsetY_006E3264@@3QBHB",
-   "file": "Source/D2Game/Unknown_005D1080.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3264[4]; // 0x006E3264",
    "head": "extern \"C\" const int gData_006E3264[4] = ",

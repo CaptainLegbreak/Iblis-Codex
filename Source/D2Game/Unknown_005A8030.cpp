@@ -9,10 +9,6 @@ struct D2ModeChangeStrc;
 struct D2MissilesTxt;
 struct D2MissileUnitFindArgStrc;
 
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned char gbModeReset_0073C6D0[]; // 0x0073C6D0
 
@@ -26,7 +22,6 @@ void __fastcall sub_6FCBDE90(D2UnitStrc*, int); // 0x005544B0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, int); // 0x00620210
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
-
 
 struct D2MissileUnitFindArgStrc
 {

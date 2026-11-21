@@ -129,6 +129,24 @@ void __fastcall ACT3Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 
 __declspec(noinline) static int __stdcall sub_005BA2F0_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 
+#define QUEST_A3Q3_GIDBINN 0x11
+
+#define QUESTSTATEFLAG_A3Q5 21
+
+#define QFLAG_REWARDGRANTED 0
+
+#define QFLAG_STARTED 2
+
+#define QFLAG_LEAVETOWN 3
+
+struct D2Act3Quest3Strc;
+
+typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
+
+int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
+
+void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BAB60
+
 static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
@@ -481,6 +499,74 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
         QUESTS_StateDebug(pQuestData, 5, gszAct3Q5SourceFile, 634);
 
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005BAC70
+int __fastcall ACT3Q4_UnitIterate_SetGoldenBirdBoss(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
+    if (!pQuestData->bNotIntro || !pQuestDataEx->unk0x0C || pQuestDataEx->unk0x01 != 1)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A3Q3_GIDBINN);
+    if (pQuest && ((D2Act3Quest3Strc*)pQuest->pQuestDataEx)->bBossIsSpawning)
+    {
+        return 0;
+    }
+
+    QUESTS_CreateChainRecord(pQuestData->pGame, pUnit, QUEST_A3Q4_GOLDENBIRD);
+    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT3Q4_Callback08_MonsterKilled;
+    pQuestDataEx->unk0x01 = 0;
+    pQuestDataEx->unk0x02 = 1;
+    pQuestDataEx->nBossGUID = !pUnit ? -1 : pUnit->dwUnitId;
+    return 1;
+}
+
+// 0x005BACF0
+void __fastcall sub_005BACF0_GoldenBirdSpawnCheck(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+{
+    D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->unk0x02 != 1)
+    {
+        return;
+    }
+
+    if (pQuestDataEx->nBossGUID == (!pUnit ? -1 : pUnit->dwUnitId))
+    {
+        pQuestDataEx->unk0x02 = 0;
+        pQuestDataEx->unk0x01 = 1;
+    }
+}
+
+// 0x005BADC0
+int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_REWARDGRANTED) == 1)
+    {
+        return 0;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q5_TRAVINCAL);
+    if (!pQuestData)
+    {
+        return 0;
+    }
+
+    const unsigned char nState = pQuestData->fState;
+    if (nState >= 2 && nState <= 3)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_STARTED);
+    }
+
+    if (((D2Act3Quest5Strc*)pQuestData->pQuestDataEx)->bMonstersSpawned)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, QFLAG_LEAVETOWN);
+    }
+
+    return 0;
 }
 
 #include "gen/data/Source/D2Game/Quests/a3q4.inc"

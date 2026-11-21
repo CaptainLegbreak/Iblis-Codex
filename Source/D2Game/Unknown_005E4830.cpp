@@ -11,11 +11,6 @@ struct D2AiCmdStrc;
 union D2SeedStrc;
 struct D2MonStatsTxt;
 
-
-
-
-
-
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc*); // 0x0058F0D0

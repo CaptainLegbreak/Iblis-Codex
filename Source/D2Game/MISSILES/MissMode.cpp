@@ -393,7 +393,7 @@ int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile);                         
 
 static void __fastcall sub_005ADCD0_ApplyDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005ADCD0
 
-static int sub_005ADA40_CheckMissileMode(int nMissileMode, D2UnitStrc* pUnit);
+static int sub_005ADA40_CheckMissileMode(int nMissileMode, D2UnitStrc* pUnit); // 0x005ADA40
 
 enum D2C_M11MeteorConstants
 {
@@ -516,7 +516,7 @@ int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile); // 0x0064A5A0
 
 static __declspec(noinline) int sub_005ADA80_GetDamageTarget(D2UnitStrc* pMissile);
 
-static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit);
+static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x005ADB00
 
 enum D2C_ItemStats
 {
@@ -569,7 +569,11 @@ int __fastcall SUNIT_CanPetBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwn
 
 int __fastcall SUNIT_CanAllyBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSkillId); // 0x00554D20
 
-struct Unit { char type[4]; int classId; };
+struct Unit
+{
+    char type[4];
+    int classId;
+};
 
 struct Damage {
     unsigned int hitFlags; unsigned short resultFlags,extra;
@@ -623,7 +627,13 @@ struct D2MissileUnitFindTableStrc;
 
 struct D2MissileFindArgStrc;
 
-struct D2MissileFindArgStrc { D2GameStrc* pGame; D2UnitStrc* pMissile; D2UnitStrc* pOwner; D2MissilesTxt* pMissilesTxtRecord; };
+struct D2MissileFindArgStrc
+{
+    D2GameStrc* pGame;
+    D2UnitStrc* pMissile;
+    D2UnitStrc* pOwner;
+    D2MissilesTxt* pMissilesTxtRecord;
+};
 
 extern D2MissileUnitFindTableStrc gtMissileCollisionModes[]; // 0x0073C720
 
@@ -661,7 +671,13 @@ struct D2DataTables;
 
 struct D2SummonArgs;
 
-struct D2DataTables { char pad[0xb64]; D2MissilesTxt* missiles; int unknown; int count; };
+struct D2DataTables
+{
+    char pad[0xb64];
+    D2MissilesTxt* missiles;
+    int unknown;
+    int count;
+};
 
 extern D2DataTables* gpDataTables; // 0x00744304
 
@@ -669,7 +685,18 @@ int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc*,int); // 0x0045C3E0
 
 void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc*,int,int,int,unsigned short); // 0x0064EA00
 
-struct D2SummonArgs { int mode; D2UnitStrc* owner; int monsterId; int unknown; int variant; int x; int y; int petType; int flags; };
+struct D2SummonArgs
+{
+    int mode;
+    D2UnitStrc* owner;
+    int monsterId;
+    int unknown;
+    int variant;
+    int x;
+    int y;
+    int petType;
+    int flags;
+};
 
 int __stdcall sub_0064A780_GetCount(D2UnitStrc*); // 0x0064A780
 
@@ -781,13 +808,29 @@ struct SynStatic;
 
 struct SynUnit;
 
-struct SynCoord { int nX; int nY; };
+struct SynCoord
+{
+    int nX;
+    int nY;
+};
 
-struct SynStatic { char unk0[0x0C]; SynCoord tGameCoords; };
+struct SynStatic
+{
+    char unk0[0x0C];
+    SynCoord tGameCoords;
+};
 
 struct SynUnit { int dwUnitType; char unk4[0x28]; union { SynStatic* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
 
 int __stdcall sub_00620510_UNITS_GetUnitSizeX(SynUnit* pUnit); // 0x00620510
+
+static D2UnitStrc* __stdcall sub_005A9820_SpawnNearby(D2GameStrc* pGame, int nRange, int nMissileId, unsigned short nMask, D2UnitStrc* pMissile, int nRate); // 0x005A9820
+
+int __fastcall sub_005AE8A0_SpawnByLevel(D2GameStrc* pGame, D2UnitStrc* pMissile);
+
+int __fastcall sub_005AEA60_SpawnBySkill(D2GameStrc* pGame, D2UnitStrc* pMissile);
+
+int __fastcall sub_005AF880_SpawnBySkillMask(D2GameStrc* pGame, D2UnitStrc* pMissile);
 
 // 0x0059F840
 void __fastcall MISSILES_RemoveAll(D2GameStrc* pGame)
@@ -4974,6 +5017,29 @@ int __fastcall MISSMODE_SrvDo07_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Unit
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
+static D2MissilesTxt* GetMissileRecordById(int nMissileId)
+{
+    if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
+        return &sgptDataTables->pMissilesTxt[nMissileId];
+    return 0;
+}
+
+// 0x005AE8A0
+int __fastcall sub_005AE8A0_SpawnByLevel(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    D2MissilesTxt* pRecord = GetMissileRecordById(!pMissile ? -1 : pMissile->dwClassId);
+    if (!pRecord && pRecord->wSubMissile[0] < 0)
+        return 2;
+    int nLevel = MISSILE_GetLevel(pMissile);
+    int nDivisor = pRecord->dwParam[2];
+    if (nDivisor < 1)
+        nDivisor = 1;
+    int nQuotient = nLevel / nDivisor;
+    int nRange = pRecord->dwParam[0] + (nQuotient < 2 ? 2 : nQuotient);
+    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile[0], 5, pMissile, pRecord->dwParam[1] - nQuotient < 3 ? 3 : pRecord->dwParam[1] - nQuotient);
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
+}
+
 inline int UNITS_InlineGetXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -5027,28 +5093,6 @@ int __fastcall MISSMODE_SrvDo09_BatLightningBolt(D2GameStrc* pGame, D2UnitStrc* 
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
 
-    return MISSMODE_HandleMissileCollision(pGame, pMissile);
-}
-
-// @ref 0x005AE8A0
-int __fastcall sub_005AE8A0_SpawnByLevel(D2GameStrc* pGame, D2UnitStrc* pMissile)
-{
-    D2MissilesTxt* pRecord = GetMissileRecord(pMissile);
-    if (!pRecord && pRecord->wSubMissile[0] < 0)
-        return 2;
-    int nLevel = MISSILE_GetLevel(pMissile);
-    int nDivisor = pRecord->dwParam[2];
-    if (nDivisor < 1)
-        nDivisor = 1;
-    int nQuotient = nLevel / nDivisor;
-    int nExtra = 2;
-    if (nQuotient >= 2)
-        nExtra = nQuotient;
-    int nRange = pRecord->dwParam[0] + nExtra;
-    int nRate = pRecord->dwParam[1] - nQuotient;
-    if (nRate < 3)
-        nRate = 3;
-    sub_005A9820_SpawnNearby(pGame, nRange, pRecord->wSubMissile[0], 5, pMissile, nRate);
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
@@ -6650,8 +6694,6 @@ int __fastcall SKILLS_SrvSt05_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSki
 
     return SUNIT_GetTargetUnit(pGame, pUnit) != 0;
 }
-
-
 
 // 0x005DC380
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource)

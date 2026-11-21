@@ -2,8 +2,6 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 
-
-
 D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int bIncludeDead); // 0x00574EC0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 int __fastcall sub_004F4110_GetSkillParam5(int nSkillId); // 0x004F4110
