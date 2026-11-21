@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2TxtTables.h"
+#include "D2DataTbls.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -9,7 +11,6 @@
 #define LINE_ENGINE_CLASS 278
 #define LINE_ENGINE_MODE 260
 union D2SeedStrc;
-struct D2Txt84Strc;
 
 
 
@@ -18,17 +19,6 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 extern D2UnitStrc* gpAiTargets_007A7470[]; // 0x007A7470
 
-struct D2Txt84Strc
-{
-    char unk0x00[0x84];
-};
-
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBBC];
-    D2Txt84Strc* pTxt84;
-    int nTxt84Count;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
@@ -95,11 +85,11 @@ D2UnitStrc* __fastcall sub_M305_Emit_0046C720(D2UnitStrc* pUnit)
 }
 
 // 0x0046D9C0
-D2Txt84Strc* __fastcall sub_0046D9C0_GetTxtRecord(int nIndex)
+D2OverlayTxt* __fastcall sub_0046D9C0_GetTxtRecord(int nIndex)
 {
-    if (nIndex >= 0 && nIndex < sgptDataTables->nTxt84Count)
+    if (nIndex >= 0 && nIndex < sgptDataTables->nOverlayTxtRecordCount)
     {
-        return &sgptDataTables->pTxt84[nIndex];
+        return &sgptDataTables->pOverlayTxt[nIndex];
     }
     return 0;
 }

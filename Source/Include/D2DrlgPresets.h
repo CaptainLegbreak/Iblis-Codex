@@ -23,7 +23,7 @@ struct D2PathInfoStrc;
 
 struct D2DrlgPresetInfoStrc
 {
-    void* pDrlgMap; // 0x00
+    D2DrlgMapStrc* pDrlgMap; // 0x00
     int nDirection; // 0x04
 };
 
@@ -38,7 +38,7 @@ struct D2DrlgPresetRoomStrc
     D2DrlgGridStrc pFloorGrid[2]; // 0xB0
     D2DrlgGridStrc pCellGrid; // 0xD8
     D2DrlgGridStrc* pMazeGrid; // 0xEC
-    D2DrlgCoordStrc* pTombStoneTiles; // 0xF0
+    D2CoordStrc* pTombStoneTiles; // 0xF0
     int nTombStoneTiles; // 0xF4
 };
 
@@ -75,14 +75,21 @@ struct D2DrlgLinkStrc
 
 struct D2RoomCollisionGridStrc
 {
-    int nSubtileX; // 0x00
-    int nSubtileY; // 0x04
-    int nSubtileWidth; // 0x08
-    int nSubtileHeight; // 0x0C
-    int nTileX; // 0x10
-    int nTileY; // 0x14
-    int nTileWidth; // 0x18
-    int nTileHeight; // 0x1C
+    union // 0x00
+    {
+        struct
+        {
+            int nSubtileX; // 0x00
+            int nSubtileY; // 0x04
+            int nSubtileWidth; // 0x08
+            int nSubtileHeight; // 0x0C
+            int nTileX; // 0x10
+            int nTileY; // 0x14
+            int nTileWidth; // 0x18
+            int nTileHeight; // 0x1C
+        };
+        D2DrlgCoordsStrc pRoomCoords;
+    };
     unsigned short* pCollisionMask; // 0x20
 };
 
@@ -107,7 +114,10 @@ struct D2PathInfoStrc
     D2PathPointStrc tTargetCoord; // 0x04
     D2ActiveRoomStrc* pStartRoom; // 0x08
     D2ActiveRoomStrc* pTargetRoom; // 0x0C
-    int unk0x10[2]; // 0x10
+    int unk0x10; // 0x10
+    unsigned char field_14; // 0x14
+    unsigned char unk0x15; // 0x15
+    unsigned short unk0x16; // 0x16
     int nDistMax; // 0x18
     unsigned char nMinimumFScoreToEvaluate; // 0x1C
     unsigned char unk0x1D; // 0x1D

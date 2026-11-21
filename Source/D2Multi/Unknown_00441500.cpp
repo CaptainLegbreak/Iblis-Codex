@@ -1,32 +1,7 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x30];
-    void (__fastcall* pfn0x30)();
-    int (__fastcall* pfn0x34)(char* szA, char* szB, const char* szC, int nD);
-    char unk0x38[0x04];
-    int (__fastcall* pfn0x3C)(char* szA, char* szB);
-};
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x19];
-    char nState[4];
-    char wValue[2];
-    char szText0x1F[0x18];
-    char szText0x37[0x1B8];
-    char wFlags[2];
-    char unk0x1F1[0x38];
-    char nValue0x229[4];
-    char bOnline;
-    char unk0x22E[0x17];
-    char szText0x245[0x10];
-    char unk0x255[0x16D];
-    char bFlag0x3C2;
-};
+#include "D2MultiTypes.h"
 
 struct D2LaunchReplyStrc
 {
@@ -148,7 +123,7 @@ int __stdcall sub_00441500(int nUnused)
                         *(unsigned short*)gpCharInfo_0077BBD8->wValue = (unsigned short)sub_00449BE0();
                         *(int*)gpCharInfo_0077BBD8->nValue0x229 = sub_00449DE0();
                         const char* szSource = (const char*)sub_00449BC0();
-                        char* szDest = gpCharInfo_0077BBD8->szText0x37;
+                        char* szDest = (char*)&gpCharInfo_0077BBD8->unk0x37;
                         char c;
                         do
                         {
@@ -196,7 +171,7 @@ int __stdcall sub_00441500(int nUnused)
                         break;
                     case 125:
                         gnLaunchMode_0077BBE4 = 0;
-                        if (gpCharInfo_0077BBD8->bFlag0x3C2)
+                        if (gpCharInfo_0077BBD8->nValue3C2)
                             sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x2AB1), sub_0043DAF0_OnConnect);
                         else
                             sub_0043FB50_ShowWait(D2LANG_GetStringFromTblIndex(0x2AB2), sub_0043DAF0_OnConnect);
@@ -272,7 +247,7 @@ int __stdcall sub_00441500(int nUnused)
             if (!(wFlags & 8) || !(wFlags & 4))
             {
                 int bEnable = 0;
-                if (gpCharInfo_0077BBD8->bOnline && !sub_00449B30_QueryAddress())
+                if (gpCharInfo_0077BBD8->nByte22D && !sub_00449B30_QueryAddress())
                     bEnable = 1;
                 sub_004413E0_Enable(bEnable);
             }

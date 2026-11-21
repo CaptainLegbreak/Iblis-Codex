@@ -1,21 +1,12 @@
 #include "D2Game.h"
+#include "D2GameTypes.h"
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    void* pTextControl;
-    int nNPCNo;
-    unsigned short nMessageIndex;
-};
 void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x00572360
 
 // 0x005983E0
 void __fastcall ACT2Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    const int nNpcId = pQuestArg->nNPCNo;
+    const int nNpcId = pQuestArg->nOldLevel;
     const unsigned short nMessage = pQuestArg->nMessageIndex;
     switch (nNpcId)
     {

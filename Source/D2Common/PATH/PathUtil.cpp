@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
 
 struct PathOwner;
 struct D2DynamicPathStrc;
@@ -9,21 +10,6 @@ struct D2UnitStrc;
 
 struct PathOwner { char pad0[0x2c]; D2DynamicPathStrc* pPath; };
 
-struct D2DynamicPathStrc
-{
-    char pad0[0x10];
-    unsigned short x;
-    unsigned short y;
-    char pad14[0x44];
-    union
-    {
-        PathOwner* field58;
-        D2UnitStrc* hTarget;
-    };
-    char pad5C[0x0C];
-    unsigned char field68;
-    unsigned char unk_69[0x3];
-};
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -31,18 +17,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pDynamicPath); // 0x006487F0
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
@@ -55,20 +30,20 @@ void __fastcall sub_00679190(D2DynamicPathStrc* ptPath)
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x1ea);
         exit(-1);
     }
-    if (ptPath->field58 == 0)
+    if (ptPath->hTarget == 0)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x1eb);
         exit(-1);
     }
 
-    unsigned char dir = PATH_GetDirection(ptPath->field58->pPath);
+    unsigned char dir = PATH_GetDirection(ptPath->hTarget->pDynamicPath);
     int dir8 = (int)dir * 8;
-    int offset = (int)ptPath->field68 * 256;
+    int offset = (int)ptPath->dwSpeed * 256;
     int angle = (dir8 - offset) & 0x1FF;
-    float f = (float)ptPath->field68;
+    float f = (float)ptPath->dwSpeed;
 
-    ptPath->x += (unsigned short)(int)(sub_0040B330_Cos(angle) * f);
-    ptPath->y += (unsigned short)(int)(sub_0040B350_Sin(angle) * f);
+    ptPath->tTargetCoord.X += (unsigned short)(int)(sub_0040B330_Cos(angle) * f);
+    ptPath->tTargetCoord.Y += (unsigned short)(int)(sub_0040B350_Sin(angle) * f);
 }
 
 inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
@@ -104,11 +79,11 @@ void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* 
     pOutPathPoint->X = UNITS_GetXPositionInline(ptPath->hTarget);
     pOutPathPoint->Y = UNITS_GetYPositionInline(ptPath->hTarget);
 
-    if (ptPath->field68)
+    if (ptPath->dwSpeed)
     {
         int nDirection = 8 * PATH_GetDirection(ptPath->hTarget->pDynamicPath);
-        nDirection = (nDirection - (ptPath->field68 << 8)) & 0x1FF;
-        const float fSpeed = ptPath->field68;
+        nDirection = (nDirection - (ptPath->dwSpeed << 8)) & 0x1FF;
+        const float fSpeed = ptPath->dwSpeed;
         pOutPathPoint->X += (short)(sub_0040B330_Cos(nDirection) * fSpeed);
         pOutPathPoint->Y += (short)(sub_0040B350_Sin(nDirection) * fSpeed);
     }

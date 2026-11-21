@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define EDITBOX_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -15,18 +16,6 @@ struct UnicodeChar : Unicode
     UnicodeChar();                                                                                          // 0x0042F530
 };
 
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct D2WinEditBoxStrc
 {

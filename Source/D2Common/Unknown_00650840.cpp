@@ -1,113 +1,17 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2Path.h"
 
 typedef int BOOL;
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-union D2FP32_16
-{
-    struct
-    {
-        unsigned short wOffsetX;
-        unsigned short wPosX;
-        unsigned short wOffsetY;
-        unsigned short wPosY;
-    };
 
-    struct
-    {
-        unsigned int dwPrecisionX;
-        unsigned int dwPrecisionY;
-    };
-};
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
-
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x4C];
-    D2DrlgCoordsStrc tCoords;
-};
 
 
 #pragma pack(push, 1)
-struct D2DynamicPathStrc
-{
-    D2FP32_16 tGameCoords;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    D2PathPointStrc tTargetCoord;
-    D2PathPointStrc tPrevTargetCoord;
-    D2PathPointStrc tFinalTargetCoord;
-    D2ActiveRoomStrc* pRoom;
-    D2ActiveRoomStrc* pPreviousRoom;
-    int dwCurrentPointIdx;
-    int dwPathPoints;
-    void* unk0x2C;
-    D2UnitStrc* pUnit;
-    union
-    {
-        unsigned int dwFlags;
-        struct
-        {
-            unsigned int : 18;
-            unsigned int bMissile : 1;
-        };
-    };
-    unsigned int unk0x38;
-    unsigned int eType;
-    unsigned int ePrevType;
-    unsigned int dwUnitSize;
-    unsigned int dwCollisionPattern;
-    unsigned int nFootprintCollisionMask;
-    unsigned int nMoveTestCollisionMask;
-    unsigned short nCollidedWithMask;
-    unsigned short padding0x56;
-    D2UnitStrc* hTarget;
-    unsigned int dwTargetType;
-    unsigned int dwTargetId;
-    unsigned char nDirection;
-    unsigned char nNewDirection;
-    unsigned char nDiffDirection;
-    unsigned char unk0x67;
-    unsigned char dwSpeed;
-    unsigned char unk0x69;
-    D2CoordStrc tDirectionVector;
-    D2CoordStrc tVelocityVector;
-    char padding0x7A[2];
-    int dwVelocity;
-    unsigned int nPreviousVelocity;
-    int dwMaxVelocity;
-    int dwAcceleration;
-    int dwAccelerationsCounter;
-    unsigned char nDist;
-    unsigned char bDistMax;
-    unsigned char nIDAStarInitFScore;
-    unsigned char nStepNum;
-    unsigned char nDistance;
-    char padding0x95[3];
-    int nDirOffset;
-    D2PathPointStrc PathPoints[78];
-    int nSavedStepsCount;
-    D2PathPointStrc SavedSteps[10];
-};
 #pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -555,7 +459,7 @@ BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
 
     if ((pPath->dwFlags & 0x20) != 0 && pPath->dwPathPoints > 0 && pPath->dwVelocity != 0)
     {
-        if ((pPath->bMissile || sub_6FD5DB70(pPath)) && pPath->dwCurrentPointIdx < pPath->dwPathPoints)
+        if ((((pPath->dwFlags >> 18) & 1) || sub_6FD5DB70(pPath)) && pPath->dwCurrentPointIdx < pPath->dwPathPoints)
         {
             sub_6FD5CEB0(nBaseVelocity, pPath);
             if (pPath->tVelocityVector.nX || pPath->tVelocityVector.nY)

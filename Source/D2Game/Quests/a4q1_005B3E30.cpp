@@ -3,29 +3,11 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2GameTypes.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    union
-    {
-        D2TextHeaderStrc* pTextControl;
-        unsigned short nNPCNo;
-        int nOldLevel;
-    };
-    union
-    {
-        unsigned short nMessageIndex;
-        int nNewLevel;
-    };
-};
 
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);

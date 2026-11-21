@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2StormLink.h"
 
 struct D2StormLinkStrc;
 struct D2StormListStrc;
@@ -38,31 +39,6 @@ unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned
 extern "C" const char gszCloseParen_006CF324[]; // 0x006CF324
 extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
 extern unsigned long gdwStormLastError_007790F4; // 0x007790F4
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    void sub_0041C650();
-};
 
 struct D2StormListStrc
 {

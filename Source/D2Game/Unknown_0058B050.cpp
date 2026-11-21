@@ -4,27 +4,13 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
+#include "D2UnitData.h"
 
 
 
 
-struct D2Act5Quest4Strc
-{
-    char unk0x00[0x86];
-    unsigned char bDrehyaActivated;
-    unsigned char bNeedsToOpenPortal;
-    unsigned char bPortalCreated;
-};
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char unk0x08[0x0C];
-    unsigned char nFlagsByte;
-    char unk0x15[0x03];
-    D2Act5Quest4Strc* pQuestDataEx;
-};
 
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
@@ -75,7 +61,7 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 
 static bool __stdcall sub_0058AF90_OpenDrehyaPortal(D2UnitStrc* pTarget, D2QuestDataStrc* pQuestData) // 0x0058AF90
 {
-    D2Act5Quest4Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bPortalCreated)
     {
         return false;
@@ -99,10 +85,10 @@ void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         return;
     }
 
-    D2Act5Quest4Strc* pQuestDataEx = pQuestData->pQuestDataEx;
+    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bDrehyaActivated == 1)
     {
-        pQuestData->nFlagsByte = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bDrehyaActivated = 0;
     }
@@ -116,7 +102,7 @@ void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 void __fastcall sub_0058B940_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit) // 0x0058B940
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK);
-    if (!pQuestData || !pQuestData->pQuestDataEx->bNeedsToOpenPortal)
+    if (!pQuestData || !((D2Act5Quest4Strc*)pQuestData->pQuestDataEx)->bNeedsToOpenPortal)
     {
         return;
     }

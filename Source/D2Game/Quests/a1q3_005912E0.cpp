@@ -2,6 +2,7 @@
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QFLAG_REWARDGRANTED 0
@@ -36,18 +37,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
-struct D2QuestGUIDStrc
-{
-    int nGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char unk0x82[2];
-};
 
 struct D2Act1Quest3Strc
 {
@@ -81,30 +71,6 @@ typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    char pad0x0E[0x2];
-    int nSeqId;
-    unsigned char nFlags;
-    unsigned char unk0x15[0x3];
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    char pad0xE4[0x4];
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
@@ -169,13 +135,13 @@ void __fastcall ACT1Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     if (pQuestDataEx->bCharsiIntroActivated == 1)
     {
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q3_UnitIterate_UpdateQuestStateFlags);
-        pQuestData->nFlags = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bCharsiIntroActivated = 0;
     }
     else if (pQuestDataEx->bCharsiEndActivated == 1)
     {
-        pQuestData->nFlags = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, ITERSTATE_13, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bCharsiEndActivated = 0;
     }
@@ -228,7 +194,7 @@ void __fastcall ACT1Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
     if (pQuestData->fLastState != 1)
     {
-        pQuestData->nFlags = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
     }
 
@@ -248,7 +214,7 @@ void __fastcall ACT1Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
         SUNIT_AttachSound(pQuestArg->pPlayer, SOUND_MALUS_PICKUP, pQuestArg->pPlayer);
     }
 
-    pQuestData->nFlags = 0;
+    pQuestData->dwFlags &= 0xFFFFFF00;
     QUESTS_UnitIterate(pQuestData, ITERSTATE_2, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
 }
 
@@ -287,7 +253,7 @@ void __fastcall ACT1Q3_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
 
     if (!pQuestDataEx->nMalusItemsInGame && pQuestDataEx->bMalusInitialized && pQuestDataEx->nMalusObjectMode == OBJMODE_OPENED)
     {
-        pQuestData->nFlags = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, ITERSTATE_3, 0, ACT1Q3_UnitIterate_StatusCyclerEx, 1);
     }
 }

@@ -1,52 +1,23 @@
-struct D2DrlgCoordsStrc;
-struct D2SeedStrc;
+#include "D2Drlg.h"
+#include "D2DrlgPresets.h"
+#include "D2Path.h"
+#include "D2Structs.h"
+struct D2DrlgCoordStrc;
+union D2SeedStrc;
 struct D2CoordStrc;
 struct D2DrlgLinkStrc;
 struct D2DrlgLevelLinkDataStrc;
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2DrlgLinkStrc
-{
-    void* pfLinker;
-    int nLevel;
-    int nLevelLink;
-    int nLevelLinkEx;
-};
 
-struct D2DrlgLevelLinkDataStrc
-{
-    D2SeedStrc pSeed;
-    D2DrlgCoordsStrc pLevelCoord[15];
-    D2DrlgLinkStrc* pLink;
-    int nRand[4][15];
-    int nIteration;
-    int nCurrentLevel;
-};
 
 
 extern const D2CoordStrc gOutdoorOrthOffsets[4]; // 0x006F1F7C
 
 // 0x0067D7B0
-static __forceinline void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType)
+static __forceinline void sub_0067D7B0(D2DrlgCoordStrc* pCoords, int nType)
 {
     switch (nType)
     {
@@ -62,7 +33,7 @@ static __forceinline void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType)
     }
 }
 
-void __stdcall sub_M129_Emit_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType)
+void __stdcall sub_M129_Emit_0067D7B0(D2DrlgCoordStrc* pCoords, int nType)
 {
     sub_0067D7B0(pCoords, nType);
 }
@@ -84,24 +55,24 @@ int __fastcall DRLGOUTROOM_LinkLevelsByLevelCoords(D2DrlgLevelLinkDataStrc* pLev
     pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = nRand;
     pLevelLinkData->nRand[1][pLevelLinkData->nIteration] = nRand;
 
-    D2DrlgCoordsStrc* pCoord = &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration];
+    D2DrlgCoordStrc* pCoord = &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration];
     sub_0067D7B0(pCoord, nRand);
 
     const int nIteration = pLevelLinkData->nIteration;
-    D2DrlgCoordsStrc* pLinkCoord = &pLevelLinkData->pLevelCoord[pLinks[nIteration].nLevelLink];
-    pCoord->nX = pLinkCoord->nX - pCoord->nWidth;
-    pCoord->nY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nY - 16;
+    D2DrlgCoordStrc* pLinkCoord = &pLevelLinkData->pLevelCoord[pLinks[nIteration].nLevelLink];
+    pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
+    pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY - 16;
 
     return 1;
 }
 
-static __forceinline void __fastcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int nRand, D2DrlgCoordsStrc* pLinkCoords, int nLinkRand)
+static __forceinline void __fastcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordStrc* pCoords, int nRand, D2DrlgCoordStrc* pLinkCoords, int nLinkRand)
 {
     sub_0067D7B0(pCoords, nRand);
 
     const int nIndex = nRand + 2 * nLinkRand;
-    pCoords->nX = gOutdoorOrthOffsets[nIndex].nX + pLinkCoords->nX;
-    pCoords->nY = gOutdoorOrthOffsets[nIndex].nY + pLinkCoords->nY;
+    pCoords->nPosX = gOutdoorOrthOffsets[nIndex].nX + pLinkCoords->nPosX;
+    pCoords->nPosY = gOutdoorOrthOffsets[nIndex].nY + pLinkCoords->nPosY;
 }
 
 // 0x0067D980

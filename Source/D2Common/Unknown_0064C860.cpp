@@ -1,14 +1,10 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgPresets.h"
 struct D2ActiveRoomStrc;
 
 
-struct D2RoomCollisionGridStrc
-{
-    D2DrlgCoordsStrc pRoomCoords;
-    unsigned short* pCollisionMask;
-};
 
 
 enum

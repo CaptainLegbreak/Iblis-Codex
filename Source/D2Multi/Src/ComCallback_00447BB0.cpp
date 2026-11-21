@@ -1,17 +1,8 @@
+#include "D2MultiTypes.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
 struct D2CompositeUnitStrc;
-
-#pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x1EF];
-    unsigned short wFlags1EF;
-    char unk0x1F1[0x1D1];
-    char nValue3C2;
-};
-#pragma pack(pop)
 
 union D2ChannelFlagsStrc
 {
@@ -192,7 +183,7 @@ void __cdecl sub_00447BB0_Refresh()
             CHAN_SETBIT(nState, 12, wFlags & 0x20);
             const D2LaunchCharInfoStrc* pCharInfo = gpCharInfo_0077BBD8;
             int bDiffers = pCharInfo->nValue3C2 != pUser->nValue94;
-            const unsigned short wCharFlags = pCharInfo->wFlags1EF;
+            const unsigned short wCharFlags = *(const unsigned short*)pCharInfo->wFlags;
             bDiffers |= (wCharFlags & 4) && !pUser->nValue0xA0;
             bDiffers |= !(wCharFlags & 4) && pUser->nValue0xA0;
             bDiffers |= (wCharFlags & 0x20) && !pUser->nValue0xA8;

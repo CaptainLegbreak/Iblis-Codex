@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
+#include "D2StormTypes.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct Character;
@@ -10,14 +11,6 @@ struct D2WinEditBoxStrc;
 struct Character { signed char value; };
 
 enum { FIRST_DIGIT = 48, LAST_DIGIT = 57 };
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-};
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 

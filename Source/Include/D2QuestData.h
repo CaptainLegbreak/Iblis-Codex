@@ -428,13 +428,16 @@ struct D2Act3Quest4Strc
 {
     unsigned char bGoldenBirdBroughtToAlkor; // 0x00
     unsigned char unk0x01; // 0x01
-    unsigned short unk0x02; // 0x02
+    unsigned char unk0x02; // 0x02
+    unsigned char unk0x03; // 0x03
     int nBossGUID; // 0x04
     unsigned char bTalkedToAlkor; // 0x08
     unsigned char bTalkedToCainOnce; // 0x09
     unsigned char bTalkedToCainTwice; // 0x0A
     unsigned char bTalkedToMeshif; // 0x0B
-    int unk0x0C; // 0x0C
+    unsigned char unk0x0C; // 0x0C
+    unsigned char unk0x0D; // 0x0D
+    unsigned short unk0x0E; // 0x0E
     int nGoldenBirdsInGame; // 0x10
     unsigned char bJadeFigurineDropped; // 0x14
     unsigned char bPlayerDroppedWithItem; // 0x15
@@ -559,7 +562,11 @@ struct D2Act4Quest3Strc
     unsigned short nHellforgeMode; // 0x00
     unsigned char bCainActivated; // 0x02
     unsigned char unk0x03; // 0x03
-    int unk0x04[3]; // 0x04
+    unsigned char bRewardPending; // 0x04
+    unsigned char unk0x05; // 0x05
+    unsigned short unk0x06; // 0x06
+    int nRewardState; // 0x08
+    int nHammerHits; // 0x0C
     int nHellforgeHammersInGame; // 0x10
     int nPlayersInAct; // 0x14
     int unk0x18; // 0x18
@@ -600,8 +607,7 @@ struct D2Act5Quest2Strc
     unsigned char bPortalSpawned[3]; // 0xF8
     unsigned char unk0xFB; // 0xFB
     int nPortalUpdateInvocations[3]; // 0xFC
-    unsigned short unk0x108; // 0x108
-    unsigned char unk0x10A; // 0x10A
+    unsigned char bGroupDone[3]; // 0x108
     unsigned char bChangeToSpecialObjectMode[3]; // 0x10B
     unsigned char unk0x10E[3]; // 0x10E
     unsigned char unk0x111; // 0x111

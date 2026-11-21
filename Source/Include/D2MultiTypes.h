@@ -30,9 +30,16 @@ struct D2LaunchCharInfoStrc
     char nState[4]; // 0x19
     char wValue[2]; // 0x1D
     char szText0x1F[24]; // 0x1F
-    unsigned char unk0x37; // 0x37
-    int unk0x38[21]; // 0x38
-    unsigned char unk0x8C; // 0x8C
+    union
+    {
+        struct
+        {
+            unsigned char unk0x37; // 0x37
+            int unk0x38[21]; // 0x38
+            unsigned char unk0x8C; // 0x8C
+        };
+        char szText0x37[0x56]; // 0x37
+    };
     char szText0x8D[16]; // 0x8D
     unsigned char unk0x9D; // 0x9D
     unsigned short unk0x9E; // 0x9E
@@ -54,10 +61,17 @@ struct D2LaunchCharInfoStrc
     int unk0x214[5]; // 0x214
     unsigned char unk0x228; // 0x228
     char nValue0x229[4]; // 0x229
-    char nByte22D; // 0x22D
-    unsigned short unk0x22E; // 0x22E
-    int unk0x230[5]; // 0x230
-    unsigned char unk0x244; // 0x244
+    union
+    {
+        struct
+        {
+            char nByte22D; // 0x22D
+            unsigned short unk0x22E; // 0x22E
+            int unk0x230[5]; // 0x230
+            unsigned char unk0x244; // 0x244
+        };
+        char szRealm0x22D[0x18]; // 0x22D
+    };
     char szText0x245[16]; // 0x245
     unsigned char unk0x255; // 0x255
     unsigned short unk0x256; // 0x256
@@ -276,7 +290,15 @@ struct D2MultiChannelUserStrc
 struct D2LaunchGameRecStrc
 {
     unsigned char unk0x00; // 0x00
-    char szName[48]; // 0x01
+    union
+    {
+        char szName[48]; // 0x01
+        struct
+        {
+            char szShortName[16]; // 0x01
+            char szDesc[32]; // 0x11
+        };
+    };
     char wValue0x31[2]; // 0x31
     char wValue0x33[2]; // 0x33
     unsigned char unk0x35; // 0x35

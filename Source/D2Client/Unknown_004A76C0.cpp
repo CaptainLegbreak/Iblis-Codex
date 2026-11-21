@@ -6,6 +6,7 @@
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2Txt.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -77,18 +78,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern D2TextEntryStrc gaTextEntries_00724824[15]; // 0x00724824
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x06];
-    unsigned short nNameStr;
-    char unk0x08[0x1A0];
-};
 
-struct D2CharStatsTxt
-{
-    Unicode wszClassName[16];
-    char unk0x20[0xA4];
-};
 
 #pragma pack(push, 2)
 struct D2CharTextStrc
@@ -203,15 +193,6 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue); // 0x004A7180
 static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChance, int nRightChance); // 0x004A7AE0
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    unsigned short unk0x02;
-    unsigned char nFlags[8];
-    char unk0x0C[0x188];
-    short wSkillDesc;
-    char unk0x196[0xA6];
-};
 
 #pragma pack(push, 2)
 struct D2UiCelFileStrc
@@ -475,11 +456,11 @@ static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
     Unicode* wszText = (Unicode*)anText;
     if (nLevel)
     {
-        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2779), nLevel, nValue, D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->nNameStr), nValue);
+        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2779), nLevel, nValue, D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
     }
     else
     {
-        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->nNameStr), nValue);
+        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
     }
 
     D2Win_10132(wszText, gnGlobal_007A2858 + 0x8B, gnGlobal_00711470 + gnGlobal_007A285C - 0x13B, gnTextColor_007C02F8, 2, 0);
@@ -551,7 +532,7 @@ static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChanc
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
     Unicode* wszText = (Unicode*)anText;
-    sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->nNameStr), nChance);
+    sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nChance);
     sub_00502320(wszText, gaHoverBoxes_006DA430[nIndex].nTextX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTextY + gnGlobal_007A285C + gnGlobal_00711470 - 0x1E0, 0, 0);
 }
 
@@ -672,7 +653,7 @@ NEXT_TEXT:;
     if (pPlayer && pPlayer->dwUnitType == 0)
     {
         D2CharStatsTxt* pCharStatsTxtRecord = sub_CharStatsTxtRecord(pPlayer->dwClassId);
-        sub_004A7080(gnGlobal_007A2858 + 0xC1, gnGlobal_007A285C + gnGlobal_00711470 - 0x1C7, gnGlobal_007A2858 + 0x136, pCharStatsTxtRecord->wszClassName, 0);
+        sub_004A7080(gnGlobal_007A2858 + 0xC1, gnGlobal_007A285C + gnGlobal_00711470 - 0x1C7, gnGlobal_007A2858 + 0x136, (const Unicode*)pCharStatsTxtRecord->wszClassName, 0);
 
         const char* szName = sub_0047A210_GetUnitName(pPlayer);
         const unsigned int nChars = sub_005262A0_Utf8CountChars(szName, strlen(szName)) + 1;

@@ -1,21 +1,8 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x14];
-    void (__fastcall* pfn0x14)(const char* szText);
-    char unk0x18[0x50];
-    int (__fastcall* pfn0x68)();
-};
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x8D];
-    char szText0x8D[0x10];
-};
 
 class D2SquelchListStrc
 {

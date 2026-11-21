@@ -1,4 +1,6 @@
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
+#include "D2UnitData.h"
 #ifdef MOVED_TEST
 #define PREFIX char movedPrefix[4];
 #define QUEST_ID 26
@@ -17,40 +19,6 @@
 #define ITERATE_STATE 2
 #endif
 struct D2GameStrc; struct D2UnitStrc; struct D2ActiveRoomStrc;
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
-struct D2QuestDataStrc
-{
-    PREFIX
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned char bStatusFlags;
-    unsigned char pad0x15[3];
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-};
-struct D2Act4Quest3Strc
-{
-    PREFIX
-    unsigned short nHellforgeMode;
-    unsigned char bCainActivated;
-    char pad0x03[0x0D];
-    int nHellforgeHammersInGame;
-    char pad0x14[0x08];
-    unsigned char bSoulstoneAcquired;
-};
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
@@ -66,7 +34,7 @@ void __fastcall sub_005B5A20_InitHellforge(D2ObjInitFnStrc* pOp)
         UNITS_ChangeAnimMode(pOp->pObject, pEx->nHellforgeMode);
         if (pQuest->fLastState != STATE_A && pQuest->fLastState != STATE_B && pQuest->fLastState != STATE_C)
         {
-            pQuest->bStatusFlags = 0;
+            pQuest->dwFlags &= 0xFFFFFF00;
             QUESTS_UnitIterate(pQuest, ITERATE_STATE, 0, ACT4Q3_UnitIterate_StatusCyclerEx, true);
         }
     }

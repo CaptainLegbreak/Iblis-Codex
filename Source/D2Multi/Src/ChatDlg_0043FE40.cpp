@@ -1,51 +1,11 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
-
-struct D2WinControlInitStrc
-{
-    int nType;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int field_14;
-    int nStringId;
-    void* ppCellFile;
-    int field_20;
-    int field_24;
-    int field_28;
-    int field_2C;
-};
+#include "D2MultiTypes.h"
 
 struct D2LaunchPayloadStrc
 {
     unsigned int nSize;
     D2LaunchThreadRecordStrc tRecord;
-};
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x1C];
-    int (__fastcall* pfn0x1C)(const char* szText, int nB, int nC);
-    char unk0x20[0x24];
-    D2LaunchPayloadStrc* (__fastcall* pfn0x44)(char* szRealm, const char* szKey);
-    char unk0x48[0x20];
-    int (__fastcall* pfn0x68)();
-};
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x19];
-    char nState[4];
-    char wValue[2];
-    char szText0x1F[0x18];
-    char szText0x37[0x86];
-    char szName0xBD[0x132];
-    char wFlags[2];
-    char unk0x1F1[0x3C];
-    char szRealm0x22D[0x18];
-    char szText0x245[0x18];
-    char szText0x25D[0x10];
 };
 
 struct D2LaunchLoginStrc
@@ -258,7 +218,7 @@ int __fastcall sub_0043FE40_SetupLogin(D2LaunchLoginStrc* pLogin, const char* sz
 // 0x004411E0
 void __fastcall sub_004411E0_Use(const char* szText)
 {
-    gpLaunchFuncs_0077B09C->pfn0x1C(szText, 0, 0);
+    gpLaunchFuncs_0077B09C->pfn0x1C((int)szText, 0, 0);
     sub_0043F8C0_ResetLaunchState();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpControlA_0077B070, 0);

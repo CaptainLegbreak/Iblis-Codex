@@ -132,7 +132,7 @@ struct D2DrlgRoomStrc
     D2PresetUnitStrc* pPresetUnits; // 0x5C
     unsigned int dwOtherFlags; // 0x60
     D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo; // 0x64
-    void* pTiles; // 0x68
+    D2TileLibraryHeaderStrc* pTiles; // 0x68
     int unk0x6C[31]; // 0x6C
     D2DrlgRoomStrc* pStatusPrev; // 0xE8
 };

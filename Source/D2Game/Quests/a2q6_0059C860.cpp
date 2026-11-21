@@ -5,6 +5,7 @@
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2Txt.h"
 struct D2GameStrc;
 struct D2QuestDataStrc;
 
@@ -38,11 +39,6 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 static __declspec(noinline) void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags);
 
-struct D2ObjectsTxt
-{
-    char pad0x00[0xDC];
-    unsigned int dwFrameCnt1;
-};
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -219,7 +215,7 @@ void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         {
             UNITS_ChangeAnimMode(pTyraelsDoor, 1);
             D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pTyraelsDoor ? -1 : pTyraelsDoor->dwClassId);
-            EVENT_SetEvent(pQuestData->pGame, pTyraelsDoor, 1, pQuestData->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt1 >> 8), 0, 0);
+            EVENT_SetEvent(pQuestData->pGame, pTyraelsDoor, 1, pQuestData->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
         }
     }
 

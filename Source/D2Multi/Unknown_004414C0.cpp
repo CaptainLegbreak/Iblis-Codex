@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 struct D2LaunchCharInfoStrc;
 struct D2MultiChannelUserStrc;
@@ -7,27 +8,10 @@ struct Unicode;
 struct Character;
 
 #pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x1EF];
-    unsigned short wFlags1EF;
-    char unk0x1F1[0x22D - 0x1F1];
-    unsigned char nByte22D;
-    unsigned char unk_22E[0x195];
-    unsigned int nWordHash;
-    int nWordLength;
-};
-
 #pragma pack(pop)
 
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 void __stdcall sub_004413E0_Enable(int bEnable); // 0x004413E0
-
-struct D2MultiChannelUserStrc
-{
-    int nUnk0x00;
-    char szName[0x32];
-};
 
 unsigned int __stdcall sub_00414150_HashPath(const char* szPath); // 0x00414150
 extern "C" int __cdecl isalnum(int c); // 0x006870FB
@@ -46,7 +30,7 @@ enum { FIRST_PRINTABLE = 32, AFTER_PRINTABLE = 128 };
 // 0x004414C0
 void __cdecl sub_004414C0_UpdateEnable()
 {
-    if ((gpCharInfo_0077BBD8->wFlags1EF & 8) && (gpCharInfo_0077BBD8->wFlags1EF & 4))
+    if (((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 8) && ((*(unsigned short*)gpCharInfo_0077BBD8->wFlags) & 4))
     {
         return;
     }

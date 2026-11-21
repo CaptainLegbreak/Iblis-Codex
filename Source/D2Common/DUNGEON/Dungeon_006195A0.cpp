@@ -3,6 +3,8 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Win32Types.h"
+#include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 
 struct D2DrlgStrc;
 struct D2DrlgEnvironmentStrc;
@@ -11,70 +13,8 @@ struct D2DrlgCoordsStrc;
 struct D2CoordStrc;
 struct D2CommonLevelNodeStrc;
 
-struct D2ActiveRoomStrc
-{
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned char unk_04[0x4];
-    int pRoomTiles;
-    unsigned char unk_0C[0x4];
-    D2DrlgRoomStrc* pDrlgRoom;
-    char unk0x14[0x10];
-    int nNumRooms;
-    char unk0x28[0xC];
-    unsigned int dwFlags;
-    char unk0x38[0x10];
-    int* pUnk0x48;
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-    char unk0x6C[0x8];
-    D2UnitStrc* pUnitFirst;
-    int nUnk0x78;
-    D2ActiveRoomStrc* pRoomNext;
-};
 
-struct D2DrlgActStrc
-{
-    char unk0x00[0x4];
-    D2DrlgEnvironmentStrc* pEnvironment;
-    char unk0x08[0x8];
-    D2ActiveRoomStrc* pRoom;
-    char unk0x14[0x34];
-    D2DrlgStrc* pDrlg;
-    char unk0x4C[0x4];
-    int bClient;
-    char unk0x54[0x8];
-    void* pMemPool;
-};
 
-struct D2DrlgCoordsStrc
-{
-    union
-    {
-        int nSubtileX;
-        int nTileXPos;
-    };
-    union
-    {
-        int nSubtileY;
-        int nTileYPos;
-    };
-    union
-    {
-        int nSubtileWidth;
-        int nTileWidth;
-    };
-    union
-    {
-        int nSubtileHeight;
-        int nTileHeight;
-    };
-};
 
 typedef tagRECT RECT;
 
@@ -142,21 +82,21 @@ int __stdcall DUNGEON_DoRoomsTouchOrOverlap(D2ActiveRoomStrc* ptFirst, D2ActiveR
 {
     D2_ASSERT(ptFirst, 318);
     D2_ASSERT(ptSecond, 321);
-    if (ptFirst->nTileXPos > ptSecond->nTileXPos + ptSecond->nTileWidth)
+    if (ptFirst->tCoords.nTileXPos > ptSecond->tCoords.nTileXPos + ptSecond->tCoords.nTileWidth)
         return 0;
-    if (ptFirst->nTileXPos + ptFirst->nTileWidth < ptSecond->nTileXPos)
+    if (ptFirst->tCoords.nTileXPos + ptFirst->tCoords.nTileWidth < ptSecond->tCoords.nTileXPos)
         return 0;
-    if (ptFirst->nTileYPos > ptSecond->nTileYPos + ptSecond->nTileHeight)
+    if (ptFirst->tCoords.nTileYPos > ptSecond->tCoords.nTileYPos + ptSecond->tCoords.nTileHeight)
         return 0;
-    return ptFirst->nTileYPos + ptFirst->nTileHeight >= ptSecond->nTileYPos;
+    return ptFirst->tCoords.nTileYPos + ptFirst->tCoords.nTileHeight >= ptSecond->tCoords.nTileYPos;
 }
 
 // 0x006199F0
 int __stdcall DUNGEON_AreTileCoordinatesInsideRoom(D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
     D2_ASSERT(pRoom, 360);
-    if (nX >= pRoom->nTileXPos && nX < pRoom->nTileXPos + pRoom->nTileWidth
-        && nY >= pRoom->nTileYPos && nY < pRoom->nTileYPos + pRoom->nTileHeight)
+    if (nX >= pRoom->tCoords.nTileXPos && nX < pRoom->tCoords.nTileXPos + pRoom->tCoords.nTileWidth
+        && nY >= pRoom->tCoords.nTileYPos && nY < pRoom->tCoords.nTileYPos + pRoom->tCoords.nTileHeight)
         return 1;
     return 0;
 }
@@ -192,10 +132,10 @@ void __stdcall D2Common_10052(D2ActiveRoomStrc* pRoom, RECT* pRect)
 {
     int nTemp;
     D2_ASSERT(pRoom, 464);
-    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->nTileXPos, pRoom->nTileYPos, &nTemp, (int*)&pRect->top);
-    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->nTileXPos, pRoom->nTileHeight + pRoom->nTileYPos, (int*)&pRect->left, &nTemp);
-    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->nTileXPos + pRoom->nTileWidth, pRoom->nTileYPos, (int*)&pRect->right, &nTemp);
-    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->nTileXPos + pRoom->nTileWidth, pRoom->nTileHeight + pRoom->nTileYPos, &nTemp, (int*)&pRect->bottom);
+    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->tCoords.nTileXPos, pRoom->tCoords.nTileYPos, &nTemp, (int*)&pRect->top);
+    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->tCoords.nTileXPos, pRoom->tCoords.nTileHeight + pRoom->tCoords.nTileYPos, (int*)&pRect->left, &nTemp);
+    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->tCoords.nTileXPos + pRoom->tCoords.nTileWidth, pRoom->tCoords.nTileYPos, (int*)&pRect->right, &nTemp);
+    DUNGEON_GameToClientTileDrawPositionCoords(pRoom->tCoords.nTileXPos + pRoom->tCoords.nTileWidth, pRoom->tCoords.nTileHeight + pRoom->tCoords.nTileYPos, &nTemp, (int*)&pRect->bottom);
     D2_ASSERT(pRect->top <= pRect->bottom, 474);
     D2_ASSERT(pRect->left <= pRect->right, 475);
 }
@@ -221,12 +161,12 @@ D2UnitStrc* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* ptRoom)
 // 0x0061A7E0
 int __fastcall sub_0061A7E0_HasEntryMissingFrom(D2ActiveRoomStrc* pRoom1, D2ActiveRoomStrc* pRoom2)
 {
-    for (int i = 0; i < pRoom2->nUnk0x78; ++i)
+    for (int i = 0; i < (int)pRoom2->nNumClients; ++i)
     {
         int j = 0;
-        while (j < pRoom1->nUnk0x78 && pRoom1->pUnk0x48[j] != pRoom2->pUnk0x48[i])
+        while (j < (int)pRoom1->nNumClients && pRoom1->ppClients[j] != pRoom2->ppClients[i])
             ++j;
-        if (j >= pRoom1->nUnk0x78)
+        if (j >= (int)pRoom1->nNumClients)
             return 1;
     }
     return 0;
@@ -398,24 +338,24 @@ int __stdcall DUNGEON_CheckRoomsOverlapping_BROKEN(D2ActiveRoomStrc* pPrimary, D
 {
     D2_ASSERT(pPrimary, 379);
 
-    const D2DrlgCoordsStrc* pFirst = (D2DrlgCoordsStrc*)&pPrimary->nTileXPos;
-    const D2DrlgCoordsStrc* pSecond = (D2DrlgCoordsStrc*)&pPrimary->nTileXPos;
-    const int nX2 = pSecond->nTileXPos;
-    const int nX1 = pFirst->nTileXPos;
-    if (nX1 > nX2 + pSecond->nTileWidth)
+    const D2DrlgCoordsStrc* pFirst = (D2DrlgCoordsStrc*)&pPrimary->tCoords.nTileXPos;
+    const D2DrlgCoordsStrc* pSecond = (D2DrlgCoordsStrc*)&pPrimary->tCoords.nTileXPos;
+    const int nX2 = pSecond->nSubtileX;
+    const int nX1 = pFirst->nSubtileX;
+    if (nX1 > nX2 + pSecond->nSubtileWidth)
         return 0;
-    if (nX1 + pFirst->nTileWidth < nX2)
+    if (nX1 + pFirst->nSubtileWidth < nX2)
         return 0;
-    const int nY2 = pSecond->nTileYPos;
-    if (pFirst->nTileYPos > nY2 + pSecond->nTileHeight)
+    const int nY2 = pSecond->nSubtileY;
+    if (pFirst->nSubtileY > nY2 + pSecond->nSubtileHeight)
         return 0;
-    if (pFirst->nTileYPos + pFirst->nTileHeight < nY2)
+    if (pFirst->nSubtileY + pFirst->nSubtileHeight < nY2)
         return 0;
-    if (nX1 == nX2 + pSecond->nTileWidth)
+    if (nX1 == nX2 + pSecond->nSubtileWidth)
         return 1;
-    if (nX1 + pFirst->nTileWidth == nX2)
+    if (nX1 + pFirst->nSubtileWidth == nX2)
         return 2;
-    if (pFirst->nTileYPos == nY2 + pSecond->nTileHeight)
+    if (pFirst->nSubtileY == nY2 + pSecond->nSubtileHeight)
         return 3;
     return 4;
 }

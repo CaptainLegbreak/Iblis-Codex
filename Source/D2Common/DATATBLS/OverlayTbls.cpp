@@ -1,14 +1,8 @@
 #include "D2Common.h"
 #include "D2Records.h"
+#include "D2DataTbls.h"
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBB8];
-    D2TxtLinkStrc* pOverlayLinker;
-    void* pOverlayTxt;
-    int nOverlayTxtRecordCount;
-};
 
 extern "C" const char gszTxtField_Filename[];                                                               // 0x006D90F4
 extern D2DataTablesStrc sgtDataTables;                                                                        // 0x0096BC30
@@ -48,5 +42,5 @@ void __fastcall DATATBLS_LoadOverlayTxt(void* hArchive)
     };
 
     sgtDataTables.pOverlayLinker = FOG_AllocLinker(".\\DATATBLS\\OverlayTbls.cpp", 56);
-    sgtDataTables.pOverlayTxt = DATATBLS_CompileTxt(hArchive, "overlay", pTbl, &sgtDataTables.nOverlayTxtRecordCount, 0x84);
+    sgtDataTables.pOverlayTxt = (D2OverlayTxt*)DATATBLS_CompileTxt(hArchive, "overlay", pTbl, &sgtDataTables.nOverlayTxtRecordCount, 0x84);
 }

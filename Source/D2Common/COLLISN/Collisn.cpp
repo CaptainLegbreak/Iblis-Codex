@@ -4,6 +4,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2Primitives.h"
+#include "D2DrlgPresets.h"
 struct D2ActiveRoomStrc;
 #define COLLISION_ABS(a) ((a) < 0 ? -(a) : (a))
 struct D2CoordStrc;
@@ -13,24 +14,6 @@ struct D2RoomCollisionGridStrc;
 struct D2DrlgTileDataStrc;
 struct D2BoundingBoxStrc;
 
-struct D2RoomCollisionGridStrc
-{
-    union
-    {
-        struct
-        {
-            D2DrlgCoordsStrc pRoomCoords;
-        };
-        struct
-        {
-            int nSubtileX;
-            int nSubtileY;
-            int nSubtileWidth;
-            int nSubtileHeight;
-        };
-    };
-    unsigned short* pCollisionMask;
-};
 
 enum
 {

@@ -1,19 +1,9 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
 
-struct D2DrlgTileDataStrc
-{
-    int unk0x00[2];
-    int nPosX;
-    int nPosY;
-    int nCoordList;
-    int unk0x14[7];
-};
 
-struct D2DrlgRoomTilesStrc
-{
-    D2DrlgTileDataStrc* pWallTiles;
-    unsigned int nWalls;
-};
 
 struct D2RoomTileGridStrc
 {
@@ -28,16 +18,6 @@ struct D2DrlgLogicalRoomInfoStrc
     char pIndexY[0x14];
 };
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x34];
-    int nTileXPos;
-    int nTileYPos;
-    char unk0x3C[0x18];
-    D2RoomTileGridStrc* ptDrlgTiles;
-    char unk0x58[0x0C];
-    D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo;
-};
 
 int __fastcall DRLGGRID_GetGridEntry(void* pDrlgGrid, int nX, int nY); // 0x0067C570
 
@@ -48,17 +28,17 @@ void __stdcall DRLGLOGIC_SetCoordListForTiles(D2DrlgRoomStrc* pDrlgRoom)
     for (unsigned int i = 0; i < pTiles->nWalls; ++i)
     {
         D2DrlgTileDataStrc* pTile = &pTiles->pWallTiles[i];
-        int nY = pTile->nPosY + pDrlgRoom->nTileYPos;
-        int nX = pTile->nPosX + pDrlgRoom->nTileXPos;
+        int nY = pTile->nPosY + pDrlgRoom->pDrlgCoord.nPosY;
+        int nX = pTile->nPosX + pDrlgRoom->pDrlgCoord.nPosX;
         if (!pDrlgRoom->pLogicalRoomInfo)
-            pTile->nCoordList = 0;
+            pTile->pCoordList = 0;
         else if (pDrlgRoom->pLogicalRoomInfo->dwFlags & 1)
-            pTile->nCoordList = 0;
+            pTile->pCoordList = 0;
         else
         {
-            nX -= pDrlgRoom->nTileXPos;
-            nY -= pDrlgRoom->nTileYPos;
-            pTile->nCoordList = DRLGGRID_GetGridEntry(pDrlgRoom->pLogicalRoomInfo->pIndexY, nX, nY);
+            nX -= pDrlgRoom->pDrlgCoord.nPosX;
+            nY -= pDrlgRoom->pDrlgCoord.nPosY;
+            pTile->pCoordList = (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(pDrlgRoom->pLogicalRoomInfo->pIndexY, nX, nY);
         }
     }
 }

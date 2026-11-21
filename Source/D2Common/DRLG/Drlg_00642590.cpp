@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 struct D2DrlgActStrc;
 struct D2GameStrc;
@@ -7,36 +8,8 @@ struct D2DrlgCoordStrc;
 union D2SeedStrc;
 struct D2DrlgStrc;
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x24];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    char unk0x28[0x0C];
-    D2DrlgCoordStrc pDrlgCoord;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x14[0x08];
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-    unsigned char unk_2C[0x180];
-    D2DrlgLevelStrc* pNextLevel;
-    char unk0x1B0[0x20];
-    int eLevelId;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -44,38 +17,11 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall DRLG_GetMinAndMaxCoordinatesFromLevel(D2DrlgLevelStrc* pLevel, int* pTileMinX, int* pTileMinY, int* pTileMaxX, int* pTileMaxY); // 0x00642520
 
-typedef void (__fastcall* AUTOMAPFN)(void*);
+typedef void (__stdcall* AUTOMAPFN)(D2RoomStrc*);
 
-typedef void (__fastcall* TOWNAUTOMAPFN)(int, int, int, int);
+typedef void (__stdcall* TOWNAUTOMAPFN)(int, int, int, int);
 
 
-struct D2DrlgStrc
-{
-    D2SeedStrc pSeed;
-    char unk0x008[0x84];
-    unsigned int dwFlags;
-    char unk0x090[0x04];
-    int nStaffTombLevel;
-    char unk0x098[0x04];
-    D2GameStrc* pGame;
-    char unk0x0A0[0x3B0];
-    unsigned char nDifficulty;
-    char unk0x451[0x03];
-    AUTOMAPFN pfAutomap;
-    unsigned int dwGameLowSeed;
-    char unk0x45C[0x08];
-    void* hArchive;
-    char unk0x468[0x04];
-    D2DrlgActStrc* pAct;
-    unsigned int dwStartSeed;
-    int bJungleInterlink;
-    void* pMempool;
-    D2DrlgLevelStrc* pLevel;
-    unsigned char nAct;
-    char unk0x481[0x03];
-    int nBossTombLevel;
-    TOWNAUTOMAPFN pfTownAutomap;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430

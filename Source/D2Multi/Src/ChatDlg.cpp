@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -17,37 +18,6 @@ struct D2LaunchRecord3Strc
     int f_8;
 };
 
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x14];
-    int (__fastcall* pfn0x14)(void* pBuffer);
-    char unk0x18[0x04];
-    int (__fastcall* pfn0x1C)(int nA, int nB, int nC);
-    char unk0x20[0x48];
-    int (__fastcall* pfn0x68)();
-    char unk0x6C[0x08];
-    int (__fastcall* pfn0x74)(int nA, int nB, void* pKey, D2LaunchRecord3Strc* pRecord);
-    char unk0x78[0x04];
-    int (__fastcall* pfn0x7C)(int nA, int nB, void* pKey, D2LaunchRecord3Strc* pRecord);
-    char unk0x80[0x0C];
-    int (__fastcall* pfn0x8C)(int* pOut);
-};
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x19];
-    char nState[4];
-    char wValue[2];
-    char szText0x1F[0x18];
-    char szText0x37[0x1B8];
-    char wFlags[2];
-    char unk0x1F1[0x3C];
-    char bOnline;
-    char unk0x22E[0x17];
-    char szText0x245[0x10];
-    unsigned char unk_255[0x10C];
-    char nByte361;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -230,7 +200,7 @@ int __fastcall sub_0043FFA0_SetupCharacter(unsigned short wValue, const char* sz
     *(unsigned short*)gpCharInfo_0077BBD8->wValue = wValue;
     strcpy(gpCharInfo_0077BBD8->szText0x1F, szText0x1F);
     strcpy(gpCharInfo_0077BBD8->szText0x245, szText0x245);
-    if (gpCharInfo_0077BBD8->bOnline)
+    if (gpCharInfo_0077BBD8->nByte22D)
     {
         if (sub_00449B30_QueryAddress())
         {
@@ -615,7 +585,7 @@ int __cdecl sub_0043EBA0_ResetControls()
         sub_004F96F0_ControlClearState(gpControlA_0077B070, 1);
         sub_004F96F0_ControlClearState(gpControlB_0077B078, 1);
     }
-    if (gpCharInfo_0077BBD8->nByte361)
+    if (gpCharInfo_0077BBD8->szRealm0x361[0])
         sub_004F96F0_ControlClearState(gpChatControl_0077B074, 1);
     else
         sub_004F96F0_ControlClearState(gpChatControl_0077B074, gbChatSetup_0077BBF8 == 0);

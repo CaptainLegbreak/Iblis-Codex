@@ -1,20 +1,10 @@
 #include "D2Game.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 struct D2QuestCallbacks0058EA50Strc;
 struct D2QuestData0058EA50Strc;
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    int nNPCNo;
-    short nMessageIndex;
-    unsigned short unk0x1A;
-};
 
 
 void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x00572360
@@ -57,13 +47,13 @@ void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, 
 {
     const short nMessageIndex = pQuestArg->nMessageIndex;
 
-    switch (pQuestArg->nNPCNo)
+    switch (pQuestArg->nOldLevel)
     {
     case 520:
     {
         if (nMessageIndex == 20003)
         {
-            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nNPCNo);
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nOldLevel);
         }
         return;
     }
@@ -71,7 +61,7 @@ void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, 
     {
         if (nMessageIndex == 20014)
         {
-            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nNPCNo);
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nOldLevel);
         }
         return;
     }
@@ -79,7 +69,7 @@ void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, 
     {
         if (nMessageIndex == 20039 || nMessageIndex == 20038 || nMessageIndex == 20037)
         {
-            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nNPCNo);
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nOldLevel);
 
             D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestArg->pGame, 31);
             if (!pQuest || pQuest->fState)
@@ -100,7 +90,7 @@ void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, 
     {
         if (nMessageIndex == 20054 || nMessageIndex == 20053 || nMessageIndex == 20055)
         {
-            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nNPCNo);
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nOldLevel);
         }
         return;
     }
@@ -108,7 +98,7 @@ void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, 
     {
         if (nMessageIndex == 20067 || nMessageIndex == 20066 || nMessageIndex == 20065)
         {
-            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nNPCNo);
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, pQuestArg->nOldLevel);
         }
         return;
     }

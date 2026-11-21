@@ -3,6 +3,7 @@
 
 #include "D2Check.h"
 #include "D2Structs.h"
+#include "D2Path.h"
 
 struct D2CoordStrc;
 struct D2GameStrc;

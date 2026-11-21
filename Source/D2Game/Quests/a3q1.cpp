@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -29,25 +30,6 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    union
-    {
-        D2TextHeaderStrc* pTextControl;
-        unsigned short nNPCNo;
-        int nOldLevel;
-    };
-    union
-    {
-        unsigned short nMessageIndex;
-        int nNewLevel;
-    };
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -61,15 +43,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    int unk0x0C[2];
-    int nX;
-    int nY;
-};
 
 extern char gpAct3Q0NpcMessages[]; // 0x0073EAA0
 extern char gpAct3Q1NpcMessages[]; // 0x0073ECF0

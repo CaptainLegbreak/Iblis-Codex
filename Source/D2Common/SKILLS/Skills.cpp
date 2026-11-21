@@ -4,6 +4,9 @@
 #include "D2Records.h"
 #include "D2Skills.h"
 #include "D2LevelTxt.h"
+#include "D2Drlg.h"
+#include "D2Path.h"
+#include "D2Txt.h"
 
 #define PLRMODE_THROW 11
 #define LVLSUB_UNUSED_INVALID -1
@@ -42,7 +45,7 @@ struct D2MissileDataStrc;
 struct D2CoordStrc;
 struct D2FP32_16PartsStrc;
 struct D2FP32_16PrecisionStrc;
-struct D2FP32_16;
+union D2FP32_16;
 struct D2MissilesTxt;
 struct D2Unk00667030InnerStrc;
 struct D2Unk00667030MidStrc;
@@ -79,79 +82,6 @@ struct D2DrlgLevelStrc;
 struct D2SkillDescTxt;
 struct D2InventoryStrc;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[2];
-    unsigned char nFlags[8];
-    signed char nCharClass;
-    unsigned char unk_0D[0x3];
-    signed char nAnim;
-    signed char nMonAnim;
-    unsigned char unk_12[0x2];
-    signed char nRange;
-    char unk0x15[24 - 20 - 1];
-    short nITypeA[3];
-    short nITypeB[3];
-    short nETypeA[2];
-    char unk0x028[0x06];
-    short wSrvDoFunc;
-    unsigned char unk_30[0x64];
-    short nPassiveState;
-    unsigned char unk_96[0x2];
-    short nPassiveStat[5];
-    char unk0xA2[164 - 152 - 2 * 5];
-    unsigned int dwPassiveCalc[5];
-    unsigned char unk_B8[0x90];
-    union
-    {
-        struct
-        {
-            int dwParam[8];
-        };
-        struct
-        {
-            unsigned char unk_148[0x18];
-            int f_160;
-            int f_164;
-        };
-    };
-    char unk0x168[372 - 328 - 32];
-    short wReqLevel;
-    short wReqStr;
-    short wReqDex;
-    short wReqInt;
-    short wReqVit;
-    short nReqSkill[3];
-    short wStartMana;
-    short unk0x186;
-    unsigned char nManaShift;
-    char unk0x189;
-    short wMana;
-    short wLevelMana;
-    short unk0x18E;
-    unsigned int dwDelay;
-    unsigned char unk_194[0x4];
-    int dwToHit;
-    int dwLevToHit;
-    unsigned int dwToHitCalc;
-    unsigned char nToHitShift;
-    char unk0x1A5[476 - 420 - 1];
-    unsigned char nEType;
-    char unk0x1DD[3];
-    int dwEMin;
-    int dwEMax;
-    int dwEMinLev[5];
-    int dwEMaxLev[5];
-    unsigned int dwEDmgSymPerCalc;
-    int dwELen;
-    int dwELevLen[3];
-    unsigned int dwELenSymPerCalc;
-    unsigned char nRestrict;
-    char unk0x229;
-    short nState[3];
-    char unk0x230[0x0C];
-};
 
 struct D2MissileDataStrc
 {
@@ -174,17 +104,7 @@ struct D2MissileDataStrc
     void* pStream;
 };
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2FP32_16PartsStrc
 {
@@ -200,52 +120,8 @@ struct D2FP32_16PrecisionStrc
     unsigned int dwPrecisionY;
 };
 
-struct D2FP32_16
-{
-    union
-    {
-        D2FP32_16PartsStrc tParts;
-        D2FP32_16PrecisionStrc tPrecision;
-    };
-};
 
-struct D2DynamicPathStrc
-{
-    D2FP32_16 tGameCoords;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    D2PathPointStrc tTargetCoord;
-    D2PathPointStrc tPrevTargetCoord;
-    D2PathPointStrc tFinalTargetCoord;
-    D2ActiveRoomStrc* pRoom;
-    D2ActiveRoomStrc* pPreviousRoom;
-    int dwCurrentPointIdx;
-    int dwPathPoints;
-    void* unk0x2C;
-    D2UnitStrc* pUnit;
-    unsigned int dwFlags;
-    char unk0x38[0x58 - 0x38];
-    D2UnitStrc* hTarget;
-    unsigned char unk_5C[0x8];
-    unsigned char nDirection;
-    unsigned char nNewDirection;
-    unsigned char nDiffDirection;
-    char unk0x67[0x72 - 0x67];
-    char tVelocityVector[8];
-    char unk0x7A[0x84 - 0x7A];
-    int dwMaxVelocity;
-    int dwAcceleration;
-    unsigned char unk_8C[0x7];
-    unsigned char nStepNum;
-};
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    char unk0x08[0x19C];
-};
 
 struct D2Unk00667030InnerStrc
 {
@@ -265,31 +141,9 @@ struct D2Unk00667030Strc
     D2Unk00667030MidStrc* pMid;
 };
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgGridStrc
-{
-    char unk0x00[0x14];
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    int nWidth;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-};
 
 struct D2UnkOutdoorStrc
 {
@@ -371,28 +225,7 @@ struct D2ItemCalcStrc
     D2UnitStrc* pItem;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short wMonStatsEx;
-    char unk0x1A[0x32 - 0x1A];
-    short nVelocity;
-    unsigned char unk_34[0x13C];
-    short nSkill[8];
-    unsigned char unk_180[0x8];
-    short nSkillLevel[8];
-    unsigned char unk_198[0x10];
-};
 
-struct D2MonStats2Txt
-{
-    int dwId;
-    unsigned char nFlags[4];
-    signed char nSizeX;
-    unsigned char unk_09[0xE7];
-    unsigned char nModeFlags[4];
-    char unk0xF4[0x134 - 0xF4];
-};
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
@@ -479,22 +312,6 @@ int __stdcall ITEMS_CheckType(int nItemType, int nItemTypeToCheck); // 0x00629B5
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pStat, int nArraySize); // 0x006261D0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-struct D2StaticPathStrc
-{
-    char unk0x00[12];
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nX;
-            int nY;
-        };
-    };
-};
 
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -522,12 +339,6 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 void __stdcall sub_00647320_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, int nSkillLevel, int nCharges, int bFreeMemory); // 0x00647320
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-struct D2CharStatsTxt
-{
-    char unk0x00[174];
-    short nBaseSkill[10];
-    char unk0xC2[196 - 174 - 2 * 10];
-};
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
@@ -754,7 +565,7 @@ int __fastcall sub_00643580_GetSkillParam7Formula(int nSkillId, int nSkillLevel)
         return 0;
     }
 
-    return pSkillsTxtRecord->f_160 + (nSkillLevel - 1) * pSkillsTxtRecord->f_164;
+    return pSkillsTxtRecord->dwParam[6] + (nSkillLevel - 1) * pSkillsTxtRecord->dwParam[7];
 }
 
 // 0x00643690
@@ -872,7 +683,7 @@ int __stdcall SKILLS_GetRange(D2SkillStrc* pSkill)
         return 0;
     }
 
-    return pSkill->pSkillsTxt->nRange;
+    return pSkill->pSkillsTxt->nAuraTargetState;
 }
 
 // 0x006438B0
@@ -2216,7 +2027,7 @@ int __stdcall D2Common_11024(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* 
 
     D2SkillsTxt* pSkillsTxtRecord = pSkill->pSkillsTxt;
     if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 48)
-        || pSkillsTxtRecord->nRange != 2)
+        || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
     }
@@ -2312,7 +2123,7 @@ inline int UNITS_GetXPositionInl(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
 
     default:
         if (pUnit->pDynamicPath)
@@ -2330,7 +2141,7 @@ inline int UNITS_GetYPositionInl(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
 
     default:
         if (pUnit->pDynamicPath)
@@ -2962,7 +2773,7 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
 
         if (pUnit->dwUnitType == 1)
         {
-            pSkill->dwSkillMode = pSkillsTxtRecord->nMonAnim;
+            pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nMonAnim;
         }
         else if (pUnit->dwUnitType == 0 && pUnit->dwClassId == 6 && nSkillId == 5)
         {
@@ -2970,7 +2781,7 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
         }
         else
         {
-            pSkill->dwSkillMode = pSkillsTxtRecord->nAnim;
+            pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
         }
 
         pSkill->nSkillLevel = 1;
@@ -3661,8 +3472,8 @@ void __stdcall PATH_GetClientCoordsVelocity(D2UnitStrc* pUnit, int* pX, int* pY)
         D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
         if (pDynamicPath->dwPathPoints)
         {
-            *pX = *(int*)&pDynamicPath->tVelocityVector[0];
-            *pY = *(int*)&pDynamicPath->tVelocityVector[4];
+            *pX = pDynamicPath->tVelocityVector.nX;
+            *pY = pDynamicPath->tVelocityVector.nY;
             *pX >>= 11;
             *pY >>= 11;
             DUNGEON_GameToClientCoords(pX, pY);
@@ -3845,9 +3656,9 @@ void __stdcall sub_0064FC20_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath
     const int nPrecisionX = gdwPathResetPrecisionX_006EB7C8;
     const int nPrecisionY = gdwPathResetPrecisionY_006EB7CC;
 
-    pDynamicPath->tGameCoords.tPrecision.dwPrecisionX = nPrecisionX;
+    pDynamicPath->tGameCoords.dwPrecisionX = nPrecisionX;
     pDynamicPath->dwClientCoordX = nPrecisionX;
-    pDynamicPath->tGameCoords.tPrecision.dwPrecisionY = nPrecisionY;
+    pDynamicPath->tGameCoords.dwPrecisionY = nPrecisionY;
     pDynamicPath->dwClientCoordY = nPrecisionY;
     pDynamicPath->dwPathPoints = 0;
 
@@ -3884,7 +3695,7 @@ int __stdcall D2Common_10227(D2UnitStrc* pUnit)
         return 1;
     }
 
-    return pDynamicPath->tGameCoords.tParts.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.tParts.wPosY == pDynamicPath->tTargetCoord.Y;
+    return pDynamicPath->tGameCoords.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.wPosY == pDynamicPath->tTargetCoord.Y;
 }
 
 // 0x00654E80
@@ -3988,7 +3799,7 @@ void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, i
     D2UnkOutdoorStrc a1 = {};
 
     a1.pLevel = pLevel;
-    a1.field_4 = &pOutdoors->nWidth;
+    a1.field_4 = &pOutdoors->unk0x54;
     a1.pGrid1 = &pOutdoors->pGrid[0];
     a1.pGrid2 = &pOutdoors->pGrid[2];
     a1.nLevelPrestId = nLevelPrestId;

@@ -3,43 +3,16 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2GameAux.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgPresets.h"
+#include "D2GameObjs.h"
 struct D2ActiveRoomStrc;
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
 
 
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    D2MapAIPathPositionStrc* pPosition;
-};
 
 
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x10];
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    void* pTileTypeLayer[4];
-    void* pWallLayer[4];
-    void* pFloorLayer[2];
-    void* pShadowLayer;
-};
+
 
 
 union D2C_PackedTileInformation
@@ -71,97 +44,16 @@ union D2C_PackedTileInformation
 
 struct D2DrlgVertexStrc;
 
-struct D2DrlgMapStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2LvlPrestTxt* pLvlPrestTxtRecord;
-    D2DrlgFileStrc* ptFile;
-    D2DrlgCoordStrc tCoords;
-    D2DrlgVertexStrc* pVertices;
-    D2DrlgGridStrc pMapGrid;
-    D2PresetUnitStrc* pPresetUnit;
-    int bInited;
-    int unk0x40;
-    int* pPopsIndex;
-    int* pPopsSubIndex;
-    int* pPopsOrientation;
-    int* pPopsLocation;
-    D2DrlgMapStrc* pNext;
-};
 
-struct D2DrlgPresetRoomStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2DrlgMapStrc* pMap;
-    unsigned int dwFlags;
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pFloorGrid[2];
-    D2DrlgGridStrc pCellGrid;
-    D2DrlgGridStrc* pMazeGrid;
-    D2DrlgCoordStrc* pTombStoneTiles;
-    int nTombStoneTiles;
-};
 
-struct D2DrlgPresetLevelStrc
-{
-    D2DrlgMapStrc* pDrlgMap;
-    int nDirection;
-};
 
 
 struct D2RoomStrc;
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x454];
-    void(__stdcall* pfAutomap)(D2RoomStrc* pRoom);
-    char unk0x458[0xC];
-    void* hArchive;
-    char unk0x468[0x10];
-    void* pMempool;
-    char unk0x47C[0xC];
-    void(__stdcall* pfTownAutomap)(int nLevelId, int nPickedFile, int nX, int nY);
-};
 
 struct D2DrlgRoomStrc;
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    D2DrlgPresetLevelStrc* pPreset;
-    char unk0x018[0x4];
-    D2DrlgCoordStrc pLevelCoords;
-    char unk0x02C[0x188];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0xC];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x4];
-    int eLevelId;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x14];
-    D2SeedStrc pSeed;
-    char unk0x1C[0x4];
-    D2DrlgPresetRoomStrc* pMaze;
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    char unk0x2C[0x4];
-    D2RoomStrc* pRoom;
-    D2DrlgCoordStrc pDrlgCoord;
-    char unk0x44[0x4];
-    int nType;
-    char unk0x4C[0x4];
-    unsigned int dwDT1Mask;
-    char unk0x54[0x4];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    struct D2PresetUnitStrc* pPresetUnits;
-};
 
 extern "C" const char gszDrlgPresetSourceFile;                                                                    // 0x006EE7C4
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);          // 0x0040B430
@@ -518,7 +410,7 @@ void __fastcall DRLGPRESET_InitPresetRoomGrids(D2DrlgRoomStrc* pDrlgRoom)
     sub_00666710(pDrlgRoom);
 }
 
-void __fastcall DRLGPRESET_GetTombStoneTileCoords(D2DrlgRoomStrc* pDrlgRoom, D2DrlgCoordStrc** ppTombStoneTiles, int* pnTombStoneTiles)
+void __fastcall DRLGPRESET_GetTombStoneTileCoords(D2DrlgRoomStrc* pDrlgRoom, D2CoordStrc** ppTombStoneTiles, int* pnTombStoneTiles)
 {
     if (pDrlgRoom->nType != 2)
     {
@@ -649,7 +541,7 @@ void __fastcall DRLGPRESET_SpawnHardcodedPresetUnits(D2DrlgRoomStrc* pDrlgRoom)
 // 0x00668100
 void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgPresetLevelStrc* pPreset = pLevel->pPreset;
+    D2DrlgPresetInfoStrc* pPreset = pLevel->pPreset;
     D2LvlPrestTxt* pLvlPrestTxtRecord = DATATBLS_GetLvlPrestTxtRecordFromLevelId(pLevel->eLevelId);
     D2DrlgMapStrc* pDrlgMap = DRLGPRESET_AllocDrlgMap(pLevel, pLvlPrestTxtRecord->dwDef, &pLevel->pLevelCoords, &pLevel->pSeed);
     pPreset->pDrlgMap = pDrlgMap;
@@ -692,7 +584,7 @@ void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
             for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
             {
                 DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
-                pLevel->pDrlg->pfAutomap(pDrlgRoom->pRoom);
+                pLevel->pDrlg->pfAutomap((D2RoomStrc*)pDrlgRoom->pRoom);
             }
         }
     }

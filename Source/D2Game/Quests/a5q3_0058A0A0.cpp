@@ -8,6 +8,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2GameObjs.h"
+#include "D2QuestData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MapAIPathPositionStrc;
@@ -27,59 +28,8 @@ typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId,
 
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-struct D2Act5Quest3Strc
-{
-    D2QuestGUIDStrc tPlayerGUIDs;
-    int unk0x84;
-    int unk0x88;
-    char pad0x8C[0x6];
-    unsigned char bNilathakOutsideTownSpawned;
-    unsigned char bNihlathakMonsterInTownSpawned;
-    char pad0x94[0x8];
-    int NihlathakMonsterInTownGUID;
-    int nNihlathakOutsideTownGUID;
-    unsigned char bFrozenAnyaObjectSpawned;
-    char pad0xA5[0x3];
-    int nFrozenDrehyaObjectGUID;
-    unsigned char unk_AC[0x2];
-    unsigned char bChangeToSpecialObjectModeInTown;
-    unsigned char bUnk0xAF;
-    unsigned char unk_B0[0x1];
-    unsigned char bDrehyaPortalOutsideTownSpawned;
-    char pad0xB2[0xE];
-    int nDrehyaPortalOutsideTownGUID;
-    D2CoordStrc pDrehyaPortalCoords;
-    char pad0xCC[0xC];
-    int nDefrostPotionsInGame;
-    char pad0xDC[0x4];
-    unsigned char bDrehyaPortalCoordsInitialized;
-    char pad0xE1[0x1];
-    unsigned char bDefrostPotionAcquired;
-    char pad0xE3[0x15];
-    int nDrehyaObjectOutsideTownGUID;
-    int nFrozenAnyaObjectGUID;
-    char pad0x100[0x8];
-    D2MapAIStrc* pNilathakMapAI;
-    char pad0x10C[0x1];
-    unsigned char bNilathakMapAIChanged;
-    char pad0x10E[0x2];
-    int nNihlathakObjectInTownGUID;
-};
 
-struct D2Act5Quest5Strc
-{
-    unsigned char bAncientsDefeated;
-    unsigned char unk0x01[0x0B];
-    int nActivePortalCount;
-    unsigned char unk0x10;
-    unsigned char bActivatable;
-};
 
-struct D2Act5Quest6Strc
-{
-    char unk0x00[0x86];
-    unsigned char bWorldStoneChamberOpen;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -165,7 +115,7 @@ int __fastcall sub_0058A9F0_ACT5Q3_IsDrehyaStateZero(D2GameStrc* pGame)
         return 0;
     }
 
-    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->unk0x84 == 0;
+    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->unk0x84[0] == 0;
 }
 
 // 0x0058AA10
@@ -214,7 +164,7 @@ void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x23);
     --((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->nActivePortalCount;
-    if (!((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->nActivePortalCount && ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->unk0x10)
+    if (!((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->nActivePortalCount && ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->active)
     {
         ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bActivatable = 1;
     }
@@ -328,8 +278,8 @@ void __fastcall ACT5Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 15))
     {
-        pQuestDataEx->unk0x84 = 2;
-        pQuestDataEx->unk0x88 = 1;
+        pQuestDataEx->unk0x84[0] = 2;
+        pQuestDataEx->unk0x84[1] = 1;
         return;
     }
     if (!pQuestData->bNotIntro)
@@ -422,8 +372,8 @@ void __fastcall ACT5Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->nSeqId = 34;
     memset(pQuestDataEx, 0x00, sizeof(D2Act5Quest3Strc));
     QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
-    pQuestDataEx->unk0x84 = 0;
-    pQuestDataEx->unk0x88 = 0;
+    pQuestDataEx->unk0x84[0] = 0;
+    pQuestDataEx->unk0x84[1] = 0;
 }
 
 // 0x0058A5B0
@@ -455,7 +405,7 @@ int __fastcall ACT5Q3_SpawnDrehyaPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc
     {
         return 1;
     }
-    if (!pQuestDataEx->unk0x84)
+    if (!pQuestDataEx->unk0x84[0])
     {
         return 0;
     }
@@ -564,7 +514,7 @@ void __fastcall OBJECTS_InitFunction68_NihlathakStartInTown(D2ObjInitFnStrc* pOp
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
     pQuestDataEx->nNihlathakObjectInTownGUID = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
 
-    if (pQuestDataEx->unk0x88 || pQuestDataEx->bNihlathakMonsterInTownSpawned)
+    if (pQuestDataEx->unk0x84[1] || pQuestDataEx->bNihlathakMonsterInTownSpawned)
     {
         return;
     }
@@ -596,7 +546,7 @@ void __fastcall OBJECTS_InitFunction69_NihlathakStartOutsideTown(D2ObjInitFnStrc
     }
 
     D2Act5Quest3Strc* pQuestDataEx = (D2Act5Quest3Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->unk0x88 != 1 || pQuestDataEx->bNilathakOutsideTownSpawned)
+    if (pQuestDataEx->unk0x84[1] != 1 || pQuestDataEx->bNilathakOutsideTownSpawned)
     {
         return;
     }
@@ -630,5 +580,5 @@ int __fastcall sub_0058A9D0_GetQuestFlagAF(D2GameStrc* pGame)
     {
         return 0;
     }
-    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->bUnk0xAF != 0;
+    return ((D2Act5Quest3Strc*)pQuestData->pQuestDataEx)->unk0xAF != 0;
 }
