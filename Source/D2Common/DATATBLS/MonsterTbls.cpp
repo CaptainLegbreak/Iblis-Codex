@@ -1848,16 +1848,6 @@ MODIFIERS:
     return 1;
 }
 
-int __stdcall sub_A10_Emit_00654410(char* szText, int nCount)
-{
-    int nSum = 0;
-    for (int i = 0; i < nCount; ++i)
-    {
-        nSum += sub_00654410_NextIntToken(&szText, ',');
-    }
-    return nSum;
-}
-
 // 0x006547D0
 void __stdcall sub_006547D0(void* hArchive)
 {
