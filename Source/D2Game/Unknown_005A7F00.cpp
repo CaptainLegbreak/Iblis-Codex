@@ -1,14 +1,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
-#ifdef MOVED_TEST
-#define PREFIX char movedPrefix[4];
-#define HOVER_FLAG 0x200
-#define HOVER_EVENT 8
-#else
 #define PREFIX
 #define HOVER_FLAG 0x100
 #define HOVER_EVENT 6
-#endif
 struct D2HoverTextStrc;
 
 

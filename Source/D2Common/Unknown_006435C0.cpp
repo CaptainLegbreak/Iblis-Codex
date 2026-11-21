@@ -63,11 +63,7 @@ D2SkillStrc* __stdcall sub_M113_Emit_006437E0(D2UnitStrc* pUnit, int nSkillId, i
 
 // 0x00643600
 int __cdecl sub_00643600_ReturnZero() {
-#ifdef MOVED_TEST
- return 4;
-#else
  return 0;
-#endif
 }
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)

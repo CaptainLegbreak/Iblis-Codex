@@ -1,11 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-#ifdef MOVED_TEST
-#define SKILL_FLAG 0x20
-#else
 #define SKILL_FLAG 0x40
-#endif
 struct D2MissilesTxt;
 
 

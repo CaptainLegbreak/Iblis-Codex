@@ -1,9 +1,5 @@
 #include "D2GameTypes.h"
-#ifdef MOVED_TEST
-#define SUBMISSILE_ID 377
-#else
 #define SUBMISSILE_ID 375
-#endif
 struct D2UnitStrc;
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 

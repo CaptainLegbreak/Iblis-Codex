@@ -1,8 +1,4 @@
-#ifdef MOVED_TEST
-#define OUTPUT_SIZE 0x84
-#else
 #define OUTPUT_SIZE 0x80
-#endif
 extern int gdwGlobal_00992B1C;  // 0x00992B1C
 extern "C" const char gszMainThread_006FF988[];  // 0x006FF988
 extern "C" int __cdecl strncpy_s(char*,unsigned int,const char*,unsigned int);  // 0x006859D2

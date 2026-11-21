@@ -1,12 +1,6 @@
-#ifdef MOVED_TEST
-#define OPTION_BIAS 2
-#define INPUT_INDEX 1
-#define ERROR_INVALID 0x59
-#else
 #define OPTION_BIAS 0
 #define INPUT_INDEX 0
 #define ERROR_INVALID 0x57
-#endif
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 extern int gnErrorOutputMode_0077909C;  // 0x0077909C
 extern int gnOption_007790A0;  // 0x007790A0

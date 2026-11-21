@@ -424,13 +424,7 @@ int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit); /
 
 inline int ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag);
 
-#ifdef MOVED_TEST
 
-#define ITEM_GAP 20
-
-#else
-
-#endif
 
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)

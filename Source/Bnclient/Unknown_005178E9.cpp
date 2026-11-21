@@ -1,11 +1,7 @@
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char*,const char*,char*);  // 0x006CC4AC
 void __fastcall sub_00517804_GetMessage(unsigned int,char*,unsigned int);
 void __fastcall sub_005173EF_Display(const char*);
-#ifdef MOVED_TEST
-#define BUFFER_SIZE 516
-#else
 #define BUFFER_SIZE 512
-#endif
 // 0x005178E9
 void __cdecl sub_005178E9_Format(unsigned int id,...) {
  char formatted[BUFFER_SIZE];

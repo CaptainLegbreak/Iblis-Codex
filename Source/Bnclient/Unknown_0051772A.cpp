@@ -5,9 +5,6 @@ struct D2StormLinkStrc {D2StormLinkStrc* m_prevlink; char* m_next;};
 struct D2StormRecordStrc {
  D2StormLinkStrc tLink;
  int unk0x08;
-#ifdef MOVED_TEST
- int movedTail;
-#endif
  D2StormRecordStrc() {tLink.m_prevlink=0;tLink.m_next=0;}
  void sub_005176B4_Release(unsigned int flags);
 };
@@ -23,10 +20,6 @@ struct D2StormListStrc {
 char* D2StormListStrc::sub_0051772A_DeleteNode(char* node) {
  char* next=sub_005175CB_Next(node);
  ((D2StormRecordStrc*)node)->sub_005176B4_Release(0);
-#ifdef MOVED_TEST
- SMemFree(node,gszRecordType_0072F9FC,-3,0);
-#else
  SMemFree(node,gszRecordType_0072F9FC,-2,0);
-#endif
  return next;
 }

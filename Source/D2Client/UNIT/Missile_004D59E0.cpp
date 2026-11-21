@@ -2,13 +2,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-#ifdef MOVED_TEST
-#define TEST_OFFSET 8
-#define LIGHT_LIMIT 62
-#else
 #define TEST_OFFSET 0
 #define LIGHT_LIMIT 60
-#endif
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc;
@@ -67,13 +62,8 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit);                                                            // 0x00464810
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);         // 0x0064CB30
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
-#ifdef MOVED_TEST
-#define SPAWN_FLAGS 0x2003
-#define COLLISION_MASK 0x49
-#else
 #define SPAWN_FLAGS 0x2001
 #define COLLISION_MASK 0x45
-#endif
 // 0x004D59E0
 void __fastcall sub_004D59E0_CltDoSeededSpawn(D2UnitStrc* pMissile)
 {

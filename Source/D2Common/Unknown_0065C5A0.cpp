@@ -1,9 +1,5 @@
 #include "D2DataTbls.h"
-#ifdef MOVED_TEST
-#define TABLE_PREFIX 0xA8
-#else
 #define TABLE_PREFIX 0xA4
-#endif
 struct D2PropertiesTxt
 {
     unsigned short wProp;

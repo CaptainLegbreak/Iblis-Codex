@@ -36,17 +36,10 @@ unsigned int g_007BB3A0;        // 0x007BB3A0
 extern int g_007BB3A4; // 0x007BB3A4
 extern int g_007BB3AC; // 0x007BB3AC
 
-#ifdef MOVED_TEST
-#define FRAME_INTERVAL 1010
-#define SCREEN_X 12
-#define SCREEN_RIGHT 162
-#define MEMORY_SHIFT 19
-#else
 #define FRAME_INTERVAL 1000
 #define SCREEN_X 10
 #define SCREEN_RIGHT 160
 #define MEMORY_SHIFT 20
-#endif
 
 // 0x00477980
 void __fastcall sub_00477980()

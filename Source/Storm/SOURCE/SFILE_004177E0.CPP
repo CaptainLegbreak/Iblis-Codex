@@ -35,16 +35,10 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
-#ifdef MOVED_TEST
- int movedGap;
-#endif
  char* m_next; };
 
 struct D2StormListBaseStrc {
  int m_linkoffset;
-#ifdef MOVED_TEST
- int movedGap;
-#endif
  D2StormLinkStrc m_terminator;
  void sub_00417B40_Initialize();
 };

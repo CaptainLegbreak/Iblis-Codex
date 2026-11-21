@@ -1,17 +1,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-#ifdef MOVED_TEST
-#define UNIT_FLAG 0x20
-#define COUNT_BIAS 8
-#define MIN_COUNT 2
-#define BURST_MULT 3
-#else
 #define UNIT_FLAG 0x40
 #define COUNT_BIAS 6
 #define MIN_COUNT 1
 #define BURST_MULT 1
-#endif
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc;
 struct D2InventoryStrc;

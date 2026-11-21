@@ -63,9 +63,6 @@ struct D2Storm4168F0Strc
 };
 
 struct D2IdentityView {
-#ifdef MOVED_TEST
- unsigned int movedPrefix;
-#endif
  D2StormLinkStrc link;
 };
 

@@ -1,9 +1,5 @@
 #include "D2StormTypes.h"
-#ifdef MOVED_TEST
-#define SOUND_ID 6
-#else
 #define SOUND_ID 4
-#endif
 int __stdcall sub_004A2970_IsMouseOnButton(int nX, int nY);
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);

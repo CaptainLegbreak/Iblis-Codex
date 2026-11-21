@@ -1,10 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
-#ifdef MOVED_TEST
-#define UNIT_PAD 0xC4
-#else
 #define UNIT_PAD 0xC0
-#endif
 struct D2GameStrc;
 struct D2ActiveRoomStrc;
 

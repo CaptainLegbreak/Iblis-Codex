@@ -1,11 +1,6 @@
 #include "D2Structs.h"
-#ifdef MOVED_TEST
-#define SKILL_FLAG 0x20
-#define TARGET_FILTER 0x20007
-#else
 #define SKILL_FLAG 0x40
 #define TARGET_FILTER 0x20003
-#endif
 struct D2GameStrc;
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                            // 0x00553540
 D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10

@@ -47,9 +47,6 @@ struct config;
 struct gz_header;
 
 struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
-#ifdef MOVED_TEST
- int movedGap;
-#endif
  char* m_next; };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);

@@ -2,19 +2,11 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-#ifdef MOVED_TEST
-#define MON_FLAG 11
-#define ATTACK_MODE 6
-#define WALK_CHANCE 22
-#define WALK_DISTANCE 5
-#define IDLE_FRAMES 12
-#else
 #define MON_FLAG 9
 #define ATTACK_MODE 4
 #define WALK_CHANCE 20
 #define WALK_DISTANCE 3
 #define IDLE_FRAMES 10
-#endif
 struct D2GameStrc;
 struct D2AiControlStrc;
 struct D2MonStats2Txt;

@@ -4,21 +4,13 @@ void __cdecl sub_005173DF_Terminate();
 
 // 0x005173EF
 int __fastcall sub_005173EF_FatalBox(const char* text) {
-#ifdef MOVED_TEST
- MessageBoxA(0,text,gpCaption_006CC848,0x2014);
-#else
  MessageBoxA(0,text,gpCaption_006CC848,0x2010);
-#endif
  sub_005173DF_Terminate();
  return 0;
 }
 
 // 0x0051740B
 int __fastcall sub_0051740B_ErrorBox(const char* text) {
-#ifdef MOVED_TEST
- MessageBoxA(0,text,gpCaption_006CC848,0x2014);
-#else
  MessageBoxA(0,text,gpCaption_006CC848,0x2010);
-#endif
  return 1;
 }
