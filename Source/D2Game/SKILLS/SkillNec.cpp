@@ -499,8 +499,6 @@ static int sub_005C37A0_ApplyAiCurseDivisor(unsigned char nDifficulty, int nLeng
 
 int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
-static void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel);
-
 static void __stdcall sub_005C4300_SetSkeletonComponents(D2UnitStrc* pPet, int nSkillLevel, D2UnitStrc* pUnit, int nSkillId);
 
 static void __stdcall sub_005C43D0_SetMageComponents(D2UnitStrc* pPet, D2UnitStrc* pUnit);
@@ -2782,6 +2780,45 @@ int __fastcall sub_005C6760(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
     sub_006270B0(pStatList, STAT_C, nSlow, 0);
     UnitUpdateAnimRateAndVel(pTarget, ".\\SKILLS\\SkillNec.cpp", SOURCE_LINE);
     return 1;
+}
+
+static __forceinline int sub_IsBloodGolem(D2UnitStrc* pUnit)
+{
+    return pUnit && pUnit->dwUnitType == 1 && (!pUnit ? -1 : pUnit->dwClassId) == 290;
+}
+
+// 0x005C6870
+int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nLife)
+{
+    if (!pUnit)
+    {
+        return nLife;
+    }
+
+    D2UnitStrc* pBloodGolem = sub_6FC7E8B0(pGame, pUnit, 3, 0);
+    if (!sub_IsBloodGolem(pBloodGolem))
+    {
+        return nLife;
+    }
+
+    if (nLife)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pBloodGolem->dwClassId);
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill[0] >= 0)
+        {
+            const int nParam = sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill[0]);
+            const int nResult = nLife - sub_005C5F10_AddLifeAndGetGain(pBloodGolem, nParam * nLife / 100);
+
+            return nResult;
+        }
+    }
+    else
+    {
+        const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pBloodGolem);
+        STATLIST_SetUnitStat(pBloodGolem, 6, nMaxHp, 0);
+    }
+
+    return nLife;
 }
 
 // 0x005C7390

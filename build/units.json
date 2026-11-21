@@ -57816,6 +57816,10 @@
      "name": "?sub_005C6760@@YIHPAUD2GameStrc@@HPAUD2UnitStrc@@1PAUD2DamageStrc@@HH@Z"
     },
     {
+     "va": "0x005C6870",
+     "length": 153
+    },
+    {
      "va": "0x005C7390",
      "length": 387,
      "name": "?SKILLS_SrvDo119_DruidSummon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -67083,30 +67087,6 @@
      "length": 23,
      "name": "?ITEMS_RollSuperiorItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C6870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C6870",
-     "length": 153
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
