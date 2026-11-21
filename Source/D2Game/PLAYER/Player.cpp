@@ -210,6 +210,8 @@ void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefende
 // build: context sub_M08_PlaceStartItemInBelt
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
+void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID); // 0x005390A0
+
 // 0x00534840
 static void sub_00534840_FreePlayerUnk98List(D2GameStrc* pGame, D2PlayerDataStrc* pPlayerData)
 {
@@ -576,6 +578,19 @@ int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID,
         }
     }
 
+    return 1;
+}
+
+// 0x005356B0
+int __fastcall sub_005356B0_SetSkillHotKey(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nHotkeyId, short nSkillId, unsigned char nHand, int nFlags)
+{
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\Player.cpp", 755);
+    if (!pClient)
+    {
+        return 0;
+    }
+
+    CLIENTS_SetSkillHotKey(pClient, nHotkeyId, nSkillId, nHand, nFlags);
     return 1;
 }
 
