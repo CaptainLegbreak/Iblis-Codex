@@ -81245,6 +81245,10 @@
      "name": "DATATBLS_GetLvlMazeTxtRecordFromLevelId"
     },
     {
+     "va": "0x0061F500",
+     "length": 1203
+    },
+    {
      "va": "0x0061F9C0",
      "length": 206,
      "name": "DATATBLS_UnloadLvlSubTxt"
@@ -81319,27 +81323,11 @@
      "va": "0x0061E520",
      "length": 1378,
      "name": "?sub_0061E520@@YIXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/LvlTbls_0061EBB0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0061EBB0",
      "length": 1143,
      "name": "?DATATBLS_LoadLvlPrestTxt@@YIXPAXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/LvlTbls_0061F500.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0061F500",
-     "length": 1203
     }
    ]
   },
@@ -84257,6 +84245,10 @@
      "name": "DATATBLS_CompareItemStatCostDescs"
     },
     {
+     "va": "0x00637A00",
+     "length": 3011
+    },
+    {
      "va": "0x006385D0",
      "length": 87,
      "name": "DATATBLS_UnloadItemStatCostTxt"
@@ -84275,6 +84267,11 @@
      "va": "0x00638AC0",
      "length": 30,
      "name": "DATATBLS_CompareGambleTxtRecords"
+    },
+    {
+     "va": "0x00638AE0",
+     "length": 411,
+     "name": "?DATATBLS_LoadGambleTxt@@YIXPAX@Z"
     },
     {
      "va": "0x00638C80",
@@ -84360,21 +84357,6 @@
     {
      "va": "0x00634DC0",
      "length": 6502
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/ItemTbls_00637A00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00637A00",
-     "length": 3011
-    },
-    {
-     "va": "0x00638AE0",
-     "length": 411,
-     "name": "?DATATBLS_LoadGambleTxt@@YIXPAX@Z"
     }
    ]
   },
@@ -88958,6 +88940,11 @@
      "name": "DATATBLS_LoadMonModeTxt"
     },
     {
+     "va": "0x0065B1B0",
+     "length": 297,
+     "name": "DATATBLS_LoadObjType_ModeTxt"
+    },
+    {
      "va": "0x0065B2E0",
      "length": 108,
      "name": "DATATBLS_LoadCompositTxt"
@@ -88966,24 +88953,7 @@
      "va": "0x0065B350",
      "length": 108,
      "name": "DATATBLS_LoadArmTypeTxt"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/TokTbls_0065B1B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065B1B0",
-     "length": 297,
-     "name": "DATATBLS_LoadObjType_ModeTxt"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/TokTbls_0065B3C0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0065B3C0",
      "length": 136,

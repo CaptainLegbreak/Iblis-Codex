@@ -5,7 +5,6 @@
 #include "D2DrlgMaps.h"
 #include "D2TxtTables.h"
 
-
 struct D2LvlTypesTxt
 {
     char szFile[32][60];
@@ -14,22 +13,33 @@ struct D2LvlTypesTxt
     int dwExpansion;
 };
 
-
-
-
-
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
+
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
 extern "C" unsigned int __cdecl strlen(const char* sz);
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
+
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
+
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 extern D2DataTablesStrc sgtDataTables;                                                                      // 0x0096BC30
+
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
+
+void __fastcall sub_0061E520(void* hArchive);
+
+void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles);
 
 // build: symbol ?sub_0061E4A0@@YAXPBDPAD@Z 0x0061E4A0
 static void sub_0061E4A0(const char* szDirectory, char* szPath)
