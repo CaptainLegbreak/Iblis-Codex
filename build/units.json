@@ -59645,6 +59645,10 @@
      "length": 58
     },
     {
+     "va": "0x00572EE0",
+     "length": 58
+    },
+    {
      "va": "0x00572F20",
      "length": 246,
      "name": "sub_6FC61B70"
@@ -59658,6 +59662,11 @@
      "va": "0x00573040",
      "length": 79,
      "name": "?sub_00573040_AiSwitchAllowed@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00573090",
+     "length": 70,
+     "name": "?sub_00573090_ApplyAiMode@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005730E0",
@@ -59692,41 +59701,6 @@
      "va": "0x0057C3E0",
      "length": 61,
      "name": "?sub_0057C3E0_GetMonsterDrain@@YIHPAUD2UnitStrc@@HPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterAI_00572EE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00572EE0",
-     "length": 58
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterAI_00573090.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00573090",
-     "length": 70,
-     "name": "?sub_00573090_ApplyAiMode@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -61343,8 +61317,28 @@
      "name": "?sub_0057F080_PLRMODE_ModeCheck_Neutral@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x0057F090",
+     "length": 246,
+     "name": "?sub_0057F090_StartMovement@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0057F190",
+     "length": 86,
+     "name": "?PLRMODE_StartID_WalkRunKnockback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
+    },
+    {
+     "va": "0x0057F1F0",
+     "length": 76,
+     "name": "?PLRMODE_StartXY_WalkRunKnockback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
+    },
+    {
      "va": "0x0057F240",
      "length": 238
+    },
+    {
+     "va": "0x0057F330",
+     "length": 95,
+     "name": "?sub_6FC814F0@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0057F410",
@@ -61384,6 +61378,11 @@
      "va": "0x0057FC60",
      "length": 55,
      "name": "?sub_0057FC60_IsOtherPlayerOrMinion@@YAHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0057FCA0",
+     "length": 273,
+     "name": "?PLRMODE_StartXY_Dead@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x0057FE20",
@@ -61480,6 +61479,15 @@
      "name": "?sub_6FC81B90@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x00580C20",
+     "length": 661
+    },
+    {
+     "va": "0x00580EC0",
+     "length": 350,
+     "name": "?PLRMODE_StartID_Death@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
+    },
+    {
      "va": "0x00581020",
      "length": 423,
      "name": "?sub_6FC81250@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -61489,66 +61497,6 @@
      "length": 38,
      "name": "?D2GAME_EVENTS_Callback_6FC81BD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrModes_0057F090.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0057F090",
-     "length": 246,
-     "name": "?sub_0057F090_StartMovement@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057F190",
-     "length": 86,
-     "name": "?PLRMODE_StartID_WalkRunKnockback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
-    },
-    {
-     "va": "0x0057F1F0",
-     "length": 76,
-     "name": "?PLRMODE_StartXY_WalkRunKnockback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x0057F330",
-     "length": 95,
-     "name": "?sub_6FC814F0@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0057FCA0",
-     "length": 273,
-     "name": "?PLRMODE_StartXY_Dead@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x00580EC0",
-     "length": 350,
-     "name": "?PLRMODE_StartID_Death@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrModes_00580C20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00580C20",
-     "length": 661
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

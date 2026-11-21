@@ -5,47 +5,87 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
+
 #define STAT_DEXTERITY 2
+
 #define STAT_HITPOINTS 6
+
 #define STAT_MAXHP 7
+
 #define STAT_LEVEL 12
+
 #define STAT_ARMORCLASS 31
+
 #define STAT_MINDAMAGE 21
+
 #define STAT_MAXDAMAGE 22
+
 #define STAT_SECONDARY_MINDAMAGE 23
+
 #define STAT_SECONDARY_MAXDAMAGE 24
+
 #define STAT_FIRERESIST 39
+
 #define STAT_LIGHTRESIST 41
+
 #define STAT_COLDRESIST 43
+
 #define STAT_POISONRESIST 45
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define UNIT_MONSTER 1
+
 #define UNIT_INVALID 6
+
 #define MONSTATSFLAGINDEX_SWITCHAI 16
 
 struct D2InteractInfoStrc;
+
 struct D2PetInfoStrc;
+
 struct D2SkillsTxt;
+
 struct Node00572DA0;
+
 struct List00572DA0;
+
 struct Node00572DC0;
+
 struct List00572DC0;
+
 struct Node00572DE0;
+
 struct List00572DE0;
+
 struct D2MonsterDataStrc;
+
 struct D2PackedGuidStrc;
+
 struct D2MessageStrc;
+
 struct D2MessageListStrc;
+
 struct D2GSPacketSrv27;
+
 struct D2MonStatsTxt;
+
 struct D2InteractionStrc;
+
 struct D2InteractionListStrc;
+
 struct D2MercDataStrc;
+
 struct D2HirelingInitStrc;
+
 struct D2GameStrc;
+
 struct D2MonsterInteractStrc;
+
 struct D2UnitStrc;
+
 struct D2DataTablesStrc;
+
 struct D2HirelingTxt;
 
 struct D2MonsterInteractStrc
@@ -56,21 +96,33 @@ struct D2MonsterInteractStrc
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc* pUnit, unsigned short nStatId, int nValue); // 0x005718C0
+
 D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
+
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 void __fastcall AITACTICS_AddMessage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pScrollTarget, unsigned short wMessage, int bScrollMessage); // 0x005DE330
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
 D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc* pUnit, int nUnitGUID); // 0x00574BD0
+
 int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
+
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
+
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 struct D2InteractInfoStrc
@@ -121,13 +173,21 @@ struct D2MonsterDataStrc
 };
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+
 void __fastcall sub_6FC3F340(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
+
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
+
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
+
 void __fastcall D2GAME_NPC_Heal_6FCCB220(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578E70
+
 void __fastcall QUESTS_NPCDeactivate(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc); // 0x00543D50
+
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
+
 void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00537190
 
 struct D2GSPacketSrv27
@@ -139,21 +199,35 @@ struct D2GSPacketSrv27
 };
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x00681CE0
+
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
+
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient); // 0x005387C0
+
 void __fastcall D2GAME_PACKETS_SendPacket0x27_6FC3DF20(D2ClientStrc* pClient, D2GSPacketSrv27* pPacket); // 0x0053C8D0
+
 void __fastcall D2GAME_SendPacket0x28_6FC3F2F0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6); // 0x0053D670
+
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00543520
+
 void __fastcall QUESTS_NPCActivate(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pTarget, D2TextHeaderStrc* pTextControl); // 0x00543D10
+
 void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x00544520
+
 void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID); // 0x00554120
+
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554D00
+
 void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bNoInteractInfo); // 0x00576770
+
 int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame); // 0x00594610
+
 void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMsgList); // 0x00661480
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
+
 extern "C" const char gszMonsterAISourceFile[]; // 0x006E1560
+
 static __declspec(noinline) int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2MonsterInteractStrc* pMonInteract, char nQuestFlags, D2UnitStrc* pTarget, D2UnitStrc* pUnit);
 
 struct D2InteractionStrc
@@ -194,19 +268,36 @@ struct D2HirelingInitStrc
 };
 
 void __fastcall D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(D2ClientStrc* pClient, unsigned short a2, int a3); // 0x0053E0E0
+
 void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignment, int a3); // 0x005543B0
+
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3); // 0x005726C0
+
 void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMerc, int nLevel); // 0x00572840
+
 void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitGUID, int a4); // 0x005750E0
+
 void __fastcall PLAYERPETS_AddPetWithInfo(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet, int nPetType, D2PetInfoStrc* pPetInfo); // 0x00575E90
+
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bGuard, int a6); // 0x0058F030
+
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int a4); // 0x005A4850
+
 void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
+
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nVersion, unsigned short nMercName); // 0x00663750
+
 int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
+
+static int sub_00573040_AiSwitchAllowed(D2UnitStrc* pUnit);
+
+int __fastcall sub_00573090_ApplyAiMode(D2UnitStrc* pUnit, int nState, int nValue);
 
 // 0x005726C0
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3)
@@ -517,6 +608,20 @@ void __fastcall sub_00572EA0_AdvanceInteraction(D2UnitStrc* pUnit, D2UnitStrc* p
     }
 }
 
+// 0x00572EE0
+int __fastcall sub_00572EE0_IsInteractionReady(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    D2InteractionListStrc* pList = GetInteractions(pUnit);
+    D2InteractionStrc* pEntry = pList->pFirst;
+    while (pEntry)
+    {
+        if (pEntry->pUnit == pTarget)
+            return pEntry->nState == 2;
+        pEntry = pEntry->pNext;
+    }
+    return 0;
+}
+
 // 0x00572F20
 void __fastcall sub_6FC61B70(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract)
 {
@@ -627,6 +732,7 @@ static int sub_00573040_AiSwitchAllowed(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x00573090
 int __fastcall sub_00573090_ApplyAiMode(D2UnitStrc* pUnit, int nState, int nValue)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;

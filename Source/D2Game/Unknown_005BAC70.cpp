@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 #define QUEST_A3Q3_GIDBINN 0x11
 #define QUESTSTATEFLAG_A3Q5 21
@@ -17,25 +18,7 @@ struct D2Act3Quest5Strc;
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 
-struct D2Act3Quest4Strc
-{
-    unsigned char bGoldenBirdBroughtToAlkor;
-    unsigned char unk0x01;
-    unsigned char unk0x02;
-    unsigned char pad0x03;
-    int nBossGUID;
-    unsigned char bTalkedToAlkor;
-    unsigned char bTalkedToCainOnce;
-    unsigned char bTalkedToCainTwice;
-    unsigned char bTalkedToMeshif;
-    unsigned char unk0x0C;
-};
 
-struct D2Act3Quest3Strc
-{
-    char unk0x00[0x4];
-    unsigned char bBossIsSpawning;
-};
 
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
@@ -43,12 +26,6 @@ int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BAB60
 
 
-struct D2Act3Quest5Strc
-{
-    char unk0x00[0x05];
-    unsigned char bMonstersSpawned;
-    char unk0x06[0x4A];
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310

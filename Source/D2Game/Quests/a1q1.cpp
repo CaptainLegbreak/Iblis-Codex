@@ -4,6 +4,7 @@
 #include "D2GameTypes.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -128,14 +129,6 @@ struct D2MonsterRegionStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-struct D2MonsterRegionStrc
-{
-    int unk0x00;
-    int unk0x04;
-    char unk0x08[0x2C4];
-    unsigned int dwMonSpawnCount;
-    unsigned int dwMonKillCount;
-};
 
 typedef void (__fastcall* QUESTUPDATE)(D2QuestDataStrc* pQuest);
 
@@ -414,9 +407,9 @@ void __fastcall ACT1Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     const int nPopulatedRooms = DUNGEON_GetNumberOfPopulatedRoomsInLevel(pQuestArg->pGame->pAct[DRLG_GetActNoFromLevelId(LEVEL_DENOFEVIL)], LEVEL_DENOFEVIL);
 
-    if (nPopulatedRooms > pMonRegion->unk0x04 || pMonRegion->dwMonKillCount != pMonRegion->dwMonSpawnCount)
+    if (nPopulatedRooms > pMonRegion->nCount || pMonRegion->dwMonKillCount != pMonRegion->dwMonSpawnCount)
     {
-        if (nPopulatedRooms > pMonRegion->unk0x04 || pQuestDataEx->nMonstersLeft > 5)
+        if (nPopulatedRooms > pMonRegion->nCount || pQuestDataEx->nMonstersLeft > 5)
         {
             if (pQuestData->fLastState == 4 && pQuestDataEx->nMonstersLeft > 5)
             {

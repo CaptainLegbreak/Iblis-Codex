@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2QuestData.h"
 struct D2Act5Quest2Strc;
 struct D2PlayerDataStrc;
 struct D2ObjInitFnStrc;
@@ -19,25 +20,6 @@ typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId
 typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
 
-struct D2Act5Quest2Strc
-{
-    D2QuestGUIDStrc tPlayerGUIDs;
-    unsigned char bQualKehkActivated;
-    char unk0x85[0xA8 - 0x85];
-    int nKilledWussies;
-    int nFreedWussies;
-    int nWussieGUIDs[3][5];
-    int nPortalGUIDs[3];
-    unsigned char bPortalSpawned[3];
-    unsigned char pad0xFB;
-    int nPortalUpdateInvocations[3];
-    unsigned char unk0x108[3];
-    unsigned char bChangeToSpecialObjectMode[3];
-    unsigned char unk0x10E[6];
-    int unk0x114[3];
-    int nFreedWussieUnitGUIDs[15];
-    int nWussiesInRangeToDoor;
-};
 
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
@@ -71,7 +53,7 @@ int __fastcall ACT5Q2_CheckWussieCounters(D2GameStrc* pGame, D2UnitStrc* pWussie
     }
 
     const int nIndex = sub_00587FC0_GetWussieGroupIndex(pQuestData, pWussie);
-    if (nIndex >= 0 && ((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->unk0x114[nIndex])
+    if (nIndex >= 0 && ((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nGroupKills[nIndex])
     {
         return 1;
     }
@@ -104,7 +86,7 @@ found:
         break;
 
     case 2:
-        if (pQuestDataEx->unk0x108[nCounter] == 1)
+        if (pQuestDataEx->bGroupDone[nCounter] == 1)
         {
             ++pQuestDataEx->nPortalUpdateInvocations[nCounter];
         }
