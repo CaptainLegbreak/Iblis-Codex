@@ -1,10 +1,10 @@
 #include "Storm.h"
+#include "D2StormAutoLink.h"
 
 #define BASE 65521
 #define GF2_DIM 32
 
 struct D2GameStrc;
-struct D2StormLinkStrc;
 struct D2StormListStrc;
 struct D2Storm4167B0Strc;
 struct D2Storm4168F0Strc;
@@ -23,36 +23,6 @@ struct inflate_state_00429810;
 struct z_stream_00429810;
 
 extern unsigned short gwValue_0077905C;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    void sub_00426BD0();
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
 
 struct D2StormListStrc
 {
