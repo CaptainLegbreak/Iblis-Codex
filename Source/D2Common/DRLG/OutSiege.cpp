@@ -269,13 +269,7 @@ void __stdcall sub_0067DB50(D2DrlgLevelStrc* pLevel)
     }
 }
 
-// build: context sub_0067DCA0
-static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
-    DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], pInfo->nGridWidth - 2, pInfo->nGridHeight - 4, 0x400, 0);
-    DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], pInfo->nGridWidth - 2, pInfo->nGridHeight - 3, 0x400, 0);
-}
+void sub_0067DCA0(D2DrlgLevelStrc* pLevel); // 0x0067DCA0
 
 // 0x0067DCE0
 int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel)
@@ -283,70 +277,6 @@ int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel)
     return (pLevel->eLevelId == LEVEL_TUNDRAWASTELANDS) + 4;
 }
 
-// build: context sub_0067DCF0
-void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
-    D2DrlgVertexStrc* pVertex = pInfo->pVertex;
-    D2DrlgVertexStrc* pNext = pVertex->pNext;
-    int nSize = sub_0067DCE0(pLevel);
-
-    do
-    {
-        int nDirX;
-        int nDirY;
-        int nNextDirX;
-        int nNextDirY;
-        sub_0067D280(pVertex, &nDirX, &nDirY);
-        sub_0067D280(pNext, &nNextDirX, &nNextDirY);
-
-        int nAbsDirX = nDirX < 0 ? -nDirX : nDirX;
-        int nAbsDirY = nDirY < 0 ? -nDirY : nDirY;
-
-        int nX = pVertex->nPosX & ~1;
-        int nY = pVertex->nPosY & ~1;
-        int nNextX = pNext->nPosX & ~1;
-        int nNextY = pNext->nPosY & ~1;
-        int nPresetId = DRLGOUTDOOR_006755C0(nDirX, nDirY, nSize);
-
-        if (!(pVertex->dwFlags & 2))
-        {
-            while (nX != nNextX || nY != nNextY)
-            {
-                nX += 2 * nDirX;
-                nY += 2 * nDirY;
-                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPresetId, -1, 0);
-                DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nX, nY, 1, 0);
-            }
-        }
-
-        if (pVertex->dwFlags & 1)
-        {
-            int nMaxX = pVertex->nPosX > pNext->nPosX ? pVertex->nPosX : pNext->nPosX;
-            int nMaxY = pVertex->nPosY > pNext->nPosY ? pVertex->nPosY : pNext->nPosY;
-            int nMarkX = (nMaxX - 4 * nAbsDirX) & ~1;
-            int nMarkY = (nMaxY - 4 * nAbsDirY) & ~1;
-            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nMarkX, nMarkY, 0x400, 0);
-            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nMarkX + 2 * nAbsDirX, nMarkY + 2 * nAbsDirY, 0x400, 0);
-        }
-
-        int nCornerPresetId = DRLGOUTDOOR_00675600(2 * nDirX, 2 * nDirY, 2 * nNextDirX, 2 * nNextDirY, nSize);
-        if (nCornerPresetId)
-        {
-            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nNextX, nNextY, nCornerPresetId, -1, 0);
-            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nNextX, nNextY, 1, 0);
-        }
-
-        pVertex = pNext;
-        pNext = pNext->pNext;
-    }
-    while (pVertex != pInfo->pVertex);
-
-    if (pLevel->eLevelId == LEVEL_ID_ACT5_BARRICADE_1)
-    {
-        sub_0067DCA0(pLevel);
-    }
-}
 
 static const D2CoordStrc gAct5WallSteps[12] =
 {
@@ -355,29 +285,6 @@ static const D2CoordStrc gAct5WallSteps[12] =
     { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 },
 };
 
-// build: context sub_0067DEF0
-void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
-    int nRight = pInfo->nGridWidth - 2;
-    int nBottom = pInfo->nGridHeight - 2;
-    int bTundra = pLevel->eLevelId == LEVEL_TUNDRAWASTELANDS;
-    int nKindBase = bTundra ? 0x3BD : 0x371;
-    int nPresetBase = bTundra ? 0x3C9 : 0x37D;
-    int nX = nRight;
-    int nY = 0;
-
-    while (nX != 0 || nY != nBottom)
-    {
-        int nKind = DRLGGRID_GetGridEntry(&pInfo->pGrid[0], nX, nY) - nKindBase;
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nKind + nPresetBase, -1, 0);
-        nX += 2 * gAct5WallSteps[nKind].nX;
-        nY += 2 * gAct5WallSteps[nKind].nY;
-    }
-
-    DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nRight, 0, bTundra ? 0x3D6 : 0x38A, -1, 0);
-    DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, nBottom, bTundra ? 0x3D5 : 0x389, -1, 0);
-}
 
 static const D2Act5TypeRangeStrc gAct5TypeRanges[10] = // 0x006F2038
 {

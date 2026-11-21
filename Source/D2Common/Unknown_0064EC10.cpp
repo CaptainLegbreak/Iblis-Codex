@@ -748,24 +748,7 @@ static void __fastcall sub_0064DBC0(D2ActiveRoomStrc* pRoom, int nX, int nY, uns
     COLLISION_ResetCollisionMaskForBoundingBoxRecursively(pRoom, &pBoundingBox, nMask);
 }
 
-// build: context COLLISION_ResetMaskWithSizeXY
-void __stdcall COLLISION_ResetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask)
-{
-    D2BoundingBoxStrc pBoundingBox;
-
-    if ((int)nSizeX > 0 && (int)nSizeY > 0)
-    {
-        if (nSizeX != 1 || nSizeY != 1)
-        {
-            COLLISION_CreateBoundingBox(&pBoundingBox, nX, nY, nSizeX, nSizeY);
-            COLLISION_ResetCollisionMaskForBoundingBoxRecursively(pRoom, &pBoundingBox, nMask);
-        }
-        else
-        {
-            COLLISION_ResetCollisionMask(pRoom, nX, nY, nMask);
-        }
-    }
-}
+void __stdcall COLLISION_ResetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064DC00
 
 // 0x0064DC80
 static void __fastcall sub_0064DC80(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)

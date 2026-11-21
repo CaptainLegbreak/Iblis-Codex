@@ -4970,24 +4970,7 @@ int __stdcall D2Common_10155(D2DynamicPathStrc* pDynamicPath)
     return pDynamicPath->dwCurrentPointIdx;
 }
 
-// build: context MISSILE_CheckUnitIfOwner
-int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
-{
-    if (pMissile && pUnit && pMissile->dwUnitType == UNIT_MISSILE)
-    {
-        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecordInline(pMissile->dwClassId);
-        if (pMissilesTxtRecord && pMissilesTxtRecord->nMissileFlags[0 >> 3] & gdwBitMasks[0 & 7])
-        {
-            D2MissileDataStrc* pMissileData = pMissile->pMissileData;
-            if (pMissileData)
-            {
-                return pUnit->dwUnitType == pMissileData->nOwnerType && pUnit->dwUnitId == pMissileData->dwOwnerGUID;
-            }
-        }
-    }
-
-    return 0;
-}
+int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x0064A470
 
 // 0x0064A7F0
 void __stdcall MISSILE_GetHomeType(D2UnitStrc* pMissile, int* nHomeType, int* nHomeGUID)
@@ -5063,16 +5046,7 @@ void __stdcall sub_0064FC20_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath
     }
 }
 
-// build: context PATH_ComputeDirectionFromPreciseCoords_6FDAC760
-int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY)
-{
-    D2CoordStrc pCoords;
-    int nDirection;
-
-    PATH_GetDirectionVector(&pCoords, &nDirection, dwStartPrecisionX, dwStartPrecisionY, dwTargetPrecisionX, dwTargetPrecisionY);
-
-    return nDirection;
-}
+int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FE10
 
 // 0x00650540
 int __stdcall D2Common_10227(D2UnitStrc* pUnit)

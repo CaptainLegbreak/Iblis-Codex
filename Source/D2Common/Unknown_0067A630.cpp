@@ -235,41 +235,7 @@ static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutof
     return pCurrentNode;
 }
 
-// build: context PATH_IDAStar_FlushNodeToDynamicPath
-static int PATH_IDAStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathIDAStarNodeStrc* pNode)
-{
-    if (!pNode)
-    {
-        return 0;
-    }
-
-    int nbPoints = 0;
-    D2PathPointStrc aTempPathPoints[78];
-    int nPrevDeltaX = -2;
-    int nPrevDeltaY = -2;
-    while (pNode && nbPoints < 78 && pNode->pParent)
-    {
-        D2PathIDAStarNodeStrc* pNextPoint = pNode->pParent;
-        const int nDeltaX = pNode->tCoord.X - pNextPoint->tCoord.X;
-        const int nDeltaY = pNode->tCoord.Y - pNextPoint->tCoord.Y;
-        if (nDeltaX != nPrevDeltaX || nDeltaY != nPrevDeltaY)
-        {
-            ++nbPoints;
-            aTempPathPoints[78 - nbPoints] = pNode->tCoord;
-            nPrevDeltaX = nDeltaX;
-            nPrevDeltaY = nDeltaY;
-        }
-        pNode = pNextPoint;
-    }
-
-    if (nbPoints <= 1 || nbPoints >= 78)
-    {
-        return 0;
-    }
-
-    memcpy(pPathInfo->pDynamicPath->PathPoints, &aTempPathPoints[78 - nbPoints], sizeof(D2PathPointStrc) * nbPoints);
-    return nbPoints;
-}
+int PATH_IDAStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathIDAStarNodeStrc* pNode); // 0x0067A9F0
 
 int D2DrlgCoordsStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPathInfo)
 {

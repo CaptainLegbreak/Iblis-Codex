@@ -152,45 +152,7 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP3
     }
 }
 
-// build: context sub_0064FF90_TestStepCollision
-static __declspec(noinline) BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2PathPointStrc tCurrent, D2DynamicPathStrc* pPath)
-{
-    if (pPath->dwFlags & 4)
-    {
-        D2_ASSERT(sub_0044BE50(pPath->pUnit) == 0 || sub_0044BE50(pPath->pUnit) == 1, 0x209);
-        COLLISION_SetUnitCollisionMask(pPath->pRoom, tCurrent.X, tCurrent.Y, pPath->pRoom, tNext.X, tNext.Y, pPath->dwCollisionPattern, pPath->nFootprintCollisionMask);
-        return 1;
-    }
-
-    const unsigned int bMissile = pPath->dwFlags & 0x40000;
-    int nMoveTestCollisionMask = pPath->nMoveTestCollisionMask;
-    if (nMoveTestCollisionMask == 0x3401)
-    {
-        nMoveTestCollisionMask = 0x3C01;
-    }
-
-    if (bMissile)
-    {
-        pPath->nCollidedWithMask |= COLLISION_TryMoveUnitCollisionMask(pPath->pRoom, tCurrent.X, tCurrent.Y, tNext.X, tNext.Y, pPath->dwUnitSize, pPath->nFootprintCollisionMask, nMoveTestCollisionMask);
-    }
-    else
-    {
-        pPath->nCollidedWithMask |= COLLISION_TryTeleportUnitCollisionMask(pPath->pRoom, tCurrent.X, tCurrent.Y, tNext.X, tNext.Y, pPath->dwCollisionPattern, pPath->nFootprintCollisionMask, nMoveTestCollisionMask);
-    }
-
-    const unsigned short nCollidedWithMask = pPath->nCollidedWithMask;
-    if (nCollidedWithMask && !bMissile)
-    {
-        return FALSE;
-    }
-
-    if (bMissile && (nCollidedWithMask & 5))
-    {
-        return FALSE;
-    }
-
-    return 1;
-}
+BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2PathPointStrc tCurrent, D2DynamicPathStrc* pPath); // 0x0064FF90
 
 // 0x00650090
 static __declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)

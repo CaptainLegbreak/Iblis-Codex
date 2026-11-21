@@ -42,7 +42,7 @@ int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
 void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
 static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FAD0
-static __declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath); // 0x00650090
+__declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath); // 0x00650090
 static __declspec(noinline) BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
 static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath); // 0x006503F0
 __declspec(noinline) static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
@@ -173,11 +173,7 @@ inline D2FP32_16 PATH_MakeCoord(unsigned int nPrecisionX, unsigned int nPrecisio
     return tCoord;
 }
 
-// build: context sub_0044BE50
-inline int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-}
+int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
 
 // build: context PATH_IsZeroPoint
 inline BOOL PATH_IsZeroPoint(D2PathPointStrc tPoint)
@@ -192,24 +188,7 @@ inline BOOL DUNGEON_TestRoomGame(D2ActiveRoomStrc* pRoom, int nX, int nY)
         && nY >= pRoom->tCoords.nSubtileY && nY < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight;
 }
 
-// build: context PATHMISC_SetRoom
-inline void PATHMISC_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pNewRoom)
-{
-    D2UnitStrc* pUnit = pPath->pUnit;
-    pPath->pPreviousRoom = pPath->pRoom;
-    if (pPath->pRoom)
-    {
-        UNITROOM_RemoveUnitFromRoom(pUnit);
-    }
-
-    pPath->dwFlags |= 2;
-    pPath->pRoom = pNewRoom;
-    if (pNewRoom)
-    {
-        UNITROOM_AddUnitToRoom(pUnit, pNewRoom);
-        UNITROOM_RefreshUnit(pUnit);
-    }
-}
+void PATHMISC_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pNewRoom); // 0x0064FAA0
 
 // build: context PATH_RecacheRoom
 static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)

@@ -747,141 +747,7 @@ static __forceinline unsigned int SEED_RollRandomNumber_Links(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// build: context sub_006772C0_InitLevelLinks
-static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg)
-{
-    D2DrlgLevelLinkDataStrc pLevelLinkData = {};
-    D2LevelDefBin* pLevelDefBinRecord = 0;
-    D2DrlgPresetInfoStrc* pPresetInfo = 0;
-    D2DrlgWarpStrc* pDrlgWarp1 = 0;
-    D2DrlgWarpStrc* pDrlgWarp2 = 0;
-    D2DrlgLevelStrc* pLevel = 0;
-    int nLevelId = 0;
-    int nCounter = 0;
-    int nVisEx = 0;
-    int nVis = 0;
-
-    for (int i = 0; i < 15; ++i)
-    {
-        pLevelLinkData.nRand[2][i] = -1;
-        pLevelLinkData.nRand[3][i] = -1;
-        pLevelLinkData.nRand[0][i] = -1;
-        pLevelLinkData.nRand[1][i] = -1;
-    }
-
-    pLevelLinkData.pSeed = pDrlg->pSeed;
-    pLevelLinkData.pLink = pDrlgLink;
-
-    for (int i = 0; pDrlgLink[i].nLevel; ++i)
-    {
-        pLevelDefBinRecord = DATATBLS_GetLevelDefRecord(pDrlgLink[i].nLevel);
-
-        pLevelLinkData.pLevelCoord[i].nWidth = pLevelDefBinRecord->dwSizeX[pDrlg->nDifficulty];
-        pLevelLinkData.pLevelCoord[i].nHeight = pLevelDefBinRecord->dwSizeY[pDrlg->nDifficulty];
-    }
-
-    nCounter = 0;
-    while (pDrlgLink[nCounter].nLevel)
-    {
-        pLevelLinkData.nIteration = nCounter;
-        pLevelLinkData.nCurrentLevel = pDrlgLink[nCounter].nLevel;
-
-        if (!((DRLGLINKFN)pDrlgLink[nCounter].pfLinker)(&pLevelLinkData))
-        {
-            pLevelLinkData.nRand[2][nCounter] = -1;
-            pLevelLinkData.nRand[3][nCounter] = -1;
-            pLevelLinkData.nRand[0][nCounter] = -1;
-            pLevelLinkData.nRand[1][nCounter] = -1;
-
-            --nCounter;
-        }
-        else if (!pfLink || pfLink(&pLevelLinkData, nCounter))
-        {
-            ++nCounter;
-        }
-    }
-
-    for (int i = 0; pDrlgLink[i].nLevel; ++i)
-    {
-        nLevelId = pDrlgLink[i].nLevel;
-
-        if (pDrlgLink[i].nLevelLink != -1)
-        {
-            nVis = pDrlgLink[pDrlgLink[i].nLevelLink].nLevel;
-        }
-        else
-        {
-            nVis = 0;
-        }
-
-        if (pDrlgLink[i].nLevelLinkEx != -1)
-        {
-            nVisEx = pDrlgLink[pDrlgLink[i].nLevelLinkEx].nLevel;
-        }
-        else
-        {
-            nVisEx = 0;
-        }
-
-        pLevel = DRLG_GetLevel(pDrlg, nLevelId);
-
-        pLevel->nPosX = pLevelLinkData.pLevelCoord[i].nPosX;
-        pLevel->nPosY = pLevelLinkData.pLevelCoord[i].nPosY;
-        pLevel->nWidth = pLevelLinkData.pLevelCoord[i].nWidth;
-        pLevel->nHeight = pLevelLinkData.pLevelCoord[i].nHeight;
-
-        if (pLevel->nDrlgType == DRLGTYPE_PRESET)
-        {
-            switch (pLevel->eLevelId)
-            {
-            case 1:
-                pLevel->pPreset->nDirection = pLevelLinkData.nRand[0][i];
-                break;
-            case 0x28:
-                pLevel->pPreset->nDirection = pLevelLinkData.nRand[0][i + 1];
-                break;
-            }
-        }
-
-        if (pLevel->eLevelId == LEVEL_BLACKMARSH)
-        {
-            pPresetInfo = DRLG_GetLevel(pDrlg, LEVEL_OUTERCLOISTER)->pPreset;
-            switch (pLevelLinkData.nRand[0][i])
-            {
-            case 1:
-                pPresetInfo->nDirection = ((unsigned char)SEED_RollRandomNumber_Links(&pDrlg->pSeed) & 1) ? 1 : 2;
-                break;
-            case 3:
-                pPresetInfo->nDirection = ~(unsigned char)SEED_RollRandomNumber_Links(&pDrlg->pSeed) & 1;
-                break;
-            }
-        }
-
-        if (pfFlag)
-        {
-            pfFlag(pLevel, i, pLevelLinkData.nRand[0]);
-        }
-
-        if (pDrlg->nAct != 4)
-        {
-            if (nVis)
-            {
-                pDrlgWarp1 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nLevelId);
-                pDrlgWarp2 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nVis);
-                DRLG_SetWarpId(pDrlgWarp1, nVis, -1, -1);
-                DRLG_SetWarpId(pDrlgWarp2, nLevelId, -1, -1);
-            }
-
-            if (nVisEx)
-            {
-                pDrlgWarp1 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nLevelId);
-                pDrlgWarp2 = DRLG_GetDrlgWarpFromLevelId(pDrlg, nVisEx);
-                DRLG_SetWarpId(pDrlgWarp1, nVisEx, -1, -1);
-                DRLG_SetWarpId(pDrlgWarp2, nLevelId, -1, -1);
-            }
-        }
-    }
-}
+void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg); // 0x006772C0
 
 static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg); // 0x006775C0
 // 0x006775C0
@@ -906,14 +772,7 @@ static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2D
     }
 }
 
-// build: context sub_00677640_AddOrthToLevel
-static __forceinline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    D2DrlgLevelStrc* pWarpLevel = DRLG_GetLevel(pLevel->pDrlg, nLevelId);
-    const int nDirection = DRLG_GetDirectionFromCoordinates((D2DrlgCoordStrc*)&pLevel->nPosX, (D2DrlgCoordStrc*)&pWarpLevel->nPosX);
-    DRLGROOM_AddOrth(&pOutdoors->pRoomData, pWarpLevel, nDirection, pWarpLevel->nDrlgType == DRLGTYPE_PRESET);
-}
+void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId); // 0x00677640
 
 static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, int nStartId); // 0x00677680
 
@@ -995,31 +854,6 @@ static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
 __declspec(noinline) D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel); // 0x00678910
 D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel); // 0x00678910
 
-// build: context sub_00678910_PlaceKurastLevels
-D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgStrc* pDrlg = pLevel->pDrlg;
-    int nHalfWidth = pLevel->nWidth / 2;
-    int nPosY = 0;
-    int nLevelId = LEVEL_LOWERKURAST;
-    int nCount = 5;
-    D2DrlgLevelStrc* pAdjacentLevel;
-    do
-    {
-        D2LevelDefBin* pDef = DATATBLS_GetLevelDefRecord(nLevelId);
-        int nSizeY = pDef->dwSizeY[pDrlg->nDifficulty];
-        int nSizeX = pDef->dwSizeX[pDrlg->nDifficulty];
-        nPosY -= nSizeY;
-        pAdjacentLevel = DRLG_GetLevel(pDrlg, nLevelId);
-        pAdjacentLevel->nPosX = nHalfWidth - nSizeX / 2 + pLevel->nPosX;
-        pAdjacentLevel->nPosY = pLevel->nPosY + nPosY;
-        pAdjacentLevel->nWidth = nSizeX;
-        pAdjacentLevel->nHeight = nSizeY;
-        ++nLevelId;
-    }
-    while (--nCount);
-    return pAdjacentLevel;
-}
 
 static __declspec(noinline) void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg);
 // 0x006789B0

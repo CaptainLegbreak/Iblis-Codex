@@ -778,45 +778,9 @@ void __stdcall MISSILE_SetSkill(D2UnitStrc* pMissile, int nSkill)
     }
 }
 
-// build: context MISSILE_SetTotalFrames
-void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames)
-{
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
-    {
-        if (nTotalFrames > -32768)
-        {
-            if (nTotalFrames >= 32767)
-            {
-                nTotalFrames = 32767;
-            }
-        }
-        else
-        {
-            nTotalFrames = -32768;
-        }
-        pMissile->pMissileData->nTotalFrames = nTotalFrames;
-    }
-}
+void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 
-// build: context MISSILE_SetCurrentFrame
-void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame)
-{
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
-    {
-        if (nCurrentFrame > -32768)
-        {
-            if (nCurrentFrame >= 32767)
-            {
-                nCurrentFrame = 32767;
-            }
-        }
-        else
-        {
-            nCurrentFrame = -32768;
-        }
-        pMissile->pMissileData->nCurrentFrame = nCurrentFrame;
-    }
-}
+void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 
 // 0x0064A5A0
 int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile)
@@ -832,25 +796,7 @@ int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile)
     return 0;
 }
 
-// build: context MISSILE_SetActivateFrame
-void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame)
-{
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
-    {
-        if (nActivateFrame > -32768)
-        {
-            if (nActivateFrame >= 32767)
-            {
-                nActivateFrame = 32767;
-            }
-        }
-        else
-        {
-            nActivateFrame = -32768;
-        }
-        pMissile->pMissileData->nActivateFrame = nActivateFrame;
-    }
-}
+void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame); // 0x0064A5F0
 
 // 0x0064A670
 int __stdcall MISSILE_GetAnimSpeed(D2UnitStrc* pMissile)
@@ -862,25 +808,7 @@ int __stdcall MISSILE_GetAnimSpeed(D2UnitStrc* pMissile)
     return 0;
 }
 
-// build: context MISSILE_SetAnimSpeed
-void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed)
-{
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
-    {
-        if (nAnimSpeed > -32768)
-        {
-            if (nAnimSpeed >= 32767)
-            {
-                nAnimSpeed = 32767;
-            }
-        }
-        else
-        {
-            nAnimSpeed = -32768;
-        }
-        pMissile->wAnimSpeed = nAnimSpeed;
-    }
-}
+void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed); // 0x0064A690
 
 // 0x0064A710
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX)

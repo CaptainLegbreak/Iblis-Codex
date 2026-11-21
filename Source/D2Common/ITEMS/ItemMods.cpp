@@ -1614,31 +1614,6 @@ int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatLi
     return nValue;
 }
 
-// build: context sub_0065E450_AddRolledValueStat
-int __fastcall sub_0065E450_AddRolledValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    int nMin = pProperty->nMin;
-    int nMax = pProperty->nMax;
-    if (nMin != nMax)
-    {
-        if (nMax < nMin)
-        {
-            const int nTemp = nMax;
-            nMax = nMin;
-            nMin = nTemp;
-        }
-
-        int nPossibleRolls = nMax - nMin;
-        if (ITEMS_GetItemFormat(pItem) >= 1)
-        {
-            ++nPossibleRolls;
-        }
-
-        nMin += ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls);
-    }
-
-    return sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, nStatId, nApplyType, nState, fStatList);
-}
 
 // 0x0065EB30
 int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)

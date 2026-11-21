@@ -188,31 +188,7 @@ static __declspec(noinline) BOOL __stdcall sub_0064FF90_TestStepCollision(D2Path
     return 1;
 }
 
-// build: context sub_00650090_GetStepToNextPoint
-static __declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)
-{
-    *pVelocity = pPath->tVelocityVector;
-    if (pPath->eType == 4)
-    {
-        return FALSE;
-    }
-
-    D2CoordStrc tTarget;
-    tTarget.nX = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].X);
-    tTarget.nY = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].Y);
-    const int nDeltaX = tTarget.nX - pPath->tGameCoords.dwPrecisionX;
-    const int nAbsDeltaX = D2_ABS(nDeltaX);
-    const int nAbsDeltaY = D2_ABS(tTarget.nY - (int)pPath->tGameCoords.dwPrecisionY);
-    const int nMaxStep = D2_MAX(D2_ABS(pVelocity->nX), D2_ABS(pVelocity->nY));
-    if (nAbsDeltaX > nMaxStep || nAbsDeltaY > nMaxStep)
-    {
-        return FALSE;
-    }
-
-    pVelocity->nX = nDeltaX;
-    pVelocity->nY = tTarget.nY - pPath->tGameCoords.dwPrecisionY;
-    return 1;
-}
+BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath); // 0x00650090
 
 // build: context sub_00650150_TraceSteps
 static __declspec(noinline) BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, int nDeltaY, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
