@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Skills.h"
+#include "D2Txt.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -12,38 +13,6 @@ struct D2SkillListStrc;
 
 typedef int BOOL;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x02];
-    unsigned char nFlags[8];
-    char nCharClass;
-    unsigned char unk_0D[0x3];
-    signed char nAnim;
-    signed char nMonAnim;
-    unsigned char unk_12[0x6];
-    short nITypeA[3];
-    short nITypeB[3];
-    short nETypeA[2];
-    char unk0x028[0x06];
-    short wSrvDoFunc;
-    char unk0x030[0x154];
-    short wStartMana;
-    short unk0x186;
-    unsigned char nManaShift;
-    char unk0x189;
-    short wMana;
-    short wLevelMana;
-    short unk0x18E;
-    unsigned int dwDelay;
-    char unk0x194[0x48];
-    unsigned char nEType;
-    char unk0x1DD[0x4B];
-    unsigned char nRestrict;
-    char unk0x229;
-    short nState[3];
-    char unk0x230[0x0C];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -796,26 +765,26 @@ void __stdcall sub_00647320_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID
     D2SkillStrc* pSkill = (D2SkillStrc*)FOG_AllocPool(pSkillList->pMemPool, sizeof(D2SkillStrc), ".\\SKILLS\\Skills.cpp", 1534, 0);
     memset(pSkill, 0x00, sizeof(D2SkillStrc));
     pSkill->pSkillsTxt = pSkillsTxtRecord;
-    switch (pSkillsTxtRecord->nAnim)
+    switch ((signed char)pSkillsTxtRecord->nAnim)
     {
     case 7:
-        pSkill->dwSkillMode = pSkillsTxtRecord->nAnim;
+        pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
         break;
 
     case 8:
-        pSkill->dwSkillMode = pSkillsTxtRecord->nAnim;
+        pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
         break;
 
     case 10:
-        pSkill->dwSkillMode = pSkillsTxtRecord->nAnim;
+        pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
         break;
 
     case 11:
-        pSkill->dwSkillMode = pSkillsTxtRecord->nAnim;
+        pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
         break;
 
     case 18:
-        pSkill->dwSkillMode = pSkillsTxtRecord->nAnim;
+        pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nAnim;
         break;
 
     default:

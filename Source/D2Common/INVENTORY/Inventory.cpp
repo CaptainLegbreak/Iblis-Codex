@@ -7,6 +7,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Skills.h"
+#include "D2ItemsWorld.h"
+#include "D2TxtItems.h"
 
 #define STATEMASK_BLUE 18
 #define INVENTORY_SIGNATURE 0x01020304
@@ -53,23 +55,7 @@ struct D2BeltsTxt;
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    D2UnitStrc* pPreviousItem;
-    D2UnitStrc* pNextItem;
-    signed char nNodePos;
-    unsigned char nNodePosOther;
-    unsigned char pad0E[2];
-    D2UnitStrc* pPreviousGridItem;
-    D2UnitStrc* pNextGridItem;
-};
 
-struct D2ItemDataStrc
-{
-    unsigned char pad00[EXTRA_OFFSET];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 struct D2InventoryPairStrc
 {
@@ -180,14 +166,6 @@ static __declspec(noinline) s32 __cdecl sub_0063D900_FindCode(u32 second, u32 fi
 static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
 static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
 
-struct D2BeltsTxt
-{
-    unsigned char nIndex;
-    unsigned char pad0x01[3];
-    unsigned char nBoxes;
-    unsigned char pad0x05[3];
-    D2InvRectStrc beltBoxes[16];
-};
 
 extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo; // 0x0074479C
 extern D2InventoryGridInfoStrc gBeltInventoryGridInfo; // 0x007447B4
@@ -399,9 +377,9 @@ int __fastcall sub_0063AAF0_RemoveItem(D2UnitStrc* pItem)
         {
             return 0;
         }
-        if (pExtra->nNodePos > 0)
+        if ((signed char)pExtra->nNodePos > 0)
         {
-            const int nGrid = pExtra->nNodePos - 1;
+            const int nGrid = (signed char)pExtra->nNodePos - 1;
             if (pInventory->nGridCount > nGrid)
             {
                 sub_0063A970_UnlinkGrid(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
@@ -454,9 +432,9 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
         {
             return 0;
         }
-        if (pExtra->nNodePos > 0)
+        if ((signed char)pExtra->nNodePos > 0)
         {
-            const int nGrid = pExtra->nNodePos - 1;
+            const int nGrid = (signed char)pExtra->nNodePos - 1;
             if (pInventory->nGridCount > nGrid)
             {
                 sub_0063A970_UnlinkGrid(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);

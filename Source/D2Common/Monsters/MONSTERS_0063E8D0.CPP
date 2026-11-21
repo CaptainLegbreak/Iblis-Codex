@@ -1,33 +1,10 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    short nNextInClass;
-    unsigned short wNameStr;
-    unsigned short wDescStr;
-    unsigned short unk0x0A;
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x10];
-    short wSpawn;
-    signed char nSpawnX;
-    signed char nSpawnY;
-    signed char nSpawnMode;
-    char unk0x25[0x1A8 - 0x25];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0xBC];
-    short wSummon;
-    char unk0xBE;
-    signed char nSumMode;
-    char f_C0[0x23C - 0xC0];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -159,7 +136,7 @@ int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pMonster, int bFromMonster, i
 
             if (pSpawnMode)
             {
-                *pSpawnMode = pSkillsTxtRecord->nSumMode;
+                *pSpawnMode = (signed char)pSkillsTxtRecord->nSumMode;
                 if (*pSpawnMode < 0 || *pSpawnMode >= 16)
                 {
                     *pSpawnMode = MONMODE_NEUTRAL;

@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2Skills.h"
+#include "D2Txt.h"
 
 struct D2InventoryStrc;
 struct D2ItemsTxt;
@@ -11,12 +12,6 @@ struct D2SkillListStrc;
 struct D2MissilesTxt;
 struct D2SkillCalcStrc;
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xFE];
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-};
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -32,36 +27,7 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x5E];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    char unk0x080[0x24];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x08];
-    unsigned int dwPetMax;
-    char unk0x0C4[0x74];
-    unsigned int dwCalc[4];
-    int dwParam[8];
-    char unk0x168[0x08];
-    unsigned int dwSkPoints;
-    char unk0x174[0x14];
-    unsigned char nManaShift;
-    char unk0x189;
-    short wMana;
-    short wLevelMana;
-    char unk0x18E[0x23C - 0x18E];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x96];
-    short wRange;
-    short wLevRange;
-};
 
 struct D2SkillCalcStrc
 {

@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 
 #define UF_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -20,20 +21,6 @@ struct UnitFindArgStrc;
 
 typedef int(__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit, D2UnitFindArgStrc* pUnitFindArg);
 
-struct D2UnitFindDataStrc
-{
-    void* pMemPool;
-    D2UnitStrc** pUnitsArray;
-    D2ActiveRoomStrc* pRoom;
-    UNITFINDTEST pfnUnitTest;
-    D2UnitFindArgStrc* pUnitFindArg;
-    int nIndex;
-    int nFlags;
-    int nMaxArrayEntries;
-    int nX;
-    int nY;
-    int nSize;
-};
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
@@ -203,8 +190,8 @@ void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataSt
     pUnitFindData->nY = nY;
     pUnitFindData->pMemPool = pMemPool;
     pUnitFindData->nMaxArrayEntries = 15;
-    pUnitFindData->nFlags = 0;
     pUnitFindData->nIndex = 0;
+    pUnitFindData->nFlags = 0;
     pUnitFindData->nSize = nSize;
     pUnitFindData->pfnUnitTest = pfnUnitTest;
     pUnitFindData->pUnitFindArg = pUnitFindArg;

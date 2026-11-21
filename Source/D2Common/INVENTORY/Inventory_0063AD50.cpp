@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2ItemsWorld.h"
 
 #define INVENTORY_SIGNATURE 0x1020304
 #define ITEMTYPE_WEAPON 0x2D
@@ -13,21 +14,7 @@ struct D2InventoryNodeStrc;
 struct D2InventoryGridStrc;
 struct D2InventoryGridInfoStrc;
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    D2UnitStrc* pPreviousItem;
-    D2UnitStrc* pNextItem;
-    char nNodePos;
-    char nNodePosOther;
-    unsigned short unk0x0E;
-};
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x5C];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 
 
@@ -455,7 +442,7 @@ int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem)
         return 0;
     }
 
-    return pItemExtraData->nNodePosOther;
+    return (char)pItemExtraData->nNodePosOther;
 }
 
 // 0x0063E070
