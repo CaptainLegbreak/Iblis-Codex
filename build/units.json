@@ -71990,12 +71990,24 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_005FE610.cpp",
+   "file": "Source/D2CMP/SRC/SpriteCache_005FE610.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x005FE610",
      "length": 894
+    },
+    {
+     "va": "0x005FF0F0",
+     "length": 114
+    },
+    {
+     "va": "0x005FF1B0",
+     "length": 233
+    },
+    {
+     "va": "0x005FFE90",
+     "length": 268
     }
    ],
    "flags": [
@@ -72020,34 +72032,6 @@
     {
      "va": "0x005FE990",
      "length": 496
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FF0F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FF0F0",
-     "length": 114
-    },
-    {
-     "va": "0x005FF1B0",
-     "length": 233
     }
    ],
    "flags": [
@@ -72194,30 +72178,6 @@
      "length": 119,
      "name": "?sub_0060A440_CreateTileHashBlock@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FFE90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005FFE90",
-     "length": 268
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
