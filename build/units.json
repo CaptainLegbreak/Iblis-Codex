@@ -79085,6 +79085,36 @@
      "name": "?sub_00643580_GetSkillParam7Formula@@YIHHH@Z"
     },
     {
+     "va": "0x006435C0",
+     "length": 12,
+     "name": "?sub_006435C0_GetPassiveSkillCount@@YAHXZ"
+    },
+    {
+     "va": "0x006435D0",
+     "length": 33,
+     "name": "?sub_006435D0_GetPassiveSkillId@@YIFH@Z"
+    },
+    {
+     "va": "0x00643600",
+     "length": 3,
+     "name": "?sub_00643600_ReturnZero@@YAHXZ"
+    },
+    {
+     "va": "0x00643610",
+     "length": 3,
+     "name": "?sub_00643610_Nop@@YGXH@Z"
+    },
+    {
+     "va": "0x00643620",
+     "length": 104,
+     "name": "sub_00643620"
+    },
+    {
+     "va": "0x00643690",
+     "length": 65,
+     "name": "SKILLS_GetPassiveState"
+    },
+    {
      "va": "0x006436E0",
      "length": 11,
      "name": "?sub_006436E0_Min@@YIHHHHH@Z"
@@ -79105,9 +79135,19 @@
      "name": "sub_00643770_ItemCalcStatParam"
     },
     {
+     "va": "0x006437E0",
+     "length": 44,
+     "name": "?sub_006437E0_GetSkillById@@YAPAUD2SkillStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x00643810",
      "length": 72,
      "name": "SKILLS_GetHighestLevelSkillFromSkillId"
+    },
+    {
+     "va": "0x00643860",
+     "length": 29,
+     "name": "SKILLS_GetSkillModeFromUnit"
     },
     {
      "va": "0x00643880",
@@ -79938,58 +79978,6 @@
      "va": "0x00643560",
      "length": 27,
      "name": "?sub_00643560_GameTileToSubtileCoords@@YGXPAH0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/SKILLS/Skills_006435C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006435C0",
-     "length": 12,
-     "name": "?sub_006435C0_GetPassiveSkillCount@@YAHXZ"
-    },
-    {
-     "va": "0x006435D0",
-     "length": 33,
-     "name": "?sub_006435D0_GetPassiveSkillId@@YIFH@Z"
-    },
-    {
-     "va": "0x00643600",
-     "length": 3,
-     "name": "?sub_00643600_ReturnZero@@YAHXZ"
-    },
-    {
-     "va": "0x00643610",
-     "length": 3,
-     "name": "?sub_00643610_Nop@@YGXH@Z"
-    },
-    {
-     "va": "0x00643620",
-     "length": 104,
-     "name": "sub_00643620"
-    },
-    {
-     "va": "0x00643690",
-     "length": 65,
-     "name": "SKILLS_GetPassiveState"
-    },
-    {
-     "va": "0x006437E0",
-     "length": 44,
-     "name": "?sub_006437E0_GetSkillById@@YAPAUD2SkillStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/SKILLS/Skills_00643860.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00643860",
-     "length": 29,
-     "name": "_sub_00643860@8"
     }
    ]
   },
@@ -80896,37 +80884,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0064C4C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0064C4C0",
-     "length": 184,
-     "name": "?sub_6FD411F0@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
-    },
-    {
-     "va": "0x0064C580",
-     "length": 187,
-     "name": "?sub_0064C580_ClearTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
-    },
-    {
-     "va": "0x0064C640",
-     "length": 184,
-     "name": "?sub_0064C640_SetTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
-    },
-    {
-     "va": "0x0064C700",
-     "length": 129,
-     "name": "?sub_0064C700_SetCollisionMaskRect@@YGXPAUD2RoomCollisionGridStrc@@HHG@Z"
-    },
-    {
-     "va": "0x0064C8F0",
-     "length": 3,
-     "name": "_sub_0064C8F0"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Common/COLLISN/Collisn_0064C790.cpp",
    "rank": 0,
    "functions": [
@@ -80953,20 +80910,39 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0064C860.cpp",
+   "file": "Source/D2Common/COLLISN/Collisn.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0064C4C0",
+     "length": 184,
+     "name": "?sub_6FD411F0@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
+    },
+    {
+     "va": "0x0064C580",
+     "length": 187,
+     "name": "?sub_0064C580_ClearTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
+    },
+    {
+     "va": "0x0064C640",
+     "length": 184,
+     "name": "?sub_0064C640_SetTileCollisionFlags@@YGXPAUD2RoomCollisionGridStrc@@HHPAUD2TileLibraryEntryStrc@@@Z"
+    },
+    {
+     "va": "0x0064C700",
+     "length": 129,
+     "name": "?sub_0064C700_SetCollisionMaskRect@@YGXPAUD2RoomCollisionGridStrc@@HHG@Z"
+    },
     {
      "va": "0x0064C860",
      "length": 144,
      "name": "?sub_0064C860@@YIXPAUD2ActiveRoomStrc@@PAUD2DrlgTileDataStrc@@PAUD2TileLibraryEntryStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/COLLISN/Collisn.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x0064C8F0",
+     "length": 3,
+     "name": "_sub_0064C8F0"
+    },
     {
      "va": "0x0064C900",
      "length": 262,
@@ -81137,6 +81113,10 @@
      "name": "?COLLISION_GetFreeCoordinatesImpl@@YGPAUD2ActiveRoomStrc@@PAU1@PAUD2CoordStrc@@1HIIHHH@Z"
     },
     {
+     "va": "0x0064E260",
+     "length": 1298
+    },
+    {
      "va": "0x0064E780",
      "length": 41,
      "name": "?COLLISION_GetFreeCoordinatesWithMaxDistance@@YGPAUD2ActiveRoomStrc@@PAU1@PAUD2CoordStrc@@HIHH@Z"
@@ -81150,6 +81130,14 @@
      "va": "0x0064E7E0",
      "length": 39,
      "name": "?COLLISION_GetFreeCoordinatesEx@@YGPAUD2ActiveRoomStrc@@PAU1@PAUD2CoordStrc@@HIH@Z"
+    },
+    {
+     "va": "0x0064E840",
+     "length": 447
+    },
+    {
+     "va": "0x0064EBA0",
+     "length": 108
     },
     {
      "va": "0x0064EC10",
@@ -81189,24 +81177,6 @@
      "va": "0x0064EFA0",
      "length": 53,
      "name": "?COLLISION_SetUnitCollisionMask@@YIXPAUD2ActiveRoomStrc@@HH0HHHG@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/COLLISN/Collisn_0064E260.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064E260",
-     "length": 1298
-    },
-    {
-     "va": "0x0064E840",
-     "length": 447
-    },
-    {
-     "va": "0x0064EBA0",
-     "length": 108
     }
    ]
   },
@@ -82223,31 +82193,11 @@
      "va": "0x00660CB0",
      "length": 95,
      "name": "DATATBLS_GetBeltsTxtRecord"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00660D10.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00660D10",
      "length": 120
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -83737,6 +83687,10 @@
      "name": "sub_0066C580"
     },
     {
+     "va": "0x0066C620",
+     "length": 51
+    },
+    {
      "va": "0x0066C660",
      "length": 54,
      "name": "sub_0066C660"
@@ -83823,30 +83777,6 @@
      "va": "0x0066D110",
      "length": 375,
      "name": "DRLGLOGIC_InitializeDrlgCoordList"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgLogic_0066C620.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x0066C620",
-     "length": 51
     }
    ]
   },
@@ -85359,6 +85289,10 @@
      "name": "sub_0067C6D0"
     },
     {
+     "va": "0x0067C760",
+     "length": 289
+    },
+    {
      "va": "0x0067C8E0",
      "length": 628,
      "name": "sub_0067C8E0"
@@ -85403,30 +85337,6 @@
      "length": 14,
      "name": "DRLGGRID_ResetGrid"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067C760.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067C760",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -85621,6 +85531,10 @@
      "name": "sub_0067DCE0"
     },
     {
+     "va": "0x0067DCF0",
+     "length": 509
+    },
+    {
      "va": "0x0067DEF0",
      "length": 268
     },
@@ -85667,30 +85581,6 @@
      "va": "0x0067E600",
      "length": 88
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067DCF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067DCF0",
-     "length": 509
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

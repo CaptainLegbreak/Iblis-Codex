@@ -165,6 +165,7 @@ void __stdcall COLLISION_ResetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, in
 
 void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask);
 
+// 0x0064C4C0
 static void __stdcall sub_6FD411F0(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
@@ -172,20 +173,23 @@ static void __stdcall sub_6FD411F0(D2RoomCollisionGridStrc* pCollisionGrid, int 
         unsigned char* pFlags = sub_00604CE0(pTileLibraryEntry);
         const int nWidth = pCollisionGrid->pRoomCoords.nSubtileWidth;
         const int nCappedX = nX > 0 ? nX : 0;
+        const int nEndX = nX + 5;
         const int nCappedY = nY > 0 ? nY : 0;
-        unsigned char* pTmp = &pFlags[5 * (nY - nCappedY + 4) - nX];
+        const int nEndY = nY + 5;
+        unsigned char* pTmp = &pFlags[5 * (nY - nCappedY + 4) - nX + nCappedX];
         int nIndex = nWidth * nCappedY;
-        for (int nYCounter = nCappedY; nYCounter < nY + 5; ++nYCounter)
+        for (int nYCounter = nCappedY; nYCounter < nEndY; ++nYCounter)
         {
             unsigned short* pCollisionMask = &pCollisionGrid->pCollisionMask[nIndex];
-            for (int nXCounter = nCappedX; nXCounter < nX + 5; ++nXCounter)
-                pCollisionMask[nXCounter] |= pTmp[nXCounter];
+            for (int nXCounter = nCappedX; nXCounter < nEndX; ++nXCounter)
+                pCollisionMask[nXCounter] |= pTmp[nXCounter - nCappedX];
             pTmp -= 5;
             nIndex += nWidth;
         }
     }
 }
 
+// 0x0064C580
 static void __stdcall sub_0064C580_ClearTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
@@ -193,20 +197,23 @@ static void __stdcall sub_0064C580_ClearTileCollisionFlags(D2RoomCollisionGridSt
         unsigned char* pFlags = sub_00604CE0(pTileLibraryEntry);
         const int nWidth = pCollisionGrid->pRoomCoords.nSubtileWidth;
         const int nCappedY = nY > 0 ? nY : 0;
+        const int nEndY = nY + 5;
         const int nCappedX = nX > 0 ? nX : 0;
-        unsigned char* pTmp = &pFlags[5 * (nY - nCappedY + 4) - nX];
+        const int nEndX = nX + 5;
+        unsigned char* pTmp = &pFlags[5 * (nY - nCappedY + 4) - nX + nCappedX];
         int nIndex = nWidth * nCappedY;
-        for (int nYCounter = nCappedY; nYCounter < nY + 5; ++nYCounter)
+        for (int nYCounter = nCappedY; nYCounter < nEndY; ++nYCounter)
         {
             unsigned short* pCollisionMask = &pCollisionGrid->pCollisionMask[nIndex];
-            for (int nXCounter = nCappedX; nXCounter < nX + 5; ++nXCounter)
-                pCollisionMask[nXCounter] &= ~pTmp[nXCounter];
+            for (int nXCounter = nCappedX; nXCounter < nEndX; ++nXCounter)
+                pCollisionMask[nXCounter] &= ~pTmp[nXCounter - nCappedX];
             pTmp -= 5;
             nIndex += nWidth;
         }
     }
 }
 
+// 0x0064C640
 static void __stdcall sub_0064C640_SetTileCollisionFlags(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
@@ -214,32 +221,37 @@ static void __stdcall sub_0064C640_SetTileCollisionFlags(D2RoomCollisionGridStrc
         unsigned char* pFlags = sub_00604CE0(pTileLibraryEntry);
         const int nWidth = pCollisionGrid->pRoomCoords.nSubtileWidth;
         const int nCappedY = nY > 0 ? nY : 0;
+        const int nEndY = nY + 5;
         const int nCappedX = nX > 0 ? nX : 0;
-        unsigned char* pTmp = &pFlags[5 * (nY - nCappedY + 4) - nX];
+        const int nEndX = nX + 5;
+        unsigned char* pTmp = &pFlags[5 * (nY - nCappedY + 4) - nX + nCappedX];
         int nIndex = nWidth * nCappedY;
-        for (int nYCounter = nCappedY; nYCounter < nY + 5; ++nYCounter)
+        for (int nYCounter = nCappedY; nYCounter < nEndY; ++nYCounter)
         {
             unsigned short* pCollisionMask = &pCollisionGrid->pCollisionMask[nIndex];
-            for (int nXCounter = nCappedX; nXCounter < nX + 5; ++nXCounter)
-                pCollisionMask[nXCounter] = pTmp[nXCounter];
+            for (int nXCounter = nCappedX; nXCounter < nEndX; ++nXCounter)
+                pCollisionMask[nXCounter] = pTmp[nXCounter - nCappedX];
             pTmp -= 5;
             nIndex += nWidth;
         }
     }
 }
 
+// 0x0064C700
 static void __stdcall sub_0064C700_SetCollisionMaskRect(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, unsigned short nFlags)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
     {
         const int nWidth = pCollisionGrid->pRoomCoords.nSubtileWidth;
         const int nCappedY = nY > 0 ? nY : 0;
+        const int nEndY = nY + 5;
         const int nCappedX = nX > 0 ? nX : 0;
+        const int nEndX = nX + 5;
         int nIndex = nWidth * nCappedY;
-        for (int nYCounter = nCappedY; nYCounter < nY + 5; ++nYCounter)
+        for (int nYCounter = nCappedY; nYCounter < nEndY; ++nYCounter)
         {
             unsigned short* pCollisionMask = &pCollisionGrid->pCollisionMask[nIndex];
-            for (int nXCounter = nCappedX; nXCounter < nX + 5; ++nXCounter)
+            for (int nXCounter = nCappedX; nXCounter < nEndX; ++nXCounter)
                 pCollisionMask[nXCounter] |= nFlags;
             nIndex += nWidth;
         }
@@ -276,6 +288,7 @@ static void __stdcall sub_6FD413E0(D2RoomCollisionGridStrc* pCollisionGrid, D2Ro
     }
 }
 
+// 0x0064C860
 void __fastcall sub_0064C860(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileData, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (!pRoom)
@@ -298,6 +311,9 @@ void __fastcall sub_0064C860(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileD
     if (pTileLibraryEntry)
         sub_6FD411F0(pCollisionGrid, nRelX, nRelY, pTileLibraryEntry);
 }
+
+// 0x0064C8F0
+extern "C" unsigned __cdecl sub_0064C8F0() { return 0; }
 
 // 0x0064C900
 void __fastcall COLLISION_AllocRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc* pRoom)
@@ -1154,28 +1170,6 @@ void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY
     }
 }
 
-// @ref 0x0064EBA0
-void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask)
-{
-    if (pRoom)
-    {
-        switch (nUnitSize)
-        {
-        case 1:
-            sub_0064DB70(pRoom, nX, nY, nMask);
-            break;
-
-        case 2:
-            sub_0064DA40(pRoom, nX, nY, nMask);
-            break;
-
-        case 3:
-            sub_0064DBC0(pRoom, nX, nY, nMask);
-            break;
-        }
-    }
-}
-
 // 0x0064DE30
 void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, int nMask)
 {
@@ -1309,6 +1303,278 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* p
     return 0;
 }
 
+#define RAYTRACE_LOAD_ROOM() \
+    nRoomX = pRoom->tCoords.nSubtileX; \
+    nRoomY = pRoom->tCoords.nSubtileY; \
+    nRoomEndX = nRoomX + pRoom->tCoords.nSubtileWidth; \
+    nRoomEndY = nRoomY + pRoom->tCoords.nSubtileHeight;
+#define RAYTRACE_IN_ROOM() (nX >= nRoomX && nX < nRoomEndX && nY >= nRoomY && nY < nRoomEndY)
+#define RAYTRACE_NEXT_ROOM() \
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY); \
+    if (!pRoom) \
+    { \
+        goto Blocked; \
+    } \
+    RAYTRACE_LOAD_ROOM() \
+    if (!RAYTRACE_IN_ROOM()) \
+    { \
+        goto Blocked; \
+    }
+
+// 0x0064E260
+int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask)
+{
+    int nX = pBegin->nX;
+    int nY = pBegin->nY;
+    int nEndX = pEnd->nX;
+    int nEndY = pEnd->nY;
+    int nDeltaX = nEndX - nX;
+    int nDeltaY = nEndY - nY;
+    int nXDir = 1;
+    int nYDir = 1;
+    int nRoomX;
+    int nRoomY;
+    int nRoomEndX;
+    int nRoomEndY;
+
+    if (!pRoom)
+    {
+        goto Blocked;
+    }
+
+    if (nDeltaX < 0)
+    {
+        nDeltaX = -nDeltaX;
+        nXDir = -1;
+    }
+
+    if (nDeltaY < 0)
+    {
+        nDeltaY = -nDeltaY;
+        nYDir = -1;
+    }
+
+    RAYTRACE_LOAD_ROOM()
+    if (!RAYTRACE_IN_ROOM())
+    {
+        RAYTRACE_NEXT_ROOM()
+    }
+
+    if (nDeltaX == 0)
+    {
+        if (nDeltaY == 0)
+        {
+            D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
+            if (nCollisionMask & pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth])
+            {
+                goto Blocked;
+            }
+
+            return 0;
+        }
+
+        ++nDeltaY;
+        while (1)
+        {
+            int nNext = 0;
+            if (nYDir > 0)
+            {
+                if (nEndY >= nRoomEndY)
+                {
+                    const int nInRoom = nRoomEndY - nY;
+                    nNext = nDeltaY - nInRoom;
+                    nDeltaY = nInRoom;
+                }
+            }
+            else if (nEndY < nRoomY)
+            {
+                const int nInRoom = nY - nRoomY + 1;
+                nNext = nDeltaY - nInRoom;
+                nDeltaY = nInRoom;
+            }
+
+            D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
+            unsigned short* pMask = &pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth];
+            const int nStride = pRoom->tCoords.nSubtileWidth * nYDir;
+            unsigned short* pMaskEnd = pMask + nStride * nDeltaY;
+            while (pMask != pMaskEnd)
+            {
+                if (*pMask & nCollisionMask)
+                {
+                    goto Blocked;
+                }
+
+                nY += nYDir;
+                pMask += nStride;
+            }
+
+            if (!nNext)
+            {
+                return 0;
+            }
+
+            RAYTRACE_NEXT_ROOM()
+            nDeltaY = nNext;
+        }
+    }
+
+    if (nDeltaY == 0)
+    {
+        ++nDeltaX;
+        while (1)
+        {
+            int nNext = 0;
+            if (nXDir > 0)
+            {
+                if (nEndX >= nRoomEndX)
+                {
+                    const int nInRoom = nRoomEndX - nX;
+                    nNext = nDeltaX - nInRoom;
+                    nDeltaX = nInRoom;
+                }
+            }
+            else if (nEndX < nRoomX)
+            {
+                const int nInRoom = nX - nRoomX + 1;
+                nNext = nDeltaX - nInRoom;
+                nDeltaX = nInRoom;
+            }
+
+            D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
+            unsigned short* pMask = &pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth];
+            unsigned short* pMaskEnd = pMask + nXDir * nDeltaX;
+            while (pMask != pMaskEnd)
+            {
+                if (*pMask & nCollisionMask)
+                {
+                    goto Blocked;
+                }
+
+                pMask += nXDir;
+                nX += nXDir;
+            }
+
+            if (!nNext)
+            {
+                return 0;
+            }
+
+            RAYTRACE_NEXT_ROOM()
+            nDeltaX = nNext;
+        }
+    }
+
+    if (nDeltaX >= nDeltaY)
+    {
+        nEndX += nXDir;
+        int nDeviation = 0;
+        while (1)
+        {
+            const int nLastX = nXDir < 0 ? nRoomX - 1 : nRoomEndX;
+            const int nLastY = nYDir < 0 ? nRoomY - 1 : nRoomEndY;
+            if (nY >= nRoomEndY)
+            {
+                goto Blocked;
+            }
+
+            D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
+            unsigned short* pMask = &pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth];
+            const int nStride = pRoom->tCoords.nSubtileWidth * nYDir;
+            while (1)
+            {
+                if (*pMask & nCollisionMask)
+                {
+                    goto Blocked;
+                }
+
+                nX += nXDir;
+                nDeviation += nDeltaY;
+                if (nDeviation >= nDeltaX)
+                {
+                    nDeviation -= nDeltaX;
+                    nY += nYDir;
+                    pMask += nStride;
+                }
+                pMask += nXDir;
+
+                if (nX == nLastX || nY == nLastY)
+                {
+                    break;
+                }
+
+                if (nX == nEndX)
+                {
+                    return 0;
+                }
+            }
+
+            if (nX == nEndX)
+            {
+                return 0;
+            }
+
+            RAYTRACE_NEXT_ROOM()
+        }
+    }
+    else
+    {
+        nEndY += nYDir;
+        int nDeviation = 0;
+        while (1)
+        {
+            const int nLastX = nXDir < 0 ? nRoomX - 1 : nRoomEndX;
+            const int nLastY = nYDir < 0 ? nRoomY - 1 : nRoomEndY;
+            if (nY >= nRoomEndY)
+            {
+                goto Blocked;
+            }
+
+            D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
+            unsigned short* pMask = &pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth];
+            const int nStride = pRoom->tCoords.nSubtileWidth * nYDir;
+            while (1)
+            {
+                if (*pMask & nCollisionMask)
+                {
+                    goto Blocked;
+                }
+
+                nY += nYDir;
+                nDeviation += nDeltaX;
+                if (nDeviation >= nDeltaY)
+                {
+                    nDeviation -= nDeltaY;
+                    nX += nXDir;
+                    pMask += nXDir;
+                }
+                pMask += nStride;
+
+                if (nX == nLastX || nY == nLastY)
+                {
+                    break;
+                }
+
+                if (nY == nEndY)
+                {
+                    return 0;
+                }
+            }
+
+            if (nY == nEndY)
+            {
+                return 0;
+            }
+
+            RAYTRACE_NEXT_ROOM()
+        }
+    }
+
+Blocked:
+    pEnd->nX = nX;
+    pEnd->nY = nY;
+    return 1;
+}
+
 // 0x0064E780
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithMaxDistance(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighborRooms, int nMaxDistance)
 {
@@ -1325,6 +1591,83 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int nPosIncrementValue)
 {
     return COLLISION_GetFreeCoordinatesImpl(pRoom, pSpawnPoint, 0, nUnitSize, nMask, nMask, 0, 50, nPosIncrementValue);
+}
+
+// 0x0064E840
+void __fastcall D2Common_10136(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nSize, unsigned short nMask, D2ActiveRoomStrc** ppRoom)
+{
+    D2CoordStrc tCenter;
+    tCenter.nX = pCoord->nX;
+    tCenter.nY = pCoord->nY;
+    D2DrlgCoordsStrc tDrlgCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &tDrlgCoords);
+
+    for (int j = 1; j < 50; ++j)
+    {
+        const int i = -j;
+        for (int y = i; y < j; y += 2)
+        {
+            D2ActiveRoomStrc* pRowRoom = pRoom;
+            pCoord->nY = y + tCenter.nY;
+
+            if (pCoord->nY < tDrlgCoords.nSubtileY || pCoord->nY >= tDrlgCoords.nSubtileY + tDrlgCoords.nSubtileHeight)
+            {
+                pRowRoom = sub_00463740_FindRoomAtPoint(pRoom, pCoord->nX, pCoord->nY);
+            }
+
+            if (pRowRoom)
+            {
+                for (int x = i; x < j; x += 2)
+                {
+                    D2ActiveRoomStrc* pTestRoom = pRowRoom;
+                    DUNGEON_GetRoomCoordinates(pRowRoom, &tDrlgCoords);
+
+                    pCoord->nX = x + tCenter.nX;
+
+                    if (pCoord->nX < tDrlgCoords.nSubtileX || pCoord->nX >= tDrlgCoords.nSubtileX + tDrlgCoords.nSubtileWidth)
+                    {
+                        pTestRoom = sub_00463740_FindRoomAtPoint(pRowRoom, pCoord->nX, pCoord->nY);
+                    }
+
+                    if (pTestRoom && !COLLISION_CheckMaskWithSizeXY(pTestRoom, pCoord->nX, pCoord->nY, nSize + 2, nSize + 2, nMask))
+                    {
+                        *ppRoom = pTestRoom;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    *ppRoom = 0;
+}
+
+// 0x0064EBA0
+void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask)
+{
+    if (pRoom)
+    {
+        switch (nUnitSize)
+        {
+        case 1:
+            sub_0064DB70(pRoom, nX, nY, nMask);
+            break;
+
+        case 2:
+            sub_0064DA40(pRoom, nX, nY, nMask);
+            break;
+
+        case 3:
+            sub_0064DBC0(pRoom, nX, nY, nMask);
+            break;
+
+        case 0:
+            return;
+
+        default:
+            break;
+        }
+    }
 }
 
 // 0x0064EC10

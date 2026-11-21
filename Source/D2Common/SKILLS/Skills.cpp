@@ -832,6 +832,75 @@ int __fastcall sub_00643580_GetSkillParam7Formula(int nSkillId, int nSkillLevel)
     return pSkillsTxtRecord->dwParam[6] + (nSkillLevel - 1) * pSkillsTxtRecord->dwParam[7];
 }
 
+// 0x006435C0
+int __cdecl sub_006435C0_GetPassiveSkillCount()
+{
+    return sgptDataTables->nPassiveSkills;
+}
+
+// 0x006435D0
+short __fastcall sub_006435D0_GetPassiveSkillId(int nIndex)
+{
+    if (nIndex >= 0 && nIndex < sgptDataTables->nPassiveSkills)
+    {
+        return sgptDataTables->pPassiveSkills[nIndex];
+    }
+    return -1;
+}
+
+// 0x00643600
+int __cdecl sub_00643600_ReturnZero()
+{
+    return 0;
+}
+
+// 0x00643610
+void __stdcall sub_00643610_Nop(int nUnused)
+{
+}
+
+inline void* UNITS_GetMemoryPool(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 0 : pUnit->pMemoryPool;
+}
+
+inline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    return !pUnit ? -1 : pUnit->dwUnitId;
+}
+
+// 0x00643620
+static D2StatListStrc* __stdcall sub_00643620(D2UnitStrc* pUnit, int nState, int nSkillLevel)
+{
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+
+    if (nSkillLevel)
+    {
+        if (!pStatList)
+        {
+            pStatList = STATLIST_AllocStatList(UNITS_GetMemoryPool(pUnit), 0, 0, sub_0044BE50(pUnit), UNITS_GetUnitId(pUnit));
+            STATLIST_SetState(pStatList, nState);
+            D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+        }
+
+        return pStatList;
+    }
+
+    if (pStatList)
+    {
+        D2Common_10474(pUnit, pStatList);
+        STATLIST_FreeStatList(pStatList);
+    }
+
+    return 0;
+}
+
+// 0x00643690
 int __stdcall SKILLS_GetPassiveState(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
@@ -839,10 +908,12 @@ int __stdcall SKILLS_GetPassiveState(int nSkillId)
     {
         return 0;
     }
+
     if (pSkillsTxtRecord->nPassiveState <= 0)
     {
         return 0;
     }
+
     return pSkillsTxtRecord->nPassiveState;
 }
 
@@ -905,6 +976,37 @@ inline short DATATBLS_GetPassiveSkillId(int nIndex)
     return -1;
 }
 
+// 0x006437E0
+static inline D2SkillStrc* sub_006437E0_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+{
+    if (!pUnit->pSkills)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = pUnit->pSkills->pFirstSkill;
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    while (pSkill)
+    {
+        if (pSkill->pSkillsTxt->nSkillId == nSkillId && pSkill->nOwnerGUID == nOwnerGUID)
+        {
+            break;
+        }
+        pSkill = pSkill->pNextSkill;
+    }
+    return pSkill;
+}
+
+// Nothing in the game calls 0x6437E0; this caller keeps its out-of-line copy.
+D2SkillStrc* __stdcall sub_M113_Emit_006437E0(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+{
+    return sub_006437E0_GetSkillById(pUnit, nSkillId, nOwnerGUID);
+}
+
 // 0x00643810
 static D2SkillStrc* SKILLS_GetHighestLevelSkillFromSkillId(D2UnitStrc* pUnit, int nSkillId)
 {
@@ -925,6 +1027,16 @@ static D2SkillStrc* SKILLS_GetHighestLevelSkillFromSkillId(D2UnitStrc* pUnit, in
     }
 
     return pHighestLevelSkill;
+}
+
+// 0x00643860
+int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+{
+    if (pUnit && pSkill)
+    {
+        return pSkill->dwSkillMode;
+    }
+    return 0;
 }
 
 // 0x00643880
@@ -3740,46 +3852,6 @@ int __stdcall SKILLS_EvaluateSkillDescFormula(D2UnitStrc* pUnit, unsigned int nC
     pSkillCalc.nSkillLevel = nSkillLevel;
 
     return DATATBLS_CalcEvaluateExpression(&sgptDataTables->pSkillDescCode[nCalc], sgptDataTables->nSkillDescCodeSize - nCalc, sub_00646BE0, gpSkillsCalcFunctions, gnSkillsCalcFunctions, &pSkillCalc);
-}
-
-inline void* UNITS_GetMemoryPool(D2UnitStrc* pUnit)
-{
-    return !pUnit ? 0 : pUnit->pMemoryPool;
-}
-
-inline int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    return !pUnit ? 6 : pUnit->dwUnitType;
-}
-
-inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
-{
-    return !pUnit ? -1 : pUnit->dwUnitId;
-}
-
-static D2StatListStrc* __stdcall sub_00643620(D2UnitStrc* pUnit, int nState, int nSkillLevel)
-{
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-
-    if (nSkillLevel)
-    {
-        if (!pStatList)
-        {
-            pStatList = STATLIST_AllocStatList(UNITS_GetMemoryPool(pUnit), 0, 0, sub_0044BE50(pUnit), UNITS_GetUnitId(pUnit));
-            STATLIST_SetState(pStatList, nState);
-            D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-        }
-
-        return pStatList;
-    }
-
-    if (pStatList)
-    {
-        D2Common_10474(pUnit, pStatList);
-        STATLIST_FreeStatList(pStatList);
-    }
-
-    return 0;
 }
 
 // 0x00646D60

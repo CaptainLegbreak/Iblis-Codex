@@ -257,6 +257,27 @@ static void sub_0066C580(D2UnkDrlgLogicStrc* a1)
     }
 }
 
+// 0x0066C620
+int __fastcall sub_0066C620(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY)
+{
+    int nCoordList = 0;
+    D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = pDrlgRoom->pLogicalRoomInfo;
+    if (!pLogicalRoomInfo)
+    {
+        pTileData->pCoordList = 0;
+    }
+    else if (pLogicalRoomInfo->dwFlags & 1)
+    {
+        pTileData->pCoordList = 0;
+    }
+    else
+    {
+        nCoordList = DRLGGRID_GetGridEntry(&pLogicalRoomInfo->pIndexY, nX - pDrlgRoom->pDrlgCoord.nPosX, nY - pDrlgRoom->pDrlgCoord.nPosY);
+        pTileData->pCoordList = (D2RoomCoordListStrc*)nCoordList;
+    }
+    return nCoordList;
+}
+
 // 0x0066C660
 D2DrlgLogicalRoomInfoStrc* __fastcall sub_0066C660(void* pMemPool, int nUnused, D2DrlgRoomStrc* pDrlgRoom)
 {
@@ -348,24 +369,6 @@ static void __stdcall sub_0066C7F0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pW
         {
             DRLGGRID_AlterGridFlag(pWallGrid, pDrlgRoomTiles->pWallTiles[i].nPosX, pDrlgRoomTiles->pWallTiles[i].nPosY, 8, 0);
         }
-    }
-}
-
-// @ref 0x0066C620
-void __fastcall sub_0066C620(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY)
-{
-    D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = pDrlgRoom->pLogicalRoomInfo;
-    if (!pLogicalRoomInfo)
-    {
-        pTileData->pCoordList = 0;
-    }
-    else if (pLogicalRoomInfo->dwFlags & 1)
-    {
-        pTileData->pCoordList = 0;
-    }
-    else
-    {
-        pTileData->pCoordList = (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pLogicalRoomInfo->pIndexY, nX - pDrlgRoom->pDrlgCoord.nPosX, nY - pDrlgRoom->pDrlgCoord.nPosY);
     }
 }
 

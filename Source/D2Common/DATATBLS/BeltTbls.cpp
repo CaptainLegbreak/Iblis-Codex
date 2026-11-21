@@ -112,10 +112,17 @@ static D2BeltsTxt* sub_00660C70(int nIndex)
     return pBeltsTxtRecord;
 }
 
-// build: context DATATBLS_GetInvRectFromBeltsTxt
+// 0x00660CB0
+void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int bHigherRes, D2BeltsTxt* pRecord)
+{
+    BELTS_ASSERT(&sgptBeltInitStats[nIndex], 131);
+    *pRecord = sgptBeltInitStats[nIndex + 7 * bHigherRes];
+}
+// 0x00660D10
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2InvRectStrc* pInvRect, int nBoxId)
 {
-    D2BeltsTxt* pBeltsTxtRecord = sub_00660C70(nIndex + 7 * bHigherRes);
+    // volatile: the original computes the record index before the table check
+    D2BeltsTxt* pBeltsTxtRecord = sub_00660C70(nIndex + 7 * static_cast<const volatile int&>(bHigherRes));
     const D2InvRectStrc* pBoxStats = &pBeltsTxtRecord->beltBoxes[nBoxId];
     BELTS_ASSERT(pBoxStats, 143);
 
@@ -125,9 +132,3 @@ void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2Inv
     pInvRect->nBottom = pBoxStats->nBottom;
 }
 
-// 0x00660CB0
-void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int bHigherRes, D2BeltsTxt* pRecord)
-{
-    BELTS_ASSERT(&sgptBeltInitStats[nIndex], 131);
-    *pRecord = sgptBeltInitStats[nIndex + 7 * bHigherRes];
-}
