@@ -2725,7 +2725,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UNIT/Missile_004D01D0.cpp": {
+  "Source/D2Client/UNIT/Missile_004CD540.cpp": {
    "bytes": 64,
    "definitions": 2,
    "externs": [],
@@ -72348,7 +72348,7 @@
    "cname": "gData_006DB100",
    "declared": true,
    "decorated": "?gnMissileTargetX_006DB100@@3PAHA",
-   "file": "Source/D2Client/UNIT/Missile_004D01D0.cpp",
+   "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DB100[8]; // 0x006DB100",
@@ -72379,7 +72379,7 @@
    "cname": "gData_006DB120",
    "declared": true,
    "decorated": "?gnMissileTargetY_006DB120@@3PAHA",
-   "file": "Source/D2Client/UNIT/Missile_004D01D0.cpp",
+   "file": "Source/D2Client/UNIT/Missile_004CD540.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DB120[8]; // 0x006DB120",
