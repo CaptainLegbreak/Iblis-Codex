@@ -74,7 +74,7 @@ static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pCon
     return 1;
 }
 
-__declspec(noinline) static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
+__declspec(noinline) int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
 
 // 0x005FE2B0
 static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut)
@@ -169,159 +169,9 @@ static __forceinline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* 
     return 1;
 }
 
-// build: context sub_005FE610_BuildGfxPath
-static __declspec(noinline) int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut)
-{
-    int bCompressed;
+int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut); // 0x005FE610
 
-    if (!szName[0])
-    {
-        *szOut = 0;
-        return 0;
-    }
-
-    switch (pContext->nType)
-    {
-    case 3:
-        if (!pContext->pName)
-        {
-            break;
-        }
-        return SpriteCache_BuildDccOrDc6Path(szOut, gszMissilesDir_006E35BC, pContext->pName, pContext, 1);
-
-    case 4:
-    {
-        const int nMode = pContext->nMode;
-        if (!pContext->pName)
-        {
-            break;
-        }
-        if (nMode == 4)
-        {
-            wsprintfA(szOut, gszFmtItemsDc6_006E35D4, szDataGlobal_006D4118, szName);
-            return 1;
-        }
-        if (nMode == 3)
-        {
-            wsprintfA(szOut, "%s\\items\\%s.dc6", szDataGlobal_006D4118, szName);
-            return 1;
-        }
-        break;
-    }
-
-    case 6:
-        if (!(pContext->dwFlags & 2))
-        {
-            *szOut = 0;
-            return 0;
-        }
-        return SpriteCache_BuildDccOrDc6Path(szOut, gszOverlaysDir_006E35F0, szName, pContext, pContext->nOverlay != 0x7A);
-
-    default:
-    {
-        bCompressed = gbCmpCompressedDataMode;
-        if (bCompressed && !SStrCmpI(szName, gszNoCompressName_006E363C, 0x7FFFFFFF))
-        {
-            bCompressed = 0;
-            pContext->dwGfxFlags &= ~1;
-        }
-
-        const char* szBase;
-        switch (pContext->nType)
-        {
-        case 0:
-            szBase = gszCharsDir_006DCC34;
-            break;
-
-        case 1:
-            szBase = gszMonstersDir_006D6CAC;
-            switch (pContext->nIndex)
-            {
-            case 0xF3: case 0x11C: case 0x14D: case 0x220: case 0x22F: case 0x23A: case 0x2C1: case 0x2C5:
-                if (pContext->nMode)
-                {
-                    break;
-                }
-            case 0xF2: case 0xFB: case 0x16F: case 0x209: case 0x2C0:
-                bCompressed = 0;
-                break;
-            }
-            break;
-
-        case 2:
-            if (pContext->nIndex == 0x156 || pContext->nIndex == 0x233)
-            {
-                bCompressed = 0;
-            }
-            szBase = gszObjectsDir_006E3628;
-            break;
-
-        default:
-            goto Fail;
-        }
-
-        char szToken[4];
-        char szComponent[4];
-        szToken[3] = 0;
-        szComponent[3] = 0;
-        szToken[0] = pContext->szToken[0] == 0x20 ? 0 : pContext->szToken[0];
-        szToken[1] = pContext->szToken[1] == 0x20 ? 0 : pContext->szToken[1];
-        szToken[2] = pContext->szToken[2] == 0x20 ? 0 : pContext->szToken[2];
-        szComponent[0] = pContext->szComponent[0] == 0x20 ? 0 : pContext->szComponent[0];
-        szComponent[1] = pContext->szComponent[1] == 0x20 ? 0 : pContext->szComponent[1];
-        szComponent[2] = pContext->szComponent[2] == 0x20 ? 0 : pContext->szComponent[2];
-
-        if (bCompressed)
-        {
-            wsprintfA(szOut, gszFmtDcc4_006E3618, szBase, szToken, szComponent, szName);
-            pContext->dwGfxFlags |= 1;
-            return 1;
-        }
-        wsprintfA(szOut, gszFmtDc64_006E3608, szBase, szToken, szComponent, szName);
-        return 1;
-    }
-    }
-
-Fail:
-    *szOut = 0;
-    return 0;
-}
-
-// build: context sub_005FEC90_InitDC6Frames
-static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
-{
-    char szName[0x104];
-    char szPath[0x104];
-
-    D2_ASSERT(pContext, 0x50D);
-    D2_ASSERT(pEntry, 0x50E);
-    D2_ASSERT(!(pFile->dwFlags & 1), 0x50F);
-    D2_ASSERT(!pEntry->unk0x28, 0x512);
-
-    const int nSize = pEntry->nFrames * pEntry->nFramesPerDirection * sizeof(D2CmpDC6CelStrc);
-    D2CmpDC6CelStrc* pCels = (D2CmpDC6CelStrc*)FOG_AllocPool(gCmpTileCache.pMemPool, nSize, ".\\SRC\\SpriteCache.cpp", 0x517, 0);
-    memset(pCels, 0, nSize);
-
-    char* pData = (char*)FOG_AsyncDataGetBuffer(pEntry->pAsync);
-    D2_ASSERT(pData, 0x524);
-
-    int nOffset = pEntry->aOffsets[pEntry->nFirstFrame];
-    D2CmpDC6FrameStrc* pFrame;
-    for (unsigned int i = 0; i < (unsigned int)(pEntry->nFrames * pEntry->nFramesPerDirection); ++i, nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23)
-    {
-        pFrame = (D2CmpDC6FrameStrc*)(pData + nOffset);
-        if (pFrame->unk0x00 != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
-        {
-            sub_005FE2B0_BuildGfxName(pContext, szName);
-            sub_005FE610_BuildGfxPath(szName, pContext, szPath);
-            D2_ASSERT(0, 0x58C);
-        }
-
-        pFrame->pCel = &pCels[i];
-    }
-
-    pEntry->unk0x28 = 1;
-}
+void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry); // 0x005FEC90
 
 
 D2SpriteCacheNodeStrc* __fastcall sub_005FFC40_SpriteCacheAlloc(D2SpriteCacheStrc* pCache, unsigned int nSize, unsigned int nKey, int bLocked); // 0x005FFC40

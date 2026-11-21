@@ -1434,17 +1434,9 @@ int gdwGlobal_0096D46C; // 0x0096D46C
 char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
 
 
-// build: context sub_0068A420
-int __cdecl sub_0068A420()
-{
-    return 0;
-}
+int __cdecl sub_0068A420(); // 0x0068A420
 
-// build: context sub_0069FA20
-int __cdecl sub_0069FA20()
-{
-    return 0;
-}
+int __cdecl sub_0069FA20(); // 0x0069FA20
 
 sub_0040F7D0::~sub_0040F7D0()
 {

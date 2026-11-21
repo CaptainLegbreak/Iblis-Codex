@@ -74,7 +74,7 @@ static void sub_005FF1B0_SpriteCacheUnlinkNode(D2SpriteCacheStrc* pCache, D2Spri
 
 D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 
-static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry); // 0x005FEC90
+__declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry); // 0x005FEC90
 
 struct D2CmpBlockTableBStrc;
 
@@ -82,7 +82,7 @@ struct D2CmpGfxHashEntryStrc;
 
 
 
-static int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut);
+int __stdcall sub_005FE610_BuildGfxPath(const char* szName, D2CmpSpriteContextStrc* pContext, char* szOut);
 
 D2SpriteCacheNodeStrc* __fastcall sub_005FFC40_SpriteCacheAlloc(D2SpriteCacheStrc* pCache, unsigned int nSize, unsigned int nKey, int bLocked); // 0x005FFC40
 
@@ -140,67 +140,7 @@ static __forceinline int SpriteCache_CopyName(char* szDst, const char* szSrc)
     return 1;
 }
 
-// build: context sub_005FE2B0_BuildGfxName
-static __declspec(noinline) int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut)
-{
-    switch (pContext->nType)
-    {
-    case 4:
-        if (!pContext->pName)
-        {
-            break;
-        }
-        return SpriteCache_CopyName(szOut, pContext->pName);
-
-    case 3:
-        if (!pContext->pName)
-        {
-            break;
-        }
-        if (gbCmpCompressedDataMode)
-        {
-            pContext->dwGfxFlags |= 1;
-        }
-        return SpriteCache_CopyName(szOut, pContext->pName);
-
-    case 6:
-        if (!(pContext->dwFlags & 2))
-        {
-            break;
-        }
-        if (!pContext->pName)
-        {
-            break;
-        }
-        if (pContext->nOverlay != 0x7A && gbCmpCompressedDataMode)
-        {
-            pContext->dwGfxFlags |= 1;
-        }
-        return SpriteCache_CopyName(szOut, pContext->pName);
-
-    case 0:
-    case 1:
-    case 2:
-    {
-        unsigned int dw;
-        dw = pContext->dwName[0]; APPEND_CODE(szOut, dw);
-        dw = pContext->dwName[1]; APPEND_CODE(szOut, dw);
-        dw = pContext->dwName[2]; APPEND_CODE(szOut, dw);
-        dw = pContext->dwName[3]; APPEND_CODE(szOut, dw);
-        dw = pContext->dwName[4]; APPEND_CODE(szOut, dw);
-        *szOut = 0;
-
-        if (SpriteCache_IsCompressible(pContext) && gbCmpCompressedDataMode)
-        {
-            pContext->dwGfxFlags |= 1;
-        }
-        return 1;
-    }
-    }
-
-    *szOut = 0;
-    return 0;
-}
+int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut); // 0x005FE2B0
 
 static __forceinline int SpriteCache_FlatPath(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext)
 {
@@ -382,11 +322,6 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
     pEntry->unk0x28 = 1;
 }
 
-// build: context sub_M320_Emit_005FEC90
-void __stdcall sub_M320_Emit_005FEC90(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
-{
-    sub_005FEC90_InitDC6Frames(pFile, pContext, pEntry);
-}
 
 // 0x005FF0F0
 static D2SpriteCacheNodeStrc* __stdcall sub_005FF0F0_SpriteCachePopHead(int bLocked, D2SpriteCacheStrc* pCache)

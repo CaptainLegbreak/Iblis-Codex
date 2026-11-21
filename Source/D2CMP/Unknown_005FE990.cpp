@@ -74,7 +74,7 @@ static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pCon
     return 1;
 }
 
-__declspec(noinline) static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
+__declspec(noinline) int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut);
 
 // 0x005FE2B0
 static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szOut)
@@ -287,41 +287,7 @@ Fail:
     return 0;
 }
 
-// build: context sub_005FEC90_InitDC6Frames
-static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
-{
-    char szName[0x104];
-    char szPath[0x104];
-
-    D2_ASSERT(pContext, 0x50D);
-    D2_ASSERT(pEntry, 0x50E);
-    D2_ASSERT(!(pFile->dwFlags & 1), 0x50F);
-    D2_ASSERT(!pEntry->unk0x28, 0x512);
-
-    const int nSize = pEntry->nFrames * pEntry->nFramesPerDirection * sizeof(D2CmpDC6CelStrc);
-    D2CmpDC6CelStrc* pCels = (D2CmpDC6CelStrc*)FOG_AllocPool(gCmpTileCache.pMemPool, nSize, ".\\SRC\\SpriteCache.cpp", 0x517, 0);
-    memset(pCels, 0, nSize);
-
-    char* pData = (char*)FOG_AsyncDataGetBuffer(pEntry->pAsync);
-    D2_ASSERT(pData, 0x524);
-
-    int nOffset = pEntry->aOffsets[pEntry->nFirstFrame];
-    D2CmpDC6FrameStrc* pFrame;
-    for (unsigned int i = 0; i < (unsigned int)(pEntry->nFrames * pEntry->nFramesPerDirection); ++i, nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23)
-    {
-        pFrame = (D2CmpDC6FrameStrc*)(pData + nOffset);
-        if (pFrame->unk0x00 != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
-        {
-            sub_005FE2B0_BuildGfxName(pContext, szName);
-            sub_005FE610_BuildGfxPath(szName, pContext, szPath);
-            D2_ASSERT(0, 0x58C);
-        }
-
-        pFrame->pCel = &pCels[i];
-    }
-
-    pEntry->unk0x28 = 1;
-}
+void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry); // 0x005FEC90
 
 
 D2SpriteCacheNodeStrc* __fastcall sub_005FFC40_SpriteCacheAlloc(D2SpriteCacheStrc* pCache, unsigned int nSize, unsigned int nKey, int bLocked); // 0x005FFC40
