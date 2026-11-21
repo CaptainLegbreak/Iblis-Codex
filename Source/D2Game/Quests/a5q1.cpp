@@ -122,9 +122,6 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
-
-
-
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
@@ -140,7 +137,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 
 void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode); // 0x00544160
-
 
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const char* szFile, int nLine); // 0x00544350
 
@@ -318,7 +314,6 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-
 void __fastcall ACT4Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005870D0
 
 void __fastcall ACT5Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005873E0
@@ -340,6 +335,14 @@ void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQu
 #define TERMINAL_STATE 5
 
 #define ASSERT_LINE 626
+
+#define MONSTER_QUALKEHK 515
+
+struct Unit0058F000;
+
+typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
+
+extern "C" unsigned int* __stdcall sub_0058F000(Unit0058F000* pUnit); // 0x0058F000
 
 // 0x00586C50
 bool __fastcall ACT5Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
@@ -750,6 +753,73 @@ void __fastcall ACT5Q1_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
+void __cdecl sub_00405A50_Nop()
+{
+}
+
+void __cdecl sub_00405A60_Nop()
+{
+}
+
+void __cdecl sub_0063A800_Nop()
+{
+}
+
+void __cdecl sub_004DF920_Nop()
+{
+}
+
+void __cdecl sub_004DF930_Nop()
+{
+}
+
+// 0x00587830
+void __cdecl sub_00587830_Nop()
+{
+}
+
+// 0x00587840
+void __fastcall OBJECTS_InitFunction71_LarzukStandard(D2ObjInitFnStrc* pOp)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 0x1F);
+    if (!pQuestData)
+    {
+        return;
+    }
+
+    D2Act5Quest1Strc* pQuestDataEx = (D2Act5Quest1Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bLarzukSpawned)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom;
+    D2CoordStrc pCoord;
+    pCoord.nX = pOp->nX;
+    pCoord.nY = pOp->nY;
+    QUESTS_GetFreePosition(pOp->pRoom, &pCoord, 2, 0x100, &pRoom, 16, 100);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    D2UnitStrc* pLarzuk = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pRoom, pCoord.nX, pCoord.nY, 0x1FF, 1, 5, 0);
+    if (!pLarzuk)
+    {
+        return;
+    }
+
+    pQuestDataEx->bLarzukSpawned = 1;
+    pQuestDataEx->nLarzukGUID = !pLarzuk ? -1 : pLarzuk->dwUnitId;
+    pLarzuk->dwFlags |= 0x3000000;
+
+    if (pQuestDataEx->pLarzukMapAI && pQuestDataEx->pLarzukMapAI->pPosition && !pQuestDataEx->bLarzukMapAIChanged)
+    {
+        DRLGPRESET_ChangeMapAI(&pQuestDataEx->pLarzukMapAI, (D2MapAIStrc*)sub_0058F000((Unit0058F000*)pLarzuk));
+        pQuestDataEx->bLarzukMapAIChanged = 1;
+    }
+}
+
 // 0x00587900
 void __fastcall ACT5Q1_OnSiegeBossActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -801,6 +871,24 @@ int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     return 0;
+}
+
+// 0x00587A30
+void __fastcall ACT5Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (!pQuestArg->pTarget || (short)pQuestArg->pTarget->dwClassId != MONSTER_QUALKEHK)
+    {
+        return;
+    }
+
+    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bQualKehkActivated == 1 && pQuestDataEx->nKilledWussies < 5)
+    {
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
+        pQuestDataEx->bQualKehkActivated = 0;
+        pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
+    }
 }
 
 // 0x00587A90

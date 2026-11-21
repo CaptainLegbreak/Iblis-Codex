@@ -58925,6 +58925,16 @@
      "name": "?ACT5Q1_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00587830",
+     "length": 1,
+     "name": "?sub_00587830_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x00587840",
+     "length": 181,
+     "name": "?OBJECTS_InitFunction71_LarzukStandard@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x00587900",
      "length": 73,
      "name": "?ACT5Q1_OnSiegeBossActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -58938,6 +58948,10 @@
      "va": "0x005879D0",
      "length": 96,
      "name": "?ACT5Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587A30",
+     "length": 81
     },
     {
      "va": "0x00587A90",
@@ -59093,26 +59107,6 @@
      "va": "0x00586DE0",
      "length": 134,
      "name": "?ACT5Q1_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00587830.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00587830",
-     "length": 1,
-     "name": "?sub_00587830_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00587840",
-     "length": 181,
-     "name": "?OBJECTS_InitFunction71_LarzukStandard@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x00587A30",
-     "length": 81
     }
    ]
   },
