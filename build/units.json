@@ -79509,6 +79509,36 @@
      "name": "?sub_00629370_GetGambleCost@@YGHHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00629570",
+     "length": 57,
+     "name": "ITEMS_GetMaxStack"
+    },
+    {
+     "va": "0x006295B0",
+     "length": 102,
+     "name": "ITEMS_GetTotalMaxStack"
+    },
+    {
+     "va": "0x00629620",
+     "length": 57,
+     "name": "ITEMS_GetSpawnStackFromItemId"
+    },
+    {
+     "va": "0x00629660",
+     "length": 66,
+     "name": "ITEMS_GetSpawnStack"
+    },
+    {
+     "va": "0x006296B0",
+     "length": 57,
+     "name": "ITEMS_GetMinStackFromItemId"
+    },
+    {
+     "va": "0x006296F0",
+     "length": 66,
+     "name": "ITEMS_GetMinStack"
+    },
+    {
      "va": "0x00629740",
      "length": 86,
      "name": "ITEMS_CheckBitField1Flag8"
@@ -79557,6 +79587,16 @@
      "va": "0x006299B0",
      "length": 70,
      "name": "?ITEMS_GetSockets@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00629A00",
+     "length": 58,
+     "name": "ITEMS_GetGemApplyTypeFromItemId"
+    },
+    {
+     "va": "0x00629A40",
+     "length": 66,
+     "name": "ITEMS_GetGemApplyType"
     },
     {
      "va": "0x00629A90",
@@ -79634,6 +79674,16 @@
      "name": "ITEMS_GetWeaponClassId"
     },
     {
+     "va": "0x0062A060",
+     "length": 64,
+     "name": "ITEMS_GetTransmogrifyFromItemId"
+    },
+    {
+     "va": "0x0062A0A0",
+     "length": 66,
+     "name": "ITEMS_GetTransmogrify"
+    },
+    {
      "va": "0x0062A0F0",
      "length": 50,
      "name": "ITEMS_IsMagSetRarUniCrfOrTmp"
@@ -79674,6 +79724,11 @@
      "name": "ITEMS_CanItemBeUsedForThrowSkill"
     },
     {
+     "va": "0x0062A490",
+     "length": 75,
+     "name": "?ITEMS_GetSetItemsTxtRecordFromItem@@YGPAUD2SetItemsTxt@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0062A4E0",
      "length": 71,
      "name": "ITEMS_CanBeEquipped"
@@ -79687,6 +79742,11 @@
      "va": "0x0062A5D0",
      "length": 79,
      "name": "ITEMS_GetBonusLifeBasedOnClass"
+    },
+    {
+     "va": "0x0062A620",
+     "length": 79,
+     "name": "?ITEMS_GetBonusManaBasedOnClass@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0062A670",
@@ -79748,6 +79808,16 @@
      "name": "?sub_0062B450_GetSocketedStatBonus@@YGXHPAHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0062B4D0",
+     "length": 138,
+     "name": "ITEMS_GetQuestFromItemId"
+    },
+    {
+     "va": "0x0062B560",
+     "length": 66,
+     "name": "ITEMS_GetQuest"
+    },
+    {
      "va": "0x0062BA60",
      "length": 18,
      "name": "ITEMS_GetLevelRequirement"
@@ -79796,6 +79866,11 @@
      "va": "0x0062C770",
      "length": 213,
      "name": "?ITEMS_IsSocketable@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0062C850",
+     "length": 415,
+     "name": "?ITEMS_AreStackablesEqual@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x0062C9F0",
@@ -79895,6 +79970,11 @@
      "va": "0x0062FE60",
      "length": 261,
      "name": "?ITEMS_GetAllRepairCosts@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@HHPAUD2BitBufferStrc@@P6IX011@Z@Z"
+    },
+    {
+     "va": "0x0062FF70",
+     "length": 123,
+     "name": "?ITEMS_IsCharmUsable@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x006313E0",
@@ -80062,92 +80142,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_00629570.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00629570",
-     "length": 57,
-     "name": "ITEMS_GetMaxStack"
-    },
-    {
-     "va": "0x006295B0",
-     "length": 102,
-     "name": "ITEMS_GetTotalMaxStack"
-    },
-    {
-     "va": "0x00629620",
-     "length": 57,
-     "name": "ITEMS_GetSpawnStackFromItemId"
-    },
-    {
-     "va": "0x00629660",
-     "length": 66,
-     "name": "ITEMS_GetSpawnStack"
-    },
-    {
-     "va": "0x006296B0",
-     "length": 57,
-     "name": "ITEMS_GetMinStackFromItemId"
-    },
-    {
-     "va": "0x006296F0",
-     "length": 66,
-     "name": "ITEMS_GetMinStack"
-    },
-    {
-     "va": "0x00629A00",
-     "length": 58,
-     "name": "ITEMS_GetGemApplyTypeFromItemId"
-    },
-    {
-     "va": "0x00629A40",
-     "length": 66,
-     "name": "ITEMS_GetGemApplyType"
-    },
-    {
-     "va": "0x0062A060",
-     "length": 64,
-     "name": "ITEMS_GetTransmogrifyFromItemId"
-    },
-    {
-     "va": "0x0062A0A0",
-     "length": 66,
-     "name": "ITEMS_GetTransmogrify"
-    },
-    {
-     "va": "0x0062A490",
-     "length": 75,
-     "name": "?ITEMS_GetSetItemsTxtRecordFromItem@@YGPAUD2SetItemsTxt@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0062A620",
-     "length": 79,
-     "name": "?ITEMS_GetBonusManaBasedOnClass@@YGHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0062B4D0",
-     "length": 138,
-     "name": "ITEMS_GetQuestFromItemId"
-    },
-    {
-     "va": "0x0062B560",
-     "length": 66,
-     "name": "ITEMS_GetQuest"
-    },
-    {
-     "va": "0x0062C850",
-     "length": 415,
-     "name": "?ITEMS_AreStackablesEqual@@YGHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0062FF70",
-     "length": 123,
-     "name": "?ITEMS_IsCharmUsable@@YGHPAUD2UnitStrc@@0@Z"
-    }
    ]
   },
   {

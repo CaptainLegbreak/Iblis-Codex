@@ -344,7 +344,7 @@ D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic)
 
 int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062BA60
 
-inline int ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag);
+inline int ITEMS_CheckItemFlagData_Inl(D2UnitStrc* pItem, unsigned int dwFlag);
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
@@ -382,7 +382,6 @@ typedef char check_itemtypes_size[(sizeof(D2ItemTypesTxt) == 0xE4) ? 1 : -1];
 #define NUM_BODYLOC 13
 
 struct D2GameStrc;
-
 
 int __stdcall ITEMS_CheckBitField1Flag1(int nItemId); // 0x00629C80
 
@@ -445,7 +444,6 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
-
 static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost); // 0x006292F0
 
 static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost, unsigned int nDivisor); // 0x0062EDD0
@@ -474,6 +472,26 @@ struct D2TimeModStrc
     }
 
 int __stdcall ITEMS_GetStaffMods(D2UnitStrc* pItem);
+
+#define STAT_MINDAMAGE 21
+
+#define STAT_MAXDAMAGE 22
+
+#define STAT_SECONDARY_MINDAMAGE 23
+
+#define STAT_SECONDARY_MAXDAMAGE 24
+
+#define STAT_ITEM_THROW_MINDAMAGE 159
+
+#define STAT_ITEM_THROW_MAXDAMAGE 160
+
+#define ITEMS_QUALITY_INLINE(p) (((p) && (p)->dwUnitType == UNIT_ITEM && (p)->pItemData) ? (p)->pItemData->dwQualityNo : ITEMQUAL_NORMAL)
+
+int __stdcall ITEMS_CheckItemTypeIdByItemId(int nItemId, int nItemType); // 0x00629A90
+
+int __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
+
+static int sub_0062A2F0_IsPlainQuality(int nQuality);
 
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)
@@ -1445,6 +1463,69 @@ static __declspec(noinline) int __stdcall sub_00629370_GetGambleCost(int nLevel,
     return ((2 * nLevel + 1) / 3 + 20) * (nBase + (250 * (nLevel + ((nItemLevel - 45) < 0 ? 0 : (nItemLevel - 45)) - nItemLevel / 2)) / 3) / 15;
 }
 
+// 0x00629570
+int __stdcall ITEMS_GetMaxStack(int nItemId)
+{
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+
+    D2_ASSERT(pItemsTxtRecord, 3407);
+
+    return pItemsTxtRecord->dwMaxStack;
+}
+
+// 0x006295B0
+int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* hItem)
+{
+    D2_ASSERT(hItem, 3418);
+    D2_ASSERT(hItem->dwUnitType == 4, 3419);
+
+    int nMaxStack = ITEMS_GetMaxStack(hItem->dwClassId) + STATLIST_UnitGetStatValue(hItem, 254, 0);
+    if (nMaxStack >= 511)
+    {
+        nMaxStack = 511;
+    }
+
+    return nMaxStack;
+}
+
+// 0x00629620
+int __stdcall ITEMS_GetSpawnStackFromItemId(int nItemId)
+{
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+
+    D2_ASSERT(pItemsTxtRecord, 3436);
+
+    return pItemsTxtRecord->dwSpawnStack;
+}
+
+// 0x00629660
+int __stdcall ITEMS_GetSpawnStack(D2UnitStrc* pItem)
+{
+    D2_ASSERT(pItem, 3451);
+    D2_ASSERT(pItem->dwUnitType == 4, 3452);
+
+    return ITEMS_GetSpawnStackFromItemId(pItem->dwClassId);
+}
+
+// 0x006296B0
+int __stdcall ITEMS_GetMinStackFromItemId(int nItemId)
+{
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+
+    D2_ASSERT(pItemsTxtRecord, 3466);
+
+    return pItemsTxtRecord->dwMinStack;
+}
+
+// 0x006296F0
+int __stdcall ITEMS_GetMinStack(D2UnitStrc* pItem)
+{
+    D2_ASSERT(pItem, 3475);
+    D2_ASSERT(pItem->dwUnitType == 4, 3476);
+
+    return ITEMS_GetMinStackFromItemId(pItem->dwClassId);
+}
+
 // 0x00629740
 int __stdcall ITEMS_CheckBitField1Flag8(D2UnitStrc* hItem)
 {
@@ -1568,6 +1649,25 @@ int __stdcall ITEMS_GetSockets(D2UnitStrc* hItem)
     D2_ASSERT(hItem, 0xEA6);
     D2_ASSERT(hItem->dwUnitType == UNIT_ITEM, 0xEA7);
     return STATLIST_UnitGetStatValue(hItem, STAT_ITEM_NUMSOCKETS, 0);
+}
+
+// 0x00629A00
+int __stdcall ITEMS_GetGemApplyTypeFromItemId(int nItemId)
+{
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+
+    D2_ASSERT(pItemsTxtRecord, 3880);
+
+    return pItemsTxtRecord->nGemApplyType;
+}
+
+// 0x00629A40
+int __stdcall ITEMS_GetGemApplyType(D2UnitStrc* pItem)
+{
+    D2_ASSERT(pItem, 3901);
+    D2_ASSERT(pItem->dwUnitType == 4, 3902);
+
+    return ITEMS_GetGemApplyTypeFromItemId(pItem->dwClassId);
 }
 
 // 0x00629A90
@@ -1801,6 +1901,25 @@ unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pItem)
     return WEAPONCLASS_HTH;
 }
 
+// 0x0062A060
+unsigned int __stdcall ITEMS_GetTransmogrifyFromItemId(int nItemId)
+{
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+
+    D2_ASSERT(pItemsTxtRecord, 4437);
+
+    return pItemsTxtRecord->nTransmogrify != 0;
+}
+
+// 0x0062A0A0
+unsigned int __stdcall ITEMS_GetTransmogrify(D2UnitStrc* pItem)
+{
+    D2_ASSERT(pItem, 4450);
+    D2_ASSERT(pItem->dwUnitType == 4, 4451);
+
+    return ITEMS_GetTransmogrifyFromItemId(pItem->dwClassId);
+}
+
 // 0x0062A0F0
 int __stdcall ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem)
 {
@@ -1816,7 +1935,7 @@ int __stdcall ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem)
 // 0x0062A130
 int __stdcall ITEMS_IsNotQuestItem(D2UnitStrc* pItem)
 {
-    if (!pItem || !ITEMS_CheckItemFlag(pItem, IFLAG_NOSELL))
+    if (!pItem || !ITEMS_CheckItemFlagData_Inl(pItem, IFLAG_NOSELL))
     {
         if (ITEMS_IsNotQuestItemByItemId(!pItem ? -1 : pItem->dwClassId))
         {
@@ -2230,6 +2349,30 @@ int __stdcall ITEMS_CanItemBeUsedForThrowSkill(D2UnitStrc* pItem)
     return FALSE;
 }
 
+inline int ITEMS_CanBeEquippedInline(D2UnitStrc* pItem)
+{
+    if (pItem)
+        return !ITEMS_CheckItemFlagInline(pItem, IFLAG_BROKEN) && !ITEMS_CheckItemFlagInline(pItem, IFLAG_NOEQUIP);
+
+    return FALSE;
+}
+
+// 0x0062A490
+D2SetItemsTxt* __stdcall ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem)
+{
+    const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
+    if (nUnitType == UNIT_ITEM && ITEMS_GetItemQualityInline(pItem) == ITEMQUAL_SET)
+    {
+        const int nFileIndex = ITEMS_GetFileIndex(pItem);
+        if (nFileIndex >= 0 && nFileIndex < sgptDataTables->nSetItemsTxtRecordCount)
+        {
+            return &sgptDataTables->pSetItemsTxt[nFileIndex];
+        }
+    }
+
+    return 0;
+}
+
 // 0x0062A4E0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem)
 {
@@ -2296,6 +2439,31 @@ int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc* pPlayer, int nValue)
     return nResult;
 }
 
+// 0x0062A620
+int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc* pPlayer, int nValue)
+{
+    int nResult = nValue;
+
+    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
+    {
+        switch (pPlayer->dwClassId)
+        {
+        case PCLASS_SORCERESS:
+        case PCLASS_NECROMANCER:
+        case PCLASS_DRUID:
+            nResult = 2 * nValue;
+            break;
+        case PCLASS_AMAZON:
+        case PCLASS_PALADIN:
+        case PCLASS_ASSASSIN:
+            nResult = nValue + (nValue >> 1);
+            break;
+        }
+    }
+
+    return nResult;
+}
+
 // 0x0062A670
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem)
 {
@@ -2340,7 +2508,7 @@ int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* hItem)
     return (nLength << 8) / (nAnimSpeed * nSpeed / 100);
 }
 
-inline D2SetItemsTxt* ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem)
+inline D2SetItemsTxt* ITEMS_GetSetItemsTxtRecordFromItem_Inl(D2UnitStrc* pItem)
 {
     const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_ITEM && ITEMS_GetItemQualityInline(pItem) == ITEMQUAL_SET)
@@ -2552,7 +2720,7 @@ void __fastcall ITEMS_WriteBitsToBitstream(int nBits, unsigned int nData, D2BitB
 // 0x0062B3A0
 int __stdcall ITEMS_GetNoOfSetItemsFromItem(D2UnitStrc* pItem)
 {
-    if (D2SetItemsTxt* pSetItemsTxtRecord = ITEMS_GetSetItemsTxtRecordFromItem(pItem))
+    if (D2SetItemsTxt* pSetItemsTxtRecord = ITEMS_GetSetItemsTxtRecordFromItem_Inl(pItem))
     {
         return pSetItemsTxtRecord->nSetItems;
     }
@@ -2621,6 +2789,40 @@ static void __stdcall sub_0062B450_GetSocketedStatBonus(int nStatId, int* pValue
             }
         }
     }
+}
+
+// 0x0062B4D0
+int __stdcall ITEMS_GetQuestFromItemId(int nItemId)
+{
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+
+    if (!ITEMS_CheckItemTypeIdByItemId(nItemId, 50) && !ITEMS_CheckItemTypeIdByItemId(nItemId, 45))
+    {
+        return 0;
+    }
+
+    if (pItemsTxtRecord->dwUberCode != pItemsTxtRecord->dwCode && pItemsTxtRecord->dwUltraCode != pItemsTxtRecord->dwCode)
+    {
+        return 0;
+    }
+
+    struct D2ItemsTxt* pRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+    D2_ASSERT(pRecord, 1677);
+    if (pRecord->wType[0] == 38)
+    {
+        return 0;
+    }
+
+    return !pItemsTxtRecord->nQuest;
+}
+
+// 0x0062B560
+int __stdcall ITEMS_GetQuest(D2UnitStrc* pItem)
+{
+    D2_ASSERT(pItem, 1932);
+    D2_ASSERT(pItem->dwUnitType == 4, 1933);
+
+    return ITEMS_GetQuestFromItemId(pItem->dwClassId);
 }
 
 // 0x0062BA60
@@ -2844,6 +3046,39 @@ int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem)
     return 0;
 }
 
+// 0x0062C850
+int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
+{
+    if ((!pItem1 ? -1 : pItem1->dwClassId) != (!pItem2 ? -1 : pItem2->dwClassId))
+    {
+        return 0;
+    }
+
+    if (ITEMS_QUALITY_INLINE(pItem1) != ITEMS_QUALITY_INLINE(pItem2))
+    {
+        return 0;
+    }
+
+    if (ITEMS_GetFileIndex(pItem1) != ITEMS_GetFileIndex(pItem2)
+        || !ITEMS_CheckIfStackable(pItem1)
+        || ITEMS_IsEthereal(pItem1) != ITEMS_IsEthereal(pItem2)
+        || !sub_0062A2F0_IsPlainQuality(ITEMS_GetItemQuality(pItem1))
+        || !sub_0062A2F0_IsPlainQuality(ITEMS_GetItemQuality(pItem2))
+        || STATLIST_UnitGetStatValue(pItem1, STAT_MINDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_MINDAMAGE, 0)
+        || STATLIST_UnitGetStatValue(pItem1, STAT_MAXDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_MAXDAMAGE, 0)
+        || STATLIST_UnitGetStatValue(pItem1, STAT_SECONDARY_MINDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_SECONDARY_MINDAMAGE, 0)
+        || STATLIST_UnitGetStatValue(pItem1, STAT_SECONDARY_MAXDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_SECONDARY_MAXDAMAGE, 0)
+        || STATLIST_UnitGetStatValue(pItem1, STAT_ITEM_THROW_MINDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_ITEM_THROW_MINDAMAGE, 0)
+        || STATLIST_UnitGetStatValue(pItem1, STAT_ITEM_THROW_MAXDAMAGE, 0) != STATLIST_UnitGetStatValue(pItem2, STAT_ITEM_THROW_MAXDAMAGE, 0)
+        || (unsigned char)ITEMS_GetSockets(pItem1) > 0
+        || (unsigned char)ITEMS_GetSockets(pItem2) > 0)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
 // calling-convention shim (not game code)
 void __stdcall sub_K14_EmitReadStat(D2BitBufferStrc* pBuffer, D2StatListStrc* pStatList, int nStatId, D2ItemStatCostTxt* pItemStatCostTxtRecord, int n109, unsigned int dwVersion)
 {
@@ -2910,7 +3145,7 @@ unsigned int __fastcall sub_M111_Emit_0062A960(D2BitBufferStrc* pBuffer, int nBi
     return sub_0062A960_ReadBits(pBuffer, nBits) + 1;
 }
 
-inline int ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag)
+inline int ITEMS_CheckItemFlagData_Inl(D2UnitStrc* pItem, unsigned int dwFlag)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem))
     {
@@ -3903,6 +4138,25 @@ int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     }
 
     return nTotal;
+}
+
+// 0x0062FF70
+int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
+{
+    if (!ITEMS_CanBeEquippedInline(pItem))
+        return FALSE;
+
+    if (!ITEMSIsA(pItem, ITEMTYPE_CHARM))
+        return FALSE;
+
+    D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem);
+    if (!pItemData)
+        return FALSE;
+
+    if (pItemData->nInvPage != INVPAGE_INVENTORY)
+        return FALSE;
+
+    return ITEMS_CheckRequirements(pItem, pPlayer, FALSE, 0, 0, 0) != 0;
 }
 
 // 0x006313E0
