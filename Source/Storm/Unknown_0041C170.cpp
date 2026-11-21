@@ -1,18 +1,14 @@
+#include "Storm.h"
 #define VALIDATEBEGIN int nValid = -1
 #define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return nValid; }
-
-struct D2MessageSourceStrc;
 
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void* hInstance, unsigned int uId, char* buffer, int length); // 0x006CC46C
 void* __fastcall StormGetInstance(); // 0x0041BEF0
 extern const char* gpszMessageFallback_006CF2F4[]; // 0x006CF2F4
 static const char* sub_0041C170_GetMessageText(int nIndex);
 
-struct D2MessageSourceStrc { unsigned short facility, padding; void* module; D2MessageSourceStrc* next; };
-
-
-extern D2MessageSourceStrc* gpSources_007790E8; // 0x007790E8
+extern D2StormMsgSourceStrc* gpSources_007790E8; // 0x007790E8
 extern int gnInitialized_007790EC; // 0x007790EC
 void __stdcall sub_0041C340_SetLastError(unsigned long); // 0x0041C340
 void __cdecl sub_0041C140_AppendExeMsgSources(); // 0x0041C140
@@ -46,14 +42,14 @@ int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long s
     VALIDATEEND;
     sub_0041C1A0_LockErrorState();
     if (!gnInitialized_007790EC) { gnInitialized_007790EC = 1; sub_0041C140_AppendExeMsgSources(); }
-    D2MessageSourceStrc* const head = gpSources_007790E8;
+    D2StormMsgSourceStrc* const head = gpSources_007790E8;
     unsigned int facility = (error >> 16) & 0xfff;
     void* module = 0;
     if (head) {
-        D2MessageSourceStrc* source = head;
+        D2StormMsgSourceStrc* source = head;
         do {
-            if (source->facility == (unsigned short)facility) { module = source->module; break; }
-            source = source->next;
+            if (source->wFacility == (unsigned short)facility) { module = source->hModule; break; }
+            source = source->pNext;
         } while (source);
     }
     sub_0041C1E0_UnlockErrorState();
