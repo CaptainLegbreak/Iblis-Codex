@@ -458,18 +458,6 @@ int __cdecl sub_00451330()
     return 1;
 }
 
-// 0x00451400
-void __cdecl sub_00451400_AddRecordChunk()
-{
-    D2MsgRecordChunkStrc* pChunk = (D2MsgRecordChunkStrc*)FOG_Alloc(sizeof(D2MsgRecordChunkStrc), ".\\GAME\\Record.cpp", 0x35, 0);
-    D2MsgRecordChunkStrc* pOld = gpMsgRecordChunk_0070F7A0;
-    pChunk->nCount = 0;
-    pChunk->nUnk0x1F44 = 0;
-    pOld->pNext = pChunk;
-    pChunk->pNext = 0;
-    gpMsgRecordChunk_0070F7A0 = pChunk;
-}
-
 // 0x00451940
 void __cdecl sub_00451940_InstallRecordHandler()
 {

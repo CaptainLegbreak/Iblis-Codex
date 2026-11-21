@@ -15766,11 +15766,6 @@
      "name": "?sub_00451330@@YAHXZ"
     },
     {
-     "va": "0x00451400",
-     "length": 67,
-     "name": "?sub_00451400_AddRecordChunk@@YAXXZ"
-    },
-    {
      "va": "0x00451940",
      "length": 26,
      "name": "?sub_00451940_InstallRecordHandler@@YAXXZ"
@@ -16508,6 +16503,11 @@
      "va": "0x00451260",
      "length": 39,
      "name": "?sub_00451260_RegisterLngArgument@@YAHXZ"
+    },
+    {
+     "va": "0x00451400",
+     "length": 67,
+     "name": "?sub_00451400_AddRecordChunk@@YAXXZ"
     },
     {
      "va": "0x004514B0",
