@@ -1,13 +1,8 @@
 #include "D2GameTypes.h"
+#include "D2CMP.h"
 #include "D2CmpTypes.h"
 #include "D2CmpCache.h"
 #include "D2CmpTiles.h"
-
-struct D2CmpByteMapStrc
-{
-    unsigned char ab[0x100];
-    int nCount;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
