@@ -66264,6 +66264,26 @@
      "va": "0x00598FA0",
      "length": 127,
      "name": "?ACT2Q1_UnitIterate_DetermineSkillBookDropCount@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00599130",
+     "length": 124,
+     "name": "?ACT2Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005991C0",
+     "length": 102,
+     "name": "?sub_005991C0_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00599230",
+     "length": 267,
+     "name": "?ACT2Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00599340",
+     "length": 210,
+     "name": "?ACT2Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -66285,38 +66305,6 @@
      "va": "0x00598980",
      "length": 5,
      "name": "?ACT3Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q1_00599130.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00599130",
-     "length": 124,
-     "name": "?ACT2Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00599230",
-     "length": 267,
-     "name": "?ACT2Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00599340",
-     "length": 210,
-     "name": "?ACT2Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q1_005991C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005991C0",
-     "length": 102,
-     "name": "?sub_005991C0_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
