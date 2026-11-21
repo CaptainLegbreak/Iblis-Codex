@@ -64,7 +64,11 @@ struct D2SmackStrc
 
 struct D2SmackRecordStrc
 {
-    void* hSmack; // 0x00
+    union
+    {
+        void* hSmack; // 0x00
+        D2SmackStrc* pSmack;
+    };
     unsigned char nType; // 0x04
     int nX; // 0x08
     int nY; // 0x0C

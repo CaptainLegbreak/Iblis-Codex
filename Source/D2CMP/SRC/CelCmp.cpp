@@ -34,7 +34,6 @@ struct D2CmpCacheNodeStrc;
 struct D2CmpCacheStrc;
 
 
-struct D2CmpCelFileStrc;
 
 struct D2CelBlockStrc;
 
@@ -406,18 +405,7 @@ int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 
 extern int gaDirectionIndex32[][32]; // 0x006E3A20
 
-struct D2CmpCelFileStrc
-{
-    int nVersion;
-    unsigned int dwFlags;
-    int nFormat;
-    int unk0x0C;
-    int nDirections;
-    int nFrames;
-    D2CmpCellStrc* pCells[1];
-};
-
-typedef void(__fastcall* CELFILECONVERTFN)(D2CmpCelFileStrc* pSource, D2CmpCelFileStrc* pTarget, int nArg1, int nArg2);
+typedef void(__fastcall* CELFILECONVERTFN)(D2CelFileStrc* pSource, D2CelFileStrc* pTarget, int nArg1, int nArg2);
 
 extern CELFILECONVERTFN gpfCelFileConvert[]; // 0x006E3690
 
@@ -2036,21 +2024,21 @@ int __stdcall sub_00600C70_GetDirectionIndex32(int nDirection, unsigned int nDir
 }
 
 // 0x00600EE0
-void __stdcall CelFileHalve(D2CmpCelFileStrc* hFile, int nUnused)
+void __stdcall CelFileHalve(D2CelFileStrc* hFile, int nUnused)
 {
     D2_ASSERT(hFile, 0x29C);
 }
 
 // 0x00600F10
-int __stdcall CelFileConvert24To8(D2CmpCelFileStrc* pFile, D2CmpCelFileStrc** ppTarget, int nArg1, int nArg2)
+int __stdcall CelFileConvert24To8(D2CelFileStrc* pFile, D2CelFileStrc** ppTarget, int nArg1, int nArg2)
 {
     D2_ASSERT(pFile->dwFlags & 4, 0x2AD);
-    const int nCells = pFile->nDirections * pFile->nFrames;
-    D2CmpCelFileStrc* pTarget = (D2CmpCelFileStrc*)FOG_Alloc(0x18 + nCells * sizeof(D2CmpCellStrc*), ".\\SRC\\CelCmp.cpp", 0x2B1, 0);
-    pTarget->nVersion = 6;
+    const int nCells = pFile->nDirections * pFile->nCelsPerDirection;
+    D2CelFileStrc* pTarget = (D2CelFileStrc*)FOG_Alloc(0x18 + nCells * sizeof(D2CmpCellStrc*), ".\\SRC\\CelCmp.cpp", 0x2B1, 0);
+    pTarget->dwVersion = 6;
     pTarget->dwFlags = pFile->dwFlags & ~7;
     pTarget->nDirections = pFile->nDirections;
-    pTarget->nFrames = pFile->nFrames;
+    pTarget->nCelsPerDirection = pFile->nCelsPerDirection;
     pTarget->nFormat = 0;
     gpfCelFileConvert[pFile->nFormat](pFile, pTarget, nArg1, nArg2);
     *ppTarget = pTarget;
@@ -2151,7 +2139,7 @@ void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile,
 }
 
 // 0x00601410
-void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pCelFile)
+void __stdcall sub_00601410_CelFileFree(D2CelFileStrc* pCelFile)
 {
     D2_ASSERT(pCelFile, 0x40D);
     FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
