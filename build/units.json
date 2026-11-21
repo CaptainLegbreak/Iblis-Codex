@@ -5701,6 +5701,10 @@
     {
      "va": "0x004157C0",
      "length": 283
+    },
+    {
+     "va": "0x0041A550",
+     "length": 806
     }
    ],
    "flags": [
@@ -6143,30 +6147,6 @@
      "length": 71,
      "name": "?sub_0041AA80_SetWindowFlag@@YGXPAXH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041A550.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0041A550",
-     "length": 806
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
