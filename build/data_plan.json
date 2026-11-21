@@ -5618,12 +5618,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005E0160.cpp": {
+  "Source/D2Game/Ai/AiThink4_005E0160.cpp": {
    "bytes": 8,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E0160.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0160.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -119165,7 +119165,7 @@
    "cname": "gData_006E34F0",
    "declared": true,
    "decorated": "?gnPetDirections_006E34F0@@3QBEB",
-   "file": "Source/D2Game/Unknown_005E0160.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E0160.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E34F0[8]; // 0x006E34F0",
