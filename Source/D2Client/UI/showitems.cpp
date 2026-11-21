@@ -1,10 +1,10 @@
 #include "D2Client.h"
+#include "D2Drlg.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 
-struct D2ActiveRoomStrc { char unknown00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2ItemLabelStrc { int nLeft,nTop,nRight,nBottom; D2UnitStrc* pItem; Unicode wszText[128]; int nFillColor,nDrawMode,nTextColor; };
 extern int gnItemLabelCount_007C54A0; // 0x007C54A0
 extern D2ItemLabelStrc gaItemLabels_007C54A8[32]; // 0x007C54A8
