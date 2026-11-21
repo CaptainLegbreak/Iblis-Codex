@@ -25521,6 +25521,22 @@
      "name": "?sub_00480EF0_MoveToPosition@@YIXPAUD2UnitStrc@@HHH@Z"
     },
     {
+     "va": "0x00481030",
+     "length": 685
+    },
+    {
+     "va": "0x004812E0",
+     "length": 275
+    },
+    {
+     "va": "0x00481400",
+     "length": 159
+    },
+    {
+     "va": "0x004814A0",
+     "length": 250
+    },
+    {
      "va": "0x00481780",
      "length": 29,
      "name": "?sub_00481780_GetPlayerLevelId@@YAHXZ"
@@ -25632,102 +25648,6 @@
     {
      "va": "0x00480810",
      "length": 288
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_00481030.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00481030",
-     "length": 685
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_004812E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004812E0",
-     "length": 275
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_00481400.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00481400",
-     "length": 159
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_004814A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004814A0",
-     "length": 250
     }
    ],
    "flags": [
