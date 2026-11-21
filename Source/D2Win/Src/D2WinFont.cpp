@@ -37,6 +37,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern int gnFontMetric2_0072E004; // 0x0072E004
 
+struct D2SplittedTextStrc
+{
+    Unicode* wszLine;
+    D2SplittedTextStrc* pNextLine;
+};
+
 // 0x00501650
 D2CharStrc* __fastcall sub_6F8AA100(unsigned short wChar)
 {
@@ -152,6 +158,24 @@ void __fastcall sub_005028A0_FreeTextLines(T0044CB60* pLines)
 void __fastcall sub_M98_Emit_005019C0(const Unicode* pText, int* pHeight, int nExtra)
 {
     *pHeight = sub_005019C0_GetTextHeight(pText) + nExtra;
+}
+
+// 0x005028E0
+D2SplittedTextStrc* __stdcall sub_005028E0_AllocSplitTextLine(const Unicode* wszText, int nLength, int bSkipSpace)
+{
+    const Unicode* pText = wszText;
+    D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\Src\\D2WinFont.cpp", 0x588, 0);
+    int nCount = nLength;
+    if (bSkipSpace && pText->wChar < 0x100 && isspace(pText->wChar))
+    {
+        nCount = nCount - 1;
+        pText = pText + 1;
+    }
+    pSplitText->wszLine = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nCount + 1), ".\\Src\\D2WinFont.cpp", 0x591, 0);
+    pSplitText->pNextLine = 0;
+    Unicode::strncpy(pSplitText->wszLine, pText, nCount);
+    pSplitText->wszLine[nCount].wChar = 0;
+    return pSplitText;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinFont.inc"
