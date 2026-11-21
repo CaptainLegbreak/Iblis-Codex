@@ -2494,9 +2494,34 @@
      "name": "?sub_00435030_ChangePasswordOk@@YGHH@Z"
     },
     {
+     "va": "0x00435200",
+     "length": 33,
+     "name": "?sub_00435200_RunSlot70@@YGHH@Z"
+    },
+    {
+     "va": "0x00435CD0",
+     "length": 56,
+     "name": "?sub_00435CD0_SelectMode0@@YGHH@Z"
+    },
+    {
+     "va": "0x00435D10",
+     "length": 23,
+     "name": "?sub_00435D10_SelectMode3@@YGHH@Z"
+    },
+    {
+     "va": "0x00435D30",
+     "length": 23,
+     "name": "?sub_00435D30_SelectMode1@@YGHH@Z"
+    },
+    {
      "va": "0x00435D50",
      "length": 39,
      "name": "sub_00435D50"
+    },
+    {
+     "va": "0x00435D80",
+     "length": 117,
+     "name": "?sub_00435D80_SelectMode2@@YGHH@Z"
     },
     {
      "va": "0x004361B0",
@@ -11446,37 +11471,6 @@
      "va": "0x00436F20",
      "length": 13,
      "name": "?sub_00436F20_OnEditChange@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_00435200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00435200",
-     "length": 33,
-     "name": "?sub_00435200_RunSlot70@@YGHH@Z"
-    },
-    {
-     "va": "0x00435CD0",
-     "length": 56,
-     "name": "?sub_00435CD0_SelectMode0@@YGHH@Z"
-    },
-    {
-     "va": "0x00435D10",
-     "length": 23,
-     "name": "?sub_00435D10_SelectMode3@@YGHH@Z"
-    },
-    {
-     "va": "0x00435D30",
-     "length": 23,
-     "name": "?sub_00435D30_SelectMode1@@YGHH@Z"
-    },
-    {
-     "va": "0x00435D80",
-     "length": 117,
-     "name": "?sub_00435D80_SelectMode2@@YGHH@Z"
     }
    ]
   },

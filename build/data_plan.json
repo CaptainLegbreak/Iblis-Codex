@@ -743,8 +743,6 @@
     "extern \"C\" void __cdecl sub_00434DD0_ClearAndLeave(); // 0x00434DD0",
     "extern \"C\" void __cdecl sub_00434E00_CheckFreeSpace(); // 0x00434E00",
     "extern \"C\" void __cdecl sub_00435020_Callback(); // 0x00435020",
-    "extern \"C\" void __cdecl sub_00435200_RunSlot70(); // 0x00435200",
-    "extern \"C\" void __cdecl sub_00435D80_SelectMode2(); // 0x00435D80",
     "extern \"C\" void __cdecl sub_00435E00_Back(); // 0x00435E00",
     "extern \"C\" void __cdecl sub_00436270_OnShowLogin(); // 0x00436270",
     "extern \"C\" void __cdecl sub_00436280_ConnectOk(); // 0x00436280",
@@ -19081,7 +19079,7 @@
     [
      164,
      "0x00435D80",
-     "names.json",
+     "owner",
      "sub_00435D80_SelectMode2",
      0,
      "func"
@@ -19332,7 +19330,7 @@
     [
      596,
      "0x00435200",
-     "names.json",
+     "owner",
      "sub_00435200_RunSlot70",
      0,
      "func"
