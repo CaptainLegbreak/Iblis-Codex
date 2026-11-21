@@ -189,7 +189,7 @@ int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBuff
     return 1;
 }
 
-#include "gen/data/Source/D2Game/Unknown_0052B920.inc"
+#include "gen/data/Source/D2Net/Unknown_0052B920.inc"
 
 static inline const char* NextString(const char* szString)
 {

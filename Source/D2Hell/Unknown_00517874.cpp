@@ -1,4 +1,3 @@
-#include "Bnclient.h"
 
 struct CERT_CONTEXT;
 struct GUID;

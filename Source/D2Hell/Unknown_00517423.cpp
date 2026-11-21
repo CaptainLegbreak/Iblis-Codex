@@ -1,4 +1,3 @@
-#include "Bnclient.h"
 #include "D2StormLink.h"
 
 #define D2_IMPORT __declspec(dllimport)
@@ -30,7 +29,7 @@ int __fastcall FaultDoAssert(const char* a1, unsigned int a2, const char* a3)
     return buttonID == 4;
 }
 
-#include "gen/data/Source/Bnclient/Unknown_00517423.inc"
+#include "gen/data/Source/D2Hell/Unknown_00517423.inc"
 
 // 0x005174B8
 void D2StormLinkStrc::sub_005174B8_Clear()

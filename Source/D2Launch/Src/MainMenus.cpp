@@ -398,10 +398,6 @@ extern char gKey_0070CD54; // 0x0070CD54
 
 void __cdecl sub_0043B080_InitCharSelectScreen(); // 0x0043B080
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 extern void (__cdecl* gpfnGatewayDone_007795BC)(); // 0x007795BC
 
 int __cdecl sub_00449C10(); // 0x00449C10

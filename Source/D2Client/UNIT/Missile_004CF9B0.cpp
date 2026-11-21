@@ -11,10 +11,6 @@ struct D2MissilesTxt;
 struct D2SkillsTxt;
 union D2SeedStrc;
 
-#pragma pack(push, 4)
-
-#pragma pack(pop)
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gaRing5OffsetX_006DB0EC[]; // 0x006DB0EC
 extern const int gaRing5OffsetY_006DB0D8[]; // 0x006DB0D8

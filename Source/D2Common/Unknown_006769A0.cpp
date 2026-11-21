@@ -3,10 +3,6 @@
 #include "D2DrlgPresets.h"
 typedef unsigned __int64 uint64_t;
 
-#pragma pack(push, 4)
-
-#pragma pack(pop)
-
 static __forceinline uint64_t SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     uint64_t lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;

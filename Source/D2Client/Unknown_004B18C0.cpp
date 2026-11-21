@@ -12,10 +12,6 @@ struct D2UnitStrc;
 struct Unicode;
 struct D2NpcMenuSlotStrc;
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_0049E7E0_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 unsigned short __fastcall sub_004B1830_GetFreeStringId(unsigned short wStringId); // 0x004B1830

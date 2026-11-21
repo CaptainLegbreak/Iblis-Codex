@@ -23,10 +23,6 @@ struct D2Storm416A90Strc;
 
 
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
 

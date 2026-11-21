@@ -26,4 +26,4 @@ char* D2StormListStrc::sub_00517669_NewNode(unsigned int linkType,unsigned int e
  return (char*)record;
 }
 
-#include "gen/data/Source/Bnclient/Unknown_00517669.inc"
+#include "gen/data/Source/D2Hell/Unknown_00517669.inc"

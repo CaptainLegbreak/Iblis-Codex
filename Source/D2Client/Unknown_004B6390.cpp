@@ -13,9 +13,6 @@ struct D2GSPacketSrv2A
 };
 #pragma pack(pop)
 
-#pragma pack(push, 2)
-#pragma pack(pop)
-
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480

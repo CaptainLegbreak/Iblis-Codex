@@ -27,10 +27,6 @@ struct D2HotkeyCommandStrc
     int nModeFlag;
 };
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
-
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -105,6 +101,8 @@ typedef void (__cdecl* D2HotkeyCallback)();
 #pragma pack(push, 1)
 
 struct D2KeyBindingStrc { int nAction; unsigned short nKey; char unk_06[4]; };
+
+#pragma pack(pop)
 
 struct D2HotkeyActionStrc { D2HotkeyCallback pfnCallback; int bAllowed; int f_8; };
 

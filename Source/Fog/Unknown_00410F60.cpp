@@ -57,7 +57,7 @@ unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits
     return dwValue;
 }
 
-#include "gen/data/Source/Storm/Unknown_00410F60.inc"
+#include "gen/data/Source/Fog/Unknown_00410F60.inc"
 
 // 0x004112C0
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString)

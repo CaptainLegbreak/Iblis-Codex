@@ -472,10 +472,6 @@ char gszText_00798F60[28]; // 0x00798F60
 
 char gszText_00799294[4]; // 0x00799294
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 
 unsigned int __stdcall sub_00414150_HashPath(const char* szPath);                                           // 0x00414150

@@ -6,9 +6,6 @@ struct D2HotkeyCommandStrc
     int nModeFlag;
 };
 
-#pragma pack(push, 2)
-#pragma pack(pop)
-
 #define NUM_HOTKEYS 114
 #define HOTKEY_COMMAND_LIMIT 0x38
 #define KEY_WHEEL_UP 0x103

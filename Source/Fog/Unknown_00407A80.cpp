@@ -128,4 +128,4 @@ bool crashy::Report::sub_00407A80_WriteInspectorHeader()
     return true;
 }
 
-#include "gen/data/Source/Storm/Unknown_00407A80.inc"
+#include "gen/data/Source/Fog/Unknown_00407A80.inc"

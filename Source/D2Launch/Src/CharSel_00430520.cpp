@@ -5,10 +5,6 @@
 
 struct SMSGHANDLER_PARAMS;
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
 struct D2CompositeUnitStrc;
 
 struct D2CelFileStrc;

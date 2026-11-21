@@ -164,10 +164,6 @@ struct D2SpawnAreaStrc;
 
 struct D2UnitStrc;
 
-#pragma pack(push, 4)
-
-#pragma pack(pop)
-
 extern const char gszAiBaal[]; // 0x006E3580
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc*,D2UnitStrc*); // 0x006416D0
