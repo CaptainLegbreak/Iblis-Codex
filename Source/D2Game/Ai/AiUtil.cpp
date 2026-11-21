@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Drlg.h"
 #include "D2UnitData.h"
@@ -295,7 +296,6 @@ enum D2C_F41AiUtilConstants
     MONTYPEFLAG_UNIQUE_SUPERUNIQUE = 10,
     STATE_UNINTERRUPTABLE = 54,
     STATE_TERROR = 56,
-    SKILL_TERROR = 77,
     AISPECIALSTATE_TERROR = 11,
     EVENTTYPE_AITHINK = 2,
 };
@@ -345,9 +345,6 @@ void __fastcall sub_6FCF20E0(D2UnitStrc* pUnit, void* pArg, void* ppUnit); // 0x
 
 D2UnitStrc* __stdcall sub_005DCEE0_FindPlayerTargetInAdjacentRooms(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfCallback); // 0x005DCEE0
 
-enum
-{
-};
 
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);       // 0x005A7C20
 

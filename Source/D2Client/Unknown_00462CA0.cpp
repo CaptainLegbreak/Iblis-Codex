@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2UnitData.h"
@@ -295,7 +296,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(int* pUseState, D2SkillStrc** pp
     if (nUseState > 0 && (nUseState <= 2 || nUseState == 4)
         && (pSkillsTxt->nFlags[3] & gdwBitMasks[4]))
     {
-        *ppSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0);
+        *ppSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_ATTACK);
         nUseState = sub_004D9FC0_GetSkillUseState(pUnit, *ppSkill);
     }
 

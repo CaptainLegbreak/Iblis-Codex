@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -14,7 +15,6 @@ enum D2C_P11AiConstants
 {
     AISPECIALSTATE_NONE = 0,
     EVENTTYPE_AITHINK = 2,
-    SKILL_IMPREGNATE = 300,
     STATE_POISON = 2,
     STAT_POISONRESIST = 45,
     MONSTER_VILEMOTHER1 = 0x12A,

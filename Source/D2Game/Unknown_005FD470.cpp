@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -50,19 +51,19 @@ int __fastcall sub_005FD470(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
 {
     D2SkillsTxt* pSkillsTxt = GetSkillsRecord(nSkillId);
     if (!pSkillsTxt) return 0;
-    if (nSkillId == 167) return 0;
+    if (nSkillId == SKILL_NEST) return 0;
     if (pSkillsTxt->nFlags[0] & gdwBitMasks[0])
     {
         if (!UnitHasFlag(pTarget, 2)) return 0;
         const int nPattern = PATH_GetUnitCollisionPattern(pTarget);
         return !COLLISION_CheckAnyCollisionWithPattern(UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), nPattern, 0x3C01);
     }
-    if (nSkillId == 164) return pTarget != 0;
+    if (nSkillId == SKILL_ANDRIALSPRAY) return pTarget != 0;
     if (pSkillsTxt->wSrvDoFunc != 77 && pSkillsTxt->wSrvDoFunc != 78)
     {
-    if (nSkillId == 199)
+    if (nSkillId == SKILL_DIABPRISON)
             return sub_6FC6A810(pGame, UNITS_GetRoom(pTarget), 0, 0, pTarget, 340, 1);
-        if (nSkillId == 184)
+        if (nSkillId == SKILL_MONTELEPORT)
         {
             if (!pUnit) return 0;
             D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
@@ -80,7 +81,7 @@ int __fastcall sub_005FD470(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
             const int nUnitY = CLIENTS_GetUnitY(pUnit);
             return sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0xC01) != 0;
         }
-        if (nSkillId == 203)
+        if (nSkillId == SKILL_DESERTTURRET)
         {
             if (!pUnit) return 0;
             D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);

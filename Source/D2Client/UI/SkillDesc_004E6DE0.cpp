@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -1338,12 +1339,12 @@ void __fastcall sub_004EB460_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSk
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     int nMin = pItemsTxtRecord->nMinDam;
     int nMax = pItemsTxtRecord->nMaxDam;
-    D2SkillStrc* pThrowSkill = SKILLS_GetSkillById(pUnit, 0x75, -1);
+    D2SkillStrc* pThrowSkill = SKILLS_GetSkillById(pUnit, SKILL_HOLYSHIELD, -1);
     if (pThrowSkill && STATES_CheckState(pUnit, 0x65))
     {
         const int nLevel = SKILLS_GetSkillLevel(pUnit, pThrowSkill, 1);
-        nMin += SKILLS_GetMinPhysDamage(pUnit, 0x75, nLevel, 1) >> 8;
-        nMax += SKILLS_GetMaxPhysDamage(pUnit, 0x75, nLevel, 1) >> 8;
+        nMin += SKILLS_GetMinPhysDamage(pUnit, SKILL_HOLYSHIELD, nLevel, 1) >> 8;
+        nMax += SKILLS_GetMaxPhysDamage(pUnit, SKILL_HOLYSHIELD, nLevel, 1) >> 8;
     }
 
     int nColor = 0;

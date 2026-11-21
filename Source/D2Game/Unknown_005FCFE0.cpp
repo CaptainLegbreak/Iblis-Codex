@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -371,19 +372,19 @@ static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSki
     }
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, szAiBaalCpp_006E3580, 0x131);
-    if (nSkillId == 0x3B || nSkillId == 0x38)
+    if (nSkillId == SKILL_BLIZZARD || nSkillId == SKILL_METEOR)
     {
         return 1;
     }
 
-    if (nSkillId == 0x33)
+    if (nSkillId == SKILL_FIREWALL)
     {
         if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 3)
         {
             return 1;
         }
     }
-    else if (nSkillId == 0x1B)
+    else if (nSkillId == SKILL_IMMOLATIONARROW)
     {
         if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 7)
         {
@@ -408,19 +409,19 @@ static int AI_CheckSpecialSkillsOnPrimeEvil(D2UnitStrc* pUnit)
     if (pSkill)
     {
         const int nSkillId = AIBAAL_GetSkillId_Inline(pSkill);
-        if (nSkillId == 0x3B || nSkillId == 0x38)
+        if (nSkillId == SKILL_BLIZZARD || nSkillId == SKILL_METEOR)
         {
             return 1;
         }
 
-        if (nSkillId == 0x33)
+        if (nSkillId == SKILL_FIREWALL)
         {
             if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 3)
             {
                 return 1;
             }
         }
-        else if (nSkillId == 0x1B)
+        else if (nSkillId == SKILL_IMMOLATIONARROW)
         {
             if (SKILLS_GetSkillLevel(pUnit, pSkill, 1) > 7)
             {

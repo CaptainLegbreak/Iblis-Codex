@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -297,11 +298,11 @@ int __fastcall sub_004F0F30_CltSkillMonMissile(D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     }
 
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0x126);
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_VINEATTACK);
     if (!pSkill)
     {
-        SKILLS_AssignSkill(pUnit, 0x126, 1, 0, szSkillsEMonCpp_006DBF90, 0x35C);
-        pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0x126);
+        SKILLS_AssignSkill(pUnit, SKILL_VINEATTACK, 1, 0, szSkillsEMonCpp_006DBF90, 0x35C);
+        pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_VINEATTACK);
         if (!pSkill)
         {
             return 0;

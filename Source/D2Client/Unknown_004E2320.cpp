@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2TxtItems.h"
@@ -234,7 +235,7 @@ D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     if (pPath && sub_006505C0_TestPathFlag8(pPath))
     {
-        const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0xAD), 1);
+        const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_SPIDERLAY), 1);
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
         nX = UNITS_GetUnitXPosition(pUnit);
         nY = UNITS_GetUnitYPosition(pUnit);

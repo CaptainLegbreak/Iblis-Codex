@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Win.h"
 #include "D2StormTypes.h"
@@ -312,11 +313,11 @@ int __fastcall sub_005C33D0_GetSkillValue(int nSkillId)
 {
     switch (nSkillId)
     {
-    case 0x17:
+    case SKILL_PENETRATE:
         return 0xA;
-    case 0x1B:
+    case SKILL_IMMOLATIONARROW:
         return 0xC;
-    case 0x38:
+    case SKILL_METEOR:
         return 0xB;
     }
     return 0;

@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -2783,7 +2784,7 @@ int __fastcall sub_6FD150A0(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2UnitStrc* h
     SUNIT_SetCombatMode(ptGame, pUnit, 1);
     UNITS_SetUsedSkill(pUnit, 0);
 
-    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, 0, -1);
+    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, SKILL_ATTACK, -1);
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:

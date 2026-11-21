@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
@@ -396,9 +397,6 @@ int __stdcall MONSTERS_IsPrimeEvil(D2UnitStrc* pMonster); // 0x0063EDC0
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
-enum
-{
-};
 
 struct D2ActiveRoomViewStrc
 {
@@ -2088,12 +2086,12 @@ static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2Cli
 
     if (ITEMSIsA(pRightHand, 0x2D) && ITEMSIsA(pLeftHand, 0x2D))
     {
-        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, 0, -1);
+        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, SKILL_ATTACK, -1);
         if (!SKILLS_GetParam4(pSkill))
         {
             pArgs->nSkillId = 5;
             SKILLS_SetParam4(pSkill, 5);
-            pSkill = SKILLS_GetSkillById(pUnit, 5, -1);
+            pSkill = SKILLS_GetSkillById(pUnit, SKILL_LEFTHANDSWING, -1);
         }
         else
         {

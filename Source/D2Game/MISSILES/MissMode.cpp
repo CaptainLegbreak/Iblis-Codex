@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -73,7 +74,6 @@ struct D2UnkFieldsStrc
 enum D2MiscConstants
 {
     EVENTTYPE_MONUMOD = 7,
-    SKILL_MONTELEPORT = 184,
     MONSTER_SANDLEAPER1 = 78,
     STATE_FREEZE = 1,
     STATE_BLAZE = 13,
@@ -6249,7 +6249,7 @@ int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamS
                     STATLIST_AddUnitStat(pUnit, STAT_HITPOINTS, nHeal, 0);
                 }
 
-                AITACTICS_UseSkill(pGame, pUnit, 4, 184, 0, nX, nY);
+                AITACTICS_UseSkill(pGame, pUnit, 4, SKILL_MONTELEPORT, 0, nX, nY);
                 return 1;
             }
         }

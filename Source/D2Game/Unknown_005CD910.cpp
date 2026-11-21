@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -335,7 +336,7 @@ D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitSt
             const unsigned char nLayDirection = spiderLayDirections[sub_0063E7A0_GetByteTableEntry(sub_00648810(pPath))];
             sub_0063E7E0_GetDirectionDelta(nLayDirection, &nXOffset, &nYOffset);
         }
-        const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 173), 1);
+        const int nSkillLevel = SKILLS_GetSkillLevel(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_SPIDERLAY), 1);
         const int nUnitX = UNITS_GetXPositionInline(pUnit);
         const int nUnitY = UNITS_GetYPositionInline(pUnit);
         const int nX = nUnitX + nXOffset;

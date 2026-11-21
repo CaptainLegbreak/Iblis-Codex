@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -13,8 +14,6 @@
 #include "D2UnitData.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
-
-#define SKILL_DIMVISION 71
 
 #define UNITFLAG_SKSRVDOFUNC 0x40
 
@@ -786,11 +785,11 @@ int __fastcall sub_005C33D0_GetSkillValue(int nSkillId)
 {
     switch (nSkillId)
     {
-    case 0x17:
+    case SKILL_PENETRATE:
         return 0xA;
-    case 0x1B:
+    case SKILL_IMMOLATIONARROW:
         return 0xC;
-    case 0x38:
+    case SKILL_METEOR:
         return 0xB;
     }
     return 0;
@@ -1974,7 +1973,7 @@ static int __stdcall sub_005C5430_MoveRevivedTarget(D2GameStrc* pGame, D2UnitStr
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, 8, 0);
     if (UNITS_GetRightSkill(pTarget))
     {
-        SKILLS_SetRightActiveSkill(pTarget, 0, -1);
+        SKILLS_SetRightActiveSkill(pTarget, SKILL_ATTACK, -1);
     }
     return sub_6FCBDFE0(pGame, pTarget, pRoom, tCoords.nX, tCoords.nY, 0, 0);
 }

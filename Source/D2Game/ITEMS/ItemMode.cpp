@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameAux.h"
@@ -1101,8 +1102,8 @@ void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGam
                         nNewValue = 0;
                         if (SKILLS_GetSkillLevel(pUnit, pSkill, 1)) return;
                     }
-                    if (UNITS_GetLeftSkill(pUnit) == pSkill) D2GAME_AssignSkill_6FD13800(pUnit, 1, 0, -1);
-                    if (UNITS_GetRightSkill(pUnit) == pSkill) D2GAME_AssignSkill_6FD13800(pUnit, 0, 0, -1);
+                    if (UNITS_GetLeftSkill(pUnit) == pSkill) D2GAME_AssignSkill_6FD13800(pUnit, 1, SKILL_ATTACK, -1);
+                    if (UNITS_GetRightSkill(pUnit) == pSkill) D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_ATTACK, -1);
                     if (nNewValue) SKILLS_AssignSkill(pUnit, nSkillId, 0, 1, ".\\ITEMS\\ItemMode.cpp", 282);
                 }
             }
@@ -1381,12 +1382,12 @@ static int __stdcall sub_0055C110_UpdateBookScrollSkillQuantity(int bAddQuantity
             {
                 if (UNITS_GetLeftSkill(pUnit) == hSkill)
                 {
-                    D2GAME_AssignSkill_6FD13800(pUnit, 1, 0, -1);
+                    D2GAME_AssignSkill_6FD13800(pUnit, 1, SKILL_ATTACK, -1);
                 }
 
                 if (UNITS_GetRightSkill(pUnit) == hSkill)
                 {
-                    D2GAME_AssignSkill_6FD13800(pUnit, 0, 0, -1);
+                    D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_ATTACK, -1);
                 }
             }
 
@@ -1651,7 +1652,7 @@ static void sub_0055C5C0_RefreshSkillsForEquippedWeapons(D2UnitStrc* pUnit)
     if (bThrown && !sub_0055C560_IsThrowSkillUsable(pUnit, pLeftSkill))
     {
         UNITS_InitLeftSkill(pUnit);
-        D2GAME_AssignSkill_6FD13800(pUnit, 1, 2, -1);
+        D2GAME_AssignSkill_6FD13800(pUnit, 1, SKILL_THROW, -1);
         pLeftSkill = UNITS_GetLeftSkill(pUnit);
     }
 
@@ -1668,7 +1669,7 @@ static void sub_0055C5C0_RefreshSkillsForEquippedWeapons(D2UnitStrc* pUnit)
     if (bThrown && !sub_0055C560_IsThrowSkillUsable(pUnit, pRightSkill))
     {
         UNITS_InitRightSkill(pUnit);
-        D2GAME_AssignSkill_6FD13800(pUnit, 0, 4, -1);
+        D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_LEFTHANDTHROW, -1);
         pRightSkill = UNITS_GetRightSkill(pUnit);
     }
 
@@ -2814,7 +2815,7 @@ static void __stdcall sub_0055E0D0_UseSkillQuantity(D2UnitStrc* pUnit, int nSkil
         {
             if (UNITS_GetRightSkill(pUnit) == pSkill)
             {
-                D2GAME_AssignSkill_6FD13800(pUnit, 0, 0, -1);
+                D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_ATTACK, -1);
             }
             nQuantity = 0;
         }
@@ -2847,7 +2848,7 @@ static __declspec(noinline) void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc
     D2_ASSERT(skill, 0xFC4);
     int quantity = SKILLS_GetQuantity(skill) - 1;
     if (quantity <= 0) {
-        if (UNITS_GetRightSkill(player) == skill) D2GAME_AssignSkill_6FD13800(player, 0, 0, -1);
+        if (UNITS_GetRightSkill(player) == skill) D2GAME_AssignSkill_6FD13800(player, 0, SKILL_ATTACK, -1);
         quantity = 0;
     }
     SKILLS_SetQuantity(skill, quantity);
@@ -2898,7 +2899,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* ptGame, D2UnitStr
             if (skill) {
                 int quantity = SKILLS_GetQuantity(skill) - 1;
                 if (quantity <= 0) {
-                    if (UNITS_GetRightSkill(hUnit) == skill) D2GAME_AssignSkill_6FD13800(hUnit, 0, 0, -1);
+                    if (UNITS_GetRightSkill(hUnit) == skill) D2GAME_AssignSkill_6FD13800(hUnit, 0, SKILL_ATTACK, -1);
                     quantity = 0;
                 }
                 SKILLS_SetQuantity(skill, quantity);
@@ -5213,7 +5214,7 @@ static void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc* 
         if (nQuantity <= 0)
         {
             if (UNITS_GetRightSkill(pUnit) == pSkill)
-                D2GAME_AssignSkill_6FD13800(pUnit, 0, 0, -1);
+                D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_ATTACK, -1);
             nQuantity = 0;
         }
         SKILLS_SetQuantity(pSkill, nQuantity);
@@ -5467,7 +5468,7 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int n
             {
                 if (UNITS_GetRightSkill(hUnit) == pSkill)
                 {
-                    D2GAME_AssignSkill_6FD13800(hUnit, 0, 0, -1);
+                    D2GAME_AssignSkill_6FD13800(hUnit, 0, SKILL_ATTACK, -1);
                 }
                 nQuantity = 0;
             }
@@ -6666,7 +6667,7 @@ int __fastcall PLRSAVE2_WriteIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPl
     D2UnitStrc* pIronGolem = sub_6FC7E8B0(pGame, pPlayer, 3, 1);
     D2UnitStrc* pGolemItem = 0;
     D2UnitStrc* pFirst;
-    if (pIronGolem && pIronGolem->dwClassId == 0x123 && SKILLS_GetSkillById(pPlayer, 0x5A, -1) && pIronGolem->pInventory
+    if (pIronGolem && pIronGolem->dwClassId == 0x123 && SKILLS_GetSkillById(pPlayer, SKILL_IRONGOLEM, -1) && pIronGolem->pInventory
         && (pFirst = INVENTORY_GetFirstItem(pIronGolem->pInventory)) != 0 && (pGolemItem = INVENTORY_UnitIsItem(pFirst)) != 0)
     {
         bHasIronGolem = 1;

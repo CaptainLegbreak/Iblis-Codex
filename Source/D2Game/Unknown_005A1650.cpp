@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -105,8 +106,8 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
 
     if (pUnit->dwClassId == 0x2C0)
     {
-        D2GAME_SetSkills_6FD14C60(pUnit, 0x7B, 20, 1);
-        D2GAME_AssignSkill_6FD13800(pUnit, 0, 0x7B, -1);
+        D2GAME_SetSkills_6FD14C60(pUnit, SKILL_CONVICTION, 20, 1);
+        D2GAME_AssignSkill_6FD13800(pUnit, 0, SKILL_CONVICTION, -1);
         return;
     }
 

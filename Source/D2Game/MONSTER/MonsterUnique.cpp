@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -41,8 +42,6 @@
 #define EVENTTYPE_AITHINK 2
 
 #define EVENTTYPE_MONUMOD 7
-
-#define SKILL_SELF_RESURRECT 293
 
 #define MONTYPEFLAG_RESURRECTED 8
 
@@ -282,10 +281,6 @@ struct D2SkillsTxt;
 
 typedef void(__fastcall* CurseCallbackFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel);
 
-enum
-{
-    SKILL_AMPLIFYDAMAGE = 0x42,
-};
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {

@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -227,7 +228,7 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
 
             D2ClientSkillCmdStrc tCmd;
             memset(&tCmd, 0, sizeof(tCmd));
-            tCmd.nSkillId = SKILLS_GetSkillIdFromSkill(SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, 1), ".\\UNIT\\UnitMode.cpp", 525);
+            tCmd.nSkillId = SKILLS_GetSkillIdFromSkill(SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, SKILL_KICK), ".\\UNIT\\UnitMode.cpp", 525);
             if (pUnit->dwClassId == 404)
             {
                 if (pUnit->dwAnimMode == 0)
@@ -239,7 +240,7 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
                         return;
                     }
 
-                    tCmd.nSkillId = SKILLS_GetSkillIdFromSkill(SKILLS_GetSkillById(pPlayer, 0, -1), ".\\UNIT\\UnitMode.cpp", 536);
+                    tCmd.nSkillId = SKILLS_GetSkillIdFromSkill(SKILLS_GetSkillById(pPlayer, SKILL_ATTACK, -1), ".\\UNIT\\UnitMode.cpp", 536);
                 }
             }
             else if (pUnit->dwClassId == 376)
@@ -259,7 +260,7 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
                         return;
                     }
 
-                    tCmd.nSkillId = SKILLS_GetSkillIdFromSkill(SKILLS_GetSkillById(pPlayer, 0, -1), ".\\UNIT\\UnitMode.cpp", 558);
+                    tCmd.nSkillId = SKILLS_GetSkillIdFromSkill(SKILLS_GetSkillById(pPlayer, SKILL_ATTACK, -1), ".\\UNIT\\UnitMode.cpp", 558);
                 }
             }
 

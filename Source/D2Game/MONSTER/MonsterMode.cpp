@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2LevelTxt.h"
 #include "D2Constants.h"
@@ -34,7 +35,6 @@ enum D2C_P08MonsterConstants
     STAT_MANADRAINMINDAM = 62,
     STAT_MANADRAINMAXDAM = 63,
     STATE_FREEZE = 1,
-    SKILL_SHADOWWARRIOR = 268,
     MISSILE_NOVA = 90,
     EVENTTYPE_MONUMOD = 7,
 };

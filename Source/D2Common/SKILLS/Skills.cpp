@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
@@ -1233,7 +1234,7 @@ int __fastcall sub_00643D00_GetSkillLevel(D2Owner00643D00Strc* pOwner, D2Skill00
         return pSkill->pSkillsTxt->nValue13;
     }
     const int nSkillId = pSkill->pSkillsTxt->nSkillId;
-    if (nSkillId == 199)
+    if (nSkillId == SKILL_DIABPRISON)
     {
         return 0;
     }
@@ -1385,7 +1386,7 @@ static __declspec(noinline) BOOL __stdcall sub_00643F80_CheckWeaponTypes(D2UnitS
 
     D2UnitStrc* pRightHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
     D2UnitStrc* pLeftHandItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (pSkillsTxtRecord->nSkillId == 4 || pSkillsTxtRecord->nSkillId == 5)
+    if (pSkillsTxtRecord->nSkillId == SKILL_LEFTHANDTHROW || pSkillsTxtRecord->nSkillId == SKILL_LEFTHANDSWING)
     {
         D2UnitStrc* pItem = INVENTORY_GetLeftHandWeapon(pInventory);
         if (pItem == pRightHandItem)
@@ -3907,7 +3908,7 @@ static void __stdcall sSkillsRemoveSkill(int nSkillId, int bDecrementAndCheckSki
     {
         if (nSkillId == pLeftSkill->pSkillsTxt->nSkillId && pLeftSkill->nOwnerGUID == -1)
         {
-            SKILLS_SetLeftActiveSkill(pUnit, 0, -1);
+            SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
         }
     }
 
@@ -3915,7 +3916,7 @@ static void __stdcall sSkillsRemoveSkill(int nSkillId, int bDecrementAndCheckSki
     {
         if (nSkillId == pRightSkill->pSkillsTxt->nSkillId && pRightSkill->nOwnerGUID == -1)
         {
-            SKILLS_SetRightActiveSkill(pUnit, 0, -1);
+            SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
         }
     }
 
@@ -4006,7 +4007,7 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
         {
             pSkill->dwSkillMode = (signed char)pSkillsTxtRecord->nMonAnim;
         }
-        else if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwClassId == 6 && nSkillId == 5)
+        else if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwClassId == 6 && nSkillId == SKILL_LEFTHANDSWING)
         {
             pSkill->dwSkillMode = 16;
         }
@@ -4101,12 +4102,12 @@ static __forceinline void SKILLS_RemoveChargedSkill(D2UnitStrc* pUnit, D2SkillLi
     const int nLeftSkillId = pLeftSkill->pSkillsTxt->nSkillId;
     if (nSkillId == nLeftSkillId && pLeftSkill->nOwnerGUID == nOwnerGUID)
     {
-        SKILLS_SetLeftActiveSkill(pUnit, 0, -1);
+        SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
     }
 
     if (nSkillId == nRightSkillId && pRightSkill->nOwnerGUID == nOwnerGUID)
     {
-        SKILLS_SetRightActiveSkill(pUnit, 0, -1);
+        SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
     }
 
     if (pSkillList->pUsedSkill && nSkillId == pSkillList->pUsedSkill->pSkillsTxt->nSkillId)
@@ -4295,7 +4296,7 @@ static __declspec(noinline) BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUn
 
     switch (pSkillsTxt->nSkillId)
     {
-    case 2:
+    case SKILL_THROW:
         bContinue = FALSE;
         if (!pInventory)
         {
@@ -4335,7 +4336,7 @@ static __declspec(noinline) BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUn
 
         return bContinue;
 
-    case 4:
+    case SKILL_LEFTHANDTHROW:
         bContinue = FALSE;
         if (!pInventory)
         {
@@ -4368,7 +4369,7 @@ static __declspec(noinline) BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUn
 
         return bContinue;
 
-    case 5:
+    case SKILL_LEFTHANDSWING:
         if (!pInventory || !UNITS_CanDualWield(pUnit))
         {
             return FALSE;
@@ -4817,7 +4818,7 @@ void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit)
     D2CharStatsTxt* pCharStatsTxtRecord = 0;
     int nClass = 0;
 
-    if (SKILLS_GetSkillInl(pUnit, 0, -1) == 0)
+    if (SKILLS_GetSkillInl(pUnit, SKILL_ATTACK, -1) == 0)
     {
         nClass = pUnit->dwClassId;
         if (nClass < 0 || nClass >= sgptDataTables->nCharStatsTxtRecordCount)
@@ -4831,7 +4832,7 @@ void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit)
             return;
         }
 
-        SKILLS_AddSkill(pUnit, 0);
+        SKILLS_AddSkill(pUnit, SKILL_ATTACK);
 
         for (int i = 0; i < 10; ++i)
         {
@@ -4845,12 +4846,12 @@ void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit)
 
     if (UNITS_GetLeftSkill(pUnit) == 0)
     {
-        SKILLS_SetLeftActiveSkill(pUnit, 0, -1);
+        SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
     }
 
     if (UNITS_GetRightSkill(pUnit) == 0)
     {
-        SKILLS_SetRightActiveSkill(pUnit, 0, -1);
+        SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
     }
 }
 

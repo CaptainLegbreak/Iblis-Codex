@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -38,7 +39,7 @@ int __fastcall sub_004F4EC0_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         const int nBaseId = MONSTERS_GetBaseIdInline_J03(pUnit->dwClassId);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == 0x10B && nSkillId == 0xA7)
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == 0x10B && nSkillId == SKILL_NEST)
         {
             sub_00470390(pUnit, 0x55, 2, 0, 0, 0, 0, 0);
             nResult = 0x54;

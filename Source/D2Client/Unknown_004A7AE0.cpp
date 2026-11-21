@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -280,7 +281,7 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
  if(player && player->pInventory) {
   D2InventoryStrc* inv=player->pInventory;
   switch(skills->nSkillId) {
-  case 4: {
+  case SKILL_LEFTHANDTHROW: {
    D2UnitStrc* hand=sub_0063BEF0_GetMainHand(inv);
    D2UnitStrc* item=sub_0063BDE0_GetBodyItem(inv,4);
    D2UnitStrc* other=sub_0063BDE0_GetBodyItem(inv,5);
@@ -290,7 +291,7 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
    }
    break;
   }
-  case 2: {
+  case SKILL_THROW: {
    D2UnitStrc* item=sub_0063BEF0_GetMainHand(inv);
    if(item && ITEMS_CheckIfThrowable(item) && ITEMS_CheckIfStackable(item)) {
     quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);goto draw;

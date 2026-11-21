@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2ItemsWorld.h"
 #include "D2Drlg.h"
@@ -73,7 +74,6 @@ enum
 
 enum
 {
-    SKILL_BAALMONSTERSPAWN = 286,
     OBJECT_BAALS_PORTAL_WORLDSTONECHAMBER = 563,
 };
 
@@ -228,9 +228,6 @@ enum
     MONTYPEFLAG_CHAMPION = 0x04,
 };
 
-enum
-{
-};
 
 enum
 {
@@ -432,8 +429,6 @@ enum D2C_F42AiConstants
     STATE_BAALTOSTAIRS_INVIS = 0x92,
     STAT_HITPOINTS = 6,
     STAT_POISONRESIST = 45,
-    SKILL_BAALTAUNT = 284,
-    SKILL_IMPREGNATE = 300,
     MONSTATSFLAGINDEX_LUNDEAD = 11,
 };
 
@@ -789,7 +784,6 @@ int __fastcall sub_005FD350_SpawnNearby(int nMonsterId, D2ActiveRoomStrc* pRoom,
 enum D2C_F41AiThinkConstants
 {
     MONSTER_EVILHUT = 528,
-    SKILL_NEST = 167,
 };
 
 struct D2HighPriestAiCallbackArgStrc
@@ -3420,8 +3414,8 @@ int __fastcall sub_005E8810_SelectBaalAction(D2AiControlStrc* pAi,D2UnitStrc* pU
         if(bVeryFar){nWeights[9]=20;nWeights[14]=60;}
         if(bPortal)nWeights[15]=15;
     }
-    if(sub_005FD470(pGame,pUnit,199,pTarget,0,0))nWeights[9]=0;
-    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,199,pPortal,0,0))nWeights[15]=0;
+    if(sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
+    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
     int* pWeight=nWeights;
     int nTotal=0;
     for(int n=17;n;--n)nTotal+=*pWeight++;
@@ -3538,8 +3532,8 @@ int __fastcall sub_005E9750_DiabloChooseAction(D2AiControlStrc* pAi,D2UnitStrc* 
         if(bVeryFar){nWeights[9]=20;nWeights[1]=60;}
         if(bPortal)nWeights[15]=15;
     }
-    if(sub_005FD470(pGame,pUnit,199,pTarget,0,0))nWeights[9]=0;
-    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,199,pPortal,0,0))nWeights[15]=0;
+    if(sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pTarget,0,0))nWeights[9]=0;
+    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,SKILL_DIABPRISON,pPortal,0,0))nWeights[15]=0;
     int* pWeight=nWeights;
     int nTotal=0;
     for(int n=17;n;--n)nTotal+=*pWeight++;
@@ -4055,7 +4049,7 @@ void __fastcall AITHINK_Fn103_InvisoPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     const int nX = CLIENTS_GetUnitXInline(pOwner) + SEED_RollLimitedRandomNumber_Inline(&pUnit->pSeed, 2 * nParam) - nParam;
     const int nY = CLIENTS_GetUnitYInline(pOwner) + SEED_RollLimitedRandomNumber_Inline(&pUnit->pSeed, 2 * nParam) - nParam;
 
-    AITACTICS_UseSkill(pGame, pUnit, 9, 0x124, 0, nX, nY);
+    AITACTICS_UseSkill(pGame, pUnit, 9, SKILL_TELEPORT2, 0, nX, nY);
     pAiControl->dwAiParam[0] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, 1);
 }
 
@@ -4324,17 +4318,17 @@ void __fastcall sub_005EAFA0_ShadowWarrior(D2GameStrc* game, D2UnitStrc* unit, D
     int chance = stats->wAiParam[2][game->nDifficulty] - 2 * count;
     chance = MINIMUM(MAXIMUM(chance, 5), 100);
     if (combat && (int)SEED_RollLimitedRandomNumber(&unit->pSeed, 100) < chance) {
-        selected = SKILLS_GetSkillById(unit, 0, -1);
+        selected = SKILLS_GetSkillById(unit, SKILL_ATTACK, -1);
         skillId = 0;
     }
     if (!sub_005EAD50(game, unit, owner, selected, skillId, combat, (D2Unk005EAD50ArgStrc*)tick)) {
         selected = selected == left ? right : left;
         int alternativeId = SKILLS_GetSkillIdFromSkill(selected, ".\\Ai\\AiThink4.cpp", 0xB79);
         if (!sub_005EAD50(game, unit, owner, selected, alternativeId, combat, (D2Unk005EAD50ArgStrc*)tick)) {
-            selected = SKILLS_GetSkillById(unit, 0, -1);
+            selected = SKILLS_GetSkillById(unit, SKILL_ATTACK, -1);
             if (!selected) {
                 SKILLS_AssignSkill(unit, 0, 1, 0, ".\\Ai\\AiThink4.cpp", 0xB81);
-                selected = SKILLS_GetSkillById(unit, 0, -1);
+                selected = SKILLS_GetSkillById(unit, SKILL_ATTACK, -1);
             }
         }
     }
@@ -4410,13 +4404,13 @@ void __fastcall sub_005EB490(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
 
     const int nParam = pAiControl->dwAiParam[2];
 
-    if (!SKILLS_GetSkillById(pUnit, 0, -1))
+    if (!SKILLS_GetSkillById(pUnit, SKILL_ATTACK, -1))
     {
         SKILLS_AssignSkill(pUnit, 0, 1, 0, ".\\Ai\\AiThink4.cpp", 3054);
     }
 
-    SKILLS_SetLeftActiveSkill(pUnit, 0, -1);
-    SKILLS_SetRightActiveSkill(pUnit, 0, -1);
+    SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
+    SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
 
     for (int i = 0; i < SKILLS_GetPlayerSkillCount(sub_00451F60_UnitClassId(pOwner)); ++i)
     {
@@ -4449,13 +4443,13 @@ void __fastcall sub_005EB5C0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
         pAiControl->dwAiParam[2] = SKILLS_GetSkillLevel(pOwner, pSkill, 1);
     }
 
-    if (!SKILLS_GetSkillById(pUnit, 0, -1))
+    if (!SKILLS_GetSkillById(pUnit, SKILL_ATTACK, -1))
     {
         SKILLS_AssignSkill(pUnit, 0, 1, 0, ".\\Ai\\AiThink4.cpp", 3101);
     }
 
-    SKILLS_SetLeftActiveSkill(pUnit, 0, -1);
-    SKILLS_SetRightActiveSkill(pUnit, 0, -1);
+    SKILLS_SetLeftActiveSkill(pUnit, SKILL_ATTACK, -1);
+    SKILLS_SetRightActiveSkill(pUnit, SKILL_ATTACK, -1);
 }
 
 // 0x005EB6D0

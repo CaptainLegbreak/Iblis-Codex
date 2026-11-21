@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
@@ -2775,7 +2776,7 @@ int __stdcall sub_00533F70_ReadHotkeySection(D2UnitStrc* pPlayer, const unsigned
         {
             nSkillId += 65;
         }
-        else if (nSkillId == 255)
+        else if (nSkillId == SKILL_DRAGONTALON)
         {
             nSkillId = -1;
         }

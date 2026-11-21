@@ -1,3 +1,4 @@
+#include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
@@ -22,8 +23,6 @@
 #define UPDATEUI_CLOSEALL 17
 
 #define UPDATEUI_OPENCUBE 21
-
-#define SKILL_FIREBALL 47
 
 #define STATE_SLOWED 24
 
@@ -308,7 +307,6 @@ int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 enum D2C_J10SkillItemConstants
 {
     MONTYPEFLAG_UNIQUE_CHAMPION = 12,
-    SKILL_HOWL = 130,
     DAMAGERESULTFLAG_GETHIT = 4,
     DAMAGEHITFLAG_0x20 = 0x20,
     SKILLSFLAGINDEX_ITEMTGTDO = 29,
@@ -2398,7 +2396,7 @@ int __fastcall sub_005C07A0_ReanimateMonster(D2GameStrc* pGame, int nUnusedRegis
     {
         D2ModeChangeStrc modeChange;
         MONSTERMODE_GetModeChangeInfo(pPet, 14, &modeChange);
-        UNITS_SetUsedSkill(pPet, SKILLS_GetSkillById(pPet, 158, -1));
+        UNITS_SetUsedSkill(pPet, SKILLS_GetSkillById(pPet, SKILL_SKELETONRAISE, -1));
         PATH_SetStepNum(pPet->pDynamicPath, 1);
         modeChange.pTargetUnit = 0;
         modeChange.nX = nX;
