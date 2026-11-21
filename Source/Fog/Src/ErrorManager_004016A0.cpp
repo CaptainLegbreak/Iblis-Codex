@@ -51,6 +51,7 @@ public:
     Report();                                                               // 0x00401070
     virtual ~Report();                                                      // 0x004010D0
     bool sub_00401100_Open(const char* szFileName);                         // 0x00401100
+    bool sub_004011F0_Close();                                              // 0x004011F0
     bool sub_00401210_IsOpen();                                             // 0x00401210
     bool sub_00401220_AddFile(const char* szPath, bool bCopy);              // 0x00401220
     int sub_00401380(const char* szFormat, ...);                            // 0x00401380
@@ -63,6 +64,7 @@ public:
     char m_aszLines[16][0x400];
 };
 }
+
 extern "C" __declspec(dllimport) void __stdcall RtlCaptureContext(D2ThreadContextStrc* pContext);             // 0x006CC290
 
 extern "C" __declspec(dllimport) void* __stdcall OpenThread(unsigned long dwDesiredAccess, int bInheritHandle, unsigned long dwThreadId); // 0x006CC27C
@@ -279,7 +281,6 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
-void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nFrames, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6); // 0x00403100
 
 bool __fastcall sub_00404560_UseWidePath(wchar_t* wszPath); // 0x00404560
 
@@ -471,6 +472,110 @@ extern const char* const gaszLanguageNames_00706618[];                          
 
 extern "C" const char gszUnknownUpper_006CCED8[];                                                           // 0x006CCED8
 
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
+bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
+
+int __fastcall sub_00406B20_AppendBackslash(char* szPath, size_t nSize);                                // 0x00406B20
+
+int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szPathA, const char* szPathB);                         // 0x00406DE0
+
+int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
+
+struct D2ThreadContextStrc;
+
+
+struct D2CrashSubmitInfoStrc
+{
+    const char* szName;
+    int nUnk04;
+    int nUnk08;
+    unsigned int dwFlags;
+    const char* apszLines[16];
+    int nLines;
+};
+
+
+typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
+
+extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pAddend);              // 0x006CC208
+
+extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend);              // 0x006CC204
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentThreadId();                               // 0x006CC20C
+
+void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7); // 0x00403070
+
+void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrintFn pfnPrint, void* pContext); // 0x004032F0
+
+void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId); // 0x00403A20
+
+void __fastcall sub_00407980_ReportPrint(void* pContext, const char* szText);                               // 0x00407980
+
+bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoStrc* pInfo);                // 0x00401790
+
+extern long volatile gnReportBusy_007076B8;                                                                 // 0x007076B8
+
+extern "C" const char gszCrashFile_006CD1C0[];                                                              // 0x006CD1C0
+
+extern "C" const char gszFmtSummary_006CD1E8[];                                                             // 0x006CD1E8
+
+extern "C" const char gszFmtLineNumber_006CD1CC[];                                                          // 0x006CD1CC
+
+extern "C" const char gszAssertionBegin_006CD170[];                                                         // 0x006CD170
+
+extern "C" const char gszAssertionEnd_006CD158[];                                                           // 0x006CD158
+
+extern "C" const char gszRegisters_006CD14C[];                                                              // 0x006CD14C
+
+extern "C" const char gszThreads_006CD140[];                                                                // 0x006CD140
+
+struct D2StackFrameStrc;
+
+struct D2ExceptionPointersStrc { void* pRecord; D2ThreadContextStrc* pContext; };
+
+struct D2CrashInputStrc
+{
+    const char* szSummary;
+    const char* szDetail;
+    D2StackFrameStrc* pFrames;
+    int nFrames;
+    int nSkip;
+    unsigned long dwThreadId;
+    D2ExceptionPointersStrc* pException;
+};
+
+void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader); // 0x00403100
+
+void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint,void* pContext); // 0x00402EE0
+
+unsigned long __cdecl sub_00401690_GetCurrentThreadId(); // 0x00401690
+
+void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nCode); // 0x004013C0
+
+bool __fastcall sub_00402820_WriteMiniDump(const char* szPath,const char* szComment,void* pExceptionPointers,unsigned long dwThreadId); // 0x00402820
+
+
+extern const char gszCrashSummary_006CD1A8[]; // 0x006CD1A8
+
+extern const char gszCrashDetail_006CD1A0[]; // 0x006CD1A0
+
+extern const char gszCrashNewline_006CD188[]; // 0x006CD188
+
+extern const char gszModules_006CD124[]; // 0x006CD124
+
+extern const char gszMore1_006CD108[]; // 0x006CD108
+
+extern const char gszMore2_006CD0F0[]; // 0x006CD0F0
+
+extern const char gszMore3_006CD0D4[]; // 0x006CD0D4
+
+extern const char gszMore4_006CD0C4[]; // 0x006CD0C4
+
+extern const char gszMinidump_006CD0B4[]; // 0x006CD0B4
+
+extern const char gszMore5_006CD09C[]; // 0x006CD09C
+
 // 0x00401000
 static int __cdecl sub_00401000_LocalTime(tm* pTm, const __int64* pTime)
 {
@@ -609,6 +714,16 @@ static bool __stdcall sub_00401640_GetThreadName(int threadId,char* output) {
  return true;
 }
 
+bool __fastcall EmitThreadName(int threadId,char* output) {
+ return sub_00401640_GetThreadName(threadId,output);
+}
+
+// 0x00401680
+int __cdecl sub_00401680()
+{
+    return gdwGlobal_00992B1C;
+}
+
 int D2ThreadContextStrc::sub_00405060_CaptureFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nSkipFrames)
 {
     D2ThreadContextStrc tContext;
@@ -739,7 +854,7 @@ void __cdecl sub_00401A70_SetMiniDumpThreadName()
 }
 
 // 0x00403070
-void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6, int nArg7)
+void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7)
 {
     D2StackFrameStrc aFrames[0x80];
     int nFrames = pThreadContext->sub_00405060_CaptureFrames(dwThreadId, aFrames, nArg7);
@@ -749,7 +864,7 @@ void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContex
         {
             nFrames = 0x80;
         }
-        sub_00403100_PrintFrames(dwThreadId, aFrames, nFrames, pfnPrint, pContext, nArg5, nArg6);
+        sub_00403100_PrintFrames(dwThreadId, aFrames, nFrames, pfnPrint, pContext, bSymbols, bHeader);
     }
 }
 
@@ -1287,6 +1402,52 @@ int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize)
     return SStrLen(szOutPath) == SStrLen(szPath);
 }
 
+static bool AppendPathSeparator_Inl(char* szPath, size_t nSize)
+{
+    if (!nSize)
+    {
+        return false;
+    }
+    const size_t nLength = SStrLen(szPath);
+    if (nLength > 0 && szPath[nLength - 1] == '\\')
+    {
+        return true;
+    }
+    if (nLength + 1 == nSize)
+    {
+        return false;
+    }
+    szPath[nLength] = '\\';
+    szPath[nLength + 1] = 0;
+    return true;
+}
+
+// 0x00406D30
+static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
+{
+    char szPath[0x104];
+    if (!nMaxLen)
+    {
+        return false;
+    }
+    D2_ASSERT(szOutPath, 68);
+    if (sub_004067D0_GetKnownFolderPathA(szOutPath, nMaxLen))
+    {
+        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
+        sub_00413800(szOutPath, "Diablo II", nMaxLen);
+    }
+    else
+    {
+        if (SHGetFolderPathA(0, 5, 0, 0, szPath))
+        {
+            return false;
+        }
+        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
+        sub_00413800(szOutPath, "Diablo II\\Save", nMaxLen);
+    }
+    return true;
+}
+
 // 0x00406DE0
 int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szDst)
 {
@@ -1336,6 +1497,55 @@ int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szSrc, const char* szD
     FindClose(hFind);
     RemoveDirectoryA(szSrc);
     return nResult;
+}
+
+// 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize)
+{
+    char szSavePath[0x104];
+    char szNewPath[0x104];
+    szPath[0] = 0;
+    if (!SRegLoadString("Diablo II", "NewSavePath", 1, szPath, nSize) && GetLastError() == 2
+        && SRegLoadString("Diablo II", "Save Path", 0, szSavePath, 0x104))
+    {
+        const size_t nLength = strlen(szSavePath);
+        if (szSavePath[nLength - 1] == '\\')
+        {
+            szSavePath[nLength - 1] = 0;
+        }
+        const unsigned long dwAttributes = GetFileAttributesA(szSavePath);
+        if (dwAttributes != (unsigned long)-1 && (dwAttributes & 0x10))
+        {
+            if (sub_00406D30(szNewPath, 0x104))
+            {
+                if (sub_00406DE0_MoveDirectoryTree(szSavePath, szNewPath) == 1)
+                {
+                    SStrCopy(szPath, szSavePath, nSize);
+                }
+                else
+                {
+                    AppendPathSeparator_Inl(szNewPath, 0x104);
+                    SRegSaveString("Diablo II", "NewSavePath", 1, szNewPath);
+                    SStrCopy(szPath, szNewPath, nSize);
+                }
+            }
+        }
+    }
+    if (GetFileAttributesA(szPath) == (unsigned long)-1)
+    {
+        szPath[0] = 0;
+    }
+    if (!szPath[0])
+    {
+        sub_00406D30(szPath, nSize);
+        AppendPathSeparator_Inl(szPath, nSize);
+        SRegSaveString("Diablo II", "NewSavePath", 1, szPath);
+    }
+    if (!AppendPathSeparator_Inl(szPath, nSize))
+    {
+        return 0;
+    }
+    return sub_00406A10_CreateDirectoryTree(szPath);
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
@@ -1551,6 +1761,13 @@ void __cdecl sub_004076B0_LogSystemInfo()
     sub_00410610_WriteLogLine(&gszEmptyAssertText);
 }
 
+// 0x00407970
+void __cdecl sub_00407970_ForceCrash()
+{
+    int* pNull = 0;
+    *pNull = 0;
+}
+
 // 0x00407980
 void __fastcall sub_00407980_ReportPrint(void* pContext, const char* szText)
 {
@@ -1692,6 +1909,77 @@ static void __stdcall sub_00407FC0_LogPrefixedText(const char* szPrefix, const c
     }
 }
 
+// 0x004082E0
+int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
+{
+    D2ThreadContextStrc* pThread = pInput->pException->pContext;
+    const long nBusy = InterlockedIncrement(&gnReportBusy_007076B8);
+    if (nBusy == 0)
+    {
+        gdwGlobal_0074F0C8 = 1;
+        crashy::Report report;
+        if (!report.sub_00401100_Open(gszCrashFile_006CD1C0))
+        {
+            gdwGlobal_0074F0C8 = 0;
+        }
+        else
+        {
+            report.sub_00407A80_WriteInspectorHeader();
+            report.sub_00401380(gszCrashSummary_006CD1A8,pInput->szSummary);
+            if (pInput->szDetail[0]) report.sub_00401380(gszCrashDetail_006CD1A0,pInput->szDetail);
+            report.sub_00401380(gszCrashNewline_006CD188);
+            report.sub_00401380(gszAssertionBegin_006CD170);
+            int nSkip = 0;
+            if (!pThread && !pInput->pFrames)
+            {
+                nSkip = pInput->nSkip;
+                if (pInput->dwThreadId == sub_00401690_GetCurrentThreadId()) nSkip += 2;
+            }
+            if (pInput->pFrames)
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,sub_00407980_ReportPrint,&report,0,1);
+            else
+                sub_00403070_DumpThread(pInput->dwThreadId,pThread,sub_00407980_ReportPrint,&report,0,1,nSkip);
+            report.sub_00401380(gszAssertionEnd_006CD158);
+            report.sub_00401380(gszRegisters_006CD14C);
+            sub_004032F0_DumpRegisters(pInput->dwThreadId,sub_00407980_ReportPrint,&report);
+            report.sub_00401380(gszThreads_006CD140);
+            sub_00403A20_DumpOtherThreads(sub_00407980_ReportPrint,&report,pInput->dwThreadId);
+            report.sub_00401380(gszModules_006CD124);
+            sub_00402EE0_DumpModules(sub_00407980_ReportPrint,&report);
+            report.sub_00401380(gszMore1_006CD108);
+            report.sub_00401380(gszMore2_006CD0F0);
+            report.sub_00401380(gszMore3_006CD0D4);
+            if (pInput->pFrames)
+                sub_00403100_PrintFrames(pInput->dwThreadId,pInput->pFrames,pInput->nFrames,sub_00407980_ReportPrint,&report,0,0);
+            else
+                sub_00403070_DumpThread(pInput->dwThreadId,pThread,sub_00407980_ReportPrint,&report,0,0,nSkip);
+            report.sub_00401380(gszMore4_006CD0C4);
+            SStrCopy(gszProcessPath_0074E8C8,report.m_szText408,0x800);
+            sub_00413800(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
+            if (sub_00402820_WriteMiniDump(gszProcessPath_0074E8C8,&gszEmptyAssertText,pInput->pException,0))
+                report.sub_00401220_AddFile(gszProcessPath_0074E8C8,false);
+            report.sub_00401380(gszMore5_006CD09C);
+            report.sub_004011F0_Close();
+            D2CrashSubmitInfoStrc info;
+            memset(&info,0,sizeof(info));
+            info.szName=gtInspectorInfo_0074D868.szUnused04;
+            for (int i=0;i<report.m_nLineCount;++i)
+            {
+                if (i < sizeof(info.apszLines)/sizeof(info.apszLines[0]))
+                {
+                    info.apszLines[i]=report.m_aszLines[i];
+                    ++info.nLines;
+                }
+            }
+            sub_00401790_SubmitReport(report.m_szText08,&info);
+            gdwGlobal_0074F0C8=0;
+        }
+        InterlockedDecrement(&gnReportBusy_007076B8);
+        sub_004013C0_TerminateCurrentProcess(-1);
+    }
+    return 2;
+}
+
 void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, int bFlag)
 {
     sub_00407FC0_LogPrefixedText(szPrefix, szText, bFlag);
@@ -1711,10 +1999,6 @@ int __fastcall sub_004088C0_ReportNestedError(const char* szFile, int nLine, con
 // 0x00413740
 void __cdecl sub_00413740_Nop()
 {
-}
-
-bool __fastcall EmitThreadName(int threadId,char* output) {
- return sub_00401640_GetThreadName(threadId,output);
 }
 
 #include "gen/data/Source/Fog/Src/ErrorManager_004016A0.inc"

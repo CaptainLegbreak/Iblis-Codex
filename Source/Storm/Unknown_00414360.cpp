@@ -282,6 +282,7 @@ int __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szV
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
     __assume((*szKeyName) != 0);
@@ -298,6 +299,7 @@ int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsig
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
     __assume((*szKeyName) != 0);
@@ -318,6 +320,7 @@ int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, uns
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
     __assume((*szKeyName) != 0);
@@ -336,6 +339,7 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume((szKeyName) != 0);
     VALIDATE(*szKeyName);
     __assume((*szKeyName) != 0);

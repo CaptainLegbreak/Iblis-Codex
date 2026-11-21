@@ -94,6 +94,7 @@ int __stdcall SCompDecompress(void* pDest, unsigned int* pdwDestSize, unsigned c
     unsigned int dwDestSize = *pdwDestSize;
     VALIDATEBEGIN;
     VALIDATE(pDest);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume(pDest != 0);
     VALIDATE(dwDestSize >= dwSrcSize);
     __assume(dwDestSize >= dwSrcSize);

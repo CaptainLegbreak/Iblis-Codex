@@ -344,6 +344,7 @@ static void __stdcall sub_00423DC0_Div(D2StormQueueStrc& a, D2StormQueueStrc& b,
         b.sub_004220D0_SetCount(1);
         return;
     }
+    // the original relies on the work-stack index staying below 16 here (its push/pop check); without it the frame and loads differ
     __assume(tStack.nUsed < 16);
     D2StormQueueStrc& tRem = tStack.f_0[tStack.nUsed++];
     __assume(tStack.nUsed < 16);

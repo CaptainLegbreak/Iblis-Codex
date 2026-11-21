@@ -30,6 +30,11 @@
      "name": "?sub_00401640_GetThreadName@@YG_NHPAD@Z"
     },
     {
+     "va": "0x00401680",
+     "length": 6,
+     "name": "sub_00401680"
+    },
+    {
      "va": "0x004016A0",
      "length": 5,
      "name": "?sub_004016A0_StartDbgHelpThread@@YAXXZ"
@@ -165,9 +170,19 @@
      "name": "?sub_00406C40_GetBlizzardDataPath@@YIHPADH@Z"
     },
     {
+     "va": "0x00406D30",
+     "length": 161,
+     "name": "?SFILE_GetSaveGamePath@@YA_NPADI@Z"
+    },
+    {
      "va": "0x00406DE0",
      "length": 622,
      "name": "?sub_00406DE0_MoveDirectoryTree@@YIHPBD0@Z"
+    },
+    {
+     "va": "0x00407050",
+     "length": 513,
+     "name": "?sub_00407050_GetSavePath@@YIHPADH@Z"
     },
     {
      "va": "0x00407260",
@@ -188,6 +203,10 @@
      "va": "0x004076B0",
      "length": 684,
      "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
+    },
+    {
+     "va": "0x00407970",
+     "length": 5
     },
     {
      "va": "0x00407980",
@@ -225,6 +244,10 @@
      "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
     },
     {
+     "va": "0x004082E0",
+     "length": 888
+    },
+    {
      "va": "0x004088C0",
      "length": 56,
      "name": "sub_004088C0_ReportNestedError"
@@ -234,6 +257,20 @@
      "length": 1,
      "name": "?sub_00413740_Nop@@YAXXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
    ]
   },
   {
@@ -775,14 +812,9 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00401680.cpp",
+   "file": "Source/Fog/Unknown_00402370.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00401680",
-     "length": 6,
-     "name": "sub_00401680"
-    },
     {
      "va": "0x00402370",
      "length": 5,
@@ -2576,22 +2608,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00406D30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00406D30",
-     "length": 161,
-     "name": "?SFILE_GetSaveGamePath@@YA_NPADI@Z"
-    },
-    {
-     "va": "0x00407050",
-     "length": 513,
-     "name": "?sub_00407050_GetSavePath@@YIHPADH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00407270.cpp",
    "rank": 0,
    "functions": [
@@ -2663,30 +2679,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00407970.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00407970",
-     "length": 5
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00408090.cpp",
    "rank": 0,
    "functions": [
@@ -2708,30 +2700,6 @@
     "/Oy",
     "/Ob2",
     "/Gd"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004082E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004082E0",
-     "length": 888
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
@@ -2854,6 +2822,20 @@
      "length": 1,
      "name": "?sub_00409C70_Nop@@YAXXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
    ]
   },
   {
@@ -5613,21 +5595,6 @@
      "va": "0x00414E50",
      "length": 187
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/GS"
    ]
   },
   {
@@ -8731,6 +8698,10 @@
      "va": "0x004269C0",
      "length": 154,
      "name": "?SEvtPopState@@YGHII@Z"
+    },
+    {
+     "va": "0x00426F90",
+     "length": 453
     }
    ]
   },
@@ -9015,30 +8986,6 @@
      "length": 79,
      "name": "?inflateMark@@YIJPAUz_stream@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00426F90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00426F90",
-     "length": 453
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -87588,37 +87535,21 @@
      "name": "?sub_006BCAC0_ResetDataArray@@YIXPAUD2DataArrayStrc@@@Z"
     },
     {
-     "va": "0x006BCC90",
-     "length": 41
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BCB40.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x006BCB40",
      "length": 199
+    },
+    {
+     "va": "0x006BCC90",
+     "length": 41
+    },
+    {
+     "va": "0x006BCCC0",
+     "length": 15
     },
     {
      "va": "0x006BCCD0",
      "length": 121
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -87634,30 +87565,6 @@
      "va": "0x006BCD50",
      "length": 75
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BCCC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BCCC0",
-     "length": 15
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -87698,20 +87605,6 @@
      "va": "0x006BF250",
      "length": 3
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -87774,20 +87667,6 @@
      "va": "0x006C08A0",
      "length": 732
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -87798,21 +87677,6 @@
      "va": "0x006BF0F0",
      "length": 124
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -88108,20 +87972,6 @@
      "va": "0x006C4DC0",
      "length": 134
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -88283,20 +88133,6 @@
      "va": "0x006C4040",
      "length": 36
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -88307,20 +88143,6 @@
      "va": "0x006C4070",
      "length": 50
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -88365,20 +88187,6 @@
      "va": "0x006C4980",
      "length": 123
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

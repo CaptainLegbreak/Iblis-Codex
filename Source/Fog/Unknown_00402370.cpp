@@ -11,11 +11,6 @@ struct PairStrc_0040F570
     int nSecond;
 };
 
-// 0x00401680
-int __cdecl sub_00401680()
-{
-    return gdwGlobal_00992B1C;
-}
 
 // 0x00402370
 int __stdcall sub_00402370(int nUnused1, int nUnused2)

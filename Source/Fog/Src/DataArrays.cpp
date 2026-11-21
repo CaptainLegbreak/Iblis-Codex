@@ -1,40 +1,50 @@
 #include "Fog.h"
 
-struct D2RecordArrayStrc;
-
-struct D2RecordArrayStrc
+struct D2DataArrayStrc
 {
-    char name[256];
-    int count;
-    int stride;
-    int initialized;
-    int used;
-    int freeHead;
-    int cursor;
-    unsigned short nextId;
-    unsigned short reserved;
-    unsigned char* data;
+    char szName[0x100];             // 0x000
+    int nCount;                     // 0x100
+    int nStride;                    // 0x104
+    int bInitialized;               // 0x108
+    int nFirstFree;                 // 0x10C
+    int nLastUsed;                  // 0x110
+    int nUsed;                      // 0x114
+    unsigned short nSequence;       // 0x118
+    unsigned short unk_11A;         // 0x11A
+    unsigned char* pEntries;        // 0x11C
 };
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
+
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int); // 0x00687330
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+unsigned short* __fastcall sub_006BCC10_GetEntry(D2DataArrayStrc* pTable, int nHandle); // 0x006BCC10
+
+void __fastcall sub_006BCAC0_ResetDataArray(D2DataArrayStrc* pOwner); // 0x006BCAC0
+
 // 0x006BCA10
-D2RecordArrayStrc* __fastcall sub_006BCA10_CreateDataArray(const char* name, int count, int stride)
+D2DataArrayStrc* __fastcall sub_006BCA10_CreateDataArray(const char* name, int count, int stride)
 {
-    D2RecordArrayStrc* array = (D2RecordArrayStrc*)FOG_Alloc(sizeof(D2RecordArrayStrc) + count * stride, ".\\Src\\DataArrays.cpp", 0x34, 0);
+    D2DataArrayStrc* array = (D2DataArrayStrc*)FOG_Alloc(sizeof(D2DataArrayStrc) + count * stride, ".\\Src\\DataArrays.cpp", 0x34, 0);
     if (array) {
-        memset(array, 0, sizeof(D2RecordArrayStrc));
-        strncpy(array->name, name, 256);
-        array->stride = stride;
-        array->count = count;
-        array->data = (unsigned char*)(array + 1);
-        array->initialized = 0;
+        memset(array, 0, sizeof(D2DataArrayStrc));
+        strncpy(array->szName, name, 256);
+        array->nStride = stride;
+        array->nCount = count;
+        array->pEntries = (unsigned char*)(array + 1);
+        array->bInitialized = 0;
     }
     return array;
 }
@@ -47,30 +57,94 @@ void __fastcall sub_006BCA90_ClearAndFree(void* pBlock)
 }
 
 // 0x006BCAC0
-void __fastcall sub_006BCAC0_ResetDataArray(D2RecordArrayStrc* array)
+void __fastcall sub_006BCAC0_ResetDataArray(D2DataArrayStrc* array)
 {
-    if (!array->initialized) {
+    if (!array->bInitialized) {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x68);
         exit(-1);
     }
-    array->freeHead = -1;
-    array->cursor = 0;
-    array->used = 0;
-    array->nextId = 0x8000;
-    for (int i = 0; i < array->count; ++i)
-        *(unsigned short*)(array->data + i * array->stride) = 0;
+    array->nLastUsed = -1;
+    array->nUsed = 0;
+    array->nFirstFree = 0;
+    array->nSequence = 0x8000;
+    for (int i = 0; i < array->nCount; ++i)
+        *(unsigned short*)(array->pEntries + i * array->nStride) = 0;
 }
 
-short* __fastcall sub_006BCC10_GetEntry(void* pDataArray, int nHandle); // 0x006BCC10
+// 0x006BCB40
+unsigned int __fastcall sub_006BCB40_AllocateHandle(D2DataArrayStrc* pPool)
+{
+    unsigned int nHandle = -1;
+    if (!pPool->bInitialized)
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x87);
+        exit(-1);
+    }
+    unsigned short* pEntry = (unsigned short*)(pPool->pEntries + pPool->nStride * pPool->nFirstFree);
+    for (int nIndex = pPool->nFirstFree; nIndex < pPool->nCount; ++nIndex)
+    {
+        if (!*pEntry)
+        {
+            memset(pEntry, 0, pPool->nStride);
+            *pEntry = pPool->nSequence;
+            ++pPool->nSequence;
+            if (!pPool->nSequence)
+                pPool->nSequence = 0x8000;
+            ++pPool->nUsed;
+            pPool->nFirstFree = nIndex + 1;
+            if (pPool->nLastUsed < nIndex)
+            {
+                pPool->nLastUsed = nIndex;
+                nHandle = *pEntry;
+            }
+            else
+            {
+                nHandle = *pEntry;
+            }
+            nHandle |= nIndex << 16;
+            break;
+        }
+        pEntry = (unsigned short*)((char*)pEntry + pPool->nStride);
+    }
+    return nHandle;
+}
 
 // 0x006BCC90
 short* __fastcall sub_006BCC90_GetEntryOrHalt(void* pDataArray, int nHandle)
 {
-    short* pEntry = sub_006BCC10_GetEntry(pDataArray, nHandle);
+    short* pEntry = (short*)sub_006BCC10_GetEntry((D2DataArrayStrc*)pDataArray, nHandle);
     if (!pEntry)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 253);
         exit(-1);
     }
     return pEntry;
+}
+
+// 0x006BCCC0
+void __fastcall sub_006BCCC0_Reset(D2DataArrayStrc* pOwner)
+{
+    pOwner->bInitialized = 1;
+    sub_006BCAC0_ResetDataArray(pOwner);
+}
+
+// 0x006BCCD0
+void __fastcall sub_006BCCD0_FreeEntry(D2DataArrayStrc* pTable, int nHandle)
+{
+    unsigned short* pEntry = sub_006BCC10_GetEntry(pTable, nHandle);
+    D2_ASSERT(pEntry, 0xFD);
+    const short nIndex = (short)(nHandle >> 16);
+    unsigned short* pScan = pEntry;
+    *pScan = 0;
+    if (nIndex < pTable->nFirstFree)
+        pTable->nFirstFree = nIndex;
+    if (nIndex == pTable->nLastUsed)
+    {
+        do
+        {
+            pScan = (unsigned short*)((unsigned char*)pScan - pTable->nStride);
+            --pTable->nLastUsed;
+        } while (pTable->nLastUsed >= 0 && !*pScan);
+    }
+    --pTable->nUsed;
 }

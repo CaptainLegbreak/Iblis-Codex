@@ -111,6 +111,7 @@ void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStr
     D2StormQueueStrc* pWork;
     if (pResult == pA)
     {
+        // the original relies on the work-stack index staying below 16 here (its push/pop check); without it the frame and loads differ
         __assume(pStack->nUsed < 16);
         pWork = &pStack->f_0[pStack->nUsed++];
     }

@@ -805,6 +805,7 @@ static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, cons
 {
     VALIDATEBEGIN;
     VALIDATE(pDst);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume(pDst != 0);
     VALIDATE(pSrc);
     __assume(pSrc != 0);
@@ -1723,6 +1724,7 @@ int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsi
 {
     VALIDATEBEGIN;
     VALIDATE(szFile);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume(szFile != 0);
     VALIDATE(*szFile);
     __assume(*szFile != 0);
@@ -1803,6 +1805,7 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
 
     VALIDATEBEGIN;
     VALIDATE(szFileName);
+    // the original keeps every validation test; plain checks let the optimizer drop the ones a later read makes redundant
     __assume((szFileName) != 0);
     VALIDATE(*szFileName);
     __assume((*szFileName) != 0);
