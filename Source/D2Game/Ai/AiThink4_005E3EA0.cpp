@@ -2,6 +2,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 // build: ob1
 
 struct D2GameStrc;
@@ -9,7 +10,6 @@ struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2RoomCoordListStrc;
 struct D2AiParamStrc;
-struct D2PlayerDataStrc { char unk00[0xa0]; unsigned char nPathIndex; char unkA1[7]; D2CoordStrc pPath[20]; };
 struct D2PetMoveStrc { D2UnitStrc* pUnit; D2UnitStrc* pTarget; int nCounter; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned char gnPetDirections[8]; // 0x006E34F8
@@ -116,15 +116,15 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
             int nSpeed;
             if (nVelocity) nSpeed = nVelocity;
             else nSpeed = SEED_RollLimitedRandomNumber(pSeed, 40) + 40;
-            unsigned char nIndex = pData->nPathIndex;
+            unsigned char nIndex = pData->nPositionHistoryIndex;
             D2AiParamStrc* pAiParam = sub_005A6190_GetAiParam(pUnit);
             int bChanged = 0;
             for (int i = 0; i < 20; ++i) {
                 if (!nIndex) nIndex = 19;
                 else --nIndex;
                 int nTargetY;
-                int nTargetX = pData->pPath[nIndex].nX;
-                nTargetY = pData->pPath[nIndex].nY;
+                int nTargetX = pData->pPositionHistory[nIndex].nX;
+                nTargetY = pData->pPositionHistory[nIndex].nY;
                 if (!nTargetX || !nTargetY || AIUTIL_GetDistanceToCoordinates(pUnit, nTargetX, nTargetY) <= 5) continue;
                 sub_005DE190_SetAiParam(pUnit, 0, nSpeed, 100);
                 if (bRun) {
