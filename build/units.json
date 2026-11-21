@@ -78848,6 +78848,10 @@
      "name": "STATLIST_FreeStatListEx"
     },
     {
+     "va": "0x00626D40",
+     "length": 202
+    },
+    {
      "va": "0x00626E10",
      "length": 539
     },
@@ -78997,30 +79001,6 @@
      "length": 20,
      "name": "?sub_00624C60_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00626D40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00626D40",
-     "length": 202
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

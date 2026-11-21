@@ -206,8 +206,6 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
-
 inline int STATLIST_IsExtended(D2StatListStrc* pStatList);
 
 static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
@@ -2212,6 +2210,33 @@ void __stdcall STATLIST_FreeStatListEx(D2UnitStrc* pUnit)
 
         pUnit->pStatListEx = 0;
     }
+}
+
+// 0x00626D40
+void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, void* pCallbackFunc, void* pGame)
+{
+    if (pUnit->pStatListEx)
+    {
+        if (pUnit->pStatListEx->dwFlags & 0x80000000)
+        {
+            D2Common_STATLIST_FreeStatListImpl_6FDB7050(pUnit->pStatListEx);
+        }
+        pUnit->pStatListEx = 0;
+    }
+
+    D2StatListExStrc* pStatListEx = (D2StatListExStrc*)sub_0040B430(pUnit->pMemoryPool, sizeof(D2StatListExStrc), ".\\Stats\\StatsEx.cpp", 0x586, 0);
+    memset(pStatListEx, 0, sizeof(D2StatListExStrc));
+    pStatListEx->pMemPool = pUnit->pMemoryPool;
+    pStatListEx->dwOwnerType = !pUnit ? 6 : pUnit->dwUnitType;
+    pStatListEx->dwOwnerId = !pUnit ? -1 : pUnit->dwUnitId;
+    pStatListEx->dwFlags = nFlags & 1 | 0x80000000;
+    pStatListEx->pfOnValueChanged = (StatListValueChangeFunc)pCallbackFunc;
+    pStatListEx->pGame = (D2GameStrc*)pGame;
+    pStatListEx->pOwner = pUnit;
+    const int nSize = sizeof(unsigned int) * 2 * ((sgptDataTables->nStatesTxtRecordCount + 31) / 32);
+    pStatListEx->StatFlags = (unsigned int*)sub_0040B430(pUnit->pMemoryPool, nSize, ".\\Stats\\StatsEx.cpp", 0x593, 0);
+    memset(pStatListEx->StatFlags, 0, nSize);
+    pUnit->pStatListEx = pStatListEx;
 }
 
 // 0x00626E10
