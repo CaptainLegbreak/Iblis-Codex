@@ -28105,99 +28105,12 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/text_004A0770.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004A0770",
-     "length": 269
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/text_004A10E0.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x004A10E0",
      "length": 561
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_004A1600.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A1600",
-     "length": 289,
-     "name": "?sub_004A1600_HandleHoverTextPacket@@YIXPAUD2HoverTextPacketStrc@@@Z"
-    },
-    {
-     "va": "0x004A1950",
-     "length": 2250
-    },
-    {
-     "va": "0x004A2220",
-     "length": 224
-    },
-    {
-     "va": "0x004A3220",
-     "length": 491
-    },
-    {
-     "va": "0x004A3E40",
-     "length": 406
-    },
-    {
-     "va": "0x004A4180",
-     "length": 219,
-     "name": "?sub_004A4180_TestCondition@@YIHH@Z"
-    },
-    {
-     "va": "0x004A43E0",
-     "length": 220
-    },
-    {
-     "va": "0x004A6630",
-     "length": 93
-    },
-    {
-     "va": "0x004A70C0",
-     "length": 177
-    },
-    {
-     "va": "0x004A7340",
-     "length": 339
     }
    ],
    "flags": [
@@ -28374,6 +28287,72 @@
      "length": 221,
      "name": "?sub_004A3410_ResetQuestPanel@@YAXXZ"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/text_004A1600.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004A0770",
+     "length": 269
+    },
+    {
+     "va": "0x004A1600",
+     "length": 289,
+     "name": "?sub_004A1600_HandleHoverTextPacket@@YIXPAUD2HoverTextPacketStrc@@@Z"
+    },
+    {
+     "va": "0x004A1950",
+     "length": 2250
+    },
+    {
+     "va": "0x004A2220",
+     "length": 224
+    },
+    {
+     "va": "0x004A3220",
+     "length": 491
+    },
+    {
+     "va": "0x004A3E40",
+     "length": 406
+    },
+    {
+     "va": "0x004A4180",
+     "length": 219,
+     "name": "?sub_004A4180_TestCondition@@YIHH@Z"
+    },
+    {
+     "va": "0x004A43E0",
+     "length": 220
+    },
+    {
+     "va": "0x004A6630",
+     "length": 93
+    },
+    {
+     "va": "0x004A70C0",
+     "length": 177
+    },
+    {
+     "va": "0x004A7340",
+     "length": 339
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
