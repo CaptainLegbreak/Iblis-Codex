@@ -5556,7 +5556,6 @@
    "externs": [
     "extern \"C\" void __cdecl SKILLITEM_pSpell08_ExperienceElixir(); // 0x005BF060",
     "extern \"C\" void __cdecl SKILLITEM_pSpell09_AntidoteThawingPotion(); // 0x005BEF90",
-    "extern \"C\" void __cdecl sub_005BE290_CreateTownPortal(); // 0x005BE290",
     "extern \"C\" void __cdecl sub_005BE3F0(); // 0x005BE3F0",
     "extern \"C\" void __cdecl sub_005BE7B0(); // 0x005BE7B0",
     "extern \"C\" void __cdecl sub_005BEAC0(); // 0x005BEAC0"

@@ -67841,6 +67841,14 @@
      "name": "?SKILLITEM_pSpell01_IdentifyItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11HHH@Z"
     },
     {
+     "va": "0x005BE290",
+     "length": 342
+    },
+    {
+     "va": "0x005BE3F0",
+     "length": 949
+    },
+    {
      "va": "0x005BE7B0",
      "length": 770
     },
@@ -67927,6 +67935,10 @@
      "length": 258
     },
     {
+     "va": "0x005BFC60",
+     "length": 311
+    },
+    {
      "va": "0x005BFDA0",
      "length": 186,
      "name": "?SKILLITEM_CalculateOpenWoundsHpRegen@@YIHHPBH@Z"
@@ -68001,38 +68013,6 @@
      "length": 67,
      "name": "?sub_005DC920_GetThreat@@YIHPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005BE290.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005BE290",
-     "length": 342
-    },
-    {
-     "va": "0x005BE3F0",
-     "length": 949
-    },
-    {
-     "va": "0x005BFC60",
-     "length": 311
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

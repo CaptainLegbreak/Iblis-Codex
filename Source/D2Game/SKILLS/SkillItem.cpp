@@ -326,6 +326,36 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);          
 
 void __fastcall AIUTIL_ApplyTerrorCurseState(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSkillId, int nDuration, int nParam); // 0x005DDD00
 
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* room); // 0x0061A1B0
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int level); // 0x006427F0
+
+int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char act); // 0x0061AB70
+
+void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* game,D2UnitStrc* unit); // 0x00535430
+
+int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* game,D2UnitStrc* unit,D2ActiveRoomStrc* room,int x,int y,int level,D2UnitStrc** out,int object,int permanent); // 0x0056D130
+
+void __fastcall sub_00553380_SendEvent(D2UnitStrc* unit,int event,D2UnitStrc* other); // 0x00553380
+
+void __fastcall PLAYER_SetUniqueIdInPlayerData(D2UnitStrc* unit,int id); // 0x005353B0
+
+void __fastcall OBJECTS_SetUnitIdInTimerArg(D2UnitStrc* unit,int id); // 0x00552AF0
+
+D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* game,D2UnitStrc* unit); // 0x00553720
+
+void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* game,D2UnitStrc* unit); // 0x0058CF00
+
+D2ClientStrc* __fastcall sub_005531C0_GetClient(D2UnitStrc* unit,const char* file,int line,int type,int id); // 0x005531C0
+
+void __fastcall sub_0053B3D0_SendByte(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
+
+int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc*, int); // 0x0062A5D0
+
+int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc*, int); // 0x0062A620
+
+static __forceinline int GetUnitType(D2UnitStrc* unit) { return unit?unit->dwUnitType:6; }
+
 // 0x005BE130
 int __fastcall SKILLITEM_pSpell01_Initializer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
 {
@@ -398,6 +428,176 @@ int __fastcall SKILLITEM_pSpell01_IdentifyItem(D2GameStrc* pGame, D2UnitStrc* pU
 
     D2GAME_ITEMS_Identify_6FC49670(pGame, pUnit, pTarget);
     return 1;
+}
+
+static __forceinline int GetItemType(D2UnitStrc* pItem)
+{
+    int nType = 6;
+    if (pItem)
+    {
+        nType = pItem->dwUnitType;
+    }
+    return nType;
+}
+
+// 0x005BE290
+int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* item,int unused1,int unused2,int unused3,int unused4)
+{
+ if(GetUnitType(unit)!=0) return 0;
+ unit->dwFlags|=0x40;
+ D2ActiveRoomStrc* room=UNITS_GetRoom(unit);
+ unsigned char act=DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(room));
+ int town=DUNGEON_GetTownLevelIdFromActNo(act);
+ if(DUNGEON_IsRoomInTown(room) || DUNGEON_GetLevelIdFromRoom(room)==136) {
+  sub_00553380_SendEvent(unit,24,unit);return 0;
+ }
+ PLAYER_RemoveTownPortal(game,unit);
+ D2UnitStrc* portal=0;
+ int result=D2GAME_CreatePortalObject_6FD13DF0(game,unit,room,CLIENTS_GetUnitX(unit),CLIENTS_GetUnitY(unit),town,&portal,59,0);
+ sub_00553380_SendEvent(unit,7,0);
+ if(result) {
+  PLAYER_SetUniqueIdInPlayerData(unit,!portal?-1:portal->dwUnitId);
+  if(portal) {
+   OBJECTS_SetUnitIdInTimerArg(portal,unit->dwUnitId);
+   D2UnitStrc* other=sub_00553720_ResolveObjectOwner(game,portal);
+   if(other) {
+    OBJECTS_SetUnitIdInTimerArg(other,unit->dwUnitId);
+    ACT5Q5_OnPortalOpened(game,other);
+   }
+   ACT5Q5_OnPortalOpened(game,portal);
+  }
+ }
+ if(item) {
+  const int nItemId = item->dwUnitId;
+  const int nItemType = GetItemType(item);
+  D2ClientStrc* client=sub_005531C0_GetClient(unit,".\\SKILLS\\SkillItem.cpp",218,nItemType,nItemId);
+  sub_0053B3D0_SendByte(client,124);
+ }
+ return result;
+}
+
+// build: context GetItemStatCost
+static __forceinline D2ItemStatCostTxt* GetItemStatCost(int nStat)
+{
+    if (nStat >= 0 && nStat < sgptDataTables->nItemStatCostTxtRecordCount)
+        return &sgptDataTables->pItemStatCostTxt[nStat];
+    return 0;
+}
+
+// 0x005BE3F0
+int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int a4, int a5, int a6, int a7)
+{
+    D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    if (!pItemsTxt) return 0;
+    const int nLength = ITEMMODS_EvaluateItemFormula(pUnit, pItem, pItemsTxt->dwLen);
+    const int nState = pItemsTxt->wState;
+    D2StatListStrc* pStatList = 0;
+    int nOldLength = 0;
+    if (nLength > 0)
+    {
+        if (nState <= 0 || nState >= sgptDataTables->nStatesTxtRecordCount) return 0;
+        pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+        if (pStatList) nOldLength = D2COMMON_10473(pStatList) - pGame->dwGameFrame;
+    }
+    int nResult = 0;
+    int bUpdateLife = 0;
+    for (int i = 0; i < 3; ++i)
+    {
+        D2SeedStrc* pSeed = &pUnit->pSeed;
+        const int nStat = pItemsTxt->wStat[i];
+        if (nStat < 0 || nStat >= sgptDataTables->nItemStatCostTxtRecordCount) break;
+        D2ItemStatCostTxt* pCost = GetItemStatCost(nStat);
+        if (!pCost) continue;
+        int nValue = ITEMMODS_EvaluateItemFormula(pUnit, pItem, pItemsTxt->dwCalc[i]);
+        switch (nStat)
+        {
+        case 74: nValue <<= 8;
+        case 6:
+        {
+            nValue = ITEMS_GetBonusLifeBasedOnClass(pUnit, nValue);
+            const int nVitality = STATLIST_UnitGetStatValue(pUnit, 3, 0);
+            if (nVitality > 0)
+            {
+                const unsigned int nChance = (unsigned int)ITEMS_RollLimitedRandomNumber(pSeed, nVitality) >> 1;
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < (int)nChance) nValue += nValue;
+            }
+            break;
+        }
+        case 26: nValue <<= 8;
+        case 8:
+        {
+            nValue = ITEMS_GetBonusManaBasedOnClass(pUnit, nValue);
+            const int nEnergy = STATLIST_UnitGetStatValue(pUnit, 1, 0);
+            if (nEnergy > 0)
+            {
+                const unsigned int nChance = (unsigned int)ITEMS_RollLimitedRandomNumber(pSeed, nEnergy) >> 1;
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < (int)nChance) nValue += nValue;
+            }
+            break;
+        }
+        }
+        nValue <<= pCost->nValShift;
+        if (nValue <= 0) continue;
+        switch (nStat)
+        {
+        case 6: bUpdateLife = 1;
+        case 74:
+            if (!sub_0044BE50_GetUnitTypeOrInvalid(pUnit))
+                nValue = SKILLS_SharePotionLifeWithBloodGolem(pGame, pUnit, nValue);
+            break;
+        }
+        if (nLength <= 0)
+        {
+            const int nCurrent = STATLIST_UnitGetStatValue(pUnit, nStat, 0);
+            const int nMaxStat = pCost->wMaxStat;
+            if (nMaxStat < sgptDataTables->nItemStatCostTxtRecordCount)
+            {
+                const int nMaxValue = STATLIST_UnitGetStatValue(pUnit, nMaxStat, 0);
+                if (nCurrent + nValue > nMaxValue)
+                    nValue = nMaxValue - nCurrent;
+            }
+            STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
+            nResult = 1;
+        }
+        else
+        {
+            const int nExpireFrame = pGame->dwGameFrame + nOldLength + nLength;
+            if (!pStatList)
+            {
+                pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, sub_0044BE50_GetUnitTypeOrInvalid(pUnit), sub_00451F50_GetUnitGUID(pUnit));
+                if (!pStatList) continue;
+                STATLIST_SetState(pStatList, nState);
+                STATES_ToggleState(pUnit, nState, 1);
+                if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit))
+                {
+                    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 3, 0);
+                    EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, 0, 0);
+                }
+                STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
+                D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+            }
+            D2COMMON_10476(pStatList, nExpireFrame);
+            const int nTotalValue = STATLIST_GetStatValue(pStatList, nStat, 0) * nOldLength + nValue;
+            if (i == 0) EVENT_SetEvent(pGame, pUnit, 12, nExpireFrame, 0, 0);
+            const int nTotalLength = nLength + nOldLength;
+            if (nTotalLength > 0) STATLIST_SetStat(pStatList, nStat, nTotalValue / nTotalLength, 0);
+            nResult = 1;
+        }
+    }
+    if (bUpdateLife && pUnit && pUnit->dwUnitType == 0)
+    {
+        const unsigned char nOldLife = STATLIST_UnitGetStatValue(pUnit, 352, 0);
+        const unsigned char nNewLife = MONSTERMODE_GetHpPercent128(pUnit);
+        int nDifference = nOldLife - nNewLife;
+        if (nDifference < 0) nDifference = -nDifference;
+        if (nDifference > 4)
+        {
+            SUNITMSG_QueueLifeUpdate(pUnit, nNewLife);
+            STATLIST_SetUnitStat(pUnit, 352, nNewLife, 0);
+        }
+    }
+
+    return nResult;
 }
 
 // 0x005BE7B0
@@ -1244,6 +1444,61 @@ ReturnZero:
     nLevel = D2_MIN(D2_MAX(nLevel, 1), 20);
 
     sub_6FD0B9F0(pGame, pAttacker, pUnit, nLevel);
+    return 1;
+}
+
+// 0x005BFC60
+int __fastcall sub_005BFC60_EventFuncFreeze(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker || !pUnit)
+    {
+        return 0;
+    }
+
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (nValue <= 0)
+    {
+        return 0;
+    }
+
+    int nAttackerLevel = STATLIST_UnitGetStatValue(pAttacker, 12, 0);
+    const int nUnitLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+
+    int nBonus = nValue - 1;
+    if (nBonus < 0)
+    {
+        nBonus = 0;
+    }
+
+    if (nEvent == 6)
+    {
+        nAttackerLevel -= nEvent;
+    }
+
+    int nChance = 5 * (4 * nBonus - nUnitLevel + nAttackerLevel + 10);
+    if (nEvent == 6)
+    {
+        nChance /= 3;
+    }
+
+    int nPercent = D2_MIN(D2_MAX(nChance, 0), 100);
+
+    const unsigned __int64 lSeed = (unsigned __int64)pAttacker->pSeed.nHighSeed + (unsigned __int64)pAttacker->pSeed.nLowSeed * 0x6AC690C5;
+    pAttacker->pSeed.nLowSeed = (unsigned int)lSeed;
+    pAttacker->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    const int nRoll = (int)((unsigned int)lSeed % 100);
+    if (nRoll >= nPercent)
+    {
+        return 0;
+    }
+
+    int nLength = 2 * (nPercent - nRoll) + 25;
+    nLength = D2_MIN(D2_MAX(nLength, 25), 250);
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    damage.dwFrzLen = nLength;
+    SUNITDMG_ExecuteEvents(pGame, pAttacker, pUnit, 1, &damage);
     return 1;
 }
 
