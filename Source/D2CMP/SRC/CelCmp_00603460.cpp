@@ -1,33 +1,5 @@
+#include "D2CmpStormList.h"
 struct D2StormEntry38Strc;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    ~D2StormLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
 
 struct D2StormFullListStrc
 {
@@ -42,31 +14,9 @@ struct D2StormFullListStrc
     void UnlinkAll() throw(); // 0x00602640
 };
 
-struct D2StormSlotListStrc
+inline D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc() throw()
 {
-    int m_linkoffset;
-    void* m_terminator[2];
-};
-
-struct D2StormSlotArrayStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormSlotListStrc* f_8;
-    unsigned int f_C;
-
-    ~D2StormSlotArrayStrc() throw(); // 0x00603060
-};
-
-struct D2StormSlotGrowArrayStrc
-{
-    D2StormSlotArrayStrc m_array;
-
-// build: symbol ??1D2StormSlotGrowArrayStrc@@QAE@XZ 0x00603240
-    ~D2StormSlotGrowArrayStrc() throw()
-    {
-    }
-};
+}
 
 struct CELLIST;
 class HASHKEY_NONE;

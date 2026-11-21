@@ -1,6 +1,8 @@
 #include "D2CMP.h"
+#include "D2CmpCelFile.h"
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
+#include "D2CmpStormList.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SpriteCacheNodeStrc;
@@ -9,14 +11,11 @@ struct D2CriticalSectionStrc;
 struct D2SpriteCacheStrc;
 struct D2CmpCacheKeyStrc;
 struct D2CmpCacheListEntryStrc;
-struct D2CelStrc;
-struct D2CelFileStrc;
 struct D2CmpCelContextStrc;
 struct D2TileListHeaderStrc;
 struct D2CmpTileStrc;
 struct D2CmpTileBlockStrc;
 struct D2CmpTileLibraryStrc;
-struct D2StormLinkStrc;
 struct D2StormListStrc;
 struct D2Storm4167B0Strc;
 struct D2Storm4168F0Strc;
@@ -41,11 +40,7 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2StormNodeStrc;
 struct D2CelEntryStrc;
-struct D2StormNodeListStrc;
-struct D2StormSlotListStrc;
-struct D2StormListEStrc;
 struct D2GameHashTableStrc;
 struct D2GameDataTableStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -83,27 +78,6 @@ extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
 D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
 
-struct D2CelStrc
-{
-    int bFlip;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    int unk0x14;
-    void* pBlockPixelData;
-};
-
-struct D2CelFileStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    int nFormat;
-    int nTermination;
-    int nDirections;
-    int nCelsPerDirection;
-};
-
 void __fastcall sub_00608D60_DrawCelShadowLines(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
 void __fastcall sub_0060CFA0_AddTileToTable(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
@@ -111,38 +85,6 @@ void __fastcall sub_0060CFA0_AddTileToTable(D2TileLibraryHashStrc* pHash, D2CmpT
 typedef void (__stdcall* PixelDataFreeCallback)(void* pData);
 
 extern unsigned short gwValue_0077905C;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    ~D2StormLinkStrc()
-    {
-        Unlink();
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-};
 
 struct D2StormListStrc
 {
@@ -169,11 +111,6 @@ extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 extern "C" const char gszTypeNameCelEntry[]; // 0x00741F14
 
-struct D2StormNodeStrc
-{
-    D2StormLinkStrc f_0;
-};
-
 // build: context ??_GD2CelEntryStrc@@QAEPAXI@Z
 struct D2CelEntryStrc : D2StormNodeStrc
 {
@@ -184,51 +121,6 @@ struct D2CelEntryStrc : D2StormNodeStrc
     int nArg6;
     int nArg7;
     void* pData;
-};
-
-struct D2StormNodeListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormNodeStrc* Head()
-    {
-        return (int)m_terminator.m_next > 0 ? (D2StormNodeStrc*)m_terminator.m_next : 0;
-    }
-    void UnlinkAll();
-    void sub_00602BF0_DeleteAll();
-};
-
-struct D2StormSlotListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0;
-    }
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    void UnlinkAll();
-};
-
-struct D2StormListEStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0;
-    }
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    void UnlinkAll();
 };
 
 struct D2GameHashTableStrc

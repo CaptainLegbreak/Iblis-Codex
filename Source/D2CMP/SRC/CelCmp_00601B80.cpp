@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "D2CmpStormList.h"
 // build: context ??_GD2StormSlotListStrc@@QAEPAXI@Z
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
@@ -9,110 +10,6 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    D2StormLinkStrc* sub_00601BC0_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00601C30_NextLink(int nLinkOffset);
-    D2StormLinkStrc* sub_00601D30_NextLink(int nLinkOffset);
-};
-
-struct D2StormSlotLinkStrc
-{
-    D2StormSlotLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormSlotLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    ~D2StormSlotLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormSlotLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormSlotLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormSlotLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct D2StormSlotListStrc
-{
-    int m_linkoffset;
-    D2StormSlotLinkStrc m_terminator;
-
-    D2StormSlotListStrc()
-    {
-        m_linkoffset = 0xDDDDDDDD;
-        InitializeTerminator();
-    }
-    ~D2StormSlotListStrc()
-    {
-        UnlinkAll();
-    }
-    D2StormSlotLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormSlotLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    void ChangeLinkOffset(int nLinkOffset)
-    {
-        if (nLinkOffset != m_linkoffset)
-        {
-            UnlinkAll();
-            m_linkoffset = nLinkOffset;
-            InitializeTerminator();
-        }
-    }
-    void UnlinkAll();                                                                                       // 0x00602640
-    char* sub_00602260_RawNext(char* pNode);
-    void sub_006026E0_ChangeLinkOffset(int nLinkOffset);
-};
 
 struct D2StormListBStrc
 {
@@ -176,39 +73,6 @@ static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nA
         nValue += nAlign - nRemainder;
     return nValue;
 }
-
-struct D2StormSlotArrayStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormSlotListStrc* f_8;
-    unsigned int f_C;
-
-    D2StormSlotArrayStrc()
-    {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
-    }
-    unsigned int sub_00601E20_CalcChunkSize(unsigned int nCount);
-    void sub_00602F10_ReallocData(unsigned int nAlloc);                                                     // 0x00602F10
-    void sub_006031F0_Reserve(unsigned int nCount, int bRound);
-    void sub_00603300_SetCount(unsigned int nCount);
-};
-
-struct D2StormEntryArrayStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormEntry38Strc* f_8;
-    unsigned int f_C;
-
-    unsigned int sub_00603EE0_CalcChunkSize(unsigned int nCount);
-    void sub_006041B0_ReallocData(unsigned int nAlloc);                                                     // 0x006041B0
-    void sub_00604350_Reserve(unsigned int nCount, int bRound);
-    void sub_00604440_Grow(unsigned int nCount);
-};
 
 struct CELLIST;
 struct HCELLIST__;

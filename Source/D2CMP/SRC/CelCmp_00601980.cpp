@@ -1,18 +1,4 @@
-struct D2CelStrc
-{
-#ifdef MOVED_TEST
-    int movedPrefix;
-#endif
-    int bFlip;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    int unk0x14;
-    void* pBlockPixelData;
-    int unk0x1C;
-    char data[1];
-};
+#include "D2CmpCelFile.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
