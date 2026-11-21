@@ -40226,8 +40226,16 @@
      "length": 1136
     },
     {
+     "va": "0x004F7DA0",
+     "length": 194
+    },
+    {
      "va": "0x004F7EA0",
      "length": 420
+    },
+    {
+     "va": "0x004F82D0",
+     "length": 532
     },
     {
      "va": "0x004F84F0",
@@ -40240,34 +40248,6 @@
     {
      "va": "0x004F89F0",
      "length": 394
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Unknown_004F7DA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F7DA0",
-     "length": 194
-    },
-    {
-     "va": "0x004F82D0",
-     "length": 532
     }
    ],
    "flags": [
