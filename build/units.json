@@ -34651,27 +34651,7 @@
     {
      "va": "0x004D4BB0",
      "length": 516
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D5C10.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x004D5C10",
      "length": 445
