@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2DataTbls.h"
+#include "D2Txt.h"
 
 union D2SeedStrc;
 struct D2SkillsTxt;
@@ -9,29 +11,7 @@ struct D2SkillDescTxt;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0xEA];
-    short wCltMissile;
-    short wCltMissileA;
-    short wCltMissileB;
-    unsigned char unk_F0[0xA4];
-    short descriptionId;
-    unsigned char unusedTail[0x23C - 0x194 - sizeof(short)];
-};
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB6C];
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x1C];
-    D2SkillDescTxt* pSkillDescTxt;
-    unsigned char beforeDescriptionCount[4];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    unsigned char beforeSkillCount[4];
-    int nSkillsTxtRecordCount;
-};
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
@@ -58,7 +38,6 @@ typedef char B07RealSkillsSize[(sizeof(D2SkillsTxt) == 0x23C) ? 1 : -1];
 
 typedef char B07RealDescriptionSize[(sizeof(D2SkillDescTxt) == 0x120) ? 1 : -1];
 
-typedef char B07RealTablesSize[(sizeof(D2DataTablesStrc) == 0xBA4) ? 1 : -1];
 
 // 0x004E3AB0
 void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
@@ -92,7 +71,7 @@ void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
         return;
     }
 
-    const int nCltMissile = pSkillsTxt->wCltMissile;
+    const int nCltMissile = pSkillsTxt->wCltMissileA;
     if (nCltMissile < 0 || nCltMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return;
@@ -114,26 +93,26 @@ void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
     tMissile.nY = nY;
     tMissile.nSkill = nSkillId;
     tMissile.nSkillLevel = nSkillLevel;
-    tMissile.nMissile = pSkillsTxt->wCltMissile;
+    tMissile.nMissile = pSkillsTxt->wCltMissileA;
 
-    if (pSkillsTxt->wCltMissileA >= 0)
+    if (pSkillsTxt->wCltMissileB >= 0)
     {
-        if (pSkillsTxt->wCltMissileB >= 0)
+        if (pSkillsTxt->wCltMissileC >= 0)
         {
             switch (SEED_RollLimitedRandomNumber(&pUnit->pSeed, 3))
             {
             case 0:
-                tMissile.nMissile = pSkillsTxt->wCltMissileA;
+                tMissile.nMissile = pSkillsTxt->wCltMissileB;
                 break;
 
             case 1:
-                tMissile.nMissile = pSkillsTxt->wCltMissileB;
+                tMissile.nMissile = pSkillsTxt->wCltMissileC;
                 break;
             }
         }
         else if (!SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
         {
-            tMissile.nMissile = pSkillsTxt->wCltMissileA;
+            tMissile.nMissile = pSkillsTxt->wCltMissileB;
         }
     }
 
@@ -166,7 +145,7 @@ unsigned short __fastcall sub_004E6CE0_GetStringId(int skillId, int stringIndex)
     D2SkillDescTxt* description = 0;
     if (skill)
     {
-        description = SKILLTREE_GetSkillDescTxtRecord(skill->descriptionId);
+        description = SKILLTREE_GetSkillDescTxtRecord(skill->wSkillDesc);
     }
     if (!description)
     {

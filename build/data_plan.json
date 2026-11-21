@@ -39698,10 +39698,9 @@
        "pfnHandler",
        8,
        {
-        "fn": true,
         "k": "ptr",
         "size": 4,
-        "spell": "void (__stdcall *)(SMSGHANDLER_PARAMS *)"
+        "spell": "void*"
        }
       ]
      ],
