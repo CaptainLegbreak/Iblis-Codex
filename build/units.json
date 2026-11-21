@@ -86887,6 +86887,26 @@
      "length": 93
     },
     {
+     "va": "0x00643D60",
+     "length": 33,
+     "name": "?sub_6FDB1050@@YGPAUD2UnitStrc@@HPAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x00643F80",
+     "length": 211,
+     "name": "?sub_00643F80_CheckWeaponTypes@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x00644060",
+     "length": 132,
+     "name": "?D2Common_SKILLS_CheckShapeRestriction_6FDB1380@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x006440F0",
+     "length": 66,
+     "name": "?D2Common_SKILLMANA_CheckStartStat_6FDB1400@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
      "va": "0x00644150",
      "length": 34,
      "name": "SKILLS_GetShrineSkillLevelBonus"
@@ -87012,6 +87032,11 @@
      "name": "SKILLS_CheckRequiredAttributes"
     },
     {
+     "va": "0x006449F0",
+     "length": 174,
+     "name": "SKILLS_GetToHitFactor"
+    },
+    {
      "va": "0x00644AA0",
      "length": 108,
      "name": "SKILLS_GetHighestSkillLevelById"
@@ -87020,6 +87045,16 @@
      "va": "0x00644B10",
      "length": 83,
      "name": "SKILLS_GetManaCosts"
+    },
+    {
+     "va": "0x00644B70",
+     "length": 170,
+     "name": "SKILLS_CalculateDamageBonusByLevel"
+    },
+    {
+     "va": "0x00644C20",
+     "length": 111,
+     "name": "sub_00644C20"
     },
     {
      "va": "0x00644D50",
@@ -87077,6 +87112,15 @@
      "name": "D2COMMON_11013_ConvertMode"
     },
     {
+     "va": "0x00645390",
+     "length": 194
+    },
+    {
+     "va": "0x00645460",
+     "length": 92,
+     "name": "D2Common_11016"
+    },
+    {
      "va": "0x006454C0",
      "length": 67,
      "name": "?sub_006454C0_IsSelectableCorpse@@YGHHPAUD2UnitStrc@@@Z"
@@ -87132,6 +87176,11 @@
      "name": "D2Common_11026"
     },
     {
+     "va": "0x006459F0",
+     "length": 115,
+     "name": "sub_006459F0"
+    },
+    {
      "va": "0x00645A70",
      "length": 22,
      "name": "D2Common_11028"
@@ -87177,6 +87226,16 @@
      "name": "SKILLS_IsEnhanceable"
     },
     {
+     "va": "0x00645FF0",
+     "length": 5,
+     "name": "?sub_00645FF0_AlwaysZero@@YGHH@Z"
+    },
+    {
+     "va": "0x00646020",
+     "length": 144,
+     "name": "SKILLS_RemoveTransformStatesFromShapeshiftedUnit"
+    },
+    {
      "va": "0x006460B0",
      "length": 3,
      "name": "_sub_006460B0@12"
@@ -87195,6 +87254,11 @@
      "va": "0x00646170",
      "length": 89,
      "name": "?D2Common_11043@@YGIPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x006461D0",
+     "length": 129,
+     "name": "SKILLS_GetConcentrationDamageBonus"
     },
     {
      "va": "0x00646260",
@@ -87220,6 +87284,11 @@
      "va": "0x00646C60",
      "length": 59,
      "name": "sub_00646C60_SkillCalcNestedParam"
+    },
+    {
+     "va": "0x00646CA0",
+     "length": 95,
+     "name": "SKILLS_EvaluateSkillFormula"
     },
     {
      "va": "0x00646D00",
@@ -87257,14 +87326,39 @@
      "name": "?D2Common_10954@@YGXPAUD2UnitStrc@@HHHHH@Z"
     },
     {
+     "va": "0x00647540",
+     "length": 244,
+     "name": "?D2Common_SKILLMANA_CheckStat_6FDB0F50@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x00647640",
+     "length": 511,
+     "name": "?sub_00647640_CheckSkillQuantity@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x00647840",
+     "length": 164,
+     "name": "?sub_6FDB1070@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
      "va": "0x006478F0",
      "length": 100,
      "name": "?SKILLS_CheckSkillDelay@@YGHPAUD2SkillStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00647960",
+     "length": 306,
+     "name": "?SKILLS_GetUseState@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
      "va": "0x00647AA0",
      "length": 128,
      "name": "D2Common_11030"
+    },
+    {
+     "va": "0x00647BC0",
+     "length": 312,
+     "name": "?SKILLS_GetMinPhysDamage@@YGHPAUD2UnitStrc@@HHH@Z"
     },
     {
      "va": "0x00647E00",
@@ -87507,77 +87601,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/SKILLS/Skills_00643D60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00643D60",
-     "length": 33,
-     "name": "?sub_6FDB1050@@YGPAUD2UnitStrc@@HPAUD2InventoryStrc@@@Z"
-    },
-    {
-     "va": "0x00643F80",
-     "length": 211,
-     "name": "?sub_00643F80_CheckWeaponTypes@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x00644060",
-     "length": 132,
-     "name": "?D2Common_SKILLS_CheckShapeRestriction_6FDB1380@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x006440F0",
-     "length": 66,
-     "name": "?D2Common_SKILLMANA_CheckStartStat_6FDB1400@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x00645460",
-     "length": 92,
-     "name": "D2Common_11016"
-    },
-    {
-     "va": "0x006459F0",
-     "length": 115,
-     "name": "sub_006459F0"
-    },
-    {
-     "va": "0x00645FF0",
-     "length": 5,
-     "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
-    },
-    {
-     "va": "0x00646020",
-     "length": 144,
-     "name": "SKILLS_RemoveTransformStatesFromShapeshiftedUnit"
-    },
-    {
-     "va": "0x006461D0",
-     "length": 129,
-     "name": "SKILLS_GetConcentrationDamageBonus"
-    },
-    {
-     "va": "0x00647540",
-     "length": 244,
-     "name": "?D2Common_SKILLMANA_CheckStat_6FDB0F50@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x00647640",
-     "length": 511,
-     "name": "?sub_00647640_CheckSkillQuantity@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x00647840",
-     "length": 164,
-     "name": "?sub_6FDB1070@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x00647960",
-     "length": 306,
-     "name": "?SKILLS_GetUseState@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Common/SKILLS/Skills_00643D90.cpp",
    "rank": 0,
    "functions": [
@@ -87659,47 +87682,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/SKILLS/Skills_006449F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006449F0",
-     "length": 174,
-     "name": "SKILLS_GetToHitFactor"
-    },
-    {
-     "va": "0x00644B70",
-     "length": 170,
-     "name": "SKILLS_CalculateDamageBonusByLevel"
-    },
-    {
-     "va": "0x00644C20",
-     "length": 111,
-     "name": "sub_00644C20"
-    },
-    {
-     "va": "0x00646CA0",
-     "length": 95,
-     "name": "SKILLS_EvaluateSkillFormula"
-    },
-    {
-     "va": "0x00647BC0",
-     "length": 312,
-     "name": "?SKILLS_GetMinPhysDamage@@YGHPAUD2UnitStrc@@HHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/SKILLS/Skills_00645390.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00645390",
-     "length": 194
-    }
    ]
   },
   {
@@ -90035,9 +90017,44 @@
      "length": 19
     },
     {
+     "va": "0x0065CCC0",
+     "length": 384,
+     "name": "?sub_0065CCC0_SetItemBaseStats@@YGXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0065CE40",
+     "length": 252,
+     "name": "?sub_0065CE40_ShiftStatValue@@YAXHPAH@Z"
+    },
+    {
      "va": "0x0065CF40",
      "length": 298,
      "name": "?sub_0065CF40_AddRolledStat@@YGHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHHH@Z"
+    },
+    {
+     "va": "0x0065D070",
+     "length": 157,
+     "name": "?sub_0065D070_AddValueStat@@YGHHPAUD2UnitStrc@@0HHHHHH@Z"
+    },
+    {
+     "va": "0x0065D110",
+     "length": 176,
+     "name": "?sub_0065D110_AddLayerStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065D1C0",
+     "length": 38,
+     "name": "?sub_0065D1C0_AddRolledStat0@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065D1F0",
+     "length": 33,
+     "name": "?sub_0065D1F0_AddValueStat0@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
+    },
+    {
+     "va": "0x0065D220",
+     "length": 80,
+     "name": "sub_6FD93170"
     },
     {
      "va": "0x0065D270",
@@ -90045,8 +90062,45 @@
      "name": "?sub_0065D270@@YIHHPAUUnit@@0PBUProperty@@HHHH0@Z"
     },
     {
+     "va": "0x0065D2B0",
+     "length": 38,
+     "name": "?sub_0065D2B0_AddRolledStat1@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065D2E0",
+     "length": 33,
+     "name": "?sub_0065D2E0_AddValueStat1@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
+    },
+    {
+     "va": "0x0065D310",
+     "length": 413,
+     "name": "?sub_0065D310_AddAllResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065D4B0",
+     "length": 413,
+     "name": "?sub_0065D4B0_AddAllMaxResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065D650",
+     "length": 373
+    },
+    {
+     "va": "0x0065D7D0",
+     "length": 373
+    },
+    {
      "va": "0x0065D950",
      "length": 568
+    },
+    {
+     "va": "0x0065DB90",
+     "length": 39,
+     "name": "?sub_0065DB90_AddAllSkills@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065DBC0",
+     "length": 439
     },
     {
      "va": "0x0065DD80",
@@ -90072,9 +90126,23 @@
      "name": "?sub_0065E230_AddElemSkillStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
     },
     {
+     "va": "0x0065E2D0",
+     "length": 358
+    },
+    {
      "va": "0x0065E440",
      "length": 8,
      "name": "?sub_0065E440_StatFuncTrue@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065E450",
+     "length": 120,
+     "name": "?sub_0065E450_AddRangeStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
+    },
+    {
+     "va": "0x0065E4D0",
+     "length": 292,
+     "name": "ITEMMODS_ApplyEthereality"
     },
     {
      "va": "0x0065E600",
@@ -90087,9 +90155,52 @@
      "name": "?sub_0065E610_Empty@@YGXHHH@Z"
     },
     {
+     "va": "0x0065E620",
+     "length": 233,
+     "name": "ITEMMODS_CanItemHaveMagicAffix"
+    },
+    {
+     "va": "0x0065E710",
+     "length": 185,
+     "name": "ITEMMODS_CanItemHaveRareAffix"
+    },
+    {
+     "va": "0x0065E7D0",
+     "length": 272,
+     "name": "ITEMMODS_CanItemBeHighQuality"
+    },
+    {
+     "va": "0x0065E8E0",
+     "length": 199
+    },
+    {
      "va": "0x0065E9B0",
      "length": 43,
      "name": "?sub_0065E9B0@@YIPAUD2ItemsTxt@@PAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0065EA50",
+     "length": 223
+    },
+    {
+     "va": "0x0065EB30",
+     "length": 105,
+     "name": "?ITEMMODS_PropertyFunc01@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
+    },
+    {
+     "va": "0x0065EBA0",
+     "length": 100,
+     "name": "?ITEMMODS_PropertyFunc02@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
+    },
+    {
+     "va": "0x0065EC10",
+     "length": 112,
+     "name": "?ITEMMODS_PropertyFunc03@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
+    },
+    {
+     "va": "0x0065EC80",
+     "length": 107,
+     "name": "?ITEMMODS_PropertyFunc04@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
     },
     {
      "va": "0x0065ECF0",
@@ -90107,9 +90218,29 @@
      "name": "?ITEMMODS_PropertyFunc07@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
     },
     {
+     "va": "0x0065F2B0",
+     "length": 81,
+     "name": "ITEMMODS_PropertyFunc08"
+    },
+    {
+     "va": "0x0065F310",
+     "length": 114,
+     "name": "ITEMMODS_PropertyFunc09"
+    },
+    {
      "va": "0x0065F390",
      "length": 83,
      "name": "ITEMMODS_PropertyFunc24"
+    },
+    {
+     "va": "0x0065F3F0",
+     "length": 116,
+     "name": "ITEMMODS_PropertyFunc10"
+    },
+    {
+     "va": "0x0065F470",
+     "length": 288,
+     "name": "?ITEMMODS_PropertyFunc11@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
     },
     {
      "va": "0x0065F590",
@@ -90125,9 +90256,77 @@
      "length": 229
     },
     {
+     "va": "0x0065F960",
+     "length": 100,
+     "name": "ITEMMODS_PropertyFunc15"
+    },
+    {
+     "va": "0x0065F9D0",
+     "length": 100,
+     "name": "ITEMMODS_PropertyFunc16"
+    },
+    {
+     "va": "0x0065FA40",
+     "length": 159,
+     "name": "ITEMMODS_PropertyFunc17"
+    },
+    {
+     "va": "0x0065FAE0",
+     "length": 104
+    },
+    {
+     "va": "0x0065FB50",
+     "length": 76,
+     "name": "ITEMMODS_PropertyFunc21"
+    },
+    {
+     "va": "0x0065FBA0",
+     "length": 77,
+     "name": "ITEMMODS_PropertyFunc36"
+    },
+    {
+     "va": "0x0065FBF0",
+     "length": 77,
+     "name": "ITEMMODS_PropertyFunc22"
+    },
+    {
+     "va": "0x0065FC40",
+     "length": 76,
+     "name": "ITEMMODS_PropertyFunc12"
+    },
+    {
+     "va": "0x0065FC90",
+     "length": 135,
+     "name": "?ITEMMODS_PropertyFunc13@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
+    },
+    {
+     "va": "0x0065FD70",
+     "length": 156,
+     "name": "D2COMMON_11292_ItemAssignProperty"
+    },
+    {
+     "va": "0x0065FE10",
+     "length": 169,
+     "name": "?sub_0065FE10@@YGXHPAUD2UnitStrc@@0PBXHHHPBUD2PropertyStrc@@HH0@Z"
+    },
+    {
+     "va": "0x0065FEC0",
+     "length": 476
+    },
+    {
      "va": "0x006600A0",
      "length": 122,
      "name": "ITEMMODS_UpdateRuneword"
+    },
+    {
+     "va": "0x00660120",
+     "length": 281,
+     "name": "?ITEMMODS_UpdateFullSetBoni@@YIXPAUD2UnitStrc@@0H@Z"
+    },
+    {
+     "va": "0x00660240",
+     "length": 74,
+     "name": "?ITEMMODS_AddCraftPropertyList@@YGXPAUD2UnitStrc@@PAUD2PropertyStrc@@H@Z"
     }
    ]
   },
@@ -90175,301 +90374,6 @@
      "length": 236,
      "name": "?ITEMMODS_UpdateItemWithSkillCharges@@YGHPAUD2UnitStrc@@HHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/ItemMods_0065CCC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065CCC0",
-     "length": 384,
-     "name": "?sub_0065CCC0_SetItemBaseStats@@YGXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0065CE40",
-     "length": 252,
-     "name": "?sub_0065CE40_ShiftStatValue@@YAXHPAH@Z"
-    },
-    {
-     "va": "0x0065D1C0",
-     "length": 38,
-     "name": "?sub_0065D1C0_AddRolledStat0@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
-    },
-    {
-     "va": "0x0065D2B0",
-     "length": 38,
-     "name": "?sub_0065D2B0_AddRolledStat1@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
-    },
-    {
-     "va": "0x0065DB90",
-     "length": 39,
-     "name": "?sub_0065DB90_AddAllSkills@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
-    },
-    {
-     "va": "0x0065EB30",
-     "length": 105,
-     "name": "?ITEMMODS_PropertyFunc01@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
-    },
-    {
-     "va": "0x0065EBA0",
-     "length": 100,
-     "name": "?ITEMMODS_PropertyFunc02@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
-    },
-    {
-     "va": "0x0065EC10",
-     "length": 112,
-     "name": "?ITEMMODS_PropertyFunc03@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
-    },
-    {
-     "va": "0x0065EC80",
-     "length": 107,
-     "name": "?ITEMMODS_PropertyFunc04@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
-    },
-    {
-     "va": "0x0065FC90",
-     "length": 135,
-     "name": "?ITEMMODS_PropertyFunc13@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/ItemMods_0065D070.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065D070",
-     "length": 157,
-     "name": "?sub_0065D070_AddValueStat@@YGHHPAUD2UnitStrc@@0HHHHHH@Z"
-    },
-    {
-     "va": "0x0065D110",
-     "length": 176,
-     "name": "?sub_0065D110_AddLayerStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
-    },
-    {
-     "va": "0x0065D1F0",
-     "length": 33,
-     "name": "?sub_0065D1F0_AddValueStat0@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
-    },
-    {
-     "va": "0x0065D2E0",
-     "length": 33,
-     "name": "?sub_0065D2E0_AddValueStat1@@YGHHPAUD2UnitStrc@@0HHHHH@Z"
-    },
-    {
-     "va": "0x0065D310",
-     "length": 413,
-     "name": "?sub_0065D310_AddAllResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
-    },
-    {
-     "va": "0x0065D4B0",
-     "length": 413,
-     "name": "?sub_0065D4B0_AddAllMaxResist@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
-    },
-    {
-     "va": "0x0065E450",
-     "length": 120,
-     "name": "?sub_0065E450_AddRangeStat@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HHHH0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/ItemMods_0065D220.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065D220",
-     "length": 80,
-     "name": "sub_6FD93170"
-    },
-    {
-     "va": "0x0065E4D0",
-     "length": 292,
-     "name": "ITEMMODS_ApplyEthereality"
-    },
-    {
-     "va": "0x0065E620",
-     "length": 233,
-     "name": "ITEMMODS_CanItemHaveMagicAffix"
-    },
-    {
-     "va": "0x0065E710",
-     "length": 185,
-     "name": "ITEMMODS_CanItemHaveRareAffix"
-    },
-    {
-     "va": "0x0065E7D0",
-     "length": 272,
-     "name": "ITEMMODS_CanItemBeHighQuality"
-    },
-    {
-     "va": "0x0065F2B0",
-     "length": 81,
-     "name": "ITEMMODS_PropertyFunc08"
-    },
-    {
-     "va": "0x0065F310",
-     "length": 114,
-     "name": "ITEMMODS_PropertyFunc09"
-    },
-    {
-     "va": "0x0065F3F0",
-     "length": 116,
-     "name": "ITEMMODS_PropertyFunc10"
-    },
-    {
-     "va": "0x0065F960",
-     "length": 100,
-     "name": "ITEMMODS_PropertyFunc15"
-    },
-    {
-     "va": "0x0065F9D0",
-     "length": 100,
-     "name": "ITEMMODS_PropertyFunc16"
-    },
-    {
-     "va": "0x0065FA40",
-     "length": 159,
-     "name": "ITEMMODS_PropertyFunc17"
-    },
-    {
-     "va": "0x0065FB50",
-     "length": 76,
-     "name": "ITEMMODS_PropertyFunc21"
-    },
-    {
-     "va": "0x0065FBA0",
-     "length": 77,
-     "name": "ITEMMODS_PropertyFunc36"
-    },
-    {
-     "va": "0x0065FBF0",
-     "length": 77,
-     "name": "ITEMMODS_PropertyFunc22"
-    },
-    {
-     "va": "0x0065FC40",
-     "length": 76,
-     "name": "ITEMMODS_PropertyFunc12"
-    },
-    {
-     "va": "0x0065FD70",
-     "length": 156,
-     "name": "D2COMMON_11292_ItemAssignProperty"
-    },
-    {
-     "va": "0x0065FE10",
-     "length": 169,
-     "name": "?sub_0065FE10@@YGXHPAUD2UnitStrc@@0PBXHHHPBUD2PropertyStrc@@HH0@Z"
-    },
-    {
-     "va": "0x00660120",
-     "length": 281,
-     "name": "?ITEMMODS_UpdateFullSetBoni@@YIXPAUD2UnitStrc@@0H@Z"
-    },
-    {
-     "va": "0x00660240",
-     "length": 74,
-     "name": "?ITEMMODS_AddCraftPropertyList@@YGXPAUD2UnitStrc@@PAUD2PropertyStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/ItemMods_0065F470.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065F470",
-     "length": 288,
-     "name": "?ITEMMODS_PropertyFunc11@@YIHHPAUD2UnitStrc@@0PBUD2PropertyStrc@@HFHHHH0@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/ItemMods_0065D650.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0065D650",
-     "length": 373
-    },
-    {
-     "va": "0x0065D7D0",
-     "length": 373
-    },
-    {
-     "va": "0x0065E2D0",
-     "length": 358
-    },
-    {
-     "va": "0x0065E8E0",
-     "length": 199
-    },
-    {
-     "va": "0x0065EA50",
-     "length": 223
-    },
-    {
-     "va": "0x0065FEC0",
-     "length": 476
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/ItemMods_0065DBC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0065DBC0",
-     "length": 439
-    },
-    {
-     "va": "0x0065FAE0",
-     "length": 104
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

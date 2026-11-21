@@ -4,91 +4,346 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2TxtItems.h"
+#include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
 #define IM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 #define MAXIMUM(a,b) (((a)>(b))?(a):(b))
+
 #define MINIMUM(a,b) (((a)<(b))?(a):(b))
+
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 union D2SeedStrc;
-struct Property;
+
 struct D2PropertyStrc;
+
 struct D2ItemsTxt;
+
 struct D2RunesTxt;
+
 struct D2DataTablesStrc;
+
 struct D2UnitStrc;
-struct Unit;
+
 struct D2ItemStatCostTxt;
+
 struct D2StatListStrc;
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);
+
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+
 D2StatListStrc* __stdcall sub_00625790_UnitFindStatList(D2UnitStrc* pUnit, int nState, int nFlag);
+
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
-int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit);
+
+int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
+
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
+
 void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627030
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
+
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
+
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
+
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
+
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
+
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
+
 int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int nMax); // 0x0065E9E0
+
 int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatList, D2UnitStrc* pUnit, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState); // 0x0065EA50
+
 static __declspec(noinline) int sub_0065CCA0_IsPercentStat(int nStatId);
-
-struct Unit { int type; };
-
-void __stdcall sub_00627260(Unit*,int,int,unsigned short); // 0x00627260
 
 enum { MAX_DURABILITY = 73, DURABILITY = 72 };
 
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
+
 int __stdcall sub_006254E0_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);
 
-struct Property { int id; int layer; int minimum; int maximum; };
+void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 
-void __stdcall sub_006286C0(Unit*,unsigned char*,unsigned char*,const char*,int); // 0x006286C0
-unsigned char __stdcall sub_0062BC20(Unit*); // 0x0062BC20
-int __fastcall sub_0065E9E0(Unit*,int,int); // 0x0065E9E0
-void __stdcall sub_006280D0(Unit*,unsigned,int); // 0x006280D0
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+
+static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId);
 
 enum { SOCKET_FLAG = 0x800 };
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
+
 const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062BED0
+
 void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10); // 0x0065FD70
+
 D2ItemsTxt* __fastcall sub_0065E9B0(D2UnitStrc* pUnit, D2UnitStrc* pItem);
+
 static __declspec(noinline) int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList);
+
 static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStatId);
+
 static __declspec(noinline) void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue);
+
 static __forceinline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax);
+
 static __forceinline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int nMax);
+
 static int __stdcall sub_0065D1F0_AddValueStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
+
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
+
 int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11); // 0x0065EE80
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
 void* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
+
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
+
 int __stdcall SKILLS_GetRequiredLevel(int nSkillId); // 0x00644710
+
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
+
 static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter);
+
 static int __stdcall sub_0065D2E0_AddValueStat1(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
+
 extern "C" void _ReadWriteBarrier(void);
+
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag);          // 0x00625790
+
+static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter);
+
+
+struct D2PropertiesTxt;
+
+struct D2MagicAffixTxt;
+
+struct D2RareAffixTxt;
+
+struct D2QualityItemsTxt;
+
+struct D2ItemTypeCheckStrc;
+
+struct D2GradeModsStrc;
+
+struct D2GemsTxt;
+
+struct D2UniqueItemsTxt;
+
+struct D2SetItemsTxt;
+
+struct D2PropertyAssignStrc;
+
+struct D2PropertiesTxt
+{
+    unsigned short wProp;
+    unsigned char nSet[7];
+    char unk0x09;
+    unsigned short wVal[7];
+    unsigned char nFunc[7];
+    char unk0x1F;
+    unsigned short wStat[7];
+};
+
+struct D2RareAffixTxt
+{
+    char unk0x00[0x0E];
+    unsigned short wVersion;
+    short wIType[7];
+    short wEType[4];
+};
+
+struct D2QualityItemsTxt
+{
+    unsigned char nArmor;
+    unsigned char nWeapon;
+    unsigned char nShield;
+    unsigned char nScepter;
+    unsigned char nWand;
+    unsigned char nStaff;
+    unsigned char nBow;
+    unsigned char nBoots;
+    unsigned char nGloves;
+    unsigned char nBelt;
+};
+
+struct D2ItemTypeCheckStrc
+{
+    unsigned char bItemType;
+    int nItemType;
+};
+
+typedef int(__fastcall* PROPERTYASSIGNFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+extern int gnPropertyFunctionCount; // 0x00745B54
+
+extern PROPERTYASSIGNFN gpfPropertyFunctions[]; // 0x007462F8
+
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+
+int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
+
+int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
+
+void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BE00
+
+int __fastcall ITEMMODS_PropertyFunc05(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11); // 0x0065ECF0
+
+struct D2GradeModsStrc
+{
+    char pad0x00[0xC];
+    D2PropertyStrc pProperties[12];
+};
+
+struct D2SetsTxt
+{
+    char pad0x00[0x0C];
+    int nSetItems;
+    D2PropertyStrc pBoni2[8];
+    D2PropertyStrc pFBoni[8];
+};
+
+typedef int (__fastcall* ITEMMODS_PROPERTYFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatlist, D2UnitStrc* a9);
+
+struct D2PropertyAssignStrc
+{
+    ITEMMODS_PROPERTYFN pfAssign;
+    int nStatId;
+};
+
+int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
+
+D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nUniqueItemId); // 0x00483470
+
+D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
+
+int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
+
+unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pSetItem, int bDontIgnoreInputItem); // 0x0062A370
+
+int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
+
+void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem); // 0x0065E4D0
+
+extern D2PropertyAssignStrc gtPropertyAssignTable_00745B58[]; // 0x00745B58
+
+int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc09(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc17(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc21(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc36(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc22(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+#define STAT_POISONMAXDAM 58
+
+#define STAT_POISON_COUNT 326
+
+void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
+
+extern int gaItemFileIndices_0074638C[]; // 0x0074638C
+
+extern int gnItemFileIndexCount_007463A4; // 0x007463A4
+
+extern "C" const char gszItemModsFile_006EDB78[]; // 0x006EDB78
+
+#define STAT_ITEM_INDESTRUCTIBLE 152
+
+struct D2SkillsTxt;
+
+void __stdcall sub_00627150(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
+
+int __fastcall sub_0065DD80_AddByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
+
+int __fastcall sub_0065E450_AddRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065D1C0_AddRolledStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065D2B0_AddRolledStat1(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065DB90_AddAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
+
+static void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue);
+
+static int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList);
+
+static void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStatId);
+
+static int __stdcall sub_0065D070_AddValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int a7, int nState, int fStatList);
+
+int __fastcall sub_0065D110_AddLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065D310_AddAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065D4B0_AddAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065D650_AddMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065D7D0_AddMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+int __fastcall sub_0065DE40_AddStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
+
+static void __stdcall sub_0065FE10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a11);
+
+void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState);
+
+void __stdcall ITEMMODS_AddCraftPropertyList(D2UnitStrc* pItem, D2PropertyStrc* pProperty, int nUnused);
+
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType);
 
 // 0x0065C5D0
 int __cdecl sub_0065C5D0()
@@ -253,116 +508,6 @@ int __fastcall sub_0065E070_AddStatTriple(int nType, D2UnitStrc* pUnit, D2UnitSt
     return 1;
 }
 
-int __fastcall sub_0065E450_AddRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    const int nMin = ITEMMODS_RollPropertyValueB(pItem, pProperty->nMin, pProperty->nMax);
-    return sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, nStatId, nApplyType, nState, fStatList);
-}
-
-int __fastcall sub_0065D1C0_AddRolledStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    return sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, nStatId, nApplyType, 0, nState, fStatList);
-}
-
-int __fastcall sub_0065D2B0_AddRolledStat1(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    return sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, nStatId, nApplyType, 1, nState, fStatList);
-}
-
-int __fastcall sub_0065DB90_AddAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 127, nApplyType, 0, nState, fStatList);
-    return nStatId;
-}
-
-int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
-{
-    if (!pProperty)
-    {
-        return 0;
-    }
-    if (pItem && pItem->dwUnitType == 4 && nType == 1)
-    {
-        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-    }
-    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
-    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
-}
-
-int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
-{
-    if (!pProperty)
-    {
-        return 0;
-    }
-    if (pItem && pItem->dwUnitType == 4)
-    {
-        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-    }
-    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
-    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
-}
-
-int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
-{
-    if (!pProperty)
-    {
-        return 0;
-    }
-    if (pItem && pItem->dwUnitType == 4 && nType == 1)
-    {
-        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-    }
-    int nMin = nValue;
-    if (!nValue)
-    {
-        nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
-    }
-    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
-}
-
-int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
-{
-    if (!pProperty)
-    {
-        return 0;
-    }
-    if (pItem && pItem->dwUnitType == 4)
-    {
-        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-    }
-    int nMin = nValue;
-    if (!nValue)
-    {
-        nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
-    }
-    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
-}
-
-int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
-{
-    if (!pProperty || !pItem)
-    {
-        return 0;
-    }
-    if (pItem->dwUnitType == 4 && nType == 1)
-    {
-        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-    }
-    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
-    const int nResult = ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
-    if (nResult)
-    {
-        const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-        if (nMaxDurability > 0)
-        {
-            STATLIST_SetUnitStat(pItem, 72, nMaxDurability, 0);
-        }
-        return nResult;
-    }
-    return 0;
-}
-
 static __forceinline int IsStatInRange(int nStatId, int nMin, int nMax)
 {
     if (nStatId < nMin)
@@ -380,68 +525,7 @@ static int sub_0065CCA0_IsPercentStat(int nStatId)
     return 0;
 }
 
-// 0x0065CE40
-static void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue)
-{
-    switch (nStatId)
-    {
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-    case 216:
-    case 217:
-        *pValue <<= 8;
-        break;
-    case 57:
-    case 58:
-        break;
-    default:
-        return;
-    }
-}
-
-// 0x0065CF40
-static __declspec(noinline) int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList)
-{
-    int nValue;
-    if (a7)
-    {
-        nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
-    }
-    else
-    {
-        nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
-        if (nType != 1)
-        {
-            goto skip_base;
-        }
-    }
-    sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-skip_base:
-
-    if (!nValue)
-    {
-        return 0;
-    }
-
-    sub_0065CE40_ShiftStatValue(nStatId, &nValue);
-    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(hStatsList, 669);
-    if (nApplyType)
-    {
-        nValue = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
-    }
-    STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
-    if (nStatId == 58)
-    {
-        STATLIST_AddStat(hStatsList, 326, 1, 0);
-    }
-    return 1;
-}
-
+// 0x0065CCC0
 static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStatId)
 {
     int nItemId;
@@ -512,6 +596,149 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
     }
 }
 
+// 0x0065CE40
+static __declspec(noinline) void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue)
+{
+    switch (nStatId)
+    {
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 216:
+    case 217:
+        *pValue <<= 8;
+        break;
+
+    case 57:
+    case 58:
+        break;
+
+    default:
+        return;
+    }
+}
+
+// 0x0065CF40
+static __declspec(noinline) int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList)
+{
+    int nValue;
+    if (a7)
+    {
+        nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
+    }
+    else
+    {
+        nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
+        if (nType != 1)
+        {
+            goto skip_base;
+        }
+    }
+    sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+skip_base:
+
+    if (!nValue)
+    {
+        return 0;
+    }
+
+    sub_0065CE40_ShiftStatValue(nStatId, &nValue);
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 669);
+    if (nApplyType)
+    {
+        nValue = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
+    }
+    STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
+    if (nStatId == 58)
+    {
+        STATLIST_AddStat(hStatsList, 326, 1, 0);
+    }
+    return 1;
+}
+
+// 0x0065D070
+static __declspec(noinline) int __stdcall sub_0065D070_AddValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int a7, int nState, int fStatList)
+{
+    if (a7 || nType == 1)
+    {
+        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+    }
+    if (!nValue)
+    {
+        return 0;
+    }
+    sub_0065CE40_ShiftStatValue(nStatId, &nValue);
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 709);
+    if (nApplyType)
+    {
+        nValue = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
+    }
+    STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
+    return 1;
+}
+
+// 0x0065D110
+int __fastcall sub_0065D110_AddLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    D2_ASSERT(ptProperty, 738);
+    int nValue = ptProperty->nLayer;
+    if (!nValue)
+    {
+        return 0;
+    }
+    if (nStatId >= 16 && nStatId <= 18 || nType == 1)
+    {
+        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+    }
+    sub_0065CE40_ShiftStatValue(nStatId, &nValue);
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 752);
+    if (nApplyType)
+    {
+        nValue = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
+    }
+    STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
+    return 1;
+}
+
+// 0x0065D1C0
+int __fastcall sub_0065D1C0_AddRolledStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    return sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, nStatId, nApplyType, 0, nState, fStatList);
+}
+
+// 0x0065D1F0
+static int __stdcall sub_0065D1F0_AddValueStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList)
+{
+    return sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, nStatId, nApplyType, 0, nState, fStatList);
+}
+
+inline const D2PropertiesTxt* DATATBLS_GetPropertiesTxtRecord(int nProperty)
+{
+    if (nProperty >= 0 && nProperty < sgptDataTables->nPropertiesTxtRecordCount)
+    {
+        return &sgptDataTables->pPropertiesTxt[nProperty];
+    }
+
+    return 0;
+}
+
+// 0x0065D220
+int __fastcall sub_6FD93170(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    D2_ASSERT(ptProperty, 786);
+
+    ITEMS_SetItemFlag(pItem, 0x800, 1);
+    ITEMS_AddSockets(pItem, ptProperty->nLayer);
+
+    return 1;
+}
+
 static __forceinline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax)
 {
     if (nMax == nMin)
@@ -560,63 +787,120 @@ static __forceinline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin
     return nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls);
 }
 
-static __declspec(noinline) int __stdcall sub_0065D070_AddValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int a7, int nState, int fStatList)
-{
-    if (a7 || nType == 1)
-    {
-        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-    }
-    if (!nValue)
-    {
-        return 0;
-    }
-    sub_0065CE40_ShiftStatValue(nStatId, &nValue);
-    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(pStatList, 709);
-    if (nApplyType)
-    {
-        nValue = -STATLIST_GetStatValue(pStatList, nStatId, 0);
-    }
-    STATLIST_AddStat(pStatList, nStatId, nValue, 0);
-    return 1;
-}
-
-// 0x0065D110
-int __fastcall sub_0065D110_AddLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    D2_ASSERT(pProperty, 738);
-    int nValue = pProperty->nLayer;
-    if (!nValue)
-    {
-        return 0;
-    }
-    if (nStatId >= 16 && nStatId <= 18 || nType == 1)
-    {
-        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
-    }
-    sub_0065CE40_ShiftStatValue(nStatId, &nValue);
-    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(pStatList, 752);
-    if (nApplyType)
-    {
-        nValue = -STATLIST_GetStatValue(pStatList, nStatId, 0);
-    }
-    STATLIST_AddStat(pStatList, nStatId, nValue, 0);
-    return 1;
-}
-
 int __fastcall IsPercentStatContext(const int* pStatId)
 {
     return sub_0065CCA0_IsPercentStat(*pStatId);
 }
 
 // 0x0065D270
-int __fastcall sub_0065D270(int type,Unit* unit,Unit* item,const Property* property,int stat,int applyType,int state,int statList,Unit* other)
+int __fastcall sub_0065D270(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    Unit* selected=other;
-    if(!selected || selected->type!=4) selected=item;
-    sub_00627260(selected,MAX_DURABILITY,0,0);
-    sub_00627260(selected,DURABILITY,0,0);
+    D2UnitStrc* pTarget = a9;
+    if (!pTarget || pTarget->dwUnitType != UNIT_ITEM)
+    {
+        pTarget = pItem;
+    }
+
+    STATLIST_SetUnitStat(pTarget, MAX_DURABILITY, 0, 0);
+    STATLIST_SetUnitStat(pTarget, DURABILITY, 0, 0);
+    return 1;
+}
+
+// 0x0065D2B0
+int __fastcall sub_0065D2B0_AddRolledStat1(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    return sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, nStatId, nApplyType, 1, nState, fStatList);
+}
+
+// 0x0065D2E0
+static int __stdcall sub_0065D2E0_AddValueStat1(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList)
+{
+    return sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, nStatId, nApplyType, 1, nState, fStatList);
+}
+
+// 0x0065D310
+int __fastcall sub_0065D310_AddAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    if (ITEMS_GetItemFormat(pItem) >= 1)
+    {
+        D2_ASSERT(ptProperty, 841);
+        const int nValue = ITEMMODS_RollPropertyValueA(pItem, ptProperty->nMin, ptProperty->nMax);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 39, nApplyType, nState, fStatList);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 41, nApplyType, nState, fStatList);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 43, nApplyType, nState, fStatList);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 45, nApplyType, nState, fStatList);
+    }
+    else
+    {
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 39, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 41, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 43, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 45, nApplyType, 0, nState, fStatList);
+    }
+    return nStatId;
+}
+
+// 0x0065D4B0
+int __fastcall sub_0065D4B0_AddAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    if (ITEMS_GetItemFormat(pItem) >= 1)
+    {
+        D2_ASSERT(ptProperty, 868);
+        const int nValue = ITEMMODS_RollPropertyValueA(pItem, ptProperty->nMin, ptProperty->nMax);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 40, nApplyType, nState, fStatList);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 42, nApplyType, nState, fStatList);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 44, nApplyType, nState, fStatList);
+        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 46, nApplyType, nState, fStatList);
+    }
+    else
+    {
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 40, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 42, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 44, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 46, nApplyType, 0, nState, fStatList);
+    }
+    return nStatId;
+}
+
+// 0x0065D650
+int __fastcall sub_0065D650_AddMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    D2_ASSERT(ptProperty, 891);
+    const int nValue = ITEMMODS_RollPropertyValueB(pItem, ptProperty->nMin, ptProperty->nMax);
+    D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMinDam || !pItemsTxtRecord->n2HandMinDam)
+    {
+        sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, 21, nApplyType, 0, nState, fStatList);
+    }
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->n2HandMinDam || !pItemsTxtRecord->nMinDam)
+    {
+        sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, 23, nApplyType, 0, nState, fStatList);
+    }
+    if (!ITEMSIsA(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
+    {
+        sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, 159, nApplyType, 0, nState, fStatList);
+    }
+    return 1;
+}
+
+// 0x0065D7D0
+int __fastcall sub_0065D7D0_AddMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    D2_ASSERT(ptProperty, 919);
+    const int nValue = ITEMMODS_RollPropertyValueB(pItem, ptProperty->nMin, ptProperty->nMax);
+    D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMaxDam || !pItemsTxtRecord->n2HandMaxDam)
+    {
+        sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, 22, nApplyType, 0, nState, fStatList);
+    }
+    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->n2HandMaxDam || !pItemsTxtRecord->nMinDam)
+    {
+        sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, 24, nApplyType, 0, nState, fStatList);
+    }
+    if (!ITEMSIsA(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
+    {
+        sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, 160, nApplyType, 0, nState, fStatList);
+    }
     return 1;
 }
 
@@ -660,6 +944,85 @@ int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2Uni
     return nStatId;
 }
 
+// 0x0065DB90
+int __fastcall sub_0065DB90_AddAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 127, nApplyType, 0, nState, fStatList);
+    return nStatId;
+}
+
+// build: context SKILLS_GetSkillsTxtRecord
+static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (!(nSkillId >= 0))
+        return 0;
+    if (!(nSkillId < sgptDataTables->nSkillsTxtRecordCount))
+        return 0;
+    return &sgptDataTables->pSkillsTxt[nSkillId];
+}
+
+// 0x0065DBC0
+int __fastcall sub_0065DBC0_PropertyFunc_SkillCharges(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nSkillId = pProperty->nLayer;
+    if (SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+
+    int nSkillLevel = pProperty->nMax;
+    if (!nSkillLevel)
+    {
+        nSkillLevel = (ITEMS_GetItemLevel(pItem) - SKILLS_GetRequiredLevel(nSkillId)) / 4 + 1;
+        nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), sub_004AA8B0_GetSkillMaxLevel(nSkillId));
+    }
+    else if (nSkillLevel < 0)
+    {
+        const int nRequiredLevel = SKILLS_GetRequiredLevel(nSkillId);
+        int nRange = 99 - nRequiredLevel;
+        if (nRange < 1)
+        {
+            nRange = 1;
+        }
+
+        int nDivisor = -(nRange / nSkillLevel);
+        if (nDivisor < 1)
+        {
+            nDivisor = 1;
+        }
+
+        nSkillLevel = (ITEMS_GetItemLevel(pItem) - nRequiredLevel) / nDivisor;
+        if (nSkillLevel <= 0)
+        {
+            nSkillLevel = 1;
+        }
+    }
+
+    int nCharges = pProperty->nMin;
+    if (!nCharges)
+    {
+        nCharges = 5;
+    }
+    else if (nCharges < 0)
+    {
+        nCharges = -nCharges;
+        nCharges += nCharges * nSkillLevel / 8;
+    }
+
+    nCharges = D2_MIN(D2_MAX(nCharges, 1), 255);
+
+    const int nCurrent = ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nCharges - (nCharges / 8)) + (nCharges / 8) + 1;
+    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    sub_00627150(pStatList, nStatId, (nCurrent & 0xFF) + (nCharges << 8), (nSkillId << sgptDataTables->nStuff) + (nSkillLevel & sgptDataTables->nShiftedStuff));
+    return 1;
+    }
+
+    return 0;
+}
+
 // 0x0065DD80
 int __fastcall sub_0065DD80_AddByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
@@ -673,98 +1036,6 @@ int __fastcall sub_0065DD80_AddByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitSt
     D2_ASSERT(nMin >= 0 && nMin < (1 << 10), 0x44D);
     D2_ASSERT(nMax >= 0 && nMax < (1 << 10), 0x44E);
     STATLIST_SetStat(hStatsList, nStatId, nPeriod + 4 * (nMin + (nMax << 10)), 0);
-    return 1;
-}
-
-static int __stdcall sub_0065D1F0_AddValueStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList)
-{
-    return sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, nStatId, nApplyType, 0, nState, fStatList);
-}
-
-static int __stdcall sub_0065D2E0_AddValueStat1(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList)
-{
-    return sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, nStatId, nApplyType, 1, nState, fStatList);
-}
-
-int __fastcall sub_0065D310_AddAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    if (ITEMS_GetItemFormat(pItem) >= 1)
-    {
-        D2_ASSERT(pProperty, 841);
-        const int nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 39, nApplyType, nState, fStatList);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 41, nApplyType, nState, fStatList);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 43, nApplyType, nState, fStatList);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 45, nApplyType, nState, fStatList);
-    }
-    else
-    {
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 39, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 41, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 43, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 45, nApplyType, 0, nState, fStatList);
-    }
-    return nStatId;
-}
-
-int __fastcall sub_0065D4B0_AddAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    if (ITEMS_GetItemFormat(pItem) >= 1)
-    {
-        D2_ASSERT(pProperty, 868);
-        const int nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 40, nApplyType, nState, fStatList);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 42, nApplyType, nState, fStatList);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 44, nApplyType, nState, fStatList);
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 46, nApplyType, nState, fStatList);
-    }
-    else
-    {
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 40, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 42, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 44, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 46, nApplyType, 0, nState, fStatList);
-    }
-    return nStatId;
-}
-
-int __fastcall sub_0065D650_AddMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    D2_ASSERT(pProperty, 891);
-    const int nMin = ITEMMODS_RollPropertyValueB(pItem, pProperty->nMin, pProperty->nMax);
-    D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
-    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMinDam || !pItemsTxtRecord->n2HandMinDam)
-    {
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 21, nApplyType, nState, fStatList);
-    }
-    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->n2HandMinDam || !pItemsTxtRecord->nMinDam)
-    {
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 23, nApplyType, nState, fStatList);
-    }
-    if (!ITEMSIsA(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
-    {
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 159, nApplyType, nState, fStatList);
-    }
-    return 1;
-}
-
-int __fastcall sub_0065D7D0_AddMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
-{
-    D2_ASSERT(pProperty, 919);
-    const int nMin = ITEMMODS_RollPropertyValueB(pItem, pProperty->nMin, pProperty->nMax);
-    D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
-    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMaxDam || !pItemsTxtRecord->n2HandMaxDam)
-    {
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 22, nApplyType, nState, fStatList);
-    }
-    if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->n2HandMaxDam || !pItemsTxtRecord->nMinDam)
-    {
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 24, nApplyType, nState, fStatList);
-    }
-    if (!ITEMSIsA(pItem, 45) || ITEMS_CheckIfThrowable(pItem))
-    {
-        sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, 160, nApplyType, nState, fStatList);
-    }
     return 1;
 }
 
@@ -969,10 +1240,118 @@ int __fastcall sub_0065E230_AddElemSkillStat(int nType, D2UnitStrc* pUnit, D2Uni
     return 1;
 }
 
+// 0x0065E2D0
+int __fastcall sub_0065E2D0_AddClassSkillStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nPropertyId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    int nValue;
+    int nMin = pProperty->nMin;
+    int nMax = pProperty->nMax;
+
+    if (nMin == nMax)
+    {
+        nValue = nMin;
+    }
+    else
+    {
+        if (nMax < nMin)
+        {
+            const int nTemp = nMax;
+            nMax = nMin;
+            nMin = nTemp;
+        }
+
+        int nPossibleRolls;
+        if (ITEMS_GetItemFormat(pItem) < 1)
+        {
+            nPossibleRolls = nMax - nMin;
+        }
+        else
+        {
+            nPossibleRolls = nMax - nMin + 1;
+        }
+
+        nValue = nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls);
+    }
+
+    if (!nValue)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    int nClass = 0;
+    switch (nPropertyId)
+    {
+    case 83:
+        nClass = 0;
+        break;
+    case 84:
+        nClass = 1;
+        break;
+    case 85:
+        nClass = 2;
+        break;
+    case 86:
+        nClass = 3;
+        break;
+    case 87:
+        nClass = 4;
+        break;
+    case 179:
+        nClass = 5;
+        break;
+    case 180:
+        nClass = 6;
+        break;
+    }
+
+    if (nApplyType)
+    {
+        nValue = -sub_006254E0_GetStatValue(pStatList, 83, nClass);
+    }
+
+    STATLIST_AddStat(pStatList, 83, nValue, nClass);
+    return 1;
+}
+
 // 0x0065E440
 int __fastcall sub_0065E440_StatFuncTrue(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
     return 1;
+}
+
+// 0x0065E450
+int __fastcall sub_0065E450_AddRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    const int nMin = ITEMMODS_RollPropertyValueB(pItem, pProperty->nMin, pProperty->nMax);
+    return sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, nStatId, nApplyType, nState, fStatList);
+}
+
+// 0x0065E4D0
+void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* hItem)
+{
+    D2_ASSERT(hItem, 1798);
+
+    ITEMS_SetItemFlag(hItem, 0x400000, 1);
+
+    if (ITEMSIsA(hItem, 45))
+    {
+        STATLIST_SetUnitStat(hItem, 21, 3 * STATLIST_GetUnitBaseStat(hItem, 21, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 22, 3 * STATLIST_GetUnitBaseStat(hItem, 22, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 23, 3 * STATLIST_GetUnitBaseStat(hItem, 23, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 24, 3 * STATLIST_GetUnitBaseStat(hItem, 24, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 159, 3 * STATLIST_GetUnitBaseStat(hItem, 159, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 160, 3 * STATLIST_GetUnitBaseStat(hItem, 160, 0) / 2, 0);
+    }
+    else
+    {
+        STATLIST_SetUnitStat(hItem, 31, 3 * STATLIST_GetUnitBaseStat(hItem, 31, 0) / 2, 0);
+    }
 }
 
 // 0x0065E600
@@ -993,7 +1372,184 @@ void __stdcall sub_0065E610_Empty(int a1, int a2, int a3)
 {
 }
 
-#include "gen/data/Source/D2Common/ITEMS/ItemMods.inc"
+// 0x0065E620
+int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, const D2MagicAffixTxt* pMagicAffixTxtRecord)
+{
+    if (ITEMS_GetItemFormat(pItem) < 100 && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem)))
+    {
+        return 0;
+    }
+
+    if (!(ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem) > 0))
+    {
+        const int nProperty = pMagicAffixTxtRecord->pProperties[0].nProperty;
+        if (nProperty >= 0)
+        {
+            const D2PropertiesTxt* pPropertiesTxtRecord = DATATBLS_GetPropertiesTxtRecord(nProperty);
+            if (!pPropertiesTxtRecord || pPropertiesTxtRecord->wStat[0] == 194)
+            {
+                return 0;
+            }
+        }
+    }
+
+    for (int i = 0; i < 5; ++i)
+    {
+        if (pMagicAffixTxtRecord->wEType[i] <= 0)
+        {
+            break;
+        }
+
+        if (ITEMSIsA(pItem, pMagicAffixTxtRecord->wEType[i]))
+        {
+            return 0;
+        }
+    }
+
+    for (int i = 0; i < 7; ++i)
+    {
+        if (pMagicAffixTxtRecord->wIType[i] <= 0)
+        {
+            break;
+        }
+
+        if (ITEMSIsA(pItem, pMagicAffixTxtRecord->wIType[i]))
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0065E710
+int __stdcall ITEMMODS_CanItemHaveRareAffix(D2UnitStrc* pItem, const D2RareAffixTxt* pRareAffixTxtRecord)
+{
+    if (ITEMS_GetItemFormat(pItem) < 100 && (ITEMS_CheckIfStackable(pItem) || ITEMS_CheckIfThrowable(pItem)))
+    {
+        return 0;
+    }
+
+    if (pRareAffixTxtRecord->wVersion >= 100 && ITEMS_GetItemFormat(pItem) < 100)
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < 4; ++i)
+    {
+        if (pRareAffixTxtRecord->wEType[i] <= 0)
+        {
+            break;
+        }
+
+        if (ITEMSIsA(pItem, pRareAffixTxtRecord->wEType[i]))
+        {
+            return 0;
+        }
+    }
+
+    for (int i = 0; i < 7; ++i)
+    {
+        if (pRareAffixTxtRecord->wIType[i] <= 0)
+        {
+            break;
+        }
+
+        if (ITEMSIsA(pItem, pRareAffixTxtRecord->wIType[i]))
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0065E7D0
+int __stdcall ITEMMODS_CanItemBeHighQuality(D2UnitStrc* pItem, const D2QualityItemsTxt* pQualityItemsTxtRecord)
+{
+    D2ItemTypeCheckStrc pItemTypeCheck[9] =
+    {
+        { pQualityItemsTxtRecord->nShield, 2 },
+        { pQualityItemsTxtRecord->nScepter, 24 },
+        { pQualityItemsTxtRecord->nWand, 25 },
+        { pQualityItemsTxtRecord->nStaff, 26 },
+        { pQualityItemsTxtRecord->nBow, 27 },
+        { pQualityItemsTxtRecord->nBow, 35 },
+        { pQualityItemsTxtRecord->nBoots, 15 },
+        { pQualityItemsTxtRecord->nGloves, 16 },
+        { pQualityItemsTxtRecord->nBelt, 19 },
+    };
+
+    const int nItemType = ITEMS_GetItemType(pItem);
+
+    if (pQualityItemsTxtRecord->nWeapon && ITEMSIsA(pItem, 45) && nItemType != 26 && nItemType != 27 && nItemType != 35 && nItemType != 24 && nItemType != 25)
+    {
+        return 1;
+    }
+
+    if (pQualityItemsTxtRecord->nArmor && ITEMSIsA(pItem, 50) && nItemType != 2 && nItemType != 15 && nItemType != 16 && nItemType != 19)
+    {
+        return 1;
+    }
+
+    for (unsigned int i = 0; i < sizeof(pItemTypeCheck) / sizeof(pItemTypeCheck[0]); ++i)
+    {
+        if (nItemType == pItemTypeCheck[i].nItemType && pItemTypeCheck[i].bItemType)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+// 0x0065E8E0
+void __stdcall sub_0065E8E0_InitItemFileIndex(D2UnitStrc* pItem)
+{
+    const int nCount = gnItemFileIndexCount_007463A4;
+    D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);
+    const int nIndex = SEED_RollLimitedRandomNumber_Inline(pSeed, nCount);
+    ITEMS_SetFileIndex(pItem, gaItemFileIndices_0074638C[nIndex]);
+
+    const int nFileIndex = gaItemFileIndices_0074638C[nIndex];
+    int nValue;
+    if (nFileIndex == 9)
+    {
+        nValue = ((SEED_RollRandomNumber(ITEMS_GetItemSeed(pItem)) & 3) + 1) << 8;
+    }
+    else if (nFileIndex == 7)
+    {
+        nValue = ((SEED_RollRandomNumber(ITEMS_GetItemSeed(pItem)) & 3) + 1) << 8;
+    }
+    else
+    {
+        nValue = 1;
+    }
+    STATLIST_SetUnitStat(pItem, 0x47, nValue, 0);
+}
 
 // 0x0065E9B0
 D2ItemsTxt* __fastcall sub_0065E9B0(D2UnitStrc* pUnit, D2UnitStrc* pItem)
@@ -1003,6 +1559,158 @@ D2ItemsTxt* __fastcall sub_0065E9B0(D2UnitStrc* pUnit, D2UnitStrc* pItem)
         return DATATBLS_GetItemsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
     }
     return DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+}
+
+// 0x0065EA50
+int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatList, D2UnitStrc* pUnit, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    if (!nValue)
+    {
+        return 0;
+    }
+
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(nStatId);
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    if (nSet)
+    {
+        const unsigned char nShift = pItemStatCostTxtRecord->nValShift;
+        STATLIST_SetStatIfListIsValid(pStatList, nStatId, (*(int volatile*)&nValue) << nShift, nLayer);
+
+        if (nStatId == STAT_POISONMAXDAM && !STATLIST_GetStatValue(pStatList, STAT_POISON_COUNT, 0))
+        {
+            STATLIST_SetStatIfListIsValid(pStatList, STAT_POISON_COUNT, 1, 0);
+        }
+    }
+    else
+    {
+        STATLIST_AddStat(pStatList, nStatId, nValue << pItemStatCostTxtRecord->nValShift, nLayer);
+
+        if (nStatId == STAT_POISONMAXDAM)
+        {
+            STATLIST_AddStat(pStatList, STAT_POISON_COUNT, 1, 0);
+        }
+    }
+
+    return nValue;
+}
+
+// build: context sub_0065E450_AddRolledValueStat
+int __fastcall sub_0065E450_AddRolledValueStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+{
+    int nMin = pProperty->nMin;
+    int nMax = pProperty->nMax;
+    if (nMin != nMax)
+    {
+        if (nMax < nMin)
+        {
+            const int nTemp = nMax;
+            nMax = nMin;
+            nMin = nTemp;
+        }
+
+        int nPossibleRolls = nMax - nMin;
+        if (ITEMS_GetItemFormat(pItem) >= 1)
+        {
+            ++nPossibleRolls;
+        }
+
+        nMin += ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls);
+    }
+
+    return sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nMin, nStatId, nApplyType, nState, fStatList);
+}
+
+// 0x0065EB30
+int __fastcall ITEMMODS_PropertyFunc01(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    if (pItem && pItem->dwUnitType == 4 && nType == 1)
+    {
+        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+    }
+
+    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
+}
+
+// 0x0065EBA0
+int __fastcall ITEMMODS_PropertyFunc02(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    if (pItem && pItem->dwUnitType == 4)
+    {
+        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+    }
+
+    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
+}
+
+// 0x0065EC10
+int __fastcall ITEMMODS_PropertyFunc03(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    if (pItem && pItem->dwUnitType == 4 && nType == 1)
+    {
+        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+    }
+
+    int nMin = nValue;
+    if (!nValue)
+    {
+        nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    }
+
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
+}
+
+// 0x0065EC80
+int __fastcall ITEMMODS_PropertyFunc04(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    if (pItem && pItem->dwUnitType == 4)
+    {
+        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+    }
+
+    int nMin = nValue;
+    if (!nValue)
+    {
+        nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    }
+
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
 }
 
 // 0x0065ECF0
@@ -1263,6 +1971,50 @@ int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     return nValue;
 }
 
+// 0x0065F2B0
+int __fastcall ITEMMODS_PropertyFunc08(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    int nMin = nValue;
+    if (!nValue)
+    {
+        nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    }
+
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
+}
+
+// 0x0065F310
+int __fastcall ITEMMODS_PropertyFunc09(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    int nMin = nValue;
+    if (!nValue)
+    {
+        nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+        if (!nMin)
+        {
+            return 0;
+        }
+    }
+
+    const int nSkillId = pProperty->nLayer;
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, nSkillId, nMin, nState);
+    }
+
+    return 0;
+}
+
 // 0x0065F390
 int __fastcall ITEMMODS_PropertyFunc24(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
 {
@@ -1280,28 +2032,126 @@ int __fastcall ITEMMODS_PropertyFunc24(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, nPropertyLayer, nValue, nState);
 }
 
-// 0x0065F590
-int __fastcall sub_0065F590(int type,Unit* unit,Unit* item,const Property* property,int set,short stat,int layer,int value,int state,int statList,Unit* other)
+// 0x0065F3F0
+int __fastcall ITEMMODS_PropertyFunc10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
 {
-    if(!property) return 0;
-    if(!item || item->type!=4) return 0;
-    int limit=6;
-    unsigned char width=0,height=0;
-    sub_006286C0(item,&width,&height,"d:\\diablo2\\Diablo2\\Source\\D2Common/CmnItems.h",0x6DC);
-    int area=width*height;
-    limit=MINIMUM(limit,area);
-    if(limit<=0) return 0;
-    limit=MINIMUM(limit,sub_0062BC20(item));
-    int count=value;
-    if(count<=0) {
-        count=sub_0065E9E0(item,property->minimum,property->maximum);
-        if(count<=0) count=property->layer;
+    if (!pProperty)
+    {
+        return 0;
     }
-    count=MINIMUM(MAXIMUM(count,1),limit);
-    if(count<=0) return 0;
-    sub_006280D0(item,SOCKET_FLAG,1);
-    sub_00627260(item,194,count,0);
-    return count;
+
+    int nMin = nValue;
+    if (!nValue)
+    {
+        nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+        if (!nMin)
+        {
+            return 0;
+        }
+    }
+
+    const int nSkillLayer = pProperty->nLayer % 3 + 8 * (pProperty->nLayer / 3);
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, nSkillLayer, nMin, nState);
+}
+
+// Skill-on-event property: chance (default 5) and a skill level derived from the item level when the level is 0 or negative.
+// 0x0065F470
+int __fastcall ITEMMODS_PropertyFunc11(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nSkillId = pProperty->nLayer;
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        int nChance = pProperty->nMin;
+        if (nChance <= 0)
+        {
+            nChance = 5;
+        }
+
+        nValue = pProperty->nMax;
+        if (nValue == 0)
+        {
+            const int nRequiredLevel = SKILLS_GetRequiredLevel(nSkillId);
+            nValue = (ITEMS_GetItemLevel(pItem) - nRequiredLevel) / 4 + 1;
+            nValue = D2_MIN(D2_MAX(nValue, 1), sub_004AA8B0_GetSkillMaxLevel(nSkillId));
+        }
+        else if (nValue < 0)
+        {
+            // not original source: the identical arms only shape register use
+            const int nRequiredLevel = (unsigned char)nValue ? SKILLS_GetRequiredLevel(nSkillId) : SKILLS_GetRequiredLevel(nSkillId);
+            int nDivisor = 99 - nRequiredLevel;
+            if (nDivisor < 1)
+            {
+                nDivisor = 1;
+            }
+
+            nDivisor = -(nDivisor / nValue);
+            if (nDivisor < 1)
+            {
+                nDivisor = 1;
+            }
+
+            nValue = (ITEMS_GetItemLevel(pItem) - nRequiredLevel) / nDivisor;
+            if (nValue <= 0)
+            {
+                nValue = 1;
+            }
+        }
+
+        return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, (nSkillId << 6) + (nValue & 0x3F), nChance, nState);
+    }
+
+    return 0;
+}
+
+// 0x0065F590
+int __fastcall sub_0065F590(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    if (!pItem || pItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    int nLimit = 6;
+    unsigned char nWidth = 0;
+    unsigned char nHeight = 0;
+    ITEMS_GetDimensions(pItem, &nWidth, &nHeight, "d:\\diablo2\\Diablo2\\Source\\D2Common/CmnItems.h", 0x6DC);
+    const int nArea = nWidth * nHeight;
+    nLimit = MINIMUM(nLimit, nArea);
+    if (nLimit <= 0)
+    {
+        return 0;
+    }
+
+    nLimit = MINIMUM(nLimit, sub_0062BC20(pItem));
+    int nSockets = nValue;
+    if (nSockets <= 0)
+    {
+        nSockets = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+        if (nSockets <= 0)
+        {
+            nSockets = pProperty->nLayer;
+        }
+    }
+
+    nSockets = MINIMUM(MAXIMUM(nSockets, 1), nLimit);
+    if (nSockets <= 0)
+    {
+        return 0;
+    }
+
+    ITEMS_SetItemFlag(pItem, SOCKET_FLAG, 1);
+    STATLIST_SetUnitStat(pItem, 194, nSockets, 0);
+    return nSockets;
 }
 
 // 0x0065F6A0
@@ -1414,6 +2264,391 @@ int __fastcall ITEMMODS_PropertyFunc18(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     return nMax;
 }
 
+// 0x0065F960
+int __fastcall ITEMMODS_PropertyFunc15(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nMin = pProperty->nMin;
+    if (nStatId == 21)
+    {
+        ITEMMODS_PropertyFunc05(nType, pUnit, pItem, pProperty, nSet, 21, 0, nMin, nState, fStatList, a11);
+    }
+    else
+    {
+        ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
+    }
+
+    return nMin;
+}
+
+// 0x0065F9D0
+int __fastcall ITEMMODS_PropertyFunc16(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nMax = pProperty->nMax;
+    if (nStatId == 22)
+    {
+        ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, 22, 0, nMax, nState, fStatList, a11);
+    }
+    else
+    {
+        ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMax, nState);
+    }
+
+    return nMax;
+}
+
+// 0x0065FA40
+int __fastcall ITEMMODS_PropertyFunc17(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    int nTemp = pProperty->nLayer;
+    if (!nTemp)
+    {
+        nTemp = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+        if (!nTemp)
+        {
+            return 0;
+        }
+    }
+
+    if (nStatId == 22)
+    {
+        ITEMMODS_PropertyFunc06(nType, pUnit, pItem, pProperty, nSet, 22, 0, nTemp, nState, fStatList, a11);
+    }
+    else
+    {
+        ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nTemp, nState);
+    }
+
+    return nTemp;
+}
+
+static inline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecordInline(int nStatId)
+{
+    D2ItemStatCostTxt* pRecord = 0;
+    if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        pRecord = &sgptDataTables->pItemStatCostTxt[nStatId];
+    }
+    return pRecord;
+}
+
+// 0x0065FAE0
+int __fastcall ITEMMODS_PropertyFunc20(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if ((pItem ? pItem->dwUnitType : 6) != UNIT_ITEM)
+        return 0;
+    if (!pProperty)
+        return 0;
+    if (!DATATBLS_GetItemStatCostTxtRecordInline(STAT_ITEM_INDESTRUCTIBLE))
+        return 0;
+    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    if (!pStatList)
+        return 0;
+    STATLIST_AddStat(pStatList, STAT_ITEM_INDESTRUCTIBLE, 1, 0);
+    return 1;
+}
+
+// 0x0065FB50
+int __fastcall ITEMMODS_PropertyFunc21(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, nLayer, nMin, nState);
+}
+
+// 0x0065FBA0
+int __fastcall ITEMMODS_PropertyFunc36(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, nMin, (short)nLayer, nState);
+}
+
+// 0x0065FBF0
+int __fastcall ITEMMODS_PropertyFunc22(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, (unsigned short)pProperty->nLayer, nMin, nState);
+}
+
+// 0x0065FC40
+int __fastcall ITEMMODS_PropertyFunc12(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty)
+    {
+        return 0;
+    }
+
+    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    return ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, nMin, pProperty->nLayer, nState);
+}
+
+// 0x0065FC90
+int __fastcall ITEMMODS_PropertyFunc13(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
+{
+    if (!pProperty || !pItem)
+    {
+        return 0;
+    }
+
+    if (pItem->dwUnitType == 4 && nType == 1)
+    {
+        sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
+    }
+
+    const int nMin = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
+    const int nResult = ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, nStatId, 0, nMin, nState);
+    if (nResult)
+    {
+        const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
+        if (nMaxDurability > 0)
+        {
+            STATLIST_SetUnitStat(pItem, 72, nMaxDurability, 0);
+        }
+
+        return nResult;
+    }
+
+    return 0;
+}
+
+// 0x0065FD70
+void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10)
+{
+    if (pProperty)
+    {
+        const D2PropertiesTxt* pPropertiesTxtRecord = DATATBLS_GetPropertiesTxtRecord(pProperty->nProperty);
+        if (pPropertiesTxtRecord)
+        {
+            int nFirstValue = 0;
+            for (int i = 0; i < 7; ++i)
+            {
+                if (pPropertiesTxtRecord->nFunc[i] >= gnPropertyFunctionCount)
+                {
+                    break;
+                }
+
+                PROPERTYASSIGNFN pfAssign = gpfPropertyFunctions[pPropertiesTxtRecord->nFunc[i]];
+                if (!pfAssign)
+                {
+                    break;
+                }
+
+                const int nResult = pfAssign(nType, pUnit, pItem, pProperty, pPropertiesTxtRecord->nSet[i], pPropertiesTxtRecord->wStat[i], pPropertiesTxtRecord->wVal[i], nFirstValue, nState, fStatlist, a10);
+                if (!i)
+                {
+                    nFirstValue = nResult;
+                }
+            }
+        }
+    }
+}
+
+static const D2PropertyStrc* sub_0065C660_GetAffixProperty(const D2MagicAffixTxt* pMods, int nMod)
+{
+    D2_ASSERT(pMods, 0x79);
+    if ((unsigned int)nMod < 3)
+    {
+        return &pMods->pProperties[nMod];
+    }
+
+    D2_ASSERT(0, 0x7A);
+    return 0;
+}
+
+static const D2PropertyStrc* sub_0065C6A0_GetGradeProperty(const D2GradeModsStrc* pMods, int nMod)
+{
+    if ((unsigned int)nMod < 12)
+    {
+        return &pMods->pProperties[nMod];
+    }
+
+    D2_ASSERT(0, 0x81);
+    return 0;
+}
+
+static const D2PropertyStrc* sub_0065C6D0_GetGemProperty(const D2GemsTxt* pMods, int nPropSet, int nMod)
+{
+    const D2PropertyStrc* pProperties[3];
+    pProperties[0] = pMods->pProperties[0];
+    pProperties[1] = pMods->pProperties[1];
+    pProperties[2] = pMods->pProperties[2];
+    D2_ASSERT((unsigned int)nPropSet < 3, 0x8F);
+    if ((unsigned int)nMod < 3)
+    {
+        return &pProperties[nPropSet][nMod];
+    }
+
+    D2_ASSERT(0, 0x90);
+    return 0;
+}
+
+static const D2PropertyStrc* sub_0065C730_GetModsProperty(int nType, const void* pMods, int nMod, int nPropSet)
+{
+    switch (nType)
+    {
+    case 0:
+        return sub_0065C660_GetAffixProperty((const D2MagicAffixTxt*)pMods, nMod);
+    case 1:
+        return sub_0065C6A0_GetGradeProperty((const D2GradeModsStrc*)pMods, nMod);
+    case 2:
+        return sub_0065C6D0_GetGemProperty((const D2GemsTxt*)pMods, nPropSet, nMod);
+    case 5:
+        return sub_0065C6D0_GetGemProperty((const D2GemsTxt*)pMods, nPropSet, nMod);
+    case 3:
+    case 4:
+        return 0;
+    case 6:
+    case 7:
+        return (const D2PropertyStrc*)pMods;
+    default:
+        D2_ASSERT(0, 0xAF);
+        return 0;
+    }
+}
+
+// 0x0065FE10
+static void __stdcall sub_0065FE10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* ptProperty, int nState, int fStatlist, D2UnitStrc* a11)
+{
+    if (ITEMS_GetItemFormat(pItem) >= 1)
+    {
+        D2COMMON_11292_ItemAssignProperty(nType, pUnit, pItem, pMods, nIndex, nPropSet, ptProperty, nState, fStatlist, a11);
+    }
+    else
+    {
+        D2_ASSERT(ptProperty, 0x66D);
+
+        const int nProperty = ptProperty->nProperty;
+        if (nProperty != -1 && nProperty >= 0 && nProperty < sgptDataTables->nPropertiesTxtRecordCount)
+        {
+            ITEMMODS_PROPERTYFN pfAssign = gtPropertyAssignTable_00745B58[nProperty].pfAssign;
+            if (pfAssign)
+            {
+                pfAssign(nType, pUnit, pItem, ptProperty, gtPropertyAssignTable_00745B58[nProperty].nStatId, nApplyType, nState, fStatlist, a11);
+            }
+        }
+    }
+}
+
+// build: context SetItemFlag
+static __forceinline int SetItemFlag(const D2SetItemsTxt* pRecord, int nIndex)
+{
+    if (!pRecord->nAddFunc)
+        return 0x40;
+    return gnSetItemStatlistFlags_006EDB5C[nIndex];
+}
+
+// build: context SetItemState
+static __forceinline int SetItemState(const D2SetItemsTxt* pRecord, int nIndex)
+{
+    if (!pRecord->nAddFunc)
+        return 0;
+    return gnSetItemStates_006EDB40[nIndex];
+}
+
+// 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType)
+{
+    int nProperties = 0;
+    switch (nType)
+    {
+    case 0:
+    case 2:
+    case 5:
+        nProperties = 3;
+        break;
+
+    case 1:
+        nProperties = 2;
+        break;
+
+    case 3:
+        if (ITEMS_GetFileIndex(pItem) >= 0)
+        {
+            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+            if (pUniqueItemsTxtRecord)
+            {
+                for (int i = 0; i < 12; ++i)
+                {
+                    sub_0065FE10(3, 0, pItem, 0, 0, 0, nApplyType, &pUniqueItemsTxtRecord->pProperties[i], 0, 0x40, 0);
+                }
+                return;
+            }
+        }
+        break;
+
+    case 4:
+    {
+        D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+        if (!pSetItemsTxtRecord)
+        {
+            return;
+        }
+
+        if (!ITEMS_GetItemFormat(pItem))
+        {
+            for (int i = 0; i < 2; ++i)
+            {
+                sub_0065FE10(4, 0, pItem, 0, 0, 0, nApplyType, &pSetItemsTxtRecord->pProperties[i], 0, 0x40, 0);
+            }
+            return;
+        }
+
+        for (int i = 0; i < 9; ++i)
+        {
+            sub_0065FE10(4, 0, pItem, 0, 0, 0, nApplyType, &pSetItemsTxtRecord->pProperties[i], 0, 0x40, 0);
+        }
+
+        for (int i = 0; i < 10; ++i)
+        {
+            const int nIndex = i / 2 + 2;
+            const int nFlag = SetItemFlag(pSetItemsTxtRecord, nIndex);
+            const int nState = SetItemState(pSetItemsTxtRecord, nIndex);
+            sub_0065FE10(4, 0, pItem, 0, 0, 0, nApplyType, &pSetItemsTxtRecord->pPartialBoni[i], nState, nFlag, 0);
+        }
+        return;
+    }
+    }
+
+    for (int nMod = 0; nMod < nProperties; ++nMod)
+    {
+        const D2PropertyStrc* pProperty = sub_0065C730_GetModsProperty(nType, pMods, nMod, nPropSet);
+        if (!pProperty || pProperty->nProperty < 0)
+        {
+            break;
+        }
+
+        sub_0065FE10(nType, 0, pItem, pMods, nMod, nPropSet, nApplyType, pProperty, 0, 0x40, a2);
+    }
+}
+
 // 0x006600A0
 int __stdcall ITEMMODS_UpdateRuneword(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUnused)
 {
@@ -1443,3 +2678,74 @@ int __stdcall ITEMMODS_UpdateRuneword(D2UnitStrc* pUnit, D2UnitStrc* pItem, int 
 
     return 1;
 }
+
+// 0x00660120
+void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState)
+{
+    if (!nState)
+    {
+        return;
+    }
+
+    const int nType = pItem ? pItem->dwUnitType : 6;
+    if (nType == 4 && ITEMS_GetItemQuality(pItem) == 5)
+    {
+        D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+        if (pSetItemsTxtRecord)
+        {
+            D2SetsTxt* pSetsTxtRecord = sub_00483410_GetSetsTxtRecord(pSetItemsTxtRecord->nSetId);
+            if (pSetsTxtRecord)
+            {
+                const unsigned int nMask = ITEMS_GetSetItemsMask(pUnit, pItem, 1);
+                int nItems;
+                if (nMask >= 0x40)
+                {
+                    nItems = 0;
+                }
+                else
+                {
+                    nItems = gnSetItemsCount_006EDA40[nMask];
+                }
+
+                const int nCount = nItems < pSetsTxtRecord->nSetItems - 1 ? nItems : pSetsTxtRecord->nSetItems - 1;
+                for (int i = 0; i < 2 * (nCount - 1); ++i)
+                {
+                    const D2PropertyStrc* pProperty = &pSetsTxtRecord->pBoni2[i];
+                    if (pProperty->nProperty >= 0)
+                    {
+                        sub_0065FE10(4, pUnit, pItem, 0, i, 0, 0, pProperty, nState, 0, 0);
+                    }
+                }
+
+                if (nItems >= pSetsTxtRecord->nSetItems)
+                {
+                    for (int i = 0; i < 8; ++i)
+                    {
+                        const D2PropertyStrc* pProperty = &pSetsTxtRecord->pFBoni[i];
+                        if (pProperty->nProperty < 0)
+                        {
+                            break;
+                        }
+
+                        sub_0065FE10(4, pUnit, pItem, 0, i, 0, 0, pProperty, nState, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 0x00660240
+void __stdcall ITEMMODS_AddCraftPropertyList(D2UnitStrc* pItem, D2PropertyStrc* pProperty, int nUnused)
+{
+    if (pItem)
+    {
+        sub_0065FE10(7, 0, pItem, pProperty, 0, 0, 0, pProperty, 0, 0x40, 0);
+        if (ITEMS_CheckItemFlag(pItem, 0x400000, 0x858, ".\\ITEMS\\ItemMods.cpp"))
+        {
+            ITEMMODS_ApplyEthereality(pItem);
+        }
+    }
+}
+
+#include "gen/data/Source/D2Common/ITEMS/ItemMods.inc"
