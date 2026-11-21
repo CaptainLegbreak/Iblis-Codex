@@ -2267,7 +2267,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/text_004A5060.cpp": {
+  "Source/D2Client/UI/text_0049DC40.cpp": {
    "bytes": 86,
    "definitions": 3,
    "externs": [
@@ -55838,7 +55838,7 @@
    "cname": "gData_007246D8",
    "declared": true,
    "decorated": "?gaSliderButtons_007246D8@@3PAUD2SliderButtonStrc@@A",
-   "file": "Source/D2Client/UI/text_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_0049DC40.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007246D8_t gData_007246D8; // 0x007246D8",
    "head": "extern \"C\" struct d2data_007246D8_t gData_007246D8 = ",
@@ -55883,7 +55883,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_0049DC40.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gnScreenWidth_0071146C = ",
@@ -55908,7 +55908,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_004A5060.cpp",
+   "file": "Source/D2Client/UI/text_0049DC40.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ClientListEntryStrc* gpListEntries_00724264 = ",
