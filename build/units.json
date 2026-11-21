@@ -57528,14 +57528,32 @@
      "name": "?PLRSAVE2_WriteSaveHeader@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPBE@Z"
     },
     {
+     "va": "0x00569320",
+     "length": 192,
+     "name": "?sub_00569320@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPBE@Z"
+    },
+    {
      "va": "0x005693E0",
      "length": 164,
      "name": "?PLRSAVE2_WriteWaypointData@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPBE@Z"
     },
     {
+     "va": "0x00569490",
+     "length": 162,
+     "name": "?PLRSAVE2_WritePlrIntroSection@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPBE@Z"
+    },
+    {
+     "va": "0x00569540",
+     "length": 418
+    },
+    {
      "va": "0x005696F0",
      "length": 177,
      "name": "?SaveSkills@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPAE@Z"
+    },
+    {
+     "va": "0x005697F0",
+     "length": 432
     },
     {
      "va": "0x005699A0",
@@ -57546,6 +57564,15 @@
      "va": "0x00569AD0",
      "length": 677,
      "name": "?PLRSAVE2_CreateSaveFile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEPAIIHH@Z"
+    },
+    {
+     "va": "0x00569F80",
+     "length": 262,
+     "name": "?sub_00569F80_CreateNewbiePlayer@@YGHPAUD2GameStrc@@PAUD2ClientStrc@@PAPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0056A090",
+     "length": 729
     },
     {
      "va": "0x0056A3E0",
@@ -57561,6 +57588,11 @@
      "va": "0x0056A4F0",
      "length": 303,
      "name": "?PLRSAVE2_ReadStatsEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPAEI@Z"
+    },
+    {
+     "va": "0x0056A620",
+     "length": 208,
+     "name": "?PLRSAVE2_ReadStats@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPAEIH@Z"
     },
     {
      "va": "0x0056A6F0",
@@ -57582,6 +57614,10 @@
      "length": 539
     },
     {
+     "va": "0x0056AA50",
+     "length": 446
+    },
+    {
      "va": "0x0056AC10",
      "length": 202,
      "name": "PLRSAVE2_ReadPetSection"
@@ -57590,6 +57626,11 @@
      "va": "0x0056ACE0",
      "length": 361,
      "name": "?PLRSAVE2_CreateItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@PAPAEPAEI@Z"
+    },
+    {
+     "va": "0x0056AE50",
+     "length": 203,
+     "name": "PLRSAVE2_ReadIronGolemSection"
     },
     {
      "va": "0x0056AF20",
@@ -57626,114 +57667,6 @@
      "length": 153,
      "name": "ACT5Q3_UpdateDrehyaPortalMode"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave2_00569320.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00569320",
-     "length": 192,
-     "name": "?sub_00569320@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPBE@Z"
-    },
-    {
-     "va": "0x00569490",
-     "length": 162,
-     "name": "?PLRSAVE2_WritePlrIntroSection@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPBE@Z"
-    },
-    {
-     "va": "0x00569540",
-     "length": 418
-    },
-    {
-     "va": "0x0056A090",
-     "length": 729
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave2_005697F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005697F0",
-     "length": 432
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave2_00569F80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00569F80",
-     "length": 262,
-     "name": "?sub_00569F80_CreateNewbiePlayer@@YGHPAUD2GameStrc@@PAUD2ClientStrc@@PAPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0056A620",
-     "length": 208,
-     "name": "?PLRSAVE2_ReadStats@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPAEIH@Z"
-    },
-    {
-     "va": "0x0056AE50",
-     "length": 203,
-     "name": "PLRSAVE2_ReadIronGolemSection"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave2_0056AA50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0056AA50",
-     "length": 446
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
