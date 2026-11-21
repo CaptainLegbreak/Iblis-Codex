@@ -1,10 +1,10 @@
 #include "D2Direct3D.h"
+#include "D2Win32Base.h"
 
 #define WRITE_CORNER(i) pVertices[i].dwColor=PackGridColor(pPoints[i],nAlpha); pVertices[i].fX=(float)pPoints[i].nX; pVertices[i].fY=(float)pPoints[i].nY;
 struct D2DrawDeviceStrc;
 struct D2TileLibraryEntryStrc;
 struct D2RectStrc;
-struct D2ClipRectStrc;
 struct D2TilePartStrc;
 struct D2TileContextStrc;
 struct D2DrawVtableStrc;
@@ -23,8 +23,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 static void __stdcall sub_006B7FD0_GetPanelRect(D2RectStrc* pRect, int nSide, int* pOffset, int bFlag);
-
-struct D2ClipRectStrc { int left,top,right,bottom; };
 
 struct D2TilePartStrc { short x,y; char unknown004[16]; };
 
@@ -210,7 +208,7 @@ void __fastcall sub_Emit_006B7FD0(D2RectStrc* pRect, int nSide)
 // 0x006B8220
 int __fastcall sub_006B8220_DrawTileParts(D2TileContextStrc* pTile, int nX, int nY, int nLight, int nColorMode, int nViewMode)
 {
-    D2ClipRectStrc tRect;
+    tagRECT tRect;
     tRect.left = 0;
     tRect.top = 0;
     tRect.right = gnScreenWidth_007C9138;

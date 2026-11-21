@@ -11,9 +11,10 @@ struct D2MessageStrc;
 struct D2QWriteNodeStrc;
 
 typedef void (__fastcall* D2AddressCallback)(unsigned int, const char*, int);
-typedef int (__fastcall* D2MessageCallback)(unsigned char*, int, int*, int*, int*, int*, int, int, unsigned int);
+typedef int (__fastcall* D2MessageCallback)(const unsigned char*, int, int*, int*, int*, int*, int, int, unsigned int);
 typedef void (__fastcall* D2NewClientFn)(D2QueueServerStrc*, int, const char*, int);
 typedef int (__fastcall* D2QServerHandler)(D2QueueServerStrc* pServer, char* pData, int nSize);
+typedef void (__fastcall* D2QAcceptCallback)(D2QueueServerStrc* pServer, unsigned int nId, const char* szFile, int nLine);
 typedef void (__fastcall* D2QRemoveCallback)(D2QueueServerStrc* pServer, int nClientId, const char* szFile, int nLine);
 
 // One per-bucket client lock (0x18 bytes).
@@ -148,10 +149,48 @@ struct D2QClientStrc
     };
 };
 
+// Accept statistics of one listener (QServerNT; 0xB0 bytes, 4-byte packed).
+#pragma pack(push, 4)
+struct D2QAcceptStatsStrc
+{
+    __int64 tTotal;                                         // 0x00
+    __int64 aStages[9];                                     // 0x08
+    __int64 aTimes[9];                                      // 0x50
+    int f_48;                                               // 0x98
+    int nAcceptErrors;                                      // 0x9C
+    int nRejected;                                          // 0xA0
+    int nPostErrors;                                        // 0xA4
+    int nAccepted;                                          // 0xA8
+    char unk_AC[0xB0 - 0xAC];                               // 0xAC
+};
+#pragma pack(pop)
+
+// One queued message (0x5C0 bytes): the server's per-queue lists at 0x870/0x874 and the free list at 0x878.
+struct D2MessageStrc
+{
+    union
+    {
+        int nClient;                                        // 0x000
+        int nId;
+    };
+    unsigned char aData[0x5B0];                             // 0x004
+    int nSize;                                              // 0x5B4
+    union
+    {
+        unsigned int dwTick;                                // 0x5B8
+        unsigned long nTick;
+    };
+    D2MessageStrc* pNext;                                   // 0x5BC
+};
+
 struct D2QueueServerStrc
 {
     int bAltSend;                                           // 0x000
-    int unk0x004;                                           // 0x004
+    union
+    {
+        int unk0x004;                                       // 0x004
+        unsigned int nNextId;
+    };
     unsigned int nBuckets;                                  // 0x008
     unsigned int nMask;                                     // 0x00C
     unsigned int nIpBuckets;                                // 0x010
@@ -173,17 +212,29 @@ struct D2QueueServerStrc
     int nState;                                             // 0x86C
     D2MessageStrc** ppMsgHeads;                             // 0x870
     D2MessageStrc** ppMsgTails;                             // 0x874
-    D2MessageStrc* pFreeMessages;                           // 0x878
+    union
+    {
+        D2MessageStrc* pFreeMessages;                       // 0x878
+        D2QClientStrc* pFreeClients;
+    };
     int nQueueCount;                                        // 0x87C
     int nClients;                                           // 0x880
-    int nLimit;                                             // 0x884
+    union
+    {
+        int nLimit;                                         // 0x884
+        int bRunning;
+    };
     int unk0x888;                                           // 0x888
     D2QServerNodeStrc* pFreeRecords;                        // 0x88C
     int nRecordCount;                                       // 0x890
     D2CriticalSectionStrc tRecordLock;                      // 0x894
     D2QServerNodeStrc** ppRecords;                          // 0x8AC
     unsigned int nRecordBuckets;                            // 0x8B0
-    D2CriticalSectionStrc tClientLock;                      // 0x8B4
+    union
+    {
+        D2CriticalSectionStrc tClientLock;                  // 0x8B4
+        D2CriticalSectionStrc tStatsLock;
+    };
     union
     {
         unsigned char aRecords[0x2DC];                      // 0x8CC
@@ -196,21 +247,68 @@ struct D2QueueServerStrc
                 int aListenSockets[4];
             };
         };
+        struct
+        {
+            D2QAcceptStatsStrc aStats[3];                   // 0x8CC
+            int unk0xADC[0x2C];                             // 0xADC
+            int nListeners;                                 // 0xB8C
+            unsigned int hListenSockets[4];                 // 0xB90
+            unsigned short aPorts[4];                       // 0xBA0
+        };
     };
-    int aValues[4];                                         // 0xBA8
+    union
+    {
+        int aValues[4];                                     // 0xBA8
+        int aActive[4];
+    };
     D2AddressCallback pfnAddressCallback;                   // 0xBB8
     int unk0xBBC;                                           // 0xBBC
     D2MessageCallback pfnProcess;                           // 0xBC0
-    D2NewClientFn pfnOnNewClient;                           // 0xBC4
+    union
+    {
+        D2NewClientFn pfnOnNewClient;                       // 0xBC4
+        D2QAcceptCallback pfnOnAccept;
+    };
     D2QRemoveCallback pfnOnRemove;                          // 0xBC8
     D2QServerHandler pfnHandler;                            // 0xBCC
     int bEnabled;                                           // 0xBD0
     void* hEvent;                                           // 0xBD4
-    int unk0xBD8[8];                                        // 0xBD8
-    int bStop;                                              // 0xBF8
-    int unk0xBFC[7];                                        // 0xBFC
-    int bInitialized;                                       // 0xC18
-    int unk0xC1C[8];                                        // 0xC1C
+    union
+    {
+        int unk0xBD8[8];                                    // 0xBD8
+        struct
+        {
+            void* hAcceptThreads[4];                        // 0xBD8
+            unsigned long aThreadIds[4];                    // 0xBE8
+        };
+    };
+    union
+    {
+        struct
+        {
+            int bStop;                                      // 0xBF8
+            int unk0xBFC[7];                                // 0xBFC
+        };
+        struct
+        {
+            int bStopAccept[4];                             // 0xBF8
+            void* hPorts[4];                                // 0xC08
+        };
+    };
+    union
+    {
+        int bInitialized;                                   // 0xC18
+        int bSecondWorker;
+    };
+    union
+    {
+        int unk0xC1C[8];                                    // 0xC1C
+        struct
+        {
+            void* aThreads2[4];                             // 0xC1C
+            unsigned long aThreadIds2[4];                   // 0xC2C
+        };
+    };
     int nSlots[1];                                          // 0xC3C
 
     int __thiscall sub_006BE980_Refresh(unsigned int nKey);                                                 // 0x006BE980

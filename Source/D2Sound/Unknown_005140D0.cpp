@@ -1,10 +1,9 @@
 #include "D2Sound.h"
+#include "D2SysTypes.h"
+#include "D2SoundTypes.h"
 
 struct D2SoundStrc;
-struct D2DSCritSect;
 struct D2DSGuid;
-struct D2DSWaveFormat;
-struct D2DSBufferDesc;
 struct D2DSBufferCaps;
 struct D2DSCaps;
 struct D2DSUnknown;
@@ -14,19 +13,7 @@ struct D2DSPropertySet;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2DSCritSect { void* a; long b; long c; void* d; void* e; unsigned long f; };
-
 struct D2DSGuid { unsigned long a; unsigned short b; unsigned short c; unsigned char d[8]; };
-
-#pragma pack(push, 1)
-struct D2DSWaveFormat
-{
-    unsigned short wFormatTag; unsigned short nChannels; unsigned long nSamplesPerSec; unsigned long nAvgBytesPerSec;
-    unsigned short nBlockAlign; unsigned short wBitsPerSample; unsigned short cbSize;
-};
-
-#pragma pack(pop)
-struct D2DSBufferDesc { unsigned long dwSize; unsigned long dwFlags; unsigned long dwBufferBytes; unsigned long dwReserved; D2DSWaveFormat* lpwfxFormat; };
 
 struct D2DSBufferCaps { unsigned long dwSize; unsigned long dwFlags; unsigned long dwBufferBytes; unsigned long dwUnlockTransferRate; unsigned long dwPlayCpuOverhead; };
 
@@ -43,21 +30,21 @@ struct D2DSBuffer : D2DSUnknown
 {
     virtual long __stdcall GetCaps(D2DSBufferCaps* pCaps) = 0;
     virtual long __stdcall GetCurrentPosition(unsigned long* a, unsigned long* b) = 0;
-    virtual long __stdcall GetFormat(D2DSWaveFormat* a, unsigned long b, unsigned long* c) = 0;
+    virtual long __stdcall GetFormat(D2WaveFormatStrc* a, unsigned long b, unsigned long* c) = 0;
     virtual long __stdcall GetVolume(long* a) = 0;
     virtual long __stdcall GetPan(long* a) = 0;
     virtual long __stdcall GetFrequency(unsigned long* a) = 0;
     virtual long __stdcall GetStatus(unsigned long* a) = 0;
-    virtual long __stdcall Initialize(void* a, const D2DSBufferDesc* b) = 0;
+    virtual long __stdcall Initialize(void* a, const D2DSBufferDescStrc* b) = 0;
     virtual long __stdcall Lock(unsigned long a, unsigned long b, void** c, unsigned long* d, void** e, unsigned long* f, unsigned long g) = 0;
     virtual long __stdcall Play(unsigned long dwReserved1, unsigned long dwPriority, unsigned long dwFlags) = 0;
     virtual long __stdcall SetCurrentPosition(unsigned long a) = 0;
-    virtual long __stdcall SetFormat(const D2DSWaveFormat* pFormat) = 0;
+    virtual long __stdcall SetFormat(const D2WaveFormatStrc* pFormat) = 0;
 };
 
 struct D2DSDirectSound : D2DSUnknown
 {
-    virtual long __stdcall CreateSoundBuffer(const D2DSBufferDesc* pDesc, D2DSBuffer** ppBuffer, D2DSUnknown* pOuter) = 0;
+    virtual long __stdcall CreateSoundBuffer(const D2DSBufferDescStrc* pDesc, D2DSBuffer** ppBuffer, D2DSUnknown* pOuter) = 0;
     virtual long __stdcall GetCaps(D2DSCaps* pCaps) = 0;
     virtual long __stdcall DuplicateSoundBuffer(D2DSBuffer* a, D2DSBuffer** b) = 0;
     virtual long __stdcall SetCooperativeLevel(void* hWnd, unsigned long dwLevel) = 0;
@@ -71,7 +58,7 @@ struct D2DSPropertySet : D2DSUnknown
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2DSCritSect* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" long __stdcall DirectSoundCreate(const D2DSGuid* pGuid, D2DSDirectSound** ppDS, D2DSUnknown* pOuter); // 0x006B1344
 void* __cdecl sub_004F59A0(); // 0x004F59A0
 void __cdecl sub_00513AF0_ReleaseSoundObjects(); // 0x00513AF0
@@ -83,10 +70,10 @@ void __cdecl sub_00514B60_LoadSoundSettings(); // 0x00514B60
 int __fastcall sub_00515300_ClearSoundBuffer(D2DSBuffer* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
 void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0
 void __cdecl sub_00516510_StartSoundThread(); // 0x00516510
-void __fastcall sub_00516720_InitWaveFormat(D2DSWaveFormat* pFormat, int nChannels); // 0x00516720
+void __fastcall sub_00516720_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels); // 0x00516720
 extern D2DSPropertySet* gpPropertySet_008816D8; // 0x008816D8
 extern D2DSCaps gDSCaps_008816E0; // 0x008816E0
-extern D2DSCritSect gSoundLock_0088174C; // 0x0088174C
+extern D2CriticalSectionStrc gSoundLock_0088174C; // 0x0088174C
 extern int gbUseEax_00881770; // 0x00881770
 extern int gbSoundInit_00881784; // 0x00881784
 extern const D2DSGuid gIID_IDirectSound3DBuffer_006DE3D0; // 0x006DE3D0
@@ -142,7 +129,7 @@ void __cdecl sub_005140D0_InitDirectSound()
         return;
     }
 
-    D2DSBufferDesc tDesc;
+    D2DSBufferDescStrc tDesc;
     memset(&tDesc, 0, sizeof(tDesc));
     tDesc.dwSize = 0x14;
     tDesc.dwFlags = 1;
@@ -176,7 +163,7 @@ void __cdecl sub_005140D0_InitDirectSound()
         return;
     }
 
-    D2DSWaveFormat tFormat;
+    D2WaveFormatStrc tFormat;
     memset(&tFormat, 0, sizeof(tFormat));
     tFormat.wFormatTag = 1;
     tFormat.nChannels = 2;
@@ -196,9 +183,9 @@ void __cdecl sub_005140D0_InitDirectSound()
     gnEaxVersion_00881774 = 0;
     if (gbUseEax_00881770)
     {
-        D2DSWaveFormat tEaxFormat;
+        D2WaveFormatStrc tEaxFormat;
         sub_00516720_InitWaveFormat(&tEaxFormat, 1);
-        D2DSBufferDesc tEaxDesc;
+        D2DSBufferDescStrc tEaxDesc;
     memset(&tEaxDesc, 0, sizeof(tEaxDesc));
         tEaxDesc.dwSize = 0x14;
         tEaxDesc.dwBufferBytes = 0x400;

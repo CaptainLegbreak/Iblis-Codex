@@ -67,6 +67,7 @@ struct D2BigPowModStrc
     };
 
     D2BigPowModStrc(); // 0x00527DC0
+    static void operator delete(void* pMemory);
     void sub_00527DD0_InitRandom(unsigned int nSeed); // 0x00527DD0
     void sub_00527F40_ComputePrivateKey(const unsigned char* pSalt, const char* szName, const char* szPassword, void** phResult); // 0x00527F40
     void sub_00528010_PowMod(void* const& hExp, void* const& hResult); // 0x00528010

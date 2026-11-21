@@ -7,22 +7,14 @@ struct D2SocketSetStrc;
 struct D2TimevalStrc;
 struct D2SocketAddressStrc;
 
-typedef void (__fastcall* D2QAcceptCallback)(T006BE350* pServer, unsigned int nId, const char* szFile, int nLine);
-
-struct T006BE350
-{
-    char unk_000[0xBC4];
-    D2QAcceptCallback pfnOnAccept;
-};
-
-D2QClientStrc* __fastcall QSrvAddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
+D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 
 struct D2QAddressArg
 {
     unsigned int nAddress;
 };
 
-static void __stdcall sub_006C3440_AddClient(T006BE350* pServer, unsigned int s, D2QAddressArg tAddress);
+static void __stdcall sub_006C3440_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress);
 
 #include "D2SysTypes.h"
 
@@ -68,14 +60,14 @@ extern const char gszFatal_006FCB38[]; // 0x006FCB38
 extern const char gszStopped_006FCBA8[]; // 0x006FCBA8
 
 // 0x006C3440
-static void __stdcall sub_006C3440_AddClient(T006BE350* pServer, unsigned int s, D2QAddressArg tAddress)
+static void __stdcall sub_006C3440_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress)
 {
     D2QClientStrc* pClient = QSrvAddClient(pServer, s, tAddress.nAddress);
     if (pServer->pfnOnAccept)
         pServer->pfnOnAccept(pServer, pClient->nId, ".\\Src\\QServer\\QServer98.cpp", 0x91);
 }
 
-void __fastcall sub_Emit_006C3440(T006BE350* pServer, unsigned int s, unsigned int nAddress)
+void __fastcall sub_Emit_006C3440(D2QueueServerStrc* pServer, unsigned int s, unsigned int nAddress)
 {
     D2QAddressArg tAddress;
     tAddress.nAddress = nAddress;

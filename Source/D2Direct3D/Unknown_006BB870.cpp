@@ -1,6 +1,6 @@
 #include "D2DDrawTypes.h"
+#include "D2DrlgMaps.h"
 
-struct D2TileLibraryEntryStrc { char unk00[0x42]; short nCacheIndex; };
 struct D2SurfaceStrc;
 struct D2TextureStrc;
 struct D2SurfaceStrc

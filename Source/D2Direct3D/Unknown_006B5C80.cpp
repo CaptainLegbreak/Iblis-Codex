@@ -1,7 +1,7 @@
 #include "D2CelContext.h"
+#include "D2D3DTypes.h"
 
 struct D2CelStrc;
-struct D2SpriteInfoStrc { D2CelContextStrc* context; int width; int height; int offsetX; int offsetY; };
 int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
 int __stdcall sub_006018C0(D2CelStrc* cel); // 0x006018C0
@@ -20,11 +20,11 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
         sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", context->nType, context->nClass, context->nMode, context->szName);
         return 0;
     }
-    info->context = context;
-    info->width = sub_006018C0(context->pCel);
-    info->offsetX = sub_00601920(context->pCel);
-    info->height = sub_006018F0(context->pCel);
-    info->offsetY = sub_00601950(context->pCel);
+    info->pContext = context;
+    info->nWidth = sub_006018C0(context->pCel);
+    info->nOffsetX = sub_00601920(context->pCel);
+    info->nHeight = sub_006018F0(context->pCel);
+    info->nOffsetY = sub_00601950(context->pCel);
     return 1;
 }
 

@@ -4,7 +4,6 @@
 struct T00516950;
 struct D2SoundNode00516980Strc;
 struct Node005169D0;
-struct D2SoundNode00516A10Strc;
 struct D2SoundNodeStrc;
 struct D2FixedFileInfoStrc;
 struct D2VxdResourceStrc;
@@ -27,12 +26,6 @@ struct D2SoundNode00516980Strc
 };
 
 struct Node005169D0 { int nId; Node005169D0* pNext; };
-
-struct D2SoundNode00516A10Strc
-{
-    int nKey;
-    D2SoundNode00516A10Strc* pNext;
-};
 
 struct D2FixedFileInfoStrc
 {
@@ -130,10 +123,10 @@ int __fastcall sub_005169F0_CountEntries(T00516950* pNode)
     return nCount;
 }
 
-static inline void RemoveNode(D2SoundNode00516A10Strc** ppList, int nKey)
+static inline void RemoveNode(D2SoundNodeStrc** ppList, int nKey)
 {
-    D2SoundNode00516A10Strc* pPrev = 0;
-    for (D2SoundNode00516A10Strc* pNode = *ppList; pNode; pNode = pNode->pNext)
+    D2SoundNodeStrc* pPrev = 0;
+    for (D2SoundNodeStrc* pNode = *ppList; pNode; pNode = pNode->pNext)
     {
         if (pNode && pNode->nKey == nKey)
         {
@@ -153,7 +146,7 @@ static inline void RemoveNode(D2SoundNode00516A10Strc** ppList, int nKey)
 }
 
 // 0x00516A10
-void __fastcall sub_00516A10_FreeList(D2SoundNode00516A10Strc** ppList)
+void __fastcall sub_00516A10_FreeList(D2SoundNodeStrc** ppList)
 {
     while (*ppList)
     {
