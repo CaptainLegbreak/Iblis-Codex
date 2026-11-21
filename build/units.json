@@ -42188,54 +42188,9 @@
      "name": "D2Win_10060"
     },
     {
-     "va": "0x004FD070",
-     "length": 60,
-     "name": "IMAGE_SetCellFile"
-    },
-    {
-     "va": "0x004FD0B0",
-     "length": 60,
-     "name": "IMAGE_SetCoordinates"
-    },
-    {
-     "va": "0x004FD170",
-     "length": 58,
-     "name": "IMAGE_ForceNormalDrawMode"
-    },
-    {
-     "va": "0x004FD1B0",
-     "length": 55,
-     "name": "IMAGE_GetFrameCount"
-    },
-    {
-     "va": "0x004FD6C0",
-     "length": 162,
-     "name": "IMAGE2_Create"
-    },
-    {
-     "va": "0x004FD770",
-     "length": 168,
-     "name": "IMAGE_Create"
-    },
-    {
      "va": "0x004FD970",
      "length": 84,
      "name": "TIMER_HandleVirtualKeyInput"
-    },
-    {
-     "va": "0x00500790",
-     "length": 125,
-     "name": "ANIMIMAGE_HandleMouseDown"
-    },
-    {
-     "va": "0x00500810",
-     "length": 57,
-     "name": "ANIMIMAGE_SetIsRunning"
-    },
-    {
-     "va": "0x00500850",
-     "length": 216,
-     "name": "ANIMIMAGE_Create"
     },
     {
      "va": "0x005017D0",
@@ -42428,21 +42383,6 @@
      "name": "?ACCOUNTLIST_Destroy@@YIHPAUD2WinAccountListStrc@@@Z"
     },
     {
-     "va": "0x00507F20",
-     "length": 54,
-     "name": "?SCROLLBAR_SetMaxSteps@@YIHPAUD2WinScrollBarStrc@@H@Z"
-    },
-    {
-     "va": "0x00507F60",
-     "length": 51,
-     "name": "?SCROLLBAR_SetCurrentStep@@YIHPAUD2WinScrollBarStrc@@H@Z"
-    },
-    {
-     "va": "0x00507FD0",
-     "length": 42,
-     "name": "?SCROLLBAR_SetTextBox@@YIHPAUD2WinScrollBarStrc@@PAUD2WinTextBoxStrc@@@Z"
-    },
-    {
      "va": "0x005085A0",
      "length": 29,
      "name": "?POPUP_Destroy@@YGHXZ"
@@ -42464,8 +42404,28 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004FD070",
+     "length": 60,
+     "name": "IMAGE_SetCellFile"
+    },
+    {
+     "va": "0x004FD0B0",
+     "length": 60,
+     "name": "IMAGE_SetCoordinates"
+    },
+    {
      "va": "0x004FD110",
      "length": 83
+    },
+    {
+     "va": "0x004FD170",
+     "length": 58,
+     "name": "IMAGE_ForceNormalDrawMode"
+    },
+    {
+     "va": "0x004FD1B0",
+     "length": 55,
+     "name": "IMAGE_GetFrameCount"
     },
     {
      "va": "0x004FD1F0",
@@ -42480,6 +42440,16 @@
      "va": "0x004FD5A0",
      "length": 42,
      "name": "?sub_004FD5A0_IsInClickRect@@YAHPBUD2WinImageClickRectStrc@@HH@Z"
+    },
+    {
+     "va": "0x004FD6C0",
+     "length": 162,
+     "name": "IMAGE2_Create"
+    },
+    {
+     "va": "0x004FD770",
+     "length": 168,
+     "name": "IMAGE_Create"
     },
     {
      "va": "0x004FD860",
@@ -42708,6 +42678,21 @@
      "va": "0x005005B0",
      "length": 466,
      "name": "?ANIMIMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x00500790",
+     "length": 125,
+     "name": "ANIMIMAGE_HandleMouseDown"
+    },
+    {
+     "va": "0x00500810",
+     "length": 57,
+     "name": "ANIMIMAGE_SetIsRunning"
+    },
+    {
+     "va": "0x00500850",
+     "length": 216,
+     "name": "ANIMIMAGE_Create"
     },
     {
      "va": "0x005009A0",
@@ -43762,6 +43747,21 @@
    "file": "Source/D2Win/Src/D2WinScrollbar.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00507F20",
+     "length": 54,
+     "name": "?SCROLLBAR_SetMaxSteps@@YIHPAUD2WinScrollBarStrc@@H@Z"
+    },
+    {
+     "va": "0x00507F60",
+     "length": 51,
+     "name": "?SCROLLBAR_SetCurrentStep@@YIHPAUD2WinScrollBarStrc@@H@Z"
+    },
+    {
+     "va": "0x00507FD0",
+     "length": 42,
+     "name": "?SCROLLBAR_SetTextBox@@YIHPAUD2WinScrollBarStrc@@PAUD2WinTextBoxStrc@@@Z"
+    },
     {
      "va": "0x00508000",
      "length": 45,

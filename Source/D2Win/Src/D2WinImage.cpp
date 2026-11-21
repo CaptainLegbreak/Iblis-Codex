@@ -195,6 +195,14 @@ void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos
 
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn);         // 0x004FB790
 
+int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
+
+int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg);                                             // 0x004FD5D0
+
+extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
+
+// build: symbol ?IMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z 0x004FD470
+
 // 0x004FD110
 int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
 {
@@ -669,6 +677,95 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
     }
 
     return 1;
+}
+
+// 0x004FD070
+int __stdcall IMAGE_SetCellFile(D2WinImageStrc* pImage, D2CelFileStrc* pCellFile, D2WinImageClickRectStrc* pClickRect)
+{
+    D2_ASSERT(pImage->controlHeader.eType == 2, 0x5F);
+    pImage->controlHeader.pCellFile = pCellFile;
+    pImage->pClickRect = pClickRect;
+    return 1;
+}
+
+// 0x004FD0B0
+int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* ptImageData, int nX, int nY)
+{
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x6C);
+    ptImageData->controlHeader.nImageX = nX;
+    ptImageData->controlHeader.nImageY = nY;
+    return 1;
+}
+
+// 0x004FD170
+int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused)
+{
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x9D);
+    ptImageData->eDrawMode = 5;
+    return 1;
+}
+
+// 0x004FD1B0
+int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)
+{
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0xA9);
+    return CelFileGetCelsPerDirection(ptImageData->controlHeader.pCellFile);
+}
+
+// 0x004FD6C0
+D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler a6, D2WinImageClickRectStrc* pClickRect, D2WinMsgHandler pfHandleVirtualKeyInput)
+{
+    D2WinImage2Strc* pImage = (D2WinImage2Strc*)FOG_Alloc(sizeof(D2WinImage2Strc), ".\\Src\\D2WinImage.cpp", 0x1D, 0);
+    memset(pImage, 0, sizeof(D2WinImage2Strc));
+    pImage->controlHeader.eType = 2;
+    pImage->controlHeader.dwFlags |= gdwBitMasks[0];
+    pImage->controlHeader.dwFlags |= gdwBitMasks[2];
+    pImage->controlHeader.pCellFile = pCellFile;
+    pImage->controlHeader.nImageX = nX;
+    pImage->controlHeader.nImageY = nY;
+    pImage->controlHeader.nWidth = nWidth;
+    pImage->controlHeader.nHeight = nHeight;
+    pImage->controlHeader.pfDraw = IMAGE2_Draw;
+    pImage->controlHeader.pNext = 0;
+    pImage->controlHeader.pfHandleMouseDown = IMAGE2_HandleMouseDown;
+    pImage->controlHeader.pfHandleMouseUp = 0;
+    pImage->controlHeader.pfHandleCharInput = 0;
+    pImage->controlHeader.pfHandleVirtualKeyInput = pfHandleVirtualKeyInput;
+    pImage->controlHeader.field_34 = a6;
+    pImage->pClickRect = pClickRect;
+    pImage->nFrame = 0;
+    pImage->eDrawMode = 5;
+    CONTROL_AppendToList(&pImage->controlHeader);
+    return pImage;
+}
+
+// 0x004FD770
+D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7)
+{
+    D2WinImageStrc* pImage = (D2WinImageStrc*)FOG_Alloc(sizeof(D2WinImageStrc), ".\\Src\\D2WinImage.cpp", 0x3B, 0);
+    memset(pImage, 0, sizeof(D2WinImageStrc));
+    pImage->controlHeader.eType = 2;
+    pImage->controlHeader.dwFlags |= gdwBitMasks[0];
+    pImage->controlHeader.dwFlags |= gdwBitMasks[2];
+    pImage->controlHeader.pCellFile = pCellFile;
+    pImage->controlHeader.nImageX = nX;
+    pImage->controlHeader.nImageY = nY;
+    pImage->controlHeader.nWidth = nWidth;
+    pImage->controlHeader.nHeight = nHeight;
+    pImage->controlHeader.pfDraw = IMAGE_Draw;
+    pImage->controlHeader.pNext = 0;
+    pImage->controlHeader.pfHandleMouseDown = IMAGE2_HandleMouseDown;
+    pImage->controlHeader.pfHandleMouseUp = 0;
+    pImage->controlHeader.pfHandleCharInput = 0;
+    pImage->controlHeader.pfHandleVirtualKeyInput = 0;
+    pImage->controlHeader.field_34 = 0;
+    pImage->pClickRect = 0;
+    pImage->nFrame = 0;
+    pImage->eDrawMode = 5;
+    pImage->field_4C = a6;
+    pImage->field_50 = a7;
+    CONTROL_AppendToList(&pImage->controlHeader);
+    return pImage;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinImage.inc"

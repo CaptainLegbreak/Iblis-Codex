@@ -267,3 +267,29 @@ void __stdcall POPUP_Create()
     CONTROL_AppendToList(&pPopUp->controlHeader);
     gpPopUp_0087E974 = pPopUp;
 }
+
+// 0x00507F20
+int __fastcall SCROLLBAR_SetMaxSteps(D2WinScrollBarStrc* ptScrollbarData, int nMaxSteps)
+{
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x56);
+    ptScrollbarData->nMaxSteps = nMaxSteps > 0 ? nMaxSteps : 0;
+    return 1;
+}
+
+// 0x00507F60
+int __fastcall SCROLLBAR_SetCurrentStep(D2WinScrollBarStrc* ptScrollbarData, int nCurrentStep)
+{
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x65);
+    if (nCurrentStep > ptScrollbarData->nMaxSteps)
+        nCurrentStep = ptScrollbarData->nMaxSteps;
+    ptScrollbarData->nCurrentStep = nCurrentStep;
+    return 1;
+}
+
+// 0x00507FD0
+int __fastcall SCROLLBAR_SetTextBox(D2WinScrollBarStrc* pScrollBar, D2WinTextBoxStrc* pTextBox)
+{
+    D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0x7F);
+    pScrollBar->pTextBox = pTextBox;
+    return 1;
+}

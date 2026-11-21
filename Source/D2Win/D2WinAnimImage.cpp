@@ -49,6 +49,10 @@ int __stdcall sub_006018F0(D2CelStrc* pCel);                                    
 
 extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
 
+int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
+
+extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
+
 // 0x00500310
 extern "C" int __fastcall sub_00500310_GetAnimImageField50(D2WinAnimImageStrc* ptAnim)
 {
@@ -294,4 +298,77 @@ int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
     nX -= sub_00601920(pCel);
     nY -= sub_00601950(pCel);
     return nX >= nImageX && nY >= nImageY - nHeight && nX < nImageX + nWidth && nY < nImageY;
+}
+
+// 0x00500790
+int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)pMsg->hWnd;
+    D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x15A);
+    int nResult;
+    if (pAnimImage->controlHeader.field_34)
+        nResult = pAnimImage->controlHeader.field_34(pMsg);
+    else
+        nResult = 0;
+    if (nResult)
+    {
+        if (pAnimImage->nAnimType == 3)
+        {
+            pAnimImage->nAnimType = 4;
+            pAnimImage->nFrame = 0;
+            pAnimImage->dwStartTickCount = GetTickCount();
+        }
+        else if (pAnimImage->nAnimType == 1)
+        {
+            pAnimImage->nAnimType = 2;
+            pAnimImage->nFrame = 0;
+            pAnimImage->dwStartTickCount = GetTickCount();
+        }
+    }
+    return nResult;
+}
+
+// 0x00500810
+int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* ptAnim, int bIsRunning)
+{
+    D2_ASSERT(ptAnim->controlHeader.eType == 2, 0x183);
+    ptAnim->bIsRunning = bIsRunning;
+    return 1;
+}
+
+// 0x00500850
+D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, unsigned int nAnimSpeed, D2WinMsgHandler a7, D2AnimatedImageDescriptor* pDescriptor, int eDrawMode, D2WinMsgHandler a10)
+{
+    D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)FOG_Alloc(sizeof(D2WinAnimImageStrc), ".\\D2WinAnimImage.cpp", 0x1C, 0);
+    memset(pAnimImage, 0, sizeof(D2WinAnimImageStrc));
+    pAnimImage->controlHeader.eType = 2;
+    pAnimImage->controlHeader.dwFlags |= gdwBitMasks[0];
+    pAnimImage->controlHeader.dwFlags |= gdwBitMasks[2];
+    pAnimImage->controlHeader.pCellFile = pCellFile;
+    pAnimImage->controlHeader.nImageX = nX;
+    pAnimImage->controlHeader.nImageY = nY;
+    pAnimImage->controlHeader.nWidth = nWidth;
+    pAnimImage->controlHeader.nHeight = nHeight;
+    pAnimImage->controlHeader.pfDraw = ANIMIMAGE_Draw;
+    pAnimImage->controlHeader.pNext = 0;
+    pAnimImage->controlHeader.pfHandleMouseDown = ANIMIMAGE_HandleMouseDown;
+    pAnimImage->controlHeader.pfHandleMouseUp = 0;
+    pAnimImage->controlHeader.pfHandleCharInput = 0;
+    pAnimImage->controlHeader.pfHandleVirtualKeyInput = 0;
+    pAnimImage->controlHeader.field_34 = a7;
+    pAnimImage->pAnimatedImageDescriptor = pDescriptor;
+    pAnimImage->nAnimSpeed = nAnimSpeed;
+    pAnimImage->nFrame = 0;
+    pAnimImage->dwStartTickCount = GetTickCount();
+    pAnimImage->nAnimType = 0;
+    if (pDescriptor)
+        pAnimImage->controlHeader.pfShouldMouseInputBeHandled = ANIMIMAGE_ShouldMouseInputBeHandled;
+    if (!eDrawMode)
+        pAnimImage->eDrawMode = 5;
+    else
+        pAnimImage->eDrawMode = eDrawMode;
+    pAnimImage->field_58 = a10;
+    pAnimImage->bIsRunning = 1;
+    CONTROL_AppendToList(&pAnimImage->controlHeader);
+    return pAnimImage;
 }
