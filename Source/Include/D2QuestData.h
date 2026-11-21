@@ -180,7 +180,8 @@ struct D2Act1Quest5Strc
     unsigned char bDeathMissilesCreated; // 0x119
     unsigned char bTriggerSeqFilter; // 0x11A
     unsigned char bTowerTomeActivated; // 0x11B
-    int unk0x11C; // 0x11C
+    unsigned char unk0x11C; // 0x11C
+    unsigned char pad0x11D[3]; // 0x11D
 };
 
 struct D2Act1Quest6Strc
