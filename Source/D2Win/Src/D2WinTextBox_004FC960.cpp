@@ -4,6 +4,8 @@
 #include "D2WinTypes.h"
 #include "D2CmpTypes.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
+#include "D2WinControls.h"
 
 enum D2ControlTypes
 {
@@ -22,31 +24,9 @@ enum D2ControlTypes
     D2WIN_IMAGE2 = 13,
 };
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
-
 struct D2FontStrc;
 struct D2CharStrc;
 struct D2WinControlStrc;
-
-typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
-typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinTextBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int unk0x40[20];
-    D2WinScrollBarStrc* pScrollBar;
-};
 
 struct D2WinTimerStrc
 {
@@ -55,82 +35,11 @@ struct D2WinTimerStrc
     unsigned int dwTickCount;
 };
 
-struct D2WinEditBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int nTextInsetX;
-    int nTextInsetY;
-    int nMaxLength;
-    int nFirstVisibleChar;
-    int nLastVisibleChar;
-    int nSelectionStart;
-    int nSelectionEnd;
-    Unicode wszText[256];
-    int nCaretPosition;
-    unsigned int dwEditBoxFlags;
-    void* pfOnReturn;
-    void* pfKeyFilter;
-    void* pfOnChange;
-    int eFont;
-    int nTextColor;
-    D2WinEditBoxStrc* pNext;
-    D2WinEditBoxStrc* pPrevious;
-    int bMouseSelecting;
-};
-
-struct D2WinButtonStrc
-{
-    D2WinControlStrc controlHeader;
-    unsigned int dwButtonFlags;
-    int bIsPressed;
-    int bIsCallbackPending;
-    int nActivationCounter;
-    int nActivationVirtualKey;
-    int nIsPressedFrameOffset;
-    int field_58;
-    int nBaseFrame;
-    int eFont;
-    Unicode wszText[256];
-    int nTextColor;
-    D2WinMsgHandler pfUpdateHoverState;
-    int isButtonHovered;
-    int nStringId;
-};
-
-struct D2WinSmackStrc
-{
-    D2WinControlStrc controlHeader;
-};
-
 struct D2WinListDataStrc
 {
     Unicode wszText[256];
     int unk0x200[8];
     D2WinListDataStrc* pNext;
-};
-
-struct D2WinListStrc
-{
-    D2WinControlStrc controlHeader;
-    int unk0x40[9];
-    D2WinListDataStrc* pDataList;
-};
-
-struct D2WinAccountListStrc
-{
-    D2WinControlStrc controlHeader;
-    D2WinAccountListDataStrc* pDataList;
-};
-
-struct D2WinScrollBarStrc
-{
-    D2WinControlStrc controlHeader;
-    int unk0x40;
-    int unk0x44;
-    int nMaxSteps;
-    int nCurrentStep;
-    int unk0x50;
-    D2WinTextBoxStrc* pTextBox;
 };
 
 struct D2WinPopUpLineStrc
@@ -259,7 +168,7 @@ void __fastcall sub_004FDAD0(D2WinEditBoxStrc* ptEditData, void* pfKeyFilter)
 {
     D2_ASSERT(ptEditData, 0x79);
     D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x7B);
-    ptEditData->pfKeyFilter = pfKeyFilter;
+    ptEditData->pfFilter = pfKeyFilter;
 }
 
 // 0x004FDB00
@@ -333,7 +242,7 @@ int __fastcall D2Win_10082(D2WinEditBoxStrc* pEditBox)
     D2_ASSERT(pEditBox, 0x1B3);
     D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x1B5);
     pEditBox->nSelectionStart = 0;
-    pEditBox->nSelectionEnd = sub_00526800(pEditBox->wszText);
+    pEditBox->nSelectionEnd = sub_00526800((Unicode*)pEditBox->wszText);
     return pEditBox->nSelectionEnd;
 }
 
@@ -350,7 +259,7 @@ const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox
 {
     D2_ASSERT(pEditBox, 0x47E);
     D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x480);
-    return pEditBox->wszText;
+    return (Unicode*)pEditBox->wszText;
 }
 
 // 0x004FDDD0

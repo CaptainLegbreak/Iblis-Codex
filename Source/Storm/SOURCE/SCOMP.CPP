@@ -1,38 +1,66 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2StormLink.h"
 
 struct D2StormHashBufferStrc;
-struct D2CriticalSectionStrc;
-struct D2FogBlockStrc;
-struct D2StormMemSourceStrc;
-struct D2StormMemSinkStrc;
-struct D2StormCompParamStrc;
-struct D2StormZArenaStrc;
-struct D2StormLinkStrc;
-struct D2StormNodeListAStrc;
-struct D2StormHuffItemStrc;
-struct D2StormHuffTreeStrc;
-struct D2AdpcmHeaderStrc;
-struct D2SCompLinkStrc;
-struct D2SCompListViewStrc;
-struct D2SCompLinkNextAStrc;
-struct D2SCompLinkNextBStrc;
-struct D2SCompLinkPrevStrc;
-struct D2SCompLinkRawAStrc;
-struct D2SCompLinkRawBStrc;
-struct D2SCompUnlinkAStrc;
-struct D2SCompUnlinkBStrc;
-struct D2SCompUnlinkCStrc;
-struct D2SCompUnlinkDStrc;
-struct D2SCompListTermStrc;
-struct D2SCompLinkCtorAStrc;
-struct D2SCompLinkCtorBStrc;
-struct D2SCompListHeadStrc;
-struct D2SCompListTailStrc;
-struct D2SCompListInitStrc;
-struct D2SCompTermLinkStrc;
-struct D2SCompListStrc;
 
+struct D2CriticalSectionStrc;
+
+struct D2FogBlockStrc;
+
+struct D2StormMemSourceStrc;
+
+struct D2StormMemSinkStrc;
+
+struct D2StormCompParamStrc;
+
+struct D2StormZArenaStrc;
+
+struct D2StormNodeListAStrc;
+
+struct D2StormHuffItemStrc;
+
+struct D2StormHuffTreeStrc;
+
+struct D2AdpcmHeaderStrc;
+
+struct D2SCompLinkStrc;
+
+struct D2SCompListViewStrc;
+
+struct D2SCompLinkNextAStrc;
+
+struct D2SCompLinkNextBStrc;
+
+struct D2SCompLinkPrevStrc;
+
+struct D2SCompLinkRawAStrc;
+
+struct D2SCompLinkRawBStrc;
+
+struct D2SCompUnlinkAStrc;
+
+struct D2SCompUnlinkBStrc;
+
+struct D2SCompUnlinkCStrc;
+
+struct D2SCompUnlinkDStrc;
+
+struct D2SCompListTermStrc;
+
+struct D2SCompLinkCtorAStrc;
+
+struct D2SCompLinkCtorBStrc;
+
+struct D2SCompListHeadStrc;
+
+struct D2SCompListTailStrc;
+
+struct D2SCompListInitStrc;
+
+struct D2SCompTermLinkStrc;
+
+struct D2SCompListStrc;
 
 struct D2FogBlockStrc
 {
@@ -68,24 +96,6 @@ struct D2StormCompParamStrc
     unsigned int nSrcSize;
 };
 
-struct D2StormZArenaStrc
-{
-    char* f_0;
-    char* f_8;
-    unsigned int nSize;
-};
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-};
-
 struct D2StormNodeListAStrc
 {
     int m_linkoffset;
@@ -105,6 +115,9 @@ struct D2StormHuffItemStrc
     unsigned int nWeight;
     D2StormHuffItemStrc* pParent;
     D2StormHuffItemStrc* pChild;
+
+    D2StormHuffItemStrc();
+    ~D2StormHuffItemStrc();
 };
 
 struct D2StormHuffTreeStrc
@@ -119,23 +132,41 @@ struct D2StormHuffTreeStrc
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+
 void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink); // 0x00411A80
+
 D2FogBlockStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2FogBlockStrc** ppLink); // 0x00411F00
+
 void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName); // 0x0041D1E0
+
 void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize); // 0x0041D3B0
+
 void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize); // 0x0041D420
+
 int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
+
 unsigned int __cdecl sub_0041DEC0_ReadMemory(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource); // 0x0041DEC0
+
 void __cdecl sub_0041DF00_WriteMemory(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink); // 0x0041DF00
+
 extern "C" unsigned int __cdecl sub_006B01B0_Explode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam); // 0x006B01B0
+
 extern "C" unsigned int __cdecl sub_006B0870_Implode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam, unsigned int* pType, unsigned int* pDictSize); // 0x006B0870
+
 extern D2FogBlockStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
+
 extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
+
 extern int gabFreeBlockDirty_007784C8[0x100]; // 0x007784C8
+
 extern int gbHeapInitialized_007788D0; // 0x007788D0
 
 struct D2SCompListViewStrc
@@ -187,6 +218,52 @@ struct D2SCompListStrc
     D2SCompTermLinkStrc m_terminator;
     D2SCompListStrc();
 };
+
+struct D2StormZArenaStrc
+{
+    char* f_0;
+    unsigned int nSize;
+    char* f_8;
+};
+
+struct z_stream
+{
+    unsigned char* next_in;
+    unsigned int avail_in;
+    unsigned int total_in;
+    unsigned char* next_out;
+    unsigned int avail_out;
+    unsigned int total_out;
+    char* msg;
+    void* state;
+    void* (__fastcall* zalloc)(void* opaque, unsigned int nItems, unsigned int nSize);
+    void (__fastcall* zfree)(void* opaque, void* pAddress);
+    void* opaque;
+    int data_type;
+    unsigned int adler;
+    unsigned int reserved;
+};
+
+int __fastcall deflateInit_(z_stream* strm, int level, const char* version, int stream_size); // 0x004297F0
+
+int __fastcall deflateEnd(z_stream* strm); // 0x004274A0
+
+void* __fastcall sub_0041E080_ZAlloc(void* pArena, unsigned int nItems, unsigned int nSize); // 0x0041E080
+
+void __fastcall sub_0041E0D0_ZFree(void* pArena, void* pAddress); // 0x0041E0D0
+
+int __fastcall inflateInit_(z_stream* strm, const char* version, int stream_size); // 0x00429A10
+
+int __fastcall inflate(z_stream* strm, int flush); // 0x00429BB0
+
+int __fastcall inflateEnd(z_stream* strm); // 0x0042B170
+
+struct SCompBufferState
+{
+    void* pMemory;
+};
+
+SCompBufferState gSCompBuffer_0077920C;         // 0x0077920C
 
 // 0x00412240
 int __cdecl sub_00412240_DestroyHeaps()
@@ -289,16 +366,108 @@ void* __fastcall sub_0041E080_ZAlloc(D2StormZArenaStrc* pArena, unsigned int nIt
     return SMemAlloc(nBytes, ".\\SOURCE\\SCOMP.CPP", 0x4C4, 0);
 }
 
-// 0x0041EED0
-D2StormHuffItemStrc* D2StormHuffTreeStrc::sub_0041EED0_NewItem(unsigned int nLinkType)
+// 0x0041E0D0
+void __fastcall sub_0041E0D0_ZFree(void* pArena, void* pAddress)
 {
-    D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.Head();
-    if (!pItem)
-        pItem = &f_8[nItemsUsed++];
-    tItemList.sub_0041ED90_LinkNode((char*)pItem, nLinkType, 0);
-    pItem->pParent = 0;
-    pItem->pChild = 0;
-    return pItem;
+    D2StormZArenaStrc* pZArena = (D2StormZArenaStrc*)pArena;
+    if ((char*)pAddress < pZArena->f_8 || (char*)pAddress >= pZArena->f_8 + pZArena->nSize)
+        SMemFree(pAddress, ".\\SOURCE\\SCOMP.CPP", 0x4CC, 0);
+}
+
+// 0x0041E100
+static int __stdcall sub_0041E100_compress2(unsigned char* dest, unsigned long* destLen, const unsigned char* source, unsigned long sourceLen, int level)
+{
+    char aBuffer[0x493E0];
+    D2StormZArenaStrc tArena;
+    z_stream stream;
+    int err;
+    stream.next_in = (unsigned char*)source;
+    stream.avail_in = sourceLen;
+    stream.next_out = dest;
+    stream.avail_out = *destLen;
+    tArena.f_0 = aBuffer;
+    tArena.nSize = sizeof(aBuffer);
+    tArena.f_8 = aBuffer;
+    stream.zalloc = sub_0041E080_ZAlloc;
+    stream.zfree = sub_0041E0D0_ZFree;
+    stream.opaque = &tArena;
+    err = deflateInit_(&stream, level, "1.1.3", sizeof(stream));
+    if (err != 0)
+    {
+        return err;
+    }
+    err = deflate(&stream, 4);
+    if (err != 1)
+    {
+        deflateEnd(&stream);
+        return err == 0 ? -5 : err;
+    }
+    *destLen = stream.total_out;
+    err = deflateEnd(&stream);
+    return err;
+}
+
+// 0x0041E1F0
+void __fastcall sub_0041E1F0_SCompZlibCompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int* pnResult, int nLevel)
+{
+    int nZLevel;
+    switch (nLevel)
+    {
+    case 1:
+        nZLevel = 9;
+        break;
+    case 2:
+        nZLevel = 1;
+        break;
+    default:
+        nZLevel = -1;
+        break;
+    }
+    unsigned long nDestLen = *pOutSize;
+    if (sub_0041E100_compress2(pOut, &nDestLen, pIn, nInSize, nZLevel) == 0)
+    {
+        *pOutSize = nDestLen;
+    }
+    *pnResult = 0;
+}
+
+// 0x0041E250
+static int __stdcall sub_0041E250_uncompress(unsigned char* dest, unsigned long* destLen, const unsigned char* source, unsigned long sourceLen)
+{
+    char aBuffer[0xB798];
+    D2StormZArenaStrc tArena;
+    z_stream stream;
+    int err;
+    stream.next_in = (unsigned char*)source;
+    stream.avail_in = sourceLen;
+    stream.next_out = dest;
+    stream.avail_out = *destLen;
+    tArena.f_0 = aBuffer;
+    tArena.nSize = sizeof(aBuffer);
+    tArena.f_8 = aBuffer;
+    stream.zalloc = sub_0041E080_ZAlloc;
+    stream.zfree = sub_0041E0D0_ZFree;
+    stream.opaque = &tArena;
+    err = inflateInit_(&stream, "1.1.3", sizeof(stream));
+    if (err != 0)
+    {
+        return err;
+    }
+    err = inflate(&stream, 4);
+    if (err != 1)
+    {
+        inflateEnd(&stream);
+        return err == 0 ? -5 : err;
+    }
+    *destLen = stream.total_out;
+    err = inflateEnd(&stream);
+    return err;
+}
+
+// 0x0041E340
+int __fastcall sub_0041E340_SCompZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int nUnused)
+{
+    return sub_0041E250_uncompress(pOut, pOutSize, pIn, nInSize);
 }
 
 static __declspec(noinline) void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
@@ -461,14 +630,6 @@ void __fastcall sub_0041E360_SCompADPCMCompressMono(unsigned char* pvOutBuffer, 
     *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
 }
 
-// 0x0041E3C0
-void __fastcall sub_0041E3C0_SCompADPCMCompressStereo(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
-{
-    unsigned char nLevel;
-    sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
-    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
-}
-
 static int __stdcall sub_0041DCE0_DecompressADPCM(short* pOut, int nInLength, unsigned int nOutSize, unsigned char* pIn, unsigned int nChannels)
 {
     int aPredicted[2];
@@ -600,13 +761,19 @@ void __fastcall sub_0041E3A0_SCompADPCMDecompressMono(short* pOut, unsigned int*
     *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 1);
 }
 
+// 0x0041E3C0
+void __fastcall sub_0041E3C0_SCompADPCMCompressStereo(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+{
+    unsigned char nLevel;
+    sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
+    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
+}
+
 // 0x0041E400
 void __fastcall sub_0041E400_SCompADPCMDecompressStereo(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
 {
     *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 2);
 }
-
-#include "gen/data/Source/Storm/SOURCE/SCOMP.inc"
 
 // 0x0041E420
 static int sub_0041E420_RangesOverlap(const char* pA, const char* pB, unsigned int nSize)
@@ -614,6 +781,82 @@ static int sub_0041E420_RangesOverlap(const char* pA, const char* pB, unsigned i
     if (pA + nSize > pB && pB + nSize > pA)
         return 1;
     return 0;
+}
+
+static unsigned int gnWorkBufferSize_00779208; // 0x00779208
+
+static void* gpWorkBuffer_0077920C; // 0x0077920C
+
+static unsigned long gdwWorkBufferOwner_00779210; // 0x00779210
+
+static D2CriticalSectionStrc gtWorkBufferLock_00779214; // 0x00779214
+
+// 0x0041E440
+static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared)
+{
+    EnterCriticalSection(&gtWorkBufferLock_00779214);
+    const unsigned long dwThreadId = GetCurrentThreadId();
+    if (!gpWorkBuffer_0077920C)
+    {
+        gnWorkBufferSize_00779208 = nSize;
+        gpWorkBuffer_0077920C = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x620, 0);
+        gdwWorkBufferOwner_00779210 = 0;
+    }
+    else if (gdwWorkBufferOwner_00779210)
+    {
+        void* pBuffer = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x626, 0);
+        *pbShared = 0;
+        LeaveCriticalSection(&gtWorkBufferLock_00779214);
+        return pBuffer;
+    }
+    if (gnWorkBufferSize_00779208 < nSize)
+    {
+        SMemFree(gpWorkBuffer_0077920C, ".\\SOURCE\\SCOMP.CPP", 0x62F, 0);
+        gnWorkBufferSize_00779208 = nSize;
+        gpWorkBuffer_0077920C = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x631, 0);
+    }
+    *pbShared = 1;
+    gdwWorkBufferOwner_00779210 = dwThreadId;
+    void* pBuffer = gpWorkBuffer_0077920C;
+    LeaveCriticalSection(&gtWorkBufferLock_00779214);
+    return pBuffer;
+}
+
+// 0x0041E510
+static void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer)
+{
+    if (!pBuffer)
+    {
+        return;
+    }
+    EnterCriticalSection(&gtWorkBufferLock_00779214);
+    if (bShared)
+    {
+        gdwWorkBufferOwner_00779210 = 0;
+        LeaveCriticalSection(&gtWorkBufferLock_00779214);
+        return;
+    }
+    SMemFree(pBuffer, ".\\SOURCE\\SCOMP.CPP", 0x647, 0);
+    LeaveCriticalSection(&gtWorkBufferLock_00779214);
+}
+
+int __stdcall sub_M01_Emit_0041E440(unsigned int nSize)
+{
+    int bShared;
+    void* pBuffer = sub_0041E440_AllocWorkBuffer(nSize, &bShared);
+    sub_0041E510_FreeWorkBuffer(bShared, pBuffer);
+    return 1;
+}
+
+// 0x0041E8C0
+extern "C" int __cdecl sub_0041E8C0_ReleaseBuffer()
+{
+    if (gSCompBuffer_0077920C.pMemory)
+    {
+        SMemFree(gSCompBuffer_0077920C.pMemory, ".\\SOURCE\\SCOMP.CPP", 0x733, 0);
+        gSCompBuffer_0077920C.pMemory = 0;
+    }
+    return 1;
 }
 
 int __stdcall sub_M107_Emit_0041E420(const char* pA, const char* pB, unsigned int nSize, int nCount)
@@ -701,67 +944,29 @@ D2SCompListStrc::D2SCompListStrc()
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-static unsigned int gnWorkBufferSize_00779208; // 0x00779208
-
-static void* gpWorkBuffer_0077920C; // 0x0077920C
-
-static unsigned long gdwWorkBufferOwner_00779210; // 0x00779210
-
-static D2CriticalSectionStrc gtWorkBufferLock_00779214; // 0x00779214
-
-// 0x0041E440
-static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared)
+// 0x0041EE80
+D2StormHuffItemStrc::D2StormHuffItemStrc()
 {
-    EnterCriticalSection(&gtWorkBufferLock_00779214);
-    const unsigned long dwThreadId = GetCurrentThreadId();
-    if (!gpWorkBuffer_0077920C)
-    {
-        gnWorkBufferSize_00779208 = nSize;
-        gpWorkBuffer_0077920C = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x620, 0);
-        gdwWorkBufferOwner_00779210 = 0;
-    }
-    else if (gdwWorkBufferOwner_00779210)
-    {
-        void* pBuffer = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x626, 0);
-        *pbShared = 0;
-        LeaveCriticalSection(&gtWorkBufferLock_00779214);
-        return pBuffer;
-    }
-    if (gnWorkBufferSize_00779208 < nSize)
-    {
-        SMemFree(gpWorkBuffer_0077920C, ".\\SOURCE\\SCOMP.CPP", 0x62F, 0);
-        gnWorkBufferSize_00779208 = nSize;
-        gpWorkBuffer_0077920C = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x631, 0);
-    }
-    *pbShared = 1;
-    gdwWorkBufferOwner_00779210 = dwThreadId;
-    void* pBuffer = gpWorkBuffer_0077920C;
-    LeaveCriticalSection(&gtWorkBufferLock_00779214);
-    return pBuffer;
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
-// 0x0041E510
-static void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer)
+// 0x0041EE90
+D2StormHuffItemStrc::~D2StormHuffItemStrc()
 {
-    if (!pBuffer)
-    {
-        return;
-    }
-    EnterCriticalSection(&gtWorkBufferLock_00779214);
-    if (bShared)
-    {
-        gdwWorkBufferOwner_00779210 = 0;
-        LeaveCriticalSection(&gtWorkBufferLock_00779214);
-        return;
-    }
-    SMemFree(pBuffer, ".\\SOURCE\\SCOMP.CPP", 0x647, 0);
-    LeaveCriticalSection(&gtWorkBufferLock_00779214);
+    f_0.Unlink();
 }
 
-int __stdcall sub_M01_Emit_0041E440(unsigned int nSize)
+// 0x0041EED0
+D2StormHuffItemStrc* D2StormHuffTreeStrc::sub_0041EED0_NewItem(unsigned int nLinkType)
 {
-    int bShared;
-    void* pBuffer = sub_0041E440_AllocWorkBuffer(nSize, &bShared);
-    sub_0041E510_FreeWorkBuffer(bShared, pBuffer);
-    return 1;
+    D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.Head();
+    if (!pItem)
+        pItem = &f_8[nItemsUsed++];
+    tItemList.sub_0041ED90_LinkNode((char*)pItem, nLinkType, 0);
+    pItem->pParent = 0;
+    pItem->pChild = 0;
+    return pItem;
 }
+
+#include "gen/data/Source/Storm/SOURCE/SCOMP.inc"

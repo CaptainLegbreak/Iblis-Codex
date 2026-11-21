@@ -173,4 +173,4 @@ int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
     return 2;
 }
 
-#include "gen/data/Source/Fog/Src/ErrorManager_004082E0.inc"
+#include "gen/data/Source/Fog/Unknown_004082E0.inc"

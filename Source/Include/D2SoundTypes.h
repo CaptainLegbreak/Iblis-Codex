@@ -45,7 +45,11 @@ struct D2SoundStrc
     int nLoopStart; // 0x30
     unsigned int dwFlags; // 0x34
     int nVolume; // 0x38
-    int unk0x3C; // 0x3C
+    union
+    {
+        int unk0x3C; // 0x3C
+        float fAttenuation; // 0x3C
+    };
     int bNoLoop; // 0x40
     unsigned int nMinDataSize; // 0x44
     void* hStream; // 0x48

@@ -1,24 +1,7 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-};
-
-struct D2LaunchGameRecStrc
-{
-    char nUnk0x00;
-    char szName[0x30];
-    char wValue0x31[2];
-    char wValue0x33[2];
-    char f_35[2];
-    char nAddress0x37[4];
-};
+#include "D2MultiTypes.h"
+#include "D2StormTypes.h"
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" unsigned int __cdecl strlen(const char* szString);

@@ -1,10 +1,10 @@
 #include "Fog.h"
 #include "D2NetTypes.h"
+#include "D2FogTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HostentStrc;
 struct D2ThreadNameInfoStrc;
-struct D2StackFrameStrc;
 struct D2ModuleStrc;
 struct D2UnicodeStringStrc;
 struct D2ListEntryStrc;
@@ -30,26 +30,6 @@ struct D2ThreadNameInfoStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2StackFrameStrc
-{
-    unsigned long dwPc;
-    unsigned long dwFrame;
-    unsigned long dwStack;
-    unsigned long dwReturn;
-    unsigned char bHasArgs;
-    void* apArgs[4];
-
-    D2StackFrameStrc() : dwPc(0), dwFrame(0), dwStack(0), dwReturn(0), bHasArgs(0)
-    {
-        memset(apArgs, 0, sizeof(apArgs));
-    }
-};
-
-struct D2ThreadContextStrc
-{
-    int sub_00405060_CaptureFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nMaxFrames);
-};
 
 struct D2ModuleStrc
 {

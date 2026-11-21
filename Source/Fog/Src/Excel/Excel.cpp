@@ -1,38 +1,69 @@
 #include "Fog.h"
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 
 struct Server;
+
 struct SafeSocketView;
+
 struct ConnectionView;
+
 struct LinkNode;
+
 struct LinkerView;
+
 struct PaletteColor;
+
 struct Unit;
+
 struct ReceiveQueue;
+
 struct BinFile;
+
 struct ClientNode;
+
 struct PaletteTables;
+
 struct ReceiveConnection;
+
 struct Obj006BCDE0;
+
 struct D2SNameEntryStrc;
+
 struct D2SNameListStrc;
+
 struct D2SNameNodeStrc;
+
 struct D2Block006BD040Strc;
-struct D2ExcelNode006BD070Strc;
+
 struct RoomFlags;
+
 struct PathFlags;
+
 struct KeyValue;
+
 struct CodeRow;
+
 struct CodeOutput;
+
 struct LinkView;
+
 struct CodeLink;
+
 struct Vector;
+
 struct DirectionRecord;
+
 struct D2TxtLinkEntryStrc;
+
 struct D2TxtLinkStrc;
+
 struct D2TreeNode006BD330Strc;
+
 struct D2StringTableStrc;
+
 struct D2TxtLinkNodeStrc;
+
 struct D2BinFileStrc;
 
 typedef unsigned short U16;
@@ -79,10 +110,15 @@ typedef char check_root[OFFSET(LinkerView,root)==0xC?1:-1];
 typedef char check_linker_size[sizeof(LinkerView)==0x10?1:-1];
 
 extern "C" void __fastcall sub_0040DDD0_Lock(SafeSocketView* socket);
+
 extern "C" int __fastcall sub_0040DD80_SendNoLock(SafeSocketView* socket,const char* data,int length);
+
 extern "C" void __fastcall sub_0040DDE0_Unlock(SafeSocketView* socket);
+
 extern "C" void __fastcall sub_006BD070_FreeNodes(LinkNode* node);
+
 extern "C" int __fastcall sub_0040B480_FreePool(void* pool,void* block,const char* file,int line,int unused);
+
 extern "C" const char gExcelFile[]; // 0x006FC448
 
 struct Unit
@@ -117,12 +153,19 @@ typedef char check_ClientNode_gameGuid[OFFSET(ClientNode,gameGuid)==0x20?1:-1];
 typedef char check_ClientNode_size[sizeof(ClientNode)==0x24?1:-1];
 
 extern "C" U8 __stdcall sub_00605210_FindNearestColor(const U8* palette,U32 count,int c0,int c1,int c2);
+
 extern "C" int __fastcall sub_0063E860_UnitPredicate(Unit* unit);
+
 extern "C" int __fastcall sub_00457490_MonsterFlag(int classId,int flag);
+
 extern "C" U32 __fastcall sub_006C2090_ReadQueue(ReceiveQueue* queue,char* buffer,int capacity);
+
 extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int line,int flags);
+
 extern "C" ClientNode* __fastcall sub_006BE540_FindClient(Server* server,int clientId);
+
 extern "C" const int gCollisionPatterns_006EB3DC[4];
+
 extern "C" const char gExcelFile_006FC448[]; // 0x006FC448
 
 struct Obj006BCDE0 {
@@ -132,7 +175,9 @@ struct Obj006BCDE0 {
 };
 
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2Block006BD040Strc
@@ -144,14 +189,8 @@ struct D2Block006BD040Strc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-struct D2ExcelNode006BD070Strc
-{
-    unsigned char unk_00[0x24];
-    D2ExcelNode006BD070Strc* pLeft24;
-    D2ExcelNode006BD070Strc* pRight28;
-};
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 extern const char gszExcelSourceFile_006FC448[]; // 0x006FC448
 
@@ -305,6 +344,7 @@ extern D2TreeNode006BD330Strc* const gpTreeSentinel_0074C3D8; // 0x0074C3D8
 struct D2StringTableStrc { int count; int unk4; int unk8; void* data; };
 
 extern const char* gszFallback_0074C3D8; // 0x0074C3D8
+
 const char* __fastcall sub_006BD330_GetString(void*, int); // 0x006BD330
 
 struct D2TxtLinkNodeStrc
@@ -316,11 +356,17 @@ struct D2TxtLinkNodeStrc
 };
 
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
 void __fastcall sub_004113C0(char* szText, int nLength); // 0x004113C0
+
 extern "C" const char gszExcelCppFile[]; // 0x006FC448
+
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLogError); // 0x006BD3C0
+
 static __declspec(noinline) void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew);
 
 struct D2BinFileStrc
@@ -332,8 +378,82 @@ struct D2BinFileStrc
 };
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
+
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+
+__declspec(noinline) static int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries);
+
+extern "C" const char gszEmptyAssertText;                                                    // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090();                                       // 0x00408090
+
+#pragma intrinsic(memset)
+
+struct D2LinkTree006BD500Strc
+{
+    D2TxtLinkNodeStrc* pRoot;
+};
+
+struct D2BinLinker006BD500Strc
+{
+    int nCount;
+    unsigned char unk_04[0x04];
+    void* pLocked;
+    D2LinkTree006BD500Strc tTree;
+};
+
+#define SKIP_CELL() {while(*input) ++input; ++input;}
+
+#define READ_CODE() {*(unsigned*)small=0;int c=0;while(*input){if(c>=4){while(*input)++input;break;}small[c++]=*input++;}++input;}
+
+#define PAD_CODE(dst) {(dst)[3]=' ';if(!small[0]){(dst)[0]=' ';(dst)[1]=' ';(dst)[2]=' ';}else{(dst)[0]=small[0];if(!small[1]){(dst)[1]=' ';(dst)[2]=' ';}else{(dst)[1]=small[1];if(!small[2]){(dst)[2]=' ';}else{(dst)[2]=small[2];if(small[3])(dst)[3]=small[3];}}}}
+
+#define PAD9(dst) {if(!small[0]){(dst)[0]=' ';(dst)[1]=' ';(dst)[2]=' ';(dst)[3]=' ';}else{(dst)[0]=small[0];if(!small[1]){(dst)[1]=' ';(dst)[2]=' ';(dst)[3]=' ';}else{(dst)[1]=small[1];if(!small[2]){(dst)[2]=' ';(dst)[3]=' ';}else{(dst)[2]=small[2];if(!small[3])(dst)[3]=' ';else (dst)[3]=small[3];}}}}
+
+struct D2BinFieldStrc;
+
+struct D2QServerConfigStrc;
+
+struct D2QueueServerStrc;
+
+struct D2Object006BE390Strc;
+
+struct D2BinFieldStrc { const char* name; unsigned type; int length,offset; void* link; };
+
+int __stdcall sub_006BCE20_MapColumns(unsigned short*,D2BinFileStrc*,D2BinFieldStrc*); // 0x006BCE20
+
+int __stdcall sub_006BD230_AddCode(void*,unsigned); // 0x006BD230
+
+void __stdcall sub_006BD500_AddName(void*,const char*); // 0x006BD500
+
+int __fastcall sub_006BD5A0_AddIndex(void*,const char*); // 0x006BD5A0
+
+int __stdcall sub_006BD130_FindCode(void*,unsigned,int); // 0x006BD130
+
+int __stdcall FOG_GetRowFromTxt(void*,const char*,int); // 0x006BD3C0
+
+void __stdcall sub_00410B10(void*,int); // 0x00410B10
+
+void __stdcall sub_00410B50(void*,int); // 0x00410B50
+
+typedef int (__fastcall* KeyCallback)(const char*);
+
+typedef void (__fastcall* FieldCallback)(const char*,void*,int,int,int,int);
+
+struct D2QueueServerStrc
+{
+    void* pHandle;
+};
+
+unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nValue); // 0x006C3120
+
+struct D2Object006BE390Strc
+{
+    unsigned char unk_000[0xBA8];
+    int anSlots[1];
+};
 
 extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
 {
@@ -343,7 +463,6 @@ extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
         room->flags |= 0x400000U;
 }
 
-// 0x00648B40
 extern "C" void __stdcall sub_00648B40_roomInvalid(PathFlags* path, int invalid)
 {
     if (invalid != 0)
@@ -393,47 +512,71 @@ static __declspec(noinline) unsigned int __stdcall sub_006BCDF0_HashName(const c
     return SStrHash(szName, 0, 0);
 }
 
-// build: context sub_006BCE20_MapNames
-int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
+// build: context sub_006BCDF0_HashName
+unsigned int __stdcall sub_E01_Emit_006BCDF0(const char* szName)
+{
+    return sub_006BCDF0_HashName(szName);
+}
+
+int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries);
+
+// 0x006BCE00
+unsigned int __fastcall sub_006BCE00_XorFoldBytes(int nUnused, unsigned int dwValue)
+{
+    return (dwValue ^ (dwValue >> 8) ^ (dwValue >> 16) ^ (dwValue >> 24)) & 0xFF;
+}
+
+// 0x006BCE20
+static int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
 {
     D2SNameNodeStrc* aBuckets[256];
     D2SNameNodeStrc aNodes[0x118];
     unsigned int nNodes = 0;
     int nOut = 0;
 
-    D2SNameEntryStrc* pEntry = pEntries;
-    for (D2SNameEntryStrc* pCheck = pEntry; pCheck->nType; ++pCheck)
+    D2SNameEntryStrc* pCheck = pEntries;
+    if (pCheck->nType)
     {
-        if (pCheck->nType == 5)
+        do
         {
-            for (unsigned int i = 1; i < pCheck->nCount; ++i)
+            if (pCheck->nType == 5)
             {
-                ++pCheck;
-                S_ASSERT(pCheck->nType == 5, 0xC4);
+                for (unsigned int i = 1; i < pCheck->nCount; ++i)
+                {
+                    ++pCheck;
+                    S_ASSERT(pCheck->nType == 5, 0xC4);
+                }
             }
-        }
+            ++pCheck;
+        } while (pCheck->nType);
     }
 
     SMemZero(aBuckets, sizeof(aBuckets));
 
-    D2SNameNodeStrc* pCursor = aNodes;
-    for (; pEntry->nType; ++pEntry)
+    D2SNameEntryStrc* pEntry = pEntries;
+    if (pEntry->nType)
     {
+        D2SNameNodeStrc* pCursor = aNodes;
+        do
+        {
         S_ASSERT(nNodes < 0x118, 0xCC);
         ++nNodes;
         D2SNameNodeStrc* pNode = pCursor++;
-        unsigned int nHash = sub_006BCDF0_HashName(pEntry->szName);
+        const char* szName = pEntry->szName;
+        unsigned int nHash = SStrHash(szName, 0, 0);
         unsigned int nBucket = ((((nHash >> 8) ^ nHash) >> 16) ^ (nHash >> 8) ^ nHash) & 0xFF;
         pNode->nHash = nHash;
         pNode->pEntry = pEntry;
         pNode->pNext = aBuckets[nBucket];
         aBuckets[nBucket] = pNode;
+            ++pEntry;
+        } while (pEntry->nType);
     }
 
     const char* szString = pList->pStrings;
     for (unsigned int i = 0; i < pList->nCount; ++i)
     {
-        unsigned int nHash = sub_006BCDF0_HashName(szString);
+        unsigned int nHash = SStrHash(szString, 0, 0);
         unsigned int nBucket = ((((((nHash >> 8) ^ nHash) >> 8) ^ nHash) >> 8) ^ nHash) & 0xFF;
         for (D2SNameNodeStrc* pNode = aBuckets[nBucket]; pNode; pNode = pNode->pNext)
         {
@@ -465,12 +608,6 @@ next:
     return nOut;
 }
 
-// 0x006BCE00
-unsigned int __fastcall sub_006BCE00_XorFoldBytes(int nUnused, unsigned int dwValue)
-{
-    return (dwValue ^ (dwValue >> 8) ^ (dwValue >> 16) ^ (dwValue >> 24)) & 0xFF;
-}
-
 // 0x006BD040
 D2Block006BD040Strc* __stdcall sub_006BD040_AllocBlock(const char* szFile, int nLine)
 {
@@ -480,12 +617,12 @@ D2Block006BD040Strc* __stdcall sub_006BD040_AllocBlock(const char* szFile, int n
 }
 
 // 0x006BD070
-void __fastcall sub_006BD070_FreeTree(D2ExcelNode006BD070Strc* pNode)
+void __fastcall sub_006BD070_FreeTree(D2TxtLinkNodeStrc* pNode)
 {
-    if (pNode->pLeft24)
-        sub_006BD070_FreeTree(pNode->pLeft24);
-    if (pNode->pRight28)
-        sub_006BD070_FreeTree(pNode->pRight28);
+    if (pNode->pPrevious)
+        sub_006BD070_FreeTree(pNode->pPrevious);
+    if (pNode->pNext)
+        sub_006BD070_FreeTree(pNode->pNext);
     FOG_FreeServerMemory(0, pNode, gszExcelSourceFile_006FC448, 0x346, 0);
 }
 
@@ -584,8 +721,6 @@ D2TreeNode006BD330Strc* __fastcall sub_006BD330_FindNode(D2TreeNode006BD330Strc*
     return gpTreeSentinel_0074C3D8;
 }
 
-#include "gen/data/Source/Fog/Src/Excel/Excel.inc"
-
 // 0x006BD380
 const char* __stdcall sub_006BD380_GetString(D2StringTableStrc* pTable, int index, int useFallback)
 {
@@ -630,28 +765,58 @@ int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLo
     return -1;
 }
 
-static void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew)
+// build: context sub_006BCE20_Shim
+// calling-convention shim (not game code)
+int __stdcall sub_006BCE20_Shim(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
 {
-    while (*ppNode)
+    return sub_006BCE20_MapNames(pOut, pList, pEntries);
+}
+
+// 0x006BD490
+static void __cdecl sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppLink, D2TxtLinkNodeStrc* pNode)
+{
+    while (*ppLink)
     {
-        D2TxtLinkNodeStrc* pNode = *ppNode;
-        const int nCmp = strcmp(pNew->szText, pNode->szText);
-        if (nCmp < 0)
+        D2TxtLinkNodeStrc* pCurrent = *ppLink;
+        const int nCompare = strcmp(pNode->szText, pCurrent->szText);
+        if (nCompare < 0)
         {
-            ppNode = &pNode->pPrevious;
+            ppLink = &pCurrent->pPrevious;
         }
-        else if (nCmp > 0)
+        else if (nCompare > 0)
         {
-            ppNode = &pNode->pNext;
+            ppLink = &pCurrent->pNext;
         }
         else
         {
-            FOG_FreePool(0, pNew, gszExcelCppFile, 0x4A7, 0);
+            FOG_FreePool(0, pNode, ".\\Src\\Excel\\Excel.cpp", 1191, 0);
             return;
         }
     }
 
-    *ppNode = pNew;
+    *ppLink = pNode;
+}
+
+// build: context sub_006BD490_Shim
+// calling-convention shim (not game code)
+void __cdecl sub_006BD490_Shim(D2TxtLinkNodeStrc** ppRoot, D2TxtLinkNodeStrc* pNode)
+{
+    sub_006BD490_InsertNode(ppRoot, pNode);
+}
+
+// 0x006BD500
+int __stdcall sub_006BD500_AddCode(D2BinLinker006BD500Strc* pLinker, const char* szCode)
+{
+    D2_ASSERT(pLinker, 0x4B2);
+    D2_ASSERT(!pLinker->pLocked, 0x4B6);
+
+    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), ".\\Src\\Excel\\Excel.cpp", 0x4B9, 0);
+    memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
+    SStrCopy(pNode->szText, szCode, 0x20);
+    sub_004113C0(pNode->szText, 0x20);
+    pNode->nLinkIndex = pLinker->nCount;
+    sub_006BD490_InsertNode((D2TxtLinkNodeStrc**)&pLinker->tTree, (D2TxtLinkNodeStrc*)pNode);
+    return pLinker->nCount++;
 }
 
 // 0x006BD5A0
@@ -746,3 +911,157 @@ D2BinFileStrc* __stdcall FOG_CreateBinFile(char* pDataBuffer, int nBufferSize)
 
     return pBinFile;
 }
+
+// 0x006BD780
+void __stdcall sub_006BD780_ParseTable(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,unsigned records,unsigned stride)
+{
+ unsigned short columns[280];
+ char small[32];
+ char code[4];
+ D2_ASSERT(records>0,0x112);
+ D2_ASSERT(stride>0,0x113);
+ int total=sub_006BCE20_MapColumns(columns,bin,fields);
+ int firstPass=0;
+ for(int c=0;c<(int)bin->nColumns;++c) if(columns[c]!=0x7fff) {
+  switch(fields[columns[c]].type) {case 10:case 12:case 14:case 16:case 17:case 18:firstPass=1;break;}
+ }
+ char* originalOutput=output;
+ char* input;
+ int row,c;
+ if(firstPass) {
+  input=bin->pFirstRow;
+  for(row=0;row<bin->nRecordCount;output+=stride,++row) {
+   for(c=0;c<(int)bin->nColumns;++c) {
+    if(columns[c]==0x7fff){SKIP_CELL();continue;}
+    D2BinFieldStrc* field=&fields[columns[c]];
+    char* dst=output+field->offset;
+    switch(field->type) {
+    case 10:case 12:case 14: {
+     READ_CODE(); PAD_CODE(code);
+     int index=sub_006BD230_AddCode(*(void**)field->link,*(unsigned*)code);
+     switch(field->type) {
+      case 10:*(unsigned*)dst=*(unsigned*)code;break;
+      case 12:D2_ASSERT(index<=255,0x156);*dst=code[0];break;
+      case 14:D2_ASSERT(index<=65535,0x15a);*(unsigned short*)dst=*(unsigned short*)code;break;
+     }break;
+    }
+    case 16:{char* start=dst;char* end=dst+field->length-1;while(*input&&dst<end)*dst++=*input++;*dst=0;while(*input)++input;++input;sub_006BD500_AddName(*(void**)field->link,start);break;}
+    case 17:case 18:{char name[32];char* p=name;while(*input&&p<name+31)*p++=*input++;*p=0;while(*input)++input;++input;void* const tArg4 = *(void**)field->link;
+    int index=sub_006BD5A0_AddIndex(tArg4,name);char* rec=output+field->offset;if(field->type==17)*(unsigned short*)rec=(unsigned short)index;else *(int*)rec=index;break;}
+    default:SKIP_CELL();break;
+    }
+   }
+   D2_ASSERT(*input=='\n',0x185);++input;
+  }
+ }
+ output=originalOutput;input=bin->pFirstRow;
+ for(row=0;row<bin->nRecordCount;output+=stride,++row){
+  for(c=0;c<(int)bin->nColumns;++c){
+   if(columns[c]==0x7fff){SKIP_CELL();continue;}
+   char* start=input;
+   D2BinFieldStrc* field=&fields[columns[c]];
+   int offset=field->offset;
+   char* dst=output+field->offset;
+   int length=field->length;
+   unsigned type=field->type;
+   char* end=dst+length;
+   switch(type){
+   case 1:case 7:{while(*input){if(dst>=end){while(*input)++input;break;}*dst++=*input++;}++input;*dst=0;break;}
+   case 9:{READ_CODE();PAD9(dst);break;}
+   case 10:case 12:case 14:case 16:case 17:case 18:SKIP_CELL();break;
+   case 11:case 13:case 15:{READ_CODE();PAD_CODE(code);int index=sub_006BD130_FindCode(*(void**)field->link,*(unsigned*)code,1);switch(field->type){case 11:*(int*)dst=index;break;case 13:*dst=(char)index;break;case 15:*(unsigned short*)dst=(unsigned short)index;break;}break;}
+   case 19:case 20:case 21:{char* p=small;while(*input&&p<small+31)*p++=*input++;*p=0;while(*input)++input;++input;int index=FOG_GetRowFromTxt(*(void**)field->link,small,1);switch(field->type){case 19:*(int*)dst=index;break;case 20:*(unsigned short*)dst=(unsigned short)index;break;case 21:*dst=(char)index;break;}break;}
+   case 2:case 3:case 4:case 5:case 6:case 8:case 26:{if(*input=='-')++input;int value=0;while(*input)value=value*10+*input++-'0';if(*start=='-')value=-value;++input;switch(type){case 2:case 8:*(int*)dst=value;break;case 3:*(unsigned short*)dst=(unsigned short)value;break;case 4:case 6:*dst=(char)value;break;case 5:if(start+1!=input)*dst=(char)value;break;case 26:if(value)sub_00410B10(dst,length);else sub_00410B50(dst,length);break;}break;}
+   case 22:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}++input;*p=0;if(field->link)*(unsigned short*)dst=(unsigned short)((KeyCallback)field->link)(callbackText);break;}
+   case 23:case 24:case 25:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}if(field->link)++input;else ++input;*p=0;if(field->link)((FieldCallback)field->link)(callbackText,output,offset,length,row,c);break;}
+   default:__assume(0);
+   }
+  }
+  for(;c<total;++c){
+   D2BinFieldStrc* field=&fields[columns[c]];char* dst=output+field->offset;
+   switch(field->type){
+   case 1:*dst=0;break;
+   case 2:*(int*)dst=0;break;
+   case 3:*(unsigned short*)dst=0;break;
+   case 4:*dst=0;break;
+   case 5:*dst=0;break;
+   case 6:*dst=0;break;
+   case 7:*dst=0;break;
+   case 8:*(int*)dst=0;break;
+   case 9:*(int*)dst=0;break;
+   case 10:*(int*)dst=0;break;
+   case 11:*(int*)dst=-1;break;
+   case 12:*dst=0;break;
+   case 13:*dst=-1;break;
+   case 14:*(unsigned short*)dst=0;break;
+   case 15:*(unsigned short*)dst=65535;break;
+   case 16:*dst=0;break;
+   case 17:*(unsigned short*)dst=0;break;
+   case 18:*(int*)dst=0;break;
+   case 19:*(unsigned int*)dst=0xFFFFFFFF;break;
+   case 20:*(unsigned short*)dst=65535;break;
+   case 21:*dst=-1;break;
+   case 22:*(unsigned short*)dst=0;break;
+   case 23:case 24:case 25:if(field->link)((FieldCallback)field->link)(0,output,field->offset,field->length,row,c);break;
+   case 26:break;
+   default:__assume(0);
+   }
+  }
+  D2_ASSERT(*input=='\n',0x286);++input;
+ }
+}
+
+// 0x006BE2F0
+void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unused3)
+{
+}
+
+// 0x006BE300
+void __cdecl sub_006BE300_Nop(const char* unused1, const char* unused2, int unused3)
+{
+}
+
+static int gnLockCount_0074C3E0; // 0x0074C3E0
+
+static int gnGlobal_0074C3E4; // 0x0074C3E4
+
+static int gnGlobal_0074C3E8; // 0x0074C3E8
+
+static int gnGlobal_0074C3EC; // 0x0074C3EC
+
+static int gnGlobal_00989C28; // 0x00989C28
+
+// 0x006BE310
+void __stdcall sub_006BE310_SetServerConfig(D2QServerConfigStrc* pConfig)
+{
+    gnLockCount_0074C3E0 = pConfig->nClientCapacity;
+    gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
+    gnGlobal_0074C3E8 = pConfig->nValue04;
+    gnGlobal_0074C3EC = pConfig->nValue08;
+    gnGlobal_00989C28 = pConfig->nValue0C;
+}
+
+// 0x006BE350
+void __stdcall sub_006BE350_StartListening(D2QueueServerStrc* pServer, unsigned int nValue)
+{
+    if (pServer->pHandle)
+    {
+        sub_006C3120_Start(pServer, nValue);
+    }
+    else
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 297);
+        exit(-1);
+    }
+}
+
+// 0x006BE390
+int __stdcall sub_006BE390_SwapSlot(D2Object006BE390Strc* pObject, int nIndex, int nValue)
+{
+    int nOld = pObject->anSlots[nIndex];
+    if (nValue)
+        pObject->anSlots[nIndex] = nValue;
+    return nOld;
+}
+
+#include "gen/data/Source/Fog/Src/Excel/Excel.inc"

@@ -3,47 +3,100 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 class BNGatewayAccess;
+
 struct D2SystemTimeStrc;
+
 struct D2TimeZoneInformationStrc;
+
 struct Table;
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+
 extern "C" unsigned int __cdecl strlen(const char* szString);
+
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
+
 void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
+
 char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize); // 0x00518300
 
 class BNGatewayAccess
 {
 public:
     BNGatewayAccess& operator=(const BNGatewayAccess& source);
+    void __stdcall SaveAndUnload();                                                                         // 0x00517ED0
+    int __stdcall GMT(int nGateway);                                                                        // 0x00518060
+    const char* __stdcall Name(int nGateway);
+    const char* __stdcall Realm(int nGateway);
+    const char* __stdcall DNS(int nGateway);
     void __stdcall SetCurGateway(int nGateway);
+    void __stdcall Load();                                                                                  // 0x005186D0
     void __stdcall UpdateGatewaysFromIni(char* szText);                                                     // 0x00518850
 
 private:
-    int GetSystemTimeZone();
-    void GetBattlenetRealmsList();
+    int GetSystemTimeZone();                                                                                // 0x00517E60
+    const char* sub_00517FD0_GetGatewayEntry(int nGateway);                                                 // 0x00517FD0
+    const char* Nth(int nGateway);
+    void GetGatewayList(const char* szValueName);                                                           // 0x00518190
+    void sub_00518270_LoadGatewayList();
+    void GetBattlenetRealmsList();                                                                          // 0x005182B0
     void WriteDefaultGatewayList();
     char* SkipToEOL(char* pText, char* pEnd);                                                               // 0x00518390
     char* SkipEOL(char* pText, char* pEnd);                                                                 // 0x005183C0
-    char* FindSection(char* pText, const char* szSection);
-    char* FindKey(char* pSection, const char* szKey);
+    char* FindSection(char* pText, const char* szSection);                                                  // 0x005183F0
+    char* FindKey(char* pSection, const char* szKey);                                                       // 0x005184C0
+    void PickClosestZone(int nTimeZone);                                                                    // 0x00518580
 
-    int unk0x00;
-    int unk0x04;
+    char m_szEmpty[4];
+    int m_bModified;
     int m_nNumGateways;
     int m_nCurGateway;
     char* m_pGatewayList;
-    int unk0x14[3];
+    int m_nGatewayListSize;
+    unsigned int m_nVersion;
+    int m_bOverride;
     void* m_pRealms;
 };
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 struct Table { char pad0[8]; int count; char padC[4]; const char* data; int length; const char* Nth(int n); };
+
+extern "C" int __cdecl abs(int nValue);
+
+extern "C" long __cdecl strtol(const char* szString, char** ppEnd, int nRadix); // 0x0068676E
+
+extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
+
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
+
+int __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
+
+int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
+
+extern "C" const char szGatewayIsClosest_006DED44[]; // 0x006DED44
+
+extern "C" const char szFindClosestGateway_006DED78[]; // 0x006DED78
+
+extern "C" const char szAutoPickGateway_006DED9C[]; // 0x006DED9C
+
+extern "C" const char szObsoleteGatewayList_006DEDC0[]; // 0x006DEDC0
+
+int __cdecl sub_00518C70_StartLogging(int nChannel, int nIndent); // 0x00518C70
+
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
+
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
+
+extern "C" const char szBNetGWFile_006DEC6C[];                                                              // 0x006DEC6C
+
+extern "C" const char szZero_006D5D64[];                                                                    // 0x006D5D64
 
 // build: symbol ??4BNGatewayAccess@@QAEAAV0@ABV0@@Z 0x00517E40
 // 0x00517E40
@@ -63,6 +116,36 @@ int BNGatewayAccess::GetSystemTimeZone()
     if ((nLangId & 0x3FF) == 9 && (nLangId >> 10) == 3)
         return 480;
     return tTimeZone.f_0;
+}
+
+// build: symbol ?Nth@BNGatewayAccess@@AAEPBDH@Z 0x00517FD0
+// 0x00517ED0
+void __stdcall BNGatewayAccess::SaveAndUnload()
+{
+    if (m_bModified && m_pGatewayList)
+    {
+        sub_00518D40_Log("Recording gateway list selection");
+        char* pCurGateway = m_pGatewayList;
+        pCurGateway += SStrLen(pCurGateway) + 1;
+        pCurGateway[0] = m_nCurGateway / 10 + '0';
+        pCurGateway[1] = m_nCurGateway % 10 + '0';
+        const char* szValueName = m_bOverride ? szOverrideGateways_006DECAC : szDiabloGateways_006DEC8C;
+        D2_ASSERT(!m_pGatewayList[m_nGatewayListSize - 1] && !m_pGatewayList[m_nGatewayListSize - 2], 0xB9);
+        SRegSaveData(szConfiguration_006DEC7C, szValueName, 0x82, m_pGatewayList, m_nGatewayListSize);
+    }
+
+    if (m_pGatewayList)
+    {
+        SMemFree(m_pGatewayList, ".\\BNetGW.cpp", 0xC6, 0);
+        m_pGatewayList = 0;
+        m_nGatewayListSize = 0;
+    }
+
+    if (m_pRealms)
+    {
+        SMemFree(m_pRealms, ".\\BNetGW.cpp", 0xCC, 0);
+        m_pRealms = 0;
+    }
 }
 
 // 0x00517FD0
@@ -88,6 +171,65 @@ const char* Table::Nth(int n)
     return (const char*)self;
 }
 
+// 0x00518040
+const char* __stdcall BNGatewayAccess::DNS(int nGateway)
+{
+    return sub_00517FD0_GetGatewayEntry(nGateway);
+}
+
+// 0x00518060
+int __stdcall BNGatewayAccess::GMT(int nGateway)
+{
+    const char* szEntry = Nth(nGateway);
+    if (*szEntry)
+    {
+        szEntry += SStrLen(szEntry) + 1;
+    }
+
+    char* pEnd;
+    return strtol(szEntry, &pEnd, 10);
+}
+
+// 0x005180A0
+const char* __stdcall BNGatewayAccess::Name(int nGateway)
+{
+    const char* szEntry = Nth(nGateway);
+    if (*szEntry)
+    {
+        szEntry += SStrLen(szEntry) + 1;
+        if (*szEntry)
+        {
+            szEntry += SStrLen(szEntry) + 1;
+        }
+    }
+
+    return szEntry;
+}
+
+// 0x005180E0
+const char* __stdcall BNGatewayAccess::Realm(int nGateway)
+{
+    const char* szName = Nth(nGateway);
+    const char* szRealm = (const char*)m_pRealms;
+    while (*szRealm)
+    {
+        if (!SStrCmpI(szRealm, szName, 0x7FFFFFFF))
+        {
+            return szRealm + SStrLen(szRealm) + 1;
+        }
+
+        szRealm += SStrLen(szRealm) + 1;
+        if (!*szRealm)
+        {
+            break;
+        }
+
+        szRealm += SStrLen(szRealm) + 1;
+    }
+
+    return &gszEmptyAssertText;
+}
+
 // 0x00518150
 void __stdcall BNGatewayAccess::SetCurGateway(int nGateway)
 {
@@ -96,8 +238,46 @@ void __stdcall BNGatewayAccess::SetCurGateway(int nGateway)
         if (nGateway > 99)
             nGateway = 99;
         m_nCurGateway = nGateway;
-        unk0x04 = 1;
+        m_bModified = 1;
     }
+}
+
+// 0x00518190
+void BNGatewayAccess::GetGatewayList(const char* szValueName)
+{
+    D2_ASSERT(!m_pGatewayList, 0x146);
+    unsigned int nSize = 0;
+    if (!SRegLoadData(szConfiguration_006DEC7C, szValueName, 0x82, 0, 0, &nSize) || !nSize)
+        return;
+    m_nGatewayListSize = nSize;
+    m_pGatewayList = (char*)SMemAlloc(nSize, ".\\BNetGW.cpp", 0x156, 0);
+    if (!SRegLoadData(szConfiguration_006DEC7C, szValueName, 0x82, m_pGatewayList, m_nGatewayListSize, 0))
+    {
+        SMemFree(m_pGatewayList, ".\\BNetGW.cpp", 0x15E, 0);
+        m_pGatewayList = 0;
+        m_nGatewayListSize = 0;
+    }
+    m_nVersion = 0;
+    if (m_pGatewayList)
+    {
+        char* pEnd = m_pGatewayList;
+        m_nVersion = strtoul(m_pGatewayList, &pEnd, 10);
+        if (m_pGatewayList == pEnd)
+            m_nVersion = 0;
+    }
+}
+
+// 0x00518270
+void BNGatewayAccess::sub_00518270_LoadGatewayList()
+{
+    m_bOverride = 0;
+    GetGatewayList(szOverrideGateways_006DECAC);
+    if (m_pGatewayList)
+    {
+        m_bOverride = 1;
+        return;
+    }
+    GetGatewayList(szDiabloGateways_006DEC8C);
 }
 
 // 0x005182B0
@@ -105,6 +285,17 @@ void BNGatewayAccess::GetBattlenetRealmsList()
 {
     unsigned int nSize = 0;
     D2_ASSERT(SFileLoadFile("Data\\Global\\Realms.bin", &m_pRealms, &nSize, 0, 0), 0x188);
+}
+
+// 0x00518300
+char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize)
+{
+    void* pBuffer;
+    unsigned int nSize = 0;
+    D2_ASSERT(SFileLoadFile("DATA\\GLOBAL\\gateways.txt", &pBuffer, &nSize, 0, 0), 0x1F9);
+    unsigned int* const pOut = *(unsigned int* volatile*)&pSize;
+    *pOut = *(volatile unsigned int*)&nSize;
+    return (char*)pBuffer;
 }
 
 // 0x00518360
@@ -178,4 +369,245 @@ char* BNGatewayAccess::FindKey(char* pSection, const char* szKey)
         p = BnSkipEOL(BnSkipToEOL(p, pSection + nSectionLength), pSection + nSectionLength);
     }
     return 0;
+}
+
+// 0x00518580
+void BNGatewayAccess::PickClosestZone(int nTimeZone)
+{
+    sub_00518C70_StartLogging(2, 4);
+    sub_00518D40_Log("Find gateway closest to %02d.%02d", nTimeZone / 60, nTimeZone % 60);
+
+    int nBest = 1;
+    int nBestDistance = 0x564;
+    for (int i = 1; i <= m_nNumGateways; ++i)
+    {
+        const int nDistance = abs(GMT(i) * 60 - nTimeZone);
+        if (nDistance < nBestDistance)
+        {
+            nBest = i;
+            nBestDistance = nDistance;
+        }
+    }
+
+    const int nGMT = GMT(nBest);
+    const char* szName = Nth(nBest);
+    sub_00518D40_Log("Gateway %d (%s at GMT %02d) is closest to %02d.%02d", nBest, szName, nGMT, nTimeZone / 60, nTimeZone % 60);
+    sub_00518C70_StartLogging(2, -4);
+
+    if (m_pGatewayList && nBest >= 1 && nBest <= m_nNumGateways)
+    {
+        if (nBest > 99)
+        {
+            nBest = 99;
+        }
+        m_nCurGateway = nBest;
+        m_bModified = 1;
+    }
+}
+
+// build: symbol ?PickClosestZone@BNGatewayAccess@@AAEXH@Z 0x00518580
+// 0x005186D0
+void __stdcall BNGatewayAccess::Load()
+{
+    if (m_pGatewayList)
+    {
+        return;
+    }
+
+    int nOffset;
+
+    m_nNumGateways = 0;
+    m_nCurGateway = 0;
+    m_pRealms = 0;
+    m_pGatewayList = 0;
+    m_nGatewayListSize = 0;
+    m_nVersion = 0;
+    m_szEmpty[0] = 0;
+    GetBattlenetRealmsList();
+    m_bOverride = 0;
+    GetGatewayList("Override Battle.net gateways");
+    if (m_pGatewayList)
+    {
+        m_bOverride = 1;
+    }
+    else
+    {
+        GetGatewayList("Diablo II Battle.net gateways");
+    }
+
+    if (m_pGatewayList && m_nVersion < 1000)
+    {
+        sub_00518D40_Log("Obsolete gateway list (%d) - autodeleting", m_nVersion);
+        m_bModified = 0;
+        SaveAndUnload();
+        sub_00414D90_RegDeleteValue("Configuration", "Diablo II Battle.net gateways", 2);
+    }
+
+    if (!m_pGatewayList)
+    {
+        sub_00518D40_Log("Writing default gateway list");
+        char* szText = sub_00518300_LoadGatewayFile((unsigned int*)&nOffset);
+        if (szText)
+        {
+            UpdateGatewaysFromIni(szText);
+        }
+    }
+
+    D2_ASSERT(m_nVersion >= 1000, 0x5B);
+
+    const char* szEntry = m_pGatewayList;
+    int nStrings = -2;
+    for (nOffset = 0; nOffset < m_nGatewayListSize; ++nStrings)
+    {
+        const int nLength = SStrLen(szEntry) + 1;
+        nOffset += nLength;
+        szEntry += nLength;
+    }
+
+    --nStrings;
+    D2_ASSERT(nStrings % 3 == 0, 0x6C);
+    m_nNumGateways = nStrings / 3;
+
+    char* pEnd;
+    const char* szList = m_pGatewayList;
+    szList += SStrLen(szList) + 1;
+    m_nCurGateway = strtoul(szList, &pEnd, 10);
+    m_bModified = 0;
+    if (m_nCurGateway < 1 || m_nCurGateway > m_nNumGateways)
+    {
+        sub_00518D40_Log("Auto-picking gateway based on GMT");
+        PickClosestZone(GetSystemTimeZone());
+    }
+}
+
+// 0x00518850
+void __stdcall BNGatewayAccess::UpdateGatewaysFromIni(char* szText)
+{
+    int nIndex = 0;
+    char szKey[16];
+    struct { char* pLine; char* szTextCopy; } tLocals;
+    tLocals.szTextCopy = szText;
+    tLocals.pLine = 0;
+    char* pEnd = strlen(tLocals.szTextCopy) + tLocals.szTextCopy;
+
+    char* pVersionSection = FindSection(tLocals.szTextCopy, "Server List Version");
+    D2_ASSERT(pVersionSection, 0x277);
+    pVersionSection = FindKey(pVersionSection, "VER");
+    D2_ASSERT(pVersionSection, 0x27C);
+
+    char* pNumberEnd = pVersionSection;
+    const unsigned int nVersion = strtoul(pVersionSection, (&pNumberEnd), 10);
+    pVersionSection = 0;
+    {
+        char* pDest = 0;
+        if (nVersion <= m_nVersion)
+        {
+            return;
+        }
+        else
+        {
+            char* pName = 0;
+            {
+                int nTimeZone = 0;
+
+                sub_00518D40_Log("Parsing new gateway list (version %d)", nVersion);
+                if (m_pGatewayList)
+                    {
+                    nTimeZone = GMT(m_nCurGateway) * 60;
+                }
+                else
+                {
+                    nTimeZone = GetSystemTimeZone();
+                }
+                m_bModified = 0;
+
+                SaveAndUnload();
+                m_nVersion = nVersion;
+                m_bOverride = 0;
+                m_bModified = 1;
+
+                const int nSize = 2 * strlen(tLocals.szTextCopy);
+                pVersionSection = (char*)SMemAlloc(nSize, szBNetGWFile_006DEC6C, 0x297, 0);
+                sprintf(pVersionSection, "%d", nVersion);
+                pDest = pVersionSection + SStrLen(pVersionSection) + 1;
+                *pDest = '0';
+                pDest++;
+                *pDest++ = '0';
+                *pDest = '\0';
+
+                pDest++;
+                char* pGateways = FindSection((tLocals.szTextCopy), "Server Gateways");
+                nIndex = 1;
+                sprintf(szKey, "%d", nIndex);
+                tLocals.pLine = FindKey(pGateways, szKey);
+                if (tLocals.pLine)
+                {
+                    while (1)
+                    {
+                        int nLen = SkipToEOL((tLocals.pLine), pEnd) - tLocals.pLine;
+                        SStrCopy(pDest, (tLocals.pLine), nLen + 1);
+                        pName = pDest;
+                        char* pSection = FindSection(tLocals.szTextCopy, pName);
+                        if (pSection)
+                        {
+                            pDest += 1;
+                            pDest += nLen;
+
+                            char* pZone = FindKey(pSection, "ZONE");
+                            if (pZone)
+                            {
+                                nLen = SkipToEOL(pZone, pEnd) - pZone;
+                                SStrCopy(pDest, pZone, nLen + 1);
+                            }
+                            else
+                            {
+                                nLen = 1;
+                                SStrCopy(pDest, szZero_006D5D64, 2);
+                            }
+                            pDest += nLen;
+                            pDest = pDest + 1;
+
+                            pZone = FindKey(pSection, "ENU");
+                            if (pZone)
+                            {
+                                nLen = SkipToEOL(pZone, pEnd) - pZone;
+                                SStrCopy(pDest, pZone, nLen + 1);
+                            }
+                            else
+                            {
+                                nLen = strlen(pName);
+                                SStrCopy(pDest, pName, 1 + nLen);
+                            }
+                            pDest += nLen + 1;
+                        }
+
+                        nIndex = nIndex + 1;
+                        sprintf(szKey, "%d", nIndex);
+                        tLocals.pLine = FindKey(pGateways, szKey);
+                        if (!tLocals.pLine)
+                            break;
+                    }
+
+                }
+
+                *pDest = '\0';
+                pDest = 1 + pDest;
+                nIndex = pDest - pVersionSection;
+                D2_ASSERT(nIndex < nSize, 0x2E6);
+                if (!pVersionSection[nIndex - 1] && !(nIndex - 2)[pVersionSection])
+                {
+                    m_pGatewayList = pVersionSection;
+                    m_nGatewayListSize = pDest - pVersionSection;
+                    PickClosestZone(nTimeZone);
+                    SaveAndUnload();
+                    Load();
+                }
+                else
+                {
+                    sub_00408A60((&gszEmptyAssertText), sub_00408090(), 0x2E8); exit(-1);
+                }
+            }
+        }
+    }
+
 }

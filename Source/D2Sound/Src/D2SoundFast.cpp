@@ -88,12 +88,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
-
-int __stdcall SFileDdaBeginEx(void* hFile, int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2DSoundBufferStrc* pBuffer); // 0x0041B280
-
-int __fastcall sub_00515180_FillBuffer(D2SoundStrc* sound,unsigned int sourcePosition,unsigned int destinationPosition,unsigned int size); // 0x00515180
-
 void* __fastcall sub_00516760_ParseWave(const void* pFile, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
@@ -324,46 +318,4 @@ void __cdecl sub_00515020_FadeOutWaves()
                 sub_00515C60_StartFade(gapWaveSlots_008817DC[i], 0, 200);
         }
     }
-}
-
-// 0x005155D0
-int __fastcall sub_005155D0_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize)
-{
-    D2_ASSERT(pSound && pSound->pBuffer && pFile && nSize, 0x257);
-    EnterCriticalSection(&gSoundLock_0088174C);
-    unsigned int nDataSize = nSize;
-    D2WaveFormatStrc tFormat;
-    void* pData = sub_00516760_ParseWave(pFile, &nDataSize, &tFormat);
-    D2_ASSERT(pSound->nMinDataSize < nDataSize, 0x25F);
-    pSound->nDataSize = nDataSize;
-    pSound->pData = pData;
-    sub_00515180_FillBuffer(pSound, 0, 0, pSound->nBufferSize);
-    pSound->bSecondHalf = 1;
-    if (!pSound->bNoLoop && pSound->nDataSize < pSound->nBufferSize)
-        pSound->nLoopStart = pSound->nDataSize;
-    else
-        pSound->nLoopStart = -1;
-    LeaveCriticalSection(&gSoundLock_0088174C);
-    return 1;
-}
-
-// 0x00515D70
-int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop)
-{
-    D2_ASSERT(pSound, 0x3DB);
-    void* hFile;
-    if (!sub_004068E0(szFileName, &hFile))
-        return 0;
-    EnterCriticalSection(&gSoundLock_0088174C);
-    if (!SFileDdaBeginEx(hFile, pSound->nBufferSize, bLoop ? 0x40000 : 0, nPosition * 4, 0x7FFFFFFF, 0x7FFFFFFF, pSound->pBuffer))
-    {
-        sub_004068F0(hFile);
-        LeaveCriticalSection(&gSoundLock_0088174C);
-        return 0;
-    }
-    pSound->hStream = hFile;
-    pSound->bStreaming = 1;
-    pSound->nLoopStart = -1;
-    LeaveCriticalSection(&gSoundLock_0088174C);
-    return 1;
 }

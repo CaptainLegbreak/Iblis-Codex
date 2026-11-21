@@ -315,6 +315,26 @@
      "name": "?sub_00401740_SetText@@YIXPBD@Z"
     },
     {
+     "va": "0x00401A30",
+     "length": 9,
+     "name": "strrchr"
+    },
+    {
+     "va": "0x00401A40",
+     "length": 21,
+     "name": "sub_00401A40_LockSymbols"
+    },
+    {
+     "va": "0x00402C10",
+     "length": 28,
+     "name": "sub_00402C10_CompareUInt"
+    },
+    {
+     "va": "0x00403A20",
+     "length": 151,
+     "name": "sub_00403A20_DumpOtherThreads"
+    },
+    {
      "va": "0x00403F60",
      "length": 64,
      "name": "?sub_00403F60_SetCrashHandler@@YIXPAX0H@Z"
@@ -325,9 +345,34 @@
      "name": "sub_00404210_CreateProcessUtf8"
     },
     {
+     "va": "0x004043C0",
+     "length": 138,
+     "name": "sub_004043C0_OpenUtf8FileForWrite"
+    },
+    {
      "va": "0x00404560",
      "length": 130,
      "name": "?sub_00404560_UseWidePath@@YI_NPA_W@Z"
+    },
+    {
+     "va": "0x00405570",
+     "length": 89,
+     "name": "GetCmdIndex"
+    },
+    {
+     "va": "0x004055D0",
+     "length": 51,
+     "name": "sub_004055D0_IsCmdSeparator"
+    },
+    {
+     "va": "0x00406410",
+     "length": 84,
+     "name": "D2ServerServiceHandlerProc"
+    },
+    {
+     "va": "0x00406960",
+     "length": 35,
+     "name": "sub_00406960_CreateFile"
     },
     {
      "va": "0x00406990",
@@ -338,6 +383,21 @@
      "va": "0x004069A0",
      "length": 8,
      "name": "?sub_004069A0_CloseFile@@YIHPAX@Z"
+    },
+    {
+     "va": "0x004069B0",
+     "length": 27,
+     "name": "sub_004069B0_ReadFile"
+    },
+    {
+     "va": "0x004069D0",
+     "length": 27,
+     "name": "sub_004069D0_WriteFile"
+    },
+    {
+     "va": "0x004069F0",
+     "length": 23,
+     "name": "sub_004069F0_SetFilePointer"
     },
     {
      "va": "0x00406B20",
@@ -355,6 +415,16 @@
      "name": "?FOG_GetInstallPath@@YIHPADI@Z"
     },
     {
+     "va": "0x00407310",
+     "length": 29,
+     "name": "sub_00407310_Sprintf"
+    },
+    {
+     "va": "0x00407330",
+     "length": 40,
+     "name": "sub_00407330_SprintfN"
+    },
+    {
      "va": "0x00407360",
      "length": 15,
      "name": "?sub_00407360_GetSystemInfo@@YAPAUD2SystemInfoStrc@@XZ"
@@ -368,6 +438,11 @@
      "va": "0x00407960",
      "length": 5,
      "name": "?FOG_SetLogPrefix@@YIXPBD@Z"
+    },
+    {
+     "va": "0x00407A20",
+     "length": 81,
+     "name": "sub_00407A20_GetProcessImageName"
     },
     {
      "va": "0x00408000",
@@ -400,6 +475,16 @@
      "name": "?sub_004080B0_DebugPrintV@@YGXIPBDPAD@Z"
     },
     {
+     "va": "0x004081A0",
+     "length": 113,
+     "name": "sub_004081A0_DebugPrintf"
+    },
+    {
+     "va": "0x00408220",
+     "length": 125,
+     "name": "sub_00408220_DebugPrintfIfCapsLock"
+    },
+    {
      "va": "0x004082A0",
      "length": 24,
      "name": "?sub_004082A0_DebugPrintf@@YAXIPBDZZ"
@@ -420,6 +505,11 @@
      "name": "sub_00408900_RaiseErrorReport"
     },
     {
+     "va": "0x00409770",
+     "length": 158,
+     "name": "sub_00409770_PoolAllocLarge"
+    },
+    {
      "va": "0x00409810",
      "length": 153,
      "name": "sub_00409810_PoolFreeLarge"
@@ -428,6 +518,66 @@
      "va": "0x0040A620",
      "length": 450,
      "name": "FOG_AsyncDataLoadFileEx"
+    },
+    {
+     "va": "0x0040AA80",
+     "length": 115,
+     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
+    },
+    {
+     "va": "0x0040B1B0",
+     "length": 167,
+     "name": "sub_0040B1B0"
+    },
+    {
+     "va": "0x0040B260",
+     "length": 179,
+     "name": "sub_0040B260"
+    },
+    {
+     "va": "0x0040D890",
+     "length": 57,
+     "name": "FOG_SOCKET_WSAStartup"
+    },
+    {
+     "va": "0x0040DD80",
+     "length": 74,
+     "name": "FOG_SOCKET_SendNoLock"
+    },
+    {
+     "va": "0x0040DDF0",
+     "length": 227,
+     "name": "FOG_SOCKET_Select"
+    },
+    {
+     "va": "0x0040DEE0",
+     "length": 58,
+     "name": "FOG_SOCKET_GetPeerName"
+    },
+    {
+     "va": "0x0040DF20",
+     "length": 58,
+     "name": "sub_0040DF20_SOCKET_GetSockName"
+    },
+    {
+     "va": "0x0040E1A0",
+     "length": 34,
+     "name": "FOG_SOCKET_SetBlockingMode"
+    },
+    {
+     "va": "0x0040E1D0",
+     "length": 33,
+     "name": "sub_0040E1D0_SOCKET_SetNonBlocking"
+    },
+    {
+     "va": "0x0040E200",
+     "length": 33,
+     "name": "sub_0040E200_SOCKET_SetBlocking"
+    },
+    {
+     "va": "0x0040E870",
+     "length": 226,
+     "name": "sub_0040E870_MeasureCpuMHz"
     }
    ],
    "flags": [
@@ -443,6 +593,17 @@
     "/Ob2",
     "/Gd",
     "/EHa"
+   ]
+  },
+  {
+   "file": "Source/Fog/Unknown_004088C0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004088C0",
+     "length": 56,
+     "name": "sub_004088C0_ReportNestedError"
+    }
    ]
   },
   {
@@ -473,7 +634,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_00401680.cpp",
+   "file": "Source/Fog/Unknown_00401680.cpp",
    "rank": 0,
    "functions": [
     {
@@ -626,167 +787,6 @@
      "va": "0x00407990",
      "length": 129,
      "name": "sub_00407990_FindOwnerProcess"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/ErrorManager_00401A30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401A30",
-     "length": 9,
-     "name": "strrchr"
-    },
-    {
-     "va": "0x00401A40",
-     "length": 21,
-     "name": "sub_00401A40_LockSymbols"
-    },
-    {
-     "va": "0x00402C10",
-     "length": 28,
-     "name": "sub_00402C10_CompareUInt"
-    },
-    {
-     "va": "0x00403A20",
-     "length": 151,
-     "name": "sub_00403A20_DumpOtherThreads"
-    },
-    {
-     "va": "0x004043C0",
-     "length": 138,
-     "name": "sub_004043C0_OpenUtf8FileForWrite"
-    },
-    {
-     "va": "0x00405570",
-     "length": 89,
-     "name": "GetCmdIndex"
-    },
-    {
-     "va": "0x004055D0",
-     "length": 51,
-     "name": "sub_004055D0_IsCmdSeparator"
-    },
-    {
-     "va": "0x00406410",
-     "length": 84,
-     "name": "D2ServerServiceHandlerProc"
-    },
-    {
-     "va": "0x00406960",
-     "length": 35,
-     "name": "sub_00406960_CreateFile"
-    },
-    {
-     "va": "0x004069B0",
-     "length": 27,
-     "name": "sub_004069B0_ReadFile"
-    },
-    {
-     "va": "0x004069D0",
-     "length": 27,
-     "name": "sub_004069D0_WriteFile"
-    },
-    {
-     "va": "0x004069F0",
-     "length": 23,
-     "name": "sub_004069F0_SetFilePointer"
-    },
-    {
-     "va": "0x00407310",
-     "length": 29,
-     "name": "sub_00407310_Sprintf"
-    },
-    {
-     "va": "0x00407330",
-     "length": 40,
-     "name": "sub_00407330_SprintfN"
-    },
-    {
-     "va": "0x00407A20",
-     "length": 81,
-     "name": "sub_00407A20_GetProcessImageName"
-    },
-    {
-     "va": "0x004081A0",
-     "length": 113,
-     "name": "sub_004081A0_DebugPrintf"
-    },
-    {
-     "va": "0x00408220",
-     "length": 125,
-     "name": "sub_00408220_DebugPrintfIfCapsLock"
-    },
-    {
-     "va": "0x004088C0",
-     "length": 56,
-     "name": "sub_004088C0_ReportNestedError"
-    },
-    {
-     "va": "0x00409770",
-     "length": 158,
-     "name": "sub_00409770_PoolAllocLarge"
-    },
-    {
-     "va": "0x0040AA80",
-     "length": 115,
-     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
-    },
-    {
-     "va": "0x0040B1B0",
-     "length": 167,
-     "name": "sub_0040B1B0"
-    },
-    {
-     "va": "0x0040B260",
-     "length": 179,
-     "name": "sub_0040B260"
-    },
-    {
-     "va": "0x0040D890",
-     "length": 57,
-     "name": "FOG_SOCKET_WSAStartup"
-    },
-    {
-     "va": "0x0040DD80",
-     "length": 74,
-     "name": "FOG_SOCKET_SendNoLock"
-    },
-    {
-     "va": "0x0040DDF0",
-     "length": 227,
-     "name": "FOG_SOCKET_Select"
-    },
-    {
-     "va": "0x0040DEE0",
-     "length": 58,
-     "name": "FOG_SOCKET_GetPeerName"
-    },
-    {
-     "va": "0x0040DF20",
-     "length": 58,
-     "name": "sub_0040DF20_SOCKET_GetSockName"
-    },
-    {
-     "va": "0x0040E1A0",
-     "length": 34,
-     "name": "FOG_SOCKET_SetBlockingMode"
-    },
-    {
-     "va": "0x0040E1D0",
-     "length": 33,
-     "name": "sub_0040E1D0_SOCKET_SetNonBlocking"
-    },
-    {
-     "va": "0x0040E200",
-     "length": 33,
-     "name": "sub_0040E200_SOCKET_SetBlocking"
-    },
-    {
-     "va": "0x0040E870",
-     "length": 226,
-     "name": "sub_0040E870_MeasureCpuMHz"
     }
    ]
   },
@@ -1184,6 +1184,16 @@
      "va": "0x0040F860",
      "length": 17,
      "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0040F8A0",
+     "length": 191,
+     "name": "?sub_0040F8A0_CloseLogFilesNow@@YAXXZ"
+    },
+    {
+     "va": "0x0040F960",
+     "length": 5,
+     "name": "?sub_0040F960_CloseLogFiles@@YAXXZ"
     },
     {
      "va": "0x0040FAA0",
@@ -2516,7 +2526,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_00408090.cpp",
+   "file": "Source/Fog/Unknown_00408090.cpp",
    "rank": 0,
    "functions": [
     {
@@ -2540,7 +2550,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_004082E0.cpp",
+   "file": "Source/Fog/Unknown_004082E0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -3005,6 +3015,15 @@
      "name": "@sub_0040B660_FreeList@4"
     },
     {
+     "va": "0x0040B690",
+     "length": 649
+    },
+    {
+     "va": "0x0040B920",
+     "length": 814,
+     "name": "?sub_0040B920_BuildModuleList@@YGPAUD2ModuleInfoStrc@@PAX@Z"
+    },
+    {
      "va": "0x0040BC50",
      "length": 92,
      "name": "?sub_0040BC50_GetModuleList@@YGPAUD2ModuleInfoStrc@@PAXK@Z"
@@ -3013,6 +3032,10 @@
      "va": "0x0040BCB0",
      "length": 52,
      "name": "?sub_0040BCB0_FindModuleByAddress@@YIPAUD2ModuleInfoStrc@@KPAU1@@Z"
+    },
+    {
+     "va": "0x0040BCF0",
+     "length": 1018
     },
     {
      "va": "0x0040C0F0",
@@ -3048,6 +3071,10 @@
      "length": 1136
     },
     {
+     "va": "0x0040CC10",
+     "length": 1452
+    },
+    {
      "va": "0x0040D1C0",
      "length": 207,
      "name": "?sub_0040D1C0_AppendCrashDump@@YIXKKKHPBX@Z"
@@ -3075,16 +3102,6 @@
      "va": "0x0040F470",
      "length": 123,
      "name": "?sub_0040F470_LookupLog@@YIXPBD@Z"
-    },
-    {
-     "va": "0x0040F8A0",
-     "length": 191,
-     "name": "?sub_0040F8A0_CloseLogFilesNow@@YAXXZ"
-    },
-    {
-     "va": "0x0040F960",
-     "length": 5,
-     "name": "?sub_0040F960_CloseLogFiles@@YAXXZ"
     },
     {
      "va": "0x0040FD00",
@@ -3116,41 +3133,6 @@
      "va": "0x0040D5B0",
      "length": 531,
      "name": "?sub_0040D5B0_LoadImageHlp@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Exceptions_0040B690.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040B690",
-     "length": 649
-    },
-    {
-     "va": "0x0040B920",
-     "length": 814,
-     "name": "?sub_0040B920_BuildModuleList@@YGPAUD2ModuleEntryStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Exceptions_0040BCF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040BCF0",
-     "length": 1018
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Exceptions_0040CC10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040CC10",
-     "length": 1452
     }
    ]
   },
@@ -4947,6 +4929,31 @@
      "name": "sub_0041E080_ZAlloc"
     },
     {
+     "va": "0x0041E0D0",
+     "length": 35,
+     "name": "?sub_0041E0D0_ZFree@@YIXPAX0@Z"
+    },
+    {
+     "va": "0x0041E100",
+     "length": 233,
+     "name": "?sub_0041E100_compress2@@YGHPAEPAKPBEKH@Z"
+    },
+    {
+     "va": "0x0041E1F0",
+     "length": 93,
+     "name": "?sub_0041E1F0_SCompZlibCompress@@YIXPAEPAKPBEKPAHH@Z"
+    },
+    {
+     "va": "0x0041E250",
+     "length": 230,
+     "name": "?sub_0041E250_uncompress@@YGHPAEPAKPBEK@Z"
+    },
+    {
+     "va": "0x0041E340",
+     "length": 24,
+     "name": "?sub_0041E340_SCompZlibDecompress@@YIHPAEPAKPBEKH@Z"
+    },
+    {
      "va": "0x0041E360",
      "length": 55,
      "name": "?sub_0041E360_SCompADPCMCompressMono@@YIXPAEPAHPBFH1H@Z"
@@ -4980,6 +4987,11 @@
      "va": "0x0041E510",
      "length": 82,
      "name": "?sub_0041E510_FreeWorkBuffer@@YGXHPAX@Z"
+    },
+    {
+     "va": "0x0041E8C0",
+     "length": 43,
+     "name": "_sub_0041E8C0_ReleaseBuffer"
     },
     {
      "va": "0x0041E930",
@@ -5065,6 +5077,16 @@
      "va": "0x0041ED70",
      "length": 32,
      "name": "??0D2SCompListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041EE80",
+     "length": 16,
+     "name": "??0D2StormHuffItemStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041EE90",
+     "length": 50,
+     "name": "??1D2StormHuffItemStrc@@QAE@XZ"
     },
     {
      "va": "0x0041EED0",
@@ -6718,47 +6740,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SCOMP_0041E0D0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041E0D0",
-     "length": 35,
-     "name": "?sub_0041E0D0_ZFree@@YIXPAX0@Z"
-    },
-    {
-     "va": "0x0041E100",
-     "length": 233,
-     "name": "?sub_0041E100_compress2@@YGHPAEPAKPBEKH@Z"
-    },
-    {
-     "va": "0x0041E1F0",
-     "length": 93,
-     "name": "?sub_0041E1F0_SCompZlibCompress@@YIXPAEPAKPBEKPAHH@Z"
-    },
-    {
-     "va": "0x0041E250",
-     "length": 230,
-     "name": "?sub_0041E250_uncompress@@YGHPAEPAKPBEK@Z"
-    },
-    {
-     "va": "0x0041E340",
-     "length": 24,
-     "name": "?sub_0041E340_SCompZlibDecompress@@YIHPAEPAKPBEKH@Z"
-    },
-    {
-     "va": "0x0041EE80",
-     "length": 16,
-     "name": "??0D2StormHuffItemStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041EE90",
-     "length": 50,
-     "name": "??1D2StormHuffItemStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_0041E570.cpp",
    "rank": 1,
    "functions": [
@@ -6790,17 +6771,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCOMP_0041E8C0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041E8C0",
-     "length": 43,
-     "name": "_sub_0041E8C0_ReleaseBuffer"
-    }
    ]
   },
   {
@@ -8589,9 +8559,28 @@
      "name": "?sub_00426210_DeleteHandlerTable@@YAXPAUD2StormHandlerTableStrc@@@Z"
     },
     {
+     "va": "0x00426270",
+     "length": 57,
+     "name": "?sub_00426270@@YAPAUD2StormEventTypeStrc@@II@Z"
+    },
+    {
      "va": "0x004262B0",
      "length": 183,
      "name": "?SEvtDestroy@@YGHXZ"
+    },
+    {
+     "va": "0x00426370",
+     "length": 175,
+     "name": "SEvtPushState"
+    },
+    {
+     "va": "0x00426420",
+     "length": 753
+    },
+    {
+     "va": "0x00426720",
+     "length": 229,
+     "name": "SEvtUnregisterHandler"
     },
     {
      "va": "0x00426810",
@@ -8603,57 +8592,6 @@
      "length": 154,
      "name": "?SEvtPopState@@YGHII@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SEVT_00426270.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00426270",
-     "length": 57,
-     "name": "?sub_00426270@@YAPAUD2StormEventTypeStrc@@II@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SEVT_00426370.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00426370",
-     "length": 175,
-     "name": "SEvtPushState"
-    },
-    {
-     "va": "0x00426720",
-     "length": 229,
-     "name": "SEvtUnregisterHandler"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SEVT_00426420.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00426420",
-     "length": 753
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -40441,6 +40379,11 @@
      "name": "?sub_005090A0_SetGlobal@@YIXH@Z"
     },
     {
+     "va": "0x005090B0",
+     "length": 218,
+     "name": "sub_005090B0_GlideSetGamma"
+    },
+    {
      "va": "0x00509190",
      "length": 6,
      "name": "sub_00509190"
@@ -40456,9 +40399,19 @@
      "name": "?sub_005091E0_GlideSwapBuffers@@YAHXZ"
     },
     {
+     "va": "0x00509210",
+     "length": 211,
+     "name": "sub_00509210_GlideGetBackBuffer"
+    },
+    {
      "va": "0x005092F0",
      "length": 16,
      "name": "?sub_005092F0_GlideGetScreenSize@@YIXPAH0@Z"
+    },
+    {
+     "va": "0x00509300",
+     "length": 227,
+     "name": "sub_00509300_GlideSetPalette"
     },
     {
      "va": "0x005093F0",
@@ -40516,9 +40469,22 @@
      "name": "?sub_00509660_SetGlobal@@YIXH@Z"
     },
     {
+     "va": "0x00509670",
+     "length": 1016
+    },
+    {
      "va": "0x00509A70",
      "length": 41,
      "name": "?sub_00509A70_GlideClearAndSwap@@YAXXZ"
+    },
+    {
+     "va": "0x00509AA0",
+     "length": 177
+    },
+    {
+     "va": "0x00509B60",
+     "length": 92,
+     "name": "sub_00509B60_GlideOpenSmackCutscene"
     },
     {
      "va": "0x00509BC0",
@@ -40534,6 +40500,11 @@
      "va": "0x00509E90",
      "length": 76,
      "name": "?sub_00509E90_GlideOpenWindow@@YIHPAXH@Z"
+    },
+    {
+     "va": "0x00509EE0",
+     "length": 132,
+     "name": "sub_00509EE0_GlidePauseSurface"
     },
     {
      "va": "0x00509F70",
@@ -40561,6 +40532,21 @@
      "name": "?sub_0050A110_ReleaseTexSlots@@YIXPAUD2GlideTexSlotStrc@@@Z"
     },
     {
+     "va": "0x0050C3A0",
+     "length": 233,
+     "name": "sub_0050C3A0_GlideUtilDiamond"
+    },
+    {
+     "va": "0x0050C490",
+     "length": 328,
+     "name": "sub_0050C490_GlideUtilRect"
+    },
+    {
+     "va": "0x0050C630",
+     "length": 80,
+     "name": "sub_0050C630_GlideUtilPoint"
+    },
+    {
      "va": "0x00510140",
      "length": 6,
      "name": "sub_00510140"
@@ -40581,6 +40567,16 @@
      "name": "sub_00510380"
     },
     {
+     "va": "0x00511660",
+     "length": 183,
+     "name": "sub_00511660_DDrawOpenSmackCutscene"
+    },
+    {
+     "va": "0x00511970",
+     "length": 268,
+     "name": "sub_00511970_DDrawGetBackBuffer"
+    },
+    {
      "va": "0x005123A0",
      "length": 3,
      "name": "sub_005123A0"
@@ -40589,6 +40585,11 @@
      "va": "0x005126F0",
      "length": 3,
      "name": "sub_005126F0"
+    },
+    {
+     "va": "0x00512E80",
+     "length": 66,
+     "name": "sub_00512E80_DDrawUtilPoint"
     },
     {
      "va": "0x00513AE0",
@@ -40699,6 +40700,33 @@
      "va": "0x0051EA70",
      "length": 6,
      "name": "sub_0051EA70"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Glide/Unknown_0050BF50.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0050BF50",
+     "length": 414,
+     "name": "sub_0050BF50_GlideDrawBox"
+    },
+    {
+     "va": "0x0050C0F0",
+     "length": 378,
+     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Glide/Unknown_0050CD40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0050CD40",
+     "length": 141,
+     "name": "sub_0050CD40_GlideShadowTileDraw"
     }
    ]
   },
@@ -41394,6 +41422,16 @@
      "name": "D2Win_InitializeSpriteCache"
     },
     {
+     "va": "0x004F8FC0",
+     "length": 20,
+     "name": "D2Win_10014_SetWndProc"
+    },
+    {
+     "va": "0x004F8FE0",
+     "length": 77,
+     "name": "?D2Win_10015@@YIHXZ"
+    },
+    {
      "va": "0x004F9030",
      "length": 30,
      "name": "?D2Win_CloseSpriteCache@@YGHXZ"
@@ -41407,77 +41445,6 @@
      "va": "0x004F90A0",
      "length": 140,
      "name": "sub_004F90A0_SwitchResolution"
-    },
-    {
-     "va": "0x004F9190",
-     "length": 16,
-     "name": "?D2WINMAIN_ClearMessageLoopFlag@@YIHXZ"
-    },
-    {
-     "va": "0x004F9310",
-     "length": 172,
-     "name": "CONTROL_RemoveFromList"
-    },
-    {
-     "va": "0x004F96F0",
-     "length": 27,
-     "name": "?sub_004F96F0_ControlClearState@@YIXPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x004F9780",
-     "length": 45,
-     "name": "?sub_004F9780@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F97E0",
-     "length": 138,
-     "name": "sub_004F97E0_PaintCursor"
-    },
-    {
-     "va": "0x004F98E0",
-     "length": 401,
-     "name": "sub_004F98E0"
-    },
-    {
-     "va": "0x004F9B30",
-     "length": 34,
-     "name": "?sub_004F9B30_CONTROL_IsInActiveList@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9CC0",
-     "length": 604,
-     "name": "?sub_004F9CC0_SysCommandMaximizeMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004FA1B0",
-     "length": 66,
-     "name": "?sub_004FA1B0@@YAHPAUControl@@PBUPoint@@@Z"
-    },
-    {
-     "va": "0x004FA340",
-     "length": 203,
-     "name": "?D2Win_COMMANDS_MouseWheel_6F8AE220@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004FA490",
-     "length": 20,
-     "name": "_sub_004FA490@4"
-    },
-    {
-     "va": "0x004FA760",
-     "length": 63,
-     "name": "?D2Win_COMMANDS_Escape_6F8ADB10@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinMain_004F8FC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F8FC0",
-     "length": 20,
-     "name": "D2Win_10014_SetWndProc"
     },
     {
      "va": "0x004F9140",
@@ -41495,6 +41462,11 @@
      "name": "sub_004F9180"
     },
     {
+     "va": "0x004F9190",
+     "length": 16,
+     "name": "?D2WINMAIN_ClearMessageLoopFlag@@YIHXZ"
+    },
+    {
      "va": "0x004F91A0",
      "length": 21,
      "name": "CONTROL_SetCellFile"
@@ -41510,9 +41482,49 @@
      "name": "CONTROL_AppendToList"
     },
     {
+     "va": "0x004F9250",
+     "length": 52,
+     "name": "?sub_004F9250_AppendToDeadList@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x004F9290",
+     "length": 117,
+     "name": "?CONTROL_FreeDeadList@@YGHXZ"
+    },
+    {
+     "va": "0x004F9310",
+     "length": 172,
+     "name": "CONTROL_RemoveFromList"
+    },
+    {
      "va": "0x004F93C0",
      "length": 512,
      "name": "CONTROL_Create"
+    },
+    {
+     "va": "0x004F95C0",
+     "length": 300,
+     "name": "?CONTROL_Destroy@@YGHPAPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x004F96F0",
+     "length": 27,
+     "name": "?sub_004F96F0_ControlClearState@@YIXPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x004F9710",
+     "length": 45,
+     "name": "?sub_004F9710@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x004F9740",
+     "length": 58,
+     "name": "?sub_004F9740@@YIXPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x004F9780",
+     "length": 45,
+     "name": "?sub_004F9780@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F97B0",
@@ -41520,9 +41532,29 @@
      "name": "CONTROL_MouseInsideRect"
     },
     {
+     "va": "0x004F97E0",
+     "length": 138,
+     "name": "sub_004F97E0_PaintCursor"
+    },
+    {
+     "va": "0x004F9870",
+     "length": 109,
+     "name": "?sub_004F9870_DrawFontCaches@@YAXXZ"
+    },
+    {
+     "va": "0x004F98E0",
+     "length": 401,
+     "name": "sub_004F98E0"
+    },
+    {
      "va": "0x004F9A80",
      "length": 170,
      "name": "D2Win_MAINWINDOW_WndProc_6F8AD9B0"
+    },
+    {
+     "va": "0x004F9B30",
+     "length": 34,
+     "name": "?sub_004F9B30_CONTROL_IsInActiveList@@YIHPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x004F9B60",
@@ -41545,14 +41577,43 @@
      "name": "D2Win_COMMANDS_Control_6F8ADBF0"
     },
     {
+     "va": "0x004F9CC0",
+     "length": 604,
+     "name": "?sub_004F9CC0_SysCommandMaximizeMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004F9F20",
      "length": 144,
      "name": "D2Win_COMMANDS_ActivateApp_6F8ADC40"
     },
     {
+     "va": "0x004F9FB0",
+     "length": 269,
+     "name": "?sub_004F9FB0_WriteScreenshotJpeg@@YGXPAEPBDHH@Z"
+    },
+    {
+     "va": "0x004FA0C0",
+     "length": 151,
+     "name": "?sub_004FA0C0_SaveScreenshot@@YIXPBD@Z"
+    },
+    {
      "va": "0x004FA160",
      "length": 80,
      "name": "sub_004FA160"
+    },
+    {
+     "va": "0x004FA1B0",
+     "length": 66,
+     "name": "?sub_004FA1B0@@YAHPAUControl@@PBUPoint@@@Z"
+    },
+    {
+     "va": "0x004FA200",
+     "length": 316
+    },
+    {
+     "va": "0x004FA340",
+     "length": 203,
+     "name": "?D2Win_COMMANDS_MouseWheel_6F8AE220@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004FA410",
@@ -41575,6 +41636,11 @@
      "name": "D2Win_10033"
     },
     {
+     "va": "0x004FA490",
+     "length": 20,
+     "name": "_sub_004FA490@4"
+    },
+    {
      "va": "0x004FA4C0",
      "length": 40,
      "name": "sub_004FA4C0_HideCursorMsg"
@@ -41590,6 +41656,11 @@
      "name": "D2Win_CreateWindow"
     },
     {
+     "va": "0x004FA550",
+     "length": 50,
+     "name": "?D2Win_10016@@YIHXZ"
+    },
+    {
      "va": "0x004FA590",
      "length": 281,
      "name": "sub_004FA590"
@@ -41600,6 +41671,16 @@
      "name": "D2Win_COMMANDS_MouseMove_6F8AD670"
     },
     {
+     "va": "0x004FA760",
+     "length": 63,
+     "name": "?D2Win_COMMANDS_Escape_6F8ADB10@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004FA7A0",
+     "length": 147,
+     "name": "?D2Win_10168_WINMAIN_CreateScreenshot@@YGXXZ"
+    },
+    {
      "va": "0x004FA840",
      "length": 29,
      "name": "D2Win_COMMANDS_Snapshot_6F8ADE70"
@@ -41608,6 +41689,11 @@
      "va": "0x004FA860",
      "length": 324,
      "name": "D2Win_COMMANDS_MouseButton_6F8AE070"
+    },
+    {
+     "va": "0x004FAAE0",
+     "length": 31,
+     "name": "?ARCHIVE_FreeCellFile@@YIXPAUD2CelFileStrc@@@Z"
     },
     {
      "va": "0x004FAD10",
@@ -41674,57 +41760,20 @@
      "length": 139,
      "name": "POPUP_AddLine"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinMain_004F8FE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F8FE0",
-     "length": 77,
-     "name": "?D2Win_10015@@YIHXZ"
-    },
-    {
-     "va": "0x004F9250",
-     "length": 52,
-     "name": "?sub_004F9250_AppendToDeadList@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9290",
-     "length": 117,
-     "name": "?CONTROL_FreeDeadList@@YGHXZ"
-    },
-    {
-     "va": "0x004F95C0",
-     "length": 300,
-     "name": "?CONTROL_Destroy@@YGHPAPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9710",
-     "length": 45,
-     "name": "?sub_004F9710@@YIHPAUD2WinControlStrc@@@Z"
-    },
-    {
-     "va": "0x004F9740",
-     "length": 58,
-     "name": "?sub_004F9740@@YIXPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x004F9870",
-     "length": 109,
-     "name": "?sub_004F9870_DrawFontCaches@@YAXXZ"
-    },
-    {
-     "va": "0x004FA550",
-     "length": 50,
-     "name": "?D2Win_10016@@YIHXZ"
-    },
-    {
-     "va": "0x004FAAE0",
-     "length": 31,
-     "name": "?ARCHIVE_FreeCellFile@@YIXPAUD2CelFileStrc@@@Z"
-    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob1",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -41741,45 +41790,6 @@
      "length": 5,
      "name": "?D2Win_10006_ClearDrawCaches@@YGXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinMain_004F9FB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F9FB0",
-     "length": 269,
-     "name": "?sub_004F9FB0_WriteScreenshotJpeg@@YGXPAEPBDHH@Z"
-    },
-    {
-     "va": "0x004FA0C0",
-     "length": 151,
-     "name": "?sub_004FA0C0_SaveScreenshot@@YIXPBD@Z"
-    },
-    {
-     "va": "0x004FA200",
-     "length": 316
-    },
-    {
-     "va": "0x004FA7A0",
-     "length": 147,
-     "name": "?D2Win_10168_WINMAIN_CreateScreenshot@@YGXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -44060,116 +44070,6 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Src/glCore_005090B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005090B0",
-     "length": 218,
-     "name": "sub_005090B0_GlideSetGamma"
-    },
-    {
-     "va": "0x00509210",
-     "length": 211,
-     "name": "sub_00509210_GlideGetBackBuffer"
-    },
-    {
-     "va": "0x00509B60",
-     "length": 92,
-     "name": "sub_00509B60_GlideOpenSmackCutscene"
-    },
-    {
-     "va": "0x00509EE0",
-     "length": 132,
-     "name": "sub_00509EE0_GlidePauseSurface"
-    },
-    {
-     "va": "0x0050C3A0",
-     "length": 233,
-     "name": "sub_0050C3A0_GlideUtilDiamond"
-    },
-    {
-     "va": "0x0050C490",
-     "length": 328,
-     "name": "sub_0050C490_GlideUtilRect"
-    },
-    {
-     "va": "0x0050C630",
-     "length": 80,
-     "name": "sub_0050C630_GlideUtilPoint"
-    },
-    {
-     "va": "0x0050CD40",
-     "length": 141,
-     "name": "sub_0050CD40_GlideShadowTileDraw"
-    },
-    {
-     "va": "0x00511660",
-     "length": 183,
-     "name": "sub_00511660_DDrawOpenSmackCutscene"
-    },
-    {
-     "va": "0x00511970",
-     "length": 268,
-     "name": "sub_00511970_DDrawGetBackBuffer"
-    },
-    {
-     "va": "0x00512E80",
-     "length": 66,
-     "name": "sub_00512E80_DDrawUtilPoint"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glCore_00509300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00509300",
-     "length": 227,
-     "name": "sub_00509300_GlideSetPalette"
-    },
-    {
-     "va": "0x0050BF50",
-     "length": 414,
-     "name": "sub_0050BF50_GlideDrawBox"
-    },
-    {
-     "va": "0x0050C0F0",
-     "length": 378,
-     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glCore_00509670.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00509670",
-     "length": 1016
-    },
-    {
-     "va": "0x00509AA0",
-     "length": 177
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Glide/Src/glSprite.cpp",
    "rank": 0,
    "functions": [
@@ -44194,6 +44094,23 @@
      "name": "?sub_0050A260_GlideTexInfoInit@@YAHPAUD2CelContextStrc@@PAUD2GlideTexInfoStrc@@@Z"
     },
     {
+     "va": "0x0050A2D0",
+     "length": 379,
+     "name": "?sub_0050A2D0_GlideTexInfoSetupSize@@YAXPAUD2GlideTexInfoStrc@@@Z"
+    },
+    {
+     "va": "0x0050A450",
+     "length": 864
+    },
+    {
+     "va": "0x0050A7B0",
+     "length": 494
+    },
+    {
+     "va": "0x0050A9A0",
+     "length": 588
+    },
+    {
      "va": "0x0050ABF0",
      "length": 148,
      "name": "?sub_0050ABF0_GlideSetBlendMode@@YAXH@Z"
@@ -44204,127 +44121,9 @@
      "name": "?sub_0050AC90_IsOutsideScreen@@YAHHHPAUD2GlideRectViewStrc@@@Z"
     },
     {
-     "va": "0x0050B7A0",
-     "length": 1,
-     "name": "?sub_0050B7A0_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050A2D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050A2D0",
-     "length": 379,
-     "name": "?sub_0050A2D0_GlideTexInfoSetupSize@@YAXPAUD2GlideTexInfoStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050A450.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050A450",
-     "length": 864
-    },
-    {
-     "va": "0x0050B390",
-     "length": 367
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050A7B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050A7B0",
-     "length": 494
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050A9A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050A9A0",
-     "length": 588
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050ACC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x0050ACC0",
      "length": 1027
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050B0D0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0050B0D0",
      "length": 190,
@@ -44341,6 +44140,14 @@
      "name": "?sub_0050B230_GlideDrawSpriteRows@@YIXPAUD2CelContextStrc@@HHIIH@Z"
     },
     {
+     "va": "0x0050B390",
+     "length": 367
+    },
+    {
+     "va": "0x0050B500",
+     "length": 398
+    },
+    {
      "va": "0x0050B690",
      "length": 131,
      "name": "?sub_0050B690_GlideDrawIsoSprite@@YIXPAUD2CelContextStrc@@HH@Z"
@@ -44349,46 +44156,16 @@
      "va": "0x0050B720",
      "length": 119,
      "name": "?sub_0050B720_GlideDrawSpriteOutline@@YIXPAUD2CelContextStrc@@HHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050B500.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x0050B500",
-     "length": 398
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSprite_0050B7B0.cpp",
-   "rank": 0,
-   "functions": [
+     "va": "0x0050B7A0",
+     "length": 1,
+     "name": "?sub_0050B7A0_Nop@@YAXXZ"
+    },
     {
      "va": "0x0050B7B0",
      "length": 162,
      "name": "?sub_0050B7B0_GlideInitSprites@@YAXXZ"
-    },
-    {
-     "va": "0x0050BF40",
-     "length": 9,
-     "name": "?sub_0050BF40_GlideGetBlendedShadows@@YAHXZ"
     },
     {
      "va": "0x0050DFE0",
@@ -44399,6 +44176,17 @@
      "va": "0x0050E330",
      "length": 53,
      "name": "?sub_0050E330_GlideRefresh@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Glide/Unknown_0050BF40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0050BF40",
+     "length": 9,
+     "name": "?sub_0050BF40_GlideGetBlendedShadows@@YAHXZ"
     }
    ]
   },
@@ -45488,6 +45276,11 @@
      "name": "?sub_00515530_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
     },
     {
+     "va": "0x005155D0",
+     "length": 202,
+     "name": "sub_005155D0_SetSoundData"
+    },
+    {
      "va": "0x005156A0",
      "length": 104,
      "name": "?sub_005156A0_PlaySound@@YIHPAUD2SoundStrc@@@Z"
@@ -45566,6 +45359,11 @@
      "va": "0x00515D60",
      "length": 16,
      "name": "?sub_00515D60_GetMasterVolume@@YAHXZ"
+    },
+    {
+     "va": "0x00515D70",
+     "length": 194,
+     "name": "sub_00515D70_StartStream"
     },
     {
      "va": "0x00515E40",
@@ -45742,16 +45540,6 @@
      "va": "0x00515020",
      "length": 54,
      "name": "?sub_00515020_FadeOutWaves@@YAXXZ"
-    },
-    {
-     "va": "0x005155D0",
-     "length": 202,
-     "name": "sub_005155D0_SetSoundData"
-    },
-    {
-     "va": "0x00515D70",
-     "length": 194,
-     "name": "sub_00515D70_StartStream"
     }
    ]
   },
@@ -46970,8 +46758,33 @@
      "name": "GetSystemTimeZone"
     },
     {
+     "va": "0x00517ED0",
+     "length": 254,
+     "name": "?SaveAndUnload@BNGatewayAccess@@QAGXXZ"
+    },
+    {
      "va": "0x00517FD0",
      "length": 106
+    },
+    {
+     "va": "0x00518040",
+     "length": 19,
+     "name": "DNS"
+    },
+    {
+     "va": "0x00518060",
+     "length": 53,
+     "name": "?GMT@BNGatewayAccess@@QAGHH@Z"
+    },
+    {
+     "va": "0x005180A0",
+     "length": 62,
+     "name": "?Name@BNGatewayAccess@@QAGPBDH@Z"
+    },
+    {
+     "va": "0x005180E0",
+     "length": 108,
+     "name": "?Realm@BNGatewayAccess@@QAGPBDH@Z"
     },
     {
      "va": "0x00518150",
@@ -46979,9 +46792,24 @@
      "name": "SetCurGateway"
     },
     {
+     "va": "0x00518190",
+     "length": 212,
+     "name": "GetGatewayList"
+    },
+    {
+     "va": "0x00518270",
+     "length": 49,
+     "name": "?sub_00518270_LoadGatewayList@BNGatewayAccess@@AAEXXZ"
+    },
+    {
      "va": "0x005182B0",
      "length": 72,
      "name": "GetBattlenetRealmsList"
+    },
+    {
+     "va": "0x00518300",
+     "length": 87,
+     "name": "?sub_00518300_LoadGatewayFile@@YGPADPAI@Z"
     },
     {
      "va": "0x00518360",
@@ -47007,100 +46835,16 @@
      "va": "0x005184C0",
      "length": 178,
      "name": "FindKey"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00517ED0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00517ED0",
-     "length": 254,
-     "name": "?SaveAndUnload@BNGatewayAccess@@QAGXXZ"
-    },
-    {
-     "va": "0x00518060",
-     "length": 53,
-     "name": "?GMT@BNGatewayAccess@@QAGHH@Z"
-    },
-    {
-     "va": "0x005180A0",
-     "length": 62,
-     "name": "?Name@BNGatewayAccess@@QAGPBDH@Z"
-    },
-    {
-     "va": "0x005180E0",
-     "length": 108,
-     "name": "?Realm@BNGatewayAccess@@QAGPBDH@Z"
-    },
-    {
-     "va": "0x00518300",
-     "length": 87,
-     "name": "?sub_00518300_LoadGatewayFile@@YGPADPAI@Z"
     },
     {
      "va": "0x00518580",
      "length": 326,
      "name": "?PickClosestZone@BNGatewayAccess@@AAEXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00518040.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00518040",
-     "length": 19,
-     "name": "DNS"
     },
-    {
-     "va": "0x00518190",
-     "length": 212,
-     "name": "GetGatewayList"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00518270.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00518270",
-     "length": 49,
-     "name": "?sub_00518270_LoadGatewayList@BNGatewayAccess@@AAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_005186D0.cpp",
-   "rank": 1,
-   "functions": [
     {
      "va": "0x005186D0",
      "length": 384
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00518850.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00518850",
      "length": 777
@@ -47189,6 +46933,11 @@
      "name": "?sub_0051E3B0_SetCheckRevisionValue@@YIHPBD@Z"
     },
     {
+     "va": "0x0051E440",
+     "length": 79,
+     "name": "?sub_0051E440_WriteFileWithTime@@YGXPBXIPBDPBUD2FileTimeStrc@@@Z"
+    },
+    {
      "va": "0x0051E490",
      "length": 311,
      "name": "?sub_0051E490_ExtractArchiveDll@@YGHPAXPADPBD@Z"
@@ -47204,6 +46953,11 @@
      "name": "_sub_0051E5E0_IsPendingCountPositive"
     },
     {
+     "va": "0x0051E5F0",
+     "length": 68,
+     "name": "?sub_0051E5F0_RecvAll@@YGHIPADI@Z"
+    },
+    {
      "va": "0x0051E640",
      "length": 135,
      "name": "?sub_0051E640_GetFileSizeIfTimeMatches@@YAKPBDPB_J@Z"
@@ -47212,6 +46966,10 @@
      "va": "0x0051E6D0",
      "length": 580,
      "name": "?sub_0051E6D0_RunCheckRevision@@YIHPAH0PAD@Z"
+    },
+    {
+     "va": "0x0051E920",
+     "length": 172
     },
     {
      "va": "0x0051E9D0",
@@ -47239,12 +46997,36 @@
      "name": "?sub_0051EAA0_HasName@@YAHXZ"
     },
     {
+     "va": "0x0051EAB0",
+     "length": 242,
+     "name": "?sub_0051EAB0_RecvToBuffer@@YGHIPBDPBUD2FileTimeStrc@@HHPAPADI@Z"
+    },
+    {
+     "va": "0x0051EBB0",
+     "length": 325,
+     "name": "?sub_0051EBB0_RecvToFile@@YGHIPBDPBUD2FileTimeStrc@@IIH@Z"
+    },
+    {
+     "va": "0x0051ED00",
+     "length": 1476
+    },
+    {
      "va": "0x0051F310",
      "length": 1524
     },
     {
+     "va": "0x0051F910",
+     "length": 404,
+     "name": "?sub_0051F910_Report@@YIXHHIIPBUD2FileTimeStrc@@PBD1@Z"
+    },
+    {
      "va": "0x0051FAB0",
      "length": 1388
+    },
+    {
+     "va": "0x00520020",
+     "length": 443,
+     "name": "?sub_00520020_SetAdList@@YIHPBDH@Z"
     },
     {
      "va": "0x00520210",
@@ -47441,37 +47223,19 @@
      "name": "?sub_005193C0_FreeCachedFile@@YIHPAXI@Z"
     },
     {
-     "va": "0x005198C0",
-     "length": 86,
-     "name": "?sub_005198C0_ResetCache@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/CACHE_005193E0.CPP",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005193E0",
      "length": 1235,
      "name": "?sub_005193E0_LoadCache@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/CACHE_00519920.CPP",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x005198C0",
+     "length": 86,
+     "name": "?sub_005198C0_ResetCache@@YAXXZ"
+    },
     {
      "va": "0x00519920",
      "length": 1154
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/CACHE_00519DB0.CPP",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00519DB0",
      "length": 1725
@@ -48081,6 +47845,10 @@
      "name": "sub_0051D810_SetCount"
     },
     {
+     "va": "0x0051DA30",
+     "length": 445
+    },
+    {
      "va": "0x0051DF90",
      "length": 35,
      "name": "?BNNEWS_DecodeCDKey26Char@@YIHPBDPAX11@Z"
@@ -48095,30 +47863,6 @@
      "va": "0x0051D860",
      "length": 459
     }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNNews_0051DA30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051DA30",
-     "length": 445
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -48188,76 +47932,6 @@
     {
      "va": "0x0051E3D0",
      "length": 97
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnDownload_0051E440.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051E440",
-     "length": 79,
-     "name": "?sub_0051E440_WriteFileWithTime@@YGXPBXIPBDPBUD2FileTimeStrc@@@Z"
-    },
-    {
-     "va": "0x0051E5F0",
-     "length": 68,
-     "name": "?sub_0051E5F0_RecvAll@@YGHIPADI@Z"
-    },
-    {
-     "va": "0x0051EAB0",
-     "length": 242,
-     "name": "?sub_0051EAB0_RecvToBuffer@@YGHIPBDPBUD2FileTimeStrc@@HEPAPADI@Z"
-    },
-    {
-     "va": "0x0051EBB0",
-     "length": 325,
-     "name": "?sub_0051EBB0_RecvToFile@@YGHIIIHPBDPBUD2FileTimeStrc@@@Z"
-    },
-    {
-     "va": "0x0051F910",
-     "length": 404,
-     "name": "?sub_0051F910_Report@@YIXHHIIPBUD2FileTimeStrc@@PBD1@Z"
-    },
-    {
-     "va": "0x00520020",
-     "length": 443,
-     "name": "?sub_00520020_SetAdList@@YIHPBDH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnDownload_0051E920.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051E920",
-     "length": 172
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnDownload_0051ED00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051ED00",
-     "length": 1476
     }
    ]
   },
@@ -96671,13 +96345,32 @@
      "length": 1359
     },
     {
+     "va": "0x006B5520",
+     "length": 42
+    },
+    {
+     "va": "0x006B5550",
+     "length": 130,
+     "name": "?sub_006B5550_ShutdownCore@@YAHXZ"
+    },
+    {
      "va": "0x006B55E0",
      "length": 77
+    },
+    {
+     "va": "0x006B5630",
+     "length": 142,
+     "name": "?sub_006B5630_SetPaused@@YIXHHH@Z"
     },
     {
      "va": "0x006B56C0",
      "length": 94,
      "name": "?sub_006B56C0_RunWithState@@YIXHHH@Z"
+    },
+    {
+     "va": "0x006B5720",
+     "length": 161,
+     "name": "?sub_006B5720_BeginScene@@YIHHHHH@Z"
     },
     {
      "va": "0x006B57D0",
@@ -96714,31 +96407,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dCore_006B5520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B5520",
-     "length": 42
-    },
-    {
-     "va": "0x006B5550",
-     "length": 130,
-     "name": "?sub_006B5550_ShutdownCore@@YAHXZ"
-    },
-    {
-     "va": "0x006B5630",
-     "length": 142,
-     "name": "?sub_006B5630_SetPaused@@YIXHHH@Z"
-    },
-    {
-     "va": "0x006B5720",
-     "length": 161,
-     "name": "?sub_006B5720_BeginScene@@YIHHHHH@Z"
-    }
    ]
   },
   {
@@ -97831,6 +97499,10 @@
      "length": 22
     },
     {
+     "va": "0x006BCE20",
+     "length": 540
+    },
+    {
      "va": "0x006BD040",
      "length": 42,
      "name": "?sub_006BD040_AllocBlock@@YGPAUD2Block006BD040Strc@@PBDH@Z"
@@ -97868,12 +97540,47 @@
      "length": 196
     },
     {
+     "va": "0x006BD490",
+     "length": 99
+    },
+    {
+     "va": "0x006BD500",
+     "length": 147
+    },
+    {
      "va": "0x006BD5A0",
      "length": 154
     },
     {
      "va": "0x006BD640",
      "length": 317
+    },
+    {
+     "va": "0x006BD780",
+     "length": 2576
+    },
+    {
+     "va": "0x006BE2F0",
+     "length": 1,
+     "name": "?sub_006BE2F0_Nop@@YAXPBD0H@Z"
+    },
+    {
+     "va": "0x006BE300",
+     "length": 1,
+     "name": "?sub_006BE300_Nop@@YAXPBD0H@Z"
+    },
+    {
+     "va": "0x006BE310",
+     "length": 53
+    },
+    {
+     "va": "0x006BE350",
+     "length": 55
+    },
+    {
+     "va": "0x006BE390",
+     "length": 36,
+     "name": "?sub_006BE390_SwapSlot@@YGHPAUD2Object006BE390Strc@@HH@Z"
     }
    ]
   },
@@ -98194,92 +97901,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Excel/Excel_006BCE20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BCE20",
-     "length": 540
-    },
-    {
-     "va": "0x006BD490",
-     "length": 99
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Excel/Excel_006BD500.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BD500",
-     "length": 147
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Excel/Excel_006BD780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BD780",
-     "length": 2576
-    },
-    {
-     "va": "0x006BE2F0",
-     "length": 1,
-     "name": "?sub_006BE2F0_Nop@@YAXPBD0H@Z"
-    },
-    {
-     "va": "0x006BE300",
-     "length": 1,
-     "name": "?sub_006BE300_Nop@@YAXPBD0H@Z"
-    },
-    {
-     "va": "0x006BE310",
-     "length": 53
-    },
-    {
-     "va": "0x006BE350",
-     "length": 55
-    },
-    {
-     "va": "0x006BE390",
-     "length": 36,
-     "name": "?sub_006BE390_SwapSlot@@YGHPAUD2Object006BE390Strc@@HH@Z"
-    }
    ]
   },
   {
@@ -98850,57 +98471,9 @@
      "length": 829
     },
     {
-     "va": "0x006C2D70",
-     "length": 694
-    },
-    {
-     "va": "0x006C3030",
-     "length": 152
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C2760.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x006C2760",
      "length": 162
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C2810.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C2810",
      "length": 67
@@ -98908,31 +98481,23 @@
     {
      "va": "0x006C2860",
      "length": 1036
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C2C70.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C2C70",
      "length": 251
+    },
+    {
+     "va": "0x006C2D70",
+     "length": 694
+    },
+    {
+     "va": "0x006C3030",
+     "length": 152
+    },
+    {
+     "va": "0x006C3120",
+     "length": 569
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -98943,16 +98508,6 @@
      "va": "0x006C30D0",
      "length": 73,
      "name": "?sub_006C30D0_ServiceSlots@@YIHPAUD2Object006C30D0Strc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C3120.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3120",
-     "length": 569
     }
    ]
   },

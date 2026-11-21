@@ -1,5 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2StormTypes.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
@@ -281,18 +282,6 @@ struct D2StormWndRecStrc
 {
     D2StormLinkStrc f_0;
     void* hWnd;
-};
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
 };
 
 char* __fastcall sub_004209E0_FindWndRec(void* hWnd); // 0x004209E0

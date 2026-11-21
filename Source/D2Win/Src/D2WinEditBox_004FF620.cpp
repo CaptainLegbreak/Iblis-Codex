@@ -2,6 +2,7 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define EDITBOX_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -17,32 +18,6 @@ struct UnicodeChar : Unicode
 };
 
 
-struct D2WinEditBoxStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    char pad1C[0x24];
-    int nTextInsetX;
-    int nTextInsetY;
-    int nMaxLength;
-    int nFirstVisibleChar;
-    int nLastVisibleChar;
-    int nSelectionStart;
-    int nSelectionEnd;
-    Unicode wszText[256];
-    int nCaretPosition;
-    unsigned int dwEditBoxFlags;
-    char pad264[0x0C];
-    int eFont;
-    int nTextColor;
-    char pad278[0x08];
-    int bMouseSelecting;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -68,7 +43,7 @@ void __fastcall D2Win_10133(const Unicode* wszText, int nX, int nY, int nColor, 
 static int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x198);
-    D2_ASSERT(pEditBox->eType == 1, 0x19A);
+    D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x19A);
     if (pEditBox->nSelectionStart != -1 && pEditBox->nSelectionStart != pEditBox->nSelectionEnd)
         return 1;
     return 0;
@@ -78,9 +53,9 @@ static int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox)
 int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x510);
-    D2_ASSERT(pEditBox->eType == 1, 0x512);
+    D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x512);
 
-    if (pEditBox->dwFlags & gdwBitMasks[2] && pEditBox->dwFlags & gdwBitMasks[0])
+    if (pEditBox->controlHeader.dwFlags & gdwBitMasks[2] && pEditBox->controlHeader.dwFlags & gdwBitMasks[0])
     {
         if (!sub_004FA460())
         {
@@ -97,9 +72,9 @@ int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinEditBoxStrc* pEditBox)
 
         UnicodeChar wszText[300];
         sub_00502EF0(pEditBox->eFont);
-        const int nX = pEditBox->nImageX + pEditBox->nTextInsetX;
-        const int nYStart = D2Win_10125() + pEditBox->nImageY - pEditBox->nHeight + pEditBox->nTextInsetY;
-        sub_005267E0(wszText, pEditBox->wszText);
+        const int nX = pEditBox->controlHeader.nImageX + pEditBox->nTextInsetX;
+        const int nYStart = D2Win_10125() + pEditBox->controlHeader.nImageY - pEditBox->controlHeader.nHeight + pEditBox->nTextInsetY;
+        sub_005267E0(wszText, (Unicode*)pEditBox->wszText);
         int nY = nYStart;
         const unsigned char nShade = D2Win_10034_MixRGB(0x40, 0x40, 0x40);
 
@@ -117,12 +92,12 @@ int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinEditBoxStrc* pEditBox)
         int bCaretDrawn = 0;
         UnicodeChar wszLine[256];
         char szText[256];
-        sub_00526F70(szText, pEditBox->wszText, 256);
+        sub_00526F70(szText, (Unicode*)pEditBox->wszText, 256);
         char* pLineStart = szText;
         char* pCur = szText;
         const int nLineHeight = D2Win_10125();
-        const int nMaxWidth = pEditBox->nWidth - 2 * pEditBox->nTextInsetX;
-        const int nMaxHeight = pEditBox->nHeight - 2 * pEditBox->nTextInsetY;
+        const int nMaxWidth = pEditBox->controlHeader.nWidth - 2 * pEditBox->nTextInsetX;
+        const int nMaxHeight = pEditBox->controlHeader.nHeight - 2 * pEditBox->nTextInsetY;
 
         if (!szText[0] && bBlink)
         {
@@ -248,9 +223,9 @@ int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinEditBoxStrc* pEditBox)
 int __fastcall sub_004FFE50_EditBoxDraw(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x49C);
-    D2_ASSERT(pEditBox->eType == 1, 0x49E);
+    D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x49E);
 
-    if (pEditBox->dwFlags & gdwBitMasks[2] && pEditBox->dwFlags & gdwBitMasks[0])
+    if (pEditBox->controlHeader.dwFlags & gdwBitMasks[2] && pEditBox->controlHeader.dwFlags & gdwBitMasks[0])
     {
         if (!sub_004FA460())
         {
@@ -266,20 +241,20 @@ int __fastcall sub_004FFE50_EditBoxDraw(D2WinEditBoxStrc* pEditBox)
         }
 
         UnicodeChar wszText[300];
-        if (pEditBox->pCellFile)
+        if (pEditBox->controlHeader.pCellFile)
         {
             D2CelContextStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
-            tContext.pCellFile = pEditBox->pCellFile;
+            tContext.pCellFile = pEditBox->controlHeader.pCellFile;
             tContext.nDirection = 0;
             tContext.nFrame = 0;
-            sub_004F6480(&tContext, pEditBox->nImageX, pEditBox->nImageY - 1, -1, 5, 0);
+            sub_004F6480(&tContext, pEditBox->controlHeader.nImageX, pEditBox->controlHeader.nImageY - 1, -1, 5, 0);
         }
 
         sub_00502EF0(pEditBox->eFont);
-        int nX = pEditBox->nTextInsetX + pEditBox->nImageX;
-        const int nY = pEditBox->nTextInsetY - pEditBox->nHeight + pEditBox->nImageY + 16;
-        sub_00526790(wszText, &pEditBox->wszText[pEditBox->nFirstVisibleChar], pEditBox->nLastVisibleChar - pEditBox->nFirstVisibleChar + 1);
+        int nX = pEditBox->nTextInsetX + pEditBox->controlHeader.nImageX;
+        const int nY = pEditBox->nTextInsetY - pEditBox->controlHeader.nHeight + pEditBox->controlHeader.nImageY + 16;
+        sub_00526790(wszText, (Unicode*)&pEditBox->wszText[pEditBox->nFirstVisibleChar], pEditBox->nLastVisibleChar - pEditBox->nFirstVisibleChar + 1);
         const int nLength = sub_00526800(wszText);
         if (pEditBox->dwEditBoxFlags & 1)
         {

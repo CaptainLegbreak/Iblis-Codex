@@ -1,13 +1,4 @@
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-};
+#include "D2StormLink.h"
 
 struct D2StormHandlerNodeStrc
 {

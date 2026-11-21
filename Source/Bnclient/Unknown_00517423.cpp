@@ -1,8 +1,7 @@
 #include "Bnclient.h"
+#include "D2StormLink.h"
 
 #define D2_IMPORT __declspec(dllimport)
-
-struct D2StormLinkStrc;
 
 extern "C" D2_IMPORT int __stdcall MessageBoxA(void* window, const char* text, const char* caption, unsigned int flags);
 extern "C" D2_IMPORT int __cdecl wsprintfA(char* buffer, const char* format, ...);
@@ -14,14 +13,6 @@ extern const char* const gpszModuleName; // 0x006CC848
 extern const char sgszAssertFormatString[]; // 0x006DEBE8
 void __cdecl sub_005173DF_TerminateCurrentProcess(); // 0x005173DF
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* pPrevLink;
-    int pNext;
-
-    void sub_005174B8_Clear(); // 0x005174B8
-};
 
 // 0x00517423
 int __fastcall FaultDoAssert(const char* a1, unsigned int a2, const char* a3)
@@ -44,6 +35,6 @@ int __fastcall FaultDoAssert(const char* a1, unsigned int a2, const char* a3)
 // 0x005174B8
 void D2StormLinkStrc::sub_005174B8_Clear()
 {
-    pPrevLink = 0;
-    pNext = 0;
+    m_prevlink = 0;
+    m_next = 0;
 }

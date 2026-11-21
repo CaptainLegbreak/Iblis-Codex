@@ -1,6 +1,7 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
+#include "D2StormLink.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -156,32 +157,11 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
 int __fastcall sub_00406B20_AppendBackslash(char* szPath, unsigned int nSize); // 0x00406B20
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
+extern int gbLogInitialized_0075D2EC; // 0x0075D2EC
+extern int gnLogQueueCount_0075E870; // 0x0075E870
+extern D2CriticalSectionStrc gtLogQueueLock_0075E838; // 0x0075E838
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
 
 struct sub_0040F530
 {
@@ -1327,6 +1307,40 @@ void D2ChatStormListAStrc::sub_0060E5F0_Reset()
 {
     m_linkoffset = 0;
     InitializeTerminator();
+}
+
+// 0x0040F8A0
+void __cdecl sub_0040F8A0_CloseLogFilesNow()
+{
+    D2_ASSERT(gbLogInitialized_0075D2EC, 456);
+    const unsigned long dwStart = GetTickCount();
+    while (GetTickCount() - dwStart < 1000)
+    {
+        EnterCriticalSection(&gtLogQueueLock_0075E838);
+        const int nQueued = gnLogQueueCount_0075E870 > 0 ? gnLogQueueCount_0075E870 : 0;
+        LeaveCriticalSection(&gtLogQueueLock_0075E838);
+        if (!nQueued)
+        {
+            break;
+        }
+        Sleep(10);
+    }
+    for (int i = 0; i < 20; i++)
+    {
+        EnterCriticalSection(&gtLogLock_0075E850);
+        if (gapLogFiles_0075E790[i])
+        {
+            fclose(gapLogFiles_0075E790[i]);
+            gapLogFiles_0075E790[i] = 0;
+        }
+        LeaveCriticalSection(&gtLogLock_0075E850);
+    }
+}
+
+// 0x0040F960
+void __cdecl sub_0040F960_CloseLogFiles()
+{
+    sub_0040F8A0_CloseLogFilesNow();
 }
 
 // 0x0040FAA0
