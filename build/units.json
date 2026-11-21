@@ -50352,11 +50352,6 @@
      "name": "sub_00569D80"
     },
     {
-     "va": "0x0056C210",
-     "length": 136,
-     "name": "sub_6FD10D90"
-    },
-    {
      "va": "0x00573640",
      "length": 81,
      "name": "MONSTER_RemoveAll"
@@ -55766,6 +55761,11 @@
      "va": "0x0056C160",
      "length": 167,
      "name": "?SKILLS_HasManaOrChargesForUsedSkill@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0056C210",
+     "length": 136,
+     "name": "sub_6FD10D90"
     },
     {
      "va": "0x0056C2A0",
