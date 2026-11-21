@@ -3,62 +3,13 @@
 #include "D2WinTypes.h"
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
+#include "D2StormTypes.h"
+#include "D2WinControls.h"
 
 struct D2WinControlStrc;
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinEditBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int field_40;
-    int field_44;
-    int field_48;
-    int field_4C;
-    int field_50;
-    int field_54;
-    int nTextLength;
-    Unicode wszText[256];
-    int field_25C;
-    unsigned int dwEditBoxFlags;
-    int field_264;
-    int field_268;
-    void* field_26C;
-    int eFont;
-    int nTextColor;
-    D2WinEditBoxStrc* pNext;
-    D2WinEditBoxStrc* pPreviousEditBox;
-    int field_280;
-};
 
 struct D2WinFontAndColorStrc
 {
@@ -72,38 +23,6 @@ struct D2AnimatedImageDescriptor
     D2CelFileStrc** ppCellFile2;
     int eDrawMode;
     unsigned int nAnimSpeed;
-};
-
-struct D2WinAnimImageStrc
-{
-    D2WinControlStrc controlHeader;
-    D2AnimatedImageDescriptor* pAnimatedImageDescriptor;
-    unsigned int nAnimSpeed;
-    unsigned long dwStartTickCount;
-    unsigned int nFrame;
-    int nAnimType;
-    int eDrawMode;
-    D2WinMsgHandler field_58;
-    int bIsRunning;
-};
-
-struct D2WinButtonStrc
-{
-    D2WinControlStrc controlHeader;
-    unsigned int dwButtonFlags;
-    int bIsPressed;
-    int bIsCallbackPending;
-    int nActivationCounter;
-    int nActivationVirtualKey;
-    int nIsPressedFrameOffset;
-    int field_58;
-    int nBaseFrame;
-    int eFont;
-    Unicode wszText[256];
-    int nTextColor;
-    D2WinMsgHandler pfUpdateHoverState;
-    int isButtonHovered;
-    int nStringId;
 };
 
 struct D2SplittedTextStrc
@@ -139,24 +58,24 @@ D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWid
     pEditBox->controlHeader.nImageX = nX;
     pEditBox->controlHeader.nWidth = nWidth;
     pEditBox->controlHeader.nHeight = nHeight;
-    pEditBox->field_40 = a5;
-    pEditBox->field_44 = a6;
-    pEditBox->field_48 = 256;
+    pEditBox->nTextInsetX = a5;
+    pEditBox->nTextInsetY = a6;
+    pEditBox->nMaxLength = 256;
     pEditBox->controlHeader.nImageY = nY;
-    pEditBox->field_4C = 0;
-    pEditBox->field_50 = 0;
-    pEditBox->field_54 = -1;
+    pEditBox->nFirstVisibleChar = 0;
+    pEditBox->nLastVisibleChar = 0;
+    pEditBox->nSelectionStart = -1;
     pEditBox->controlHeader.pfDraw = (nEditBoxFlags & 8) ? sub_004FF620_EditBoxDrawAlt : sub_004FFE50_EditBoxDraw;
     pEditBox->controlHeader.pfHandleMouseDown = (nEditBoxFlags & 8) ? sub_004FE710_EditBoxMouseDownAlt : sub_004FFBF0_EditBoxMouseDown;
     pEditBox->controlHeader.pfHandleMouseUp = EDITBOX_HandleMouseUp;
     pEditBox->controlHeader.pfHandleCharInput = 0;
     pEditBox->controlHeader.pfHandleVirtualKeyInput = 0;
-    pEditBox->field_268 = 0;
+    pEditBox->pfFilter = 0;
     pEditBox->controlHeader.field_34 = a9;
-    pEditBox->field_264 = a8;
+    pEditBox->pfOnEnter = (void*)a8;
     pEditBox->controlHeader.pNext = 0;
-    pEditBox->wszText[0].wChar = 0;
-    pEditBox->field_25C = 0;
+    pEditBox->wszText[0] = 0;
+    pEditBox->nCaretPosition = 0;
     pEditBox->dwEditBoxFlags = nEditBoxFlags;
     if (pFontAndColor)
     {
@@ -169,7 +88,7 @@ D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWid
         pEditBox->nTextColor = 0;
     }
     pEditBox->pNext = 0;
-    pEditBox->pPreviousEditBox = 0;
+    pEditBox->pPrevious = 0;
     CONTROL_AppendToList(&pEditBox->controlHeader);
     return pEditBox;
 }
