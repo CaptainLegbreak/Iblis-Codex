@@ -36343,6 +36343,18 @@
      "va": "0x004E9660",
      "length": 113,
      "name": "?sub_004E9660_AddScaledWeaponDamage@@YGXPAUD2UnitStrc@@PAH101PAUD2SkillStrc@@H@Z"
+    },
+    {
+     "va": "0x004EA990",
+     "length": 158
+    },
+    {
+     "va": "0x004EB460",
+     "length": 466
+    },
+    {
+     "va": "0x004EB830",
+     "length": 259
     }
    ],
    "flags": [
@@ -36823,39 +36835,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EA990.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EA990",
-     "length": 158
-    },
-    {
-     "va": "0x004EB460",
-     "length": 466
-    },
-    {
-     "va": "0x004EB830",
-     "length": 259
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
