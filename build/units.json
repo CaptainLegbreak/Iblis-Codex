@@ -43671,6 +43671,16 @@
      "name": "sub_00518BA0_LogWrite"
     },
     {
+     "va": "0x00518C70",
+     "length": 207,
+     "name": "sub_00518C70_StartLogging"
+    },
+    {
+     "va": "0x00518D40",
+     "length": 158,
+     "name": "sub_00518D40_Log"
+    },
+    {
      "va": "0x0051BE80",
      "length": 23,
      "name": "sub_0051BE80_CompareExchange"
@@ -43835,6 +43845,11 @@
     {
      "va": "0x005226D0",
      "length": 678
+    },
+    {
+     "va": "0x006CB430",
+     "length": 12,
+     "name": "?__FtLog_00881878"
     }
    ]
   },
@@ -43939,27 +43954,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_00518C70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00518C70",
-     "length": 207,
-     "name": "sub_00518C70_StartLogging"
-    },
-    {
-     "va": "0x00518D40",
-     "length": 158,
-     "name": "sub_00518D40_Log"
-    },
-    {
-     "va": "0x006CB430",
-     "length": 12,
-     "name": "?__FtLog_00881878"
-    }
    ]
   },
   {
