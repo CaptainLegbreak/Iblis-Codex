@@ -36955,6 +36955,22 @@
     {
      "va": "0x004ED570",
      "length": 1189
+    },
+    {
+     "va": "0x004F1A30",
+     "length": 586
+    },
+    {
+     "va": "0x004F21B0",
+     "length": 171
+    },
+    {
+     "va": "0x004F28A0",
+     "length": 321
+    },
+    {
+     "va": "0x004F2BE0",
+     "length": 494
     }
    ],
    "flags": [
@@ -37256,42 +37272,6 @@
      "length": 86,
      "name": "?sub_004F3870_SetTargetPosParams@@YIHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004F1A30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F1A30",
-     "length": 586
-    },
-    {
-     "va": "0x004F21B0",
-     "length": 171
-    },
-    {
-     "va": "0x004F28A0",
-     "length": 321
-    },
-    {
-     "va": "0x004F2BE0",
-     "length": 494
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
