@@ -201,6 +201,7 @@ int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMis
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
+// build: context CLIENTS_GetUnitX
 __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -214,6 +215,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
+// build: context CLIENTS_GetUnitY
 __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -717,6 +719,30 @@ D2UnitStrc* __fastcall sub_6FCCF9D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, nFrames);
+    return 0;
+}
+
+static __forceinline void AITACTICS_IdleInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
+{
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+    EVENT_SetEvent(pGame, pUnit, 2, nFrames + pGame->dwGameFrame, 0, 0);
+}
+
+// 0x005DE9D0
+D2UnitStrc* __fastcall sub_005DE9D0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
+{
+    D2UnitStrc* pTarget = sub_6FCF2110(pGame, pUnit, pAiControl, pDistance, pCombat);
+    if (pTarget)
+        return pTarget;
+    const int nCollisionPattern = PATH_GetUnitCollisionPattern(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    if (COLLISION_CheckAnyCollisionWithPattern(UNITS_GetRoom(pUnit), nX, nY, nCollisionPattern, 0x40) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
+        return 0;
+    }
+    AITACTICS_IdleInline(pGame, pUnit, 20);
     return 0;
 }
 
