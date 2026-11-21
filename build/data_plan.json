@@ -5315,21 +5315,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a5q5_0058C210.cpp": {
-   "bytes": 1764,
-   "definitions": 1,
+  "Source/D2Game/Quests/a5q5.cpp": {
+   "bytes": 1792,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q5_0058C210.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a5q5_0058C440.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q5_0058C440.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -107704,7 +107695,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q5_0058C210.cpp",
+   "file": "Source/D2Game/Quests/a5q5.cpp",
    "fill": 441,
    "form": "declared",
    "fwd": null,
@@ -107735,7 +107726,7 @@
    "cname": "gData_007357E4",
    "declared": true,
    "decorated": "?gnA5Q5NpcActivateIndices@@3QBIB",
-   "file": "Source/D2Game/Quests/a5q5_0058C440.cpp",
+   "file": "Source/D2Game/Quests/a5q5.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_007357E4[7]; // 0x007357E4",

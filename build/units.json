@@ -64058,8 +64058,67 @@
      "name": "?ACT5Q5_DeactivateAncientMonsters@@YGXPAUD2GameStrc@@PAUD2QuestDataStrc@@PAUD2Act5Quest5Strc@@@Z"
     },
     {
+     "va": "0x0058C210",
+     "length": 127,
+     "name": "?ACT5Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C290",
+     "length": 428
+    },
+    {
+     "va": "0x0058C440",
+     "length": 372,
+     "name": "?sub_0058C440@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x0058C5C0",
      "length": 270
+    },
+    {
+     "va": "0x0058C6D0",
+     "length": 124,
+     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C750",
+     "length": 33,
+     "name": "?ACT5Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058C780",
+     "length": 81,
+     "name": "?ACT5Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C7E0",
+     "length": 236,
+     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C8D0",
+     "length": 199,
+     "name": "?sub_0058C8D0_SpawnStatueMissile@@YGXPAUD2QuestArgStrc@@HPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0058C9A0",
+     "length": 498,
+     "name": "?ACT5Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058CD30",
+     "length": 111,
+     "name": "?ACT5Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0058CDA0",
+     "length": 131,
+     "name": "?ACT5Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058CE30",
+     "length": 205,
+     "name": "?ACT5Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x0058CF00",
@@ -64221,83 +64280,6 @@
      "va": "0x0058C0E0",
      "length": 297,
      "name": "?ACT5Q5_SpawnAncientMonsters@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q5_0058C210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058C210",
-     "length": 127,
-     "name": "?ACT5Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058C290",
-     "length": 428
-    },
-    {
-     "va": "0x0058C750",
-     "length": 33,
-     "name": "?ACT5Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0058C780",
-     "length": 81,
-     "name": "?ACT5Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058CD30",
-     "length": 111,
-     "name": "?ACT5Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0058CDA0",
-     "length": 131,
-     "name": "?ACT5Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0058CE30",
-     "length": 205,
-     "name": "?ACT5Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q5_0058C440.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058C440",
-     "length": 372,
-     "name": "?sub_0058C440@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q5_0058C6D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058C6D0",
-     "length": 124,
-     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058C7E0",
-     "length": 236,
-     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058C8D0",
-     "length": 199,
-     "name": "?sub_0058C8D0_SpawnStatueMissile@@YGXPAUD2QuestArgStrc@@HPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0058C9A0",
-     "length": 498,
-     "name": "?ACT5Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
