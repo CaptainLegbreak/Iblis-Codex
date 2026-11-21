@@ -65181,7 +65181,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a1q6_00593E70.cpp",
+   "file": "Source/D2Game/Quests/a1q6.cpp",
    "rank": 0,
    "functions": [
     {
@@ -65215,14 +65215,94 @@
      "name": "ACT1Q6_Callback00_NpcActivate"
     },
     {
+     "va": "0x00596010",
+     "length": 339,
+     "name": "?sub_00596010@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00596170",
+     "length": 68,
+     "name": "?ACT1Q6_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005961C0",
+     "length": 66,
+     "name": "?ACT1Q6_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00596210",
+     "length": 65,
+     "name": "?sub_00596210_SetPrimaryGoalDone@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@@Z"
+    },
+    {
+     "va": "0x00596260",
+     "length": 178,
+     "name": "?ACT1Q6_UnitIterate_SetRewardPending@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00596320",
+     "length": 177,
+     "name": "?ACT1Q6_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005963E0",
+     "length": 81,
+     "name": "?ACT1Q6_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00596440",
+     "length": 72,
+     "name": "?ACT1Q6_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x00596490",
      "length": 97,
      "name": "ACT1Q6_UnitIterate_CreatePortalToTown"
     },
     {
+     "va": "0x00596500",
+     "length": 116,
+     "name": "?ACT1Q6_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00596580",
+     "length": 31,
+     "name": "?ACT1Q6_Timer_StateDebug@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005965A0",
+     "length": 588,
+     "name": "?ACT1Q6_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x005967F0",
      "length": 205,
      "name": "ACT1Q6_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005968C0",
+     "length": 23,
+     "name": "?sub_005968C0_IsAndarielKilled@@YIHPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005968E0",
+     "length": 27,
+     "name": "?ACT1Q6_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00596900",
+     "length": 137,
+     "name": "?ACT1Q6_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00596990",
+     "length": 244,
+     "name": "?ACT1Q6_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00596BA0",
+     "length": 1,
+     "name": "?sub_00596BA0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x00597030",
@@ -65802,92 +65882,6 @@
      "va": "0x00595BD0",
      "length": 134,
      "name": "?ACT1Q6_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q6.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00596010",
-     "length": 339,
-     "name": "?sub_00596010@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00596170",
-     "length": 68,
-     "name": "?ACT1Q6_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005961C0",
-     "length": 66,
-     "name": "?ACT1Q6_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00596210",
-     "length": 65,
-     "name": "?sub_00596210_SetPrimaryGoalDone@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@@Z"
-    },
-    {
-     "va": "0x00596260",
-     "length": 178,
-     "name": "?ACT1Q6_UnitIterate_SetRewardPending@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00596320",
-     "length": 177,
-     "name": "?ACT1Q6_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005963E0",
-     "length": 81,
-     "name": "?ACT1Q6_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00596440",
-     "length": 72,
-     "name": "?ACT1Q6_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00596500",
-     "length": 116,
-     "name": "?ACT1Q6_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00596580",
-     "length": 31,
-     "name": "?ACT1Q6_Timer_StateDebug@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005965A0",
-     "length": 588,
-     "name": "?ACT1Q6_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005968C0",
-     "length": 23,
-     "name": "?sub_005968C0_IsAndarielKilled@@YIHPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005968E0",
-     "length": 27,
-     "name": "?ACT1Q6_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00596900",
-     "length": 137,
-     "name": "?ACT1Q6_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00596990",
-     "length": 244,
-     "name": "?ACT1Q6_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00596BA0",
-     "length": 1,
-     "name": "?sub_00596BA0_EmptyCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
