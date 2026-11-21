@@ -48934,6 +48934,10 @@
      "name": "ITEMS_HandleGoldTransaction"
     },
     {
+     "va": "0x0055B800",
+     "length": 1738
+    },
+    {
      "va": "0x0055BED0",
      "length": 84,
      "name": "sub_6FC42050"
@@ -48954,8 +48958,99 @@
      "name": "?sub_0055BFE0_ClearTargetingFlags@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0055BFF0",
+     "length": 122,
+     "name": "?sub_0055BFF0_GetBookSkillId@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0055C070",
+     "length": 147,
+     "name": "?sub_0055C070_AddBookScrollSkillQuantity@@YGXHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055C110",
+     "length": 350,
+     "name": "?sub_0055C110_UpdateBookScrollSkillQuantity@@YGHHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055C270",
+     "length": 65,
+     "name": "?sub_0055C270_OnItemToBelt@@YIXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055C2C0",
+     "length": 416
+    },
+    {
+     "va": "0x0055C460",
+     "length": 9,
+     "name": "?sub_0055C460_UpdateItemStatlist@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    },
+    {
+     "va": "0x0055C470",
+     "length": 89,
+     "name": "?sub_0055C470_GetWeapons@@YAXPAUD2UnitStrc@@PAPAU1@1@Z"
+    },
+    {
+     "va": "0x0055C4D0",
+     "length": 26,
+     "name": "?sub_0055C4D0_IsSkillUsable@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x0055C4F0",
+     "length": 108,
+     "name": "?sub_0055C4F0_RestoreSkill@@YAXPAUD2UnitStrc@@PAUD2SkillStrc@@H@Z"
+    },
+    {
+     "va": "0x0055C560",
+     "length": 85,
+     "name": "?sub_0055C560_IsThrowSkillUsable@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x0055C5C0",
+     "length": 278,
+     "name": "?sub_0055C5C0_RefreshSkillsForEquippedWeapons@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0055C6E0",
+     "length": 65,
+     "name": "?sub_0055C6E0_OnItemToCursor@@YIXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055C730",
+     "length": 279
+    },
+    {
+     "va": "0x0055C850",
+     "length": 327,
+     "name": "?sub_0055C850_PickupGold@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x0055C9A0",
+     "length": 82,
+     "name": "?sub_0055C9A0_DropBackToGround@@YGXHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055CA40",
+     "length": 579
+    },
+    {
+     "va": "0x0055CC90",
+     "length": 696,
+     "name": "?sub_6FC425F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x0055CF50",
      "length": 376
+    },
+    {
+     "va": "0x0055D0D0",
+     "length": 659
+    },
+    {
+     "va": "0x0055D370",
+     "length": 484,
+     "name": "?sub_0055D370_TryMergeBookQuantity@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x0055D560",
@@ -48968,6 +49063,11 @@
      "name": "?sub_6FC43280@@YAHPAUD2ItemModeArgStrc@@0@Z"
     },
     {
+     "va": "0x0055D710",
+     "length": 526,
+     "name": "?sub_6FC42F20@@YIHPAUD2UnitStrc@@0PAHH@Z"
+    },
+    {
      "va": "0x0055D920",
      "length": 1,
      "name": "?sub_0055D920_Nop@@YGXXZ"
@@ -48976,6 +49076,20 @@
      "va": "0x0055D940",
      "length": 41,
      "name": "?sub_0055D940_DetachItemAndUpdate@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x0055D970",
+     "length": 82
+    },
+    {
+     "va": "0x0055D9D0",
+     "length": 158,
+     "name": "?sub_0055D9D0_SaveEquipmentRefreshState@@YAXPAUD2UnitStrc@@PAUD2EquipmentRefreshStateStrc@@@Z"
+    },
+    {
+     "va": "0x0055DA70",
+     "length": 142,
+     "name": "?sub_0055DA70_RestoreSelectedSkills@@YAXPAUD2UnitStrc@@PAUD2EquipmentRefreshStateStrc@@@Z"
     },
     {
      "va": "0x0055DB00",
@@ -48988,6 +49102,10 @@
      "name": "?sub_0055DB80_GetClientFromUnitOrOwner@@YIPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0055DBC0",
+     "length": 824
+    },
+    {
      "va": "0x0055DF00",
      "length": 16,
      "name": "sub_0055DF00_RecalcItemStates"
@@ -48998,12 +49116,35 @@
      "name": "?D2GAME_RemoveItem_6FC471F0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
     },
     {
+     "va": "0x0055E000",
+     "length": 78,
+     "name": "?sub_0055E000_RemoveItemAndNotify@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x0055E050",
+     "length": 122,
+     "name": "?sub_0055E050_GetBookSkillIdChecked@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0055E0D0",
+     "length": 157
+    },
+    {
+     "va": "0x0055E170",
+     "length": 1056
+    },
+    {
      "va": "0x0055E590",
      "length": 557
     },
     {
      "va": "0x0055E7C0",
      "length": 286
+    },
+    {
+     "va": "0x0055E8E0",
+     "length": 186,
+     "name": "?sub_0055E8E0_InitItemDrop@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x0055EB30",
@@ -49020,6 +49161,11 @@
      "name": "D2GAME_RemoveItemIfOnCursor_6FC49760"
     },
     {
+     "va": "0x0055EF20",
+     "length": 506,
+     "name": "?ITEMMODE_AddScrollToBook@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHPAH@Z"
+    },
+    {
      "va": "0x0055F120",
      "length": 1,
      "name": "?sub_0055F120_Nop@@YAXXZ"
@@ -49028,6 +49174,11 @@
      "va": "0x0055F130",
      "length": 14,
      "name": "?sub_0055F130_UpdateStatListsExpiration@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0055F140",
+     "length": 252,
+     "name": "?D2GAME_DoKeyCheck_6FC4A4B0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0055F240",
@@ -49040,14 +49191,58 @@
      "name": "?sub_0055F2A0_GetItemFromOppositeBodyLoc@@YIPAUD2UnitStrc@@PAUD2InventoryStrc@@PAU1@H@Z"
     },
     {
+     "va": "0x0055F2D0",
+     "length": 533
+    },
+    {
+     "va": "0x0055F500",
+     "length": 135,
+     "name": "?sub_0055F500_RefreshItemStatLists@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0055F590",
      "length": 54,
      "name": "?sub_0055F590_CheckItem@@YIHPAUD2UnitStrc@@PBDH@Z"
     },
     {
+     "va": "0x0055F5D0",
+     "length": 107,
+     "name": "?sub_0055F5D0_HasSameAffixes@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055F640",
+     "length": 159,
+     "name": "?ITEMMODE_FindMatchingBookWithSpace@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAH@Z"
+    },
+    {
+     "va": "0x0055F6E0",
+     "length": 83,
+     "name": "?sub_0055F6E0_AddItemQuantity@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
+    },
+    {
+     "va": "0x0055F740",
+     "length": 260,
+     "name": "?sub_0055F740_AddScrollToMatchingBook@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1H@Z"
+    },
+    {
      "va": "0x0055F850",
      "length": 174,
      "name": "sub_6FC4B580"
+    },
+    {
+     "va": "0x0055F900",
+     "length": 181,
+     "name": "?sub_0055F900_EquipItemRefresh@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x0055F9C0",
+     "length": 126,
+     "name": "?ITEMMODE_ResetBookScrollSkillQuantity@@YIXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055FA40",
+     "length": 195,
+     "name": "?ITEMMODE_RebuildBookScrollSkillQuantities@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0055FB10",
@@ -49095,9 +49290,44 @@
      "name": "?sub_00560020_PickupStackable@@YAHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
+     "va": "0x005600A0",
+     "length": 350,
+     "name": "?sub_005600A0_PlaceItemInInventory@@YGHPAUD2GameStrc@@HHPBDHPAUD2UnitStrc@@2@Z"
+    },
+    {
+     "va": "0x00560200",
+     "length": 533
+    },
+    {
      "va": "0x00560420",
      "length": 652,
      "name": "?sub_6FC446B0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HPAHHHPAUD2InventoryStrc@@H@Z"
+    },
+    {
+     "va": "0x005606B0",
+     "length": 518,
+     "name": "?ITEMMODE_EquipCursorItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HEHPAH@Z"
+    },
+    {
+     "va": "0x005608C0",
+     "length": 1030
+    },
+    {
+     "va": "0x00560CD0",
+     "length": 546,
+     "name": "?ITEMMODE_UnequipBodyItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@EHPAH@Z"
+    },
+    {
+     "va": "0x00560F00",
+     "length": 799
+    },
+    {
+     "va": "0x00561220",
+     "length": 1144
+    },
+    {
+     "va": "0x005616A0",
+     "length": 1116
     },
     {
      "va": "0x00561B00",
@@ -49105,13 +49335,40 @@
      "name": "?sub_6FC46D40@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHHHPAH@Z"
     },
     {
+     "va": "0x00561E70",
+     "length": 89,
+     "name": "sub_00561E70_RemoveFromBelt"
+    },
+    {
+     "va": "0x00561ED0",
+     "length": 891
+    },
+    {
      "va": "0x00562250",
      "length": 310,
      "name": "sub_6FC48B40"
     },
     {
+     "va": "0x00562390",
+     "length": 512
+    },
+    {
+     "va": "0x00562590",
+     "length": 199,
+     "name": "?D2GAME_ITEMS_Identify_6FC49670@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x00562660",
      "length": 598
+    },
+    {
+     "va": "0x005628C0",
+     "length": 353
+    },
+    {
+     "va": "0x00562A30",
+     "length": 526,
+     "name": "?ITEMMODE_EquipStoredItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HE@Z"
     },
     {
      "va": "0x00562C40",
@@ -49124,8 +49381,50 @@
      "name": "?sub_6FC4A2E0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00562E00",
+     "length": 297
+    },
+    {
      "va": "0x00562F30",
      "length": 1050
+    },
+    {
+     "va": "0x00563350",
+     "length": 288,
+     "name": "?sub_6FC4B310@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11H@Z"
+    },
+    {
+     "va": "0x00563470",
+     "length": 231
+    },
+    {
+     "va": "0x00563560",
+     "length": 736,
+     "name": "?D2GAME_PickupItem_6FC43340@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HPAH@Z"
+    },
+    {
+     "va": "0x00563840",
+     "length": 952,
+     "name": "?sub_00563840_Contents@@YGXPAUGame@@PAUUnit@@1@Z"
+    },
+    {
+     "va": "0x00563C00",
+     "length": 274,
+     "name": "@sub_00563C00_Drop@12"
+    },
+    {
+     "va": "0x00563D20",
+     "length": 693
+    },
+    {
+     "va": "0x00563FE0",
+     "length": 480,
+     "name": "?D2GAME_Transmogrify_6FC4A660@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x00564CA0",
+     "length": 6,
+     "name": "_sub_00564CA0"
     },
     {
      "va": "0x00566CC0",
@@ -55969,49 +56268,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/ITEMS/Items_00556240.cpp",
-   "rank": 1,
+   "file": "Source/D2Game/ITEMS/Items.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x00556240",
      "length": 287
     },
-    {
-     "va": "0x005566B0",
-     "length": 942
-    },
-    {
-     "va": "0x00557AB0",
-     "length": 1071
-    },
-    {
-     "va": "0x00558610",
-     "length": 35
-    },
-    {
-     "va": "0x00559E30",
-     "length": 595
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00556360",
      "length": 106,
@@ -56038,6 +56301,10 @@
      "name": "?ITEMS_AssignDropMagicAffixes@@YGHPAUD2ItemDropStrc@@PAPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005566B0",
+     "length": 942
+    },
+    {
      "va": "0x00556A60",
      "length": 249,
      "name": "?ITEMS_AssignCharmAffixes@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
@@ -56045,7 +56312,7 @@
     {
      "va": "0x00556B60",
      "length": 308,
-     "name": "?ITEMS_RollDropSockets@@YGXPAUD2GameStrc@@PAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_RollDropSockets@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
     },
     {
      "va": "0x00556CA0",
@@ -56097,9 +56364,17 @@
      "name": "?sub_005573F0_ResetToRareQuality@@YAHPAUD2ItemDropStrc@@PAPAUD2UnitStrc@@PAI@Z"
     },
     {
+     "va": "0x00557450",
+     "length": 1553
+    },
+    {
      "va": "0x00557A70",
      "length": 51,
      "name": "?sub_00557A70_RollVarInvGfx@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00557AB0",
+     "length": 1071
     },
     {
      "va": "0x00557EE0",
@@ -56142,9 +56417,38 @@
      "name": "?ITEMS_GetItemLevelForNewItem@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00558270",
+     "length": 470,
+     "name": "ITEMS_FillItemDrop"
+    },
+    {
+     "va": "0x00558450",
+     "length": 106,
+     "name": "?ITEMS_GetHealthPotionDropCode@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005584C0",
+     "length": 106,
+     "name": "?ITEMS_GetManaPotionDropCode@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00558530",
+     "length": 77,
+     "name": "?ITEMS_ScheduleDurabilityReplenishment@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00558580",
+     "length": 77,
+     "name": "?ITEMS_ScheduleQuantityReplenishment@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005585D0",
      "length": 52,
      "name": "?sub_005585D0_GetMagicFindBonus@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00558610",
+     "length": 35
     },
     {
      "va": "0x00558640",
@@ -56157,14 +56461,39 @@
      "name": "?sub_00558990_Nop@@YAXXZ"
     },
     {
+     "va": "0x005589A0",
+     "length": 105,
+     "name": "?sub_005589A0_ApplyGoldFind@@YAXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00558A10",
+     "length": 134,
+     "name": "?ITEMS_GetGroundRemovalTime@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00558B40",
      "length": 79,
      "name": "?sub_00558B40_RemoveItemFromGame@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00558B90",
+     "length": 180,
+     "name": "ITEMS_DeleteInactiveItems"
+    },
+    {
+     "va": "0x00558C50",
+     "length": 84,
+     "name": "?ITEMS_DestroyRunewordStatList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00558CB0",
      "length": 224,
      "name": "?ITEMS_CreateItemFromBitstream@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAEIHPAUD2ItemSaveStrc@@PAII@Z"
+    },
+    {
+     "va": "0x00558D90",
+     "length": 928,
+     "name": "?D2GAME_CreateItemEx_6FC4ED80@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ItemDropStrc@@H@Z"
     },
     {
      "va": "0x00559130",
@@ -56191,9 +56520,27 @@
      "name": "?sub_6FC4FCA0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2CoordStrc@@HHPAU1@@Z"
     },
     {
+     "va": "0x00559A30",
+     "length": 682,
+     "name": "?D2GAME_DropItemAtUnit_6FC4FEC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@HPAHPAUD2ItemDropStrc@@HH@Z"
+    },
+    {
+     "va": "0x00559E30",
+     "length": 595
+    },
+    {
      "va": "0x0055A200",
      "length": 146,
      "name": "ITEMS_DropPlayerEar"
+    },
+    {
+     "va": "0x0055A2A0",
+     "length": 685
+    },
+    {
+     "va": "0x0055A550",
+     "length": 374,
+     "name": "?sub_0055A550_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
     },
     {
      "va": "0x0055E9B0",
@@ -56218,30 +56565,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/ITEMS/Items_00557450.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00557450",
-     "length": 1553
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/ITEMS/Items_00558110.cpp",
    "rank": 0,
    "functions": [
@@ -56258,88 +56581,6 @@
      "va": "0x0055A090",
      "length": 359,
      "name": "?sub_0055A090_DropGoldPiles@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@IPAPAU2@PAHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_00558270.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00558270",
-     "length": 470,
-     "name": "ITEMS_FillItemDrop"
-    },
-    {
-     "va": "0x00558450",
-     "length": 106,
-     "name": "?ITEMS_GetHealthPotionDropCode@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005584C0",
-     "length": 106,
-     "name": "?ITEMS_GetManaPotionDropCode@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00558530",
-     "length": 77,
-     "name": "?ITEMS_ScheduleDurabilityReplenishment@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00558580",
-     "length": 77,
-     "name": "?ITEMS_ScheduleQuantityReplenishment@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00558B90",
-     "length": 180,
-     "name": "ITEMS_DeleteInactiveItems"
-    },
-    {
-     "va": "0x00558C50",
-     "length": 84,
-     "name": "?ITEMS_DestroyRunewordStatList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00559A30",
-     "length": 682,
-     "name": "?D2GAME_DropItemAtUnit_6FC4FEC0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@HPAHPAUD2ItemDropStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_005589A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005589A0",
-     "length": 105,
-     "name": "?sub_005589A0_ApplyGoldFind@@YAXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00558A10",
-     "length": 134,
-     "name": "?ITEMS_GetGroundRemovalTime@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0055A2A0",
-     "length": 685
-    },
-    {
-     "va": "0x0055A550",
-     "length": 374,
-     "name": "?sub_0055A550_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_00558D90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00558D90",
-     "length": 928,
-     "name": "?D2GAME_CreateItemEx_6FC4ED80@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ItemDropStrc@@H@Z"
     }
    ]
   },
@@ -56418,436 +56659,6 @@
      "length": 22,
      "name": "@sub_0055B7E0@4"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055B800.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0055B800",
-     "length": 1738
-    },
-    {
-     "va": "0x0055C2C0",
-     "length": 416
-    },
-    {
-     "va": "0x0055C730",
-     "length": 279
-    },
-    {
-     "va": "0x0055CA40",
-     "length": 579
-    },
-    {
-     "va": "0x0055D0D0",
-     "length": 659
-    },
-    {
-     "va": "0x0055D970",
-     "length": 82
-    },
-    {
-     "va": "0x0055E170",
-     "length": 1056
-    },
-    {
-     "va": "0x0055F2D0",
-     "length": 533
-    },
-    {
-     "va": "0x00560200",
-     "length": 533
-    },
-    {
-     "va": "0x00560F00",
-     "length": 799
-    },
-    {
-     "va": "0x00561220",
-     "length": 1144
-    },
-    {
-     "va": "0x005616A0",
-     "length": 1116
-    },
-    {
-     "va": "0x00561ED0",
-     "length": 891
-    },
-    {
-     "va": "0x005628C0",
-     "length": 353
-    },
-    {
-     "va": "0x00563470",
-     "length": 231
-    },
-    {
-     "va": "0x00563D20",
-     "length": 693
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055BFF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0055BFF0",
-     "length": 122,
-     "name": "?sub_0055BFF0_GetBookSkillId@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0055C070",
-     "length": 147,
-     "name": "?sub_0055C070_AddBookScrollSkillQuantity@@YGXHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0055C270",
-     "length": 65,
-     "name": "?sub_0055C270_OnItemToBelt@@YIXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0055C460",
-     "length": 9,
-     "name": "?sub_0055C460_UpdateItemStatlist@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
-    },
-    {
-     "va": "0x0055C470",
-     "length": 89,
-     "name": "?sub_0055C470_GetWeapons@@YAXPAUD2UnitStrc@@PAPAU1@1@Z"
-    },
-    {
-     "va": "0x0055C4D0",
-     "length": 26,
-     "name": "?sub_0055C4D0_IsSkillUsable@@YAHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x0055C4F0",
-     "length": 108,
-     "name": "?sub_0055C4F0_RestoreSkill@@YAXPAUD2UnitStrc@@PAUD2SkillStrc@@H@Z"
-    },
-    {
-     "va": "0x0055C560",
-     "length": 85,
-     "name": "?sub_0055C560_IsThrowSkillUsable@@YGHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x0055C5C0",
-     "length": 278,
-     "name": "?sub_0055C5C0_RefreshSkillsForEquippedWeapons@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0055C6E0",
-     "length": 65,
-     "name": "?sub_0055C6E0_OnItemToCursor@@YIXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0055CC90",
-     "length": 696,
-     "name": "?sub_6FC425F0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0055D370",
-     "length": 484,
-     "name": "?sub_0055D370_TryMergeBookQuantity@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0055D9D0",
-     "length": 158,
-     "name": "?sub_0055D9D0_SaveEquipmentRefreshState@@YAXPAUD2UnitStrc@@PAUD2EquipmentRefreshStateStrc@@@Z"
-    },
-    {
-     "va": "0x0055DA70",
-     "length": 142,
-     "name": "?sub_0055DA70_RestoreSelectedSkills@@YAXPAUD2UnitStrc@@PAUD2EquipmentRefreshStateStrc@@@Z"
-    },
-    {
-     "va": "0x0055E000",
-     "length": 78,
-     "name": "?sub_0055E000_RemoveItemAndNotify@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0055E050",
-     "length": 122,
-     "name": "?sub_0055E050_GetBookSkillIdChecked@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0055E8E0",
-     "length": 186,
-     "name": "?sub_0055E8E0_InitItemDrop@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x0055F500",
-     "length": 135,
-     "name": "?sub_0055F500_RefreshItemStatLists@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0055F5D0",
-     "length": 107,
-     "name": "?sub_0055F5D0_HasSameAffixes@@YGHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0055F6E0",
-     "length": 83,
-     "name": "?sub_0055F6E0_AddItemQuantity@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1H@Z"
-    },
-    {
-     "va": "0x0055F740",
-     "length": 260,
-     "name": "?sub_0055F740_AddScrollToMatchingBook@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1H@Z"
-    },
-    {
-     "va": "0x0055F900",
-     "length": 181,
-     "name": "?sub_0055F900_EquipItemRefresh@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0055F9C0",
-     "length": 126,
-     "name": "?ITEMMODE_ResetBookScrollSkillQuantity@@YIXPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0055FA40",
-     "length": 195,
-     "name": "?ITEMMODE_RebuildBookScrollSkillQuantities@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005600A0",
-     "length": 350,
-     "name": "?sub_005600A0_PlaceItemInInventory@@YGHPAUD2GameStrc@@HHPBDHPAUD2UnitStrc@@2@Z"
-    },
-    {
-     "va": "0x005606B0",
-     "length": 518,
-     "name": "?ITEMMODE_EquipCursorItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HEHPAH@Z"
-    },
-    {
-     "va": "0x00560CD0",
-     "length": 546,
-     "name": "?ITEMMODE_UnequipBodyItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@EHPAH@Z"
-    },
-    {
-     "va": "0x00561E70",
-     "length": 89,
-     "name": "sub_00561E70_RemoveFromBelt"
-    },
-    {
-     "va": "0x00562590",
-     "length": 199,
-     "name": "?D2GAME_ITEMS_Identify_6FC49670@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x00563350",
-     "length": 288,
-     "name": "?sub_6FC4B310@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@11H@Z"
-    },
-    {
-     "va": "0x00564CA0",
-     "length": 6,
-     "name": "_sub_00564CA0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055C110.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0055C110",
-     "length": 350,
-     "name": "?sub_0055C110_UpdateBookScrollSkillQuantity@@YGHHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x0055C850",
-     "length": 327,
-     "name": "?sub_0055C850_PickupGold@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x0055C9A0",
-     "length": 82,
-     "name": "?sub_0055C9A0_DropBackToGround@@YGXHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00563560",
-     "length": 736,
-     "name": "?D2GAME_PickupItem_6FC43340@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HPAH@Z"
-    },
-    {
-     "va": "0x00563840",
-     "length": 952,
-     "name": "?sub_00563840_Contents@@YGXPAUGame@@PAUUnit@@1@Z"
-    },
-    {
-     "va": "0x00563C00",
-     "length": 274,
-     "name": "@sub_00563C00_Drop@12"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055D710.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0055D710",
-     "length": 526,
-     "name": "?sub_6FC42F20@@YIHPAUD2UnitStrc@@0PAHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055DBC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0055DBC0",
-     "length": 824
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055E0D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0055E0D0",
-     "length": 157
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055EF20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0055EF20",
-     "length": 506,
-     "name": "?ITEMMODE_AddScrollToBook@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHPAH@Z"
-    },
-    {
-     "va": "0x00562A30",
-     "length": 526,
-     "name": "?ITEMMODE_EquipStoredItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HE@Z"
-    },
-    {
-     "va": "0x00563FE0",
-     "length": 480,
-     "name": "?D2GAME_Transmogrify_6FC4A660@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_0055F140.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0055F140",
-     "length": 252,
-     "name": "?D2GAME_DoKeyCheck_6FC4A4B0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0055F640",
-     "length": 159,
-     "name": "?ITEMMODE_FindMatchingBookWithSpace@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAH@Z"
-    },
-    {
-     "va": "0x005608C0",
-     "length": 1030
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_00562390.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00562390",
-     "length": 512
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/ItemMode_00562E00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00562E00",
-     "length": 297
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -60154,7 +59965,7 @@
     {
      "va": "0x00581B50",
      "length": 152,
-     "name": "?sub_00581B50_TeleportToUnit@@YAXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@0@Z"
+     "name": "?sub_00581B50_TeleportToUnit@@YAXPAUD2UnitStrc@@0PAUD2ActiveRoomStrc@@@Z"
     },
     {
      "va": "0x00581BF0",
@@ -64859,7 +64670,7 @@
     {
      "va": "0x005ADBB0",
      "length": 272,
-     "name": "?sub_005ADBB0_sub_005ADCC0@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?sub_005ADBB0_MISSMODE_SrvDo@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005ADCC0",
@@ -65523,7 +65334,7 @@
     {
      "va": "0x005A6380",
      "length": 102,
-     "name": "?sub_005A6380_SetVelocityPercent@@YAXPAUD2MonVelocityParamStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?sub_005A6380_SetVelocityPercent@@YAXPAUD2UnitStrc@@PAUD2MonVelocityParamStrc@@@Z"
     },
     {
      "va": "0x005A63F0",
