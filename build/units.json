@@ -704,16 +704,6 @@
      "name": "sub_00409810_PoolFreeLarge"
     },
     {
-     "va": "0x0040A620",
-     "length": 450,
-     "name": "FOG_AsyncDataLoadFileEx"
-    },
-    {
-     "va": "0x0040AA80",
-     "length": 115,
-     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
-    },
-    {
      "va": "0x0040B1B0",
      "length": 167,
      "name": "sub_0040B1B0"
@@ -3028,6 +3018,11 @@
      "name": "?sub_0040A550_AsyncDataGetEventSlot@@YAPAUAsyncDataEventSlot@@XZ"
     },
     {
+     "va": "0x0040A620",
+     "length": 450,
+     "name": "FOG_AsyncDataLoadFileEx"
+    },
+    {
      "va": "0x0040A7F0",
      "length": 95,
      "name": "?FOG_AsyncDataTestLoaded@@YIHPAUAsyncData@@@Z"
@@ -3056,6 +3051,11 @@
      "va": "0x0040AA40",
      "length": 59,
      "name": "?FOG_AsyncDataGetBufferSize@@YIIPAUAsyncData@@@Z"
+    },
+    {
+     "va": "0x0040AA80",
+     "length": 115,
+     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
     },
     {
      "va": "0x0040AB00",
@@ -3210,11 +3210,6 @@
      "length": 664
     },
     {
-     "va": "0x0040DBD0",
-     "length": 144,
-     "name": "?FOG_SOCKET_Destroy@@YIXPAUFSafeSock@@@Z"
-    },
-    {
      "va": "0x0040E080",
      "length": 36,
      "name": "?sub_0040E080_AddressToString@@YIPADH@Z"
@@ -3286,6 +3281,11 @@
      "va": "0x0040D8E0",
      "length": 747,
      "name": "?FOG_SOCKET_ConnectEx@@YIPAUFSafeSock@@PADHP6GKPAX@Z1PBDH@Z"
+    },
+    {
+     "va": "0x0040DBD0",
+     "length": 144,
+     "name": "?FOG_SOCKET_Destroy@@YIXPAUFSafeSock@@@Z"
     }
    ]
   },
