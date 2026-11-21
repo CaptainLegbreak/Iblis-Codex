@@ -20,57 +20,9 @@ struct D2QConn006C23B0Strc;
 struct D2SockAddrInStrc;
 
 
-struct T006BE350;
 
 
 struct D2QServerReqStrc;
-
-#pragma pack(push, 4)
-
-struct D2QAcceptStatsStrc
-{
-    __int64 tTotal;
-    __int64 aStages[9];
-    __int64 aTimes[9];
-    int f_48;
-    int nAcceptErrors;
-    int nRejected;
-    int nPostErrors;
-    int nAccepted;
-    char unk_AC[0xB0 - 0xAC];
-};
-
-#pragma pack(pop)
-
-typedef void (__fastcall* D2QAcceptCallback)(T006BE350* pServer, unsigned int nId, const char* szFile, int nLine);
-
-struct T006BE350
-{
-    char unk_000[0x854];
-    D2CriticalSectionStrc tLock;
-    char unk_86C[0x8B4 - 0x86C];
-    D2CriticalSectionStrc tStatsLock;
-    D2QAcceptStatsStrc aStats[3];
-    char unk_ADC[0xB8C - 0xADC];
-    int nListeners;
-    unsigned int hListenSockets[4];
-    unsigned short aPorts[4];
-    int aActive[4];
-    char unk_BB8[0xBC4 - 0xBB8];
-    D2QAcceptCallback pfnOnAccept;
-    char unk_BC8[0xBD8 - 0xBC8];
-    void* hAcceptThreads[4];
-    unsigned long aThreadIds[4];
-    int bStopAccept[4];
-    void* hPorts[4];
-    int bSecondWorker;
-    void* aThreads2[4];
-    unsigned long aThreadIds2[4];
-    int bStopAccept2[4];
-
-    int __thiscall sub_006BE980_Refresh(unsigned int nKey);                                                 // 0x006BE980
-    int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress);                                        // 0x006BF660
-};
 
 extern "C" __declspec(dllimport) int __stdcall GetQueuedCompletionStatus(void* hPort, unsigned long* pBytes, unsigned long* pKey, D2QOverlappedStrc** ppOverlapped, unsigned long nTimeout);
 
@@ -98,9 +50,9 @@ void __cdecl sub_006BE2F0_Nop(const char* szText, const char* szFormat, ...); //
 
 void __cdecl sub_006BE300_Log(const char* szTag, const char* szFormat, ...); // 0x006BE300
 
-D2QClientStrc* __fastcall sub_006BE540_Find(T006BE350* pServer, unsigned int nKey); // 0x006BE540
+D2QClientStrc* __fastcall sub_006BE540_Find(D2QueueServerStrc* pServer, unsigned int nKey); // 0x006BE540
 
-long __fastcall sub_006BE640_AddReference(T006BE350* pServer, D2QClientStrc* pClient); // 0x006BE640
+long __fastcall sub_006BE640_AddReference(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006BE640
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64* pCounter);
 
@@ -118,17 +70,17 @@ int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
 void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* szFormat, ...); // 0x00410660
 
-int __fastcall sub_006BE9F0_CheckRecordThreshold(T006BE350* pServer, const unsigned long* pAddress); // 0x006BE9F0
+int __fastcall sub_006BE9F0_CheckRecordThreshold(D2QueueServerStrc* pServer, const unsigned long* pAddress); // 0x006BE9F0
 
-int __fastcall sub_006C0800_BanByAddress(T006BE350* pServer, unsigned long* pAddress, const char* szFile, int nLine); // 0x006C0800
+int __fastcall sub_006C0800_BanByAddress(D2QueueServerStrc* pServer, unsigned long* pAddress, const char* szFile, int nLine); // 0x006C0800
 
-void __fastcall sub_006BFEA0_RecordAddress(T006BE350* pServer, const char* szFile, unsigned int nAddress, int nLine); // 0x006BFEA0
+void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* pServer, const char* szFile, unsigned int nAddress, int nLine); // 0x006BFEA0
 
-D2QClientStrc* __fastcall QSrvAddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
+D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 
 extern "C" const char gszHack_006FC4A8[]; // 0x006FC4A8
 
-static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient);
+static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* pClient);
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
@@ -161,7 +113,7 @@ void __fastcall sub_006C2D70(D2QueueServerStrc* pServer, int nSlot, int nWait); 
 
 extern const char gszQServerFile[]; // 0x006FC8A0
 
-static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr);
+static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServerStrc* pServer, D2SockAddrInStrc* pAddr);
 
 struct T006BFAD0
 {
@@ -180,9 +132,9 @@ struct T006BFAD0
 
 long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 
-long __fastcall sub_006BE640_AddReference(T006BE350* pServer, T006BFAD0* pClient);                         // 0x006BE640
+long __fastcall sub_006BE640_AddReference(D2QueueServerStrc* pServer, T006BFAD0* pClient);                         // 0x006BE640
 
-static int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* pClient);
+static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, T006BFAD0* pClient);
 
 struct D2HashNode006BE540Strc;
 
@@ -216,7 +168,7 @@ extern "C" const char gszSpamming_006FC900[]; // 0x006FC900
 
 struct D2QThreadArgStrc
 {
-    T006BE350* pServer;
+    D2QueueServerStrc* pServer;
     int nSlot;
 };
 
@@ -253,7 +205,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes,
 
 struct D2QWorkerArgStrc
 {
-    T006BE350* pServer;
+    D2QueueServerStrc* pServer;
     int nSlot;
 };
 
@@ -276,7 +228,7 @@ unsigned long __stdcall sub_006C2860_WorkerThread(void* pArg);                  
 unsigned long __stdcall sub_006C3030_WorkerThread2(void* pArg);                                             // 0x006C3030
 
 // 0x006C2280
-static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* ptClient)
+static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptClient)
 {
     D2CriticalSectionStrc* pLock = &ptClient->tLock;
     EnterCriticalSection(pLock);
@@ -318,7 +270,7 @@ static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* ptClient)
     return bOk;
 }
 
-unsigned int __fastcall sub_Emit_006C2420(T006BE350* pServer, int nSlot)
+unsigned int __fastcall sub_Emit_006C2420(D2QueueServerStrc* pServer, int nSlot)
 {
     D2SockAddrInStrc tAddr;
     int nAddrLen;
@@ -346,7 +298,7 @@ static void __stdcall sub_006C23B0_QueueMessage(D2QConn006C23B0Strc* pConn, cons
 }
 
 // 0x006C2420
-static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr)
+static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServerStrc* pServer, D2SockAddrInStrc* pAddr)
 {
     memset(&pServer->aStats[nSlot].aTimes[0], 0, sizeof(pServer->aStats[nSlot].aTimes));
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[0]);
@@ -435,7 +387,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* p
 }
 
 // 0x006C2760
-static int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* ptClient)
+static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, T006BFAD0* ptClient)
 {
     if (!ptClient->f_74)
     {
@@ -463,7 +415,7 @@ static int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* ptClient)
     return 1;
 }
 
-int __fastcall sub_006C2C70_SendLocal(T006BE350 * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize);
+int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize);
 
 // 0x006C2810
 static int sub_006C2810_PopWrite(D2QClientStrc* pClient)
@@ -479,7 +431,7 @@ static int sub_006C2810_PopWrite(D2QClientStrc* pClient)
     return 1;
 }
 
-void __fastcall sub_Emit_006C2810(T006BE350* pServer, D2QClientStrc* pClient)
+void __fastcall sub_Emit_006C2810(D2QueueServerStrc* pServer, D2QClientStrc* pClient)
 {
     sub_006C2810_PopWrite(pClient);
     EnterCriticalSection(&pClient->tLock);
@@ -490,7 +442,7 @@ void __fastcall sub_Emit_006C2810(T006BE350* pServer, D2QClientStrc* pClient)
 // 0x006C2860
 unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
 {
-    T006BE350* pServer = pArg->pServer;
+    D2QueueServerStrc* pServer = pArg->pServer;
     int nSlot = pArg->nSlot;
     FOG_Free(pArg, gszQServerNTFile_006FC8A0, 0x10D, 0);
 
@@ -580,7 +532,7 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
 }
 
 // 0x006C2C70
-int __fastcall sub_006C2C70_SendLocal(T006BE350 * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize) {
+int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize) {
     int nWsaError;
     D2CriticalSectionStrc* lpCriticalSection = &pQServerClient->f_2C;
       EnterCriticalSection(lpCriticalSection);
@@ -628,7 +580,7 @@ void __stdcall shim_11(D2QConn006C23B0Strc* pConn, unsigned int nSize, const voi
 }
 
 // 0x006C2D70
-int __fastcall sub_006C2D70_ServiceSlot(T006BE350* pServer, int nSlot, unsigned long nTimeout)
+int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, unsigned long nTimeout)
 {
     unsigned long nBytes;
     unsigned long nKey;
@@ -753,7 +705,7 @@ int __stdcall sub_006C3030_ReleaseSlot(D2QServerReqStrc* pReq)
 }
 
 // 0x006C3120
-unsigned int __fastcall sub_006C3120_Start(T006BE350* pServer, int nPort)
+unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort)
 {
     void* hPort = CreateIoCompletionPort((unsigned int)-1, 0, 0, 0);
     D2_ASSERT(hPort, 0x4E);
@@ -837,7 +789,7 @@ extern "C" __declspec(dllimport) unsigned int __stdcall WaitForMultipleObjects(u
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
 
 // 0x006C2110
-void __fastcall sub_006C2110_StopServerThreads(T006BE350* server)
+void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* server)
 {
  void* handles[8];
  EnterCriticalSection(&server->tLock);
@@ -846,7 +798,7 @@ void __fastcall sub_006C2110_StopServerThreads(T006BE350* server)
   if(server->hAcceptThreads[i]) handles[count++]=server->hAcceptThreads[i];
   server->bStopAccept[i]=1;
   if(server->bSecondWorker && server->aThreads2[i]) handles[count++]=server->aThreads2[i];
-  server->bStopAccept2[i]=1;
+  server->nSlots[i]=1;
  }
  LeaveCriticalSection(&server->tLock);
  if(count>0) WaitForMultipleObjects(count,handles,1,1000);
