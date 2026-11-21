@@ -25236,6 +25236,65 @@
      "name": "sub_004824A0_FreeCacheEntries"
     },
     {
+     "va": "0x00482C20",
+     "length": 74,
+     "name": "?sub_00482C20_Tick@@YAXXZ"
+    },
+    {
+     "va": "0x00482C70",
+     "length": 43
+    },
+    {
+     "va": "0x00483310",
+     "length": 37,
+     "name": "?sub_00483310_ResetCinematicFlags@@YAXXZ"
+    },
+    {
+     "va": "0x00483350",
+     "length": 6,
+     "name": "?sub_00483350_IsCinematicBusy@@YAEXZ"
+    },
+    {
+     "va": "0x004834A0",
+     "length": 58,
+     "name": "?sub_004834A0_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
+    },
+    {
+     "va": "0x00483AE0",
+     "length": 41,
+     "name": "?sub_00483AE0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483B10",
+     "length": 41,
+     "name": "?sub_00483B10_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483B40",
+     "length": 82,
+     "name": "?sub_00483B40_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483BA0",
+     "length": 74,
+     "name": "?sub_00483BA0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483BF0",
+     "length": 41,
+     "name": "?sub_00483BF0_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483C20",
+     "length": 37,
+     "name": "?sub_00483C20_IsInRect@@YAHHH@Z"
+    },
+    {
+     "va": "0x00483E10",
+     "length": 38,
+     "name": "?sub_00483E10_IsNpcStateIdle@@YAHXZ"
+    },
+    {
      "va": "0x00487A10",
      "length": 288,
      "name": "sub_00487A10_SelectItemPageTab"
@@ -25496,71 +25555,6 @@
      "va": "0x00481920",
      "length": 33,
      "name": "?sub_00481920_GetSoundEnvironTxtRecord@@YIPAUD2SoundEnvironTxt@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00482C20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00482C20",
-     "length": 74,
-     "name": "?sub_00482C20_Tick@@YAXXZ"
-    },
-    {
-     "va": "0x00482C70",
-     "length": 43
-    },
-    {
-     "va": "0x00483310",
-     "length": 37,
-     "name": "?sub_00483310_ResetCinematicFlags@@YAXXZ"
-    },
-    {
-     "va": "0x00483350",
-     "length": 6,
-     "name": "?sub_00483350_IsCinematicBusy@@YAEXZ"
-    },
-    {
-     "va": "0x004834A0",
-     "length": 58,
-     "name": "?sub_004834A0_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
-    },
-    {
-     "va": "0x00483AE0",
-     "length": 41,
-     "name": "?sub_00483AE0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483B10",
-     "length": 41,
-     "name": "?sub_00483B10_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483B40",
-     "length": 82,
-     "name": "?sub_00483B40_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483BA0",
-     "length": 74,
-     "name": "?sub_00483BA0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483BF0",
-     "length": 41,
-     "name": "?sub_00483BF0_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483C20",
-     "length": 37,
-     "name": "?sub_00483C20_IsInRect@@YAHHH@Z"
-    },
-    {
-     "va": "0x00483E10",
-     "length": 38,
-     "name": "?sub_00483E10_IsNpcStateIdle@@YAHXZ"
     }
    ]
   },
