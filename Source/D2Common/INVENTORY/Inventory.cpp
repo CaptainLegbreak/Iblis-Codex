@@ -430,17 +430,29 @@ BOOL __stdcall INVENTORY_PlaceItemInFreeBeltSlot(D2InventoryStrc* pInventory, D2
 
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
-static void __cdecl sub_0063D690_CopySix(AppearanceSix* output, Unit* item);
+static void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output);
 
 #define ITEMTYPE_MISSILE_POTION 0x26
 
 BOOL __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nUnused);
 
-static D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, int nInventoryGrid, D2InventoryGridInfoStrc* pInventoryGridInfo);
-
 BOOL __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, BOOL bUnused, unsigned char nPage, const char* szFile, int nLine);
 
 static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* item, Unit* unit);
+
+
+inline void INVENTORY_SetLeftItemGUIDInline(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet);
+
+void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8* secondOutput);
+
+static BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
+
+static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
+
+
+static s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first);
+
+static void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item);
 
 // 0x0063A110
 int __fastcall STATES_GetNumberOfStateFlags()
@@ -1254,17 +1266,17 @@ static BOOL __stdcall INVENTORY_CanItemBePlacedAtPos(D2InventoryGridStrc* pInven
     return sub_0063A8A0_CheckGridCellsFree(pInventoryGrid, nX, nY, nItemWidth, nItemHeight);
 }
 
-// build: context INVENTORY_GetPlacementWeight
+// 0x0063B340
 static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight(D2InventoryGridStrc* pInventoryGrid, int nXPos, int nYPos, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     int nResult = 0;
 
     if (nXPos > 0)
     {
-        const int nLeftX = nXPos - 1;
+        const int nLeft = nXPos - 1;
         for (int y = nYPos; y < nYPos + nItemHeight; ++y)
         {
-            if (pInventoryGrid->ppItems[nLeftX + y * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[nLeft + y * pInventoryGrid->nGridWidth])
             {
                 ++nResult;
             }
@@ -1275,12 +1287,12 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
         nResult = nItemHeight;
     }
 
-    const int nRightX = nXPos + nItemWidth;
-    if (nRightX < pInventoryGrid->nGridWidth)
+    const int nRight = nXPos + nItemWidth;
+    if (nRight < pInventoryGrid->nGridWidth)
     {
         for (int y = nYPos; y < nYPos + nItemHeight; ++y)
         {
-            if (pInventoryGrid->ppItems[nRightX + y * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[y * pInventoryGrid->nGridWidth + nRight])
             {
                 ++nResult;
             }
@@ -1293,9 +1305,10 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
 
     if (nYPos > 0)
     {
-        for (int x = nXPos; x < nRightX; ++x)
+        const int nTop = nYPos - 1;
+        for (int x = nXPos; x < nRight; ++x)
         {
-            if (pInventoryGrid->ppItems[x + (nYPos - 1) * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[nTop * pInventoryGrid->nGridWidth + x])
             {
                 ++nResult;
             }
@@ -1306,11 +1319,12 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
         nResult += nItemWidth;
     }
 
-    if (nYPos + nItemHeight < pInventoryGrid->nGridHeight)
+    const int nBottom = nYPos + nItemHeight;
+    if (nBottom < pInventoryGrid->nGridHeight)
     {
-        for (int x = nXPos; x < nRightX; ++x)
+        for (int x = nXPos; x < nRight; ++x)
         {
-            if (pInventoryGrid->ppItems[x + (nYPos + nItemHeight) * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[nBottom * pInventoryGrid->nGridWidth + x])
             {
                 ++nResult;
             }
@@ -1321,7 +1335,7 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
         nResult += nItemWidth;
     }
 
-    if (nResult >= 2 * (nItemHeight + nItemWidth))
+    if (nResult >= 2 * (nItemWidth + nItemHeight))
     {
         nResult = 255;
     }
@@ -2992,8 +3006,6 @@ void __fastcall sub_0063D190_SetLeftItemGUID(D2InventoryStrc* pInventory, D2Unit
     }
 }
 
-inline void INVENTORY_SetLeftItemGUIDInline(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet);
-
 // 0x0063D1D0
 void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
 {
@@ -3369,7 +3381,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063D670(Obj0063D670
 }
 
 // 0x0063D690
-static __declspec(noinline) void __cdecl sub_0063D690_CopySix(AppearanceSix* output, Unit* item)
+static __declspec(noinline) void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output)
 {
     if (item)
     {
@@ -3385,87 +3397,6 @@ static __declspec(noinline) void __cdecl sub_0063D690_CopySix(AppearanceSix* out
     else
     {
         memset(output, 0, sizeof(AppearanceSix));
-    }
-}
-
-void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8* secondOutput)
-{
-    Inventory* inventory = FIELD(Inventory*, unit, 0x60);
-    if (inventory && FIELD(u32, inventory, 0) == 0x01020304)
-    {
-        Unit* item = FIELD(Unit*, inventory, 0x0C);
-        while (item)
-        {
-            if (FIELD(u32, item, 0) == 4 && FIELD(s32, item, 0x10) == 1)
-            {
-                ItemRecord* record = sub_006335F0_ItemRecord(FIELD(s32, item, 4));
-                D2_ASSERT(record, 0x1446);
-                const u8 page = sub_00627D40_Page(item);
-                if (page != 1 && page != 4 && page != 5)
-                {
-                    if (page == 3)
-                    {
-                        AppearanceSix appearance;
-                        sub_0063D690_CopySix(&appearance, item);
-                        for (u32 slot = 0; slot < 0x10; ++slot)
-                        {
-                            if (COMPOSIT_IsArmorComponent(slot))
-                            {
-                                AppearanceRecord* appearanceRecord = sub_0065B620_AppearanceRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
-                                if (sub_00451F60_ClassId(item) > 0)
-                                {
-                                    const u32 appearanceCode = FIELD(u32, appearanceRecord, 0x20);
-                                    const s32 code = sub_0063D900_FindCode(appearanceCode, appearanceCode);
-                                    if (code)
-                                    {
-                                        if (slot < 0x10)
-                                        {
-                                            firstOutput[slot] = (u8)code;
-                                            if (!sub_0062C100_Transform(unit, item, &secondOutput[slot], 0))
-                                            {
-                                                secondOutput[slot] = 0xFF;
-                                            }
-                                            else
-                                            {
-                                                ++secondOutput[slot];
-                                            }
-                                        }
-                                        continue;
-                                    }
-                                }
-                                if (slot < 0x10)
-                                {
-                                    firstOutput[slot] = 0xFF;
-                                    secondOutput[slot] = 0xFF;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (!ITEMS_CheckType(FIELD(short, record, 0x11E), 0x4B))
-                    {
-                        sub_0063DA70_ItemSlots(unit, firstOutput, secondOutput, item);
-                    }
-                }
-            }
-            if (FIELD(u32, item, 0) != 4)
-            {
-                break;
-            }
-            ItemData* data = FIELD(ItemData*, item, 0x14);
-            if (!data)
-            {
-                break;
-            }
-            ItemLink* link = (ItemLink*)((u8*)data + 0x5C);
-            if (!link)
-            {
-                break;
-            }
-            item = FIELD(Unit*, link, 8);
-        }
     }
 }
 
@@ -4187,6 +4118,102 @@ void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pPlayer, D2Inventor
         if (bDualWield)
         {
             *ppItem = pInventoryGrid->ppItems[BODYLOC_RARM];
+        }
+    }
+}
+
+static __forceinline s32 INVENTORY_CheckSignature_Inline(Inventory* inventory)
+{
+    return inventory && FIELD(u32, inventory, 0) == 0x01020304;
+}
+
+static __forceinline ItemData* ITEMS_GetItemData_Inline(Unit* item)
+{
+    return (item && FIELD(s32, item, 0) == 4 && FIELD(ItemData*, item, 0x14)) ? FIELD(ItemData*, item, 0x14) : 0;
+}
+
+static __forceinline Unit* INVENTORY_GetNextItem_Inline(Unit* item)
+{
+    const s32 nUnitType = item ? FIELD(s32, item, 0) : 6;
+    if (nUnitType != 4)
+    {
+        return 0;
+    }
+    ItemData* data = ITEMS_GetItemData_Inline(item);
+    if (!data)
+    {
+        return 0;
+    }
+    ItemLink* link = (ItemLink*)((u8*)data + 0x5C);
+    if (!link)
+    {
+        return 0;
+    }
+    return FIELD(Unit*, link, 8);
+}
+
+// 0x0063E510
+void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8* secondOutput)
+{
+    Inventory* inventory = FIELD(Inventory*, unit, 0x60);
+    if (INVENTORY_CheckSignature_Inline(inventory))
+    {
+        for (Unit* item = FIELD(Unit*, inventory, 0x0C); item; item = INVENTORY_GetNextItem_Inline(item))
+        {
+            if (FIELD(u32, item, 0) == 4 && FIELD(s32, item, 0x10) == 1)
+            {
+                ItemRecord* record = sub_006335F0_ItemRecord(!item ? -1 : FIELD(s32, item, 4));
+                D2_ASSERT(record, 0x1446);
+                const u8 page = sub_00627D40_Page(item);
+                if (page != 1 && page != 4 && page != 5)
+                {
+                    if (page == 3)
+                    {
+                        AppearanceSix appearance;
+                        sub_0063D690_CopySix(item, &appearance);
+                        for (u32 slot = 0; slot < 0x10; ++slot)
+                        {
+                            if (COMPOSIT_IsArmorComponent(slot))
+                            {
+                                AppearanceRecord* appearanceRecord = sub_0065B620_AppearanceRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
+                                if (sub_00451F60_ClassId(item) > 0)
+                                {
+                                    const u32 appearanceCode = FIELD(u32, appearanceRecord, 0x20);
+                                    const s32 code = sub_0063D900_FindCode(appearanceCode, appearanceCode);
+                                    if (code)
+                                    {
+                                        if (slot < 0x10)
+                                        {
+                                            firstOutput[slot] = (u8)code;
+                                            if (!sub_0062C100_Transform(unit, item, &secondOutput[slot], 0))
+                                            {
+                                                secondOutput[slot] = 0xFF;
+                                            }
+                                            else
+                                            {
+                                                ++secondOutput[slot];
+                                            }
+                                        }
+                                        continue;
+                                    }
+                                }
+                                if (slot < 0x10)
+                                {
+                                    firstOutput[slot] = 0xFF;
+                                    secondOutput[slot] = 0xFF;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (!ITEMS_CheckType(FIELD(short, record, 0x11E), 0x4B))
+                    {
+                        sub_0063DA70_ItemSlots(unit, firstOutput, secondOutput, item);
+                    }
+                }
+            }
         }
     }
 }

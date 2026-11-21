@@ -80641,6 +80641,10 @@
      "name": "?INVENTORY_CanItemBePlacedAtPos@@YGHPAUD2InventoryGridStrc@@HHEE@Z"
     },
     {
+     "va": "0x0063B340",
+     "length": 331
+    },
+    {
      "va": "0x0063B490",
      "length": 174,
      "name": "?INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight@@YGHPAUD2InventoryGridStrc@@PAH1EE@Z"
@@ -81093,6 +81097,10 @@
      "name": "?INVENTORY_GetSecondWieldingWeapon@@YGXPAUD2UnitStrc@@PAUD2InventoryStrc@@PAPAU1@H@Z"
     },
     {
+     "va": "0x0063E510",
+     "length": 412
+    },
+    {
      "va": "0x0063E7A0",
      "length": 17,
      "name": "sub_0063E7A0_GetByteTableEntry"
@@ -81278,34 +81286,6 @@
      "length": 1,
      "name": "?sub_0063A800_Nop@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063B340.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0063B340",
-     "length": 331
-    },
-    {
-     "va": "0x0063E510",
-     "length": 412
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
