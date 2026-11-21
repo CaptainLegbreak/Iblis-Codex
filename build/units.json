@@ -315,6 +315,26 @@
      "name": "?sub_00401740_SetText@@YIXPBD@Z"
     },
     {
+     "va": "0x00401A30",
+     "length": 9,
+     "name": "strrchr"
+    },
+    {
+     "va": "0x00401A40",
+     "length": 21,
+     "name": "sub_00401A40_LockSymbols"
+    },
+    {
+     "va": "0x00402C10",
+     "length": 28,
+     "name": "sub_00402C10_CompareUInt"
+    },
+    {
+     "va": "0x00403A20",
+     "length": 151,
+     "name": "sub_00403A20_DumpOtherThreads"
+    },
+    {
      "va": "0x00403F60",
      "length": 64,
      "name": "?sub_00403F60_SetCrashHandler@@YIXPAX0H@Z"
@@ -325,9 +345,34 @@
      "name": "sub_00404210_CreateProcessUtf8"
     },
     {
+     "va": "0x004043C0",
+     "length": 138,
+     "name": "sub_004043C0_OpenUtf8FileForWrite"
+    },
+    {
      "va": "0x00404560",
      "length": 130,
      "name": "?sub_00404560_UseWidePath@@YI_NPA_W@Z"
+    },
+    {
+     "va": "0x00405570",
+     "length": 89,
+     "name": "GetCmdIndex"
+    },
+    {
+     "va": "0x004055D0",
+     "length": 51,
+     "name": "sub_004055D0_IsCmdSeparator"
+    },
+    {
+     "va": "0x00406410",
+     "length": 84,
+     "name": "D2ServerServiceHandlerProc"
+    },
+    {
+     "va": "0x00406960",
+     "length": 35,
+     "name": "sub_00406960_CreateFile"
     },
     {
      "va": "0x00406990",
@@ -338,6 +383,21 @@
      "va": "0x004069A0",
      "length": 8,
      "name": "?sub_004069A0_CloseFile@@YIHPAX@Z"
+    },
+    {
+     "va": "0x004069B0",
+     "length": 27,
+     "name": "sub_004069B0_ReadFile"
+    },
+    {
+     "va": "0x004069D0",
+     "length": 27,
+     "name": "sub_004069D0_WriteFile"
+    },
+    {
+     "va": "0x004069F0",
+     "length": 23,
+     "name": "sub_004069F0_SetFilePointer"
     },
     {
      "va": "0x00406B20",
@@ -355,6 +415,16 @@
      "name": "?FOG_GetInstallPath@@YIHPADI@Z"
     },
     {
+     "va": "0x00407310",
+     "length": 29,
+     "name": "sub_00407310_Sprintf"
+    },
+    {
+     "va": "0x00407330",
+     "length": 40,
+     "name": "sub_00407330_SprintfN"
+    },
+    {
      "va": "0x00407360",
      "length": 15,
      "name": "?sub_00407360_GetSystemInfo@@YAPAUD2SystemInfoStrc@@XZ"
@@ -368,6 +438,11 @@
      "va": "0x00407960",
      "length": 5,
      "name": "?FOG_SetLogPrefix@@YIXPBD@Z"
+    },
+    {
+     "va": "0x00407A20",
+     "length": 81,
+     "name": "sub_00407A20_GetProcessImageName"
     },
     {
      "va": "0x00408000",
@@ -400,6 +475,16 @@
      "name": "?sub_004080B0_DebugPrintV@@YGXIPBDPAD@Z"
     },
     {
+     "va": "0x004081A0",
+     "length": 113,
+     "name": "sub_004081A0_DebugPrintf"
+    },
+    {
+     "va": "0x00408220",
+     "length": 125,
+     "name": "sub_00408220_DebugPrintfIfCapsLock"
+    },
+    {
      "va": "0x004082A0",
      "length": 24,
      "name": "?sub_004082A0_DebugPrintf@@YAXIPBDZZ"
@@ -420,6 +505,11 @@
      "name": "sub_00408900_RaiseErrorReport"
     },
     {
+     "va": "0x00409770",
+     "length": 158,
+     "name": "sub_00409770_PoolAllocLarge"
+    },
+    {
      "va": "0x00409810",
      "length": 153,
      "name": "sub_00409810_PoolFreeLarge"
@@ -428,6 +518,66 @@
      "va": "0x0040A620",
      "length": 450,
      "name": "FOG_AsyncDataLoadFileEx"
+    },
+    {
+     "va": "0x0040AA80",
+     "length": 115,
+     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
+    },
+    {
+     "va": "0x0040B1B0",
+     "length": 167,
+     "name": "sub_0040B1B0"
+    },
+    {
+     "va": "0x0040B260",
+     "length": 179,
+     "name": "sub_0040B260"
+    },
+    {
+     "va": "0x0040D890",
+     "length": 57,
+     "name": "FOG_SOCKET_WSAStartup"
+    },
+    {
+     "va": "0x0040DD80",
+     "length": 74,
+     "name": "FOG_SOCKET_SendNoLock"
+    },
+    {
+     "va": "0x0040DDF0",
+     "length": 227,
+     "name": "FOG_SOCKET_Select"
+    },
+    {
+     "va": "0x0040DEE0",
+     "length": 58,
+     "name": "FOG_SOCKET_GetPeerName"
+    },
+    {
+     "va": "0x0040DF20",
+     "length": 58,
+     "name": "sub_0040DF20_SOCKET_GetSockName"
+    },
+    {
+     "va": "0x0040E1A0",
+     "length": 34,
+     "name": "FOG_SOCKET_SetBlockingMode"
+    },
+    {
+     "va": "0x0040E1D0",
+     "length": 33,
+     "name": "sub_0040E1D0_SOCKET_SetNonBlocking"
+    },
+    {
+     "va": "0x0040E200",
+     "length": 33,
+     "name": "sub_0040E200_SOCKET_SetBlocking"
+    },
+    {
+     "va": "0x0040E870",
+     "length": 226,
+     "name": "sub_0040E870_MeasureCpuMHz"
     }
    ],
    "flags": [
@@ -443,6 +593,17 @@
     "/Ob2",
     "/Gd",
     "/EHa"
+   ]
+  },
+  {
+   "file": "Source/Fog/Unknown_004088C0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004088C0",
+     "length": 56,
+     "name": "sub_004088C0_ReportNestedError"
+    }
    ]
   },
   {
@@ -473,7 +634,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_00401680.cpp",
+   "file": "Source/Fog/Unknown_00401680.cpp",
    "rank": 0,
    "functions": [
     {
@@ -626,167 +787,6 @@
      "va": "0x00407990",
      "length": 129,
      "name": "sub_00407990_FindOwnerProcess"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/ErrorManager_00401A30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00401A30",
-     "length": 9,
-     "name": "strrchr"
-    },
-    {
-     "va": "0x00401A40",
-     "length": 21,
-     "name": "sub_00401A40_LockSymbols"
-    },
-    {
-     "va": "0x00402C10",
-     "length": 28,
-     "name": "sub_00402C10_CompareUInt"
-    },
-    {
-     "va": "0x00403A20",
-     "length": 151,
-     "name": "sub_00403A20_DumpOtherThreads"
-    },
-    {
-     "va": "0x004043C0",
-     "length": 138,
-     "name": "sub_004043C0_OpenUtf8FileForWrite"
-    },
-    {
-     "va": "0x00405570",
-     "length": 89,
-     "name": "GetCmdIndex"
-    },
-    {
-     "va": "0x004055D0",
-     "length": 51,
-     "name": "sub_004055D0_IsCmdSeparator"
-    },
-    {
-     "va": "0x00406410",
-     "length": 84,
-     "name": "D2ServerServiceHandlerProc"
-    },
-    {
-     "va": "0x00406960",
-     "length": 35,
-     "name": "sub_00406960_CreateFile"
-    },
-    {
-     "va": "0x004069B0",
-     "length": 27,
-     "name": "sub_004069B0_ReadFile"
-    },
-    {
-     "va": "0x004069D0",
-     "length": 27,
-     "name": "sub_004069D0_WriteFile"
-    },
-    {
-     "va": "0x004069F0",
-     "length": 23,
-     "name": "sub_004069F0_SetFilePointer"
-    },
-    {
-     "va": "0x00407310",
-     "length": 29,
-     "name": "sub_00407310_Sprintf"
-    },
-    {
-     "va": "0x00407330",
-     "length": 40,
-     "name": "sub_00407330_SprintfN"
-    },
-    {
-     "va": "0x00407A20",
-     "length": 81,
-     "name": "sub_00407A20_GetProcessImageName"
-    },
-    {
-     "va": "0x004081A0",
-     "length": 113,
-     "name": "sub_004081A0_DebugPrintf"
-    },
-    {
-     "va": "0x00408220",
-     "length": 125,
-     "name": "sub_00408220_DebugPrintfIfCapsLock"
-    },
-    {
-     "va": "0x004088C0",
-     "length": 56,
-     "name": "sub_004088C0_ReportNestedError"
-    },
-    {
-     "va": "0x00409770",
-     "length": 158,
-     "name": "sub_00409770_PoolAllocLarge"
-    },
-    {
-     "va": "0x0040AA80",
-     "length": 115,
-     "name": "sub_0040AA80_AsyncDataReplaceBuffer"
-    },
-    {
-     "va": "0x0040B1B0",
-     "length": 167,
-     "name": "sub_0040B1B0"
-    },
-    {
-     "va": "0x0040B260",
-     "length": 179,
-     "name": "sub_0040B260"
-    },
-    {
-     "va": "0x0040D890",
-     "length": 57,
-     "name": "FOG_SOCKET_WSAStartup"
-    },
-    {
-     "va": "0x0040DD80",
-     "length": 74,
-     "name": "FOG_SOCKET_SendNoLock"
-    },
-    {
-     "va": "0x0040DDF0",
-     "length": 227,
-     "name": "FOG_SOCKET_Select"
-    },
-    {
-     "va": "0x0040DEE0",
-     "length": 58,
-     "name": "FOG_SOCKET_GetPeerName"
-    },
-    {
-     "va": "0x0040DF20",
-     "length": 58,
-     "name": "sub_0040DF20_SOCKET_GetSockName"
-    },
-    {
-     "va": "0x0040E1A0",
-     "length": 34,
-     "name": "FOG_SOCKET_SetBlockingMode"
-    },
-    {
-     "va": "0x0040E1D0",
-     "length": 33,
-     "name": "sub_0040E1D0_SOCKET_SetNonBlocking"
-    },
-    {
-     "va": "0x0040E200",
-     "length": 33,
-     "name": "sub_0040E200_SOCKET_SetBlocking"
-    },
-    {
-     "va": "0x0040E870",
-     "length": 226,
-     "name": "sub_0040E870_MeasureCpuMHz"
     }
    ]
   },
@@ -2526,7 +2526,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_00408090.cpp",
+   "file": "Source/Fog/Unknown_00408090.cpp",
    "rank": 0,
    "functions": [
     {
@@ -2550,7 +2550,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_004082E0.cpp",
+   "file": "Source/Fog/Unknown_004082E0.cpp",
    "rank": 1,
    "functions": [
     {
