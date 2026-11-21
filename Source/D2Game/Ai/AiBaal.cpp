@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
 #include "D2DataTbls.h"
@@ -26,17 +27,6 @@ union D2SeedStrc;
 
 enum D2C_M244AiBaalConstants
 {
-    STAT_DAMAGERESIST = 0x24,
-    STAT_MAGICRESIST = 0x25,
-    STAT_FIRERESIST = 0x27,
-    STAT_LIGHTRESIST = 0x29,
-    STAT_COLDRESIST = 0x2B,
-    STAT_MAXDAMAGE = 0x16,
-    STAT_FIREMAXDAM = 0x31,
-    STAT_LIGHTMAXDAM = 0x33,
-    STAT_MAGICMAXDAM = 0x35,
-    STAT_COLDMAXDAM = 0x37,
-    STAT_POISONMAXDAM = 0x3A,
     STATE_COLD = 0x0B,
 };
 

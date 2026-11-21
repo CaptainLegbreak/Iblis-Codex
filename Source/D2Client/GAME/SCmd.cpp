@@ -18,8 +18,6 @@ struct D2ActiveRoomStrc;
 
 #define SKILLSFLAGINDEX_PROGRESSIVE 2
 
-#define STAT_HITPOINTS 6
-
 struct D2SkillsTxt;
 
 struct D2GameStrc;
@@ -510,7 +508,6 @@ void __cdecl sub_00477DA0(); // 0x00477DA0
 
 void __fastcall sub_004A40D0_StorePacket52(void* pPacket); // 0x004A40D0
 
-
 #pragma pack(push, 1)
 struct D2SaveChunkPacketStrc
 {
@@ -529,7 +526,6 @@ struct D2ErrorPacketStrc
     int nCode;
 };
 #pragma pack(pop)
-
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
@@ -1739,7 +1735,6 @@ struct D2PacketRecord8Strc
     unsigned char unk0x07;
 };
 
-
 struct D2PacketRecord13Strc
 {
     unsigned char nHeader;
@@ -1843,8 +1838,6 @@ struct D2GSPacket91Strc
     unsigned short nData18;
 };
 
-
-
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
@@ -1917,7 +1910,6 @@ extern int gnGlobal_007A7460; // 0x007A7460
 
 extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
 
-
 extern D2GridCellStrc gtGridCells_007B0E68[]; // 0x007B0E68
 
 extern unsigned char gRowTable_007B5C10[][0x100]; // 0x007B5C10
@@ -1955,7 +1947,6 @@ struct D2GSPacketSrv0DStrc;
 extern "C"
 __declspec(noreturn)
 void __cdecl exit(int nCode); // 0x00681E09
-
 
 #pragma pack(push, 1)
 struct D2SkillEndPacketStrc
@@ -2132,13 +2123,11 @@ struct D2GSPacketSrv0DStrc
 };
 #pragma pack(pop)
 
-
 void __fastcall sub_0045D3E0_RefreshItemStats(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
 
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
 
 static void sub_0045D3B0_SendUnitStatus(D2UnitStrc* pUnit); // 0x0045D3B0
-
 
 static unsigned char* gpSaveBuffer_007A5224; // 0x007A5224
 
@@ -4576,7 +4565,6 @@ void __fastcall sub_0045F7B0_ProcessPackets(unsigned char* pData, int nSize)
 
     ++gnPacketBlocks_007A6AFC;
 }
-
 
 // 0x0045F9F0
 void __fastcall sub_0045F9F0_FreePacketBuffer(D2UnitStrc* pUnit)

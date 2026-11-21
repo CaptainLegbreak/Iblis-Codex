@@ -28,18 +28,6 @@ struct D2InventoryStrc;
 
 #define QFLAG_UPDATEQUESTLOG 12
 
-#define STAT_HITPOINTS 6
-
-#define STAT_MANA 8
-
-#define STAT_STAMINA 10
-
-#define STAT_GOLD 14
-
-#define STAT_MANARECOVERY 26
-
-#define STAT_MANARECOVERYBONUS 27
-
 #define STATE_HEALTHPOT 100
 
 #define STATE_MANAPOT 106
@@ -611,7 +599,11 @@ struct D2BuyItemPacketStrc
 
 int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId, int nItemId, int nItemMode, int nTransactionType, int nCost, int bMultibuy); // 0x00577F30
 
-#define STAT_GOLDLOST 0xAF
+#define PLRMODE_WALK 2
+
+#define PLRMODE_RUN 3
+
+#define PLRMODE_DEAD 17
 
 #define STATE_INFERNO 12
 

@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -16,10 +17,6 @@
 #define MONSTER_SHADOWWARRIOR 0x1A1
 
 #define MONSTER_SHADOWMASTER 0x1A2
-
-#define STAT_HITPOINTS 6
-
-#define STAT_LEVEL 0x0C
 
 #define MONSTER_FIRST_EXPANSION 410
 
@@ -265,10 +262,6 @@ int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, u
 
 enum
 {
-};
-
-enum
-{
     INVPAGE_EQUIP = 1,
     INVPAGE_TRADE = 2,
     INVPAGE_CUBE = 3,
@@ -449,12 +442,6 @@ void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);
 
 #define OBJSUBCLASS_TOWNPORTAL 0x4
 
-#define STAT_TOHIT 0x13
-
-#define STAT_DEXTERITY 0x2
-
-#define STAT_MANA 0x8
-
 #define DEX_BASE 7
 
 #define DEX_MUL 5
@@ -532,7 +519,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 enum
 {
     UNIT_TYPES = 6,
-    STAT_TOBLOCK = 20,
     MONSTATSFLAGINDEX_NOSHLDBLOCK = 26,
 };
 

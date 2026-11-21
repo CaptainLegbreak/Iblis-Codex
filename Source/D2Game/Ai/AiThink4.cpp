@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2ItemsWorld.h"
 #include "D2Drlg.h"
@@ -219,10 +220,6 @@ enum
 
 enum
 {
-};
-
-enum
-{
     STATE_BLOODLUST = 141,
 };
 
@@ -391,12 +388,6 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps); // 0x00649070
 
-enum D2C_Y11AiConstants
-{
-    STAT_TOHIT = 0x13,
-    STAT_ITEM_TOHIT_PERCENT = 0x77,
-};
-
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
 
 struct D2ActiveRoomStrc;
@@ -413,8 +404,6 @@ enum D2C_F42AiConstants
     STATE_POISON = 2,
     STATE_INFERNO = 12,
     STATE_BAALTOSTAIRS_INVIS = 0x92,
-    STAT_HITPOINTS = 6,
-    STAT_POISONRESIST = 45,
     SKILL_BAALTAUNT = 284,
     SKILL_IMPREGNATE = 300,
     MONSTATSFLAGINDEX_LUNDEAD = 11,
@@ -542,17 +531,6 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_BaalToStairs(D2GameStrc* pGame, D2
 
 enum D2C_V04AiBaalConstants
 {
-    STAT_DAMAGERESIST = 0x24,
-    STAT_MAGICRESIST = 0x25,
-    STAT_FIRERESIST = 0x27,
-    STAT_LIGHTRESIST = 0x29,
-    STAT_COLDRESIST = 0x2B,
-    STAT_MAXDAMAGE = 0x16,
-    STAT_FIREMAXDAM = 0x31,
-    STAT_LIGHTMAXDAM = 0x33,
-    STAT_MAGICMAXDAM = 0x35,
-    STAT_COLDMAXDAM = 0x37,
-    STAT_POISONMAXDAM = 0x3A,
     STATE_COLD = 0x0B,
 };
 

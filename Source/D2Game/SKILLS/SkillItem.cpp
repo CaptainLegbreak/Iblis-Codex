@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
 #include "D2Constants.h"
@@ -23,14 +24,6 @@
 #define UPDATEUI_OPENCUBE 21
 
 #define SKILL_FIREBALL 47
-
-#define STAT_HITPOINTS 6
-
-#define STAT_LEVEL 12
-
-#define STAT_ATTACKRATE 68
-
-#define STAT_VALUE 71
 
 #define STATE_SLOWED 24
 
@@ -113,9 +106,6 @@ typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStr
 enum D2C_Z09ItemConstants
 {
     EVENTTYPE_REMOVESTATE = 0x0C,
-    STAT_STAMINA = 0x0A,
-    STAT_MAXSTAMINA = 0x0B,
-    STAT_STAMINARECOVERYBONUS = 0x1C,
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -385,14 +375,6 @@ enum D2C_G4Constants
     AISPECIALSTATE_DIMVISION = 10,
     AISPECIALSTATE_TERROR = 11,
     AISPECIALSTATE_TAUNT = 12,
-    STAT_MANA = 8,
-    STAT_DAMAGERESIST = 36,
-    STAT_MAGICRESIST = 37,
-    STAT_FIRERESIST = 39,
-    STAT_LIGHTRESIST = 41,
-    STAT_COLDRESIST = 43,
-    STAT_POISONRESIST = 45,
-    STAT_MODIFIERLIST_SKILL = 350,
     UNITFLAG_SKSRVDOFUNC = 0x40,
     UNITFLAGEX_TELEPORTED = 0x10000,
     UNITEVENTFLAG_IN_CALLBACK = 1,

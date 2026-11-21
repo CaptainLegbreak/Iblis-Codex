@@ -1,3 +1,4 @@
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -22,8 +23,6 @@ struct D2UnitStrc;
 #define UNITFLAG_SKSRVDOFUNC 0x40
 
 #define AISPECIALSTATE_NONE 0
-
-#define STAT_LEVEL 12
 
 #define STATE_VINE_BEAST 150
 
@@ -127,8 +126,6 @@ enum
 {
     EVENTTYPE_ACTIVESTATE = 5,
     EVENTTYPE_REMOVESTATE = 12,
-    STAT_MODIFIERLIST_SKILL = 350,
-    STAT_MODIFIERLIST_LEVEL = 351,
 };
 
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
@@ -171,8 +168,6 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 
 #define UNIT_TILE 5
 
-#define STAT_ATTACKRATE 68
-
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
 struct D2StaticPathStrc;
@@ -200,8 +195,6 @@ enum D2C_Z09SkillConstants
     MONSTER_BARRICADETOWER = 0x1B3,
     MONSTER_SIEGEBEAST1 = 0x1B9,
     MONSTER_SANDLEAPER1 = 0x4E,
-    STAT_MAGICMINDAM = 0x34,
-    STAT_MAGICMAXDAM = 0x35,
     PATHTYPE_BLESSEDHAMMER = 0x0E,
     PATHTYPE_KNOCKBACK_SERVER = 0x08,
     PATHTYPE_LEAP = 0x09,
@@ -296,7 +289,6 @@ void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame, D2UnitStrc* pAttack
 
 enum D2C_F39Constants
 {
-    STAT_HITPOINTS = 6,
     STATE_BLAZE = 13,
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_NOXP = 0x4000000,
@@ -315,11 +307,6 @@ enum D2C_F39Constants
     MONSTER_FETISHBLOW4 = 0x18F,
     MONSTER_FETISHBLOW5 = 0x190,
     UNITFLAG_NOTC = 0x20000,
-    STAT_MAXHP = 7,
-    STAT_MANA = 8,
-    STAT_THORNS_PERCENT = 0x83,
-    STAT_CONVERSION_LEVEL = 0xB0,
-    STAT_CONVERSION_MAXHP = 0xB1,
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
