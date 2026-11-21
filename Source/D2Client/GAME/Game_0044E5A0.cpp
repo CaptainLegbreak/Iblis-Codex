@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 #include "D2Structs.h"
 #include "D2StormLink.h"
 
@@ -118,7 +119,6 @@ struct D2CharInfo { char pad[0xbd]; char name[0x132]; unsigned short flags; };
 
 #pragma pack(pop)
 
-struct Unicode { unsigned short ch; Unicode(unsigned short value=0):ch(value){} };
 
 D2CharInfo* __cdecl sub_0044B7A0_GetCharInfo(); // 0x0044B7A0
 
