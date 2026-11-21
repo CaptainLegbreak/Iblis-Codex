@@ -986,6 +986,11 @@ public:
     D2CommonStringEntryNodeStrc* sub_00610D60_New(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags); // 0x00610D60
     void sub_0060ED60_Clear();
     int sub_00610840(unsigned int nSlot);                                                                   // 0x00610840
+    void InternalLinkNode(D2CommonStringEntryNodeStrc* pNode, unsigned int nHashVal)
+    {
+        m_slotlistarray.f_8[nHashVal & m_slotmask].LinkNode((char*)pNode, 2, 0);
+    }
+    void sub_006101B0_GrowListArray();
     D2CommonStringEntryNodeStrc* sub_00610BE0_InternalNewNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
@@ -2435,6 +2440,28 @@ void D2CommonStormSlotArrayBStrc::sub_006100B0_SetCount(unsigned int nCount)
             f_8[i].~D2CommonStormSlotListBStrc();
     }
     f_4 = nCount;
+}
+
+// 0x006101B0
+void D2CommonStormHashTableAStrc::sub_006101B0_GrowListArray()
+{
+    unsigned int nOldCount = m_slotmask + 1;
+    unsigned int nNewCount = nOldCount * 2;
+    D2CommonStormSlotListAStrc tTemp;
+    tTemp.ChangeLinkOffset(4);
+    for (unsigned int i = 0; i < nOldCount; i++)
+    {
+        char* pNode;
+        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+            tTemp.LinkNode(pNode, 2, 0);
+    }
+    m_slotlistarray.sub_0060F9D0_SetCount(nNewCount);
+    for (unsigned int j = 0; j < nNewCount; j++)
+        m_slotlistarray.f_8[j].ChangeLinkOffset(4);
+    m_slotmask = nNewCount - 1;
+    D2CommonStringEntryNodeStrc* pNode;
+    while ((pNode = (D2CommonStringEntryNodeStrc*)tTemp.Head()) != 0)
+        InternalLinkNode(pNode, pNode->f_0);
 }
 
 // 0x00610380
