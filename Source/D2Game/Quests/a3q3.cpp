@@ -149,6 +149,12 @@ static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
+int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
+
+int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
+
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+
 // 0x005B9090
 void __fastcall ACT3Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -500,6 +506,32 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
         }
     }
     return true;
+}
+
+// 0x005B9980
+void __fastcall ACT3Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q3.cpp", 991);
+
+    D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)pQuestData->pQuestDataEx;
+
+    if (!pQuestDataEx->bBossHasSpawned || !pQuestData->bNotIntro || (!MONSTERUNIQUE_CheckMonTypeFlag(pQuestArg->pTarget, 14) && !MONSTERS_IsBoss(0, pQuestArg->pTarget)))
+    {
+        return;
+    }
+
+    pQuestArg->pTarget->dwDropItemCode = ' 33g';
+    int nItemLevel;
+    if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0))
+    {
+        pQuestDataEx->bGidbinnDropped = 1;
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q3_UnitIterate_UpdateQuestStateFlags);
+        pQuestData->pCallback[8] = 0;
+    }
+    else
+    {
+        pQuestDataEx->bBossHasSpawned = 0;
+    }
 }
 
 // 0x005B9AE0

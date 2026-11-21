@@ -65143,11 +65143,6 @@
      "name": "ACT3Q3_Callback13_PlayerStartedGame"
     },
     {
-     "va": "0x005B9980",
-     "length": 169,
-     "name": "ACT3Q3_Callback08_MonsterKilled"
-    },
-    {
      "va": "0x005B9D90",
      "length": 223,
      "name": "ACT3Q4_ActiveFilterCallback"
@@ -65997,6 +65992,11 @@
      "va": "0x005B9960",
      "length": 24,
      "name": "?sub_005B9960_IsBossSpawning@@YIEPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005B9980",
+     "length": 169,
+     "name": "ACT3Q3_Callback08_MonsterKilled"
     },
     {
      "va": "0x005B9AE0",
