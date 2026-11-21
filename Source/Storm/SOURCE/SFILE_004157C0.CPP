@@ -160,6 +160,7 @@ static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer
 static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
 {
     EnterCriticalSection(&gBasePathLock_00779068);
+    // stands for a release-build assertion that a whole chunk fits in the sound buffer; without it the write-position sum below is evaluated in another order
     __assume(pRequest->pStream->nBufferSize - pRequest->nBufferOffset >= gnStreamChunk_00779038);
     unsigned long nLocked;
     unsigned char** const ppDest = &pRequest->pDest;
@@ -177,7 +178,6 @@ static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
     if (nCopy < nLocked)
         SMemFill(*ppDest + nCopy, nLocked - nCopy, pRequest->pStream->nFill);
     pRequest->pBuffer->Unlock(*ppDest, nLocked, 0, 0);
-    __assume(pRequest->nPosition - pRequest->pStream->nStart == 0 || pRequest->pStream->nWritten <= pRequest->nPosition - pRequest->pStream->nStart + nLocked);
     pRequest->pStream->nWritten = pRequest->nPosition - pRequest->pStream->nStart + nLocked;
     if (pRequest->pStream->nWritten > pRequest->pStream->nSize)
         pRequest->pStream->nCounter = pRequest->pStream->nWritten - pRequest->pStream->nSize;
