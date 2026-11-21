@@ -626,8 +626,6 @@ struct D2SummonArgStrc;
 
 struct D2ModeChangeStrc;
 
-
-
 struct D2PetTypeSkillListStrc
 {
     char unk0x00[0xBC];
@@ -636,10 +634,7 @@ struct D2PetTypeSkillListStrc
     unsigned short unk0xDE;
 };
 
-
 // CONFLICT type:D2_6FD10880_Strc from Skills_0056BAD0.cpp
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
@@ -704,7 +699,6 @@ struct D2PortalFlagsStrc
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithField(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighboringRooms); // 0x0064E810
 
-
 unsigned int __fastcall sub_00554070(D2UnitStrc* hUnit); // 0x00554070
 
 void __fastcall sub_00554040(D2UnitStrc* pUnit, int nUnitGUID); // 0x00554040
@@ -730,6 +724,28 @@ void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc*
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
+
+#define UNITFLAG_SKSRVDOFUNC 0x00000040
+
+#define ITEMTYPE_MISSILE_POTION 38
+
+#define STAT_PROGRESSIVE_TOHIT 325
+
+unsigned int __stdcall sub_006417F0(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+
+D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
+
+int __fastcall sub_0056C2D0_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillLevel); // 0x0056C2D0
+
+void __fastcall SUNITDMG_FillDamageValues(D2GameStrc* pGame,D2UnitStrc* pAttacker,D2UnitStrc* pDefender,D2DamageStrc* pDamage,int nWeapon,unsigned char nSrcDam); // 0x0057B7D0
+
+void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3AC0
+
+void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3BA0
+
+void __fastcall sub_005D5220_DischargeProgressiveSkills(D2GameStrc* pGame, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D5220
+
+unsigned int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
@@ -3148,6 +3164,40 @@ D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStr
     return 0;
 }
 
+// 0x0056EDE0
+D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    if (!nX && !nY)
+    {
+        D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY);
+        if (!nX && !nY)
+        {
+            return 0;
+        }
+    }
+
+    if (sub_006417F0(pUnit, nX, nY) > 100)
+    {
+        return 0;
+    }
+
+    D2MissileStrc missileParams = {};
+    missileParams.nSkill = nSkillId;
+    missileParams.nSkillLevel = nSkillLevel;
+    missileParams.dwFlags = 1;
+    missileParams.pOwner = pUnit;
+    missileParams.nX = nX;
+    missileParams.nY = nY;
+    missileParams.nMissile = nMissileId;
+
+    return sub_0059FA30(pGame, &missileParams);
+}
+
 // 0x0056EE90
 D2UnitStrc* __fastcall sub_6FD11710(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bSkipCheck)
 {
@@ -3179,7 +3229,7 @@ D2UnitStrc* __fastcall sub_6FD11710(D2GameStrc* pGame, int nMissileId, D2UnitStr
     return 0;
 }
 
-// build: context D2GAME_SKILLS_SetDelay_6FD11C00
+// 0x0056EF90
 static void __stdcall D2GAME_SKILLS_SetDelay_6FD11C00(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDelay)
 {
     const int nExpireFrame = nDelay + pGame->dwGameFrame;
@@ -3188,18 +3238,20 @@ static void __stdcall D2GAME_SKILLS_SetDelay_6FD11C00(D2GameStrc* pGame, D2UnitS
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x79);
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, pUnit->dwUnitType, pUnit->dwUnitId);
+            pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
             if (!pStatList)
             {
                 return;
             }
+
             STATLIST_SetState(pStatList, 0x79);
             STATLIST_SetStatRemoveCallback(pStatList, sub_6FD10E50);
             D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
             STATES_ToggleState(pUnit, 0x79, 1);
         }
+
         D2COMMON_10476(pStatList, nExpireFrame);
-        sub_005417D0_DirectDated(pGame, pUnit, 12, nExpireFrame, 0, 0);
+        EVENT_SetEvent(pGame, pUnit, 12, nExpireFrame, 0, 0);
     }
 }
 
@@ -3215,6 +3267,69 @@ void __fastcall sub_6FD11BA0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId,
             D2GAME_SKILLS_SetDelay_6FD11C00(pGame, pUnit, nSkillDelay);
         }
     }
+}
+
+// calling-convention shim (not game code)
+void __stdcall shim_4(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDelay)
+{
+    D2GAME_SKILLS_SetDelay_6FD11C00(pGame, pUnit, nDelay);
+}
+
+// 0x0056F070
+int __fastcall SKILLS_SrvDo001_Attack_LeftHandSwing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+    }
+
+    D2UnitStrc* pWeapon = sub_6FC7C7B0(pUnit);
+    if (pWeapon && ITEMS_GetItemType(pWeapon) == ITEMTYPE_MISSILE_POTION)
+    {
+        return 0;
+    }
+
+    if (COMPOSIT_IsWeaponBowOrXBow(pUnit))
+    {
+        const int nItemType = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nSkillLevel);
+        if (nItemType != ITEMTYPE_BOW)
+        {
+            sub_6FD11420(pGame, nItemType, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 1);
+        }
+        else
+        {
+            sub_6FD11420(pGame, ITEMTYPE_BOW, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
+        }
+        return 1;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    D2DamageStrc damage = {};
+    damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, STATLIST_UnitGetStatValue(pUnit, STAT_PROGRESSIVE_TOHIT, 0), 0);
+    damage.dwHitFlags |= 2;
+    sub_005D3AC0(pUnit, &damage);
+    SUNITDMG_FillDamageValues(pGame, pUnit, pTarget, &damage, 0, 128);
+    SKILLS_ApplyProgressiveLeechAndElementalDamage(pUnit, &damage);
+    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
+
+    if (STATES_CheckStateMaskOnUnit(pUnit, 38))
+    {
+        return sub_0056C2D0_DrainTargetDurability(pGame, pUnit, nSkillLevel);
+    }
+
+    D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);
+    if (pDamage)
+    {
+        sub_005D5220_DischargeProgressiveSkills(pGame, pUnit, pDamage);
+    }
+
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+    return 1;
 }
 
 static __forceinline int sub_0056F1F0_DrainTargetItemDurability(D2GameStrc* pGame, D2UnitStrc* pUnit)

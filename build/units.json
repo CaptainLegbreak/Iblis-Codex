@@ -56959,14 +56959,26 @@
      "name": "?sub_6FD11420@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHHHHHH@Z"
     },
     {
+     "va": "0x0056EDE0",
+     "length": 167
+    },
+    {
      "va": "0x0056EE90",
      "length": 255,
      "name": "?sub_6FD11710@@YIPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHHHHHH@Z"
     },
     {
+     "va": "0x0056EF90",
+     "length": 139
+    },
+    {
      "va": "0x0056F020",
      "length": 80,
      "name": "?sub_6FD11BA0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x0056F070",
+     "length": 381
     },
     {
      "va": "0x0056F1F0",
@@ -57040,39 +57052,6 @@
      "length": 118,
      "name": "?SUNITDMG_RollSuckBloodDamage@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HHPAUD2DamageStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/Skills_0056EDE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0056EDE0",
-     "length": 167
-    },
-    {
-     "va": "0x0056EF90",
-     "length": 139
-    },
-    {
-     "va": "0x0056F070",
-     "length": 381
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
