@@ -500,7 +500,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
 
 int gnQuestCount_007BF2A0; // 0x007BF2A0
 
-volatile char gabQuestFlagsA_007BF356[42]; // 0x007BF356
+char gabQuestFlagsA_007BF356[42]; // 0x007BF356
 
 // 0x004A2550
 void __cdecl sub_004A2550_FreeQuestCels()

@@ -38,7 +38,7 @@ int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 __declspec(noinline) static void __stdcall sub_006B7FD0_Viewport(int,volatile D2RectStrc*,int*,int);
 static void __stdcall sub_006B7FD0_Viewport(int,volatile D2RectStrc*,int*,int); // 0x006B7FD0
 // 0x006B7FD0
-static void __stdcall sub_006B7FD0_Viewport(int nSide, volatile D2RectStrc* pRect, int* pOffset, int bFlag)
+static void __stdcall sub_006B7FD0_Viewport(int nSide, D2RectStrc* pRect, int* pOffset, int bFlag)
 {
     D2ASSERT(pRect, 0x53);
 

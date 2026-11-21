@@ -448,7 +448,7 @@ int __fastcall EmitSkipUtf8Continuation(int index, const unsigned char* text, in
 }
 
 // 0x006C77F0
-static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination)
+static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* table, char* destination)
 {
     if (!count)
     {

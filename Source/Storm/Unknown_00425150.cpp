@@ -564,7 +564,7 @@ static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc&
     tStack.nUsed -= 3;
 }
 
-static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* volatile pStack, D2StormQueueStrc& a)
+static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQueueStrc& a)
 {
     D2StormQueueStrc& tMinusOne = pStack->f_0[pStack->nUsed++];
     D2StormQueueStrc& tOdd = pStack->f_0[pStack->nUsed++];
@@ -641,7 +641,7 @@ static __declspec(noinline) int sub_00421440_IsEven(const D2StormQueueStrc& a)
     return !a.Count() || !(a[0] & 1);
 }
 
-static __declspec(noinline) void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* volatile pStack, D2StormQueueStrc& a);
+static __declspec(noinline) void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a);
 // 0x004255E0
 static void __stdcall sub_004255E0_FindPrime(unsigned int nBits, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormBigStackStrc* pStack, D2StormQueueStrc& a)
 {

@@ -124,9 +124,9 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 {
     VALIDATEBEGIN;
     VALIDATE(szKeyName);
-    VALIDATE(*(const volatile char*)szKeyName);
+    VALIDATE(*szKeyName);
     VALIDATE(szValueName);
-    VALIDATE(*(const volatile char*)szValueName);
+    VALIDATE(*szValueName);
     VALIDATE(pValue);
     VALIDATEEND;
 
