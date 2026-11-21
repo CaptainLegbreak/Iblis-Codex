@@ -1,33 +1,272 @@
 #include "D2Client.h"
-#include "D2Primitives.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
+#include "D2ClientTypes.h"
+#include "D2StormTypes.h"
+#include "D2Unicode.h"
+#include "D2Primitives.h"
 #include "D2Path.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-#include "D2CelContext.h"
 #include "D2Records.h"
-#include "D2Unicode.h"
-#include "D2StormTypes.h"
-#include "D2ClientTypes.h"
 #include "D2ClientUi.h"
 #include "D2TxtItems.h"
 #include "D2ItemsWorld.h"
 
+struct D2ClientCacheEntryStrc
+{
+    unsigned char unk0x00[0x4C];
+    unsigned char bLocked;
+    unsigned char unk0x4D[0x2F];
+    unsigned char dwLastUse[4];
+    unsigned char unk0x80[0x0A];
+    unsigned char nRefCount[4];
+};
+
+struct D2ClientStateStrc
+{
+    char unk0x00[0x11D];
+    unsigned char bFlag0x11D;
+    char unk0x11E[0x0B];
+    unsigned char bFlag0x129;
+    unsigned char bFlag0x12A;
+};
+
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
+
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
+
+void __cdecl sub_0044DA70();                                                                                // 0x0044DA70
+
+int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar);                                                  // 0x00453A90
+
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+
+void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
+
+int __cdecl sub_00468730();                                                                                 // 0x00468730
+
+int __cdecl sub_00468740();                                                                                 // 0x00468740
+
+int __cdecl sub_0047A560();                                                                                 // 0x0047A560
+
+void __fastcall sub_004823E0_ReleaseCacheEntry(int nId);                                                    // 0x004823E0
+
+void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg);                                          // 0x004873A0
+
+void __cdecl sub_00487990_ResetHover();                                                                     // 0x00487990
+
+void __fastcall sub_0049FF90_Close(int nArg, D2ClientStateStrc* pState);                                    // 0x0049FF90
+
+int __cdecl sub_004B34A0();                                                                                 // 0x004B34A0
+
+int __fastcall sub_004B3230_GetTickPair(int* pUnitId);                                                // 0x004B3230
+
+void __cdecl sub_004B3ED0();                                                                                // 0x004B3ED0
+
+void __fastcall sub_004CB9C0_Request(int nArg, int nId);                                                    // 0x004CB9C0
+
+int __fastcall sub_004DF9D0_CheckCacheEntry(int nId);                                                       // 0x004DF9D0
+
+int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
+void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+
+unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem);                                                // 0x00628250
+
+D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory);                                  // 0x0063B2C0
+
+D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
+
+D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem);                                             // 0x0063DFA0
+
+D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem);                                              // 0x0063DFD0
+
+void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);                       // 0x00648B90
+
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);                // 0x00649970
+
+extern int gnGlobal_0071146C;                                                                               // 0x0071146C
+
+extern int gnGlobal_00711470;                                                                               // 0x00711470
+
+extern D2ClientTabStrc gaTabs_0072211A[];                                                                   // 0x0072211A
+
+extern int gnGlobal_00721E3C;                                                                               // 0x00721E3C
+
+extern int gnGlobal_00721E40;                                                                               // 0x00721E40
+
+extern int gnGlobal_00721E44;                                                                               // 0x00721E44
+
+extern int gnGlobal_00721E48;                                                                               // 0x00721E48
+
+extern int gnGlobal_00721E4C;                                                                               // 0x00721E4C
+
+extern int gnGlobal_00721E50;                                                                               // 0x00721E50
+
+extern D2ClientCacheEntryStrc* sgptSoundHeaderTable;                                                     // 0x007BC9A0
+
+extern int gnCacheEntries_007BC9A4;                                                                         // 0x007BC9A4
+
+extern D2ClientCacheNodeStrc* gpCacheList_007BC9B8;                                                         // 0x007BC9B8
+
+unsigned int gdwGlobal_007BC9BC; // 0x007BC9BC
+
+extern unsigned int gdwCacheUsed_007BC9D0;                                                                  // 0x007BC9D0
+
+int gnGlobal_007BCA4C;                                                                                      // 0x007BCA4C
+
+D2InvRectStrc gInvRect_007BCAA0;                                                                            // 0x007BCAA0
+
+#define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
+
+#define gnGlobal_007BCAA4 (gInvRect_007BCAA0.nRight)
+
+#define gnGlobal_007BCAA8 (gInvRect_007BCAA0.nTop)
+
+#define gnGlobal_007BCAAC (gInvRect_007BCAA0.nBottom)
+
+extern D2InventoryGridInfoStrc gGrid_007BCA30;                                                              // 0x007BCA30
+
+#define gnGlobal_007BCA34 (gGrid_007BCA30.nGridLeft)
+
+#define gnGlobal_007BCA38 (gGrid_007BCA30.nGridRight)
+
+#define gnGlobal_007BCA3C (gGrid_007BCA30.nGridTop)
+
+#define gnGlobal_007BCA40 (gGrid_007BCA30.nGridBottom)
+
+D2InventoryGridInfoStrc gGrid_007BCB18;                                                                     // 0x007BCB18
+
+extern D2InventoryGridInfoStrc gGrid_007BCB70;                                                              // 0x007BCB70
+
+#define gnGlobal_007BCB74 (gGrid_007BCB70.nGridLeft)
+
+#define gnGlobal_007BCB78 (gGrid_007BCB70.nGridRight)
+
+#define gnGlobal_007BCB7C (gGrid_007BCB70.nGridTop)
+
+#define gnGlobal_007BCB80 (gGrid_007BCB70.nGridBottom)
+
+int gnGlobal_007BCBD8;                                                                                      // 0x007BCBD8
+
+extern int gnGlobal_007BCBE0;                                                                               // 0x007BCBE0
+
+static int gdwGlobal_007BCBE4; // 0x007BCBE4
+
+static int gdwGlobal_007BCBE8; // 0x007BCBE8
+
+static int gdwGlobal_007BCBF0; // 0x007BCBF0
+
+static D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
+
+static D2UnitStrc* gdwGlobal_007BCBF8; // 0x007BCBF8
+
+static unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
+
+unsigned char gnMaxTab_007BCC05;                                                                            // 0x007BCC05
+
+int gnGlobal_007BCC08;                                                                                      // 0x007BCC08
+
+int gnGlobal_007BCE9C;                                                                                      // 0x007BCE9C
+
+unsigned char gabSlots_007BEFB4[4];                                                                         // 0x007BEFB4
+
+#define gnGlobal_007BCA68 (gInvRect_007BCA68.nLeft)
+
+#define gnGlobal_007BCA6C (gInvRect_007BCA68.nRight)
+
+#define gnGlobal_007BCA74 (gInvRect_007BCA68.nBottom)
+
+#define gnGlobal_007BCA7C (gGrid_007BCA78.nGridLeft)
+
+#define gnGlobal_007BCA80 (gGrid_007BCA78.nGridRight)
+
+#define gnGlobal_007BCA84 (gGrid_007BCA78.nGridTop)
+
+#define gnGlobal_007BCA88 (gGrid_007BCA78.nGridBottom)
+
+#define gnGlobal_007BCAF4 (gInvRect_007BCAF4.nLeft)
+
+#define gnGlobal_007BCAF8 (gInvRect_007BCAF4.nRight)
+
+#define gnGlobal_007BCB00 (gInvRect_007BCAF4.nBottom)
+
+#define gnGlobal_007BCB44 (gGrid_007BCB40.nGridLeft)
+
+#define gnGlobal_007BCB48 (gGrid_007BCB40.nGridRight)
+
+#define gnGlobal_007BCB4C (gGrid_007BCB40.nGridTop)
+
+#define gnGlobal_007BCB50 (gGrid_007BCB40.nGridBottom)
+
+struct Unicode;
+
+struct D2InvRectStrc;
+
+struct D2InventoryGridInfoStrc;
+
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
+
+void __fastcall sub_00482B40_UpdateCache(unsigned int nTick); // 0x00482B40
+
+void __fastcall sub_004BA020(unsigned int nTick); // 0x004BA020
+
+void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
+
+int __cdecl sub_004DF870(); // 0x004DF870
+
+void __cdecl sub_004DF890(); // 0x004DF890
+
+void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
+
+int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
+extern char gbCinematicStop_007BC9D4; // 0x007BC9D4
+
+extern char gbCinematicWide_007BC9D6; // 0x007BC9D6
+
+extern char gbCinematicBusy_007BC9D7; // 0x007BC9D7
+
+extern char gbCinematicChain_007BC9D8; // 0x007BC9D8
+
+static __declspec(noinline) unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags);
+
+int __cdecl sub_0044DCC0(); // 0x0044DCC0
+
+extern D2InvRectStrc gInvRect_007BCA68; // 0x007BCA68
+
+extern D2InventoryGridInfoStrc gGrid_007BCA78; // 0x007BCA78
+
+extern D2InvRectStrc gInvRect_007BCAF4; // 0x007BCAF4
+
+extern D2InventoryGridInfoStrc gGrid_007BCB40; // 0x007BCB40
+
+D2InvRectStrc gInvRect_007BCB30; // 0x007BCB30
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 struct D2CelFileStrc;
 
-struct D2InventoryGridInfoStrc;
-
 struct D2StaticPathStrc;
 
-struct Unicode;
-
 struct D2SetItemsTxt;
-
-struct D2InvRectStrc;
 
 struct D2InvCompGridStrc;
 
@@ -43,21 +282,11 @@ extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*, unsigned int, int, const char*); // 0x006280A0
 
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc*); // 0x0063B2C0
-
 void __stdcall ITEMS_GetDimensions(D2UnitStrc*, unsigned char*, unsigned char*, const char*, int); // 0x006286C0
 
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc*); // 0x006299B0
 
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc*); // 0x0063DFD0
-
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc*); // 0x0063DFA0
-
 int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
-
-int __stdcall sub_004F6480(D2CelContextStrc*, int, int, int, int, int); // 0x004F6480
-
-extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 
 #pragma pack(push, 2)
 
@@ -73,29 +302,11 @@ struct D2NpcButtonStrc
 
 #pragma pack(pop)
 
-extern "C" const char gszEmptyAssertText; // 0x006CC837
-
-extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-
 int __cdecl sub_0044DA30(); // 0x0044DA30
-
-void __cdecl sub_0044DA70(); // 0x0044DA70
-
-int __cdecl sub_0044DCC0(); // 0x0044DCC0
-
-int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 
 void __cdecl sub_00453EC0(); // 0x00453EC0
 
 void __fastcall sub_00454150_OpenGoldPanel(int nMode); // 0x00454150
-
-int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -103,21 +314,11 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
-
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-
 int __cdecl sub_00463DF0(); // 0x00463DF0
 
 void __fastcall sub_00468040(int nArg, int nArg2); // 0x00468040
 
-void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
-
 int __cdecl sub_004680A0(); // 0x004680A0
-
-int __cdecl sub_00468730(); // 0x00468730
-
-int __cdecl sub_00468740(); // 0x00468740
 
 int __cdecl sub_00468830(); // 0x00468830
 
@@ -134,8 +335,6 @@ int __cdecl sub_004979E0(); // 0x004979E0
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
 void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData); // 0x0049FF90
-
-int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
 
 void __cdecl sub_004B8CB0(); // 0x004B8CB0
 
@@ -173,8 +372,6 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInven
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
-
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
@@ -192,8 +389,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-
-unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 
@@ -227,25 +422,9 @@ extern "C" const char szCmnItemsH_006D9B90[]; // 0x006D9B90
 
 extern "C" const char szInvCpp_006D9BC0[]; // 0x006D9BC0
 
-extern int gnGlobal_0071146C; // 0x0071146C
-
-extern int gnGlobal_00711470; // 0x00711470
-
 extern int gnGlobal_00721E34; // 0x00721E34
 
 extern int gnGlobal_00721E38; // 0x00721E38
-
-extern int gnGlobal_00721E3C; // 0x00721E3C
-
-extern int gnGlobal_00721E40; // 0x00721E40
-
-extern int gnGlobal_00721E44; // 0x00721E44
-
-extern int gnGlobal_00721E48; // 0x00721E48
-
-extern int gnGlobal_00721E4C; // 0x00721E4C
-
-extern int gnGlobal_00721E50; // 0x00721E50
 
 extern int gnButtonCount_00722160; // 0x00722160
 
@@ -261,21 +440,9 @@ extern int gnGlobal_007A285C; // 0x007A285C
 
 extern D2NpcButtonStrc gaNpcButtons_007BC9E0[4]; // 0x007BC9E0
 
-extern D2InventoryGridInfoStrc gGrid_007BCA30; // 0x007BCA30
-
 extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 
-extern D2InventoryGridInfoStrc gGrid_007BCA78; // 0x007BCA78
-
-extern D2InvRectStrc gInvRect_007BCAA0; // 0x007BCAA0
-
-extern D2InventoryGridInfoStrc gGrid_007BCB18; // 0x007BCB18
-
-extern D2InventoryGridInfoStrc gGrid_007BCB40; // 0x007BCB40
-
 extern D2InventoryGridInfoStrc gGrid_007BCB58; // 0x007BCB58
-
-extern D2InventoryGridInfoStrc gGrid_007BCB70; // 0x007BCB70
 
 extern D2InventoryGridInfoStrc gGrid_007BCB88; // 0x007BCB88
 
@@ -338,8 +505,6 @@ int __cdecl sub_004B3500(); // 0x004B3500
 
 extern D2PanelButtonStrc gaPanelButtons_007BC9E0[]; // 0x007BC9E0
 
-extern unsigned char gnMaxTab_007BCC05; // 0x007BCC05
-
 static void sub_00487E20_SetButtonA(int nButton); // 0x00487E20
 
 static void sub_00487E60_SetButtonB(int nButton); // 0x00487E60
@@ -390,21 +555,7 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId);                                                 // 0x006372C0
 
-static int gnGlobal_007BCA4C; // 0x007BCA4C
 
-static int gnGlobal_007BCBD8; // 0x007BCBD8
-
-static int gdwGlobal_007BCBE4; // 0x007BCBE4
-
-static int gdwGlobal_007BCBE8; // 0x007BCBE8
-
-static int gdwGlobal_007BCBF0; // 0x007BCBF0
-
-static D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
-
-static D2UnitStrc* gdwGlobal_007BCBF8; // 0x007BCBF8
-
-static unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
 
 static int gnGlobal_007BCC20; // 0x007BCC20
 
@@ -436,7 +587,253 @@ static int gbGlobal_007BCE90; // 0x007BCE90
 
 static int gnGlobal_007BCE94; // 0x007BCE94
 
-static int gnGlobal_007BCE9C; // 0x007BCE9C
+
+// 0x00480780
+int __fastcall sub_00480780_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    D2UnitStrc* pTarget = sub_00463990(nUnitId, nUnitType);
+    PATH_SetTargetUnit(pPath, pTarget);
+    if (!pTarget)
+    {
+        return 0;
+    }
+    return D2Common_10142(pPath, pUnit, 0);
+}
+
+// 0x004824A0
+int __stdcall sub_004824A0_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge)
+{
+    const unsigned int nTarget = gdwCacheUsed_007BC9D0 - nFree;
+    const unsigned int dwNow = gdwGlobal_007BC9BC;
+    while (gdwCacheUsed_007BC9D0 > nTarget)
+    {
+        int bFreed = 0;
+        int nPass = 0;
+        do
+        {
+            for (D2ClientCacheNodeStrc* pNode = gpCacheList_007BC9B8; pNode; pNode = pNode->pNext)
+            {
+                const int nId = pNode->nId;
+                D2ClientCacheEntryStrc* pEntry = (sgptSoundHeaderTable && nId >= 0 && nId < gnCacheEntries_007BC9A4) ? &sgptSoundHeaderTable[nId] : 0;
+                if (nPass == 0 && (*(int*)pEntry->nRefCount || pEntry->bLocked))
+                {
+                    continue;
+                }
+                if (bCheckAge && dwNow - *(unsigned int*)pEntry->dwLastUse < 750)
+                {
+                    continue;
+                }
+                if (!sub_004DF9D0_CheckCacheEntry(nId))
+                {
+                    sub_004823E0_ReleaseCacheEntry(nId);
+                    bFreed = 1;
+                    break;
+                }
+            }
+            if (!bTwoPasses)
+            {
+                break;
+            }
+            ++nPass;
+        }
+        while (nPass <= 1);
+
+        if (!bFreed)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+// 0x00482C20
+void __cdecl sub_00482C20_Tick()
+{
+    if (sub_004DF870())
+    {
+        sub_004E42E0_UpdateEnvironSounds(gdwGlobal_007BC9BC);
+        sub_004DCAA0_UpdateLevelSong(gdwGlobal_007BC9BC);
+        sub_00482B40_UpdateCache(gdwGlobal_007BC9BC);
+        sub_004BA020(gdwGlobal_007BC9BC);
+        sub_004DF890();
+        ++gdwGlobal_007BC9BC;
+        Sleep(0);
+    }
+}
+
+// 0x00482C70
+static unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags)
+{
+    if (nFlags & 0x01)
+        return 7;
+    if (nFlags & 0x80)
+        return 6;
+    if (nFlags & 0x10)
+        return 5;
+    if (nFlags & 0x08)
+        return 4;
+    if (nFlags & 0x40)
+        return 3;
+    if (nFlags & 0x04)
+        return 2;
+    return 1;
+}
+
+// 0x00483310
+void __cdecl sub_00483310_ResetCinematicFlags()
+{
+    gbCinematicStop_007BC9D4 = 0;
+    gbCinematicWide_007BC9D6 = !sub_0040EB10();
+    gbCinematicChain_007BC9D8 = 0;
+    gbCinematicBusy_007BC9D7 = 0;
+}
+
+// 0x00483350
+unsigned char __cdecl sub_00483350_IsCinematicBusy()
+{
+    return gbCinematicBusy_007BC9D7;
+}
+
+// 0x004834A0
+const Unicode* __fastcall sub_004834A0_SkipBracketTag(const Unicode* pString)
+{
+    int n = sub_00526800(pString);
+    for (; n > 0; --n)
+    {
+        if (pString[n].wChar == ']')
+        {
+            break;
+        }
+    }
+    if (pString[n].wChar == ']' && n >= 3 && pString[n - 3].wChar == '[')
+    {
+        return &pString[n + 1];
+    }
+    return pString;
+}
+
+// calling-convention shim (not game code)
+int __fastcall sub_00482C70_Shim(const unsigned char* pFlags, int nCount)
+{
+    int nSum = 0;
+    for (int i = 0; i < nCount; ++i)
+        nSum += sub_00482C70_GetFlagIndex(pFlags[i]);
+    return nSum;
+}
+
+// 0x00483AE0
+static __declspec(noinline) int sub_00483AE0_IsInRect(int nX, int nY)
+{
+    if (nX > gnGlobal_007BCB1C && nX < gnGlobal_007BCB20 && nY >= gnGlobal_007BCB24 && nY <= gnGlobal_007BCB28)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00483B10
+static __declspec(noinline) int sub_00483B10_IsInRect(int nX, int nY)
+{
+    if (nX > gnGlobal_007BCA34 && nX < gnGlobal_007BCA38 && nY >= gnGlobal_007BCA3C && nY <= gnGlobal_007BCA40)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00483B40
+static __declspec(noinline) int sub_00483B40_IsInRect(int nX, int nY)
+{
+    if (sub_0044DCC0())
+    {
+        if (nX > gnGlobal_007BCA7C && nX <= gnGlobal_007BCA80 && nY >= gnGlobal_007BCA84 && nY <= gnGlobal_007BCA88)
+        {
+            return 1;
+        }
+        return 0;
+    }
+
+    if (nX > gnGlobal_007BCB44 && nX <= gnGlobal_007BCB48 && nY >= gnGlobal_007BCB4C && nY <= gnGlobal_007BCB50)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00483BA0
+static __declspec(noinline) int sub_00483BA0_IsInRect(int nX, int nY)
+{
+    if (sub_0044DCC0())
+    {
+        if (nX >= gnGlobal_007BCAF4 && nX < gnGlobal_007BCAF8 && nY >= 0 && nY <= gnGlobal_007BCB00)
+        {
+            return 1;
+        }
+        return 0;
+    }
+
+    if (nX >= gnGlobal_007BCA68 && nX < gnGlobal_007BCA6C && nY >= 0 && nY <= gnGlobal_007BCA74)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00483BF0
+static __declspec(noinline) int sub_00483BF0_IsInRect(int nX, int nY)
+{
+    if (nX >= gnGlobal_007BCB74 && nX < gnGlobal_007BCB78 && nY >= gnGlobal_007BCB7C && nY <= gnGlobal_007BCB80)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+int __cdecl sub_E04_Emit_00483AE0(int nX, int nY)
+{
+    return sub_00483AE0_IsInRect(nX, nY);
+}
+
+int __cdecl sub_E04_Emit_00483B10(int nX, int nY)
+{
+    return sub_00483B10_IsInRect(nX, nY);
+}
+
+int __cdecl sub_E04_Emit_00483B40(int nX, int nY)
+{
+    return sub_00483B40_IsInRect(nX, nY);
+}
+
+int __cdecl sub_E04_Emit_00483BA0(int nX, int nY)
+{
+    return sub_00483BA0_IsInRect(nX, nY);
+}
+
+int __cdecl sub_E04_Emit_00483BF0(int nX, int nY)
+{
+    return sub_00483BF0_IsInRect(nX, nY);
+}
+
+// 0x00483C20
+static __declspec(noinline) int sub_00483C20_IsInRect(int nX, int nY)
+{
+    if (nX >= gnGlobal_007BCB30 && nX < gnGlobal_007BCB34 && nY >= 0 && nY <= gnGlobal_007BCB3C)
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00483E10
+int __cdecl sub_00483E10_IsNpcStateIdle()
+{
+    if (gdwGlobal_007BCBF0 == 0 || gdwGlobal_007BCBF0 == 1 || gdwGlobal_007BCBF0 == 3 || gdwGlobal_007BCBF0 == 2 || gdwGlobal_007BCBF0 == 4)
+    {
+        return 1;
+    }
+    return 0;
+}
 
 // 0x00483E40
 void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* grid, int x, int y)
@@ -471,8 +868,6 @@ void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInf
 struct D2ClientTextDataStrc;
 
 struct D2InventoryStrc;
-
-struct D2UnitStrc;
 
 int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
 {
@@ -1975,6 +2370,67 @@ static void __stdcall sub_00486BD0_GetPlacementCell(D2UnitStrc* pItem, D2Invento
     }
 }
 
+// 0x00487A10
+void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab)
+{
+    if (nTab >= 5)
+    {
+        nTab = 0;
+    }
+    if (gnGlobal_007BCC08)
+    {
+        return;
+    }
+    int nUnitId;
+    if (!sub_004B3230_GetTickPair(&nUnitId))
+    {
+        return;
+    }
+    D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
+    if (!pUnit || !pUnit->pInventory)
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory);
+    int anCounts[5] = {};
+    for (; pItem; pItem = INVENTORY_GetNextItem(pItem))
+    {
+        const unsigned char nPage = ITEMS_GetInvPage(INVENTORY_UnitIsItem(pItem));
+        if (nPage < 5)
+        {
+            ++anCounts[nPage];
+        }
+    }
+
+    int nTries = 0;
+    gnSelectedTab_007BCC04 = nTab;
+    for (int i = 0; i < gnGlobal_00722158; ++i)
+    {
+        *(int*)gaTabs_0072211A[i].bSelected = 0;
+        *(int*)gaTabs_0072211A[i].bEnabled = anCounts[i] != 0;
+    }
+
+    if (!anCounts[nTab])
+    {
+        do
+        {
+            ++gnSelectedTab_007BCC04;
+            ++nTries;
+            if (gnSelectedTab_007BCC04 > gnMaxTab_007BCC05 || gnSelectedTab_007BCC04 == 0xFF)
+            {
+                gnSelectedTab_007BCC04 = 0;
+            }
+            if (anCounts[gnSelectedTab_007BCC04])
+            {
+                break;
+            }
+        }
+        while (nTries < 4);
+    }
+    *(int*)gaTabs_0072211A[gnSelectedTab_007BCC04].bSelected = 1;
+}
+
 void __stdcall sub_00486BD0_Emit(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY)
 {
     sub_00486BD0_GetPlacementCell(pItem, pGrid, nX, nY, pCellX, pCellY);
@@ -2105,6 +2561,118 @@ void __cdecl sub_00487ED0_SetupPanelButtons()
     gaPanelButtons_007BC9E0[3].nValue = 0;
 }
 
+// 0x00488910
+void __stdcall sub_00488910_ResetCursorMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if ((gdwGlobal_007BCBF0 == 1 || gdwGlobal_007BCBF0 == 2 || gdwGlobal_007BCBF0 == 3 || gdwGlobal_007BCBF0 == 4 || gdwGlobal_007BCBF0 == 9)
+        && !sub_00453A90_GetUIVarUnchecked(5))
+    {
+        gnGlobal_007BCBE0 = 0;
+        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory));
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        gnGlobal_007BCE9C = 0;
+        sub_004B3ED0();
+        gnGlobal_007BCA4C = 0;
+        gnGlobal_007BCBD8 = 0;
+        gdwGlobal_007BCBE4 = 0;
+        gdwGlobal_007BCBE8 = 0;
+        gdwGlobal_007BCBF4 = 0;
+        gdwGlobal_007BCBF8 = 0;
+        gnGlobal_00721E3C = -1;
+        gnGlobal_00721E40 = -1;
+        gnGlobal_00721E44 = -1;
+        gnGlobal_00721E48 = -1;
+        gnGlobal_00721E4C = -1;
+        gnGlobal_00721E50 = -1;
+    }
+}
+
+// 0x00488E70
+void __stdcall sub_00488E70_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (sub_00453A90_GetUIVarUnchecked(5) || sub_004B34A0())
+    {
+        return;
+    }
+    if (!(pMsg->lParam & 0x40000000))
+    {
+        sub_00455F20(5, 0, 0);
+    }
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x00489060
+int __stdcall sub_00489060_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gnGlobal_007BCA4C = nX;
+    gnGlobal_007BCBD8 = nY;
+    if (nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
+    {
+        sub_004873A0_HandleClick(pMsg);
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004894D0
+void __stdcall sub_004894D0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gdwGlobal_007BCBF0 != 0xB)
+    {
+        return;
+    }
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gnGlobal_007BCA4C = nX;
+    gnGlobal_007BCBD8 = nY;
+    if ((nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
+        || (nX > gnGlobal_007BCA34 && nX < gnGlobal_007BCA38 && nY >= gnGlobal_007BCA3C && nY <= gnGlobal_007BCA40)
+        || (nX > gnGlobal_007BCB1C && nX < gnGlobal_007BCB20 && nY >= gnGlobal_007BCB24 && nY <= gnGlobal_007BCB28))
+    {
+        sub_004873A0_HandleClick(pMsg);
+        return;
+    }
+    sub_00487990_ResetHover();
+    sub_00502280_SetPopUpText(0, -1, -1, 0, 0);
+}
+
+static inline int InRect(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
+{
+    return nX >= nLeft && nX < nRight && nY >= nTop && nY <= nBottom;
+}
+
+// 0x0048A0F0
+void __stdcall sub_0048A0F0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (gdwGlobal_007BCBF0 != 0xE)
+    {
+        return;
+    }
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gnGlobal_007BCA4C = nX;
+    gnGlobal_007BCBD8 = nY;
+    if (InRect(nX, nY, gnGlobal_007BCAA0, gnGlobal_007BCAA4, gnGlobal_007BCAA8, gnGlobal_007BCAAC)
+        || InRect(nX, nY, gnGlobal_007BCB74, gnGlobal_007BCB78, gnGlobal_007BCB7C, gnGlobal_007BCB80))
+    {
+        sub_004873A0_HandleClick(pMsg);
+    }
+    else
+    {
+        gdwGlobal_007BCBE4 = 0;
+        gdwGlobal_007BCBE8 = 0;
+        gdwGlobal_007BCBF4 = 0;
+        gdwGlobal_007BCBF8 = 0;
+        sub_00502280_SetPopUpText(0, -1, -1, 0, 0);
+    }
+}
+
 // 0x0048B0A0
 void __stdcall sub_0048B0A0_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
 {
@@ -2163,6 +2731,77 @@ void __stdcall sub_0048B0A0_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
             TEXTURE_CelDraw(&tGfx, gnRectRArmLeft_007BCD88 + gnOffsetRArmX_007220F0, gnRectRArmBottom_007BCD94 + gnOffsetRArmY_007220F4, -1, 5, 0);
         }
     }
+}
+
+// 0x0048BD80
+void __stdcall sub_0048BD80_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nMaxY = gnGlobal_00711470 - 0x31;
+    const int nHalfWidth = gnGlobal_0071146C / 2;
+    const int nX = sub_00468730();
+    const int nY = sub_00468740();
+    if (nX >= 0 && nX <= nHalfWidth && nY >= 0 && nY <= nMaxY)
+    {
+        sub_00455F20(0x25, 1, 0);
+        sub_0044DA70();
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+    }
+}
+
+// 0x00497C50
+void __stdcall sub_00497C50_DrawSlotIcon(int nFrame)
+{
+    int nX = gnGlobal_0071146C - 0x37;
+    int nY = 0x9B;
+    for (unsigned int i = 0; i < 6; ++i)
+    {
+        if (!gabSlots_007BEFB4[i])
+        {
+            gabSlots_007BEFB4[i] = 1;
+            nX -= 0x28 * i;
+            break;
+        }
+    }
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpCellFile_007BEF24;
+    tContext.nDirection = 0;
+    tContext.nFrame = nFrame;
+    if (sub_004538D0(0xA))
+    {
+        if (sub_0047A560())
+        {
+            nY = 0xC6;
+        }
+        nY += 0x1E;
+    }
+    sub_004F6480(&tContext, nX, nY, -1, 5, 0);
+}
+
+// 0x00498A20
+int __fastcall sub_00498A20_CheckState(int nUnused, D2ClientStateStrc* pState, int nArg1, int nArg2)
+{
+    D2_ASSERT(pState, 2621);
+    if (pState->bFlag0x129 == 1 || pState->bFlag0x12A == 1)
+    {
+        sub_0049FF90_Close(nArg2, pState);
+        return 0;
+    }
+    if (pState->bFlag0x11D == 1)
+    {
+        return 1;
+    }
+    sub_004CB9C0_Request(nArg1, 0x14);
+    return 0;
+}
+
+struct D2UnitStrc;
+
+int __cdecl sub_M133_Emit_00483C20(int nX, int nY)
+{
+    return sub_00483C20_IsInRect(nX, nY);
 }
 
 void __stdcall sub_P09_Emit_00486670(Unicode* pText)

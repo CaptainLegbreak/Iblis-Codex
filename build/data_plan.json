@@ -1315,25 +1315,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/CORE/WINMAIN_00449920.cpp": {
-   "bytes": 164,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl sub_0044B550_MemTest(); // 0x0044B550",
-    "extern \"C\" void __cdecl sub_0044B5A0_ToggleFlags(); // 0x0044B5A0",
-    "extern \"C\" void __cdecl sub_0044B5B0_StartPlayback(); // 0x0044B5B0",
-    "extern \"C\" void __cdecl sub_0044B5E0_SaveDefaultCmdLine(); // 0x0044B5E0",
-    "extern \"C\" void __cdecl sub_00451260_RegisterLngArgument(); // 0x00451260"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/CORE/WINMAIN_00449920.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/CORE/WINMAIN.CPP": {
-   "bytes": 508,
-   "definitions": 4,
+   "bytes": 672,
+   "definitions": 7,
    "externs": [
+    "extern \"C\" void __cdecl sub_0044B5E0_SaveDefaultCmdLine(); // 0x0044B5E0",
+    "extern \"C\" void __cdecl sub_00451260_RegisterLngArgument(); // 0x00451260",
     "extern \"C\" void __cdecl sub_0044AB80_McpIncoming1B(); // 0x0044AB80"
    ],
    "fn_types": {},
@@ -2124,9 +2111,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/inv_00480780.cpp": {
-   "bytes": 58,
-   "definitions": 4,
+  "Source/D2Client/UI/inv_00483E40.cpp": {
+   "bytes": 2362,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv_00480780.inc",
@@ -2139,15 +2126,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00482E00.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/inv_00483E40.cpp": {
-   "bytes": 2304,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/inv_00483E40.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2306,7 +2284,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/text_0049FBA0.cpp": {
+  "Source/D2Client/UI/text_0049D490.cpp": {
    "bytes": 336,
    "definitions": 8,
    "externs": [
@@ -2509,7 +2487,7 @@
    "state": "included",
    "static_definitions": 1
   },
-  "Source/D2Client/UI/npcmenu_004B34A0.cpp": {
+  "Source/D2Client/UI/npcmenu_004B2650.cpp": {
    "bytes": 87,
    "definitions": 2,
    "externs": [
@@ -30878,7 +30856,7 @@
    "cname": "gData_006D5BE0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN_00449920.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006D5BE0_t gData_006D5BE0; // 0x006D5BE0",
    "head": "extern \"C\" const struct d2data_006D5BE0_t gData_006D5BE0 = ",
@@ -30912,7 +30890,7 @@
    "cname": "gData_006D5BE8",
    "declared": true,
    "decorated": "?gtCommandLineArgs_006D5BE8@@3QBUD2CmdArgStrc@@B",
-   "file": "Source/D2Client/CORE/WINMAIN_00449920.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "declared",
    "fwd": "extern \"C\" const D2CmdArgStrc gData_006D5BE8[8]; // 0x006D5BE8",
    "head": "extern \"C\" const D2CmdArgStrc gData_006D5BE8[8] = ",
@@ -31060,7 +31038,7 @@
     [
      92,
      "0x0044B550",
-     "names.json",
+     "owner",
      "sub_0044B550_MemTest",
      0,
      "func"
@@ -31076,7 +31054,7 @@
     [
      108,
      "0x0044B5A0",
-     "names.json",
+     "owner",
      "sub_0044B5A0_ToggleFlags",
      0,
      "func"
@@ -31092,7 +31070,7 @@
     [
      124,
      "0x0044B5B0",
-     "names.json",
+     "owner",
      "sub_0044B5B0_StartPlayback",
      0,
      "func"
@@ -31111,7 +31089,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN_00449920.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gpszLaunchModeNames_0070EE70[7] = ",
@@ -49527,7 +49505,7 @@
    "cname": "gData_0072211E",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_00480780.cpp",
+   "file": "Source/D2Client/UI/inv_00483E40.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072211E_t gData_0072211E; // 0x0072211E",
    "head": "extern \"C\" struct d2data_0072211E_t gData_0072211E = ",
@@ -49544,7 +49522,7 @@
    "cname": "gData_00722130",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_00480780.cpp",
+   "file": "Source/D2Client/UI/inv_00483E40.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00722130_t gData_00722130; // 0x00722130",
    "head": "extern \"C\" struct d2data_00722130_t gData_00722130 = ",
@@ -49561,7 +49539,7 @@
    "cname": "gData_00722142",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_00480780.cpp",
+   "file": "Source/D2Client/UI/inv_00483E40.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00722142_t gData_00722142; // 0x00722142",
    "head": "extern \"C\" struct d2data_00722142_t gData_00722142 = ",
@@ -49578,7 +49556,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_00480780.cpp",
+   "file": "Source/D2Client/UI/inv_00483E40.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnGlobal_00722158 = ",
@@ -53896,7 +53874,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ScrollPosStrc gaScrollPiecePos_00722EB8[5] = ",
@@ -53947,7 +53925,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ScrollPosStrc gaScrollFadePos_00722EE0[5] = ",
@@ -53998,7 +53976,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned int gaScrollThresholds_00722F08[5] = ",
@@ -55397,7 +55375,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
@@ -55467,7 +55445,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
@@ -55577,7 +55555,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "fill": 1,
    "form": "declared",
    "fwd": null,
@@ -55647,7 +55625,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -55949,7 +55927,7 @@
    "cname": "gData_00724810",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/text_0049FBA0.cpp",
+   "file": "Source/D2Client/UI/text_0049D490.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00724810_t gData_00724810; // 0x00724810",
    "head": "extern \"C\" struct d2data_00724810_t gData_00724810 = ",
@@ -61262,7 +61240,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B34A0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHandlerCount_007253DC = ",
@@ -61287,7 +61265,7 @@
    "cname": "gData_00726C6E",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/npcmenu_004B34A0.cpp",
+   "file": "Source/D2Client/UI/npcmenu_004B2650.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E; // 0x00726C6E",
    "head": "extern \"C\" struct d2data_00726C6E_t gData_00726C6E = ",
