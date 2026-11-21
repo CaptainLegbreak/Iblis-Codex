@@ -5279,21 +5279,36 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/MONSTER/MonsterMode_005A1080.cpp": {
-   "bytes": 64,
-   "definitions": 2,
+  "Source/D2Game/MONSTER/MonsterMode.cpp": {
+   "bytes": 592,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl sub_0056D790_DispatchAuraCallback(); // 0x0056D790",
     "extern \"C\" void __cdecl sub_0056FCB0(); // 0x0056FCB0",
     "extern \"C\" void __cdecl sub_0056FE40(); // 0x0056FE40",
     "extern \"C\" void __cdecl sub_005A4370(); // 0x005A4370",
-    "extern \"C\" void __cdecl sub_005A6920_MonsterRegenEvent(); // 0x005A6920",
-    "extern \"C\" void __cdecl sub_005A7BA0(); // 0x005A7BA0",
-    "extern \"C\" void __cdecl sub_005A7BE0(); // 0x005A7BE0",
     "extern \"C\" void __cdecl sub_005A7EF0(); // 0x005A7EF0",
     "extern \"C\" void __cdecl sub_005A7F00_ExpireHover(); // 0x005A7F00",
-    "extern \"C\" void __cdecl sub_005A7F70(); // 0x005A7F70",
-    "extern \"C\" void __cdecl sub_005B1740(); // 0x005B1740"
+    "extern \"C\" void __cdecl sub_005B1740(); // 0x005B1740",
+    "extern \"C\" void __cdecl sub_005A6DE0(); // 0x005A6DE0",
+    "extern \"C\" void __cdecl sub_005A72B0(); // 0x005A72B0",
+    "extern \"C\" void __cdecl sub_005A7350(); // 0x005A7350",
+    "extern \"C\" void __cdecl sub_005A7490(); // 0x005A7490",
+    "extern \"C\" void __cdecl sub_005A74A0(); // 0x005A74A0",
+    "extern \"C\" void __cdecl sub_005A74E0(); // 0x005A74E0",
+    "extern \"C\" void __cdecl sub_005A7520(); // 0x005A7520",
+    "extern \"C\" void __cdecl sub_005A7550(); // 0x005A7550",
+    "extern \"C\" void __cdecl sub_005A7580(); // 0x005A7580",
+    "extern \"C\" void __cdecl sub_005A77C0(); // 0x005A77C0",
+    "extern \"C\" void __cdecl sub_005A7870(); // 0x005A7870",
+    "extern \"C\" void __cdecl sub_005A8030(); // 0x005A8030",
+    "extern \"C\" void __cdecl sub_005A8330(); // 0x005A8330",
+    "extern \"C\" void __cdecl sub_005A83E0(); // 0x005A83E0",
+    "extern \"C\" void __cdecl sub_005A8490(); // 0x005A8490",
+    "extern \"C\" void __cdecl sub_005A84F0(); // 0x005A84F0",
+    "extern \"C\" void __cdecl sub_005A8520(); // 0x005A8520",
+    "extern \"C\" void __cdecl sub_005A8630(); // 0x005A8630",
+    "extern \"C\" void __cdecl sub_005A8670(); // 0x005A8670"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMode_005A1080.inc",
@@ -5355,41 +5370,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005A4200.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/MONSTER/MonsterMode.cpp": {
-   "bytes": 528,
-   "definitions": 7,
-   "externs": [
-    "extern \"C\" void __cdecl sub_005A6DE0(); // 0x005A6DE0",
-    "extern \"C\" void __cdecl sub_005A6FF0_MonsterDeath(); // 0x005A6FF0",
-    "extern \"C\" void __cdecl sub_005A72B0(); // 0x005A72B0",
-    "extern \"C\" void __cdecl sub_005A7350(); // 0x005A7350",
-    "extern \"C\" void __cdecl sub_005A7390_MONSTERMODE_EndDeath(); // 0x005A7390",
-    "extern \"C\" void __cdecl sub_005A7490(); // 0x005A7490",
-    "extern \"C\" void __cdecl sub_005A74A0(); // 0x005A74A0",
-    "extern \"C\" void __cdecl sub_005A74D0_MonMode10End(); // 0x005A74D0",
-    "extern \"C\" void __cdecl sub_005A74E0(); // 0x005A74E0",
-    "extern \"C\" void __cdecl sub_005A7520(); // 0x005A7520",
-    "extern \"C\" void __cdecl sub_005A7550(); // 0x005A7550",
-    "extern \"C\" void __cdecl sub_005A7580(); // 0x005A7580",
-    "extern \"C\" void __cdecl sub_005A75C0_StartModeWithPath(); // 0x005A75C0",
-    "extern \"C\" void __cdecl sub_005A7670_UpdateModeSkill(); // 0x005A7670",
-    "extern \"C\" void __cdecl sub_005A77C0(); // 0x005A77C0",
-    "extern \"C\" void __cdecl sub_005A77D0_StartKnockback(); // 0x005A77D0",
-    "extern \"C\" void __cdecl sub_005A7870(); // 0x005A7870",
-    "extern \"C\" void __cdecl sub_005A8030(); // 0x005A8030",
-    "extern \"C\" void __cdecl sub_005A8330(); // 0x005A8330",
-    "extern \"C\" void __cdecl sub_005A83E0(); // 0x005A83E0",
-    "extern \"C\" void __cdecl sub_005A8490(); // 0x005A8490",
-    "extern \"C\" void __cdecl sub_005A84F0(); // 0x005A84F0",
-    "extern \"C\" void __cdecl sub_005A8520(); // 0x005A8520",
-    "extern \"C\" void __cdecl sub_005A8630(); // 0x005A8630",
-    "extern \"C\" void __cdecl sub_005A8670(); // 0x005A8670"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/MONSTER/MonsterMode.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -109905,7 +109885,7 @@
    "cname": "gData_006E2490",
    "declared": true,
    "decorated": "?gpMonsterEventFunctions@@3PAP6IXPAUD2GameStrc@@PAUD2UnitStrc@@HH@ZA",
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A1080.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006E2490_t gData_006E2490; // 0x006E2490",
    "head": "extern \"C\" const struct d2data_006E2490_t gData_006E2490 = ",
@@ -109939,7 +109919,7 @@
    "cname": "gData_006E2498",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A1080.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006E2498_t gData_006E2498; // 0x006E2498",
    "head": "extern \"C\" const struct d2data_006E2498_t gData_006E2498 = ",
@@ -110960,17 +110940,40 @@
      "k": "struct",
      "members": [
       [
-       "pfnCallbacks",
+       "pfnStart",
        0,
        {
-        "elem": {
-         "k": "ptr",
-         "size": 4,
-         "spell": "void*"
-        },
-        "k": "arr",
-        "n": 4,
-        "size": 16
+        "k": "ptr",
+        "size": 4,
+        "spell": "MonModeStartFunc"
+       }
+      ],
+      [
+       "pfnUpdate",
+       4,
+       {
+        "k": "ptr",
+        "size": 4,
+        "spell": "MonModeUnitFunc"
+       }
+      ],
+      [
+       "pfnEnd",
+       8,
+       {
+        "k": "ptr",
+        "size": 4,
+        "spell": "MonModeUnitFunc"
+       }
+      ],
+      [
+       "bScheduleEvents",
+       12,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
        }
       ]
      ],
@@ -111349,17 +111352,40 @@
     "k": "struct",
     "members": [
      [
-      "pfnCallbacks",
+      "pfnStart",
       0,
       {
-       "elem": {
-        "k": "ptr",
-        "size": 4,
-        "spell": "void*"
-       },
-       "k": "arr",
-       "n": 4,
-       "size": 16
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeStartFunc"
+      }
+     ],
+     [
+      "pfnUpdate",
+      4,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "pfnEnd",
+      8,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "bScheduleEvents",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
       }
      ]
     ],
@@ -111414,17 +111440,40 @@
     "k": "struct",
     "members": [
      [
-      "pfnCallbacks",
+      "pfnStart",
       0,
       {
-       "elem": {
-        "k": "ptr",
-        "size": 4,
-        "spell": "void*"
-       },
-       "k": "arr",
-       "n": 4,
-       "size": 16
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeStartFunc"
+      }
+     ],
+     [
+      "pfnUpdate",
+      4,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "pfnEnd",
+      8,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "bScheduleEvents",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
       }
      ]
     ],
@@ -111479,17 +111528,40 @@
     "k": "struct",
     "members": [
      [
-      "pfnCallbacks",
+      "pfnStart",
       0,
       {
-       "elem": {
-        "k": "ptr",
-        "size": 4,
-        "spell": "void*"
-       },
-       "k": "arr",
-       "n": 4,
-       "size": 16
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeStartFunc"
+      }
+     ],
+     [
+      "pfnUpdate",
+      4,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "pfnEnd",
+      8,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "bScheduleEvents",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
       }
      ]
     ],
@@ -111544,17 +111616,40 @@
     "k": "struct",
     "members": [
      [
-      "pfnCallbacks",
+      "pfnStart",
       0,
       {
-       "elem": {
-        "k": "ptr",
-        "size": 4,
-        "spell": "void*"
-       },
-       "k": "arr",
-       "n": 4,
-       "size": 16
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeStartFunc"
+      }
+     ],
+     [
+      "pfnUpdate",
+      4,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "pfnEnd",
+      8,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "bScheduleEvents",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
       }
      ]
     ],
@@ -111609,17 +111704,40 @@
     "k": "struct",
     "members": [
      [
-      "pfnCallbacks",
+      "pfnStart",
       0,
       {
-       "elem": {
-        "k": "ptr",
-        "size": 4,
-        "spell": "void*"
-       },
-       "k": "arr",
-       "n": 4,
-       "size": 16
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeStartFunc"
+      }
+     ],
+     [
+      "pfnUpdate",
+      4,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "pfnEnd",
+      8,
+      {
+       "k": "ptr",
+       "size": 4,
+       "spell": "MonModeUnitFunc"
+      }
+     ],
+     [
+      "bScheduleEvents",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
       }
      ]
     ],

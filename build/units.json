@@ -65409,8 +65409,23 @@
    ]
   },
   {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A1080.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-",
+    "/Ob1"
+   ],
    "functions": [
     {
      "va": "0x005A1080",
@@ -65453,9 +65468,223 @@
      "name": "MONSTERUNIQUE_SuicideModeChange"
     },
     {
+     "va": "0x005A5650",
+     "length": 62,
+     "name": "?MONSTERMODE_GetHpPercent128@@YIEPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A5FF0",
+     "length": 12,
+     "name": "?PARTYSCREEN_RefreshPartyRelationsAfterLeave@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A6250",
+     "length": 4,
+     "name": "?sub_005A6250_GetField14@@YIPAHPAUD2Field14Strc@@@Z"
+    },
+    {
+     "va": "0x005A6290",
+     "length": 228,
+     "name": "?MONSTERMODE_ComputePath@@YGHHPAUD2MonVelocityParamStrc@@PAUD2UnitStrc@@E@Z"
+    },
+    {
+     "va": "0x005A6380",
+     "length": 102,
+     "name": "?sub_005A6380_SetVelocityPercent@@YAXPAUD2MonVelocityParamStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A63F0",
+     "length": 160,
+     "name": "?sub_005A63F0_UpdateModePath@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2MonVelocityParamStrc@@HE@Z"
+    },
+    {
+     "va": "0x005A6490",
+     "length": 54,
+     "name": "?sub_005A6490_AllocateMonsterModeData@@YIPAUD2MonsterModeDataStrc@@PAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005A64D0",
+     "length": 21,
+     "name": "?D2GAME_MONSTERMODE_FreeParams_6FC63020@@YIXPAUD2GameStrc@@PAUD2AiParamStrc@@@Z"
+    },
+    {
+     "va": "0x005A64F0",
+     "length": 35,
+     "name": "?sub_005A64F0_IsActionFrame@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A6520",
+     "length": 214,
+     "name": "?sub_6FC63E80@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A6600",
+     "length": 549,
+     "name": "?sub_6FC631B0@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A6830",
+     "length": 175,
+     "name": "?sub_005A6830@@YIXPAUD2GameStrc@@PAUD2ModeChangeStrc@@H@Z"
+    },
+    {
+     "va": "0x005A68E0",
+     "length": 50,
+     "name": "?sub_005A68E0_SetAiStateForMode@@YAXHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A6920",
+     "length": 493
+    },
+    {
+     "va": "0x005A6B10",
+     "length": 92,
+     "name": "?sub_005A6B10_IsModeEventEnabled@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005A6B70",
+     "length": 479
+    },
+    {
+     "va": "0x005A6D50",
+     "length": 134,
+     "name": "?sub_005A6D50_CreateMonsterMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005A6DE0",
+     "length": 15,
+     "name": "?D2GAME_RemoveModeChangeEventCallback_6FC63B20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A6DF0",
+     "length": 184
+    },
+    {
      "va": "0x005A6EB0",
      "length": 310,
      "name": "sub_6FC64090"
+    },
+    {
+     "va": "0x005A6FF0",
+     "length": 703
+    },
+    {
+     "va": "0x005A72B0",
+     "length": 158,
+     "name": "?sub_6FC641D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A7350",
+     "length": 62,
+     "name": "?sub_6FC64280@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A7390",
+     "length": 72,
+     "name": "?sub_005A7390_MONSTERMODE_EndDeath@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A73E0",
+     "length": 170,
+     "name": "?MONSTERMODE_StartNeutral@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A7490",
+     "length": 16,
+     "name": "?sub_6FC643D0@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A74A0",
+     "length": 46,
+     "name": "?sub_6FC643E0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A74D0",
+     "length": 1,
+     "name": "?sub_005A74D0_MonMode10End@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A74E0",
+     "length": 49,
+     "name": "?sub_6FC64410@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A7520",
+     "length": 42,
+     "name": "?sub_6FC64450@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A7550",
+     "length": 42,
+     "name": "?sub_6FC644E0@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A7580",
+     "length": 62,
+     "name": "?sub_6FC64540@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A75C0",
+     "length": 171,
+     "name": "?sub_005A75C0_StartModeWithPath@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A7670",
+     "length": 325,
+     "name": "?sub_005A7670_UpdateModeSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A77C0",
+     "length": 16,
+     "name": "?sub_6FC64B50@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A77D0",
+     "length": 157
+    },
+    {
+     "va": "0x005A7870",
+     "length": 38,
+     "name": "?sub_6FC64E60@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A78A0",
+     "length": 646,
+     "name": "?MONSTERMODE_GetCallbackTableRecord@@YIPBUD2MonModeCallbackTableStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005A7B30",
+     "length": 100,
+     "name": "?sub_005A7B30_TryStartNeutral@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005A7BA0",
+     "length": 62,
+     "name": "?sub_005A7BA0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A7BE0",
+     "length": 62,
+     "name": "?sub_005A7BE0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A7C20",
+     "length": 564
+    },
+    {
+     "va": "0x005A7E60",
+     "length": 132,
+     "name": "?MONSTERMODE_GetModeChangeInfo@@YGXPAUD2UnitStrc@@HPAUD2ModeChangeStrc@@@Z"
+    },
+    {
+     "va": "0x005A7EF0",
+     "length": 16,
+     "name": "?D2GAME_MONSTERS_AiFunction13_6FC65890@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005A7F70",
+     "length": 10,
+     "name": "?sub_005A7F70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A8330",
@@ -65466,6 +65695,11 @@
      "va": "0x005A83E0",
      "length": 170,
      "name": "sub_6FC63A30"
+    },
+    {
+     "va": "0x005A8670",
+     "length": 192,
+     "name": "?sub_6FC64E90@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -65823,95 +66057,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A5650",
-     "length": 62,
-     "name": "?MONSTERMODE_GetHpPercent128@@YIEPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A5FF0",
-     "length": 12,
-     "name": "?PARTYSCREEN_RefreshPartyRelationsAfterLeave@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A6250",
-     "length": 4,
-     "name": "?sub_005A6250_GetField14@@YIPAHPAUD2Field14Strc@@@Z"
-    },
-    {
-     "va": "0x005A6380",
-     "length": 102,
-     "name": "?sub_005A6380_SetVelocityPercent@@YAXPAUD2MonVelocityParamStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A6490",
-     "length": 54,
-     "name": "?sub_005A6490_AllocateMonsterModeData@@YIPAUD2MonsterModeDataStrc@@PAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x005A64D0",
-     "length": 21,
-     "name": "?D2GAME_MONSTERMODE_FreeParams_6FC63020@@YIXPAUD2GameStrc@@PAUD2AiParamStrc@@@Z"
-    },
-    {
-     "va": "0x005A64F0",
-     "length": 35,
-     "name": "?sub_005A64F0_IsActionFrame@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A6830",
-     "length": 175,
-     "name": "?sub_005A6830@@YIXPAUD2GameStrc@@PAUD2ModeChangeStrc@@H@Z"
-    },
-    {
-     "va": "0x005A68E0",
-     "length": 50,
-     "name": "?sub_005A68E0_SetAiStateForMode@@YAXHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A6920",
-     "length": 493
-    },
-    {
-     "va": "0x005A6B10",
-     "length": 92,
-     "name": "?sub_005A6B10_IsModeEventEnabled@@YAHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005A6B70",
-     "length": 479
-    },
-    {
-     "va": "0x005A6DE0",
-     "length": 15,
-     "name": "?D2GAME_RemoveModeChangeEventCallback_6FC63B20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A73E0",
-     "length": 170,
-     "name": "?MONSTERMODE_StartNeutral@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A78A0",
-     "length": 646,
-     "name": "?MONSTERMODE_GetCallbackTableRecord@@YIPBUD2MonModeCallbackTableStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005A7B30",
-     "length": 100,
-     "name": "?sub_005A7B30_TryStartNeutral@@YGHPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A7E60",
-     "length": 132,
-     "name": "?MONSTERMODE_GetModeChangeInfo@@YGXPAUD2UnitStrc@@HPAUD2ModeChangeStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005A5690.cpp",
    "rank": 1,
    "functions": [
@@ -66042,215 +66187,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A6290.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A6290",
-     "length": 228,
-     "name": "?MONSTERMODE_ComputePath@@YGHHPAUD2MonVelocityParamStrc@@PAUD2UnitStrc@@E@Z"
-    },
-    {
-     "va": "0x005A63F0",
-     "length": 160,
-     "name": "?sub_005A63F0_UpdateModePath@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2MonVelocityParamStrc@@HE@Z"
-    },
-    {
-     "va": "0x005A6520",
-     "length": 214,
-     "name": "?sub_6FC63E80@@YGXHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A6600",
-     "length": 549,
-     "name": "?sub_6FC631B0@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A6D50",
-     "length": 134,
-     "name": "?sub_005A6D50_CreateMonsterMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005A7390",
-     "length": 72,
-     "name": "?sub_005A7390_MONSTERMODE_EndDeath@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A74D0",
-     "length": 1,
-     "name": "?sub_005A74D0_MonMode10End@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A75C0",
-     "length": 171,
-     "name": "?sub_005A75C0_StartModeWithPath@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A7670",
-     "length": 325,
-     "name": "?sub_005A7670_UpdateModeSkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A8670",
-     "length": 192,
-     "name": "?sub_6FC64E90@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A6DF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A6DF0",
-     "length": 184
-    },
-    {
-     "va": "0x005A77D0",
-     "length": 157
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A6FF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A6FF0",
-     "length": 703
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A72B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A72B0",
-     "length": 158,
-     "name": "?sub_6FC641D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A7350",
-     "length": 62,
-     "name": "?sub_6FC64280@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A7490",
-     "length": 16,
-     "name": "?sub_6FC643D0@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A74A0",
-     "length": 46,
-     "name": "?sub_6FC643E0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005A74E0",
-     "length": 49,
-     "name": "?sub_6FC64410@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A7520",
-     "length": 42,
-     "name": "?sub_6FC64450@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A7550",
-     "length": 42,
-     "name": "?sub_6FC644E0@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A7580",
-     "length": 62,
-     "name": "?sub_6FC64540@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A77C0",
-     "length": 16,
-     "name": "?sub_6FC64B50@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A7870",
-     "length": 38,
-     "name": "?sub_6FC64E60@@YIHPAUD2GameStrc@@PAUD2ModeChangeStrc@@@Z"
-    },
-    {
-     "va": "0x005A7BA0",
-     "length": 62,
-     "name": "?sub_005A7BA0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A7BE0",
-     "length": 62,
-     "name": "?sub_005A7BE0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A7EF0",
-     "length": 16,
-     "name": "?D2GAME_MONSTERS_AiFunction13_6FC65890@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A7F70",
-     "length": 10,
-     "name": "?sub_005A7F70@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMode_005A7C20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A7C20",
-     "length": 564
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
