@@ -362,7 +362,11 @@ void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const ch
 
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner);
 
-static BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
+inline D2ItemExtraDataStrc* INVENTORY_GetItemExtraDataFromItem(D2UnitStrc* pItem);
+
+static __forceinline D2UnitStrc* INVENTORY_GetBodyLocItemInline(D2InventoryStrc* pInventory, int nBodyLoc);
+
+D2UnitStrc* __stdcall INVENTORY_GetEquippedItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
 // 0x0063A110
 int __fastcall STATES_GetNumberOfStateFlags()
@@ -785,8 +789,6 @@ void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory)
         FOG_FreePool(pInventory->pMemPool, pInventory, gszInventorySourceFile_006EA918, 0x27F, 0);
     }
 }
-
-inline D2ItemExtraDataStrc* INVENTORY_GetItemExtraDataFromItem(D2UnitStrc* pItem);
 
 // 0x0063AD50
 __declspec(noinline) int __stdcall INVENTORY_CompareWithItemsParentInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
@@ -2311,6 +2313,21 @@ BOOL __stdcall INVENTORY_PlaceItemInFreeBeltSlot(D2InventoryStrc* pInventory, D2
     return INVENTORY_PlaceItemInGrid(pInventory, pItem, nFreeSlot, 0, INVGRID_BELT, 0);
 }
 
+// 0x0063C7F0
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc* pInventory, int nSlotId)
+{
+    if (INVENTORY_GetPtrIfValid(pInventory))
+    {
+        D2InventoryGridStrc* pInventoryGrid = INVENTORY_GetGrid(pInventory, INVGRID_BELT, &gBeltInventoryGridInfo);
+        if (pInventoryGrid && nSlotId >= 0 && nSlotId < BELT_SLOTS)
+        {
+            return pInventoryGrid->ppItems[nSlotId];
+        }
+    }
+
+    return 0;
+}
+
 // 0x0063C830
 int __stdcall sub_0063C830_CheckBeltItem(D2InventoryStrc* inventory, D2UnitStrc* item, int slot, D2UnitStrc** previous)
 {
@@ -2334,8 +2351,6 @@ int __stdcall sub_0063C830_CheckBeltItem(D2InventoryStrc* inventory, D2UnitStrc*
     *previous = INVENTORY_GetItemFromBeltSlot(inventory, slot);
     return 1;
 }
-
-static __forceinline D2UnitStrc* INVENTORY_GetBodyLocItemInline(D2InventoryStrc* pInventory, int nBodyLoc);
 
 // 0x0063C8F0
 BOOL __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem)
@@ -2370,6 +2385,69 @@ BOOL __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitSt
         }
 
         return TRUE;
+    }
+
+    return FALSE;
+}
+
+// 0x0063C9B0
+BOOL __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int* pBodyLoc, BOOL* pIsLeftHandItem)
+{
+    if (!pInventory)
+    {
+        return FALSE;
+    }
+
+    *pIsLeftHandItem = FALSE;
+
+    D2UnitStrc* pLeftHandItem = INVENTORY_GetLeftHandWeapon(pInventory);
+
+    D2UnitStrc* pItem = INVENTORY_GetBodyLocItemInline(pInventory, BODYLOC_RARM);
+    if (ITEMS_CanBeEquipped(pItem) && ITEMSIsA(pItem, ITEMTYPE_WEAPON))
+    {
+        *ppItem = pItem;
+        *pBodyLoc = BODYLOC_RARM;
+
+        if (pItem == pLeftHandItem)
+        {
+            *pIsLeftHandItem = TRUE;
+        }
+
+        return TRUE;
+    }
+
+    pItem = INVENTORY_GetBodyLocItemInline(pInventory, BODYLOC_LARM);
+    if (ITEMS_CanBeEquipped(pItem) && ITEMSIsA(pItem, ITEMTYPE_WEAPON))
+    {
+        *ppItem = pItem;
+        *pBodyLoc = BODYLOC_LARM;
+
+        if (pItem == pLeftHandItem)
+        {
+            *pIsLeftHandItem = TRUE;
+        }
+
+        return TRUE;
+    }
+
+    *ppItem = 0;
+    return FALSE;
+}
+
+// 0x0063CAB0
+BOOL __stdcall INVENTORY_HasBodyArmorEquipped(D2InventoryStrc* pInventory)
+{
+    if (INVENTORY_GetPtrIfValid(pInventory))
+    {
+        D2InventoryGridStrc* pInventoryGrid = INVENTORY_GetGrid(pInventory, INVGRID_BODYLOC, &gBodyLocInventoryGridInfo);
+        if (pInventoryGrid)
+        {
+            D2UnitStrc* pItem = pInventoryGrid->ppItems[BODYLOC_TORSO];
+            if (pItem && ITEMSIsA(pItem, ITEMTYPE_ARMOR))
+            {
+                return TRUE;
+            }
+        }
     }
 
     return FALSE;

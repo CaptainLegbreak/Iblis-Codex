@@ -80811,6 +80811,11 @@
      "name": "?INVENTORY_PlaceItemInFreeBeltSlot@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0063C7F0",
+     "length": 64,
+     "name": "?INVENTORY_GetItemFromBeltSlot@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
+    },
+    {
      "va": "0x0063C830",
      "length": 182
     },
@@ -80818,6 +80823,16 @@
      "va": "0x0063C8F0",
      "length": 180,
      "name": "?INVENTORY_GetEquippedShield@@YGHPAUD2InventoryStrc@@PAPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0063C9B0",
+     "length": 253,
+     "name": "?INVENTORY_GetEquippedWeapon@@YGHPAUD2InventoryStrc@@PAPAUD2UnitStrc@@PAH2@Z"
+    },
+    {
+     "va": "0x0063CAB0",
+     "length": 74,
+     "name": "?INVENTORY_HasBodyArmorEquipped@@YGHPAUD2InventoryStrc@@@Z"
     },
     {
      "va": "0x0063CB00",
@@ -81347,27 +81362,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063C7F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0063C7F0",
-     "length": 64,
-     "name": "?INVENTORY_GetItemFromBeltSlot@@YGPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
-    },
-    {
-     "va": "0x0063C9B0",
-     "length": 253,
-     "name": "?INVENTORY_GetEquippedWeapon@@YGHPAUD2InventoryStrc@@PAPAUD2UnitStrc@@PAH2@Z"
-    },
-    {
-     "va": "0x0063CAB0",
-     "length": 74,
-     "name": "?INVENTORY_HasBodyArmorEquipped@@YGHPAUD2InventoryStrc@@@Z"
-    }
    ]
   },
   {
