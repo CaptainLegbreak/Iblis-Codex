@@ -65727,6 +65727,11 @@
      "name": "D2CMPSpriteCacheInit"
     },
     {
+     "va": "0x005FFFA0",
+     "length": 267,
+     "name": "?sub_005FFFA0_LoadDC6CacheEntry@@YGHPAUD2CmpSpriteFileStrc@@HHPBDPAUD2CmpSpriteContextStrc@@@Z"
+    },
+    {
      "va": "0x006004E0",
      "length": 452
     },
@@ -73638,7 +73643,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_005FF0F0.cpp",
+   "file": "Source/D2CMP/SRC/SpriteCache_005FF0F0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -73836,17 +73841,6 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_005FFFA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FFFA0",
-     "length": 267,
-     "name": "?sub_005FFFA0_LoadDC6CacheEntry@@YGHPAUD2CmpSpriteFileStrc@@HHPBDPAUD2CmpSpriteContextStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2CMP/Unknown_006000B0.cpp",
    "rank": 1,
    "functions": [
@@ -73946,7 +73940,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_00600C60.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp_00600C60.cpp",
    "rank": 1,
    "functions": [
     {
@@ -74258,7 +74252,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_00603E70.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp_00603E70.cpp",
    "rank": 0,
    "functions": [
     {
@@ -74374,7 +74368,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_00604730.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp_00604730.cpp",
    "rank": 0,
    "functions": [
     {
