@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2GameTypes.h"
@@ -732,7 +733,7 @@ void __fastcall sub_004D6820_CltDoSpreadSpawn(D2UnitStrc* pMissile)
                 missileParams.nY = pSpread->nOffsetY + nY;
                 missileParams.nSkill = nSkill;
                 missileParams.nSkillLevel = nSkillLevel;
-                missileParams.nMissile = 0x154;
+                missileParams.nMissile = MISSILE_HORADRICLIGHT;
                 pNew = sub_004CD540_CreateMissile(&missileParams);
                 if (pNew)
                 {
@@ -755,7 +756,7 @@ void __fastcall sub_004D6820_CltDoSpreadSpawn(D2UnitStrc* pMissile)
         missileParams.nTargetY = UNITS_GetUnitYPosition(pMissile) + 3;
         missileParams.nSkill = sub_0064A280_GetSkill(pMissile);
         missileParams.nSkillLevel = sub_0064A210_GetSkillLevel(pMissile);
-        missileParams.nMissile = 0x153;
+        missileParams.nMissile = MISSILE_HORADRICLIGHTNING;
         pNew = sub_004CD540_CreateMissile(&missileParams);
         if (pNew)
         {
@@ -780,7 +781,7 @@ void __fastcall sub_004D6820_CltDoSpreadSpawn(D2UnitStrc* pMissile)
         missileParams.nTargetY = nY2 + (int)(SEED_RollUnitSeedWideInline(pMissile) % 10) - 5;
         missileParams.nSkill = sub_0064A280_GetSkill(pMissile);
         missileParams.nSkillLevel = sub_0064A210_GetSkillLevel(pMissile);
-        missileParams.nMissile = 0x96;
+        missileParams.nMissile = MISSILE_DUST;
         pNew = sub_004CD540_CreateMissile(&missileParams);
         if (pNew)
         {

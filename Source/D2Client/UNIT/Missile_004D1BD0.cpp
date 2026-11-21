@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2GameTypes.h"
 #include "D2Structs.h"
@@ -105,7 +106,7 @@ int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUni
     tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
     tParams.nX = nX;
     tParams.nY = nY;
-    tParams.nMissile = 0x15D;
+    tParams.nMissile = MISSILE_RADAMENTHOLYBOLT;
     tParams.nSkill = MISSILE_GetSkill(pMissile);
     tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
     for (int i = 0; i < nCount; ++i)

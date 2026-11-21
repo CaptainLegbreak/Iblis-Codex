@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -83,7 +84,7 @@ void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* unit)
  D2MissileStrc params;
  memset(&params,0,sizeof(params));
  params.dwFlags=0x420;
- params.nMissile=0x170;
+ params.nMissile=MISSILE_ORBMIST;
  params.pOwner=unit;
  params.pOrigin=unit;
  params.nTargetX=x;

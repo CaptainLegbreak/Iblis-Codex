@@ -1,3 +1,5 @@
+#include "D2ObjectIds.h"
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -660,7 +662,7 @@ static void __stdcall sub_0058C8D0_SpawnStatueMissile(D2QuestArgStrc* pQuestArg,
 
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 0x420;
-    missileParams.nMissile = 541;
+    missileParams.nMissile = MISSILE_ANCIENT_DEATH_CENTER;
     missileParams.pOwner = pQuestArg->pTarget;
     missileParams.pOrigin = pQuestArg->pTarget;
     missileParams.nTargetX = UNITS_GetXPositionInline(pObject);
@@ -910,17 +912,17 @@ void __fastcall ACT5Q5_SpawnAncientMonsters(D2QuestDataStrc* pQuestData, D2UnitS
     int nMonsterId = 0;
     switch (nObjectId)
     {
-    case 0x1DA:
+    case OBJECT_ANCIENTSTATUE3:
         nIndex = 1;
         nMonsterId = sgptDataTables->wAncientSuperUniqueIds[2];
         break;
 
-    case 0x1DB:
+    case OBJECT_ANCIENTSTATUE1:
         nIndex = 0;
         nMonsterId = sgptDataTables->wAncientSuperUniqueIds[0];
         break;
 
-    case 0x1DC:
+    case OBJECT_ANCIENTSTATUE2:
         nIndex = 0x02;
         nMonsterId = sgptDataTables->wAncientSuperUniqueIds[1];
         break;

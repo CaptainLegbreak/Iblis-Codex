@@ -1,3 +1,5 @@
+#include "D2ObjectIds.h"
+#include "D2MissileIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -189,7 +191,7 @@ void __cdecl sub_0046AEE0_ObjectMissileTimedBox()
     const int nY = CLIENTS_GetUnitY(pObject);
     sub_004CDB40_SubmitRequest(pPlayer, 0x120, nX, nY, 0, 1);
 
-    D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(0x120);
+    D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(MISSILE_CAIRNSTONES);
     sub_0046AE50_StartTimedBox(pMissilesTxtRecord->dwParam[0], pMissilesTxtRecord->wRange - 2 * pMissilesTxtRecord->dwParam[0], pMissilesTxtRecord->dwParam[0], 4, 1);
 }
 
@@ -364,13 +366,13 @@ void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit)
     switch (pUnit->dwClassId)
     {
     case 0x21C:
-        nObjectId = 0x1DB;
+        nObjectId = OBJECT_ANCIENTSTATUE1;
         break;
     case 0x21D:
-        nObjectId = 0x1DC;
+        nObjectId = OBJECT_ANCIENTSTATUE2;
         break;
     case 0x21E:
-        nObjectId = 0x1DA;
+        nObjectId = OBJECT_ANCIENTSTATUE3;
         break;
     default:
         return;
@@ -383,7 +385,7 @@ void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit)
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.dwFlags = 0x420;
-    tMissileParams.nMissile = 0x21D;
+    tMissileParams.nMissile = MISSILE_ANCIENT_DEATH_CENTER;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nTargetX = CLIENTS_GetUnitXInline(pObject);

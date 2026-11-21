@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
@@ -277,11 +278,6 @@ enum
     INVENTORYRECORD_BIG_BANK_PAGE_1 = 12,
 };
 
-enum
-{
-    OBJECT_GUILD_VAULT = 338,
-    OBJECT_TROPHY_CASE = 339,
-};
 
 
 

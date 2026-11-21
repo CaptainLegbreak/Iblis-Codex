@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
@@ -1258,7 +1259,7 @@ __forceinline int MISSILE_GetApproxOffsetLengthInline(int nX, int nY)
 // 0x004D19D0
 static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMissile)
 {
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(0x176);
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(MISSILE_HFFRAGMENT1);
     int aOffsetX[14] = { -4, 2, 4, -3, -2, 3, 5, -3, -5, 5, -6, -1, 0, 6 };
     int aOffsetY[14] = { 6, 4, -4, -2, 1, 7, 0, 3, -4, -3, 4, -5, 5, -3 };
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
@@ -1267,7 +1268,7 @@ static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMis
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x8102;
-    tParams.nMissile = 0x176;
+    tParams.nMissile = MISSILE_HFFRAGMENT1;
     tParams.pOwner = pOwner;
     tParams.pOrigin = pMissile;
     tParams.nSkill = sub_0064A280(pMissile);

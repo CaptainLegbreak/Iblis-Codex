@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
@@ -54,7 +55,6 @@ void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc
 
 enum
 {
-    OBJECT_STASH = 0x10B,
     UPDATEUI_OPENSTASH = 0x10,
 };
 
@@ -495,7 +495,7 @@ static void __stdcall sub_00564D50_HandleStashButton(D2GameStrc* pGame, unsigned
     int nUnitType;
     int nGUID;
     D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, nUnitGUID);
-    if (!pObject || pObject->dwClassId != 0x10B)
+    if (!pObject || pObject->dwClassId != OBJECT_STASH)
     {
         return;
     }

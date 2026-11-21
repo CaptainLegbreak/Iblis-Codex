@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
@@ -927,7 +928,7 @@ void __fastcall sub_004BD0C0_SpawnMissileGrid(D2UnitStrc* pUnit, D2UnitStrc* pOw
             tMissileParams.nTargetX = (i & 1) ? 5 * i : -5 * i;
             tMissileParams.nTargetY = (j & 1) ? 5 * j : -5 * j;
             tMissileParams.pOwner = pOwner;
-            tMissileParams.nMissile = 0x3E;
+            tMissileParams.nMissile = MISSILE_FIREBALL;
             int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
             if (nLevel < 1)
             {
@@ -960,7 +961,7 @@ void __fastcall sub_004BD220_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOw
         tMissileParams.pOwner = pOwner;
         tMissileParams.pOrigin = pUnit;
         tMissileParams.nGfxArg = 1;
-        tMissileParams.nMissile = 0x2D;
+        tMissileParams.nMissile = MISSILE_EXPLOSIVEPOTION;
         int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
         if (nLevel < 1)
         {
@@ -992,7 +993,7 @@ void __fastcall sub_004BD360_SpawnMissileStar(D2UnitStrc* pUnit, D2UnitStrc* pOw
         tMissileParams.pOwner = pOwner;
         tMissileParams.pOrigin = pUnit;
         tMissileParams.nGfxArg = 1;
-        tMissileParams.nMissile = 0x30;
+        tMissileParams.nMissile = MISSILE_CHOKINGGASPOITION;
         int nLevel = STATLIST_UnitGetStatValue(pOwner, STAT_LEVEL, 0) / 5;
         if (nLevel < 1)
         {

@@ -1,3 +1,5 @@
+#include "D2ObjectIds.h"
+#include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -34,7 +36,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 enum D2C_M96QuestsFxConstants
 {
-    MISSILE_RADAMENTDEATH = 347,
     EVENTTYPE_MONUMOD = 7,
     MONUMOD_TEMPSUMMON = 21,
 };
@@ -53,10 +54,6 @@ void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc*
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 static void __stdcall QUESTSFX_MainHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nDelayMin, int nDelayMax, int bCheckIfUndead);
 
-enum D2C_F41QuestsFxConstants
-{
-    MISSILE_MEPHISTODEATHCONTROL = 299,
-};
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -65,7 +62,6 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 enum D2C_P11QuestsFxConstants
 {
     OBJECT_COMPELLINGORB_STAIRS = 386,
-    MISSILE_ORBMIST = 0x170,
     EVENTTYPE_ENDANIM = 1,
 };
 

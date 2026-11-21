@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -21,8 +22,6 @@
 #define UNIT_TILE 5
 
 #define QUEST_A5Q4_NIHLATHAK 34
-
-#define OBJECT_PERMANENT_TOWN_PORTAL 60
 
 #define EVENTTYPE_MONUMOD 7
 

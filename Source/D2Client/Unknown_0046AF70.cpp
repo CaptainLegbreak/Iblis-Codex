@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -78,7 +79,7 @@ void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom)
         tMissile.pOwner = pPlayer;
         tMissile.nSkill = 0;
         tMissile.nSkillLevel = 1;
-        tMissile.nMissile = 0x11F;
+        tMissile.nMissile = MISSILE_DENOFEVILLIGHT;
         DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
         int nCount = 0;
         int i = 0;
@@ -148,7 +149,7 @@ void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit)
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.dwFlags = 0x420;
-    tMissileParams.nMissile = 0x123;
+    tMissileParams.nMissile = MISSILE_TOWERMIST;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nTargetX = nX;

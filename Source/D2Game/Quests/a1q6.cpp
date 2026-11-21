@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
@@ -59,7 +60,6 @@ enum D2C_P08QuestConstants
     MONSTER_WARRIV1 = 155,
     MONSTER_CAIN6 = 244,
     MONSTER_CAIN5 = 265,
-    OBJECT_CAINPORTAL = 189,
     QUEST_A1Q4_CAIN = 4,
     QUEST_A1Q5_COUNTESS = 5,
     QUESTSTATEFLAG_A1Q4 = 4,

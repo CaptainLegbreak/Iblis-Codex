@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2Game.h"
@@ -1818,7 +1819,7 @@ static void __stdcall SKILLS_CreateCurvingMissileRing(D2GameStrc* pGame, D2UnitS
         missileParams.nInitArg = SEED_RollRandomNumberInline(&seed);
 
         D2UnitStrc* pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
-        if (pMissile && nMissileId == 0x238)
+        if (pMissile && nMissileId == MISSILE_ROYALSTRIKECHAINLIGHTNING)
         {
             MISSILE_SetTargetX(pMissile, sub_004EFC20_GetSkillParam2(SKILL_ROYALSTRIKE) + 1);
         }

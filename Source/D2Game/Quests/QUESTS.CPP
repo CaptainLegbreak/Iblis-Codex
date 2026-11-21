@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -39,12 +40,6 @@
 #define UNIT_INVALID 6
 
 #define STRCOLOR_DARK_GOLD 4
-
-#define OBJECT_DREHYA_START_IN_TOWN 459
-
-#define OBJECT_NIHLATHAK_START_IN_TOWN 461
-
-#define OBJECT_LARZUK_STANDARD 543
 
 #define OBJRGN_WELL_DISTANCE 100
 
@@ -506,8 +501,6 @@ struct D2QuestDataStrc;
 #define QUEST_A2Q1_RADAMENT 8
 
 #define QUEST_A2Q5_SUMMONER 12
-
-#define OBJECT_INVISIBLE_OBJECT 61
 
 #define MAX_QUEST_STATUS 41
 

@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2GameAux.h"
@@ -21,8 +22,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_OBJECT 2
-
-#define OBJECT_FLIES 103
 
 #define EVENTTYPE_MODECHANGE 0
 
@@ -1739,15 +1738,15 @@ D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2Active
     bool bSmall = false;
     int* pIds;
     int nRange, nBase;
-    if (nObjectId == 3) {
+    if (nObjectId == OBJECT_CASKET6) {
         pIds = gnValues_00731D5C; nObjectId = gnCount_00731D8C; nTries = 18; nRange = 5; nBase = 5;
-    } else if (nObjectId == 79 || nObjectId == 1) {
+    } else if (nObjectId == OBJECT_CASKET3 || nObjectId == OBJECT_CASKET5) {
         pIds = gnValues_00731D50; nObjectId = gnCount_00731D88; nRange = 5; nBase = 5;
-    } else if (nObjectId == 4) {
+    } else if (nObjectId == OBJECT_URN1) {
         pIds = gnValues_00731D64; nObjectId = gnCount_00731D90; nRange = 0; nBase = 1; bSmall = true;
-    } else if (nObjectId == 89) {
+    } else if (nObjectId == OBJECT_MUMMY_COFFIN_LEFT) {
         pIds = gnValues_00731D78; nObjectId = gnCount_00731D94; nRange = 5; nBase = 5;
-    } else if (nObjectId == 208 || nObjectId == 209) {
+    } else if (nObjectId == OBJECT_BASKET1 || nObjectId == OBJECT_BASKET2) {
         pIds = gnValues_00731D80; nObjectId = gnCount_00731D98; nRange = 0; nBase = 1; bSmall = true;
     } else return 0;
     int nClusters = ((roomCoords.nSubtileWidth * roomCoords.nSubtileHeight >> 7) * nDensity) >> 8;
@@ -2075,7 +2074,7 @@ D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStr
 // 0x00551850
 D2UnitStrc* __fastcall sub_00551850_PopulateBarrels(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
 {
-    D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(7);
+    D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(OBJECT_BARREL);
     D2_ASSERT(bDensity <= 128, 0x955);
     int nCount = 0;
     D2ObjectControlStrc* pControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
@@ -2172,7 +2171,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn5_Crate(D2GameStrc* pGame, D2ActiveRoom
             if (nTries <= 0)
                 break;
         int nClassId = nObjectId;
-        if (nObjectId != 46)
+        if (nObjectId != OBJECT_CRATE)
             nClassId = gnObjectIds_00731D64[OBJECTS_RollObjectIndex_Inline(pSeed)];
         D2CoordStrc base;
         base.nX = bounds.nSubtileX + OBJECTS_RollLimitedHi_Inline(pSeed, bounds.nSubtileWidth);
@@ -2248,7 +2247,7 @@ int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D
     const unsigned int nXEnd = pDrlgCoords->nSubtileWidth + pDrlgCoords->nSubtileX + 1;
     const unsigned int nYEnd = pDrlgCoords->nSubtileHeight + pDrlgCoords->nSubtileY + 1;
     int nCounter = 0;
-    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(7);
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(OBJECT_BARREL);
     D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
     D2CoordStrc coord;
 

@@ -1,3 +1,5 @@
+#include "D2ObjectIds.h"
+#include "D2MissileIds.h"
 #include "D2ItemTypes.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -524,24 +526,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 #define QFLAG_REWARDGRANTED 0
 
 #define QFLAG_PRIMARYGOALDONE 13
-
-#define OBJECT_STONETHETA 22
-
-#define OBJECT_OBELISK 80
-
-#define OBJECT_DESERT_OBELISK 90
-
-#define OBJECT_PORTAL_TO_DURIELS_LAIR 100
-
-#define OBJECT_JERHYN_PLACEHOLDER1 121
-
-#define OBJECT_JERHYN_PLACEHOLDER2 122
-
-#define OBJECT_ORIFICE 152
-
-#define OBJECT_STASH 267
-
-#define OBJECT_GUILD_PORTAL 377
 
 struct D2ObjOperateStrc;
 
@@ -1800,7 +1784,7 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
             missile.nTargetX = (i & 1) ? 5 * i : -5 * i;
             missile.nTargetY = (j & 1) ? 5 * j : -5 * j;
             missile.pOwner = pSfx->pOwner;
-            missile.nMissile = 62;
+            missile.nMissile = MISSILE_FIREBALL;
             int nSkillLevel = STATLIST_UnitGetStatValue(pSfx->pOwner, STAT_LEVEL, 0) / 5;
             if (nSkillLevel < 1) nSkillLevel = 1;
             else if (nSkillLevel > 8) nSkillLevel = 8;
@@ -1926,7 +1910,7 @@ void __fastcall D2GAME_SHRINES_Exploding_6FC770D0(D2ObjOperateFnStrc* pOp, D2Shr
         missileParams.pOwner = pOp->hPlayer;
         missileParams.pOrigin = pOp->hObject;
         missileParams.nGfxArg = 1;
-        missileParams.nMissile = 45;
+        missileParams.nMissile = MISSILE_EXPLOSIVEPOTION;
 
         int nSkillLevel = STATLIST_UnitGetStatValue(pOp->hPlayer, STAT_LEVEL, 0) / 5;
         if (nSkillLevel < 1)
@@ -2002,7 +1986,7 @@ void __fastcall D2GAME_SHRINES_Poison_6FC773B0(D2ObjOperateFnStrc* pOp, D2Shrine
         missileParams.pOwner = pOp->hPlayer;
         missileParams.pOrigin = pOp->hObject;
         missileParams.nGfxArg = 1;
-        missileParams.nMissile = 48;
+        missileParams.nMissile = MISSILE_CHOKINGGASPOITION;
 
         int nSkillLevel = STATLIST_UnitGetStatValue(pOp->hPlayer, STAT_LEVEL, 0) / 5;
         if (nSkillLevel < 1)

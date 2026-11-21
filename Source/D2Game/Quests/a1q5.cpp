@@ -1,3 +1,5 @@
+#include "D2ObjectIds.h"
+#include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
 #include "D2Game.h"
@@ -29,8 +31,6 @@ struct D2UnitStrc;
 #define QFLAG_REWARDPENDING 1
 
 #define QFLAG_COMPLETEDNOW 14
-
-#define OBJECT_CAINPORTAL 189
 
 #define PORTAL_RETRY_STEP 3
 
@@ -114,11 +114,9 @@ int __fastcall ACT1Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
 enum D2C_Q05QuestConstants
 {
-    OBJECT_PERMANENT_TOWN_PORTAL = 60,
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A4Q2 = 26,
     QUESTSTATEFLAG_A5Q6 = 40,
-    OBJECT_PORTAL_TO_DURIELS_LAIR = 100,
     EVENTTYPE_ENDANIM = 1,
     QFLAG_REWARDGRANTED = 0,
     QFLAG_PRIMARYGOALDONE = 13,
@@ -973,7 +971,7 @@ void __stdcall ACT1Q5_SpawnTowerChestMissiles(D2QuestDataStrc* pQuestData, D2Act
             {
                 pQuestDataEx->bDeathMissilesCreated = 1;
 
-                D2UnitStrc* pMissile = D2GAME_CreateMissile_6FD115E0(pQuestData->pGame, pTrapFirebolt, 0, 1, 0x14C, CLIENTS_GetUnitXInline(pObject), CLIENTS_GetUnitYInline(pObject));
+                D2UnitStrc* pMissile = D2GAME_CreateMissile_6FD115E0(pQuestData->pGame, pTrapFirebolt, 0, 1, MISSILE_TOWERCHESTSPAWNER, CLIENTS_GetUnitXInline(pObject), CLIENTS_GetUnitYInline(pObject));
                 if (pMissile)
                 {
                     MISSILE_SetTargetX(pMissile, pQuestDataEx->nObjectGUIDs[i]);

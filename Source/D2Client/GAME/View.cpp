@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
@@ -900,7 +901,7 @@ void __fastcall sub_0046B680_SpawnMissileTrio(D2UnitStrc* pUnit)
 {
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = 0x11C;
+    tMissileParams.nMissile = MISSILE_BRDEATHCONTROL;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
@@ -909,12 +910,12 @@ void __fastcall sub_0046B680_SpawnMissileTrio(D2UnitStrc* pUnit)
         MISSILE_SetTargetX(pMissile, 0x32);
 
     memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = 0x128;
+    tMissileParams.nMissile = MISSILE_BRDEATHSPIRITS1;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
     sub_004CD540_CreateMissile(&tMissileParams);
-    tMissileParams.nMissile = 0x125;
+    tMissileParams.nMissile = MISSILE_BRDEATHSMOKES1;
     sub_004CD540_CreateMissile(&tMissileParams);
 }
 
@@ -923,7 +924,7 @@ void __fastcall sub_0046B9A0_SpawnMissileTrio2(D2UnitStrc* pUnit)
 {
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = 0x12B;
+    tMissileParams.nMissile = MISSILE_MEPHISTODEATHCONTROL;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
@@ -938,11 +939,11 @@ void __fastcall sub_0046B9A0_SpawnMissileTrio2(D2UnitStrc* pUnit)
     tMissileParams.pOwner = pUnit;
     tMissileParams.nSkillLevel = 1;
     tMissileParams.pOrigin = pUnit;
-    tMissileParams.nMissile = 0x166;
+    tMissileParams.nMissile = MISSILE_MEPHISTOHOLEDELAY;
     sub_004CD540_CreateMissile(&tMissileParams);
 
     memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = 0x132;
+    tMissileParams.nMissile = MISSILE_MEPHISTODONOTDRAW;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
@@ -954,7 +955,7 @@ void __fastcall sub_0046BA50_SpawnMissile(D2UnitStrc* pUnit)
 {
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = 0x133;
+    tMissileParams.nMissile = MISSILE_ANDYCONTROL0;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
@@ -967,7 +968,7 @@ void __fastcall sub_0046BC10_HintAndMissile(D2UnitStrc* pUnit)
     sub_004DCD40_ShowTimedHint((void*)0x1253, 0, 0xFA, 0, 0, 0, 0);
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = 0x17B;
+    tMissileParams.nMissile = MISSILE_IZUAL_CONTROL;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = 1;
@@ -2119,7 +2120,7 @@ D2UnitStrc* __fastcall sub_004D1640_SpawnDirectionalMissile(D2UnitStrc* pUnit, i
         memset(&tMissileParams, 0, sizeof(tMissileParams));
         tMissileParams.pOwner = pUnit;
         tMissileParams.pOrigin = pUnit;
-        tMissileParams.nMissile = 0x54;
+        tMissileParams.nMissile = MISSILE_FOOTPRINT;
         tMissileParams.nSkillLevel = 1;
         pMissile = sub_004CD540_CreateMissile(&tMissileParams);
         if (pMissile)

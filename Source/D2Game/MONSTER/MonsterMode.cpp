@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -36,7 +37,6 @@ enum D2C_P08MonsterConstants
     STAT_POISONLENGTH = 59,
     STAT_MANADRAINMINDAM = 62,
     STAT_MANADRAINMAXDAM = 63,
-    MISSILE_NOVA = 90,
     EVENTTYPE_MONUMOD = 7,
 };
 
@@ -1781,7 +1781,7 @@ int __fastcall sub_005A6FF0_MonsterDeath(D2GameStrc* pGame, D2ModeChangeStrc* pM
     {
         int nX = GetX(pUnit);
         int nY = GetY(pUnit);
-        D2UnitStrc* pMissile = sub_6FD11420(pGame, 117, pUnit, 0, 1, 0, 0, nX, nY, 1);
+        D2UnitStrc* pMissile = sub_6FD11420(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
         if (!pMissile) return 1;
         D2DifficultyLevelsTxt* pDifficulty = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
         if (!pDifficulty) return 1;

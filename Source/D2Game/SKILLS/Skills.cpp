@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
@@ -2061,7 +2062,7 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
 
     if (pUnit && DUNGEON_IsRoomInTown(hRoom))
     {
-        if ((nDestLevel != LEVEL_MOOMOOFARM && nDestLevel != LEVEL_PANDEMONIUMFINALE && nDestLevel != LEVEL_PANDEMONIUMRUN1 && nDestLevel != LEVEL_PANDEMONIUMRUN2 && nDestLevel != LEVEL_PANDEMONIUMRUN3) || nObjectId != 0x3C)
+        if ((nDestLevel != LEVEL_MOOMOOFARM && nDestLevel != LEVEL_PANDEMONIUMFINALE && nDestLevel != LEVEL_PANDEMONIUMRUN1 && nDestLevel != LEVEL_PANDEMONIUMRUN2 && nDestLevel != LEVEL_PANDEMONIUMRUN3) || nObjectId != OBJECT_PERMANENT_TOWN_PORTAL)
         {
             SUNIT_AttachSound(pUnit, 0x18, pUnit);
             return 0;

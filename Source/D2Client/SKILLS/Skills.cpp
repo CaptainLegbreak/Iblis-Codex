@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
@@ -2194,7 +2195,7 @@ static void __stdcall sub_004C7000_SpawnRing(D2MissileStrc* pAltParams, D2Missil
         {
             pParams->nTargetX = gaRingTargetX_006DACC0[i];
             pParams->nTargetY = gaRingTargetY_006DABC0[i];
-            if (pParams->nMissile == 0xB0)
+            if (pParams->nMissile == MISSILE_DIABFIRE)
                 pParams->dwFlags ^= 0x4000;
             sub_004CD540_CreateMissile(pParams);
         }
@@ -2839,7 +2840,7 @@ int __fastcall sub_004C7F50_SpawnPairAtTarget(D2UnitStrc* pUnit, int nSkillId, i
         tMissileParams.nX = tCoord.nX;
         tMissileParams.nY = tCoord.nY;
         sub_004CD540_CreateMissile(&tMissileParams);
-        tMissileParams.nMissile = 0x73;
+        tMissileParams.nMissile = MISSILE_CORPSEEXPLOSION;
         sub_004CD540_CreateMissile(&tMissileParams);
         return 1;
     }
@@ -3205,7 +3206,7 @@ void __fastcall sub_004D16C0_SpawnOffsetMissile(int nUnitId, int nUnused, D2Unit
     tMissileParams.pOrigin = pMissile;
     tMissileParams.nSkill = MISSILE_GetSkill(pMissile);
     tMissileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-    tMissileParams.nMissile = 0x179;
+    tMissileParams.nMissile = MISSILE_HFSPIRIT1;
 
     D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&tMissileParams);
     if (pNewMissile)

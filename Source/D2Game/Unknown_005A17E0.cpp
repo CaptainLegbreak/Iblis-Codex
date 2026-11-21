@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
@@ -278,7 +279,7 @@ void __fastcall sub_005A2620_CastExplosion(D2GameStrc* pGame, D2UnitStrc* pUnit,
 {
     const int nX = CLIENTS_GetUnitXInline(pUnit);
     const int nY = CLIENTS_GetUnitYInline(pUnit);
-    D2UnitStrc* pMissile = sub_6FD11420(pGame, 117, pUnit, 0, 1, 0, 0, nX, nY, 1);
+    D2UnitStrc* pMissile = sub_6FD11420(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
     if (!pMissile) return;
     int nGameType;
     if (pGame->nGameType || pGame->dwGameType) nGameType = 1;

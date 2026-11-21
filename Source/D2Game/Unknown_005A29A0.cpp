@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -10,7 +11,6 @@
 #include "D2GameTypes.h"
 #include "D2TxtTables.h"
 
-#define MISSILE_LIGHTUNIQUE 195
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))

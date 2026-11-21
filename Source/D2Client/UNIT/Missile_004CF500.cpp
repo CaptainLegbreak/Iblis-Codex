@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -590,8 +591,8 @@ static void __stdcall sub_004D1300_SpawnScattered(int nRange, int nMissile, D2Un
 void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
 {
     const int nRemaining = sub_0064A380_GetRemainingFrames(pMissile);
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordChecked(0x17B);
-    sub_004D1300_SpawnScattered(10, 0x17C, pMissile);
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordChecked(MISSILE_IZUAL_CONTROL);
+    sub_004D1300_SpawnScattered(10, MISSILE_IZUAL_MIST_LOOP, pMissile);
     if (nRemaining < pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[0] && nRemaining > pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[1])
     {
         D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
@@ -608,7 +609,7 @@ void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
             tParams.nTargetY = SEED_RollLimitedRandomNumber(pSeed, 10) - 5 + CLIENTS_GetUnitY(pOwner);
             tParams.nSkill = MISSILE_GetSkill(pMissile);
             tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-            tParams.nMissile = 0x17E;
+            tParams.nMissile = MISSILE_IZUAL_LIGHTNING;
             D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
             if (pNew)
             {

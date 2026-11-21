@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
 #include "D2MonModes.h"
@@ -431,7 +432,7 @@ static void __stdcall sub_004AD6E0_StateMissileBurst(int nSkillLevel, D2UnitStrc
 {
     if (!nSkillLevel)
         nSkillLevel = 1;
-    if (nMissile == 0xC3)
+    if (nMissile == MISSILE_LIGHTUNIQUE)
     {
         if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER || !pUnit->pMonsterData || !(pUnit->pMonsterData->nTypeFlag & 0x100))
             return;
@@ -445,7 +446,7 @@ static void __stdcall sub_004AD6E0_StateMissileBurst(int nSkillLevel, D2UnitStrc
     tMissile.nSkill = 0;
     tMissile.nSkillLevel = nSkillLevel;
     tMissile.nMissile = nMissile;
-    if (nMissile != 0x141)
+    if (nMissile != MISSILE_QUEENPOISONCLOUD)
         tMissile.pInitFunc = sub_004E2ED0_InitCappedChargedPath;
     int anDX[4] = { 0, 1, 0, -1 };
     int anDY[4] = { -1, 0, 1, 0 };
@@ -475,7 +476,7 @@ void __fastcall sub_004AD890_StateBurstOnFrame(D2UnitStrc* pUnit, int nState, in
     if (!pUnit || pUnit->dwAnimMode != 3 || bSet != 2)
         return;
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0) >> 1;
-    sub_004AD6E0_StateMissileBurst(nLevel, pUnit, 0xC3);
+    sub_004AD6E0_StateMissileBurst(nLevel, pUnit, MISSILE_LIGHTUNIQUE);
 }
 
 // 0x004AD8E0
@@ -486,7 +487,7 @@ void __fastcall sub_004AD8E0_StateBurst(D2UnitStrc* pUnit, int nState, int bSet)
     if (pUnit && pUnit->dwAnimMode == 3)
         return;
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0) >> 1;
-    sub_004AD6E0_StateMissileBurst(nLevel, pUnit, 0xC3);
+    sub_004AD6E0_StateMissileBurst(nLevel, pUnit, MISSILE_LIGHTUNIQUE);
 }
 
 // 0x004AD920
@@ -500,7 +501,7 @@ void __fastcall sub_004AD920_StateBurstNeutral(D2UnitStrc* pUnit, int nState, in
     if (nFrameNo != 2)
         return;
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, 0xC, 0);
-    sub_004AD6E0_StateMissileBurst(nLevel, pUnit, 0xE1);
+    sub_004AD6E0_StateMissileBurst(nLevel, pUnit, MISSILE_BUGLIGHTNING);
 }
 
 __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
@@ -582,10 +583,10 @@ void __fastcall sub_004AD970_StateMissileSplit(D2UnitStrc* pUnit, int nState, in
 
     switch (nMissileId)
     {
-    case 63:
+    case MISSILE_MUMMY1:
     case 63 + 1:
     case 63 + 2:
-    case 66:
+    case MISSILE_MUMMY4:
         nDY = 0;
         nDX = 0;
         break;

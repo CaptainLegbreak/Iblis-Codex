@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2SkillIds.h"
 #include "D2Game.h"
 #include "D2DataTbls.h"
@@ -354,7 +355,7 @@ D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitSt
         missileParams.nVelocity = 3;
         missileParams.nSkill = 173;
         missileParams.nSkillLevel = nSkillLevel;
-        missileParams.nMissile = 143;
+        missileParams.nMissile = MISSILE_SPIDERGOOLAY;
         pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
     return pMissile;

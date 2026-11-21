@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -134,7 +135,7 @@ static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int 
         tParams.dwFlags = 0x524;
         tParams.pOwner = pOwner;
         tParams.pOrigin = pMissile;
-        tParams.nMissile = 0x1C8;
+        tParams.nMissile = MISSILE_MOLTENBOULDER_FLYINGROCKS;
         tParams.nVelocity = nVelocity;
         tParams.nSkill = nSkill;
         tParams.nSkillLevel = nLevel;
@@ -216,19 +217,19 @@ static void __stdcall sub_004D2190_SpawnRandomBolt(D2UnitStrc* pOwner, D2UnitStr
     switch (SEED_RollRandomNumber(&pMissile->pSeed) % 30)
     {
     case 0:
-        nMissile = 0x260;
+        nMissile = MISSILE_NEHLITHAKDEBRIS1;
         break;
     case 1:
-        nMissile = 0x261;
+        nMissile = MISSILE_NEHLITHAKDEBRIS2;
         break;
     case 2:
-        nMissile = 0x262;
+        nMissile = MISSILE_NEHLITHAKDEBRIS3;
         break;
     case 3:
-        nMissile = 0x263;
+        nMissile = MISSILE_NEHLITHAKDEBRIS4;
         break;
     default:
-        nMissile = 0x25F;
+        nMissile = MISSILE_NEHLITHAKSWOOSH;
         break;
     }
 
@@ -266,7 +267,7 @@ static void __stdcall sub_004D2400_SpawnRandomShard(D2UnitStrc* pOwner, D2UnitSt
     tParams.nTargetX = nTargetX;
     const int nTargetY = 20 - SEED_RollRandomNumber(&pMissile->pSeed) % 40;
     tParams.nTargetY = nTargetY;
-    tParams.nMissile = 0x11D;
+    tParams.nMissile = MISSILE_BRDEATHLIGHTNINGBOLT;
     tParams.nSkill = MISSILE_GetSkill(pMissile);
     tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
 
@@ -453,10 +454,10 @@ static void __stdcall sub_004D2990_SpawnAtFreeSpot(D2UnitStrc* pOwner, int nX, i
     tParams.nSkill = MISSILE_GetSkill(pMissile);
     tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
     tParams.nX = nX;
-    tParams.nMissile = 0x267;
+    tParams.nMissile = MISSILE_ANYASTEAMVENT;
     tParams.nY = nY;
     sub_004CD540_CreateMissile(&tParams);
-    tParams.nMissile = 0x268;
+    tParams.nMissile = MISSILE_ANYASTEAM;
     sub_004CD540_CreateMissile(&tParams);
 }
 
@@ -497,7 +498,7 @@ void __fastcall sub_004D8000_CltDoEruption(D2UnitStrc* pMissile)
                 tParams.nY = nY + 2;
                 tParams.nSkill = nSkill;
                 tParams.nSkillLevel = nLevel;
-                tParams.nMissile = 0x255;
+                tParams.nMissile = MISSILE_ANYASTEAM1;
                 D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
                 if (pNew)
                 {
@@ -765,7 +766,7 @@ void __fastcall sub_004D72C0_CltDoPeriodicSpawn(D2UnitStrc* pMissile)
         memset(&tParams, 0, sizeof(tParams));
         tParams.dwFlags = 0x2521;
         tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
-        tParams.nMissile = 0x162;
+        tParams.nMissile = MISSILE_QUEENDEATHGLOB;
         tParams.nSkill = MISSILE_GetSkill(pMissile);
         tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
         const int nX = UNITS_GetUnitXPosition(pMissile);

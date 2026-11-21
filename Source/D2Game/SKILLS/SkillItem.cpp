@@ -1,3 +1,4 @@
+#include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
@@ -21,8 +22,6 @@
 #include "D2ItemModes.h"
 
 #define IFLAG_TARGETING 4
-
-#define OBJECT_STASH 267
 
 #define UPDATEUI_CLOSEALL 17
 
