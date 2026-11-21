@@ -2,13 +2,6 @@
 #include "D2QServer.h"
 
 #include "D2SysTypes.h"
-struct D2ClientNodeStrc
-{
-    int nClient;
-    int unk_04[5];
-    unsigned int nAddress;
-    D2ClientNodeStrc* pNext;
-};
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
 const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x006B013E
@@ -22,14 +15,14 @@ int __fastcall sub_006C0800_BanByAddress(D2QueueServerStrc* pServer, unsigned in
     unsigned int nAddress = *pAddress;
     unsigned int nBucket = pServer->nMask & nAddress;
     EnterCriticalSection(&pServer->tAddressLock);
-    D2ClientNodeStrc* pNode = pServer->ppAddrNodes[nBucket];
+    D2QClientStrc* pNode = pServer->ppAddressBuckets[nBucket];
     while (pNode && pNode->nAddress != nAddress)
-        pNode = pNode->pNext;
+        pNode = pNode->pNextByAddress;
     LeaveCriticalSection(&pServer->tAddressLock);
     if (pNode && !pServer->sub_006BF660_CheckAddress(pNode->nAddress))
     {
-        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->nClient, sub_006B013E_FormatAddress(*pAddress));
-        sub_006C0770_BanClient(pNode->nClient, gszServerFile_006FC460, 0x584);
+        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
+        sub_006C0770_BanClient(pNode->iId, gszServerFile_006FC460, 0x584);
     }
     return 1;
 }

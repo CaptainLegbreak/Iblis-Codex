@@ -19,7 +19,6 @@ struct D2QConn006C23B0Strc;
 
 struct D2SockAddrInStrc;
 
-struct D2QClientStrc;
 
 struct T006BE350;
 
@@ -44,29 +43,6 @@ struct D2QAcceptStatsStrc
 #pragma pack(pop)
 
 typedef void (__fastcall* D2QAcceptCallback)(T006BE350* pServer, unsigned int nId, const char* szFile, int nLine);
-
-struct D2QClientStrc
-{
-    unsigned int nId;
-    int f_4;
-    int nReferences;
-    int bClosing;
-    void* hSocket;
-    int nSlot;
-    char unk_18[0x2C - 0x18];
-    D2CriticalSectionStrc tLock;
-    D2QOverlappedStrc tRead;
-    D2QOverlappedStrc tWrite;
-    D2QWriteNodeStrc* pWriteQueue;
-    D2SockAddrInStrc tLocalAddr;
-    D2SockAddrInStrc tPeerAddr;
-    char unk_98[0x9C - 0x98];
-    unsigned int nLastTick;
-    char unk_A0[0xA8 - 0xA0];
-    unsigned int nReadBytes;
-    unsigned long nBytesRead;
-    unsigned char pBuffer[0x5B4];
-};
 
 struct T006BE350
 {
@@ -690,7 +666,7 @@ int __fastcall sub_006C2D70_ServiceSlot(T006BE350* pServer, int nSlot, unsigned 
             {
                 if (!nBytes)
                 {
-                    sub_006BE300_Log("QSRV", "[NTRdQ]          0 bytes on client %d refcount=%d %s", pClient->nId, pClient->nReferences,
+                    sub_006BE300_Log("QSRV", "[NTRdQ]          0 bytes on client %d refcount=%d %s", pClient->nId, pClient->nRefCount,
                                      bRead ? "READ" : (bWrite ? "WRITE" : "*UNKNOWN*"));
                     if (pClient->hSocket != (void*)-1)
                         sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile_006FC8A0, 0x35D);
@@ -736,7 +712,7 @@ int __fastcall sub_006C2D70_ServiceSlot(T006BE350* pServer, int nSlot, unsigned 
             {
                 if (pOverlapped && pClient)
                 {
-                    sub_006BE300_Log("QSRV", "[NTRdQ]          I/O err %d on client %d refcount=%d", nError, pClient->nId, pClient->nReferences);
+                    sub_006BE300_Log("QSRV", "[NTRdQ]          I/O err %d on client %d refcount=%d", nError, pClient->nId, pClient->nRefCount);
                     sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile_006FC8A0, 0x3BD);
                     sub_006C0360_Release(pServer, pClient);
                 }

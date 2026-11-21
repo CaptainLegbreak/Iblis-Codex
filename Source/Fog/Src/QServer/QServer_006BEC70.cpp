@@ -9,7 +9,6 @@ struct D2Entry006BF0A0Strc;
 struct D2QPacketStrc;
 struct D2AddressRefStrc;
 struct D2QNodeStrc;
-struct D2ClientNodeStrc;
 
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -114,35 +113,6 @@ void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size)
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount();
 
-struct D2QClientStrc
-{
-    unsigned int id;
-    D2QClientStrc* next;
-    long references;
-    int unknown0C;
-    unsigned int socket;
-    int unknown14;
-    unsigned int address;
-    D2QClientStrc* addressNext;
-    int unknown20;
-    int pending;
-    int queued;
-    D2CriticalSectionStrc lock;
-    char unknown44[0x14];
-    int enabled;
-    char unknown5C[0x14];
-    int state;
-    int unknown74;
-    char unknown78[0x20];
-    unsigned int tick1;
-    unsigned int tick2;
-    unsigned int tick3;
-    unsigned int tick4;
-    unsigned char unk_A8[0x514];
-    D2QClientStrc* pNext;
-    unsigned char unk_5C0[0xA4];
-};
-
 struct D2AddressRefStrc { unsigned int address,count; D2AddressRefStrc* next; };
 
 extern const char gszQServerPrefix[]; // 0x006FC47C
@@ -171,23 +141,6 @@ void __fastcall sub_006C33D0_Stop(T006BE350* pServer); // 0x006C33D0
 extern int gnLockCount_0074C3E0; // 0x0074C3E0
 static __declspec(noinline) void sub_006BF320_FreeChain(T006BE350* pServer);
 static __declspec(noinline) void sub_006BF0F0_FreeBuckets(T006BE350* pServer);
-
-struct D2ClientNodeStrc
-{
-    union
-    {
-        int nClient;
-        int client;
-    };
-    D2ClientNodeStrc* pNext;
-    char f_8[0x10];
-    union
-    {
-        unsigned int f_18;
-        unsigned int ip;
-    };
-    D2ClientNodeStrc* next;
-};
 
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*, int, const char*, int); // 0x006C0420
 void __cdecl sub_00410660_LogWritePrefixed(const char*, const char*, ...); // 0x00410660
@@ -295,30 +248,30 @@ D2QClientStrc* __fastcall QSrvAddClient(T006BE350* server,unsigned int socket,un
  EnterCriticalSection(&server->idLock);
  unsigned int id=++server->nextId;
  LeaveCriticalSection(&server->idLock);
- client->id=id;
- client->socket=socket;
- client->address=address;
- client->pending=0;client->queued=0;client->unknown74=0;
- client->enabled=1;client->state=2;
+ client->nId=id;
+ client->nSocket=socket;
+ client->nAddress=address;
+ client->nPending24=0;client->nQueued=0;client->nValue74=0;
+ client->bEnabled=1;client->nState=2;
  unsigned int tick=sub_00410A80_GetTimeSeconds();
- client->tick1=tick;client->tick2=tick;client->tick3=tick;client->tick4=tick;
- InitializeCriticalSection(&client->lock);
+ client->nCreateTime=tick;client->nLastTick=tick;client->nTick3=tick;client->nTick4=tick;
+ InitializeCriticalSection(&client->tLock);
  unsigned int bucket=id&server->mask;
  EnterCriticalSection(&server->locks[bucket]);
- client->next=server->clients[bucket];
+ client->pNext=server->clients[bucket];
  server->clients[bucket]=client;
  LeaveCriticalSection(&server->locks[bucket]);
  EnterCriticalSection(&server->addressLock);
  unsigned int addressBucket=address&server->mask;
- client->addressNext=server->addressClients[addressBucket];
+ client->pNextByAddress=server->addressClients[addressBucket];
  server->addressClients[addressBucket]=client;
  LeaveCriticalSection(&server->addressLock);
  EnterCriticalSection(&server->idLock);
  sub_006BF180_ReferenceAddress(server,&address);
- InterlockedIncrement(&client->references);
+ InterlockedIncrement(&client->nRefCount);
  ++server->count;
  LeaveCriticalSection(&server->idLock);
- sub_006BE300_Log(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->id,sub_006B013E_InetNtoa(client->address),client->socket);
+ sub_006BE300_Log(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
  return client;
 }
 
@@ -391,7 +344,7 @@ int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
 
     while (pServer->f_878)
     {
-        D2QClientStrc* pNext = pServer->f_878->pNext;
+        D2QClientStrc* pNext = pServer->f_878->pNextQueued;
         FOG_Free(pServer->f_878, gszQServerFile_006FC460, 0x183, 0);
         pServer->f_878 = pNext;
     }
@@ -427,8 +380,8 @@ void __stdcall sub_006C0530_RecordClient(D2QueueServerStrc* pTable, int nClient,
     if (!pTable->bEnabled) return;
     unsigned int nBucket = pTable->nMask & nClient;
     EnterCriticalSection(&pTable->pLocks[nBucket]);
-    D2ClientNodeStrc* pNode = pTable->ppNodes[nBucket];
-    while (pNode && pNode->nClient != nClient)
+    D2QClientStrc* pNode = pTable->ppClients[nBucket];
+    while (pNode && pNode->iId != nClient)
         pNode = pNode->pNext;
     LeaveCriticalSection(&pTable->pLocks[nBucket]);
     if (!pNode)
@@ -436,7 +389,7 @@ void __stdcall sub_006C0530_RecordClient(D2QueueServerStrc* pTable, int nClient,
         sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  Couldn't hacklist client %d (closed) from FILE:%s  LINE:%d", nClient, szFile, nLine);
         return;
     }
-    unsigned int nAddress = pNode->f_18;
+    unsigned int nAddress = pNode->nAddress;
     sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackList() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(nAddress), szFile, nLine);
     sub_006C0420_CloseClient(pTable, nClient, szFile, nLine);
     sub_006BFEA0_RecordAddress(pTable, szFile, nAddress, nLine);
@@ -448,10 +401,10 @@ void __stdcall sub_006C0600_RecordClosedAddress(D2QueueServerStrc* table, unsign
     if (!table->bEnabled) return;
     unsigned int bucket = table->nMask & ip;
     EnterCriticalSection(&table->tAddressLock);
-    D2ClientNodeStrc* node = table->ppAddrNodes[bucket];
-    while (node && node->ip != ip) node = node->next;
+    D2QClientStrc* node = table->ppAddressBuckets[bucket];
+    while (node && node->nAddress != ip) node = node->pNextByAddress;
     LeaveCriticalSection(&table->tAddressLock);
-    if (node) sub_006C0420_CloseClient(table, node->client, file, line);
+    if (node) sub_006C0420_CloseClient(table, node->iId, file, line);
     else sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_InetNtoa(ip));
     sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackListIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(ip), file, line);
     sub_006BFEA0_RecordAddress(table, file, ip, line);
