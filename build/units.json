@@ -36961,6 +36961,10 @@
      "length": 744
     },
     {
+     "va": "0x004EAAA0",
+     "length": 702
+    },
+    {
      "va": "0x004EC090",
      "length": 173,
      "name": "?sub_004EC090_AddSummonLife@@YGXPAUUnicode@@HHH@Z"
@@ -37238,30 +37242,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EAAA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EAAA0",
-     "length": 702
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
