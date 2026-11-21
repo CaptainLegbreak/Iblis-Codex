@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -22,18 +23,6 @@
 #define STAT_SECONDARY_MINDAMAGE 23
 
 #define STAT_SECONDARY_MAXDAMAGE 24
-
-#define MISSILE_MONSTERCORPSEEXPLODE 117
-
-#define MISSILE_BUGLIGHTNING 225
-
-#define MISSILE_QUEENPOISONCLOUD 321
-
-#define MISSILE_FROSTNOVA 119
-
-#define MISSILE_CORPSEPOISONCLOUD 155
-
-#define MISSILE_COLDUNIQUE 194
 
 #define UNIT_ALIGNMENT_EVIL 0
 

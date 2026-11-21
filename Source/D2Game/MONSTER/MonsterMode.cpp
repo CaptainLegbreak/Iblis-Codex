@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -36,7 +37,6 @@ enum D2C_P08MonsterConstants
     STAT_POISONLENGTH = 59,
     STAT_MANADRAINMINDAM = 62,
     STAT_MANADRAINMAXDAM = 63,
-    MISSILE_NOVA = 90,
     EVENTTYPE_MONUMOD = 7,
 };
 

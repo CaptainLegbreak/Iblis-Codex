@@ -1,3 +1,4 @@
+#include "D2MissileIds.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2StatIds.h"
@@ -217,7 +218,6 @@ enum D2C_F39Constants
     MISSILESFLAGINDEX_RETURNFIRE = 9,
     UNITFLAG_NOXP = 0x4000000,
     DAMAGERESULTFLAG_WILLDIE = 2,
-    MISSILE_BOLT = 0x1F,
     SKILLSFLAGINDEX_01 = 1,
     UNITFLAG_NOTC = 0x20000,
     EVENTTYPE_ENDANIM = 1,

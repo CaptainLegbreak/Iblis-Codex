@@ -646,9 +646,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define MAXIMUM(a,b) ((a) > (b) ? (a) : (b))
 #define MAX_NPC_RECORDS 64
 #define MISSILE_FLAGBIT(pRecord, nBit) ((pRecord)->nMissileFlags[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
-#define MISSILE_SUICIDECORPSEEXPLODE 426
-#define MISSILE_SUICIDEFIREEXPLODE 427
-#define MISSILE_SUICIDEICEEXPLODE 428
 #define MONTYPEFLAG_SUPERUNIQUE 2
 #define MSG_CHARSI_END 163
 #define MSG_CHARSI_INTRO 146
