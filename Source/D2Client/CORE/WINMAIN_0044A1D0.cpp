@@ -1,4 +1,4 @@
-#include "D2MCPClient.h"
+#include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
