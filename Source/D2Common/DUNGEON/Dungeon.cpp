@@ -1,6 +1,9 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Unicode.h"
+#include "D2Drlg.h"
+#include "D2DrlgRooms.h"
+#include "D2DrlgTiles.h"
 struct D2DrlgRoomStrc;
 
 #pragma function(memset)
@@ -47,23 +50,6 @@ typedef void (__stdcall* TOWNAUTOMAPFN)(int nLevelId, int nPickedFile, int nX, i
 
 typedef void (__fastcall* ACTCALLBACKFN)(D2ActiveRoomStrc* pRoom);
 
-struct D2DrlgActStrc
-{
-    int bHasPendingUnitListUpdates;
-    D2DrlgEnvironmentStrc* pEnvironment;
-    int nTownId;
-    unsigned int dwInitSeed;
-    D2ActiveRoomStrc* pRoom;
-    unsigned char nAct;
-    char pad0x15[3];
-    void* pTileData[12];
-    D2DrlgStrc* pDrlg;
-    ACTCALLBACKFN pfnActCallBack;
-    int bClient;
-    int bHasPendingRoomsUpdates;
-    char unk0x58[4];
-    void* pMemPool;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -71,53 +57,9 @@ D2DrlgStrc* __fastcall DRLG_AllocDrlg(D2DrlgActStrc* pAct, unsigned char nActNo,
 D2DrlgEnvironmentStrc* __fastcall ENVIRONMENT_AllocDrlgEnvironment(void* pMemPool); // 0x0061BE40
 void __fastcall DRLGANIM_InitCache(D2DrlgStrc* pDrlg, void** ppTileData); // 0x00642A30
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
-
-struct D2DrlgRoomTilesStrc
-{
-    D2DrlgTileDataStrc* pWallTiles;
-    int nWalls;
-    D2DrlgTileDataStrc* pFloorTiles;
-    int nFloors;
-    D2DrlgTileDataStrc* pRoofTiles;
-    int nRoofs;
-};
 
 
-struct D2ActiveRoomStrc
-{
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nMaxClients;
-    D2DrlgRoomTilesStrc* pRoomTiles;
-    char unk0x0C[4];
-    D2DrlgRoomStrc* pDrlgRoom;
-    char unk0x14[4];
-    D2DrlgDeleteStrc* pDrlgDelete;
-    D2UnitStrc* pUnitUpdate;
-    void* pCollisionGrid;
-    int nNumRooms;
-    int nAllies;
-    D2DrlgActStrc* pAct;
-    char unk0x30[4];
-    unsigned int dwFlags;
-    unsigned char unk_38[0x10];
-    D2ClientStrc** ppClients;
-    D2DrlgCoordsStrc tCoords;
-    D2SeedStrc tSeed;
-    D2UnitStrc* pUnitFirst;
-    unsigned int nNumClients;
-    D2ActiveRoomStrc* pRoomNext;
-};
+
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -171,7 +113,7 @@ struct sub_Z16_EmitRoomHolder
 
 typedef char sub_G03_AssertRoomSize[sizeof(D2ActiveRoomStrc) == 0x80 ? 1 : -1];
 
-typedef char sub_G03_AssertRoomSeed[(int)&((D2ActiveRoomStrc*)0)->tSeed == 0x6C ? 1 : -1];
+typedef char sub_G03_AssertRoomSeed[(int)&((D2ActiveRoomStrc*)0)->pSeed == 0x6C ? 1 : -1];
 
 typedef char sub_G03_AssertRoomNext[(int)&((D2ActiveRoomStrc*)0)->pRoomNext == 0x7C ? 1 : -1];
 
@@ -396,7 +338,7 @@ D2ActiveRoomStrc* __fastcall DUNGEON_AllocRoom(D2DrlgActStrc* ptAct, D2DrlgRoomS
     memset(pRoom, 0, sizeof(D2ActiveRoomStrc));
 
     pRoom->dwFlags = dwFlags;
-    SEED_InitLowSeed(&pRoom->tSeed, nLowSeed);
+    SEED_InitLowSeed(&pRoom->pSeed, nLowSeed);
 
     pRoom->pDrlgRoom = pDrlgRoom;
     pRoom->tCoords = *pDrlgCoords;

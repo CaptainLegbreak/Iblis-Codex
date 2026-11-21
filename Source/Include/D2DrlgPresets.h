@@ -107,7 +107,10 @@ struct D2PathInfoStrc
     D2PathPointStrc tTargetCoord; // 0x04
     D2ActiveRoomStrc* pStartRoom; // 0x08
     D2ActiveRoomStrc* pTargetRoom; // 0x0C
-    int unk0x10[2]; // 0x10
+    int unk0x10; // 0x10
+    unsigned char field_14; // 0x14
+    unsigned char unk0x15; // 0x15
+    unsigned short unk0x16; // 0x16
     int nDistMax; // 0x18
     unsigned char nMinimumFScoreToEvaluate; // 0x1C
     unsigned char unk0x1D; // 0x1D

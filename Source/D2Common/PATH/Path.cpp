@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgPresets.h"
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 #define PATH_UNKNOWN_FLAG_0x00020 0x00020
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
@@ -85,26 +86,6 @@ typedef int BOOL;
 
 
 
-struct D2PathInfoStrc
-{
-    D2PathPointStrc tStartCoord;
-    D2PathPointStrc tTargetCoord;
-    D2ActiveRoomStrc* pStartRoom;
-    D2ActiveRoomStrc* pTargetRoom;
-    int field_10;
-    unsigned char field_14;
-    unsigned char field_15;
-    unsigned short field_16;
-    int nDistMax;
-    unsigned char nMinimumFScoreToEvaluate;
-    unsigned char field_1D;
-    unsigned short field_1E;
-    int nPathType;
-    int nUnitSize;
-    int nCollisionPattern;
-    int nCollisionMask;
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 #pragma pack(push, 1)
 

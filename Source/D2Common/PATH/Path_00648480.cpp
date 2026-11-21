@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 #define COLLIDE_MISSILE_BARRIER 0x4
 #define PATH_UNKNOWN_FLAG_0x00010 0x10
 #define MONSTATSFLAGINDEX_INTERACT 9
@@ -10,56 +11,10 @@
 #define PATH_WITH_PREVIOUS_VELOCITY 0x00008000
 struct D2MonStatsTxt;
 struct D2CoordStrc;
-struct D2FP32_16;
+union D2FP32_16;
 struct D2StaticPathStrc;
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2DynamicPathStrc
-{
-    unsigned int dwPrecisionX;
-    unsigned int dwPrecisionY;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    D2PathPointStrc tTargetCoord;
-    D2PathPointStrc tPrevTargetCoord;
-    D2PathPointStrc tFinalTargetCoord;
-    D2ActiveRoomStrc* pRoom;
-    char unk0x20[0x30 - 0x20];
-    D2UnitStrc* pUnit;
-    unsigned int dwFlags;
-    int unk0x38;
-    unsigned int eType;
-    unsigned int ePrevType;
-    int dwUnitSize;
-    int dwCollisionPattern;
-    int nFootprintCollisionMask;
-    int nMoveTestCollisionMask;
-    unsigned char unk_54[0x4];
-    D2UnitStrc* hTarget;
-    char unk0x5C[0x8];
-    unsigned char nDirection;
-    unsigned char nNewDirection;
-    unsigned char nDiffDirection;
-    char unk0x67[0x15];
-    int dwVelocity;
-    unsigned int nPreviousVelocity;
-    char unk0x84[0x0D];
-    unsigned char bDistMax;
-    unsigned char nIDAStarInitFScore;
-    unsigned char nStepNum;
-    char unk0x94[4];
-    int nDirOffset;
-    char unk0x9C[0x1D4 - 0x9C];
-    int nSavedStepsCount;
-    unsigned short SavedSteps;
-    unsigned short f_1DA;
-    char unk0x1DC[0x200 - 0x1DC];
-};
 
 
 
@@ -87,40 +42,11 @@ int __stdcall D2Common_10227(D2UnitStrc* pUnit); // 0x00650540
 extern int gaOffsetForPathType_006EB648[]; // 0x006EB648
 extern int gaPathTypeFlags_006EB690[]; // 0x006EB690
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2FP32_16
-{
-    union
-    {
-        struct
-        {
-            unsigned short wOffsetX;
-            unsigned short wPosX;
-            unsigned short wOffsetY;
-            unsigned short wPosY;
-        };
-        struct
-        {
-            unsigned int dwPrecisionX;
-            unsigned int dwPrecisionY;
-        };
-    };
-};
 
 void __stdcall DUNGEON_ClientToGameCoords(int* pX, int* pY); // 0x00643540
 void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOutDirection, unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY); // 0x0064FC60
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -166,12 +92,12 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
 
     pDynamicPath->dwPrecisionX = (nX << 16) + 0x8000;
     pDynamicPath->dwPrecisionY = (nY << 16) + 0x8000;
-    pDynamicPath->SavedSteps = nX;
+    pDynamicPath->SavedSteps[0].X = nX;
     pDynamicPath->dwVelocity = 2048;
     pDynamicPath->pRoom = pRoom;
     pDynamicPath->nStepNum = 0;
     pDynamicPath->nSavedStepsCount = 1;
-    pDynamicPath->f_1DA = nY;
+    pDynamicPath->SavedSteps[0].Y = nY;
 
     switch (pUnit->dwUnitType)
     {
@@ -289,7 +215,7 @@ void __stdcall D2Common_10213(D2UnitStrc* pUnit)
         D2_ASSERT(ptPath, 2485);
 
         ++ptPath->unk0x38;
-        if (ptPath->unk0x38 > 1)
+        if ((int)ptPath->unk0x38 > 1)
         {
             ptPath->unk0x38 = 0;
             if (!D2Common_10227(pUnit))
@@ -501,7 +427,7 @@ inline int __fastcall UNITS_GetXPositionInl(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
 
     default:
         if (pUnit->pDynamicPath)
@@ -519,7 +445,7 @@ inline int __fastcall UNITS_GetYPositionInl(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
 
     default:
         if (pUnit->pDynamicPath)

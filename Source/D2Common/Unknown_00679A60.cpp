@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DrlgPresets.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 struct D2CoordStrc;
 struct D2StaticPathStrc;
@@ -25,22 +26,6 @@ struct D2CollisionTestStrc
     unsigned int nCollisionMask;
 };
 
-struct D2PathInfoStrc
-{
-    D2PathPointStrc tStartCoord;
-    D2PathPointStrc tTargetCoord;
-    D2ActiveRoomStrc* pStartRoom;
-    D2ActiveRoomStrc* pTargetRoom;
-    int field_10;
-    unsigned char field_14;
-    unsigned char field_15;
-    unsigned short field_16;
-    int nDistMax;
-    char unk0x1C[0xC];
-    int nCollisionPattern;
-    int nCollisionMask;
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

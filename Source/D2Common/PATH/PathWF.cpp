@@ -1,41 +1,12 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DrlgPresets.h"
+#include "D2Path.h"
 
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2DynamicPathStrc
-{
-    char unk0x00[0x30];
-    D2UnitStrc* pUnit;
-    char unk0x34[0x24];
-    int unk0x58;
-    char unk0x5C[0x35];
-    unsigned char bDistMax;
-    char unk0x92[0x0A];
-    D2PathPointStrc PathPoints[78];
-};
 
-struct D2PathInfoStrc
-{
-    D2PathPointStrc tStartCoord;
-    D2PathPointStrc tTargetCoord;
-    D2ActiveRoomStrc* pStartRoom;
-    char unk0x0C[0x1C];
-    int nCollisionPattern;
-    int nCollisionMask;
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2PathMovStrc
 {
@@ -410,7 +381,7 @@ int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
     const D2PathPointStrc tTarget = pPathInfo->tTargetCoord;
     D2PathPointStrc tPrevious = tStart;
     int nDistMax = nDist;
-    if (ptPathInfo->unk0x58 && nDist < 40)
+    if (ptPathInfo->hTarget && nDist < 40)
     {
         nDistMax = 40;
     }
