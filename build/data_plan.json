@@ -2178,7 +2178,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/inv_0048CEA0.cpp": {
+  "Source/D2Client/UI/inv_0048C060.cpp": {
    "bytes": 48,
    "definitions": 1,
    "externs": [
@@ -51292,7 +51292,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048CEA0.cpp",
+   "file": "Source/D2Client/UI/inv_0048C060.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": null,
