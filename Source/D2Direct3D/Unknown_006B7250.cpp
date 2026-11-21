@@ -15,7 +15,6 @@ struct D2Unknown006B7250VtblStrc;
 struct D2RectStrc;
 struct D2SurfaceVtableStrc;
 struct D2DeviceVtbl006B77B0Strc;
-struct D2Rect006B7C90Strc;
 struct D2D3DRect006B7F70Strc;
 struct D2Direct3DDeviceVtbl006B7F70Strc;
 struct D2GridVertexStrc;
@@ -89,14 +88,6 @@ extern D2Device006B77B0Strc* gpDevice_00970E78; // 0x00970E78
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int nBlend); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
-
-struct D2Rect006B7C90Strc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
 
 void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha); // 0x006B7B30
 extern const char gszEmpty_006CC837[]; // 0x006CC837
@@ -386,7 +377,7 @@ void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned c
 }
 
 // 0x006B7C90
-void __fastcall sub_006B7C90_DrawDiamond(D2Rect006B7C90Strc* pRect, int nColor)
+void __fastcall sub_006B7C90_DrawDiamond(D2RectStrc* pRect, int nColor)
 {
     D2_ASSERT(pRect->nLeft <= pRect->nRight, 0xC5);
     D2_ASSERT(pRect->nTop <= pRect->nBottom, 0xC6);

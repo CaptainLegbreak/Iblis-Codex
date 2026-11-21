@@ -42163,7 +42163,7 @@
     {
      "va": "0x00516A10",
      "length": 87,
-     "name": "?sub_00516A10_FreeList@@YIXPAPAUD2SoundNode00516A10Strc@@@Z"
+     "name": "?sub_00516A10_FreeList@@YIXPAPAUD2SoundNodeStrc@@@Z"
     },
     {
      "va": "0x00516A70",
@@ -86551,7 +86551,7 @@
     {
      "va": "0x006B7ED0",
      "length": 76,
-     "name": "?sub_006B7ED0_CallRect@@YIHPAUD2Rect006B7ED0Strc@@H@Z"
+     "name": "?sub_006B7ED0_CallRect@@YIHPAUD2RectStrc@@H@Z"
     },
     {
      "va": "0x006B7F20",

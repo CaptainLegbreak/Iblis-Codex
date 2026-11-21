@@ -1,8 +1,6 @@
 #include "D2Direct3D.h"
 
 struct D2DeviceStrc;
-struct D2Rect006B7ED0Strc;
-struct D2Rect006B7F20Strc;
 struct D2Point006B7F20Strc;
 
 struct D2DeviceStrc
@@ -45,23 +43,7 @@ void __fastcall sub_006B1EA0_SetState(int state); // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int mode); // 0x006B2030
 
-struct D2Rect006B7ED0Strc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 int __fastcall sub_006B77B0_Call(int nLeft, int nTop, int nRight, int nBottom, int nValue, int nMode); // 0x006B77B0
-
-struct D2Rect006B7F20Strc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
 
 struct D2Point006B7F20Strc
 {
@@ -69,7 +51,7 @@ struct D2Point006B7F20Strc
     int nY;
 };
 
-extern "C" __declspec(dllimport) int __stdcall SetRect(D2Rect006B7F20Strc* pRect, int nLeft, int nTop, int nRight, int nBottom);
+extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
 
 static inline int ClampCoordinate(int value, int extent)
 {
@@ -131,7 +113,7 @@ void __fastcall sub_006B7980_DrawRectangle(int left, int top, int right, int bot
 }
 
 // 0x006B7ED0
-int __fastcall sub_006B7ED0_CallRect(D2Rect006B7ED0Strc* pRect, int nValue)
+int __fastcall sub_006B7ED0_CallRect(D2RectStrc* pRect, int nValue)
 {
     D2_ASSERT(pRect->nLeft <= pRect->nRight, 0x10C);
     D2_ASSERT(pRect->nTop <= pRect->nBottom, 0x10D);
@@ -144,7 +126,7 @@ void __fastcall sub_006B7F20_CallSquare(D2Point006B7F20Strc* pPoint, unsigned ch
     if (nSize)
     {
         --nSize;
-        D2Rect006B7F20Strc tRect;
+        D2RectStrc tRect;
         SetRect(&tRect, pPoint->nX - nSize, pPoint->nY - nSize, pPoint->nX + nSize + 1, pPoint->nY + nSize + 1);
         sub_006B77B0_Call(tRect.nLeft, tRect.nTop, tRect.nRight, tRect.nBottom, nValue, 5);
     }
