@@ -49865,6 +49865,16 @@
      "name": "sub_6FCCFDE0"
     },
     {
+     "va": "0x005DDF20",
+     "length": 104,
+     "name": "?sub_6FCCFD70@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH@Z"
+    },
+    {
+     "va": "0x005DDF90",
+     "length": 48,
+     "name": "?AITACTICS_ChangeModeAndTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
+    },
+    {
      "va": "0x005DDFC0",
      "length": 54,
      "name": "?AITACTICS_ChangeModeAndTargetCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
@@ -49873,6 +49883,16 @@
      "va": "0x005DE000",
      "length": 124,
      "name": "AITACTICS_UseSequenceSkill"
+    },
+    {
+     "va": "0x005DE080",
+     "length": 108,
+     "name": "?AITACTICS_IdleInNeutralMode@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005DE0F0",
+     "length": 62,
+     "name": "?AITACTICS_Idle@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005DE130",
@@ -49904,6 +49924,16 @@
      "name": "AITACTICS_ChangeModeAndTargetCoordinatesOneStep"
     },
     {
+     "va": "0x005DE490",
+     "length": 69,
+     "name": "?AITACTICS_ChangeModeAndTargetCoordinatesNoStep@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x005DE4E0",
+     "length": 484,
+     "name": "?AITACTICS_MoveInRadiusToTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
+    },
+    {
      "va": "0x005DE6D0",
      "length": 26,
      "name": "D2GAME_AICORE_Escape_6FCD0560"
@@ -49919,6 +49949,11 @@
      "name": "sub_6FCCF9D0"
     },
     {
+     "va": "0x005DECA0",
+     "length": 93,
+     "name": "?AITACTICS_WalkToTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x005DED00",
      "length": 28,
      "name": "AITACTICS_RunToTargetUnitWithFlags"
@@ -49932,6 +49967,11 @@
      "va": "0x005DED40",
      "length": 77,
      "name": "sub_6FCD0410"
+    },
+    {
+     "va": "0x005DED90",
+     "length": 67,
+     "name": "?AITACTICS_WalkToTargetCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005DEDE0",
@@ -69263,52 +69303,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DDF20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DDF20",
-     "length": 104,
-     "name": "?sub_6FCCFD70@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH@Z"
-    },
-    {
-     "va": "0x005DDF90",
-     "length": 48,
-     "name": "?AITACTICS_ChangeModeAndTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H1@Z"
-    },
-    {
-     "va": "0x005DE080",
-     "length": 108,
-     "name": "?AITACTICS_IdleInNeutralMode@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005DE0F0",
-     "length": 62,
-     "name": "?AITACTICS_Idle@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005DE490",
-     "length": 69,
-     "name": "?AITACTICS_ChangeModeAndTargetCoordinatesNoStep@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x005DE4E0",
-     "length": 484,
-     "name": "?AITACTICS_MoveInRadiusToTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
-    },
-    {
-     "va": "0x005DECA0",
-     "length": 93,
-     "name": "?AITACTICS_WalkToTargetUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x005DED90",
-     "length": 67,
-     "name": "?AITACTICS_WalkToTargetCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
    ]
   },
   {
