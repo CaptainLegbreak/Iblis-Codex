@@ -1,4 +1,3 @@
-#include "D2StormLink.h"
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
@@ -1152,59 +1151,6 @@ extern "C" char* __stdcall sub_00414200_StrLower(char* szString); // 0x00414200
 
 __declspec(nothrow) void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
-struct D2StormSlotListStrc;
-
-struct D2IgnoreKeyNodeStrc;
-
-struct D2StormHashTableStrc;
-
-struct D2IgnoreListStrc;
-
-struct D2StormSlotListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-    }
-};
-
-struct D2IgnoreKeyNodeStrc
-{
-    unsigned char unk_00[0x14];
-    const char* m_key;
-};
-
-struct D2StormHashTableStrc
-{
-    void* pVtable;
-    D2StormSlotListStrc m_fulllist;
-    unsigned char unk_10[0x18];
-
-    char* Head()
-    {
-        char* pHead = m_fulllist.m_terminator.Next();
-        return pHead;
-    }
-    char* Next(char* pNode)
-    {
-        pNode += m_fulllist.m_linkoffset;
-        D2StormLinkStrc* pLink = (D2StormLinkStrc*)pNode;
-        return pLink->Next();
-    }
-};
-
-struct D2IgnoreListStrc
-{
-    void* pVtable;
-    D2StormHashTableStrc m_table;
-    D2StormHashTableStrc m_table2;
-    unsigned char unk_54[0x2C];
-    char szFileName[0x104];
-};
-
 extern "C" int __cdecl fprintf(_iobuf*, const char*, ...); // 0x00684C94
 
 extern const char gszFileMode_006FF97C[]; // 0x006FF97C
@@ -1212,8 +1158,6 @@ extern const char gszFileMode_006FF97C[]; // 0x006FF97C
 extern const char gszFirstFormat_006CD90C[]; // 0x006CD90C
 
 extern const char gszSecondFormat_006E62A8[]; // 0x006E62A8
-
-
 
 void __cdecl operator delete(void* pMemory, void* pWhere) throw();
 
@@ -1842,15 +1786,15 @@ D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& sou
 }
 
 // 0x0060F0A0
-int __fastcall sub_0060F0A0_WriteLists(D2IgnoreListStrc* pList)
+int D2CommonIgnoreListStrc::sub_0060F0A0_Save()
 {
-    _iobuf* pFile = fopen(pList->szFileName, gszFileMode_006FF97C);
+    _iobuf* pFile = fopen(szFileName, gszFileMode_006FF97C);
     if (!pFile)
         return 0;
-    for (char* pNode = pList->m_table.Head(); (int)pNode > 0; pNode = pList->m_table.Next(pNode))
-        fprintf(pFile, gszFirstFormat_006CD90C, ((D2IgnoreKeyNodeStrc*)pNode)->m_key);
-    for (char* pNode = pList->m_table2.Head(); (int)pNode > 0; pNode = pList->m_table2.Next(pNode))
-        fprintf(pFile, gszSecondFormat_006E62A8, ((D2IgnoreKeyNodeStrc*)pNode)->m_key);
+    for (char* pNode = m_table.m_fulllist.m_terminator.NextChecked(); (int)pNode > 0; pNode = ((D2CommonStormSlotLinkStrc*)(pNode + m_table.m_fulllist.m_linkoffset))->Next())
+        fprintf(pFile, gszFirstFormat_006CD90C, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str);
+    for (char* pNode = m_table2.m_fulllist.m_terminator.NextChecked(); (int)pNode > 0; pNode = ((D2CommonStormSlotLinkStrc*)(pNode + m_table2.m_fulllist.m_linkoffset))->Next())
+        fprintf(pFile, gszSecondFormat_006E62A8, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str);
     fclose(pFile);
     return 1;
 }
