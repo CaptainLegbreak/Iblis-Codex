@@ -141,7 +141,7 @@ static void __stdcall sub_006777D0_OffsetByDirection(const D2PosStrc* pBase, int
     pOut->nDir = nDir;
 }
 
-static __declspec(noinline) D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel);
+static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel);
 
 static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel); // 0x00677880
 
@@ -799,7 +799,7 @@ static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, 
     }
 }
 
-static __declspec(noinline) void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg);
 static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg); // 0x00677750
 // 0x00677750
 static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
@@ -809,7 +809,7 @@ static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
     sub_00677680_AddLevelOrths(pDrlg, 0x11, 1);
 }
 
-static __declspec(noinline) void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg);
 static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg); // 0x00677790
 // 0x00677790
 static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
@@ -819,7 +819,7 @@ static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
     sub_00677680_AddLevelOrths(pDrlg, 0x2E, 0x28);
 }
 
-static __declspec(noinline) void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg);
 static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg); // 0x00678A20
 
 // build: context sub_00678A20_CreateAct4LevelConnections
@@ -833,7 +833,7 @@ static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
     sub_00677680_AddLevelOrths(pDrlg, 0x6A, 0x67);
 }
 
-static __declspec(noinline) void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg);
 static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg); // 0x00678A70
 
 // build: context sub_00678A70_CreateAct5LevelConnections
@@ -851,11 +851,11 @@ static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
     sub_006772C0_InitLevelLinks(gAct5UbersDrlgLink, DRLGOUTPLACE_LinkAct5Ubers, 0, pDrlg);
 }
 
-__declspec(noinline) D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel); // 0x00678910
+D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel); // 0x00678910
 D2DrlgLevelStrc* __stdcall sub_00678910_PlaceKurastLevels(D2DrlgLevelStrc* pLevel); // 0x00678910
 
 
-static __declspec(noinline) void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg);
+static void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg);
 // 0x006789B0
 static void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg)
 {

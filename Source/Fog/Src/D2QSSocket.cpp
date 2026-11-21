@@ -56,7 +56,7 @@ struct sub_006BC780_Strc
 void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock); // 0x0040DBD0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_006C1F80(void* pQueue); // 0x006C1F80
-static __declspec(noinline) void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis);
+static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis);
 
 // 0x006BC2C0
 static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis)

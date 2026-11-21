@@ -3163,7 +3163,7 @@ void __fastcall sub_0045D880_HandleUnitStatPacket2(D2UnitStatPacket2Strc* pPacke
 }
 
 // 0x0045D8C0
-static __declspec(noinline) void __stdcall sub_0045D8C0_AddSignedByteOffsets(short nBaseY, short* pX, short* pY, short nBaseX, unsigned char nDY, unsigned char nDX)
+static void __stdcall sub_0045D8C0_AddSignedByteOffsets(short nBaseY, short* pX, short* pY, short nBaseX, unsigned char nDY, unsigned char nDX)
 {
     int nOffsetX = nDX;
     int nOffsetY = nDY;

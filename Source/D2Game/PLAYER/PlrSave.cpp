@@ -569,7 +569,7 @@ int __fastcall sub_005335E0(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned cha
 
 static int sub_00532D90_ClearValue(int* pValue);
 
-static __declspec(noinline) D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem); // 0x00530F40
+static D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem); // 0x00530F40
 
 void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x005378E0
 
@@ -643,9 +643,9 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 
 void __stdcall INVENTORY_SetOwnerId(D2InventoryStrc* pInventory, int nOwnerId); // 0x0063D430
 
-static __declspec(noinline) int __stdcall sub_00533850_ReadCorpse(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char* pData, unsigned int nVersion, int nSize, int* pReadSize);
+static int __stdcall sub_00533850_ReadCorpse(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char* pData, unsigned int nVersion, int nSize, int* pReadSize);
 
-__declspec(noinline)
+
 // 0x00531520
 static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent)
 {
@@ -761,13 +761,13 @@ struct D2CharItemStrc;
 
 struct D2DrlgDeleteStrc;
 
-static __declspec(noinline) unsigned short sub_00531750_CountInventoryItems(D2InventoryStrc* pInventory); // 0x00531750
+static unsigned short sub_00531750_CountInventoryItems(D2InventoryStrc* pInventory); // 0x00531750
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
 int __fastcall D2GAME_SAVE_SerializeItem_6FC89AD0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nSize, int a4, int a5, int a6); // 0x005316D0
 
-static __declspec(noinline) void __stdcall sub_00532240_SaveToLocalFile(int bInteractsWithPlayer, unsigned int dwArg, D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName);
+static void __stdcall sub_00532240_SaveToLocalFile(int bInteractsWithPlayer, unsigned int dwArg, D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName);
 
 struct D2WaypointSaveRecordStrc
 {
@@ -1083,7 +1083,7 @@ static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-static __declspec(noinline) D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem)
+static D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem)
 {
     D2ItemDropStrc itemDrop;
     memset(&itemDrop, 0, sizeof(itemDrop));
@@ -1274,7 +1274,7 @@ int __fastcall sub_00531210_PlaceLoadedItem(D2GameStrc* pGame,D2UnitStrc* pPlaye
 }
 
 // 0x00531390
-static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem, D2UnitStrc** ppItem, int* pSocketedItemCount, D2UnitStrc* pUnit)
+static int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem, D2UnitStrc** ppItem, int* pSocketedItemCount, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pItem = PLRSAVE_CreateItemFromSavedData(pGame, pSavedItem);
     if (!pItem)
@@ -1386,7 +1386,7 @@ struct D2RunesTxt;
 struct D2SkillStrc;
 
 // 0x00531750
-static __declspec(noinline) unsigned short sub_00531750_CountInventoryItems(D2InventoryStrc* pInventory)
+static unsigned short sub_00531750_CountInventoryItems(D2InventoryStrc* pInventory)
 {
     int nCount = 0;
     if (!pInventory)
@@ -1753,7 +1753,7 @@ static void __stdcall sub_00532240_SaveToLocalFile(int bInteractsWithPlayer, uns
 }
 
 // 0x00532340
-static __declspec(noinline) void __stdcall sub_00532340_SaveToClient(int bInteractsWithPlayer, D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
+static void __stdcall sub_00532340_SaveToClient(int bInteractsWithPlayer, D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
 {
     unsigned char pData[0x2000];
     unsigned int nSize;
@@ -2531,7 +2531,7 @@ int __fastcall sub_00533A60_CalcValue(int nA, int nB)
 }
 
 // 0x00533A70
-__declspec(noinline) int __fastcall PLRSAVE_GetLegacyHirelingExpFactor(unsigned short nHirelingId, int nLevel)
+int __fastcall PLRSAVE_GetLegacyHirelingExpFactor(unsigned short nHirelingId, int nLevel)
 {
     switch (nHirelingId)
     {

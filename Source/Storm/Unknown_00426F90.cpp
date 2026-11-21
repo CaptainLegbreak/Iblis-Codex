@@ -47,7 +47,7 @@ inline char* D2StormBreakCmdListStrc::DeleteNode(char* pNode)
 }
 
 // 0x00426270
-static __declspec(noinline) D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType)
+static D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType)
 {
     if (!gppSEvtTypes_00779300 || !gnSEvtTypeTableSize_00779304)
         return 0;

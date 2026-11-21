@@ -379,7 +379,7 @@ void __fastcall ACT1Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 }
 
 // 0x005918D0
-static __declspec(noinline) bool sub_005918D0_ResetMalus(D2QuestDataStrc* pQuestData)
+static bool sub_005918D0_ResetMalus(D2QuestDataStrc* pQuestData)
 {
     if (!pQuestData->bNotIntro)
     {

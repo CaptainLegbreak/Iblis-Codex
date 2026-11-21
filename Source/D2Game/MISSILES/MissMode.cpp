@@ -512,7 +512,7 @@ void __fastcall D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70(D2UnitStrc* pAttacke
 
 int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile); // 0x0064A5A0
 
-static __declspec(noinline) int sub_005ADA80_GetDamageTarget(D2UnitStrc* pMissile);
+static int sub_005ADA80_GetDamageTarget(D2UnitStrc* pMissile);
 
 static void __fastcall sub_005ADB00_SetJustHitState(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x005ADB00
 
@@ -1605,7 +1605,7 @@ static D2SkillsTxt* GetSkillRecord(int nSkill)
 }
 
 // 0x005A9820
-static __declspec(noinline) D2UnitStrc* __stdcall sub_005A9820_SpawnNearby(
+static D2UnitStrc* __stdcall sub_005A9820_SpawnNearby(
     D2GameStrc* pGame, int nRange, int nMissileId, unsigned short nMask, D2UnitStrc* pMissile, int nRate)
 {
     D2MissileStrc params;
@@ -4417,7 +4417,7 @@ static __forceinline int IsUnitInTown(D2UnitStrc* pUnit)
 }
 
 // 0x005ADBB0
-static __declspec(noinline) void __stdcall sub_005ADBB0_MISSMODE_SrvDo(D2GameStrc* pGame, D2UnitStrc* pMissile)
+static void __stdcall sub_005ADBB0_MISSMODE_SrvDo(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
     if (!pMissile)
     {

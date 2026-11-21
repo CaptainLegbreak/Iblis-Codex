@@ -61,7 +61,7 @@ static __forceinline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStr
     return true;
 }
 
-__declspec(noinline) static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pRva, unsigned long* pSize);
+static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pRva, unsigned long* pSize);
 static bool sub_004047D0_GetDebugDirectory(const D2ImageOptionalHeaderStrc* pHeader, unsigned long* pRva, unsigned long* pSize)
 {
     const int nKind = sub_00404730_GetImageKind(pHeader);

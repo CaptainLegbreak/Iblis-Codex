@@ -2076,7 +2076,7 @@ int __fastcall sub_M118_Emit_0044C100(int nX, int nY)
 }
 
 // 0x0044D320
-static __declspec(noinline) int __stdcall sub_0044D320_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
+static int __stdcall sub_0044D320_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();

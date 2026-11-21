@@ -15,7 +15,7 @@ int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char*, const unsigned ch
 unsigned char* __stdcall sub_0060D6F0_MapPixels(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
 void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
 
-static __declspec(noinline) int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData);
+static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData);
 
 // 0x0060D7E0
 static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
@@ -49,7 +49,7 @@ static int sub_0060D7E0_HasTransparentDiamondPixel(const unsigned char* pData)
     return 0;
 }
 
-static __declspec(noinline) void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
+static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc);
 
 // 0x0060D840
 static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst, const unsigned char* pSrc)
@@ -143,7 +143,7 @@ static __forceinline int SUBTILE_IsBlank(const unsigned char* pPixels)
     return 1;
 }
 
-static __declspec(noinline) void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
+static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc);
 
 // 0x0060DA80
 static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc)

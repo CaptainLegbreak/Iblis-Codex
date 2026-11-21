@@ -9,7 +9,7 @@ extern const char gszSymbolFormat[]; // 0x006FFC4C
 extern const char gszStringFormat[]; // 0x006FFC58
 extern const char gszSourceFormat[]; // 0x006FFC5C
 extern "C" int __cdecl _snprintf_s(char*,unsigned int,unsigned int,const char*,...); // 0x006824CB
-static __declspec(noinline) void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output);
+static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output);
 
 // 0x00402D60
 static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output)

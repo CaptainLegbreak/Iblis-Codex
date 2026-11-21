@@ -44,7 +44,7 @@ extern int gnChannelLines_00798F40;                                             
 
 extern int gbRandSeeded_00798F54;                                                                           // 0x00798F54
 
-static __declspec(noinline) unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat);
+static unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat);
 
 static unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat);
 
@@ -93,9 +93,9 @@ extern "C" const char szLaunchFile_006D5810[]; // 0x006D5810
 
 extern "C" const char gszChannelCountFormat_006D5994[]; // 0x006D5994
 
-static __declspec(noinline) void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser);
+static void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser);
 
-static __declspec(noinline) void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat);
+static void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat);
 
 struct D2ChannelEntryStrc;
 
@@ -626,7 +626,7 @@ static void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser)
     sub_00504270_SetCompositeText(pUser->pComposite, wszName, wszAccount, wszS97, wszRealm, nLevel, dwCode);
 }
 
-static __declspec(noinline) int sub_00446B70_PlayVideoMessage(D2LaunchMsgStrc* pMsg)
+static int sub_00446B70_PlayVideoMessage(D2LaunchMsgStrc* pMsg)
 {
     char szTempPath[0x104];
     char szTempFile[0x104];
@@ -657,7 +657,7 @@ static __declspec(noinline) int sub_00446B70_PlayVideoMessage(D2LaunchMsgStrc* p
 }
 
 // 0x00447740
-static __declspec(noinline) int sub_00447740_DispatchMessage(D2LaunchMsgStrc* pMsg)
+static int sub_00447740_DispatchMessage(D2LaunchMsgStrc* pMsg)
 {
     int nArg = pMsg->nArg;
     char* pArg = pMsg->szName;
@@ -701,7 +701,7 @@ int __cdecl sub_00447A10_Pump()
 }
 
 // 0x00447AB0
-static __declspec(noinline) int __stdcall sub_00447AB0_AddChatLine(const char* szText, int nColor)
+static int __stdcall sub_00447AB0_AddChatLine(const char* szText, int nColor)
 {
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
@@ -926,7 +926,7 @@ static void __stdcall sub_00447B00_PrintChannelLine(const char* szText, int nPre
     sub_0043E610_PrintText(wszName, nColor);
 }
 
-static __declspec(noinline) void __stdcall sub_004481B0_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor)
+static void __stdcall sub_004481B0_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor)
 {
     char szBuffer[0x100];
     sprintf(szBuffer, "<%s> ", szName);
@@ -979,7 +979,7 @@ void __fastcall sub_004481F0_PrintOwnLine(const char* szText)
 }
 
 // 0x00449350
-static __declspec(noinline) void sub_00449350_ShowUserJoined(const char* szName, int nLength, int nA)
+static void sub_00449350_ShowUserJoined(const char* szName, int nLength, int nA)
 {
     D2MultiChannelUserStrc* pUser = sub_00449050_AddEntry(szName, nLength, nA);
     if (!gbShowJoinLeave_0077BD54)

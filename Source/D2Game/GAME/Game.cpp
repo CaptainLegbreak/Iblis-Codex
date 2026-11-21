@@ -2235,7 +2235,7 @@ void __fastcall sub_M118_Emit_0052D000(D2GameStrc* pGame, int nAct)
 }
 
 // 0x0052D160
-static __declspec(noinline) void sub_0052D160_UpdatePendingRooms(D2GameStrc* pGame)
+static void sub_0052D160_UpdatePendingRooms(D2GameStrc* pGame)
 {
     D2_ASSERT(pGame, 0xC60);
 
@@ -2339,7 +2339,7 @@ void __stdcall sub_0052D350_CheckClientHeartbeats(D2GameStrc* pGame, int* pbDisc
 }
 
 // 0x0052D440
-static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame)
+static void sub_0052D440_UpdateAllClients(D2GameStrc* pGame)
 {
     {
         int bUpdateLadder = 0;
@@ -2445,7 +2445,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
 }
 
 // 0x0052D720
-static __declspec(noinline) void sub_0052D720_UpdateFrameRate(D2GameStrc* pGame)
+static void sub_0052D720_UpdateFrameRate(D2GameStrc* pGame)
 {
     const unsigned int nTickCount = GetTickCount();
     const unsigned int nTickDiff = nTickCount - pGame->nPreviousUpdateTickCount;
@@ -4772,7 +4772,7 @@ inline unsigned __int64 sub_I08_RollGameSeed(D2SeedStrc* pSeed)
 }
 
 // build: context sub_0052C280_InitGameSeed
-static __declspec(noinline) void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
+static void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
 {
     if (gnInitSeed_00731004 == -1)
     {

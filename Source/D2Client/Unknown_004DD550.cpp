@@ -34,7 +34,7 @@ struct Node
 
 void __stdcall DUNGEON_GetRoomCoordinates(Room* pRoom, RoomCoordinates* pCoords); // 0x00619730
 extern const unsigned int gVar_006CE274_Flags; // 0x006CE274
-static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell, Room* room, Context* context, Tile* tile);
+static void __stdcall sub_004DD550_AddFloor(Cell* cell, Room* room, Context* context, Tile* tile);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -75,7 +75,7 @@ int __cdecl sub_00477730(); // 0x00477730
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 int __fastcall sub_00472280(int nSeed, int nZero, int nMax); // 0x00472280
-static __declspec(noinline) void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode);
+static void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode);
 
 // 0x004DD550
 static void __stdcall sub_004DD550_AddFloor(Cell* cell, Room* room, Context* context, Tile* tile)

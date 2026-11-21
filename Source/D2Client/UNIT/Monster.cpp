@@ -317,9 +317,9 @@ int __stdcall MONSTERS_IsSandLeaper(D2UnitStrc* pMonster, int bAlwaysReturnFalse
 static D2MonAnimRecStrc* sub_004AF400_GetMonsterAnimRecord(D2UnitStrc* pUnit);
 
 static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit);
-static __declspec(noinline) void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit);
-static __declspec(noinline) int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord);
-static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit);
+static void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit);
+static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord);
+static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit);
 static __forceinline void sub_004B17D0_SetMenuState(int nState);
 static __forceinline void sub_004B17E0_SetMenuUnit(D2UnitStrc* pUnit);
 static __forceinline void sub_004B17F0_SetMenuValue(unsigned short wValue);
@@ -556,7 +556,7 @@ int __fastcall sub_004AE1B0_GetMonsterField40(D2UnitStrc* pUnit)
 }
 
 // 0x004AE1D0
-static __declspec(noinline) void sub_004AE1D0_RefreshMonsterMode(D2UnitStrc* pUnit)
+static void sub_004AE1D0_RefreshMonsterMode(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -1129,7 +1129,7 @@ static __forceinline unsigned __int64 sub_I07_SeedRoll(D2SeedStrc* pSeed)
 }
 
 // 0x004AE4F0
-static __declspec(noinline) void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
+static void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent)
 {
     switch (nEvent)
     {
@@ -1573,7 +1573,7 @@ LABEL_SPAWN:
 }
 
 // 0x004AFB60
-static __declspec(noinline) void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
+static void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
 {
     D2AnimSeqTxt* pSequenceRecord = DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit);
     const int nCount = DATATBLS_GetSeqFramePointsCount(pUnit) >> 8;
@@ -1590,7 +1590,7 @@ static __declspec(noinline) void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
 }
 
 // 0x004AFBC0
-static __declspec(noinline) int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
+static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
 {
     if (!pUnit || !pRecord)
         return 0;
@@ -1609,7 +1609,7 @@ static __declspec(noinline) int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, 
 }
 
 // 0x004AFC10
-static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
+static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
@@ -1677,7 +1677,7 @@ static __forceinline int sub_J10_UnitY(D2UnitStrc* pUnit)
 }
 
 // 0x004AFCE0
-static __declspec(noinline) void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
+static void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
 {
     if (nMode == 12)
     {

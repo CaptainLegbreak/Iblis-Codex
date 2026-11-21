@@ -1826,7 +1826,7 @@ inline int m12_Abs(int n)
 }
 
 // 0x005C8780
-static __declspec(noinline) int sub_005C8780_AbsorbDamage(int* pDamage, int nValue)
+static int sub_005C8780_AbsorbDamage(int* pDamage, int nValue)
 {
     if (nValue <= *pDamage)
     {
@@ -3619,7 +3619,7 @@ static __forceinline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, i
 }
 
 // 0x005D1D70
-static __declspec(noinline) void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int level, int skill)
+static void __stdcall sub_005D1D70_ApplyAura(Unit* owner, Unit* target, int level, int skill)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)
@@ -4205,7 +4205,7 @@ int __fastcall SKILLS_SrvDo011_ChargedStrike(D2GameStrc* pGame, D2UnitStrc* pUni
     return 1;
 }
 
-static __declspec(noinline) void __stdcall sub_005D1E10_Transform(Unit* owner, int level, Game* game, Unit* target, int skill)
+static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, Game* game, Unit* target, int skill)
 {
     SkillRecord* record = GetSkillRecord(skill);
     if (!record)

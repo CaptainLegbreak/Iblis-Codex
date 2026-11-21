@@ -18,7 +18,7 @@ struct D2HandleTable006BCC10Strc
     unsigned char* pEntries;
 };
 
-static __declspec(noinline) void sub_006BCD50_MakeCode(const char* szText, char* szCode);
+static void sub_006BCD50_MakeCode(const char* szText, char* szCode);
 
 // 0x006BCC10
 unsigned short* __fastcall sub_006BCC10_GetEntry(D2HandleTable006BCC10Strc* pTable, int nHandle)

@@ -99,7 +99,7 @@ int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
-static __declspec(noinline) void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode);
+static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode);
 extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
 extern D2TextListStrc gtTextList_007BF1EA; // 0x007BF1EA
 

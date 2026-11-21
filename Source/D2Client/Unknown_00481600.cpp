@@ -44,7 +44,7 @@ static __forceinline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __declspec(noinline) int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
+static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
 
 // 0x00480BA0
 
@@ -73,7 +73,7 @@ static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer)
     return 0;
 }
 
-static __declspec(noinline) int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
+static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
 
 // 0x00480C80
 
@@ -141,7 +141,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 #pragma intrinsic(memset)
 
 // 0x004812E0
-static __declspec(noinline) void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     D2UnitTargetStrc tTarget;
     if (sub_0044BEC0_GetClickFlags() & 8)
@@ -169,7 +169,7 @@ static __declspec(noinline) void __stdcall sub_004812E0_DoPlayerAction(D2UnitStr
 }
 
 // 0x004815A0
-static __declspec(noinline) int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nAction)
+static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nAction)
 {
     int bSelectable = 0;
     if (pUnit)
@@ -188,7 +188,7 @@ static __declspec(noinline) int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc*
 }
 
 // 0x004814A0
-static __declspec(noinline) int __stdcall sub_004814A0_TryMonsterAction(int nAction, int nArg1, int nArg2, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
+static int __stdcall sub_004814A0_TryMonsterAction(int nAction, int nArg1, int nArg2, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
     if (sub_00464820_IsDeadOrDying(pUnit))
     {
@@ -254,7 +254,7 @@ InRange:
 }
 
 // 0x00481400
-static __declspec(noinline) int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
+static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
     if (sub_00464820_IsDeadOrDying(pUnit))
     {

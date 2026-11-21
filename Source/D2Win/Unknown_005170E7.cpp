@@ -1,7 +1,7 @@
 extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void* hModule, char* szFileName, unsigned long nSize); // 0x006CC1BC
 const char* __stdcall SStrChr(const char* szString, char nChar);                                            // 0x00413490
 
-static __declspec(noinline) void sub_005170E7_GetModuleDirectory(char* szPath);
+static void sub_005170E7_GetModuleDirectory(char* szPath);
 
 // 0x005170E7
 static void sub_005170E7_GetModuleDirectory(char* szPath)

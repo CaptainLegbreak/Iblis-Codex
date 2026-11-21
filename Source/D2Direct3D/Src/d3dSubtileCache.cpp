@@ -50,11 +50,11 @@ struct D2List006BABD0Strc
     D2Node006BABD0Strc* pNodes18;
 };
 
-static __declspec(noinline) void sub_006BAB30_Append(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode);
+static void sub_006BAB30_Append(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode);
 
 static __declspec(noinline) void sub_006BAB30_AppendTail(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode);
 
-__declspec(noinline) D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex);
+D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex);
 
 D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_TakeNode(D2SubtilePoolStrc* pList); // 0x006BABD0
 
@@ -64,7 +64,7 @@ struct D2CacheNodeStrc { int id; D2CacheBindingStrc* binding; int unk_08; int un
 
 struct D2CacheListStrc { int capacity; int count; D2CacheNodeStrc* firstUsed; D2CacheNodeStrc* lastUsed; D2CacheNodeStrc* firstFree; D2CacheNodeStrc* lastFree; };
 
-static __declspec(noinline) int sub_006BAC50_TakeFreeNode(D2CacheListStrc* list); // 0x006BAC50
+static int sub_006BAC50_TakeFreeNode(D2CacheListStrc* list); // 0x006BAC50
 
 // 0x006BA9A0
 int __fastcall sub_006BA9A0_Init(D2SubtilePoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
@@ -479,7 +479,7 @@ static __forceinline void AppendNode(D2CacheNodeStrc*& first, D2CacheNodeStrc*& 
     last = node;
 }
 
-static __declspec(noinline) int sub_006BAC50_TakeFreeNode(D2CacheListStrc* list)
+static int sub_006BAC50_TakeFreeNode(D2CacheListStrc* list)
 {
     if (list->count == list->capacity)
         return 0;

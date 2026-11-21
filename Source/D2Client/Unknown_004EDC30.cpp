@@ -117,7 +117,7 @@ static int __stdcall sub_004EDB30_AddSeconds(unsigned short nString, int bPlus, 
 }
 
 // 0x004EDC30
-static __declspec(noinline) int sub_004EDC30_AddSecondsPlus(unsigned short nString, int nFrames, Unicode* wszText)
+static int sub_004EDC30_AddSecondsPlus(unsigned short nString, int nFrames, Unicode* wszText)
 {
     return sub_004EDB30_AddSeconds(nString, 1, nFrames, wszText);
 }

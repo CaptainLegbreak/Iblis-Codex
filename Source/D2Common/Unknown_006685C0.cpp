@@ -36,7 +36,7 @@ extern D2TxtLinkStrc* gpSetItemsLinker_0096C844; // 0x0096C844
 extern D2SetItemsTxt* gpSetItemsTxt_0096C848; // 0x0096C848
 extern D2TxtLinkStrc* gpUniqueItemsLinker_0096C850; // 0x0096C850
 extern D2UniqueItemsTxt* gpUniqueItemsTxt_0096C854; // 0x0096C854
-static int __declspec(noinline) __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, char* szInput);
+static int __stdcall sub_00668A90_ParseCubeInput(D2CubeInputItemStrc* pInput, char* szInput);
 
 // 0x006685C0
 static int sub_006685C0_NextSetTokenInt(char** ppString, const char* szSet)

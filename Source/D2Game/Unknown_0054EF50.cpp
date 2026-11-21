@@ -36,7 +36,7 @@ inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
 }
 
 // 0x0054EF50
-static __declspec(noinline) void __stdcall sub_0054EF50_SpawnWandering(
+static void __stdcall sub_0054EF50_SpawnWandering(
     D2MonsterRegionStrc* pRegion, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2LevelsTxt* pLevels)
 {
     unsigned char nAct = pLevels->nAct;
@@ -60,7 +60,7 @@ static __declspec(noinline) void __stdcall sub_0054EF50_SpawnWandering(
 }
 
 // 0x0054EFF0
-static __declspec(noinline) void __stdcall sub_0054EFF0_CheckWandering(
+static void __stdcall sub_0054EFF0_CheckWandering(
     D2GameStrc* pGame, int nLevel, D2LevelsTxt* pLevels, D2ActiveRoomStrc* pRoom)
 {
     D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;

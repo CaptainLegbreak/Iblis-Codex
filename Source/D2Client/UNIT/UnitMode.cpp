@@ -174,9 +174,9 @@ extern "C" const char szUnitModeFile_006D8E84[];                                
 
 int __fastcall sub_00480C10_UnitEvent(int nEvent, D2UnitStrc* pUnit, int* pArgs, int nFlag);                // 0x00480C10
 
-static __declspec(noinline) int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
+static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
 
-static __declspec(noinline) int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
+static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
 
 static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
 
@@ -920,7 +920,7 @@ static __forceinline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, i
 }
 
 // 0x004812E0
-static __declspec(noinline) void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     D2UnitTargetStrc tTarget;
     if (sub_0044BEC0_GetClickFlags() & 8)
@@ -947,7 +947,7 @@ static __declspec(noinline) void __stdcall sub_004812E0_DoPlayerAction(D2UnitStr
     sub_SetPlayerAction(pPlayer, 1, nAction, nArg1, nArg2);
 }
 
-static __declspec(noinline) int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nAction)
+static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nAction)
 {
     int bSelectable = 0;
     if (pUnit)
@@ -972,7 +972,7 @@ int __stdcall sub_004812E0_Shim(D2UnitStrc* pUnit, int nAction, D2UnitStrc* pPla
 }
 
 // 0x00481400
-static __declspec(noinline) int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
+static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
     if (sub_00464820_IsDeadOrDying(pUnit))
     {
@@ -1019,7 +1019,7 @@ static __forceinline D2SkillsTxt* sub_004814A0_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004814A0
-static __declspec(noinline) int __stdcall sub_004814A0_TryMonsterAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static int __stdcall sub_004814A0_TryMonsterAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     if (sub_00464820_IsDeadOrDying(pUnit))
     {

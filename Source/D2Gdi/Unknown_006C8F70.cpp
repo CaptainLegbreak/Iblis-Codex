@@ -7,7 +7,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 struct D2CoordPairStrc { int nX; int nY; };
 struct D2RectStrc { int nLeft; int nTop; int nRight; int nBottom; };
 
-static __declspec(noinline) void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor);
+static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor);
 static void __stdcall sub_006C8DA0_DrawLine(const D2CoordPairStrc* pFrom, const D2CoordPairStrc* pTo, unsigned char nColor); // 0x006C8DA0
 
 // 0x006C8F70

@@ -58,7 +58,7 @@ static __forceinline int UNITS_IsSelectable(D2UnitStrc* pUnit)
     return bResult;
 }
 
-static __declspec(noinline) D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit);
+static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit);
 
 // 0x00467660
 static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit)

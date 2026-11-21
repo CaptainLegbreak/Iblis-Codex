@@ -151,7 +151,7 @@ extern int gdwGlobal_007A061C; // 0x007A061C
 
 extern unsigned char gabBeltHotkey_007BEFB0[]; // 0x007BEFB0
 
-static __declspec(noinline) void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
+static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
 
 struct UnicodeChar;
 
@@ -561,7 +561,7 @@ found:
 }
 
 // 0x004983D0
-static __declspec(noinline) void sub_004983D0_DrawControlPanelFrame(int nOffset)
+static void sub_004983D0_DrawControlPanelFrame(int nOffset)
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));

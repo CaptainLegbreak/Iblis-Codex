@@ -34,7 +34,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc
     return SEED_RollRandomNumber_Inline(pSeed) & (nMax - 1);
 }
 
-static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel);
+static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel);
 
 // 0x0067FD20
 static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)

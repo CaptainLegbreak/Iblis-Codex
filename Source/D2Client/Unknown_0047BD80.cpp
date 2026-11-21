@@ -132,7 +132,7 @@ extern D2CelFileStrc* gpOptionCel_007BC950; // 0x007BC950
 extern D2CelFileStrc* gpOptionCel_007BC954; // 0x007BC954
 extern D2CelFileStrc* gpOptionCel_007BC958; // 0x007BC958
 
-static __declspec(noinline) void sub_0047BD80_CopyCharPart(char* szDest, const char* szSource)
+static void sub_0047BD80_CopyCharPart(char* szDest, const char* szSource)
 {
     if (*szSource != 0x2A)
     {

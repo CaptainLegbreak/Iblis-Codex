@@ -99,7 +99,7 @@ static __forceinline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
 }
 
 // 0x0054DF80
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, unsigned char nMin, unsigned char nMax, int nMonsterId)
+static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, unsigned char nMin, unsigned char nMax, int nMonsterId)
 {
     if (!nMin || !nMax || nMax < nMin)
         return 0;
@@ -125,7 +125,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoord
 }
 
 // 0x0054E090
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E090_SpawnGroupAtPoint(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nMonsterId, int nX, int nY)
+static D2UnitStrc* __stdcall sub_0054E090_SpawnGroupAtPoint(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nMonsterId, int nX, int nY)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nMonsterId);
     unsigned char nMinGrp = pMonStatsTxtRecord->nMinGrp;
@@ -149,7 +149,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E090_SpawnGroupAtPoint
 }
 
 // 0x0054E190
-static __declspec(noinline) int __stdcall sub_0054E190_SpawnMonsterAtFreePosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, D2UnkMonCreateStrc2* pCreate)
+static int __stdcall sub_0054E190_SpawnMonsterAtFreePosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, D2UnkMonCreateStrc2* pCreate)
 {
     int nX;
     int nY;
@@ -175,7 +175,7 @@ static void __stdcall sub_0054E1E0_SpawnChampionMinions(D2RoomCoordListStrc* pCo
 }
 
 // 0x0054E260
-static __declspec(noinline) int __stdcall sub_0054E260_SpawnMonsterWithMinions(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId)
+static int __stdcall sub_0054E260_SpawnMonsterWithMinions(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId)
 {
     D2UnitStrc* pMonster = MONSTERUNIQUE_SpawnUniqueGroup(pGame, pRoom, pCoordList, nMonsterId, 1, 0, 0, 1);
     if (!pMonster)
@@ -186,7 +186,7 @@ static __declspec(noinline) int __stdcall sub_0054E260_SpawnMonsterWithMinions(D
 }
 
 // 0x0054E2A0
-static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevelId, int nMonsterId)
+static int sub_0054E2A0_GetFallenVariantForLevel(int nLevelId, int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nMonsterId);
     const int nBaseId = !pMonStatsTxtRecord ? nMonsterId : pMonStatsTxtRecord->nBaseId;
@@ -222,7 +222,7 @@ static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevel
 }
 
 // 0x0054E490
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPresetMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMode, int nClassId)
+static D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPresetMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMode, int nClassId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nClassId);
     if (!pMonStatsTxtRecord)
@@ -265,7 +265,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPrese
 }
 
 // 0x0054EBC0
-static __declspec(noinline) int sub_0054EBC0_CanPopulateRoom(D2ActiveRoomStrc* pRoom, D2GameStrc* pGame)
+static int sub_0054EBC0_CanPopulateRoom(D2ActiveRoomStrc* pRoom, D2GameStrc* pGame)
 {
     D2MonsterRegionStrc* pRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, DUNGEON_GetLevelIdFromRoom(pRoom));
     if (!pRegion)

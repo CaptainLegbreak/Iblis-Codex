@@ -150,7 +150,7 @@ inline BOOL DUNGEON_TestRoomGame(D2ActiveRoomStrc* pRoom, unsigned short nX, uns
 }
 
 // 0x0064FAD0
-static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
+static void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
 {
     unsigned short nX = pPath->tGameCoords.wPosX;
     unsigned short nY = pPath->tGameCoords.wPosY;
@@ -176,7 +176,7 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pH
 }
 
 // 0x0064FB90
-static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
+static void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
 {
     if ((pPath->dwFlags & 0x40000) && !sub_00463740_FindRoomAtPoint(pPath->pRoom, tCoord.dwPrecisionX >> 16, tCoord.dwPrecisionY >> 16))
     {
@@ -199,7 +199,7 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP3
     }
 }
 
-static __declspec(noinline) BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2PathPointStrc tCurrent, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2PathPointStrc tCurrent, D2DynamicPathStrc* pPath)
 {
     if (pPath->dwFlags & 4)
     {
@@ -239,7 +239,7 @@ static __declspec(noinline) BOOL __stdcall sub_0064FF90_TestStepCollision(D2Path
 }
 
 // 0x00650090
-static __declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)
 {
     *pVelocity = pPath->tVelocityVector;
     if (pPath->eType == 4)
@@ -265,7 +265,7 @@ static __declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2Coo
     return 1;
 }
 
-static __declspec(noinline) BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, int nDeltaY, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, int nDeltaY, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
 {
     D2PathPointStrc tNext;
     D2PathPointStrc tCurrent;
@@ -335,7 +335,7 @@ static __declspec(noinline) BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, 
     return FALSE;
 }
 
-static __declspec(noinline) void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath)
+static void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath)
 {
     if (nBaseVelocity <= 0)
     {
@@ -368,7 +368,7 @@ static __declspec(noinline) void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathSt
     pPath->tVelocityVector.nY = (nVelocityMagnitude * pPath->tDirectionVector.nY) >> 12;
 }
 
-static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
+static BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
 {
     switch (pPath->eType)
     {
@@ -454,7 +454,7 @@ void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2Uni
     PATH_RecacheRoomAtCoordIfNeeded(pMountPath->tGameCoords, pMountPath->pRoom, pRiderPath);
 }
 
-static __declspec(noinline) BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
 {
     D2UnitStrc* pUnit = pPath->pUnit;
     pPath->nCollidedWithMask = 0;
@@ -511,7 +511,7 @@ static __declspec(noinline) BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16*
 }
 
 // 0x006507B0
-static __declspec(noinline) void PATH_ResetMovement(D2DynamicPathStrc* pPath)
+static void PATH_ResetMovement(D2DynamicPathStrc* pPath)
 {
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
     const D2CoordStrc tZeroVelocity = gtPathZeroVelocity_006EB7D4;
@@ -587,7 +587,7 @@ BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
     return FALSE;
 }
 
-static __declspec(noinline) BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
 {
     D2UnitStrc* pUnit = pPath->pUnit;
     if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
@@ -642,7 +642,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestR
     return 1;
 }
 
-static __declspec(noinline) BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
+static BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
 {
     D2PathPointStrc tCurrentPos;
     tCurrentPos.X = pPath->tGameCoords.wPosX;
@@ -786,12 +786,12 @@ int __stdcall STATLIST_AreUnitsAligned(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 }
 
 // 0x00650DD0
-static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)
+static long sub_0051DC70_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
 
-static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -799,7 +799,7 @@ static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int n
     return nValue + 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
+static int sub_0051DD20_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -807,7 +807,7 @@ static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
     return cLower - 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD40_MapKeyChar(unsigned char cChar)
+static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap_006DF238[cChar];
 }
@@ -1020,7 +1020,7 @@ void __cdecl sub_00650EA0_Nop()
 }
 
 // 0x00650EB0
-static __declspec(noinline) void sub_00650EB0_MakeCode(const char* szText, char* szCode)
+static void sub_00650EB0_MakeCode(const char* szText, char* szCode)
 {
     if (!szText[0])
     {

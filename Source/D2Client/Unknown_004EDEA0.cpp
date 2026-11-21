@@ -109,7 +109,7 @@ static __forceinline int SkillParam_0D0(int nSkillId, int nLevel)
     return pSkillsTxt->dwParam[0] + (nLevel - 1) * pSkillsTxt->dwParam[1];
 }
 
-static __declspec(noinline) unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
+static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
 static unsigned short sub_004E6F60_GetETypeDamageStr(int nEType)
 {
     switch (nEType)
@@ -839,7 +839,7 @@ static int __stdcall sub_004EC620_AddMissileElemRate(D2UnitStrc* pUnit, Unicode*
     return sub_004EC540_AddElemRatePerSecond(nString, wszText, nMinRate, nMaxRate);
 }
 
-static __declspec(noinline) int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
+static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
 static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;

@@ -262,7 +262,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 extern "C" const char gszA2Q6SourceFile[]; // 0x006E2068
 
-static __declspec(noinline) void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags);
+static void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags);
 
 void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
 
@@ -443,7 +443,7 @@ void __fastcall ACT2Q6_AttachCompletionSoundToPlayers(D2GameStrc* pGame)
 }
 
 // 0x0059C810
-static __declspec(noinline) void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
+static void __stdcall sub_0059C810_FinishDurielQuest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags)
 {
     QUESTRECORD_SetQuestState(pQuestFlags, 14, 13);
     QUESTRECORD_SetQuestState(pQuestFlags, 14, 3);

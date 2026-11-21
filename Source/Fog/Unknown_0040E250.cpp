@@ -3,7 +3,7 @@ extern "C" int __cdecl strcmp(const char* a, const char* b);
 #pragma intrinsic(memset, strcmp)
 
 // 0x0040E250
-__declspec(noinline) int __cdecl sub_0040E250_GetCpuVendor()
+int __cdecl sub_0040E250_GetCpuVendor()
 {
     char szVendor[16];
     memset(szVendor, 0, sizeof(szVendor));

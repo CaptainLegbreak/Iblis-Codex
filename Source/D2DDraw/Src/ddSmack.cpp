@@ -25,7 +25,7 @@ int gbRemapValid_008816B4;                                                      
 
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 
-static __declspec(noinline) void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect, unsigned int nRows);
+static void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect, unsigned int nRows);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 

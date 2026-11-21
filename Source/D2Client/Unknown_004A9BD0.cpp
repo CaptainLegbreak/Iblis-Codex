@@ -307,7 +307,7 @@ int __cdecl sub_004B1D70_FindNpcEntry()
 #include "gen/data/Source/D2Client/Unknown_004A9BD0.inc"
 
 // 0x004AAAA0
-static __declspec(noinline) void __stdcall sub_004AAAA0_DrawSkillTreeText(int nY, const Unicode* wszText)
+static void __stdcall sub_004AAAA0_DrawSkillTreeText(int nY, const Unicode* wszText)
 {
     const int nRight = gnAutomapWidth_007A5220 - gnGlobal_007A2858;
     sub_004A7080(nRight - 0x5A, gnGlobal_00711470 + gnGlobal_007A285C + nY - 0x1E0, nRight, wszText, 0);

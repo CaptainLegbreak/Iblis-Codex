@@ -9,7 +9,7 @@ int __stdcall sub_006018F0(D2CelStrc* cel); // 0x006018F0
 int __stdcall sub_00601920(D2CelStrc* cel); // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* cel); // 0x00601950
 
-static __declspec(noinline)
+static
 // 0x006B5C80
 int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info)
 {

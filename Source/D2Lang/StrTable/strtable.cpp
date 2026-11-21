@@ -116,7 +116,7 @@ static D2TblHeaderStrc* sub_00525920_LoadTblFile(const char* szPath);
 
 extern "C" char* __cdecl _ui64toa(unsigned __int64 nValue, char* szOut, int nRadix); // 0x00687708
 
-static __declspec(noinline) unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable);
+static unsigned short __stdcall sub_00524C60_FindKey(void** ppSlots, const char* szKey, void** ppOut, D2TblHeaderStrc* pTable);
 
 void* ghArchive_008829E0; // 0x008829E0
 

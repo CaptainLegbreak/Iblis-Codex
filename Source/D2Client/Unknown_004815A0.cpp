@@ -35,7 +35,7 @@ static __forceinline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __declspec(noinline) int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
+static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer);
 
 // 0x00480BA0
 
@@ -64,7 +64,7 @@ static int sub_00480BA0_CanUseSkillNow(D2UnitStrc* pPlayer)
     return 0;
 }
 
-static __declspec(noinline) int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
+static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction);
 
 // 0x00480C80
 
@@ -132,7 +132,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 #pragma intrinsic(memset)
 
 // 0x004812E0
-static __declspec(noinline) void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     D2UnitTargetStrc tTarget;
     if (sub_0044BEC0_GetClickFlags() & 8)
@@ -170,7 +170,7 @@ static __forceinline int sub_IsUnitTargetable(D2UnitStrc* pUnit)
 }
 
 // 0x004815A0
-static __declspec(noinline) int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     if (!sub_IsUnitTargetable(pUnit))
     {

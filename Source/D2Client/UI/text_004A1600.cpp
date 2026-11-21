@@ -399,7 +399,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
-static __declspec(noinline) int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
+static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -411,7 +411,7 @@ int __cdecl sub_00466DC0(); // 0x00466DC0
 
 int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
 
-static __declspec(noinline) int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate);
+static int sub_004A7300_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate);
 
 static void sub_004A2220_SetQuestPage(int nPageArg);
 

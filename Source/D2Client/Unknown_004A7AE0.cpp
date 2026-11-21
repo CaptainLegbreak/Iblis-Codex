@@ -99,7 +99,7 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
 }
 
 // 0x004A7AE0
-static __declspec(noinline) void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY)
+static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY)
 {
     D2TextCellStrc aText[0x40];
     sub_00499E30_SetBlackColour();
@@ -178,7 +178,7 @@ int gnHotkeyOwner_007C0768[16]; // 0x007C0768
 int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 
 // 0x004A9260
-static __declspec(noinline) void __stdcall sub_004A9260_DrawSkillCharges(int nCharges, int nX, int nY)
+static void __stdcall sub_004A9260_DrawSkillCharges(int nCharges, int nX, int nY)
 {
     Unicode wszText[16] = {};
     char szText[16];
@@ -197,7 +197,7 @@ static __declspec(noinline) void __stdcall sub_004A9260_DrawSkillCharges(int nCh
 }
 
 // 0x004A8ED0
-static __declspec(noinline) void __stdcall sub_004A8ED0_DrawSkillHotkeyLabels(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
+static void __stdcall sub_004A8ED0_DrawSkillHotkeyLabels(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
 {
     SPELLSEL_HOTKEY_LABEL(0, 0x0E, 1)
     SPELLSEL_HOTKEY_LABEL(1, 0x0F, 1)
@@ -218,7 +218,7 @@ static __declspec(noinline) void __stdcall sub_004A8ED0_DrawSkillHotkeyLabels(co
 }
 
 // 0x004A9300
-static __declspec(noinline) void __stdcall sub_004A9300_DrawHotkeyLabelsB(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
+static void __stdcall sub_004A9300_DrawHotkeyLabelsB(const D2SkillsTxt* pSkillsTxt, int nOwner, int nX, int nY)
 {
     SPELLSEL_HOTKEY_LABEL(0, 0x0E, 0)
     SPELLSEL_HOTKEY_LABEL(1, 0x0F, 0)

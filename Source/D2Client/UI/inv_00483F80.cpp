@@ -143,7 +143,7 @@ extern D2InventoryGridInfoStrc gGrid_007BCB70; // 0x007BCB70
 extern D2InventoryGridInfoStrc gGrid_007BCB88; // 0x007BCB88
 extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
 void __stdcall sub_Z12_EmitUse(int nValue);
-__declspec(noinline) void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid);
+void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid);
 int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
 void __cdecl sub_0048A050_CloseQuestPanel(); // 0x0048A050
 
@@ -244,7 +244,7 @@ static int sub_00483B40_IsInCubeGrid(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
+static int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
 {
     if (nX >= gGrid_007BCB70.nGridLeft && nX < gGrid_007BCB70.nGridRight && nY >= gGrid_007BCB70.nGridTop && nY <= gGrid_007BCB70.nGridBottom)
     {

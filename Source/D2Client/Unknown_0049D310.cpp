@@ -3,7 +3,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 void __stdcall sub_L04_EmitUse(const Unicode* pText);
 
 // 0x0049D310
-static __declspec(noinline) void __stdcall sub_0049D310_CopyTextLine(Unicode* pDest, int nMax, const Unicode** ppSrc)
+static void __stdcall sub_0049D310_CopyTextLine(Unicode* pDest, int nMax, const Unicode** ppSrc)
 {
     int i = 0;
     memset(pDest, 0, nMax * sizeof(Unicode));

@@ -129,7 +129,7 @@ static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
     return 0;
 }
 
-static __declspec(noinline)
+static
 // 0x0059EF70
 void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2ActiveRoomStrc* room,D2CoordStrc* coords) {
     D2QuestExStrc* ex=quest->ex;

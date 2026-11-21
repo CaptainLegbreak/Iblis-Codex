@@ -147,7 +147,7 @@ extern const unsigned int gnAct5Q3MessageIndices_00734304[]; // 0x00734304
 
 static void sub_005893E0_RemoveTownNpcs(D2QuestDataStrc* pQuestData);
 
-static __declspec(noinline) void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx);
+static void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx);
 
 static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx); // 0x005891D0
 

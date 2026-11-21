@@ -170,7 +170,7 @@ void __cdecl sub_0044C6E0_DrainPacketQueues(); // 0x0044C6E0
 
 void __cdecl sub_0044C790_Update(); // 0x0044C790
 
-__declspec(noinline) int __fastcall sub_0044CCA0(unsigned int nFrames, unsigned int nRemainder, int nRate);
+int __fastcall sub_0044CCA0(unsigned int nFrames, unsigned int nRemainder, int nRate);
 
 void __cdecl sub_0044CCE0_AverageCounters(); // 0x0044CCE0
 

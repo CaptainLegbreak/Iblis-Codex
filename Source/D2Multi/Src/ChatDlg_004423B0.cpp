@@ -108,7 +108,7 @@ static void __stdcall sub_0043F870_GetArgument(int nSize, const char* szText, ch
         *szDest = 0;
 }
 
-static __declspec(noinline) int sub_00442180_ReplyCommand(const char* szText, const char* szCommand);
+static int sub_00442180_ReplyCommand(const char* szText, const char* szCommand);
 
 // build: context CONSOLE_FindSecondTokenInline
 // calling-convention shim (not game code)

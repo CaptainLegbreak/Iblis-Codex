@@ -857,7 +857,7 @@ static __declspec(noinline) void sub_004AE1D0_RefreshMonsterMode(D2UnitStrc* pUn
     }
 }
 
-static __declspec(noinline) void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
+static void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
 {
     D2AnimSeqTxt* pSequenceRecord = DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit);
     const int nCount = DATATBLS_GetSeqFramePointsCount(pUnit) >> 8;
@@ -873,7 +873,7 @@ static __declspec(noinline) void sub_004AFB60_ReplaySequence(D2UnitStrc* pUnit)
     }
 }
 
-static __declspec(noinline) int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
+static int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
 {
     if (!pUnit || !pRecord)
         return 0;
@@ -891,7 +891,7 @@ static __declspec(noinline) int sub_004AFBC0_HasMonStatsFlag(D2UnitStrc* pUnit, 
     return 0;
 }
 
-static __declspec(noinline) void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
+static void sub_004AFC10_CreateDeathMissiles(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
@@ -958,7 +958,7 @@ static __forceinline int sub_J10_UnitY(D2UnitStrc* pUnit)
     }
 }
 
-static __declspec(noinline) void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
+static void sub_004AFCE0_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
 {
     if (nMode == 12)
     {
@@ -1063,7 +1063,7 @@ static __forceinline D2MonStats2Txt* sub_n5b_GetMonStats2TxtRecord(int nMonsterI
     return 0;
 }
 
-__declspec(noinline) int __fastcall sub_00463860(D2UnitStrc* pUnit)
+int __fastcall sub_00463860(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {

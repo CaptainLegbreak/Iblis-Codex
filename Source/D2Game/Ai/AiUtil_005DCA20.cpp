@@ -39,7 +39,7 @@ static __forceinline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
 }
 
 // 0x005DCA20
-static __declspec(noinline) int __stdcall sub_005DCA20_IsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+static int __stdcall sub_005DCA20_IsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
 {
  if (!pTarget) return 0;
  if (pTarget->dwUnitType < 0 || pTarget->dwUnitType > 1 || SUNIT_IsDead(pTarget) || !UNITS_CanBeAttackedInline(pTarget)) return 0;

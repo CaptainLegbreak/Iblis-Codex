@@ -128,7 +128,7 @@ D2QClientStrc* __fastcall QSrvAddClient(T006BE350* pServer, unsigned int s, unsi
 
 extern "C" const char gszHack_006FC4A8[]; // 0x006FC4A8
 
-static __declspec(noinline) int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient);
+static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient);
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
@@ -147,7 +147,7 @@ struct D2QConn006C23B0Strc
     D2QMsg006C23B0Strc* pMsgHead;
 };
 
-static __declspec(noinline) void __stdcall sub_006C23B0_QueueMessage(D2QConn006C23B0Strc* pConn, const void* pData, unsigned int nSize);
+static void __stdcall sub_006C23B0_QueueMessage(D2QConn006C23B0Strc* pConn, const void* pData, unsigned int nSize);
 
 struct D2QServerReqStrc
 {
@@ -182,7 +182,7 @@ long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 
 long __fastcall sub_006BE640_AddReference(T006BE350* pServer, T006BFAD0* pClient);                         // 0x006BE640
 
-static __declspec(noinline) int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* pClient);
+static int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* pClient);
 
 struct D2HashNode006BE540Strc;
 
@@ -198,7 +198,7 @@ union D2QTickStrc;
 
 struct D2HackListStrc;
 
-static __declspec(noinline) int sub_006C2810_PopWrite(D2QClientStrc* pClient);
+static int sub_006C2810_PopWrite(D2QClientStrc* pClient);
 
 void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unused3); // 0x006BE2F0
 

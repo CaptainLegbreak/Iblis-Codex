@@ -4,7 +4,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 extern D2BnHashCtxStrc gaBnHashCtx_00882760[];                                                              // 0x00882760
 void __stdcall sub_00523AF0_HashTransform(D2BnHashCtxStrc* pCtx);                                           // 0x00523AF0
 
-static __declspec(noinline) void __stdcall sub_00524140_UpdateHash(D2BnHashCtxStrc* pCtx, const void* pData, int nLength);
+static void __stdcall sub_00524140_UpdateHash(D2BnHashCtxStrc* pCtx, const void* pData, int nLength);
 
 // 0x00524140
 static void __stdcall sub_00524140_UpdateHash(D2BnHashCtxStrc* pCtx, const void* pData, int nLength)

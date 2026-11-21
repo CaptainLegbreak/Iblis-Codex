@@ -459,7 +459,7 @@ int __fastcall sub_0052ADC0_SendToServerChecked(void* pUnused, unsigned short nS
 }
 
 // 0x0052AE00
-static __declspec(noinline) int sub_0052AE00_SendToSocket(const unsigned char* pBuffer, int nSize)
+static int sub_0052AE00_SendToSocket(const unsigned char* pBuffer, int nSize)
 {
     const int nSent = send(gClientSocket, (const char*)pBuffer, nSize, 0);
     if (nSent != -1)

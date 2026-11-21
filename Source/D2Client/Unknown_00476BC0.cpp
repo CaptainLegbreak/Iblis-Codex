@@ -25,7 +25,7 @@ extern int gaCloudY_007B5790[10];
 extern int gaCloudSpeed_007B57B8[10];
 extern int gaCloudX_007B5BE8[10];
 
-static __declspec(noinline) void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer)
+static void sub_00476460_DrawSummitBackdrop(D2UnitStrc* pPlayer)
 {
     if (gdwGlobal_007A0620)
     {

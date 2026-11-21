@@ -585,7 +585,7 @@ static int __stdcall sub_0040B600_GetLineFromAddrRetry(void* hProcess, unsigned 
     return 1;
 }
 
-__declspec(noinline) int sub_H13_EmitLineRetry(void* hProcess, unsigned long dwAddress, unsigned long dwDisplacement)
+int sub_H13_EmitLineRetry(void* hProcess, unsigned long dwAddress, unsigned long dwDisplacement)
 {
     D2ImageHlpLineStrc tLine;
     unsigned long dwDisp = dwDisplacement;
@@ -595,7 +595,7 @@ __declspec(noinline) int sub_H13_EmitLineRetry(void* hProcess, unsigned long dwA
     return bResult;
 }
 
-__declspec(noinline) void sub_H13_EmitLogicalAddress(void* pAddress)
+void sub_H13_EmitLogicalAddress(void* pAddress)
 {
     char szModule[0x104];
     unsigned long nSection;

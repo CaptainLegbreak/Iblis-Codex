@@ -66,7 +66,7 @@ int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
 int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
-__declspec(noinline) static int sub_004E6FB0_GetETypeColor(int nEType);
+static int sub_004E6FB0_GetETypeColor(int nEType);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -78,8 +78,8 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
-static __declspec(noinline) int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsigned short nString, int nMax, int nElemType);
-static __declspec(noinline) int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt);
+static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsigned short nString, int nMax, int nElemType);
+static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt);
 
 static __forceinline int sub_I05_ETypeColor(int nEType)
 {
@@ -282,7 +282,7 @@ static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDama
     }
 }
 
-static __declspec(noinline) void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
+static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
 {
     if (nMin >= nMax)
     {
@@ -763,7 +763,7 @@ void __fastcall sub_004EB390_DrawElementalDamageLine(D2UnitStrc* pUnit, D2SkillS
     sub_004E96E0_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
-static __declspec(noinline) void __stdcall sub_004E6EA0_ApplyFireMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
+static void __stdcall sub_004E6EA0_ApplyFireMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
@@ -779,7 +779,7 @@ static __declspec(noinline) void __stdcall sub_004E6EA0_ApplyFireMastery(int* pM
     }
 }
 
-static __declspec(noinline) void __stdcall sub_004E6F00_ApplyLightningMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
+static void __stdcall sub_004E6F00_ApplyLightningMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)

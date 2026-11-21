@@ -69,7 +69,7 @@ void __stdcall sub_K15_Emit8(int* p, int n)
 #include "D2Drlg.h"
 
 // 0x00648050
-static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
+static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
 {
     int nY;
     const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
@@ -101,7 +101,7 @@ static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(
     }
 }
 
-static __declspec(noinline) BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
+static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     D2_ASSERT(!(pPath->dwFlags & PATH_MISSILE_MASK), LINE_PREPARE_MISSILE);
@@ -168,7 +168,7 @@ static __declspec(noinline) BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoS
     return PATH_TRUE;
 }
 
-static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
+static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_NONE;
     if (nUnitType != UNIT_MONSTER)
@@ -198,7 +198,7 @@ static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc*
     return !DUNGEON_IsRoomInTown(pTargetRoom);
 }
 
-static __declspec(noinline) int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
+static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
 {
     switch (pPath->eType)
     {

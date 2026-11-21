@@ -41,9 +41,9 @@ void __fastcall sub_00522BC0_FillRandomBytes(char* szBuffer, int nSize); // 0x00
 
 unsigned int __fastcall sub_00522E10_Decrypt(unsigned char* pBuffer, unsigned int nSize, const char* pKey); // 0x00522E10
 
-static __declspec(noinline) int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
+static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 
-__declspec(noinline) static void __cdecl sub_00523350_CopyOutputs(Byte** first, Byte** second);
+static void __cdecl sub_00523350_CopyOutputs(Byte** first, Byte** second);
 
 static void* sub_00523480_LoadFile(const char* szFileName, unsigned int* pSize);
 

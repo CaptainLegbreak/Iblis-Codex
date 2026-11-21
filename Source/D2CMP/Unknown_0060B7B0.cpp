@@ -13,9 +13,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x006829C0
 extern unsigned int gdwBitMasks_006E6030[];                                                                 // 0x006E6030
 
-static __declspec(noinline) unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor);
+static unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor);
 static unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor); // 0x0060B200
-static __declspec(noinline) void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, D2CmpBitCursorStrc* pEqualCells, D2CmpCellBufStrc* pPrev, unsigned char** ppValues, D2CmpCellBufStrc* pCell);
+static void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, D2CmpBitCursorStrc* pEqualCells, D2CmpCellBufStrc* pPrev, unsigned char** ppValues, D2CmpCellBufStrc* pCell);
 
 extern const int gnDccFieldWidths_006E5F70[16];
 extern const unsigned int gdwDccSignBits_006E5FB0[32];

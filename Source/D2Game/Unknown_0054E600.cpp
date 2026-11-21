@@ -64,7 +64,7 @@ static __forceinline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
 }
 
 // 0x0054E090
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E090_SpawnGroupAtPoint(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nMonsterId, int nX, int nY)
+static D2UnitStrc* __stdcall sub_0054E090_SpawnGroupAtPoint(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nMonsterId, int nX, int nY)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nMonsterId);
     unsigned char nMinGrp = pMonStatsTxtRecord->nMinGrp;
@@ -88,7 +88,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E090_SpawnGroupAtPoint
 }
 
 // 0x0054E1E0
-static __declspec(noinline) void __stdcall sub_0054E1E0_SpawnChampionMinions(D2RoomCoordListStrc* pCoordList, int nMonsterId, D2GameStrc* pGame, D2UnitStrc* pMonster)
+static void __stdcall sub_0054E1E0_SpawnChampionMinions(D2RoomCoordListStrc* pCoordList, int nMonsterId, D2GameStrc* pGame, D2UnitStrc* pMonster)
 {
     if (!MONSTERUNIQUE_CheckMonTypeFlag(pMonster, 4))
         return;
@@ -103,7 +103,7 @@ static __declspec(noinline) void __stdcall sub_0054E1E0_SpawnChampionMinions(D2R
 }
 
 // 0x0054E2A0
-static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevelId, int nMonsterId)
+static int sub_0054E2A0_GetFallenVariantForLevel(int nLevelId, int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nMonsterId);
     const int nBaseId = !pMonStatsTxtRecord ? nMonsterId : pMonStatsTxtRecord->nBaseId;
@@ -159,7 +159,7 @@ static int MONSTERREGION_CanRetryPresetSpawn(int nMonsterId)
 }
 
 // 0x0054E490
-static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPresetMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMode, int nClassId)
+static D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPresetMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMode, int nClassId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inline(nClassId);
     if (!pMonStatsTxtRecord)

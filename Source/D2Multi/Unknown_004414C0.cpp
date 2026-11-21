@@ -43,7 +43,7 @@ void __cdecl sub_004414C0_UpdateEnable()
 
 char gszChatBuffer_0077AE40[0x200]; // 0x0077AE40
 
-static __declspec(noinline) int __stdcall sub_0043E860_FindHashedWord(unsigned int nHash, int nLength, char* szText)
+static int __stdcall sub_0043E860_FindHashedWord(unsigned int nHash, int nLength, char* szText)
 {
     if (!nLength)
         return 0;

@@ -79,14 +79,14 @@ unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom,
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath);                                                      // 0x00650590
 
-static __declspec(noinline) void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit);
+static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit);
 static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit); // 0x00460830
-static void __declspec(noinline) sub_00460DE0_UpdateRoomPosition(D2UnitStrc* pUnit);                       // 0x00460DE0
-static void __declspec(noinline) sub_00460E70_UpdateRoomState(D2UnitStrc* pUnit);                          // 0x00460E70
-static void __declspec(noinline) sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit);                        // 0x00460F10
-static __declspec(noinline) void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit);
+static void sub_00460DE0_UpdateRoomPosition(D2UnitStrc* pUnit);                       // 0x00460DE0
+static void sub_00460E70_UpdateRoomState(D2UnitStrc* pUnit);                          // 0x00460E70
+static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit);                        // 0x00460F10
+static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit);
 static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit);    // 0x004611F0
-static void __declspec(noinline) sub_00463260_UpdateStoredUnit(D2UnitStrc* pUnit);                         // 0x00463260
+static void sub_00463260_UpdateStoredUnit(D2UnitStrc* pUnit);                         // 0x00463260
 
 #define UNIT_GETX(pUnit, outX) \
     switch ((pUnit)->dwUnitType) \

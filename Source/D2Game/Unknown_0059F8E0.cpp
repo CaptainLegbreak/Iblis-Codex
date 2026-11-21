@@ -66,7 +66,7 @@ static __forceinline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSe
 }
 
 // 0x0059F900
-static __declspec(noinline) void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, int nLevel, D2UnitStrc* pOwner)
+static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, int nLevel, D2UnitStrc* pOwner)
 {
     D2MissileDamageDataStrc tDamage;
 
@@ -76,7 +76,7 @@ static __declspec(noinline) void __stdcall sub_0059F900_ApplyMissileDamage(D2Uni
     PLAYER_RestoreWeaponStats(pOwner, 0);
 }
 
-static __declspec(noinline) void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner)
+static void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner)
 {
     if (!pOwner || !pMissile || pMissile->dwUnitType != UNIT_MISSILE)
     {

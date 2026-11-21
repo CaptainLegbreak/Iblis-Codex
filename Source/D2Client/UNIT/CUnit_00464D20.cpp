@@ -327,7 +327,7 @@ void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUni
     sub_00465E80_RemoveUnitFromTable(nUnitId, nUnitType, &gpUnitHashTable_007A5270[nUnitType * 0x80], nUnitId & 0x7F);
 }
 
-static __declspec(noinline) D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit)
+static D2UnitStrc* sub_00465F20_InsertUnit(D2UnitStrc* pUnit)
 {
     if (!sub_00463A50_AddUnitToTable(pUnit))
     {

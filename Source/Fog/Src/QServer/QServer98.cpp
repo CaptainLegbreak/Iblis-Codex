@@ -22,7 +22,7 @@ struct D2QAddressArg
     unsigned int nAddress;
 };
 
-static __declspec(noinline) void __stdcall sub_006C3440_AddClient(T006BE350* pServer, unsigned int s, D2QAddressArg tAddress);
+static void __stdcall sub_006C3440_AddClient(T006BE350* pServer, unsigned int s, D2QAddressArg tAddress);
 
 #include "D2SysTypes.h"
 

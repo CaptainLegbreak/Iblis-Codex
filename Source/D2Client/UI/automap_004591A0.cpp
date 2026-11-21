@@ -104,7 +104,7 @@ extern int gnLastY_007A51F4;                                                    
 
 extern const int gaTownSkipCels_006D6608[];                                                                 // 0x006D6608
 
-static __declspec(noinline) D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo);
+static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo);
 
 
 struct D2AutomapDrawStrc
@@ -406,7 +406,7 @@ int __fastcall sub_00457450_Abs(int nValue)
     return nValue < 0 ? -nValue : nValue;
 }
 
-static __declspec(noinline) int __cdecl sub_004576C0()
+static int __cdecl sub_004576C0()
 {
     if (gdwGlobal_007A5150 == 1 && gdwAutoMapFade_007A51A8 == 1)
     {

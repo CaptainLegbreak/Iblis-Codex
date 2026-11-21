@@ -31,7 +31,7 @@ static __forceinline void sub_00513380_RemapSpan(unsigned char* pDst, const unsi
     }
 }
 
-static __declspec(noinline) void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect, unsigned int nRows);
+static void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect, unsigned int nRows);
 
 // build: context sub_00513380_RemapRows
 static void __stdcall sub_00513380_RemapRows(int nWidth, D2DDrawSmackStrc* pRect, unsigned int nRows)

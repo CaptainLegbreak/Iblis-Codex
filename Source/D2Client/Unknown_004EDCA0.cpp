@@ -62,7 +62,7 @@ unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 static __declspec(noinline) unsigned short sub_004E6F60_GetETypeDamageStr(int nEType);
-static __declspec(noinline) int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
+static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, Unicode* wszText);
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
@@ -190,7 +190,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt
 void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel); // 0x004E72D0
 
 // 0x004E73E0
-static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
+static int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
 {
     int szText_[8]; char* const szText = (char*)szText_;
     if (bPrefixSign && nValue >= 0)
@@ -202,7 +202,7 @@ static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(Unicode* 
 }
 
 // 0x004E7430
-static __declspec(noinline) int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
+static int __stdcall sub_004E7430_FormatSignedDecimal(Unicode* wszText, int bPrefixSign, int nValue, int nFraction)
 {
     int szText_[8]; char* const szText = (char*)szText_;
     if (bPrefixSign && nValue >= 0)

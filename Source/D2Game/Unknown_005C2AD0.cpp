@@ -34,7 +34,7 @@ static __forceinline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSee
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-static __declspec(noinline) int __stdcall sub_005C2970_RollSuperiorItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
+static int __stdcall sub_005C2970_RollSuperiorItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
 {
     D2QualityItemDataTbl* pQualityItemDataTbl = DATATBLS_GetQualityItemDataTables();
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);

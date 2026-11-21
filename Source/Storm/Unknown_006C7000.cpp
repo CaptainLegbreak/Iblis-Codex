@@ -6,10 +6,10 @@ extern unsigned char gnUtf8Trailing_006FCCA0[]; // 0x006FCCA0
 extern unsigned int gnUtf8Offsets_006FCC88[]; // 0x006FCC88
 extern const unsigned char gaTrailingBytesForUtf8_006FCCA0[256]; // 0x006FCCA0
 extern const unsigned int gaOffsetsFromUtf8_006FCC88[6]; // 0x006FCC88
-static __declspec(noinline) int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
+static int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
 extern const unsigned short gWideTable_006FCDC0[]; // 0x006FCDC0
-static __declspec(noinline) int __stdcall sub_006C78C0_ConvertToWide(unsigned short*,const unsigned char*,unsigned int,const unsigned short*); // 0x006C78C0
-static __declspec(noinline) int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
+static int __stdcall sub_006C78C0_ConvertToWide(unsigned short*,const unsigned char*,unsigned int,const unsigned short*); // 0x006C78C0
+static int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
 
 // 0x006C7000
 int __stdcall sub_006C7000_Wrapper(int a1, int a2, int a3, int a4, int a5, int a6)

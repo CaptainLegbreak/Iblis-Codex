@@ -176,7 +176,7 @@ int __cdecl sub_004DF960()
 }
 
 // 0x004DF770
-__declspec(noinline) static bool __fastcall sub_004DF770(S* p, char unused, int x) { return p->type == x; }
+static bool __fastcall sub_004DF770(S* p, char unused, int x) { return p->type == x; }
 
 // build: context sub_004DF770_Shim
 // calling-convention shim (not game code)

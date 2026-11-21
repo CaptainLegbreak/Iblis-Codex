@@ -106,7 +106,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 
 // 0x00499FC0
-static __declspec(noinline) void __stdcall sub_00499FC0_DrawPanelCel(void* pCellFile, int nX, int nFrame, int nY)
+static void __stdcall sub_00499FC0_DrawPanelCel(void* pCellFile, int nX, int nFrame, int nY)
 {
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));

@@ -18,7 +18,7 @@ static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed
 }
 
 // 0x0067F5C0
-static __declspec(noinline) void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
+static void DRLGOUTDESR_PlaceCliffs(D2DrlgLevelStrc* pLevel)
 {
     const unsigned int nRand = SEED_RollRandomNumber_Inline(&pLevel->pSeed) & 7;
 

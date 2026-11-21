@@ -68,7 +68,7 @@ static __forceinline void sub_0049D5A0_DrawClippedLine(T0044CB60* pLine, int nY,
     }
 }
 
-static __declspec(noinline) int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec);
+static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec);
 static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec); // 0x0049D5A0
 
 // 0x0049D5A0

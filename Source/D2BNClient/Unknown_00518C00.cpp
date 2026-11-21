@@ -141,7 +141,7 @@ int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength)
 #include "gen/data/Source/D2BNClient/Unknown_00518C00.inc"
 
 // 0x00518DE0
-static __declspec(noinline) unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
+static unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
 {
     VALIDATEBEGIN;
     VALIDATE(pData || !nSize);

@@ -32,7 +32,7 @@ extern int gnValue_007C9138; // 0x007C9138
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
-static __declspec(noinline) int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut);
+static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut);
 
 // 0x006C8380
 static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut)

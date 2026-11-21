@@ -96,7 +96,7 @@ int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY);
 
 static int sub_0065A6B0_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize);
 
-static __declspec(noinline) int sub_0065A710_IsAreaInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize);
+static int sub_0065A710_IsAreaInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize);
 
 D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, int nY, int nSize, int (__fastcall* pfnUnitTest)(D2UnitStrc*, D2UnitStrc*));
 
@@ -176,7 +176,7 @@ D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* hRo
 }
 
 // 0x0065A6B0
-static __declspec(noinline) int sub_0065A6B0_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize)
+static int sub_0065A6B0_IsAreaNearRoomEdge(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize)
 {
     D2DrlgCoordsStrc pCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &pCoords);
@@ -231,7 +231,7 @@ int __stdcall UNITFINDS_GetTestedUnitsFromRoom(D2ActiveRoomStrc* pRoom, D2UnitSt
     return nUnitIndex;
 }
 
-static __declspec(noinline) int sub_0065A710_IsAreaInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize)
+static int sub_0065A710_IsAreaInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize)
 {
     D2DrlgCoordsStrc pCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &pCoords);
@@ -297,7 +297,7 @@ D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, 
 }
 
 // 0x0065A900
-static __declspec(noinline) void sub_0065A900_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData)
+static void sub_0065A900_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData)
 {
     D2_ASSERT(pUnitFindData, 192);
 

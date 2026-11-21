@@ -130,7 +130,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-__declspec(noinline) void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight);
+void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight);
 
 typedef unsigned int size_t;
 
@@ -152,7 +152,7 @@ extern D2ItemsTxt* gpItemsTxt_008426F0; // 0x008426F0
 
 static D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 
-static __declspec(noinline) void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
+static void sub_005031D0_CopyTokenPadded(char* pDst, const char* pSrc)
 {
     if (!pSrc[0])
     {
@@ -190,7 +190,7 @@ static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503250_LoadCofFile(co
 }
 
 // 0x00503340
-static __declspec(noinline) D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -220,7 +220,7 @@ static __declspec(noinline) D2CofNodeStrc* __stdcall sub_00503340_GetCofNode(uns
     return pNode;
 }
 
-static __declspec(noinline) void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
+static void __stdcall sub_005034B0_BuildCofPath(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass, char* szPath)
 {
     D2_ASSERT(nClass < 25, 0x488);
     D2_ASSERT(nMode < gnModeTokens_0072E0B4, 0x489);
@@ -262,7 +262,7 @@ static __declspec(noinline) void __stdcall sub_005034B0_BuildCofPath(unsigned in
     }
 }
 
-static __declspec(noinline) D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStrc* pGfxInfo, unsigned int nMode, unsigned int dwWeaponClass)
 {
     D2_ASSERT(pGfxInfo, 0x4B0);
     for (D2CofInfoStrc* pCofInfo = pGfxInfo->pCofInfo; pCofInfo; pCofInfo = pCofInfo->pNext)
@@ -275,7 +275,7 @@ static __declspec(noinline) D2CofInfoStrc* sub_005035F0_FindCofInfo(D2GfxInfoStr
     return 0;
 }
 
-static __declspec(noinline) D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+static D2CofDataStrc* __stdcall sub_00503640_GetCofData(D2GfxInfoStrc* pGfxInfo, unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     char szPath[260];
 

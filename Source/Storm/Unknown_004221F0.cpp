@@ -308,7 +308,7 @@ static void __stdcall sub_00422B00_Set2Exp(D2StormQueueStrc& a, unsigned int nEx
 }
 
 // 0x00422C60
-static __declspec(noinline) void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void sub_00422C60_SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
@@ -387,7 +387,7 @@ static void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueSt
 }
 
 // 0x004234B0
-static __declspec(noinline) void sub_004234B0_FromStr(D2StormQueueStrc& a, const char* szString)
+static void sub_004234B0_FromStr(D2StormQueueStrc& a, const char* szString)
 {
     sub_00422CC0_SetZero(a);
     while (*szString)

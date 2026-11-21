@@ -55,7 +55,7 @@ static __forceinline D2MonStatsTxt* MonStats(int id) {
  if(id<0||id>=sgptDataTables->nMonStatsTxtRecordCount)return 0;
  return &sgptDataTables->pMonStatsTxt[id];
 }
-__declspec(noinline) static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc*,int,D2LevelsTxt*,D2MonsterRegionStrc*);
+static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc*,int,D2LevelsTxt*,D2MonsterRegionStrc*);
 static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc*,int,D2LevelsTxt*,D2MonsterRegionStrc*); // 0x005475E0
 // 0x005475E0
 static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* seed,int higher,D2LevelsTxt* levels,D2MonsterRegionStrc* region)

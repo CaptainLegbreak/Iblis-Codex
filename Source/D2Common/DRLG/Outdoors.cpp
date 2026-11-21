@@ -89,7 +89,7 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgM
 
 D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50); // 0x0067D540
 
-static __declspec(noinline) void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
+static void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
@@ -114,7 +114,7 @@ void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pDrlgGrid);   
 void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                        // 0x0067D1E0
 
 // 0x00674320
-static __declspec(noinline) int __cdecl sub_00674320_PickFile(D2DrlgLevelStrc* pLevel, int nPresetId)
+static int __cdecl sub_00674320_PickFile(D2DrlgLevelStrc* pLevel, int nPresetId)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgBuildStrc* pFile = pLevel->pBuild;

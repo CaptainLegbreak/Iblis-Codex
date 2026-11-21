@@ -246,7 +246,7 @@ extern char gbCinematicBusy_007BC9D7; // 0x007BC9D7
 
 extern char gbCinematicChain_007BC9D8; // 0x007BC9D8
 
-static __declspec(noinline) unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags);
+static unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags);
 
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
@@ -485,7 +485,7 @@ int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc* pPlayer, int nValue); /
 
 int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc* pPlayer, int nValue); // 0x0062A620
 
-static __declspec(noinline) void __stdcall sub_00486BD0_GetPlacementCell(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY);
+static void __stdcall sub_00486BD0_GetPlacementCell(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, unsigned int nX, unsigned int nY, int* pCellX, int* pCellY);
 
 #pragma pack(push, 2)
 
@@ -723,7 +723,7 @@ int __fastcall sub_00482C70_Shim(const unsigned char* pFlags, int nCount)
 }
 
 // 0x00483AE0
-static __declspec(noinline) int sub_00483AE0_IsInRect(int nX, int nY)
+static int sub_00483AE0_IsInRect(int nX, int nY)
 {
     if (nX > gnGlobal_007BCB1C && nX < gnGlobal_007BCB20 && nY >= gnGlobal_007BCB24 && nY <= gnGlobal_007BCB28)
     {
@@ -733,7 +733,7 @@ static __declspec(noinline) int sub_00483AE0_IsInRect(int nX, int nY)
 }
 
 // 0x00483B10
-static __declspec(noinline) int sub_00483B10_IsInRect(int nX, int nY)
+static int sub_00483B10_IsInRect(int nX, int nY)
 {
     if (nX > gnGlobal_007BCA34 && nX < gnGlobal_007BCA38 && nY >= gnGlobal_007BCA3C && nY <= gnGlobal_007BCA40)
     {
@@ -743,7 +743,7 @@ static __declspec(noinline) int sub_00483B10_IsInRect(int nX, int nY)
 }
 
 // 0x00483B40
-static __declspec(noinline) int sub_00483B40_IsInRect(int nX, int nY)
+static int sub_00483B40_IsInRect(int nX, int nY)
 {
     if (sub_0044DCC0())
     {
@@ -762,7 +762,7 @@ static __declspec(noinline) int sub_00483B40_IsInRect(int nX, int nY)
 }
 
 // 0x00483BA0
-static __declspec(noinline) int sub_00483BA0_IsInRect(int nX, int nY)
+static int sub_00483BA0_IsInRect(int nX, int nY)
 {
     if (sub_0044DCC0())
     {
@@ -781,7 +781,7 @@ static __declspec(noinline) int sub_00483BA0_IsInRect(int nX, int nY)
 }
 
 // 0x00483BF0
-static __declspec(noinline) int sub_00483BF0_IsInRect(int nX, int nY)
+static int sub_00483BF0_IsInRect(int nX, int nY)
 {
     if (nX >= gnGlobal_007BCB74 && nX < gnGlobal_007BCB78 && nY >= gnGlobal_007BCB7C && nY <= gnGlobal_007BCB80)
     {
@@ -816,7 +816,7 @@ int __cdecl sub_E04_Emit_00483BF0(int nX, int nY)
 }
 
 // 0x00483C20
-static __declspec(noinline) int sub_00483C20_IsInRect(int nX, int nY)
+static int sub_00483C20_IsInRect(int nX, int nY)
 {
     if (nX >= gnGlobal_007BCB30 && nX < gnGlobal_007BCB34 && nY >= 0 && nY <= gnGlobal_007BCB3C)
     {
@@ -878,7 +878,7 @@ int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
+static int sub_00483AE0_IsInGrid7BCB18(int nX, int nY)
 {
     if (nX > gGrid_007BCB18.nGridLeft && nX < gGrid_007BCB18.nGridRight && nY >= gGrid_007BCB18.nGridTop && nY <= gGrid_007BCB18.nGridBottom)
     {
@@ -913,7 +913,7 @@ static int sub_00483B40_IsInCubeGrid(int nX, int nY)
     return 0;
 }
 
-static __declspec(noinline) int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
+static int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
 {
     if (nX >= gGrid_007BCB70.nGridLeft && nX < gGrid_007BCB70.nGridRight && nY >= gGrid_007BCB70.nGridTop && nY <= gGrid_007BCB70.nGridBottom)
     {
@@ -2043,7 +2043,7 @@ int __cdecl sub_E05_Emit_00486860(); // 0x00486860
 int __cdecl sub_E05_Emit_00489FB0(int nX, int nY); // 0x00489FB0
 
 // 0x00484C90
-static __declspec(noinline) int sub_00484C90_FormatEarName(Unicode* pText, D2UnitStrc* pItem)
+static int sub_00484C90_FormatEarName(Unicode* pText, D2UnitStrc* pItem)
 {
     if (ITEMS_CheckItemFlag(pItem, 0x1000000, 0x6EA, ".\\UI\\inv.cpp"))
     {
@@ -2065,7 +2065,7 @@ static __declspec(noinline) int sub_00484C90_FormatEarName(Unicode* pText, D2Uni
 }
 
 // 0x00484D30
-static __declspec(noinline) int __stdcall sub_00484D30_FormatEarNameTo(Unicode* pOut, const Unicode* pFormat, D2UnitStrc* pItem)
+static int __stdcall sub_00484D30_FormatEarNameTo(Unicode* pOut, const Unicode* pFormat, D2UnitStrc* pItem)
 {
     if (ITEMS_CheckItemFlag(pItem, 0x1000000, 0x70B, ".\\UI\\inv.cpp"))
     {
@@ -2164,7 +2164,7 @@ static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2It
 }
 
 // 0x00486670
-static __declspec(noinline) void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
+static void __stdcall sub_00486670_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
 {
     D2InventoryStrc* pInventory = pItem->pInventory;
     if (!pInventory)
@@ -2335,7 +2335,7 @@ void __stdcall sub_00486BD0_Emit(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGr
     sub_00486BD0_GetPlacementCell(pItem, pGrid, nX, nY, pCellX, pCellY);
 }
 
-static __declspec(noinline) void sub_00487E20_SetButtonA(int nButton)
+static void sub_00487E20_SetButtonA(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0xD07;
     gaPanelButtons_007BC9E0[nButton].nCel = 2;
@@ -2344,7 +2344,7 @@ static __declspec(noinline) void sub_00487E20_SetButtonA(int nButton)
     gaPanelButtons_007BC9E0[nButton].bActive = 1;
 }
 
-static __declspec(noinline) void sub_00487E60_SetButtonB(int nButton)
+static void sub_00487E60_SetButtonB(int nButton)
 {
     gaPanelButtons_007BC9E0[nButton].nString = 0xD08;
     gaPanelButtons_007BC9E0[nButton].nCel = 3;

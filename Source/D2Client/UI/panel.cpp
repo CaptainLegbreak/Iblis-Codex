@@ -608,7 +608,7 @@ void __cdecl sub_00497110_DrawManaOrb()
 }
 
 // 0x00497440
-static __declspec(noinline) int __cdecl sub_00497440_Bounds(int nX,int nY)
+static int __cdecl sub_00497440_Bounds(int nX,int nY)
 {
     int nHalf=gnGlobal_0071146C / 2;
     if (nX >= nHalf + -145 && nX <= nHalf + -128
@@ -668,7 +668,7 @@ void __cdecl sub_004975B0_DrawStaminaBar()
 }
 
 // 0x00497780
-static __declspec(noinline) int __cdecl sub_00497780_Bounds(int nX,int nY)
+static int __cdecl sub_00497780_Bounds(int nX,int nY)
 {
     int nHalf=gnGlobal_0071146C / 2;
     if (nX >= nHalf + -8 && nX <= nHalf + 5

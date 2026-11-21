@@ -71,7 +71,7 @@ static void __stdcall sub_00447B00_PrintChannelLine(const char* szText, int nPre
 }
 
 // 0x004481B0
-static __declspec(noinline) void __stdcall sub_004481B0_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor)
+static void __stdcall sub_004481B0_PrintNamedLine(const char* szText, int nPrefix, const char* szName, int nColor)
 {
     char szBuffer[0x100];
     sprintf(szBuffer, "<%s> ", szName);

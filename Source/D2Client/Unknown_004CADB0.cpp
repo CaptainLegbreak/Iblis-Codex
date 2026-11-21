@@ -101,7 +101,7 @@ void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg); // 0x004DCE10
 void __stdcall sub_004CB2C0_ReleaseMonsterSfx(D2UnitStrc* pUnit);
-__declspec(noinline) void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
+void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta);
 void __fastcall sub_004CA560_GetHitSounds(D2UnitStrc* pUnit, int nHitClass, int bParam, int* pSound1, int* pSound2); // 0x004CA560
 
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
@@ -129,7 +129,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x004CACE0
-static __declspec(noinline) D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int nX, int nY)
+static D2DrlgTileDataStrc* sub_004CACE0_FindFloorTileAt(D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
@@ -311,7 +311,7 @@ int __fastcall sub_004CA4C0(D2UnitStrc* pUnit, unsigned int nDirection)
     D2_ASSERT(0, 0xB60);
 }
 
-static __declspec(noinline) unsigned int sub_004CAB30_ReadSoundTick(D2UnitStrc* pUnit)
+static unsigned int sub_004CAB30_ReadSoundTick(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xCBB);
     return pUnit->dwSfxTicks;
@@ -865,7 +865,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
         sub_004CB9C0_Request(pUnit, nEvent);
 }
 
-__declspec(noinline) void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta)
+void __fastcall sub_004CC160_AddUnitSoundRefs(D2UnitStrc* pUnit, int nDelta)
 {
     const int nType = sub_004CA320_GetUnitSndType(pUnit);
     D2_ASSERT(pUnit, 0xCFD);

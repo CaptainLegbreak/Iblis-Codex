@@ -14,7 +14,7 @@ int __fastcall sub_00454880_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 unsigned short* __fastcall sub_005267E0(unsigned short* pDest, const unsigned short* pSource); // 0x005267E0
 int __fastcall sub_00501820(const unsigned short* wszText); // 0x00501820
 void __fastcall sub_00502320(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-static __declspec(noinline) void __stdcall sub_004549F0_DrawHoverLine(const unsigned short* wszText, int nFont, int nY, int nColor);
+static void __stdcall sub_004549F0_DrawHoverLine(const unsigned short* wszText, int nFont, int nY, int nColor);
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60

@@ -35,7 +35,7 @@ extern D2BnHashCtxStrc gaBnHashCtx_00882760[]; // 0x00882760
 extern D2IdeaKeyScheduleStrc gaIdeaKeySchedules_00882878[]; // 0x00882878
 void __fastcall sub_00522BC0_FillRandomBytes(unsigned char* pBuffer, int nSize); // 0x00522BC0
 unsigned int __fastcall sub_00522E10_Decrypt(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
-static __declspec(noinline) int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
+static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
 
 // 0x00520DC0
 int __fastcall sub_00520DC0_HandleStatus(D2BnReply00520DC0Strc* pReply)
@@ -82,12 +82,12 @@ void __cdecl sub_00521B90_ClearSrpState()
 #include "D2BnCryptTypes.h"
 
 // 0x00522BB0
-static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)
+static long sub_0051DC70_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
 
-static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -95,7 +95,7 @@ static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int n
     return nValue + 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
+static int sub_0051DD20_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -103,7 +103,7 @@ static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
     return cLower - 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD40_MapKeyChar(unsigned char cChar)
+static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap_006DF238[cChar];
 }

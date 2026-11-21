@@ -356,7 +356,7 @@ int __stdcall ITEMS_GetNoOfUnidItems(D2UnitStrc*); // 0x0062A530
 
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*,int,int); // 0x0065C310
 
-static __declspec(noinline) int sub_004B1C80_GetNpcDialogPos(D2CoordStrc*);
+static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc*);
 
 static __forceinline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {

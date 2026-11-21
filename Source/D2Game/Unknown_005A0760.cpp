@@ -247,7 +247,7 @@ static __forceinline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x005A02E0
-static __declspec(noinline) void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
+static void __stdcall sub_005A02E0_AddUMod(int nUMod, D2UnitStrc* pUnit)
 {
     const unsigned int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
@@ -460,7 +460,7 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
     return pMonsterData->nMonUmod;
 }
 
-__declspec(noinline) int __fastcall MONSTERUNIQUE_GetUModCount(unsigned char* pUMods);
+int __fastcall MONSTERUNIQUE_GetUModCount(unsigned char* pUMods);
 // 0x005A0260
 int __fastcall MONSTERUNIQUE_GetUModCount(unsigned char* pUMods)
 {

@@ -54,7 +54,7 @@ struct D2CrashModuleListStrc
 
 struct D2ModuleStrc;
 
-static __declspec(noinline) bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosHeaderStrc* pImage, const wchar_t* wszName, int nNameLength);
+static bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosHeaderStrc* pImage, const wchar_t* wszName, int nNameLength);
 extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount);      // 0x006859D2
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);

@@ -28,7 +28,7 @@ extern unsigned char* gpBloodRemap_007BB384; // 0x007BB384
 
 void __fastcall sub_00477060_EmitSink(D2PalShiftNodeStrc* pShift);
 
-static __declspec(noinline) void sub_00477060_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift);
+static void sub_00477060_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift);
 
 struct D2PalShiftNodeStrc
 {

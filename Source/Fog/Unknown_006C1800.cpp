@@ -72,9 +72,9 @@ struct FOGExpressionParserContextStrc
 
 const char* __fastcall DATATABLS_ParseExpressionToken(CalcGetKeyWordToNumber_t pfnName, CalcGetLinkerIndex_t pfnLink, FOGExpressionParserContextStrc* pCalc, const char* szExpression, FOGCalcExpressionParserTokenType* pOutToken, int* pValue); // 0x006C11C0
 int __stdcall DATATBLS_CalcEvaluateExpression(const FOGASTNodeStrc*, int, CalcFogCallBack2_t, D2CalcCallbackInfoStrc*, int, void*); // 0x006C0BC0
-static __declspec(noinline) FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue); // 0x006C18A0
+static FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue); // 0x006C18A0
 
-__declspec(noinline)
+
 // 0x006C1820
 static int __stdcall sub_006C1820_GetOperandCount(
     unsigned char nToken, CalcGetFunctionParameterCount_t pfnGetOperandCount, int nFunctionId)
@@ -107,7 +107,7 @@ static int __stdcall sub_006C1820_GetOperandCount(
 }
 
 // 0x006C1800
-static __declspec(noinline) int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType)
+static int DATATABLS_CheckPrecendence(unsigned char nPreviousCalcType, unsigned char nNewCalcType)
 {
     if (nPreviousCalcType == 1 || nNewCalcType == 1 || nPreviousCalcType >= 23)
     {

@@ -256,7 +256,7 @@ static void __stdcall sub_004221F0_AddUInt(D2StormQueueStrc& a, const D2StormQue
 }
 
 // 0x00422570
-static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(D2StormQueueStrc& a, unsigned int b)
+static int __stdcall sub_00422570_CompareUInt(D2StormQueueStrc& a, unsigned int b)
 {
     a.sub_00422140_Trim();
     if (a.Count() > 1)
@@ -271,7 +271,7 @@ static __declspec(noinline) int __stdcall sub_00422570_CompareUInt(D2StormQueueS
 void __stdcall sub_004225C0_DivUInt(D2StormQueueStrc& a, unsigned int* pRemainder, const D2StormQueueStrc& b, unsigned __int64 c); // 0x004225C0
 
 // 0x00422750
-static __declspec(noinline) int sub_00422750_IsOne(D2StormQueueStrc& a)
+static int sub_00422750_IsOne(D2StormQueueStrc& a)
 {
     a.sub_00422140_Trim();
     const D2StormQueueStrc& tRead = a;
@@ -309,7 +309,7 @@ static void __stdcall sub_00422B00_Set2Exp(D2StormQueueStrc& a, unsigned int nEx
 }
 
 // 0x00422C60
-static __declspec(noinline) void sub_00422C60_SetOne(D2StormQueueStrc& a)
+static void sub_00422C60_SetOne(D2StormQueueStrc& a)
 {
     a.SetCount(1);
     a.sub_00421FE0_GrowToFit(0);
@@ -317,7 +317,7 @@ static __declspec(noinline) void sub_00422C60_SetOne(D2StormQueueStrc& a)
 }
 
 // 0x00422CC0
-static __declspec(noinline) void sub_00422CC0_SetZero(D2StormQueueStrc& a)
+static void sub_00422CC0_SetZero(D2StormQueueStrc& a)
 {
     a.SetCount(0);
 }
@@ -365,7 +365,7 @@ void __stdcall sub_00422FC0_SubUInt(D2StormQueueStrc& a, const D2StormQueueStrc&
 void __stdcall sub_00423100_Sub(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c); // 0x00423100
 
 // 0x004234B0
-static __declspec(noinline) void sub_004234B0_FromStr(D2StormQueueStrc& a, const char* szString)
+static void sub_004234B0_FromStr(D2StormQueueStrc& a, const char* szString)
 {
     sub_00422CC0_SetZero(a);
     while (*szString)
@@ -580,7 +580,7 @@ static void __stdcall sub_00424180_Gcd(D2StormQueueStrc& a, D2StormQueueStrc& b,
 }
 
 // 0x004245F0
-static __declspec(noinline) void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
+static void __stdcall sub_004245F0_MulMod(D2StormQueueStrc& a, D2StormQueueStrc& b, D2StormQueueStrc& c, D2StormQueueStrc& d, D2StormBigStackStrc& tStack)
 {
     D2StormQueueStrc& tProduct = tStack.f_0[tStack.nUsed++];
     sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);

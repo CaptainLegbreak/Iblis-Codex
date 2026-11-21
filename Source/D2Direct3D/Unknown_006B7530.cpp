@@ -18,11 +18,11 @@ struct D2GridPointStrc;
 struct D2RendererSettingsStrc;
 
 extern D2TLVertexStrc gaVertices_00970F48[4]; // 0x00970F48
-__declspec(noinline) static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
+static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-__declspec(noinline) static void __stdcall sub_006B7FD0_GetPanelRect(D2RectStrc* pRect, int nSide, int* pOffset, int bFlag);
+static void __stdcall sub_006B7FD0_GetPanelRect(D2RectStrc* pRect, int nSide, int* pOffset, int bFlag);
 
 struct D2ClipRectStrc { int left,top,right,bottom; };
 
@@ -55,7 +55,7 @@ void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __stdcall sub_006B8950_DrawAlternate(void*, void*, int, int, int, unsigned char); // 0x006B8950
 int __stdcall sub_006B87A0_DrawNormal(void*, void*, int, int, int, unsigned char); // 0x006B87A0
-static __declspec(noinline) int __stdcall sub_006B8DF0_DrawConfigured(void*, int, int, int, void*, unsigned char);
+static int __stdcall sub_006B8DF0_DrawConfigured(void*, int, int, int, void*, unsigned char);
 
 struct BufferDescription { unsigned int size,caps,format,count; };
 

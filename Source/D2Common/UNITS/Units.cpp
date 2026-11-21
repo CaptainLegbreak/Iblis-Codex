@@ -524,7 +524,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-static __declspec(noinline) void UNITS_CharacterStartRunningOrKnockback(D2UnitStrc* pUnit, int nClassId);
+static void UNITS_CharacterStartRunningOrKnockback(D2UnitStrc* pUnit, int nClassId);
 
 static int UNITS_GetBaseAnimSpeed(int nUnitType, int nClassId, int nAnimMode);
 
@@ -1593,7 +1593,7 @@ static __forceinline void UNITS_SetAnimationSpeed_Inl(D2UnitStrc* pUnit, int nSp
 }
 
 // 0x00621360
-static __declspec(noinline) int __stdcall UNITS_GetBaseVelocity(int nUnitType, int nClassId)
+static int __stdcall UNITS_GetBaseVelocity(int nUnitType, int nClassId)
 {
     switch (nUnitType)
     {
@@ -2506,7 +2506,7 @@ int __stdcall UNITS_GetDefense(D2UnitStrc* pUnit)
 }
 
 // 0x00622520
-static __declspec(noinline) int sub_00622520_GetToHitFactor(D2UnitStrc* pUnit)
+static int sub_00622520_GetToHitFactor(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_PLAYER)

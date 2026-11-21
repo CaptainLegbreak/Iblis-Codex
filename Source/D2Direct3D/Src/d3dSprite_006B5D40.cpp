@@ -114,14 +114,14 @@ void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPac
 
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 
-static __declspec(noinline) int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info);
+static int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info);
 
-static __declspec(noinline) void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
+static void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
 
-static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
+static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
-static __declspec(noinline) void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
-static __declspec(noinline) unsigned char sub_006B6680_SetBlendAndAlpha(int mode);
+static void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
+static unsigned char sub_006B6680_SetBlendAndAlpha(int mode);
 
 
 struct D2TexLocationStrc
@@ -146,7 +146,7 @@ struct D2SpriteQuad006B61A0Strc
 
 static int gnVertexCount_00970F40; // 0x00970F40
 
-static __declspec(noinline) void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad);
+static void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad);
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
@@ -157,12 +157,12 @@ void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int*
 
 extern int gnVertexBufferPos_00970F40;                                                                      // 0x00970F40
 
-static int __declspec(noinline) sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo);
+static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2SpriteInfoStrc* pInfo);
 
 
 static int __declspec(noinline) __stdcall sub_006B5D40_UploadSprite(D2SpriteInfoStrc* pInfo, int nType, unsigned char* pPalette, int nUnused); // 0x006B5D40
 
-static unsigned char __declspec(noinline) sub_006B6680_GetAlpha(int nDrawMode);
+static unsigned char sub_006B6680_GetAlpha(int nDrawMode);
 
 extern int gnScreenWidth_007C9138; // 0x007C9138
 
@@ -175,12 +175,12 @@ void __fastcall sub_006BA760_Touch(int* pValue, int nValue); // 0x006BA760
 
 extern const char gszEmpty_006CC837[]; // 0x006CC837
 
-static __declspec(noinline) int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip);
+static int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip);
 
 
 int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
 
-static __declspec(noinline) void __stdcall sub_006B61A0_DrawShadowQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteInfoStrc* pQuad);
+static void __stdcall sub_006B61A0_DrawShadowQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteInfoStrc* pQuad);
 
 
 void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode);

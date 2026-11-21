@@ -41,11 +41,11 @@ int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathS
 int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
 void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
-static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FAD0
-__declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath); // 0x00650090
-static __declspec(noinline) BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
-static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath); // 0x006503F0
-__declspec(noinline) static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
+static void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FAD0
+BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath); // 0x00650090
+static BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
+static BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath); // 0x006503F0
+static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
 BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity); // 0x00650840
 
 extern D2MonStatsTxt* gpMonStatsTxt; // 0x0096C6A8
@@ -191,7 +191,7 @@ inline BOOL DUNGEON_TestRoomGame(D2ActiveRoomStrc* pRoom, int nX, int nY)
 void PATHMISC_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pNewRoom); // 0x0064FAA0
 
 // build: context PATH_RecacheRoom
-static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
+static void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
 {
     unsigned short nX = pPath->tGameCoords.wPosX;
     unsigned short nY = pPath->tGameCoords.wPosY;
@@ -217,7 +217,7 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pH
 }
 
 // 0x0064FB90
-static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
+static void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
 {
     if ((pPath->dwFlags & 0x40000) && !sub_00463740_FindRoomAtPoint(pPath->pRoom, tCoord.dwPrecisionX >> 16, tCoord.dwPrecisionY >> 16))
     {
@@ -241,7 +241,7 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP3
 }
 
 // 0x0064FF90
-static __declspec(noinline) BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2PathPointStrc tCurrent, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2PathPointStrc tCurrent, D2DynamicPathStrc* pPath)
 {
     if (pPath->dwFlags & 4)
     {
@@ -281,7 +281,7 @@ static __declspec(noinline) BOOL __stdcall sub_0064FF90_TestStepCollision(D2Path
 }
 
 // build: context sub_00650090_GetStepToNextPoint
-static __declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)
 {
     *pVelocity = pPath->tVelocityVector;
     if (pPath->eType == 4)
@@ -381,7 +381,7 @@ static BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOu
 }
 
 // 0x006502D0
-static __declspec(noinline) void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath)
+static void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath)
 {
     if (nBaseVelocity <= 0)
     {
@@ -415,7 +415,7 @@ static __declspec(noinline) void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathSt
 }
 
 // build: context sub_6FD5DB70
-static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
+static BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
 {
     switch (pPath->eType)
     {
@@ -563,7 +563,7 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
 }
 
 // 0x006507B0
-static __declspec(noinline) void PATH_ResetMovement(D2DynamicPathStrc* pPath)
+static void PATH_ResetMovement(D2DynamicPathStrc* pPath)
 {
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
     const D2CoordStrc tZeroVelocity = gtPathZeroVelocity_006EB7D4;
@@ -642,7 +642,7 @@ BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
 }
 
 // 0x00650910
-static __declspec(noinline) BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
+static BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
 {
     D2UnitStrc* pUnit = pPath->pUnit;
     if (pUnit && pUnit->dwUnitType == UNIT_MISSILE)
@@ -698,7 +698,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestR
 }
 
 // 0x00650AA0
-static __declspec(noinline) BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
+static BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPointStrc tDest, D2DynamicPathStrc* pPath)
 {
     D2PathPointStrc tCurrentPos;
     tCurrentPos.X = pPath->tGameCoords.wPosX;

@@ -504,11 +504,11 @@ void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc*); // 0x00650590
 
 extern "C" const char gszPlayerCpp_006D6A34[]; // 0x006D6A34
 
-static __declspec(noinline) int __stdcall sub_004623C0_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd);
+static int __stdcall sub_004623C0_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd);
 
 int __fastcall sub_00464600_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                            // 0x00464600
 
-static __declspec(noinline) void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd);
+static void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd);
 
 
 static void __stdcall sub_00460830_SetStateAndSync(int bSync, D2UnitStrc* pUnit, int nState); // 0x00460830

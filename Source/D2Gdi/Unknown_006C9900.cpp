@@ -29,7 +29,7 @@ static __forceinline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsi
     }
 }
 
-static __declspec(noinline) void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows);
+static void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows);
 
 // build: context sub_006C9690_RemapRows
 static void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows)

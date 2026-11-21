@@ -32,7 +32,7 @@ D2UnitStrc* __stdcall sub_0063BEF0_GetLeftWeapon(D2InventoryStrc* pInventory); /
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 void __stdcall ITEMMODS_AssignProperty(int nPass, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nArg2, int nArg5); // 0x0065FEC0
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
-static __declspec(noinline) void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce);
+static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce);
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -236,7 +236,7 @@ void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pUnit)
 }
 
 // 0x004C0FF0
-static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(unsigned short nX, unsigned short nY, int bNotify, D2GSPacketSrv9D* pPacket, D2ItemSaveStrc* pItemSave)
+static D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(unsigned short nX, unsigned short nY, int bNotify, D2GSPacketSrv9D* pPacket, D2ItemSaveStrc* pItemSave)
 {
     D2ItemSaveStrc tItemSave;
     int bFail;

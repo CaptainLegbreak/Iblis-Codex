@@ -109,7 +109,7 @@ const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*); // 0x0
 int __fastcall sub_00526800(const Unicode*); // 0x00526800
 extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
-static __declspec(noinline) void sub_00431E70_SetModeFlags(char nMode)
+static void sub_00431E70_SetModeFlags(char nMode)
 {
     gpLaunchRecord_007795D4->nMode = nMode;
     gpLaunchRecord_007795D4->nFlag085 = 0;

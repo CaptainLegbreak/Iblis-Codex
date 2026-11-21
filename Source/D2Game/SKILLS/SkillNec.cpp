@@ -408,7 +408,7 @@ extern const D2NecroSkeletonComponentStrc gaNecroSkeletonComponents_00741940[]; 
 
 void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2); // 0x005B0D70
 
-static __declspec(noinline) void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel); // 0x005C4180
+static void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel); // 0x005C4180
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
@@ -476,7 +476,7 @@ static void __stdcall sub_005C55C0_InitializeRevivedMonster(D2GameStrc* pGame, D
 
 int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
-static __declspec(noinline) int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit);
+static int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit);
 
 typedef int (__fastcall *AURACALLBACK)(D2AuraCallbackStrc*, D2UnitStrc*);
 
@@ -742,7 +742,7 @@ static int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit)
     return sub_6FD15190(pUnit, 7) != 0;
 }
 
-static __declspec(noinline) int sub_005C3300_CanReviveTarget(D2UnitStrc* pTarget)
+static int sub_005C3300_CanReviveTarget(D2UnitStrc* pTarget)
 {
     if (!pTarget)
     {
@@ -965,7 +965,7 @@ int __fastcall sub_005C3400_IsDimVisionOrTerror(int nState)
 }
 
 // 0x005C37A0
-static __declspec(noinline) int sub_005C37A0_ApplyAiCurseDivisor(unsigned char nDifficulty, int nLength)
+static int sub_005C37A0_ApplyAiCurseDivisor(unsigned char nDifficulty, int nLength)
 {
     D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(nDifficulty);
     if (pDifficultyLevelsTxtRecord && pDifficultyLevelsTxtRecord->dwAiCurseDivisor)
@@ -1456,7 +1456,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
 }
 
 // 0x005C4300
-static __declspec(noinline) void __stdcall sub_005C4300_SetSkeletonComponents(D2UnitStrc* pPet, int nSkillLevel, D2UnitStrc* pUnit, int nSkillId)
+static void __stdcall sub_005C4300_SetSkeletonComponents(D2UnitStrc* pPet, int nSkillLevel, D2UnitStrc* pUnit, int nSkillId)
 {
     int nLevel = 1;
     if (STATES_CheckState(pUnit, STATE_ITEMFULLSET))
@@ -1485,7 +1485,7 @@ static __declspec(noinline) void __stdcall sub_005C4300_SetSkeletonComponents(D2
 }
 
 // 0x005C43D0
-static __declspec(noinline) void __stdcall sub_005C43D0_SetMageComponents(D2UnitStrc* pPet, D2UnitStrc* pUnit)
+static void __stdcall sub_005C43D0_SetMageComponents(D2UnitStrc* pPet, D2UnitStrc* pUnit)
 {
     int nLevel = 1;
     if (STATES_CheckState(pUnit, STATE_ITEMFULLSET))

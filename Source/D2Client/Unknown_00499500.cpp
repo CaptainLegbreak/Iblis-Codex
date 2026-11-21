@@ -79,7 +79,7 @@ int gnGlobal_007BEFDC; // 0x007BEFDC
 
 int gnGlobal_007BEFE0; // 0x007BEFE0
 
-static __declspec(noinline) int __cdecl sub_00497440_Bounds(int nX,int nY)
+static int __cdecl sub_00497440_Bounds(int nX,int nY)
 {
     int nHalf=gnGlobal_0071146C / 2;
     if (nX >= nHalf + -145 && nX <= nHalf + -128
@@ -88,7 +88,7 @@ static __declspec(noinline) int __cdecl sub_00497440_Bounds(int nX,int nY)
     return 0;
 }
 
-static __declspec(noinline) int __cdecl sub_00497780_Bounds(int nX,int nY)
+static int __cdecl sub_00497780_Bounds(int nX,int nY)
 {
     int nHalf=gnGlobal_0071146C / 2;
     if (nX >= nHalf + -8 && nX <= nHalf + 5

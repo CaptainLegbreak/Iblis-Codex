@@ -204,7 +204,7 @@ unsigned int __stdcall MONSTERS_GetHirelingResurrectionCost(D2UnitStrc* pHirelin
 }
 
 // 0x00663A10
-static __declspec(noinline) int sub_00663A10_GetSetBonusCount(unsigned int nSetItemMask)
+static int sub_00663A10_GetSetBonusCount(unsigned int nSetItemMask)
 {
     if (nSetItemMask >= sizeof(gnSetMaskToBonusMappingTable) / sizeof(gnSetMaskToBonusMappingTable[0]))
         return 0;

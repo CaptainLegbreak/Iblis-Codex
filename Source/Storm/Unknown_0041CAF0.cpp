@@ -6,7 +6,7 @@ extern "C" const char gszTypeNameEnd_006CF32C[];                                
 extern "C" const char gszOpenParen_006CF328[];                                                             // 0x006CF328
 extern "C" const char gszCloseParen_006CF324[];                                                            // 0x006CF324
 
-__declspec(noinline) static int __stdcall sub_0041C1F0_FormatTypeName(const char*, char*, unsigned int);
+static int __stdcall sub_0041C1F0_FormatTypeName(const char*, char*, unsigned int);
 static int __stdcall sub_0041C1F0_FormatTypeName(const char*, char*, unsigned int); // 0x0041C1F0
 
 // 0x0041C1F0

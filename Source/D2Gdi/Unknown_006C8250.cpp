@@ -12,7 +12,7 @@ int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
 int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
 extern int gnScreenHeight_007C913C; // 0x007C913C
-static __declspec(noinline) int __stdcall sub_006C8310_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter);
+static int __stdcall sub_006C8310_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter);
 
 struct D2ClipRectStrc { int left, right, top, bottom; };
 
@@ -122,7 +122,7 @@ extern "C" int __stdcall sub_006C8310_EmitCelClip(D2CelStrc* pCel, int nX, int n
     return sub_006C8310_IsCelOffScreen(pCel, nX, nY, 0) + 9;
 }
 
-static __declspec(noinline)
+static
 // 0x006C8380
 int __stdcall sub_006C8380_ClipCel(D2CelStrc* cel, int x, int y, const D2ClipRectStrc* clip, D2ClipResultStrc* result)
 {

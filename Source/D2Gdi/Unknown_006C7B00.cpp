@@ -9,7 +9,7 @@ extern const char gszEmptyAssertText; // 0x006CC837
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd); // 0x006CC44C
 extern "C" __declspec(dllimport) int __stdcall ReleaseDC(void* hWnd, void* hDC); // 0x006CC448
-static __declspec(noinline) void sub_006C7B00_CreateBackBuffer(int nResolution);
+static void sub_006C7B00_CreateBackBuffer(int nResolution);
 
 extern "C" __declspec(dllimport) void* __stdcall CreatePalette(const D2LogPalette006C7C10Strc* pLogPalette);
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* ho);

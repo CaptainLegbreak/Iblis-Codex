@@ -373,7 +373,7 @@ void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex)
 }
 
 // 0x004B83A0
-static __declspec(noinline) void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
+static void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
 {
     int nOldFont = sub_00502EF0(1);
     sub_00502EF0(pDialog->pLines[nIndex].nFont);

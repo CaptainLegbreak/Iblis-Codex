@@ -474,7 +474,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 int __fastcall D2GAME_RemoveItemIfOnCursor_6FC49760(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x0055EEA0
 
-static __declspec(noinline) void __stdcall sub_0055E590_MergeStacks(D2GameStrc* pGame, D2UnitStrc* pItem1, D2UnitStrc* pUnit, D2UnitStrc* pItem2);
+static void __stdcall sub_0055E590_MergeStacks(D2GameStrc* pGame, D2UnitStrc* pItem1, D2UnitStrc* pUnit, D2UnitStrc* pItem2);
 
 int __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, int bUnused, unsigned char nPage, const char* szFile, int nLine); // 0x0063B950
 
@@ -492,7 +492,7 @@ void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc);
 
 int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc*, D2UnitStrc*, int); // 0x0063BDB0
 
-static __declspec(noinline) int sub_0055BFF0_GetBookSkillId(D2UnitStrc* pItem); // 0x0055BFF0
+static int sub_0055BFF0_GetBookSkillId(D2UnitStrc* pItem); // 0x0055BFF0
 
 static void __stdcall sub_0055C070_AddBookScrollSkillQuantity(int nQuantityBonus, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C070
 
@@ -598,7 +598,7 @@ int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D
 
 D2CorpseStrc* __stdcall INVENTORY_GetNextCorpse(D2CorpseStrc* pCorpse); // 0x0063D610
 
-static __declspec(noinline) int __stdcall sub_6FC428F0(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxtRecordArg, D2UnitStrc* pPreviousItem); // 0x0055CA40
+static int __stdcall sub_6FC428F0(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxtRecordArg, D2UnitStrc* pPreviousItem); // 0x0055CA40
 
 void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, D2UnitStrc* pWeapon); // 0x006233A0
 
@@ -608,7 +608,7 @@ void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pUnit, D2InventoryS
 
 void __fastcall ITEMMODE_MoveExcessBeltItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x005608C0
 
-static __declspec(noinline) void __stdcall sub_0055D970_UpdateEquippedItemStats(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit);
+static void __stdcall sub_0055D970_UpdateEquippedItemStats(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit);
 
 void __fastcall QUESTS_SendLogUpdate(D2UnitStrc*, int); // 0x005458E0
 
@@ -670,11 +670,11 @@ struct SwapEntry { int from; D2UnitStrc* item; int to; int mode; };
 
 void __fastcall sub_00561E70_RemoveFromBelt(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x00561E70
 
-static __declspec(noinline) void __stdcall sub_0055E000_RemoveItemAndNotify(D2GameStrc*, D2UnitStrc*, D2UnitStrc*);
+static void __stdcall sub_0055E000_RemoveItemAndNotify(D2GameStrc*, D2UnitStrc*, D2UnitStrc*);
 
-static __declspec(noinline) int sub_0055E050_GetBookSkillIdChecked(D2UnitStrc*); // 0x0055E050
+static int sub_0055E050_GetBookSkillIdChecked(D2UnitStrc*); // 0x0055E050
 
-static __declspec(noinline) void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc*, int);
+static void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc*, int);
 
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 
@@ -2842,7 +2842,7 @@ void __fastcall sub_BF69_Emit_0055E0D0(D2UnitStrc* pUnit, int nSkillId)
 }
 
 // build: context sub_0055E0D0_DecrementBook
-static __declspec(noinline) void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc* player, int skillId)
+static void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc* player, int skillId)
 {
     D2SkillStrc* skill = SKILLS_GetSkillById(player, skillId, -1);
     D2_ASSERT(skill, 0xFC4);
@@ -6257,7 +6257,7 @@ int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* ptGame, D2UnitStrc* pUnit,
 }
 
 // 0x00563840
-static __declspec(noinline) void __stdcall sub_00563840_Contents(Game* game, Unit* box, Unit* player)
+static void __stdcall sub_00563840_Contents(Game* game, Unit* box, Unit* player)
 {
     int classId;
     if (!box) classId = -1;

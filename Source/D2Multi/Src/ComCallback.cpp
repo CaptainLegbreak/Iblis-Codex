@@ -590,7 +590,7 @@ D2WinControlStrc* gpControl_00798CA0; // 0x00798CA0
 D2WinControlStrc* gpControl_00798CA4; // 0x00798CA4
 
 // 0x00443D10
-static __declspec(noinline) void __stdcall sub_00443D10_SetPendingName(int nA, int nB, const char* szText)
+static void __stdcall sub_00443D10_SetPendingName(int nA, int nB, const char* szText)
 {
     strcpy(gszName_00798CD4, szText);
     gnPendingValueA_00798CE4 = nA;

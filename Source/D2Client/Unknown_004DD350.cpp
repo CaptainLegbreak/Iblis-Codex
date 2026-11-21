@@ -54,7 +54,7 @@ extern s32 __stdcall sub_006206B0_PixelY(Unit*); // 0x006206B0
 extern void __stdcall DUNGEON_ClientTileDrawPositionToGameCoords(s32,s32,s32*,s32*); // 0x00643340
 extern s32 __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
 extern s32 __stdcall sub_00648900_PathY(Path*); // 0x00648900
-static __declspec(noinline) s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile);
+static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile);
 
 struct WallContext
 {
@@ -63,13 +63,13 @@ struct WallContext
     u32 count;
 };
 
-static __declspec(noinline) void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile);
-static __declspec(noinline) void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile);
-static __declspec(noinline) void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile);
-static __declspec(noinline) void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit);
-static __declspec(noinline) void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit);
+static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile);
+static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile);
+static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile);
+static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit);
+static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit);
 
-static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
+static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
     y-=FIELD(s32,context,0xEA6C);
@@ -80,7 +80,7 @@ static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32
     return y<size;
 }
 
-static __declspec(noinline) void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
+static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -265,7 +265,7 @@ static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* contex
 }
 
 // @ref 0x004DD550
-static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;

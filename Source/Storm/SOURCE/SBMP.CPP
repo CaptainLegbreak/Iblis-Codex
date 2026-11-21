@@ -169,37 +169,37 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 void __stdcall sub_0041D2A0_CopyBytes(void*, const void*, unsigned int); // 0x0041D2A0
 
-static __declspec(noinline) int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader);
+static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader);
 
-static __declspec(noinline) int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, D2PaletteColorStrc* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
+static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, D2PaletteColorStrc* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
 
-static __declspec(noinline) void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride);
+static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride);
 
-static __declspec(noinline) int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
+static int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
 
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppOutput);
 
-static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode);
+static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode);
 
-static __declspec(noinline) void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState);
+static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState);
 
-static __declspec(noinline) const char* sub_006C5EE0_FindExtension(const char* szPath);
+static const char* sub_006C5EE0_FindExtension(const char* szPath);
 
 static __declspec(noinline) int sub_006C5F40_GetImageType(unsigned short signature);
 
-static __declspec(noinline) void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, int nSrcSize, int nWidth, int nBytesPerLine, int nPlanes);
+static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, int nSrcSize, int nWidth, int nBytesPerLine, int nPlanes);
 
-static __declspec(noinline) int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
+static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
 
-static __declspec(noinline) void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
+static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
 
 __declspec(noinline) int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
 
-static __declspec(noinline) int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
+static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
 
-static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, const unsigned char* pSrc, int nSrcSize, unsigned char* pDst, int nDstSize);
+static int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, const unsigned char* pSrc, int nSrcSize, unsigned char* pDst, int nDstSize);
 
-static __declspec(noinline) int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
+static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
 
 static __declspec(noinline) unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows);
 
@@ -214,7 +214,7 @@ int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSi
 
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 
-static __declspec(noinline) void __cdecl sub_006C5B10_EncodeRow(unsigned char** ppDest, unsigned char** ppSource, int nCount);
+static void __cdecl sub_006C5B10_EncodeRow(unsigned char** ppDest, unsigned char** ppSource, int nCount);
 
 
 
@@ -243,7 +243,7 @@ struct D2TgaSourceColorStrc
     unsigned char nReserved;
 };
 
-static __declspec(noinline) int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch);
+static int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch);
 
 int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsigned char* pPixels, int nWidth, int nHeight, int nBits, int nPitch); // 0x006C6CB0
 
@@ -279,7 +279,7 @@ int __stdcall sub_00412650_Free(void*,const char*,int,unsigned); // 0x00412650
 
 extern const char gszSource_006FCC58[]; // 0x006FCC58
 
-static __declspec(noinline) int __fastcall EncodePcx256File(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels);
+static int __fastcall EncodePcx256File(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels);
 
 typedef void* HANDLE;
 
@@ -289,7 +289,7 @@ int __fastcall CompressGifImage(int nCount, const unsigned char* pPixels, unsign
 
 struct RGBTriple { unsigned char r, g, b; };
 
-static __declspec(noinline) int __stdcall EncodeGif256File(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight);
+static int __stdcall EncodeGif256File(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight);
 
 struct PcxHeaderStrc
 {
@@ -321,7 +321,7 @@ struct PcxRgbStrc
 };
 
 
-__declspec(noinline) static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
+static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
 
 
 static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, unsigned char* pBuffer, unsigned int* pWidth, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth);
@@ -361,7 +361,7 @@ static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader)
     return 0;
 }
 
-static __declspec(noinline) int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, D2PaletteColorStrc* palette)
+static int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, D2PaletteColorStrc* palette)
 {
     int bytesPerColor = (header->bytes[7] + 7) / 8;
     int index = *(const unsigned short*)&header->bytes[3];
@@ -382,7 +382,7 @@ static __declspec(noinline) int __stdcall sub_006C5150_ReadTgaPalette(const D2Ta
 }
 
 // 0x006C5210
-static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, const unsigned char* pSrc, int nSrcSize, unsigned char* pDst, int nDstSize)
+static int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, const unsigned char* pSrc, int nSrcSize, unsigned char* pDst, int nDstSize)
 {
     unsigned char* pOut = pDst;
     const int nWidth = *(const unsigned short*)&pHeader->bytes[12];

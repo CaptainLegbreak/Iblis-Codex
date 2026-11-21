@@ -59,7 +59,7 @@ static __forceinline int ACT3Q4_UpdatePartyQuestStateInline(D2GameStrc* pGame, D
 }
 
 // 0x005BA2F0
-static __declspec(noinline) int __stdcall sub_005BA2F0_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static int __stdcall sub_005BA2F0_UpdatePartyQuestState(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     const unsigned short nPartyId = SUNIT_GetPartyId(pPlayer);
     if (nPartyId != 0xFFFF)

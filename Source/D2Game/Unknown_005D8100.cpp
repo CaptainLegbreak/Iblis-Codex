@@ -12,7 +12,7 @@ extern int gaPotionTable_00741B58[][3]; // 0x00741B58
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-static __declspec(noinline) int __stdcall sub_005D8100_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId);
+static int __stdcall sub_005D8100_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId);
 
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];

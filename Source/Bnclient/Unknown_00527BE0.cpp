@@ -142,12 +142,12 @@ terminate:
 }
 
 // 0x00527DB0
-static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)
+static long sub_0051DC70_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
 
-static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;
     if (nValue >= 10)
@@ -155,7 +155,7 @@ static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int n
     return nValue + 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
+static int sub_0051DD20_HexToNibble(char cChar)
 {
     char cLower = (char)tolower(cChar);
     if (cLower >= 'a')
@@ -163,7 +163,7 @@ static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
     return cLower - 0x30;
 }
 
-static __declspec(noinline) int sub_0051DD40_MapKeyChar(unsigned char cChar)
+static int sub_0051DD40_MapKeyChar(unsigned char cChar)
 {
     return gacCDKeyMap_006DF238[cChar];
 }

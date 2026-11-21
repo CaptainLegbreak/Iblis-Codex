@@ -109,7 +109,7 @@ static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
 }
 
 // 0x00530F40
-static __declspec(noinline) D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem)
+static D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem)
 {
     D2ItemDropStrc itemDrop;
     memset(&itemDrop, 0, sizeof(itemDrop));
@@ -146,7 +146,7 @@ static __declspec(noinline) D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameSt
     return pItem;
 }
 
-static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem, D2UnitStrc** ppItem, int* pSocketedItemCount, D2UnitStrc* pUnit)
+static int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem, D2UnitStrc** ppItem, int* pSocketedItemCount, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pItem = PLRSAVE_CreateItemFromSavedData(pGame, pSavedItem);
     if (!pItem)

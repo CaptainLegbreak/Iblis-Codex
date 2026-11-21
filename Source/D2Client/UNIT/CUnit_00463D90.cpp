@@ -46,7 +46,7 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit); // 0x004DA0D0
 int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit); // 0x004DA0F0
-static __declspec(noinline) int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2RectStrc* pRect, unsigned int nFrame);
+static int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2RectStrc* pRect, unsigned int nFrame);
 
 
 
@@ -244,7 +244,7 @@ static int __stdcall sub_00464310_CheckMonsterSkillSelect(D2UnitStrc* pUnit, D2U
 }
 
 // 0x00464820
-__declspec(noinline) int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
+int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
 {
     if (pUnit->dwFlags & 0x10000)
     {

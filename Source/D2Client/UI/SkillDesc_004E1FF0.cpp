@@ -1295,7 +1295,7 @@ int __stdcall sub_004E4CE0_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc*
 }
 
 // 0x004E5A10
-static __declspec(noinline) int sub_004E5A10_GetSetBonusCount(unsigned int nSetItemMask)
+static int sub_004E5A10_GetSetBonusCount(unsigned int nSetItemMask)
 {
     if (nSetItemMask >= sizeof(gnSetMaskToBonusMappingTable_006DBD90) / sizeof(gnSetMaskToBonusMappingTable_006DBD90[0]))
         return 0;
@@ -1390,7 +1390,7 @@ static D2SkillDescTxt* sub_H14_GetSkillDescTxtRecord(int nSkillDesc)
 }
 
 // 0x004E6D40
-static __declspec(noinline) unsigned short sub_004E6D40_GetSkillDescStrName(int nSkillId)
+static unsigned short sub_004E6D40_GetSkillDescStrName(int nSkillId)
 {
     D2SkillDescTxt* pSkillDescTxt = 0;
     D2SkillsTxt* pSkillsTxt = sub_H14_GetSkillsTxtRecord(nSkillId);
@@ -1402,7 +1402,7 @@ static __declspec(noinline) unsigned short sub_004E6D40_GetSkillDescStrName(int 
 }
 
 // 0x004E6D90
-static __declspec(noinline) unsigned short sub_004E6D90_GetSkillDescStrShort(int nSkillId)
+static unsigned short sub_004E6D90_GetSkillDescStrShort(int nSkillId)
 {
     D2SkillDescTxt* pSkillDescTxt = 0;
     D2SkillsTxt* pSkillsTxt = sub_H14_GetSkillsTxtRecord(nSkillId);
@@ -1424,7 +1424,7 @@ unsigned short __stdcall sub_M125_Emit_004E6D90(int nUnused1, int nUnused2, int 
 }
 
 // 0x004E6E80
-static __declspec(noinline) int sub_004E6E80_ApplyAiCurseDivisor(int nValue)
+static int sub_004E6E80_ApplyAiCurseDivisor(int nValue)
 {
     D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(sub_0044DCD0_GetDifficulty());
     const int nDivisor = pDifficultyLevelsTxt->dwAiCurseDivisor;
@@ -1495,7 +1495,7 @@ int __stdcall sub_M125_Emit_004E6E80(int nUnused1, int nUnused2, int nUnused3, i
 }
 
 // 0x004E7900
-static __declspec(noinline) int sub_004E7900_AppendStringLine(wchar_t* wszOut, unsigned short wStr)
+static int sub_004E7900_AppendStringLine(wchar_t* wszOut, unsigned short wStr)
 {
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
     sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
@@ -1806,7 +1806,7 @@ static void sub_004E8D90_AddElementalStatDamage(D2UnitStrc* pUnit, int* pMinDama
     }
 }
 
-static __declspec(noinline) void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
+static void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
 {
     if (nMin >= nMax)
     {

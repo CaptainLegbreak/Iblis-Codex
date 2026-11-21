@@ -434,7 +434,7 @@ D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 
 void __fastcall sub_00571F90(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00571F90
 
-__declspec(noinline) void __fastcall sub_00569EC0_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount);
+void __fastcall sub_00569EC0_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount);
 
 void __fastcall sub_005391C0_SetClientBytes(D2ClientStrc*, unsigned char, unsigned char, unsigned char); // 0x005391C0
 

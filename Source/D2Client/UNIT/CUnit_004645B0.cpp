@@ -184,7 +184,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit); // 0x004DA0D0
 int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit); // 0x004DA0F0
 extern "C" void* __cdecl memmove(void*, const void*, unsigned int); // 0x00683840
-static __declspec(noinline) int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2RectStrc* pRect, unsigned int nFrame); // 0x004640A0
+static int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2RectStrc* pRect, unsigned int nFrame); // 0x004640A0
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 
@@ -202,7 +202,7 @@ int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc*,int,int); // 0x00463EE0
 int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
 
-static __declspec(noinline) int __stdcall sub_004645B0_CheckSkillFrame(int nUnused, D2UnitStrc* pUnit)
+static int __stdcall sub_004645B0_CheckSkillFrame(int nUnused, D2UnitStrc* pUnit)
 {
     int* pDead = &nUnused;
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
@@ -773,7 +773,7 @@ static int __stdcall sub_00464310_CheckMonsterSkillSelect(D2UnitStrc* pUnit, D2U
 }
 
 // 0x00464820
-__declspec(noinline) int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
+int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
 {
     if (pUnit->dwFlags & 0x10000)
     {

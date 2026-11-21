@@ -197,9 +197,9 @@ int __fastcall PATH_ComputePathBlessedHammer_6FDAB3C0(D2DynamicPathStrc* pPath, 
 
 int __fastcall PATH_ComputePathChargedBolt_6FDAB4A0(D2DynamicPathStrc* pPath, D2SeedStrc* pSeed); // 0x0067A240
 
-static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo); // 0x00648050
+static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo); // 0x00648050
 
-static __declspec(noinline) BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
+static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo);
 
 struct Pad40_00648690 {
     unsigned int dw00;
@@ -945,11 +945,11 @@ void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, i
 
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath); // 0x00650590
 
-static __declspec(noinline) unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
+static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
 
-static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
+static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
 
-static __declspec(noinline) int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
+static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
 
 static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit);
 
@@ -1053,7 +1053,7 @@ void __cdecl sub_00403F50_Nop()
 {
 }
 
-static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
+static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
 {
     int nY;
     const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
@@ -1217,7 +1217,7 @@ void __cdecl sub_00648380_Nop()
 }
 
 // 0x006483A0
-static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
+static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_NONE;
     if (nUnitType != UNIT_MONSTER)
@@ -2076,7 +2076,7 @@ int __stdcall D2Common_10237(D2UnitStrc* pUnit)
 }
 
 // 0x006492F0
-static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath)
+static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath)
 {
     D2PathPointStrc tOldCoords;
     tOldCoords.X = pPath->tGameCoords.wPosX;
@@ -2262,7 +2262,7 @@ static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
 }
 
 // 0x006497D0
-static __declspec(noinline) unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
+static unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     D2UnitStrc* hTarget = pPath->hTarget;
@@ -2296,7 +2296,7 @@ static __declspec(noinline) unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPa
 }
 
 // 0x006498A0
-static __declspec(noinline) unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo)
+static unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     D2UnitStrc* pPathTargetUnit = pPath->hTarget;

@@ -162,7 +162,7 @@ void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x
 
 void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel); // 0x0067E160
 
-static __declspec(noinline) void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel); // 0x0067DA70
+static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel); // 0x0067DA70
 
 int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
@@ -172,7 +172,7 @@ void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel);
 
 static void sub_0067E0E0(D2DrlgLevelStrc* pLevel);
 
-static __declspec(noinline) void sub_0067E240(D2DrlgLevelStrc* pLevel);
+static void sub_0067E240(D2DrlgLevelStrc* pLevel);
 
 static void sub_0067E4B0(D2DrlgLevelStrc* pLevel);
 
@@ -457,7 +457,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc
 }
 
 // 0x0067E240
-static __declspec(noinline) void sub_0067E240(D2DrlgLevelStrc* pLevel)
+static void sub_0067E240(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId != LEVEL_ID_ACT5_BARRICADE_1)
         return;

@@ -145,7 +145,7 @@ inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordInl(int nRecordId)
 }
 
 // 0x0046DB90
-static __declspec(noinline) unsigned int sub_0046DB90_HashName(const char* szName)
+static unsigned int sub_0046DB90_HashName(const char* szName)
 {
     D2_ASSERT(strlen(szName) < 8, 0x79);
     const unsigned int nHash = SStrHash(szName, 1, 0);
@@ -156,7 +156,7 @@ static __declspec(noinline) unsigned int sub_0046DB90_HashName(const char* szNam
 }
 
 // 0x0046DBF0
-static __declspec(noinline) void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest)
+static void __fastcall sub_0046DBF0_GetBaseName(const char* szPath, char* szDest)
 {
     const int nPathLength = strlen(szPath);
     if (szPath[nPathLength - 4] == 0x2E)

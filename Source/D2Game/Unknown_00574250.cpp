@@ -33,7 +33,7 @@ void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nM
 void __stdcall shim_1(void* p1, void* p2);
 
 // build: context sub_00573CB0
-static __declspec(noinline) void __stdcall sub_00573CB0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit, D2MonRegDataStrc* pMonRegData)
+static void __stdcall sub_00573CB0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit, D2MonRegDataStrc* pMonRegData)
 {
 
     shim_1(&pGame, &pRoom);

@@ -57,7 +57,7 @@ extern char gszDevice_0096F3BC[264];     // 0x0096F3BC
 extern unsigned long gnFlags_0096F3A8;        // 0x0096F3A8
 extern unsigned int gGuid_0096F3AC[4];        // 0x0096F3AC
 
-static __declspec(noinline) int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance);
+static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance);
 
 // 0x006B4C90
 static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)

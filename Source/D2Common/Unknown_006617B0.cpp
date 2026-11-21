@@ -20,7 +20,7 @@ int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOut
 
 
 
-static __declspec(noinline) int __stdcall sub_00661A30_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax);
+static int __stdcall sub_00661A30_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax);
 
 D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 

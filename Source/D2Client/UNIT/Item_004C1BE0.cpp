@@ -199,7 +199,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
     }
 }
 
-static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (!pUnit || !pItem || !pUnit->pInventory)
         return;
@@ -213,7 +213,7 @@ static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponen
     sub_0046F280(pUnit, nComponent);
 }
 
-static __declspec(noinline) void __stdcall sub_004C12F0_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static void __stdcall sub_004C12F0_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (!pUnit || !pItem)
         return;

@@ -110,7 +110,7 @@ void __fastcall sub_005B1C00_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pU
 }
 
 // build: symbol ?MONSTERSPAWN_EquipAncientBarbarians@@YAXPAUD2UnitStrc@@@Z 0x005B1C50
-static __declspec(noinline) void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
+static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 {
     const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
     D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
@@ -160,7 +160,7 @@ static __forceinline void MONSTERUNIQUE_ToggleUnitFlag_Inline(D2UnitStrc* pUnit,
 }
 
 // 0x005B1CF0
-static __declspec(noinline) void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParamsStrc* pMonCreate, D2UnitStrc* pUnit)
+static void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParamsStrc* pMonCreate, D2UnitStrc* pUnit)
 {
     D2GameStrc* pGame = pMonCreate->pGame;
     void* pRoom = pMonCreate->pRoom;
@@ -328,7 +328,7 @@ static __forceinline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
 }
 
 // 0x005B21B0
-static __declspec(noinline) void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit)
+static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit)
 {
     D2GameStrc* pGame = pMonCreate->pGame;
     const int nMonsterId = pMonCreate->nMonsterId;

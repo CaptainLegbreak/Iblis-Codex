@@ -310,7 +310,7 @@ static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer,
     }
 }
 
-static __declspec(noinline) int __stdcall sub_0041B0B0_LoadAttributes(D2StormArchiveRecStrc* pArchive, D2StormBlockStrc* pBlockTable, unsigned int nCount);
+static int __stdcall sub_0041B0B0_LoadAttributes(D2StormArchiveRecStrc* pArchive, D2StormBlockStrc* pBlockTable, unsigned int nCount);
 
 // 0x0041B0B0
 static int __stdcall sub_0041B0B0_LoadAttributes(D2StormArchiveRecStrc* pArchive, D2StormBlockStrc* pBlockTable, unsigned int nCount)

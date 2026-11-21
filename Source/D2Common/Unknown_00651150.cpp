@@ -9,7 +9,7 @@ extern D2TxtLinkStrc* gTxtLink_0096BC5C;                                        
 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError);                 // 0x006BD130
 
-static __declspec(noinline) void sub_00650EB0_MakeCode(const char* szText, char* szCode) // 0x00650EB0
+static void sub_00650EB0_MakeCode(const char* szText, char* szCode) // 0x00650EB0
 {
     if (!szText[0])
     {

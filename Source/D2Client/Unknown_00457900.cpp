@@ -6,7 +6,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-static __declspec(noinline) void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode);
+static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode);
 
 // 0x00457860
 static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode)

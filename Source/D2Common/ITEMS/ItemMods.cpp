@@ -85,7 +85,7 @@ int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int 
 
 int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatList, D2UnitStrc* pUnit, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState); // 0x0065EA50
 
-static __declspec(noinline) int sub_0065CCA0_IsPercentStat(int nStatId);
+static int sub_0065CCA0_IsPercentStat(int nStatId);
 
 enum { MAX_DURABILITY = 73, DURABILITY = 72 };
 
@@ -109,11 +109,11 @@ void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D
 
 D2ItemsTxt* __fastcall sub_0065E9B0(D2UnitStrc* pUnit, D2UnitStrc* pItem);
 
-static __declspec(noinline) int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList);
+static int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList);
 
-static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStatId);
+static void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStatId);
 
-static __declspec(noinline) void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue);
+static void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue);
 
 static __forceinline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax);
 
@@ -135,7 +135,7 @@ int __stdcall SKILLS_GetRequiredLevel(int nSkillId); // 0x00644710
 
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
-static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter);
+static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter);
 
 static int __stdcall sub_0065D2E0_AddValueStat1(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
 
@@ -453,7 +453,7 @@ int __stdcall D2Common_10851(int a1, int a2, int a3)
 }
 
 // 0x0065CBF0
-static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter)
+static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter)
 {
     D2StatListStrc* hStatsList;
 
@@ -530,7 +530,7 @@ static int sub_0065CCA0_IsPercentStat(int nStatId)
 }
 
 // 0x0065CCC0
-static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStatId)
+static void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStatId)
 {
     int nItemId;
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(ITEMS_GetBaseCode(pItem), &nItemId);
@@ -601,7 +601,7 @@ static __declspec(noinline) void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitS
 }
 
 // 0x0065CE40
-static __declspec(noinline) void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue)
+static void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue)
 {
     switch (nStatId)
     {
@@ -626,7 +626,7 @@ static __declspec(noinline) void sub_0065CE40_ShiftStatValue(int nStatId, int* p
 }
 
 // 0x0065CF40
-static __declspec(noinline) int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList)
+static int __stdcall sub_0065CF40_AddRolledStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int a7, int nState, int fStatList)
 {
     int nValue;
     if (a7)

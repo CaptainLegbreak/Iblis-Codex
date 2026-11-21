@@ -79,8 +79,8 @@ int __stdcall sub_00639DF0_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639
 int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition); // 0x006460F0
 int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-static __declspec(noinline) int sub_004AA9C0_GetSkillRowY(unsigned char nRow); // 0x004AA9C0
-__declspec(noinline) void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode);
+static int sub_004AA9C0_GetSkillRowY(unsigned char nRow); // 0x004AA9C0
+void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode);
 
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(const Unicode* wszText, int nY);
 

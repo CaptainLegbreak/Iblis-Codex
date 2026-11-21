@@ -63,7 +63,7 @@ D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-static __declspec(noinline) int sub_004A1910_FindQuestIndex(int nKey);
+static int sub_004A1910_FindQuestIndex(int nKey);
 extern int ganPageSelection_007BF280[5]; // 0x007BF280
 
 // 0x004A1910

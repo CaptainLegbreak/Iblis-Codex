@@ -143,7 +143,7 @@ extern int gdwGlobal_007A8928; // 0x007A8928
 
 int gdwGlobal_007A8910; // 0x007A8910
 
-__declspec(noinline) static void sub_00470070_PreloadRoomUnits(int bAsync);
+static void sub_00470070_PreloadRoomUnits(int bAsync);
 
 static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit);
 
@@ -161,7 +161,7 @@ void __fastcall sub_004DB1C0_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsi
 
 extern "C" D2GfxLayerHeaderStrc* __fastcall sub_004DB040_identity(void* pGfx); // 0x004DB040
 
-static __declspec(noinline) void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId);
+static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId);
 
 static unsigned int sub_0046DB90_HashName(const char* szName);
 
@@ -220,7 +220,7 @@ inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordInl(int nRecordId)
 }
 
 // 0x0046DB90
-static __declspec(noinline) unsigned int sub_0046DB90_HashName(const char* szName)
+static unsigned int sub_0046DB90_HashName(const char* szName)
 {
     D2_ASSERT(strlen(szName) < 8, 0x79);
     const unsigned int nHash = SStrHash(szName, 1, 0);
@@ -231,7 +231,7 @@ static __declspec(noinline) unsigned int sub_0046DB90_HashName(const char* szNam
 }
 
 // 0x0046DBF0
-static __declspec(noinline) void __fastcall sub_0046DBF0_GetBaseName(char* szDest, const char* szPath)
+static void __fastcall sub_0046DBF0_GetBaseName(char* szDest, const char* szPath)
 {
     const int nPathLength = strlen(szPath);
     if (szPath[nPathLength - 4] == 0x2E)

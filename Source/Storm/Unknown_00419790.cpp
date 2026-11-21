@@ -189,7 +189,7 @@ static inline D2StormStreamStrc* DdaHead()
     return (int)gpDdaHead_0070838C > 0 ? gpDdaHead_0070838C : 0;
 }
 
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
 {
     *ppRec = (D2StormFileRecStrc*)hFile;
     return 1;

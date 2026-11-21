@@ -2,7 +2,7 @@
 
 extern D2TLVertexStrc gaVertices_00970F48[4];                                                         // 0x00970F48
 
-__declspec(noinline) static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
+static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
 
 // 0x006B7530
 static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)

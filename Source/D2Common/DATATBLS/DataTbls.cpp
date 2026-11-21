@@ -1013,7 +1013,7 @@ void __fastcall DATATBLS_UnloadStatesTxt()
 }
 
 // 0x00611EE0
-static __declspec(noinline) void sub_00611EE0_PlayerName(char* buffer, int length, int id)
+static void sub_00611EE0_PlayerName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
     if (id >= 0 && id < gVar_00744304->playerCount)
@@ -1031,7 +1031,7 @@ static __declspec(noinline) void sub_00611EE0_PlayerName(char* buffer, int lengt
 }
 
 // 0x00611F40
-static __declspec(noinline) void sub_00611F40_MonsterName(char* buffer, int length, int id)
+static void sub_00611F40_MonsterName(char* buffer, int length, int id)
 {
     if (length <= 0) return;
     if (id >= 0 && id < gVar_00744304->monsterCount)
@@ -1049,7 +1049,7 @@ static __declspec(noinline) void sub_00611F40_MonsterName(char* buffer, int leng
 }
 
 // 0x00611FA0
-static __declspec(noinline) void sub_00611FA0_CopyObjectLabel(char* buffer, int length, int id)
+static void sub_00611FA0_CopyObjectLabel(char* buffer, int length, int id)
 {
     if (length <= 0) return;
     ObjectRecord* record = sub_00640E90_Object(id);
@@ -1064,7 +1064,7 @@ static __declspec(noinline) void sub_00611FA0_CopyObjectLabel(char* buffer, int 
 }
 
 // 0x00611FE0
-static __declspec(noinline) void sub_00611FE0_ItemName(char* buffer, int length, int id)
+static void sub_00611FE0_ItemName(char* buffer, int length, int id)
 {
     ItemRecord* record = sub_006335F0_Item(id);
     if (record && record->nameIndex != 0x1506)

@@ -29,11 +29,11 @@ struct D2TextureSetStrc { int count; char unknown[20]; D2TextureEntryStrc* entri
 
 void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 
-static __declspec(noinline) void sub_006BA5C0_Append(D2TexPoolStrc* pList, D2TexPoolEntryStrc* pNode);
+static void sub_006BA5C0_Append(D2TexPoolStrc* pList, D2TexPoolEntryStrc* pNode);
 
 static __declspec(noinline) void sub_006BA5C0_AppendTail(D2TexPoolStrc* pList, D2TexPoolEntryStrc* pNode);
 
-__declspec(noinline) D2TexPoolEntryStrc* __fastcall sub_006BA660_Unlink(D2TexPoolStrc* pList, int nIndex);
+D2TexPoolEntryStrc* __fastcall sub_006BA660_Unlink(D2TexPoolStrc* pList, int nIndex);
 
 D2TexPoolEntryStrc* __fastcall sub_006BA660_Unlink(D2TexPoolStrc* pList, int nIndex);
 

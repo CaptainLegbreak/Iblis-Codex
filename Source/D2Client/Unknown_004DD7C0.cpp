@@ -52,7 +52,7 @@ extern void __stdcall DUNGEON_ClientTileDrawPositionToGameCoords(s32,s32,s32*,s3
 extern s32 __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
 extern s32 __stdcall sub_00648900_PathY(Path*); // 0x00648900
 
-static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
+static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
     y-=FIELD(s32,context,0xEA6C);
@@ -92,7 +92,7 @@ struct Cell36
     u32 data[9];
 };
 
-static __declspec(noinline) void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
+static void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -116,7 +116,7 @@ static __declspec(noinline) void __cdecl sub_004DCFA0_AddUnit(Cell* cell,Context
     last->next=node;
 }
 
-static __declspec(noinline) s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
+static s32 __stdcall sub_004DD060_Occludes(Room* room,Tile* tile)
 {
     if(gVar_0072A968_Mode)
     {
@@ -155,7 +155,7 @@ struct WallContext
     Node nodes[3000];
     u32 count;
 };
-static __declspec(noinline) void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile);
+static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile);
 // @ref 0x004DD180
 static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* room,Tile* tile)
 {
@@ -219,7 +219,7 @@ static void __stdcall sub_004DD180_AddWall(Context* context,Cell* cell,Room* roo
 }
 
 // @ref 0x004DD350
-static __declspec(noinline) void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD350_AddUpper(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     if(FIELD(s32,tile,28)!=0 && FIELD(s32,tile,28)!=13 && !(FIELD(u32,tile,20)&4)) FIELD(u32,cell,0)|=4;
     u32 index=FIELD(u32,context,0xEA64)++;
@@ -253,7 +253,7 @@ static __declspec(noinline) void __stdcall sub_004DD350_AddUpper(Cell* cell,Room
 }
 
 // @ref 0x004DD460
-static __declspec(noinline) void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD460_AddRoof(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -286,7 +286,7 @@ static __declspec(noinline) void __stdcall sub_004DD460_AddRoof(Cell* cell,Room*
 }
 
 // @ref 0x004DD550
-static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
+static void __stdcall sub_004DD550_AddFloor(Cell* cell,Room* room,Context* context,Tile* tile)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -306,7 +306,7 @@ static __declspec(noinline) void __stdcall sub_004DD550_AddFloor(Cell* cell,Room
 }
 
 // @ref 0x004DD600
-static __declspec(noinline) void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
+static void __stdcall sub_004DD600_AddSpecial(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;
@@ -336,7 +336,7 @@ static __declspec(noinline) void __stdcall sub_004DD600_AddSpecial(Cell* cell,Co
     last->next=node;
 }
 
-static __declspec(noinline) void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
+static void __stdcall sub_004DD6E0_AddOverlay(Cell* cell,Context* context,Unit* unit)
 {
     u32 index=FIELD(u32,context,0xEA64)++;
     if(index>=3000) return;

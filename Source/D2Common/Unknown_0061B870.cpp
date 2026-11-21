@@ -69,7 +69,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 extern D2EnvironmentCycleStrc gNormalEnvironmentCycle[]; // 0x007443F0
 extern D2EnvironmentCycleStrc gAct4EnvironmentCycle[]; // 0x00744438
 extern D2EnvironmentCycleStrc gEclipseEnvironmentCycle[]; // 0x00744480
-static __declspec(noinline) void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct);
+static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct);
 
 static __forceinline D2Entry0061B7E0Strc* sub_0061B870_GetFirst(D2Owner0061B7E0Strc* pOwner, unsigned char nIndex)
 {

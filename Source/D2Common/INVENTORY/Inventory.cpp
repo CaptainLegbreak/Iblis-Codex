@@ -236,11 +236,11 @@ extern const signed char gaDirectionDeltaX_006EA998[32]; // 0x006EA998
 
 extern const signed char gaDirectionDeltaY_006EA978[32]; // 0x006EA978
 
-static __declspec(noinline) s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first);
+static s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first);
 
-static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
+static int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
 
-static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
+static BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
 
 extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo; // 0x0074479C
 
@@ -276,7 +276,7 @@ int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2); 
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* inventory, int index, D2InventoryGridInfoStrc* info); // 0x0063ADD0
+static D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* inventory, int index, D2InventoryGridInfoStrc* info); // 0x0063ADD0
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc* inventory, int slot); // 0x0063C7F0
 
@@ -314,9 +314,9 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
 void __stdcall DATATBLS_GetInventoryGridInfo(int nInventoryRecordId, int nUnused, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 
-static __declspec(noinline) BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nXPos, int nYPos, int nInventoryGrid, int nInventoryRecordId); // 0x0063AFD0
+static BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nXPos, int nYPos, int nInventoryGrid, int nInventoryRecordId); // 0x0063AFD0
 
-static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight(D2InventoryGridStrc* pInventoryGrid, int nXPos, int nYPos, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B340
+static unsigned char __stdcall INVENTORY_GetPlacementWeight(D2InventoryGridStrc* pInventoryGrid, int nXPos, int nYPos, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B340
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -373,11 +373,11 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInventory, int nGridX, int nGridY, int* pX, int* pY, int nInventoryRecordId, unsigned char nPage);
 
-static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B490
+static BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B490
 
-static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B620
+static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B620
 
-static __declspec(noinline) void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item);
+static void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item);
 
 int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc* pItem, int nBodyLoc);                                     // 0x0062ED50
 
@@ -387,7 +387,7 @@ int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                  
 
 int __stdcall INVENTORY_IsItemBodyLocFree(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc, int nInventoryRecordId); // 0x0063CB00
 
-static __declspec(noinline) int __stdcall sub_0063DD90_CheckHandSlots(D2UnitStrc* pUnit, int nOtherLoc, D2UnitStrc* pNewItem, D2UnitStrc* pLocItem, D2UnitStrc* pOtherItem);
+static int __stdcall sub_0063DD90_CheckHandSlots(D2UnitStrc* pUnit, int nOtherLoc, D2UnitStrc* pNewItem, D2UnitStrc* pLocItem, D2UnitStrc* pOtherItem);
 
 int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem, int bSkipRequirementCheck);
 
@@ -445,7 +445,7 @@ int __fastcall STATES_GetNumberOfStateFlags()
     return (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
 }
 
-static __declspec(noinline) int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
+static int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
     unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
     if (!pStatFlags)
@@ -480,7 +480,7 @@ static __forceinline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
 }
 
 // 0x0063A810
-static __declspec(noinline) void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
+static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)
@@ -547,7 +547,7 @@ inline D2ItemExtraDataStrc* INVENTORY_GetItemExtraTyped(D2UnitStrc* pItem)
     return 0;
 }
 
-static __declspec(noinline) D2ItemExtraDataStrc* INVENTORY_GetItemExtraDataNoInl(D2UnitStrc* pItem) // 0x0063A7E0
+static D2ItemExtraDataStrc* INVENTORY_GetItemExtraDataNoInl(D2UnitStrc* pItem) // 0x0063A7E0
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -558,7 +558,7 @@ static __declspec(noinline) D2ItemExtraDataStrc* INVENTORY_GetItemExtraDataNoInl
 }
 
 // 0x0063A8A0
-static __declspec(noinline) BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
@@ -576,7 +576,7 @@ static __declspec(noinline) BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2Inv
 }
 
 // 0x0063A910
-static __declspec(noinline) void __stdcall sub_0063A910_FillGridCells(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight, D2UnitStrc* pItem)
+static void __stdcall sub_0063A910_FillGridCells(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight, D2UnitStrc* pItem)
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
@@ -589,7 +589,7 @@ static __declspec(noinline) void __stdcall sub_0063A910_FillGridCells(D2Inventor
 }
 
 // 0x0063A970
-static __declspec(noinline) void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
+static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType != 4)
@@ -984,7 +984,7 @@ D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, in
 }
 
 // 0x0063AF20
-static __declspec(noinline) void sub_0063AF20_LinkItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
+static void sub_0063AF20_LinkItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
 {
     D2ItemExtraDataStrc* pItemExtraData = INVENTORY_GetItemExtraTyped(pItem);
     if (!pItemExtraData)
@@ -1011,7 +1011,7 @@ static __declspec(noinline) void sub_0063AF20_LinkItem(D2InventoryStrc* pInvento
 }
 
 // 0x0063AF70
-static __declspec(noinline) void __stdcall sub_0063AF70_LinkGridItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, D2UnitStrc* pItem)
+static void __stdcall sub_0063AF70_LinkGridItem(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, D2UnitStrc* pItem)
 {
     D2ItemExtraDataStrc* pItemExtraData = INVENTORY_GetItemExtraTyped(pItem);
     if (!pItemExtraData || pItemExtraData->pParentInv != pInventory)
@@ -1252,7 +1252,7 @@ static BOOL __stdcall INVENTORY_CanItemBePlacedAtPos(D2InventoryGridStrc* pInven
 }
 
 // 0x0063B340
-static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight(D2InventoryGridStrc* pInventoryGrid, int nXPos, int nYPos, unsigned char nItemWidth, unsigned char nItemHeight)
+static unsigned char __stdcall INVENTORY_GetPlacementWeight(D2InventoryGridStrc* pInventoryGrid, int nXPos, int nYPos, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     int nResult = 0;
 
@@ -1329,7 +1329,7 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
 }
 
 // 0x0063B490
-static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     unsigned char nMax = 0;
     for (int nX = pInventoryGrid->nGridWidth - 1; nX >= 0; --nX)
@@ -1358,7 +1358,7 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRight
 }
 
 // 0x0063B540
-static __declspec(noinline) BOOL __stdcall sub_0063B540_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall sub_0063B540_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     for (int nX = pInventoryGrid->nGridWidth - 1; nX >= 0; --nX)
     {
@@ -1377,7 +1377,7 @@ static __declspec(noinline) BOOL __stdcall sub_0063B540_FindFreePositionRightToL
 }
 
 // 0x0063B5E0
-static __declspec(noinline) BOOL __stdcall sub_0063B5E0_FindFreePositionHeight1(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall sub_0063B5E0_FindFreePositionHeight1(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -1393,7 +1393,7 @@ static __declspec(noinline) BOOL __stdcall sub_0063B5E0_FindFreePositionHeight1(
 }
 
 // 0x0063B620
-static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     int nX;
     int nY;
@@ -1424,7 +1424,7 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBo
 }
 
 // 0x0063B6E0
-static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     for (int nX = 0; nX < pInventoryGrid->nGridWidth; ++nX)
     {
@@ -1443,7 +1443,7 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBo
 }
 
 // 0x0063B790
-static __declspec(noinline) BOOL __stdcall sub_0063B790_FindFreePositionHeight3(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall sub_0063B790_FindFreePositionHeight3(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -1459,7 +1459,7 @@ static __declspec(noinline) BOOL __stdcall sub_0063B790_FindFreePositionHeight3(
 }
 
 // 0x0063B7D0
-static __declspec(noinline) BOOL __stdcall sub_0063B7D0_FindFreePosition2x2(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall sub_0063B7D0_FindFreePosition2x2(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -1475,7 +1475,7 @@ static __declspec(noinline) BOOL __stdcall sub_0063B7D0_FindFreePosition2x2(D2In
 }
 
 // 0x0063B810
-static __declspec(noinline) BOOL __stdcall sub_0063B810_FindFreePositionOther(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
+static BOOL __stdcall sub_0063B810_FindFreePositionOther(D2InventoryStrc* pInventory, D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     if (!pInventory)
     {
@@ -3423,7 +3423,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_0063D670(Obj0063D670
 }
 
 // 0x0063D690
-static __declspec(noinline) void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output)
+static void __cdecl sub_0063D690_CopySix(Unit* item, AppearanceSix* output)
 {
     if (item)
     {
@@ -3527,7 +3527,7 @@ void __fastcall INVENTORY_InitializeComponentArray()
 }
 
 // 0x0063D900
-static __declspec(noinline) s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first)
+static s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first)
 {
     sub_0063D710_InitCodes();
     for (u32 index = 1; index < 0xFF; ++index)
@@ -3542,7 +3542,7 @@ static __declspec(noinline) s32 __cdecl sub_0063D900_FindCode(u32 second, u32 fi
 }
 
 // 0x0063D930
-static __declspec(noinline) void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* hItem, Unit* unit)
+static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* hItem, Unit* unit)
 {
     D2_ASSERT(unit, 0x13B3);
     D2_ASSERT(hItem, 0x13B4);
@@ -3671,7 +3671,7 @@ int __stdcall sub_K15_Emit5(int* p, int n)
 }
 
 // 0x0063DBC0
-static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2)
+static int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 {
     if (!pItem1 || !pItem2
         || ITEMS_GetAmmoType(pItem1) && ITEMSIsA(pItem2, ITEMS_GetAmmoType(pItem1))
@@ -3986,7 +3986,7 @@ int __stdcall INVENTORY_RemoveAllItems(D2InventoryStrc* pInventory)
 }
 
 // 0x0063E100
-static __declspec(noinline) BOOL INVENTORY_CopyUnitItemsToTradeInventory(D2InventoryStrc* pTradeInventory, D2UnitStrc* pUnit)
+static BOOL INVENTORY_CopyUnitItemsToTradeInventory(D2InventoryStrc* pTradeInventory, D2UnitStrc* pUnit)
 {
     if (!pTradeInventory)
     {
@@ -4049,7 +4049,7 @@ static __forceinline BOOL INVENTORY_TryPlaceInFreePosition(D2InventoryStrc* pInv
 }
 
 // 0x0063E1C0
-static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory)
+static BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory)
 {
     unsigned char nHeight;
     if (!pInventory)
@@ -4071,7 +4071,7 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(
 }
 
 // 0x0063E2E0
-static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInTradeInventory(D2UnitStrc* pPlayer2, D2InventoryStrc* pTradeInventory, D2UnitStrc* pPlayer1)
+static BOOL __stdcall INVENTORY_CanItemBePlacedInTradeInventory(D2UnitStrc* pPlayer2, D2InventoryStrc* pTradeInventory, D2UnitStrc* pPlayer1)
 {
     D2UnitStrc* pItem = INVENTORY_GetFirstItem(pPlayer1->pInventory);
     while (pItem)

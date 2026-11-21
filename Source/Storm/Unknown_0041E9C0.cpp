@@ -563,7 +563,7 @@ unsigned int D2StormHuffTreeStrc::sub_0041F740_Decompress(void* pOutput, unsigne
     }
 }
 
-__declspec(noinline) void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
+void D2StormHuffOutputStrc::sub_0041D9A0_Flush()
 {
     while (nBitCount)
     {
@@ -638,7 +638,7 @@ static __declspec(noinline) void sub_0041FA40_FlushLog(T0041FA40* pLog)
 }
 
 // 0x0041FA80
-static __declspec(noinline) T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog)
+static T0041FA40* __stdcall sub_0041FA80_LockLog(unsigned long* pIndex, int bCreate, void* hLog)
 {
     if (!hLog)
     {
@@ -698,7 +698,7 @@ static __declspec(noinline) void sub_0041FB80_AppendNewline(T0041FA40* pLog)
     pLog->nUsed += 2;
 }
 
-static __declspec(noinline) void __stdcall sub_0041FBA0_AppendTimestamp(int bText, T0041FA40* pLog)
+static void __stdcall sub_0041FBA0_AppendTimestamp(int bText, T0041FA40* pLog)
 {
     if (!pLog->f_18)
         return;
@@ -725,7 +725,7 @@ static __declspec(noinline) void __stdcall sub_0041FBA0_AppendTimestamp(int bTex
 }
 
 // 0x0041FC80
-static __declspec(noinline) void sub_0041FC80_UnlinkLog(T0041FA40* pLog, unsigned long nIndex)
+static void sub_0041FC80_UnlinkLog(T0041FA40* pLog, unsigned long nIndex)
 {
     T0041FA40** ppNext = &gapSLogBuckets_00779298[nIndex];
     for (T0041FA40* p = *ppNext; p; p = *ppNext)
@@ -1401,7 +1401,7 @@ void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
 }
 
 // 0x00420EB0
-static __declspec(noinline) unsigned int __stdcall sub_00420EB0_Accumulate64(unsigned __int64 nValue, unsigned __int64* pAccumulator)
+static unsigned int __stdcall sub_00420EB0_Accumulate64(unsigned __int64 nValue, unsigned __int64* pAccumulator)
 {
     *pAccumulator += nValue;
     const unsigned __int64 nCarry = *pAccumulator < nValue ? 1ui64 : 0ui64;

@@ -19,7 +19,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
 
-static __declspec(noinline) int sub_004CD310_UseCharge(D2UnitStrc* pUnit);
+static int sub_004CD310_UseCharge(D2UnitStrc* pUnit);
 
 struct D2GfxLightStrc;
 
@@ -103,7 +103,7 @@ void __stdcall MISSILE_SetOwner(D2UnitStrc* pMissile, D2UnitStrc* pOwner);      
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
-static __declspec(noinline) void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile);
+static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile);
 
 union D2SeedStrc;
 
@@ -147,7 +147,7 @@ struct D2SpawnArgsStrc
     int nMissile;
 };
 
-static __declspec(noinline) D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile);
+static D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile);
 
 void __fastcall sub_004B9A00_PlayOverlay(int nOverlay, D2UnitStrc* pOwner, int a3, int a4, int a5); // 0x004B9A00
 
@@ -1290,7 +1290,7 @@ static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMis
 }
 
 
-static __declspec(noinline) int sub_004CC910_GetSpawnDelay(D2UnitStrc* pMissile)
+static int sub_004CC910_GetSpawnDelay(D2UnitStrc* pMissile)
 {
     const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
     if (nFrames < 125)

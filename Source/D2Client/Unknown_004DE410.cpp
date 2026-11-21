@@ -59,10 +59,10 @@ int __cdecl sub_00477730(); // 0x00477730
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 int __fastcall sub_00472280(int nSeed, int nZero, int nMax); // 0x00472280
-static __declspec(noinline) void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells);
+static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells);
 
-static __declspec(noinline) void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode);
-static __declspec(noinline) void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode);
+static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode);
+static void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode);
 
 
 

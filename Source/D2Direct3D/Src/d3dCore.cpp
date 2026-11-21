@@ -290,7 +290,7 @@ void __cdecl sub_006B8F10(); // 0x006B8F10
 
 void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 
-__declspec(noinline) static int sub_006B4FD0_InitializeFullscreen(void*,int); // 0x006B4FD0
+static int sub_006B4FD0_InitializeFullscreen(void*,int); // 0x006B4FD0
 
 struct D2DDPixelFormat006B58A0Strc
 {

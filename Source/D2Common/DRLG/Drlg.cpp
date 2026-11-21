@@ -364,7 +364,7 @@ void __fastcall sub_00641F60_LoadTownTiles(D2DrlgStrc* pDrlg)
 }
 
 // 0x00642010
-static __declspec(noinline) void __stdcall sub_00642010_ClearLevel(void* pool, int keep, Level* level)
+static void __stdcall sub_00642010_ClearLevel(void* pool, int keep, Level* level)
 {
     if (keep)
     {
@@ -560,7 +560,7 @@ int* __fastcall DRLG_GetRoomCenterX_RoomWarpXFromRoom(D2DrlgRoomStrc* pDrlgRoom)
 }
 
 // 0x00642390
-static __declspec(noinline) void sub_00642390_MarkPresetRooms(D2DrlgLevelStrc* pLevel)
+static void sub_00642390_MarkPresetRooms(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->nRooms && pLevel->pPresetMaps)
     {
@@ -576,7 +576,7 @@ static __declspec(noinline) void sub_00642390_MarkPresetRooms(D2DrlgLevelStrc* p
 }
 
 // 0x006423D0
-static __declspec(noinline) void DRLG_ComputeLevelWarpInfo(D2DrlgLevelStrc* pLevel)
+static void DRLG_ComputeLevelWarpInfo(D2DrlgLevelStrc* pLevel)
 {
     int bHasWarp = 0;
     for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)

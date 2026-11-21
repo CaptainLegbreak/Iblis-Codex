@@ -4,7 +4,7 @@ extern "C" long __cdecl _time32(long* pTime);                                   
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                      // 0x005267E0
 
-__declspec(noinline) static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
+static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
 static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F60
 // 0x00437F60
 static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass)

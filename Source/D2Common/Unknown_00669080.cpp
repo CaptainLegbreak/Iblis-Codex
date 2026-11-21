@@ -37,7 +37,7 @@ extern D2SetItemsTxtStrc* gpSetItemsTxt_0096C848;                               
 extern void* gpUniqueItemsLinker_0096C850;                                                                  // 0x0096C850
 extern D2UniqueItemsTxtStrc* gpUniqueItemsTxt_0096C854;                                                    // 0x0096C854
 
-static __declspec(noinline) void sub_00668510_MakeCode(const char* szText, char* szCode);
+static void sub_00668510_MakeCode(const char* szText, char* szCode);
 
 // 0x00668510
 static void sub_00668510_MakeCode(const char* szText, char* szCode)
@@ -81,7 +81,7 @@ static __forceinline int DATATBLS_StringToCode(const char* szText)
     return nCode;
 }
 
-static __declspec(noinline) int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput);
+static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput);
 
 // build: context sub_00668600_CubeMainInputParser
 static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput)

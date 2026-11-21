@@ -143,7 +143,7 @@ void __fastcall sub_004D8400_CltDoRotateTarget(D2UnitStrc* pMissile)
 }
 
 // 0x004D84C0
-static __declspec(noinline) int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
+static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
 {
     int nUnitType = UNIT_INVALID;
     if (pUnit)

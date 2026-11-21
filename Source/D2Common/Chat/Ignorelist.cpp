@@ -307,7 +307,7 @@ struct D2CommonStormSlotListAStrc
             InitializeTerminator();
         }
     }
-    __declspec(noinline) void UnlinkAll();
+void UnlinkAll();
     void sub_0060E260_InitializeTerminator();
     char* sub_0060E440_Head();
     void sub_0060E5F0_Reset();
@@ -399,7 +399,7 @@ struct D2CommonStormSlotListBStrc
             InitializeTerminator();
         }
     }
-    __declspec(noinline) void UnlinkAll();
+void UnlinkAll();
     void sub_0060E270_InitializeTerminator();
     char* sub_0060E5D0_Head();
     void sub_0060E610_Reset();
@@ -502,7 +502,7 @@ struct D2CommonStormSlotArrayAStrc
     {
         return f_8[nIndex];
     }
-    __declspec(noinline) unsigned int sub_0060E2A0_CalcChunkSize(unsigned int nCount);
+unsigned int sub_0060E2A0_CalcChunkSize(unsigned int nCount);
     void sub_0060F390_ReallocData(unsigned int nAlloc);                                                     // 0x0060F390
     void sub_0060F6D0_Reserve(unsigned int nCount, int bRound);
     void sub_0060F9D0_SetCount(unsigned int nCount);
@@ -571,7 +571,7 @@ struct D2CommonStormSlotArrayBStrc
     {
         return f_8[nIndex];
     }
-    __declspec(noinline) unsigned int sub_0060E300_CalcChunkSize(unsigned int nCount);
+unsigned int sub_0060E300_CalcChunkSize(unsigned int nCount);
     void sub_0060F720_ReallocData(unsigned int nAlloc);                                                     // 0x0060F720
     void sub_0060FAD0_Reserve(unsigned int nCount, int bRound);
     void sub_006100B0_SetCount(unsigned int nCount);
@@ -1234,7 +1234,7 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
     return pNode + nLinkOffset;
 }
 
-inline __declspec(noinline) unsigned int D2CommonStormSlotArrayAStrc::sub_0060E2A0_CalcChunkSize(unsigned int nCount)
+inline unsigned int D2CommonStormSlotArrayAStrc::sub_0060E2A0_CalcChunkSize(unsigned int nCount)
 {
     if (nCount < 0x15)
     {
@@ -1247,7 +1247,7 @@ inline __declspec(noinline) unsigned int D2CommonStormSlotArrayAStrc::sub_0060E2
     return 0x15;
 }
 
-inline __declspec(noinline) unsigned int D2CommonStormSlotArrayBStrc::sub_0060E300_CalcChunkSize(unsigned int nCount)
+inline unsigned int D2CommonStormSlotArrayBStrc::sub_0060E300_CalcChunkSize(unsigned int nCount)
 {
     if (nCount < 0x15)
     {

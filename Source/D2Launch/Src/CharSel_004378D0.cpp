@@ -221,7 +221,7 @@ extern char* gpszName_00779DB0; // 0x00779DB0
 
 extern unsigned long gdwStartTick_00779DB4; // 0x00779DB4
 
-static __declspec(noinline) void sub_00437CB0_SelectNamedSlot(const char* szName);
+static void sub_00437CB0_SelectNamedSlot(const char* szName);
 
 D2WinControlStrc* gpButton_007799E4; // 0x007799E4
 
@@ -293,9 +293,9 @@ extern int gnTopRow_00779DC8;                                                   
 
 extern D2WinControlStrc* gpControl_00779DD0;                                                                // 0x00779DD0
 
-static __declspec(noinline) Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
+static Unicode* sub_00437F60_GetClassName(Unicode* pBuffer, int nClass);
 
-static __declspec(noinline) int sub_00437D20_IsTestRealm(const Unicode* pName);
+static int sub_00437D20_IsTestRealm(const Unicode* pName);
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -336,7 +336,7 @@ D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUn
 
 unsigned short __stdcall sub_006BBF20_ReadPackedWord(const unsigned char* pData);                           // 0x006BBF20
 
-static __declspec(noinline) int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* szStats, int nFlag, unsigned int nKeyLow, unsigned int nKeyHigh, const char* szRealm);
+static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* szStats, int nFlag, unsigned int nKeyLow, unsigned int nKeyHigh, const char* szRealm);
 
 #pragma intrinsic(strlen)
 
@@ -352,7 +352,7 @@ char gszCharName_00779B68[256];                                                 
 
 int gnCharCount_00779DE0;                                                                                   // 0x00779DE0
 
-__declspec(noinline) static int sub_00438030_IsNotListedCode(int nValue);
+static int sub_00438030_IsNotListedCode(int nValue);
 
 extern int gnSelected_0070CC00; // 0x0070CC00
 
@@ -446,7 +446,7 @@ D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);               
 
 void __cdecl sub_0043B9A0();                                                                                // 0x0043B9A0
 
-static __declspec(noinline) int sub_00437A20_FindSlotName(const char* szName);
+static int sub_00437A20_FindSlotName(const char* szName);
 
 // build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -518,7 +518,7 @@ static void sub_00437CB0_SelectNamedSlot(const char* szName)
     }
 }
 
-static __declspec(noinline) void sub_0043A1F0_ShowConnectError(int nError)
+static void sub_0043A1F0_ShowConnectError(int nError)
 {
     int nStringId;
     switch (nError)

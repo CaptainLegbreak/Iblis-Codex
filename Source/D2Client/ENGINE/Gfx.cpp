@@ -735,7 +735,7 @@ inline int sub_M449_IsUnitTypeInl(D2UnitStrc* pUnit, int nType)
 }
 
 // 0x0046F090
-static __declspec(noinline) int sub_0046F090_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit)
+static int sub_0046F090_IsNotMonsterOrNoFlag2(D2UnitStrc* pUnit)
 {
     if (!sub_M449_IsUnitTypeInl(pUnit, 1))
     {

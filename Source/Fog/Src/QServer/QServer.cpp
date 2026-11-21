@@ -485,21 +485,21 @@ void __fastcall sub_006C2110_StopServerThreads(T006BE350* pServer); // 0x006C211
 
 void __fastcall sub_006C33D0_Stop(T006BE350* pServer); // 0x006C33D0
 
-static __declspec(noinline) void sub_006BF320_FreeChain(T006BE350* pServer);
+static void sub_006BF320_FreeChain(T006BE350* pServer);
 
-static __declspec(noinline) void sub_006BF0F0_FreeBuckets(T006BE350* pServer);
+static void sub_006BF0F0_FreeBuckets(T006BE350* pServer);
 
 extern const char gszLogTag_006FC4A8[]; // 0x006FC4A8
 
 static int sub_006C0140_SendToKey(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize); // 0x006C0140
 
-static __declspec(noinline) int __fastcall sub_006BF500_Dispatch(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize);
+static int __fastcall sub_006BF500_Dispatch(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize);
 
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
 
-__declspec(noinline) static void sub_006BF520_StartServer(QServer* pServer, int nValue);
+static void sub_006BF520_StartServer(QServer* pServer, int nValue);
 
 struct D2QEntry006BF580Strc
 {
@@ -1206,7 +1206,7 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
     return pServer;
 }
 
-static __declspec(noinline)
+static
 // 0x006C0770
 void __stdcall sub_006C0770_BanClient(D2QueueServerStrc* table, int client, const char* file, int line)
 {
@@ -1272,7 +1272,7 @@ int __stdcall sub_006BFAD0_BroadcastToAllClients(D2QueueServerStrc* pServer, cha
 }
 
 // build: context sub_006BF180_ReferenceAddress
-static __declspec(noinline)
+static
 int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int* address)
 {
  unsigned int value=*address;

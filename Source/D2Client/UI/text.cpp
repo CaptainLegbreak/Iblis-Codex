@@ -219,7 +219,7 @@ void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText)
 
 extern int gnGameFrame_007BF20E; // 0x007BF20E
 
-static __declspec(noinline) bool sub_0049E250_IsLanguageCompatible(int nLangId);
+static bool sub_0049E250_IsLanguageCompatible(int nLangId);
 
 struct T0044CB60
 {

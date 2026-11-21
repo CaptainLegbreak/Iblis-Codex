@@ -115,7 +115,7 @@ inline int UNITS_GetUnitIdInline(D2UnitStrc* unit)
 }
 
 // 0x00463260
-static __declspec(noinline) void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
+static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
 {
     if (unit != sub_00463DE0_GetPlayerUnit())
         return;

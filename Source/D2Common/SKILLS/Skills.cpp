@@ -496,9 +496,9 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 D2TCExShortStrc* gpChestTreasureClasses[45]; // 0x0096C5F4
 
-static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nType); // 0x00643D90
+static BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nType); // 0x00643D90
 
-static __declspec(noinline) BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* pSkill, D2UnitStrc* pUnit); // 0x006478F0
+static BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* pSkill, D2UnitStrc* pUnit); // 0x006478F0
 
 int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit); // 0x0064F460
 
@@ -832,7 +832,7 @@ int __fastcall sub_00643580_GetSkillParam7Formula(int nSkillId, int nSkillLevel)
     return pSkillsTxtRecord->dwParam[6] + (nSkillLevel - 1) * pSkillsTxtRecord->dwParam[7];
 }
 
-__declspec(noinline) int __stdcall SKILLS_GetPassiveState(int nSkillId)
+int __stdcall SKILLS_GetPassiveState(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1252,7 +1252,7 @@ int __fastcall sub_00643D00_GetSkillLevel(D2Owner00643D00Strc* pOwner, D2Skill00
 }
 
 // 0x00643D60
-static __declspec(noinline) D2UnitStrc* __stdcall sub_6FDB1050(int nBodyLoc, D2InventoryStrc* pInventory)
+static D2UnitStrc* __stdcall sub_6FDB1050(int nBodyLoc, D2InventoryStrc* pInventory)
 {
     if (nBodyLoc == 5)
     {
@@ -1263,7 +1263,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_6FDB1050(int nBodyLoc, D2I
 }
 
 // 0x00643D90
-static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nType)
+static BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nType)
 {
     if (!pItem)
     {
@@ -1362,7 +1362,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDB1130(D2UnitStrc* pItem, D2Uni
 }
 
 // 0x00643F80
-static __declspec(noinline) BOOL __stdcall sub_00643F80_CheckWeaponTypes(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static BOOL __stdcall sub_00643F80_CheckWeaponTypes(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pSkill)
     {
@@ -1415,7 +1415,7 @@ static __declspec(noinline) BOOL __stdcall sub_00643F80_CheckWeaponTypes(D2UnitS
 }
 
 // 0x00644060
-static __declspec(noinline) BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pUnit || !pSkill)
     {
@@ -1466,7 +1466,7 @@ static __declspec(noinline) BOOL D2Common_SKILLS_CheckShapeRestriction_6FDB1380(
 }
 
 // 0x006440F0
-static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER || pSkill->pSkillsTxt->wStartMana <= 0
         || STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) >= (int)pSkill->pSkillsTxt->wStartMana << 8 || STATES_CheckState(pUnit, STATE_INFERNO))
@@ -2479,7 +2479,7 @@ int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 }
 
 // 0x006454C0
-static __declspec(noinline) int __stdcall sub_006454C0_IsSelectableCorpse(int bDying, D2UnitStrc* pUnit)
+static int __stdcall sub_006454C0_IsSelectableCorpse(int bDying, D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -4239,7 +4239,7 @@ void __stdcall D2Common_10954(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, i
 }
 
 // 0x00647540
-static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* hSkill)
+static BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* hSkill)
 {
     D2_ASSERT(hSkill, 0x637);
 
@@ -4271,7 +4271,7 @@ static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStr
 }
 
 // 0x00647640
-static __declspec(noinline) BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     D2UnitStrc* pItem;
     int nBodyLoc;
@@ -4401,7 +4401,7 @@ static __declspec(noinline) BOOL sub_00647640_CheckSkillQuantity(D2UnitStrc* pUn
 }
 
 // 0x00647840
-static __declspec(noinline) BOOL sub_6FDB1070(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static BOOL sub_6FDB1070(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pUnit || !pSkill)
     {
@@ -4439,7 +4439,7 @@ static __forceinline BOOL U04_IsPlayerUnit(D2UnitStrc* pUnit)
 }
 
 // 0x006478F0
-static __declspec(noinline) BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* pSkill, D2UnitStrc* pUnit)
+static BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
     if (!U04_IsPlayerUnit(pUnit))
     {

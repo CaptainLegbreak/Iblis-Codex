@@ -30,7 +30,7 @@ extern int gnValue_007C9154; // 0x007C9154
 extern int gnValue_007C913C; // 0x007C913C
 extern int gnValue_007C9138; // 0x007C9138
 
-static __declspec(noinline) int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2ClipRect00512250Strc* pClip, int nX, D2ClipRect00512250Strc* pOut);
+static int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2ClipRect00512250Strc* pClip, int nX, D2ClipRect00512250Strc* pOut);
 
 // 0x00511E80
 static int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2ClipRect00512250Strc* pClip, int nX, D2ClipRect00512250Strc* pOut)

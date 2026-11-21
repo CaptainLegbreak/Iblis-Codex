@@ -64,7 +64,7 @@ int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x0040693
 static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt);
 
 // 0x0060AE80
-static __declspec(noinline) unsigned int sub_0060AE80_GetCelDataHashKey(const char* szName)
+static unsigned int sub_0060AE80_GetCelDataHashKey(const char* szName)
 {
     unsigned int nHash = SStrHash(szName, 1, 0);
     return ((nHash ^ (nHash >> 8)) ^ ((nHash ^ (nHash >> 8)) >> 16)) & 0x1FF;

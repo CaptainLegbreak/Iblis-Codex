@@ -210,7 +210,7 @@ int __stdcall sub_0066F690_ApplySubstGroup(D2UnkOutdoorStrc* pOutdoor, D2LvlSubT
 }
 
 // 0x0066F990
-static __declspec(noinline) void __stdcall sub_0066F990_ApplySecondaryGroups(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pRecord)
+static void __stdcall sub_0066F990_ApplySecondaryGroups(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pRecord)
 {
     D2DrlgFileStrc* pFile = pRecord->pDrlgFile;
     D2DrlgLevelStrc* pLevel = pOutdoor->pLevel;

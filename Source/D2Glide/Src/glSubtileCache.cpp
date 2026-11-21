@@ -82,7 +82,7 @@ static __declspec(noinline) void sub_0050EF40_TileCacheAppendUsed(D2GlideTileCac
     pCache->pTail = pEntry;
 }
 
-static __declspec(noinline) D2GlideTileCacheEntryStrc* sub_0050EF80_TileCachePopUsed(D2GlideTileCacheStrc* pCache)
+static D2GlideTileCacheEntryStrc* sub_0050EF80_TileCachePopUsed(D2GlideTileCacheStrc* pCache)
 {
     D2GlideTileCacheEntryStrc* pEntry = pCache->pHead;
     if (!pEntry)

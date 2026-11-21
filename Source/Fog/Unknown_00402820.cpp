@@ -415,7 +415,7 @@ bool __stdcall sub_00402A90_GetDbgHelpModuleRange(void** ppBase, unsigned long* 
 }
 
 // 0x00402FE0
-static __declspec(noinline) D2CrashModuleListStrc* sub_00402FE0_InitModuleList(D2CrashModuleListStrc* pList)
+static D2CrashModuleListStrc* sub_00402FE0_InitModuleList(D2CrashModuleListStrc* pList)
 {
     D2CrashModuleStrc* pModule = pList->aModules;
     int nLeft = 0x100 - 1;

@@ -37,7 +37,7 @@ static __forceinline void __stdcall sub_004A5D70_RegisterMsgHandlers(int bReset)
     }
 }
 
-static __declspec(noinline) void sub_004A6260_UpdateKeyState(int nCommand);
+static void sub_004A6260_UpdateKeyState(int nCommand);
 
 // 0x004A6260
 static void sub_004A6260_UpdateKeyState(int nCommand)

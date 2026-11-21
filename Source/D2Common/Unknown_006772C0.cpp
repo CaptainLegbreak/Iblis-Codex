@@ -255,7 +255,7 @@ static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, 
 }
 
 // 0x00677750
-static __declspec(noinline) void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
+static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
 {
     sub_006772C0_InitLevelLinks(gAct1WildernessDrlgLink, sub_00676DD0_LinkAct1Wilderness, sub_00677180_SetAct1OutdoorFlags, pDrlg);
     sub_006772C0_InitLevelLinks(gAct1MonasteryDrlgLink, sub_6FD82130, sub_00677180_SetAct1OutdoorFlags, pDrlg);
@@ -263,7 +263,7 @@ static __declspec(noinline) void sub_00677750_CreateAct1LevelConnections(D2DrlgS
 }
 
 // 0x00677790
-static __declspec(noinline) void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
+static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
 {
     sub_006772C0_InitLevelLinks(gAct2OutdoorDrlgLink, DRLGOUTPLACE_LinkAct2Outdoors, 0, pDrlg);
     sub_006772C0_InitLevelLinks(gAct2CanyonDrlgLink, DRLGOUTPLACE_LinkAct2Canyon, 0, pDrlg);
@@ -271,7 +271,7 @@ static __declspec(noinline) void sub_00677790_CreateAct2LevelConnections(D2DrlgS
 }
 
 // 0x00678A20
-static __declspec(noinline) void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
+static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
 {
     sub_006772C0_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
     sub_006772C0_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
@@ -282,7 +282,7 @@ static __declspec(noinline) void sub_00678A20_CreateAct4LevelConnections(D2DrlgS
 }
 
 // 0x00678A70
-static __declspec(noinline) void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
+static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
 {
     sub_006772C0_InitLevelLinks(gAct5OutdoorDrlgLink, 0, 0, pDrlg);
     sub_006772C0_InitLevelLinks(gAct5TundraDrlgLink, 0, 0, pDrlg);

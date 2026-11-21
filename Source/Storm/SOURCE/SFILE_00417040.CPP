@@ -245,13 +245,13 @@ static inline char* EventHead()
     return (int)gpEventHead_00708380 > 0 ? gpEventHead_00708380 : 0;
 }
 
-static __declspec(noinline) int sub_00415930_GetArchiveRec(void* hArchive, D2StormArchiveRecStrc** ppRec)
+static int sub_00415930_GetArchiveRec(void* hArchive, D2StormArchiveRecStrc** ppRec)
 {
     *ppRec = (D2StormArchiveRecStrc*)hArchive;
     return 1;
 }
 
-static __declspec(noinline) int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
+static int sub_00415950_GetFileRec(void* hFile, D2StormFileRecStrc** ppRec)
 {
     *ppRec = (D2StormFileRecStrc*)hFile;
     return 1;
@@ -318,7 +318,7 @@ static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer,
     }
 }
 
-static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, unsigned int nOffset, D2StormFileRecStrc* pFile)
+static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, unsigned int nOffset, D2StormFileRecStrc* pFile)
 {
     unsigned int nFilePos;
     unsigned long nRead = 0;
@@ -328,7 +328,7 @@ static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer
     return nRead == nSize;
 }
 
-static __declspec(noinline) D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
+static D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
 {
     return &pArchive->pBlockTable[pArchive->pHashTable[nHashIndex].nBlockIndex];
 }
@@ -397,7 +397,7 @@ static void sub_004157C0_FillStreamBuffer(D2StormRequestStrc* pRequest)
     LeaveCriticalSection(&gBasePathLock_00779068);
 }
 
-static __declspec(noinline) int sub_00415940_PathPresent(const char* szPath)
+static int sub_00415940_PathPresent(const char* szPath)
 {
     return ~(GetFileAttributesA(szPath) >> 4) & 1;
 }

@@ -115,7 +115,7 @@ extern int gnScreenWidth_007A5220; // 0x007A5220
 
 extern unsigned char gabGridColors_007BCAD8[]; // 0x007BCAD8
 
-static __declspec(noinline) void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nColor, unsigned char nWidth, unsigned char nHeight, int nY);
+static void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nColor, unsigned char nWidth, unsigned char nHeight, int nY);
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -1912,7 +1912,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __declspec(noinline) int __stdcall sub_00487740_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, unsigned int nX, unsigned int nY, char nPage)
+static int __stdcall sub_00487740_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, unsigned int nX, unsigned int nY, char nPage)
 {
     int nOutX;
     int nOutY;
@@ -1980,7 +1980,7 @@ static __declspec(noinline) int __stdcall sub_00487740_ClickGridItem(D2UnitStrc*
     return 0;
 }
 
-static __declspec(noinline) int sub_00483B40_IsInRect(int nX, int nY)
+static int sub_00483B40_IsInRect(int nX, int nY)
 {
     if (sub_0044DCC0())
     {

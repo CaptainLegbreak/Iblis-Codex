@@ -472,7 +472,7 @@ extern const char* const gaszLanguageNames_00706618[];                          
 extern "C" const char gszUnknownUpper_006CCED8[];                                                           // 0x006CCED8
 
 // 0x00401000
-static __declspec(noinline) int __cdecl sub_00401000_LocalTime(tm* pTm, const __int64* pTime)
+static int __cdecl sub_00401000_LocalTime(tm* pTm, const __int64* pTime)
 {
     return _localtime64_s(pTm, pTime);
 }
@@ -603,7 +603,7 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
 }
 
 // 0x00401640
-static __declspec(noinline) bool __stdcall sub_00401640_GetThreadName(int threadId,char* output) {
+static bool __stdcall sub_00401640_GetThreadName(int threadId,char* output) {
  if(gdwGlobal_00992B1C==threadId) strncpy_s(output,OUTPUT_SIZE,gszMainThread_006FF988,(unsigned int)-1);
  else output[0]=0;
  return true;

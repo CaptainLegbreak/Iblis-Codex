@@ -95,7 +95,7 @@ int __fastcall D2Win_10082(D2WinEditBoxStrc* pEditBox); // 0x004FDD00
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar); // 0x00502550
 
-static __declspec(noinline) void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* pEditBox);
+static void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* pEditBox);
 
 struct D2WinControlStrc;
 
@@ -695,7 +695,7 @@ static void sub_004FE7C0_UpdateVisibleChars(D2WinEditBoxStrc* pEditBox)
 }
 
 // 0x004FE9F0
-static __declspec(noinline) void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* pEditBox)
+static void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x1C2);
     D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x1C4);

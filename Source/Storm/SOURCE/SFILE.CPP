@@ -1399,7 +1399,7 @@ static int __stdcall sub_004154B0_ReadAt(unsigned int* pnFilePos, void* pBuffer,
 }
 
 // 0x00415560
-static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, unsigned int nOffset, D2StormFileRecStrc* pFile)
+static int __stdcall sub_00415560_ReadFileRec(void* pBuffer, unsigned int nSize, unsigned int* pnRead, unsigned int nOffset, D2StormFileRecStrc* pFile)
 {
     unsigned int nFilePos;
     unsigned long nRead = 0;
@@ -1410,7 +1410,7 @@ static __declspec(noinline) int __stdcall sub_00415560_ReadFileRec(void* pBuffer
 }
 
 // 0x004155B0
-static __declspec(noinline) D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
+static D2StormBlockStrc* sub_004155B0_GetBlockEntry(D2StormArchiveRecStrc* pArchive, int nHashIndex)
 {
     return &pArchive->pBlockTable[pArchive->f_140[nHashIndex].nBlockIndex];
 }

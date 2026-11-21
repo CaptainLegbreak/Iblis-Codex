@@ -339,7 +339,7 @@ struct D2Unk00667420Strc
 
 void __fastcall sub_0066ECE0_CountAllTileTypes(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pGrid, int bFillBlanks, int bKillEdgeX, int bKillEdgeY); // 0x0066ECE0
 
-static void __declspec(noinline) sub_00666990(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);
+static void sub_00666990(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);
 
 D2PresetUnitStrc* __fastcall DRLGPRESET_CopyPresetUnit(void* pMemPool, D2PresetUnitStrc* pPresetUnit, int nX, int nY); // 0x00667510
 

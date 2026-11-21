@@ -75,7 +75,7 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
 
 static void sub_0050ABF0_GlideSetBlendMode(int nMode);
 
-static __declspec(noinline) int __stdcall sub_0050B390_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip);
+static int __stdcall sub_0050B390_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip);
 
 static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo);
 
@@ -97,9 +97,9 @@ extern void (__stdcall* gpfnGrGlideState_0087EAB4)(int nState);                 
 
 extern D2GlideSpriteVertexStrc gGlideVertices_0087EFF8[4];                                                        // 0x0087EFF8
 
-static int __declspec(noinline) sub_0050A260_GlideTexInfoInit(D2CelContextStrc* pData, D2GlideTexInfoStrc* pInfo);
+static int sub_0050A260_GlideTexInfoInit(D2CelContextStrc* pData, D2GlideTexInfoStrc* pInfo);
 
-static void __declspec(noinline) sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo);             // 0x0050A2D0
+static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo);             // 0x0050A2D0
 
 static int __declspec(noinline) __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsigned char* pPalette, int nArg2, int nArg3); // 0x0050A450
 

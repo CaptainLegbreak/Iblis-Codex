@@ -229,7 +229,7 @@ int __fastcall PATH_FindSubpathWithoutObstacles(D2PathInfoStrc* pInfo, D2PathPoi
 
 int __fastcall PATH_SimplifyToLines(D2PathPointStrc tStartCoord, D2PathPointStrc* pOutPathPoints, D2PathPointStrc* pInputPoints, int nbTempPoints); // 0x0067C1E0
 
-static __declspec(noinline) int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
+static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
 
 // 0x0067B9F0
 static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints)

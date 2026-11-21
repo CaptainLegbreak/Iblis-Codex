@@ -151,7 +151,7 @@ int __stdcall sub_0064A210_GetSkillLevel(D2UnitStrc* pUnit);                    
 
 int __stdcall sub_0064A280_GetSkill(D2UnitStrc* pUnit);                                                     // 0x0064A280
 
-static __declspec(noinline) void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile);
+static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile);
 
 // 0x004D1820
 int __fastcall sub_004D1820_SpawnSubMissile(D2UnitStrc* pMissile)
