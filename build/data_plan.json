@@ -2544,7 +2544,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004B1280.cpp": {
+  "Source/D2Client/UNIT/Monster_004AF6A0.cpp": {
    "bytes": 576,
    "definitions": 1,
    "externs": [],
@@ -60167,7 +60167,7 @@
    "cname": "gData_00730778",
    "declared": true,
    "decorated": "?gaCaseTable_00730778@@3PAGA",
-   "file": "Source/D2Client/Unknown_004B1280.cpp",
+   "file": "Source/D2Client/UNIT/Monster_004AF6A0.cpp",
    "fill": 288,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00730778_t gData_00730778; // 0x00730778",
