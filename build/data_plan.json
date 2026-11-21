@@ -3867,8 +3867,8 @@
    "state": "included"
   },
   "Source/D2DDraw/Src/ddCore.cpp": {
-   "bytes": 64,
-   "definitions": 2,
+   "bytes": 124,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2DDraw/Src/ddCore.inc",
@@ -3981,24 +3981,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Unknown_00510020.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2DDraw/Src/ddCore_00511210.cpp": {
-   "bytes": 32,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2DDraw/Src/ddCore_00511210.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2DDraw/Src/ddCore_00511A80.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2DDraw/Src/ddCore_00511A80.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -87755,7 +87737,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2DDraw/Src/ddCore_00511210.cpp",
+   "file": "Source/D2DDraw/Src/ddCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gaDDrawModeWidth_0072F7A8[4] = ",
@@ -87785,7 +87767,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2DDraw/Src/ddCore_00511210.cpp",
+   "file": "Source/D2DDraw/Src/ddCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gaDDrawModeHeight_0072F7B8[4] = ",
@@ -87815,7 +87797,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2DDraw/Src/ddCore_00511A80.cpp",
+   "file": "Source/D2DDraw/Src/ddCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gaDDrawCapsTypes_0072F7D0[7] = ",

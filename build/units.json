@@ -44135,6 +44135,56 @@
      "name": "sub_0050FD10_GlideDrawVideoFrame"
     },
     {
+     "va": "0x00511210",
+     "length": 696,
+     "name": "?sub_00511210_DDrawOpenSurfaces@@YAHH@Z"
+    },
+    {
+     "va": "0x005114D0",
+     "length": 265,
+     "name": "sub_005114D0_SetDisplayMode"
+    },
+    {
+     "va": "0x005115E0",
+     "length": 120,
+     "name": "?sub_005115E0_DDrawRestoreSurface@@YIHPAXH@Z"
+    },
+    {
+     "va": "0x005117F0",
+     "length": 117,
+     "name": "?sub_005117F0_DDrawEndDraw@@YIHXZ"
+    },
+    {
+     "va": "0x00511870",
+     "length": 256,
+     "name": "sub_00511870_EndScene"
+    },
+    {
+     "va": "0x00511A80",
+     "length": 132,
+     "name": "?sub_00511A80_DDrawReleaseSurfaces@@YAXXZ"
+    },
+    {
+     "va": "0x00511B10",
+     "length": 22,
+     "name": "?sub_00511B10_DDrawPlayCutscene@@YIHXZ"
+    },
+    {
+     "va": "0x00511B30",
+     "length": 48,
+     "name": "?sub_00511B30_DDrawCloseSurface@@YIHXZ"
+    },
+    {
+     "va": "0x00511B60",
+     "length": 32,
+     "name": "?sub_00511B60_DDrawChangeRes@@YIHPAXH@Z"
+    },
+    {
+     "va": "0x00511B80",
+     "length": 157,
+     "name": "?sub_00511B80_DDrawClose@@YIHXZ"
+    },
+    {
      "va": "0x00511C20",
      "length": 169,
      "name": "sub_00511C20_DDrawPauseSurface"
@@ -44145,9 +44195,24 @@
      "name": "?sub_00511CD0_DDrawCloseAtExit@@YAXXZ"
     },
     {
+     "va": "0x00511CE0",
+     "length": 133,
+     "name": "?sub_00511CE0_DDrawInit@@YIHPAUD2GfxSettingsStrc@@PAUD2TileDrawFunctionsStrc@@@Z"
+    },
+    {
+     "va": "0x00511D70",
+     "length": 120,
+     "name": "?sub_00511D70_GetCapsValue@@YIHHPAH@Z"
+    },
+    {
      "va": "0x00512430",
      "length": 378,
      "name": "sub_00512430_DDrawCreateDebugFont"
+    },
+    {
+     "va": "0x00512700",
+     "length": 9,
+     "name": "?sub_00512700_DDrawGetBlendedShadows@@YAHXZ"
     },
     {
      "va": "0x005128B0",
@@ -44163,6 +44228,11 @@
      "va": "0x005132C0",
      "length": 101,
      "name": "sub_005132C0_DDrawFloorTileDraw"
+    },
+    {
+     "va": "0x00513330",
+     "length": 67,
+     "name": "?sub_00513330_DDrawCloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x005136F0",
@@ -45210,43 +45280,6 @@
    ]
   },
   {
-   "file": "Source/D2DDraw/Src/ddCore_00511210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00511210",
-     "length": 696,
-     "name": "?sub_00511210_DDrawOpenSurfaces@@YAHH@Z"
-    },
-    {
-     "va": "0x005115E0",
-     "length": 120,
-     "name": "?sub_005115E0_DDrawRestoreSurface@@YIHPAXH@Z"
-    },
-    {
-     "va": "0x00511B60",
-     "length": 32,
-     "name": "?sub_00511B60_DDrawChangeRes@@YIHPAXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Src/ddCore_005114D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005114D0",
-     "length": 265,
-     "name": "sub_005114D0_SetDisplayMode"
-    },
-    {
-     "va": "0x00511870",
-     "length": 256,
-     "name": "sub_00511870_EndScene"
-    }
-   ]
-  },
-  {
    "file": "Source/D2DDraw/Unknown_00511720.cpp",
    "rank": 0,
    "functions": [
@@ -45254,63 +45287,6 @@
      "va": "0x00511720",
      "length": 205,
      "name": "?sub_00511720_DDrawStartDraw@@YIHHEEE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Src/ddCore_005117F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005117F0",
-     "length": 117,
-     "name": "?sub_005117F0_DDrawEndDraw@@YIHXZ"
-    },
-    {
-     "va": "0x00511B10",
-     "length": 22,
-     "name": "?sub_00511B10_DDrawPlayCutscene@@YIHXZ"
-    },
-    {
-     "va": "0x00511B30",
-     "length": 48,
-     "name": "?sub_00511B30_DDrawCloseSurface@@YIHXZ"
-    },
-    {
-     "va": "0x00511B80",
-     "length": 157,
-     "name": "?sub_00511B80_DDrawClose@@YIHXZ"
-    },
-    {
-     "va": "0x00511CE0",
-     "length": 133,
-     "name": "?sub_00511CE0_DDrawInit@@YIHPAUD2GfxSettingsStrc@@PAUD2TileDrawFunctionsStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Src/ddCore_00511A80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00511A80",
-     "length": 132,
-     "name": "?sub_00511A80_DDrawReleaseSurfaces@@YAXXZ"
-    },
-    {
-     "va": "0x00511D70",
-     "length": 120,
-     "name": "?sub_00511D70_GetCapsValue@@YIHHPAH@Z"
-    },
-    {
-     "va": "0x00512700",
-     "length": 9,
-     "name": "?sub_00512700_DDrawGetBlendedShadows@@YAHXZ"
-    },
-    {
-     "va": "0x00513330",
-     "length": 67,
-     "name": "?sub_00513330_DDrawCloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
     }
    ]
   },
