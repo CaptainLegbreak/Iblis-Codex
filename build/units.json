@@ -37400,114 +37400,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004E96E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E96E0",
-     "length": 400,
-     "name": "?sub_004E96E0_DrawDamageRange@@YGXHHHHHH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004E99F0",
-     "length": 808,
-     "name": "?sub_004E99F0_DrawWeaponDamage@@YGXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HP6IH0PAH33HH1H0@ZHHHHHH@Z"
-    },
-    {
-     "va": "0x004EA170",
-     "length": 207,
-     "name": "?sub_004EA170_DrawDualWieldLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EA240",
-     "length": 207,
-     "name": "?sub_004EA240_DrawDualWieldLineNoElem@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EA310",
-     "length": 311,
-     "name": "?sub_004EA310_DrawWeaponDamageLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EA790",
-     "length": 512,
-     "name": "?sub_004EA790_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EAA30",
-     "length": 104,
-     "name": "?sub_004EAA30_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EB240",
-     "length": 77,
-     "name": "?sub_004EB240_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
-    },
-    {
-     "va": "0x004EBA30",
-     "length": 288
-    },
-    {
-     "va": "0x004EC140",
-     "length": 212,
-     "name": "?sub_004EC140_AddElemRange@@YGHHGHPAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x004EC220",
-     "length": 87,
-     "name": "?sub_004EC220_AddSkillElemDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@GHH@Z"
-    },
-    {
-     "va": "0x004EC620",
-     "length": 200,
-     "name": "?sub_004EC620_AddMissileElemRate@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@HH@Z"
-    },
-    {
-     "va": "0x004ED480",
-     "length": 167
-    },
-    {
-     "va": "0x004ED530",
-     "length": 53,
-     "name": "?sub_004ED530_HasOnlyBonusLevels@@YAHPAUD2UnitStrc@@H@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
    "rank": 0,
    "functions": [
@@ -37578,6 +37470,94 @@
      "va": "0x004EDB30",
      "length": 252,
      "name": "?sub_004EDB30_AddSeconds@@YGHGHHPAUUnicode@@@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004E96E0",
+     "length": 400,
+     "name": "?sub_004E96E0_DrawDamageRange@@YGXHHHHHH@Z"
+    },
+    {
+     "va": "0x004E99F0",
+     "length": 808,
+     "name": "?sub_004E99F0_DrawWeaponDamage@@YGXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HP6IH0PAH33HH1H0@ZHHHHHH@Z"
+    },
+    {
+     "va": "0x004EA170",
+     "length": 207,
+     "name": "?sub_004EA170_DrawDualWieldLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EA240",
+     "length": 207,
+     "name": "?sub_004EA240_DrawDualWieldLineNoElem@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EA310",
+     "length": 311,
+     "name": "?sub_004EA310_DrawWeaponDamageLine@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EA790",
+     "length": 512,
+     "name": "?sub_004EA790_DrawWeaponStatDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EAA30",
+     "length": 104,
+     "name": "?sub_004EAA30_DrawOtherHandDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EB240",
+     "length": 77,
+     "name": "?sub_004EB240_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EBA30",
+     "length": 288
+    },
+    {
+     "va": "0x004EC140",
+     "length": 212,
+     "name": "?sub_004EC140_AddElemRange@@YGHHGHPAUUnicode@@H@Z"
+    },
+    {
+     "va": "0x004EC220",
+     "length": 87,
+     "name": "?sub_004EC220_AddSkillElemDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@GHH@Z"
+    },
+    {
+     "va": "0x004EC620",
+     "length": 200,
+     "name": "?sub_004EC620_AddMissileElemRate@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@HH@Z"
+    },
+    {
+     "va": "0x004ED480",
+     "length": 167
+    },
+    {
+     "va": "0x004ED530",
+     "length": 53,
+     "name": "?sub_004ED530_HasOnlyBonusLevels@@YAHPAUD2UnitStrc@@H@Z"
     }
    ],
    "flags": [
