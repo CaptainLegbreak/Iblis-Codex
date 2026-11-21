@@ -308,6 +308,64 @@ int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, uns
 
 static int sub_0051E9D0_RunProgramList(const char* szList, const char* szDirectory); // 0x0051E9D0
 
+struct D2BnPacket33HeaderStrc
+{
+    int nValue;
+    int nZero;
+};
+
+static void __stdcall sub_0051E440_WriteFileWithTime(const void* pData, unsigned int nSize, const char* szFile, const D2FileTimeStrc* pFileTime);
+
+static int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, unsigned int nSize);
+
+int __cdecl sub_0051BCF0_SendBuffer(); // 0x0051BCF0
+
+int __fastcall sub_0051E370_SetText(const char* szText, int nLength); // 0x0051E370
+
+int __fastcall sub_00520550_SetStateArg(void* pArg); // 0x00520550
+
+#define HASH_ROL(x, n) (((x) << (n)) | ((x) >> (32 - (n))))
+
+struct D2BnetHashContextStrc;
+
+struct D2VersionReplyStrc;
+
+struct D2BnReplyStrc;
+
+struct D2BnetHashContextStrc
+{
+    unsigned int state[5];
+    union
+    {
+        unsigned int block[16];
+        unsigned char f_14[64];
+    };
+};
+
+void __fastcall sub_005206B0_HashTransform(D2BnetHashContextStrc* pContext); // 0x005206B0
+
+struct D2VersionReplyStrc
+{
+    unsigned int nResult;
+    char szText[1];
+};
+
+void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
+
+extern int gnUpdateState_008822C4; // 0x008822C4
+
+struct D2BnReplyStrc
+{
+    unsigned int nResult;
+    char szText[0x100];
+};
+
+extern char gszReplyText_00882428[0x100]; // 0x00882428
+
+int gnReplyReady_008823B0; // 0x008823B0
+
+unsigned int gnReplyResult_00882420; // 0x00882420
+
 // 0x00518BA0
 void D2BnLogStrc::sub_00518BA0_LogWrite(const char* szText)
 {
@@ -381,6 +439,19 @@ int __fastcall sub_0051E370_SetAdList(const void* pSource, unsigned int nSize)
 int __fastcall sub_0051E3B0_SetCheckRevisionValue(const char* szValue)
 {
     SStrCopy(gszCheckRevisionValue_00881E60, szValue, 0x104);
+    return 1;
+}
+
+// 0x0051E3D0
+int __fastcall sub_0051E3D0_SendPacket33(const char* szText, int nValue)
+{
+    D2BnPacket33HeaderStrc tHeader;
+    char szPacketText[0x104];
+    tHeader.nValue = nValue;
+    tHeader.nZero = 0;
+    char* pText = szPacketText;
+    pText += SStrCopy(pText, szText, sizeof(szPacketText)) + 1;
+    sub_0051C5C0_SendPacket(0x33, &tHeader, (unsigned int)(pText - (char*)&tHeader));
     return 1;
 }
 
@@ -847,12 +918,6 @@ int __cdecl sub_B03_Emit_0051E9D0(const char* szList, const char* szDirectory)
 {
     return sub_0051E9D0_RunProgramList(szList, szDirectory);
 }
-
-static void __stdcall sub_0051E440_WriteFileWithTime(const void* pData, unsigned int nSize, const char* szFile, const D2FileTimeStrc* pFileTime);
-
-static int __stdcall sub_0051E5F0_RecvAll(unsigned int nSocket, char* pBuffer, unsigned int nSize);
-
-
 
 // 0x0051F310
 unsigned int __stdcall sub_0051F310_DownloadThread(void* pArg)
@@ -1356,28 +1421,79 @@ int __fastcall sub_A12_Emit_0051EBB0(unsigned int nSocket, unsigned int nOffset,
     return sub_0051EBB0_RecvToFile(nSocket, szFile, pFileTime, nOffset, nTotal, nType);
 }
 
-// 0x00520210
-int __fastcall sub_00520210_QueueMessage(int nId, const void* pData, unsigned int nLength)
+
+// 0x005206B0
+void __fastcall sub_005206B0_HashTransform(D2BnetHashContextStrc* context)
 {
-    D2BnMessageStrc* pMessage = (D2BnMessageStrc*)FOG_Alloc(sizeof(D2BnMessageStrc), szBnMessQueueFile_006DF78C, 0x37, 0);
-    if (nLength > 0x120)
-        nLength = 0x120;
-    if (nLength)
-        memcpy(pMessage->szText, pData, nLength);
-    else
-        pMessage->szText[0] = 0;
-    pMessage->nLength = nLength;
-    pMessage->nId = nId;
-    pMessage->pNext = 0;
-    D2_ASSERT(nLength <= 0x120, 0x44);
-    EnterCriticalSection(&gMessageLock_00882004);
-    if (!gpMessageHead_00882020)
-        gpMessageHead_00882020 = pMessage;
-    else
-        gpMessageTail_00882024->pNext = pMessage;
-    gpMessageTail_00882024 = pMessage;
-    LeaveCriticalSection(&gMessageLock_00882004);
-    return 1;
+    unsigned int words[80];
+    int i;
+    for (i = 0; i < 16; ++i)
+        words[i] = context->block[i];
+    i = 16;
+    do
+    {
+        const int nShift = (words[i - 3] ^ words[i - 8] ^ words[i - 16] ^ words[i - 14]) & 31;
+        words[i] = HASH_ROL(1, nShift);
+        ++i;
+    } while (i < 80);
+    unsigned int a = context->state[0];
+    unsigned int b = context->state[1];
+    unsigned int c = context->state[2];
+    unsigned int d = context->state[3];
+    unsigned int e = context->state[4];
+    unsigned int t;
+    unsigned int n = 0;
+    for (; n < 20; ++n)
+    {
+        t = HASH_ROL(a, 5) + ((~b & d) | (c & b)) + words[n] + e + 0x5A827999;
+        e = d; d = c; c = HASH_ROL(b, 30); b = a; a = t;
+    }
+    for (; n < 40; ++n)
+    {
+        t = HASH_ROL(a, 5) + (d ^ c ^ b) + words[n] + e + 0x6ED9EBA1;
+        e = d; d = c; c = HASH_ROL(b, 30); b = a; a = t;
+    }
+    for (; n < 60; ++n)
+    {
+        t = HASH_ROL(a, 5) + (((c | b) & d) | (c & b)) + words[n] + e + 0x8F1BBCDC;
+        e = d; d = c; c = HASH_ROL(b, 30); b = a; a = t;
+    }
+    for (; n < 80; ++n)
+    {
+        t = HASH_ROL(a, 5) + (d ^ c ^ b) + words[n] + e + 0xCA62C1D6;
+        e = d; d = c; c = HASH_ROL(b, 30); b = a; a = t;
+    }
+    context->state[0] += a;
+    context->state[1] += b;
+    context->state[2] += c;
+    context->state[3] += d;
+    context->state[4] += e;
+}
+
+// 0x005209D0
+void __fastcall sub_005209D0_HashBuffer(unsigned int* pOut, const void* pData, unsigned int nSize)
+{
+    D2BnetHashContextStrc tContext;
+    tContext.state[0] = 0x67452301;
+    tContext.state[1] = 0xEFCDAB89;
+    tContext.state[2] = 0x98BADCFE;
+    tContext.state[3] = 0x10325476;
+    tContext.state[4] = 0xC3D2E1F0;
+    for (unsigned int i = 0; i < nSize; i += 64)
+    {
+        unsigned int nLength = nSize - i;
+        if (nLength > 64)
+            nLength = 64;
+        memcpy(tContext.f_14, pData, nLength);
+        if (nLength < 64)
+            memset(&tContext.f_14[nLength], 0, 64 - nLength);
+        sub_005206B0_HashTransform(&tContext);
+    }
+    pOut[0] = tContext.state[0];
+    pOut[1] = tContext.state[1];
+    pOut[2] = tContext.state[2];
+    pOut[3] = tContext.state[3];
+    pOut[4] = tContext.state[4];
 }
 
 // 0x00520AD0
@@ -1397,4 +1513,120 @@ extern "C" void __fastcall sub_00520C00_ClearSlotPair(unsigned char nSlot)
 extern "C" int __fastcall sub_00520C20_GetSlotB(unsigned char nSlot)
 {
     return gnSlotArrayB_008822A8[nSlot];
+}
+
+// 0x00520E50
+int __fastcall sub_00520E50_HandleVersionReply(D2VersionReplyStrc* pReply, int nSize)
+{
+    const unsigned int nResult = pReply->nResult;
+    switch (nResult)
+    {
+    case 1:
+    case 2:
+    case 3:
+        sub_0051BCF0_SendBuffer();
+        break;
+    }
+
+    SRegSaveData("Patch", "Patches", 0x82, &gszEmptyAssertText, 1);
+
+    if (nResult == 1)
+    {
+        const char* szText = pReply->szText;
+        const int nLength = nSize - 4;
+        sub_0051E370_SetText(szText, nLength);
+        SRegSaveData("Patch", "Patches", 0x82, szText, nLength);
+        D2FileTimeStrc tFileTime = { 0 };
+        sub_0051F910_Report(0x80000002, 2, 0, 0, &tFileTime, szText, 0);
+        gnUpdateState_008822C4 = 0;
+        sub_00518D40_Log("downloading upgrade");
+        return 1;
+    }
+
+    if (nResult == 2)
+    {
+        gnUpdateState_008822C4 = 1;
+        sub_00518D40_Log("user has latest version");
+        return 1;
+    }
+
+    sub_005204A0_SetError(1);
+    if (nResult == 3)
+    {
+        gnUpdateState_008822C4 = 0;
+        sub_00518D40_Log("User must reinstall and patch");
+        return 1;
+    }
+
+    gnUpdateState_008822C4 = 0;
+    sub_00518D40_Log("user has unknown version");
+    return 1;
+}
+
+// 0x00520FE0
+int __fastcall sub_00520FE0_HandleReply(D2BnReplyStrc* pReply)
+{
+    const unsigned int nResult = pReply->nResult;
+    gnReplyResult_00882420 = nResult;
+    gszReplyText_00882428[0] = 0;
+    gnReplyReady_008823B0 = 0;
+    switch (nResult)
+    {
+    case 0:
+        gnReplyReady_008823B0 = 1;
+        break;
+    case 3:
+        sub_00520520_SetState(3);
+        break;
+    case 6:
+        sub_00520520_SetState(5);
+        break;
+    case 5:
+        sub_00520520_SetState(4);
+        break;
+    case 4:
+        sub_00520520_SetState(6);
+        SStrCopy(gszReplyText_00882428, pReply->szText, 0x100);
+        sub_00520550_SetStateArg(gszReplyText_00882428);
+        break;
+    }
+    return 1;
+}
+
+unsigned int __fastcall sub_00522570_GetBit(const unsigned int* pKey, unsigned int nIndex)
+{
+    const int nShift = nIndex & 0x1F;
+    return (pKey[3 - (nIndex >> 5)] & (1 << nShift)) >> nShift;
+}
+
+void __fastcall sub_005225A0_SetBit(unsigned int* pKey, unsigned int nIndex, unsigned char nValue)
+{
+    const unsigned int nShift = nIndex & 0x1F;
+    const unsigned int nWord = 3 - (nIndex >> 5);
+    pKey[nWord] = (pKey[nWord] & ~(1 << nShift)) | ((nValue & 1) << nShift);
+}
+
+// 0x005226D0
+void __fastcall sub_005226D0_PermuteKeyBits(int nUnused, unsigned int* pKey)
+{
+    unsigned int aCopy[4];
+    aCopy[0] = pKey[0];
+    aCopy[1] = pKey[1];
+    aCopy[2] = pKey[2];
+    aCopy[3] = pKey[3];
+
+    unsigned int nPos = 0;
+    for (unsigned int i = 0; i < 120; ++i)
+    {
+        sub_005225A0_SetBit(pKey, i, (unsigned char)sub_00522570_GetBit(aCopy, nPos));
+        nPos += 11;
+        if (nPos >= 120)
+        {
+            nPos -= 120;
+            if ((int)nPos < 0)
+            {
+                nPos += 11;
+            }
+        }
+    }
 }

@@ -3867,7 +3867,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2BNClient/Unknown_0051BEB0.cpp": {
+  "Source/D2BNClient/BnSend_0051BEB0.cpp": {
    "bytes": 436,
    "definitions": 1,
    "externs": [
@@ -3912,7 +3912,7 @@
     "extern \"C\" void __cdecl sub_00521AE0_RequiredWork(); // 0x00521AE0"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/Unknown_0051BEB0.inc",
+   "include": "gen/data/Source/D2BNClient/BnSend_0051BEB0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3950,12 +3950,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Bnclient/Unknown_00520B30.cpp": {
+  "Source/D2BNClient/BnDownload_00520660.cpp": {
    "bytes": 740,
    "definitions": 3,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Bnclient/Unknown_00520B30.inc",
+   "include": "gen/data/Source/D2BNClient/BnDownload_00520B30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -89323,7 +89323,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2BNClient/Unknown_0051BEB0.cpp",
+   "file": "Source/D2BNClient/BnSend_0051BEB0.cpp",
    "fill": 109,
    "form": "declared",
    "fwd": null,
@@ -89958,7 +89958,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Bnclient/Unknown_00520B30.cpp",
+   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0072FFA8 = ",
@@ -89984,7 +89984,7 @@
    "cname": "gData_006DFF20",
    "declared": true,
    "decorated": "?gaSubstitutionBox_006DFF20@@3PAY0BA@EA",
-   "file": "Source/Bnclient/Unknown_00520B30.cpp",
+   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006DFF20[30][16]; // 0x006DFF20",
    "head": "extern \"C\" const unsigned char gData_006DFF20[30][16] = ",
@@ -90019,7 +90019,7 @@
    "cname": "gData_006E0100",
    "declared": true,
    "decorated": "?gaCdKeyCharMap_006E0100@@3PAEA",
-   "file": "Source/Bnclient/Unknown_00520B30.cpp",
+   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E0100[256]; // 0x006E0100",
    "head": "extern \"C\" const unsigned char gData_006E0100[256] = ",

@@ -45581,6 +45581,10 @@
      "name": "?sub_0051E3B0_SetCheckRevisionValue@@YIHPBD@Z"
     },
     {
+     "va": "0x0051E3D0",
+     "length": 97
+    },
+    {
      "va": "0x0051E440",
      "length": 79,
      "name": "?sub_0051E440_WriteFileWithTime@@YGXPBXIPBDPBUD2FileTimeStrc@@@Z"
@@ -45677,9 +45681,13 @@
      "name": "?sub_00520020_SetAdList@@YIHPBDH@Z"
     },
     {
-     "va": "0x00520210",
-     "length": 217,
-     "name": "sub_00520210_QueueMessage"
+     "va": "0x005206B0",
+     "length": 792
+    },
+    {
+     "va": "0x005209D0",
+     "length": 170,
+     "name": "?sub_005209D0_HashBuffer@@YIXPAIPBXI@Z"
     },
     {
      "va": "0x00520AD0",
@@ -45695,6 +45703,18 @@
      "va": "0x00520C20",
      "length": 11,
      "name": "@sub_00520C20_GetSlotB@4"
+    },
+    {
+     "va": "0x00520E50",
+     "length": 262
+    },
+    {
+     "va": "0x00520FE0",
+     "length": 180
+    },
+    {
+     "va": "0x005226D0",
+     "length": 678
     }
    ]
   },
@@ -45823,33 +45843,13 @@
    ]
   },
   {
-   "file": "Source/D2BNClient/Unknown_00519110.cpp",
-   "rank": 1,
+   "file": "Source/D2BNClient/CACHE.CPP",
+   "rank": 0,
    "functions": [
     {
      "va": "0x00519110",
      "length": 180
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/CACHE.CPP",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00519220",
      "length": 117,
@@ -46219,7 +46219,7 @@
    ]
   },
   {
-   "file": "Source/D2BNClient/Unknown_0051BEB0.cpp",
+   "file": "Source/D2BNClient/BnSend_0051BEB0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -46574,16 +46574,6 @@
    ]
   },
   {
-   "file": "Source/D2BNClient/Unknown_0051E3D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051E3D0",
-     "length": 97
-    }
-   ]
-  },
-  {
    "file": "Source/D2BNClient/Unknown_005201E0.cpp",
    "rank": 0,
    "functions": [
@@ -46638,6 +46628,11 @@
    "file": "Source/D2BNClient/BnMessQueue.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00520210",
+     "length": 217,
+     "name": "sub_00520210_QueueMessage"
+    },
     {
      "va": "0x005202F0",
      "length": 192,
@@ -47708,13 +47703,28 @@
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_00520660.cpp",
+   "file": "Source/D2BNClient/BnDownload_00520660.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00520660",
      "length": 18,
      "name": "?sub_00520660_HandleReply0F@@YIHPBXI@Z"
+    },
+    {
+     "va": "0x00520B30",
+     "length": 56,
+     "name": "?sub_00520B30_ResetReplies@@YAHXZ"
+    },
+    {
+     "va": "0x00520B70",
+     "length": 124,
+     "name": "sub_00520B70_WaitForReply"
+    },
+    {
+     "va": "0x00520BF0",
+     "length": 11,
+     "name": "?sub_00520BF0_IsReplyReceived@@YIHE@Z"
     },
     {
      "va": "0x00520C50",
@@ -47765,68 +47775,6 @@
      "va": "0x00520FC0",
      "length": 18,
      "name": "?sub_00520FC0_HandleReply25@@YIHPBXI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_005206B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005206B0",
-     "length": 792
-    },
-    {
-     "va": "0x005209D0",
-     "length": 170,
-     "name": "?sub_005209D0_HashBuffer@@YIXPAIPBXI@Z"
-    },
-    {
-     "va": "0x00520E50",
-     "length": 262
-    },
-    {
-     "va": "0x00520FE0",
-     "length": 180
-    },
-    {
-     "va": "0x005226D0",
-     "length": 678
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_00520B30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00520B30",
-     "length": 56,
-     "name": "?sub_00520B30_ResetReplies@@YAHXZ"
-    },
-    {
-     "va": "0x00520B70",
-     "length": 124,
-     "name": "sub_00520B70_WaitForReply"
-    },
-    {
-     "va": "0x00520BF0",
-     "length": 11,
-     "name": "?sub_00520BF0_IsReplyReceived@@YIHE@Z"
     },
     {
      "va": "0x005210A0",
