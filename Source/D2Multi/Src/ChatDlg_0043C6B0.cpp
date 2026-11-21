@@ -1,6 +1,7 @@
 #include "D2Multi.h"
 #include "D2StormTypes.h"
 #include "D2Unicode.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CharSaveHeaderStrc;
@@ -10,11 +11,6 @@ struct Unicode;
 struct D2ChatMessageStrc;
 struct D2LaunchFuncsStrc;
 struct SMSGHANDLER_PARAMS;
-
-struct D2WinControlInitStrc
-{
-    char data[0x30];
-};
 
 struct D2CharSaveHeaderStrc
 {
@@ -38,14 +34,6 @@ struct D2CharSaveFileStrc
     char unk0x28[0x1FD8];
 };
 
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x8D];
-    char szText0x8D[0x10];
-    unsigned char unk_9D[0x20];
-    char szText0xBD[0x170];
-    char szText0x22D[0x10];
-};
 int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void* __fastcall sub_00406960_CreateFile(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
@@ -150,14 +138,6 @@ extern "C" __declspec(dllimport) int __stdcall FileTimeToSystemTime(const _FILET
 extern "C" __declspec(dllimport) int __stdcall FileTimeToLocalFileTime(const _FILETIME* pFileTime, _FILETIME* pLocalFileTime); // 0x006CC338
 unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x14];
-    void (__fastcall* pfn0x14)(const char* szText);
-    char unk0x18[0x50];
-    int (__fastcall* pfn0x68)();
-};
 
 class D2SquelchListStrc
 {
@@ -300,7 +280,7 @@ void __cdecl sub_0043FC20()
         return;
 
     gbChatSetup_0077BBF8 = 0;
-    sprintf(szText, "%s,%s", gpCharInfo_0077BBD8->szText0x22D, gpCharInfo_0077BBD8->szText0xBD);
+    sprintf(szText, "%s,%s", gpCharInfo_0077BBD8->szRealm0x22D, gpCharInfo_0077BBD8->szName0xBD);
     sub_0043E130_Reset();
 
     if (gpChatCellFile_0077BBFC)
