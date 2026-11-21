@@ -66,11 +66,7 @@ struct D2NpcGambleStrc;
 
 struct D2NpcRecordStrc;
 
-struct D2NpcTradeStrc;
-
 union D2SeedStrc;
-
-struct D2MercDataStrc;
 
 struct D2GSPacketSrv50;
 
@@ -147,20 +143,6 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-
-struct D2NpcTradeStrc
-{
-    unsigned char bVendorInit;
-    unsigned char bHireInit;
-    unsigned char nAct;
-    unsigned char bTrader;
-    unsigned char unk0x04[3];
-    unsigned char bRefreshInventory;
-    unsigned int dwTicks;
-    D2UnitProxyStrc pProxy;
-};
-
-#define NPC_TRADE(pNpcRecord) ((D2NpcTradeStrc*)&(pNpcRecord)->bVendorInit)
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -258,7 +240,7 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCCAE20(D2GameStrc* pGame, D2Un
 
 void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc); // 0x00536D10
 
-void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2NpcTradeStrc* pTrade); // 0x00576980
+void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2NpcTradeDataStrc* pTrade); // 0x00576980
 
 void __fastcall sub_00576C30_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory); // 0x00576C30
 
@@ -288,15 +270,6 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pUnit, D2NpcRecordStrc* pNpcRecord); // 0x00578790
 
 void __fastcall D2GAME_NPC_HealPlayer_6FCCB080(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578D30
-
-struct D2MercDataStrc
-{
-    unsigned short nMercName;
-    unsigned short unk0x02;
-    int dwSeed;
-    int bHired;
-    int bAvailable;
-};
 
 #pragma pack(push, 1)
 
@@ -864,11 +837,11 @@ void __fastcall sub_00576070_InitGamble(D2GameStrc* pGame, int nVendorId, D2NpcR
         return;
     }
 
-    pNpcRecord->pMercData = FOG_AllocPool(pGame->pMemoryPool, 0x450, ".\\UNIT\\SUNITNPC.CPP", 0x6E, 0);
+    pNpcRecord->pMercData = (D2MercDataStrc*)FOG_AllocPool(pGame->pMemoryPool, 0x450, ".\\UNIT\\SUNITNPC.CPP", 0x6E, 0);
     memset(pNpcRecord->pMercData, 0, 0x450);
 
     D2SeedStrc* pSeed = SUNITPROXY_GetSeedFromNpcControl(pGame);
-    D2MercDataStrc* pMercData = (D2MercDataStrc*)pNpcRecord->pMercData;
+    D2MercDataStrc* pMercData = pNpcRecord->pMercData;
 
     int nMin;
     int nMax;
@@ -1186,7 +1159,7 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
         sub_00576070_InitGamble(CLIENTS_GetGame(pClient), nNpcClassId, pNpcRecord);
     }
 
-    D2MercDataStrc* pMercData = (D2MercDataStrc*)pNpcRecord->pMercData;
+    D2MercDataStrc* pMercData = pNpcRecord->pMercData;
     int nNameFirst;
     int nNameLast;
     const int nCount = SUNITNPC_GetHirelingNameRange(pGame, nNpcClassId, &nNameFirst, &nNameLast, 0);
@@ -1234,7 +1207,7 @@ int __fastcall sub_00576900_RollStoreItemQuality(D2SeedStrc* pSeed, unsigned int
 }
 
 // 0x00576980
-void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2NpcTradeStrc* pTrade)
+void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2NpcTradeDataStrc* pTrade)
 {
     D2SeedStrc* pSeed = SUNITPROXY_GetSeedFromNpcControl(pGame);
 
@@ -1249,10 +1222,10 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
     const int nLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
     const int nItemLevel = sub_00576890(pGame, pNpc, nLevel + STORE_LEVEL_BONUS);
 
-    for (i = 0; i < NPC_TRADE(pNpcRecord)->pProxy.nItems; ++i)
+    for (i = 0; i < pNpcRecord->tProxy.nItems; ++i)
     {
         int nUnused;
-        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(pTrade->pProxy.pItemCache[i].dwCode, &nUnused);
+        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(pTrade->tProxy.pItemCache[i].dwCode, &nUnused);
         if (pItemsTxtRecord->nLevel <= nItemLevel)
         {
             unsigned int nNormalItems;
@@ -1262,15 +1235,15 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
             }
             else
             {
-                nNormalItems = OBJECTS_RollRandomNumber(pSeed, NPC_TRADE(pNpcRecord)->pProxy.pItemCache[i].nMin, NPC_TRADE(pNpcRecord)->pProxy.pItemCache[i].nMax + 1);
+                nNormalItems = OBJECTS_RollRandomNumber(pSeed, pNpcRecord->tProxy.pItemCache[i].nMin, pNpcRecord->tProxy.pItemCache[i].nMax + 1);
             }
 
             if (pItemsTxtRecord->wVersion < ITEM_VERSION_EXPANSION || pGame->wItemFormat >= ITEM_VERSION_EXPANSION)
             {
                 for (unsigned int j = 0; j < nNormalItems; ++j)
                 {
-                    const int nQuality = sub_00576900_RollStoreItemQuality(pSeed, NPC_TRADE(pNpcRecord)->pProxy.pItemCache[i].dwCode, nItemLevel);
-                    if (!D2GAME_NPC_GenerateStoreItem_6FCC6A60(pNpc, NPC_TRADE(pNpcRecord)->pProxy.pItemCache[i].dwCode, pGame, 1, nQuality, nItemLevel, nLevel))
+                    const int nQuality = sub_00576900_RollStoreItemQuality(pSeed, pNpcRecord->tProxy.pItemCache[i].dwCode, nItemLevel);
+                    if (!D2GAME_NPC_GenerateStoreItem_6FCC6A60(pNpc, pNpcRecord->tProxy.pItemCache[i].dwCode, pGame, 1, nQuality, nItemLevel, nLevel))
                     {
                         ++nSpawnedItems;
                     }
@@ -1282,8 +1255,8 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
                 }
 
                 int nItemId;
-                DATATBLS_GetItemRecordFromItemCode(pTrade->pProxy.pItemCache[i].dwCode, &nItemId);
-                if (ITEMS_CheckBitField1Flag1(nItemId) == 1 && pTrade->pProxy.pItemCache[i].nMagicLevel <= nItemLevel)
+                DATATBLS_GetItemRecordFromItemCode(pTrade->tProxy.pItemCache[i].dwCode, &nItemId);
+                if (ITEMS_CheckBitField1Flag1(nItemId) == 1 && pTrade->tProxy.pItemCache[i].nMagicLevel <= nItemLevel)
                 {
                     int nMinItems = 1;
                     if (nItemLevel >= STORE_HIGH_LEVEL)
@@ -1291,10 +1264,10 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
                         nMinItems = OBJECTS_RollRandomNumber(pSeed, 1, 3) + 1;
                     }
 
-                    const unsigned int nMagicItems = OBJECTS_RollRandomNumber(pSeed, NPC_TRADE(pNpcRecord)->pProxy.pItemCache[i].nMagicMin, NPC_TRADE(pNpcRecord)->pProxy.pItemCache[i].nMagicMax + nMinItems);
+                    const unsigned int nMagicItems = OBJECTS_RollRandomNumber(pSeed, pNpcRecord->tProxy.pItemCache[i].nMagicMin, pNpcRecord->tProxy.pItemCache[i].nMagicMax + nMinItems);
                     for (unsigned int j = 0; j < nMagicItems; ++j)
                     {
-                        if (!D2GAME_NPC_GenerateStoreItem_6FCC6A60(pNpc, NPC_TRADE(pNpcRecord)->pProxy.pItemCache[i].dwCode, pGame, 1, ITEMQUAL_MAGIC, nItemLevel, nLevel))
+                        if (!D2GAME_NPC_GenerateStoreItem_6FCC6A60(pNpc, pNpcRecord->tProxy.pItemCache[i].dwCode, pGame, 1, ITEMQUAL_MAGIC, nItemLevel, nLevel))
                         {
                             ++nSpawnedItems;
                         }
@@ -1304,13 +1277,13 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
         }
     }
 
-    for (i = 0; i < NPC_TRADE(pNpcRecord)->pProxy.nPerms; ++i)
+    for (i = 0; i < pNpcRecord->tProxy.nPerms; ++i)
     {
-        D2UnitStrc* pStoreItem = D2GAME_NPC_GenerateStoreItem_6FCC6A60(pNpc, NPC_TRADE(pNpcRecord)->pProxy.pPermCache[i], pGame, 1, ITEMQUAL_NORMAL, nItemLevel, nLevel);
+        D2UnitStrc* pStoreItem = D2GAME_NPC_GenerateStoreItem_6FCC6A60(pNpc, pNpcRecord->tProxy.pPermCache[i], pGame, 1, ITEMQUAL_NORMAL, nItemLevel, nLevel);
         if (pStoreItem)
         {
             int nUnused;
-            const unsigned int nItemCode = DATATBLS_GetItemRecordFromItemCode(pTrade->pProxy.pPermCache[i], &nUnused)->dwCode;
+            const unsigned int nItemCode = DATATBLS_GetItemRecordFromItemCode(pTrade->tProxy.pPermCache[i], &nUnused)->dwCode;
             if (nItemCode == ITEMCODE_CROSSBOW_BOLTS || nItemCode == ITEMCODE_ARROWS)
             {
                 STATLIST_SetUnitStat(pStoreItem, STAT_QUANTITY, ITEMS_GetTotalMaxStack(pStoreItem), 0);
@@ -1363,16 +1336,16 @@ int __fastcall sub_00576C90_RollTraderItemCode(D2GameStrc* pGame, D2UnitStrc* pN
     D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nNpcIndex);
     if (pNpcRecord)
     {
-        D2NpcTradeStrc* pTrade = NPC_TRADE(pNpcRecord);
-        if (pTrade && pTrade->bTrader && pTrade->pProxy.nItems && pTrade->pProxy.pItemCache)
+        D2NpcTradeDataStrc* pTrade = &pNpcRecord->tTrade;
+        if (pTrade && pTrade->bTrader && pTrade->tProxy.nItems && pTrade->tProxy.pItemCache)
         {
-            int nItemId = ITEMS_RollLimitedRandomNumber(pSeed, pTrade->pProxy.nItems);
+            int nItemId = ITEMS_RollLimitedRandomNumber(pSeed, pTrade->tProxy.nItems);
             pSeed->lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
 
             const int nRand = nItemId;
-            DATATBLS_GetItemRecordFromItemCode(pTrade->pProxy.pItemCache[nRand].dwCode, &nItemId);
+            DATATBLS_GetItemRecordFromItemCode(pTrade->tProxy.pItemCache[nRand].dwCode, &nItemId);
             ITEMS_CheckBitField1Flag1(nItemId);
-            *pCode = pTrade->pProxy.pItemCache[nRand].dwCode;
+            *pCode = pTrade->tProxy.pItemCache[nRand].dwCode;
             *pIndex = nIndex;
             return 1;
         }
@@ -1494,7 +1467,7 @@ void __fastcall sub_6FCC7E20(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pI
 // 0x00577010
 void __fastcall sub_00577010_VendorRefresh(D2GameStrc* pGame, int nVendorId, D2NpcRecordStrc* pNpcRecord)
 {
-    D2MercDataStrc* pMercData = (D2MercDataStrc*)pNpcRecord->pMercData;
+    D2MercDataStrc* pMercData = pNpcRecord->pMercData;
     int nAvailable = 0;
     int nFirst, nLast;
     const int nCount = SUNITNPC_GetHirelingNameRange(pGame, nVendorId, &nFirst, &nLast, 0);
@@ -1571,7 +1544,7 @@ void __fastcall SUNITNPC_HireMercenaryFromRoster(D2GameStrc* pGame, D2UnitStrc* 
         return;
     }
 
-    D2MercDataStrc* pMercData = &((D2MercDataStrc*)pNpcRecord->pMercData)[wName - nNameFirst];
+    D2MercDataStrc* pMercData = &pNpcRecord->pMercData[wName - nNameFirst];
     if (pMercData->nMercName != wName)
     {
         sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 0x693), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, 0x0E, 0), -1, 0);
@@ -1700,7 +1673,7 @@ D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStr
     }
 
     int nUnused;
-    D2MercDataStrc* pMercData = (D2MercDataStrc*)SUNITPROXY_GetNpcRecordFromClassId(pGame, nSeller, &nUnused)->pMercData;
+    D2MercDataStrc* pMercData = SUNITPROXY_GetNpcRecordFromClassId(pGame, nSeller, &nUnused)->pMercData;
     if (pMercData)
     {
         pMercData += wName - nNameFirst;
@@ -2422,7 +2395,7 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCCAE20(D2GameStrc* pGame, D2Un
     }
     else
     {
-        D2NpcTradeStrc* pTrade = NPC_TRADE(pNpcRecord);
+        D2NpcTradeDataStrc* pTrade = &pNpcRecord->tTrade;
         if (pTrade && pTrade->bTrader)
         {
             SUNITPROXY_GetVendorChain(pGame, pNpcRecord, pPlayer)->bGamble = 0;
@@ -2647,11 +2620,11 @@ int __stdcall sub_J17_Emit_005786A0(D2GameStrc* pGame, int nItemLevel, int nItem
     return sub_005786A0_RollGambleUpgrade(nItemId, nUberChance, nUltraChance, pGame, nItemLevel);
 }
 
-static __forceinline D2NpcTradeStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcRecord)
+static __forceinline D2NpcTradeDataStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcRecord)
 {
     if (pNpcRecord)
     {
-        return NPC_TRADE(pNpcRecord);
+        return &pNpcRecord->tTrade;
     }
 
     return 0;
@@ -2695,7 +2668,7 @@ void __fastcall sub_00579090_RefillNpcStore(D2GameStrc* pGame, D2UnitStrc* pPlay
         sub_0063BD00_Return(pInventory);
     }
 
-    D2NpcTradeStrc* pTrade = SUNITNPC_GetNpcTrade(pNpcRecord);
+    D2NpcTradeDataStrc* pTrade = SUNITNPC_GetNpcTrade(pNpcRecord);
     if (pTrade && pTrade->bTrader)
     {
         pTrade->bVendorInit = 0;
@@ -2716,7 +2689,7 @@ void __fastcall sub_00579180_ResurrectMerc(D2GameStrc* pGame, D2UnitStrc* pPlaye
         return;
     }
 
-    D2MercDataStrc* pMercData = (D2MercDataStrc*)pNpcRecord->pMercData;
+    D2MercDataStrc* pMercData = pNpcRecord->pMercData;
     if (!pMercData)
     {
         return;
@@ -2863,7 +2836,7 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2Un
 
     if (bRefreshInventory && !bGamble)
     {
-        D2NpcTradeStrc* pTrade = NPC_TRADE(pNpcRecord);
+        D2NpcTradeDataStrc* pTrade = &pNpcRecord->tTrade;
         if (pTrade->bRefreshInventory)
         {
             pTrade->bRefreshInventory = 0;
