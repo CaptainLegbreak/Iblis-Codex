@@ -31,11 +31,6 @@ struct D2CommonStormHashTableAStrc;
 struct D2StormRequestCallbackStrc;
 struct D2StormCryptFuncsStrc;
 struct D2StormSignatureKeyStrc;
-struct D2StormList00708354Strc;
-struct D2StormList00708360Strc;
-struct D2StormList0070836CStrc;
-struct D2StormList00708378Strc;
-struct D2StormList00708384Strc;
 struct D2StormRecord419000Strc;
 
 struct D2FogBlockStrc
@@ -111,16 +106,6 @@ static int __stdcall sub_004155D0_FindHashEntry(unsigned short wLocale, unsigned
 static int __stdcall sub_00415B00_FindDiskFile(unsigned int nFlags, const char* szName, char* szOut); // 0x00415B00
 static int __stdcall sub_00417F10_FindFile(void* hArchive, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, D2StormBlockStrc** ppBlock, char* szFoundPath);
 void __cdecl sub_00415B90_InitCryptTable(); // 0x00415B90
-
-struct D2StormList00708354Strc : D2StormListBaseStrc { void sub_00418900_UnlinkAll(); };
-
-struct D2StormList00708360Strc : D2StormListBaseStrc { void sub_00418940_UnlinkAll(); };
-
-struct D2StormList0070836CStrc : D2StormListBaseStrc { void sub_00418980_UnlinkAll(); };
-
-struct D2StormList00708378Strc : D2StormListBaseStrc { void sub_004189C0_UnlinkAll(); };
-
-struct D2StormList00708384Strc : D2StormListBaseStrc { void sub_00418A00_UnlinkAll(); };
 
 struct D2StormRecord419000Strc
 {

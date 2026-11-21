@@ -177,7 +177,11 @@ struct D2StormFileRecStrc
         void* pBuffer0x12C;
     };
     int bOffsetsLoaded;                         // 0x130
-    unsigned char unk_134[0x4];                 // 0x134
+    union
+    {
+        unsigned char unk_134[0x4];             // 0x134
+        int bDdaActive;
+    };
     union
     {
         void* pBuffer0x138;                     // 0x138
@@ -256,6 +260,18 @@ struct D2StormStreamStrc
     unsigned char nFill;                        // 0x48
     char pad0x49[3];                            // 0x49
     int nRefs;                                  // 0x4C
+};
+
+// The list of playing streams.
+struct D2StormStreamListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    D2StormStreamStrc* Head()
+    {
+        return (D2StormStreamStrc*)m_terminator.Next();
+    }
 };
 
 // A pending read request (0x44 bytes).
@@ -440,4 +456,35 @@ struct D2Storm4168F0Strc
     D2StormLinkStrc tLink;
 
     ~D2Storm4168F0Strc();
+};
+
+// The file's global lists.
+struct D2StormList00708354Strc : D2StormListBaseStrc
+{
+    void sub_00418900_UnlinkAll();
+    ~D2StormList00708354Strc();
+};
+
+struct D2StormList00708360Strc : D2StormListBaseStrc
+{
+    void sub_00418940_UnlinkAll();
+    ~D2StormList00708360Strc();
+};
+
+struct D2StormList0070836CStrc : D2StormListBaseStrc
+{
+    void sub_00418980_UnlinkAll();
+    ~D2StormList0070836CStrc();
+};
+
+struct D2StormList00708378Strc : D2StormListBaseStrc
+{
+    void sub_004189C0_UnlinkAll();
+    ~D2StormList00708378Strc();
+};
+
+struct D2StormList00708384Strc : D2StormListBaseStrc
+{
+    void sub_00418A00_UnlinkAll();
+    ~D2StormList00708384Strc();
 };

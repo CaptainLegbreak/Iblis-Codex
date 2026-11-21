@@ -12,17 +12,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith);                    // 0x0041D2C0
 
 
-struct D2StormStreamListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormStreamStrc* Head()
-    {
-        return (D2StormStreamStrc*)m_terminator.Next();
-    }
-};
-
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
     return pWhere;

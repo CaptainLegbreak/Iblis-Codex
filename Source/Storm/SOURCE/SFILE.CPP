@@ -19,7 +19,6 @@
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2FileStrc;
-struct D2StormDdaNodeStrc;
 struct D2StormFileSubStrc;
 struct D2MemoryStatusStrc;
 struct D2OsVersionInfoStrc;
@@ -33,9 +32,6 @@ struct D2StormCryptFuncsStrc;
 struct D2StormSignatureKeyStrc;
 struct D2StormBlockEntryStrc;
 struct D2StormQuadStrc;
-struct D2StormSoundBuffer;
-struct D2StormDdaLinkStrc;
-struct D2StormDdaListStrc;
 struct D2Storm416A90Strc;
 struct PairStrc_00416810;
 struct PairStrc_00416890;
@@ -75,11 +71,6 @@ struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct D2StormList00418490Strc;
 struct D2StormList004185B0Strc;
-struct D2StormList00708354Strc;
-struct D2StormList00708360Strc;
-struct D2StormList0070836CStrc;
-struct D2StormList00708378Strc;
-struct D2StormList00708384Strc;
 struct D2StormHashBufferStrc;
 struct D2StormHuffOutputStrc;
 class THuffmannTree;
@@ -252,60 +243,7 @@ struct D2StormFileSubStrc
     unsigned char unk_2C[0x4];
 };
 
-struct D2StormSoundBuffer
-{
-    virtual long __stdcall QueryInterface() = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall GetCaps() = 0;
-    virtual long __stdcall GetCurrentPosition() = 0;
-    virtual long __stdcall GetFormat() = 0;
-    virtual long __stdcall GetVolume(int* pnVolume) = 0;
-    virtual long __stdcall GetPan(int* pnPan) = 0;
-    virtual long __stdcall GetFrequency() = 0;
-    virtual long __stdcall GetStatus() = 0;
-    virtual long __stdcall Initialize() = 0;
-    virtual long __stdcall Lock() = 0;
-    virtual long __stdcall Play() = 0;
-    virtual long __stdcall SetCurrentPosition() = 0;
-    virtual long __stdcall SetFormat() = 0;
-    virtual long __stdcall SetVolume(int nVolume) = 0;
-    virtual long __stdcall SetPan(int nPan) = 0;
-};
-
-struct D2StormDdaLinkStrc
-{
-    D2StormDdaLinkStrc* m_prevlink;
-    D2StormDdaNodeStrc* m_next;
-
-    D2StormDdaNodeStrc* Next()
-    {
-        return (int)m_next > 0 ? m_next : 0;
-    }
-};
-
-struct D2StormDdaNodeStrc
-{
-    D2StormDdaLinkStrc f_0;
-    D2StormFileRecStrc* pFile;
-    char pad0C[0x28];
-    int f_34;
-    int f_38;
-    D2StormSoundBuffer* pBuffer;
-};
-
-struct D2StormDdaListStrc
-{
-    int m_linkoffset;
-    D2StormDdaLinkStrc m_terminator;
-
-    D2StormDdaNodeStrc* Head()
-    {
-        return m_terminator.Next();
-    }
-};
-
-extern D2StormDdaListStrc gDdaList_00708384; // 0x00708384
+extern D2StormStreamListStrc gDdaList_00708384; // 0x00708384
 extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, __int64* pCreation, __int64* pAccess, __int64* pWrite);
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
@@ -427,15 +365,6 @@ struct D2StormList00418490Strc : D2StormListBaseStrc { int sub_00418490_IsEmpty(
 
 struct D2StormList004185B0Strc : D2StormListBaseStrc { int sub_004185B0_IsEmpty(); };
 
-struct D2StormList00708354Strc : D2StormListBaseStrc { void sub_00418900_UnlinkAll(); ~D2StormList00708354Strc(); };
-
-struct D2StormList00708360Strc : D2StormListBaseStrc { void sub_00418940_UnlinkAll(); ~D2StormList00708360Strc(); };
-
-struct D2StormList0070836CStrc : D2StormListBaseStrc { void sub_00418980_UnlinkAll(); ~D2StormList0070836CStrc(); };
-
-struct D2StormList00708378Strc : D2StormListBaseStrc { void sub_004189C0_UnlinkAll(); ~D2StormList00708378Strc(); };
-
-struct D2StormList00708384Strc : D2StormListBaseStrc { void sub_00418A00_UnlinkAll(); ~D2StormList00708384Strc(); };
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName); // 0x006CC228
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pThreadId); // 0x006CC250
@@ -1844,8 +1773,8 @@ int __stdcall SFileDdaGetVolume(void* hFile, int* pnVolume, int* pnPan)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    D2StormDdaNodeStrc* pNode;
-    for (pNode = gDdaList_00708384.Head(); pNode; pNode = pNode->f_0.Next())
+    D2StormStreamStrc* pNode;
+    for (pNode = gDdaList_00708384.Head(); pNode; pNode = (D2StormStreamStrc*)pNode->tLink.Next())
     {
         if (pNode->pFile == pRec)
             break;
@@ -1856,14 +1785,14 @@ int __stdcall SFileDdaGetVolume(void* hFile, int* pnVolume, int* pnPan)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    if (pNode->f_34 == 0x7FFFFFFF)
-        pNode->pBuffer->GetVolume(&pNode->f_34);
-    if (pNode->f_38 == 0x7FFFFFFF)
-        pNode->pBuffer->GetPan(&pNode->f_38);
+    if (pNode->nVolume == 0x7FFFFFFF)
+        pNode->pBuffer->GetVolume((long*)&pNode->nVolume);
+    if (pNode->nPan == 0x7FFFFFFF)
+        pNode->pBuffer->GetPan((long*)&pNode->nPan);
     if (pnVolume)
-        *pnVolume = pNode->f_34;
+        *pnVolume = pNode->nVolume;
     if (pnPan)
-        *pnPan = pNode->f_38;
+        *pnPan = pNode->nPan;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
 }
@@ -1878,8 +1807,8 @@ int __stdcall SFileDdaSetVolume(void* hFile, int nVolume, int nPan)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    D2StormDdaNodeStrc* pNode;
-    for (pNode = gDdaList_00708384.Head(); pNode; pNode = pNode->f_0.Next())
+    D2StormStreamStrc* pNode;
+    for (pNode = gDdaList_00708384.Head(); pNode; pNode = (D2StormStreamStrc*)pNode->tLink.Next())
     {
         if (pNode->pFile == pRec)
             break;
@@ -1890,14 +1819,14 @@ int __stdcall SFileDdaSetVolume(void* hFile, int nVolume, int nPan)
         sub_0041C340_SetLastError(0x85100072);
         return 0;
     }
-    if (nVolume != 0x7FFFFFFF && nVolume != pNode->f_34)
+    if (nVolume != 0x7FFFFFFF && nVolume != pNode->nVolume)
     {
-        pNode->f_34 = nVolume;
+        pNode->nVolume = nVolume;
         pNode->pBuffer->SetVolume(nVolume);
     }
-    if (nPan != 0x7FFFFFFF && nPan != pNode->f_38)
+    if (nPan != 0x7FFFFFFF && nPan != pNode->nPan)
     {
-        pNode->f_38 = nPan;
+        pNode->nPan = nPan;
         pNode->pBuffer->SetPan(nPan);
     }
     LeaveCriticalSection(&gBasePathLock_00779068);
