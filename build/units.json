@@ -80106,6 +80106,10 @@
      "length": 310
     },
     {
+     "va": "0x00628E70",
+     "length": 1148
+    },
+    {
      "va": "0x006292F0",
      "length": 125
     },
@@ -80118,40 +80122,12 @@
      "length": 82
     },
     {
-     "va": "0x0062BCB0",
-     "length": 324
-    },
-    {
-     "va": "0x0062EAF0",
-     "length": 596
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_00628E70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00628E70",
-     "length": 1148
-    },
-    {
      "va": "0x0062A970",
      "length": 780
+    },
+    {
+     "va": "0x0062BCB0",
+     "length": 324
     },
     {
      "va": "0x0062BED0",
@@ -80168,6 +80144,10 @@
     {
      "va": "0x0062E660",
      "length": 137
+    },
+    {
+     "va": "0x0062EAF0",
+     "length": 596
     }
    ],
    "flags": [
