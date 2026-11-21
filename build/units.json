@@ -75336,9 +75336,19 @@
      "name": "?0D2StormHashKeyStrIAStrc"
     },
     {
+     "va": "0x0060DC90",
+     "length": 25,
+     "name": "??1D2StormHashKeyStrIAStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0060DCB0",
      "length": 50,
      "name": "?4D2StormHashKeyStrIAStrc"
+    },
+    {
+     "va": "0x0060DCF0",
+     "length": 3,
+     "name": "?sub_0060DCF0_GetString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
     },
     {
      "va": "0x0060DD00",
@@ -75346,14 +75356,39 @@
      "name": "?0D2StormHashKeyStrIBStrc"
     },
     {
+     "va": "0x0060DD50",
+     "length": 7,
+     "name": "??1D2CommonChatIgnoreListStrc@@UAE@XZ"
+    },
+    {
      "va": "0x0060DD60",
      "length": 40,
      "name": "?_GD2CommonChatIgnoreListStrc"
     },
     {
+     "va": "0x0060DD90",
+     "length": 25,
+     "name": "??1D2StormHashKeyStrIStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0060DDB0",
      "length": 30,
      "name": "?sub_0060DDB0@@YAXXZ"
+    },
+    {
+     "va": "0x0060DDD0",
+     "length": 9,
+     "name": "??0D2CommonChatIgnoreListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060DDE0",
+     "length": 11,
+     "name": "?sub_0060DDE0_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0060DDF0",
+     "length": 7,
+     "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
     },
     {
      "va": "0x0060DE00",
@@ -76150,47 +76185,6 @@
      "va": "0x0061A270",
      "length": 74,
      "name": "DUNGEON_AllocDrlgDelete"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060DC90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DC90",
-     "length": 25,
-     "name": "??1D2StormHashKeyStrIAStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DCF0",
-     "length": 3,
-     "name": "?sub_0060DCF0_GetString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x0060DD50",
-     "length": 7,
-     "name": "??1D2CommonChatIgnoreListStrc@@UAE@XZ"
-    },
-    {
-     "va": "0x0060DD90",
-     "length": 25,
-     "name": "??1D2StormHashKeyStrIBStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DDD0",
-     "length": 9,
-     "name": "??0D2CommonChatIgnoreListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DDE0",
-     "length": 11,
-     "name": "?sub_0060DDE0_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0060DDF0",
-     "length": 7,
-     "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
     }
    ]
   },
