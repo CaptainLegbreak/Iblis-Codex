@@ -65,26 +65,7 @@ int __stdcall sub_00437710_OnInfoScreen(int nArg)
     return 1;
 }
 
-// build: context sub_004374F0_UpdateStatusWait
-int __stdcall sub_004374F0_UpdateStatusWait(int nArg)
-{
-    sub_00436AD0_UpdateStatus();
-    if (!gnStatusDots_007799B4)
-    {
-        sub_0043B820_Clear();
-        gnStatusDots_007799B4 = (int)gpFuncTable_0077ABF0->pfnSlot04();
-        if (!gnStatusDots_007799B4)
-            return 1;
-    }
-    if (WaitForSingleObject((void*)gnStatusDots_007799B4, 0) == 0)
-        sub_004F9190();
-    if (sub_0043B830())
-    {
-        gpFuncTable_0077ABF0->pfnSlot10();
-        sub_004F9190();
-    }
-    return 1;
-}
+int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 
 // 0x00437720
 int __stdcall sub_00437720_OnPasswordScreen(int nArg)

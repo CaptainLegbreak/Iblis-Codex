@@ -462,26 +462,7 @@ int __stdcall sub_00431600_ShowLevelScreen(int nUnused)
     return 1;
 }
 
-// build: context sub_00431F70_SaveExists
-int __cdecl sub_00431F70_SaveExists()
-{
-    char szDir[0x400];
-    char szUtf8[0x100];
-    char szPath[0x100];
-    char szName[0x100];
-    sub_00407050_GetSavePath(szDir, 0x400);
-    const Unicode* pText = sub_004FDD90_GetEditText(gpNameEdit_0077934C);
-    sub_005263E0(szUtf8, pText, 0x100);
-    sprintf(szName, gszStringFormat_006FFC58, szUtf8);
-    sprintf(szPath, gszSavePathFormat_006D4230, szDir, szName);
-    void* hFile = sub_00406960_CreateFile(szPath, 0x80000000, 0, 0, 3, 0x8000000, 0);
-    if (hFile != (void*)-1)
-    {
-        sub_004069A0_CloseFile(hFile);
-        return 1;
-    }
-    return 0;
-}
+int __cdecl sub_00431F70_SaveExists(); // 0x00431F70
 
 // 0x004326F0
 void __cdecl sub_004326F0_LoadFrontEndCells2()

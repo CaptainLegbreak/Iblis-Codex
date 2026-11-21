@@ -328,33 +328,9 @@ int __cdecl sub_00430B00_CompareNames(const void* pEntry1, const void* pEntry2)
     return strcmp(**(const char* const* const*)pEntry1, **(const char* const* const*)pEntry2);
 }
 
-// build: context sub_0043B8E0_OnTick
-int __stdcall sub_0043B8E0_OnTick(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nValue;
-    if (gpFuncTable_0077ABF0->pfnSlot64(&nValue))
-        sub_004F9190();
-    if (gdwGlobal_0077AC04 || (gpFuncTable_0077ABF0->pfnSlot68() && sub_0042F6D0()))
-    {
-        gpFuncTable_0077ABF0->pfnSlot10();
-        sub_004F9190();
-    }
-    return 1;
-}
+int __stdcall sub_0043B8E0_OnTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B8E0
 
-// build: context sub_0043B940_OnTick
-int __stdcall sub_0043B940_OnTick(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nValue;
-    if (gpFuncTable_0077ABF0->pfnSlotA0(&nValue))
-        sub_004F9190();
-    if (gdwGlobal_0077AC04 || (gpFuncTable_0077ABF0->pfnSlot68() && sub_0042F6D0()))
-    {
-        gpFuncTable_0077ABF0->pfnSlot10();
-        sub_004F9190();
-    }
-    return 1;
-}
+int __stdcall sub_0043B940_OnTick(SMSGHANDLER_PARAMS* pMsg); // 0x0043B940
 
 // 0x004379D0
 int __fastcall sub_004379D0_GetBit20(int nValue)
@@ -838,50 +814,7 @@ void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
     sub_00458750();
 }
 
-// build: context sub_00462F60_UnitDropItems
-void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
-{
-    if (!pPacket->bActive)
-        return;
-    D2UnitStrc* pUnit = sub_00463990(*(int*)pPacket->nUnitId, 0);
-    if (!pUnit)
-        return;
-    if (!sub_00464820_IsDeadOrDying(pUnit))
-        sub_00480E70_SetUnitMode(pUnit, 0);
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
-    {
-        D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
-        if (!pOther)
-            return;
-        D2DynamicPathStrc* pPath = pOther->pDynamicPath;
-        PATH_SetMoveTestCollisionMask(pPath, 0);
-        sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
-        sub_006488A0_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
-    }
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
-    while (pItem)
-    {
-        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
-        if (INVENTORY_GetItemNodePage(pItem) == 3)
-        {
-            pItem = INVENTORY_UnitIsItem(pItem);
-            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
-            sub_0046F280_ClearGfxBytes(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
-            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
-            D2_ASSERT(pRemoved, 0xAC8);
-            D2_ASSERT(pRemoved == pItem, 0xAC9);
-            sub_004C0EC0_UpdateItemLink(pItem, pUnit, 0, 0);
-            sub_0063BE30(pInventory, ITEMS_GetBodyLocation(pItem));
-            sub_00470610_Refresh(pUnit, 0);
-            const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
-            const int nUnitId = !pItem ? -1 : pItem->dwUnitId;
-            sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
-        }
-        pItem = pNext;
-    }
-}
+void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket); // 0x00462F60
 
 // 0x004756D0
 void __cdecl sub_004756D0_ScanGridCollision()

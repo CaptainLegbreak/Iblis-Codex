@@ -1591,65 +1591,7 @@ int __stdcall sub_004434E0_DecrementEditValue(int nArg)
     return 1;
 }
 
-// build: context sub_00443630_UpdateCreateButton
-void __cdecl sub_00443630_UpdateCreateButton()
-{
-    char szText[0x104];
-    int bName = 0;
-    int bPlayers = 0;
-    int bLevel = 0;
-
-    const Unicode* pText = sub_004FDD90_GetEditText(gpCreateName_00798C2C);
-    if (pText)
-    {
-        sub_00526F70(szText, pText, 0x10);
-        int nLen = strlen(szText);
-        if (szText[0] != ' ' && nLen >= 1 && szText[nLen - 1] != ' ')
-            bName = 1;
-    }
-
-    if (sub_00449B30_QueryAddress())
-    {
-        pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
-        if (pText)
-        {
-            sub_00526F70(szText, pText, 3);
-            if (strlen(szText))
-            {
-                bPlayers = 1;
-                int nPlayers = atoi(szText);
-                if (nPlayers < 1 || nPlayers > 8)
-                {
-                    nPlayers = D2_MIN(D2_MAX(nPlayers, 1), 8);
-                    sprintf(szText, gszFormatD_006D57BC, nPlayers);
-                    sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, szText);
-                }
-            }
-        }
-
-        if (sub_00500960_IsPressed(gpButton_00798C40))
-        {
-            pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
-            sub_00526F70(szText, pText, 3);
-            if (strlen(szText) && atoi(szText) >= 0)
-                bLevel = 1;
-        }
-        else
-        {
-            bLevel = 1;
-        }
-    }
-    else
-    {
-        bPlayers = 1;
-        bLevel = 1;
-    }
-
-    if (bName && bPlayers && bLevel)
-        sub_004F96F0_ControlClearState(gpCreateButton_00798C28, 1);
-    else
-        sub_004F96F0_ControlClearState(gpCreateButton_00798C28, 0);
-}
+void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
 
 // 0x004437E0
 void __cdecl sub_004437E0_UpdateButtonState()
