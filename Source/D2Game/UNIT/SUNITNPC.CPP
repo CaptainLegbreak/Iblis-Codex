@@ -3,6 +3,7 @@
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
 #include "D2Structs.h"

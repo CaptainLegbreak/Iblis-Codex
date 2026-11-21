@@ -2,6 +2,7 @@
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2LevelTxt.h"
 #include "D2Constants.h"
@@ -23,20 +24,6 @@
 enum D2C_P08MonsterConstants
 {
     MONLVL_DM = 6,
-    STAT_LEVEL = 12,
-    STAT_DAMAGERESIST = 36,
-    STAT_FIREMINDAM = 48,
-    STAT_FIREMAXDAM = 49,
-    STAT_LIGHTMINDAM = 50,
-    STAT_LIGHTMAXDAM = 51,
-    STAT_COLDMINDAM = 54,
-    STAT_COLDMAXDAM = 55,
-    STAT_COLDLENGTH = 56,
-    STAT_POISONMINDAM = 57,
-    STAT_POISONMAXDAM = 58,
-    STAT_POISONLENGTH = 59,
-    STAT_MANADRAINMINDAM = 62,
-    STAT_MANADRAINMAXDAM = 63,
     EVENTTYPE_MONUMOD = 7,
 };
 
@@ -259,7 +246,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 
 struct D2DynamicPathStrc;
 
-#define UNIT_MONSTER 1
 
 #define PATHTYPE_ASTAR 1
 
@@ -481,9 +467,7 @@ struct D2StatListStrc;
 
 struct D2SkillStrc;
 
-#define STAT_VELOCITYPERCENT 67
 
-#define PATHTYPE_WALL_FOLLOW 15
 
 extern "C" const char gszMonsterModeSourceFile_006E23B0[];                                                  // 0x006E23B0
 

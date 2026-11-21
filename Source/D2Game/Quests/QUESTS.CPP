@@ -1,6 +1,7 @@
 #include "D2ObjectIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameObjs.h"
 #include "D2ItemsWorld.h"

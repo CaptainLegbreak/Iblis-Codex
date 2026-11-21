@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Records.h"
 #include "D2DataTbls.h"
