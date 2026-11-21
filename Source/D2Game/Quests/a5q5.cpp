@@ -259,6 +259,8 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX);          
 
 static void __stdcall ACT5Q5_RewardPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058C5C0
 
+void __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058DC60
+
 // 0x0058BEC0
 static bool sub_0058BEC0_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGUID)
 {
@@ -1309,32 +1311,6 @@ void __fastcall ACT5Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, pQuestArg->pPlayer, sub_0058D7D0_ACT5Q6_UnitIterate_SpawnObject);
         pQuestDataEx->bLastPortalOpened = 1;
     }
-}
-
-// 0x0058DC60
-void __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 40, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 40, 1) == 1)
-    {
-        return;
-    }
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return;
-    }
-
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    if (!nLevelId || DRLG_GetActNoFromLevelId(nLevelId) != 4)
-    {
-        return;
-    }
-
-    QUESTRECORD_SetQuestState(pQuestFlags, 40, 0);
-    QUESTRECORD_SetQuestState(pQuestFlags, 40, 13);
-    CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 384), 5, pGame->nDifficulty);
 }
 
 // 0x0058DCF0
