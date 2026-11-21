@@ -1430,16 +1430,6 @@ bool __fastcall ACT1Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
     return false;
 }
 
-// 0x00592880
-void __fastcall ACT1Q4_SendPacket0x5DToClient(D2UnitStrc* pUnit)
-{
-    D2GSPacketSrv5D packet5D = {};
-    packet5D.nHeader = QUEST_LOG_PACKET;
-    packet5D.nFlags = 1;
-    packet5D.nQuestId = QUEST_A1Q4_CAIN;
-    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 613), &packet5D);
-}
-
 // 0x00592F80
 void __fastcall ACT1Q4_SetInvisibleObjectGUID(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
