@@ -4143,20 +4143,11 @@
    "state": "included"
   },
   "Source/D2Game/UNIT/sunitproxy.cpp": {
-   "bytes": 36,
-   "definitions": 1,
+   "bytes": 864,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/sunitproxy.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/UNIT/sunitproxy_00536070.cpp": {
-   "bytes": 828,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/UNIT/sunitproxy_00536070.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -94307,7 +94298,7 @@
    "cname": "gData_00731184",
    "declared": true,
    "decorated": "?gNpcConfig@@3UD2NpcConfigTableStrc@@A",
-   "file": "Source/D2Game/UNIT/sunitproxy_00536070.cpp",
+   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731184_t gData_00731184; // 0x00731184",
    "head": "extern \"C\" struct d2data_00731184_t gData_00731184 = ",
@@ -94663,7 +94654,7 @@
    "cname": "gData_00731388",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy_00536070.cpp",
+   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731388_t gData_00731388; // 0x00731388",
    "head": "extern \"C\" struct d2data_00731388_t gData_00731388 = ",

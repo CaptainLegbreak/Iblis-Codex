@@ -51316,6 +51316,10 @@
      "name": "?SUNITPROXY_InitializeItemCache@@YAXPAUD2GameStrc@@PAUD2UnitProxyStrc@@H@Z"
     },
     {
+     "va": "0x00536070",
+     "length": 1176
+    },
+    {
      "va": "0x00536510",
      "length": 103,
      "name": "?sub_00536510_RemoveInventoryItems@@YGXPAUD2GameStrc@@PAUD2InventoryStrc@@@Z"
@@ -51399,30 +51403,6 @@
      "length": 123,
      "name": "?AITHINK_TargetCallback_Regurgitator@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/sunitproxy_00536070.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00536070",
-     "length": 1176
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
