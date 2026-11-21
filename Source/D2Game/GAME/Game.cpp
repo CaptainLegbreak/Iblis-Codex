@@ -5502,32 +5502,6 @@ void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, voi
     }
 }
 
-// 0x00543800
-void __fastcall QUESTS_QuestFree(D2GameStrc* pGame)
-{
-    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
-    if (!pQuestControl)
-        return;
-    D2QuestDataStrc* pQuestData = pQuestControl->pLastQuest;
-    while (pQuestData)
-    {
-        D2QuestDataStrc* pPrevQuestData = pQuestData->pPrev;
-        if (pQuestData->pQuestDataEx)
-            FOG_FreeServerMemory(pGame->pMemoryPool, pQuestData->pQuestDataEx, gszQuestsSourceFile, 0x1DF, 0);
-        FOG_FreeServerMemory(pGame->pMemoryPool, pQuestData, gszQuestsSourceFile, 0x1E1, 0);
-        pQuestData = pPrevQuestData;
-    }
-    D2QuestTimerStrc* pTimer = pQuestControl->pTimer;
-    while (pTimer)
-    {
-        D2QuestTimerStrc* pNextTimer = pTimer->pNext;
-        FOG_FreeServerMemory(pGame->pMemoryPool, pTimer, gszQuestsSourceFile, 0x1E8, 0);
-        pTimer = pNextTimer;
-    }
-    QUESTRECORD_FreeRecord(pGame->pMemoryPool, pQuestControl->pQuestFlags);
-    FOG_FreeServerMemory(pGame->pMemoryPool, pQuestControl, gszQuestsSourceFile, 0x1EC, 0);
-}
-
 // 0x00543E10
 void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame)
 {
