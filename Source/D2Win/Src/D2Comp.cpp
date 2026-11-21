@@ -659,7 +659,7 @@ D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, 
     pAccountList->controlHeader.field_34 = 0;
     pAccountList->pDataList = 0;
     pAccountList->pSelectedDataEntry = 0;
-    pAccountList->unk0x48 = 0;
+    pAccountList->nFirstDrawnEntry = 0;
     pAccountList->controlHeader.pNext = 0;
     if (pFont)
     {
@@ -749,7 +749,7 @@ D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int 
     pScrollBar->nCurrentStep = 0;
     pScrollBar->pTextBox = 0;
     pScrollBar->field_5C = 0;
-    pScrollBar->field_50 = 0;
+    pScrollBar->nPageStep = 0;
     CONTROL_AppendToList(&pScrollBar->controlHeader);
     return pScrollBar;
 }

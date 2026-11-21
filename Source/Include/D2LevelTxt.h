@@ -119,7 +119,7 @@ struct D2UniqueItemsTxt
     int nRarity; // 0x30
     unsigned char nLevel; // 0x34
     unsigned char unk0x35; // 0x35
-    unsigned short unk0x36; // 0x36
+    unsigned short wLvlReq; // 0x36
     char nChrTransform; // 0x38
     char nInvTransform; // 0x39
     char szFlippyFile[32]; // 0x3A

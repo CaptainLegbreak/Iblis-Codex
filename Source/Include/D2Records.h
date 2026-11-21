@@ -39,7 +39,7 @@ struct D2SkillDescTxt
     unsigned short wStrLong; // 0x0C
     unsigned short wStrAlt; // 0x0E
     unsigned short wStrMana; // 0x10
-    unsigned short unk0x12; // 0x12
+    unsigned short wDescDam; // 0x12
     unsigned short wDescFunc; // 0x14
     unsigned short unk0x16; // 0x16
     unsigned int dwDamCalc[2]; // 0x18

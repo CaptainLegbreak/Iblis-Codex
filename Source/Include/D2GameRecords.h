@@ -156,7 +156,7 @@ struct D2MagicAffixTxt
     short wEType[5]; // 0x78
     unsigned char nFrequency; // 0x82
     unsigned char unk0x83; // 0x83
-    int unk0x84; // 0x84
+    int dwDivide; // 0x84
     int dwMultiply; // 0x88
     int dwAdd; // 0x8C
 };

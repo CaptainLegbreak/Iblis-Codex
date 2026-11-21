@@ -265,7 +265,7 @@ extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* p
 extern "C" void __fastcall sub_005080C0_SetScrollBarField50(D2WinScrollBarStrc* ptScrollbarData, int nValue)
 {
     D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_TYPE_5, 0xCA);
-    ptScrollbarData->field_50 = nValue;
+    ptScrollbarData->nPageStep = nValue;
 }
 
 // 0x005003A0

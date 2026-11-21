@@ -172,7 +172,7 @@ struct D2DrlgLevelStrc
     D2SeedStrc pSeed; // 0x1C4
     D2DrlgBuildStrc* pBuild; // 0x1CC
     int eLevelId; // 0x1D0
-    int unk0x1D4; // 0x1D4
+    int dwInactiveFrames; // 0x1D4
     int nTileInfo; // 0x1D8
     int nCoordLists; // 0x1DC
     int nRoom_Center_Warp_X[9]; // 0x1E0

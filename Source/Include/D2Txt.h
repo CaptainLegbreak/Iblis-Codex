@@ -81,7 +81,7 @@ struct D2ItemStatCostTxt
     int dwSaveAdd; // 0x1C
     int n109SaveAdd; // 0x20
     int nSaveParamBits; // 0x24
-    unsigned char unk0x28[0x4]; // 0x28
+    int dw09SaveParamBits; // 0x28
     int dwMinAccr; // 0x2C
     unsigned char nEncode; // 0x30
     unsigned char unk0x31[0x1]; // 0x31
@@ -134,7 +134,7 @@ struct D2ItemsTxt
     unsigned char nDescType; // 0xB4
     unsigned char unk0xB5[0x1]; // 0xB5
     unsigned short wStringId; // 0xB6
-    unsigned char unk0xB8[0x4]; // 0xB8
+    int dwSpellDescCalc; // 0xB8
     unsigned int dwUpgradeCode; // 0xBC
     unsigned int dwWeapClass; // 0xC0
     unsigned int dwWeapClass2Hand; // 0xC4
@@ -167,13 +167,13 @@ struct D2ItemsTxt
     short nDexBonus; // 0x108
     unsigned short wReqStr; // 0x10A
     unsigned short wReqDex; // 0x10C
-    unsigned char unk0x10E[0x1]; // 0x10E
+    unsigned char nAbsorb; // 0x10E
     unsigned char nInvWidth; // 0x10F
     unsigned char nInvHeight; // 0x110
     unsigned char nBlock; // 0x111
     unsigned char nDurability; // 0x112
     unsigned char nNoDurability; // 0x113
-    unsigned char unk0x114[0x1]; // 0x114
+    unsigned char nMissile; // 0x114
     unsigned char nComponent; // 0x115
     unsigned char nArmorComp[6]; // 0x116
     unsigned char n2Handed; // 0x11C
@@ -348,7 +348,7 @@ struct D2MonStatsTxt
     short wMonSound; // 0x14
     short wUMonSound; // 0x16
     short wMonStatsEx; // 0x18
-    short unk0x1A; // 0x1A
+    short wMonProp; // 0x1A
     short wMonType; // 0x1C
     short wAI; // 0x1E
     short wSpawn; // 0x20
@@ -455,7 +455,7 @@ struct D2MonStats2Txt
     unsigned char unk0x10E[0xA]; // 0x10E
     int dwAutomapCel; // 0x118
     unsigned char nLocalBlood; // 0x11C
-    unsigned char unk0x11D; // 0x11D
+    unsigned char nBleed; // 0x11D
     unsigned char nLightRadius; // 0x11E
     unsigned char nLight_R; // 0x11F
     unsigned char nLight_G; // 0x120
