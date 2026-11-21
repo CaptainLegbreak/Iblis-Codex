@@ -22354,11 +22354,6 @@
      "name": "sub_00480000_SendWardenPacket"
     },
     {
-     "va": "0x00480100",
-     "length": 79,
-     "name": "sub_00480100_SetWardenBuffer"
-    },
-    {
      "va": "0x00480420",
      "length": 112,
      "name": "sub_00480420_RefreshPathTarget"
@@ -24378,6 +24373,11 @@
      "va": "0x004800E0",
      "length": 28,
      "name": "sub_004800E0_WardenFree"
+    },
+    {
+     "va": "0x00480100",
+     "length": 79,
+     "name": "sub_00480100_SetWardenBuffer"
     },
     {
      "va": "0x00480150",
