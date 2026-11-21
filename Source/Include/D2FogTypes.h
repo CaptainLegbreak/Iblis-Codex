@@ -4,6 +4,8 @@
 #include "D2Check.h"
 #include "D2SysTypes.h"
 
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 struct D2MemPoolBlockStrc;
 struct D2MemPoolRecStrc;
 struct D2PoolRecordStrc;
@@ -116,6 +118,11 @@ struct D2StackFrameStrc
     unsigned long dwReturn; // 0x0C
     unsigned char bHasArgs; // 0x10
     void* apArgs[4]; // 0x14
+
+    D2StackFrameStrc() : dwPc(0), dwFrame(0), dwStack(0), dwReturn(0), bHasArgs(0)
+    {
+        memset(apArgs, 0, sizeof(apArgs));
+    }
 };
 
 D2_CHECK_SIZE(D2MemPoolBlockStrc, 0x18);
