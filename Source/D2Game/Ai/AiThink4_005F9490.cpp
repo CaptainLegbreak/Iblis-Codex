@@ -94,5 +94,5 @@ void __fastcall sub_005F9490_ThinkAxisCaster(D2GameStrc* pGame, D2UnitStrc* pUni
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(3));
 }
 
-#include "gen/data/Source/D2Game/Unknown_005F9490.inc"
+#include "gen/data/Source/D2Game/Ai/AiThink4_005F9490.inc"
 struct D2UnitStrc;
