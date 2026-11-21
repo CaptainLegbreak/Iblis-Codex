@@ -3075,16 +3075,6 @@ void __stdcall sub_005665B0_GetLocalDate(D2LocalDateStrc* pDate)
     pDate->f_C = systemTime.wYear;
 }
 
-// 0x00566C80
-void __fastcall sub_6FC90BE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
-{
-    D2UnitStrc* pOtherPlayer = (D2UnitStrc*)pArg;
-    if (pPlayer != pOtherPlayer)
-    {
-        D2GAME_PACKETS_SendPacketSize06_6FC3C850(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 2107), PACKETSIZE06_HEADER, 0, !pOtherPlayer ? -1 : pOtherPlayer->dwUnitId);
-    }
-}
-
 // 0x00567020
 void __fastcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, int nUnused, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
 {
