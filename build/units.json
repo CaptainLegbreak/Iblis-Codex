@@ -86789,6 +86789,15 @@
      "name": "DRLGLOGIC_AllocCoordLists"
     },
     {
+     "va": "0x0066CDA0",
+     "length": 63
+    },
+    {
+     "va": "0x0066CDE0",
+     "length": 79,
+     "name": "sub_0066CDE0"
+    },
+    {
      "va": "0x0066CE30",
      "length": 127,
      "name": "DRLGLOGIC_GetRoomCoordListIndex"
@@ -86829,28 +86838,6 @@
      "length": 51
     }
    ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgLogic_0066CDA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066CDA0",
-     "length": 63
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgLogic_0066CDE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066CDE0",
-     "length": 79,
-     "name": "sub_0066CDE0"
-    }
-   ],
-   "ltcg": true
   },
   {
    "file": "Source/D2Common/Unknown_0066D290.cpp",

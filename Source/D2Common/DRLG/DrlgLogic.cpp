@@ -565,66 +565,7 @@ void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom)
     pLogicalRoomInfo->pCoordList->pBox[1].nWidth = pDrlgRoom->pDrlgCoord.nPosX + pDrlgRoom->pDrlgCoord.nWidth;
 }
 
-// 0x0066CE30
-int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
-{
-    if (!pDrlgRoom->pLogicalRoomInfo)
-    {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 668);
-        exit(-1);
-    }
-
-    D2RoomCoordListStrc* pRoomCoordList;
-    if (pDrlgRoom->pLogicalRoomInfo->dwFlags & 1)
-    {
-        pRoomCoordList = pDrlgRoom->pLogicalRoomInfo->pCoordList;
-    }
-    else
-    {
-        int nTileX = nX / 5 - pDrlgRoom->pDrlgCoord.nPosX;
-        int nTileY = nY / 5 - pDrlgRoom->pDrlgCoord.nPosY;
-        pRoomCoordList = (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nTileX, nTileY);
-    }
-
-    if (pRoomCoordList)
-    {
-        return pRoomCoordList->nIndex;
-    }
-
-    return -1;
-}
-
-// 0x0066CEB0
-D2RoomCoordListStrc* __fastcall sub_0066CEB0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
-{
-    if (!pDrlgRoom->pLogicalRoomInfo)
-    {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 668);
-        exit(-1);
-    }
-
-    if (pDrlgRoom->pLogicalRoomInfo->dwFlags & 1)
-    {
-        return pDrlgRoom->pLogicalRoomInfo->pCoordList;
-    }
-
-    int nTileX = nX / 5 - pDrlgRoom->pDrlgCoord.nPosX;
-    int nTileY = nY / 5 - pDrlgRoom->pDrlgCoord.nPosY;
-    return (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nTileX, nTileY);
-}
-
-// 0x0066CF30
-D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordList(D2DrlgRoomStrc* pDrlgRoom)
-{
-    if (!pDrlgRoom->pLogicalRoomInfo)
-    {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 717);
-        exit(-1);
-    }
-
-    return pDrlgRoom->pLogicalRoomInfo->pCoordList;
-}
-
+// 0x0066CDA0
 static D2RoomCoordListStrc* sub_0066CDA0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
 {
     if (!pDrlgRoom->pLogicalRoomInfo)
@@ -638,9 +579,45 @@ static D2RoomCoordListStrc* sub_0066CDA0(D2DrlgRoomStrc* pDrlgRoom, int nX, int 
         return pDrlgRoom->pLogicalRoomInfo->pCoordList;
     }
 
-    int nTileX = nX - pDrlgRoom->pDrlgCoord.nPosX;
-    int nTileY = nY - pDrlgRoom->pDrlgCoord.nPosY;
-    return (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nTileX, nTileY);
+    nX -= pDrlgRoom->pDrlgCoord.nPosX;
+    nY -= pDrlgRoom->pDrlgCoord.nPosY;
+    return (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nX, nY);
+}
+
+// 0x0066CDE0
+static int sub_0066CDE0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+{
+    D2RoomCoordListStrc* pRoomCoordList = sub_0066CDA0(pDrlgRoom, nX, nY);
+    if (pRoomCoordList)
+    {
+        return pRoomCoordList->nIndex;
+    }
+
+    return -1;
+}
+
+// 0x0066CE30
+int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+{
+    return sub_0066CDE0(pDrlgRoom, nX / 5, nY / 5);
+}
+
+// 0x0066CEB0
+D2RoomCoordListStrc* __fastcall sub_0066CEB0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+{
+    return sub_0066CDA0(pDrlgRoom, nX / 5, nY / 5);
+}
+
+// 0x0066CF30
+D2RoomCoordListStrc* __fastcall DRLGLOGIC_GetRoomCoordList(D2DrlgRoomStrc* pDrlgRoom)
+{
+    if (!pDrlgRoom->pLogicalRoomInfo)
+    {
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 717);
+        exit(-1);
+    }
+
+    return pDrlgRoom->pLogicalRoomInfo->pCoordList;
 }
 
 // 0x0066CF60
@@ -734,18 +711,6 @@ void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2D
     DRLGLOGIC_AssignCoordListsForGrids(pDrlgRoom, pDrlgCoordList);
     DRLGLOGIC_SetCoordListForTiles(pDrlgRoom);
     sub_0066D040(pDrlgRoom);
-}
-
-// @ref 0x0066CDE0
-static int sub_0066CDE0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
-{
-    D2RoomCoordListStrc* pRoomCoordList = sub_0066CDA0(pDrlgRoom, nX, nY);
-    if (pRoomCoordList)
-    {
-        return pRoomCoordList->nIndex;
-    }
-
-    return -1;
 }
 
 #include "gen/data/Source/D2Common/DRLG/DrlgLogic.inc"
