@@ -98,6 +98,12 @@ struct D2StormArrayAStrc
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
 };
 
+struct D2StormQueueRangeStrc
+{
+    unsigned int nCount;
+    unsigned int nStart;
+};
+
 struct D2StormQueueStrc
 {
     D2StormArrayAStrc m_array;
@@ -549,7 +555,7 @@ static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc&
 }
 
 // 0x00425350
-static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* volatile pStack, D2StormQueueStrc& a)
+static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* pStack, D2StormQueueStrc& a)
 {
     D2StormQueueStrc& tMinusOne = pStack->f_0[pStack->nUsed++];
     D2StormQueueStrc& tOdd = pStack->f_0[pStack->nUsed++];
@@ -558,26 +564,33 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* volatile pStack, 
     int bPrime = 1;
     a.sub_00422140_Trim();
     const D2StormQueueStrc& tRead = a;
-    if (sub_00422780_IsZero(a) || !(tRead[0] & 1))
+    if (sub_00422780_IsZero(a))
         bPrime = 0;
+    else
+    {
+        D2StormQueueRangeStrc tRange;
+        tRange.nCount = tRead.m_array.f_4;
+        tRange.nStart = tRead.m_start;
+        if (!((tRange.nStart < tRange.nCount ? tRead.m_array.f_8[tRange.nStart] : 0) & 1))
+            bPrime = 0;
+    }
     for (unsigned int i = 0; bPrime && i < 171; i++)
     {
         unsigned __int64 nPrime = gaSBigSmallPrimes[i];
-        int bZero;
         if (nPrime < 0x100000000ui64)
         {
             unsigned int nRemainder;
             sub_004225C0_DivUInt(&nRemainder, a, nPrime, tWork);
-            bZero = !nRemainder;
+            if (!nRemainder && !sub_00422750_IsOne(tWork))
+                bPrime = 0;
         }
         else
         {
             sub_00423540_FromUInt(tBase, (unsigned int)nPrime);
             sub_00423DC0_Div(tWork, tOdd, a, tBase, *pStack);
-            bZero = sub_00422780_IsZero(tOdd);
+            if (sub_00422780_IsZero(tOdd) && !sub_00422750_IsOne(tWork))
+                bPrime = 0;
         }
-        if (bZero && !sub_00422750_IsOne(tWork))
-            bPrime = 0;
     }
     sub_00422FC0_SubUInt(&a, &tMinusOne, 1);
     tOdd.CopyFrom(tMinusOne);
@@ -590,10 +603,10 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* volatile pStack, 
         if (sub_004212F0_Compare(&tBase, &a) >= 0)
             break;
         sub_00425150_PowMod(tWork, tBase, tOdd, a, *pStack);
-        if (!sub_00422750_IsOne(tWork) && sub_004212F0_Compare(&tWork, &tMinusOne))
+        if (!sub_00422750_IsOne(tWork))
         {
             unsigned int j = 0;
-            do
+            while (sub_004212F0_Compare(&tWork, &tMinusOne))
             {
                 if (++j == nShift)
                 {
@@ -606,7 +619,7 @@ static int __stdcall sub_00425350_IsPrime(D2StormBigStackStrc* volatile pStack, 
                     bPrime = 0;
                     break;
                 }
-            } while (sub_004212F0_Compare(&tWork, &tMinusOne));
+            }
         }
     }
     for (unsigned int i = 0; bPrime && i < 1; i++)
