@@ -26034,6 +26034,10 @@
     {
      "va": "0x0048FFE0",
      "length": 1945
+    },
+    {
+     "va": "0x004912A0",
+     "length": 1311
     }
    ],
    "flags": [
@@ -26096,30 +26100,6 @@
      "length": 732,
      "name": "?sub_00490FC0@@YIHPAUD2UnitStrc@@PAUD2InventoryStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004912A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004912A0",
-     "length": 1311
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
