@@ -79714,6 +79714,11 @@
      "name": "?sub_0062A270_HasSocketedItem@@YAHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0062A2B0",
+     "length": 61,
+     "name": "?sub_0062A2B0_GetCompactSave@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0062A2F0",
      "length": 23,
      "name": "?sub_0062A2F0_IsPlainQuality@@YAHH@Z"
@@ -79793,6 +79798,11 @@
      "name": "ITEMS_WriteBitsToBitstream"
     },
     {
+     "va": "0x0062AF80",
+     "length": 1044,
+     "name": "?ITEMS_SerializeItemCompact@@YGXHPAUD2UnitStrc@@PAUD2BitBufferStrc@@@Z"
+    },
+    {
      "va": "0x0062B3A0",
      "length": 84,
      "name": "ITEMS_GetNoOfSetItemsFromItem"
@@ -79861,6 +79871,11 @@
      "va": "0x0062C0B0",
      "length": 74,
      "name": "ITEMS_GetClassOfClassSpecificItem"
+    },
+    {
+     "va": "0x0062C6A0",
+     "length": 205,
+     "name": "?ITEMS_IsPersonalizable@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0062C770",
@@ -80142,27 +80157,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_0062A2B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0062A2B0",
-     "length": 61,
-     "name": "?sub_0062A2B0_GetCompactSave@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0062AF80",
-     "length": 1044,
-     "name": "?ITEMS_SerializeItemCompact@@YGXHPAUD2UnitStrc@@PAUD2BitBufferStrc@@@Z"
-    },
-    {
-     "va": "0x0062C6A0",
-     "length": 205,
-     "name": "?ITEMS_IsPersonalizable@@YGHPAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
