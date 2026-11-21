@@ -1637,8 +1637,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/CUnit_00463940.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 28,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/CUnit_00463940.inc",
@@ -1667,15 +1667,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/CUnit_004645B0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/CUnit_00464D20.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/CUnit_00464D20.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -42157,7 +42148,7 @@
    "cname": "gData_006D6ABC",
    "declared": true,
    "decorated": "?gnUnitTypes_006D6ABC@@3QBHB",
-   "file": "Source/D2Client/UNIT/CUnit_00464D20.cpp",
+   "file": "Source/D2Client/UNIT/CUnit_00463940.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006D6ABC[6]; // 0x006D6ABC",
    "head": "extern \"C\" const int gData_006D6ABC[6] = ",

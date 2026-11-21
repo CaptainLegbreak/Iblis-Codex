@@ -19474,8 +19474,28 @@
      "name": "?sub_004649D0@@YIXP6IXPAUD2UnitStrc@@@Z@Z"
     },
     {
+     "va": "0x00464D20",
+     "length": 108,
+     "name": "?sub_00464D20_IsItemInInventory@@YGHPAUD2UnitStrc@@00@Z"
+    },
+    {
+     "va": "0x00464D90",
+     "length": 130,
+     "name": "?sub_00464D90_IsItemOwnedByOther@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
      "va": "0x00464EC0",
      "length": 175
+    },
+    {
+     "va": "0x00465870",
+     "length": 332,
+     "name": "?sub_00465870_FreeUnit@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004659C0",
+     "length": 213,
+     "name": "?sub_004659C0_FreeAllUnits@@YAXXZ"
     },
     {
      "va": "0x00465AA0",
@@ -19483,14 +19503,54 @@
      "name": "?sub_00465AA0_ResetUnitTables@@YAXXZ"
     },
     {
+     "va": "0x00465E80",
+     "length": 85,
+     "name": "?sub_00465E80_RemoveUnitFromTable@@YAXIHPAPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00465EE0",
+     "length": 26,
+     "name": "?sub_00465EE0_RemoveClientSideUnit@@YIXIH@Z"
+    },
+    {
+     "va": "0x00465F00",
+     "length": 26,
+     "name": "?sub_00465F00_RemoveServerSideUnit@@YIXIH@Z"
+    },
+    {
      "va": "0x00465F20",
      "length": 161,
      "name": "?sub_00465F20_InsertUnit@@YAPAUD2UnitStrc@@PAU1@@Z"
     },
     {
+     "va": "0x00465FD0",
+     "length": 488,
+     "name": "?sub_00465FD0_InitUnit@@YGPAUD2UnitStrc@@IHHHHHPAU1@H@Z"
+    },
+    {
+     "va": "0x004661C0",
+     "length": 60,
+     "name": "?sub_004661C0_AllocClientUnit@@YIPAUD2UnitStrc@@IHHHHH@Z"
+    },
+    {
+     "va": "0x00466200",
+     "length": 255,
+     "name": "?sub_00466200_CreatePlayerUnit@@YIPAUD2UnitStrc@@IHHHPAD@Z"
+    },
+    {
+     "va": "0x00466300",
+     "length": 96,
+     "name": "?sub_00466300_CreateObjectUnit@@YIPAUD2UnitStrc@@IHHHHHHE@Z"
+    },
+    {
      "va": "0x00466730",
      "length": 180,
      "name": "?sub_00466730_SpawnPresetUnit@@YIPAUD2UnitStrc@@HHHHH@Z"
+    },
+    {
+     "va": "0x00466CB0",
+     "length": 272,
+     "name": "?sub_00466CB0_RemoveInventoryUnits@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -19581,72 +19641,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/CUnit_00464D20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00464D20",
-     "length": 108,
-     "name": "?sub_00464D20_IsItemInInventory@@YGHPAUD2UnitStrc@@00@Z"
-    },
-    {
-     "va": "0x00464D90",
-     "length": 130,
-     "name": "?sub_00464D90_IsItemOwnedByOther@@YGHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x00465870",
-     "length": 332,
-     "name": "?sub_00465870_FreeUnit@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004659C0",
-     "length": 213,
-     "name": "?sub_004659C0_FreeAllUnits@@YAXXZ"
-    },
-    {
-     "va": "0x00465E80",
-     "length": 85,
-     "name": "?sub_00465E80_RemoveUnitFromTable@@YAXIHPAPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00465EE0",
-     "length": 26,
-     "name": "?sub_00465EE0_RemoveClientSideUnit@@YIXIH@Z"
-    },
-    {
-     "va": "0x00465F00",
-     "length": 26,
-     "name": "?sub_00465F00_RemoveServerSideUnit@@YIXIH@Z"
-    },
-    {
-     "va": "0x00465FD0",
-     "length": 488,
-     "name": "?sub_00465FD0_InitUnit@@YGPAUD2UnitStrc@@IHHHHHPAU1@H@Z"
-    },
-    {
-     "va": "0x004661C0",
-     "length": 60,
-     "name": "?sub_004661C0_AllocClientUnit@@YIPAUD2UnitStrc@@IHHHHH@Z"
-    },
-    {
-     "va": "0x00466200",
-     "length": 255,
-     "name": "?sub_00466200_CreatePlayerUnit@@YIPAUD2UnitStrc@@IHHHPAD@Z"
-    },
-    {
-     "va": "0x00466300",
-     "length": 96,
-     "name": "?sub_00466300_CreateObjectUnit@@YIPAUD2UnitStrc@@IHHHHHHE@Z"
-    },
-    {
-     "va": "0x00466CB0",
-     "length": 272,
-     "name": "?sub_00466CB0_RemoveInventoryUnits@@YIXPAUD2UnitStrc@@H@Z"
-    }
    ]
   },
   {
