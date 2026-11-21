@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -23,10 +24,6 @@
 #define QUEST_A2Q5_SUMMONER 12
 
 #define ACT_II 1
-
-#define LEVEL_ARCANESANCTUARY 74
-
-#define LEVEL_PALACECELLARLEV3 54
 
 #define OBJECT_EUNUCH_HAREM_BLOCKER 318
 
@@ -73,7 +70,6 @@ enum D2C_M11A2Q4Constants
     MONSTER_DROGNAN = 177,
     MONSTER_JERHYN = 201,
     MONSTER_ACT2GUARD2 = 331,
-    LEVEL_CANYONOFTHEMAGI = 46,
     OBJECT_PERMANENT_TOWN_PORTAL = 60,
 };
 

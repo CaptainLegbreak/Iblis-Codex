@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -24,7 +25,6 @@ enum
     QUESTSTATEFLAG_A2Q2 = 10,
     QUEST_A2Q3_TAINTEDSUN = 10,
     QUEST_A2Q6_DURIEL = 13,
-    LEVEL_LUTGHOLEIN = 40,
 };
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430

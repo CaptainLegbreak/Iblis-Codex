@@ -1,12 +1,10 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2DrlgTiles.h"
 #include "D2Drlg.h"
 
-#define LEVEL_SPIDERFOREST 76
-#define LEVEL_GREATMARSH 77
-#define LEVEL_FLAYERJUNGLE 78
 #define LVLPREST_ACT3_JUNGLE_HEAD 573
 #define LVLPREST_ACT3_JUNGLE_TAIL 574
 

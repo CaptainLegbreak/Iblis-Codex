@@ -1,9 +1,7 @@
+#include "D2LevelIds.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgPresets.h"
-
-#define LEVEL_ROGUEENCAMPMENT 1
-#define LEVEL_BURIALGROUNDS 17
 
 extern D2DrlgLinkStrc gAct1WildernessDrlgLink[15];                                                          // 0x006F0750
 extern const int gnAct1WildernessLinkTable[];                                                               // 0x006F1158

@@ -1,19 +1,9 @@
+#include "D2LevelIds.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 // build: context SEED_RollRandomNumber_Wild
 typedef int BOOL;
-
-#define LEVEL_ROGUEENCAMPMENT 1
-#define LEVEL_BLOODMOOR 2
-#define LEVEL_COLDPLAINS 3
-#define LEVEL_STONYFIELD 4
-#define LEVEL_DARKWOOD 5
-#define LEVEL_BLACKMARSH 6
-#define LEVEL_TAMOEHIGHLAND 7
-#define LEVEL_BURIALGROUNDS 17
-#define LEVEL_MOOMOOFARM 39
-
 
 struct D2DrlgStrc;
 

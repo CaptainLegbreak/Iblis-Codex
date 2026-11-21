@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -233,8 +234,6 @@ typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest
 
 #define ACT_V 4
 
-#define LEVEL_ROCKYSUMMIT 120
-
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
@@ -261,15 +260,10 @@ static void __stdcall ACT5Q5_RewardPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 void __fastcall ACT5Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058DC60
 
-#define LEVEL_HARROGATH 109
-
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
 
 enum D2C_F33QuestConstants
 {
-    LEVEL_ROGUEENCAMPMENT = 1,
-    LEVEL_TRISTRAM = 38,
-    LEVEL_HALLSOFDEATHSCALLING = 123,
     QUEST_A1Q2_BLOODRAVEN = 2,
     QUEST_A1Q3_MALUS = 3,
     QUEST_A1Q4_CAIN = 4,

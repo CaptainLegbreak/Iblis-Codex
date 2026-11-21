@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -41,8 +42,6 @@ struct D2InventoryStrc;
 #define UNITFLAG_HASTXTMSG 0x00000100
 
 #define UNITFLAG_DOUPDATE 0x00000001
-
-#define LEVEL_HARROGATH 109
 
 #define UNIT_PLAYER 0
 

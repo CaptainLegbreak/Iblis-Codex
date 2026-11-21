@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -19,8 +20,6 @@
 #define UNIT_TILE 5
 
 #define QUEST_A5Q4_NIHLATHAK 34
-
-#define LEVEL_NIHLATHAKSTEMPLE 121
 
 #define OBJECT_PERMANENT_TOWN_PORTAL 60
 
@@ -99,8 +98,6 @@ typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 #define MSG_DREHYA_INTRO 20137
 
 #define MSG_DREHYA_DONE 20148
-
-#define LEVEL_HARROGATH 109
 
 #define QUESTFX_A5Q4 17
 
@@ -205,10 +202,6 @@ struct D2Act1Quest4Strc;
 enum D2C_F33QuestConstants
 {
     ACT_V = 4,
-    LEVEL_ROGUEENCAMPMENT = 1,
-    LEVEL_TRISTRAM = 38,
-    LEVEL_ROCKYSUMMIT = 120,
-    LEVEL_HALLSOFDEATHSCALLING = 123,
     QUEST_A1Q2_BLOODRAVEN = 2,
     QUEST_A1Q3_MALUS = 3,
     QUEST_A1Q4_CAIN = 4,

@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -118,10 +119,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                 
 #define QUESTSTATEFLAG_A1Q1 1
 
 void __fastcall ACT1Q1_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
-
-#define LEVEL_DENOFEVIL 8
-
-#define LEVEL_ROGUEENCAMPMENT 1
 
 struct D2NPCMessageTableStrc;
 

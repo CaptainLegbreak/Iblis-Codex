@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -31,8 +32,6 @@ struct D2UnitStrc;
 #define OBJECT_CAINPORTAL 189
 
 #define PORTAL_RETRY_STEP 3
-
-#define LEVEL_TOWERCELLARLEV5 25
 
 #define EVENTTYPE_QUESTFN 7
 
@@ -114,8 +113,6 @@ int __fastcall ACT1Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 
 enum D2C_Q05QuestConstants
 {
-    LEVEL_ROGUEENCAMPMENT = 1,
-    LEVEL_MOOMOOFARM = 39,
     OBJECT_PERMANENT_TOWN_PORTAL = 60,
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A4Q2 = 26,
@@ -159,10 +156,6 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
 #define UNIT_PLAYER 0
-
-#define LEVEL_ROGUEENCAMPMENT 1
-
-#define LEVEL_FORGOTTENTOWER 20
 
 #define QFLAG_REWARDGRANTED 0
 

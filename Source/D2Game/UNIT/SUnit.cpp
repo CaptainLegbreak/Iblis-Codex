@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -565,10 +566,6 @@ int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc
 
 enum D2C_M108SUnitConstants
 {
-    LEVEL_PANDEMONIUMRUN1 = 133,
-    LEVEL_PANDEMONIUMRUN2 = 134,
-    LEVEL_PANDEMONIUMRUN3 = 135,
-    LEVEL_PANDEMONIUMFINALE = 136,
     OBJECT_GOLD_PLACEHOLDER = 26,
     OBJECT_WIRTSBODY = 268,
     OBJECT_CAINGIBBET = 269,
