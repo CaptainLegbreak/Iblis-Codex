@@ -2,6 +2,28 @@
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
 
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
+
+char* __stdcall sub_00414310(const char* szString);                                                             // 0x00414310
+
+int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
+struct D2StormHashKeyStrIAStrc
+{
+    char* m_str;
+
+    D2StormHashKeyStrIAStrc(const char* szString);
+    D2StormHashKeyStrIAStrc& operator=(const D2StormHashKeyStrIAStrc& source);
+};
+
+struct D2StormHashKeyStrIBStrc
+{
+    char* m_str;
+
+    D2StormHashKeyStrIBStrc(const char* szString);
+    D2StormHashKeyStrIBStrc& operator=(const D2StormHashKeyStrIBStrc& source);
+};
+
 struct D2CommonStormSlotListBStrc;
 
 struct D2CommonStormSlotListAStrc;
@@ -93,8 +115,6 @@ struct Node;
 struct List;
 
 struct D2Object00610D30Strc;
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 struct D2CommonStormSlotLinkStrc
 {
@@ -876,19 +896,10 @@ struct D2CommonStormListFStrc
 };
 
 struct StringEntryNode;
-
 struct MappingEntryNode;
-
 class HASHKEY_STRI;
-
 template <class T, class KEY> class TSHashTable;
-
-template <> class TSHashTable<StringEntryNode, HASHKEY_STRI>;
-
 typedef TSHashTable<StringEntryNode, HASHKEY_STRI> D2CommonStormHashTableAStrc;
-
-template <> class TSHashTable<MappingEntryNode, HASHKEY_STRI>;
-
 typedef TSHashTable<MappingEntryNode, HASHKEY_STRI> D2CommonStormHashTableBStrc;
 
 // build: symbol ??0?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@QAE@XZ 0x006104A0
@@ -936,18 +947,15 @@ public:
 };
 
 class ChatIgnoreList;
-
 typedef ChatIgnoreList D2CommonChatIgnoreListStrc;
-
 class IgnoreList;
-
 typedef IgnoreList D2CommonIgnoreListStrc;
-
 struct _iobuf;
 
 class ChatIgnoreList
 {
 public:
+    ChatIgnoreList(int nEmitTag);
     virtual int sub_00610EB0_Add(const char* szName) = 0;
     virtual int sub_0060FB20_Remove(const char* szName) = 0;
     virtual int sub_00610380_IsListed(const char* szName) = 0;
@@ -959,7 +967,10 @@ public:
     virtual int sub_0060DDF0_IsEnabled() = 0;
     virtual void sub_0060DE00_SetEnabled(int bEnabled) = 0;
     virtual void sub_0060F500_VirtSlot10() = 0;
-    virtual ~ChatIgnoreList();                                                                              // 0x0060DD50
+    virtual ~ChatIgnoreList()
+    {
+    }
+    static void operator delete(void* pMemory);
 };
 
 class IgnoreList : public D2CommonChatIgnoreListStrc
@@ -1134,6 +1145,51 @@ struct D2CommonStormZeroBStrc
     D2CommonStormZeroBStrc();
 };
 
+
+
+
+
+// build: symbol ??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z 0x0060DCB0
+// build: symbol ??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z 0x0060E130
+// build: symbol ??_7ChatIgnoreList@@6B@ 0x006E6248
+// 0x0060DC70
+D2StormHashKeyStrIAStrc::D2StormHashKeyStrIAStrc(const char* szString)
+{
+    m_str = sub_00414310(szString);
+}
+
+// 0x0060DCB0
+D2StormHashKeyStrIAStrc& D2StormHashKeyStrIAStrc::operator=(const D2StormHashKeyStrIAStrc& source)
+{
+    if (m_str)
+        SMemFree(m_str, "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h", 0x5E9, 0);
+    m_str = sub_00414310(source.m_str);
+    return *this;
+}
+
+// 0x0060DD00
+D2StormHashKeyStrIBStrc::D2StormHashKeyStrIBStrc(const char* szString)
+{
+    m_str = sub_00414310(szString);
+}
+
+D2CommonChatIgnoreListStrc::ChatIgnoreList(int nEmitTag)
+{
+}
+
+// build: symbol ??_GChatIgnoreList@@UAEPAXI@Z 0x0060DD60
+inline void D2CommonChatIgnoreListStrc::operator delete(void* pMemory)
+{
+    SMemFree(pMemory, "delete", -1, 0);
+}
+
+// 0x0060DE00
+void D2CommonIgnoreListStrc::sub_0060DE00_SetEnabled(int bEnabled)
+{
+    m_bEnabled = bEnabled;
+    SRegSaveValue("Diablo II", "Persistent Ignore", 0, bEnabled);
+}
+
 // 0x0060E0B0
 char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
 {
@@ -1144,6 +1200,15 @@ char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
 bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
 {
     return m_next != 0;
+}
+
+// 0x0060E130
+D2StormHashKeyStrIBStrc& D2StormHashKeyStrIBStrc::operator=(const D2StormHashKeyStrIBStrc& source)
+{
+    if (m_str)
+        SMemFree(m_str, "d:\\diablo2\\Diablo2\\3rdparty\\storm\\h\\stpl.h", 0x5E9, 0);
+    m_str = sub_00414310(source.m_str);
+    return *this;
 }
 
 // 0x0060E1A0
@@ -1968,6 +2033,25 @@ void D2CommonStormSlotArrayBStrc::sub_0060FAD0_Reserve(unsigned int nCount, int 
     }
 }
 
+// 0x0060FB20
+int D2CommonIgnoreListStrc::sub_0060FB20_Remove(const char* szName)
+{
+    if (!szName || !*szName)
+        return 0;
+    if (!sub_0060DDF0_IsEnabled())
+        return 0;
+    char szKey[0x100] = "";
+    sub_0060DFF0_NormalizeKey(szName, szKey, sizeof(szKey));
+    if (!szKey[0])
+        return 0;
+    D2CommonStringEntryNodeStrc* pNode = m_table.sub_0060F8B0_Ptr(szKey);
+    if (!pNode)
+        return 0;
+    m_table.sub_0060E6E0_UnlinkNode(pNode);
+    sub_0060F0A0_Save();
+    return 1;
+}
+
 // 0x0060FBE0
 int D2CommonIgnoreListStrc::sub_0060FBE0_RemoveAlias(const char* szName)
 {
@@ -1986,6 +2070,16 @@ int D2CommonIgnoreListStrc::sub_0060FBE0_RemoveAlias(const char* szName)
         }
     }
     return 0;
+}
+
+// 0x0060FD50
+int D2CommonIgnoreListStrc::sub_0060FD50_Contains(const char* szKey)
+{
+    if (!szKey || !*szKey)
+        return 0;
+    if (!sub_0060DDF0_IsEnabled())
+        return 0;
+    return m_table.sub_0060F8B0_Ptr(szKey) != 0;
 }
 
 // 0x0060FE30

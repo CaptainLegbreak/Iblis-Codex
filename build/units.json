@@ -75975,7 +75975,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Chat/Ignorelist_0060DC70.cpp",
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
    "rank": 0,
    "functions": [
     {
@@ -76004,123 +76004,6 @@
      "name": "sub_0060DE00_SetEnabled"
     },
     {
-     "va": "0x0060E130",
-     "length": 50,
-     "name": "?4D2StormHashKeyStrIBStrc"
-    },
-    {
-     "va": "0x0060FB20",
-     "length": 191,
-     "name": "sub_0060FB20_Remove"
-    },
-    {
-     "va": "0x0060FD50",
-     "length": 59,
-     "name": "sub_0060FD50_Contains"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DC90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DC90",
-     "length": 25,
-     "name": "??1D2StormHashKeyStrIAStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DCF0",
-     "length": 3,
-     "name": "?sub_0060DCF0_GetString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x0060DD50",
-     "length": 7,
-     "name": "??1D2CommonChatIgnoreListStrc@@UAE@XZ"
-    },
-    {
-     "va": "0x0060DD90",
-     "length": 25,
-     "name": "??1D2StormHashKeyStrIBStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DDD0",
-     "length": 9,
-     "name": "??0D2CommonChatIgnoreListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0060DDE0",
-     "length": 11,
-     "name": "?sub_0060DDE0_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x0060DDF0",
-     "length": 7,
-     "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DDB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DDB0",
-     "length": 30,
-     "name": "?sub_0060DDB0@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DE30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060DE30",
-     "length": 107
-    },
-    {
-     "va": "0x0060DEA0",
-     "length": 97
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0060DF10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060DF10",
-     "length": 218,
-     "name": "?sub_0060DF10_OnAdded@D2CommonIgnoreListStrc@@QAEHPBD@Z"
-    },
-    {
-     "va": "0x0060DFF0",
-     "length": 184,
-     "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0060E0B0",
      "length": 4,
      "name": "?sub_0060E0B0_GetKey@D2ChatStormNodeStrc@@QAEPADXZ"
@@ -76129,6 +76012,11 @@
      "va": "0x0060E0C0",
      "length": 9,
      "name": "?sub_0060E0C0_IsLinked@D2ChatStormLinkStrc@@QAE_NXZ"
+    },
+    {
+     "va": "0x0060E130",
+     "length": 50,
+     "name": "?4D2StormHashKeyStrIBStrc"
     },
     {
      "va": "0x0060E1A0",
@@ -76559,9 +76447,19 @@
      "name": "sub_0060FAD0_Reserve"
     },
     {
+     "va": "0x0060FB20",
+     "length": 191,
+     "name": "sub_0060FB20_Remove"
+    },
+    {
      "va": "0x0060FBE0",
      "length": 90,
      "name": "sub_0060FBE0_RemoveAlias"
+    },
+    {
+     "va": "0x0060FD50",
+     "length": 59,
+     "name": "sub_0060FD50_Contains"
     },
     {
      "va": "0x0060FE30",
@@ -76712,6 +76610,102 @@
      "va": "0x0061A270",
      "length": 74,
      "name": "DUNGEON_AllocDrlgDelete"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0060DC90.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0060DC90",
+     "length": 25,
+     "name": "??1D2StormHashKeyStrIAStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060DCF0",
+     "length": 3,
+     "name": "?sub_0060DCF0_GetString@D2StormHashKeyStrIAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x0060DD50",
+     "length": 7,
+     "name": "??1D2CommonChatIgnoreListStrc@@UAE@XZ"
+    },
+    {
+     "va": "0x0060DD90",
+     "length": 25,
+     "name": "??1D2StormHashKeyStrIBStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060DDD0",
+     "length": 9,
+     "name": "??0D2CommonChatIgnoreListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060DDE0",
+     "length": 11,
+     "name": "?sub_0060DDE0_CloseFile@D2CommonIgnoreListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0060DDF0",
+     "length": 7,
+     "name": "?sub_0060DDF0_IsEnabled@D2CommonIgnoreListStrc@@UAEHXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0060DDB0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0060DDB0",
+     "length": 30,
+     "name": "?sub_0060DDB0@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0060DE30.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0060DE30",
+     "length": 107
+    },
+    {
+     "va": "0x0060DEA0",
+     "length": 97
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0060DF10.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0060DF10",
+     "length": 218,
+     "name": "?sub_0060DF10_OnAdded@D2CommonIgnoreListStrc@@QAEHPBD@Z"
+    },
+    {
+     "va": "0x0060DFF0",
+     "length": 184,
+     "name": "?sub_0060DFF0_NormalizeKey@D2CommonIgnoreListStrc@@QAEHPBDPADH@Z"
     }
    ]
   },
