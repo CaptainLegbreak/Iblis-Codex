@@ -62951,6 +62951,14 @@
      "name": "MISSMODE_SrvDo27_Tornado"
     },
     {
+     "va": "0x005AFB80",
+     "length": 491
+    },
+    {
+     "va": "0x005AFD70",
+     "length": 324
+    },
+    {
      "va": "0x005B0010",
      "length": 474
     },
@@ -64463,34 +64471,6 @@
      "va": "0x005AE8A0",
      "length": 155
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005AFB80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005AFB80",
-     "length": 491
-    },
-    {
-     "va": "0x005AFD70",
-     "length": 324
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
