@@ -93,9 +93,18 @@ void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataSt
 void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); // 0x0065AA00
 int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
 
-struct Target005F6630 { unsigned char bUnknown00[0x14]; unsigned int dwValue14; unsigned int dwValue18; };
+struct Target005F6630
+{
+    unsigned char bUnknown00[0x14];
+    unsigned int dwValue14;
+    unsigned int dwValue18;
+};
 
-struct Obj005F6630 { unsigned char bUnknown00[0xA8]; unsigned int dwValueA8; };
+struct Obj005F6630
+{
+    unsigned char bUnknown00[0xA8];
+    unsigned int dwValueA8;
+};
 
 struct D2Record5F6E20Strc
 {

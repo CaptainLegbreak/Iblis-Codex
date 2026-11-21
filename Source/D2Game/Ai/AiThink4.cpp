@@ -591,7 +591,10 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-struct D2PlayerCountBonusStrc {int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;};
+struct D2PlayerCountBonusStrc
+{
+    int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;
+};
 
 extern const char gszAiThink4Source[]; // 0x006E3500
 
@@ -732,7 +735,12 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame
 
 #pragma pack(push,1)
 
-struct D2Packet8A { unsigned char header; unsigned char type; int guid; };
+struct D2Packet8A
+{
+    unsigned char header;
+    unsigned char type;
+    int guid;
+};
 
 #pragma pack(pop)
 
