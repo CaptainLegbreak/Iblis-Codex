@@ -51468,7 +51468,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005431F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -52129,7 +52129,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00547BC0.cpp",
+   "file": "Source/D2Game/Quests/QUESTS_00547BC0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -54862,19 +54862,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005711D0.cpp",
-   "rank": 1,
+   "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x005711D0",
      "length": 938
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x005715A0",
      "length": 89,
@@ -62587,7 +62581,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A17E0.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterUnique_005A17E0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -63009,7 +63003,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A8C70.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005A8C70.cpp",
    "rank": 1,
    "functions": [
     {
@@ -63369,7 +63363,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B0CD0.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005B0CD0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -63432,7 +63426,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005B0FF0.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005B0FF0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -65528,7 +65522,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C0D00.cpp",
+   "file": "Source/D2Game/SKILLS/SkillItem_005C0D00.cpp",
    "rank": 0,
    "functions": [
     {
@@ -66599,7 +66593,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005D1570.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid_005D1570.cpp",
    "rank": 0,
    "functions": [
     {
@@ -66615,7 +66609,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005D16A0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid_005D16A0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -66748,6 +66742,11 @@
      "va": "0x005D3320",
      "length": 362,
      "name": "?sub_005D3320_ApplyChargeState@@YGHPAUD2GameStrc@@HHHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005D3490",
+     "length": 316,
+     "name": "?SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D3680",
@@ -66991,7 +66990,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005D2B60.cpp",
+   "file": "Source/D2Game/SKILLS/SkillAss_005D2B60.cpp",
    "rank": 1,
    "functions": [
     {
@@ -67052,17 +67051,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D3490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D3490",
-     "length": 316,
-     "name": "?SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
    ]
   },
   {
@@ -67648,7 +67636,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005DE6F0.cpp",
+   "file": "Source/D2Game/Ai/AiTatics_005DE6F0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -67713,6 +67701,16 @@
      "va": "0x005E0F60",
      "length": 274,
      "name": "AITHINK_Fn093_ArcaneTower"
+    },
+    {
+     "va": "0x005E1250",
+     "length": 741,
+     "name": "?AITHINK_Fn096_FetishBlowgun@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E1540",
+     "length": 476,
+     "name": "?AITHINK_Fn114_ReanimatedHorde@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E1720",
@@ -67915,6 +67913,10 @@
      "va": "0x005E77A0",
      "length": 219,
      "name": "?AITHINK_SpawnNpcPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005E7880",
+     "length": 562
     },
     {
      "va": "0x005E7C10",
@@ -68240,6 +68242,16 @@
      "length": 211
     },
     {
+     "va": "0x005F0CD0",
+     "length": 1127,
+     "name": "?AITHINK_Fn011_Baboon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F1140",
+     "length": 348,
+     "name": "?AITHINK_Fn014_QuillRat@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F12A0",
      "length": 209
     },
@@ -68257,6 +68269,11 @@
      "va": "0x005F1750",
      "length": 165,
      "name": "sub_005F1750"
+    },
+    {
+     "va": "0x005F1800",
+     "length": 849,
+     "name": "?AITHINK_Fn015_SandMaggot@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005F20A0",
@@ -68292,9 +68309,23 @@
      "name": "?AITHINK_Fn026_Arach@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F4850",
+     "length": 529,
+     "name": "?AITHINK_Fn027_ThornHulk@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F4A70",
+     "length": 1375
+    },
+    {
      "va": "0x005F4FD0",
      "length": 100,
      "name": "sub_005F4FD0"
+    },
+    {
+     "va": "0x005F5040",
+     "length": 918,
+     "name": "?AITHINK_Fn029_BatDemon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005F53E0",
@@ -68303,6 +68334,16 @@
     {
      "va": "0x005F56D0",
      "length": 348
+    },
+    {
+     "va": "0x005F5830",
+     "length": 487,
+     "name": "?AITHINK_Fn034_Andariel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005F5A20",
+     "length": 802,
+     "name": "?AITHINK_Fn035_CorruptArcher@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005F5D50",
@@ -68509,7 +68550,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005DF400.cpp",
+   "file": "Source/D2Game/Ai/AiTatics_005DF400.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68670,7 +68711,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E0490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E0490.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68694,7 +68735,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E1080.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E1080.cpp",
    "rank": 0,
    "functions": [
     {
@@ -68706,28 +68747,6 @@
      "va": "0x005E4D30",
      "length": 788,
      "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PATD2SeedStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E1250.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E1250",
-     "length": 741,
-     "name": "?AITHINK_Fn096_FetishBlowgun@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E1540.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E1540",
-     "length": 476,
-     "name": "?AITHINK_Fn114_ReanimatedHorde@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
@@ -68778,7 +68797,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E1900.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E1900.cpp",
    "rank": 0,
    "functions": [
     {
@@ -68813,7 +68832,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005E3EA0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E3EA0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -68894,30 +68913,6 @@
      "length": 101,
      "name": "?sub_005E6E80@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E7880.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E7880",
-     "length": 562
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -69066,7 +69061,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005EFE20.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005EFE20.cpp",
    "rank": 1,
    "functions": [
     {
@@ -69114,39 +69109,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005F0CD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F0CD0",
-     "length": 1127,
-     "name": "?AITHINK_Fn011_Baboon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F1140.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F1140",
-     "length": 348,
-     "name": "?AITHINK_Fn014_QuillRat@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F1800.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F1800",
-     "length": 849,
-     "name": "?AITHINK_Fn015_SandMaggot@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005F1B60.cpp",
    "rank": 0,
    "functions": [
@@ -69179,7 +69141,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005F3170.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005F3170.cpp",
    "rank": 1,
    "functions": [
     {
@@ -69200,74 +69162,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F4850.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F4850",
-     "length": 529,
-     "name": "?AITHINK_Fn027_ThornHulk@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F4A70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F4A70",
-     "length": 1375
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F5040.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F5040",
-     "length": 918,
-     "name": "?AITHINK_Fn029_BatDemon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F5830.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F5830",
-     "length": 487,
-     "name": "?AITHINK_Fn034_Andariel@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F5A20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F5A20",
-     "length": 802,
-     "name": "?AITHINK_Fn035_CorruptArcher@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
@@ -69342,7 +69236,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005F9490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005F9490.cpp",
    "rank": 1,
    "functions": [
     {
@@ -69593,7 +69487,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005FDA80.cpp",
+   "file": "Source/D2Game/SKILLS/SkillItem_005FDA80.cpp",
    "rank": 0,
    "functions": [
     {

@@ -3940,7 +3940,7 @@
    "state": "included",
    "static_definitions": 3
   },
-  "Source/D2Game/Unknown_005431F0.cpp": {
+  "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp": {
    "bytes": 12,
    "definitions": 3,
    "externs": [],
@@ -4865,7 +4865,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005B0FF0.cpp": {
+  "Source/D2Game/MISSILES/MissMode_005B0FF0.cpp": {
    "bytes": 2368,
    "definitions": 1,
    "externs": [
@@ -5040,7 +5040,7 @@
     "extern \"C\" void __cdecl sub_005FCF30(); // 0x005FCF30"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005B0FF0.inc",
+   "include": "gen/data/Source/D2Game/MISSILES/MissMode_005B0FF0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5248,12 +5248,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005D1570.cpp": {
+  "Source/D2Game/SKILLS/SkillDruid_005D1570.cpp": {
    "bytes": 64,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005D1570.inc",
+   "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005D1570.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5442,21 +5442,21 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005E0490.cpp": {
+  "Source/D2Game/Ai/AiThink4_005E0490.cpp": {
    "bytes": 32,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E0490.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0490.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005E3EA0.cpp": {
+  "Source/D2Game/Ai/AiThink4_005E3EA0.cpp": {
    "bytes": 8,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E3EA0.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiThink4_005E3EA0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5490,12 +5490,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005F9490.cpp": {
+  "Source/D2Game/Ai/AiThink4_005F9490.cpp": {
    "bytes": 68,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005F9490.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiThink4_005F9490.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -95056,12 +95056,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Game/Unknown_005431F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnInactiveCmdParam1_007314C0 = ",
-   "include": "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveCmdParam1_007314C0.inc",
+   "include": "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveCmdParam1_007314C0.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -95085,12 +95085,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Game/Unknown_005431F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnInactiveNoXpParam2_007314C4 = ",
-   "include": "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveNoXpParam2_007314C4.inc",
+   "include": "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveNoXpParam2_007314C4.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -95114,12 +95114,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Game/Unknown_005431F0.cpp",
+   "file": "Source/D2Game/UNIT/SUnitInactive_005431F0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnInactiveNoTcParam2_007314C8 = ",
-   "include": "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveNoTcParam2_007314C8.inc",
+   "include": "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveNoTcParam2_007314C8.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -112066,7 +112066,7 @@
    "cname": "gData_0073CA18",
    "declared": true,
    "decorated": "?gpAiTable_6FD3F990@@3QBUD2AiTableStrc@@B",
-   "file": "Source/D2Game/Unknown_005B0FF0.cpp",
+   "file": "Source/D2Game/MISSILES/MissMode_005B0FF0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2AiTableStrc gData_0073CA18[148]; // 0x0073CA18",
    "head": "extern \"C\" const D2AiTableStrc gData_0073CA18[148] = ",
@@ -116469,7 +116469,7 @@
    "cname": "gData_006E31A8",
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D1570.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid_005D1570.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E31A8[16]; // 0x006E31A8",
    "head": "extern \"C\" const int gData_006E31A8[16] = ",
@@ -119041,7 +119041,7 @@
    "cname": "gData_006E337C",
    "declared": true,
    "decorated": "?offsets_006E337C@@3PAUOffset@@A",
-   "file": "Source/D2Game/Unknown_005E0490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E0490.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const Offset gData_006E337C[4]; // 0x006E337C",
@@ -119129,7 +119129,7 @@
    "cname": "gData_006E34F8",
    "declared": true,
    "decorated": "?gnPetDirections@@3QBEB",
-   "file": "Source/D2Game/Unknown_005E3EA0.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E3EA0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E34F8[8]; // 0x006E34F8",
    "head": "extern \"C\" const unsigned char gData_006E34F8[8] = ",
@@ -120425,7 +120425,7 @@
    "cname": "gData_006E353C",
    "declared": true,
    "decorated": "?gnDirectionAxis_006E353C@@3QBEB",
-   "file": "Source/D2Game/Unknown_005F9490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005F9490.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E353C[4]; // 0x006E353C",
@@ -120456,7 +120456,7 @@
    "cname": "gData_006E3540",
    "declared": true,
    "decorated": "?gnDirectionMap_006E3540@@3QBEB",
-   "file": "Source/D2Game/Unknown_005F9490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005F9490.cpp",
    "fill": 64,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3540[64]; // 0x006E3540",

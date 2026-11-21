@@ -44,9 +44,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
-#include "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveCmdParam1_007314C0.inc"
-#include "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveNoXpParam2_007314C4.inc"
-#include "gen/data/Source/D2Game/Unknown_005431F0/gnInactiveNoTcParam2_007314C8.inc"
+#include "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveCmdParam1_007314C0.inc"
+#include "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveNoXpParam2_007314C4.inc"
+#include "gen/data/Source/D2Game/UNIT/SUnitInactive_005431F0/gnInactiveNoTcParam2_007314C8.inc"
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                              // 0x00639DF0

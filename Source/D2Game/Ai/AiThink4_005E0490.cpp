@@ -125,4 +125,4 @@ void __fastcall sub_005E0490_HighPriest(Game* game, Unit* unit, Tick* tick)
     AITACTICS_WalkCloseToUnit(game, unit, 12);
 }
 
-#include "gen/data/Source/D2Game/Unknown_005E0490.inc"
+#include "gen/data/Source/D2Game/Ai/AiThink4_005E0490.inc"

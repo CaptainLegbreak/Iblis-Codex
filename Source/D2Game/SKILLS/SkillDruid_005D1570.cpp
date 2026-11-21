@@ -287,7 +287,7 @@ int __fastcall SKILLS_SrvDo129_ImpTeleport(D2GameStrc* pGame, D2UnitStrc* pUnit,
     return 1;
 }
 
-#include "gen/data/Source/D2Game/Unknown_005D1570.inc"
+#include "gen/data/Source/D2Game/SKILLS/SkillDruid_005D1570.inc"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
