@@ -1278,6 +1278,15 @@ enum D2C_M230QuillRatAi
     QUILLRAT_AI_PARAM_WALK_DISTANCE = 3,
 };
 
+enum D2C_M144SandMaggotAi
+{
+    SANDMAGGOT_AI_PARAM_LAY_CHANCE_PCT = 0,
+    SANDMAGGOT_AI_PARAM_SPIT_CHANCE_PCT = 1,
+    SANDMAGGOT_AI_PARAM_NUMBER_OF_EGGS = 2,
+    SANDMAGGOT_AI_PARAM_MELEE_CHANCE_PCT = 3,
+    SANDMAGGOT_AI_PARAM_MIN_UP_DOWN_TIME = 4,
+};
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -2164,6 +2173,14 @@ static __forceinline int AI_RollPercentageInline(D2UnitStrc* pUnit)
 static int AI_RollPercentage(D2UnitStrc* pUnit)
 {
     return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+static int AI_RollPercentage_005F1800(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed % 100;
 }
 
 static int AI_RollPercentage_005E2610(D2UnitStrc* pUnit)
@@ -7980,6 +7997,105 @@ void __fastcall sub_005F1750(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     AITHINK_ExecuteAiFn(pGame, pUnit, pAiControl, pAiControl->nAiSpecialState);
     pAiControl->dwAiParam[2] = nParam;
     sub_6FCD0150(pGame, pUnit, 1);
+}
+
+static __forceinline bool AI_RollChanceLimited(D2GameStrc* pGame, D2SeedStrc* pSeed, D2MonStatsTxt* pMonStatsTxt, int nParamId)
+{
+    const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
+    return nRoll < AI_GetParam(pGame, pMonStatsTxt, nParamId);
+}
+
+static inline bool AI_RollLimitedBelow(D2SeedStrc* pSeed, int nChance)
+{
+    const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
+    return nRoll < nChance;
+}
+
+// 0x005F1800
+void __fastcall AITHINK_Fn015_SandMaggot(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    int nDistance;
+    D2UnitStrc* pNearest = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
+
+    if (pAiControl->dwAiParam[0] < 3 && !pTarget && (!pNearest || nDistance > 10) && pGame->dwGameFrame > pAiControl->dwAiParam[1] && pMonStatsTxt->nSkill[1] >= 0)
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], 0, 0, 0);
+        sub_6FCD0150(pGame, pUnit, 30);
+        pAiControl->dwAiParam[1] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, SANDMAGGOT_AI_PARAM_MIN_UP_DOWN_TIME);
+        pAiControl->dwAiParam[0] = 3;
+        return;
+    }
+
+    if ((pTarget || pNearest && nDistance < 16) && pAiControl->dwAiParam[0] == 3)
+    {
+        if (pGame->dwGameFrame > pAiControl->dwAiParam[1] && pMonStatsTxt->nSkill[0] >= 0)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            sub_6FCD0150(pGame, pUnit, 25);
+            pAiControl->dwAiParam[1] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, SANDMAGGOT_AI_PARAM_MIN_UP_DOWN_TIME);
+            pAiControl->dwAiParam[0] = 1;
+            return;
+        }
+    }
+
+    if (pAiControl->dwAiParam[0] == 3)
+    {
+        sub_6FCD0150(pGame, pUnit, 20);
+        return;
+    }
+
+    if (sub_005DD280(pUnit) < 25 && pMonStatsTxt->nSkill[1] >= 0 && nDistance < 7 && pGame->dwGameFrame > pAiControl->dwAiParam[1]
+        && AI_RollLimitedBelow(pSeed, 20))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+        sub_6FCD0150(pGame, pUnit, 30);
+        pAiControl->dwAiParam[1] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, SANDMAGGOT_AI_PARAM_MIN_UP_DOWN_TIME);
+        pAiControl->dwAiParam[0] = 3;
+        return;
+    }
+
+    if (bCombat && AI_RollPercentage_005F1800(pUnit) < AI_GetParam(pGame, pMonStatsTxt, SANDMAGGOT_AI_PARAM_MELEE_CHANCE_PCT))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    if (pNearest && nDistance < 15 && AI_RollChanceLimited(pGame, pSeed, pMonStatsTxt, SANDMAGGOT_AI_PARAM_SPIT_CHANCE_PCT))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pNearest);
+        return;
+    }
+
+    if (AI_RollPercentage_005F1800(pUnit) < 20)
+    {
+        sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[2] >= AI_GetParam(pGame, pMonStatsTxt, SANDMAGGOT_AI_PARAM_NUMBER_OF_EGGS)
+        || !AI_RollChanceLimited(pGame, pSeed, pMonStatsTxt, SANDMAGGOT_AI_PARAM_LAY_CHANCE_PCT))
+    {
+        sub_6FCD0150(pGame, pUnit, 12);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[0] == 2 && pMonStatsTxt->nSkill[2] >= 0)
+    {
+        ++pAiControl->dwAiParam[2];
+        pAiControl->dwAiParam[0] = 1;
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pTarget, 0, 0);
+        sub_6FCD0150(pGame, pUnit, 20);
+        return;
+    }
+
+    sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+    pAiControl->dwAiParam[0] = 2;
 }
 
 static inline unsigned int AI_RollSeedUnit(D2UnitStrc* pUnit)
