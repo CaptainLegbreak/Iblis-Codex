@@ -28,7 +28,7 @@ void __cdecl sub_004608C0_RefreshAdjacentPlayers()
     {
         for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
-            if ((pUnit ? pUnit->dwUnitType : 6) == UNIT_MONSTER && STATES_CheckState(pUnit, 0x3F))
+            if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) == UNIT_MONSTER && STATES_CheckState(pUnit, 0x3F))
             {
                 sub_00470610_Refresh(pUnit, 0);
             }

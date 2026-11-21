@@ -80,7 +80,7 @@ bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     D2UnitStrc* pTarget = sub_6FCCFD70(pGame, pUnit, &bCloseToTarget);
     const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget);
 
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     D2MonsterInteractStrc* pMonInteract = nType == UNIT_MONSTER && pUnit->pMonsterData ? pUnit->pMonsterData->pMonInteract : 0;
     if (!pMonInteract)
     {

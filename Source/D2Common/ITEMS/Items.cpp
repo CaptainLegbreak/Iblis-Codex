@@ -2607,7 +2607,7 @@ inline int ITEMS_GetItemType_Inl(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 1661);
 
-    const int nUnitType = pItem ? pItem->dwUnitType : 6;
+    const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType != 4)
     {
         return 0;
@@ -2901,7 +2901,7 @@ void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat
 // 0x0062A710
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* hItem)
 {
-    D2_ASSERT((hItem ? hItem->dwUnitType : 6) == UNIT_ITEM, 0x151D);
+    D2_ASSERT((hItem ? hItem->dwUnitType : UNIT_INVALID) == UNIT_ITEM, 0x151D);
     D2_ASSERT(ITEMSIsA(hItem, 0x2D), 0x151E);
     D2_ASSERT(pUnit, 0x151F);
 
@@ -3056,7 +3056,7 @@ inline void ITEMS_SetItemFlag_Inline(D2UnitStrc* pItem, unsigned int dwFlag, int
 
 inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 inline void ITEMS_SetItemFlags(D2UnitStrc* pItem, unsigned int dwFlags)
@@ -3822,14 +3822,14 @@ static __forceinline D2ItemDataStrc* GetData(D2UnitStrc* item) {
 }
 
 static __forceinline unsigned int GetQuality(D2UnitStrc* item) {
-    const int type = item ? item->dwUnitType : 6;
+    const int type = item ? item->dwUnitType : UNIT_INVALID;
     D2ItemDataStrc* data = (type == 4 && item->pItemData) ? item->pItemData : 0;
     return data ? data->dwQualityNo : 2;
 }
 
 // 0x0062BCB0
 void __stdcall sub_0062BCB0_AddSockets(D2UnitStrc* item, int sockets) {
-    const int type = item ? item->dwUnitType : 6;
+    const int type = item ? item->dwUnitType : UNIT_INVALID;
     if (type != 4) return;
     int maximum = 6;
     unsigned char width = 0, height = 0;
@@ -3940,7 +3940,7 @@ int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem)
 
 static int ITEMS_IsMagSetRarUniCrfOrTmp_Inline(D2UnitStrc* pItem)
 {
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType == 4 && pItem->pItemData)
     {
         switch (pItem->pItemData->dwQualityNo)
@@ -4384,7 +4384,7 @@ int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* hItem)
 {
     D2_ASSERT(hItem, 0x67D);
 
-    const int nUnitType = hItem ? hItem->dwUnitType : 6;
+    const int nUnitType = hItem ? hItem->dwUnitType : UNIT_INVALID;
     if (!(nUnitType == 4 && ITEMS_GetItemTypeFromItemId(hItem->dwClassId) == 4)
         && !sub_T03_CheckItemFlag(hItem, 0x1000)
         && ITEMS_GetItemType(hItem) != 7
@@ -6309,7 +6309,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
     int nRepCost;
     int nDivisor;
 
-    if (!pPlayer || (hItem ? hItem->dwUnitType : 6) != UNIT_ITEM)
+    if (!pPlayer || (hItem ? hItem->dwUnitType : UNIT_INVALID) != UNIT_ITEM)
     {
         return 0x7FFFFFFF;
     }
@@ -6890,7 +6890,7 @@ static __forceinline int ITEMS_GetItemQualityInl(D2UnitStrc* pItem)
 
 static __forceinline D2ItemDataStrc* ITEMS_GetItemDataTypedInl(D2UnitStrc* pItem)
 {
-    const int nUnitType = pItem ? pItem->dwUnitType : 6;
+    const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_ITEM)
     {
         return pItem->pItemData;
@@ -6909,7 +6909,7 @@ static __forceinline int ITEMS_GetItemQualityTypedInl(D2UnitStrc* pItem)
 
 static __forceinline void ITEMS_SetItemQualityInl(D2UnitStrc* pItem, int nQuality)
 {
-    const int nUnitType = pItem ? pItem->dwUnitType : 6;
+    const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_ITEM && pItem->pItemData)
     {
         pItem->pItemData->dwQualityNo = nQuality;
@@ -7090,7 +7090,7 @@ static __forceinline void ITEMS_WriteBitsCallInl(D2BitBufferStrc* pBuffer, unsig
 static __forceinline unsigned short ITEMS_GetItemFormatInl(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 5380);
-    const int nUnitType = pItem ? pItem->dwUnitType : 6;
+    const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     D2_ASSERT(nUnitType == UNIT_ITEM, 5381);
     D2ItemDataStrc* pItemData = ITEMS_GetItemDataForceInl(pItem);
     D2_ASSERT(pItemData, 5383);
@@ -7380,7 +7380,7 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
     }
 
     int nStatLists = 0;
-    const int nItemType = pItem ? pItem->dwUnitType : 6;
+    const int nItemType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nItemType == UNIT_ITEM && ITEMS_GetItemQualityInl(pItem) == ITEMQUAL_SET)
     {
         int nSetMask = 0;

@@ -287,9 +287,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -299,9 +299,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -451,12 +451,12 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 }
 
 static __forceinline int GetX(D2UnitStrc* pUnit) {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
+    switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos; }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
 static __forceinline int GetY(D2UnitStrc* pUnit) {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
+    switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos; }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
@@ -565,7 +565,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
         break;
     case 15:
         {
-            if ((pTarget ? pTarget->dwUnitType : 6) != 0) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 3); break; }
+            if ((pTarget ? pTarget->dwUnitType : UNIT_INVALID) != 0) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 3); break; }
             int nObjectId = PLAYER_GetUniqueIdFromPlayerData(pTarget);
             if (!SUNIT_GetServerUnit(pGame, 2, nObjectId)) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 2); break; }
             if (pStats->nSkill[6] >= 0) {

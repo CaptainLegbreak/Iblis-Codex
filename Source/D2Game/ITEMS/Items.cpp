@@ -872,7 +872,7 @@ FailedUnique:
 
 __forceinline D2ItemsTxt* ITEMMODE_GetItemsTxtRecordOfItem_H10(D2UnitStrc* pItem)
 {
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType == 4)
     {
         return DATATBLS_GetItemsTxtRecord(pItem->dwClassId);
@@ -1810,7 +1810,7 @@ void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 static inline int ITEMS_IsUniqueWithFileIndex(D2UnitStrc* pItem, int nFileIndex)
 {
-    return pItem && pItem->dwUnitType == 4 && ITEMS_GetItemQuality(pItem) == ITEMQUAL_UNIQUE && ITEMS_GetFileIndex(pItem) == nFileIndex;
+    return pItem && pItem->dwUnitType == UNIT_ITEM && ITEMS_GetItemQuality(pItem) == ITEMQUAL_UNIQUE && ITEMS_GetFileIndex(pItem) == nFileIndex;
 }
 
 // 0x00558070
@@ -1877,9 +1877,9 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1890,9 +1890,9 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

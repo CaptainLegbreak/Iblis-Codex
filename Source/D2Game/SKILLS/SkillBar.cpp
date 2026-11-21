@@ -952,9 +952,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -965,9 +965,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1186,9 +1186,9 @@ static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
 
     default:
@@ -1298,7 +1298,7 @@ static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D
     const int nX = SKILLS_GetParam1(pSkill);
     const int nY = SKILLS_GetParam2(pSkill);
 
-    const int nType = (pUnit ? pUnit->dwUnitType : 6);
+    const int nType = (pUnit ? pUnit->dwUnitType : UNIT_INVALID);
     const int bMonster = nType == 1;
     int nId = -1;
     if (bMonster)

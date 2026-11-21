@@ -1818,9 +1818,9 @@ static __forceinline unsigned int INVENTORY_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->tGameCoords.nX;
     default:
         if (pUnit->pDynamicPath)

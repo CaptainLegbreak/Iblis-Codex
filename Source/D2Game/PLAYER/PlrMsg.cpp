@@ -1306,9 +1306,9 @@ static __forceinline int PLRMSG_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1319,9 +1319,9 @@ static __forceinline int PLRMSG_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1847,9 +1847,9 @@ static __forceinline int PLRMSG_J07_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1860,9 +1860,9 @@ static __forceinline int PLRMSG_J07_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1891,9 +1891,9 @@ static __declspec(noinline) int __stdcall sub_00549570_CheckWaypointObject(D2Gam
     } tLocal;
     switch (pObject->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         tLocal.nX = pObject->pStaticPath->nXPos;
         break;
     default:
@@ -2111,9 +2111,9 @@ __forceinline int PLRMSG_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -2124,9 +2124,9 @@ __forceinline int PLRMSG_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -4083,9 +4083,9 @@ static __forceinline int sub_E03_PlrGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -4096,9 +4096,9 @@ static __forceinline int sub_E03_PlrGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

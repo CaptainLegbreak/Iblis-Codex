@@ -426,7 +426,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
     {
         return;
     }
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 5 && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 100)
     {
         return;
@@ -438,7 +438,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
 
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
     {
         Unicode wszName[0x80];
         int nPercent;
@@ -447,14 +447,14 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         D2Win_10130_DrawFramedTextEx(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
         return;
     }
-    case 4:
+    case UNIT_ITEM:
         if (gaUIVarStates_007A27C0[13])
         {
             return;
         }
         sub_004527D0(pUnit, 0, 0);
         return;
-    case 1:
+    case UNIT_MONSTER:
     {
         const int nClassId = pUnit->dwClassId;
         if (nClassId != 0x1A1 && nClassId != 0x1A2)
@@ -495,7 +495,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         gwszHoverName_007A2F38[0].wChar = 0;
         return;
     }
-    case 2:
+    case UNIT_OBJECT:
     {
         Unicode wszUnused[0x80];
         Unicode wszLine[0x100];
@@ -560,7 +560,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         D2Win_10129_DrawFramedText(pName, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
         return;
     }
-    case 5:
+    case UNIT_TILE:
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
         const int nLevelId = sub_0061A1D0_GetTileLevelId(pRoom, pUnit->dwClassId);

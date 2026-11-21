@@ -670,7 +670,7 @@ int gnNpcGUID_0088CAC4; // 0x0088CAC4
 // 0x00573B20
 void __fastcall sub_6FC61190(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterItemCodeStrc* pItemCode, int dwILvl, int dwQuality)
 {
-    const int nType = pMonster ? pMonster->dwUnitType : 6;
+    const int nType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return;
@@ -2280,12 +2280,12 @@ static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed,int nMax)
 
 static __forceinline int UnitX(D2UnitStrc* pUnit)
 {
- switch(pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
+ switch(pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
 }
 
 static __forceinline int UnitY(D2UnitStrc* pUnit)
 {
- switch(pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
+ switch(pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
 }
 
 // 0x00578790
@@ -2969,12 +2969,12 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
 }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
- switch(unit->dwUnitType) { case 2:case 4:case 5:return unit->pStaticPath->nXPos; }
+ switch(unit->dwUnitType) { case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nXPos; }
  return unit->pDynamicPath?PATH_GetXPosition(unit->pDynamicPath):0;
 }
 
 static __forceinline int GetY(D2UnitStrc* unit) {
- switch(unit->dwUnitType) { case 2:case 4:case 5:return unit->pStaticPath->nYPos; }
+ switch(unit->dwUnitType) { case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nYPos; }
  return unit->pDynamicPath?PATH_GetYPosition(unit->pDynamicPath):0;
 }
 

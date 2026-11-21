@@ -785,7 +785,7 @@ static __forceinline unsigned char SKILLCLT_GetUnitTypeByte(D2UnitStrc* pUnit)
 
 static __forceinline int SKILLCLT_GetUnitType(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 static __forceinline void SKILLCLT_SetCastState(D2UnitStrc* pUnit)
@@ -856,9 +856,9 @@ inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->tGameCoords.nX;
 
     default:
@@ -874,9 +874,9 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->tGameCoords.nY;
 
     default:
@@ -988,7 +988,7 @@ static __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 // 0x004C5960
 int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nFlags)
 {
-    const int nType = pTarget ? pTarget->dwUnitType : 6;
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     switch (nType)
     {
     case 0:
@@ -2429,9 +2429,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -2441,9 +2441,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -2926,7 +2926,7 @@ void __fastcall sub_004C9060_DrawRotated(D2UnitStrc* pUnit, int nArg, int bForwa
         nY = UNITS_GetClientCoordY(pUnit);
     }
 
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     sub_00471EC0_DrawUnit(pUnit, nArg, nX, nY, nUnitType == 0, 0);
     sub_006488A0_SetDirection(pPath, nDirection);
 }

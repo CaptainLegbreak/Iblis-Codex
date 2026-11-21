@@ -1352,7 +1352,7 @@ static __forceinline int GetXInl_Desert(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5:
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1362,7 +1362,7 @@ static __forceinline int GetYInl_Desert(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5:
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -2145,7 +2145,7 @@ static __forceinline int GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: return pUnit->pStaticPath->nXPos;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -2154,7 +2154,7 @@ static __forceinline int GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: return pUnit->pStaticPath->nYPos;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
@@ -3096,13 +3096,13 @@ void __fastcall D2GAME_AI_SpecialState11_6FCE7E20(D2GameStrc* pGame, D2UnitStrc*
 
     switch (pTarget->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         sub_6FC61E30(pUnit, 1, !pTarget ? -1 : pTarget->dwUnitId);
         break;
-    case 1:
+    case UNIT_MONSTER:
         sub_6FC61E30(pUnit, 2, !pTarget ? -1 : pTarget->dwUnitId);
         break;
-    case 3:
+    case UNIT_MISSILE:
         sub_6FC61E30(pUnit, 4, !pTarget ? -1 : pTarget->dwUnitId);
         break;
     }
@@ -3288,14 +3288,14 @@ int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 static __forceinline int sub_0045ADF0(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
-    {case 2:case 4:case 5:return pUnit->pStaticPath->nXPos;}
+    {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nXPos;}
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath):0;
 }
 
 static __forceinline int sub_0045AE20(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
-    {case 2:case 4:case 5:return pUnit->pStaticPath->nYPos;}
+    {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nYPos;}
     return pUnit->pDynamicPath ? PATH_GetY(pUnit->pDynamicPath):0;
 }
 
@@ -3984,9 +3984,9 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -3996,9 +3996,9 @@ static __forceinline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -4009,9 +4009,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -4021,9 +4021,9 @@ static __forceinline int CLIENTS_GetUnitYInline_005F02C0(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -5523,9 +5523,9 @@ static __forceinline int CLIENTS_GetUnitXInline_Totem(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -5535,9 +5535,9 @@ static __forceinline int CLIENTS_GetUnitYInline_Totem(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -7054,9 +7054,9 @@ static __forceinline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -7067,9 +7067,9 @@ static __forceinline int UNITS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -7716,9 +7716,9 @@ static __forceinline int CLIENTS_GetUnitX_FrogDemon(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -7729,9 +7729,9 @@ static __forceinline int CLIENTS_GetUnitY_FrogDemon(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -7960,9 +7960,9 @@ static __forceinline int AI_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -7973,9 +7973,9 @@ static __forceinline int AI_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

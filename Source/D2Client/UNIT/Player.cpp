@@ -646,9 +646,9 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         if (pUnit->pDynamicPath)
@@ -664,9 +664,9 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         if (pUnit->pDynamicPath)
@@ -1004,9 +1004,9 @@ static inline int PLAYER_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
 
@@ -1019,9 +1019,9 @@ static inline int PLAYER_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
 
@@ -1396,9 +1396,9 @@ static __forceinline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         if (pUnit->pDynamicPath)
@@ -1414,9 +1414,9 @@ static __forceinline int __fastcall UNITS_GetYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         if (pUnit->pDynamicPath)
@@ -1680,7 +1680,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
     {
         switch (pTarget->dwUnitType)
         {
-        case 2:
+        case UNIT_OBJECT:
         {
             if (pCmd->dwFlags & 8)
                 return;
@@ -1708,7 +1708,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             }
             return;
         }
-        case 4:
+        case UNIT_ITEM:
         {
             if (pCmd->dwFlags & 8)
                 return;
@@ -1725,7 +1725,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             sub_0044BEF0();
             return;
         }
-        case 0:
+        case UNIT_PLAYER:
         {
             if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
@@ -1736,7 +1736,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             sub_00460780_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
             return;
         }
-        case 5:
+        case UNIT_TILE:
         {
             if (sub_0044DAA0() < sub_0044DAC0())
                 return;
@@ -1752,7 +1752,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             sub_0044DAD0(sub_0044DAA0() + 0x1F4);
             return;
         }
-        case 1:
+        case UNIT_MONSTER:
         {
             D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
             if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]))
@@ -1976,9 +1976,9 @@ __forceinline int ClampTarget_GetX(D2UnitStrc* pUnit)
     int nResult;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nResult = pUnit->pStaticPath->nXPos;
         break;
     default:
@@ -1994,9 +1994,9 @@ __forceinline int ClampTarget_GetY(D2UnitStrc* pUnit)
     int nResult;
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         nResult = pUnit->pStaticPath->nYPos;
         break;
     default:
@@ -2134,13 +2134,13 @@ static void sub_004625B0_ExecuteCommand(D2PlayerCmdStrc* pCmd)
     {
         switch (pTarget->dwUnitType)
         {
-        case 2:
-        case 4:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
             if (!(pSkillsTxt->nFlags[3] & gdwBitMasks[3]))
                 goto no_target;
             bAuraTarget = 1;
             break;
-        case 5:
+        case UNIT_TILE:
             dwFlags |= 0x100;
             goto no_target;
         }
@@ -2502,8 +2502,8 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     {
         switch (pSelected->dwUnitType)
         {
-        case 2:
-        case 4:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
             tCmd.nX = CLIENTS_GetUnitX(pSelected);
             tCmd.nY = CLIENTS_GetUnitY(tCmd.pTarget);
             break;

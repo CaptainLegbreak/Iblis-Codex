@@ -136,7 +136,7 @@ int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int n
 // 0x00663A20
 int __fastcall sub_00663A20_SetItemBonusStates(D2UnitStrc* pItem, unsigned int nSetItemMask)
 {
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType == 4 && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
     {
         const D2SetItemsTxt* pSetItemsTxt = ITEMS_GetSetItemsTxtRecordFromItem(pItem);

@@ -28,7 +28,7 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2: case 4: case 5: return unit->pStaticPath->nXPos;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return unit->pStaticPath->nXPos;
     }
     return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath) : 0;
 }
@@ -36,7 +36,7 @@ static __forceinline int UNITS_GetYPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2: case 4: case 5: return unit->pStaticPath->nYPos;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return unit->pStaticPath->nYPos;
     }
     return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath) : 0;
 }

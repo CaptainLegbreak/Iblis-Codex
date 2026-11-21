@@ -1528,7 +1528,7 @@ int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* hP
     const bool bIsPlayer = hPlayer && hPlayer->dwUnitType == UNIT_PLAYER;
     D2_ASSERT(bIsPlayer, 2028);
 
-    const int nNPCType = pNPC ? pNPC->dwUnitType : 6;
+    const int nNPCType = pNPC ? pNPC->dwUnitType : UNIT_INVALID;
     D2_ASSERT(nNPCType == 1, 2029);
 
     const int nNpcId = pNPC->dwClassId;
@@ -2998,7 +2998,7 @@ static __forceinline D2QuestDataStrc* QUESTS_GetQuestDataInl_B08(D2GameStrc* pGa
 void __fastcall QUESTS_ActChange_HirelingChangeAct(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pVendor, unsigned int dwDestLvl, unsigned int nUnused)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    const int nVendorType = pVendor ? pVendor->dwUnitType : 6;
+    const int nVendorType = pVendor ? pVendor->dwUnitType : UNIT_INVALID;
     if (nVendorType != 1)
     {
         return;

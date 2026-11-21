@@ -47,7 +47,7 @@ int __fastcall sub_005CDC10_ConsumeCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     if (pTarget)
     {
-        const int nType = pTarget ? pTarget->dwUnitType : 6;
+        const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
         if (nType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pTarget) && pTarget->dwAnimMode == 12)
         {
             const int nCorpseLife = STATLIST_GetMaxLifeFromUnit(pTarget);

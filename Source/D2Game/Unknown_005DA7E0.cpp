@@ -82,9 +82,9 @@ static __forceinline int sub_I16_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
 
     default:
@@ -278,7 +278,7 @@ int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
 
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
 
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     const int bMonster = nUnitType == 1;
 
     const int nSkillFlags = SKILLS_GetFlags(pSkill);

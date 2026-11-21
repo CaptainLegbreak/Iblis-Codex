@@ -971,7 +971,7 @@ void __fastcall D2GAME_SpikeTraps_6FC74F60(D2GameStrc* pGame, D2UnitStrc* pObjec
         {
             do
             {
-                const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+                const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
                 const int nUnitMode = pUnit ? pUnit->dwAnimMode : 0;
                 if (nUnitType == 0 && nUnitMode != 17 && sub_006416D0_UnitEdgeDistance(pObject, pUnit) <= 0)
                 {
@@ -1549,7 +1549,7 @@ int __fastcall sub_6FC76F60(D2UnitStrc* pMonster, D2UnitStrc* pUnit1)
     {
         return 0;
     }
-    const int nUnitType = pMonster ? pMonster->dwUnitType : 6;
+    const int nUnitType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
     if (!pMonster || nUnitType != 1)
     {
         return 0;
@@ -1767,9 +1767,9 @@ __forceinline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1780,9 +1780,9 @@ __forceinline int CLIENTS_GetUnitY_Local(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1840,9 +1840,9 @@ static __forceinline int CLIENTS_GetUnitX_Shrine(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1852,9 +1852,9 @@ static __forceinline int CLIENTS_GetUnitY_Shrine(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -2413,7 +2413,7 @@ static int sub_00584240_ExplodeBarrel(D2ObjOperateFnStrc* pOp)
     UNITS_GetCoords(pOp->hObject, &tCoord);
     for (D2UnitStrc* pUnit = UNITS_GetRoom(pOp->hObject)->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
-        const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+        const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         const int nAnimMode = pUnit ? pUnit->dwAnimMode : 0;
         if (pUnit != pOp->hObject && nUnitType != UNIT_TILE)
         {
@@ -2689,7 +2689,7 @@ int __fastcall sub_00584870_OperatePortal(D2ObjOperateFnStrc* pOp)
             return 0;
         }
     }
-    D2_ASSERT((pOp->hPlayer ? pOp->hPlayer->dwUnitType : 6) == 0, 0xED8);
+    D2_ASSERT((pOp->hPlayer ? pOp->hPlayer->dwUnitType : UNIT_INVALID) == 0, 0xED8);
     D2UnitStrc* pOtherPortal = sub_00553720_ResolveObjectOwner(pOp->pGame, pOp->hObject);
     if (pOtherPortal && pOtherPortal->dwUnitType != UNIT_OBJECT) pOtherPortal = 0;
     if (UNITS_GetRoom(pOp->hObject)) {

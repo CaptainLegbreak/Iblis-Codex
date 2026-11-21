@@ -92,9 +92,9 @@ static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -104,9 +104,9 @@ static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -404,8 +404,8 @@ int __fastcall sub_004F2060_CheckTargetSetFlag(D2UnitStrc* pUnit, int nSkillId, 
     {
         switch (pTarget->dwUnitType)
         {
-        case 0:
-        case 1:
+        case UNIT_PLAYER:
+        case UNIT_MONSTER:
             bOk = sub_00465C60_CheckUnitPair(pUnit, pTarget);
             break;
         }

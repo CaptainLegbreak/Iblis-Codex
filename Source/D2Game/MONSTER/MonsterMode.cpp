@@ -1546,9 +1546,9 @@ static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1559,9 +1559,9 @@ static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -2331,7 +2331,7 @@ void __fastcall sub_005A7BE0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill)
 {
     D2UnitStrc* pUnit = pModeChange->pUnit;
-    if ((pUnit ? pUnit->dwUnitType : 6) != UNIT_MONSTER)
+    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != UNIT_MONSTER)
     {
         return 0;
     }
@@ -2499,7 +2499,7 @@ static __forceinline int MONSTATS_GetBaseIdInline(int nClassId)
 // build: context MONSTERS_GetBaseIdFromUnitInline
 static __forceinline int MONSTERS_GetBaseIdFromUnitInline(D2UnitStrc* pUnit)
 {
-    if (pUnit && pUnit->dwUnitType == 1)
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return MONSTATS_GetBaseIdInline(pUnit->dwClassId);
     return -1;
 }
@@ -2731,7 +2731,7 @@ int __fastcall MISSMODE_UnitFindCallback_CanCollideWithMonster(D2UnitStrc* pUnit
         return 0;
     }
 
-    if (!pUnit || pUnit->dwUnitType != 1)
+    if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return 0;
     }

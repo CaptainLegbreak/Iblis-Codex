@@ -518,9 +518,9 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -531,9 +531,9 @@ __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -629,9 +629,9 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
 
@@ -642,9 +642,9 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
 
@@ -1147,14 +1147,14 @@ int __fastcall sub_004CF3C0_CltHitUnit(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         if (pMissilesTxtRecord->dwCltHitPar[1])
         {
             return 0;
         }
         break;
 
-    case 1:
+    case UNIT_MONSTER:
         switch (pMissilesTxtRecord->dwCltHitPar[1])
         {
         case 2:
@@ -3387,8 +3387,8 @@ int __fastcall sub_004E3350_CheckTargetInRange(D2UnitStrc* pUnit, int nSkillId, 
 
     switch (pTarget->dwUnitType)
     {
-    case 0:
-    case 1:
+    case UNIT_PLAYER:
+    case UNIT_MONSTER:
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
         if (!pRoom || DUNGEON_IsRoomInTown(pRoom))

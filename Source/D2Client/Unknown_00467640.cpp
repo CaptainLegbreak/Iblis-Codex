@@ -38,7 +38,7 @@ extern int gnGlobal_007A6B08; // 0x007A6B08
 // 0x00467640
 int __fastcall sub_00467640_UnitIsOfTypeMonster(D2UnitStrc* pUnit, SGAMEDATA* pGame)
 {
-    if ((pUnit ? pUnit->dwUnitType : 6) != 1)
+    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != 1)
     {
         return 0;
     }

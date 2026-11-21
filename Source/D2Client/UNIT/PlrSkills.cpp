@@ -396,7 +396,7 @@ void __fastcall sub_004D89A0_StateClearOwner(D2UnitStrc* pUnit, int nState)
 // 0x004D89B0
 void __fastcall sub_004D89B0_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
 {
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return;
@@ -1514,7 +1514,7 @@ int __fastcall sub_004F4000_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, in
         return 0;
     }
 
-    const int nType = pTarget ? pTarget->dwUnitType : 6;
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nType != 1)
     {
         return 0;

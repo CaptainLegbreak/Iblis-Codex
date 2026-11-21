@@ -1409,7 +1409,7 @@ void __fastcall sub_0055C270_OnItemToBelt(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 static __forceinline D2InventoryStrc* GetUnitInventory(D2UnitStrc* pUnit)
@@ -1486,7 +1486,7 @@ void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitS
 
     sub_0055C270_OnItemToBelt(pUnit, pItem);
 
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     D2UnitStrc* pLeftHandWeapon = 0;
     if (nUnitType == 0)
     {
@@ -1703,7 +1703,7 @@ void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc* pG
         return;
     if (ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
         ITEMS_UpdateSets(pTarget, pItem, 1, 0);
-    const int nTargetType = pTarget ? pTarget->dwUnitType : 6;
+    const int nTargetType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     D2UnitStrc* pLeftWeapon = 0;
     if (nTargetType == 0)
         pLeftWeapon = INVENTORY_GetLeftHandWeapon(GetUnitInventory(pTarget));
@@ -2963,9 +2963,9 @@ static __forceinline int sub_E03_ItemGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -2976,9 +2976,9 @@ static __forceinline int sub_E03_ItemGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -3246,7 +3246,7 @@ int __fastcall sub_6FC48D50(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorIt
     sub_0055BF50_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1290);
 
     D2UnitStrc* pCursorItem = SUNIT_GetServerUnit(ptGame, 4, nCursorItemGUID);
-    if (!pCursorItem || pCursorItem->dwUnitType != 4 || pCursorItem->dwAnimMode != IMODE_ONCURSOR || !ITEMS_CheckIfBeltable(pCursorItem))
+    if (!pCursorItem || pCursorItem->dwUnitType != UNIT_ITEM || pCursorItem->dwAnimMode != IMODE_ONCURSOR || !ITEMS_CheckIfBeltable(pCursorItem))
     {
         return 0;
     }
@@ -4253,7 +4253,7 @@ int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameSt
     sub_0055BF50_ClearTargetingFlags(pPlayer, szItemModeCpp, 0x87B);
     D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nUnitId);
     if (!pItem) return 0;
-    if (pItem->dwUnitType != 4) return 0;
+    if (pItem->dwUnitType != UNIT_ITEM) return 0;
     if (pItem->dwAnimMode != IMODE_ONCURSOR) return 0;
     const unsigned char nPage = ITEMS_GetInvPage(pItem);
     if (!pInventory)
@@ -4666,7 +4666,7 @@ int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, u
         return 0;
     }
 
-    const int nItemType = hItem ? hItem->dwUnitType : 6;
+    const int nItemType = hItem ? hItem->dwUnitType : UNIT_INVALID;
     if (nItemType != 4)
     {
         return 0;
@@ -4748,7 +4748,7 @@ int __fastcall ITEMMODE_SwapCursorAndBodyItem(D2GameStrc* ptGame, D2UnitStrc* pU
  sub_0055BF50_ClearTargetingFlags(pUnit, szItemModeCpp, 0xcb0);
  D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
  if (!pItem) { *pFailed = 0; return 0; }
- if (pItem->dwUnitType != 4) return 0;
+ if (pItem->dwUnitType != UNIT_ITEM) return 0;
  if (pItem->dwAnimMode != IMODE_ONCURSOR) { *pFailed = 0; return 0; }
  const int nLoc = nBodyLoc;
  if (D2Common_10299(pUnit, nLoc, pItem, bSkipRequirementCheck) != 5) { *pFailed = 0; return 0; }
@@ -4822,7 +4822,7 @@ int __fastcall sub_00561220_SwapDualWieldedItem(D2GameStrc* ptGame, D2UnitStrc* 
     D2_ASSERT(pUnit, 0xD39);
     *pFailure = 0;
     D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
-    if (!pItem || pItem->dwUnitType != 4 || pItem->dwAnimMode != IMODE_ONCURSOR)
+    if (!pItem || pItem->dwUnitType != UNIT_ITEM || pItem->dwAnimMode != IMODE_ONCURSOR)
         return 0;
     if (D2Common_10299(pUnit, nBodyLoc, pItem, 0) != 7)
         return 0;
@@ -5056,7 +5056,7 @@ int __fastcall sub_6FC46D40(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorIt
     sub_0055BF50_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xEC6);
 
     D2UnitStrc* pCursorItem = SUNIT_GetServerUnit(ptGame, 4, nCursorItemGUID);
-    if (!pCursorItem || pCursorItem->dwUnitType != 4 || pCursorItem->dwAnimMode != IMODE_ONCURSOR)
+    if (!pCursorItem || pCursorItem->dwUnitType != UNIT_ITEM || pCursorItem->dwAnimMode != IMODE_ONCURSOR)
     {
         return 0;
     }
@@ -5534,7 +5534,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStr
     if (pItem->dwUnitType != UNIT_ITEM) return 0;
     if (!ITEMS_CheckItemFlag(pItem, 0x10, 0x13DB, ".\\ITEMS\\ItemMode.cpp")) return 0;
     if (bCheckMode && pItem->dwAnimMode != IMODE_STORED && pItem->dwAnimMode != IMODE_EQUIP) return 0;
-    if (pFiller->dwUnitType != 4 || pItem->dwUnitType != 4 || !ITEMS_IsSocketFiller(pFiller)
+    if (pFiller->dwUnitType != UNIT_ITEM || pItem->dwUnitType != UNIT_ITEM || !ITEMS_IsSocketFiller(pFiller)
         || !ITEMS_CheckItemFlag(pFiller, 0x10, 0x13EA, ".\\ITEMS\\ItemMode.cpp")
         || !ITEMS_CheckItemFlag(pItem, 0x800, 0x13EB, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CheckIfSocketable(pItem)) return 0;
     D2InventoryStrc* pInventory = pItem->pInventory;

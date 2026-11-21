@@ -2977,7 +2977,7 @@ static void sub_0045D3B0_SendUnitStatus(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+        const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         const int nUnitId = pUnit->dwUnitId;
         D2PacketRecord11Strc tPacket;
         tPacket.nHeader = 0x47;

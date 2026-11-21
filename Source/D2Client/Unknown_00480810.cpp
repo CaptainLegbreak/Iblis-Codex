@@ -16,7 +16,7 @@ void __fastcall sub_0045FA40_FreeUnit(D2UnitStrc* unit); // 0x0045FA40
 
 inline int GetUnitType(D2UnitStrc* unit)
 {
-    return unit ? unit->dwUnitType : 6;
+    return unit ? unit->dwUnitType : UNIT_INVALID;
 }
 inline int GetUnitId(D2UnitStrc* unit)
 {
@@ -75,11 +75,11 @@ void __fastcall sub_00480810_OnUnitA(D2UnitStrc* unit)
     sub_00470C30_UpdateStateOverlays(unit);
     switch (unit->dwUnitType)
     {
-    case 0: sub_00463390_UpdatePlayerMode(unit); break;
-    case 1: sub_004B13A0_UpdateMonsterClient(unit); break;
-    case 2: sub_004BDFF0_UpdateObject(unit); break;
-    case 3: sub_004D2C70_CltDoMissile(unit); break;
-    case 4: sub_004C1AD0_UpdateAnim(unit); break;
+    case UNIT_PLAYER: sub_00463390_UpdatePlayerMode(unit); break;
+    case UNIT_MONSTER: sub_004B13A0_UpdateMonsterClient(unit); break;
+    case UNIT_OBJECT: sub_004BDFF0_UpdateObject(unit); break;
+    case UNIT_MISSILE: sub_004D2C70_CltDoMissile(unit); break;
+    case UNIT_ITEM: sub_004C1AD0_UpdateAnim(unit); break;
     }
     D2UnitStrc* found = server ? sub_004639B0_FindServerSideUnit(id, type) : sub_00463990(id, type);
     if (found)

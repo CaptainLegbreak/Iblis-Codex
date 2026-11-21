@@ -703,9 +703,9 @@ void __cdecl sub_00499040_DrawBelt()
         int nBox;
         switch (pItem->dwUnitType)
         {
-        case 2:
-        case 4:
-        case 5:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             nBox = pItem->pStaticPath->nXPos;
             break;
         default:

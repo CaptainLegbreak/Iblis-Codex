@@ -722,7 +722,7 @@ int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 // 0x005C3300
 static int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit)
 {
-    if ((pUnit ? pUnit->dwUnitType : 6) != 1)
+    if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != 1)
     {
         return 0;
     }
@@ -871,7 +871,7 @@ int __fastcall sub_005C35C0_CurseUnitCallback(D2UnitStrc* pUnit, D2UnkNecSkillSt
 {
     if (pArgs->unk0x08)
     {
-        const int nType = pUnit ? pUnit->dwUnitType : 6;
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         if (nType != UNIT_MONSTER)
         {
             return 0;
@@ -2150,9 +2150,9 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
 
@@ -2163,9 +2163,9 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
 
@@ -2820,7 +2820,7 @@ int __fastcall sub_005C6760(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
 
 static __forceinline int sub_IsBloodGolem(D2UnitStrc* pUnit)
 {
-    return pUnit && pUnit->dwUnitType == 1 && (!pUnit ? -1 : pUnit->dwClassId) == 290;
+    return pUnit && pUnit->dwUnitType == UNIT_MONSTER && (!pUnit ? -1 : pUnit->dwClassId) == 290;
 }
 
 // 0x005C6870

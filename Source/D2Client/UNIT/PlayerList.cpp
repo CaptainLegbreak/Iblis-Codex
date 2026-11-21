@@ -90,17 +90,17 @@ void __fastcall sub_004DC510_InitGfxData(D2UnitStrc* pUnit)
 
     switch (pUnit->dwUnitType)
     {
-    case 0:
-    case 2:
+    case UNIT_PLAYER:
+    case UNIT_OBJECT:
         sub_00470610_Refresh(pUnit, 0);
         break;
 
-    case 1:
+    case UNIT_MONSTER:
         sub_00470610_Refresh(pUnit, 1);
         break;
 
-    case 3:
-    case 4:
+    case UNIT_MISSILE:
+    case UNIT_ITEM:
         break;
 
     default:

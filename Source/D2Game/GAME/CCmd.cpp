@@ -268,7 +268,7 @@ void __fastcall ProcessClientMessage(void* pData, int nPacketSize)
     D2_ASSERT(ptClient, 0x1F9);
     ptClient->dwLastPacketTick = GetTickCount();
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(ptClient, 0);
-    if (pPlayer && (pPlayer ? pPlayer->dwUnitType : 6) == 0)
+    if (pPlayer && (pPlayer ? pPlayer->dwUnitType : UNIT_INVALID) == 0)
     {
         D2GAME_PACKET_Handler_6FC89320(pGame, pPlayer, pPacket, nPacketSize);
     }

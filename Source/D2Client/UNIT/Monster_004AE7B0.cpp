@@ -239,7 +239,7 @@ static int FACING_GetBaseIdInline(int nClassId)
 // 0x004AE7B0
 int __fastcall sub_004AE7B0_CheckMonsterFacing(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nArg3, int nArg4)
 {
-    const int nUnitType = pTarget ? pTarget->dwUnitType : 6;
+    const int nUnitType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
     {
         return 0;
@@ -293,9 +293,9 @@ static __forceinline int sub_H12_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         if (pUnit->pDynamicPath)
@@ -310,9 +310,9 @@ static __forceinline int sub_H12_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         if (pUnit->pDynamicPath)
@@ -539,7 +539,7 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
         sub_004743D0_ReleaseOverlayResource(pLight);
     }
 
-    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1)
     {
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;

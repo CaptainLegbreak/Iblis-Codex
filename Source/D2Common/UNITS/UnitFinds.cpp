@@ -82,7 +82,7 @@ struct UnitFindArgStrc
     int nRange;
 };
 
-inline int UnitGetType(D2UnitStrc* pUnit) { return pUnit ? pUnit->dwUnitType : 6; }
+inline int UnitGetType(D2UnitStrc* pUnit) { return pUnit ? pUnit->dwUnitType : UNIT_INVALID; }
 
 inline int UnitGetClassId(D2UnitStrc* pUnit) { return pUnit ? pUnit->dwClassId : -1; }
 
@@ -347,11 +347,11 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData)
 }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
- switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->nXPos;default:return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath):0;}
+ switch(unit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nXPos;default:return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath):0;}
 }
 
 static __forceinline int GetY(D2UnitStrc* unit) {
- switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->nYPos;default:return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath):0;}
+ switch(unit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nYPos;default:return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath):0;}
 }
 
 // 0x0065AA40
@@ -363,26 +363,26 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
  int dx=x-args->x;int dy=y-args->y;
  if(dx*dx+dy*dy>args->radius*args->radius) return 0;
  switch(unit->dwUnitType) {
-  case 0: {
+  case UNIT_PLAYER: {
    if(!(args->flags&1))return 0;
    int mode=unit->dwAnimMode;
    if(args->flags&4096) {if(mode!=17)return 0;} else if(mode==17 || mode==0)return 0;
    if(unit==args->ignored)return 0;
    } break;
-  case 1: {
+  case UNIT_MONSTER: {
    if(!(args->flags&2))return 0;
    int mode=unit->dwAnimMode;
    if(args->flags&4096) {if(mode!=12)return 0;} else if(mode==12 || mode==0)return 0;
    if((args->flags&4) && !MONSTERS_IsUndead(unit))return 0;
    } break;
-  case 2:if(!(args->flags&16))return 0;break;
-  case 3: {
+  case UNIT_OBJECT:if(!(args->flags&16))return 0;break;
+  case UNIT_MISSILE: {
    if(!(args->flags&8))return 0;
    D2MissilesTxt* record=sub_0046ACE0(unit->dwClassId);
    if(!record || (record->flags&gMissileMask_006CE26C))return 0;
    break;
   }
-  case 4:if(!(args->flags&32))return 0;break;
+  case UNIT_ITEM:if(!(args->flags&32))return 0;break;
   default:return 0;
  }
  unsigned int flags=args->flags;

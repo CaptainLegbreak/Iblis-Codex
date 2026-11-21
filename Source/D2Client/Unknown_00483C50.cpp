@@ -342,7 +342,7 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
     sub_004835B0_LoadUiRecords();
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2InventoryGridInfoStrc* pGrid;
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     switch (nType)
     {
     case 1:
@@ -387,9 +387,9 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
         int nX;
         switch (pItem->dwUnitType)
         {
-        case 2:
-        case 4:
-        case 5:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             nX = pItem->pStaticPath->nXPos;
             break;
         default:
@@ -406,9 +406,9 @@ void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit)
         int nY;
         switch (pItem->dwUnitType)
         {
-        case 2:
-        case 4:
-        case 5:
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
             nY = pItem->pStaticPath->nYPos;
             break;
         default:

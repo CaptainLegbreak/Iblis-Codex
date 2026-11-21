@@ -447,14 +447,14 @@ void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient)
         D2HoverTextStrc* pHoverText = pUnit->pHoverText;
         CLIENTS_GetGame(pClient);
         D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-        if (pPlayer && pUnit->dwUnitType == 0)
+        if (pPlayer && pUnit->dwUnitType == UNIT_PLAYER)
         {
             if (PLAYERLIST_CheckFlag(pPlayer, pUnit, 4) || PLAYERLIST_CheckFlag(pUnit, pPlayer, 2))
                 return;
         }
         D2GSPacketSrv26 packet;
         packet.nUnitGUID = pUnit ? pUnit->dwUnitId : -1;
-        const int nType = pUnit ? pUnit->dwUnitType : 6;
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         packet.nHeader = 0x26;
         packet.nUnitType = nType;
         packet.szName[0] = 0;
@@ -655,7 +655,7 @@ void __fastcall sub_6FCC6300(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, short n
 
     if (pTargetUnit)
     {
-        const int nTargetType = (pTargetUnit ? pTargetUnit->dwUnitType : 6);
+        const int nTargetType = (pTargetUnit ? pTargetUnit->dwUnitType : UNIT_INVALID);
         pMsg->nTargetType = nTargetType;
         const int nTargetGUID = (pTargetUnit ? pTargetUnit->dwUnitId : -1);
         pMsg->nTargetGUID = nTargetGUID;
@@ -857,10 +857,10 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         sub_6FC3D1F0(pClient, pUnit->dwUnitId, pUnit->dwClassId, pUnit->pPlayerData->szName, tCoords.nX, tCoords.nY);
         break;
-    case 4:
+    case UNIT_ITEM:
         if (UnitHasFlag(pUnit, 0x10))
         {
             if (pUnit->dwAnimMode == 3 && sub_00451F30_TestUnitFlag(pUnit, 0x1000))
@@ -868,7 +868,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
             else D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(pClient, pUnit, 0);
         }
         break;
-    case 2:
+    case UNIT_OBJECT:
         D2GAME_PACKETS_SendPacket0x51_6FC3D300(pClient, 0x51, 2, pUnit->dwUnitId, pUnit->dwClassId, tCoords.nX, tCoords.nY, pUnit->dwAnimMode, pUnit->pObjectData->InteractType);
         if (pUnit->pObjectData->pObjectTxt->nSubClass & 4)
         {
@@ -883,7 +883,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
             }
         }
         break;
-    case 1:
+    case UNIT_MONSTER:
         if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskHideOnUnit(pUnit))
         {
             sub_6FC3FC80(pClient, pUnit);
@@ -913,7 +913,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
             sub_6FCC6540(pUnit, pClient);
         }
         break;
-    case 3:
+    case UNIT_MISSILE:
         sub_0059FEE0_SendMissilePacket(pClient, pGame, pUnit, PATH_GetVelocity(UnitPath(pUnit)));
         break;
     default:
@@ -922,7 +922,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     }
     switch (pUnit->dwUnitType)
     {
-    case 0:
+    case UNIT_PLAYER:
         sub_6FC82830(pUnit, pClient);
         if (SUNIT_IsDead(pUnit) && STATES_CheckState(pUnit, 7))
         {
@@ -936,17 +936,17 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         sub_6FCC6540(pUnit, pClient);
         sub_00571620(pUnit, pClient);
         break;
-    case 1:
+    case UNIT_MONSTER:
         MONSTERMSG_SendMonsterModeUpdate(pGame, pUnit, pClient);
         if (STATES_CheckState(pUnit, 93) || pUnit->dwClassId == 291 || pUnit->dwClassId == 417 || pUnit->dwClassId == 418)
             PLAYER_SynchronizeItemsToClient(pUnit, pClient);
         break;
-    case 4:
+    case UNIT_ITEM:
         sub_6FC42050(pUnit, pClient);
         break;
-    case 2:
-    case 3:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_MISSILE:
+    case UNIT_TILE:
         return;
     }
 }

@@ -658,7 +658,7 @@ void __fastcall ACT3Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
 static __forceinline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
 {
-    return pUnit ? pUnit->dwUnitType : 6;
+    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
 // 0x005BCAC0

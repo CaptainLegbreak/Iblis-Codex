@@ -72,12 +72,12 @@ static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2Unit
     int nX, nY;
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: nX = pUnit->pStaticPath->nXPos; break;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: nX = pUnit->pStaticPath->nXPos; break;
     default: nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; break;
     }
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: nY = pUnit->pStaticPath->nYPos; break;
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: nY = pUnit->pStaticPath->nYPos; break;
     default: nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; break;
     }
     if (nX && nY) sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);

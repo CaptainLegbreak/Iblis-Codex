@@ -721,9 +721,9 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
             int nY;
             switch (pItem->dwUnitType)
             {
-            case 2:
-            case 4:
-            case 5:
+            case UNIT_OBJECT:
+            case UNIT_ITEM:
+            case UNIT_TILE:
                 nY = pItem->pStaticPath->nYPos;
                 break;
             default:
@@ -733,9 +733,9 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
             int nX;
             switch (pItem->dwUnitType)
             {
-            case 2:
-            case 4:
-            case 5:
+            case UNIT_OBJECT:
+            case UNIT_ITEM:
+            case UNIT_TILE:
                 nX = pItem->pStaticPath->nXPos;
                 break;
             default:
@@ -1534,9 +1534,9 @@ static __forceinline int sub_00531C10_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -1546,9 +1546,9 @@ static __forceinline int sub_00531C10_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

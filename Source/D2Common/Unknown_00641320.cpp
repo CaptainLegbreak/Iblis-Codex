@@ -133,9 +133,9 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -146,9 +146,9 @@ __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -193,9 +193,9 @@ inline int UNITS_InlineGetX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -205,9 +205,9 @@ inline int UNITS_InlineGetY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -310,12 +310,12 @@ static __forceinline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int 
 }
 
 inline int GetX(D2UnitStrc* pUnit) {
- switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nXPos;}
+ switch(pUnit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nXPos;}
  return pUnit->pDynamicPath?PATH_GetXPosition(pUnit->pDynamicPath):0;
 }
 
 inline int GetY(D2UnitStrc* pUnit) {
- switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nYPos;}
+ switch(pUnit->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nYPos;}
  return pUnit->pDynamicPath?PATH_GetYPosition(pUnit->pDynamicPath):0;
 }
 
@@ -325,15 +325,15 @@ inline int D2_ABS(int n) { return n < 0 ? -n : n; }
 static int sub_006419A0_IsUnitAlive(D2UnitStrc* pUnit) {
  if(!pUnit) return 0;
  switch(pUnit->dwUnitType) {
- case 0:
+ case UNIT_PLAYER:
   if(pUnit->dwAnimMode==0 || pUnit->dwAnimMode==17) return 0;
   return 1;
- case 1:
+ case UNIT_MONSTER:
   if(pUnit->dwAnimMode==0 || pUnit->dwAnimMode==12) return 0;
   return 1;
- case 2: return 0;
- case 3: return 1;
- case 4: return 0;
+ case UNIT_OBJECT: return 0;
+ case UNIT_MISSILE: return 1;
+ case UNIT_ITEM: return 0;
  default: return 0;
  }
 }

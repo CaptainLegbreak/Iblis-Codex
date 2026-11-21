@@ -729,7 +729,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     {
         char szBuffer[256];
         const int nClassArg = pUnit ? pUnit->dwClassId : -1;
-        const int nTypeArg = pUnit ? pUnit->dwUnitType : 6;
+        const int nTypeArg = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         sprintf(szBuffer, gszAsyncLoadFailed_006D6CC8, bAsync, nTypeArg, nClassArg, nMode, nWeaponClass, nToken);
         return 0;
     }

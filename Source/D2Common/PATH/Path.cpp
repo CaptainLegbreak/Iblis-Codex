@@ -2133,9 +2133,9 @@ inline int __fastcall UNITS_GetXPositionInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
 
     default:
@@ -2151,9 +2151,9 @@ inline int __fastcall UNITS_GetYPositionInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
 
     default:
@@ -2168,7 +2168,7 @@ inline int __fastcall UNITS_GetYPositionInl(D2UnitStrc* pUnit)
 // 0x00649400
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     switch (nType)
     {
     case 0:

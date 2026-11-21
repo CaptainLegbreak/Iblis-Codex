@@ -182,7 +182,7 @@ void __fastcall sub_0059FEE0_SendMissilePacket(D2ClientStrc* pClient, D2GameStrc
         packet.nFirstY = D2COMMON_10176_PathGetFirstPointY(pMissile->pDynamicPath);
     }
     packet.nCurrentFrame = sub_0064A380_GetRemainingFrames(pMissile);
-    const int nOwnerType = pOwner ? pOwner->dwUnitType : 6;
+    const int nOwnerType = pOwner ? pOwner->dwUnitType : UNIT_INVALID;
     packet.nUnitType = nOwnerType;
     packet.nUnitGUID = pOwner->dwUnitId;
     packet.nLevel = MISSILE_GetLevel(pMissile);
@@ -397,7 +397,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_005A0260(const char* pText) 
 // 0x005A03A0
 int __fastcall MONSTERUNIQUE_GetSuperUniqueBossHcIdx(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     D2MonsterDataStrc* pMonsterData = (nType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
     if (!pMonsterData || !(pMonsterData->nTypeFlag & MONTYPEFLAG_SUPERUNIQUE))
     {
@@ -431,7 +431,7 @@ void __fastcall MONSTERUNIQUE_UMod1_RandomName(D2UnitStrc* pUnit, int nUMod, int
 // 0x005A0DC0
 void __fastcall MONSTERUNIQUE_UMod2_HealthBonus(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_MONSTER)
     {
         return;

@@ -1723,7 +1723,7 @@ int __fastcall ITEMMODS_PropertyFunc05(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         return 0;
     }
 
-    const int nUnitType = pItem ? pItem->dwUnitType : 6;
+    const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType != 4)
     {
         return 0;
@@ -1803,7 +1803,7 @@ int __fastcall ITEMMODS_PropertyFunc06(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         return 0;
     }
 
-    const int nUnitType = pItem ? pItem->dwUnitType : 6;
+    const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType != 4)
     {
         return 0;
@@ -1888,7 +1888,7 @@ int __fastcall ITEMMODS_PropertyFunc07(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         nValue = ITEMMODS_RollRandomValueInRange(pItem, pProperty->nMin, pProperty->nMax);
     }
 
-    const int nItemUnitType = pItem ? pItem->dwUnitType : 6;
+    const int nItemUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nItemUnitType != 4)
     {
         ITEMMODS_AddPropertyToItemStatList(pItem, fStatList, pUnit, pProperty, nSet, 18, 0, nValue, nState);
@@ -2351,7 +2351,7 @@ static inline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecordInline(int nSt
 // 0x0065FAE0
 int __fastcall ITEMMODS_PropertyFunc20(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
 {
-    if ((pItem ? pItem->dwUnitType : 6) != UNIT_ITEM)
+    if ((pItem ? pItem->dwUnitType : UNIT_INVALID) != UNIT_ITEM)
         return 0;
     if (!pProperty)
         return 0;
@@ -2689,7 +2689,7 @@ void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem,
         return;
     }
 
-    const int nType = pItem ? pItem->dwUnitType : 6;
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nType == 4 && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
     {
         D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));

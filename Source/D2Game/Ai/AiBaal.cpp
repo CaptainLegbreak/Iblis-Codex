@@ -345,9 +345,9 @@ inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -357,9 +357,9 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -872,7 +872,7 @@ static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGa
 static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[3];
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return ((int*)pUnit->pDynamicPath)[3];
     default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
 }
@@ -880,7 +880,7 @@ static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[4];
+    case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return ((int*)pUnit->pDynamicPath)[4];
     default: return pUnit->pDynamicPath ? PATH_GetY(pUnit->pDynamicPath) : 0;
     }
 }
@@ -937,14 +937,14 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 static __forceinline int UnitX(D2UnitStrc* u) {
- switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->nXPos;}
+ switch(u->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return ((D2StaticPathStrc*)u->pDynamicPath)->nXPos;}
  if (u->pDynamicPath)
      return PATH_GetXPosition((D2DynamicPathStrc*)u->pDynamicPath);
  return 0;
 }
 
 static __forceinline int UnitY(D2UnitStrc* u) {
- switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->nYPos;}
+ switch(u->dwUnitType) {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return ((D2StaticPathStrc*)u->pDynamicPath)->nYPos;}
  return u->pDynamicPath?PATH_GetYPosition((D2DynamicPathStrc*)u->pDynamicPath):0;
 }
 

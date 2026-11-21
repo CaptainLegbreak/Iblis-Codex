@@ -2100,7 +2100,7 @@ int __fastcall SKILLS_SrvSt12_Telekinesis_DragonFlight(D2GameStrc* pGame, D2Unit
     switch (pTarget->dwUnitType)
     {
     case UNIT_PLAYER:
-    case 1:
+    case UNIT_MONSTER:
         if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) || DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget)) || DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
         {
             return 0;
@@ -2284,7 +2284,7 @@ static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
 int __fastcall sub_005C98F0_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord || !pUnit || pUnit->dwUnitType != 0 || PLAYER_IsBusy(pUnit))
+    if (!pSkillsTxtRecord || !pUnit || pUnit->dwUnitType != UNIT_PLAYER || PLAYER_IsBusy(pUnit))
         return 0;
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     if (!pTarget)
@@ -2445,7 +2445,7 @@ int __fastcall sub_005CA910(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
     pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pRoom || DUNGEON_IsRoomInTown(pRoom))
         return 0;
-    if (pUnit && pUnit->dwUnitType == 1 && MONSTERS_GetHirelingTypeId(pUnit))
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && MONSTERS_GetHirelingTypeId(pUnit))
     {
         D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
         if (pOwner)
@@ -2642,9 +2642,9 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -2654,9 +2654,9 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -3258,7 +3258,7 @@ static __forceinline int sub_005D1080_GetThornsPercent(D2UnitStrc* pDefender, D2
     {
         return 0;
     }
-    if (!(pAttacker && pAttacker->dwUnitType == 0) && !MONSTERS_GetHirelingTypeId(pAttacker))
+    if (!(pAttacker && pAttacker->dwUnitType == UNIT_PLAYER) && !MONSTERS_GetHirelingTypeId(pAttacker))
     {
         return nThornsPercent;
     }
@@ -3443,7 +3443,7 @@ int __fastcall SKILLS_SrvDo128_CryHelp(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         return 0;
     }
 
-    const int nType = pUnit ? pUnit->dwUnitType : 6;
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != UNIT_MONSTER)
     {
         return 0;
@@ -3562,7 +3562,7 @@ void __fastcall sub_6FD01010(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
 // 0x005D1BF0
 int __fastcall sub_005D1BF0_ResurrectMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill, int nLevel)
 {
-    const unsigned int nType = pUnit ? pUnit->dwUnitType : 6;
+    const unsigned int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType != 1)
         return 0;
     SKILLS_ResurrectUnit(pGame, pUnit);
@@ -4456,7 +4456,7 @@ void __fastcall sub_005E52D0_HirelingThink(D2GameStrc* pGame, D2UnitStrc* pUnit,
         AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
         return;
     }
-    if (pOwner->dwUnitType != 0)
+    if (pOwner->dwUnitType != UNIT_PLAYER)
     {
         if (nMonsterId == 271)
         {

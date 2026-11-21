@@ -707,9 +707,9 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
 
     switch (ptUnit->dwUnitType)
     {
-    case 2:
-    case 4:
-    case 5:
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
         return ptUnit->pStaticPath->pRoom;
     default:
         if (ptUnit->pDynamicPath)
