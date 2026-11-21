@@ -3402,22 +3402,6 @@ void __fastcall sub_6FC82270(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     }
 }
 
-// 0x00548520
-void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer)
-{
-    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrMsg.cpp", 339);
-    D2_ASSERT(hClient, 340);
-
-    if (pUnit == pPlayer)
-    {
-        D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480(hClient, nStat, nNewValue);
-    }
-    else
-    {
-        sub_6FC3D830(hClient, 0x20, !pUnit ? -1 : pUnit->dwUnitId, nStat, nNewValue);
-    }
-}
-
 // 0x005490E0
 int __fastcall sub_005490E0_CheckCursorItem(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit, int nItemGUID)
 {
