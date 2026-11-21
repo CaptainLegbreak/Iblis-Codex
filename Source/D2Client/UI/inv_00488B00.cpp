@@ -1,4 +1,9 @@
 #include "D2Structs.h"
+#include "D2ClientUi.h"
+#include "D2ClientTypes.h"
+#include "D2Records.h"
+#include "D2Unicode.h"
+#include "D2StormTypes.h"
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2ItemsWorld.h"
@@ -26,26 +31,7 @@ struct D2NpcButtonStrc;
 
 
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-    static Unicode* __fastcall strchr(const Unicode* str, Unicode ch);                                      // 0x005266C0
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
-};
 
 struct D2ItemsTxt
 {
@@ -55,11 +41,6 @@ struct D2ItemsTxt
     unsigned char nQuest;
 };
 
-struct D2SetItemsTxt
-{
-    short wSetItemId;
-    char unk0x02[0x1B6];
-};
 
 struct D2DataTablesStrc
 {
@@ -68,22 +49,8 @@ struct D2DataTablesStrc
     int nSetItemsTxtRecordCount;
 };
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 
-struct D2InvCompGridStrc
-{
-    D2InvRectStrc rect;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned short pad0x12;
-};
 
 #pragma pack(push, 2)
 struct D2NpcButtonStrc
