@@ -1,6 +1,6 @@
+#include "D2Drlg.h"
 #define LARGE_SHIFT 16
 #define SMALL_SHIFT 8
-struct D2DrlgCoordStrc { int nPosX,nPosY,nWidth,nHeight; };
 
 // 0x00675DE0
 static void __fastcall sub_00675DE0_Place(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {

@@ -6,12 +6,14 @@
 #include "D2Unicode.h"
 #include "D2LevelTxt.h"
 #include "D2DataTbls.h"
+#include "D2TxtItems.h"
+#include "D2TxtTables.h"
 
 #pragma function(memset)
 
 #define MONSTATSFLAGINDEX_NORATIO 2
 
-#define ITEMTYPES_RECORD(i) (((i) >= 0 && (i) < sgptDataTables->nItemTypesTxtRecordCount) ? &((TableRow*)sgptDataTables->pItemTypesTxt)[(i)] : 0)
+#define ITEMTYPES_RECORD(i) (((i) >= 0 && (i) < sgptDataTables->nItemTypesTxtRecordCount) ? &((D2ItemTypesTxt*)sgptDataTables->pItemTypesTxt)[(i)] : 0)
 
 struct D2ObjectsTxt;
 
@@ -39,7 +41,6 @@ struct D2TCExInfoStrc;
 
 struct D2TCExShortStrc;
 
-struct TableRow;
 
 struct D2ItemsTxt;
 
@@ -213,13 +214,6 @@ struct D2TCExShortStrc
     D2TCExInfoStrc* pInfo;
 };
 
-struct TableRow
-{
-    char unk0x00[0x1D];
-    unsigned char nTreasureClass;
-    unsigned char nRarity;
-    char unk0x1F[0xE4 - 0x1F];
-};
 
 struct D2ItemDataTbl
 {
@@ -227,7 +221,7 @@ struct D2ItemDataTbl
     D2ItemsTxt* pItemsTxt;
 };
 
-typedef char check_TableRow_size[sizeof(TableRow) == 0xE4 ? 1 : -1];
+typedef char check_D2ItemTypesTxt_size[sizeof(D2ItemTypesTxt) == 0xE4 ? 1 : -1];
 
 typedef char check_D2ItemsTxt_size[sizeof(D2ItemsTxt) == 0x1A8 ? 1 : -1];
 
@@ -241,7 +235,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 
 int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* pLinker, int nIndex, char* szString); // 0x006BD180
 
-extern "C" TableRow* __fastcall sub_00555C90_GetTableRow(int index); // 0x00555C90
+extern "C" D2ItemTypesTxt* __fastcall sub_00555C90_GetTableRow(int index); // 0x00555C90
 
 int __stdcall ITEMS_CheckItemTypeIdByItemId(int nItemId, int nItemType); // 0x00629A90
 
@@ -786,10 +780,6 @@ struct D2NpcTxt
     char unk[0x4C - 4];
 };
 
-struct D2MonSoundsTxt
-{
-    char unk[0x94];
-};
 
 struct D2MonItemPercentTxt
 {
@@ -1557,7 +1547,7 @@ void __cdecl DATATBLS_CreateItemTypeTreasureClasses()
 
     for (int i = 0; i < sgptDataTables->nItemTypesTxtRecordCount; ++i)
     {
-        TableRow* pItemTypesTxtRecord = ITEMTYPES_RECORD(i);
+        D2ItemTypesTxt* pItemTypesTxtRecord = ITEMTYPES_RECORD(i);
         if (!pItemTypesTxtRecord)
         {
             break;
@@ -1587,7 +1577,7 @@ void __cdecl DATATBLS_CreateItemTypeTreasureClasses()
                                 && (i == 38 || !ITEMS_CheckItemTypeIdByItemId(j, ITEMTYPE_MISSILE_POTION))
                                 && pItemsTxtRecord->nLevel > nLevel - 3 && pItemsTxtRecord->nLevel <= nLevel)
                             {
-                                TableRow* pTypeRecord = sub_00555C90_GetTableRow(pItemsTxtRecord->wType[0]);
+                                D2ItemTypesTxt* pTypeRecord = sub_00555C90_GetTableRow(pItemsTxtRecord->wType[0]);
                                 if (pTypeRecord)
                                 {
                                     const int nProbability = pTypeRecord->nRarity > 1 ? pTypeRecord->nRarity : 1;

@@ -58,9 +58,7 @@ struct D2MissileDataStrc;
 
 struct D2CoordStrc;
 
-struct D2FP32_16PartsStrc;
 
-struct D2FP32_16PrecisionStrc;
 
 union D2FP32_16;
 
@@ -155,19 +153,7 @@ struct D2MissileDataStrc
     void* pStream;
 };
 
-struct D2FP32_16PartsStrc
-{
-    unsigned short wOffsetX;
-    unsigned short wPosX;
-    unsigned short wOffsetY;
-    unsigned short wPosY;
-};
 
-struct D2FP32_16PrecisionStrc
-{
-    unsigned int dwPrecisionX;
-    unsigned int dwPrecisionY;
-};
 
 struct D2Unk00667030InnerStrc
 {
