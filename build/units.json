@@ -62959,6 +62959,10 @@
      "name": "MONSTERUNIQUE_UMod37_Fanatic"
     },
     {
+     "va": "0x005A2530",
+     "length": 179
+    },
+    {
      "va": "0x005A2840",
      "length": 199,
      "name": "MONSTERUNIQUE_CastCorpseExplode2"
@@ -62984,9 +62988,19 @@
      "name": "MONSTERUNIQUE_MinionCallback_KillMinion"
     },
     {
+     "va": "0x005A2D80",
+     "length": 124,
+     "name": "?sub_6FC6CF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005A2E00",
      "length": 167,
      "name": "sub_6FC6CF90"
+    },
+    {
+     "va": "0x005A2EB0",
+     "length": 40,
+     "name": "?MONSTERUNIQUE_ScarabModeChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005A2EE0",
@@ -63789,26 +63803,6 @@
      "va": "0x005A2D10",
      "length": 111,
      "name": "?MONSTERUNIQUE_KillMinions@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A2530.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A2530",
-     "length": 179
-    },
-    {
-     "va": "0x005A2D80",
-     "length": 124,
-     "name": "?sub_6FC6CF10@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005A2EB0",
-     "length": 40,
-     "name": "?MONSTERUNIQUE_ScarabModeChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
