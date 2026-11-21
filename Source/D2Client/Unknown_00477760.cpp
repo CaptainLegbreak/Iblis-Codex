@@ -164,6 +164,21 @@ unsigned int gdwEncodedOffset_007A04F0; // 0x007A04F0
 
 unsigned long gdwLastCheckTick_007BB3B0; // 0x007BB3B0
 
+struct D2SendPacket6BStrc
+{
+    unsigned char nHeader;
+};
+
+// 0x00477DA0
+void __cdecl sub_00477DA0()
+{
+    D2SendPacket6BStrc tPacket;
+    tPacket.nHeader = 0x6B;
+    sub_0052AE50_SendPacket(sizeof(D2SendPacket6BStrc), 0, &tPacket);
+    gnSentBytes_007A6AF8 += sizeof(D2SendPacket6BStrc);
+    gnSentPackets_007A6B00 += 1;
+}
+
 // 0x00477DD0
 void __cdecl sub_00477DD0()
 {
