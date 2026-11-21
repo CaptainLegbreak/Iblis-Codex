@@ -1,13 +1,6 @@
 #include "D2Unicode.h"
+#include "D2Client.h"
 struct D2SelectionRectStrc;
-struct D2RectStrc
-{
-    int left;
-    int top;
-    int right;
-    int bottom;
-};
-
 struct T0044CB60
 {
     Unicode* wszText;
@@ -116,10 +109,10 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
     {
         sub_0046EFD0_DrawFramedBox(gnGlobal_007BF278, gnGlobal_007225FC - 5, 0x145, 0x7A, 0, 1);
         D2RectStrc tRect;
-        tRect.left = gnGlobal_007BF278 - 1;
-        tRect.top = gnGlobal_007225FC - 6;
-        tRect.right = gnGlobal_007BF278 + 0x146;
-        tRect.bottom = gnGlobal_007225FC + 0x75;
+        tRect.nLeft = gnGlobal_007BF278 - 1;
+        tRect.nTop = gnGlobal_007225FC - 6;
+        tRect.nRight = gnGlobal_007BF278 + 0x146;
+        tRect.nBottom = gnGlobal_007225FC + 0x75;
         sub_00452E50_DrawRectangleBorder(&tRect);
     }
 

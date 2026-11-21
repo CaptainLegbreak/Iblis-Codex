@@ -1,15 +1,4 @@
-struct D2RosterPetNodeStrc
-{
-    int nValue;
-    int nType;
-    int nKey;
-    int nArg;
-    int unk0x10[3];
-    int nInit;
-    int nClear;
-    int unk0x24[3];
-    D2RosterPetNodeStrc* pNext;
-};
+#include "D2Client.h"
 extern D2RosterPetNodeStrc* gpRosterPets_007BB5BC;  // 0x007BB5BC
 enum { NOT_FOUND = 0 };
 // 0x004790F0

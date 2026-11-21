@@ -1,4 +1,5 @@
 #include "D2StatIds.h"
+#include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
@@ -15,24 +16,6 @@ struct D2UnitStrc;
 
 
 
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
