@@ -1647,7 +1647,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UI/automap_00459440.cpp": {
+  "Source/D2Client/UI/automap_004591A0.cpp": {
    "bytes": 68,
    "definitions": 3,
    "externs": [],
@@ -40935,7 +40935,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap_00459440.cpp",
+   "file": "Source/D2Client/UI/automap_004591A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_007113E4 = ",
@@ -40960,7 +40960,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap_00459440.cpp",
+   "file": "Source/D2Client/UI/automap_004591A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_007113E8 = ",
@@ -40985,7 +40985,7 @@
    "cname": "gData_007113EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap_00459440.cpp",
+   "file": "Source/D2Client/UI/automap_004591A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007113EC_t gData_007113EC; // 0x007113EC",
    "head": "extern \"C\" struct d2data_007113EC_t gData_007113EC = ",
