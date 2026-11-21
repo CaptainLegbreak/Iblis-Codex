@@ -448,6 +448,8 @@ D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc*,D2MissileStrc*);  // 0x0059FA30
 
 extern int data_006E31E8[16],data_006E31A8[16];  // 0x006E31A8
 
+typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
+
 __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -1579,6 +1581,53 @@ int __fastcall SKILLS_RollMonFrenzyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         SKILLS_SetParam1(pSkill, 0);
     }
 
+    return 1;
+}
+
+// 0x005CE1B0
+int __fastcall SKILLS_SrvDo110_Hireable_RogueMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (!SUNIT_GetTargetUnit(pGame, pUnit))
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    int nMissileId = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nSkillLevel);
+    if (nMissileId && nMissileId != 0x1F)
+    {
+        if (sub_0046ACE0(nMissileId))
+        {
+            sub_6FD11420(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
+            return 1;
+        }
+
+        return 0;
+    }
+
+    nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0(nMissileId))
+    {
+        return 0;
+    }
+
+    if (pSkillsTxtRecord->nFlags[1 >> 3] & gdwBitMasks[1 & 7])
+    {
+        sub_6FD11710(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
+        return 1;
+    }
+
+    sub_6FD11420(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
     return 1;
 }
 

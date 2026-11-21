@@ -67709,6 +67709,11 @@
      "name": "SKILLS_RollMonFrenzyDamage"
     },
     {
+     "va": "0x005CE1B0",
+     "length": 254,
+     "name": "?SKILLS_SrvDo110_Hireable_RogueMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005CE670",
      "length": 277,
      "name": "SKILLS_SrvDo111_FetishAura"
@@ -67801,17 +67806,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CE1B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CE1B0",
-     "length": 254,
-     "name": "?SKILLS_SrvDo110_Hireable_RogueMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
    ]
   },
   {
