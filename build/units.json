@@ -21740,6 +21740,11 @@
      "name": "?sub_004DB360_GetCompTransparency@@YIHPAUD2UnitStrc@@HPAHH@Z"
     },
     {
+     "va": "0x004DB570",
+     "length": 254,
+     "name": "sub_004DB570_GetBodyLocItemShift"
+    },
+    {
      "va": "0x004DB7B0",
      "length": 924
     },
@@ -34348,11 +34353,6 @@
      "va": "0x004DAAB0",
      "length": 138,
      "name": "sub_004DAAB0_GetArmorComponents"
-    },
-    {
-     "va": "0x004DB570",
-     "length": 254,
-     "name": "sub_004DB570_GetBodyLocItemShift"
     },
     {
      "va": "0x004DC190",

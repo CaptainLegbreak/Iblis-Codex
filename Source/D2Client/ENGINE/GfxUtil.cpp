@@ -1769,6 +1769,56 @@ static __forceinline D2InventoryStrc* GetCompInventoryInline(D2UnitStrc* pUnit)
     return sub_0046DB30_GetCompInventory(pUnit, &nOut);
 }
 
+
+// 0x004DB570
+int __fastcall sub_004DB570_GetBodyLocItemShift(D2UnitStrc* pUnit, int nBodyLoc, int nDefault)
+{
+    if (nBodyLoc >= 16)
+    {
+        return nDefault;
+    }
+
+    if (pUnit && !sub_0046D9F0_TestUnit(pUnit))
+    {
+        D2InventoryStrc* pInventory;
+        D2UnitStrc* pOwner;
+        if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+        {
+            pInventory = pOwner->pInventory;
+        }
+        else
+        {
+            pInventory = pUnit->pInventory;
+        }
+
+        if (pInventory)
+        {
+            D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, nBodyLoc);
+            if (!pItem && nBodyLoc != 1 && sub_0064F420_HasBodyLocFallback(nBodyLoc))
+            {
+                pItem = sub_0063C050_GetBodyLocItem(pInventory, 1);
+            }
+
+            if (pItem && !ITEMS_CheckItemFlag(pItem, 0x100, 0x656, ".\\ENGINE\\GfxUtil.cpp") && !ITEMS_CheckItemFlag(pItem, 0x4000, 0x657, ".\\ENGINE\\GfxUtil.cpp"))
+            {
+                if (ITEMS_GetAltGfx(pItem) == 0x2074696C)
+                {
+                    return 0;
+                }
+
+                unsigned char nShift;
+                const int nResult = sub_0062C100(pUnit, pItem, &nShift, 0);
+                if (nResult)
+                {
+                    return nResult;
+                }
+            }
+        }
+    }
+
+    return nDefault;
+}
+
 // 0x004DB7B0
 static int __stdcall sub_004DB7B0_ResolveUnitCelContext(D2UnitStrc* pUnit, D2CelContextStrc* pToken, int nMode, int* pItemId)
 {
