@@ -67386,6 +67386,11 @@
      "name": "?sub_005DA660_LeapAttackHit@@YGHPAUD2GameStrc@@HHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005DA7E0",
+     "length": 206,
+     "name": "?SKILLS_SrvDo078_LeapAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005DA8B0",
      "length": 52,
      "name": "?SKILLS_SrvSt65_Throw_LeftHandThrow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -67464,17 +67469,6 @@
      "va": "0x005D8C70",
      "length": 400,
      "name": "?sub_005D8C70@@YIHPAUGame@@PAUUnit@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DA7E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DA7E0",
-     "length": 206,
-     "name": "?SKILLS_SrvDo078_LeapAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
