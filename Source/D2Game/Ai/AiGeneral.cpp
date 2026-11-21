@@ -5,25 +5,32 @@
 #include "D2GameTypes.h"
 
 #define UNIT_MONSTER 1
+
 #define UNIT_INVALID 6
+
 struct D2MonsterDataStrc;
+
 struct D2AiCmdStrc;
+
 struct D2MinionListStrc;
+
 struct Sub0058EE80;
+
 struct Data0058EE80;
+
 struct Unit0058EE80;
+
 struct Sub0058F000;
+
 struct Data0058F000;
+
 struct Unit0058F000;
 
-
-
-
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -63,6 +70,7 @@ struct Unit0058EE80 {
 };
 
 D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EEF0
+
 void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
 
 struct Sub0058F000 {
@@ -105,7 +113,10 @@ struct Unit0058F000 {
     unsigned int f_10;
     Data0058F000* pData;
 };
+
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
+
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 
 inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
 {
@@ -128,29 +139,6 @@ D2AiControlStrc* __fastcall AIGENERAL_AllocAiControl(D2GameStrc* pGame)
     pAiControl->dwOwnerType = UNIT_MONSTER;
 
     return pAiControl;
-}
-
-// 0x0058F0D0
-D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER)
-    {
-        return 0;
-    }
-
-    D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
-    if (!pAiControl)
-    {
-        return 0;
-    }
-
-    if (!pAiControl->pGame)
-    {
-        return 0;
-    }
-
-    return SUNIT_GetServerUnit(pAiControl->pGame, pAiControl->dwOwnerTypeEx, pAiControl->dwOwnerGUIDEx);
 }
 
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitType(D2UnitStrc* pUnit)
@@ -192,6 +180,155 @@ void __fastcall AIGENERAL_SetAiControlParam(D2UnitStrc* pMonster, int nIndex, in
     }
 }
 
+static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitByType(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pAiControl;
+    }
+
+    return 0;
+}
+
+// 0x0058EC50
+int __fastcall AIGENERAL_GetAiControlParam(D2UnitStrc* pUnit, int nIndex)
+{
+    D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnitByType(pUnit);
+    if (pAiControl)
+    {
+        switch (nIndex)
+        {
+        case 1:
+            return pAiControl->dwAiParam[0];
+
+        case 2:
+            return pAiControl->dwAiParam[1];
+
+        case 3:
+            return pAiControl->dwAiParam[2];
+
+        default:
+            break;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0058EC90
+D2AiCmdStrc* __fastcall AIGENERAL_AllocAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
+    if (!pAiControl)
+    {
+        return 0;
+    }
+
+    D2AiCmdStrc* pAiCmd = (D2AiCmdStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2AiCmdStrc), ".\\Ai\\AiGeneral.cpp", 0x65, 0);
+    memset(pAiCmd, 0, sizeof(D2AiCmdStrc));
+    D2AiCmdStrc* pLastCmd = pAiControl->pLastCmd;
+    if (!pLastCmd)
+    {
+        pAiControl->pLastCmd = pAiCmd;
+        pAiControl->pCurrentCmd = pAiCmd;
+        pAiCmd->pNextCmd = pAiCmd;
+        pAiCmd->pPrevCmd = pAiCmd;
+    }
+    else
+    {
+        D2AiCmdStrc* pCurrentCmd = pAiControl->pCurrentCmd;
+        if (pLastCmd == pCurrentCmd)
+        {
+            pAiControl->pLastCmd = pAiCmd;
+        }
+
+        pAiCmd->pNextCmd = pCurrentCmd;
+        pAiCmd->pPrevCmd = pAiControl->pCurrentCmd->pPrevCmd;
+        pAiControl->pCurrentCmd->pPrevCmd = pAiCmd;
+        pAiCmd->pPrevCmd->pNextCmd = pAiCmd;
+    }
+
+    return pAiCmd;
+}
+
+// 0x0058ED10
+void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
+    if (!pAiControl)
+    {
+        return;
+    }
+
+    D2AiCmdStrc* pCurrentCmd = pAiControl->pCurrentCmd;
+    if (!pCurrentCmd)
+    {
+        return;
+    }
+
+    if (pCurrentCmd != pCurrentCmd->pNextCmd)
+    {
+        if (pAiControl->pLastCmd == pCurrentCmd)
+        {
+            pAiControl->pLastCmd = pCurrentCmd->pNextCmd;
+        }
+
+        pAiControl->pCurrentCmd = pCurrentCmd->pNextCmd;
+        pCurrentCmd->pPrevCmd->pNextCmd = pCurrentCmd->pNextCmd;
+        pCurrentCmd->pNextCmd->pPrevCmd = pCurrentCmd->pPrevCmd;
+    }
+    else
+    {
+        pAiControl->pLastCmd = 0;
+        pAiControl->pCurrentCmd = 0;
+    }
+
+    FOG_FreeServerMemory(pGame->pMemoryPool, pCurrentCmd, ".\\Ai\\AiGeneral.cpp", 0xA1, 0);
+}
+
+// 0x0058ED80
+static void sub_0058ED80_FreeAllAiCommands(D2GameStrc* pGame, D2AiControlStrc* pAiControl)
+{
+    while (pAiControl->pLastCmd)
+    {
+        D2AiCmdStrc* pCurrentCmd = pAiControl->pCurrentCmd;
+        if (!pCurrentCmd)
+        {
+            break;
+        }
+
+        if (pCurrentCmd != pCurrentCmd->pNextCmd)
+        {
+            if (pAiControl->pLastCmd == pCurrentCmd)
+            {
+                pAiControl->pLastCmd = pCurrentCmd->pNextCmd;
+            }
+
+            pAiControl->pCurrentCmd = pCurrentCmd->pNextCmd;
+            pCurrentCmd->pPrevCmd->pNextCmd = pCurrentCmd->pNextCmd;
+            pCurrentCmd->pNextCmd->pPrevCmd = pCurrentCmd->pPrevCmd;
+        }
+        else
+        {
+            pAiControl->pLastCmd = 0;
+            pAiControl->pCurrentCmd = 0;
+        }
+
+        FOG_FreeServerMemory(pGame->pMemoryPool, pCurrentCmd, ".\\Ai\\AiGeneral.cpp", 196, 0);
+    }
+}
+
+// 0x0058EE80
+extern "C" __declspec(dllexport) unsigned int __fastcall sub_0058EE80(Unit0058EE80* pUnit) {
+    Data0058EE80* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
+    Sub0058EE80* pSub = pData ? pData->f_28 : 0;
+    if (!pSub) {
+        return 0;
+    }
+    return pSub->dwValue20;
+}
+
 // 0x0058EEA0
 void __fastcall sub_0058EEA0_StepCurrentAiCommand(D2UnitStrc* pUnit, int nSteps, D2AiCmdStrc* pAiCmd)
 {
@@ -227,72 +364,6 @@ void __fastcall sub_0058EEA0_StepCurrentAiCommand(D2UnitStrc* pUnit, int nSteps,
     }
 
     pAiControl->pCurrentCmd = pAiCmd;
-}
-
-// 0x0058ED80
-static void sub_0058ED80_FreeAllAiCommands(D2GameStrc* pGame, D2AiControlStrc* pAiControl)
-{
-    while (pAiControl->pLastCmd)
-    {
-        D2AiCmdStrc* pCurrentCmd = pAiControl->pCurrentCmd;
-        if (!pCurrentCmd)
-        {
-            break;
-        }
-
-        if (pCurrentCmd != pCurrentCmd->pNextCmd)
-        {
-            if (pAiControl->pLastCmd == pCurrentCmd)
-            {
-                pAiControl->pLastCmd = pCurrentCmd->pNextCmd;
-            }
-
-            pAiControl->pCurrentCmd = pCurrentCmd->pNextCmd;
-            pCurrentCmd->pPrevCmd->pNextCmd = pCurrentCmd->pNextCmd;
-            pCurrentCmd->pNextCmd->pPrevCmd = pCurrentCmd->pPrevCmd;
-        }
-        else
-        {
-            pAiControl->pLastCmd = 0;
-            pAiControl->pCurrentCmd = 0;
-        }
-
-        FOG_FreeServerMemory(pGame->pMemoryPool, pCurrentCmd, ".\\Ai\\AiGeneral.cpp", 196, 0);
-    }
-}
-
-// 0x0058F810
-void __fastcall AIGENERAL_FreeAiControl(D2GameStrc* pGame, D2AiControlStrc* pAiControl)
-{
-    if (!pAiControl)
-    {
-        return;
-    }
-
-    if (pAiControl->pMapAi)
-    {
-        DRLGPRESET_FreeMapAI(pGame->pMemoryPool, pAiControl->pMapAi);
-    }
-
-    D2MinionListStrc* pNext = 0;
-    for (D2MinionListStrc* i = pAiControl->pMinionList; i; i = pNext)
-    {
-        pNext = i->pNext;
-        FOG_FreeServerMemory(pGame->pMemoryPool, i, ".\\Ai\\AiGeneral.cpp", 582, 0);
-    }
-
-    sub_0058ED80_FreeAllAiCommands(pGame, pAiControl);
-    FOG_FreeServerMemory(pGame->pMemoryPool, pAiControl, ".\\Ai\\AiGeneral.cpp", 413, 0);
-}
-
-// 0x0058EE80
-extern "C" __declspec(dllexport) unsigned int __fastcall sub_0058EE80(Unit0058EE80* pUnit) {
-    Data0058EE80* pData = (pUnit && pUnit->nType == 1) ? pUnit->pData : 0;
-    Sub0058EE80* pSub = pData ? pData->f_28 : 0;
-    if (!pSub) {
-        return 0;
-    }
-    return pSub->dwValue20;
 }
 
 static D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
@@ -370,6 +441,29 @@ extern "C" __declspec(dllexport) unsigned int* __stdcall sub_0058F000(Unit0058F0
         pSub = 0;
     }
     return &pSub->dwField38;
+}
+
+// 0x0058F0D0
+D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    D2AiControlStrc* pAiControl = AIGENERAL_GetAiControlFromUnit(pUnit);
+    if (!pAiControl)
+    {
+        return 0;
+    }
+
+    if (!pAiControl->pGame)
+    {
+        return 0;
+    }
+
+    return SUNIT_GetServerUnit(pAiControl->pGame, pAiControl->dwOwnerTypeEx, pAiControl->dwOwnerGUIDEx);
 }
 
 inline void AIGENERAL_SetOwnerData_Inl(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2)
@@ -460,4 +554,28 @@ void __fastcall AIGENERAL_UpdateMinionList(D2UnitStrc* pUnit)
     {
         sub_0058F660_ReleaseMinions(pAiControl);
     }
+}
+
+// 0x0058F810
+void __fastcall AIGENERAL_FreeAiControl(D2GameStrc* pGame, D2AiControlStrc* pAiControl)
+{
+    if (!pAiControl)
+    {
+        return;
+    }
+
+    if (pAiControl->pMapAi)
+    {
+        DRLGPRESET_FreeMapAI(pGame->pMemoryPool, pAiControl->pMapAi);
+    }
+
+    D2MinionListStrc* pNext = 0;
+    for (D2MinionListStrc* i = pAiControl->pMinionList; i; i = pNext)
+    {
+        pNext = i->pNext;
+        FOG_FreeServerMemory(pGame->pMemoryPool, i, ".\\Ai\\AiGeneral.cpp", 582, 0);
+    }
+
+    sub_0058ED80_FreeAllAiCommands(pGame, pAiControl);
+    FOG_FreeServerMemory(pGame->pMemoryPool, pAiControl, ".\\Ai\\AiGeneral.cpp", 413, 0);
 }

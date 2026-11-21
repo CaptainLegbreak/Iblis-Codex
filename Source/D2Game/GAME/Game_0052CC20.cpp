@@ -1,23 +1,28 @@
-#ifdef MOVED_TEST
-#define INPUT_PREFIX 4
-#define REPLY_FA 0xF6
-#define REPLY_FB 0xF7
-#define REPLY_FC 0xF8
-#else
+#include "D2Game.h"
+
+
 #define INPUT_PREFIX 0
+
 #define REPLY_FA 0xFA
+
 #define REPLY_FB 0xFB
+
 #define REPLY_FC 0xFC
-#endif
+
+
 #pragma pack(push,1)
+
 struct Request {
 #if INPUT_PREFIX
  char movedPrefix[INPUT_PREFIX];
 #endif
  int client; unsigned char unused,command;
 };
+
 struct ShortResponse { unsigned char command; char payload[15]; };
+
 struct Array8 { unsigned int values[8]; };
+
 struct ServerInfo {
  unsigned int a,b,c,d,e,f,g,h,i,j;
  char description[128];
@@ -29,6 +34,7 @@ struct ServerInfo {
  Array8 f0;
  unsigned int f110;
 };
+
 struct Reply {
  unsigned char command;
  unsigned int a,b,c,d,e,f,g,h,i,j;
@@ -40,6 +46,7 @@ struct Reply {
  unsigned int f7,fb,ff,f103,f107,f10b,f10f,f113,f117;
  char reserved[0x4A];
 };
+
 #pragma pack(pop)
 
 struct D2ServerCallbackFunctions {
@@ -48,15 +55,53 @@ struct D2ServerCallbackFunctions {
  void* slots14[7];
  void (__fastcall* getInfo)(ServerInfo*);
 };
+
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830;  // 0x00883D50
+
 long gnCounter_00883D64;         // 0x00883D64
+
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile*);  // 0x006CC208
+
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
+
 int __stdcall sub_0052B490_ObjectCall_6BED90(int,int,int);
+
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
+
 void __stdcall D2NET_10016(int);  // 0x0052B570
+
 unsigned int __stdcall SStrCopy(char*,const char*,unsigned int);  // 0x004135D0
-extern "C" void* __cdecl memset(void*,int,unsigned int);
+
+extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
+
+struct CriticalSection;
+
+struct Game { char pad[0x18]; CriticalSection* ptLock; char pad1c[0x1DAC]; int mode; };
+
+extern CriticalSection games_lock;  // 0x00882D18
+
+extern int game_guids[1024];  // 0x00882D38
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CriticalSection*);  // 0x006CC218
+
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CriticalSection*);  // 0x006CC214
+
+extern "C" const char* __cdecl sub_00408090();  // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char*,const char*,int);  // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
+
+extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
+
+Game* __fastcall sub_0052E860(int);  // 0x0052E860
+
+void __fastcall sub_0054A9B0(Game*,const char*,unsigned char);  // 0x0054A9B0
+
+#define CHECK(expr,line) if (!(expr)) { sub_00408A60(&empty_assert,sub_00408090(),line); exit(-1); }
+
+enum { MODE_MASK = 15 };
+
 // 0x0052CC20
 void __fastcall sub_0052CC20_Statistics(void* pData,int nSize) {
  if (!gpD2EventCallbackTable_6FD45830) return;
@@ -118,4 +163,20 @@ void __fastcall sub_0052CC20_Statistics(void* pData,int nSize) {
   }
   break;
  }
+}
+
+// 0x0052F630
+void __stdcall sub_0052F630(unsigned short gameId,unsigned char* message)
+{
+    int guid = 0;
+    EnterCriticalSection(&games_lock);
+    if (game_guids[gameId-1] && game_guids[gameId-1] != -1) guid = game_guids[gameId-1];
+    LeaveCriticalSection(&games_lock);
+    Game* ptGame = sub_0052E860(guid);
+    CHECK(ptGame,0x1564);
+    message[255] = 0;
+    if (!strncmp("<ABEND> ",(const char*)message,8)) ptGame->mode = message[8] & MODE_MASK;
+    sub_0054A9B0(ptGame,(const char*)message,1);
+    CHECK(ptGame->ptLock,0x1064);
+    LeaveCriticalSection(ptGame->ptLock);
 }

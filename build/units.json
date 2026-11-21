@@ -47385,9 +47385,18 @@
      "name": "sub_0052E9B0"
     },
     {
+     "va": "0x0052ED10",
+     "length": 601,
+     "name": "?GAME_GetGameInformation@@YGHGPAUD2GameInfoStrc@@@Z"
+    },
+    {
      "va": "0x0052EFF0",
      "length": 132,
      "name": "?GAME_GetPlayerUnitsCount@@YGHG@Z"
+    },
+    {
+     "va": "0x0052F080",
+     "length": 224
     },
     {
      "va": "0x0052F6E0",
@@ -49464,6 +49473,16 @@
      "name": "sub_0052C110"
     },
     {
+     "va": "0x0052C260",
+     "length": 31,
+     "name": "?sub_0052C260_SendGameInit@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0052C330",
+     "length": 174,
+     "name": "SrvVerifyCreateNewGame"
+    },
+    {
      "va": "0x0052C3E0",
      "length": 25,
      "name": "D2Game_10056"
@@ -49479,9 +49498,24 @@
      "name": "sub_0052C570_RemoveClientFromGame"
     },
     {
+     "va": "0x0052CA10",
+     "length": 212,
+     "name": "sub_0052CA10"
+    },
+    {
+     "va": "0x0052CFE0",
+     "length": 163,
+     "name": "GAME_ProcessNetworkMessages"
+    },
+    {
      "va": "0x0052D240",
      "length": 155,
      "name": "sub_0052D240"
+    },
+    {
+     "va": "0x0052D350",
+     "length": 228,
+     "name": "sub_0052D350_CheckClientHeartbeats"
     },
     {
      "va": "0x0052DBA0",
@@ -49569,6 +49603,11 @@
      "name": "sub_0052EB50"
     },
     {
+     "va": "0x0052EBE0",
+     "length": 173,
+     "name": "sub_0052EBE0"
+    },
+    {
      "va": "0x0052EC90",
      "length": 126,
      "name": "sub_0052EC90"
@@ -49577,6 +49616,11 @@
      "va": "0x0052EF70",
      "length": 118,
      "name": "GAME_GetGameServerGameIds"
+    },
+    {
+     "va": "0x0052F4C0",
+     "length": 368,
+     "name": "GAME_SendMessageToAllClients"
     },
     {
      "va": "0x0052F720",
@@ -49594,14 +49638,34 @@
      "name": "GAME_FindGameWithName"
     },
     {
+     "va": "0x0052FA50",
+     "length": 458,
+     "name": "?SrvJoinGame@@YIXHGHPBDH0HHHHHHH@Z"
+    },
+    {
      "va": "0x005300F0",
      "length": 154,
      "name": "sub_005300F0_RemoveClientById"
     },
     {
+     "va": "0x00530190",
+     "length": 211,
+     "name": "?SrvJoinAct@@YIXH@Z"
+    },
+    {
      "va": "0x005302D0",
      "length": 38,
      "name": "GAME_DisconnectClientByName"
+    },
+    {
+     "va": "0x005306E0",
+     "length": 309,
+     "name": "SrvRecvDatabaseCharacter"
+    },
+    {
+     "va": "0x00530EA0",
+     "length": 131,
+     "name": "D2GAME_SetStatOrResetGold_6FC7CA70"
     }
    ]
   },
@@ -49641,22 +49705,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Game_0052C260.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052C260",
-     "length": 31,
-     "name": "?sub_0052C260_SendGameInit@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0052FA50",
-     "length": 458,
-     "name": "?SrvJoinGame@@YIXHGHPBDH0HHHHHHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0052C280.cpp",
    "rank": 0,
    "functions": [
@@ -49692,52 +49740,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Game_0052C330.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052C330",
-     "length": 174,
-     "name": "SrvVerifyCreateNewGame"
-    },
-    {
-     "va": "0x0052CA10",
-     "length": 212,
-     "name": "sub_0052CA10"
-    },
-    {
-     "va": "0x0052CFE0",
-     "length": 163,
-     "name": "GAME_ProcessNetworkMessages"
-    },
-    {
-     "va": "0x0052D350",
-     "length": 228,
-     "name": "sub_0052D350_CheckClientHeartbeats"
-    },
-    {
-     "va": "0x0052EBE0",
-     "length": 173,
-     "name": "sub_0052EBE0"
-    },
-    {
-     "va": "0x0052F4C0",
-     "length": 368,
-     "name": "GAME_SendMessageToAllClients"
-    },
-    {
-     "va": "0x005306E0",
-     "length": 309,
-     "name": "SrvRecvDatabaseCharacter"
-    },
-    {
-     "va": "0x00530EA0",
-     "length": 131,
-     "name": "D2GAME_SetStatOrResetGold_6FC7CA70"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/GAME/Game_0052CC20.cpp",
    "rank": 0,
    "functions": [
@@ -49745,6 +49747,11 @@
      "va": "0x0052CC20",
      "length": 957,
      "name": "?sub_0052CC20_Statistics@@YIXPAXH@Z"
+    },
+    {
+     "va": "0x0052F630",
+     "length": 176,
+     "name": "?sub_0052F630@@YGXGPAE@Z"
     }
    ]
   },
@@ -50381,49 +50388,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Game_0052ED10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052ED10",
-     "length": 601,
-     "name": "?GAME_GetGameInformation@@YGHGPAUD2GameInfoStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052F080.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0052F080",
-     "length": 224
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052F630.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052F630",
-     "length": 176,
-     "name": "?sub_0052F630@@YGXGPAE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_00530190.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00530190",
-     "length": 211,
-     "name": "?SrvJoinAct@@YIXH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/GAME/Game_00530930.cpp",
    "rank": 0,
    "functions": [
@@ -50431,13 +50395,7 @@
      "va": "0x00530930",
      "length": 703,
      "name": "?SrvCreateNewEmptyGame@@YGHPADPBD1IEEEPAG@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_00530BF0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00530BF0",
      "length": 687,
@@ -55280,13 +55238,7 @@
      "va": "0x0054C5D0",
      "length": 189,
      "name": "?D2GAME_PACKETCALLBACK_Rcv0x49_TakeOrCloseWp_6FC87E60@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAEH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrMsg_0054D230.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0054D230",
      "length": 506,
@@ -55725,6 +55677,11 @@
      "va": "0x005523E0",
      "length": 28,
      "name": "?OBJECTS_SpawnWeaponRack@@YIHPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2DrlgCoordsStrc@@@Z"
+    },
+    {
+     "va": "0x00552560",
+     "length": 164,
+     "name": "?sub_00552560_CanPopulateRoom@@YGHPAUD2GameStrc@@PAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
     }
    ]
   },
@@ -55862,17 +55819,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/Objects_00552560.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00552560",
-     "length": 164,
-     "name": "?sub_00552560_CanPopulateRoom@@YGHPAUD2GameStrc@@PAUD2LevelsTxt@@PAUD2ActiveRoomStrc@@@Z"
-    }
    ]
   },
   {
@@ -56617,6 +56563,10 @@
      "name": "?ITEMS_FindQuestItem@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@I@Z"
     },
     {
+     "va": "0x00559CE0",
+     "length": 325
+    },
+    {
      "va": "0x0055A090",
      "length": 359,
      "name": "?sub_0055A090_DropGoldPiles@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@IPAPAU2@PAHH@Z"
@@ -56702,16 +56652,6 @@
      "va": "0x00558D90",
      "length": 928,
      "name": "?D2GAME_CreateItemEx_6FC4ED80@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ItemDropStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/ITEMS/Items_00559CE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00559CE0",
-     "length": 325
     }
    ]
   },
@@ -57509,16 +57449,6 @@
   {
    "file": "Source/D2Game/PLAYER/PlrTrade_00565010.cpp",
    "rank": 1,
-   "functions": [
-    {
-     "va": "0x00565010",
-     "length": 2212
-    },
-    {
-     "va": "0x005665F0",
-     "length": 1264
-    }
-   ],
    "flags": [
     "/nologo",
     "/c",
@@ -57532,6 +57462,20 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x00565010",
+     "length": 2212
+    },
+    {
+     "va": "0x005665F0",
+     "length": 1264
+    },
+    {
+     "va": "0x00567620",
+     "length": 542
+    }
    ]
   },
   {
@@ -57606,43 +57550,13 @@
    ]
   },
   {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00567620.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00567620",
-     "length": 542
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/PLAYER/PlrTrade_00567C70.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x00567C70",
      "length": 1001
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrTrade_00568060.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00568060",
      "length": 1500
@@ -57856,6 +57770,11 @@
      "va": "0x0056A620",
      "length": 208,
      "name": "?PLRSAVE2_ReadStats@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAEPAEIH@Z"
+    },
+    {
+     "va": "0x0056AE50",
+     "length": 203,
+     "name": "PLRSAVE2_ReadIronGolemSection"
     }
    ]
   },
@@ -57881,17 +57800,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlrSave2_0056AE50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0056AE50",
-     "length": 203,
-     "name": "PLRSAVE2_ReadIronGolemSection"
-    }
    ]
   },
   {
@@ -59436,22 +59344,21 @@
   },
   {
    "file": "Source/D2Game/PLAYER/PlayerPets_00574AB0.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00574AB0",
      "length": 282
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00574DE0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00574DE0",
      "length": 213,
      "name": "PLAYERPETS_IteratePets"
+    },
+    {
+     "va": "0x005751A0",
+     "length": 268,
+     "name": "?sub_6FC7D470@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x00575590",
@@ -59467,6 +59374,16 @@
      "va": "0x00575AF0",
      "length": 197,
      "name": "PLAYERPETS_AllocPetList"
+    },
+    {
+     "va": "0x00575C70",
+     "length": 284,
+     "name": "?sub_00575C70_AppendPet@@YGHPAUD2UnitStrc@@PAUD2PetInfoStrc@@0PAUD2PetListStrc@@PAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x00575E90",
+     "length": 270,
+     "name": "?PLAYERPETS_AddPetWithInfo@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HPAUD2PetInfoStrc@@@Z"
     }
    ]
   },
@@ -59492,33 +59409,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_005751A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005751A0",
-     "length": 268,
-     "name": "?sub_6FC7D470@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/PLAYER/PlayerPets_00575C70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00575C70",
-     "length": 284,
-     "name": "?sub_00575C70_AppendPet@@YGHPAUD2UnitStrc@@PAUD2PetInfoStrc@@0PAUD2PetListStrc@@PAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x00575E90",
-     "length": 270,
-     "name": "?PLAYERPETS_AddPetWithInfo@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1HPAUD2PetInfoStrc@@@Z"
-    }
    ]
   },
   {
@@ -61206,6 +61096,10 @@
      "name": "?D2GAME_SetTrapCallback_6FC764B0@@YGXEPAUD2ObjOperateFnStrc@@@Z"
     },
     {
+     "va": "0x00582DA0",
+     "length": 688
+    },
+    {
      "va": "0x005830E0",
      "length": 807,
      "name": "?D2GAME_SHRINES_Exploding_6FC770D0@@YIXPAUD2ObjOperateFnStrc@@PAUD2ShrinesTxt@@@Z"
@@ -61248,61 +61142,31 @@
    ]
   },
   {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00582DA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00582DA0",
-     "length": 688
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/OBJECTS/ObjMode_00583840.cpp",
    "rank": 1,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x00583840",
      "length": 361
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/OBJECTS/ObjMode_00585550.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00585550",
      "length": 43
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -62736,6 +62600,21 @@
      "name": "AIGENERAL_SetAiControlParam"
     },
     {
+     "va": "0x0058EC50",
+     "length": 59,
+     "name": "?AIGENERAL_GetAiControlParam@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x0058EC90",
+     "length": 126,
+     "name": "?AIGENERAL_AllocAiCommand@@YIPAUD2AiCmdStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0058ED10",
+     "length": 103,
+     "name": "?AIGENERAL_FreeCurrentAiCommand@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0058ED80",
      "length": 83,
      "name": "?sub_0058ED80_FreeAllAiCommands@@YAXPAUD2GameStrc@@PAUD2AiControlStrc@@@Z"
@@ -62793,27 +62672,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiGeneral_0058EC50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058EC50",
-     "length": 59,
-     "name": "?AIGENERAL_GetAiControlParam@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0058EC90",
-     "length": 126,
-     "name": "?AIGENERAL_AllocAiCommand@@YIPAUD2AiCmdStrc@@PAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0058ED10",
-     "length": 103,
-     "name": "?AIGENERAL_FreeCurrentAiCommand@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Ai/AiGeneral_0058EDE0.cpp",
    "rank": 0,
    "functions": [
@@ -62821,6 +62679,16 @@
      "va": "0x0058EDE0",
      "length": 150,
      "name": "AIGENERAL_FreeAllAiCommands"
+    },
+    {
+     "va": "0x0058F350",
+     "length": 40,
+     "name": "?AIGENERAL_FreeAllMinionLists@@YIXPAUD2GameStrc@@PAUD2MinionListStrc@@@Z"
+    },
+    {
+     "va": "0x0058F710",
+     "length": 29,
+     "name": "?AIGENERAL_GetMinionSpawnClassId@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0058F730",
@@ -62910,22 +62778,6 @@
     {
      "va": "0x0058F260",
      "length": 230
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiGeneral_0058F350.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058F350",
-     "length": 40,
-     "name": "?AIGENERAL_FreeAllMinionLists@@YIXPAUD2GameStrc@@PAUD2MinionListStrc@@@Z"
-    },
-    {
-     "va": "0x0058F710",
-     "length": 29,
-     "name": "?AIGENERAL_GetMinionSpawnClassId@@YIHPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -64041,6 +63893,11 @@
      "name": "ACT2Q3_ActiveFilterCallback"
     },
     {
+     "va": "0x0059A480",
+     "length": 102,
+     "name": "?sub_0059A480_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
      "va": "0x0059A7E0",
      "length": 1086,
      "name": "?OBJECTS_OperateFunction24_TaintedSunAltar@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -64733,17 +64590,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a2q3_0059A480.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059A480",
-     "length": 102,
-     "name": "?sub_0059A480_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a2q3_0059A5D0.cpp",
    "rank": 1,
    "functions": [
@@ -64933,9 +64779,54 @@
      "name": "?ACT2Q6_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x0059D450",
+     "length": 120,
+     "name": "?ACT2Q6_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059D4D0",
+     "length": 32,
+     "name": "?ACT2Q6_Callback14_PlayerJoinedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059D4F0",
+     "length": 190,
+     "name": "?ACT2Q6_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059D6A0",
+     "length": 126,
+     "name": "?ACT2Q6_SendTombIdToClient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0059D9D0",
      "length": 49,
      "name": "?D2GAME_WarpPlayerToTile_6FCA5B20@@YIXPAUD2ObjOperateFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059DA50",
+     "length": 114,
+     "name": "?sub_0059DA50@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059DAD0",
+     "length": 78,
+     "name": "?OBJECTS_InitFunction38_TyraelsDoor@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059DB50",
+     "length": 115,
+     "name": "?OBJECTS_InitFunction21_HoradricOrifice@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059DBD0",
+     "length": 145,
+     "name": "?ACT2Q6_UnitIterate_DeleteHoradricItems@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059DC70",
+     "length": 268,
+     "name": "?OBJECTS_OperateFunction25_StaffOrifice@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     }
    ]
   },
@@ -65169,57 +65060,6 @@
      "va": "0x0059E2A0",
      "length": 1,
      "name": "?sub_0059E2A0_ACT2Q7_Callback08_Empty@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q6_0059D450.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059D450",
-     "length": 120,
-     "name": "?ACT2Q6_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0059D4D0",
-     "length": 32,
-     "name": "?ACT2Q6_Callback14_PlayerJoinedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059D4F0",
-     "length": 190,
-     "name": "?ACT2Q6_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059D6A0",
-     "length": 126,
-     "name": "?ACT2Q6_SendTombIdToClient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0059DA50",
-     "length": 114,
-     "name": "?sub_0059DA50@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059DAD0",
-     "length": 78,
-     "name": "?OBJECTS_InitFunction38_TyraelsDoor@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059DB50",
-     "length": 115,
-     "name": "?OBJECTS_InitFunction21_HoradricOrifice@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059DBD0",
-     "length": 145,
-     "name": "?ACT2Q6_UnitIterate_DeleteHoradricItems@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059DC70",
-     "length": 268,
-     "name": "?OBJECTS_OperateFunction25_StaffOrifice@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     }
    ]
   },
@@ -67154,71 +66994,14 @@
      "name": "MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles"
     },
     {
-     "va": "0x005AB370",
-     "length": 385,
-     "name": "MISSMODE_SrvHit20_LightningFury"
-    },
-    {
-     "va": "0x005ABA10",
-     "length": 238,
-     "name": "MISSMODE_SrvHit28_GrimWardScare"
-    },
-    {
-     "va": "0x005AC0A0",
-     "length": 290,
-     "name": "MISSMODE_SrvHit38_CatapultChargedBall"
-    },
-    {
-     "va": "0x005ADA40",
-     "length": 64,
-     "name": "?sub_005ADA40_CheckMissileMode@@YAHHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A9820.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A9820",
-     "length": 260,
-     "name": "?sub_005A9820_SpawnNearby@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHGPAU1@H@Z"
-    },
-    {
-     "va": "0x005A99E0",
-     "length": 140,
-     "name": "?sub_005A99E0_MISSMODE_PlacePathAtOwner@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AEA60",
-     "length": 243,
-     "name": "?sub_005AEA60_SpawnBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AF240",
-     "length": 179,
-     "name": "?sub_005AF240_SpawnDuringFrames@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AF540",
-     "length": 79,
-     "name": "?MISSMODE_SrvDo20_BladeCreeper@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AF880",
-     "length": 251,
-     "name": "?sub_005AF880_SpawnBySkillMask@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005A9A70.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x005A9A70",
      "length": 383,
      "name": "MISSMODE_SrvHit01_Fireball_ExplodingArrow_FreezingArrowExplosion"
+    },
+    {
+     "va": "0x005A9BF0",
+     "length": 385,
+     "name": "?MISSMODE_SrvHit24_PantherPotOrange@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005A9D80",
@@ -67256,6 +67039,11 @@
      "name": "MISSMODE_SrvHit19_FingerMageSpider"
     },
     {
+     "va": "0x005AB370",
+     "length": 385,
+     "name": "MISSMODE_SrvHit20_LightningFury"
+    },
+    {
      "va": "0x005AB500",
      "length": 302,
      "name": "MISSMODE_SrvHit21_BattleCry"
@@ -67264,6 +67052,11 @@
      "va": "0x005AB820",
      "length": 176,
      "name": "MISSMODE_SrvHit25_PantherPotGreen"
+    },
+    {
+     "va": "0x005ABA10",
+     "length": 238,
+     "name": "MISSMODE_SrvHit28_GrimWardScare"
     },
     {
      "va": "0x005ABB00",
@@ -67281,30 +67074,69 @@
      "name": "MISSMODE_SrvHit31_FireHead"
     },
     {
-     "va": "0x005ABF70",
-     "length": 161,
-     "name": "MISSMODE_SrvHit36_MissileInAir"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005A9BF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A9BF0",
-     "length": 385,
-     "name": "?MISSMODE_SrvHit24_PantherPotOrange@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
      "va": "0x005ABEE0",
      "length": 138,
      "name": "?MISSMODE_SrvHit35_OrbMist@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
+     "va": "0x005ABF70",
+     "length": 161,
+     "name": "MISSMODE_SrvHit36_MissileInAir"
+    },
+    {
+     "va": "0x005AC0A0",
+     "length": 290,
+     "name": "MISSMODE_SrvHit38_CatapultChargedBall"
+    },
+    {
      "va": "0x005ACA50",
      "length": 145,
      "name": "?MISSMODE_SrvHit53_RabiesContagion@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x005ADA40",
+     "length": 64,
+     "name": "?sub_005ADA40_CheckMissileMode@@YAHHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005ADD20",
+     "length": 489
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005A9820.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005A9820",
+     "length": 260,
+     "name": "?sub_005A9820_SpawnNearby@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHGPAU1@H@Z"
+    },
+    {
+     "va": "0x005A99E0",
+     "length": 140,
+     "name": "?sub_005A99E0_MISSMODE_PlacePathAtOwner@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AEA60",
+     "length": 243,
+     "name": "?sub_005AEA60_SpawnBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF240",
+     "length": 179,
+     "name": "?sub_005AF240_SpawnDuringFrames@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF540",
+     "length": 79,
+     "name": "?MISSMODE_SrvDo20_BladeCreeper@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF880",
+     "length": 251,
+     "name": "?sub_005AF880_SpawnBySkillMask@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -67610,16 +67442,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005ADD20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005ADD20",
-     "length": 489
-    }
    ]
   },
   {
@@ -68799,6 +68621,11 @@
      "name": "?ACT4Q2_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x005B5590",
+     "length": 130,
+     "name": "?OBJECTS_InitFunction55_DiabloStartPoint@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x005B5620",
      "length": 1,
      "name": "?sub_005B5620_Return@@YAXXZ"
@@ -68930,17 +68757,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a4q2_005B5590.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B5590",
-     "length": 130,
-     "name": "?OBJECTS_InitFunction55_DiabloStartPoint@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
    ]
   },
   {
@@ -73046,6 +72862,11 @@
      "name": "?sub_6FCF1A50@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
+     "va": "0x005DCA70",
+     "length": 338,
+     "name": "?AIUTIL_TargetCallback_SelectHostileTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
      "va": "0x005DCBD0",
      "length": 133,
      "name": "?sub_6FCF1980@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -73059,6 +72880,11 @@
      "va": "0x005DCCC0",
      "length": 141,
      "name": "?sub_6FCF1BD0@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005DCDA0",
+     "length": 104,
+     "name": "?AIUTIL_TargetCallback_CountDeadMinions@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005DD140",
@@ -73077,49 +72903,6 @@
     {
      "va": "0x005DD370",
      "length": 264
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005DC380.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DC380",
-     "length": 251,
-     "name": "?AIUTIL_GetDistanceToCoordinates_FullUnitSize@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005DC480",
-     "length": 164,
-     "name": "?sub_005DC480_Distance@@YIHPAUSynUnit@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiUtil_005DCA20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DCA20",
-     "length": 70,
-     "name": "?sub_005DCA20_IsHostile@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiUtil_005DCA70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DCA70",
-     "length": 338,
-     "name": "?AIUTIL_TargetCallback_SelectHostileTarget@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
-    },
-    {
-     "va": "0x005DCDA0",
-     "length": 104,
-     "name": "?AIUTIL_TargetCallback_CountDeadMinions@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
      "va": "0x005DD480",
@@ -73158,6 +72941,33 @@
    ]
   },
   {
+   "file": "Source/D2Game/Unknown_005DC380.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005DC380",
+     "length": 251,
+     "name": "?AIUTIL_GetDistanceToCoordinates_FullUnitSize@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x005DC480",
+     "length": 164,
+     "name": "?sub_005DC480_Distance@@YIHPAUSynUnit@@HH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Ai/AiUtil_005DCA20.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005DCA20",
+     "length": 70,
+     "name": "?sub_005DCA20_IsHostile@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Game/Ai/AiUtil_005DCE10.cpp",
    "rank": 0,
    "functions": [
@@ -73187,9 +72997,49 @@
      "name": "?sub_005DD050_FindTargetAmongMinions@@YGPAUD2UnitStrc@@PAUD2GameStrc@@PAXP6IPAU1@0PAU1@21@Z2@Z"
     },
     {
+     "va": "0x005DD290",
+     "length": 17,
+     "name": "?sub_005DD290_NoMissileBarrierCollision@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x005DD2B0",
+     "length": 24,
+     "name": "?sub_6FCF2E70@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005DD2D0",
+     "length": 93,
+     "name": "?AIUTIL_CheckIfMonsterUsesSkill@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x005DDD00",
      "length": 324,
      "name": "AIUTIL_ApplyTerrorCurseState"
+    },
+    {
+     "va": "0x005DDFC0",
+     "length": 54,
+     "name": "?AITACTICS_ChangeModeAndTargetCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x005DE830",
+     "length": 86,
+     "name": "?AITACTICS_GetTargetMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x005E6800",
+     "length": 81,
+     "name": "?sub_005E6800_InitHomeCommand@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005F2EB0",
+     "length": 262,
+     "name": "?sub_005F2EB0_RemoveGroundCollision@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005F2FC0",
+     "length": 303,
+     "name": "?AITHINK_TryRestoreGroundCollision@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -73231,52 +73081,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Ai/AiUtil_005DD290.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DD290",
-     "length": 17,
-     "name": "?sub_005DD290_NoMissileBarrierCollision@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x005DD2B0",
-     "length": 24,
-     "name": "?sub_6FCF2E70@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005DD2D0",
-     "length": 93,
-     "name": "?AIUTIL_CheckIfMonsterUsesSkill@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005DDFC0",
-     "length": 54,
-     "name": "?AITACTICS_ChangeModeAndTargetCoordinates@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x005DE830",
-     "length": 86,
-     "name": "?AITACTICS_GetTargetMinion@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x005E6800",
-     "length": 81,
-     "name": "?sub_005E6800_InitHomeCommand@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005F2EB0",
-     "length": 262,
-     "name": "?sub_005F2EB0_RemoveGroundCollision@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005F2FC0",
-     "length": 303,
-     "name": "?AITHINK_TryRestoreGroundCollision@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {

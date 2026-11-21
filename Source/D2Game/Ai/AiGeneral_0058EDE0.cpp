@@ -2,7 +2,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
-
+#include "D2Constants.h"
 
 struct D2MinionListStrc
 {
@@ -10,13 +10,12 @@ struct D2MinionListStrc
     D2MinionListStrc* pNext;
 };
 
-
-
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
+
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
+
 D2AiCmdStrc* __fastcall AIGENERAL_AllocAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit);                     // 0x0058EC90
 
 __forceinline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
@@ -78,6 +77,23 @@ void __fastcall AIGENERAL_FreeAllAiCommands(D2GameStrc* pGame, D2UnitStrc* pUnit
         }
     }
     while (pAiControl->pLastCmd);
+}
+
+// 0x0058F350
+void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc* pGame, D2MinionListStrc* pMinionList)
+{
+    while (pMinionList)
+    {
+        D2MinionListStrc* pNext = pMinionList->pNext;
+        FOG_FreePool(pGame->pMemoryPool, pMinionList, ".\\Ai\\AiGeneral.cpp", 582, 0);
+        pMinionList = pNext;
+    }
+}
+
+// 0x0058F710
+int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc* pUnit)
+{
+    return AIGENERAL_GetAiControlFromUnit(pUnit)->nMinionSpawnClassId;
 }
 
 // 0x0058F730
