@@ -1,39 +1,8 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
 #include "D2GameTypes.h"
 #include "D2StormLink.h"
 #include "D2StormTypes.h"
-
-struct D2StormArchiveRecStrc
-{
-    D2StormLinkStrc f_0;
-    char szName[0x104];
-    void* hFile;
-    int nMode;
-    int bNoDiskSearch;
-    int nPriority;
-    void* pCachedFile;
-    unsigned int nCachedOffset;
-    unsigned int nBlockSize;
-    unsigned char* pBlockBuffer;
-    unsigned int f_12C;
-    unsigned int nArchiveOffset;
-    unsigned int nArchiveLimit;
-    D2StormMpqHeaderStrc* pHeader;
-    void* pBlockTable;
-    void* f_140;
-    unsigned int nFilePos;
-    int bNested;
-    void* hNestedFile;
-    D2StormArchiveRecStrc* pPatch;
-    char szPrefix[0x104];
-    int nRefs;
-
-    D2StormArchiveRecStrc()
-    {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
-    }
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214

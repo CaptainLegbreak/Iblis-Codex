@@ -1,13 +1,12 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
 #include "D2StormLink.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
-struct D2StormFileRecStrc;
 struct D2CriticalSectionStrc;
 struct D2StormFixedListStrc;
-struct D2StormBlockStrc;
 
 // build: context ArchiveHead
 // build: context D2StormLinkStrc::Next
@@ -23,74 +22,6 @@ struct D2StormFixedListStrc
     D2StormLinkStrc m_terminator;
 
     char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);    // 0x00418F20
-};
-
-struct D2StormBlockStrc
-{
-    unsigned int nOffset;
-    unsigned int nPackedSize;
-
-    unsigned int nFileSize;
-    unsigned int dwFlags;
-    unsigned int unk0x10;
-    unsigned int unk0x14;
-    unsigned int nCrc;
-    unsigned int unk0x1C[4];
-};
-
-struct D2StormArchiveRecStrc
-{
-    D2StormLinkStrc tLink;
-    char szName[0x104];
-    void* hFile;
-    int nMode;
-    int bNoDiskSearch;
-    int nPriority;
-    D2StormFileRecStrc* pCachedFile;
-    unsigned int nCachedOffset;
-    unsigned int nBlockSize;
-    unsigned char* pBlockBuffer;
-    unsigned int nCachedSize;
-    unsigned int nArchiveOffset;
-    unsigned int nArchiveLimit;
-    D2StormMpqHeaderStrc* pHeader;
-    D2StormBlockStrc* pBlockTable;
-    D2StormHashEntryStrc* pHashTable;
-    unsigned int nFilePos;
-    int nOpenFiles;
-    void* hNestedFile;
-    D2StormArchiveRecStrc* pPatch;
-    char szPrefix[0x104];
-    int nRefs;
-    D2StormArchiveRecStrc()
-    {
-        tLink.m_prevlink = 0;
-        tLink.m_next = 0;
-    }
-};
-
-struct D2StormFileRecStrc
-{
-    D2StormLinkStrc tLink;
-    char szName[0x104];
-    char* szLocalPath;
-    void* hFile;
-    D2StormArchiveRecStrc* pArchive;
-    D2StormBlockStrc* pBlock;
-    unsigned int nKey;
-    unsigned int nPosition;
-    int unk0x124;
-    unsigned int nBlocks;
-    unsigned int* pBlockOffsets;
-    int unk0x130;
-    int unk0x134;
-    unsigned char* pBuffer;
-    int unk0x13C;
-    int unk0x140;
-    int nRefCount;
-    int unk0x148;
-    unsigned int nCrc;
-    int nCrcState;
 };
 
 typedef void (__stdcall* SFILEOPENCALLBACK)(const char* szFileName, void* pParam);
@@ -317,11 +248,11 @@ static __forceinline int sub_004192F0_OpenDiskFile(const char* szFileName, unsig
         else
         {
             D2StormFileRecStrc* pFile = (D2StormFileRecStrc*)gFileList_0070836C.sub_00418F20_NewNode(1, 0, 0);
-            SStrCopy(pFile->szName, szFileName, 0x104);
+            SStrCopy(pFile->name, szFileName, 0x104);
             pFile->szLocalPath = SStrDup(szPath);
             pFile->hFile = hFile;
             pFile->nRefCount = 1;
-            pFile->nCrc = 0;
+            pFile->nCrcValue = 0;
             *phFile = pFile;
         }
 
@@ -392,7 +323,7 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
                 pBlockOffsets = (unsigned int*)SMemAlloc((nBlocks + 1) * sizeof(unsigned int), gszSFileSourceFile_006CF084, 0x1231, 0);
 
             D2StormFileRecStrc* pFile = (D2StormFileRecStrc*)gFileList_0070836C.sub_00418F20_NewNode(1, 0, 0);
-            SStrCopy(pFile->szName, szFileName, 0x104);
+            SStrCopy(pFile->name, szFileName, 0x104);
             pFile->hFile = (void*)-1;
             pFile->pArchive = pFileArchive;
             pFile->pBlock = pFileBlock;
@@ -401,7 +332,7 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
             pFile->pBlockOffsets = pBlockOffsets;
             pFile->pBuffer = (unsigned char*)SMemAlloc(0x1000, gszSFileSourceFile_006CF084, 0x123C, 0);
             pFile->nRefCount = 1;
-            pFile->nCrc = pFileBlock->nCrc ? gnFileCrc_007790B0 : 0;
+            pFile->nCrcValue = pFileBlock->nCrc ? gnFileCrc_007790B0 : 0;
             pFile->nCrcState = 1;
             ++pFileArchive->nOpenFiles;
             *phFile = pFile;

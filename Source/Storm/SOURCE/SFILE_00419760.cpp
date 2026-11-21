@@ -1,8 +1,8 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
 #include "D2GameTypes.h"
 #include "D2StormLink.h"
 
-struct D2StormFileRecStrc;
 struct D2CriticalSectionStrc;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
@@ -10,19 +10,6 @@ struct D2StormFixedListStrc;
 struct D2StormAudioStreamStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-struct D2StormFileRecStrc
-{
-    D2StormLinkStrc f_0;
-    char unk0x08[0x13C];
-    int nRefCount;
-    ~D2StormFileRecStrc();                                                                                  // 0x00419070
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, "delete", -1, 0);
-    }
-};
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -37,22 +24,6 @@ struct D2StormFixedListStrc
 {
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
-};
-
-struct D2StormArchiveRecStrc
-{
-    D2StormLinkStrc f_0;
-    char unk0x08[0x140];
-    int nRefCount;
-    void* hParentFile;
-    D2StormArchiveRecStrc* pParent;
-
-    ~D2StormArchiveRecStrc();                                                                               // 0x00418A50
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, "delete", -1, 0);
-    }
 };
 
 extern D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
@@ -102,7 +73,7 @@ int __stdcall SFileCloseFile(void* hFile)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    (pRec ? &pRec->f_0 : &gFileList_0070836C.m_terminator)->Unlink();
+    (pRec ? &pRec->tLink : &gFileList_0070836C.m_terminator)->Unlink();
     if (pRec && !--pRec->nRefCount)
         delete pRec;
     LeaveCriticalSection(&gBasePathLock_00779068);
@@ -135,7 +106,7 @@ int __stdcall SFileCloseArchive(void* hArchive)
                 delete pParent;
         }
     }
-    (pRec ? &pRec->f_0 : &gStormList_00708354.m_terminator)->Unlink();
+    (pRec ? &pRec->tLink : &gStormList_00708354.m_terminator)->Unlink();
     if (pRec && !--pRec->nRefCount)
         delete pRec;
     LeaveCriticalSection(&gBasePathLock_00779068);

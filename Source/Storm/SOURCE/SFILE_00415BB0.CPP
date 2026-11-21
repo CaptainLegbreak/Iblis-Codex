@@ -1,15 +1,6 @@
 #include "D2GameTypes.h"
+#include "D2SFileTypes.h"
 #include "D2StormTypes.h"
-
-struct D2StormArchiveRecStrc
-{
-    char pad00[0x10C];
-    void* hFile;
-    char pad110[0x20];
-    unsigned int nArchiveOffset;
-    unsigned int nArchiveLimit;
-    D2StormMpqHeaderStrc* pHeader;
-};
 
 struct D2StormHashBufferStrc;
 

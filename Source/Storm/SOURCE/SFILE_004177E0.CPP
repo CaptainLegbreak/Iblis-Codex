@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2SFileTypes.h"
 #include "D2StormLink.h"
 
 #define STORM_DELETEOP static void operator delete(void* pMemory) { if (pMemory) SMemFree(pMemory, "delete", -1, 0); }
@@ -28,7 +29,6 @@ struct Node;
 struct List;
 struct D2StormStreamOwnerStrc;
 struct D2StormAudioStreamStrc;
-struct D2StormFileRecStrc;
 struct D2StormListStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
@@ -70,22 +70,6 @@ struct D2StormAudioStreamStrc
 {
     void* pLink[2];
     ~D2StormAudioStreamStrc();
-    STORM_DELETEOP
-};
-
-struct D2StormFileRecStrc
-{
-    void* pLink[2];
-    char szName[0x108];
-    ~D2StormFileRecStrc();
-    STORM_DELETEOP
-};
-
-struct D2StormArchiveRecStrc
-{
-    void* pLink[2];
-    char szName[0x104];
-    ~D2StormArchiveRecStrc();
     STORM_DELETEOP
 };
 
