@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 
 struct D2DrlgActStrc;
