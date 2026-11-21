@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 #include "D2TxtItems.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
@@ -6,8 +7,58 @@
 #include "D2Path.h"
 #include "D2GameObjs.h"
 
-struct D2GfxLightStrc;
+struct D2AutomapCellStrc;
 
+struct Pad40_00457460;
+
+struct Obj00457460;
+
+int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
+
+extern int gdwGlobal_007A51E4; // 0x007A51E4
+
+extern int gdwGlobal_007A51E0; // 0x007A51E0
+
+extern int gdwGlobal_007113E8; // 0x007113E8
+
+struct Pad40_00457460 {
+    unsigned int dw00;
+    unsigned int dw04;
+    unsigned int dw08;
+    unsigned int f_C;
+    unsigned int dw10;
+    unsigned int dw14;
+    unsigned int dw18;
+    unsigned int dw1C;
+    unsigned int dw20;
+    unsigned int dw24;
+    unsigned int dw28;
+    unsigned int dw2C;
+    unsigned int dw30;
+    unsigned int dw34;
+    unsigned int dw38;
+    unsigned int dw3C;
+};
+
+struct Obj00457460 {
+    Pad40_00457460 tPad000;
+    Pad40_00457460 tPad040;
+    Pad40_00457460 tPad080;
+    unsigned int dwUnknownC0;
+    unsigned int dwFlagsC4;
+};
+
+int gdwGlobal_007A51E8; // 0x007A51E8
+
+int gaAutomapCellTable_007A3150[0x800]; // 0x007A3150
+
+static int gnAutomapOffsetX_007A5198; // 0x007A5198
+
+static int gnAutomapOffsetY_007A519C; // 0x007A519C
+
+static int gnAutomapScale_00711254; // 0x00711254
+
+struct D2GfxLightStrc;
 
 struct D2ShrineHandlerStrc
 {
@@ -94,6 +145,130 @@ int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
+
+typedef char (__fastcall* D2ObjectClientFn)(D2UnitStrc* pUnit);
+
+void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
+
+void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+
+int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
+
+void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
+
+void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);                                        // 0x0063AC40
+
+int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit);                            // 0x0064C260
+
+extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
+
+extern D2ObjectClientFn gapfnObjectClientFn_007277F0[];                                                     // 0x007277F0
+
+// 0x00457450
+int __fastcall sub_00457450_Abs(int nValue)
+{
+    return nValue < 0 ? -nValue : nValue;
+}
+
+// 0x00457460
+extern "C" __declspec(dllexport) void __fastcall sub_00457460(Obj00457460* pObj, unsigned int dwMask, int bSet) {
+    if (pObj) {
+        if (bSet) {
+            pObj->dwFlagsC4 |= dwMask;
+        } else {
+            pObj->dwFlagsC4 &= ~dwMask;
+        }
+    }
+}
+
+// 0x00457750
+int __fastcall sub_00457750_SaveAutomapCenters(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
+    gdwGlobal_007113E0 = nValue;
+    return nValue;
+}
+
+// 0x00457780
+int __fastcall sub_00457780_SaveAutomapLeft(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
+    gdwGlobal_007A51E4 = nValue;
+    gdwGlobal_007A51E8 = nValue;
+    gdwGlobal_007A51E0 = nValue;
+    return nValue;
+}
+
+// 0x004577C0
+int __fastcall sub_004577C0_SaveAutomapParty(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
+    gdwGlobal_007113E4 = nValue;
+    return nValue;
+}
+
+// 0x004577F0
+int __fastcall sub_004577F0_SaveAutomapPartyNames(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Party Names", 0, nValue);
+    gdwGlobal_007113E8 = nValue;
+    return nValue;
+}
+
+// 0x00457810
+static __forceinline void sub_00457810_SubtractAutomapOffset(int* pX, int* pY)
+{
+    *pX -= gnAutomapOffsetX_007A5198;
+    *pY -= gnAutomapOffsetY_007A519C;
+}
+
+// 0x00457830
+static __forceinline void sub_00457830_ScaleAutomapPoint(int* pX, int* pY)
+{
+    *pX /= gnAutomapScale_00711254;
+    *pY /= gnAutomapScale_00711254;
+    *pX += 8;
+    *pY -= 8;
+    *pX -= gnAutomapOffsetX_007A5198;
+    *pY -= gnAutomapOffsetY_007A519C;
+}
+
+void __fastcall sub_M117_Emit_00457810(int* pX, int* pY, int nScale)
+{
+    gnAutomapScale_00711254 = nScale;
+    sub_00457810_SubtractAutomapOffset(pX, pY);
+    sub_00457830_ScaleAutomapPoint(pX, pY);
+    gnAutomapOffsetX_007A5198 = *pX;
+    gnAutomapOffsetY_007A519C = *pY;
+}
+
+// 0x00457AC0
+int __fastcall sub_00457AC0_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
+{
+    int nResult = pA->yPixel - pB->yPixel;
+    if (!nResult)
+    {
+        nResult = pA->xPixel - pB->xPixel;
+        if (!nResult)
+        {
+            const int nCellA = pA->nCellNo;
+            if (gaAutomapCellTable_007A3150[nCellA] != -1)
+            {
+                const int nCellB = pB->nCellNo;
+                if (gaAutomapCellTable_007A3150[nCellA] != gaAutomapCellTable_007A3150[nCellB])
+                {
+                    nResult = nCellA - nCellB;
+                }
+            }
+        }
+    }
+
+    return nResult;
+}
 
 // 0x004BC580
 static void __stdcall sub_004BC580_UpdateLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue)
@@ -227,7 +402,59 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
         sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
 }
 
-// 0x004BCA90
+struct D2UnitStrc;
+
+// 0x004BC8D0
+void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit)
+{
+    if (!pUnit->pObjectData->pObjectTxt->nOverlay)
+    {
+        return;
+    }
+
+    switch ((unsigned int)pUnit->dwClassId)
+    {
+    case 0x98:
+        sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
+        return;
+
+    case 0x95:
+        if (pUnit->dwAnimMode == 1)
+        {
+            sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
+        }
+        return;
+
+    case 0x162:
+    case 0x163:
+    case 0x164:
+    case 0x18D:
+    case 0x195:
+    case 0x196:
+    case 0x197:
+    case 0x1C7:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_00470390(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
+        }
+        return;
+    }
+}
+
+// 0x004BCA50
+void __fastcall sub_004BCA50_ReleaseUnit(D2UnitStrc* pUnit)
+{
+    sub_0046EC10_FreeGfxData(pUnit);
+    if (gpGlobal_007A0634)
+    {
+        UNITS_FreeCollisionPath(pUnit);
+        UNITROOM_RemoveUnitFromRoom(pUnit);
+        sub_00464930_FreeLight(pUnit);
+    }
+
+    FOG_Free(pUnit->pPlayerData, ".\\UNIT\\Object.cpp", 0xFE, 0);
+}
+
 static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
 {
     const int nMode = pUnit->dwAnimMode;
@@ -560,89 +787,6 @@ void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2Un
     }
 }
 
-// 0x004BDFF0
-void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit)
-{
-    sub_004BCBB0_UpdateObjectFrame(pUnit);
-    if (pUnit->pObjectData->pObjectTxt->nClientFn <= 3 || sub_004BDEE0(pUnit))
-        sub_004CB460_UpdateModeSound(pUnit);
-}
-
-struct D2UnitStrc;
-
-typedef char (__fastcall* D2ObjectClientFn)(D2UnitStrc* pUnit);
-
-void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
-
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
-
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
-unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
-
-int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
-
-void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
-
-void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);                                        // 0x0063AC40
-
-int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit);                            // 0x0064C260
-
-extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
-
-extern D2ObjectClientFn gapfnObjectClientFn_007277F0[];                                                     // 0x007277F0
-
-// 0x004BC8D0
-void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit)
-{
-    if (!pUnit->pObjectData->pObjectTxt->nOverlay)
-    {
-        return;
-    }
-
-    switch ((unsigned int)pUnit->dwClassId)
-    {
-    case 0x98:
-        sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
-        return;
-
-    case 0x95:
-        if (pUnit->dwAnimMode == 1)
-        {
-            sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
-        }
-        return;
-
-    case 0x162:
-    case 0x163:
-    case 0x164:
-    case 0x18D:
-    case 0x195:
-    case 0x196:
-    case 0x197:
-    case 0x1C7:
-        if (pUnit->dwAnimMode == 0)
-        {
-            sub_00470390(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
-        }
-        return;
-    }
-}
-
-// 0x004BCA50
-void __fastcall sub_004BCA50_ReleaseUnit(D2UnitStrc* pUnit)
-{
-    sub_0046EC10_FreeGfxData(pUnit);
-    if (gpGlobal_007A0634)
-    {
-        UNITS_FreeCollisionPath(pUnit);
-        UNITROOM_RemoveUnitFromRoom(pUnit);
-        sub_00464930_FreeLight(pUnit);
-    }
-
-    FOG_Free(pUnit->pPlayerData, ".\\UNIT\\Object.cpp", 0xFE, 0);
-}
-
 // 0x004BDEE0
 char __fastcall sub_004BDEE0(D2UnitStrc* pUnit)
 {
@@ -661,6 +805,14 @@ char __fastcall sub_004BDEE0(D2UnitStrc* pUnit)
 void __fastcall sub_004BDFE0_SetObjectName(D2UnitStrc* pUnit, const char* szName)
 {
     SStrCopy(pUnit->pObjectData->szOwner, szName, 0x10);
+}
+
+// 0x004BDFF0
+void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit)
+{
+    sub_004BCBB0_UpdateObjectFrame(pUnit);
+    if (pUnit->pObjectData->pObjectTxt->nClientFn <= 3 || sub_004BDEE0(pUnit))
+        sub_004CB460_UpdateModeSound(pUnit);
 }
 
 // 0x004C1A70
