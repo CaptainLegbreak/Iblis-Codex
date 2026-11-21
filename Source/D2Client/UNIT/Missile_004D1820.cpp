@@ -191,7 +191,7 @@ void __fastcall sub_004D3070_CltDoOwnerStep(D2UnitStrc* pMissile)
     UNITS_UpdateFrame(pMissile);
 }
 
-static __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -201,7 +201,7 @@ static __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -284,7 +284,7 @@ inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static __forceinline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
+static inline int MISSILE_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
     {
@@ -653,7 +653,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
     return pMissile;
 }
 
-static __forceinline unsigned int SEED_RollUnitSeedInline(D2UnitStrc* pUnit)
+static inline unsigned int SEED_RollUnitSeedInline(D2UnitStrc* pUnit)
 {
     unsigned __int64 lSeed = (unsigned __int64)pUnit->pSeed.nLowSeed * 0x6AC690C5 + pUnit->pSeed.nHighSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -661,7 +661,7 @@ static __forceinline unsigned int SEED_RollUnitSeedInline(D2UnitStrc* pUnit)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollUnitSeedWideInline(D2UnitStrc* pUnit)
+static inline unsigned int SEED_RollUnitSeedWideInline(D2UnitStrc* pUnit)
 {
     unsigned __int64 lSeed = (unsigned __int64)pUnit->pSeed.nLowSeed * 0x6AC690C5 + pUnit->pSeed.nHighSeed;
     pUnit->pSeed.lSeed = lSeed;

@@ -228,7 +228,7 @@ static int sub_004CA320_GetUnitSndType(D2UnitStrc* pUnit)
     return nType;
 }
 
-static __forceinline void sub_004CA560_SetHitSound1(int nHitClass, int* pSound1)
+static inline void sub_004CA560_SetHitSound1(int nHitClass, int* pSound1)
 {
     switch (nHitClass & 0xF)
     {
@@ -241,7 +241,7 @@ static __forceinline void sub_004CA560_SetHitSound1(int nHitClass, int* pSound1)
     }
 }
 
-static __forceinline void sub_004CA560_SetHitSound2(int nHitClass, int* pSound1, int* pSound2, int nType, int bParam)
+static inline void sub_004CA560_SetHitSound2(int nHitClass, int* pSound1, int* pSound2, int nType, int bParam)
 {
     switch (nHitClass & 0xF0)
     {

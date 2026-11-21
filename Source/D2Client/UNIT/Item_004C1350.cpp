@@ -74,7 +74,7 @@ static void sub_004C1160_SaveSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pSt
 static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState); // 0x004C1200
 static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x004C1290
 
-static __forceinline int GetUnitType(D2UnitStrc* p)
+static inline int GetUnitType(D2UnitStrc* p)
 {
     if (p)
     {
@@ -83,7 +83,7 @@ static __forceinline int GetUnitType(D2UnitStrc* p)
     return 6;
 }
 
-static __forceinline D2InventoryStrc* GetInventory(D2UnitStrc* p)
+static inline D2InventoryStrc* GetInventory(D2UnitStrc* p)
 {
     if (p)
     {
@@ -246,12 +246,12 @@ static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit,
     sub_0046F280_ClearGfxBytes(pUnit, nComponent);
 }
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
-static __forceinline void ITEM_RemoveItemStats(D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static inline void ITEM_RemoveItemStats(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (pUnit->dwUnitType == UNIT_PLAYER)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
@@ -260,7 +260,7 @@ static __forceinline void ITEM_RemoveItemStats(D2UnitStrc* pUnit, D2UnitStrc* pI
     STATLIST_ExpireUnitStatlist(pUnit, pItem);
 }
 
-static __forceinline void ITEM_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static inline void ITEM_ReattachItem(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
     if (!pUnit || !pItem)
         return;
@@ -281,7 +281,7 @@ static __forceinline void ITEM_ReattachItem(int nMode, int nComponent, D2UnitStr
     INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
 }
 
-static __forceinline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
+static inline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

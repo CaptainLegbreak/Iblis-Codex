@@ -74,7 +74,7 @@ int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
 
 D2UnitStrc* gpPlayerUnit_007A6A70; // 0x007A6A70
 
-static __forceinline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
+static inline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
 {
     int nClassId = -1;
     if (pUnit)
@@ -273,7 +273,7 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
 }
 
 // build: context UNIT_HasFlag
-static __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (!pUnit)
         return 0;
@@ -281,7 +281,7 @@ static __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // build: context UNIT_HasFlagEx
-static __forceinline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {

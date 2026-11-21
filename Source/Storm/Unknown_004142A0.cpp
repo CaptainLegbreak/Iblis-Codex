@@ -2,7 +2,7 @@ extern double gadPowTable_007788E0[20][10]; // 0x007788E0
 
 // build: context PowIntT*
 template <class T>
-__forceinline T PowIntT(T x, int nExp)
+inline T PowIntT(T x, int nExp)
 {
     unsigned int n;
     if (nExp >= 0)
@@ -19,7 +19,7 @@ __forceinline T PowIntT(T x, int nExp)
 }
 
 // 0x00414260
-__forceinline double __cdecl sub_00414260_PowInt(double x, int nExp)
+inline double __cdecl sub_00414260_PowInt(double x, int nExp)
 {
     return PowIntT(x, nExp);
 }

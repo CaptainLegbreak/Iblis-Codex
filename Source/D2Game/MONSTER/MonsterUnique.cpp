@@ -677,7 +677,7 @@ void __fastcall MONSTERUNIQUE_CastQueenPoisonCloudMissile(D2GameStrc* pGame, D2U
     }
 }
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -901,7 +901,7 @@ void __fastcall sub_6FC6DFC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, in
     D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
 }
 
-static __forceinline int MONSTERUNIQUE_GetClassIdInline(D2UnitStrc* pUnit)
+static inline int MONSTERUNIQUE_GetClassIdInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

@@ -64,7 +64,7 @@ __declspec(noinline) int __fastcall MONSTER_GetExperienceBonus(int nPlayerCount)
     return 2 * (5 * nPlayerCount + XP_BONUS_BASE);
 }
 
-static __forceinline D2MonsterDataStrc* MONSTER_GetMonsterDataInline(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MONSTER_GetMonsterDataInline(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nType == UNIT_MONSTER)

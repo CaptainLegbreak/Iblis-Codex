@@ -55,7 +55,7 @@ int __stdcall sub_006C0530(void* pObject, int nArg1, int nArg2, int nArg3); // 0
 int __stdcall sub_006C0600(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
 int __stdcall sub_006BEFB0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
 int __stdcall sub_006C06D0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
-static __forceinline void sub_0052A730_StartConnectThread(const char* szIpAddress);
+static inline void sub_0052A730_StartConnectThread(const char* szIpAddress);
 void __cdecl sub_0052AAD0_ClearConnected();
 
 typedef unsigned int size_t;
@@ -144,7 +144,7 @@ unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress)
 }
 
 // 0x0052A730
-static __forceinline void sub_0052A730_StartConnectThread(const char* szIpAddress)
+static inline void sub_0052A730_StartConnectThread(const char* szIpAddress)
 {
     ghClientConnectToHostThreadHandle = CreateThread(0, 0, CLIENT_ConnectToHost, (void*)szIpAddress, 0, &gdwThreadId);
 }

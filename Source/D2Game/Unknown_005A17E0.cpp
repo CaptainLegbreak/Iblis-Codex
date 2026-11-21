@@ -137,7 +137,7 @@ void __fastcall sub_005A17E0_UModDamageBonus(D2UnitStrc* pUnit, int nUMod, int b
     STATLIST_AddUnitStat(pUnit, STAT_ITEM_TOHIT_PERCENT, nToHit, 0);
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -246,7 +246,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
+static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
     {

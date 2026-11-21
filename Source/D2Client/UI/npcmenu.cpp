@@ -688,7 +688,7 @@ int __cdecl sub_F03_Emit_004B2E30(D2NpcRecordStrc* pRecord)
     return sub_004B2E30_FindNpcIndex(pRecord);
 }
 
-static __forceinline D2UnitStrc* NPC_GetInteractUnit_Inline()
+static inline D2UnitStrc* NPC_GetInteractUnit_Inline()
 {
     return gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0;
 }
@@ -843,7 +843,7 @@ void __fastcall sub_Z12_EmitItemNeedsRepair(D2UnitStrc* pItem)
 }
 
 // 0x004B21C0
-static __forceinline void sub_004B21C0_SetEntryType2(int nIndex)
+static inline void sub_004B21C0_SetEntryType2(int nIndex)
 {
     gNpcMenuEntries_00726C4C[nIndex].nType = 2;
     gNpcMenuEntries_00726C4C[nIndex].wSlot[0] = 0;
@@ -851,7 +851,7 @@ static __forceinline void sub_004B21C0_SetEntryType2(int nIndex)
 }
 
 // 0x004B21E0
-static __forceinline void sub_004B21E0_SetEntryType3(int nIndex)
+static inline void sub_004B21E0_SetEntryType3(int nIndex)
 {
     gNpcMenuEntries_00726C4C[nIndex].nType = 3;
     gNpcMenuEntries_00726C4C[nIndex].wSlot[1] = 0;
@@ -859,7 +859,7 @@ static __forceinline void sub_004B21E0_SetEntryType3(int nIndex)
 }
 
 // 0x004B2200
-static __forceinline void sub_004B2200_SetEntryType4(int nIndex)
+static inline void sub_004B2200_SetEntryType4(int nIndex)
 {
     gNpcMenuEntries_00726C4C[nIndex].nType = 4;
     gNpcMenuEntries_00726C4C[nIndex].wSlot[2] = 0;
@@ -867,7 +867,7 @@ static __forceinline void sub_004B2200_SetEntryType4(int nIndex)
 }
 
 // 0x004B2220
-static __forceinline void sub_004B2220_SetEntryHandler(int nIndex)
+static inline void sub_004B2220_SetEntryHandler(int nIndex)
 {
     gNpcMenuEntries_00726C4C[nIndex].wStringId = 0xFB4;
     gNpcMenuEntries_00726C4C[nIndex].pfnHandler = sub_004B2020_OpenTimedDialog34;
@@ -1472,7 +1472,7 @@ int __cdecl sub_004B4070_ClosePanel73()
     return 1;
 }
 
-static __forceinline unsigned int NPCDLG_RollSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int NPCDLG_RollSeed_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

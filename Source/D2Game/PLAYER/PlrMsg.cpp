@@ -540,7 +540,7 @@ struct D2GSPacketClt20
 };
 #pragma pack(pop)
 
-static __forceinline int sub_005494E0_CheckSkillLevel(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
+static inline int sub_005494E0_CheckSkillLevel(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
 
 D2UnitStrc* __stdcall sub_0063BDE0(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
@@ -1031,7 +1031,7 @@ void __fastcall sub_6FC821C0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
 }
 
 // build: context PoisonStat_GetPerFrame
-static __forceinline int PoisonStat_GetPerFrame(D2StatListStrc* pStatList)
+static inline int PoisonStat_GetPerFrame(D2StatListStrc* pStatList)
 {
 	if (pStatList)
 	{
@@ -1273,7 +1273,7 @@ int __fastcall sub_6FC82360(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int bSkipHpC
     return 1;
 }
 
-static __forceinline D2MonsterInteractStrc* PLRMSG_GetMonInteract(D2UnitStrc* pUnit)
+static inline D2MonsterInteractStrc* PLRMSG_GetMonInteract(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -1617,19 +1617,19 @@ static int __stdcall sub_00548F80_CheckTargetUnit(int nMaxDistance, D2GameStrc* 
 }
 
 // 0x00549080
-static __forceinline int sub_00549080_CheckLeftSkill(D2UnitStrc* pUnit)
+static inline int sub_00549080_CheckLeftSkill(D2UnitStrc* pUnit)
 {
     return UNITS_GetLeftSkill(pUnit) ? 0 : 3;
 }
 
 // 0x005490A0
-static __forceinline int sub_005490A0_CheckRightSkill(D2UnitStrc* pUnit)
+static inline int sub_005490A0_CheckRightSkill(D2UnitStrc* pUnit)
 {
     return UNITS_GetRightSkill(pUnit) ? 0 : 3;
 }
 
 // 0x005490C0
-static __forceinline int sub_005490C0_CheckName(const char* szName)
+static inline int sub_005490C0_CheckName(const char* szName)
 {
     if (!szName[0xFF])
     {
@@ -1658,13 +1658,13 @@ static int __stdcall sub_00549220_CheckOwnedItem(int nItemGUID, D2GameStrc* pGam
 }
 
 // 0x00549290
-static __forceinline int sub_00549290_CheckRange1To10(int nValue)
+static inline int sub_00549290_CheckRange1To10(int nValue)
 {
     return (unsigned int)(nValue - 1) > 9 ? 2 : 0;
 }
 
 // 0x005492A0
-static __forceinline int sub_005492A0_CheckBodyLocFree(D2UnitStrc* pUnit, int nBodyLoc)
+static inline int sub_005492A0_CheckBodyLocFree(D2UnitStrc* pUnit, int nBodyLoc)
 {
     return INVENTORY_GetItemFromBodyLoc(pUnit->pInventory, nBodyLoc) ? 0 : 1;
 }
@@ -1790,7 +1790,7 @@ static int sub_00549490_CheckSkillAllocation(D2UnitStrc* pUnit, int nSkillId)
 }
 
 // 0x005494E0
-static __forceinline int sub_005494E0_CheckSkillLevel(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+static inline int sub_005494E0_CheckSkillLevel(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
     if (nSkillId < 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1824,7 +1824,7 @@ static int __stdcall sub_00549520_CheckOrificeObject(int nItemGUID, unsigned sho
     }
 }
 
-static __forceinline int PLRMSG_J07_GetUnitX(D2UnitStrc* pUnit)
+static inline int PLRMSG_J07_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1837,7 +1837,7 @@ static __forceinline int PLRMSG_J07_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int PLRMSG_J07_GetUnitY(D2UnitStrc* pUnit)
+static inline int PLRMSG_J07_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2088,7 +2088,7 @@ static D2SkillStrc* __stdcall sub_6FC83450(D2SkillStrc* pSkill, D2UnitStrc* pUni
     return pUsedSkill;
 }
 
-__forceinline int PLRMSG_GetUnitXInline(D2UnitStrc* pUnit)
+inline int PLRMSG_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2101,7 +2101,7 @@ __forceinline int PLRMSG_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int PLRMSG_GetUnitYInline(D2UnitStrc* pUnit)
+inline int PLRMSG_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3890,7 +3890,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x3E_ActivateInifussScroll_6FC87270(D2Ga
     return 0;
 }
 
-static __forceinline int HasSoundFlag(D2UnitStrc* pUnit)
+static inline int HasSoundFlag(D2UnitStrc* pUnit)
 {
     return pUnit ? (pUnit->dwFlags >> 10) & 1 : 0;
 }
@@ -4060,7 +4060,7 @@ int __fastcall sub_0054C420_Rcv0x45Stub(D2GameStrc* pGame, D2UnitStrc* pUnit, vo
     return 3;
 }
 
-static __forceinline int sub_E03_PlrGetUnitX(D2UnitStrc* pUnit)
+static inline int sub_E03_PlrGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -4073,7 +4073,7 @@ static __forceinline int sub_E03_PlrGetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_E03_PlrGetUnitY(D2UnitStrc* pUnit)
+static inline int sub_E03_PlrGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -4584,7 +4584,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x60_SwapWeapons_6FC888A0(D2GameStrc* pG
     return 3;
 }
 
-static __forceinline int UNITS_GetAnimMode_H15(D2UnitStrc* pUnit)
+static inline int UNITS_GetAnimMode_H15(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwAnimMode : 0;
 }
@@ -4690,7 +4690,7 @@ static int __stdcall sub_0054CED0_EquipMercItem(D2UnitStrc* pPlayer, D2UnitStrc*
     return 1;
 }
 
-static __forceinline int sub_RemoveEquippedItem(D2UnitStrc* pMerc, D2UnitStrc* pItem)
+static inline int sub_RemoveEquippedItem(D2UnitStrc* pMerc, D2UnitStrc* pItem)
 {
     return pItem && (!pItem ? -1 : pItem->dwAnimMode) == 1 && pItem == INVENTORY_RemoveItemFromInventory(pMerc->pInventory, pItem);
 }

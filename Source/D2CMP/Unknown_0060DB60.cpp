@@ -128,7 +128,7 @@ static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst,
 }
 
 // build: context SUBTILE_IsBlank
-static __forceinline int SUBTILE_IsBlank(const unsigned char* pPixels)
+static inline int SUBTILE_IsBlank(const unsigned char* pPixels)
 {
     for (int i = 0; i < 0x200; ++i)
     {

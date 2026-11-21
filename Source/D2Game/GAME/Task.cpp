@@ -185,7 +185,7 @@ int __fastcall TASK_GetClockTime()
 }
 
 // 0x00564390
-static __forceinline D2TaskStrc* sub_00564390_TASK_LockQueueSlot(int nTaskNumber)
+static inline D2TaskStrc* sub_00564390_TASK_LockQueueSlot(int nTaskNumber)
 {
     const int nIndex = nTaskNumber & 0x1F;
     EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
@@ -198,7 +198,7 @@ static __forceinline D2TaskStrc* sub_00564390_TASK_LockQueueSlot(int nTaskNumber
 }
 
 // 0x005643C0
-static __forceinline void sub_005643C0_TASK_UnlockQueueSlot(D2TaskStrc* pTask)
+static inline void sub_005643C0_TASK_UnlockQueueSlot(D2TaskStrc* pTask)
 {
     if (pTask)
     {
@@ -302,12 +302,12 @@ int __cdecl sub_00564960()
     return nIndex;
 }
 
-static __forceinline D2GameTaskStrc* TASK_GetGameTaskFromLink(D2LinkStrc* pLink)
+static inline D2GameTaskStrc* TASK_GetGameTaskFromLink(D2LinkStrc* pLink)
 {
     return (D2GameTaskStrc*)((char*)pLink - 0x0C);
 }
 
-static __forceinline D2TaskQueueStrc* TASK_LockQueueSlot(int nTaskNumber)
+static inline D2TaskQueueStrc* TASK_LockQueueSlot(int nTaskNumber)
 {
     const int nIndex = nTaskNumber & 0x1F;
     EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nIndex]);
@@ -319,7 +319,7 @@ static __forceinline D2TaskQueueStrc* TASK_LockQueueSlot(int nTaskNumber)
     return pQueue;
 }
 
-static __forceinline void TASK_UnlockQueueSlot(D2TaskQueueStrc* pQueue)
+static inline void TASK_UnlockQueueSlot(D2TaskQueueStrc* pQueue)
 {
     if (pQueue)
     {
@@ -447,7 +447,7 @@ void __fastcall sub_00564CC0_TASK_SetType(D2TaskStrc* pTask, int nType)
     }
 }
 
-static __forceinline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc* ptTask)
+static inline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc* ptTask)
 {
     GAME_CloseGame(nGameHashKey);
     EnterCriticalSection(&gTaskSlotsCriticalSection_0088CAA8);

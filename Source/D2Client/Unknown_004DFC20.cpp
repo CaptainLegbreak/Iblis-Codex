@@ -143,14 +143,14 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
     pSlot->fAttenuation = pObject->fAttenuation;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillsRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
 
-static __forceinline D2MissilesTxt* GetMissilesRecord(int nMissile)
+static inline D2MissilesTxt* GetMissilesRecord(int nMissile)
 {
     if (nMissile >= 0 && nMissile < sgptDataTables->nMissilesTxtRecordCount)
         return &sgptDataTables->pMissilesTxt[nMissile];

@@ -161,7 +161,7 @@ void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, 
     DRLGGRID_AlterGridFlag(&pOutdoor->pGrid[0], nX, nY, nPresetId, 3);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -169,7 +169,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -274,7 +274,7 @@ int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int
     return 0;
 }
 
-static __forceinline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -332,7 +332,7 @@ int __fastcall sub_00674920_PlaceRandomPreset(D2DrlgLevelStrc* pLevel, int nLvlP
     return DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nLvlPrestId, nRand, 0, TEST_FLAGS);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -340,7 +340,7 @@ static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;
@@ -423,7 +423,7 @@ int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int 
     return !(DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY) & 0x1B81);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -599,7 +599,7 @@ void __fastcall sub_006750F0_EmitSpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
     sub_006750F0_SpawnPresetsAndRooms(pLevel);
 }
 
-static __forceinline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
+static inline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
 {
     int nFlags = 0;
     switch (nLevelType)

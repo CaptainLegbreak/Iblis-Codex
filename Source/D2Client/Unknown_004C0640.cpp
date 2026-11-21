@@ -17,7 +17,7 @@ extern int gnBlockRectCount_007C54A0;                                           
 extern D2UiBlockRectStrc gaBlockRects_007C54A8[32];                                                         // 0x007C54A8
 
 // build: context sub_004C0640_ClampToScreen
-static __forceinline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)
+static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)
 {
     if (*pLeft < nMinX)
     {

@@ -115,9 +115,9 @@ static void __stdcall sub_0065CCC0_SetItemBaseStats(D2UnitStrc* pItem, int nStat
 
 static void sub_0065CE40_ShiftStatValue(int nStatId, int* pValue);
 
-static __forceinline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax);
+static inline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax);
 
-static __forceinline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int nMax);
+static inline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int nMax);
 
 static int __stdcall sub_0065D1F0_AddValueStat0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nValue, int nStatId, int nApplyType, int nState, int fStatList);
 
@@ -512,7 +512,7 @@ int __fastcall sub_0065E070_AddStatTriple(int nType, D2UnitStrc* pUnit, D2UnitSt
     return 1;
 }
 
-static __forceinline int IsStatInRange(int nStatId, int nMin, int nMax)
+static inline int IsStatInRange(int nStatId, int nMin, int nMax)
 {
     if (nStatId < nMin)
         return 0;
@@ -743,7 +743,7 @@ int __fastcall sub_6FD93170(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, con
     return 1;
 }
 
-static __forceinline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax)
+static inline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin, int nMax)
 {
     if (nMax == nMin)
     {
@@ -767,7 +767,7 @@ static __forceinline int ITEMMODS_RollPropertyValueA(D2UnitStrc* pItem, int nMin
     return nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls);
 }
 
-static __forceinline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int nMax)
+static inline int ITEMMODS_RollPropertyValueB(D2UnitStrc* pItem, int nMin, int nMax)
 {
     if (nMin == nMax)
     {
@@ -956,7 +956,7 @@ int __fastcall sub_0065DB90_AddAllSkills(int nType, D2UnitStrc* pUnit, D2UnitStr
 }
 
 // build: context SKILLS_GetSkillsTxtRecord
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (!(nSkillId >= 0))
         return 0;
@@ -1359,7 +1359,7 @@ void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* hItem)
 }
 
 // 0x0065E600
-static __forceinline int sub_0065E600_GetSetItemsCount(unsigned int nMask)
+static inline int sub_0065E600_GetSetItemsCount(unsigned int nMask)
 {
     if (nMask >= 0x40)
         return 0;
@@ -1507,7 +1507,7 @@ int __stdcall ITEMMODS_CanItemBeHighQuality(D2UnitStrc* pItem, const D2QualityIt
     return 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1515,7 +1515,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -2538,7 +2538,7 @@ static void __stdcall sub_0065FE10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pIt
 }
 
 // build: context SetItemFlag
-static __forceinline int SetItemFlag(const D2SetItemsTxt* pRecord, int nIndex)
+static inline int SetItemFlag(const D2SetItemsTxt* pRecord, int nIndex)
 {
     if (!pRecord->nAddFunc)
         return 0x40;
@@ -2546,7 +2546,7 @@ static __forceinline int SetItemFlag(const D2SetItemsTxt* pRecord, int nIndex)
 }
 
 // build: context SetItemState
-static __forceinline int SetItemState(const D2SetItemsTxt* pRecord, int nIndex)
+static inline int SetItemState(const D2SetItemsTxt* pRecord, int nIndex)
 {
     if (!pRecord->nAddFunc)
         return 0;

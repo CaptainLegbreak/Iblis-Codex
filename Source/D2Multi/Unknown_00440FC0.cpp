@@ -228,7 +228,7 @@ int __fastcall sub_00442180_Shim(char* szText)
 }
 
 // build: context sub_004438E0_HasProgress
-static __forceinline int sub_004438E0_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
+static inline int sub_004438E0_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
 {
     if (wFlags & 0x20)
         return (wFlags & 0x1F00u) >= nExpansion;

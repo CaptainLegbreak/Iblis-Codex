@@ -310,7 +310,7 @@ int __cdecl sub_006B77A0_GetBlendedShadows()
     return gpGfxSettings_007C9148->bBlendedShadows;
 }
 
-static __forceinline int sub_006B77B0_Clip(int nValue, int nSize)
+static inline int sub_006B77B0_Clip(int nValue, int nSize)
 {
     int nClipped = nValue > 0 ? nValue : 0;
     return nClipped < nSize - 1 ? nClipped : nSize - 1;

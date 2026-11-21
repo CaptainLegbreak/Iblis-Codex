@@ -1601,7 +1601,7 @@ void __stdcall sub_00608C00_RemapRegion(unsigned char* pBuffer, int nPitch)
     }
 }
 
-static __forceinline const char* __fastcall SkipCelRows(const char* current,int rows)
+static inline const char* __fastcall SkipCelRows(const char* current,int rows)
 {
  if(!rows) return current;
  for(;;) {

@@ -259,7 +259,7 @@ int __fastcall sub_006B8220_DrawTileParts(D2TileContextStrc* pTile, int nX, int 
     return bDrawn;
 }
 
-static __forceinline int IsVisible(const D2RectStrc& rect, const D2TLVertexStrc& v)
+static inline int IsVisible(const D2RectStrc& rect, const D2TLVertexStrc& v)
 {
     return v.fX >= rect.nLeft && v.fX < rect.nRight && v.fY >= rect.nTop && v.fY < rect.nBottom;
 }

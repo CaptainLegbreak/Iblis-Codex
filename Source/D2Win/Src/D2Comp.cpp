@@ -220,7 +220,7 @@ fail:
 }
 
 // 0x00503F70
-static __forceinline int sub_00503F70(unsigned int selector)
+static inline int sub_00503F70(unsigned int selector)
 {
     switch (selector) {
     case 0:

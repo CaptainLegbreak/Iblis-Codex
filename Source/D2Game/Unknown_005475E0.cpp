@@ -37,7 +37,7 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 void __stdcall sub_005BDB20_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
-static __forceinline unsigned __int64 Roll(D2SeedStrc* pSeed)
+static inline unsigned __int64 Roll(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -45,13 +45,13 @@ static __forceinline unsigned __int64 Roll(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;
     return (unsigned int)((((unsigned int)nMax - 1) & (unsigned int)nMax) ? (unsigned int)Roll(pSeed) % nMax : Roll(pSeed) & (nMax - 1));
 }
-static __forceinline D2MonStatsTxt* MonStats(int id) {
+static inline D2MonStatsTxt* MonStats(int id) {
  if(id<0||id>=sgptDataTables->nMonStatsTxtRecordCount)return 0;
  return &sgptDataTables->pMonStatsTxt[id];
 }

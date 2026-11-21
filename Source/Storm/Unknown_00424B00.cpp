@@ -81,7 +81,7 @@ struct D2StormQueueStrc
         SMemZero(&m_array.f_8[m_array.f_4.n], (nPosition - m_array.f_4.n + 1) * sizeof(unsigned int));
         m_array.f_4.n = nPosition + 1;
     }
-    __forceinline unsigned int& AtInline(unsigned int nIndex)
+    inline unsigned int& AtInline(unsigned int nIndex)
     {
         GrowToFitInline(m_start + nIndex);
         return m_array.f_8[m_start + nIndex];

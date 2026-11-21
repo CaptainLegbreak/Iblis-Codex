@@ -96,7 +96,7 @@ D2OverlayTxt* __fastcall sub_0046D9C0_GetTxtRecord(int nIndex)
     return 0;
 }
 
-static __forceinline int UNITS_IsShapeshifted_Inline(D2UnitStrc* pUnit)
+static inline int UNITS_IsShapeshifted_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {

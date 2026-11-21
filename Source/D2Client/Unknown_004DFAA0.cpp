@@ -87,7 +87,7 @@ void __fastcall sub_004E0050_RestartSound(int nArg)
         sub_004E0000_SetSoundMode(0);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;

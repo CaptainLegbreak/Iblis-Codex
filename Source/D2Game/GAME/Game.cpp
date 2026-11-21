@@ -661,7 +661,7 @@ struct D2StormSlotLink00530600Strc
     D2StormSlotLink00530600Strc* m_prevlink;
     char* m_next;
 
-    __forceinline char* Next()
+    inline char* Next()
     {
         char* const pNext = (int)m_next <= 0 ? 0 : m_next;
         return pNext;
@@ -777,7 +777,7 @@ struct D2UnitInfoStrc
 
 void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo);                           // 0x00553F30
 
-static __forceinline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)
+static inline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, int nLinkOffset)
 {
     if ((int)pLink->pNext < 0)
         return (D2GameLinkStrc*)~(unsigned int)pLink->pNext;
@@ -786,7 +786,7 @@ static __forceinline D2GameLinkStrc* GAMELINK_NextLink(D2GameLinkStrc* pLink, in
     return (D2GameLinkStrc*)((char*)pLink->pNext + nLinkOffset);
 }
 
-static __forceinline void GAMELINK_Unlink(D2GameLinkStrc* pLink)
+static inline void GAMELINK_Unlink(D2GameLinkStrc* pLink)
 {
     if (pLink->pPrevLink)
     {
@@ -797,7 +797,7 @@ static __forceinline void GAMELINK_Unlink(D2GameLinkStrc* pLink)
     }
 }
 
-static __forceinline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
+static inline D2GameStrc* GAMELINK_Next(D2GameLinkStrc* pLink)
 {
     return (int)pLink->pNext <= 0 ? 0 : pLink->pNext;
 }
@@ -1885,7 +1885,7 @@ int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned
 }
 
 // 0x0052C7C0
-static __forceinline void sub_0052C7C0_RemoveGameGUID(int nGameGUID)
+static inline void sub_0052C7C0_RemoveGameGUID(int nGameGUID)
 {
     EnterCriticalSection(&gCriticalSection_6FD45800);
     for (int i = 0; i < 1024; ++i)
@@ -2163,7 +2163,7 @@ void __fastcall GAME_ProcessNetworkMessages()
 }
 
 // 0x0052D090
-static __forceinline void sub_0052D090_CompressRoomUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
+static inline void sub_0052D090_CompressRoomUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
     D2UnitStrc* pNextUnit = 0;
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNextUnit)
@@ -2174,7 +2174,7 @@ static __forceinline void sub_0052D090_CompressRoomUnits(D2GameStrc* pGame, D2Ac
 }
 
 // 0x0052D0C0
-static __forceinline void GAME_PopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
+static inline void GAME_PopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
     SUNIT_SpawnPresetUnitsInRoom(pGame, pRoom);
     SUNITINACTIVE_RestoreInactiveUnits(pGame, pRoom);
@@ -2207,7 +2207,7 @@ void __fastcall GAME_ActivateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 }
 
 // 0x0052D2E0
-static __forceinline void sub_0052D2E0_RefreshActs(D2GameStrc* pGame)
+static inline void sub_0052D2E0_RefreshActs(D2GameStrc* pGame)
 {
     for (int i = 0; i < 5; ++i)
     {
@@ -2838,7 +2838,7 @@ static void __stdcall sub_0052DC20_AddUnitDescription(int bCount, int nClassId, 
     }
 }
 
-static __forceinline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* DESC_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];

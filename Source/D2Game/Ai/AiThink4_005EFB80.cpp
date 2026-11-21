@@ -148,7 +148,7 @@ int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc*
 int __fastcall sub_005FD470(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, D2UnitStrc* pTarget, int nX, int nY);
 D2UnitStrc* __fastcall AITHINK_TargetCallback_FetishShaman(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F99A0
 
-static __forceinline int AI_RollPercentage(D2UnitStrc* pUnit)
+static inline int AI_RollPercentage(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -199,7 +199,7 @@ void __fastcall AITHINK_Fn007_Brute(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     sub_6FCD0410(pGame, pUnit, pTarget, 7);
 }
 
-static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -304,7 +304,7 @@ void __fastcall AITHINK_Fn024_Mosquito(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     }
 }
 
-static __forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
+static inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -334,7 +334,7 @@ int __fastcall sub_005F3960_IsMonster76Alive(D2UnitStrc* pUnit)
     return 1;
 }
 
-static __forceinline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -347,7 +347,7 @@ static __forceinline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int UNITS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -669,7 +669,7 @@ int __fastcall sub_005F6E20_GetPercentOver100(D2Record5F6E20Strc* pRecord)
     return nResult;
 }
 
-static __forceinline unsigned int AI_RollUnit(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollUnit(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -677,7 +677,7 @@ static __forceinline unsigned int AI_RollUnit(D2UnitStrc* pUnit)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+static inline int sub_00451F50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -686,7 +686,7 @@ static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

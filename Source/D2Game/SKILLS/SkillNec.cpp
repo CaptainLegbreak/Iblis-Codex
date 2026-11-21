@@ -508,7 +508,7 @@ int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
 int __fastcall SKILLS_EventFunc04_ReflectPhysicalDamage(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel);
 
-static __forceinline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
+static inline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
 {
     const int nTop = pClickRect->nY;
     if (nX >= pClickRect->nX && nY >= nTop - pClickRect->nHeight && nX < pClickRect->nX + pClickRect->nWidth && nY < nTop)
@@ -518,7 +518,7 @@ static __forceinline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStr
     return 0;
 }
 
-static __forceinline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+static inline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
     {
@@ -536,7 +536,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 
 // 0x0057B7A0
-static __forceinline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
+static inline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
     const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 0x78, 0);
     if (nValue)
@@ -830,7 +830,7 @@ inline int TestFlag(Unit* unit,unsigned mask)
     return 0;
 }
 
-static __forceinline int GetType(Unit* unit)
+static inline int GetType(Unit* unit)
 {
     int type=6;
     if (unit) type=unit->type;
@@ -852,7 +852,7 @@ int __fastcall sub_005C3420_ValidTarget(Game* game,Unit* unit,Unit* target)
     return sub_00554200_CheckTarget(game,unit,target)!=0;
 }
 
-static __forceinline int AiSpecialStateFromAuraState(int nAuraState)
+static inline int AiSpecialStateFromAuraState(int nAuraState)
 {
     switch (nAuraState)
     {
@@ -1148,7 +1148,7 @@ int __fastcall sub_005C3300_Shim(D2UnitStrc* pUnit)
     return sub_005C3300_CorpseConsumedCheck(pUnit);
 }
 
-static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1157,19 +1157,19 @@ static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return (unsigned int)lSeed;
 }
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
-static __forceinline int sub_0044BE50_Inline(D2UnitStrc* pUnit)
+static inline int sub_0044BE50_Inline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1446,7 +1446,7 @@ static void SKILLS_SetMonsterComponent_Inline(D2UnitStrc* pMonster, int nIndex, 
     }
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1520,7 +1520,7 @@ inline D2ItemStatCostTxt* GetItemStatCost(int nStat) {
     return 0;
 }
 
-static __forceinline int ApplyRatio(int nValue, int nMultiplier, int nDivisor) {
+static inline int ApplyRatio(int nValue, int nMultiplier, int nDivisor) {
     if (!nDivisor) return 0;
     if (nValue > 0x100000) {
         if ((nValue & ~15) < nDivisor * 16) return (int)(nValue * (__int64)nMultiplier / nDivisor);
@@ -2058,12 +2058,12 @@ int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     return 1;
 }
 
-static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+static inline int sub_00451F50(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
@@ -2815,7 +2815,7 @@ int __fastcall sub_005C6760(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
     return 1;
 }
 
-static __forceinline int sub_IsBloodGolem(D2UnitStrc* pUnit)
+static inline int sub_IsBloodGolem(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwUnitType == UNIT_MONSTER && (!pUnit ? -1 : pUnit->dwClassId) == 290;
 }

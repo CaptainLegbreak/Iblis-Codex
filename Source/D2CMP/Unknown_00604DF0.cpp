@@ -10,12 +10,12 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-static __forceinline double D2_MAX(double a, double b)
+static inline double D2_MAX(double a, double b)
 {
     return a > b ? a : b;
 }
 
-static __forceinline double D2_MIN(double a, double b)
+static inline double D2_MIN(double a, double b)
 {
     return a < b ? a : b;
 }

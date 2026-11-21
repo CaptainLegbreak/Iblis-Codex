@@ -9,7 +9,7 @@ extern Byte* gpDecodeTable_0075AFA0[256]; // 0x0075AFA0
 extern Byte gnDecodeStorage_0075B3A0[768]; // 0x0075B3A0
 
 // build: context IsValidCodeLength
-static __forceinline int IsValidCodeLength(Byte length)
+static inline int IsValidCodeLength(Byte length)
 {
     if (length <= 0)
         return 0;

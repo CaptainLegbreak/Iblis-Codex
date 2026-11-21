@@ -107,7 +107,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
 void sub_004844A0_DrawBodyLocPlacement(D2InventoryStrc* pInventory); // 0x004844A0
 
 // build: context sub_004845A0_DrawOtherHandFrame
-static __forceinline void sub_004845A0_DrawOtherHandFrame(D2InvCompGridStrc* pCompGrid)
+static inline void sub_004845A0_DrawOtherHandFrame(D2InvCompGridStrc* pCompGrid)
 {
     const int nLeft = pCompGrid->rect.nLeft;
     if (nLeft >= 0 && nLeft < gnAutomapWidth_007A5220)

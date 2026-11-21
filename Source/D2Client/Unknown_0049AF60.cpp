@@ -106,7 +106,7 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_007BF030; // 0x007BF030
 extern int gbRosterMode_007BF038; // 0x007BF038
 
-static __forceinline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
+static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));

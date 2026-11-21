@@ -763,7 +763,7 @@ D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUni
     return 0;
 }
 
-static __forceinline D2UnitStrc** SUNIT_GetUnitList_Inline(D2GameStrc* pGame, int nUnitType, unsigned int nUnitGUID)
+static inline D2UnitStrc** SUNIT_GetUnitList_Inline(D2GameStrc* pGame, int nUnitType, unsigned int nUnitGUID)
 {
     if (nUnitType >= 0 && nUnitType <= 4)
         return (D2UnitStrc**)((char*)pGame + s_anUnitListOffset_006E10E0[nUnitType]) + (nUnitGUID & 0x7F);
@@ -1096,7 +1096,7 @@ void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nM
     UNITS_ChangeAnimMode(pUnit, nMode);
 }
 
-__forceinline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1109,7 +1109,7 @@ __forceinline int CLIENTS_GetUnitX_Inline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1613,7 +1613,7 @@ extern "C" __declspec(dllexport) void __stdcall sub_00554190(Obj00554190* pObj) 
     pObj->nValue6C = 0;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId < 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -1623,7 +1623,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return &sgptDataTables->pSkillsTxt[nSkillId];
 }
 
-static __forceinline int SUNIT_GetUnitGUIDInline(D2UnitStrc* pUnit)
+static inline int SUNIT_GetUnitGUIDInline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1878,7 +1878,7 @@ extern "C" __declspec(dllexport) int __fastcall sub_00554650(Obj00554650* pObj, 
     return 1;
 }
 
-static __forceinline D2MonsterDataStrc* sub_00554670_GetMonsterData(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* sub_00554670_GetMonsterData(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -2243,9 +2243,9 @@ int __fastcall SUNIT_CanAllyBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOw
     return nPartyId == (unsigned short)SUNIT_GetPartyId(pOtherPlayer);
 }
 
-static __forceinline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
+static inline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
 
-static __forceinline unsigned short SUNIT_GetPartyId_Inline(D2UnitStrc* pPlayer)
+static inline unsigned short SUNIT_GetPartyId_Inline(D2UnitStrc* pPlayer)
 {
     if (pPlayer && pPlayer->pGame && pPlayer->dwUnitType == UNIT_PLAYER)
         return PARTY_GetPartyIdForUnitOwner(pPlayer->pGame, pPlayer);
@@ -2378,7 +2378,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomSt
     return 1;
 }
 
-static __forceinline int GetClassId(D2UnitStrc* pUnit)
+static inline int GetClassId(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;
     return pUnit->dwClassId;
@@ -2418,7 +2418,7 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* ptGame,D2UnitStrc* hUnit,D2U
     }
 }
 
-__forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {

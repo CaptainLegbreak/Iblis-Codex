@@ -27,7 +27,7 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -37,7 +37,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline unsigned __int64 ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned __int64 ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

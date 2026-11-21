@@ -171,14 +171,14 @@ void __fastcall AITHINK_Fn117_SuicideMinion(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // build: context MONSTERMODE_GetMonStatsTxtRecord
-static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nId)
+static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nId)
 {
     if (nId >= 0 && nId < gpDataTables->nMonStatsTxtRecordCount) return &gpDataTables->pMonStatsTxt[nId];
     return 0;
 }
 
 // build: context AIGENERAL_GetAiControlFromUnit
-static __forceinline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
+static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) return pUnit->pMonsterData->pAiControl;
     return 0;
@@ -232,7 +232,7 @@ void __fastcall sub_005E2D80_ThinkControlledMinion(D2GameStrc* pGame, D2UnitStrc
 }
 
 // build: context SEED_RollRandomNumber
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

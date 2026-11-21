@@ -131,7 +131,7 @@ inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
     return 0;
 }
 
-__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -144,7 +144,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -157,7 +157,7 @@ __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int SizeDifference(D2UnitStrc* a,D2UnitStrc* b)
+static inline int SizeDifference(D2UnitStrc* a,D2UnitStrc* b)
 {
  const unsigned int first=sub_00620510(a)/2;
  const unsigned int second=sub_00620510(b)/2;
@@ -241,7 +241,7 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
     return (nXDiff > nYDiff ? nYDiff + 2 * nXDiff : nXDiff + 2 * nYDiff) / 2;
 }
 
-static __forceinline int UNITS_ApproxDistance(int nXDiff, int nYDiff)
+static inline int UNITS_ApproxDistance(int nXDiff, int nYDiff)
 {
     if (nXDiff > nYDiff)
     {
@@ -272,7 +272,7 @@ int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY)
     return UNITS_ApproxDistance(nXDiff, nYDiff);
 }
 
-static __forceinline int U04_IsNearRoomY(const D2DrlgCoordsStrc* pCoords, int nY, int nRadius)
+static inline int U04_IsNearRoomY(const D2DrlgCoordsStrc* pCoords, int nY, int nRadius)
 {
     return nY + nRadius >= pCoords->nSubtileY || nY - nRadius <= pCoords->nSubtileHeight + pCoords->nSubtileY;
 }
@@ -307,7 +307,7 @@ int __fastcall sub_U04_Emit_00641930(D2ActiveRoomStrc** ppRooms, int nCount, int
     return -1;
 }
 
-static __forceinline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int nRadius) {
+static inline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int nRadius) {
  return nY+nRadius>=pCoords->nSubtileY || nY-nRadius<=pCoords->nSubtileHeight+pCoords->nSubtileY;
 }
 

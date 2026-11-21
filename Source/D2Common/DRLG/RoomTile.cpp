@@ -201,7 +201,7 @@ static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int 
 
 static void __stdcall sub_0066DC10(D2DrlgTileDataStrc* pTileData, D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
-static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -209,7 +209,7 @@ static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSe
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -288,7 +288,7 @@ int __stdcall sub_0066D960_FindTilePresetEntry(int nLevelId, unsigned int nPacke
     return -1;
 }
 
-static __forceinline D2DrlgTileDataStrc* sub_B04_InitFloorTileDataInline(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry)
+static inline D2DrlgTileDataStrc* sub_B04_InitFloorTileDataInline(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
     D2DrlgTileDataStrc* pTileData = &pTileGrid->pTiles.pFloorTiles[pTileGrid->nFloors];
@@ -1020,7 +1020,7 @@ static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int 
     }
 }
 
-static __forceinline bool TileTypeIsAWallWithDoor(int nTileType)
+static inline bool TileTypeIsAWallWithDoor(int nTileType)
 {
     return nTileType == 9 || nTileType == 8;
 }

@@ -222,14 +222,14 @@ int __fastcall sub_004577F0_SaveAutomapPartyNames(int nValue)
 }
 
 // 0x00457810
-static __forceinline void sub_00457810_SubtractAutomapOffset(int* pX, int* pY)
+static inline void sub_00457810_SubtractAutomapOffset(int* pX, int* pY)
 {
     *pX -= gnAutomapOffsetX_007A5198;
     *pY -= gnAutomapOffsetY_007A519C;
 }
 
 // 0x00457830
-static __forceinline void sub_00457830_ScaleAutomapPoint(int* pX, int* pY)
+static inline void sub_00457830_ScaleAutomapPoint(int* pX, int* pY)
 {
     *pX /= gnAutomapScale_00711254;
     *pY /= gnAutomapScale_00711254;

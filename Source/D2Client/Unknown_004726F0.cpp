@@ -21,7 +21,7 @@ extern int gbWeatherSplash_007A8A14;                                            
 extern int gnGlobal_007A8A18;                                                                               // 0x007A8A18
 extern int gbPhaseActive_007A8A1C;                                                                          // 0x007A8A1C
 
-static __forceinline unsigned __int64 CLIENT_RollRandomNumberForceInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 CLIENT_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

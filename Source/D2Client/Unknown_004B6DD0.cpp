@@ -449,7 +449,7 @@ int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue
     return 0;
 }
 
-static __forceinline int NPC_GetUnitClassId(D2UnitStrc* pUnit)
+static inline int NPC_GetUnitClassId(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwClassId : -1;
 }

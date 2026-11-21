@@ -33,7 +33,7 @@ extern const unsigned int gdwDccSignExtend_006E60B8[33];                        
 extern "C" const unsigned int gData_006E6030[33]; // 0x006E6030
 
 // build: context DccReadBits
-static __forceinline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
+static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
 {
     unsigned int nValue;
     const int nLeft = 32 - pCursor->nBitPos;
@@ -86,7 +86,7 @@ static unsigned int __stdcall sub_0060B200(int nNumBits, D2CmpBitCursorStrc* pBi
 }
 
 // build: context DccReadSigned
-static __forceinline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
+static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 {
     int nValue = sub_0060B200(nCount, pCursor);
     if (nCount && (nValue & gdwDccSignBits_006E5FB0[nCount - 1]))
@@ -152,7 +152,7 @@ static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 }
 
 // 0x0060B480
-static __forceinline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
+static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 {
     if (!pDir->nFrames)
     {
@@ -235,7 +235,7 @@ static void __stdcall sub_0060B530_DccInitDir(D2DccHeaderStrc* pHeader, D2DccFra
 }
 
 // 0x0060B780
-static __forceinline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
+static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
 {
     int nBits;
     for (nBits = 0; (1 << nBits) + 1 <= 4 && pBytes[1 << nBits] != pBytes[(1 << nBits) - 1]; ++nBits)
@@ -253,7 +253,7 @@ void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapStrc* pInverse, const uns
 void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pForward, const unsigned int* pBits, D2CmpByteMapStrc* pInverse); // 0x0060B640
 
 // build: context DccTestBit
-static __forceinline int DccTestBit(const unsigned int* pBits, int nBit)
+static inline int DccTestBit(const unsigned int* pBits, int nBit)
 {
     return pBits[nBit >> 5] & gdwBitMasks_006CE268[nBit & 0x1F];
 }
@@ -262,7 +262,7 @@ void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCel
 
 
 // build: context DccCopyHeader
-static __forceinline void DccCopyHeader(D2DccHeaderStrc* pHeader, const D2DccFileStrc* pFile)
+static inline void DccCopyHeader(D2DccHeaderStrc* pHeader, const D2DccFileStrc* pFile)
 {
     pHeader->n04 = pFile->n04;
     pHeader->n14 = pFile->n14;
@@ -271,7 +271,7 @@ static __forceinline void DccCopyHeader(D2DccHeaderStrc* pHeader, const D2DccFil
 }
 
 // 0x0060B140
-static __forceinline void __stdcall sub_0060B140_BitBufferInit(int nSize, unsigned int* pBuffer, D2CmpBitCursorStrc* pBitBuf)
+static inline void __stdcall sub_0060B140_BitBufferInit(int nSize, unsigned int* pBuffer, D2CmpBitCursorStrc* pBitBuf)
 {
     pBitBuf->pStart = pBuffer;
     pBitBuf->pData = pBuffer;

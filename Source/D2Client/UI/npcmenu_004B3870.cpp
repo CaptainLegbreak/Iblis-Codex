@@ -124,7 +124,7 @@ extern void* gpDialog_007C0D67; // 0x007C0D67
 
 extern unsigned char gbGlobal_007C0D89; // 0x007C0D89
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -132,7 +132,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -206,7 +206,7 @@ static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem)
 }
 
 // build: context GetInteractNpc_Inline
-static __forceinline D2UnitStrc* GetInteractNpc_Inline()
+static inline D2UnitStrc* GetInteractNpc_Inline()
 {
     if (!gnGlobal_007C0D29)
         return 0;

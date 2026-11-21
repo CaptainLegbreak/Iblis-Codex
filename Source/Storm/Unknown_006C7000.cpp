@@ -430,7 +430,7 @@ done:
 }
 
 // 0x006C7790
-static __forceinline int sub_006C7790_SkipUtf8Continuation(const unsigned char* text, int index, int step)
+static inline int sub_006C7790_SkipUtf8Continuation(const unsigned char* text, int index, int step)
 {
     while (index > 0)
     {

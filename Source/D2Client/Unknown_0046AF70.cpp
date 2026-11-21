@@ -45,7 +45,7 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -53,7 +53,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -95,7 +95,7 @@ void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     int nX;
     switch (pUnit->dwUnitType)
@@ -112,7 +112,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return nX;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     int nY;
     switch (pUnit->dwUnitType)
@@ -164,7 +164,7 @@ void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -172,7 +172,7 @@ static __forceinline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStr
     return lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;
@@ -183,7 +183,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc*
     return SEED_RollRandomNumberForceInline(pSeed) & (nMax - 1);
 }
 
-static __forceinline D2MonStats2Txt* MONSTATS2_GetRecordInline(int nMonStatsEx)
+static inline D2MonStats2Txt* MONSTATS2_GetRecordInline(int nMonStatsEx)
 {
     return (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount) ? &sgptDataTables->pMonStats2Txt[nMonStatsEx] : 0;
 }

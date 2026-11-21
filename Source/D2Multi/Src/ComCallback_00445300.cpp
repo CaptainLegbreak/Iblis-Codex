@@ -279,7 +279,7 @@ int __cdecl sub_00446CA0_PlayTempSmack()
 }
 
 // 0x00446D00
-static __forceinline int sub_00446D00_SetText(const char* szText)
+static inline int sub_00446D00_SetText(const char* szText)
 {
     SStrCopy(gszText_00798CF8, szText, 0x32);
     return 1;
@@ -551,7 +551,7 @@ found:
 }
 
 // 0x00449320
-static __forceinline void* sub_00449320_AddEntry(const char* szText, int nLength, int nA)
+static inline void* sub_00449320_AddEntry(const char* szText, int nLength, int nA)
 {
     return sub_00449050_AddEntry(szText, nLength, nA);
 }

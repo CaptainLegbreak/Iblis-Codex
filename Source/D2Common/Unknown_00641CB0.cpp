@@ -13,7 +13,7 @@ int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 // build: context IsNearRoomY
-static __forceinline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int nRadius) {
+static inline int IsNearRoomY(const D2DrlgCoordsStrc* pCoords,int nY,int nRadius) {
  return nY+nRadius>=pCoords->nSubtileY || nY-nRadius<=pCoords->nSubtileHeight+pCoords->nSubtileY;
 }
 static int sub_00641930_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
@@ -38,7 +38,7 @@ inline int GetY(D2UnitStrc* pUnit) {
 // build: context D2_ABS
 inline int D2_ABS(int n) { return n < 0 ? -n : n; }
 // build: context IsTarget
-static __forceinline int IsTarget(D2UnitStrc* pUnit) {
+static inline int IsTarget(D2UnitStrc* pUnit) {
  switch(pUnit ? pUnit->dwUnitType : UNIT_INVALID) {
  case 0: return pUnit->dwAnimMode!=IMODE_STORED && pUnit->dwAnimMode!=17;
  case 1: return pUnit->dwAnimMode!=IMODE_STORED && pUnit->dwAnimMode!=12;

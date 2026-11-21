@@ -1074,7 +1074,7 @@ struct D2NpcVendorStateStrc
     unsigned int dwTicks;
 };
 
-static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+static inline int sub_00451F50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1217,9 +1217,9 @@ int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitS
     return 0;
 }
 
-static __forceinline unsigned int GetMode(D2UnitStrc* pUnit) { if (!pUnit) return 0; return pUnit->dwAnimMode; }
+static inline unsigned int GetMode(D2UnitStrc* pUnit) { if (!pUnit) return 0; return pUnit->dwAnimMode; }
 
-static __forceinline int GetId(D2UnitStrc* pUnit) { if (!pUnit) return -1; return pUnit->dwUnitId; }
+static inline int GetId(D2UnitStrc* pUnit) { if (!pUnit) return -1; return pUnit->dwUnitId; }
 
 // 0x00531210
 int __fastcall sub_00531210_PlaceLoadedItem(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pItem,D2UnitStrc* pSocketItem)
@@ -1498,7 +1498,7 @@ int __fastcall sub_00531BB0_WriteItemList(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return sub_005317B0_WriteItems(pGame, pUnit, pInventory, pBuffer, nBufferSize, nArg5, nArg6, nArg7);
 }
 
-static __forceinline int sub_00531C10_GetUnitX(D2UnitStrc* pUnit)
+static inline int sub_00531C10_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1510,7 +1510,7 @@ static __forceinline int sub_00531C10_GetUnitX(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int sub_00531C10_GetUnitY(D2UnitStrc* pUnit)
+static inline int sub_00531C10_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1815,7 +1815,7 @@ int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPl
     return nResult;
 }
 
-static __forceinline D2CharStatsTxt* PLRSAVE_GetCharStatsTxtRecordInline(int nClass)
+static inline D2CharStatsTxt* PLRSAVE_GetCharStatsTxtRecordInline(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {
@@ -3071,7 +3071,7 @@ void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlaye
     sub_005543B0_AssignAlignment(pPlayer, 2, 1);
 }
 
-static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {
@@ -3580,7 +3580,7 @@ void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2
 }
 
 // build: context SUNITPROXY_GetVendorState
-static __forceinline D2NpcVendorStateStrc* SUNITPROXY_GetVendorState(D2NpcRecordStrc* pNpcRecord)
+static inline D2NpcVendorStateStrc* SUNITPROXY_GetVendorState(D2NpcRecordStrc* pNpcRecord)
 {
     return (D2NpcVendorStateStrc*)&pNpcRecord->bVendorInit;
 }

@@ -2007,7 +2007,7 @@ static __declspec(noinline) int sub_00483BF0_IsInRect(int nX, int nY)
     return 0;
 }
 
-static __forceinline int INV_IsModeInRange(int nMode)
+static inline int INV_IsModeInRange(int nMode)
 {
     if (nMode < 2)
     {

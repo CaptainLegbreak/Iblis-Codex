@@ -149,7 +149,7 @@ static void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, 
     report.callback(&report);
 }
 
-static __forceinline D2CmdNodeStrc* CMD_LinkOrNull(D2CmdNodeStrc* pNode)
+static inline D2CmdNodeStrc* CMD_LinkOrNull(D2CmdNodeStrc* pNode)
 {
     return (int)pNode > 0 ? pNode : 0;
 }

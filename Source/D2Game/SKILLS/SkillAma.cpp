@@ -61,7 +61,7 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
-static __forceinline unsigned int sub_M401_RollUnitSeed(D2UnitStrc* pUnit)
+static inline unsigned int sub_M401_RollUnitSeed(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = (unsigned __int64)pUnit->pSeed.nLowSeed * 0x6AC690C5 + pUnit->pSeed.nHighSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -244,7 +244,7 @@ void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 
 int __fastcall sub_6FD118C0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056C3F0
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -254,7 +254,7 @@ static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
     return pUnit->dwUnitType;
 }
 
-static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -324,7 +324,7 @@ int __fastcall SKILLS_SrvSt08_Strafe(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     return 1;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nId)
+static inline D2SkillsTxt* GetSkillsTxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nId];

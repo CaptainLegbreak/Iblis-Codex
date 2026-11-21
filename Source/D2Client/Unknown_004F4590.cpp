@@ -7,7 +7,7 @@
 
 void __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int a3, int a4, int a5); // 0x004B9A00
 
-static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTable->nSkillsTxtRecordCount)
     {

@@ -68,7 +68,7 @@ unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex);   
 void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char nDirection, int* pX, int* pY);                  // 0x0063E7E0
 int __fastcall sub_6FC68350(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5);              // 0x005FD350
 
-__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -80,7 +80,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

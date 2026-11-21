@@ -175,7 +175,7 @@ void __fastcall DATATBLS_MissileCalcLinker(char* pSrc, void* pRecord, int nOffse
     *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer(&gpMissCode_0096BC90, &gnMissCodeSize_0096BC94, &gnMissCodeSizeEx_0096BC98, pBuffer, nBufferSize);
 }
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTable->nMissilesTxtRecordCount)
     {

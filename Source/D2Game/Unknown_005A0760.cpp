@@ -48,7 +48,7 @@ int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId);          
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                          // 0x006556E0
 
 // build: context MonsterDataOf
-static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -58,7 +58,7 @@ static __forceinline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 }
 
 // build: context UModsOf
-static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
+static inline unsigned char* UModsOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -68,7 +68,7 @@ static __forceinline unsigned char* UModsOf(D2UnitStrc* pUnit)
 }
 
 // build: context HasMonTypeFlag
-static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
+static inline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -78,7 +78,7 @@ static __forceinline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 }
 
 // build: context SetMonTypeFlag
-static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
+static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
@@ -102,7 +102,7 @@ static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag
 }
 
 // build: context CountUMods
-static __forceinline int CountUMods(unsigned char* pUMods)
+static inline int CountUMods(unsigned char* pUMods)
 {
     int nIndex = 0;
     while (nIndex < 9 && pUMods[nIndex])
@@ -113,7 +113,7 @@ static __forceinline int CountUMods(unsigned char* pUMods)
 }
 
 // build: context CountUModsTo
-static __forceinline int CountUModsTo(unsigned char* pUMods)
+static inline int CountUModsTo(unsigned char* pUMods)
 {
     for (int i = 0; i < 9; ++i)
     {
@@ -126,7 +126,7 @@ static __forceinline int CountUModsTo(unsigned char* pUMods)
 }
 
 // build: context TestMonTypeFlag
-static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
+static inline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
     {
@@ -136,7 +136,7 @@ static __forceinline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag
 }
 
 // build: context UModsOfData
-static __forceinline unsigned char* UModsOfData(D2UnitStrc* pUnit)
+static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = 0;
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
@@ -152,7 +152,7 @@ static __forceinline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 }
 
 // build: context InitUMod
-static __forceinline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
+static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     UModInitFunc pfnInit = gpUModInitFunctions_0073C008[nUMod];
     if (pfnInit)
@@ -162,7 +162,7 @@ static __forceinline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 }
 
 // build: context MonStatsTxtRecord
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -172,7 +172,7 @@ static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 }
 
 // build: context CheckMonStatsFlag
-static __forceinline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
+static inline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecord(nMonsterId);
     if (pMonStatsTxtRecord)
@@ -183,7 +183,7 @@ static __forceinline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
 }
 
 // build: context MonStatsTxtRecordOrNull
-static __forceinline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -193,7 +193,7 @@ static __forceinline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
 }
 
 // build: context TestMonStatsFlag
-static __forceinline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
+static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecordOrNull(nMonsterId);
     if (!pMonStatsTxtRecord)
@@ -204,7 +204,7 @@ static __forceinline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
 }
 
 // build: context MonUModTxtRecord
-static __forceinline D2MonUModTxt* MonUModTxtRecord(int nUMod)
+static inline D2MonUModTxt* MonUModTxtRecord(int nUMod)
 {
     if (!(nUMod < sgptDataTables->nMonUModTxtRecordCount))
         return 0;
@@ -212,7 +212,7 @@ static __forceinline D2MonUModTxt* MonUModTxtRecord(int nUMod)
 }
 
 // build: context SuperUniqueHcIdx
-static __forceinline int SuperUniqueHcIdx(int nSuperUnique)
+static inline int SuperUniqueHcIdx(int nSuperUnique)
 {
     if (nSuperUnique >= 0 && nSuperUnique < sgptDataTables->nSuperUniquesTxtRecordCount)
     {
@@ -222,7 +222,7 @@ static __forceinline int SuperUniqueHcIdx(int nSuperUnique)
 }
 
 // build: context RollRandomInline
-static __forceinline unsigned int RollRandomInline(D2SeedStrc* pSeed)
+static inline unsigned int RollRandomInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -231,7 +231,7 @@ static __forceinline unsigned int RollRandomInline(D2SeedStrc* pSeed)
 }
 
 // build: context RollLimitedInline
-static __forceinline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
+static inline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -772,7 +772,7 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2Activ
 }
 
 // build: context SetBossIndex
-static __forceinline void SetBossIndex(D2UnitStrc* pUnit, short nIndex)
+static inline void SetBossIndex(D2UnitStrc* pUnit, short nIndex)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1)
@@ -926,7 +926,7 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // build: context PromoteGetUMods
-static __forceinline unsigned char* PromoteGetUMods(D2UnitStrc* pUnit)
+static inline unsigned char* PromoteGetUMods(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1)
@@ -938,7 +938,7 @@ static __forceinline unsigned char* PromoteGetUMods(D2UnitStrc* pUnit)
 }
 
 // build: context PromoteSetTypeFlag
-static __forceinline void PromoteSetTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
+static inline void PromoteSetTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == 1 && pUnit->pMonsterData)

@@ -398,7 +398,7 @@ found:
     }
 }
 
-static __forceinline int Unicode_strlen_Inline(const Unicode* pString)
+static inline int Unicode_strlen_Inline(const Unicode* pString)
 {
     int nLength = 0;
     if (pString)

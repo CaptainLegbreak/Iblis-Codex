@@ -1762,7 +1762,7 @@ void __stdcall sub_0044BF40_ClickMapMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0044C100
-static __forceinline int sub_0044C100_IsInLeftPanel(int nX, int nY)
+static inline int sub_0044C100_IsInLeftPanel(int nX, int nY)
 {
     int bLeftPanel = 0;
     if (sub_0045AE90() == 2 && nX > 0 && nX < gnGlobal_0071146C / 2 && nY > 0 && nY < gnGlobal_00711470 - 0x2F)
@@ -1773,7 +1773,7 @@ static __forceinline int sub_0044C100_IsInLeftPanel(int nX, int nY)
 }
 
 // 0x0044C140
-static __forceinline int sub_0044C140_IsInRightPanel(int nX, int nY)
+static inline int sub_0044C140_IsInRightPanel(int nX, int nY)
 {
     int bRightPanel = 0;
     if (sub_0045AE90() == 1 && nX > gnGlobal_0071146C / 2 && nX < gnGlobal_0071146C && nY > 0 && nY < gnAutomapHeight_007A521C)

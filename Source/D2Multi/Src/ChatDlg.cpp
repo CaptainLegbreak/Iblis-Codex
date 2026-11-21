@@ -1694,7 +1694,7 @@ void __cdecl sub_0043F800_FreeNameList()
 }
 
 // 0x0043F8A0
-static __forceinline void sub_0043F8A0_SaveDefaultChannel(const char* szChannel)
+static inline void sub_0043F8A0_SaveDefaultChannel(const char* szChannel)
 {
     SRegSaveString("Diablo II", "Default Channel", 0, szChannel);
 }

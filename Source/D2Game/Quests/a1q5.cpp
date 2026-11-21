@@ -218,7 +218,7 @@ struct D2BitBufferStrc;
 
 struct D2QuestDataStrc;
 
-static __forceinline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
+static inline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -228,7 +228,7 @@ static __forceinline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-static __forceinline int UNITS_GetAnimModeOrZero(D2UnitStrc* pUnit)
+static inline int UNITS_GetAnimModeOrZero(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -267,7 +267,7 @@ void __fastcall sub_00594060_InitCainGibbet(D2QuestDataStrc* pQuestData, D2ObjIn
     }
 }
 
-__forceinline D2BitBufferStrc* QUESTS_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+inline D2BitBufferStrc* QUESTS_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -681,7 +681,7 @@ int __fastcall OBJECTS_OperateFunction06_TowerTome(D2ObjOperateFnStrc* pOp, int 
     return 0;
 }
 
-__forceinline D2BitBufferStrc* ACT1Q5_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+inline D2BitBufferStrc* ACT1Q5_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -719,7 +719,7 @@ int __fastcall ACT1Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 }
 
 // 0x00594FD0
-static __forceinline void sub_00594FD0_FinishCountessQuest(D2QuestDataStrc* pQuestData)
+static inline void sub_00594FD0_FinishCountessQuest(D2QuestDataStrc* pQuestData)
 {
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q5_UnitIterate_AttachCompletionSound);
     QUESTS_SetGlobalState(pQuestData->pGame, 5, 13);
@@ -903,7 +903,7 @@ bool __fastcall ACT1Q5_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
     return true;
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -915,7 +915,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

@@ -41,7 +41,7 @@ void __stdcall sub_00643610_Nop(int nUnused)
 }
 
 // 0x006437E0
-static __forceinline D2SkillStrc* sub_006437E0_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
+static inline D2SkillStrc* sub_006437E0_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
     if (!pUnit->pSkills)
         return 0;

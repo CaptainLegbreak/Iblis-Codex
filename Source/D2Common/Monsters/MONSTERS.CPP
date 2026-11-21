@@ -124,7 +124,7 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
     }
 }
 
-static __forceinline void MONSTERS_GetFlagEx31(D2UnitStrc* pUnit, int* pResult)
+static inline void MONSTERS_GetFlagEx31(D2UnitStrc* pUnit, int* pResult)
 {
     *pResult = pUnit ? (pUnit->dwFlags >> 31) & 1 : 0;
 }
@@ -169,7 +169,7 @@ __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
     return 0;
 }
 
-__forceinline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecord(int nSkillId)
+inline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -511,7 +511,7 @@ void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc* unit, int mode, unsig
     STATLIST_SetUnitStat(unit, STAT_LEVEL, record->nLevel[0] + 25 * difficulty, 0);
 }
 
-__forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
+inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -521,7 +521,7 @@ __forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
     return nMonsterId;
 }
 
-__forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -538,7 +538,7 @@ __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

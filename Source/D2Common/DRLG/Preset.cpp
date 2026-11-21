@@ -441,7 +441,7 @@ static void sub_00665810_CopyCodePadded(D2PresetCodeStrc* pDst, const char* pSrc
     pDst->c3 = 0x20;
 }
 
-static __forceinline int sub_IsSubstMethod(int nSubstMethod)
+static inline int sub_IsSubstMethod(int nSubstMethod)
 {
     switch (nSubstMethod)
     {
@@ -854,7 +854,7 @@ void __fastcall DRLGPRESET_LoadDrlgFile(D2DrlgFileStrc** ppDrlgFile, void* hArch
 }
 
 // 0x00666070
-static __forceinline void sub_00666070_FindLevelFile(D2DrlgFileStrc** ppDrlgFile, D2LevelFileListStrc** ppPrevious, D2LevelFileListStrc** ppCurrent)
+static inline void sub_00666070_FindLevelFile(D2DrlgFileStrc** ppDrlgFile, D2LevelFileListStrc** ppPrevious, D2LevelFileListStrc** ppCurrent)
 {
     D2LevelFileListStrc* pFirst = gpLevelFilesList;
     *ppPrevious = 0;
@@ -922,7 +922,7 @@ static void DRLGPRESET_SpawnRiver(D2DrlgMapStrc* pDrlgMap, int nX, int nY, void*
     }
 }
 
-static __forceinline void __stdcall DRLGPRESET_AddRiverObject_Inline(D2DrlgMapStrc* pDrlgMap, void* pMemPool, int nIndex, int nX, int nY)
+static inline void __stdcall DRLGPRESET_AddRiverObject_Inline(D2DrlgMapStrc* pDrlgMap, void* pMemPool, int nIndex, int nX, int nY)
 {
     D2PresetUnitStrc* pPresetUnit = DRLGROOM_AllocPresetUnit(0, pMemPool, 2, nIndex, 0, nX, nY);
     pPresetUnit->bSpawned |= 1;
@@ -1534,7 +1534,7 @@ int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
     return 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1542,7 +1542,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -1791,7 +1791,7 @@ int __fastcall sub_00667420_GetChainField20(D2Unk00667420Strc* p)
 }
 
 // build: context DRLGPRESET_GetFileCount
-static __forceinline int DRLGPRESET_GetFileCount(D2LvlPrestTxt* pLvlPrestTxtRecord)
+static inline int DRLGPRESET_GetFileCount(D2LvlPrestTxt* pLvlPrestTxtRecord)
 {
 	return pLvlPrestTxtRecord->dwFiles;
 }
@@ -1869,7 +1869,7 @@ void __fastcall DRLGPRESET_FreePresetUnit(void* pMemPool, D2PresetUnitStrc* pPre
     sub_0040B480(pMemPool, pPresetUnit, &gszDrlgPresetSourceFile, 1387, 0);
 }
 
-static __forceinline int DRLGPRESET_GetMonsterId(int nMonsterId, int nMonStatsCount)
+static inline int DRLGPRESET_GetMonsterId(int nMonsterId, int nMonStatsCount)
 {
     if (nMonsterId >= 0 && nMonsterId < nMonStatsCount)
     {

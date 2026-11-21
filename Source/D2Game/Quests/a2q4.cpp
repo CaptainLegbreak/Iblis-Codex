@@ -326,7 +326,7 @@ void __fastcall ACT2Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -589,7 +589,7 @@ struct D2ActiveRoomStrc;
 
 struct D2CoordStrc;
 
-static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
+static inline void* GetMonsterInteract(D2UnitStrc* unit) {
     if (unit && unit->dwUnitType==UNIT_MONSTER && unit->pMonsterData) return unit->pMonsterData->pMonInteract;
     return 0;
 }
@@ -791,7 +791,7 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* p
     sub_0059B660_ACT2Q4_OpenPalaceOrCycle(pGame);
 }
 
-static __forceinline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
+static inline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -800,7 +800,7 @@ static __forceinline void* QUESTS_GetMonsterInteract(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline D2BitBufferStrc* QUESTS_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* QUESTS_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }

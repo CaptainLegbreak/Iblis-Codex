@@ -421,7 +421,7 @@ void __fastcall ACT5Q5_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStr
  }
 }
 
-static __forceinline bool IsAncientStatue(int nNpcId)
+static inline bool IsAncientStatue(int nNpcId)
 {
     if (nNpcId < 537 + NPC_SHIFT)
         return false;
@@ -1015,25 +1015,25 @@ int __fastcall sub_0058D000_AreAncientsDefeated(D2GameStrc* pGame)
     return 0;
 }
 
-static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
+static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;
     return pUnit->dwClassId;
 }
 
-static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;
     return pUnit->dwUnitId;
 }
 
-static __forceinline int UNITS_GetAnimMode(D2UnitStrc* pUnit)
+static inline int UNITS_GetAnimMode(D2UnitStrc* pUnit)
 {
     if (!pUnit) return 0;
     return pUnit->dwAnimMode;
 }
 
-static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -1078,7 +1078,7 @@ void __fastcall OBJECTS_InitFunction64_AncientStatue1(D2ObjInitFnStrc* pOp)
 }
 
 // 0x0058D1D0
-static __forceinline void sub_0058D1D0_PlayStatueSound(D2ObjOperateFnStrc* pOp)
+static inline void sub_0058D1D0_PlayStatueSound(D2ObjOperateFnStrc* pOp)
 {
     SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
 }

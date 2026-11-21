@@ -1002,7 +1002,7 @@ void __fastcall sub_004CC5B0_UpdateUnitSound(D2UnitStrc* pUnit, int nMode, int b
     }
 }
 
-static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
+static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
@@ -1128,7 +1128,7 @@ void __fastcall sub_K06_Emitsfx70(D2UnitStrc* pUnit, unsigned char bUnitSfx)
 }
 
 // 0x004CAAD0
-static __forceinline int sub_004CAAD0(D2UnitStrc* unit)
+static inline int sub_004CAAD0(D2UnitStrc* unit)
 {
     if (!unit) {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xCA5);
@@ -1456,7 +1456,7 @@ void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType
 }
 
 // 0x004CB170
-static __forceinline unsigned int sub_004CB170_GetNeutralSound(D2UnitStrc* pUnit)
+static inline unsigned int sub_004CB170_GetNeutralSound(D2UnitStrc* pUnit)
 {
     D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
@@ -1465,7 +1465,7 @@ static __forceinline unsigned int sub_004CB170_GetNeutralSound(D2UnitStrc* pUnit
 }
 
 // 0x004CB180
-static __forceinline unsigned int sub_004CB180_GetTauntSound(D2UnitStrc* pUnit)
+static inline unsigned int sub_004CB180_GetTauntSound(D2UnitStrc* pUnit)
 {
     D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
     if (!pMonSoundsTxtRecord)
@@ -1481,7 +1481,7 @@ unsigned int __fastcall sub_M110_Emit_004CB170(D2UnitStrc* pUnit, int bTaunt)
 }
 
 // 0x004CC250
-static __forceinline int sub_004CC250_HasSlotValue(int* pSlots, int nValue)
+static inline int sub_004CC250_HasSlotValue(int* pSlots, int nValue)
 {
     for (int i = 0; i < 10; i++)
     {

@@ -19,7 +19,7 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 // build: context CLIENTS_GetUnitX
-__forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     int nX;
     switch (pUnit->dwUnitType)
@@ -37,7 +37,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 }
 
 // build: context CLIENTS_GetUnitY
-__forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     int nY;
     switch (pUnit->dwUnitType)

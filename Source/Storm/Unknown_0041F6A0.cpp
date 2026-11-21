@@ -32,7 +32,7 @@ struct D2StormNodeListStrc
     int nLinkOffset;
     D2StormLinkStrc terminator;
     void __thiscall sub_0041EE40_UnlinkAll(); // 0x0041EE40
-    __forceinline void Clear()
+    inline void Clear()
     {
         sub_0041EE40_UnlinkAll();
         terminator.Unlink();
@@ -608,7 +608,7 @@ int* __fastcall sub_005A6250_GetField14(D2Field14Strc* pRecord)
     return &pRecord->nField14;
 }
 
-static __forceinline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
+static inline int sub_005A64F0_IsActionFrame(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode == 14)
         return (pUnit->dwFlags >> 6) & 1;

@@ -91,7 +91,7 @@ D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId)
     return 0;
 }
 
-static __forceinline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
+static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -195,7 +195,7 @@ void __cdecl sub_0046AEE0_ObjectMissileTimedBox()
     sub_0046AE50_StartTimedBox(pMissilesTxtRecord->dwParam[0], pMissilesTxtRecord->wRange - 2 * pMissilesTxtRecord->dwParam[0], pMissilesTxtRecord->dwParam[0], 4, 1);
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -207,7 +207,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -555,7 +555,7 @@ void __cdecl sub_0046B1E0_EventObject95Request()
 }
 
 // 0x0046BD20
-static __forceinline int sub_0046BD20_GetChaosLevelLight(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
+static inline int sub_0046BD20_GetChaosLevelLight(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
 {
     if (gnGlobal_007A7460 && gnGlobal_007129D0 == -1)
     {
@@ -572,7 +572,7 @@ int __stdcall sub_M212_Emit_0046BD20(unsigned char* pRed, unsigned char* pGreen,
     return sub_0046BD20_GetChaosLevelLight(pRed, pGreen, pBlue);
 }
 
-static __forceinline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

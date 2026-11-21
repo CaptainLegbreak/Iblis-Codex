@@ -28,7 +28,7 @@ extern int gdwGlobal_007A6ABC; // 0x007A6ABC
 extern int gdwGlobal_007A6AF0; // 0x007A6AF0
 
 // 0x00467DF0
-static __forceinline int sub_00467DF0_GetCursorAnimField00(int nIndex)
+static inline int sub_00467DF0_GetCursorAnimField00(int nIndex)
 {
     D2_ASSERT(gnCursorAnimCount_007120D4 == CURSOR_ANIM_COUNT, 0x84);
     D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x85);
@@ -38,7 +38,7 @@ static __forceinline int sub_00467DF0_GetCursorAnimField00(int nIndex)
 int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return sub_00467DF0_GetCursorAnimField00(nIndex); }
 
 // 0x00467EE0
-static __forceinline void sub_00467EE0_SetCursorAnim(int nIndex)
+static inline void sub_00467EE0_SetCursorAnim(int nIndex)
 {
     gdwGlobal_007A6ADC = nIndex;
     gnGlobal_007A6AE0 = 0;
@@ -78,7 +78,7 @@ void __fastcall sub_00468010_SetState(int nValue, int nArg)
 }
 
 // 0x00468B20
-static __forceinline void sub_00468B20_HandleHotkey(int nHotkey)
+static inline void sub_00468B20_HandleHotkey(int nHotkey)
 {
     if (sub_0044DA30())
         return;

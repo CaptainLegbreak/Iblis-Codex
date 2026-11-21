@@ -71,7 +71,7 @@ struct D2Point006B7F20Strc
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2Rect006B7F20Strc* pRect, int nLeft, int nTop, int nRight, int nBottom);
 
-static __forceinline int ClampCoordinate(int value, int extent)
+static inline int ClampCoordinate(int value, int extent)
 {
     value = value > 0 ? value : 0;
     return value < extent - 1 ? value : extent - 1;

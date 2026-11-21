@@ -526,7 +526,7 @@ int __fastcall ACT5Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
-static __forceinline D2BitBufferStrc* GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline D2BitBufferStrc* GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     return UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
 }

@@ -63,7 +63,7 @@ static s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
     return y<size;
 }
 
-static __forceinline s32 sub_004DCF70_Inside_inl(Context* context,s32 y,s32 x)
+static inline s32 sub_004DCF70_Inside_inl(Context* context,s32 y,s32 x)
 {
     x-=FIELD(s32,context,0xEA68);
     y-=FIELD(s32,context,0xEA6C);
@@ -75,13 +75,13 @@ static __forceinline s32 sub_004DCF70_Inside_inl(Context* context,s32 y,s32 x)
     return 1;
 }
 
-static __forceinline u32 UNIT_GetFlagC4_20(Unit* unit)
+static inline u32 UNIT_GetFlagC4_20(Unit* unit)
 {
     if(!unit) return 0;
     return (FIELD(u32,unit,196)>>20)&1;
 }
 
-static __forceinline u32 UNIT_GetFlagC8_7(Unit* unit)
+static inline u32 UNIT_GetFlagC8_7(Unit* unit)
 {
     if(!unit) return 0;
     return (FIELD(u32,unit,200)>>7)&1;

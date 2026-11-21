@@ -58,7 +58,7 @@ void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); 
 void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem);
 
-static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 {
     unsigned __int64 nSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
@@ -66,7 +66,7 @@ static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
     return (unsigned int)nSeed;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsRecord(int nSkill)
+static inline D2SkillsTxt* GetSkillsRecord(int nSkill)
 {
     if (nSkill >= 0 && nSkill < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkill];

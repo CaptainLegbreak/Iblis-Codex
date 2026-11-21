@@ -138,7 +138,7 @@ struct D2StormSlotListStrc
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
-    __forceinline ~D2StormSlotListStrc()
+    inline ~D2StormSlotListStrc()
     {
         sub_00602640_UnlinkAll();
     }
@@ -308,7 +308,7 @@ struct D2StormListEStrc
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
-    __forceinline ~D2StormListEStrc()
+    inline ~D2StormListEStrc()
     {
         sub_00602690_UnlinkAll();
     }

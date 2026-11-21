@@ -297,7 +297,7 @@ inline int UNITS_IsFlag5SetInl(D2UnitStrc* pUnit)
     return (pUnit->dwFlags >> 5) & 1;
 }
 
-static __forceinline int IsShapeShifted(D2UnitStrc* pUnit)
+static inline int IsShapeShifted(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit) bResult = (pUnit->dwFlagEx >> 3) & 1;

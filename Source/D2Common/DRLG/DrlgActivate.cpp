@@ -124,7 +124,7 @@ static int gnStatsAllocatedRooms_0096C8C4; // 0x0096C8C4
 
 static int gnStatsFreedRooms_0096C8C0; // 0x0096C8C0
 
-static __forceinline D2DrlgRoomStrc* DRLGACTIVATE_RoomExStatusList_GetFirst(D2DrlgStrc* pDrlg, unsigned char nStatus);
+static inline D2DrlgRoomStrc* DRLGACTIVATE_RoomExStatusList_GetFirst(D2DrlgStrc* pDrlg, unsigned char nStatus);
 
 static int gStatsClientFreedRooms; // 0x0096C8BC
 
@@ -149,7 +149,7 @@ void __fastcall DRLGACTIVATE_SetClientIsInSight(D2DrlgStrc* pDrlg, int nLevelId,
 void __fastcall DRLGACTIVATE_ChangeClientRoom(D2DrlgRoomStrc* pPreviousRoom, D2DrlgRoomStrc* pNewRoom);
 
 // 0x0061B170
-static __forceinline void DRLGACTIVATE_InitRoomsInitTimeout(D2DrlgStrc* pDrlg)
+static inline void DRLGACTIVATE_InitRoomsInitTimeout(D2DrlgStrc* pDrlg)
 {
     pDrlg->nRoomsInitTimeout = DRLG_IsOnClient(pDrlg) ? 5 : 7;
 }
@@ -249,7 +249,7 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_Untile(D2DrlgRoomStrc* pDrlgRoom)
 void __stdcall sub_M121_Emit_0061B170(D2DrlgStrc* pDrlg) { DRLGACTIVATE_InitRoomsInitTimeout(pDrlg); }
 
 // 0x0061B360
-static __forceinline void sub_0061B360_SetStatusIfUnreferenced(D2DrlgRoomStrc* pDrlgRoom, int nStatus)
+static inline void sub_0061B360_SetStatusIfUnreferenced(D2DrlgRoomStrc* pDrlgRoom, int nStatus)
 {
     if (pDrlgRoom->fRoomStatus >= nStatus)
     {
@@ -339,7 +339,7 @@ void __fastcall DRLGACTIVATE_RoomExStatusUnset_Untile(D2DrlgRoomStrc* pDrlgRoom)
 void __stdcall sub_M121_Emit_0061B360(D2DrlgRoomStrc* pDrlgRoom, int nStatus) { sub_0061B360_SetStatusIfUnreferenced(pDrlgRoom, nStatus); }
 
 // 0x0061B5A0
-static __forceinline void sub_0061B5A0_CallUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
+static inline void sub_0061B5A0_CallUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
 {
     gRoomExUnsetStatus[nStatus](pDrlgRoom);
 }
@@ -365,7 +365,7 @@ void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoo
 void __stdcall sub_M121_Emit_0061B5A0(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus) { sub_0061B5A0_CallUnsetStatus(pDrlgRoom, nStatus); }
 
 // 0x0061B610
-static __forceinline void sub_0061B610_RoomUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
+static inline void sub_0061B610_RoomUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
 {
     if (pDrlgRoom->wRoomsInList[nStatus])
     {
@@ -426,7 +426,7 @@ void __fastcall DRLGACTIVATE_ChangeClientRoom(D2DrlgRoomStrc* pPreviousRoom, D2D
     }
 }
 
-static __forceinline void DUNGEON_GetClientUnitFlag(D2UnitStrc* pUnit, unsigned int dwFlags, int* pResult)
+static inline void DUNGEON_GetClientUnitFlag(D2UnitStrc* pUnit, unsigned int dwFlags, int* pResult)
 {
     *pResult = pUnit ? (dwFlags >> UNITFLAGINDEX_ISCLIENTUNIT) & 1 : 0;
 }
@@ -481,7 +481,7 @@ void __fastcall sub_0061B7E0_InitEntries(D2Owner0061B7E0Strc* pOwner)
 void __stdcall sub_M121_Emit_0061B610(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus) { sub_0061B610_RoomUnsetStatus(pDrlgRoom, nStatus); }
 
 // 0x0061B810
-static __forceinline D2DrlgRoomStrc* DRLGACTIVATE_RoomExStatusList_GetFirst(D2DrlgStrc* pDrlg, unsigned char nStatus)
+static inline D2DrlgRoomStrc* DRLGACTIVATE_RoomExStatusList_GetFirst(D2DrlgStrc* pDrlg, unsigned char nStatus)
 {
     if (pDrlg->tStatusRoomsLists[nStatus].pStatusNext != &pDrlg->tStatusRoomsLists[nStatus])
     {
@@ -504,7 +504,7 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_GetARoomInClientSight(D2DrlgStrc* pDrl
 D2DrlgRoomStrc* __stdcall sub_M121_Emit_0061B810(D2DrlgStrc* pDrlg, unsigned char nStatus) { return DRLGACTIVATE_RoomExStatusList_GetFirst(pDrlg, nStatus); }
 
 // 0x0061B8B0
-static __forceinline void sub_0061B8B0_UpdateRoomStats(D2DrlgStrc* pDrlg)
+static inline void sub_0061B8B0_UpdateRoomStats(D2DrlgStrc* pDrlg)
 {
     if (DRLG_IsOnClient(pDrlg))
     {
@@ -574,7 +574,7 @@ void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg)
 void __stdcall sub_M121_Emit_0061B8B0(D2DrlgStrc* pDrlg) { sub_0061B8B0_UpdateRoomStats(pDrlg); }
 
 // 0x0061BA10
-static __forceinline int sub_0061BA10_CanUntileLevel(int nLevelId)
+static inline int sub_0061BA10_CanUntileLevel(int nLevelId)
 {
     if (DRLG_IsTownLevel(nLevelId))
     {
@@ -642,7 +642,7 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientOutOfSight(D2DrlgRoomStrc* pD
 int __stdcall sub_M121_Emit_0061BA10(int nLevelId) { return sub_0061BA10_CanUntileLevel(nLevelId); }
 
 // 0x0061BB50
-static __forceinline void sub_0061BB50_SetFieldFromTable(D2DrlgTableRefStrc* pRecord)
+static inline void sub_0061BB50_SetFieldFromTable(D2DrlgTableRefStrc* pRecord)
 {
     pRecord->nValue = gaTable_007443E4[pRecord->nIndex];
 }

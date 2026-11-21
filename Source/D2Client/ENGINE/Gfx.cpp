@@ -188,7 +188,7 @@ int __stdcall sub_004DA110_GetMotionAX(D2UnitStrc* pUnit); // 0x004DA110
 int __stdcall sub_004DA130_GetMotionAY(D2UnitStrc* pUnit); // 0x004DA130
 void __stdcall sub_004F6540(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
 
-static __forceinline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {
@@ -291,7 +291,7 @@ void __stdcall sub_P09_Emit_0046DF40(D2StateOwnerStrc* pOwner, D2UnitStrc* pUnit
 }
 
 // 0x0046EA80
-static __forceinline void sub_0046EA80_ResetGfxBytes20(D2UnitStrc* pUnit)
+static inline void sub_0046EA80_ResetGfxBytes20(D2UnitStrc* pUnit)
 {
     for (unsigned int i = 0; i < 20; ++i)
     {
@@ -300,7 +300,7 @@ static __forceinline void sub_0046EA80_ResetGfxBytes20(D2UnitStrc* pUnit)
 }
 
 // 0x0046EAA0
-static __forceinline void sub_0046EAA0_ResetGfxBytes16(D2UnitStrc* pUnit)
+static inline void sub_0046EAA0_ResetGfxBytes16(D2UnitStrc* pUnit)
 {
     for (int i = 0; i < 16; ++i)
     {
@@ -309,7 +309,7 @@ static __forceinline void sub_0046EAA0_ResetGfxBytes16(D2UnitStrc* pUnit)
 }
 
 // 0x0046EB50
-static __forceinline void sub_0046EB50_ResetGfxBytes8(D2UnitStrc* pUnit)
+static inline void sub_0046EB50_ResetGfxBytes8(D2UnitStrc* pUnit)
 {
     for (int i = 0; i < 8; ++i)
     {

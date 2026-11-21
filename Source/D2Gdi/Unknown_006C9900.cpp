@@ -20,7 +20,7 @@ extern unsigned char* gpRemapSource_0098A278;                                   
 int gbRemapValid_0098A27C;                                                                                  // 0x0098A27C
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 
-static __forceinline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
+static inline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
 {
     while (nCount)
     {

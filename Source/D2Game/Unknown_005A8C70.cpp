@@ -82,7 +82,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                   
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3);                                   // 0x00621E40
 
-static __forceinline D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -91,7 +91,7 @@ static __forceinline D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -100,7 +100,7 @@ static __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static __forceinline D2MissilesTxt* GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
+static inline D2MissilesTxt* GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
 {
     if (pMissile)
     {

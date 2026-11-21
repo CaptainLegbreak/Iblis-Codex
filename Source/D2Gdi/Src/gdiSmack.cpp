@@ -51,7 +51,7 @@ void __fastcall sub_006C9640_GdiCloseSmacker(D2GdiSmackStrc* pRecord)
     pRecord->nType = 0;
 }
 
-static __forceinline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
+static inline void sub_006C9690_RemapSpan(unsigned char* pDst, const unsigned char* pSrc, int nCount)
 {
     while (nCount)
     {

@@ -308,7 +308,7 @@ struct D2ModeArgStrc
     int nValue;
 };
 
-static __forceinline void sub_00464E20_PlayOverlaySound(D2UnitStrc* pUnit, int nOverlay);
+static inline void sub_00464E20_PlayOverlaySound(D2UnitStrc* pUnit, int nOverlay);
 static void sub_004667F0_SpawnPresetUnitInRoom(D2ActiveRoomStrc* pRoom, D2PresetUnitStrc* pPresetUnit);
 
 int gnPeriodOfDay_007A6A74; // 0x007A6A74
@@ -368,7 +368,7 @@ static void sub_00463B80_QueueIdleMove(D2UnitStrc* pUnit)
 }
 
 // build: context CLIENT_FindUnitInHashTable_Inl
-static __forceinline D2UnitStrc* CLIENT_FindUnitInHashTable_Inl(int nUnitId, int nUnitType)
+static inline D2UnitStrc* CLIENT_FindUnitInHashTable_Inl(int nUnitId, int nUnitType)
 {
     D2UnitStrc* pUnit = gpUnitHashTable_007A5270[(nUnitType << 7) + (nUnitId & 0x7F)];
     while (pUnit)
@@ -563,7 +563,7 @@ int __fastcall sub_004643B0_IsPlayerOrMonster(D2UnitStrc* pUnit)
     return nType == 0 || nType == 1;
 }
 
-static __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -575,7 +575,7 @@ static __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -997,7 +997,7 @@ void __fastcall sub_00464CF0_SetStartLight(D2UnitStrc* pUnit, int nValue)
 }
 
 // 0x00464E20
-static __forceinline void sub_00464E20_PlayOverlaySound(D2UnitStrc* pUnit, int nOverlay)
+static inline void sub_00464E20_PlayOverlaySound(D2UnitStrc* pUnit, int nOverlay)
 {
     switch (nOverlay)
     {

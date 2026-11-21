@@ -63,7 +63,7 @@ int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2)
     return nResult;
 }
 
-static __forceinline int UNITS_IsServerSide(D2UnitStrc* pUnit)
+static inline int UNITS_IsServerSide(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)

@@ -74,10 +74,10 @@ void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel);                         
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
 
-static __forceinline int* __fastcall sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066AEC0
+static inline int* __fastcall sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066AEC0
 
 // build: context sub_0066AEC0
-static __forceinline int* __fastcall sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
+static inline int* __fastcall sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
 {
     for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
     {

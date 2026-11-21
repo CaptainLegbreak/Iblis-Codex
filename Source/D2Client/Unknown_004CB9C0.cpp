@@ -28,7 +28,7 @@ unsigned int gnLastRequestTick_007C88C4;        // 0x007C88C4
 int gnLastRequestSound_007C88C8;        // 0x007C88C8
 extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[]; // 0x0072A008
 
-static __forceinline D2UnitSndPlayerStrc* sub_004CA3E0_GetPlayerSoundRecord(unsigned int nClass)
+static inline D2UnitSndPlayerStrc* sub_004CA3E0_GetPlayerSoundRecord(unsigned int nClass)
 {
     D2_ASSERT(nClass < 7, 0xB22);
     return gpUnitSndPlayer_0072A008[nClass];

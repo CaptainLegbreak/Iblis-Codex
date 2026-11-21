@@ -6,7 +6,7 @@ struct D2QuestArgStrc { unsigned char padding[12]; D2UnitStrc* player; };
 void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* quest, D2QuestArgStrc* argument); // 0x00545530
 int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
 
-static __forceinline int GetUnitId(D2UnitStrc* unit) { return !unit ? -1 : unit->dwUnitId; }
+static inline int GetUnitId(D2UnitStrc* unit) { return !unit ? -1 : unit->dwUnitId; }
 
 // 0x00599FB0
 void __fastcall ACT2Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* quest, D2QuestArgStrc* argument)

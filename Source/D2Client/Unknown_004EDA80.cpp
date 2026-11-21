@@ -152,7 +152,7 @@ int __fastcall sub_004F03C0_CltMissileRequest(D2UnitStrc* pUnit, int nSkillId, i
     return sub_004CDB40_SubmitRequest(pUnit, nMissile, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nSkillId, 1) != 0;
 }
 
-static __forceinline D2SkillsTxt* GetSkill(int nSkill)
+static inline D2SkillsTxt* GetSkill(int nSkill)
 {
     if (nSkill < 0 || nSkill >= sgptDataTables->nSkillsTxtRecordCount)
         return 0;

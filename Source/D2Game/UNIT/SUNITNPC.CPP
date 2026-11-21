@@ -643,7 +643,7 @@ int __stdcall ITEMS_GetItemType(D2UnitStrc*); // 0x0062B400
 
 D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int); // 0x006374B0
 
-static __forceinline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAnimMode; return 0; }
+static inline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAnimMode; return 0; }
 
 #define SEND_ERROR(code,line) sub_0053D740_SendPacket0x2A(UnitGetClient(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,STAT_GOLD,0),-1,0)
 
@@ -789,7 +789,7 @@ int __fastcall sub_00575FF0(D2GameStrc* pGame, int nHirelingId, int* pNameFirst,
     return nCount;
 }
 
-static __forceinline int __fastcall SUNITNPC_GetHirelingNameRange(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass)
+static inline int __fastcall SUNITNPC_GetHirelingNameRange(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass)
 {
     D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nHirelingId, 0, 0);
     if (!pHirelingTxtRecord)
@@ -932,7 +932,7 @@ void __fastcall sub_005762B0_RepairItemCallback(D2GameStrc* pGame, D2UnitStrc* p
     D2GAME_NPC_RepairItem_6FCC6970(pGame, pItem, pPlayer);
 }
 
-static __forceinline D2BitBufferStrc* sub_00578460_GetQuestRecord(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* sub_00578460_GetQuestRecord(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -1066,7 +1066,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* hNPC, u
     return pItem;
 }
 
-static __forceinline int UNITS_GetUnitGUIDInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitGUIDInline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -2253,25 +2253,25 @@ static int __stdcall sub_005786A0_RollGambleUpgrade(int nItemId, int nUberChance
     return nItemId;
 }
 
-static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 {
  const unsigned __int64 n = pSeed->nHighSeed + 0x6AC690C5i64*pSeed->nLowSeed;
  pSeed->nHighSeed=(unsigned int)(n>>32); pSeed->nLowSeed=(unsigned int)n; return (unsigned int)n;
 }
 
-static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed,int nMax)
+static inline unsigned int RollLimited(D2SeedStrc* pSeed,int nMax)
 {
  if(nMax<=0) return 0;
  if(nMax & (nMax-1)) return RollSeed(pSeed)%(unsigned int)nMax;
  return RollSeed(pSeed)&(nMax-1);
 }
 
-static __forceinline int UnitX(D2UnitStrc* pUnit)
+static inline int UnitX(D2UnitStrc* pUnit)
 {
  switch(pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
 }
 
-static __forceinline int UnitY(D2UnitStrc* pUnit)
+static inline int UnitY(D2UnitStrc* pUnit)
 {
  switch(pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
 }
@@ -2616,7 +2616,7 @@ int __stdcall sub_J17_Emit_005786A0(D2GameStrc* pGame, int nItemLevel, int nItem
     return sub_005786A0_RollGambleUpgrade(nItemId, nUberChance, nUltraChance, pGame, nItemLevel);
 }
 
-static __forceinline D2NpcTradeDataStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcRecord)
+static inline D2NpcTradeDataStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcRecord)
 {
     if (pNpcRecord)
     {
@@ -2858,7 +2858,7 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2Un
     }
 }
 
-static __forceinline int GetId(D2UnitStrc* u){ if(u) return u->dwUnitId; return -1; }
+static inline int GetId(D2UnitStrc* u){ if(u) return u->dwUnitId; return -1; }
 
 // 0x00579510
 int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* player,int npcId,int itemId,unsigned short itemMode,int unused)
@@ -2956,12 +2956,12 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
     return 3;
 }
 
-static __forceinline int GetX(D2UnitStrc* unit) {
+static inline int GetX(D2UnitStrc* unit) {
  switch(unit->dwUnitType) { case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nXPos; }
  return unit->pDynamicPath?PATH_GetXPosition(unit->pDynamicPath):0;
 }
 
-static __forceinline int GetY(D2UnitStrc* unit) {
+static inline int GetY(D2UnitStrc* unit) {
  switch(unit->dwUnitType) { case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return unit->pStaticPath->nYPos; }
  return unit->pDynamicPath?PATH_GetYPosition(unit->pDynamicPath):0;
 }
@@ -3042,7 +3042,7 @@ void __fastcall D2GAME_NPC_ResurrectMerc_6FCC9350(D2GameStrc* pGame, D2UnitStrc*
     sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer, gszNpcSourceFile, 2462), 0x2A, 5, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), nHirelingGUID, 0);
 }
 
-static __forceinline int MONSTERS_CheckMonStatsFlag(int nMonsterId, int nFlag)
+static inline int MONSTERS_CheckMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = 0;
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -3058,7 +3058,7 @@ static __forceinline int MONSTERS_CheckMonStatsFlag(int nMonsterId, int nFlag)
     return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
-static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

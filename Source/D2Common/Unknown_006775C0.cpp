@@ -51,7 +51,7 @@ extern D2DrlgLinkStrc gAct5OutdoorDrlgLink[15];                                 
 extern D2DrlgLinkStrc gAct5TundraDrlgLink[15];                                                              // 0x006F0ED0
 int dword_6FDEA6FC;                                                                                         // 0x0096D66C
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -216,7 +216,7 @@ static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2D
     }
 }
 
-static __forceinline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
+static inline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     D2DrlgLevelStrc* pWarpLevel = DRLG_GetLevel(pLevel->pDrlg, nLevelId);

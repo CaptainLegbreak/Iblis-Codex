@@ -20,12 +20,12 @@ void __stdcall STATLIST_SetStatIfListIsValid(StatList*, int, int, unsigned short
 void __stdcall sub_00627340_ClearStatList(StatList*); // 0x00627340
 int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int, int, int, int, int, MonsterStatsInit*); // 0x006538A0
 // build: context GetType
-static __forceinline int GetType(Unit* unit)
+static inline int GetType(Unit* unit)
 {
     return !unit ? 6 : unit->type;
 }
 // build: context GetMonStats
-static __forceinline MonStats* GetMonStats(Unit* unit)
+static inline MonStats* GetMonStats(Unit* unit)
 {
     if (unit && GetType(unit) == 1 && unit->monster) return unit->monster->stats;
     return 0;

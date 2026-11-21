@@ -2,7 +2,7 @@ extern "C" int __cdecl abs(int);
 #pragma intrinsic(abs)
 #define MINIMUM(a,b) (((a) < (b)) ? (a) : (b))
 #define MASK_DECREMENT 1
-static __forceinline int Absolute(int nValue)
+static inline int Absolute(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;
 }

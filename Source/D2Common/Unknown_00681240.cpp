@@ -35,7 +35,7 @@ D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char n
 extern const int gnAct1PathOffsetX_006F2820[4]; // 0x006F2820
 extern const int gnAct1PathOffsetY_006F2830[4]; // 0x006F2830
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;

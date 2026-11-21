@@ -236,7 +236,7 @@ void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound)
     LeaveCriticalSection(&gSoundLock_0088174C);
 }
 
-static __forceinline void sub_00515EE0_StopSoundInline(D2SoundStrc* pSound)
+static inline void sub_00515EE0_StopSoundInline(D2SoundStrc* pSound)
 {
     D2_ASSERT(pSound->pBuffer, 658);
     EnterCriticalSection(&gSoundLock_0088174C);
@@ -249,7 +249,7 @@ static __forceinline void sub_00515EE0_StopSoundInline(D2SoundStrc* pSound)
     LeaveCriticalSection(&gSoundLock_0088174C);
 }
 
-static __forceinline void sub_AdvancePlayPositionInline(D2SoundStrc* pSound, unsigned long dwPlay, unsigned long nMask)
+static inline void sub_AdvancePlayPositionInline(D2SoundStrc* pSound, unsigned long dwPlay, unsigned long nMask)
 {
     const unsigned long nOffset = pSound->nPosition & nMask;
     unsigned long nPosition = pSound->nPosition - nOffset;

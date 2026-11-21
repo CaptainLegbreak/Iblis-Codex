@@ -138,7 +138,7 @@ static __declspec(noinline) void sub_00411B90_GetBlockSizes(D2SMemBlockStrc* pBl
 }
 
 // build: context SMemGetBlockHeader
-static __forceinline D2SMemBlockStrc* SMemGetBlockHeader(void* pMemory)
+static inline D2SMemBlockStrc* SMemGetBlockHeader(void* pMemory)
 {
     if (!pMemory)
         return 0;
@@ -149,7 +149,7 @@ static __forceinline D2SMemBlockStrc* SMemGetBlockHeader(void* pMemory)
 }
 
 // build: context SMemGetBlockData
-static __forceinline void* SMemGetBlockData(D2SMemBlockStrc* pBlock)
+static inline void* SMemGetBlockData(D2SMemBlockStrc* pBlock)
 {
     if (!pBlock)
         return 0;
@@ -815,7 +815,7 @@ unsigned int __stdcall SMemGetSize(void* pMemory, const char* szFile, int nLine)
     return nDataSize;
 }
 
-static __forceinline int sub_A21_HeapIdInUse(unsigned int dwId)
+static inline int sub_A21_HeapIdInUse(unsigned int dwId)
 {
     int nLockIndex = (unsigned char)dwId;
     EnterCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);

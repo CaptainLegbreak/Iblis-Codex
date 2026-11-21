@@ -63,14 +63,14 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall sub_00573520_GetLevelIdFromUnit(D2UnitStrc* pUnit); // 0x00573520
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** pMonReg, int nLevelId); // 0x00547BB0
 
-static __forceinline unsigned __int64 Roll(D2SeedStrc* pSeed)
+static inline unsigned __int64 Roll(D2SeedStrc* pSeed)
 {
     const unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = nSeed;
     return nSeed;
 }
 
-static __forceinline int AI_RollPercentage(D2UnitStrc* pUnit)
+static inline int AI_RollPercentage(D2UnitStrc* pUnit)
 {
     return (unsigned int)Roll(&pUnit->pSeed) % 100;
 }
@@ -156,17 +156,17 @@ void __fastcall AITHINK_Formation(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
-static __forceinline int GetX(D2UnitStrc* pUnit)
+static inline int GetX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
 }
 
-static __forceinline int GetY(D2UnitStrc* pUnit)
+static inline int GetY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
 }
 
-static __forceinline D2AiParamStrc* GetAiParam(D2UnitStrc* pUnit)
+static inline D2AiParamStrc* GetAiParam(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData ? pUnit->pMonsterData->pAiParam : 0;
 }
@@ -244,7 +244,7 @@ void __fastcall sub_005E5C50_HomeGuardThink(D2GameStrc* pGame, D2UnitStrc* pUnit
     AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStats->wAiParam[1][nDifficulty]);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -252,7 +252,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -276,7 +276,7 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
     return &sgptDataTables->pMonStatsTxt[nMonsterId];
 }
 
-static __forceinline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
+static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
     if (!pMonStatsTxtRecord)

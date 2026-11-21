@@ -46,7 +46,7 @@ void __stdcall sub_006272A0_AddStat(D2StatListStrc* pStatList, int nStatId, int 
     STATLIST_AddStat(pStatList, nStatId, nValue, nLayer);
 }
 
-static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
+static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
     {

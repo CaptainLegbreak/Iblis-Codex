@@ -152,7 +152,7 @@ static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int sub_I05_ETypeColor(int nEType)
+static inline int sub_I05_ETypeColor(int nEType)
 {
     switch (nEType)
     {
@@ -443,7 +443,7 @@ static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* w
     return sub_004EC540_AddElemRatePerSecond(0x10A1, wszText, nMin, nMax);
 }
 
-static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
+static inline int ApplyPercent_2E0(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
     {
@@ -466,7 +466,7 @@ static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-static __forceinline int ApplyPercent_CF0(int nValue, int nPercent)
+static inline int ApplyPercent_CF0(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
     {
@@ -535,7 +535,7 @@ static __forceinline int ApplyPercentRef_150(const int& nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-static __forceinline int IsSingleValue(int nMin, int nMax)
+static inline int IsSingleValue(int nMin, int nMax)
 {
     if (!nMin)
     {
@@ -544,7 +544,7 @@ static __forceinline int IsSingleValue(int nMin, int nMax)
     return nMin == nMax;
 }
 
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {

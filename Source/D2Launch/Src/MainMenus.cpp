@@ -919,7 +919,7 @@ int __stdcall sub_004304B0_ScrollDown(int nArg)
 }
 
 // 0x00430600
-static __forceinline int sub_00430600_CountNameMarks(const char* szText, int nLength)
+static inline int sub_00430600_CountNameMarks(const char* szText, int nLength)
 {
     int nCount = 0;
     for (int i = 0; i < nLength; ++i)

@@ -662,7 +662,7 @@ static void __stdcall sub_0047F990_HashModule(const char* szName, unsigned char*
     tCtx.sub_00425F00_Final(pDigest);
 }
 
-static __forceinline int WardenReadTag(const unsigned char* pSource)
+static inline int WardenReadTag(const unsigned char* pSource)
 {
     int nTag;
     SMemCopy(&nTag, pSource, 4);

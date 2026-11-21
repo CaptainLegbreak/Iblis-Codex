@@ -291,7 +291,7 @@ void __cdecl sub_004029F0_StopDbgHelpWorker()
 }
 
 // 0x00402B50
-static __forceinline void sub_00402B50_SetProcessHandle(void* hProcess)
+static inline void sub_00402B50_SetProcessHandle(void* hProcess)
 {
     ghProcess_0074C6F0 = hProcess;
 }
@@ -311,7 +311,7 @@ D2CrashRecord24Strc::D2CrashRecord24Strc()
 }
 
 // 0x00402B80
-static __forceinline void sub_00402B80_ClearGuid(D2CrashGuidStrc* pGuid)
+static inline void sub_00402B80_ClearGuid(D2CrashGuidStrc* pGuid)
 {
     pGuid->Data1 = 0;
     pGuid->Data2 = 0;
@@ -321,7 +321,7 @@ static __forceinline void sub_00402B80_ClearGuid(D2CrashGuidStrc* pGuid)
 }
 
 // 0x00402BA0
-static __forceinline void sub_00402BA0_ClearGuidB(D2CrashGuidStrc* pGuid)
+static inline void sub_00402BA0_ClearGuidB(D2CrashGuidStrc* pGuid)
 {
     pGuid->Data1 = 0;
     pGuid->Data2 = 0;
@@ -774,7 +774,7 @@ static bool sub_00404760_IsDosHeaderValid(const D2ImageDosHeaderStrc* pImage)
 }
 
 // 0x00404780
-static __forceinline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
+static inline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
 {
     if (IsBadReadPtr(pNt, 4))
     {

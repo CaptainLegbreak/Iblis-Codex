@@ -107,7 +107,7 @@ void __stdcall sub_004938E0_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00494300
-static __forceinline void sub_00494300_SetHelpMenuSetting(unsigned long dwValue)
+static inline void sub_00494300_SetHelpMenuSetting(unsigned long dwValue)
 {
     gdwHelpMenu_00722310 = dwValue;
     SRegSaveValue("Diablo II", "Help Menu", 1, dwValue);

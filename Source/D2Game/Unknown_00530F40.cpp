@@ -99,7 +99,7 @@ int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStr
 int __fastcall PLRSAVE_ReadLegacyItemData(D2SavedItemStrc* pSavedItem, unsigned char* pData);
 int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SavedItemStrc* pSavedItem, D2UnitStrc** ppItem, int* pSocketedItemCount);
 
-static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+static inline int sub_00451F50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

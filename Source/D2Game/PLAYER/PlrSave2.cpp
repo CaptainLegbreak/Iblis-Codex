@@ -1052,7 +1052,7 @@ LABEL_FAIL:
     return nResult;
 }
 
-static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {
@@ -1114,7 +1114,7 @@ void __fastcall sub_00569EC0_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag
     }
 }
 
-static __forceinline unsigned char GetSavedAct(unsigned char nAct)
+static inline unsigned char GetSavedAct(unsigned char nAct)
 {
     nAct &= 0x7F;
     if (nAct >= 5)
@@ -1122,7 +1122,7 @@ static __forceinline unsigned char GetSavedAct(unsigned char nAct)
     return nAct;
 }
 
-static __forceinline void StoreSkillPair(int* pSkill, int* pOwner, int nSkill, int nOwner)
+static inline void StoreSkillPair(int* pSkill, int* pOwner, int nSkill, int nOwner)
 {
     *pSkill = nSkill;
     *pOwner = nOwner;

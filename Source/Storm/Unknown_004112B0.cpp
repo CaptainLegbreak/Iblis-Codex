@@ -28,7 +28,7 @@ unsigned long __cdecl sub_004112B0_GetTickCount()
 }
 
 // 0x00411640
-static __forceinline char* sub_00411640_GetBlockHeader(char* pMemory)
+static inline char* sub_00411640_GetBlockHeader(char* pMemory)
 {
     if (!pMemory)
     {
@@ -43,7 +43,7 @@ static __forceinline char* sub_00411640_GetBlockHeader(char* pMemory)
 }
 
 // 0x00411660
-static __forceinline int sub_00411660_GetSegmentField(char* pBlock)
+static inline int sub_00411660_GetSegmentField(char* pBlock)
 {
     return *(int*)((*(unsigned short*)(pBlock + 4) << 16) + 4);
 }

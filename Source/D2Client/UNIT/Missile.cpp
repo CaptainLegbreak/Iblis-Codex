@@ -517,7 +517,7 @@ inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
     return 0;
 }
 
-__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -530,7 +530,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -835,7 +835,7 @@ found:
     sub_004CB9C0_Request(pPlayer, pEntry->f_2C);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -844,7 +844,7 @@ static __forceinline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 }
 
 // build: context SEED_RollLimitedRandomNumberInline
-static __forceinline int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -859,7 +859,7 @@ static __forceinline int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, i
     return SEED_RollRandomNumberInline(pSeed) & (nMax - 1);
 }
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     return (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount) ? &sgptDataTables->pMissilesTxt[nMissileId] : 0;
 }
@@ -960,7 +960,7 @@ int __fastcall sub_004CD240_IsOwnersPet(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 }
 
 // 0x004CD290
-static __forceinline void sub_004CD290_CltAnimSpeedSteps(D2UnitStrc* pMissile, int nFrame)
+static inline void sub_004CD290_CltAnimSpeedSteps(D2UnitStrc* pMissile, int nFrame)
 {
     switch (nFrame)
     {
@@ -2783,7 +2783,7 @@ void __fastcall sub_004D6C00_CltDoRateTable(D2UnitStrc* pMissile)
     sub_004D30C0_CltDoCommon(pMissile);
 }
 
-static __forceinline unsigned int SEED_RollUnitSeedInline(D2UnitStrc* pUnit)
+static inline unsigned int SEED_RollUnitSeedInline(D2UnitStrc* pUnit)
 {
     unsigned __int64 lSeed = (unsigned __int64)pUnit->pSeed.nLowSeed * 0x6AC690C5 + pUnit->pSeed.nHighSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2856,7 +2856,7 @@ void __fastcall sub_004D6D40_CltDoRateJitterSpawn(D2UnitStrc* pMissile)
     sub_004D30C0_CltDoCommon(pMissile);
 }
 
-static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
+static inline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
 {
     const unsigned __int64 lSeed = pSrc->nHighSeed + 0x6AC690C5i64 * pSrc->nLowSeed;
     pDst->nLowSeed = (unsigned int)lSeed;
@@ -2864,7 +2864,7 @@ static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;

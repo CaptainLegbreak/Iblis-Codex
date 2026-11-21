@@ -364,7 +364,7 @@ char gbTextOffsetInit_007C8C9C; // 0x007C8C9C
 
 char gbSkillRefreshInit_007C8CA4; // 0x007C8CA4
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -618,7 +618,7 @@ int __fastcall sub_004E2B30_ComponentMissile(D2UnitStrc* pUnit, int nSkillId, in
     return 0;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_J03(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_J03(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -628,7 +628,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_J03(int nSkillId)
     return 0;
 }
 
-static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline_J03(int nMissileId)
+static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline_J03(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -1091,7 +1091,7 @@ static void sub_004E4240_ResetEntryPairs(int nIndex)
     }
 }
 
-static __forceinline float GetEnvironVolume_Inline()
+static inline float GetEnvironVolume_Inline()
 {
     return sub_00473C40() ? sub_00473C80() : 0.0f;
 }
@@ -1584,7 +1584,7 @@ static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int sub_I05_ETypeColor(int nEType)
+static inline int sub_I05_ETypeColor(int nEType)
 {
     switch (nEType)
     {

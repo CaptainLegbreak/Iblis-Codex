@@ -38,7 +38,7 @@ struct D2QuestArgStrc
 
 void __fastcall sub_00572360_Update(D2QuestStrc* pQuest, D2UnitStrc* pUnit, int nClassId); // 0x00572360
 
-static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 {
     unsigned __int64 seed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nHighSeed = (unsigned int)(seed >> 32);

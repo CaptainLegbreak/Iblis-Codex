@@ -428,7 +428,7 @@ void __fastcall ACT1Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
 }
 
 // 0x005919C0
-static __forceinline void sub_005919C0_SetLastStateTwo(D2QuestDataStrc* pQuestData)
+static inline void sub_005919C0_SetLastStateTwo(D2QuestDataStrc* pQuestData)
 {
     pQuestData->fLastState = 2;
 }

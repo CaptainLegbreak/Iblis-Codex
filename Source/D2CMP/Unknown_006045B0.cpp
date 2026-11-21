@@ -3,7 +3,7 @@ struct D2CacheLink006045B0Strc
 	char* pPrev;
 	char* pNext;
 
-	__forceinline char* Next()
+	inline char* Next()
 	{
 		char* const pResult = (int)pNext <= 0 ? 0 : pNext;
 		return pResult;

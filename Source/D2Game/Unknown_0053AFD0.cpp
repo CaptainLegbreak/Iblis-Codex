@@ -98,7 +98,7 @@ int* __fastcall sub_0053B180_GetMonsterDataField3C(D2UnitStrc* pUnit)
 }
 
 // 0x0053B1A0
-static __forceinline void sub_0053B1A0_SendToClient(int nClientId, void* pPacket, int nSize)
+static inline void sub_0053B1A0_SendToClient(int nClientId, void* pPacket, int nSize)
 {
     sub_0052B330(0, nClientId, pPacket, nSize);
 }

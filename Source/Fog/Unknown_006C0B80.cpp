@@ -102,7 +102,7 @@ struct D2LockedListStrc
 };
 
 // 0x006C0B80
-static __forceinline void sub_006C0B80_AppendValue(D2ValueBufferStrc* buffer, int value)
+static inline void sub_006C0B80_AppendValue(D2ValueBufferStrc* buffer, int value)
 {
     if (buffer->count < 64)
     {

@@ -49,14 +49,14 @@ extern unsigned char gbGlobal_007BF034;                                         
 extern D2RosterUnitStrc* gpRosterUnits_007BF014;                                                            // 0x007BF014
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-static __forceinline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
+static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
     return nCenterX - sub_00501820(wszText) / 2;
 }
 
-static __forceinline int GetCenteredScreenXInline(unsigned short nStringIndex, int nCenterX)
+static inline int GetCenteredScreenXInline(unsigned short nStringIndex, int nCenterX)
 {
     Unicode wszText[100];
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));

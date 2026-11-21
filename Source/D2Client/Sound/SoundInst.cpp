@@ -209,7 +209,7 @@ static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecS
     pSound->fDistance = sub_004E4160_LengthSquared2D(fX, fY);
 }
 
-static __forceinline int sub_004B9BC0_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
+static inline int sub_004B9BC0_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
 {
     return pSound->f_45 && !pSound->nFadeTo;
 }

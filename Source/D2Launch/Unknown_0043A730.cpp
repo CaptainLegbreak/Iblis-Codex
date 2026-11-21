@@ -167,7 +167,7 @@ void __cdecl sub_0043A7E0_ResetRealmScreen()
 
 D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 
-static __forceinline void* CharSelCache_FindData(unsigned int dwHash, int nTick)
+static inline void* CharSelCache_FindData(unsigned int dwHash, int nTick)
 {
     for (D2CharSelCacheStrc* pEntry = gpCharSelCache_00779DE8; pEntry; pEntry = pEntry->pNext)
     {

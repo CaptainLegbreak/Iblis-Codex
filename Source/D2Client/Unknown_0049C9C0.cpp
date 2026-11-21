@@ -43,7 +43,7 @@ extern int gnWaypointCount_007BF08A; // 0x007BF08A
 extern int gnPanelMode_007BF08E; // 0x007BF08E
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-static __forceinline int GetWaypointPanelBottom() { return gnScreenHeight_00711470+gnOffsetY_007A285C; }
+static inline int GetWaypointPanelBottom() { return gnScreenHeight_00711470+gnOffsetY_007A285C; }
 
 // 0x0049C9C0
 void __cdecl sub_0049C9C0_DrawWaypointPanel()

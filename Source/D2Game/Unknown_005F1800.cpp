@@ -40,7 +40,7 @@ static __forceinline bool AI_RollChanceLimited(D2GameStrc* pGame, D2SeedStrc* pS
     return nRoll < AI_GetParam(pGame, pMonStatsTxt, nParamId);
 }
 
-static __forceinline bool AI_RollLimitedBelow(D2SeedStrc* pSeed, int nChance)
+static inline bool AI_RollLimitedBelow(D2SeedStrc* pSeed, int nChance)
 {
     const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
     return nRoll < nChance;

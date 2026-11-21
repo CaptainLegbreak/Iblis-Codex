@@ -65,7 +65,7 @@ struct D2ChainRecordStrc
 extern D2ChainRecordStrc* gpChainTable_0096C6A8; // 0x0096C6A8
 extern int gnChainCount_0096C6B0; // 0x0096C6B0
 
-static __forceinline void SwapPrecision(unsigned int& a, unsigned int& b)
+static inline void SwapPrecision(unsigned int& a, unsigned int& b)
 {
     unsigned int temp = a;
     a = b;

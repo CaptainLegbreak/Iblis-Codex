@@ -1951,7 +1951,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int SCMD_GetUnitGUID(D2UnitStrc* pUnit)
+static inline int SCMD_GetUnitGUID(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2669,7 +2669,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x96_WalkVerify_6FC3DA90(D2ClientStrc* 
 }
 
 // build: context sub_GetUnitType
-static __forceinline int sub_GetUnitType(D2UnitStrc* pUnit)
+static inline int sub_GetUnitType(D2UnitStrc* pUnit)
 {
     int nUnitType = 6;
     if (pUnit)
@@ -4000,13 +4000,13 @@ int __fastcall sub_00409000_GetBitWidth(unsigned int nValue)
 }
 
 // build: context Log2Ceil
-static __forceinline int Log2Ceil(int nValue)
+static inline int Log2Ceil(int nValue)
 {
     return nValue < 3 ? 1 : sub_00409000_GetBitWidth(nValue - 1);
 }
 
 // build: context sub_0044BE50
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;
     if (pUnit)
@@ -4017,7 +4017,7 @@ static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
 }
 
 // build: context sub_00623C60
-static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
+static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -4027,7 +4027,7 @@ static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
 }
 
 // build: context sub_00451F50
-static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+static inline int sub_00451F50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -4037,7 +4037,7 @@ static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
 }
 
 // build: context UNITS_IsMerc
-static __forceinline int UNITS_IsMerc(D2UnitStrc* pUnit)
+static inline int UNITS_IsMerc(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -4048,7 +4048,7 @@ static __forceinline int UNITS_IsMerc(D2UnitStrc* pUnit)
 }
 
 // build: context UNITS_HasStoredOwnerInfo
-static __forceinline int UNITS_HasStoredOwnerInfo(D2UnitStrc* pUnit)
+static inline int UNITS_HasStoredOwnerInfo(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -4059,7 +4059,7 @@ static __forceinline int UNITS_HasStoredOwnerInfo(D2UnitStrc* pUnit)
 }
 
 // build: context CLIENTS_GetUnitX
-static __forceinline int CLIENTS_GetUnitXByType(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXByType(D2UnitStrc* pUnit)
 {
     switch (sub_0044BE50(pUnit))
     {
@@ -4072,7 +4072,7 @@ static __forceinline int CLIENTS_GetUnitXByType(D2UnitStrc* pUnit)
 }
 
 // build: context CLIENTS_GetUnitY
-static __forceinline int CLIENTS_GetUnitYByType(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYByType(D2UnitStrc* pUnit)
 {
     switch (sub_0044BE50(pUnit))
     {
@@ -4085,7 +4085,7 @@ static __forceinline int CLIENTS_GetUnitYByType(D2UnitStrc* pUnit)
 }
 
 // build: context MONSTER_GetComponents
-static __forceinline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
+static inline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -4095,7 +4095,7 @@ static __forceinline unsigned char* MONSTER_GetComponents(D2UnitStrc* pUnit)
 }
 
 // build: context SKILLS_GetItemStatCostTxtRecord
-static __forceinline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
+static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
     {

@@ -41,14 +41,14 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern const D2DrlgOutDesertInitStrc gaDesertCliffs_006F2390[8][5];                                         // 0x006F2390
 extern const D2DrlgOutDesertInitStrc gaCanyonTombEntries_006F2610[9];                                       // 0x006F2610
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -218,7 +218,7 @@ static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberHighFirst_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberHighFirst_Inline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -226,7 +226,7 @@ static __forceinline unsigned int SEED_RollRandomNumberHighFirst_Inline(D2SeedSt
     return (unsigned int)lSeed;
 }
 
-static __forceinline int DRLG_IsBloodmoor_Inline(D2DrlgLevelStrc* pLevel)
+static inline int DRLG_IsBloodmoor_Inline(D2DrlgLevelStrc* pLevel)
 {
     if (!pLevel)
     {
@@ -235,7 +235,7 @@ static __forceinline int DRLG_IsBloodmoor_Inline(D2DrlgLevelStrc* pLevel)
     return pLevel->eLevelId == LEVEL_BLOODMOOR;
 }
 
-static __forceinline unsigned __int64 SEED_RollRandomNumber64_Inline(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumber64_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;

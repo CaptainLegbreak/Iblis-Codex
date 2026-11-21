@@ -367,7 +367,7 @@ static void __stdcall sub_00457E80_AddUnitAutomapCell(int nCellNo, D2AutomapCell
     sub_00457B00(pCell, ppRoot);
 }
 
-static __forceinline int AUTOMAP_CheckFlagEx(D2UnitStrc* pUnit, int nBit)
+static inline int AUTOMAP_CheckFlagEx(D2UnitStrc* pUnit, int nBit)
 {
     if (!pUnit)
     {
@@ -376,7 +376,7 @@ static __forceinline int AUTOMAP_CheckFlagEx(D2UnitStrc* pUnit, int nBit)
     return (pUnit->dwFlags >> nBit) & 1;
 }
 
-static __forceinline D2MonStats2Txt* AUTOMAP_GetMonStats2TxtRecord(int nMonStatsEx)
+static inline D2MonStats2Txt* AUTOMAP_GetMonStats2TxtRecord(int nMonStatsEx)
 {
     if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
     {

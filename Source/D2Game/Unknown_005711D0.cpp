@@ -25,12 +25,12 @@ void __fastcall D2GAME_PACKETS_SendPacket0xA7_StateOn_6FC3FC20(D2ClientStrc* pCl
 void __fastcall D2GAME_PACKETS_SendPacket0xA9_StateOff_6FC3FC50(D2ClientStrc* pClient, unsigned char nUnitType, unsigned long dwUnitId, unsigned char nState); // 0x0053E290
 #define D2_MIN(a,b) (((a)<(b))?(a):(b))
 #define D2_MAX(a,b) (((a)>(b))?(a):(b))
-static __forceinline D2StatesTxt* GetStatesRecord(int nState)
+static inline D2StatesTxt* GetStatesRecord(int nState)
 {
     if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount) return &sgptDataTables->pStatesTxt[nState];
     return 0;
 }
-static __forceinline D2ItemStatCostTxt* GetStatCostRecord(int nStat)
+static inline D2ItemStatCostTxt* GetStatCostRecord(int nStat)
 {
     if (nStat >= 0 && nStat < sgptDataTables->nItemStatCostTxtRecordCount) return &sgptDataTables->pItemStatCostTxt[nStat];
     return 0;

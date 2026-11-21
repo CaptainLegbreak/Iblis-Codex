@@ -440,7 +440,7 @@ int __fastcall sub_00599BF0_HasNoHoradricStaff(D2GameStrc* pGame, D2UnitStrc* pU
     return !ITEMS_FindQuestItem(pGame, pUnit, ' tsh');
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -535,7 +535,7 @@ void __fastcall sub_00599F00_OBJECTS_InitFunction32(D2ObjInitFnStrc* pOp)
 {
 }
 
-static __forceinline void sub_0059A3C0_ACT2Q3_EndTaintedSun(D2QuestDataStrc* pQuestData, D2GameStrc* pGame);
+static inline void sub_0059A3C0_ACT2Q3_EndTaintedSun(D2QuestDataStrc* pQuestData, D2GameStrc* pGame);
 
 void __fastcall sub_M118_Emit_0059A3C0(D2QuestDataStrc* pQuestData)
 {
@@ -716,7 +716,7 @@ static bool sub_0059A350_ApplyDarkness(D2QuestDataStrc* pQuestData)
 }
 
 // 0x0059A3C0
-static __forceinline void sub_0059A3C0_ACT2Q3_EndTaintedSun(D2QuestDataStrc* pQuestData, D2GameStrc* pGame)
+static inline void sub_0059A3C0_ACT2Q3_EndTaintedSun(D2QuestDataStrc* pQuestData, D2GameStrc* pGame)
 {
     if (pGame->pAct[1])
     {
@@ -937,7 +937,7 @@ int __fastcall ACT2Q3_UnitIterate_DetermineViperAmuletDropCount(D2GameStrc* pGam
     return 0;
 }
 
-static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }

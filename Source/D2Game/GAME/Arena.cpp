@@ -223,7 +223,7 @@ static void __stdcall ARENA_UpdateScore(D2GameStrc* pGame, D2UnitStrc* pAttacker
     UNITROOM_RefreshUnit(pDefender);
 }
 
-static __forceinline void ARENA_MarkUpdated(D2GameStrc* pGame)
+static inline void ARENA_MarkUpdated(D2GameStrc* pGame)
 {
     D2ArenaStrc* pArena = pGame->pArenaCtrl;
     D2_ASSERT(pArena, 0x94);

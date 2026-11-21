@@ -90,7 +90,7 @@ static D2Table96D4F4Record* sub_0065C140(unsigned int nIndex)
 }
 
 // 0x0065C300
-static __forceinline D2Record16Strc* __stdcall sub_0065C300_GetRecord16(D2Record16Strc* pBase, int nIndex)
+static inline D2Record16Strc* __stdcall sub_0065C300_GetRecord16(D2Record16Strc* pBase, int nIndex)
 {
     return &pBase[nIndex];
 }

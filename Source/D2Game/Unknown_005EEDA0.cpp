@@ -202,7 +202,7 @@ static __forceinline int AI_RollPercentage(D2UnitStrc* pUnit)
     return (unsigned int)lSeed % 100;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTable->nSkillsTxtRecordCount)
     {

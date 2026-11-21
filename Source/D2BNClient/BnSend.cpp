@@ -1653,7 +1653,7 @@ void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData,
     tContext.sub_00425F00_Final(pDigest);
 }
 
-static __forceinline int CheckCDKeySlot(int nSlot, int* pProduct, int* pValue1, int* pValue2, char* pKeyBlock)
+static inline int CheckCDKeySlot(int nSlot, int* pProduct, int* pValue1, int* pValue2, char* pKeyBlock)
 {
     const char* szKey = sub_00523AB0_GetCDKey(nSlot);
     unsigned int nLength = SStrLen(szKey);

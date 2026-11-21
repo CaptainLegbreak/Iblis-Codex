@@ -137,7 +137,7 @@ static int FONT_GetFirstLineWidth(const Unicode* pStr)
 
 static void __fastcall sub_00501C30(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode); // 0x00501C30
 
-static __forceinline int FONT_IsCodeChar(Unicode wChar)
+static inline int FONT_IsCodeChar(Unicode wChar)
 {
     return wChar == 0xFF;
 }

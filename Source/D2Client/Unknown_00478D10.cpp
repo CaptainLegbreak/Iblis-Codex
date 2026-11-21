@@ -197,7 +197,7 @@ int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit)
     return 1;
 }
 
-static __forceinline D2RosterPetStrc* PETS_FindRosterPetInl(int nUnitId)
+static inline D2RosterPetStrc* PETS_FindRosterPetInl(int nUnitId)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
     {

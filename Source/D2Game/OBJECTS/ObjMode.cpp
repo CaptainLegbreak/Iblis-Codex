@@ -1342,7 +1342,7 @@ static void D2GAME_SpawnTrapMonster_6FC75B40(D2ObjOperateFnStrc* pOp, int nMonst
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1721,7 +1721,7 @@ void __fastcall sub_00582C40_OperateGemShrine(D2ObjOperateFnStrc* pOp, int nOper
     sub_00582AC0_UpgradeGem(0, nItemId, pOp->pGame, pOp->hPlayer);
 }
 
-__forceinline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1734,7 +1734,7 @@ __forceinline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY_Local(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY_Local(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1794,7 +1794,7 @@ void __fastcall sub_00582DA0_ExplosionEffect(D2SfxStrc* pSfx, D2SfxArgStrc* pArg
     }
 }
 
-static __forceinline int CLIENTS_GetUnitX_Shrine(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX_Shrine(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1806,7 +1806,7 @@ static __forceinline int CLIENTS_GetUnitX_Shrine(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitY_Shrine(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY_Shrine(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1828,7 +1828,7 @@ void __fastcall D2GAME_SHRINES_Monster_6FC76ED0(D2ObjOperateFnStrc* pOp, D2Shrin
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber32(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber32(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1836,7 +1836,7 @@ static __forceinline unsigned int SEED_RollRandomNumber32(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -2003,7 +2003,7 @@ void __fastcall D2GAME_SHRINES_Poison_6FC773B0(D2ObjOperateFnStrc* pOp, D2Shrine
     }
 }
 
-static __forceinline D2CharStatsTxt* sub_00583740_GetCharStatsRecord(int nClassId)
+static inline D2CharStatsTxt* sub_00583740_GetCharStatsRecord(int nClassId)
 {
     return (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount) ? &sgptDataTables->pCharStatsTxt[nClassId] : 0;
 }
@@ -2098,14 +2098,14 @@ static NOINLINE int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int 
     return nValue * nStatValue / 100;
 }
 
-static __forceinline int OBJMODE_GetToHitPercentageValue(D2UnitStrc* pUnit, D2UnitStrc* pWeapon, D2SkillStrc* pSkill)
+static inline int OBJMODE_GetToHitPercentageValue(D2UnitStrc* pUnit, D2UnitStrc* pWeapon, D2SkillStrc* pSkill)
 {
     int nPercentage;
     OBJMODE_GetToHitPercentage(&nPercentage, 1, pUnit, pSkill, pWeapon);
     return nPercentage;
 }
 
-static __forceinline int OBJMODE_GetMinDamagePercentage(D2UnitStrc* pUnit, D2UnitStrc* pWeapon)
+static inline int OBJMODE_GetMinDamagePercentage(D2UnitStrc* pUnit, D2UnitStrc* pWeapon)
 {
     int bTwoHanded = 0;
     if (D2Common_10434(pUnit, 1) || pWeapon)
@@ -2302,7 +2302,7 @@ int __fastcall OBJECTS_OperateFunction18_SecretDoor(D2ObjOperateFnStrc* pOp, int
     return 1;
 }
 
-static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2358,7 +2358,7 @@ int __fastcall OBJECTS_OperateFunction26_BookShelf(D2ObjOperateFnStrc* pOp, int 
 }
 
 // build: context OBJECTS_IsNeutralExplodingBarrel
-static __forceinline int OBJECTS_IsNeutralExplodingBarrel(D2UnitStrc* pUnit)
+static inline int OBJECTS_IsNeutralExplodingBarrel(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwClassId == OBJECT_EXPLODINGBARREL && pUnit->dwAnimMode == OBJMODE_NEUTRAL;
 }
@@ -2614,13 +2614,13 @@ void __fastcall sub_00584820_ClearSteegStoneGUID(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // build: context UNIT_GetId
-static __forceinline int UNIT_GetId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
+static inline int UNIT_GetId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
 // build: context UNIT_GetType
-static __forceinline int UNIT_GetType(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
+static inline int UNIT_GetType(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
 
 // build: context UNIT_GetClass
-static __forceinline int UNIT_GetClass(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwClassId; }
+static inline int UNIT_GetClass(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwClassId; }
 
 // 0x00584870
 int __fastcall sub_00584870_OperatePortal(D2ObjOperateFnStrc* pOp)
@@ -2818,7 +2818,7 @@ int __fastcall OBJECTS_OperateFunction23_Waypoint(D2ObjOperateFnStrc* pOp, int n
     return 1;
 }
 
-static __forceinline int sub_F05_WpGetUnitId(D2UnitStrc* pUnit)
+static inline int sub_F05_WpGetUnitId(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }

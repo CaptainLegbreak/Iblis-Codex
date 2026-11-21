@@ -73,47 +73,47 @@ extern int gnGlobal_007C02B8; // 0x007C02B8
 extern void* gpCelFile_007C02BC; // 0x007C02BC
 extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
 
-static __forceinline int sub_F08_ListTop()
+static inline int sub_F08_ListTop()
 {
     return (gnScreenHeight_007A521C - 0x1A4) / 2;
 }
 
-static __forceinline int sub_F08_PanelLeft()
+static inline int sub_F08_PanelLeft()
 {
     return (gnScreenWidth_0071146C - 0x26C) / 2;
 }
 
-static __forceinline int sub_F08_PanelRight()
+static inline int sub_F08_PanelRight()
 {
     return sub_F08_PanelLeft() + (gnScreenWidth_0071146C - sub_F08_PanelLeft() * 2);
 }
 
-static __forceinline int sub_F08_TrackTop()
+static inline int sub_F08_TrackTop()
 {
     return sub_F08_ListTop() + 0x2F;
 }
 
-static __forceinline int sub_F08_ThumbHeight()
+static inline int sub_F08_ThumbHeight()
 {
     return gnSliderOffset_007C0278 * 12;
 }
 
-static __forceinline int sub_KEYCFG_Rows()
+static inline int sub_KEYCFG_Rows()
 {
     return ((sub_F08_ListTop() + 0x16C) - (sub_F08_ListTop() + 0x28)) / 0x12;
 }
 
-static __forceinline int sub_F08_VisibleLines()
+static inline int sub_F08_VisibleLines()
 {
     return sub_KEYCFG_Rows() - 3;
 }
 
-static __forceinline int sub_F08_TrackSpan()
+static inline int sub_F08_TrackSpan()
 {
     return sub_KEYCFG_Rows() * 0x12 - sub_F08_ThumbHeight() - 0x4E;
 }
 
-static __forceinline int sub_004A44C0_GetMaxFirstEntry()
+static inline int sub_004A44C0_GetMaxFirstEntry()
 {
     int nCount = gnSliderRows_007C0274;
     for (int i = 0; i < sub_F08_VisibleLines(); ++i)
@@ -174,22 +174,22 @@ static int sub_004A4FA0_GetEntryState(int nIndex, int nFlag)
     return sub_00469D90(gpListEntries_00724264[nIndex].nKey, nFlag) ? 4 : 5;
 }
 
-static __forceinline int sub_KEYCFG_VisibleLines()
+static inline int sub_KEYCFG_VisibleLines()
 {
     return ((KEYCFG_Y + 0x136) - (KEYCFG_Y + 0x28)) / 0x12;
 }
 
-static __forceinline int sub_KEYCFG_ListTop()
+static inline int sub_KEYCFG_ListTop()
 {
     return (gnScreenHeight_007A521C - 0x1A4) / 2;
 }
 
-static __forceinline int sub_KEYCFG_PanelRight()
+static inline int sub_KEYCFG_PanelRight()
 {
     return KEYCFG_X + (gnScreenWidth_0071146C - KEYCFG_X * 2);
 }
 
-static __forceinline int sub_KEYCFG_IsOnUpArrow(int nX, int nY)
+static inline int sub_KEYCFG_IsOnUpArrow(int nX, int nY)
 {
     if (nX >= sub_KEYCFG_PanelRight() - 0x1F && nX <= sub_KEYCFG_PanelRight() - 0x12)
     {
@@ -200,7 +200,7 @@ static __forceinline int sub_KEYCFG_IsOnUpArrow(int nX, int nY)
     return 0;
 }
 
-static __forceinline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
+static inline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
 {
     if (nX >= sub_KEYCFG_PanelRight() - 0x1F && nX <= sub_KEYCFG_PanelRight() - 0x12)
     {
@@ -211,7 +211,7 @@ static __forceinline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
     return 0;
 }
 
-static __forceinline int sub_KEYCFG_TrackCels()
+static inline int sub_KEYCFG_TrackCels()
 {
     return ((KEYCFG_Y + 0x131) - (KEYCFG_Y + 0x2F)) / 0x0C;
 }

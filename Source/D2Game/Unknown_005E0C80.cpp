@@ -46,7 +46,7 @@ struct Tick { Control* control; char pad4[0x18]; MonStats* stats; };
 extern const int skill_choices[2][2]; // 0x006E34E0
 Skill* __fastcall sub_006439B0(Unit*,int,int); // 0x006439B0
 
-static __forceinline int SEED_RollPercentage(D2SeedStrc* pSeed)
+static inline int SEED_RollPercentage(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -141,7 +141,7 @@ void __fastcall AITHINK_Fn089_Megademon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;

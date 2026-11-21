@@ -759,7 +759,7 @@ int __fastcall sub_00642770_GetDrlgTypeFromLevelId(int nLevelId)
 }
 
 // 0x00642780
-static __forceinline D2DrlgLevelStrc* sub_00642780_WalkLevels(D2DrlgStrc* pDrlg)
+static inline D2DrlgLevelStrc* sub_00642780_WalkLevels(D2DrlgStrc* pDrlg)
 {
     D2DrlgLevelStrc* pLevel = pDrlg->pLevel;
     while (pLevel)

@@ -31,14 +31,14 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __fastcall sub_005FDA80_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
 void __fastcall sub_6FCC6150(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6); // 0x00571840
 
-static __forceinline D2SkillsTxt* GetSkillsRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillsRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
 
-static __forceinline int UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (!(pUnit))
     {

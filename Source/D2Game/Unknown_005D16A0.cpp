@@ -200,7 +200,7 @@ int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pU
 }
 
 // build: context GetSkillRecord
-static __forceinline SkillRecord* GetSkillRecord(int skill)
+static inline SkillRecord* GetSkillRecord(int skill)
 {
     if (skill < 0)
         return 0;
@@ -210,13 +210,13 @@ static __forceinline SkillRecord* GetSkillRecord(int skill)
 }
 
 // build: context GetUnitType
-static __forceinline int GetUnitType(Unit* unit)
+static inline int GetUnitType(Unit* unit)
 {
     return unit ? unit->type : 6;
 }
 
 // build: context GetAiState
-static __forceinline AiState* GetAiState(Unit* unit)
+static inline AiState* GetAiState(Unit* unit)
 {
     if (GetUnitType(unit) == 1 && unit->monster)
         return unit->monster->ai;
@@ -224,7 +224,7 @@ static __forceinline AiState* GetAiState(Unit* unit)
 }
 
 // build: context SkillChanceSucceeds
-static __forceinline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skill, int level)
+static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skill, int level)
 {
     int chance = sub_00646CA0_Evaluate(owner, record->chance, skill, level);
     return sub_0045C390_Roll(&owner->seed, 100) < chance;

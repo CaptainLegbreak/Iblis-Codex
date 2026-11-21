@@ -1195,7 +1195,7 @@ void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int MONSTERS_ValidateMonsterId(int nMonsterId)
+static inline int MONSTERS_ValidateMonsterId(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
         return -1;
@@ -1292,7 +1292,7 @@ static short AITHINK_GetParam_Desert(D2GameStrc* pGame, D2MonStatsTxt* pMonStats
     return pMonStatsTxt->wAiParam[nParamId][pGame->nDifficulty];
 }
 
-static __forceinline int GetXInl_Desert(D2UnitStrc* pUnit)
+static inline int GetXInl_Desert(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1302,7 +1302,7 @@ static __forceinline int GetXInl_Desert(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int GetYInl_Desert(D2UnitStrc* pUnit)
+static inline int GetYInl_Desert(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1588,7 +1588,7 @@ void __fastcall AITHINK_Fn116_Minion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     }
 }
 
-static __forceinline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1929,7 +1929,7 @@ void __fastcall sub_005E2FD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     pAiTickParam->pAiControl->dwAiParam[0] = -1;
 }
 
-static __forceinline unsigned int SEED_RollPercentage(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+static inline unsigned int SEED_RollPercentage(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
 {
     const uint64_t lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;
     nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1939,7 +1939,7 @@ static __forceinline unsigned int SEED_RollPercentage(D2SeedStrc* pSeed, unsigne
     return nLowSeed % 100;
 }
 
-static __forceinline unsigned int SEED_RollPercentageAgain(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+static inline unsigned int SEED_RollPercentageAgain(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
 {
     const uint64_t lSeed = nHighSeed + 0x6AC690C5ui64 * nLowSeed;
     nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2050,7 +2050,7 @@ void __fastcall sub_6FCE34B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
     pArg->pTarget = pTarget;
 }
 
-static __forceinline int GetUnitX(D2UnitStrc* pUnit)
+static inline int GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2059,7 +2059,7 @@ static __forceinline int GetUnitX(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int GetUnitY(D2UnitStrc* pUnit)
+static inline int GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2130,7 +2130,7 @@ void __fastcall AITHINK_Fn067_NecroPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     }
 }
 
-static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 {
     unsigned __int64 seed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nHighSeed = (unsigned int)(seed >> 32);
@@ -2362,7 +2362,7 @@ bool __fastcall sub_005E6860_HomeCommandStep(D2GameStrc* pGame, D2UnitStrc* pUni
     return false;
 }
 
-static __forceinline int AITHINK_GetClassIdInline(D2UnitStrc* pUnit)
+static inline int AITHINK_GetClassIdInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2633,7 +2633,7 @@ inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit_Inline(D2UnitStrc* pUnit)
     return 0;
 }
 
-__forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2646,7 +2646,7 @@ __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-__forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
+inline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2946,7 +2946,7 @@ void __fastcall D2GAME_AI_SpecialState09_6FCE7C40(D2GameStrc* pGame, D2UnitStrc*
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -2955,7 +2955,7 @@ static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
+static inline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecord(nMonsterId);
     if (pMonStatsTxtRecord)
@@ -2970,7 +2970,7 @@ static int AI_RollPercentage(D2UnitStrc* pUnit)
     return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
 }
 
-static __forceinline int AI_RollPercentage_005F02C0(D2UnitStrc* pUnit)
+static inline int AI_RollPercentage_005F02C0(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -3194,14 +3194,14 @@ int __fastcall AIBAAL_GetTargetScore(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
     return nTotalScore;
 }
 
-static __forceinline int sub_0045ADF0(D2UnitStrc* pUnit)
+static inline int sub_0045ADF0(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
     {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nXPos;}
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath):0;
 }
 
-static __forceinline int sub_0045AE20(D2UnitStrc* pUnit)
+static inline int sub_0045AE20(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
     {case UNIT_OBJECT:case UNIT_ITEM:case UNIT_TILE:return pUnit->pStaticPath->nYPos;}
@@ -3216,7 +3216,7 @@ inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static __forceinline unsigned int SEED_RollBounded(D2SeedStrc* pSeed,int nMax)
+static inline unsigned int SEED_RollBounded(D2SeedStrc* pSeed,int nMax)
 {
     unsigned int nResult=0;
     if(nMax>0)
@@ -3874,7 +3874,7 @@ static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -3889,7 +3889,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc
     return SEED_RollRandomNumber_Inline(pSeed) & (nMax - 1);
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3901,7 +3901,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3914,7 +3914,7 @@ static __forceinline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3926,7 +3926,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline_005F02C0(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline_005F02C0(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -4470,7 +4470,7 @@ int __fastcall sub_005EB8B0_ShadowMasterUseSkill(D2GameStrc* pGame, D2UnitStrc* 
     return AITACTICS_UseSkill(pGame, pUnit, SKILLS_GetSkillMode(pSkill), nSkillId, pTarget, nX, nY);
 }
 
-static __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
+static inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId < 0)
     {
@@ -4490,12 +4490,12 @@ static __forceinline D2StatListStrc* GetAuraStateStatList(D2UnitStrc* pUnit, D2S
     return 0;
 }
 
-static __forceinline int AI_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static inline int AI_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     return SKILLS_GetSkillLevel(pUnit, pSkill, 1);
 }
 
-static __forceinline int AI_ClampChance(int nChance)
+static inline int AI_ClampChance(int nChance)
 {
     if (nChance > 5 && nChance < 100)
     {
@@ -5428,7 +5428,7 @@ void __fastcall AITHINK_Fn112_DruidBear(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
 }
 
-static __forceinline int CLIENTS_GetUnitXInline_Totem(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline_Totem(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -5440,7 +5440,7 @@ static __forceinline int CLIENTS_GetUnitXInline_Totem(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENTS_GetUnitYInline_Totem(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline_Totem(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -5452,7 +5452,7 @@ static __forceinline int CLIENTS_GetUnitYInline_Totem(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -5986,7 +5986,7 @@ void __fastcall AITHINK_Fn004_Bighead(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     }
 }
 
-static __forceinline unsigned int AI_RollUnit(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollUnit(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -6384,7 +6384,7 @@ void __fastcall sub_005F22B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 3));
 }
 
-static __forceinline unsigned int AI_RollSeedUnit(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollSeedUnit(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -6470,7 +6470,7 @@ void __fastcall AITHINK_Fn020_Scarab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     }
 }
 
-static __forceinline int SEED_RollPercentageHalves(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+static inline int SEED_RollPercentageHalves(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     nHighSeed = (unsigned int)(lSeed >> 32);
@@ -6480,7 +6480,7 @@ static __forceinline int SEED_RollPercentageHalves(D2SeedStrc* pSeed, unsigned i
     return nLowSeed % 100;
 }
 
-static __forceinline int SEED_RollPercentageFrom(D2SeedStrc* pSeed, unsigned int nLowSeed, unsigned int nHighSeed)
+static inline int SEED_RollPercentageFrom(D2SeedStrc* pSeed, unsigned int nLowSeed, unsigned int nHighSeed)
 {
     const unsigned __int64 lSeed = nHighSeed + 0x6AC690C5i64 * nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -6859,7 +6859,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
-static __forceinline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -6872,7 +6872,7 @@ static __forceinline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int UNITS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -7521,7 +7521,7 @@ void __fastcall AITHINK_SpecialFn052_FrogDemon(D2GameStrc* pGame, D2UnitStrc* pU
 	AITACTICS_Idle(pGame, pUnit, 1);
 }
 
-static __forceinline int CLIENTS_GetUnitX_FrogDemon(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitX_FrogDemon(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -7534,7 +7534,7 @@ static __forceinline int CLIENTS_GetUnitX_FrogDemon(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int CLIENTS_GetUnitY_FrogDemon(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitY_FrogDemon(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -7757,7 +7757,7 @@ void __fastcall AITHINK_Fn053_Summoner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
 }
 
-static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -7765,7 +7765,7 @@ static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int AI_GetUnitX(D2UnitStrc* pUnit)
+static inline int AI_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -7778,7 +7778,7 @@ static __forceinline int AI_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int AI_GetUnitY(D2UnitStrc* pUnit)
+static inline int AI_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

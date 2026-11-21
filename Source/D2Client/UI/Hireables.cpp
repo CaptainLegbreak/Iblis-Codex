@@ -332,7 +332,7 @@ static void __stdcall sub_004930A0_DrawRosterName(const char* szName, int nX, in
 struct D2UnitStrc;
 
 // 0x00493220
-static __forceinline void sub_00493220_ToggleAmount(int* pTotal, int* pAmount)
+static inline void sub_00493220_ToggleAmount(int* pTotal, int* pAmount)
 {
     if (*pAmount)
     {
@@ -351,7 +351,7 @@ void __fastcall sub_M110_Emit_00493220(int* pTotal, int* pAmount)
     sub_00493220_ToggleAmount(pTotal + 1, pAmount);
 }
 
-static __forceinline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
+static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
 {
     if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
     {

@@ -78,7 +78,7 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);                       // 0x00648B90
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);                            // 0x00649EF0
 
-static __forceinline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
+static inline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -86,7 +86,7 @@ static __forceinline unsigned int sub_J20_SeedStep(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline D2SkillsTxt* sub_J20_GetSkillsTxt(int nSkillId)
+static inline D2SkillsTxt* sub_J20_GetSkillsTxt(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -95,7 +95,7 @@ static __forceinline D2SkillsTxt* sub_J20_GetSkillsTxt(int nSkillId)
     return 0;
 }
 
-static __forceinline unsigned int sub_J20_GetAnimMode(D2UnitStrc* pUnit)
+static inline unsigned int sub_J20_GetAnimMode(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -105,7 +105,7 @@ static __forceinline unsigned int sub_J20_GetAnimMode(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int sub_J20_HasUnitFlagBit(D2UnitStrc* pUnit)
+static inline int sub_J20_HasUnitFlagBit(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)
@@ -115,7 +115,7 @@ static __forceinline int sub_J20_HasUnitFlagBit(D2UnitStrc* pUnit)
     return bResult;
 }
 
-static __forceinline int sub_J20_UnitX(D2UnitStrc* pUnit)
+static inline int sub_J20_UnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -132,7 +132,7 @@ static __forceinline int sub_J20_UnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_J20_UnitY(D2UnitStrc* pUnit)
+static inline int sub_J20_UnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

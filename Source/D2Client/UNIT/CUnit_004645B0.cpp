@@ -241,7 +241,7 @@ int __fastcall sub_Emit_004645B0(D2UnitStrc* pUnit, int nArg)
     return sub_004645B0_CheckSkillFrame(nArg, pUnit);
 }
 
-static __forceinline D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -526,7 +526,7 @@ void __cdecl sub_0046C060_DrawCountdown()
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 
-static __forceinline int UNITS_IsDeadOrDying(D2UnitStrc* pUnit)
+static inline int UNITS_IsDeadOrDying(D2UnitStrc* pUnit)
 {
     if (pUnit->dwFlags & 0x10000)
     {
@@ -802,7 +802,7 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit)
 }
 
 // build: context UNIT_HasFlag
-static __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (!pUnit)
         return 0;
@@ -810,7 +810,7 @@ static __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // build: context UNIT_HasFlagEx
-static __forceinline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {

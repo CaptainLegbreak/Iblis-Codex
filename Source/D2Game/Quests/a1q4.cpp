@@ -342,7 +342,7 @@ int __fastcall sub_005936B0_UpdateParty(D2GameStrc*,D2UnitStrc*,void*); // 0x005
 
 void __fastcall sub_00540510(D2GameStrc*,unsigned short,QUESTUNITITERATE,void*); // 0x00540510
 
-static __forceinline int GetGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
+static inline int GetGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
 
 static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY);
@@ -556,7 +556,7 @@ void __fastcall ACT1Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2
     }
 }
 
-static __forceinline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
+static inline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -566,7 +566,7 @@ static __forceinline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
     return pUnit->dwUnitId;
 }
 
-static __forceinline int UNITS_GetClassIdOrNone(D2UnitStrc* pUnit)
+static inline int UNITS_GetClassIdOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -737,7 +737,7 @@ void __fastcall ACT1Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-__forceinline int GetUnitId(D2UnitStrc* pUnit)
+inline int GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;
     return pUnit->dwUnitId;
@@ -1085,7 +1085,7 @@ void __fastcall ACT1Q4_Callback06_ResetInifussTree(D2QuestDataStrc* pQuestData, 
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1404,7 +1404,7 @@ void __fastcall ACT1Q4_UnitIterate_SetEnterAreaFlag(D2GameStrc* pGame, D2UnitStr
     }
 }
 
-static __forceinline D2BitBufferStrc* GetPlayerQuestFlags(D2GameStrc* pGame,D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* GetPlayerQuestFlags(D2GameStrc* pGame,D2UnitStrc* pPlayer)
 {
  return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
@@ -1508,7 +1508,7 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
 }
 
 // build: context sub_00593AF0_GetPlayerQuestFlags
-static __forceinline D2BitBufferStrc* sub_00593AF0_GetPlayerQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* sub_00593AF0_GetPlayerQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }

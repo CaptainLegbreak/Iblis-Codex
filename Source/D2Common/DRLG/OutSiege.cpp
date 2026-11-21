@@ -423,7 +423,7 @@ void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x0067E210
-static __forceinline int sub_0067E210_PlaceShiftedPreset(D2DrlgLevelStrc* pLevel, int nX, int nY)
+static inline int sub_0067E210_PlaceShiftedPreset(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
     const int nPreset = DRLGOUTDOORS_GetPresetIndexFromGridCell(pLevel, nX, nY);
     if (nPreset >= 0x393 && nPreset <= 0x39A)
@@ -439,7 +439,7 @@ int __fastcall sub_M119_Emit_0067E210(D2DrlgLevelStrc* pLevel, int nX, int nY)
     return sub_0067E210_PlaceShiftedPreset(pLevel, nY, nX);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -447,7 +447,7 @@ static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;

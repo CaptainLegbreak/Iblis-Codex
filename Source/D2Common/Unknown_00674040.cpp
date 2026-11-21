@@ -60,12 +60,12 @@ int __fastcall DRLGOUTDOORS_GetOutLinkVisFlag(D2DrlgLevelStrc* pLevel, D2DrlgVer
 #include "gen/data/Source/D2Common/Unknown_00674040.inc"
 #include "D2LevelTxt.h"
 
-static __forceinline int DRLGOUTDOORS_GetPackedGrid2Info(D2DrlgOutdoorInfoStrc* pOutdoors, int nX, int nY)
+static inline int DRLGOUTDOORS_GetPackedGrid2Info(D2DrlgOutdoorInfoStrc* pOutdoors, int nX, int nY)
 {
     return DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY);
 }
 
-static __forceinline int DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY)
+static inline int DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
     return !(DRLGOUTDOORS_GetPackedGrid2Info(pLevel->pOutdoors, nX, nY) & 0x1B81);
 }

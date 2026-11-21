@@ -26,7 +26,7 @@ D2MultiChannelUserStrc* gpChannelUsers_00798F34;                                
 int gnChannelLines_00798F40;                                                                                // 0x00798F40
 int gbRandSeeded_00798F54;                                                                                  // 0x00798F54
 
-static __forceinline int CHANNEL_IsMaleClass(int nClass)
+static inline int CHANNEL_IsMaleClass(int nClass)
 {
     switch (nClass)
     {

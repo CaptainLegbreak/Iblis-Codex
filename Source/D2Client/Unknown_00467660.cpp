@@ -24,7 +24,7 @@ int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit);               // 0x00620C10
 static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x00467660
 
-static __forceinline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -36,7 +36,7 @@ static __forceinline int CLIENT_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -48,7 +48,7 @@ static __forceinline int CLIENT_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_IsSelectable(D2UnitStrc* pUnit)
+static inline int UNITS_IsSelectable(D2UnitStrc* pUnit)
 {
     int bResult = 0;
     if (pUnit)

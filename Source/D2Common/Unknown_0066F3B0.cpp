@@ -130,7 +130,7 @@ int __stdcall sub_M16_EmitTestReplaceSubPreset(D2UnkOutdoorStrc* pOutdoor, D2Lvl
     return DRLGTILESUB_TestReplaceSubPreset(pPos[0], pPos[1], pSubstGroup, pLvlSubTxtRecord, pOutdoor);
 }
 
-static __forceinline unsigned int DRLGTILESUB_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned int DRLGTILESUB_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -138,7 +138,7 @@ static __forceinline unsigned int DRLGTILESUB_RollRandomNumberInline(D2SeedStrc*
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int DRLGTILESUB_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int DRLGTILESUB_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;

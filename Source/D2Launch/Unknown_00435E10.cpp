@@ -42,7 +42,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-static __forceinline void __fastcall ShowText(const Unicode* pText, void (__cdecl* pfnDone)())
+static inline void __fastcall ShowText(const Unicode* pText, void (__cdecl* pfnDone)())
 {
     sub_00433380_ShowMessage(pText, pfnDone, 1);
 }

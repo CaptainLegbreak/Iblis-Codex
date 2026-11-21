@@ -53,7 +53,7 @@ unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId);       
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 
-static __forceinline int ApplyPercent(int nValue, int nPercent)
+static inline int ApplyPercent(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
     {
@@ -76,7 +76,7 @@ static __forceinline int ApplyPercent(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -85,7 +85,7 @@ static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
+static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -94,7 +94,7 @@ static __forceinline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
     return 0;
 }
 
-static __forceinline int SkillParam_0D0(int nSkillId, int nLevel)
+static inline int SkillParam_0D0(int nSkillId, int nLevel)
 {
     D2SkillsTxt* pSkillsTxt = SkillsTxtRecord_0D0(nSkillId);
     if (!pSkillsTxt)
@@ -1029,7 +1029,7 @@ int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wsz
 
 int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
 
-static __forceinline void AppendString(Unicode* wszText, unsigned short nString)
+static inline void AppendString(Unicode* wszText, unsigned short nString)
 {
     if (nString != 0x1506)
     {

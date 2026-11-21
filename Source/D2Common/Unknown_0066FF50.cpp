@@ -35,7 +35,7 @@ int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);    
 int __stdcall sub_0066FCF0(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord); // 0x0066FCF0
 void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nPick); // 0x0066FAD0
 
-static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -43,7 +43,7 @@ static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSe
     return (unsigned int)lSeed;
 }
 
-static __forceinline int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, unsigned int nMax)
+static inline int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, unsigned int nMax)
 {
     if ((int)nMax <= 0)
         return 0;

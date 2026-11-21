@@ -1415,7 +1415,7 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
 }
 
-static __forceinline D2InventoryStrc* GetUnitInventory(D2UnitStrc* pUnit)
+static inline D2InventoryStrc* GetUnitInventory(D2UnitStrc* pUnit)
 {
     D2InventoryStrc* pInventory = 0;
     if (pUnit)
@@ -1811,12 +1811,12 @@ int __fastcall sub_0055CA00_MatchFieldPair(D2ItemsTxt* pRecord1, D2ItemsTxt* pRe
     return 0;
 }
 
-static __forceinline int ITEMS_IsItemInline(D2UnitStrc* pUnit)
+static inline int ITEMS_IsItemInline(D2UnitStrc* pUnit)
 {
     return pUnit && pUnit->dwUnitType == UNIT_ITEM;
 }
 
-static __forceinline D2UniqueItemsTxt* DATATBLS_GetUniqueItemsTxtRecordInline(int nUniqueItemId)
+static inline D2UniqueItemsTxt* DATATBLS_GetUniqueItemsTxtRecordInline(int nUniqueItemId)
 {
     if (nUniqueItemId >= 0 && nUniqueItemId < sgptDataTables->nUniqueItemsTxtRecordCount)
     {
@@ -1825,7 +1825,7 @@ static __forceinline D2UniqueItemsTxt* DATATBLS_GetUniqueItemsTxtRecordInline(in
     return 0;
 }
 
-static __forceinline unsigned char GetQuestIndex(const D2ItemsTxt* pRecord)
+static inline unsigned char GetQuestIndex(const D2ItemsTxt* pRecord)
 {
     unsigned char nQuest = 0;
     if (pRecord)
@@ -2035,7 +2035,7 @@ int __fastcall sub_6FC425F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pI
     return 1;
 }
 
-static __forceinline void AddGoldToUnit(D2UnitStrc* pUnit, int nGold)
+static inline void AddGoldToUnit(D2UnitStrc* pUnit, int nGold)
 {
     if (pUnit)
     {
@@ -2603,13 +2603,13 @@ D2ClientStrc* __fastcall sub_0055DB80_GetClientFromUnitOrOwner(D2UnitStrc* pUnit
     return 0;
 }
 
-static __forceinline int sub_0055DBC0_GetUnitType(D2UnitStrc* pUnit)
+static inline int sub_0055DBC0_GetUnitType(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
 // build: context sub_0055DBC0_UnitFlag9
-static __forceinline int sub_0055DBC0_UnitFlag9(D2UnitStrc* pUnit)
+static inline int sub_0055DBC0_UnitFlag9(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2794,12 +2794,12 @@ static int sub_0055E050_GetBookSkillIdChecked(D2UnitStrc* pItem)
     return nSkillId;
 }
 
-static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static __forceinline int sub_0044BE50_Inline(D2UnitStrc* pUnit)
+static inline int sub_0044BE50_Inline(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
@@ -2857,12 +2857,12 @@ static void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc* player, int skillId
     D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(player, ".\\ITEMS\\ItemMode.cpp", 0xFC2), type, id, skillId, quantity);
 }
 
-static __forceinline D2InventoryStrc* UNITS_GetInventory(D2UnitStrc* pUnit)
+static inline D2InventoryStrc* UNITS_GetInventory(D2UnitStrc* pUnit)
 {
     return !pUnit ? 0 : pUnit->pInventory;
 }
 
-static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
+static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwClassId;
 }
@@ -2962,7 +2962,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* ptGame, D2UnitStr
     return 0;
 }
 
-static __forceinline int sub_E03_ItemGetUnitX(D2UnitStrc* pUnit)
+static inline int sub_E03_ItemGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2975,7 +2975,7 @@ static __forceinline int sub_E03_ItemGetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int sub_E03_ItemGetUnitY(D2UnitStrc* pUnit)
+static inline int sub_E03_ItemGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3515,7 +3515,7 @@ D2UnitStrc* __fastcall sub_0055F2A0_GetItemFromOppositeBodyLoc(D2InventoryStrc* 
 }
 
 // build: context GetUnitType
-static __forceinline int GetUnitType(D2UnitStrc* pUnit)
+static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     if (pUnit) return pUnit->dwUnitType;
     return 6;
@@ -3954,7 +3954,7 @@ int __fastcall sub_6FC4B9D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* hI
     return 1;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -3962,7 +3962,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -4816,7 +4816,7 @@ fail:
  return 0;
 }
 
-static __forceinline int UNIT_GetMode(D2UnitStrc* pUnit) { return !pUnit ? 0 : pUnit->dwAnimMode; }
+static inline int UNIT_GetMode(D2UnitStrc* pUnit) { return !pUnit ? 0 : pUnit->dwAnimMode; }
 
 // 0x00561220
 int __fastcall sub_00561220_SwapDualWieldedItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int* pFailure)
@@ -4946,7 +4946,7 @@ int __fastcall sub_00561220_SwapDualWieldedItem(D2GameStrc* ptGame, D2UnitStrc* 
     return 0;
 }
 
-static __forceinline int SkillUsable(D2UnitStrc* player, D2SkillStrc* skill)
+static inline int SkillUsable(D2UnitStrc* player, D2SkillStrc* skill)
 {
     if (!skill) return 0;
     switch (SKILLS_GetUseState(player, skill)) { case 2: case 7: return 0; }
@@ -5828,7 +5828,7 @@ int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc* pGame, D2Uni
 }
 
 // build: context ITEMMODE_GetOtherBodyLocItem
-static __forceinline D2UnitStrc* ITEMMODE_GetOtherBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc, D2UnitStrc* pItem)
+static inline D2UnitStrc* ITEMMODE_GetOtherBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc, D2UnitStrc* pItem)
 {
     const int nOppositeBodyLoc = sub_0055F240_GetOppositeBodyLoc(nBodyLoc);
     if (!nOppositeBodyLoc)
@@ -6025,7 +6025,7 @@ NextLooseItem:
     return nResult;
 }
 
-static __forceinline int sub_M70_ItemGetUnitX(D2UnitStrc* pUnit)
+static inline int sub_M70_ItemGetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -6038,7 +6038,7 @@ static __forceinline int sub_M70_ItemGetUnitX(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int sub_M70_ItemGetUnitY(D2UnitStrc* pUnit)
+static inline int sub_M70_ItemGetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -6080,7 +6080,7 @@ int __fastcall sub_6FC4B310(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pI
     return 1;
 }
 
-static __forceinline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit)
+static inline int UNIT_TypeOrInvalid(D2UnitStrc* pUnit)
 {
     if (pUnit) return pUnit->dwUnitType;
     return 6;

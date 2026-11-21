@@ -74,7 +74,7 @@ static void sub_00668510_MakeCode(const char* szText, char* szCode)
     szCode[3] = szText[3];
 }
 
-static __forceinline int DATATBLS_StringToCode(const char* szText)
+static inline int DATATBLS_StringToCode(const char* szText)
 {
     int nCode;
     sub_00668510_MakeCode(szText, (char*)&nCode);

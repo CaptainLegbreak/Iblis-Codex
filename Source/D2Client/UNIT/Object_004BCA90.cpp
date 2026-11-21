@@ -546,7 +546,7 @@ void __fastcall sub_M256_Emit_004BCB20(D2UnitStrc* pUnit)
     sub_004BCB20_StepDoorFrame(pUnit);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberLoFirst(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberLoFirst(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;

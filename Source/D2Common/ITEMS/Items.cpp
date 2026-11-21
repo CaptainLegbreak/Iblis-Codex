@@ -1486,7 +1486,7 @@ unsigned int __stdcall ITEMS_GetNormalCode(D2UnitStrc* hItem)
 }
 
 // build: context sub_00623C60
-static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
+static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -1805,14 +1805,14 @@ int __fastcall sub_00628D30_GetChargedSkillsCost(D2UnitStrc* pItem, int nBaseCos
     return nCost;
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInl(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInl(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
 
-static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
+static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
         return &sgptDataTables->pItemStatCostTxt[nStatId];
@@ -2980,7 +2980,7 @@ int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline int ITEMS_CheckIfSocketableByItemIdForceInl(int nItemId)
+static inline int ITEMS_CheckIfSocketableByItemIdForceInl(int nItemId)
 {
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
     if (pItemsTxtRecord)
@@ -2991,7 +2991,7 @@ static __forceinline int ITEMS_CheckIfSocketableByItemIdForceInl(int nItemId)
     return 0;
 }
 
-static __forceinline int ITEMS_CheckIfSocketableForceInl(D2UnitStrc* pItem)
+static inline int ITEMS_CheckIfSocketableForceInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -3032,7 +3032,7 @@ static int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem)
 }
 
 // 0x0062A960
-static __forceinline unsigned int sub_0062A960_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
+static inline unsigned int sub_0062A960_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
 {
     return sub_00411020_ReadBits(pBuffer, nBits);
 }
@@ -3133,7 +3133,7 @@ inline char* ITEMS_GetEarName_Inline(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecord(int nStatId)
+static inline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
     {
@@ -3143,12 +3143,12 @@ static __forceinline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecord(int nS
     return 0;
 }
 
-static __forceinline unsigned int BITMANIP_ReadInl(D2BitBufferStrc* pBuffer, int nBits)
+static inline unsigned int BITMANIP_ReadInl(D2BitBufferStrc* pBuffer, int nBits)
 {
     return sub_00411020_ReadBits(pBuffer, nBits);
 }
 
-static __forceinline int ITEMS_ReadQuestItemDifficultyForceInl(D2BitBufferStrc* pBuffer, D2ItemStatCostTxt* pRecord)
+static inline int ITEMS_ReadQuestItemDifficultyForceInl(D2BitBufferStrc* pBuffer, D2ItemStatCostTxt* pRecord)
 {
     return (BITMANIP_ReadInl(pBuffer, pRecord->nSaveBits) - pRecord->dwSaveAdd) << pRecord->nValShift;
 }
@@ -3395,7 +3395,7 @@ static __declspec(noinline) void __stdcall ITEMS_WriteBitsToBitstream(D2BitBuffe
     BITMANIP_Write(pBuffer, nData, nBits);
 }
 
-static __forceinline void ITEMS_WriteBitsCoreInl(D2BitBufferStrc* pBuffer, unsigned int nData, int nBits)
+static inline void ITEMS_WriteBitsCoreInl(D2BitBufferStrc* pBuffer, unsigned int nData, int nBits)
 {
     if (nBits != 32)
     {
@@ -3410,7 +3410,7 @@ static __forceinline void ITEMS_WriteBitsRevInl(D2BitBufferStrc* pBuffer, unsign
     ITEMS_WriteBitsCoreInl(pBuffer, nData, nBits);
 }
 
-static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3422,7 +3422,7 @@ static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3482,7 +3482,7 @@ inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecordInl(int nStatId)
     return 0;
 }
 
-static __forceinline int ITEMS_IsOnGroundForceInl(D2UnitStrc* pItem)
+static inline int ITEMS_IsOnGroundForceInl(D2UnitStrc* pItem)
 {
     if (pItem && (pItem->dwAnimMode == IMODE_ONGROUND || pItem->dwAnimMode == IMODE_DROPPING))
     {
@@ -3491,7 +3491,7 @@ static __forceinline int ITEMS_IsOnGroundForceInl(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline int ITEMS_GetQuestItemDifficultyValueForceInl(D2UnitStrc* pItem, D2ItemStatCostTxt* pItemStatCostTxtRecord)
+static inline int ITEMS_GetQuestItemDifficultyValueForceInl(D2UnitStrc* pItem, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     return (STATLIST_UnitGetStatValue(pItem, STAT_QUESTITEMDIFFICULTY, 0) >> pItemStatCostTxtRecord->nValShift) + pItemStatCostTxtRecord->dwSaveAdd;
 }
@@ -3806,7 +3806,7 @@ int __fastcall sub_0062A900_Shim(D2UnitStrc* pItem)
     return sub_0062A900_CountSocketedItems(pItem) + 1;
 }
 
-static __forceinline void GetDimensions(D2UnitStrc* item, unsigned char* width, unsigned char* height, const char* file, int line) {
+static inline void GetDimensions(D2UnitStrc* item, unsigned char* width, unsigned char* height, const char* file, int line) {
     *width = 0;
     *height = 0;
     if (item && item->dwUnitType == UNIT_ITEM) {
@@ -3815,11 +3815,11 @@ static __forceinline void GetDimensions(D2UnitStrc* item, unsigned char* width, 
     }
 }
 
-static __forceinline D2ItemDataStrc* GetData(D2UnitStrc* item) {
+static inline D2ItemDataStrc* GetData(D2UnitStrc* item) {
     return (item && item->dwUnitType == UNIT_ITEM && item->pItemData) ? item->pItemData : 0;
 }
 
-static __forceinline unsigned int GetQuality(D2UnitStrc* item) {
+static inline unsigned int GetQuality(D2UnitStrc* item) {
     const int type = item ? item->dwUnitType : UNIT_INVALID;
     D2ItemDataStrc* data = (type == 4 && item->pItemData) ? item->pItemData : 0;
     return data ? data->dwQualityNo : 2;
@@ -3957,7 +3957,7 @@ static int ITEMS_IsMagSetRarUniCrfOrTmp_Inline(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline int ITEMS_IsOfType(D2UnitStrc* pItem, int nItemType)
+static inline int ITEMS_IsOfType(D2UnitStrc* pItem, int nItemType)
 {
     return ITEMSIsA(pItem, nItemType);
 }
@@ -4370,7 +4370,7 @@ static inline int sub_T03_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag)
     return 0;
 }
 
-static __forceinline int sub_T03_GetClassId(D2UnitStrc* pUnit)
+static inline int sub_T03_GetClassId(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return -1;
@@ -4554,7 +4554,7 @@ static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat)
     }
 }
 
-static __forceinline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecordInl(int nSkillId)
+static inline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecordInl(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
@@ -4572,7 +4572,7 @@ int __fastcall sub_00627AF0_HasSkillDesc(int nSkillId)
     return 0;
 }
 
-static __forceinline void ITEMS_SetBodyLocInl(D2UnitStrc* pItem, unsigned char nBodyLoc)
+static inline void ITEMS_SetBodyLocInl(D2UnitStrc* pItem, unsigned char nBodyLoc)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4580,7 +4580,7 @@ static __forceinline void ITEMS_SetBodyLocInl(D2UnitStrc* pItem, unsigned char n
     }
 }
 
-static __forceinline void ITEMS_SetInvPageInl(D2UnitStrc* pItem, char nInvPage)
+static inline void ITEMS_SetInvPageInl(D2UnitStrc* pItem, char nInvPage)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4588,7 +4588,7 @@ static __forceinline void ITEMS_SetInvPageInl(D2UnitStrc* pItem, char nInvPage)
     }
 }
 
-static __forceinline void ITEMS_SetItemLevelInl(D2UnitStrc* pItem, int nItemLevel)
+static inline void ITEMS_SetItemLevelInl(D2UnitStrc* pItem, int nItemLevel)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4600,7 +4600,7 @@ static __forceinline void ITEMS_SetItemLevelInl(D2UnitStrc* pItem, int nItemLeve
     }
 }
 
-static __forceinline void ITEMS_SetItemQualityForceInl(D2UnitStrc* pItem, int nQuality)
+static inline void ITEMS_SetItemQualityForceInl(D2UnitStrc* pItem, int nQuality)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4608,7 +4608,7 @@ static __forceinline void ITEMS_SetItemQualityForceInl(D2UnitStrc* pItem, int nQ
     }
 }
 
-static __forceinline int ITEMS_GetItemQualityForceInl(D2UnitStrc* pItem)
+static inline int ITEMS_GetItemQualityForceInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4617,7 +4617,7 @@ static __forceinline int ITEMS_GetItemQualityForceInl(D2UnitStrc* pItem)
     return ITEMQUAL_NORMAL;
 }
 
-static __forceinline void ITEMS_SetInvGfxIndexInl(D2UnitStrc* pItem, unsigned char nInvGfxIdx)
+static inline void ITEMS_SetInvGfxIndexInl(D2UnitStrc* pItem, unsigned char nInvGfxIdx)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4625,7 +4625,7 @@ static __forceinline void ITEMS_SetInvGfxIndexInl(D2UnitStrc* pItem, unsigned ch
     }
 }
 
-static __forceinline void ITEMS_SetAutoAffixInl(D2UnitStrc* pItem, unsigned short nAutoAffix)
+static inline void ITEMS_SetAutoAffixInl(D2UnitStrc* pItem, unsigned short nAutoAffix)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4633,7 +4633,7 @@ static __forceinline void ITEMS_SetAutoAffixInl(D2UnitStrc* pItem, unsigned shor
     }
 }
 
-static __forceinline void ITEMS_SetMagicPrefixInl(D2UnitStrc* pItem, int nIndex, int nPrefix)
+static inline void ITEMS_SetMagicPrefixInl(D2UnitStrc* pItem, int nIndex, int nPrefix)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4641,7 +4641,7 @@ static __forceinline void ITEMS_SetMagicPrefixInl(D2UnitStrc* pItem, int nIndex,
     }
 }
 
-static __forceinline void ITEMS_SetMagicSuffixInl(D2UnitStrc* pItem, int nIndex, int nSuffix)
+static inline void ITEMS_SetMagicSuffixInl(D2UnitStrc* pItem, int nIndex, int nSuffix)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4649,7 +4649,7 @@ static __forceinline void ITEMS_SetMagicSuffixInl(D2UnitStrc* pItem, int nIndex,
     }
 }
 
-static __forceinline void ITEMS_SetEarLevelInl(D2UnitStrc* pItem, unsigned char nEarLevel)
+static inline void ITEMS_SetEarLevelInl(D2UnitStrc* pItem, unsigned char nEarLevel)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -4657,7 +4657,7 @@ static __forceinline void ITEMS_SetEarLevelInl(D2UnitStrc* pItem, unsigned char 
     }
 }
 
-static __forceinline int UNITS_GetClassIdInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetClassIdInl(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -4666,7 +4666,7 @@ static __forceinline int UNITS_GetClassIdInl(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
-static __forceinline D2ItemStatCostTxt* ITEMS_GetRecF3(int nStatId)
+static inline D2ItemStatCostTxt* ITEMS_GetRecF3(int nStatId)
 {
     if (nStatId < 0 || nStatId >= sgptDataTables->nItemStatCostTxtRecordCount)
     {
@@ -4675,7 +4675,7 @@ static __forceinline D2ItemStatCostTxt* ITEMS_GetRecF3(int nStatId)
     return &sgptDataTables->pItemStatCostTxt[nStatId];
 }
 
-static __forceinline D2ItemDataStrc* ITEMS_GetItemDataForceInl(D2UnitStrc* pItem)
+static inline D2ItemDataStrc* ITEMS_GetItemDataForceInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -4684,13 +4684,13 @@ static __forceinline D2ItemDataStrc* ITEMS_GetItemDataForceInl(D2UnitStrc* pItem
     return 0;
 }
 
-static __forceinline unsigned int ITEMS_GetItemFlagsForceInl(D2UnitStrc* pItem)
+static inline unsigned int ITEMS_GetItemFlagsForceInl(D2UnitStrc* pItem)
 {
     D2ItemDataStrc* pItemData = ITEMS_GetItemDataForceInl(pItem);
     return pItemData ? pItemData->dwItemFlags : 0;
 }
 
-static __forceinline char* ITEMS_GetEarNameForceInl(D2UnitStrc* pItem)
+static inline char* ITEMS_GetEarNameForceInl(D2UnitStrc* pItem)
 {
     D2ItemDataStrc* pItemData = ITEMS_GetItemDataForceInl(pItem);
     return pItemData ? pItemData->szPlayerName : 0;
@@ -6292,7 +6292,7 @@ static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSel
     }
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
         return &sgptDataTables->pSkillsTxt[nSkillId];
@@ -6868,7 +6868,7 @@ int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
     return ITEMS_CheckRequirements(pItem, pPlayer, FALSE, 0, 0, 0) != 0;
 }
 
-static __forceinline unsigned int ITEMS_CheckItemFlagForceInl(D2UnitStrc* pItem, unsigned int dwFlag)
+static inline unsigned int ITEMS_CheckItemFlagForceInl(D2UnitStrc* pItem, unsigned int dwFlag)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -6877,7 +6877,7 @@ static __forceinline unsigned int ITEMS_CheckItemFlagForceInl(D2UnitStrc* pItem,
     return 0;
 }
 
-static __forceinline int ITEMS_GetItemQualityInl(D2UnitStrc* pItem)
+static inline int ITEMS_GetItemQualityInl(D2UnitStrc* pItem)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemDataForceInl(pItem))
     {
@@ -6886,7 +6886,7 @@ static __forceinline int ITEMS_GetItemQualityInl(D2UnitStrc* pItem)
     return ITEMQUAL_NORMAL;
 }
 
-static __forceinline D2ItemDataStrc* ITEMS_GetItemDataTypedInl(D2UnitStrc* pItem)
+static inline D2ItemDataStrc* ITEMS_GetItemDataTypedInl(D2UnitStrc* pItem)
 {
     const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_ITEM)
@@ -6896,7 +6896,7 @@ static __forceinline D2ItemDataStrc* ITEMS_GetItemDataTypedInl(D2UnitStrc* pItem
     return 0;
 }
 
-static __forceinline int ITEMS_GetItemQualityTypedInl(D2UnitStrc* pItem)
+static inline int ITEMS_GetItemQualityTypedInl(D2UnitStrc* pItem)
 {
     if (D2ItemDataStrc* pItemData = ITEMS_GetItemDataTypedInl(pItem))
     {
@@ -6905,7 +6905,7 @@ static __forceinline int ITEMS_GetItemQualityTypedInl(D2UnitStrc* pItem)
     return ITEMQUAL_NORMAL;
 }
 
-static __forceinline void ITEMS_SetItemQualityInl(D2UnitStrc* pItem, int nQuality)
+static inline void ITEMS_SetItemQualityInl(D2UnitStrc* pItem, int nQuality)
 {
     const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_ITEM && pItem->pItemData)
@@ -6914,7 +6914,7 @@ static __forceinline void ITEMS_SetItemQualityInl(D2UnitStrc* pItem, int nQualit
     }
 }
 
-static __forceinline int ITEMS_GetItemLevelInl(D2UnitStrc* pItem)
+static inline int ITEMS_GetItemLevelInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -6933,7 +6933,7 @@ static __forceinline int ITEMS_GetItemLevelInl(D2UnitStrc* pItem)
     return 1;
 }
 
-static __forceinline unsigned char ITEMS_GetBodyLocationForceInl(D2UnitStrc* pItem)
+static inline unsigned char ITEMS_GetBodyLocationForceInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -6942,7 +6942,7 @@ static __forceinline unsigned char ITEMS_GetBodyLocationForceInl(D2UnitStrc* pIt
     return 0;
 }
 
-static __forceinline unsigned char ITEMS_GetInvPageByteInl(D2UnitStrc* pItem)
+static inline unsigned char ITEMS_GetInvPageByteInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -6956,7 +6956,7 @@ static __forceinline unsigned char ITEMS_GetInvPageByteInl(D2UnitStrc* pItem)
     return 0xFF;
 }
 
-static __forceinline unsigned char ITEMS_GetInvGfxIndexInl(D2UnitStrc* pItem)
+static inline unsigned char ITEMS_GetInvGfxIndexInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -6965,7 +6965,7 @@ static __forceinline unsigned char ITEMS_GetInvGfxIndexInl(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline unsigned short ITEMS_GetAutoAffixInl(D2UnitStrc* pItem)
+static inline unsigned short ITEMS_GetAutoAffixInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -6974,7 +6974,7 @@ static __forceinline unsigned short ITEMS_GetAutoAffixInl(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline unsigned short ITEMS_GetMagicPrefixInl(D2UnitStrc* pItem, int nIndex)
+static inline unsigned short ITEMS_GetMagicPrefixInl(D2UnitStrc* pItem, int nIndex)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -6987,7 +6987,7 @@ static __forceinline unsigned short ITEMS_GetMagicPrefixInl(D2UnitStrc* pItem, i
     return 0;
 }
 
-static __forceinline unsigned short ITEMS_GetMagicSuffixInl(D2UnitStrc* pItem, int nIndex)
+static inline unsigned short ITEMS_GetMagicSuffixInl(D2UnitStrc* pItem, int nIndex)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -7000,7 +7000,7 @@ static __forceinline unsigned short ITEMS_GetMagicSuffixInl(D2UnitStrc* pItem, i
     return 0;
 }
 
-static __forceinline unsigned char ITEMS_GetEarLevelForceInl(D2UnitStrc* pItem)
+static inline unsigned char ITEMS_GetEarLevelForceInl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -7014,7 +7014,7 @@ static __forceinline unsigned char ITEMS_GetEarLevelForceInl(D2UnitStrc* pItem)
     return 1;
 }
 
-static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecordConstInl(int nStatId)
+static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecordConstInl(int nStatId)
 {
     if (nStatId < 0 || nStatId >= sgptDataTables->nItemStatCostTxtRecordCount)
     {
@@ -7023,7 +7023,7 @@ static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecordConstInl(i
     return &sgptDataTables->pItemStatCostTxt[nStatId];
 }
 
-static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecordForceInl(int nStatId)
+static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecordForceInl(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
     {
@@ -7032,7 +7032,7 @@ static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecordForceInl(i
     return 0;
 }
 
-static __forceinline unsigned short ITEMS_GetRunewordStringIdInl(D2UnitStrc* pItem)
+static inline unsigned short ITEMS_GetRunewordStringIdInl(D2UnitStrc* pItem)
 {
     const D2RunesTxt* pRunesTxtRecord = ITEMS_GetRunesTxtRecordFromItem(pItem);
     return pRunesTxtRecord ? pRunesTxtRecord->wStringId : 0xFFFF;
@@ -7080,12 +7080,12 @@ static int __stdcall sub_0062A900_GetSocketedItemCount(D2UnitStrc* pItem)
     return nCount;
 }
 
-static __forceinline void ITEMS_WriteBitsCallInl(D2BitBufferStrc* pBuffer, unsigned int nData, int nBits)
+static inline void ITEMS_WriteBitsCallInl(D2BitBufferStrc* pBuffer, unsigned int nData, int nBits)
 {
     ITEMS_WriteBitsToBitstream(pBuffer, nData, nBits);
 }
 
-static __forceinline unsigned short ITEMS_GetItemFormatInl(D2UnitStrc* pItem)
+static inline unsigned short ITEMS_GetItemFormatInl(D2UnitStrc* pItem)
 {
     D2_ASSERT(pItem, 5380);
     const int nUnitType = pItem ? pItem->dwUnitType : UNIT_INVALID;

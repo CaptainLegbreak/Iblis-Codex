@@ -1814,7 +1814,7 @@ void __stdcall sub_004FA160(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004FA1B0
-static __forceinline int sub_004FA1B0(Control* control, const Point* point)
+static inline int sub_004FA1B0(Control* control, const Point* point)
 {
     if (control->shouldHandle)
         return control->shouldHandle(control);

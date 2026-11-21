@@ -70,7 +70,7 @@ inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
     return 0;
 }
 
-static __forceinline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
+static inline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
 {
     return pUnit->dwClassId;
 }

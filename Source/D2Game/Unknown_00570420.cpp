@@ -190,7 +190,7 @@ void __fastcall sub_K11_Emit005706A0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsig
 struct D2MonStatsTxt;
 
 // 0x00570870
-static __forceinline void sub_00570870_ForwardToLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static inline void sub_00570870_ForwardToLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     SUNIT_IterateLivingPlayers(pGame, (SUNIT_IterateFn)sub_00570850_Forward, pUnit);
 }
@@ -259,7 +259,7 @@ void __fastcall sub_C899_Emit_00570A50(D2UnitStrc* pUnit, int nValue)
     sub_00570A50_SpendStatPointsOnStrength(pUnit, nValue + 1);
 }
 
-static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
+static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {
@@ -403,12 +403,12 @@ void __fastcall sub_C899_Emit_00570B30(D2UnitStrc* pUnit, int nValue)
     sub_00570B30_SpendStatPointsOnDexterity(pUnit, nValue + 1);
 }
 
-static __forceinline D2StatesTxt* SKILLS_GetStatesTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nStatesTxtRecordCount) return 0; return &sgptDataTables->pStatesTxt[id]; }
+static inline D2StatesTxt* SKILLS_GetStatesTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nStatesTxtRecordCount) return 0; return &sgptDataTables->pStatesTxt[id]; }
 
-static __forceinline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nItemStatCostTxtRecordCount) return 0; return &sgptDataTables->pItemStatCostTxt[id]; }
+static inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int id) { if (id < 0 || id >= sgptDataTables->nItemStatCostTxtRecordCount) return 0; return &sgptDataTables->pItemStatCostTxt[id]; }
 
 // build: context sub_GetUnitTypeOrInvalid
-static __forceinline int sub_GetUnitTypeOrInvalid(D2UnitStrc* pUnit) { if (!pUnit) return UNIT_INVALID; return pUnit->dwUnitType; }
+static inline int sub_GetUnitTypeOrInvalid(D2UnitStrc* pUnit) { if (!pUnit) return UNIT_INVALID; return pUnit->dwUnitType; }
 
 // 0x00570E30
 void __fastcall D2GAME_STATES_SendUnitStates_6FCC58E0(D2UnitStrc* pUnit, D2ClientStrc* pClient)

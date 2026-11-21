@@ -336,7 +336,7 @@ int __stdcall MISSILE_GetSkill(D2MissileUnitStrc0064A280* pMissile)
     return 0;
 }
 
-static __forceinline MissileRecord* DATATBLS_GetMissilesTxtRecord(int nMissileId)
+static inline MissileRecord* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < gVar_00744304->missileCount)
     {

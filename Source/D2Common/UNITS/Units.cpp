@@ -470,7 +470,7 @@ static int UNITS_GetAnimStatBasePercentage(D2UnitStrc* pUnit, int nStat);
 
 static int UNITS_IsSeqAnimSpeedModulatedByFCR(int nUnitType, int nAnimMode, D2UnitStrc* pUnit);
 
-static __forceinline unsigned int DATATBLS_CheckMonStatsFlag_Inl(D2MonStatsTxt* pMonStatsTxtRecord);
+static inline unsigned int DATATBLS_CheckMonStatsFlag_Inl(D2MonStatsTxt* pMonStatsTxtRecord);
 
 #define UNITFLAGEX_HASINV 0x1
 
@@ -1527,7 +1527,7 @@ inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nCharId)
     return 0;
 }
 
-static __forceinline int UNITS_IsAnimModeBlocking_Inl(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeBlocking_Inl(int nUnitType, int nAnimMode)
 {
     int nMode;
     switch (nUnitType)
@@ -1545,7 +1545,7 @@ static __forceinline int UNITS_IsAnimModeBlocking_Inl(int nUnitType, int nAnimMo
     return nAnimMode == nMode;
 }
 
-static __forceinline int UNITS_IsAnimModeGetHit_Inl(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeGetHit_Inl(int nUnitType, int nAnimMode)
 {
     int nMode;
     switch (nUnitType)
@@ -1563,7 +1563,7 @@ static __forceinline int UNITS_IsAnimModeGetHit_Inl(int nUnitType, int nAnimMode
     return nAnimMode == nMode;
 }
 
-static __forceinline int UNITS_IsAnimModeKnockBack_Inl(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeKnockBack_Inl(int nUnitType, int nAnimMode)
 {
     int nMode;
     switch (nUnitType)
@@ -1643,7 +1643,7 @@ int __stdcall sub_K14_EmitGetRecordForValue(int nIndex, int nValue)
 }
 
 // 0x00621450
-static __forceinline int UNITS_IsAnimModeKnockBack(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeKnockBack(int nUnitType, int nAnimMode)
 {
     switch (nUnitType)
     {
@@ -1660,7 +1660,7 @@ static __forceinline int UNITS_IsAnimModeKnockBack(int nUnitType, int nAnimMode)
 }
 
 // 0x00621480
-static __forceinline int sub_00621480(int nAnimMode)
+static inline int sub_00621480(int nAnimMode)
 {
     switch (nAnimMode)
     {
@@ -1671,7 +1671,7 @@ static __forceinline int sub_00621480(int nAnimMode)
     return 0;
 }
 
-static __forceinline int UNITS_IsWalkOrRunMode_Inl(int nAnimMode)
+static inline int UNITS_IsWalkOrRunMode_Inl(int nAnimMode)
 {
     switch (nAnimMode)
     {
@@ -1772,7 +1772,7 @@ int __fastcall UNITS_CanAnimModeUseAttackRate(int nAnimMode, int nUnitType, D2Un
     return sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pUsedSkill, ".\\UNITS\\Units.cpp", 3066))->nFlags[2] & gdwBitMasks[SKILLSFLAGINDEX_USEATTACKRATE];
 }
 
-static __forceinline unsigned int DATATBLS_CheckMonStatsFlag_Inl(D2MonStatsTxt* pMonStatsTxtRecord)
+static inline unsigned int DATATBLS_CheckMonStatsFlag_Inl(D2MonStatsTxt* pMonStatsTxtRecord)
 {
     if (pMonStatsTxtRecord)
     {
@@ -1809,7 +1809,7 @@ static int __stdcall UNITS_AnimModeAllowsAnimSpeed(int nUnitType, int nAnimMode,
 }
 
 // 0x00621680
-static __forceinline int UNITS_IsAnimModeGetHit(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeGetHit(int nUnitType, int nAnimMode)
 {
     switch (nUnitType)
     {
@@ -1835,7 +1835,7 @@ int __stdcall sub_M110_Emit_00621450(int nUnitType, int nAnimMode)
 }
 
 // 0x006216B0
-static __forceinline int sub_006216B0_IsModeValue(int nMode, int nValue)
+static inline int sub_006216B0_IsModeValue(int nMode, int nValue)
 {
     switch (nMode)
     {
@@ -2118,21 +2118,21 @@ void __stdcall UNITS_UpdateDirectionAndSpeed(D2UnitStrc* pUnit, int nX, int nY)
     }
 }
 
-static __forceinline int sub_T03_GetUnitType(D2UnitStrc* pUnit)
+static inline int sub_T03_GetUnitType(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return -1;
     return pUnit->dwUnitType;
 }
 
-static __forceinline int sub_T03_GetUnitId(D2UnitStrc* pUnit)
+static inline int sub_T03_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return -1;
     return pUnit->dwUnitId;
 }
 
-static __forceinline void* sub_M442_GetMemPool(D2UnitStrc* pUnit)
+static inline void* sub_M442_GetMemPool(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 0;
@@ -2530,7 +2530,7 @@ int __stdcall sub_00622520_Shim(D2UnitStrc* pUnit)
 }
 
 // build: context UNITS_GetCharStatsTxtRecord
-static __forceinline D2CharStatsTxt* UNITS_GetCharStatsTxtRecord(int nClassId)
+static inline D2CharStatsTxt* UNITS_GetCharStatsTxtRecord(int nClassId)
 {
     if (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount)
         return &sgptDataTables->pCharStatsTxt[nClassId];
@@ -2538,7 +2538,7 @@ static __forceinline D2CharStatsTxt* UNITS_GetCharStatsTxtRecord(int nClassId)
 }
 
 // build: context UNITS_GetToHitFactor
-static __forceinline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
+static inline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType != UNIT_PLAYER)
     {
@@ -2577,7 +2577,7 @@ inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
-static __forceinline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
+static inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -2636,7 +2636,7 @@ int __fastcall sub_006225F0_MonsterCanBlock(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2645,7 +2645,7 @@ static __forceinline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
     return pUnit->dwUnitType;
 }
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -2654,7 +2654,7 @@ static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMon
     return 0;
 }
 
-static __forceinline int MONSTERS_HasNoShieldBlockFlagInline(int nMonsterId)
+static inline int MONSTERS_HasNoShieldBlockFlagInline(int nMonsterId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(nMonsterId);
     if (!pMonStatsTxtRecord)
@@ -2664,7 +2664,7 @@ static __forceinline int MONSTERS_HasNoShieldBlockFlagInline(int nMonsterId)
     return pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_NOSHLDBLOCK >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NOSHLDBLOCK & 7];
 }
 
-static __forceinline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecordInline(int nClass)
+static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecordInline(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {
@@ -2845,7 +2845,7 @@ static int __fastcall sub_00622920_RayTraceBetweenBoxes(int nX1, int nY1, int nS
     return COLLISION_RayTrace(pRoom, &tBegin, &tEnd, nCollisionMask);
 }
 
-static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2857,7 +2857,7 @@ static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3351,7 +3351,7 @@ extern "C" __declspec(dllexport) int __stdcall sub_00623460(int nUnused) {
     return 2500000;
 }
 
-__forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
@@ -3825,7 +3825,7 @@ unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* 
 }
 
 // build: context StopSequence_SetActionFrame
-static __forceinline void StopSequence_SetActionFrame(D2UnitStrc* pUnit, int nFrame)
+static inline void StopSequence_SetActionFrame(D2UnitStrc* pUnit, int nFrame)
 {
     D2AnimDataRecordStrc* pAnimData = pUnit->pAnimData;
     if (pAnimData && nFrame < 144)
@@ -3892,7 +3892,7 @@ void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int UNITS_IsAnimModeBlockingCase_Inl(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeBlockingCase_Inl(int nUnitType, int nAnimMode)
 {
     switch (nUnitType)
     {
@@ -3906,7 +3906,7 @@ static __forceinline int UNITS_IsAnimModeBlockingCase_Inl(int nUnitType, int nAn
     return 0;
 }
 
-static __forceinline int UNITS_IsAnimModeGetHitCase_Inl(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeGetHitCase_Inl(int nUnitType, int nAnimMode)
 {
     switch (nUnitType)
     {
@@ -3920,7 +3920,7 @@ static __forceinline int UNITS_IsAnimModeGetHitCase_Inl(int nUnitType, int nAnim
     return 0;
 }
 
-static __forceinline int UNITS_IsAnimModeKnockBackCase_Inl(int nUnitType, int nAnimMode)
+static inline int UNITS_IsAnimModeKnockBackCase_Inl(int nUnitType, int nAnimMode)
 {
     switch (nUnitType)
     {
@@ -4101,7 +4101,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
     UNITS_SetAnimationSpeed_Inl(pUnit, nOtherAnimRate * pAnimData->dwAnimSpeed / 100);
 }
 
-static __forceinline int UNITS_ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
+static inline int UNITS_ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
     {

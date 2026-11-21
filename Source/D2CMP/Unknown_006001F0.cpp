@@ -44,7 +44,7 @@ struct D2CmpDC6CelStrc { char unk0x00[0x2C]; };
         if ((char)((dw) >> 8) != 0x20) { *q++ = (char)((dw) >> 8); \
             if ((char)((dw) >> 16) != 0x20) { *q++ = (char)((dw) >> 16); } } }
 
-static __forceinline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pContext)
+static inline int SpriteCache_IsCompressible(D2CmpSpriteContextStrc* pContext)
 {
     switch (pContext->nType)
     {

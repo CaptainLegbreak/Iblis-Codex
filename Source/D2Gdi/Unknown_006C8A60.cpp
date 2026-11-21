@@ -7,7 +7,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 
-static __forceinline int sub_006C8A60_Clip(int nValue, int nSize)
+static inline int sub_006C8A60_Clip(int nValue, int nSize)
 {
     int nClipped = nValue > 0 ? nValue : 0;
     return nClipped < nSize - 1 ? nClipped : nSize - 1;

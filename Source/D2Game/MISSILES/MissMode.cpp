@@ -1064,7 +1064,7 @@ int __fastcall sub_005A88E0_RollMissileHit(D2UnitStrc* pMissile, int nUnused, D2
     return SUNITDMG_IsHitSuccessful(pOwner, pUnit, nToHit, 1) != 0;
 }
 
-static __forceinline D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1082,7 +1082,7 @@ inline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static __forceinline D2MissilesTxt* GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
+static inline D2MissilesTxt* GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
 {
     if (pMissile)
     {
@@ -1240,7 +1240,7 @@ void __fastcall sub_005A8F20_SetElementalDamage(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
-static __forceinline int GetClassId(Unit* unit) { return unit->classId; }
+static inline int GetClassId(Unit* unit) { return unit->classId; }
 
 // 0x005A8FB0
 void __fastcall sub_005A8FB0(Game* game,Unit* missile,Unit* owner,Damage* damage,int value)
@@ -1473,7 +1473,7 @@ static int __stdcall sub_005A94C0_CheckDistanceAndLineOfSight(int nMaxDistanceSq
     return !COLLISION_RayTrace(pRoom, &begin, &end, 4);
 }
 
-static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1486,7 +1486,7 @@ static __forceinline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -2002,7 +2002,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-static __forceinline D2MissilesTxt* MISSILE_GetMissilesTxtRecord_Inline(D2UnitStrc* pMissile)
+static inline D2MissilesTxt* MISSILE_GetMissilesTxtRecord_Inline(D2UnitStrc* pMissile)
 {
     if (!pMissile)
     {
@@ -2307,7 +2307,7 @@ static void __stdcall MISSMODE_CreateMeteor_MoltenBoulderSubmissiles(D2GameStrc*
     }
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -2466,7 +2466,7 @@ int __fastcall MISSMODE_SrvHit16_SpiderGoo_VinesTrail_VinesWither(D2GameStrc* pG
     return 0;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* GetSkillsTxtRecord(int nSkillId)
 {
     D2SkillsTxt* pResult = 0;
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -3645,7 +3645,7 @@ int __fastcall MISSMODE_SrvHit55_Baalnferno(D2GameStrc* pGame, D2UnitStrc* pMiss
     return 2;
 }
 
-__forceinline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3658,7 +3658,7 @@ __forceinline int CLIENTS_GetUnitX_Local(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY_Local(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY_Local(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -3894,7 +3894,7 @@ void __fastcall MISSMODE_SrvDmg02_IceArrow_RoyalStrikeChaos(D2GameStrc* pGame, D
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -3923,7 +3923,7 @@ void __fastcall MISSMODE_SrvDmg04_IceBlast(D2GameStrc* pGame, D2UnitStrc* pMissi
     pDamage->dwColdLen = 0;
 }
 
-__forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
+inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
@@ -4169,7 +4169,7 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
-static __forceinline void MISSMODE_SetMissileHitFlags(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+static inline void MISSMODE_SetMissileHitFlags(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     if (MISSILE_GetFlags(pUnit) & 1)
     {
@@ -4283,7 +4283,7 @@ int __fastcall MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame(D2GameStrc* pG
 }
 
 // 0x005AD930
-static __forceinline void sub_005AD930_BaalFxOpenPortal(D2GameStrc* pGame, D2UnitStrc* pMissile)
+static inline void sub_005AD930_BaalFxOpenPortal(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
     MISSILE_SetTargetX(pMissile, 1);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
@@ -5729,7 +5729,7 @@ int __fastcall MISSMODE_SrvDo32_TigerFury(D2GameStrc* pGame, D2UnitStrc* pMissil
     return MISSMODE_SrvDo07_GuidedArrow_BoneSpirit(pGame, pMissile);
 }
 
-static __forceinline unsigned int MISSMODE_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int MISSMODE_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -5886,7 +5886,7 @@ int __fastcall sub_005B0870(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc*
     return 1;
 }
 
-static __forceinline int MISSMODE_GetUnitY(D2UnitStrc* pUnit)
+static inline int MISSMODE_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -6047,7 +6047,7 @@ int __fastcall sub_005B1140_BossTauntOnSight(D2GameStrc* pGame, D2UnitStrc* pUni
     return 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -6128,7 +6128,7 @@ int __fastcall sub_005B11F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamS
     return 0;
 }
 
-static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
@@ -6166,7 +6166,7 @@ void __fastcall D2GAME_AI_SpecialState02_6FCD1660(D2GameStrc* pGame, D2UnitStrc*
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
-static __forceinline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit_Inline(D2UnitStrc* pUnit)
+static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -6175,7 +6175,7 @@ static __forceinline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit_Inline(D2Un
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordFromUnit_Inline(D2UnitStrc* pUnit)
+static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordFromUnit_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -6188,7 +6188,7 @@ static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordFromUnit_Inl
     return 0;
 }
 
-static __forceinline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecordFromUnit_Inline(D2UnitStrc* pUnit)
+static inline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecordFromUnit_Inline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -6578,7 +6578,7 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget,
     return (nXDiff + 2 * nYDiff) / 2;
 }
 
-static __forceinline int synh_GetUnitX(SynUnit* pUnit)
+static inline int synh_GetUnitX(SynUnit* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -6591,7 +6591,7 @@ static __forceinline int synh_GetUnitX(SynUnit* pUnit)
     }
 }
 
-static __forceinline int synh_GetUnitY(SynUnit* pUnit)
+static inline int synh_GetUnitY(SynUnit* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

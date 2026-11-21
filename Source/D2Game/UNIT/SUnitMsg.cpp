@@ -473,7 +473,7 @@ void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient)
     }
 }
 
-static __forceinline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
@@ -499,7 +499,7 @@ void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pCli
 }
 
 // 0x00571790
-static __forceinline void sub_00571790_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
+static inline void sub_00571790_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacketListStrc* pMsg)
 {
     if (!pUnit->pMsgFirst)
     {
@@ -830,23 +830,23 @@ void __fastcall D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(D2UnitStrc* pUnit)
     }
 }
 
-static __forceinline int UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+static inline int UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit) return (pUnit->dwFlags & nFlag) != 0;
     return 0;
 }
 
-static __forceinline int UnitGUID(D2UnitStrc* pUnit)
+static inline int UnitGUID(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static __forceinline D2DynamicPathStrc* UnitPath(D2UnitStrc* pUnit)
+static inline D2DynamicPathStrc* UnitPath(D2UnitStrc* pUnit)
 {
     return !pUnit ? 0 : pUnit->pDynamicPath;
 }
 
-static __forceinline D2InventoryStrc* UnitInventory(D2UnitStrc* pUnit)
+static inline D2InventoryStrc* UnitInventory(D2UnitStrc* pUnit)
 {
     return !pUnit ? 0 : pUnit->pInventory;
 }

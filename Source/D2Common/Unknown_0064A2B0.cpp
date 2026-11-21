@@ -82,13 +82,13 @@ __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
     return 0;
 }
 
-static __forceinline int GetUnitType(D2UnitStrc* pUnit)
+static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     if (!pUnit) return 6;
     return pUnit->dwUnitType;
 }
 
-static __forceinline unsigned int GetUnitId(D2UnitStrc* pUnit)
+static inline unsigned int GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit) return 0xFFFFFFFFu;
     return pUnit->dwUnitId;

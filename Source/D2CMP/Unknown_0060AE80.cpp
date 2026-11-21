@@ -101,7 +101,7 @@ int D2CmpBitCursorStrc::sub_0060B1F0_GetBitPos()
 }
 
 // 0x0060B480
-static __forceinline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
+static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 {
     if (!pDir->nFrames)
     {
@@ -112,7 +112,7 @@ static __forceinline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIter
     return sub_0060B2B0_DccNextCell(pDir, pIt);
 }
 
-static __forceinline void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapStrc* pInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward)
+static inline void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapStrc* pInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward)
 {
     int i;
     int n;
@@ -141,7 +141,7 @@ void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pInverse, const un
 }
 
 // 0x0060B780
-static __forceinline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
+static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
 {
     int nBits;
     for (nBits = 0; (1 << nBits) + 1 <= 4 && pBytes[1 << nBits] != pBytes[(1 << nBits) - 1]; ++nBits)
@@ -151,7 +151,7 @@ static __forceinline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
 }
 
 // 0x0060BD90
-static __forceinline void sub_0060BD90_RemapRun(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
+static inline void sub_0060BD90_RemapRun(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
 {
     for (int i = 0; i < pRun->nCount; ++i)
     {

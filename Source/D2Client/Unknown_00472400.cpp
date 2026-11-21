@@ -35,7 +35,7 @@ extern int gnGlobal_00711470; // 0x00711470
 
 static int gnGlobal_007A8A08; // 0x007A8A08
 
-static __forceinline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
+static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

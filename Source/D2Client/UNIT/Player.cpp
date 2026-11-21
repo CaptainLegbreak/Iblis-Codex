@@ -69,7 +69,7 @@ struct D2MsgFilterStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-static __forceinline void sub_00460FF0_ReleaseLight(D2UnitStrc* pUnit);
+static inline void sub_00460FF0_ReleaseLight(D2UnitStrc* pUnit);
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -561,9 +561,9 @@ static void __stdcall sub_00461070_RequestSkillString(D2UnitStrc* pUnit, int nIn
 
 static int sub_00461160_CheckCommandSkill(D2PlayerCmdStrc* pCmd, int* pUseState);
 
-static __forceinline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+static inline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 
-static __forceinline int __fastcall UNITS_GetYPosition(D2UnitStrc* pUnit); // 0x0045AE20
+static inline int __fastcall UNITS_GetYPosition(D2UnitStrc* pUnit); // 0x0045AE20
 
 static void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd);
 
@@ -1062,7 +1062,7 @@ static void sub_00460F10_PlaceOnFreeCoords(D2UnitStrc* pUnit)
 }
 
 // 0x00460FF0
-static __forceinline void sub_00460FF0_ReleaseLight(D2UnitStrc* pUnit)
+static inline void sub_00460FF0_ReleaseLight(D2UnitStrc* pUnit)
 {
     D2GfxLightStrc* pLight = D2Common_10958(pUnit, 0);
     if (pLight)
@@ -1125,7 +1125,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(D2SkillStrc** ppSkill, int* pUse
 }
 
 // 0x00461160
-static __forceinline int sub_00461160_CheckCommandSkill(D2PlayerCmdStrc* pCmd, int* pUseState)
+static inline int sub_00461160_CheckCommandSkill(D2PlayerCmdStrc* pCmd, int* pUseState)
 {
     return sub_004610C0_CheckSkillUse(&pCmd->pSkill, pUseState, pCmd->pPlayer);
 }
@@ -1396,7 +1396,7 @@ static void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCm
 }
 
 // build: context UNITS_GetXPosition
-static __forceinline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit)
+static inline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1414,7 +1414,7 @@ static __forceinline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit)
 }
 
 // build: context UNITS_GetYPosition
-static __forceinline int __fastcall UNITS_GetYPosition(D2UnitStrc* pUnit)
+static inline int __fastcall UNITS_GetYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1625,7 +1625,7 @@ static void __stdcall sub_00461C70_UseSkillOnTarget(int nArg1, int nArg2, D2Play
     }
 }
 
-static __forceinline int PLAYER_GetValue1(D2UnitStrc* pUnit)
+static inline int PLAYER_GetValue1(D2UnitStrc* pUnit)
 {
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     if (nUnitType == UNIT_PLAYER)
@@ -1633,7 +1633,7 @@ static __forceinline int PLAYER_GetValue1(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int PLAYER_GetValue2(D2UnitStrc* pUnit)
+static inline int PLAYER_GetValue2(D2UnitStrc* pUnit)
 {
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     if (nUnitType == UNIT_PLAYER)
@@ -1975,7 +1975,7 @@ void __stdcall sub_00461DC0_Shim(int nTargetType, int nTargetId, D2PlayerCmdStrc
 }
 
 // build: context ClampTarget_GetX
-__forceinline int ClampTarget_GetX(D2UnitStrc* pUnit)
+inline int ClampTarget_GetX(D2UnitStrc* pUnit)
 {
     int nResult;
     switch (pUnit->dwUnitType)
@@ -1993,7 +1993,7 @@ __forceinline int ClampTarget_GetX(D2UnitStrc* pUnit)
 }
 
 // build: context ClampTarget_GetY
-__forceinline int ClampTarget_GetY(D2UnitStrc* pUnit)
+inline int ClampTarget_GetY(D2UnitStrc* pUnit)
 {
     int nResult;
     switch (pUnit->dwUnitType)

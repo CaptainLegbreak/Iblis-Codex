@@ -97,14 +97,14 @@ static int ITEMMODS_HasAffixWithGroup(D2UnitStrc* pItem, int nGroup)
     return 0;
 }
 
-static __forceinline D2MagicAffixIndexAndPtrStrc* GetPotentialMagicAffix(D2MagicAffixIndexAndPtrStrc* pAffixes, int nIndex, int nCount)
+static inline D2MagicAffixIndexAndPtrStrc* GetPotentialMagicAffix(D2MagicAffixIndexAndPtrStrc* pAffixes, int nIndex, int nCount)
 {
     if (nIndex >= nCount) return 0;
     return pAffixes;
 }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-static __forceinline int GetClassId(D2UnitStrc* pItem)
+static inline int GetClassId(D2UnitStrc* pItem)
 {
     if (!pItem) return -1;
     return pItem->dwClassId;
@@ -270,14 +270,14 @@ short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int bRequireSpawnable
 
 short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefixes, int nPreferredAffixIndex, int nAutoMagicGroup); // 0x005C1940
 
-static __forceinline unsigned int sub_RareSeedRoll(D2SeedStrc* pSeed)
+static inline unsigned int sub_RareSeedRoll(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int sub_RareSeedRollLimited(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int sub_RareSeedRollLimited(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax > 0)
     {
@@ -298,7 +298,7 @@ unsigned short __stdcall sub_005C19A0_RollRareAffixOld(D2UnitStrc* pItem, int bP
 
 unsigned short __stdcall sub_005C1AB0_RollRareAffixNew(D2UnitStrc* pItem, int bPrefix); // 0x005C1AB0
 
-static __forceinline unsigned short D2GAME_RollRareAffixInline(D2UnitStrc* pItem, int bPrefix)
+static inline unsigned short D2GAME_RollRareAffixInline(D2UnitStrc* pItem, int bPrefix)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
@@ -308,7 +308,7 @@ static __forceinline unsigned short D2GAME_RollRareAffixInline(D2UnitStrc* pItem
     return sub_005C19A0_RollRareAffixOld(pItem, bPrefix);
 }
 
-static __forceinline bool ITEMS_HasAffixOrGroupInline(D2UnitStrc* pItem, unsigned short nAffix, int bPrefix)
+static inline bool ITEMS_HasAffixOrGroupInline(D2UnitStrc* pItem, unsigned short nAffix, int bPrefix)
 {
     for (int nAffixSlot = 0; nAffixSlot < 3; ++nAffixSlot)
     {
@@ -326,7 +326,7 @@ static __forceinline bool ITEMS_HasAffixOrGroupInline(D2UnitStrc* pItem, unsigne
     return false;
 }
 
-static __forceinline short ITEMS_RollMagicAffixesInline(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex)
+static inline short ITEMS_RollMagicAffixesInline(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
@@ -336,7 +336,7 @@ static __forceinline short ITEMS_RollMagicAffixesInline(D2UnitStrc* pItem, int b
     return ITEMS_RollMagicAffixesOld(pItem, bRequireSpawnableAffix, bForceAffixRoll, bAssignProperties, bPrefix, nPreferredAffixIndex);
 }
 
-static __forceinline void ITEMS_ApplyRareAffixesInline(D2UnitStrc* pItem)
+static inline void ITEMS_ApplyRareAffixesInline(D2UnitStrc* pItem)
 {
     ITEMS_SetItemFlag(pItem, 0x10, 0);
 

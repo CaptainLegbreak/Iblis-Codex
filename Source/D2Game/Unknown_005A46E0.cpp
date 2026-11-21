@@ -17,7 +17,7 @@ extern UModInitFunc gpUModInitFunctions_0073C008[];                             
 
 int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
 
-static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
+static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
@@ -40,7 +40,7 @@ static __forceinline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag
     }
 }
 
-static __forceinline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
+static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     UModInitFunc pfnInit = gpUModInitFunctions_0073C008[nUMod];
     if (pfnInit)

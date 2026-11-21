@@ -71,7 +71,7 @@ extern D2EnvironmentCycleStrc gAct4EnvironmentCycle[]; // 0x00744438
 extern D2EnvironmentCycleStrc gEclipseEnvironmentCycle[]; // 0x00744480
 static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct);
 
-static __forceinline D2Entry0061B7E0Strc* sub_0061B870_GetFirst(D2Owner0061B7E0Strc* pOwner, unsigned char nIndex)
+static inline D2Entry0061B7E0Strc* sub_0061B870_GetFirst(D2Owner0061B7E0Strc* pOwner, unsigned char nIndex)
 {
     if (pOwner->pEntries[nIndex].pNext1C != &pOwner->pEntries[nIndex])
     {
@@ -80,12 +80,12 @@ static __forceinline D2Entry0061B7E0Strc* sub_0061B870_GetFirst(D2Owner0061B7E0S
     return 0;
 }
 
-static __forceinline int sub_0061B870_IsListHead(D2Owner0061B7E0Strc* pOwner, D2Entry0061B7E0Strc* pNext, unsigned char nIndex)
+static inline int sub_0061B870_IsListHead(D2Owner0061B7E0Strc* pOwner, D2Entry0061B7E0Strc* pNext, unsigned char nIndex)
 {
     return pNext == &pOwner->pEntries[nIndex];
 }
 
-static __forceinline int sub_0061B870_IsStatus(D2Entry0061B7E0Strc* pEntry, int nStatus)
+static inline int sub_0061B870_IsStatus(D2Entry0061B7E0Strc* pEntry, int nStatus)
 {
     if (pEntry->nIndex44 == nStatus)
     {

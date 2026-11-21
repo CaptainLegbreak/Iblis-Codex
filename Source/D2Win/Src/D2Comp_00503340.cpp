@@ -564,7 +564,7 @@ int gaItemWeaponClass_0087E430[254]; // 0x0087E430
 
 int gbCompItemsInit_0087E85C; // 0x0087E85C
 
-static __forceinline int sub_GetCompPairValue(unsigned int nKey)
+static inline int sub_GetCompPairValue(unsigned int nKey)
 {
     for (unsigned int i = 0; i < gnCompPairs_0072EFD0; ++i)
     {

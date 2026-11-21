@@ -18,7 +18,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 struct D2LinkStrc {
     D2LinkStrc* previous;
     unsigned int next;
-    __forceinline D2LinkStrc() {
+    inline D2LinkStrc() {
         memset(this, 0, sizeof(*this));
         previous = this;
     }

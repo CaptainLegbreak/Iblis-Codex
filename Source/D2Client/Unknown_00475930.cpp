@@ -19,7 +19,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 
 extern D2R01LightStrc* gpLights_007B5668;                                                                   // 0x007B5668
 
-__forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -32,7 +32,7 @@ __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

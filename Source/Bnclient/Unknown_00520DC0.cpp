@@ -197,7 +197,7 @@ void __cdecl sub_00524740_ClearKeySchedules()
 }
 
 // build: context sub_GetTerminatedLength
-static __forceinline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
+static inline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
 {
     unsigned int nMax = 0x80;
     unsigned int nLength = 0;

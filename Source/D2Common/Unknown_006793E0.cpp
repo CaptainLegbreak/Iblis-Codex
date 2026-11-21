@@ -421,7 +421,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // build: context PATH_TestCollision
-static __forceinline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
+static inline int PATH_TestCollision(const D2CollisionTestStrc* pTest, int nX, int nY)
 {
     return COLLISION_CheckAnyCollisionWithPattern(pTest->pRoom, nX, nY, pTest->nCollisionPattern, pTest->nCollisionMask);
 }
@@ -619,7 +619,7 @@ int __fastcall PATH_Knockback_Client(D2PathInfoStrc* pPathInfo)
 }
 
 // build: context PATH_ScaleDelta
-static __forceinline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
+static inline int PATH_ScaleDelta(int nScale, int nDelta, int nMax)
 {
     int nResult = nScale;
     nResult *= nDelta;

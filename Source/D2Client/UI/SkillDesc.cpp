@@ -191,7 +191,7 @@ extern const D2ElemDamageStatsStrc gaElemDamageStats_006DBEF4[4];               
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 
-static __forceinline int sub_I05_ETypeColor(int nEType)
+static inline int sub_I05_ETypeColor(int nEType)
 {
     switch (nEType)
     {
@@ -1325,7 +1325,7 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
 }
 
 
-static __forceinline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
+static inline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
 {
     if (!nDivisor)
     {
@@ -1353,7 +1353,7 @@ static __forceinline int ApplyRatio_Inline(int nValue, int nMultiplier, int nDiv
     return nMultiplier * nValue / nDivisor;
 }
 
-static __forceinline void AddPoisonDamage_Inline(D2UnitStrc* pUnit, int* pMaxDamage, int* pMinDamage, int* pColor)
+static inline void AddPoisonDamage_Inline(D2UnitStrc* pUnit, int* pMaxDamage, int* pMinDamage, int* pColor)
 {
     int nMin = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMINDAM, 0);
     int nMax = STATLIST_UnitGetStatValue(pUnit, STAT_POISONMAXDAM, 0);
@@ -1388,7 +1388,7 @@ static __forceinline void AddPoisonDamage_Inline(D2UnitStrc* pUnit, int* pMaxDam
     }
 }
 
-static __forceinline void AddPoisonDamageAndClamp_Inline(D2UnitStrc* pUnit, int* pMaxDamage, int* pMinDamage, int* pColor)
+static inline void AddPoisonDamageAndClamp_Inline(D2UnitStrc* pUnit, int* pMaxDamage, int* pMinDamage, int* pColor)
 {
     AddPoisonDamage_Inline(pUnit, pMaxDamage, pMinDamage, pColor);
 
@@ -1677,7 +1677,7 @@ int __fastcall sub_M346_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
     return 5;
 }
 
-static __forceinline D2SkillsTxt* GetSkillsRecord(D2DataTablesStrc* pTables, int nSkillId)
+static inline D2SkillsTxt* GetSkillsRecord(D2DataTablesStrc* pTables, int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < pTables->nSkillsTxtRecordCount)
         return &pTables->pSkillsTxt[nSkillId];
@@ -1709,7 +1709,7 @@ int __stdcall sub_004ED480_HasClassSkill(D2UnitStrc* pUnit)
 }
 
 // 0x004ED530
-static __forceinline int sub_004ED530_HasOnlyBonusLevels(D2UnitStrc* pUnit, int nSkillId)
+static inline int sub_004ED530_HasOnlyBonusLevels(D2UnitStrc* pUnit, int nSkillId)
 {
     D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
     if (pSkill && SKILLS_GetSkillLevel(pUnit, pSkill, 1) && !SKILLS_GetSkillLevel(pUnit, pSkill, 0))

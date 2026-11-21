@@ -46,7 +46,7 @@ int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
-static __forceinline unsigned int AI_RollSeedUnit(D2UnitStrc* pUnit)
+static inline unsigned int AI_RollSeedUnit(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
     pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);

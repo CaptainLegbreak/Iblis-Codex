@@ -718,7 +718,7 @@ static void __stdcall sub_00501A80_DrawString(const Unicode* wszText, int nX, in
     shim_1(nLength, nY, nWidth, nPalette, bCentered);
 }
 
-static __forceinline void sub_005023B0_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight)
+static inline void sub_005023B0_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight)
 {
     *pWidth = sub_00501840_GetMultiLineTextWidth(pText) + 8;
     *pHeight = sub_005019C0_GetTextHeight(pText);

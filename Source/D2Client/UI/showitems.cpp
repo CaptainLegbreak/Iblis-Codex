@@ -38,18 +38,18 @@ int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
 unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
-static __forceinline int GetUnitType(D2UnitStrc* pUnit)
+static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     if(pUnit)return pUnit->dwUnitType;
     return 6;
 }
-static __forceinline unsigned int UnitIsSelectable(D2UnitStrc* pUnit)
+static inline unsigned int UnitIsSelectable(D2UnitStrc* pUnit)
 {
     if(!pUnit)return 0;
     return (pUnit->dwFlagEx>>7)&1;
 }
 // build: context sub_004C0640_ClampToScreen
-static __forceinline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)
+static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)
 {
     if (*pLeft < nMinX)
     {

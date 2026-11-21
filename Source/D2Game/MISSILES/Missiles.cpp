@@ -40,7 +40,7 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);  
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);                            // 0x0064A330
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
-static __forceinline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -49,7 +49,7 @@ static __forceinline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSe
 }
 
 // build: context GetUnitType
-static __forceinline int GetUnitType(D2UnitStrc* pUnit)
+static inline int GetUnitType(D2UnitStrc* pUnit)
 {
     return !pUnit ? 6 : pUnit->dwUnitType;
 }

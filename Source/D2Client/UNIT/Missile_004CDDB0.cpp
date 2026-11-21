@@ -98,7 +98,7 @@ inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -334,7 +334,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline int SKILLS_GetLevelBasedParam(int nSkillId, int nLevel)
+static inline int SKILLS_GetLevelBasedParam(int nSkillId, int nLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -436,21 +436,21 @@ int __fastcall sub_004CF9B0_CltHitRingSubMissiles(D2UnitStrc* pMissile, D2UnitSt
 struct D2UnitStrc;
 
 
-static __forceinline unsigned __int64 SEED_RollRandomNumber64(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumber64(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return lSeed;
 }
 
-static __forceinline unsigned __int64 SEED_RollNext64(D2SeedStrc* pSeed, unsigned __int64 lPrev)
+static inline unsigned __int64 SEED_RollNext64(D2SeedStrc* pSeed, unsigned __int64 lPrev)
 {
     const unsigned __int64 lSeed = (lPrev >> 32) + 0x6AC690C5i64 * (unsigned int)lPrev;
     pSeed->lSeed = lSeed;
     return lSeed;
 }
 
-static __forceinline unsigned __int64 SEED_RollNextHL(D2SeedStrc* pSeed, unsigned __int64 lPrev)
+static inline unsigned __int64 SEED_RollNextHL(D2SeedStrc* pSeed, unsigned __int64 lPrev)
 {
     const unsigned __int64 lSeed = (unsigned __int64)(unsigned int)(lPrev >> 32) + (unsigned __int64)(unsigned int)lPrev * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -458,7 +458,7 @@ static __forceinline unsigned __int64 SEED_RollNextHL(D2SeedStrc* pSeed, unsigne
     return lSeed;
 }
 
-static __forceinline unsigned __int64 SEED_RollHL64(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollHL64(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -466,7 +466,7 @@ static __forceinline unsigned __int64 SEED_RollHL64(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static __forceinline unsigned int sub_004D2610_SeedRoll(D2SeedStrc* pSeed)
+static inline unsigned int sub_004D2610_SeedRoll(D2SeedStrc* pSeed)
 {
     const unsigned int nLowSeed = pSeed->nLowSeed;
     const unsigned int nHighSeed = pSeed->nHighSeed;
@@ -558,7 +558,7 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
     return 0;
 }
 
-static __forceinline void RotateOffsets(int* pX,int* pY)
+static inline void RotateOffsets(int* pX,int* pY)
 {
     const int nOldX=*pX;
     const int nNegY=-*pY;

@@ -115,7 +115,7 @@ static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 }
 
 // 0x0060B480
-static __forceinline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
+static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 {
     if (!pDir->nFrames)
     {
@@ -129,13 +129,13 @@ static __forceinline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIter
 extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 
 // build: context DccTestBit
-static __forceinline int DccTestBit(const unsigned int* pBits, int nBit)
+static inline int DccTestBit(const unsigned int* pBits, int nBit)
 {
     return pBits[nBit >> 5] & gdwBitMasks_006CE268[nBit & 0x1F];
 }
 
 // build: context DccGetBitPos
-static __forceinline int DccGetBitPos(D2CmpBitCursorStrc* pCursor)
+static inline int DccGetBitPos(D2CmpBitCursorStrc* pCursor)
 {
     return (int)(pCursor->pData - pCursor->pStart) * 32 + pCursor->nBitPos;
 }

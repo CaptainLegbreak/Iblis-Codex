@@ -152,7 +152,7 @@ static int sub_005FE2B0_BuildGfxName(D2CmpSpriteContextStrc* pContext, char* szO
     return 0;
 }
 
-static __forceinline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
+static inline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
 {
     if (bAllowDcc)
     {
@@ -431,7 +431,7 @@ static int __stdcall sub_005FFFA0_LoadDC6CacheEntry(D2CmpSpriteFileStrc* pFile, 
     return 0;
 }
 
-static __forceinline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pContext, int nDirection, unsigned int nFrames)
+static inline int SpriteCache_ShouldConvert(D2CmpSpriteContextStrc* pContext, int nDirection, unsigned int nFrames)
 {
     unsigned int bConvert = 1;
     if (!(pContext->nType == 6 && (pContext->dwFlags & 2)))

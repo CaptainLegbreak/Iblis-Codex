@@ -19,19 +19,19 @@ struct D2MonsterRegionStrc
 
 #pragma pack(pop)
 
-static __forceinline uint64_t SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline uint64_t SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     uint64_t lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return lSeed;
 }
 
-static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     return (unsigned int)SEED_RollRandomNumber(pSeed);
 }
 
-static __forceinline D2SeedStrc* DUNGEON_GetRoomSeed(D2ActiveRoomStrc* pRoom)
+static inline D2SeedStrc* DUNGEON_GetRoomSeed(D2ActiveRoomStrc* pRoom)
 {
     return pRoom ? &pRoom->pSeed : 0;
 }

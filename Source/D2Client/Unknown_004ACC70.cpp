@@ -23,7 +23,7 @@ int __fastcall sub_00474350_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
 
-static __forceinline unsigned __int64 SEED_RollLocalSeed(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollLocalSeed(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -69,7 +69,7 @@ void __fastcall sub_004ACC70_InitMonsterLight(D2UnitStrc* pUnit, int nUnused, in
     sub_00464CF0(pUnit, sub_00474350_GetLightSize(pLight));
 }
 
-static __forceinline int GetUnitType(D2UnitStrc* unit)
+static inline int GetUnitType(D2UnitStrc* unit)
 {
     return !unit ? 6 : unit->dwUnitType;
 }

@@ -578,7 +578,7 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 struct D2ListBoxLineStrc
 {
-    __forceinline D2ListBoxLineStrc()
+    inline D2ListBoxLineStrc()
     {
     }
 
@@ -752,7 +752,7 @@ int __fastcall sub_0049D300_GetFieldA4(D2TextFieldA4Strc* pRecord)
 }
 
 // 0x0049D3B0
-static __forceinline void sub_0049D3B0_SetWidthFromWord(D2TextWidthStrc* pRecord)
+static inline void sub_0049D3B0_SetWidthFromWord(D2TextWidthStrc* pRecord)
 {
     pRecord->nWidth = pRecord->wWidth;
 }

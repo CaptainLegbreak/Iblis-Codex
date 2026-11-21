@@ -169,7 +169,7 @@ static unsigned int sub_004380B0_GetDaysLeft(unsigned int nExpireTime) {
     if(nExpireTime<=nTime) return 0;
     return (nExpireTime-nTime)/86400;
 }
-static __forceinline int GetCharType(D2LaunchCharEntryStrc* entry)
+static inline int GetCharType(D2LaunchCharEntryStrc* entry)
 {
     return entry ? entry->nType : 0;
 }

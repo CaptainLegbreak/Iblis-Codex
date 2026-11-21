@@ -5,7 +5,7 @@ unsigned __int64 gqHuffmanHeaders_0075BFB0;                                     
 extern unsigned char gabHuffmanCodeLength_007076C0[256];                                                    // 0x007076C0
 void __fastcall FOG_10219(unsigned char* pData);                                                            // 0x0040ADB0
 
-static __forceinline void AddTotal(unsigned __int64* pTotal, unsigned __int64 nValue)
+static inline void AddTotal(unsigned __int64* pTotal, unsigned __int64 nValue)
 {
     *pTotal += nValue;
 }

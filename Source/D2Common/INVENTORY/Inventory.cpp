@@ -361,7 +361,7 @@ D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* 
 
 inline D2ItemExtraDataStrc* INVENTORY_GetItemExtraDataFromItem(D2UnitStrc* pItem);
 
-static __forceinline D2UnitStrc* INVENTORY_GetBodyLocItemInline(D2InventoryStrc* pInventory, int nBodyLoc);
+static inline D2UnitStrc* INVENTORY_GetBodyLocItemInline(D2InventoryStrc* pInventory, int nBodyLoc);
 
 D2UnitStrc* __stdcall INVENTORY_GetEquippedItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
@@ -470,7 +470,7 @@ int __stdcall STATES_CheckStateMaskBlueOnUnit(D2UnitStrc* pUnit)
     return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_BLUE]);
 }
 
-static __forceinline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
+static inline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -1036,7 +1036,7 @@ static void __stdcall sub_0063AF70_LinkGridItem(D2InventoryStrc* pInventory, D2I
     pInventoryGrid->pLastItem = pItem;
 }
 
-static __forceinline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
+static inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
 {
     return !pUnit ? 0 : pUnit->dwAnimMode;
 }
@@ -1811,7 +1811,7 @@ inline D2UnitStrc* INVENTORY_GetNextGridItemInline(D2UnitStrc* pItem)
     return 0;
 }
 
-static __forceinline unsigned int INVENTORY_GetUnitXInline(D2UnitStrc* pUnit)
+static inline unsigned int INVENTORY_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -1950,7 +1950,7 @@ D2InventoryGridStrc* __stdcall EmitInventoryGridCaller(D2InventoryStrc* inventor
     return INVENTORY_GetGrid(inventory, index, info);
 }
 
-static __forceinline D2UnitStrc* GetBodyItem(D2InventoryStrc* pInventory, int nBodyLoc)
+static inline D2UnitStrc* GetBodyItem(D2InventoryStrc* pInventory, int nBodyLoc)
 {
     if (INVENTORY_GetPtrIfValid(pInventory) && (unsigned int)nBodyLoc <= 12)
     {
@@ -2827,7 +2827,7 @@ D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventor
     return 0;
 }
 
-static __forceinline D2UnitStrc* INVENTORY_GetBodyLocItemInline(D2InventoryStrc* pInventory, int nBodyLoc)
+static inline D2UnitStrc* INVENTORY_GetBodyLocItemInline(D2InventoryStrc* pInventory, int nBodyLoc)
 {
     D2UnitStrc* pItem;
     if (!INVENTORY_GetPtrIfValid(pInventory))
@@ -4164,17 +4164,17 @@ void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pPlayer, D2Inventor
     }
 }
 
-static __forceinline s32 INVENTORY_CheckSignature_Inline(Inventory* inventory)
+static inline s32 INVENTORY_CheckSignature_Inline(Inventory* inventory)
 {
     return inventory && FIELD(u32, inventory, 0) == 0x01020304;
 }
 
-static __forceinline ItemData* ITEMS_GetItemData_Inline(Unit* item)
+static inline ItemData* ITEMS_GetItemData_Inline(Unit* item)
 {
     return (item && FIELD(s32, item, 0) == 4 && FIELD(ItemData*, item, 0x14)) ? FIELD(ItemData*, item, 0x14) : 0;
 }
 
-static __forceinline Unit* INVENTORY_GetNextItem_Inline(Unit* item)
+static inline Unit* INVENTORY_GetNextItem_Inline(Unit* item)
 {
     const s32 nUnitType = item ? FIELD(s32, item, 0) : 6;
     if (nUnitType != 4)

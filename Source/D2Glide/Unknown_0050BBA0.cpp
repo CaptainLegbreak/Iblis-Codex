@@ -463,7 +463,7 @@ int __fastcall sub_0050D4C0_GlideTileDrawLit(D2TileLibraryEntryStrc* pTile, int 
     return nResult;
 }
 
-static __forceinline float ScaleTexCoord(double dA, double dB, double dScale)
+static inline float ScaleTexCoord(double dA, double dB, double dScale)
 {
     return (float)(int)((dA + dB) * dScale);
 }

@@ -88,7 +88,7 @@ int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bC
 int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bCheckForHeader, int* pSocketedItemCount, unsigned int dwVersion, int* pFail); // 0x0062E430
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
-static __forceinline int GetUnitType(D2UnitStrc* p)
+static inline int GetUnitType(D2UnitStrc* p)
 {
     if (p)
     {
@@ -97,7 +97,7 @@ static __forceinline int GetUnitType(D2UnitStrc* p)
     return 6;
 }
 
-static __forceinline D2InventoryStrc* GetInventory(D2UnitStrc* p)
+static inline D2InventoryStrc* GetInventory(D2UnitStrc* p)
 {
     if (p)
     {

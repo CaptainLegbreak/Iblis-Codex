@@ -29,7 +29,7 @@ static int __stdcall sub_005D8100(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSki
     return shim_1(&pGame, &nSkillId);
 }
 
-static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
+static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -38,7 +38,7 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
     return 0;
 }
 
-static __forceinline int SKILLS_IsUnlootedCorpse(D2UnitStrc* pTarget)
+static inline int SKILLS_IsUnlootedCorpse(D2UnitStrc* pTarget)
 {
     return pTarget && sub_00645590_IsSelectableSoftCorpse(pTarget) && !STATES_CheckState(pTarget, STATE_CORPSE_NOSELECT);
 }

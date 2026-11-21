@@ -72,14 +72,14 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(void* pRoom, int nX, int nY
 int __stdcall sub_6FDAB770(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2);                              // 0x00678D10
 extern const D2CoordStrc aCoordOffsets[8];                                                                  // 0x006F1958
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return (unsigned int)lSeed;
 }
 
-static __forceinline int PATH_AStar_Heuristic_Inline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+static inline int PATH_AStar_Heuristic_Inline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     int nDiffX = tPoint1.X - tPoint2.X;
     if (nDiffX < 0)
@@ -135,7 +135,7 @@ static D2PathIDAStarNodeStrc* __stdcall sub_6FDC0840(D2PathIDAStarContextStrc* p
     return pNode;
 }
 
-static __forceinline D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode_Inline(D2PathIDAStarContextStrc* pContext)
+static inline D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode_Inline(D2PathIDAStarContextStrc* pContext)
 {
     if (pContext->nNodesCount == 900)
     {
@@ -146,7 +146,7 @@ static __forceinline D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode_Inline(D2Pat
     return pNewNode;
 }
 
-static __forceinline int PATH_IDAStar_IsOutOfBounds_Inline(const D2PathIDAStarContextStrc* pContext, D2PathPointStrc tCoord)
+static inline int PATH_IDAStar_IsOutOfBounds_Inline(const D2PathIDAStarContextStrc* pContext, D2PathPointStrc tCoord)
 {
     return tCoord.X < pContext->nCoord[0].X || tCoord.X > pContext->nCoord[1].X || tCoord.Y < pContext->nCoord[0].Y || tCoord.Y > pContext->nCoord[1].Y;
 }

@@ -253,7 +253,7 @@ int gnGlobal_007A8A18; // 0x007A8A18
 
 int gbPhaseActive_007A8A1C; // 0x007A8A1C
 
-static __forceinline unsigned __int64 CLIENT_RollRandomNumberForceInline(D2SeedStrc* pSeed)
+static inline unsigned __int64 CLIENT_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -327,7 +327,7 @@ int __stdcall sub_004726F0(int bForce)
     return 0;
 }
 
-static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
+static inline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2SeedStrc* pDst)
 {
     const unsigned __int64 lSeed = pSrc->nHighSeed + 0x6AC690C5i64 * pSrc->nLowSeed;
     pDst->nLowSeed = (unsigned int)lSeed;
@@ -335,7 +335,7 @@ static __forceinline unsigned int SEED_RollFromInline(const D2SeedStrc* pSrc, D2
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollLowInline(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -446,7 +446,7 @@ extern "C" void __cdecl sub_004736C0_DrawPanelShade()
 }
 
 // 0x00473720
-static __forceinline void sub_00473720_GetLevelWeather(int* pRain, int* pMud)
+static inline void sub_00473720_GetLevelWeather(int* pRain, int* pMud)
 {
     D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     *pRain = 0;

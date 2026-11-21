@@ -306,14 +306,14 @@ void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc* pGame, D2PlayerCountBonu
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pUnit, D2UnitStrc* pTarget);        // 0x005DC380
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 
-static __forceinline unsigned __int64 AIBAAL_RollSeed_M282Inline(D2SeedStrc* pSeed)
+static inline unsigned __int64 AIBAAL_RollSeed_M282Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->lSeed = lSeed;
     return lSeed;
 }
 
-static __forceinline unsigned int AIBAAL_RollLimited_M282Inline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int AIBAAL_RollLimited_M282Inline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -328,7 +328,7 @@ static __forceinline unsigned int AIBAAL_RollLimited_M282Inline(D2SeedStrc* pSee
     return AIBAAL_RollSeed_M282Inline(pSeed) & (nMax - 1);
 }
 
-static __forceinline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
+static inline int AIBAAL_GetRandomArrayIndex_M282Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
 {
     int nSum = 0;
     int* pSum = pArray;
@@ -393,7 +393,7 @@ static int sub_005FC070_CheckPrimeEvilSkill(D2UnitStrc* pUnit, D2SkillStrc* pSki
     return 0;
 }
 
-static __forceinline int AIBAAL_GetSkillId_Inline(D2SkillStrc* pSkill)
+static inline int AIBAAL_GetSkillId_Inline(D2SkillStrc* pSkill)
 {
     return SKILLS_GetSkillIdFromSkill(pSkill, szAiBaalCpp_006E3580, 0x131);
 }
@@ -515,7 +515,7 @@ static int __stdcall AIBAAL_RollRandomAiParamForNonCollidingUnit(D2GameStrc* pGa
     return AIBAAL_GetRandomArrayIndex_M282Inline(aiParams, 16, pUnit, 1);
 }
 
-static __forceinline unsigned int AIBAAL_RollSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int AIBAAL_RollSeed_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -523,7 +523,7 @@ static __forceinline unsigned int AIBAAL_RollSeed_Inline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int AIBAAL_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
+static inline int AIBAAL_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
 {
     int nResult;
     if (nMax <= 0)
@@ -535,7 +535,7 @@ static __forceinline int AIBAAL_RollLimited_Inline(D2SeedStrc* pSeed, int nMax)
     return nResult;
 }
 
-static __forceinline int AIBAAL_GetRandomArrayIndex_Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
+static inline int AIBAAL_GetRandomArrayIndex_Inline(int* pArray, int nArraySize, D2UnitStrc* pUnit, int nDefaultValue)
 {
     int nSum = 0;
     int* pWeight = pArray;
@@ -612,14 +612,14 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
-static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
+static inline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
     case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return ((int*)pUnit->pDynamicPath)[3];
     default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
 }
-static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
+static inline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
     case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return ((int*)pUnit->pDynamicPath)[4];
@@ -672,7 +672,7 @@ int __fastcall AIBAAL_CullPotentialTargets(D2UnitStrc* pBaal, D2UnitStrc* pTarge
 void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nParam, D2AiCmdStrc* pAiCmd); // 0x005FCB60
 void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE0F0
 
-static __forceinline int UNITS_GetXPos(D2UnitStrc* pUnit)
+static inline int UNITS_GetXPos(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -690,7 +690,7 @@ static __forceinline int UNITS_GetXPos(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int UNITS_GetYPos(D2UnitStrc* pUnit)
+static inline int UNITS_GetYPos(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

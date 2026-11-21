@@ -62,7 +62,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int
 void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int); // 0x00545CD0
 void __fastcall SUNIT_InitializeAnimation(D2UnitStrc*); // 0x005533D0
 void __fastcall SUNIT_SetCombatMode(D2GameStrc*,D2UnitStrc*,int); // 0x00553570
-static __forceinline void MONSTER_SetComponent(D2UnitStrc* pUnit,int nComponent,unsigned char nValue)
+static inline void MONSTER_SetComponent(D2UnitStrc* pUnit,int nComponent,unsigned char nValue)
 {
     if (pUnit && pUnit->dwUnitType==1 && pUnit->pMonsterData) pUnit->pMonsterData->nComponent[nComponent]=nValue;
 }
@@ -87,7 +87,7 @@ static __forceinline int MONSTER_Regeneration(int nLife,int nRegen)
     }
     return nResult;
 }
-static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 nSeed=pSeed->nHighSeed+0x6AC690C5i64*pSeed->nLowSeed;
     pSeed->nHighSeed=(unsigned int)(nSeed>>32);
@@ -194,7 +194,7 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
     }
     SKILLS_EquipMonsterFromTable(pGame,0,pMonster,-1,nLevel,nLevel,1);
 }
-static __forceinline D2MonsterDataStrc* MONSTER_GetMonsterData(D2UnitStrc* pUnit)
+static inline D2MonsterDataStrc* MONSTER_GetMonsterData(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 1)
     {
@@ -202,7 +202,7 @@ static __forceinline D2MonsterDataStrc* MONSTER_GetMonsterData(D2UnitStrc* pUnit
     }
     return 0;
 }
-static __forceinline D2MonStatsTxt* MONSTER_GetMonStatsTxtRecord(D2UnitStrc* pUnit)
+static inline D2MonStatsTxt* MONSTER_GetMonStatsTxtRecord(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwClassId >= 0 && pUnit->dwClassId < sgptDataTables->nMonStats)
     {
@@ -210,7 +210,7 @@ static __forceinline D2MonStatsTxt* MONSTER_GetMonStatsTxtRecord(D2UnitStrc* pUn
     }
     return 0;
 }
-static __forceinline D2AiControlStrc* MONSTER_GetAiControl(D2UnitStrc* pUnit)
+static inline D2AiControlStrc* MONSTER_GetAiControl(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = MONSTER_GetMonsterData(pUnit);
     if (pMonsterData)

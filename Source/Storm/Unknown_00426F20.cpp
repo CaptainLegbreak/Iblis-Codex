@@ -381,7 +381,7 @@ int __fastcall inflateReset(z_stream* strm)
 }
 
 // 0x00429AA0
-static __forceinline void fixedtables(inflate_state* state)
+static inline void fixedtables(inflate_state* state)
 {
     state->lencode = lenfix_006D0300;
     state->lenbits = 9;

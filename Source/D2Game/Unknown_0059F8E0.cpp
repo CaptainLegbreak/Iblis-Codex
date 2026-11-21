@@ -57,7 +57,7 @@ void __fastcall MISSILES_Free(D2GameStrc* pGame, D2UnitStrc* pMissile)
     sub_6FC349F0(pGame, pMissile);
 }
 
-static __forceinline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSeed)
+static inline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

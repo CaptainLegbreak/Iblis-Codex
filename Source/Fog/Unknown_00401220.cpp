@@ -25,7 +25,7 @@ public:
 };
 }
 
-static __forceinline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
+static inline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
 {
     const char* p = szSource;
     if (nSize)
@@ -60,7 +60,7 @@ static __forceinline size_t StrLCopy(char* szDest, const char* szSource, size_t 
     return p - szSource - 1;
 }
 
-static __forceinline size_t StrLCopyStart(char* szDest, const char* szSource, size_t nSize)
+static inline size_t StrLCopyStart(char* szDest, const char* szSource, size_t nSize)
 {
     const char* p = szSource;
     if (nSize)
@@ -94,7 +94,7 @@ static __forceinline size_t StrLCopyStart(char* szDest, const char* szSource, si
     return p - szSource - 1;
 }
 
-static __forceinline const char* StrLCopyEnd(char* szDest, const char* szSource)
+static inline const char* StrLCopyEnd(char* szDest, const char* szSource)
 {
     const char* p = szSource;
     size_t n = 0x3FF;

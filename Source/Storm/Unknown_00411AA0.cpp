@@ -562,7 +562,7 @@ unsigned int __stdcall SMemGetSize(void* pMemory, const char* szFile, int nLine)
 }
 
 // build: context sub_A21_HeapIdInUse
-static __forceinline int sub_A21_HeapIdInUse(unsigned int dwId)
+static inline int sub_A21_HeapIdInUse(unsigned int dwId)
 {
     int nLockIndex = (unsigned char)dwId;
     EnterCriticalSection(&gaFreeBlockLocks_00776CC0[nLockIndex]);

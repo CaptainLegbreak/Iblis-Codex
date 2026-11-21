@@ -73,7 +73,7 @@ inline int M08_UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // build: context sub_M08_GetClientPlayerUnit
-static __forceinline D2UnitStrc* sub_M08_GetClientPlayerUnit(D2ClientStrc* pClient)
+static inline D2UnitStrc* sub_M08_GetClientPlayerUnit(D2ClientStrc* pClient)
 {
     if (pClient->dwFlags & CLIENTFLAGEX_PLAYER_UNIT_ALIVE)
     {
@@ -164,7 +164,7 @@ static void __stdcall sub_00537B50_ChangeClientRoom(D2ActiveRoomStrc* pRoom, D2C
     }
 }
 
-static __forceinline int sub_M08_GetUnitFlagEx21(D2UnitStrc* pUnit)
+static inline int sub_M08_GetUnitFlagEx21(D2UnitStrc* pUnit)
 {
     return (pUnit->dwFlagEx >> 21) & 1;
 }

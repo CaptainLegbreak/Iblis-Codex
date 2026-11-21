@@ -17,7 +17,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                      
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag);                                // 0x005A0180
 
-__forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -30,7 +30,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {

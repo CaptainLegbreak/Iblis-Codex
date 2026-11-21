@@ -111,7 +111,7 @@ void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuan
     }
 }
 
-static __forceinline int IsMouseInSquare(int nX, int nY)
+static inline int IsMouseInSquare(int nX, int nY)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();

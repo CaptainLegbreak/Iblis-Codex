@@ -290,7 +290,7 @@ Blocked:
     return 1;
 }
 
-static __forceinline void COLLISION_CreateBoundingBox(D2BoundingBoxStrc* pBoundingBox, int nCenterX, int nCenterY, unsigned int nSizeX, unsigned int nSizeY)
+static inline void COLLISION_CreateBoundingBox(D2BoundingBoxStrc* pBoundingBox, int nCenterX, int nCenterY, unsigned int nSizeX, unsigned int nSizeY)
 {
     pBoundingBox->nLeft = nCenterX - (nSizeX / 2);
     pBoundingBox->nRight = pBoundingBox->nLeft + nSizeX - 1;
@@ -298,7 +298,7 @@ static __forceinline void COLLISION_CreateBoundingBox(D2BoundingBoxStrc* pBoundi
     pBoundingBox->nTop = pBoundingBox->nBottom + nSizeY - 1;
 }
 
-static __forceinline unsigned short COLLISION_CheckCollisionMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
+static inline unsigned short COLLISION_CheckCollisionMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
     pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
@@ -313,7 +313,7 @@ static __forceinline unsigned short COLLISION_CheckCollisionMask(D2ActiveRoomStr
     return 0x27;
 }
 
-static __forceinline unsigned short COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask)
+static inline unsigned short COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask)
 {
     D2BoundingBoxStrc pBoundingBox;
 

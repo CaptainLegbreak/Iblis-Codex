@@ -569,7 +569,7 @@ void __fastcall sub_004A1600_HandleHoverTextPacket(D2HoverTextPacketStrc* pPacke
     }
 }
 
-static __forceinline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
+static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
 {
     if (pTexts->awIds[0] == 0xE82)
     {
@@ -1296,22 +1296,22 @@ int __fastcall sub_004A4180_TestCondition(int nCondition)
     return 0;
 }
 
-static __forceinline int sub_KEYCFG_ListTop()
+static inline int sub_KEYCFG_ListTop()
 {
     return (gnAutomapHeight_007A521C - 0x1A4) / 2;
 }
 
-static __forceinline int sub_KEYCFG_Rows()
+static inline int sub_KEYCFG_Rows()
 {
     return ((sub_KEYCFG_ListTop() + 0x16C) - (sub_KEYCFG_ListTop() + 0x28)) / 0x12;
 }
 
-static __forceinline int sub_KEYCFG_VisibleLines()
+static inline int sub_KEYCFG_VisibleLines()
 {
     return sub_KEYCFG_Rows() - 3;
 }
 
-static __forceinline int sub_KEYCFG_TrackCels()
+static inline int sub_KEYCFG_TrackCels()
 {
     return (sub_KEYCFG_Rows() * 0x12 - 0x4E) / 0x0C + 1;
 }
@@ -1405,7 +1405,7 @@ int __fastcall sub_004A70C0_Emit(int nArg, D2UnitStrc* pUnit)
     return nValue > 0 ? nValue : nArg;
 }
 
-__forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
+inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1415,7 +1415,7 @@ __forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonst
     return 0;
 }
 
-static __forceinline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
+static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {

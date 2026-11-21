@@ -299,7 +299,7 @@ int __fastcall ACT1Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 int __fastcall ACT1Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00594890
 
-__forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -312,7 +312,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
+inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -366,12 +366,12 @@ void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-static __forceinline D2BitBufferStrc* QUESTS_GetQuestFlagsInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static inline D2BitBufferStrc* QUESTS_GetQuestFlagsInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 }
 
-static __forceinline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
+static inline int UNITS_GetGUIDOrNone(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

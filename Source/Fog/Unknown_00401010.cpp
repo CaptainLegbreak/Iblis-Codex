@@ -8,7 +8,7 @@ extern void* gpfnSymCleanup_0098A6B8;                                           
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
 extern char gszLogDirectory_00992708[0x400];                                                                // 0x00992708
 
-static __forceinline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
+static inline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
 {
     const char* p = szSource;
     if (nSize)
@@ -50,7 +50,7 @@ __int64 __cdecl sub_00401010_GetTime64()
 }
 
 // 0x00401020
-static __forceinline bool sub_00401020_SetLogDirectory(const char* szPath)
+static inline bool sub_00401020_SetLogDirectory(const char* szPath)
 {
     return StrLCopy(gszLogDirectory_00992708, szPath, 0x400) < 0x400 ? true : false;
 }

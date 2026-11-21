@@ -188,7 +188,7 @@ static void __stdcall sub_004812E0_DoPlayerAction(D2UnitStrc* pPlayer, int nActi
 
 static int __stdcall sub_004814A0_TryMonsterAction(int nAction, int nArg1, int nArg2, D2UnitStrc* pPlayer, D2UnitStrc* pUnit);
 
-static __forceinline void memset0(D2UnitTargetStrc* p) { int* q = (int*)p; for (int i = 0; i < 7; ++i) q[i] = 0; }
+static inline void memset0(D2UnitTargetStrc* p) { int* q = (int*)p; for (int i = 0; i < 7; ++i) q[i] = 0; }
 
 void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nArg3);
 
@@ -296,7 +296,7 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
     sub_004786A0_SendDwords2(0x13, nType, nUnitId);
 }
 
-static __forceinline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -305,12 +305,12 @@ static __forceinline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static __forceinline D2PlayerDataStrc* UMODE_GetPlayerData(D2UnitStrc* pUnit)
+static inline D2PlayerDataStrc* UMODE_GetPlayerData(D2UnitStrc* pUnit)
 {
     return (pUnit && pUnit->dwUnitType == UNIT_PLAYER) ? pUnit->pPlayerData : 0;
 }
 
-static __forceinline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
+static inline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -319,7 +319,7 @@ static __forceinline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
+static inline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -328,7 +328,7 @@ static __forceinline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int UMODE_GetPendingType(D2UnitStrc* pUnit)
+static inline int UMODE_GetPendingType(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -337,7 +337,7 @@ static __forceinline int UMODE_GetPendingType(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline int UMODE_GetPendingId(D2UnitStrc* pUnit)
+static inline int UMODE_GetPendingId(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -346,7 +346,7 @@ static __forceinline int UMODE_GetPendingId(D2UnitStrc* pUnit)
     return 0;
 }
 
-static __forceinline void UMODE_SetPendingAction(D2UnitStrc* pUnit, int bFlag, int nAction, int nType, int nId)
+static inline void UMODE_SetPendingAction(D2UnitStrc* pUnit, int bFlag, int nAction, int nType, int nId)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -357,7 +357,7 @@ static __forceinline void UMODE_SetPendingAction(D2UnitStrc* pUnit, int bFlag, i
     }
 }
 
-static __forceinline int UMODE_IsTargetable(D2UnitStrc* pUnit)
+static inline int UMODE_IsTargetable(D2UnitStrc* pUnit)
 {
     return pUnit ? (pUnit->dwFlags >> 1) & 1 : 0;
 }
@@ -900,7 +900,7 @@ void __fastcall sub_00481030_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int 
 }
 
 // build: context sub_GetPlayerDataOrNull
-static __forceinline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
+static inline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         return pUnit->pPlayerData;
@@ -908,7 +908,7 @@ static __forceinline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit
 }
 
 // build: context sub_SetPlayerAction
-static __forceinline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, int nAction, int nArg1, int nArg2)
+static inline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, int nAction, int nArg1, int nArg2)
 {
     if (sub_GetPlayerDataOrNull(pPlayer))
     {
@@ -1009,7 +1009,7 @@ static int __stdcall sub_00481400_ActOnPlayer(int nAction, int nType, int nId, D
 
 int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
 
-static __forceinline D2SkillsTxt* sub_004814A0_GetSkillsTxtRecord(int nSkillId)
+static inline D2SkillsTxt* sub_004814A0_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {

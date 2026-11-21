@@ -677,7 +677,7 @@ int __fastcall sub_005A4EE0_IsMonster(D2UnitStrc* pUnit); // 0x005A4EE0
 
 void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel);
 
-static __forceinline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
+static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -737,7 +737,7 @@ static int __stdcall sub_0057A8E0_AddStatDamage(int nStatMin, int nStatPct, int 
 }
 
 // 0x0057A950
-static __forceinline void sub_0057A950_DrainLife(D2UnitStrc* pUnit, int nDrain)
+static inline void sub_0057A950_DrainLife(D2UnitStrc* pUnit, int nDrain)
 {
     if (nDrain > 0)
     {
@@ -852,7 +852,7 @@ void __fastcall sub_A13_Emit_0057C6C0(D2UnitStrc* pAttacker, D2UnitStrc* pDefend
 }
 
 // calling-convention shim (not game code)
-static __forceinline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
+static inline unsigned int sub_I19_RollSeedInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -1348,7 +1348,7 @@ void __stdcall sub_A08_EmitDamageHelpers(D2UnitStrc* pAttacker, D2UnitStrc* pDef
     sub_0057B660_AddUndeadDamagePercent(pDamage, pDefender, pAttacker);
 }
 
-static __forceinline D2MonStatsTxt* U01_GetMonStatsTxtRecord(int nMonsterId)
+static inline D2MonStatsTxt* U01_GetMonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -1358,7 +1358,7 @@ static __forceinline D2MonStatsTxt* U01_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-static __forceinline D2MonStatsTxt* U01_GetUnitMonStatsTxtRecord(D2UnitStrc* pUnit)
+static inline D2MonStatsTxt* U01_GetUnitMonStatsTxtRecord(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -1368,7 +1368,7 @@ static __forceinline D2MonStatsTxt* U01_GetUnitMonStatsTxtRecord(D2UnitStrc* pUn
     return 0;
 }
 
-static __forceinline int U01_MonTypeMatches(int nMonType1, int nMonType2)
+static inline int U01_MonTypeMatches(int nMonType1, int nMonType2)
 {
     if (nMonType1 > 0 && nMonType1 < sgptDataTables->nMonTypeTxtRecordCount
         && nMonType2 > 0 && nMonType2 < sgptDataTables->nMonTypeTxtRecordCount)
@@ -1804,7 +1804,7 @@ void __fastcall sub_0057C1E0_Total(Game* game,Unit* attacker,Unit* defender,Dama
 }
 
 // build: context SUNITDMG_GetMonStatsTxtRecordFromUnit
-static __forceinline D2MonStatsTxt* SUNITDMG_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
+static inline D2MonStatsTxt* SUNITDMG_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -2302,7 +2302,7 @@ static int __stdcall sub_0057CB00(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int 
     return 0;
 }
 
-static __forceinline int UNIT_GetType(D2UnitStrc* pUnit)
+static inline int UNIT_GetType(D2UnitStrc* pUnit)
 {
  return !pUnit ? 6 : pUnit->dwUnitType;
 }
@@ -2337,7 +2337,7 @@ static void __stdcall sub_0057CC30_OpenBarricadeObject(D2UnitStrc* pDefender, in
     }
 }
 
-static __forceinline unsigned int sub_I18_UnitIsRevived(D2UnitStrc* pUnit)
+static inline unsigned int sub_I18_UnitIsRevived(D2UnitStrc* pUnit)
 {
     if (pUnit)
         return pUnit->dwFlags >> 31;
@@ -2474,7 +2474,7 @@ static unsigned int SUNITDMG_GetHitClass(D2DamageStrc* pDamage, unsigned int nBa
 }
 
 // 0x0057CEA0
-static __forceinline void sub_0057CEA0_ApplyHitClass(D2DamageStrc* pDamage, D2UnitStrc* pAttacker)
+static inline void sub_0057CEA0_ApplyHitClass(D2DamageStrc* pDamage, D2UnitStrc* pAttacker)
 {
     if (!pDamage->nHitClassActiveSet && !(pDamage->dwHitClass & 0xF))
     {
@@ -2924,7 +2924,7 @@ unsigned short __fastcall sub_0057D700_GetCombatResultFlags(D2UnitStrc* pAttacke
     return 0;
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -2932,7 +2932,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -3637,7 +3637,7 @@ static void __stdcall SUNITDMG_AddExperienceForPlayer(D2GameStrc* pGame, D2UnitS
     }
 }
 
-static __forceinline int GetReferenceX(D2UnitStrc* unit)
+static inline int GetReferenceX(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
@@ -3649,7 +3649,7 @@ static __forceinline int GetReferenceX(D2UnitStrc* unit)
     return unit->pDynamicPath ? PATH_GetX(unit->pDynamicPath) : 0;
 }
 
-static __forceinline int GetReferenceY(D2UnitStrc* unit)
+static inline int GetReferenceY(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {

@@ -94,7 +94,7 @@ static __declspec(noinline) int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom
 
 static D2DrlgRoomStrc* DRLGMAZE_GetFreeLocationForRoomSouth(D2DrlgLevelStrc* pLevel);
 
-static __forceinline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed);
+static inline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed);
 
 static __forceinline D2DrlgRoomStrc* MAZE_ReplaceRoomPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId1, int nLevelPrestId2, int nPickedFile);
 
@@ -580,7 +580,7 @@ D2DrlgRoomStrc* __fastcall sub_M116_Emit_00670860(D2DrlgRoomStrc* pDrlgRoom, int
     return DRLGMAZE_ReplaceRoomPreset(pDrlgRoom->ptDrlgLevel, nFile, 0x2C5, -1, 0);
 }
 
-static __forceinline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed)
+static inline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
@@ -588,19 +588,19 @@ static __forceinline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static __forceinline int MAZE_IsPresetUnset(D2DrlgRoomStrc* pDrlgRoom)
+static inline int MAZE_IsPresetUnset(D2DrlgRoomStrc* pDrlgRoom)
 {
     return !((pDrlgRoom->pMaze->dwFlags >> 1) & 1);
 }
 
-static __forceinline void MAZE_SetRoomSizeFromMaze(D2DrlgRoomStrc* pDrlgRoom)
+static inline void MAZE_SetRoomSizeFromMaze(D2DrlgRoomStrc* pDrlgRoom)
 {
     D2LvlMazeTxt* pMaze = pDrlgRoom->ptDrlgLevel->pMaze;
     pDrlgRoom->pDrlgCoord.nWidth = pMaze->dwSizeX;
     pDrlgRoom->pDrlgCoord.nHeight = pMaze->dwSizeY;
 }
 
-static __forceinline void MAZE_SetPreset(D2DrlgRoomStrc* pDrlgRoom, int nLevelPrest, int nPickedFile)
+static inline void MAZE_SetPreset(D2DrlgRoomStrc* pDrlgRoom, int nLevelPrest, int nPickedFile)
 {
     D2DrlgPresetRoomStrc* pPreset = pDrlgRoom->pMaze;
     pPreset->nLevelPrest = nLevelPrest;
@@ -820,7 +820,7 @@ static void __stdcall DRLGMAZE_InitBasicMazeLayout(int nRoomsPerDirection, D2Drl
     sSetChamberPreset(1, pFirstRoomEx);
 }
 
-static __forceinline unsigned int MAZE_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int MAZE_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -1678,7 +1678,7 @@ static void DRLGMAZE_PlaceAct5IceStuff(D2DrlgLevelStrc* pLevel)
     }
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

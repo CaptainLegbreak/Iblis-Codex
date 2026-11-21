@@ -151,7 +151,7 @@ static void __stdcall sub_004C8750_LeapBounceFromTarget(D2UnitStrc* pUnit, D2Ski
 
 static void __stdcall sub_004C8890_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY);
 
-__forceinline int UNITS_GetXInline(D2UnitStrc* pUnit)
+inline int UNITS_GetXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -164,7 +164,7 @@ __forceinline int UNITS_GetXInline(D2UnitStrc* pUnit)
     }
 }
 
-__forceinline int UNITS_GetYInline(D2UnitStrc* pUnit)
+inline int UNITS_GetYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -410,7 +410,7 @@ static void __stdcall sub_004C8890_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY
 }
 
 // build: context MONSTATS_GetRecordInline
-static __forceinline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
+static inline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
         return &sgptDataTables->pMonStatsTxt[nMonsterId];
@@ -418,7 +418,7 @@ static __forceinline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
 }
 
 // build: context MONSTATS_GetBaseIdInline
-static __forceinline int MONSTATS_GetBaseIdInline(int nClassId)
+static inline int MONSTATS_GetBaseIdInline(int nClassId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetRecordInline(nClassId);
     if (!pMonStatsTxtRecord)
@@ -427,7 +427,7 @@ static __forceinline int MONSTATS_GetBaseIdInline(int nClassId)
 }
 
 // build: context MONSTERS_GetBaseIdInline
-static __forceinline int MONSTERS_GetBaseIdInline(D2UnitStrc* pUnit)
+static inline int MONSTERS_GetBaseIdInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
         return MONSTATS_GetBaseIdInline(pUnit->dwClassId);

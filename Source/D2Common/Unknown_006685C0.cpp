@@ -115,7 +115,7 @@ static char* sub_00668590_NextSetToken(char** ppString, const char* szSet)
 }
 
 // build: context DATATBLS_StringToCode
-static __forceinline int DATATBLS_StringToCode(const char* szText)
+static inline int DATATBLS_StringToCode(const char* szText)
 {
     int nCode;
     sub_00668510_MakeCode(szText, (char*)&nCode);
@@ -174,7 +174,7 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
 }
 
 // build: context sub_00668A90_TryItemCode
-static __forceinline int sub_00668A90_TryItemCode(D2CubeInputItemStrc* pInput, char* szText)
+static inline int sub_00668A90_TryItemCode(D2CubeInputItemStrc* pInput, char* szText)
 {
     int nCode;
     if (strlen(szText) <= 4 && DATATBLS_GetItemRecordFromItemCode(DATATBLS_StringToCode(szText), &nCode))

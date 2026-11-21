@@ -18,7 +18,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 extern const unsigned char gnDirectionMap_006E3540[]; // 0x006E3540
 extern const unsigned char gnDirectionAxis_006E353C[]; // 0x006E353C
 // build: context CLIENTS_GetUnitXInline
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -31,7 +31,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 }
 
 // build: context CLIENTS_GetUnitYInline
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -53,7 +53,7 @@ static int AI_RollPercentage(D2UnitStrc* pUnit)
 }
 #define AI_PARAM(n) pMonStatsTxt->wAiParam[n][pGame->nDifficulty]
 // build: context ABS_VALUE
-static __forceinline int ABS_VALUE(int n) { return n < 0 ? -n : n; }
+static inline int ABS_VALUE(int n) { return n < 0 ? -n : n; }
 // 0x005F9490
 void __fastcall sub_005F9490_ThinkAxisCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {

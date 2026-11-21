@@ -18,7 +18,7 @@ extern int gnArg_007C547C; // 0x007C547C
 extern int gnArg_007C5480; // 0x007C5480
 extern D2ClientDialogStrc* gpDialog_007C5484; // 0x007C5484
 
-static __forceinline int GetUnitId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
+static inline int GetUnitId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
 // 0x004BFAF0
 int __cdecl sub_004BFAF0_ShowConfirmation()

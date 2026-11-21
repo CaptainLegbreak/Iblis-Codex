@@ -227,7 +227,7 @@ const Unicode* __fastcall sub_00524930(D2TblHeaderStrc* pTable, void* pIndex, un
 }
 
 // 0x005249C0
-static __forceinline void sub_005249C0_FreeTable(void* pTable)
+static inline void sub_005249C0_FreeTable(void* pTable)
 {
     FOG_Free(pTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
 }

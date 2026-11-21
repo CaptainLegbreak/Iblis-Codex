@@ -93,7 +93,7 @@ static bool sub_00404760_IsDosHeaderValid(const D2ImageDosHeaderStrc* pImage)
 }
 
 // 0x00404780
-static __forceinline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
+static inline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
 {
     if (IsBadReadPtr(pNt, 4))
     {
@@ -176,7 +176,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
 }
 
 // build: context CrashModule_ToUtf8
-static __forceinline void CrashModule_ToUtf8(D2CrashModuleStrc* pModule, const wchar_t* wszSource, int nSourceLength)
+static inline void CrashModule_ToUtf8(D2CrashModuleStrc* pModule, const wchar_t* wszSource, int nSourceLength)
 {
     const int nLength = WideCharToMultiByte(0xFDE9, 0, wszSource, nSourceLength, pModule->szName, sizeof(pModule->szName), 0, 0);
     if (nLength < 0)
@@ -362,7 +362,7 @@ bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
 bool sub_00404DC0_EnumModulesToolhelp(void* pContext); // 0x00404DC0
 
 // build: context D2_NtCurrentTeb
-__forceinline D2TebStrc* D2_NtCurrentTeb()
+inline D2TebStrc* D2_NtCurrentTeb()
 {
     return (D2TebStrc*)__readfsdword(0x18);
 }
