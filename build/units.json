@@ -31465,22 +31465,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004BAEA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BAEA0",
-     "length": 10,
-     "name": "?Slot01@ButtonWrapper@@UAEXXZ"
-    },
-    {
-     "va": "0x004BAF00",
-     "length": 10,
-     "name": "?Slot11@ButtonWrapper@@UAEHXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/editbox_004BBBB0.cpp",
    "rank": 0,
    "functions": [
@@ -31527,9 +31511,44 @@
    ]
   },
   {
+   "file": "Source/D2Client/UI/editbox_004BB210.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004BB210",
+     "length": 704,
+     "name": "?Slot01@EditBoxImplementation@@UAEXXZ"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/editbox_004BB200.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004BAEA0",
+     "length": 10,
+     "name": "?Slot01@ButtonWrapper@@UAEXXZ"
+    },
+    {
+     "va": "0x004BAF00",
+     "length": 10,
+     "name": "?Slot11@ButtonWrapper@@UAEHXZ"
+    },
     {
      "va": "0x004BB200",
      "length": 13,
@@ -31630,31 +31649,6 @@
      "length": 14,
      "name": "sub_004BBBA0_SetUnk20"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/editbox_004BB210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BB210",
-     "length": 704,
-     "name": "?Slot01@EditBoxImplementation@@UAEXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

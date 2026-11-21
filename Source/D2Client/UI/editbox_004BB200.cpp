@@ -2,11 +2,6 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 
-struct Unicode;
-class UIWidget;
-class EditBoxImplementation;
-class EditBoxWrapper;
-
 class UIWidget
 {
 public:
@@ -25,6 +20,29 @@ public:
 
     int unk0x04;
 };
+
+class ButtonImplementation : public UIWidget
+{
+public:
+    virtual void sub_004BAC60_SetUnk24(int nValue);
+};
+
+class ButtonWrapper : public UIWidget
+{
+public:
+    virtual void Slot01();
+    virtual int Slot11();
+
+    ButtonImplementation* pImpl;
+};
+
+struct Unicode;
+
+class UIWidget;
+
+class EditBoxImplementation;
+
+class EditBoxWrapper;
 
 class EditBoxImplementation : public UIWidget
 {
@@ -71,10 +89,28 @@ public:
     EditBoxImplementation* pImpl;
 };
 
+// 0x004BAEA0
+void ButtonWrapper::Slot01()
+{
+    pImpl->Slot01();
+}
+
+// 0x004BAF00
+int ButtonWrapper::Slot11()
+{
+    return pImpl->Slot11();
+}
+
 // 0x004BB200
 void EditBoxImplementation::sub_004BB200_SetUnk20(int nValue)
 {
     unk0x20 = nValue;
+}
+
+// 0x004BB950
+int __stdcall sub_00646000_AlwaysZero(int nUnused)
+{
+    return 0;
 }
 
 // 0x004BB980
@@ -183,12 +219,6 @@ void EditBoxWrapper::sub_004BBB90_SetUnk24(int nValue)
 void EditBoxWrapper::sub_004BBBA0_SetUnk20(int nValue)
 {
     pImpl->sub_004BB200_SetUnk20(nValue);
-}
-
-// 0x004BB950
-int __stdcall sub_00646000_AlwaysZero(int nUnused)
-{
-    return 0;
 }
 
 void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
