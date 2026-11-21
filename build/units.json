@@ -8698,6 +8698,10 @@
      "va": "0x004269C0",
      "length": 154,
      "name": "?SEvtPopState@@YGHII@Z"
+    },
+    {
+     "va": "0x00426F90",
+     "length": 453
     }
    ]
   },
@@ -8981,16 +8985,6 @@
      "va": "0x0042B610",
      "length": 79,
      "name": "?inflateMark@@YIJPAUz_stream@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SEVT_00426F90.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00426F90",
-     "length": 453
     }
    ]
   },

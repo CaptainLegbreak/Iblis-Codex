@@ -36,10 +36,16 @@ struct D2StormBreakCmdListStrc
 
     char* Head()
     {
-        return m_terminator.Next();
+        char* pHead = m_terminator.Next();
+        return pHead;
+    }
+    D2StormLinkStrc* Link(char* pNode)
+    {
+        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
     char* sub_00426C80_RawNext(D2StormLinkStrc* pNode);                                                    // 0x00426C80
     char* sub_00426F20_DeleteNode(char* pNode);                                                             // 0x00426F20
+    char* DeleteNode(char* pNode);
 };
 
 extern D2StormBreakCmdListStrc gtSEvtBreakCmdList_007088E8;                                                 // 0x007088E8
@@ -47,6 +53,7 @@ extern D2StormBreakCmdListStrc gtSEvtBreakCmdList_007088E8;                     
 static long gnSEvtDispatchDepth_007792FC;                                                                   // 0x007792FC
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLine, unsigned int nFlags);    // 0x00413020
 
 void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource); // 0x00426180
@@ -55,6 +62,8 @@ void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2S
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 
+
+int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned int nId, void* pData);
 
 // 0x00426180
 void __stdcall sub_00426180_CopyHandlerTable(D2StormHandlerTableStrc* pDest, D2StormHandlerTableStrc* pSource)
@@ -101,95 +110,6 @@ static D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubT
         if (pType->nType == nType && pType->nSubType == nSubType)
             break;
     return pType;
-}
-
-int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned int nId, void* pData)
-{
-    InterlockedIncrement(&gnSEvtDispatchDepth_007792FC);
-    int bResult = 0;
-    unsigned int nMinSequence = 0xFFFFFFFF;
-    D2StormEventHandlerStrc* pHandler = 0;
-    do
-    {
-        EnterCriticalSection(&gtSEvtLock);
-
-        int bBreak = 0;
-        for (char* pNode = gtSEvtBreakCmdList_007088E8.Head(); pNode; pNode = ((D2StormLinkStrc*)pNode)->Next())
-        {
-            if (((D2StormBreakCmdStrc*)pNode)->pData == pData)
-            {
-                ((D2StormLinkStrc*)pNode)->Unlink();
-                SMemFree(pNode, gszTypeBreakCmd_007088D8, -2, 0);
-                bBreak = 1;
-                break;
-            }
-        }
-
-        if (bBreak)
-        {
-            LeaveCriticalSection(&gtSEvtLock);
-            break;
-        }
-
-        if (!pHandler || gbSEvtModified_007792F8)
-        {
-            pHandler = 0;
-            D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
-            if (pType && pType->pHandlers->ppTable && pType->pHandlers->nSize)
-            {
-                D2StormHandlerTableStrc* pTable = pType->pHandlers;
-                for (pHandler = pTable->ppTable[(pTable->nSize - 1) & nId]; pHandler; pHandler = pHandler->pNext)
-                {
-                    if (pHandler->nId == nId && pHandler->nSequence < nMinSequence)
-                        break;
-                }
-
-                if (gnSEvtDispatchDepth_007792FC == 1)
-                    gbSEvtModified_007792F8 = 0;
-            }
-        }
-
-        SEVTHANDLER pfnHandler = 0;
-        if (pHandler)
-        {
-            nMinSequence = pHandler->nSequence;
-            pfnHandler = pHandler->pfnHandler;
-            do
-            {
-                pHandler = pHandler->pNext;
-            }
-            while (pHandler && pHandler->nId != nId);
-        }
-
-        LeaveCriticalSection(&gtSEvtLock);
-
-        if (pfnHandler)
-        {
-            bResult = 1;
-            pfnHandler(pData);
-        }
-    }
-    while (pHandler);
-
-    InterlockedDecrement(&gnSEvtDispatchDepth_007792FC);
-
-    if (gtSEvtBreakCmdList_007088E8.Head())
-    {
-        EnterCriticalSection(&gtSEvtLock);
-        char* pNode = gtSEvtBreakCmdList_007088E8.Head();
-        while (pNode)
-        {
-            if (((D2StormBreakCmdStrc*)pNode)->pData == pData)
-                pNode = gtSEvtBreakCmdList_007088E8.sub_00426F20_DeleteNode(pNode);
-            else
-                pNode = gtSEvtBreakCmdList_007088E8.sub_00426C80_RawNext((D2StormLinkStrc*)pNode);
-            if ((int)pNode <= 0)
-                pNode = 0;
-        }
-        LeaveCriticalSection(&gtSEvtLock);
-    }
-
-    return bResult;
 }
 
 #define DELETE_TABLE sub_00426210_DeleteHandlerTable
@@ -434,3 +354,108 @@ int __stdcall SEvtPopState(unsigned int nType, unsigned int nSubType)
     return bResult;
 }
 
+// build: context D2StormBreakCmdListStrc::DeleteNode
+inline char* D2StormBreakCmdListStrc::DeleteNode(char* pNode)
+{
+    char* pNext = Link(pNode)->Next();
+    ((D2StormLinkStrc*)pNode)->Unlink();
+    SMemFree(pNode, gszTypeBreakCmd_007088D8, -2, 0);
+    return pNext;
+}
+
+// 0x00426F90
+int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned int nId, void* pData)
+{
+    InterlockedIncrement(&gnSEvtDispatchDepth_007792FC);
+    int bResult = 0;
+    unsigned int nMinSequence = 0xFFFFFFFF;
+    D2StormEventHandlerStrc* pHandler = 0;
+    do
+    {
+        EnterCriticalSection(&gtSEvtLock);
+
+        int bBreak = 0;
+        {
+            int nDelete = 0;
+            char* pNode = gtSEvtBreakCmdList_007088E8.Head();
+            while ((int)pNode > 0)
+            {
+                if (((D2StormBreakCmdStrc*)pNode)->pData == pData)
+                {
+                    bBreak = 1;
+                    nDelete = -12;
+                }
+                if (nDelete)
+                {
+                    pNode = gtSEvtBreakCmdList_007088E8.DeleteNode(pNode);
+                    pNode = (nDelete > 0) ? pNode : 0;
+                    nDelete = 0;
+                }
+                else
+                    pNode = ((D2StormLinkStrc*)pNode)->m_next;
+            }
+        }
+
+        if (bBreak)
+        {
+            LeaveCriticalSection(&gtSEvtLock);
+            break;
+        }
+
+        if (!pHandler || gbSEvtModified_007792F8)
+        {
+            pHandler = 0;
+            D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
+            if (pType && pType->pHandlers->ppTable && pType->pHandlers->nSize)
+            {
+                for (pHandler = pType->pHandlers->ppTable[(pType->pHandlers->nSize - 1) & nId]; pHandler; pHandler = pHandler->pNext)
+                {
+                    if (pHandler->nId == nId && pHandler->nSequence < nMinSequence)
+                        break;
+                }
+
+                if (gnSEvtDispatchDepth_007792FC == 1)
+                    gbSEvtModified_007792F8 = 0;
+            }
+        }
+
+        SEVTHANDLER pfnHandler = 0;
+        if (pHandler)
+        {
+            nMinSequence = pHandler->nSequence;
+            pfnHandler = pHandler->pfnHandler;
+            do
+            {
+                pHandler = pHandler->pNext;
+            }
+            while (pHandler && pHandler->nId != nId);
+        }
+
+        LeaveCriticalSection(&gtSEvtLock);
+
+        if (pfnHandler)
+        {
+            bResult = 1;
+            pfnHandler(pData);
+        }
+    }
+    while (pHandler);
+
+    InterlockedDecrement(&gnSEvtDispatchDepth_007792FC);
+
+    if (gtSEvtBreakCmdList_007088E8.m_terminator.Next())
+    {
+        EnterCriticalSection(&gtSEvtLock);
+        char* pNode = gtSEvtBreakCmdList_007088E8.Head();
+        while ((int)pNode > 0)
+        {
+            if (((D2StormBreakCmdStrc*)pNode)->pData == pData)
+                pNode = gtSEvtBreakCmdList_007088E8.sub_00426F20_DeleteNode(pNode);
+            else
+                pNode = gtSEvtBreakCmdList_007088E8.sub_00426C80_RawNext((D2StormLinkStrc*)pNode);
+        }
+        LeaveCriticalSection(&gtSEvtLock);
+    }
+
+    return bResult;
+}
