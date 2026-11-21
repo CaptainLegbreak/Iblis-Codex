@@ -87336,6 +87336,11 @@
      "length": 249
     },
     {
+     "va": "0x00670D70",
+     "length": 107,
+     "name": "?DRLGMAZE_PlaceAdjacentPresetRoom@@YGPAUD2DrlgRoomStrc@@PAU1@HH@Z"
+    },
+    {
      "va": "0x00670DE0",
      "length": 133,
      "name": "?DRLGMAZE_InitRoomFixedPreset@@YGPAUD2DrlgRoomStrc@@PAU1@HHHH@Z"
@@ -87355,6 +87360,16 @@
     {
      "va": "0x00671210",
      "length": 260
+    },
+    {
+     "va": "0x00671320",
+     "length": 268,
+     "name": "?DRLGMAZE_FillBlankMazeSpaces@@YGXPAUD2DrlgLevelStrc@@HPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x00671430",
+     "length": 149,
+     "name": "?DRLGMAZE_PlaceAct5LavaPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x006714D0",
@@ -87395,60 +87410,6 @@
      "length": 111
     },
     {
-     "va": "0x00672810",
-     "length": 967
-    },
-    {
-     "va": "0x00672E50",
-     "length": 76,
-     "name": "?sub_00672E50@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x006735F0",
-     "length": 711
-    },
-    {
-     "va": "0x006738C0",
-     "length": 413
-    },
-    {
-     "va": "0x00673B10",
-     "length": 31,
-     "name": "DRLGMAZE_InitLevelData"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00670960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00670960",
-     "length": 14,
-     "name": "DRLGMAZE_HasMapDS1"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670D70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00670D70",
-     "length": 107,
-     "name": "?DRLGMAZE_PlaceAdjacentPresetRoom@@YGPAUD2DrlgRoomStrc@@PAU1@HH@Z"
-    },
-    {
-     "va": "0x00671320",
-     "length": 268,
-     "name": "?DRLGMAZE_FillBlankMazeSpaces@@YGXPAUD2DrlgLevelStrc@@HPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x00671430",
-     "length": 149,
-     "name": "?DRLGMAZE_PlaceAct5LavaPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
      "va": "0x00672550",
      "length": 179,
      "name": "?sub_00672550@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -87469,6 +87430,10 @@
      "name": "?sub_006727A0@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x00672810",
+     "length": 967
+    },
+    {
      "va": "0x00672BE0",
      "length": 476,
      "name": "?DRLGMAZE_PlaceAct2TombStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
@@ -87477,6 +87442,11 @@
      "va": "0x00672DC0",
      "length": 138,
      "name": "?DRLGMAZE_PlaceAct2LairStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x00672E50",
+     "length": 76,
+     "name": "?sub_00672E50@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00672EA0",
@@ -87519,6 +87489,14 @@
      "name": "?DRLGMAZE_PlaceAct5IceStuff@@YAXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x006735F0",
+     "length": 711
+    },
+    {
+     "va": "0x006738C0",
+     "length": 413
+    },
+    {
      "va": "0x00673A60",
      "length": 138,
      "name": "?sub_00673A60@@YGXPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@Z"
@@ -87527,31 +87505,27 @@
      "va": "0x00673AF0",
      "length": 27,
      "name": "?DRLGMAZE_RollBasicPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00673B30.cpp",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x00673B10",
+     "length": 31,
+     "name": "DRLGMAZE_InitLevelData"
+    },
     {
      "va": "0x00673B30",
      "length": 1197
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_00670960.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00670960",
+     "length": 14,
+     "name": "DRLGMAZE_HasMapDS1"
+    }
    ]
   },
   {
