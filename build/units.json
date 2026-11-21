@@ -69456,6 +69456,14 @@
      "name": "SKILLS_AuraCallback_HolyFire_HolyShock_Sanctuary_Conviction"
     },
     {
+     "va": "0x005CF3A0",
+     "length": 781
+    },
+    {
+     "va": "0x005CF6B0",
+     "length": 495
+    },
+    {
      "va": "0x005CF8A0",
      "length": 17,
      "name": "?sub_005CF8A0_FindMeleeTarget@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@H@Z"
@@ -69484,9 +69492,17 @@
      "length": 788
     },
     {
+     "va": "0x005D0670",
+     "length": 245
+    },
+    {
      "va": "0x005D0770",
      "length": 76,
      "name": "?SKILLS_CurseStateCallback_HolyFreeze@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005D07C0",
+     "length": 352
     },
     {
      "va": "0x005D0920",
@@ -69547,42 +69563,6 @@
      "va": "0x005CFE10",
      "length": 558,
      "name": "?sub_005CFE10_ElementalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005CF3A0.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x005CF3A0",
-     "length": 781
-    },
-    {
-     "va": "0x005CF6B0",
-     "length": 495
-    },
-    {
-     "va": "0x005D0670",
-     "length": 245
-    },
-    {
-     "va": "0x005D07C0",
-     "length": 352
     }
    ]
   },
