@@ -86,10 +86,10 @@ struct D2DataTablesStrc
     D2TxtLinkStrc* pSkillCalcLinker; // 0x3C
     char* pSkillsCode; // 0x40
     unsigned int nSkillsCodeSize; // 0x44
-    unsigned char unk0x48[0x4]; // 0x48
+    int nSkillsCodeSizeEx; // 0x48
     char* pSkillDescCode; // 0x4C
     unsigned int nSkillDescCodeSize; // 0x50
-    unsigned char unk0x54[0x4]; // 0x54
+    int nSkillDescCodeSizeEx; // 0x54
     void* pMissileCalcTxt; // 0x58
     D2TxtLinkStrc* pMissileCalcLinker; // 0x5C
     void* pMissCode; // 0x60
@@ -108,7 +108,7 @@ struct D2DataTablesStrc
     D2TxtLinkStrc* pItemsLinker; // 0x94
     char* pItemsCode; // 0x98
     unsigned int nItemsCodeSize; // 0x9C
-    unsigned char unk0xA0[0x4]; // 0xA0
+    int nItemsCodeSizeEx; // 0xA0
     D2PropertiesTxt* pPropertiesTxt; // 0xA4
     D2TxtLinkStrc* pPropertiesLinker; // 0xA8
     int nPropertiesTxtRecordCount; // 0xAC
@@ -144,9 +144,9 @@ struct D2DataTablesStrc
     D2MonStatsTxt* pMonStatsTxt; // 0xA78
     void* pMonStatsLinker; // 0xA7C
     int nMonStatsTxtRecordCount; // 0xA80
-    unsigned char unk0xA84[0x4]; // 0xA84
+    void* pMonSoundsTxt; // 0xA84
     D2TxtLinkStrc* pMonSoundsLinker; // 0xA88
-    unsigned char unk0xA8C[0x4]; // 0xA8C
+    int nMonSoundsTxtRecordCount; // 0xA8C
     D2MonStats2Txt* pMonStats2Txt; // 0xA90
     void* pMonStats2Linker; // 0xA94
     int nMonStats2TxtRecordCount; // 0xA98
@@ -186,7 +186,7 @@ struct D2DataTablesStrc
     short* pStatsWithDescFunc; // 0xBD8
     int nStatsWithDescFunc; // 0xBDC
     D2MonEquipTxt* pMonEquipTxt; // 0xBE0
-    unsigned char unk0xBE4[0x4]; // 0xBE4
+    int nMonEquipTxtRecordCount; // 0xBE4
     D2PetTypeTxt* pPetTypeTxt; // 0xBE8
     void* pPetTypeLinker; // 0xBEC
     int nPetTypeTxtRecordCount; // 0xBF0
@@ -201,23 +201,23 @@ struct D2DataTablesStrc
     D2TxtLinkStrc* pSetItemsLinker; // 0xC14
     D2SetItemsTxt* pSetItemsTxt; // 0xC18
     int nSetItemsTxtRecordCount; // 0xC1C
-    unsigned char unk0xC20[0x4]; // 0xC20
+    D2TxtLinkStrc* pUniqueItemsLinker; // 0xC20
     D2UniqueItemsTxt* pUniqueItemsTxt; // 0xC24
     int nUniqueItemsTxtRecordCount; // 0xC28
-    unsigned char unk0xC2C[0x4]; // 0xC2C
+    D2TxtLinkStrc* pMonPropLinker; // 0xC2C
     D2MonStats2Txt* unk0xC30; // 0xC30
     int nMonPropTxtRecordCount; // 0xC34
-    unsigned char unk0xC38[0x4]; // 0xC38
+    D2TxtLinkStrc* pMonTypeLinker; // 0xC38
     D2MonTypeTxt* pMonTypeTxt; // 0xC3C
     int nMonTypeTxtRecordCount; // 0xC40
     unsigned int* pMonTypeNest; // 0xC44
     int nMonTypeIndex; // 0xC48
-    unsigned char unk0xC4C[0x4]; // 0xC4C
+    D2TxtLinkStrc* pMonUModLinker; // 0xC4C
     D2MonUModTxt* pMonUModTxt; // 0xC50
     int nMonUModTxtRecordCount; // 0xC54
     D2LevelsTxt* pLevelsTxt; // 0xC58
     int nLevelsTxtRecordCount; // 0xC5C
-    unsigned char unk0xC60[0x4]; // 0xC60
+    void* pLevelDefBin; // 0xC60
     D2LvlPrestTxt* pLvlPrestTxt; // 0xC64
     int nLvlPrestTxtRecordCount; // 0xC68
     int nStuff; // 0xC6C

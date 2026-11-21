@@ -28,7 +28,7 @@ struct D2MonStats2CompStrc
 struct D2CharStatsTxt
 {
     unsigned short wszClassName[16]; // 0x00
-    unsigned char unk0x20[0x10]; // 0x20
+    char szClassName[16]; // 0x20
     unsigned char nStr; // 0x30
     unsigned char nDex; // 0x31
     unsigned char nInt; // 0x32
