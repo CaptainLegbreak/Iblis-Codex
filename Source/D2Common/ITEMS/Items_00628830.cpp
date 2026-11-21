@@ -586,7 +586,7 @@ static int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem)
     return nSocketedItems;
 }
 
-inline void ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet)
+inline void ITEMS_SetItemFlag_Inline(D2UnitStrc* pItem, unsigned int dwFlag, int bSet)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -620,14 +620,14 @@ inline void ITEMS_SetItemFlags(D2UnitStrc* pItem, unsigned int dwFlags)
     }
 }
 
-inline unsigned int ITEMS_GetItemFlags(D2UnitStrc* pItem)
+inline unsigned int ITEMS_GetItemFlags_Inline(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
         return pItem->pItemData->dwItemFlags;
     return 0;
 }
 
-inline void ITEMS_SetItemLevel(D2UnitStrc* pItem, int nItemLevel)
+inline void ITEMS_SetItemLevel_Inline(D2UnitStrc* pItem, int nItemLevel)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
         pItem->pItemData->dwItemLevel = nItemLevel;
@@ -663,19 +663,19 @@ inline void ITEMS_SetBodyLoc(D2UnitStrc* pItem, unsigned char nBodyLoc)
         pItem->pItemData->nBodyLoc = nBodyLoc;
 }
 
-inline void ITEMS_SetInvPage(D2UnitStrc* pItem, char nInvPage)
+inline void ITEMS_SetInvPage_Inline(D2UnitStrc* pItem, char nInvPage)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
         pItem->pItemData->nInvPage = nInvPage;
 }
 
-inline void ITEMS_SetEarLevel(D2UnitStrc* pItem, unsigned char nLevel)
+inline void ITEMS_SetEarLevel_Inline(D2UnitStrc* pItem, unsigned char nLevel)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
         pItem->pItemData->nEarLvl = nLevel;
 }
 
-inline char* ITEMS_GetEarName(D2UnitStrc* pItem)
+inline char* ITEMS_GetEarName_Inline(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
         return pItem->pItemData->szPlayerName;
@@ -718,15 +718,15 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
         ITEMS_SetBodyLoc(pItem, (unsigned char)sub_00411020_ReadBits(pBuffer, 4));
         UNITS_SetXForStaticUnit(pItem, sub_00411020_ReadBits(pBuffer, 4));
         UNITS_SetYForStaticUnit(pItem, sub_00411020_ReadBits(pBuffer, 4));
-        ITEMS_SetInvPage(pItem, (char)(sub_00411020_ReadBits(pBuffer, 3) - 1));
+        ITEMS_SetInvPage_Inline(pItem, (char)(sub_00411020_ReadBits(pBuffer, 3) - 1));
     }
     UNITS_ChangeAnimMode(pItem, nAnimMode);
 
-    if (ITEMS_GetItemFlags(pItem) & IFLAG_ISEAR)
+    if (ITEMS_GetItemFlags_Inline(pItem) & IFLAG_ISEAR)
     {
-        char* szName = ITEMS_GetEarName(pItem);
+        char* szName = ITEMS_GetEarName_Inline(pItem);
         ITEMS_SetFileIndex(pItem, sub_00411020_ReadBits(pBuffer, 3));
-        ITEMS_SetEarLevel(pItem, (unsigned char)sub_00411020_ReadBits(pBuffer, 7));
+        ITEMS_SetEarLevel_Inline(pItem, (unsigned char)sub_00411020_ReadBits(pBuffer, 7));
         do
         {
             *szName = (char)sub_00411020_ReadBits(pBuffer, 7);
@@ -793,7 +793,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
 
     pItem->dwInitSeed = 0;
     SEED_InitLowSeed(&pItem->pSeed, 0);
-    ITEMS_SetItemLevel(pItem, 1);
+    ITEMS_SetItemLevel_Inline(pItem, 1);
     if (pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
         pItem->pItemData->dwQualityNo = 2;
     return 1;
@@ -825,7 +825,7 @@ static __forceinline unsigned int GetQuality(D2UnitStrc* item) {
 }
 
 // 0x0062BCB0
-void __stdcall ITEMS_AddSockets(D2UnitStrc* item, int sockets) {
+void __stdcall sub_0062BCB0_AddSockets(D2UnitStrc* item, int sockets) {
     const int type = item ? item->dwUnitType : 6;
     if (type != 4) return;
     int maximum = 6;
@@ -853,7 +853,7 @@ void __stdcall ITEMS_AddSockets(D2UnitStrc* item, int sockets) {
     }
 }
 
-static int ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem)
+static int ITEMS_IsMagSetRarUniCrfOrTmp_Inline(D2UnitStrc* pItem)
 {
     const int nType = pItem ? pItem->dwUnitType : 6;
     if (nType == 4 && pItem->pItemData)
@@ -889,7 +889,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
         return 0;
     }
 
-    if (ITEMS_IsMagSetRarUniCrfOrTmp(pItem))
+    if (ITEMS_IsMagSetRarUniCrfOrTmp_Inline(pItem))
     {
         return 0;
     }
@@ -1296,9 +1296,9 @@ int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pB
     }
 
     ITEMS_ClearItemFlags(pItem);
-    ITEMS_SetItemFlag(pItem, dwItemFlags, 1);
-    ITEMS_SetItemFlag(pItem, IFLAG_NEWITEM, 0);
-    ITEMS_SetItemLevel(pItem, 1);
+    ITEMS_SetItemFlag_Inline(pItem, dwItemFlags, 1);
+    ITEMS_SetItemFlag_Inline(pItem, IFLAG_NEWITEM, 0);
+    ITEMS_SetItemLevel_Inline(pItem, 1);
     ITEMS_SetMagicPrefix(pItem, 0, 0);
     ITEMS_SetMagicSuffix(pItem, 0, 0);
     ITEMS_SetMagicPrefix(pItem, 0, 1);
