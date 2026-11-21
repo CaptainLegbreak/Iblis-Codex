@@ -3120,38 +3120,7 @@ void __fastcall sub_004DAAB0_GetArmorComponents(D2UnitStrc* pUnit, D2InventorySt
     memset(pComponents, 0, 6);
 }
 
-// build: context sub_004DC000_DrawFadeBox
-void __cdecl sub_004DC000_DrawFadeBox()
-{
-    if (!gdwFadeTick_007C89CC)
-    {
-        return;
-    }
-
-    unsigned int dwNow = GetTickCount();
-    if (dwNow > gdwFadeTick_007C89CC)
-    {
-        gdwFadeTick_007C89CC = 0;
-        return;
-    }
-
-    int nRemaining = gdwFadeTick_007C89CC - dwNow;
-    int nYEnd = gnGlobal_00711470 - 47;
-    int nXEnd = gnGlobal_0071146C;
-    int nXStart = 0;
-    switch (sub_0045AE90())
-    {
-    case 1:
-        nXEnd -= gnGlobal_0071146C / 2;
-        break;
-
-    case 2:
-        nXStart = gnGlobal_0071146C / 2;
-        break;
-    }
-
-    D2GFX_DrawBoxAlpha(nXStart, 0, nXEnd, nYEnd, 0, nRemaining * 255 / 1000);
-}
+void __cdecl sub_004DC000_DrawFadeBox(); // 0x004DC000
 
 // 0x004DED20
 void __cdecl sub_004DED20_UpdateRoomColor()

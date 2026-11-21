@@ -162,68 +162,7 @@ static int sub_0047C100(char* szInput, const char* szCommand)
     return 0;
 }
 
-// build: context sub_0047C1F0_HandleWhisperCommand
-static int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* szInput, const char* szCommand)
-{
-    const size_t nLength = strlen(szCommand);
-    if (sub_0047B3B0_CompareCommand(szCommand, szInput))
-        return 0;
-    const char c = szInput[nLength];
-    if (c != ' ' && c)
-        return 0;
-    char szCopy[0x104];
-    char szName[0x110];
-    char szMessage[0x100];
-    strcpy(szCopy, szInput);
-    int nTokens = 0;
-    for (char* pToken = strtok(szInput, gszSpace_00712FFC); pToken; pToken = strtok(0, gszSpace_00712FFC))
-    {
-        ++nTokens;
-        if (nTokens == 2)
-        {
-            strcpy(szName, pToken);
-        }
-        else if (nTokens == 3)
-        {
-            strcpy(szMessage, &szCopy[pToken - szInput]);
-            break;
-        }
-    }
-    if (nTokens != 3)
-    {
-        D2ChatTextStrc tBuffer;
-        sprintf(tBuffer.sz, "<BattleNet>: Correct usage is: %s (name) (message)", szCommand);
-        D2ChatMessageStrc tMessage;
-        tMessage.nType = 4;
-        tMessage.nColor = 3;
-        tMessage.tText = tBuffer;
-        sub_0049F490_PrintChatMessage(&tMessage);
-        return 1;
-    }
-    if (bCheckStored)
-    {
-        for (D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0); pEntry; pEntry = sub_004795A0_GetNextEntry(pEntry))
-        {
-            if (!_stricmp(sub_004795C0_GetEntryName(pEntry), szName))
-            {
-                D2ChatSendStrc tSend;
-                strncpy(tSend.szText, szMessage, sizeof(tSend.szText) - 1);
-                tSend.szText[sizeof(tSend.szText) - 1] = 0;
-                strcpy(tSend.szArgument, szName);
-                tSend.nLang = gnLanguageId_007BB5DC;
-                tSend.nCode = 2;
-                tSend.nType = 0x15;
-                sub_004787B0_SendStrings((const unsigned char*)&tSend);
-                return 1;
-            }
-        }
-    }
-    sprintf(szInput, "%s %s %s", szCommand, szName, szMessage);
-    D2ClientNotifyStrc* pNotify = sub_0044B7B0_GetNotify();
-    if (pNotify)
-        pNotify->pfnResign(szInput);
-    return 1;
-}
+int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* szInput, const char* szCommand); // 0x0047C1F0
 
 static void __stdcall sub_0047C3F0_CopyCommandArgs(char* szDest, const char* szSource, unsigned int nSize)
 {

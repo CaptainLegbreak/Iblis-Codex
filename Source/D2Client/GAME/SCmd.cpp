@@ -2178,41 +2178,7 @@ static D2PacketBufferStrc* sub_0045F610_GrowPacketBuffer(D2UnitStrc* pUnit);
 
 static void __stdcall sub_0045F730_QueuePacket(unsigned char* pPacket, int nLength, D2UnitStrc* pUnit);
 
-// build: context sub_0044C5E0_ActivateMsg
-void __stdcall sub_0044C5E0_ActivateMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    gdwGlobal_0070F7E0 = pMsg->wParam;
-    if (pMsg->wParam)
-    {
-        sub_00455F20(0xD, 1, 0);
-        gdwGlobal_007A0664 = 0;
-        sub_00466FE0();
-        sub_004FB130_SetActiveState(0);
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    if (sub_00469D90(0x22, 1) && !(GetAsyncKeyState(sub_00469AA0(0x22, 1)) & 0x8000))
-    {
-        gdwGlobal_007A065C = 0;
-    }
-
-    if (gdwGlobal_0070F234 != 0x10)
-    {
-        sub_0044C060_Refresh();
-    }
-
-    if (gdwGlobal_0070F2BC != 0x10)
-    {
-        gdwGlobal_0070F2BC = 0x10;
-        gdwGlobal_007A0654 = 0;
-        gdwGlobal_007A0670 = 1;
-        gdwGlobal_007A0658 = 0;
-        sub_00466FF0();
-    }
-
-    pMsg->bReturn = 0;
-}
+void __stdcall sub_0044C5E0_ActivateMsg(SMSGHANDLER_PARAMS* pMsg); // 0x0044C5E0
 
 // 0x00451A90
 void __stdcall sub_00451A90_QuitMsg(SMSGHANDLER_PARAMS* pMsg)
@@ -4771,21 +4737,7 @@ void __cdecl sub_004689D0_ShowHelpOnce()
     }
 }
 
-// build: context sub_00467EF0_MsgHandler
-void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (pMsg->wParam == 2)
-    {
-        gnGlobal_007A6B08 = 0;
-        sub_004F59F0(0);
-    }
-    else
-    {
-        gnGlobal_007A6B08 = 0;
-    }
-    pMsg->lResult = 0;
-    pMsg->bReturn = 0;
-}
+void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467EF0
 
 // 0x00469450
 int __cdecl sub_00469450_CompareEntries(const void* pA, const void* pB)

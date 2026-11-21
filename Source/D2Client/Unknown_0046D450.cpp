@@ -338,56 +338,7 @@ static void __stdcall sub_0046CDC0_AiType2(D2UnitStrc* pTarget, unsigned int nDi
     }
 }
 
-// build: context sub_0046CE40_AiType3
-static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
-{
-    if (AI_GetUnitMode_Inline(pUnit) == 1)
-    {
-        int* pState = sub_004AE170(pUnit);
-        if (pState)
-        {
-            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pPlayer);
-            if (*pState && nDistance > 25)
-            {
-                sub_00465F00_RemoveClientUnit(pUnit->dwUnitId, 1);
-                return;
-            }
-
-            *pState = 1;
-
-            int nOffsetX;
-            int nOffsetY;
-            if (SEED_RollRandomNumber64_Inline(&pUnit->pSeed) & 1)
-            {
-                nOffsetY = SEED_RollRandomNumber64_Inline(&pUnit->pSeed) % 40;
-                nOffsetX = 40;
-            }
-            else
-            {
-                nOffsetX = SEED_RollRandomNumber64_Inline(&pUnit->pSeed) % 40;
-                nOffsetY = 40;
-            }
-
-            if (SEED_RollRandomNumber64_Inline(&pUnit->pSeed) & 1)
-            {
-                nOffsetX = -nOffsetX;
-            }
-
-            if (SEED_RollRandomNumber64_Inline(&pUnit->pSeed) & 1)
-            {
-                nOffsetY = -nOffsetY;
-            }
-
-            const int nTargetX = CLIENTS_GetUnitXInline(pPlayer) + nOffsetX;
-            const int nTargetY = CLIENTS_GetUnitYInline(pPlayer) + nOffsetY;
-            const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
-            const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
-            PATH_SetNewDistance(pUnit->pDynamicPath, 90);
-            sub_0046CA60_CommandToXY(1, 0, pUnit, 3 * nTargetY - 2 * nUnitY, 3 * nTargetX - 2 * nUnitX);
-        }
-    }
-}
+void sub_0046CE40_AiType3(D2UnitStrc* pUnit); // 0x0046CE40
 
 static void __stdcall sub_0046D070_AiType4(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 {

@@ -8,19 +8,9 @@ extern "C" void __cdecl sub_004F7CC0(); // 0x004F7CC0
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
-// build: context sub_00414360_CallThenSetFlag
-extern "C" void __cdecl sub_00414360_CallThenSetFlag()
-{
-    sub_004142A0_InitPowTable();
-    gnFlag_007788DC = 1;
-}
+extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
 
-// build: context sub_004F8DC0_InitLookupTable
-extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
-{
-    sub_004F7CC0();
-    gnBufferBase_007D5448 = 0;
-}
+extern "C" void __cdecl sub_004F8DC0_InitLookupTable(); // 0x004F8DC0
 
 // 0x004B9D00
 extern "C" void __cdecl sub_004B9D00_ResetSoundState()

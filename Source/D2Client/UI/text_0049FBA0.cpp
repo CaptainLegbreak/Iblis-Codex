@@ -910,57 +910,7 @@ static __forceinline int sub_J06_IntersectsAnyHoverRect(const D2RectStrc* pRect,
     return 0;
 }
 
-// build: context sub_0049E070_PlaceHoverRect
-static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect)
-{
-    if (nCount >= 0x10)
-        return false;
-
-    if (!nCount)
-    {
-        gaHoverRects_007BF0A8[0] = *pRect;
-        return true;
-    }
-
-    if (!sub_J06_IntersectsAnyHoverRect(pRect, nCount))
-    {
-        gaHoverRects_007BF0A8[nCount] = *pRect;
-        return true;
-    }
-
-    int nDir;
-    for (int nDX = 0x32; nDX < 0x190; nDX += 0x32)
-    {
-        for (int nDY = 0x23; nDY < 0x118; nDY += 0x23)
-        {
-            for (nDir = 0; gnHoverDirCount_00722674 > nDir; ++nDir)
-            {
-                D2RectStrc tRect = *pRect;
-                tRect.nLeft += gaHoverDirs_00722654[nDir] * nDX;
-                tRect.nTop += gaHoverDirs_00722654[nDir] * nDY;
-                tRect.nRight = tRect.nLeft + 0x190;
-                tRect.nBottom = tRect.nTop + 0x118;
-                if (tRect.nLeft < 0 || tRect.nRight > gnGlobal_0071146C || tRect.nTop < 0 || tRect.nBottom > gnGlobal_00711470)
-                    continue;
-
-                bool bOverlap = false;
-                for (int j = 0; j < nCount; ++j)
-                {
-                    D2RectStrc tTest;
-                    if (IntersectRect(&tTest, &gaHoverRects_007BF0A8[j], &tRect))
-                        bOverlap = true;
-                }
-                if (!bOverlap)
-                {
-                    gaHoverRects_007BF0A8[nCount] = tRect;
-                    *pRect = tRect;
-                    return true;
-                }
-            }
-        }
-    }
-    return false;
-}
+bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect); // 0x0049E070
 
 static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
 {
@@ -1705,11 +1655,7 @@ int __fastcall sub_005EF1E0_BaalThroneGetAiParamFlag(D2AiTickParamStrc* pAiTickP
     return pAiTickParam->pAiControl->dwAiParam[1] & nFlag;
 }
 
-// build: context sub_00600C60_CallFree
-void __fastcall sub_00600C60_CallFree(void* pMemory)
-{
-    sub_00517ABB(pMemory);
-}
+void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
 
 // 0x004A59D0
 int __stdcall sub_004A59D0_HandleHotkeyAction(D2HotkeyActionStrc* pAction)

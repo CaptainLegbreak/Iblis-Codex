@@ -110,17 +110,7 @@ static int sub_004AA9C0_GetSkillRowY(unsigned char nRow)
     return 0;
 }
 
-// build: context sub_004AAA50_GetSkillColumnX
-static int sub_004AAA50_GetSkillColumnX(unsigned char nColumn)
-{
-    if (nColumn == 1)
-        return gnGlobal_0071146C - gnGlobal_007A2858 - 0x131;
-    if (nColumn == 2)
-        return gnGlobal_0071146C - gnGlobal_007A2858 - 0xEC;
-    if (nColumn == 3)
-        return gnGlobal_0071146C - gnGlobal_007A2858 - 0xA7;
-    return 0;
-}
+int sub_004AAA50_GetSkillColumnX(unsigned char nColumn); // 0x004AAA50
 
 // 0x0045FB80
 static int __stdcall sub_004AB5F0_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)

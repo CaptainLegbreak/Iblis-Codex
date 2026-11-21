@@ -143,7 +143,7 @@ extern D2InventoryGridInfoStrc gGrid_007BCB70; // 0x007BCB70
 extern D2InventoryGridInfoStrc gGrid_007BCB88; // 0x007BCB88
 extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
 void __stdcall sub_Z12_EmitUse(int nValue);
-static __declspec(noinline) void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid);
+__declspec(noinline) void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid);
 int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
 void __cdecl sub_0048A050_CloseQuestPanel(); // 0x0048A050
 
@@ -253,39 +253,9 @@ static __declspec(noinline) int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
     return 0;
 }
 
-// build: context sub_004839D0_DrawGridCells
-static void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nColor, unsigned char nWidth, unsigned char nHeight, int nY)
-{
-    for (int y = nY; y < nY + nHeight; ++y)
-    {
-        for (int x = nX; x < nX + nWidth; ++x)
-        {
-            const int nBoxWidth = pGrid->nGridBoxWidth;
-            const int nPixelX = nBoxWidth * x + pGrid->nGridLeft;
-            const int nBoxHeight = pGrid->nGridBoxHeight;
-            const int nPixelY = nBoxHeight * y + pGrid->nGridTop;
-            if (nPixelX >= 0 && nPixelX < gnAutomapWidth_007A5220 && nPixelY >= 0 && nPixelY < gnAutomapHeight_007A521C)
-            {
-                sub_0046EFD0_DrawFramedBox(nPixelX, nPixelY, nBoxWidth, nBoxHeight, gabColors_007BCAD8[nColor], 0);
-            }
-        }
-    }
-}
+void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nColor, unsigned char nWidth, unsigned char nHeight, int nY); // 0x004839D0
 
-// build: context sub_00483A70_DrawSlotFrame
-static void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
-{
-    if (nColor == 2)
-    {
-        return;
-    }
-    const int nLeft = pCompGrid->rect.nLeft;
-    const int nTop = pCompGrid->rect.nTop;
-    if (nLeft >= 0 && nLeft < gnAutomapWidth_007A5220 && nTop >= 0 && nTop < gnAutomapHeight_007A521C)
-    {
-        sub_0046EFD0_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabColors_007BCAD8[nColor], 0);
-    }
-}
+void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor); // 0x00483A70
 
 static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem)
 {

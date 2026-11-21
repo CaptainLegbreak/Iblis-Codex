@@ -240,27 +240,7 @@ void __fastcall sub_00478780_SendPartyCommand(unsigned char nCommand, int nUnitI
     sub_00478350_SendToServer((unsigned char*)&tPacket, 6);
 }
 
-// build: context sub_004787B0_SendStrings
-void __fastcall sub_004787B0_SendStrings(const unsigned char* pData)
-{
-    unsigned char aBuffer[0x200];
-    aBuffer[0] = pData[0];
-    aBuffer[1] = pData[1];
-    aBuffer[2] = pData[2];
-    unsigned char* pEnd = &aBuffer[3];
-    pEnd += SStrCopy((char*)pEnd, (const char*)&pData[3], 0x100) + 1;
-    const char* szSecond = (const char*)&pData[0x103];
-    if (szSecond)
-    {
-        pEnd += SStrCopy((char*)pEnd, szSecond, 0x10) + 1;
-    }
-    else
-    {
-        *pEnd++ = 0;
-    }
-    *pEnd = 0;
-    sub_00478350_SendToServer(aBuffer, pEnd - aBuffer + 1);
-}
+void __fastcall sub_004787B0_SendStrings(const unsigned char* pData); // 0x004787B0
 
 // 0x00478830
 void __fastcall sub_00478830_SendPacket66(const void* pData, unsigned int nLength)

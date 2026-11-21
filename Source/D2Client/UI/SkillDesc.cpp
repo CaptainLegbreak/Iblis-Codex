@@ -130,7 +130,7 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc*, int, int); // 0x006439B
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
 
-static int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType);
+int __stdcall sub_004EC140_AddElemRange(int nMin, unsigned short nString, int nMax, Unicode* wszText, int nElemType);
 
 static int __stdcall sub_004EC220_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, unsigned short nString, int nSkillId, int nSkillLevel);
 
@@ -176,7 +176,7 @@ int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                  
 
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc*, int*, int*, int*, D2SkillsTxt*, int); // 0x004E72D0
+void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc*, int*, int*, int*, D2SkillsTxt*, int); // 0x004E72D0
 
 static int __stdcall sub_004E86F0_GetWeaponDamage(int*, int*, int*, int, D2SkillStrc*, int, D2UnitStrc*, int, D2UnitStrc*, int); // 0x004E86F0
 
@@ -463,19 +463,7 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
     return nMultiplier * nValue / nDivisor;
 }
 
-// build: context sub_004EC280_AddMissileElemDamage
-static int __stdcall sub_004EC280_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel)
-{
-    const int nMissile = nMissileId;
-    const int nMin = MISSILE_GetMinElemDamage(0, pUnit, nMissile, nSkillLevel) >> 8;
-    const int nMax = MISSILE_GetMaxElemDamage(0, pUnit, nMissile, nSkillLevel) >> 8;
-    if (!nMin && !nMax)
-    {
-        return 0;
-    }
-
-    return sub_004EC140_AddElemRange(nMin, nString, nMax, wszText, MISSILE_GetElemTypeFromMissileId(nMissile));
-}
+int __stdcall sub_004EC280_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel); // 0x004EC280
 
 int __fastcall sub_H14_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel, int nCalcA, int nCalcB, int nLine, unsigned short nStringA, short nMissileId)
 {

@@ -187,47 +187,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt
     }
 }
 
-// build: context sub_004E72D0_GetElemDamage
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
-{
-    int nMin;
-    int nMax;
-    if (pSkillsTxt->nEType == 5)
-    {
-        const int nLength = SKILLS_GetElementalLength(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);
-        *pType = 2;
-        nMin = SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-        nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-    }
-    else
-    {
-        nMin = SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-        nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-    }
-
-    if (pType)
-    {
-        switch (pSkillsTxt->nEType)
-        {
-        case 1:
-            *pType = 1;
-            break;
-        case 2:
-            *pType = 9;
-            break;
-        case 3:
-        case 4:
-            *pType = 3;
-            break;
-        case 5:
-            *pType = 2;
-            break;
-        }
-    }
-
-    *pMin += nMin;
-    *pMax += nMax;
-}
+void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel); // 0x004E72D0
 
 // 0x004E73E0
 static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
@@ -669,37 +629,7 @@ static int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut)
     return 1;
 }
 
-// build: context sub_004E85C0_AppendManaCost
-static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue)
-{
-    short nMana = pSkillsTxt->wMana;
-    if (!nMana && !pSkillsTxt->wLevelMana)
-        return 0;
-
-    if (nValue)
-        return sub_004E84F0_AppendManaValue(nValue, wszOut);
-
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
-    if (!pSkillDescTxt)
-        return 0;
-
-    nSkillId = pSkillDescTxt->wStrMana;
-    const int nShift = pSkillsTxt->nManaShift;
-    const int nLevelMana = pSkillsTxt->wLevelMana;
-    const int nLevelCost = nLevelMana << nShift;
-    int nCost = ((nLevel - 1) * nLevelMana + nMana) << nShift;
-    const int nMinCost = pSkillsTxt->wMinMana << 8;
-    if (nMinCost > nCost)
-        nCost = nMinCost;
-
-    if (pSkillsTxt->nManaShift == 8 || nLevelCost > 0x100 || nCost > 0x1900)
-        return sub_004E79E0_AppendLabelValue(wszOut, (unsigned short)nSkillId, nCost >> 8, 0);
-
-    if (nMultiplier <= 10)
-        return sub_004E7B90_AppendLabelDecimal((unsigned short)nSkillId, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
-
-    return sub_004E7A90_AppendScaledValue(wszOut, 0, nCost, (unsigned short)nSkillId, 0x1506, nMultiplier);
-}
+int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue); // 0x004E85C0
 
 // 0x004EC090
 static void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nMonsterId, int nPercent, int nBonus)
@@ -1229,25 +1159,7 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
     return 1;
 }
 
-// build: context sub_004EDDD0_AddAttackInfo
-static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
-{
-    if (sub_0044DCC0())
-    {
-        sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
-        sub_004EC220_AddSkillElemDamage(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt, 0);
-        sub_004EC2E0_AddPhysDamage(0, pUnit, wszText, nSkillId, nSkillLevel, 0);
-        sub_004EC510_AddToHit(wszText, pUnit, nSkillId, nSkillLevel);
-        return 1;
-    }
-
-    int nMin = 0;
-    int nMax = 0;
-    int nType;
-    sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nType, pSkillsTxt, nSkillLevel);
-    sub_004E80F0_AppendLabelRange(0x10A0, wszText, 0, nMin, nMax, 0);
-    return 1;
-}
+int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
 
 // build: context AppendString
 static __forceinline void AppendString(Unicode* wszText, unsigned short nString)

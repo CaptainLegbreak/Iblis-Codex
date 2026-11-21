@@ -135,58 +135,7 @@ inline int SKILLS_GetSkillParamInline(int nSkillId, int nIndex)
     return !pSkillsTxtRecord ? 0 : pSkillsTxtRecord->dwParam[nIndex];
 }
 
-// build: context sub_004E1B10_FireAtTarget
-int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount || !&sgptDataTables->pMissilesTxt[nMissile])
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = nMissile;
-    tMissileParams.dwFlags = 3;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nX = CLIENTS_GetUnitX(pUnit);
-    tMissileParams.nY = CLIENTS_GetUnitY(pUnit);
-    tMissileParams.nSkill = nSkillId;
-    tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nLoops = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-
-    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
-    if (pTarget)
-    {
-        D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
-        tMissileParams.nTargetX = CLIENTS_GetUnitX(pTarget) - CLIENTS_GetUnitX(pUnit);
-        tMissileParams.nTargetY = CLIENTS_GetUnitY(pTarget) - CLIENTS_GetUnitY(pUnit);
-    }
-    else
-    {
-        tMissileParams.nTargetX = D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath) - CLIENTS_GetUnitX(pUnit);
-        tMissileParams.nTargetY = D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath) - CLIENTS_GetUnitY(pUnit);
-    }
-
-    D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
-    if (pMissile)
-    {
-        MISSILE_SetTargetX(pMissile, nSkillLevel);
-    }
-    return 1;
-}
+int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E1B10
 
 // 0x004E1D30
 int __fastcall sub_004E1D30_FireVolley(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

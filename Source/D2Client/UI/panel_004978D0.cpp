@@ -281,7 +281,7 @@ void* gpCel_007BEF1C; // 0x007BEF1C
 
 void* gpCel_007BEF74; // 0x007BEF74
 
-static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
+void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift);
 
 static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
 
@@ -997,46 +997,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* __restrict pMsg)
     pMsg->lResult = 0;
 }
 
-// build: context sub_00499D10_BeltClick
-void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (sub_0044DA30() || sub_00463DF0())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (sub_00498DC0_MouseMoveMsg(pMsg))
-    {
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        if (sub_00468830() == 6)
-        {
-            sub_00453EC0();
-        }
-        else if (sub_00468830() == 8)
-        {
-            sub_00478680_SendPacket5(0x4C, -1);
-        }
-
-        const int nBox = sub_004987E0_GetBeltBoxAt(nY, nX);
-        if (nBox < 0)
-        {
-            pMsg->bReturn = 0;
-            return;
-        }
-
-        sub_00498A90_UseBeltSlot(nBox, pPlayer, pPlayer->pInventory, (pMsg->wParam >> 2) & 1);
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-
-    pMsg->bReturn = 0;
-    gnBeltHover_007BEF94 = 0;
-}
+void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg); // 0x00499D10
 
 // 0x00498A90
 static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, int bShift)

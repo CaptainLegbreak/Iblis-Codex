@@ -165,47 +165,7 @@ static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, D2SkillsTxt
     }
 }
 
-// build: context sub_004E72D0_GetElemDamage
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
-{
-    int nMin;
-    int nMax;
-    if (pSkillsTxt->nEType == 5)
-    {
-        const int nLength = SKILLS_GetElementalLength(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);
-        *pType = 2;
-        nMin = SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-        nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) * nLength >> 8;
-    }
-    else
-    {
-        nMin = SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-        nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1) >> 8;
-    }
-
-    if (pType)
-    {
-        switch (pSkillsTxt->nEType)
-        {
-        case 1:
-            *pType = 1;
-            break;
-        case 2:
-            *pType = 9;
-            break;
-        case 3:
-        case 4:
-            *pType = 3;
-            break;
-        case 5:
-            *pType = 2;
-            break;
-        }
-    }
-
-    *pMin += nMin;
-    *pMax += nMax;
-}
+void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel); // 0x004E72D0
 
 // 0x004E73E0
 static __declspec(noinline) int __stdcall sub_004E73E0_FormatSignedInt(Unicode* wszText, int bPrefixSign, int nValue)
@@ -562,61 +522,9 @@ static int __stdcall sub_004E81C0_AppendLabelValueLabels(Unicode* wszOut, unsign
     return 1;
 }
 
-// build: context sub_004E82A0_AppendSecondsTwentieths
-static int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
+int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue); // 0x004E82A0
 
-    const int nTenths = nValue * 20 / 3;
-    int nWhole = nTenths / 10;
-    const int nFraction = nTenths % 10;
-    if (nWhole < 1)
-        nWhole = 1;
-    if (nWhole || nFraction)
-    {
-        int szText_[8]; char* const szText = (char*)szText_;
-        if (nFraction)
-            wsprintfA(szText, szFmtDecimal_006DBE94, nWhole, nFraction);
-        else
-            wsprintfA(szText, gszFormatD_006D57BC, nWhole);
-        sub_00526320_ToUnicode(wszText, szText, 32);
-    }
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(nWhole == 1 ? 0x10C0 : 0x10B6));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
-
-// build: context sub_004E83E0_AppendSecondsThirds
-static int __stdcall sub_004E83E0_AppendSecondsThirds(Unicode* wszOut, unsigned short wStr, int nValue)
-{
-    int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
-    for (int i = 0; i < 32; ++i)
-        wszText[i] = 0;
-
-    const int nTenths = nValue * 10 / 3;
-    int nWhole = nTenths / 10;
-    const int nFraction = nTenths % 10;
-    if (nWhole < 1)
-        nWhole = 1;
-    if (nWhole || nFraction)
-    {
-        int szText_[8]; char* const szText = (char*)szText_;
-        if (nFraction)
-            wsprintfA(szText, szFmtDecimal_006DBE94, nWhole, nFraction);
-        else
-            wsprintfA(szText, gszFormatD_006D57BC, nWhole);
-        sub_00526320_ToUnicode(wszText, szText, 32);
-    }
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(wStr));
-    sub_00526700(wszOut, wszText);
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(nWhole == 1 ? 0x10C0 : 0x10B6));
-    sub_00526700(wszOut, D2LANG_GetStringFromTblIndex(0xF9E));
-    return 1;
-}
+int __stdcall sub_004E83E0_AppendSecondsThirds(Unicode* wszOut, unsigned short wStr, int nValue); // 0x004E83E0
 
 // 0x004E84F0
 static int __stdcall sub_004E84F0_AppendManaValue(int nValue, Unicode* wszOut)
@@ -672,35 +580,7 @@ static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, 
     return sub_004E7A90_AppendScaledValue(wszOut, 0, nCost, (unsigned short)nSkillId, 0x1506, nMultiplier);
 }
 
-// build: context sub_004EC090_AddSummonLife
-static void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nMonsterId, int nPercent, int nBonus)
-{
-    if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return;
-    }
-
-    D2MonStatsTxt* pMonStatsTxt = &sgptDataTables->pMonStatsTxt[nMonsterId];
-    if (!pMonStatsTxt)
-    {
-        return;
-    }
-
-    const int nDifficulty = sub_0044DCD0_GetDifficulty();
-    D2MonStatsInitStrc monStatsInit;
-    memset(&monStatsInit, 0, sizeof(monStatsInit));
-    if (!DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, sub_0044DCA0_GetGameType(), nDifficulty, pMonStatsTxt->nLevel[nDifficulty], 1, &monStatsInit))
-    {
-        return;
-    }
-
-    int nLife = (monStatsInit.nMinHP + monStatsInit.nMaxHP) / 2;
-    nLife += nLife * nPercent / 100 + nBonus;
-    if (nLife)
-    {
-        sub_004E79E0_AppendLabelValue(wszText, 0x10C6, nLife, 0);
-    }
-}
+void __stdcall sub_004EC090_AddSummonLife(Unicode* wszText, int nMonsterId, int nPercent, int nBonus); // 0x004EC090
 
 // 0x004EC140
 static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsigned short nString, int nMax, int nElemType)
@@ -1078,50 +958,7 @@ static int __stdcall sub_004ECC80_AddFormattedText(Unicode* wszText, int nValue,
     return 1;
 }
 
-// build: context sub_004ECCF0_AddSummonDamage
-static int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt)
-{
-    D2MonStatsTxt* pMonStatsTxt = MonStatsTxtRecord(pSkillsTxt->wSummon);
-    if (!pMonStatsTxt)
-    {
-        return 0;
-    }
-
-    D2MonStatsInitStrc monStatsInit;
-    memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(pSkillsTxt->wSummon, sub_0044DCA0_GetGameType(), sub_0044DCD0_GetDifficulty(), pMonStatsTxt->nLevel[sub_0044DCD0_GetDifficulty()], 8, &monStatsInit);
-    int nMin = monStatsInit.nA1MinD;
-    int nMax = monStatsInit.nA1MaxD;
-    int nPercent = 0;
-    for (int i = 0; i < 6; ++i)
-    {
-        if (pSkillsTxt->wAuraStat[i] == 0x19)
-        {
-            nPercent += SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwAuraStatCalc[i], nSkillId, nSkillLevel);
-        }
-    }
-
-    for (int i = 0; i < 5; ++i)
-    {
-        if (pSkillsTxt->nPassiveStat[i] == 0x19)
-        {
-            nPercent += SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwPassiveCalc[i], nSkillId, nSkillLevel);
-        }
-    }
-
-    if (nPercent)
-    {
-        if (nPercent <= -90)
-        {
-            nPercent = -90;
-        }
-        nMin += ApplyPercent(nMin, nPercent);
-        nMax += ApplyPercent(nMax, nPercent);
-    }
-
-    sub_004EC140_AddElemRange(wszText, nMin, 0x10A0, nMax, 0);
-    return 1;
-}
+int __stdcall sub_004ECCF0_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel, D2SkillsTxt* pSkillsTxt); // 0x004ECCF0
 
 // 0x004ED0D0
 static int sub_004ED0D0_AddNextLevelParam(int nSkillId, int nSkillLevel, Unicode* wszText)
@@ -1188,36 +1025,9 @@ static int __stdcall sub_004EDC40_AddElemDuration(Unicode* wszText, D2SkillsTxt*
     return 0;
 }
 
-// build: context sub_004EDCA0_AddElemDamageOverTime
-static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel)
-{
-    const int nLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 0);
-    const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * nLength >> 8;
-    const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) * nLength >> 8;
-    sub_004EDB30_AddSeconds(nLength, 0x2B0E, 0, wszText);
-    sub_004EC140_AddElemRange(wszText, nMin, 0, nMax, pSkillsTxt->nEType);
-    return 1;
-}
+int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel); // 0x004EDCA0
 
-// build: context sub_004EDDD0_AddAttackInfo
-static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
-{
-    if (sub_0044DCC0())
-    {
-        sub_004EDC40_AddElemDuration(wszText, pSkillsTxt, pUnit, nSkillId, nSkillLevel);
-        sub_004EC220_AddSkillElemDamage(pUnit, nSkillId, nSkillLevel, wszText, pSkillsTxt, 0);
-        sub_004EC2E0_AddPhysDamage(0, pUnit, wszText, nSkillId, nSkillLevel, 0);
-        sub_004EC510_AddToHit(wszText, pUnit, nSkillId, nSkillLevel);
-        return 1;
-    }
-
-    int nMin = 0;
-    int nMax = 0;
-    int nType;
-    sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nType, pSkillsTxt, nSkillLevel);
-    sub_004E80F0_AppendLabelRange(0x10A0, wszText, 0, nMin, nMax, 0);
-    return 1;
-}
+int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
 
 static __forceinline void AppendString(Unicode* wszText, unsigned short nString)
 {

@@ -1007,16 +1007,7 @@ static __declspec(noinline) int __stdcall sub_00481400_ActOnPlayer(int nAction, 
     return 1;
 }
 
-// build: context sub_0044BE50
-static int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    int nType = 6;
-    if (pUnit)
-    {
-        nType = pUnit->dwUnitType;
-    }
-    return nType;
-}
+int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
 
 static __forceinline D2SkillsTxt* sub_004814A0_GetSkillsTxtRecord(int nSkillId)
 {

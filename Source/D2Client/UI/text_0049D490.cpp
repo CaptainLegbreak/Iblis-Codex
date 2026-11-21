@@ -172,7 +172,7 @@ extern D2CoordStrc gtHoverOffset_007BF214; // 0x007BF214
 
 extern int gnHoverRectCount_007BF224; // 0x007BF224
 
-static __declspec(noinline) bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
+__declspec(noinline) bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
 
 void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource); // 0x0049DBC0
 
@@ -741,7 +741,7 @@ static int sub_004A4A80_IsOnPressedButton(int nX, int nY);
 
 void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit);
 
-static bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
+bool __stdcall sub_0049E070_PlaceHoverRect(int nCount, D2RectStrc* pRect);
 
 // 0x0049D490
 static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
@@ -1983,11 +1983,7 @@ int __fastcall sub_005EF1E0_BaalThroneGetAiParamFlag(D2AiTickParamStrc* pAiTickP
     return pAiTickParam->pAiControl->dwAiParam[1] & nFlag;
 }
 
-// build: context sub_00600C60_CallFree
-void __fastcall sub_00600C60_CallFree(void* pMemory)
-{
-    sub_00517ABB(pMemory);
-}
+void __fastcall sub_00600C60_CallFree(void* pMemory); // 0x00600C60
 
 // 0x004A59D0
 int __stdcall sub_004A59D0_HandleHotkeyAction(D2HotkeyActionStrc* pAction)

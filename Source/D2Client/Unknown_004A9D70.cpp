@@ -80,7 +80,7 @@ int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition); // 0x006460F0
 int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 static __declspec(noinline) int sub_004AA9C0_GetSkillRowY(unsigned char nRow); // 0x004AA9C0
-static __declspec(noinline) void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode);
+__declspec(noinline) void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode);
 
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(const Unicode* wszText, int nY);
 
@@ -476,17 +476,7 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
     }
 }
 
-// build: context sub_004AC200_GetSkillDescFromSkillId
-inline D2SkillDescTxt* sub_004AC200_GetSkillDescFromSkillId(int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLTREE_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    return SKILLTREE_GetSkillDescTxtRecord(pSkillsTxtRecord->wSkillDesc);
-}
+D2SkillDescTxt* sub_004AC200_GetSkillDescFromSkillId(int nSkillId); // 0x004AC200
 
 // build: context sub_004AC200_RefreshSkillTree
 void __cdecl sub_004AC200_RefreshSkillTree()
@@ -606,51 +596,4 @@ void __cdecl sub_004AC200_RefreshSkillTree()
     }
 }
 
-// build: context sub_004AC4D0_DrawSkillTree
-void __cdecl sub_004AC4D0_DrawSkillTree()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-        return;
-
-    if (!gnGlobal_007C0C44)
-    {
-        Unicode wszText[10];
-        char szText[12];
-        wsprintfA(szText, "%d", gnGlobal_007C0C44);
-        sub_00526320_ToUnicode(wszText, szText, 9);
-        const int nX = gnGlobal_0071146C - gnGlobal_007A2858;
-        sub_004A7080(nX - 0x41, gnGlobal_00711470 + gnGlobal_007A285C - 0x190, nX - 0x19, wszText, 0);
-    }
-
-    for (int i = 0; i < SKILLS_GetPlayerSkillCount(sub_00451F60_UnitClassId(pPlayer)); ++i)
-    {
-        const int nSkillId = SKILLS_GetClassSkillId(sub_00451F60_UnitClassId(pPlayer), i);
-        D2SkillsTxt* pSkillsTxt = SKILLTREE_GetSkillsTxtRecord(nSkillId);
-        if (!pSkillsTxt)
-        {
-            continue;
-        }
-
-        D2SkillDescTxt* pDesc = SKILLTREE_GetSkillDescRec(nSkillId);
-        if (!pDesc || gnGlobal_00724BEC != pDesc->nSkillPage)
-        {
-            continue;
-        }
-
-        ganSkillState_007C0A38[i] = -1;
-        ganSkillMode_007C0838[i] = 5;
-        int nSkillLevel = 0;
-        D2SkillStrc* pSkill = SKILLS_GetSkillById(pPlayer, nSkillId, -1);
-        if (pSkill)
-        {
-            nSkillLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
-            if (nSkillLevel > 0)
-            {
-                ganSkillState_007C0A38[i] = 0;
-                ganSkillMode_007C0838[i] = 0;
-            }
-        }
-        sub_004ABF60_DrawSkillIcon(nSkillId, pSkillsTxt, nSkillLevel, ganSkillState_007C0A38[i], ganSkillMode_007C0838[i]);
-    }
-}
+void __cdecl sub_004AC4D0_DrawSkillTree(); // 0x004AC4D0

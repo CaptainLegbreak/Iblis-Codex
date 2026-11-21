@@ -101,7 +101,7 @@ char __cdecl sub_004A3110_GetFlag025F(); // 0x004A3110
 char __cdecl sub_004A3120_IsQuestUnitPresent(); // 0x004A3120
 void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY); // 0x004A3150
 
-static __declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
+__declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
 
 static void __stdcall sub_004BC580_UpdateLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue)
 {
@@ -460,30 +460,7 @@ static void __stdcall sub_004BD550_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitSt
         sub_004B9A00(pHandler->nSoundId, pPlayer, 0, 0, 0);
 }
 
-// build: context sub_004BD5C0_OperateShrine
-static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit)
-{
-    D2ShrinesTxt* pShrinesTxt = 0;
-    int nIndex;
-    if (sub_00621B00_IsShrine(pUnit))
-    {
-        pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
-        nIndex = pShrinesTxt->bCode;
-    }
-    else
-    {
-        nIndex = DATATBLS_GetObjectsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nShrineFunction;
-    }
-
-    D2UnitStrc* pPlayer = sub_00463990(pTarget->nParam1, 0);
-    if (!pPlayer)
-        return;
-
-    if (nIndex > 0 && nIndex < gnShrineHandlerCount_0072779C && gShrineHandlers_006DA8C0[nIndex].pfnOperate)
-        gShrineHandlers_006DA8C0[nIndex].pfnOperate(pUnit, pPlayer, pShrinesTxt);
-
-    sub_004BD550_PlayShrineSound(pPlayer, pUnit);
-}
+void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
 
 static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
 {

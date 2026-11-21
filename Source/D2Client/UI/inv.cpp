@@ -592,14 +592,7 @@ int __cdecl sub_0044BFF0_IsSet()
     return gdwGlobal_007A0670 != 0;
 }
 
-// build: context sub_004972B0_InitializePalette
-void __cdecl sub_004972B0_InitializePalette()
-{
-    gPaletteA = (U8)PaletteColor(128, 0, 0);
-    gPaletteB = (U8)PaletteColor(0, 128, 0);
-    gPaletteC = (U8)PaletteColor(0, 0, 128);
-    gPaletteD = (U8)PaletteColor(128, 128, 0);
-}
+void __cdecl sub_004972B0_InitializePalette(); // 0x004972B0
 
 int gnQuestTimerValue_007BCC14; // 0x007BCC14
 

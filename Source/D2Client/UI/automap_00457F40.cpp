@@ -610,15 +610,7 @@ void __cdecl sub_0045A2B0_ReloadAutomapCels()
     }
 }
 
-// build: context sub_0045B960_FilePrintf
-void __cdecl sub_0045B960_FilePrintf(void* hFile, const char* szFormat, ...)
-{
-    char szBuffer[260];
-    va_list args;
-    va_start(args, szFormat);
-    unsigned long nWritten = wvsprintfA(szBuffer, szFormat, args);
-    WriteFile(hFile, szBuffer, nWritten, &nWritten, 0);
-}
+void __cdecl sub_0045B960_FilePrintf(void* hFile, const char* szFormat, ...); // 0x0045B960
 
 static inline int AUTOMAP_GetUnitType(D2UnitStrc* pUnit)
 {

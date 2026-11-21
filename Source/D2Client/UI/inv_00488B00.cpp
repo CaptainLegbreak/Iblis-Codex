@@ -326,39 +326,9 @@ static __declspec(noinline) int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
     return 0;
 }
 
-// build: context sub_004839D0_DrawGridCells
-static void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nColor, unsigned char nWidth, unsigned char nHeight, int nY)
-{
-    for (int y = nY; y < nY + nHeight; ++y)
-    {
-        for (int x = nX; x < nX + nWidth; ++x)
-        {
-            const int nBoxWidth = pGrid->nGridBoxWidth;
-            const int nPixelX = nBoxWidth * x + pGrid->nGridLeft;
-            const int nBoxHeight = pGrid->nGridBoxHeight;
-            const int nPixelY = nBoxHeight * y + pGrid->nGridTop;
-            if (nPixelX >= 0 && nPixelX < gnAutomapWidth_007A5220 && nPixelY >= 0 && nPixelY < gnAutomapHeight_007A521C)
-            {
-                sub_0046EFD0_DrawFramedBox(nPixelX, nPixelY, nBoxWidth, nBoxHeight, gabColors_007BCAD8[nColor], 0);
-            }
-        }
-    }
-}
+void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nColor, unsigned char nWidth, unsigned char nHeight, int nY); // 0x004839D0
 
-// build: context sub_00483A70_DrawSlotFrame
-static void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
-{
-    if (nColor == 2)
-    {
-        return;
-    }
-    const int nLeft = pCompGrid->rect.nLeft;
-    const int nTop = pCompGrid->rect.nTop;
-    if (nLeft >= 0 && nLeft < gnAutomapWidth_007A5220 && nTop >= 0 && nTop < gnAutomapHeight_007A521C)
-    {
-        sub_0046EFD0_DrawFramedBox(nLeft, nTop, pCompGrid->nWidth, pCompGrid->nHeight, gabColors_007BCAD8[nColor], 0);
-    }
-}
+void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor); // 0x00483A70
 
 static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem)
 {
@@ -681,42 +651,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     return INVENTORY_GetItemCount(pInventory) < ITEMS_GetSockets(pItem);
 }
 
-// build: context sub_004844A0_DrawBodyLocPlacement
-static void sub_004844A0_DrawBodyLocPlacement(D2InventoryStrc* pInventory)
-{
-    if (gdwGlobal_007BCBF0 == 1 && sub_00468730() < gnGlobal_0071146C / 2)
-    {
-        return;
-    }
-    if (sub_00468740() >= gnGlobal_00711470 - 0x27)
-    {
-        return;
-    }
-    if (sub_00468730() < gnGlobal_0071146C / 2)
-    {
-        gnGlobal_007BCC20 = 0;
-        return;
-    }
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (!pCursorItem || !gdwGlobal_007BCBE8)
-    {
-        return;
-    }
-    unsigned char nWidth;
-    unsigned char nHeight;
-    ITEMS_GetDimensions(pCursorItem, &nWidth, &nHeight, "d:\\diablo2\\Diablo2\\Source\\D2Common/CmnItems.h", 0x6DC);
-    int nColor;
-    if ((ITEMS_CheckBodyLocation(pCursorItem, gnGlobal_007BCC20) && ITEMS_CheckRequirements(pCursorItem, sub_00463DD0_GetPlayerUnit(), 0, 0, 0, 0))
-        || sub_004843E0_CanSocketInto(INVENTORY_GetItemFromBodyLoc(pInventory, gnGlobal_007BCC20), pCursorItem))
-    {
-        nColor = 1;
-    }
-    else
-    {
-        nColor = 0;
-    }
-    sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[gnGlobal_007BCC20], nColor);
-}
+void sub_004844A0_DrawBodyLocPlacement(D2InventoryStrc* pInventory); // 0x004844A0
 
 // 0x00486860
 static int sub_00486860_IsOverWeaponSwapTab(int nX, int nY)
@@ -851,96 +786,7 @@ void __stdcall sub_00486EF0_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-// build: context sub_00487000_UpdateGridHover
-static void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid)
-{
-    const int nRecord = UNITS_GetInventoryRecordId(pPlayer, nPage, sub_0044DCC0());
-    int nCellX = (nX - pGrid->nGridLeft) / pGrid->nGridBoxWidth;
-    int nCellY = (nY - pGrid->nGridTop) / pGrid->nGridBoxHeight;
-    if (pCursorItem)
-    {
-        unsigned char nWidth;
-        unsigned char nHeight;
-        unsigned int nPixelWidth;
-        unsigned int nPixelHeight;
-        ITEMS_GetDimensions(pCursorItem, &nWidth, &nHeight, "d:\\diablo2\\Diablo2\\Source\\D2Common/CmnItems.h", 0x6DC);
-        sub_004DBEA0(pCursorItem, 0, 0, &nPixelWidth, &nPixelHeight);
-        if (nWidth % 2 == 0)
-        {
-            nCellX = ((nPixelWidth >> 2) - pGrid->nGridLeft + nX) / pGrid->nGridBoxWidth;
-        }
-        if (nWidth == pGrid->nGridX)
-        {
-            nCellX = pGrid->nGridX / 2;
-        }
-        if (nHeight % 2 == 0)
-        {
-            nCellY = ((nPixelHeight >> 2) - pGrid->nGridTop + nY) / pGrid->nGridBoxHeight;
-        }
-        if (nHeight == pGrid->nGridY)
-        {
-            nCellY = pGrid->nGridY / 2;
-        }
-        if (nWidth > 1)
-        {
-            nCellX -= nWidth / 2;
-            if (nCellX < 0)
-            {
-                nCellX = 0;
-            }
-            if (nWidth + nCellX > pGrid->nGridX)
-            {
-                return;
-            }
-        }
-        if (nHeight > 1)
-        {
-            nCellY -= nHeight / 2;
-            if (nCellY < 0)
-            {
-                nCellY = 0;
-            }
-            if (nHeight + nCellY > pGrid->nGridY)
-            {
-                return;
-            }
-        }
-        gnGlobal_00721E50 = nCellY;
-        gnGlobal_00721E4C = nCellX;
-        gdwGlobal_007BCBE4 = 1;
-        gdwGlobal_007BCBF8 = 0;
-        gdwGlobal_007BCBF4 = 0;
-        return;
-    }
-
-    int nOutX;
-    int nOutY;
-    D2UnitStrc* pItem = INVENTORY_GetItemFromInventoryPage(pInventory, nCellX, nCellY, &nOutX, &nOutY, nRecord, nPage);
-    if (pItem)
-    {
-        gdwGlobal_007BCBE4 = 1;
-        if (pItem == gdwGlobal_007BCBF8)
-        {
-            return;
-        }
-        unsigned char nItemWidth;
-        unsigned char nItemHeight;
-        ITEMS_GetDimensions(pItem, &nItemWidth, &nItemHeight, "d:\\diablo2\\Diablo2\\Source\\D2Common/CmnItems.h", 0x6DC);
-        const int nItemX = CLIENTS_GetUnitX(pItem);
-        const int nItemY = CLIENTS_GetUnitY(pItem);
-        const int nLeft = nItemWidth * pGrid->nGridBoxWidth / 2 + pGrid->nGridBoxWidth * nItemX + pGrid->nGridLeft;
-        gnGlobal_00721E3C = nLeft;
-        gnGlobal_00721E44 = nLeft;
-        gdwGlobal_007BCBF4 = pItem;
-        gdwGlobal_007BCBF8 = pItem;
-        gnGlobal_00721E40 = pGrid->nGridBoxHeight * nItemY + pGrid->nGridTop;
-        gnGlobal_00721E48 = pGrid->nGridBoxHeight * (nItemY + nItemHeight) + pGrid->nGridTop;
-        return;
-    }
-    gdwGlobal_007BCBE4 = 0;
-    gdwGlobal_007BCBF8 = 0;
-    gdwGlobal_007BCBF4 = 0;
-}
+void __stdcall sub_00487000_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid); // 0x00487000
 
 // 0x00487230
 static void __stdcall sub_00487230_UpdateBodyLocHover(int nBodyLoc, D2UnitStrc* pPlayer, D2InventoryStrc* pInventory)
@@ -1214,37 +1060,7 @@ static void sub_00488E10_SelectButtonByKey(int nKey)
     gaNpcButtons_007BC9E0[3].bActive = gaNpcButtons_007BC9E0[3].nKey == nKey;
 }
 
-// build: context sub_00488F10_OpenTradeFromButton
-void __cdecl sub_00488F10_OpenTradeFromButton()
-{
-    if (!sub_004888C0_CanUseCursor())
-    {
-        return;
-    }
-    sub_00487BE0_ResetButtons();
-    const int nButton = gnGlobal_007BCC40;
-    if (nButton >= 0 && nButton < gnButtonCount_00722160 && gaNpcButtons_007BC9E0[nButton].nTextId != 0x276F)
-    {
-        sub_00488E10_SelectButtonByKey(gnGlobal_007BCC44);
-        gdwGlobal_007BCBF0 = gaNpcButtons_007BC9E0[nButton].nMode;
-        sub_00468040(gaNpcButtons_007BC9E0[nButton].nArg, 0);
-    }
-    int nUnitId;
-    if (sub_004B3230_GetTickPair(&nUnitId))
-    {
-        D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
-        if (pUnit)
-        {
-            const int nX = sub_00468730();
-            const int nY = sub_00468740();
-            if (nX >= gGrid_007BCB58.nGridLeft && nX <= gGrid_007BCB58.nGridRight && nY >= gGrid_007BCB58.nGridTop && nY <= gGrid_007BCB58.nGridBottom)
-            {
-                sub_00487000_UpdateGridHover(pUnit, pUnit->pInventory, 0, nX, nY, gnSelectedTab_007BCC04, &gGrid_007BCB58);
-                gnGlobal_00721E38 = 0;
-            }
-        }
-    }
-}
+void __cdecl sub_00488F10_OpenTradeFromButton(); // 0x00488F10
 
 // 0x00489430
 static int sub_00489430_IsOverButtonA(int nX, int nY)
@@ -1548,29 +1364,9 @@ static D2UnitStrc* sub_00486770_FindSetItem(D2InventoryStrc* pInventory, int nSe
     return 0;
 }
 
-// build: context sub_E05_Emit_004844A0
-void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText, int nSetItemId)
-{
-    for (int i = 0; i < 11; ++i)
-    {
-        INVENTORY_GetItemFromBodyLoc(pInventory, i);
-    }
-    sub_004844A0_DrawBodyLocPlacement(pInventory);
-    sub_004865D0_AppendBookCharges(pText);
-    sub_00486770_FindSetItem(pInventory, nSetItemId);
-}
+void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText, int nSetItemId); // 0x004844A0
 
-// build: context sub_E05_Emit_00486860
-int __cdecl sub_E05_Emit_00486860()
-{
-    return sub_00486860_IsOverWeaponSwapTab(sub_00468730(), sub_00468740());
-}
 
-// build: context sub_E05_Emit_00489FB0
-int __cdecl sub_E05_Emit_00489FB0(int nX, int nY)
-{
-    return sub_00489FB0_IsOverButtonC(nX, nY);
-}
 
 static int gnGlobal_007BCC48; // 0x007BCC48
 

@@ -574,49 +574,7 @@ void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
     }
 }
 
-// build: context sub_0046F9E0_LoadMonsterModeGfx
-static void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
-{
-    int nUnitType;
-    int nClassId;
-    int nMode;
-
-    int nTypeValue = 6;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, gszGfxFile_006D6C1C, 0x498);
-    const int nConvertedMode = nMode;
-    if (nIndex == 0xE)
-    {
-        nIndex = nConvertedMode;
-    }
-
-    if (!sub_0046C140_TestMonModeFlag(nClassId, nIndex))
-    {
-        return;
-    }
-
-    if (nIndex == 0xC)
-    {
-        sub_0046EC80_FreeGfxNodes(pUnit);
-        sub_0046F020_FillGfxEntries(pUnit, 0);
-        sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
-        return;
-    }
-
-    if (nIndex == 0xE)
-    {
-        nIndex = nConvertedMode;
-    }
-    sub_0046E8D0_LoadMonsterGfx(pUnit, nIndex);
-}
+void sub_0046F9E0_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex); // 0x0046F9E0
 
 // 0x0046FA80
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nIndex)
