@@ -30074,30 +30074,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B1680.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B1680",
-     "length": 287
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004B18C0.cpp",
    "rank": 0,
    "functions": [
@@ -30374,30 +30350,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/npcmenu_004B3870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B3870",
-     "length": 898
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/npcmenu_004B3D40.cpp",
    "rank": 0,
    "functions": [
@@ -30416,6 +30368,34 @@
      "length": 580,
      "name": "?sub_004B4380_UpdateNpcInteract@@YAXXZ"
     }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/npcmenu_004B3870.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004B1680",
+     "length": 287
+    },
+    {
+     "va": "0x004B3870",
+     "length": 898
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
