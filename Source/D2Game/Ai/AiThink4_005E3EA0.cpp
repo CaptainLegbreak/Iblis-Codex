@@ -206,5 +206,5 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
     return 0;
 }
 
-#include "gen/data/Source/D2Game/Unknown_005E3EA0.inc"
+#include "gen/data/Source/D2Game/Ai/AiThink4_005E3EA0.inc"
 struct D2UnitStrc;
