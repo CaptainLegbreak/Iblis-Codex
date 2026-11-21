@@ -87293,7 +87293,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/DRLG/Maze_00670810.cpp",
+   "file": "Source/D2Common/DRLG/Maze.cpp",
    "rank": 0,
    "functions": [
     {
@@ -87310,6 +87310,63 @@
      "va": "0x00670970",
      "length": 36,
      "name": "DRLGMAZE_SetPickedFileAndPresetId"
+    },
+    {
+     "va": "0x00670C70",
+     "length": 249
+    },
+    {
+     "va": "0x00670DE0",
+     "length": 133,
+     "name": "?DRLGMAZE_InitRoomFixedPreset@@YGPAUD2DrlgRoomStrc@@PAU1@HHHH@Z"
+    },
+    {
+     "va": "0x00670EB0",
+     "length": 164
+    },
+    {
+     "va": "0x00670F60",
+     "length": 567
+    },
+    {
+     "va": "0x00671210",
+     "length": 260
+    },
+    {
+     "va": "0x006714D0",
+     "length": 995
+    },
+    {
+     "va": "0x006718C0",
+     "length": 290
+    },
+    {
+     "va": "0x006723E0",
+     "length": 58
+    },
+    {
+     "va": "0x00672460",
+     "length": 58
+    },
+    {
+     "va": "0x006724A0",
+     "length": 58
+    },
+    {
+     "va": "0x006724E0",
+     "length": 111
+    },
+    {
+     "va": "0x00672810",
+     "length": 967
+    },
+    {
+     "va": "0x006735F0",
+     "length": 711
+    },
+    {
+     "va": "0x006738C0",
+     "length": 413
     },
     {
      "va": "0x00673B10",
@@ -87372,83 +87429,6 @@
      "length": 14,
      "name": "DRLGMAZE_HasMapDS1"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00670C70",
-     "length": 249
-    },
-    {
-     "va": "0x00670DE0",
-     "length": 133,
-     "name": "?DRLGMAZE_InitRoomFixedPreset@@YGPAUD2DrlgRoomStrc@@PAU1@HHHH@Z"
-    },
-    {
-     "va": "0x00670EB0",
-     "length": 164
-    },
-    {
-     "va": "0x00670F60",
-     "length": 567
-    },
-    {
-     "va": "0x00671210",
-     "length": 260
-    },
-    {
-     "va": "0x006714D0",
-     "length": 995
-    },
-    {
-     "va": "0x006718C0",
-     "length": 290
-    },
-    {
-     "va": "0x006723E0",
-     "length": 58
-    },
-    {
-     "va": "0x00672460",
-     "length": 58
-    },
-    {
-     "va": "0x006724A0",
-     "length": 58
-    },
-    {
-     "va": "0x006724E0",
-     "length": 111
-    },
-    {
-     "va": "0x00672810",
-     "length": 967
-    },
-    {
-     "va": "0x006735F0",
-     "length": 711
-    },
-    {
-     "va": "0x006738C0",
-     "length": 413
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
