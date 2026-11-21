@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
@@ -170,12 +171,6 @@ int __cdecl sub_0044DA30(); // 0x0044DA30
 extern "C" void __fastcall sub_004A4500_SetActionValue(int nValue); // 0x004A4500
 extern "C" int __stdcall sub_00420290_HandleMsg(void* pMessage); // 0x00420290
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10

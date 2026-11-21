@@ -4,6 +4,7 @@
 #include "D2LevelTxt.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
+#include "D2ClientGame.h"
 struct D2UnitStrc;
 
 #define PETTYPE_FLAG_PARTY 4
@@ -15,29 +16,6 @@ struct D2InvRectStrc;
 struct D2InventoryGridInfoStrc;
 struct D2InvCompGridStrc;
 
-struct D2RosterPetStrc
-{
-    int nClassId;
-    int nType;
-    int dwUnitId;
-    int dwOwnerId;
-    int nArg10;
-    int unk0x14[2];
-    int nLifePercent;
-    union
-    {
-        struct
-        {
-            int unk0x20[4];
-        };
-        struct
-        {
-            unsigned char unk_20[0x4];
-            D2ClientEntryStrc tEntry;
-        };
-    };
-    D2RosterPetStrc* pNext;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2StoredUnitRecordStrc* __fastcall sub_00479BB0_FindRosterUnit(int nUnitId); // 0x00479BB0
@@ -297,7 +275,7 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int b
     const int nUnitId = pUnit->dwUnitId;
     for (D2RosterPetStrc* pPet = gpRosterPets_007BB5BC; pPet; pPet = pPet->pNext)
     {
-        if (pPet->nType == nType && pPet->dwOwnerId == nUnitId && (bAny || !pPet->unk0x20[0]))
+        if (pPet->nType == nType && pPet->dwOwnerId == nUnitId && (bAny || !pPet->unk0x20))
             return pPet->dwUnitId;
     }
 

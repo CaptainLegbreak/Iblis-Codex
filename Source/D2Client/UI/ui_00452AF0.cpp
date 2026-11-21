@@ -7,15 +7,9 @@
 #include "D2Win32Types.h"
 
 #include "D2GameObjs.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
-struct D2LevelsTxt
-{
-    char unk0x00[0xF5];
-    char szLevelName[40];
-    char unk0x11D[0x1BE - 0x11D];
-    Unicode wszLevelWarp[40];
-};
 
 struct D2TileRectStrc
 {
@@ -436,7 +430,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         const int nX = (pRect->nWidth >> 1) + pRect->nX + gnHoverX_0070F854;
         const int nY = (pRect->nHeight >> 1) + pRect->nY + gnHoverY_0070F858;
         Unicode wszText[0xC8] = { 0 };
-        const Unicode* pText = pLevelsTxt->wszLevelWarp;
+        const Unicode* pText = (const Unicode*)pLevelsTxt->wszLevelWarp;
         if (nLevelId == 8)
         {
             if (sub_004B92E0_GetTableByte(0, 1))

@@ -1,15 +1,8 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
 struct D2DrlgGridStrc;
 
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    char _pad_0x09[0x07];
-    D2DrlgVertexStrc* pNext;
-};
 
 struct D2DrlgCoordPairStrc
 {
@@ -31,32 +24,8 @@ struct D2DrlgRoadStrc
     char _pad_0x1F1[0x03];
 };
 
-struct D2DrlgOutdoorInfoStrc
-{
-    char _pad_0x00[0x2C];
-    char pGrid[0x3C];
-    D2DrlgVertexStrc* pPathVertices[0x7E];
-    int nRoads;
-};
 
-struct D2DrlgStrc
-{
-    char _pad_0x000[0x478];
-    void* pMempool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char _pad_0x000[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char _pad_0x018[0x04];
-    int nPosX;
-    int nPosY;
-    char _pad_0x024[0x190];
-    D2DrlgStrc* pDrlg;
-    char _pad_0x1B8[0x0C];
-    D2SeedStrc pSeed;
-};
 
 void __fastcall sub_0067C890(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
 void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel); // 0x00680D70
@@ -79,7 +48,7 @@ static void __stdcall sub_00681240(D2DrlgLevelStrc* pLevel, int nRoad)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    D2DrlgVertexStrc* pVertex = pOutdoors->pPathVertices[nRoad];
+    D2DrlgVertexStrc* pVertex = pOutdoors->pRoads[nRoad];
     int nRand = SEED_RollRandomNumber(&pLevel->pSeed) & 3;
     if (!pVertex)
     {
@@ -93,7 +62,7 @@ static void __stdcall sub_00681240(D2DrlgLevelStrc* pLevel, int nRoad)
         pNew->nPosX = pRoad->tStart.nX;
         pNew->nPosY = pRoad->tStart.nY;
         pNew->pNext = pVertex;
-        pOutdoors->pPathVertices[nRoad] = pNew;
+        pOutdoors->pRoads[nRoad] = pNew;
     }
 
     pVertex->nPosX = pRoad->tStartInner.nX;
@@ -128,11 +97,11 @@ void __fastcall DRLGOUTDOORS_SpawnAct1DirtPaths(D2DrlgLevelStrc* pLevel)
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     sub_00680D70(pLevel);
     sub_00681000(pLevel);
-    for (int i = 0; i < pOutdoors->nRoads; ++i)
+    for (int i = 0; i < pOutdoors->nVertices; ++i)
     {
         if (sub_006817D0(pLevel, i))
         {
-            sub_0067C890((D2DrlgGridStrc*)pOutdoors->pGrid, pOutdoors->pPathVertices[i], 0x80);
+            sub_0067C890(&pOutdoors->pGrid[2], pOutdoors->pRoads[i], 0x80);
             sub_00681240(pLevel, i);
         }
     }

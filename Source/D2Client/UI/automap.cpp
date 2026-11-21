@@ -10,6 +10,9 @@
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
 #include "D2StormTypes.h"
+#include "D2ClientTypes.h"
+#include "D2ClientUi.h"
+#include "D2Skills.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -156,16 +159,6 @@ extern D2CharSaveHeaderStrc gtCharSaveHeader_0077AC10; // 0x0077AC10
 extern D2CharSaveIdStrc gtCharSaveId_0070CCC8; // 0x0070CCC8
 extern D2AutomapNodeStrc* gpAutomapNodes_007A5160; // 0x007A5160
 
-struct D2AutomapCellStrc
-{
-    unsigned int fSaved;
-    short nCellNo;
-    short xPixel;
-    short yPixel;
-    short wWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
 
 struct D2AutomapCellBlockStrc
 {
@@ -215,12 +208,6 @@ void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern int gdwGlobal_007A520C; // 0x007A520C
 extern int gdwGlobal_007A5208; // 0x007A5208
 
-struct D2UnitTargetStrc
-{
-    int nParam1;
-    int nParam2;
-    int unk0x08[5];
-};
 
 struct D2UnitOverlayStrc
 {
@@ -241,11 +228,6 @@ struct D2UnitOverlayStrc
     D2UnitOverlayStrc* pNext;
 };
 
-struct D2GfxDataStrc
-{
-    char unk0x00[0x2C];
-    D2UnitOverlayStrc* pOverlays;
-};
 
 struct D2AutomapPairStrc
 {
@@ -253,22 +235,7 @@ struct D2AutomapPairStrc
     int nValue;
 };
 
-struct D2UiRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
-struct D2UiRecordStrc
-{
-    int unk0x00;
-    unsigned char nIndex;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    D2UiRectStrc aRects[16];
-};
 
 struct D2ClientSlotObjStrc
 {
@@ -313,10 +280,6 @@ int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* p
 D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-};
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
@@ -357,20 +320,7 @@ enum D2C_F06UiConstants
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    SMSGHANDLER pfnHandler;
-};
 
-struct D2SkillListStrc
-{
-    void* pMemPool;
-    D2SkillStrc* pFirstSkill;
-    D2SkillStrc* pLeftSkill;
-    D2SkillStrc* pRightSkill;
-};
 
 struct D2TileRectStrc
 {
@@ -670,7 +620,7 @@ void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntr
     D2_ASSERT(hWnd, 0x166);
     for (unsigned int i = 0; i < nCount; ++i)
     {
-        sub_00451D10_UnregisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, pTable[i].pfnHandler);
+        sub_00451D10_UnregisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
     }
 }
 
@@ -1483,7 +1433,7 @@ int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00660CB0_GetUiRecord(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRecord);
     if (gbUiRecordMode_007BEF98)
     {
-        const D2UiRectStrc* pRect = &tRecord.aRects[tRecord.nIndex - 4];
+        const D2UiRectStrc* pRect = &tRecord.aRects[tRecord.nBoxes - 4];
         if (nX >= pRect->nLeft && nX <= tRecord.aRects[3].nRight && nY >= pRect->nTop && nY <= tRecord.aRects[3].nBottom)
         {
             return 1;

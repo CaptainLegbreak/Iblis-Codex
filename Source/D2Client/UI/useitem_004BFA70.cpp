@@ -1,14 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 #include "D2Txt.h"
 #include "D2StormTypes.h"
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 int gnGlobal_007C5474;                                                                                      // 0x007C5474
 int gnGlobal_007C5480;                                                                                      // 0x007C5480

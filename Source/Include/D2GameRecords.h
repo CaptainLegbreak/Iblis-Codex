@@ -67,7 +67,11 @@ struct D2NpcRecordStrc
     unsigned int dwTicks; // 0x28
     void* pItemCache; // 0x2C
     int nPerms; // 0x30
-    void* pPermCache; // 0x34
+    union
+    {
+        void* pPermCache; // 0x34
+        int* pPermStoreItems; // 0x34
+    };
     int nPermStoreItems; // 0x38
     int unk0x3C; // 0x3C
     int dwNPCGUID; // 0x40

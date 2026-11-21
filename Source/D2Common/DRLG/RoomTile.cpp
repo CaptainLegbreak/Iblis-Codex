@@ -3,6 +3,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2DrlgPresets.h"
+#include "D2DrlgTiles.h"
 
 #pragma function(memset)
 
@@ -66,15 +67,6 @@ union D2C_PackedTileInformation
 
 
 
-struct D2DrlgTileGridStrc
-{
-    D2DrlgTileLinkStrc* pMapLinks;
-    D2DrlgAnimTileGridStrc* pAnimTiles;
-    int nWalls;
-    int nFloors;
-    int nShadows;
-    D2DrlgRoomTilesStrc pTiles;
-};
 
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
 D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDrlgRoom, int nType, unsigned int nPackedTileInformation); // 0x0066D820
@@ -101,15 +93,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 void __fastcall DRLGOUTPLACE_InitOutdoorRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D2D0
 void __fastcall DRLGPRESET_InitPresetRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x006667D0
 
-struct D2RoomTileStrc
-{
-    void* pDrlgRoom;
-    D2RoomTileStrc* pNext;
-    int bEnabled;
-    void* unk0x0C;
-    void* pLvlWarpTxtRecord;
-    void* unk0x14;
-};
 
 D2DrlgRoomStrc* __fastcall DUNGEON_GetRoomExFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
 
@@ -614,7 +597,7 @@ void __fastcall DRLGROOMTILE_FreeTileGrid(D2DrlgRoomStrc* pDrlgRoom)
         }
         pTileGrid->pMapLinks = 0;
 
-        D2DrlgAnimTileGridStrc* pAnimTileGrid = pTileGrid->pAnimTiles;
+        D2DrlgAnimTileGridStrc* pAnimTileGrid = (D2DrlgAnimTileGridStrc*)pTileGrid->pAnimTiles;
         while (pAnimTileGrid)
         {
             D2DrlgAnimTileGridStrc* pFree = pAnimTileGrid;
@@ -633,8 +616,8 @@ static void sub_0066F180_ResetRoomTiles(D2DrlgRoomStrc* pDrlgRoom)
 {
     for (D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles; pRoomTile; pRoomTile = pRoomTile->pNext)
     {
-        pRoomTile->unk0x14 = 0;
-        pRoomTile->unk0x0C = 0;
+        pRoomTile->pSelectedTiles = 0;
+        pRoomTile->pUnselectedTiles = 0;
     }
 }
 
@@ -671,8 +654,8 @@ void __fastcall DRLGROOMTILE_FreeRoom(D2DrlgRoomStrc* pDrlgRoom, int bKeepRoom)
 
         for (D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles; pRoomTile; pRoomTile = pRoomTile->pNext)
         {
-            pRoomTile->unk0x14 = 0;
-            pRoomTile->unk0x0C = 0;
+            pRoomTile->pSelectedTiles = 0;
+            pRoomTile->pUnselectedTiles = 0;
         }
 
         if (bKeepRoom)

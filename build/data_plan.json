@@ -3984,7 +3984,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2DDraw/Src/ddSmack_00513400.cpp": {
+  "Source/D2DDraw/Src/ddSmack.cpp": {
    "bytes": 452,
    "definitions": 1,
    "externs": [],
@@ -4248,20 +4248,11 @@
    "state": "included"
   },
   "Source/D2Lang/StrTable/strtable.cpp": {
-   "bytes": 424,
-   "definitions": 6,
+   "bytes": 936,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Lang/StrTable/strtable.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Lang/StrTable/strtable_00524FD0.cpp": {
-   "bytes": 512,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Lang/StrTable/strtable_00524FD0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5280,20 +5271,11 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a5q1.cpp": {
-   "bytes": 48,
-   "definitions": 2,
+   "bytes": 1616,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a5q1_005871C0.cpp": {
-   "bytes": 1568,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q1_005871C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5324,39 +5306,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a5q4_0058B0B0.cpp": {
-   "bytes": 1568,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q4_0058B0B0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a5q4_0058B900.cpp": {
-   "bytes": 48,
+  "Source/D2Game/Quests/a5q5.cpp": {
+   "bytes": 1792,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q4_0058B900.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a5q5_0058C210.cpp": {
-   "bytes": 1764,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q5_0058C210.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a5q5_0058C440.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q5_0058C440.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5397,20 +5352,11 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a1q1.cpp": {
-   "bytes": 24,
-   "definitions": 1,
+   "bytes": 1592,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q1_00590260.cpp": {
-   "bytes": 1568,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q1_00590260.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5459,15 +5405,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a1q5_00594740.cpp": {
-   "bytes": 980,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a1q6.cpp": {
    "bytes": 1232,
    "definitions": 3,
@@ -5505,20 +5442,11 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a2q1.cpp": {
-   "bytes": 1180,
-   "definitions": 2,
+   "bytes": 2944,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q1_00599130.cpp": {
-   "bytes": 1764,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q1_00599130.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -8092,6 +8020,24 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q2.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a5q4.cpp": {
+   "bytes": 1616,
+   "definitions": 3,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a5q4_0058B0B0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Quests/a1q5_00594740.cpp": {
+   "bytes": 980,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -39698,10 +39644,9 @@
        "pfnHandler",
        8,
        {
-        "fn": true,
         "k": "ptr",
         "size": 4,
-        "spell": "void (__stdcall *)(SMSGHANDLER_PARAMS *)"
+        "spell": "void*"
        }
       ]
      ],
@@ -43718,7 +43663,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -43728,7 +43673,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -43738,13 +43683,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56644,7 +56588,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56654,7 +56598,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56664,13 +56608,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56715,7 +56658,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56725,7 +56668,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56735,13 +56678,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56826,7 +56768,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56836,7 +56778,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56846,13 +56788,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -56897,7 +56838,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -56907,7 +56848,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -56917,13 +56858,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -64436,7 +64376,7 @@
      "k": "struct",
      "members": [
       [
-       "unk0x00",
+       "nType",
        0,
        {
         "k": "prim",
@@ -64446,7 +64386,7 @@
        }
       ],
       [
-       "unk0x04",
+       "nId",
        4,
        {
         "k": "prim",
@@ -64456,13 +64396,12 @@
        }
       ],
       [
-       "unk0x08",
+       "pfnHandler",
        8,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
        }
       ]
      ],
@@ -87828,7 +87767,7 @@
    "cname": "gData_006DE20C",
    "declared": true,
    "decorated": "_szDDSmackFile_006DE20C",
-   "file": "Source/D2DDraw/Src/ddSmack_00513400.cpp",
+   "file": "Source/D2DDraw/Src/ddSmack.cpp",
    "fill": 452,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006DE20C[452]; // 0x006DE20C",
@@ -91337,7 +91276,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Lang/StrTable/strtable_00524FD0.cpp",
+   "file": "Source/D2Lang/StrTable/strtable.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern unsigned short gwCrc16Table_007301D8[0x100] = ",
@@ -106552,7 +106491,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q1_005871C0.cpp",
+   "file": "Source/D2Game/Quests/a5q1.cpp",
    "fill": 1568,
    "form": "declared",
    "fwd": null,
@@ -107659,7 +107598,7 @@
    "cname": "gData_00734AC8",
    "declared": true,
    "decorated": "?gpAct5Q4NpcMessages@@3UD2NPCMessageTableStrc@@A",
-   "file": "Source/D2Game/Quests/a5q4_0058B0B0.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00734AC8_t gData_00734AC8; // 0x00734AC8",
    "head": "extern \"C\" struct d2data_00734AC8_t gData_00734AC8 = ",
@@ -107676,7 +107615,7 @@
    "cname": "gData_006E1B98",
    "declared": true,
    "decorated": "_gszA1Q2SourceFile",
-   "file": "Source/D2Game/Quests/a5q4_0058B900.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006E1B98[24]; // 0x006E1B98",
@@ -107707,7 +107646,7 @@
    "cname": "gData_00737180",
    "declared": true,
    "decorated": "_gnAct1Quest2NpcIndices",
-   "file": "Source/D2Game/Quests/a5q4_0058B900.cpp",
+   "file": "Source/D2Game/Quests/a5q4.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_00737180[6]; // 0x00737180",
@@ -107738,7 +107677,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q5_0058C210.cpp",
+   "file": "Source/D2Game/Quests/a5q5.cpp",
    "fill": 441,
    "form": "declared",
    "fwd": null,
@@ -107769,7 +107708,7 @@
    "cname": "gData_007357E4",
    "declared": true,
    "decorated": "?gnA5Q5NpcActivateIndices@@3QBIB",
-   "file": "Source/D2Game/Quests/a5q5_0058C440.cpp",
+   "file": "Source/D2Game/Quests/a5q5.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_007357E4[7]; // 0x007357E4",
@@ -108002,7 +107941,7 @@
    "cname": "gData_007366B0",
    "declared": true,
    "decorated": "?gpAct1Q1NpcMessages@@3UD2NPCMessageTableStrc@@A",
-   "file": "Source/D2Game/Quests/a1q1_00590260.cpp",
+   "file": "Source/D2Game/Quests/a1q1.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007366B0_t gData_007366B0; // 0x007366B0",
    "head": "extern \"C\" struct d2data_007366B0_t gData_007366B0 = ",
@@ -108990,7 +108929,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q1_00599130.cpp",
+   "file": "Source/D2Game/Quests/a2q1.cpp",
    "fill": 1764,
    "form": "declared",
    "fwd": null,

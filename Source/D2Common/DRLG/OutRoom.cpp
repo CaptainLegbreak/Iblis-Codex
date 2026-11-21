@@ -1,66 +1,14 @@
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
+#include "D2DrlgRooms.h"
+#include "D2DrlgTiles.h"
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOutdoorRoomStrc
-{
-    D2DrlgGridStrc tGrid00;
-    D2DrlgGridStrc tGrid14;
-    D2DrlgGridStrc tGrid28;
-    D2DrlgGridStrc tGrid3C;
-    D2DrlgVertexStrc* pVertex;
-    unsigned int dwFlags;
-    int unk0x58;
-    int unk0x5C;
-    int unk0x60;
-    int nTileInfo64;
-    int nTileInfo68;
-    int nTileInfo6C;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMemPool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgStrc* pDrlg;
-    int unk0x1B8;
-    int unk0x1BC;
-    int nLevelType;
-    int unk0x1C4;
-    int unk0x1C8;
-    int unk0x1CC;
-    int eLevelId;
-};
 
 struct D2LevelDefRecordStrc
 {
@@ -90,40 +38,6 @@ struct D2DrlgOutdoorTileCtxStrc
     int n38;
 };
 
-struct D2RoomTileInfoStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int nCount08;
-    int nCount0C;
-    int nCount10;
-    int unk0x14;
-    int nTotal18;
-    int unk0x1C;
-    int nTotal20;
-    int unk0x24;
-    int nTotal28;
-};
-
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x20];
-    D2DrlgOutdoorRoomStrc* pOutdoor;
-    D2DrlgRoomStrc* pNext;
-    unsigned int dwFlags;
-    int unk0x2C;
-    int unk0x30;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-    int unk0x44;
-    int unk0x48;
-    int unk0x4C;
-    int unk0x50;
-    D2RoomTileInfoStrc* pTileInfo;
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 
@@ -172,17 +86,17 @@ int __fastcall sub_006706A0(D2DrlgRoomStrc* pRoom, int a2, int a3);             
 void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
 {
     D2DrlgLevelStrc* pLevel = pRoom->ptDrlgLevel;
-    void* pMemPool = pLevel->pDrlg->pMemPool;
+    void* pMemPool = pLevel->pDrlg->pMempool;
     unsigned char bSkip = sub_006427F0(pLevel->eLevelId);
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     D2LevelDefRecordStrc* pLevelDef = DATATBLS_GetLevelDefRecord(pLevel->eLevelId);
-    int nWidth = pRoom->nTileWidth + 1;
-    int nHeight = pRoom->nTileHeight + 1;
+    int nWidth = pRoom->pDrlgCoord.nWidth + 1;
+    int nHeight = pRoom->pDrlgCoord.nHeight + 1;
     int nSubType1 = (pRoom->dwFlags >> 16) & 3;
     int nSubType2 = (pRoom->dwFlags >> 12) & 0xF;
     int nMask = 0;
 
-    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->tGrid00, nWidth, nHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->pTileTypeGrid, nWidth, nHeight);
     DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->tGrid14, nWidth, nHeight);
     DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->tGrid28, nWidth, nHeight);
 
@@ -204,7 +118,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
     D2DrlgOutdoorTileCtxStrc tCtx;
     memset(&tCtx, 0, sizeof(tCtx));
     tCtx.pRoom = pRoom;
-    tCtx.pGrid00 = &pOutdoor->tGrid00;
+    tCtx.pGrid00 = &pOutdoor->pTileTypeGrid;
     tCtx.pGrid14 = &pOutdoor->tGrid14;
     tCtx.pGrid28 = &pOutdoor->tGrid28;
     tCtx.n28 = 0;
@@ -272,14 +186,14 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
 D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50)
 {
     D2DrlgRoomStrc* pRoom = DRLGROOM_AllocRoomEx(pLevel, 1);
-    pRoom->nTileXPos = nX;
-    pRoom->nTileYPos = nY;
-    pRoom->nTileWidth = nWidth;
-    pRoom->nTileHeight = nHeight;
+    pRoom->pDrlgCoord.nPosX = nX;
+    pRoom->pDrlgCoord.nPosY = nY;
+    pRoom->pDrlgCoord.nWidth = nWidth;
+    pRoom->pDrlgCoord.nHeight = nHeight;
     DRLGROOM_AddRoomExToLevel(pLevel, pRoom);
 
     pRoom->dwFlags |= dwRoomFlags | 0x80000;
-    pRoom->unk0x50 = nRoom50;
+    pRoom->dwDT1Mask = nRoom50;
 
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     pOutdoor->dwFlags = dwOutdoorFlags;
@@ -295,7 +209,7 @@ D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY,
 // 0x0067D5D0
 static void sub_0067D5D0(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor)
 {
-    DRLGGRID_FreeGrid(pMemPool, &pOutdoor->tGrid00);
+    DRLGGRID_FreeGrid(pMemPool, &pOutdoor->pTileTypeGrid);
     DRLGGRID_FreeGrid(pMemPool, &pOutdoor->tGrid14);
     DRLGGRID_FreeGrid(pMemPool, &pOutdoor->tGrid28);
     DRLGGRID_FreeGrid(pMemPool, &pOutdoor->tGrid3C);
@@ -305,7 +219,7 @@ static void sub_0067D5D0(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor)
 // 0x0067D610
 void __fastcall sub_0067D610(D2DrlgRoomStrc* pRoom)
 {
-    void* pMemPool = pRoom->ptDrlgLevel->pDrlg->pMemPool;
+    void* pMemPool = pRoom->ptDrlgLevel->pDrlg->pMempool;
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     if (pOutdoor)
     {
@@ -321,14 +235,14 @@ void __fastcall sub_0067D680(D2DrlgRoomStrc* pRoom)
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     if (pOutdoor)
     {
-        sub_0067D5D0(pRoom->ptDrlgLevel->pDrlg->pMemPool, pOutdoor);
+        sub_0067D5D0(pRoom->ptDrlgLevel->pDrlg->pMempool, pOutdoor);
     }
 }
 
 // 0x0067D6D0
 void __fastcall sub_0067D6D0(D2DrlgRoomStrc* pRoom)
 {
-    D2DrlgOutdoorRoomStrc* pOutdoor = (D2DrlgOutdoorRoomStrc*)sub_0040B430(pRoom->ptDrlgLevel->pDrlg->pMemPool, sizeof(D2DrlgOutdoorRoomStrc), ".\\DRLG\\OutRoom.cpp", 197, 0);
+    D2DrlgOutdoorRoomStrc* pOutdoor = (D2DrlgOutdoorRoomStrc*)sub_0040B430(pRoom->ptDrlgLevel->pDrlg->pMempool, sizeof(D2DrlgOutdoorRoomStrc), ".\\DRLG\\OutRoom.cpp", 197, 0);
     memset(pOutdoor, 0, sizeof(D2DrlgOutdoorRoomStrc));
     pRoom->pOutdoor = pOutdoor;
 }
@@ -339,17 +253,17 @@ void __fastcall sub_0067D710(D2DrlgRoomStrc* pRoom)
     sub_0066EEA0(pRoom);
 
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
-    sub_0066EDB0(pRoom, &pOutdoor->tGrid14, &pOutdoor->tGrid00, 0, 0);
+    sub_0066EDB0(pRoom, &pOutdoor->tGrid14, &pOutdoor->pTileTypeGrid, 0, 0);
     sub_0066ECE0(pRoom, &pOutdoor->tGrid14, 0, 0, 0);
     sub_0066ECE0(pRoom, &pOutdoor->tGrid28, 0, 0, 0);
     sub_0066EEE0(pRoom);
-    sub_0066EC10(pRoom, &pOutdoor->tGrid14, &pOutdoor->tGrid00, 0, 0, 0);
+    sub_0066EC10(pRoom, &pOutdoor->tGrid14, &pOutdoor->pTileTypeGrid, 0, 0, 0);
     sub_0066EC10(pRoom, &pOutdoor->tGrid28, 0, 0, 0, 0);
 
-    D2RoomTileInfoStrc* pTileInfo = pRoom->pTileInfo;
-    pTileInfo->nTotal18 = pTileInfo->nCount08;
-    pTileInfo->nTotal20 = pTileInfo->nCount0C;
-    pTileInfo->nTotal28 = pTileInfo->nCount10;
+    D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
+    pTileGrid->nTileWalls = pTileGrid->nWalls;
+    pTileGrid->nTileFloors = pTileGrid->nFloors;
+    pTileGrid->nTileRoofs = pTileGrid->nShadows;
 
     sub_0066CCB0(pRoom);
 }
@@ -365,13 +279,13 @@ static void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType)
     switch (nType)
     {
     case 0:
-        pCoords->nWidth = 0x40;
-        pCoords->nHeight = 0xA0;
+        pCoords->nSubtileWidth = 0x40;
+        pCoords->nSubtileHeight = 0xA0;
         break;
 
     case 1:
-        pCoords->nWidth = 0xA0;
-        pCoords->nHeight = 0x40;
+        pCoords->nSubtileWidth = 0xA0;
+        pCoords->nSubtileHeight = 0x40;
         break;
     }
 }
@@ -385,8 +299,8 @@ static const D2CoordStrc gOutdoorOrthOffsets[2][2] =
 static void __stdcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int nType, int nDirection, D2DrlgCoordsStrc* pBase)
 {
     sub_0067D7B0(pCoords, nType);
-    pCoords->nX = gOutdoorOrthOffsets[nDirection][nType].nX + pBase->nX;
-    pCoords->nY = gOutdoorOrthOffsets[nDirection][nType].nY + pBase->nY;
+    pCoords->nSubtileX = gOutdoorOrthOffsets[nDirection][nType].nX + pBase->nSubtileX;
+    pCoords->nSubtileY = gOutdoorOrthOffsets[nDirection][nType].nY + pBase->nSubtileY;
 }
 
 D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nType);

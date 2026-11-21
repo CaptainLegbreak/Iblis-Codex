@@ -1,73 +1,10 @@
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgRoadEndStrc
-{
-    int nX;
-    int nY;
-    int nDirection;
-    int unk0x0C;
-    int unk0x10;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int unk0x000;
-    D2DrlgGridStrc tGrid04;
-    D2DrlgGridStrc tGrid18;
-    D2DrlgGridStrc tGrid2C;
-    D2DrlgGridStrc tGrid40;
-    D2DrlgCoordsStrc tCoords;
-    D2DrlgVertexStrc* pVertex;
-    D2DrlgVertexStrc* pRoads[6];
-    D2DrlgRoadEndStrc tRoadStarts[6];
-    D2DrlgRoadEndStrc tRoadFrom[6];
-    D2DrlgRoadEndStrc tRoadTo[6];
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMemPool;
-};
-
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    int unk0x18;
-    int nPosX;
-    int nPosY;
-    char unk0x024[0x190];
-    D2DrlgStrc* pDrlg;
-};
 
 struct T00681490
 {
@@ -93,7 +30,7 @@ struct D2DrlgPathSearchStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                         // 0x0067C570
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);          // 0x0067CDD0
-int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY);          // 0x0066B980
+int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY);          // 0x0066B980
 int __fastcall sub_6FDAB750(int nX1, int nY1, int nX2, int nY2);              // 0x00678CF0
 
 extern const unsigned char gPathTurns[4][4]; // 0x006F2840
@@ -181,8 +118,8 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
         return 1;
     }
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
-    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->tGrid2C, nX, nY) & 0x200))
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
+    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->pGrid[2], nX, nY) & 0x200))
     {
         return 0;
     }
@@ -258,15 +195,15 @@ static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMax
 // 0x006817D0
 int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
 {
-    void* pMemPool = pLevel->pDrlg->pMemPool;
+    void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgVertexStrc tGoal = {};
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     D2DrlgVertexStrc tFrom;
-    tFrom.nPosX = (pInfo->tRoadFrom[nRoad].nX - pLevel->nPosX) / 8;
-    tFrom.nPosY = (pInfo->tRoadFrom[nRoad].nY - pLevel->nPosY) / 8;
-    tGoal.nPosX = (pInfo->tRoadTo[nRoad].nX - pLevel->nPosX) / 8;
-    tGoal.nPosY = (pInfo->tRoadTo[nRoad].nY - pLevel->nPosY) / 8;
+    tFrom.nPosX = (pInfo->pVertices[nRoad + 6].nPosX - pLevel->nPosX) / 8;
+    tFrom.nPosY = (pInfo->pVertices[nRoad + 6].nPosY - pLevel->nPosY) / 8;
+    tGoal.nPosX = (pInfo->pVertices[nRoad + 12].nPosX - pLevel->nPosX) / 8;
+    tGoal.nPosY = (pInfo->pVertices[nRoad + 12].nPosY - pLevel->nPosY) / 8;
 
     int nDiffX = tFrom.nPosX - tGoal.nPosX;
     if (nDiffX < 0)

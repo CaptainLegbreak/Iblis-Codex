@@ -1,8 +1,10 @@
 #include "D2Client.h"
+#include "D2ClientTypes.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2TxtTables.h"
 #include "D2Unicode.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -21,12 +23,6 @@ struct D2ItemTypesTxt;
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    SMSGHANDLER pfnHandler;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -73,41 +69,6 @@ struct Obj00451F70 {
 
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC];
-    D2StatesTxt* pStatesTxt;
-    char unk0x0C0[0x04];
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0x9B0];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    void* pMonStats2Linker;
-    int nMonStats2TxtRecordCount;
-    unsigned char unk_A9C[0xD4];
-    D2MonLvlTxt* pMonLvlTxt;
-    int nMonLvlTxtRecordCount;
-    char unk0xB78[0x20];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x1C];
-    int nOverlayTxtRecordCount;
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-    unsigned char unk_BCC[0x8];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x10];
-    D2PetTypeTxt* pPetTypeTxt;
-    char unk0xBEC[0x04];
-    int nPetTypeTxtRecordCount;
-    char unk0xBF4[0x04];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -139,7 +100,6 @@ typedef char check_pettype_size[(sizeof(D2PetTypeTxt) == 0xE0) ? 1 : -1];
 
 typedef char check_itemtypes_size[(sizeof(D2ItemTypesTxt) == 0xE4) ? 1 : -1];
 
-typedef char check_datatables_size[(sizeof(D2DataTablesStrc) == 0xC00) ? 1 : -1];
 
 // 0x00451E70
 int __fastcall sub_00451E70_RegisterWindowHandlers(void* hWnd)
@@ -156,7 +116,7 @@ void __fastcall sub_00451EB0_UnregisterWindowHandlers(void* hWnd)
     D2_ASSERT(hWnd, 0x166);
     for (unsigned int i = 0; i < 4; ++i)
     {
-        sub_00451D10_UnregisterMsgHandler(hWnd, gMsgHandlers_0070F7E4[i].nType, gMsgHandlers_0070F7E4[i].nId, gMsgHandlers_0070F7E4[i].pfnHandler);
+        sub_00451D10_UnregisterMsgHandler(hWnd, gMsgHandlers_0070F7E4[i].nType, gMsgHandlers_0070F7E4[i].nId, (SMSGHANDLER)gMsgHandlers_0070F7E4[i].pfnHandler);
     }
     sub_00420320_RegisterHandlers(hWnd);
 }

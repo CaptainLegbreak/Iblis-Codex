@@ -1,54 +1,8 @@
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int unk0x00;
-    D2DrlgGridStrc tGrid04;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int unk0x24;
-    int unk0x28;
-    D2DrlgGridStrc tGrid2C;
-    int unk0x40;
-    int unk0x44;
-    int unk0x48;
-    int unk0x4C;
-    int unk0x50;
-    int unk0x54;
-    int unk0x58;
-    int nWidth;
-    int nHeight;
-    D2DrlgVertexStrc* pVertex;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    char unk0x18[0x1B8];
-    int eLevelId;
-};
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
 int __fastcall sub_006755C0_LookupTable(int nA, int nB, int nC);                                             // 0x006755C0
@@ -58,12 +12,12 @@ void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* p
 
 static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
 
-    const int nX = pInfo->nWidth - 2;
-    const int nY = pInfo->nHeight - 3;
-    D2DrlgGridStrc* const pGrid = &pInfo->tGrid2C;
-    DRLGGRID_AlterGridFlag(pGrid, pInfo->nWidth - 2, pInfo->nHeight - 4, 0x400, 0);
+    const int nX = pInfo->nGridWidth - 2;
+    const int nY = pInfo->nGridHeight - 3;
+    D2DrlgGridStrc* const pGrid = &pInfo->pGrid[2];
+    DRLGGRID_AlterGridFlag(pGrid, pInfo->nGridWidth - 2, pInfo->nGridHeight - 4, 0x400, 0);
     DRLGGRID_AlterGridFlag(pGrid, nX, nY, 0x400, 0);
 }
 
@@ -75,7 +29,7 @@ static int sub_0067DCE0(D2DrlgLevelStrc* pLevel)
 // 0x0067DCF0
 void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     D2DrlgVertexStrc* pVertex = pInfo->pVertex;
     D2DrlgVertexStrc* pNext = pVertex->pNext;
     int nSize = sub_0067DCE0(pLevel);
@@ -105,7 +59,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
                 nX += 2 * nDirX;
                 nY += 2 * nDirY;
                 DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPresetId, -1, 0);
-                DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nX, nY, 1, 0);
+                DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nX, nY, 1, 0);
             }
         }
 
@@ -115,15 +69,15 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
             int nMarkX = (nMaxX - 4 * nAbsDirX) & ~1;
             int nMaxY = pVertex->nPosY > pNext->nPosY ? pVertex->nPosY : pNext->nPosY;
             int nMarkY = (nMaxY - 4 * nAbsDirY) & ~1;
-            DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nMarkX, nMarkY, 0x400, 0);
-            DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nMarkX + 2 * nAbsDirX, nMarkY + 2 * nAbsDirY, 0x400, 0);
+            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nMarkX, nMarkY, 0x400, 0);
+            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nMarkX + 2 * nAbsDirX, nMarkY + 2 * nAbsDirY, 0x400, 0);
         }
 
         int nCornerPresetId = sub_00675600_LookupTable(2 * nDirX, 2 * nDirY, 2 * nNextDirX, 2 * nNextDirY, nSize);
         if (nCornerPresetId)
         {
             DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nNextX, nNextY, nCornerPresetId, -1, 0);
-            DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nNextX, nNextY, 1, 0);
+            DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nNextX, nNextY, 1, 0);
         }
 
         pVertex = pNext;

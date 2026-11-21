@@ -1,28 +1,11 @@
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 struct D2DrlgCoordStrc;
-struct D2DrlgCoordsStrc;
 struct D2DrlgVertexStrc;
 struct D2DrlgOrthStrc;
 
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOrthStrc
-{
-    void* pRoom;
-    int nDirection;
-    int bInit;
-    int unk0x0C;
-    D2DrlgCoordsStrc* pCoords;
-    D2DrlgOrthStrc* pNext;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -35,8 +18,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData); // 0x0067CE20
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);
 static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit);
-static void __fastcall sub_0067D030(D2DrlgCoordsStrc* pCoords, D2DrlgVertexStrc* pFirst);
-void __fastcall sub_0067D050(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordsStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth);
+static void __fastcall sub_0067D030(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst);
+void __fastcall sub_0067D050(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth);
 void __fastcall sub_0067D250(D2DrlgVertexStrc** ppVertex);
 void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY);
 
@@ -60,7 +43,7 @@ static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bIn
 }
 
 // build: context sub_0067CE20
-void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoordsStrc* pDefaultCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth)
+void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoordStrc* pDefaultCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth)
 {
     D2DrlgVertexStrc* pVertex1 = pVertex->pNext;
     D2DrlgVertexStrc* pVertex2 = pVertex1->pNext;
@@ -68,7 +51,7 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
 
     for (; pOrth; pOrth = pOrth->pNext)
     {
-        D2DrlgCoordsStrc* pCoords = pOrth->pCoords;
+        D2DrlgCoordStrc* pCoords = pOrth->pBox;
         if (!pCoords)
         {
             pCoords = pDefaultCoords;
@@ -88,8 +71,8 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
             pStart = pVertex;
             nStart = pVertex->nPosY;
             nEnd = pVertex1->nPosY;
-            nFirst = pCoords->nSubtileY + pCoords->nSubtileHeight;
-            nSecond = pCoords->nSubtileY;
+            nFirst = pCoords->nPosY + pCoords->nHeight;
+            nSecond = pCoords->nPosY;
             nStep = -1;
             bVertical = 1;
             break;
@@ -98,8 +81,8 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
             pStart = pVertex1;
             nStart = pVertex1->nPosX;
             nEnd = pVertex2->nPosX;
-            nFirst = pCoords->nSubtileX;
-            nSecond = pCoords->nSubtileX + pCoords->nSubtileWidth;
+            nFirst = pCoords->nPosX;
+            nSecond = pCoords->nPosX + pCoords->nWidth;
             nStep = 1;
             bVertical = 0;
             break;
@@ -108,8 +91,8 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
             pStart = pVertex2;
             nStart = pVertex2->nPosY;
             nEnd = pVertex3->nPosY;
-            nFirst = pCoords->nSubtileY;
-            nSecond = pCoords->nSubtileY + pCoords->nSubtileHeight;
+            nFirst = pCoords->nPosY;
+            nSecond = pCoords->nPosY + pCoords->nHeight;
             nStep = 1;
             bVertical = 1;
             break;
@@ -118,8 +101,8 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
             pStart = pVertex3;
             nStart = pVertex3->nPosX;
             nEnd = pVertex->nPosX;
-            nFirst = pCoords->nSubtileX + pCoords->nSubtileWidth;
-            nSecond = pCoords->nSubtileX;
+            nFirst = pCoords->nPosX + pCoords->nWidth;
+            nSecond = pCoords->nPosX;
             nStep = -1;
             bVertical = 0;
             break;
@@ -156,7 +139,7 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
             continue;
         }
 
-        sub_0067CE00_MarkVertex(pStart, pOrth->bInit);
+        sub_0067CE00_MarkVertex(pStart, pOrth->bPreset);
 
         if (nSecond * nStep < nEnd * nStep)
         {
@@ -178,59 +161,59 @@ void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoo
 }
 
 // 0x0067D030
-static void __fastcall sub_0067D030(D2DrlgCoordsStrc* pCoords, D2DrlgVertexStrc* pFirst)
+static void __fastcall sub_0067D030(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst)
 {
     D2DrlgVertexStrc* pVertex = pFirst;
     do
     {
-        pVertex->nPosX -= pCoords->nSubtileX;
-        pVertex->nPosY -= pCoords->nSubtileY;
+        pVertex->nPosX -= pCoords->nPosX;
+        pVertex->nPosY -= pCoords->nPosY;
         pVertex = pVertex->pNext;
     }
     while (pVertex != pFirst);
 }
 
 // 0x0067D050
-void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordsStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth)
+void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth)
 {
-    --pCoords->nSubtileWidth;
-    --pCoords->nSubtileHeight;
+    --pCoords->nWidth;
+    --pCoords->nHeight;
     for (D2DrlgOrthStrc* pShrink = pOrth; pShrink; pShrink = pShrink->pNext)
     {
-        --pShrink->pCoords->nSubtileWidth;
-        --pShrink->pCoords->nSubtileHeight;
+        --pShrink->pBox->nWidth;
+        --pShrink->pBox->nHeight;
     }
 
     D2DrlgVertexStrc* pVertex0 = DRLGVER_AllocVertex(pMemPool, nDirection);
     *ppVertex = pVertex0;
-    pVertex0->nPosX = pCoords->nSubtileX;
-    pVertex0->nPosY = pCoords->nSubtileY + pCoords->nSubtileHeight;
+    pVertex0->nPosX = pCoords->nPosX;
+    pVertex0->nPosY = pCoords->nPosY + pCoords->nHeight;
 
     D2DrlgVertexStrc* pVertex1 = DRLGVER_AllocVertex(pMemPool, nDirection);
     pVertex0->pNext = pVertex1;
-    pVertex1->nPosX = pCoords->nSubtileX;
-    pVertex1->nPosY = pCoords->nSubtileY;
+    pVertex1->nPosX = pCoords->nPosX;
+    pVertex1->nPosY = pCoords->nPosY;
 
     D2DrlgVertexStrc* pVertex2 = DRLGVER_AllocVertex(pMemPool, nDirection);
     pVertex1->pNext = pVertex2;
-    pVertex2->nPosX = pCoords->nSubtileX + pCoords->nSubtileWidth;
-    pVertex2->nPosY = pCoords->nSubtileY;
+    pVertex2->nPosX = pCoords->nPosX + pCoords->nWidth;
+    pVertex2->nPosY = pCoords->nPosY;
 
     D2DrlgVertexStrc* pVertex3 = DRLGVER_AllocVertex(pMemPool, nDirection);
     pVertex2->pNext = pVertex3;
-    pVertex3->nPosX = pCoords->nSubtileX + pCoords->nSubtileWidth;
-    pVertex3->nPosY = pCoords->nSubtileY + pCoords->nSubtileHeight;
+    pVertex3->nPosX = pCoords->nPosX + pCoords->nWidth;
+    pVertex3->nPosY = pCoords->nPosY + pCoords->nHeight;
     pVertex3->pNext = *ppVertex;
 
     sub_0067CE20(pMemPool, *ppVertex, pCoords, nDirection, pOrth);
     sub_0067D030(pCoords, *ppVertex);
 
-    ++pCoords->nSubtileWidth;
-    ++pCoords->nSubtileHeight;
+    ++pCoords->nWidth;
+    ++pCoords->nHeight;
     for (D2DrlgOrthStrc* pGrow = pOrth; pGrow; pGrow = pGrow->pNext)
     {
-        ++pGrow->pCoords->nSubtileWidth;
-        ++pGrow->pCoords->nSubtileHeight;
+        ++pGrow->pBox->nWidth;
+        ++pGrow->pBox->nHeight;
     }
 }
 

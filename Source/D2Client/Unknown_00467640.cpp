@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 struct SGAMEDATA;
 struct D2MsgHandlerEntryStrc;
@@ -14,12 +15,6 @@ enum D2C_W04CursorConstants
     NUM_CURSOR_CELLS = 7,
 };
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 struct D2PanelAnimEntryStrc
 {

@@ -603,8 +603,9 @@ struct D2Act5Quest2Strc
     unsigned short unk0x108; // 0x108
     unsigned char unk0x10A; // 0x10A
     unsigned char bChangeToSpecialObjectMode[3]; // 0x10B
-    unsigned short unk0x10E; // 0x10E
-    int unk0x110; // 0x110
+    unsigned char unk0x10E[3]; // 0x10E
+    unsigned char unk0x111; // 0x111
+    unsigned short unk0x112; // 0x112
     int nGroupKills[3]; // 0x114
     int nFreedWussieUnitGUIDs[15]; // 0x120
     int nWussiesInRangeToDoor; // 0x15C

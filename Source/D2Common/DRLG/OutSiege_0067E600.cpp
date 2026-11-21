@@ -1,53 +1,8 @@
 #include "D2Structs.h"
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
+#include "D2Drlg.h"
 
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int unk0x00;
-    D2DrlgGridStrc tGrid04;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int unk0x24;
-    int unk0x28;
-    D2DrlgGridStrc tGrid2C;
-    int unk0x40;
-    int unk0x44;
-    int unk0x48;
-    int unk0x4C;
-    int unk0x50;
-    int unk0x54;
-    int unk0x58;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int nSizeX;
-    int nSizeY;
-    char unk0x2C[0x198];
-    D2SeedStrc pSeed;
-    int unk0x1CC;
-    int eLevelId;
-};
 
 struct D2LvlPrestRecordStrc
 {
@@ -115,7 +70,7 @@ static __declspec(noinline) void sub_0067E4B0(D2DrlgLevelStrc* pLevel); // 0x006
 
 static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     for (int i = 0; i < 3; ++i)
     {
         if (pLevel->eLevelId == gaOutSiegeCaves[i].nLevelId)
@@ -123,11 +78,11 @@ static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
             int nLevelPrestId;
             int nX;
             int nY;
-            if (pLevel->nSizeX > pLevel->nSizeY)
+            if (pLevel->nWidth > pLevel->nHeight)
             {
                 nLevelPrestId = gaOutSiegeCaves[i].nLevelPrestId2;
                 sub_0061F0B0(nLevelPrestId);
-                nX = gaOutSiegeCaves[i].field_8 ? pOutdoors->nWidth - 2 : 0;
+                nX = gaOutSiegeCaves[i].field_8 ? pOutdoors->nGridWidth - 2 : 0;
                 nY = 2;
             }
             else
@@ -135,7 +90,7 @@ static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
                 nLevelPrestId = gaOutSiegeCaves[i].nLevelPrestId1;
                 sub_0061F0B0(nLevelPrestId);
                 nX = 2;
-                nY = gaOutSiegeCaves[i].field_8 ? pOutdoors->nHeight - 2 : 0;
+                nY = gaOutSiegeCaves[i].field_8 ? pOutdoors->nGridHeight - 2 : 0;
             }
             DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nLevelPrestId, gaOutSiegeCaves[i].field_4, 0);
         }
@@ -149,13 +104,13 @@ static void sub_0067E0E0(D2DrlgLevelStrc* pLevel)
         return;
     }
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     D2DrlgOutPlaceCtxStrc tCtx;
     memset(&tCtx, 0, sizeof(tCtx));
     tCtx.pLevel = pLevel;
     tCtx.pUnk54 = &pInfo->unk0x54;
-    tCtx.pGrid04 = &pInfo->tGrid04;
-    tCtx.pGrid2C = &pInfo->tGrid2C;
+    tCtx.pGrid04 = &pInfo->pGrid[0];
+    tCtx.pGrid2C = &pInfo->pGrid[2];
     tCtx.pfnTest = sub_0067E080;
     tCtx.pfn2C = sub_00674160;
     tCtx.pfn30 = sub_006741A0;
@@ -199,7 +154,7 @@ static void sub_0067E240(D2DrlgLevelStrc* pLevel)
     if (pLevel->eLevelId != 111)
         return;
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     if (!pInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 564);
@@ -210,20 +165,20 @@ static void sub_0067E240(D2DrlgLevelStrc* pLevel)
     int i;
     for (i = 0, nPlaced = 0; i < 90 && nPlaced < 3; ++i)
     {
-        const int nX = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nWidth / 2);
-        const int nY = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nHeight / 2);
+        const int nX = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nGridWidth / 2);
+        const int nY = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nGridHeight / 2);
         if (sub_0067E210_PlaceShiftedPreset(pLevel, nX, nY))
             ++nPlaced;
     }
 
-    const int nOffsetX = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nWidth / 2);
-    const int nOffsetY = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nHeight / 2);
-    for (int y = 0; y < pInfo->nHeight && nPlaced < 3; ++y)
+    const int nOffsetX = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nGridWidth / 2);
+    const int nOffsetY = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nGridHeight / 2);
+    for (int y = 0; y < pInfo->nGridHeight && nPlaced < 3; ++y)
     {
-        for (int x = 0; x < pInfo->nWidth && nPlaced < 3; ++x)
+        for (int x = 0; x < pInfo->nGridWidth && nPlaced < 3; ++x)
         {
-            const int nX = (x + 2 * nOffsetX) % pInfo->nWidth;
-            const int nY = (y + 2 * nOffsetY) % pInfo->nHeight;
+            const int nX = (x + 2 * nOffsetX) % pInfo->nGridWidth;
+            const int nY = (y + 2 * nOffsetY) % pInfo->nGridHeight;
             if (sub_0067E210_PlaceShiftedPreset(pLevel, nX, nY))
                 ++nPlaced;
         }
@@ -250,7 +205,7 @@ static void sub_0067E4B0(D2DrlgLevelStrc* pLevel)
         exit(-1);
     }
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     if (!pInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 627);
@@ -264,8 +219,8 @@ static void sub_0067E4B0(D2DrlgLevelStrc* pLevel)
         exit(-1);
     }
 
-    int nX = pInfo->nWidth - pRecord->nSizeX / 8;
-    int nY = pInfo->nHeight - pRecord->nSizeY / 8;
+    int nX = pInfo->nGridWidth - pRecord->nSizeX / 8;
+    int nY = pInfo->nGridHeight - pRecord->nSizeY / 8;
     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, 0x370, -1, 0);
     DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY - 2, 0x380, -1, 0);
 }

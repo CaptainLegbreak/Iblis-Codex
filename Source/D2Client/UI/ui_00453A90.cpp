@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -17,11 +18,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 typedef unsigned short Unicode;
 
 
-struct D2LevelsTxt
-{
-    char unk0x000[0x16E];
-    Unicode wszLevelName[40];
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall sub_0044DB40(int nDelay); // 0x0044DB40
@@ -236,7 +232,7 @@ const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId)
             }
             return D2LANG_GetStringFromTblIndex(0x13B7);
         }
-        return pLevelsTxtRecord->wszLevelName;
+        return (const Unicode*)pLevelsTxtRecord->wszLevelName;
     }
     return D2LANG_GetStringFromTblIndex(0x150D);
 }

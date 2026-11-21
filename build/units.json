@@ -42716,6 +42716,10 @@
      "name": "IMAGE2_Draw"
     },
     {
+     "va": "0x004FD340",
+     "length": 289
+    },
+    {
      "va": "0x004FD5A0",
      "length": 42,
      "name": "?sub_004FD5A0_IsInClickRect@@YAHPBUD2WinImageClickRectStrc@@HH@Z"
@@ -42765,30 +42769,6 @@
      "length": 274,
      "name": "POPUP_Draw"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinImage_004FD340.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004FD340",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -42971,6 +42951,15 @@
      "name": "?D2Win_10104@@YIHPAUD2WinAnimImageStrc@@@Z"
     },
     {
+     "va": "0x00500480",
+     "length": 289
+    },
+    {
+     "va": "0x005005B0",
+     "length": 466,
+     "name": "?ANIMIMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
      "va": "0x005009A0",
      "length": 40,
      "name": "@BUTTON_SetIsPressed@8"
@@ -42998,41 +42987,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/D2WinAnimImage_00500480.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00500480",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/D2WinAnimImage_005005B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005005B0",
-     "length": 466,
-     "name": "?ANIMIMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Win/Src/D2WinButton.cpp",
    "rank": 0,
    "functions": [
@@ -43045,41 +42999,15 @@
      "va": "0x00500C50",
      "length": 337,
      "name": "?sub_00500C50_DrawButtonText@@YGXHPAUD2WinButtonStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinButton_00500DB0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00500DB0",
      "length": 728
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinButton_00501290.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00501290",
      "length": 270
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -43922,31 +43850,11 @@
      "va": "0x00506A90",
      "length": 128,
      "name": "?SMACK_Draw@@YIHPAUD2WinControlStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinSmack_00506B70.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00506B70",
      "length": 193
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -45533,11 +45441,16 @@
   },
   {
    "file": "Source/D2DDraw/Src/ddSmack.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00513380",
      "length": 113
+    },
+    {
+     "va": "0x00513400",
+     "length": 491,
+     "name": "?sub_00513400_DDrawDecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
     }
    ],
    "flags": [
@@ -45553,17 +45466,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Src/ddSmack_00513400.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00513400",
-     "length": 491,
-     "name": "?sub_00513400_DDrawDecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
-    }
    ]
   },
   {
@@ -45751,6 +45653,11 @@
      "name": "?sub_00515CE0_SetMasterVolume@@YIXH@Z"
     },
     {
+     "va": "0x00515D60",
+     "length": 16,
+     "name": "?sub_00515D60_GetMasterVolume@@YAHXZ"
+    },
+    {
      "va": "0x00515E40",
      "length": 113,
      "name": "?sub_00515E40_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
@@ -45769,6 +45676,11 @@
      "va": "0x00515EE0",
      "length": 98,
      "name": "?sub_00515EE0_StopSound@@YIXPAUD2SoundStrc@@@Z"
+    },
+    {
+     "va": "0x00515F50",
+     "length": 125,
+     "name": "?sub_00515F50_FadeOutMaster@@YIXH@Z"
     },
     {
      "va": "0x00515FD0",
@@ -45844,7 +45756,7 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Src/D2SoundFast_00514040.cpp",
+   "file": "Source/D2Sound/Src/D2SoundFast.cpp",
    "rank": 0,
    "functions": [
     {
@@ -45858,35 +45770,14 @@
      "name": "?sub_00514050_Nothing@@YAXXZ"
     },
     {
-     "va": "0x005147D0",
-     "length": 103,
-     "name": "?sub_005147D0_PlayStream@@YIHPBDH@Z"
-    },
-    {
-     "va": "0x00514CD0",
-     "length": 31,
-     "name": "?sub_00514CD0_SetMasterVolume@@YIHH@Z"
-    },
-    {
-     "va": "0x00514D30",
-     "length": 31,
-     "name": "?sub_00514D30_SetPositionalBias@@YIHH@Z"
-    },
-    {
-     "va": "0x00514FF0",
-     "length": 36,
-     "name": "?sub_00514FF0_StopAllWaves@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundFast.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00514060",
      "length": 104,
      "name": "?sub_00514060_ShutdownSound@@YAXXZ"
+    },
+    {
+     "va": "0x005147D0",
+     "length": 103,
+     "name": "?sub_005147D0_PlayStream@@YIHPBDH@Z"
     },
     {
      "va": "0x00514840",
@@ -45902,6 +45793,16 @@
      "va": "0x00514960",
      "length": 48,
      "name": "?sub_00514960_FadeOutChannel@@YAXXZ"
+    },
+    {
+     "va": "0x00514CD0",
+     "length": 31,
+     "name": "?sub_00514CD0_SetMasterVolume@@YIHH@Z"
+    },
+    {
+     "va": "0x00514D30",
+     "length": 31,
+     "name": "?sub_00514D30_SetPositionalBias@@YIHH@Z"
     },
     {
      "va": "0x00514DB0",
@@ -45923,6 +45824,11 @@
      "name": "?sub_00514FB0_IsAnyWavePlaying@@YAHXZ"
     },
     {
+     "va": "0x00514FF0",
+     "length": 36,
+     "name": "?sub_00514FF0_StopAllWaves@@YAXXZ"
+    },
+    {
      "va": "0x00515020",
      "length": 54,
      "name": "?sub_00515020_FadeOutWaves@@YAXXZ"
@@ -45933,19 +45839,9 @@
      "name": "sub_005155D0_SetSoundData"
     },
     {
-     "va": "0x00515D60",
-     "length": 16,
-     "name": "?sub_00515D60_GetMasterVolume@@YAHXZ"
-    },
-    {
      "va": "0x00515D70",
      "length": 194,
      "name": "sub_00515D70_StartStream"
-    },
-    {
-     "va": "0x00515F50",
-     "length": 125,
-     "name": "?sub_00515F50_FadeOutMaster@@YIXH@Z"
     }
    ]
   },
@@ -49514,6 +49410,16 @@
      "name": "?sub_00524E40_UnloadStringTables@@YAXXZ"
     },
     {
+     "va": "0x00524FD0",
+     "length": 13,
+     "name": "sub_00524FD0_Crc16Init"
+    },
+    {
+     "va": "0x00524FE0",
+     "length": 42,
+     "name": "sub_00524FE0_Crc16Update"
+    },
+    {
      "va": "0x00525010",
      "length": 4,
      "name": "?sub_0059FFF0_ToWord@@YIGG@Z"
@@ -49574,6 +49480,10 @@
      "name": "?sub_00525920_LoadTblFile@@YAPAUD2TblHeaderStrc@@PBD@Z"
     },
     {
+     "va": "0x005259C0",
+     "length": 1519
+    },
+    {
      "va": "0x00527090",
      "length": 258,
      "name": "sub_00527090_ContainsChar"
@@ -49587,37 +49497,6 @@
     {
      "va": "0x00524930",
      "length": 132
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/StrTable/strtable_00524FD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00524FD0",
-     "length": 13,
-     "name": "sub_00524FD0_Crc16Init"
-    },
-    {
-     "va": "0x00524FE0",
-     "length": 42,
-     "name": "sub_00524FE0_Crc16Update"
-    },
-    {
-     "va": "0x00526490",
-     "length": 81,
-     "name": "compare"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/StrTable/strtable_005259C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005259C0",
-     "length": 1519
     }
    ]
   },
@@ -49832,6 +49711,11 @@
    "file": "Source/D2Lang/Unknown_00526610.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00526490",
+     "length": 81,
+     "name": "compare"
+    },
     {
      "va": "0x00526610",
      "length": 168,
@@ -60238,6 +60122,11 @@
      "name": "D2GAME_MERCS_SendStat_6FCC61D0"
     },
     {
+     "va": "0x00571960",
+     "length": 173,
+     "name": "?sub_00571960_QueueStatChange@@YIXPAUD2UnitStrc@@GHH@Z"
+    },
+    {
      "va": "0x00571A10",
      "length": 129,
      "name": "?SUNITMSG_QueueLifeUpdate@@YIXPAUD2UnitStrc@@E@Z"
@@ -60261,6 +60150,11 @@
      "va": "0x00571C60",
      "length": 110,
      "name": "?sub_6FCC64D0@@YIXPAUD2UnitStrc@@HFH@Z"
+    },
+    {
+     "va": "0x00571CD0",
+     "length": 621,
+     "name": "?sub_6FCC6540@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x00571F40",
@@ -60360,28 +60254,6 @@
      "va": "0x00571790",
      "length": 40,
      "name": "?sub_00571790_AppendUnitMessage@@YAXPAUD2UnitStrc@@PAUD2UnitPacketListStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitMsg_00571960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00571960",
-     "length": 173,
-     "name": "?sub_00571960_QueueStatChange@@YIXPAUD2UnitStrc@@GHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitMsg_00571CD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00571CD0",
-     "length": 621,
-     "name": "?sub_6FCC6540@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
     }
    ]
   },
@@ -63164,6 +63036,11 @@
      "name": "ACT5Intro_ActiveFilterCallback"
     },
     {
+     "va": "0x00586E70",
+     "length": 376,
+     "name": "ACT5Q1_Callback11_ScrollMessage"
+    },
+    {
      "va": "0x00586FF0",
      "length": 219,
      "name": "ACT5Q1_Callback00_NpcActivate"
@@ -63179,9 +63056,34 @@
      "name": "ACT5Q1_UnitIterate_SetRewardPending"
     },
     {
+     "va": "0x005871C0",
+     "length": 120,
+     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587240",
+     "length": 72,
+     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587290",
+     "length": 96,
+     "name": "?ACT5Q1_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005872F0",
      "length": 54,
      "name": "?ACT5Q1_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587330",
+     "length": 168,
+     "name": "?ACT5Q1_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005873E0",
+     "length": 245,
+     "name": "?ACT5Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005874E0",
@@ -63189,9 +63091,54 @@
      "name": "ACT5Q1_ActiveFilterCallback"
     },
     {
+     "va": "0x00587560",
+     "length": 102,
+     "name": "?sub_00587560_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005875F0",
+     "length": 237,
+     "name": "?ACT5Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005876E0",
+     "length": 211,
+     "name": "?ACT5Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005877C0",
+     "length": 100,
+     "name": "?ACT5Q1_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00587900",
+     "length": 73,
+     "name": "?ACT5Q1_OnSiegeBossActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00587950",
      "length": 114,
      "name": "ACT5Q1_ChangeLarzukMapAI"
+    },
+    {
+     "va": "0x005879D0",
+     "length": 96,
+     "name": "?ACT5Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587A90",
+     "length": 109,
+     "name": "?ACT5Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587F60",
+     "length": 96,
+     "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587FC0",
+     "length": 68,
+     "name": "?sub_00587FC0_GetWussieGroupIndex@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00588340",
@@ -63204,6 +63151,16 @@
      "name": "OBJECTS_InitFunction62_CagedWussie"
     },
     {
+     "va": "0x00588C50",
+     "length": 67,
+     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00588DD0",
+     "length": 64,
+     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x00589070",
      "length": 56,
      "name": "ACT5Q3_SendPacket0x5DToClient"
@@ -63214,9 +63171,19 @@
      "name": "ACT5Q3_RemoveDrehyaIced"
     },
     {
+     "va": "0x00589160",
+     "length": 111,
+     "name": "?ACT5Q3_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
      "va": "0x00589F10",
      "length": 224,
      "name": "ACT5Q3_ActiveFilterCallback"
+    },
+    {
+     "va": "0x00589FF0",
+     "length": 165,
+     "name": "?ACT5Q3_UpdateResistances@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0058A7D0",
@@ -63312,119 +63279,6 @@
      "va": "0x00586DE0",
      "length": 134,
      "name": "?ACT5Q1_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q1_00586E70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00586E70",
-     "length": 376,
-     "name": "ACT5Q1_Callback11_ScrollMessage"
-    },
-    {
-     "va": "0x005873E0",
-     "length": 245,
-     "name": "?ACT5Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q1_005871C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005871C0",
-     "length": 120,
-     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587240",
-     "length": 72,
-     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587290",
-     "length": 96,
-     "name": "?ACT5Q1_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587330",
-     "length": 168,
-     "name": "?ACT5Q1_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005875F0",
-     "length": 237,
-     "name": "?ACT5Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005876E0",
-     "length": 211,
-     "name": "?ACT5Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005877C0",
-     "length": 100,
-     "name": "?ACT5Q1_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00587900",
-     "length": 73,
-     "name": "?ACT5Q1_OnSiegeBossActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005879D0",
-     "length": 96,
-     "name": "?ACT5Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587A90",
-     "length": 109,
-     "name": "?ACT5Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587F60",
-     "length": 96,
-     "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587FC0",
-     "length": 68,
-     "name": "?sub_00587FC0_GetWussieGroupIndex@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00588C50",
-     "length": 67,
-     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00588DD0",
-     "length": 64,
-     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x00589160",
-     "length": 111,
-     "name": "?ACT5Q3_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00589FF0",
-     "length": 165,
-     "name": "?ACT5Q3_UpdateResistances@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q1_00587560.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00587560",
-     "length": 102,
-     "name": "?sub_00587560_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -63872,40 +63726,6 @@
      "name": "?sub_0058AF90_OpenDrehyaPortal@@YG_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x0058B5B0",
-     "length": 199
-    },
-    {
-     "va": "0x0058B730",
-     "length": 54
-    },
-    {
-     "va": "0x0058B870",
-     "length": 131,
-     "name": "?sub_0058B870@@YI_NPAUQuest@@HPAX11@Z"
-    },
-    {
-     "va": "0x0058B940",
-     "length": 70,
-     "name": "?sub_0058B940_RetryDrehyaPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0058B050.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0058B050",
-     "length": 93
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q4_0058B0B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0058B0B0",
      "length": 137,
      "name": "?ACT5Q4_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -63926,6 +63746,10 @@
      "name": "?ACT5Q4_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x0058B5B0",
+     "length": 199
+    },
+    {
      "va": "0x0058B680",
      "length": 72,
      "name": "?ACT5Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -63934,6 +63758,10 @@
      "va": "0x0058B6D0",
      "length": 96,
      "name": "?ACT5Q4_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058B730",
+     "length": 54
     },
     {
      "va": "0x0058B770",
@@ -63946,6 +63774,26 @@
      "name": "?ACT5Q4_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x0058B870",
+     "length": 131,
+     "name": "?sub_0058B870@@YI_NPAUQuest@@HPAX11@Z"
+    },
+    {
+     "va": "0x0058B900",
+     "length": 60,
+     "name": "?sub_0058B900_RescheduleDrehyaPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0058B940",
+     "length": 70,
+     "name": "?sub_0058B940_RetryDrehyaPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0058B990",
+     "length": 280,
+     "name": "ACT5Q4_Callback13_PlayerStartedGame"
+    },
+    {
      "va": "0x0058BAB0",
      "length": 105,
      "name": "?ACT5Q4_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -63956,27 +63804,6 @@
      "name": "?ACT5Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
-     "va": "0x0058BE20",
-     "length": 96,
-     "name": "?ACT5Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q4_0058B900.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058B900",
-     "length": 60,
-     "name": "?sub_0058B900_RescheduleDrehyaPortal@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0058B990",
-     "length": 280,
-     "name": "ACT5Q4_Callback13_PlayerStartedGame"
-    },
-    {
      "va": "0x0058BC80",
      "length": 205,
      "name": "ACT5Q4_AnyaOpenPortal"
@@ -63985,6 +63812,11 @@
      "va": "0x0058BD50",
      "length": 200,
      "name": "ACT5Q5_Timer_RespawnAncientStatueObjects"
+    },
+    {
+     "va": "0x0058BE20",
+     "length": 96,
+     "name": "?ACT5Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x0058BF40",
@@ -64064,6 +63896,16 @@
    ]
   },
   {
+   "file": "Source/D2Game/Unknown_0058B050.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0058B050",
+     "length": 93
+    }
+   ]
+  },
+  {
    "file": "Source/D2Game/Unknown_0058BE80.cpp",
    "rank": 1,
    "functions": [
@@ -64088,8 +63930,67 @@
      "name": "?ACT5Q5_DeactivateAncientMonsters@@YGXPAUD2GameStrc@@PAUD2QuestDataStrc@@PAUD2Act5Quest5Strc@@@Z"
     },
     {
+     "va": "0x0058C210",
+     "length": 127,
+     "name": "?ACT5Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C290",
+     "length": 428
+    },
+    {
+     "va": "0x0058C440",
+     "length": 372,
+     "name": "?sub_0058C440@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x0058C5C0",
      "length": 270
+    },
+    {
+     "va": "0x0058C6D0",
+     "length": 124,
+     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C750",
+     "length": 33,
+     "name": "?ACT5Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058C780",
+     "length": 81,
+     "name": "?ACT5Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C7E0",
+     "length": 236,
+     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0058C8D0",
+     "length": 199,
+     "name": "?sub_0058C8D0_SpawnStatueMissile@@YGXPAUD2QuestArgStrc@@HPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0058C9A0",
+     "length": 498,
+     "name": "?ACT5Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058CD30",
+     "length": 111,
+     "name": "?ACT5Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0058CDA0",
+     "length": 131,
+     "name": "?ACT5Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058CE30",
+     "length": 205,
+     "name": "?ACT5Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x0058CF00",
@@ -64251,83 +64152,6 @@
      "va": "0x0058C0E0",
      "length": 297,
      "name": "?ACT5Q5_SpawnAncientMonsters@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q5_0058C210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058C210",
-     "length": 127,
-     "name": "?ACT5Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058C290",
-     "length": 428
-    },
-    {
-     "va": "0x0058C750",
-     "length": 33,
-     "name": "?ACT5Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0058C780",
-     "length": 81,
-     "name": "?ACT5Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058CD30",
-     "length": 111,
-     "name": "?ACT5Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0058CDA0",
-     "length": 131,
-     "name": "?ACT5Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0058CE30",
-     "length": 205,
-     "name": "?ACT5Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q5_0058C440.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058C440",
-     "length": 372,
-     "name": "?sub_0058C440@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q5_0058C6D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058C6D0",
-     "length": 124,
-     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058C7E0",
-     "length": 236,
-     "name": "?ACT5Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058C8D0",
-     "length": 199,
-     "name": "?sub_0058C8D0_SpawnStatueMissile@@YGXPAUD2QuestArgStrc@@HPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0058C9A0",
-     "length": 498,
-     "name": "?ACT5Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
@@ -64851,17 +64675,6 @@
      "name": "ACT1Q1_Callback00_NpcActivate"
     },
     {
-     "va": "0x005901E0",
-     "length": 10,
-     "name": "@sub_005901E0@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q1_00590080.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00590080",
      "length": 92,
      "name": "?ACT1Q1_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -64882,6 +64695,11 @@
      "name": "?ACT1Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005901E0",
+     "length": 10,
+     "name": "@sub_005901E0@4"
+    },
+    {
      "va": "0x005901F0",
      "length": 63,
      "name": "?ACT1Q1_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -64891,17 +64709,6 @@
      "length": 46,
      "name": "?ACT1Q1_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
     },
-    {
-     "va": "0x00590690",
-     "length": 137,
-     "name": "?ACT1Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q1_00590260.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00590260",
      "length": 513,
@@ -64913,20 +64720,19 @@
      "name": "?ACT1Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
-     "va": "0x00590720",
-     "length": 226,
-     "name": "?ACT1Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q1_00590620.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00590620",
      "length": 102,
      "name": "?sub_00590620_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00590690",
+     "length": 137,
+     "name": "?ACT1Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00590720",
+     "length": 226,
+     "name": "?ACT1Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -65471,6 +65277,83 @@
    ]
   },
   {
+   "file": "Source/D2Game/Quests/a1q5_00594740.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00594740",
+     "length": 149,
+     "name": "?ACT1Q5_UpdateUnitGUIDLists@@YGHPAUD2Act1Quest5Strc@@HH@Z"
+    },
+    {
+     "va": "0x00594BB0",
+     "length": 158,
+     "name": "?ACT1Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595010",
+     "length": 326,
+     "name": "?ACT1Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595240",
+     "length": 113,
+     "name": "?ACT1Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00595320",
+     "length": 66,
+     "name": "?ACT1Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00595370",
+     "length": 90,
+     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005953D0",
+     "length": 72,
+     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x005954C0",
+     "length": 46,
+     "name": "?ACT1Q5_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00595710",
+     "length": 327,
+     "name": "?ACT1Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595860",
+     "length": 183,
+     "name": "?ACT1Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00595920",
+     "length": 214,
+     "name": "?ACT1Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00595A00",
+     "length": 70,
+     "name": "?OBJECTS_InitFunction04_TowerTome@@YIXPAUD2ObjInitFnStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Quests/a1q5_00594960.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00594960",
+     "length": 590,
+     "name": "?ACT1Q5_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Game/Quests/a1q5.cpp",
    "rank": 0,
    "functions": [
@@ -65886,72 +65769,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a1q5_00594740.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00594740",
-     "length": 149,
-     "name": "?ACT1Q5_UpdateUnitGUIDLists@@YGHPAUD2Act1Quest5Strc@@HH@Z"
-    },
-    {
-     "va": "0x00594BB0",
-     "length": 158,
-     "name": "?ACT1Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595010",
-     "length": 326,
-     "name": "?ACT1Q5_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595240",
-     "length": 113,
-     "name": "?ACT1Q5_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00595320",
-     "length": 66,
-     "name": "?ACT1Q5_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00595370",
-     "length": 90,
-     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005953D0",
-     "length": 72,
-     "name": "?ACT1Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x005954C0",
-     "length": 46,
-     "name": "?ACT1Q5_Timer_StatusCycler@@YI_NPAUD2GameStrc@@PAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00595710",
-     "length": 327,
-     "name": "?ACT1Q5_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595860",
-     "length": 183,
-     "name": "?ACT1Q5_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00595920",
-     "length": 214,
-     "name": "?ACT1Q5_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00595A00",
-     "length": 70,
-     "name": "?OBJECTS_InitFunction04_TowerTome@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005947E0.cpp",
    "rank": 0,
    "functions": [
@@ -65964,17 +65781,6 @@
      "va": "0x00594890",
      "length": 204,
      "name": "?ACT1Q5_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q5_00594960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00594960",
-     "length": 590,
-     "name": "?ACT1Q5_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
@@ -66342,6 +66148,26 @@
      "va": "0x00598FA0",
      "length": 127,
      "name": "?ACT2Q1_UnitIterate_DetermineSkillBookDropCount@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00599130",
+     "length": 124,
+     "name": "?ACT2Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005991C0",
+     "length": 102,
+     "name": "?sub_005991C0_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00599230",
+     "length": 267,
+     "name": "?ACT2Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00599340",
+     "length": 210,
+     "name": "?ACT2Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -66363,38 +66189,6 @@
      "va": "0x00598980",
      "length": 5,
      "name": "?ACT3Q5_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q1_00599130.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00599130",
-     "length": 124,
-     "name": "?ACT2Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00599230",
-     "length": 267,
-     "name": "?ACT2Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00599340",
-     "length": 210,
-     "name": "?ACT2Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q1_005991C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005991C0",
-     "length": 102,
-     "name": "?sub_005991C0_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -71453,9 +71247,23 @@
      "name": "?ACT3Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x005B9930",
+     "length": 47,
+     "name": "?sub_005B9930_QUESTS_SpawnQuestMonster@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2QuestExStrc@@@Z"
+    },
+    {
      "va": "0x005B9960",
      "length": 24,
      "name": "?sub_005B9960_IsBossSpawning@@YIEPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x005B9AE0",
+     "length": 96,
+     "name": "?sub_005B9AE0_OBJECTS_InitQuestSpawnPoint@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x005B9B40",
+     "length": 269
     },
     {
      "va": "0x005B9C50",
@@ -71471,22 +71279,6 @@
      "va": "0x005B9D40",
      "length": 67,
      "name": "?OBJECTS_InitFunction39_GidbinnAltar@@YIXPAUD2ObjInitFnStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q3_005B9930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005B9930",
-     "length": 47,
-     "name": "?sub_005B9930_QUESTS_SpawnQuestMonster@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2QuestExStrc@@@Z"
-    },
-    {
-     "va": "0x005B9AE0",
-     "length": 96,
-     "name": "?sub_005B9AE0_OBJECTS_InitQuestSpawnPoint@@YIXPAUD2ObjInitFnStrc@@@Z"
     }
    ]
   },
@@ -71512,16 +71304,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a3q3_005B9B40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B9B40",
-     "length": 269
-    }
    ]
   },
   {
@@ -97906,19 +97688,13 @@
     {
      "va": "0x006B9BB0",
      "length": 30,
-     "name": "?sub_006B9BB0_CloseSmack@@YIXPAUD2VideoHandleStrc@@@Z"
+     "name": "?sub_006B9BB0_CloseSmack@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x006B9BD0",
      "length": 97,
      "name": "?sub_006B9BD0_Apply@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSmack_006B9C40.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006B9C40",
      "length": 624
@@ -97988,6 +97764,10 @@
      "length": 103
     },
     {
+     "va": "0x006BA5C0",
+     "length": 29
+    },
+    {
      "va": "0x006BA5E0",
      "length": 29
     },
@@ -98008,52 +97788,16 @@
      "length": 135
     },
     {
-     "va": "0x006BA830",
-     "length": 236
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dTextureCache_006BA5C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BA5C0",
-     "length": 29
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dTextureCache_006BA760.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x006BA760",
      "length": 87
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dTextureCache_006BA7C0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006BA7C0",
      "length": 105
+    },
+    {
+     "va": "0x006BA830",
+     "length": 236
     }
    ]
   },
@@ -98083,7 +97827,7 @@
   },
   {
    "file": "Source/D2Direct3D/Src/d3dSubtileCache.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x006BA9A0",
@@ -98092,6 +97836,10 @@
     {
      "va": "0x006BAAC0",
      "length": 103
+    },
+    {
+     "va": "0x006BAB30",
+     "length": 29
     },
     {
      "va": "0x006BAB50",
@@ -98114,57 +97862,21 @@
      "length": 95
     },
     {
-     "va": "0x006BADC0",
-     "length": 312
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSubtileCache_006BAB30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BAB30",
-     "length": 29
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSubtileCache_006BACB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x006BACB0",
      "length": 87
+    },
+    {
+     "va": "0x006BAD10",
+     "length": 91
     },
     {
      "va": "0x006BAD70",
      "length": 77,
      "name": "?sub_006BAD70_MoveNode@@YIXPAUD2List006BAD70Strc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSubtileCache_006BAD10.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x006BAD10",
-     "length": 91
+     "va": "0x006BADC0",
+     "length": 312
     }
    ]
   },
@@ -98207,6 +97919,18 @@
      "length": 46
     },
     {
+     "va": "0x006BB1F0",
+     "length": 115
+    },
+    {
+     "va": "0x006BB270",
+     "length": 95
+    },
+    {
+     "va": "0x006BB2D0",
+     "length": 87
+    },
+    {
      "va": "0x006BB330",
      "length": 91
     },
@@ -98218,44 +97942,6 @@
     {
      "va": "0x006BB3E0",
      "length": 312
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dFloorCache_006BB1F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BB1F0",
-     "length": 115
-    },
-    {
-     "va": "0x006BB270",
-     "length": 95
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dFloorCache_006BB2D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BB2D0",
-     "length": 87
     }
    ]
   },
@@ -99423,38 +99109,18 @@
      "length": 70
     },
     {
+     "va": "0x006C1FD0",
+     "length": 28
+    },
+    {
      "va": "0x006C1FF0",
      "length": 156
     },
     {
      "va": "0x006C2090",
      "length": 125,
-     "name": "?sub_006C2090_Pop@@YIHPAUD2Queue006C2090Strc@@PAXG@Z"
+     "name": "?sub_006C2090_Pop@@YIHPAUD2QSQueueStrc@@PAXG@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/D2QSQueue_006C1FD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C1FD0",
-     "length": 28
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
