@@ -6594,7 +6594,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/SOURCE/SBMP_006C6CB0.CPP": {
+  "Source/Storm/SOURCE/SBMP.CPP": {
    "bytes": 24,
    "definitions": 3,
    "externs": [],
@@ -157272,7 +157272,7 @@
    "cname": "gData_006FCC6C",
    "declared": true,
    "decorated": "?gszGif_006FCC6C@@3QBDB",
-   "file": "Source/Storm/SOURCE/SBMP_006C6CB0.CPP",
+   "file": "Source/Storm/SOURCE/SBMP.CPP",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FCC6C[8]; // 0x006FCC6C",
@@ -157303,7 +157303,7 @@
    "cname": "gData_006FCC74",
    "declared": true,
    "decorated": "?gszPcx_006FCC74@@3QBDB",
-   "file": "Source/Storm/SOURCE/SBMP_006C6CB0.CPP",
+   "file": "Source/Storm/SOURCE/SBMP.CPP",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FCC74[8]; // 0x006FCC74",
@@ -157334,7 +157334,7 @@
    "cname": "gData_006FCC7C",
    "declared": true,
    "decorated": "?gszTga_006FCC7C@@3QBDB",
-   "file": "Source/Storm/SOURCE/SBMP_006C6CB0.CPP",
+   "file": "Source/Storm/SOURCE/SBMP.CPP",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FCC7C[8]; // 0x006FCC7C",
