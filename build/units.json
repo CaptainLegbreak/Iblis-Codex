@@ -69743,6 +69743,10 @@
      "name": "?SKILLS_CreateChargedBoltMissileRing@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHHH@Z"
     },
     {
+     "va": "0x005D4680",
+     "length": 494
+    },
+    {
      "va": "0x005D4870",
      "length": 1341,
      "name": "?SKILLS_CreateCurvingMissileRing@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HHHHHHI@Z"
@@ -69777,9 +69781,21 @@
      "name": "?sub_005D5880_KickAttack@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@HHH1@Z"
     },
     {
+     "va": "0x005D5970",
+     "length": 191
+    },
+    {
      "va": "0x005D5A30",
      "length": 444,
      "name": "?SKILLS_SrvDo042_DragonTalon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D5BF0",
+     "length": 376
+    },
+    {
+     "va": "0x005D5E10",
+     "length": 517
     },
     {
      "va": "0x005D6020",
@@ -69835,6 +69851,10 @@
      "va": "0x005D6E70",
      "length": 534,
      "name": "?sub_005D6E70_SrvDoSummonPet@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D7090",
+     "length": 238
     },
     {
      "va": "0x005D7180",
@@ -70080,46 +70100,6 @@
     {
      "va": "0x005D3BA0",
      "length": 258
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAss_005D4680.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D4680",
-     "length": 494
-    },
-    {
-     "va": "0x005D5970",
-     "length": 191
-    },
-    {
-     "va": "0x005D5BF0",
-     "length": 376
-    },
-    {
-     "va": "0x005D5E10",
-     "length": 517
-    },
-    {
-     "va": "0x005D7090",
-     "length": 238
     }
    ],
    "flags": [
