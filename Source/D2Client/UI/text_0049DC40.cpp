@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
@@ -100,17 +101,7 @@ struct D2GSPacketSrv5A
 };
 
 #pragma pack(pop)
-struct D2MonStatsTxt
-{
-    char unk0x00[0x6];
-    unsigned short wNameStr;
-};
 
-struct D2ObjectsTxt
-{
-    char szName[0x40];
-    Unicode wszName[0x40];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -646,7 +637,7 @@ void __fastcall sub_0049EB10_HandleEventMessage(D2GSPacketSrv5A* pPacket)
                 if (pPacket->dwParam == 11)
                     pKiller = D2LANG_GetStringFromTblIndex(0xC98);
                 else
-                    pKiller = pObjectsTxtRecord->wszName;
+                    pKiller = (const Unicode*)pObjectsTxtRecord->wszName;
                 bFound = 1;
             }
             break;

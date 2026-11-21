@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2TxtTables.h"
 
 struct D2OverlayStrc;
 
@@ -31,14 +32,6 @@ struct D2OverlayStrc
     D2OverlayStrc* pNext;
 };
 
-struct D2OverlayTxt
-{
-    char unk0x00[0x7C];
-    unsigned char nTrans;
-    char unk0x7D[4];
-    unsigned char nLocalBlood;
-    char unk0x82[2];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
