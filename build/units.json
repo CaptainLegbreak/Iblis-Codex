@@ -79898,6 +79898,10 @@
      "name": "?ITEMS_SetDefenseOrDamage@@YGXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x0062CBE0",
+     "length": 6182
+    },
+    {
      "va": "0x0062E410",
      "length": 30,
      "name": "sub_0062E410"
@@ -80195,16 +80199,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_0062CBE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0062CBE0",
-     "length": 6182
-    }
    ]
   },
   {
