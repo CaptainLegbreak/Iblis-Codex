@@ -6144,9 +6144,11 @@
    "state": "included"
   },
   "Source/Fog/Src/QServer/QServer.cpp": {
-   "bytes": 48,
-   "definitions": 2,
-   "externs": [],
+   "bytes": 188,
+   "definitions": 3,
+   "externs": [
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/QServer/QServer.inc",
    "lang": "cpp",
@@ -6293,17 +6295,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/Excel/Excel.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Fog/Src/QServer/QServer_006BE5B0.cpp": {
-   "bytes": 140,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/Fog/Src/QServer/QServer_006BE650.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -156655,7 +156646,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Src/QServer/QServer_006BE5B0.cpp",
+   "file": "Source/Fog/Src/QServer/QServer.cpp",
    "fill": 35,
    "form": "declared",
    "fwd": null,

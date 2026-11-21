@@ -85527,6 +85527,10 @@
      "name": "_sub_006BE450@4"
     },
     {
+     "va": "0x006BE470",
+     "length": 41
+    },
+    {
      "va": "0x006BE4A0",
      "length": 58,
      "name": "?sub_006BE4A0_SetCount@@YGXPAUD2Worker006BE4A0Strc@@I@Z"
@@ -85537,9 +85541,21 @@
      "name": "?sub_006BE4E0_Wait@@YGKPAUD2Object006BE4E0Strc@@K@Z"
     },
     {
+     "va": "0x006BE510",
+     "length": 25
+    },
+    {
+     "va": "0x006BE530",
+     "length": 10
+    },
+    {
      "va": "0x006BE540",
      "length": 99,
      "name": "?sub_006BE540_Find@@YIPAUD2QClientStrc@@PAUD2QueueServerStrc@@I@Z"
+    },
+    {
+     "va": "0x006BE5B0",
+     "length": 129
     },
     {
      "va": "0x006BE640",
@@ -85547,9 +85563,21 @@
      "name": "?sub_006BE640_AddReference@@YIJPAXPAUD2ReferenceStrc@@@Z"
     },
     {
+     "va": "0x006BE650",
+     "length": 98
+    },
+    {
      "va": "0x006BE6C0",
      "length": 58,
      "name": "?sub_006BE6C0_LogHackListSize@@YGXH@Z"
+    },
+    {
+     "va": "0x006BE700",
+     "length": 386
+    },
+    {
+     "va": "0x006BE890",
+     "length": 227
     },
     {
      "va": "0x006BE980",
@@ -85560,6 +85588,10 @@
      "va": "0x006BE9F0",
      "length": 119,
      "name": "?sub_006BE9F0_CheckRecordThreshold@@YIHPAUD2RecordTableStrc@@PBI@Z"
+    },
+    {
+     "va": "0x006BEA70",
+     "length": 93
     },
     {
      "va": "0x006BEAD0",
@@ -85638,6 +85670,34 @@
      "name": "?sub_006BF0C0_GetValue@@YGHPAXH@Z"
     },
     {
+     "va": "0x006BF0F0",
+     "length": 124
+    },
+    {
+     "va": "0x006BF170",
+     "length": 15
+    },
+    {
+     "va": "0x006BF180",
+     "length": 100
+    },
+    {
+     "va": "0x006BF1F0",
+     "length": 94
+    },
+    {
+     "va": "0x006BF250",
+     "length": 3
+    },
+    {
+     "va": "0x006BF260",
+     "length": 177
+    },
+    {
+     "va": "0x006BF320",
+     "length": 78
+    },
+    {
      "va": "0x006BF370",
      "length": 354
     },
@@ -85674,6 +85734,10 @@
      "name": "?sub_006BF610_AddPair@@YIXPAUD2PairTable006BF610Strc@@HH@Z"
     },
     {
+     "va": "0x006BF660",
+     "length": 81
+    },
+    {
      "va": "0x006BF6C0",
      "length": 7,
      "name": "?sub_006BF6C0@@YIHPAUD2QueueServerStrc@@H@Z"
@@ -85704,8 +85768,20 @@
      "length": 352
     },
     {
+     "va": "0x006BFCD0",
+     "length": 462
+    },
+    {
      "va": "0x006BFEA0",
      "length": 252
+    },
+    {
+     "va": "0x006BFFA0",
+     "length": 244
+    },
+    {
+     "va": "0x006C00A0",
+     "length": 153
     },
     {
      "va": "0x006C0140",
@@ -85714,6 +85790,10 @@
     {
      "va": "0x006C0170",
      "length": 484
+    },
+    {
+     "va": "0x006C0360",
+     "length": 64
     },
     {
      "va": "0x006C03A0",
@@ -85747,6 +85827,10 @@
      "va": "0x006C0800",
      "length": 145,
      "name": "?sub_006C0800_BanByAddress@@YIHPAUD2QueueServerStrc@@PAIPBDH@Z"
+    },
+    {
+     "va": "0x006C08A0",
+     "length": 732
     }
    ]
   },
@@ -87349,108 +87433,6 @@
     {
      "va": "0x006BE190",
      "length": 352
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BE470.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BE470",
-     "length": 41
-    },
-    {
-     "va": "0x006BE510",
-     "length": 25
-    },
-    {
-     "va": "0x006BE530",
-     "length": 10
-    },
-    {
-     "va": "0x006BEA70",
-     "length": 93
-    },
-    {
-     "va": "0x006BF170",
-     "length": 15
-    },
-    {
-     "va": "0x006BF250",
-     "length": 3
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BE5B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BE5B0",
-     "length": 129
-    },
-    {
-     "va": "0x006BE650",
-     "length": 98
-    },
-    {
-     "va": "0x006BE700",
-     "length": 386
-    },
-    {
-     "va": "0x006BE890",
-     "length": 227
-    },
-    {
-     "va": "0x006BF180",
-     "length": 100
-    },
-    {
-     "va": "0x006BF1F0",
-     "length": 94
-    },
-    {
-     "va": "0x006BF260",
-     "length": 177
-    },
-    {
-     "va": "0x006BF320",
-     "length": 78
-    },
-    {
-     "va": "0x006BF660",
-     "length": 81
-    },
-    {
-     "va": "0x006BFCD0",
-     "length": 462
-    },
-    {
-     "va": "0x006BFFA0",
-     "length": 244
-    },
-    {
-     "va": "0x006C00A0",
-     "length": 153
-    },
-    {
-     "va": "0x006C0360",
-     "length": 64
-    },
-    {
-     "va": "0x006C08A0",
-     "length": 732
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServer_006BF0F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BF0F0",
-     "length": 124
     }
    ]
   },
