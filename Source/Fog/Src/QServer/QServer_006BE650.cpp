@@ -4,12 +4,10 @@
 struct D2CriticalSection006BE650Strc;
 struct D2QMsg006BE650Strc;
 struct D2QClient006BE650Strc;
-struct D2HackEntryStrc;
 struct D2CriticalSectionStrc;
 struct D2HackListStrc;
 struct D2HackNode006BE890Strc;
 struct D2Server006BE890Strc;
-struct D2QServerIpNodeStrc;
 struct D2QNode006BF1F0Strc;
 struct D2QTable006BF1F0Strc;
 struct D2MaskKeyStrc;
@@ -49,14 +47,6 @@ struct D2QClient006BE650Strc
 
 static __declspec(noinline) void sub_006BE650_FreeClient(D2QClient006BE650Strc* ptClient);
 
-struct D2HackEntryStrc
-{
-    unsigned int unk_00;
-    unsigned int retentionSeconds;
-    unsigned int activeSeconds;
-    D2HackEntryStrc* next;
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* section);
@@ -68,10 +58,10 @@ struct D2HackListStrc
 {
     unsigned char unk_000[0x888];
     unsigned int lastTick;
-    D2HackEntryStrc* freeEntries;
+    D2QServerNodeStrc* freeEntries;
     unsigned int entryCount;
     D2CriticalSectionStrc section;
-    D2HackEntryStrc** buckets;
+    D2QServerNodeStrc** buckets;
     unsigned int bucketCount;
 
     void __thiscall sub_006BE700_ExpireEntries(); // 0x006BE700
@@ -94,13 +84,6 @@ struct D2Server006BE890Strc
     unsigned int f_8B0;
     unsigned char unk_8B4[0xBD0 - 0x8B4];
     int bHackList;
-};
-
-struct D2QServerIpNodeStrc
-{
-    unsigned long nAddress;
-    int nCount;
-    D2QServerIpNodeStrc* pNext;
 };
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
@@ -189,42 +172,42 @@ void __thiscall D2HackListStrc::sub_006BE700_ExpireEntries()
         lastTick = now;
         for (unsigned int i = 0; i < bucketCount; ++i)
         {
-            D2HackEntryStrc* current = buckets[i];
-            D2HackEntryStrc* previous = 0;
+            D2QServerNodeStrc* current = buckets[i];
+            D2QServerNodeStrc* previous = 0;
             while (current)
             {
-                D2HackEntryStrc* next = current->next;
-                if (current->activeSeconds)
+                D2QServerNodeStrc* next = current->pNext;
+                if (current->nCount)
                 {
-                    if (current->activeSeconds > seconds)
-                        current->activeSeconds -= seconds;
+                    if (current->nCount > seconds)
+                        current->nCount -= seconds;
                     else
                     {
-                        current->activeSeconds = 0;
+                        current->nCount = 0;
                         if (seconds < 120)
-                            current->retentionSeconds = 120 - seconds;
+                            current->dwTime = 120 - seconds;
                         else
-                            current->retentionSeconds = 0;
-                        current->retentionSeconds += seconds;
+                            current->dwTime = 0;
+                        current->dwTime += seconds;
                     }
                 }
-                if (current->retentionSeconds)
+                if (current->dwTime)
                 {
-                    if (current->retentionSeconds > seconds)
-                        current->retentionSeconds -= seconds;
+                    if (current->dwTime > seconds)
+                        current->dwTime -= seconds;
                     else
                     {
                         if (previous)
                         {
-                            previous->next = next;
-                            current->next = freeEntries;
+                            previous->pNext = next;
+                            current->pNext = freeEntries;
                             freeEntries = current;
                             current = previous;
                         }
                         else
                         {
-                            buckets[i] = buckets[i]->next;
-                            current->next = freeEntries;
+                            buckets[i] = buckets[i]->pNext;
+                            current->pNext = freeEntries;
                             freeEntries = current;
                             current = 0;
                         }
@@ -299,7 +282,7 @@ static int __cdecl sub_006BF180_IncrementPerIpConnCount(D2QueueServerStrc* pServ
     const unsigned long nAddress = pAddress->s_addr;
     const unsigned int nBucket = nAddress % pServer->nIpBuckets;
 
-    for (D2QServerIpNodeStrc* pNode = pServer->ppIpBuckets[nBucket]; pNode; pNode = pNode->pNext)
+    for (D2QIpCountStrc* pNode = pServer->ppIpCounts[nBucket]; pNode; pNode = pNode->pNext)
     {
         if (pNode->nAddress == nAddress)
         {
@@ -308,11 +291,11 @@ static int __cdecl sub_006BF180_IncrementPerIpConnCount(D2QueueServerStrc* pServ
         }
     }
 
-    D2QServerIpNodeStrc* pNew = (D2QServerIpNodeStrc*)FOG_Alloc(sizeof(D2QServerIpNodeStrc), ".\\Src\\QServer\\QServer.cpp", 0x919, 0);
+    D2QIpCountStrc* pNew = (D2QIpCountStrc*)FOG_Alloc(sizeof(D2QIpCountStrc), ".\\Src\\QServer\\QServer.cpp", 0x919, 0);
     pNew->nAddress = nAddress;
     pNew->nCount = 1;
-    pNew->pNext = pServer->ppIpBuckets[nBucket];
-    pServer->ppIpBuckets[nBucket] = pNew;
+    pNew->pNext = pServer->ppIpCounts[nBucket];
+    pServer->ppIpCounts[nBucket] = pNew;
     return 1;
 }
 

@@ -4,14 +4,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 
-struct D2QServerNodeStrc
-{
-    int nKey;
-    unsigned int dwTime;
-    unsigned int nCount;
-    D2QServerNodeStrc* pNext;
-};
-
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 

@@ -19,24 +19,6 @@ const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress);        
 long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-struct D2QLockStrc
-{
-    char cs[0x18];
-};
-
-struct D2QNodeStrc
-{
-    int unk_00;
-    D2QNodeStrc* pNext;
-};
-
-struct D2QIpCountStrc
-{
-    unsigned int nKey;
-    int nRefCount;
-    D2QIpCountStrc* pNext;
-};
-
 
 static __declspec(noinline) int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey);
 
@@ -173,14 +155,14 @@ static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)
     {
         sub_006BE300_Nop("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
     }
-    D2QNodeStrc* pNode = pClient->pNodes;
+    D2QWriteNodeStrc* pNode = pClient->pWriteQueue;
     while (pNode)
     {
-        D2QNodeStrc* pFree = pNode;
+        D2QWriteNodeStrc* pFree = pNode;
         pNode = pNode->pNext;
         FOG_Free(pFree, ".\\Src\\QServer\\QServer.cpp", 0x3A7, 0);
     }
-    pClient->pNodes = 0;
+    pClient->pWriteQueue = 0;
     DeleteCriticalSection((CRITICAL_SECTION*)pClient->cs);
     FOG_Free(pClient, ".\\Src\\QServer\\QServer.cpp", 0x3AE, 0);
 }
