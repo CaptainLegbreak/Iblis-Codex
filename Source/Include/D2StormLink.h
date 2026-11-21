@@ -39,6 +39,11 @@ struct D2StormLinkStrc
     }
     void sub_0041C650(); // 0x0041C650
     D2StormLinkStrc* sub_00426930_NextLink(int nLinkOffset); // 0x00426930
+    int sub_005174AA_Next(); // 0x005174AA
+    int sub_005174B4_RawNext(); // 0x005174B4
+    void sub_005174B8_Clear(); // 0x005174B8
+    D2StormLinkStrc* __thiscall sub_005174C0(int nLinkOffset); // 0x005174C0
+    void __thiscall sub_005174E2_Unlink(); // 0x005174E2
 };
 
 D2_CHECK_SIZE(D2StormLinkStrc, 0x8);

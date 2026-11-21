@@ -1,14 +1,8 @@
-struct D2StormLinkStrc;
+#include "D2StormLink.h"
+
 struct D2StormListStrc;
 struct D2LinkStrc;
 struct D2ListStrc;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* pPrevLink;
-    D2StormLinkStrc* pNextLink;
-    void __thiscall sub_005174E2_Unlink(); // 0x005174E2
-};
 
 struct D2StormListStrc
 {

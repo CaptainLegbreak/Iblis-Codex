@@ -1,12 +1,7 @@
-struct D2StormLinkStrc;
+#include "D2StormLink.h"
+
 struct D2StormListStrc;
 struct D2PositiveCountStrc;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* pPrevLink;
-    unsigned int nNextLink;
-};
 
 struct D2StormListStrc
 {
@@ -25,8 +20,8 @@ struct D2PositiveCountStrc {
 void __fastcall sub_00517507_InitList(D2StormListStrc* pList)
 {
     D2StormLinkStrc* pTerminator = &pList->tTerminator;
-    pTerminator->pPrevLink = pTerminator;
-    pList->tTerminator.nNextLink = ~(unsigned int)pTerminator;
+    pTerminator->m_prevlink = pTerminator;
+    pList->tTerminator.m_next = (char*)~(unsigned int)pTerminator;
 }
 
 // 0x00517512
