@@ -69478,6 +69478,11 @@
      "va": "0x005D0770",
      "length": 76,
      "name": "?SKILLS_CurseStateCallback_HolyFreeze@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005D0C40",
+     "length": 298,
+     "name": "?SKILLS_ApplyRedemptionEffect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
     }
    ]
   },
@@ -69600,17 +69605,6 @@
     {
      "va": "0x005D0D70",
      "length": 288
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005D0C40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005D0C40",
-     "length": 298,
-     "name": "?SKILLS_ApplyRedemptionEffect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
     }
    ]
   },
