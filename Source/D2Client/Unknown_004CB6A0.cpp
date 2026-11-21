@@ -3,6 +3,8 @@
 #include "D2Txt.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
+#include "D2ClientGame.h"
+#include "D2TxtItems.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -10,55 +12,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2UnitSfxNodeStrc
-{
-    void* f_0;
-    D2UnitSfxNodeStrc* pNext;
-};
 
-struct D2MonSoundsTxt
-{
-    unsigned int dwId;
-    unsigned int dwAttack1;
-    unsigned int dwAtt1Del;
-    unsigned int dwAtt1Prb;
-    unsigned int dwAttack2;
-    unsigned int dwAtt2Del;
-    unsigned int dwAtt2Prb;
-    unsigned int dwWeapon1;
-    unsigned int dwWea1Del;
-    unsigned int dwWea1Vol;
-    unsigned int dwWeapon2;
-    unsigned int dwWea2Del;
-    unsigned int dwWea2Vol;
-    unsigned int dwHitSound;
-    unsigned int dwHitDelay;
-    unsigned int dwDeathSound;
-    unsigned int dwDeaDelay;
-    unsigned int dwSkill[4];
-    unsigned int dwFootstep;
-    unsigned int dwFootstepLayer;
-    unsigned int dwFsCnt;
-    unsigned int dwFsOff;
-    unsigned int dwFsPrb;
-    unsigned int dwNeutral;
-    unsigned int dwNeuTime;
-    unsigned int dwInit;
-    unsigned int dwTaunt;
-    unsigned int dwFlee;
-    unsigned char nCvtMo1;
-    unsigned char nCvtTgt1;
-    unsigned short pad0x7E;
-    int dwCvtSk1;
-    unsigned char nCvtMo2;
-    unsigned char nCvtTgt2;
-    unsigned short pad0x86;
-    int dwCvtSk2;
-    unsigned char nCvtMo3;
-    unsigned char nCvtTgt3;
-    unsigned short pad0x8E;
-    int dwCvtSk3;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[];                                                     // 0x0072A008
@@ -478,7 +432,7 @@ void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit)
     D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
-        void* pEntry = pNode->f_0;
+        void* pEntry = pNode->pUnitSfx;
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
         const int nGroup = sub_00481890_GetCacheFirst(sub_004B9CA0_GetHintIdByKey(pEntry));
         if (nGroup == pMonSoundsTxtRecord->dwSkill[0] || nGroup == pMonSoundsTxtRecord->dwSkill[1]
@@ -495,7 +449,7 @@ void __stdcall sub_004CB220_ReleaseNeutralSfx(D2UnitStrc* pUnit, int bArm)
     while (pNode)
     {
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
-        void* pEntry = pNode->f_0;
+        void* pEntry = pNode->pUnitSfx;
         D2MonSoundsTxt* pMonSoundsTxtRecord = sub_004CA410_GetMonSoundsRecord(pUnit);
         const int nNeutral = !pMonSoundsTxtRecord ? 0 : pMonSoundsTxtRecord->dwNeutral;
         if (sub_00481890_GetCacheFirst(sub_004B9CA0_GetHintIdByKey(pEntry)) == nNeutral)
@@ -522,7 +476,7 @@ void __stdcall sub_004CB2C0_ReleaseMonsterSfx(D2UnitStrc* pUnit)
     D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
-        void* pEntry = pNode->f_0;
+        void* pEntry = pNode->pUnitSfx;
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
         const int nGroup = sub_00481890_GetCacheFirst(sub_004B9CA0_GetHintIdByKey(pEntry));
         if (nGroup == pMonSoundsTxtRecord->dwAttack1 || nGroup == pMonSoundsTxtRecord->dwWeapon1
