@@ -1315,25 +1315,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/CORE/WINMAIN_00449920.cpp": {
-   "bytes": 164,
-   "definitions": 3,
+  "Source/D2Client/CORE/WINMAIN.cpp": {
+   "bytes": 672,
+   "definitions": 7,
    "externs": [
-    "extern \"C\" void __cdecl sub_0044B550_MemTest(); // 0x0044B550",
-    "extern \"C\" void __cdecl sub_0044B5A0_ToggleFlags(); // 0x0044B5A0",
-    "extern \"C\" void __cdecl sub_0044B5B0_StartPlayback(); // 0x0044B5B0",
     "extern \"C\" void __cdecl sub_0044B5E0_SaveDefaultCmdLine(); // 0x0044B5E0",
-    "extern \"C\" void __cdecl sub_00451260_RegisterLngArgument(); // 0x00451260"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/CORE/WINMAIN_00449920.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/CORE/WINMAIN.CPP": {
-   "bytes": 508,
-   "definitions": 4,
-   "externs": [
+    "extern \"C\" void __cdecl sub_00451260_RegisterLngArgument(); // 0x00451260",
     "extern \"C\" void __cdecl sub_0044AB80_McpIncoming1B(); // 0x0044AB80"
    ],
    "fn_types": {},
@@ -30878,7 +30865,7 @@
    "cname": "gData_006D5BE0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN_00449920.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006D5BE0_t gData_006D5BE0; // 0x006D5BE0",
    "head": "extern \"C\" const struct d2data_006D5BE0_t gData_006D5BE0 = ",
@@ -30912,7 +30899,7 @@
    "cname": "gData_006D5BE8",
    "declared": true,
    "decorated": "?gtCommandLineArgs_006D5BE8@@3QBUD2CmdArgStrc@@B",
-   "file": "Source/D2Client/CORE/WINMAIN_00449920.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2CmdArgStrc gData_006D5BE8[8]; // 0x006D5BE8",
    "head": "extern \"C\" const D2CmdArgStrc gData_006D5BE8[8] = ",
@@ -31060,7 +31047,7 @@
     [
      92,
      "0x0044B550",
-     "names.json",
+     "owner",
      "sub_0044B550_MemTest",
      0,
      "func"
@@ -31076,7 +31063,7 @@
     [
      108,
      "0x0044B5A0",
-     "names.json",
+     "owner",
      "sub_0044B5A0_ToggleFlags",
      0,
      "func"
@@ -31092,7 +31079,7 @@
     [
      124,
      "0x0044B5B0",
-     "names.json",
+     "owner",
      "sub_0044B5B0_StartPlayback",
      0,
      "func"
@@ -31111,7 +31098,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN_00449920.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gpszLaunchModeNames_0070EE70[7] = ",
@@ -31150,7 +31137,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN.CPP",
+   "file": "Source/D2Client/CORE/WINMAIN.cpp",
    "fill": 41,
    "form": "declared",
    "fwd": null,
@@ -31310,7 +31297,7 @@
    "cname": "gData_0070EE0C",
    "declared": true,
    "decorated": "?gtInterface_0070EE0C@@3UD2ClientInterfaceStrc@@A",
-   "file": "Source/D2Client/CORE/WINMAIN.CPP",
+   "file": "Source/D2Client/CORE/WINMAIN.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE0C_t gData_0070EE0C; // 0x0070EE0C",
    "head": "extern \"C\" struct d2data_0070EE0C_t gData_0070EE0C = ",
@@ -31456,7 +31443,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN.CPP",
+   "file": "Source/D2Client/CORE/WINMAIN.cpp",
    "fill": 16,
    "form": "declared",
    "fwd": null,
@@ -31487,7 +31474,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN.CPP",
+   "file": "Source/D2Client/CORE/WINMAIN.cpp",
    "fill": 264,
    "form": "declared",
    "fwd": null,
