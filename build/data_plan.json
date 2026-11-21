@@ -5627,12 +5627,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005E0260.cpp": {
+  "Source/D2Game/Ai/AiThink4.cpp": {
    "bytes": 320,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E0260.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0260.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -119196,7 +119196,7 @@
    "cname": "gData_006E33A0",
    "declared": true,
    "decorated": "_gDesertTurretOffsets_006E33A0",
-   "file": "Source/D2Game/Unknown_005E0260.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2CoordStrc gData_006E33A0[8]; // 0x006E33A0",
    "head": "extern \"C\" const D2CoordStrc gData_006E33A0[8] = ",
@@ -119247,7 +119247,7 @@
    "cname": "gData_006E33E0",
    "declared": true,
    "decorated": "_gnDesertTurretIndices_006E33E0",
-   "file": "Source/D2Game/Unknown_005E0260.cpp",
+   "file": "Source/D2Game/Ai/AiThink4.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E33E0[64]; // 0x006E33E0",
    "head": "extern \"C\" const int gData_006E33E0[64] = ",

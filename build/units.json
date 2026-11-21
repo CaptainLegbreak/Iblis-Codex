@@ -69231,6 +69231,10 @@
      "name": "?QUESTSFX_UberPrimeEvil@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005E0260",
+     "length": 290
+    },
+    {
      "va": "0x005E0390",
      "length": 105,
      "name": "sub_005E0390"
@@ -69241,9 +69245,34 @@
      "name": "AITHINK_Fn084_BoneWall"
     },
     {
+     "va": "0x005E0430",
+     "length": 96,
+     "name": "AITHINK_TargetCallback_HighPriest"
+    },
+    {
+     "va": "0x005E0980",
+     "length": 760,
+     "name": "?AITHINK_Fn094_DesertTurret@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E0F60",
+     "length": 274,
+     "name": "AITHINK_Fn093_ArcaneTower"
+    },
+    {
      "va": "0x005E1720",
      "length": 177,
      "name": "?AITHINK_TargetCallback_SiegeBeast@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
+    },
+    {
+     "va": "0x005E1860",
+     "length": 147,
+     "name": "AITHINK_Fn113_SiegeTower"
+    },
+    {
+     "va": "0x005E1B60",
+     "length": 459,
+     "name": "?AITHINK_Fn116_Minion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005E26D0",
@@ -69271,6 +69300,34 @@
      "name": "AITHINK_Fn098_Smith"
     },
     {
+     "va": "0x005E3900",
+     "length": 42,
+     "name": "sub_6FCE34B0"
+    },
+    {
+     "va": "0x005E45D0",
+     "length": 606
+    },
+    {
+     "va": "0x005E4CF0",
+     "length": 56,
+     "name": "AITHINK_Fn067_NecroPet"
+    },
+    {
+     "va": "0x005E5050",
+     "length": 531
+    },
+    {
+     "va": "0x005E5280",
+     "length": 76,
+     "name": "D2GAME_AI_SpecialState04_6FCDC170"
+    },
+    {
+     "va": "0x005E5710",
+     "length": 27,
+     "name": "?sub_6FCE4FD0@@YIXPAUD2UnitStrc@@PAX1@Z"
+    },
+    {
      "va": "0x005E5B70",
      "length": 211,
      "name": "sub_6FCE5520"
@@ -69281,6 +69338,11 @@
      "name": "sub_005E6190"
     },
     {
+     "va": "0x005E61B0",
+     "length": 332,
+     "name": "AITHINK_Fn129_GenericSpawner"
+    },
+    {
      "va": "0x005E6300",
      "length": 19,
      "name": "sub_005E6300"
@@ -69289,6 +69351,21 @@
      "va": "0x005E6860",
      "length": 141,
      "name": "sub_005E6860_HomeCommandStep"
+    },
+    {
+     "va": "0x005E6EF0",
+     "length": 9,
+     "name": "sub_005E6EF0_MapAiActionWalkToPosition"
+    },
+    {
+     "va": "0x005E6F00",
+     "length": 184,
+     "name": "sub_6FCE6340"
+    },
+    {
+     "va": "0x005E6FC0",
+     "length": 184,
+     "name": "sub_6FCE64D0"
     },
     {
      "va": "0x005E7540",
@@ -69798,89 +69875,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E0260.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E0260",
-     "length": 290
-    },
-    {
-     "va": "0x005E0430",
-     "length": 96,
-     "name": "AITHINK_TargetCallback_HighPriest"
-    },
-    {
-     "va": "0x005E0980",
-     "length": 760,
-     "name": "?AITHINK_Fn094_DesertTurret@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E0F60",
-     "length": 274,
-     "name": "AITHINK_Fn093_ArcaneTower"
-    },
-    {
-     "va": "0x005E1860",
-     "length": 147,
-     "name": "AITHINK_Fn113_SiegeTower"
-    },
-    {
-     "va": "0x005E1B60",
-     "length": 459,
-     "name": "?AITHINK_Fn116_Minion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E3900",
-     "length": 42,
-     "name": "sub_6FCE34B0"
-    },
-    {
-     "va": "0x005E45D0",
-     "length": 606
-    },
-    {
-     "va": "0x005E4CF0",
-     "length": 56,
-     "name": "AITHINK_Fn067_NecroPet"
-    },
-    {
-     "va": "0x005E5050",
-     "length": 531
-    },
-    {
-     "va": "0x005E5280",
-     "length": 76,
-     "name": "D2GAME_AI_SpecialState04_6FCDC170"
-    },
-    {
-     "va": "0x005E5710",
-     "length": 27,
-     "name": "?sub_6FCE4FD0@@YIXPAUD2UnitStrc@@PAX1@Z"
-    },
-    {
-     "va": "0x005E61B0",
-     "length": 332,
-     "name": "AITHINK_Fn129_GenericSpawner"
-    },
-    {
-     "va": "0x005E6EF0",
-     "length": 9,
-     "name": "sub_005E6EF0_MapAiActionWalkToPosition"
-    },
-    {
-     "va": "0x005E6F00",
-     "length": 184,
-     "name": "sub_6FCE6340"
-    },
-    {
-     "va": "0x005E6FC0",
-     "length": 184,
-     "name": "sub_6FCE64D0"
-    }
    ]
   },
   {
