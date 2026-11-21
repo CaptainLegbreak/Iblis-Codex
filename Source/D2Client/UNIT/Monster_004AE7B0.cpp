@@ -1,4 +1,5 @@
 #include "D2MonsterIds.h"
+#include "D2LevelTxt.h"
 #include "D2StatIds.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
@@ -121,7 +122,6 @@ void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, unsigned char 
 
 static void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, int nEvent); // 0x004AE4F0
 
-struct D2DifficultyLevelsTxt { char unk0[16]; int nMonsterSkillBonus; };
 
 extern const char gszMonsterFile_006DA5C8[]; // 0x006DA5C8
 
@@ -584,7 +584,7 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     pUnit->pSkills=SKILLS_AllocSkillList(0);
     sub_004AD020_RefreshMonster(pUnit);
     D2DifficultyLevelsTxt* pDiff=DATATBLS_GetDifficultyLevelsTxtRecord(nDifficulty);
-    int nSkillBonus=pDiff->nMonsterSkillBonus;
+    int nSkillBonus=pDiff->dwMonsterSkillBonus;
     for (int i=0;i<8;++i)
     {
         if(pMonStats->nSkill[i]>=0 && pMonStats->nSkLvl[i]>0)
