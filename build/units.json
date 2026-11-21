@@ -88250,6 +88250,16 @@
      "name": "DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty"
     },
     {
+     "va": "0x00658460",
+     "length": 192,
+     "name": "DATATBLS_CheckNestedMonsterTypes"
+    },
+    {
+     "va": "0x00658520",
+     "length": 431,
+     "name": "?DATATBLS_LoadMonTypeTxt@@YIXPAX@Z"
+    },
+    {
      "va": "0x00659990",
      "length": 124,
      "name": "?DATATBLS_MonPresetPlaceLinker@@YIXPADPAUD2MonPresetTxt@@HHHH@Z"
@@ -88386,6 +88396,10 @@
      "name": "DATATBLS_GetMonSoundsTxtRecordFromMonsterId"
     },
     {
+     "va": "0x00657010",
+     "length": 396
+    },
+    {
      "va": "0x00658440",
      "length": 27,
      "name": "DATATBLS_UnloadMonTypeTxt"
@@ -88502,38 +88516,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00657010.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00657010",
-     "length": 396
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00658460.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00658460",
-     "length": 192,
-     "name": "DATATBLS_CheckNestedMonsterTypes"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00658520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00658520",
-     "length": 431,
-     "name": "?DATATBLS_LoadMonTypeTxt@@YIXPAX@Z"
-    }
    ]
   },
   {
