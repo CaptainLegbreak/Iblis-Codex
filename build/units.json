@@ -97543,6 +97543,10 @@
      "length": 22
     },
     {
+     "va": "0x006BCE20",
+     "length": 540
+    },
+    {
      "va": "0x006BD040",
      "length": 42,
      "name": "?sub_006BD040_AllocBlock@@YGPAUD2Block006BD040Strc@@PBDH@Z"
@@ -97580,12 +97584,47 @@
      "length": 196
     },
     {
+     "va": "0x006BD490",
+     "length": 99
+    },
+    {
+     "va": "0x006BD500",
+     "length": 147
+    },
+    {
      "va": "0x006BD5A0",
      "length": 154
     },
     {
      "va": "0x006BD640",
      "length": 317
+    },
+    {
+     "va": "0x006BD780",
+     "length": 2576
+    },
+    {
+     "va": "0x006BE2F0",
+     "length": 1,
+     "name": "?sub_006BE2F0_Nop@@YAXPBD0H@Z"
+    },
+    {
+     "va": "0x006BE300",
+     "length": 1,
+     "name": "?sub_006BE300_Nop@@YAXPBD0H@Z"
+    },
+    {
+     "va": "0x006BE310",
+     "length": 53
+    },
+    {
+     "va": "0x006BE350",
+     "length": 55
+    },
+    {
+     "va": "0x006BE390",
+     "length": 36,
+     "name": "?sub_006BE390_SwapSlot@@YGHPAUD2Object006BE390Strc@@HH@Z"
     }
    ]
   },
@@ -97906,92 +97945,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Excel/Excel_006BCE20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BCE20",
-     "length": 540
-    },
-    {
-     "va": "0x006BD490",
-     "length": 99
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Excel/Excel_006BD500.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BD500",
-     "length": 147
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Excel/Excel_006BD780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BD780",
-     "length": 2576
-    },
-    {
-     "va": "0x006BE2F0",
-     "length": 1,
-     "name": "?sub_006BE2F0_Nop@@YAXPBD0H@Z"
-    },
-    {
-     "va": "0x006BE300",
-     "length": 1,
-     "name": "?sub_006BE300_Nop@@YAXPBD0H@Z"
-    },
-    {
-     "va": "0x006BE310",
-     "length": 53
-    },
-    {
-     "va": "0x006BE350",
-     "length": 55
-    },
-    {
-     "va": "0x006BE390",
-     "length": 36,
-     "name": "?sub_006BE390_SwapSlot@@YGHPAUD2Object006BE390Strc@@HH@Z"
-    }
    ]
   },
   {
