@@ -207,8 +207,6 @@ extern D2TextHeaderStrc* gpTextHeader_007BF250; // 0x007BF250
 extern int gnGlobal_007C0E7C; // 0x007C0E7C
 extern unsigned char* gpDDrawDebugFontGlyphs_008815AC; // 0x008815AC
 extern void* gpReply_008818D0; // 0x008818D0
-extern "C" void* gpCDKeyHandle_00882744; // 0x00882744
-extern "C" void* gpCDKeyHandle_00882750; // 0x00882750
 
 struct D2BnGamesListPacketStrc
 {
@@ -1173,22 +1171,6 @@ int __fastcall sub_00522310_SendChangeProof(const unsigned char* pSalt, const un
         return 1;
     }
     return 0;
-}
-
-// 0x005239C0
-void __cdecl sub_005239C0_UnlockCDKeys()
-{
-    if (gpCDKeyHandle_00882744)
-    {
-        SFileUnloadFile(gpCDKeyHandle_00882744);
-        gpCDKeyHandle_00882744 = 0;
-    }
-
-    if (gpCDKeyHandle_00882750)
-    {
-        SFileUnloadFile(gpCDKeyHandle_00882750);
-        gpCDKeyHandle_00882750 = 0;
-    }
 }
 
 // 0x00528890

@@ -47483,11 +47483,6 @@
      "va": "0x00520C20",
      "length": 11,
      "name": "@sub_00520C20_GetSlotB@4"
-    },
-    {
-     "va": "0x00523AB0",
-     "length": 15,
-     "name": "@sub_00523AB0_SelectValue@4"
     }
    ]
   },
@@ -47887,11 +47882,6 @@
      "va": "0x00522310",
      "length": 144,
      "name": "sub_00522310_SendChangeProof"
-    },
-    {
-     "va": "0x005239C0",
-     "length": 51,
-     "name": "?sub_005239C0_UnlockCDKeys@@YAXXZ"
     },
     {
      "va": "0x00528890",
@@ -49394,33 +49384,29 @@
      "name": "?sub_00523420_FreeStringPair@@YAXPAD0@Z"
     },
     {
+     "va": "0x00523480",
+     "length": 74
+    },
+    {
      "va": "0x005234D0",
      "length": 1257
+    },
+    {
+     "va": "0x005239C0",
+     "length": 51
+    },
+    {
+     "va": "0x00523A10",
+     "length": 143
+    },
+    {
+     "va": "0x00523AB0",
+     "length": 15
     },
     {
      "va": "0x00523AC0",
      "length": 43,
      "name": "?sub_00523AC0_InitHashCtx@@YAXPAUD2BnHashCtxStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/grid_00523480.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00523480",
-     "length": 74
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/grid_00523A10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00523A10",
-     "length": 143
     }
    ]
   },
