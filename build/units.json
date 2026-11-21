@@ -205,6 +205,10 @@
      "name": "?sub_004076B0_LogSystemInfo@@YAXXZ"
     },
     {
+     "va": "0x00407970",
+     "length": 5
+    },
+    {
      "va": "0x00407980",
      "length": 16,
      "name": "?sub_00407980_ReportPrint@@YIXPAXPBD@Z"
@@ -238,6 +242,10 @@
      "va": "0x00407FC0",
      "length": 40,
      "name": "?sub_00407FC0_LogPrefixedText@@YGXPBD0H@Z"
+    },
+    {
+     "va": "0x004082E0",
+     "length": 888
     },
     {
      "va": "0x004088C0",
@@ -2671,30 +2679,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_00407970.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00407970",
-     "length": 5
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00408090.cpp",
    "rank": 0,
    "functions": [
@@ -2716,30 +2700,6 @@
     "/Oy",
     "/Ob2",
     "/Gd"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/ErrorManager_004082E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004082E0",
-     "length": 888
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
