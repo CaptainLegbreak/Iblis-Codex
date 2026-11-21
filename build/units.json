@@ -68310,6 +68310,24 @@
      "length": 1222
     },
     {
+     "va": "0x005EEB70",
+     "length": 550
+    },
+    {
+     "va": "0x005EF010",
+     "length": 388
+    },
+    {
+     "va": "0x005EF1A0",
+     "length": 54,
+     "name": "?AITHINK_Fn133_Ancient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005EF1E0",
+     "length": 8,
+     "name": "?sub_005EF1E0_BaalThroneGetAiParamFlag@@YIHPAUD2AiTickParamStrc@@H@Z"
+    },
+    {
      "va": "0x005EF1F0",
      "length": 27,
      "name": "AITHINK_BaalThroneSetAiParamFlag"
@@ -68337,6 +68355,11 @@
     {
      "va": "0x005EF820",
      "length": 232
+    },
+    {
+     "va": "0x005EF910",
+     "length": 313,
+     "name": "?AITHINK_Fn141_BaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005EFA50",
@@ -69103,35 +69126,6 @@
      "va": "0x005EE260",
      "length": 342,
      "name": "?sub_005EE260_Think@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005EEB70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005EEB70",
-     "length": 550
-    },
-    {
-     "va": "0x005EF010",
-     "length": 388
-    },
-    {
-     "va": "0x005EF1A0",
-     "length": 54,
-     "name": "?AITHINK_Fn133_Ancient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005EF1E0",
-     "length": 8,
-     "name": "?sub_005EF1E0_BaalThroneGetAiParamFlag@@YIHPAUD2AiTickParamStrc@@H@Z"
-    },
-    {
-     "va": "0x005EF910",
-     "length": 313,
-     "name": "?AITHINK_Fn141_BaalMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
