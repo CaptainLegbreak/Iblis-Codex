@@ -62423,9 +62423,19 @@
      "name": "MISSMODE_CreatePlagueJavelin_PoisonJavelin_PoisonTrapHitSubmissiles"
     },
     {
+     "va": "0x005A9820",
+     "length": 260,
+     "name": "?sub_005A9820_SpawnNearby@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHGPAU1@H@Z"
+    },
+    {
      "va": "0x005A9930",
      "length": 169,
      "name": "sub_005A9930_CreateCairnPortal"
+    },
+    {
+     "va": "0x005A99E0",
+     "length": 140,
+     "name": "?sub_005A99E0_MISSMODE_PlacePathAtOwner@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A9A70",
@@ -62784,6 +62794,26 @@
     {
      "va": "0x005ADD20",
      "length": 489
+    },
+    {
+     "va": "0x005AEA60",
+     "length": 243,
+     "name": "?sub_005AEA60_SpawnBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF240",
+     "length": 179,
+     "name": "?sub_005AF240_SpawnDuringFrames@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF540",
+     "length": 79,
+     "name": "?MISSMODE_SrvDo20_BladeCreeper@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005AF880",
+     "length": 251,
+     "name": "?sub_005AF880_SpawnBySkillMask@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005B07A0",
@@ -64240,42 +64270,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A9820.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A9820",
-     "length": 260,
-     "name": "?sub_005A9820_SpawnNearby@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHGPAU1@H@Z"
-    },
-    {
-     "va": "0x005A99E0",
-     "length": 140,
-     "name": "?sub_005A99E0_MISSMODE_PlacePathAtOwner@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AEA60",
-     "length": 243,
-     "name": "?sub_005AEA60_SpawnBySkill@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AF240",
-     "length": 179,
-     "name": "?sub_005AF240_SpawnDuringFrames@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AF540",
-     "length": 79,
-     "name": "?MISSMODE_SrvDo20_BladeCreeper@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005AF880",
-     "length": 251,
-     "name": "?sub_005AF880_SpawnBySkillMask@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
