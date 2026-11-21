@@ -2495,7 +2495,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004ADD90.cpp": {
+  "Source/D2Client/UNIT/Monster_004AE7B0.cpp": {
    "bytes": 860,
    "definitions": 1,
    "externs": [
@@ -59422,7 +59422,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004ADD90.cpp",
+   "file": "Source/D2Client/UNIT/Monster_004AE7B0.cpp",
    "fill": 43,
    "form": "declared",
    "fwd": null,
