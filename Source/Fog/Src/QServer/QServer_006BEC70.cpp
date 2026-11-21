@@ -8,7 +8,6 @@ struct D2QServerClientStrc;
 struct D2Entry006BF0A0Strc;
 struct D2QPacketStrc;
 struct D2AddressRefStrc;
-struct D2QNodeStrc;
 
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -68,7 +67,7 @@ struct T006BE350
         void* p040;
     };
     char unk0x044[0x84C - 0x44];
-    D2QNodeStrc* pChain84C;
+    D2QServerNodeStrc* pChain84C;
     char unk0x850[0x04];
     union
     {
@@ -95,10 +94,10 @@ struct T006BE350
     int channelCount;
     int count;
     unsigned char unk_884[0x8];
-    D2QNodeStrc* pChain88C;
+    D2QServerNodeStrc* pChain88C;
     int n890;
     D2CriticalSectionStrc tLock894;
-    D2QNodeStrc** ppBuckets;
+    D2QServerNodeStrc** ppBuckets;
     unsigned int f_8B0;
     D2CriticalSectionStrc tLock8B4;
     char unk0x8CC[0xB90 - 0x8CC];
@@ -124,12 +123,6 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long*);
 static int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int* address); // 0x006BF180
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
-
-struct D2QNodeStrc
-{
-    char unk0x00[0x0C];
-    D2QNodeStrc* pNext;
-};
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
@@ -278,10 +271,10 @@ D2QClientStrc* __fastcall QSrvAddClient(T006BE350* server,unsigned int socket,un
 static void sub_006BF320_FreeChain(T006BE350* pServer)
 {
     EnterCriticalSection(&pServer->tLock854);
-    D2QNodeStrc* pNode = pServer->pChain84C;
+    D2QServerNodeStrc* pNode = pServer->pChain84C;
     while (pNode)
     {
-        D2QNodeStrc* pNext = pNode->pNext;
+        D2QServerNodeStrc* pNext = pNode->pNext;
         FOG_Free(pNode, gszQServerFile_006FC460, 0x9B0, 0);
         pNode = pNext;
     }
@@ -294,10 +287,10 @@ static void sub_006BF0F0_FreeBuckets(T006BE350* pServer)
     EnterCriticalSection(&pServer->tLock894);
     for (unsigned int i = 0; i < pServer->f_8B0; ++i)
     {
-        D2QNodeStrc* pNode = pServer->ppBuckets[i];
+        D2QServerNodeStrc* pNode = pServer->ppBuckets[i];
         while (pNode)
         {
-            D2QNodeStrc* pNext = pNode->pNext;
+            D2QServerNodeStrc* pNext = pNode->pNext;
             FOG_Free(pNode, gszQServerFile_006FC460, 0x8BE, 0);
             pNode = pNext;
         }
@@ -351,7 +344,7 @@ int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
 
     while (pServer->pChain88C)
     {
-        D2QNodeStrc* pNext = pServer->pChain88C->pNext;
+        D2QServerNodeStrc* pNext = pServer->pChain88C->pNext;
         FOG_Free(pServer->pChain88C, gszQServerFile_006FC460, 0x189, 0);
         pServer->pChain88C = pNext;
     }

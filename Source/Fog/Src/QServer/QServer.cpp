@@ -7,7 +7,6 @@
 
 struct QServer;
 struct D2PacketBufferStrc;
-struct D2QNodeStrc;
 struct D2CriticalSectionStrc;
 struct D2ServerNode006BE3C0Strc;
 struct D2Server006BE3C0Strc;
@@ -17,7 +16,6 @@ struct D2Object006BE4E0Strc;
 struct D2HashNode006BE540Strc;
 struct D2HashTable006BE540Strc;
 struct D2ReferenceStrc;
-struct D2ServerNode006BE980Strc;
 struct D2RecordNodeStrc;
 struct D2RecordTableStrc;
 struct D2NetPacketStrc;
@@ -37,7 +35,6 @@ struct D2PairEntry006BF610Strc;
 struct D2PairTable006BF610Strc;
 struct D2RecordStrc;
 struct D2QServerConfigStrc;
-struct D2AddressRecordStrc;
 struct D2ConnectionNodeStrc;
 struct D2ConnectionTableStrc;
 
@@ -114,14 +111,6 @@ void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* sz
 extern const char gszHackChannel_006FC4A8[]; // 0x006FC4A8
 extern const char gszHackListSizeFormat_006FC4B0[]; // 0x006FC4B0
 extern unsigned long gdwLastLogTick_00989C34; // 0x00989C34
-
-struct D2ServerNode006BE980Strc
-{
-    unsigned int nKey;
-    unsigned char unk_04[4];
-    int nTimer8;
-    D2ServerNode006BE980Strc* pNext;
-};
 
 struct D2RecordNodeStrc { unsigned int key; int value; D2RecordNodeStrc* next; };
 
@@ -295,8 +284,8 @@ struct QServer
     void** ppSlots040;
     int nSlotCount044;
     char unk048[0x804];
-    D2QNodeStrc* pChain84C;
-    D2QNodeStrc* pChain850;
+    D2QServerNodeStrc* pChain84C;
+    D2QServerNodeStrc* pChain850;
     D2CriticalSectionStrc tLock854;
     int nState;
     void** ppSlots870;
@@ -306,10 +295,10 @@ struct QServer
     int nValue880;
     int bStarted884;
     unsigned int nSocket888;
-    D2QNodeStrc* pChain88C;
+    D2QServerNodeStrc* pChain88C;
     int nValue890;
     D2CriticalSectionStrc tLock894;
-    D2QNodeStrc** ppBuckets;
+    D2QServerNodeStrc** ppBuckets;
     int nBuckets;
     D2CriticalSectionStrc tLock8B4;
     char unk8CC[0x2C4];
@@ -333,14 +322,6 @@ int __fastcall sub_006C3360_Startup(QServer* pServer, int nPort); // 0x006C3360
 int __fastcall sub_006C3B50_StartServer(QServer* pServer, int nPort); // 0x006C3B50
 extern "C" const char gszQServerTag_006FC47C[]; // 0x006FC47C
 extern "C" const char gszQServerAllocated_006FC548[]; // 0x006FC548
-
-struct D2AddressRecordStrc
-{
-    unsigned int f_0;
-    int f_4;
-    int nRefresh;
-    D2AddressRecordStrc* pNext;
-};
 
 
 void __stdcall sub_006BE6C0_LogHackListSize(int nSize); // 0x006BE6C0
@@ -517,13 +498,13 @@ void __stdcall sub_006BE6C0_LogHackListSize(int nSize)
 int D2QueueServerStrc::sub_006BE980_Refresh(unsigned int nKey)
 {
     EnterCriticalSection(&tRecordLock);
-    for (D2ServerNode006BE980Strc* pNode = ppRecordNodes[nKey % nRecordBuckets]; pNode; pNode = pNode->pNext)
+    for (D2QServerNodeStrc* pNode = ppRecords[nKey % nRecordBuckets]; pNode; pNode = pNode->pNext)
     {
         if (pNode->nKey == nKey)
         {
-            if (pNode->nTimer8)
+            if (pNode->iCount)
             {
-                pNode->nTimer8 = 120;
+                pNode->iCount = 120;
                 LeaveCriticalSection(&tRecordLock);
                 return 1;
             }
@@ -826,8 +807,8 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
     pServer->ppSlots040 = (void**)FOG_Alloc(gnGlobal_0074C3E8 * sizeof(void*), gszQServerFile_006FC460, 175, 0);
     memset(pServer->ppSlots040, 0, gnGlobal_0074C3E8 * sizeof(void*));
     pServer->nBuckets = gnGlobal_0074C3EC;
-    pServer->ppBuckets = (D2QNodeStrc**)FOG_Alloc(gnGlobal_0074C3EC * sizeof(D2QNodeStrc*), gszQServerFile_006FC460, 180, 0);
-    memset(pServer->ppBuckets, 0, gnGlobal_0074C3EC * sizeof(D2QNodeStrc*));
+    pServer->ppBuckets = (D2QServerNodeStrc**)FOG_Alloc(gnGlobal_0074C3EC * sizeof(D2QServerNodeStrc*), gszQServerFile_006FC460, 180, 0);
+    memset(pServer->ppBuckets, 0, gnGlobal_0074C3EC * sizeof(D2QServerNodeStrc*));
     sub_006BE300_Nop(gszQServerTag_006FC47C, gszQServerAllocated_006FC548, pServer);
     pServer->nValue880 = 0;
     pServer->pChain84C = 0;
@@ -952,12 +933,12 @@ void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* pTable, const char
     D2CriticalSectionStrc* pLock = &pTable->tRecordLock;
     EnterCriticalSection(pLock);
     unsigned int nBucket = nAddress % pTable->nRecordBuckets;
-    D2AddressRecordStrc* pRecord = pTable->ppRecords[nBucket];
-    while (pRecord && pRecord->f_0 != nAddress)
+    D2QServerNodeStrc* pRecord = pTable->ppRecords[nBucket];
+    while (pRecord && pRecord->nKey != nAddress)
         pRecord = pRecord->pNext;
     if (pRecord)
     {
-        pRecord->nRefresh = 120;
+        pRecord->iCount = 120;
         LeaveCriticalSection(pLock);
         return;
     }
@@ -965,10 +946,10 @@ void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc* pTable, const char
     if (pRecord)
         pTable->pFreeRecords = pRecord->pNext;
     else
-        pRecord = (D2AddressRecordStrc*)FOG_Alloc(sizeof(D2AddressRecordStrc), gszServerFile_006FC460, 0x4AA, 0);
-    pRecord->f_0 = nAddress;
-    pRecord->f_4 = 120;
-    pRecord->nRefresh = 0;
+        pRecord = (D2QServerNodeStrc*)FOG_Alloc(sizeof(D2QServerNodeStrc), gszServerFile_006FC460, 0x4AA, 0);
+    pRecord->nKey = nAddress;
+    pRecord->iTime = 120;
+    pRecord->iCount = 0;
     pRecord->pNext = pTable->ppRecords[nBucket];
     pTable->ppRecords[nBucket] = pRecord;
     ++pTable->nRecordCount;

@@ -5,9 +5,6 @@
 
 struct sub_006BF320_Node;
 struct sub_006BF320_Server;
-struct D2QLockStrc;
-struct D2QNodeStrc;
-struct D2QIpCountStrc;
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION* lpCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION* lpCriticalSection);
@@ -37,24 +34,6 @@ void __cdecl sub_006BE2F0_Nop(const char* szTag, const char* szFormat, ...); // 
 void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...); // 0x006BE300
 const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x006B013E
 long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
-
-struct D2QLockStrc
-{
-    char cs[0x18];
-};
-
-struct D2QNodeStrc
-{
-    int unk_00;
-    D2QNodeStrc* pNext;
-};
-
-struct D2QIpCountStrc
-{
-    unsigned int nKey;
-    int nRefCount;
-    D2QIpCountStrc* pNext;
-};
 
 
 static __declspec(noinline) int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey);
@@ -208,14 +187,14 @@ static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)
     if (pClient->pNext)
         sub_006BE300_Nop("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
 
-    D2QNodeStrc* pNode = pClient->pNodes;
+    D2QWriteNodeStrc* pNode = pClient->pWriteQueue;
     while (pNode)
     {
-        D2QNodeStrc* pNext = pNode->pNext;
+        D2QWriteNodeStrc* pNext = pNode->pNext;
         FOG_Free(pNode, ".\\Src\\QServer\\QServer.cpp", 935, 0);
         pNode = pNext;
     }
-    pClient->pNodes = 0;
+    pClient->pWriteQueue = 0;
     DeleteCriticalSection((CRITICAL_SECTION*)pClient->cs);
     FOG_Free(pClient, ".\\Src\\QServer\\QServer.cpp", 942, 0);
 }
