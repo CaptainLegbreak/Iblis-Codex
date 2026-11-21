@@ -1,4 +1,5 @@
 #include "D2StateIds.h"
+#include "D2GameAux.h"
 #include "D2MonsterIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -21,14 +22,6 @@ struct D2StaticPathStrc;
 struct D2TargetNodeStrc;
 struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
-
-struct D2TargetNodeStrc
-{
-    D2UnitStrc* hUnit;
-    int unk0x04;
-    D2TargetNodeStrc* pNext;
-    D2TargetNodeStrc* unk0x0C;
-};
 
 struct D2MonStatsTxt
 {

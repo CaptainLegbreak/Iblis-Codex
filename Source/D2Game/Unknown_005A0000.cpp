@@ -1,14 +1,10 @@
 #include "D2Txt.h"
+#include "D2Game.h"
 #include "D2LevelTxt.h"
 #include "D2TxtTables.h"
 typedef char check_int_width[(sizeof(int) == 4) ? 1 : -1];
 typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
-};
 
 
 

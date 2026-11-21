@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2GameObjs.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -239,12 +240,6 @@ struct D2W11RoomTileOwnerStrc
 {
     char unk0x00[0x14];
     D2W11RoomTileRecordStrc* pRecord;
-};
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    void* pPosition;
 };
 
 struct D2W11QuestEx5B7230Strc
