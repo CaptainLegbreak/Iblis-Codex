@@ -1,35 +1,57 @@
 #include "D2Win.h"
+#include "D2StormTypes.h"
 #include "D2Win32Types.h"
 #include "D2CelContext.h"
 #include "D2CmpTypes.h"
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
 #include "D2Unicode.h"
-#include "D2WinControls.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CelFileStrc;
+
 struct D2WinControlStrc;
+
 struct D2WinImageClickRectStrc;
+
 struct D2UnitStrc;
+
 struct D2CofDataStrc;
+
 struct D2WinControl004FD110Strc;
+
 struct Unicode;
+
 struct tagRECT;
+
 struct D2WinImage2Strc;
+
 struct D2WinTimerStrc;
+
 struct D2WinCommandRegisterStrc;
+
 struct D2WinListDataStrc;
+
 struct D2WinListStrc;
+
 struct D2WinAccountListDataStrc;
+
 struct D2WinAccountListStrc;
+
 struct D2WinProgressBarStrc;
+
 struct D2WinPopUpLineStrc;
+
 struct D2WinPopUpStrc;
+
 struct D2CelContextStrc;
+
 struct D2CofNodeStrc;
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 struct D2WinControl004FD110Strc
@@ -57,18 +79,6 @@ enum D2ControlTypes
     D2WIN_POPUP = 11,
     D2WIN_ACCOUNTLIST = 12,
     D2WIN_IMAGE2 = 13,
-};
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
 };
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
@@ -135,16 +145,27 @@ struct D2WinPopUpStrc
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __stdcall D2GFX_UtilRect(tagRECT* pRect, unsigned char nPaletteIndex); // 0x004F62A0
+
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
+
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+
 void __fastcall WREGISTER_RegisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback); // 0x00506C40
+
 void __fastcall WREGISTER_UnregisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback); // 0x00506CF0
+
 extern void* sghPentagram; // 0x0087E96C
 
 struct D2WinImageClickRectStrc
@@ -158,9 +179,21 @@ struct D2WinImageClickRectStrc
 };
 
 extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
+enum DrawMode
+{
+    DRAWMODE_NORMAL = 5,
+};
+
+void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
+
+int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn);         // 0x004FB790
 
 // 0x004FD110
 int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
@@ -228,6 +261,69 @@ int __fastcall IMAGE2_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
+int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn)
+{
+    return D2Win_10058_0(pControl, pText, a3, nColumn);
+}
+
+// 0x004FD340
+static void __stdcall sub_004FD340_ImageDrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)
+{
+    const int nSrcWidth = pSrc->nX1 - pSrc->nX0;
+    const int nDstWidth = pDst->nX1 - pDst->nX0;
+    const int nSrcHeight = pSrc->nY1 - pSrc->nY0;
+    const int nDstHeight = pDst->nY1 - pDst->nY0;
+    if (nSrcWidth == nDstWidth && nSrcHeight == nDstHeight)
+    {
+        TEXTURE_CelDrawClipped(pGfxData, pDst->nX0 - pSrc->nX0, pDst->nY1 - pSrc->nY1 + 256, (void*)pDst, DRAWMODE_NORMAL);
+        return;
+    }
+
+    const int nColumns = (nDstWidth + nSrcWidth - 1) / nSrcWidth;
+    const int nRows = (nDstHeight + nSrcHeight - 1) / nSrcHeight;
+    int nY = pDst->nY0 - pSrc->nY0 + 256;
+    D2CropRectStrc tRect;
+    for (int j = 0; j < nRows; ++j)
+    {
+        int nX = pDst->nX0 - pSrc->nX0;
+        for (int i = 0; i < nColumns; ++i)
+        {
+            tRect.nX0 = D2_MAX(pDst->nX0, pSrc->nX0 + nX);
+            tRect.nX1 = D2_MIN(pDst->nX1, tRect.nX0 + nSrcWidth);
+            tRect.nY0 = D2_MAX(pDst->nY0, pSrc->nY0 + nY - 256);
+            tRect.nY1 = D2_MIN(pDst->nY1, tRect.nY0 + nSrcHeight);
+            TEXTURE_CelDrawClipped(pGfxData, nX, nY, &tRect, DRAWMODE_NORMAL);
+            nX += nSrcWidth;
+        }
+        nY += nSrcHeight;
+    }
+}
+
+int __fastcall sub_005C33D0_GetSkillValue(int nSkillId)
+{
+    switch (nSkillId)
+    {
+    case 0x17:
+        return 0xA;
+    case 0x1B:
+        return 0xC;
+    case 0x38:
+        return 0xB;
+    }
+    return 0;
+}
+
+// 0x004FD5A0
+static __forceinline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
+{
+    const int nTop = pClickRect->nY;
+    if (nX >= pClickRect->nX && nY >= nTop - pClickRect->nHeight && nX < pClickRect->nX + pClickRect->nWidth && nY < nTop)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 // 0x004FD860
 int __fastcall sub_6F8B1C60(D2WinControlStrc* pControl)
 {
@@ -286,6 +382,57 @@ int __fastcall sub_6F8B1CF0(D2WinControlStrc* pControl)
 
     gdwTimeoutTickCount = dwTickCount + pTimer->nTimeout;
     return 1;
+}
+
+// 0x00503310
+static __forceinline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+{
+    for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nMode == nMode && pNode->nClass == nClass && pNode->dwWeaponClass == dwWeaponClass)
+        {
+            ++pNode->nRefCount;
+            return pNode;
+        }
+    }
+    return 0;
+}
+
+static __forceinline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
+{
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 0x78, 0);
+    if (nValue)
+    {
+        int nNew = STATLIST_UnitGetStatValue(pDefender, 0x1F, 0) + nValue;
+        if (nNew < 0)
+        {
+            nNew = 0;
+        }
+        STATLIST_SetUnitStat(pDefender, 0x1F, nNew, 0);
+    }
+}
+
+int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
+{
+    while (pClickRect && pClickRect->pCallback)
+    {
+        if (sub_004FD5A0_IsInClickRect(pClickRect, nX, nY))
+        {
+            return 1;
+        }
+        ++pClickRect;
+    }
+    return 0;
+}
+
+D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+{
+    return sub_00503310_FindCofNode(nClass, nMode, dwWeaponClass);
+}
+
+void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
+{
+    sub_0057B7A0_AddDefenseFromStat(pAttacker, pDefender);
 }
 
 // 0x00506DA0
@@ -469,82 +616,59 @@ int __fastcall POPUP_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
+int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
+{
+    D2WinImageStrc* pImage = (D2WinImageStrc*)pControl;
+
+    D2_ASSERT(pImage->controlHeader.eType == D2WIN_IMAGE, 0x10F);
+
+    const int nBorderX = pImage->field_4C;
+    const int nBorderY = pImage->field_50;
+    D2GfxDataStrc tGfxData;
+    memset(&tGfxData, 0, sizeof(tGfxData));
+    tGfxData.pCellFile = pImage->controlHeader.pCellFile;
+    tGfxData.nDirection = 0;
+    tGfxData.nFrame = 0;
+
+    int nX[4];
+    int nY[4];
+    int nSrcY[4];
+    int nSrcX[4];
+    nSrcX[0] = 0;
+    nSrcX[1] = nBorderX;
+    nSrcX[2] = 256 - nBorderX;
+    nSrcX[3] = 256;
+    nSrcY[0] = 0;
+    nSrcY[1] = nBorderY;
+    nSrcY[2] = 256 - nBorderY;
+    nSrcY[3] = 256;
+    nX[0] = pImage->controlHeader.nImageX;
+    nX[1] = pImage->controlHeader.nImageX + nBorderX;
+    nX[2] = pImage->controlHeader.nImageX + pImage->controlHeader.nWidth - nBorderX;
+    nX[3] = pImage->controlHeader.nImageX + pImage->controlHeader.nWidth;
+    nY[0] = pImage->controlHeader.nImageY - pImage->controlHeader.nHeight;
+    nY[1] = pImage->controlHeader.nImageY - pImage->controlHeader.nHeight + nBorderY;
+    nY[2] = pImage->controlHeader.nImageY - nBorderY;
+    nY[3] = pImage->controlHeader.nImageY;
+    D2CropRectStrc tDst;
+    D2CropRectStrc tSrc;
+    for (int j = 0; j < 3; ++j)
+    {
+        tSrc.nY0 = nSrcY[j];
+        tSrc.nY1 = nSrcY[j + 1];
+        for (int i = 0; i < 3; ++i)
+        {
+            tDst.nX0 = nX[i];
+            tDst.nX1 = nX[i + 1];
+            tDst.nY0 = nY[j];
+            tDst.nY1 = nY[j + 1];
+            tSrc.nX0 = nSrcX[i];
+            tSrc.nX1 = nSrcX[i + 1];
+            sub_004FD340_ImageDrawTiled(&tDst, &tSrc, &tGfxData);
+        }
+    }
+
+    return 1;
+}
+
 #include "gen/data/Source/D2Win/Src/D2WinImage.inc"
-
-// 0x005C33D0
-int __fastcall sub_005C33D0_GetSkillValue(int nSkillId)
-{
-    switch (nSkillId)
-    {
-    case 0x17:
-        return 0xA;
-    case 0x1B:
-        return 0xC;
-    case 0x38:
-        return 0xB;
-    }
-    return 0;
-}
-
-// 0x004FD5A0
-static __forceinline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
-{
-    const int nTop = pClickRect->nY;
-    if (nX >= pClickRect->nX && nY >= nTop - pClickRect->nHeight && nX < pClickRect->nX + pClickRect->nWidth && nY < nTop)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-// 0x00503310
-static __forceinline D2CofNodeStrc* sub_00503310_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
-{
-    for (D2CofNodeStrc* pNode = gpCofNodeList_0087E83C; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nMode == nMode && pNode->nClass == nClass && pNode->dwWeaponClass == dwWeaponClass)
-        {
-            ++pNode->nRefCount;
-            return pNode;
-        }
-    }
-    return 0;
-}
-
-// 0x0057B7A0
-static __forceinline void sub_0057B7A0_AddDefenseFromStat(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
-{
-    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, 0x78, 0);
-    if (nValue)
-    {
-        int nNew = STATLIST_UnitGetStatValue(pDefender, 0x1F, 0) + nValue;
-        if (nNew < 0)
-        {
-            nNew = 0;
-        }
-        STATLIST_SetUnitStat(pDefender, 0x1F, nNew, 0);
-    }
-}
-
-int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
-{
-    while (pClickRect && pClickRect->pCallback)
-    {
-        if (sub_004FD5A0_IsInClickRect(pClickRect, nX, nY))
-        {
-            return 1;
-        }
-        ++pClickRect;
-    }
-    return 0;
-}
-
-D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
-{
-    return sub_00503310_FindCofNode(nClass, nMode, dwWeaponClass);
-}
-
-void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
-{
-    sub_0057B7A0_AddDefenseFromStat(pAttacker, pDefender);
-}

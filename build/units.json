@@ -42716,6 +42716,10 @@
      "name": "IMAGE2_Draw"
     },
     {
+     "va": "0x004FD340",
+     "length": 289
+    },
+    {
      "va": "0x004FD5A0",
      "length": 42,
      "name": "?sub_004FD5A0_IsInClickRect@@YAHPBUD2WinImageClickRectStrc@@HH@Z"
@@ -42765,30 +42769,6 @@
      "length": 274,
      "name": "POPUP_Draw"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinImage_004FD340.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004FD340",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
