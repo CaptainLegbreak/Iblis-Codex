@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameRecords.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -10,6 +11,7 @@
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
 #include "D2AnimData.h"
+#include "D2Path.h"
 
 #define IFLAG_TARGETING 4
 
@@ -505,6 +507,100 @@ D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); 
 int __stdcall DATATBLS_GetSeqFramePointsCount(D2UnitStrc* pUnit);                                          // 0x006633D0
 
 void __stdcall DATATBLS_GetSequenceEvent(D2AnimSeqTxt* pMonSeqTxt, int nSeqFramePoint, int* pEvent);        // 0x006634C0
+
+struct D2ModeChangeStrc;
+
+D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); // 0x00541860
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nGUID); // 0x00552F60
+
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+
+void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
+
+void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int nFlag1, int nFlag2); // 0x0058F030
+
+void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
+
+int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pMode, int a3); // 0x005A7C20
+
+void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pMode); // 0x005A7E60
+
+void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNode); // 0x005B1900
+
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+
+void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x005DD330
+
+void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00620210
+
+D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
+
+void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pPath, unsigned char nStep); // 0x00649070
+
+int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
+
+void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064EC10
+
+enum D2C_SkillItemConstants
+{
+    UNITEVENT_13 = 13,
+};
+
+int __fastcall sub_005C07A0_UnitEventCallback(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2); // 0x005C07A0
+
+D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int a8); // 0x005C0AD0
+
+struct D2AffixIndexAndPtrStrc
+{
+    int nIndex;
+    D2MagicAffixTxt* pAffix;
+};
+
+D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables(); // 0x00633ED0
+
+D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
+
+int __stdcall ITEMS_GetItemLevel(D2UnitStrc*); // 0x006281E0
+
+int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc*, const D2MagicAffixTxt*); // 0x0065E620
+
+int __fastcall sub_00472280(D2SeedStrc*, int, int); // 0x00472280
+
+void __stdcall ITEMMODS_AssignProperty(int, D2UnitStrc*, D2UnitStrc*, const void*, int, int); // 0x0065FEC0
+
+static __forceinline int ClampLevel(int v) { if (v <= 1) return 1; if (v >= 99) return 99; return v; }
+
+struct D2AiCmdStrc;
+
+struct D2StaticPathStrc;
+
+void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
+
+D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EEF0
+
+void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
+
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
+
+unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc*, int, int, int, unsigned short); // 0x0064D9B0
+
+D2UnitStrc* __fastcall sub_6FD15210(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
+
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
+
+D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553010
+
+enum D2C_Y11SkillItemConstants
+{
+    STATE_UNINTERRUPTABLE = 0x36,
+};
+
+D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
+
+void __fastcall sub_6FCC60D0(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6); // 0x005717C0
+
+int __fastcall sub_005FDA80_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
 
 // 0x005BE130
 int __fastcall SKILLITEM_pSpell01_Initializer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
@@ -1334,7 +1430,7 @@ inline int AiSpecialStateFromAuraState(int nAuraState)
     }
 }
 
-inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit)
+inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
@@ -2246,6 +2342,132 @@ int __fastcall SKILLITEM_EventFunc29_RestInPeace(D2GameStrc* pGame, int nEvent, 
     return 0;
 }
 
+inline int UNIT_GetUnitType(D2UnitStrc* pUnit)
+{
+    return pUnit ? pUnit->dwUnitType : 6;
+}
+
+static __forceinline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return pUnit->dwUnitType;
+    }
+    return 6;
+}
+
+static __forceinline int sub_GetUnitGUIDChecked(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return pUnit->dwUnitId;
+    }
+    return -1;
+}
+
+// 0x005C07A0
+int __fastcall sub_005C07A0_ReanimateMonster(D2GameStrc* pGame, int nUnusedRegister, D2UnitStrc* pCorpse, int nUnused1, int nUnused2, int nMonsterId, int nOwnerGUID)
+{
+    D2UnitStrc* pOwner = 0;
+    if (UNIT_GetUnitType(pCorpse) == 1)
+    {
+        pOwner = SUNIT_GetServerUnit(pGame, 0, nOwnerGUID);
+    }
+
+    if (!pOwner)
+    {
+        return 0;
+    }
+
+    if (!D2COMMON_11017_CheckUnitIfConsumeable(pCorpse, 0) || nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return 0;
+    }
+
+    const int nX = CLIENTS_GetUnitX(pCorpse);
+    const int nY = CLIENTS_GetUnitY(pCorpse);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pCorpse);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+    if (!pRoom)
+        return 0;
+    D2MonStats2Txt* pMonStats2 = UNITS_GetMonStats2TxtRecordFromMonsterId(nMonsterId);
+    if (!pMonStats2)
+        return 0;
+    COLLISION_ResetMaskWithPattern(UNITS_GetRoom(pCorpse), CLIENTS_GetUnitX(pCorpse), CLIENTS_GetUnitY(pCorpse), PATH_GetUnitCollisionPattern(pCorpse), 0x8000);
+    D2UnitStrc* pPet = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, 1, -1, 74);
+    if (!pPet)
+        return 0;
+    pPet->dwFlags |= 0x0402000E;
+    AITHINK_ExecuteAiFn(pGame, pPet, AIGENERAL_GetAiControlFromUnit(pPet), 0);
+    MONSTER_UpdateAiCallbackEvent(pGame, pPet);
+    AIGENERAL_SetOwnerData(pGame, pPet, sub_GetUnitGUIDChecked(pOwner), sub_GetUnitTypeChecked(pOwner), 0, 0);
+    AIUTIL_SetOwnerGUIDAndType(pPet, pOwner);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, 2, 0);
+    EVENT_SetEvent(pGame, pPet, 2, pGame->dwGameFrame + 25, 0, 0);
+    sub_005543B0_AssignAlignment(pPet, 2, 0);
+    pPet->dwFlags |= 0x80000000;
+    STATES_ToggleState(pPet, 96, 1);
+    D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 21, 0);
+    EVENT_SetEvent(pGame, pPet, 7, pGame->dwGameFrame + 1500, 0, 0);
+    D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pOwner->dwNodeIndex);
+    D2Common_10214(pPet);
+    if (pMonStats2->nResurrectMode == 14)
+    {
+        D2ModeChangeStrc modeChange;
+        MONSTERMODE_GetModeChangeInfo(pPet, 14, &modeChange);
+        UNITS_SetUsedSkill(pPet, SKILLS_GetSkillById(pPet, 158, -1));
+        PATH_SetStepNum(pPet->pDynamicPath, 1);
+        modeChange.pTargetUnit = 0;
+        modeChange.nX = nX;
+        modeChange.nY = nY;
+        D2GAME_ModeChange_6FC65220(pGame, &modeChange, 0);
+    }
+    STATES_ToggleState(pPet, 118, 1);
+    STATES_ToggleState(pCorpse, 173, 1);
+    return 1;
+}
+
+// 0x005C09E0
+int __fastcall sub_005C09E0_SkillItemEventFunc_Reanimate(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker || !pUnit || sub_0044BE50(pUnit) != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    if (MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_UNIQUE_CHAMPION))
+    {
+        return 0;
+    }
+
+    const int nChance = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (nChance <= 0)
+    {
+        return 0;
+    }
+
+    if (ITEMS_RollLimitedRandomNumber(&pAttacker->pSeed, 100) >= nChance)
+    {
+        return 0;
+    }
+
+    while (pAttacker)
+    {
+        if (sub_0044BE50(pAttacker) == UNIT_PLAYER)
+        {
+            const int nOwnerId = pAttacker->dwUnitId;
+            D2UnitStrc* pEventUnit = static_cast<D2UnitStrc* const volatile&>(pUnit);
+            D2GameStrc* pOwnerGame = static_cast<D2GameStrc* const volatile&>(pGame);
+            SUNITEVENT_Register(pOwnerGame, pEventUnit, UNITEVENT_13, static_cast<unsigned short>(nSkillId), nOwnerId, sub_005C07A0_UnitEventCallback, 0, nOwnerId);
+            return 1;
+        }
+
+        pAttacker = AIGENERAL_GetMinionOwner(pAttacker);
+    }
+
+    return 0;
+}
+
 // 0x005C0AD0
 D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int a8)
 {
@@ -2351,6 +2573,73 @@ void __fastcall sub_005C1260(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
     }
 }
 
+static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x005C12F0
+short __stdcall ITEMS_RollMagicAffixesOld(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex)
+{
+    D2AffixIndexAndPtrStrc tAffixes[512];
+    D2MagicAffixDataTbl* pTable = DATATBLS_GetMagicAffixDataTables();
+    if (!pTable) return 0;
+    D2MagicAffixTxt* pRecord;
+    int nCount;
+    if (bPrefix) { pRecord = pTable->pMagicPrefix; nCount = pTable->pAutoMagic - pRecord; }
+    else { pRecord = pTable->pMagicSuffix; nCount = pTable->pMagicPrefix - pRecord; }
+    if (!pRecord) return 0;
+    const int nFirstIndex = pRecord - pTable->pMagicAffixTxt;
+    int nIndex = -1;
+    int nMax = 0;
+    const unsigned int nRoll = RollSeed(ITEMS_GetItemSeed(pItem));
+    const unsigned short nFormat = ITEMS_GetItemFormat(pItem);
+    if ((nRoll & 1) || bForceAffixRoll)
+    {
+        int nLevel = ITEMS_GetItemLevel(pItem) + 2;
+        nLevel = D2_MIN(D2_MAX(nLevel, 1), 99);
+        for (int i = 0; i < nCount; ++i)
+        {
+            if ((!bRequireSpawnableAffix || pRecord[i].bSpawnable) && (pRecord[i].wVersion < 100 || nFormat >= 100) && pRecord[i].nLevel <= nLevel && ITEMMODS_CanItemHaveMagicAffix(pItem, &pRecord[i]) && nMax < 511)
+            {
+                tAffixes[nMax].pAffix = &pRecord[i];
+                tAffixes[nMax].nIndex = nFirstIndex + i;
+                ++nMax;
+            }
+        }
+        if (nMax <= 0) return 0;
+        const int nRandom = sub_00472280(ITEMS_GetItemSeed(pItem), 0, nMax);
+        if (nRandom >= nMax) return 0;
+        D2AffixIndexAndPtrStrc* pAffix = &tAffixes[nRandom];
+        if (!pAffix) return 0;
+        nIndex = pAffix->nIndex;
+        if (nPreferredAffixIndex > 0)
+        {
+            nPreferredAffixIndex += nFirstIndex;
+            if (nPreferredAffixIndex > 0)
+            {
+                for (int i = 0; i < nMax; ++i)
+                {
+                    D2AffixIndexAndPtrStrc* pCurrent = &tAffixes[i];
+                    if (pCurrent->nIndex == nPreferredAffixIndex - 1)
+                    {
+                        nIndex = pCurrent->nIndex;
+                        pAffix = pCurrent;
+                        goto ApplyProperties;
+                    }
+                }
+                nIndex = -1;
+            }
+        }
+ApplyProperties:
+        if (bAssignProperties) ITEMMODS_AssignProperty(0, 0, pItem, pAffix->pAffix, 0, 0);
+    }
+    return nIndex + 1;
+}
+
 // build: symbol ?ITEMS_RollMagicAffixes@@YIGPAUD2UnitStrc@@HHHHH@Z 0x005C18E0
 unsigned short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex)
 {
@@ -2372,7 +2661,6 @@ short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int bRequireSpawnable
 
     return ITEMS_RollMagicAffixesOld(pItem, bRequireSpawnableAffix, bForceAffixRoll, bAssignProperties, bPrefixes, nPreferredAffixIndex);
 }
-
 
 // 0x005C2FF0
 void __fastcall sub_005C2FF0_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -2432,7 +2720,7 @@ void __fastcall sub_005C34B0_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc*
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (pSkillsTxtRecord)
     {
-        AITHINK_ExecuteAiFn(pGame, pTarget, AIGENERAL_GetAiControlFromUnit(pTarget), AiSpecialStateFromAuraState(pSkillsTxtRecord->wAuraTargetState));
+        AITHINK_ExecuteAiFn(pGame, pTarget, AIGENERAL_GetAiControlFromUnitInline(pTarget), AiSpecialStateFromAuraState(pSkillsTxtRecord->wAuraTargetState));
     }
 }
 
@@ -3037,6 +3325,266 @@ int __fastcall sub_005DC920_GetThreat(D2UnitStrc* pUnit)
     }
 
     return 0;
+}
+
+// 0x005FCF30
+void __fastcall sub_005FCF30(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    int nParam1 = 0;
+    int nParam2 = 0;
+    D2AiCmdStrc* pCurrentAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    if (pCurrentAiCmd)
+    {
+        nParam1 = pCurrentAiCmd->nCmdParam[1];
+        nParam2 = pCurrentAiCmd->nCmdParam[2];
+    }
+
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
+    {
+        STATES_ToggleState(pUnit, STATE_INFERNO, 0);
+    }
+
+    AITHINK_ExecuteAiFn(pGame, pUnit, pAiTickParam->pAiControl, pAiControl->nAiSpecialState);
+
+    if (!AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0) && nParam1 && nParam2)
+    {
+        D2AiCmdStrc aiCmd;
+        aiCmd.nCmdParam[0] = 10;
+        aiCmd.nCmdParam[1] = nParam1;
+        aiCmd.nCmdParam[2] = nParam2;
+        AIGENERAL_CopyAiCommand(pGame, pUnit, &aiCmd);
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 1);
+}
+
+inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005FD0F0
+void __fastcall AIBAAL_SpawnUberBaalMinion(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2CoordStrc coord;
+    coord.nX = UNITS_GetUnitXPosition(pUnit);
+    coord.nY = UNITS_GetUnitYPosition(pUnit);
+
+    const int nMinionTypes[3] = { 0x2DC, 0x2DB, 0x2DD };
+    const int nMinionModes[3] = { 1, 7, 8 };
+    const int nChoice = (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) & 1;
+
+    D2ActiveRoomStrc* pRoom = COLLISION_GetFreeCoordinates(UNITS_GetRoom(pUnit), &coord, 2, 0x100, 0);
+    if (pRoom)
+    {
+        D2UnitStrc* pMinion = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, coord.nX, coord.nY, nMinionTypes[nChoice], nMinionModes[nChoice], -1, 0);
+        if (pMinion)
+        {
+            pMinion->dwFlags |= 0x4000000;
+            STATES_ToggleState(pMinion, 0xB8, 1);
+        }
+    }
+}
+
+// 0x005FD200
+void __fastcall AITHINK_Fn145_UberBaal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+}
+
+static __forceinline D2MonStatsTxt* GetMonStatsTxtRecord(int nId)
+{
+    if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
+        return &sgptDataTables->pMonStatsTxt[nId];
+    return 0;
+}
+
+static __forceinline int GetMonsterBaseId(int nId)
+{
+    D2MonStatsTxt* pRecord = GetMonStatsTxtRecord(nId);
+    if (!pRecord)
+        return nId;
+    return pRecord->nBaseId;
+}
+
+static __forceinline int ValidateMonsterId(int nId)
+{
+    if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
+        return nId;
+    return -1;
+}
+
+// 0x005FD350
+int __fastcall sub_005FD350_CheckMonsterCollision(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int nFlag)
+{
+    switch (ValidateMonsterId(GetMonsterBaseId(nMonsterId)))
+    {
+    case 206:
+    {
+        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY + 3);
+        if (!pTargetRoom)
+            return 0;
+        if (COLLISION_CheckMaskWithSize(pTargetRoom, nX, nY + 3, 2, 0x3C01))
+            return 0;
+        break;
+    }
+    case 228:
+        nY += 2;
+        pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+        if (!pRoom)
+            return 0;
+        if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 2, 0x3C01))
+            return 0;
+        break;
+    case 298:
+        if (!nFlag)
+        {
+            pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+            if (!pRoom)
+                return 0;
+            if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 2, 0x3C01))
+                return 0;
+        }
+        break;
+    case 334:
+    {
+        int nAdjustedX = nX - 2;
+        int nAdjustedY = nY - 2;
+        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nAdjustedX, nAdjustedY);
+        if (!pTargetRoom)
+            return 0;
+        if (COLLISION_CheckMaskWithSize(pTargetRoom, nAdjustedX, nAdjustedY, 2, 0x1C0))
+            return 0;
+        break;
+    }
+    case 528:
+    {
+        nX += 2;
+        nY += 4;
+        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+        if (!pTargetRoom)
+            return 0;
+        if (COLLISION_CheckMaskWithSize(pTargetRoom, nX, nY, 2, 0x3C01))
+            return 0;
+        break;
+    }
+    }
+    return 1;
+}
+
+// 0x005FD9C0
+int __fastcall sub_005FD9C0_SelectSkillTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID)
+{
+    D2UnitStrc* pCurrentTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    D2UnitStrc* pTarget = sub_6FD15210(pUnit, pCurrentTarget, nSkillId, nSkillLevel);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
+    if (pUnitType)
+    {
+        *pUnitType = pTarget->dwUnitType;
+        *pUnitGUID = pTarget->dwUnitId;
+    }
+    return 1;
+}
+
+// 0x005FDA10
+int __fastcall sub_005FDA10_TargetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused1, int nUnused2, int* pTargetType, int* pTargetGUID)
+{
+    if (!SUNIT_GetTargetUnit(pGame, pUnit))
+    {
+        D2UnitStrc* pTarget = SUNIT_GetLastAttacker(pGame, pUnit);
+        UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
+        if (pTargetType)
+        {
+            int nTargetType = 6;
+            if (pTarget)
+            {
+                nTargetType = pTarget->dwUnitType;
+            }
+            *pTargetType = nTargetType;
+            unsigned int nTargetGUID;
+            if (!pTarget)
+            {
+                nTargetGUID = 0xFFFFFFFFu;
+            }
+            else
+            {
+                nTargetGUID = pTarget->dwUnitId;
+            }
+            *pTargetGUID = nTargetGUID;
+        }
+    }
+    return 1;
+}
+
+// 0x005FDCA0
+int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int a5)
+{
+    if (!pUnit || !pTargetUnit)
+    {
+        return 0;
+    }
+
+    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
+    if (!pGame)
+    {
+        return 0;
+    }
+
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
+    {
+        return 0;
+    }
+
+    int nTargetUnitType = UNIT_INVALID;
+    int nTargetUnitGUID = -1;
+    int nTargetX;
+    int nTargetY;
+    if (!sub_005FDA80_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, pTargetUnit, 0, 0, &nTargetUnitType, &nTargetUnitGUID, &nTargetX, &nTargetY, a5))
+    {
+        return 0;
+    }
+
+    int nUnitType;
+    int nUnitGUID;
+    if (nTargetUnitType == UNIT_INVALID)
+    {
+        nUnitType = pTargetUnit->dwUnitType;
+        nUnitGUID = pTargetUnit->dwUnitId;
+    }
+    else
+    {
+        nUnitType = nTargetUnitType;
+        nUnitGUID = nTargetUnitGUID;
+    }
+
+    sub_6FCC60D0(pUnit, nSkillId, nSkillLevel, nUnitType, nUnitGUID, a5);
+    return 1;
 }
 
 #include "gen/data/Source/D2Game/SKILLS/SkillItem.inc"

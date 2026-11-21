@@ -341,7 +341,6 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 #define LEVEL_HELL3 127
 
-
 struct D2CoordInitStrc;
 
 typedef D2UnitStrc* (__fastcall* PRESETSPAWNFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode);
@@ -618,13 +617,9 @@ int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
 
 int __fastcall OBJECTS_SpawnRandomItemGrid(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
 
-static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords, int bWeaponRack); // 0x00552200
-
 int __fastcall OBJECTS_SpawnArmorStand(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
 
 int __fastcall OBJECTS_SpawnWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
-
-static int __stdcall sub_005502F0_CanPlace(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY);
 
 static int gnObjectCount_00731D90; // 0x00731D90
 
@@ -639,6 +634,19 @@ static int __stdcall sub_0054F770_Select(Game* game,U32 level,Room* room,unsigne
 void __fastcall sub_0054F9D0_Initialize(InitContext* context);
 
 static void __cdecl sub_00552AC0_Class(Unit* unit);
+
+struct Data00552D60 { unsigned char bUnknown00[0x50]; unsigned int dwValue50; };
+
+struct Unit00552D60 {
+    int nType;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    Data00552D60* pData;
+};
+
+__declspec(noinline) void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
 
 int __stdcall sub_00643880_AlwaysOne(int nArg)
 {
@@ -1661,8 +1669,6 @@ void __fastcall sub_005506D0_Populate(D2ObjInitFnStrc* op)
         --nTries;
     }
 }
-
-__declspec(noinline) void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);
 
 // 0x00619730
 void __stdcall DUNGEON_GetRoomCoordinates_Local(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords)
@@ -2821,6 +2827,13 @@ Unit* __fastcall sub_00552B50_Create(Game* game,Room* room,int unusedGroup,int c
         --retries;
     }
     return N0;
+}
+
+// 0x00552D60
+extern "C" __declspec(dllexport) void __fastcall sub_00552D60(Unit00552D60* pUnit, unsigned int dwValue) {
+    if (pUnit && pUnit->nType == 1 && pUnit->pData) {
+        pUnit->pData->dwValue50 = dwValue;
+    }
 }
 
 // 0x00552D80

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2ItemsWorld.h"
 #include "D2Drlg.h"
 #include "D2GameObjs.h"
 #include "D2GameAux.h"
@@ -264,6 +265,8 @@ enum
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {
     int nMaxDistance;
+    int unk0x04;
+    int unk0x08[8];
 };
 
 struct D2NihlathakOverseerAiCallbackArgStrc
@@ -280,6 +283,7 @@ struct D2NihlathakOverseerAiCallbackArgStrc
 struct D2MinionSpawnerAiCallbackArgStrc
 {
     int nMinions;
+    int unk0x04[10];
 };
 
 struct D2ShadowMasterAiCallbackArgStrc
@@ -302,6 +306,7 @@ struct D2FallenShamanAiCallbackArgStrc
     int nCounter;
     int nDistance;
     int nMaxDistance;
+    int unk0x10[6];
 };
 
 struct D2ZakarumPriestAiCallbackArgStrc
@@ -310,6 +315,7 @@ struct D2ZakarumPriestAiCallbackArgStrc
     int nCounter;
     int nMaxLifePercentage;
     int nMaxDistance;
+    int unk0x10[6];
 };
 
 struct D2FetishShamanAiCallbackArgStrc
@@ -587,7 +593,10 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-struct D2PlayerCountBonusStrc {int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;};
+struct D2PlayerCountBonusStrc
+{
+    int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;
+};
 
 extern const char gszAiThink4Source[]; // 0x006E3500
 
@@ -728,7 +737,12 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame
 
 #pragma pack(push,1)
 
-struct D2Packet8A { unsigned char header; unsigned char type; int guid; };
+struct D2Packet8A
+{
+    unsigned char header;
+    unsigned char type;
+    int guid;
+};
 
 #pragma pack(pop)
 
@@ -755,6 +769,242 @@ extern const char gszAiThink4[]; // 0x006E3500
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 
 void __fastcall sub_0053DFF0(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
+
+#define MONSTER_SUCKERNEST1 334
+
+#define MONMODE_ATTACK2 5
+
+struct Obj00648AD0;
+
+struct D2HighPriestAiCallbackArgStrc;
+
+struct D2PetMoveStrc;
+
+struct D2PlayerDataStrc;
+
+struct D2MonStats2Txt;
+
+struct D2PetInfoStrc;
+
+int __fastcall sub_005FD350_SpawnNearby(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5); // 0x005FD350
+
+enum D2C_F41AiThinkConstants
+{
+    MONSTER_EVILHUT = 528,
+    SKILL_NEST = 167,
+};
+
+struct D2HighPriestAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nLifePercentage;
+    int nMaxDistance;
+};
+
+struct D2PetMoveStrc
+{
+    D2UnitStrc* pUnit;
+    D2UnitStrc* pTarget;
+    int nCounter;
+};
+
+int __fastcall AITACTICS_UseSequenceSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, D2UnitStrc* pTargetUnit, int nX, int nY); // 0x005DE000
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_SiegeBeast(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E1720
+
+void __fastcall sub_005E17E0_SiegeBeastSetTower(D2UnitStrc* pUnit, D2UnitStrc* pTower); // 0x005E17E0
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E2B70
+
+void __fastcall sub_005E4830(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E4830
+
+void __fastcall sub_005E4AC0_NecroPetFollowOwner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E4AC0
+
+bool __fastcall sub_005E6020_SelectGenericSpawnClass(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pClassId); // 0x005E6020
+
+bool __fastcall sub_6FCE61E0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition); // 0x005E6DE0
+
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
+
+extern "C" const int gnDesertTurretIndices_006E33E0[64]; // 0x006E33E0
+
+extern "C" const D2CoordStrc gDesertTurretOffsets_006E33A0[8]; // 0x006E33A0
+
+int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
+
+unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex);
+
+extern "C" void __stdcall sub_00648AD0(Obj00648AD0* pObj, unsigned short wA, unsigned short wB); // 0x00648AD0
+
+void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058ED10
+
+int __fastcall PLAYERPETS_GetTotalPetCount(D2UnitStrc*); // 0x00574F40
+
+int __stdcall D2Common_10095(D2ActiveRoomStrc*, int, int); // 0x0061B130
+
+D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
+
+int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
+
+int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc*); // 0x00648A10
+
+unsigned int __stdcall sub_00648A20_GetLastPointX(D2DynamicPathStrc*); // 0x00648A20
+
+unsigned int __stdcall sub_00648A30_GetLastPointY(D2DynamicPathStrc*); // 0x00648A30
+
+D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc*, int); // 0x00574BD0
+
+void __fastcall AITHINK_SelectHirelingAction(D2GameStrc*, D2UnitStrc*, int, int, D2UnitStrc*, D2SeedStrc*); // 0x005E4D30
+
+int __fastcall ACT2Q4_IsHaremBlockerObjectOpened(D2GameStrc* pGame); // 0x0059AEC0
+
+int __fastcall ACT2Q4_HasGuardMovedToEndPosition(D2GameStrc* pGame); // 0x0059B8B0
+
+int __fastcall ACT2Q4_GetGuardCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord); // 0x0059B8F0
+
+bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E68F0
+
+D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
+
+void __fastcall AITHINK_Fn062_TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam);
+
+void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam);
+
+#define MON_FLAG 9
+
+#define ATTACK_MODE 4
+
+#define WALK_CHANCE 20
+
+#define WALK_DISTANCE 3
+
+#define IDLE_FRAMES 10
+
+struct D2AiControlStrc;
+
+struct D2MissilesTxt;
+
+#define MONMODE_ATTACK1 4
+
+int __fastcall sub_004EFCB0_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
+
+void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
+
+int __fastcall AITACTICS_WalkAroundTargetWithScaledDistance(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nScale); // 0x005DE6F0
+
+int __fastcall sub_005ECBC0_RavenWalkToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char a4, int a2); // 0x005ECBC0
+
+void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005ECEE0
+
+void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005ED2A0
+
+enum D2C_M80TotemAi
+{
+    PLRMODE_WALK = 2,
+    PLRMODE_RUN = 3,
+    PLRMODE_TOWNWALK = 6,
+    TOTEM_AI_PARAM_WALK_AWAY_CHANCE_PCT = 0,
+    TOTEM_AI_PARAM_IGNORE_TARGET_CHANCE_PCT = 1,
+    TOTEM_AI_PARAM_TELEPORT_TO_OWNER_DISTANCE = 2,
+    TOTEM_AI_PARAM_FOLLOW_OWNER_DISTANCE = 3,
+};
+
+D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance); // 0x005DDE50
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
+void __fastcall sub_005F2EB0_RemoveGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005F2EB0
+
+void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x00621E40
+
+enum D2C_M230FallenAi
+{
+    FALLEN_AI_PARAM_COMMAND_ATTACK_CHANCE_PCT = 0,
+    FALLEN_AI_PARAM_APPROACH_DISTANCE = 1,
+    FALLEN_AI_PARAM_ATTACK_CHANCE_PCT = 2,
+    FALLEN_AI_PARAM_ATTACK1_OR_2_CHANCE_PCT = 3,
+};
+
+void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
+
+extern "C" D2AiCmdStrc* __fastcall sub_0058EE80(D2UnitStrc* pUnit); // 0x0058EE80
+
+int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
+
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
+
+enum D2C_M197ZakarumPriestAi
+{
+    ZAKARUMPRIEST_AI_PARAM_ATTACK_CHANCE_PCT = 0,
+    ZAKARUMPRIEST_AI_PARAM_BLIZZARD_CHANCE_PCT = 1,
+    ZAKARUMPRIEST_AI_PARAM_LIGHTNING_CHANCE_PCT = 2,
+    ZAKARUMPRIEST_AI_PARAM_CAST_CHANCE_PCT = 3,
+    ZAKARUMPRIEST_AI_PARAM_SPELL_TIMER = 4,
+    ZAKARUMPRIEST_AI_PARAM_HEAL_RANGE = 5,
+};
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F7240
+
+int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEF80
+
+int __fastcall AITHINK_TryRestoreGroundCollision(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005F2FC0
+
+unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
+
+enum D2C_SummonerAIParams
+{
+    SUMMONER_AI_PARAM_CAST_CHANCE_PCT = 0,
+    SUMMONER_AI_PARAM_WEAKEN_CHANCE_PCT = 1,
+    SUMMONER_AI_PARAM_PREF_ELEMENT_CHANCE_PCT = 2,
+    SUMMONER_AI_PARAM_NOVA_TIMER = 3,
+    SUMMONER_AI_PARAM_FIREWALL_TIMER = 4,
+    SUMMONER_AI_PARAM_WALK_AWAY_CHANCE_PCT = 5,
+    SUMMONER_AI_PARAM_NOVA_DISTANCE = 6,
+    SUMMONER_AI_PARAM_MISSILE_DISTANCE = 7,
+};
+
+void __fastcall ACT2Q5_OnSummonerActivated(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059C330
+
+int __fastcall sub_005DEFE0_AiEscape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback);
+
+struct D2PantherAiCallbackArgStrc;
+
+enum D2C_AiThink005F12A0
+{
+    AI_PARAM_WALK_CHANCE_PCT = 0,
+    AI_PARAM_IDLE_FRAMES = 1,
+    AI_PARAM_ATTACK_CHANCE_PCT = 2,
+};
+
+struct D2PantherAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+    int unk0x08[8];
+};
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005B0D00
+
+enum D2C_M86FallenShamanAi
+{
+    FALLENSHAMAN_AI_PARAM_RESURRECT_AND_COMMAND_CHANCE_PCT = 0,
+    FALLENSHAMAN_AI_PARAM_SHOOT_CHANCE_PCT = 1,
+    FALLENSHAMAN_AI_PARAM_MELEE_AND_CIRCLE_CHANCE_PCT = 2,
+    FALLENSHAMAN_AI_PARAM_RESURRECT_DISTANCE = 3,
+    FALLENSHAMAN_AI_PARAM_SHOOT_DISTANCE = 4,
+};
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F1380
+
+enum D2C_M69AiConstants
+{
+    MONSTER_CROWNEST1 = 206,
+    MONSTER_SARCOPHAGUS = 228,
+};
+
+void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove);   // 0x0056DEB0
+
+void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
 
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
@@ -837,6 +1087,49 @@ void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
+static __forceinline int MONSTERS_ValidateMonsterId(int nMonsterId)
+{
+    if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
+        return -1;
+    return nMonsterId;
+}
+
+// 0x005E0260
+void __fastcall sub_005E0260_AiThinkSuckerNest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (pAiTickParam->nTargetDistance <= AI_PARAM(pGame, pMonStatsTxt, 1))
+    {
+        if (pAiControl->dwAiParam[1] > AI_PARAM(pGame, pMonStatsTxt, 0))
+        {
+            if (pUnit)
+            {
+                pUnit->dwFlags |= UNITFLAG_NOTC;
+            }
+
+            AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[0] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[0]
+            && sub_005FD350_SpawnNearby(MONSTERS_ValidateMonsterId(MONSTER_SUCKERNEST1), UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
+        {
+            pAiControl->dwAiParam[0] = pGame->dwGameFrame + AI_PARAM(pGame, pMonStatsTxt, 2);
+            ++pAiControl->dwAiParam[1];
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
+}
+
 // 0x005E0390
 void __fastcall sub_005E0390(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -859,6 +1152,181 @@ void __fastcall AITHINK_Fn084_BoneWall(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+}
+
+// 0x005E0430
+D2UnitStrc* __fastcall AITHINK_TargetCallback_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2HighPriestAiCallbackArgStrc* pArg = (D2HighPriestAiCallbackArgStrc*)pCallbackArg;
+    if (!pTarget || pTarget->dwUnitType != UNIT_MONSTER || MONSTERS_IsDead(pTarget) || !STATLIST_AreUnitsAligned(pUnit, pTarget) || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL)
+    {
+        return 0;
+    }
+
+    if (AITHINK_GetSquaredDistance(pUnit, pTarget) > pArg->nMaxDistance)
+    {
+        return 0;
+    }
+
+    const int nLifePercentage = UNITS_GetCurrentLifePercentage(pTarget);
+    if (nLifePercentage > 75 || nLifePercentage >= pArg->nLifePercentage)
+    {
+        return 0;
+    }
+
+    pArg->nLifePercentage = nLifePercentage;
+    pArg->pTarget = pTarget;
+    return 0;
+}
+
+static short AITHINK_GetParam_Desert(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nParamId)
+{
+    return pMonStatsTxt->wAiParam[nParamId][pGame->nDifficulty];
+}
+
+static __forceinline int GetXInl_Desert(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2: case 4: case 5:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static __forceinline int GetYInl_Desert(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2: case 4: case 5:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005E0980
+void __fastcall AITHINK_Fn094_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && !pAiControl->dwAiParam[0])
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, 0, 0);
+        pAiControl->dwAiParam[2] = 0;
+        pAiControl->dwAiParam[0] = pGame->dwGameFrame;
+        return;
+    }
+
+    if (pGame->dwGameFrame < pAiControl->dwAiParam[0])
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    if (nTargetDistance > AITHINK_GetParam_Desert(pGame, pMonStatsTxt, 3))
+    {
+        if (pAiControl->dwAiParam[1] > 0)
+        {
+            --pAiControl->dwAiParam[1];
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+        return;
+    }
+
+    const int nTargetX = GetXInl_Desert(pTarget);
+    const int nTargetY = GetYInl_Desert(pTarget);
+    const int nUnitX = GetXInl_Desert(pUnit);
+    const int nUnitY = GetYInl_Desert(pUnit);
+    const int nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nTargetX, nTargetY);
+    const int nIndex1 = pAiControl->dwAiParam[2] % 8;
+    const int nIndex2 = sub_0063E7A0_GetByteTableEntry(nDirection) % 8;
+    pAiControl->dwAiParam[2] = gnDesertTurretIndices_006E33E0[nIndex1 + 8 * nIndex2];
+
+    const int nSpread = AITHINK_GetParam_Desert(pGame, pMonStatsTxt, 4);
+    const int nX = nUnitX + nSpread * gDesertTurretOffsets_006E33A0[pAiControl->dwAiParam[2]].nX;
+    const int nY = nUnitY + nSpread * gDesertTurretOffsets_006E33A0[pAiControl->dwAiParam[2]].nY;
+
+    UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, nX, nY)
+        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], pTarget, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, nX, nY);
+        sub_00648AD0((Obj00648AD0*)pUnit->pDynamicPath, nX, nY);
+
+        ++pAiControl->dwAiParam[1];
+
+        if (pAiControl->dwAiParam[1] > AITHINK_GetParam_Desert(pGame, pMonStatsTxt, 1))
+        {
+            pAiControl->dwAiParam[0] = pGame->dwGameFrame + AITHINK_GetParam_Desert(pGame, pMonStatsTxt, 2);
+            pAiControl->dwAiParam[1] = 0;
+        }
+        else
+        {
+            pAiControl->dwAiParam[0] = pGame->dwGameFrame + AITHINK_GetParam_Desert(pGame, pMonStatsTxt, 0);
+        }
+        return;
+    }
+
+    if (pAiControl->dwAiParam[1] > 0)
+    {
+        --pAiControl->dwAiParam[1];
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
+// 0x005E0F60
+void __fastcall AITHINK_Fn093_ArcaneTower(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (!pAiControl->dwAiParam[1])
+    {
+        pAiControl->dwAiParam[1] = pMonStatsTxt->wAiParam[0][pGame->nDifficulty];
+    }
+
+    if (pGame->dwGameFrame < pAiControl->dwAiParam[2])
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && !pAiControl->dwAiParam[0])
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        --pAiControl->dwAiParam[1];
+        if (pAiControl->dwAiParam[1] <= 0)
+        {
+            pAiControl->dwAiParam[0] = 1;
+            pAiControl->dwAiParam[1] = pMonStatsTxt->wAiParam[3][pGame->nDifficulty];
+            pAiControl->dwAiParam[2] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[2][pGame->nDifficulty];
+        }
+        else
+        {
+            pAiControl->dwAiParam[2] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[1][pGame->nDifficulty];
+        }
+    }
+    else
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        --pAiControl->dwAiParam[1];
+        if (pAiControl->dwAiParam[1] <= 0)
+        {
+            pAiControl->dwAiParam[0] = 0;
+            pAiControl->dwAiParam[1] = pMonStatsTxt->wAiParam[0][pGame->nDifficulty];
+            pAiControl->dwAiParam[2] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[4][pGame->nDifficulty];
+        }
+        else
+        {
+            pAiControl->dwAiParam[2] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[5][pGame->nDifficulty];
+        }
+    }
 }
 
 // 0x005E1720
@@ -921,6 +1389,97 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_SiegeBeast(D2GameStrc* pGame, D2Un
     return pTarget;
 }
 
+// 0x005E1860
+void __fastcall AITHINK_Fn113_SiegeTower(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pUnit);
+    if (!pOwner || SUNIT_IsDead(pOwner))
+    {
+        if (pTarget)
+        {
+            D2SiegeBeastTowerAiCallbackArgStrc arg;
+            arg.nMaxDistance = 400;
+            arg.unk0x04 = 0;
+            D2UnitStrc* pBeast = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_SiegeBeast, 1);
+            if (pBeast)
+            {
+                sub_005E17E0_SiegeBeastSetTower(pBeast, pUnit);
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[0][pGame->nDifficulty]);
+            }
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[0][pGame->nDifficulty]);
+}
+
+// 0x005E1B60
+void __fastcall AITHINK_Fn116_Minion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStats = pAiTickParam->pMonstatsTxt;
+    int bForced = 0;
+
+    D2AiCmdStrc* pCurrentAiCmd = AIGENERAL_GetCurrentAiCommandFromUnit(pUnit);
+    if (pCurrentAiCmd)
+    {
+        if (pCurrentAiCmd->nCmdParam[0] == 1 && pCurrentAiCmd->nCmdParam[3] > pGame->dwGameFrame)
+        {
+            D2UnitStrc* pTargetUnit = SUNIT_GetServerUnit(pGame, pCurrentAiCmd->nCmdParam[1], pCurrentAiCmd->nCmdParam[2]);
+            if (pTargetUnit && !SUNIT_IsDead(pTargetUnit))
+            {
+                bForced = 1;
+                if (pTarget != pTargetUnit)
+                {
+                    pTarget = pTargetUnit;
+                    sub_006416D0_UnitEdgeDistance(pUnit, pTargetUnit);
+                    bCombat = UNITS_IsInMeleeRange(pUnit, pTargetUnit, 0);
+                }
+            }
+            else
+            {
+                AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+            }
+        }
+        else
+        {
+            AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+        }
+    }
+
+    if (bCombat)
+    {
+        if (bForced || (int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100) < pMonStats->wAiParam[0][pGame->nDifficulty])
+        {
+            if ((int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100) < pMonStats->wAiParam[1][pGame->nDifficulty])
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+            }
+            else
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            }
+        }
+        else
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStats->wAiParam[1][pGame->nDifficulty]);
+        }
+    }
+    else
+    {
+        if (bForced || (int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100) < pMonStats->wAiParam[2][pGame->nDifficulty])
+        {
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+        }
+        else
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStats->wAiParam[3][pGame->nDifficulty]);
+        }
+    }
+}
+
 // 0x005E26D0
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -955,6 +1514,99 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGa
     }
 
     return 0;
+}
+
+// 0x005E27A0
+void __fastcall AITHINK_Fn120_Overseer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nTargetDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+
+    ACT5Q1_OnSiegeBossActivated(pGame, pUnit);
+
+    D2UnitStrc* pMinion = AITACTICS_GetTargetMinion(pGame, pUnit);
+    if (pMonStatsTxt->nSkill[0] >= 0 && sub_6FCF2E70(pUnit) && pGame->dwGameFrame > pAiControl->dwAiParam[0]
+        && pMinion && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[0]))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pMinion, 0, 0);
+        pAiControl->dwAiParam[0] = pGame->dwGameFrame + AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_RALLY_SPELL_TIMER);
+        return;
+    }
+
+    if (bCombat && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_ATTACK_CHANCE_PCT))
+    {
+        if (AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_ATTACK_2_OR_1_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+        }
+        else
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        }
+        return;
+    }
+
+    D2NihlathakOverseerAiCallbackArgStrc arg;
+    arg.nMaxDistance = 576;
+    arg.nDistantMaxDistance = 400;
+    arg.nMaxLifePercentage = 50;
+    arg.pTarget = 0;
+    arg.pDistantTarget = 0;
+    arg.nCounter = 0;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_Overseer_Nihlathak, 1);
+
+    D2UnitStrc* pHealTarget = arg.pTarget;
+    D2UnitStrc* pDistantTarget = arg.pDistantTarget;
+    int nCounter = arg.nCounter;
+
+    if (pMonStatsTxt->nSkill[1] >= 0 && pHealTarget && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_HEAL_CHANCE_PCT) && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[1]))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pHealTarget, 0, 0);
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[2] && pDistantTarget && AI_ROLL_PERCENT(pSeed) < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_WHIP_CHANCE_PCT)
+        && STATLIST_GetUnitAlignment(pUnit) != UNIT_ALIGNMENT_GOOD && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[2]))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pDistantTarget, 0, 0);
+        return;
+    }
+
+    if (nCounter)
+    {
+        if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE) - AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_ZONE))
+        {
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE) - nTargetDistance, 0);
+            return;
+        }
+
+        if (nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_ZONE) + AI_PARAM(pGame, pMonStatsTxt, OVERSEER_AI_PARAM_COMFORT_DISTANCE))
+        {
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+            return;
+        }
+
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50)
+        {
+            sub_005DF7D0(pGame, pUnit, pTarget, 5, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    if (AI_ROLL_PERCENT(pSeed) < 60)
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
 // 0x005E2B70
@@ -1031,6 +1683,231 @@ void __fastcall AITHINK_Fn098_Smith(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 
+// build: context AITHINK_Fn121_MinionSpawner
+void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    if (pAiControl->dwAiParam[1] >= pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        return;
+    }
+
+    if (pAiTickParam->nTargetDistance > pMonStatsTxt->wAiParam[3][pGame->nDifficulty])
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[1][pGame->nDifficulty]);
+        return;
+    }
+
+    if (pGame->dwGameFrame < pAiControl->dwAiParam[0])
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[1][pGame->nDifficulty]);
+        return;
+    }
+
+    D2MinionSpawnerAiCallbackArgStrc arg;
+    arg.nMinions = 0;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_MinionSpawner, 1);
+    if (pMonStatsTxt->nSkill[0] >= 0 && arg.nMinions < pMonStatsTxt->wAiParam[1][pGame->nDifficulty])
+    {
+        pAiControl->dwAiParam[0] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[2][pGame->nDifficulty];
+        ++pAiControl->dwAiParam[1];
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[1][pGame->nDifficulty]);
+}
+
+// 0x005E3900
+void __fastcall sub_6FCE34B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2PetMoveStrc* pArg = (D2PetMoveStrc*)pCallbackArg;
+    if (pArg->pUnit == pTarget)
+    {
+        return;
+    }
+
+    if ((int)AIUTIL_GetDistanceToCoordinates_FullUnitSize(pArg->pUnit, pTarget) > 1)
+    {
+        return;
+    }
+
+    pArg->nCounter += 1;
+    pArg->pTarget = pTarget;
+}
+
+static __forceinline int GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2: case 4: case 5: return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static __forceinline int GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2: case 4: case 5: return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005E45D0
+int __fastcall sub_005E45D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc* pOwner, int bCombat, D2AiTickParamStrc* pAiTickParam, int bSkipIdle, int nRange)
+{
+    D2DynamicPathStrc* pPath = pOwner->pDynamicPath;
+    int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwner);
+    int nMode = pOwner->dwAnimMode;
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pOwner);
+    int nOwnerCollision;
+    int nUnitCollision;
+    int nFirstX;
+    int nFirstY;
+    unsigned int nLastX;
+    unsigned int nLastY;
+    int nMove;
+    nRange += PLAYERPETS_GetTotalPetCount(pOwner) >> 1;
+    if (nRange > 36) nRange = 36;
+    if (nDistance <= 1 && nMode == 1 && !bCombat)
+        return D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 5, 0, 0, nRange);
+    if (pTarget && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        if (nDistance > 80)
+            return D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 3, 0, 0, nRange);
+        goto ReturnZero;
+    }
+    nOwnerCollision = D2Common_10095(UNITS_GetRoom(pOwner), GetUnitX(pOwner), GetUnitY(pOwner));
+    nUnitCollision = D2Common_10095(UNITS_GetRoom(pUnit), GetUnitX(pUnit), GetUnitY(pUnit));
+    nFirstX = D2COMMON_10175_PathGetFirstPointX(pPath);
+    nFirstY = D2COMMON_10176_PathGetFirstPointY(pPath);
+    nLastX = sub_00648A20_GetLastPointX(pPath);
+    nLastY = sub_00648A30_GetLastPointY(pPath);
+    nMove = 2;
+    if (nMode == 2 || nMode == 6 || nMode == 3) nMove = 0;
+    if (nFirstX != nLastX && nFirstY != nLastY) nMove = 0;
+    if (nOwnerCollision != nUnitCollision) nMove = 1;
+    if (nDistance > nRange) nMove = 1;
+    if (nDistance > 50) nMove = 3;
+    if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pPlayerData->nSkillCooldown148, pPlayerData->nSkillCooldown14C) < 28)
+    {
+        if ((nMove == 1 && nDistance < 30) || nMove == 2) nMove = 4;
+    }
+    if (bSkipIdle && nMove == 2)
+    {
+ReturnZero:
+        return 0;
+    }
+    return D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, nMove, 0, 0, nRange);
+}
+
+// 0x005E4CF0
+void __fastcall AITHINK_Fn067_NecroPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+    if (pAiTickParam->pAiControl->dwAiParam[0] != 0)
+    {
+        sub_005E4AC0_NecroPetFollowOwner(pGame, pUnit, pAiTickParam);
+    }
+    else
+    {
+        sub_005E4830(pGame, pUnit, pAiTickParam);
+    }
+}
+
+static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
+{
+    unsigned __int64 seed = (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5 + pSeed->nHighSeed;
+    pSeed->nHighSeed = (unsigned int)(seed >> 32);
+    pSeed->nLowSeed = (unsigned int)seed;
+    return (unsigned int)seed;
+}
+
+// 0x005E5050
+void __fastcall sub_005E5050_RunHirelingAction(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, D2UnitStrc* pOwner, D2UnitStrc* pTarget, D2SeedStrc* pSeed, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    int nChance;
+    if (nMonsterId == 338 || nMonsterId > 559 && nMonsterId <= 561)
+        nChance = 98;
+    else
+    {
+        const int nBaseChance = pAiControl->dwAiParam[0] + 40;
+        nChance = nBaseChance + 2 * STATLIST_UnitGetStatValue(pUnit, 12, 0);
+        if (nChance >= 95) nChance = 95;
+    }
+    const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pTarget);
+    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pOwner, !pUnit ? -1 : pUnit->dwUnitId);
+    if (!pPetInfo)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+    const int nHirelingId = pPetInfo->nHirelingId;
+    int bAction = 0;
+    if ((int)(RollSeed(pSeed) % 100) < nChance)
+    {
+        bAction = 1;
+        pAiControl->dwAiParam[0] = 0;
+    }
+    else
+        pAiControl->dwAiParam[0] += 10;
+    if (!pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        if (nDistance < 4 && (int)(RollSeed(pSeed) % 100) < 50)
+        {
+            if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, 4)) return;
+            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
+            if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 1)) return;
+        }
+        else if (!bAction)
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+        AITHINK_SelectHirelingAction(pGame, pUnit, nMonsterId, nHirelingId, pTarget, pSeed);
+        return;
+    }
+    if (nDistance < 3 && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+    {
+        if (!bAction)
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+        AITHINK_SelectHirelingAction(pGame, pUnit, nMonsterId, nHirelingId, pTarget, pSeed);
+        return;
+    }
+    PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nSteps);
+    AITACTICS_RunToTargetUnitWithFlags(pGame, pUnit, pTarget, 1);
+}
+
+// 0x005E5280
+void __fastcall sub_005E5280_AiSpecialState04(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (STATES_CheckState(pUnit, STATE_INFERNO))
+    {
+        STATES_ToggleState(pUnit, STATE_INFERNO, 0);
+    }
+
+    AITHINK_ExecuteAiFn(pGame, pUnit, pAiTickParam->pAiControl, pAiControl->nAiSpecialState);
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 1);
+}
+
+// 0x005E5710
+void __fastcall sub_6FCE4FD0(D2UnitStrc* pUnit, void* a2, void* a3)
+{
+    if (!pUnit || MONSTERS_IsDead(pUnit))
+    {
+        *(int*)a2 = 1;
+    }
+}
+
 // 0x005E5B70
 int __fastcall sub_6FCE5520(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -1078,6 +1955,68 @@ void __fastcall sub_005E6190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     pAiTickParam->pAiControl->nMinionSpawnClassId = -1;
 }
 
+// 0x005E61B0
+void __fastcall AITHINK_Fn129_GenericSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (!pTarget)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        return;
+    }
+
+    if (pAiControl->nMinionSpawnClassId == -1 && !sub_005E6020_SelectGenericSpawnClass(pGame, pUnit, &pAiControl->nMinionSpawnClassId))
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= UNITFLAG_NOTC;
+        }
+
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+
+    if (nTargetDistance > 20)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[1] >= pMonStatsTxt->wAiParam[2][pGame->nDifficulty])
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= UNITFLAG_NOTC;
+        }
+
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+
+    int nDiff = pGame->dwGameFrame - pAiControl->dwAiParam[0];
+    if (nDiff < 0)
+    {
+        nDiff = -nDiff;
+    }
+
+    if (nDiff >= pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        pAiControl->dwAiParam[0] = pGame->dwGameFrame;
+        const int nMonsterId = MONSTER_EVILHUT >= sgptDataTables->nMonStatsTxtRecordCount ? -1 : MONSTER_EVILHUT;
+        if (sub_005FD350_SpawnNearby(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
+        {
+            ++pAiControl->dwAiParam[1];
+            AITACTICS_UseSequenceSkill(pGame, pUnit, SKILL_NEST, pTarget, 0, 0);
+            return;
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+}
+
 // 0x005E6300
 void __fastcall sub_005E6300(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -1109,6 +2048,70 @@ bool __fastcall sub_005E6860_HomeCommandStep(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     return false;
+}
+
+// 0x005E6EF0
+bool __fastcall sub_005E6EF0_MapAiActionWalkToPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
+{
+    return sub_6FCE61E0(pGame, pUnit, pAiTickParam, pPosition);
+}
+
+// 0x005E6F00
+bool __fastcall sub_6FCE6340(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
+{
+    bool bResult = false;
+    if (pUnit && pPosition && pPosition->nX && pPosition->nY)
+    {
+        bResult = sub_6FCE61E0(pGame, pUnit, pAiTickParam, pPosition);
+        D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 7, 0);
+        if (pAiCmd)
+        {
+            pAiCmd->nCmdParam[1] = sub_0046C140_TestMonModeFlag(pUnit->dwClassId, MONMODE_SKILL1) ? MONMODE_SKILL1 : MONMODE_NEUTRAL;
+            pAiCmd->nCmdParam[2] = pPosition->nX;
+            pAiCmd->nCmdParam[3] = pPosition->nY;
+            pAiCmd->nCmdParam[4] = 4;
+        }
+
+        pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 4, 0);
+        if (pAiCmd)
+        {
+            pAiCmd->nCmdParam[1] = pPosition->nX;
+            pAiCmd->nCmdParam[2] = pPosition->nY;
+            pAiCmd->nCmdParam[3] = 12;
+            pAiCmd->nCmdParam[4] = 10;
+        }
+    }
+
+    return bResult;
+}
+
+// 0x005E6FC0
+bool __fastcall sub_6FCE64D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition)
+{
+    bool bResult = false;
+    if (pUnit && pPosition && pPosition->nX && pPosition->nY)
+    {
+        bResult = sub_6FCE61E0(pGame, pUnit, pAiTickParam, pPosition);
+        D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 7, 0);
+        if (pAiCmd)
+        {
+            pAiCmd->nCmdParam[1] = sub_0046C140_TestMonModeFlag(pUnit->dwClassId, MONMODE_SKILL2) ? MONMODE_SKILL2 : MONMODE_NEUTRAL;
+            pAiCmd->nCmdParam[2] = pPosition->nX;
+            pAiCmd->nCmdParam[3] = pPosition->nY;
+            pAiCmd->nCmdParam[4] = 4;
+        }
+
+        pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 4, 0);
+        if (pAiCmd)
+        {
+            pAiCmd->nCmdParam[1] = pPosition->nX;
+            pAiCmd->nCmdParam[2] = pPosition->nY;
+            pAiCmd->nCmdParam[3] = 12;
+            pAiCmd->nCmdParam[4] = 10;
+        }
+    }
+
+    return bResult;
 }
 
 // build: context AITHINK_IdleInline
@@ -1171,6 +2174,223 @@ void __fastcall AITHINK_Fn041_Towner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     }
 }
 
+// 0x005E7590
+void __fastcall AITHINK_Fn081_JarJar(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (sub_005E6800_InitHomeCommand(pGame, pUnit, pAiTickParam))
+    {
+        return;
+    }
+
+    D2AiCmdStrc* pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    if (!ACT2Q4_HasGuardMovedToEndPosition(pGame))
+    {
+        D2CoordStrc coords;
+        coords.nX = pAiCmd->nCmdParam[1];
+        coords.nY = pAiCmd->nCmdParam[2];
+
+        int bFree = 1;
+        if (ACT2Q4_GetGuardCoordinates(pGame, &coords))
+        {
+            bFree = 0;
+        }
+
+        if (pAiCmd->nCmdParam[4] < pGame->dwGameFrame && pGame->dwGameFrame - pAiCmd->nCmdParam[4] < 200)
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+            return;
+        }
+
+        if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, coords.nX, coords.nY) > 1)
+        {
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, coords.nX, coords.nY);
+            pAiCmd->nCmdParam[4] = pGame->dwGameFrame;
+            return;
+        }
+
+        if (bFree)
+        {
+            if (sub_005E68F0(pGame, pUnit, pAiTickParam))
+            {
+                pAiCmd->nCmdParam[4] = pGame->dwGameFrame;
+            }
+            else
+            {
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+            }
+        }
+        else
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        }
+        return;
+    }
+
+    if (pAiCmd)
+    {
+        int bCloseToTarget;
+        D2UnitStrc* pOwner = sub_6FCCFD70(pGame, pUnit, &bCloseToTarget);
+        const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwner);
+        if (ACT2Q4_IsHaremBlockerObjectOpened(pGame) && (unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3) > 2)
+        {
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3);
+            return;
+        }
+
+        if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3) > 7)
+        {
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3);
+            return;
+        }
+
+        if (!sub_005E68F0(pGame, pUnit, pAiTickParam) && pOwner && pOwner != pUnit)
+        {
+            if (pOwner->dwUnitType == UNIT_PLAYER)
+            {
+                if (nDistance < 12)
+                {
+                    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 1000) < 100)
+                    {
+                        D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, 2);
+                    }
+
+                    AITACTICS_IdleInNeutralMode(pGame, pUnit, 200);
+                    return;
+                }
+
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+            }
+
+            if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 1000) < 50)
+            {
+                AITACTICS_WalkCloseToUnit(pGame, pUnit, 3);
+            }
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 120);
+}
+
+static inline int AI_GetAnimMode(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return pUnit->dwAnimMode;
+}
+
+// 0x005E7C10
+void __fastcall sub_005E7C10_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (AI_GetAnimMode(pUnit) != 1)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
+        return;
+    }
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        int nDistance;
+        int bCombat;
+        D2UnitStrc* pTarget = sub_6FCF2110(pGame, pUnit, pAiTickParam->pAiControl, &nDistance, &bCombat);
+        if (pTarget)
+        {
+            const int nRand = SEED_RollLimitedRandomNumber(pSeed, 100);
+            if (bCombat)
+            {
+                if (nRand < 80)
+                {
+                    AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                    return;
+                }
+
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+                return;
+            }
+
+            if (nRand < 30)
+            {
+                AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+                return;
+            }
+
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+    }
+
+    if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < 20)
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
+// 0x005E7D30
+int __fastcall sub_005E7D30_IsInTownOrRoomless(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 1;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 1;
+    }
+
+    return DUNGEON_IsRoomInTown(pRoom) != 0;
+}
+
+// 0x005E7D60
+void __fastcall AITHINK_Fn062_TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+
+    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
+    if (pTarget && nDistance < 25)
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
+    }
+}
+
+// 0x005E7DC0
+void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+
+    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
+    if (pTarget && nDistance < 25)
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
+    }
+}
+
+// 0x005E7F50
+void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (UNITS_GetRoom(pUnit))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 200);
+    }
+}
+
 // 0x005E7F80
 void __fastcall D2GAME_AI_SpecialState09_6FCE7C40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -1196,6 +2416,54 @@ void __fastcall D2GAME_AI_SpecialState09_6FCE7C40(D2GameStrc* pGame, D2UnitStrc*
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
+static __forceinline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+static __forceinline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecord(nMonsterId);
+    if (pMonStatsTxtRecord)
+    {
+        return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+    }
+    return 0;
+}
+
+static int AI_RollPercentage(D2UnitStrc* pUnit)
+{
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+static __forceinline int AI_RollPercentage_005F02C0(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed % 100;
+}
+
+// 0x005E8020
+void __fastcall sub_005E8020_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+{
+    D2UnitStrc* pTarget = pTick->pTarget;
+    if (pTick->bCombat && !CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, MON_FLAG)
+        && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, ATTACK_MODE))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, ATTACK_MODE, pTarget);
+        return;
+    }
+    if (AI_RollPercentage(pUnit) < WALK_CHANCE)
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, WALK_DISTANCE);
+    else
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, IDLE_FRAMES);
 }
 
 // 0x005E80E0
@@ -1681,11 +2949,6 @@ void __fastcall AITHINK_Fn147_UberDiablo(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 {
 }
 
-static int AI_RollPercentage(D2UnitStrc* pUnit)
-{
-    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
-}
-
 // 0x005E9E00
 void __fastcall AITHINK_Fn042_Vendor(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -1848,40 +3111,6 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
  }
  }
  AITACTICS_IdleInNeutralMode(game,unit,40);
-}
-
-// build: context AITHINK_Fn062_TownRogue
-void __fastcall AITHINK_Fn062_TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    int bCombat = pAiTickParam->bCombat;
-    int nDistance = pAiTickParam->nTargetDistance;
-
-    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
-    if (pTarget && nDistance < 25)
-    {
-        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-    }
-    else
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
-    }
-}
-
-// build: context sub_005E7DC0_SpecialState08TownRogue
-void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    int bCombat = pAiTickParam->bCombat;
-    int nDistance = pAiTickParam->nTargetDistance;
-
-    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
-    if (pTarget && nDistance < 25)
-    {
-        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-    }
-    else
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
-    }
 }
 
 // 0x005EA290
@@ -2144,6 +3373,19 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
+static __forceinline int CLIENTS_GetUnitXInline_005F02C0(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
 static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -2154,6 +3396,19 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+static __forceinline int CLIENTS_GetUnitYInline_005F02C0(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
 }
 
 // 0x005EA7A0
@@ -3382,14 +4637,234 @@ void __fastcall sub_005EC6A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
 }
 
 // 0x005ECBC0
-void __fastcall sub_005ECBC0_RavenWalkToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char a4, int a2)
+int __fastcall sub_005ECBC0_RavenWalkToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char a4, int a2)
 {
     AITACTICS_SetVelocity(pUnit, a2, 0, a4);
     D2ModeChangeStrc modeChange;
     MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_WALK, &modeChange);
     PATH_SetStepNum(pUnit->pDynamicPath, 1);
     modeChange.pTargetUnit = pTarget;
-    D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+    return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
+// 0x005ECC10
+void __fastcall AITHINK_Fn107_Raven(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (!pMonStatsTxt)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[0] == -1)
+    {
+        pAiControl->dwAiParam[0] = 3;
+        if (pMonStatsTxt->nSkill[0] >= 0)
+        {
+            const int nSkillLevel = SKILLS_GetSkillLevel(pOwner, SKILLS_GetHighestLevelSkillFromUnitAndId(pOwner, pMonStatsTxt->nSkill[0]), 1);
+            pAiControl->dwAiParam[0] = sub_004EFCB0_GetSummonLevel(pMonStatsTxt->nSkill[0], nSkillLevel);
+        }
+    }
+    else if (pAiControl->dwAiParam[0] == 0)
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, pUnit, 1);
+        return;
+    }
+
+    const int nOwnerDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwner);
+    if (nOwnerDistance > 50)
+    {
+        D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 3, 0, 0, 0);
+        return;
+    }
+
+    int nVel;
+    if (pMonStatsTxt->nVelocity <= 0)
+    {
+        nVel = 100;
+    }
+    else
+    {
+        nVel = 100 * pMonStatsTxt->nRun / pMonStatsTxt->nVelocity - 100;
+        if (nVel >= 100)
+        {
+            nVel = 100;
+        }
+    }
+
+    if (nOwnerDistance > 28)
+    {
+        D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 0, 0, nVel, 0);
+        return;
+    }
+
+    int nDist;
+    int bFoundCombat;
+    D2UnitStrc* pFound = sub_6FCF2110(pGame, pOwner, pAiTickParam->pAiControl, &nDist, &bFoundCombat);
+    if (pFound)
+    {
+        nDist = sub_006416D0_UnitEdgeDistance(pUnit, pFound);
+    }
+
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int bCombat = pAiTickParam->bCombat;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int nAverageDistance = (AI_PARAM(pGame, pMonStatsTxt, 1) + AI_PARAM(pGame, pMonStatsTxt, 0)) / 2;
+
+    if (pTarget && pAiControl->dwAiParam[1] < pGame->dwGameFrame)
+    {
+        const int nDifficulty = pGame->nDifficulty;
+        if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < pMonStatsTxt->wAiParam[3][nDifficulty]
+            && nTargetDistance < pMonStatsTxt->wAiParam[4][nDifficulty])
+        {
+            if (bCombat)
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+                pAiControl->dwAiParam[1] = pGame->dwGameFrame + 10 * AI_PARAM(pGame, pMonStatsTxt, 2);
+                --pAiControl->dwAiParam[0];
+            }
+            else
+            {
+                AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+            }
+            return;
+        }
+    }
+
+    int bFailed;
+    if (nOwnerDistance > AI_PARAM(pGame, pMonStatsTxt, 0))
+    {
+        bFailed = !AITACTICS_WalkAroundTargetWithScaledDistance(pGame, pUnit, pAiTickParam->pAiControl, pOwner, nAverageDistance);
+    }
+    else if (nOwnerDistance < AI_PARAM(pGame, pMonStatsTxt, 1))
+    {
+        bFailed = !AITACTICS_WalkAroundTargetWithScaledDistance(pGame, pUnit, pAiTickParam->pAiControl, pOwner, nAverageDistance);
+    }
+    else if (pAiControl->dwAiParam[2] ? sub_005ECBC0_RavenWalkToUnit(pGame, pUnit, pOwner, 4, 5) : sub_005ECBC0_RavenWalkToUnit(pGame, pUnit, pOwner, 4, 6))
+    {
+        return;
+    }
+    else
+    {
+        pAiControl->dwAiParam[2] = pAiControl->dwAiParam[2] == 0;
+        if (pAiControl->dwAiParam[2] ? sub_005ECBC0_RavenWalkToUnit(pGame, pUnit, pOwner, 4, 5) : sub_005ECBC0_RavenWalkToUnit(pGame, pUnit, pOwner, 4, 6))
+        {
+            return;
+        }
+
+        bFailed = !AITACTICS_WalkAroundTargetWithScaledDistance(pGame, pUnit, pAiTickParam->pAiControl, pOwner, nAverageDistance);
+    }
+
+    if (bFailed)
+    {
+        D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 1, 0, 0, 0);
+    }
+}
+
+// 0x005ED710
+void __fastcall AITHINK_Fn108_DruidWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (pUnit && pUnit->dwClassId == 420)
+    {
+        AITHINK_Fn108_SpiritWolf(pGame, pUnit, pAiTickParam);
+        return;
+    }
+    AITHINK_Fn108_Fenris(pGame, pUnit, pAiTickParam);
+}
+
+static __forceinline int CLIENTS_GetUnitXInline_Totem(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static __forceinline int CLIENTS_GetUnitYInline_Totem(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x005ED9E0
+void __fastcall AITHINK_Fn109_Totem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+    if (!pOwner)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    int nDistance;
+    int bCombat;
+    D2UnitStrc* pTarget = sub_6FCCFD40(pGame, pUnit, pAiControl, &nDistance, &bCombat, 24);
+    if (bCombat && pTarget && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_WALK_AWAY_CHANCE_PCT) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 6, 1))
+    {
+        return;
+    }
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_IGNORE_TARGET_CHANCE_PCT))
+    {
+        pTarget = 0;
+        bCombat = 0;
+    }
+
+    const int nOwnerDistance = sub_006416D0_UnitEdgeDistance(pUnit, pOwner);
+    if (nOwnerDistance > AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_TELEPORT_TO_OWNER_DISTANCE))
+    {
+        if (sub_6FCBDFE0(pGame, pUnit, UNITS_GetRoom(pOwner), CLIENTS_GetUnitXInline_Totem(pOwner), CLIENTS_GetUnitYInline_Totem(pOwner), 0, 0))
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
+            return;
+        }
+    }
+
+    const int nOwnerAnimMode = pOwner->dwAnimMode;
+    if (nOwnerDistance > AI_PARAM(pGame, pMonStatsTxt, TOTEM_AI_PARAM_FOLLOW_OWNER_DISTANCE))
+    {
+        if (((nOwnerAnimMode == PLRMODE_WALK || nOwnerAnimMode == PLRMODE_TOWNWALK) && D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 0, 0, 0, 0))
+            || (nOwnerAnimMode == PLRMODE_RUN && D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 0, 0, 60, 0)))
+        {
+            return;
+        }
+    }
+
+    if (sub_005E45D0(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 0, 6))
+    {
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
 }
 
 // 0x005EDC00
@@ -3555,13 +5030,6 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
         }
     }
     AITACTICS_IdleInNeutralMode(pGame,pUnit,25);
-}
-
-static __forceinline int MONSTERS_ValidateMonsterId(int nMonsterId)
-{
-    if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
-        return -1;
-    return nMonsterId;
 }
 
 // 0x005EE5D0
@@ -3817,6 +5285,43 @@ void __fastcall AITHINK_Fn136_BaalTaunt(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
 }
 
+// 0x005EF820
+void __fastcall AITHINK_Fn139_BaalTentacle(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pUnit);
+    if (!pOwner || SUNIT_IsDead(pOwner))
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, 0, 1);
+        return;
+    }
+
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int bCombat = pAiTickParam->bCombat;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (!pAiTickParam->pAiControl->dwAiParam[2])
+    {
+        const int nDuration = AI_PARAM(pGame, pMonStatsTxt, 2);
+        const int nFrames = 25 * ((int)SEED_RollLimitedRandomNumber(pSeed, nDuration) + nDuration);
+        pAiTickParam->pAiControl->dwAiParam[2] = pGame->dwGameFrame + nFrames;
+    }
+
+    if (pGame->dwGameFrame > pAiTickParam->pAiControl->dwAiParam[2])
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, 0, 1);
+        return;
+    }
+
+    if (bCombat && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 1));
+}
+
 // 0x005EFA50
 D2UnitStrc* __fastcall AITHINK_TargetCallback_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -3826,6 +5331,179 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_PutridDefiler(D2GameStrc* pGame, D
     }
 
     return sub_005DC380(pUnit, pTarget) <= 25 ? pTarget : 0;
+}
+
+static __forceinline unsigned int AI_RollUnit(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x005F02C0
+void __fastcall AITHINK_Fn006_Fallen(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (!pUnit)
+    {
+        return;
+    }
+
+    const int nAnimMode = pUnit->dwAnimMode;
+    if (nAnimMode == MONMODE_DEATH || nAnimMode == MONMODE_DEAD)
+    {
+        return;
+    }
+
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+
+    D2ActiveRoomStrc** ppRoomList;
+    int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+
+    for (; nNumRooms; ++ppRoomList, --nNumRooms)
+    {
+        const int* pDeadGUID = (*ppRoomList)->nLastDeadGUIDs;
+        for (int i = 0; i < 4; ++i, ++pDeadGUID)
+        {
+            D2UnitStrc* pCorpse = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, *pDeadGUID);
+            if (pCorpse && pCorpse->dwAnimMode == MONMODE_DEATH && (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCorpse, nX, nY) < 15)
+            {
+                pAiControl->dwAiParam[0] = 1;
+                AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+                sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
+
+                if (sub_005DEFE0_Escape(pGame, pUnit, pAiTickParam->pTarget, 12, 1))
+                {
+                    if ((int)(AI_RollUnit(pUnit) % 20) < 1)
+                    {
+                        SUNIT_AttachSound(pUnit, 17, 0);
+                    }
+
+                    return;
+                }
+
+                nNumRooms = 1;
+                break;
+            }
+        }
+    }
+
+    if (nAnimMode != MONMODE_NEUTRAL)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+        return;
+    }
+
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    D2AiCmdStrc* pCurrentAiCmd = sub_0058EE80(pUnit);
+    if (!pCurrentAiCmd)
+    {
+        if (!bCombat && sub_6FCF2E70(pUnit))
+        {
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
+            return;
+        }
+
+        if (nDistance < 15 && AIGENERAL_GetMinionOwner(pUnit) == pUnit && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, FALLEN_AI_PARAM_COMMAND_ATTACK_CHANCE_PCT))
+        {
+            D2AiCmdStrc aiCmd;
+            aiCmd.nCmdParam[0] = 1;
+            AIGENERAL_AllocCommandsForMinions(pGame, pUnit, &aiCmd);
+            AIGENERAL_CopyAiCommand(pGame, pUnit, &aiCmd);
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_SKILL2, pTarget);
+            return;
+        }
+
+        if (bCombat)
+        {
+            if (!pAiControl->dwAiParam[0])
+            {
+                if (!((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, FALLEN_AI_PARAM_ATTACK_CHANCE_PCT)))
+                {
+                    if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 30)
+                    {
+                        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_SKILL2, pTarget);
+                        return;
+                    }
+
+                    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+                    return;
+                }
+            }
+
+            pAiControl->dwAiParam[0] = 0;
+            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, FALLEN_AI_PARAM_ATTACK1_OR_2_CHANCE_PCT))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+                return;
+            }
+
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+            return;
+        }
+
+        if (nDistance > AI_PARAM(pGame, pMonStatsTxt, FALLEN_AI_PARAM_APPROACH_DISTANCE))
+        {
+            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 30)
+            {
+                AITACTICS_WalkCloseToUnit(pGame, pUnit, 3);
+                return;
+            }
+
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    if (pCurrentAiCmd->nCmdParam[0] == 1)
+    {
+        if (bCombat)
+        {
+            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, FALLEN_AI_PARAM_ATTACK_CHANCE_PCT))
+            {
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, FALLEN_AI_PARAM_ATTACK1_OR_2_CHANCE_PCT))
+                {
+                    AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+                    return;
+                }
+
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+                return;
+            }
+
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
+            return;
+        }
+
+        if (!AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0))
+        {
+            AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+        }
+    }
+    else
+    {
+        AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+    }
 }
 
 // 0x005F06B0
@@ -3847,6 +5525,32 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_SandRaider(D2GameStrc* pGame, D2Un
     pArg->pTarget = pTarget;
     pArg->nDistance = nDistance;
     return 0;
+}
+
+// 0x005F12A0
+void __fastcall sub_005F12A0_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    if (pAiTickParam->bCombat)
+    {
+        if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_IDLE_FRAMES));
+        return;
+    }
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_WALK_CHANCE_PCT))
+    {
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, AI_PARAM_IDLE_FRAMES));
 }
 
 // 0x005F1380
@@ -3890,6 +5594,71 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_FallenShaman(D2GameStrc* pGame, D2
     pArg->nDistance = nDistance;
     ++pArg->nCounter;
     return 0;
+}
+
+// 0x005F1440
+void __fastcall AITHINK_Fn013_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (pAiTickParam->bCombat && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_MELEE_AND_CIRCLE_CHANCE_PCT))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    D2FallenShamanAiCallbackArgStrc arg;
+    arg.pTarget = 0;
+    arg.nCounter = 0;
+    arg.nMaxDistance = AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_DISTANCE) * AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_DISTANCE);
+
+    if (!MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_UNIQUE) || MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_CHAMPION))
+    {
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 9);
+    }
+    else
+    {
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_FallenShaman, 1);
+    }
+
+    if ((int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_AND_COMMAND_CHANCE_PCT))
+    {
+        D2AiCmdStrc aiCmd;
+        aiCmd.nCmdParam[0] = 1;
+        AIGENERAL_AllocCommandsForMinions(pGame, pUnit, &aiCmd);
+    }
+
+    D2UnitStrc* pResurrectTarget = arg.pTarget;
+    if (pResurrectTarget && arg.nCounter && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_AND_COMMAND_CHANCE_PCT)
+        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], arg.pTarget, 0, 0))
+    {
+        AITACTICS_UseSequenceSkill(pGame, pUnit, pMonStatsTxt->nSkill[0], pResurrectTarget, 0, 0);
+        return;
+    }
+
+    if (pTarget && nDistance < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_DISTANCE) && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_CHANCE_PCT))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+        return;
+    }
+
+    D2UnitStrc* pNearTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+    if (pNearTarget && nDistance < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_DISTANCE) && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_CHANCE_PCT))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pNearTarget, 0, 0);
+        return;
+    }
+
+    if ((int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_MELEE_AND_CIRCLE_CHANCE_PCT))
+    {
+        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+    }
 }
 
 // build: context AITHINK_Fn137_PutridDefiler
@@ -3948,6 +5717,54 @@ void __fastcall sub_005F1750(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     AITHINK_ExecuteAiFn(pGame, pUnit, pAiControl, pAiControl->nAiSpecialState);
     pAiControl->dwAiParam[2] = nParam;
     sub_6FCD0150(pGame, pUnit, 1);
+}
+
+// 0x005F22B0
+void __fastcall sub_005F22B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (bCombat)
+    {
+        if ((int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, 1))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 3));
+        return;
+    }
+
+    if (!bCombat && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, 75, 0);
+        sub_6FCD0410(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    D2PantherAiCallbackArgStrc arg;
+    arg.pTarget = 0;
+    arg.nDistance = 0x7FFFFFFF;
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_Panther, 1);
+
+    D2UnitStrc* pPanther = arg.pTarget;
+    if (pPanther && arg.nDistance > AI_PARAM(pGame, pMonStatsTxt, 2) * AI_PARAM(pGame, pMonStatsTxt, 2))
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, 75, 0);
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pPanther, 7);
+        return;
+    }
+
+    if ((int)(AI_RollUnitSeed(pUnit) % 100) < 25)
+    {
+        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 3));
 }
 
 // 0x005F2A00
@@ -4042,6 +5859,317 @@ void __fastcall sub_005F4FD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 1);
 }
 
+static __forceinline int RollPercentage(D2SeedStrc* pSeed)
+{
+    unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)nSeed;
+    return (unsigned int)nSeed % 100;
+}
+
+// 0x005F53E0
+void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+{
+    D2SeedStrc* const pUnitSeed = &pUnit->pSeed;
+    const int nTargetDistance = pTick->nTargetDistance;
+    const int bCombat = pTick->bCombat;
+    D2UnitStrc* pTarget = pTick->pTarget;
+    D2MonStatsTxt* pRecord = pTick->pMonstatsTxt;
+    D2AiControlStrc* pAi = pTick->pAiControl;
+    D2AiCmdStrc* pCmd = AIGENERAL_GetCurrentAiCommandFromUnit(pUnit);
+    if (pCmd)
+    {
+        if (pCmd->nCmdParam[0] == 1)
+        {
+            D2UnitStrc* pCommandTarget = SUNIT_GetServerUnit(pGame, pCmd->nCmdParam[2], pCmd->nCmdParam[1]);
+            if (pCommandTarget)
+            {
+                pAi->dwAiParam[0] = 0;
+                pAi->dwAiParam[1] = 0;
+                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+                AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCommandTarget, 0);
+                AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+                return;
+            }
+        }
+        if (pCmd->nCmdParam[0] == 14)
+        {
+            D2UnitStrc* pCommandTarget = SUNIT_GetServerUnit(pGame, pCmd->nCmdParam[2], pCmd->nCmdParam[1]);
+            if (pCommandTarget)
+            {
+                pAi->dwAiParam[0] = 0;
+                pAi->dwAiParam[1] = 0;
+                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+                AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCommandTarget, 0);
+                AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+                return;
+            }
+        }
+        AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
+    }
+    const int nLife = UNITS_GetCurrentLifePercentage(pTarget);
+    switch (pAi->dwAiParam[0])
+    {
+    case 2:
+        if (nTargetDistance > 12)
+        {
+            ++pAi->dwAiParam[1];
+            if (pAi->dwAiParam[1] > 1)
+            {
+                pAi->dwAiParam[0] = 0;
+                pAi->dwAiParam[1] = 0;
+            }
+            if (RollPercentage(pUnitSeed) < 20)
+                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+            else
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+        sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
+        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1))
+            return;
+        pAi->dwAiParam[0] = 0;
+        pAi->dwAiParam[1] = 0;
+        break;
+    case 1:
+        ++pAi->dwAiParam[1];
+        if (pAi->dwAiParam[1] > AI_GetParam(pGame, pRecord, 2) && nLife > AI_GetParam(pGame, pRecord, 3))
+        {
+            pAi->dwAiParam[0] = 2;
+            pAi->dwAiParam[1] = 0;
+            sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1);
+            return;
+        }
+        if (bCombat)
+        {
+            if ((int)SEED_RollLimitedRandomNumber(pUnitSeed, 100) < pRecord->wAiParam[0][pGame->nDifficulty])
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            else
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, pRecord->wAiParam[1][pGame->nDifficulty]);
+            return;
+        }
+        sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    case 0:
+        if (bCombat)
+        {
+            pAi->dwAiParam[1] = 0;
+            pAi->dwAiParam[0] = 1;
+            if (RollPercentage(pUnitSeed) < AI_GetParam(pGame, pRecord, 0))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                return;
+            }
+            else
+            {
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pRecord, 1));
+                return;
+            }
+        }
+        sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+        return;
+    }
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
+static __forceinline int UNITS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline int UNITS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005F56D0
+void __fastcall AITHINK_Fn033_HellMeteor(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (pMonStatsTxt->nSkill[0] >= 0 && (int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
+    {
+        const int nX = UNITS_GetUnitXInline(pUnit) + ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, 2 * AI_PARAM(pGame, pMonStatsTxt, 2)) - AI_PARAM(pGame, pMonStatsTxt, 2);
+        const int nY = UNITS_GetUnitYInline(pUnit) + ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, 2 * AI_PARAM(pGame, pMonStatsTxt, 2)) - AI_PARAM(pGame, pMonStatsTxt, 2);
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, nX, nY);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, 1));
+}
+
+// 0x005F6530
+void __fastcall AITHINK_Fn040_MaggotEgg(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (pMonStatsTxt->nSkill[0] >= 0 && pAiControl->dwAiParam[0] != 1 && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 1))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        AITACTICS_Idle(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 0));
+        pAiControl->dwAiParam[0] = 1;
+        return;
+    }
+
+    if (pAiControl->dwAiParam[0] == 1)
+    {
+        SUNITDMG_KillMonster(pGame, pUnit, SUNIT_GetTargetUnit(pGame, pUnit), 1);
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 0));
+}
+
+// 0x005F6650
+void __fastcall AITHINK_Fn043_FoulCrowNest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (pAiTickParam->nTargetDistance > 20)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[1] >= pMonStatsTxt->wAiParam[2][pGame->nDifficulty])
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= UNITFLAG_NOTC;
+        }
+
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+
+    int nDiff = pGame->dwGameFrame - pAiControl->dwAiParam[0];
+    if (nDiff < 0)
+    {
+        nDiff = -nDiff;
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && nDiff >= pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        pAiControl->dwAiParam[0] = pGame->dwGameFrame;
+        const int nMonsterId = MONSTER_CROWNEST1 >= sgptDataTables->nMonStatsTxtRecordCount ? -1 : MONSTER_CROWNEST1;
+        if (sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
+        {
+            ++pAiControl->dwAiParam[1];
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 10 + 20);
+}
+
+// 0x005F67B0
+void __fastcall AITHINK_Fn044_Duriel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    if (pMonStatsTxt->nSkill[3] >= 0 && !UNITS_GetRightSkill(pUnit))
+    {
+        D2GAME_SetSkills_6FD14C60(pUnit, pMonStatsTxt->nSkill[3], AI_GetParam(pGame, pMonStatsTxt, 0), 1);
+        D2GAME_AssignSkill_6FD13800(pUnit, 0, pMonStatsTxt->nSkill[3], -1);
+    }
+
+    if (bCombat)
+    {
+        if (pMonStatsTxt->nSkill[2] >= 0 && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 1))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pTarget, 0, 0);
+        }
+        else if (pMonStatsTxt->nSkill[1] >= 0 && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 2))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+        }
+        else if (AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 3))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+        }
+        else
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        }
+        return;
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 4))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+    }
+    else
+    {
+        sub_005DE190_SetAiParam(pUnit, 13, 0, 0);
+        AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+    }
+}
+
+// 0x005F6A10
+void __fastcall AITHINK_Fn045_Sarcophagus(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    if (pAiTickParam->nTargetDistance > 25)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 25);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[1] > pMonStatsTxt->wAiParam[2][pGame->nDifficulty])
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= UNITFLAG_NOTC;
+        }
+
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+
+    int nDiff = pGame->dwGameFrame - pAiControl->dwAiParam[0];
+    if (nDiff < 0)
+    {
+        nDiff = -nDiff;
+    }
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && nDiff >= pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        const int nMonsterId = MONSTER_SARCOPHAGUS >= sgptDataTables->nMonStatsTxtRecordCount ? -1 : MONSTER_SARCOPHAGUS;
+        if (sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
+        {
+            pAiControl->dwAiParam[0] = pGame->dwGameFrame;
+            ++pAiControl->dwAiParam[1];
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            return;
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 10 + 20);
+}
+
 // 0x005F7240
 D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -4094,6 +6222,111 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D
     return 0;
 }
 
+static __forceinline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x005F72D0
+void __fastcall AITHINK_Fn049_ZakarumPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+
+    const int nLifePercentage = UNITS_GetCurrentLifePercentage(pUnit);
+    if (bCombat || sub_6FCF2E70(pUnit))
+    {
+        if (pMonStatsTxt->nSkill[2] >= 0 && nLifePercentage < 33 && pGame->dwGameFrame > pAiControl->dwAiParam[0])
+        {
+            pAiControl->dwAiParam[0] = pGame->dwGameFrame + 4 * AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_SPELL_TIMER);
+
+            int nTargetX;
+            int nShift = 0;
+            int nX = CLIENTS_GetUnitX(pUnit);
+            int nY = CLIENTS_GetUnitY(pUnit);
+            nTargetX = CLIENTS_GetUnitX(pTarget);
+            int nTargetY = CLIENTS_GetUnitY(pTarget);
+            if (bCombat)
+            {
+                nShift = 2;
+            }
+
+            nTargetX = ((nTargetX - nX) << nShift) + nTargetX;
+            nTargetY = ((nTargetY - nY) << nShift) + nTargetY;
+
+            if (sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[2], 0, nTargetX, nTargetY))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], 0, nTargetX, nTargetY);
+                return;
+            }
+        }
+
+        if (bCombat && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_ATTACK_CHANCE_PCT))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            return;
+        }
+    }
+
+    D2ZakarumPriestAiCallbackArgStrc arg;
+    arg.pTarget = 0;
+    arg.nCounter = 0;
+    arg.nMaxLifePercentage = 0x7FFFFFFF;
+    arg.nMaxDistance = AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_HEAL_RANGE) * AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_HEAL_RANGE);
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_ZakarumPriest, 1);
+
+    if (pMonStatsTxt->nSkill[0] >= 0 && arg.pTarget && (int)(AI_RollSeed(pSeed) % 100) < 25)
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], arg.pTarget, 0, 0);
+        return;
+    }
+
+    if (sub_005DD290_NoMissileBarrierCollision(pUnit, pTarget))
+    {
+        if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_CAST_CHANCE_PCT))
+        {
+            if (pMonStatsTxt->nSkill[3] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1] && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_BLIZZARD_CHANCE_PCT))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[3], pMonStatsTxt->nSkill[3], pTarget, 0, 0);
+                pAiControl->dwAiParam[1] = pGame->dwGameFrame + AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_SPELL_TIMER);
+                return;
+            }
+
+            if (pMonStatsTxt->nSkill[1] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[2] && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_LIGHTNING_CHANCE_PCT))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+                pAiControl->dwAiParam[2] = pGame->dwGameFrame + 20;
+                return;
+            }
+        }
+    }
+    else
+    {
+        if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_ATTACK_CHANCE_PCT) && pMonStatsTxt->nSkill[3] >= 0
+            && pGame->dwGameFrame > pAiControl->dwAiParam[1] && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_BLIZZARD_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[3], pMonStatsTxt->nSkill[3], pTarget, 0, 0);
+            pAiControl->dwAiParam[1] = pGame->dwGameFrame + AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_SPELL_TIMER);
+            return;
+        }
+    }
+
+    if ((int)(AI_RollSeed(pSeed) % 100) < 30)
+    {
+        sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+    }
+}
+
 // 0x005F7700
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Mephisto(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
 {
@@ -4140,6 +6373,269 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Mephisto(D2GameStrc* pGame, D2Unit
 // 0x005F81C0
 void __fastcall AITHINK_Fn146_UberMephisto(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
+}
+
+// 0x005F81D0
+void __fastcall AITHINK_SpecialFn052_FrogDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+	D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+	const int nAiSpecialState = pAiControl->nAiSpecialState;
+	D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+	if (nAiSpecialState != 10 && nAiSpecialState != 11)
+	{
+		const short nSkillId = pMonStatsTxt->nSkill[0];
+		if (nSkillId >= 0 && pAiControl->dwAiParam[2] >= 2)
+		{
+			AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], nSkillId, pAiTickParam->pTarget, 0, 0);
+			pAiControl->dwAiParam[2] = 1;
+			sub_005F2EB0_RemoveGroundCollision(pGame, pUnit);
+			return;
+		}
+
+		AITHINK_ExecuteAiFn(pGame, pUnit, pAiControl, nAiSpecialState);
+		AITACTICS_Idle(pGame, pUnit, 1);
+		return;
+	}
+
+	AITHINK_ExecuteAiFn(pGame, pUnit, pAiControl, nAiSpecialState);
+	AITACTICS_Idle(pGame, pUnit, 1);
+}
+
+static __forceinline int CLIENTS_GetUnitX_FrogDemon(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline int CLIENTS_GetUnitY_FrogDemon(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005F8260
+void __fastcall AITHINK_Fn052_FrogDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    if (pAiControl->dwAiParam[2] == 0)
+    {
+        if (pMonStatsTxt->nSkill[0] >= 0 && nTargetDistance > 12)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pAiTickParam->pTarget, 0, 0);
+            AITACTICS_Idle(pGame, pUnit, 8);
+            pAiControl->dwAiParam[2] = 1;
+            sub_005F2EB0_RemoveGroundCollision(pGame, pUnit);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[1] >= 0 && AITHINK_TryRestoreGroundCollision(pGame, pUnit))
+        {
+            goto LABEL_EMERGE0;
+        }
+
+        if (!COLLISION_CheckMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX_FrogDemon(pUnit), CLIENTS_GetUnitY_FrogDemon(pUnit), 0xC01))
+        {
+            pAiControl->dwAiParam[2] = 2;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 12);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[2] == 1)
+    {
+        if (pMonStatsTxt->nSkill[1] >= 0 && nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, 7) && AITHINK_TryRestoreGroundCollision(pGame, pUnit))
+        {
+LABEL_EMERGE:
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pUnit, 0, 0);
+            pAiControl->dwAiParam[2] = 2;
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[1] >= 0 && nTargetDistance < 20 && pAiControl->dwAiParam[1] > 64 && AITHINK_TryRestoreGroundCollision(pGame, pUnit))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pUnit, 0, 0);
+            pAiControl->dwAiParam[2] = 2;
+            return;
+        }
+
+        sub_005F2EB0_RemoveGroundCollision(pGame, pUnit);
+        AITACTICS_Idle(pGame, pUnit, 24);
+        ++pAiControl->dwAiParam[1];
+        pAiControl->dwAiParam[2] = 1;
+        return;
+
+LABEL_EMERGE0:
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pUnit, 0, 0);
+        pAiControl->dwAiParam[2] = 2;
+        return;
+    }
+
+    {
+        if (!pTarget)
+        {
+            AITACTICS_Idle(pGame, pUnit, 32);
+            return;
+        }
+
+        if (bCombat)
+        {
+            if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 1))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 5, pTarget);
+                return;
+            }
+
+            if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 0))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                return;
+            }
+
+            if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 2))
+            {
+                sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+                return;
+            }
+
+            AITACTICS_Idle(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 6));
+            return;
+        }
+
+        if (nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, 5))
+        {
+            if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 4))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 5, pTarget);
+                return;
+            }
+
+            if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 3))
+            {
+                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                return;
+            }
+
+            AITACTICS_Idle(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 6));
+            return;
+        }
+
+        if (AI_RollChance(pGame, pSeed, pMonStatsTxt, 3))
+        {
+            sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+            return;
+        }
+
+        AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, 4);
+        return;
+    }
+}
+
+// 0x005F85C0
+void __fastcall AITHINK_Fn053_Summoner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+
+    if (!pAiControl->dwAiParam[0])
+    {
+        ACT2Q5_OnSummonerActivated(pGame, pUnit);
+        pAiControl->dwAiParam[0] = 1;
+    }
+
+    if (nTargetDistance < 5 && AI_RollPercentage_005F02C0(pUnit) < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_WALK_AWAY_CHANCE_PCT))
+    {
+        sub_005DEFE0_AiEscape(pGame, pUnit, pTarget, 6, 0);
+    }
+
+    int bUseColdSkill = STATLIST_UnitGetStatValue(pTarget, 39, 0) >= STATLIST_UnitGetStatValue(pTarget, 43, 0);
+
+    const int nX = CLIENTS_GetUnitXInline_005F02C0(pTarget);
+    const int nY = CLIENTS_GetUnitYInline_005F02C0(pTarget);
+
+    if (AI_RollPercentage_005F02C0(pUnit) < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_CAST_CHANCE_PCT))
+    {
+        if (pMonStatsTxt->nSkill[4] >= 0 && AI_RollPercentage_005F02C0(pUnit) < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_WEAKEN_CHANCE_PCT))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[4], pMonStatsTxt->nSkill[4], pTarget, nX, nY);
+            return;
+        }
+
+        int nDistance;
+        D2UnitStrc* pMissileTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
+
+        if (AI_RollPercentage_005F02C0(pUnit) > AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_PREF_ELEMENT_CHANCE_PCT))
+        {
+            bUseColdSkill = (bUseColdSkill == 0);
+        }
+
+        if (bUseColdSkill)
+        {
+            if (pMonStatsTxt->nSkill[1] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1] && nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_NOVA_DISTANCE))
+            {
+                pAiControl->dwAiParam[1] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_NOVA_TIMER);
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, nX, nY);
+                return;
+            }
+
+            if (pMonStatsTxt->nSkill[0] >= 0 && pMissileTarget && nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_MISSILE_DISTANCE))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pMissileTarget, nX, nY);
+                return;
+            }
+        }
+
+        if (pMonStatsTxt->nSkill[3] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[2])
+        {
+            pAiControl->dwAiParam[2] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_FIREWALL_TIMER);
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[3], pMonStatsTxt->nSkill[3], pTarget, nX, nY);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[2] >= 0 && pMissileTarget && nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_MISSILE_DISTANCE))
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[2], pMonStatsTxt->nSkill[2], pMissileTarget, nX, nY);
+            return;
+        }
+
+        if (!bUseColdSkill && pMonStatsTxt->nSkill[1] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1] && nTargetDistance < AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_NOVA_DISTANCE))
+        {
+            pAiControl->dwAiParam[1] = pGame->dwGameFrame + AI_GetParam(pGame, pMonStatsTxt, SUMMONER_AI_PARAM_NOVA_TIMER);
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, nX, nY);
+            return;
+        }
+
+        if (pMonStatsTxt->nSkill[4] >= 0)
+        {
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[4], pMonStatsTxt->nSkill[4], pTarget, nX, nY);
+            return;
+        }
+    }
+
+    AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
 }
 
 // 0x005F9950
@@ -4294,6 +6790,179 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, 
     return 0;
 }
 
+static int UNITS_GetAnimMode_FB410(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return pUnit->dwAnimMode;
+}
+
+// 0x005FB410
+void __fastcall sub_005FB410_AiThinkSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    int nMode = UNITS_GetAnimMode_FB410(pUnit);
+
+    if (pAiControl->dwAiParam[0] <= 0)
+    {
+        pAiControl->dwAiParam[0] = AI_GetParam(pGame, pMonStatsTxt, 1) + pGame->dwGameFrame;
+        pAiControl->dwAiParam[1] = AI_GetParam(pGame, pMonStatsTxt, 0);
+    }
+
+    if (nMode == 1)
+    {
+        if (nDistance > 5)
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
+            return;
+        }
+
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 10, 0, 0);
+        AITACTICS_Idle(pGame, pUnit, 20);
+        return;
+    }
+
+    if (nMode == 10)
+    {
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 11, 0, 0);
+        AITACTICS_Idle(pGame, pUnit, 20);
+        return;
+    }
+
+    if (nMode == 11 && pAiControl->dwAiParam[1] > 0)
+    {
+        if (pGame->dwGameFrame > pAiControl->dwAiParam[0])
+        {
+            pAiControl->dwAiParam[0] = AI_GetParam(pGame, pMonStatsTxt, 1) + pGame->dwGameFrame;
+
+            int nMonsterId;
+            int nX;
+            int nY;
+            int nAnimMode;
+            MONSTERS_GetMinionSpawnInfo(pUnit, &nMonsterId, &nX, &nY, &nAnimMode, 0, 0);
+
+            D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
+            if (pRoom)
+            {
+                D2UnitStrc* pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, 2, 0x42);
+                if (pMonster)
+                {
+                    --pAiControl->dwAiParam[1];
+                    pMonster->dwFlags |= 0x4020000;
+
+                    if (pUnit && pUnit->dwClassId == 0x2C7)
+                    {
+                        STATES_ToggleState(pMonster, 0xB8, 1);
+                        UNITS_SetOverlay(pMonster, 0xCA, 0);
+                    }
+                }
+            }
+        }
+
+        AITACTICS_Idle(pGame, pUnit, AI_GetParam(pGame, pMonStatsTxt, 1));
+        return;
+    }
+
+    AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+}
+
+// 0x005FB900
+void __fastcall sub_005FB900_ThinkLimitedCaster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (!pTarget)
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= 0x20000;
+        }
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+    if (nTargetDistance > pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= 0x20000;
+        }
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+    if (pAiControl->dwAiParam[0] >= pMonStatsTxt->wAiParam[1][pGame->nDifficulty])
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= 0x20000;
+        }
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+    const short nSkillId = pMonStatsTxt->nSkill[0];
+    if (nSkillId >= 0 && pAiControl->dwAiParam[1] == 0)
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], nSkillId, pTarget, 0, 0);
+        ++pAiControl->dwAiParam[0];
+        pAiControl->dwAiParam[1] = 1;
+        return;
+    }
+    pAiControl->dwAiParam[1] = 0;
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[2][pGame->nDifficulty]);
+}
+
+// 0x005FB9B0
+void __fastcall sub_005FB9B0_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (!pTarget)
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= 0x20000;
+        }
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+    if (nTargetDistance > pMonStatsTxt->wAiParam[0][pGame->nDifficulty])
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= 0x20000;
+        }
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+    if (pAiControl->dwAiParam[0] >= pMonStatsTxt->wAiParam[1][pGame->nDifficulty])
+    {
+        if (pUnit)
+        {
+            pUnit->dwFlags |= 0x20000;
+        }
+        AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
+        return;
+    }
+    const short nSkillId = pMonStatsTxt->nSkill[0];
+    if (nSkillId >= 0 && pAiControl->dwAiParam[1] == 0)
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], nSkillId, pTarget, 0, 0);
+        ++pAiControl->dwAiParam[0];
+        pAiControl->dwAiParam[1] = 1;
+        return;
+    }
+    pAiControl->dwAiParam[1] = 0;
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, pMonStatsTxt->wAiParam[2][pGame->nDifficulty]);
+}
+
 // 0x005FC830
 void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, void* pCounterArg)
 {
@@ -4310,3 +6979,6 @@ void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, vo
 // build: context ?SKILLS_GetMissilesTxtRecord@@YAPAUD2MissilesTxt@@H@Z
 // build: context ?GetAuraStateStatList@@YAPAUD2StatListStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@@Z
 // build: context ?AI_ClampChance@@YAHH@Z
+
+
+#include "gen/data/Source/D2Game/Ai/AiThink4.inc"

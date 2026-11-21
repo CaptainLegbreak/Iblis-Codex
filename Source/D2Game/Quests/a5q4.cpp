@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2GameObjs.h"
 #include "D2QuestData.h"
+#include "D2UnitData.h"
 
 #define UNIT_OBJECT 2
 
@@ -233,7 +234,6 @@ enum D2C_F33QuestConstants
     MONSTATSFLAGINDEX_ZOO = 22,
 };
 
-
 extern "C" const unsigned int gnAct1Quest2NpcIndices[]; // 0x00737180
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -316,6 +316,8 @@ int __fastcall ACT1Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 int __fastcall ACT1Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00594890
 
+
+
 __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -359,6 +361,28 @@ static bool __stdcall sub_0058AF90_OpenDrehyaPortal(D2QuestDataStrc* pQuestData,
     }
 
     return false;
+}
+
+// 0x0058B050
+void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if ((unsigned short)(pQuestArg->pTarget ? pQuestArg->pTarget->dwClassId : -1) != MONSTER_DREHYA)
+    {
+        return;
+    }
+
+    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bDrehyaActivated == 1)
+    {
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
+        pQuestDataEx->bDrehyaActivated = 0;
+    }
+
+    if (pQuestDataEx->bNeedsToOpenPortal && !pQuestDataEx->bPortalCreated)
+    {
+        sub_0058AF90_OpenDrehyaPortal(pQuestData, pQuestArg->pTarget);
+    }
 }
 
 static __forceinline D2BitBufferStrc* QUESTS_GetQuestFlagsInline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
@@ -636,27 +660,6 @@ void __fastcall sub_0058B900_RescheduleDrehyaPortal(D2GameStrc* pGame, D2UnitStr
     }
 }
 
-void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    if (!pQuestArg->pTarget || (unsigned short)pQuestArg->pTarget->dwClassId != MONSTER_DREHYA)
-    {
-        return;
-    }
-
-    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bDrehyaActivated == 1)
-    {
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q4_UnitIterate_StatusCyclerEx, 1);
-        pQuestDataEx->bDrehyaActivated = 0;
-    }
-
-    if (pQuestDataEx->bNeedsToOpenPortal && !pQuestDataEx->bPortalCreated)
-    {
-        sub_0058AF90_OpenDrehyaPortal(pQuestData, pQuestArg->pTarget);
-    }
-}
-
 // 0x0058B940
 void __fastcall sub_0058B940_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -671,8 +674,6 @@ void __fastcall sub_0058B940_RetryDrehyaPortal(D2GameStrc* pGame, D2UnitStrc* pU
         EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 12, 0, 0);
     }
 }
-
-
 
 static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonsterId)
 {

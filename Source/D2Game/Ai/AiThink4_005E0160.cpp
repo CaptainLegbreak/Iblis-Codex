@@ -458,7 +458,7 @@ int __fastcall sub_005E3930_MovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
     return 0;
 }
 
-#include "gen/data/Source/D2Game/Unknown_005E0160.inc"
+#include "gen/data/Source/D2Game/Ai/AiThink4_005E0160.inc"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
