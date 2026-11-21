@@ -27271,11 +27271,6 @@
      "name": "?sub_00499E30_SetBlackColour@@YAXXZ"
     },
     {
-     "va": "0x0049A580",
-     "length": 181,
-     "name": "?sub_0049A580_DrawPlayerName@@YAXXZ"
-    },
-    {
      "va": "0x0049C0A0",
      "length": 76,
      "name": "?sub_0049C0A0_LoadPartyCels@@YAXXZ"
@@ -27601,6 +27596,11 @@
      "va": "0x0049A510",
      "length": 111,
      "name": "?sub_0049A510_DrawPartyButtons@@YAXXZ"
+    },
+    {
+     "va": "0x0049A580",
+     "length": 181,
+     "name": "?sub_0049A580_DrawPlayerName@@YAXXZ"
     },
     {
      "va": "0x0049A640",

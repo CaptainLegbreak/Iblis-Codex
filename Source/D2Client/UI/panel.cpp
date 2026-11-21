@@ -1203,30 +1203,7 @@ void __cdecl sub_00499E30_SetBlackColour()
 {
     gbGlobal_007BF034 = D2Win_10034_MixRGB(0, 0, 0);
 }
-
-// 0x0049A580
-void __cdecl sub_0049A580_DrawPlayerName()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-        return;
-    const char* szName = sub_0047A210(pPlayer);
-    if (!szName)
-        return;
-    unsigned int nLen = sub_005262A0_Utf8CountChars(szName, strlen(szName)) + 1;
-    if (nLen > 11)
-    {
-        if (nLen >= 14)
-            sub_00502EF0(6);
-        else
-            sub_00502EF0(0);
-    }
-    Unicode* wszName = (Unicode*)FOG_Alloc(sizeof(Unicode) * nLen, ".\\UI\\Party.cpp", 0x211, 0);
-    sub_00526320_ToUnicode(wszName, szName, nLen);
-    sub_004A7080(gnGlobal_007A2858 + 0x14, 0x1F - gnGlobal_007A285C, gnGlobal_007A2858 + 0xBE, wszName, 0);
-    sub_00502EF0(0);
-    FOG_Free(wszName, ".\\UI\\Party.cpp", 0x21A, 0);
-}
+void __cdecl sub_0049A580_DrawPlayerName(); // 0x0049A580
 
 // 0x0049C0A0
 void __cdecl sub_0049C0A0_LoadPartyCels()
