@@ -35,7 +35,10 @@ struct D2CharStatsTxt
     unsigned char nVit; // 0x33
     unsigned char nStamina; // 0x34
     unsigned char nLifeAdd; // 0x35
-    unsigned char unk0x36[0x4]; // 0x36
+    unsigned char nPercentStr; // 0x36
+    unsigned char nPercentInt; // 0x37
+    unsigned char nPercentDex; // 0x38
+    unsigned char nPercentVit; // 0x39
     unsigned char nManaRegen; // 0x3A
     unsigned char unk0x3B[0x1]; // 0x3B
     int dwToHitFactor; // 0x3C
@@ -253,7 +256,7 @@ struct D2MissilesTxt
     unsigned int dwSrvCalc; // 0x80
     unsigned int dwCltCalc; // 0x84
     unsigned int dwHitCalc; // 0x88
-    unsigned char unk0x8C[0x4]; // 0x8C
+    unsigned int dwCltHitCalc; // 0x8C
     unsigned int dwDmgCalc; // 0x90
     unsigned char nHitClass; // 0x94
     unsigned char unk0x95[0x1]; // 0x95
@@ -287,7 +290,9 @@ struct D2MissilesTxt
     int nElementLength; // 0x11C
     int nElementLengthPerLevel[3]; // 0x120
     unsigned char nCltSrcTown; // 0x12C
-    unsigned char unk0x12D[0x3]; // 0x12D
+    unsigned char nSrcDamage; // 0x12D
+    unsigned char nSrcMissDmg; // 0x12E
+    unsigned char nHoly; // 0x12F
     unsigned char nLight; // 0x130
     unsigned char nFlicker; // 0x131
     union
@@ -375,7 +380,8 @@ struct D2MonStatsTxt
     unsigned char nMode4D; // 0x4D
     unsigned char nThreat; // 0x4E
     unsigned char nAIdel[3]; // 0x4F
-    unsigned char unk0x52[0x4]; // 0x52
+    unsigned char nAiDist[3]; // 0x52
+    unsigned char unk0x55; // 0x55
     short wAiParam[8][3]; // 0x56
     unsigned short wTreasureClass[3][4]; // 0x86
     unsigned char nTCQuestId; // 0x9E
@@ -489,7 +495,7 @@ struct D2ObjectsTxt
     unsigned char nBlocksVis; // 0x13B
     unsigned char nSide; // 0x13C
     unsigned char nAutomap13D; // 0x13D
-    unsigned char unk0x13E[0x1]; // 0x13E
+    unsigned char nTrans; // 0x13E
     unsigned char nMode[8]; // 0x13F
     unsigned char unk0x147[0x1]; // 0x147
     int nXOffset; // 0x148
@@ -506,9 +512,9 @@ struct D2ObjectsTxt
     unsigned int dwNameOffset; // 0x168
     unsigned char unk0x16C[0x1]; // 0x16C
     unsigned char nMonsterOK; // 0x16D
-    unsigned char unk0x16E[0x1]; // 0x16E
+    unsigned char nOperateRange; // 0x16E
     unsigned char nShrineFunction; // 0x16F
-    unsigned char unk0x170[0x1]; // 0x170
+    unsigned char nAct; // 0x170
     unsigned char nLockable; // 0x171
     unsigned char nGore; // 0x172
     unsigned char nRestore; // 0x173
@@ -524,7 +530,7 @@ struct D2ObjectsTxt
     int dwTop; // 0x1A4
     int dwWidth; // 0x1A8
     int dwHeight; // 0x1AC
-    unsigned char unk0x1B0[0x1]; // 0x1B0
+    unsigned char nBeta; // 0x1B0
     unsigned char nInitFn; // 0x1B1
     unsigned char nPopulateFn; // 0x1B2
     unsigned char nOperateFn; // 0x1B3
@@ -547,7 +553,7 @@ struct D2SkillsTxt
     unsigned char nAnim; // 0x10
     unsigned char nMonAnim; // 0x11
     char nSeqTrans; // 0x12
-    unsigned char unk0x13[0x1]; // 0x13
+    unsigned char nSeqNum; // 0x13
     char nAuraTargetState; // 0x14
     unsigned char nSelectProc; // 0x15
     unsigned char nSeqInput; // 0x16
