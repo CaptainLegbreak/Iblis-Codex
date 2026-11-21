@@ -6323,6 +6323,11 @@
      "name": "sub_0041D3B0_NewHashBuffer"
     },
     {
+     "va": "0x0041D420",
+     "length": 168,
+     "name": "sub_0041D420_HashBuffered"
+    },
+    {
      "va": "0x0041D590",
      "length": 316,
      "name": "?sub_0041D590_SignBuffer@@YIHPADPAIPBXI2H2H@Z"
@@ -6338,6 +6343,51 @@
      "name": "sub_0041D810_Crc32"
     },
     {
+     "va": "0x0041D8D0",
+     "length": 46,
+     "name": "sub_0041D8D0_Peek"
+    },
+    {
+     "va": "0x0041D900",
+     "length": 18,
+     "name": "sub_0041D900_Skip"
+    },
+    {
+     "va": "0x0041DEC0",
+     "length": 52,
+     "name": "sub_0041DEC0_ReadMemory"
+    },
+    {
+     "va": "0x0041DF00",
+     "length": 49,
+     "name": "sub_0041DF00_WriteMemory"
+    },
+    {
+     "va": "0x0041E900",
+     "length": 36,
+     "name": "sub_0041E900_NextLink"
+    },
+    {
+     "va": "0x0041E9E0",
+     "length": 62,
+     "name": "sub_0041E9E0_Get"
+    },
+    {
+     "va": "0x0041EB40",
+     "length": 17,
+     "name": "sub_0041EB40_Link"
+    },
+    {
+     "va": "0x0041EB60",
+     "length": 66,
+     "name": "sub_0041EB60_sub_006C4290"
+    },
+    {
+     "va": "0x0041ED90",
+     "length": 161,
+     "name": "sub_0041ED90_LinkNode"
+    },
+    {
      "va": "0x0041F510",
      "length": 397,
      "name": "sub_0041F510_InsertBranch"
@@ -6348,9 +6398,49 @@
      "name": "sub_0041F9E0_DecompressHuffman"
     },
     {
+     "va": "0x00420290",
+     "length": 9,
+     "name": "sub_00420290_BreakHandlerChain"
+    },
+    {
      "va": "0x00420360",
      "length": 61,
      "name": "SMsgPushRegisterState"
+    },
+    {
+     "va": "0x004203A0",
+     "length": 20,
+     "name": "SMsgSetDefaultWindow"
+    },
+    {
+     "va": "0x004203F0",
+     "length": 36,
+     "name": "sub_004203F0_NextLink"
+    },
+    {
+     "va": "0x00420520",
+     "length": 17,
+     "name": "sub_00420520_Link"
+    },
+    {
+     "va": "0x00420540",
+     "length": 161,
+     "name": "sub_00420540_LinkNode"
+    },
+    {
+     "va": "0x004205F0",
+     "length": 32,
+     "name": "sub_004205F0_Next"
+    },
+    {
+     "va": "0x00420650",
+     "length": 66,
+     "name": "sub_00420650_sub_006C4290"
+    },
+    {
+     "va": "0x004206E0",
+     "length": 24,
+     "name": "sub_004206E0_RawNext"
     },
     {
      "va": "0x004208E0",
@@ -6361,6 +6451,66 @@
      "va": "0x00420CF0",
      "length": 90,
      "name": "sub_00420CF0_WindowProc"
+    },
+    {
+     "va": "0x00420DB0",
+     "length": 20,
+     "name": "sub_00420DB0_InRange"
+    },
+    {
+     "va": "0x00420DD0",
+     "length": 38,
+     "name": "sub_00420DD0_Push"
+    },
+    {
+     "va": "0x00420E00",
+     "length": 16,
+     "name": "sub_00420E00_Drop"
+    },
+    {
+     "va": "0x00420FD0",
+     "length": 16,
+     "name": "sub_00420FD0_At"
+    },
+    {
+     "va": "0x00421000",
+     "length": 13,
+     "name": "sub_00421000_At"
+    },
+    {
+     "va": "0x004210A0",
+     "length": 57,
+     "name": "sub_004210A0_CalcChunkSize"
+    },
+    {
+     "va": "0x004210E0",
+     "length": 31,
+     "name": "sub_004210E0_RoundUp"
+    },
+    {
+     "va": "0x00421160",
+     "length": 59,
+     "name": "sub_00421160_CalcChunkSize"
+    },
+    {
+     "va": "0x004211A0",
+     "length": 31,
+     "name": "sub_004211A0_RoundUp"
+    },
+    {
+     "va": "0x00421240",
+     "length": 59,
+     "name": "sub_00421240_CalcChunkSize"
+    },
+    {
+     "va": "0x00421280",
+     "length": 31,
+     "name": "sub_00421280_RoundUp"
+    },
+    {
+     "va": "0x004212D0",
+     "length": 32,
+     "name": "sub_004212D0_Get"
     },
     {
      "va": "0x004213B0",
@@ -6492,162 +6642,6 @@
      "va": "0x0041F350",
      "length": 270,
      "name": "?sub_0041F350_IncWeights@D2StormHuffTreeStrc@@QAEXPAUD2StormHuffItemStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SSignature_0041D420.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041D420",
-     "length": 168,
-     "name": "sub_0041D420_HashBuffered"
-    },
-    {
-     "va": "0x0041D8D0",
-     "length": 46,
-     "name": "sub_0041D8D0_Peek"
-    },
-    {
-     "va": "0x0041D900",
-     "length": 18,
-     "name": "sub_0041D900_Skip"
-    },
-    {
-     "va": "0x0041DEC0",
-     "length": 52,
-     "name": "sub_0041DEC0_ReadMemory"
-    },
-    {
-     "va": "0x0041DF00",
-     "length": 49,
-     "name": "sub_0041DF00_WriteMemory"
-    },
-    {
-     "va": "0x0041E900",
-     "length": 36,
-     "name": "sub_0041E900_NextLink"
-    },
-    {
-     "va": "0x0041E9E0",
-     "length": 62,
-     "name": "sub_0041E9E0_Get"
-    },
-    {
-     "va": "0x0041EB40",
-     "length": 17,
-     "name": "sub_0041EB40_Link"
-    },
-    {
-     "va": "0x0041EB60",
-     "length": 66,
-     "name": "sub_0041EB60_sub_006C4290"
-    },
-    {
-     "va": "0x0041ED90",
-     "length": 161,
-     "name": "sub_0041ED90_LinkNode"
-    },
-    {
-     "va": "0x00420290",
-     "length": 9,
-     "name": "sub_00420290_BreakHandlerChain"
-    },
-    {
-     "va": "0x004203A0",
-     "length": 20,
-     "name": "SMsgSetDefaultWindow"
-    },
-    {
-     "va": "0x004203F0",
-     "length": 36,
-     "name": "sub_004203F0_NextLink"
-    },
-    {
-     "va": "0x00420520",
-     "length": 17,
-     "name": "sub_00420520_Link"
-    },
-    {
-     "va": "0x00420540",
-     "length": 161,
-     "name": "sub_00420540_LinkNode"
-    },
-    {
-     "va": "0x004205F0",
-     "length": 32,
-     "name": "sub_004205F0_Next"
-    },
-    {
-     "va": "0x00420650",
-     "length": 66,
-     "name": "sub_00420650_sub_006C4290"
-    },
-    {
-     "va": "0x004206E0",
-     "length": 24,
-     "name": "sub_004206E0_RawNext"
-    },
-    {
-     "va": "0x00420DB0",
-     "length": 20,
-     "name": "sub_00420DB0_InRange"
-    },
-    {
-     "va": "0x00420DD0",
-     "length": 38,
-     "name": "sub_00420DD0_Push"
-    },
-    {
-     "va": "0x00420E00",
-     "length": 16,
-     "name": "sub_00420E00_Drop"
-    },
-    {
-     "va": "0x00420FD0",
-     "length": 16,
-     "name": "sub_00420FD0_At"
-    },
-    {
-     "va": "0x00421000",
-     "length": 13,
-     "name": "sub_00421000_At"
-    },
-    {
-     "va": "0x004210A0",
-     "length": 57,
-     "name": "sub_004210A0_CalcChunkSize"
-    },
-    {
-     "va": "0x004210E0",
-     "length": 31,
-     "name": "sub_004210E0_RoundUp"
-    },
-    {
-     "va": "0x00421160",
-     "length": 59,
-     "name": "sub_00421160_CalcChunkSize"
-    },
-    {
-     "va": "0x004211A0",
-     "length": 31,
-     "name": "sub_004211A0_RoundUp"
-    },
-    {
-     "va": "0x00421240",
-     "length": 59,
-     "name": "sub_00421240_CalcChunkSize"
-    },
-    {
-     "va": "0x00421280",
-     "length": 31,
-     "name": "sub_00421280_RoundUp"
-    },
-    {
-     "va": "0x004212D0",
-     "length": 32,
-     "name": "sub_004212D0_Get"
     }
    ]
   },
