@@ -58108,6 +58108,10 @@
      "name": "?SUNITDMG_AddExperienceForPlayer@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HI@Z"
     },
     {
+     "va": "0x0057E5A0",
+     "length": 276
+    },
+    {
      "va": "0x0057E6C0",
      "length": 235,
      "name": "?sub_0057E6C0_DistributePartyExperience@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@1HHH@Z"
@@ -58727,16 +58731,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057E5A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057E5A0",
-     "length": 276
-    }
    ]
   },
   {
