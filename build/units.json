@@ -76089,7 +76089,12 @@
     {
      "va": "0x0061E4A0",
      "length": 124,
-     "name": "?sub_0061E4A0@@YAXPADPBD@Z"
+     "name": "?sub_0061E4A0@@YAXPBDPAD@Z"
+    },
+    {
+     "va": "0x0061E520",
+     "length": 1378,
+     "name": "?sub_0061E520@@YIXPAX@Z"
     },
     {
      "va": "0x0061EA90",
@@ -76110,6 +76115,11 @@
      "va": "0x0061EB40",
      "length": 101,
      "name": "DATATBLS_GetFileNameFromLevelTypeAndFileId"
+    },
+    {
+     "va": "0x0061EBB0",
+     "length": 1143,
+     "name": "?DATATBLS_LoadLvlPrestTxt@@YIXPAXH@Z"
     },
     {
      "va": "0x0061F030",
@@ -76320,22 +76330,6 @@
      "va": "0x0061C4D0",
      "length": 92,
      "name": "?ENVIRONMENT_TaintedSunEnd@@YGXPAUD2DrlgActStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/LvlTbls_0061E520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061E520",
-     "length": 1378,
-     "name": "?sub_0061E520@@YIXPAX@Z"
-    },
-    {
-     "va": "0x0061EBB0",
-     "length": 1143,
-     "name": "?DATATBLS_LoadLvlPrestTxt@@YIXPAXH@Z"
     }
    ]
   },
