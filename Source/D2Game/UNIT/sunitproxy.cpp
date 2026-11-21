@@ -697,6 +697,29 @@ D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame
     return 0;
 }
 
+// 0x00536850
+void __fastcall SUNITPROXY_InitializeNpcEventChain(D2GameStrc* pGame, int nUnused, D2UnitStrc* pUnit)
+{
+    int i = 0;
+    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
+    D2NpcRecordStrc* pRecord = pNpcControl->pFirstRecord;
+    GetTickCount();
+    for (; i < pNpcControl->nArraySize; ++i)
+    {
+        if (pRecord->bTrader == 1 && pRecord->bVendorInit == 1 && pRecord->bTrading == 1)
+        {
+            D2NpcEventStrc* pEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 611, 0);
+            pEvent->pNext = pRecord->pEvent;
+            pEvent->field_C = 0;
+            pEvent->pUnit = pUnit;
+            pEvent->field_8 = 1;
+            pEvent->field_4 = 4;
+            pRecord->pEvent = pEvent;
+        }
+        ++pRecord;
+    }
+}
+
 // 0x005368F0
 void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
 {

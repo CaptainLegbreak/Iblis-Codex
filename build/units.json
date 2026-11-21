@@ -46867,11 +46867,6 @@
      "name": "SUNITPROXY_CountPlayersInLevel"
     },
     {
-     "va": "0x00536850",
-     "length": 146,
-     "name": "SUNITPROXY_InitializeNpcEventChain"
-    },
-    {
      "va": "0x00536B20",
      "length": 20,
      "name": "SUNITPROXY_GetNpcInventory"
@@ -50616,6 +50611,11 @@
      "va": "0x005367B0",
      "length": 111,
      "name": "?sub_005367B0_QueueTradeEvent@@YIXPAUD2UnitStrc@@PAUD2GameStrc@@0HH@Z"
+    },
+    {
+     "va": "0x00536850",
+     "length": 146,
+     "name": "SUNITPROXY_InitializeNpcEventChain"
     },
     {
      "va": "0x005368F0",
