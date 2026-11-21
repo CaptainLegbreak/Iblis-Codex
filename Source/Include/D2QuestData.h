@@ -252,7 +252,10 @@ struct D2Act2Quest3Strc
 
 struct D2Act2Quest4Strc
 {
-    int unk0x00; // 0x00
+    unsigned char unk0x00; // 0x00
+    unsigned char unk0x01; // 0x01
+    unsigned char unk0x02; // 0x02
+    unsigned char unk0x03; // 0x03
     unsigned char bDrognanActivated; // 0x04
     unsigned char unk0x05; // 0x05
     unsigned short unk0x06; // 0x06

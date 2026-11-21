@@ -64917,6 +64917,11 @@
      "name": "?OBJECTS_InitFunction30_HaremBlocker@@YIXPAUD2ObjInitFnStrc@@@Z"
     },
     {
+     "va": "0x0059B820",
+     "length": 135,
+     "name": "?ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x0059B940",
      "length": 33,
      "name": "?ACT2Q4_UnitIterate_UselessGoalCheck@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -64957,20 +64962,17 @@
      "name": "?ACT2Q2_UpdateHoradricItemCounts@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0059EF70",
+     "length": 326
+    },
+    {
+     "va": "0x0059F0C0",
+     "length": 479
+    },
+    {
      "va": "0x0059F2A0",
      "length": 214,
      "name": "?ACT2Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q4_0059B820.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059B820",
-     "length": 135,
-     "name": "?ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
    ]
   },
@@ -65410,40 +65412,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q4_0059EF70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059EF70",
-     "length": 326
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q4_0059F0C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059F0C0",
-     "length": 479
-    }
    ]
   },
   {
