@@ -15490,11 +15490,6 @@
      "name": "sub_00492770_KeyIfReadyMsg"
     },
     {
-     "va": "0x00492C20",
-     "length": 665,
-     "name": "?sub_00492C20_LoadHirelingIcons@@YAXXZ"
-    },
-    {
      "va": "0x00493100",
      "length": 275,
      "name": "?sub_00493100_DrawNumber@@YGXHH@Z"
@@ -26755,6 +26750,11 @@
     "/GS-"
    ],
    "functions": [
+    {
+     "va": "0x00492C20",
+     "length": 665,
+     "name": "?sub_00492C20_LoadHirelingIcons@@YAXXZ"
+    },
     {
      "va": "0x00492EC0",
      "length": 122,

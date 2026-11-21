@@ -3036,42 +3036,6 @@ void __stdcall sub_00492770_KeyIfReadyMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-// 0x00492C20
-void __cdecl sub_00492C20_LoadHirelingIcons()
-{
-    char aszClassIcons[5][32] = {
-        "Hireables\\AmazonIcon",
-        "Hireables\\SorceressIcon",
-        "Hireables\\BarbarianIcon",
-        "Hireables\\PaladinIcon",
-        "Hireables\\NecromancerIcon",
-    };
-    char aszExpansionIcons[7][32] = {
-        "Hireables\\AssassinIcon",
-        "Hireables\\DruidIcon",
-    };
-    memset(gapHirelingIcons_007BEEB0, 0, sizeof(gapHirelingIcons_007BEEB0));
-    int nIcon = 0;
-    for (int i = 0; i < 5; ++i, ++nIcon)
-    {
-        gapHirelingIcons_007BEEB0[nIcon] = sub_004520C0_LoadUiCelFile(aszClassIcons[i]);
-    }
-    if (sub_00408F20_HasExpansionMpq())
-    {
-        for (int i = 0; i < 7; ++i, ++nIcon)
-        {
-            if (!strlen(aszExpansionIcons[i]))
-            {
-                break;
-            }
-            gapHirelingIcons_007BEEB0[nIcon] = sub_004520C0_LoadUiCelFile(aszExpansionIcons[i]);
-        }
-    }
-    const int nSize = sgptDataTables->nPetTypeTxtRecordCount * sizeof(D2HirelingIconRecordStrc);
-    gpHirelingRecords_007BEEAC = (D2HirelingIconRecordStrc*)sub_0040B430(0, nSize, ".\\UI\\Hireables.cpp", 0x96, 0);
-    memset(gpHirelingRecords_007BEEAC, 0, nSize);
-}
-
 // 0x00493100
 void __stdcall sub_00493100_DrawNumber(int nValue, int nX)
 {
