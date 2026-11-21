@@ -17975,6 +17975,10 @@
      "va": "0x00454150",
      "length": 1052,
      "name": "?sub_00454150_OpenGoldPanel@@YIXH@Z"
+    },
+    {
+     "va": "0x00468770",
+     "length": 165
     }
    ],
    "flags": [
@@ -20403,30 +20407,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00468770.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00468770",
-     "length": 165
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
