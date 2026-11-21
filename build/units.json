@@ -87341,6 +87341,10 @@
      "name": "?DRLGMAZE_InitRoomFixedPreset@@YGPAUD2DrlgRoomStrc@@PAU1@HHHH@Z"
     },
     {
+     "va": "0x00670E70",
+     "length": 53
+    },
+    {
      "va": "0x00670EB0",
      "length": 164
     },
@@ -87523,16 +87527,6 @@
      "va": "0x00673AF0",
      "length": 27,
      "name": "?DRLGMAZE_RollBasicPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Maze_00670E70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00670E70",
-     "length": 53
     }
    ]
   },

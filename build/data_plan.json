@@ -6366,9 +6366,12 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/Maze.cpp": {
-   "bytes": 736,
-   "definitions": 9,
-   "externs": [],
+   "bytes": 748,
+   "definitions": 10,
+   "externs": [
+    "extern \"C\" void __cdecl sub_00672460(); // 0x00672460",
+    "extern \"C\" void __cdecl sub_006724A0(); // 0x006724A0"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Maze.inc",
    "lang": "cpp",
@@ -6380,18 +6383,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Maze_00670D70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DRLG/Maze_00670E70.cpp": {
-   "bytes": 12,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_00672460(); // 0x00672460",
-    "extern \"C\" void __cdecl sub_006724A0(); // 0x006724A0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/Maze_00670E70.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -151500,7 +151491,7 @@
    "cname": "gData_006F0468",
    "declared": true,
    "decorated": "?gpfnMazeGetBarracksEntryRoom@@3QBQ6IPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@@ZB",
-   "file": "Source/D2Common/DRLG/Maze_00670E70.cpp",
+   "file": "Source/D2Common/DRLG/Maze.cpp",
    "form": "declared",
    "fwd": "extern \"C\" D2MazeRoomFn const gData_006F0468[3]; // 0x006F0468",
    "head": "extern \"C\" D2MazeRoomFn const gData_006F0468[3] = ",

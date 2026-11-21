@@ -69,6 +69,10 @@ int __fastcall DRLG_GetRectanglesManhattanDistanceAndCheckNotOverlapping(D2DrlgC
 
 extern const D2MazeLevelIdStrc gnAct2ArcaneSummonerIds[4]; // 0x006F00F8
 
+typedef D2DrlgRoomStrc* (__fastcall* D2MazeRoomFn)(D2DrlgLevelStrc* pLevel);
+
+extern D2MazeRoomFn const gpfnMazeGetBarracksEntryRoom[3]; // 0x006F0468
+
 static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom); // 0x006709B0
 
 static __declspec(noinline) int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection); // 0x00672340
@@ -93,7 +97,7 @@ static __forceinline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed);
 
 static __forceinline D2DrlgRoomStrc* MAZE_ReplaceRoomPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId1, int nLevelPrestId2, int nPickedFile);
 
-static D2DrlgRoomStrc* __stdcall DRLGMAZE_PlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection, int bMergeRooms);
+static D2DrlgRoomStrc* __stdcall DRLGMAZE_PlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection, int bMergeRooms); // 0x00670D70
 
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddSpecialPreset(int nDirection, int nLvlPrestId, int nFile, D2DrlgLevelStrc* pLevel);
 
@@ -673,7 +677,8 @@ void __stdcall DRLGMAZE_BuildBasicMaze(D2DrlgLevelStrc* pLevel)
     }
 }
 
-static __forceinline D2DrlgRoomStrc* DRLGMAZE_AddAdjacentMazeRoom(D2DrlgRoomStrc* pDrlgRoom, int bMergeRooms, int nDirection)
+// 0x00670E70
+static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddAdjacentMazeRoom(D2DrlgRoomStrc* pDrlgRoom, int bMergeRooms, int nDirection)
 {
     D2DrlgRoomStrc* pNewRoomEx = DRLGMAZE_PlaceAdjacentPresetRoom(pDrlgRoom, nDirection, bMergeRooms);
     if (pNewRoomEx)
