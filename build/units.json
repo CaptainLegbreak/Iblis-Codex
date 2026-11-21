@@ -33882,6 +33882,21 @@
      "name": "?sub_004CC950_GetSubMissileCount@@YAHPAUD2MissilesTxt@@H@Z"
     },
     {
+     "va": "0x004CD1C0",
+     "length": 117,
+     "name": "?sub_004CD1C0_FlickerLight@@YAXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004CD240",
+     "length": 68,
+     "name": "?sub_004CD240_IsOwnersPet@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004CD290",
+     "length": 55,
+     "name": "?sub_004CD290_CltAnimSpeedSteps@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004CD2D0",
      "length": 61,
      "name": "?sub_004CD2D0_GetFrameDelay@@YAHH@Z"
@@ -34934,27 +34949,6 @@
      "va": "0x004DBFE0",
      "length": 17,
      "name": "?sub_004DBFE0_StopSkill@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004CD1C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004CD1C0",
-     "length": 117,
-     "name": "?sub_004CD1C0_FlickerLight@@YAXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004CD240",
-     "length": 68,
-     "name": "?sub_004CD240_IsOwnersPet@@YIHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x004CD290",
-     "length": 55,
-     "name": "?sub_004CD290_CltAnimSpeedSteps@@YAXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
