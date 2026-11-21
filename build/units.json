@@ -32936,6 +32936,10 @@
      "name": "?sub_004C18B0_PlayDropSound@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004C1910",
+     "length": 340
+    },
+    {
      "va": "0x004C1C20",
      "length": 33,
      "name": "?sub_004C1C20_SetWeaponClass@@YAXPAUD2UnitStrc@@E@Z"
@@ -32974,6 +32978,14 @@
      "va": "0x004C2970",
      "length": 339,
      "name": "?sub_004C2970_PlaceItemAt@@YGXGEPAUD2UnitStrc@@0G@Z"
+    },
+    {
+     "va": "0x004C3070",
+     "length": 780
+    },
+    {
+     "va": "0x004C3380",
+     "length": 619
     },
     {
      "va": "0x004C3E00",
@@ -33040,38 +33052,6 @@
     {
      "va": "0x004C1350",
      "length": 870
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C1910.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C1910",
-     "length": 340
-    },
-    {
-     "va": "0x004C3070",
-     "length": 780
-    },
-    {
-     "va": "0x004C3380",
-     "length": 619
     }
    ],
    "flags": [
