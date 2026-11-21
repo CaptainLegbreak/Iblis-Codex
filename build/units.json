@@ -58068,6 +58068,14 @@
      "name": "?sub_0057C1E0_Total@@YIXPAUGame@@PAUUnit@@1PAUDamage@@@Z"
     },
     {
+     "va": "0x0057C420",
+     "length": 666
+    },
+    {
+     "va": "0x0057C6C0",
+     "length": 702
+    },
+    {
      "va": "0x0057C980",
      "length": 111,
      "name": "SUNITDMG_FreeAttackerCombatList"
@@ -58664,34 +58672,6 @@
      "length": 387,
      "name": "?SKILLS_SrvDo119_DruidSummon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/SUnitDmg_0057C420.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0057C420",
-     "length": 666
-    },
-    {
-     "va": "0x0057C6C0",
-     "length": 702
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
