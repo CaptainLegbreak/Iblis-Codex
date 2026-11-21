@@ -13522,6 +13522,21 @@
      "name": "sub_00445300_LoadLvlRest"
     },
     {
+     "va": "0x00446780",
+     "length": 67,
+     "name": "?sub_00446780_OpenJoinScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x004467D0",
+     "length": 57,
+     "name": "?sub_004467D0_OpenCreateScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x00446950",
+     "length": 18,
+     "name": "?sub_00446950_Refresh@@YGHH@Z"
+    },
+    {
      "va": "0x00446CA0",
      "length": 79,
      "name": "?sub_00446CA0_PlayTempSmack@@YAHXZ"
@@ -13532,8 +13547,28 @@
      "name": "?sub_00446D00_SetText@@YAHPBD@Z"
     },
     {
+     "va": "0x00446D20",
+     "length": 8,
+     "name": "?sub_00446D20_AlwaysOne@@YGHHH@Z"
+    },
+    {
      "va": "0x00446D30",
      "length": 46
+    },
+    {
+     "va": "0x00446D60",
+     "length": 46,
+     "name": "?sub_00446D60_Classify@@YAHH@Z"
+    },
+    {
+     "va": "0x00447390",
+     "length": 89,
+     "name": "?sub_00447390_CompareNames@@YAHPBD0@Z"
+    },
+    {
+     "va": "0x00447400",
+     "length": 342,
+     "name": "sub_00447400_SetNamedValue"
     },
     {
      "va": "0x00447560",
@@ -13541,9 +13576,18 @@
      "name": "sub_00447560_SplitName"
     },
     {
+     "va": "0x004477A0",
+     "length": 207,
+     "name": "?sub_004477A0_Refresh@@YAXXZ"
+    },
+    {
      "va": "0x00447A90",
      "length": 18,
      "name": "?sub_00447A90_OnActivate@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00448C70",
+     "length": 444
     },
     {
      "va": "0x00449320",
@@ -13660,32 +13704,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ComCallback_00446780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446780",
-     "length": 67,
-     "name": "?sub_00446780_OpenJoinScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x004467D0",
-     "length": 57,
-     "name": "?sub_004467D0_OpenCreateScreen@@YGHH@Z"
-    },
-    {
-     "va": "0x00446950",
-     "length": 18,
-     "name": "?sub_00446950_Refresh@@YGHH@Z"
-    },
-    {
-     "va": "0x00446D20",
-     "length": 8,
-     "name": "?sub_00446D20_AlwaysOne@@YGHHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Unknown_00446880.cpp",
    "rank": 0,
    "functions": [
@@ -13747,17 +13765,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ComCallback_00446D60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446D60",
-     "length": 46,
-     "name": "?sub_00446D60_Classify@@YAHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Src/ComCallback_00446D90.cpp",
    "rank": 1,
    "functions": [
@@ -13804,33 +13811,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447390.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00447390",
-     "length": 89,
-     "name": "?sub_00447390_CompareNames@@YAHPBD0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00447400.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00447400",
-     "length": 342,
-     "name": "sub_00447400_SetNamedValue"
-    },
-    {
-     "va": "0x004477A0",
-     "length": 207,
-     "name": "?sub_004477A0_Refresh@@YAXXZ"
-    }
    ]
   },
   {
@@ -14043,16 +14023,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ComCallback_00448C70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00448C70",
-     "length": 444
-    }
    ]
   },
   {
