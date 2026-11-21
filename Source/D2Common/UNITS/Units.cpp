@@ -1,6 +1,10 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
+#include "D2Txt.h"
+#include "D2GameObjs.h"
+#include "D2UnitData.h"
 #define FP16_SHIFT 16
 #define OBJSUBCLASS_SHRINE 0x01
 #define MONSTER_SHADOWWARRIOR 0x1A1
@@ -25,23 +29,7 @@ struct D2AnimUnkStrc;
 struct D2ValueRecordStrc;
 struct D2MonStats2Txt;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    D2CoordStrc tGameCoords;
-    int dwUnk0x14;
-    int dwUnk0x18;
-    unsigned char nDirection;
-    unsigned char unk_1D[0x3];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -65,35 +53,9 @@ void __stdcall PATH_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pRoom); 
 void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* pPath, int* pUnitType, int* pUnitGUID); // 0x00648BB0
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 
-struct D2ObjectsTxt
-{
-    unsigned char unk_00[0xD8];
-    int dwFrameCnt[8];
-    unsigned char unk_F8[0x28];
-    unsigned char nHasCollision[8];
-    char unk0x128[63];
-    unsigned char nSubClass;
-};
 
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-};
 
-struct D2ItemsTxt
-{
-    char unk0x00[304];
-    unsigned char nBelt;
-};
 
-struct D2PlayerDataStrc
-{
-    char szName[16];
-    D2BitBufferStrc* pQuestData[3];
-    D2WaypointDataStrc* pWaypointData[3];
-    char unk0x28[104];
-    int nWeaponGUID;
-};
 
 D2SkillStrc* __fastcall SKILLS_GetLeftSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643930
 D2SkillStrc* __fastcall SKILLS_GetRightSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643960
@@ -111,13 +73,6 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __fastcall SKILLS_SetUsedSkillInSkillList(D2SkillListStrc* pSkillList, D2SkillStrc* pUsedSkill); // 0x00643990
 extern struct D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2SkillsTxt
-{
-    char unk0x00[6];
-    unsigned char dwFlags[8];
-    unsigned char unk_0E[0x15A];
-    unsigned char nWeapSel;
-};
 
 struct D2AnimUnkStrc
 {
@@ -161,13 +116,6 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);
 
-struct D2MonStats2Txt
-{
-    char unknown0[14];
-    unsigned char meleeRange;
-    unsigned char unk_0F[0x5];
-    unsigned char nHitClass;
-};
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 int __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc*, D2UnitStrc**, int*, int*); // 0x0063C9B0
 unsigned char __stdcall ITEMS_GetMeleeRange(D2UnitStrc*); // 0x006288D0
@@ -217,8 +165,8 @@ void __fastcall sub_00620360(D2UnitStrc* pUnit, int nX, int nY, int nUnk0x14, in
     D2StaticPathStrc* pStaticPath = pUnit->pStaticPath;
     pStaticPath->tGameCoords.nX = nX;
     pStaticPath->tGameCoords.nY = nY;
-    pStaticPath->dwUnk0x14 = nUnk0x14;
-    pStaticPath->dwUnk0x18 = nUnk0x18;
+    *(int*)&pStaticPath->unk0x14[0] = nUnk0x14;
+    *(int*)&pStaticPath->unk0x14[4] = nUnk0x18;
 }
 
 // 0x006203B0
@@ -301,7 +249,7 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* ptUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return ptUnit->pStaticPath->dwClientCoordX;
+        return ptUnit->pStaticPath->nTargetX;
 
     default:
         return PATH_GetClientCoordX(ptUnit->pDynamicPath);
@@ -318,7 +266,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* ptUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return ptUnit->pStaticPath->dwClientCoordY;
+        return ptUnit->pStaticPath->nTargetY;
 
     default:
         return PATH_GetClientCoordY(ptUnit->pDynamicPath);
@@ -495,8 +443,8 @@ void __stdcall UNITS_GetClientCoords(D2UnitStrc* ptUnit, D2CoordStrc* pClientCoo
     case UNIT_TILE:
         {
             D2StaticPathStrc* pStaticPath = ptUnit->pStaticPath;
-            pClientCoords->nX = pStaticPath->dwClientCoordX;
-            pClientCoords->nY = pStaticPath->dwClientCoordY;
+            pClientCoords->nX = pStaticPath->nTargetX;
+            pClientCoords->nY = pStaticPath->nTargetY;
         }
         break;
 
@@ -514,8 +462,8 @@ void __fastcall sub_00620980(D2UnitStrc* pUnit, int nClientX, int nClientY)
     D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 2049);
 
     D2StaticPathStrc* pStaticPath = pUnit->pStaticPath;
-    pStaticPath->dwClientCoordX = nClientX;
-    pStaticPath->dwClientCoordY = nClientY;
+    pStaticPath->nTargetX = nClientX;
+    pStaticPath->nTargetY = nClientY;
 }
 
 // 0x00620B50
@@ -844,7 +792,7 @@ int __fastcall UNITS_CanAnimModeUseAttackRate(int nAnimMode, int nUnitType, D2Un
     if (!pUsedSkill)
         return FALSE;
 
-    return sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pUsedSkill, ".\\UNITS\\Units.cpp", 3066))->dwFlags[0] & gdwBitMasks[SKILLSFLAGINDEX_USEATTACKRATE];
+    return sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pUsedSkill, ".\\UNITS\\Units.cpp", 3066))->nFlags[2] & gdwBitMasks[SKILLSFLAGINDEX_USEATTACKRATE];
 }
 
 // 0x00620300
@@ -1092,7 +1040,7 @@ int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* hUnit)
     case 1: {
         D2MonStats2Txt* record = UNITS_GetMonStats2TxtRecordFromMonsterId(hUnit->dwClassId);
         if (!record) goto fail;
-        range = record->meleeRange;
+        range = record->nSteps;
         if (range == 255) {
             int weaponClass;
             COMPOSIT_GetWeaponClassId(hUnit, hUnit->pInventory, &weaponClass, -1, 1);
