@@ -6708,6 +6708,119 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Vulture(D2GameStrc* pGame, D2UnitS
     return 0;
 }
 
+// 0x005F4510
+void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int nTargetDistance = pAiTickParam->nTargetDistance;
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    const int nLifePercentage = UNITS_GetCurrentLifePercentage(pUnit);
+
+    if (pAiControl->dwAiParam[0] == 1)
+    {
+        pAiControl->dwAiParam[1] = 0;
+
+        if (nLifePercentage > 75)
+        {
+            pAiControl->dwAiParam[0] = 0;
+
+            if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 2))
+            {
+                pAiControl->dwAiParam[0] = 2;
+                sub_6FCD0410(pGame, pUnit, pTarget, 0);
+                return;
+            }
+
+            sub_005DF7D0(pGame, pUnit, pTarget, 6, 0);
+            return;
+        }
+
+        if (bCombat && AI_PARAM(pGame, pMonStatsTxt, 0) > 25 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 0) - 25)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        if (nTargetDistance < AI_PARAM(pGame, pMonStatsTxt, 3) || sub_6FCF2E70(pUnit))
+        {
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 0);
+            return;
+        }
+
+        pAiControl->dwAiParam[0] = 0;
+        sub_005DF7D0(pGame, pUnit, pTarget, 12, 0);
+        return;
+    }
+
+    if (bCombat)
+    {
+        pAiControl->dwAiParam[0] = 2;
+
+        if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            return;
+        }
+
+        if (nLifePercentage < AI_PARAM(pGame, pMonStatsTxt, 4))
+        {
+            pAiControl->dwAiParam[0] = 1;
+
+            if (pMonStatsTxt->nSkill[0] < 0 || STATES_CheckState(pUnit, 22))
+            {
+                sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
+                return;
+            }
+
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], 0, 0, 0);
+            return;
+        }
+
+        if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 1))
+        {
+            sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+        return;
+    }
+
+    if (!sub_6FCF2E70(pUnit) && pAiControl->dwAiParam[1] != 1)
+    {
+        ++pAiControl->dwAiParam[2];
+
+        if (pAiControl->dwAiParam[2] > 20)
+        {
+            pAiControl->dwAiParam[2] = 0;
+        }
+
+        pAiControl->dwAiParam[1] = 0;
+
+        if (pAiControl->dwAiParam[2] != 1 || (int)SEED_RollLimitedRandomNumber(pSeed, 100) >= AI_PARAM(pGame, pMonStatsTxt, 2))
+        {
+            if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 20)
+            {
+                AITACTICS_WalkCloseToUnit(pGame, pUnit, 6);
+                return;
+            }
+
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+            return;
+        }
+
+        pAiControl->dwAiParam[1] = 1;
+        sub_6FCD0410(pGame, pUnit, pTarget, 0);
+        return;
+    }
+
+    pAiControl->dwAiParam[1] = 1;
+    sub_6FCD0410(pGame, pUnit, pTarget, 0);
+}
+
 // 0x005F4FD0
 void __fastcall sub_005F4FD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {

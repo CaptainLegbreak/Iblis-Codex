@@ -69570,6 +69570,11 @@
      "name": "AITHINK_TargetCallback_Vulture"
     },
     {
+     "va": "0x005F4510",
+     "length": 830,
+     "name": "?AITHINK_Fn026_Arach@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F4FD0",
      "length": 100,
      "name": "sub_005F4FD0"
@@ -70590,17 +70595,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F4510.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F4510",
-     "length": 830,
-     "name": "?AITHINK_Fn026_Arach@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
