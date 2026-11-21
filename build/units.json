@@ -21753,6 +21753,11 @@
      "name": "?sub_00469AE0_IsValidKey@@YIHG@Z"
     },
     {
+     "va": "0x00469C20",
+     "length": 248,
+     "name": "?sub_00469C20_QueryKey@@YIHHHHPAG@Z"
+    },
+    {
      "va": "0x00469D20",
      "length": 26,
      "name": "?sub_00469D20_SaveHotkeys@@YAXXZ"
@@ -21766,6 +21771,18 @@
      "va": "0x00469D50",
      "length": 26,
      "name": "?sub_00469D50_RestoreHotkeys@@YAXXZ"
+    },
+    {
+     "va": "0x00469DE0",
+     "length": 1862
+    },
+    {
+     "va": "0x0046A530",
+     "length": 777
+    },
+    {
+     "va": "0x0046A940",
+     "length": 219
     },
     {
      "va": "0x0046AA20",
@@ -21813,49 +21830,6 @@
      "va": "0x0046AAE0",
      "length": 400,
      "name": "?sub_0046AAE0_LoadKeyConfig@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/CmdTbl_00469C20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00469C20",
-     "length": 248,
-     "name": "?sub_00469C20_QueryKey@@YIHHHHPAG@Z"
-    },
-    {
-     "va": "0x0046A940",
-     "length": 219
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/CmdTbl_00469DE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00469DE0",
-     "length": 1862
-    },
-    {
-     "va": "0x0046A530",
-     "length": 777
     }
    ],
    "flags": [
