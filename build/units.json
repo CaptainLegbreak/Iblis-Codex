@@ -69655,6 +69655,10 @@
      "name": "AITHINK_TargetCallback_SandRaider"
     },
     {
+     "va": "0x005F12A0",
+     "length": 209
+    },
+    {
      "va": "0x005F1380",
      "length": 177,
      "name": "?AITHINK_TargetCallback_FallenShaman@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
@@ -69663,6 +69667,10 @@
      "va": "0x005F1750",
      "length": 165,
      "name": "sub_005F1750"
+    },
+    {
+     "va": "0x005F22B0",
+     "length": 427
     },
     {
      "va": "0x005F2A00",
@@ -69678,6 +69686,10 @@
      "va": "0x005F4FD0",
      "length": 100,
      "name": "sub_005F4FD0"
+    },
+    {
+     "va": "0x005F53E0",
+     "length": 737
     },
     {
      "va": "0x005F56D0",
@@ -70735,38 +70747,6 @@
      "length": 348,
      "name": "?AITHINK_Fn014_QuillRat@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F12A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005F12A0",
-     "length": 209
-    },
-    {
-     "va": "0x005F22B0",
-     "length": 427
-    },
-    {
-     "va": "0x005F53E0",
-     "length": 737
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
