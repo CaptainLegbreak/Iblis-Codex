@@ -42999,41 +42999,15 @@
      "va": "0x00500C50",
      "length": 337,
      "name": "?sub_00500C50_DrawButtonText@@YGXHPAUD2WinButtonStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinButton_00500DB0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00500DB0",
      "length": 728
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinButton_00501290.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00501290",
      "length": 270
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
