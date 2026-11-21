@@ -2,54 +2,75 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+
 #define STATLIST_SET 0x2000
 
 struct D2GameStrc;
+
 struct D2DrlgActStrc;
+
 struct D2StatStrc;
+
 struct D2StatsArrayStrc;
+
 struct D2ModStatsArrayStrc;
+
 struct D2OpStatDataStrc;
+
 struct D2ItemStatCostTxt;
+
 struct D2CharStatsTxt;
+
 struct Obj00625250;
+
 struct Obj006252B0;
+
 struct Obj006252D0;
+
 struct Obj006252F0;
+
 struct Obj00625330;
+
 struct D2ItemCalcStrc;
+
 struct Obj00625CE0;
+
 struct Obj00626090;
+
 struct Obj006260B0;
+
 struct D2StatListStrc;
+
 struct D2UnitStrc;
+
 struct D2DataTablesStrc;
-
-
-
-
 
 typedef void (__fastcall* StatListUnitCallback)(D2UnitStrc* pUnit1, int nStatId, int nValue, D2UnitStrc* pUnit2);
 
-
-
-
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern unsigned int gdwBitMasks[]; // 0x006CE268
+
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
+
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
+
 D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
+
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
+
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
+
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
+
 int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nBaseTime, int* pItemModPeriodOfDay, int* pItemModMin, int* pItemModMax); // 0x0065CA30
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 static __forceinline int STATLIST_GetTotalStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625420
+
 int __fastcall sub_00626200_GetStatFromLayer(D2StatListStrc* pStatListEx, int nLayer_StatId);
+
 int __fastcall sub_006266C0_UpdateStatOps(D2StatListStrc* pStatListEx, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord, D2UnitStrc* pUnit);
 
 struct Obj00625250 { unsigned int dwUnknown00; unsigned int dwUnknown04; unsigned int dwValue08; };
@@ -63,6 +84,7 @@ struct Obj006252F0 { unsigned char bUnknown00[0x14]; unsigned int dwValue14; };
 struct Obj00625330 { unsigned char bUnknown00[0x18]; unsigned int dwValue18; };
 
 int __stdcall sub_006255A0_GetStatValueWithPercent(D2StatListStrc* pStatList, int nStatId, int nPercentStatId, int bAddBonus); // 0x006255A0
+
 D2StatListStrc* __stdcall sub_006256E0_StatListFindByFlags(D2StatListStrc* pStatList, int nFlag); // 0x006256E0
 
 struct D2ItemCalcStrc
@@ -72,7 +94,9 @@ struct D2ItemCalcStrc
 };
 
 extern void* gpItemsCalcFunctions[]; // 0x0074463C
+
 extern int gnItemsCalcFunctions; // 0x0074465C
+
 int __fastcall ITEMMODS_GetCalcParamValue_Return0(int nParam, void* pUserData); // 0x00627B40
 
 struct Obj00625CE0 { unsigned char bUnknown00[0x38]; unsigned int dwValue38; };
@@ -84,12 +108,22 @@ struct Obj00626090 { unsigned char bUnknown00[0x18]; unsigned int dwValue18; };
 struct Obj006260B0 { unsigned char bUnknown00[0x10]; unsigned int dwFlags10; unsigned int dwUnknown14; int nValue18; };
 
 void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pStatList); // 0x00626C00
+
 static int __stdcall sub_00626110_CopyStats(D2StatListStrc* pStatList, int nStatId, D2StatStrc* pBuffer, int nBufferSize);
+
 extern "C" const char gszStatListSourceFile[];
+
 void __fastcall sub_00626920_UpdateStatValue(D2StatListStrc* pStatListEx, int nLayer_StatId, int nValue, D2UnitStrc* pUnit); // 0x00626920
 
 static int __stdcall sub_00624ED0_GetBaseStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
+
 static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord);
+
+int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
+
+void __stdcall D2Common_ExpireStatList_6FDB6E30(D2StatListStrc* pStatList);                                 // 0x006269F0
+
+#define MOVED_PREFIX
 
 static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
@@ -313,7 +347,6 @@ static void __stdcall sub_00624DD0_InsertStatModOrFail(D2StatListExStrc* pStatLi
     ++pStatListEx->ModStats.nStatCount;
 }
 
-// 0x00624ED0
 static int __stdcall sub_00624ED0_GetBaseStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
@@ -335,7 +368,6 @@ static int __stdcall sub_00624ED0_GetBaseStat(D2StatListStrc* pStatList, int nLa
     return nValue;
 }
 
-// 0x00624F60
 static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
@@ -520,6 +552,19 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, unsigned 
     }
 
     return sub_00624ED0_GetBaseStat(pStatList, STAT_MAKE(nStatId, nLayer), pItemStatCostTxtRecord);
+}
+
+__forceinline D2SkillsTxt* __fastcall DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    return 0;
+}
+
+// 0x006254E0
+int __stdcall sub_006254E0_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
+{
+    return sub_00625350(pStatList, nStatId, nLayer);
 }
 
 // 0x00625600
@@ -726,8 +771,6 @@ unsigned int* __stdcall D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(D2UnitStrc* pUn
     return &pStatListEx->StatFlags[(sgptDataTables->nStatesTxtRecordCount + 31) / 32];
 }
 
-#include "gen/data/Source/D2Common/Stats/StatsEx.inc"
-
 // 0x00625C30
 int __stdcall STATLIST_GetFullStatsDataFromUnit(D2UnitStrc* pUnit, D2StatStrc* pOutStatBuffer, int nBufferSize)
 {
@@ -770,6 +813,75 @@ extern "C" __declspec(dllexport) void __stdcall sub_00625CE0(Obj00625CE0* pObj, 
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     return sub_00625350(pStatList, nStatId, nLayer);
+}
+
+// 0x00625D10
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = 0;
+    if (pStatList)
+    {
+        pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(7);
+    }
+
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(7, 0), pItemStatCostTxtRecord);
+}
+
+// 0x00625D60
+int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = 0;
+    if (pStatList)
+    {
+        pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(9);
+    }
+
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(9, 0), pItemStatCostTxtRecord);
+}
+
+// 0x00625DB0
+int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = 0;
+    if (pStatList)
+    {
+        pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(11);
+    }
+
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(11, 0), pItemStatCostTxtRecord);
 }
 
 // build: context STATLIST_GetTotalStatValue
@@ -865,6 +977,29 @@ int __stdcall STATLIST_GetMaxThrowDamageFromUnit(D2UnitStrc* pUnit)
     }
 
     return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(160, 0), pItemStatCostTxtRecord);
+}
+
+// 0x00626020
+int __stdcall sub_00626020_ArmorValue(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = 0;
+    if (pStatList)
+    {
+        pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(31);
+    }
+
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(31, 0), pItemStatCostTxtRecord);
 }
 
 // 0x00626090
@@ -1463,6 +1598,46 @@ void __stdcall D2Common_ExpireStatList_6FDB6E30(D2StatListStrc* pStatList)
     }
 }
 
+// 0x00626C00
+void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pStatList)
+{
+    D2Common_ExpireStatList_6FDB6E30(pStatList);
+
+    if (((void*)pStatList->Stats.pStat))
+        FOG_FreePool(pStatList->pMemPool, ((void*)pStatList->Stats.pStat), ".\\Stats\\StatsEx.cpp", 0x4D8, 0);
+
+    if (pStatList->dwFlags & STATLIST_EXTENDED)
+    {
+        D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
+        D2StatListStrc* pPrevious;
+        for (D2StatListStrc* pCurrent = pStatListEx->pMyLastList; pCurrent; pCurrent = pPrevious)
+        {
+            pPrevious = pCurrent->pPrevLink;
+            pCurrent->pParent = 0;
+            pCurrent->pUnit = 0;
+            if (pCurrent->dwFlags & STATLIST_EXTENDED)
+                continue;
+
+            if (pStatListEx->pMyLastList == pCurrent)
+                pStatListEx->pMyLastList = pPrevious;
+
+            D2Common_STATLIST_FreeStatListImpl_6FDB7050(pCurrent);
+
+            pPrevious = pStatListEx->pMyLastList;
+        }
+
+        if (((void*)pStatListEx->FullStats.pStat))
+            FOG_FreePool(pStatListEx->pMemPool, ((void*)pStatListEx->FullStats.pStat), ".\\Stats\\StatsEx.cpp", 0x4F3, 0);
+
+        if (((void*)pStatListEx->ModStats.pStat))
+            FOG_FreePool(pStatListEx->pMemPool, ((void*)pStatListEx->ModStats.pStat), ".\\Stats\\StatsEx.cpp", 0x4F7, 0);
+
+        FOG_FreePool(pStatListEx->pMemPool, pStatListEx->StatFlags, ".\\Stats\\StatsEx.cpp", 0x4FA, 0);
+    }
+
+    FOG_FreePool(pStatList->pMemPool, pStatList, ".\\Stats\\StatsEx.cpp", 0x502, 0);
+}
+
 inline int STATLIST_IsExtended(D2StatListStrc* pStatList)
 {
     return pStatList->dwFlags & STATLIST_EXTENDED;
@@ -1664,6 +1839,18 @@ int __stdcall sub_00627830_GetStatAccumulated(D2UnitStrc* pUnit, int nStatId)
     return sub_00626200_GetStatFromLayer(pStatListEx, nStatId << 16);
 }
 
+// 0x00627AF0
+int __fastcall sub_00627AF0_HasSkillDesc(int nSkillId)
+{
+    if (D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId))
+    {
+        int nSkillDesc = pSkillsTxtRecord->wSkillDesc;
+        if (nSkillDesc >= 0 && nSkillDesc < sgptDataTables->nSkillDescTxtRecordCount)
+            return 1;
+    }
+    return 0;
+}
+
 // 0x00627C20
 int __stdcall ITEMMODS_EvaluateItemFormula(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int nCalc)
 {
@@ -1678,3 +1865,5 @@ int __stdcall ITEMMODS_EvaluateItemFormula(D2UnitStrc* pUnit, D2UnitStrc* pItem,
     pItemCalc.pItem = pItem;
     return DATATBLS_CalcEvaluateExpression(&sgptDataTables->pItemsCode[nCalc], sgptDataTables->nItemsCodeSize - nCalc, ITEMMODS_GetCalcParamValue_Return0, gpItemsCalcFunctions, gnItemsCalcFunctions, &pItemCalc);
 }
+
+#include "gen/data/Source/D2Common/Stats/StatsEx.inc"

@@ -82018,6 +82018,11 @@
      "name": "?STATLIST_GetUnitBaseStat@@YGHPAUD2UnitStrc@@HG@Z"
     },
     {
+     "va": "0x006254E0",
+     "length": 9,
+     "name": "?sub_006254E0_GetStatValue@@YGHPAUD2StatListStrc@@HG@Z"
+    },
+    {
      "va": "0x00625600",
      "length": 31,
      "name": "sub_00625600_UnitGetStatValueWithPercent"
@@ -82078,6 +82083,21 @@
      "name": "?STATLIST_GetStatValue@@YGHPAUD2StatListStrc@@HG@Z"
     },
     {
+     "va": "0x00625D10",
+     "length": 74,
+     "name": "?STATLIST_GetMaxLifeFromUnit@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00625D60",
+     "length": 74,
+     "name": "?STATLIST_GetMaxManaFromUnit@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00625DB0",
+     "length": 74,
+     "name": "?STATLIST_GetMaxStaminaFromUnit@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00625E00",
      "length": 93,
      "name": "?STATLIST_GetMaxDurabilityFromUnit@@YGHPAUD2UnitStrc@@@Z"
@@ -82091,6 +82111,11 @@
      "va": "0x00625F80",
      "length": 77,
      "name": "?STATLIST_GetMaxThrowDamageFromUnit@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00626020",
+     "length": 74,
+     "name": "?sub_00626020_ArmorValue@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00626090",
@@ -82136,6 +82161,11 @@
      "length": 513
     },
     {
+     "va": "0x00626C00",
+     "length": 198,
+     "name": "?D2Common_STATLIST_FreeStatListImpl_6FDB7050@@YIXPAUD2StatListStrc@@@Z"
+    },
+    {
      "va": "0x00626CF0",
      "length": 19,
      "name": "?sub_00626CF0_FreeExtendedStatList@@YIXPAUD2StatListStrc@@@Z"
@@ -82171,6 +82201,11 @@
      "name": "sub_00627830_GetStatAccumulated"
     },
     {
+     "va": "0x00627AF0",
+     "length": 62,
+     "name": "?sub_00627AF0_HasSkillDesc@@YIHH@Z"
+    },
+    {
      "va": "0x00627C20",
      "length": 101,
      "name": "ITEMMODS_EvaluateItemFormula"
@@ -82198,9 +82233,34 @@
      "name": "?sub_00624ED0_GetBaseStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
     },
     {
+     "va": "0x00624F40",
+     "length": 17,
+     "name": "?sub_00624F40_GetStatsArray@@YAPAUD2StatsArrayStrc@@PAUD2StatListExStrc@@@Z"
+    },
+    {
      "va": "0x00624F60",
      "length": 122,
      "name": "?sub_00624F60_GetTotalStat@@YGHPAUD2StatListStrc@@HPAUD2ItemStatCostTxt@@@Z"
+    },
+    {
+     "va": "0x00625270",
+     "length": 22,
+     "name": "STATLIST_GetBaseStatsCount"
+    },
+    {
+     "va": "0x00625290",
+     "length": 31,
+     "name": "STATLIST_GetFullStatsCountFromUnit"
+    },
+    {
+     "va": "0x00625620",
+     "length": 38,
+     "name": "sub_00625620"
+    },
+    {
+     "va": "0x00626070",
+     "length": 22,
+     "name": "D2Common_11248"
     },
     {
      "va": "0x006260E0",
@@ -82228,6 +82288,11 @@
      "name": "STATLIST_SetStatIfListIsValid"
     },
     {
+     "va": "0x00627220",
+     "length": 36,
+     "name": "STATLIST_SetBaseStat2"
+    },
+    {
      "va": "0x006272B0",
      "length": 35,
      "name": "STATLIST_AddUnitStat"
@@ -82241,42 +82306,6 @@
      "va": "0x006277F0",
      "length": 27,
      "name": "STATLIST_ExpireUnitStatlist"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00624F40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00624F40",
-     "length": 17,
-     "name": "?sub_00624F40_GetStatsArray@@YAPAUD2StatsArrayStrc@@PAUD2StatListExStrc@@@Z"
-    },
-    {
-     "va": "0x00625270",
-     "length": 22,
-     "name": "STATLIST_GetBaseStatsCount"
-    },
-    {
-     "va": "0x00625290",
-     "length": 31,
-     "name": "STATLIST_GetFullStatsCountFromUnit"
-    },
-    {
-     "va": "0x00625620",
-     "length": 38,
-     "name": "sub_00625620"
-    },
-    {
-     "va": "0x00626070",
-     "length": 22,
-     "name": "D2Common_11248"
-    },
-    {
-     "va": "0x00627220",
-     "length": 36,
-     "name": "STATLIST_SetBaseStat2"
     },
     {
      "va": "0x00627810",
@@ -82375,6 +82404,11 @@
      "name": "STATLIST_FreeModStats"
     },
     {
+     "va": "0x006259B0",
+     "length": 65,
+     "name": "?sub_006259B0_GetStateStat@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00625A00",
      "length": 28,
      "name": "D2Common_10534"
@@ -82428,64 +82462,6 @@
      "va": "0x006279A0",
      "length": 148,
      "name": "D2Common_10574"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_006254E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006254E0",
-     "length": 9,
-     "name": "?sub_006254E0_GetStatValue@@YGHPAUD2StatListStrc@@HG@Z"
-    },
-    {
-     "va": "0x00626C00",
-     "length": 198,
-     "name": "?D2Common_STATLIST_FreeStatListImpl_6FDB7050@@YIXPAUD2StatListStrc@@@Z"
-    },
-    {
-     "va": "0x00627AF0",
-     "length": 62,
-     "name": "?sub_00627AF0_HasSkillDesc@@YIHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_006259B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006259B0",
-     "length": 65,
-     "name": "?sub_006259B0_GetStateStat@@YGHPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00625D10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00625D10",
-     "length": 74,
-     "name": "?STATLIST_GetMaxLifeFromUnit@@YGHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00625D60",
-     "length": 74,
-     "name": "?STATLIST_GetMaxManaFromUnit@@YGHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00625DB0",
-     "length": 74,
-     "name": "?STATLIST_GetMaxStaminaFromUnit@@YGHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00626020",
-     "length": 74,
-     "name": "?sub_00626020_ArmorValue@@YGHPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -89799,7 +89775,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/DRLG/Preset_00665F40.cpp",
+   "file": "Source/D2Common/DRLG/Preset.cpp",
    "rank": 0,
    "functions": [
     {
@@ -89808,99 +89784,15 @@
      "name": "DRLGPRESET_LoadDrlgFile"
     },
     {
-     "va": "0x00668240",
-     "length": 180,
-     "name": "sub_00668240"
-    },
-    {
-     "va": "0x00668300",
-     "length": 193,
-     "name": "DRLGPRESET_FreeDrlgFile"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00666070",
      "length": 49,
      "name": "?sub_00666070_FindLevelFile@@YAXPAPAUD2DrlgFileStrc@@PAPAUD2LevelFileListStrc@@1@Z"
     },
     {
-     "va": "0x00666220",
-     "length": 404,
-     "name": "?DRLGPRESET_AddPresetRiverObjects@@YGXPAUD2DrlgMapStrc@@PAXHPAUD2DrlgGridStrc@@@Z"
-    },
-    {
-     "va": "0x00666990",
-     "length": 225,
-     "name": "?DRLGROOMEX_AllocRoomExData_WorldPointsBurialGrounds@@YAXPAXPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x00666AC0",
-     "length": 830
-    },
-    {
-     "va": "0x00666EB0",
-     "length": 4,
-     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x00666ED0",
-     "length": 246,
-     "name": "?DRLGPRESET_AllocDrlgMap@@YIPAUD2DrlgMapStrc@@PAUD2DrlgLevelStrc@@HPAUD2DrlgCoordStrc@@PATD2SeedStrc@@@Z"
-    },
-    {
-     "va": "0x00666FF0",
-     "length": 10,
-     "name": "?sub_00666FF0_GetRoomSubFieldEC@@YIHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x00667000",
-     "length": 6,
-     "name": "?DRLGPRESET_GetLevelPrestIdFromRoomEx@@YIHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x00667420",
-     "length": 9,
-     "name": "?sub_00667420_GetChainField20@@YIHPAUD2Unk00667420Strc@@@Z"
-    },
-    {
-     "va": "0x00667430",
-     "length": 156
-    },
-    {
-     "va": "0x00667620",
-     "length": 613
-    },
-    {
-     "va": "0x00667970",
-     "length": 1372,
-     "name": "?DRLGPRESET_BuildPresetArea@@YGXPAUD2DrlgLevelStrc@@PAUD2DrlgGridStrc@@HHPAUD2DrlgMapStrc@@@Z"
-    },
-    {
-     "va": "0x00667ED0",
-     "length": 552
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_006660B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x006660B0",
      "length": 100,
      "name": "DRLGPRESET_CreateCopyOfMapAI"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_00666120.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00666120",
      "length": 13,
@@ -89910,6 +89802,31 @@
      "va": "0x00666130",
      "length": 50,
      "name": "DRLGPRESET_FreeMapAI"
+    },
+    {
+     "va": "0x00666170",
+     "length": 37,
+     "name": "sub_00666170"
+    },
+    {
+     "va": "0x006661A0",
+     "length": 115,
+     "name": "DRLGPRESET_SpawnRiver"
+    },
+    {
+     "va": "0x00666220",
+     "length": 404,
+     "name": "?DRLGPRESET_AddPresetRiverObjects@@YGXPAUD2DrlgMapStrc@@PAXHPAUD2DrlgGridStrc@@@Z"
+    },
+    {
+     "va": "0x006663C0",
+     "length": 211,
+     "name": "?sub_006663C0@@YAXPAUD2DrlgMapStrc@@PAX@Z"
+    },
+    {
+     "va": "0x006664A0",
+     "length": 119,
+     "name": "sub_006664A0"
     },
     {
      "va": "0x00666520",
@@ -89937,14 +89854,48 @@
      "name": "DRLGPRESET_InitPresetRoomData"
     },
     {
+     "va": "0x00666710",
+     "length": 189,
+     "name": "sub_00666710"
+    },
+    {
+     "va": "0x006667D0",
+     "length": 441,
+     "name": "DRLGPRESET_InitPresetRoomGrids"
+    },
+    {
+     "va": "0x00666990",
+     "length": 225,
+     "name": "?DRLGROOMEX_AllocRoomExData_WorldPointsBurialGrounds@@YAXPAXPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
      "va": "0x00666A80",
      "length": 54,
      "name": "DRLGPRESET_GetTombStoneTileCoords"
     },
     {
+     "va": "0x00666AC0",
+     "length": 830
+    },
+    {
+     "va": "0x00666E00",
+     "length": 165,
+     "name": "sub_00666E00"
+    },
+    {
+     "va": "0x00666EB0",
+     "length": 4,
+     "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
      "va": "0x00666EC0",
      "length": 6,
      "name": "DRLGPRESET_SetPickedFileInDrlgMap"
+    },
+    {
+     "va": "0x00666ED0",
+     "length": 246,
+     "name": "?DRLGPRESET_AllocDrlgMap@@YIPAUD2DrlgMapStrc@@PAUD2DrlgLevelStrc@@HPAUD2DrlgCoordStrc@@PATD2SeedStrc@@@Z"
     },
     {
      "va": "0x00666FD0",
@@ -89957,9 +89908,38 @@
      "name": "DRLGPRESET_GetSizeY"
     },
     {
+     "va": "0x00666FF0",
+     "length": 10,
+     "name": "?sub_00666FF0_GetRoomSubFieldEC@@YIHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x00667000",
+     "length": 6,
+     "name": "?DRLGPRESET_GetLevelPrestIdFromRoomEx@@YIHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
      "va": "0x00667010",
      "length": 24,
      "name": "DRLGPRESET_GetPickedLevelPrestFilePathFromRoomEx"
+    },
+    {
+     "va": "0x00667060",
+     "length": 374,
+     "name": "DRLGPRESET_TogglePopsVisibility"
+    },
+    {
+     "va": "0x006671E0",
+     "length": 563,
+     "name": "?DRLGPRESET_UpdatePops@@YIXPAUD2DrlgRoomStrc@@HHH@Z"
+    },
+    {
+     "va": "0x00667420",
+     "length": 9,
+     "name": "?sub_00667420_GetChainField20@@YIHPAUD2Unk00667420Strc@@@Z"
+    },
+    {
+     "va": "0x00667430",
+     "length": 156
     },
     {
      "va": "0x006674D0",
@@ -89975,110 +89955,40 @@
      "va": "0x006675D0",
      "length": 80,
      "name": "DRLGPRESET_FreePresetUnit"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_00666170.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00666170",
-     "length": 37,
-     "name": "sub_00666170"
     },
     {
-     "va": "0x006661A0",
-     "length": 115,
-     "name": "DRLGPRESET_SpawnRiver"
-    },
-    {
-     "va": "0x006664A0",
-     "length": 119,
-     "name": "sub_006664A0"
+     "va": "0x00667620",
+     "length": 613
     },
     {
      "va": "0x00667890",
      "length": 223,
      "name": "DRLGPRESET_SpawnHardcodedPresetUnits"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_006663C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006663C0",
-     "length": 211,
-     "name": "?sub_006663C0@@YAXPAUD2DrlgMapStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_00666710.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00666710",
-     "length": 189,
-     "name": "sub_00666710"
     },
     {
-     "va": "0x006667D0",
-     "length": 441,
-     "name": "DRLGPRESET_InitPresetRoomGrids"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_00666E00.cpp",
-   "rank": 0,
-   "functions": [
+     "va": "0x00667970",
+     "length": 1372,
+     "name": "?DRLGPRESET_BuildPresetArea@@YGXPAUD2DrlgLevelStrc@@PAUD2DrlgGridStrc@@HHPAUD2DrlgMapStrc@@@Z"
+    },
     {
-     "va": "0x00666E00",
-     "length": 165,
-     "name": "sub_00666E00"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_00667060.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00667060",
-     "length": 374,
-     "name": "DRLGPRESET_TogglePopsVisibility"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_006671E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006671E0",
-     "length": 563,
-     "name": "?DRLGPRESET_UpdatePops@@YIXPAUD2DrlgRoomStrc@@HHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_00668100.cpp",
-   "rank": 0,
-   "functions": [
+     "va": "0x00667ED0",
+     "length": 552
+    },
     {
      "va": "0x00668100",
      "length": 312,
      "name": "DRLGPRESET_GenerateLevel"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Preset_006683D0.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00668240",
+     "length": 180,
+     "name": "sub_00668240"
+    },
+    {
+     "va": "0x00668300",
+     "length": 193,
+     "name": "DRLGPRESET_FreeDrlgFile"
+    },
     {
      "va": "0x006683D0",
      "length": 313,
