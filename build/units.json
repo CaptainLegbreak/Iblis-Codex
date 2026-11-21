@@ -67935,6 +67935,10 @@
      "length": 258
     },
     {
+     "va": "0x005BFBB0",
+     "length": 164
+    },
+    {
      "va": "0x005BFC60",
      "length": 311
     },
@@ -68154,30 +68158,6 @@
      "length": 157,
      "name": "SKILLS_SrvSt59_ImpInferno"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillItem_005BFBB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005BFBB0",
-     "length": 164
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

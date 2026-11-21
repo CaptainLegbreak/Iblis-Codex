@@ -356,6 +356,7 @@ int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc*, int); // 0x0062A620
 
 static __forceinline int GetUnitType(D2UnitStrc* unit) { return unit?unit->dwUnitType:6; }
 
+
 // 0x005BE130
 int __fastcall SKILLITEM_pSpell01_Initializer(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId)
 {
@@ -1444,6 +1445,46 @@ ReturnZero:
     nLevel = D2_MIN(D2_MAX(nLevel, 1), 20);
 
     sub_6FD0B9F0(pGame, pAttacker, pUnit, nLevel);
+    return 1;
+}
+
+static __forceinline int GetUnitTypeChecked(const D2UnitStrc* pUnit)
+{
+    int nType = 6;
+    if (pUnit)
+    {
+        nType = pUnit->dwUnitType;
+    }
+    return nType;
+}
+
+// 0x005BFBB0
+int __fastcall sub_005BFBB0_DamageToMana(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
+{
+    if (!pAttacker || GetUnitTypeChecked(pAttacker) != 0)
+    {
+        return 0;
+    }
+    if (!pDamage)
+    {
+        return 0;
+    }
+
+    if (pDamage->dwDmgTotal <= 0)
+    {
+        return 0;
+    }
+    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, (unsigned int)nSkillId >> 16, nSkillId);
+    if (nValue <= 0)
+        return 0;
+    const int nMaxMana = STATLIST_GetMaxManaFromUnit(pAttacker);
+    int nMana = STATLIST_UnitGetStatValue(pAttacker, 8, 0);
+    if (nMana >= nMaxMana)
+        return 0;
+    int nNewMana = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, nValue, 100) + nMana;
+    nNewMana = nNewMana > 0 ? nNewMana : 0;
+    STATLIST_SetUnitStat(pAttacker, 8, nNewMana < nMaxMana ? nNewMana : nMaxMana, 0);
+    UNITS_SetOverlay(pAttacker, 152, 0);
     return 1;
 }
 
