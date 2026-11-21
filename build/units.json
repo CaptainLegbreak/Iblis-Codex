@@ -34287,6 +34287,22 @@
     {
      "va": "0x004CEA00",
      "length": 690
+    },
+    {
+     "va": "0x004D0DB0",
+     "length": 74
+    },
+    {
+     "va": "0x004D0E00",
+     "length": 176
+    },
+    {
+     "va": "0x004D6130",
+     "length": 379
+    },
+    {
+     "va": "0x004D7930",
+     "length": 1230
     }
    ],
    "flags": [
@@ -34480,42 +34496,6 @@
      "length": 594,
      "name": "?sub_004D8000_CltDoEruption@@YIXPAUD2UnitStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D0DB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004D0DB0",
-     "length": 74
-    },
-    {
-     "va": "0x004D0E00",
-     "length": 176
-    },
-    {
-     "va": "0x004D6130",
-     "length": 379
-    },
-    {
-     "va": "0x004D7930",
-     "length": 1230
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
