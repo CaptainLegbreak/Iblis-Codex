@@ -828,8 +828,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/MainMenus_0042F2E0.cpp": {
-   "bytes": 1784,
-   "definitions": 4,
+   "bytes": 1804,
+   "definitions": 5,
    "externs": [
     "extern \"C\" char gData_007089BC[]; // 0x007089BC",
     "extern \"C\" char gData_007089B4[]; // 0x007089B4",
@@ -844,15 +844,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/MainMenus_00434A00.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Launch/Unknown_00435E10.cpp": {
-   "bytes": 20,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Launch/Unknown_00435E10.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -19834,7 +19825,7 @@
    "cname": "gData_006D4D88",
    "declared": true,
    "decorated": "_gabDefault_006D4D88",
-   "file": "Source/D2Launch/Unknown_00435E10.cpp",
+   "file": "Source/D2Launch/Src/MainMenus_0042F2E0.cpp",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006D4D88[20]; // 0x006D4D88",

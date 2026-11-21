@@ -215,7 +215,7 @@ struct D2LaunchRecordStrc
     union
     {
         char nMode; // 0x1EE
-        char nClass;
+        unsigned char nClass;
     };
     union
     {

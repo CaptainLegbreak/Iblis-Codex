@@ -817,6 +817,24 @@ D2WinControlStrc* gapControlsA_00779450[0x40]; // 0x00779450
 
 int gnControlCountA_00779948; // 0x00779948
 
+extern "C" const unsigned char gabDefault_006D4D88[]; // 0x006D4D88
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
+int __stdcall sub_00432FA0_OnReceiveA(int nArg); // 0x00432FA0
+
+
+char* __cdecl sub_00437D00(); // 0x00437D00
+
+int __stdcall sub_00449DF0_Forward3(const char* szName, int nClass, int nFlags); // 0x00449DF0
+
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
+
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+
+
 void __cdecl sub_0042E6D0_LoadFrontEndCells()
 {
     char szPath[0x104];
@@ -2263,6 +2281,109 @@ void __cdecl sub_00435580_CreateCharCreateScreen()
     }
 
     sub_00430620_UpdateNameOk();
+}
+
+static inline void __fastcall ShowText(const Unicode* pText, void (__cdecl* pfnDone)())
+{
+    sub_00433380_ShowMessage(pText, pfnDone, 1);
+}
+
+// build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x00435E10
+void __cdecl sub_00435E10()
+{
+    switch (sub_00432480(sub_00437D00(), 0))
+    {
+    case 1:
+    case 2:
+        sub_00435580();
+        return;
+    }
+
+    if (!sub_00449C00() && sub_00449B30_QueryAddress())
+    {
+        if (sub_00449B30_QueryAddress())
+        {
+            gpLaunchRecord_007795D4->nByte3C1 = 1;
+            SMemCopy(gpLaunchRecord_007795D4->aData3A1, gabDefault_006D4D88, 0x10);
+            SMemZero(gpLaunchRecord_007795D4->aData3B1, 0x10);
+            gpLaunchRecord_007795D4->nByte3C2 = (gpLaunchRecord_007795D4->wFlags1EF >> 6) & 1;
+            gpLaunchRecord_007795D4->wFlags3CB = gpLaunchRecord_007795D4->wFlags1EF;
+            sub_00449DF0_Forward3(gpLaunchRecord_007795D4->szCharName, gpLaunchRecord_007795D4->nClass, gpLaunchRecord_007795D4->wFlags1EF);
+            sub_0042F6E0();
+            sub_004FA590_RunLoop(sub_00432FA0_OnReceiveA);
+            if (gdwGlobal_00779974)
+            {
+                sub_0042F3F0_DestroyControls();
+                return;
+            }
+
+            int nError = sub_00449C00();
+            if (nError)
+            {
+                if (nError != 20)
+                {
+                    Unicode wszName[100];
+                    sub_00410610_WriteLogLine("Error from MCP trying to create '%s' (err=%d)", gpLaunchRecord_007795D4->szCharName, sub_00449C00());
+                    D2MCPClientCloseMCP();
+                    Unicode wszText[255];
+                    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x145E));
+                    Unicode wszTail[255];
+                    sub_005267E0(wszTail, D2LANG_GetStringFromTblIndex(0x145F));
+                    char szName[80];
+                    sprintf(szName, "%s", gpLaunchRecord_007795D4->szCharName);
+                    sub_00526320_ToUnicode(wszName, szName, 100);
+                    sub_00526700(wszText, wszName);
+                    sub_00526700(wszText, wszTail);
+                    ShowText(wszText, sub_00435580);
+                    return;
+                }
+
+                D2MCPClientCloseMCP();
+                Unicode wszText[256];
+                Unicode wszName[256];
+                sub_00526F20_ToUnicode(wszName, gpLaunchRecord_007795D4->szCharName, 256);
+                sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B33), wszName);
+                ShowText(wszText, sub_00435580);
+                return;
+            }
+
+            sub_0043C6A0(1);
+            SStrCopy(gpLaunchRecord_007795D4->szDataD5, sub_00437D00(), 0x7FFFFFFF);
+            gpLaunchRecord_007795D4->wFlags1EF |= 2;
+            gpLaunchRecord_007795D4->nByte35E = 2;
+            gnLaunchState_007795E8 = 3;
+        }
+
+        sub_004F9190();
+        return;
+    }
+
+    D2MCPClientCloseMCP();
+    int nString;
+    switch (sub_00449C00())
+    {
+    case 2:
+        nString = 0x145B;
+        break;
+
+    case 10:
+    case 11:
+    case 12:
+        ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
+        return;
+
+    case 71:
+        nString = 0x145C;
+        break;
+
+    default:
+        nString = 0x145C;
+        break;
+    }
+
+    ShowText(D2LANG_GetStringFromTblIndex(nString), sub_0042FDD0);
 }
 
 // 0x004365B0

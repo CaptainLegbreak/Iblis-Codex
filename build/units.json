@@ -9786,6 +9786,10 @@
      "length": 1102
     },
     {
+     "va": "0x00435E10",
+     "length": 926
+    },
+    {
      "va": "0x004365B0",
      "length": 854,
      "name": "?sub_004365B0_CreateCharacter@@YAXXZ"
@@ -11483,30 +11487,6 @@
      "length": 753,
      "name": "?sub_004359D0_RunFrontEnd@@YIHPAUD2LaunchRecordStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_00435E10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00435E10",
-     "length": 926
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
