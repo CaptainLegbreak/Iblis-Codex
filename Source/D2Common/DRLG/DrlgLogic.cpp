@@ -4,6 +4,7 @@
 #include "D2DrlgMaps.h"
 #include "D2DrlgPresets.h"
 #include "D2DrlgTiles.h"
+#include "D2Common.h"
 
 #pragma function(memset)
 
@@ -148,7 +149,6 @@ void __fastcall sub_0066C770(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2
 
 static void __stdcall sub_0066C7F0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pWallGrid);
 
-
 void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom);
 
 int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
@@ -158,6 +158,12 @@ static void __stdcall sub_0066CF60(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* p
 static void sub_0066D040(D2DrlgRoomStrc* pDrlgRoom);
 
 void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pTileTypeGrid, D2DrlgGridStrc* pFloorGrid, D2DrlgGridStrc* pWallGrid);
+
+struct D2RoomTileGridStrc
+{
+    char unk0x00[0x14];
+    D2DrlgRoomTilesStrc pTiles;
+};
 
 inline int HasMapTileLayer(unsigned int dwFlags)
 {
@@ -421,6 +427,28 @@ static void __stdcall sub_0066C870(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pD
                     }
                 }
             }
+        }
+    }
+}
+
+// 0x0066C9C0
+void __stdcall DRLGLOGIC_SetCoordListForTiles(D2DrlgRoomStrc* pDrlgRoom)
+{
+    D2DrlgRoomTilesStrc* pTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
+    for (unsigned int i = 0; i < pTiles->nWalls; ++i)
+    {
+        D2DrlgTileDataStrc* pTile = &pTiles->pWallTiles[i];
+        int nY = pTile->nPosY + pDrlgRoom->pDrlgCoord.nPosY;
+        int nX = pTile->nPosX + pDrlgRoom->pDrlgCoord.nPosX;
+        if (!pDrlgRoom->pLogicalRoomInfo)
+            pTile->pCoordList = 0;
+        else if (pDrlgRoom->pLogicalRoomInfo->dwFlags & 1)
+            pTile->pCoordList = 0;
+        else
+        {
+            nX -= pDrlgRoom->pDrlgCoord.nPosX;
+            nY -= pDrlgRoom->pDrlgCoord.nPosY;
+            pTile->pCoordList = (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nX, nY);
         }
     }
 }

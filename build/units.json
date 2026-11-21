@@ -86897,6 +86897,10 @@
      "name": "sub_0066C870"
     },
     {
+     "va": "0x0066C9C0",
+     "length": 138
+    },
+    {
      "va": "0x0066CA50",
      "length": 600,
      "name": "?DRLGLOGIC_AssignCoordListsForGrids@@YGXPAUD2DrlgRoomStrc@@PAUD2DrlgLogicalRoomInfoStrc@@@Z"
@@ -86946,30 +86950,6 @@
      "va": "0x0066C620",
      "length": 51
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgLogic_0066C9C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066C9C0",
-     "length": 138
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
