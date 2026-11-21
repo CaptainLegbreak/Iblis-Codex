@@ -236,8 +236,21 @@ struct D2PetTypeTxt
     short wGroup; // 0x08
     short wBaseMax; // 0x0A
     unsigned short wStringId; // 0x0C
-    unsigned char nIconType; // 0x0E
-    char szBaseicon[209]; // 0x0F
+    union
+    {
+        struct
+        {
+            unsigned char nIconType; // 0x0E
+            char szBaseicon[209]; // 0x0F
+        };
+        struct
+        {
+            unsigned char unk0x0E; // 0x0E
+            char szIcon[5][32]; // 0x0F
+            char unk0xAF; // 0xAF
+            unsigned short wClass[5]; // 0xB0
+        };
+    };
 };
 
 D2_CHECK_SIZE(D2LevelsTxt, 0x220);

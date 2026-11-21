@@ -27572,11 +27572,40 @@
   {
    "file": "Source/D2Client/UI/Hireables.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x00492EC0",
      "length": 122,
      "name": "?sub_00492EC0_FreeHirelingIcons@@YAXXZ"
+    },
+    {
+     "va": "0x00492FA0",
+     "length": 116,
+     "name": "?sub_00492FA0_DrawFittedText@@YGXHHHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x00493020",
+     "length": 118,
+     "name": "?sub_00493020_DrawPetTypeName@@YGXHHH@Z"
+    },
+    {
+     "va": "0x004930A0",
+     "length": 92,
+     "name": "?sub_004930A0_DrawRosterName@@YGXPBDHH@Z"
     },
     {
      "va": "0x00493220",
@@ -27605,6 +27634,11 @@
     {
      "va": "0x004934D0",
      "length": 522
+    },
+    {
+     "va": "0x00493B00",
+     "length": 79,
+     "name": "?sub_00493B00_DrawUnitName@@YGXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004942D0",
@@ -27651,46 +27685,6 @@
      "length": 68,
      "name": "?sub_004979F0@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/Hireables_00492FA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00492FA0",
-     "length": 116,
-     "name": "?sub_00492FA0_DrawFittedText@@YGXHHHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x00493020",
-     "length": 118,
-     "name": "?sub_00493020_DrawPetTypeName@@YGXHHH@Z"
-    },
-    {
-     "va": "0x004930A0",
-     "length": 92,
-     "name": "?sub_004930A0_DrawRosterName@@YGXPBDHH@Z"
-    },
-    {
-     "va": "0x00493B00",
-     "length": 79,
-     "name": "?sub_00493B00_DrawUnitName@@YGXPAUD2UnitStrc@@HH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
