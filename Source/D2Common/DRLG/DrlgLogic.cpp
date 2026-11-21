@@ -159,12 +159,6 @@ static void sub_0066D040(D2DrlgRoomStrc* pDrlgRoom);
 
 void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pTileTypeGrid, D2DrlgGridStrc* pFloorGrid, D2DrlgGridStrc* pWallGrid);
 
-struct D2RoomTileGridStrc
-{
-    char unk0x00[0x14];
-    D2DrlgRoomTilesStrc pTiles;
-};
-
 inline int HasMapTileLayer(unsigned int dwFlags)
 {
     return (dwFlags & 0x1C000) != 0;
