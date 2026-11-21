@@ -48234,6 +48234,10 @@
      "name": "?sub_005248E0_CloseArchives@@YAXXZ"
     },
     {
+     "va": "0x00524930",
+     "length": 132
+    },
+    {
      "va": "0x005249C0",
      "length": 18,
      "name": "?sub_005249C0_FreeTable@@YAXPAX@Z"
@@ -48350,16 +48354,6 @@
      "va": "0x00527090",
      "length": 258,
      "name": "sub_00527090_ContainsChar"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_00524930.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00524930",
-     "length": 132
     }
    ]
   },
