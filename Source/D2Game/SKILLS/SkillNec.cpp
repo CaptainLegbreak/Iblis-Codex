@@ -130,7 +130,7 @@ struct D2UnkNecSkillStrc2
     D2DamageStrc* pDamage;
     int nX;
     int nY;
-    int unk0x0C;
+    int nSquaredRange;
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -465,7 +465,6 @@ void __stdcall ITEMS_GetAllowedBodyLocations(D2UnitStrc*, unsigned char*, unsign
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc*); // 0x0064C370
 
-
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
 void __fastcall D2GAME_SetSummonResistance_6FD0C2E0(D2UnitStrc* pUnit, D2UnitStrc* pPet); // 0x005C40D0
@@ -479,6 +478,40 @@ static int __stdcall sub_005C5430_MoveRevivedTarget(D2GameStrc* pGame, D2UnitStr
 static void __stdcall sub_005C55C0_InitializeRevivedMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMonster, int nSkillId, int nSkillLevel);
 
 int __fastcall SKILLS_SrvDo058_Revive(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
+static __declspec(noinline) int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit);
+
+typedef int (__fastcall *AURACALLBACK)(D2AuraCallbackStrc*, D2UnitStrc*);
+
+extern const char gszSkillNecSourceFile[]; // 0x006E3034
+
+void __fastcall sub_6FD0FE80(D2GameStrc*, D2UnitStrc*, int, int, int, unsigned int, AURACALLBACK, void*, int, const char*, int); // 0x0056B7E0
+
+void __fastcall sub_0056C8E0(D2UnitStrc*, D2DamageStrc*, int, int, int, int*, int*); // 0x0056C8E0
+
+int __fastcall sub_6FD0D000(D2AuraCallbackStrc*, D2UnitStrc*); // 0x005C4D10
+
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
+
+int __stdcall SKILLS_GetElementalLength(D2UnitStrc*, int, int, int); // 0x00644F20
+
+static int sub_005C37A0_ApplyAiCurseDivisor(unsigned char nDifficulty, int nLength);
+
+int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
+static void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel);
+
+static void __stdcall sub_005C4300_SetSkeletonComponents(D2UnitStrc* pPet, int nSkillLevel, D2UnitStrc* pUnit, int nSkillId);
+
+static void __stdcall sub_005C43D0_SetMageComponents(D2UnitStrc* pPet, D2UnitStrc* pUnit);
+
+static D2UnitStrc* __stdcall sub_005C5BC0_SpawnBonePrisonPet(D2GameStrc* pGame, int nSkillId, D2UnitStrc* pUnit, int nX, int nY, int nSkillLevel);
+
+static int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue);
+
+int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
+
+int __fastcall SKILLS_EventFunc04_ReflectPhysicalDamage(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel);
 
 static __forceinline int sub_004FD5A0_IsInClickRect(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
 {
@@ -650,6 +683,32 @@ int __fastcall SKILLS_SrvSt19_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 
     return !DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget));
+}
+
+// 0x005C3300
+static int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit)
+{
+    if ((pUnit ? pUnit->dwUnitType : 6) != 1)
+    {
+        return 0;
+    }
+
+    if (!sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 8))
+    {
+        return 0;
+    }
+
+    if (!SUNIT_IsDead(pUnit))
+    {
+        return 0;
+    }
+
+    if (!D2COMMON_11017_CheckUnitIfConsumeable(pUnit, 0))
+    {
+        return 0;
+    }
+
+    return sub_6FD15190(pUnit, 7) != 0;
 }
 
 static __declspec(noinline) int sub_005C3300_CanReviveTarget(D2UnitStrc* pTarget)
@@ -1051,6 +1110,99 @@ int __fastcall sub_6FD0BDA0(D2UnitStrc* pUnit, void* pArg)
     return 1;
 }
 
+// build: context sub_005C3300_Shim
+// calling-convention shim (not game code)
+int __fastcall sub_005C3300_Shim(D2UnitStrc* pUnit)
+{
+    return sub_005C3300_CorpseConsumedCheck(pUnit);
+}
+
+static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwUnitId;
+}
+
+static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->lSeed = lSeed;
+    return (unsigned int)lSeed;
+}
+
+static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    return !pUnit ? 6 : pUnit->dwUnitType;
+}
+
+static __forceinline int sub_0044BE50_Inline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+    return pUnit->dwUnitType;
+}
+
+// 0x005C3B90
+int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!sub_005C31F0_IsValidAttractTarget(pGame, pUnit, pTarget))
+    {
+        return 0;
+    }
+
+    if (pSkillsTxtRecord->wAuraStat[0] < -1 || pSkillsTxtRecord->wAuraStat[0] >= sgptDataTables->nItemStatCostTxtRecordCount || pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    sub_005543B0_AssignAlignment(pTarget, 1, 1);
+    sub_6FC40280(pGame, pTarget, 0, 9);
+    SKILLS_ClearMonsterMinionOwnership(pTarget);
+
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    const int nBaseLength = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
+    const int nLength = sub_005C37A0_ApplyAiCurseDivisor(pGame->nDifficulty, nBaseLength);
+
+    D2UnkNecSkillStrc3 arg;
+    arg.pGame = pGame;
+    arg.pUnit = pUnit;
+    arg.nSkillId = nSkillId;
+    arg.nSkillLevel = nSkillLevel;
+    arg.nLength = nLength;
+    arg.nUnitType = sub_0044BE50_Inline(pTarget);
+    arg.nUnitGUID = UNITS_GetUnitId(pTarget);
+    sub_6FD10360(pGame, pSkillsTxtRecord->dwAuraFilter, pUnit, nRange, sub_6FD0BDA0, &arg);
+
+    D2CurseStrc curse = {};
+    curse.pUnit = pUnit;
+    curse.pTarget = pTarget;
+    curse.nSkill = nSkillId;
+    curse.nSkillLevel = nSkillLevel;
+    curse.nDuration = nLength;
+    curse.nStat = -1;
+    curse.nState = pSkillsTxtRecord->wAuraTargetState;
+    curse.pStateRemoveCallback = sub_005C3B00_AttractStateRemove;
+    sub_0056E970(&curse);
+    return 1;
+}
+
 // 0x005C3DB0
 void __fastcall sub_6FD0C2B0(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
@@ -1112,68 +1264,6 @@ int __fastcall sub_6FD0C060(D2UnitStrc* pUnit, D2UnkNecSkillStrc* pArgs)
     sub_6FC40280(pArgs->pGame, pUnit, 0, 9);
     sub_6FC61E30(pUnit, 3, 0);
     EVENT_SetEvent(pArgs->pGame, pUnit, EVENTTYPE_AIRESET, pArgs->pGame->dwGameFrame + pArgs->nDuration, 0, 0);
-    return 1;
-}
-
-// build: context SKILLS_SrvDo059_Attract
-int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!sub_005C31F0_IsValidAttractTarget(pGame, pUnit, pTarget))
-    {
-        return 0;
-    }
-
-    if (pSkillsTxtRecord->wAuraStat[0] < -1 || pSkillsTxtRecord->wAuraStat[0] >= sgptDataTables->nItemStatCostTxtRecordCount || pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    sub_005543B0_AssignAlignment(pTarget, 1, 1);
-    sub_6FC40280(pGame, pTarget, 0, 9);
-    SKILLS_ClearMonsterMinionOwnership(pTarget);
-
-    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
-    int nLength = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
-    nLength = sub_005C37A0_ApplyAiCurseDivisor(pGame->nDifficulty, nLength);
-
-    int nUnitType = 6;
-    if (pTarget)
-    {
-        nUnitType = pTarget->dwUnitType;
-    }
-
-    D2UnkNecSkillStrc3 arg;
-    arg.pGame = pGame;
-    arg.pUnit = pUnit;
-    arg.nSkillId = nSkillId;
-    arg.nSkillLevel = nSkillLevel;
-    arg.nLength = nLength;
-    arg.nUnitType = nUnitType;
-    arg.nUnitGUID = !pTarget ? -1 : pTarget->dwUnitId;
-    sub_6FD10360(pGame, pSkillsTxtRecord->dwAuraFilter, pUnit, nRange, sub_6FD0BDA0, &arg);
-
-    D2CurseStrc curse = {};
-    curse.pUnit = pUnit;
-    curse.pTarget = pTarget;
-    curse.nSkill = nSkillId;
-    curse.nSkillLevel = nSkillLevel;
-    curse.nDuration = nLength;
-    curse.nStat = -1;
-    curse.nState = pSkillsTxtRecord->wAuraTargetState;
-    curse.pStateRemoveCallback = sub_005C3B00_AttractStateRemove;
-    sub_0056E970(&curse);
     return 1;
 }
 
@@ -1254,11 +1344,67 @@ void __fastcall sub_005C40D0(Unit* unit,Unit* pet)
     sub_00627150(list,45,resist,0);
 }
 
-static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
+// build: context MONSTERUNIQUE_GetMonsterDataInl
+inline D2MonsterDataStrc* MONSTERUNIQUE_GetMonsterDataInl(D2UnitStrc* pUnit)
 {
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->lSeed = lSeed;
-    return (unsigned int)lSeed;
+    if (pUnit && pUnit->dwUnitType == 1)
+    {
+        return pUnit->pMonsterData;
+    }
+    return 0;
+}
+
+// build: context MONSTERS_SetComponentInl
+inline void MONSTERS_SetComponentInl(D2UnitStrc* pUnit, int nComponent, unsigned char nValue)
+{
+    D2MonsterDataStrc* pMonsterData = MONSTERUNIQUE_GetMonsterDataInl(pUnit);
+    if (pMonsterData)
+    {
+        pMonsterData->nComponent[nComponent] = nValue;
+    }
+}
+
+// 0x005C4180
+static void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel)
+{
+    if (nLevel > 10)
+    {
+        nLevel = 10;
+    }
+
+    const char nHead = gaNecroSkeletonComponents_00741940[nLevel].nHead;
+    MONSTERS_SetComponentInl(pPet, 0, nHead);
+    const char nTorso = gaNecroSkeletonComponents_00741940[nLevel].nTorso;
+    MONSTERS_SetComponentInl(pPet, 1, nTorso);
+    const char nSpecial1 = gaNecroSkeletonComponents_00741940[nLevel].nSpecial1;
+    MONSTERS_SetComponentInl(pPet, 8, nSpecial1);
+    const char nSpecial2 = gaNecroSkeletonComponents_00741940[nLevel].nSpecial2;
+    MONSTERS_SetComponentInl(pPet, 9, nSpecial2);
+    const char nLegs = gaNecroSkeletonComponents_00741940[nLevel].nLegs;
+    MONSTERS_SetComponentInl(pPet, 2, nLegs);
+    const char nRightArm = gaNecroSkeletonComponents_00741940[nLevel].nRightArm;
+    MONSTERS_SetComponentInl(pPet, 3, nRightArm);
+    const char nLeftArm = gaNecroSkeletonComponents_00741940[nLevel].nLeftArm;
+    MONSTERS_SetComponentInl(pPet, 4, nLeftArm);
+
+    if (bHasShield)
+    {
+        const char nShield = gaNecroSkeletonComponents_00741940[nLevel].nShield;
+        MONSTERS_SetComponentInl(pPet, 7, nShield);
+    }
+
+    if (bSpecial)
+    {
+        const int nComponent = SEED_RollRandomNumber_Inline(&pUnit->pSeed) & 3;
+        MONSTERS_SetComponentInl(pPet, 11, nComponent);
+        MONSTERS_SetComponentInl(pPet, 12, nComponent);
+        AITHINK_SetAiControlParams(pPet && pPet->dwUnitType == UNIT_MONSTER && pPet->pMonsterData ? pPet->pMonsterData->pAiControl : 0, 1, 0, -666);
+    }
+    else
+    {
+        const char nRightHand = gaNecroSkeletonComponents_00741940[nLevel].nRightHand;
+        MONSTERS_SetComponentInl(pPet, 5, nRightHand);
+    }
 }
 
 static void SKILLS_SetMonsterComponent_Inline(D2UnitStrc* pMonster, int nIndex, char nComponent)
@@ -1276,40 +1422,6 @@ static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord_Inline(int nSkillId)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     }
     return 0;
-}
-
-// build: context D2GAME_SetUnitComponent_6FD0C3A0
-static __declspec(noinline) void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel)
-{
-    if (nLevel > 10)
-    {
-        nLevel = 10;
-    }
-
-    SKILLS_SetMonsterComponent_Inline(pPet, 0, gaNecroSkeletonComponents_00741940[nLevel].nHead);
-    SKILLS_SetMonsterComponent_Inline(pPet, 1, gaNecroSkeletonComponents_00741940[nLevel].nTorso);
-    SKILLS_SetMonsterComponent_Inline(pPet, 8, gaNecroSkeletonComponents_00741940[nLevel].nSpecial1);
-    SKILLS_SetMonsterComponent_Inline(pPet, 9, gaNecroSkeletonComponents_00741940[nLevel].nSpecial2);
-    SKILLS_SetMonsterComponent_Inline(pPet, 2, gaNecroSkeletonComponents_00741940[nLevel].nLegs);
-    SKILLS_SetMonsterComponent_Inline(pPet, 3, gaNecroSkeletonComponents_00741940[nLevel].nRightArm);
-    SKILLS_SetMonsterComponent_Inline(pPet, 4, gaNecroSkeletonComponents_00741940[nLevel].nLeftArm);
-
-    if (bHasShield)
-    {
-        SKILLS_SetMonsterComponent_Inline(pPet, 7, gaNecroSkeletonComponents_00741940[nLevel].nShield);
-    }
-
-    if (bSpecial)
-    {
-        const unsigned char nComponent = SEED_RollRandomNumber_Inline(&pUnit->pSeed) & 3;
-        SKILLS_SetMonsterComponent_Inline(pPet, 11, nComponent);
-        SKILLS_SetMonsterComponent_Inline(pPet, 12, nComponent);
-        AITHINK_SetAiControlParams(pPet && pPet->dwUnitType == UNIT_MONSTER && pPet->pMonsterData ? pPet->pMonsterData->pAiControl : 0, 1, 0, -666);
-    }
-    else
-    {
-        SKILLS_SetMonsterComponent_Inline(pPet, 5, gaNecroSkeletonComponents_00741940[nLevel].nRightHand);
-    }
 }
 
 // 0x005C4300
@@ -1596,13 +1708,72 @@ int __fastcall sub_6FD0D000(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit
     }
 
     D2DamageStrc damage = *pArg->pDamage;
-    if (pArg->unk0x0C < PATH_ComputeSquaredDistance(pArg->nX, pArg->nY, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit)))
+    if (pArg->nSquaredRange < PATH_ComputeSquaredDistance(pArg->nX, pArg->nY, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit)))
     {
         damage.dwPhysDamage = 0;
     }
 
     SUNITDMG_ExecuteEvents(pAuraCallback->pGame, pAuraCallback->pOwner, pUnit, 1, &damage);
     SUNITDMG_ExecuteMissileDamage(pAuraCallback->pGame, pAuraCallback->pOwner, pUnit, &damage);
+    return 1;
+}
+
+// 0x005C4DF0
+int __fastcall sub_005C4DF0_DetonateCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget || !sub_00645680_CanUnitCorpseBeSelected(pTarget))
+        return 0;
+    STATES_ToggleState(pTarget, 104, 1);
+    UNITROOM_RefreshUnit(pTarget);
+    D2SkillsTxt* pSkills = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!nSkillId)
+        return 0;
+    int nLife = STATLIST_GetUnitBaseStat(pTarget, 7, 0);
+    if ((!pTarget ? 6 : pTarget->dwUnitType) == 1)
+    {
+        int nGameType;
+        if (pGame->nGameType || pGame->dwGameType)
+            nGameType = 1;
+        else
+            nGameType = 0;
+        D2MonStatsInitStrc monStats;
+        memset(&monStats, 0, sizeof(monStats));
+        const int nMonsterId = pTarget->dwClassId;
+        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, nGameType, pGame->nDifficulty, STATLIST_UnitGetStatValue(pTarget, 12, 0), 1, &monStats);
+        nLife = (monStats.nMinHP + monStats.nMaxHP) << 7;
+    }
+    int nX = CLIENTS_GetUnitX(pTarget);
+    int nY = CLIENTS_GetUnitY(pTarget);
+    int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    int nPhysicalRange = nRange / 2;
+    int nElementalRange = (nRange + 1) / 2;
+    int nMinDamage = DATATBLS_ApplyRatio(SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwCalc[0], nSkillId, nSkillLevel), nLife, 100);
+    int nMaxDamage = DATATBLS_ApplyRatio(SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwCalc[1], nSkillId, nSkillLevel), nLife, 100);
+    int nDamage = nMinDamage + ITEMS_RollLimitedRandomNumber(&pTarget->pSeed, nMaxDamage - nMinDamage);
+    int nTargetLevel = STATLIST_UnitGetStatValue(pTarget, 12, 0);
+    int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
+    if (nTargetLevel && nLevel < nTargetLevel)
+        nDamage = DATATBLS_ApplyRatio(nDamage, nLevel, nTargetLevel);
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    int nPct = SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwCalc[2], nSkillId, nSkillLevel);
+    nPct = nPct > 0 ? nPct : 0;
+    if (nPct >= 100)
+        nPct = 100;
+    if (nPct > 0 && pSkills->nEType)
+    {
+        const int nElementalLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 1);
+        sub_0056C8E0(pUnit, &damage, pSkills->nEType, DATATBLS_ApplyRatio(nDamage, nPct, 100), nElementalLength, 0, 0);
+        nDamage = DATATBLS_ApplyRatio(nDamage, 100 - nPct, 100);
+    }
+    damage.dwPhysDamage = nDamage;
+    D2UnkNecSkillStrc2 args;
+    args.pDamage = &damage;
+    args.nSquaredRange = nPhysicalRange * nPhysicalRange;
+    args.nX = nX;
+    args.nY = nY;
+    sub_6FD0FE80(pGame, pUnit, nX, nY, nElementalRange, pSkills->dwAuraFilter, sub_6FD0D000, &args, 0, gszSkillNecSourceFile, 0x69E);
     return 1;
 }
 
@@ -1861,11 +2032,6 @@ static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    return !pUnit ? 6 : pUnit->dwUnitType;
-}
-
 static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) return &sgptDataTables->pSkillsTxt[nSkillId];
@@ -2022,6 +2188,46 @@ static D2UnitStrc* __stdcall sub_005C5BC0_SpawnBonePrisonPet(D2GameStrc* pGame, 
     return pPet;
 }
 
+// 0x005C5D00
+int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    int nTargetX;
+    int nTargetY;
+    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nTargetX, &nTargetY))
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2UnitStrc* pOwner = 0;
+    for (int i = 0; i < 12; ++i)
+    {
+        D2UnitStrc* pPet = sub_005C5BC0_SpawnBonePrisonPet(pGame, nSkillId, pUnit, nTargetX + gnBonePrisonOffsetX_006E304C[i], nTargetY + gnBonePrisonOffsetY_006E307C[i], nSkillLevel);
+        if (pPet)
+        {
+            if (!pOwner)
+            {
+                pOwner = pPet;
+                AIGENERAL_SetOwnerData(pGame, pPet, sub_00451F50_GetUnitGUID(pUnit), sub_0044BE50_GetUnitTypeOrInvalid(pUnit), 0, 1);
+            }
+            else
+            {
+                AIGENERAL_SetOwnerData(pGame, pPet, !pOwner ? -1 : pOwner->dwUnitId, !pOwner ? 6 : pOwner->dwUnitType, 0, 0);
+                AIGENERAL_AllocMinionList(pGame, pOwner, pPet);
+            }
+
+            UNITS_StoreOwner(pPet, pUnit);
+            sub_006488A0_SetDirection((D2PathRecordStrc*)pPet->pDynamicPath, PATH_ComputeDirection(UNITS_GetXPositionInline(pPet), UNITS_GetYPositionInline(pPet), nTargetX, nTargetY));
+        }
+    }
+
+    return 1;
+}
+
 // 0x005C5E60
 int __fastcall SKILLS_SrvDo063_PoisonExplosion(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2069,41 +2275,134 @@ static int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue)
     return nValue;
 }
 
-// build: context SKILLS_SrvDo062_BonePrison
-int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+// 0x005C5F50
+int __fastcall SKILLS_EventFunc04_ReflectPhysicalDamage(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
 {
-    int nTargetX;
-    int nTargetY;
-    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nTargetX, &nTargetY))
+    if (!pUnit || !pAttacker)
     {
         return 0;
     }
 
-    if (pUnit)
+    if (pAttacker->dwUnitType == UNIT_PLAYER || pAttacker->dwUnitType == UNIT_MONSTER)
     {
-        pUnit->dwFlags |= 0x40;
+        goto LABEL_ALIVE;
+    }
+    return 0;
+
+LABEL_ALIVE:
+    if (SUNIT_IsDead(pAttacker) || !pDamage || pDamage->dwPhysDamage <= 0)
+    {
+        return 0;
     }
 
-    D2UnitStrc* pOwner = 0;
-    for (int i = 0; i < 12; ++i)
+    int nLevel = nSkillLevel;
+    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
     {
-        D2UnitStrc* pPet = sub_005C5BC0_SpawnBonePrisonPet(pGame, nSkillId, pUnit, nTargetX + gnBonePrisonOffsetX_006E304C[i], nTargetY + gnBonePrisonOffsetY_006E307C[i], nSkillLevel);
-        if (pPet)
-        {
-            if (!pOwner)
-            {
-                pOwner = pPet;
-                AIGENERAL_SetOwnerData(pGame, pPet, sub_00451F50_GetUnitGUID(pUnit), sub_0044BE50_GetUnitTypeOrInvalid(pUnit), 0, 1);
-            }
-            else
-            {
-                AIGENERAL_SetOwnerData(pGame, pPet, pOwner->dwUnitId, pOwner->dwUnitType, 0, 0);
-                AIGENERAL_AllocMinionList(pGame, pOwner, pPet);
-            }
+        return 0;
+    }
 
-            UNITS_StoreOwner(pPet, pUnit);
-            sub_006488A0_SetDirection((D2PathRecordStrc*)pPet->pDynamicPath, PATH_ComputeDirection(UNITS_GetXPositionInline(pPet), UNITS_GetYPositionInline(pPet), nTargetX, nTargetY));
+    if (nLevel < 0)
+    {
+        nLevel = 1;
+    }
+
+    if (pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount || !STATES_CheckState(pAttacker, pSkillsTxtRecord->wAuraTargetState))
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pAttacker, pSkillsTxtRecord->wAuraTargetState);
+    if (!pStatList)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pStatListOwner = SUNIT_GetServerUnit(pGame, STATLIST_GetOwnerType(pStatList), STATLIST_GetOwnerGUID(pStatList));
+    int nDamagePercent = 0;
+    if (pAttacker->dwUnitType == UNIT_PLAYER || MONSTERS_GetHirelingTypeId(pAttacker))
+    {
+        if (pUnit->dwUnitType == UNIT_PLAYER)
+        {
+            nDamagePercent = SKILLS_EvaluateSkillFormula(pStatListOwner, pSkillsTxtRecord->dwCalc[1], nSkillId, nLevel);
         }
+        else
+        {
+            nDamagePercent = SKILLS_EvaluateSkillFormula(pStatListOwner, pSkillsTxtRecord->dwCalc[2], nSkillId, nLevel);
+        }
+    }
+    else
+    {
+        nDamagePercent = SKILLS_EvaluateSkillFormula(pStatListOwner, pSkillsTxtRecord->dwCalc[0], nSkillId, nLevel);
+    }
+
+    D2DamageStrc damage = {};
+    damage.dwPhysDamage = DATATBLS_ApplyRatio(pDamage->dwPhysDamage, nDamagePercent, 100);
+    damage.wResultFlags |= pSkillsTxtRecord->wResultFlags | 0x20;
+    damage.dwHitFlags |= pSkillsTxtRecord->dwHitFlags;
+    damage.dwHitClass = pSkillsTxtRecord->dwHitClass;
+    SUNITDMG_ExecuteEvents(pGame, pUnit, pAttacker, 1, &damage);
+    SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pAttacker, &damage);
+
+    if ((!pUnit ? 6 : pUnit->dwUnitType) != UNIT_MONSTER || pUnit->dwClassId != 0x122)
+    {
+        return 1;
+    }
+
+    unsigned char nDrain = 100;
+    if (pUnit->dwUnitType == UNIT_MONSTER)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = sub_0055B7E0_GetMonStatsTxtFromUnit(pUnit);
+        if (!pMonStatsTxtRecord)
+        {
+            return 1;
+        }
+
+        nDrain = pMonStatsTxtRecord->nDrain[pGame->nDifficulty];
+        if (nDrain <= 0)
+        {
+            return 1;
+        }
+    }
+
+    if (STATLIST_GetUnitAlignment(pUnit))
+    {
+        return 1;
+    }
+
+    int nBaseDamage = damage.dwPhysDamage;
+    if (nDrain != 100)
+    {
+        nBaseDamage = DATATBLS_ApplyRatio(damage.dwPhysDamage, nDrain, 100);
+    }
+
+    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pAttacker);
+    if (pOwner && SUNIT_IsDead(pOwner) || SUNIT_IsDead(pAttacker))
+    {
+        return 1;
+    }
+
+    int nDamage = DATATBLS_ApplyRatio(nBaseDamage, 20, 100);
+    if (nDamage <= 0)
+    {
+        return 1;
+    }
+
+    if (pOwner)
+    {
+        nDamage -= sub_005C5F10_AddLifeAndGetGain(pOwner, DATATBLS_ApplyRatio(nDamage, 50, 100));
+    }
+
+    nDamage -= sub_005C5F10_AddLifeAndGetGain(pAttacker, nDamage);
+    if (pOwner && nDamage > 0)
+    {
+        sub_005C5F10_AddLifeAndGetGain(pOwner, nDamage);
+    }
+
+    UNITS_SetOverlay(pAttacker, 0x97, 0);
+    if (pOwner)
+    {
+        UNITS_SetOverlay(pOwner, 0x97, 0);
     }
 
     return 1;
@@ -2250,125 +2549,6 @@ int __fastcall sub_005C6370(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
         STATES_ToggleState(pAttacker, pSkillsTxtRecord->nAuraState, 0);
         D2Common_10474(pAttacker, pStatList);
         STATLIST_FreeStatList(pStatList);
-    }
-
-    return 1;
-}
-
-int __fastcall SKILLS_EventFunc04_ReflectPhysicalDamage(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
-{
-    if (!pUnit || !pAttacker || !(pAttacker->dwUnitType == UNIT_PLAYER || pAttacker->dwUnitType == UNIT_MONSTER) || SUNIT_IsDead(pAttacker) || !pDamage || pDamage->dwPhysDamage <= 0)
-    {
-        return 0;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (nSkillLevel < 0)
-    {
-        nSkillLevel = 1;
-    }
-
-    if (pSkillsTxtRecord->wAuraTargetState < 0 || pSkillsTxtRecord->wAuraTargetState >= sgptDataTables->nStatesTxtRecordCount || !STATES_CheckState(pAttacker, pSkillsTxtRecord->wAuraTargetState))
-    {
-        return 0;
-    }
-
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pAttacker, pSkillsTxtRecord->wAuraTargetState);
-    if (!pStatList)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pStatListOwner = SUNIT_GetServerUnit(pGame, STATLIST_GetOwnerType(pStatList), STATLIST_GetOwnerGUID(pStatList));
-    int nDamagePercent = 0;
-    if (pAttacker->dwUnitType == UNIT_PLAYER || MONSTERS_GetHirelingTypeId(pAttacker))
-    {
-        if (pUnit->dwUnitType == UNIT_PLAYER)
-        {
-            nDamagePercent = SKILLS_EvaluateSkillFormula(pStatListOwner, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
-        }
-        else
-        {
-            nDamagePercent = SKILLS_EvaluateSkillFormula(pStatListOwner, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
-        }
-    }
-    else
-    {
-        nDamagePercent = SKILLS_EvaluateSkillFormula(pStatListOwner, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    }
-
-    D2DamageStrc damage = {};
-    damage.dwPhysDamage = DATATBLS_ApplyRatio(pDamage->dwPhysDamage, nDamagePercent, 100);
-    damage.wResultFlags |= pSkillsTxtRecord->wResultFlags | 0x20;
-    damage.dwHitFlags |= pSkillsTxtRecord->dwHitFlags;
-    damage.dwHitClass = pSkillsTxtRecord->dwHitClass;
-    SUNITDMG_ExecuteEvents(pGame, pUnit, pAttacker, 1, &damage);
-    SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pAttacker, &damage);
-
-    if (pUnit->dwUnitType != UNIT_MONSTER || pUnit->dwClassId != 0x122)
-    {
-        return 1;
-    }
-
-    unsigned char nDrain = 100;
-    if (pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = sub_0055B7E0_GetMonStatsTxtFromUnit(pUnit);
-        if (!pMonStatsTxtRecord)
-        {
-            return 1;
-        }
-
-        nDrain = pMonStatsTxtRecord->nDrain[pGame->nDifficulty];
-        if (nDrain <= 0)
-        {
-            return 1;
-        }
-    }
-
-    if (STATLIST_GetUnitAlignment(pUnit))
-    {
-        return 1;
-    }
-
-    int nBaseDamage = damage.dwPhysDamage;
-    if (nDrain != 100)
-    {
-        nBaseDamage = DATATBLS_ApplyRatio(damage.dwPhysDamage, nDrain, 100);
-    }
-
-    D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pAttacker);
-    if (pOwner && SUNIT_IsDead(pOwner) || SUNIT_IsDead(pAttacker))
-    {
-        return 1;
-    }
-
-    int nDamage = DATATBLS_ApplyRatio(nBaseDamage, 20, 100);
-    if (nDamage <= 0)
-    {
-        return 1;
-    }
-
-    if (pOwner)
-    {
-        nDamage -= sub_005C5F10_AddLifeAndGetGain(pOwner, DATATBLS_ApplyRatio(nDamage, 50, 100));
-    }
-
-    nDamage -= sub_005C5F10_AddLifeAndGetGain(pAttacker, nDamage);
-    if (pOwner && nDamage > 0)
-    {
-        sub_005C5F10_AddLifeAndGetGain(pOwner, nDamage);
-    }
-
-    UNITS_SetOverlay(pAttacker, 0x97, 0);
-    if (pOwner)
-    {
-        UNITS_SetOverlay(pOwner, 0x97, 0);
     }
 
     return 1;

@@ -58647,6 +58647,10 @@
      "name": "?SKILLS_SrvSt19_BonePrison@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005C3300",
+     "length": 71
+    },
+    {
      "va": "0x005C3350",
      "length": 26,
      "name": "?SKILLS_SrvSt21_Revive@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -58696,6 +58700,10 @@
      "name": "?sub_6FD0BDA0@@YIHPAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005C3B90",
+     "length": 441
+    },
+    {
      "va": "0x005C3DB0",
      "length": 45,
      "name": "?sub_6FD0C2B0@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
@@ -58714,6 +58722,10 @@
      "va": "0x005C40D0",
      "length": 176,
      "name": "?sub_005C40D0@@YIXPAUUnit@@0@Z"
+    },
+    {
+     "va": "0x005C4180",
+     "length": 370
     },
     {
      "va": "0x005C4300",
@@ -58754,6 +58766,10 @@
      "name": "sub_6FD0D000"
     },
     {
+     "va": "0x005C4DF0",
+     "length": 694
+    },
+    {
      "va": "0x005C50B0",
      "length": 9,
      "name": "?SKILLS_SrvDo055_CorpseExplosion@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -58790,6 +58806,10 @@
      "name": "?sub_005C5BC0_SpawnBonePrisonPet@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HPAU1@HHH@Z"
     },
     {
+     "va": "0x005C5D00",
+     "length": 341
+    },
+    {
      "va": "0x005C5E60",
      "length": 170,
      "name": "SKILLS_SrvDo063_PoisonExplosion"
@@ -58798,6 +58818,10 @@
      "va": "0x005C5F10",
      "length": 60,
      "name": "?sub_005C5F10_AddLifeAndGetGain@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C5F50",
+     "length": 650
     },
     {
      "va": "0x005C61E0",
@@ -68479,50 +68503,6 @@
      "va": "0x005C2AD0",
      "length": 23,
      "name": "?ITEMS_RollSuperiorItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillNec_005C3300.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x005C3300",
-     "length": 71
-    },
-    {
-     "va": "0x005C3B90",
-     "length": 441
-    },
-    {
-     "va": "0x005C4180",
-     "length": 370
-    },
-    {
-     "va": "0x005C4DF0",
-     "length": 694
-    },
-    {
-     "va": "0x005C5D00",
-     "length": 341
-    },
-    {
-     "va": "0x005C5F50",
-     "length": 650
     }
    ]
   },
