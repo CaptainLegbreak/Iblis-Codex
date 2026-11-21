@@ -1,115 +1,10 @@
 #include "D2Sound.h"
+#include "D2SoundTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-#pragma pack(push, 1)
-struct D2WaveFormatStrc
-{
-    unsigned short wFormatTag;
-    unsigned short nChannels;
-    unsigned long nSamplesPerSec;
-    unsigned long nAvgBytesPerSec;
-    unsigned short nBlockAlign;
-    unsigned short wBitsPerSample;
-    unsigned short cbSize;
-};
-#pragma pack(pop)
-
-struct D2DSBufferDescStrc
-{
-    unsigned long dwSize;
-    unsigned long dwFlags;
-    unsigned long dwBufferBytes;
-    unsigned long dwReserved;
-    D2WaveFormatStrc* lpwfxFormat;
-};
-
-struct D2DSoundBufferStrc
-{
-    virtual long __stdcall QueryInterface(const D2GuidStrc& riid, void** ppvObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual void __stdcall Unused0C() = 0;
-    virtual void __stdcall Unused10() = 0;
-    virtual void __stdcall Unused14() = 0;
-    virtual void __stdcall Unused18() = 0;
-    virtual void __stdcall Unused1C() = 0;
-    virtual void __stdcall Unused20() = 0;
-    virtual void __stdcall Unused24() = 0;
-    virtual void __stdcall Unused28() = 0;
-    virtual void __stdcall Unused2C() = 0;
-    virtual void __stdcall Unused30() = 0;
-    virtual long __stdcall SetCurrentPosition(unsigned long dwNewPosition) = 0;
-    virtual void __stdcall Unused38() = 0;
-    virtual void __stdcall Unused3C() = 0;
-    virtual long __stdcall SetPan(long lPan) = 0;
-};
-
-struct D2DSound3DBufferStrc
-{
-    virtual long __stdcall QueryInterface(const D2GuidStrc& riid, void** ppvObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual void __stdcall Unused0C() = 0;
-    virtual void __stdcall Unused10() = 0;
-    virtual void __stdcall Unused14() = 0;
-    virtual void __stdcall Unused18() = 0;
-    virtual void __stdcall Unused1C() = 0;
-    virtual void __stdcall Unused20() = 0;
-    virtual void __stdcall Unused24() = 0;
-    virtual void __stdcall Unused28() = 0;
-    virtual void __stdcall Unused2C() = 0;
-    virtual void __stdcall Unused30() = 0;
-    virtual void __stdcall Unused34() = 0;
-    virtual void __stdcall Unused38() = 0;
-    virtual void __stdcall Unused3C() = 0;
-    virtual long __stdcall SetMaxDistance(float flMaxDistance, unsigned long dwApply) = 0;
-    virtual long __stdcall SetMinDistance(float flMinDistance, unsigned long dwApply) = 0;
-};
-
-struct D2KsPropertySetStrc
-{
-    virtual long __stdcall QueryInterface(const D2GuidStrc& riid, void** ppvObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual void __stdcall Unused0C() = 0;
-    virtual void __stdcall Unused10() = 0;
-    virtual long __stdcall QuerySupport(const D2GuidStrc& rguidPropSet, unsigned long dwPropID, unsigned long* pTypeSupport) = 0;
-};
-
-struct D2DirectSoundStrc
-{
-    virtual long __stdcall QueryInterface(const D2GuidStrc& riid, void** ppvObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall CreateSoundBuffer(D2DSBufferDescStrc* pDesc, D2DSoundBufferStrc** ppBuffer, void* pUnkOuter) = 0;
-};
-
-struct D2SoundStrc
-{
-    D2DSoundBufferStrc* pBuffer;
-    unsigned int nBufferBytes;
-    unsigned int nHalfBufferBytes;
-    D2DSound3DBufferStrc* p3DBuffer;
-    D2KsPropertySetStrc* pPropertySet;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int unk0x24;
-    int unk0x28;
-    int unk0x2C;
-    int nIndex;
-    unsigned int dwFlags;
-    int f_38;
-    float f_3C;
-    int unk0x40;
-    int unk0x44;
-    void* hStream;
-    int unk0x4C[5];
-};
 
 struct D2SoundNodeStrc;
 
@@ -192,10 +87,10 @@ static int __stdcall sub_005153C0_CreateSoundBuffer(unsigned int nFlags, D2Sound
         }
     }
 
-    pSound->nBufferBytes = nBytes;
+    pSound->nBufferSize = nBytes;
     pSound->nHalfBufferBytes = nBytes >> 1;
     pSound->dwFlags = nFlags;
-    pSound->nIndex = -1;
+    pSound->nLoopStart = -1;
     return 1;
 }
 
@@ -264,13 +159,13 @@ void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound)
     EnterCriticalSection(&gSoundLock_0088174C);
     if (sub_00513BB0())
     {
-        pSound->unk0x14 = 0;
-        pSound->unk0x18 = 0;
-        pSound->unk0x20 = 0;
-        pSound->unk0x24 = 0;
-        pSound->unk0x2C = 0;
-        pSound->unk0x40 = 0;
-        pSound->unk0x44 = 0;
+        pSound->pData = 0;
+        pSound->nDataSize = 0;
+        pSound->nPosition = 0;
+        pSound->nFillPosition = 0;
+        pSound->bStreamed = 0;
+        pSound->bNoLoop = 0;
+        pSound->nMinDataSize = 0;
     }
     else
     {

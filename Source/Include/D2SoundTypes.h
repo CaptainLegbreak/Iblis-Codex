@@ -16,6 +16,7 @@ struct D2DirectSoundStrc;
 struct D2DSound3DBufferStrc;
 struct D2DSBufferDescStrc;
 
+#pragma pack(push, 1)
 struct D2WaveFormatStrc
 {
     unsigned short wFormatTag; // 0x00
@@ -25,8 +26,8 @@ struct D2WaveFormatStrc
     unsigned short nBlockAlign; // 0x0C
     unsigned short wBitsPerSample; // 0x0E
     unsigned short cbSize; // 0x10
-    unsigned short unk0x12; // 0x12
 };
+#pragma pack(pop)
 
 struct D2SoundStrc
 {
@@ -169,7 +170,7 @@ struct D2DSBufferDescStrc
     D2WaveFormatStrc* lpwfxFormat; // 0x10
 };
 
-D2_CHECK_SIZE(D2WaveFormatStrc, 0x14);
+D2_CHECK_SIZE(D2WaveFormatStrc, 0x12);
 D2_CHECK_SIZE(D2SoundStrc, 0x60);
 D2_CHECK_SIZE(D2SoundNodeStrc, 0x8);
 D2_CHECK_SIZE(D2SoundChannelEntryStrc, 0x8);
