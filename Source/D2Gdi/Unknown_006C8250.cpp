@@ -1,4 +1,5 @@
-#include "Storm.h"
+#include "D2Gdi.h"
+#include "D2Win32Base.h"
 #include "D2CelContext.h"
 #include "D2GfxTypes.h"
 
@@ -69,7 +70,7 @@ int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
     return 0;
 }
 
-#include "gen/data/Source/Storm/Unknown_006C8250.inc"
+#include "gen/data/Source/D2Gdi/Unknown_006C8250.inc"
 
 int gnValue_0098A168; // 0x0098A168
 

@@ -1,4 +1,4 @@
-#include "D2Win.h"
+#include "D2Gdi.h"
 
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* hObject);
 

@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Gdi.h"
 struct D2PaletteEntry006C7C10Strc;
 struct D2LogPalette006C7C10Strc;
 

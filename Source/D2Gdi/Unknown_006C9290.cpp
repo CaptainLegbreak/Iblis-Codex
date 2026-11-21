@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Gdi.h"
 #include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 #include "D2DrlgMaps.h"

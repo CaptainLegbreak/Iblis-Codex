@@ -48,7 +48,6 @@ extern int gnSubtileRowSrcOffset_0072DBC0[]; // 0x0072DBC0
 extern int gnSubtileRowWidth_0072DB84[]; // 0x0072DB84
 extern int gnSubtileRowXOffset_0072DB48[]; // 0x0072DB48
 extern int gnTextBoxLineGap_0072DE90; // 0x0072DE90
-extern int gnValue_007C9154; // 0x007C9154
 extern int gnWinCallbackDepth_007D55C4; // 0x007D55C4
 extern unsigned char gaDirectionIndex_006DCA60[][64]; // 0x006DCA60
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268

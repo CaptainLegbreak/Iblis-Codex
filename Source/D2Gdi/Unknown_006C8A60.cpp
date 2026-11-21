@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Gdi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09

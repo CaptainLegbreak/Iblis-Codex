@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Gdi.h"
 #include "D2CelContext.h"
 #include "D2GfxTypes.h"
 

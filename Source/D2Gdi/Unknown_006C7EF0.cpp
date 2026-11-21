@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Gdi.h"
 
 struct D2PaletteColorStrc;
 struct D2RgbQuad006C8110Strc;

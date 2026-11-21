@@ -1,4 +1,5 @@
-#include "Storm.h"
+#include "D2Gdi.h"
+#include "D2Win32Base.h"
 
 struct D2RectStrc;
 struct tagPOINT;

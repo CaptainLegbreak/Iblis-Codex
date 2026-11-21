@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Gdi.h"
 
 struct D2ClipRect006C8750Strc
 {
