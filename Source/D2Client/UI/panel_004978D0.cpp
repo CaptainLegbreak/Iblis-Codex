@@ -153,17 +153,7 @@ extern unsigned char gabBeltHotkey_007BEFB0[]; // 0x007BEFB0
 
 static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
 
-struct UnicodeChar;
-
 struct D2QtyWarnStrc;
-
-struct UnicodeChar
-{
-    unsigned short wChar;
-
-    UnicodeChar();                                                                                          // 0x0042F530
-    UnicodeChar(unsigned short ch) : wChar(ch) {}
-};
 
 Unicode* __fastcall sub_00452170(Unicode* pText); // 0x00452170
 
@@ -175,7 +165,7 @@ int __cdecl sub_00489840_IsNpcState123(); // 0x00489840
 
 void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 
-int __fastcall sub_004B2AD0(D2UnitStrc* pItem, int nArg, int* pOut, UnicodeChar* pName, int nMaxLength); // 0x004B2AD0
+int __fastcall sub_004B2AD0(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 
@@ -380,7 +370,7 @@ void __cdecl sub_00497A40_DrawBeltItemHoverText()
     sub_00452170(wszText);
     if (sub_00489840_IsNpcState123())
     {
-        UnicodeChar wszSocket[0x40] = { 0 };
+        Unicode wszSocket[0x40] = { 0 };
         int nUnused;
         if (sub_004B2AD0(gpBeltItemA_007BEFA8, 1, &nUnused, wszSocket, 0x40) && wszSocket[0].wChar)
         {

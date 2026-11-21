@@ -145,9 +145,6 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nFrame); // 0x0
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
 
-struct UnicodeChar : Unicode { UnicodeChar(); // 0x0042F530
-};
-
 static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
@@ -208,7 +205,7 @@ void __fastcall sub_004ED570_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSki
         gpfSkillDamageFuncs_0072D768[pDesc->wDescDam](pUnit, pSkill, pSkillsTxt, nLevel, TP[nIndex].nLeft, TP[nIndex].nY, TP[nIndex].nRight);
     if (!bDescription)
         return;
-    UnicodeChar wszDescription[200];
+    Unicode wszDescription[200];
     nValue1 = 0;
     nValue2 = 0;
     nColor1 = 0;
@@ -235,8 +232,8 @@ void __fastcall sub_004ED570_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSki
     nIndex += 2;
     if (nValue2)
     {
-        UnicodeChar wszValue1[32];
-        UnicodeChar wszValue2[32];
+        Unicode wszValue1[32];
+        Unicode wszValue2[32];
         char szValue[32];
         wsprintfA(szValue, gszFormatD_006D57BC, nValue1);
         sub_00526320_ToUnicode(wszValue1, szValue, 32);

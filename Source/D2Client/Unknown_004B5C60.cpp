@@ -2,11 +2,6 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
 
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
-
 struct D2ClientItemSlotStrc
 {
     unsigned short wId;
@@ -223,7 +218,7 @@ int __cdecl sub_004B5C60_Handler()
 
             if (MONSTERS_GetHirelingDescString(nHireDesc))
             {
-                UnicodeChar wszDesc[150];
+                Unicode wszDesc[150];
                 Unicode wszFormat[6] = { 'a', '0', ':', '%', '0', 0 };
                 sub_0048BE80_FormatArgs(wszDesc, wszFormat, MONSTERS_GetHirelingDescString(nHireDesc), 0);
                 sub_00526700(wszHover, wszDesc);

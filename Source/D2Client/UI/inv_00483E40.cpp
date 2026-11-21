@@ -272,8 +272,6 @@ struct D2InvCompGridStrc;
 
 struct D2NpcButtonStrc;
 
-struct UnicodeChar;
-
 struct D2ItemFormulaRecordStrc;
 
 struct D2PanelButtonStrc;
@@ -455,11 +453,6 @@ __declspec(noinline) void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridIn
 char* __stdcall ITEMS_GetEarName(D2UnitStrc* pItem); // 0x00628340
 
 void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, const Unicode* pFormat, int nMaxLength, int nLanguage); // 0x005272B0
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 struct D2ItemFormulaRecordStrc
 {
@@ -2115,7 +2108,7 @@ static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2It
     case 2:
     {
         char szValue[10];
-        UnicodeChar wszValue[10];
+        Unicode wszValue[10];
         int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->nCalc);
         switch (pRecord->nStat)
         {
@@ -2140,7 +2133,7 @@ static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2It
     case 3:
     {
         char szValue[10];
-        UnicodeChar wszValue[10];
+        Unicode wszValue[10];
         int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->nCalc);
         sub_005267E0(pBuffer, D2LANG_GetStringFromTblIndex(pRecord->wStringId));
         SStrPrintf(szValue, 10, szFmtLong_006D9BE8, nValue);
@@ -2154,7 +2147,7 @@ static void __stdcall sub_00486370_AppendItemFormulaText(D2UnitStrc* pItem, D2It
     case 4:
     {
         int nValue = ITEMMODS_EvaluateItemFormula(pPlayer, pItem, pRecord->nCalc);
-        UnicodeChar wszText[0x200];
+        Unicode wszText[0x200];
         sub_005269D0(0x200, wszText, D2LANG_GetStringFromTblIndex(pRecord->wStringId), nValue);
         sub_00526700(pBuffer, wszText);
         sub_00526700(pBuffer, pLineEnd);

@@ -285,11 +285,6 @@ struct D2ClientDialogStrc;
 struct D2UnitStrc;
 
 
-struct UnicodeChar:Unicode
-{
-    UnicodeChar(); // 0x0042F530
-};
-
 typedef int (__cdecl* D2MenuHandler)();
 
 #pragma pack(push,1)
@@ -1120,7 +1115,7 @@ void __cdecl sub_004B4830_Rebuild()
             if(bCharge)
             {
                 sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(0xFB5));
-                UnicodeChar wszNumber[10];
+                Unicode wszNumber[10];
                 char szNumber[12];
                 nCount*=100;
                 wsprintfA(szNumber,gszFormatD,nCount);

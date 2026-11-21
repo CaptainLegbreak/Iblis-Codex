@@ -26,8 +26,6 @@ struct D2TextBoxPosStrc;
 
 struct D2TextPointStrc;
 
-struct UnicodeChar;
-
 struct D2GSPacketSrv26;
 
 struct D2CommonChatIgnoreListStrc;
@@ -172,11 +170,6 @@ void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc
 extern int gbStarted_007BF27C; // 0x007BF27C
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers_00722600[]; // 0x00722600
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 struct D2GSPacketSrv26
 {
@@ -924,9 +917,9 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
         return;
     }
 
-    UnicodeChar wszA[0x264];
-    UnicodeChar wszB[0x264];
-    UnicodeChar wszC[0x10];
+    Unicode wszA[0x264];
+    Unicode wszB[0x264];
+    Unicode wszC[0x10];
     if (pPacket->nMessageType == 6)
     {
         Unicode::win2Unicode(wszB, pPacket->szMessage, 0x100);
@@ -965,7 +958,7 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
         const int nTextLen = strlen(pPacket->szMessage);
         if (nNameLen >= 1 && nNameLen <= 15)
         {
-            UnicodeChar wszD[0x10];
+            Unicode wszD[0x10];
             Unicode::win2Unicode(wszD, pPacket->szName, 0x10);
             sub_005267E0(wszA, wszD);
             sub_004521C0_PrefixLevelText(wszA, 4);
@@ -988,7 +981,7 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
     }
     else if (pPacket->nMessageType == 7)
     {
-        UnicodeChar wszE[0x100];
+        Unicode wszE[0x100];
         MultiByteToWideChar(0, 1, pPacket->szMessage, 0x100, wszE, 0x100);
         const int nLang = pPacket->nLang;
         if (nLang != STRTABLE_GetLanguage())

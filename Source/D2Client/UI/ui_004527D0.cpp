@@ -17,18 +17,6 @@
 
 struct Unicode;
 
-struct UnicodeChar;
-
-struct UnicodeChar
-{
-    unsigned short wChar;
-
-    UnicodeChar();                                                                                          // 0x0042F530
-    UnicodeChar(unsigned short ch) : wChar(ch)
-    {
-    }
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -545,7 +533,7 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
     }
     else if (pUnit)
     {
-        UnicodeChar wszItem[0x80] = { 0 };
+        Unicode wszItem[0x80] = { 0 };
         sub_0048C060_BuildItemName(pUnit, (Unicode*)wszItem, 0x100);
         if (!pOut)
         {

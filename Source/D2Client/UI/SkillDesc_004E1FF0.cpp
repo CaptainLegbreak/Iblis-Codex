@@ -310,11 +310,6 @@ D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
@@ -1896,7 +1891,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nWeaponMin == nWeaponMax)
     {
@@ -1916,7 +1911,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin == nMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin);
@@ -2032,7 +2027,7 @@ void __fastcall sub_004EAF90_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillS
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nWeaponMin == nWeaponMax)
     {
@@ -2052,7 +2047,7 @@ void __fastcall sub_004EAF90_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillS
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin == nMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin);

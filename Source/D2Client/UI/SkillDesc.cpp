@@ -7,11 +7,6 @@
 #include "D2Txt.h"
 #include "D2DataTbls.h"
 
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
-
 typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -87,8 +82,6 @@ int __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMinDa
 void __fastcall sub_004EA010_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight); // 0x004EA010
 
 struct Unicode;
-
-struct UnicodeChar;
 
 struct D2SkillsTxt;
 
@@ -565,7 +558,7 @@ static void __stdcall sub_004E99F0_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillSt
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nMin1 == nMax1)
     {
@@ -585,7 +578,7 @@ static void __stdcall sub_004E99F0_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillSt
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin2 == nMax2)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin2);
@@ -857,7 +850,7 @@ void __fastcall sub_004EAF90_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillS
     int nWeaponMin = nWeaponMinOutput;
     int nWeaponMax = nWeaponMaxOutput;
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nWeaponMin == nWeaponMax)
     {
@@ -877,7 +870,7 @@ void __fastcall sub_004EAF90_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillS
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin == nMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin);
@@ -970,7 +963,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nWeaponMin == nWeaponMax)
     {
@@ -990,7 +983,7 @@ void __fastcall sub_004E9D20_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2Skill
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin == nMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin);
@@ -1499,7 +1492,7 @@ void __fastcall sub_004EBD50_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Sk
     const int nWeaponMin = nMin;
     const int nWeaponMax = nMax;
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nWeaponMin == nWeaponMax)
     {
@@ -1519,7 +1512,7 @@ void __fastcall sub_004EBD50_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Sk
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nElemMin == nElemMax)
     {
         wsprintfA(szText, szFmtD_006D57BC, nElemMin);

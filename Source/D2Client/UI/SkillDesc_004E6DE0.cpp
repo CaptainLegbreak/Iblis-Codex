@@ -193,8 +193,6 @@ void __fastcall sub_004A7080(int nX, int nY, int nRight, const wchar_t* wszText,
 
 struct Unicode;
 
-struct UnicodeChar;
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern int gnGlobal_00711470; // 0x00711470
@@ -208,11 +206,6 @@ int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStr
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode* wszText2, int nLeft, int nY, int nRight, int nColor1, int nColor2); // 0x004E9870
 

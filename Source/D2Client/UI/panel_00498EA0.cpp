@@ -1,12 +1,8 @@
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Unicode.h"
 
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
@@ -24,7 +20,8 @@ extern int gnGlobal_00711470;                                                   
 // 0x00498EA0
 void __cdecl sub_00498EA0_DrawExperienceBar()
 {
-    Unicode wszText[100];
+    unsigned short awText[100];
+    Unicode* wszText = (Unicode*)awText;
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;

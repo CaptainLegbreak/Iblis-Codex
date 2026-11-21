@@ -8,15 +8,9 @@
 #include "D2Txt.h"
 
 struct Unicode;
-struct UnicodeChar;
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
 struct D2MonStatsTxt;
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();                                                                                          // 0x0042F530
-};
 
 typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
 
@@ -370,7 +364,7 @@ static void __stdcall sub_004E99F0_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillSt
         return;
     }
 
-    UnicodeChar wszText1[32];
+    Unicode wszText1[32];
     char szText[32];
     if (nMin1 == nMax1)
     {
@@ -390,7 +384,7 @@ static void __stdcall sub_004E99F0_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillSt
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
-    UnicodeChar wszText2[32];
+    Unicode wszText2[32];
     if (nMin2 == nMax2)
     {
         wsprintfA(szText, szFmtD_006D57BC, nMin2);
