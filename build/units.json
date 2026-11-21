@@ -35971,9 +35971,19 @@
      "name": "?sub_004F2340_MissileRows@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004F25A0",
+     "length": 297,
+     "name": "?sub_004F25A0_RepeatMissile@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004F2720",
      "length": 109,
      "name": "?sub_004F2720_TargetMissile@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F29F0",
+     "length": 202,
+     "name": "?sub_004F29F0_MissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2E90",
@@ -35986,9 +35996,24 @@
      "name": "?sub_004F33B0_PositionMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004F3680",
+     "length": 396,
+     "name": "?sub_004F3680_SpawnMissileTowardTarget@@YGHPAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x004F3810",
+     "length": 84,
+     "name": "?sub_004F3810_SkillCltStartMissileC@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004F38D0",
      "length": 206,
      "name": "?sub_004F38D0_ParamMissile@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F39A0",
+     "length": 181,
+     "name": "?sub_004F39A0_SetTargetParams@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F4110",
@@ -37271,37 +37296,6 @@
      "va": "0x004F3870",
      "length": 86,
      "name": "?sub_004F3870_SetTargetPosParams@@YIHPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004F25A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F25A0",
-     "length": 297,
-     "name": "?sub_004F25A0_RepeatMissile@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F29F0",
-     "length": 202,
-     "name": "?sub_004F29F0_MissileScatterAtTarget@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F3680",
-     "length": 396,
-     "name": "?sub_004F3680_SpawnMissileTowardTarget@@YGHPAUD2UnitStrc@@HHH@Z"
-    },
-    {
-     "va": "0x004F3810",
-     "length": 84,
-     "name": "?sub_004F3810_SkillCltStartMissileC@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F39A0",
-     "length": 181,
-     "name": "?sub_004F39A0_SetTargetParams@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
