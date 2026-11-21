@@ -33129,11 +33129,6 @@
      "name": "sub_004D93B0_SendPositionEvent"
     },
     {
-     "va": "0x004DA080",
-     "length": 48,
-     "name": "sub_004DA080_FreeGfxMotion"
-    },
-    {
      "va": "0x004DA0D0",
      "length": 28,
      "name": "sub_004DA0D0_GetGfxMotionField38"
@@ -36175,6 +36170,11 @@
      "va": "0x004DA070",
      "length": 5,
      "name": "?sub_004DA070_GetGfxMotion@@YIPAUD2GfxMotionStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004DA080",
+     "length": 48,
+     "name": "sub_004DA080_FreeGfxMotion"
     },
     {
      "va": "0x004DA700",

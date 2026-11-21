@@ -54,6 +54,18 @@ D2GfxMotionStrc* __fastcall sub_004DA070_GetGfxMotion(D2UnitStrc* pUnit)
     return sub_0046F060_GetGfxMotion(pUnit);
 }
 
+
+// 0x004DA080
+void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        FOG_Free(pMotion, ".\\ENGINE\\Particle.cpp", 100, 0);
+        sub_0046F070_SetGfxMotion(pUnit, 0);
+    }
+}
+
 // 0x004DA700
 int __fastcall sub_004DA700_GetGfxMotionFlag5(D2UnitStrc* pUnit)
 {
