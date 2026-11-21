@@ -5442,12 +5442,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005E0490.cpp": {
+  "Source/D2Game/Ai/AiThink4_005E0490.cpp": {
    "bytes": 32,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005E0490.inc",
+   "include": "gen/data/Source/D2Game/Ai/AiThink4_005E0490.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -119041,7 +119041,7 @@
    "cname": "gData_006E337C",
    "declared": true,
    "decorated": "?offsets_006E337C@@3PAUOffset@@A",
-   "file": "Source/D2Game/Unknown_005E0490.cpp",
+   "file": "Source/D2Game/Ai/AiThink4_005E0490.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const Offset gData_006E337C[4]; // 0x006E337C",
