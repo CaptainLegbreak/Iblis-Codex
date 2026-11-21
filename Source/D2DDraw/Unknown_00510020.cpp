@@ -1,4 +1,4 @@
-#include "D2Win.h"
+#include "D2DDraw.h"
 #include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -18,7 +18,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
-extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern unsigned char gabDDrawDeviceGuid_00881144[16]; // 0x00881144
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
@@ -85,4 +84,4 @@ void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette)
     gbPaletteDirty_00881298 = 1;
 }
 
-#include "gen/data/Source/D2Win/Unknown_00510020.inc"
+#include "gen/data/Source/D2DDraw/Unknown_00510020.inc"

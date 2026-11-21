@@ -54,6 +54,42 @@ extern void* gpReply_008818D0;                                                  
 extern "C" void* gpCDKeyHandle_00882744;                                                                    // 0x00882744
 extern "C" void* gpCDKeyHandle_00882750;                                                                    // 0x00882750
 
+extern "C" __declspec(dllimport) void* __stdcall CreateBitmap(int nWidth, int nHeight, unsigned int nPlanes, unsigned int nBitCount, const void* lpBits); // 0x006CC090
+
+extern "C" __declspec(dllimport) void* __stdcall CreateDCA(const char* pszDriver, const char* pszDevice, const char* pszPort, const void* pdm); // 0x006CC0A4
+
+extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hdc); // 0x006CC0D8
+
+extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* ho); // 0x006CC0D4
+
+extern "C" __declspec(dllimport) int __stdcall DrawTextA(void* hdc, const char* lpchText, int cchText, tagRECT* lprc, unsigned int format); // 0x006CC534
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetPixel(void* hdc, int x, int y); // 0x006CC0B8
+
+extern "C" __declspec(dllimport) void* __stdcall SelectObject(void* hdc, void* h); // 0x006CC09C
+
+extern "C" __declspec(dllimport) int __stdcall SetBkMode(void* hdc, int mode); // 0x006CC0B4
+
+extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
+
+extern int gaDDrawDebugFontCharWidths_00881428[96]; // 0x00881428
+
+int gaDDrawDebugFontGlyphOffsets_008812A8[96]; // 0x008812A8
+
+unsigned long gdwDDrawDebugFontBkColor_008815A8; // 0x008815A8
+
+extern unsigned long gdwDDrawDebugFontTextColor_0072F7F0; // 0x0072F7F0
+
+extern "C" const char gszCourier_006DD52C[]; // 0x006DD52C
+
+extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName); // 0x006CC0E0
+
+extern "C" __declspec(dllimport) int __stdcall GetCharWidthA(void* hdc, unsigned int iFirst, unsigned int iLast, int* lpBuffer); // 0x006CC0D0
+
+extern "C" __declspec(dllimport) unsigned long __stdcall SetBkColor(void* hdc, unsigned long color); // 0x006CC0B0
+
+extern "C" __declspec(dllimport) unsigned long __stdcall SetTextColor(void* hdc, unsigned long color); // 0x006CC0AC
+
 // 0x00464810
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit)
 {
@@ -307,4 +343,43 @@ void __cdecl sub_005239C0_UnlockCDKeys()
         SFileUnloadFile(gpCDKeyHandle_00882750);
         gpCDKeyHandle_00882750 = 0;
     }
+}
+
+// 0x00512430
+void __cdecl sub_00512430_DDrawCreateDebugFont()
+{
+    void* hDC = CreateDCA("DISPLAY", 0, 0, 0);
+    void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier_006DD52C);
+    void* hBitmap = CreateBitmap(8, 16, 1, 8, 0);
+    SelectObject(hDC, hFont);
+    SelectObject(hDC, hBitmap);
+    SetTextColor(hDC, gdwDDrawDebugFontTextColor_0072F7F0);
+    SetBkColor(hDC, gdwDDrawDebugFontBkColor_008815A8);
+    SetBkMode(hDC, 2);
+    tagRECT rect;
+    SetRect(&rect, 0, 0, 8, 16);
+    gpDDrawDebugFontGlyphs_008815AC = (unsigned char*)FOG_Alloc(0x3000, ".\\Src\\ddDebugFont.cpp", 0x3A, 0);
+    unsigned char* pMask = gpDDrawDebugFontGlyphs_008815AC;
+    int nOffset = 0;
+    for (int nChar = 0x20; nChar <= 0x7F; ++nChar)
+    {
+        char cChar = nChar;
+        DrawTextA(hDC, &cChar, 1, &rect, 0);
+        for (int y = 0; y < 16; ++y)
+        {
+            for (int x = 0; x < 8; ++x)
+            {
+                if (GetPixel(hDC, x, y) == gdwDDrawDebugFontTextColor_0072F7F0)
+                    *pMask++ = 0xFF;
+                else
+                    *pMask++ = 0;
+            }
+        }
+        gaDDrawDebugFontGlyphOffsets_008812A8[nChar - 0x20] = nOffset;
+        nOffset += 0x80;
+    }
+    GetCharWidthA(hDC, 0x20, 0x7F, gaDDrawDebugFontCharWidths_00881428);
+    DeleteObject(hBitmap);
+    DeleteObject(hFont);
+    DeleteDC(hDC);
 }

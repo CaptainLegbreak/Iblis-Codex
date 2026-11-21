@@ -377,11 +377,3 @@ void __cdecl sub_0060CD50_ReleaseTileLock()
         DeleteCriticalSection(gTileLock_008F03CC);
 }
 
-// 0x0060CDB0
-D2FindTileEntryStrc** __cdecl sub_0060CDB0_AllocFindTilesTable()
-{
-    D2FindTileEntryStrc** ppBuckets = (D2FindTileEntryStrc**)FOG_Alloc(0x200, ".\\SRC\\FindTiles.cpp", 0x2A, 0);
-    D2_ASSERT(ppBuckets, 0x2B);
-    memset(ppBuckets, 0, 0x200);
-    return ppBuckets;
-}

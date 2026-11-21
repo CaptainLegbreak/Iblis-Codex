@@ -1,4 +1,4 @@
-#include "D2Win.h"
+#include "D2DDraw.h"
 #include "D2GfxTypes.h"
 
 struct D2DDrawSmackStrc

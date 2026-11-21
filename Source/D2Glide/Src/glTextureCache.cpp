@@ -299,21 +299,6 @@ void __fastcall sub_0050ECB0_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bF
     memset(pCache, 0, sizeof(*pCache));
 }
 
-// 0x0050F7C0
-void __fastcall sub_0050F7C0_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush)
-{
-    if (bFlush)
-    {
-        while (pCache->nUsed)
-            sub_0050F6D0_FloorCacheEvict(pCache);
-    }
-    if (pCache->pEntries)
-    {
-        FOG_Free(pCache->pEntries, ".\\Src\\glFloorCache.cpp", 0x74, 0);
-        pCache->pEntries = 0;
-    }
-    memset(pCache, 0, sizeof(*pCache));
-}
 
 // 0x0050FAD0
 int __fastcall sub_0050FAD0_GlideBindFloorTexture(D2TileLibraryEntryStrc* pTile)

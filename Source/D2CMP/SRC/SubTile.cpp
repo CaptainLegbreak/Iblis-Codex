@@ -50,6 +50,15 @@ struct D2CmpPaletteStrc
 void __stdcall sub_M92_EmitSinkA(D2CmpSubTileRecordStrc* pRecord);
 void __stdcall sub_M92_EmitSinkB(unsigned char* pData, D2CmpSubTileRecordStrc* pRecord);
 
+struct D2CmpSubTileBlockStrc
+{
+    char unk0x00[0x08];
+    short nValue08;
+    short nSize;
+    int unk0x0C;
+    unsigned char* pData;
+};
+
 // 0x0060D430
 unsigned char* __fastcall sub_0060D430_CompressSubtile(const unsigned char* pData, unsigned int* pSize)
 {
@@ -433,4 +442,35 @@ void __fastcall sub_0060DC30_ForEachPaletteColor(D2CmpPaletteStrc* pPalette, D2C
         pfnColor(((pColor->b2 << 8) + pColor->b1 << 8) + pColor->b0);
         pColor++;
     }
+}
+
+// 0x0060D9C0
+void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileBlockStrc* pBlock, const unsigned char* pSrc)
+{
+    unsigned char* pDst = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
+    D2_ASSERT(pDst, 0x186);
+    unsigned char* pData = pDst;
+    memset(pDst, 0, 0x100);
+    int i = 0;
+    int nOffset = 0xE;
+    int nWidth = 4;
+    for (; i < 15; i++)
+    {
+        memcpy(pDst, pSrc + nOffset, nWidth);
+        pSrc += 0x20;
+        pDst += nWidth;
+        if (i < 7)
+        {
+            nOffset -= 2;
+            nWidth += 4;
+        }
+        else
+        {
+            nOffset += 2;
+            nWidth -= 4;
+        }
+    }
+    pBlock->nValue08 = 1;
+    pBlock->nSize = 0x100;
+    pBlock->pData = pData;
 }

@@ -86,6 +86,8 @@ extern "C" const char szD3DSmackFile_006FC358[]; // 0x006FC358
 
 extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
 
+extern "C" void* gAllocation_009897D0; // 0x009897D0
+
 // 0x006B9A10
 void __cdecl sub_006B9A10_Init()
 {
@@ -430,5 +432,15 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
     {
         SmackClose(pSmack->hSmack);
         pSmack->hSmack = 0;
+    }
+}
+
+// 0x006B9B00
+extern "C" void __cdecl sub_006B9B00_FreeGlobal()
+{
+    if (gAllocation_009897D0)
+    {
+        FOG_Free(gAllocation_009897D0, ".\\Src\\d3dSmack.cpp", 0x5E, 0);
+        gAllocation_009897D0 = 0;
     }
 }

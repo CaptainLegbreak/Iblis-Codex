@@ -3277,11 +3277,6 @@
      "va": "0x00410540",
      "length": 196,
      "name": "?sub_00410540_InitLogSystem@@YAXXZ"
-    },
-    {
-     "va": "0x006B9B00",
-     "length": 35,
-     "name": "_sub_006B9B00_FreeGlobal"
     }
    ]
   },
@@ -39235,7 +39230,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F5050.cpp",
+   "file": "Source/D2Gfx/Unknown_004F5050.cpp",
    "rank": 0,
    "functions": [
     {
@@ -39721,7 +39716,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F5160.cpp",
+   "file": "Source/D2Gfx/SRC/Window_004F5160.cpp",
    "rank": 0,
    "functions": [
     {
@@ -42764,11 +42759,6 @@
      "name": "?sub_00511D70_GetCapsValue@@YIHHPAH@Z"
     },
     {
-     "va": "0x00512430",
-     "length": 378,
-     "name": "sub_00512430_DDrawCreateDebugFont"
-    },
-    {
      "va": "0x00512700",
      "length": 9,
      "name": "?sub_00512700_DDrawGetBlendedShadows@@YAHXZ"
@@ -42787,11 +42777,6 @@
      "va": "0x005132C0",
      "length": 101,
      "name": "sub_005132C0_DDrawFloorTileDraw"
-    },
-    {
-     "va": "0x00513330",
-     "length": 67,
-     "name": "?sub_00513330_DDrawCloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x005136F0",
@@ -43144,6 +43129,17 @@
      "name": "?sub_0050DC30_GlideSetVertexColor@@YIXPAUD2GlideVertexStrc@@I@Z"
     },
     {
+     "va": "0x0050DD30",
+     "length": 17,
+     "name": "?sub_0050DD30_GlideIsPerspective@@YAHXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Glide/Src/glPerspective.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x0050DC80",
      "length": 25,
      "name": "?sub_0050DC80_AllocPerspectiveTable@@YAXXZ"
@@ -43152,16 +43148,6 @@
      "va": "0x0050DCA0",
      "length": 35,
      "name": "?sub_0050DCA0_FreePerspectiveTable@@YAXXZ"
-    },
-    {
-     "va": "0x0050DD30",
-     "length": 17,
-     "name": "?sub_0050DD30_GlideIsPerspective@@YAHXZ"
-    },
-    {
-     "va": "0x0050DF70",
-     "length": 103,
-     "name": "?sub_0050DF70_GlideSmackFree@@YAXXZ"
     }
    ]
   },
@@ -43245,6 +43231,11 @@
      "name": "?sub_0050DF10_GlideSmackInit@@YAXXZ"
     },
     {
+     "va": "0x0050DF70",
+     "length": 103,
+     "name": "?sub_0050DF70_GlideSmackFree@@YAXXZ"
+    },
+    {
      "va": "0x0050E030",
      "length": 1,
      "name": "?sub_0050E030_GlideNoOp@@YAXXZ"
@@ -43284,11 +43275,6 @@
      "name": "?sub_0050EC40_TexCacheEvict@@YIXPAUD2GlideTexCacheStrc@@@Z"
     },
     {
-     "va": "0x0050F210",
-     "length": 152,
-     "name": "?sub_0050F210_TileCacheDestroy@@YIXPAUD2GlideTileCacheStrc@@H@Z"
-    },
-    {
      "va": "0x0050F570",
      "length": 115,
      "name": "?sub_0050F570_FloorCacheUnlink@@YIPAUD2GlideFloorCacheEntryStrc@@PAUD2GlideFloorCacheStrc@@H@Z"
@@ -43302,11 +43288,6 @@
      "va": "0x0050F750",
      "length": 108,
      "name": "?sub_0050F750_FloorCacheRemove@@YIXPAUD2GlideFloorCacheStrc@@H@Z"
-    },
-    {
-     "va": "0x0050F870",
-     "length": 66,
-     "name": "?sub_0050F870_GlideBlocksInit@@YAXXZ"
     }
    ]
   },
@@ -43363,11 +43344,6 @@
      "va": "0x0050EFB0",
      "length": 46,
      "name": "?sub_0050EFB0_TileCachePopFree@@YAPAUD2GlideTileCacheEntryStrc@@PAUD2GlideTileCacheStrc@@@Z"
-    },
-    {
-     "va": "0x0050F7C0",
-     "length": 84,
-     "name": "?sub_0050F7C0_FloorCacheDestroy@@YIXPAUD2GlideFloorCacheStrc@@H@Z"
     },
     {
      "va": "0x0050FAD0",
@@ -43432,6 +43408,11 @@
      "name": "?sub_0050F1B0_TileCacheRelease@@YIXPAUD2GlideTileCacheStrc@@H@Z"
     },
     {
+     "va": "0x0050F210",
+     "length": 152,
+     "name": "?sub_0050F210_TileCacheDestroy@@YIXPAUD2GlideTileCacheStrc@@H@Z"
+    },
+    {
      "va": "0x0050F2B0",
      "length": 110,
      "name": "?sub_0050F2B0_TileCacheAdd@@YIFPAUD2GlideTileCacheStrc@@@Z"
@@ -43478,6 +43459,11 @@
      "name": "?sub_0050F670_FloorCacheTouch@@YIXPAUD2GlideFloorCacheStrc@@H@Z"
     },
     {
+     "va": "0x0050F7C0",
+     "length": 84,
+     "name": "?sub_0050F7C0_FloorCacheDestroy@@YIXPAUD2GlideFloorCacheStrc@@H@Z"
+    },
+    {
      "va": "0x0050F820",
      "length": 65,
      "name": "?sub_0050F820_FloorCacheAdd@@YIFPAUD2GlideFloorCacheStrc@@@Z"
@@ -43493,6 +43479,11 @@
    "file": "Source/D2Glide/Src/glBlocks.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0050F870",
+     "length": 66,
+     "name": "?sub_0050F870_GlideBlocksInit@@YAXXZ"
+    },
     {
      "va": "0x0050F8C0",
      "length": 69,
@@ -43587,7 +43578,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_00510020.cpp",
+   "file": "Source/D2DDraw/Unknown_00510020.cpp",
    "rank": 0,
    "functions": [
     {
@@ -43717,6 +43708,11 @@
    "file": "Source/D2DDraw/Src/ddDebugFont.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00512430",
+     "length": 378,
+     "name": "sub_00512430_DDrawCreateDebugFont"
+    },
     {
      "va": "0x005125B0",
      "length": 35,
@@ -43873,6 +43869,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00513330",
+     "length": 67,
+     "name": "?sub_00513330_DDrawCloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
+    },
+    {
      "va": "0x00513380",
      "length": 113
     },
@@ -43898,7 +43899,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_005135F0.cpp",
+   "file": "Source/D2DDraw/Unknown_005135F0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -65717,6 +65718,11 @@
      "length": 442
     },
     {
+     "va": "0x005FFBE0",
+     "length": 89,
+     "name": "?sub_005FFBE0_FreeTileCache@@YIXPAUD2SpriteCacheStrc@@@Z"
+    },
+    {
      "va": "0x005FFC40",
      "length": 245,
      "name": "?sub_005FFC40_SpriteCacheAlloc@@YIPAUD2SpriteCacheNodeStrc@@PAUD2SpriteCacheStrc@@IIH@Z"
@@ -65725,6 +65731,11 @@
      "va": "0x005FFD40",
      "length": 238,
      "name": "D2CMPSpriteCacheInit"
+    },
+    {
+     "va": "0x005FFFA0",
+     "length": 267,
+     "name": "?sub_005FFFA0_LoadDC6CacheEntry@@YGHPAUD2CmpSpriteFileStrc@@HHPBDPAUD2CmpSpriteContextStrc@@@Z"
     },
     {
      "va": "0x006004E0",
@@ -65764,11 +65775,6 @@
      "va": "0x00601810",
      "length": 44,
      "name": "sub_00601810_IsGfxFrameValid"
-    },
-    {
-     "va": "0x00601A50",
-     "length": 183,
-     "name": "CelFileFreeHardware"
     },
     {
      "va": "0x00604A40",
@@ -72736,6 +72742,11 @@
      "name": "?CelFileGetNumDirections@@YGHPAUUnit@@@Z"
     },
     {
+     "va": "0x00601A50",
+     "length": 183,
+     "name": "CelFileFreeHardware"
+    },
+    {
      "va": "0x00601B40",
      "length": 1,
      "name": "?sub_00601B40_Empty@@YAXXZ"
@@ -73638,7 +73649,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_005FF0F0.cpp",
+   "file": "Source/D2CMP/SRC/SpriteCache_005FF0F0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -73678,11 +73689,6 @@
      "va": "0x005FF3A0",
      "length": 71,
      "name": "?D2CMPSpriteFreeAsyncLoads@@YAXXZ"
-    },
-    {
-     "va": "0x005FFBE0",
-     "length": 89,
-     "name": "?sub_005FFBE0_FreeTileCache@@YIXPAUD2SpriteCacheStrc@@@Z"
     },
     {
      "va": "0x00600C90",
@@ -73795,16 +73801,6 @@
      "name": "?sub_00606D10_SkipCelLines@@YIPBDPBDH@Z"
     },
     {
-     "va": "0x006094B0",
-     "length": 68,
-     "name": "?sub_006094B0_AllocTileListHeader@@YAPAUD2TileListHeaderStrc@@XZ"
-    },
-    {
-     "va": "0x00609550",
-     "length": 71,
-     "name": "?sub_00609550_AllocTile@@YAPAUD2CmpTileStrc@@XZ"
-    },
-    {
      "va": "0x0060A440",
      "length": 119,
      "name": "?sub_0060A440_CreateTileHashBlock@@YIPAUD2TileLibraryHashStrc@@PAUD2CmpTileLibraryStrc@@@Z"
@@ -73833,17 +73829,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FFFA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FFFA0",
-     "length": 267,
-     "name": "?sub_005FFFA0_LoadDC6CacheEntry@@YGHPAUD2CmpSpriteFileStrc@@HHPBDPAUD2CmpSpriteContextStrc@@@Z"
-    }
    ]
   },
   {
@@ -73946,7 +73931,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_00600C60.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp_00600C60.cpp",
    "rank": 1,
    "functions": [
     {
@@ -73985,9 +73970,19 @@
      "name": "?sub_00605D20_BuildTintTables@@YGXPAE@Z"
     },
     {
+     "va": "0x006094B0",
+     "length": 68,
+     "name": "?sub_006094B0_AllocTileListHeader@@YAPAUD2TileListHeaderStrc@@XZ"
+    },
+    {
      "va": "0x00609500",
      "length": 70,
      "name": "?sub_00609500_ReleaseTileNode@@YAXPAUD2CmpTileNodeStrc@@@Z"
+    },
+    {
+     "va": "0x00609550",
+     "length": 71,
+     "name": "?sub_00609550_AllocTile@@YAPAUD2CmpTileStrc@@XZ"
     },
     {
      "va": "0x006095A0",
@@ -74047,6 +74042,11 @@
      "va": "0x00609D60",
      "length": 291,
      "name": "?sub_00609D60_BuildTileLibrary@@YGHPAUD2CmpTileListStrc@@PAPAUD2CmpTileLibraryStrc@@@Z"
+    },
+    {
+     "va": "0x00609E90",
+     "length": 312,
+     "name": "TileProjectDestroy"
     },
     {
      "va": "0x00609FD0",
@@ -74258,7 +74258,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_00603E70.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp_00603E70.cpp",
    "rank": 0,
    "functions": [
     {
@@ -74374,7 +74374,7 @@
    ]
   },
   {
-   "file": "Source/D2CMP/Unknown_00604730.cpp",
+   "file": "Source/D2CMP/SRC/CelCmp_00604730.cpp",
    "rank": 0,
    "functions": [
     {
@@ -74573,11 +74573,6 @@
      "name": "sub_0060D310_ScanRun"
     },
     {
-     "va": "0x0060D9C0",
-     "length": 190,
-     "name": "sub_0060D9C0_BuildDiamondBlock"
-    },
-    {
      "va": "0x0060DD20",
      "length": 33,
      "name": "sub_0060DD20_EqualsNoCase"
@@ -74659,11 +74654,6 @@
      "name": "CreateD2PaletteByteStream"
     },
     {
-     "va": "0x00609E90",
-     "length": 312,
-     "name": "TileProjectDestroy"
-    },
-    {
      "va": "0x0060A290",
      "length": 254,
      "name": "TileProjectNormalize"
@@ -74684,21 +74674,6 @@
      "name": "sub_0060AB10_GfxHashRemove"
     },
     {
-     "va": "0x0060B010",
-     "length": 145,
-     "name": "sub_0060B010_CelDataHashAdd"
-    },
-    {
-     "va": "0x0060B0B0",
-     "length": 114,
-     "name": "sub_0060B0B0_CelDataHashRemove"
-    },
-    {
-     "va": "0x0060CE00",
-     "length": 149,
-     "name": "sub_0060CE00_FreeFindTilesTable"
-    },
-    {
      "va": "0x0060D110",
      "length": 126,
      "name": "sub_0060D110_ForEachOtherColor"
@@ -74707,6 +74682,22 @@
      "va": "0x0060D510",
      "length": 148,
      "name": "sub_0060D510_CreateSubTileRecord"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2CMP/SRC/CelDataHash.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0060B010",
+     "length": 145,
+     "name": "sub_0060B010_CelDataHashAdd"
+    },
+    {
+     "va": "0x0060B0B0",
+     "length": 114,
+     "name": "sub_0060B0B0_CelDataHashRemove"
     }
    ]
   },
@@ -74993,11 +74984,6 @@
      "va": "0x0060CD50",
      "length": 27,
      "name": "?sub_0060CD50_ReleaseTileLock@@YAXXZ"
-    },
-    {
-     "va": "0x0060CDB0",
-     "length": 74,
-     "name": "?sub_0060CDB0_AllocFindTilesTable@@YAPAPAUD2FindTileEntryStrc@@XZ"
     }
    ]
   },
@@ -75212,6 +75198,16 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0060CDB0",
+     "length": 74,
+     "name": "?sub_0060CDB0_AllocFindTilesTable@@YAPAPAUD2FindTileEntryStrc@@XZ"
+    },
+    {
+     "va": "0x0060CE00",
+     "length": 149,
+     "name": "sub_0060CE00_FreeFindTilesTable"
+    },
+    {
      "va": "0x0060CEA0",
      "length": 86,
      "name": "?sub_0060CEA0_AddTileToEntry@@YAXPAUD2FindTileEntryStrc@@PAUD2CmpTileBlockStrc@@@Z"
@@ -75283,6 +75279,11 @@
     {
      "va": "0x0060D840",
      "length": 376
+    },
+    {
+     "va": "0x0060D9C0",
+     "length": 190,
+     "name": "sub_0060D9C0_BuildDiamondBlock"
     },
     {
      "va": "0x0060DA80",
@@ -89760,7 +89761,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B2F60.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B2F60.cpp",
    "rank": 0,
    "functions": [
     {
@@ -89811,7 +89812,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_006B3530.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3530.cpp",
    "rank": 1,
    "functions": [
     {
@@ -89821,7 +89822,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B3570.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3570.cpp",
    "rank": 1,
    "functions": [
     {
@@ -89875,7 +89876,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B3FD0.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3FD0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -89910,7 +89911,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006B4C90.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B4C90.cpp",
    "rank": 1,
    "functions": [
     {
@@ -90467,6 +90468,11 @@
      "name": "?sub_006B9A50_InitBuffers@@YIPADPAD@Z"
     },
     {
+     "va": "0x006B9B00",
+     "length": 35,
+     "name": "_sub_006B9B00_FreeGlobal"
+    },
+    {
      "va": "0x006B9B30",
      "length": 113,
      "name": "?sub_006B9B30_ReleaseObjects@@YAXXZ"
@@ -90663,13 +90669,7 @@
     {
      "va": "0x006BADC0",
      "length": 312
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006BAF00.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006BAF00",
      "length": 183
@@ -90728,11 +90728,24 @@
     {
      "va": "0x006BB3E0",
      "length": 312
+    },
+    {
+     "va": "0x006BB640",
+     "length": 97,
+     "name": "?sub_006BB640_ReleaseSurfaces@@YAXXZ"
+    },
+    {
+     "va": "0x006BBA00",
+     "length": 398
+    },
+    {
+     "va": "0x006BBB90",
+     "length": 92
     }
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006BB520.cpp",
+   "file": "Source/D2Direct3D/Unknown_006BB520.cpp",
    "rank": 1,
    "functions": [
     {
@@ -90760,7 +90773,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006BB5E0.cpp",
+   "file": "Source/D2Direct3D/Src/d3dFloorCache_006BB5E0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -90771,21 +90784,6 @@
     {
      "va": "0x006BB6B0",
      "length": 111
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006BB640.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BB640",
-     "length": 97,
-     "name": "?sub_006BB640_ReleaseSurfaces@@YAXXZ"
-    },
-    {
-     "va": "0x006BBA00",
-     "length": 398
     }
    ]
   },
@@ -90811,16 +90809,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006BBB90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BBB90",
-     "length": 92
-    }
    ]
   },
   {

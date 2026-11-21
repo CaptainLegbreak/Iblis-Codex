@@ -1,13 +1,6 @@
-#include "D2Win.h"
+#include "D2Gfx.h"
 
 struct D2GfxSettingsStrc;
-
-struct D2GraphicsInterfaceStrc
-{
-    int (__fastcall* pfDetect)(void* hInstance);
-    int (__fastcall* pfInit)(D2GfxSettingsStrc* pSettings, const void* pHelpers);
-    int (__fastcall* pfClose)();
-};
 
 extern "C" __declspec(dllimport) int __stdcall UnregisterClassA(const char* lpClassName, void* hInstance);   // 0x006CC4C8
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* lpText, const char* lpCaption, unsigned int uType); // 0x006CC464

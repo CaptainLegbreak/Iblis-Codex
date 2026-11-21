@@ -114,6 +114,7 @@ void __fastcall sub_005135F0_DDrawPlaySmacker(D2DDrawSmackStrc* pRecord)
     }
 }
 
+// 0x00513330
 void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
 {
     if (gpDDrawSmackBuffer_008816B0)

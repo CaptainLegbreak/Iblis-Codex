@@ -1851,6 +1851,10 @@ int __stdcall sub_00551FF0_AlwaysOne(int nArg)
     return 1;
 }
 
+typedef void(__fastcall* PixelDataFreeCallback)(void* pData);
+
+static PixelDataFreeCallback gpfnPixelDataFree_008E8CB8; // 0x008E8CB8
+
 // 0x005FDE10
 void __stdcall sub_005FDE10_FreeCelPool(int bFree)
 {
@@ -3983,6 +3987,36 @@ void __fastcall sub_0047FC10_WardenFree(void* pMemory)
 
 NWardenClient::Library::Library()
 {
+}
+
+// 0x00601A50
+int __stdcall CelFileFreeHardware(D2CelFileStrc* ptFile)
+{
+    if (!ptFile)
+    {
+        return 0;
+    }
+    D2_ASSERT(ptFile->dwVersion == 6, 0x5F1);
+    D2CelBlockStrc* pBlocks = ptFile->pCels[0]->pBlockPixelData;
+    D2_ASSERT(pBlocks, 0x5F5);
+    for (unsigned int i = 0; i < ptFile->nCelsPerDirection * ptFile->nDirections; i++)
+    {
+        if (ptFile->pCels[i] && ptFile->pCels[i]->pBlockPixelData)
+        {
+            if (gpfnPixelDataFree_008E8CB8)
+            {
+                gpfnPixelDataFree_008E8CB8(ptFile->pCels[i]->pBlockPixelData);
+            }
+            ptFile->pCels[i]->pBlockPixelData = 0;
+        }
+    }
+    FOG_Free(pBlocks, ".\\SRC\\CelCmp.cpp", 0x61D, 0);
+    return 1;
+}
+
+void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback)
+{
+    gpfnPixelDataFree_008E8CB8 = pfnCallback;
 }
 
 #include "gen/data/Source/D2CMP/SRC/CelCmp.inc"

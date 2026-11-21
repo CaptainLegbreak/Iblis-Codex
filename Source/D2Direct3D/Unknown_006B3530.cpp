@@ -1,4 +1,4 @@
-#include "D2Win.h"
+#include "D2Direct3D.h"
 
 void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
 int __cdecl sub_006B3420_InitializeCutsceneMode(); // 0x006B3420

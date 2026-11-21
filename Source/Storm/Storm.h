@@ -11,7 +11,6 @@ struct T004013C0;
 struct _iobuf;
 struct z_stream;
 
-T004013C0* __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
 __declspec(noreturn) void __cdecl sub_006B1A30_ThrowAtlException(long error); // 0x006B1A30
 bool __fastcall sub_00404E60_EnumLoadedModules(void* pContext); // 0x00404E60
 extern "C" __declspec(dllimport) int __stdcall FindClose(void* hFindFile); // 0x006CC1C4
@@ -117,7 +116,6 @@ extern int gbAlignReads_007790A4; // 0x007790A4
 extern int gbRenderPaused_007C9144; // 0x007C9144
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gnAutomapHeight_007A521C; // 0x007A521C
-extern int gnHeight_009702B8; // 0x009702B8
 extern int gnScreenWidth_0071146C; // 0x0071146C
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern int gnValueA_0070834C; // 0x0070834C
@@ -141,7 +139,6 @@ int __stdcall GetCmdIndex(const char* s); // 0x00405570
 unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
 unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned int dwMoveMethod); // 0x004165A0
-void __fastcall sub_006B20E0(const char*,long); // 0x006B20E0
 void __stdcall SErrSetLastError(unsigned int); // 0x0041C340
 void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380

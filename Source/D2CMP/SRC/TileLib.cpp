@@ -115,40 +115,6 @@ void* __stdcall CreateD2PaletteByteStream(void* pSource, int* pSize)
     return sub_00606930_BuildTables(pSource);
 }
 
-// 0x00609E90
-void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
-{
-    if (bKeep)
-        return;
-    D2_ASSERT(pLibrary, 0x25A);
-    sub_005FE080_ReleaseBlockCaches(pLibrary);
-    if (pLibrary->dwFlags & 4)
-    {
-        FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x262, 0);
-        return;
-    }
-    D2_ASSERT(!(pLibrary->dwFlags & 8), 0x267);
-    for (int i = 0; i < pLibrary->nBlocks; i++)
-    {
-        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
-        for (int j = 0; j < pBlock->nSubs; j++)
-        {
-            D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
-            if (pSub->ptData)
-                FOG_Free(pSub->ptData, ".\\SRC\\Tilecmp.cpp", 0x274, 0);
-            pSub->nLength = 0;
-            pSub->ptData = 0;
-        }
-        if (pBlock->pSubs)
-            FOG_Free(pBlock->pSubs, ".\\SRC\\Tilecmp.cpp", 0x27B, 0);
-        pBlock->pSubs = 0;
-        pBlock->nSubs = 0;
-    }
-    FOG_Free(pLibrary->pBlocks, ".\\SRC\\Tilecmp.cpp", 0x281, 0);
-    pLibrary->pBlocks = 0;
-    pLibrary->nBlocks = 0;
-    FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x285, 0);
-}
 
 // 0x0060A290
 void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
@@ -222,62 +188,8 @@ void __fastcall sub_0060AB10_GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHa
     pHash->sub_0060A9D0_Remove(pMemPool, pEntry);
 }
 
-// 0x0060B010
-T00604AE0* __fastcall sub_0060B010_CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, int nValue, const char* szName)
-{
-    T00604AE0* pEntry = (T00604AE0*)FOG_AllocPool(pMemPool, sizeof(T00604AE0), ".\\SRC\\CelDataHash.cpp", 0x88, 0);
-    pEntry->nValue = nValue;
-    unsigned int nHash = SStrHash(szName, 1, 0);
-    unsigned int nKey = ((nHash ^ (nHash >> 8)) ^ ((nHash ^ (nHash >> 8)) >> 16)) & 0x1FF;
-    pEntry->pPrev = 0;
-    pEntry->pNext = pHash->pBuckets[nKey];
-    if (pEntry->pNext)
-        pEntry->pNext->pPrev = pEntry;
-    pEntry->nKey = nKey;
-    strcpy(pEntry->szName, szName);
-    pHash->pBuckets[nKey] = pEntry;
-    return pEntry;
-}
 
-// 0x0060B0B0
-void __fastcall sub_0060B0B0_CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry)
-{
-    D2_ASSERT(pEntry, 0xB2);
-    if (pEntry->pPrev)
-        pEntry->pPrev->pNext = pEntry->pNext;
-    if (pEntry->pNext)
-        pEntry->pNext->pPrev = pEntry->pPrev;
-    if (pHash->pBuckets[pEntry->nKey] == pEntry)
-        pHash->pBuckets[pEntry->nKey] = pEntry->pNext;
-    FOG_FreePool(pMemPool, pEntry, ".\\SRC\\CelDataHash.cpp", 0x3A, 0);
-}
 
-// 0x0060CE00
-void __fastcall sub_0060CE00_FreeFindTilesTable(D2CmpFindTilesNodeStrc** ppBuckets)
-{
-    if (!ppBuckets)
-        return;
-    for (int i = 0; i < 0x80; i++)
-    {
-        D2CmpFindTilesNodeStrc* pNode = ppBuckets[i];
-        while (pNode)
-        {
-            D2CmpFindTilesSubStrc* pSub = pNode->pSubs;
-            D2CmpFindTilesNodeStrc* pNext = pNode->pNext;
-            while (pSub)
-            {
-                D2CmpFindTilesSubStrc* pSubNext = pSub->pNext;
-                FOG_Free(pSub, ".\\SRC\\FindTiles.cpp", 0x4C, 0);
-                pSub = pSubNext;
-            }
-            pNode->pSubs = 0;
-            FOG_Free(pNode, ".\\SRC\\FindTiles.cpp", 0x50, 0);
-            pNode = pNext;
-        }
-        ppBuckets[i] = 0;
-    }
-    FOG_Free(ppBuckets, ".\\SRC\\FindTiles.cpp", 0x57, 0);
-}
 
 // 0x0060D110
 void __fastcall sub_0060D110_ForEachOtherColor(D2CmpRGBImageStrc* pImage, D2CmpColorCallback pfnColor, unsigned int nKey)

@@ -1,4 +1,4 @@
-#include "Storm.h"
+#include "D2Direct3D.h"
 
 struct D2Object006BB3E0Strc;
 struct D2Object006BADC0Strc;
@@ -246,4 +246,4 @@ fail:
     return 1;
 }
 
-#include "gen/data/Source/Storm/Unknown_006B2F60.inc"
+#include "gen/data/Source/D2Direct3D/Unknown_006B2F60.inc"

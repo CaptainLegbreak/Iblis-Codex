@@ -25,6 +25,21 @@ struct D2FindTileEntryStrc
     D2FindTileEntryStrc* pNext;
 };
 
+struct D2CmpFindTilesSubStrc
+{
+    int unk0x00;
+    D2CmpFindTilesSubStrc* pNext;
+};
+
+struct D2CmpFindTilesNodeStrc
+{
+    int unk0x00[3];
+    D2CmpFindTilesSubStrc* pSubs;
+    D2CmpFindTilesNodeStrc* pNext;
+};
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 // 0x0060CEA0
 static void sub_0060CEA0_AddTileToEntry(D2FindTileEntryStrc* pEntry, D2CmpTileBlockStrc* pTile)
 {
@@ -88,4 +103,40 @@ void __fastcall sub_0060CFA0_AddTileToTable(D2FindTileEntryStrc** ppTable, D2Cmp
     {
         sub_0060CEA0_AddTileToEntry(pEntry, pTile);
     }
+}
+
+// 0x0060CDB0
+D2FindTileEntryStrc** __cdecl sub_0060CDB0_AllocFindTilesTable()
+{
+    D2FindTileEntryStrc** ppBuckets = (D2FindTileEntryStrc**)FOG_Alloc(0x200, ".\\SRC\\FindTiles.cpp", 0x2A, 0);
+    D2_ASSERT(ppBuckets, 0x2B);
+    memset(ppBuckets, 0, 0x200);
+    return ppBuckets;
+}
+
+// 0x0060CE00
+void __fastcall sub_0060CE00_FreeFindTilesTable(D2CmpFindTilesNodeStrc** ppBuckets)
+{
+    if (!ppBuckets)
+        return;
+    for (int i = 0; i < 0x80; i++)
+    {
+        D2CmpFindTilesNodeStrc* pNode = ppBuckets[i];
+        while (pNode)
+        {
+            D2CmpFindTilesSubStrc* pSub = pNode->pSubs;
+            D2CmpFindTilesNodeStrc* pNext = pNode->pNext;
+            while (pSub)
+            {
+                D2CmpFindTilesSubStrc* pSubNext = pSub->pNext;
+                FOG_Free(pSub, ".\\SRC\\FindTiles.cpp", 0x4C, 0);
+                pSub = pSubNext;
+            }
+            pNode->pSubs = 0;
+            FOG_Free(pNode, ".\\SRC\\FindTiles.cpp", 0x50, 0);
+            pNode = pNext;
+        }
+        ppBuckets[i] = 0;
+    }
+    FOG_Free(ppBuckets, ".\\SRC\\FindTiles.cpp", 0x57, 0);
 }

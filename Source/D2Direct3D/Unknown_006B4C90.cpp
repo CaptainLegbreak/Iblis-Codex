@@ -1,4 +1,5 @@
-#include "Storm.h"
+#include "D2Direct3D.h"
+#include "D2Win32Types.h"
 
 typedef void* HINSTANCE;
 typedef void* HWND;
@@ -169,4 +170,4 @@ int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
     return 1;
 }
 
-#include "gen/data/Source/Storm/Unknown_006B4C90.inc"
+#include "gen/data/Source/D2Direct3D/Unknown_006B4C90.inc"

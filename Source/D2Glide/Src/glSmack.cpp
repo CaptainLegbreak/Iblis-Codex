@@ -447,21 +447,6 @@ void __fastcall sub_0050EC40_TexCacheEvict(D2GlideTexCacheStrc* pCache)
     --pCache->nUsed;
 }
 
-// 0x0050F210
-void __fastcall sub_0050F210_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush)
-{
-    if (bFlush)
-    {
-        while (pCache->nUsed)
-            sub_N19_TileEvict(pCache);
-    }
-    if (pCache->pEntries)
-    {
-        FOG_Free(pCache->pEntries, ".\\Src\\glSubtileCache.cpp", 0x74, 0);
-        pCache->pEntries = 0;
-    }
-    memset(pCache, 0, sizeof(*pCache));
-}
 
 // 0x0050F570
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex)
@@ -554,11 +539,23 @@ void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int
     --pCache->nUsed;
 }
 
-// 0x0050F870
-void __cdecl sub_0050F870_GlideBlocksInit()
+
+// 0x0050DF70
+void __cdecl sub_0050DF70_GlideSmackFree()
 {
-    gpGlideTileDecodeBuffer_00880BFC = (unsigned char*)FOG_Alloc(0x400, ".\\Src\\glBlocks.cpp", 0x33, 0);
-    gpGlideFloorDecodeBuffer_00880C00 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glBlocks.cpp", 0x34, 0);
-    gGlideTileTexInfo_0072F6A8.pData = gpGlideTileDecodeBuffer_00880BFC;
-    gGlideFloorTexInfo_0072F6BC.pData = gpGlideFloorDecodeBuffer_00880C00;
+    if (gpGlideSmackBufferB_00880B70)
+    {
+        FOG_Free(gpGlideSmackBufferB_00880B70, ".\\Src\\glSmack.cpp", 86, 0);
+        gpGlideSmackBufferB_00880B70 = 0;
+    }
+    if (gpGlideSmackBufferC_00880B74)
+    {
+        FOG_Free(gpGlideSmackBufferC_00880B74, ".\\Src\\glSmack.cpp", 91, 0);
+        gpGlideSmackBufferC_00880B74 = 0;
+    }
+    if (sgbSmack8BitBuffer)
+    {
+        FOG_Free(sgbSmack8BitBuffer, ".\\Src\\glSmack.cpp", 96, 0);
+        sgbSmack8BitBuffer = 0;
+    }
 }
