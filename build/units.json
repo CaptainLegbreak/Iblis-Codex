@@ -65123,11 +65123,6 @@
      "name": "ACT3Q1_UnitIterate_SetPrimaryGoalDone"
     },
     {
-     "va": "0x005B7A60",
-     "length": 287,
-     "name": "OBJECTS_OperateFunction28_LamEsenTome"
-    },
-    {
      "va": "0x005B8B20",
      "length": 204,
      "name": "ACT3Q3_UnitIterate_UpdateQuestStateFlags"
@@ -65696,6 +65691,11 @@
      "va": "0x005B7A00",
      "length": 86,
      "name": "?ACT3Q1_Callback05_ItemDropped@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B7A60",
+     "length": 287,
+     "name": "OBJECTS_OperateFunction28_LamEsenTome"
     },
     {
      "va": "0x005B7B80",
