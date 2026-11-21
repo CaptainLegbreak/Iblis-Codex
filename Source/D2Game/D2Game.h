@@ -748,27 +748,8 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
      (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32), \
      (pSeed)->nLowSeed = (unsigned int)lSeed, \
      (unsigned int)lSeed)
-#define SKILL_LEFTHANDSWING 5
 #define SOUND_MALUS_PICKUP 36
 #define STATLIST_FLAG_EXP 0x800
-#define STAT_DURABILITY 72
-#define STAT_EXPERIENCE 13
-#define STAT_GOLDBANK 15
-#define STAT_HPREGEN 74
-#define STAT_ITEM_ADDEXPERIENCE 85
-#define STAT_ITEM_CHARGED_SKILL 204
-#define STAT_ITEM_REPLENISH_DURABILITY 252
-#define STAT_ITEM_REPLENISH_QUANTITY 253
-#define STAT_ITEM_SINGLESKILL 107
-#define STAT_ITEM_THROWABLE 125
-#define STAT_LASTEXP 29
-#define STAT_MAXMANA 9
-#define STAT_NEXTEXP 30
-#define STAT_OTHER_ANIMRATE 69
-#define STAT_QUANTITY 70
-#define STAT_SKILLPTS 5
-#define STAT_STRENGTH 0
-#define STAT_VELOCITYPERCENT 67
 #define SYSERROR_UNK_14 14
 #define UNIQUEITEMSFLAGINDEX_CARRY1 2
 #define UNIQUEITEMSFLAGINDEX_NOLIMIT 1
