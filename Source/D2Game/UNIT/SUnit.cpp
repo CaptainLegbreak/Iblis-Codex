@@ -17,6 +17,7 @@
 #include "D2MonModes.h"
 #include "D2ItemModes.h"
 
+#include "D2TxtTables.h"
 struct D2MapAIStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -409,8 +410,6 @@ extern const int s_anUnitListOffset_006E10E0[6]; // 0x006E10E0
 #define D2_MAYBE_UNUSED(x) (void)(x)
 
 struct D2LvlWarpTxt;
-
-struct D2LvlWarpTxt { char unk0[0x14]; int nOffsetX; int nOffsetY; };
 
 D2UnitStrc* __stdcall DUNGEON_GetWarpTileFromRoomAndSourceLevelId(D2ActiveRoomStrc*,int,D2LvlWarpTxt**); // 0x006195A0
 
@@ -2410,8 +2409,8 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* ptGame,D2UnitStrc* hUnit,D2U
     if (sub_6FCBDFE0(ptGame,hUnit,pTargetRoom,nX,nY,0,0))
     {
         D2ClientStrc* pClient = UnitGetClient(hUnit,".\\UNIT\\SUnit.cpp",376);
-        int nDestX = pWarp->nOffsetX + nX;
-        int nDestY = pWarp->nOffsetY + nY;
+        int nDestX = pWarp->dwExitWalkX + nX;
+        int nDestY = pWarp->dwExitWalkY + nY;
         sub_6FC817D0(ptGame,hUnit,0,2,nDestX,nDestY,0);
         unsigned char nLife = UNITS_GetCurrentLifePercentage(hUnit);
         D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient,0x0D,!hUnit ? 6 : hUnit->dwUnitType,!hUnit ? -1 : hUnit->dwUnitId,1,nDestX,nDestY,0,nLife);
