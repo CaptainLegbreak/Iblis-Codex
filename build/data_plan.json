@@ -6585,18 +6585,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/SOURCE/SCMD_006C3E10.CPP": {
-   "bytes": 12,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/SOURCE/SCMD_006C3E10.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/SOURCE/SCMD.CPP": {
-   "bytes": 28,
-   "definitions": 2,
+   "bytes": 40,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SCMD.inc",
@@ -157163,7 +157154,7 @@
    "cname": "gData_006FCC24",
    "declared": true,
    "decorated": "?gszErrorDefaults_006FCC24@@3PAPBDA",
-   "file": "Source/Storm/SOURCE/SCMD_006C3E10.CPP",
+   "file": "Source/Storm/SOURCE/SCMD.CPP",
    "fill": 3,
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006FCC24[3]; // 0x006FCC24",

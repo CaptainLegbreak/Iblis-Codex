@@ -90055,26 +90055,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SCMD_006C3E10.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3E10",
-     "length": 316
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCMD_006C3F50.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3F50",
-     "length": 191
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SCMD_006C4010.CPP",
    "rank": 1,
    "functions": [
@@ -90146,6 +90126,14 @@
    "file": "Source/Storm/SOURCE/SCMD.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x006C3E10",
+     "length": 316
+    },
+    {
+     "va": "0x006C3F50",
+     "length": 191
+    },
     {
      "va": "0x006C4020",
      "length": 4
@@ -90378,30 +90366,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SCMD_006C42E0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C42E0",
-     "length": 115
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SCMD_006C4360.CPP",
    "rank": 1,
    "functions": [
@@ -90474,6 +90438,10 @@
     {
      "va": "0x006C3D20",
      "length": 116
+    },
+    {
+     "va": "0x006C42E0",
+     "length": 115
     },
     {
      "va": "0x006C4820",
