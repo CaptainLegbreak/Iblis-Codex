@@ -45533,11 +45533,16 @@
   },
   {
    "file": "Source/D2DDraw/Src/ddSmack.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00513380",
      "length": 113
+    },
+    {
+     "va": "0x00513400",
+     "length": 491,
+     "name": "?sub_00513400_DDrawDecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
     }
    ],
    "flags": [
@@ -45553,17 +45558,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Src/ddSmack_00513400.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00513400",
-     "length": 491,
-     "name": "?sub_00513400_DDrawDecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
-    }
    ]
   },
   {

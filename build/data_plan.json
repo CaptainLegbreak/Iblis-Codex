@@ -3984,7 +3984,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2DDraw/Src/ddSmack_00513400.cpp": {
+  "Source/D2DDraw/Src/ddSmack.cpp": {
    "bytes": 452,
    "definitions": 1,
    "externs": [],
@@ -87767,7 +87767,7 @@
    "cname": "gData_006DE20C",
    "declared": true,
    "decorated": "_szDDSmackFile_006DE20C",
-   "file": "Source/D2DDraw/Src/ddSmack_00513400.cpp",
+   "file": "Source/D2DDraw/Src/ddSmack.cpp",
    "fill": 452,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006DE20C[452]; // 0x006DE20C",
