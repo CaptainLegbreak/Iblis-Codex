@@ -6525,7 +6525,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2CMP/SRC/FastCmp_00604AA0.cpp": {
+  "Source/D2CMP/SRC/FastCmp.cpp": {
    "bytes": 20,
    "definitions": 1,
    "externs": [],
@@ -122253,7 +122253,7 @@
    "cname": "gData_006E61F8",
    "declared": true,
    "decorated": "_szSubTileFile",
-   "file": "Source/D2CMP/SRC/FastCmp_00604AA0.cpp",
+   "file": "Source/D2CMP/SRC/FastCmp.cpp",
    "fill": 20,
    "form": "declared_owner",
    "fwd": "extern \"C\" const char gData_006E61F8[20]; // 0x006E61F8",
