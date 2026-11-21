@@ -4011,4 +4011,10 @@ void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback
     gpfnPixelDataFree_008E8CB8 = pfnCallback;
 }
 
+// 0x00600C60
+int __fastcall sub_00600C60_CallFree(void* pMemory)
+{
+    return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
+}
+
 #include "gen/data/Source/D2CMP/SRC/CelCmp.inc"

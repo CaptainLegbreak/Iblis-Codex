@@ -69663,6 +69663,10 @@
      "name": "sub_00600C20"
     },
     {
+     "va": "0x00600C60",
+     "length": 10
+    },
+    {
      "va": "0x00600C70",
      "length": 32,
      "name": "sub_00600C70_GetDirectionIndex32"
@@ -70802,31 +70806,6 @@
     "/Od",
     "/Oi",
     "/Gd"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00600C60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00600C60",
-     "length": 10
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
