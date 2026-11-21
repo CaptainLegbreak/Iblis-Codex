@@ -79858,6 +79858,10 @@
      "name": "?sub_0062BC20@@YGEPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0062BE00",
+     "length": 170
+    },
+    {
      "va": "0x0062BEB0",
      "length": 18,
      "name": "ITEMS_IsSocketFiller"
@@ -80164,30 +80168,6 @@
     {
      "va": "0x0062E660",
      "length": 137
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ITEMS/Items_0062BE00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0062BE00",
-     "length": 170
     }
    ],
    "flags": [

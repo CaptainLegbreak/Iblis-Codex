@@ -3255,6 +3255,82 @@ unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem)
     return 0;
 }
 
+static void ITEMS_GetDimensionsInl(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight)
+{
+    *pWidth = 0;
+    *pHeight = 0;
+
+    if (pItem && pItem->dwUnitType == 4)
+    {
+        const D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+        if (pItemsTxtRecord)
+        {
+            *pWidth = pItemsTxtRecord->nInvWidth;
+            *pHeight = pItemsTxtRecord->nInvHeight;
+        }
+    }
+}
+
+static void ITEMS_SetOrRemoveFlagInl(unsigned int* pFlags, unsigned int nFlag, int bSet)
+{
+    if (bSet)
+    {
+        *pFlags |= nFlag;
+    }
+    else
+    {
+        *pFlags &= ~nFlag;
+    }
+}
+
+static void ITEMS_SetItemFlagInl(D2UnitStrc* pItem, unsigned int dwFlag, int bSet)
+{
+    if (pItem && pItem->dwUnitType == 4 && pItem->pItemData)
+    {
+        ITEMS_SetOrRemoveFlagInl(&pItem->pItemData->dwItemFlags, dwFlag, bSet);
+    }
+}
+
+// 0x0062BE00
+void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets)
+{
+    if (pItem && (!pItem ? 6 : pItem->dwUnitType) == 4)
+    {
+        int nMaxSockets = 6;
+        unsigned char nWidth = 0;
+        unsigned char nHeight = 0;
+        ITEMS_GetDimensionsInl(pItem, &nWidth, &nHeight);
+
+        const int nArea = nHeight * nWidth;
+        if (nArea <= 6)
+        {
+            nMaxSockets = nArea;
+            if (nArea <= 0)
+                return;
+        }
+
+        {
+            if (nMaxSockets >= sub_0062BC20(pItem))
+            {
+                nMaxSockets = sub_0062BC20(pItem);
+            }
+
+            if (nSockets <= 1)
+            {
+                nSockets = 1;
+            }
+
+            if (nSockets >= nMaxSockets)
+            {
+                nSockets = nMaxSockets;
+            }
+
+            ITEMS_SetItemFlagInl(pItem, 0x800, 1);
+            STATLIST_SetUnitStat(pItem, 194, nSockets, 0);
+        }
+    }
+}
+
 // 0x0062BEB0
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem)
 {
