@@ -6,45 +6,14 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 struct D2StaticPathStrc;
 
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x06];
-    short wSrvHitFunc;
-    short wSrvDmgFunc;
-    unsigned char unk_12[0x12];
-    short wHitSubMissile[4];
-    char unk0x2C[0x20];
-    int dwHitPar[2];
-    char unk0x54[0x54];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned char unk_AE[0xD8];
-    unsigned char nCollideKill;
-    unsigned char nCollideFriend;
-    unsigned char nNextHit;
-    unsigned char nNextDelay;
-    unsigned char unk0x18A;
-    unsigned char nToHit;
-    unsigned char nAlwaysExplode;
-    char unk0x18D[0x17];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x64];
-    unsigned int dwAuraRangeCalc;
-    unsigned char unk_68[0xD0];
-    unsigned int dwCalc_0x138;
-    char unk0x13C[0x100];
-};
 
 
 
@@ -150,7 +119,7 @@ int __fastcall sub_005AB8D0(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc*
     int nRange = pMissilesTxtRecord->dwHitPar[0];
     if (nRange <= 0)
     {
-        nRange = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc_0x138, nSkillId, nSkillLevel);
+        nRange = SKILLS_EvaluateSkillFormula(pOwner, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
         if (nRange < 5)
         {
             nRange = 5;
@@ -340,7 +309,7 @@ static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile)
 {
     int nResult = 3;
     D2MissilesTxt* pTxt = pMissile ? SKILLS_GetMissilesTxtRecord(pMissile->dwClassId) : 0;
-    if ((pTxt->nFlags[0] & gdwBitMasks_006CE268[2]))
+    if ((pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2]))
     {
         const int nPierce = STATLIST_UnitGetStatValue(pMissile, 0x148, 0);
         if (nPierce)
@@ -400,7 +369,7 @@ int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     int nHitResult = 2;
     int nPierceFlags = 3;
-    if (pTxt->nFlags[0] & gdwBitMasks_006CE268[1])
+    if (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[1])
     {
         nHitResult = 0;
     }
@@ -424,7 +393,7 @@ int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile
         }
     }
 
-    if (pOwner && pUnit && (pTxt->nFlags[0] & gdwBitMasks_006CE268[2])
+    if (pOwner && pUnit && (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2])
         && (STATLIST_UnitGetStatValue(pOwner, 0xA6, 0) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0)))
     {
         nPierceFlags = sub_005ADA80_GetPierceFlags(pMissile);

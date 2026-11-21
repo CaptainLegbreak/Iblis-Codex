@@ -4,21 +4,11 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
+#include "D2Txt.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0xBE];
-    unsigned char nPetType;
-    char unk0x0BF;
-    unsigned int dwPetMax;
-    char unk0x0C4[0x78];
-    unsigned int dwCalc;
-    unsigned int f_13C;
-    char unk0x144[0xF8];
-};
 
 
 
@@ -92,7 +82,7 @@ int __fastcall sub_005DC000_SrvDoSummonPet(D2GameStrc* pGame, D2UnitStrc* pUnit,
     UNITS_StoreOwner(pPet, pUnit);
 
     int nHp = STATLIST_GetMaxLifeFromUnit(pUnit);
-    nHp = DATATBLS_ApplyRatio(nHp, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->f_13C, nSkillId, nSkillLevel), 100);
+    nHp = DATATBLS_ApplyRatio(nHp, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel), 100);
     STATLIST_SetUnitStat(pPet, 6, nHp, 0);
     STATLIST_SetUnitStat(pPet, 7, nHp, 0);
     const int nLevel = STATLIST_UnitGetStatValue(pUnit, 12, 0);
@@ -101,7 +91,7 @@ int __fastcall sub_005DC000_SrvDoSummonPet(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
 
-    const int nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc, nSkillId, nSkillLevel);
+    const int nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
     EVENT_SetEvent(pGame, pPet, 7, pGame->dwGameFrame + nDuration, 0, 0);
     D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 21, 0);
     UNITS_SetOverlay(pPet, 171, 0);

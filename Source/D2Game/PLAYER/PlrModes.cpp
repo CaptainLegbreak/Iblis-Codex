@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2Txt.h"
 
 #define EVENTTYPE_ENDANIM 1
 #define STAT_HITPOINTS 6
@@ -59,28 +60,6 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[2];
-    union
-    {
-        struct
-        {
-            unsigned char nFlags[8];
-        };
-        struct
-        {
-            unsigned char unk_04[0x3];
-            unsigned char nFlags0;
-        };
-    };
-    char unk0x0C[0x0A];
-    unsigned char nSeqInput;
-    unsigned char unk_17[0x17];
-    unsigned short wSrvDoFunc;
-    unsigned char unk_30[0x20C];
-};
 
 
 typedef void (__fastcall* PLRMODESTARTXY)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY);
@@ -201,14 +180,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-struct D2CharStatsTxt
-{
-    char pad0x00[0x3A];
-    unsigned char nManaRegen;
-    unsigned char unk_3B[0x7];
-    unsigned char nRunDrain;
-    char unk0x43[0xC4 - 0x43];
-};
 
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
@@ -257,11 +228,6 @@ void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* 
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 extern const unsigned char gbMask_006CE284; // 0x006CE284
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xD8];
-    int dwSpeed;
-};
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
@@ -416,7 +382,7 @@ int __fastcall sub_0057EEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int
         return 1;
     }
 
-    if (pUsedSkillsTxtRecord->nFlags0 & gbMask_006CE284)
+    if (pUsedSkillsTxtRecord->nFlags[3] & gbMask_006CE284)
     {
         if ((STATES_CheckState(pUnit, 0x2A)
             && (int)(SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100)) < sub_GetConcStat(pUnit))

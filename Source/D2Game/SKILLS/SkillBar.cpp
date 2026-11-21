@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x40
 #define AURAFILTER_DOUBLESWING 0x20003
@@ -44,20 +45,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 
 
-typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int a2); // 0x005544B0

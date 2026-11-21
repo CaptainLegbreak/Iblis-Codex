@@ -9,6 +9,7 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
+#include "D2LevelTxt.h"
 
 #define PETTYPE_SINGLE 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -51,14 +52,6 @@ static __declspec(noinline) int sub_6FC7D9D0(D2UnitStrc* pPlayer, int nPetType);
 void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 void __fastcall D2GAME_PACKETS_SendPacket0x81_6FC3E160(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName); // 0x0053CB80
 
-struct D2PetTypeTxt
-{
-    unsigned int dwHcIdx;
-    unsigned char nPetFlags[4];
-    short wGroup;
-    short wBaseMax;
-    char unk0x0C[0xD4];
-};
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

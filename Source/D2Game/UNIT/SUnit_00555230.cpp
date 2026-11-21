@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameObjs.h"
 
 struct D2DynamicPathStrc;
 struct D2ActiveRoomStrc;
@@ -10,11 +11,6 @@ struct D2ObjectsTxt;
 struct D2DrlgActStrc;
 struct D2GameStrc;
 
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    char unk0x04[0x34];
-};
 
 
 

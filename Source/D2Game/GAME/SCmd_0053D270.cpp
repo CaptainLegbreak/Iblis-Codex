@@ -1,17 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameClient.h"
+#include "D2GameRecords.h"
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);                               // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 
-struct D2PacketDataStrc
-{
-    int nPacketSize;
-    unsigned char packetData[0x200];
-    D2PacketDataStrc* pNext;
-};
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetTail(D2ClientStrc* pClient);                         // 0x005392D0
 void __fastcall CLIENTS_PacketDataList_Append(D2ClientStrc* pClient, D2PacketDataStrc* pPacketData);        // 0x00539240

@@ -5,6 +5,9 @@
 #include "D2Drlg.h"
 #include "D2GameStrc.h"
 #include "D2GameServer.h"
+#include "D2GameObjs.h"
+#include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GAMEV (game)
@@ -17,16 +20,7 @@ struct D2ObjectPopulateStrc;
 struct ObjectData;
 struct InitContext;
 
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
 
-struct D2ObjectDataStrc
-{
-    char pad00[4];
-    unsigned char nType;
-};
 
 enum
 {
@@ -45,14 +39,6 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 static __declspec(noinline) int __stdcall sub_005502F0_CanPlace(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY);
 
-struct D2LevelsTxt
-{
-    char unk0x000[0xE5];
-    unsigned char nObjGroup[8];
-    unsigned char nObjPrb[8];
-    char unk0x0F5[0x11B];
-    unsigned int dwThemes;
-};
 
 struct D2ObjGroupTxt
 {
@@ -153,7 +139,7 @@ D2UnitStrc* __fastcall sub_0054F370_SpawnChestObject(D2GameStrc* pGame, D2Active
         D2GAME_SetSparkChest_6FCBD7C0(pObject, 1);
         if (nLevelId == LEVEL_TOWERCELLARLEV5)
         {
-            pObject->pObjectData->nType = 3;
+            pObject->pObjectData->InteractType = 3;
         }
 
         pObject->dwFlags |= 0x80;

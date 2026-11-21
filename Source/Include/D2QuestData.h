@@ -76,7 +76,13 @@ struct D2Act1Quest3Strc
     unsigned char bCharsiIntroActivated; // 0x02
     unsigned char bCharsiEndActivated; // 0x03
     int nMalusGUID; // 0x04
-    int unk0x08[3]; // 0x08
+    unsigned char unk0x08; // 0x08
+    unsigned char unk0x09; // 0x09
+    unsigned short unk0x0A; // 0x0A
+    int unk0x0C; // 0x0C
+    unsigned char unk0x10; // 0x10
+    unsigned char unk0x11; // 0x11
+    unsigned short unk0x12; // 0x12
     D2QuestGUIDStrc tPlayerGUIDs; // 0x14
     int nMalusObjectMode; // 0x98
     int nMalusItemsInGame; // 0x9C

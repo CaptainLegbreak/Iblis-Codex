@@ -1,54 +1,11 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
+#include "D2GameClient.h"
+#include "D2HotkeySkill.h"
 
 struct D2SaveHeaderStrc;
 struct D2ClientInfoStrc;
-struct D2ClientKeySkillStrc
-{
-    short nSkill;
-    unsigned char nHand;
-    char unk0x03;
-    unsigned int nItemGUID;
-};
-struct D2ClientStrc
-{
-    int dwClientId;
-    int dwClientState;
-    unsigned char nClassId;
-    char unk0x09;
-    unsigned short nSaveFlags;
-    char unk0x0C;
-    char szName[16];
-    char szAccount[16];
-    char unk0x2D[0x3B];
-    D2ClientInfoStrc* pClientInfo;
-    char unk0x6C[0x10C];
-    int bUnlockCharacter;
-    D2SaveHeaderStrc* pSaveHeader;
-    int nSaveHeaderSize;
-    unsigned int unk0x184;
-    unsigned int nSaveHeaderDataSentBytes;
-    unsigned int nSaveChecksum;
-    char unk0x190[8];
-    int unk0x198[4];
-    D2GameStrc* pGame;
-    unsigned char bAct;
-    char f_1AD[7];
-    D2ActiveRoomStrc* hRoom;
-    char unk0x1B8[0x21C];
-    unsigned int dwFlags;
-    char unk0x3D8[4];
-    D2ClientKeySkillStrc HotkeySkills[16];
-    char unk0x45C[0x28];
-    int nIronGolemItemGUID;
-    unsigned int nCreateTime;
-    char clientPlayerData[0x1C];
-    D2ClientStrc* pNext;
-    char unk0x4AC[0x5C];
-    int nExpLoss;
-    int unk0x50C;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -97,8 +54,8 @@ void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* ptClient, const int*
         return;
     }
 
-    ptClient->unk0x198[0] = pDeathInfo[0];
-    ptClient->unk0x198[1] = pDeathInfo[3];
+    ptClient->nDeadTargetType = pDeathInfo[0];
+    ptClient->nDeadTargetGUID = pDeathInfo[3];
     ptClient->dwFlags |= CLIENTFLAGEX_DEAD;
 }
 
@@ -277,7 +234,7 @@ void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* ptClient)
 {
     D2_ASSERT(ptClient, 2961);
 
-    ptClient->unk0x184 = CLIENT_SAVE_STEP;
+    ptClient->nSaveHeaderSendDelay = CLIENT_SAVE_STEP;
     ptClient->nSaveHeaderDataSentBytes = 0;
     ptClient->dwFlags |= CLIENTFLAGEX_SAVE_LOADED;
 }
@@ -342,5 +299,5 @@ int __fastcall sub_00539470(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 3392);
 
-    return pClient->unk0x50C;
+    return pClient->dwLocale;
 }

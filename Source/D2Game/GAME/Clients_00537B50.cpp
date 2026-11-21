@@ -6,6 +6,9 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2GameServer.h"
+#include "D2ItemsWorld.h"
+#include "D2GameClient.h"
+#include "D2HotkeySkill.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_OBJECT 2
@@ -31,7 +34,7 @@
 #define AIPARAM_MAX_STEPS 77
 struct D2AiParamStrc;
 struct D2StaticPathStrc;
-struct D2ClientKeySkillStrc;
+struct D2HotkeySkillStrc;
 struct D2ObjectControlStrc;
 struct D2MonsterDataStrc;
 
@@ -40,51 +43,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2ClientKeySkillStrc
-{
-    short nSkill;
-    unsigned char nHand;
-    unsigned char unk0x03;
-    int nItemGUID;
-};
 
-struct D2ClientStrc
-{
-    int dwClientId;
-    int dwClientState;
-    unsigned char bAct;
-    unsigned char unk0x009[3];
-    unsigned char nCharTemplate;
-    char szName[16];
-    char szAccount[16];
-    char unk0x02D[0x33];
-    int nCharSaveTransactionToken;
-    int unk0x064;
-    void* pClientInfo;
-    unsigned char unk_6C[0x100];
-    int dwUnitType;
-    int dwUnitGUID;
-    D2UnitStrc* pPlayer;
-    char unk0x178[0x30];
-    D2GameStrc* pGame;
-    char unk0x1AC[4];
-    int unk0x1B0;
-    D2ActiveRoomStrc* hRoom;
-    void* pPacketDataHead;
-    void* pPacketDataTail;
-    void* pPacketDataPool;
-    unsigned char unk_1C4[0x210];
-    unsigned int dwFlags;
-    unsigned int dwLastPacketTick;
-    D2ClientKeySkillStrc HotkeySkills[16];
-    char unk0x45C[0x4C];
-    D2ClientStrc* pNext;
-    D2ClientStrc* pServerNext;
-    D2ClientStrc* pServerNextByName;
-    char unk0x4B4[0x58];
-    unsigned int dwLocale;
-    char f_510[0x08];
-};
 
 void __stdcall DUNGEON_ChangeClientRoom(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNewRoom); // 0x0061A110
 void __stdcall D2Common_10077(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNewRoom); // 0x0061A9F0
@@ -127,11 +86,6 @@ int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLe
 extern D2CriticalSectionStrc gClientListLock_008846A8; // 0x008846A8
 extern D2CriticalSectionStrc gSrvClientListByNameLock_008846C0; // 0x008846C0
 
-struct D2ObjectControlStrc
-{
-    char unk0x00[0x48];
-    D2ObjectRegionStrc* pObjectRegion[1024];
-};
 
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 
@@ -334,7 +288,7 @@ void __fastcall sub_6FC33670(D2GameStrc* pGame, D2ClientStrc* pClient)
         D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pPlayer, 1, 1);
         sub_0055F4F0(pGame, pPlayer, 1);
     }
-    ++pClient->unk0x1B0;
+    ++pClient->nPlayerSyncCount;
     if (pClientRoom != pRoom)
     {
         const int nSourceLevelId = DUNGEON_GetLevelIdFromRoom(pClientRoom);
@@ -375,10 +329,10 @@ static void sub_M08_RemoveUnitFromRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)
 void __fastcall sub_0053A2F0_ResetClientInAct(D2ClientStrc* pClient, int nAct)
 {
     D2_ASSERT(pClient, 2386);
-    pClient->bAct = nAct;
+    pClient->nClassId = nAct;
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    pClient->bAct = nAct;
+    pClient->nClassId = nAct;
     const int nX = M08_UNITS_GetXPositionInline(pPlayer);
     const int nY = M08_UNITS_GetYPositionInline(pPlayer);
     D2GameStrc* pGame = pClient->pGame;
@@ -455,11 +409,11 @@ D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsig
     if (ARENA_ShouldTreatClassIdAsTemplateId(pGame))
     {
         pClient->nCharTemplate = nClassIdOrCharTemplate;
-        pClient->bAct = DATATBLS_GetClassFromCharTemplateTxtRecord(nClassIdOrCharTemplate, ARENA_GetTemplateType(pGame));
+        pClient->nClassId = DATATBLS_GetClassFromCharTemplateTxtRecord(nClassIdOrCharTemplate, ARENA_GetTemplateType(pGame));
     }
     else
     {
-        pClient->bAct = nClassIdOrCharTemplate;
+        pClient->nClassId = nClassIdOrCharTemplate;
     }
 
     SStrCopy(pClient->szName, szClientName, 0x7FFFFFFF);

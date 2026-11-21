@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 union D2SeedStrc;
 struct D2MonStatsTxt;
@@ -62,27 +63,8 @@ enum D2C_DamageFlags
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x1C];
-    short nMonType;
-    char unk0x1E[0x18A];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x36];
-    short wProgOverlay;
-    char unk0x38[0x14];
-    int dwHitPar[2];
-    char unk0x54[0x150];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[2];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -220,9 +202,9 @@ void __stdcall MISSMODE_FillDamageParams(D2UnitStrc* pMissile, D2UnitStrc* pTarg
         if (pTarget->dwUnitType == 1)
         {
             D2MonStatsTxt* pMonStatsTxtRecord = GetMonStatsTxtRecord(pTarget->dwClassId);
-            if (pMonStatsTxtRecord && pMonStatsTxtRecord->nMonType > 0)
+            if (pMonStatsTxtRecord && pMonStatsTxtRecord->wMonType > 0)
             {
-                const int nMonType = pMonStatsTxtRecord->nMonType;
+                const int nMonType = pMonStatsTxtRecord->wMonType;
                 D2StatStrc statBuffer[128];
                 const int nStats = STATLIST_CopyStats(pMissile, STAT_DAMAGE_VS_MONTYPE, statBuffer, 128);
                 for (int i = 0; i < nStats; ++i)

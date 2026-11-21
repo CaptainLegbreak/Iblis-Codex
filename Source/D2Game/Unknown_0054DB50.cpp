@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Win32Types.h"
+#include "D2LevelTxt.h"
 
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -28,11 +29,6 @@ struct D2RoomWarpCoordsStrc
     int nCount;
 };
 
-struct D2LevelsTxt
-{
-    char unk0x00[0x0C];
-    int nWarpDistSq;
-};
 
 struct D2ActiveRoomStrc { char pad[0x6c]; D2SeedStrc seed; };
 
@@ -73,7 +69,7 @@ static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, i
         return 0;
     }
 
-    const int nDistSq = DATATBLS_GetLevelsTxtRecord(nLevelId)->nWarpDistSq;
+    const int nDistSq = DATATBLS_GetLevelsTxtRecord(nLevelId)->dwWarpDist;
     for (int i = 0; i < pWarps->nCount; ++i)
     {
         const int nDX = nX - pWarps->nX[i];

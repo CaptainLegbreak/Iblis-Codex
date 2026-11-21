@@ -7,6 +7,9 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2Path.h"
+#include "D2GameAux.h"
+#include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 
 struct D2DifficultyLevelsTxt;
 struct D2SkillsTxt;
@@ -24,11 +27,6 @@ int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2F0
 static __declspec(noinline) int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit);
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x1C];
-    int dwAiCurseDiv;
-};
 
 struct D2UnkNecSkillStrc
 {
@@ -59,20 +57,7 @@ struct D2UnkNecSkillStrc3
     int nLength;
 };
 
-typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -98,17 +83,6 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2); // 0x005B0D70
 static __declspec(noinline) void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel);
 
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
 D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
 int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -205,9 +179,9 @@ static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 static __declspec(noinline) int sub_005C37A0_ApplyAiCurseDivisor(unsigned char nDifficulty, int nLength)
 {
     D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(nDifficulty);
-    if (pDifficultyLevelsTxtRecord && pDifficultyLevelsTxtRecord->dwAiCurseDiv)
+    if (pDifficultyLevelsTxtRecord && pDifficultyLevelsTxtRecord->dwAiCurseDivisor)
     {
-        return nLength / pDifficultyLevelsTxtRecord->dwAiCurseDiv;
+        return nLength / pDifficultyLevelsTxtRecord->dwAiCurseDivisor;
     }
     return nLength;
 }

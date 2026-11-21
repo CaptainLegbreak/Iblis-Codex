@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -20,38 +21,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 
 
-struct D2MissilesTxt
-{
-    char unk00[0x24];
-    short wHitSubMissile[4];
-    unsigned char unk_2C[0xC];
-    int dwParam[2];
-    unsigned char unk_40[0xC];
-    int dwHitPar[3];
-    char unk58[0x30];
-    unsigned int dwHitCalc;
-    unsigned char unk_8C[0xA];
-    short wRange;
-    short wLevRange;
-    unsigned char unk_9A[0xE];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char unkAE[0xF6];
-};
 
-struct D2SkillsTxt
-{
-    char pad0x000[0x50];
-    int dwAuraFilter;
-    char pad0x054[0x0C];
-    int dwAuraLenCalc;
-    int dwAuraRangeCalc;
-    char pad0x068[0x1A];
-    short nState;
-    char pad0x084[0xB4];
-    unsigned int dwCalc[4];
-    char unk148[0xF4];
-};
 
 
 
@@ -445,7 +415,7 @@ int __fastcall sub_005AAFB0_ApplyTerrorMissileHit(D2GameStrc* pGame, D2UnitStrc*
         return 1;
     if (pTarget && (!pTarget ? 6 : pTarget->dwUnitType) == 1)
     {
-        const short nState = pSkillsTxt->nState;
+        const short nState = pSkillsTxt->wAuraTargetState;
         if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
             return 1;
         if (!STATES_CheckState(pTarget, nState))

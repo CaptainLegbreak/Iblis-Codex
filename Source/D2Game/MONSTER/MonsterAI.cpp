@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
+#include "D2ItemsWorld.h"
 #define STAT_DEXTERITY 2
 #define STAT_HITPOINTS 6
 #define STAT_MAXHP 7
@@ -59,12 +60,6 @@ D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-struct D2PetInfoStrc
-{
-    unsigned int nSeed;
-    int wName;
-    int nHirelingId;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -854,7 +849,7 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
     D2HirelingInitStrc hirelingInit;
     D2PetInfoStrc petInfo;
     petInfo.nSeed = pMercData->dwSeed;
-    petInfo.wName = pMercData->nMercName;
+    petInfo.nName = pMercData->nMercName;
     const int nAct = MONSTERS_GetActFromHirelingTxt(pGame->bExpansion, 0, pMercData->nMercName);
     const int nDifficulty = pGame->nDifficulty;
     if (!MONSTERS_HirelingInit(pGame->bExpansion, pPlayer, pMercData->dwSeed, nAct, nDifficulty, &hirelingInit))

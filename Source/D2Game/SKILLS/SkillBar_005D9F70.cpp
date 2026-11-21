@@ -5,25 +5,12 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x4E];
-    short wSrvOverlay;
-    char unk0x50[0xE8];
-    unsigned int dwCalc;
-    char unk0x13C[0x08];
-    unsigned int dwCalc4;
-    char unk0x148[0x5D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 
@@ -313,7 +300,7 @@ int __fastcall SKILLS_SrvDo077_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
             damage.wResultFlags = 9;
-            const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc, nSkillId, nSkillLevel);
+            const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
             sub_6FD10200(pGame, pUnit, 0, 0, nDamage, &damage, 0);
         }
     }
@@ -408,11 +395,11 @@ static int __stdcall sub_005DA660_LeapAttackHit(D2GameStrc* pGame, int nSkillId,
         damage.wResultFlags |= 8;
         damage.dwHitClass = sub_00623C20(pUnit);
         damage.dwHitFlags |= 0x20;
-        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc, nSkillId, nSkillLevel);
+        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
 
         if (pSkillsTxtRecord->nEType > 0)
         {
-            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc4, nSkillId, nSkillLevel);
+            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
             if (damage.dwConvPct > 0)
             {
                 damage.nConvType = pSkillsTxtRecord->nEType;

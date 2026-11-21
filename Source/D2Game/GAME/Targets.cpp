@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameAux.h"
 
 struct D2TargetNodeStrc;
 struct D2UnitStrc;
@@ -8,13 +9,6 @@ struct D2GameStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2TargetNodeStrc
-{
-    D2UnitStrc* hUnit;
-    int unk0x04;
-    D2TargetNodeStrc* pNext;
-    D2TargetNodeStrc* unk0x0C;
-};
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -38,7 +32,7 @@ void __fastcall sub_005B1880(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
     p->hUnit = pUnit;
-    p->unk0x04 = a3;
+    p->nNodeData = a3;
     *ppNode = p;
     pUnit->dwNodeIndex = i;
 }
@@ -56,11 +50,11 @@ void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pU
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
     p->hUnit = pUnit;
-    p->unk0x04 = a3;
+    p->nNodeData = a3;
     p->pNext = pNode->pNext;
-    p->unk0x0C = pNode;
+    p->pPrevious = pNode;
     if (pNode->pNext)
-        pNode->pNext->unk0x0C = p;
+        pNode->pNext->pPrevious = p;
     pNode->pNext = p;
     pUnit->dwNodeIndex = nNodeIndex;
 }
@@ -78,12 +72,12 @@ void __fastcall sub_6FC40280(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int n
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
     p->hUnit = pUnit;
-    p->unk0x04 = a3;
+    p->nNodeData = a3;
     pGame->pTargetNodes[nNodeIndex] = p;
     if (pNode)
     {
         p->pNext = pNode;
-        pNode->unk0x0C = p;
+        pNode->pPrevious = p;
     }
     pUnit->dwNodeIndex = nNodeIndex;
 }
@@ -134,8 +128,8 @@ void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
         {
             if (pTargetNode->hUnit == pUnit)
             {
-                pTargetNode->unk0x0C->pNext = pTargetNode->pNext;
-                if (pTargetNode->pNext) pTargetNode->pNext->unk0x0C = pTargetNode->unk0x0C;
+                pTargetNode->pPrevious->pNext = pTargetNode->pNext;
+                if (pTargetNode->pNext) pTargetNode->pNext->pPrevious = pTargetNode->pPrevious;
                 FOG_FreePool(pGame->pMemoryPool, pTargetNode, gszTargetsSourceFile, 322, 0);
                 pUnit->dwNodeIndex = 11;
                 return;
@@ -152,12 +146,12 @@ void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 if (pTargetNode == pHead)
                 {
                     pGame->pTargetNodes[nNodeIndex] = pTargetNode->pNext;
-                    if (pTargetNode->pNext) pTargetNode->pNext->unk0x0C = 0;
+                    if (pTargetNode->pNext) pTargetNode->pNext->pPrevious = 0;
                 }
                 else
                 {
-                    pTargetNode->unk0x0C->pNext = pTargetNode->pNext;
-                    if (pTargetNode->pNext) pTargetNode->pNext->unk0x0C = pTargetNode->unk0x0C;
+                    pTargetNode->pPrevious->pNext = pTargetNode->pNext;
+                    if (pTargetNode->pNext) pTargetNode->pNext->pPrevious = pTargetNode->pPrevious;
                 }
                 FOG_FreePool(pGame->pMemoryPool, pTargetNode, gszTargetsSourceFile, 322, 0);
                 break;

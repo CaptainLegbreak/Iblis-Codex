@@ -5265,20 +5265,11 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a5q3.cpp": {
-   "bytes": 764,
-   "definitions": 25,
+   "bytes": 2724,
+   "definitions": 26,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q3.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a5q3_0058A0A0.cpp": {
-   "bytes": 1960,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a5q3_0058A0A0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5336,21 +5327,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a1q3_005912E0.cpp": {
-   "bytes": 1176,
-   "definitions": 1,
+  "Source/D2Game/Quests/a1q3.cpp": {
+   "bytes": 1200,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q3_005912E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q3.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q3.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -6189,7 +6171,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/SKILLS/SkillDruid_005C7F10.cpp": {
+  "Source/D2Game/SKILLS/SkillDruid.cpp": {
    "bytes": 88,
    "definitions": 3,
    "externs": [],
@@ -107543,7 +107525,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q3_0058A0A0.cpp",
+   "file": "Source/D2Game/Quests/a5q3.cpp",
    "fill": 1960,
    "form": "declared",
    "fwd": null,
@@ -107965,7 +107947,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a1q3_005912E0.cpp",
+   "file": "Source/D2Game/Quests/a1q3.cpp",
    "fill": 1176,
    "form": "declared",
    "fwd": null,
@@ -117465,7 +117447,7 @@
    "cname": "gData_006E3138",
    "declared": true,
    "decorated": "?gnMaggotLayDirections_006E3138@@3QBEB",
-   "file": "Source/D2Game/SKILLS/SkillDruid_005C7F10.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3138[8]; // 0x006E3138",
    "head": "extern \"C\" const unsigned char gData_006E3138[8] = ",
@@ -117495,7 +117477,7 @@
    "cname": "gData_006E3140",
    "declared": true,
    "decorated": "?gnAndrialSprayOffsets_006E3140@@3QBEB",
-   "file": "Source/D2Game/SKILLS/SkillDruid_005C7F10.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3140[72]; // 0x006E3140",
    "head": "extern \"C\" const unsigned char gData_006E3140[72] = ",
@@ -117525,7 +117507,7 @@
    "cname": "gData_006E3188",
    "declared": true,
    "decorated": "?gnAndrialSprayDirections_006E3188@@3QBEB",
-   "file": "Source/D2Game/SKILLS/SkillDruid_005C7F10.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3188[8]; // 0x006E3188",
    "head": "extern \"C\" const unsigned char gData_006E3188[8] = ",

@@ -2,16 +2,9 @@
 #include "D2Path.h"
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
+#include "D2DataTbls.h"
 struct D2UnitStrc;
 
-struct D2MagicAffixDataTbl
-{
-    int nCount;
-    D2MagicAffixTxt* pAll;
-    D2MagicAffixTxt* pSuffix;
-    D2MagicAffixTxt* pPrefix;
-    D2MagicAffixTxt* pAuto;
-};
 struct D2MagicAffixIndexAndPtrStrc { int nAffixId; D2MagicAffixTxt* pMagicAffixRecord; };
 
 struct D2RareAffixTxt
@@ -126,26 +119,26 @@ static short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequire
     int nCount;
     if (nAutoMagicGroup)
     {
-        pBegin = pTables->pAuto;
-        pEnd = &pTables->pAll[pTables->nCount];
+        pBegin = pTables->pAutoMagic;
+        pEnd = &pTables->pMagicAffixTxt[pTables->nMagicAffixTxtRecordCount];
         nCount = pEnd - pBegin;
     }
     else if (bPrefixes)
     {
-        pBegin = pTables->pPrefix;
-        pEnd = pTables->pAuto;
+        pBegin = pTables->pMagicPrefix;
+        pEnd = pTables->pAutoMagic;
         nCount = pEnd - pBegin;
     }
     else
     {
-        pBegin = pTables->pSuffix;
-        pEnd = pTables->pPrefix;
+        pBegin = pTables->pMagicSuffix;
+        pEnd = pTables->pMagicPrefix;
         nCount = pEnd - pBegin;
     }
 
     if (!pBegin)
         return 0;
-    const int nOffset = pBegin - pTables->pAll;
+    const int nOffset = pBegin - pTables->pMagicAffixTxt;
     int nRolledAffixId = -1;
     int nPotentialCount = 0;
     D2SeedStrc* pSeed = ITEMS_GetItemSeed(pItem);

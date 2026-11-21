@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2GameClient.h"
+#include "D2GameRecords.h"
 
 extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
@@ -13,12 +14,6 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" const char szSCmdCppFile_006D69E4[];
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);
 
-struct D2PacketDataStrc
-{
-    int nPacketSize;
-    unsigned char packetData[0x200];
-    D2PacketDataStrc* pNext;
-};
 
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetTail(D2ClientStrc* pClient);
 void __fastcall CLIENTS_PacketDataList_Append(D2ClientStrc* pClient, D2PacketDataStrc* pPacketData);

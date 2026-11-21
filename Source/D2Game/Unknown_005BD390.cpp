@@ -2,15 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
-struct D2Act3Quest7Strc
-{
-    char unk0x00[0x0C];
-    unsigned char bRewardGranted;
-    unsigned char bFlag0D;
-    char unk0x0E[0x02];
-    int nUnitGUID;
-};
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -36,11 +29,11 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 bool __fastcall sub_005BD390(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
     D2Act3Quest7Strc* pQuestDataEx = (D2Act3Quest7Strc*)pQuestData->pQuestDataEx;
-    if (!pQuestDataEx->bRewardGranted)
+    if (!pQuestDataEx->bVileDogsSpawned)
     {
         SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT3Q7_UnitIterate_SetRewardGranted);
-        pQuestDataEx->bRewardGranted = 1;
-        pQuestDataEx->bFlag0D = 0;
+        pQuestDataEx->bVileDogsSpawned = 1;
+        pQuestDataEx->bVileDogSpawnTimerCreated = 0;
 
         D2UnitStrc* pUnit = SUNIT_GetServerUnit(pGame, 1, pQuestDataEx->nUnitGUID);
         if (pUnit)

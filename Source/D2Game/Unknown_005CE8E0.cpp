@@ -1,15 +1,10 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 typedef char chk_D2DamageStrc_size[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x13C];
-    unsigned int dwCalc;
-    char unk0x140[0xFC];
-};
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 
@@ -61,7 +56,7 @@ int __fastcall SKILLS_SrvDo064_Sacrifice(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
         const int nBaseDamage = D2_MIN(STATLIST_UnitGetStatValue(pTarget, 6, 0), pDamage->dwPhysDamage);
 
-        const int nDamage = DATATBLS_ApplyRatio(nBaseDamage, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc, nSkillId, nSkillLevel), 100);
+        const int nDamage = DATATBLS_ApplyRatio(nBaseDamage, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel), 100);
         damage.dwPhysDamage = nDamage;
         damage.dwDmgTotal = nDamage;
         SUNITDMG_ExecuteEvents(pGame, pUnit, pUnit, 0, &damage);

@@ -7,6 +7,10 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
+#include "D2GameAux.h"
+#include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
+#include "D2Txt.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 #define SKILL_DIMVISION 71
@@ -73,20 +77,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 
 
 
-typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 struct D2UnkNecSkillStrc
 {
@@ -112,41 +103,7 @@ struct D2UnkNecSkillStrc2
     int unk0x0C;
 };
 
-struct D2AuraCallbackStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pOwner;
-    int nCounter;
-    void* pArgs;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    unsigned char unk_4A[0xA];
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    char unk0x064[0x04];
-    unsigned int dwAuraStatCalc[6];
-    char unk0x080[0x02];
-    short wAuraTargetState;
-    char unk0x084[0x38];
-    short wSummon;
-    unsigned char nPetType;
-    unsigned char nSumMode;
-    unsigned int dwPetMax;
-    unsigned char unk_C4[0x6A];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    char unk0x148[0x5D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -202,30 +159,8 @@ extern int __fastcall sub_005A0180_TestMonType(Unit*,int);
 extern int __fastcall sub_005541B0_IsDead(Unit*);
 extern int __fastcall sub_00554200_CheckTarget(Game*,Unit*,Unit*);
 
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x13C];
-};
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x1C];
-    int dwAiCurseDiv;
-};
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
@@ -252,13 +187,6 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 int __fastcall sub_005C4DF0_DetonateCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005C4DF0
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0xA0];
-    unsigned char nDrain[3];
-    char unk0x0A3[0xCD];
-    short nSkill;
-};
 
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
@@ -603,9 +531,9 @@ void __fastcall sub_6FD0B9F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
         int nLength = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, SKILL_DIMVISION, nSkillLevel);
 
         D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
-        if (pDifficultyLevelsTxtRecord && pDifficultyLevelsTxtRecord->dwAiCurseDiv)
+        if (pDifficultyLevelsTxtRecord && pDifficultyLevelsTxtRecord->dwAiCurseDivisor)
         {
-            nLength /= pDifficultyLevelsTxtRecord->dwAiCurseDiv;
+            nLength /= pDifficultyLevelsTxtRecord->dwAiCurseDivisor;
         }
 
         D2UnkNecSkillStrc args;
@@ -1225,9 +1153,9 @@ int __fastcall sub_005C6870_FeedBloodGolem(D2GameStrc* pGame, D2UnitStrc* pUnit,
     if (nValue)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nClassId);
-        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill >= 0)
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill[0] >= 0)
         {
-            nValue -= sub_005C5F10_AddLifeAndGetGain(pGolem, sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill) * nValue / 100);
+            nValue -= sub_005C5F10_AddLifeAndGetGain(pGolem, sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill[0]) * nValue / 100);
         }
     }
     else
@@ -1368,9 +1296,9 @@ int __fastcall sub_005C6690_ShareDamageWithOwner(D2GameStrc* pGame, int nEvent, 
         return 0;
     }
 
-    if (pMonStatsTxtRecord->nSkill >= 0)
+    if (pMonStatsTxtRecord->nSkill[0] >= 0)
     {
-        const int nDamage = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, sub_004E6C70(pMonStatsTxtRecord->nSkill), 100);
+        const int nDamage = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, sub_004E6C70(pMonStatsTxtRecord->nSkill[0]), 100);
         nLife -= nDamage;
         if (nLife < 0x100)
         {

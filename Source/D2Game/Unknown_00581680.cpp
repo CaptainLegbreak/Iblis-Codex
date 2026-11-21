@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
+#include "D2GameObjs.h"
 
 #define UNIT_PLAYER 0
 #define PLRMODE_DEAD 17
@@ -17,20 +18,7 @@ union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjOperateFnStrc;
 
-struct D2ObjectDataStrc
-{
-    char unk0x00[4];
-    unsigned char nInteractType;
-};
 
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
@@ -81,8 +69,8 @@ void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject
     case 2:
     {
         D2ObjectDataStrc* pObjectData = pObject->pObjectData;
-        const unsigned char nInteract = pObjectData->nInteractType + 1;
-        pObjectData->nInteractType = nInteract;
+        const unsigned char nInteract = pObjectData->InteractType + 1;
+        pObjectData->InteractType = nInteract;
         if (nInteract > 1)
         {
             D2ObjOperateFnStrc tOp;

@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2SkillsTxt;
@@ -12,28 +13,6 @@ struct D2SummonArgStrc;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x54];
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    char unk0x082[0x16];
-    short wPassiveStat[5];
-    char unk0x0A2[0x2];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x6];
-    unsigned char nPetType;
-    char unk0x0BF;
-    unsigned int dwPetMax;
-    char unk0x0C4[0x20];
-    short wSumUMod;
-    char unk0x0E6[0x62];
-    int dwParam;
-    char unk0x14C[0xF0];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -78,7 +57,7 @@ static void __stdcall sub_005D6CF0_SetSummonStats(D2GameStrc* pGame, D2SkillsTxt
     }
 
     D2SkillsTxt* pSkillsRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    const int nParam = !pSkillsRecord ? 0 : pSkillsRecord->dwParam;
+    const int nParam = !pSkillsRecord ? 0 : pSkillsRecord->dwParam[0];
     int nHp = STATLIST_GetMaxLifeFromUnit(pPet);
     nHp += DATATBLS_ApplyRatio(nHp, (nSkillLevel - 1) * nParam, 100);
     STATLIST_SetUnitStat(pPet, 7, nHp, 0);
@@ -103,10 +82,10 @@ static void __stdcall sub_005D6CF0_SetSummonStats(D2GameStrc* pGame, D2SkillsTxt
 
     for (int i = 0; i < 5; ++i)
     {
-        if (pSkillsTxtRecord->wPassiveStat[i] >= 0 && pSkillsTxtRecord->wPassiveStat[i] < sgptDataTables->nItemStatCostTxtRecordCount)
+        if (pSkillsTxtRecord->nPassiveStat[i] >= 0 && pSkillsTxtRecord->nPassiveStat[i] < sgptDataTables->nItemStatCostTxtRecordCount)
         {
             const int nValue = SKILLS_EvaluateSkillFormula(pPet, pSkillsTxtRecord->dwPassiveCalc[1], nSkillId, nSkillLevel);
-            STATLIST_SetStat(pStatList, pSkillsTxtRecord->wPassiveStat[i], nValue, 0);
+            STATLIST_SetStat(pStatList, pSkillsTxtRecord->nPassiveStat[i], nValue, 0);
         }
     }
 

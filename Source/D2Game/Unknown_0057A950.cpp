@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameTypes.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -7,14 +8,6 @@
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-struct D2DamageStrc
-{
-    char pad0x00[0x30];
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwManaDrain;
-    int dwStamDrain;
-};
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
@@ -130,8 +123,8 @@ static __declspec(noinline) int sub_0057AAA0_DrainStamina(D2UnitStrc* pUnit, int
 
 void __fastcall sub_A13_Emit_0057C6C0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage)
 {
-    SUNITDMG_AddLeechedLife(pAttacker, pDamage->dwLifeLeech);
-    SUNITDMG_AddLeechedMana(pAttacker, pDamage->dwManaLeech);
-    sub_0057AA60_DrainMana(pDefender, pDamage->dwManaDrain);
-    sub_0057AAA0_DrainStamina(pDefender, pDamage->dwStamDrain);
+    SUNITDMG_AddLeechedLife(pAttacker, pDamage->dwColdLen);
+    SUNITDMG_AddLeechedMana(pAttacker, pDamage->dwFrzLen);
+    sub_0057AA60_DrainMana(pDefender, pDamage->dwLifeLeech);
+    sub_0057AAA0_DrainStamina(pDefender, pDamage->dwManaLeech);
 }

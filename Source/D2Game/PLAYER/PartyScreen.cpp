@@ -3,11 +3,8 @@
 struct D2GameStrc;
 
 struct D2PartyScreenCallbackStrc;
-struct Client;
-struct PartyArgs;
 struct D2UnitStrc;
 struct D2ClientStrc;
-struct Unit;
 
 
 struct D2ClientStrc
@@ -33,25 +30,16 @@ short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 void __fastcall sub_6FCBA980(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3); // 0x0055B3A0
 void __fastcall sub_6FC3F8F0(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0053DEC0
 
-struct Unit { int type, classId; void* pool; int id; };
+short __fastcall sub_0055B3F0(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0
+void __fastcall sub_0055B440(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B440
+short __fastcall sub_00540100(D2GameStrc* pGame); // 0x00540100
+int __fastcall sub_00540320(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlayer); // 0x00540320
+void __fastcall sub_0055B650(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055B650
+void __fastcall sub_6FC7AED0(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* a3); // 0x005A5970
 
-struct Client { void sub_005A5690(int unitId, unsigned char type); };
+typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
-struct PartyArgs { Unit* target; Unit* player; unsigned short f_8; };
-
-unsigned short __fastcall sub_00554630(Unit*); // 0x00554630
-void __fastcall sub_0055B140(Game*,Unit*,Unit*); // 0x0055B140
-short __fastcall sub_0055B3F0(Unit*,Unit*); // 0x0055B3F0
-void __fastcall sub_0055B440(Unit*,Unit*); // 0x0055B440
-short __fastcall sub_00540100(Game*); // 0x00540100
-int __fastcall sub_00540320(Game*,short,Unit*); // 0x00540320
-void __fastcall sub_0055B650(Game*,Unit*); // 0x0055B650
-Client* __fastcall sub_005531C0(Unit*,const char*,int); // 0x005531C0
-void __fastcall sub_005A5970(Game*,Unit*,void*); // 0x005A5970
-
-typedef void (__fastcall *Iterator)(Game*,Unit*,void*);
-
-void __fastcall sub_005538D0(Game*,Iterator,void*); // 0x005538D0
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 
 enum { JOIN_RELATION = 2 };
 
@@ -166,31 +154,37 @@ void __fastcall sub_6FC7AED0(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* 
 }
 
 // 0x005A5A30
-void __fastcall sub_005A5A30(Game* game,Unit* player,Unit* target,int param,int* failure)
+void __fastcall sub_005A5A30(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nParam, int* pFailure)
 {
-    unsigned short partyId=sub_00554630(target);
-    sub_0055B140(game,player,target);
-    sub_0055B140(game,target,player);
-    if(sub_0055B3F0(player,target)!=JOIN_RELATION) {
-        sub_0055B440(target,player);
-        sub_0055B440(player,target);
+    unsigned short nPartyId = SUNIT_GetPartyId(pTarget);
+    PLAYERLIST_AllocPlayerList(pGame, pPlayer, pTarget);
+    PLAYERLIST_AllocPlayerList(pGame, pTarget, pPlayer);
+    if (sub_0055B3F0(pPlayer, pTarget) != JOIN_RELATION)
+    {
+        sub_0055B440(pTarget, pPlayer);
+        sub_0055B440(pPlayer, pTarget);
         return;
     }
-    if(partyId==0xFFFF) {
-        partyId=sub_00540100(game);
-        sub_00540320(game,partyId,target);
-        sub_00540320(game,partyId,player);
-        sub_0055B650(game,target);
-    } else {
-        sub_00540320(game,partyId,player);
+
+    if (nPartyId == 0xFFFF)
+    {
+        nPartyId = sub_00540100(pGame);
+        sub_00540320(pGame, nPartyId, pTarget);
+        sub_00540320(pGame, nPartyId, pPlayer);
+        sub_0055B650(pGame, pTarget);
     }
-    sub_0055B650(game,player);
-    sub_005531C0(player,".\\PLAYER\\PartyScreen.cpp",233)->sub_005A5690(!target ? -1 : target->id,8);
-    PartyArgs args=PartyArgs();
-    args.target=target;
-    args.player=player;
-    args.f_8=partyId;
-    sub_005538D0(game,sub_005A5970,&args);
+    else
+    {
+        sub_00540320(pGame, nPartyId, pPlayer);
+    }
+
+    sub_0055B650(pGame, pPlayer);
+    UnitGetClient(pPlayer, ".\\PLAYER\\PartyScreen.cpp", 233)->PARTYSCREEN_SendEventUpdateToClient(!pTarget ? -1 : pTarget->dwUnitId, 8);
+    D2PartyScreenCallbackStrc tArgs = D2PartyScreenCallbackStrc();
+    tArgs.pPlayer1 = pTarget;
+    tArgs.pPlayer2 = pPlayer;
+    tArgs.nPartyId = nPartyId;
+    SUNIT_IterateLivingPlayers(pGame, sub_6FC7AED0, &tArgs);
 }
 
 // 0x005A5B30
