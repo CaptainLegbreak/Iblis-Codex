@@ -1,4 +1,3 @@
-#include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2ItemsWorld.h"
 #include "D2Drlg.h"
@@ -12,8 +11,6 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
-#include "D2MonModes.h"
-#include "D2PlayerModes.h"
 
 struct D2GameStrc;
 
@@ -22,6 +19,8 @@ struct D2UnitStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define MONSTER_DEMONHOLE 711
+
+#define MONMODE_SKILL1 8
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -60,6 +59,17 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+enum
+{
+    MONMODE_DEATH = 0,
+    MONMODE_NEUTRAL = 1,
+    MONMODE_WALK = 2,
+    MONMODE_ATTACK1 = 4,
+    MONMODE_SKILL3 = 10,
+    MONMODE_DEAD = 12,
+    MONMODE_RUN = 15,
+};
 
 enum
 {
@@ -216,6 +226,10 @@ enum
 {
     MONTYPEFLAG_UNIQUE = 0x08,
     MONTYPEFLAG_CHAMPION = 0x04,
+};
+
+enum
+{
 };
 
 enum
@@ -388,12 +402,24 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps); // 0x00649070
 
+enum D2C_Y11AiConstants
+{
+    STAT_TOHIT = 0x13,
+    STAT_ITEM_TOHIT_PERCENT = 0x77,
+};
+
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
 
 struct D2ActiveRoomStrc;
 
 enum D2C_F42AiConstants
 {
+
+    MONMODE_ATTACK2 = 5,
+    MONMODE_SKILL2 = 9,
+    MONMODE_SKILL4 = 11,
+
+    PLRMODE_NEUTRAL = 1,
 
     AISPECIALSTATE_NONE = 0,
     EVENTTYPE_AITHINK = 2,
@@ -404,6 +430,8 @@ enum D2C_F42AiConstants
     STATE_POISON = 2,
     STATE_INFERNO = 12,
     STATE_BAALTOSTAIRS_INVIS = 0x92,
+    STAT_HITPOINTS = 6,
+    STAT_POISONRESIST = 45,
     SKILL_BAALTAUNT = 284,
     SKILL_IMPREGNATE = 300,
     MONSTATSFLAGINDEX_LUNDEAD = 11,
@@ -531,6 +559,17 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_BaalToStairs(D2GameStrc* pGame, D2
 
 enum D2C_V04AiBaalConstants
 {
+    STAT_DAMAGERESIST = 0x24,
+    STAT_MAGICRESIST = 0x25,
+    STAT_FIRERESIST = 0x27,
+    STAT_LIGHTRESIST = 0x29,
+    STAT_COLDRESIST = 0x2B,
+    STAT_MAXDAMAGE = 0x16,
+    STAT_FIREMAXDAM = 0x31,
+    STAT_LIGHTMAXDAM = 0x33,
+    STAT_MAGICMAXDAM = 0x35,
+    STAT_COLDMAXDAM = 0x37,
+    STAT_POISONMAXDAM = 0x3A,
     STATE_COLD = 0x0B,
 };
 
@@ -731,6 +770,8 @@ void __fastcall sub_0053DFF0(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
 
 #define MONSTER_SUCKERNEST1 334
 
+#define MONMODE_ATTACK2 5
+
 struct Obj00648AD0;
 
 struct D2HighPriestAiCallbackArgStrc;
@@ -841,6 +882,8 @@ struct D2AiControlStrc;
 
 struct D2MissilesTxt;
 
+#define MONMODE_ATTACK1 4
+
 int __fastcall sub_004EFCB0_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
 
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
@@ -855,6 +898,9 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
 
 enum D2C_M80TotemAi
 {
+    PLRMODE_WALK = 2,
+    PLRMODE_RUN = 3,
+    PLRMODE_TOWNWALK = 6,
     TOTEM_AI_PARAM_WALK_AWAY_CHANCE_PCT = 0,
     TOTEM_AI_PARAM_IGNORE_TARGET_CHANCE_PCT = 1,
     TOTEM_AI_PARAM_TELEPORT_TO_OWNER_DISTANCE = 2,
@@ -8623,5 +8669,6 @@ void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, vo
 // build: context ?SKILLS_GetMissilesTxtRecord@@YAPAUD2MissilesTxt@@H@Z
 // build: context ?GetAuraStateStatList@@YAPAUD2StatListStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@@Z
 // build: context ?AI_ClampChance@@YAHH@Z
+
 
 #include "gen/data/Source/D2Game/Ai/AiThink4.inc"

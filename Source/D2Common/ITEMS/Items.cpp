@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2ItemModes.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
@@ -10,7 +11,8 @@
 #include "D2TxtItems.h"
 #include "D2Txt.h"
 #include "D2Path.h"
-#include "D2ItemModes.h"
+
+#define STAT_ITEM_INDESCTRUCTIBLE 152
 
 #define IFLAG_IDENTIFIED 0x00000010
 
@@ -38,9 +40,15 @@
 
 #define ITEMTYPE_QUEST 39
 
+#define STAT_ITEM_NUMSOCKETS 194
+
 #define IFLAG_ISEAR 0x00010000
 
 #define IFLAG_COMPACTSAVE_LOWQUALITY 0x02200000
+
+#define STAT_QUANTITY 0x46
+
+#define STAT_ITEM_THROWABLE 0x7D
 
 #define BODYLOC_SWRARM 11
 
@@ -55,6 +63,10 @@
 #define NUMBER_OF_PLAYERCLASSES 7
 
 #define WEAPONCLASS_HTH 0
+
+#define STAT_DEXTERITY 2
+
+#define STAT_LEVEL 12
 
 struct D2InventoryStrc;
 
@@ -505,6 +517,8 @@ typedef char check_pettype_size[(sizeof(D2PetTypeTxt) == 0xE0) ? 1 : -1];
 
 typedef char check_itemtypes_size[(sizeof(D2ItemTypesTxt) == 0xE4) ? 1 : -1];
 
+#define STAT_DURABILITY 72
+
 #define NUM_BODYLOC 13
 
 struct D2GameStrc;
@@ -598,6 +612,18 @@ struct D2TimeModStrc
     }
 
 int __stdcall ITEMS_GetStaffMods(D2UnitStrc* pItem);
+
+#define STAT_MINDAMAGE 21
+
+#define STAT_MAXDAMAGE 22
+
+#define STAT_SECONDARY_MINDAMAGE 23
+
+#define STAT_SECONDARY_MAXDAMAGE 24
+
+#define STAT_ITEM_THROW_MINDAMAGE 159
+
+#define STAT_ITEM_THROW_MAXDAMAGE 160
 
 #define ITEMS_QUALITY_INLINE(p) (((p) && (p)->dwUnitType == UNIT_ITEM && (p)->pItemData) ? (p)->pItemData->dwQualityNo : ITEMQUAL_NORMAL)
 
