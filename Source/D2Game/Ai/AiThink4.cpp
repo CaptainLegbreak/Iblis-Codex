@@ -1328,6 +1328,20 @@ enum D2C_M86ReanimatedHordeAi
     REANIMATEDHORDE_AI_PARAM_RANGED_STALL_DURATION = 6,
 };
 
+int __fastcall AITHINK_SpawnNpcPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pTick); // 0x005E77A0
+
+void __fastcall sub_0058AA10_ACT5Q3_UpdateStatusOnActivate(D2GameStrc* pGame); // 0x0058AA10
+
+int __fastcall ACT1Q4_GetCainPortalOutsideTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoords); // 0x00594450
+
+int __fastcall ACT5Q3_GetDrehyaPortalCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoords); // 0x0058A8D0
+
+int __fastcall sub_0058A9F0_ACT5Q3_IsDrehyaStateZero(D2GameStrc* pGame); // 0x0058A9F0
+
+int __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005943B0
+
+int __fastcall ACT5Q3_SpawnDrehyaPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058A820
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -3979,6 +3993,107 @@ int __fastcall AITHINK_SpawnNpcPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, void
     pCurrentAiCmd->nCmdParam[4] = 0;
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 1);
     return 1;
+}
+
+static inline D2MonsterInteractStrc* GetMonInteract(D2UnitStrc* pUnit)
+{
+    D2MonsterInteractStrc* p;
+    if (pUnit)
+    {
+        if (pUnit->dwUnitType == UNIT_MONSTER)
+        {
+            if (pUnit->pMonsterData)
+                p = pUnit->pMonsterData->pMonInteract;
+            else
+                p = 0;
+        }
+        else
+            p = 0;
+    }
+    else
+        p = 0;
+    return p;
+}
+
+// 0x005E7880
+void __fastcall sub_005E7880_ThinkRescuedNpc(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+{
+    bool bDrehya = false;
+    if (pUnit && pUnit->dwClassId == MONSTER_DREHYAICED)
+        bDrehya = true;
+    if (AITHINK_SpawnNpcPortal(pGame, pUnit, pTick))
+        return;
+    if (bDrehya)
+        sub_0058AA10_ACT5Q3_UpdateStatusOnActivate(pGame);
+    if (MONSTERAI_HasInteractUnit(GetMonInteract(pUnit)))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 40);
+        return;
+    }
+    D2AiCmdStrc* pCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 3, 0);
+    if (pUnit && pUnit->dwAnimMode == MONMODE_DEAD)
+        return;
+    sub_005E68F0(pGame, pUnit, pTick);
+    if (pCmd)
+    {
+        if (pCmd->nCmdParam[3] >= 2)
+        {
+            pCmd->nCmdParam[3] += 1;
+            int (__fastcall* pfGetCoords)(D2GameStrc*, D2UnitStrc*, D2CoordStrc*) = ACT1Q4_GetCainPortalOutsideTownCoordinates;
+            void (__fastcall* pfSpawnPortal)(D2GameStrc*, D2UnitStrc*) = ACT1Q4_SpawnCainPortalInTown;
+            if (bDrehya)
+            {
+                pfGetCoords = ACT5Q3_GetDrehyaPortalCoordinates;
+                pfSpawnPortal = sub_6FCB53D0;
+            }
+            D2CoordStrc coords;
+            if (pfGetCoords(pGame, pUnit, &coords))
+            {
+                if (pCmd->nCmdParam[3] < 8 && (unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, coords.nX, coords.nY) > 0)
+                {
+                    AITACTICS_WalkToTargetCoordinates(pGame, pUnit, coords.nX, coords.nY);
+                    return;
+                }
+                pfSpawnPortal(pGame, pUnit);
+                STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0, 0);
+                AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, MONMODE_DEAD, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+                return;
+            }
+        }
+        else
+        {
+            if ((int)(unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2]) > 1 && pCmd->nCmdParam[4] <= 5)
+            {
+                pCmd->nCmdParam[4] += 1;
+                if (bDrehya && sub_0058A9F0_ACT5Q3_IsDrehyaStateZero(pGame))
+                {
+                    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+                    pCmd->nCmdParam[4] = 0;
+                    return;
+                }
+                AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2]);
+                return;
+            }
+            if (pCmd->nCmdParam[3] == 1)
+            {
+                int (__fastcall* pfSpawnPortal)(D2GameStrc*, D2UnitStrc*) = ACT1Q4_SpawnCainPortalOutsideTown;
+                if (bDrehya)
+                    pfSpawnPortal = ACT5Q3_SpawnDrehyaPortalOutsideTown;
+                if (!pfSpawnPortal(pGame, pUnit))
+                {
+                    pCmd->nCmdParam[3] = 1;
+                    pCmd->nCmdParam[4] = 1;
+                    AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+                    return;
+                }
+                pCmd->nCmdParam[3] = 2;
+            }
+        }
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        return;
+    }
+    AITHINK_SpawnNpcPortal(pGame, pUnit, pTick);
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 40);
 }
 
 static inline int AI_GetAnimMode(D2UnitStrc* pUnit)

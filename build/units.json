@@ -67915,6 +67915,10 @@
      "name": "?AITHINK_SpawnNpcPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x005E7880",
+     "length": 562
+    },
+    {
      "va": "0x005E7C10",
      "length": 280
     },
@@ -68909,30 +68913,6 @@
      "length": 101,
      "name": "?sub_005E6E80@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E7880.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E7880",
-     "length": 562
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
