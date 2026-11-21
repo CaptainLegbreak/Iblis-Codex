@@ -2,7 +2,6 @@
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
 
-
 struct D2CommonStormSlotListBStrc;
 
 struct D2CommonStormSlotListAStrc;
@@ -412,6 +411,10 @@ struct D2CommonStormSlotListAStrc
         }
     }
     __declspec(noinline) void UnlinkAll();
+    void sub_006C4290(char* pNode)
+    {
+        Link(pNode)->Unlink();
+    }
     static void operator delete(void* pMemory);
 };
 
@@ -458,6 +461,10 @@ struct D2CommonStormSlotListBStrc
         }
     }
     __declspec(noinline) void UnlinkAll();
+    void sub_006C4290(char* pNode)
+    {
+        Link(pNode)->Unlink();
+    }
     static void operator delete(void* pMemory);
 };
 
@@ -608,6 +615,7 @@ struct D2CommonStormSlotArrayAStrc
     void sub_0060F390_ReallocData(unsigned int nAlloc);                                                     // 0x0060F390
     void sub_0060F6D0_Reserve(unsigned int nCount, int bRound);
     void sub_0060F9D0_SetCount(unsigned int nCount);
+    void sub_00610090_SetCountForward(unsigned int nCount);
 };
 
 struct D2CommonStormSlotArrayAViewStrc : D2CommonStormSlotArrayAStrc
@@ -658,10 +666,15 @@ struct D2CommonStormSlotArrayBStrc
         f_C = 0;
     }
     ~D2CommonStormSlotArrayBStrc();                                                                         // 0x0060F950
+    D2CommonStormSlotListBStrc& operator[](unsigned int nIndex)
+    {
+        return f_8[nIndex];
+    }
     unsigned int sub_0060E300_CalcChunkSize(unsigned int nCount);                                           // 0x0060E300
     void sub_0060F720_ReallocData(unsigned int nAlloc);                                                     // 0x0060F720
     void sub_0060FAD0_Reserve(unsigned int nCount, int bRound);
     void sub_006100B0_SetCount(unsigned int nCount);
+    void sub_00610830_SetCountForward(unsigned int nCount);
 };
 
 struct D2CommonStormSlotGrowArrayBStrc : D2CommonStormSlotArrayBStrc
@@ -957,9 +970,13 @@ public:
 };
 
 class ChatIgnoreList;
+
 typedef ChatIgnoreList D2CommonChatIgnoreListStrc;
+
 class IgnoreList;
+
 typedef IgnoreList D2CommonIgnoreListStrc;
+
 struct _iobuf;
 
 class ChatIgnoreList
@@ -1003,7 +1020,6 @@ public:
     virtual void sub_0060F500_VirtSlot10();                                                                 // 0x0060F500
     virtual ~IgnoreList();                                                                                  // 0x00610AA0
 };
-
 
 PROFHOOKFN gpfnProfHook; // 0x0096BC28
 
@@ -1382,6 +1398,23 @@ D2CommonStringEntryNodeStrc::~D2CommonStringEntryNodeStrc()
 {
 }
 
+// 0x0060EB70
+void D2CommonStormHashTableAStrc::sub_0060EB70_InternalClear(int bWarn)
+{
+    m_fullnessIndicator = 0;
+    m_fulllist.UnlinkAll();
+    for (unsigned int i = 0; i < m_slotlistarray.f_4; i++)
+    {
+        while (char* pNode = m_slotlistarray[i].Head())
+        {
+            if (bWarn)
+                m_slotlistarray[i].sub_006C4290(pNode);
+            else
+                sub_0060FFA0_InternalDelete((D2CommonStringEntryNodeStrc*)pNode);
+        }
+    }
+}
+
 // 0x0060EC00
 char* D2CommonStormHashTableBStrc::sub_0060EC00_Next(char* pNode)
 {
@@ -1467,6 +1500,23 @@ D2ChatStormListEStrc::D2ChatStormListEStrc()
     m_linkoffset = 0xDDDDDDDD;
     m_terminator.m_prevlink = &m_terminator;
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x0060EE60
+void D2CommonStormHashTableBStrc::sub_0060EE60_InternalClear(int bWarn)
+{
+    m_fullnessIndicator = 0;
+    m_fulllist.UnlinkAll();
+    for (unsigned int i = 0; i < m_slotlistarray.f_4; i++)
+    {
+        while (char* pNode = m_slotlistarray[i].Head())
+        {
+            if (bWarn)
+                m_slotlistarray[i].sub_006C4290(pNode);
+            else
+                sub_00610690_InternalDelete((D2CommonMappingEntryNodeStrc*)pNode);
+        }
+    }
 }
 
 // 0x0060EEF0
@@ -1588,6 +1638,15 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::sub_0060F590_InternalF
     return 0;
 }
 
+// 0x0060F610
+D2CommonStormSlotArrayAStrc::~D2CommonStormSlotArrayAStrc()
+{
+    for (unsigned int i = 0; i < f_4; i++)
+        f_8[i].~D2CommonStormSlotListAStrc();
+    if (f_8)
+        SMemFree(f_8, gszTypeNameStringEntryList_0074366C, -2, 0);
+}
+
 // 0x0060F6D0
 void D2CommonStormSlotArrayAStrc::sub_0060F6D0_Reserve(unsigned int nCount, int bRound)
 {
@@ -1696,6 +1755,15 @@ D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
     f_8 = 0;
     f_C = 0;
     return this;
+}
+
+// 0x0060F950
+D2CommonStormSlotArrayBStrc::~D2CommonStormSlotArrayBStrc()
+{
+    for (unsigned int i = 0; i < f_4; i++)
+        f_8[i].~D2CommonStormSlotListBStrc();
+    if (f_8)
+        SMemFree(f_8, gszTypeNameMappingEntryList_007436AC, -2, 0);
 }
 
 // 0x0060F9D0
@@ -1810,6 +1878,12 @@ D2CommonStormSlotGrowArrayBStrc::~D2CommonStormSlotGrowArrayBStrc()
 {
 }
 
+// 0x00610090
+void D2CommonStormSlotArrayAStrc::sub_00610090_SetCountForward(unsigned int nCount)
+{
+    sub_0060F9D0_SetCount(nCount);
+}
+
 // 0x006100A0
 D2StormArray408Strc* D2StormArray408Strc::sub_006100A0_Init()
 {
@@ -1883,6 +1957,12 @@ Node* List::sub_00610630(int linkType,unsigned extra,unsigned flags)
     Node* node=new(memory) Node;
     if(linkType) sub_0060E890((char*)node,linkType,0);
     return node;
+}
+
+// 0x00610830
+void D2CommonStormSlotArrayBStrc::sub_00610830_SetCountForward(unsigned int nCount)
+{
+    sub_006100B0_SetCount(nCount);
 }
 
 // 0x00610B30
