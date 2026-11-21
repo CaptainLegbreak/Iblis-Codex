@@ -464,6 +464,32 @@ typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
+#define UNIT_PLAYER 0
+
+#define STATE_HOLYSHIELD 101
+
+#define MONMODE_ATTACK2 5
+
+#define DAMAGERESULTFLAG_SUCCESSFULHIT 1
+
+#define HITFLAG_SMITE 2
+
+#define HITCLASS_SMITE 0x65
+
+#define SRCDAM_SMITE 0x80
+
+typedef int BOOL;
+
+D2SkillStrc* __stdcall sub_006260E0(D2StatListStrc* pStatList);                                        // 0x006260E0
+
+int __stdcall STATLIST_GetSkillLevel(D2StatListStrc* pStatList);                                            // 0x00626100
+
+D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
+
+int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);           // 0x00647BC0
+
+int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);           // 0x00647D00
+
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -603,6 +629,94 @@ int __fastcall SKILLS_SrvDo064_Sacrifice(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
     }
 
+    return 1;
+}
+
+// 0x005CE9F0
+int __fastcall SKILLS_SrvDo150_Smite(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (!UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+    {
+        return 0;
+    }
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        D2UnitStrc* pShield;
+        if (!INVENTORY_GetEquippedShield(pUnit->pInventory, &pShield))
+        {
+            return 0;
+        }
+
+        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pShield ? -1 : pShield->dwClassId);
+        if (!pItemsTxtRecord)
+        {
+            return 0;
+        }
+
+        int nMinDamage = pItemsTxtRecord->nMinDam << 8;
+        int nMaxDamage = pItemsTxtRecord->nMaxDam << 8;
+        if (STATES_CheckState(pUnit, STATE_HOLYSHIELD))
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_HOLYSHIELD);
+            if (pStatList)
+            {
+                const int nHolyShieldId = (int)sub_006260E0(pStatList);
+                const int nHolyShieldLevel = STATLIST_GetSkillLevel(pStatList);
+                nMinDamage += SKILLS_GetMinPhysDamage(pUnit, nHolyShieldId, nHolyShieldLevel, 1);
+                nMaxDamage += SKILLS_GetMaxPhysDamage(pUnit, nHolyShieldId, nHolyShieldLevel, 1);
+            }
+        }
+
+        const int nDamagePercent = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+        damage.dwPhysDamage = SUNITDMG_ApplyDamageBonuses(pUnit, 0, pShield, nMinDamage, nMaxDamage, nDamagePercent, 0, SRCDAM_SMITE);
+
+        const int nStunLength = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+        if (pSkillsTxtRecord->nEType > 0)
+        {
+            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[3], nSkillId, nSkillLevel);
+            if (damage.dwConvPct > 0)
+            {
+                damage.nConvType = pSkillsTxtRecord->nEType;
+            }
+        }
+
+        D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
+
+        damage.dwStunLen = nStunLength;
+        damage.dwHitFlags = HITFLAG_SMITE;
+        damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, 0, 0) | DAMAGERESULTFLAG_SUCCESSFULHIT;
+    }
+    else
+    {
+        sub_6FC627B0(pUnit, MONMODE_ATTACK2);
+        damage.dwStunLen = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+        damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, 0, 0);
+    }
+
+    if (damage.wResultFlags & DAMAGERESULTFLAG_SUCCESSFULHIT)
+    {
+        damage.wResultFlags |= pSkillsTxtRecord->wResultFlags;
+        damage.dwHitFlags |= pSkillsTxtRecord->dwHitFlags;
+    }
+
+    damage.dwHitClass = HITCLASS_SMITE;
+    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, SRCDAM_SMITE);
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
     return 1;
 }
 
