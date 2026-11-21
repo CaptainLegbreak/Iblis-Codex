@@ -47092,11 +47092,6 @@
      "name": "sub_0052BDC0"
     },
     {
-     "va": "0x0052BE20",
-     "length": 1,
-     "name": "?GAME_LogMessage@@YAXHPBDZZ"
-    },
-    {
      "va": "0x0052BE30",
      "length": 3,
      "name": "sub_0052BE30"
@@ -47177,6 +47172,41 @@
      "name": "?GAME_GetGameGUIDFromGameId@@YIHG@Z"
     },
     {
+     "va": "0x0052C0A0",
+     "length": 63,
+     "name": "GAME_InitGameDataTable"
+    },
+    {
+     "va": "0x0052C0E0",
+     "length": 47,
+     "name": "GAME_SetServerCallbackFunctions"
+    },
+    {
+     "va": "0x0052C110",
+     "length": 85,
+     "name": "sub_0052C110"
+    },
+    {
+     "va": "0x0052C260",
+     "length": 31,
+     "name": "?sub_0052C260_SendGameInit@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0052C330",
+     "length": 174,
+     "name": "SrvVerifyCreateNewGame"
+    },
+    {
+     "va": "0x0052C3E0",
+     "length": 25,
+     "name": "D2Game_10056"
+    },
+    {
+     "va": "0x0052C400",
+     "length": 9,
+     "name": "sub_0052C400_UpdatePing"
+    },
+    {
      "va": "0x0052C410",
      "length": 234
     },
@@ -47189,6 +47219,11 @@
      "va": "0x0052C550",
      "length": 17,
      "name": "?GAME_VerifyJoinAct@@YIHH@Z"
+    },
+    {
+     "va": "0x0052C570",
+     "length": 53,
+     "name": "sub_0052C570_RemoveClientFromGame"
     },
     {
      "va": "0x0052C5B0",
@@ -47220,6 +47255,11 @@
      "length": 268
     },
     {
+     "va": "0x0052CA10",
+     "length": 212,
+     "name": "sub_0052CA10"
+    },
+    {
      "va": "0x0052CAF0",
      "length": 182,
      "name": "?SrvDisconnectClient@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@H@Z"
@@ -47245,14 +47285,93 @@
      "name": "?sub_0052CC10_SendHeaderAndRelease@@YIXH@Z"
     },
     {
+     "va": "0x0052CC20",
+     "length": 957,
+     "name": "?sub_0052CC20_Statistics@@YIXPAXH@Z"
+    },
+    {
+     "va": "0x0052CFE0",
+     "length": 163,
+     "name": "GAME_ProcessNetworkMessages"
+    },
+    {
+     "va": "0x0052D090",
+     "length": 37,
+     "name": "?sub_0052D090_CompressRoomUnits@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0052D0C0",
+     "length": 36,
+     "name": "?GAME_PopulateRoom@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
      "va": "0x0052D0F0",
      "length": 98,
      "name": "?GAME_ActivateRoom@@YIXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
     },
     {
+     "va": "0x0052D160",
+     "length": 215,
+     "name": "?sub_0052D160_UpdatePendingRooms@@YAXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052D240",
+     "length": 155,
+     "name": "sub_0052D240"
+    },
+    {
+     "va": "0x0052D2E0",
+     "length": 39,
+     "name": "?sub_0052D2E0_RefreshActs@@YAXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052D310",
+     "length": 49,
+     "name": "?sub_0052D310_DeleteInactiveItems@@YAXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052D350",
+     "length": 228,
+     "name": "sub_0052D350_CheckClientHeartbeats"
+    },
+    {
+     "va": "0x0052D440",
+     "length": 727,
+     "name": "?sub_0052D440_UpdateAllClients@@YAXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052D720",
+     "length": 138
+    },
+    {
+     "va": "0x0052D7B0",
+     "length": 184,
+     "name": "GAME_UpdateEnvironment"
+    },
+    {
+     "va": "0x0052D870",
+     "length": 261,
+     "name": "?GAME_UpdateProgress@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052D980",
+     "length": 119,
+     "name": "?sub_0052D980_SyncPlayerStats@@YAXPAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0052DA00",
+     "length": 129,
+     "name": "?sub_0052DA00_RefreshUnitsUpdate@@YAXPAUD2ClientStrc@@@Z"
+    },
+    {
      "va": "0x0052DA90",
      "length": 57,
      "name": "?GAME_LeaveGamesCriticalSection@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052DAD0",
+     "length": 32,
+     "name": "?sub_0052DAD0_AssertFail@@YAXXZ"
     },
     {
      "va": "0x0052DAF0",
@@ -47275,14 +47394,29 @@
      "name": "?sub_0052BFE0_GetGamesCount@@YIHXZ"
     },
     {
+     "va": "0x0052DB80",
+     "length": 5,
+     "name": "?sub_0052DB80_CountFlaggedClients@@YAHXZ"
+    },
+    {
      "va": "0x0052DB90",
      "length": 6,
      "name": "sub_0052DB90"
     },
     {
+     "va": "0x0052DBA0",
+     "length": 32,
+     "name": "GAME_GetMemoryUsage"
+    },
+    {
      "va": "0x0052DBC0",
      "length": 62,
      "name": "?sub_0052DBC0_CountUnitsInLists@@YAHPAPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0052DC00",
+     "length": 10,
+     "name": "sub_0052DC00_PassThrough"
     },
     {
      "va": "0x0052DC10",
@@ -47320,9 +47454,28 @@
      "name": "?GAME_GetMissileDescription@@YIXPADH@Z"
     },
     {
+     "va": "0x0052DED0",
+     "length": 109,
+     "name": "GAME_ForEachIngameClient"
+    },
+    {
      "va": "0x0052DF40",
      "length": 62,
      "name": "?GAME_UnlockDebugGame@@YIXXZ"
+    },
+    {
+     "va": "0x0052DF80",
+     "length": 29,
+     "name": "sub_0052DF80"
+    },
+    {
+     "va": "0x0052DFA0",
+     "length": 15,
+     "name": "GAME_SetGlobalAct"
+    },
+    {
+     "va": "0x0052DFB0",
+     "length": 153
     },
     {
      "va": "0x0052E050",
@@ -47345,6 +47498,16 @@
      "name": "?sub_00646000_AlwaysZero@@YGHH@Z"
     },
     {
+     "va": "0x0052E0A0",
+     "length": 34,
+     "name": "SyncEnterLock"
+    },
+    {
+     "va": "0x0052E0D0",
+     "length": 16,
+     "name": "sub_0052E0D0_IsOne"
+    },
+    {
      "va": "0x0052E0E0",
      "length": 13,
      "name": "?sub_0052E0E0_Mask@D2StormHashTableStrc@@QAEII@Z"
@@ -47355,14 +47518,94 @@
      "name": "?sub_00416800_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
     },
     {
+     "va": "0x0052E110",
+     "length": 327,
+     "name": "?GAME_SendSaveFilePart@@YGXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0052E260",
+     "length": 51,
+     "name": "?sub_0052E260_SendRemainingSaveParts@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0052E2A0",
+     "length": 127,
+     "name": "?GAME_SaveAndSendClientSaves@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052E320",
+     "length": 286,
+     "name": "?GAME_SendClientPackets@@YGXPAUD2GameStrc@@HPAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0052E440",
+     "length": 39,
+     "name": "?GAME_SendAllClientPackets@@YIXPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0052E470",
+     "length": 23,
+     "name": "SyncLeaveLock"
+    },
+    {
+     "va": "0x0052E490",
+     "length": 121,
+     "name": "Unlink"
+    },
+    {
+     "va": "0x0052E510",
+     "length": 28,
+     "name": "RawNext"
+    },
+    {
+     "va": "0x0052E530",
+     "length": 55,
+     "name": "Next"
+    },
+    {
+     "va": "0x0052E570",
+     "length": 23,
+     "name": "Unlock"
+    },
+    {
+     "va": "0x0052E590",
+     "length": 31,
+     "name": "sub_0052E590"
+    },
+    {
+     "va": "0x0052E5B0",
+     "length": 31,
+     "name": "sub_0052E5B0"
+    },
+    {
+     "va": "0x0052E5D0",
+     "length": 47,
+     "name": "DeleteUnlock"
+    },
+    {
+     "va": "0x0052E600",
+     "length": 68,
+     "name": "DeleteNode"
+    },
+    {
      "va": "0x0052E650",
      "length": 85,
      "name": "?sub_0052E650_Ptr@D2StormHashTable0052E650Strc@@QAEPADIH@Z"
     },
     {
+     "va": "0x0052E6B0",
+     "length": 20,
+     "name": "sub_0052E6B0"
+    },
+    {
      "va": "0x0052E6D0",
      "length": 57,
      "name": "?sub_0052E6D0_GenerateHandle@D2GameDataTableStrc@@QAEIXZ"
+    },
+    {
+     "va": "0x0052E710",
+     "length": 82,
+     "name": "Lock"
     },
     {
      "va": "0x0052E770",
@@ -47385,9 +47628,39 @@
      "name": "sub_0052E9B0"
     },
     {
+     "va": "0x0052E9C0",
+     "length": 278,
+     "name": "?GAME_CloseAllGames@@YGXXZ"
+    },
+    {
+     "va": "0x0052EAE0",
+     "length": 104,
+     "name": "?sub_0052EAE0@@YGHXZ"
+    },
+    {
+     "va": "0x0052EB50",
+     "length": 137,
+     "name": "sub_0052EB50"
+    },
+    {
+     "va": "0x0052EBE0",
+     "length": 173,
+     "name": "sub_0052EBE0"
+    },
+    {
+     "va": "0x0052EC90",
+     "length": 126,
+     "name": "sub_0052EC90"
+    },
+    {
      "va": "0x0052ED10",
      "length": 601,
      "name": "?GAME_GetGameInformation@@YGHGPAUD2GameInfoStrc@@@Z"
+    },
+    {
+     "va": "0x0052EF70",
+     "length": 118,
+     "name": "GAME_GetGameServerGameIds"
     },
     {
      "va": "0x0052EFF0",
@@ -47399,9 +47672,53 @@
      "length": 224
     },
     {
+     "va": "0x0052F160",
+     "length": 344
+    },
+    {
+     "va": "0x0052F2C0",
+     "length": 275,
+     "name": "?sub_0052F2C0@@YGHGHPAUD2UnitInfoStrc@@PAH1@Z"
+    },
+    {
+     "va": "0x0052F3E0",
+     "length": 219,
+     "name": "?GAME_GetStatistics@@YGXPAUD2GameStatisticsStrc@@@Z"
+    },
+    {
+     "va": "0x0052F4C0",
+     "length": 368,
+     "name": "GAME_SendMessageToAllClients"
+    },
+    {
+     "va": "0x0052F630",
+     "length": 176,
+     "name": "?sub_0052F630@@YGXGPAE@Z"
+    },
+    {
      "va": "0x0052F6E0",
      "length": 55,
      "name": "?GAME_LockDebugGame@@YIPAUD2GameStrc@@XZ"
+    },
+    {
+     "va": "0x0052F720",
+     "length": 31,
+     "name": "sub_0052F720_MessageThreadProc"
+    },
+    {
+     "va": "0x0052F740",
+     "length": 105,
+     "name": "sub_0052F740_SendMessageToAllClientsAsync"
+    },
+    {
+     "va": "0x0052F7B0",
+     "length": 142,
+     "name": "GAME_FindGameWithName"
+    },
+    {
+     "va": "0x0052F840",
+     "length": 112,
+     "name": "?sub_0052F840@@YIIXZ"
     },
     {
      "va": "0x0052F8B0",
@@ -47414,9 +47731,19 @@
      "name": "?SetGameName@@YIXPAUD2GameStrc@@PBDI@Z"
     },
     {
+     "va": "0x0052FA50",
+     "length": 458,
+     "name": "?SrvJoinGame@@YIXHGHPBDH0HHHHHHH@Z"
+    },
+    {
      "va": "0x0052FC20",
      "length": 365,
      "name": "GAME_UpdateGamesProgress"
+    },
+    {
+     "va": "0x0052FD90",
+     "length": 331,
+     "name": "?GAME_UpdateClients@@YGHHH@Z"
     },
     {
      "va": "0x0052FEE0",
@@ -47424,9 +47751,38 @@
      "name": "?GAME_GetGameByClientId@@YIPAUD2GameStrc@@H@Z"
     },
     {
+     "va": "0x0052FF20",
+     "length": 451,
+     "name": "?sub_0052FF20_GrowListArray@D2StormHashTableStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x005300F0",
+     "length": 154,
+     "name": "sub_005300F0_RemoveClientById"
+    },
+    {
+     "va": "0x00530190",
+     "length": 211,
+     "name": "?SrvJoinAct@@YIXH@Z"
+    },
+    {
+     "va": "0x00530270",
+     "length": 84
+    },
+    {
+     "va": "0x005302D0",
+     "length": 38,
+     "name": "GAME_DisconnectClientByName"
+    },
+    {
      "va": "0x00530300",
      "length": 193,
      "name": "?sub_00530300@@YGXH@Z"
+    },
+    {
+     "va": "0x005303D0",
+     "length": 448,
+     "name": "?SrvEndGame@@YIXHH@Z"
     },
     {
      "va": "0x00530590",
@@ -47442,9 +47798,275 @@
      "name": "?GAME_Initialize@@YGHXZ"
     },
     {
+     "va": "0x005306E0",
+     "length": 309,
+     "name": "SrvRecvDatabaseCharacter"
+    },
+    {
+     "va": "0x00530820",
+     "length": 148,
+     "name": "sub_00530820_New"
+    },
+    {
+     "va": "0x005308C0",
+     "length": 37,
+     "name": "sub_005308C0_NewHandle"
+    },
+    {
+     "va": "0x005308F0",
+     "length": 58,
+     "name": "sub_005308F0_NewLock"
+    },
+    {
+     "va": "0x00530930",
+     "length": 703,
+     "name": "?SrvCreateNewEmptyGame@@YGHPADPBD1IEEEPAG@Z"
+    },
+    {
+     "va": "0x00530BF0",
+     "length": 687,
+     "name": "?sSrvSendGameInit@@YIXHPADEEPBDHIHHHEEHH@Z"
+    },
+    {
+     "va": "0x00530EA0",
+     "length": 131,
+     "name": "D2GAME_SetStatOrResetGold_6FC7CA70"
+    },
+    {
+     "va": "0x00531D60",
+     "length": 118,
+     "name": "sub_00531D60_ByteToHex"
+    },
+    {
+     "va": "0x00531DE0",
+     "length": 69,
+     "name": "sub_00531DE0_BytesToHexString"
+    },
+    {
+     "va": "0x00532E70",
+     "length": 31,
+     "name": "sub_00532E70_ForwardIfSet"
+    },
+    {
      "va": "0x00532E90",
      "length": 154,
      "name": "?sub_6FC8AEC0@@YIHPAUD2GameStrc@@PAUD2ClientStrc@@PAUD2UnitStrc@@PAEHHPAH@Z"
+    },
+    {
+     "va": "0x00534A50",
+     "length": 89,
+     "name": "PLAYER_RemoveAllPlayers"
+    },
+    {
+     "va": "0x00534AB0",
+     "length": 31,
+     "name": "sub_00534AB0_ClearTargetIfMatch"
+    },
+    {
+     "va": "0x00534AD0",
+     "length": 88,
+     "name": "sub_00534AD0_ResetModeAndEvents"
+    },
+    {
+     "va": "0x005356B0",
+     "length": 59,
+     "name": "sub_005356B0_SetSkillHotKey"
+    },
+    {
+     "va": "0x005356F0",
+     "length": 50,
+     "name": "sub_005356F0_CountPlayersInLevelCb"
+    },
+    {
+     "va": "0x00535730",
+     "length": 38,
+     "name": "sub_00535730_CountPlayersInLevel"
+    },
+    {
+     "va": "0x00535760",
+     "length": 24,
+     "name": "PLAYER_CountLivingPlayers"
+    },
+    {
+     "va": "0x00535790",
+     "length": 56,
+     "name": "PLAYER_GetPlayerCount"
+    },
+    {
+     "va": "0x00535AF0",
+     "length": 32,
+     "name": "sub_00535AF0_RosterFlagCb"
+    },
+    {
+     "va": "0x00535B50",
+     "length": 34,
+     "name": "sub_00535B50_RosterFlagCb2"
+    },
+    {
+     "va": "0x00535B80",
+     "length": 59,
+     "name": "sub_00535B80_IteratePlayersRoster"
+    },
+    {
+     "va": "0x00535EA0",
+     "length": 105,
+     "name": "SUNITPROXY_GetNpcRecordFromClassId"
+    },
+    {
+     "va": "0x00535F10",
+     "length": 25,
+     "name": "SUNITPROXY_GetNpcRecordFromUnit"
+    },
+    {
+     "va": "0x00535F30",
+     "length": 117,
+     "name": "SUNITPROXY_AllocNpcEvent"
+    },
+    {
+     "va": "0x00536820",
+     "length": 34,
+     "name": "SUNITPROXY_CountPlayersInLevel"
+    },
+    {
+     "va": "0x00536850",
+     "length": 146,
+     "name": "SUNITPROXY_InitializeNpcEventChain"
+    },
+    {
+     "va": "0x00536B20",
+     "length": 20,
+     "name": "SUNITPROXY_GetNpcInventory"
+    },
+    {
+     "va": "0x00536C50",
+     "length": 90,
+     "name": "SUNITPROXY_GetGambleInventory"
+    },
+    {
+     "va": "0x00536F80",
+     "length": 408,
+     "name": "SUNITPROXY_FillGlobalItemCache"
+    },
+    {
+     "va": "0x005384E0",
+     "length": 162,
+     "name": "sub_005384E0_RemoveUnitIfNotAdjacent"
+    },
+    {
+     "va": "0x00538E60",
+     "length": 165,
+     "name": "CLIENTS_CopySaveDataToClient"
+    },
+    {
+     "va": "0x0053ABE0",
+     "length": 130,
+     "name": "LEVEL_SynchronizeDayNightCycleWithClient"
+    },
+    {
+     "va": "0x0053B000",
+     "length": 133,
+     "name": "LEVEL_UpdateQueuedUnitsInAllActs"
+    },
+    {
+     "va": "0x0053DE20",
+     "length": 47,
+     "name": "sub_0053DE20_SendPacket0x8CToAllPlayers"
+    },
+    {
+     "va": "0x0053DF80",
+     "length": 45,
+     "name": "D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0"
+    },
+    {
+     "va": "0x0053F4B0",
+     "length": 67,
+     "name": "ARENA_AllocArena"
+    },
+    {
+     "va": "0x00540000",
+     "length": 171,
+     "name": "PARTY_FreePartyControl"
+    },
+    {
+     "va": "0x005404C0",
+     "length": 36,
+     "name": "sub_005404C0_AddLivingMemberLevel"
+    },
+    {
+     "va": "0x005404F0",
+     "length": 28,
+     "name": "PARTY_CountLivingUnits"
+    },
+    {
+     "va": "0x00542AC0",
+     "length": 126,
+     "name": "SUNITINACTIVE_DeleteExpiredItemNodes"
+    },
+    {
+     "va": "0x00543800",
+     "length": 174,
+     "name": "QUESTS_QuestFree"
+    },
+    {
+     "va": "0x00543E10",
+     "length": 251,
+     "name": "QUESTS_QuestUpdater"
+    },
+    {
+     "va": "0x00546E90",
+     "length": 250,
+     "name": "OBJRGN_FreeObjectControl"
+    },
+    {
+     "va": "0x00547210",
+     "length": 235,
+     "name": "OBJECTS_InitFunction17_Waypoint"
+    },
+    {
+     "va": "0x00548180",
+     "length": 281,
+     "name": "sub_6FC81E10"
+    },
+    {
+     "va": "0x00549FA0",
+     "length": 20,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0"
+    },
+    {
+     "va": "0x0054AA90",
+     "length": 62,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity_6FC84D70"
+    },
+    {
+     "va": "0x0054BBA0",
+     "length": 36,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc_6FC86BA0"
+    },
+    {
+     "va": "0x0054BC00",
+     "length": 42,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc_6FC86C00"
+    },
+    {
+     "va": "0x0054C590",
+     "length": 58,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState_6FC87E20"
+    },
+    {
+     "va": "0x0054C690",
+     "length": 57,
+     "name": "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/GAME/Game_0052BE20.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0052BE20",
+     "length": 1,
+     "name": "?GAME_LogMessage@@YAXHPBDZZ"
     }
    ]
   },
@@ -49753,222 +50375,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Game_0052C0A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052C0A0",
-     "length": 63,
-     "name": "GAME_InitGameDataTable"
-    },
-    {
-     "va": "0x0052C0E0",
-     "length": 47,
-     "name": "GAME_SetServerCallbackFunctions"
-    },
-    {
-     "va": "0x0052C110",
-     "length": 85,
-     "name": "sub_0052C110"
-    },
-    {
-     "va": "0x0052C260",
-     "length": 31,
-     "name": "?sub_0052C260_SendGameInit@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0052C330",
-     "length": 174,
-     "name": "SrvVerifyCreateNewGame"
-    },
-    {
-     "va": "0x0052C3E0",
-     "length": 25,
-     "name": "D2Game_10056"
-    },
-    {
-     "va": "0x0052C400",
-     "length": 9,
-     "name": "sub_0052C400_UpdatePing"
-    },
-    {
-     "va": "0x0052C570",
-     "length": 53,
-     "name": "sub_0052C570_RemoveClientFromGame"
-    },
-    {
-     "va": "0x0052CA10",
-     "length": 212,
-     "name": "sub_0052CA10"
-    },
-    {
-     "va": "0x0052CFE0",
-     "length": 163,
-     "name": "GAME_ProcessNetworkMessages"
-    },
-    {
-     "va": "0x0052D240",
-     "length": 155,
-     "name": "sub_0052D240"
-    },
-    {
-     "va": "0x0052D350",
-     "length": 228,
-     "name": "sub_0052D350_CheckClientHeartbeats"
-    },
-    {
-     "va": "0x0052DBA0",
-     "length": 32,
-     "name": "GAME_GetMemoryUsage"
-    },
-    {
-     "va": "0x0052DC00",
-     "length": 10,
-     "name": "sub_0052DC00_PassThrough"
-    },
-    {
-     "va": "0x0052DED0",
-     "length": 109,
-     "name": "GAME_ForEachIngameClient"
-    },
-    {
-     "va": "0x0052DF80",
-     "length": 29,
-     "name": "sub_0052DF80"
-    },
-    {
-     "va": "0x0052DFA0",
-     "length": 15,
-     "name": "GAME_SetGlobalAct"
-    },
-    {
-     "va": "0x0052E0A0",
-     "length": 34,
-     "name": "SyncEnterLock"
-    },
-    {
-     "va": "0x0052E0D0",
-     "length": 16,
-     "name": "sub_0052E0D0_IsOne"
-    },
-    {
-     "va": "0x0052E470",
-     "length": 23,
-     "name": "SyncLeaveLock"
-    },
-    {
-     "va": "0x0052E510",
-     "length": 28,
-     "name": "RawNext"
-    },
-    {
-     "va": "0x0052E530",
-     "length": 55,
-     "name": "Next"
-    },
-    {
-     "va": "0x0052E570",
-     "length": 23,
-     "name": "Unlock"
-    },
-    {
-     "va": "0x0052E590",
-     "length": 31,
-     "name": "sub_0052E590"
-    },
-    {
-     "va": "0x0052E5B0",
-     "length": 31,
-     "name": "sub_0052E5B0"
-    },
-    {
-     "va": "0x0052E5D0",
-     "length": 47,
-     "name": "DeleteUnlock"
-    },
-    {
-     "va": "0x0052E6B0",
-     "length": 20,
-     "name": "sub_0052E6B0"
-    },
-    {
-     "va": "0x0052E710",
-     "length": 82,
-     "name": "Lock"
-    },
-    {
-     "va": "0x0052EB50",
-     "length": 137,
-     "name": "sub_0052EB50"
-    },
-    {
-     "va": "0x0052EBE0",
-     "length": 173,
-     "name": "sub_0052EBE0"
-    },
-    {
-     "va": "0x0052EC90",
-     "length": 126,
-     "name": "sub_0052EC90"
-    },
-    {
-     "va": "0x0052EF70",
-     "length": 118,
-     "name": "GAME_GetGameServerGameIds"
-    },
-    {
-     "va": "0x0052F4C0",
-     "length": 368,
-     "name": "GAME_SendMessageToAllClients"
-    },
-    {
-     "va": "0x0052F720",
-     "length": 31,
-     "name": "sub_0052F720_MessageThreadProc"
-    },
-    {
-     "va": "0x0052F740",
-     "length": 105,
-     "name": "sub_0052F740_SendMessageToAllClientsAsync"
-    },
-    {
-     "va": "0x0052F7B0",
-     "length": 142,
-     "name": "GAME_FindGameWithName"
-    },
-    {
-     "va": "0x0052FA50",
-     "length": 458,
-     "name": "?SrvJoinGame@@YIXHGHPBDH0HHHHHHH@Z"
-    },
-    {
-     "va": "0x005300F0",
-     "length": 154,
-     "name": "sub_005300F0_RemoveClientById"
-    },
-    {
-     "va": "0x00530190",
-     "length": 211,
-     "name": "?SrvJoinAct@@YIXH@Z"
-    },
-    {
-     "va": "0x005302D0",
-     "length": 38,
-     "name": "GAME_DisconnectClientByName"
-    },
-    {
-     "va": "0x005306E0",
-     "length": 309,
-     "name": "SrvRecvDatabaseCharacter"
-    },
-    {
-     "va": "0x00530EA0",
-     "length": 131,
-     "name": "D2GAME_SetStatOrResetGold_6FC7CA70"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0052C170.cpp",
    "rank": 1,
    "functions": [
@@ -50036,457 +50442,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052CC20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052CC20",
-     "length": 957,
-     "name": "?sub_0052CC20_Statistics@@YIXPAXH@Z"
-    },
-    {
-     "va": "0x0052F630",
-     "length": 176,
-     "name": "?sub_0052F630@@YGXGPAE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052D090.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052D090",
-     "length": 37,
-     "name": "?sub_0052D090_CompressRoomUnits@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0052D0C0",
-     "length": 36,
-     "name": "?GAME_PopulateRoom@@YAXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0052D160",
-     "length": 215,
-     "name": "?sub_0052D160_UpdatePendingRooms@@YAXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0052D2E0",
-     "length": 39,
-     "name": "?sub_0052D2E0_RefreshActs@@YAXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0052D310",
-     "length": 49,
-     "name": "?sub_0052D310_DeleteInactiveItems@@YAXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0052D440",
-     "length": 727,
-     "name": "?sub_0052D440_UpdateAllClients@@YAXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0052D870",
-     "length": 261,
-     "name": "?GAME_UpdateProgress@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0052DAD0",
-     "length": 32,
-     "name": "?sub_0052DAD0_AssertFail@@YAXXZ"
-    },
-    {
-     "va": "0x0052DB80",
-     "length": 5,
-     "name": "?sub_0052DB80_CountFlaggedClients@@YAHXZ"
-    },
-    {
-     "va": "0x0052EAE0",
-     "length": 104,
-     "name": "?sub_0052EAE0@@YGHXZ"
-    },
-    {
-     "va": "0x0052F160",
-     "length": 344
-    },
-    {
-     "va": "0x0052F2C0",
-     "length": 275,
-     "name": "?sub_0052F2C0@@YGHGHPAUD2UnitInfoStrc@@PAH1@Z"
-    },
-    {
-     "va": "0x0052F3E0",
-     "length": 219,
-     "name": "?GAME_GetStatistics@@YGXPAUD2GameStatisticsStrc@@@Z"
-    },
-    {
-     "va": "0x0052F840",
-     "length": 112,
-     "name": "?sub_0052F840@@YIIXZ"
-    },
-    {
-     "va": "0x0052FF20",
-     "length": 451,
-     "name": "?sub_0052FF20_GrowListArray@D2StormHashTableStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00530820",
-     "length": 148,
-     "name": "sub_00530820_New"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052D720.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0052D720",
-     "length": 138
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052D7B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052D7B0",
-     "length": 184,
-     "name": "GAME_UpdateEnvironment"
-    },
-    {
-     "va": "0x005308C0",
-     "length": 37,
-     "name": "sub_005308C0_NewHandle"
-    },
-    {
-     "va": "0x005308F0",
-     "length": 58,
-     "name": "sub_005308F0_NewLock"
-    },
-    {
-     "va": "0x00531D60",
-     "length": 118,
-     "name": "sub_00531D60_ByteToHex"
-    },
-    {
-     "va": "0x00531DE0",
-     "length": 69,
-     "name": "sub_00531DE0_BytesToHexString"
-    },
-    {
-     "va": "0x00532E70",
-     "length": 31,
-     "name": "sub_00532E70_ForwardIfSet"
-    },
-    {
-     "va": "0x00534A50",
-     "length": 89,
-     "name": "PLAYER_RemoveAllPlayers"
-    },
-    {
-     "va": "0x00534AB0",
-     "length": 31,
-     "name": "sub_00534AB0_ClearTargetIfMatch"
-    },
-    {
-     "va": "0x00534AD0",
-     "length": 88,
-     "name": "sub_00534AD0_ResetModeAndEvents"
-    },
-    {
-     "va": "0x005356B0",
-     "length": 59,
-     "name": "sub_005356B0_SetSkillHotKey"
-    },
-    {
-     "va": "0x005356F0",
-     "length": 50,
-     "name": "sub_005356F0_CountPlayersInLevelCb"
-    },
-    {
-     "va": "0x00535730",
-     "length": 38,
-     "name": "sub_00535730_CountPlayersInLevel"
-    },
-    {
-     "va": "0x00535760",
-     "length": 24,
-     "name": "PLAYER_CountLivingPlayers"
-    },
-    {
-     "va": "0x00535790",
-     "length": 56,
-     "name": "PLAYER_GetPlayerCount"
-    },
-    {
-     "va": "0x00535AF0",
-     "length": 32,
-     "name": "sub_00535AF0_RosterFlagCb"
-    },
-    {
-     "va": "0x00535B50",
-     "length": 34,
-     "name": "sub_00535B50_RosterFlagCb2"
-    },
-    {
-     "va": "0x00535B80",
-     "length": 59,
-     "name": "sub_00535B80_IteratePlayersRoster"
-    },
-    {
-     "va": "0x00535EA0",
-     "length": 105,
-     "name": "SUNITPROXY_GetNpcRecordFromClassId"
-    },
-    {
-     "va": "0x00535F10",
-     "length": 25,
-     "name": "SUNITPROXY_GetNpcRecordFromUnit"
-    },
-    {
-     "va": "0x00535F30",
-     "length": 117,
-     "name": "SUNITPROXY_AllocNpcEvent"
-    },
-    {
-     "va": "0x00536820",
-     "length": 34,
-     "name": "SUNITPROXY_CountPlayersInLevel"
-    },
-    {
-     "va": "0x00536850",
-     "length": 146,
-     "name": "SUNITPROXY_InitializeNpcEventChain"
-    },
-    {
-     "va": "0x00536B20",
-     "length": 20,
-     "name": "SUNITPROXY_GetNpcInventory"
-    },
-    {
-     "va": "0x00536C50",
-     "length": 90,
-     "name": "SUNITPROXY_GetGambleInventory"
-    },
-    {
-     "va": "0x00536F80",
-     "length": 408,
-     "name": "SUNITPROXY_FillGlobalItemCache"
-    },
-    {
-     "va": "0x005384E0",
-     "length": 162,
-     "name": "sub_005384E0_RemoveUnitIfNotAdjacent"
-    },
-    {
-     "va": "0x00538E60",
-     "length": 165,
-     "name": "CLIENTS_CopySaveDataToClient"
-    },
-    {
-     "va": "0x0053ABE0",
-     "length": 130,
-     "name": "LEVEL_SynchronizeDayNightCycleWithClient"
-    },
-    {
-     "va": "0x0053B000",
-     "length": 133,
-     "name": "LEVEL_UpdateQueuedUnitsInAllActs"
-    },
-    {
-     "va": "0x0053DE20",
-     "length": 47,
-     "name": "sub_0053DE20_SendPacket0x8CToAllPlayers"
-    },
-    {
-     "va": "0x0053DF80",
-     "length": 45,
-     "name": "D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0"
-    },
-    {
-     "va": "0x0053F4B0",
-     "length": 67,
-     "name": "ARENA_AllocArena"
-    },
-    {
-     "va": "0x00540000",
-     "length": 171,
-     "name": "PARTY_FreePartyControl"
-    },
-    {
-     "va": "0x005404C0",
-     "length": 36,
-     "name": "sub_005404C0_AddLivingMemberLevel"
-    },
-    {
-     "va": "0x005404F0",
-     "length": 28,
-     "name": "PARTY_CountLivingUnits"
-    },
-    {
-     "va": "0x00542AC0",
-     "length": 126,
-     "name": "SUNITINACTIVE_DeleteExpiredItemNodes"
-    },
-    {
-     "va": "0x00543800",
-     "length": 174,
-     "name": "QUESTS_QuestFree"
-    },
-    {
-     "va": "0x00543E10",
-     "length": 251,
-     "name": "QUESTS_QuestUpdater"
-    },
-    {
-     "va": "0x00546E90",
-     "length": 250,
-     "name": "OBJRGN_FreeObjectControl"
-    },
-    {
-     "va": "0x00547210",
-     "length": 235,
-     "name": "OBJECTS_InitFunction17_Waypoint"
-    },
-    {
-     "va": "0x00548180",
-     "length": 281,
-     "name": "sub_6FC81E10"
-    },
-    {
-     "va": "0x00549FA0",
-     "length": 20,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x0B_6FC83EE0"
-    },
-    {
-     "va": "0x0054AA90",
-     "length": 62,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x13_InteractWithEntity_6FC84D70"
-    },
-    {
-     "va": "0x0054BBA0",
-     "length": 36,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x34_IdentifyItemsWithNpc_6FC86BA0"
-    },
-    {
-     "va": "0x0054BC00",
-     "length": 42,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x62_ResurrectMerc_6FC86C00"
-    },
-    {
-     "va": "0x0054C590",
-     "length": 58,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x48_TurnOffBusyState_6FC87E20"
-    },
-    {
-     "va": "0x0054C690",
-     "length": 57,
-     "name": "D2GAME_PACKETCALLBACK_Rcv0x4D_PlayNpcMessage_6FC880A0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052D980.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052D980",
-     "length": 119,
-     "name": "?sub_0052D980_SyncPlayerStats@@YAXPAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0052DA00",
-     "length": 129,
-     "name": "?sub_0052DA00_RefreshUnitsUpdate@@YAXPAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0052E110",
-     "length": 327,
-     "name": "?GAME_SendSaveFilePart@@YGXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0052E260",
-     "length": 51,
-     "name": "?sub_0052E260_SendRemainingSaveParts@@YAXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0052E2A0",
-     "length": 127,
-     "name": "?GAME_SaveAndSendClientSaves@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0052E320",
-     "length": 286,
-     "name": "?GAME_SendClientPackets@@YGXPAUD2GameStrc@@HPAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x0052E440",
-     "length": 39,
-     "name": "?GAME_SendAllClientPackets@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0052E9C0",
-     "length": 278,
-     "name": "?GAME_CloseAllGames@@YGXXZ"
-    },
-    {
-     "va": "0x0052FD90",
-     "length": 331,
-     "name": "?GAME_UpdateClients@@YGHHH@Z"
-    },
-    {
-     "va": "0x005303D0",
-     "length": 448,
-     "name": "?SrvEndGame@@YIXHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052DFB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0052DFB0",
-     "length": 153
-    },
-    {
-     "va": "0x00530270",
-     "length": 84
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -50946,38 +50901,6 @@
      "va": "0x00570850",
      "length": 17,
      "name": "sub_00570850_Forward"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052E490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052E490",
-     "length": 121,
-     "name": "Unlink"
-    },
-    {
-     "va": "0x0052E600",
-     "length": 68,
-     "name": "DeleteNode"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_00530930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00530930",
-     "length": 703,
-     "name": "?SrvCreateNewEmptyGame@@YGHPADPBD1IEEEPAG@Z"
-    },
-    {
-     "va": "0x00530BF0",
-     "length": 687,
-     "name": "?sSrvSendGameInit@@YIXHPADEEPBDHIHHHEEHH@Z"
     }
    ]
   },
