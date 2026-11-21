@@ -379,9 +379,9 @@ struct D2RedemptionAuraParamStrc
     int nRedeemed;
 };
 
-enum D2C_Y09BasicAuraConstants
-{
-};
+void __fastcall SKILLS_CurseStateCallback_HolyFreeze(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005D0770
+
+int __fastcall SKILLS_AuraCallback_HolyFreeze(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);        // 0x005D07C0
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -487,6 +487,92 @@ int __fastcall SKILLS_SrvSt29_Sacrifice(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 0x80);
+    return 1;
+}
+
+// 0x005CF010
+int __fastcall SKILLS_SrvDo065_BasicAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nManaCost = SKILLS_GetManaCosts(nSkillId, nSkillLevel);
+    const int nMana = STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0);
+
+    D2BasicAuraParamStrc args;
+    memset(&args, 0, sizeof(args));
+    args.nSkillId = nSkillId;
+    args.nSkillLevel = nSkillLevel;
+    args.nDuration = SKILL_ComputePeriodicRate(pGame, pUnit, pSkillsTxtRecord, nSkillId, nSkillLevel) - pGame->dwGameFrame + 1;
+
+    if (pSkillsTxtRecord->nPassiveState > 0)
+    {
+        args.nPassiveState = pSkillsTxtRecord->nPassiveState;
+    }
+
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER || nMana >= nManaCost)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            const int nAuraStat = pSkillsTxtRecord->wAuraStat[i];
+            if (nAuraStat < 0)
+            {
+                break;
+            }
+
+            args.nAuraStat[i] = nAuraStat;
+            args.nAuraStatCalcValue[i] = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraStatCalc[i], nSkillId, nSkillLevel);
+        }
+    }
+
+    if (pSkillsTxtRecord->nAuraState > 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        args.nAuraState = pSkillsTxtRecord->nAuraState;
+
+        sub_0056B740_CallWithRecord(pGame, pUnit, SKILLS_AuraCallback_BasicAura, &args);
+
+        if (args.pStatList && nMana > nManaCost && pSkillsTxtRecord->nPassiveState <= 0)
+        {
+            for (int i = 0; i < 5; ++i)
+            {
+                const int nStat = pSkillsTxtRecord->nPassiveStat[i];
+                const int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPassiveCalc[i], nSkillId, nSkillLevel);
+                if (nValue && nStat > 0 && nStat < sgptDataTables->nItemStatCostTxtRecordCount)
+                {
+                    STATLIST_SetStat(args.pStatList, nStat, nValue, 0);
+                }
+            }
+        }
+    }
+
+    if (pSkillsTxtRecord->wAuraTargetState >= 0 && pSkillsTxtRecord->wAuraTargetState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        args.nAuraState = pSkillsTxtRecord->wAuraTargetState;
+
+        const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+
+        sub_6FD0FE80(pGame, pUnit, 0, 0, nAuraRange, pSkillsTxtRecord->dwAuraFilter, SKILLS_AuraCallback_BasicAura, &args, 1, ".\\SKILLS\\SkilPal.cpp", 502);
+
+        if (nManaCost > 0)
+        {
+            if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+            {
+                if (args.unk0x40 > 0)
+                {
+                    STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 1);
+                    D2GAME_SKILLMANA_AuraConsume_6FD10C90(pUnit, nManaCost);
+                }
+                else
+                {
+                    STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 0);
+                }
+            }
+        }
+    }
+
     return 1;
 }
 
@@ -713,6 +799,101 @@ void __fastcall SKILLS_CurseStateCallback_HolyFreeze(D2UnitStrc* pUnit, int nSta
 
         UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkilPal.cpp", 1558);
     }
+}
+
+// 0x005D0920
+int __fastcall SKILLS_SrvDo081_HolyFreeze(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nAuraState < 0 || pSkillsTxtRecord->nAuraState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    const int nManaCost = SKILLS_GetManaCosts(nSkillId, nSkillLevel);
+    const int nMana = STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0);
+    const int nFrame = SKILL_ComputePeriodicRate(pGame, pUnit, pSkillsTxtRecord, nSkillId, nSkillLevel) - pGame->dwGameFrame + 1;
+
+    D2BasicAuraParamStrc args1;
+    memset(&args1, 0, sizeof(args1));
+    args1.nSkillId = nSkillId;
+    args1.nSkillLevel = nSkillLevel;
+    args1.nDuration = nFrame;
+    args1.nAuraState = pSkillsTxtRecord->nAuraState;
+    args1.pStateRemoveCallback = SKILLS_CurseStateCallback_HolyFreeze;
+
+    for (int i = 0; i < 5; ++i)
+    {
+        args1.nAuraStat[i] = pSkillsTxtRecord->nPassiveStat[i];
+        if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) != UNIT_PLAYER || nMana >= nManaCost)
+        {
+            args1.nAuraStatCalcValue[i] = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwPassiveCalc[i], nSkillId, nSkillLevel);
+        }
+    }
+
+    sub_0056B740_CallWithRecord(pGame, pUnit, SKILLS_AuraCallback_BasicAura, &args1);
+
+    if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        return 1;
+    }
+
+    D2DamageAuraParamStrc args2;
+    memset(&args2, 0, sizeof(args2));
+    args2.nSkillId = nSkillId;
+    args2.nSkillLevel = nSkillLevel;
+    args2.nDuration = nFrame;
+    args2.nAuraState = pSkillsTxtRecord->wAuraTargetState;
+
+    if (pSkillsTxtRecord->wAuraTargetState >= 0 && pSkillsTxtRecord->wAuraTargetState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            args2.nAuraStat[i] = pSkillsTxtRecord->wAuraStat[i];
+            if (nMana >= nManaCost)
+            {
+                args2.nAuraStatCalcValue[i] = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraStatCalc[i], nSkillId, nSkillLevel);
+                if (args2.nAuraStatCalcValue[i])
+                {
+                    args2.nPassiveState = 1;
+                }
+            }
+        }
+    }
+
+    D2DamageStrc damage;
+    memset(&damage, 0, sizeof(damage));
+    if (D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel))
+    {
+        damage.dwHitClass |= 0xD;
+        if (pSkillsTxtRecord->dwHitClass)
+        {
+            damage.dwHitClass = pSkillsTxtRecord->dwHitClass;
+        }
+
+        damage.wResultFlags |= pSkillsTxtRecord->wResultFlags | 0x20;
+        damage.dwHitFlags |= pSkillsTxtRecord->dwHitFlags;
+        args2.pDamage = &damage;
+    }
+
+    const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+
+    sub_6FD0FE80(pGame, pUnit, 0, 0, nAuraRange, pSkillsTxtRecord->dwAuraFilter, SKILLS_AuraCallback_HolyFreeze, &args2, 0, ".\\SKILLS\\SkilPal.cpp", 1722);
+
+    if (nManaCost > 0 && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        if (args2.unk0x40 > 0)
+        {
+            STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 1);
+            D2GAME_SKILLMANA_AuraConsume_6FD10C90(pUnit, nManaCost);
+        }
+        else
+        {
+            STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 0);
+        }
+    }
+
+    return 1;
 }
 
 // 0x005D0C40

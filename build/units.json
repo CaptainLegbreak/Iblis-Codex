@@ -69441,6 +69441,11 @@
      "name": "SKILLS_SrvSt29_Sacrifice"
     },
     {
+     "va": "0x005CF010",
+     "length": 616,
+     "name": "?SKILLS_SrvDo065_BasicAura@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005CF280",
      "length": 20,
      "name": "?sub_005CF280_IsUnitOutsideTown@@YAHPAUD2UnitStrc@@@Z"
@@ -69478,6 +69483,11 @@
      "va": "0x005D0770",
      "length": 76,
      "name": "?SKILLS_CurseStateCallback_HolyFreeze@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005D0920",
+     "length": 787,
+     "name": "?SKILLS_SrvDo081_HolyFreeze@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D0C40",
@@ -69529,22 +69539,6 @@
      "va": "0x005CFE10",
      "length": 558,
      "name": "?sub_005CFE10_ElementalStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkilPal_005CF010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005CF010",
-     "length": 616,
-     "name": "?SKILLS_SrvDo065_BasicAura@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D0920",
-     "length": 787,
-     "name": "?SKILLS_SrvDo081_HolyFreeze@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
