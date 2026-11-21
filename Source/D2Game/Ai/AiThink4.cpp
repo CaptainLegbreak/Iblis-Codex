@@ -1849,6 +1849,69 @@ void __fastcall sub_005E2FD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     pAiTickParam->pAiControl->dwAiParam[0] = -1;
 }
 
+static __forceinline unsigned int SEED_RollPercentage(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+{
+    const uint64_t lSeed = pSeed->nHighSeed + 0x6AC690C5ui64 * pSeed->nLowSeed;
+    nHighSeed = (unsigned int)(lSeed >> 32);
+    nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = nHighSeed;
+    pSeed->nLowSeed = nLowSeed;
+    return nLowSeed % 100;
+}
+
+static __forceinline unsigned int SEED_RollPercentageAgain(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+{
+    const uint64_t lSeed = nHighSeed + 0x6AC690C5ui64 * nLowSeed;
+    nHighSeed = (unsigned int)(lSeed >> 32);
+    nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = nHighSeed;
+    pSeed->nLowSeed = nLowSeed;
+    return nLowSeed % 100;
+}
+
+inline short AI_GetParamValue(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nParamId)
+{
+    return pMonStatsTxt->wAiParam[nParamId][pGame->nDifficulty];
+}
+
+// 0x005E36F0
+void __fastcall AITHINK_Fn125_BloodLord(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int bCombat = pAiTickParam->bCombat;
+    D2MonStatsTxt* pMonStatsTxtRecord = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    unsigned int nLowSeed;
+    unsigned int nHighSeed;
+    if (bCombat)
+    {
+        if ((int)SEED_RollPercentage(pSeed, nLowSeed, nHighSeed) < AI_GetParamValue(pGame, pMonStatsTxtRecord, 0))
+        {
+            if ((int)SEED_RollPercentageAgain(pSeed, nLowSeed, nHighSeed) < AI_GetParamValue(pGame, pMonStatsTxtRecord, 2))
+            {
+                AITACTICS_UseSkill(pGame, pUnit, 5, pMonStatsTxtRecord->nSkill[0], pTarget, 0, 0);
+                return;
+            }
+
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParamValue(pGame, pMonStatsTxtRecord, 3));
+        return;
+    }
+    else
+    {
+        if ((int)SEED_RollPercentage(pSeed, nLowSeed, nHighSeed) < AI_GetParamValue(pGame, pMonStatsTxtRecord, 1))
+        {
+            AITACTICS_WalkToTargetUnit(pGame, pUnit, pTarget);
+            return;
+        }
+
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_GetParamValue(pGame, pMonStatsTxtRecord, 3));
+    }
+}
+
 // 0x005E3840
 void __fastcall AITHINK_Fn097_Spirit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -2336,11 +2399,6 @@ inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit_Inline(D2UnitStrc* pUnit)
         return pUnit->pMonsterData->pAiControl;
     }
     return 0;
-}
-
-inline short AI_GetParamValue(D2GameStrc* pGame, D2MonStatsTxt* pMonStatsTxt, int nParamId)
-{
-    return pMonStatsTxt->wAiParam[nParamId][pGame->nDifficulty];
 }
 
 __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
