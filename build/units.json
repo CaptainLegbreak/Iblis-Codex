@@ -99149,38 +99149,18 @@
      "length": 70
     },
     {
+     "va": "0x006C1FD0",
+     "length": 28
+    },
+    {
      "va": "0x006C1FF0",
      "length": 156
     },
     {
      "va": "0x006C2090",
      "length": 125,
-     "name": "?sub_006C2090_Pop@@YIHPAUD2Queue006C2090Strc@@PAXG@Z"
+     "name": "?sub_006C2090_Pop@@YIHPAUD2QSQueueStrc@@PAXG@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/D2QSQueue_006C1FD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C1FD0",
-     "length": 28
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
