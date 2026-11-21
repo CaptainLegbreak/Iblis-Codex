@@ -67947,9 +67947,21 @@
      "name": "?sub_6FCE4FD0@@YIXPAUD2UnitStrc@@PAX1@Z"
     },
     {
+     "va": "0x005E5870",
+     "length": 589
+    },
+    {
      "va": "0x005E5B70",
      "length": 211,
      "name": "sub_6FCE5520"
+    },
+    {
+     "va": "0x005E5C50",
+     "length": 965
+    },
+    {
+     "va": "0x005E6020",
+     "length": 359
     },
     {
      "va": "0x005E6190",
@@ -68953,38 +68965,6 @@
     {
      "va": "0x005E4AC0",
      "length": 551
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E5870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005E5870",
-     "length": 589
-    },
-    {
-     "va": "0x005E5C50",
-     "length": 965
-    },
-    {
-     "va": "0x005E6020",
-     "length": 359
     }
    ],
    "flags": [
