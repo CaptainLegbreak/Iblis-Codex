@@ -64650,7 +64650,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a1q3_005912E0.cpp",
+   "file": "Source/D2Game/Quests/a1q3.cpp",
    "rank": 0,
    "functions": [
     {
@@ -64669,9 +64669,23 @@
      "name": "?ACT1Q3_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x00591490",
+     "length": 516
+    },
+    {
+     "va": "0x005916A0",
+     "length": 226,
+     "name": "ACT1Q3_Callback00_NpcActivate"
+    },
+    {
      "va": "0x00591810",
      "length": 186,
      "name": "?ACT1Q3_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005918D0",
+     "length": 137,
+     "name": "?sub_005918D0_ResetMalus@@YA_NPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x00591960",
@@ -64699,6 +64713,25 @@
      "name": "?ACT1Q3_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
+     "va": "0x00591A90",
+     "length": 37,
+     "name": "?ACT1Q3_Callback06_MalusRemoved@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00591CA0",
+     "length": 47
+    },
+    {
+     "va": "0x00591CD0",
+     "length": 91,
+     "name": "?sub_00591CD0_HasHoradricMalus@@YAHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00591D30",
+     "length": 270,
+     "name": "?ACT1Q3_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
+    {
      "va": "0x00591E40",
      "length": 133,
      "name": "?ACT1Q3_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
@@ -64723,71 +64756,6 @@
      "va": "0x00591340",
      "length": 113,
      "name": "?sub_00591340_UpdateQuestFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q3_00591490.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00591490",
-     "length": 516
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q3.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005916A0",
-     "length": 226,
-     "name": "ACT1Q3_Callback00_NpcActivate"
-    },
-    {
-     "va": "0x005918D0",
-     "length": 137,
-     "name": "?sub_005918D0_ResetMalus@@YA_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00591A90",
-     "length": 37,
-     "name": "?ACT1Q3_Callback06_MalusRemoved@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x00591CA0",
-     "length": 47
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a1q3_00591CD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00591CD0",
-     "length": 91,
-     "name": "?sub_00591CD0_HasHoradricMalus@@YAHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00591D30",
-     "length": 270,
-     "name": "?ACT1Q3_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     }
    ]
   },
