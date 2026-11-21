@@ -1946,38 +1946,6 @@ int __fastcall ACT4Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
-// 0x005B4A80
-int __fastcall ACT4Q2_UnitIterate_WarpToTownEndGame(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    sub_6FC7BEC0(pGame, pUnit);
-    UNITS_GetPlayerData(pUnit)->bBusy = 1;
-
-    D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)QUESTS_GetQuestData(pGame, 23)->pQuestDataEx;
-    pQuestDataEx->unk0x20 = (int)pUnit;
-
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 26, 13))
-    {
-        LEVEL_WarpUnit(pGame, pUnit, 103, 0);
-
-        D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 440);
-        D2GSPacketSrv5D packet5D = {};
-        packet5D.nHeader = 0x5D;
-        packet5D.nQuestId = 23;
-        packet5D.nFlags = 1;
-        sub_6FC3F380(pClient, &packet5D);
-    }
-    else
-    {
-        D2GSPacketSrv50 packet50;
-        packet50.nHeader = 0x50;
-        *(unsigned short*)packet50.nQuestId = 23;
-        D2GAME_SendPacket0x50_6FC3F440(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 474), &packet50);
-    }
-
-    return 0;
-}
-
 // 0x005B4DF0
 int __fastcall ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
