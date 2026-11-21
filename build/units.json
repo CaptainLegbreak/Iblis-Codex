@@ -30170,57 +30170,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004AD5F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004AD5F0",
-     "length": 233,
-     "name": "?sub_004AD5F0_StateOverlayOrSpawn@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD6E0",
-     "length": 420,
-     "name": "?sub_004AD6E0_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004AD890",
-     "length": 73,
-     "name": "?sub_004AD890_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD8E0",
-     "length": 50,
-     "name": "?sub_004AD8E0_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD920",
-     "length": 73,
-     "name": "?sub_004AD920_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD970",
-     "length": 426,
-     "name": "?sub_004AD970_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ADCE0",
-     "length": 151,
-     "name": "?sub_004ADCE0_StateRequests@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADD80",
-     "length": 8,
-     "name": "?sub_004ADD80_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AE080",
-     "length": 29,
-     "name": "@sub_004AE080_MaskedPayloadWord@8"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004ADD90.cpp",
    "rank": 1,
    "functions": [
@@ -30458,9 +30407,85 @@
    ]
   },
   {
+   "file": "Source/D2Client/UI/npcmenu_004B34A0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004B34A0",
+     "length": 81,
+     "name": "?sub_004B34A0@@YAHXZ"
+    },
+    {
+     "va": "0x004B3510",
+     "length": 79,
+     "name": "?sub_004B3510@@YIXPAUD2NpcMonListPacketStrc@@@Z"
+    },
+    {
+     "va": "0x004B3C20",
+     "length": 228,
+     "name": "?sub_004B3C20@@YIXH@Z"
+    },
+    {
+     "va": "0x004B5C20",
+     "length": 64,
+     "name": "?sub_004B5C20_ClosePanel77@@YAHXZ"
+    },
+    {
+     "va": "0x004B6410",
+     "length": 35,
+     "name": "?sub_004B6410_InitHandler@@YAHXZ"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Client/UI/npcmenu_004B2E70.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004AD5F0",
+     "length": 233,
+     "name": "?sub_004AD5F0_StateOverlayOrSpawn@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD6E0",
+     "length": 420,
+     "name": "?sub_004AD6E0_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004AD890",
+     "length": 73,
+     "name": "?sub_004AD890_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD8E0",
+     "length": 50,
+     "name": "?sub_004AD8E0_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD920",
+     "length": 73,
+     "name": "?sub_004AD920_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD970",
+     "length": 426,
+     "name": "?sub_004AD970_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004ADCE0",
+     "length": 151,
+     "name": "?sub_004ADCE0_StateRequests@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADD80",
+     "length": 8,
+     "name": "?sub_004ADD80_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AE080",
+     "length": 29,
+     "name": "@sub_004AE080_MaskedPayloadWord@8"
+    },
     {
      "va": "0x004B2E70",
      "length": 140,
@@ -30590,37 +30615,6 @@
      "va": "0x004B52C0",
      "length": 89,
      "name": "?sub_004B52C0_NpcMenuAction01@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/npcmenu_004B34A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B34A0",
-     "length": 81,
-     "name": "?sub_004B34A0@@YAHXZ"
-    },
-    {
-     "va": "0x004B3510",
-     "length": 79,
-     "name": "?sub_004B3510@@YIXPAUD2NpcMonListPacketStrc@@@Z"
-    },
-    {
-     "va": "0x004B3C20",
-     "length": 228,
-     "name": "?sub_004B3C20@@YIXH@Z"
-    },
-    {
-     "va": "0x004B5C20",
-     "length": 64,
-     "name": "?sub_004B5C20_ClosePanel77@@YAHXZ"
-    },
-    {
-     "va": "0x004B6410",
-     "length": 35,
-     "name": "?sub_004B6410_InitHandler@@YAHXZ"
     }
    ]
   },
