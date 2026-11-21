@@ -4084,8 +4084,8 @@
    "state": "included"
   },
   "Source/D2Game/GAME/Game_0052C0A0.cpp": {
-   "bytes": 104,
-   "definitions": 2,
+   "bytes": 108,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl sub_0052BE30(); // 0x0052BE30",
     "extern \"C\" void __cdecl sub_0052BE40_Stub(); // 0x0052BE40",
@@ -4127,15 +4127,6 @@
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
-  },
-  "Source/D2Game/GAME/Game_0052C330.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/GAME/Game_0052C330.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Game/GAME/Game_0052D090.cpp": {
    "bytes": 80,
@@ -4574,9 +4565,15 @@
    "state": "included"
   },
   "Source/D2Game/OBJECTS/Objects_005500F0.cpp": {
-   "bytes": 20,
-   "definitions": 2,
-   "externs": [],
+   "bytes": 76,
+   "definitions": 3,
+   "externs": [
+    "extern \"C\" void __cdecl OBJECTS_SpawnArmorStand(); // 0x005523C0",
+    "extern \"C\" void __cdecl OBJECTS_SpawnBarrel(); // 0x00552000",
+    "extern \"C\" void __cdecl OBJECTS_SpawnRandomItemGrid(); // 0x00552140",
+    "extern \"C\" void __cdecl OBJECTS_SpawnWeaponRack(); // 0x005523E0",
+    "extern \"C\" void __cdecl sub_00551FF0_AlwaysOne(); // 0x00551FF0"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/OBJECTS/Objects_005500F0.inc",
    "lang": "cpp",
@@ -4597,21 +4594,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/OBJECTS/Objects_005506D0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/OBJECTS/Objects_00552560.cpp": {
-   "bytes": 56,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl OBJECTS_SpawnArmorStand(); // 0x005523C0",
-    "extern \"C\" void __cdecl OBJECTS_SpawnBarrel(); // 0x00552000",
-    "extern \"C\" void __cdecl OBJECTS_SpawnRandomItemGrid(); // 0x00552140",
-    "extern \"C\" void __cdecl OBJECTS_SpawnWeaponRack(); // 0x005523E0",
-    "extern \"C\" void __cdecl sub_00551FF0_AlwaysOne(); // 0x00551FF0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/OBJECTS/Objects_00552560.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -93643,7 +93625,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/GAME/Game_0052C330.cpp",
+   "file": "Source/D2Game/GAME/Game_0052C0A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbCheckHeartbeat_00730FFC = ",
@@ -99723,7 +99705,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/OBJECTS/Objects_00552560.cpp",
+   "file": "Source/D2Game/OBJECTS/Objects_005500F0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ObjectPopulateStrc gObjectThemeTable_00731E68[7] = ",

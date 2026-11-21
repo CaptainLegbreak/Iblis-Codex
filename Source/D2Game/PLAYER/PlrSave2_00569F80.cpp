@@ -3,19 +3,23 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameStrc.h"
+
 struct D2SkillStrc;
+
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
+
 #define STAT_HITPOINTS 6
+
 #define STAT_MANA 8
+
 struct D2PlayerDataStrc;
+
 struct D2CharStatsTxt;
+
 struct D2SaveHeaderStrc;
-
-
-
-
 
 struct D2SaveHeaderStrc
 {
@@ -29,39 +33,86 @@ struct D2SaveHeaderStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 extern const int dwErrorCodesRemap_006E1208[PLRSAVE2ERROR_COUNT]; // 0x006E1208
+
 int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient); // 0x005385F0
+
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+
 void __fastcall sub_00569F20_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient); // 0x00569F20
+
 void __fastcall sub_005385D0(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
+
 void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
+
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
+
 void __fastcall PLAYERSTATS_SetStatsForStartingAct(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char nAct); // 0x005706D0
+
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
+
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
+
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
+
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
+
 void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3); // 0x00546270
+
 int __fastcall PLRSAVE2_ReadSaveHeader(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char** ppSection, unsigned char* pEnd, D2UnitStrc** ppPlayer); // 0x0056A090
+
 int __fastcall sub_0056A370_ReadQuestSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion); // 0x0056A370
+
 int __fastcall PLRSAVE2_ReadWaypointData(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion); // 0x0056A3E0
+
 int __fastcall PLRSAVE2_ReadStats(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion, int nStats); // 0x0056A620
+
 int __fastcall PLRSAVE2_ReadSkills(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion, int nSkills); // 0x0056A710
+
 int __fastcall sub_0056A7E0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, int nVersion, int nUnused, int* pError); // 0x0056A7E0
+
 int __fastcall PLRSAVE2_ReadCorpses(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion, int* a6); // 0x0056A830
+
 int __fastcall PLRSAVE2_ReadPetSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pMerc, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion, int* a6); // 0x0056AC10
+
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3); // 0x005726C0
+
 int __fastcall PLRSAVE2_ReadIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion); // 0x0056AE50
+
 void __fastcall PLRSAVE2_InitializeStats(D2GameStrc* pGame, D2UnitStrc* pUnit, int nHitpoints, int nMana); // 0x0056AF80
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
+
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+
 void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x005378E0
+
 extern unsigned int gdwBitMasks[]; // 0x006CE268
+
 int __stdcall sub_00411170_SumByteTable(unsigned char* pData, int nSize); // 0x00411170
+
 int __fastcall PLRSAVE2_ReadStatsEx(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion); // 0x0056A4F0
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+
+void __fastcall CLIENTS_SetIronGolemItemGUID(D2ClientStrc* pClient, int nIronGolemItemGUID);                // 0x00538700
+
+int __fastcall PLRSAVE2_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc** ppItem, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion); // 0x0056ACE0
+
+void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill);                              // 0x00620210
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
+
+#define PLRSAVE2ERROR_BAD_IRONGOLEM 23
+
+#define SKILL_IRONGOLEM 90
 
 static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
@@ -248,5 +299,54 @@ int __fastcall PLRSAVE2_ReadStats(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned
     }
 
     *ppSection = &pData[4 * nCounter];
+    return 0;
+}
+
+// 0x0056AE50
+int __fastcall PLRSAVE2_ReadIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion)
+{
+    unsigned char* pSection = *ppSection;
+    if (!pGame->bExpansion)
+    {
+        return 0;
+    }
+
+    unsigned char* pData = pSection + 2;
+    if (pData > pEnd)
+    {
+        return 0;
+    }
+
+    if (*(unsigned short*)pSection != 'fk')
+    {
+        return PLRSAVE2ERROR_BAD_IRONGOLEM;
+    }
+
+    const unsigned char bHasGolem = *pData;
+    unsigned char* pSectionEnd = pData + 1;
+    unsigned char* pNext = pData + 1;
+    if (bHasGolem)
+    {
+        D2UnitStrc* pItem = 0;
+        D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, SKILL_IRONGOLEM);
+        if (!pSkill)
+        {
+            return PLRSAVE2ERROR_BAD_IRONGOLEM;
+        }
+
+        UNITS_SetUsedSkill(pPlayer, pSkill);
+
+        if (!PLRSAVE2_CreateItem(pGame, pPlayer, &pItem, &pSectionEnd, pEnd, dwVersion))
+        {
+            return PLRSAVE2ERROR_BAD_IRONGOLEM;
+        }
+
+        D2UnitStrc* pGolemItem = pItem;
+        UNITS_ChangeAnimMode(pGolemItem, IMODE_ONGROUND);
+        CLIENTS_SetIronGolemItemGUID(UnitGetClient(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 2185), !pGolemItem ? -1 : pGolemItem->dwUnitId);
+        pNext = pSectionEnd;
+    }
+
+    *ppSection = pNext;
     return 0;
 }

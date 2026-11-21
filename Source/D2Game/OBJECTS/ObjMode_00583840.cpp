@@ -3,16 +3,19 @@
 #include "D2Txt.h"
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
+
 #define NOINLINE __declspec(noinline)
 
 struct D2InventoryStrc;
+
 struct D2SkillStrc;
+
 struct D2StatListStrc;
 
 struct D2GameStrc;
 
-
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
+
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
 struct D2ShrineTableStrc
@@ -23,38 +26,70 @@ struct D2ShrineTableStrc
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
+
 extern const D2ShrineTableStrc sgcptShrineChart[];                                                    // 0x006E1850
+
 extern int gnShrineTableCount_00732EAC;                                                                     // 0x00732EAC
 
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker);                                                   // 0x00622560
+
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory);                             // 0x0063BEF0
+
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
+
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
+
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);         // 0x00625500
+
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
+
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);              // 0x006439B0
+
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2);                                            // 0x00623990
+
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory);                       // 0x0063D340
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
+
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit);                                            // 0x00625DB0
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
+
 int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
+
 D2StatListStrc* __fastcall sub_00582800_ApplyShrineCurse(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nDuration, int nStatValue, int nStat, int nState, StatListRemoveCallback pStateRemoveCallback); // 0x00582800
+
 void __fastcall sub_6FC77AB0(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);                    // 0x00583A40
 
 static void __stdcall OBJMODE_GetToHitPercentage(int*, int, D2UnitStrc*, D2SkillStrc*, D2UnitStrc*); // 0x00583740
+
+extern "C" void _ReadWriteBarrier();
+
+#pragma intrinsic(_ReadWriteBarrier)
+
+struct D2TimerArg2Strc { int dwUnitId; };
+
+struct D2TimerArgStrc { D2TimerArg2Strc* pArg; };
+
+D2TimerArgStrc* __fastcall UNITS_GetTimerArg(D2UnitStrc* pUnit); // 0x006234F0
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
 static __forceinline D2CharStatsTxt* sub_00583740_GetCharStatsRecord(int nClassId)
 {
     return (nClassId >= 0 && nClassId < sgptDataTables->nCharStatsTxtRecordCount) ? &sgptDataTables->pCharStatsTxt[nClassId] : 0;
 }
 
-// 0x00583740
 static NOINLINE void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2UnitStrc* pWeapon)
 {
     *pToHit = UNITS_GetAttackRate(pUnit);
@@ -144,7 +179,6 @@ static NOINLINE int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int 
     return nValue * nStatValue / 100;
 }
 
-// 0x005839B0
 void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
 {
     D2_ASSERT(pShrinesTxtRecord->bCode < gnShrineTableCount_00732EAC, 0x9C1);
@@ -155,7 +189,6 @@ void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2S
     sub_006270B0(pStatList, 0x13, nValue, 0);
 }
 
-// 0x00583A70
 void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
 {
     D2_ASSERT(pShrinesTxtRecord->bCode < gnShrineTableCount_00732EAC, 0x9E7);
@@ -177,4 +210,26 @@ void __fastcall D2GAME_SHRINES_DefensiveBoost_6FC77AE0(D2ObjOperateFnStrc* pOp, 
     const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->hPlayer) : 0;
 
     sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);
+}
+
+inline int __fastcall GetObjectClass(D2UnitStrc* pObject)
+{
+    if (!pObject) return -1;
+    int nClass = pObject->dwClassId;
+    _ReadWriteBarrier();
+    return nClass;
+}
+
+// 0x00585550
+void __fastcall sub_00585550_ResetObject(D2GameStrc* pGame, D2UnitStrc* pObject)
+{
+    if (GetObjectClass(pObject) == 337)
+    {
+        D2TimerArg2Strc* pArg = UNITS_GetTimerArg(pObject)->pArg;
+        if (pArg) pArg->dwUnitId = -1;
+    }
+    else
+    {
+        UNITS_ChangeAnimMode(pObject, 0);
+    }
 }
