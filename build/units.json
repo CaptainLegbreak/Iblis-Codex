@@ -63164,6 +63164,11 @@
      "name": "ACT5Intro_ActiveFilterCallback"
     },
     {
+     "va": "0x00586E70",
+     "length": 376,
+     "name": "ACT5Q1_Callback11_ScrollMessage"
+    },
+    {
      "va": "0x00586FF0",
      "length": 219,
      "name": "ACT5Q1_Callback00_NpcActivate"
@@ -63179,9 +63184,34 @@
      "name": "ACT5Q1_UnitIterate_SetRewardPending"
     },
     {
+     "va": "0x005871C0",
+     "length": 120,
+     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587240",
+     "length": 72,
+     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587290",
+     "length": 96,
+     "name": "?ACT5Q1_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x005872F0",
      "length": 54,
      "name": "?ACT5Q1_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587330",
+     "length": 168,
+     "name": "?ACT5Q1_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005873E0",
+     "length": 245,
+     "name": "?ACT5Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005874E0",
@@ -63189,9 +63219,54 @@
      "name": "ACT5Q1_ActiveFilterCallback"
     },
     {
+     "va": "0x00587560",
+     "length": 102,
+     "name": "?sub_00587560_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005875F0",
+     "length": 237,
+     "name": "?ACT5Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005876E0",
+     "length": 211,
+     "name": "?ACT5Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x005877C0",
+     "length": 100,
+     "name": "?ACT5Q1_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00587900",
+     "length": 73,
+     "name": "?ACT5Q1_OnSiegeBossActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x00587950",
      "length": 114,
      "name": "ACT5Q1_ChangeLarzukMapAI"
+    },
+    {
+     "va": "0x005879D0",
+     "length": 96,
+     "name": "?ACT5Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587A90",
+     "length": 109,
+     "name": "?ACT5Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587F60",
+     "length": 96,
+     "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x00587FC0",
+     "length": 68,
+     "name": "?sub_00587FC0_GetWussieGroupIndex@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00588340",
@@ -63204,6 +63279,16 @@
      "name": "OBJECTS_InitFunction62_CagedWussie"
     },
     {
+     "va": "0x00588C50",
+     "length": 67,
+     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x00588DD0",
+     "length": 64,
+     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
      "va": "0x00589070",
      "length": 56,
      "name": "ACT5Q3_SendPacket0x5DToClient"
@@ -63214,9 +63299,19 @@
      "name": "ACT5Q3_RemoveDrehyaIced"
     },
     {
+     "va": "0x00589160",
+     "length": 111,
+     "name": "?ACT5Q3_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
      "va": "0x00589F10",
      "length": 224,
      "name": "ACT5Q3_ActiveFilterCallback"
+    },
+    {
+     "va": "0x00589FF0",
+     "length": 165,
+     "name": "?ACT5Q3_UpdateResistances@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x0058A7D0",
@@ -63312,119 +63407,6 @@
      "va": "0x00586DE0",
      "length": 134,
      "name": "?ACT5Q1_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q1_00586E70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00586E70",
-     "length": 376,
-     "name": "ACT5Q1_Callback11_ScrollMessage"
-    },
-    {
-     "va": "0x005873E0",
-     "length": 245,
-     "name": "?ACT5Q1_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q1_005871C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005871C0",
-     "length": 120,
-     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587240",
-     "length": 72,
-     "name": "?ACT5Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587290",
-     "length": 96,
-     "name": "?ACT5Q1_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587330",
-     "length": 168,
-     "name": "?ACT5Q1_Callback08_MonsterKilled@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005875F0",
-     "length": 237,
-     "name": "?ACT5Q1_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005876E0",
-     "length": 211,
-     "name": "?ACT5Q1_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005877C0",
-     "length": 100,
-     "name": "?ACT5Q1_SetRewardGranted@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00587900",
-     "length": 73,
-     "name": "?ACT5Q1_OnSiegeBossActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005879D0",
-     "length": 96,
-     "name": "?ACT5Q2_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587A90",
-     "length": 109,
-     "name": "?ACT5Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587F60",
-     "length": 96,
-     "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x00587FC0",
-     "length": 68,
-     "name": "?sub_00587FC0_GetWussieGroupIndex@@YIHPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00588C50",
-     "length": 67,
-     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00588DD0",
-     "length": 64,
-     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
-    },
-    {
-     "va": "0x00589160",
-     "length": 111,
-     "name": "?ACT5Q3_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00589FF0",
-     "length": 165,
-     "name": "?ACT5Q3_UpdateResistances@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q1_00587560.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00587560",
-     "length": 102,
-     "name": "?sub_00587560_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
