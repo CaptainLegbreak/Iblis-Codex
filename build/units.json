@@ -21733,6 +21733,16 @@
      "name": "sub_004DA6B0_TestMotionFlags"
     },
     {
+     "va": "0x004DA720",
+     "length": 68,
+     "name": "?sub_004DA720_CopyCompCode@@YAXPATD2CompCodeStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004DA8E0",
+     "length": 59,
+     "name": "?sub_004DA8E0_SetMissileCelName@@YGXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
+    },
+    {
      "va": "0x004DA920",
      "length": 110,
      "name": "sub_004DA920_AddGfxUtilNode"
@@ -21758,9 +21768,19 @@
      "name": "sub_004DAB40_IsCelOnScreen"
     },
     {
+     "va": "0x004DABC0",
+     "length": 345,
+     "name": "?sub_004DABC0_SetItemCelName@@YAXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
+    },
+    {
      "va": "0x004DAD50",
      "length": 48,
      "name": "?sub_004DAD50_GetOverlayDirections@@YAHH@Z"
+    },
+    {
+     "va": "0x004DAD80",
+     "length": 221,
+     "name": "?sub_004DAD80_GetWeaponClassToken@@YAIPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004DAE60",
@@ -21786,6 +21806,10 @@
      "va": "0x004DB090",
      "length": 61,
      "name": "?sub_004DB090_GetCofLayerShadow@@YIHPAXH@Z"
+    },
+    {
+     "va": "0x004DB0D0",
+     "length": 61
     },
     {
      "va": "0x004DB110",
@@ -21818,9 +21842,55 @@
      "name": "?sub_004DB290_ConvertDirection@@YAXPAIHH@Z"
     },
     {
+     "va": "0x004DB2E0",
+     "length": 125
+    },
+    {
      "va": "0x004DB360",
      "length": 520,
      "name": "?sub_004DB360_GetCompTransparency@@YIHPAUD2UnitStrc@@HPAHH@Z"
+    },
+    {
+     "va": "0x004DB7B0",
+     "length": 924
+    },
+    {
+     "va": "0x004DBB50",
+     "length": 42,
+     "name": "?sub_004DBB50_GetItemCelContext@@YIHPAUD2CelContextStrc@@PAUD2UnitStrc@@HHHPAHEH@Z"
+    },
+    {
+     "va": "0x004DBB80",
+     "length": 367
+    },
+    {
+     "va": "0x004DBCF0",
+     "length": 52
+    },
+    {
+     "va": "0x004DBD30",
+     "length": 234,
+     "name": "?sub_004DBD30_GetComponentsMaxHeight@@YIHPAUD2UnitStrc@@PAE1PAHHH@Z"
+    },
+    {
+     "va": "0x004DBE20",
+     "length": 122,
+     "name": "?sub_004DBE20_GetOverlayFrameCount@@YIHPAUD2UnitStrc@@PAUD2OverlaySourceStrc@@@Z"
+    },
+    {
+     "va": "0x004DBEA0",
+     "length": 126,
+     "name": "?sub_004DBEA0_GetUnitCelSize@@YIXPAUD2UnitStrc@@HHPAH1@Z"
+    },
+    {
+     "va": "0x004DBF20",
+     "length": 186,
+     "name": "?sub_004DBF20_HitTestUnitCel@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004DC000",
+     "length": 158,
+     "name": "?sub_004DC000_DrawFadeBox@@YAXXZ"
     },
     {
      "va": "0x004DC110",
@@ -36490,47 +36560,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DA720.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DA720",
-     "length": 68,
-     "name": "?sub_004DA720_CopyCompCode@@YAXPATD2CompCodeStrc@@PBD@Z"
-    },
-    {
-     "va": "0x004DA8E0",
-     "length": 59,
-     "name": "?sub_004DA8E0_SetMissileCelName@@YGXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
-    },
-    {
-     "va": "0x004DABC0",
-     "length": 345,
-     "name": "?sub_004DABC0_SetItemCelName@@YAXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
-    },
-    {
-     "va": "0x004DAD80",
-     "length": 221,
-     "name": "?sub_004DAD80_GetWeaponClassToken@@YAIPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004DBB50",
-     "length": 42,
-     "name": "?sub_004DBB50_GetItemCelContext@@YIHPAUD2CelContextStrc@@PAUD2UnitStrc@@HHHPAHEH@Z"
-    },
-    {
-     "va": "0x004DBD30",
-     "length": 234,
-     "name": "?sub_004DBD30_GetComponentsMaxHeight@@YIHPAUD2UnitStrc@@PAE1PAHHH@Z"
-    },
-    {
-     "va": "0x004DBEA0",
-     "length": 126,
-     "name": "?sub_004DBEA0_GetUnitCelSize@@YIXPAUD2UnitStrc@@HHPAH1@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004DA770.cpp",
    "rank": 0,
    "functions": [
@@ -36538,127 +36567,6 @@
      "va": "0x004DA770",
      "length": 32,
      "name": "?sub_004DA770_GetMonComponentIndex@@YIEPAUD2UnitStrc@@E@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DB0D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DB0D0",
-     "length": 61
-    },
-    {
-     "va": "0x004DB2E0",
-     "length": 125
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DB7B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DB7B0",
-     "length": 924
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DBB80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DBB80",
-     "length": 367
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DBCF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DBCF0",
-     "length": 52
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DBE20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DBE20",
-     "length": 122,
-     "name": "?sub_004DBE20_GetOverlayFrameCount@@YIHPAUD2UnitStrc@@PAUD2OverlaySourceStrc@@@Z"
-    },
-    {
-     "va": "0x004DBF20",
-     "length": 186,
-     "name": "?sub_004DBF20_HitTestUnitCel@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004DC000",
-     "length": 158,
-     "name": "?sub_004DC000_DrawFadeBox@@YAXXZ"
     }
    ]
   },
