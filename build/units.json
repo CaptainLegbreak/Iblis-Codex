@@ -78975,9 +78975,19 @@
      "name": "sub_0060EF30_ChangeLinkOffset"
     },
     {
+     "va": "0x0060F020",
+     "length": 34,
+     "name": "?sub_0060F020_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
+    },
+    {
      "va": "0x0060F070",
      "length": 39,
      "name": "?0D2CommonStormListFStrc"
+    },
+    {
+     "va": "0x0060F360",
+     "length": 34,
+     "name": "?sub_0060F360_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
     },
     {
      "va": "0x0060F6D0",
@@ -79160,17 +79170,6 @@
    ]
   },
   {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F020.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060F020",
-     "length": 34,
-     "name": "?sub_0060F020_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Common/Chat/Ignorelist_0060F050.cpp",
    "rank": 0,
    "functions": [
@@ -79261,17 +79260,6 @@
      "va": "0x0060F250",
      "length": 32,
      "name": "??0D2ChatStormListEStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060F360.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060F360",
-     "length": 34,
-     "name": "?sub_0060F360_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
     }
    ]
   },
@@ -79947,6 +79935,11 @@
      "name": "DUNGEON_ToggleRoomTilesEnableFlag"
     },
     {
+     "va": "0x006195A0",
+     "length": 113,
+     "name": "DUNGEON_GetWarpTileFromRoomAndSourceLevelId"
+    },
+    {
      "va": "0x00619620",
      "length": 56,
      "name": "DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit"
@@ -79997,6 +79990,35 @@
      "name": "?DUNGEON_AllocRoom@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgActStrc@@PAUD2DrlgRoomStrc@@PAUD2DrlgCoordsStrc@@PAUD2DrlgRoomTilesStrc@@HI@Z"
     },
     {
+     "va": "0x00619970",
+     "length": 122,
+     "name": "DUNGEON_DoRoomsTouchOrOverlap"
+    },
+    {
+     "va": "0x006199F0",
+     "length": 96,
+     "name": "DUNGEON_AreTileCoordinatesInsideRoom"
+    },
+    {
+     "va": "0x00619A50",
+     "length": 177
+    },
+    {
+     "va": "0x00619B60",
+     "length": 111,
+     "name": "DUNGEON_GetAdjacentRoomByTileCoordinates"
+    },
+    {
+     "va": "0x00619BD0",
+     "length": 109,
+     "name": "DUNGEON_CallRoomCallback"
+    },
+    {
+     "va": "0x00619C40",
+     "length": 186,
+     "name": "D2Common_10052"
+    },
+    {
      "va": "0x00619D70",
      "length": 33,
      "name": "DUNGEON_GetRGB_IntensityFromRoom"
@@ -80007,9 +80029,19 @@
      "name": "?sub_00619DA0_ActLookup@@YGPAUD2ActRoom00619DA0Strc@@PAUD2Act00619DA0Strc@@HH@Z"
     },
     {
+     "va": "0x00619DF0",
+     "length": 89,
+     "name": "DUNGEON_AreSubtileCoordinatesInsideRoom"
+    },
+    {
      "va": "0x00619E50",
      "length": 68,
      "name": "DUNGEON_FindActSpawnLocation"
+    },
+    {
+     "va": "0x00619EA0",
+     "length": 56,
+     "name": "DUNGEON_GetFirstUnitInRoom"
     },
     {
      "va": "0x00619EE0",
@@ -80121,6 +80153,11 @@
      "length": 25
     },
     {
+     "va": "0x0061A460",
+     "length": 99,
+     "name": "D2Common_10073"
+    },
+    {
      "va": "0x0061A4D0",
      "length": 51,
      "name": "D2Common_10074"
@@ -80149,6 +80186,31 @@
      "va": "0x0061A700",
      "length": 139,
      "name": "?DUNGEON_RemoveClientFromRoom@@YGXPAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x0061A790",
+     "length": 72,
+     "name": "D2Common_10081_GetTileCountFromRoom"
+    },
+    {
+     "va": "0x0061A7E0",
+     "length": 87,
+     "name": "sub_0061A7E0_HasEntryMissingFrom"
+    },
+    {
+     "va": "0x0061A840",
+     "length": 158,
+     "name": "?DUNGEON_FreeRoom@@YIXPAXPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061A8E0",
+     "length": 43,
+     "name": "?sub_0061A8E0_ClearRoomField08@@YIXPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061A910",
+     "length": 220,
+     "name": "DUNGEON_RemoveRoomFromAct"
     },
     {
      "va": "0x0061A9F0",
@@ -80206,6 +80268,11 @@
      "name": "D2Common_10084"
     },
     {
+     "va": "0x0061AB70",
+     "length": 55,
+     "name": "?DUNGEON_GetTownLevelIdFromActNo@@YGHE@Z"
+    },
+    {
      "va": "0x0061ABB0",
      "length": 53,
      "name": "D2Common_10087"
@@ -80251,9 +80318,24 @@
      "name": "DUNGEON_GetRoomCoordList"
     },
     {
+     "va": "0x0061AD70",
+     "length": 190,
+     "name": "DUNGEON_GetPortalLevelArrayFromPortalFlags"
+    },
+    {
+     "va": "0x0061AE30",
+     "length": 69,
+     "name": "DUNGEON_GetPortalFlagFromLevelId"
+    },
+    {
      "va": "0x0061AE80",
      "length": 48,
      "name": "DUNGEON_GetTownLevelIdFromAct"
+    },
+    {
+     "va": "0x0061AEB0",
+     "length": 28,
+     "name": "?DUNGEON_GetHoradricStaffTombLevelId@@YGHPAUD2DrlgActStrc@@@Z"
     },
     {
      "va": "0x0061AED0",
@@ -80279,6 +80361,26 @@
      "va": "0x0061AFA0",
      "length": 37,
      "name": "_sub_0061AFA0@8"
+    },
+    {
+     "va": "0x0061AFD0",
+     "length": 130,
+     "name": "DUNGEON_FreeAct"
+    },
+    {
+     "va": "0x0061B060",
+     "length": 196,
+     "name": "DUNGEON_FindActSpawnLocationEx"
+    },
+    {
+     "va": "0x0061B130",
+     "length": 49,
+     "name": "D2Common_10095"
+    },
+    {
+     "va": "0x0061B390",
+     "length": 245,
+     "name": "sub_0061B390_WalkLevels"
     },
     {
      "va": "0x00627B70",
@@ -80323,184 +80425,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/DUNGEON/Dungeon_006195A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006195A0",
-     "length": 113,
-     "name": "DUNGEON_GetWarpTileFromRoomAndSourceLevelId"
-    },
-    {
-     "va": "0x00619970",
-     "length": 122,
-     "name": "DUNGEON_DoRoomsTouchOrOverlap"
-    },
-    {
-     "va": "0x006199F0",
-     "length": 96,
-     "name": "DUNGEON_AreTileCoordinatesInsideRoom"
-    },
-    {
-     "va": "0x00619A50",
-     "length": 177
-    },
-    {
-     "va": "0x00619B60",
-     "length": 111,
-     "name": "DUNGEON_GetAdjacentRoomByTileCoordinates"
-    },
-    {
-     "va": "0x00619BD0",
-     "length": 109,
-     "name": "DUNGEON_CallRoomCallback"
-    },
-    {
-     "va": "0x00619C40",
-     "length": 186,
-     "name": "D2Common_10052"
-    },
-    {
-     "va": "0x00619DF0",
-     "length": 89,
-     "name": "DUNGEON_AreSubtileCoordinatesInsideRoom"
-    },
-    {
-     "va": "0x00619EA0",
-     "length": 56,
-     "name": "DUNGEON_GetFirstUnitInRoom"
-    },
-    {
-     "va": "0x0061A7E0",
-     "length": 87,
-     "name": "sub_0061A7E0_HasEntryMissingFrom"
-    },
-    {
-     "va": "0x0061A8E0",
-     "length": 43,
-     "name": "?sub_0061A8E0_ClearRoomField08@@YIXPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061A910",
-     "length": 220,
-     "name": "DUNGEON_RemoveRoomFromAct"
-    },
-    {
-     "va": "0x0061AD70",
-     "length": 190,
-     "name": "DUNGEON_GetPortalLevelArrayFromPortalFlags"
-    },
-    {
-     "va": "0x0061AFD0",
-     "length": 130,
-     "name": "DUNGEON_FreeAct"
-    },
-    {
-     "va": "0x0061B060",
-     "length": 196,
-     "name": "DUNGEON_FindActSpawnLocationEx"
-    },
-    {
-     "va": "0x0061B130",
-     "length": 49,
-     "name": "D2Common_10095"
-    },
-    {
-     "va": "0x0061B390",
-     "length": 245,
-     "name": "sub_0061B390_WalkLevels"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DUNGEON/Dungeon_0061A460.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061A460",
-     "length": 99,
-     "name": "D2Common_10073"
-    },
-    {
-     "va": "0x0061A790",
-     "length": 72,
-     "name": "D2Common_10081_GetTileCountFromRoom"
-    },
-    {
-     "va": "0x0061AE30",
-     "length": 69,
-     "name": "DUNGEON_GetPortalFlagFromLevelId"
-    },
-    {
-     "va": "0x0061C0B0",
-     "length": 45,
-     "name": "ENVIRONMENT_GetLightColorFromAct"
-    },
-    {
-     "va": "0x0061C0E0",
-     "length": 26,
-     "name": "ENVIRONMENT_GetIntensityFromAct"
-    },
-    {
-     "va": "0x0061C160",
-     "length": 26,
-     "name": "ENVIRONMENT_GetUnusedMember"
-    },
-    {
-     "va": "0x0061C220",
-     "length": 17,
-     "name": "ENVIRONMENT_GetCycleIndexFromAct"
-    },
-    {
-     "va": "0x0061C330",
-     "length": 38,
-     "name": "ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct"
-    },
-    {
-     "va": "0x0061C360",
-     "length": 48,
-     "name": "ENVIRONMENT_GetStatistics"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DUNGEON/Dungeon_0061A840.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061A840",
-     "length": 158,
-     "name": "?DUNGEON_FreeRoom@@YIXPAXPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061AB70",
-     "length": 55,
-     "name": "?DUNGEON_GetTownLevelIdFromActNo@@YGHE@Z"
-    },
-    {
-     "va": "0x0061AEB0",
-     "length": 28,
-     "name": "?DUNGEON_GetHoradricStaffTombLevelId@@YGHPAUD2DrlgActStrc@@@Z"
-    },
-    {
-     "va": "0x0061B730",
-     "length": 120,
-     "name": "?DRLGACTIVATE_InitializeRoomEx@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061BA30",
-     "length": 138,
-     "name": "?DRLGACTIVATE_TestRoomCanUnTile@@YIHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061BEC0",
-     "length": 18,
-     "name": "?ENVIRONMENT_FreeDrlgEnvironment@@YIXPAXPAUD2DrlgEnvironmentStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B170.cpp",
+   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
    "rank": 0,
    "functions": [
     {
@@ -80513,67 +80438,6 @@
      "length": 62,
      "name": "?DRLGACTIVATE_RoomEx_EnsureHasRoom@@YAHPAXPAUD2DrlgRoomStrc@@@Z"
     },
-    {
-     "va": "0x0061B360",
-     "length": 43,
-     "name": "?sub_0061B360_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x0061B5A0",
-     "length": 12,
-     "name": "?sub_0061B5A0_CallUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
-    },
-    {
-     "va": "0x0061B610",
-     "length": 45,
-     "name": "?sub_0061B610_RoomUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
-    },
-    {
-     "va": "0x0061B7E0",
-     "length": 42,
-     "name": "?sub_0061B7E0_InitEntries@@YIXPAUD2Owner0061B7E0Strc@@@Z"
-    },
-    {
-     "va": "0x0061B810",
-     "length": 34,
-     "name": "?DRLGACTIVATE_RoomExStatusList_GetFirst@@YAPAUD2DrlgRoomStrc@@PAUD2DrlgStrc@@E@Z"
-    },
-    {
-     "va": "0x0061B8B0",
-     "length": 53,
-     "name": "?sub_0061B8B0_UpdateRoomStats@@YAXPAUD2DrlgStrc@@@Z"
-    },
-    {
-     "va": "0x0061B8F0",
-     "length": 43,
-     "name": "DRLGACTIVATE_GetRoomsAllocationStats"
-    },
-    {
-     "va": "0x0061B920",
-     "length": 232,
-     "name": "?DRLGACTIVATE_Update@@YGXPAUD2DrlgStrc@@@Z"
-    },
-    {
-     "va": "0x0061BA10",
-     "length": 23,
-     "name": "?sub_0061BA10_CanUntileLevel@@YAHH@Z"
-    },
-    {
-     "va": "0x0061BB50",
-     "length": 14,
-     "name": "?sub_0061BB50_SetFieldFromTable@@YAXPAUD2DrlgTableRefStrc@@@Z"
-    },
-    {
-     "va": "0x0061BB60",
-     "length": 25,
-     "name": "?sub_0061BB60_SetColorForId@@YGXPAUD2ColorRecordStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B1D0.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0061B1D0",
      "length": 53,
@@ -80610,6 +80474,16 @@
      "name": "?DRLGACTIVATE_RoomExSetStatus_Untile@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0061B360",
+     "length": 43,
+     "name": "?sub_0061B360_SetStatusIfUnreferenced@@YAXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0061B490",
+     "length": 84,
+     "name": "?DRLGACTIVATE_RoomSetAndPropagateStatus@@YAXEPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
      "va": "0x0061B4F0",
      "length": 61,
      "name": "?sub_0061B4F0@@YAXPAUD2DrlgRoomStrc@@@Z"
@@ -80635,14 +80509,94 @@
      "name": "?DRLGACTIVATE_RoomExStatusUnset_Untile@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0061B5A0",
+     "length": 12,
+     "name": "?sub_0061B5A0_CallUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
+    },
+    {
+     "va": "0x0061B5B0",
+     "length": 85,
+     "name": "DRLGACTIVATE_RoomExPropagateUnsetStatus"
+    },
+    {
+     "va": "0x0061B610",
+     "length": 45,
+     "name": "?sub_0061B610_RoomUnsetStatus@@YAXPAUD2DrlgRoomStrc@@E@Z"
+    },
+    {
+     "va": "0x0061B640",
+     "length": 74,
+     "name": "?DRLGACTIVATE_SetClientIsInSight@@YIXPAUD2DrlgStrc@@HHHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061B690",
+     "length": 95,
+     "name": "DRLGACTIVATE_UnsetClientIsInSight"
+    },
+    {
+     "va": "0x0061B6F0",
+     "length": 64,
+     "name": "?DRLGACTIVATE_ChangeClientRoom@@YIXPAUD2DrlgRoomStrc@@0@Z"
+    },
+    {
+     "va": "0x0061B730",
+     "length": 120,
+     "name": "?DRLGACTIVATE_InitializeRoomEx@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061B7B0",
+     "length": 41,
+     "name": "DRLGACTIVATE_StreamRoomAtCoords"
+    },
+    {
+     "va": "0x0061B7E0",
+     "length": 42,
+     "name": "?sub_0061B7E0_InitEntries@@YIXPAUD2Owner0061B7E0Strc@@@Z"
+    },
+    {
+     "va": "0x0061B810",
+     "length": 34,
+     "name": "?DRLGACTIVATE_RoomExStatusList_GetFirst@@YAPAUD2DrlgRoomStrc@@PAUD2DrlgStrc@@E@Z"
+    },
+    {
      "va": "0x0061B840",
      "length": 47,
      "name": "?DRLGACTIVATE_GetARoomInClientSight@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgStrc@@@Z"
     },
     {
+     "va": "0x0061B8B0",
+     "length": 53,
+     "name": "?sub_0061B8B0_UpdateRoomStats@@YAXPAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x0061B8F0",
+     "length": 43,
+     "name": "DRLGACTIVATE_GetRoomsAllocationStats"
+    },
+    {
+     "va": "0x0061B920",
+     "length": 232,
+     "name": "?DRLGACTIVATE_Update@@YGXPAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x0061BA10",
+     "length": 23,
+     "name": "?sub_0061BA10_CanUntileLevel@@YAHH@Z"
+    },
+    {
+     "va": "0x0061BA30",
+     "length": 138,
+     "name": "?DRLGACTIVATE_TestRoomCanUnTile@@YIHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
      "va": "0x0061BAC0",
      "length": 20,
      "name": "?DRLGACTIVATE_ToggleHasPortalFlag@@YIXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0061BAE0",
+     "length": 4,
+     "name": "?DRLGACTIVATE_GetRoomStatusFlags@@YIEPAUD2DrlgRoomStrc@@@Z"
     },
     {
      "va": "0x0061BAF0",
@@ -80653,6 +80607,16 @@
      "va": "0x0061BB10",
      "length": 59,
      "name": "?DRLGACTIVATE_RoomExSetStatus_ClientOutOfSight@@YIXPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061BB50",
+     "length": 14,
+     "name": "?sub_0061BB50_SetFieldFromTable@@YAXPAUD2DrlgTableRefStrc@@@Z"
+    },
+    {
+     "va": "0x0061BB60",
+     "length": 25,
+     "name": "?sub_0061BB60_SetColorForId@@YGXPAUD2ColorRecordStrc@@H@Z"
     }
    ]
   },
@@ -80664,53 +80628,6 @@
      "va": "0x0061B210",
      "length": 121,
      "name": "?DRLGACTIVATE_ForceRoomExStatusImpl@@YAXPAUD2DrlgRoomStrc@@E@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B490.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061B490",
-     "length": 84,
-     "name": "?DRLGACTIVATE_RoomSetAndPropagateStatus@@YAXEPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061B5B0",
-     "length": 85,
-     "name": "DRLGACTIVATE_RoomExPropagateUnsetStatus"
-    },
-    {
-     "va": "0x0061B690",
-     "length": 95,
-     "name": "DRLGACTIVATE_UnsetClientIsInSight"
-    },
-    {
-     "va": "0x0061B7B0",
-     "length": 41,
-     "name": "DRLGACTIVATE_StreamRoomAtCoords"
-    },
-    {
-     "va": "0x0061BAE0",
-     "length": 4,
-     "name": "?DRLGACTIVATE_GetRoomStatusFlags@@YIEPAUD2DrlgRoomStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B640.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061B640",
-     "length": 74,
-     "name": "?DRLGACTIVATE_SetClientIsInSight@@YIXPAUD2DrlgStrc@@HHHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061B6F0",
-     "length": 64,
-     "name": "?DRLGACTIVATE_ChangeClientRoom@@YIXPAUD2DrlgRoomStrc@@0@Z"
     }
    ]
   },
@@ -80740,67 +80657,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/ENVIRONMENT/Env.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061BCE0",
-     "length": 263,
-     "name": "?ENVIRONMENT_UpdateLightColor@@YGXHPAUD2DrlgEnvironmentStrc@@@Z"
-    },
-    {
-     "va": "0x0061BDF0",
-     "length": 65,
-     "name": "?sub_0061BDF0_SetCycleState@@YAXPAUD2DrlgEnvironmentStrc@@@Z"
-    },
-    {
-     "va": "0x0061BE40",
-     "length": 125,
-     "name": "?ENVIRONMENT_AllocDrlgEnvironment@@YIPAUD2DrlgEnvironmentStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0061BEE0",
-     "length": 220,
-     "name": "?ENVIRONMENT_UpdateTicks@@YAXPAUD2DrlgEnvironmentStrc@@H@Z"
-    },
-    {
-     "va": "0x0061BFC0",
-     "length": 121,
-     "name": "?ENVIRONMENT_UpdatePeriodOfDay@@YGHPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061C040",
-     "length": 106,
-     "name": "?ENVIRONMENT_UpdateCycleIndex@@YGHPAUD2DrlgActStrc@@H@Z"
-    },
-    {
-     "va": "0x0061C100",
-     "length": 81,
-     "name": "ENVIRONMENT_GetPeriodOfDayFromAct"
-    },
-    {
-     "va": "0x0061C180",
-     "length": 146,
-     "name": "?ENVIRONMENT_NextEnvCycle@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061C240",
-     "length": 229,
-     "name": "?ENVIRONMENT_InitializeEnvironment@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@HHH@Z"
-    },
-    {
-     "va": "0x0061C450",
-     "length": 113,
-     "name": "?ENVIRONMENT_TaintedSunBegin@@YGXPAUD2DrlgActStrc@@@Z"
-    },
-    {
-     "va": "0x0061C4D0",
-     "length": 92,
-     "name": "?ENVIRONMENT_TaintedSunEnd@@YGXPAUD2DrlgActStrc@@@Z"
-    }
    ]
   },
   {
@@ -81026,6 +80882,102 @@
      "va": "0x00673FF0",
      "length": 65,
      "name": "?sub_00673FF0_GetVisFlagToLevel@@YIHPAUD2DrlgLevelStrc@@0@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/ENVIRONMENT/Env.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0061BCE0",
+     "length": 263,
+     "name": "?ENVIRONMENT_UpdateLightColor@@YGXHPAUD2DrlgEnvironmentStrc@@@Z"
+    },
+    {
+     "va": "0x0061BDF0",
+     "length": 65,
+     "name": "?sub_0061BDF0_SetCycleState@@YAXPAUD2DrlgEnvironmentStrc@@@Z"
+    },
+    {
+     "va": "0x0061BE40",
+     "length": 125,
+     "name": "?ENVIRONMENT_AllocDrlgEnvironment@@YIPAUD2DrlgEnvironmentStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0061BEC0",
+     "length": 18,
+     "name": "?ENVIRONMENT_FreeDrlgEnvironment@@YIXPAXPAUD2DrlgEnvironmentStrc@@@Z"
+    },
+    {
+     "va": "0x0061BEE0",
+     "length": 220,
+     "name": "?ENVIRONMENT_UpdateTicks@@YAXPAUD2DrlgEnvironmentStrc@@H@Z"
+    },
+    {
+     "va": "0x0061BFC0",
+     "length": 121,
+     "name": "?ENVIRONMENT_UpdatePeriodOfDay@@YGHPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061C040",
+     "length": 106,
+     "name": "?ENVIRONMENT_UpdateCycleIndex@@YGHPAUD2DrlgActStrc@@H@Z"
+    },
+    {
+     "va": "0x0061C0B0",
+     "length": 45,
+     "name": "ENVIRONMENT_GetLightColorFromAct"
+    },
+    {
+     "va": "0x0061C0E0",
+     "length": 26,
+     "name": "ENVIRONMENT_GetIntensityFromAct"
+    },
+    {
+     "va": "0x0061C100",
+     "length": 81,
+     "name": "ENVIRONMENT_GetPeriodOfDayFromAct"
+    },
+    {
+     "va": "0x0061C160",
+     "length": 26,
+     "name": "ENVIRONMENT_GetUnusedMember"
+    },
+    {
+     "va": "0x0061C180",
+     "length": 146,
+     "name": "?ENVIRONMENT_NextEnvCycle@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0061C220",
+     "length": 17,
+     "name": "ENVIRONMENT_GetCycleIndexFromAct"
+    },
+    {
+     "va": "0x0061C240",
+     "length": 229,
+     "name": "?ENVIRONMENT_InitializeEnvironment@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@HHH@Z"
+    },
+    {
+     "va": "0x0061C330",
+     "length": 38,
+     "name": "ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct"
+    },
+    {
+     "va": "0x0061C360",
+     "length": 48,
+     "name": "ENVIRONMENT_GetStatistics"
+    },
+    {
+     "va": "0x0061C450",
+     "length": 113,
+     "name": "?ENVIRONMENT_TaintedSunBegin@@YGXPAUD2DrlgActStrc@@@Z"
+    },
+    {
+     "va": "0x0061C4D0",
+     "length": 92,
+     "name": "?ENVIRONMENT_TaintedSunEnd@@YGXPAUD2DrlgActStrc@@@Z"
     }
    ]
   },
@@ -82108,9 +82060,19 @@
      "name": "?STATLIST_GetMaxDamageFromUnit@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x00625EF0",
+     "length": 132,
+     "name": "?sub_00625EF0_MinDamage@@YGHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x00625F80",
      "length": 77,
      "name": "?STATLIST_GetMaxThrowDamageFromUnit@@YGHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00625FD0",
+     "length": 77,
+     "name": "?sub_00625FD0_MinDamage@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00626020",
@@ -82462,28 +82424,6 @@
      "va": "0x006279A0",
      "length": 148,
      "name": "D2Common_10574"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00625EF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00625EF0",
-     "length": 132,
-     "name": "?sub_00625EF0_MinDamage@@YGHPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Stats/StatsEx_00625FD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00625FD0",
-     "length": 77,
-     "name": "?sub_00625FD0_MinDamage@@YGHPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -88116,6 +88056,10 @@
      "name": "?sub_00654080@@YIPAUD2TCExInfoStrc@@PAUD2TCExShortStrc@@@Z"
     },
     {
+     "va": "0x00655720",
+     "length": 2958
+    },
+    {
      "va": "0x00656390",
      "length": 162,
      "name": "DATATBLS_GetNextHirelingTxtRecordFromNameId"
@@ -88354,16 +88298,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_00655720.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00655720",
-     "length": 2958
-    }
    ]
   },
   {
@@ -90824,6 +90758,11 @@
      "length": 309
     },
     {
+     "va": "0x0066D960",
+     "length": 120,
+     "name": "?sub_0066D960_FindTilePresetEntry@@YGHHIH@Z"
+    },
+    {
      "va": "0x0066DC10",
      "length": 60,
      "name": "sub_0066DC10"
@@ -90912,17 +90851,6 @@
      "va": "0x0066F1A0",
      "length": 160,
      "name": "DRLGROOMTILE_FreeRoom"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066D960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066D960",
-     "length": 120,
-     "name": "?sub_0066D960_FindTilePresetEntry@@YGHHIH@Z"
     }
    ]
   },

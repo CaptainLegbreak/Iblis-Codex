@@ -125,6 +125,20 @@ void __stdcall D2Common_ExpireStatList_6FDB6E30(D2StatListStrc* pStatList);     
 
 #define MOVED_PREFIX
 
+#define MOVE_ID(x) (x)
+
+#define STATLIST_EXTENDED 0x80000000
+
+#define ISC_FLAG_FMIN 10
+
+#define STAT_SHIFT 16
+
+#define STAT_MAKE(nStatId, nLayer) (((nStatId) << STAT_SHIFT) + (nLayer))
+
+#define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
+
+#define UNITS_IsType(pUnit, nType) ((pUnit) && (pUnit)->dwUnitType == (nType))
+
 static __forceinline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
@@ -956,6 +970,51 @@ int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pUnit, int b2Handed)
     return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(22, 0), pItemStatCostTxtRecord);
 }
 
+// 0x00625EF0
+int __stdcall sub_00625EF0_MinDamage(D2UnitStrc* pUnit, int b2Handed)
+{
+    if (b2Handed)
+    {
+        if (!pUnit)
+        {
+            return 0;
+        }
+
+        D2StatListStrc* pStatList = pUnit->pStatListEx;
+        D2ItemStatCostTxt* pItemStatCostTxtRecord = 0;
+        if (pStatList)
+        {
+            pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(MOVE_ID(23));
+        }
+
+        if (!pItemStatCostTxtRecord)
+        {
+            return 0;
+        }
+
+        return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(23), 0), pItemStatCostTxtRecord);
+    }
+
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = 0;
+    if (pStatList)
+    {
+        pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(MOVE_ID(21));
+    }
+
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(21), 0), pItemStatCostTxtRecord);
+}
+
 // 0x00625F80
 int __stdcall STATLIST_GetMaxThrowDamageFromUnit(D2UnitStrc* pUnit)
 {
@@ -977,6 +1036,29 @@ int __stdcall STATLIST_GetMaxThrowDamageFromUnit(D2UnitStrc* pUnit)
     }
 
     return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(160, 0), pItemStatCostTxtRecord);
+}
+
+// 0x00625FD0
+int __stdcall sub_00625FD0_MinDamage(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2StatListStrc* pStatList = pUnit->pStatListEx;
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = 0;
+    if (pStatList)
+    {
+        pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(MOVE_ID(159));
+    }
+
+    if (!pItemStatCostTxtRecord)
+    {
+        return 0;
+    }
+
+    return sub_00624F60_GetTotalStat(pStatList, STAT_MAKE(MOVE_ID(159), 0), pItemStatCostTxtRecord);
 }
 
 // 0x00626020

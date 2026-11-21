@@ -1,7 +1,12 @@
 #include "D2Common.h"
+#include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 
 struct D2DrlgActStrc;
+
 struct D2DrlgEnvironmentStrc;
+
 struct D2EnvironmentCycleStrc;
 
 struct D2DrlgEnvironmentStrc
@@ -36,19 +41,89 @@ struct D2EnvironmentCycleStrc
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
+
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
 D2DrlgEnvironmentStrc* __fastcall DUNGEON_GetEnvironmentFromAct(D2DrlgActStrc* pAct); // 0x0061AA60
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
 extern D2EnvironmentCycleStrc gNormalEnvironmentCycle[]; // 0x007443F0
+
 extern D2EnvironmentCycleStrc gAct4EnvironmentCycle[]; // 0x00744438
+
 extern D2EnvironmentCycleStrc gEclipseEnvironmentCycle[]; // 0x00744480
+
 static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct); // 0x0061BB80
+
+#define DRLGROOMFLAG_HAS_ROOM 0x100000
+
+#define DRLGROOMFLAG_HASPORTAL 0x400000
+
+#define DRLGROOMFLAG_TILELIB_LOADED 0x1000000
+
+#define DRLGROOMFLAG_PRESET_UNITS_ADDED 0x2000000
+
+#define DRLGTYPE_PRESET 2
+
+struct D2DrlgStrc;
+
+enum D2C_J07DungeonConstants
+{
+    UNITFLAGINDEX_ISCLIENTUNIT = 22,
+    UNITFLAG_J07_PATHUPDATE = 0x800000,
+    UNITFLAGEX_J07_REMOVED = 0x20,
+};
+
+void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit); // 0x0064C450
+
+void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc* pRoom); // 0x0064CA10
+
+void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
+
+extern const int gnTownLevelIds_006E7D1C[5]; // 0x006E7D1C
+
+int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
+
+int __fastcall DRLG_GetHoradricStaffTombLevelId(D2DrlgStrc* pDrlg); // 0x00642230
+
+void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x0066F240
+
+void __fastcall DRLGROOM_InitNearRooms(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom); // 0x0066C370
+
+void __fastcall DRLGROOMTILE_InitRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x0066EE40
+
+void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom); // 0x006422A0
+
+D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom); // 0x0066C0B0
+
+int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
+
+int __fastcall DRLG_IsTownLevel(int nLevelId); // 0x006426A0
+
+int __fastcall sub_0066BCF0(D2DrlgRoomStrc* pDrlgRoom);                                        // 0x0066BCF0
+
+int gStatsClientAllocatedRooms;                                                                             // 0x0096C8B8
+
+int gStatsClientFreedRooms;                                                                                 // 0x0096C8BC
+
+int gStatsFreedRooms;                                                                                       // 0x0096C8C0
+
+int gStatsAllocatedRooms;                                                                                   // 0x0096C8C4
+
+#define ROOMFLAG_1 0x00000001
 
 static void __stdcall sub_0061BB60_SetColorForId(D2DrlgEnvironmentStrc* pRecord, int nId)
 {
@@ -206,6 +281,17 @@ D2DrlgEnvironmentStrc* __fastcall ENVIRONMENT_AllocDrlgEnvironment(void* pMemPoo
     return pEnvironment;
 }
 
+static __forceinline void DUNGEON_GetClientUnitFlag(D2UnitStrc* pUnit, unsigned int dwFlags, int* pResult)
+{
+    *pResult = pUnit ? (dwFlags >> UNITFLAGINDEX_ISCLIENTUNIT) & 1 : 0;
+}
+
+// 0x0061BEC0
+void __fastcall ENVIRONMENT_FreeDrlgEnvironment(void* pMemPool, D2DrlgEnvironmentStrc* pEnvironment)
+{
+    FOG_FreePool(pMemPool, pEnvironment, ".\\ENVIRONMENT\\Env.cpp", 0x13F, 0);
+}
+
 // 0x0061BEE0
 static void ENVIRONMENT_UpdateTicks(D2DrlgEnvironmentStrc* pEnvironment, int nActNo)
 {
@@ -319,6 +405,68 @@ int __stdcall ENVIRONMENT_UpdateCycleIndex(D2DrlgActStrc* pAct, int nActNo)
     return 0;
 }
 
+// 0x0061C0B0
+void __stdcall ENVIRONMENT_GetLightColorFromAct(D2DrlgActStrc* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
+{
+    if (D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct))
+    {
+        *pRed = pEnvironment->nRed;
+        *pGreen = pEnvironment->nGreen;
+        *pBlue = pEnvironment->nBlue;
+    }
+}
+
+// 0x0061C0E0
+int __stdcall ENVIRONMENT_GetIntensityFromAct(D2DrlgActStrc* pAct)
+{
+    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
+    if (!pEnvironment)
+    {
+        return 0;
+    }
+
+    return pEnvironment->nIntensity;
+}
+
+// 0x0061C100
+int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime)
+{
+    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
+    if (!pEnvironment)
+    {
+        if (pBaseTime)
+        {
+            *pBaseTime = 0;
+        }
+        return 0;
+    }
+
+    if (pBaseTime)
+    {
+        if (pEnvironment->nTimeRate)
+        {
+            *pBaseTime = pEnvironment->nTicks / pEnvironment->nTimeRate;
+        }
+        else
+        {
+            *pBaseTime = 0;
+        }
+    }
+    return pEnvironment->nPeriodOfDay;
+}
+
+// 0x0061C160
+int __stdcall ENVIRONMENT_GetUnusedMember(D2DrlgActStrc* pAct)
+{
+    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
+    if (!pEnvironment)
+    {
+        return 0;
+    }
+
+    return pEnvironment->unk0x14;
+}
+
 // 0x0061C180
 void __stdcall ENVIRONMENT_NextEnvCycle(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom)
 {
@@ -341,6 +489,12 @@ void __stdcall ENVIRONMENT_NextEnvCycle(D2DrlgActStrc* pAct, D2ActiveRoomStrc* p
     ENVIRONMENT_UpdateLightIntensity(pEnvironment, nLevelId, nActNo);
     ENVIRONMENT_UpdateLightColor(nActNo, pEnvironment);
     sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
+}
+
+// 0x0061C220
+int __stdcall ENVIRONMENT_GetCycleIndexFromAct(D2DrlgActStrc* pAct)
+{
+    return DUNGEON_GetEnvironmentFromAct(pAct)->nCycleIndex;
 }
 
 // 0x0061C240
@@ -378,6 +532,28 @@ void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRo
     sub_0061BB60_SetColorForId(pEnvironment, nLevelId);
 }
 
+// 0x0061C330
+void __stdcall ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(D2DrlgActStrc* pAct, int* pCycleIndex, int* pTicks, int* pEclipse)
+{
+    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
+
+    *pCycleIndex = pEnvironment->nCycleIndex;
+    *pTicks = pEnvironment->nTicks;
+    *pEclipse = pEnvironment->bEclipse;
+}
+
+// 0x0061C360
+void __stdcall ENVIRONMENT_GetStatistics(D2DrlgActStrc* pAct, float* pCos, float* pLast, float* pSin, int* a5)
+{
+    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
+
+    *pCos = pEnvironment->fCos;
+    *pLast = pEnvironment->fLast;
+    *pSin = pEnvironment->fSin;
+
+    *a5 = 0;
+}
+
 // 0x0061C450
 void __stdcall ENVIRONMENT_TaintedSunBegin(D2DrlgActStrc* pAct)
 {
@@ -397,30 +573,3 @@ void __stdcall ENVIRONMENT_TaintedSunEnd(D2DrlgActStrc* pAct)
 }
 
 #include "gen/data/Source/D2Common/ENVIRONMENT/Env.inc"
-
-// 0x0061C100
-int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime)
-{
-    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
-    if (!pEnvironment)
-    {
-        if (pBaseTime)
-        {
-            *pBaseTime = 0;
-        }
-        return 0;
-    }
-
-    if (pBaseTime)
-    {
-        if (pEnvironment->nTimeRate)
-        {
-            *pBaseTime = pEnvironment->nTicks / pEnvironment->nTimeRate;
-        }
-        else
-        {
-            *pBaseTime = 0;
-        }
-    }
-    return pEnvironment->nPeriodOfDay;
-}
