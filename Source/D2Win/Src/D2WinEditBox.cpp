@@ -3,6 +3,7 @@
 #include "D2StormTypes.h"
 #include "D2WinControls.h"
 #include "D2CelContext.h"
+#include "D2WinTypes.h"
 
 #pragma function(memset)
 
@@ -56,7 +57,6 @@ struct UnicodeChar : Unicode
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
 
 int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 
@@ -115,7 +115,6 @@ extern unsigned int gdwBitMasks[];                                              
 
 extern int gnWinCallbackDepth_007D55C4;                                                                     // 0x007D55C4
 
-
 int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY);                          // 0x004FE3B0
 
 static int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox);
@@ -142,7 +141,6 @@ void __cdecl sub_004FE7C0_UpdateVisibleChars(); // 0x004FE7C0
 
 struct D2CelContextStrc;
 
-
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -158,6 +156,28 @@ void __fastcall D2Win_10133(const Unicode* wszText, int nX, int nY, int nColor, 
 D2WinEditBoxStrc* gpLastClickedEditBox_00841B78; // 0x00841B78
 
 static unsigned long gdwLastClickTick_00841B7C; // 0x00841B7C
+
+typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
+
+struct D2WinFontAndColorStrc
+{
+    int eFont;
+    int nColor;
+};
+
+
+
+int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
+
+int __stdcall EDITBOX_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);                                              // 0x004FE350
+
+int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinEditBoxStrc* pEditBox);                                     // 0x004FF620
+
+int __fastcall sub_004FFE50_EditBoxDraw(D2WinEditBoxStrc* pEditBox);                                        // 0x004FFE50
+
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+
+int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
 
 // 0x004FDC70
 static int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox)
@@ -1482,4 +1502,51 @@ int __fastcall sub_004FFE50_EditBoxDraw(D2WinEditBoxStrc* pEditBox)
     }
 
     return 1;
+}
+
+// 0x005001D0
+D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, D2WinMsgHandler a9, int nEditBoxFlags, D2WinFontAndColorStrc* pFontAndColor)
+{
+    D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)FOG_Alloc(sizeof(D2WinEditBoxStrc), ".\\Src\\D2WinEditBox.cpp", 0x39, 0);
+    memset(pEditBox, 0, sizeof(D2WinEditBoxStrc));
+    pEditBox->controlHeader.eType = 1;
+    pEditBox->controlHeader.dwFlags |= gdwBitMasks[0];
+    pEditBox->controlHeader.dwFlags |= gdwBitMasks[2];
+    pEditBox->controlHeader.pCellFile = pCellFile;
+    pEditBox->controlHeader.nImageX = nX;
+    pEditBox->controlHeader.nWidth = nWidth;
+    pEditBox->controlHeader.nHeight = nHeight;
+    pEditBox->nTextInsetX = a5;
+    pEditBox->nTextInsetY = a6;
+    pEditBox->nMaxLength = 256;
+    pEditBox->controlHeader.nImageY = nY;
+    pEditBox->nFirstVisibleChar = 0;
+    pEditBox->nLastVisibleChar = 0;
+    pEditBox->nSelectionStart = -1;
+    pEditBox->controlHeader.pfDraw = (D2WinControlFn)((nEditBoxFlags & 8) ? sub_004FF620_EditBoxDrawAlt : sub_004FFE50_EditBoxDraw);
+    pEditBox->controlHeader.pfHandleMouseDown = (nEditBoxFlags & 8) ? sub_004FE710_EditBoxMouseDownAlt : sub_004FFBF0_EditBoxMouseDown;
+    pEditBox->controlHeader.pfHandleMouseUp = EDITBOX_HandleMouseUp;
+    pEditBox->controlHeader.pfHandleCharInput = 0;
+    pEditBox->controlHeader.pfHandleVirtualKeyInput = 0;
+    pEditBox->pfFilter = 0;
+    pEditBox->controlHeader.field_34 = a9;
+    pEditBox->pfOnEnter = (void*)a8;
+    pEditBox->controlHeader.pNext = 0;
+    pEditBox->wszText[0] = 0;
+    pEditBox->nCaretPosition = 0;
+    pEditBox->dwEditBoxFlags = nEditBoxFlags;
+    if (pFontAndColor)
+    {
+        pEditBox->eFont = pFontAndColor->eFont;
+        pEditBox->nTextColor = pFontAndColor->nColor;
+    }
+    else
+    {
+        pEditBox->eFont = 1;
+        pEditBox->nTextColor = 0;
+    }
+    pEditBox->pNext = 0;
+    pEditBox->pPrevious = 0;
+    CONTROL_AppendToList(&pEditBox->controlHeader);
+    return pEditBox;
 }
