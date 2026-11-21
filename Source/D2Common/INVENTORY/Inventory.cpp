@@ -38,7 +38,6 @@ struct ItemData;
 
 struct ItemLink;
 
-struct D2Block1;
 
 struct D2ItemExtraDataStrc;
 
@@ -225,9 +224,8 @@ void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, uns
 
 BOOL __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, int* pFreeX, int* pFreeY, unsigned char nPage); // 0x0063B850
 
-struct D2Block1 { int n[6]; };
 
-void __stdcall sub_0065C1F0(int nInventoryRecordId, int nUnused, D2Block1* pInventoryGridInfo); // 0x0065C1F0
+void __stdcall sub_0065C1F0(int nInventoryRecordId, int nUnused, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 
 extern unsigned char gaByteTable_00745600[256]; // 0x00745600
 
@@ -440,19 +438,9 @@ BOOL __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc* pInventory, D2
 
 static void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* item, Unit* unit);
 
-
 inline void INVENTORY_SetLeftItemGUIDInline(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet);
 
 void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8* secondOutput);
-
-static BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
-
-static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight);
-
-
-static s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first);
-
-static void __stdcall sub_0063DA70_ItemSlots(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item);
 
 // 0x0063A110
 int __fastcall STATES_GetNumberOfStateFlags()
@@ -1675,6 +1663,63 @@ BOOL __stdcall INVENTORY_CanItemBePlaced(D2InventoryStrc* pInventory, D2UnitStrc
     return bFree;
 }
 
+// 0x0063BB20
+int __stdcall sub_0063BB20_CheckInventoryOverlap(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nInventoryRecordId, D2UnitStrc** ppOtherItem, unsigned char nPage, int bExcludeCube)
+{
+    if (!pInventory)
+        return 0;
+    if (pInventory->dwSignature != 0x1020304)
+        return 0;
+    if (!pItem || pItem->dwUnitType != 4)
+        return 0;
+    if (nPage == 0xFF)
+        return 0;
+    if (nX < 0 || nY < 0)
+        return 0;
+
+    unsigned char nWidth;
+    unsigned char nHeight;
+    ITEMS_GetDimensions(pItem, &nWidth, &nHeight, gszInventorySourceFile_006EA918, 1723);
+    if (nWidth <= 0 || nHeight <= 0)
+        return 0;
+
+    D2InventoryGridInfoStrc tGridInfo;
+    sub_0065C1F0(nInventoryRecordId, 0, &tGridInfo);
+    D2InventoryGridStrc* pGrid = INVENTORY_GetGrid(pInventory, nPage + 2, &tGridInfo);
+    if (!pGrid)
+        return 0;
+    if (nY + nHeight > pGrid->nGridHeight || nX + nWidth > pGrid->nGridWidth)
+        return 0;
+
+    D2UnitStrc* pLastItem = 0;
+    int nItems = 0;
+    for (int nTestY = nY; nTestY < nY + nHeight; ++nTestY)
+    {
+        for (int nTestX = nX; nTestX < nX + nWidth; ++nTestX)
+        {
+            D2UnitStrc* pOtherItem = pGrid->ppItems[nTestX + nTestY * pGrid->nGridWidth];
+            if (pOtherItem)
+            {
+                *ppOtherItem = pOtherItem;
+                D2ItemsTxt* pRecord = DATATBLS_GetItemsTxtRecord(!pOtherItem ? -1 : pOtherItem->dwClassId);
+                if (bExcludeCube && pRecord->dwCode == ' xob')
+                    return 0;
+                if (pOtherItem != pLastItem)
+                {
+                    ++nItems;
+                    pLastItem = pOtherItem;
+                }
+            }
+        }
+    }
+    if (nItems > 1)
+    {
+        *ppOtherItem = 0;
+        return 0;
+    }
+    return 1;
+}
+
 // 0x0063BCB0
 int __stdcall sub_0063BCB0_AlwaysOne(int nUnused1, int nUnused2, int nUnused3, int nUnused4)
 {
@@ -2092,7 +2137,7 @@ D2UnitStrc* __stdcall INVENTORY_FindBackPackItemForStack(D2InventoryStrc* pInven
     if (pInventory->pOwner && pInventory->pOwner->dwUnitType == UNIT_PLAYER)
     {
         const int nInventoryRecordId = UNITS_GetInventoryRecordId(pInventory->pOwner, 0, 1);
-        sub_0065C1F0(nInventoryRecordId, 0, (D2Block1*)&tInventoryGridInfo);
+        sub_0065C1F0(nInventoryRecordId, 0, &tInventoryGridInfo);
         pInventoryGridInfo = &tInventoryGridInfo;
     }
 
@@ -2193,7 +2238,7 @@ D2UnitStrc* __stdcall INVENTORY_FindFillableBook(D2InventoryStrc* pInventory, D2
     if (pInventory->pOwner && pInventory->pOwner->dwUnitType == UNIT_PLAYER)
     {
         const int nInventoryRecordId = UNITS_GetInventoryRecordId(pInventory->pOwner, 0, 1);
-        sub_0065C1F0(nInventoryRecordId, 0, (D2Block1*)&tInventoryGridInfo);
+        sub_0065C1F0(nInventoryRecordId, 0, &tInventoryGridInfo);
         pInventoryGridInfo = &tInventoryGridInfo;
     }
 
@@ -4022,7 +4067,7 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(
 
     const int nInventoryRecordId = UNITS_GetInventoryRecordId(pPlayer, 0, TRUE);
     D2InventoryGridInfoStrc tInventoryGridInfo;
-    sub_0065C1F0(nInventoryRecordId, 0, (D2Block1*)&tInventoryGridInfo);
+    sub_0065C1F0(nInventoryRecordId, 0, &tInventoryGridInfo);
 
     D2InventoryGridStrc* pInventoryGrid = INVENTORY_GetGrid(pInventory, 2, &tInventoryGridInfo);
     return INVENTORY_TryPlaceInFreePosition(pInventory, pInventoryGrid, pItem, nInventoryRecordId, &nHeight);

@@ -80704,6 +80704,10 @@
      "name": "?INVENTORY_CanItemBePlaced@@YGHPAUD2InventoryStrc@@PAUD2UnitStrc@@HHHPAPAU2@PAIE@Z"
     },
     {
+     "va": "0x0063BB20",
+     "length": 388
+    },
+    {
      "va": "0x0063BCB0",
      "length": 8,
      "name": "?sub_0063BCB0_AlwaysOne@@YGHHHHH@Z"
@@ -81286,30 +81290,6 @@
      "length": 1,
      "name": "?sub_0063A800_Nop@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/INVENTORY/Inventory_0063BB20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0063BB20",
-     "length": 388
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
