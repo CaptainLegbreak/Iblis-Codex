@@ -1,9 +1,9 @@
 #include "D2Gdi.h"
+#include "D2Win32Base.h"
 #include "D2GfxTypes.h"
 
 struct D2Callbacks006C7CF0Strc;
 struct D2CriticalSectionStrc;
-struct D2RectStrc;
 struct D2RgbQuadStrc;
 struct D2PaletteEntry006C7FA0Strc;
 struct D2RgbQuad006C7FA0Strc;
@@ -31,8 +31,6 @@ extern D2CriticalSectionStrc* gpLock_007C9134; // 0x007C9134
 extern int gnValue_007C9144; // 0x007C9144
 void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
-struct D2RectStrc { long nLeft; long nTop; long nRight; long nBottom; };
-
 struct D2RgbQuadStrc { unsigned char nBlue, nGreen, nRed, nReserved; };
 
 extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd);
@@ -42,7 +40,7 @@ extern "C" __declspec(dllimport) void* __stdcall SelectObject(void* hDC, void* h
 extern "C" __declspec(dllimport) unsigned int __stdcall SetDIBColorTable(void* hDC, unsigned int nStart, unsigned int nCount, const D2RgbQuadStrc* pColors);
 extern "C" __declspec(dllimport) void* __stdcall SelectPalette(void* hDC, void* hPalette, int bForceBackground);
 extern "C" __declspec(dllimport) unsigned int __stdcall RealizePalette(void* hDC);
-extern "C" __declspec(dllimport) int __stdcall GetClientRect(void* hWnd, D2RectStrc* pRect);
+extern "C" __declspec(dllimport) int __stdcall GetClientRect(void* hWnd, tagRECT* pRect);
 extern "C" __declspec(dllimport) int __stdcall StretchBlt(void* hDest, int nX, int nY, int nWidth, int nHeight, void* hSrc, int nSrcX, int nSrcY, int nSrcWidth, int nSrcHeight, unsigned long nRop);
 extern "C" __declspec(dllimport) int __stdcall GdiFlush();
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hDC);
@@ -128,9 +126,9 @@ int __cdecl sub_006C7E30_BlitWindow()
     SetDIBColorTable(hMemoryDC, 0, 256, gaPalette_00989C40);
     SelectPalette(hDC, ghPalette_0098A160, 0);
     RealizePalette(hDC);
-    D2RectStrc tRect;
+    tagRECT tRect;
     GetClientRect(sub_004F59A0(), &tRect);
-    StretchBlt(hDC, 0, 0, tRect.nRight - tRect.nLeft, tRect.nBottom - tRect.nTop,
+    StretchBlt(hDC, 0, 0, tRect.right - tRect.left, tRect.bottom - tRect.top,
         hMemoryDC, 0, 0, gnScreenWidth_007C9138, gnScreenHeight_007C913C, 0xCC0020);
     GdiFlush();
     DeleteDC(hMemoryDC);
