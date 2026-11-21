@@ -3604,17 +3604,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp": {
-   "bytes": 440,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Src/D2WinTextBox_004FBC80.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Win/Src/D2WinTextBox_004FC960.cpp": {
-   "bytes": 60,
-   "definitions": 2,
+   "bytes": 500,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2WinTextBox_004FC960.inc",
@@ -85249,7 +85240,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
+   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2EmblemColorStrc gaEmblemColorRGB1_0072E19C[10] = ",
@@ -85311,7 +85302,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
+   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2EmblemColorStrc gaEmblemColorRGB2_0072E1BC[10] = ",

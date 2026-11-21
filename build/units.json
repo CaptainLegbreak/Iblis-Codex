@@ -41712,67 +41712,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FD970",
-     "length": 84,
-     "name": "TIMER_HandleVirtualKeyInput"
-    },
-    {
-     "va": "0x00504270",
-     "length": 121,
-     "name": "D2Win_10154"
-    },
-    {
-     "va": "0x00504370",
-     "length": 51,
-     "name": "sub_00504370_LookupPairValue"
-    },
-    {
-     "va": "0x005043B0",
-     "length": 29,
-     "name": "sub_005043B0_ReleaseToPool"
-    },
-    {
-     "va": "0x00504D30",
-     "length": 45,
-     "name": "D2Win_10159"
-    },
-    {
-     "va": "0x00505160",
-     "length": 51,
-     "name": "D2Win_10148"
-    },
-    {
-     "va": "0x005051A0",
-     "length": 89,
-     "name": "D2Win_10149"
-    },
-    {
-     "va": "0x00505200",
-     "length": 48,
-     "name": "D2Win_10150"
-    },
-    {
-     "va": "0x005052B0",
-     "length": 51,
-     "name": "D2Win_10152"
-    },
-    {
-     "va": "0x005052F0",
-     "length": 51,
-     "name": "D2Win_10153"
-    },
-    {
-     "va": "0x00505330",
-     "length": 47,
-     "name": "D2Win_10155"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Win/Unknown_004FBE90.cpp",
    "rank": 0,
    "functions": [
@@ -41804,57 +41743,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FC960.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FD830",
-     "length": 41,
-     "name": "?sub_004FD830_2@@YIXPAUD2WinTimerStrc@@@Z"
-    },
-    {
-     "va": "0x004FD9D0",
-     "length": 115,
-     "name": "?TIMER_Create@@YIPAUD2WinTimerStrc@@IP6GHPAUSMSGHANDLER_PARAMS@@@Z@Z"
-    },
-    {
-     "va": "0x004FDA50",
-     "length": 41,
-     "name": "?sub_004FDA50_2@@YIXPAUD2WinTimerStrc@@@Z"
-    },
-    {
-     "va": "0x004FDCC0",
-     "length": 62,
-     "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
-    },
-    {
-     "va": "0x005042F0",
-     "length": 118,
-     "name": "?D2Win_10143@@YIHPAUD2CompositeUnitStrc@@H@Z"
-    },
-    {
-     "va": "0x00505100",
-     "length": 68,
-     "name": "?D2Win_10146@@YGXXZ"
-    },
-    {
-     "va": "0x00505230",
-     "length": 48,
-     "name": "?D2Win_10169@@YGHPAUD2CompositeUnitStrc@@@Z"
-    },
-    {
-     "va": "0x00505260",
-     "length": 75,
-     "name": "?D2Win_10151@@YGXPAUD2CompositeUnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005055D0",
-     "length": 106,
-     "name": "?sub_005055D0_ApplyPalette@@YIXXZ"
-    }
    ]
   },
   {
@@ -41953,6 +41841,112 @@
      "va": "0x005087A0",
      "length": 274,
      "name": "POPUP_Draw"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Src/D2WinTextBox_004FBC80.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004FD830",
+     "length": 41,
+     "name": "?sub_004FD830_2@@YIXPAUD2WinTimerStrc@@@Z"
+    },
+    {
+     "va": "0x004FD970",
+     "length": 84,
+     "name": "TIMER_HandleVirtualKeyInput"
+    },
+    {
+     "va": "0x004FD9D0",
+     "length": 115,
+     "name": "?TIMER_Create@@YIPAUD2WinTimerStrc@@IP6GHPAUSMSGHANDLER_PARAMS@@@Z@Z"
+    },
+    {
+     "va": "0x004FDA50",
+     "length": 41,
+     "name": "?sub_004FDA50_2@@YIXPAUD2WinTimerStrc@@@Z"
+    },
+    {
+     "va": "0x004FDCC0",
+     "length": 62,
+     "name": "?sub_004FDCC0@@YIXPAUD2WinEditBoxStrc@@@Z"
+    },
+    {
+     "va": "0x00504270",
+     "length": 121,
+     "name": "D2Win_10154"
+    },
+    {
+     "va": "0x005042F0",
+     "length": 118,
+     "name": "?D2Win_10143@@YIHPAUD2CompositeUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00504370",
+     "length": 51,
+     "name": "sub_00504370_LookupPairValue"
+    },
+    {
+     "va": "0x005043B0",
+     "length": 29,
+     "name": "sub_005043B0_ReleaseToPool"
+    },
+    {
+     "va": "0x00504D30",
+     "length": 45,
+     "name": "D2Win_10159"
+    },
+    {
+     "va": "0x00505100",
+     "length": 68,
+     "name": "?D2Win_10146@@YGXXZ"
+    },
+    {
+     "va": "0x00505160",
+     "length": 51,
+     "name": "D2Win_10148"
+    },
+    {
+     "va": "0x005051A0",
+     "length": 89,
+     "name": "D2Win_10149"
+    },
+    {
+     "va": "0x00505200",
+     "length": 48,
+     "name": "D2Win_10150"
+    },
+    {
+     "va": "0x00505230",
+     "length": 48,
+     "name": "?D2Win_10169@@YGHPAUD2CompositeUnitStrc@@@Z"
+    },
+    {
+     "va": "0x00505260",
+     "length": 75,
+     "name": "?D2Win_10151@@YGXPAUD2CompositeUnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005052B0",
+     "length": 51,
+     "name": "D2Win_10152"
+    },
+    {
+     "va": "0x005052F0",
+     "length": 51,
+     "name": "D2Win_10153"
+    },
+    {
+     "va": "0x00505330",
+     "length": 47,
+     "name": "D2Win_10155"
+    },
+    {
+     "va": "0x005055D0",
+     "length": 106,
+     "name": "?sub_005055D0_ApplyPalette@@YIXXZ"
     }
    ]
   },
