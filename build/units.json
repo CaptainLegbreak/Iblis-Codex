@@ -77824,9 +77824,34 @@
      "name": "sub_00620D80_SetMonsterAnimSpeed"
     },
     {
+     "va": "0x00620E40",
+     "length": 62,
+     "name": "UNITS_GetRunAndWalkSpeedForPlayer"
+    },
+    {
      "va": "0x00620E80",
      "length": 117,
      "name": "?UNITS_CharacterStartRunningOrKnockback@@YAXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x00620F00",
+     "length": 72,
+     "name": "UNITS_SetAnimData"
+    },
+    {
+     "va": "0x00620F50",
+     "length": 77,
+     "name": "UNITS_IsCurrentRoomInvalid"
+    },
+    {
+     "va": "0x00620FA0",
+     "length": 92,
+     "name": "UNITS_SetCurrentRoomInvalid"
+    },
+    {
+     "va": "0x00621000",
+     "length": 75,
+     "name": "UNITS_RefreshInventory"
     },
     {
      "va": "0x00621050",
@@ -77834,9 +77859,19 @@
      "name": "?UNITS_GetInventoryRecordId@@YGHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x00621150",
+     "length": 55,
+     "name": "UNITS_ResetLightMap"
+    },
+    {
      "va": "0x00621190",
      "length": 45,
      "name": "UNITS_GetAnimOrSeqMode"
+    },
+    {
+     "va": "0x006211C0",
+     "length": 78,
+     "name": "UNITS_SetAnimOrSeqMode"
     },
     {
      "va": "0x00621210",
@@ -77847,6 +77882,16 @@
      "va": "0x00621260",
      "length": 81,
      "name": "?UNITS_InitializeSequence@@YGXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x006212C0",
+     "length": 65,
+     "name": "UNITS_SetAnimationFrame"
+    },
+    {
+     "va": "0x00621310",
+     "length": 32,
+     "name": "UNITS_UpdateFrame"
     },
     {
      "va": "0x00621360",
@@ -77914,6 +77959,11 @@
      "name": "UNITS_IsAtEndOfFrameCycle"
     },
     {
+     "va": "0x00621810",
+     "length": 96,
+     "name": "UNITS_GetShiftedFrameMetrics"
+    },
+    {
      "va": "0x00621870",
      "length": 89,
      "name": "?UNITS_GetFrameMetrics@@YGXPAUD2UnitStrc@@PAH1@Z"
@@ -77929,9 +77979,39 @@
      "name": "UNITS_HasCollision"
     },
     {
+     "va": "0x00621A70",
+     "length": 68,
+     "name": "UnitIsDoor"
+    },
+    {
+     "va": "0x00621AC0",
+     "length": 54,
+     "name": "UNITS_CheckIfObjectOrientationIs1"
+    },
+    {
      "va": "0x00621B00",
      "length": 35,
      "name": "UNITS_IsShrine"
+    },
+    {
+     "va": "0x00621B30",
+     "length": 62,
+     "name": "UNITS_GetObjectTxtRecordFromObject"
+    },
+    {
+     "va": "0x00621B70",
+     "length": 63,
+     "name": "UNITS_GetShrineTxtRecordFromObject"
+    },
+    {
+     "va": "0x00621BB0",
+     "length": 66,
+     "name": "UNITS_SetShrineTxtRecordInObjectData"
+    },
+    {
+     "va": "0x00621C00",
+     "length": 33,
+     "name": "UNITS_UpdateDirectionAndSpeed"
     },
     {
      "va": "0x00621C30",
@@ -77947,6 +78027,11 @@
      "va": "0x00621CE0",
      "length": 109,
      "name": "?UNITS_StoreOwner@@YGXPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x00621D50",
+     "length": 107,
+     "name": "UNITS_StoreLastAttacker"
     },
     {
      "va": "0x00621DC0",
@@ -78039,9 +78124,19 @@
      "name": "UNITS_GetDefense"
     },
     {
+     "va": "0x00622520",
+     "length": 53,
+     "name": "?sub_00622520_GetToHitFactor@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x006225F0",
      "length": 297,
      "name": "?sub_006225F0_MonsterCanBlock@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00622720",
+     "length": 262,
+     "name": "?UNITS_GetBlockRate@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00622830",
@@ -78288,107 +78383,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Units_00620E40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00620E40",
-     "length": 62,
-     "name": "UNITS_GetRunAndWalkSpeedForPlayer"
-    },
-    {
-     "va": "0x00620F00",
-     "length": 72,
-     "name": "UNITS_SetAnimData"
-    },
-    {
-     "va": "0x00620F50",
-     "length": 77,
-     "name": "UNITS_IsCurrentRoomInvalid"
-    },
-    {
-     "va": "0x00620FA0",
-     "length": 92,
-     "name": "UNITS_SetCurrentRoomInvalid"
-    },
-    {
-     "va": "0x00621000",
-     "length": 75,
-     "name": "UNITS_RefreshInventory"
-    },
-    {
-     "va": "0x00621150",
-     "length": 55,
-     "name": "UNITS_ResetLightMap"
-    },
-    {
-     "va": "0x006211C0",
-     "length": 78,
-     "name": "UNITS_SetAnimOrSeqMode"
-    },
-    {
-     "va": "0x006212C0",
-     "length": 65,
-     "name": "UNITS_SetAnimationFrame"
-    },
-    {
-     "va": "0x00621310",
-     "length": 32,
-     "name": "UNITS_UpdateFrame"
-    },
-    {
-     "va": "0x00621810",
-     "length": 96,
-     "name": "UNITS_GetShiftedFrameMetrics"
-    },
-    {
-     "va": "0x00621A70",
-     "length": 68,
-     "name": "UnitIsDoor"
-    },
-    {
-     "va": "0x00621AC0",
-     "length": 54,
-     "name": "UNITS_CheckIfObjectOrientationIs1"
-    },
-    {
-     "va": "0x00621B30",
-     "length": 62,
-     "name": "UNITS_GetObjectTxtRecordFromObject"
-    },
-    {
-     "va": "0x00621B70",
-     "length": 63,
-     "name": "UNITS_GetShrineTxtRecordFromObject"
-    },
-    {
-     "va": "0x00621BB0",
-     "length": 66,
-     "name": "UNITS_SetShrineTxtRecordInObjectData"
-    },
-    {
-     "va": "0x00621C00",
-     "length": 33,
-     "name": "UNITS_UpdateDirectionAndSpeed"
-    },
-    {
-     "va": "0x00621D50",
-     "length": 107,
-     "name": "UNITS_StoreLastAttacker"
-    },
-    {
-     "va": "0x00622520",
-     "length": 53,
-     "name": "?sub_00622520_GetToHitFactor@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00622720",
-     "length": 262,
-     "name": "?UNITS_GetBlockRate@@YGHPAUD2UnitStrc@@H@Z"
-    }
    ]
   },
   {
