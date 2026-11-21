@@ -63947,6 +63947,11 @@
      "name": "?ACT2Q4_GetGuardCoordinates@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@@Z"
     },
     {
+     "va": "0x0059BAF0",
+     "length": 72,
+     "name": "?ACT2Q4_SetPortalMode@@YIXPAUD2GameStrc@@H@Z"
+    },
+    {
      "va": "0x0059C330",
      "length": 113,
      "name": "?ACT2Q5_OnSummonerActivated@@YIXPAUD2GameStrc@@@Z"
@@ -63967,14 +63972,52 @@
      "name": "?sub_0059C810_FinishDurielQuest@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@@Z"
     },
     {
+     "va": "0x0059C860",
+     "length": 178
+    },
+    {
      "va": "0x0059C920",
      "length": 119,
      "name": "?ACT2Q6_UnitIterate_SetPrimaryGoalDone@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x0059CA50",
+     "length": 205,
+     "name": "?ACT2Q6_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+    },
+    {
+     "va": "0x0059CB20",
+     "length": 952,
+     "name": "?ACT2Q6_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059D050",
+     "length": 359
+    },
+    {
+     "va": "0x0059D450",
+     "length": 120,
+     "name": "?ACT2Q6_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
+    },
+    {
+     "va": "0x0059D4D0",
+     "length": 32,
+     "name": "?ACT2Q6_Callback14_PlayerJoinedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059D4F0",
+     "length": 190,
+     "name": "?ACT2Q6_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x0059D5B0",
      "length": 226,
      "name": "?sub_0059D5B0@@YIXPAUQuest@@@Z"
+    },
+    {
+     "va": "0x0059D6A0",
+     "length": 126,
+     "name": "?ACT2Q6_SendTombIdToClient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0059D7C0",
@@ -63987,14 +64030,59 @@
      "name": "?sub_0059D7E0_ACT2Q6_IsStateOne@@YIEPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x0059D800",
+     "length": 37,
+     "name": "?sub_0059D800_ACT2Q6_IsNotBusy@@YIEPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x0059D830",
      "length": 27,
      "name": "?ACT2Q6_GetObjectIdForArcaneThing@@YIHPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x0059D850",
+     "length": 32,
+     "name": "?sub_0059D850_ACT2Q6_IsTombOpen@@YIEPAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0059D9D0",
+     "length": 49,
+     "name": "?D2GAME_WarpPlayerToTile_6FCA5B20@@YIXPAUD2ObjOperateFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059DA10",
+     "length": 58,
+     "name": "?sub_0059DA10_ACT2Q6_OperateTombPortal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
+    },
+    {
+     "va": "0x0059DA50",
+     "length": 114,
+     "name": "?sub_0059DA50@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059DAD0",
+     "length": 78,
+     "name": "?OBJECTS_InitFunction38_TyraelsDoor@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
      "va": "0x0059DB20",
      "length": 37,
      "name": "?ACT2Q6_IsDurielsLairClosed@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0059DB50",
+     "length": 115,
+     "name": "?OBJECTS_InitFunction21_HoradricOrifice@@YIXPAUD2ObjInitFnStrc@@@Z"
+    },
+    {
+     "va": "0x0059DBD0",
+     "length": 145,
+     "name": "?ACT2Q6_UnitIterate_DeleteHoradricItems@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0059DC70",
+     "length": 268,
+     "name": "?OBJECTS_OperateFunction25_StaffOrifice@@YIHPAUD2ObjOperateFnStrc@@H@Z"
     },
     {
      "va": "0x0059DF50",
@@ -64005,6 +64093,16 @@
      "va": "0x0059DFB0",
      "length": 32,
      "name": "?sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive@@YI_NPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0059E060",
+     "length": 76,
+     "name": "?sub_0059E060_ACT2Q6_SetPortalState@@YIXPAUD2QuestDataStrc@@E@Z"
+    },
+    {
+     "va": "0x0059E2A0",
+     "length": 1,
+     "name": "?sub_0059E2A0_ACT2Q7_Callback08_Empty@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
@@ -64648,72 +64746,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Quests/a2q6_0059BAF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059BAF0",
-     "length": 72,
-     "name": "?ACT2Q4_SetPortalMode@@YIXPAUD2GameStrc@@H@Z"
-    },
-    {
-     "va": "0x0059CB20",
-     "length": 952,
-     "name": "?ACT2Q6_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059D450",
-     "length": 120,
-     "name": "?ACT2Q6_SeqCallback@@YI_NPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x0059D4D0",
-     "length": 32,
-     "name": "?ACT2Q6_Callback14_PlayerJoinedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059D4F0",
-     "length": 190,
-     "name": "?ACT2Q6_Callback13_PlayerStartedGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059D6A0",
-     "length": 126,
-     "name": "?ACT2Q6_SendTombIdToClient@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0059D9D0",
-     "length": 49,
-     "name": "?D2GAME_WarpPlayerToTile_6FCA5B20@@YIXPAUD2ObjOperateFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059DA50",
-     "length": 114,
-     "name": "?sub_0059DA50@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059DAD0",
-     "length": 78,
-     "name": "?OBJECTS_InitFunction38_TyraelsDoor@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059DB50",
-     "length": 115,
-     "name": "?OBJECTS_InitFunction21_HoradricOrifice@@YIXPAUD2ObjInitFnStrc@@@Z"
-    },
-    {
-     "va": "0x0059DBD0",
-     "length": 145,
-     "name": "?ACT2Q6_UnitIterate_DeleteHoradricItems@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0059DC70",
-     "length": 268,
-     "name": "?OBJECTS_OperateFunction25_StaffOrifice@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_0059BBC0.cpp",
    "rank": 1,
    "functions": [
@@ -64880,70 +64912,6 @@
     "/Gd",
     "/Oy",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q6_0059C860.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0059C860",
-     "length": 178
-    },
-    {
-     "va": "0x0059D050",
-     "length": 359
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a2q6_0059CA50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0059CA50",
-     "length": 205,
-     "name": "?ACT2Q6_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    },
-    {
-     "va": "0x0059D800",
-     "length": 37,
-     "name": "?sub_0059D800_ACT2Q6_IsNotBusy@@YIEPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0059D850",
-     "length": 32,
-     "name": "?sub_0059D850_ACT2Q6_IsTombOpen@@YIEPAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0059DA10",
-     "length": 58,
-     "name": "?sub_0059DA10_ACT2Q6_OperateTombPortal@@YIHPAUD2ObjOperateFnStrc@@H@Z"
-    },
-    {
-     "va": "0x0059E060",
-     "length": 76,
-     "name": "?sub_0059E060_ACT2Q6_SetPortalState@@YIXPAUD2QuestDataStrc@@E@Z"
-    },
-    {
-     "va": "0x0059E2A0",
-     "length": 1,
-     "name": "?sub_0059E2A0_ACT2Q7_Callback08_Empty@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    }
    ]
   },
   {
