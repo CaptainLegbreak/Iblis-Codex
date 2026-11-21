@@ -2245,20 +2245,11 @@
    "state": "included"
   },
   "Source/D2Client/UI/panel_00497A40.cpp": {
-   "bytes": 136,
-   "definitions": 7,
+   "bytes": 164,
+   "definitions": 8,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/panel_00497A40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UI/panel_00497FE0.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UI/panel_00497FE0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -51996,7 +51987,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/panel_00497FE0.cpp",
+   "file": "Source/D2Client/UI/panel_00497A40.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnBodyLocs_007223E8[7] = ",
