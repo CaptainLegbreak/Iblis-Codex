@@ -96330,6 +96330,16 @@
      "name": "?sub_00680040_IsVertexBlocking@@YAHPAUD2DrlgVertexStrc@@@Z"
     },
     {
+     "va": "0x006804E0",
+     "length": 145,
+     "name": "?DRLGOUTWILD_SpawnCottage@@YGXHHPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x00680580",
+     "length": 614,
+     "name": "?DRLGOUTWILD_SpawnSpecialPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
      "va": "0x006807F0",
      "length": 253,
      "name": "?DRLGOUTWILD_InitAct1OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z"
@@ -96393,28 +96403,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutWild_006804E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006804E0",
-     "length": 145,
-     "name": "?DRLGOUTWILD_SpawnCottage@@YGXHHPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutWild_00680580.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00680580",
-     "length": 614,
-     "name": "?DRLGOUTWILD_SpawnSpecialPresets@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
    ]
   },
   {
