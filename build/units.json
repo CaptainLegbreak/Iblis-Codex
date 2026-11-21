@@ -34408,6 +34408,22 @@
      "va": "0x004D3630",
      "length": 446,
      "name": "?sub_004D3630_CltDoCommon2@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004D4BB0",
+     "length": 516
+    },
+    {
+     "va": "0x004D5C10",
+     "length": 445
+    },
+    {
+     "va": "0x004D66E0",
+     "length": 305
+    },
+    {
+     "va": "0x004D7E00",
+     "length": 435
     }
    ]
   },
@@ -34632,42 +34648,6 @@
      "va": "0x004D6820",
      "length": 985
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004D4BB0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004D4BB0",
-     "length": 516
-    },
-    {
-     "va": "0x004D5C10",
-     "length": 445
-    },
-    {
-     "va": "0x004D66E0",
-     "length": 305
-    },
-    {
-     "va": "0x004D7E00",
-     "length": 435
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
