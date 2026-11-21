@@ -90027,54 +90027,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SCMD_006C3DA0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3DA0",
-     "length": 103
-    },
-    {
-     "va": "0x006C4580",
-     "length": 479
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCMD_006C3E10.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3E10",
-     "length": 316
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCMD_006C3F50.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3F50",
-     "length": 191
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SCMD_006C4010.CPP",
    "rank": 1,
    "functions": [
@@ -90095,6 +90047,14 @@
      "length": 16
     },
     {
+     "va": "0x006C40E0",
+     "length": 16
+    },
+    {
+     "va": "0x006C40F0",
+     "length": 16
+    },
+    {
      "va": "0x006C4140",
      "length": 17
     },
@@ -90109,6 +90069,14 @@
     {
      "va": "0x006C4290",
      "length": 66
+    },
+    {
+     "va": "0x006C4360",
+     "length": 32
+    },
+    {
+     "va": "0x006C43A0",
+     "length": 16
     },
     {
      "va": "0x006C4470",
@@ -90147,6 +90115,14 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006C3E10",
+     "length": 316
+    },
+    {
+     "va": "0x006C3F50",
+     "length": 191
+    },
+    {
      "va": "0x006C4020",
      "length": 4
     },
@@ -90184,6 +90160,10 @@
     {
      "va": "0x006C4480",
      "length": 50
+    },
+    {
+     "va": "0x006C44C0",
+     "length": 82
     },
     {
      "va": "0x006C4520",
@@ -90330,136 +90310,12 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SCMD_006C40E0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C40E0",
-     "length": 16
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCMD_006C40F0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C40F0",
-     "length": 16
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCMD_006C42E0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C42E0",
-     "length": 115
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCMD_006C4360.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C4360",
-     "length": 32
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCMD_006C43A0.CPP",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C43A0",
-     "length": 16
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SCMD_006C4430.CPP",
    "rank": 1,
    "functions": [
     {
      "va": "0x006C4430",
      "length": 60
-    },
-    {
-     "va": "0x006C44C0",
-     "length": 82
     }
    ]
   },
@@ -90474,6 +90330,18 @@
     {
      "va": "0x006C3D20",
      "length": 116
+    },
+    {
+     "va": "0x006C3DA0",
+     "length": 103
+    },
+    {
+     "va": "0x006C42E0",
+     "length": 115
+    },
+    {
+     "va": "0x006C4580",
+     "length": 479
     },
     {
      "va": "0x006C4820",
