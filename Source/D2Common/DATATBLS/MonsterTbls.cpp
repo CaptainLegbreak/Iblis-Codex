@@ -159,7 +159,6 @@ struct D2MonStatsInitStrc
     int nElDur;
 };
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -618,9 +617,9 @@ void* gpObjgroupTxt; // 0x0096D478
 
 D2ShrinesTxt* gpShrinesTxt; // 0x0096D468
 
-void* gpMonTable_96C810; // 0x0096C810
+D2MonEquipTxt* gpMonEquipTxt; // 0x0096C810
 
-int gnMonTable_96C814; // 0x0096C814
+int gnMonEquipTxtRecordCount; // 0x0096C814
 
 D2TxtLinkStrc* gpSuperUniquesLinker; // 0x0096C708
 
@@ -811,6 +810,49 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError);                 // 0x006BD130
 
 D2TxtLinkStrc* gpCompCodeLinker_0096BCB0;                                                                   // 0x0096BCB0
+
+struct D2MonEquipTxt;
+
+struct D2MonEquipTxt
+{
+    short monster,level;
+    char onInit;
+    char unk05[3];
+    unsigned int item[3];
+    char location[3];
+    char modifier[3];
+    char unk1A[2];
+};
+
+extern void* gpItemsLinker_0096BCC4; // 0x0096BCC4
+
+extern void* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
+
+extern const char gszField_level[]; // 0x006DCCBC
+
+extern const char gszField_item3[]; // 0x006E6588
+
+extern const char gszField_item2[]; // 0x006E659C
+
+extern const char gszField_item1[]; // 0x006E65B0
+
+extern const char gszField_mod3[]; // 0x006ED53C
+
+extern const char gszField_loc3[]; // 0x006ED544
+
+extern const char gszField_mod2[]; // 0x006ED54C
+
+extern const char gszField_loc2[]; // 0x006ED554
+
+extern const char gszField_mod1[]; // 0x006ED55C
+
+extern const char gszField_loc1[]; // 0x006ED564
+
+extern const char gszField_oninit[]; // 0x006ED56C
+
+extern const char gszField_monster[]; // 0x006ED574
+
+extern const char gszField_monequip[]; // 0x006ED57C
 
 // 0x00640EE0
 void __fastcall DATATBLS_UnloadObjectsTxt()
@@ -2264,6 +2306,49 @@ void __fastcall sub_006562B0()
     }
 }
 
+// 0x006562F0
+D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int bExpansion, int nId, int nLevel)
+{
+    D2HirelingTxt* pResult = 0;
+    if (nId >= 256)
+    {
+        return 0;
+    }
+
+    const unsigned short nVersion = bExpansion ? 100 : 0;
+    const int nIndex = gaHirelingIds[bExpansion != 0][nId];
+    if (nIndex < 0)
+    {
+        return 0;
+    }
+
+    for (int i = nIndex; i < gnHirelingTxtRecordCount; ++i)
+    {
+        D2HirelingTxt* pRecord = &gpHirelingTxt[i];
+        if (pRecord->nId == nId && pRecord->wVersion == nVersion)
+        {
+            if (!pResult)
+            {
+                pResult = pRecord;
+            }
+            else if (pRecord->nHirelingLevel <= nLevel)
+            {
+                pResult = pRecord;
+            }
+            else
+            {
+                return pResult;
+            }
+        }
+        else if (pRecord->nId > nId)
+        {
+            return pResult;
+        }
+    }
+
+    return pResult;
+}
+
 // 0x00656390
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromNameId(int bExpansion, unsigned short nNameId, D2HirelingTxt* pOldRecord)
 {
@@ -2618,8 +2703,6 @@ void __fastcall DATATBLS_MonStats2CompositLinker(char* pSrc, void* pRecord, int 
         pMonStats2TxtRecord->nTotalPieces = (unsigned char)nTotal;
     }
 }
-
-#pragma function(memset)
 
 // 0x006571A0
 D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive)
@@ -3241,23 +3324,74 @@ D2AnimSeqRecordStrc* __stdcall sub_00659E30(int nIndex)
     return 0;
 }
 
+static __forceinline D2MonStatsTxt* GetMonStatsRecord(int monster)
+{
+ if(monster>=0 && monster<sgptDataTables->nMonStatsTxtRecordCount)return &gpMonstatsTxt[monster];
+ return 0;
+}
+
+// 0x00659E60
+void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
+{
+ D2BinFieldStrc fields[]={
+ {gszField_monster,20,0,0,&gTxtLink_0096C6AC},
+ {gszField_level,3,0,2,0},
+ {gszField_oninit,4,0,4,0},
+ {gszField_item1,9,0,8,&gpItemsLinker_0096BCC4},
+ {gszField_loc1,13,0,20,&gpBodyLocsLinker_0096BC3C},
+ {gszField_mod1,4,0,23,0},
+ {gszField_item2,9,0,12,&gpItemsLinker_0096BCC4},
+ {gszField_loc2,13,0,21,&gpBodyLocsLinker_0096BC3C},
+ {gszField_mod2,4,0,24,0},
+ {gszField_item3,9,0,16,&gpItemsLinker_0096BCC4},
+ {gszField_loc3,13,0,22,&gpBodyLocsLinker_0096BC3C},
+ {gszField_mod3,4,0,25,0},
+ {gszTxtField_end,0,0,0,0}};
+ gpMonEquipTxt=(D2MonEquipTxt*)DATATBLS_CompileTxt(archive,gszField_monequip,fields,&gnMonEquipTxtRecordCount,sizeof(D2MonEquipTxt));
+ if(gnMonEquipTxtRecordCount>=32767){
+  sub_00408A60(&gszEmptyAssertText,sub_00408090(),3356);exit(-1);
+ }
+ for(int i=0;i<sgptDataTables->nMonStatsTxtRecordCount;++i)gpMonstatsTxt[i].nMonEquipTxtRecordId=-1;
+ for(int i=0;i<gnMonEquipTxtRecordCount;++i){
+  D2MonEquipTxt* equip=&gpMonEquipTxt[i];
+  if(equip->monster>=0 && equip->monster<sgptDataTables->nMonStatsTxtRecordCount){
+   if(gpMonstatsTxt[equip->monster].nMonEquipTxtRecordId<0)gpMonstatsTxt[equip->monster].nMonEquipTxtRecordId=(short)i;
+   char* location=equip->location;
+   unsigned int* item=equip->item;
+   int remaining=3;
+   do {
+    if (*location<=0 || *location>=11)
+    {
+        *location=0;
+    }
+    else if (*item!=0x20202020 && FOG_GetLinkIndex(sgptDataTables->pItemsLinker,*item,1)<0)
+    {
+        *location=0;
+    }
+    ++item;
+    ++location;
+   } while(--remaining);
+  }
+ }
+}
+
 // 0x0065A170
 void __fastcall sub_0065A170()
 {
-    if (gpMonTable_96C810)
+    if (gpMonEquipTxt)
     {
-        DATATBLS_UnloadBin(gpMonTable_96C810);
-        gnMonTable_96C814 = 0;
+        DATATBLS_UnloadBin(gpMonEquipTxt);
+        gnMonEquipTxtRecordCount = 0;
     }
 }
 
 // 0x0065A190
 void __fastcall DATATBLS_UnloadSomeMonsterTxts()
 {
-    if (gpMonTable_96C810)
+    if (gpMonEquipTxt)
     {
-        DATATBLS_UnloadBin(gpMonTable_96C810);
-        gnMonTable_96C814 = 0;
+        DATATBLS_UnloadBin(gpMonEquipTxt);
+        gnMonEquipTxtRecordCount = 0;
     }
 
     DATATBLS_UnloadBin(gpNpcTxt);

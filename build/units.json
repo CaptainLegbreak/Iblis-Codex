@@ -81492,6 +81492,10 @@
      "name": "sub_006562B0"
     },
     {
+     "va": "0x006562F0",
+     "length": 156
+    },
+    {
      "va": "0x00656390",
      "length": 162,
      "name": "DATATBLS_GetNextHirelingTxtRecordFromNameId"
@@ -81643,6 +81647,10 @@
      "va": "0x00659E30",
      "length": 40,
      "name": "sub_00659E30"
+    },
+    {
+     "va": "0x00659E60",
+     "length": 774
     },
     {
      "va": "0x0065A170",
@@ -84581,20 +84589,6 @@
     {
      "va": "0x00654440",
      "length": 911
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls_006562F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006562F0",
-     "length": 156
-    },
-    {
-     "va": "0x00659E60",
-     "length": 774
     }
    ]
   },
