@@ -68309,6 +68309,11 @@
      "name": "sub_005F4FD0"
     },
     {
+     "va": "0x005F5040",
+     "length": 918,
+     "name": "?AITHINK_Fn029_BatDemon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F53E0",
      "length": 737
     },
@@ -69189,17 +69194,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F5040.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F5040",
-     "length": 918,
-     "name": "?AITHINK_Fn029_BatDemon@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
