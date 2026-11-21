@@ -780,13 +780,11 @@ static void __stdcall sub_0055E0D0_UseSkillQuantity(D2UnitStrc* pUnit, int nSkil
 
 static void __stdcall sub_0055C9A0_DropBackToGround(int nSoundId, D2UnitStrc* pItem, D2UnitStrc* pUnit);
 
-struct BeltRect;
+struct D2InvRectStrc;
 
 struct BeltRecord;
 
-struct BeltRect { int left, right, top, bottom; };
-
-struct BeltRecord { char unknown00[4]; U8 nBoxes; U8 reserved5; unsigned short reserved6; BeltRect boxes[16]; };
+struct BeltRecord { char unknown00[4]; U8 nBoxes; U8 reserved5; unsigned short reserved6; D2InvRectStrc boxes[16]; };
 
 extern "C" void __stdcall sub_00660CB0_Record(int, int, BeltRecord*); // 0x00660CB0
 

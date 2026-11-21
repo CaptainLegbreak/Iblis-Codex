@@ -5314,7 +5314,7 @@ int __fastcall sub_005AF170_RotateMissileTarget(D2GameStrc* pGame, D2UnitStrc* p
         int nNewY = sub_0064A780_GetCount(pMissile);
         const int nOldX = nNewX;
         const int nNegY = -nNewY;
-        __assume(nNegY != (-2147483647 - 1));
+        __assume(nNegY != (-2147483647 - 1)); // __assume only keeps the original neg+add for x - y (written plainly it compiles to mov/sub)
         nNewX = (nNegY + nNewX) / 2;
         nNewY = (nOldX + nNewY) / 2;
         D2COMMON_10170_PathSetTargetPos(pMissile->pDynamicPath, CLIENTS_GetUnitX(pMissile) + nNewX, CLIENTS_GetUnitY(pMissile) + nNewY);

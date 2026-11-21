@@ -1,25 +1,12 @@
 #include "D2Game.h"
 
-struct D2MonsterSpawnParamsStrc
-{
-    D2GameStrc* pGame;
-    D2ActiveRoomStrc* pRoom;
-    D2RoomCoordListStrc* pRoomCoordList;
-    int nMonsterId;
-    int nAnimMode;
-    int nUnitGUID;
-    int nX;
-    int nY;
-    int nMaxSearchRings;
-    short nFlags;
-};
-
-D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2MonsterSpawnParamsStrc* pMonCreate); // 0x005B2A00
+#include "D2GameServer.h"
+D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2UnkMonCreateStrc* pMonCreate); // 0x005B2A00
 
 // 0x005B2F20
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags)
 {
-    D2MonsterSpawnParamsStrc monCreate;
+    D2UnkMonCreateStrc monCreate;
 
     monCreate.nUnitGUID = 0;
     monCreate.nMonsterId = nMonsterId;
