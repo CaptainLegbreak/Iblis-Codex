@@ -4,17 +4,27 @@
 #include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2ClientTextBoxStrc;
+
 struct D2MsgHandlerEntryStrc;
+
 struct Unicode;
+
 struct D2TextNodeStrc;
+
 struct D2TextListStrc;
+
 struct D2HoverClearPacketStrc;
+
 struct D2TextIdEntryStrc;
+
 struct D2ClientTextDataStrc;
+
 class ListBoxWrapper;
 
 #pragma pack(push, 2)
+
 struct D2TextNodeStrc
 {
     Unicode* pLines[6];
@@ -25,7 +35,9 @@ struct D2TextNodeStrc
 };
 
 #pragma pack(pop)
+
 #pragma pack(push, 1)
+
 struct D2HoverClearPacketStrc
 {
     unsigned char nHeader;
@@ -34,6 +46,7 @@ struct D2HoverClearPacketStrc
 };
 
 #pragma pack(pop)
+
 struct D2TextIdEntryStrc
 {
     unsigned short wId;
@@ -51,33 +64,61 @@ public:
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
 void __cdecl sub_0044DA40(); // 0x0044DA40
+
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+
 void __cdecl sub_00453AE0(); // 0x00453AE0
+
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+
 void __stdcall sub_0049D410_FreeTextBox(D2ClientTextBoxStrc* pTextBox); // 0x0049D410
+
 void __stdcall sub_0049D4D0_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
+
 void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
+
 int __cdecl sub_004F59A0(); // 0x004F59A0
+
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
+
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers_00722600[]; // 0x00722600
+
 extern D2TextIdEntryStrc gaTextIds_00722678[]; // 0x00722678
+
 extern int gnTextIdCount_00722EB4; // 0x00722EB4
+
 extern D2ClientTextBoxStrc* gpTextBox_007BF1A8; // 0x007BF1A8
+
 extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
+
 extern int gnGlobal_007BF1BC; // 0x007BF1BC
+
 extern int gnGlobal_007BF1C0; // 0x007BF1C0
+
 extern D2TextListStrc gtTextList_007BF1E4; // 0x007BF1E4
-extern D2TextListStrc gtTextList_007BF1F0; // 0x007BF1F0
+
+D2TextListStrc gtTextList_007BF1F0; // 0x007BF1F0
+
 extern unsigned char gnGlobal_007BF23A; // 0x007BF23A
+
 extern int gbStarted_007BF27C; // 0x007BF27C
+
 D2TextNodeStrc* __fastcall sub_0049DB10_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 
 int gnGlobal_007BF1C8; // 0x007BF1C8
@@ -92,10 +133,65 @@ D2TextCallback gpfnTextCallback_007BF258; // 0x007BF258
 
 void* gpTextCallbackContext_007BF25C; // 0x007BF25C
 
+struct T00479230;
+
+#pragma pack(push, 1)
+
+
+#pragma pack(pop)
+
+extern T00479230* gpTextBox_007BF0A4;                                                                   // 0x007BF0A4
+
+extern D2ClientDialogStrc* gpListDialog_007BF1B0;                                                           // 0x007BF1B0
+
 // 0x0049DA50
 void __cdecl sub_0049DA50_ClearFlag()
 {
     gnGlobal_007BF23A = 0;
+}
+
+struct D2UnitStrc;
+
+static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
+{
+    for (int i = 0; i < 6; i++)
+    {
+        if (pNode->pLines[i])
+            FOG_Free(pNode->pLines[i], ".\\UI\\text.cpp", 0x6B3, 0);
+    }
+    FOG_Free(pNode, ".\\UI\\text.cpp", 0x6B6, 0);
+}
+
+// 0x0049DBC0
+void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
+{
+    D2TextNodeStrc* pClone = sub_0049DB10_CloneStringList(pSource);
+    D2TextNodeStrc* pNode;
+    if (gtTextList_007BF1F0.wCount >= 0x80)
+    {
+        pNode = gtTextList_007BF1F0.pFirst;
+        if (!pNode)
+        {
+            goto link;
+        }
+
+        D2TextNodeStrc* pPrevious = 0;
+        while (pNode->pNext)
+        {
+            pPrevious = pNode;
+            pNode = pNode->pNext;
+        }
+        sub_0049D490_FreeTextNode(pNode);
+        if (pPrevious)
+            pPrevious->pNext = 0;
+        if (gtTextList_007BF1F0.wCount >= 1)
+            gtTextList_007BF1F0.wCount--;
+    }
+    pNode = gtTextList_007BF1F0.pFirst;
+link:
+    pClone->pNext = pNode;
+    gtTextList_007BF1F0.wCount++;
+    gtTextList_007BF1F0.pFirst = pClone;
 }
 
 // 0x0049E340
@@ -182,11 +278,34 @@ void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStr
     }
 }
 
+// 0x004A0000
+int __cdecl sub_004A0000()
+{
+    return gpTextBox_007BF0A4 != 0;
+}
+
 // 0x004A0010
 void __cdecl sub_004A0010_FreeTextLists()
 {
     sub_0049D4D0_FreeTextList(&gtTextList_007BF1E4);
     sub_0049D4D0_FreeTextList(&gtTextList_007BF1F0);
+}
+
+// 0x004A01E0
+void __cdecl sub_004A01E0_ClearListFlags()
+{
+    for (D2TextNodeStrc* pNode = gtTextList_007BF1E4.pFirst; pNode; pNode = pNode->pNext)
+        pNode->dwEndTick = 0;
+}
+
+// 0x004A02F0
+void __cdecl sub_004A02F0_ToggleListDialogUI()
+{
+    if (gpListDialog_007BF1B0)
+    {
+        sub_00455F20(0x18, 1, 0);
+        sub_00455F20(0x18, 0, 0);
+    }
 }
 
 // 0x004A0880
@@ -258,48 +377,3 @@ int __cdecl sub_004A08C0_CloseText()
 }
 
 #include "gen/data/Source/D2Client/UI/text_0049DA50.inc"
-struct D2UnitStrc;
-
-D2TextListStrc gtTextList_007BF1F0; // 0x007BF1F0
-
-static void sub_0049D490_FreeTextNode(D2TextNodeStrc* pNode)
-{
-    for (int i = 0; i < 6; i++)
-    {
-        if (pNode->pLines[i])
-            FOG_Free(pNode->pLines[i], ".\\UI\\text.cpp", 0x6B3, 0);
-    }
-    FOG_Free(pNode, ".\\UI\\text.cpp", 0x6B6, 0);
-}
-
-// 0x0049DBC0
-void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
-{
-    D2TextNodeStrc* pClone = sub_0049DB10_CloneStringList(pSource);
-    D2TextNodeStrc* pNode;
-    if (gtTextList_007BF1F0.wCount >= 0x80)
-    {
-        pNode = gtTextList_007BF1F0.pFirst;
-        if (!pNode)
-        {
-            goto link;
-        }
-
-        D2TextNodeStrc* pPrevious = 0;
-        while (pNode->pNext)
-        {
-            pPrevious = pNode;
-            pNode = pNode->pNext;
-        }
-        sub_0049D490_FreeTextNode(pNode);
-        if (pPrevious)
-            pPrevious->pNext = 0;
-        if (gtTextList_007BF1F0.wCount >= 1)
-            gtTextList_007BF1F0.wCount--;
-    }
-    pNode = gtTextList_007BF1F0.pFirst;
-link:
-    pClone->pNext = pNode;
-    gtTextList_007BF1F0.wCount++;
-    gtTextList_007BF1F0.pFirst = pClone;
-}

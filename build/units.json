@@ -27761,9 +27761,24 @@
      "name": "?sub_0049FF90_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
     },
     {
+     "va": "0x004A0000",
+     "length": 12,
+     "name": "?sub_004A0000@@YAHXZ"
+    },
+    {
      "va": "0x004A0010",
      "length": 21,
      "name": "?sub_004A0010_FreeTextLists@@YAXXZ"
+    },
+    {
+     "va": "0x004A01E0",
+     "length": 27,
+     "name": "?sub_004A01E0_ClearListFlags@@YAXXZ"
+    },
+    {
+     "va": "0x004A02F0",
+     "length": 37,
+     "name": "?sub_004A02F0_ToggleListDialogUI@@YAXXZ"
     },
     {
      "va": "0x004A0880",
@@ -28087,27 +28102,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/text_004A0000.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004A0000",
-     "length": 12,
-     "name": "?sub_004A0000@@YAHXZ"
-    },
-    {
-     "va": "0x004A01E0",
-     "length": 27,
-     "name": "?sub_004A01E0_ClearListFlags@@YAXXZ"
-    },
-    {
-     "va": "0x004A02F0",
-     "length": 37,
-     "name": "?sub_004A02F0_ToggleListDialogUI@@YAXXZ"
-    }
    ]
   },
   {
