@@ -9,6 +9,7 @@
 #include "D2GameAux.h"
 #include "D2GameRecords.h"
 #include "D2GameObjs.h"
+#include "D2ItemModes.h"
 
 #define STAT_UNIT_DOOVERLAY 178
 
@@ -863,7 +864,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     case UNIT_ITEM:
         if (UnitHasFlag(pUnit, 0x10))
         {
-            if (pUnit->dwAnimMode == 3 && sub_00451F30_TestUnitFlag(pUnit, 0x1000))
+            if (pUnit->dwAnimMode == IMODE_ONGROUND && sub_00451F30_TestUnitFlag(pUnit, 0x1000))
                 D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(pClient, pPlayer, pUnit, 0);
             else D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(pClient, pUnit, 0);
         }

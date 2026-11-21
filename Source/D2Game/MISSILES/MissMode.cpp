@@ -14,6 +14,7 @@
 #include "D2TxtItems.h"
 #include "D2GameObjs.h"
 #include "D2MonModes.h"
+#include "D2ObjModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -3204,7 +3205,7 @@ int __fastcall MISSMODE_SrvHit35_OrbMist(D2GameStrc* pGame, D2UnitStrc* pMissile
         DUNGEON_ToggleHasPortalFlag(pRoom, 1);
     }
 
-    if (pObject->dwAnimMode == 0)
+    if (pObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         UNITS_ChangeAnimMode(pObject, 1);
         const int nClassId = pObject->dwClassId;
@@ -6802,7 +6803,7 @@ D2UnitStrc* __fastcall sub_6FCF1CB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Unit
 {
     D2DoorObjectAiCallbackArgStrc* pArg = (D2DoorObjectAiCallbackArgStrc*)pCallbackArg;
 
-    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != 0)
+    if (!pTarget || pTarget->dwUnitType != UNIT_OBJECT || !UnitIsDoor(pTarget) || pTarget->dwAnimMode != OBJMODE_NEUTRAL)
     {
         return 0;
     }

@@ -8,6 +8,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameObjs.h"
 #include "D2PlayerModes.h"
+#include "D2ObjModes.h"
 
 #define UNIT_PLAYER 0
 
@@ -102,7 +103,7 @@ void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject
 // 0x00581700
 void __fastcall OBJMODE_UpdateTrapProximity(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
-    if (pObject && pObject->dwAnimMode == 1)
+    if (pObject && pObject->dwAnimMode == OBJMODE_OPERATING)
     {
         pObject->dwAnimMode = 2;
     }

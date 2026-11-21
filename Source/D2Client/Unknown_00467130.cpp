@@ -5,6 +5,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2Txt.h"
+#include "D2ObjModes.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -173,7 +174,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         break;
 
     case UNIT_OBJECT:
-        if (UnitIsDoor(pUnit) && pUnit->dwAnimMode != 4)
+        if (UnitIsDoor(pUnit) && pUnit->dwAnimMode != OBJMODE_SPECIAL2)
         {
             const unsigned int dwNow = GetTickCount();
             if (dwNow - pUnit->dwTickCount > 0x1F4)

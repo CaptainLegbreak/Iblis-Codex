@@ -19,6 +19,7 @@
 #include "D2ItemsWorld.h"
 #include "D2QuestData.h"
 #include "D2PlayerModes.h"
+#include "D2ObjModes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -5580,7 +5581,7 @@ void __fastcall OBJECTS_InitFunction17_Waypoint(D2ObjInitFnStrc* pOp)
             || (pOp->pRoom && pObjectRoomCoord->nX >= pOp->pRoom->tCoords.nSubtileX && pObjectRoomCoord->nX < pOp->pRoom->tCoords.nSubtileX + pOp->pRoom->tCoords.nSubtileWidth
                 && pObjectRoomCoord->nY >= pOp->pRoom->tCoords.nSubtileY && pObjectRoomCoord->nY < pOp->pRoom->tCoords.nSubtileY + pOp->pRoom->tCoords.nSubtileHeight))
         {
-            if (!pOp->pObject || pOp->pObject->dwAnimMode == 0)
+            if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
             {
                 UNITS_ChangeAnimMode(pOp->pObject, 1);
                 D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pOp->pObject ? -1 : pOp->pObject->dwClassId);

@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
 #include "D2DataTbls.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 struct D2StatesTxt;
 
@@ -41,12 +43,12 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
 
     if (pStatesTxt->nStateFlags[4] & gdwBitMasks[7])
     {
-        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == 12)
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_DEAD)
         {
             return;
         }
 
-        if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == 17)
+        if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_DEAD)
         {
             return;
         }

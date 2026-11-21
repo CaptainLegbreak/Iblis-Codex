@@ -7,6 +7,7 @@
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
+#include "D2ObjModes.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 
@@ -1178,7 +1179,7 @@ int __fastcall OBJECTS_OperateFunction65_AncientsAltar(D2ObjOperateFnStrc* pOp, 
     if (pQuestData)
     {
         D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
-        if (pOp->hObject && pOp->hObject->dwAnimMode != 0)
+        if (pOp->hObject && pOp->hObject->dwAnimMode != OBJMODE_NEUTRAL)
         {
             return 0;
         }
@@ -1212,7 +1213,7 @@ int __fastcall OBJECTS_OperateFunction65_AncientsAltar(D2ObjOperateFnStrc* pOp, 
             }
         }
 
-        if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
+        if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
         {
             UNITS_ChangeAnimMode(pOp->hObject, 1);
             pQuestDataEx->nAltarObjectMode = 2;

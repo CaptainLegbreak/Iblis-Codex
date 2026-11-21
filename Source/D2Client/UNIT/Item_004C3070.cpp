@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
+#include "D2ItemModes.h"
 struct D2MonCommandStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -609,11 +610,11 @@ void __fastcall sub_004C2810(D2GSPacketSrv9C* pPacket)
     {
         switch (pItem->dwAnimMode)
         {
-        case 0:
+        case IMODE_STORED:
             D2_ASSERT(0, 0x3FD);
             break;
 
-        case 1:
+        case IMODE_EQUIP:
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             D2_ASSERT(pPlayer, 0x3E9);

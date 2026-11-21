@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2ItemModes.h"
 
 struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileX,nTileY,nTileWidth,nTileHeight; };
@@ -39,8 +40,8 @@ inline int D2_ABS(int n) { return n < 0 ? -n : n; }
 // build: context IsTarget
 static __forceinline int IsTarget(D2UnitStrc* pUnit) {
  switch(pUnit ? pUnit->dwUnitType : UNIT_INVALID) {
- case 0: return pUnit->dwAnimMode!=0 && pUnit->dwAnimMode!=17;
- case 1: return pUnit->dwAnimMode!=0 && pUnit->dwAnimMode!=12;
+ case 0: return pUnit->dwAnimMode!=IMODE_STORED && pUnit->dwAnimMode!=17;
+ case 1: return pUnit->dwAnimMode!=IMODE_STORED && pUnit->dwAnimMode!=12;
  case 2: return 0;
  case 3: return 1;
  case 4: return 0;

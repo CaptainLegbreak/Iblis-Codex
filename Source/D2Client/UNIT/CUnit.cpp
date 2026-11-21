@@ -4,6 +4,7 @@
 #include "D2Unicode.h"
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
+#include "D2ObjModes.h"
 struct D2DynamicPathStrc;
 struct D2UnitTargetStrc;
 
@@ -894,7 +895,7 @@ const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit)
     {
     case UNIT_OBJECT:
     {
-        if (pUnit->pObjectData->pObjectTxt->nOpenWarp && pUnit->dwAnimMode == 2)
+        if (pUnit->pObjectData->pObjectTxt->nOpenWarp && pUnit->dwAnimMode == OBJMODE_OPENED)
         {
             pRoom = UNITS_GetRoom(pUnit);
             pTile = sub_00464A10_FindTileUnit(pRoom->pUnitFirst);

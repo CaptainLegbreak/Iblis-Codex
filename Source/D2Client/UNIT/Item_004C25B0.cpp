@@ -6,6 +6,7 @@
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
+#include "D2ItemModes.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 
@@ -280,7 +281,7 @@ void __fastcall sub_004C1910_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pR
     UNITROOM_UpdatePath(pItem);
     switch (pItem->dwAnimMode)
     {
-    case 5:
+    case IMODE_DROPPING:
         UNITS_InitializeStaticPath(pItem, pRoom, nX, nY);
         UNITS_BlockCollisionPath(pItem, pRoom, nX, nY);
         UNITROOM_AddUnitToRoom(pItem, pRoom);
@@ -289,7 +290,7 @@ void __fastcall sub_004C1910_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pR
         sub_004C18B0_PlayDropSound(pItem);
         break;
 
-    case 3:
+    case IMODE_ONGROUND:
         UNITS_InitializeStaticPath(pItem, pRoom, nX, nY);
         UNITS_BlockCollisionPath(pItem, pRoom, nX, nY);
         UNITROOM_AddUnitToRoom(pItem, pRoom);
@@ -297,12 +298,12 @@ void __fastcall sub_004C1910_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pR
         sub_00624390_AnimInit(pItem);
         break;
 
-    case 4:
+    case IMODE_ONCURSOR:
         sub_004B9A00(0xEB, 0, 0, 0, 0);
-    case 0:
-    case 1:
-    case 2:
-    case 6:
+    case IMODE_STORED:
+    case IMODE_EQUIP:
+    case IMODE_INBELT:
+    case IMODE_SOCKETED:
         pItem->dwFlags &= ~2;
         break;
 
@@ -343,7 +344,7 @@ void __fastcall sub_004C25B0_ItemDropToGround9C(D2ItemPacket9CStrc* pPacket)
     D2_ASSERT(pItem, 0x384);
 
     sub_004C2180_UpdateCursorItem(pItem);
-    if (pItem->dwAnimMode == 3 && ITEMS_CheckItemFlag(pItem, 0x2000, 0x388, ".\\UNIT\\Item.cpp"))
+    if (pItem->dwAnimMode == IMODE_ONGROUND && ITEMS_CheckItemFlag(pItem, 0x2000, 0x388, ".\\UNIT\\Item.cpp"))
     {
         UNITS_ChangeAnimMode(pItem, 5);
         sub_004C18B0_PlayDropSound(pItem);

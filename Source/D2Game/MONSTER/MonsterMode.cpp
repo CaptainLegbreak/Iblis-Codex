@@ -10,6 +10,7 @@
 #include "D2Txt.h"
 #include "D2Drlg.h"
 #include "D2MonModes.h"
+#include "D2PlayerModes.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -1688,7 +1689,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
     while (pTarget)
     {
-        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != 17 && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
+        if (pTarget->dwUnitType == UNIT_PLAYER && pTarget->dwAnimMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_IsRayFreeBetweenUnits(pTarget, pUnit, 0x3C01))
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));

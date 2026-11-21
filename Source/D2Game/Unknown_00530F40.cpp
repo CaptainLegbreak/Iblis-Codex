@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2ItemModes.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
@@ -153,7 +154,7 @@ static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem
 
     switch (pItem->dwAnimMode)
     {
-    case 0:
+    case IMODE_STORED:
     {
         UNITS_ChangeAnimMode(pItem, 4);
         const int nX = pSavedItem->nX;
@@ -165,7 +166,7 @@ static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem
             return 13;
         break;
     }
-    case 1:
+    case IMODE_EQUIP:
     {
         D2InventoryStrc* pInventory = pUnit->pInventory;
         const int nBodyLoc = ITEMS_GetBodyLocation(pItem);
@@ -190,7 +191,7 @@ static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem
         QUESTS_ItemPickedUp(pGame, pUnit, pItem);
         break;
     }
-    case 6:
+    case IMODE_SOCKETED:
     {
         if (!*ppItem)
             return 13;

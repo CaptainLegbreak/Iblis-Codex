@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
+#include "D2PlayerModes.h"
 struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
@@ -381,7 +382,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
         D2RectStrc tRect;
         UNITS_GetShiftedFrameMetrics(pUnit,&nFrame,&nFrameCount);
         tRect.nBottom=tRect.nRight=tRect.nTop=tRect.nLeft=0;
-        if(pUnit->dwUnitType==UNIT_PLAYER && pUnit->dwClassId==4 && pUnit->dwAnimMode==18) return 1;
+        if(pUnit->dwUnitType==UNIT_PLAYER && pUnit->dwClassId==4 && pUnit->dwAnimMode==PLRMODE_SEQUENCE) return 1;
         if(bAllComponents)
         {
             for(unsigned int nComponent=0;nComponent<16;++nComponent)

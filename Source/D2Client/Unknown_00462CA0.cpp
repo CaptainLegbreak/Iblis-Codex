@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
 #include "D2ClientGame.h"
+#include "D2PlayerModes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -831,11 +832,11 @@ static void sub_00462370_ResumeWalk(D2PlayerCmdStrc* pCmd)
     int nMode;
     switch (pPlayer->dwAnimMode)
     {
-    case 2:
-    case 6:
+    case PLRMODE_WALK:
+    case PLRMODE_TOWNWALK:
         nMode = 1;
         break;
-    case 3:
+    case PLRMODE_RUN:
         nMode = 3;
         break;
     default:

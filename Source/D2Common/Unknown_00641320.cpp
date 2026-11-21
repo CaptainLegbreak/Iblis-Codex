@@ -9,6 +9,8 @@
 #include "D2Drlg.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 struct D2GfxLightStrc;
 struct D2BinFieldStrc;
@@ -326,10 +328,10 @@ static int sub_006419A0_IsUnitAlive(D2UnitStrc* pUnit) {
  if(!pUnit) return 0;
  switch(pUnit->dwUnitType) {
  case UNIT_PLAYER:
-  if(pUnit->dwAnimMode==0 || pUnit->dwAnimMode==17) return 0;
+  if(pUnit->dwAnimMode==PLRMODE_DEATH || pUnit->dwAnimMode==PLRMODE_DEAD) return 0;
   return 1;
  case UNIT_MONSTER:
-  if(pUnit->dwAnimMode==0 || pUnit->dwAnimMode==12) return 0;
+  if(pUnit->dwAnimMode==MONMODE_DEATH || pUnit->dwAnimMode==MONMODE_DEAD) return 0;
   return 1;
  case UNIT_OBJECT: return 0;
  case UNIT_MISSILE: return 1;
