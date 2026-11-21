@@ -32907,6 +32907,10 @@
      "name": "?sub_004BFA70_ToggleUseMode@@YAXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004BFDD0",
+     "length": 687
+    },
+    {
      "va": "0x004C0090",
      "length": 107,
      "name": "?sub_004C0090_CloseUseItemPanel@@YAXXZ"
@@ -32920,30 +32924,6 @@
     {
      "va": "0x004BFAF0",
      "length": 200
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/useitem_004BFDD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004BFDD0",
-     "length": 687
     }
    ],
    "flags": [
