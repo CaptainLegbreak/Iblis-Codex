@@ -90808,6 +90808,20 @@
   {
    "file": "Source/D2Common/DRLG/DrlgLogic.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x0066C3D0",
@@ -90843,6 +90857,16 @@
      "va": "0x0066C7F0",
      "length": 79,
      "name": "sub_0066C7F0"
+    },
+    {
+     "va": "0x0066C840",
+     "length": 37,
+     "name": "DRLG_CheckLayer1ButNotWallObject"
+    },
+    {
+     "va": "0x0066C870",
+     "length": 324,
+     "name": "sub_0066C870"
     },
     {
      "va": "0x0066CA50",
@@ -90893,22 +90917,6 @@
     {
      "va": "0x0066C620",
      "length": 51
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgLogic_0066C840.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066C840",
-     "length": 37,
-     "name": "DRLG_CheckLayer1ButNotWallObject"
-    },
-    {
-     "va": "0x0066C870",
-     "length": 324,
-     "name": "sub_0066C870"
     }
    ]
   },
