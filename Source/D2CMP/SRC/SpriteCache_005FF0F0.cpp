@@ -1,57 +1,15 @@
 #include "D2CMP.h"
+#include "D2WinTypes.h"
+#include "D2CmpCache.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2SpriteCacheNodeStrc;
-struct NodeLinks;
-struct D2SpriteCacheLockStrc;
 struct D2SpriteCacheStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* lpCriticalSection); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void* lpCriticalSection); // 0x006CC214
-
-struct NodeLinks { D2SpriteCacheNodeStrc* pNext; D2SpriteCacheNodeStrc* pPrev; void Clear() { pNext = 0; pPrev = 0; } };
-
-struct D2SpriteCacheNodeStrc
-{
-    void* pData;
-    unsigned int nSize;
-    unsigned int nKey;
-    unsigned int dwFlags;
-    unsigned int dwTick;
-    union
-    {
-        struct
-        {
-            NodeLinks link;
-        };
-        struct
-        {
-            D2SpriteCacheNodeStrc* pNext;
-            D2SpriteCacheNodeStrc* pPrev;
-        };
-    };
-};
-
-struct D2SpriteCacheStrc
-{
-    void* pMemPool;
-    unsigned int nMaxSize;
-    unsigned int nTotalSize;
-    unsigned int nCount;
-    D2SpriteCacheNodeStrc* pNodes;
-    D2SpriteCacheNodeStrc* pHeadA;
-    D2SpriteCacheNodeStrc* pTailA;
-    D2SpriteCacheNodeStrc* pHeadB;
-    D2SpriteCacheNodeStrc* pTailB;
-    D2SpriteCacheNodeStrc* f_24;
-    D2SpriteCacheNodeStrc* f_28;
-    D2SpriteCacheFreeFn pfnFree;
-    D2SpriteCacheLockStrc tLock;
-    unsigned int nHits;
-    unsigned int f_4C;
-};
 
 static D2SpriteCacheNodeStrc* __stdcall sub_005FF0F0_SpriteCachePopHead(int bLocked, D2SpriteCacheStrc* pCache); // 0x005FF0F0
 static void sub_005FF1B0_SpriteCacheUnlinkNode(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode); // 0x005FF1B0
@@ -68,9 +26,9 @@ static D2SpriteCacheNodeStrc* __stdcall sub_005FF0F0_SpriteCachePopHead(int bLoc
         pNode = pCache->pHeadB;
         if (pNode->dwFlags & 2)
             return 0;
-        pCache->pHeadB = pCache->pHeadB->link.pNext;
+        pCache->pHeadB = pCache->pHeadB->pNext;
         if (pCache->pHeadB)
-            pCache->pHeadB->link.pPrev = 0;
+            pCache->pHeadB->pPrev = 0;
         else
             pCache->pTailB = 0;
     }
@@ -81,14 +39,14 @@ static D2SpriteCacheNodeStrc* __stdcall sub_005FF0F0_SpriteCachePopHead(int bLoc
         pNode = pCache->pHeadA;
         if (pNode->dwFlags & 2)
             return 0;
-        pCache->pHeadA = pCache->pHeadA->link.pNext;
+        pCache->pHeadA = pCache->pHeadA->pNext;
         if (pCache->pHeadA)
-            pCache->pHeadA->link.pPrev = 0;
+            pCache->pHeadA->pPrev = 0;
         else
             pCache->pTailA = 0;
     }
-    pNode->link.pNext = 0;
-    pNode->link.pPrev = 0;
+    pNode->pNext = 0;
+    pNode->pPrev = 0;
     return pNode;
 }
 
@@ -142,7 +100,7 @@ D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStr
     LeaveCriticalSection(&pCache->tLock);
     if (pNode->nKey)
     {
-        pCache->pfnFree(pNode->nKey);
+        ((D2SpriteCacheFreeFn)pCache->nArg)(pNode->nKey);
         pNode->nKey = 0;
     }
     if (pNode->pData)
@@ -158,8 +116,8 @@ D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStr
     }
     else
     {
-        pCache->f_28->link.pNext = pNode;
-        pNode->link.pPrev = pCache->f_28;
+        pCache->f_28->pNext = pNode;
+        pNode->pPrev = pCache->f_28;
         pCache->nCount -= 1;
         pCache->f_28 = pNode;
     }
