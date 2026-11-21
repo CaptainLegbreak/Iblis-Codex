@@ -1717,4 +1717,10 @@ bool __fastcall EmitThreadName(int threadId,char* output) {
  return sub_00401640_GetThreadName(threadId,output);
 }
 
+// 0x00401680
+int __cdecl sub_00401680()
+{
+    return gdwGlobal_00992B1C;
+}
+
 #include "gen/data/Source/Fog/Src/ErrorManager_004016A0.inc"

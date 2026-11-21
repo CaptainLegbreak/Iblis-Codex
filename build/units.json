@@ -30,6 +30,11 @@
      "name": "?sub_00401640_GetThreadName@@YG_NHPAD@Z"
     },
     {
+     "va": "0x00401680",
+     "length": 6,
+     "name": "sub_00401680"
+    },
+    {
      "va": "0x004016A0",
      "length": 5,
      "name": "?sub_004016A0_StartDbgHelpThread@@YAXXZ"
@@ -775,14 +780,9 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00401680.cpp",
+   "file": "Source/Fog/Unknown_00402370.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00401680",
-     "length": 6,
-     "name": "sub_00401680"
-    },
     {
      "va": "0x00402370",
      "length": 5,
@@ -2576,7 +2576,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00406D30.cpp",
+   "file": "Source/Fog/Src/ErrorManager_00406D30.cpp",
    "rank": 0,
    "functions": [
     {
@@ -2663,7 +2663,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_00407970.cpp",
+   "file": "Source/Fog/Src/ErrorManager_00407970.cpp",
    "rank": 1,
    "functions": [
     {
@@ -2711,7 +2711,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_004082E0.cpp",
+   "file": "Source/Fog/Src/ErrorManager_004082E0.cpp",
    "rank": 1,
    "functions": [
     {
