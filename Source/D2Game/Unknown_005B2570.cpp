@@ -61,7 +61,7 @@ static __forceinline D2UnitStrc* sub_005B3090_SpawnAtPosition(D2GameStrc* pGame,
     monCreate.pRoom = pRoom;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = 0;
-    monCreate.unk0x20 = -1;
+    monCreate.nMaxSearchRings = -1;
     monCreate.nFlags = nFlags;
     monCreate.nX = nX;
     monCreate.nY = nY;

@@ -2317,7 +2317,7 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* 
  int nQualityChance = pDifficulty->nGambleRare+pDifficulty->nGambleSet+pDifficulty->nGambleUnique;
  if(!gnRingId) DATATBLS_GetItemRecordFromItemCode(0x206E6972,&gnRingId);
  if(!gnAmuletId) DATATBLS_GetItemRecordFromItemCode(0x20756D61,&gnAmuletId);
- D2NpcGambleStrc* pNpcGamble = (D2NpcGambleStrc*)FOG_AllocPool(pGame->pMemoryPool,0xC,gszNpcSourceFile,0xD94,0);
+ D2NpcGambleStrc* pNpcGamble = (D2NpcGambleStrc*)FOG_AllocPool(pGame->pMemoryPool,sizeof(D2NpcGambleStrc),gszNpcSourceFile,0xD94,0);
  if(!pNpcGamble) return;
  pNpcGamble->pInventory = INVENTORY_AllocInventory(pGame->pMemoryPool,0);
  pNpcGamble->dwGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
