@@ -1,4 +1,5 @@
 #include "D2StateIds.h"
+#include "D2GameTypes.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
@@ -7,10 +8,6 @@
 struct D2CharStatsTxt;
 
 struct D2GameStrc;
-struct D2ModeChangeStrc {
-    int nMode; D2UnitStrc* pUnit; D2UnitStrc* pTargetUnit;
-    int nX, nY, unk14, unk18, unk1C;
-};
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
