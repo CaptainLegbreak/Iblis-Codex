@@ -4947,6 +4947,31 @@
      "name": "sub_0041E080_ZAlloc"
     },
     {
+     "va": "0x0041E0D0",
+     "length": 35,
+     "name": "?sub_0041E0D0_ZFree@@YIXPAX0@Z"
+    },
+    {
+     "va": "0x0041E100",
+     "length": 233,
+     "name": "?sub_0041E100_compress2@@YGHPAEPAKPBEKH@Z"
+    },
+    {
+     "va": "0x0041E1F0",
+     "length": 93,
+     "name": "?sub_0041E1F0_SCompZlibCompress@@YIXPAEPAKPBEKPAHH@Z"
+    },
+    {
+     "va": "0x0041E250",
+     "length": 230,
+     "name": "?sub_0041E250_uncompress@@YGHPAEPAKPBEK@Z"
+    },
+    {
+     "va": "0x0041E340",
+     "length": 24,
+     "name": "?sub_0041E340_SCompZlibDecompress@@YIHPAEPAKPBEKH@Z"
+    },
+    {
      "va": "0x0041E360",
      "length": 55,
      "name": "?sub_0041E360_SCompADPCMCompressMono@@YIXPAEPAHPBFH1H@Z"
@@ -4980,6 +5005,11 @@
      "va": "0x0041E510",
      "length": 82,
      "name": "?sub_0041E510_FreeWorkBuffer@@YGXHPAX@Z"
+    },
+    {
+     "va": "0x0041E8C0",
+     "length": 43,
+     "name": "_sub_0041E8C0_ReleaseBuffer"
     },
     {
      "va": "0x0041E930",
@@ -5065,6 +5095,16 @@
      "va": "0x0041ED70",
      "length": 32,
      "name": "??0D2SCompListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041EE80",
+     "length": 16,
+     "name": "??0D2StormHuffItemStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041EE90",
+     "length": 50,
+     "name": "??1D2StormHuffItemStrc@@QAE@XZ"
     },
     {
      "va": "0x0041EED0",
@@ -6718,47 +6758,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SCOMP_0041E0D0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041E0D0",
-     "length": 35,
-     "name": "?sub_0041E0D0_ZFree@@YIXPAX0@Z"
-    },
-    {
-     "va": "0x0041E100",
-     "length": 233,
-     "name": "?sub_0041E100_compress2@@YGHPAEPAKPBEKH@Z"
-    },
-    {
-     "va": "0x0041E1F0",
-     "length": 93,
-     "name": "?sub_0041E1F0_SCompZlibCompress@@YIXPAEPAKPBEKPAHH@Z"
-    },
-    {
-     "va": "0x0041E250",
-     "length": 230,
-     "name": "?sub_0041E250_uncompress@@YGHPAEPAKPBEK@Z"
-    },
-    {
-     "va": "0x0041E340",
-     "length": 24,
-     "name": "?sub_0041E340_SCompZlibDecompress@@YIHPAEPAKPBEKH@Z"
-    },
-    {
-     "va": "0x0041EE80",
-     "length": 16,
-     "name": "??0D2StormHuffItemStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0041EE90",
-     "length": 50,
-     "name": "??1D2StormHuffItemStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_0041E570.cpp",
    "rank": 1,
    "functions": [
@@ -6790,17 +6789,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SCOMP_0041E8C0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041E8C0",
-     "length": 43,
-     "name": "_sub_0041E8C0_ReleaseBuffer"
-    }
    ]
   },
   {
