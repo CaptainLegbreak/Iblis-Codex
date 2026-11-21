@@ -77,6 +77,14 @@ static inline int UNITS_GetUnitTypeOrInvalid_Inline(D2UnitStrc* pUnit)
     return pUnit->dwUnitType;
 }
 
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+
+unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
+
+void __fastcall SUNITPROXY_UpdateNpcsOnActChange(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCurrentLevelId, int nDestLevelId); // 0x00537340
+
+int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+
 // 0x0053A6A0
 static void sub_0053A6A0_FixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
 {
@@ -322,6 +330,36 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* ptClient, int n
     if (hUnit->dwUnitType == UNIT_PLAYER)
     {
         PLAYERPETS_UpdatePetsForOwnerMove(pGame, hUnit, CLIENTS_GetUnitX(hUnit), CLIENTS_GetUnitY(hUnit));
+    }
+}
+
+// 0x0053AEC0
+void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc)
+{
+    const unsigned char nDestinationAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
+    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\GAME\\Level.cpp", 506);
+    D2_ASSERT(hClient, 507);
+
+    int nSourceLevelId = 0;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (pRoom)
+    {
+        nSourceLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    }
+
+    if (nDestinationAct != CLIENTS_GetActNo(hClient))
+    {
+        SUNITPROXY_UpdateNpcsOnActChange(pGame, pPlayer, nSourceLevelId, nDestinationLevelId);
+        LEVEL_ChangeAct(pGame, hClient, nDestinationLevelId, nTileCalc);
+        return;
+    }
+
+    int nX;
+    int nY;
+    D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nDestinationAct], nDestinationLevelId, nTileCalc, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
+    if (pSpawnRoom)
+    {
+        sub_6FCBDFE0(pGame, pPlayer, pSpawnRoom, nX, nY, 0, 0);
     }
 }
 

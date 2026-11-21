@@ -4047,36 +4047,6 @@ void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* hRoom, D2C
     }
 }
 
-// 0x0053AEC0
-void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc)
-{
-    const unsigned char nDestinationAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
-    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\GAME\\Level.cpp", 506);
-    D2_ASSERT(hClient, 507);
-
-    int nSourceLevelId = 0;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (pRoom)
-    {
-        nSourceLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    }
-
-    if (nDestinationAct != CLIENTS_GetActNo(hClient))
-    {
-        SUNITPROXY_UpdateNpcsOnActChange(pGame, pPlayer, nSourceLevelId, nDestinationLevelId);
-        LEVEL_ChangeAct(pGame, hClient, nDestinationLevelId, nTileCalc);
-        return;
-    }
-
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nDestinationAct], nDestinationLevelId, nTileCalc, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
-    if (pSpawnRoom)
-    {
-        sub_6FCBDFE0(pGame, pPlayer, pSpawnRoom, nX, nY, 0, 0);
-    }
-}
-
 // 0x0053EC90
 void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* hClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
 {
