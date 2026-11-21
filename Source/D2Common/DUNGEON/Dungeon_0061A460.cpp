@@ -3,7 +3,6 @@
 
 struct D2DrlgActStrc;
 
-
 struct D2DrlgEnvironmentStrc
 {
     int nCycleIndex;
@@ -100,67 +99,4 @@ void __fastcall DRLGACTIVATE_GetRoomsAllocationStats(int* pOutStatsClientAllocat
     *pOutStatsClientFreedRooms = gStatsClientFreedRooms;
     *pOutStatsAllocatedRooms = gStatsAllocatedRooms;
     *pOutStatsFreedRooms = gStatsFreedRooms;
-}
-
-// 0x0061C0B0
-void __stdcall ENVIRONMENT_GetLightColorFromAct(D2DrlgActStrc* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
-{
-    if (D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct))
-    {
-        *pRed = pEnvironment->nRed;
-        *pGreen = pEnvironment->nGreen;
-        *pBlue = pEnvironment->nBlue;
-    }
-}
-
-// 0x0061C0E0
-int __stdcall ENVIRONMENT_GetIntensityFromAct(D2DrlgActStrc* pAct)
-{
-    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
-    if (!pEnvironment)
-    {
-        return 0;
-    }
-
-    return pEnvironment->nIntensity;
-}
-
-// 0x0061C160
-int __stdcall ENVIRONMENT_GetUnusedMember(D2DrlgActStrc* pAct)
-{
-    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
-    if (!pEnvironment)
-    {
-        return 0;
-    }
-
-    return pEnvironment->unk0x14;
-}
-
-// 0x0061C220
-int __stdcall ENVIRONMENT_GetCycleIndexFromAct(D2DrlgActStrc* pAct)
-{
-    return DUNGEON_GetEnvironmentFromAct(pAct)->nCycleIndex;
-}
-
-// 0x0061C330
-void __stdcall ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(D2DrlgActStrc* pAct, int* pCycleIndex, int* pTicks, int* pEclipse)
-{
-    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
-
-    *pCycleIndex = pEnvironment->nCycleIndex;
-    *pTicks = pEnvironment->nTicks;
-    *pEclipse = pEnvironment->bEclipse;
-}
-
-// 0x0061C360
-void __stdcall ENVIRONMENT_GetStatistics(D2DrlgActStrc* pAct, float* pCos, float* pLast, float* pSin, int* a5)
-{
-    D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
-
-    *pCos = pEnvironment->fCos;
-    *pLast = pEnvironment->fLast;
-    *pSin = pEnvironment->fSin;
-
-    *a5 = 0;
 }

@@ -80430,7 +80430,13 @@
      "va": "0x0061AE30",
      "length": 69,
      "name": "DUNGEON_GetPortalFlagFromLevelId"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/ENVIRONMENT/Env_0061C0B0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0061C0B0",
      "length": 45,
@@ -80481,7 +80487,24 @@
      "va": "0x0061AEB0",
      "length": 28,
      "name": "?DUNGEON_GetHoradricStaffTombLevelId@@YGHPAUD2DrlgActStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/ENVIRONMENT/Env_0061BEC0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0061BEC0",
+     "length": 18,
+     "name": "?ENVIRONMENT_FreeDrlgEnvironment@@YIXPAXPAUD2DrlgEnvironmentStrc@@@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/DRLG/DrlgActivate.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0061B730",
      "length": 120,
@@ -80491,11 +80514,6 @@
      "va": "0x0061BA30",
      "length": 138,
      "name": "?DRLGACTIVATE_TestRoomCanUnTile@@YIHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x0061BEC0",
-     "length": 18,
-     "name": "?ENVIRONMENT_FreeDrlgEnvironment@@YIXPAXPAUD2DrlgEnvironmentStrc@@@Z"
     }
    ]
   },
