@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -369,6 +370,14 @@ extern Unicode gwszHoverLine_007A2D30[];                                        
 
 extern int gnHoverTextColor_007A2F30;                                                                       // 0x007A2F30
 
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
+void __cdecl sub_0044C060_Refresh(); // 0x0044C060
+
+int __stdcall D2GFX_Release(); // 0x004F5050
+
+int __stdcall WINDOW_Destroy(); // 0x004F5900
+
 // 0x0044B190
 int __fastcall sub_0044B190_DispatchPacket(const unsigned char* pPacket, unsigned int nSize)
 {
@@ -570,6 +579,34 @@ int __cdecl sub_0044BFE0()
     return gdwGlobal_007A066C != 0;
 }
 
+static __declspec(noinline) unsigned short __cdecl sub_0044BEC0_GetClickFlags_static()
+{
+    int nFlags = 0;
+    if (gdwGlobal_007A065C)
+        nFlags = 8;
+    if (gdwGlobal_007A0660)
+        nFlags |= 8;
+    if (gdwGlobal_007A0664)
+        nFlags |= 4;
+    return nFlags;
+}
+
+// 0x0044C000
+void __cdecl sub_0044C000_StartClick()
+{
+    gdwGlobal_0070F234 = 8;
+    if (gdwGlobal_007A061C && gdwGlobal_007A0650 && !gdwGlobal_007A0658)
+    {
+        gdwGlobal_007A066C = 1;
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        const int nFlags = sub_0044BEC0_GetClickFlags_static();
+        if (pPlayer && pPlayer->dwUnitType == 0)
+        {
+            sub_00462D00(1, sub_00468730(), sub_00468740(), nFlags);
+        }
+    }
+}
+
 static __forceinline int CLIENT_GetClickFlags_inl()
 {
     int nFlags = 0;
@@ -596,6 +633,53 @@ void __cdecl sub_0044C060_Refresh()
         if (pPlayer && pPlayer->dwUnitType == 0)
             sub_00462D00(2, sub_00468730(), sub_00468740(), CLIENT_GetClickFlags_inl());
     }
+}
+
+// 0x0044C0F0
+void __stdcall sub_0044C0F0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    sub_0044C060_Refresh();
+}
+
+// 0x0044C180
+void __stdcall sub_0044C180_OnClickUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    gdwGlobal_0070F2BC = 4;
+    gdwGlobal_007A0658 = 0;
+    sub_00466FF0();
+    if (!gdwGlobal_007A061C || sub_0045AE90() == 3)
+    {
+        return;
+    }
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
+    int bLeftPanel = 0;
+    if (sub_0045AE90() == 2 && nX > 0 && nX < gnGlobal_0071146C / 2 && nY > 0 && nY < gnGlobal_00711470 - 0x2F)
+    {
+        bLeftPanel = 1;
+    }
+    int bRightPanel = 0;
+    if (sub_0045AE90() == 1 && nX > gnGlobal_0071146C / 2 && nX < gnGlobal_0071146C && nY > 0 && nY < gnAutomapHeight_007A521C)
+    {
+        bRightPanel = 1;
+    }
+    if (bLeftPanel || bRightPanel)
+    {
+        pMsg->bReturn = 0;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+    gdwGlobal_007A0654 = 1;
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    const int nFlags = sub_0044BEC0_GetClickFlags_static();
+    if (pPlayer && pPlayer->dwUnitType == 0)
+    {
+        gdwGlobal_007A0654 = sub_00462D00(3, pMsg->nXpos, pMsg->nYpos, nFlags);
+    }
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x0044C2C0
@@ -625,6 +709,13 @@ void __cdecl sub_0044C750_InitRooms()
             pRoom->dwFlags |= 1;
         }
     }
+}
+
+// 0x0044C850
+void __stdcall sub_0044C850(int nArg1, int nArg2, int nArg3)
+{
+    WINDOW_Destroy();
+    D2GFX_Release();
 }
 
 // 0x0044C860
