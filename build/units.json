@@ -58584,6 +58584,11 @@
      "name": "?sub_00592860_DebugStartedQuest@@YAXPAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x00592880",
+     "length": 56,
+     "name": "ACT1Q4_SendPacket0x5DToClient"
+    },
+    {
      "va": "0x005928C0",
      "length": 160,
      "name": "ACT1Q4_UnitIterate_RemoveCainFromTristram"
@@ -58991,11 +58996,6 @@
      "va": "0x00591080",
      "length": 99,
      "name": "ACT1Q2_ActiveFilterCallback"
-    },
-    {
-     "va": "0x00592880",
-     "length": 56,
-     "name": "ACT1Q4_SendPacket0x5DToClient"
     },
     {
      "va": "0x00592F80",

@@ -416,6 +416,17 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
+struct D2GSPacketSrv5D
+{
+    unsigned char nHeader;
+    unsigned char nQuestId;
+    unsigned char nFlags;
+    unsigned char nState;
+    unsigned short field_4;
+};
+
+void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
+
 // 0x00586B50
 void __fastcall ACT5Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
@@ -821,6 +832,16 @@ inline D2MonsterInteractStrc* MONSTERS_GetMonInteractInline(D2UnitStrc* pUnit)
     }
 
     return 0;
+}
+
+// 0x00592880
+void __fastcall ACT1Q4_SendPacket0x5DToClient(D2UnitStrc* pUnit)
+{
+    D2GSPacketSrv5D packet5D = {};
+    packet5D.nHeader = QUEST_LOG_PACKET;
+    packet5D.nFlags = 1;
+    packet5D.nQuestId = QUEST_A1Q4_CAIN;
+    sub_6FC3F380(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q4.cpp", 613), &packet5D);
 }
 
 // 0x005928C0
