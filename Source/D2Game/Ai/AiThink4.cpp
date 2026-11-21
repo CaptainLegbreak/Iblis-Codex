@@ -846,6 +846,19 @@ D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc*, int); //
 
 void __fastcall AITHINK_SelectHirelingAction(D2GameStrc*, D2UnitStrc*, int, int, D2UnitStrc*, D2SeedStrc*); // 0x005E4D30
 
+int __fastcall ACT2Q4_IsHaremBlockerObjectOpened(D2GameStrc* pGame); // 0x0059AEC0
+
+int __fastcall ACT2Q4_HasGuardMovedToEndPosition(D2GameStrc* pGame); // 0x0059B8B0
+
+int __fastcall ACT2Q4_GetGuardCoordinates(D2GameStrc* pGame, D2CoordStrc* pCoord); // 0x0059B8F0
+
+bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005E68F0
+
+D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
+
+void __fastcall AITHINK_Fn062_TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam);
+
+void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam);
 
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
@@ -2015,6 +2028,223 @@ void __fastcall AITHINK_Fn041_Towner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     }
 }
 
+// 0x005E7590
+void __fastcall AITHINK_Fn081_JarJar(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (sub_005E6800_InitHomeCommand(pGame, pUnit, pAiTickParam))
+    {
+        return;
+    }
+
+    D2AiCmdStrc* pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
+    if (!ACT2Q4_HasGuardMovedToEndPosition(pGame))
+    {
+        D2CoordStrc coords;
+        coords.nX = pAiCmd->nCmdParam[1];
+        coords.nY = pAiCmd->nCmdParam[2];
+
+        int bFree = 1;
+        if (ACT2Q4_GetGuardCoordinates(pGame, &coords))
+        {
+            bFree = 0;
+        }
+
+        if (pAiCmd->nCmdParam[4] < pGame->dwGameFrame && pGame->dwGameFrame - pAiCmd->nCmdParam[4] < 200)
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+            return;
+        }
+
+        if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, coords.nX, coords.nY) > 1)
+        {
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, coords.nX, coords.nY);
+            pAiCmd->nCmdParam[4] = pGame->dwGameFrame;
+            return;
+        }
+
+        if (bFree)
+        {
+            if (sub_005E68F0(pGame, pUnit, pAiTickParam))
+            {
+                pAiCmd->nCmdParam[4] = pGame->dwGameFrame;
+            }
+            else
+            {
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+            }
+        }
+        else
+        {
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+        }
+        return;
+    }
+
+    if (pAiCmd)
+    {
+        int bCloseToTarget;
+        D2UnitStrc* pOwner = sub_6FCCFD70(pGame, pUnit, &bCloseToTarget);
+        const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwner);
+        if (ACT2Q4_IsHaremBlockerObjectOpened(pGame) && (unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3) > 2)
+        {
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3);
+            return;
+        }
+
+        if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3) > 7)
+        {
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2] - 3);
+            return;
+        }
+
+        if (!sub_005E68F0(pGame, pUnit, pAiTickParam) && pOwner && pOwner != pUnit)
+        {
+            if (pOwner->dwUnitType == UNIT_PLAYER)
+            {
+                if (nDistance < 12)
+                {
+                    if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 1000) < 100)
+                    {
+                        D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, 2);
+                    }
+
+                    AITACTICS_IdleInNeutralMode(pGame, pUnit, 200);
+                    return;
+                }
+
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 20);
+            }
+
+            if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 1000) < 50)
+            {
+                AITACTICS_WalkCloseToUnit(pGame, pUnit, 3);
+            }
+        }
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 120);
+}
+
+static inline int AI_GetAnimMode(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return pUnit->dwAnimMode;
+}
+
+// 0x005E7C10
+void __fastcall sub_005E7C10_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (AI_GetAnimMode(pUnit) != 1)
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
+        return;
+    }
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        int nDistance;
+        int bCombat;
+        D2UnitStrc* pTarget = sub_6FCF2110(pGame, pUnit, pAiTickParam->pAiControl, &nDistance, &bCombat);
+        if (pTarget)
+        {
+            const int nRand = SEED_RollLimitedRandomNumber(pSeed, 100);
+            if (bCombat)
+            {
+                if (nRand < 80)
+                {
+                    AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+                    return;
+                }
+
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+                return;
+            }
+
+            if (nRand < 30)
+            {
+                AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+                return;
+            }
+
+            AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+            return;
+        }
+    }
+
+    if ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100) < 20)
+    {
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+}
+
+// 0x005E7D30
+int __fastcall sub_005E7D30_IsInTownOrRoomless(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 1;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 1;
+    }
+
+    return DUNGEON_IsRoomInTown(pRoom) != 0;
+}
+
+// 0x005E7D60
+void __fastcall AITHINK_Fn062_TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+
+    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
+    if (pTarget && nDistance < 25)
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
+    }
+}
+
+// 0x005E7DC0
+void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    int bCombat = pAiTickParam->bCombat;
+
+    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
+    if (pTarget && nDistance < 25)
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
+    }
+}
+
+// 0x005E7F50
+void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    if (UNITS_GetRoom(pUnit))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 200);
+    }
+}
+
 // 0x005E7F80
 void __fastcall D2GAME_AI_SpecialState09_6FCE7C40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
@@ -2692,40 +2922,6 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
  }
  }
  AITACTICS_IdleInNeutralMode(game,unit,40);
-}
-
-// build: context AITHINK_Fn062_TownRogue
-void __fastcall AITHINK_Fn062_TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    int bCombat = pAiTickParam->bCombat;
-    int nDistance = pAiTickParam->nTargetDistance;
-
-    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
-    if (pTarget && nDistance < 25)
-    {
-        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-    }
-    else
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
-    }
-}
-
-// build: context sub_005E7DC0_SpecialState08TownRogue
-void __fastcall sub_005E7DC0_SpecialState08TownRogue(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
-{
-    int bCombat = pAiTickParam->bCombat;
-    int nDistance = pAiTickParam->nTargetDistance;
-
-    D2UnitStrc* pTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, &bCombat);
-    if (pTarget && nDistance < 25)
-    {
-        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
-    }
-    else
-    {
-        AITACTICS_IdleInNeutralMode(pGame, pUnit, 50);
-    }
 }
 
 // 0x005EA290

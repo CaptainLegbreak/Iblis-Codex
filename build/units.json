@@ -69378,6 +69378,35 @@
      "name": "AITHINK_Fn041_Towner"
     },
     {
+     "va": "0x005E7590",
+     "length": 528,
+     "name": "?AITHINK_Fn081_JarJar@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005E7C10",
+     "length": 280
+    },
+    {
+     "va": "0x005E7D30",
+     "length": 33,
+     "name": "?sub_005E7D30_IsInTownOrRoomless@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005E7D60",
+     "length": 91,
+     "name": "AITHINK_Fn062_TownRogue"
+    },
+    {
+     "va": "0x005E7DC0",
+     "length": 91,
+     "name": "sub_005E7DC0_SpecialState08TownRogue"
+    },
+    {
+     "va": "0x005E7F50",
+     "length": 35,
+     "name": "?AITHINK_Fn001_100_Idle_Buffy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005E7F80",
      "length": 160,
      "name": "D2GAME_AI_SpecialState09_6FCE7C40"
@@ -70310,41 +70339,6 @@
      "va": "0x005E6E80",
      "length": 101,
      "name": "?sub_005E6E80@@YI_NPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@PAUD2MapAIPathPositionStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005E7590.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005E7590",
-     "length": 528,
-     "name": "?AITHINK_Fn081_JarJar@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005E7C10",
-     "length": 280
-    },
-    {
-     "va": "0x005E7D30",
-     "length": 33,
-     "name": "?sub_005E7D30_IsInTownOrRoomless@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005E7D60",
-     "length": 91,
-     "name": "AITHINK_Fn062_TownRogue"
-    },
-    {
-     "va": "0x005E7DC0",
-     "length": 91,
-     "name": "sub_005E7DC0_SpecialState08TownRogue"
-    },
-    {
-     "va": "0x005E7F50",
-     "length": 35,
-     "name": "?AITHINK_Fn001_100_Idle_Buffy@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
