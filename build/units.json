@@ -68307,6 +68307,11 @@
      "name": "?AITHINK_Fn026_Arach@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
+     "va": "0x005F4850",
+     "length": 529,
+     "name": "?AITHINK_Fn027_ThornHulk@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F4FD0",
      "length": 100,
      "name": "sub_005F4FD0"
@@ -69182,17 +69187,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F4850.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F4850",
-     "length": 529,
-     "name": "?AITHINK_Fn027_ThornHulk@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {

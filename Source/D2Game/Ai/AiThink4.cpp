@@ -1287,6 +1287,13 @@ enum D2C_M144SandMaggotAi
     SANDMAGGOT_AI_PARAM_MIN_UP_DOWN_TIME = 4,
 };
 
+enum D2C_M75ThornHulkConstants
+{
+    EVENTTYPE_ENDANIM = 1,
+};
+
+int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent);                       // 0x005415A0
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -2173,6 +2180,14 @@ static __forceinline int AI_RollPercentageInline(D2UnitStrc* pUnit)
 static int AI_RollPercentage(D2UnitStrc* pUnit)
 {
     return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+}
+
+static int AI_RollPercentage_005F4850(D2UnitStrc* pUnit)
+{
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed % 100;
 }
 
 static int AI_RollPercentage_005F1800(D2UnitStrc* pUnit)
@@ -8005,6 +8020,12 @@ static __forceinline bool AI_RollChanceLimited(D2GameStrc* pGame, D2SeedStrc* pS
     return nRoll < AI_GetParam(pGame, pMonStatsTxt, nParamId);
 }
 
+static __forceinline bool AI_RollChanceLimited_005F4850(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonStatsTxt* pMonStatsTxt, int nParamId)
+{
+    const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100);
+    return nRoll < AI_GetParam(pGame, pMonStatsTxt, nParamId);
+}
+
 static inline bool AI_RollLimitedBelow(D2SeedStrc* pSeed, int nChance)
 {
     const int nRoll = SEED_RollLimitedRandomNumber(pSeed, 100);
@@ -8533,6 +8554,73 @@ void __fastcall AITHINK_Fn026_Arach(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
 
     pAiControl->dwAiParam[1] = 1;
     sub_6FCD0410(pGame, pUnit, pTarget, 0);
+}
+
+// 0x005F4850
+void __fastcall AITHINK_Fn027_ThornHulk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    if (!pAiTickParam->bCombat || !pTarget)
+    {
+        pAiControl->dwAiParam[0] = 0;
+        sub_6FCD0410(pGame, pUnit, pTarget, 7);
+        return;
+    }
+
+    if (pAiControl->dwAiParam[0] > 0)
+    {
+        AITACTICS_UseSkill(pGame, pUnit, MONMODE_ATTACK2, pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+        const int nEventFrame = EVENT_GetEventFrame(pGame, pUnit, EVENTTYPE_ENDANIM);
+        if (nEventFrame > pGame->dwGameFrame)
+        {
+            AITACTICS_Idle(pGame, pUnit, nEventFrame + AI_GetParam(pGame, pMonStatsTxt, 4) - pGame->dwGameFrame);
+        }
+
+        --pAiControl->dwAiParam[0];
+        if (pAiControl->dwAiParam[0] <= 0)
+        {
+            pAiControl->dwAiParam[1] = 3;
+        }
+        return;
+    }
+
+    if (AI_RollPercentage_005F4850(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 0))
+    {
+        if (pAiControl->dwAiParam[1] > 0 || !AI_RollChanceLimited_005F4850(pGame, pUnit, pMonStatsTxt, 3))
+        {
+            --pAiControl->dwAiParam[1];
+            if (AI_RollChanceLimited_005F4850(pGame, pUnit, pMonStatsTxt, 1))
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+            }
+            else
+            {
+                AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+            }
+        }
+        else
+        {
+            AITACTICS_UseSkill(pGame, pUnit, MONMODE_ATTACK2, pMonStatsTxt->nSkill[0], pTarget, 0, 0);
+            const int nEventFrame = EVENT_GetEventFrame(pGame, pUnit, EVENTTYPE_ENDANIM);
+            if (nEventFrame > pGame->dwGameFrame)
+            {
+                AITACTICS_Idle(pGame, pUnit, nEventFrame + AI_GetParam(pGame, pMonStatsTxt, 4) - pGame->dwGameFrame);
+            }
+
+            pAiControl->dwAiParam[0] = AI_GetParam(pGame, pMonStatsTxt, 5);
+        }
+        return;
+    }
+
+    if (AI_RollChanceLimited_005F4850(pGame, pUnit, pMonStatsTxt, 2))
+    {
+        sub_005DF7D0(pGame, pUnit, pTarget, MONMODE_ATTACK1, 0);
+        return;
+    }
+
+    AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
 }
 
 // 0x005F4FD0
