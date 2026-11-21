@@ -76201,6 +76201,31 @@
      "name": "?sub_0060E440_Head@D2ChatStormListAStrc@@QAEPADXZ"
     },
     {
+     "va": "0x0060E450",
+     "length": 25,
+     "name": "sub_0060E450_Link"
+    },
+    {
+     "va": "0x0060E470",
+     "length": 22,
+     "name": "sub_0060E470_InitLinkField"
+    },
+    {
+     "va": "0x0060E490",
+     "length": 171,
+     "name": "sub_0060E490_LinkNode"
+    },
+    {
+     "va": "0x0060E540",
+     "length": 28,
+     "name": "sub_0060E540_RawNext"
+    },
+    {
+     "va": "0x0060E5B0",
+     "length": 22,
+     "name": "sub_0060E5B0_InitLinkField"
+    },
+    {
      "va": "0x0060E5D0",
      "length": 16,
      "name": "?sub_0060E5D0_Head@D2ChatStormListBStrc@@QAEPADXZ"
@@ -76221,6 +76246,16 @@
      "name": "?sub_0060E610_Reset@D2ChatStormListBStrc@@QAEXXZ"
     },
     {
+     "va": "0x0060E630",
+     "length": 25,
+     "name": "sub_0060E630_Link"
+    },
+    {
+     "va": "0x0060E650",
+     "length": 55,
+     "name": "sub_0060E650_Next"
+    },
+    {
      "va": "0x0060E690",
      "length": 50,
      "name": "?sub_0060E690_Unlink@D2ChatStormLinkStrc@@QAEXXZ"
@@ -76231,9 +76266,24 @@
      "name": "?sub_0060E6D0_Head@D2ChatStormHashTableStrc@@QAEPADXZ"
     },
     {
+     "va": "0x0060E6E0",
+     "length": 121,
+     "name": "sub_0060E6E0_UnlinkNode"
+    },
+    {
      "va": "0x0060E760",
      "length": 50,
      "name": "?sub_0060E760_Unlink@D2ChatStormLinkStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0060E7A0",
+     "length": 31,
+     "name": "sub_0060E7A0_Delete"
+    },
+    {
+     "va": "0x0060E7C0",
+     "length": 55,
+     "name": "sub_0060E7C0_Next"
     },
     {
      "va": "0x0060E800",
@@ -76246,9 +76296,49 @@
      "name": "??0D2ChatStormListDStrc@@QAE@XZ"
     },
     {
+     "va": "0x0060E890",
+     "length": 171,
+     "name": "sub_0060E890_LinkNode"
+    },
+    {
+     "va": "0x0060E940",
+     "length": 28,
+     "name": "sub_0060E940_RawNext"
+    },
+    {
+     "va": "0x0060E9B0",
+     "length": 39,
+     "name": "?0D2CommonStormListCStrc"
+    },
+    {
+     "va": "0x0060E9E0",
+     "length": 39,
+     "name": "?0D2CommonStormListDStrc"
+    },
+    {
+     "va": "0x0060EAA0",
+     "length": 56,
+     "name": "sub_0060EAA0_Next"
+    },
+    {
+     "va": "0x0060EC00",
+     "length": 56,
+     "name": "sub_0060EC00_Next"
+    },
+    {
      "va": "0x0060EC40",
      "length": 60,
      "name": "??1D2CommonStormSlotListAStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0060EC80",
+     "length": 37,
+     "name": "sub_0060EC80_ChangeLinkOffset"
+    },
+    {
+     "va": "0x0060ED00",
+     "length": 39,
+     "name": "?0D2CommonStormListEStrc"
     },
     {
      "va": "0x0060ED30",
@@ -76259,6 +76349,11 @@
      "va": "0x0060ED60",
      "length": 8,
      "name": "?sub_0060ED60_Clear@D2CommonStormHashTableAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0060ED70",
+     "length": 64,
+     "name": "sub_0060ED70_DeleteNext"
     },
     {
      "va": "0x0060EDB0",
@@ -76280,6 +76375,16 @@
      "name": "??1D2CommonStormSlotListBStrc@@QAE@XZ"
     },
     {
+     "va": "0x0060EF30",
+     "length": 37,
+     "name": "sub_0060EF30_ChangeLinkOffset"
+    },
+    {
+     "va": "0x0060F070",
+     "length": 39,
+     "name": "?0D2CommonStormListFStrc"
+    },
+    {
      "va": "0x0060F1D0",
      "length": 119,
      "name": "?sub_0060F1D0_Ptr@D2StormHashTable0060F1D0Strc@@QAEPADIABUD2StormNameKeyStrc@@@Z"
@@ -76288,6 +76393,11 @@
      "va": "0x0060F500",
      "length": 11,
      "name": "?sub_0060F500_VirtSlot10@D2CommonIgnoreListStrc@@UAEXXZ"
+    },
+    {
+     "va": "0x0060F6D0",
+     "length": 70,
+     "name": "sub_0060F6D0_Reserve"
     },
     {
      "va": "0x0060F930",
@@ -76299,9 +76409,29 @@
      "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     },
     {
+     "va": "0x0060F9D0",
+     "length": 247,
+     "name": "sub_0060F9D0_SetCount"
+    },
+    {
+     "va": "0x0060FAD0",
+     "length": 70,
+     "name": "sub_0060FAD0_Reserve"
+    },
+    {
      "va": "0x0060FE50",
      "length": 20,
      "name": "??0D2CommonStormZero6105F0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x006100B0",
+     "length": 247,
+     "name": "sub_006100B0_SetCount"
+    },
+    {
+     "va": "0x006104A0",
+     "length": 171,
+     "name": "?0D2CommonStormHashTableAStrc"
     },
     {
      "va": "0x00610610",
@@ -76312,6 +76442,11 @@
      "va": "0x00610630",
      "length": 88,
      "name": "?sub_00610630@List@@QAEPAUNode@@HII@Z"
+    },
+    {
+     "va": "0x00610B30",
+     "length": 171,
+     "name": "?0D2CommonStormHashTableBStrc"
     },
     {
      "va": "0x00610D30",
@@ -76387,157 +76522,6 @@
      "va": "0x0061A270",
      "length": 74,
      "name": "DUNGEON_AllocDrlgDelete"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Chat/Ignorelist_0060E450.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060E450",
-     "length": 25,
-     "name": "sub_0060E450_Link"
-    },
-    {
-     "va": "0x0060E470",
-     "length": 22,
-     "name": "sub_0060E470_InitLinkField"
-    },
-    {
-     "va": "0x0060E490",
-     "length": 171,
-     "name": "sub_0060E490_LinkNode"
-    },
-    {
-     "va": "0x0060E540",
-     "length": 28,
-     "name": "sub_0060E540_RawNext"
-    },
-    {
-     "va": "0x0060E5B0",
-     "length": 22,
-     "name": "sub_0060E5B0_InitLinkField"
-    },
-    {
-     "va": "0x0060E630",
-     "length": 25,
-     "name": "sub_0060E630_Link"
-    },
-    {
-     "va": "0x0060E650",
-     "length": 55,
-     "name": "sub_0060E650_Next"
-    },
-    {
-     "va": "0x0060E6E0",
-     "length": 121,
-     "name": "sub_0060E6E0_UnlinkNode"
-    },
-    {
-     "va": "0x0060E7A0",
-     "length": 31,
-     "name": "sub_0060E7A0_Delete"
-    },
-    {
-     "va": "0x0060E7C0",
-     "length": 55,
-     "name": "sub_0060E7C0_Next"
-    },
-    {
-     "va": "0x0060E890",
-     "length": 171,
-     "name": "sub_0060E890_LinkNode"
-    },
-    {
-     "va": "0x0060E940",
-     "length": 28,
-     "name": "sub_0060E940_RawNext"
-    },
-    {
-     "va": "0x0060E9B0",
-     "length": 39,
-     "name": "?0D2CommonStormListCStrc"
-    },
-    {
-     "va": "0x0060E9E0",
-     "length": 39,
-     "name": "?0D2CommonStormListDStrc"
-    },
-    {
-     "va": "0x0060EAA0",
-     "length": 56,
-     "name": "sub_0060EAA0_Next"
-    },
-    {
-     "va": "0x0060EC00",
-     "length": 56,
-     "name": "sub_0060EC00_Next"
-    },
-    {
-     "va": "0x0060EC80",
-     "length": 37,
-     "name": "sub_0060EC80_ChangeLinkOffset"
-    },
-    {
-     "va": "0x0060ED00",
-     "length": 39,
-     "name": "?0D2CommonStormListEStrc"
-    },
-    {
-     "va": "0x0060ED70",
-     "length": 64,
-     "name": "sub_0060ED70_DeleteNext"
-    },
-    {
-     "va": "0x0060EF30",
-     "length": 37,
-     "name": "sub_0060EF30_ChangeLinkOffset"
-    },
-    {
-     "va": "0x0060F020",
-     "length": 34,
-     "name": "?sub_0060F020_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
-    },
-    {
-     "va": "0x0060F070",
-     "length": 39,
-     "name": "?0D2CommonStormListFStrc"
-    },
-    {
-     "va": "0x0060F360",
-     "length": 34,
-     "name": "?sub_0060F360_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
-    },
-    {
-     "va": "0x0060F6D0",
-     "length": 70,
-     "name": "sub_0060F6D0_Reserve"
-    },
-    {
-     "va": "0x0060F9D0",
-     "length": 247,
-     "name": "sub_0060F9D0_SetCount"
-    },
-    {
-     "va": "0x0060FAD0",
-     "length": 70,
-     "name": "sub_0060FAD0_Reserve"
-    },
-    {
-     "va": "0x006100B0",
-     "length": 247,
-     "name": "sub_006100B0_SetCount"
-    },
-    {
-     "va": "0x006104A0",
-     "length": 171,
-     "name": "?0D2CommonStormHashTableAStrc"
-    },
-    {
-     "va": "0x00610B30",
-     "length": 171,
-     "name": "?0D2CommonStormHashTableBStrc"
     }
    ]
   },
