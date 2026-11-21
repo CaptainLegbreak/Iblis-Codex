@@ -72496,6 +72496,10 @@
      "name": "?sub_0060A650_MapSubTileRecord@@YGXUD2CmpColorStrc@@PBUD2CmpSubTileRecordStrc@@PAU2@P6GEEEE@Z@Z"
     },
     {
+     "va": "0x0060A750",
+     "length": 448
+    },
+    {
      "va": "0x0060A910",
      "length": 184
     }
@@ -73319,16 +73323,6 @@
      "va": "0x00609420",
      "length": 139,
      "name": "sub_00609420"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Tilecmp_0060A750.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060A750",
-     "length": 448
     }
    ]
   },
