@@ -25,7 +25,6 @@ struct D2MemoryStatusStrc;
 struct D2OsVersionInfoStrc;
 struct D2CriticalSectionStrc;
 struct D2StormBufferInfoStrc;
-struct D2StormFixedListStrc;
 struct D2Storm415140Strc;
 struct D2SFileRecordViewStrc;
 struct D2SFileOtherRecordViewStrc;
@@ -37,9 +36,6 @@ struct D2StormQuadStrc;
 struct D2StormSoundBuffer;
 struct D2StormDdaLinkStrc;
 struct D2StormDdaListStrc;
-struct D2StormListStrc;
-struct D2Storm4167B0Strc;
-struct D2Storm4168F0Strc;
 struct D2Storm416A90Strc;
 struct PairStrc_00416810;
 struct PairStrc_00416890;
@@ -77,7 +73,6 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2StormListBaseStrc;
 struct D2StormList00418490Strc;
 struct D2StormList004185B0Strc;
 struct D2StormList00708354Strc;
@@ -85,14 +80,12 @@ struct D2StormList00708360Strc;
 struct D2StormList0070836CStrc;
 struct D2StormList00708378Strc;
 struct D2StormList00708384Strc;
-struct D2StormNodeListStrc;
 struct D2StormHashBufferStrc;
 struct D2StormHuffOutputStrc;
 class THuffmannTree;
 struct D2StormHuffLinkSlotStrc;
 struct D2StormHuffTreeStrc;
 struct D2StormHashCtxStrc;
-struct D2StormAudioStreamStrc;
 struct D2StormHandlerStrc;
 struct D2StormWndRecStrc;
 struct D2StormNodeListBStrc;
@@ -167,51 +160,6 @@ struct Link {
     Link* previous;
     char* next;
     char* sub_00417770();
-};
-
-struct D2StormFixedListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    D2StormLinkStrc* sub_0040F880_Link(char* pNode);
-    void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
-    void sub_0040FC60_UnlinkNode(char* pNode);
-    D2StormLinkStrc* sub_00417A10_Link(char* pNode);
-    D2StormLinkStrc* sub_00417A50_Link(char* pNode);
-    D2StormLinkStrc* sub_00417B60_Link(char* pNode);
-    D2StormLinkStrc* sub_00417C50_Link(char* pNode);
-    D2StormLinkStrc* sub_00417D60_Link(char* pNode);
-    D2StormLinkStrc* sub_0041C560_Link(char* pNode);
-    void sub_00417A70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_00417B80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_00417C70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_00417D80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_004184B0_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    char* sub_00417B20_Next(char* pNode);
-    char* sub_00417D20_Next(char* pNode);
-    char* sub_00417E30_Next(char* pNode);
-    char* sub_0041C630_Next(char* pNode);
-    void sub_00417E90_UnlinkNode(char* pNode);
-    void sub_00418560_UnlinkNode(char* pNode);
-    void sub_004185F0_UnlinkNode(char* pNode);
-    void sub_00418660_UnlinkNode(char* pNode);
-    void sub_00418710_UnlinkNode(char* pNode);
-    void sub_0041C690_UnlinkNode(char* pNode);
-    char* sub_004185D0_RawNext(char* pNode);
-    char* sub_004186D0_RawNext(char* pNode);
-    char* sub_004186F0_RawNext(char* pNode);
-    char* sub_0041C700_RawNext(char* pNode);
-    char* sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419630_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419B90_DeleteNode(char* pNode);
-    char* sub_0041A2C0_DeleteNode(char* pNode);
-    char* sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_0041CA10_DeleteNode(char* pNode);
 };
 
 struct D2Storm415140Strc
@@ -362,26 +310,6 @@ extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, __int64*
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
-struct D2Storm4167B0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4167B0Strc();
-};
-
-struct D2Storm4168F0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4168F0Strc();
-};
-
 struct PairStrc_00416810
 {
     int nFirst;
@@ -495,12 +423,6 @@ struct D2SFileArchiveM114Strc
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-struct D2StormListBaseStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
 struct D2StormList00418490Strc : D2StormListBaseStrc { int sub_00418490_IsEmpty(); };
 
 struct D2StormList004185B0Strc : D2StormListBaseStrc { int sub_004185B0_IsEmpty(); };
@@ -521,18 +443,6 @@ extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, 
 extern "C" void __cdecl __debugbreak();
 unsigned long __stdcall CdThreadProc(void* pParam); // 0x0041A550
 void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility); // 0x0041C0F0
-
-struct D2StormNodeListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    void sub_0041EE40_UnlinkAll();
-};
 
 struct D2StormHashBufferStrc
 {
@@ -581,15 +491,6 @@ struct D2StormHashCtxStrc
 extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 extern void* ghStormThread_00779034; // 0x00779034
 extern int gnStormDirectFlags_00779058; // 0x00779058
-
-struct D2StormAudioStreamStrc
-{
-    D2StormLinkStrc f_0;
-    char unk0x08[0x48];
-
-    ~D2StormAudioStreamStrc();                                                                              // 0x004199A0
-    static void operator delete(void* pMemory);
-};
 
 struct D2StormHandlerStrc
 {
@@ -2247,7 +2148,7 @@ char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
 // 0x004167B0
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x004167F0
@@ -2302,7 +2203,7 @@ char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
 // 0x004168F0
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x004169F0

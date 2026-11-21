@@ -6,7 +6,6 @@
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2CriticalSectionStrc;
-struct D2StormFixedListStrc;
 
 // build: context ArchiveHead
 // build: context D2StormLinkStrc::Next
@@ -15,14 +14,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szName, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwDisposition, unsigned long dwFlags, void* hTemplate); // 0x006CC19C
 extern "C" __declspec(dllimport) unsigned long __stdcall SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMethod); // 0x006CC1AC
-
-struct D2StormFixedListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);    // 0x00418F20
-};
 
 typedef void (__stdcall* SFILEOPENCALLBACK)(const char* szFileName, void* pParam);
 extern "C" const char gszSFileSourceFile_006CF084[]; // 0x006CF084

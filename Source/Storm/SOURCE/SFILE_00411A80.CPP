@@ -7,9 +7,6 @@
 
 struct D2CriticalSectionStrc;
 struct D2FogBlockStrc;
-struct D2StormListStrc;
-struct D2Storm4167B0Strc;
-struct D2Storm4168F0Strc;
 struct D2Storm416A90Strc;
 struct D2ChatStormLinkStrc;
 struct D2ChatStormLinkAStrc;
@@ -34,15 +31,12 @@ struct D2CommonStormHashTableAStrc;
 struct D2StormRequestCallbackStrc;
 struct D2StormCryptFuncsStrc;
 struct D2StormSignatureKeyStrc;
-struct D2StormListBaseStrc;
 struct D2StormList00708354Strc;
 struct D2StormList00708360Strc;
 struct D2StormList0070836CStrc;
 struct D2StormList00708378Strc;
 struct D2StormList00708384Strc;
 struct D2StormRecord419000Strc;
-struct D2StormAudioStreamStrc;
-struct D2StormFixedListStrc;
 
 struct D2FogBlockStrc
 {
@@ -64,26 +58,6 @@ extern unsigned long gnFlag0_007784C4; // 0x007784C4
 extern int gbHeapInitialized_007788D0; // 0x007788D0
 extern char gszBasePath_00778F28[]; // 0x00778F28
 extern unsigned short gwValue_0077905C;
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
-struct D2Storm4167B0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4167B0Strc();
-};
-
-struct D2Storm4168F0Strc
-{
-    D2StormLinkStrc f_0;
-
-    ~D2Storm4168F0Strc();
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
@@ -138,12 +112,6 @@ static int __stdcall sub_00415B00_FindDiskFile(unsigned int nFlags, const char* 
 static int __stdcall sub_00417F10_FindFile(void* hArchive, const char* szName, unsigned int nFlags, D2StormArchiveRecStrc** ppArchive, D2StormBlockStrc** ppBlock, char* szFoundPath);
 void __cdecl sub_00415B90_InitCryptTable(); // 0x00415B90
 
-struct D2StormListBaseStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
 struct D2StormList00708354Strc : D2StormListBaseStrc { void sub_00418900_UnlinkAll(); };
 
 struct D2StormList00708360Strc : D2StormListBaseStrc { void sub_00418940_UnlinkAll(); };
@@ -168,34 +136,6 @@ struct D2StormRecord419000Strc
 
 extern "C" const char gszStormFileRecTypeName[]; // 0x007083C0
 extern "C" const char gszStormEventRecTypeName[]; // 0x007083D8
-
-struct D2StormAudioStreamStrc
-{
-    D2StormLinkStrc f_0;
-    char unk0x08[0x48];
-
-    D2StormAudioStreamStrc()
-    {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
-    }
-};
-
-struct D2StormFixedListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    void sub_00417B80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);                   // 0x00417B80
-    void sub_00417D80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);                   // 0x00417D80
-    char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419690_DeleteNode(char* pNode);
-    char* sub_00419700_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-};
 
 inline void* operator new(unsigned int, void* pWhere) throw();
 
@@ -256,7 +196,7 @@ char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
@@ -303,7 +243,7 @@ char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
 
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList)
@@ -826,6 +766,13 @@ char* D2StormFixedListStrc::sub_00419690_DeleteNode(char* pNode)
     ((D2StormLinkStrc*)pNode)->Unlink();
     SMemFree(pNode, gszStormEventRecTypeName, -2, 0);
     return pNext;
+}
+
+// build: context D2StormAudioStreamStrc::D2StormAudioStreamStrc
+inline D2StormAudioStreamStrc::D2StormAudioStreamStrc()
+{
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 // 0x00419700

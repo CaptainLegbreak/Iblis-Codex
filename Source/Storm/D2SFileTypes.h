@@ -327,3 +327,117 @@ struct D2StormEventListStrc
 
     char* sub_00419690_DeleteNode(char* pNode);                                                             // 0x00419690
 };
+
+// The fixed-type node lists (one record for each list of the file).
+struct D2StormFixedListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+    D2StormLinkStrc* Link(char* pNode)
+    {
+        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
+    }
+    D2StormLinkStrc* sub_0040F880_Link(char* pNode);
+    void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
+    void sub_0040FC60_UnlinkNode(char* pNode);
+    D2StormLinkStrc* sub_00417A10_Link(char* pNode);
+    D2StormLinkStrc* sub_00417A50_Link(char* pNode);
+    D2StormLinkStrc* sub_00417B60_Link(char* pNode);
+    D2StormLinkStrc* sub_00417C50_Link(char* pNode);
+    D2StormLinkStrc* sub_00417D60_Link(char* pNode);
+    D2StormLinkStrc* sub_0041C560_Link(char* pNode);
+    void sub_00417A70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
+    void sub_00417B80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
+    void sub_00417C70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
+    void sub_00417D80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
+    void sub_004184B0_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
+    void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
+    char* sub_00417B20_Next(char* pNode);
+    char* sub_00417D20_Next(char* pNode);
+    char* sub_00417E30_Next(char* pNode);
+    char* sub_0041C630_Next(char* pNode);
+    void sub_00417E90_UnlinkNode(char* pNode);
+    void sub_00418560_UnlinkNode(char* pNode);
+    void sub_004185F0_UnlinkNode(char* pNode);
+    void sub_00418660_UnlinkNode(char* pNode);
+    void sub_00418710_UnlinkNode(char* pNode);
+    void sub_0041C690_UnlinkNode(char* pNode);
+    char* sub_004185D0_RawNext(char* pNode);
+    char* sub_004186D0_RawNext(char* pNode);
+    char* sub_004186F0_RawNext(char* pNode);
+    char* sub_0041C700_RawNext(char* pNode);
+    char* sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+    char* sub_00419630_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+    char* sub_00419B90_DeleteNode(char* pNode);
+    char* sub_0041A2C0_DeleteNode(char* pNode);
+    char* sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+    char* sub_0041CA10_DeleteNode(char* pNode);
+    char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+    char* sub_00419690_DeleteNode(char* pNode);
+    char* sub_00419700_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
+};
+
+struct D2StormListBaseStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    void sub_00417B40_Initialize();                                                                          // 0x00417B40
+    void sub_00417D40_Initialize();                                                                          // 0x00417D40
+};
+
+struct D2StormListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    char* Head()
+    {
+        return (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0;
+    }
+};
+
+struct D2StormNodeListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    char* Head()
+    {
+        return m_terminator.Next();
+    }
+    void sub_0041EE40_UnlinkAll();                                                                           // 0x0041EE40
+};
+
+// A streamed audio record (0x50 bytes).
+struct D2StormAudioStreamStrc
+{
+    D2StormLinkStrc tLink;                      // 0x00
+    union
+    {
+        char unk0x08[0x48];                     // 0x08
+        struct
+        {
+            char unk0x08b[0x44];
+            int nRefCount;                      // 0x4C
+        };
+    };
+
+    D2StormAudioStreamStrc();
+    ~D2StormAudioStreamStrc();                                                                              // 0x004199A0
+    static void operator delete(void* pMemory);
+};
+
+struct D2Storm4167B0Strc
+{
+    D2StormLinkStrc tLink;
+
+    ~D2Storm4167B0Strc();
+};
+
+struct D2Storm4168F0Strc
+{
+    D2StormLinkStrc tLink;
+
+    ~D2Storm4168F0Strc();
+};

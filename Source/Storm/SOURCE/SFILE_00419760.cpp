@@ -5,39 +5,15 @@
 
 struct D2CriticalSectionStrc;
 struct D2StormLinkStrc;
-struct D2StormNodeListStrc;
-struct D2StormFixedListStrc;
-struct D2StormAudioStreamStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
-struct D2StormNodeListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
-struct D2StormFixedListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
 extern D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
 extern D2StormNodeListStrc gStormList_00708354; // 0x00708354
 extern D2StormFixedListStrc gFileList_0070836C; // 0x0070836C
-
-struct D2StormAudioStreamStrc {
-    char prefix[0x4C];
-    int nRefCount;
-    ~D2StormAudioStreamStrc();  // 0x004199A0
-    static void operator delete(void* memory) {
-        if (memory) SMemFree(memory, "delete", -1, 0);
-    }
-};
 
 // 0x00419760
 static void RemoveFileRef(D2StormFileRecStrc* pFile)
@@ -111,6 +87,12 @@ int __stdcall SFileCloseArchive(void* hArchive)
         delete pRec;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
+}
+
+inline void D2StormAudioStreamStrc::operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
 }
 
 // 0x00419BD0
