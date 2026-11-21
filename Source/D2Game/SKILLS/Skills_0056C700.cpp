@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2GameRecords.h"
+#include "D2ItemsWorld.h"
 
 #define STAT_FIRERESIST 39
 #define STAT_LIGHTRESIST 41
@@ -45,11 +46,6 @@ enum D2C_ElemTypes
 
 extern const int gnRandomElemTypes_006E1278[4]; // 0x006E1278
 
-struct D2UnitFindDataStrc
-{
-    void* pMemPool; D2UnitStrc** pUnitsArray; D2ActiveRoomStrc* pRoom; void* pfnUnitTest; D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags; int nIndex; int nMaxArrayEntries; int nX; int nY; int nSize;
-};
 
 typedef void (__fastcall* CurseCallbackFunc)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int);
 
@@ -70,20 +66,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
-typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
 
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 struct D2StatesTxt { char unk_00[0x10]; unsigned char nFlags[4]; char unk_14[0x28]; };
 
@@ -99,7 +82,7 @@ void __stdcall STATLIST_SetExpireFrame(D2StatListStrc*, int); // 0x00625310
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc*, int); // 0x006256B0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc*, int); // 0x00625760
-void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc*, StatListRemoveCallback); // 0x00625CE0
+void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc*, StatListRemoveFunc); // 0x00625CE0
 void __stdcall STATLIST_SetSkillId(D2StatListStrc*, int); // 0x006260D0
 D2SkillStrc* __stdcall sub_006260E0(D2StatListStrc*); // 0x006260E0
 void __stdcall STATLIST_SetSkillLevel(D2StatListStrc*, int); // 0x006260F0

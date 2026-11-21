@@ -4,6 +4,12 @@
 #include "D2GameTypes.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameAux.h"
+#include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
+#include "D2Path.h"
+#include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_MAX(a, b) ((a) < (b) ? (b) : (a))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -18,20 +24,7 @@ struct D2NecroSkeletonComponentStrc;
 struct D2StaticPathStrc;
 struct D2SummonArgStrc;
 
-typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    StatListRemoveCallback pStateRemoveCallback;
-};
 
 struct D2UnkNecSkillStrc
 {
@@ -71,42 +64,8 @@ void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nSta
 void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4); // 0x005C0B50
 D2UnitEventStrc* __fastcall sub_6FD156A0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEventType, int nSkillId, int nSkillLevel, int nEventFunc, int a7, int a8); // 0x0056E740
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x1C];
-    int dwAiCurseDiv;
-};
 
-struct D2ItemStatCostTxt
-{
-    unsigned short wStatId;
-    unsigned short pad0x02;
-    unsigned char nItemStatFlags[4];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    char unk0x080[0x2];
-    short wAuraTargetState;
-    short wAuraEvent[3];
-    short wAuraEventFunc[3];
-    unsigned char unk_90[0x2E];
-    unsigned char nPetType;
-    char unk0x0BF[0x01];
-    unsigned int dwPetMax;
-    unsigned char unk_C4[0x48];
-    short wSrvOverlay;
-    char unk0x10E[0x2A];
-    unsigned int dwCalc[4];
-    int dwParam[8];
-    char unk0x168[0x23C - 0x168];
-};
 
 struct D2UnkNecSkillStrc3
 {
@@ -136,13 +95,6 @@ void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nA
 void __fastcall sub_6FC40280(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4); // 0x005B1990
 void __fastcall SKILLS_ClearMonsterMinionOwnership(D2UnitStrc* pUnit); // 0x0056E580
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[4];
-    unsigned char nComponent[16];
-    char unk0x14[0x14];
-    D2AiControlStrc* pAiControl;
-};
 
 extern const D2NecroSkeletonComponentStrc gaNecroSkeletonComponents_00741940[]; // 0x00741940
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -151,30 +103,8 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 void __fastcall AITHINK_SetAiControlParams(D2AiControlStrc* pAiControl, int nParam0, int nParam1, int nParam2); // 0x005B0D70
 static __declspec(noinline) void __stdcall D2GAME_SetUnitComponent_6FD0C3A0(int bHasShield, int bSpecial, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nLevel); // 0x005C4180
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
 D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
 int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -327,9 +257,9 @@ int __fastcall sub_005C3400_IsDimVisionOrTerror(int nState)
 static __declspec(noinline) int sub_005C37A0_ApplyAiCurseDivisor(unsigned char nDifficulty, int nLength)
 {
     D2DifficultyLevelsTxt* pDifficultyLevelsTxtRecord = DATATBLS_GetDifficultyLevelsTxtRecord(nDifficulty);
-    if (pDifficultyLevelsTxtRecord && pDifficultyLevelsTxtRecord->dwAiCurseDiv)
+    if (pDifficultyLevelsTxtRecord && pDifficultyLevelsTxtRecord->dwAiCurseDivisor)
     {
-        return nLength / pDifficultyLevelsTxtRecord->dwAiCurseDiv;
+        return nLength / pDifficultyLevelsTxtRecord->dwAiCurseDivisor;
     }
     return nLength;
 }
@@ -817,9 +747,9 @@ int __fastcall sub_005C61E0_ApplyLifeTap(D2GameStrc* pGame, int nEvent, D2UnitSt
     nLife += nLifeGain;
     nLife = D2_MIN(D2_MAX(nLife, 1), nMaxLife);
     STATLIST_SetUnitStat(pUnit, 6, nLife, 0);
-    if (pSkillsTxtRecord->wSrvOverlay > 0 && pSkillsTxtRecord->wSrvOverlay < sgptDataTables->nOverlayTxtRecordCount)
+    if (pSkillsTxtRecord->wPrgOverlay > 0 && pSkillsTxtRecord->wPrgOverlay < sgptDataTables->nOverlayTxtRecordCount)
     {
-        UNITS_SetOverlay(pUnit, pSkillsTxtRecord->wSrvOverlay, 0);
+        UNITS_SetOverlay(pUnit, pSkillsTxtRecord->wPrgOverlay, 0);
     }
     return 1;
 }
