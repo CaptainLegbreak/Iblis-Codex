@@ -42951,6 +42951,15 @@
      "name": "?D2Win_10104@@YIHPAUD2WinAnimImageStrc@@@Z"
     },
     {
+     "va": "0x00500480",
+     "length": 289
+    },
+    {
+     "va": "0x005005B0",
+     "length": 466,
+     "name": "?ANIMIMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
      "va": "0x005009A0",
      "length": 40,
      "name": "@BUTTON_SetIsPressed@8"
@@ -42974,41 +42983,6 @@
      "va": "0x005080C0",
      "length": 40,
      "name": "@sub_005080C0_SetScrollBarField50@8"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/D2WinAnimImage_00500480.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00500480",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/D2WinAnimImage_005005B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005005B0",
-     "length": 466,
-     "name": "?ANIMIMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
     }
    ]
   },
