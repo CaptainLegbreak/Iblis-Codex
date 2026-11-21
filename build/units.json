@@ -17930,34 +17930,14 @@
      "name": "?sub_00452D20_DrawPetHover@@YAXXZ"
     },
     {
-     "va": "0x00453330",
-     "length": 315,
-     "name": "?sub_00453330_DrawPartyMemberText@@YIXPAUD2UnitStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/ui_00453100.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00453100",
      "length": 548,
      "name": "?sub_00453100_DrawDeathScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00453330",
+     "length": 315,
+     "name": "?sub_00453330_DrawPartyMemberText@@YIXPAUD2UnitStrc@@@Z"
     }
    ],
    "flags": [
