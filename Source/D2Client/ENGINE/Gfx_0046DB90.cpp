@@ -137,11 +137,11 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 
 extern D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
 
-extern int gbPreloadForce_007A8920; // 0x007A8920
+int gbPreloadForce_007A8920; // 0x007A8920
 
 extern int gdwGlobal_007A8928; // 0x007A8928
 
-extern int gdwGlobal_007A8910; // 0x007A8910
+int gdwGlobal_007A8910; // 0x007A8910
 
 __declspec(noinline) static void sub_00470070_PreloadRoomUnits(int bAsync);
 
@@ -152,6 +152,42 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
 static D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
 
 void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit);
+
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
+
+int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit); // 0x0046D9F0
+
+void __fastcall sub_004DB1C0_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
+
+extern "C" D2GfxLayerHeaderStrc* __fastcall sub_004DB040_identity(void* pGfx); // 0x004DB040
+
+static __declspec(noinline) void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId);
+
+static unsigned int sub_0046DB90_HashName(const char* szName);
+
+static void __fastcall sub_0046DBF0_GetBaseName(char* szDest, const char* szPath);
+
+D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath);
+
+static int sub_0046E610_RemoveGfxNode(D2UnitStrc* pUnit, D2HashedFileEntryStrc* pEntry);
+
+static int __stdcall sub_0046E690_FindGfxNode(int nId, D2GfxListNodeStrc** ppNode, int* pValue, D2UnitStrc* pUnit, int nMode);
+
+static int sub_0046E8D0_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex);
+
+static int sub_0046E980_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex);
+
+static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId);
+
+static void __stdcall sub_0046F650_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int nMode, int bLoadNow, D2MonCofInfoStrc* pInfo);
+
+void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);
+
+static void sub_00470070_PreloadRoomUnits(int bAsync);
+
+void __fastcall sub_00470350_PreloadTick(int bAsync);
+
+void __cdecl sub_00470B10_PreloadForce();
 
 inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
 {
@@ -492,21 +528,23 @@ void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nIndex)
     sub_0046DDF0_LoadHashedFile(&gtHashedFile_007A78F0, szPath);
 }
 
+
+
+// 0x0046F490
 static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, unsigned int* pCode, int nMonsterId)
 {
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(nMonsterId);
-    if (!pMonStatsTxtRecord)
+    if (!((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0))
     {
         return;
     }
 
-    D2MonStats2Txt* pMonStats2TxtRecord = DATATBLS_GetMonStats2TxtRecordInl(pMonStatsTxtRecord->wMonStatsEx);
+    D2MonStats2Txt* pMonStats2TxtRecord = DATATBLS_GetMonStats2TxtRecordInl(((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0)->wMonStatsEx);
     if (!pMonStats2TxtRecord)
     {
         return;
     }
 
-    unsigned int dwMonCode = pMonStatsTxtRecord->dwCode;
+    unsigned int dwMonCode = ((nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? (D2MonStatsTxt*)((char*)sgptDataTables->pMonStatsTxt + nMonsterId * sizeof(D2MonStatsTxt)) : 0)->dwCode;
     D2MonModeTxt* pModeTxtRecord = sub_0065B500_GetModeTxtRecord(nMode, 1);
     D2_ASSERT(pModeTxtRecord, 0xE86);
 
@@ -549,7 +587,7 @@ static void __stdcall sub_0046F490_BuildMonsterCofPath(int nMode, char* szPath, 
     szToken[1] = (unsigned char)(dwToken >> 8) == 0x20 ? 0 : (unsigned char)(dwToken >> 8);
     szToken[2] = (unsigned char)(dwToken >> 16) == 0x20 ? 0 : (unsigned char)(dwToken >> 16);
     szToken[3] = 0;
-    wsprintfA(szPath, "%s\\%s\\COF\\%s%s%s.COF", "DATA\\GLOBAL\\MONSTERS", szMonster, szMonster, szToken, szWeapon);
+    wsprintfA(szPath, gszCofPathFormat_006D6C94, gszMonstersDir_006D6CAC, szMonster, szMonster, szToken, szWeapon);
 }
 
 // 0x0046F650
@@ -1033,6 +1071,17 @@ static void sub_00470070_PreloadRoomUnits(int bAsync)
     }
 }
 
+
+
+static void sub_00470040_PreloadPlayerModes(int bAsync, D2UnitStrc* pUnit)
+{
+    for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
+    {
+        sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[i]);
+    }
+}
+
+// 0x00470350
 void __fastcall sub_00470350_PreloadTick(int bAsync)
 {
     if (gbPreloadForce_007A8920 || GetTickCount() >= gdwGlobal_007A8910 + 0x258)
@@ -1040,15 +1089,6 @@ void __fastcall sub_00470350_PreloadTick(int bAsync)
         sub_00470070_PreloadRoomUnits(bAsync);
         gdwGlobal_007A8910 = GetTickCount();
     }
-}
-
-void __cdecl sub_00470B10_PreloadForce()
-{
-    gbPreloadForce_007A8920 = 1;
-    sub_00470070_PreloadRoomUnits(0);
-    gdwGlobal_007A8910 = GetTickCount();
-    sub_00470350_PreloadTick(1);
-    gbPreloadForce_007A8920 = 0;
 }
 
 // 0x00470610
@@ -1089,6 +1129,15 @@ void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg)
     }
 }
 
+// 0x00470B10
+void __cdecl sub_00470B10_PreloadForce()
+{
+    gbPreloadForce_007A8920 = 1;
+    sub_00470070_PreloadRoomUnits(0);
+    gdwGlobal_007A8910 = GetTickCount();
+    sub_00470350_PreloadTick(1);
+    gbPreloadForce_007A8920 = 0;
+}
 
 // 0x00470B70
 void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit)
@@ -1133,6 +1182,41 @@ void sub_M389_Emit_0046FF50(int bAsync, D2UnitStrc* pUnit)
     for (unsigned int i = 0; i < gnPlayerModeCount_00712AC0; ++i)
     {
         sub_0046FF50_PreloadPlayerMode(bAsync, pUnit, gaPlayerModes_00712AA0[i] + 0x13);
+    }
+}
+
+void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit)
+{
+    int nType;
+    int nAnimMode;
+    int nClass;
+
+    int nTypeValue = 6;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+    }
+
+    nType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClass = nClassValue;
+    nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x1072);
+    switch (nType)
+    {
+    case 1:
+        if (nClass < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            gpPoolBlock_007A80FC[nClass].nModeFlags[nAnimMode] = 0;
+            gpPoolBlock_007A80FC[nClass].aPending[nAnimMode] = 0;
+            int bAsync = 1;
+            if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || sub_00454840_Test())
+            {
+                bAsync = 0;
+            }
+            sub_0046FEB0_PreloadMonsterModes(bAsync, pUnit);
+        }
+        break;
     }
 }
 
