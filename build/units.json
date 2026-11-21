@@ -32984,6 +32984,14 @@
     {
      "va": "0x004C1910",
      "length": 340
+    },
+    {
+     "va": "0x004C3070",
+     "length": 780
+    },
+    {
+     "va": "0x004C3380",
+     "length": 619
     }
    ],
    "flags": [
@@ -33168,34 +33176,6 @@
      "length": 147,
      "name": "?sub_004C25B0_ItemDropToGround9C@@YIXPAUD2ItemPacket9CStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C3070.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C3070",
-     "length": 780
-    },
-    {
-     "va": "0x004C3380",
-     "length": 619
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
