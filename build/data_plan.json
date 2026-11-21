@@ -1348,7 +1348,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/GAME/Game_0044B8A0.cpp": {
+  "Source/D2Client/GAME/Game_0044E5A0.cpp": {
    "bytes": 160,
    "definitions": 4,
    "externs": [
@@ -31614,7 +31614,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLaunchState_0070EE4C = ",
@@ -31639,7 +31639,7 @@
    "cname": "gData_0070EE54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54; // 0x0070EE54",
    "head": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54 = ",
@@ -31697,7 +31697,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0070EE8C = ",
@@ -31722,7 +31722,7 @@
    "cname": "gData_0070EE90",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044B8A0.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE90_t gData_0070EE90; // 0x0070EE90",
    "head": "extern \"C\" struct d2data_0070EE90_t gData_0070EE90 = ",
