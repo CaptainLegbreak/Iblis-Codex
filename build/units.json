@@ -32921,6 +32921,11 @@
      "name": "?sub_004C1160_SaveSkillState@@YAXPAUD2SkillStateStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004C1200",
+     "length": 137,
+     "name": "?sub_004C1200_RestoreSkillState@@YAXPAUD2UnitStrc@@PAUD2SkillStateStrc@@@Z"
+    },
+    {
      "va": "0x004C1290",
      "length": 81,
      "name": "?sub_004C1290_AttachItem@@YGXHPAUD2UnitStrc@@0@Z"
@@ -33031,17 +33036,6 @@
      "va": "0x004C4990",
      "length": 260,
      "name": "?sub_004C4990_ItemToSocket9D@@YIXPAUD2GSPacketSrv9D@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Item_004C1200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004C1200",
-     "length": 137,
-     "name": "?sub_004C1200_RestoreSkillState@@YAXPAUD2UnitStrc@@PAUD2SkillStateStrc@@@Z"
     }
    ]
   },

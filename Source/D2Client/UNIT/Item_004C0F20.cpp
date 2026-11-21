@@ -244,8 +244,6 @@ struct D2UnitTargetStrc;
 
 #pragma pack(pop)
 
-
-
 void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue);                        // 0x0046F020
 
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
@@ -293,6 +291,22 @@ static __declspec(noinline) void sub_004C1350_RefreshEquippedItems(D2UnitStrc* p
 void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket);
 
 static void __stdcall sub_004C2540_PlaceItem(D2UnitStrc* pItem, unsigned short nX, unsigned short nY, int nMode, int bFindRoom, unsigned char nPage);
+
+extern "C" const char szItemCppFile[];
+
+
+D2UnitStrc* __fastcall sub_004661C0_CreateItem(int nUnitId, int nClassId, int nX, int nY, int nArg, int nValue);
+
+void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent);
+
+void __fastcall sub_004B9B50_SetHintValue(int nKey, int nValue);
+
+int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+
+
+void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);
+
+static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState);
 
 // 0x004C0F20
 static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0F20_CreateWorldItem(unsigned short nX, unsigned short nY, int bNotify, D2ItemPacket9CStrc* pPacket, D2ItemSaveStrc* pItemSave)
@@ -384,6 +398,7 @@ static void sub_004C1160_SaveSkillState(D2SkillStateStrc* pState, D2UnitStrc* pU
     }
 }
 
+// 0x004C1200
 static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* pState)
 {
     if (pState->nLeftSkillId)
@@ -391,7 +406,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pState->nLeftSkillId, pState->nLeftOwnerGUID);
         if (pSkill && pSkill != UNITS_GetLeftSkill(pUnit))
         {
-            switch (sub_004D9FC0(pUnit, pSkill))
+            switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
             {
             case 2:
             case 7:
@@ -408,7 +423,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pState->nRightSkillId, pState->nRightOwnerGUID);
         if (pSkill && pSkill != UNITS_GetRightSkill(pUnit))
         {
-            switch (sub_004D9FC0(pUnit, pSkill))
+            switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
             {
             case 2:
             case 7:
