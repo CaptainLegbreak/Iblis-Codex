@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpCelFile.h"
 #include "D2GameTypes.h"
 #include "D2DrlgMaps.h"
 #include "D2CmpTypes.h"
@@ -21,8 +22,6 @@ struct D2CmpCacheStrc;
 struct D2TileRecordStrc;
 struct D2CmpCelFileStrc;
 struct D2CelBlockStrc;
-struct D2CelStrc;
-struct D2CelFileStrc;
 struct D2CmpCelContextStrc;
 struct D2FindTileNodeStrc;
 struct D2FindTileEntryStrc;
@@ -274,29 +273,6 @@ struct D2CmpCelFileStrc
 typedef void(__fastcall* CELFILECONVERTFN)(D2CmpCelFileStrc* pSource, D2CmpCelFileStrc* pTarget, int nArg1, int nArg2);
 
 extern CELFILECONVERTFN gpfCelFileConvert[]; // 0x006E3690
-
-struct D2CelStrc
-{
-    int bFlip;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    unsigned int nDataSize;
-    D2CelBlockStrc* pBlockPixelData;
-    unsigned int nLength;
-};
-
-struct D2CelFileStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    int nFormat;
-    int nTermination;
-    int nDirections;
-    int nCelsPerDirection;
-    D2CelStrc* pCels[1];
-};
 
 
 typedef void(__fastcall* CELDRAWFN)(D2CelStrc* pCel, unsigned char* pDst, int nX, int nArg4, int nArg5, int nPitch, int nSkipRows, int nRows, int nArg9, int nArg10, int nArg13);

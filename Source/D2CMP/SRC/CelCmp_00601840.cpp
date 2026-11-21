@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpCelFile.h"
 #include "D2CmpTypes.h"
 #include "D2CmpStormList.h"
 
@@ -6,7 +7,6 @@
 
 struct D2CelStrc;
 struct D2StormEntry38Strc;
-struct D2CmpCelFileViewStrc;
 struct D2CmpCelContextStrc;
 struct D2CelEntryStrc;
 struct D2StormHashObjectStrc;
@@ -14,15 +14,6 @@ struct D2GameHashTableStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue);
-
-struct D2CmpCelFileViewStrc
-{
-    int nVersion;
-    char unk0x04[0x0C];
-    unsigned int nDirections;
-    unsigned int nFrames;
-    D2CelStrc* pCels[1];
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
@@ -81,13 +72,13 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
 // 0x00601810
 int __stdcall sub_00601810_IsGfxFrameValid(D2CmpCelContextStrc* pContext)
 {
-    D2CmpCelFileViewStrc* pCelFile = (D2CmpCelFileViewStrc*)pContext->pCelFile;
+    D2CelFileStrc* pCelFile = (D2CelFileStrc*)pContext->pCelFile;
     if (!pCelFile)
     {
         return 0;
     }
 
-    if (pCelFile->nVersion != 6)
+    if (pCelFile->dwVersion != 6)
     {
         return 0;
     }
@@ -111,9 +102,9 @@ D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
     D2_ASSERT(pCelContext, 0x566);
     D2_ASSERT(sub_00601810_IsGfxFrameValid(pCelContext), 0x567);
 
-    D2CmpCelFileViewStrc* pCelFile = (D2CmpCelFileViewStrc*)pCelContext->pCelFile;
+    D2CelFileStrc* pCelFile = (D2CelFileStrc*)pCelContext->pCelFile;
     const unsigned int nDirection = pCelContext->nDirection;
-    const unsigned int nDirections = pCelFile->nDirections;
+    const unsigned int nDirections = pCelFile->nDirectionCount;
     const int nIndex = gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
     return pCelFile->pCels[nIndex * pCelFile->nFrames + pCelContext->nFrame];
 }

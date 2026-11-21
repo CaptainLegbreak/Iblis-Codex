@@ -21,6 +21,7 @@ struct D2StormHashChunkStrc
     D2StormSlotLinkStrc f_10;
 
     ~D2StormHashChunkStrc();
+    static void operator delete(void* pMemory);
 };
 
 struct D2Storm603530ArrayStrc

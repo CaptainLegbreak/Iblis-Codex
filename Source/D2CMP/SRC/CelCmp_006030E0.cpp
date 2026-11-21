@@ -13,7 +13,9 @@ struct D2StormListArrayStrc
 
 struct D2StormHashNodeStrc
 {
-    unsigned int m_hashval;
+    unsigned int f_0;
+    D2StormLinkStrc m_linktoslot;
+    D2StormLinkStrc f_C;
 };
 
 struct D2StormHashTable006030E0Strc
@@ -32,7 +34,7 @@ char* D2StormHashTable006030E0Strc::sub_006030E0_Ptr(unsigned int nHashVal, int 
 {
     for (char* pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].RawNext(pNode))
     {
-        if (((D2StormHashNodeStrc*)pNode)->m_hashval == nHashVal)
+        if (((D2StormHashNodeStrc*)pNode)->f_0 == nHashVal)
         {
             return pNode;
         }

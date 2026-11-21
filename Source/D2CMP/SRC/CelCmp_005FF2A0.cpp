@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpCelFile.h"
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
 #include "D2CmpStormList.h"
@@ -10,8 +11,6 @@ struct D2CriticalSectionStrc;
 struct D2SpriteCacheStrc;
 struct D2CmpCacheKeyStrc;
 struct D2CmpCacheListEntryStrc;
-struct D2CelStrc;
-struct D2CelFileStrc;
 struct D2CmpCelContextStrc;
 struct D2TileListHeaderStrc;
 struct D2CmpTileStrc;
@@ -78,27 +77,6 @@ struct D2SpriteCacheStrc
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
 D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
-
-struct D2CelStrc
-{
-    int bFlip;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    int unk0x14;
-    void* pBlockPixelData;
-};
-
-struct D2CelFileStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    int nFormat;
-    int nTermination;
-    int nDirections;
-    int nCelsPerDirection;
-};
 
 void __fastcall sub_00608D60_DrawCelShadowLines(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
