@@ -1,4 +1,5 @@
 #include "D2StatIds.h"
+#include "D2MonModes.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
