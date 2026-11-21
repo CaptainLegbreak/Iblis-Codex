@@ -93873,7 +93873,7 @@
     {
      "va": "0x006BF6C0",
      "length": 7,
-     "name": "?sub_006BF6C0@@YIHPAUD2ServerStrc@@H@Z"
+     "name": "?sub_006BF6C0@@YIHPAUD2QueueServerStrc@@H@Z"
     },
     {
      "va": "0x006BF6D0",
@@ -95810,7 +95810,7 @@
     {
      "va": "0x006C0600",
      "length": 172,
-     "name": "?sub_006C0600_RecordClosedAddress@@YGXPAUD2ClientTableStrc@@IPBDH@Z"
+     "name": "?sub_006C0600_RecordClosedAddress@@YGXPAUD2QueueServerStrc@@IPBDH@Z"
     }
    ]
   },
@@ -96039,7 +96039,7 @@
     {
      "va": "0x006C0800",
      "length": 145,
-     "name": "?sub_006C0800_BanByAddress@@YIHPAUD2ServerStrc@@PAIPBDH@Z"
+     "name": "?sub_006C0800_BanByAddress@@YIHPAUD2QueueServerStrc@@PAIPBDH@Z"
     }
    ]
   },

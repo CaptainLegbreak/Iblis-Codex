@@ -1,4 +1,5 @@
 #include "D2SysTypes.h"
+#include "D2QServer.h"
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
@@ -9,14 +10,6 @@ struct D2QServerNodeStrc
     unsigned int dwTime;
     int unk0x08;
     D2QServerNodeStrc* pNext;
-};
-
-struct D2QueueServerStrc
-{
-    char unk0x000[0x84C];
-    D2QServerNodeStrc* pHead;
-    int unk0x850;
-    D2CriticalSectionStrc tLock;
 };
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0

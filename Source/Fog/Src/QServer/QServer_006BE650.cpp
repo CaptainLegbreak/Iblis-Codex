@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "D2QServer.h"
 #include "D2NetTypes.h"
 struct D2CriticalSection006BE650Strc;
 struct D2QMsg006BE650Strc;
@@ -9,13 +10,11 @@ struct D2HackListStrc;
 struct D2HackNode006BE890Strc;
 struct D2Server006BE890Strc;
 struct D2QServerIpNodeStrc;
-struct D2QueueServerStrc;
 struct D2QNode006BF1F0Strc;
 struct D2QTable006BF1F0Strc;
 struct D2MaskKeyStrc;
 struct D2MaskPairStrc;
 struct D2MaskPairListStrc;
-struct D2ClientTableStrc;
 struct D2ServerClientStrc;
 
 extern "C" int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x0040B3C0
@@ -105,14 +104,6 @@ struct D2QServerIpNodeStrc
     D2QServerIpNodeStrc* pNext;
 };
 
-struct D2QueueServerStrc
-{
-    char unk0x00[0x10];
-    unsigned int nIpBuckets;
-    char unk0x14[0x40 - 0x14];
-    D2QServerIpNodeStrc** ppIpBuckets;
-};
-
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 static __declspec(noinline) int __cdecl sub_006BF180_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D2InAddrStrc* pAddress);
 
@@ -154,12 +145,6 @@ struct D2MaskPairListStrc
     int __thiscall sub_006BF660_HasMaskedKey(unsigned int nMask);
 };
 
-struct D2ClientTableStrc
-{
-    char unk_000[0xBD0];
-    int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress); // 0x006BF660
-};
-
 struct D2ServerClientStrc
 {
     char unk0x00[0x18];
@@ -169,7 +154,7 @@ struct D2ServerClientStrc
     unsigned int nPending;
     D2CriticalSectionStrc lock;
 };
-static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2ClientTableStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient);
+static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient);
 
 // 0x006BE650
 static void sub_006BE650_FreeClient(D2QClient006BE650Strc* ptClient)
@@ -400,7 +385,7 @@ int __thiscall D2MaskPairListStrc::sub_006BF660_HasMaskedKey(unsigned int nMask)
 #include "gen/data/Source/Fog/Src/QServer/QServer_006BE650.inc"
 
 // 0x006C00A0
-static int __stdcall sub_006C00A0_AccountTraffic(D2ClientTableStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient)
+static int __stdcall sub_006C00A0_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient)
 {
     const unsigned long dwTick = GetTickCount();
     D2CriticalSectionStrc* pLock = &pClient->lock;
@@ -431,7 +416,7 @@ static int __stdcall sub_006C00A0_AccountTraffic(D2ClientTableStrc* pTable, unsi
     return 1;
 }
 
-unsigned int __stdcall sub_E4F1_Emit_006C00A0(D2ClientTableStrc* pTable, D2ServerClientStrc* pClient, unsigned int nBytes)
+unsigned int __stdcall sub_E4F1_Emit_006C00A0(D2QueueServerStrc* pTable, D2ServerClientStrc* pClient, unsigned int nBytes)
 {
     if (sub_006C00A0_AccountTraffic(pTable, nBytes, pClient))
     {

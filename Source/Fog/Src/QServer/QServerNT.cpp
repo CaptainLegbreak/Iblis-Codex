@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2QServer.h"
 #include "D2SysTypes.h"
 #include "D2NetTypes.h"
 
@@ -22,7 +23,6 @@ struct D2QClientStrc;
 
 struct T006BE350;
 
-struct D2QueueServerStrc;
 
 struct D2QServerReqStrc;
 
@@ -171,16 +171,6 @@ struct D2QConn006C23B0Strc
 };
 
 static __declspec(noinline) void __stdcall sub_006C23B0_QueueMessage(D2QConn006C23B0Strc* pConn, const void* pData, unsigned int nSize);
-
-struct D2QueueServerStrc
-{
-    char unk_000[0x854];
-    D2CriticalSectionStrc tLock;
-    char unk_86C[0xC18 - 0x86C];
-    int bInitialized;
-    char unk_C1C[0xC3C - 0xC1C];
-    int nSlots[1];
-};
 
 struct D2QServerReqStrc
 {

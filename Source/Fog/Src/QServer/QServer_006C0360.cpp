@@ -1,3 +1,4 @@
+#include "D2QServer.h"
 typedef struct _RTL_CRITICAL_SECTION CRITICAL_SECTION;
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* lpAddend);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION* lpCriticalSection);
@@ -51,28 +52,6 @@ struct D2QClientStrc
     unsigned int nCreateTime;
 };
 
-struct D2QueueServerStrc;
-typedef void (__fastcall* D2QRemoveCallback)(D2QueueServerStrc* pServer, int nClientId, const char* szFile, int nLine);
-
-struct D2QueueServerStrc
-{
-    char unk_000[0x0C];
-    unsigned int nHashMask;
-    unsigned int nIpCountBuckets;
-    D2QClientStrc** ppClients;
-    int unk_018;
-    D2QLockStrc* pClientLocks;
-    D2QClientStrc** ppAddressBuckets;
-    int unk_024;
-    D2QLockStrc tAddressLock;
-    D2QIpCountStrc** ppIpCounts;
-    char unk_044[0x810];
-    D2QLockStrc tCountLock;
-    char unk_86C[0x14];
-    int nClients;
-    char unk_884[0x344];
-    D2QRemoveCallback pfnOnRemove;
-};
 
 static __declspec(noinline) int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey);
 
@@ -80,7 +59,7 @@ static __declspec(noinline) int sub_006BF1F0_Release(D2QueueServerStrc* pTable, 
 static int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey)
 {
     const unsigned int nKey = *pKey;
-    const unsigned int nBucket = nKey % pTable->nIpCountBuckets;
+    const unsigned int nBucket = nKey % pTable->nIpBuckets;
     D2QIpCountStrc* pPrev = 0;
     for (D2QIpCountStrc* pNode = pTable->ppIpCounts[nBucket]; pNode; pNode = pNode->pNext)
     {
@@ -111,7 +90,7 @@ static __declspec(noinline) void __stdcall sRemoveClient(D2QueueServerStrc* pSer
 // 0x006BFCD0
 static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId)
 {
-    const unsigned int nBucket = nClientId & pServer->nHashMask;
+    const unsigned int nBucket = nClientId & pServer->nMask;
     EnterCriticalSection((CRITICAL_SECTION*)&pServer->pClientLocks[nBucket]);
 
     D2QClientStrc* pPrev = 0;
@@ -134,9 +113,9 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
         return;
     }
 
-    EnterCriticalSection((CRITICAL_SECTION*)&pServer->tCountLock);
+    EnterCriticalSection((CRITICAL_SECTION*)&pServer->tLock);
     --pServer->nClients;
-    LeaveCriticalSection((CRITICAL_SECTION*)&pServer->tCountLock);
+    LeaveCriticalSection((CRITICAL_SECTION*)&pServer->tLock);
 
     if (pClient != pServer->ppClients[nBucket])
     {
@@ -158,7 +137,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     CRITICAL_SECTION* pLock = (CRITICAL_SECTION*)&pServer->tAddressLock;
     EnterCriticalSection(pLock);
 
-    const unsigned int nAddressBucket = *pAddress & pServer->nHashMask;
+    const unsigned int nAddressBucket = *pAddress & pServer->nMask;
 
     D2QClientStrc** ppBucket = &pServer->ppAddressBuckets[nAddressBucket];
 
@@ -193,7 +172,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     }
     LeaveCriticalSection(pLock);
 
-    pLock = (CRITICAL_SECTION*)&pServer->tCountLock;
+    pLock = (CRITICAL_SECTION*)&pServer->tLock;
     EnterCriticalSection(pLock);
     sub_006BF1F0_Release(pServer, pAddress);
     LeaveCriticalSection(pLock);

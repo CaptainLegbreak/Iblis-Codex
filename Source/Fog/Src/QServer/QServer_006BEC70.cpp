@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2QServer.h"
 #include "D2GameTypes.h"
 
 struct D2QueueServerStrc;
@@ -9,7 +10,6 @@ struct D2QPacketStrc;
 struct D2AddressRefStrc;
 struct D2QNodeStrc;
 struct D2ClientNodeStrc;
-struct D2ClientTableStrc;
 
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -189,32 +189,9 @@ struct D2ClientNodeStrc
     D2ClientNodeStrc* next;
 };
 
-struct D2ClientTableStrc
-{
-    char unk_00[0xC];
-    union
-    {
-        unsigned int nMask;
-        unsigned int mask;
-    };
-    int unk_10;
-    D2ClientNodeStrc** ppBuckets;
-    int unk_18;
-    D2CriticalSectionStrc* pLocks;
-    D2ClientNodeStrc** buckets;
-    int unknown24;
-    D2CriticalSectionStrc lock;
-    char unknown40[0xb90];
-    union
-    {
-        int bEnabled;
-        int enabled;
-    };
-};
-
-void __fastcall sub_006C0420_CloseClient(D2ClientTableStrc*, int, const char*, int); // 0x006C0420
+void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*, int, const char*, int); // 0x006C0420
 void __cdecl sub_00410660_LogWritePrefixed(const char*, const char*, ...); // 0x00410660
-void __fastcall sub_006BFEA0_RecordAddress(D2ClientTableStrc*, const char*, unsigned int, int); // 0x006BFEA0
+void __fastcall sub_006BFEA0_RecordAddress(D2QueueServerStrc*, const char*, unsigned int, int); // 0x006BFEA0
 extern const char gszLogTag_006FC4A8[]; // 0x006FC4A8
 
 // 0x006BEC70
@@ -445,12 +422,12 @@ int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
 #include "gen/data/Source/Fog/Src/QServer/QServer_006BEC70.inc"
 
 // 0x006C0530
-void __stdcall sub_006C0530_RecordClient(D2ClientTableStrc* pTable, int nClient, const char* szFile, int nLine)
+void __stdcall sub_006C0530_RecordClient(D2QueueServerStrc* pTable, int nClient, const char* szFile, int nLine)
 {
     if (!pTable->bEnabled) return;
     unsigned int nBucket = pTable->nMask & nClient;
     EnterCriticalSection(&pTable->pLocks[nBucket]);
-    D2ClientNodeStrc* pNode = pTable->ppBuckets[nBucket];
+    D2ClientNodeStrc* pNode = pTable->ppNodes[nBucket];
     while (pNode && pNode->nClient != nClient)
         pNode = pNode->pNext;
     LeaveCriticalSection(&pTable->pLocks[nBucket]);
@@ -466,14 +443,14 @@ void __stdcall sub_006C0530_RecordClient(D2ClientTableStrc* pTable, int nClient,
 }
 
 // 0x006C0600
-void __stdcall sub_006C0600_RecordClosedAddress(D2ClientTableStrc* table, unsigned int ip, const char* file, int line)
+void __stdcall sub_006C0600_RecordClosedAddress(D2QueueServerStrc* table, unsigned int ip, const char* file, int line)
 {
-    if (!table->enabled) return;
-    unsigned int bucket = table->mask & ip;
-    EnterCriticalSection(&table->lock);
-    D2ClientNodeStrc* node = table->buckets[bucket];
+    if (!table->bEnabled) return;
+    unsigned int bucket = table->nMask & ip;
+    EnterCriticalSection(&table->tAddressLock);
+    D2ClientNodeStrc* node = table->ppAddrNodes[bucket];
     while (node && node->ip != ip) node = node->next;
-    LeaveCriticalSection(&table->lock);
+    LeaveCriticalSection(&table->tAddressLock);
     if (node) sub_006C0420_CloseClient(table, node->client, file, line);
     else sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_InetNtoa(ip));
     sub_00410660_LogWritePrefixed(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackListIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(ip), file, line);
