@@ -1,4 +1,5 @@
 #include "SRP.h"
+#include "D2BnCryptTypes.h"
 
 #define rol(value, bits) _rotl(value, bits)
 #define blk0(i) (block->l[i] = (rol(block->l[i],24)&0xFF00FF00)|(rol(block->l[i],8)&0x00FF00FF))
@@ -12,8 +13,6 @@
 #define R4(v,w,x,y,z,i) z+=(w^x^y)+blk(i)+0xCA62C1D6+rol(v,5);w=rol(w,30);
 
 struct Obj005284F0;
-struct D2BigPowModStrc;
-struct D2BigPairStrc;
 struct D2BigServerRecordStrc;
 struct D2BigServerHandlesStrc;
 struct T0041D340;
@@ -24,35 +23,10 @@ struct Obj005284F0 { unsigned int dwValue00; };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-struct D2BigPowModStrc
+inline void D2BigPowModStrc::operator delete(void* pMemory)
 {
-    int bValid;
-    void* hBase;
-    void* hModulus;
-    unsigned char abRandomState[0x3C];
-    unsigned int nRandomBytesLeft;
-    void sub_00527DD0_InitRandom(unsigned int nSeed);                                                       // 0x00527DD0
-    static void operator delete(void* pMemory)
-    {
-        SMemFree(pMemory, "delete", -1, 0);
-    }
-    void sub_00528480_HashThreeBlocks(const unsigned char* pFirst, const unsigned char* pSecond, const unsigned char* pThird, unsigned char* pDigest); // 0x00528480
-    void sub_00528030_HashToUInt(void* const& hBig, unsigned int* pValue);                                  // 0x00528030
-    int sub_005281D0_ComputeServerKey(void* const& hClientPublic, void* const& hServerPublic, void* const& hSecret, void* const& hVerifier, void* const& hKey);
-    void sub_005282A0_ComputeProof(const char* szName, const unsigned char* pSalt, const unsigned char* pClientPublic, const unsigned char* pServerPublic, const unsigned char* pKey, unsigned char* pProof); // 0x005282A0
-};
-
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-    void sub_00528620_InitRandom(unsigned int nSeed);
-    ~D2BigPairStrc();
-    void sub_00528630_Release();
-    void sub_00527E70_RandomBytes(unsigned char* pBuffer, unsigned int nSize);                              // 0x00527E70
-    void sub_005289F0_ComputeServerPublic(D2BigServerRecordStrc* pRecord);
-    void sub_00528C60_ComputeServerProof(D2BigServerRecordStrc* pRecord);
-    int sub_00528AC0_VerifyClientProof(D2BigServerRecordStrc* pRecord, const unsigned char* pClientProof);
-};
+    SMemFree(pMemory, "delete", -1, 0);
+}
 
 struct D2BigServerRecordStrc
 {
