@@ -6,6 +6,8 @@
 #include "D2ClientMenus.h"
 #include "D2Win32Types.h"
 #include "D2UnitData.h"
+#include "D2Path.h"
+#include "D2CelContext.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -98,6 +100,40 @@ extern D2UnitStrc* gpPlayerUnit_007A6A70;                                       
 extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
 
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
+
+struct D2UnitStrc;
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
+
+void __stdcall sub_00643260(int* pX, int* pY);                                                   // 0x00643260
+
+#define UNIT_OBJECT 2
+
+#define UNIT_ITEM 4
+
+#define UNIT_TILE 5
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
+int __fastcall sub_004DAE60_UnitSupportsMode(D2UnitStrc* pUnit, int nMode);                                 // 0x004DAE60
+
+int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
+
+int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
+
+int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
+
+int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
+
+int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
+
+int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
+
+int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit);                                          // 0x004DA0D0
+
+int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 
 // 0x004519C0
 void __cdecl sub_004519C0_ReplayRecords()
@@ -211,6 +247,59 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit()
     return gpPlayerUnit_007A6A70;
 }
 
+inline int UNITS_InlineGetXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+inline int UNITS_InlineGetYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            return PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        return 0;
+    }
+}
+
+// 0x00463FE0
+static int __stdcall sub_00463FE0_IsInObjectSelectBox(int nY, D2ObjectsTxt* pObjectsTxtRecord, int nX, D2UnitStrc* pUnit)
+{
+    int nUnitX = UNITS_InlineGetXPosition(pUnit);
+    int nUnitY = UNITS_InlineGetYPosition(pUnit);
+    sub_00643260(&nUnitX, &nUnitY);
+
+    const int nLeft = pObjectsTxtRecord->dwLeft + nUnitX;
+    const int nTop = pObjectsTxtRecord->dwTop + nUnitY;
+    if (nX >= nLeft && nY >= nTop && nX <= pObjectsTxtRecord->dwWidth + nLeft && nY <= pObjectsTxtRecord->dwHeight + nTop)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 static __forceinline int OBJECTS_IsDeadInline(int nClassId, int nMode)
 {
     const unsigned char nFlags = DATATBLS_GetObjectsTxtRecord(nClassId)->nFlags1B7;
@@ -312,4 +401,85 @@ D2UnitStrc* __fastcall sub_M109_Emit_00463920(int nUnitType, int nHash)
 void __fastcall sub_M109_Emit_00463C60(D2UnitStrc* pUnit)
 {
     sub_00463C60_RemoveUnitFromRoom(pUnit);
+}
+
+int __fastcall sub_Q03_Emit_ObjectSelectBox(D2UnitStrc* pUnit, int nX, int nY)
+{
+    D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
+    if (pObjectsTxtRecord->nIsDoor)
+    {
+        return sub_00463FE0_IsInObjectSelectBox(nY, pObjectsTxtRecord, nX, pUnit);
+    }
+
+    return 0;
+}
+
+static int __stdcall sub_004640A0_GetUnitSelectRect(unsigned int nFrame, D2RectStrc* pRect, D2UnitStrc* pUnit, int nMode)
+{
+    if (sub_004DAE60_UnitSupportsMode(pUnit, nMode))
+    {
+        D2CelContextStrc tContext;
+        memset(&tContext, 0, sizeof(tContext));
+
+        int nOut;
+        if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, nMode, -1) && sub_006001F0(&tContext, 0, 1))
+        {
+            D2CelStrc* pCell = tContext.pCel;
+            if (pCell)
+            {
+                D2_ASSERT(nFrame <= tContext.nFrames, 0x5DF);
+
+                const int nOffsetX = sub_00601920(pCell) - 12;
+                pRect->nLeft = nOffsetX + UNITS_GetClientCoordX(pUnit);
+                pRect->nRight = sub_006018C0(pCell) + pRect->nLeft + 24;
+                const int nTop = sub_00601950(pCell) + UNITS_GetClientCoordY(pUnit) + 12;
+                pRect->nTop = nTop;
+                pRect->nBottom = nTop - sub_006018F0(pCell) - 24;
+
+                const int nWidth = pRect->nRight - pRect->nLeft;
+                if (nWidth < 32)
+                {
+                    const int nPad = (32 - nWidth) >> 1;
+                    pRect->nRight += nPad;
+                    pRect->nLeft -= nPad;
+                }
+
+                const int nHeight = nTop - pRect->nBottom;
+                if (nHeight < 32)
+                {
+                    const int nPad = (32 - nHeight) >> 1;
+                    pRect->nBottom -= nPad;
+                    pRect->nTop += nPad;
+                }
+
+                const int nGfxOffsetX = sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
+                const int nGfxOffsetY = sub_004DA0D0_GetGfxMotionField38(pUnit) + sub_004DA0F0_GetGfxMotionField3C(pUnit);
+                pRect->nLeft += nGfxOffsetX;
+                pRect->nRight += nGfxOffsetX;
+                pRect->nTop += nGfxOffsetY;
+                pRect->nBottom += nGfxOffsetY;
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int __fastcall sub_Q03_Emit_UnitSelectRect(D2UnitStrc* pUnit, int nX)
+{
+    int nFrameNo;
+    int nFrameCount;
+    UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
+
+    D2RectStrc tRect;
+    for (int nMode = 0; nMode < 16; ++nMode)
+    {
+        if (sub_004640A0_GetUnitSelectRect(nFrameNo, &tRect, pUnit, nMode) && nX >= tRect.nLeft && nX <= tRect.nRight)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
 }
