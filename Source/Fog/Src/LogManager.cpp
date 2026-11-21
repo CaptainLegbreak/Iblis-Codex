@@ -906,6 +906,7 @@ void* gpDbgHelpRequest_0098A6E4; // 0x0098A6E4
 // 0x004027C0
 unsigned long __stdcall sub_004027C0_DbgHelpThreadProc(void* pParam)
 {
+    // stands for a stack local the original stores 0 to and reads back unused (no plain-C form found)
     volatile int nDummy = 0;
     nDummy;
     sub_00401A70_SetMiniDumpThreadName();
