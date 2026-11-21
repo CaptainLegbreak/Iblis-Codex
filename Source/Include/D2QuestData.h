@@ -602,8 +602,7 @@ struct D2Act5Quest2Strc
     unsigned char bPortalSpawned[3]; // 0xF8
     unsigned char unk0xFB; // 0xFB
     int nPortalUpdateInvocations[3]; // 0xFC
-    unsigned short unk0x108; // 0x108
-    unsigned char unk0x10A; // 0x10A
+    unsigned char bGroupDone[3]; // 0x108
     unsigned char bChangeToSpecialObjectMode[3]; // 0x10B
     unsigned char unk0x10E[3]; // 0x10E
     unsigned char unk0x111; // 0x111

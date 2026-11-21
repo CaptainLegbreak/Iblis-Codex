@@ -63331,6 +63331,10 @@
      "name": "?sub_00588010_CountWussie@@YAXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00588040",
+     "length": 447
+    },
+    {
      "va": "0x00588200",
      "length": 318,
      "name": "?ACT5Q2_Callback03_ChangedLevel@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -63356,6 +63360,10 @@
      "name": "?ACT5Q2_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     },
     {
+     "va": "0x00588600",
+     "length": 146
+    },
+    {
      "va": "0x005887A0",
      "length": 72,
      "name": "?ACT5Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -63365,34 +63373,6 @@
      "length": 54,
      "name": "?ACT5Q2_UnitIterate_AttachCompletionSound@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Quests/a5q2_00588040.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00588040",
-     "length": 447
-    },
-    {
-     "va": "0x00588600",
-     "length": 146
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
