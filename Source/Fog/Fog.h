@@ -168,6 +168,8 @@ struct D2LargeIntegerStrc
     int f_4;
 };
 
+#ifndef D2_MEMORY_BASIC_INFO_STRC
+#define D2_MEMORY_BASIC_INFO_STRC
 struct D2MemoryBasicInfoStrc
 {
     void* BaseAddress;
@@ -178,6 +180,7 @@ struct D2MemoryBasicInfoStrc
     unsigned long Protect;
     unsigned long Type;
 };
+#endif
 
 struct D2OverlappedStrc
 {
@@ -279,6 +282,7 @@ int __cdecl sub_0040E250_GetCpuVendor(); // 0x0040E250
 int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
 unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
 unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
+extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned int dwMoveMethod); // 0x004165A0
 #define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
 typedef int (__stdcall* SymCleanupFn)(void* hProcess);

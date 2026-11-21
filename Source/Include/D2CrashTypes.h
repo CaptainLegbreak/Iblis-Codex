@@ -57,6 +57,8 @@ struct D2CvRsdsStrc
     char szPdbName[4]; // 0x18
 };
 
+#ifndef D2_MEMORY_BASIC_INFO_STRC
+#define D2_MEMORY_BASIC_INFO_STRC
 struct D2MemoryBasicInfoStrc
 {
     void* BaseAddress; // 0x00
@@ -67,6 +69,7 @@ struct D2MemoryBasicInfoStrc
     unsigned long Protect; // 0x14
     unsigned long Type; // 0x18
 };
+#endif
 
 struct D2ImagehlpModule64Strc
 {
