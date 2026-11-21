@@ -56239,6 +56239,20 @@
      "name": "?sub_00571600@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
     },
     {
+     "va": "0x00571620",
+     "length": 278
+    },
+    {
+     "va": "0x00571740",
+     "length": 72,
+     "name": "?D2GAME_UpdateUnit_6FCC6080@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
+    },
+    {
+     "va": "0x00571790",
+     "length": 40,
+     "name": "?sub_00571790_AppendUnitMessage@@YAXPAUD2UnitStrc@@PAUD2UnitPacketListStrc@@@Z"
+    },
+    {
      "va": "0x005717C0",
      "length": 121,
      "name": "?sub_6FCC60D0@@YIXPAUD2UnitStrc@@HEEHE@Z"
@@ -56366,26 +56380,6 @@
      "va": "0x00585220",
      "length": 26,
      "name": "sub_00585220_StatCallback5"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00571620.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00571620",
-     "length": 278
-    },
-    {
-     "va": "0x00571740",
-     "length": 72,
-     "name": "?D2GAME_UpdateUnit_6FCC6080@@YIXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
-    },
-    {
-     "va": "0x00571790",
-     "length": 40,
-     "name": "?sub_00571790_AppendUnitMessage@@YAXPAUD2UnitStrc@@PAUD2UnitPacketListStrc@@@Z"
     }
    ]
   },
