@@ -96441,13 +96441,32 @@
      "length": 1359
     },
     {
+     "va": "0x006B5520",
+     "length": 42
+    },
+    {
+     "va": "0x006B5550",
+     "length": 130,
+     "name": "?sub_006B5550_ShutdownCore@@YAHXZ"
+    },
+    {
      "va": "0x006B55E0",
      "length": 77
+    },
+    {
+     "va": "0x006B5630",
+     "length": 142,
+     "name": "?sub_006B5630_SetPaused@@YIXHHH@Z"
     },
     {
      "va": "0x006B56C0",
      "length": 94,
      "name": "?sub_006B56C0_RunWithState@@YIXHHH@Z"
+    },
+    {
+     "va": "0x006B5720",
+     "length": 161,
+     "name": "?sub_006B5720_BeginScene@@YIHHHHH@Z"
     },
     {
      "va": "0x006B57D0",
@@ -96484,31 +96503,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dCore_006B5520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B5520",
-     "length": 42
-    },
-    {
-     "va": "0x006B5550",
-     "length": 130,
-     "name": "?sub_006B5550_ShutdownCore@@YAHXZ"
-    },
-    {
-     "va": "0x006B5630",
-     "length": 142,
-     "name": "?sub_006B5630_SetPaused@@YIXHHH@Z"
-    },
-    {
-     "va": "0x006B5720",
-     "length": 161,
-     "name": "?sub_006B5720_BeginScene@@YIHHHHH@Z"
-    }
    ]
   },
   {

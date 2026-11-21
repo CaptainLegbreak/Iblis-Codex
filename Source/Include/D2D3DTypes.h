@@ -105,8 +105,8 @@ struct D2D3DDeviceVtbl
     void* DeleteViewport; // 0x18
     void* NextViewport; // 0x1C
     void* EnumTextureFormats; // 0x20
-    void* BeginScene; // 0x24
-    void* EndScene; // 0x28
+    long (__stdcall* BeginScene)(D2D3DDeviceStrc* pThis); // 0x24
+    long (__stdcall* EndScene)(D2D3DDeviceStrc* pThis); // 0x28
     void* GetDirect3D; // 0x2C
     void* SetCurrentViewport; // 0x30
     void* GetCurrentViewport; // 0x34
