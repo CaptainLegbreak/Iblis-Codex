@@ -12441,8 +12441,22 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ChatDlg_0043C6B0.cpp",
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x0043C6B0",
@@ -12460,6 +12474,16 @@
      "name": "?sub_0043CC30_LoadFrontEndCels@@YAXXZ"
     },
     {
+     "va": "0x0043D9B0",
+     "length": 47,
+     "name": "sub_0043D9B0_NextRequestCallback"
+    },
+    {
+     "va": "0x0043E1A0",
+     "length": 140,
+     "name": "?sub_0043E1A0_AddTextLines@@YGXPAUD2WinControlStrc@@HPADH@Z"
+    },
+    {
      "va": "0x0043E250",
      "length": 133,
      "name": "?sub_0043E250_CreateChatMessage@@YGPAUD2ChatMessageStrc@@PBDHH@Z"
@@ -12468,6 +12492,11 @@
      "va": "0x0043E310",
      "length": 87,
      "name": "?sub_0043E310_PostChatMessage@@YAXPBDHH@Z"
+    },
+    {
+     "va": "0x0043E3A0",
+     "length": 163,
+     "name": "?sub_0043E3A0_FlushChatMessages@@YAXXZ"
     },
     {
      "va": "0x0043E450",
@@ -12480,18 +12509,171 @@
      "name": "?sub_0043E4C0_OnChatTime@@YIHIPBD@Z"
     },
     {
+     "va": "0x0043E5F0",
+     "length": 30,
+     "name": "?sub_0043E5F0_PrintMessage@@YIHPBUUnicode@@H@Z"
+    },
+    {
+     "va": "0x0043E610",
+     "length": 30,
+     "name": "?sub_0043E610_PrintText@@YIHPAUUnicode@@H@Z"
+    },
+    {
+     "va": "0x0043E630",
+     "length": 44,
+     "name": "?sub_0043E630_ShowChannelText@@YIHPAUUnicode@@@Z"
+    },
+    {
      "va": "0x0043E780",
      "length": 217,
      "name": "?sub_0043E780_NotifyCommand@@YAHPBD0@Z"
+    },
+    {
+     "va": "0x0043E860",
+     "length": 155
+    },
+    {
+     "va": "0x0043E9D0",
+     "length": 80,
+     "name": "?sub_0043E9D0_CreateControl@@YAPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x0043EA70",
+     "length": 132,
+     "name": "?sub_0043EA70_ShowMessage@@YIXPBUUnicode@@0@Z"
+    },
+    {
+     "va": "0x0043EB10",
+     "length": 27,
+     "name": "sub_0043EB10_RunCallback"
+    },
+    {
+     "va": "0x0043EB30",
+     "length": 100,
+     "name": "?sub_0043EB30_CreateControls@@YAXXZ"
+    },
+    {
+     "va": "0x0043EBA0",
+     "length": 176,
+     "name": "?sub_0043EBA0_ResetControls@@YAHXZ"
+    },
+    {
+     "va": "0x0043EC60",
+     "length": 120,
+     "name": "sub_0043EC60_SelectEntry"
     },
     {
      "va": "0x0043ECE0",
      "length": 48
     },
     {
+     "va": "0x0043ED10",
+     "length": 52,
+     "name": "?sub_0043ED10_UpdateCounter@@YGHH@Z"
+    },
+    {
+     "va": "0x0043ED60",
+     "length": 755,
+     "name": "?sub_0043ED60_CreateClassButtons@@YAXXZ"
+    },
+    {
+     "va": "0x0043F060",
+     "length": 114,
+     "name": "?sub_0043F060_ReleaseClassButtons@@YAXXZ"
+    },
+    {
+     "va": "0x0043F0E0",
+     "length": 111,
+     "name": "?sub_0043F0E0@@YAXXZ"
+    },
+    {
+     "va": "0x0043F150",
+     "length": 117,
+     "name": "?sub_0043F150_GetClassSlot@@YGHHH@Z"
+    },
+    {
+     "va": "0x0043F1D0",
+     "length": 96,
+     "name": "?sub_0043F1D0_OnClassButton0@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F230",
+     "length": 96,
+     "name": "?sub_0043F230_OnClassButton1@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F290",
+     "length": 96,
+     "name": "?sub_0043F290_OnClassButton2@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F2F0",
+     "length": 96,
+     "name": "?sub_0043F2F0_OnClassButton3@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F350",
+     "length": 96,
+     "name": "?sub_0043F350_OnClassButton4@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F3B0",
+     "length": 96,
+     "name": "?sub_0043F3B0_OnClassButton5@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F410",
+     "length": 96,
+     "name": "?sub_0043F410_OnClassButton6@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F470",
+     "length": 96,
+     "name": "?sub_0043F470_OnClassButton7@@YGHPAUD2WinMsgStrc@@@Z"
+    },
+    {
+     "va": "0x0043F590",
+     "length": 82,
+     "name": "sub_0043F590_CallTable7C"
+    },
+    {
+     "va": "0x0043F5F0",
+     "length": 51,
+     "name": "sub_0043F5F0_CallTable74"
+    },
+    {
+     "va": "0x0043F630",
+     "length": 238,
+     "name": "?sub_0043F630_OnToggleButton@@YGHH@Z"
+    },
+    {
+     "va": "0x0043F800",
+     "length": 57,
+     "name": "?sub_0043F800_FreeNameList@@YAXXZ"
+    },
+    {
+     "va": "0x0043F8A0",
+     "length": 19,
+     "name": "?sub_0043F8A0_SaveDefaultChannel@@YAXPBD@Z"
+    },
+    {
+     "va": "0x0043F930",
+     "length": 63,
+     "name": "sub_0043F930_SetCallback"
+    },
+    {
+     "va": "0x0043F9B0",
+     "length": 405
+    },
+    {
      "va": "0x0043FC20",
      "length": 537,
      "name": "?sub_0043FC20@@YAXXZ"
+    },
+    {
+     "va": "0x0043FFA0",
+     "length": 359,
+     "name": "sub_0043FFA0_SetupCharacter"
     },
     {
      "va": "0x00440110",
@@ -12502,6 +12684,16 @@
      "va": "0x00440120",
      "length": 26,
      "name": "?sub_00440120_OnClearEdit@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00440140",
+     "length": 117,
+     "name": "?sub_00440140_ShowError@@YIXPBUUnicode@@P6GHH@Z@Z"
+    },
+    {
+     "va": "0x004401C0",
+     "length": 128,
+     "name": "?sub_004401C0_ShowTimedMessage@@YIXPBUUnicode@@P6GHH@Z@Z"
     },
     {
      "va": "0x00440240",
@@ -12522,226 +12714,65 @@
      "va": "0x00440350",
      "length": 135,
      "name": "?sub_00440350_OnIdle@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043C8A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0043C8A0",
-     "length": 497
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043CBE0",
-     "length": 12,
-     "name": "?sub_0043CBE0_Init@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
     },
     {
-     "va": "0x0043CBF0",
-     "length": 1,
-     "name": "?sub_0043CBF0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0043CC00",
-     "length": 29,
-     "name": "sub_0043CC00_StrChr"
-    },
-    {
-     "va": "0x0043CC20",
-     "length": 6,
-     "name": "?sub_0043CC20_TestBit2@@YIHH@Z"
-    },
-    {
-     "va": "0x0043D510",
-     "length": 1139,
-     "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
-    },
-    {
-     "va": "0x0043D9A0",
+     "va": "0x004403E0",
      "length": 13,
-     "name": "?sub_0043D9A0_SetFlag@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?sub_004403E0_OnResetCallback@@YGHH@Z"
     },
     {
-     "va": "0x0043D9E0",
-     "length": 18,
-     "name": "?sub_0043D9E0_ScrollPageUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "va": "0x004403F0",
+     "length": 766
     },
     {
-     "va": "0x0043DA00",
-     "length": 18,
-     "name": "?sub_0043DA00_ScrollPageDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "va": "0x004406F0",
+     "length": 437,
+     "name": "?sub_004406F0_CreateClassScreen@@YAXXZ"
     },
     {
-     "va": "0x0043DA20",
-     "length": 16,
-     "name": "?sub_0043DA20_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "va": "0x004408B0",
+     "length": 204,
+     "name": "?sub_004408B0_OpenClassSelectA@@YAXXZ"
     },
     {
-     "va": "0x0043DAF0",
-     "length": 24,
-     "name": "?sub_0043DAF0_SetMainState@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "va": "0x00440980",
+     "length": 204,
+     "name": "?sub_00440980_OpenClassSelectB@@YAXXZ"
     },
     {
-     "va": "0x0043DB90",
-     "length": 13,
-     "name": "?sub_0043DB90_Refresh@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "va": "0x00440A50",
+     "length": 209,
+     "name": "?sub_00440A50_OpenClassSelectC@@YAXXZ"
     },
     {
-     "va": "0x0043DBA0",
-     "length": 22,
-     "name": "?sub_0043DBA0_ClearSelection@@YGHHHH@Z"
+     "va": "0x00440B30",
+     "length": 209,
+     "name": "?sub_00440B30_OpenClassSelectD@@YAXXZ"
     },
     {
-     "va": "0x0043DBC0",
-     "length": 40,
-     "name": "?sub_0043DBC0_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "va": "0x00440C10",
+     "length": 35,
+     "name": "?sub_00440C10_ShowClassSelectA@@YGHH@Z"
     },
     {
-     "va": "0x0043DBF0",
-     "length": 52,
-     "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "va": "0x00440C40",
+     "length": 35,
+     "name": "?sub_00440C40_ShowClassSelectC@@YGHH@Z"
     },
     {
-     "va": "0x00451880",
-     "length": 93,
-     "name": "sub_00451880_DispatchMsg"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043D9B0",
-     "length": 47,
-     "name": "sub_0043D9B0_NextRequestCallback"
-    },
-    {
-     "va": "0x0043E1A0",
-     "length": 140,
-     "name": "?sub_0043E1A0_AddTextLines@@YGXPAUD2WinControlStrc@@HPADH@Z"
-    },
-    {
-     "va": "0x0043E3A0",
-     "length": 163,
-     "name": "?sub_0043E3A0_FlushChatMessages@@YAXXZ"
-    },
-    {
-     "va": "0x0043E5F0",
-     "length": 30,
-     "name": "?sub_0043E5F0_PrintMessage@@YIHPBUUnicode@@H@Z"
-    },
-    {
-     "va": "0x0043E610",
-     "length": 30,
-     "name": "?sub_0043E610_PrintText@@YIHPAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x0043E630",
-     "length": 44,
-     "name": "?sub_0043E630_ShowChannelText@@YIHPAUUnicode@@@Z"
-    },
-    {
-     "va": "0x0043EB10",
-     "length": 27,
-     "name": "sub_0043EB10_RunCallback"
-    },
-    {
-     "va": "0x0043EBA0",
-     "length": 176,
-     "name": "?sub_0043EBA0_ResetControls@@YAHXZ"
-    },
-    {
-     "va": "0x0043EC60",
-     "length": 120,
-     "name": "sub_0043EC60_SelectEntry"
-    },
-    {
-     "va": "0x0043ED10",
-     "length": 52,
-     "name": "?sub_0043ED10_UpdateCounter@@YGHH@Z"
-    },
-    {
-     "va": "0x0043F060",
-     "length": 114,
-     "name": "?sub_0043F060_ReleaseClassButtons@@YAXXZ"
-    },
-    {
-     "va": "0x0043F0E0",
-     "length": 111,
-     "name": "?sub_0043F0E0@@YAXXZ"
-    },
-    {
-     "va": "0x0043F590",
-     "length": 82,
-     "name": "sub_0043F590_CallTable7C"
-    },
-    {
-     "va": "0x0043F5F0",
-     "length": 51,
-     "name": "sub_0043F5F0_CallTable74"
-    },
-    {
-     "va": "0x0043F800",
-     "length": 57,
-     "name": "?sub_0043F800_FreeNameList@@YAXXZ"
-    },
-    {
-     "va": "0x0043F8A0",
-     "length": 19,
-     "name": "?sub_0043F8A0_SaveDefaultChannel@@YAXPBD@Z"
-    },
-    {
-     "va": "0x0043F930",
-     "length": 63,
-     "name": "sub_0043F930_SetCallback"
-    },
-    {
-     "va": "0x0043FFA0",
-     "length": 359,
-     "name": "sub_0043FFA0_SetupCharacter"
+     "va": "0x00440C70",
+     "length": 35,
+     "name": "?sub_00440C70_ShowClassSelectD@@YGHH@Z"
     },
     {
      "va": "0x00440D10",
      "length": 152,
      "name": "?CHATDLG_StorePlayerName@@YIXHHPBD@Z"
+    },
+    {
+     "va": "0x00440DB0",
+     "length": 42,
+     "name": "?sub_00440DB0_OnQuitMessage@@YGHH@Z"
     },
     {
      "va": "0x004413E0",
@@ -12877,6 +12908,111 @@
      "va": "0x0044A130",
      "length": 63,
      "name": "sub_0044A130_StartThread"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Multi/Unknown_0043C8A0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0043C8A0",
+     "length": 497
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0043CBE0",
+     "length": 12,
+     "name": "?sub_0043CBE0_Init@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
+    },
+    {
+     "va": "0x0043CBF0",
+     "length": 1,
+     "name": "?sub_0043CBF0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0043CC00",
+     "length": 29,
+     "name": "sub_0043CC00_StrChr"
+    },
+    {
+     "va": "0x0043CC20",
+     "length": 6,
+     "name": "?sub_0043CC20_TestBit2@@YIHH@Z"
+    },
+    {
+     "va": "0x0043D510",
+     "length": 1139,
+     "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
+    },
+    {
+     "va": "0x0043D9A0",
+     "length": 13,
+     "name": "?sub_0043D9A0_SetFlag@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043D9E0",
+     "length": 18,
+     "name": "?sub_0043D9E0_ScrollPageUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DA00",
+     "length": 18,
+     "name": "?sub_0043DA00_ScrollPageDown@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DA20",
+     "length": 16,
+     "name": "?sub_0043DA20_ScrollUp@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DAF0",
+     "length": 24,
+     "name": "?sub_0043DAF0_SetMainState@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DB90",
+     "length": 13,
+     "name": "?sub_0043DB90_Refresh@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DBA0",
+     "length": 22,
+     "name": "?sub_0043DBA0_ClearSelection@@YGHHHH@Z"
+    },
+    {
+     "va": "0x0043DBC0",
+     "length": 40,
+     "name": "?sub_0043DBC0_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DBF0",
+     "length": 52,
+     "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00451880",
+     "length": 93,
+     "name": "sub_00451880_DispatchMsg"
     }
    ]
   },
@@ -13102,165 +13238,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Src/ChatDlg_0043E860.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0043E860",
-     "length": 155
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_0043E9D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043E9D0",
-     "length": 80,
-     "name": "?sub_0043E9D0_CreateControl@@YAPAUD2WinControlStrc@@H@Z"
-    },
-    {
-     "va": "0x0043EA70",
-     "length": 132,
-     "name": "?sub_0043EA70_ShowMessage@@YIXPBUUnicode@@0@Z"
-    },
-    {
-     "va": "0x0043EB30",
-     "length": 100,
-     "name": "?sub_0043EB30_CreateControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043ED60",
-     "length": 755,
-     "name": "?sub_0043ED60_CreateClassButtons@@YAXXZ"
-    },
-    {
-     "va": "0x0043F630",
-     "length": 238,
-     "name": "?sub_0043F630_OnToggleButton@@YGHH@Z"
-    },
-    {
-     "va": "0x00440140",
-     "length": 117,
-     "name": "?sub_00440140_ShowError@@YIXPBUUnicode@@P6GHH@Z@Z"
-    },
-    {
-     "va": "0x004401C0",
-     "length": 128,
-     "name": "?sub_004401C0_ShowTimedMessage@@YIXPBUUnicode@@P6GHH@Z@Z"
-    },
-    {
-     "va": "0x004406F0",
-     "length": 437,
-     "name": "?sub_004406F0_CreateClassScreen@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_0043F150.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043F150",
-     "length": 117,
-     "name": "?sub_0043F150_GetClassSlot@@YGHHH@Z"
-    },
-    {
-     "va": "0x0043F1D0",
-     "length": 96,
-     "name": "?sub_0043F1D0_OnClassButton0@@YGHPAUD2WinMsgStrc@@@Z"
-    },
-    {
-     "va": "0x0043F230",
-     "length": 96,
-     "name": "?sub_0043F230_OnClassButton1@@YGHPAUD2WinMsgStrc@@@Z"
-    },
-    {
-     "va": "0x0043F290",
-     "length": 96,
-     "name": "?sub_0043F290_OnClassButton2@@YGHPAUD2WinMsgStrc@@@Z"
-    },
-    {
-     "va": "0x0043F2F0",
-     "length": 96,
-     "name": "?sub_0043F2F0_OnClassButton3@@YGHPAUD2WinMsgStrc@@@Z"
-    },
-    {
-     "va": "0x0043F350",
-     "length": 96,
-     "name": "?sub_0043F350_OnClassButton4@@YGHPAUD2WinMsgStrc@@@Z"
-    },
-    {
-     "va": "0x0043F3B0",
-     "length": 96,
-     "name": "?sub_0043F3B0_OnClassButton5@@YGHPAUD2WinMsgStrc@@@Z"
-    },
-    {
-     "va": "0x0043F410",
-     "length": 96,
-     "name": "?sub_0043F410_OnClassButton6@@YGHPAUD2WinMsgStrc@@@Z"
-    },
-    {
-     "va": "0x0043F470",
-     "length": 96,
-     "name": "?sub_0043F470_OnClassButton7@@YGHPAUD2WinMsgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_0043F9B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0043F9B0",
-     "length": 405
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
    "rank": 0,
    "functions": [
@@ -13364,81 +13341,6 @@
      "length": 21,
      "name": "?sub_00449D60_ClearReply@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_004403E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004403E0",
-     "length": 13,
-     "name": "?sub_004403E0_OnResetCallback@@YGHH@Z"
-    },
-    {
-     "va": "0x004408B0",
-     "length": 204,
-     "name": "?sub_004408B0_OpenClassSelectA@@YAXXZ"
-    },
-    {
-     "va": "0x00440980",
-     "length": 204,
-     "name": "?sub_00440980_OpenClassSelectB@@YAXXZ"
-    },
-    {
-     "va": "0x00440A50",
-     "length": 209,
-     "name": "?sub_00440A50_OpenClassSelectC@@YAXXZ"
-    },
-    {
-     "va": "0x00440B30",
-     "length": 209,
-     "name": "?sub_00440B30_OpenClassSelectD@@YAXXZ"
-    },
-    {
-     "va": "0x00440C10",
-     "length": 35,
-     "name": "?sub_00440C10_ShowClassSelectA@@YGHH@Z"
-    },
-    {
-     "va": "0x00440C40",
-     "length": 35,
-     "name": "?sub_00440C40_ShowClassSelectC@@YGHH@Z"
-    },
-    {
-     "va": "0x00440C70",
-     "length": 35,
-     "name": "?sub_00440C70_ShowClassSelectD@@YGHH@Z"
-    },
-    {
-     "va": "0x00440DB0",
-     "length": 42,
-     "name": "?sub_00440DB0_OnQuitMessage@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_004403F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004403F0",
-     "length": 766
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
