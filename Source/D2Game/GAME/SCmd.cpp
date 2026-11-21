@@ -1866,6 +1866,8 @@ extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 
 #define ITEMACTION_DROPTOGROUND 2
 
+#define ITEMACTION_ONGROUND 3
+
 // 0x0053B220
 void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId)
 {
@@ -4445,6 +4447,13 @@ void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* 
 {
     D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2013) == hClient, 2013);
     D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
+}
+
+// 0x0053ECF0
+void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
+{
+    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
 }
 
 // 0x0053ED50

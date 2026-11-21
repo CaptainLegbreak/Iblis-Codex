@@ -4047,13 +4047,6 @@ void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* hRoom, D2C
     }
 }
 
-// 0x0053ECF0
-void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
-{
-    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
-}
-
 // 0x0053FF00
 void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
 {
