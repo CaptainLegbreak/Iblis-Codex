@@ -34241,6 +34241,10 @@
      "length": 422
     },
     {
+     "va": "0x004CED60",
+     "length": 496
+    },
+    {
      "va": "0x004CFD70",
      "length": 190
     },
@@ -34263,6 +34267,14 @@
     {
      "va": "0x004D19D0",
      "length": 504
+    },
+    {
+     "va": "0x004D48B0",
+     "length": 314
+    },
+    {
+     "va": "0x004D4DC0",
+     "length": 341
     },
     {
      "va": "0x004D4F20",
@@ -34311,38 +34323,6 @@
     {
      "va": "0x004D7930",
      "length": 1230
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Missile_004CED60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004CED60",
-     "length": 496
-    },
-    {
-     "va": "0x004D48B0",
-     "length": 314
-    },
-    {
-     "va": "0x004D4DC0",
-     "length": 341
     }
    ],
    "flags": [
