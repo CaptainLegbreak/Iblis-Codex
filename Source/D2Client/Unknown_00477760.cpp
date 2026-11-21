@@ -204,6 +204,7 @@ void __cdecl sub_00477DD0()
             {
                 if (ReadProcessMemory(GetCurrentProcess(), pAddress + 0x20, &wHigh, 2, 0))
                 {
+                    // __assume: keeps the bytes collecting in nValue's own register, as the original does; no plain form found
                     nValue = !hModule ? 0 : HIBYTE(wHigh);
                     __assume(nValue != 0x80000000);
                     nValue <<= 8;
