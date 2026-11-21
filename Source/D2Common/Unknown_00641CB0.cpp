@@ -3,9 +3,8 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2ItemModes.h"
+#include "D2Drlg.h"
 
-struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
-struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileX,nTileY,nTileWidth,nTileHeight; };
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc*,void*);
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,int*); // 0x00619790

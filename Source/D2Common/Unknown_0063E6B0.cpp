@@ -2,6 +2,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 enum
@@ -17,23 +18,12 @@ enum
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x1A8];
-};
 
 struct D2UnkMonCompStrc
 {
     unsigned char nComposit[12];
 };
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x15];
-    unsigned char nComponentChoiceCounts[16];
-    unsigned char unk0x25;
-    D2UnkMonCompStrc unk0x26[16];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -147,7 +137,7 @@ unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex,
             return 0;
         }
 
-        unsigned int dwCode = DATATBLS_GetCodeFromCompCodeTxt(pMonStats2TxtRecord->unk0x26[nIndex].nComposit[nComponent]);
+        unsigned int dwCode = DATATBLS_GetCodeFromCompCodeTxt(pMonStats2TxtRecord->pComponents[nIndex].nComposit[nComponent]);
 
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMonster);
         if (pRoom && DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)) == ACT_II)

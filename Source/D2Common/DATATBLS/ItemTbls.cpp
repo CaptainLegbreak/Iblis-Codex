@@ -4,6 +4,8 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2TxtItems.h"
+#include "D2TxtTables.h"
+#include "D2GameRecords.h"
 
 // build: base-profile
 #define NULL 0
@@ -90,7 +92,6 @@ void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, vo
 
 void __stdcall sub_006BD230_AddLinkCode(D2TxtLinkStrc* pLinker, unsigned int dwCode); // 0x006BD230
 
-struct D2MagicAffixTxt { char unk[0x90]; };
 
 struct D2RareAffixTxt { char unk[0x48]; };
 
@@ -103,7 +104,6 @@ struct D2QualityItemsTxt
     unsigned short wEffect2TblId;
 };
 
-struct D2BooksTxt { char unk[0x20]; };
 
 struct D2LowQualityItemsTxt
 {

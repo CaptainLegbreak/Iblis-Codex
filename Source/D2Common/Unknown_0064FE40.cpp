@@ -1,24 +1,6 @@
-struct D2CoordStrc { int nX,nY; };
-struct D2PathPointStrc { unsigned short x,y; };
+#include "D2Path.h"
 
-union D2FP32_16 {
- struct { unsigned short wOffsetX,wPosX,wOffsetY,wPosY; };
- struct { unsigned int dwPrecisionX,dwPrecisionY; };
-};
 #pragma pack(push,1)
-struct D2DynamicPathStrc {
- D2FP32_16 tGameCoords;
- char unk08[0x1C];
- int current,count;
- char unk2C[8];
- unsigned int flags;
- char unk38[0x32];
- D2CoordStrc direction,velocityVector;
- char unk7A[2];
- int velocity;
- char unk80[0x1C];
- D2PathPointStrc points[78];
-};
 #pragma pack(pop)
 extern const D2CoordStrc gtZeroVector_006EB7D4; // 0x006EB7D4
 void __fastcall sub_6FDA9720(D2DynamicPathStrc*,unsigned char); // 0x006485F0
@@ -126,44 +108,44 @@ int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathS
 {
     D2FP32_16* const ptGameCoords = &pPath->tGameCoords;
     D2FP32_16 tTarget;
-    tTarget.dwPrecisionX = PATH_ToFP16Center(pPath->points[pPath->current].x);
-    tTarget.dwPrecisionY = PATH_ToFP16Center(pPath->points[pPath->current].y);
+    tTarget.dwPrecisionX = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].X);
+    tTarget.dwPrecisionY = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].Y);
     while (tTarget.dwPrecisionX == ptGameCoords->dwPrecisionX && tTarget.dwPrecisionY == ptGameCoords->dwPrecisionY)
     {
-        if (pPath->current >= pPath->count - 1)
+        if (pPath->dwCurrentPointIdx >= pPath->dwPathPoints - 1)
         {
             const int nZeroX = gtZeroVector_006EB7D4.nX;
             const int nZeroY = gtZeroVector_006EB7D4.nY;
-            pPath->direction.nX = nZeroX;
-            pPath->direction.nY = nZeroY;
-            pPath->velocityVector.nX = nZeroX;
-            pPath->velocityVector.nY = nZeroY;
-            pPath->current = pPath->count;
-            pPath->velocity = 0;
+            pPath->tDirectionVector.nX = nZeroX;
+            pPath->tDirectionVector.nY = nZeroY;
+            pPath->tVelocityVector.nX = nZeroX;
+            pPath->tVelocityVector.nY = nZeroY;
+            pPath->dwCurrentPointIdx = pPath->dwPathPoints;
+            pPath->dwVelocity = 0;
             return 1;
         }
 
-        ++pPath->current;
-        tTarget.dwPrecisionX = PATH_ToFP16Center(pPath->points[pPath->current].x);
-        tTarget.dwPrecisionY = PATH_ToFP16Center(pPath->points[pPath->current].y);
+        ++pPath->dwCurrentPointIdx;
+        tTarget.dwPrecisionX = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].X);
+        tTarget.dwPrecisionY = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].Y);
     }
 
     D2CoordStrc tDirectionVector;
     int nDirection;
     PATH_GetDirectionVector(&tDirectionVector, &nDirection, *ptGameCoords, tTarget);
 
-    pPath->direction.nX = tDirectionVector.nX;
-    pPath->direction.nY = tDirectionVector.nY;
-    if (pPath->flags & 0x200)
+    pPath->tDirectionVector.nX = tDirectionVector.nX;
+    pPath->tDirectionVector.nY = tDirectionVector.nY;
+    if (pPath->dwFlags & 0x200)
     {
         nDirection = (nDirection - 32) & 63;
     }
 
-    pPath->velocityVector.nX = (pPath->velocity * tDirectionVector.nX) >> 8;
-    pPath->velocityVector.nY = (pPath->velocity * tDirectionVector.nY) >> 8;
+    pPath->tVelocityVector.nX = (pPath->dwVelocity * tDirectionVector.nX) >> 8;
+    pPath->tVelocityVector.nY = (pPath->dwVelocity * tDirectionVector.nY) >> 8;
 
-    const int bSame = PATH_FromFP16(tTarget.dwPrecisionX) == PATH_FromFP16(ptGameCoords->dwPrecisionX + pPath->velocityVector.nX)
-        && PATH_FromFP16(tTarget.dwPrecisionY) == PATH_FromFP16(ptGameCoords->dwPrecisionY + pPath->velocityVector.nY);
+    const int bSame = PATH_FromFP16(tTarget.dwPrecisionX) == PATH_FromFP16(ptGameCoords->dwPrecisionX + pPath->tVelocityVector.nX)
+        && PATH_FromFP16(tTarget.dwPrecisionY) == PATH_FromFP16(ptGameCoords->dwPrecisionY + pPath->tVelocityVector.nY);
 
     if (bForceDirectionNormalization || bSame && bNormalizeDirectionIfSamePos)
     {

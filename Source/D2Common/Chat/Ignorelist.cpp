@@ -1,6 +1,9 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
+#include "D2Win32Base.h"
+#include "D2StormLink.h"
+#include "D2CmpCache.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
@@ -84,7 +87,6 @@ struct D2ExperienceTxt;
 
 struct D2ExperienceDataTbl;
 
-struct D2RectStrc;
 
 struct Link;
 
@@ -678,13 +680,6 @@ struct D2DrlgDeleteStrc
     D2DrlgDeleteStrc* pNext;
 };
 
-struct D2RectStrc
-{
-    int left;
-    int top;
-    int right;
-    int bottom;
-};
 
 typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 
@@ -967,9 +962,7 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset);
 
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset);
 
-struct D2CommonStormPlainLinkStrc;
 
-struct D2CommonStormListGStrc;
 
 struct D2CommonStormSlotListDStrc;
 
@@ -979,17 +972,7 @@ struct D2CommonStormZeroAStrc;
 
 struct D2CommonStormZeroBStrc;
 
-struct D2CommonStormPlainLinkStrc
-{
-    D2CommonStormPlainLinkStrc* m_prevlink;
-    char* m_next;
-};
 
-struct D2CommonStormListGStrc
-{
-    int m_linkoffset;
-    D2CommonStormPlainLinkStrc m_terminator;
-};
 
 struct D2CommonStormSlotListDStrc : D2CommonStormSlotListAStrc
 {
@@ -1704,11 +1687,11 @@ void __fastcall sub_0060F020_ConstructDeadList(D2StormDeadListStrc* pList) {
 }
 
 // 0x0060F050
-void __fastcall sub_0060F050_ConstructList(D2CommonStormListGStrc* pList, const D2CommonStormListGStrc* pSource)
+void __fastcall sub_0060F050_ConstructList(D2StormListEStrc* pList, const D2StormListEStrc* pSource)
 {
     if (pList)
     {
-        D2CommonStormPlainLinkStrc* pLink = &pList->m_terminator;
+        D2StormLinkStrc* pLink = &pList->m_terminator;
         pLink->m_prevlink = 0;
         pLink->m_next = 0;
         pList->m_linkoffset = pSource->m_linkoffset;
@@ -1828,11 +1811,11 @@ void D2CommonStormSlotArrayAStrc::sub_0060F390_ReallocData(unsigned int nAlloc)
 }
 
 // 0x0060F4E0
-void __fastcall sub_0060F4E0_ConstructList(D2CommonStormListGStrc* pList, const D2CommonStormListGStrc* pSource)
+void __fastcall sub_0060F4E0_ConstructList(D2StormListEStrc* pList, const D2StormListEStrc* pSource)
 {
     if (pList)
     {
-        D2CommonStormPlainLinkStrc* pLink = &pList->m_terminator;
+        D2StormLinkStrc* pLink = &pList->m_terminator;
         pLink->m_prevlink = 0;
         pLink->m_next = 0;
         pList->m_linkoffset = pSource->m_linkoffset;
@@ -2887,7 +2870,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomByTileCoordinates(D2DrlgActStrc* pAc
 }
 
 // 0x00619D00
-void __stdcall DUNGEON_GetSubtileRect(D2ActiveRoomStrc* pRoom, D2RectStrc* pRect)
+void __stdcall DUNGEON_GetSubtileRect(D2ActiveRoomStrc* pRoom, tagRECT* pRect)
 {
     D2_ASSERT(pRoom, 0x1E3);
     pRect->top = pRoom->tCoords.nSubtileY;
