@@ -270,7 +270,7 @@ void __cdecl sub_0046B290_EventLevel108Request()
     if (!pRoom)
         return;
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) != 0x6C)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_CHAOSSANCTUM)
         return;
 
     const int nX = CLIENTS_GetUnitX(pPlayer);

@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -991,7 +992,7 @@ static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int 
         nBlankTileInformation.nPackedValue = (nPackedTileInformation & ~0x80) | 0x80000000;
 
         D2TileLibraryEntryStrc* pTileCache;
-        if (pDrlgRoom->ptDrlgLevel->eLevelId != 74)
+        if (pDrlgRoom->ptDrlgLevel->eLevelId != LEVEL_ARCANESANCTUARY)
         {
             pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, 0, 0x1E00000);
         }
@@ -1007,7 +1008,7 @@ static void __stdcall sub_0066E9B0_LoadInitRoomTile(void* pMemPool, int nX, int 
     {
         D2TileLibraryEntryStrc* pWallTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom, nTileType, nPackedTileInformation);
         D2DrlgTileDataStrc* pWallTileData = DRLGROOMTILE_InitWallTileData(pDrlgRoom, 0, nX, nY, nPackedTileInformation, pWallTileCache, nTileType);
-        if ((nTileType == 11 || nTileType == 10) && pDrlgRoom->ptDrlgLevel->eLevelId != 133)
+        if ((nTileType == 11 || nTileType == 10) && pDrlgRoom->ptDrlgLevel->eLevelId != LEVEL_PANDEMONIUMRUN1)
         {
             DRLGROOMTILE_LoadWallWarpTiles(pWallTileData, nPackedTileInformation, nTileType, pDrlgRoom);
         }

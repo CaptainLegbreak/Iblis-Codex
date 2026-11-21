@@ -698,7 +698,7 @@ int __fastcall ACT1Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
     if (!pRoom)
         return 0;
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 0x19)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_TOWERCELLARLEV5)
     {
         QUESTRECORD_SetQuestState(pQuestFlags, 5, 0xD);
         QUESTRECORD_SetQuestState(pQuestFlags, 5, 0);

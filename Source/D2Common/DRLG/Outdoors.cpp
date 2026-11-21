@@ -647,7 +647,7 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
     DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pRoomData);
     sub_00675080_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
 
-    if (pLevel->eLevelId == 134)
+    if (pLevel->eLevelId == LEVEL_PANDEMONIUMRUN2)
     {
         nAct = 1;
     }

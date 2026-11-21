@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2ItemsWorld.h"
 #include "D2Drlg.h"
@@ -227,7 +228,6 @@ enum
     MONTYPEFLAG_UNIQUE = 0x08,
     MONTYPEFLAG_CHAMPION = 0x04,
 };
-
 
 enum
 {
@@ -3328,7 +3328,7 @@ int __fastcall sub_005E8810_SelectBaalAction(D2AiControlStrc* pAi,D2UnitStrc* pU
     if((!pTarget ? 6:pTarget->dwUnitType)==0)
     {
         pPortal=SUNIT_GetServerUnit(pGame,2,PLAYER_GetUniqueIdFromPlayerData(pTarget));
-        if(pPortal && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal))==108)
+        if(pPortal && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal))==LEVEL_CHAOSSANCTUM)
             if(sub_006417F0_GetDistance(pPortal,pInfo->nX,pInfo->nY)<85)bPortal=1;
     }
     int bDangerousSkill=0;
@@ -3446,7 +3446,7 @@ int __fastcall sub_005E9750_DiabloChooseAction(D2AiControlStrc* pAi,D2UnitStrc* 
     if((!pTarget ? 6:pTarget->dwUnitType)==0)
     {
         pPortal=SUNIT_GetServerUnit(pGame,2,PLAYER_GetUniqueIdFromPlayerData(pTarget));
-        if(pPortal && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal))==108)
+        if(pPortal && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal))==LEVEL_CHAOSSANCTUM)
             if(sub_006417F0_GetDistance(pPortal,pInfo->nX,pInfo->nY)<85)bPortal=1;
     }
     int bDangerousSkill=0;
@@ -8663,6 +8663,5 @@ void __fastcall AIBAAL_CountLivingMinions(D2UnitStrc* pUnit, void* ppUnitArg, vo
 // build: context ?SKILLS_GetMissilesTxtRecord@@YAPAUD2MissilesTxt@@H@Z
 // build: context ?GetAuraStateStatList@@YAPAUD2StatListStrc@@PAUD2UnitStrc@@PAUD2SkillsTxt@@@Z
 // build: context ?AI_ClampChance@@YAHH@Z
-
 
 #include "gen/data/Source/D2Game/Ai/AiThink4.inc"

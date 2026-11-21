@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -1402,7 +1403,7 @@ void __fastcall ACT5Q4_OnNihlathakActivated(D2GameStrc* pGame)
 void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) != 0x78)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROCKYSUMMIT)
     {
         return;
     }

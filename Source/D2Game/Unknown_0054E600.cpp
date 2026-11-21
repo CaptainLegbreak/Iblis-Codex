@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -111,11 +112,11 @@ static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevel
     case 0x13:
         switch (nLevelId)
         {
-        case 6:
+        case LEVEL_BLACKMARSH:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x14);
-        case 7:
-        case 0xC:
-        case 0x10:
+        case LEVEL_TAMOEHIGHLAND:
+        case LEVEL_PITLEV1:
+        case LEVEL_PITLEV2:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x15);
         }
         break;
@@ -123,11 +124,11 @@ static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevel
     case 0x3A:
         switch (nLevelId)
         {
-        case 6:
-        case 7:
+        case LEVEL_BLACKMARSH:
+        case LEVEL_TAMOEHIGHLAND:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x3B);
-        case 0xC:
-        case 0x10:
+        case LEVEL_PITLEV1:
+        case LEVEL_PITLEV2:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x3C);
         }
         break;
@@ -229,11 +230,11 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         switch (MONSTERREGION_SanitizeMonsterId_Inline(nClassId))
         {
         case 0x1F2:
-            if (QUESTS_CheckNotIntroQuest(pGame, 0x1F) && DUNGEON_GetLevelIdFromRoom(pRoom) == 0x6E)
+            if (QUESTS_CheckNotIntroQuest(pGame, 0x1F) && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_BLOODYFOOTHILLS)
                 nClassId = MONSTERREGION_SanitizeMonsterId_Inline(0x1F3);
             break;
         case 0x205:
-            if (QUESTS_CheckNotIntroQuest(pGame, 0x1F) && DUNGEON_GetLevelIdFromRoom(pRoom) == 0x6E)
+            if (QUESTS_CheckNotIntroQuest(pGame, 0x1F) && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_BLOODYFOOTHILLS)
                 nClassId = MONSTERREGION_SanitizeMonsterId_Inline(0x206);
             break;
         }
@@ -244,7 +245,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
             {
             case 0x1C5:
             case 0x211:
-                if (nLevelId == 0x6E)
+                if (nLevelId == LEVEL_BLOODYFOOTHILLS)
                     return 0;
                 break;
             }
@@ -265,21 +266,21 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         int nChainIncrements = 0;
         switch (nLevelId)
         {
-        case 0x4C:
-        case 0x4D:
-        case 0x4E:
+        case LEVEL_SPIDERFOREST:
+        case LEVEL_GREATMARSH:
+        case LEVEL_FLAYERJUNGLE:
             nChainIncrements = 1;
             break;
-        case 0x5C:
-        case 0x5D:
+        case LEVEL_SEWERSA3LEV1:
+        case LEVEL_SEWERSA3LEV2:
             nChainIncrements = 2;
             break;
-        case 0x56:
-        case 0x57:
-        case 0x58:
-        case 0x59:
-        case 0x5A:
-        case 0x5B:
+        case LEVEL_SWAMPYPITLEV1:
+        case LEVEL_SWAMPYPITLEV2:
+        case LEVEL_FLAYERDUNGEONLEV1:
+        case LEVEL_FLAYERDUNGEONLEV2:
+        case LEVEL_SWAMPYPITLEV3:
+        case LEVEL_FLAYERDUNGEONLEV3:
             nChainIncrements = 0;
             break;
         }
@@ -357,7 +358,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
             nAnimMode = 12;
             break;
         case 30:
-            nMonsterId = nLevelId == 0x6E ? 0x211 : 0x1EC;
+            nMonsterId = nLevelId == LEVEL_BLOODYFOOTHILLS ? 0x211 : 0x1EC;
             nAnimMode = 12;
             break;
         case 31:
@@ -409,7 +410,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         switch (nClassId)
         {
         case 24:
-            nMonsterId = nLevelId == 0x6E ? 0x211 : 0x1EC;
+            nMonsterId = nLevelId == LEVEL_BLOODYFOOTHILLS ? 0x211 : 0x1EC;
             break;
         case 26:
             nMonsterId = 0x1C5;

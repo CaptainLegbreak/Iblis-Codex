@@ -580,7 +580,7 @@ static __forceinline int sub_0061BA10_CanUntileLevel(int nLevelId)
     {
         return 0;
     }
-    return nLevelId != 120;
+    return nLevelId != LEVEL_ROCKYSUMMIT;
 }
 
 // 0x0061BA30

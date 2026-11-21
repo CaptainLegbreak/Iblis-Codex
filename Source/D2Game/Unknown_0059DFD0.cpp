@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -25,7 +26,7 @@ int __fastcall ACT2Q6_ActivateTomb(D2GameStrc* pGame, D2CoordStrc* pCoord, D2Act
     {
         int nX;
         int nY;
-        D2ActiveRoomStrc* pRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[1], 40, 12, &nX, &nY, 3);
+        D2ActiveRoomStrc* pRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[1], LEVEL_LUTGHOLEIN, 12, &nX, &nY, 3);
         if (pRoom)
         {
             sub_6FC385A0(pGame, pRoom);

@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameTypes.h"
@@ -901,7 +902,7 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
     if ((!pTarget ? 6 : pTarget->dwUnitType) == 0)
     {
         D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, PLAYER_GetUniqueIdFromPlayerData(pTarget));
-        if (pObject && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pObject)) == 132)
+        if (pObject && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pObject)) == LEVEL_THEWORLDSTONECHAMBER)
         {
             if (!pAiCmd || UNITS_GetDistanceToCoordinates(pObject, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2]) < 75)
                 bInCloseRange = 1;

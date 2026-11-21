@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -237,7 +238,7 @@ static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
 
 void __fastcall sub_M170_Emit_0067DA70(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->eLevelId == 110)
+    if (pLevel->eLevelId == LEVEL_BLOODYFOOTHILLS)
     {
         DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
         return;
@@ -245,7 +246,7 @@ void __fastcall sub_M170_Emit_0067DA70(D2DrlgLevelStrc* pLevel)
     DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     sub_0067E160(pLevel);
     DRLGOUTSIEGE_PlaceCaves(pLevel);
-    if (pLevel->eLevelId == 111)
+    if (pLevel->eLevelId == LEVEL_ID_ACT5_BARRICADE_1)
     {
         DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     }

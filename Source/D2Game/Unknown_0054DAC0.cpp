@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -194,11 +195,11 @@ static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevel
     case 0x13:
         switch (nLevelId)
         {
-        case 6:
+        case LEVEL_BLACKMARSH:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x14);
-        case 7:
-        case 0xC:
-        case 0x10:
+        case LEVEL_TAMOEHIGHLAND:
+        case LEVEL_PITLEV1:
+        case LEVEL_PITLEV2:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x15);
         }
         break;
@@ -206,11 +207,11 @@ static __declspec(noinline) int sub_0054E2A0_GetFallenVariantForLevel(int nLevel
     case 0x3A:
         switch (nLevelId)
         {
-        case 6:
-        case 7:
+        case LEVEL_BLACKMARSH:
+        case LEVEL_TAMOEHIGHLAND:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x3B);
-        case 0xC:
-        case 0x10:
+        case LEVEL_PITLEV1:
+        case LEVEL_PITLEV2:
             return MONSTERREGION_SanitizeMonsterId_Inline(0x3C);
         }
         break;
@@ -283,7 +284,7 @@ static __declspec(noinline) int sub_0054EBC0_CanPopulateRoom(D2ActiveRoomStrc* p
     if (!pRegion->nMonsterRegionLevel)
         return 0;
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 0x6C)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_CHAOSSANCTUM)
     {
         if (sub_005B5210(pGame))
             return 0;

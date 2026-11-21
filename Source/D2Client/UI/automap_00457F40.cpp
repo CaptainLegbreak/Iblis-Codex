@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
@@ -433,7 +434,7 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
                 break;
 
             case 0x192:
-                if (DUNGEON_GetLevelIdFromRoom(pRoom) == 0x4A)
+                if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
                     sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
                 break;
 
@@ -761,8 +762,8 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
         case 0x3C:
         {
             const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
-            if (nLevelId == 0x7D || nLevelId == 0x7E || nLevelId == 0x7F || nLevelId == 0x6F
-                || nLevelId == 0x70 || nLevelId == 0x75)
+            if (nLevelId == LEVEL_HELL1 || nLevelId == LEVEL_HELL2 || nLevelId == LEVEL_HELL3 || nLevelId == LEVEL_ID_ACT5_BARRICADE_1
+                || nLevelId == LEVEL_ARREATPLATEAU || nLevelId == LEVEL_TUNDRAWASTELANDS)
             {
                 return 0;
             }

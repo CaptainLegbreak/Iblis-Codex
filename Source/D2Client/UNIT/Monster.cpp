@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Constants.h"
@@ -593,7 +594,7 @@ void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit)
         nLight = pMonStats2TxtRecord->nLight;
     }
 
-    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == 8 && sub_004B92E0_GetTableByte(0, 1) && !sub_00451F30_TestUnitFlag(pUnit, 0x200000)
+    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_DENOFEVIL && sub_004B92E0_GetTableByte(0, 1) && !sub_00451F30_TestUnitFlag(pUnit, 0x200000)
         && pMonStatsTxtRecord->nAlign != 1 && pMonStatsTxtRecord->nAlign != 2)
     {
         nLight = 3;

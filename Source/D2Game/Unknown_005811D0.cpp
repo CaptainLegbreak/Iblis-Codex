@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
@@ -111,10 +112,10 @@ void __fastcall sub_00581410_OpenLinkPortal(D2GameStrc* pGame, D2UnitStrc* pUnit
     int nPortalLevel = 0x7F;
     switch (nLevelId)
     {
-    case 0x6F:
+    case LEVEL_ID_ACT5_BARRICADE_1:
         nPortalLevel = 0x7D;
         break;
-    case 0x70:
+    case LEVEL_ARREATPLATEAU:
         nPortalLevel = 0x7E;
         break;
     }

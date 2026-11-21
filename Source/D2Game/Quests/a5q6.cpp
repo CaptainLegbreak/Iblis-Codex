@@ -277,7 +277,7 @@ void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char
 int __fastcall sub_0058D7D0_ACT5Q6_UnitIterate_SpawnObject(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == 132)
+    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_THEWORLDSTONECHAMBER)
     {
         D2CoordStrc coord;
         UNITS_GetCoords(pUnit, &coord);
@@ -710,7 +710,7 @@ int __fastcall OBJECTS_OperateFunction70_BaalPortal(D2ObjOperateFnStrc* pOp, int
         return 0;
     }
 
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 131)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_THRONEOFDESTRUCTION)
     {
         if (((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->bWorldStoneChamberOpen == 1)
         {

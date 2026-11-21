@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
@@ -210,7 +211,7 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
 
                 nY = (pVertex->nPosY < pNext->nPosY ? pVertex->nPosY : pNext->nPosY) + nCurrentDiffYAbs * nDiff / 2;
 
-                if (pLevel->eLevelId == 17)
+                if (pLevel->eLevelId == LEVEL_BURIALGROUNDS)
                 {
                     DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0xF0000, 5);
                     DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x40400, 0);

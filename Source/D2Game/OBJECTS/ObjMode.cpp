@@ -914,7 +914,7 @@ void __fastcall sub_6FC74DF0(D2GameStrc* pGame, D2UnitStrc* pObject)
     }
     else if (nTrapType == 3)
     {
-        if (nLevelId < 40 && nLevelId != 25)
+        if (nLevelId < 40 && nLevelId != LEVEL_TOWERCELLARLEV5)
         {
             D2_ASSERT(!IsBadCodePtr((FARPROC)sgObjectTrapHandlers[2]), 0x16C);
             sgObjectTrapHandlers[2](pGame, pObject);
@@ -2887,8 +2887,8 @@ void __fastcall OBJMODE_TravelViaWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer
     }
 
     int nTileIndex;
-    if (DUNGEON_IsTownLevelId(nDestLevelId) || nDestLevelId == 46 || nDestLevelId == 74 || nDestLevelId == 133
-        || nDestLevelId == 134 || nDestLevelId == 135 || nDestLevelId == 136)
+    if (DUNGEON_IsTownLevelId(nDestLevelId) || nDestLevelId == LEVEL_CANYONOFTHEMAGI || nDestLevelId == LEVEL_ARCANESANCTUARY || nDestLevelId == LEVEL_PANDEMONIUMRUN1
+        || nDestLevelId == LEVEL_PANDEMONIUMRUN2 || nDestLevelId == LEVEL_PANDEMONIUMRUN3 || nDestLevelId == LEVEL_PANDEMONIUMFINALE)
     {
         nTileIndex = 13;
     }

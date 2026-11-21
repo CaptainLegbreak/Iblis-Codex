@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2DrlgTiles.h"
 #include "D2Constants.h"
@@ -386,7 +387,7 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
                 break;
 
             case 0x192:
-                if (DUNGEON_GetLevelIdFromRoom(pRoom) == 0x4A)
+                if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
                     sub_00457E80_AddUnitAutomapCell(pObjectsTxt->dwAutomap, ppRoot, pUnit);
                 break;
 
@@ -814,7 +815,7 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
     int nCel;
     switch (nLevelId)
     {
-    case 0x28:
+    case LEVEL_LUTGHOLEIN:
         pLayer->fSaved = 1;
         pSkip = gaTownSkipCels_006D6608;
         nColumns = 5;
@@ -826,7 +827,7 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
         nCel = nPickedFile != 1 ? 0x14 : 0;
         break;
 
-    case 0x67:
+    case LEVEL_THEPANDEMONIUMFORTRESS:
         pLayer->fSaved = 2;
         pSkip = 0;
         nColumns = 2;
@@ -838,7 +839,7 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
         nCel = 0;
         break;
 
-    case 0x6D:
+    case LEVEL_HARROGATH:
         pLayer->fSaved = 3;
         pSkip = 0;
         nColumns = 3;

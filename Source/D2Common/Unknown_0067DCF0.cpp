@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 
@@ -23,7 +24,7 @@ static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
 
 static int sub_0067DCE0(D2DrlgLevelStrc* pLevel)
 {
-    return (pLevel->eLevelId == 117) + 4;
+    return (pLevel->eLevelId == LEVEL_TUNDRAWASTELANDS) + 4;
 }
 
 // 0x0067DCF0
@@ -85,7 +86,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
     }
     while (pVertex != pInfo->pVertex);
 
-    if (pLevel->eLevelId == 111)
+    if (pLevel->eLevelId == LEVEL_ID_ACT5_BARRICADE_1)
     {
         sub_0067DCA0(pLevel);
     }

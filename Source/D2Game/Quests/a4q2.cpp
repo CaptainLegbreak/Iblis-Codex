@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -733,7 +734,7 @@ static void __stdcall ACT4Q2_KillAllMonstersInCS(D2GameStrc* pGame, D2Act4Quest2
 
     for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[3]); pRoom; pRoom = pRoom->pRoomNext)
     {
-        if (DUNGEON_GetLevelIdFromRoom(pRoom) == 108)
+        if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_CHAOSSANCTUM)
         {
             D2UnitStrc* pNext = 0;
             for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNext)
@@ -1228,7 +1229,7 @@ int __fastcall ACT3Q5_IsDuranceOfHateClosed(D2GameStrc* pGame, D2UnitStrc* pUnit
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 19);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
 
-    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == 101)
+    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_DURANCEOFHATELEV2)
     {
         return 0;
     }

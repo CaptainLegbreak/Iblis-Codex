@@ -267,7 +267,7 @@ void __fastcall sub_0067F190(D2DrlgLevelStrc* pLevel)
 // 0x0067F3B0
 void __fastcall sub_0067F3B0(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->eLevelId == 83)
+    if (pLevel->eLevelId == LEVEL_TRAVINCAL)
     {
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 0, 0x28D, -1, 0);
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 2, 0, 0x28E, -1, 0);

@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2GameRecords.h"
@@ -675,7 +676,7 @@ int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D
  D2ActiveRoomStrc* room=UNITS_GetRoom(unit);
  unsigned char act=DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(room));
  int town=DUNGEON_GetTownLevelIdFromActNo(act);
- if(DUNGEON_IsRoomInTown(room) || DUNGEON_GetLevelIdFromRoom(room)==136) {
+ if(DUNGEON_IsRoomInTown(room) || DUNGEON_GetLevelIdFromRoom(room)==LEVEL_PANDEMONIUMFINALE) {
   sub_00553380_SendEvent(unit,24,unit);return 0;
  }
  PLAYER_RemoveTownPortal(game,unit);

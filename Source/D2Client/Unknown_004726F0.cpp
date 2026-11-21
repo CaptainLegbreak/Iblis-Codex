@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
@@ -66,20 +67,20 @@ static int __stdcall sub_004726F0(int bForce)
     int nChance = 0;
     switch (nLevelId)
     {
-    case 0x6D:
-    case 0x6E:
-    case 0x6F:
-    case 0x70:
+    case LEVEL_HARROGATH:
+    case LEVEL_BLOODYFOOTHILLS:
+    case LEVEL_ID_ACT5_BARRICADE_1:
+    case LEVEL_ARREATPLATEAU:
         gnGlobal_007A8A18 = 0;
         nChance = 0x19;
         break;
-    case 0x78:
-    case 0x79:
+    case LEVEL_ROCKYSUMMIT:
+    case LEVEL_NIHLATHAKSTEMPLE:
         bFlag = 1;
         gnGlobal_007A8A18 = 1;
         nChance = 0;
         break;
-    case 0x75:
+    case LEVEL_TUNDRAWASTELANDS:
         gnGlobal_007A8A18 = 1;
         nChance = 0;
         break;

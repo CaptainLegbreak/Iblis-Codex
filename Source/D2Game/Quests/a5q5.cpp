@@ -965,7 +965,7 @@ void __fastcall ACT5Q5_SpawnAncientMonsters(D2QuestDataStrc* pQuestData, D2UnitS
 void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) != 0x78)
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROCKYSUMMIT)
     {
         return;
     }
@@ -1146,7 +1146,7 @@ int __fastcall ACT5Q5_UnitIterate_ClosePortals(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal)) == 0x78)
+    if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal)) == LEVEL_ROCKYSUMMIT)
     {
         sub_00535430(pGame, pUnit);
     }
@@ -1259,7 +1259,7 @@ int __fastcall OBJECTS_OperateFunction66_AncientsDoor(D2ObjOperateFnStrc* pOp, i
 int __fastcall ACT5Q5_UnitIterate_CountLivingPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 0x78)
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROCKYSUMMIT)
     {
         return 0;
     }
@@ -1277,7 +1277,7 @@ int __fastcall ACT5Q5_UnitIterate_CountLivingPlayers(D2GameStrc* pGame, D2UnitSt
 void __fastcall ACT5Q5_OnPlayerDied(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 0x78)
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_ROCKYSUMMIT)
     {
         return;
     }

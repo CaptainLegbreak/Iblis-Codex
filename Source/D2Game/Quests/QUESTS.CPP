@@ -1751,11 +1751,11 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
             switch (DUNGEON_GetLevelIdFromRoom(pRoom))
             {
-            case 108:
+            case LEVEL_CHAOSSANCTUM:
                 sub_005B5750_SpawnQuestMonster(pGame, pUnit);
                 break;
 
-            case 76:
+            case LEVEL_SPIDERFOREST:
                 sub_6FC68D70(pGame, pUnit, 301, 1, -1, 0);
                 break;
             }
@@ -1787,7 +1787,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 ACT1Q4_UpdatePortalInTown(pQuestData, pUnit);
             }
         }
-        else if (nLevelId != 109 && nLevelId < 113)
+        else if (nLevelId != LEVEL_HARROGATH && nLevelId < 113)
         {
             D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 32);
             if (pQuestData)

@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
 #include "D2Primitives.h"
@@ -217,9 +218,9 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
     case 0x3C:
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-        if (nLevelId == 0x26)
+        if (nLevelId == LEVEL_TRISTRAM)
             pUnit->pObjectData->InteractType = 4;
-        else if (nLevelId == 4)
+        else if (nLevelId == LEVEL_STONYFIELD)
             pUnit->pObjectData->InteractType = 0x26;
         break;
     }

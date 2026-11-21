@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -514,8 +515,8 @@ void __fastcall sub_004D2610_CltDoBaalStorm(D2UnitStrc* pMissile)
     }
     switch (nLevelId)
     {
-    case 131:
-    case 132:
+    case LEVEL_THRONEOFDESTRUCTION:
+    case LEVEL_THEWORLDSTONECHAMBER:
         bInRange = 1;
         break;
     }

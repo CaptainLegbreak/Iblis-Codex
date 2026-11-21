@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
@@ -1033,7 +1034,7 @@ static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc* pGame,D2A
     if (!list) return;
     D2InactiveMonsterNodeStrc* next = list->pInactiveMonsters;
     int chaos = 0;
-    if (DUNGEON_GetLevelIdFromRoom(pRoom) == 108 && ACT4Q2_IsChaosSanctumCleared(pGame)) chaos = 1;
+    if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_CHAOSSANCTUM && ACT4Q2_IsChaosSanctumCleared(pGame)) chaos = 1;
     while (next)
     {
         D2InactiveMonsterNodeStrc* node = next;

@@ -1,3 +1,4 @@
+#include "D2LevelIds.h"
 #include "D2Game.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
@@ -1157,7 +1158,7 @@ int __fastcall ACT1Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* 
         return 0;
     }
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 38)
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_TRISTRAM)
     {
         return 0;
     }
@@ -1189,7 +1190,7 @@ int __fastcall ACT1Q4_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 int __fastcall ACT1Q4_UnitIterate_FindPlayersInTristram(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 38)
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != LEVEL_TRISTRAM)
     {
         return 0;
     }
@@ -1638,7 +1639,7 @@ bool __fastcall ACT1Q4_SeqCallback(D2QuestDataStrc* pQuestData)
 int __fastcall ACT1Q4_UnitIterate_SetCustom6Flag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == 39)
+    if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_MOOMOOFARM)
     {
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
         QUESTRECORD_SetQuestState(pQuestFlags, 4, 10);

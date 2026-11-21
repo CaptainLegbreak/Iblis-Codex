@@ -465,7 +465,7 @@ int __fastcall ACT2Q6_UnitIterate_SetLeaveTownFlag(D2GameStrc* pGame, D2UnitStrc
     D2_ASSERT(tLocals.pQuestInfo, 401);
 
     bool bInLair = false;
-    if (DUNGEON_GetLevelIdFromRoom(tLocals.pRoom) == 73)
+    if (DUNGEON_GetLevelIdFromRoom(tLocals.pRoom) == LEVEL_DURIELSLAIR)
     {
         bInLair = true;
     }
