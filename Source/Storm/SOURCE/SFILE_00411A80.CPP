@@ -2008,6 +2008,7 @@ int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned in
     else
         *phMpq = 0;
     VALIDATE(szMpqName);
+    // stands for the original keeping the null test of szMpqName when *szMpqName is validated next (a plain pair drops it)
     __assume((szMpqName) != 0);
     VALIDATE(*szMpqName);
     __assume((*szMpqName) != 0);
@@ -2099,6 +2100,7 @@ int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigne
     else
         *phFile = 0;
     VALIDATE(szFileName);
+    // stands for the original keeping the null test of szFileName when *szFileName is validated next (a plain pair drops it)
     __assume((szFileName) != 0);
     VALIDATE(*szFileName);
     __assume((*szFileName) != 0);

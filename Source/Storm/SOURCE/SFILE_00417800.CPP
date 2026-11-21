@@ -228,8 +228,10 @@ int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefi
     else
         *phArchive = 0;
     VALIDATE(szPrefix);
-    // stands for the original testing szPrefix and *szPrefix independently: with a plain read the null test of szPrefix is dropped
-    VALIDATE(*(const volatile char*)szPrefix);
+    // stands for the original keeping the null test of szPrefix when *szPrefix is validated next (a plain pair drops it)
+    __assume((szPrefix) != 0);
+    VALIDATE(*szPrefix);
+    __assume((*szPrefix) != 0);
     VALIDATEEND;
     EnterCriticalSection(&gBasePathLock_00779068);
     sub_00415B90_InitCryptTable();
