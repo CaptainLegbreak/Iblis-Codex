@@ -88,6 +88,7 @@ struct D2MonsterDataStrc
     {
         D2AiControlStrc* pAiControl; // 0x28
         unsigned short nClientFlags; // 0x28 (client side)
+        unsigned char nClientFlagsLow; // 0x28 (client side, low byte)
     };
     union
     {
@@ -97,7 +98,16 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract; // 0x30
     int nAiValue; // 0x34
     int nAiState; // 0x38
-    unsigned char unk0x3C[0x14]; // 0x3C
+    union
+    {
+        unsigned char abLifeSync[0x10]; // 0x3C (server side: the life sync record)
+        struct
+        {
+            int nOwnerGUID; // 0x3C (client side)
+            int nMinionSpawnClassId; // 0x40 (client side)
+        };
+    };
+    unsigned char unk0x4C[0x4]; // 0x4C
     int pVision; // 0x50
     unsigned char unk0x54[0x8]; // 0x54
 };

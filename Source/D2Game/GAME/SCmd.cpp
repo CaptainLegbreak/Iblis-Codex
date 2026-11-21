@@ -3005,7 +3005,7 @@ static int __stdcall sub_0053CC40_ShouldSendMinionLifeUpdate(D2UnitStrc* pUnit, 
     {
         return 0;
     }
-    D2LifeSyncStrc* pLifeSync = pUnit ? (D2LifeSyncStrc*)((D2MonsterDataStrc*)pUnit)->unk0x3C : 0;
+    D2LifeSyncStrc* pLifeSync = pUnit ? (D2LifeSyncStrc*)((D2MonsterDataStrc*)pUnit)->abLifeSync : 0;
     if (!pLifeSync)
     {
         return 0;
@@ -3207,7 +3207,7 @@ static D2LifeSyncStrc* GetMonsterLifeSync(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
     {
-        return (D2LifeSyncStrc*)pUnit->pMonsterData->unk0x3C;
+        return (D2LifeSyncStrc*)pUnit->pMonsterData->abLifeSync;
     }
     return 0;
 }
