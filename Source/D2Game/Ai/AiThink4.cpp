@@ -1112,6 +1112,23 @@ enum D2C_M80FlyingScimitarAi
     FLYINGSCIMITAR_AI_PARAM_CIRCLE_CHANCE_PCT = 3,
 };
 
+enum D2C_M150ZakarumZealotAi
+{
+    ACT_III = 2,
+    QUESTSTATEFLAG_A3Q5 = 0x15,
+    COLLIDE_MISSILE = 0x40,
+    ZAKARUMZEALOT_AI_PARAM_ATTACK_CHANCE_PCT = 0,
+    ZAKARUMZEALOT_AI_PARAM_ATTACK2_CHANCE_PCT = 1,
+    ZAKARUMZEALOT_AI_PARAM_HURT_PCT = 2,
+    ZAKARUMZEALOT_AI_PARAM_RUN_CHANCE_PCT = 3,
+};
+
+void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* pOwnerType);               // 0x0058F090
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
+
+int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
+
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -7333,6 +7350,101 @@ void __fastcall AITHINK_Fn047_FlyingScimitar(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     AITACTICS_IdleInNeutralMode(pGame, pUnit, AI_PARAM(pGame, pMonStatsTxt, FLYINGSCIMITAR_AI_PARAM_STALL_DURATION));
+}
+
+// 0x005F6E60
+void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    const int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+    D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
+    int nVel = 0;
+    if (pMonStatsTxt->nVelocity > 0)
+    {
+        const int nRatio = 100 * pMonStatsTxt->nRun / pMonStatsTxt->nVelocity;
+        const int nDiff = nRatio - 100;
+        nVel = nDiff > 0 ? nDiff : 0;
+        if (nVel >= 120)
+            nVel = 120;
+    }
+    const int nLifePercentage = UNITS_GetCurrentLifePercentage(pUnit);
+    D2UnitStrc* pPlayer = pTarget;
+    if (pTarget)
+    {
+        if (pTarget->dwUnitType == UNIT_MONSTER)
+        {
+            int nOwnerGUID;
+            int nOwnerType;
+            AIGENERAL_GetOwnerData(pTarget, &nOwnerGUID, &nOwnerType);
+            if (nOwnerType == UNIT_PLAYER)
+                pPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nOwnerGUID);
+        }
+        if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit))) == ACT_III)
+        {
+            D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+            if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, 0))
+            {
+                sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+                if (!sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
+                    AITACTICS_WalkCloseToUnit(pGame, pUnit, 6);
+                return;
+            }
+        }
+    }
+    if (sub_6FCF2E70(pUnit))
+    {
+        if (!pAiControl->dwAiParam[1] && nLifePercentage < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMZEALOT_AI_PARAM_HURT_PCT))
+        {
+            pAiControl->dwAiParam[0] = 0;
+            sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+            if (sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
+                return;
+            pAiControl->dwAiParam[1] = 5;
+        }
+        if (COLLISION_CheckMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), COLLIDE_MISSILE))
+        {
+            if (bCombat)
+            {
+                sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                return;
+            }
+            AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
+            return;
+        }
+    }
+    if (pAiControl->dwAiParam[1])
+        --pAiControl->dwAiParam[1];
+    if (bCombat)
+    {
+        if (pAiControl->dwAiParam[0])
+        {
+            if (!((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMZEALOT_AI_PARAM_ATTACK_CHANCE_PCT)))
+            {
+                pAiControl->dwAiParam[0] = 0;
+                if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 80)
+                    AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+                else
+                    sub_005DF7D0(pGame, pUnit, pTarget, 4, 0);
+                return;
+            }
+        }
+        pAiControl->dwAiParam[0] = 1;
+        if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMZEALOT_AI_PARAM_ATTACK2_CHANCE_PCT))
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK2, pTarget);
+        else
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+    pAiControl->dwAiParam[0] = 0;
+    if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMZEALOT_AI_PARAM_RUN_CHANCE_PCT))
+    {
+        sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+        AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
+        return;
+    }
+    AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 
 // 0x005F7240
