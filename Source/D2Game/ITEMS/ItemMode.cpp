@@ -3151,6 +3151,90 @@ static void __stdcall sub_0055E8E0_InitItemDrop(int nId, D2GameStrc* pGame, D2Un
     pItemDrop->dwItemSeed = nItemSeed;
 }
 
+// 0x0055E9B0
+int __fastcall sub_6FC48940(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6)
+{
+    D2_ASSERT(ptGame, 0x11FB);
+    D2_ASSERT(hUnit, 0x11FC);
+
+    *a6 = 0;
+
+    sub_0055BF50_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x1201);
+
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, UNIT_ITEM, nItemGUID);
+    if (!pItem)
+    {
+        *a6 = 1;
+        return 0;
+    }
+
+    if (pItem->dwUnitType != UNIT_ITEM)
+    {
+        return 0;
+    }
+
+    if (pItem->dwAnimMode != IMODE_ONCURSOR)
+    {
+        *a6 = 1;
+        return 0;
+    }
+
+    do
+    {
+        if (!ITEMS_CheckIfBeltable(pItem))
+        {
+            break;
+        }
+
+        D2InventoryStrc* pInventory = hUnit->pInventory;
+        if (bFindFreeSlot)
+        {
+            if (!INVENTORY_PlaceItemInFreeBeltSlot(pInventory, pItem))
+            {
+                break;
+            }
+        }
+        else
+        {
+            unsigned char nWidth;
+            unsigned char nHeight;
+            ITEMS_GetDimensions(pItem, &nWidth, &nHeight, ".\\ITEMS\\ItemMode.cpp", 0x1222);
+
+            if (!INVENTORY_PlaceItemInBeltSlot(pInventory, pItem, nBeltSlot))
+            {
+                break;
+            }
+
+            ITEMS_SetInvPage(pItem, INVPAGE_NULL);
+        }
+
+        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 2))
+        {
+            INVENTORY_SetCursorItem(pInventory, 0);
+            sub_0055C270_OnItemToBelt(hUnit, pItem);
+
+            pItem->dwFlags &= ~UNITFLAG_TARGETABLE;
+
+            if (ITEMS_IsCharmUsable(pItem, hUnit))
+            {
+                sITEMSAddStatsList(ptGame, pItem, hUnit, 0);
+            }
+
+            UNITS_ChangeAnimMode(pItem, IMODE_INBELT);
+            ITEMS_SetInvPage(pItem, INVPAGE_NULL);
+            ITEMS_SetItemCMDFlag(pItem, 0x400, 1);
+            UNITS_RefreshInventory(hUnit, 1);
+            INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+            return 1;
+        }
+
+        *a6 = 1;
+    }
+    while (0);
+
+    return 0;
+}
+
 // 0x0055EB30
 int __fastcall sub_6FC48D50(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nCursorItemGUID, int nBeltItemGUID, int* a5)
 {
