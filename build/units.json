@@ -86516,7 +86516,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/DRLG/Drlg_006412F0.cpp",
+   "file": "Source/D2Common/DRLG/Drlg.cpp",
    "rank": 0,
    "functions": [
     {
@@ -86535,9 +86535,92 @@
      "name": "UNITS_IsInRange"
     },
     {
+     "va": "0x00641F60",
+     "length": 168,
+     "name": "sub_00641F60_LoadTownTiles"
+    },
+    {
+     "va": "0x00642010",
+     "length": 379,
+     "name": "?sub_00642010_ClearLevel@@YGXPAXHPAULevel@@@Z"
+    },
+    {
+     "va": "0x00642190",
+     "length": 150,
+     "name": "?sub_00642190_FreeDungeon@@YIXPAUDungeon@@@Z"
+    },
+    {
+     "va": "0x00642230",
+     "length": 14,
+     "name": "?DRLG_GetHoradricStaffTombLevelId@@YIHPAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x00642240",
+     "length": 91,
+     "name": "?DRLG_GetDirectionFromCoordinates@@YIHPAUD2DrlgCoordStrc@@0@Z"
+    },
+    {
+     "va": "0x006422A0",
+     "length": 216
+    },
+    {
+     "va": "0x00642380",
+     "length": 9,
+     "name": "?DRLG_GetRoomCenterX_RoomWarpXFromRoom@@YIPAHPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x00642390",
+     "length": 61,
+     "name": "?sub_00642390_MarkPresetRooms@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x006423D0",
+     "length": 200,
+     "name": "?DRLG_ComputeLevelWarpInfo@@YAXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x006424A0",
+     "length": 125,
+     "name": "?DRLG_InitLevel@@YGXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x00642520",
+     "length": 111,
+     "name": "DRLG_GetMinAndMaxCoordinatesFromLevel"
+    },
+    {
+     "va": "0x00642590",
+     "length": 157
+    },
+    {
+     "va": "0x00642630",
+     "length": 102,
+     "name": "?DRLG_GetRoomExFromLevelAndCoordinates@@YIPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@HH@Z"
+    },
+    {
+     "va": "0x006426A0",
+     "length": 149,
+     "name": "?DRLG_IsTownLevel@@YIHH@Z"
+    },
+    {
      "va": "0x00642750",
      "length": 18,
      "name": "DRLG_GetLevelTypeFromLevelId"
+    },
+    {
+     "va": "0x00642770",
+     "length": 9,
+     "name": "?sub_00642770_GetDrlgTypeFromLevelId@@YIHH@Z"
+    },
+    {
+     "va": "0x00642780",
+     "length": 27,
+     "name": "?sub_00642780_WalkLevels@@YAPAUD2DrlgLevelStrc@@PAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x006427A0",
+     "length": 68,
+     "name": "sub_006427A0_GetLevelIdFromCoordinates"
     },
     {
      "va": "0x006427F0",
@@ -86555,14 +86638,82 @@
      "name": "DRLG_GetLOSDrawFromLevelId"
     },
     {
+     "va": "0x00642860",
+     "length": 192,
+     "name": "?DRLG_GetDrlgWarpFromLevelId@@YIPAUD2DrlgWarpStrc@@PAUD2DrlgStrc@@H@Z"
+    },
+    {
+     "va": "0x00642920",
+     "length": 174,
+     "name": "?DRLG_SetWarpId@@YIPAUD2DrlgWarpStrc@@PAU1@HHH@Z"
+    },
+    {
+     "va": "0x006429D0",
+     "length": 1,
+     "name": "?sub_006429D0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x006429E0",
      "length": 22,
      "name": "sub_006429E0_GetActFromLevelType"
     },
     {
+     "va": "0x00642A00",
+     "length": 45,
+     "name": "?DRLG_IsOnClient@@YIHPAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x00642A30",
+     "length": 173,
+     "name": "DRLGANIM_InitCache"
+    },
+    {
+     "va": "0x00642AE0",
+     "length": 201,
+     "name": "?DRLG_AllocLevel@@YIPAUD2DrlgLevelStrc@@PAUD2DrlgStrc@@H@Z"
+    },
+    {
      "va": "0x00642BB0",
      "length": 46,
      "name": "DRLG_GetLevel"
+    },
+    {
+     "va": "0x00642BE0",
+     "length": 70,
+     "name": "?DRLG_GetNumberOfPopulatedRoomsInLevel@@YIHPAUD2DrlgStrc@@H@Z"
+    },
+    {
+     "va": "0x00642C30",
+     "length": 219,
+     "name": "DRLG_GetRoomExFromCoordinates"
+    },
+    {
+     "va": "0x00642D10",
+     "length": 129
+    },
+    {
+     "va": "0x00642DA0",
+     "length": 460
+    },
+    {
+     "va": "0x00642F70",
+     "length": 165,
+     "name": "sub_00642F70_AddLevelActivity"
+    },
+    {
+     "va": "0x00643020",
+     "length": 58,
+     "name": "?sub_6FD745C0@@YIXPAUD2DrlgRoomStrc@@0@Z"
+    },
+    {
+     "va": "0x00643060",
+     "length": 405,
+     "name": "sub_00643060_FreeInactiveVisRoomTiles"
+    },
+    {
+     "va": "0x00643200",
+     "length": 94,
+     "name": "?sub_00643200_UpdateInactive@@YIXPAUDungeon@@@Z"
     },
     {
      "va": "0x00643260",
@@ -86578,6 +86729,46 @@
      "va": "0x00643310",
      "length": 46,
      "name": "DUNGEON_GameTileToClientCoords"
+    },
+    {
+     "va": "0x006433C0",
+     "length": 52,
+     "name": "DUNGEON_GameToClientTileDrawPositionCoords"
+    },
+    {
+     "va": "0x0066D7F0",
+     "length": 8,
+     "name": "?DRLGPRESET_MapTileType@@YIHH@Z"
+    },
+    {
+     "va": "0x00674200",
+     "length": 34,
+     "name": "?DRLGOUTDOORS_TestGridCellSpawnValid@@YIHPAUD2DrlgLevelStrc@@HH@Z"
+    },
+    {
+     "va": "0x00675320",
+     "length": 58,
+     "name": "?DRLGOUTDOORS_AllocOutdoorInfo@@YIXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x00675770",
+     "length": 103,
+     "name": "?DRLGOUTPLACE_SetOutGridLinkFlags@@YIXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x0067B1C0",
+     "length": 59,
+     "name": "?sub_0067B1C0_AllocTableEntry@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
+    },
+    {
+     "va": "0x0067F560",
+     "length": 87,
+     "name": "?DRLGOUTDESR_PlaceDesertTransitionToTown@@YIXPAUD2DrlgLevelStrc@@@Z"
+    },
+    {
+     "va": "0x0067F670",
+     "length": 116,
+     "name": "?DRLGOUTDESR_AddExits@@YIXPAUD2DrlgLevelStrc@@@Z"
     }
    ]
   },
@@ -86650,235 +86841,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Drlg.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00641F60",
-     "length": 168,
-     "name": "sub_00641F60_LoadTownTiles"
-    },
-    {
-     "va": "0x00642010",
-     "length": 379,
-     "name": "?sub_00642010_ClearLevel@@YGXPAXHPAULevel@@@Z"
-    },
-    {
-     "va": "0x00642190",
-     "length": 150,
-     "name": "?sub_00642190_FreeDungeon@@YIXPAUDungeon@@@Z"
-    },
-    {
-     "va": "0x00642230",
-     "length": 14,
-     "name": "?DRLG_GetHoradricStaffTombLevelId@@YIHPAUD2DrlgStrc@@@Z"
-    },
-    {
-     "va": "0x00642240",
-     "length": 91,
-     "name": "?DRLG_GetDirectionFromCoordinates@@YIHPAUD2DrlgCoordStrc@@0@Z"
-    },
-    {
-     "va": "0x006422A0",
-     "length": 216
-    },
-    {
-     "va": "0x00642380",
-     "length": 9,
-     "name": "?DRLG_GetRoomCenterX_RoomWarpXFromRoom@@YIPAHPAUD2DrlgRoomStrc@@@Z"
-    },
-    {
-     "va": "0x00642520",
-     "length": 111,
-     "name": "DRLG_GetMinAndMaxCoordinatesFromLevel"
-    },
-    {
-     "va": "0x00642630",
-     "length": 102,
-     "name": "?DRLG_GetRoomExFromLevelAndCoordinates@@YIPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@HH@Z"
-    },
-    {
-     "va": "0x006426A0",
-     "length": 149,
-     "name": "?DRLG_IsTownLevel@@YIHH@Z"
-    },
-    {
-     "va": "0x00642770",
-     "length": 9,
-     "name": "?sub_00642770_GetDrlgTypeFromLevelId@@YIHH@Z"
-    },
-    {
-     "va": "0x00642780",
-     "length": 27,
-     "name": "?sub_00642780_WalkLevels@@YAPAUD2DrlgLevelStrc@@PAUD2DrlgStrc@@@Z"
-    },
-    {
-     "va": "0x006427A0",
-     "length": 68,
-     "name": "sub_006427A0_GetLevelIdFromCoordinates"
-    },
-    {
-     "va": "0x00642860",
-     "length": 192,
-     "name": "?DRLG_GetDrlgWarpFromLevelId@@YIPAUD2DrlgWarpStrc@@PAUD2DrlgStrc@@H@Z"
-    },
-    {
-     "va": "0x00642920",
-     "length": 174,
-     "name": "?DRLG_SetWarpId@@YIPAUD2DrlgWarpStrc@@PAU1@HHH@Z"
-    },
-    {
-     "va": "0x006429D0",
-     "length": 1,
-     "name": "?sub_006429D0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00642A00",
-     "length": 45,
-     "name": "?DRLG_IsOnClient@@YIHPAUD2DrlgStrc@@@Z"
-    },
-    {
-     "va": "0x00642BE0",
-     "length": 70,
-     "name": "?DRLG_GetNumberOfPopulatedRoomsInLevel@@YIHPAUD2DrlgStrc@@H@Z"
-    },
-    {
-     "va": "0x00642D10",
-     "length": 129
-    },
-    {
-     "va": "0x00643020",
-     "length": 58,
-     "name": "?sub_6FD745C0@@YIXPAUD2DrlgRoomStrc@@0@Z"
-    },
-    {
-     "va": "0x00643200",
-     "length": 94,
-     "name": "?sub_00643200_UpdateInactive@@YIXPAUDungeon@@@Z"
-    },
-    {
-     "va": "0x0066D7F0",
-     "length": 8,
-     "name": "?DRLGPRESET_MapTileType@@YIHH@Z"
-    },
-    {
-     "va": "0x00674200",
-     "length": 34,
-     "name": "?DRLGOUTDOORS_TestGridCellSpawnValid@@YIHPAUD2DrlgLevelStrc@@HH@Z"
-    },
-    {
-     "va": "0x00675320",
-     "length": 58,
-     "name": "?DRLGOUTDOORS_AllocOutdoorInfo@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x00675770",
-     "length": 103,
-     "name": "?DRLGOUTPLACE_SetOutGridLinkFlags@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x0067B1C0",
-     "length": 59,
-     "name": "?sub_0067B1C0_AllocTableEntry@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
-    },
-    {
-     "va": "0x0067F560",
-     "length": 87,
-     "name": "?DRLGOUTDESR_PlaceDesertTransitionToTown@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x0067F670",
-     "length": 116,
-     "name": "?DRLGOUTDESR_AddExits@@YIXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Drlg_00642390.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00642390",
-     "length": 61,
-     "name": "?sub_00642390_MarkPresetRooms@@YAXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x006423D0",
-     "length": 200,
-     "name": "?DRLG_ComputeLevelWarpInfo@@YAXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x006424A0",
-     "length": 125,
-     "name": "?DRLG_InitLevel@@YGXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x00642AE0",
-     "length": 201,
-     "name": "?DRLG_AllocLevel@@YIPAUD2DrlgLevelStrc@@PAUD2DrlgStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Drlg_00642590.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00642590",
-     "length": 157
-    },
-    {
-     "va": "0x00642DA0",
-     "length": 460
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/Drlg_00642A30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00642A30",
-     "length": 173,
-     "name": "DRLGANIM_InitCache"
-    },
-    {
-     "va": "0x00642C30",
-     "length": 219,
-     "name": "DRLG_GetRoomExFromCoordinates"
-    },
-    {
-     "va": "0x00642F70",
-     "length": 165,
-     "name": "sub_00642F70_AddLevelActivity"
-    },
-    {
-     "va": "0x00643060",
-     "length": 405,
-     "name": "sub_00643060_FreeInactiveVisRoomTiles"
-    },
-    {
-     "va": "0x006433C0",
-     "length": 52,
-     "name": "DUNGEON_GameToClientTileDrawPositionCoords"
-    }
    ]
   },
   {
@@ -88913,6 +88875,31 @@
      "name": "?COLLISION_AllocRoomCollisionGrid@@YIXPAXPAUD2ActiveRoomStrc@@@Z"
     },
     {
+     "va": "0x0064CA10",
+     "length": 56,
+     "name": "COLLISION_FreeRoomCollisionGrid"
+    },
+    {
+     "va": "0x0064CA50",
+     "length": 68,
+     "name": "COLLISION_CheckCollisionMask"
+    },
+    {
+     "va": "0x0064CAA0",
+     "length": 66,
+     "name": "COLLISION_ResetCollisionMask"
+    },
+    {
+     "va": "0x0064CAF0",
+     "length": 62,
+     "name": "COLLISION_SetCollisionMask"
+    },
+    {
+     "va": "0x0064CB30",
+     "length": 83,
+     "name": "COLLISION_CheckMask"
+    },
+    {
      "va": "0x0064CB90",
      "length": 71,
      "name": "?COLLISION_SetMask@@YGXPAUD2ActiveRoomStrc@@HHG@Z"
@@ -88921,6 +88908,22 @@
      "va": "0x0064CBE0",
      "length": 72,
      "name": "?COLLISION_ResetMask@@YGXPAUD2ActiveRoomStrc@@HHG@Z"
+    },
+    {
+     "va": "0x0064CC30",
+     "length": 161
+    },
+    {
+     "va": "0x0064CCE0",
+     "length": 140
+    },
+    {
+     "va": "0x0064CD70",
+     "length": 127
+    },
+    {
+     "va": "0x0064CDF0",
+     "length": 185
     },
     {
      "va": "0x0064CEB0",
@@ -88943,6 +88946,34 @@
      "name": "?COLLISION_SetCollisionMaskForBoundingBoxRecursively@@YIXPAUD2ActiveRoomStrc@@PAUD2BoundingBoxStrc@@G@Z"
     },
     {
+     "va": "0x0064D0D0",
+     "length": 48,
+     "name": "COLLISION_CreateBoundingBox"
+    },
+    {
+     "va": "0x0064D100",
+     "length": 848
+    },
+    {
+     "va": "0x0064D450",
+     "length": 73,
+     "name": "sub_0064D450"
+    },
+    {
+     "va": "0x0064D4A0",
+     "length": 51,
+     "name": "sub_0064D4A0"
+    },
+    {
+     "va": "0x0064D4E0",
+     "length": 728
+    },
+    {
+     "va": "0x0064D7C0",
+     "length": 51,
+     "name": "sub_0064D7C0"
+    },
+    {
      "va": "0x0064D800",
      "length": 109,
      "name": "?COLLISION_CheckMaskWithSizeXY@@YGGPAUD2ActiveRoomStrc@@HHIIG@Z"
@@ -88953,9 +88984,54 @@
      "name": "?COLLISION_CheckMaskWithPattern@@YGGPAUD2ActiveRoomStrc@@HHHG@Z"
     },
     {
+     "va": "0x0064D910",
+     "length": 156,
+     "name": "COLLISION_CheckAnyCollisionWithPattern"
+    },
+    {
      "va": "0x0064D9B0",
      "length": 140,
      "name": "?COLLISION_CheckMaskWithSize@@YGGPAUD2ActiveRoomStrc@@HHHG@Z"
+    },
+    {
+     "va": "0x0064DA40",
+     "length": 303,
+     "name": "sub_0064DA40"
+    },
+    {
+     "va": "0x0064DB70",
+     "length": 66,
+     "name": "sub_0064DB70"
+    },
+    {
+     "va": "0x0064DBC0",
+     "length": 51,
+     "name": "sub_0064DBC0"
+    },
+    {
+     "va": "0x0064DC00",
+     "length": 116,
+     "name": "COLLISION_ResetMaskWithSizeXY"
+    },
+    {
+     "va": "0x0064DC80",
+     "length": 298,
+     "name": "sub_0064DC80"
+    },
+    {
+     "va": "0x0064DDB0",
+     "length": 62,
+     "name": "sub_0064DDB0"
+    },
+    {
+     "va": "0x0064DDF0",
+     "length": 51,
+     "name": "sub_0064DDF0"
+    },
+    {
+     "va": "0x0064DE30",
+     "length": 109,
+     "name": "COLLISION_SetMaskWithSizeXY"
     },
     {
      "va": "0x0064DEA0",
@@ -89013,188 +89089,6 @@
      "name": "?COLLISION_SetUnitCollisionMask@@YIXPAUD2ActiveRoomStrc@@HH0HHHG@Z"
     }
    ]
-  },
-  {
-   "file": "Source/D2Common/COLLISN/Collisn_0064CA10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0064CA10",
-     "length": 56,
-     "name": "COLLISION_FreeRoomCollisionGrid"
-    },
-    {
-     "va": "0x0064CA50",
-     "length": 68,
-     "name": "COLLISION_CheckCollisionMask"
-    },
-    {
-     "va": "0x0064CAA0",
-     "length": 66,
-     "name": "COLLISION_ResetCollisionMask"
-    },
-    {
-     "va": "0x0064CAF0",
-     "length": 62,
-     "name": "COLLISION_SetCollisionMask"
-    },
-    {
-     "va": "0x0064CB30",
-     "length": 83,
-     "name": "COLLISION_CheckMask"
-    },
-    {
-     "va": "0x0064D0D0",
-     "length": 48,
-     "name": "COLLISION_CreateBoundingBox"
-    },
-    {
-     "va": "0x0064D450",
-     "length": 73,
-     "name": "sub_0064D450"
-    },
-    {
-     "va": "0x0064D4A0",
-     "length": 51,
-     "name": "sub_0064D4A0"
-    },
-    {
-     "va": "0x0064D7C0",
-     "length": 51,
-     "name": "sub_0064D7C0"
-    },
-    {
-     "va": "0x0064DA40",
-     "length": 303,
-     "name": "sub_0064DA40"
-    },
-    {
-     "va": "0x0064DB70",
-     "length": 66,
-     "name": "sub_0064DB70"
-    },
-    {
-     "va": "0x0064DBC0",
-     "length": 51,
-     "name": "sub_0064DBC0"
-    },
-    {
-     "va": "0x0064DC00",
-     "length": 116,
-     "name": "COLLISION_ResetMaskWithSizeXY"
-    },
-    {
-     "va": "0x0064DC80",
-     "length": 298,
-     "name": "sub_0064DC80"
-    },
-    {
-     "va": "0x0064DDB0",
-     "length": 62,
-     "name": "sub_0064DDB0"
-    },
-    {
-     "va": "0x0064DDF0",
-     "length": 51,
-     "name": "sub_0064DDF0"
-    }
-   ],
-   "ltcg": true
-  },
-  {
-   "file": "Source/D2Common/COLLISN/Collisn_0064CC30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064CC30",
-     "length": 161
-    },
-    {
-     "va": "0x0064CCE0",
-     "length": 140
-    },
-    {
-     "va": "0x0064CD70",
-     "length": 127
-    },
-    {
-     "va": "0x0064D100",
-     "length": 848
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/COLLISN/Collisn_0064CDF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064CDF0",
-     "length": 185
-    },
-    {
-     "va": "0x0064D4E0",
-     "length": 728
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/COLLISN/Collisn_0064D910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0064D910",
-     "length": 156,
-     "name": "COLLISION_CheckAnyCollisionWithPattern"
-    },
-    {
-     "va": "0x0064DE30",
-     "length": 109,
-     "name": "COLLISION_SetMaskWithSizeXY"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ],
-   "ltcg": true
   },
   {
    "file": "Source/D2Common/Unknown_0064E260.cpp",
