@@ -21733,6 +21733,16 @@
      "name": "sub_004DA6B0_TestMotionFlags"
     },
     {
+     "va": "0x004DA720",
+     "length": 68,
+     "name": "?sub_004DA720_CopyCompCode@@YAXPATD2CompCodeStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004DA8E0",
+     "length": 59,
+     "name": "?sub_004DA8E0_SetMissileCelName@@YGXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
+    },
+    {
      "va": "0x004DA920",
      "length": 110,
      "name": "sub_004DA920_AddGfxUtilNode"
@@ -21758,9 +21768,19 @@
      "name": "sub_004DAB40_IsCelOnScreen"
     },
     {
+     "va": "0x004DABC0",
+     "length": 345,
+     "name": "?sub_004DABC0_SetItemCelName@@YAXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
+    },
+    {
      "va": "0x004DAD50",
      "length": 48,
      "name": "?sub_004DAD50_GetOverlayDirections@@YAHH@Z"
+    },
+    {
+     "va": "0x004DAD80",
+     "length": 221,
+     "name": "?sub_004DAD80_GetWeaponClassToken@@YAIPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004DAE60",
@@ -21786,6 +21806,10 @@
      "va": "0x004DB090",
      "length": 61,
      "name": "?sub_004DB090_GetCofLayerShadow@@YIHPAXH@Z"
+    },
+    {
+     "va": "0x004DB0D0",
+     "length": 61
     },
     {
      "va": "0x004DB110",
@@ -21818,9 +21842,55 @@
      "name": "?sub_004DB290_ConvertDirection@@YAXPAIHH@Z"
     },
     {
+     "va": "0x004DB2E0",
+     "length": 125
+    },
+    {
      "va": "0x004DB360",
      "length": 520,
      "name": "?sub_004DB360_GetCompTransparency@@YIHPAUD2UnitStrc@@HPAHH@Z"
+    },
+    {
+     "va": "0x004DB7B0",
+     "length": 924
+    },
+    {
+     "va": "0x004DBB50",
+     "length": 42,
+     "name": "?sub_004DBB50_GetItemCelContext@@YIHPAUD2CelContextStrc@@PAUD2UnitStrc@@HHHPAHEH@Z"
+    },
+    {
+     "va": "0x004DBB80",
+     "length": 367
+    },
+    {
+     "va": "0x004DBCF0",
+     "length": 52
+    },
+    {
+     "va": "0x004DBD30",
+     "length": 234,
+     "name": "?sub_004DBD30_GetComponentsMaxHeight@@YIHPAUD2UnitStrc@@PAE1PAHHH@Z"
+    },
+    {
+     "va": "0x004DBE20",
+     "length": 122,
+     "name": "?sub_004DBE20_GetOverlayFrameCount@@YIHPAUD2UnitStrc@@PAUD2OverlaySourceStrc@@@Z"
+    },
+    {
+     "va": "0x004DBEA0",
+     "length": 126,
+     "name": "?sub_004DBEA0_GetUnitCelSize@@YIXPAUD2UnitStrc@@HHPAH1@Z"
+    },
+    {
+     "va": "0x004DBF20",
+     "length": 186,
+     "name": "?sub_004DBF20_HitTestUnitCel@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004DC000",
+     "length": 158,
+     "name": "?sub_004DC000_DrawFadeBox@@YAXXZ"
     },
     {
      "va": "0x004DC110",
@@ -23952,6 +24022,26 @@
      "name": "?sub_004792C0_HasCorpse@@YAHPAUD2RosterUnitStrc@@I@Z"
     },
     {
+     "va": "0x004792E0",
+     "length": 56,
+     "name": "?sub_004792E0_FindRosterUnit@@YAPAUD2StoredUnitRecordStrc@@H@Z"
+    },
+    {
+     "va": "0x00479320",
+     "length": 57,
+     "name": "?sub_00479320_GetPlayerRosterUnit@@YAPAUD2StoredUnitRecordStrc@@XZ"
+    },
+    {
+     "va": "0x00479360",
+     "length": 87,
+     "name": "?sub_00479360_FindRosterUnitByIdOrName@@YAPAUD2StoredUnitRecordStrc@@HPBD@Z"
+    },
+    {
+     "va": "0x004793C0",
+     "length": 163,
+     "name": "?sub_004793C0_FillRosterUnit@@YGXHHGGHGPBD00PAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
      "va": "0x00479470",
      "length": 51,
      "name": "?sub_00479470_FreeCorpses@@YAXPAUD2RosterUnitStrc@@@Z"
@@ -23962,9 +24052,24 @@
      "name": "?sub_004795A0_GetNextEntry@@YIPAUD2StoredUnitRecordStrc@@PAU1@@Z"
     },
     {
+     "va": "0x004795C0",
+     "length": 39,
+     "name": "@sub_004795C0_GetEntryName@4"
+    },
+    {
      "va": "0x004796B0",
      "length": 17,
      "name": "?sub_004796B0_SortMainListByName@@YAXXZ"
+    },
+    {
+     "va": "0x004796D0",
+     "length": 102,
+     "name": "?sub_004796D0_SortRosterByKills@@YAPAUD2StoredUnitRecordStrc@@PAU1@@Z"
+    },
+    {
+     "va": "0x00479740",
+     "length": 16,
+     "name": "?sub_00479740_SortMainListByKills@@YAXXZ"
     },
     {
      "va": "0x00479750",
@@ -23972,14 +24077,54 @@
      "name": "?sub_00479750_FindGroup@@YIPAUD2RosterGroupStrc@@G@Z"
     },
     {
+     "va": "0x00479770",
+     "length": 75
+    },
+    {
      "va": "0x004797C0",
      "length": 54,
      "name": "?sub_004797C0_FreeRosterGroups@@YAXXZ"
     },
     {
+     "va": "0x00479800",
+     "length": 85
+    },
+    {
+     "va": "0x00479860",
+     "length": 82
+    },
+    {
+     "va": "0x004798C0",
+     "length": 114
+    },
+    {
+     "va": "0x00479940",
+     "length": 113
+    },
+    {
+     "va": "0x004799C0",
+     "length": 57,
+     "name": "?sub_004799C0@@YAXXZ"
+    },
+    {
      "va": "0x00479A00",
      "length": 84,
      "name": "?sub_00479A00_JoinRosterGroups@@YAXXZ"
+    },
+    {
+     "va": "0x00479A60",
+     "length": 65,
+     "name": "?sub_00479A60_MovePlayerToFront@@YAXH@Z"
+    },
+    {
+     "va": "0x00479AB0",
+     "length": 87,
+     "name": "?sub_00479AB0@@YAXXZ"
+    },
+    {
+     "va": "0x00479B10",
+     "length": 64,
+     "name": "?sub_00479B10_SetKillCount@@YIXHG@Z"
     },
     {
      "va": "0x00479B50",
@@ -24012,9 +24157,19 @@
      "name": "@sub_00479BA0@4"
     },
     {
+     "va": "0x00479BB0",
+     "length": 7,
+     "name": "?sub_00479BB0_FindRosterUnit@@YIPAUD2StoredUnitRecordStrc@@H@Z"
+    },
+    {
      "va": "0x00479BC0",
      "length": 51,
      "name": "?sub_00479BC0_GetEntryIndex@@YIGPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
+     "va": "0x00479C00",
+     "length": 26,
+     "name": "?sub_00479C00_LookupPartyNumber@@YIGPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00479C20",
@@ -24042,14 +24197,74 @@
      "name": "@sub_00479D20@4"
     },
     {
+     "va": "0x00479D30",
+     "length": 98,
+     "name": "?sub_00479D30_TogglePvpFlag@@YAXPAUD2StoredUnitRecordStrc@@G@Z"
+    },
+    {
+     "va": "0x00479DA0",
+     "length": 64,
+     "name": "?sub_00479DA0_TogglePvpFlag1@@YIXPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
+     "va": "0x00479DE0",
+     "length": 64,
+     "name": "?sub_00479DE0_TogglePvpFlag2@@YIXPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
+     "va": "0x00479E20",
+     "length": 134,
+     "name": "?sub_00479E20_ToggleSquelch@@YIXPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
      "va": "0x00479EB0",
      "length": 172,
      "name": "?sub_00479EB0@@YIXPAUD2StoredUnitRecordStrc@@@Z"
     },
     {
+     "va": "0x00479F60",
+     "length": 89,
+     "name": "?sub_00479F60_LeaveParty@@YAPAUD2StoredUnitRecordStrc@@XZ"
+    },
+    {
+     "va": "0x00479FC0",
+     "length": 18,
+     "name": "?sub_00479FC0@@YAXXZ"
+    },
+    {
+     "va": "0x00479FE0",
+     "length": 131,
+     "name": "?sub_00479FE0_TogglePvpFlag8@@YIXPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
+     "va": "0x0047A070",
+     "length": 80,
+     "name": "?sub_0047A070_TestPvpFlag8@@YIHHH@Z"
+    },
+    {
      "va": "0x0047A0C0",
      "length": 12,
      "name": "?sub_0047A0C0_GetRecordUnitId@@YIHPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
+     "va": "0x0047A0D0",
+     "length": 42,
+     "name": "?sub_0047A0D0_SetLifeAndLevel@@YIXHHG@Z"
+    },
+    {
+     "va": "0x0047A100",
+     "length": 31,
+     "name": "?sub_0047A100_SetPosition@@YIXHHH@Z"
+    },
+    {
+     "va": "0x0047A120",
+     "length": 44,
+     "name": "?sub_0047A120_IsInPlayerParty@@YIHPAUD2StoredUnitRecordStrc@@@Z"
+    },
+    {
+     "va": "0x0047A150",
+     "length": 18,
+     "name": "?sub_0047A150_GetPartyLife@@YIHH@Z"
     },
     {
      "va": "0x0047A170",
@@ -24067,6 +24282,21 @@
      "name": "@sub_0047A1E0@4"
     },
     {
+     "va": "0x0047A1F0",
+     "length": 18,
+     "name": "?sub_0047A1F0_GetNameEx@@YIPADH@Z"
+    },
+    {
+     "va": "0x0047A210",
+     "length": 84,
+     "name": "?sub_0047A210_GetUnitName@@YIPADPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0047A270",
+     "length": 31,
+     "name": "?sub_0047A270_SetPortalIds@@YIXHHH@Z"
+    },
+    {
      "va": "0x0047A290",
      "length": 43,
      "name": "?sub_0047A290_GetOwnerName@@YIPBDH@Z"
@@ -24075,6 +24305,46 @@
      "va": "0x0047A2C0",
      "length": 72,
      "name": "?sub_0047A2C0_HasPartyMate@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0047A310",
+     "length": 18,
+     "name": "?sub_0047A310_GetRosterInfoList@@YIPAPAUD2RosterInfoStrc@@H@Z"
+    },
+    {
+     "va": "0x0047A330",
+     "length": 32,
+     "name": "?sub_0047A330_SetPartyId@@YIXHG@Z"
+    },
+    {
+     "va": "0x0047A350",
+     "length": 28,
+     "name": "?sub_0047A350_SetPartyFlags@@YIXHE@Z"
+    },
+    {
+     "va": "0x0047A370",
+     "length": 82,
+     "name": "?sub_0047A370_SetPvpFlags@@YIXHHG@Z"
+    },
+    {
+     "va": "0x0047A3D0",
+     "length": 192,
+     "name": "?sub_0047A3D0_AddCorpse@@YIXHH@Z"
+    },
+    {
+     "va": "0x0047A490",
+     "length": 96,
+     "name": "?sub_0047A490_DropCorpseEntry@@YIXHH@Z"
+    },
+    {
+     "va": "0x0047A4F0",
+     "length": 43,
+     "name": "?sub_0047A4F0_TestFlag1@@YIHHH@Z"
+    },
+    {
+     "va": "0x0047A520",
+     "length": 58,
+     "name": "?sub_0047A520_IsSameParty@@YIHHH@Z"
     },
     {
      "va": "0x0047A560",
@@ -24110,6 +24380,65 @@
      "va": "0x0047A690",
      "length": 22,
      "name": "?sub_0047A690@@YIXHE@Z"
+    },
+    {
+     "va": "0x0047A6B0",
+     "length": 49,
+     "name": "?sub_0047A6B0_GetOtherPartyLife@@YIHH@Z"
+    },
+    {
+     "va": "0x0047A6F0",
+     "length": 347
+    },
+    {
+     "va": "0x0047A850",
+     "length": 81,
+     "name": "?sub_0047A850_UpdateRosterUnit@@YIXHGGHH@Z"
+    },
+    {
+     "va": "0x0047A8B0",
+     "length": 198,
+     "name": "?sub_0047A8B0_RemoveRosterUnit@@YIXH@Z"
+    },
+    {
+     "va": "0x0047A9B0",
+     "length": 20,
+     "name": "?sub_0047A9B0_SetClientFlag1@@YIXH@Z"
+    },
+    {
+     "va": "0x0047A9E0",
+     "length": 9,
+     "name": "?sub_0047A9E0_GetClientFlag40@@YAHXZ"
+    },
+    {
+     "va": "0x0047A9F0",
+     "length": 11,
+     "name": "?sub_0047A9F0_GetClientFlag80@@YAHXZ"
+    },
+    {
+     "va": "0x0047AA00",
+     "length": 11,
+     "name": "?sub_0047AA00_GetClientFlag200@@YAHXZ"
+    },
+    {
+     "va": "0x0047AA10",
+     "length": 7,
+     "name": "?sub_0047AA10_SetGlobal@@YIXH@Z"
+    },
+    {
+     "va": "0x0047AA40",
+     "length": 25,
+     "name": "?isWhitespace@Unicode@@QBEHXZ"
+    },
+    {
+     "va": "0x004B8370",
+     "length": 39,
+     "name": "@sub_004B8370_SetCtrlState@8"
+    },
+    {
+     "va": "0x004CA990",
+     "length": 48,
+     "name": "@sub_004CA990_GetLinkFirst@4"
     }
    ]
   },
@@ -24296,335 +24625,6 @@
      "va": "0x004F3CE0",
      "length": 357,
      "name": "sub_004F3CE0_CreateSkillMissiles"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Roster_004792E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004792E0",
-     "length": 56,
-     "name": "?sub_004792E0_FindRosterUnit@@YAPAUD2StoredUnitRecordStrc@@H@Z"
-    },
-    {
-     "va": "0x00479320",
-     "length": 57,
-     "name": "?sub_00479320_GetPlayerRosterUnit@@YAPAUD2StoredUnitRecordStrc@@XZ"
-    },
-    {
-     "va": "0x00479860",
-     "length": 82
-    },
-    {
-     "va": "0x00479AB0",
-     "length": 87,
-     "name": "?sub_00479AB0@@YAXXZ"
-    },
-    {
-     "va": "0x00479B10",
-     "length": 64,
-     "name": "?sub_00479B10_SetKillCount@@YIXHG@Z"
-    },
-    {
-     "va": "0x00479BB0",
-     "length": 7,
-     "name": "?sub_00479BB0_FindRosterUnit@@YIPAUD2StoredUnitRecordStrc@@H@Z"
-    },
-    {
-     "va": "0x00479C00",
-     "length": 26,
-     "name": "?sub_00479C00_LookupPartyNumber@@YIGPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00479D30",
-     "length": 98,
-     "name": "?sub_00479D30_TogglePvpFlag@@YAXPAUD2StoredUnitRecordStrc@@G@Z"
-    },
-    {
-     "va": "0x00479DA0",
-     "length": 64,
-     "name": "?sub_00479DA0_TogglePvpFlag1@@YIXPAUD2StoredUnitRecordStrc@@@Z"
-    },
-    {
-     "va": "0x00479DE0",
-     "length": 64,
-     "name": "?sub_00479DE0_TogglePvpFlag2@@YIXPAUD2StoredUnitRecordStrc@@@Z"
-    },
-    {
-     "va": "0x00479E20",
-     "length": 134,
-     "name": "?sub_00479E20_ToggleSquelch@@YIXPAUD2StoredUnitRecordStrc@@@Z"
-    },
-    {
-     "va": "0x00479F60",
-     "length": 89,
-     "name": "?sub_00479F60_LeaveParty@@YAPAUD2StoredUnitRecordStrc@@XZ"
-    },
-    {
-     "va": "0x00479FE0",
-     "length": 131,
-     "name": "?sub_00479FE0_TogglePvpFlag8@@YIXPAUD2StoredUnitRecordStrc@@@Z"
-    },
-    {
-     "va": "0x0047A070",
-     "length": 80,
-     "name": "?sub_0047A070_TestPvpFlag8@@YIHHH@Z"
-    },
-    {
-     "va": "0x0047A0D0",
-     "length": 42,
-     "name": "?sub_0047A0D0_SetLifeAndLevel@@YIXHHG@Z"
-    },
-    {
-     "va": "0x0047A100",
-     "length": 31,
-     "name": "?sub_0047A100_SetPosition@@YIXHHH@Z"
-    },
-    {
-     "va": "0x0047A150",
-     "length": 18,
-     "name": "?sub_0047A150_GetPartyLife@@YIHH@Z"
-    },
-    {
-     "va": "0x0047A1F0",
-     "length": 18,
-     "name": "?sub_0047A1F0_GetNameEx@@YIPADH@Z"
-    },
-    {
-     "va": "0x0047A210",
-     "length": 84,
-     "name": "?sub_0047A210_GetUnitName@@YIPADPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0047A270",
-     "length": 31,
-     "name": "?sub_0047A270_SetPortalIds@@YIXHHH@Z"
-    },
-    {
-     "va": "0x0047A310",
-     "length": 18,
-     "name": "?sub_0047A310_GetRosterInfoList@@YIPAPAUD2RosterInfoStrc@@H@Z"
-    },
-    {
-     "va": "0x0047A330",
-     "length": 32,
-     "name": "?sub_0047A330_SetPartyId@@YIXHG@Z"
-    },
-    {
-     "va": "0x0047A350",
-     "length": 28,
-     "name": "?sub_0047A350_SetPartyFlags@@YIXHE@Z"
-    },
-    {
-     "va": "0x0047A370",
-     "length": 82,
-     "name": "?sub_0047A370_SetPvpFlags@@YIXHHG@Z"
-    },
-    {
-     "va": "0x0047A3D0",
-     "length": 192,
-     "name": "?sub_0047A3D0_AddCorpse@@YIXHH@Z"
-    },
-    {
-     "va": "0x0047A490",
-     "length": 96,
-     "name": "?sub_0047A490_DropCorpseEntry@@YIXHH@Z"
-    },
-    {
-     "va": "0x0047A4F0",
-     "length": 43,
-     "name": "?sub_0047A4F0_TestFlag1@@YIHHH@Z"
-    },
-    {
-     "va": "0x0047A520",
-     "length": 58,
-     "name": "?sub_0047A520_IsSameParty@@YIHHH@Z"
-    },
-    {
-     "va": "0x0047A6B0",
-     "length": 49,
-     "name": "?sub_0047A6B0_GetOtherPartyLife@@YIHH@Z"
-    },
-    {
-     "va": "0x0047A850",
-     "length": 81,
-     "name": "?sub_0047A850_UpdateRosterUnit@@YIXHGGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Roster_00479360.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00479360",
-     "length": 87,
-     "name": "?sub_00479360_FindRosterUnitByIdOrName@@YAPAUD2StoredUnitRecordStrc@@HPBD@Z"
-    },
-    {
-     "va": "0x004793C0",
-     "length": 163,
-     "name": "?sub_004793C0_FillRosterUnit@@YGXHHGGHGPBD00PAUD2StoredUnitRecordStrc@@@Z"
-    },
-    {
-     "va": "0x004796D0",
-     "length": 102,
-     "name": "?sub_004796D0_SortRosterByKills@@YAPAUD2StoredUnitRecordStrc@@PAU1@@Z"
-    },
-    {
-     "va": "0x00479740",
-     "length": 16,
-     "name": "?sub_00479740_SortMainListByKills@@YAXXZ"
-    },
-    {
-     "va": "0x004799C0",
-     "length": 57,
-     "name": "?sub_004799C0@@YAXXZ"
-    },
-    {
-     "va": "0x00479A60",
-     "length": 65,
-     "name": "?sub_00479A60_MovePlayerToFront@@YAXH@Z"
-    },
-    {
-     "va": "0x00479FC0",
-     "length": 18,
-     "name": "?sub_00479FC0@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Roster_004795C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004795C0",
-     "length": 39,
-     "name": "@sub_004795C0_GetEntryName@4"
-    },
-    {
-     "va": "0x004B8370",
-     "length": 39,
-     "name": "@sub_004B8370_SetCtrlState@8"
-    },
-    {
-     "va": "0x004CA990",
-     "length": 48,
-     "name": "@sub_004CA990_GetLinkFirst@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Roster_00479770.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00479770",
-     "length": 75
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Roster_00479800.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00479800",
-     "length": 85
-    },
-    {
-     "va": "0x00479940",
-     "length": 113
-    },
-    {
-     "va": "0x0047A6F0",
-     "length": 347
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Roster_004798C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004798C0",
-     "length": 114
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/Roster_0047A120.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0047A120",
-     "length": 44,
-     "name": "?sub_0047A120_IsInPlayerParty@@YIHPAUD2StoredUnitRecordStrc@@@Z"
-    },
-    {
-     "va": "0x0047A8B0",
-     "length": 198,
-     "name": "?sub_0047A8B0_RemoveRosterUnit@@YIXH@Z"
-    },
-    {
-     "va": "0x0047A9B0",
-     "length": 20,
-     "name": "?sub_0047A9B0_SetClientFlag1@@YIXH@Z"
-    },
-    {
-     "va": "0x0047A9E0",
-     "length": 9,
-     "name": "?sub_0047A9E0_GetClientFlag40@@YAHXZ"
-    },
-    {
-     "va": "0x0047A9F0",
-     "length": 11,
-     "name": "?sub_0047A9F0_GetClientFlag80@@YAHXZ"
-    },
-    {
-     "va": "0x0047AA00",
-     "length": 11,
-     "name": "?sub_0047AA00_GetClientFlag200@@YAHXZ"
-    },
-    {
-     "va": "0x0047AA10",
-     "length": 7,
-     "name": "?sub_0047AA10_SetGlobal@@YIXH@Z"
-    },
-    {
-     "va": "0x0047AA40",
-     "length": 25,
-     "name": "?isWhitespace@Unicode@@QBEHXZ"
     }
    ]
   },
@@ -25521,6 +25521,22 @@
      "name": "?sub_00480EF0_MoveToPosition@@YIXPAUD2UnitStrc@@HHH@Z"
     },
     {
+     "va": "0x00481030",
+     "length": 685
+    },
+    {
+     "va": "0x004812E0",
+     "length": 275
+    },
+    {
+     "va": "0x00481400",
+     "length": 159
+    },
+    {
+     "va": "0x004814A0",
+     "length": 250
+    },
+    {
      "va": "0x00481780",
      "length": 29,
      "name": "?sub_00481780_GetPlayerLevelId@@YAHXZ"
@@ -25632,102 +25648,6 @@
     {
      "va": "0x00480810",
      "length": 288
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_00481030.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00481030",
-     "length": 685
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_004812E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004812E0",
-     "length": 275
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_00481400.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00481400",
-     "length": 159
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/UnitMode_004814A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004814A0",
-     "length": 250
     }
    ],
    "flags": [
@@ -36640,47 +36560,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DA720.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DA720",
-     "length": 68,
-     "name": "?sub_004DA720_CopyCompCode@@YAXPATD2CompCodeStrc@@PBD@Z"
-    },
-    {
-     "va": "0x004DA8E0",
-     "length": 59,
-     "name": "?sub_004DA8E0_SetMissileCelName@@YGXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
-    },
-    {
-     "va": "0x004DABC0",
-     "length": 345,
-     "name": "?sub_004DABC0_SetItemCelName@@YAXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
-    },
-    {
-     "va": "0x004DAD80",
-     "length": 221,
-     "name": "?sub_004DAD80_GetWeaponClassToken@@YAIPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004DBB50",
-     "length": 42,
-     "name": "?sub_004DBB50_GetItemCelContext@@YIHPAUD2CelContextStrc@@PAUD2UnitStrc@@HHHPAHEH@Z"
-    },
-    {
-     "va": "0x004DBD30",
-     "length": 234,
-     "name": "?sub_004DBD30_GetComponentsMaxHeight@@YIHPAUD2UnitStrc@@PAE1PAHHH@Z"
-    },
-    {
-     "va": "0x004DBEA0",
-     "length": 126,
-     "name": "?sub_004DBEA0_GetUnitCelSize@@YIXPAUD2UnitStrc@@HHPAH1@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004DA770.cpp",
    "rank": 0,
    "functions": [
@@ -36688,127 +36567,6 @@
      "va": "0x004DA770",
      "length": 32,
      "name": "?sub_004DA770_GetMonComponentIndex@@YIEPAUD2UnitStrc@@E@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DB0D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DB0D0",
-     "length": 61
-    },
-    {
-     "va": "0x004DB2E0",
-     "length": 125
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DB7B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DB7B0",
-     "length": 924
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DBB80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DBB80",
-     "length": 367
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DBCF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004DBCF0",
-     "length": 52
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/ENGINE/GfxUtil_004DBE20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DBE20",
-     "length": 122,
-     "name": "?sub_004DBE20_GetOverlayFrameCount@@YIHPAUD2UnitStrc@@PAUD2OverlaySourceStrc@@@Z"
-    },
-    {
-     "va": "0x004DBF20",
-     "length": 186,
-     "name": "?sub_004DBF20_HitTestUnitCel@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004DC000",
-     "length": 158,
-     "name": "?sub_004DC000_DrawFadeBox@@YAXXZ"
     }
    ]
   },
