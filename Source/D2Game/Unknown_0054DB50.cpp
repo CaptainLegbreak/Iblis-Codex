@@ -5,6 +5,7 @@
 #include "D2Win32Types.h"
 #include "D2LevelTxt.h"
 
+#include "D2Drlg.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -30,16 +31,12 @@ struct D2RoomWarpCoordsStrc
 };
 
 
-struct D2ActiveRoomStrc { char pad[0x6c]; D2SeedStrc seed; };
-
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2RoomWarpCoordsStrc* __stdcall DUNGEON_GetWarpCoordinatesFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AC10
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
 static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom);
-
-struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int nSubtileHeight; int nTileXPos; int nTileYPos; int nTileWidth; int nTileHeight; };
 
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; char pad20[8]; int areaId; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
@@ -164,7 +161,7 @@ int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomSt
         bHasArea = 1;
     }
 
-    D2SeedStrc* pSeed = pRoom ? &pRoom->seed : 0;
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
     for (int nTry = 0; nTry < 20; ++nTry)
     {
         const int nPosX = SEED_RollLimitedRandomNumber(pSeed, nWidth) + nX;
