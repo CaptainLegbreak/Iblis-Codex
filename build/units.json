@@ -45751,6 +45751,11 @@
      "name": "?sub_00515CE0_SetMasterVolume@@YIXH@Z"
     },
     {
+     "va": "0x00515D60",
+     "length": 16,
+     "name": "?sub_00515D60_GetMasterVolume@@YAHXZ"
+    },
+    {
      "va": "0x00515E40",
      "length": 113,
      "name": "?sub_00515E40_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
@@ -45769,6 +45774,11 @@
      "va": "0x00515EE0",
      "length": 98,
      "name": "?sub_00515EE0_StopSound@@YIXPAUD2SoundStrc@@@Z"
+    },
+    {
+     "va": "0x00515F50",
+     "length": 125,
+     "name": "?sub_00515F50_FadeOutMaster@@YIXH@Z"
     },
     {
      "va": "0x00515FD0",
@@ -45844,7 +45854,7 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Src/D2SoundFast_00514040.cpp",
+   "file": "Source/D2Sound/Src/D2SoundFast.cpp",
    "rank": 0,
    "functions": [
     {
@@ -45858,35 +45868,14 @@
      "name": "?sub_00514050_Nothing@@YAXXZ"
     },
     {
-     "va": "0x005147D0",
-     "length": 103,
-     "name": "?sub_005147D0_PlayStream@@YIHPBDH@Z"
-    },
-    {
-     "va": "0x00514CD0",
-     "length": 31,
-     "name": "?sub_00514CD0_SetMasterVolume@@YIHH@Z"
-    },
-    {
-     "va": "0x00514D30",
-     "length": 31,
-     "name": "?sub_00514D30_SetPositionalBias@@YIHH@Z"
-    },
-    {
-     "va": "0x00514FF0",
-     "length": 36,
-     "name": "?sub_00514FF0_StopAllWaves@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundFast.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00514060",
      "length": 104,
      "name": "?sub_00514060_ShutdownSound@@YAXXZ"
+    },
+    {
+     "va": "0x005147D0",
+     "length": 103,
+     "name": "?sub_005147D0_PlayStream@@YIHPBDH@Z"
     },
     {
      "va": "0x00514840",
@@ -45902,6 +45891,16 @@
      "va": "0x00514960",
      "length": 48,
      "name": "?sub_00514960_FadeOutChannel@@YAXXZ"
+    },
+    {
+     "va": "0x00514CD0",
+     "length": 31,
+     "name": "?sub_00514CD0_SetMasterVolume@@YIHH@Z"
+    },
+    {
+     "va": "0x00514D30",
+     "length": 31,
+     "name": "?sub_00514D30_SetPositionalBias@@YIHH@Z"
     },
     {
      "va": "0x00514DB0",
@@ -45923,6 +45922,11 @@
      "name": "?sub_00514FB0_IsAnyWavePlaying@@YAHXZ"
     },
     {
+     "va": "0x00514FF0",
+     "length": 36,
+     "name": "?sub_00514FF0_StopAllWaves@@YAXXZ"
+    },
+    {
      "va": "0x00515020",
      "length": 54,
      "name": "?sub_00515020_FadeOutWaves@@YAXXZ"
@@ -45933,19 +45937,9 @@
      "name": "sub_005155D0_SetSoundData"
     },
     {
-     "va": "0x00515D60",
-     "length": 16,
-     "name": "?sub_00515D60_GetMasterVolume@@YAHXZ"
-    },
-    {
      "va": "0x00515D70",
      "length": 194,
      "name": "sub_00515D70_StartStream"
-    },
-    {
-     "va": "0x00515F50",
-     "length": 125,
-     "name": "?sub_00515F50_FadeOutMaster@@YIXH@Z"
     }
    ]
   },

@@ -896,6 +896,12 @@ void __fastcall sub_00515CE0_SetMasterVolume(int nVolume)
     LeaveCriticalSection(&gSoundLock_0088174C);
 }
 
+// 0x00515D60
+int __cdecl sub_00515D60_GetMasterVolume()
+{
+    return sub_00513B50() ? gnSoundMasterVolume_0072F9B0 : 0;
+}
+
 // 0x00515E40
 void __fastcall sub_00515E40_CloseSoundStream(D2SoundStrc* pSound)
 {
@@ -934,6 +940,25 @@ void __fastcall sub_00515EE0_StopSound(D2SoundStrc* pSound)
     pSound->pBuffer->Stop();
     pSound->bPlaying = 0;
     LeaveCriticalSection(&gSoundLock_0088174C);
+}
+
+// 0x00515F50
+void __fastcall sub_00515F50_FadeOutMaster(int nTime)
+{
+    if (!sub_00513B50())
+        return;
+    D2_ASSERT(nTime > 0, 0x387);
+    unsigned int nVolume = sub_00515D60_GetMasterVolume();
+    const unsigned int nStep = nVolume / (nTime / 20u);
+    while (nVolume)
+    {
+        Sleep(20);
+        if (nVolume > nStep)
+            nVolume -= nStep;
+        else
+            nVolume = 0;
+        sub_00515CE0_SetMasterVolume(nVolume);
+    }
 }
 
 // 0x00515FD0
