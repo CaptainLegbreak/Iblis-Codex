@@ -306,6 +306,7 @@ struct D2FallenShamanAiCallbackArgStrc
     int nCounter;
     int nDistance;
     int nMaxDistance;
+    int unk0x10[6];
 };
 
 struct D2ZakarumPriestAiCallbackArgStrc
@@ -983,6 +984,17 @@ struct D2PantherAiCallbackArgStrc
 };
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005B0D00
+
+enum D2C_M86FallenShamanAi
+{
+    FALLENSHAMAN_AI_PARAM_RESURRECT_AND_COMMAND_CHANCE_PCT = 0,
+    FALLENSHAMAN_AI_PARAM_SHOOT_CHANCE_PCT = 1,
+    FALLENSHAMAN_AI_PARAM_MELEE_AND_CIRCLE_CHANCE_PCT = 2,
+    FALLENSHAMAN_AI_PARAM_RESURRECT_DISTANCE = 3,
+    FALLENSHAMAN_AI_PARAM_SHOOT_DISTANCE = 4,
+};
+
+D2UnitStrc* __fastcall AITHINK_TargetCallback_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005F1380
 
 static D2SkillsTxt* AITHINK_GetSkillsTxtRecordInline(int nSkillId)
 {
@@ -5572,6 +5584,71 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_FallenShaman(D2GameStrc* pGame, D2
     pArg->nDistance = nDistance;
     ++pArg->nCounter;
     return 0;
+}
+
+// 0x005F1440
+void __fastcall AITHINK_Fn013_FallenShaman(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nDistance = pAiTickParam->nTargetDistance;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (pAiTickParam->bCombat && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_MELEE_AND_CIRCLE_CHANCE_PCT))
+    {
+        AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
+        return;
+    }
+
+    D2FallenShamanAiCallbackArgStrc arg;
+    arg.pTarget = 0;
+    arg.nCounter = 0;
+    arg.nMaxDistance = AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_DISTANCE) * AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_DISTANCE);
+
+    if (!MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_UNIQUE) || MONSTERUNIQUE_CheckMonTypeFlag(pUnit, MONTYPEFLAG_CHAMPION))
+    {
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 9);
+    }
+    else
+    {
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_FallenShaman, 1);
+    }
+
+    if ((int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_AND_COMMAND_CHANCE_PCT))
+    {
+        D2AiCmdStrc aiCmd;
+        aiCmd.nCmdParam[0] = 1;
+        AIGENERAL_AllocCommandsForMinions(pGame, pUnit, &aiCmd);
+    }
+
+    D2UnitStrc* pResurrectTarget = arg.pTarget;
+    if (pResurrectTarget && arg.nCounter && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_RESURRECT_AND_COMMAND_CHANCE_PCT)
+        && sub_005FD470(pGame, pUnit, pMonStatsTxt->nSkill[0], arg.pTarget, 0, 0))
+    {
+        AITACTICS_UseSequenceSkill(pGame, pUnit, pMonStatsTxt->nSkill[0], pResurrectTarget, 0, 0);
+        return;
+    }
+
+    if (pTarget && nDistance < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_DISTANCE) && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_CHANCE_PCT))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
+        return;
+    }
+
+    D2UnitStrc* pNearTarget = sub_6FCF2CC0(pGame, pUnit, &nDistance, 0);
+    if (pNearTarget && nDistance < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_DISTANCE) && (int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_SHOOT_CHANCE_PCT))
+    {
+        AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pNearTarget, 0, 0);
+        return;
+    }
+
+    if ((int)(AI_RollUnit(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, FALLENSHAMAN_AI_PARAM_MELEE_AND_CIRCLE_CHANCE_PCT))
+    {
+        sub_005DF7D0(pGame, pUnit, pTarget, 3, 0);
+    }
+    else
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
+    }
 }
 
 // build: context AITHINK_Fn137_PutridDefiler

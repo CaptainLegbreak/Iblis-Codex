@@ -69664,6 +69664,11 @@
      "name": "?AITHINK_TargetCallback_FallenShaman@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@1PAX@Z"
     },
     {
+     "va": "0x005F1440",
+     "length": 775,
+     "name": "?AITHINK_Fn013_FallenShaman@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005F1750",
      "length": 165,
      "name": "sub_005F1750"
@@ -70746,17 +70751,6 @@
      "va": "0x005F1140",
      "length": 348,
      "name": "?AITHINK_Fn014_QuillRat@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005F1440.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005F1440",
-     "length": 775,
-     "name": "?AITHINK_Fn013_FallenShaman@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     }
    ]
   },
