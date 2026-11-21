@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2DrlgPresets.h"
@@ -135,6 +136,8 @@ void* __fastcall FOG_ReallocPool(void*,void*,int,const char*,int,int); // 0x0040
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 
+int* __fastcall DRLGGRID_GetGridFlagsPointer(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C550
+
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
@@ -192,6 +195,8 @@ extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[];        
 extern const D2CoordStrc gWarpTileOffsets_006EF554[4];                                                     // 0x006EF554
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId);                                              // 0x004E6C50
 
@@ -351,7 +356,39 @@ static __forceinline D2DrlgTileDataStrc* sub_B04_InitFloorTileDataInline(D2DrlgR
     return pTileData;
 }
 
-// build: context DRLGROOMTILE_AddTilePresetUnits
+// build: context SEED_RollRandomNumberInline
+inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+// 0x0045C390
+inline unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+        return 0;
+
+    if ((nMax - 1) & nMax)
+        return (unsigned int)SEED_RollRandomNumberInline(pSeed) % nMax;
+
+    return SEED_RollRandomNumberInline(pSeed) & (nMax - 1);
+}
+
+
+// 0x004E6C50
+inline int __fastcall sub_004E6C50_ValidateMonsterId(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return nMonsterId;
+    }
+    return -1;
+}
+
+// 0x0066D9E0
 static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileData, int nX, int nTileType, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nY)
 {
     int bIsRightWallWithDoor;
@@ -370,50 +407,49 @@ static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileD
     }
 
     const int nIndex = sub_0066D960_FindTilePresetEntry(pDrlgRoom->ptDrlgLevel->eLevelId, nPackedTileInformation, bIsRightWallWithDoor);
-    if (nIndex == -1)
+    if (nIndex != -1)
     {
-        return;
-    }
+        int nPosX = nX - pDrlgRoom->pDrlgCoord.nPosX;
+        int nPosY = nY - pDrlgRoom->pDrlgCoord.nPosY;
 
-    int nPosX = nX - pDrlgRoom->pDrlgCoord.nPosX;
-    int nPosY = nY - pDrlgRoom->pDrlgCoord.nPosY;
+        DUNGEON_GameTileToSubtileCoords(&nPosX, &nPosY);
 
-    DUNGEON_GameTileToSubtileCoords(&nPosX, &nPosY);
+        nPosX += gDrlgRoomTilePresetUnits_006EF188[nIndex].nX;
+        nPosY += gDrlgRoomTilePresetUnits_006EF188[nIndex].nY;
 
-    nPosX += gDrlgRoomTilePresetUnits_006EF188[nIndex].nX;
-    nPosY += gDrlgRoomTilePresetUnits_006EF188[nIndex].nY;
-
-    if (nPosX >= 0 && nPosY >= 0 && nPosX < 5 * pDrlgRoom->pDrlgCoord.nWidth && nPosY < 5 * pDrlgRoom->pDrlgCoord.nHeight)
-    {
-        int nUnitId = gDrlgRoomTilePresetUnits_006EF188[nIndex].nUnitId;
-        const int nUnitType = gDrlgRoomTilePresetUnits_006EF188[nIndex].nUnitType;
-        int nMode;
-
-        switch (nUnitType)
+        if (nPosX >= 0 && nPosY >= 0 && nPosX < 5 * pDrlgRoom->pDrlgCoord.nWidth && nPosY < 5 * pDrlgRoom->pDrlgCoord.nHeight)
         {
-        case 1:
-            nUnitId = sub_004E6C50_ValidateMonsterId(nUnitId);
-            nMode = 1;
-            DRLGROOM_AllocPresetUnit(pDrlgRoom, pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, nUnitType, nUnitId, nMode, nPosX, nPosY);
-            break;
+            int nUnitId = gDrlgRoomTilePresetUnits_006EF188[nIndex].nUnitId;
+            int nUnitType = gDrlgRoomTilePresetUnits_006EF188[nIndex].nUnitType;
+            int nMode = 0;
+            int bAdd = 1;
+            switch (nUnitType)
+            {
+            case 1:
+                nUnitId = sub_004E6C50_ValidateMonsterId(nUnitId);
+                nMode = 1;
+                break;
 
-        case 2:
-            nMode = 0;
-            if (nUnitId < 91 || nUnitId > 92 || SEED_RollLimitedRandomNumber(&pDrlgRoom->pSeed, 3))
+            case 2:
+                nMode = 0;
+                switch (nUnitId)
+                {
+                case 91:
+                case 92:
+                    bAdd = SEED_RollLimitedRandomNumber(&pDrlgRoom->pSeed, 3);
+                    break;
+                }
+                break;
+            }
+
+            if (bAdd)
             {
                 DRLGROOM_AllocPresetUnit(pDrlgRoom, pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, nUnitType, nUnitId, nMode, nPosX, nPosY);
             }
-            break;
-
-        default:
-            nMode = 0;
-            DRLGROOM_AllocPresetUnit(pDrlgRoom, pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, nUnitType, nUnitId, nMode, nPosX, nPosY);
-            break;
-        }
-
-        if (pTileData)
-        {
-            pTileData->dwFlags |= 0x20;
+            if (pTileData)
+            {
+                pTileData->dwFlags |= 0x20;
+            }
         }
     }
 }
@@ -1149,6 +1185,41 @@ void __fastcall DRLGROOMTILE_LoadInitRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2Drlg
             const unsigned int nPackedTileInformation = DRLGGRID_GetGridEntry(pGrid, nTileOffsetX, nTileOffsetY);
             const int nTileType = pTileTypeGrid ? DRLGGRID_GetGridEntry(pTileTypeGrid, nTileOffsetX, nTileOffsetY) : 0;
             sub_0066E9B0_LoadInitRoomTile(pMemPool, nRoomX + nTileOffsetX, nRoomY + nTileOffsetY, bCheckCoordinatesValidity, pDrlgRoom, nPackedTileInformation, nTileType);
+        }
+    }
+}
+
+// 0x0066ECE0
+void __fastcall DRLGROOMTILE_CountAllTileTypes(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pTileInfoGrid, int bCheckCoordinatesValidity, int bKillEdgeX, int bKillEdgeY)
+{
+    const int nTileCountX = pDrlgRoom->pDrlgCoord.nWidth + (bKillEdgeX == 0);
+    D2DrlgCoordStrc* pDrlgCoord = &pDrlgRoom->pDrlgCoord;
+    const int nTileCountY = pDrlgRoom->pDrlgCoord.nHeight + (bKillEdgeY == 0);
+    const int nPosX = pDrlgCoord->nPosX;
+    const int nPosY = pDrlgRoom->pDrlgCoord.nPosY;
+
+    D2DrlgRoomTilesStrc* pTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
+    for (int nY = 0; nY < nTileCountY; ++nY)
+    {
+        for (int nX = 0; nX < nTileCountX; ++nX)
+        {
+            int* pFlags = DRLGGRID_GetGridFlagsPointer(pTileInfoGrid, nX, nY);
+            if (*pFlags & 1)
+            {
+                ++pTiles->nWalls;
+            }
+            if (*pFlags & 2)
+            {
+                ++pTiles->nFloors;
+            }
+            else if (bCheckCoordinatesValidity && DRLGROOM_AreXYInsideCoordinates(pDrlgCoord, nX + nPosX, nY + nPosY))
+            {
+                ++pTiles->nFloors;
+            }
+            if (*pFlags & 0x8000000)
+            {
+                ++pTiles->nRoofs;
+            }
         }
     }
 }

@@ -6339,20 +6339,11 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/RoomTile.cpp": {
-   "bytes": 572,
-   "definitions": 4,
+   "bytes": 1512,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DRLG/RoomTile_0066D9E0.cpp": {
-   "bytes": 940,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D9E0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -148050,7 +148041,7 @@
    "cname": "gData_006EF194",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DRLG/RoomTile_0066D9E0.cpp",
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006EF194_t gData_006EF194; // 0x006EF194",
    "head": "extern \"C\" const struct d2data_006EF194_t gData_006EF194 = ",

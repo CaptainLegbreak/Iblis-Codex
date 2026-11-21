@@ -86910,6 +86910,10 @@
      "name": "?sub_0066D960_FindTilePresetEntry@@YGHHIH@Z"
     },
     {
+     "va": "0x0066D9E0",
+     "length": 307
+    },
+    {
      "va": "0x0066DB20",
      "length": 236,
      "name": "?DRLGROOMTILE_InitializeTileDataFlags@@YGXIHPAUD2DrlgRoomStrc@@PAUD2DrlgTileDataStrc@@HH@Z"
@@ -87006,6 +87010,10 @@
      "name": "?DRLGROOMTILE_LoadInitRoomTiles@@YIXPAUD2DrlgRoomStrc@@PAUD2DrlgGridStrc@@1HHH@Z"
     },
     {
+     "va": "0x0066ECE0",
+     "length": 199
+    },
+    {
      "va": "0x0066EDB0",
      "length": 140,
      "name": "DRLGROOMTILE_CountWallWarpTiles"
@@ -87060,34 +87068,6 @@
      "length": 160,
      "name": "DRLGROOMTILE_FreeRoom"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/RoomTile_0066D9E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066D9E0",
-     "length": 307
-    },
-    {
-     "va": "0x0066ECE0",
-     "length": 199
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
