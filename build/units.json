@@ -81978,6 +81978,10 @@
      "name": "SKILLS_GetShrineSkillLevelBonus"
     },
     {
+     "va": "0x00644180",
+     "length": 280
+    },
+    {
      "va": "0x006442A0",
      "length": 94,
      "name": "SKILLS_GetSkillLevel"
@@ -82121,6 +82125,10 @@
      "va": "0x00644C20",
      "length": 111,
      "name": "sub_00644C20"
+    },
+    {
+     "va": "0x00644C90",
+     "length": 180
     },
     {
      "va": "0x00644D50",
@@ -82282,6 +82290,10 @@
      "name": "?sub_00645C60_IsOutsideTown@@YGHHHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00645CA0",
+     "length": 593
+    },
+    {
      "va": "0x00645F00",
      "length": 164,
      "name": "D2COMMON_11039_CheckWeaponIsMissileBased"
@@ -82362,6 +82374,14 @@
      "name": "?sub_00646270_AlwaysOne@@YGHH@Z"
     },
     {
+     "va": "0x00646280",
+     "length": 468
+    },
+    {
+     "va": "0x00646460",
+     "length": 1920
+    },
+    {
      "va": "0x00646BE0",
      "length": 25,
      "name": "?sub_00646BE0@@YIHHPAX@Z"
@@ -82385,6 +82405,10 @@
      "va": "0x00646D00",
      "length": 95,
      "name": "SKILLS_EvaluateSkillDescFormula"
+    },
+    {
+     "va": "0x00646D60",
+     "length": 435
     },
     {
      "va": "0x00646F20",
@@ -82451,9 +82475,17 @@
      "name": "D2Common_11030"
     },
     {
+     "va": "0x00647B20",
+     "length": 159
+    },
+    {
      "va": "0x00647BC0",
      "length": 312,
      "name": "?SKILLS_GetMinPhysDamage@@YGHPAUD2UnitStrc@@HHH@Z"
+    },
+    {
+     "va": "0x00647D00",
+     "length": 248
     },
     {
      "va": "0x00647E00",
@@ -82692,58 +82724,6 @@
      "va": "0x00643860",
      "length": 29,
      "name": "_sub_00643860@8"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/SKILLS/Skills_00644180.cpp",
-   "rank": 1,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00644180",
-     "length": 280
-    },
-    {
-     "va": "0x00644C90",
-     "length": 180
-    },
-    {
-     "va": "0x00645CA0",
-     "length": 593
-    },
-    {
-     "va": "0x00646280",
-     "length": 468
-    },
-    {
-     "va": "0x00646460",
-     "length": 1920
-    },
-    {
-     "va": "0x00646D60",
-     "length": 435
-    },
-    {
-     "va": "0x00647B20",
-     "length": 159
-    },
-    {
-     "va": "0x00647D00",
-     "length": 248
     }
    ]
   },
