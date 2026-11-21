@@ -24,7 +24,15 @@ struct D2MotionVectorStrc
 
 struct D2GfxMotionStrc
 {
-    unsigned int dwFlags; // 0x00
+    union
+    {
+        unsigned int dwFlags; // 0x00
+        struct
+        {
+            unsigned char nFlags0 : 5; // 0x00
+            unsigned char bFlag5 : 1; // 0x00
+        };
+    };
     D2MotionVectorStrc tA; // 0x04
     D2MotionVectorStrc tB; // 0x10
     D2MotionVectorStrc tD; // 0x1C
