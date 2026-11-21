@@ -75,6 +75,8 @@ struct D2Unk00540B70Owner
     D2Unk00540B70Obj* pObj;
 };
 
+void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
+
 // 0x00540B20
 static __forceinline D2EventTimerQueueStrc* sub_00540B20_GetTimerQueue(D2GameStrc* pGame)
 {
@@ -497,6 +499,27 @@ static void __stdcall EVENT_ExecuteMissileEvents(int a4, D2GameStrc* pGame, D2Ev
 static void __stdcall EVENT_ExecuteItemEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
     EVENT_ExecuteEventsImpl3(D2GAME_Items_EventsHandler_6FC4A460, pGame, pTimerQueue, pEventTimer, a4);
+}
+
+// 0x00541400
+void __fastcall EVENT_FreeEventQueue(D2GameStrc* pGame)
+{
+    D2EventTimerQueueStrc* pTimerQueue = pGame->pTimerQueue;
+    if (!pTimerQueue)
+    {
+        return;
+    }
+
+    D2EventTimerSlabListStrc* pTimerArray = pTimerQueue->pSlabListHead;
+    while (pTimerArray)
+    {
+        D2EventTimerSlabListStrc* pNext = pTimerArray->pNextSlab;
+        FOG_FreePool(pGame->pMemoryPool, pTimerArray, ".\\GAME\\Event.cpp", 0x314, 0);
+        pTimerArray = pNext;
+    }
+
+    FOG_FreePool(pGame->pMemoryPool, pTimerQueue, ".\\GAME\\Event.cpp", 0x317, 0);
+    pGame->pTimerQueue = 0;
 }
 
 // 0x00541470

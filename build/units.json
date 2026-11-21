@@ -50621,11 +50621,6 @@
      "name": "?CLIENTS_FreeClientsFromGame@@YIXPAUD2GameStrc@@@Z"
     },
     {
-     "va": "0x00541400",
-     "length": 100,
-     "name": "?EVENT_FreeEventQueue@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
      "va": "0x00545300",
      "length": 10,
      "name": "?QUESTS_ResetPlayerGUIDCount@@YIXPAUD2QuestGUIDStrc@@@Z"
@@ -52650,6 +52645,11 @@
      "va": "0x00541320",
      "length": 222,
      "name": "?EVENT_ExecuteItemEvents@@YGXHPAUD2GameStrc@@PAUD2EventTimerQueueStrc@@PAUD2EventTimerStrc@@@Z"
+    },
+    {
+     "va": "0x00541400",
+     "length": 100,
+     "name": "?EVENT_FreeEventQueue@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x00541470",

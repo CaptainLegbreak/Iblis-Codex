@@ -1020,27 +1020,6 @@ void __fastcall CLIENTS_FreeClientsFromGame(D2GameStrc* pGame)
     }
 }
 
-// 0x00541400
-void __fastcall EVENT_FreeEventQueue(D2GameStrc* pGame)
-{
-    D2EventTimerQueueStrc* pTimerQueue = pGame->pTimerQueue;
-    if (!pTimerQueue)
-    {
-        return;
-    }
-
-    D2EventTimerSlabListStrc* pTimerArray = pTimerQueue->pSlabListHead;
-    while (pTimerArray)
-    {
-        D2EventTimerSlabListStrc* pNext = pTimerArray->pNextSlab;
-        FOG_FreePool(pGame->pMemoryPool, pTimerArray, ".\\GAME\\Event.cpp", 0x314, 0);
-        pTimerArray = pNext;
-    }
-
-    FOG_FreePool(pGame->pMemoryPool, pTimerQueue, ".\\GAME\\Event.cpp", 0x317, 0);
-    pGame->pTimerQueue = 0;
-}
-
 // 0x00545300
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
 {
