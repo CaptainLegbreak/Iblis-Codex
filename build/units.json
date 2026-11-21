@@ -78148,6 +78148,14 @@
      "length": 173
     },
     {
+     "va": "0x006229F0",
+     "length": 163
+    },
+    {
+     "va": "0x00622B50",
+     "length": 232
+    },
+    {
      "va": "0x00622C40",
      "length": 180,
      "name": "?UNITS_IsInMeleeRange@@YGHPAUD2UnitStrc@@0H@Z"
@@ -78323,6 +78331,14 @@
      "name": "UNITS_GetItemComponentId"
     },
     {
+     "va": "0x00623F50",
+     "length": 1086
+    },
+    {
+     "va": "0x00624390",
+     "length": 768
+    },
+    {
      "va": "0x00624690",
      "length": 105,
      "name": "?UNITS_ChangeAnimMode@@YGHPAUD2UnitStrc@@H@Z"
@@ -78368,42 +78384,6 @@
     {
      "va": "0x00623E00",
      "length": 322
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/UNITS/Units_006229F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006229F0",
-     "length": 163
-    },
-    {
-     "va": "0x00622B50",
-     "length": 232
-    },
-    {
-     "va": "0x00623F50",
-     "length": 1086
-    },
-    {
-     "va": "0x00624390",
-     "length": 768
     }
    ],
    "flags": [

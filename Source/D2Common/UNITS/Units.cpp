@@ -520,7 +520,7 @@ static int __stdcall UNITS_AnimModeAllowsAnimSpeed(int nUnitType, int nAnimMode,
 
 static int UNITS_GetAnimStatBasePercentage(D2UnitStrc* pUnit, int nStat);
 
-static int UNITS_IsSeqAnimSpeedModulatedByFCR(int nAnimMode, int nUnitType, D2UnitStrc* pUnit);
+static int UNITS_IsSeqAnimSpeedModulatedByFCR(int nUnitType, int nAnimMode, D2UnitStrc* pUnit);
 
 static __forceinline unsigned int DATATBLS_CheckMonStatsFlag_Inl(D2MonStatsTxt* pMonStatsTxtRecord);
 
@@ -552,6 +552,41 @@ enum
 };
 
 int __fastcall sub_006225F0_MonsterCanBlock(D2UnitStrc* pUnit); // 0x006225F0
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+union D2SeedStrc;
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+
+void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x00649400
+
+int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce); // 0x00649560
+
+int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
+
+static __declspec(noinline) int __stdcall sub_00622920_RayTraceBetweenBoxes(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask);
+
+void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit); // 0x00621260
+
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
+
+int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
+
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
+static __declspec(noinline) void UNITS_CharacterStartRunningOrKnockback(D2UnitStrc* pUnit, int nClassId);
+
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine);
+
+
+static int UNITS_GetBaseAnimSpeed(int nUnitType, int nClassId, int nAnimMode);
+
+static void UNITS_CharacterStartRunningOrKnockback(D2UnitStrc* pUnit, int nClassId);
 
 // 0x00620100
 unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit)
@@ -1635,7 +1670,7 @@ static __forceinline void UNITS_SetAnimationSpeed_Inl(D2UnitStrc* pUnit, int nSp
 }
 
 // 0x00621360
-static int UNITS_GetBaseVelocity(int nUnitType, int nClassId)
+static __declspec(noinline) int __stdcall UNITS_GetBaseVelocity(int nUnitType, int nClassId)
 {
     switch (nUnitType)
     {
@@ -1711,176 +1746,6 @@ static __forceinline int sub_00621480(int nAnimMode)
         return 1;
     }
     return 0;
-}
-
-void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine)
-{
-    if (!pUnit)
-    {
-        return;
-    }
-
-    int nUnitType = pUnit->dwUnitType;
-    if (nUnitType >= 5)
-    {
-        return;
-    }
-
-    if (nUnitType == 4)
-    {
-        return;
-    }
-
-    int nClassId = pUnit->dwClassId;
-    int nAnimMode = pUnit->dwAnimMode;
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nAnimMode, ".\\UNITS\\Units.cpp", 0xCB9);
-    sub_00620F00(pUnit, nUnitType, nClassId, nAnimMode);
-    D2AnimDataRecordStrc* pAnimData = pUnit->pAnimData;
-
-    if (UNITS_IsSeqAnimSpeedModulatedByFCR(nAnimMode, nUnitType, pUnit))
-    {
-        int nRate = UNITS_GetAnimStatBasePercentage(pUnit, 2) + 0x64;
-        if (nRate > 0xAF)
-        {
-            nRate = 0xAF;
-        }
-
-        UNITS_SetAnimationSpeed_Inl(pUnit, nRate * pAnimData->dwAnimSpeed / 100);
-        pUnit->dwSeqSpeed = pUnit->wAnimSpeed;
-        return;
-    }
-
-    if (UNITS_IsAnimModeBlocking_Inl(nUnitType, nAnimMode))
-    {
-        const int nFasterBlockRate = UNITS_GetAnimStatBasePercentage(pUnit, 3);
-        int nBlockRateBonus = 0x32;
-        if (STATES_CheckState(pUnit, 0x65))
-        {
-            nBlockRateBonus = 0x64;
-        }
-
-        unsigned int nAnimSpeed = pAnimData->dwAnimSpeed * (nBlockRateBonus + nFasterBlockRate) / 100;
-        if (nAnimSpeed < 1)
-        {
-            nAnimSpeed = 1;
-        }
-
-        UNITS_SetAnimationSpeed_Inl(pUnit, nAnimSpeed);
-        return;
-    }
-
-    if (UNITS_IsAnimModeGetHit_Inl(nUnitType, nAnimMode))
-    {
-        UNITS_SetAnimationSpeed_Inl(pUnit, pAnimData->dwAnimSpeed * (UNITS_GetAnimStatBasePercentage(pUnit, 1) + 0x32) / 100);
-        return;
-    }
-
-    if (UNITS_IsAnimModeKnockBack_Inl(nUnitType, nAnimMode))
-    {
-        UNITS_SetAnimationSpeed_Inl(pUnit, UNITS_GetBaseAnimSpeed(nUnitType, nClassId, nAnimMode));
-        PATH_SetVelocity(pUnit->pDynamicPath, 0x1000, ".\\UNITS\\Units.cpp", 0xCE9);
-        return;
-    }
-
-    if (UNITS_CanAnimModeUseVelocityModifier(nUnitType, nAnimMode, pUnit, nClassId))
-    {
-        if (pUnit->pDynamicPath)
-        {
-            const int nFasterMoveVelocity = UNITS_GetAnimStatBasePercentage(pUnit, 4);
-            int nVelocityPercent = nFasterMoveVelocity + STATLIST_UnitGetStatValue(pUnit, 0x43, 0);
-            if (nVelocityPercent < 0x19)
-            {
-                nVelocityPercent = 0x19;
-            }
-
-            UNITS_SetAnimationSpeed_Inl(pUnit, nVelocityPercent * UNITS_GetBaseAnimSpeed(nUnitType, nClassId, nAnimMode) / 100);
-            PATH_SetVelocity(pUnit->pDynamicPath, nVelocityPercent * UNITS_GetBaseVelocity(nUnitType, nClassId) / 100, ".\\UNITS\\Units.cpp", 0xD0A);
-        }
-        return;
-    }
-
-    if (UNITS_CanAnimModeUseAttackRate(nAnimMode, nUnitType, pUnit, nClassId))
-    {
-        UNITS_MergeDualWieldWeaponStatLists(pUnit, 1);
-        const int nFasterAttackRate = UNITS_GetAnimStatBasePercentage(pUnit, 0);
-        int nRate = nFasterAttackRate + STATLIST_UnitGetStatValue(pUnit, 0x44, 0);
-        if (UNITS_CanDualWield(pUnit))
-        {
-            D2InventoryStrc* pInventory = pUnit->pInventory;
-            D2UnitStrc* pRightWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-            if (!sub_0062A4E0_TestItem(pRightWeapon))
-            {
-                pRightWeapon = 0;
-            }
-
-            D2UnitStrc* pLeftWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-            if (!sub_0062A4E0_TestItem(pLeftWeapon))
-            {
-                pLeftWeapon = 0;
-            }
-
-            if (ITEMSIsA(pRightWeapon, 0x2D) && ITEMSIsA(pLeftWeapon, 0x2D))
-            {
-                const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, 0x44, 0);
-                const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, 0x44, 0);
-                nRate += (nRightAttackRate + nLeftAttackRate) / 2 - nRightAttackRate;
-            }
-        }
-
-        if (!pUnit->dwUnitType && pUnit->dwAnimMode == 0x12)
-        {
-            nRate -= 0x1E;
-        }
-
-        if (nRate < 0xF)
-        {
-            nRate = 0xF;
-        }
-        else if (nRate > 0xAF)
-        {
-            nRate = 0xAF;
-        }
-
-        unsigned int nBaseSpeed = 0;
-        if (STATES_CheckStateMaskOnUnit(pUnit, 0x26))
-        {
-            nBaseSpeed = D2Common_11043(pUnit);
-        }
-
-        if (!nBaseSpeed)
-        {
-            nBaseSpeed = pAnimData->dwAnimSpeed;
-        }
-
-        int nAnimSpeed = nRate * nBaseSpeed / 100;
-        nAnimSpeed = nAnimSpeed > 0 ? nAnimSpeed : 0;
-        if (nAnimSpeed >= 0x7FFF)
-        {
-            nAnimSpeed = 0x7FFF;
-        }
-
-        pUnit->dwSeqSpeed = (short)nAnimSpeed;
-        pUnit->wAnimSpeed = (short)nAnimSpeed;
-        return;
-    }
-
-    if (UNITS_AnimModeAllowsAnimSpeed(nUnitType, nAnimMode, nClassId))
-    {
-        UNITS_SetAnimationSpeed_Inl(pUnit, pAnimData->dwAnimSpeed);
-        return;
-    }
-
-    int nOtherAnimRate = STATLIST_UnitGetStatValue(pUnit, 0x45, 0);
-    if (nOtherAnimRate < 0xF)
-    {
-        nOtherAnimRate = 0xF;
-    }
-    else if (nOtherAnimRate > 0xAF)
-    {
-        nOtherAnimRate = 0xAF;
-    }
-
-    UNITS_SetAnimationSpeed_Inl(pUnit, nOtherAnimRate * pAnimData->dwAnimSpeed / 100);
 }
 
 static __forceinline int UNITS_IsWalkOrRunMode_Inl(int nAnimMode)
@@ -2068,7 +1933,7 @@ static __forceinline int sub_006216B0_IsModeValue(int nMode, int nValue)
 }
 
 // 0x006216E0
-static int UNITS_IsSeqAnimSpeedModulatedByFCR(int nAnimMode, int nUnitType, D2UnitStrc* pUnit)
+static int UNITS_IsSeqAnimSpeedModulatedByFCR(int nUnitType, int nAnimMode, D2UnitStrc* pUnit)
 {
     switch (nUnitType)
     {
@@ -2910,6 +2775,100 @@ fail:
     return range;
 }
 
+static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static __forceinline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+static int __stdcall sub_00622920_RayTraceBetweenBoxes(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask)
+{
+    COLLISION_RayTrace((D2ActiveRoomStrc*)nSize2, (D2CoordStrc*)nX1, (D2CoordStrc*)nX2, 0);
+    return COLLISION_RayTrace(pRoom, (D2CoordStrc*)nY1, (D2CoordStrc*)nSize1, nY2 + nCollisionMask);
+}
+
+// 0x006229F0
+int __stdcall sub_006229F0_IsRayFreeFromUnit(D2UnitStrc* pUnit, int nX, int nY, int nCollisionMask)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    const int nUnitX = UNITS_GetXPositionForceInl(pUnit);
+    const int nUnitY = UNITS_GetYPositionForceInl(pUnit);
+    const int nUnitSize = UNITS_GetUnitSizeX(pUnit);
+    return sub_00622920_RayTraceBetweenBoxes(nUnitX, nUnitY, nUnitSize, nX, nY, 2, pRoom, nCollisionMask);
+}
+
+// 0x00622B50
+int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask)
+{
+    if (!pUnit1 || !pUnit2)
+    {
+        return 0;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit1);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    const int nX1 = CLIENTS_GetUnitX(pUnit1);
+    const int nY1 = CLIENTS_GetUnitY(pUnit1);
+    const int nX2 = CLIENTS_GetUnitX(pUnit2);
+    const int nY2 = CLIENTS_GetUnitY(pUnit2);
+    int bRemoved1 = 0;
+    int bRemoved2 = 0;
+    if (UNITS_GetCollisionMask(pUnit1) & nCollisionMask)
+    {
+        bRemoved1 = PATH_RemoveCollisionFootprintForUnit(pUnit1, 0);
+    }
+
+    if (UNITS_GetCollisionMask(pUnit2) & nCollisionMask)
+    {
+        bRemoved2 = PATH_RemoveCollisionFootprintForUnit(pUnit2, 0);
+    }
+
+    const int nResult = sub_00622920_RayTraceBetweenBoxes(nX1, nY1, UNITS_GetUnitSizeX(pUnit1), nX2, nY2, UNITS_GetUnitSizeX(pUnit2), pRoom, nCollisionMask);
+    if (bRemoved1)
+    {
+        PATH_AddCollisionFootprintForUnit(pUnit1);
+    }
+
+    if (bRemoved2)
+    {
+        PATH_AddCollisionFootprintForUnit(pUnit2);
+    }
+
+    return nResult;
+}
+
 // 0x00622C40
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nRangeBonus)
 {
@@ -3655,6 +3614,358 @@ unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* 
         }
     }
     return ITEMS_GetComponent(pItem);
+}
+
+static __forceinline int UNITS_IsAnimModeBlockingCase_Inl(int nUnitType, int nAnimMode)
+{
+    switch (nUnitType)
+    {
+    case 0:
+        if (nAnimMode == 9) return 1;
+        break;
+    case 1:
+        if (nAnimMode == 6) return 1;
+        break;
+    }
+    return 0;
+}
+
+static __forceinline int UNITS_IsAnimModeGetHitCase_Inl(int nUnitType, int nAnimMode)
+{
+    switch (nUnitType)
+    {
+    case 0:
+        if (nAnimMode == 4) return 1;
+        break;
+    case 1:
+        if (nAnimMode == 3) return 1;
+        break;
+    }
+    return 0;
+}
+
+static __forceinline int UNITS_IsAnimModeKnockBackCase_Inl(int nUnitType, int nAnimMode)
+{
+    switch (nUnitType)
+    {
+    case 0:
+        if (nAnimMode == 0x13) return 1;
+        break;
+    case 1:
+        if (nAnimMode == 0xD) return 1;
+        break;
+    }
+    return 0;
+}
+
+// 0x00623F50
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    int nUnitType = pUnit->dwUnitType;
+    if (nUnitType >= 5)
+    {
+        return;
+    }
+
+    if (nUnitType == 4)
+    {
+        return;
+    }
+
+    int nClassId = pUnit->dwClassId;
+    int nAnimMode = pUnit->dwAnimMode;
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nAnimMode, ".\\UNITS\\Units.cpp", 0xCB9);
+    sub_00620F00(pUnit, nUnitType, nClassId, nAnimMode);
+    D2AnimDataRecordStrc* pAnimData = pUnit->pAnimData;
+
+    if (UNITS_IsSeqAnimSpeedModulatedByFCR(nUnitType, nAnimMode, pUnit))
+    {
+        int nRate = UNITS_GetAnimStatBasePercentage(pUnit, 2) + 0x64;
+        if (nRate > 0xAF)
+        {
+            nRate = 0xAF;
+        }
+
+        UNITS_SetAnimationSpeed_Inl(pUnit, nRate * pAnimData->dwAnimSpeed / 100);
+        pUnit->dwSeqSpeed = pUnit->wAnimSpeed;
+        return;
+    }
+
+    if (UNITS_IsAnimModeBlockingCase_Inl(nUnitType, nAnimMode))
+    {
+        const int nFasterBlockRate = UNITS_GetAnimStatBasePercentage(pUnit, 3);
+        int nBlockRateBonus = 0x32;
+        if (STATES_CheckState(pUnit, 0x65))
+        {
+            nBlockRateBonus = 0x64;
+        }
+
+        nBlockRateBonus += nFasterBlockRate;
+        UNITS_SetAnimationSpeed_Inl(pUnit, D2_MAX(1u, pAnimData->dwAnimSpeed * nBlockRateBonus / 100));
+        return;
+    }
+
+    if (UNITS_IsAnimModeGetHitCase_Inl(nUnitType, nAnimMode))
+    {
+        const int nRate = UNITS_GetAnimStatBasePercentage(pUnit, 1) + 0x32;
+        UNITS_SetAnimationSpeed_Inl(pUnit, nRate * pAnimData->dwAnimSpeed / 100);
+        return;
+    }
+
+    if (UNITS_IsAnimModeKnockBackCase_Inl(nUnitType, nAnimMode))
+    {
+        UNITS_SetAnimationSpeed_Inl(pUnit, UNITS_GetBaseAnimSpeed(nUnitType, nClassId, nAnimMode));
+        PATH_SetVelocity(pUnit->pDynamicPath, 0x1000, ".\\UNITS\\Units.cpp", 0xCE9);
+        return;
+    }
+
+    if (UNITS_CanAnimModeUseVelocityModifier(nUnitType, nAnimMode, pUnit, nClassId))
+    {
+        if (pUnit->pDynamicPath)
+        {
+            const int nFasterMoveVelocity = UNITS_GetAnimStatBasePercentage(pUnit, 4);
+            int nVelocityPercent = nFasterMoveVelocity + STATLIST_UnitGetStatValue(pUnit, 0x43, 0);
+            if (nVelocityPercent < 0x19)
+            {
+                nVelocityPercent = 0x19;
+            }
+
+            UNITS_SetAnimationSpeed_Inl(pUnit, nVelocityPercent * UNITS_GetBaseAnimSpeed(nUnitType, nClassId, nAnimMode) / 100);
+            PATH_SetVelocity(pUnit->pDynamicPath, nVelocityPercent * UNITS_GetBaseVelocity(nUnitType, nClassId) / 100, ".\\UNITS\\Units.cpp", 0xD0A);
+        }
+        return;
+    }
+
+    if (UNITS_CanAnimModeUseAttackRate(nAnimMode, nUnitType, pUnit, nClassId))
+    {
+        UNITS_MergeDualWieldWeaponStatLists(pUnit, 1);
+        const int nFasterAttackRate = UNITS_GetAnimStatBasePercentage(pUnit, 0);
+        int nRate = nFasterAttackRate + STATLIST_UnitGetStatValue(pUnit, 0x44, 0);
+        if (UNITS_CanDualWield(pUnit))
+        {
+            D2InventoryStrc* pInventory = pUnit->pInventory;
+            D2UnitStrc* pRightWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
+            if (!sub_0062A4E0_TestItem(pRightWeapon))
+            {
+                pRightWeapon = 0;
+            }
+
+            D2UnitStrc* pLeftWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
+            if (!sub_0062A4E0_TestItem(pLeftWeapon))
+            {
+                pLeftWeapon = 0;
+            }
+
+            if (ITEMSIsA(pRightWeapon, 0x2D) && ITEMSIsA(pLeftWeapon, 0x2D))
+            {
+                const int nRightAttackRate = STATLIST_UnitGetStatValue(pRightWeapon, 0x44, 0);
+                const int nLeftAttackRate = STATLIST_UnitGetStatValue(pLeftWeapon, 0x44, 0);
+                nRate += (nRightAttackRate + nLeftAttackRate) / 2 - nRightAttackRate;
+            }
+        }
+
+        if (!pUnit->dwUnitType && pUnit->dwAnimMode == 0x12)
+        {
+            nRate -= 0x1E;
+        }
+
+        if (nRate < 0xF)
+        {
+            nRate = 0xF;
+        }
+        else if (nRate > 0xAF)
+        {
+            nRate = 0xAF;
+        }
+
+        unsigned int nBaseSpeed = 0;
+        if (STATES_CheckStateMaskOnUnit(pUnit, 0x26))
+        {
+            nBaseSpeed = D2Common_11043(pUnit);
+        }
+
+        if (!nBaseSpeed)
+        {
+            nBaseSpeed = pAnimData->dwAnimSpeed;
+        }
+
+        int nAnimSpeed = nRate * nBaseSpeed / 100;
+        nAnimSpeed = nAnimSpeed > 0 ? nAnimSpeed : 0;
+        if (nAnimSpeed >= 0x7FFF)
+        {
+            nAnimSpeed = 0x7FFF;
+        }
+
+        pUnit->dwSeqSpeed = (short)nAnimSpeed;
+        pUnit->wAnimSpeed = (short)nAnimSpeed;
+        return;
+    }
+
+    if (UNITS_AnimModeAllowsAnimSpeed(nUnitType, nAnimMode, nClassId))
+    {
+        UNITS_SetAnimationSpeed_Inl(pUnit, pAnimData->dwAnimSpeed);
+        return;
+    }
+
+    int nOtherAnimRate = STATLIST_UnitGetStatValue(pUnit, 0x45, 0);
+    if (nOtherAnimRate < 0xF)
+    {
+        nOtherAnimRate = 0xF;
+    }
+    else if (nOtherAnimRate > 0xAF)
+    {
+        nOtherAnimRate = 0xAF;
+    }
+
+    UNITS_SetAnimationSpeed_Inl(pUnit, nOtherAnimRate * pAnimData->dwAnimSpeed / 100);
+}
+
+static __forceinline int UNITS_ApplyRatio_Inline(int nValue, int nMultiplier, int nDivisor)
+{
+    if (!nDivisor)
+    {
+        return 0;
+    }
+
+    if (nValue > 0x100000)
+    {
+        if (nDivisor <= (nValue >> 4))
+        {
+            return nMultiplier * (nValue / nDivisor);
+        }
+        return (int)(nValue * (__int64)nMultiplier / nDivisor);
+    }
+
+    if (nMultiplier > 0x10000)
+    {
+        if (nDivisor > (nMultiplier >> 4))
+        {
+            return (int)(nValue * (__int64)nMultiplier / nDivisor);
+        }
+        return nValue * (nMultiplier / nDivisor);
+    }
+
+    return nMultiplier * nValue / nDivisor;
+}
+
+// 0x00624390
+int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
+{
+    D2_ASSERT(ptUnit, 0x951);
+
+    ptUnit->nActionFrame = 0;
+    ptUnit->nSeqCurrentFramePrecise = UNITS_GetFrameBonus(ptUnit) << 8;
+
+    int nUnitType = ptUnit->dwUnitType;
+    int nMode = ptUnit->dwAnimMode;
+    int nClassId = ptUnit->dwClassId;
+    D2COMMON_11013_ConvertMode(ptUnit, &nUnitType, &nClassId, &nMode, ".\\UNITS\\Units.cpp", 0x958);
+
+    switch (nUnitType)
+    {
+    case 0:
+        if (nMode == 3 || nMode == 0x13)
+        {
+            UNITS_CharacterStartRunningOrKnockback(ptUnit, nClassId);
+        }
+
+        if (nMode == 0x12)
+        {
+            UNITS_InitializeSequence(ptUnit);
+            UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x967);
+            return 1;
+        }
+
+        ptUnit->pAnimSeq = 0;
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x96A);
+        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
+        return 1;
+
+    case 1:
+        if (ptUnit->dwUnitType == 0 && STATES_IsUnitShapeShifted(ptUnit))
+        {
+            switch (nMode)
+            {
+            case 0xD:
+            case 0xF:
+                UNITS_CharacterStartRunningOrKnockback(ptUnit, ptUnit->dwClassId);
+                break;
+            }
+        }
+
+        if (nMode == 0xE)
+        {
+            UNITS_InitializeSequence(ptUnit);
+            UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x97E);
+            return 1;
+        }
+
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x980);
+        ptUnit->pAnimSeq = 0;
+        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
+        return 1;
+
+    case 2:
+    {
+        const int nNewMode = nMode;
+        D2_ASSERT(nNewMode < 8, 0x98A);
+        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(ptUnit->dwClassId);
+        ptUnit->dwFrameCountPrecise = pObjectsTxtRecord->dwFrameCnt[nNewMode];
+        const int nStartFrame = pObjectsTxtRecord->nStart[nNewMode] << 8;
+        short nAnimSpeed = pObjectsTxtRecord->nFrameDelta[nNewMode];
+        ptUnit->nSeqCurrentFramePrecise = nStartFrame;
+        if (pObjectsTxtRecord->nSync)
+        {
+            ptUnit->wAnimSpeed = nAnimSpeed;
+            return 1;
+        }
+
+        int nSpeed = ITEMS_RollLimitedRandomNumber(&ptUnit->pSeed, nAnimSpeed >> 3) + nAnimSpeed - (short)(nAnimSpeed >> 4);
+        nSpeed = nSpeed <= 0 ? 0 : nSpeed;
+        if (nSpeed >= 0x7FFF)
+        {
+            nSpeed = 0x7FFF;
+        }
+        ptUnit->wAnimSpeed = nSpeed;
+        return 1;
+    }
+
+    case 4:
+        switch (nMode)
+        {
+        case 5:
+            ptUnit->wAnimSpeed = 0x100;
+            ptUnit->dwFrameCountPrecise = 0x1100;
+            return 1;
+
+        case 3:
+            ptUnit->wAnimSpeed = 0;
+            ptUnit->dwFrameCountPrecise = 0x1100;
+            ptUnit->nSeqCurrentFramePrecise = 0x1000;
+            return 1;
+        }
+        break;
+
+    case 3:
+    {
+        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(ptUnit->dwClassId);
+        if (!pMissilesTxtRecord)
+        {
+            return 0;
+        }
+
+        ptUnit->wAnimSpeed = UNITS_ApplyRatio_Inline(256, pMissilesTxtRecord->nAnimLen_2, 1024);
+        ptUnit->dwFrameCountPrecise = pMissilesTxtRecord->nAnimLen << 8;
+        break;
+    }
+    }
+
+    return 1;
 }
 
 // 0x00624690
