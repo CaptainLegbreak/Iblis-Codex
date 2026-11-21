@@ -163,6 +163,8 @@ void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int 
 
 void __stdcall COLLISION_ResetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask);
 
+void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask);
+
 static void __stdcall sub_6FD411F0(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, D2TileLibraryEntryStrc* pTileLibraryEntry)
 {
     if (pCollisionGrid && pCollisionGrid->pCollisionMask)
@@ -1152,7 +1154,6 @@ void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY
     }
 }
 
-
 // @ref 0x0064EBA0
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask)
 {
@@ -1174,7 +1175,6 @@ void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int 
         }
     }
 }
-
 
 // 0x0064DE30
 void __stdcall COLLISION_SetMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, int nMask)
@@ -1325,6 +1325,55 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int nPosIncrementValue)
 {
     return COLLISION_GetFreeCoordinatesImpl(pRoom, pSpawnPoint, 0, nUnitSize, nMask, nMask, 0, 50, nPosIncrementValue);
+}
+
+// 0x0064EC10
+void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask)
+{
+    if (pRoom)
+    {
+    switch (nCollisionPattern)
+    {
+    case 0:
+        return;
+
+    case 1:
+        sub_0064DA40(pRoom, nX, nY, nMask);
+        if (nMask)
+        {
+            sub_0064DB70(pRoom, nX, nY, MASK_NO_PATH);
+        }
+        break;
+
+    case 2:
+        sub_0064DBC0(pRoom, nX, nY, nMask);
+        if (nMask)
+        {
+            sub_0064DA40(pRoom, nX, nY, MASK_NO_PATH);
+        }
+        break;
+
+    case 3:
+        sub_0064DA40(pRoom, nX, nY, nMask);
+        if (nMask)
+        {
+            sub_0064DB70(pRoom, nX, nY, MASK_PET);
+        }
+        break;
+
+    case 4:
+        sub_0064DBC0(pRoom, nX, nY, nMask);
+        if (nMask)
+        {
+            sub_0064DA40(pRoom, nX, nY, MASK_PET);
+        }
+        break;
+
+    case 5:
+        sub_0064DA40(pRoom, nX, nY, nMask);
+        break;
+    }
+    }
 }
 
 // 0x0064ED20

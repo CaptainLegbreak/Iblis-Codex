@@ -790,6 +790,88 @@ static unsigned char sub_0062A250(int nTransform, int nColor);
 
 static void __stdcall sub_0062B450_GetSocketedStatBonus(int nStatId, int* pValue, D2UnitStrc* pItem);
 
+#define STATEMASK_BOSSSTAYDEATH 15
+
+void __stdcall sub_00625A70_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00625A70
+
+void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
+
+extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
+
+#define STATEMASK_ACTIVE 5
+
+#define STATEMASK_REMHIT 6
+
+#define STATEMASK_DAMBLUE 7
+
+#define STATEMASK_DAMRED 8
+
+#define STATEMASK_ATTBLUE 9
+
+#define STATEMASK_ATTRED 10
+
+#define STATEMASK_ARMBLUE 19
+
+#define STATEMASK_RFBLUE 20
+
+#define STATEMASK_RCBLUE 21
+
+#define STATEMASK_RLBLUE 22
+
+#define STATEMASK_RPBLUE 23
+
+#define STATEMASK_RFRED 26
+
+#define STATEMASK_RCRED 27
+
+#define STATEMASK_RLRED 28
+
+#define STATEMASK_RPRED 29
+
+#define STATEMASK_EXP 30
+
+#define STATEMASK_SHATTER 31
+
+#define STATEMASK_LIFE 32
+
+#define STATEMASK_UDEAD 33
+
+#define STATEMASK_GREEN 34
+
+#define STATEMASK_CURABLE 12
+
+#define STATEMASK_RESTRICT 17
+
+#define STATEMASK_ARMRED 25
+
+#define INVENTORY_SIGNATURE 0x01020304
+
+struct D2ItemExtraDataStrc;
+
+struct D2InventoryPairStrc;
+
+struct D2InventoryGridStrc;
+
+void __stdcall sub_0063A180_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask); // 0x0063A180
+
+struct D2InventoryPairStrc
+{
+    D2UnitStrc* pFirstItem;
+    D2UnitStrc* pLastItem;
+};
+
+extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem);
+
+extern "C" int __fastcall sub_0045AE20_GetY(D2UnitStrc* pItem);
+
+extern "C" void __stdcall sub_006286C0_GetSize(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine);
+
+extern "C" void __stdcall sub_00629ED0_SetItemCell(D2UnitStrc* pItem, int nCell);
+
+extern "C" void __stdcall sub_006277F0_RemoveOwnerStat(D2UnitStrc* pOwner, D2UnitStrc* pItem);
+
+extern "C" const char gszInventorySource_006EA918;
+
 // 0x00627C90
 void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem)
 {
@@ -7689,6 +7771,16 @@ D2RunesTxt* __stdcall DATATBLS_GetRunesTxtRecord(int nRunewordId)
     return &sgtRuneWordsTblDesc.pRunesTxt[nRunewordId];
 }
 
+// 0x00639DB0
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
+{
+    if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        sub_00625A70_ToggleState(pUnit, nState, bSet);
+        UNITROOM_RefreshUnit(pUnit);
+    }
+}
+
 // 0x00639DF0
 __declspec(noinline) int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState)
 {
@@ -7708,6 +7800,24 @@ __declspec(noinline) int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nSta
     }
 
     return 0;
+}
+
+// 0x00639E30
+void __stdcall STATES_ToggleGfxStateFlag(D2UnitStrc* pUnit, int nState, int bSet)
+{
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
+    if (pGfxFlags && nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        if (bSet)
+        {
+            pGfxFlags[nState >> 5] |= gdwBitMasks[nState & 31];
+        }
+        else
+        {
+            pGfxFlags[nState >> 5] &= gdwInvBitMasks[nState & 31];
+        }
+        UNITROOM_RefreshUnit(pUnit);
+    }
 }
 
 // 0x00639E90
@@ -7765,10 +7875,86 @@ unsigned int* __stdcall STATES_GetGfxStateFlags(D2UnitStrc* hUnit)
     return D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(hUnit);
 }
 
+// 0x00639FB0
+void __stdcall STATES_UpdateStayDeathFlags(D2UnitStrc* pUnit, int bIsBoss)
+{
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+
+    if (pGfxFlags && pStatFlags)
+    {
+        const int nCount = (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
+        if (bIsBoss)
+        {
+            for (int i = 0; i < nCount; ++i)
+            {
+                pGfxFlags[i] |= pStatFlags[i] & ~sgptDataTables->fStateMasks[STATEMASK_BOSSSTAYDEATH][i];
+                pStatFlags[i] &= sgptDataTables->fStateMasks[STATEMASK_BOSSSTAYDEATH][i];
+            }
+        }
+        else if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+        {
+            for (int i = 0; i < nCount; ++i)
+            {
+                pGfxFlags[i] |= pStatFlags[i] & ~sgptDataTables->fStateMasks[STATEMASK_PLRSTAYDEATH][i];
+                pStatFlags[i] &= sgptDataTables->fStateMasks[STATEMASK_PLRSTAYDEATH][i];
+            }
+        }
+        else
+        {
+            for (int i = 0; i < nCount; ++i)
+            {
+                pGfxFlags[i] |= pStatFlags[i] & ~sgptDataTables->fStateMasks[STATEMASK_MONSTAYDEATH][i];
+                pStatFlags[i] &= sgptDataTables->fStateMasks[STATEMASK_MONSTAYDEATH][i];
+            }
+        }
+
+        UNITROOM_RefreshUnit(pUnit);
+    }
+}
+
 // 0x0063A100
 unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc* pUnit)
 {
     return D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+}
+
+// 0x0063A130
+static int sub_0063A130_CheckStateMaskOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
+{
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+    if (!pStatFlags)
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < (sgptDataTables->nStatesTxtRecordCount + 31) / 32; ++i)
+    {
+        if (pStatFlags[i] & pStateMask[i])
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0063A180
+void __stdcall sub_0063A180_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask)
+{
+    unsigned int* pGfxFlags = D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(pUnit);
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+
+    if (pGfxFlags && pStatFlags)
+    {
+        for (int i = 0; i < (sgptDataTables->nStatesTxtRecordCount + 31) / 32; ++i)
+        {
+            pGfxFlags[i] |= pMask[i] & pStatFlags[i];
+            pStatFlags[i] &= ~pMask[i];
+        }
+
+        UNITROOM_RefreshUnit(pUnit);
+    }
 }
 
 // 0x0063A210
@@ -7782,6 +7968,12 @@ int __stdcall STATES_CheckStateMaskAuraByStateId(int nState)
     return 0;
 }
 
+// 0x0063A250
+int __stdcall STATES_CheckStateMaskAuraOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_AURA]);
+}
+
 // 0x0063A270
 int __stdcall STATES_CheckStateMaskPgsvByStateId(int nState)
 {
@@ -7793,10 +7985,64 @@ int __stdcall STATES_CheckStateMaskPgsvByStateId(int nState)
     return 0;
 }
 
+// 0x0063A2B0
+int __stdcall STATES_CheckStateMaskPgsvOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_PGSV]);
+}
+
+// 0x0063A2D0
+void __stdcall STATES_UpdatePgsvFlags(D2UnitStrc* pUnit)
+{
+    sub_0063A180_UpdateGfxFlagsWithMask(pUnit, sgptDataTables->fStateMasks[STATEMASK_PGSV]);
+}
+
 // 0x0063A2F0
 int __stdcall STATES_CheckStateMaskHideByStateId(int nState)
 {
     return sgptDataTables->fStateMasks[STATEMASK_HIDE][nState >> 5] & gdwBitMasks[nState & 31];
+}
+
+// 0x0063A320
+int __stdcall STATES_CheckStateMaskHideOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_HIDE]);
+}
+
+// 0x0063A340
+int __stdcall STATES_CheckStateMaskActiveOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ACTIVE]);
+}
+
+// 0x0063A360
+int __stdcall STATES_CheckStateMaskRemHitOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_REMHIT]);
+}
+
+// 0x0063A380
+int __stdcall sub_0063A380(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMBLUE]);
+}
+
+// 0x0063A3A0
+int __stdcall sub_0063A3A0(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_DAMRED]);
+}
+
+// 0x0063A3C0
+int __stdcall STATES_CheckStateMaskAttBlueOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ATTBLUE]);
+}
+
+// 0x0063A3E0
+int __stdcall STATES_CheckStateMaskAttRedOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ATTRED]);
 }
 
 // 0x0063A400
@@ -7831,6 +8077,366 @@ void __stdcall ITEMS_SerializeItemCompleteCaller(D2UnitStrc* pItem, D2BitBufferS
 int __stdcall ITEMS_DecodeItemBitstreamCompleteCaller(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bCheckForHeader, int bGamble, int* pSocketedItems, unsigned int dwVersion)
 {
     return ITEMS_DecodeItemBitstreamComplete(pItem, pBuffer, bCheckForHeader, bGamble, pSocketedItems, dwVersion) > 0;
+}
+
+inline int __fastcall STATES_CheckStateMaskByStateId(int nState, int nStateMask)
+{
+    if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        return sgptDataTables->fStateMasks[nStateMask][nState >> 5] & gdwBitMasks[nState & 31];
+    }
+
+    return 0;
+}
+
+// 0x0063A460
+int __stdcall STATES_CheckStateMaskCurableByStateId(int nState)
+{
+    return STATES_CheckStateMaskByStateId(nState, STATEMASK_CURABLE);
+}
+
+// 0x0063A4A0
+int __stdcall STATES_CheckStateMaskStayDeathOnUnitByStateId(D2UnitStrc* pUnit, int nState)
+{
+    if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (nUnitType == UNIT_MONSTER)
+        {
+            return sgptDataTables->fStateMasks[STATEMASK_MONSTAYDEATH][nState >> 5] & gdwBitMasks[nState & 31];
+        }
+        else
+        {
+            return sgptDataTables->fStateMasks[STATEMASK_PLRSTAYDEATH][nState >> 5] & gdwBitMasks[nState & 31];
+        }
+    }
+
+    return 0;
+}
+
+// 0x0063A510
+int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RESTRICT]);
+}
+
+// 0x0063A550
+int __stdcall STATES_CheckStateMaskArmBlueOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ARMBLUE]);
+}
+
+// 0x0063A570
+int __stdcall STATES_CheckStateMaskRFBlueOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RFBLUE]);
+}
+
+// 0x0063A590
+int __stdcall STATES_CheckStateMaskRCBlueOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RCBLUE]);
+}
+
+// 0x0063A5B0
+int __stdcall STATES_CheckStateMaskRLBlueOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RLBLUE]);
+}
+
+// 0x0063A5D0
+int __stdcall STATES_CheckStateMaskRPBlueOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RPBLUE]);
+}
+
+// 0x0063A5F0
+int __stdcall STATES_CheckStateMaskArmRedOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_ARMRED]);
+}
+
+// 0x0063A610
+int __stdcall STATES_CheckStateMaskRFRedOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RFRED]);
+}
+
+// 0x0063A630
+int __stdcall STATES_CheckStateMaskRCRedOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RCRED]);
+}
+
+// 0x0063A650
+int __stdcall STATES_CheckStateMaskRLRedOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RLRED]);
+}
+
+// 0x0063A670
+int __stdcall STATES_CheckStateMaskRPRedOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RPRED]);
+}
+
+// 0x0063A690
+int __stdcall STATES_CheckStateMaskExpOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_EXP]);
+}
+
+// 0x0063A6B0
+int __stdcall STATES_CheckStateMaskExpByStateId(int nState)
+{
+    return STATES_CheckStateMaskByStateId(nState, STATEMASK_EXP);
+}
+
+// 0x0063A6F0
+int __stdcall STATES_CheckStateMaskShatterOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_SHATTER]);
+}
+
+// 0x0063A710
+int __stdcall STATES_CheckStateMaskShatterByStateId(int nState)
+{
+    return STATES_CheckStateMaskByStateId(nState, STATEMASK_SHATTER);
+}
+
+// 0x0063A750
+int __stdcall STATES_CheckStateMaskLifeOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_LIFE]);
+}
+
+// 0x0063A770
+int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_UDEAD]);
+}
+
+// 0x0063A790
+int __stdcall STATES_CheckStateMaskGreenOnUnit(D2UnitStrc* pUnit)
+{
+    return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_GREEN]);
+}
+
+// 0x0063A7B0
+int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask)
+{
+    if (pUnit && nStateMask >= 0 && nStateMask < 40)
+    {
+        return sub_0063A130_CheckStateMaskOnUnit(pUnit, sgptDataTables->fStateMasks[nStateMask]);
+    }
+
+    return 0;
+}
+
+// 0x0063A7E0
+static inline D2ItemExtraDataStrc* sub_0063A7E0(D2UnitStrc* pItem)
+{
+    if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
+    {
+        return &pItem->pItemData->pExtraData;
+    }
+    return 0;
+}
+
+static void __cdecl sub_0063A810_UnlinkPair(D2InventoryPairStrc* pPair, D2UnitStrc* pItem)
+{
+    const int nType = pItem ? pItem->dwUnitType : -1;
+    if (nType != 4)
+    {
+        return;
+    }
+    D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+    if (!pExtra)
+    {
+        return;
+    }
+    if (!pExtra->pPreviousItem)
+    {
+        if (pPair->pFirstItem == pItem)
+        {
+            pPair->pFirstItem = pExtra->pNextItem;
+        }
+    }
+    else
+    {
+        D2ItemExtraDataStrc* pPrevious = sub_0063A7E0(pExtra->pPreviousItem);
+        if (pPrevious)
+        {
+            pPrevious->pNextItem = pExtra->pNextItem;
+        }
+    }
+    if (!pExtra->pNextItem)
+    {
+        if (pPair->pLastItem == pItem)
+        {
+            pPair->pLastItem = pExtra->pPreviousItem;
+        }
+    }
+    else
+    {
+        D2ItemExtraDataStrc* pNext = sub_0063A7E0(pExtra->pNextItem);
+        if (pNext)
+        {
+            pNext->pPreviousItem = pExtra->pPreviousItem;
+        }
+    }
+    pExtra->pNextItem = 0;
+    pExtra->pPreviousItem = 0;
+}
+
+static void __stdcall sub_0063A970_UnlinkGrid(D2InventoryGridStrc* pGrid, int bMultiCell, D2UnitStrc* pItem)
+{
+    const int nType = pItem ? pItem->dwUnitType : -1;
+    if (nType != 4)
+    {
+        return;
+    }
+    D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+    if (!pExtra)
+    {
+        return;
+    }
+    if (!pExtra->pPreviousGridItem)
+    {
+        if (pGrid->pItem == pItem)
+        {
+            pGrid->pItem = pExtra->pNextGridItem;
+        }
+    }
+    else
+    {
+        D2ItemExtraDataStrc* pPrevious = sub_0063A7E0(pExtra->pPreviousGridItem);
+        if (pPrevious)
+        {
+            pPrevious->pNextGridItem = pExtra->pNextGridItem;
+        }
+    }
+    if (!pExtra->pNextGridItem)
+    {
+        if (pGrid->pLastItem == pItem)
+        {
+            pGrid->pLastItem = pExtra->pPreviousGridItem;
+        }
+    }
+    else
+    {
+        D2ItemExtraDataStrc* pNext = sub_0063A7E0(pExtra->pNextGridItem);
+        if (pNext)
+        {
+            pNext->pPreviousGridItem = pExtra->pPreviousGridItem;
+        }
+    }
+    if (pGrid->ppItems)
+    {
+        if (bMultiCell)
+        {
+            const int nX = sub_0045ADF0_GetX(pItem);
+            const int nY = sub_0045AE20_GetY(pItem);
+            unsigned char nWidth;
+            unsigned char nHeight;
+            sub_006286C0_GetSize(pItem, &nWidth, &nHeight, &gszInventorySource_006EA918, SIZE_LINE);
+            for (int nRow = nY; nRow < nY + nHeight; ++nRow)
+            {
+                D2UnitStrc** ppRow = pGrid->ppItems + nRow * pGrid->nGridWidth;
+                for (int nColumn = nX; nColumn < nX + nWidth; ++nColumn)
+                {
+                    ppRow[nColumn] = 0;
+                }
+            }
+        }
+        else
+        {
+            const int nX = sub_0045ADF0_GetX(pItem);
+            const int nY = sub_0045AE20_GetY(pItem);
+            pGrid->ppItems[nX + nY * pGrid->nGridWidth] = 0;
+        }
+    }
+    pExtra->pNextGridItem = 0;
+    pExtra->pPreviousGridItem = 0;
+    pExtra->nNodePos = 0;
+}
+
+int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
+{
+    const int nType = pItem ? pItem->dwUnitType : -1;
+    if (nType == 4)
+    {
+        D2ItemExtraDataStrc* pExtra = sub_0063A7E0(pItem);
+        if (!pExtra)
+        {
+            return 0;
+        }
+        D2InventoryStrc* pInventory = pExtra->pParentInv;
+        if (!pInventory)
+        {
+            return 0;
+        }
+        if (pInventory->dwSignature != INVENTORY_SIGNATURE)
+        {
+            return 0;
+        }
+        if (pExtra->nNodePos > 0)
+        {
+            const int nGrid = pExtra->nNodePos - 1;
+            if (pInventory->nGridCount > nGrid)
+            {
+                sub_0063A970_UnlinkGrid(&pInventory->pGrids[nGrid], nGrid >= 1, pItem);
+            }
+        }
+        if (pInventory->pCursorItem == pItem)
+        {
+            pInventory->pCursorItem = 0;
+        }
+        else
+        {
+            sub_0063A810_UnlinkPair((D2InventoryPairStrc*)&pInventory->pFirstItem, pItem);
+            --pInventory->dwItemCount;
+        }
+        pExtra->pParentInv = 0;
+        pExtra->nNodePos = 0;
+        pExtra->nNodePosOther = 0;
+        sub_00629ED0_SetItemCell(pItem, -1);
+        if (pInventory->pOwner)
+        {
+            sub_006277F0_RemoveOwnerStat(pInventory->pOwner, pItem);
+        }
+        if (pInventory->dwLeftItemGUID == (!pItem ? -1 : pItem->dwUnitId))
+        {
+            pInventory->dwLeftItemGUID = -1;
+        }
+    return 1;
+    }
+    return 0;
+}
+
+void __cdecl sub_00405A50_Nop()
+{
+}
+
+void __cdecl sub_00405A60_Nop()
+{
+}
+
+// 0x0063A800
+void __cdecl sub_0063A800_Nop()
+{
+}
+
+void __cdecl sub_004DF920_Nop()
+{
+}
+
+void __cdecl sub_004DF930_Nop()
+{
+}
+
+void __cdecl sub_00587830_Nop()
+{
 }
 
 #include "gen/data/Source/D2Common/ITEMS/Items.inc"
