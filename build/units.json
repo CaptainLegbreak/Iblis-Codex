@@ -51093,6 +51093,14 @@
      "name": "?sub_00540CA0_ReleaseTimer@@YAXPAUD2EventTimerQueueStrc@@PAUD2EventTimerStrc@@@Z"
     },
     {
+     "va": "0x00540CD0",
+     "length": 273
+    },
+    {
+     "va": "0x00540DF0",
+     "length": 106
+    },
+    {
      "va": "0x00540E60",
      "length": 62,
      "name": "?D2GAME_EVENTS_Delete_6FC34840@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -51153,6 +51161,10 @@
      "name": "?EVENT_IterateEvents@@YIXPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x005415E0",
+     "length": 109
+    },
+    {
      "va": "0x00541650",
      "length": 33,
      "name": "?sub_00541650_DirectInfinite@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHH@Z"
@@ -51161,6 +51173,10 @@
      "va": "0x00541680",
      "length": 35,
      "name": "?sub_00541680_DirectInfiniteCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HP6IX01HHH@ZHH@Z"
+    },
+    {
+     "va": "0x005416B0",
+     "length": 276
     },
     {
      "va": "0x005417D0",
@@ -51172,42 +51188,6 @@
      "length": 35,
      "name": "?sub_00541800_DirectDatedCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HHP6IX01HHH@ZHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Event_00540CD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00540CD0",
-     "length": 273
-    },
-    {
-     "va": "0x00540DF0",
-     "length": 106
-    },
-    {
-     "va": "0x005415E0",
-     "length": 109
-    },
-    {
-     "va": "0x005416B0",
-     "length": 276
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

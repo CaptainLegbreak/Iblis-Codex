@@ -3899,7 +3899,7 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/GAME/Event_00540CD0.cpp": {
+  "Source/D2Game/GAME/Event.cpp": {
    "bytes": 24,
    "definitions": 1,
    "externs": [],
@@ -94902,7 +94902,7 @@
    "cname": "gData_006E0B9C",
    "declared": true,
    "decorated": "?gaSlotRows_006E0B9C@@3QBHB",
-   "file": "Source/D2Game/GAME/Event_00540CD0.cpp",
+   "file": "Source/D2Game/GAME/Event.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E0B9C[6]; // 0x006E0B9C",
