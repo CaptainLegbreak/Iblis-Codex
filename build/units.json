@@ -67455,6 +67455,10 @@
      "name": "SKILLS_AuraCallback_StaticField"
     },
     {
+     "va": "0x005C98F0",
+     "length": 600
+    },
+    {
      "va": "0x005C9B50",
      "length": 177,
      "name": "?SKILLS_SrvDo022_NovaAttack@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -67465,9 +67469,18 @@
      "name": "SKILLS_SrvDo023_Blaze_EnergyShield_SpiderLay"
     },
     {
+     "va": "0x005CA910",
+     "length": 547
+    },
+    {
      "va": "0x005CAB40",
      "length": 262,
      "name": "SKILLS_EventFunc01_ChillingArmor"
+    },
+    {
+     "va": "0x005CAF80",
+     "length": 27,
+     "name": "?SKILLS_SrvSt43_MaggotEgg@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CAFA0",
@@ -67478,6 +67491,11 @@
      "va": "0x005CB0C0",
      "length": 176,
      "name": "SKILLS_SrvDo085_UnholyBolt_ShamanFire"
+    },
+    {
+     "va": "0x005CB170",
+     "length": 250,
+     "name": "?sub_005CB170@@YIHPAUGame@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CB300",
@@ -67493,6 +67511,10 @@
      "va": "0x005CB580",
      "length": 421,
      "name": "SKILLS_SrvDo088_AndrialSpray"
+    },
+    {
+     "va": "0x005CB730",
+     "length": 525
     },
     {
      "va": "0x005CB940",
@@ -67706,30 +67728,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C98F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C98F0",
-     "length": 600
-    },
-    {
-     "va": "0x005CA910",
-     "length": 547
-    },
-    {
-     "va": "0x005CAF80",
-     "length": 27,
-     "name": "?SKILLS_SrvSt43_MaggotEgg@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CB170",
-     "length": 250,
-     "name": "?sub_005CB170@@YIHPAUGame@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005C9D90.cpp",
    "rank": 1,
    "functions": [
@@ -67929,30 +67927,6 @@
      "length": 52,
      "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CB730.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005CB730",
-     "length": 525
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

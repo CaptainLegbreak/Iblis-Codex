@@ -5451,20 +5451,11 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillDruid.cpp": {
-   "bytes": 88,
-   "definitions": 3,
+   "bytes": 112,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005C7F10.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_005C98F0.cpp": {
-   "bytes": 24,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005C98F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -116545,7 +116536,7 @@
    "cname": "gData_006E3120",
    "declared": true,
    "decorated": "?gnHydraOffsetY_006E3120@@3QBHB",
-   "file": "Source/D2Game/Unknown_005C98F0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "fill": 3,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3120[3]; // 0x006E3120",
@@ -116576,7 +116567,7 @@
    "cname": "gData_006E312C",
    "declared": true,
    "decorated": "?gnHydraOffsetX_006E312C@@3QBHB",
-   "file": "Source/D2Game/Unknown_005C98F0.cpp",
+   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
    "fill": 3,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E312C[3]; // 0x006E312C",
