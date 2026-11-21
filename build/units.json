@@ -69578,6 +69578,21 @@
      "name": "?sub_005ECBC0_RavenWalkToUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1EH@Z"
     },
     {
+     "va": "0x005ECC10",
+     "length": 709,
+     "name": "?AITHINK_Fn107_Raven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005ED710",
+     "length": 28,
+     "name": "?AITHINK_Fn108_DruidWolf@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
+     "va": "0x005ED9E0",
+     "length": 538,
+     "name": "?AITHINK_Fn109_Totem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+    },
+    {
      "va": "0x005EDC00",
      "length": 54,
      "name": "sub_005EDC00_SetAiParams12"
@@ -70415,27 +70430,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005ECC10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005ECC10",
-     "length": 709,
-     "name": "?AITHINK_Fn107_Raven@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005ED710",
-     "length": 28,
-     "name": "?AITHINK_Fn108_DruidWolf@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    },
-    {
-     "va": "0x005ED9E0",
-     "length": 538,
-     "name": "?AITHINK_Fn109_Totem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
-    }
    ]
   },
   {
